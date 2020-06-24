@@ -91,43 +91,90 @@ function buyAccelerator(autobuyer) {
     if (player.acceleratorBought >= 100000 && player.achievements[154] == 0){achievementaward(154)} 
 }
 
-function buyMultiplier(autobuyer){
-	var autobuyamount = 0;
-	if(autobuyer){autobuyamount = 500}
-	var buythisamount = Math.max(player.coinbuyamount, autobuyamount)
-	while(player.coins.greaterThanOrEqualTo(player.multiplierCost) && ticker < buythisamount) {
-		player.coins = player.coins.sub(player.multiplierCost);
-		player.multiplierBought += 1;
-		player.multiplierCost = player.multiplierCost.times(10);
-		player.multiplierCost = player.multiplierCost.dividedBy(costDivisor);
+function getCostMultiplier(buyingTo)
+{
+	let originalCost = 1e5;
+	let cost = new Decimal(originalCost);
+	cost = cost.times(Decimal.pow(10, buyingTo / costDivisor));
 
-		if (player.multiplierBought > (75 + 2 * player.challengecompletions.four)){
-		player.multiplierCost = player.multiplierCost.times(10 * player.multiplierBought - (750 + 20 * player.challengecompletions.four))
-		}
-		if (player.multiplierBought > (2000 + 2 * player.challengecompletions.four)){
-		player.multiplierCost = player.multiplierCost.times(Decimal.pow(2, player.multiplierBought - (2000 + 2 * player.challengecompletions.four)))
-		}
-		if (player.currentChallenge == "four") {
-		player.multiplierCost = player.multiplierCost.times(Decimal.pow(10, player.multiplierBought))
-        }
-        if (player.currentChallengeRein == "eight") {
-        player.multiplierCost = player.multiplierCost.times(Decimal.pow(1e50, player.multiplierBought))
-        }
-		ticker++
+	if (buyingTo > (75 + 2 * player.challengecompletions.four))
+	{
+		let num = buyingTo - 75 - 2 * player.challengecompletions.four;
+		let factorialBit = new Decimal(num).factorial();
+		let powBit = Decimal.pow(10, num);
+		cost = cost.times(factorialBit.times(powBit));
 	}
-		ticker = 0;
-		player.prestigenomultiplier = false;
-		player.transcendnomultiplier = false;
-		player.reincarnatenomultiplier = false;
+	if (buyingTo > (2000 + 2 * player.challengecompletions.four))
+	{
+		let sumNum = buyingTo - 2000 - 2 * player.challengecompletions.four;
+		let sumBit = sumNum * (sumNum + 1) / 2;
+		cost = cost.times(Decimal.pow(2, sumBit));
+	}
+	if (player.currentChallenge === "four")
+	{
+		let sumBit = buyingTo * (buyingTo + 1) / 2;
+		cost = cost.times(Decimal.pow(10, sumBit));
+	}
+	if (player.currentChallengeRein === "eight")
+	{
+		let sumBit = buyingTo * (buyingTo + 1) / 2;
+		cost = cost.times(Decimal.pow(1e50, sumBit));
+	}
+	return cost;
+}
 
-        updateAllMultiplier();
-        if (player.multiplierBought >= 2 && player.achievements[155] == 0){achievementaward(155)}
-        if (player.multiplierBought >= 20 && player.achievements[156] == 0){achievementaward(156)}
-        if (player.multiplierBought >= 100 && player.achievements[157] == 0){achievementaward(157)}
-        if (player.multiplierBought >= 500 && player.achievements[158] == 0){achievementaward(158)}
-        if (player.multiplierBought >= 2000 && player.achievements[159] == 0){achievementaward(159)}
-        if (player.multiplierBought >= 12500 && player.achievements[160] == 0){achievementaward(160)}
-        if (player.multiplierBought >= 100000 && player.achievements[161] == 0){achievementaward(161)}
+function buyMultiplier(autobuyer){
+	// Start buying at the current amount bought + 1
+	var buyTo =  player.multiplierBought + 1;
+	var cashToBuy = getCostMultiplier(buyTo);
+	while (player.coins.greaterThanOrEqualTo(cashToBuy))
+	{
+		// then multiply by 4 until it reaches just above the amount needed
+		buyTo = buyTo * 4;
+		cashToBuy = getCostMultiplier(buyTo);
+	}
+	var stepdown = Math.floor(buyTo / 8);
+	while (stepdown !== 0)
+	{
+	 
+		// if step down would push it below out of expense range then divide step down by 2
+		if (getCostMultiplier(buyTo - stepdown).lessThanOrEqualTo(player.coins))
+		{
+			stepdown = Math.floor(stepdown/2);
+		}
+		else
+		{
+			buyTo = buyTo - stepdown;
+		}
+	}
+
+	if (!autobuyer && player.coinbuyamount !== "max")
+	{
+		if (player.multiplierBought + player.coinbuyamount < buyTo)
+		{
+			console.log(player.coinbuyamount + player.multiplierBought);
+			buyTo = player.multiplierBought + player.coinbuyamount;
+		}
+	}
+
+	let buyFrom = Math.max(buyTo - 7, player.multiplierBought + 1);
+	let thisCost = getCostMultiplier(buyFrom);
+	while (buyFrom <= buyTo && player.coins.greaterThanOrEqualTo(thisCost))
+	{
+		player.coins = player.coins.sub(thisCost);
+		player.multiplierBought = buyFrom;
+		buyFrom = buyFrom + 1;
+		thisCost = getCostMultiplier(buyFrom);
+		player.multiplierCost = thisCost;
+	}
+    updateAllMultiplier();
+    if (player.multiplierBought >= 2 && player.achievements[155] == 0){achievementaward(155)}
+    if (player.multiplierBought >= 20 && player.achievements[156] == 0){achievementaward(156)}
+    if (player.multiplierBought >= 100 && player.achievements[157] == 0){achievementaward(157)}
+    if (player.multiplierBought >= 500 && player.achievements[158] == 0){achievementaward(158)}
+    if (player.multiplierBought >= 2000 && player.achievements[159] == 0){achievementaward(159)}
+    if (player.multiplierBought >= 12500 && player.achievements[160] == 0){achievementaward(160)}
+    if (player.multiplierBought >= 100000 && player.achievements[161] == 0){achievementaward(161)}
 
 	}
 
