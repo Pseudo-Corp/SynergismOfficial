@@ -1,2 +1,2 @@
-# SynergismOfficial
-It's the official Synergy Repository
+# synergism
+The game

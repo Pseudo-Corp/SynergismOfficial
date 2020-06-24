@@ -1,0 +1,3776 @@
+html {
+	min-width: 1250px;
+	max-width: 1400px;
+	position: relative;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+
+
+
+}
+body {background-color: #111111 ;
+	transform: scale(0.8);
+	transform-origin: 0 0;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+body {
+	color: black;
+	margin: 0;
+	box-sizing: border-box;
+}
+btn {
+	color: #171717
+}
+a {
+	color: white;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:visited {
+	color:white;
+}
+
+label {
+	display: block;
+}
+
+input, button, select, textarea {
+	font-size: 12px;
+	padding: 0.05em;
+	margin: 0 0 0.0em 0;
+	box-sizing: border-box;
+	border: 0px solid #ccc;
+}
+
+input:disabled {
+	color: gray;
+}
+
+input[type="range"] {
+	height: 0;
+}
+
+button {
+	color: white;
+	background-color: #171717;
+    outline: none;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: #171717;
+    cursor: pointer;
+}
+
+button:focus {
+    border-color: #171717;
+    cursor: pointer;
+}
+
+a {color: white;}
+
+
+
+#resourcesrow {
+	position: relative;
+	font-size: 16px;
+
+	width: 50%;
+	z-index: 1
+}
+#preload {
+	position:absolute;
+	z-index: 2
+}
+#offlineTimer{
+	position:absolute;
+	z-index: 5;
+	text-align: left;
+	width: 700px;
+	top: -85px;
+	left: 50%;
+	margin-left: -375px;
+	font-family: "system";
+	font-size: 1.4em
+}
+#offlineprogressbar{
+	position:absolute;
+	z-index: 3;
+	height: 30px;
+	width: 750px;
+	border: 3px solid red;
+	background-color: #171717;
+	top: 600px;
+	left: 50%;
+	margin-left: -375px;
+}
+#progressbardescription{
+	position:absolute;
+	z-index: 5;
+	text-align: left;
+	width: 700px;
+	top: -55px;
+	left: 50%;
+	margin-left: -375px;
+	font-family: "system";
+	font-size: 1.4em
+}
+#offlineprogressdone{
+	width: 1px;
+	height: 30px;
+	background-color: green;
+	z-index: 4;
+}
+#resourcestable {
+	position: absolute;
+	top: 20px;
+	left: 11%;
+	border-collapse: collapse;
+	padding: 0px;
+}
+
+#resetrow {
+	position: relative;
+	left: 700px;
+	top: 28.5px;
+	width: 10%
+}
+
+
+#resettable {
+	position: absolute;
+	font-size: 0px;
+}
+#resetrequirements {
+	position: absolute;
+	width: 500px;
+	left: 30%;
+	font-size: 13px;
+	color: white
+}
+#resetinfo {
+	position: absolute;
+	top: 20px;
+	width: 500px;
+	text-align: center;
+	font-size: 15px;
+}
+#resetrewards {
+	position: absolute;
+	top: -8.6px;
+	left: 250px;
+}
+
+#tabrow {
+	position:relative;
+	text-align: center;
+	top: 110px;
+	height: 30px;
+}
+
+#buildingstab {
+	position:absolute;
+	text-align: center;
+	width: 100px;
+	left: 8%;
+	margin-left: -50px;
+	border: 1px solid gold;
+
+}
+
+
+#upgradestab {
+	position:absolute;
+
+	text-align: center;
+	width: 100px;
+	left: 16%;
+	margin-left: -50px;
+	border: 1px solid gold;
+	float:left;
+
+
+
+}
+
+#settingstab {
+	position:absolute;
+
+	text-align: center;
+	width: 100px;
+	left: 88%;
+	margin-left: -50px;
+	
+
+	border: 1px solid white;
+
+
+}
+
+#achievementstab {
+	position:absolute;
+
+	text-align: center;
+	width: 100px;
+	left: 24%;
+	margin-left: -50px;
+
+	border: 1px solid white;
+
+
+}
+
+#prestigetab{
+	position:absolute;
+
+	text-align: center;
+	width: 100px;
+	left: 32%;
+	margin-left: -50px;
+
+	border: 1px solid cyan
+
+}
+
+#runestab{
+	position:absolute;
+
+	text-align: center;
+	width: 100px;
+	left: 40%;
+	margin-left: -50px;
+
+	border: 1px solid cyan
+
+}
+
+#transcensiontab {
+	position:absolute;
+
+	text-align: center;
+	width: 100px;
+	border: 1px solid plum;
+	left: 48%;
+	margin-left: -50px;
+
+}
+
+#challengetab {
+	position:absolute;
+
+	text-align: center;
+	width: 100px;
+	border: 1px solid plum;
+	left: 56%;
+	margin-left: -50px;
+
+
+}
+
+#reincarnationtab {
+	position:absolute;
+
+	text-align: center;
+	width: 100px;
+	border: 1px solid green;
+	left: 64%;
+	margin-left: -50px;
+
+}
+
+#researchtab {
+	position:absolute;
+
+	text-align: center;
+	width: 100px;
+	border: 1px solid green;
+	left: 72%;
+	margin-left: -50px;
+
+}
+
+#shoptab {
+	position:absolute;
+
+	text-align: center;
+	width: 100px;
+	border: 1px solid white;
+	left: 96%;
+	margin-left: -50px;
+}
+
+#anttab {
+	position: absolute;
+	text-align: center;
+	width: 100px;
+	border: 1px solid maroon;
+	left: 80%;
+	margin-left: -50px;
+
+}
+
+#buildingrow1 {
+	position:absolute;
+
+	position: relative;
+	padding: 0px;
+	border: 1px solid gold;
+	top: 118px;
+}
+#buyamountcoin {
+	position: absolute;
+	padding: 0px;
+	font-size: 0px;
+	left: 80%;
+	top: 194.5px;
+}
+#togglecoinbuy{
+	color: white;
+	position: absolute;
+	font-size: 11px;
+	width: 220px;
+	left: 80%;
+	top: 30px;
+	margin-left: -87px;
+}
+
+#coin1 {
+
+	position: absolute;
+	left: 10%;
+	top: 28px;
+	margin-left: -18px;
+
+}
+
+#coin2 {
+	position: absolute;
+	left: 10%;
+	top: 83px;
+	margin-left: -18px;
+}
+
+#coin3 {
+	position: absolute;
+	left: 10%;
+	top: 138px;
+	margin-left: -18px;
+}
+
+#coin4 {
+	position: absolute;
+	left: 10%;
+	top: 193px;
+	margin-left: -18px;
+}
+
+#coin5 {
+	position: absolute;
+	left: 10%;
+	top: 248px;
+	margin-left: -18px;
+}
+
+#accelerator {
+	position: absolute;
+	left: 10%;
+	top: 303px;
+	margin-left: -18px;
+}
+
+#multiplier {
+	position: absolute;
+	left: 10%;
+	top: 358px;
+	margin-left: -18px;
+}
+
+#acceleratorboost {
+	position: absolute;
+	left: 10%;
+	top: 413px;
+	margin-left: -18px;
+}
+
+#buildingtext {
+	position: relative;
+	top: 118px;
+	padding: 0px;
+}
+
+#buildtext1 {
+	position: absolute;
+	top: 15px;
+	left: 13%;
+}
+
+#buildtext2 {
+	position: absolute;
+	top: 15px;
+	left: 52.5%
+}
+#buildtext3 {
+	position: absolute;
+	top: 70px;
+	left: 13%;
+}
+#buildtext4 {
+	position: absolute;
+	top: 70px;
+	left: 52.5%
+}
+#buildtext5 {
+	position: absolute;
+	top: 125px;
+	left: 13%;
+}
+#buildtext6 {
+	position: absolute;
+	top: 125px;
+	left: 52.5%
+}
+#buildtext7 {
+	position: absolute;
+	top: 180px;
+	left: 13%;
+}
+#buildtext8 {
+	position: absolute;
+	top: 180px;
+	left: 52.5%
+}
+#buildtext9 {
+	position: absolute;
+	top: 235px;
+	left: 13%;
+}
+#buildtext10 {
+	position: absolute;
+	top: 235px;
+	left: 52.5%
+}
+#buildtext11 {
+	position: absolute;
+	top: 290px;
+	left: 13%;
+}
+#buildtext12 {
+	position: absolute;
+	top: 290px;
+	left: 52.5%
+}
+#buildtext13 {
+	position: absolute;
+	top: 345px;
+	left: 13%;
+}
+#buildtext14 {
+	position: absolute;
+	top: 345px;
+	left: 52.5%
+}
+#buildtext15 {
+	position: absolute;
+	top: 400px;
+	left: 13%;
+}
+#buildtext16 {
+	position: absolute;
+	top: 397px;
+	left: 52.5%
+}
+
+#buycoin1 {
+	position: absolute;
+	width: 150px;
+	height: 30px;
+	top: 42px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+
+}
+
+#buycoin2 {
+	position: absolute;
+	width: 150px;
+	height: 30px;
+	top: 97px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+
+}
+
+#buycoin3 {
+	position: absolute;
+	width: 150px;
+	height: 30px;
+	top: 152px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+
+}
+
+#buycoin4 {
+	position: absolute;
+	width: 150px;
+	height: 30px;
+	top: 207px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+
+}
+
+#buycoin5 {
+	position: absolute;
+	width: 150px;
+	height: 30px;
+	top: 262px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+
+}
+
+#buyaccelerator {
+	position:absolute;
+	width: 150px;
+	height: 30px;
+	top: 317px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid maroon;
+	border-radius: 8px;
+
+}
+
+#buymultiplier {
+	position:absolute;
+	width: 150px;
+	height: 30px;
+	top: 372px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid maroon;
+	border-radius: 8px;
+}
+
+#buyacceleratorboost {
+	position:absolute;
+	width: 150px;
+	height: 30px;
+	top: 427px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid maroon;
+	border-radius: 8px;
+}
+
+#taxinfo {
+	position: absolute;
+	top: 450px;
+	width: 1000px;
+	left: 50%;
+	margin-left: -500px;
+	text-align: center;
+}
+#buildinghotkeys{
+position: absolute;
+	padding: 5px;
+	top: 470px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: lightgray;
+	text-align: center;
+}
+#buildingsTable {
+	position:relative;
+	top:27%;
+	left:25%;
+}
+
+#buildings2 {
+	position:relative;
+	top:71%;
+	left:12.5%;
+}
+
+#upgradesrow1 {
+	position: relative;
+}
+
+#coinupgradetitle{
+position:absolute;
+display: inline-block;
+text-align:center;
+top: 207px;
+left: 10%;
+margin-left: -12.5px
+}
+#cointext {
+position:absolute;
+display: inline-block;
+text-align:center;
+top: 247px;
+width: 150px;
+left: 10%;
+margin-left: -72.5px
+}
+
+#prestigeupgradetitle{
+position:absolute;
+display: inline-block;
+text-align:center;
+top: 207px;
+left: 25%;
+margin-left: -12.5px
+}
+#prestigetext {
+	position:absolute;
+	display: inline-block;
+	text-align:center;
+	top: 247px;
+	width: 150px;
+	left: 25%;
+	margin-left: -72.5px
+	}
+#transcendupgradetitle{
+position:absolute;
+display: inline-block;
+text-align:center;
+top: 207px;
+left: 40%;
+margin-left: -12.5px
+}
+#transcendtext {
+	position:absolute;
+	display: inline-block;
+	text-align:center;
+	top: 247px;
+	width: 150px;
+	left: 40%;
+	margin-left: -72.5px
+	}
+
+
+#reincarnationupgradetitle{
+position:absolute;
+display: inline-block;
+text-align:center;
+top: 207px;
+left: 85%;
+margin-left: -14.5px
+}
+#reincarnationtext {
+	position:absolute;
+	display: inline-block;
+	text-align:center;
+	top: 247px;
+	width: 150px;
+	left: 85%;
+	margin-left: -72.5px
+	}
+#automationtitle {
+	position:absolute;
+display: inline-block;
+text-align:center;
+top: 207px;
+left: 70%;
+margin-left: -13.5px
+}
+#automationtext {
+	position:absolute;
+	display: inline-block;
+	text-align:center;
+	top: 247px;
+	width: 150px;
+	left: 70%;
+	margin-left: -72.5px
+	}
+
+#generatortitle {
+	position:absolute;
+display: inline-block;
+text-align:center;
+top: 207px;
+left: 55%;
+margin-left: -13px
+}
+#generatortext {
+	position:absolute;
+	display: inline-block;
+	text-align:center;
+	top: 247px;
+	width: 150px;
+	left: 55%;
+	margin-left: -72.5px
+	}
+
+#upgradesrow2 {
+	position:relative;
+	top: 118px;
+	border: 1px solid gold
+}
+
+#coinupgradestable {
+	position: absolute;
+	top: 150px;
+	left: 10%;
+	margin-left: -88px;
+}
+
+#prestigeupgradestable {
+	position: absolute;
+	top: 150px;
+	left: 25%;
+	margin-left: -88px;
+}
+
+#transcendupgradestable {
+	position: absolute;
+	top: 150px;
+	left: 40%;
+	margin-left: -88px;
+}
+
+#reincarnationupgradestable {
+	position: absolute;
+	top: 150px;
+	left: 85%;
+	margin-left: -88px;
+}
+
+#automationtable {
+	position:absolute;
+	top: 150px;
+	left: 70%;
+	margin-left: -88px;
+	
+}
+
+#generatortable {
+	position: absolute;
+	top: 150px;
+	left: 55%;
+	margin-left: -88px;
+}
+
+#shoptogglerow {
+	position:relative;
+	top: 385px;
+}
+
+#shoptogglecoin {
+	position:absolute;
+	width: 80px;
+	padding: 0px;
+	height: 30px;
+	top: 25.5px;
+	left: 8.4%;
+	margin-left: -16px;
+}
+
+#shoptoggleprestige {
+	position:absolute;
+	width: 80px;
+	padding: 0px;
+	height: 30px;
+	top: 25.5px;
+	left: 23.3%;
+	margin-left: -16px;
+}
+
+#shoptoggletranscend {
+	position:absolute;
+	width: 80px;
+	padding: 0px;
+	height: 30px;
+	top: 25.5px;
+	left: 38.2%;
+	margin-left: -16px;
+}
+
+#shoptogglegenerator {
+	position:absolute;
+	width: 80px;
+	padding: 0px;
+	height: 30px;
+	top: 25.5px;
+	left: 53.1%;
+	margin-left: -16px;
+}
+
+#upgradesrow3 {
+	position: relative;
+	top: 220px;
+	text-align: center;
+}
+
+#upgradedescription {
+	position: absolute;
+	text-align: center;
+	top: 215px;
+	width: 1000px;
+	left: 48%;
+	margin-left: -500px;
+}
+
+#upgradecost {
+	position: absolute;
+	top: 235px;
+	width: 300px;
+	left: 48%;
+	margin-left: -150px;
+}
+
+#upgradeeffect {
+	position: absolute;
+	top: 255px;
+	width: 400px;
+	left: 48%;
+	margin-left: -200px;
+	color: pink
+}
+
+#settings {
+	position: relative;
+	top: 118px;
+	padding: 0px;
+	text-align: center;
+	border: 1px solid white
+}
+
+
+#settingtitle2 {
+	position: absolute;
+	top: 0px;
+	width: 500px;
+	left: 25%;
+	margin-left: -250px;
+}
+#settingtitle3 {
+	position: absolute;
+	top: 0px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#confirmationdisclaimer {
+	position: absolute;
+	top: 120px;
+	width: 300px;
+	left: 25%;
+	margin-left: -150px;
+}
+
+#submitstats {
+	position: absolute;
+	top: 225px;
+	width: 225px;
+	height: 30px;
+	left: 25%;
+	margin-left: -112.5px;
+}
+#promocodes {
+	position: absolute;
+	top: 255px;
+	width: 225px;
+	height: 30px;
+	left: 25%;
+	margin-left: -112.5px;
+}
+#promocodeinfo {
+	position: absolute;
+	top: 285px;
+	width: 225px;
+	height: 30px;
+	left: 25%;
+	margin-left: -112.5px;
+}
+
+
+#settingpic1 {
+	position: absolute;
+	top: 60px;
+	left: 20%;
+	margin-left: -18px;
+}
+
+#settingpic2 {
+	position: absolute;
+	top: 60px;
+	left: 25%;
+	margin-left: -18px;
+}
+
+#settingpic3 {
+	position: absolute;
+	top: 60px;
+	left: 30%;
+	margin-left: -18px;
+}
+
+#temporarystats1 {
+	position: absolute;
+	top: 30px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#temporarystats2 {
+	position: absolute;
+	top: 70px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#temporarystats3 {
+	position: absolute;
+	top: 110px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#temporarystats4 {
+	position: absolute;
+	top: 50px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#temporarystats5 {
+	position: absolute;
+	top: 90px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#temporarystats6 {
+	position: absolute;
+	top: 130px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#temporarystats7 {
+	position: absolute;
+	top: 150px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#temporarystats8 {
+	position: absolute;
+	top: 170px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#temporarystats9 {
+	position: absolute;
+	top: 190px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#temporarystats10 {
+	position: absolute;
+	top: 230px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#temporarystats11 {
+	position: absolute;
+	top: 210px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
+#patchnotes {
+	position: absolute;
+	top: 300px;
+	width: 128px;
+	left: 75%;
+	margin-left: -64px;
+}
+#savegame{
+	position: absolute;
+	top: 230px;
+	width: 192px;
+	left: 100%;
+	margin-left: 125px;
+}
+#saveinfo {
+	position: absolute;
+	top: 390px;
+	width: 400px;
+	left: 75%;
+	margin-left: -200px;
+}
+
+
+
+
+#toggle1 {
+	position:absolute;
+	width: 80px;
+	padding: 0px;
+	height: 30px;
+	top: 25.5px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle2 {
+	position:absolute;
+	text-align:center;
+	width: 80px;
+	height: 30px;
+	top: 81px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle3 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+
+	top: 137px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle4 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+
+	top: 193px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle5 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+
+	top: 247px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle6 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+
+	top: 302px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle7 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+
+	top: 357px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle8 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+
+	top: 412px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle9 {
+	position:absolute;
+	height: 30px;
+	width: 130px;
+	top: 320px;
+	left: 48%;
+	margin-left: -65px;
+}
+
+#toggle10 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 82px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+
+#toggle11 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 138px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle12 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 194px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle13 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+
+	top: 248px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle14 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+
+	top: 303px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle15 {
+	position:absolute;
+	width: 150px;
+	top: 374px;
+	left: 50%;
+	margin-left: -75px;
+}
+#prestigeautotoggle {
+	position:absolute;
+	width: 150px;
+	top: 394px;
+	left: 50%;
+	margin-left: -75px;
+}
+
+#toggle16 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 82px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle17 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 138px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle18 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 194px;
+	left: 47%;
+	margin-left: -16px;
+}
+
+#toggle19 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 248px;
+	left: 47%;
+	margin-left: -16px;
+}
+#toggle20 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 303px;
+	left: 47%;
+	margin-left: -16px;
+}
+#toggle28 {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 95px;
+	left: 18.45%;
+
+}
+#toggle29 {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 95px;
+	left: 23.45%
+}
+#toggle30 {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 95px;
+	left: 28.45%
+}
+#quarktimerdisplay {
+	position: absolute;
+	width: 250px;
+	height: 40px;
+	top: 85px;
+	left: 50%;
+	margin-left: -125px
+}
+
+#quarktimeramount {
+	position: absolute;
+	width: 250px;
+	height: 40px;
+	top: 105px;
+	left: 50%;
+	margin-left: -125px
+}
+
+#exportgame {
+	position: absolute;
+	width: 150px;
+	height: 40px;
+	top: 145px;
+	left: 50%;
+	margin-left: -75px
+}
+
+#importgame {
+	position: absolute;
+	width: 150px;
+	height: 40px;
+	top: 200px;
+	left: 50%;
+	margin-left: -75px
+}
+#importfile{
+	position: absolute;
+	width: 150px;
+	height: 40px;
+	top: 240px;
+	left: 50%;
+	margin-left: -40px
+}
+#exportinfo {
+	position: absolute;
+	width: 500px;
+	height: 40px;
+	top: 170px;
+	left: 50%;
+	margin-left: -250px
+}
+#exporttext {
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	top: 180px;
+	left: 13324px;
+	margin-left: 0px
+}
+#importinfo {
+	position: absolute;
+	width: 500px;
+	height: 40px;
+	top: 275px;
+	left: 50%;
+	margin-left: -250px
+}
+
+#discord {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	top: 350px;
+	left: 50%;
+	margin-left: -50px;
+}
+#versionnumber{
+	position: absolute;
+	width: 900px;
+	height: 100px;
+	top: 450px;
+	left: 50%;
+	margin-left: -450px;
+}
+
+
+#statistics {
+	position: relative;
+	text-align: center;
+	padding: 0px;
+	top: 118px;
+	color: whitesmoke;
+}
+
+#achievements {
+	position: relative;
+	text-align: center;
+	padding: 0px;
+	border: 1px solid white
+	
+}
+#achievementprogress {
+	position: absolute;
+	top: 20px;
+	left: 46.75%;
+	width: 300px;
+	margin-left: -150px;
+}
+#achievementstable {
+	position: absolute;
+	top: 55px;
+	margin-left: -420px;
+	left: 50%;
+}
+
+#achievementinfo {
+	position: fixed;
+	top: 490px;
+	width: 500px;
+	left: 47.8%;
+	margin-left: -250px;
+	border: 1px solid plum
+}
+
+#achievementtutorial {
+	position: absolute;
+	top: -10px;
+	width: 500px;
+	left: 50%;
+	margin-left: -250px;
+	color: white;
+}
+
+#achievementdescription {
+	position: absolute;
+	top: 15px;
+	width: 900px;
+	color: white;
+	text-align: left;
+	left: 10px;
+}
+
+#achievementreward {
+	position: absolute;
+	top: 55px;
+	width: 900px;
+	color: limegreen;
+	text-align: left;
+	left: 10px;
+}
+
+#achievementcolorcode1 {
+	position: absolute;
+	padding: 5px;
+	top: 437px;
+	left: 48%;
+	width: 600px;
+	margin-left: -300px;
+	height: 20px;
+	color: limegreen;
+	text-align: center;
+}
+#achievementcolorcode2 {
+	position: absolute;
+	padding: 5px;
+	top: 457px;
+	left: 48%;
+	width: 600px;
+	margin-left: -300px;
+	height: 20px;
+	color: purple;
+	text-align: center;
+}
+#achievementcolorcode3 {
+	position: absolute;
+	padding: 5px;
+	top: 477px;
+	left: 48%;
+	width: 600px;
+	margin-left: -300px;
+	height: 20px;
+	color: crimson;
+	text-align: center;
+}
+#achievementcolorcode4 {
+	position: absolute;
+	padding: 5px;
+	top: 497px;
+	left: 48%;
+	width: 600px;
+	margin-left: -300px;
+	height: 20px;
+	color: gray;
+	text-align: center;
+}
+
+#prestige {
+    position: relative;
+    padding: 0px;
+    top: 118px;
+    border: 1px solid cyan
+}
+#buyamountcrystal {
+	position: absolute;
+	padding: 0px;
+	font-size: 0px;
+	left: 80%;
+	top: 20px;
+}
+#buyamountoffering {
+	position: absolute;
+	padding: 0px;
+	font-size: 0px;
+	left: 80%;
+	top: 20px;
+}
+#buyamounttalisman {
+	position: absolute;
+	padding: 0px;
+	font-size: 0px;
+	left: 80%;
+	top: 20px;
+}
+#buyamountmythos {
+	position: absolute;
+	padding: 0px;
+	font-size: 0px;
+	left: 80%;
+	top: 20px;
+}
+#buyamountparticle {
+	position: absolute;
+	padding: 0px;
+	font-size: 0px;
+	left: 80%;
+	top: 20px;
+}
+#togglecrystalbuy{
+	color: white;
+	position: absolute;
+	font-size: 11px;
+	width: 220px;
+	left: 80%;
+	top: 30px;
+	margin-left: -87px;
+}
+#toggleofferingbuy{
+	color: white;
+	position: absolute;
+	font-size: 11px;
+	width: 220px;
+	left: 80%;
+	top: 30px;
+	margin-left: -120px;
+}
+#toggletalismanbuy{
+	color: white;
+	position: absolute;
+	font-size: 11px;
+	width: 220px;
+	left: 80%;
+	top: 30px;
+	margin-left: -118.5px;
+}
+#togglemythosbuy{
+	color: white;
+	position: absolute;
+	font-size: 11px;
+	width: 220px;
+	left: 80%;
+	top: 30px;
+	margin-left: -87px;
+}
+#toggleparticlebuy{
+	color: white;
+	position: absolute;
+	font-size: 11px;
+	width: 220px;
+	left: 80%;
+	top: 30px;
+	margin-left: -87px;
+}
+#prestigeshardinfo {
+    position: absolute;
+    padding: 0px;
+    top: 20px;
+    width: 700px;
+    left: 50%;
+    margin-left: -350px;
+}
+ 
+#diamond1 {
+    position: absolute;
+    top: 83px;
+    left: 10%;
+    margin-left: -18px;
+}
+ 
+#diamond2 {
+    position: absolute;
+    top: 138px;
+    left: 10%;
+    margin-left: -18px;
+ 
+}
+ 
+#diamond3 {
+    position: absolute;
+    top: 193px;
+    left: 10%;
+    margin-left: -18px;
+ 
+}
+ 
+#diamond4 {
+    position: absolute;
+    top: 248px;
+    left: 10%;
+    margin-left: -18px;
+ 
+}
+ 
+#diamond5 {
+    position: absolute;
+    top: 303px;
+    left: 10%;
+    margin-left: -18px;
+}
+ 
+ 
+#prestigetext1 {
+    position: absolute;
+    top: 70px;
+    left: 13%;
+}
+#prestigetext2 {
+    position: absolute;
+    top: 70px;
+    left: 52.5%;
+}
+#prestigetext3 {
+    position: absolute;
+    top: 125px;
+    left: 13%;
+}
+#prestigetext4 {
+    position: absolute;
+    top: 125px;
+    left: 52.5%;
+}
+#prestigetext5 {
+    position: absolute;
+    top: 180px;
+    left: 13%;
+}
+#prestigetext6 {
+    position: absolute;
+    top: 180px;
+    left: 52.5%;
+}
+#prestigetext7 {
+    position: absolute;
+    top: 235px;
+    left: 13%;
+}
+#prestigetext8 {
+    position: absolute;
+    top: 235px;
+    left: 52.5%;
+}
+ 
+#prestigetext9 {
+    position: absolute;
+    top: 290px;
+    left: 13%;
+}
+#prestigetext10 {
+    position: absolute;
+    top: 290px;
+    left: 52.5%;
+}
+ 
+#buydiamond1 {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    top: 97px;
+    left: 33%;
+    margin-top: -15px;
+    border: 1px solid white;
+    border-radius: 8px;
+ 
+}
+ 
+#buydiamond2 {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    top: 152px;
+    left: 33%;
+    margin-top: -15px;
+    border: 1px solid white;
+    border-radius: 8px;
+ 
+}
+ 
+#buydiamond3 {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    top: 207px;
+    left: 33%;
+    margin-top: -15px;
+    border: 1px solid white;
+    border-radius: 8px;
+ 
+}
+ 
+#buydiamond4 {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    top: 262px;
+    left: 33%;
+    margin-top: -15px;
+    border: 1px solid white;
+    border-radius: 8px;
+ 
+}
+ 
+#buydiamond5 {
+    position:absolute;
+    width: 150px;
+    height: 30px;
+    top: 317px;
+    left: 33%;
+    margin-top: -15px;
+    border: 1px solid white;
+    border-radius: 8px;
+ 
+}
+ 
+#prestigeinfo {
+    color: cyan;
+}
+
+#prestige {
+    position: relative;
+    padding: 0px;
+    top: 118px;
+    border: 1px solid cyan
+}
+#crystalupgradestable {
+	position: absolute;
+	top: 81px;
+	padding: 0px;
+	left: 75%;
+	margin-left: -100px;
+}
+#crystalupgradedescription {
+	position: absolute;
+	top: 110px;
+	padding: 0px;
+	left: 75%;
+	margin-left: -100px;
+	width: 300px;
+	height: 100px;
+	border: 1px solid cyan
+}
+#crystalupgradeslevel {
+	position: absolute;
+	top:244px;
+	padding: 0px;
+	left: 75%;
+	margin-left: 0px;
+	width: 100px;
+	height: 30px;
+	border: 1px solid plum;
+}
+#crystalupgradescost {
+	position: absolute;
+	top: 212px;
+	padding: 0px;
+	left: 75%;
+	margin-left: -70px;
+	width: 240px;
+	height: 30px;
+	border: 1px solid plum
+}
+
+#prestigeamount {
+	position: absolute;
+	top: 418px;
+	padding: 0px;
+	left: 50%;
+	width: 100px;
+	margin-left: -50px;
+	border: 1px solid cyan;
+	color: white;
+	background-color: black
+}
+
+#autoprestige {
+	position: absolute;
+	top: 420px;
+	padding: 0px;
+	left: 50%;
+	width: 750px;
+	margin-left: -375px;
+	text-align: center;
+	color: white
+}
+#prestigehotkeys{
+	position: absolute;
+	padding: 5px;
+	top: 460px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: gray;
+	text-align: center;
+}
+
+#runes {
+	position: relative;
+	padding: 0px;
+	top: 118px;
+	border: 1px solid cyan;
+}
+
+#runeshards {
+	position: absolute;
+	top: 30px;
+	width: 400px;
+	left: 50%;
+	margin-left: -200px;
+	color: pink;
+	text-align: center;
+	font-size: 1.2em
+}
+
+#togglerunesubtab{
+	position: absolute;
+	padding: 5px;
+	top: 10px;
+	left: 65%;
+	width: 200px;
+	margin-left: -100px;
+	height: 30px;
+	text-align: center;
+}
+
+#toggleautosacrifice {
+	position: absolute;
+	padding: 5px;
+	top: 10px;
+	left: 50%;
+	width: 200px;
+	margin-left: -100px;
+	height: 30px;
+	text-align: center;
+}
+
+#rune1 {
+	position: absolute;
+	padding: 0px;
+	top: 145px;
+	left: 20%;
+	margin-left: -33px;
+}
+#rune2{
+	position: absolute;
+	padding: 0px;
+	top: 145px;
+	left: 35%;
+	margin-left: -33px;
+}
+#rune3{
+	position: absolute;
+	padding: 0px;
+	top: 145px;
+	left: 50%;
+	margin-left: -33px;
+}
+#rune4{
+	position: absolute;
+	padding: 0px;
+	top: 145px;
+	left: 65%;
+	margin-left: -33px;
+}
+#rune5{
+	position: absolute;
+	padding: 0px;
+	top: 145px;
+	left: 80%;
+	margin-left: -33px;
+}
+
+#rune1level {
+	position: absolute;
+	padding: 0px;
+	top: 193px;
+	left: 20%;
+	width: 200px;
+	margin-left: -100px;
+	color: plum;
+	text-align: center;
+}
+#rune2level {
+	position: absolute;
+	padding: 0px;
+	top: 193px;
+	left: 35%;
+	width: 200px;
+	margin-left: -100px;
+	color: plum;
+	text-align: center;
+}
+#rune3level {
+	position: absolute;
+	padding: 0px;
+	top: 193px;
+	left: 50%;
+	width: 200px;
+	margin-left: -100px;
+	color: plum;
+	text-align: center;
+}
+#rune4level {
+	position: absolute;
+	padding: 0px;
+	top: 193px;
+	left: 65%;
+	width: 200px;
+	margin-left: -100px;
+	color: plum;
+	text-align: center;
+}
+#rune5level {
+	position: absolute;
+	padding: 0px;
+	top: 193px;
+	left: 80%;
+	width: 200px;
+	margin-left: -100px;
+	color: plum;
+	text-align: center;
+}
+#rune1exp {
+	position:absolute;
+	padding: 0px;
+	top: 212px;
+	left: 20%;
+	width: 200px;
+	margin-left: -100px;
+	color: white;
+	text-align: center;
+}
+#rune2exp {
+	position:absolute;
+	padding: 0px;
+	top: 212px;
+	left: 35%;
+	width: 200px;
+	margin-left: -100px;
+	color: white;
+	text-align: center;
+}
+#rune3exp {
+	position:absolute;
+	padding: 0px;
+	top: 212px;
+	left: 50%;
+	width: 200px;
+	margin-left: -100px;
+	color: white;
+	text-align: center;
+}
+#rune4exp {
+	position:absolute;
+	padding: 0px;
+	top: 212px;
+	left: 65%;
+	width: 200px;
+	margin-left: -100px;
+	color: white;
+	text-align: center;
+}
+#rune5exp {
+	position:absolute;
+	padding: 0px;
+	top: 212px;
+	left: 80%;
+	width: 200px;
+	margin-left: -100px;
+	color: white;
+	text-align: center;
+}
+
+#activaterune1 {
+	position: absolute;
+	padding: 5px;
+	top: 255px;
+	left: 20%;
+	width: 111px;
+	height: 30px;
+	margin-left: -55px;
+	border: 1px solid orangered;
+	color: gold;
+	text-align: center;
+}
+#activaterune2 {
+	position: absolute;
+	padding: 5px;
+	top: 255px;
+	left: 35%;
+	width: 112px;
+	height: 30px;
+	margin-left: -55px;
+	border: 1px solid orangered;
+	color: gold;
+	text-align: center;
+}
+#activaterune3 {
+	position: absolute;
+	padding: 5px;
+	top: 255px;
+	left: 50%;
+	width: 112px;
+	height: 30px;
+	margin-left: -55px;
+	border: 1px solid orangered;
+	color: gold;
+	text-align: center;
+}
+#activaterune4 {
+	position: absolute;
+	padding: 5px;
+	top: 255px;
+	left: 65%;
+	width: 112px;
+	height: 30px;
+	margin-left: -55px;
+	border: 1px solid orangered;
+	color: gold;
+	text-align: center;
+}
+#activaterune5 {
+	position: absolute;
+	padding: 5px;
+	top: 255px;
+	left: 80%;
+	width: 112px;
+	height: 30px;
+	margin-left: -55px;
+	border: 1px solid orangered;
+	color: gold;
+	text-align: center;
+}
+
+#runedetails {
+	position: absolute;
+	padding: 5px;
+	top: 50px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: white;
+	text-align: center;
+}
+
+
+#speedrune {
+	position:absolute;
+	padding: 0px;
+	top: 103px;
+	left: 20%;
+	width: 130px;
+	margin-left: -65px;
+	text-align: center;
+}
+#duplicationrune {
+	position:absolute;
+	padding: 0px;
+	top: 103px;
+	left: 35%;
+	width: 130px;
+	margin-left: -65px;
+	text-align: center;
+}
+#prismrune {
+	position:absolute;
+	padding: 0px;
+	top: 103px;
+	left: 50%;
+	width: 130px;
+	margin-left: -65px;
+	text-align: center;
+}
+#thriftrune {
+	position:absolute;
+	padding: 0px;
+	top: 103px;
+	left: 65%;
+	width: 130px;
+	margin-left: -65px;
+	text-align: center;
+}
+#intellectrune {
+	position:absolute;
+	padding: 0px;
+	top: 103px;
+	left: 80%;
+	width: 130px;
+	margin-left: -65px;
+	text-align: center;
+}
+
+#runerecycle {
+	position: absolute;
+	padding: 5px;
+	top: 66px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: orangered;
+	text-align: center;
+}
+#runeshowlevelup {
+	position: absolute;
+	padding: 5px;
+	top: 275px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: white;
+	text-align: center;
+}
+#runedisplayexp {
+	position: absolute;
+	padding: 5px;
+	top: 295px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: goldenrod;
+	text-align: center;
+}
+#bonussummation {
+	position: absolute;
+	padding: 5px;
+	top: 315px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: orangered;
+	text-align: center;
+}
+
+#runeshowpower1 {
+	position: absolute;
+	padding: 5px;
+	top: 335px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: cyan;
+	text-align: center;
+}
+#runeshowpower2 {
+	position: absolute;
+	padding: 5px;
+	top: 355px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: plum;
+	text-align: center;
+}
+#runeshowpower3 {
+	position: absolute;
+	padding: 5px;
+	top: 375px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: lightblue;
+	text-align: center;
+}
+#runeshowpower4 {
+	position: absolute;
+	padding: 5px;
+	top: 395px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: limegreen;
+	text-align: center;
+}
+#runeshowpower5 {
+	position: absolute;
+	padding: 5px;
+	top: 415px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: crimson;
+	text-align: center;
+}
+#researchrunebonus {
+	position: absolute;
+	padding: 5px;
+	top: 435px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: pink;
+	text-align: center;
+}
+#runehotkeys {
+	position: absolute;
+	padding: 5px;
+	top: 475px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: gray;
+	text-align: center;
+}
+
+#talismancounter {
+	position: absolute;
+	top: 45px;
+	width: 800px;
+	left: 30%;
+	margin-left: -370px;
+	text-align: left;
+	font-size: 0.9em;
+}
+#buyfragments {
+	position: absolute;
+	top: 95px;
+	width: 800px;
+	left: 50%;
+	margin-left: -370px;
+	text-align: left;
+	font-size: 0.9em;
+}
+#talismanFragmentCost {
+	position: absolute;
+	top: 390px;
+	width: 250px;
+	left: 10.75%;
+	margin-left: -125px;
+	text-align: center;
+	font-size: 1.1em;
+	color: white
+}
+
+.talismanbtn {
+	height: 30px;
+	width: 108px;
+	text-align: center;
+	color: orange
+}
+#TaxTalisman{
+	position: absolute;
+	left: 28%;
+	width: 200px;
+	margin-left: -100px;
+	top: 45px;
+	text-align: center;
+	font-size: 1.2em;
+}
+#MultiplierAcceleratorTalisman{
+	position: absolute;
+	left: 36%;
+	width: 200px;
+	margin-left: -100px;
+	top: 45px;
+	text-align: center;
+	font-size: 1.2em;
+}
+#CostTalisman{
+	position: absolute;
+	left: 44%;
+	width: 200px;
+	margin-left: -100px;
+	top: 45px;
+	text-align: center;
+	font-size: 1.2em;
+}
+#RunesTalisman{
+	position: absolute;
+	left: 52%;
+	width: 200px;
+	margin-left: -100px;
+	top: 45px;
+	text-align: center;
+	font-size: 1.2em;
+}
+#UnknownTalisman{
+	position: absolute;
+	left: 60%;
+	width: 200px;
+	margin-left: -100px;
+	top: 45px;
+	text-align: center;
+	font-size: 1.2em;
+}
+#AntTalisman{
+	position: absolute;
+	left: 68%;
+	width: 200px;
+	margin-left: -100px;
+	top: 45px;
+	text-align: center;
+	font-size: 1.2em;
+}
+#MoneyTalisman{
+	position: absolute;
+	left: 76%;
+	width: 200px;
+	margin-left: -100px;
+	top: 45px;
+	text-align: center;
+	font-size: 1.2em;
+}
+#talisman1{
+	position: absolute;
+	left: 28%;
+	width: 72px;
+	margin-left: -41px;
+	top: 90px;
+	text-align: center;
+}
+
+#talisman1level{
+	position: absolute;
+	left: 28%;
+	width: 128px;
+	margin-left: -66px;
+	top: 155px;
+	text-align: center;
+}
+
+#leveluptalisman1 {
+	position: absolute;
+	height: 30px;
+	left: 28%;
+	width: 80px;
+	margin-left: -41px;
+	top: 195px;
+	text-align: center;
+}
+#enhancetalisman1{
+	position: absolute;
+	height: 30px;
+	left: 28%;
+	width: 80px;
+	margin-left: -41px;
+	top: 225px;
+	text-align: center;
+}
+#respectalisman1{
+	position: absolute;
+	height: 30px;
+	left: 28%;
+	width: 80px;
+	margin-left: -41px;
+	top: 255px;
+	text-align: center;
+}
+
+#talisman2{
+	position: absolute;
+	left: 36%;
+	width: 72px;
+	margin-left: -41px;
+	top: 90px;
+	text-align: center;
+}
+
+#talisman2level{
+	position: absolute;
+	left: 36%;
+	width: 128px;
+	margin-left: -66px;
+	top: 155px;
+	text-align: center;
+}
+
+#leveluptalisman2 {
+	position: absolute;
+	height: 30px;
+	left: 36%;
+	width: 80px;
+	margin-left: -41px;
+	top: 195px;
+	text-align: center;
+}
+#enhancetalisman2{
+	position: absolute;
+	height: 30px;
+	left: 36%;
+	width: 80px;
+	margin-left: -41px;
+	top: 225px;
+	text-align: center;
+}
+#respectalisman2{
+	position: absolute;
+	height: 30px;
+	left: 36%;
+	width: 80px;
+	margin-left: -41px;
+	top: 255px;
+	text-align: center;
+}
+#talisman3{
+	position: absolute;
+	left: 44%;
+	width: 72px;
+	margin-left: -41px;
+	top: 90px;
+	text-align: center;
+}
+
+#talisman3level{
+	position: absolute;
+	left: 44%;
+	width: 128px;
+	margin-left: -66px;
+	top: 155px;
+	text-align: center;
+}
+
+#leveluptalisman3 {
+	position: absolute;
+	height: 30px;
+	left: 44%;
+	width: 80px;
+	margin-left: -41px;
+	top: 195px;
+	text-align: center;
+}
+#enhancetalisman3{
+	position: absolute;
+	height: 30px;
+	left: 44%;
+	width: 80px;
+	margin-left: -41px;
+	top: 225px;
+	text-align: center;
+}
+#respectalisman3{
+	position: absolute;
+	height: 30px;
+	left: 44%;
+	width: 80px;
+	margin-left: -41px;
+	top: 255px;
+	text-align: center;
+}
+#talisman4{
+	position: absolute;
+	left: 52%;
+	width: 72px;
+	margin-left: -41px;
+	top: 90px;
+	text-align: center;
+}
+
+#talisman4level{
+	position: absolute;
+	left: 52%;
+	width: 128px;
+	margin-left: -66px;
+	top: 155px;
+	text-align: center;
+}
+
+#leveluptalisman4 {
+	position: absolute;
+	height: 30px;
+	left: 52%;
+	width: 80px;
+	margin-left: -41px;
+	top: 195px;
+	text-align: center;
+}
+#enhancetalisman4{
+	position: absolute;
+	height: 30px;
+	left: 52%;
+	width: 80px;
+	margin-left: -41px;
+	top: 225px;
+	text-align: center;
+}
+#respectalisman4{
+	position: absolute;
+	height: 30px;
+	left: 52%;
+	width: 80px;
+	margin-left: -41px;
+	top: 255px;
+	text-align: center;
+}
+#talisman5{
+	position: absolute;
+	left: 60%;
+	width: 72px;
+	margin-left: -41px;
+	top: 90px;
+	text-align: center;
+}
+
+#talisman5level{
+	position: absolute;
+	left: 60%;
+	width: 128px;
+	margin-left: -66px;
+	top: 155px;
+	text-align: center;
+}
+
+#leveluptalisman5 {
+	position: absolute;
+	height: 30px;
+	left: 60%;
+	width: 80px;
+	margin-left: -41px;
+	top: 195px;
+	text-align: center;
+}
+#enhancetalisman5{
+	position: absolute;
+	height: 30px;
+	left: 60%;
+	width: 80px;
+	margin-left: -41px;
+	top: 225px;
+	text-align: center;
+}
+#respectalisman5{
+	position: absolute;
+	height: 30px;
+	left: 60%;
+	width: 80px;
+	margin-left: -41px;
+	top: 255px;
+	text-align: center;
+}
+#talisman6{
+	position: absolute;
+	left: 68%;
+	width: 72px;
+	margin-left: -41px;
+	top: 90px;
+	text-align: center;
+}
+
+#talisman6level{
+	position: absolute;
+	left: 68%;
+	width: 128px;
+	margin-left: -66px;
+	top: 155px;
+	text-align: center;
+}
+
+#leveluptalisman6 {
+	position: absolute;
+	height: 30px;
+	left: 68%;
+	width: 80px;
+	margin-left: -41px;
+	top: 195px;
+	text-align: center;
+}
+#enhancetalisman6{
+	position: absolute;
+	height: 30px;
+	left: 68%;
+	width: 80px;
+	margin-left: -41px;
+	top: 225px;
+	text-align: center;
+}
+#respectalisman6{
+	position: absolute;
+	height: 30px;
+	left: 68%;
+	width: 80px;
+	margin-left: -41px;
+	top: 255px;
+	text-align: center;
+}
+#talisman7{
+	position: absolute;
+	left: 76%;
+	width: 72px;
+	margin-left: -41px;
+	top: 90px;
+	text-align: center;
+}
+
+#talisman7level{
+	position: absolute;
+	left: 76%;
+	width: 128px;
+	margin-left: -66px;
+	top: 155px;
+	text-align: center;
+}
+
+#leveluptalisman7 {
+	position: absolute;
+	height: 30px;
+	left: 76%;
+	width: 80px;
+	margin-left: -41px;
+	top: 195px;
+	text-align: center;
+}
+#enhancetalisman7{
+	position: absolute;
+	height: 30px;
+	left: 76%;
+	width: 80px;
+	margin-left: -41px;
+	top: 225px;
+	text-align: center;
+}
+#respectalisman7{
+	position: absolute;
+	height: 30px;
+	left: 76%;
+	width: 80px;
+	margin-left: -41px;
+	top: 255px;
+	text-align: center;
+}
+
+#talismanEffect {
+	position: absolute;
+	left: 50%;
+	width: 600px;
+	margin-left: -300px;
+	top: 290px;
+	text-align: center;
+}
+
+#talismanBonus{
+	position: absolute;
+	top: 20px;
+	left: 145px;
+}
+#talismanRune1Effect{
+	position: absolute;
+	top: 40px;
+	left: 145px;
+}
+#talismanRune2Effect{
+	position: absolute;
+	top: 60px;
+	left: 145px;
+}#talismanRune3Effect{
+	position: absolute;
+	top: 80px;
+	left: 145px;
+}#talismanRune4Effect{
+	position: absolute;
+	top: 100px;
+	left: 145px;
+}#talismanRune5Effect{
+	position: absolute;
+	top: 120px;
+	left: 145px;
+}#talismanMythicEffect{
+	position: absolute;
+	top: 140px;
+	left: 145px;
+}
+
+#talismanlevelup {
+	position: absolute;
+	left: 50%;
+	width: 600px;
+	margin-left: -200px;
+	top: 330px;
+	text-align: center;
+}
+
+#talismanLevelUpSummary {
+	position: absolute;
+	top: -40px;
+	left: 50px;
+}
+
+#talismanrespec {
+	position: absolute;
+	left: 50%;
+	width: 600px;
+	margin-left: -300px;
+	top: 290px;
+	text-align: center;
+}
+.talismanRespecBtn {
+	height: 30px;
+	width: 200px;
+	text-align: center;
+}
+#talismanRespecButton1{
+	position: absolute;
+	top: 50px;
+	left: 200px;
+}
+#talismanRespecButton2{
+	position: absolute;
+	top: 81px;
+	left: 200px;
+}#talismanRespecButton3{
+	position: absolute;
+	top: 112px;
+	left: 200px;
+}#talismanRespecButton4{
+	position: absolute;
+	top: 143px;
+	left: 200px;
+}#talismanRespecButton5{
+	position: absolute;
+	top: 174px;
+	left: 200px;
+}#confirmTalismanRespec{
+	position: absolute;
+	top: 112px;
+	left: 430px;
+}#cancelTalismanRespec{
+	position: absolute;
+	top: 143px;
+	left: 430px;
+}
+
+
+#transcension {
+	position: relative;
+	padding: 0px;
+	top: 118px;
+	border: 1px solid plum
+}
+
+#transcendshardinfo {
+	position: absolute;
+	padding: 0px;
+	top: 20px;
+	width: 700px;
+	left: 50%;
+	margin-left: -350px;
+}
+
+#mythos1 {
+	position: absolute;
+	top: 83px;
+	left: 10%;
+	margin-left: -18px;
+}
+
+#mythos2 {
+	position: absolute;
+	top: 138px;
+	left: 10%;
+	margin-left: -18px;
+
+}
+
+#mythos3 {
+	position: absolute;
+	top: 193px;
+	left: 10%;
+	margin-left: -18px;
+
+}
+
+#mythos4 {
+	position: absolute;
+	top: 248px;
+	left: 10%;
+	margin-left: -18px;
+
+}
+
+#mythos5 {
+	position: absolute;
+	top: 303px;
+	left: 10%;
+	margin-left: -18px;
+}
+
+
+#transcendtext1 {
+	position: absolute;
+	top: 70px;
+	left: 13%;
+}
+#transcendtext2 {
+	position: absolute;
+	top: 70px;
+	left: 52.5%;
+}
+#transcendtext3 {
+	position: absolute;
+	top: 125px;
+	left: 13%;
+}
+#transcendtext4 {
+	position: absolute;
+	top: 125px;
+	left: 52.5%;
+}
+#transcendtext5 {
+	position: absolute;
+	top: 180px;
+	left: 13%;
+}
+#transcendtext6 {
+	position: absolute;
+	top: 180px;
+	left: 52.5%;
+}
+#transcendtext7 {
+	position: absolute;
+	top: 235px;
+	left: 13%;
+}
+#transcendtext8 {
+	position: absolute;
+	top: 235px;
+	left: 52.5%;
+}
+
+#transcendtext9 {
+	position: absolute;
+	top: 290px;
+	left: 13%;
+}
+#transcendtext10 {
+	position: absolute;
+	top: 290px;
+	left: 52.5%;
+}
+
+#buymythos1 {
+	position: absolute;
+	width: 150px;
+	height: 30px;
+	top: 97px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+
+}
+
+#buymythos2 {
+	position: absolute;
+	width: 150px;
+	height: 30px;
+	top: 152px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+
+}
+
+#buymythos3 {
+	position: absolute;
+	width: 150px;
+	height: 30px;
+	top: 207px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+
+}
+
+#buymythos4 {
+	position: absolute;
+	width: 150px;
+	height: 30px;
+	top: 262px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+
+}
+
+#buymythos5 {
+	position:absolute;
+	width: 150px;
+	height: 30px;
+	top: 317px;
+	left: 33%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+
+}
+
+#transcendamount {
+	position: absolute;
+	top: 418px;
+	padding: 0px;
+	left: 50%;
+	width: 100px;
+	margin-left: -50px;
+	border: 1px solid plum;
+	color: white;
+	background-color: black
+}
+
+#autotranscend {
+	position: absolute;
+	top: 420px;
+	padding: 0px;
+	left: 50%;
+	width: 750px;
+	margin-left: -375px;
+	text-align: center;
+	color: white
+}
+
+#toggle21 {
+	position:absolute;
+	width: 150px;
+	top: 374px;
+	left: 50%;
+	margin-left: -75px;
+}
+#transcendautotoggle {
+	position:absolute;
+	width: 150px;
+	top: 394px;
+	left: 50%;
+	margin-left: -75px;
+}
+
+#transcendinfo {
+	color: pink;
+}
+
+#transcendhotkeys{
+	position: absolute;
+	padding: 5px;
+	top: 460px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: gray;
+	text-align: center;
+}
+
+#challenges {
+	position: relative;
+	padding: 0px;
+	top: 118px;
+	border: 1px solid plum;
+}
+
+#challengeIntroduction {
+	position: absolute;
+	text-align: center;
+	padding: 0px;
+	top: 0px;
+	color: white;
+	width: 1000px;
+	font-size: 1.2em;
+	margin-left: -500px;
+	left: 50%;
+}
+#challengeIcons {
+	position: absolute;
+	font-size: 0;
+	padding: 0px;
+	top: 50px;
+	margin-left: -342px;
+	left: 50%;
+}
+#challengeDetails {
+	position: absolute;
+	text-align: left;
+	padding: 0px;
+	top: 120px;
+	width: 1000px;
+	margin-left: -500px;
+	left: 50%;
+}
+#startChallenge{
+	position:absolute;
+	border: 2px solid red;
+	height: 30px;
+	width: 200px;
+	top: 20px;
+	left: 16%;
+}
+#retryChallenge{
+	position:absolute;
+	border: 2px solid plum;
+	height: 30px;
+	width: 200px;
+	top: 51px;
+	left: 16%;
+}
+#challengeName{
+	position:absolute;
+	color: white;
+	top: 0px;
+	left: 38%;
+}
+#challengeFlavor{
+	position:absolute;
+	color:plum;
+	top: 20px;
+	left: 38%;
+}
+#challengeRestrictions{
+	position:absolute;
+	color:crimson;
+	width: 500px;
+	top: 50px;
+	left: 38%;
+
+}
+#challengeGoal{
+	position:absolute;
+	color: gold;
+	top: 90px;
+	left: 38%;
+
+}
+#challengePerCompletionRewards{
+	position:absolute;
+	color: white;
+	top: 120px;
+	left: 38%;
+
+}
+#challengePer1{
+	position:absolute;
+	color: pink;
+	top: 140px;
+	left: 38%;
+
+}
+#challengePer2{
+	position:absolute;
+	color: pink;
+	top: 160px;
+	left: 38%;
+
+}
+#challengePer3{
+	position:absolute;
+	color: pink;
+	top: 180px;
+	left: 38%;
+
+}
+#challengeFirstCompletionRewards{
+	position:absolute;
+	color: white;
+	top: 210px;
+	left: 38%;
+
+}
+#challengeFirst1{
+	position:absolute;
+	color: orange;
+	top: 230px;
+	left: 38%;
+
+}
+#challengeQuarkBonus{
+	position:absolute;
+	color: cyan;
+	top: 260px;
+	left: 38%;
+
+}
+
+
+#challengehotkeys {
+	position: absolute;
+	padding: 5px;
+	top: 400px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: gray;
+	text-align: center;
+}
+#challengewarning {
+	position: absolute;
+	padding: 5px;
+	top: 420px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: crimson;
+	text-align: center;
+}
+#challengewarningreincarnation {
+	position: absolute;
+	padding: 5px;
+	top: 440px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: limegreen;
+	text-align: center;
+}
+
+#reincarnation {
+    position: relative;
+    padding: 0px;
+    top: 118px;
+    border: 1px solid green
+}
+ 
+#reincarnationshardinfo {
+    position: absolute;
+    padding: 0px;
+    top: 20px;
+    width: 1000px;
+    left: 38%;
+    margin-left: -500px;
+}
+ 
+#particles1 {
+    position: absolute;
+    top: 83px;
+    left: 10%;
+    margin-left: -18px;
+}
+ 
+#particles2 {
+    position: absolute;
+    top: 138px;
+    left: 10%;
+    margin-left: -18px;
+ 
+}
+ 
+#particles3 {
+    position: absolute;
+    top: 193px;
+    left: 10%;
+    margin-left: -18px;
+ 
+}
+ 
+#particles4 {
+    position: absolute;
+    top: 248px;
+    left: 10%;
+    margin-left: -18px;
+ 
+}
+ 
+#particles5 {
+    position: absolute;
+    top: 303px;
+    left: 10%;
+    margin-left: -18px;
+}
+ 
+ 
+#reincarnationtext1 {
+    position: absolute;
+    top: 70px;
+    left: 13%;
+}
+#reincarnationtext6 {
+    position: absolute;
+    top: 70px;
+    left: 46.5%;
+}
+#reincarnationtext2 {
+    position: absolute;
+    top: 125px;
+    left: 13%;
+}
+#reincarnationtext7 {
+    position: absolute;
+    top: 125px;
+    left: 46.5%;
+}
+#reincarnationtext3 {
+    position: absolute;
+    top: 180px;
+    left: 13%;
+}
+#reincarnationtext8 {
+    position: absolute;
+    top: 180px;
+    left: 46.5%;
+}
+#reincarnationtext4 {
+    position: absolute;
+    top: 235px;
+    left: 13%;
+}
+#reincarnationtext9 {
+    position: absolute;
+    top: 235px;
+    left: 46.5%;
+}
+ 
+#reincarnationtext5 {
+    position: absolute;
+    top: 290px;
+    left: 13%;
+}
+#reincarnationtext10 {
+    position: absolute;
+    top: 290px;
+    left: 46.5%;
+}
+ 
+#buyparticles1 {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    top: 97px;
+    left: 33%;
+    margin-top: -15px;
+    border: 1px solid white;
+    border-radius: 8px;
+ 
+}
+ 
+#buyparticles2 {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    top: 152px;
+    left: 33%;
+    margin-top: -15px;
+    border: 1px solid white;
+    border-radius: 8px;
+ 
+}
+ 
+#buyparticles3 {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    top: 207px;
+    left: 33%;
+    margin-top: -15px;
+    border: 1px solid white;
+    border-radius: 8px;
+ 
+}
+ 
+#buyparticles4 {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    top: 262px;
+    left: 33%;
+    margin-top: -15px;
+    border: 1px solid white;
+    border-radius: 8px;
+ 
+}
+ 
+#buyparticles5 {
+    position:absolute;
+    width: 150px;
+    height: 30px;
+    top: 317px;
+    left: 33%;
+    margin-top: -15px;
+    border: 1px solid white;
+    border-radius: 8px;
+ 
+}
+
+#toggle27 {
+	position:absolute;
+	width: 150px;
+	top: 374px;
+	left: 50%;
+	margin-left: -75px;
+}
+#reincarnateautotoggle {
+	position:absolute;
+	width: 150px;
+	top: 394px;
+	left: 50%;
+	margin-left: -75px;
+}
+
+#autoreincarnate {
+	position: absolute;
+	top: 420px;
+	padding: 0px;
+	left: 50%;
+	width: 750px;
+	margin-left: -375px;
+	text-align: center;
+	color: white
+}
+
+#reincarnationamount {
+	position: absolute;
+	top: 418px;
+	padding: 0px;
+	left: 50%;
+	width: 100px;
+	margin-left: -50px;
+	border: 1px solid green;
+	color: white;
+	background-color: black
+}
+ 
+#reincarnationinfo {
+    color: lime;
+}
+#reincarnatehotkeys{
+	position: absolute;
+	padding: 5px;
+	top: 460px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: gray;
+	text-align: center;
+}
+
+#research {
+	position: relative;
+	top: 118px;
+	padding: 0px;
+	border: 1px solid green
+}
+#researchinfo {
+	position:absolute;
+	top:20px;
+	width: 500px;
+	margin-left: -250px;
+	left: 50%;
+}
+
+#researchtable {
+	position:absolute;
+	padding: 0px;
+	top: 75px;
+	left: 50%;
+	margin-left: -340px;
+	border-collapse:collapse;
+	font-size: 0px;
+}
+
+#researchinfo2 {
+	position:absolute;
+	top:250px;
+	width:1000px;
+	height: 42px;
+	left:50%;
+	margin-left: -500px;
+}
+
+#researchcost {
+	position: absolute;
+	position:absolute;
+	top:273px;
+	width:400px;
+	height: 42px;
+	left:50%;
+	margin-left: -200px;
+}
+
+#researchinfo3 {
+	position:absolute;
+	top:296px;
+	width: 100px;
+	left: 50%;
+	margin-left: -50px;
+}
+
+#researchpointinfo {
+	position:absolute;
+	top: 330px;
+	width: 900px;
+	left: 50%;
+	margin-left: -450px;
+}
+#researchhotkeys{
+	position: absolute;
+	padding: 5px;
+	top: 460px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: plum;
+	text-align: center;
+}
+#automaticobtainium{
+	position: absolute;
+	padding: 5px;
+	top: 350px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	text-align: center;
+}
+#toggleresearchbuy {
+	position: absolute;
+	padding: 5px;
+	top: 400px;
+	left: 40%;
+	width: 200px;
+	margin-left: -100px;
+	height: 30px;
+	text-align: center;
+}
+#toggleautoresearch {
+	position: absolute;
+	padding: 5px;
+	top: 400px;
+	left: 60%;
+	width: 200px;
+	margin-left: -100px;
+	height: 30px;
+	text-align: center;
+}
+#contentteaser1 {
+	position: absolute;
+	padding: 5px;
+	top: 430px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	text-align: center;
+}
+#retrybutton {
+	position: absolute;
+	width: 70px;
+	top: 60px;
+	left: 50%;
+	margin-left: -35px;
+}
+
+#shop {
+	position:absolute;
+
+	position: relative;
+	padding: 0px;
+	border: 1px solid limegreen;
+	top: 118px;
+	text-align: center
+}
+
+#shoptop {
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	width: 600px;
+	margin-left: -300px;
+	color: whitesmoke;
+	font-size: 1.2em
+}
+#displayquarks {
+	position: absolute;
+	top: 35px;
+	left: 50%;
+	width: 600px;
+	margin-left: -268px;
+	color: cyan;
+	text-align: left;
+	font-size: 1.5em;
+}
+#consumables {
+	position: absolute;
+	top: 100px;
+	left: 12%;
+	width: 200px;
+	margin-left: -67px;
+	color: orangered;
+	font-size: 1.2em; 
+}
+#consumablesimage{
+	position: absolute;
+	top: 145px;
+	left: 12%;
+	width: 200px;
+	margin-left: -100px;
+	color: white;
+	font-size: 1em;
+}
+.consumablebutton {
+	width: 128px;
+	height: 40px;
+}
+
+.permshopbutton {
+	width: 100px;
+	height: 40px;
+}
+
+#permshopupgrades {
+	position: absolute;
+	top: 100px;
+	left: 57%;
+	width: 200px;
+	margin-left: -114px;
+	color: limegreen;
+	font-size: 1.2em;
+}
+
+#shopToggles{
+	position: absolute;
+	top: 113px;
+	left: 75%;
+	margin-left: -150px;
+
+}
+#resetShopUpgrades{
+	height: 30px;
+	width: 200px;
+}
+#toggleConfirmShop{
+	height: 30px;
+	width: 150px;
+}
+
+#permshopimage{
+	position: absolute;
+	top: 145px;
+	left: 47%;
+	width: 400px;
+	margin-left: -270px;
+	color: white;
+	font-size: 1em;
+}
+
+#quarkupgradesinfo {
+	position: absolute;
+	top: 380px;
+	left: 50%;
+	width: 600px;
+	margin-left: -300px;
+	text-align: center;
+}
+
+#ants {
+	position:absolute;
+
+	position: relative;
+	padding: 0px;
+	border: 1px solid brown;
+	top: 118px;
+	text-align: center
+}
+
+#antwelcome {
+	position: absolute;
+	padding: 0px;
+	top: 10px;
+	width: 500px;
+	text-align: center;
+	left: 50%;
+	margin-left: -250px;
+	font-size: 1.3em;
+}
+#antdescription {
+	position: absolute;
+	padding: 0px;
+	top: 50px;
+	width: 500px;
+	text-align: center;
+	left: 50%;
+	margin-left: -250px;
+}
+#antrow1 {
+	position: absolute;
+	padding: 0px;
+	top: 100px;
+	width: 500px;
+	text-align: center;
+	left: 50%;
+	margin-left: -250px;
+}
+
+#crumbcount {
+	position: absolute;
+	padding: 0px;
+	top: 120px;
+	width: 1000px;
+	left: 50%;
+	text-align: center;
+	margin-left: -500px;
+	font-size: 1.2em;
+	height: 5px;
+}
+#antrow2 {
+	position: absolute;
+	padding: 0px;
+	top: 150px;
+	width: 750px;
+	text-align: center;
+	left: 50%;
+	margin-left: -375px;
+}
+
+#anttierdescription {
+	position: absolute;
+	padding: 0px;
+	width: 750px;
+	text-align: center;
+	left: 50%;
+	margin-left: -375px;
+}
+#antprice {
+	position: absolute;
+	padding: 0px;
+	top: 20px;
+	width: 750px;
+	text-align: center;
+	left: 50%;
+	margin-left: -375px;
+}
+#antquantity {
+	position: absolute;
+	padding: 0px;
+	top: 40px;
+	width: 750px;
+	text-align: center;
+	left: 50%;
+	margin-left: -375px;
+}
+#generateant {
+	position: absolute;
+	padding: 0px;
+	top: 60px;
+	width: 750px;
+	text-align: center;
+	left: 50%;
+	margin-left: -375px;
+}
+
+
+
+#antrow3 {
+	position: absolute;
+	padding: 0px;
+	top: 260px;
+	width: 1000px;
+	text-align: center;
+	left: 50%;
+	margin-left: -500px;
+}
+#antspecies {
+	position: absolute;
+	padding: 0px;
+	top: -5px;
+	width: 1000px;
+	text-align: center;
+	left: 50%;
+	margin-left: -500px;
+}
+#antupgradedescription {
+	position: absolute;
+	padding: 0px;
+	top: 25px;
+	width: 1000px;
+	text-align: center;
+	left: 50%;
+	margin-left: -500px;
+}
+#antupgradecost {
+	position: absolute;
+	padding: 0px;
+	top: 55px;
+	width: 1000px;
+	text-align: center;
+	left: 50%;
+	margin-left: -500px;
+}
+#antupgradeeffect {
+	position: absolute;
+	padding: 0px;
+	top: 85px;
+	width: 1000px;
+	text-align: center;
+	left: 50%;
+	margin-left: -500px;
+}
+
+#antrow4 {
+	position: absolute;
+	padding: 0px;
+	top: 410px;
+	width: 1000px;
+	text-align: center;
+	left: 50%;
+	margin-left: -500px;
+}
+
+#antSacrificeTimer{
+	position: absolute;
+	padding: 0px;
+	width: 300px;
+	margin-left: -118px;
+	top: 30px;
+	text-align: center;
+	left: 70%;
+}
+#antSacrifice{
+	position: absolute;
+	padding: 0px;
+	top: 70px;
+	text-align: center;
+	left: 70%;
+}
+
+
+#antSacrificeSummary {
+	position: absolute;
+	padding: 0px;
+	width: 300px;
+	top: 30px;
+	text-align: center;
+	left: 77%;
+}
+#antELO{
+	position: absolute;
+}
+#antTimeMultiplier {
+	position: absolute;
+	top: 20px;
+}
+#antSacrificeTitle{
+	position:absolute;
+	top: 40px;
+}
+#antSacrificeMultiplier{
+	position:absolute;
+	top: 60px;
+}
+#antSacrificeTable{
+	position:absolute;
+	top: 102px;
+	left: 100px;
+	padding: 0px;
+	border-spacing: 0px;
+}
+#switchsettingtab {
+	position: absolute;
+	height: 30px;
+	width: 200px;
+	left: 50%;
+	margin-left: -100px;
+	top: 40px;
+	border: 2px solid gold;
+}
+#programminghelp {
+	position: absolute;
+	text-align: center;
+	width: 1000px;
+	left: 50%;
+	margin-left: -500px;
+	top: 80px;
+	font-size: 1.2em;
+}
+#artisthelp {
+	position: absolute;
+	text-align: center;
+	width: 1000px;
+	left: 50%;
+	margin-left: -500px;
+	top: 130px;
+	font-size: 1.2em;
+}
+#boosters {
+	position: absolute;
+	text-align: center;
+	width: 1000px;
+	left: 50%;
+	margin-left: -500px;
+	top: 180px;
+	font-size: 1.2em;
+}
+#shameless {
+	position: absolute;
+	text-align: center;
+	width: 1000px;
+	left: 50%;
+	margin-left: -500px;
+	top: 280px;
+	font-size: 1.5em;
+}
