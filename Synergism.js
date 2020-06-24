@@ -987,7 +987,7 @@ function format(input,accuracy,long){
 		var matissa = input / Math.pow(10, Math.floor(Math.log10(Math.abs(input))));
 		var power = Math.floor(Math.log10(Math.abs(input)));
 	}
-	if (input == 0 || matissa == 0) {
+	if (input === 0 || matissa === 0) {
 		return (input)
 	}
 	//if (matissa < 0) {matissa *= -1}
