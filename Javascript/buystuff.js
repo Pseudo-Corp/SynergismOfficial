@@ -1,4 +1,6 @@
 function getCostAccelerator(buyingTo) {
+	--buyingTo;
+
 	let originalCost = 500;
 	let cost = new Decimal(originalCost);
 
@@ -93,6 +95,8 @@ function buyAccelerator(autobuyer) {
 
 function getCostMultiplier(buyingTo)
 {
+	--buyingTo;
+	
 	let originalCost = 1e5;
 	let cost = new Decimal(originalCost);
 	cost = cost.times(Decimal.pow(10, buyingTo / costDivisor));
