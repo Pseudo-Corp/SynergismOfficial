@@ -1020,7 +1020,6 @@ function format(input,accuracy,long){
 	if (power < 6)
 	{
 		let n = mantissa * Math.pow(10, power);
-		if (n > 99 && n < 101) console.log(power,n,mantissa);
 		if (accuracy > power)
 		{
 			n = n.toFixed(accuracy - power);
