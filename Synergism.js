@@ -977,70 +977,74 @@ updateAchievementBG();
  })();
 
 function format(input,accuracy,long){
-	accuracy = accuracy || 0;
-	long = long || false
+	if (accuracy === undefined)
+	{
+		accuracy = 0;
+	}
+	long = long || false;
+
+	let group3 = /\B(?=(\d{3})+(?!\d))/g;
+	let power;
+	let mantissa;
 	if (input instanceof Decimal) {
-		var power = input.e
-		var matissa = input.mantissa
+		power = input.e;
+		mantissa = input.mantissa;
 	}
-	else if (input != 0) {
-		var matissa = input / Math.pow(10, Math.floor(Math.log10(Math.abs(input))));
-		var power = Math.floor(Math.log10(Math.abs(input)));
+	else if (input !== 0)
+	{
+		power = Math.floor(Math.log10(Math.abs(input)));
+		mantissa = input / Math.pow(10, power);
 	}
-	if (input === 0 || matissa === 0) {
-		return (input)
+	else
+	{
+		return "0";
 	}
-	//if (matissa < 0) {matissa *= -1}
-
-	if (!long || power > 12){
-	if(power > 5.5) {
-	 matissa = matissa.toFixed(2)
-	 if (matissa >= 10) {
-		 matissa /= 10;
-		 power++;
-	 }
-	 	if (power < -12){return ("0")}
-		if (power > 100000 && power < 1000000) return (matissa + "e" + power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-		if (power >= 1000000 && power < 10000000) {power /= 1000; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "M".toString())}
-		if (power >= 10000000 && power < 100000000) {power /= 10000; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "M".toString())}
-		if (power >= 100000000 && power < 1000000000) {power /= 100000; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "M".toString())}
-		if (power >= 1000000000 && power < 10000000000) {power /= 1000000; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "B".toString())}
-		if (power >= 1e10 && power < 1e11) {power /= 1e7; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "B".toString())}
-		if (power >= 1e11 && power < 1e12) {power /= 1e8; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "B".toString())}
-		if (power >= 1e12 && power < 1e13) {power /= 1e9; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "T".toString())}
-		if (power >= 1e13 && power < 1e14) {power /= 1e10; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "T".toString())}
-		if (power >= 1e14 && power < 1e15) {power /= 1e11; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "T".toString())}
-		if (power >= 1e15 && power < 1e16) {power /= 1e12; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "Qa".toString())}
-
-
-	return (matissa + "e" + power);	 
+	if (mantissa >= 10 || mantissa < 1)
+	{
+		let factor = Math.floor(Math.log10(mantissa));
+		mantissa /= Math.pow(10, factor);
+		power += factor;
 	}
-	if (power < 5.5 && power >= 1) {
-		var n = matissa * Math.pow(10, power);
-		n = n.toFixed(0);
-		return(n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-	}
-	if (power >= -11  && power <= 0) {
-		var n = matissa * Math.pow(10,power);
-		n = n.toFixed(accuracy)
-		return(n.toString())
-	}
-	if (power < (-308)){
-		return(0)
-	}
-	else {
-		var n = 0
-		return(n.toString())
-	}
-	}
-
+	let mantissaLook = mantissa.toFixed(2);
+	// I didn't touch this much cause I couldn't quite discern the uses for it
 	if(long && power <= 12){
 		let decimalSpots = accuracy
-		var n = matissa * Math.pow(10, power);
+		let n = mantissa * Math.pow(10, power);
 		if(n >= 1000){decimalSpots = 0;}
 		n = n.toFixed(decimalSpots);
-		return(n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+		return(n.toString().replace(group3, ","));
+	}
+	if (power < -12) { return "0"; }
+	if (power < 6)
+	{
+		let n = mantissa * Math.pow(10, power);
+		if (accuracy > power)
+		{
+			n = n.toFixed(accuracy - power);
+			return n.toString();
 		}
+		else
+		{
+			n = n.toFixed(0);
+			return n.toString().replace(group3, ",");
+		}
+	}
+	if (power < 1e6) { return mantissaLook + "e" + power.toString().replace(group3, ","); }
+	let powerLook;
+	if (power >= 1e6)
+	{
+		let powerDigits = Math.ceil(Math.log10(power));
+		let powerFront = ((powerDigits - 1) % 3) + 1;
+		powerLook = power / Math.pow(10, powerDigits - powerFront );
+		powerLook = powerLook.toFixed(4 - powerFront);
+	}
+	if (power < 1e9) { return mantissaLook + "e" + powerLook + "M"; }
+	if (power < 1e12) { return mantissaLook + "e" + powerLook + "B"; }
+	if (power < 1e15) { return mantissaLook + "e" + powerLook + "T"; }
+	if (power < 1e18) { return mantissaLook + "e" + powerLook + "Qa"; }
+	return (matissa + "e" + power);
+
+	
 
 }
 // Update calculations for Accelerator/Multiplier as well as just Production modifiers in general [Lines 600-897]

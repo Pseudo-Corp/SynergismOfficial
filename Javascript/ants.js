@@ -65,14 +65,14 @@ function updateAntDescription(i) {
     el.textContent = content1
 
     switch(i){
-    case 1: priceType = "Particles"; tier = "first"; me.textContent = "Generates " + format(antOneProduce,4) + " Crumbs/sec"; break;
-    case 2: tier = "second"; me.textContent = "Generates " + format(antTwoProduce,4) + " Workers/sec"; break;
-    case 3: tier = "third"; me.textContent = "Generates " + format(antThreeProduce,4) + " Breeders/sec"; break;
-    case 4: tier = "fourth"; me.textContent = "Generates " + format(antFourProduce,4) + " MetaBreeders/sec"; break;
-    case 5: tier = "fifth"; me.textContent = "Generates " + format(antFiveProduce,4) + " MegaBreeders/sec"; break;
-    case 6: tier = "sixth"; me.textContent = "Generates " + format(antSixProduce,4) + " Queens/sec"; break;
-    case 7: tier = "seventh"; me.textContent = "Generates " + format(antSevenProduce,4) + " Royals/sec"; break;
-    case 8: tier = "eighth"; me.textContent = "Generates " + format(antEightProduce,4) + " ALMIGHTIES/sec"; break;
+    case 1: priceType = "Particles"; tier = "first"; me.textContent = "Generates " + format(antOneProduce,0) + " Crumbs/sec"; break;
+    case 2: tier = "second"; me.textContent = "Generates " + format(antTwoProduce,0) + " Workers/sec"; break;
+    case 3: tier = "third"; me.textContent = "Generates " + format(antThreeProduce,0) + " Breeders/sec"; break;
+    case 4: tier = "fourth"; me.textContent = "Generates " + format(antFourProduce,0) + " MetaBreeders/sec"; break;
+    case 5: tier = "fifth"; me.textContent = "Generates " + format(antFiveProduce,0) + " MegaBreeders/sec"; break;
+    case 6: tier = "sixth"; me.textContent = "Generates " + format(antSixProduce,0) + " Queens/sec"; break;
+    case 7: tier = "seventh"; me.textContent = "Generates " + format(antSevenProduce,0) + " Royals/sec"; break;
+    case 8: tier = "eighth"; me.textContent = "Generates " + format(antEightProduce,0) + " ALMIGHTIES/sec"; break;
     }
     la.textContent = "Cost: " + format(player[tier + "CostAnts"]) + " " + priceType
     ti.textContent = "Owned: " + format(player[tier + "OwnedAnts"]) + " [+" + format(player[tier + "GeneratedAnts"],2) + "]"
