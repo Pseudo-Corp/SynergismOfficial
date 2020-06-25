@@ -999,9 +999,11 @@ function format(input,accuracy,long){
 	{
 		return "0";
 	}
-	if (mantissa >= 10 || mantissa < 1)
+	// this 9.9999 prevents rounding errors from jittering, if it is >= 10 instead when numbers are NEAR a 10 but not exactly 10, ie 9.9999999997 they will jitter back and forth between 2 different powers, this prevents that 
+	if (mantissa > 9.9999 || mantissa < 1)
 	{
-		let factor = Math.floor(Math.log10(mantissa));
+		// this log10(1.0001) also prevents rounding errors from jittering if a number is NEAR a 10 but not exactly 10, ie 9.9999999997 they will jitter back and forth between 2 different powers, this prevents that 
+		let factor = Math.floor(Math.log10(mantissa) + Math.log10(1.0001));
 		mantissa /= Math.pow(10, factor);
 		power += factor;
 	}
@@ -1018,6 +1020,7 @@ function format(input,accuracy,long){
 	if (power < 6)
 	{
 		let n = mantissa * Math.pow(10, power);
+		if (n > 99 && n < 101) console.log(power,n,mantissa);
 		if (accuracy > power)
 		{
 			n = n.toFixed(accuracy - power);
