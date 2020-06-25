@@ -1667,7 +1667,6 @@ function resetCheck(i,manual) {
 			if (q == "four") {x = 69}
 			if (q == "five") {x = 70} 
 		if (player.currentChallenge !== "") {
-			console.log(player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirements[q] * Math.pow(1 + player.challengecompletions[q], 2) * Math.pow(1.5, Math.max(0, player.challengecompletions[q] - 75)))) && player.challengecompletions[q] < (25 + player.researches[x] + 925 * player.researches[105]))
 
 			if (player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirements[q] * Math.pow(1 + player.challengecompletions[q], 2) * Math.pow(1.5, Math.max(0, player.challengecompletions[q] - 75)))) && player.challengecompletions[q] < (25 + player.researches[x] + 925 * player.researches[105])) {
 			player.challengecompletions[q] += 1;
@@ -2114,8 +2113,6 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 		event.preventDefault();
 		keyboardtabchange(1);
 	}
-	console.log(event.key)
-
 });
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load', function() {

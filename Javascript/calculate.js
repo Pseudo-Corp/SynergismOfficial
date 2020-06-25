@@ -61,8 +61,6 @@ function calculateTalismanEffects(){
         
         if(player.talismanSeven[i] == (1)){talisman7Effect[i] = (talismanPositiveModifier[player.talismanRarity[7]] + positiveBonus) * player.talismanLevels[7]}
         else{talisman7Effect[i] = talismanNegativeModifier[player.talismanRarity[7]] * player.talismanLevels[7] * (-1)}
-        
-        console.log(player.talismanOne[i])
     }
     rune1Talisman = 0;
     rune2Talisman = 0;
@@ -207,7 +205,6 @@ timeWarp = true
 if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
     var updatedtime = Date.now()
     var timeadd = Math.min(28800 * 3, Math.max(forceTime, (updatedtime - player.offlinetick) / 1000)) * divineBlessing1;
-    console.log(timeadd)
     timeadd *= (1 + player.researches[121]/50)
     document.getElementById("offlineTimer").textContent = "You have " + format(timeadd,2) + " seconds of Offline Progress!";
     let simulatedTicks = 800;

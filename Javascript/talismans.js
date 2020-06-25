@@ -255,7 +255,6 @@ function changeTalismanModifier(i){
     let checkSum = mirrorTalismanStats.reduce(function(a, b) { 
         return a + b;
     }, 0);
-    console.log(checkSum)
 
     if (checkSum == 1){
     document.getElementById("confirmTalismanRespec").style.display = "block";
