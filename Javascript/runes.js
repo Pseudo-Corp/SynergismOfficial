@@ -21,6 +21,7 @@
         if (player.upgrades[71] == 1 && i == 3){s = player.runelevels[2]}
         if (player.upgrades[71] == 1 && i == 4){s = player.runelevels[3]}
         if (player.upgrades[71] == 1 && i == 5){s = player.runelevels[4]}
+        if (player.upgrades[78] === 1) document.getElementById("toggleofferingbuy").innerHTML = "Toggle amount used by sacrifice, multiplied by 1000<br>due to a Reincarnation Upgrade.";
         
 
         if (i == 1) {
