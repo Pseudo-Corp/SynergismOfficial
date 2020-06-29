@@ -236,7 +236,7 @@ var antEightProduce = new Decimal("1");
 var antCostGrowth = [null, 1e40, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32]
 
 var antUpgradeBaseCost = [null, 100, 100, 1000, 1000, 1e5, 1e6, 1e8, 1e11, 1e15, 1e20, 1e40, 1e100]
-var antUpgradeCostIncreases = [null, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 100]
+var antUpgradeCostIncreases = [null, 10, 10, 10, 10, 100, 100, 100, 100, 1000, 1000, 1000, 1e100]
 
 var bonusant1 = 0;
 var bonusant2 = 0;

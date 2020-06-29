@@ -87,7 +87,8 @@ var q = 3;
 if (player.unlocks.coinfour == true) {q += 1}
 if (player.unlocks.prestige == true) {q += 2}
 if (player.unlocks.transcend == true) {q += 2}
-if (player.unlocks.reincarnate == true) {q += 3}
+if (player.unlocks.reincarnate == true) {q += 2}
+if (player.challengecompletions.eight > 0) {q += 1}
 player.tabnumber += i
 if (player.tabnumber == q) {player.tabnumber = 1}
 if (player.tabnumber == 0) {player.tabnumber = q - 1}
@@ -171,7 +172,7 @@ function toggleAutoResearch() {
 
 
     if(!player.autoResearchToggle){
-        for (var i = 1; i <= 100; i++){
+        for (var i = 1; i <= 125; i++){
             let l = document.getElementById("res" + i)
             if (player.researches[i] == 0){l.style.backgroundColor = "black"}
             if (player.researches[i] > 0 && player.researches[i] < researchMaxLevels[i]){l.style.backgroundColor = "purple"}
