@@ -993,16 +993,19 @@ function format(input,accuracy,long){
 	long = long || false;
 	let power;
 	let mantissa;
+	// Gets power and mantissa if input is of type decimal
 	if (input instanceof Decimal)
 	{
 		power = input.e;
 		mantissa = input.mantissa;
 	}
-	else if (input !== 0)
+	// Gets power and mantissa if input is of type number and isnt 0
+	else if (input instanceof Number && input !== 0)
 	{
 		power = Math.floor(Math.log10(Math.abs(input)));
 		mantissa = input / Math.pow(10, power);
 	}
+	// If it isn't one of those two it isn't formattable, return 0
 	else
 	{
 		return "0";
@@ -1019,59 +1022,80 @@ function format(input,accuracy,long){
 		mantissa = 1;
 	}
 
+	// If the power is less than 12 it's effectively 0
 	if (power < -12)
 	{
 		return "0";
 	}
+	// If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
 	else if (power < 6 || (long && power < 13))
 	{
+		// Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13
 		let standard = mantissa * Math.pow(10, power);
+		// If the power is less than 1 or format long and less than 3 apply toFixed(accuracy) to get decimal places
 		if ((power < 1 || (long && power < 3)) && accuracy > 0)
 		{
 			standard = standard.toFixed(accuracy);
 		}
+		// If it doesn't fit those criteria drop the decimal places
 		else
 		{
 			standard = Math.floor(standard);
 		}
+		// Turn the number to string
 		standard = standard.toString();
+		// Split it on the decimal place
 		let split = standard.split('.');
+		// Get the front half of the number (pre-decimal point)
 		let front = split[0];
+		// Get the back half of the number (post-decimal point)
 		let back = split[1];
+		// Apply a number group 3 comma regex to the front
 		front = front.replace(/(?!^)(?=(\d{3})+$)/g, ",");
+		// if the back is undefined that means there are no decimals to display, return just the front
 		if (back === undefined)
 		{
 			return front;
 		}
+		// Else return the front.back
 		else
 		{
 			return front + "." + back;
 		}
 	}
+	// If the power is less than 1e6 then apply standard scientific notation
 	else if (power < 1e6)
 	{
+		// Makes mantissa be to 2 decimal places 
 		let mantissaLook = mantissa.toFixed(2);
 		mantissaLook = mantissaLook.toString();
+		// Makes the power group 3 with commas
 		let powerLook = power.toString();
 		powerLook = powerLook.replace(/(?!^)(?=(\d{3})+$)/g, ",");
+		// returns format (1.23e456,789)
 		return mantissaLook + "e" + powerLook;
 	}
+	// if the power is greater than 1e6 apply notation scientific notation
 	else if (power >= 1e6)
 	{
+		// Makes mantissa be to 2 decimal places
 		let mantissaLook = mantissa.toFixed(2);
 		mantissaLook = mantissaLook.toString();
+		// Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234) 
 		let powerDigits = Math.ceil(Math.log10(power));
 		let powerFront = ((powerDigits - 1) % 3) + 1;
 		let powerLook = power / Math.pow(10, powerDigits - powerFront );
 		powerLook = powerLook.toFixed(4 - powerFront);
 		powerLook = powerLook.toString();
-		powerLook = powerLook.replace(/(?!^)(?=(\d{3})+$)/g, ",");
+		// Return relevant notations alongside the "look" power based on what the power actually is
 		if (power < 1e9) { return mantissaLook + "e" + powerLook + "M"; }
 		if (power < 1e12) { return mantissaLook + "e" + powerLook + "B"; }
 		if (power < 1e15) { return mantissaLook + "e" + powerLook + "T"; }
 		if (power < 1e18) { return mantissaLook + "e" + powerLook + "Qa"; }
+		// If it doesn't fit a notation then default to mantissa e power
 		return mantissa + "e" + power;
 	}
+	// Failsafe
 	else
 	{
 		return "undefined";
