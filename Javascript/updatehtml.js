@@ -56,6 +56,10 @@ function revealStuff() {
     for (var i = 0; i < k.length; i++) {
     k[i].style.display = "none"
     };
+    var ki = document.getElementsByClassName("chal7x10");
+    for (var i = 0; i < ki.length; i++){
+    ki[i].style.display = "none"
+    }
     let l = document.getElementsByClassName("chal8");
     for (var i = 0; i < l.length; i++){
     l[i].style.display = "none"
@@ -185,10 +189,16 @@ if (player.unlocks.rrow2 == true) {
                     e[i].style.display = "block";
                             }
                         }
-                        if (player.achievements[124] == 1){
+                        if (player.achievements[120] == 1){
                             let e = document.getElementsByClassName("chal7");
                             for (var i = 0; i < e.length; i++){
                                 e[i].style.display= "block"
+                            }
+                        }
+                        if (player.achievements[124] == 1){
+                            let e = document.getElementsByClassName("chal7x10");
+                            for (var i = 0; i < e.length; i++) {
+                                e[i].style.display = "block";
                             }
                         }
                           if (player.achievements[127] == 1){
@@ -731,7 +741,7 @@ document.getElementById("anttier7").style.backgroundColor = "#171717"
 document.getElementById("anttier8").style.backgroundColor = "#171717"
 
 for (var i = 1; i <= 12; i++){
-  if(player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[i] * player.antUpgrades[i]).times(antUpgradeBaseCost[i]))){
+  if(player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[i],player.antUpgrades[i]).times(antUpgradeBaseCost[i]))){
   document.getElementById("antUpgrade" + i).style.backgroundColor = "silver"
   }
   else {

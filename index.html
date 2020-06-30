@@ -784,7 +784,7 @@
             <p class="reincarnationunlock" id="researchrunebonus">Thanks to researches, your effective levels are increased by 0%</p>
             <p id="runehotkeys">Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!</p>
             </div>
-            <div id="runecontainer2">
+            <div id="runecontainer2" style="display: none;">
                 <div id="buyamounttalisman">
                 <table id="talismanbuyamount">
                     <tr>
@@ -1117,11 +1117,11 @@
                     <td><img id="res53" src="Pictures/Transparent Pics/Research53.png" alt="" onclick="buyResearch(53);" onmouseover="researchdescriptions(53)">                    </td>
                     <td><img id="res54" src="Pictures/Transparent Pics/Research54.png" alt="" onclick="buyResearch(54);" onmouseover="researchdescriptions(54)">                    </td>
                     <td><img id="res55" src="Pictures/Transparent Pics/Research55.png" alt="" onclick="buyResearch(55);" onmouseover="researchdescriptions(55)">                    </td>
-                    <td><img id="res76" src="Pictures/Transparent Pics/Research76.png" alt="" onclick="buyResearch(76);" class="chal7" style="display:none" onmouseover="researchdescriptions(76)">                    </td>
-                    <td><img id="res77" src="Pictures/Transparent Pics/Research77.png" alt="" onclick="buyResearch(77);" class="chal7" style="display:none" onmouseover="researchdescriptions(77)">                    </td>
-                    <td><img id="res78" src="Pictures/Transparent Pics/Research78.png" alt="" onclick="buyResearch(78);" class="chal7" style="display:none" onmouseover="researchdescriptions(78)">                    </td>
-                    <td><img id="res79" src="Pictures/Transparent Pics/Research79.png" alt="" onclick="buyResearch(79);" class="chal7" style="display:none" onmouseover="researchdescriptions(79)">                    </td>
-                    <td><img id="res80" src="Pictures/Transparent Pics/Research80.png" alt="" onclick="buyResearch(80);" class="chal7" style="display:none" onmouseover="researchdescriptions(80)">                    </td>
+                    <td><img id="res76" src="Pictures/Transparent Pics/Research76.png" alt="" onclick="buyResearch(76);" class="chal7x10" style="display:none" onmouseover="researchdescriptions(76)">                    </td>
+                    <td><img id="res77" src="Pictures/Transparent Pics/Research77.png" alt="" onclick="buyResearch(77);" class="chal7x10" style="display:none" onmouseover="researchdescriptions(77)">                    </td>
+                    <td><img id="res78" src="Pictures/Transparent Pics/Research78.png" alt="" onclick="buyResearch(78);" class="chal7x10" style="display:none" onmouseover="researchdescriptions(78)">                    </td>
+                    <td><img id="res79" src="Pictures/Transparent Pics/Research79.png" alt="" onclick="buyResearch(79);" class="chal7x10" style="display:none" onmouseover="researchdescriptions(79)">                    </td>
+                    <td><img id="res80" src="Pictures/Transparent Pics/Research80.png" alt="" onclick="buyResearch(80);" class="chal7x10" style="display:none" onmouseover="researchdescriptions(80)">                    </td>
                     <td><img id="res101" src="Pictures/Transparent Pics/Research101.png" alt="" onclick="buyResearch(101);" class="chal9" style="display:none" onmouseover="researchdescriptions(101)">                    </td>
                     <td><img id="res102" src="Pictures/Transparent Pics/Research102.png" alt="" onclick="buyResearch(102);" class="chal9" style="display:none" onmouseover="researchdescriptions(102)">                    </td>
                     <td><img id="res103" src="Pictures/Transparent Pics/Research103.png" alt="" onclick="buyResearch(103);" class="chal9" style="display:none" onmouseover="researchdescriptions(103)">                    </td>
@@ -1258,14 +1258,14 @@
             <p id="antdescription" style="color: plum">Hover over the icons for description. Click icons to buy!</p>
 
             <div id="antrow1">
-                <img id="anttier1" src="Pictures/Transparent Pics/AntTierOne.png" onmouseover="updateAntDescription(1);antRepeat(1)" onclick="buyAnts(1)" style="cursor: pointer;">
-                <img id="anttier2" src="Pictures/Transparent Pics/AntTierTwo.png" onmouseover="updateAntDescription(2);antRepeat(2)" onclick="buyAnts(2)" style="cursor: pointer;">
-                <img id="anttier3" src="Pictures/Transparent Pics/AntTierThree.png" onmouseover="updateAntDescription(3);antRepeat(3)" onclick="buyAnts(3)" style="cursor: pointer;">
-                <img id="anttier4" src="Pictures/Transparent Pics/AntTierFour.png" onmouseover="updateAntDescription(4);antRepeat(4)" onclick="buyAnts(4)" style="cursor: pointer;">
-                <img id="anttier5" src="Pictures/Transparent Pics/AntTierFive.png" onmouseover="updateAntDescription(5);antRepeat(5)" onclick="buyAnts(5)" style="cursor: pointer;">
-                <img id="anttier6" src="Pictures/Transparent Pics/AntTierSix.png" onmouseover="updateAntDescription(6);antRepeat(6)" onclick="buyAnts(6)" style="cursor: pointer;">
-                <img id="anttier7" src="Pictures/Transparent Pics/AntTierSeven.png" onmouseover="updateAntDescription(7);antRepeat(7)" onclick="buyAnts(7)" style="cursor: pointer;">
-                <img id="anttier8" src="Pictures/Transparent Pics/AntTierEight.png" onmouseover="updateAntDescription(8);antRepeat(8)" onclick="buyAnts(8)" style="cursor: pointer;">
+                <img id="anttier1" src="Pictures/Transparent Pics/AntTierOne.png" onmouseover="updateAntDescription(1);antRepeat(1)" onclick="buyAntProducers('first','Ants','1e1200',1)" style="cursor: pointer;">
+                <img id="anttier2" src="Pictures/Transparent Pics/AntTierTwo.png" onmouseover="updateAntDescription(2);antRepeat(2)" onclick="buyAntProducers('second','Ants','3',2)" style="cursor: pointer;">
+                <img id="anttier3" src="Pictures/Transparent Pics/AntTierThree.png" onmouseover="updateAntDescription(3);antRepeat(3)" onclick="buyAntProducers('third','Ants','100',3)" style="cursor: pointer;">
+                <img id="anttier4" src="Pictures/Transparent Pics/AntTierFour.png" onmouseover="updateAntDescription(4);antRepeat(4)" onclick="buyAntProducers('fourth','Ants','10000',4)" style="cursor: pointer;">
+                <img id="anttier5" src="Pictures/Transparent Pics/AntTierFive.png" onmouseover="updateAntDescription(5);antRepeat(5)" onclick="buyAntProducers('fifth','Ants','1e12',5)" style="cursor: pointer;">
+                <img id="anttier6" src="Pictures/Transparent Pics/AntTierSix.png" onmouseover="updateAntDescription(6);antRepeat(6)" onclick="buyAntProducers('sixth','Ants','1e36',6)" style="cursor: pointer;">
+                <img id="anttier7" src="Pictures/Transparent Pics/AntTierSeven.png" onmouseover="updateAntDescription(7);antRepeat(7)" onclick="buyAntProducers('seventh','Ants','1e100',7)" style="cursor: pointer;">
+                <img id="anttier8" src="Pictures/Transparent Pics/AntTierEight.png" onmouseover="updateAntDescription(8);antRepeat(8)" onclick="buyAntProducers('eighth','Ants','1e300',8)" style="cursor: pointer;">
             </div>
            
             <p id="crumbcount" style="color: crimson;">You have 0 Galactic Crumbs.</p>
@@ -1286,18 +1286,18 @@
             </div>
 
             <div id="antrow4">
-                <img id="antUpgrade1" src="Pictures/Transparent Pics/AntUpgrade1.png" onmouseover="antUpgradeDescription(1)" onclick="buyAntUpgrade(1,false)" style="cursor: pointer;">
-                <img id="antUpgrade2" src="Pictures/Transparent Pics/AntUpgrade2.png" onmouseover="antUpgradeDescription(2)" onclick="buyAntUpgrade(2,false)" style="cursor: pointer;">
-                <img id="antUpgrade3" src="Pictures/Transparent Pics/AntUpgrade3.png" onmouseover="antUpgradeDescription(3)" onclick="buyAntUpgrade(3,false)" style="cursor: pointer;">
-                <img id="antUpgrade4" src="Pictures/Transparent Pics/AntUpgrade4.png" onmouseover="antUpgradeDescription(4)" onclick="buyAntUpgrade(4,false)" style="cursor: pointer;">
-                <img id="antUpgrade5" src="Pictures/Transparent Pics/AntUpgrade5.png" onmouseover="antUpgradeDescription(5)" onclick="buyAntUpgrade(5,false)" style="cursor: pointer;">
-                <img id="antUpgrade6" src="Pictures/Transparent Pics/AntUpgrade6.png" onmouseover="antUpgradeDescription(6)" onclick="buyAntUpgrade(6,false)" style="cursor: pointer;">
-                <img id="antUpgrade7" src="Pictures/Transparent Pics/AntUpgrade7.png" onmouseover="antUpgradeDescription(7)" onclick="buyAntUpgrade(7,false)" style="cursor: pointer;">
-                <img id="antUpgrade8" src="Pictures/Transparent Pics/AntUpgrade8.png" onmouseover="antUpgradeDescription(8)" onclick="buyAntUpgrade(8,false)" style="cursor: pointer;">
-                <img id="antUpgrade9" src="Pictures/Transparent Pics/AntUpgrade9.png" onmouseover="antUpgradeDescription(9)" onclick="buyAntUpgrade(9,false)" style="cursor: pointer;">
-                <img id="antUpgrade10" src="Pictures/Transparent Pics/AntUpgrade10.png" onmouseover="antUpgradeDescription(10)" onclick="buyAntUpgrade(10,false)" style="cursor: pointer;">
-                <img id="antUpgrade11" src="Pictures/Transparent Pics/AntUpgrade11.png" onmouseover="antUpgradeDescription(11)" onclick="buyAntUpgrade(11,false)" style="cursor: pointer;">
-                <img id="antUpgrade12" src="Pictures/Transparent Pics/AntUpgrade12.png" onmouseover="antUpgradeDescription(12)" onclick="buyAntUpgrade(12,false)" style="cursor: pointer;">
+                <img id="antUpgrade1" src="Pictures/Transparent Pics/AntUpgrade1.png" onmouseover="antUpgradeDescription(1)" onclick="buyAntUpgrade('100',false,1)" style="cursor: pointer;">
+                <img id="antUpgrade2" src="Pictures/Transparent Pics/AntUpgrade2.png" onmouseover="antUpgradeDescription(2)" onclick="buyAntUpgrade('100',false,2)" style="cursor: pointer;">
+                <img id="antUpgrade3" src="Pictures/Transparent Pics/AntUpgrade3.png" onmouseover="antUpgradeDescription(3)" onclick="buyAntUpgrade('1000',false,3)" style="cursor: pointer;">
+                <img id="antUpgrade4" src="Pictures/Transparent Pics/AntUpgrade4.png" onmouseover="antUpgradeDescription(4)" onclick="buyAntUpgrade('1000',false,4)" style="cursor: pointer;">
+                <img id="antUpgrade5" src="Pictures/Transparent Pics/AntUpgrade5.png" onmouseover="antUpgradeDescription(5)" onclick="buyAntUpgrade('1e5',false,5)" style="cursor: pointer;">
+                <img id="antUpgrade6" src="Pictures/Transparent Pics/AntUpgrade6.png" onmouseover="antUpgradeDescription(6)" onclick="buyAntUpgrade('1e6',false,6)" style="cursor: pointer;">
+                <img id="antUpgrade7" src="Pictures/Transparent Pics/AntUpgrade7.png" onmouseover="antUpgradeDescription(7)" onclick="buyAntUpgrade('1e8',false,7)" style="cursor: pointer;">
+                <img id="antUpgrade8" src="Pictures/Transparent Pics/AntUpgrade8.png" onmouseover="antUpgradeDescription(8)" onclick="buyAntUpgrade('1e11',false,8)" style="cursor: pointer;">
+                <img id="antUpgrade9" src="Pictures/Transparent Pics/AntUpgrade9.png" onmouseover="antUpgradeDescription(9)" onclick="buyAntUpgrade('1e15',false,9)" style="cursor: pointer;">
+                <img id="antUpgrade10" src="Pictures/Transparent Pics/AntUpgrade10.png" onmouseover="antUpgradeDescription(10)" onclick="buyAntUpgrade('1e20',false,10)" style="cursor: pointer;">
+                <img id="antUpgrade11" src="Pictures/Transparent Pics/AntUpgrade11.png" onmouseover="antUpgradeDescription(11)" onclick="buyAntUpgrade('1e40',false,11)" style="cursor: pointer;">
+                <img id="antUpgrade12" src="Pictures/Transparent Pics/AntUpgrade12.png" onmouseover="antUpgradeDescription(12)" onclick="buyAntUpgrade('1e100',false,12)" style="cursor: pointer;">
             </div>
 
             <div id="sacrificeAnts" style="display: none">
@@ -1409,7 +1409,7 @@
             <div id="creditssubtab" style="display: none">
             <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>
             <p id="artisthelp" style="color:white">People who helped with art/design: Omsi, Alberan, Blank, ThalainTheCat, Sneekxy</p>
-            <p id="boosters" style="color:white">People who Boosted the Discord Server: <span style="color: lightskyblue">earth [Legacy], Flame [Legacy], Kittelson [Legacy], PerspectiveTransform [Legacy], somepersondontask [Legacy]</span>,<span style="color: green"> Internet Car Man [2x!], Julius Dungworth [2x!], mdog245 [2x!], Nethlion [2x!], Slavderr [2x!], Sneekxy [2x!], Tony Tells you to CHECK THE PINS [2x!], Valorswift420 [2x!], Veritas [2x!], Zirios [2x!]</span>,<span style="color: pink"> Ace Rimmer, Arkanos80, BobMcKnob, jables, Mophtran, Schizogen, Stang, theefool, Voltana, Ximon.</span></p>
+            <p id="boosters" style="color:white">People who Boosted the Discord Server: <span style="color: lightskyblue">earth [Legacy], Flame [Legacy], Kittelson [Legacy], PerspectiveTransform [Legacy], somepersondontask [Legacy]</span>,<span style="color: green"> Gnum [2x!], Internet Car Man [2x!], Julius Dungworth [2x!], mdog245 [2x!], Nethlion [2x!], Slavderr [2x!], Sneekxy [2x!], Tony Tells you to CHECK THE PINS [2x!], Valorswift420 [2x!], Veritas [2x!], Zirios [2x!]</span>,<span style="color: pink"> Ace Rimmer, Arkanos80, BobMcKnob, jables, Mophtran, Schizogen, Stang, theefool, Voltana, Ximon.</span></p>
             <p id="shameless" style="color: gold">And you, for playing my first ever project, Synergism!</p>             
         </div>
     </div>

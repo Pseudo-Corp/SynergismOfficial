@@ -154,7 +154,7 @@ function() { return "+" + format(Math.floor((1 + (1/101 * freeMultiplier)))) + "
 function() { return "+" + format(Math.floor((1 + (1/101 * freeMultiplier)))) + " Multipliers, +" + format(Math.floor((3 + (1/101 * freeAccelerator)))) + " Accelerators."},
 function() { return "+" + format(Math.floor((1 + (1/101 * freeMultiplier)))) + " Multipliers, +" + format(Math.floor((2 + (1/101 * freeAccelerator)))) + " Accelerators."},
 function() { return "+" + format(Math.floor((1 + (1/101 * freeMultiplier)))) + " Multipliers, +" + format(Math.floor((1 + (1/101 * freeAccelerator)))) + " Accelerators."},
-function() { return "+" + format(Math.floor((1 + (1/41 * freeAcceleratorBoost)))) + " Accelerator Boosts."},
+function() { return "+1 Accelerator Boost."},
 function() { return "+" + format(Math.min(250, Math.floor(Decimal.log(player.coins.add(1), 1e3))) +  Math.min(1750, Math.floor(Decimal.log(player.coins.add(1),1e15)) - 50)) + " Accelerators."},
 function() { return "+" + format(Math.min(1000, Math.floor((player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin)/160))) + " Multipliers."},
 function() { return "+" + format(Math.floor(Math.min(2000,(player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin) / 80))) + " Accelerators."},
@@ -435,10 +435,10 @@ var resdesc87 = "0/5 Multipliers SUCK: +1% Multipliers/Level."
 var resdesc88 = "-1/5 A.Boosts SUCK: +1% Accelerator Boosts/Level."
 var resdesc89 = "-5/5 MULTIPLIERS STILL SUCK: +4% Multiplier Boosts/Level"
 var resdesc90 = "Runes don't suck at all, but why not make them even BETTER? +1% Rune Effect/level!"
-var resdesc91 = "As lazy as this icon. A simple +1% Rune EXP for all runes!"
-var resdesc92 = "Even lazier! Another simple +1% Rune EXP for all runes!"
-var resdesc93 = "It's like I wasn't even trying. +1 Accelerator Boost per 100 Summative Rune Levels, per level."
-var resdesc94 = "The power of laziness benefits you. +100 Multiplier per 100 Summative Rune Levels, per level."
+var resdesc91 = "Why is the border pink? A simple +1% Rune EXP for all runes!"
+var resdesc92 = "This border is pink too! Another simple +1% Rune EXP for all runes!"
+var resdesc93 = "I think Platonic forgot to fix the border color. +1 Accelerator Boost per 100 Summative Rune Levels, per level."
+var resdesc94 = "Platonic, this is unplayable 0/5. +100 Multiplier per 100 Summative Rune Levels, per level."
 var resdesc95 = "Gain +40 base Offerings from Reincarnations by purchasing this. Math Nerds will love this!"
 var resdesc96 = "Ants slow? Add +0.00005 to ant efficiency increase per ant purchased per level."
 var resdesc97 = "Add +1 level to the first six upgradable ants per level!"

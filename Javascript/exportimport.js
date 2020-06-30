@@ -125,6 +125,13 @@ function promocodes() {
         player.worlds += 250;
         el.textContent = "It's finally here. Thank you for sticking with the game and playing it this long! [+250 Quarks]"
     }
+    else if(input == "750,000" && player.version == "1.010" && player.offerpromo22used == false){
+        player.offerpromo22used = true;
+        player.worlds += 150;
+        player.shopUpgrades.obtainiumPotion += 2;
+        player.shopUpgrades.offeringPotion += 2;
+        el.textContent = "Three Quarters of a million plays in under 2 months! Thank you so much for playing! [+150 Quarks, 2 of each potion!]"
+    }
     else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }

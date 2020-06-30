@@ -412,6 +412,7 @@ const player = {
 			  offerpromo19used: false,
 			  offerpromo20used: false,
 			  offerpromo21used: false,
+			  offerpromo22used: false,
 
 			  loaded1009: false,
 			  loaded1009hotfix1: false,
@@ -521,6 +522,7 @@ function loadSynergy() {
 	   if (data.loaded10091 === undefined){player.loaded10091 = false;}
 	   if (data.offerpromo20used === undefined){player.offerpromo20used = false;}
 	   if (data.loaded1010 === undefined){player.loaded1010 = false;}
+	   if (data.offerpromo22used === undefined){player.offerpromo22used = false;}
 
 	   if (player.offerpromo6used === undefined){
 		player.offerpromo6used = false; 
@@ -790,9 +792,9 @@ function loadSynergy() {
 
 		player.unlocks.rrow4 = false;
 		player.researchPoints += 3e7 * player.researches[50];
-		player.researchPoints += 1e9 * player.researches[96];
-		player.researchPoints += 3e9 * player.researches[97];
-		player.researchPoints += 1.5e10 * player.researches[98];
+		player.researchPoints += 2e9 * player.researches[96];
+		player.researchPoints += 5e9 * player.researches[97];
+		player.researchPoints += 3e10 * player.researches[98];
 		player.researches[50] = 0;
 		player.researches[96] = 0;
 		player.researches[97] = 0;
@@ -825,6 +827,10 @@ function loadSynergy() {
 		player.obtainiumpersecond = 0;
 		player.maxobtainiumpersecond = 0;
 		
+	}
+
+	if(data.offerpromo22used === undefined || data.offerpromo22used === false){
+		player.offerpromo22used = false;
 	}
 
 
@@ -977,16 +983,18 @@ updateAchievementBG();
  })();
 
 function format(input,accuracy,long){
-	if (accuracy === undefined)
-	{
-		accuracy = 0;
-	}
-	long = long || false;
+	//This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
 
-	let group3 = /\B(?=(\d{3})+(?!\d))/g;
+	//Input is the number to be formatted (string or value)
+	//Accuracy is how many decimal points that are to be displayed (Values <10 if !long, <1000 if long)
+	// Accuracy only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
+	//Long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
+	accuracy = accuracy || 0;
+	long = long || false;
 	let power;
 	let mantissa;
-	if (input instanceof Decimal) {
+	if (input instanceof Decimal)
+	{
 		power = input.e;
 		mantissa = input.mantissa;
 	}
@@ -999,55 +1007,64 @@ function format(input,accuracy,long){
 	{
 		return "0";
 	}
-	// this 9.9999 prevents rounding errors from jittering, if it is >= 10 instead when numbers are NEAR a 10 but not exactly 10, ie 9.9999999997 they will jitter back and forth between 2 different powers, this prevents that 
-	if (mantissa > 9.9999 || mantissa < 1)
+
+	if (power < -12)
 	{
-		// this log10(1.0001) also prevents rounding errors from jittering if a number is NEAR a 10 but not exactly 10, ie 9.9999999997 they will jitter back and forth between 2 different powers, this prevents that 
-		let factor = Math.floor(Math.log10(mantissa) + Math.log10(1.0001));
-		mantissa /= Math.pow(10, factor);
-		power += factor;
+		return "0";
 	}
-	let mantissaLook = mantissa.toFixed(2);
-	// I didn't touch this much cause I couldn't quite discern the uses for it
-	if(long && power <= 12){
-		let decimalSpots = accuracy
-		let n = mantissa * Math.pow(10, power);
-		if(n >= 1000){decimalSpots = 0;}
-		n = n.toFixed(decimalSpots);
-		return(n.toString().replace(group3, ","));
-	}
-	if (power < -12) { return "0"; }
-	if (power < 6)
+	else if (power < 6 || (long && power < 13))
 	{
-		let n = mantissa * Math.pow(10, power);
-		if (accuracy > power)
+		let standard = mantissa * Math.pow(10, power);
+		if ((power < 1 || (long && power < 3)) && accuracy > 0)
 		{
-			n = n.toFixed(accuracy - power);
-			return n.toString();
+			standard = standard.toFixed(accuracy);
 		}
 		else
 		{
-			n = n.toFixed(0);
-			return n.toString().replace(group3, ",");
+			standard = Math.floor(standard);
+		}
+		standard = standard.toString();
+		let split = standard.split('.');
+		let front = split[0];
+		let back = split[1];
+		front = front.replace(/(\d{1,3})(?=(\d{3})+$)/g, "$1,");
+		if (back === undefined)
+		{
+			return front;
+		}
+		else
+		{
+			return front + "." + back;
 		}
 	}
-	if (power < 1e6) { return mantissaLook + "e" + power.toString().replace(group3, ","); }
-	let powerLook;
-	if (power >= 1e6)
+	else if (power < 1e6)
 	{
+		let mantissaLook = mantissa.toFixed(2);
+		mantissaLook = mantissaLook.toString();
+		let powerLook = power.toString();
+		powerLook = powerLook.replace(/(\d{1,3})(?=(\d{3})+$)/g, "$1,");
+		return mantissaLook + "e" + powerLook;
+	}
+	else if (power >= 1e6)
+	{
+		let mantissaLook = mantissa.toFixed(2);
+		mantissaLook = mantissaLook.toString();
 		let powerDigits = Math.ceil(Math.log10(power));
 		let powerFront = ((powerDigits - 1) % 3) + 1;
-		powerLook = power / Math.pow(10, powerDigits - powerFront );
+		let powerLook = power / Math.pow(10, powerDigits - powerFront );
 		powerLook = powerLook.toFixed(4 - powerFront);
+		powerLook = powerLook.toString();
+		powerLook = powerLook.replace(/(\d{1,3})(?=(\d{3})+$)/g, "$1,");
+		if (power < 1e9) { return mantissaLook + "e" + powerLook + "M"; }
+		if (power < 1e12) { return mantissaLook + "e" + powerLook + "B"; }
+		if (power < 1e15) { return mantissaLook + "e" + powerLook + "T"; }
+		if (power < 1e18) { return mantissaLook + "e" + powerLook + "Qa"; }
+		return mantissa + "e" + power;
 	}
-	if (power < 1e9) { return mantissaLook + "e" + powerLook + "M"; }
-	if (power < 1e12) { return mantissaLook + "e" + powerLook + "B"; }
-	if (power < 1e15) { return mantissaLook + "e" + powerLook + "T"; }
-	if (power < 1e18) { return mantissaLook + "e" + powerLook + "Qa"; }
-	return (matissa + "e" + power);
-
-	
-
+	else
+	{
+		return "undefined";
+	}
 }
 // Update calculations for Accelerator/Multiplier as well as just Production modifiers in general [Lines 600-897]
 
@@ -1673,7 +1690,6 @@ function resetCheck(i,manual) {
 			if (q == "four") {x = 69}
 			if (q == "five") {x = 70} 
 		if (player.currentChallenge !== "") {
-			console.log(player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirements[q] * Math.pow(1 + player.challengecompletions[q], 2) * Math.pow(1.5, Math.max(0, player.challengecompletions[q] - 75)))) && player.challengecompletions[q] < (25 + player.researches[x] + 925 * player.researches[105]))
 
 			if (player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirements[q] * Math.pow(1 + player.challengecompletions[q], 2) * Math.pow(1.5, Math.max(0, player.challengecompletions[q] - 75)))) && player.challengecompletions[q] < (25 + player.researches[x] + 925 * player.researches[105])) {
 			player.challengecompletions[q] += 1;
@@ -1710,8 +1726,14 @@ function resetCheck(i,manual) {
 	}
 	if (i == "reincarnationchallenge"){
 		if (player.currentChallengeRein !== ""){
+		var y = ""
 		var q = player.currentChallengeRein;
-		var s = player.currentChallenge
+			if (q == "six"){y = 6}
+			if (q == "seven"){y = 7}
+			if (q == "eight"){y = 8}
+			if (q == "nine"){y = 9}
+			if (q == "ten"){y = 10}
+			var s = player.currentChallenge
 		if (player.currentChallenge !== "") {
 			player.currentChallenge = ""
 			}
@@ -1725,6 +1747,7 @@ function resetCheck(i,manual) {
 			player.challengecompletions[q] += 1
 		}
 		}
+		challengeDisplay(y,true)
 		reset(3);
 		challengeachievementcheck(q);
 		player.reincarnationCount -= 1;
@@ -1734,7 +1757,6 @@ function resetCheck(i,manual) {
 		updateChallengeDisplay();
 		calculateRuneLevels();
 		calculateAnts();
-		document.getElementById("currentchallenge").textContent = "Current Challenge: None"
 		}
 	}	
 	}
@@ -1945,26 +1967,26 @@ function updateAll() {
 		effectiveLevelMult = (1 + player.researches[4]/10) * (1 + player.researches[21]/800) * (1 + player.researches[90]/100)
 		optimalOfferingTimer = 600 + 6 * player.researches[85] + 0.4 * rune5level + 120 * player.shopUpgrades.offeringTimerLevel
 		optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel
-		if (player.achievements[176] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[1] * player.antUpgrades[1]).times(antUpgradeBaseCost[1]).times(2))){buyAntUpgrade(1,true)}
-		if (player.achievements[176] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[2] * player.antUpgrades[2]).times(antUpgradeBaseCost[2]).times(2))){buyAntUpgrade(2,true)}
-		if (player.achievements[177] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[3] * player.antUpgrades[3]).times(antUpgradeBaseCost[3]).times(2))){buyAntUpgrade(3,true)}
-		if (player.achievements[178] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[4] * player.antUpgrades[4]).times(antUpgradeBaseCost[4]).times(2))){buyAntUpgrade(4,true)}
-		if (player.achievements[178] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[5] * player.antUpgrades[5]).times(antUpgradeBaseCost[5]).times(2))){buyAntUpgrade(5,true)}
-		if (player.achievements[179] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[6] * player.antUpgrades[6]).times(antUpgradeBaseCost[6]).times(2))){buyAntUpgrade(6,true)}
-		if (player.achievements[180] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[7] * player.antUpgrades[7]).times(antUpgradeBaseCost[7]).times(2))){buyAntUpgrade(7,true)}
-		if (player.achievements[180] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[8] * player.antUpgrades[8]).times(antUpgradeBaseCost[8]).times(2))){buyAntUpgrade(8,true)}
-		if (player.achievements[181] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[9] * player.antUpgrades[9]).times(antUpgradeBaseCost[9]).times(2))){buyAntUpgrade(9,true)}
-		if (player.achievements[182] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[10] * player.antUpgrades[10]).times(antUpgradeBaseCost[10]).times(2))){buyAntUpgrade(10,true)}
-		if (player.achievements[182] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[11] * player.antUpgrades[11]).times(antUpgradeBaseCost[11]).times(2))){buyAntUpgrade(11,true)}
-
-		if (player.achievements[173] == 1 && player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostAnts)){buyAnts(1);}
-		if (player.achievements[176] == 1 && player.antPoints.greaterThanOrEqualTo(player.secondCostAnts.times(2))){buyAnts(2);}
-		if (player.achievements[177] == 1 && player.antPoints.greaterThanOrEqualTo(player.thirdCostAnts.times(2))){buyAnts(3);}
-		if (player.achievements[178] == 1 && player.antPoints.greaterThanOrEqualTo(player.fourthCostAnts.times(2))){buyAnts(4);}
-		if (player.achievements[179] == 1 && player.antPoints.greaterThanOrEqualTo(player.fifthCostAnts.times(2))){buyAnts(5);}
-		if (player.achievements[180] == 1 && player.antPoints.greaterThanOrEqualTo(player.sixthCostAnts.times(2))){buyAnts(6);}
-		if (player.achievements[181] == 1 && player.antPoints.greaterThanOrEqualTo(player.seventhCostAnts.times(2))){buyAnts(7);}
-		if (player.achievements[182] == 1 && player.antPoints.greaterThanOrEqualTo(player.eighthCostAnts.times(2))){buyAnts(8);}
+		if (player.achievements[176] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[1], player.antUpgrades[1]).times(antUpgradeBaseCost[1]).times(2))){buyAntUpgrade('100',true,1)}
+		if (player.achievements[176] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[2], player.antUpgrades[2]).times(antUpgradeBaseCost[2]).times(2))){buyAntUpgrade('100',true,2)}
+		if (player.achievements[177] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[3], player.antUpgrades[3]).times(antUpgradeBaseCost[3]).times(2))){buyAntUpgrade('1000',true,3)}
+		if (player.achievements[178] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[4], player.antUpgrades[4]).times(antUpgradeBaseCost[4]).times(2))){buyAntUpgrade('1000',true,4)}
+		if (player.achievements[178] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[5], player.antUpgrades[5]).times(antUpgradeBaseCost[5]).times(2))){buyAntUpgrade('1e5',true,5)}
+		if (player.achievements[179] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[6], player.antUpgrades[6]).times(antUpgradeBaseCost[6]).times(2))){buyAntUpgrade('1e6',true,6)}
+		if (player.achievements[180] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[7], player.antUpgrades[7]).times(antUpgradeBaseCost[7]).times(2))){buyAntUpgrade('1e8',true,7)}
+		if (player.achievements[180] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[8], player.antUpgrades[8]).times(antUpgradeBaseCost[8]).times(2))){buyAntUpgrade('1e11',true,8)}
+		if (player.achievements[181] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[9], player.antUpgrades[9]).times(antUpgradeBaseCost[9]).times(2))){buyAntUpgrade('1e15',true,9)}
+		if (player.achievements[182] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[10], player.antUpgrades[10]).times(antUpgradeBaseCost[10]).times(2))){buyAntUpgrade('1e20',true,10)}
+		if (player.achievements[182] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[11], player.antUpgrades[11]).times(antUpgradeBaseCost[11]).times(2))){buyAntUpgrade('1e40',true,11)}
+	
+		if (player.achievements[173] == 1 && player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostAnts)){buyAntProducers('first','Ants','1e1200',1);}
+		if (player.achievements[176] == 1 && player.antPoints.greaterThanOrEqualTo(player.secondCostAnts.times(2))){buyAntProducers('second','Ants','3',2);}
+		if (player.achievements[177] == 1 && player.antPoints.greaterThanOrEqualTo(player.thirdCostAnts.times(2))){buyAntProducers('third','Ants','100',3);}
+		if (player.achievements[178] == 1 && player.antPoints.greaterThanOrEqualTo(player.fourthCostAnts.times(2))){buyAntProducers('fourth','Ants','10000',4);}
+		if (player.achievements[179] == 1 && player.antPoints.greaterThanOrEqualTo(player.fifthCostAnts.times(2))){buyAntProducers('fifth','Ants','1e12',5);}
+		if (player.achievements[180] == 1 && player.antPoints.greaterThanOrEqualTo(player.sixthCostAnts.times(2))){buyAntProducers('sixth','Ants','1e36',6);}
+		if (player.achievements[181] == 1 && player.antPoints.greaterThanOrEqualTo(player.seventhCostAnts.times(2))){buyAntProducers('seventh','Ants','1e100',7);}
+		if (player.achievements[182] == 1 && player.antPoints.greaterThanOrEqualTo(player.eighthCostAnts.times(2))){buyAntProducers('eighth','Ants','1e300',8);}
 
 	}
 
