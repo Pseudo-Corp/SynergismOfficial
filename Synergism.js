@@ -1018,6 +1018,7 @@ function format(input,accuracy,long){
 	{
 		mantissa = 1;
 	}
+
 	if (power < -12)
 	{
 		return "0";
@@ -1037,7 +1038,7 @@ function format(input,accuracy,long){
 		let split = standard.split('.');
 		let front = split[0];
 		let back = split[1];
-		front = front.replace(/(\d{1,3})(?=(\d{3})+$)/g, "$1,");
+		front = front.replace(/(?!^)(?=(\d{3})+$)/g, ",");
 		if (back === undefined)
 		{
 			return front;
@@ -1052,7 +1053,7 @@ function format(input,accuracy,long){
 		let mantissaLook = mantissa.toFixed(2);
 		mantissaLook = mantissaLook.toString();
 		let powerLook = power.toString();
-		powerLook = powerLook.replace(/(\d{1,3})(?=(\d{3})+$)/g, "$1,");
+		powerLook = powerLook.replace(/(?!^)(?=(\d{3})+$)/g, ",");
 		return mantissaLook + "e" + powerLook;
 	}
 	else if (power >= 1e6)
@@ -1064,7 +1065,7 @@ function format(input,accuracy,long){
 		let powerLook = power / Math.pow(10, powerDigits - powerFront );
 		powerLook = powerLook.toFixed(4 - powerFront);
 		powerLook = powerLook.toString();
-		powerLook = powerLook.replace(/(\d{1,3})(?=(\d{3})+$)/g, "$1,");
+		powerLook = powerLook.replace(/(?!^)(?=(\d{3})+$)/g, ",");
 		if (power < 1e9) { return mantissaLook + "e" + powerLook + "M"; }
 		if (power < 1e12) { return mantissaLook + "e" + powerLook + "B"; }
 		if (power < 1e15) { return mantissaLook + "e" + powerLook + "T"; }
