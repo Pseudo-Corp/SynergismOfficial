@@ -474,15 +474,15 @@ if (currentTab == "runes"){
 }
 if (currentTab == "transcension") {
     document.getElementById("transcendshardinfo").textContent = "You have " + format(player.transcendShards,2) + " Mythos Shards, providing " + format(totalMultiplierBoost) + " Multiplier Power boosts."
-    document.getElementById("transcendtext1").textContent = "Augments: " + format(player.firstOwnedMythos) + " [+" + format(player.firstGeneratedMythos) + "]"
+    document.getElementById("transcendtext1").textContent = "Augments: " + format(player.firstOwnedMythos) + " [+" + format(player.firstGeneratedMythos,2) + "]"
     document.getElementById("transcendtext2").textContent = "Shards/Sec: " + format((produceFirstMythos).times(40),2) 
-    document.getElementById("transcendtext3").textContent = "Enchantments: " + format(player.secondOwnedMythos, 2) + " [+" + format(player.secondGeneratedMythos) + "]"
+    document.getElementById("transcendtext3").textContent = "Enchantments: " + format(player.secondOwnedMythos, 2) + " [+" + format(player.secondGeneratedMythos,2) + "]"
     document.getElementById("transcendtext4").textContent = "Augments/Sec: " + format((produceSecondMythos).times(40),2) 
-    document.getElementById("transcendtext5").textContent = "Wizards: " + format(player.thirdOwnedMythos) + " [+" + format(player.thirdGeneratedMythos) + "]"
+    document.getElementById("transcendtext5").textContent = "Wizards: " + format(player.thirdOwnedMythos) + " [+" + format(player.thirdGeneratedMythos,2) + "]"
     document.getElementById("transcendtext6").textContent = "Enchantments/Sec: " + format((produceThirdMythos).times(40),2) 
-    document.getElementById("transcendtext7").textContent = "Oracles: " + format(player.fourthOwnedMythos) + " [+" + format(player.fourthGeneratedMythos) + "]"
+    document.getElementById("transcendtext7").textContent = "Oracles: " + format(player.fourthOwnedMythos) + " [+" + format(player.fourthGeneratedMythos,2) + "]"
     document.getElementById("transcendtext8").textContent = "Wizards/Sec: " + format((produceFourthMythos).times(40),2) 
-    document.getElementById("transcendtext9").textContent = "Grandmasters: " + format(player.fifthOwnedMythos) + " [+" + format(player.fifthGeneratedMythos) + "]"
+    document.getElementById("transcendtext9").textContent = "Grandmasters: " + format(player.fifthOwnedMythos) + " [+" + format(player.fifthGeneratedMythos,2) + "]"
     document.getElementById("transcendtext10").textContent = "Oracles/Sec: " + format((produceFifthMythos).times(40),2)
     
     document.getElementById("buymythos1").textContent = "Cost: " + format(player.firstCostMythos,2) + " Mythos"
