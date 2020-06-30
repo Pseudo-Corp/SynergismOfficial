@@ -1,3 +1,14 @@
+// Returns the sum of all contents in an array
+function sumContents(array)
+{
+	let sum = 0;
+	for (let i = 0; i < array.length; ++i)
+	{
+		sum += array[i];
+	}
+	return sum;
+}
+
 function calculateObtainium(){
     obtainiumGain = 1;
         if (player.upgrades[69] > 0.5) {
