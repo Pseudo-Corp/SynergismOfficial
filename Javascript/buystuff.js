@@ -1,3 +1,12 @@
+function getReductionValue() {
+	let reduction = 1;
+	reduction += 1/400 * rune4level * effectiveLevelMult;
+	reduction += 1/200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]);
+	reduction += 1/200 * player.challengecompletions.four;
+	reduction += 3/100 * (player.antUpgrades[7] + bonusant7);
+	return reduction;
+}
+
 function getCostAccelerator(buyingTo) {
 	--buyingTo;
 
@@ -186,7 +195,7 @@ function buyMultiplier(autobuyer){
 	{
 		// It's 0 indexed by mistake so you have to subtract 1 somewhere.
 		--buyingTo;
-
+		originalCost = new Decimal(originalCost);
 		// Prevents multiple recreations of this variable because .factorial() is the only one that doesn't create a clone (?)
 		let buyingToDec = new Decimal(buyingTo);
 		// Accounts for the multiplies by 1.25^num buyingTo times
@@ -275,13 +284,8 @@ function buyMultiplier(autobuyer){
 	function buyMax(pos, type, num, originalCost, autobuyer = false)
 	{
 		autobuyer = autobuyer || false;
-		originalCost = new Decimal(originalCost);
 		var tag = "";
-		var r = 1
-		r += 1/400 * rune4level * effectiveLevelMult;
-		r += 1/200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]);
-		r += 1/200 * player.challengecompletions.four;
-		r += 3/100 * (player.antUpgrades[7] + bonusant7);
+		var r = getReductionValue();
 	
 		if (type == 'Diamonds'){tag = "prestigePoints";}
 		if (type == 'Mythos'){tag = "transcendPoints";}
