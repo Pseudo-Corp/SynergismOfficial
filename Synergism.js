@@ -1000,7 +1000,7 @@ function format(input,accuracy,long){
 		mantissa = input.mantissa;
 	}
 	// Gets power and mantissa if input is of type number and isnt 0
-	else if (input instanceof Number && input !== 0)
+	else if (typeof input === "number" && input !== 0)
 	{
 		power = Math.floor(Math.log10(Math.abs(input)));
 		mantissa = input / Math.pow(10, power);
