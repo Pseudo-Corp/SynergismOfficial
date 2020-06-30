@@ -9,6 +9,17 @@ function sumContents(array)
 	return sum;
 }
 
+// Returns the product of all contents in an array
+function productContents(array)
+{
+	let product = 1;
+	for (let i = 0; i < array.length; ++i)
+	{
+		product *= array[i];
+	}
+	return product;
+}
+
 function calculateObtainium(){
     obtainiumGain = 1;
         if (player.upgrades[69] > 0.5) {
