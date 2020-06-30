@@ -61,6 +61,7 @@ function calculateTalismanEffects(){
         
         if(player.talismanSeven[i] == (1)){talisman7Effect[i] = (talismanPositiveModifier[player.talismanRarity[7]] + positiveBonus) * player.talismanLevels[7]}
         else{talisman7Effect[i] = talismanNegativeModifier[player.talismanRarity[7]] * player.talismanLevels[7] * (-1)}
+        
     }
     rune1Talisman = 0;
     rune2Talisman = 0;
@@ -211,9 +212,7 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
     let tickValue = timeadd/800;
     let progressBarWidth = 0;
     if(timeadd < 1000){simulatedTicks = Math.min(1, Math.floor(timeadd/1.25)); tickValue = Math.min(1.25,timeadd);};
-    let maxSimulatedTicks = simulatedTicks
-    console.log("You were offline for " + format(timeadd) + " seconds!");
-    console.log("The game simulated " + format(simulatedTicks) + " ticks while you were away! :)");
+    let maxSimulatedTicks = simulatedTicks;
     player.quarkstimer += timeadd/(divineBlessing1 * (1 + player.researches[121]/50));
     if (player.researches[61] > 0.5) {
 		player.obtainiumtimer += timeadd
