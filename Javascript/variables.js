@@ -310,3 +310,5 @@ var divineBlessing4 = 1;
 var divineBlessing5 = 0;
 
 var triggerChallenge = ""
+
+var prevReductionValue = -1;
