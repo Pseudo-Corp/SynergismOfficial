@@ -111,84 +111,64 @@
         }
     }
 
-    function redeemshards(runeIndexPlusOne,auto,autoMult) {
-        auto = auto || false;
-        autoMult = autoMult || 1;
-        if(player.upgrades[78] == 1){autoMult *= 1000}
-        let increaseMaxLevel = {
-                    0: player.researches[78],
-                    1: player.researches[80],
-                    2: player.researches[79],
-                    3: player.researches[77],
-                    4: 0
-                }
-        let increaseMaxLevel2 = {
-                    0: player.researches[111],
-                    1: player.researches[112],
-                    2: player.researches[113],
-                    3: player.researches[114],
-                    4: player.researches[115]
+function redeemshards(runeIndexPlusOne,auto,autoMult) {
+	// runeIndex, the rune being added to
+	let runeIndex = runeIndexPlusOne - 1;
+	
+    auto = auto || false;
+    autoMult = autoMult || 1;
+	if(player.upgrades[78] == 1){autoMult *= 1000}
+	
+	// How much a runes max level is increased by
+    let increaseMaxLevel = [
+		player.researches[78] + player.researches[111],
+		player.researches[80] + player.researches[112],
+		player.researches[79] + player.researches[113],
+		player.researches[77] + player.researches[114],
+		player.researches[115]
+	];
+
+	// Whether or not a rune is unlocked array
+	let unlockedRune = [
+		true,
+		player.achievements[38] > 0.5,
+		player.achievements[44] > 0.5,
+		player.achievements[102] > 0.5,
+		player.researches[82] > 0.5
+	];
+
+	let recycleMultiplier = calculateRecycleMultiplier();
+
+	// amount of offerings being spent, if offerings is less than amount set to be bought then set amount to current offerings
+    let amount = Math.min(player.runeshards, player.offeringbuyamount * (1 + 999 * player.upgrades[78]));
+    // if autobuyer is enabled then set the amount to the proper autobuyer amount based on the shop upgrade level, or current offerings if it's less than that
+	if (auto){amount = Math.min(player.runeshards, Math.pow(2, 1 + player.shopUpgrades.offeringAutoLevel) * autoMult)}
+    if (player.runeshards >= 1 && player.runelevels[runeIndex] < (500 + increaseMaxLevel[runeIndex]) && unlockedRune[runeIndex]) {
+
+        // Removes the offerings from the player
+		player.runeshards -= amount;
+		// Adds the exp given by the amount of offerings
+		player.runeexp[runeIndex] += amount * calculateRuneExpGiven(runeIndex);
+        // foreach rune update it's value
+        for (let runeToUpdate = 0; runeToUpdate < 5; ++runeToUpdate) {
+			if (unlockedRune[runeToUpdate])
+			{
+				// If particle upgrade 1x2 is unlocked give each rune 3 exp per offering used
+				if (player.upgrades[66] > 0.5)
+				{
+					player.runeexp[runeToUpdate] += 3 * amount * recycleMultiplier;
+				}
+				
+            	while (player.runeexp[runeToUpdate] >= calculateRuneExpToLevel(runeToUpdate) && player.runelevels[runeToUpdate] < (500 + increaseMaxLevel[runeToUpdate])){
+            	    player.runelevels[runeToUpdate] += 1;
+				}
+			}
         }
-        // runeIndex, the rune being added to
-        let runeIndex = runeIndexPlusOne - 1;
-        // res1mult, research1?, refers to the 1x17 - 1x20 researches
-        let res1mult = 1;
-        // SIMult1, refers to 2x18 research
-        let SIMult1 = 1;
-        // res2mult, research2mult refers to 4x16
-        let res2mult = (1 + player.researches[91]/100);
-        // res3mult, research3mult refers to 4x17
-        let res3mult = (1 + player.researches[92]/100);
-        // antmult is bonus from ant upgrade 8
-        let antmult = Math.pow(1.01, player.antUpgrades[8] + bonusant8)
-        // amount of offerings being spent, if offerings is less than amount set to be bought then set amount to current offerings
-        let amount = Math.min(player.runeshards, player.offeringbuyamount * (1 + 999 * player.upgrades[78]));
-        // if autobuyer is enabled then set the amount to the proper autobuyer amount based on the shop upgrade level, or current offerings if it's less than that
-        if (auto){amount = Math.min(player.runeshards, Math.pow(2, 1 + player.shopUpgrades.offeringAutoLevel) * autoMult)}
-        // recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
-        let recycleMult = 1/(1 - 0.05 * player.achievements[80] - 0.05 * player.achievements[87] - 0.05 * player.achievements[94] - 0.05 * player.achievements[101] - 0.05 * player.achievements[108] - 0.05 * player.achievements[115] - 0.075 * player.achievements[122] - 0.075 * player.achievements[129] - 0.05 * player.upgrades[61] - Math.min(0.25,rune4level/800));
-    
-        if (runeIndex == 0){res1mult = (1 + player.researches[78]/250);};
-        if (runeIndex == 1){res1mult = (1 + player.researches[80]/250);};
-        if (runeIndex == 2){res1mult = (1 + player.researches[79]/250);};
-        if (runeIndex == 3){res1mult = (1 + player.researches[77]/250);};
-        if (runeIndex == 4){res1mult = 1; SIMult1 = (1 + player.researches[83]/50);};
-        if (player.runeshards >= 1) {
-            // s stores the value of the currently being upgraded rune as additional exp for completing particle upgrade 3x1
-            var s = 0;
-    
-            if (player.runelevels[runeIndex] < (500 + increaseMaxLevel[runeIndex] + increaseMaxLevel2[runeIndex]) && (runeIndex == 0 || (runeIndex == 1 && player.achievements[38] == 1) || (runeIndex== 2 && player.achievements[44] == 1) || (runeIndex== 3 && player.achievements[102] == 1) || (runeIndex== 4 && player.researches[82] == 1))) {    
-                
-                if (player.upgrades[71] > 0.5) {s += player.runelevels[runeIndex]}
-    
-                // Adds exp to the runes, and detracts offerings
-                player.runeshards -= amount;
-                player.runeexp[runeIndex] += amount * recycleMult * Math.floor((25 + 3 * player.researches[22] + 2 * player.researches[23] + 5 * player.upgrades[61] + s) * res1mult * res2mult * res3mult * SIMult1 * antmult);
-                // If upgrade[66] is bought (+3 exp to all runes, particle upgrade 2x1)
-                if (player.upgrades[66] > 0.5) {
-                    // if each rune is unlocked then apply the bonus +3 exp
-                    player.runeexp[0] += 3 * amount * recycleMult
-                    if (player.achievements[38] > 0.5) {player.runeexp[1] += 3 * amount * recycleMult}
-                    if (player.achievements[44] > 0.5) {player.runeexp[2] += 3 * amount * recycleMult}
-                    if (player.achievements[102] > 0.5) {player.runeexp[3] += 3 * amount * recycleMult}
-                    if (player.researches[82] > 0.5){player.runeexp[4] += 3 * amount * recycleMult}
-                }
-                // foreach rune update it's value
-                for (let runeToUpdate = 0; runeToUpdate < 5; ++runeToUpdate)	{
-                    // r stores the decrease in thrift costs from tax+ challenge, or the decrease in speed/dup costs from m/a-- challenge
-                    let r = 1;
-                    if (player.challengecompletions.six > 0.5 && runeToUpdate == 3) {r -= 0.02 * player.challengecompletions.six};
-                    if (player.challengecompletions.seven > 0.5 && (runeToUpdate == 0 || runeToUpdate == 1)) {r -= 0.02 * player.challengecompletions.seven};
-                    while (player.runeexp[runeToUpdate] >= (runeexpbase[runeToUpdate] * Math.pow(player.runelevels[runeToUpdate], 3) * ((4 * player.runelevels[runeToUpdate]) + 100)/500 * r) * Math.max(1, (player.runelevels[runeToUpdate] - 500)/25) * Math.max(1, (player.runelevels[runeToUpdate] - 600)/30) * Math.max(1, (player.runelevels[runeToUpdate]-700)/25) * Math.max(1, Math.pow(1.03, player.runelevels[runeToUpdate] - 750)) && player.runelevels[runeToUpdate] < (500 + increaseMaxLevel[runeToUpdate] + increaseMaxLevel2[runeToUpdate])){
-                        player.runelevels[runeToUpdate] += 1;
-                    }
-                }
-                
-                displayruneinformation(runeIndexPlusOne);
-            }
-        }
-        calculateRuneLevels();
+        
+        displayruneinformation(runeIndexPlusOne);
     }
+    calculateRuneLevels();
+}
 
 
 
