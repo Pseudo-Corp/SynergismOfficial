@@ -1,6 +1,5 @@
 // Returns the sum of all contents in an array
-function sumContents(array)
-{
+function sumContents(array) {
 	let sum = 0;
 	for (let i = 0; i < array.length; ++i)
 	{
@@ -10,14 +9,39 @@ function sumContents(array)
 }
 
 // Returns the product of all contents in an array
-function productContents(array)
-{
+function productContents(array) {
 	let product = 1;
 	for (let i = 0; i < array.length; ++i)
 	{
 		product *= array[i];
 	}
 	return product;
+}
+
+function calculateRuneExpToLevel(rune) {
+	let runelevel = player.runelevels[rune];
+
+	let runeExpRequiredMultiplier = [
+		1 - (0.02 * player.challengecompletions.seven),
+		1 - (0.02 * player.challengecompletions.seven),
+		1,
+		1 - (0.02 * player.challengecompletions.six),
+		1
+	];
+
+	// Rune exp required to level multipliers
+	const allRuneExpRequiredMultiplier = function(runelevel) {
+		return productContents([
+			Math.pow(runelevel, 3),
+			((4 * runelevel) + 100) / 500,
+			Math.max(1, (runelevel - 500)/25),
+			Math.max(1, (runelevel - 600)/30),
+			Math.max(1, (runelevel - 700)/25),
+			Math.max(1, Math.pow(1.03, runelevels - 750))
+		]);
+	};
+	let expToLevel = runeexpbase[rune] * allRuneExpRequiredMultiplier(runelevel) * runeExpRequiredMultiplier(rune);
+
 }
 
 function calculateObtainium(){
