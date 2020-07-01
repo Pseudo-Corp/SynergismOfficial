@@ -1800,7 +1800,6 @@ function resetConfirmation(i) {
 // Functions which update the game each, roughly each tick. [Lines 1330 - 1766]
 
 function updateAll() {
-
 		uFourteenMulti = new Decimal(1);
 		uFifteenMulti = new Decimal(1);
 
@@ -1981,7 +1980,33 @@ function updateAll() {
 		if (player.achievements[181] == 1 && player.antPoints.greaterThanOrEqualTo(player.seventhCostAnts.times(2))){buyAntProducers('seventh','Ants','1e100',7);}
 		if (player.achievements[182] == 1 && player.antPoints.greaterThanOrEqualTo(player.eighthCostAnts.times(2))){buyAntProducers('eighth','Ants','1e300',8);}
 
+	let reductionValue = getReductionValue();
+	if (reductionValue !== prevReductionValue)
+	{
+		prevReductionValue = reductionValue;
+		let resources = ["Coin", "Diamonds", "Mythos"];
+		let scalings = [
+			function(value) {return value;},
+			function (value) {return value * (value + 1) / 2;},
+			function (value) {return value * (value + 1) / 2;},
+		];
+		let originalCosts = [
+			[100, 2e3, 4e4, 8e5, 1.6e7],
+			[1e2, 1e5, 1e15, 1e40, 1e100],
+			[1, 1e2, 1e4, 1e8, 1e16]
+		];
+
+		for (let res = 0; res < resources.length; ++res)
+		{
+			let resource = resources[res];
+			for (let ord = 0; ord < 5; ++ord)
+			{
+				let num = ordinals[ord];
+				player[num + "Cost" + resource] = getCost(originalCosts[res][ord], player[num + "Owned" + resource] + 1, resource, scalings[res](ord + 1), reductionValue);
+			}
+		}
 	}
+}
 
 // Functions which (try) to successfully load the game
 
