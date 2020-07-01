@@ -2160,8 +2160,6 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 		event.preventDefault();
 		keyboardtabchange(1);
 	}
-	console.log(event.key)
-
 });
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load', function() {

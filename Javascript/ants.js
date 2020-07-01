@@ -98,7 +98,6 @@ let amountBuy = 1;
 while(player[type + "Points"].greaterThanOrEqualTo(player[tier + "CostAnts"]) && ticker < amountBuy){
     player[type + "Points"] = player[type + "Points"].sub(player[tier + "CostAnts"]);
     player[tier + "CostAnts"] = player[tier + "CostAnts"].times(antCostGrowth[i]);
-    console.log(player[tier + "CostAnts"])
     player[tier + "OwnedAnts"]++
     ticker++
 }

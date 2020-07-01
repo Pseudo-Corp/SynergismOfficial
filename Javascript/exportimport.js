@@ -98,7 +98,6 @@ function importSynergism(input) {
             const lzData = JSON.parse(LZString.decompressFromBase64(input));
             if(lzData) {
                 localStorage.clear();
-                console.log()
                 localStorage.setItem('Synergysave2', btoa(JSON.stringify(lzData)));
                 loadSynergy();
             }
