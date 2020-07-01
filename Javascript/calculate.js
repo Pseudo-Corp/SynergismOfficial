@@ -38,8 +38,6 @@ function calculateRecycleMultiplier() {
 
 // Returns the amount of exp given per offering by a rune
 function calculateRuneExpGiven(runeIndex) {
-	let runelevel = player.runelevels[runeIndex];
-
 	// recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
 	let recycleMultiplier = calculateRecycleMultiplier();
 
