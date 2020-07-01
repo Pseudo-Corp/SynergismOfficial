@@ -2048,7 +2048,7 @@ function tick() {
 	player.sacrificeTimer += dt
 	if (player.sacrificeTimer >= 10){
 		let rune = player.autoSacrifice;
-		redeemshards(rune,true);
+		redeemShards(rune,true);
 		player.sacrificeTimer -= 10;
 	}
 	}
@@ -2126,11 +2126,11 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 	var type = ""
 	var pos = ""
 	var num = 0
-	if (event.key === "1") {pos = "first"; num += 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemshards(1)}}
-	if (event.key === "2") {pos = "second"; num += 2; if (currentTab == "challenges") {toggleChallenges('two')}; if (currentTab == "runes"){redeemshards(2)}}
-	if (event.key === "3") {pos = "third"; num += 3; if (currentTab == "challenges") {toggleChallenges('three')}; if (currentTab == "runes"){redeemshards(3)}}
-	if (event.key === "4") {pos = "fourth"; num += 4; if (currentTab == "challenges") {toggleChallenges('four')}; if (currentTab == "runes"){redeemshards(4)}}
-	if (event.key === "5") {pos = "fifth"; num += 5; if (currentTab == "challenges") {toggleChallenges('five')}; if(currentTab == "runes"){redeemshards(5)}}
+	if (event.key === "1") {pos = "first"; num += 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemShards(1)}}
+	if (event.key === "2") {pos = "second"; num += 2; if (currentTab == "challenges") {toggleChallenges('two')}; if (currentTab == "runes"){redeemShards(2)}}
+	if (event.key === "3") {pos = "third"; num += 3; if (currentTab == "challenges") {toggleChallenges('three')}; if (currentTab == "runes"){redeemShards(3)}}
+	if (event.key === "4") {pos = "fourth"; num += 4; if (currentTab == "challenges") {toggleChallenges('four')}; if (currentTab == "runes"){redeemShards(4)}}
+	if (event.key === "5") {pos = "fifth"; num += 5; if (currentTab == "challenges") {toggleChallenges('five')}; if(currentTab == "runes"){redeemShards(5)}}
 	if (event.key === "6") {buyCrystalUpgrades(1)}
 	if (event.key === "7") {buyCrystalUpgrades(2)}
 	if (event.key === "8") {buyCrystalUpgrades(3)}
