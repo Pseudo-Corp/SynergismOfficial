@@ -38,7 +38,8 @@ function calculateRecycleMultiplier() {
 
 // Returns the amount of exp given per offering by a rune
 function calculateRuneExpGiven(runeIndex) {
-	
+	let runelevel = player.runelevels[runeIndex];
+
 	// recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
 	let recycleMultiplier = calculateRecycleMultiplier();
 
@@ -106,19 +107,17 @@ function calculateRuneExpToLevel(runeIndex) {
 	];
 
 	// Rune exp required to level multipliers
-	const allRuneExpRequiredMultiplier = function(runelevel) {
-		return productContents([
+	let allRuneExpRequiredMultiplier = productContents([
 			Math.pow(runelevel, 3),
 			((4 * runelevel) + 100) / 500,
 			Math.max(1, (runelevel - 500)/25),
 			Math.max(1, (runelevel - 600)/30),
 			Math.max(1, (runelevel - 700)/25),
 			Math.max(1, Math.pow(1.03, runelevel - 750))
-		]);
-	};
+	]);
 	let expToLevel = productContents([
 		runeexpbase[runeIndex],
-		allRuneExpRequiredMultiplier(runelevel),
+		allRuneExpRequiredMultiplier,
 		runeExpRequiredMultiplier[runeIndex]
 	]);
 	
