@@ -983,81 +983,123 @@ updateAchievementBG();
  })();
 
 function format(input,accuracy,long){
-//This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
+	//This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
 
-//Input is the number to be formatted (string or value)
-//Accuracy is how many decimal points that are to be displayed (Values <10 if !long, <1000 if long)
-//Long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
-
-
-accuracy = accuracy || 0;
-long = long || false
-
-	if (input instanceof Decimal) { // Differentiates between stringed and value datatypes
-		var power = input.e
-		var matissa = input.mantissa
+	//Input is the number to be formatted (string or value)
+	//Accuracy is how many decimal points that are to be displayed (Values <10 if !long, <1000 if long)
+	// Accuracy only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
+	//Long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
+	accuracy = accuracy || 0;
+	long = long || false;
+	let power;
+	let mantissa;
+	// Gets power and mantissa if input is of type decimal
+	if (input instanceof Decimal)
+	{
+		power = input.e;
+		mantissa = input.mantissa;
 	}
-	else if (input != 0) {
-		var matissa = input / Math.pow(10, Math.floor(Math.log10(Math.abs(input))));
-		var power = Math.floor(Math.log10(Math.abs(input)));
+	// Gets power and mantissa if input is of type number and isnt 0
+	else if (typeof input === "number" && input !== 0)
+	{
+		power = Math.floor(Math.log10(Math.abs(input)));
+		mantissa = input / Math.pow(10, power);
 	}
-	if (input == 0 || matissa == 0) {
-		return (input)
-	}
-
-	if (!long || power > 12){
-		if(power > 5.5) {
-			matissa = matissa.toFixed(2)
-	 			if (matissa >= 10) {
-		 			matissa /= 10;
-		 			power++;
-				 }
-				 
-				 //The following truncates the exponent portion of num if it is way too large
-		if (power > 100000 && power < 1000000) return (matissa + "e" + power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-		if (power >= 1000000 && power < 10000000) {power /= 1000; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "M".toString())}
-		if (power >= 10000000 && power < 100000000) {power /= 10000; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "M".toString())}
-		if (power >= 100000000 && power < 1000000000) {power /= 100000; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "M".toString())}
-		if (power >= 1000000000 && power < 10000000000) {power /= 1000000; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "B".toString())}
-		if (power >= 1e10 && power < 1e11) {power /= 1e7; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "B".toString())}
-		if (power >= 1e11 && power < 1e12) {power /= 1e8; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "B".toString())}
-		if (power >= 1e12 && power < 1e13) {power /= 1e9; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "T".toString())}
-		if (power >= 1e13 && power < 1e14) {power /= 1e10; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "T".toString())}
-		if (power >= 1e14 && power < 1e15) {power /= 1e11; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "T".toString())}
-		if (power >= 1e15 && power < 1e16) {power /= 1e12; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "Qa".toString())}
-
-				//If number is not otherwise too large
-		return (matissa + "e" + power);	 
-	}
-	if (power < 5.5 && power >= 1) { // 123,456 formatting
-		var n = matissa * Math.pow(10, power);
-		let decimalSpots = accuracy
-		if(n >= 1000){decimalSpots = 0;}
-		n = n.toFixed(decimalSpots);
-		return(n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-	}
-	if (power >= -11  && power <= 0) { // Decimal portion
-		var n = matissa * Math.pow(10,power);
-		n = n.toFixed(accuracy)
-		return(n.toString())
-	}
-	if (power < (-12)){ //If number is way too small (Within Decimal error)
-		return("0")
-	}
-	else { // failsafe
-		var n = 0
-		return(n.toString())
-	}
+	// If it isn't one of those two it isn't formattable, return 0
+	else
+	{
+		return "0";
 	}
 
-	if(long && power <= 12){ // long formatting because I love humanity
-		let decimalSpots = accuracy
-		var n = matissa * Math.pow(10, power);
-		if(n >= 1000){decimalSpots = 0;}
-		n = n.toFixed(decimalSpots);
-		return(n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+	// This prevents numbers from jittering between two different powers by rounding errors
+	if (mantissa > 9.999)
+	{
+		mantissa = 1;
+		++power;
+	}
+	if (mantissa < 1 && mantissa > 0.999)
+	{
+		mantissa = 1;
 	}
 
+	// If the power is less than 12 it's effectively 0
+	if (power < -12)
+	{
+		return "0";
+	}
+	// If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
+	else if (power < 6 || (long && power < 13))
+	{
+		// Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13
+		let standard = mantissa * Math.pow(10, power);
+		// If the power is less than 1 or format long and less than 3 apply toFixed(accuracy) to get decimal places
+		if ((power < 1 || (long && power < 3)) && accuracy > 0)
+		{
+			standard = standard.toFixed(accuracy);
+		}
+		// If it doesn't fit those criteria drop the decimal places
+		else
+		{
+			standard = Math.floor(standard);
+		}
+		// Turn the number to string
+		standard = standard.toString();
+		// Split it on the decimal place
+		let split = standard.split('.');
+		// Get the front half of the number (pre-decimal point)
+		let front = split[0];
+		// Get the back half of the number (post-decimal point)
+		let back = split[1];
+		// Apply a number group 3 comma regex to the front
+		front = front.replace(/(?!^)(?=(\d{3})+$)/g, ",");
+		// if the back is undefined that means there are no decimals to display, return just the front
+		if (back === undefined)
+		{
+			return front;
+		}
+		// Else return the front.back
+		else
+		{
+			return front + "." + back;
+		}
+	}
+	// If the power is less than 1e6 then apply standard scientific notation
+	else if (power < 1e6)
+	{
+		// Makes mantissa be to 2 decimal places 
+		let mantissaLook = mantissa.toFixed(2);
+		mantissaLook = mantissaLook.toString();
+		// Makes the power group 3 with commas
+		let powerLook = power.toString();
+		powerLook = powerLook.replace(/(?!^)(?=(\d{3})+$)/g, ",");
+		// returns format (1.23e456,789)
+		return mantissaLook + "e" + powerLook;
+	}
+	// if the power is greater than 1e6 apply notation scientific notation
+	else if (power >= 1e6)
+	{
+		// Makes mantissa be to 2 decimal places
+		let mantissaLook = mantissa.toFixed(2);
+		mantissaLook = mantissaLook.toString();
+		// Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234) 
+		let powerDigits = Math.ceil(Math.log10(power));
+		let powerFront = ((powerDigits - 1) % 3) + 1;
+		let powerLook = power / Math.pow(10, powerDigits - powerFront );
+		powerLook = powerLook.toFixed(4 - powerFront);
+		powerLook = powerLook.toString();
+		// Return relevant notations alongside the "look" power based on what the power actually is
+		if (power < 1e9) { return mantissaLook + "e" + powerLook + "M"; }
+		if (power < 1e12) { return mantissaLook + "e" + powerLook + "B"; }
+		if (power < 1e15) { return mantissaLook + "e" + powerLook + "T"; }
+		if (power < 1e18) { return mantissaLook + "e" + powerLook + "Qa"; }
+		// If it doesn't fit a notation then default to mantissa e power
+		return mantissa + "e" + power;
+	}
+	// Failsafe
+	else
+	{
+		return "undefined";
+	}
 }
 // Update calculations for Accelerator/Multiplier as well as just Production modifiers in general [Lines 600-897]
 
