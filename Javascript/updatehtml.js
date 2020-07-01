@@ -320,11 +320,11 @@ if (currentTab == "runes") {
     document.getElementById("runestab").style.backgroundColor = "blue"
     document.getElementById("runeshowlevelup").textContent = "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!"
     document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * effectiveLevelMult - 100).toPrecision(4) + "%"
-    displayruneinformation(1,false)
-    displayruneinformation(2,false)
-    displayruneinformation(3,false)
-    displayruneinformation(4,false)
-    displayruneinformation(5,false)
+    displayRuneInformation(1,false)
+    displayRuneInformation(2,false)
+    displayRuneInformation(3,false)
+    displayRuneInformation(4,false)
+    displayRuneInformation(5,false)
     player.tabnumber = 5;
 }
 if (currentTab == "transcension") {
