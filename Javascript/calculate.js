@@ -18,8 +18,84 @@ function productContents(array) {
 	return product;
 }
 
-function calculateRuneExpToLevel(rune) {
-	let runelevel = player.runelevels[rune];
+function calculateRecycleMultiplier() {
+	// Factors where recycle bonus comes from
+	let recycleFactors = sumContents([
+		0.05 * player.achievements[80],
+		0.05 * player.achievements[87],
+		0.05 * player.achievements[94],
+		0.05 * player.achievements[101],
+		0.05 * player.achievements[108],
+		0.05 * player.achievements[115],
+		0.075 * player.achievements[122],
+		0.075 * player.achievements[129],
+		0.05 * player.upgrades[61],
+		0.25 * Math.min(1, rune4level / 200)
+	]);
+
+	return 1/(1 - recycleFactors);
+}
+
+// Returns the amount of exp given per offering by a rune
+function calculateRuneExpGiven(runeIndex) {
+	
+	// recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
+	let recycleMultiplier = calculateRecycleMultiplier();
+
+	// Rune multiplier that is summed instead of added
+	let allRuneExpAdditiveMultiplier = Math.floor(sumContents([
+		// Base amount multiplied per offering
+		25,
+		// Research 5x2
+		3 * player.researches[22],
+		// Research 5x3
+		2 * player.researches[23],
+		// Particle Upgrade 1x1
+		5 * player.upgrades[61],
+		// Particle upgrade 3x1
+		player.upgrades[71] * player.runelevels[runeIndex]
+	]));
+
+	// Rune multiplier that gets applied to all runes
+	let allRuneExpMultiplier = productContents([
+		// Research 4x16
+		1 + (player.researches[91] / 100),
+		// Research 4x17
+		1 + (player.researches[92] / 100),
+		// Ant 8
+		Math.pow(1.01, player.antUpgrades[8] + bonusant8),
+	]);
+
+	// Rune multiplier that gets applied to specific runes
+	let runeExpMultiplier = [
+		productContents([
+			1 + (player.researches[78] / 250)
+		]),
+		productContents([
+			1 + (player.researches[80] / 250)
+		]),
+		productContents([
+			1 + (player.researches[79] / 250)
+		]),
+		productContents([
+			1 + (player.researches[77] / 250)
+		]),
+		productContents([
+			1 + (player.researches[83] / 50)
+		])
+	];
+
+	return productContents([
+		allRuneExpAdditiveMultiplier,
+		allRuneExpMultiplier,
+		recycleMultiplier,
+		runeExpMultiplier[runeIndex]
+	]);
+}
+
+// Returns the amount of exp required to level a rune
+function calculateRuneExpToLevel(runeIndex) {
+	let runelevel = player.runelevels[runeIndex];
 
 	let runeExpRequiredMultiplier = [
 		1 - (0.02 * player.challengecompletions.seven),
@@ -37,10 +113,16 @@ function calculateRuneExpToLevel(rune) {
 			Math.max(1, (runelevel - 500)/25),
 			Math.max(1, (runelevel - 600)/30),
 			Math.max(1, (runelevel - 700)/25),
-			Math.max(1, Math.pow(1.03, runelevels - 750))
+			Math.max(1, Math.pow(1.03, runelevel - 750))
 		]);
 	};
-	let expToLevel = runeexpbase[rune] * allRuneExpRequiredMultiplier(runelevel) * runeExpRequiredMultiplier(rune);
+	let expToLevel = productContents([
+		runeexpbase[runeIndex],
+		allRuneExpRequiredMultiplier(runelevel),
+		runeExpRequiredMultiplier[runeIndex]
+	]);
+	
+	return expToLevel;
 
 }
 
