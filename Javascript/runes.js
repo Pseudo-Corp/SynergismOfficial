@@ -5,50 +5,36 @@
         player.reincarnationcounter += 0.05;
     }
     
-    function displayruneinformation(i,updatelevelup) {
+    function displayRuneInformation(i,updatelevelup) {
         updatelevelup = (updatelevelup === null || updatelevelup === undefined) ? true : updatelevelup;
         
-        var m = effectiveLevelMult
-        let antmult = Math.pow(1.01, player.antUpgrades[8] + bonusant8)
-        let SIMult1 = (1 + player.researches[83]/50);
+        let m = effectiveLevelMult
         let SILevelMult = (1 + player.researches[84]/1000)
-        let mult1 = (1 + player.researches[91]/100);
-        let mult2 = (1 + player.researches[92]/100);
-        let recycleMult = 1/(1 - 0.05 * player.achievements[80] - 0.05 * player.achievements[87] - 0.05 * player.achievements[94] - 0.05 * player.achievements[101] - 0.05 * player.achievements[108] - 0.05 * player.achievements[115] - 0.075 * player.achievements[122] - 0.075 * player.achievements[129] - 0.05 * player.upgrades[61] - Math.min(0.25,rune4level/800))
-        let s = 0;
-        if (player.upgrades[71] == 1 && i == 1){s = player.runelevels[0]}
-        if (player.upgrades[71] == 1 && i == 2){s = player.runelevels[1]}
-        if (player.upgrades[71] == 1 && i == 3){s = player.runelevels[2]}
-        if (player.upgrades[71] == 1 && i == 4){s = player.runelevels[3]}
-        if (player.upgrades[71] == 1 && i == 5){s = player.runelevels[4]}
+		let amountPerOffering = calculateRuneExpGiven(i - 1);
         if (player.upgrades[78] === 1) document.getElementById("toggleofferingbuy").innerHTML = "Toggle amount used by sacrifice, multiplied by 1000<br>due to a Reincarnation Upgrade.";
         
 
         if (i == 1) {
             if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "+1 Accelerator, +0.5% Accelerators per level. +1 Accelerator Boost every 10 levels!"}
             document.getElementById("runeshowpower1").childNodes[0].textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(rune1level * m)) + " Accelerators, +" + (rune1level/2  * m).toPrecision(4) +"% Accelerators, +" + format(Math.floor(rune1level/10 * m)) + " Accelerator Boosts."
-            if (updatelevelup)document.getElementById("runedisplayexp").textContent = "+" + format(antmult * recycleMult * mult1 * mult2 * (1 + player.researches[78]/250) * (25 + 3 * player.researches[22] + 2 * player.researches[23] + 5 * player.upgrades[61] + s)) + " EXP per offering."
         }
         if (i == 2) {
             if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "~(floor(Level/10)) Multipliers every 10 levels, +0.5% Multipliers per level. Tax growth is delayed more for each level!"}
             document.getElementById("runeshowpower2").childNodes[0].textContent = "Duplication Rune Bonus: " + "+" + format(Math.floor(rune2level * m / 10) * Math.floor(10 + rune2level * m /10) / 2) + " Multipliers, +" + format(m *rune2level/2) +"% Multipliers, -" + (99.9 * (1 - Math.pow(6, - (rune2level * m)/500))).toPrecision(4)  + "% Tax Growth."
-            if (updatelevelup)document.getElementById("runedisplayexp").textContent = "+" + format(antmult * recycleMult * mult1 * mult2 * (1 + player.researches[80]/250) * (25 + 3 * player.researches[22] + 2 * player.researches[23] + 5 * player.upgrades[61] + s)) + " EXP per offering."
         }
         if (i == 3) {
             if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "~(1 + Level^2 * 2^Level / 256)x Crystal Production. +1 free level for each Crystal upgrade per 10 levels!"}
             document.getElementById("runeshowpower3").childNodes[0].textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(rune3level * m, 2).times(Decimal.pow(2, rune3level * m - 8).add(1))) + ", gain +" + format(Math.floor(rune3level/10 * m)) + " free crystal levels."
-            if (updatelevelup)document.getElementById("runedisplayexp").textContent = "+" + format(antmult * recycleMult * mult1 * mult2 * (1 + player.researches[79]/250) * (25 + 3 * player.researches[22] + 2 * player.researches[23] + 5 * player.upgrades[61] + s)) + " EXP per offering."
         }
         if (i == 4) {
             if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "+0.25% building cost growth delay per level, +0.125% offering recycle chance per level [MAX: 25%], 2^((200 - Level)/550) Tax growth multiplier AFTER level 200"}
             document.getElementById("runeshowpower4").childNodes[0].textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (rune4level/4 * m).toPrecision(3) + "%. Offering recycle chance +: " + Math.min(25,rune4level/8) + "%. -" + (99 * (1 - Math.pow(4, Math.min(0, (200 - rune4level)/550)))).toPrecision(4) + "% Tax Growth"
-            if (updatelevelup)document.getElementById("runedisplayexp").textContent = "+" + format(antmult * recycleMult * mult1 * mult2 * (1 + player.researches[77]/250) * (25 + 3 * player.researches[22] + 2 * player.researches[23] + 5 * player.upgrades[61] + s)) + " EXP per offering."
         }
         if (i == 5) {
             if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "~(2^(level/300) * (1 + level/150))x Obtainium, 1 + Level^2/1440 Ant Hatch Speed, +0.4 * level seconds of offering timer extension."}
             document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain +" + format((100 * (1 + rune5level/150 * m * SILevelMult) * Math.pow(2, rune5level * m * SILevelMult/300) - 100).toPrecision(3),2,true) + "%. Ant Speed: x" + format(1 + Math.pow(rune5level * m * SILevelMult, 2)/1440) + ". Offering timer extension: +" + (rune5level * 0.4).toFixed(2) + " seconds."
-            if (updatelevelup)document.getElementById("runedisplayexp").textContent = "+" + format(antmult * recycleMult * SIMult1 * mult1 * mult2 * (25 + 3 * player.researches[22] + 2 * player.researches[23] + 5 * player.upgrades[61] + s)) + " EXP per offering."
-        }
+		}
+		if (updatelevelup)document.getElementById("runedisplayexp").textContent = "+" + format(amountPerOffering) + " EXP per offering."
        
         
     }
@@ -165,7 +151,7 @@ function redeemshards(runeIndexPlusOne,auto,autoMult) {
 			}
         }
         
-        displayruneinformation(runeIndexPlusOne);
+        displayRuneInformation(runeIndexPlusOne);
     }
     calculateRuneLevels();
 }
