@@ -372,7 +372,7 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
             player.sacrificeTimer += tickValue
             if (player.sacrificeTimer >= 10){
                 let rune = player.autoSacrifice;
-                redeemshards(rune,true,Math.floor(player.sacrificeTimer/10));
+                redeemShards(rune,true,Math.floor(player.sacrificeTimer/10));
                 player.sacrificeTimer = player.sacrificeTimer % 10;
             }
         }

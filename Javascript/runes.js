@@ -97,7 +97,7 @@
         }
     }
 
-function redeemshards(runeIndexPlusOne,auto,autoMult) {
+function redeemShards(runeIndexPlusOne,auto,autoMult) {
 	// runeIndex, the rune being added to
 	let runeIndex = runeIndexPlusOne - 1;
 	
