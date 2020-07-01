@@ -68,19 +68,19 @@ function calculateRuneExpGiven(runeIndex) {
 
 	// Rune multiplier that gets applied to specific runes
 	let runeExpMultiplier = [
-		productContents([
+		sumContents([
 			1 + (player.researches[78] / 250)
 		]),
-		productContents([
+		sumContents([
 			1 + (player.researches[80] / 250)
 		]),
-		productContents([
+		sumContents([
 			1 + (player.researches[79] / 250)
 		]),
-		productContents([
+		sumContents([
 			1 + (player.researches[77] / 250)
 		]),
-		productContents([
+		sumContents([
 			1 + (player.researches[83] / 50)
 		])
 	];
