@@ -1258,7 +1258,7 @@
             <p id="antdescription" style="color: plum">Hover over the icons for description. Click icons to buy!</p>
 
             <div id="antrow1">
-                <img id="anttier1" src="Pictures/Transparent Pics/AntTierOne.png" onmouseover="updateAntDescription(1);antRepeat(1)" onclick="buyAntProducers('first','Ants','1e1200',1)" style="cursor: pointer;">
+                <img id="anttier1" src="Pictures/Transparent Pics/AntTierOne.png" onmouseover="updateAntDescription(1);antRepeat(1)" onclick="buyAntProducers('first','Ants','1e800',1)" style="cursor: pointer;">
                 <img id="anttier2" src="Pictures/Transparent Pics/AntTierTwo.png" onmouseover="updateAntDescription(2);antRepeat(2)" onclick="buyAntProducers('second','Ants','3',2)" style="cursor: pointer;">
                 <img id="anttier3" src="Pictures/Transparent Pics/AntTierThree.png" onmouseover="updateAntDescription(3);antRepeat(3)" onclick="buyAntProducers('third','Ants','100',3)" style="cursor: pointer;">
                 <img id="anttier4" src="Pictures/Transparent Pics/AntTierFour.png" onmouseover="updateAntDescription(4);antRepeat(4)" onclick="buyAntProducers('fourth','Ants','10000',4)" style="cursor: pointer;">
@@ -1300,13 +1300,19 @@
                 <img id="antUpgrade12" src="Pictures/Transparent Pics/AntUpgrade12.png" onmouseover="antUpgradeDescription(12)" onclick="buyAntUpgrade('1e100',false,12)" style="cursor: pointer;">
             </div>
 
+            <div id="antToggleFeatures">
+                <button id="toggleAntMax" onclick="toggleAntMaxBuy()" style="border: 1px solid gold">Buy Max: ON</button>
+                <button id="toggleAutoSacrificeAnt" onclick="toggleAntAutoSacrifice()" style="border: 1px solid crimson">Auto Sacrifice Every 15 Minutes: OFF</button> 
+            </div>
+
             <div id="sacrificeAnts" style="display: none">
             <p id="antSacrificeTimer" style="color: white">Last Sacrifice: 1s ago</p>
             <img id="antSacrifice" src="Pictures/AntSacrifice.png" style="cursor: pointer;" onclick="sacrificeAnts()">
             </div>
 
             <div id="antSacrificeSummary" style="display: none">
-                <p id="antELO" style="color: plum">Your Sacrifice is Worth <span id="ELO" style="color: gold">0 ELO</span></p>
+                <p id="antELO" style="color: plum">Your Ant ELO is <span id="ELO" style="color: gold">0 ELO</span> <span id="effectiveELO" style="color: white"> </span></p>
+                <p id="antUpgradeMultiplier" style="color: white">Upgrade Multiplier: <span id="SacrificeUpgradeMultiplier" style="color: gold">0.01x</span></p>
                 <p id="antTimeMultiplier" style="color: white">Time Multiplier: <span id="SacrificeTimeMultiplier" style="color: lightseagreen">0.01x</p>
                 <p id="antSacrificeTitle" style="color: crimson">Reset Anthill features for:</p>
                 <p id="antSacrificeMultiplier" style="color: white">Ant Sacrifice Multiplier: 1x --> <span id="SacrificeMultiplier" style="color: limegreen">x2</span></p>
@@ -1400,11 +1406,11 @@
             <a href="https://www.discord.gg/ameCknq" target="_blank">
             <img id="discord" src="Pictures/icon.gif" title="Click to join the official Discord!">
             </a>
-            <a href="https://docs.google.com/document/d/1E59ynF2LuveMc_hW3-IMZh0sHEYcLWXm35lNvpZ7XAE/edit?usp=sharing" target="_blank">
+            <a href="https://docs.google.com/document/d/17Q1CVrDesdguc274qyCxnKeCkrNw002VipdCvUmAjYQ/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
             </a>
 
-            <p id="versionnumber" style="color: gold">You're playing on v1.010!</p>
+            <p id="versionnumber" style="color: gold">You're playing on v1.0101!</p>
         </div>
             <div id="creditssubtab" style="display: none">
             <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>

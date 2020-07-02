@@ -32,13 +32,13 @@ function getCostAccelerator(buyingTo) {
 
 	if (player.currentChallenge === "four")
 	{
-		let sumBit = buyTo * (buyTo + 1) / 2;
+		let sumBit = buyingTo * (buyingTo + 1) / 2;
 		cost = cost.times(Decimal.pow(10, sumBit));
 	}
 
 	if (player.currentChallengeRein === "eight")
 	{
-		let sumBit = buyTo * (buyTo + 1) / 2;
+		let sumBit = buyingTo * (buyingTo + 1) / 2;
 		cost = cost.times(Decimal.pow(1e50, sumBit));
 	}
 	return cost;
@@ -73,7 +73,6 @@ function buyAccelerator(autobuyer) {
 	{
 		if (player.acceleratorBought + player.coinbuyamount < buyTo)
 		{
-			console.log(player.coinbuyamount + player.acceleratorBought);
 			buyTo = player.acceleratorBought + player.coinbuyamount;
 		}
 	}

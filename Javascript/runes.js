@@ -32,7 +32,7 @@
         }
         if (i == 5) {
             if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "~(2^(level/300) * (1 + level/150))x Obtainium, 1 + Level^2/1440 Ant Hatch Speed, +0.4 * level seconds of offering timer extension."}
-            document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain +" + format((100 * (1 + rune5level/150 * m * SILevelMult) * Math.pow(2, rune5level * m * SILevelMult/300) - 100).toPrecision(3),2,true) + "%. Ant Speed: x" + format(1 + Math.pow(rune5level * m * SILevelMult, 2)/1440) + ". Offering timer extension: +" + (rune5level * 0.4).toFixed(2) + " seconds."
+            document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + format((1 + (1 + rune5level/150 * m * SILevelMult) * Math.pow(2, rune5level * m * SILevelMult/300) - 100),2,true) + ". Ant Speed: x" + format(1 + Math.pow(rune5level * m * SILevelMult, 2)/1440) + ". Offering timer extension: +" + (rune5level * 0.4).toFixed(2) + " seconds."
 		}
 		if (updatelevelup)document.getElementById("runedisplayexp").textContent = "+" + format(amountPerOffering) + " EXP per offering."
        
@@ -107,11 +107,11 @@ function redeemShards(runeIndexPlusOne,auto,autoMult) {
 	
 	// How much a runes max level is increased by
     let increaseMaxLevel = [
-		player.researches[78] + player.researches[111],
-		player.researches[80] + player.researches[112],
-		player.researches[79] + player.researches[113],
-		player.researches[77] + player.researches[114],
-		player.researches[115]
+		5 *(player.researches[78] + player.researches[111]),
+		5 *(player.researches[80] + player.researches[112]),
+		5 *(player.researches[79] + player.researches[113]),
+		5 *(player.researches[77] + player.researches[114]),
+		5 *(player.researches[115])
 	];
 
 	// Whether or not a rune is unlocked array

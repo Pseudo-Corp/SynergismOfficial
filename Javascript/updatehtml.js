@@ -93,6 +93,7 @@ document.getElementById("talisman4area").style.display = "none"
 document.getElementById("talisman5area").style.display = "none"
 document.getElementById("talisman6area").style.display = "none"
 document.getElementById("talisman7area").style.display = "none"
+document.getElementById("toggleAutoSacrificeAnt").style.display = "none"
 
 if(player.achievements[38] == 1) document.getElementById("rune2area").style.display = "block";
 if(player.achievements[44] == 1) document.getElementById("rune3area").style.display = "block";
@@ -112,6 +113,7 @@ if(player.achievements[140] == 1) document.getElementById("talisman4area").style
 if(player.achievements[147] == 1) document.getElementById("talisman5area").style.display = "block";
 if(player.antUpgrades[12] > 0) document.getElementById("talisman6area").style.display = "block";
 if(player.shopUpgrades.talismanBought) document.getElementById("talisman7area").style.display = "block";
+if(player.researches[124] > 0) document.getElementById("toggleAutoSacrificeAnt").style.display = "block";
 
 
 
@@ -439,11 +441,11 @@ if (currentTab == "runes"){
     if (runescreen == "runes"){
     document.getElementById("runeshards").textContent = "You have " + format(player.runeshards,0,true) + " Offerings."
   //  document.getElementById("rune1level").textContent = "Level: " + player.runelevels[0] + "/" + (500 + player.researches[78])
-    document.getElementById('rune1level').childNodes[0].textContent = "Level: " + player.runelevels[0] + "/" + (500 + player.researches[78] + player.researches[111])
-    document.getElementById("rune2level").childNodes[0].textContent = "Level: " + player.runelevels[1] + "/" + (500 + player.researches[80] + player.researches[112])
-    document.getElementById("rune3level").childNodes[0].textContent = "Level: " + player.runelevels[2] + "/" + (500 + player.researches[79] + player.researches[113])
-    document.getElementById("rune4level").childNodes[0].textContent = "Level: " + player.runelevels[3] + "/" + (500 + player.researches[77] + player.researches[114])
-    document.getElementById("rune5level").childNodes[0].textContent = "Level: " + player.runelevels[4] + "/" + (500 + player.researches[115])
+    document.getElementById('rune1level').childNodes[0].textContent = "Level: " + player.runelevels[0] + "/" + (500 + 5 * player.researches[78] + 5 * player.researches[111])
+    document.getElementById("rune2level").childNodes[0].textContent = "Level: " + player.runelevels[1] + "/" + (500 + 5 * player.researches[80] + 5 * player.researches[112])
+    document.getElementById("rune3level").childNodes[0].textContent = "Level: " + player.runelevels[2] + "/" + (500 + 5 * player.researches[79] + 5 * player.researches[113])
+    document.getElementById("rune4level").childNodes[0].textContent = "Level: " + player.runelevels[3] + "/" + (500 + 5 * player.researches[77] + 5 * player.researches[114])
+    document.getElementById("rune5level").childNodes[0].textContent = "Level: " + player.runelevels[4] + "/" + (500 + 5 * player.researches[115])
     document.getElementById("rune1exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (1 * Math.pow(player.runelevels[0] , 3) * (4 * player.runelevels[0] + 100)/500 * (Math.max(1, (player.runelevels[0]-500)/25)) * (Math.max(1, (player.runelevels[0]-600)/30)) * (Math.max(1, (player.runelevels[0]-700)/25)) * (Math.max(1, Math.pow(1.03, player.runelevels[0] - 750))) * (1 - 0.02 * player.challengecompletions.seven) - player.runeexp[0]))),2) + " EXP" 
     document.getElementById("rune2exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (4 * Math.pow(player.runelevels[1] , 3) * (4 * player.runelevels[1] + 100)/500 * (Math.max(1, (player.runelevels[1]-500)/25)) * (Math.max(1, (player.runelevels[1]-600)/30)) * (Math.max(1, (player.runelevels[1]-700)/25)) * (Math.max(1, Math.pow(1.03, player.runelevels[1] - 750))) * (1 - 0.02 * player.challengecompletions.seven) - player.runeexp[1]))),2) + " EXP"
     document.getElementById("rune3exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (9 * Math.pow(player.runelevels[2] , 3) * (4 * player.runelevels[2] + 100)/500 * (Math.max(1, (player.runelevels[2]-500)/25)) * (Math.max(1, (player.runelevels[2]-600)/30)) * (Math.max(1, (player.runelevels[2]-700)/25)) * (Math.max(1, Math.pow(1.03, player.runelevels[2] - 750)))  - player.runeexp[2]))),2) + " EXP"
@@ -693,11 +695,11 @@ document.getElementById("buyMythicalFragment").style.backgroundColor = "#171717"
 
 if (player.researchPoints > 1e6){document.getElementById("buyShard").style.backgroundColor = "purple"}
 if (player.researchPoints > 3e6){document.getElementById("buyCommonFragment").style.backgroundColor = "purple"}
-if (player.researchPoints > 1e7 && player.runeshards > 100){document.getElementById("buyUncommonFragment").style.backgroundColor = "purple"}
-if (player.researchPoints > 1e8 && player.runeshards > 1000){document.getElementById("buyRareFragment").style.backgroundColor = "purple"}
-if (player.researchPoints > 1e9 && player.runeshards > 10000){document.getElementById("buyEpicFragment").style.backgroundColor = "purple"}
-if (player.researchPoints > 1e10 && player.runeshards > 100000){document.getElementById("buyLegendaryFragment").style.backgroundColor = "purple"}
-if (player.researchPoints > 1e11 && player.runeshards > 1e6){document.getElementById("buyMythicalFragment").style.backgroundColor = "purple"}
+if (player.researchPoints > 1e7 && player.runeshards > 5){document.getElementById("buyUncommonFragment").style.backgroundColor = "purple"}
+if (player.researchPoints > 1e8 && player.runeshards > 40){document.getElementById("buyRareFragment").style.backgroundColor = "purple"}
+if (player.researchPoints > 1e9 && player.runeshards > 400){document.getElementById("buyEpicFragment").style.backgroundColor = "purple"}
+if (player.researchPoints > 1e10 && player.runeshards > 2000){document.getElementById("buyLegendaryFragment").style.backgroundColor = "purple"}
+if (player.researchPoints > 1e11 && player.runeshards > 10000){document.getElementById("buyMythicalFragment").style.backgroundColor = "purple"}
 }
 
 }

@@ -112,7 +112,7 @@ const player = {
 
    firstOwnedAnts: 0,
    firstGeneratedAnts: new Decimal("0"),
-   firstCostAnts: new Decimal("1e1600"),
+   firstCostAnts: new Decimal("1e800"),
    firstProduceAnts: .0001,
 
    secondOwnedAnts: 0,
@@ -413,11 +413,13 @@ const player = {
 			  offerpromo20used: false,
 			  offerpromo21used: false,
 			  offerpromo22used: false,
+			  offerpromo23used: false,
 
 			  loaded1009: false,
 			  loaded1009hotfix1: false,
 			  loaded10091: false,
 			  loaded1010: false,
+			  loaded10101: false,
 
 			  shopUpgrades: {
 				  offeringPotion: 1,
@@ -462,6 +464,9 @@ const player = {
 
 			  buyTalismanShardPercent: 10,
 
+			  autoAntSacrifice: false,
+			  antMax: false,
+
 			  brokenfile1: false,
 			  exporttest: "YES!",
 			  kongregatetest: "NO!"
@@ -470,7 +475,7 @@ const player = {
 Object.defineProperty(player, 'version', {
    configurable: false,
    enumerable: true,
-   value: '1.010'
+   value: '1.0101'
 });
 
 function saveSynergy(button) {
@@ -523,6 +528,7 @@ function loadSynergy() {
 	   if (data.offerpromo20used === undefined){player.offerpromo20used = false;}
 	   if (data.loaded1010 === undefined){player.loaded1010 = false;}
 	   if (data.offerpromo22used === undefined){player.offerpromo22used = false;}
+	   if (data.loaded10101 === undefined){player.loaded10101 = false;}
 
 	   if (player.offerpromo6used === undefined){
 		player.offerpromo6used = false; 
@@ -650,7 +656,7 @@ function loadSynergy() {
 		player.offerpromo16used = false;
 		player.brokenfile1 = false;
 	}
-	if (player.offerpromo17used === undefined || player.researches[31] > 10){
+	if (player.offerpromo17used === undefined){
 		player.offerpromo17used = false;
 		player.offeringpersecond = 0;
 		player.obtainiumpersecond = 0;
@@ -833,6 +839,26 @@ function loadSynergy() {
 		player.offerpromo22used = false;
 	}
 
+	if(data.loaded10101 === undefined || data.loaded10101 === false){
+		player.offerpromo23used = false;
+		player.loaded10101 = true;
+
+		let refundThese = [0,31,32,61,62,63,64,76,77,78,79,80,
+							81, 98, 104, 105, 106, 107, 108,
+							109, 110, 111, 112, 113, 114, 115, 116,
+							117, 118, 119, 120, 121, 122, 123, 125];
+		let refundReward = [0, 2, 20, 5, 10, 80, 5e3, 1e7, 1e7, 2e7, 3e7, 4e7,
+							2e8, 3e10, 1e11, 1e12, 2e11, 1e12, 2e10,
+							2e11, 1e12, 2e13, 5e13, 1e14, 2e14, 5e14, 1e15,
+							2e15, 1e16, 1e15, 1e16, 1e14, 1e15, 1e15, 1e20];
+		for (var i = 1; i < refundThese.length; i++){
+			player.researchPoints += player.researches[refundThese[i]] * refundReward[i]
+			player.researches[refundThese[i]] = 0; 
+		}
+		player.autoAntSacrifice = false;
+		player.antMax = false;
+	}
+
 
 		if (player.transcendCount < 0){player.transcendCount = 0};
 		if (player.reincarnationCount < 0){player.reincarnationCount = 0;};
@@ -954,6 +980,11 @@ if (player.autoResearchToggle){document.getElementById("toggleautoresearch").tex
 if (!player.autoResearchToggle){document.getElementById("toggleautoresearch").textContent = "Automatic: OFF"}
 if (player.autoSacrificeToggle){document.getElementById("toggleautosacrifice").textContent = "Automatic: ON"}
 if (!player.autoSacrificeToggle){document.getElementById("toggleautosacrifice").textContent = "Automatic: OFF"}
+
+for(var i = 1; i<=2; i++){
+	toggleAntMaxBuy()
+	toggleAntAutoSacrifice()
+}
 
 if (player.autoResearchToggle && player.autoResearch > 0.5){document.getElementById("res" + player.autoResearch).style.backgroundColor = "orange"};
 if (player.autoSacrificeToggle && player.autoSacrifice > 0.5){document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "orange"};
@@ -1192,8 +1223,7 @@ function updateAllTick() {
 		acceleratorPower += 0.55
 	}
 	if (player.currentChallengeRein == "ten"){
-		acceleratorPower *= 0.001;
-		acceleratorPower += 0.999
+		acceleratorPower = 1;
 	}
 	if (player.currentChallenge !== "two" && player.currentChallengeRein !== "seven" && player.achievements[3] > 0.5) {acceleratorPower += 0.0005}
 	if (player.currentChallenge !== "two" && player.currentChallengeRein !== "seven" && player.achievements[10] > 0.5) {acceleratorPower += 0.001}
@@ -1213,7 +1243,9 @@ function updateAllTick() {
 		acceleratorEffect = Decimal.pow(acceleratorPower, totalAccelerator + totalMultiplier);
 	}
 		acceleratorEffectDisplay = acceleratorPower * 100 - 100
-
+	if (player.currentChallengeRein == "ten"){
+		acceleratorEffect = 1;
+	}
 	generatorPower = new Decimal(1);
 	if (player.upgrades[11] > 0.5  && player.currentChallengeRein !== "seven") {
 		generatorPower = Decimal.pow(1.02, totalAccelerator)
@@ -2013,7 +2045,7 @@ function updateAll() {
 		if (player.achievements[182] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[10], player.antUpgrades[10]).times(antUpgradeBaseCost[10]).times(2))){buyAntUpgrade('1e20',true,10)}
 		if (player.achievements[182] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[11], player.antUpgrades[11]).times(antUpgradeBaseCost[11]).times(2))){buyAntUpgrade('1e40',true,11)}
 	
-		if (player.achievements[173] == 1 && player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostAnts)){buyAntProducers('first','Ants','1e1200',1);}
+		if (player.achievements[173] == 1 && player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostAnts)){buyAntProducers('first','Ants','1e800',1);}
 		if (player.achievements[176] == 1 && player.antPoints.greaterThanOrEqualTo(player.secondCostAnts.times(2))){buyAntProducers('second','Ants','3',2);}
 		if (player.achievements[177] == 1 && player.antPoints.greaterThanOrEqualTo(player.thirdCostAnts.times(2))){buyAntProducers('third','Ants','100',3);}
 		if (player.achievements[178] == 1 && player.antPoints.greaterThanOrEqualTo(player.fourthCostAnts.times(2))){buyAntProducers('fourth','Ants','10000',4);}
@@ -2021,6 +2053,8 @@ function updateAll() {
 		if (player.achievements[180] == 1 && player.antPoints.greaterThanOrEqualTo(player.sixthCostAnts.times(2))){buyAntProducers('sixth','Ants','1e36',6);}
 		if (player.achievements[181] == 1 && player.antPoints.greaterThanOrEqualTo(player.seventhCostAnts.times(2))){buyAntProducers('seventh','Ants','1e100',7);}
 		if (player.achievements[182] == 1 && player.antPoints.greaterThanOrEqualTo(player.eighthCostAnts.times(2))){buyAntProducers('eighth','Ants','1e300',8);}
+
+		if (player.antSacrificeTimer >= 900 && player.researches[124] == 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")){sacrificeAnts(true)}
 
 	let reductionValue = getReductionValue();
 	if (reductionValue !== prevReductionValue)
@@ -2076,13 +2110,13 @@ function tick() {
 	if (!timeWarp){
 	var now = Date.now();
 	var dt = Math.max(0, Math.min(36000, (now - lastUpdate)/1000 * divineBlessing1));
-	dt *= (1 + player.researches[121]/50)
+	dt *= (1 + player.researches[121]/200)
 	lastUpdate = now;
 
 	player.quarkstimer += dt/(divineBlessing1 * (1 + player.researches[121]/50))
 	if(player.quarkstimer >= 90000){player.quarkstimer = 90000}
-	if(player.researches[61] > 0.5){player.obtainiumtimer += dt;}
-
+	if(player.researches[61] > 0){player.obtainiumtimer += dt;}
+	if(player.researches[61] > 0){document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + format(0.05 * (player.researches[61] + player.researches[62]) * player.maxobtainiumpersecond * divineBlessing1,3,true) + " Obtainium per second."}
 	document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)),2) + "s until +" +(1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]) + " export Quark"
 	document.getElementById("quarktimeramount").textContent = "Quarks on export: " + (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125])) + " [Max " + format((25 * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]))) +"]"
 
@@ -2095,28 +2129,14 @@ function tick() {
 	}
 	}
 
-
-	if (player.researches[61] > 0.5) {
-		var u = 1;
-		var v = 0;
-		  if(player.upgrades[69] > 0.5){u = Math.min(3,Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))};
-		  u *= (1 + player.researches[76]/100);
-		  if(player.obtainiumtimer >= (60 - player.researches[62] - player.researches[63])) {
-		  player.researchPoints += Math.floor((1 + player.researches[64]) * u) * 100/100 * Math.floor((player.obtainiumtimer / (60 - player.researches[62] - player.researches[63])))
-		  v = player.obtainiumtimer % (60 - player.researches[62] - player.researches[63])
-		  player.obtainiumtimer = v;		
-		}
-		document.getElementById("automaticobtainium").textContent = "Thanks to research, you will automatically gain " + format(Math.floor((1 + player.researches[64]) * u)) + " obtainium in " + format((60 - player.researches[62] - player.researches[63] - player.obtainiumtimer),1) + " seconds." 
-	}
-
 	if (player.achievements[173] == 1){
 		player.antSacrificeTimer += dt
 		document.getElementById("antSacrificeTimer").textContent = format(Math.floor(player.antSacrificeTimer / 86400)) + "d" + format(Math.floor(player.antSacrificeTimer / 3600) % 24) + "h" + format(Math.floor(player.antSacrificeTimer/60) % 60) + "m" + format(Math.floor(player.antSacrificeTimer) % 60) + "s"
 		showSacrifice();
 	}
 	calculateObtainium();
-	if (player.researches[116] == 1){
-	player.researchPoints += (player.obtainiumpersecond * dt) * (0.1 + 0.02 * player.researches[117] + 0.02 * player.researches[118])
+	if (player.researches[61] == 1){
+	player.researchPoints += (player.maxobtainiumpersecond * dt) * (0.05 + 0.05 * player.researches[62])
 	}
 	if (dt > 5) {
 		while(dt > 5){

@@ -239,3 +239,14 @@ function toggleShopConfirmation(){
     if(shopConfirmation){shopConfirmation = false; el.textContent = "Shop Confirmations: OFF"}
     else{shopConfirmation = true; el.textContent = "Shop Confirmations: ON"}
 }
+
+function toggleAntMaxBuy() {
+    let el = document.getElementById("toggleAntMax");
+    if(player.antMax){player.antMax = false; el.textContent = "Buy Max: OFF";}
+    else{player.antMax = true; el.textContent = "Buy Max: ON";};
+}
+function toggleAntAutoSacrifice(){
+    let el = document.getElementById("toggleAutoSacrificeAnt");
+    if(player.autoAntSacrifice){player.autoAntSacrifice = false; el.textContent = "Auto Sacrifice Every 15 Minutes: OFF"}
+    else{player.autoAntSacrifice = true; el.textContent = "Auto Sacrifice Every 15 Minutes: ON"}
+}
