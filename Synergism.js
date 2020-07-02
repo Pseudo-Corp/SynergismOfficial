@@ -1082,7 +1082,7 @@ function format(input,accuracy,long){
 		// Get the back half of the number (post-decimal point)
 		let back = split[1];
 		// Apply a number group 3 comma regex to the front
-		front = front.replace(/(?!^)(?=(\d{3})+$)/g, ",");
+		front = front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
 		// if the back is undefined that means there are no decimals to display, return just the front
 		if (back === undefined)
 		{
@@ -1102,7 +1102,7 @@ function format(input,accuracy,long){
 		mantissaLook = mantissaLook.toString();
 		// Makes the power group 3 with commas
 		let powerLook = power.toString();
-		powerLook = powerLook.replace(/(?!^)(?=(\d{3})+$)/g, ",");
+		powerLook = powerLook.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
 		// returns format (1.23e456,789)
 		return mantissaLook + "e" + powerLook;
 	}
@@ -1116,6 +1116,11 @@ function format(input,accuracy,long){
 		let powerDigits = Math.ceil(Math.log10(power));
 		let powerFront = ((powerDigits - 1) % 3) + 1;
 		let powerLook = power / Math.pow(10, powerDigits - powerFront );
+		if (powerLook === 1000)
+		{
+    	powerLook = 1;
+    	powerFront = 1;
+		}
 		powerLook = powerLook.toFixed(4 - powerFront);
 		powerLook = powerLook.toString();
 		// Return relevant notations alongside the "look" power based on what the power actually is
