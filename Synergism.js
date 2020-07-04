@@ -935,7 +935,7 @@ if (player.shoptoggles.prestige == false) {document.getElementById("shoptogglepr
 if (player.shoptoggles.transcend == false) {document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
 if (player.shoptoggles.generator == false) {document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"}
 
-
+getChallengeConditions();
 updateChallengeDisplay();
 revealStuff();
 toggleauto();
