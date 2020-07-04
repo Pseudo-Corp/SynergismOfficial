@@ -2137,13 +2137,13 @@ function tick() {
 	if (player.achievements[173] == 1){
 		player.antSacrificeTimer += dt
 		document.getElementById("antSacrificeTimer").textContent = 
-			((player.antSacrificeTimer > 86400)
+			((player.antSacrificeTimer >= 86400)
 				? format(Math.floor(player.antSacrificeTimer / 86400)) + "d"
 				: '') + 
-			((player.antSacrificeTimer > 3600)
+			((player.antSacrificeTimer >= 3600)
 				? format(Math.floor(player.antSacrificeTimer / 3600) % 24) + "h"
 				: '') + 
-			((player.antSacrificeTimer > 60)
+			((player.antSacrificeTimer >= 60)
 				? format(Math.floor(player.antSacrificeTimer/60) % 60) + "m"
 				: '') + 
 			format(Math.floor(player.antSacrificeTimer) % 60) + "s"
