@@ -18,6 +18,10 @@ function productContents(array) {
 	return product;
 }
 
+function calculateTotalCoinOwned() {
+	totalCoinOwned = player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin;
+}
+
 function calculateTotalAcceleratorBoost() {
 	let b = 0
 	if (player.upgrades[26] > 0.5) {b += 1;}
