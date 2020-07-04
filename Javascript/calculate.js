@@ -18,6 +18,29 @@ function productContents(array) {
 	return product;
 }
 
+function calculateTotalAcceleratorBoost() {
+	let b = 0
+	if (player.upgrades[26] > 0.5) {b += 1;}
+	if (player.upgrades[31] > 0.5) {b += Math.floor(totalCoinOwned/2000) * 100/100}
+	if (player.achievements[7] > 0.5){b += Math.floor(player.firstOwnedCoin/2000)}
+	if (player.achievements[14] > 0.5){b += Math.floor(player.secondOwnedCoin/2000)}
+	if (player.achievements[21] > 0.5){b += Math.floor(player.thirdOwnedCoin/2000)}
+	if (player.achievements[28] > 0.5){b += Math.floor(player.fourthOwnedCoin/2000)}
+	if (player.achievements[35] > 0.5){b += Math.floor(player.fifthOwnedCoin/2000)}
+
+	b += player.researches[93] * Math.floor(1/100 * (rune1level + rune2level + rune3level + rune4level + rune5level))
+	b += Math.floor((0.01 + rune1level) * effectiveLevelMult / 10);
+	b *= (1 + 1/5 * player.researches[3])
+	b *= (1 + 1/100 * player.researches[16] + 1/100 * player.researches[17])
+	b *= (1 + 1/100 * player.researches[88])
+	b *= (1 + 1/50 * (player.antUpgrades[4] + bonusant4))
+	if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== "") {b *= 2}
+	b = Math.floor(b)
+	freeAcceleratorBoost = b;
+
+	totalAcceleratorBoost = Math.floor(player.acceleratorBoostBought + freeAcceleratorBoost) * 100/100;
+}
+
 function calculateRecycleMultiplier() {
 	// Factors where recycle bonus comes from
 	let recycleFactors = sumContents([
