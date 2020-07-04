@@ -1043,12 +1043,12 @@ function format(input,accuracy,long){
 	}
 
 	// This prevents numbers from jittering between two different powers by rounding errors
-	if (mantissa > 9.999)
+	if (mantissa > 9.9999999)
 	{
 		mantissa = 1;
 		++power;
 	}
-	if (mantissa < 1 && mantissa > 0.999)
+	if (mantissa < 1 && mantissa > 0.9999999)
 	{
 		mantissa = 1;
 	}
