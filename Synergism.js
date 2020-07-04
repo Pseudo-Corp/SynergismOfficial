@@ -2118,7 +2118,7 @@ function tick() {
 	dt *= (1 + player.researches[121]/200)
 	lastUpdate = now;
 
-	player.quarkstimer += dt/(divineBlessing1 * (1 + player.researches[121]/50))
+	player.quarkstimer += dt/(divineBlessing1 * (1 + player.researches[121]/200))
 	if(player.quarkstimer >= 90000){player.quarkstimer = 90000}
 	if(player.researches[61] > 0){player.obtainiumtimer += dt;}
 	if(player.researches[61] > 0){document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + format(0.05 * (player.researches[61] + player.researches[62]) * player.maxobtainiumpersecond * divineBlessing1,3,true) + " Obtainium per second."}
