@@ -379,7 +379,7 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
     let progressBarWidth = 0;
     if(timeadd < 1000){simulatedTicks = Math.min(1, Math.floor(timeadd/1.25)); tickValue = Math.min(1.25,timeadd);};
     let maxSimulatedTicks = simulatedTicks;
-    player.quarkstimer += timeadd/(divineBlessing1 * (1 + player.researches[121]/50));
+    player.quarkstimer += timeadd/(divineBlessing1 * (1 + player.researches[121]/200));
     if (player.researches[61] > 0){player.researchPoints += timeadd * (0.05 + 0.05 * player.researches[62]) * player.maxobtainiumpersecond}
     if (player.achievements[173] == 1){
         player.antSacrificeTimer += timeadd;
