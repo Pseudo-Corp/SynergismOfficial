@@ -2126,8 +2126,23 @@ function tick() {
 	if(player.quarkstimer >= 90000){player.quarkstimer = 90000}
 	if(player.researches[61] > 0){player.obtainiumtimer += dt;}
 	if(player.researches[61] > 0){document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + format(0.05 * (player.researches[61] + player.researches[62]) * player.maxobtainiumpersecond * divineBlessing1,3,true) + " Obtainium per second."}
+	
+	const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
+	const maxExportQuarks = (25 * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
+
 	document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)),2) + "s until +" +(1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]) + " export Quark"
-	document.getElementById("quarktimeramount").textContent = "Quarks on export: " + (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125])) + " [Max " + format((25 * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]))) +"]"
+	document.getElementById("quarktimeramount").textContent = "Quarks on export: " 
+		+ onExportQuarks 
+		+ " [Max " 
+		+ format(maxExportQuarks) 
+		+"]"
+
+	if(onExportQuarks === maxExportQuarks) {
+		const settingsTab = document.getElementById('settingstab');
+		settingsTab.style.backgroundColor = 'gold';
+		settingsTab.style.border = '1px solid gold';
+		settingsTab.setAttribute('full', 1);
+	}
 
 	if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle){
 	player.sacrificeTimer += dt
