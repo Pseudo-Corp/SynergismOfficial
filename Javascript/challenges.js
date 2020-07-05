@@ -225,6 +225,18 @@ function challengeDisplay(i,changefocus, automated) {
     */
 }
 
+function getChallengeConditions() {
+	if (player.currentChallengeRein == "nine"){
+        rune1level = 1;
+        rune2level = 1;
+        rune3level = 1;
+        rune4level = 1;
+        rune5level = 1;
+        player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+    calculateRuneLevels();
+}
+
 function toggleRetryChallenges() {
     if (player.retrychallenges){player.retrychallenges = false; document.getElementById("retryChallenge").textContent = "Retry Challenges: OFF"}
     else{player.retrychallenges = true; document.getElementById("retryChallenge").textContent = "Retry Challenges: ON"}

@@ -23,18 +23,8 @@ if (player.currentChallenge == "" && (i == 'six' || i == 'seven' || i == 'eight'
     player.reincarnationCount -= 1;
 }
 
-    updateChallengeDisplay();
-
-
-        if (i == "nine"){
-        rune1level = 1;
-        rune2level = 1;
-        rune3level = 1;
-        rune4level = 1;
-        rune5level = 1;
-        player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
-        }
-        calculateRuneLevels();
+	updateChallengeDisplay();
+	getChallengeConditions();
 }
 
 
