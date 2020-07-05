@@ -1141,7 +1141,6 @@ function format(input,accuracy,long){
 
 function updateAllTick() {
 	let a = 0;
-	let b = 0;
     totalAccelerator = player.acceleratorBought;
 	
 	costDivisor = 1;
@@ -1164,45 +1163,23 @@ function updateAllTick() {
 	if (player.achievements[60] > 0.5) {a += 2}
 	if (player.achievements[61] > 0.5) {a += 2}
 	if (player.achievements[62] > 0.5) {a += 2}
-	
-	b = 0
-	if (player.upgrades[26] > 0.5) {b += 1;}
-	if (player.upgrades[31] > 0.5) {b += Math.floor(totalCoinOwned/2000) * 100/100}
-	if (player.achievements[7] > 0.5){b += Math.floor(player.firstOwnedCoin/2000)}
-	if (player.achievements[14] > 0.5){b += Math.floor(player.secondOwnedCoin/2000)}
-	if (player.achievements[21] > 0.5){b += Math.floor(player.thirdOwnedCoin/2000)}
-	if (player.achievements[28] > 0.5){b += Math.floor(player.fourthOwnedCoin/2000)}
-	if (player.achievements[35] > 0.5){b += Math.floor(player.fifthOwnedCoin/2000)}
 
-	b += player.researches[93] * Math.floor(1/100 * (rune1level + rune2level + rune3level + rune4level + rune5level))
-	b += Math.floor((0.01 + rune1level) * effectiveLevelMult / 10);
-	b *= (1 + 1/5 * player.researches[3])
-	b *= (1 + 1/100 * player.researches[16] + 1/100 * player.researches[17])
-	b *= (1 + 1/100 * player.researches[88])
-	b *= (1 + 1/50 * (player.antUpgrades[4] + bonusant4))
-	if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== "") {b *= 2}
-	b = Math.floor(b)
-	freeAcceleratorBoost = b;
-
-	totalAcceleratorBoost = Math.floor(player.acceleratorBoostBought + freeAcceleratorBoost) * 100/100;
-
-
-		a += totalAcceleratorBoost * (5 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20]);
-		if (player.unlocks.prestige == true) {
-		a += rune1level  * (1 + rune2level / 200) * effectiveLevelMult
-		}
-		a += 5 * player.challengecompletions.two
-		a *=(1 + rune1level * 1/200) * effectiveLevelMult;
-		a += (player.acceleratorBought * rune1level * 1/200 * effectiveLevelMult)
-		a *=(1 + player.achievements[60]/100)
-		a *=(1 + player.achievements[61]/100)
-		a *=(1 + player.achievements[62]/100)
-		a *=(1 + 1/5 * player.researches[1])
-		a *=(1 + 1/20 * player.researches[6] + 1/80 * player.researches[7] + 1/150 * player.researches[8] + 3/800 * player.researches[9] + 1/500 * player.researches[10]);
-		a *=(1 + 1/100 * player.researches[86])
-		a *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
-		if ((player.currentChallenge !== "" || player.currentChallengeRein !== "") && player.upgrades[50] > 0.5) {a *= 1.25}
-		a = Math.floor(a)
+	a += totalAcceleratorBoost * (5 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20]);
+	if (player.unlocks.prestige == true) {
+	a += rune1level  * (1 + rune2level / 200) * effectiveLevelMult
+	}
+	a += 5 * player.challengecompletions.two
+	a *=(1 + rune1level * 1/200) * effectiveLevelMult;
+	a += (player.acceleratorBought * rune1level * 1/200 * effectiveLevelMult)
+	a *=(1 + player.achievements[60]/100)
+	a *=(1 + player.achievements[61]/100)
+	a *=(1 + player.achievements[62]/100)
+	a *=(1 + 1/5 * player.researches[1])
+	a *=(1 + 1/20 * player.researches[6] + 1/80 * player.researches[7] + 1/150 * player.researches[8] + 3/800 * player.researches[9] + 1/500 * player.researches[10]);
+	a *=(1 + 1/100 * player.researches[86])
+	a *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
+	if ((player.currentChallenge !== "" || player.currentChallengeRein !== "") && player.upgrades[50] > 0.5) {a *= 1.25}
+	a = Math.floor(a)
 	
 	freeAccelerator = a;
 	totalAccelerator += freeAccelerator;
@@ -1367,8 +1344,6 @@ function updateAllMultiplier() {
 function multipliers() {
 	let s = new Decimal(1);
 	let c = new Decimal(1);
-
-totalCoinOwned = player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin;
 prestigeMultiplier = Decimal.pow(player.prestigeShards, 1/3 + Math.min(10, 0.05 * player.crystalUpgrades[3]) + 0.04 * player.challengecompletions.three + 0.02 * (player.researches[28] + player.researches[29] + 0.5 * player.researches[30])).add(1);
 
 let c7 = 1;
@@ -1547,6 +1522,10 @@ globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1.05, player
 
 function resourceGain(dt,fast){
 		fast = fast || false
+
+		calculateTotalCoinOwned();
+		calculateTotalAcceleratorBoost();
+
 		updateAllTick();
 		updateAllMultiplier();
 		multipliers();
@@ -2112,6 +2091,7 @@ function createTimer() {
 }
 
 function tick() {
+
 	if (!timeWarp){
 	var now = Date.now();
 	var dt = Math.max(0, Math.min(36000, (now - lastUpdate)/1000 * divineBlessing1));
