@@ -1041,18 +1041,17 @@ function format(input,accuracy,long){
 	{
 		return "0";
 	}
-
 	// This prevents numbers from jittering between two different powers by rounding errors
-	if (mantissa > 9.999)
+	if (mantissa > 9.9999999)
 	{
 		mantissa = 1;
 		++power;
 	}
-	if (mantissa < 1 && mantissa > 0.999)
+	if (mantissa < 1 && mantissa > 0.9999999)
 	{
 		mantissa = 1;
 	}
-
+	
 	// If the power is less than 12 it's effectively 0
 	if (power < -12)
 	{
@@ -1097,8 +1096,10 @@ function format(input,accuracy,long){
 	// If the power is less than 1e6 then apply standard scientific notation
 	else if (power < 1e6)
 	{
+		// Makes mantissa be rounded down to 2 decimal places
+		let mantissaLook = Math.floor(mantissa * 100) / 100;
 		// Makes mantissa be to 2 decimal places 
-		let mantissaLook = mantissa.toFixed(2);
+		mantissaLook = mantissaLook.toFixed(2);
 		mantissaLook = mantissaLook.toString();
 		// Makes the power group 3 with commas
 		let powerLook = power.toString();
@@ -1109,8 +1110,10 @@ function format(input,accuracy,long){
 	// if the power is greater than 1e6 apply notation scientific notation
 	else if (power >= 1e6)
 	{
+		// Makes mantissa be rounded down to 2 decimal places
+		let mantissaLook = Math.floor(mantissa * 100) / 100;
 		// Makes mantissa be to 2 decimal places
-		let mantissaLook = mantissa.toFixed(2);
+		mantissaLook = mantissaLook.toFixed(2);
 		mantissaLook = mantissaLook.toString();
 		// Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234) 
 		let powerDigits = Math.ceil(Math.log10(power));
