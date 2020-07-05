@@ -2093,6 +2093,27 @@ function createTimer() {
 	setInterval(tick, 50);
 }
 
+const toggleBtnColors = function() {
+	const toggles = player.toggles;
+	const idx = Object.keys(toggles);
+
+	for(let i = 0; i < idx.length; i++) { // 1 -> 30, but let's make it work in the future
+		const el = document.querySelector('*[class=auto][id=toggle' + (i+1) + ']');
+		if(!el) {
+			continue;
+		}
+
+		const isOn = toggles[idx[i]];
+		el.style.border = '2px solid ' + (isOn ? 'green' : 'red');
+		el.setAttribute('toggled', isOn ? 1 : 0);
+		el.addEventListener('click', function() {
+			const toggled = el.getAttribute('toggled');
+			el.style.border = '2px solid ' + (toggled === '1' ? 'red' : 'green');
+			el.setAttribute('toggled', toggled === '1' ? 0 : 1);
+		});
+	}
+} 
+
 function tick() {
 
 	if (!timeWarp){
@@ -2248,6 +2269,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 	setTimeout(function() {
 		loadSynergy();
 		saveSynergy();
+		toggleBtnColors();
 		revealStuff();
 		hideStuff();
 		createTimer();
