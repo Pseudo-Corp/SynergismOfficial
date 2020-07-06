@@ -256,118 +256,125 @@ var e = document.getElementsByClassName("auto");
     }
 
 function hideStuff() {
-document.getElementById("buildings").style.display = "none"	
-document.getElementById("buildingstab").style.backgroundColor = "#171717";
-document.getElementById("upgrades").style.display = "none"
-document.getElementById("upgradestab").style.backgroundColor = "#171717"
-document.getElementById("settings").style.display = "none"
-document.getElementById("settingstab").style.backgroundColor = "#171717"
-document.getElementById("settingstab").style.color = "white"
-document.getElementById("statistics").style.display = "none"
-document.getElementById("achievementstab").style.backgroundColor = "#171717"
-document.getElementById("achievementstab").style.color = "white"
-document.getElementById("prestige").style.display = "none"
-document.getElementById("prestigetab").style.backgroundColor = "#171717"
-document.getElementById("runes").style.display = "none"
-document.getElementById("runestab").style.backgroundColor = "#171717"
-document.getElementById("transcension").style.display = "none"
-document.getElementById("transcensiontab").style.backgroundColor = "#171717"
-document.getElementById("challenges").style.display = "none"
-document.getElementById("challengetab").style.backgroundColor = "#171717"
-document.getElementById("reincarnation").style.display = "none"
-document.getElementById("reincarnationtab").style.backgroundColor = "#171717"
-document.getElementById("research").style.display = "none"
-document.getElementById("researchtab").style.backgroundColor = "#171717"
-document.getElementById("shop").style.display = "none"
-document.getElementById("shoptab").style.backgroundColor = "purple"
-document.getElementById("ants").style.display = "none"
-document.getElementById("anttab").style.backgroundColor = "#171717"
+	document.getElementById("buildings").style.display = "none"	
+	document.getElementById("buildingstab").style.backgroundColor = "#171717";
+	document.getElementById("upgrades").style.display = "none"
+	document.getElementById("upgradestab").style.backgroundColor = "#171717"
+	document.getElementById("settings").style.display = "none"
 
-document.getElementById("activaterune2").style.display = "none"
-document.getElementById("activaterune3").style.display = "none"
-document.getElementById("activaterune4").style.display = "none"
+	const settingsTab = document.getElementById("settingstab");
+	if(settingsTab.getAttribute('full') === '0') {
+		settingsTab.style.backgroundColor = "#171717"
+		settingsTab.style.color = "white"
+		settingsTab.style.border = '1px solid white';
+	}
 
-if (currentTab == "buildings") {
-    document.getElementById("buildingstab").style.backgroundColor = "orange";
-    document.getElementById("buildings").style.display = "block"
-    player.tabnumber = 1;
-}
-if (currentTab == "upgrades") {
-    document.getElementById("upgrades").style.display = "block"
-    document.getElementById("upgradestab").style.backgroundColor = "orange"
-    document.getElementById("upgradedescription").textContent = "Hover over an upgrade to view details!"
-    player.tabnumber = 2;
-}
-if (currentTab == "settings") {
-    document.getElementById("settings").style.display = "block"
-    document.getElementById("settingstab").style.backgroundColor = "white"
-    document.getElementById("settingstab").style.color = "black"
+	document.getElementById("statistics").style.display = "none"
+	document.getElementById("achievementstab").style.backgroundColor = "#171717"
+	document.getElementById("achievementstab").style.color = "white"
+	document.getElementById("prestige").style.display = "none"
+	document.getElementById("prestigetab").style.backgroundColor = "#171717"
+	document.getElementById("runes").style.display = "none"
+	document.getElementById("runestab").style.backgroundColor = "#171717"
+	document.getElementById("transcension").style.display = "none"
+	document.getElementById("transcensiontab").style.backgroundColor = "#171717"
+	document.getElementById("challenges").style.display = "none"
+	document.getElementById("challengetab").style.backgroundColor = "#171717"
+	document.getElementById("reincarnation").style.display = "none"
+	document.getElementById("reincarnationtab").style.backgroundColor = "#171717"
+	document.getElementById("research").style.display = "none"
+	document.getElementById("researchtab").style.backgroundColor = "#171717"
+	document.getElementById("shop").style.display = "none"
+	document.getElementById("shoptab").style.backgroundColor = "purple"
+	document.getElementById("ants").style.display = "none"
+	document.getElementById("anttab").style.backgroundColor = "#171717"
 
+	document.getElementById("activaterune2").style.display = "none"
+	document.getElementById("activaterune3").style.display = "none"
+	document.getElementById("activaterune4").style.display = "none"
 
-}
-if (currentTab == "achievements") {
-    document.getElementById("statistics").style.display = "block"
-    document.getElementById("achievementstab").style.backgroundColor = "white"
-    document.getElementById("achievementstab").style.color = "black"
-    document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints/totalachievementpoints).toPrecision(4) + "%]"
-    player.tabnumber = 3;
-}
-if (currentTab == "prestige") {
-    document.getElementById("prestige").style.display = "block"
-    document.getElementById("prestigetab").style.backgroundColor = "blue"
-    player.tabnumber = 4;
-}
-if (currentTab == "runes") {
-    document.getElementById("runes").style.display = "block"
-    document.getElementById("runestab").style.backgroundColor = "blue"
-    document.getElementById("runeshowlevelup").textContent = "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!"
-    document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * effectiveLevelMult - 100).toPrecision(4) + "%"
-    displayRuneInformation(1,false)
-    displayRuneInformation(2,false)
-    displayRuneInformation(3,false)
-    displayRuneInformation(4,false)
-    displayRuneInformation(5,false)
-    player.tabnumber = 5;
-}
-if (currentTab == "transcension") {
-    document.getElementById("transcension").style.display = "block"
-    document.getElementById("transcensiontab").style.backgroundColor = "purple"
-    player.tabnumber = 6;
-}
-if (currentTab == "challenges") {
-    document.getElementById("challenges").style.display = "block"
-    document.getElementById("challengetab").style.backgroundColor = "purple"
-    player.tabnumber = 7;
-}
-if (currentTab == "reincarnation") {
-    document.getElementById("reincarnation").style.display = "block"
-    document.getElementById("reincarnationtab").style.backgroundColor = "green"
-    player.tabnumber = 8;
+	if (currentTab == "buildings") {
+		document.getElementById("buildingstab").style.backgroundColor = "orange";
+		document.getElementById("buildings").style.display = "block"
+		player.tabnumber = 1;
+	}
+	if (currentTab == "upgrades") {
+		document.getElementById("upgrades").style.display = "block"
+		document.getElementById("upgradestab").style.backgroundColor = "orange"
+		document.getElementById("upgradedescription").textContent = "Hover over an upgrade to view details!"
+		player.tabnumber = 2;
+	}
+	if (currentTab == "settings") {
+		document.getElementById("settings").style.display = "block"
+		if(settingsTab.getAttribute('full') === '0') {
+			settingsTab.style.backgroundColor = "white"
+			settingsTab.style.color = "black"
+			settingsTab.style.border = '1px solid white';
+		}
+	}
+	if (currentTab == "achievements") {
+		document.getElementById("statistics").style.display = "block"
+		document.getElementById("achievementstab").style.backgroundColor = "white"
+		document.getElementById("achievementstab").style.color = "black"
+		document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints/totalachievementpoints).toPrecision(4) + "%]"
+		player.tabnumber = 3;
+	}
+	if (currentTab == "prestige") {
+		document.getElementById("prestige").style.display = "block"
+		document.getElementById("prestigetab").style.backgroundColor = "blue"
+		player.tabnumber = 4;
+	}
+	if (currentTab == "runes") {
+		document.getElementById("runes").style.display = "block"
+		document.getElementById("runestab").style.backgroundColor = "blue"
+		document.getElementById("runeshowlevelup").textContent = "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!"
+		document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * effectiveLevelMult - 100).toPrecision(4) + "%"
+		displayRuneInformation(1,false)
+		displayRuneInformation(2,false)
+		displayRuneInformation(3,false)
+		displayRuneInformation(4,false)
+		displayRuneInformation(5,false)
+		player.tabnumber = 5;
+	}
+	if (currentTab == "transcension") {
+		document.getElementById("transcension").style.display = "block"
+		document.getElementById("transcensiontab").style.backgroundColor = "purple"
+		player.tabnumber = 6;
+	}
+	if (currentTab == "challenges") {
+		document.getElementById("challenges").style.display = "block"
+		document.getElementById("challengetab").style.backgroundColor = "purple"
+		player.tabnumber = 7;
+	}
+	if (currentTab == "reincarnation") {
+		document.getElementById("reincarnation").style.display = "block"
+		document.getElementById("reincarnationtab").style.backgroundColor = "green"
+		player.tabnumber = 8;
 
-}
-if (currentTab == "researches") {
-    document.getElementById("research").style.display = "block"
-    document.getElementById("researchtab").style.backgroundColor = "green"
-    player.tabnumber = 9;
-}
-if (currentTab == "shop") {
-  document.getElementById("shop").style.display = "block"
-  document.getElementById("shoptab").style.backgroundColor = "limegreen"
-}
-if (currentTab == "ants"){
-  document.getElementById("ants").style.display = "block"
-  document.getElementById("anttab").style.backgroundColor = "brown"
-}
+	}
+	if (currentTab == "researches") {
+		document.getElementById("research").style.display = "block"
+		document.getElementById("researchtab").style.backgroundColor = "green"
+		player.tabnumber = 9;
+	}
+	if (currentTab == "shop") {
+	document.getElementById("shop").style.display = "block"
+	document.getElementById("shoptab").style.backgroundColor = "limegreen"
+	}
+	if (currentTab == "ants"){
+	document.getElementById("ants").style.display = "block"
+	document.getElementById("anttab").style.backgroundColor = "brown"
+	}
 
-if (player.achievements[38] > 0.5) {
-    document.getElementById("activaterune2").style.display = "block"
-}
-if (player.achievements[44] > 0.5) {
-    document.getElementById("activaterune3").style.display = "block"
-}
-if (player.achievements[102]> 0.5) {
-    document.getElementById("activaterune4").style.display = "block"
-}
+	if (player.achievements[38] > 0.5) {
+		document.getElementById("activaterune2").style.display = "block"
+	}
+	if (player.achievements[44] > 0.5) {
+		document.getElementById("activaterune3").style.display = "block"
+	}
+	if (player.achievements[102]> 0.5) {
+		document.getElementById("activaterune4").style.display = "block"
+	}
 }
 
 function htmlInserts() {

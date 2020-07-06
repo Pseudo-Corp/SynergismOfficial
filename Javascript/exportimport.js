@@ -67,6 +67,9 @@ function exportSynergism() {
         player.worlds += (Math.floor(player.quarkstimer/3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
         player.quarkstimer = (player.quarkstimer % 3600)
     }
+    // set attribute to 0, turn tab back to white
+    document.getElementById('settingstab').setAttribute('full', 0);
+
     saveSynergy();
 
     if('clipboardData' in window) {
