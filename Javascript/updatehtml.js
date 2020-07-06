@@ -597,7 +597,14 @@ if (currentTab == "shop") {
 if (currentTab == "ants"){
   document.getElementById("crumbcount").textContent = "You have " + format(player.antPoints,2) + " Galactic Crumbs [" + format(antOneProduce,2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints),100000 + 900000 * (1 - Math.pow(2, -player.antUpgrades[2]/125)))) + "x Coin Multiplier."
 }
-
+	// Centers the game window with javascript because there's too much position: absolute fuckery for me to center it any other way
+	if (window.innerWidth > 1000) {
+		let synergismWidth = Math.min(1120, Math.max(1000, window.innerWidth * 0.8));
+		let windowWidth = window.innerWidth;
+		let adjustLeft = ((windowWidth - synergismWidth) / 2) + "px";;
+		document.getElementsByTagName("main")[0].style.left = adjustLeft;
+		document.getElementById("borderHack").style.left = adjustLeft;
+	}
 }
 
 
