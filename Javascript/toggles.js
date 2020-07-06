@@ -23,18 +23,8 @@ if (player.currentChallenge == "" && (i == 'six' || i == 'seven' || i == 'eight'
     player.reincarnationCount -= 1;
 }
 
-    updateChallengeDisplay();
-
-
-        if (i == "nine"){
-        rune1level = 1;
-        rune2level = 1;
-        rune3level = 1;
-        rune4level = 1;
-        rune5level = 1;
-        player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
-        }
-        calculateRuneLevels();
+	updateChallengeDisplay();
+	getChallengeConditions();
 }
 
 
@@ -238,4 +228,15 @@ function toggleShopConfirmation(){
     let el = document.getElementById("toggleConfirmShop")
     if(shopConfirmation){shopConfirmation = false; el.textContent = "Shop Confirmations: OFF"}
     else{shopConfirmation = true; el.textContent = "Shop Confirmations: ON"}
+}
+
+function toggleAntMaxBuy() {
+    let el = document.getElementById("toggleAntMax");
+    if(player.antMax){player.antMax = false; el.textContent = "Buy Max: OFF";}
+    else{player.antMax = true; el.textContent = "Buy Max: ON";};
+}
+function toggleAntAutoSacrifice(){
+    let el = document.getElementById("toggleAutoSacrificeAnt");
+    if(player.autoAntSacrifice){player.autoAntSacrifice = false; el.textContent = "Auto Sacrifice Every 15 Minutes: OFF"}
+    else{player.autoAntSacrifice = true; el.textContent = "Auto Sacrifice Every 15 Minutes: ON"}
 }

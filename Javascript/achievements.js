@@ -544,7 +544,7 @@ if (i == 'eight') {
     if (player.challengecompletions.eight > 2.5) {achievementaward(129)}
     if (player.challengecompletions.eight > 4.5) {achievementaward(130)}
     if (player.challengecompletions.eight > 9.5) {achievementaward(131)}
-    if (player.challengecompletions.eight > 14.5) {achievementaward(132)}
+    if (player.challengecompletions.eight > 19.5) {achievementaward(132)}
     if (player.challengecompletions.eight > 24.5) {achievementaward(133)}
 }
 if (i == 'nine') {
@@ -553,7 +553,7 @@ if (i == 'nine') {
     if (player.challengecompletions.nine > 2.5) {achievementaward(136)}
     if (player.challengecompletions.nine > 4.5) {achievementaward(137)}
     if (player.challengecompletions.nine > 9.5) {achievementaward(138)}
-    if (player.challengecompletions.nine > 14.5) {achievementaward(139)}
+    if (player.challengecompletions.nine > 19.5) {achievementaward(139)}
     if (player.challengecompletions.nine > 24.5) {achievementaward(140)}
 }
 if (i == 'ten') {
@@ -562,7 +562,7 @@ if (i == 'ten') {
     if (player.challengecompletions.ten > 2.5) {achievementaward(143)}
     if (player.challengecompletions.ten > 4.5) {achievementaward(144)}
     if (player.challengecompletions.ten > 9.5) {achievementaward(145)}
-    if (player.challengecompletions.ten > 14.5) {achievementaward(146)}
+    if (player.challengecompletions.ten > 19.5) {achievementaward(146)}
     if (player.challengecompletions.ten > 24.5) {achievementaward(147)}
 }
 }

@@ -98,7 +98,6 @@ let amountBuy = 1;
 while(player[type + "Points"].greaterThanOrEqualTo(player[tier + "CostAnts"]) && ticker < amountBuy){
     player[type + "Points"] = player[type + "Points"].sub(player[tier + "CostAnts"]);
     player[tier + "CostAnts"] = player[tier + "CostAnts"].times(antCostGrowth[i]);
-    console.log(player[tier + "CostAnts"])
     player[tier + "OwnedAnts"]++
     ticker++
 }
@@ -159,10 +158,16 @@ function buyAntProducers(pos,type,originalCost,index){
         buyTo = buyTo - stepdown;
         }
     }
+
+    if (!player.antMax){
+        if (1 + player[pos + "Owned" + type] < buyTo){
+            buyTo = player[pos + "Owned" + type] + 1;
+        }
+    }
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
 	var buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
 	var thisCost = getAntCost(originalCost, buyFrom, type, index);
-	while (buyFrom < buyTo  && player[tag].greaterThanOrEqualTo(getAntCost(originalCost, buyFrom, type, index)))
+	while (buyFrom <= buyTo  && player[tag].greaterThanOrEqualTo(getAntCost(originalCost, buyFrom, type, index)))
 	{
 			player[tag] = player[tag].sub(thisCost);
 			player[pos + 'Owned' + type] = buyFrom;
@@ -210,10 +215,15 @@ function buyAntUpgrade(originalCost,auto,index){
         buyTo = buyTo - stepdown;
         }
     }
+    if(!player.antMax){
+        if(player.antUpgrades[index] + 1 < buyTo){
+            buyTo = 1 + player.antUpgrades[index]
+        }
+    }
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
 	var buyFrom = Math.max(buyTo - 7, 1 + player.antUpgrades[index]);
 	var thisCost = getAntUpgradeCost(originalCost, buyFrom, index);
-	while (buyFrom < buyTo  && player.antPoints.greaterThanOrEqualTo(thisCost))
+	while (buyFrom <= buyTo  && player.antPoints.greaterThanOrEqualTo(thisCost))
 	{
 			player.antPoints = player.antPoints.sub(thisCost);
 			player.antUpgrades[index] = buyFrom;
@@ -271,38 +281,41 @@ function showSacrifice(){
     if(player.achievements[137] == 1){mult *= 1.25}
     mult *= divineBlessing3
     mult *= (1 + 1/50 * player.challengecompletions.ten)
-    mult *= (1 + 1/100 * player.researches[122])
+    mult *= (1 + 1/200 * player.researches[122])
     mult *= (1 + 1/10 * player.upgrades[79])
     mult *= (1 + 0.09 * player.upgrades[40])
 
-    let timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 900, 2)) * Math.max(1, Math.pow(player.antSacrificeTimer/900, 0.75))
+    let timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 900, 2)) * Math.max(1, Math.pow(player.antSacrificeTimer/900, 0.92))
     document.getElementById("antSacrificeSummary").style.display = "block"
 
     document.getElementById("antELO").childNodes[0].textContent = "Your Ant ELO is "
-    document.getElementById("ELO").textContent = format(antELO,3,false)
+    document.getElementById("ELO").textContent = format(antELO,2,)
+    if(antELO >= 3500){document.getElementById("effectiveELO").textContent = "[" + format(effectiveELO,2,false) + " effective]"}
 
     document.getElementById("antSacrificeMultiplier").childNodes[0].textContent = "Ant Multiplier x" + format(Math.pow(1 + player.antSacrificePoints/5000, 2),3,false) + " --> "
-    document.getElementById("SacrificeMultiplier").textContent = "x" + format(Math.pow(1 + (player.antSacrificePoints + antELO * timeMultiplier * mult)/5000, 2),3,false)
+    document.getElementById("SacrificeMultiplier").textContent = "x" + format(Math.pow(1 + (player.antSacrificePoints + effectiveELO * timeMultiplier * mult)/5000, 2),3,false)
 
-    document.getElementById("SacrificeTimeMultiplier").textContent = format(timeMultiplier,3,false) + "x"
-    document.getElementById("antSacrificeOffering").textContent = "+" + format(player.offeringpersecond * 60 * antELO/400 * timeMultiplier * mult)
-    document.getElementById("antSacrificeObtainium").textContent = "+" + format(player.maxobtainiumpersecond * 60 * antELO/250 * timeMultiplier * mult)
+    document.getElementById("SacrificeUpgradeMultiplier").textContent = format(mult,3,true) + "x"
+    document.getElementById("SacrificeTimeMultiplier").textContent = format(timeMultiplier,3,true) + "x"
+    document.getElementById("antSacrificeOffering").textContent = "+" + format(player.offeringpersecond * 60 * effectiveELO/400 * timeMultiplier * mult)
+    document.getElementById("antSacrificeObtainium").textContent = "+" + format(player.maxobtainiumpersecond * 60 * effectiveELO/250 * timeMultiplier * mult)
     if (player.challengecompletions.nine > 0.5){
-            document.getElementById("antSacrificeTalismanShard").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/4 * (Math.max(0, antELO - 500)), 2))) + " [>500 ELO]"
-            document.getElementById("antSacrificeCommonFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/9 * (Math.max(0,antELO - 750)), 1.83))) + " [>750 ELO]"
-            document.getElementById("antSacrificeUncommonFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/16 * (Math.max(0,antELO - 1000)), 1.66))) + " [>1,000 ELO]"
-            document.getElementById("antSacrificeRareFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/25 * (Math.max(0,antELO - 1500)), 1.50))) + " [>1,500 ELO]"
-            document.getElementById("antSacrificeEpicFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/36 * (Math.max(0,antELO - 2000)), 1.33))) + " [>2,000 ELO]"
-            document.getElementById("antSacrificeLegendaryFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/49 * (Math.max(0,antELO - 3000)), 1.16))) + " [>3,000 ELO]"
-            document.getElementById("antSacrificeMythicalFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/64 * (Math.max(0,antELO - 5000)), 1))) + " [>5,000 ELO]"
+            document.getElementById("antSacrificeTalismanShard").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/4 * (Math.max(0, effectiveELO - 500)), 2))) + " [>500 ELO]"
+            document.getElementById("antSacrificeCommonFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/9 * (Math.max(0,effectiveELO - 750)), 1.83))) + " [>750 ELO]"
+            document.getElementById("antSacrificeUncommonFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/16 * (Math.max(0,effectiveELO - 1000)), 1.66))) + " [>1,000 ELO]"
+            document.getElementById("antSacrificeRareFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/25 * (Math.max(0,effectiveELO - 1500)), 1.50))) + " [>1,500 ELO]"
+            document.getElementById("antSacrificeEpicFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/36 * (Math.max(0,effectiveELO - 2000)), 1.33))) + " [>2,000 ELO]"
+            document.getElementById("antSacrificeLegendaryFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/49 * (Math.max(0,effectiveELO - 3000)), 1.16))) + " [>3,000 ELO]"
+            document.getElementById("antSacrificeMythicalFragment").textContent = "+" + format(Math.floor(mult * timeMultiplier * Math.pow(1/64 * (Math.max(0,effectiveELO - 4150)), 1))) + " [>5,000 ELO]"
 
     }
 
 }
 
-function sacrificeAnts(){
+function sacrificeAnts(auto){
+    auto = auto || false
     let p = true
-    let timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 900, 2)) * Math.max(1, Math.pow(player.antSacrificeTimer/900, 0.75))
+    let timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 900, 2)) * Math.max(1, Math.pow(player.antSacrificeTimer/900, 0.92))
     let mult = 1; 
     mult *= (1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11)/125)));
     mult *= (1 + player.researches[103]/50)
@@ -311,31 +324,32 @@ function sacrificeAnts(){
     if(player.achievements[137] == 1){mult *= 1.25}
     mult *= divineBlessing3
     mult *= (1 + 1/50 * player.challengecompletions.ten)
-    mult *= (1 + 1/100 * player.researches[122])
+    mult *= (1 + 1/200 * player.researches[122])
     mult *= (1 + 1/10 * player.upgrades[79])
     mult *= (1 + 0.09 * player.upgrades[40])
 
     if (player.antPoints.greaterThanOrEqualTo("1e40")){
-    p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?")
+    if (!auto && player.antSacrificePoints < 100){p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?")}
     if (p){
         calculateAntSacrificeELO();
-        player.antSacrificePoints += (antELO * timeMultiplier * mult)
-        player.runeshards += (player.offeringpersecond * 0.15 * antELO * timeMultiplier * mult);
-        player.researchPoints += (player.maxobtainiumpersecond * 0.24 * antELO * timeMultiplier * mult);
+        player.antSacrificePoints += (effectiveELO * timeMultiplier * mult)
+        player.runeshards += (player.offeringpersecond * 0.15 * effectiveELO * timeMultiplier * mult);
+        player.researchPoints += (player.maxobtainiumpersecond * 0.24 * effectiveELO * timeMultiplier * mult);
 
         if(player.challengecompletions.nine > 0.5){
-            if(antELO > 500){player.talismanShards += Math.floor((timeMultiplier * mult * Math.pow(1/4 * (antELO - 500),2)))}
-            if(antELO > 750){player.commonFragments += Math.floor((timeMultiplier * mult * Math.pow(1/9 * (antELO - 750),1.83)))}
-            if(antELO > 1000){player.uncommonFragments += Math.floor((timeMultiplier * mult * Math.pow(1/16 * (antELO - 1000),1.66)))}
-            if(antELO > 1500){player.rareFragments += Math.floor((timeMultiplier * mult * Math.pow(1/25 * (antELO - 1500),1.5)))}
-            if(antELO > 2000){player.epicFragments += Math.floor((timeMultiplier * mult * Math.pow(1/36 * (antELO - 2000),1.33)))}
-            if(antELO > 3000){player.legendaryFragments += Math.floor((timeMultiplier * mult * Math.pow(1/49 * (antELO - 3000),1.16)))}
-            if(antELO > 5000){player.mythicalFragments += Math.floor((timeMultiplier * mult * Math.pow(1/64 * (antELO - 5000),1)))}
+            if(antELO > 500){player.talismanShards += Math.floor((timeMultiplier * mult * Math.pow(1/4 * (effectiveELO - 500),2)))}
+            if(antELO > 750){player.commonFragments += Math.floor((timeMultiplier * mult * Math.pow(1/9 * (effectiveELO - 750),1.83)))}
+            if(antELO > 1000){player.uncommonFragments += Math.floor((timeMultiplier * mult * Math.pow(1/16 * (effectiveELO - 1000),1.66)))}
+            if(antELO > 1500){player.rareFragments += Math.floor((timeMultiplier * mult * Math.pow(1/25 * (effectiveELO - 1500),1.5)))}
+            if(antELO > 2000){player.epicFragments += Math.floor((timeMultiplier * mult * Math.pow(1/36 * (effectiveELO - 2000),1.33)))}
+            if(antELO > 3000){player.legendaryFragments += Math.floor((timeMultiplier * mult * Math.pow(1/49 * (effectiveELO - 3000),1.16)))}
+            if(antELO > 5000){player.mythicalFragments += Math.floor((timeMultiplier * mult * Math.pow(1/64 * (effectiveELO - 4150),1)))}
         }
         resetAnts();
         player.antSacrificeTimer = 0;
         updateTalismanInventory();
         if(player.autoResearch > 0 && player.autoResearchToggle){buyResearch(player.autoResearch,true)}
+        calculateAntSacrificeELO();
     }
     }
 }

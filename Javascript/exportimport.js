@@ -98,7 +98,6 @@ function importSynergism(input) {
             const lzData = JSON.parse(LZString.decompressFromBase64(input));
             if(lzData) {
                 localStorage.clear();
-                console.log()
                 localStorage.setItem('Synergysave2', btoa(JSON.stringify(lzData)));
                 loadSynergy();
             }
@@ -120,17 +119,24 @@ function promocodes() {
         player.worlds += 50; 
         el.textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"
     }
-    else if (input == "anticipation" && player.version == "1.010" && player.offerpromo21used == false){
+    else if (input == "anticipation" && (player.version == "1.010" || player.version == "1.0101") && player.offerpromo21used == false){
         player.offerpromo21used = true;
         player.worlds += 250;
         el.textContent = "It's finally here. Thank you for sticking with the game and playing it this long! [+250 Quarks]"
     }
-    else if(input == "750,000" && player.version == "1.010" && player.offerpromo22used == false){
+    else if(input == "750,000" && (player.version == "1.010" || player.version == "1.0101") && player.offerpromo22used == false){
         player.offerpromo22used = true;
         player.worlds += 150;
         player.shopUpgrades.obtainiumPotion += 2;
         player.shopUpgrades.offeringPotion += 2;
         el.textContent = "Three Quarters of a million plays in under 2 months! Thank you so much for playing! [+150 Quarks, 2 of each potion!]"
+    }
+    else if(input == "RIPKongregate" && (player.version == "1.0101") && player.offerpromo23used == false){
+        player.offerpromo23used = true;
+        player.worlds += 150;
+        player.shopUpgrades.obtainiumPotion += 2;
+        player.shopUpgrades.offeringPotion += 2;
+        el.textContent = "It's a shame, isn't it? [+150 Quarks, 2 of each potion!]"
     }
     else {
         el.textContent = "Your code is either invalid or already used. Try again!"

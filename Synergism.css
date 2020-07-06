@@ -3680,6 +3680,30 @@ margin-left: -13px
 	left: 50%;
 	margin-left: -500px;
 }
+#antToggleFeatures{
+	position: absolute;
+	padding: 0px;
+	top: 474px;
+	width: 1000px;
+	text-align: center;
+	left: 50%;
+	margin-left: -500px;
+}
+
+#toggleAntMax{
+	position: absolute;
+	height: 30px;
+	width: 100px;
+	left: 50%;
+	margin-left: -50px;
+}
+#toggleAutoSacrificeAnt{
+	position: absolute;
+	height: 30px;
+	width: 250px;
+	left: 50%;
+	margin-left: 75px;
+}
 
 #antSacrificeTimer{
 	position: absolute;
@@ -3710,21 +3734,25 @@ margin-left: -13px
 #antELO{
 	position: absolute;
 }
-#antTimeMultiplier {
+#antUpgradeMultiplier{
 	position: absolute;
 	top: 20px;
 }
-#antSacrificeTitle{
-	position:absolute;
+#antTimeMultiplier {
+	position: absolute;
 	top: 40px;
 }
-#antSacrificeMultiplier{
+#antSacrificeTitle{
 	position:absolute;
 	top: 60px;
 }
+#antSacrificeMultiplier{
+	position:absolute;
+	top: 80px;
+}
 #antSacrificeTable{
 	position:absolute;
-	top: 102px;
+	top: 122px;
 	left: 100px;
 	padding: 0px;
 	border-spacing: 0px;

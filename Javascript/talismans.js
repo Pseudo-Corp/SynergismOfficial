@@ -178,13 +178,15 @@ function showTalismanPrices(i){
     document.getElementById("talismanLevelUpSummary").style.color = "silver"
 
     let m = talismanLevelCostMultiplier[i]
+    if(player.talismanLevels[i] >= 120){m *= (player.talismanLevels[i] - 90)/30}
+    if(player.talismanLevels[i] >= 150){m *= (player.talismanLevels[i] - 120)/30}
     a.textContent = format(m * Math.max(0, Math.floor(1 + 1/8 * Math.pow(player.talismanLevels[i],3))));
     b.textContent = format(m * Math.max(0, Math.floor(1 + 1/32 * Math.pow(player.talismanLevels[i] - 30,3))));
     c.textContent = format(m * Math.max(0, Math.floor(1 + 1/384 * Math.pow(player.talismanLevels[i] - 60,3))));
-    d.textContent = format(m * Math.max(0, Math.floor(1 + 1/250 * Math.pow(player.talismanLevels[i] - 90,3))));
-    e.textContent = format(m * Math.max(0, Math.floor(1 + 1/125 * Math.pow(player.talismanLevels[i] - 120,3))));
-    f.textContent = format(m * Math.max(0, Math.floor(1 + 1/64 * Math.pow(player.talismanLevels[i] - 150,3))));
-    g.textContent = format(m * Math.max(0, Math.floor(1 + 1/128 * Math.pow(player.talismanLevels[i] - 150,3))));
+    d.textContent = format(m * Math.max(0, Math.floor(1 + 1/500 * Math.pow(player.talismanLevels[i] - 90,3))));
+    e.textContent = format(m * Math.max(0, Math.floor(1 + 1/375 * Math.pow(player.talismanLevels[i] - 120,3))));
+    f.textContent = format(m * Math.max(0, Math.floor(1 + 1/192 * Math.pow(player.talismanLevels[i] - 150,3))));
+    g.textContent = format(m * Math.max(0, Math.floor(1 + 1/1280 * Math.pow(player.talismanLevels[i] - 150,3))));
 }
 
 function showEnhanceTalismanPrices(i){
@@ -255,7 +257,6 @@ function changeTalismanModifier(i){
     let checkSum = mirrorTalismanStats.reduce(function(a, b) { 
         return a + b;
     }, 0);
-    console.log(checkSum)
 
     if (checkSum == 1){
     document.getElementById("confirmTalismanRespec").style.display = "block";
@@ -308,24 +309,26 @@ if(rarity == 6){el.style.border = "4px solid crimson"; la.style.color = "crimson
 function buyTalismanLevels(i){
     let checkSum = 0;
     let priceMult = talismanLevelCostMultiplier[i]
+    if(player.talismanLevels[i] >= 120){priceMult *= (player.talismanLevels[i] - 90)/30}
+    if(player.talismanLevels[i] >= 150){priceMult *= (player.talismanLevels[i] - 120)/30}
 
     if(player.talismanShards >= priceMult * Math.max(0, Math.floor(1 + 1/8 * Math.pow(player.talismanLevels[i],3)))){checkSum++};
     if(player.commonFragments >= priceMult * Math.max(0, Math.floor(1 + 1/32 * Math.pow(player.talismanLevels[i] - 30,3)))){checkSum++};
     if(player.uncommonFragments >= priceMult * Math.max(0, Math.floor(1 + 1/384 * Math.pow(player.talismanLevels[i] - 60,3)))){checkSum++};
-    if(player.rareFragments >= priceMult * Math.max(0, Math.floor(1 + 1/250 * Math.pow(player.talismanLevels[i] - 90,3)))){checkSum++};
-    if(player.epicFragments >= priceMult * Math.max(0, Math.floor(1 + 1/125 * Math.pow(player.talismanLevels[i] - 120,3)))){checkSum++};
-    if(player.legendaryFragments >= priceMult * Math.max(0, Math.floor(1 + 1/64 * Math.pow(player.talismanLevels[i] - 150,3)))){checkSum++};
-    if(player.mythicalFragments >= priceMult * Math.max(0, Math.floor(1 + 1/128 * Math.pow(player.talismanLevels[i] - 150,3)))){checkSum++};
+    if(player.rareFragments >= priceMult * Math.max(0, Math.floor(1 + 1/500 * Math.pow(player.talismanLevels[i] - 90,3)))){checkSum++};
+    if(player.epicFragments >= priceMult * Math.max(0, Math.floor(1 + 1/375 * Math.pow(player.talismanLevels[i] - 120,3)))){checkSum++};
+    if(player.legendaryFragments >= priceMult * Math.max(0, Math.floor(1 + 1/192 * Math.pow(player.talismanLevels[i] - 150,3)))){checkSum++};
+    if(player.mythicalFragments >= priceMult * Math.max(0, Math.floor(1 + 1/1280 * Math.pow(player.talismanLevels[i] - 150,3)))){checkSum++};
 
 
     if (checkSum == 7 && player.talismanLevels[i] < (player.talismanRarity[i] * 30)){
         player.talismanShards -= priceMult * Math.max(0, Math.floor(1 + 1/8 * Math.pow(player.talismanLevels[i],3)))
         player.commonFragments -= priceMult * Math.max(0, Math.floor(1 + 1/32 * Math.pow(player.talismanLevels[i] - 30,3)))
         player.uncommonFragments -= priceMult * Math.max(0, Math.floor(1 + 1/384 * Math.pow(player.talismanLevels[i] - 60,3)))
-        player.rareFragments -= priceMult * Math.max(0, Math.floor(1 + 1/250 * Math.pow(player.talismanLevels[i] - 90,3)))
-        player.epicFragments -= priceMult * Math.max(0, Math.floor(1 + 1/125 * Math.pow(player.talismanLevels[i] - 120,3)))
-        player.legendaryFragments -= priceMult * Math.max(0, Math.floor(1 + 1/64 * Math.pow(player.talismanLevels[i] - 150,3)))
-        player.mythicalFragments -= priceMult * Math.max(0, Math.floor(1 + 1/128 * Math.pow(player.talismanLevels[i] - 150,3)))
+        player.rareFragments -= priceMult * Math.max(0, Math.floor(1 + 1/500 * Math.pow(player.talismanLevels[i] - 90,3)))
+        player.epicFragments -= priceMult * Math.max(0, Math.floor(1 + 1/375 * Math.pow(player.talismanLevels[i] - 120,3)))
+        player.legendaryFragments -= priceMult * Math.max(0, Math.floor(1 + 1/192 * Math.pow(player.talismanLevels[i] - 150,3)))
+        player.mythicalFragments -= priceMult * Math.max(0, Math.floor(1 + 1/1280 * Math.pow(player.talismanLevels[i] - 150,3)))
         player.talismanLevels[i] += 1;
 
     }

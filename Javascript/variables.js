@@ -18,25 +18,25 @@ var researchBaseCosts = [0, 1, 1, 1, 1, 1,
 							20, 250, 10, 2500, 750000,
 							10, 10, 500, 100, 2000,
 							10, 50, 25, 2500, 100000,
-							2, 20, 10000, 100000, 1000000,
+							777, 7.777e7, 10000, 100000, 1000000,
 							2, 500, 250000, 2500, 50000,
 							1, 1, 5, 25, 125,
 							2, 5, 320, 1280, 2.5e9,
 							10, 100, 1000, 100000, 2000000,
 							10, 100, 1000, 25000, 500000,
-							5, 10, 80, 5000, 20000,
+							15, 50, 125, 500, 20000,
 							2, 20, 200, 2000, 20000,
 							10, 40, 160, 1000, 10000,
-							1e7, 1e7, 2e7, 3e7, 4e7,
-							2e8, 2.5e8, 5e7, 5e8, 7.5e7,
+							5e6, 1e7, 1e7, 2e7, 2e7,
+							7.5e7, 2.5e8, 5e7, 5e8, 7.5e7,
 							1e8, 1.25e8, 1.5e8, 2e8, 3e8,
 							1e8, 4e8, 1e9, 2.5e9, 1e10,
-							2e9, 5e9, 3e10, 5e9, 7.777e12,
-							5e10, 1.5e11, 3e10, 1e11, 1e12,
-							2e11, 1e12, 2e10, 2e11, 1e12,
-							2e13, 5e13, 1e14, 2e14, 5e14,
-							1e15, 2e15, 1e16, 1e15, 1e16,
-							1e14, 1e15, 1e15, 1e18, 1e20
+							2e9, 5e9, 2e10, 5e9, 7.777e12,
+							5e10, 1.5e11, 3e10, 3e11, 1e13,
+							5e11, 1e13, 5e10, 1e12, 2e13,
+							1e15, 2e15, 4e15, 8e15, 1.5e16,
+							1e16, 1e17, 1e18, 1e18, 1e20,
+							1e17, 1e17, 1e18, 1e18, 1e24
 							]
 
 
@@ -47,25 +47,25 @@ var researchMaxLevels = [0, 1, 1, 1, 1, 1,
 							 50, 50, 1, 1, 1,
 							 200, 25, 25, 20, 20,
 							 90, 180, 40, 40, 40,
-							 10, 10, 55, 55, 55,
+							 12, 12, 55, 55, 55,
 							 50, 50, 50, 1, 1,
 							 1, 1, 1, 1, 1,
 							 1, 1, 1, 1, 1,
 							 10, 10, 10, 10, 10,
 							 20, 20, 20, 20, 20,
-							 1, 28, 28, 3, 50,
+							 1, 4, 4, 5, 50,
 							 50, 50, 50, 50, 50,
 							 1, 1, 1, 1, 1,
-							 100, 250, 250, 250, 250,
-							 200, 1, 50, 100, 100,
+							 50, 50, 50, 50, 50,
+							 100, 1, 50, 100, 100,
 							 100, 100, 100, 100, 10,
 							 100, 100, 100, 100, 1,
 							 100, 20, 20, 2, 1,
 							 10, 10, 25, 25, 1,
-							 10, 10, 100, 100, 20,
-							 250, 250, 250, 250, 250,
-							 1, 20, 25, 25, 25,
-							 25, 25, 100, 1, 1]								
+							 10, 10, 100, 125, 25,
+							 50, 50, 50, 50, 100,
+							 10, 10, 10, 100, 100,
+							 100, 100, 100, 1, 1]								
 
 var ticker = 0;
 
@@ -233,7 +233,7 @@ var antSixProduce = new Decimal("1");
 var antSevenProduce = new Decimal("1");
 var antEightProduce = new Decimal("1");
 
-var antCostGrowth = [null, 1e40, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32]
+var antCostGrowth = [null, 1e41, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32]
 
 var antUpgradeBaseCost = [null, 100, 100, 1000, 1000, 1e5, 1e6, 1e8, 1e11, 1e15, 1e20, 1e40, 1e100]
 var antUpgradeCostIncreases = [null, 10, 10, 10, 10, 100, 100, 100, 100, 1000, 1000, 1000, 1e100]
@@ -279,7 +279,7 @@ var settingscreen = "settings"
 
 var talismanShardCost = 1e6
 var talismanFragmentObtainiumCosts = [null, 3e6, 1e7, 1e8, 1e9, 1e10, 1e11]
-var talismanFragmentOfferingCosts = [null, 0, 100, 1e3, 1e4, 1e5, 1e6]
+var talismanFragmentOfferingCosts = [null, 0, 5, 40, 400, 2000, 10000]
 
 
 var talismanLevelCostMultiplier = [null, 1, 4, 9, 16, 25, 10, 100]
@@ -291,7 +291,7 @@ var commonTalismanEnhanceCost = [null, 0, 3000, 1000, 0, 0, 0, 0]
 var uncommonTalismanEnchanceCost = [null, 0, 10000, 3000, 1000, 0, 0, 0]
 var rareTalismanEnchanceCost = [null, 0, 100000, 20000, 2000, 500, 0, 0]
 var epicTalismanEnhanceCost = [null, 0, 2e6, 2e5, 2e4, 2000, 1000, 0]
-var legendaryTalismanEnchanceCost = [null, 0, 4e7, 4e6, 1e5, 20000, 2500, 200]
+var legendaryTalismanEnchanceCost = [null, 0, 4e7, 2e6, 1e5, 20000, 2500, 200]
 var mythicalTalismanEnchanceCost = [null, 0, 0, 0, 0, 0, 0, 0]
 
 var talismanRespec = 1;
@@ -300,6 +300,7 @@ var obtainiumGain = 0;
 
 var mirrorTalismanStats = [null, 1, 1, 1, 1, 1];
 var antELO = 0;
+var effectiveELO = 0;
 
 var timeWarp = false
 
@@ -310,3 +311,5 @@ var divineBlessing4 = 1;
 var divineBlessing5 = 0;
 
 var triggerChallenge = ""
+
+var prevReductionValue = -1;

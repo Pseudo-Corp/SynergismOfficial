@@ -1,82 +1,192 @@
-function buyAccelerator(autobuyer){
-	var autobuyamount = 0;
-	if(autobuyer){autobuyamount = 500}
-	var buythisamount = Math.max(player.coinbuyamount, autobuyamount)
-	while(player.coins.greaterThanOrEqualTo(player.acceleratorCost) && ticker < buythisamount) {
+function getReductionValue() {
+	let reduction = 1;
+	reduction += 1/400 * rune4level * effectiveLevelMult;
+	reduction += 1/200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]);
+	reduction += 1/200 * player.challengecompletions.four;
+	reduction += 3/100 * (player.antUpgrades[7] + bonusant7);
+	return reduction;
+}
 
-		player.coins = player.coins.sub(player.acceleratorCost);
-		player.acceleratorCost = player.acceleratorCost.times(4);
-		player.acceleratorCost = player.acceleratorCost.dividedBy(costDivisor);
-		player.acceleratorBought += 1;
+function getCostAccelerator(buyingTo) {
+	--buyingTo;
+
+	let originalCost = 500;
+	let cost = new Decimal(originalCost);
+
+	cost = cost.times(Decimal.pow(4 / costDivisor, buyingTo));
+
+	if (buyingTo > (125 + 5 * player.challengecompletions.four))
+	{
+		let num = buyingTo - 125 - 5 * player.challengecompletions.four;
+		let factorialBit = new Decimal(num).factorial();
+		let multBit = Decimal.pow(4, num);
+		cost = cost.times(multBit.times(factorialBit));
+	}
+
+	if (buyingTo > (2000 + 5 * player.challengecompletions.four))
+	{
+		let sumNum = buyingTo - 2000 - 5 * player.challengecompletions.four;
+		let sumBit = sumNum * (sumNum + 1) / 2
+		cost = cost.times(Decimal.pow(2, sumBit));
+	}
+
+	if (player.currentChallenge === "four")
+	{
+		let sumBit = buyingTo * (buyingTo + 1) / 2;
+		cost = cost.times(Decimal.pow(10, sumBit));
+	}
+
+	if (player.currentChallengeRein === "eight")
+	{
+		let sumBit = buyingTo * (buyingTo + 1) / 2;
+		cost = cost.times(Decimal.pow(1e50, sumBit));
+	}
+	return cost;
+}
+
+function buyAccelerator(autobuyer) {
+	// Start buying at the current amount bought + 1
+	var buyTo =  player.acceleratorBought + 1;
+	var cashToBuy = getCostAccelerator(buyTo);
+	while (player.coins.greaterThanOrEqualTo(cashToBuy))
+	{
+		// then multiply by 4 until it reaches just above the amount needed
+		buyTo = buyTo * 4;
+		cashToBuy = getCostAccelerator(buyTo);
+	}
+	var stepdown = Math.floor(buyTo / 8);
+	while (stepdown !== 0)
+	{
+	 
+		// if step down would push it below out of expense range then divide step down by 2
+		if (getCostAccelerator(buyTo - stepdown).lessThanOrEqualTo(player.coins))
+		{
+			stepdown = Math.floor(stepdown/2);
+		}
+		else
+		{
+			buyTo = buyTo - stepdown;
+		}
+	}
+
+	if (!autobuyer && player.coinbuyamount !== "max")
+	{
+		if (player.acceleratorBought + player.coinbuyamount < buyTo)
+		{
+			buyTo = player.acceleratorBought + player.coinbuyamount;
+		}
+	}
+
+	let buyFrom = Math.max(buyTo - 7, player.acceleratorBought + 1);
+	let thisCost = getCostAccelerator(buyFrom);
+	while (buyFrom <= buyTo && player.coins.greaterThanOrEqualTo(thisCost))
+	{
+		player.coins = player.coins.sub(thisCost);
+		player.acceleratorBought = buyFrom;
+		buyFrom = buyFrom + 1;
+		thisCost = getCostAccelerator(buyFrom);
+		player.acceleratorCost = thisCost;
+	}
+
+	player.prestigenoaccelerator = false;
+	player.transcendnoaccelerator = false;
+	player.reincarnatenoaccelerator = false;
+    updateAllTick();
+    if (player.acceleratorBought >= 5 && player.achievements[148] == 0){achievementaward(148)} 
+    if (player.acceleratorBought >= 25 && player.achievements[149] == 0){achievementaward(149)} 
+    if (player.acceleratorBought >= 100 && player.achievements[150] == 0){achievementaward(150)} 
+    if (player.acceleratorBought >= 666 && player.achievements[151] == 0){achievementaward(151)} 
+    if (player.acceleratorBought >= 2000 && player.achievements[152] == 0){achievementaward(152)} 
+    if (player.acceleratorBought >= 12500 && player.achievements[153] == 0){achievementaward(153)} 
+    if (player.acceleratorBought >= 100000 && player.achievements[154] == 0){achievementaward(154)} 
+}
+
+function getCostMultiplier(buyingTo)
+{
+	--buyingTo;
 	
-		if (player.acceleratorBought > (125 + 5 * player.challengecompletions.four)){
-		player.acceleratorCost = player.acceleratorCost.times(4 * player.acceleratorBought - (500 + 20 * player.challengecompletions.four))
-		}
-		if (player.acceleratorBought > (2000 + 5 * player.challengecompletions.four)){
-		player.acceleratorCost = player.acceleratorCost.times(Decimal.pow(2, player.acceleratorBought - (2000 + 5 * player.challengecompletions.four)))
-		}
+	let originalCost = 1e5;
+	let cost = new Decimal(originalCost);
+	cost = cost.times(Decimal.pow(10, buyingTo / costDivisor));
 
-		if (player.currentChallenge == "four") {
-		player.acceleratorCost = player.acceleratorCost.times(Decimal.pow(10, player.acceleratorBought))
-        }
-        if (player.currentChallengeRein == "eight"){
-        player.acceleratorCost = player.acceleratorCost.times(Decimal.pow(1e50, player.acceleratorBought))
-        }
-
-		ticker++
+	if (buyingTo > (75 + 2 * player.challengecompletions.four))
+	{
+		let num = buyingTo - 75 - 2 * player.challengecompletions.four;
+		let factorialBit = new Decimal(num).factorial();
+		let powBit = Decimal.pow(10, num);
+		cost = cost.times(factorialBit.times(powBit));
 	}
-		ticker = 0;
-		player.prestigenoaccelerator = false;
-		player.transcendnoaccelerator = false;
-		player.reincarnatenoaccelerator = false;
-        updateAllTick();
-        if (player.acceleratorBought >= 5 && player.achievements[148] == 0){achievementaward(148)} 
-        if (player.acceleratorBought >= 25 && player.achievements[149] == 0){achievementaward(149)} 
-        if (player.acceleratorBought >= 100 && player.achievements[150] == 0){achievementaward(150)} 
-        if (player.acceleratorBought >= 666 && player.achievements[151] == 0){achievementaward(151)} 
-        if (player.acceleratorBought >= 2000 && player.achievements[152] == 0){achievementaward(152)} 
-        if (player.acceleratorBought >= 12500 && player.achievements[153] == 0){achievementaward(153)} 
-        if (player.acceleratorBought >= 100000 && player.achievements[154] == 0){achievementaward(154)} 
-
+	if (buyingTo > (2000 + 2 * player.challengecompletions.four))
+	{
+		let sumNum = buyingTo - 2000 - 2 * player.challengecompletions.four;
+		let sumBit = sumNum * (sumNum + 1) / 2;
+		cost = cost.times(Decimal.pow(2, sumBit));
 	}
+	if (player.currentChallenge === "four")
+	{
+		let sumBit = buyingTo * (buyingTo + 1) / 2;
+		cost = cost.times(Decimal.pow(10, sumBit));
+	}
+	if (player.currentChallengeRein === "eight")
+	{
+		let sumBit = buyingTo * (buyingTo + 1) / 2;
+		cost = cost.times(Decimal.pow(1e50, sumBit));
+	}
+	return cost;
+}
 
 function buyMultiplier(autobuyer){
-	var autobuyamount = 0;
-	if(autobuyer){autobuyamount = 500}
-	var buythisamount = Math.max(player.coinbuyamount, autobuyamount)
-	while(player.coins.greaterThanOrEqualTo(player.multiplierCost) && ticker < buythisamount) {
-		player.coins = player.coins.sub(player.multiplierCost);
-		player.multiplierBought += 1;
-		player.multiplierCost = player.multiplierCost.times(10);
-		player.multiplierCost = player.multiplierCost.dividedBy(costDivisor);
-
-		if (player.multiplierBought > (75 + 2 * player.challengecompletions.four)){
-		player.multiplierCost = player.multiplierCost.times(10 * player.multiplierBought - (750 + 20 * player.challengecompletions.four))
-		}
-		if (player.multiplierBought > (2000 + 2 * player.challengecompletions.four)){
-		player.multiplierCost = player.multiplierCost.times(Decimal.pow(2, player.multiplierBought - (2000 + 2 * player.challengecompletions.four)))
-		}
-		if (player.currentChallenge == "four") {
-		player.multiplierCost = player.multiplierCost.times(Decimal.pow(10, player.multiplierBought))
-        }
-        if (player.currentChallengeRein == "eight") {
-        player.multiplierCost = player.multiplierCost.times(Decimal.pow(1e50, player.multiplierBought))
-        }
-		ticker++
+	// Start buying at the current amount bought + 1
+	var buyTo =  player.multiplierBought + 1;
+	var cashToBuy = getCostMultiplier(buyTo);
+	while (player.coins.greaterThanOrEqualTo(cashToBuy))
+	{
+		// then multiply by 4 until it reaches just above the amount needed
+		buyTo = buyTo * 4;
+		cashToBuy = getCostMultiplier(buyTo);
 	}
-		ticker = 0;
-		player.prestigenomultiplier = false;
-		player.transcendnomultiplier = false;
-		player.reincarnatenomultiplier = false;
+	var stepdown = Math.floor(buyTo / 8);
+	while (stepdown !== 0)
+	{
+	 
+		// if step down would push it below out of expense range then divide step down by 2
+		if (getCostMultiplier(buyTo - stepdown).lessThanOrEqualTo(player.coins))
+		{
+			stepdown = Math.floor(stepdown/2);
+		}
+		else
+		{
+			buyTo = buyTo - stepdown;
+		}
+	}
 
-        updateAllMultiplier();
-        if (player.multiplierBought >= 2 && player.achievements[155] == 0){achievementaward(155)}
-        if (player.multiplierBought >= 20 && player.achievements[156] == 0){achievementaward(156)}
-        if (player.multiplierBought >= 100 && player.achievements[157] == 0){achievementaward(157)}
-        if (player.multiplierBought >= 500 && player.achievements[158] == 0){achievementaward(158)}
-        if (player.multiplierBought >= 2000 && player.achievements[159] == 0){achievementaward(159)}
-        if (player.multiplierBought >= 12500 && player.achievements[160] == 0){achievementaward(160)}
-        if (player.multiplierBought >= 100000 && player.achievements[161] == 0){achievementaward(161)}
+	if (!autobuyer && player.coinbuyamount !== "max")
+	{
+		if (player.multiplierBought + player.coinbuyamount < buyTo)
+		{
+			console.log(player.coinbuyamount + player.multiplierBought);
+			buyTo = player.multiplierBought + player.coinbuyamount;
+		}
+	}
+
+	let buyFrom = Math.max(buyTo - 7, player.multiplierBought + 1);
+	let thisCost = getCostMultiplier(buyFrom);
+	while (buyFrom <= buyTo && player.coins.greaterThanOrEqualTo(thisCost))
+	{
+		player.coins = player.coins.sub(thisCost);
+		player.multiplierBought = buyFrom;
+		buyFrom = buyFrom + 1;
+		thisCost = getCostMultiplier(buyFrom);
+		player.multiplierCost = thisCost;
+	}
+    updateAllMultiplier();
+    if (player.multiplierBought >= 2 && player.achievements[155] == 0){achievementaward(155)}
+    if (player.multiplierBought >= 20 && player.achievements[156] == 0){achievementaward(156)}
+    if (player.multiplierBought >= 100 && player.achievements[157] == 0){achievementaward(157)}
+    if (player.multiplierBought >= 500 && player.achievements[158] == 0){achievementaward(158)}
+    if (player.multiplierBought >= 2000 && player.achievements[159] == 0){achievementaward(159)}
+    if (player.multiplierBought >= 12500 && player.achievements[160] == 0){achievementaward(160)}
+    if (player.multiplierBought >= 100000 && player.achievements[161] == 0){achievementaward(161)}
 
 	}
 
@@ -84,7 +194,7 @@ function buyMultiplier(autobuyer){
 	{
 		// It's 0 indexed by mistake so you have to subtract 1 somewhere.
 		--buyingTo;
-
+		originalCost = new Decimal(originalCost);
 		// Prevents multiple recreations of this variable because .factorial() is the only one that doesn't create a clone (?)
 		let buyingToDec = new Decimal(buyingTo);
 		// Accounts for the multiplies by 1.25^num buyingTo times
@@ -173,13 +283,8 @@ function buyMultiplier(autobuyer){
 	function buyMax(pos, type, num, originalCost, autobuyer = false)
 	{
 		autobuyer = autobuyer || false;
-		originalCost = new Decimal(originalCost);
 		var tag = "";
-		var r = 1
-		r += 1/400 * rune4level * effectiveLevelMult;
-		r += 1/200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]);
-		r += 1/200 * player.challengecompletions.four;
-		r += 3/100 * (player.antUpgrades[7] + bonusant7);
+		var r = getReductionValue();
 	
 		if (type == 'Diamonds'){tag = "prestigePoints";}
 		if (type == 'Mythos'){tag = "transcendPoints";}

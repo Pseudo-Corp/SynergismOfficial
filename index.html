@@ -29,6 +29,7 @@
     <script src="Javascript/talismans.js"></script>
     <script src="Javascript/calculate.js"></script>
     <!--<script src="Javascript/i18n.js"></script>-->
+    <title>Synergism 1.010</title>
     </head>
 <main>
     <div class="save">
@@ -53,7 +54,7 @@
                 <td width=120px;><p class="prestigeunlock" id="diamondDisplay" style="color: cyan">1</p></td>
                 <td style="font-size:0;"><img  class="prestigeunlock" src="Pictures/Offering.png" title='Offering'  style="font-size:0;"></td>
                 <td width=120px;><p class="prestigeunlock" id="offeringDisplay"  style="color:gold;">1</p></td>
-                <td style="font-size:0;"><img class="transcendunlock" src="Pictures/Quark.png"></td>
+                <td style="font-size:0;"><img class="transcendunlock" src="Pictures/Quark.png" title='Quark'></td>
                 <td width="120px;"><p class="transcendunlock" id="quarkDisplay" style="color:white">1</p><td>
 
 
@@ -65,7 +66,7 @@
                 <td> <p class="transcendunlock" id="mythosshardDisplay" style="color:plum;">1</p></td>
                 <td style="font-size:0;"> <img class="reincarnationunlock" src="Pictures/Particle.png" title='Particle'  style="font-size:0;"></td>
                 <td> <p class="reincarnationunlock" id="particlesDisplay" style="color:limegreen;">1</p></td>
-                <td style="font-size:0;"><img class="reincarnationunlock" src="Pictures/Obtainium.png"></td>
+                <td style="font-size:0;"><img class="reincarnationunlock" src="Pictures/Obtainium.png" title='Obtanium'></td>
                 <td><p class="reincarnationunlock" id="obtainiumDisplay" style="color:pink">1</p><td>
 
             </tr>
@@ -181,15 +182,16 @@
         <button class="prestigeunlock" id="buyacceleratorboost" onclick="boostAccelerator()" style="background-color: #070707;">Cost: 500 Coins.</button>
         <p class="prestigeunlock" id="buildtext16" style="color: crimson">Next one adds 1.00% Acceleration Factor.</p>
         
-        <button class="auto" id="toggle1" onclick="toggleSettings(0)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle2" onclick="toggleSettings(1)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                <button class="auto" id="toggle3" onclick="toggleSettings(2)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                    <button class="auto" id="toggle4" onclick="toggleSettings(3)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                        <button class="auto" id="toggle5" onclick="toggleSettings(4)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                            <button class="auto" id="toggle6" onclick="toggleSettings(5)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                                <button class="auto" id="toggle7" onclick="toggleSettings(6)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                                    <button class="auto" id="toggle8" onclick="toggleSettings(7)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                                    <p class="prestigeunlock" id="taxinfo" style="color: orange;">Due to your excessive wealth, all coin production is divided by 1.00 to pay taxes!</p>
+        <button class="auto" id="toggle1" onclick="toggleSettings(0)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle2" onclick="toggleSettings(1)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle3" onclick="toggleSettings(2)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle4" onclick="toggleSettings(3)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle5" onclick="toggleSettings(4)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle6" onclick="toggleSettings(5)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle7" onclick="toggleSettings(6)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle8" onclick="toggleSettings(7)" style="background-color: #171717;">Auto: On</button>
+        
+        <p class="prestigeunlock" id="taxinfo" style="color: orange;">Due to your excessive wealth, all coin production is divided by 1.00 to pay taxes!</p>
         <p class="prestigeunlock" id="buildinghotkeys">Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost. Press [left arrow] or [right arrow] to switch tabs. Enjoy!</p>
     </div>
 </div>
@@ -663,12 +665,12 @@
             <img id="diamond5" src="Pictures/DiamondTier5.png" style="border: 1px solid cyan">
             </div>
             <div id="autocrystalbuild">
-                <button class="auto" id="toggle10" onclick="toggleSettings(9)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                <button class="auto" id="toggle11" onclick="toggleSettings(10)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                <button class="auto" id="toggle12" onclick="toggleSettings(11)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                <button class="auto" id="toggle13" onclick="toggleSettings(12)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                <button class="auto" id="toggle14" onclick="toggleSettings(13)" style="border:2px solid green; background-color: #171717;">Auto: On</button>
-                <button class="auto" id="toggle15" onclick="toggleSettings(14)" style="border:2px solid green; background-color: #171717;">Automatic Prestige & Customization Being Developed!</button>
+                <button class="auto" id="toggle10" onclick="toggleSettings(9)" style="background-color: #171717;">Auto: On</button>
+                <button class="auto" id="toggle11" onclick="toggleSettings(10)" style="background-color: #171717;">Auto: On</button>
+                <button class="auto" id="toggle12" onclick="toggleSettings(11)" style="background-color: #171717;">Auto: On</button>
+                <button class="auto" id="toggle13" onclick="toggleSettings(12)" style="background-color: #171717;">Auto: On</button>
+                <button class="auto" id="toggle14" onclick="toggleSettings(13)" style="background-color: #171717;">Auto: On</button>
+                <button class="auto" id="toggle15" onclick="toggleSettings(14)" style="background-color: #171717;">Automatic Prestige & Customization Being Developed!</button>
                 <div id="prestigeautomation">
                 <button id="prestigeautotoggle" onclick="toggleautoreset(1)" style="border:2px solid green; background-color: #171717;"></button>  
                 <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(1)" onclick="toggleFocus(1)"></input>
@@ -732,46 +734,46 @@
 
             <div id="rune1area">
             <p id="speedrune" style="color: cyan">Speed Rune</p>
-            <img id="rune1" src="Pictures/Transparent Pics/SpeedRune.png" onmouseover="displayruneinformation(1)" onclick="toggleAutoSacrifice(1)">
+            <img id="rune1" src="Pictures/Transparent Pics/SpeedRune.png" onmouseover="displayRuneInformation(1)" onclick="toggleAutoSacrifice(1)">
             <p id="rune1level">Level: 166/500 <span id="bonusrune1" style="color: orange">[+100]</span></p>
             <p id="rune1exp">Exp: 0/40</p>
-            <button id="activaterune1"  onclick="redeemshards(1)">SACRIFICE</button>
+            <button id="activaterune1"  onclick="redeemShards(1)">SACRIFICE</button>
             <p id="runeshowpower1">1<span id="divineblessing1" style="color: yellow"> </span></p>
             </div>
 
             <div id="rune2area">
             <p id="duplicationrune" style="color: plum">Duplication Rune</p>
-            <img id="rune2" src="Pictures/Transparent Pics/DuplicationRune.png" onmouseover="displayruneinformation(2)" onclick="toggleAutoSacrifice(2)">
+            <img id="rune2" src="Pictures/Transparent Pics/DuplicationRune.png" onmouseover="displayRuneInformation(2)" onclick="toggleAutoSacrifice(2)">
             <p id="rune2level">Level: 1/500<span id="bonusrune2" style="color: orange"></span></p>
             <p id="rune2exp">Exp: 0/40</p>
-            <button id="activaterune2" onclick="redeemshards(2)">SACRIFICE</button>
+            <button id="activaterune2" onclick="redeemShards(2)">SACRIFICE</button>
             <p id="runeshowpower2">1<span id="divineblessing2" style="color: yellow"> </span></p>
             </div>
 
             <div id="rune3area">
             <p id="prismrune" style="color: lightblue">Prism Rune</p>
-            <img id="rune3" src="Pictures/Transparent Pics/PrismRune.png" onmouseover="displayruneinformation(3)" onclick="toggleAutoSacrifice(3)">
+            <img id="rune3" src="Pictures/Transparent Pics/PrismRune.png" onmouseover="displayRuneInformation(3)" onclick="toggleAutoSacrifice(3)">
             <p id="rune3level">Level: 1/500<span id="bonusrune3" style="color: orange"></span></p>
             <p id="rune3exp">Exp: 0/40</p>
-            <button id="activaterune3" onclick="redeemshards(3)">SACRIFICE</button>
+            <button id="activaterune3" onclick="redeemShards(3)">SACRIFICE</button>
             <p id="runeshowpower3">1<span id="divineblessing3" style="color: yellow"> </span></p>
             </div>
 
             <div id="rune4area">
             <p id="thriftrune" style="color: limegreen">Thrift Rune</p>
-            <img id="rune4" src="Pictures/Transparent Pics/ThriftRune.png" onmouseover="displayruneinformation(4)" onclick="toggleAutoSacrifice(4)">
+            <img id="rune4" src="Pictures/Transparent Pics/ThriftRune.png" onmouseover="displayRuneInformation(4)" onclick="toggleAutoSacrifice(4)">
             <p id="rune4level">Level: 1/500<span id="bonusrune4" style="color: orange"></span></p>
             <p id="rune4exp">TNL: 0</p>
-            <button id="activaterune4" onclick="redeemshards(4)">SACRIFICE</button>
+            <button id="activaterune4" onclick="redeemShards(4)">SACRIFICE</button>
             <p id="runeshowpower4">1<span id="divineblessing4" style="color: yellow"> </span></p>
             </div>
 
             <div id="rune5area">
             <p id="intellectrune" style="color: crimson">Superior Intellect</p>
-            <img id="rune5" src="Pictures/Transparent Pics/Rune of Superior Intellect.png" onmouseover="displayruneinformation(5)" onclick="toggleAutoSacrifice(5)">
+            <img id="rune5" src="Pictures/Transparent Pics/Rune of Superior Intellect.png" onmouseover="displayRuneInformation(5)" onclick="toggleAutoSacrifice(5)">
             <p id="rune5level">Level: 1/500<span id="bonusrune5" style="color: orange"></span></p>
             <p id="rune5exp">TNL: 0</p>
-            <button id="activaterune5" onclick="redeemshards(5)">SACRIFICE</button>
+            <button id="activaterune5" onclick="redeemShards(5)">SACRIFICE</button>
             <p id="runeshowpower5">1<span id="divineblessing5" style="color: yellow"> </span></p>
             </div>
 
@@ -966,12 +968,12 @@
             <img id="mythos5" src="Pictures/MythosTier5.png" style="border: 1px solid plum">
             </div>
             <div id="transcendauto">
-                <button class="auto" id="toggle16" onclick="toggleSettings(15)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
-                <button class="auto" id="toggle17" onclick="toggleSettings(16)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
-                <button class="auto" id="toggle18" onclick="toggleSettings(17)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
-                <button class="auto" id="toggle19" onclick="toggleSettings(18)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
-                <button class="auto" id="toggle20" onclick="toggleSettings(19)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
-                <button class="auto" id="toggle21" onclick="toggleSettings(20)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle16" onclick="toggleSettings(15)" style="background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle17" onclick="toggleSettings(16)" style="background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle18" onclick="toggleSettings(17)" style="background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle19" onclick="toggleSettings(18)" style="background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle20" onclick="toggleSettings(19)" style="background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle21" onclick="toggleSettings(20)" style="background-color: #171717;">Auto: Off</button>
 
             </div>
             <div id="transcendinfo">
@@ -1075,12 +1077,12 @@
                 <button id="buyparticles3" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('third')">Cost: 1e+4 Particles</button>
                 <button id="buyparticles4" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('fourth')">Cost: 1e+8 Particles</button>
                 <button id="buyparticles5" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('fifth')">Cost: 1e+16 Particles</button>
-                <button class="auto" id="toggle22" onclick="toggleSettings(21)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
-                <button class="auto" id="toggle23" onclick="toggleSettings(22)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
-                <button class="auto" id="toggle24" onclick="toggleSettings(23)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
-                <button class="auto" id="toggle25" onclick="toggleSettings(24)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
-                <button class="auto" id="toggle26" onclick="toggleSettings(25)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
-                <button class="auto" id="toggle27" onclick="toggleSettings(26)" style="border:2px solid green; background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle22" onclick="toggleSettings(21)" style="background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle23" onclick="toggleSettings(22)" style="background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle24" onclick="toggleSettings(23)" style="background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle25" onclick="toggleSettings(24)" style="background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle26" onclick="toggleSettings(25)" style="background-color: #171717;">Auto: Off</button>
+                <button class="auto" id="toggle27" onclick="toggleSettings(26)" style="background-color: #171717;">Auto: Off</button>
             <p id="reincarnationtext3">100 Atoms/sec</p>
             <p id="reincarnationtext4">100 Protons/sec</p>
             <p id="reincarnationtext6">100 Elements/sec</p>
@@ -1258,7 +1260,7 @@
             <p id="antdescription" style="color: plum">Hover over the icons for description. Click icons to buy!</p>
 
             <div id="antrow1">
-                <img id="anttier1" src="Pictures/Transparent Pics/AntTierOne.png" onmouseover="updateAntDescription(1);antRepeat(1)" onclick="buyAntProducers('first','Ants','1e1200',1)" style="cursor: pointer;">
+                <img id="anttier1" src="Pictures/Transparent Pics/AntTierOne.png" onmouseover="updateAntDescription(1);antRepeat(1)" onclick="buyAntProducers('first','Ants','1e800',1)" style="cursor: pointer;">
                 <img id="anttier2" src="Pictures/Transparent Pics/AntTierTwo.png" onmouseover="updateAntDescription(2);antRepeat(2)" onclick="buyAntProducers('second','Ants','3',2)" style="cursor: pointer;">
                 <img id="anttier3" src="Pictures/Transparent Pics/AntTierThree.png" onmouseover="updateAntDescription(3);antRepeat(3)" onclick="buyAntProducers('third','Ants','100',3)" style="cursor: pointer;">
                 <img id="anttier4" src="Pictures/Transparent Pics/AntTierFour.png" onmouseover="updateAntDescription(4);antRepeat(4)" onclick="buyAntProducers('fourth','Ants','10000',4)" style="cursor: pointer;">
@@ -1300,13 +1302,19 @@
                 <img id="antUpgrade12" src="Pictures/Transparent Pics/AntUpgrade12.png" onmouseover="antUpgradeDescription(12)" onclick="buyAntUpgrade('1e100',false,12)" style="cursor: pointer;">
             </div>
 
+            <div id="antToggleFeatures">
+                <button id="toggleAntMax" onclick="toggleAntMaxBuy()" style="border: 1px solid gold">Buy Max: ON</button>
+                <button id="toggleAutoSacrificeAnt" onclick="toggleAntAutoSacrifice()" style="border: 1px solid crimson">Auto Sacrifice Every 15 Minutes: OFF</button> 
+            </div>
+
             <div id="sacrificeAnts" style="display: none">
             <p id="antSacrificeTimer" style="color: white">Last Sacrifice: 1s ago</p>
             <img id="antSacrifice" src="Pictures/AntSacrifice.png" style="cursor: pointer;" onclick="sacrificeAnts()">
             </div>
 
             <div id="antSacrificeSummary" style="display: none">
-                <p id="antELO" style="color: plum">Your Sacrifice is Worth <span id="ELO" style="color: gold">0 ELO</span></p>
+                <p id="antELO" style="color: plum">Your Ant ELO is <span id="ELO" style="color: gold">0 ELO</span> <span id="effectiveELO" style="color: white"> </span></p>
+                <p id="antUpgradeMultiplier" style="color: white">Upgrade Multiplier: <span id="SacrificeUpgradeMultiplier" style="color: gold">0.01x</span></p>
                 <p id="antTimeMultiplier" style="color: white">Time Multiplier: <span id="SacrificeTimeMultiplier" style="color: lightseagreen">0.01x</p>
                 <p id="antSacrificeTitle" style="color: crimson">Reset Anthill features for:</p>
                 <p id="antSacrificeMultiplier" style="color: white">Ant Sacrifice Multiplier: 1x --> <span id="SacrificeMultiplier" style="color: limegreen">x2</span></p>
@@ -1400,11 +1408,11 @@
             <a href="https://www.discord.gg/ameCknq" target="_blank">
             <img id="discord" src="Pictures/icon.gif" title="Click to join the official Discord!">
             </a>
-            <a href="https://docs.google.com/document/d/1E59ynF2LuveMc_hW3-IMZh0sHEYcLWXm35lNvpZ7XAE/edit?usp=sharing" target="_blank">
+            <a href="https://docs.google.com/document/d/17Q1CVrDesdguc274qyCxnKeCkrNw002VipdCvUmAjYQ/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
             </a>
 
-            <p id="versionnumber" style="color: gold">You're playing on v1.010!</p>
+            <p id="versionnumber" style="color: gold">You're playing on v1.0101!</p>
         </div>
             <div id="creditssubtab" style="display: none">
             <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>
