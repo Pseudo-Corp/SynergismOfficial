@@ -52,6 +52,11 @@ function revealStuff() {
     for (var i = 0; i < j.length; i++) {
     j[i].style.display = "none";
     };
+    var ji = document.getElementsByClassName("chal6");{
+    for (var i = 0; i < ji.length; i++){
+    ji[i].style.display = "none"
+    }
+    }
     var k = document.getElementsByClassName("chal7");
     for (var i = 0; i < k.length; i++) {
     k[i].style.display = "none"
@@ -190,6 +195,12 @@ if (player.unlocks.rrow2 == true) {
                     for (var i = 0; i < e.length; i++) {
                     e[i].style.display = "block";
                             }
+                        }
+                        if (player.achievements[113] == 1){
+                          let e = document.getElementsByClassName("chal6");
+                          for (var i = 0; i < e.length; i++){
+                            e[i].style.display = "block"
+                          }
                         }
                         if (player.achievements[120] == 1){
                             let e = document.getElementsByClassName("chal7");

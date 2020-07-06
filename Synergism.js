@@ -414,12 +414,13 @@ const player = {
 			  offerpromo21used: false,
 			  offerpromo22used: false,
 			  offerpromo23used: false,
+			  offerpromo24used: false,
 
-			  loaded1009: false,
-			  loaded1009hotfix1: false,
-			  loaded10091: false,
-			  loaded1010: false,
-			  loaded10101: false,
+			  loaded1009: true,
+			  loaded1009hotfix1: true,
+			  loaded10091: true,
+			  loaded1010: true,
+			  loaded10101: true,
 
 			  shopUpgrades: {
 				  offeringPotion: 1,
@@ -529,6 +530,7 @@ function loadSynergy() {
 	   if (data.loaded1010 === undefined){player.loaded1010 = false;}
 	   if (data.offerpromo22used === undefined){player.offerpromo22used = false;}
 	   if (data.loaded10101 === undefined){player.loaded10101 = false;}
+	   if (data.offerpromo24used === undefined){player.offerpromo24used = false;}
 
 	   if (player.offerpromo6used === undefined){
 		player.offerpromo6used = false; 
@@ -733,13 +735,13 @@ function loadSynergy() {
 		player.researches[92] = 0;
 	}
 
-	if (data.achievements[169] === undefined || player.achievements[169] === undefined || data.shopUpgrades.antSpeedLevel === undefined || player.shopUpgrades.antSpeedLevel === undefined || data.loaded1010 === undefined || player.loaded1010 === false) {
+	if (data.achievements[169] === undefined || player.achievements[169] === undefined || data.shopUpgrades.antSpeedLevel === undefined || player.shopUpgrades.antSpeedLevel === undefined || data.loaded1010 === undefined || data.loaded1010 === false) {
 		player.loaded1010 = true;
 		player.offerpromo21used = false;
 
 		player.firstOwnedAnts = 0;
    		player.firstGeneratedAnts = new Decimal("0");
-   		player.firstCostAnts = new Decimal("1e1200");
+   		player.firstCostAnts = new Decimal("1e800");
    		player.firstProduceAnts = .0001;
 
 		player.secondOwnedAnts = 0;
@@ -859,6 +861,16 @@ function loadSynergy() {
 		player.antMax = false;
 	}
 
+	if(data.offerpromo24used === undefined || data.offerpromo24used === false){
+		player.offerpromo24used = false;
+	}
+	if(player.firstOwnedAnts < 1 && player.firstCostAnts.greaterThanOrEqualTo("1e1200")){
+		player.firstCostAnts = new Decimal("1e800");
+		player.firstOwnedAnts = 0;
+	}
+
+
+
 
 		if (player.transcendCount < 0){player.transcendCount = 0};
 		if (player.reincarnationCount < 0){player.reincarnationCount = 0;};
@@ -889,6 +901,7 @@ function loadSynergy() {
 	if (player.achievements[176] === undefined || data.achievements[176] === undefined){
 		player.achievements.push(0,0,0,0,0,0,0)
 	}
+
 
 
 var j
