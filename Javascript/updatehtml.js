@@ -388,16 +388,21 @@ document.getElementById("quarkDisplay").textContent = format(player.worlds)
 document.getElementById("obtainiumDisplay").textContent = format(player.researchPoints)
 
 if (currentTab == "buildings") {
+	let totalProductionDivisor = new Decimal(produceTotal);
+	if (totalProductionDivisor.equals(0))
+	{
+		totalProductionDivisor = new Decimal(1);
+	}
     document.getElementById("buildtext1").textContent = "Workers: " + format(player.firstOwnedCoin) + " [+" + format(player.firstGeneratedCoin) + "]"
-    document.getElementById("buildtext2").textContent = "Coins/Sec: " + format((produceFirst.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceFirst.dividedBy(produceTotal.add(0.00001)).times(100), 3) + "%]"
+    document.getElementById("buildtext2").textContent = "Coins/Sec: " + format((produceFirst.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceFirst.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
     document.getElementById("buildtext3").textContent = "Investments: " + format(player.secondOwnedCoin) + " [+" + format(player.secondGeneratedCoin) + "]"
-    document.getElementById("buildtext4").textContent = "Coins/Sec: " + format((produceSecond.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceSecond.dividedBy(produceTotal.add(0.00001)).times(100), 3) + "%]"
+    document.getElementById("buildtext4").textContent = "Coins/Sec: " + format((produceSecond.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceSecond.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
     document.getElementById("buildtext5").textContent = "Printers: " + format(player.thirdOwnedCoin) + " [+" + format(player.thirdGeneratedCoin) + "]"
-    document.getElementById("buildtext6").textContent = "Coins/Sec: " + format((produceThird.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceThird.dividedBy(produceTotal.add(0.00001)).times(100), 3) + "%]"
+    document.getElementById("buildtext6").textContent = "Coins/Sec: " + format((produceThird.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceThird.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
     document.getElementById("buildtext7").textContent = "Coin Mints: " + format(player.fourthOwnedCoin) + " [+" + format(player.fourthGeneratedCoin) + "]"
-    document.getElementById("buildtext8").textContent = "Coins/Sec: " + format((produceFourth.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceFourth.dividedBy(produceTotal.add(0.00001)).times(100), 3) + "%]"
+    document.getElementById("buildtext8").textContent = "Coins/Sec: " + format((produceFourth.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceFourth.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
     document.getElementById("buildtext9").textContent = "Alchemies: " + format(player.fifthOwnedCoin) + " [+" + format(player.fifthGeneratedCoin) + "]"
-    document.getElementById("buildtext10").textContent = "Coins/Sec: " + format((produceFifth.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceFifth.dividedBy(produceTotal.add(0.00001)).times(100), 3) + "%]"
+    document.getElementById("buildtext10").textContent = "Coins/Sec: " + format((produceFifth.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceFifth.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
     document.getElementById("buildtext11").textContent = "Accelerators: " + format(player.acceleratorBought) + " [+" + format(freeAccelerator) + "]"
     document.getElementById("buildtext12").textContent = "Acceleration Power: " + ((acceleratorPower - 1)*(100)).toPrecision(4) +  "% || Acceleration Multiplier: " + format(acceleratorEffect,2) + "x"
     document.getElementById("buildtext13").textContent = "Multipliers: " + format(player.multiplierBought) + " [+" + format(freeMultiplier) + "]"
