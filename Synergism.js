@@ -917,8 +917,6 @@ for (j = 1; j <= (125); j++) {
 }
 
 runescreen = "runes";
-document.getElementById("runecontainer1").style.display = "block";
-document.getElementById("runecontainer2").style.display = "none";
 document.getElementById("togglerunesubtab").textContent = "GO TO TALISMANS"
 document.getElementById("togglerunesubtab").style.border = "2px solid grey"
 
@@ -967,7 +965,6 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
 
 document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * effectiveLevelMult - 100).toPrecision(4) + "%";
 
-document.getElementById("runecontainer2").style.display = "none"
 document.getElementById("talismanlevelup").style.display = "none"
 document.getElementById("talismanrespec").style.display = "none"
 
@@ -1828,6 +1825,13 @@ function resetCheck(i,manual) {
 		}
 	}	
 	}
+	if (i == "ascend"){
+		if(player.challengecompletions.ten > 0){
+			if (manual){
+			resetConfirmation('ascend');
+			}
+		}
+	}
 }	
 
 function resetConfirmation(i) {
@@ -1868,6 +1872,12 @@ function resetConfirmation(i) {
 		else {
 			resetachievementcheck(3);
 			reset(3);
+		}
+	}
+	if (i == 'ascend'){
+		var z = confirm("Reincarnating will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]")
+		if (z){
+			reset(4);
 		}
 	}
 	}

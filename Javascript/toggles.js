@@ -75,9 +75,9 @@ if (i==4 && player.shoptoggles.generators == false) {player.shoptoggles.generato
 function keyboardtabchange(i) {
 var q = 3;
 if (player.unlocks.coinfour == true) {q += 1}
-if (player.unlocks.prestige == true) {q += 2}
-if (player.unlocks.transcend == true) {q += 2}
-if (player.unlocks.reincarnate == true) {q += 2}
+if (player.unlocks.prestige == true) {q += 1}
+if (player.unlocks.transcend == true) {q += 1}
+if (player.unlocks.reincarnate == true) {q += 1}
 if (player.challengecompletions.eight > 0) {q += 1}
 player.tabnumber += i
 if (player.tabnumber == q) {player.tabnumber = 1}
@@ -86,13 +86,10 @@ if (player.tabnumber == 0) {player.tabnumber = q - 1}
 if (player.tabnumber == 1) {toggleTabs("buildings")}
 if (player.tabnumber == 2) {toggleTabs("upgrades")}
 if (player.tabnumber == 3) {toggleTabs("achievements")}
-if (player.tabnumber == 4) {toggleTabs("prestige")}
-if (player.tabnumber == 5) {toggleTabs("runes")}
-if (player.tabnumber == 6) {toggleTabs("transcension")}
-if (player.tabnumber == 7) {toggleTabs("challenges")}
-if (player.tabnumber == 8) {toggleTabs("reincarnation")}
-if (player.tabnumber == 9) {toggleTabs("researches")}
-if (player.tabnumber == 10) {toggleTabs("ants")}
+if (player.tabnumber == 4) {toggleTabs("runes")}
+if (player.tabnumber == 5) {toggleTabs("challenges")}
+if (player.tabnumber == 6) {toggleTabs("researches")}
+if (player.tabnumber == 7) {toggleTabs("ants")}
 
 
 
@@ -120,22 +117,22 @@ function toggleauto() {
 		for (var i = 0; i < e.length; i++) {
 			var a = ""
 			var b = ""
-			if ((i <= 7 && i>=0) || (i <= 17 && i >= 13) || (i <= 23 && i >= 19) || (i <= 29 && i >= 25)) {a = "Auto ["}
-			if (i == 12) {a = "Hover-to-buy ["}
-			if (i == 18) {a = "Auto Prestige ["}
-			if (i == 24) {a = "Auto Transcend ["}
-			if (i == 30) {a = "Auto Reincarnate ["}
+			if ((i <= 7 && i>=0) || (i <= 12 && i >= 8) || (i <= 18 && i >= 14) || (i <= 24 && i >= 20)) {a = "Auto ["}
+			if (i == 30) {a = "Hover-to-buy ["}
+			if (i == 13) {a = "Auto Prestige ["}
+			if (i == 19) {a = "Auto Transcend ["}
+			if (i == 25) {a = "Auto Reincarnate ["}
 			if ((i == 31) || (i == 32) || (i == 33)){
 				a = "["
-			}
-			var u = 0
-			if (i <= 7) {u = i}
-			if (i >= 12) {u = i - 4}
-			if (player.toggles[cardinals[u]] == true){b = "ON]"}
-			if (player.toggles[cardinals[u]] == false) {b = "OFF]"}
+            }
+            let u = i
+            let stupidHackTime = [player.toggles.one,player.toggles.two,player.toggles.three,player.toggles.four,player.toggles.five,player.toggles.six,player.toggles.seven,player.toggles.eight,player.toggles.ten,player.toggles.eleven,player.toggles.twelve,player.toggles.thirteen,player.toggles.fourteen,player.toggles.fifteen,player.toggles.sixteen,player.toggles.seventeen,player.toggles.eighteen,player.toggles.nineteen,player.toggles.twenty,player.toggles.twentyone,player.toggles.twentytwo,player.toggles.twentythree,player.toggles.twentyfour,player.toggles.twentyfive,player.toggles.twentysix,player.toggles.twentyseven,player.toggles.nine,player.toggles.ten,player.toggles.eleven,player.toggles.nine,player.toggles.nine,player.toggles.twentyeight,player.toggles.twentynine,player.toggles.thirty]
+            console.log(stupidHackTime.length)
+			if (stupidHackTime[i]){b = "ON]"}
+			if (!stupidHackTime[i]) {b = "OFF]"}
 
-			if (i <= 7 || i >= 12) {
-			e[i].textContent = a + b
+			if (i <= 25 || i >= 30) {
+			e[u].textContent = a + b
 			}
 	}
 
@@ -191,6 +188,33 @@ function toggleAutoSacrifice(index) {
         else{document.getElementById("rune"+i).style.backgroundColor = "black"}
     }
     calculateRuneLevels();
+}
+function toggleBuildingScreen(input){
+buildingSubTab = input
+let la = document.getElementById("coinBuildings");
+let el = document.getElementById("prestige");
+let ti = document.getElementById("transcension");
+let ella = document.getElementById("reincarnation");
+let a = document.getElementById("switchToCoinBuilding")
+let b = document.getElementById("switchToDiamondBuilding")
+let c = document.getElementById("switchToMythosBuilding")
+let d = document.getElementById("switchToParticleBuilding")
+
+la.style.display = "none";
+el.style.display = "none";
+ti.style.display = "none";
+ella.style.display = "none";
+a.style.backgroundColor = "#171717"
+b.style.backgroundColor = "#171717"
+c.style.backgroundColor = "#171717"
+d.style.backgroundColor = "#171717"
+
+
+
+if(buildingSubTab == "coin"){la.style.display = "block"; a.style.backgroundColor = "crimson"}
+if(buildingSubTab == "diamond"){el.style.display = "block"; b.style.backgroundColor = "crimson"}
+if(buildingSubTab == "mythos"){ti.style.display = "block"; c.style.backgroundColor = "crimson"}
+if(buildingSubTab == "particle"){ella.style.display = "block"; d.style.backgroundColor = "crimson"}
 }
 
 function toggleRuneScreen(){

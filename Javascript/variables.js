@@ -313,3 +313,5 @@ var divineBlessing5 = 0;
 var triggerChallenge = ""
 
 var prevReductionValue = -1;
+
+var buildingSubTab = "coin"

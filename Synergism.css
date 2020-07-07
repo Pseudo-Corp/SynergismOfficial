@@ -8,7 +8,7 @@ html {
 
 }
 body {background-color: #111111 ;
-	transform: scale(0.8);
+	transform: scale(0.9);
 	transform-origin: 0 0;
 	overflow-x: hidden;
 	overflow-y: hidden;
@@ -203,7 +203,7 @@ a {color: white;}
 
 	text-align: center;
 	width: 100px;
-	left: 88%;
+	left: 64%;
 	margin-left: -50px;
 	
 
@@ -225,7 +225,8 @@ a {color: white;}
 
 }
 
-#prestigetab{
+
+#runestab{
 	position:absolute;
 
 	text-align: center;
@@ -234,30 +235,6 @@ a {color: white;}
 	margin-left: -50px;
 
 	border: 1px solid cyan
-
-}
-
-#runestab{
-	position:absolute;
-
-	text-align: center;
-	width: 100px;
-	left: 40%;
-	margin-left: -50px;
-
-	border: 1px solid cyan
-
-}
-
-#transcensiontab {
-	position:absolute;
-
-	text-align: center;
-	width: 100px;
-	border: 1px solid plum;
-	left: 48%;
-	margin-left: -50px;
-
 }
 
 #challengetab {
@@ -266,20 +243,9 @@ a {color: white;}
 	text-align: center;
 	width: 100px;
 	border: 1px solid plum;
-	left: 56%;
+	left: 40%;
 	margin-left: -50px;
 
-
-}
-
-#reincarnationtab {
-	position:absolute;
-
-	text-align: center;
-	width: 100px;
-	border: 1px solid green;
-	left: 64%;
-	margin-left: -50px;
 
 }
 
@@ -289,7 +255,7 @@ a {color: white;}
 	text-align: center;
 	width: 100px;
 	border: 1px solid green;
-	left: 72%;
+	left: 48%;
 	margin-left: -50px;
 
 }
@@ -300,7 +266,7 @@ a {color: white;}
 	text-align: center;
 	width: 100px;
 	border: 1px solid white;
-	left: 96%;
+	left: 72%;
 	margin-left: -50px;
 }
 
@@ -309,10 +275,18 @@ a {color: white;}
 	text-align: center;
 	width: 100px;
 	border: 1px solid maroon;
-	left: 80%;
+	left: 56%;
 	margin-left: -50px;
 
 }
+
+.buildingTabs {
+	height: 30px;
+	width: 150px;
+	text-align: center;
+}
+
+
 
 #buildingrow1 {
 	position:absolute;
@@ -321,6 +295,26 @@ a {color: white;}
 	padding: 0px;
 	border: 1px solid gold;
 	top: 118px;
+}
+#switchToCoinBuilding{
+	position: absolute;
+	top: 178px;
+	left: 8.75%;
+}
+#switchToDiamondBuilding{
+	position: absolute;
+	top: 178px;
+	left: 20.75%;
+}
+#switchToMythosBuilding{
+	position: absolute;
+	top: 178px;
+	left: 32.75%;
+}
+#switchToParticleBuilding{
+	position: absolute;
+	top: 178px;
+	left: 44.75%;
 }
 #buyamountcoin {
 	position: absolute;
@@ -343,7 +337,7 @@ a {color: white;}
 
 	position: absolute;
 	left: 10%;
-	top: 28px;
+	top: 58px;
 	margin-left: -18px;
 
 }
@@ -351,28 +345,28 @@ a {color: white;}
 #coin2 {
 	position: absolute;
 	left: 10%;
-	top: 83px;
+	top: 93px;
 	margin-left: -18px;
 }
 
 #coin3 {
 	position: absolute;
 	left: 10%;
-	top: 138px;
+	top: 128px;
 	margin-left: -18px;
 }
 
 #coin4 {
 	position: absolute;
 	left: 10%;
-	top: 193px;
+	top: 163px;
 	margin-left: -18px;
 }
 
 #coin5 {
 	position: absolute;
 	left: 10%;
-	top: 248px;
+	top: 198px;
 	margin-left: -18px;
 }
 
@@ -386,14 +380,14 @@ a {color: white;}
 #multiplier {
 	position: absolute;
 	left: 10%;
-	top: 358px;
+	top: 338px;
 	margin-left: -18px;
 }
 
 #acceleratorboost {
 	position: absolute;
 	left: 10%;
-	top: 413px;
+	top: 373px;
 	margin-left: -18px;
 }
 
@@ -405,54 +399,54 @@ a {color: white;}
 
 #buildtext1 {
 	position: absolute;
-	top: 15px;
+	top: 45px;
 	left: 13%;
 }
 
 #buildtext2 {
 	position: absolute;
-	top: 15px;
-	left: 52.5%
+	top: 45px;
+	left: 56.5%
 }
 #buildtext3 {
 	position: absolute;
-	top: 70px;
+	top: 80px;
 	left: 13%;
 }
 #buildtext4 {
 	position: absolute;
-	top: 70px;
-	left: 52.5%
+	top: 80px;
+	left: 56.5%
 }
 #buildtext5 {
 	position: absolute;
-	top: 125px;
+	top: 115px;
 	left: 13%;
 }
 #buildtext6 {
 	position: absolute;
-	top: 125px;
-	left: 52.5%
+	top: 115px;
+	left: 56.5%
 }
 #buildtext7 {
 	position: absolute;
-	top: 180px;
+	top: 150px;
 	left: 13%;
 }
 #buildtext8 {
 	position: absolute;
-	top: 180px;
-	left: 52.5%
+	top: 150px;
+	left: 56.5%
 }
 #buildtext9 {
 	position: absolute;
-	top: 235px;
+	top: 185px;
 	left: 13%;
 }
 #buildtext10 {
 	position: absolute;
-	top: 235px;
-	left: 52.5%
+	top: 185px;
+	left: 56.5%
 }
 #buildtext11 {
 	position: absolute;
@@ -462,35 +456,35 @@ a {color: white;}
 #buildtext12 {
 	position: absolute;
 	top: 290px;
-	left: 52.5%
+	left: 56.5%
 }
 #buildtext13 {
 	position: absolute;
-	top: 345px;
+	top: 325px;
 	left: 13%;
 }
 #buildtext14 {
 	position: absolute;
-	top: 345px;
-	left: 52.5%
+	top: 325px;
+	left: 56.5%
 }
 #buildtext15 {
 	position: absolute;
-	top: 400px;
+	top: 360px;
 	left: 13%;
 }
 #buildtext16 {
 	position: absolute;
-	top: 397px;
-	left: 52.5%
+	top: 360px;
+	left: 56.5%
 }
 
 #buycoin1 {
 	position: absolute;
 	width: 150px;
 	height: 30px;
-	top: 42px;
-	left: 33%;
+	top: 72px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -501,8 +495,8 @@ a {color: white;}
 	position: absolute;
 	width: 150px;
 	height: 30px;
-	top: 97px;
-	left: 33%;
+	top: 107px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -513,8 +507,8 @@ a {color: white;}
 	position: absolute;
 	width: 150px;
 	height: 30px;
-	top: 152px;
-	left: 33%;
+	top: 142px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -525,8 +519,8 @@ a {color: white;}
 	position: absolute;
 	width: 150px;
 	height: 30px;
-	top: 207px;
-	left: 33%;
+	top: 177px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -537,8 +531,8 @@ a {color: white;}
 	position: absolute;
 	width: 150px;
 	height: 30px;
-	top: 262px;
-	left: 33%;
+	top: 212px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -550,7 +544,7 @@ a {color: white;}
 	width: 150px;
 	height: 30px;
 	top: 317px;
-	left: 33%;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid maroon;
 	border-radius: 8px;
@@ -561,8 +555,8 @@ a {color: white;}
 	position:absolute;
 	width: 150px;
 	height: 30px;
-	top: 372px;
-	left: 33%;
+	top: 352px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid maroon;
 	border-radius: 8px;
@@ -572,8 +566,8 @@ a {color: white;}
 	position:absolute;
 	width: 150px;
 	height: 30px;
-	top: 427px;
-	left: 33%;
+	top: 387px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid maroon;
 	border-radius: 8px;
@@ -581,11 +575,12 @@ a {color: white;}
 
 #taxinfo {
 	position: absolute;
-	top: 450px;
+	top: 420px;
 	width: 1000px;
 	left: 50%;
 	margin-left: -500px;
 	text-align: center;
+	font-size: 1em;
 }
 #buildinghotkeys{
 position: absolute;
@@ -1032,8 +1027,8 @@ margin-left: -13px
 	width: 80px;
 	padding: 0px;
 	height: 30px;
-	top: 25.5px;
-	left: 47%;
+	top: 56px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1042,8 +1037,8 @@ margin-left: -13px
 	text-align:center;
 	width: 80px;
 	height: 30px;
-	top: 81px;
-	left: 47%;
+	top: 91px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1052,8 +1047,8 @@ margin-left: -13px
 	width: 80px;
 	height: 30px;
 
-	top: 137px;
-	left: 47%;
+	top: 126px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1062,8 +1057,8 @@ margin-left: -13px
 	width: 80px;
 	height: 30px;
 
-	top: 193px;
-	left: 47%;
+	top: 161px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1072,8 +1067,8 @@ margin-left: -13px
 	width: 80px;
 	height: 30px;
 
-	top: 247px;
-	left: 47%;
+	top: 196px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1082,8 +1077,8 @@ margin-left: -13px
 	width: 80px;
 	height: 30px;
 
-	top: 302px;
-	left: 47%;
+	top: 301px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1092,8 +1087,8 @@ margin-left: -13px
 	width: 80px;
 	height: 30px;
 
-	top: 357px;
-	left: 47%;
+	top: 336px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1102,8 +1097,8 @@ margin-left: -13px
 	width: 80px;
 	height: 30px;
 
-	top: 412px;
-	left: 47%;
+	top: 371px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1112,16 +1107,16 @@ margin-left: -13px
 	height: 30px;
 	width: 130px;
 	top: 320px;
-	left: 48%;
-	margin-left: -65px;
+	left: 51%;
+	margin-left: -16px;
 }
 
 #toggle10 {
 	position:absolute;
 	width: 80px;
 	height: 30px;
-	top: 82px;
-	left: 47%;
+	top: 57px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1130,8 +1125,8 @@ margin-left: -13px
 	position:absolute;
 	width: 80px;
 	height: 30px;
-	top: 138px;
-	left: 47%;
+	top: 92px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1139,8 +1134,8 @@ margin-left: -13px
 	position:absolute;
 	width: 80px;
 	height: 30px;
-	top: 194px;
-	left: 47%;
+	top: 127px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1149,8 +1144,8 @@ margin-left: -13px
 	width: 80px;
 	height: 30px;
 
-	top: 248px;
-	left: 47%;
+	top: 162px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1159,22 +1154,22 @@ margin-left: -13px
 	width: 80px;
 	height: 30px;
 
-	top: 303px;
-	left: 47%;
+	top: 197px;
+	left: 51%;
 	margin-left: -16px;
 }
 
 #toggle15 {
 	position:absolute;
 	width: 150px;
-	top: 374px;
+	top: 404px;
 	left: 50%;
 	margin-left: -75px;
 }
 #prestigeautotoggle {
 	position:absolute;
 	width: 150px;
-	top: 394px;
+	top: 424px;
 	left: 50%;
 	margin-left: -75px;
 }
@@ -1183,8 +1178,8 @@ margin-left: -13px
 	position:absolute;
 	width: 80px;
 	height: 30px;
-	top: 82px;
-	left: 47%;
+	top: 57px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1192,8 +1187,8 @@ margin-left: -13px
 	position:absolute;
 	width: 80px;
 	height: 30px;
-	top: 138px;
-	left: 47%;
+	top: 92px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1201,8 +1196,8 @@ margin-left: -13px
 	position:absolute;
 	width: 80px;
 	height: 30px;
-	top: 194px;
-	left: 47%;
+	top: 127px;
+	left: 51%;
 	margin-left: -16px;
 }
 
@@ -1210,16 +1205,16 @@ margin-left: -13px
 	position:absolute;
 	width: 80px;
 	height: 30px;
-	top: 248px;
-	left: 47%;
+	top: 162px;
+	left: 51%;
 	margin-left: -16px;
 }
 #toggle20 {
 	position:absolute;
 	width: 80px;
 	height: 30px;
-	top: 303px;
-	left: 47%;
+	top: 197px;
+	left: 51%;
 	margin-left: -16px;
 }
 #toggle28 {
@@ -1529,7 +1524,7 @@ margin-left: -13px
 #prestigeshardinfo {
     position: absolute;
     padding: 0px;
-    top: 20px;
+    top: 220px;
     width: 700px;
     left: 50%;
     margin-left: -350px;
@@ -1537,14 +1532,14 @@ margin-left: -13px
  
 #diamond1 {
     position: absolute;
-    top: 83px;
+    top: 58px;
     left: 10%;
     margin-left: -18px;
 }
  
 #diamond2 {
     position: absolute;
-    top: 138px;
+    top: 93px;
     left: 10%;
     margin-left: -18px;
  
@@ -1552,7 +1547,7 @@ margin-left: -13px
  
 #diamond3 {
     position: absolute;
-    top: 193px;
+    top: 128px;
     left: 10%;
     margin-left: -18px;
  
@@ -1560,7 +1555,7 @@ margin-left: -13px
  
 #diamond4 {
     position: absolute;
-    top: 248px;
+    top: 163px;
     left: 10%;
     margin-left: -18px;
  
@@ -1568,7 +1563,7 @@ margin-left: -13px
  
 #diamond5 {
     position: absolute;
-    top: 303px;
+    top: 198px;
     left: 10%;
     margin-left: -18px;
 }
@@ -1576,62 +1571,62 @@ margin-left: -13px
  
 #prestigetext1 {
     position: absolute;
-    top: 70px;
+    top: 44px;
     left: 13%;
 }
 #prestigetext2 {
     position: absolute;
-    top: 70px;
-    left: 52.5%;
+    top: 44px;
+    left: 56.5%;
 }
 #prestigetext3 {
     position: absolute;
-    top: 125px;
+    top: 79px;
     left: 13%;
 }
 #prestigetext4 {
     position: absolute;
-    top: 125px;
-    left: 52.5%;
+    top: 79px;
+    left: 56.5%;
 }
 #prestigetext5 {
     position: absolute;
-    top: 180px;
+    top: 114px;
     left: 13%;
 }
 #prestigetext6 {
     position: absolute;
-    top: 180px;
-    left: 52.5%;
+    top: 114px;
+    left: 56.5%;
 }
 #prestigetext7 {
     position: absolute;
-    top: 235px;
+    top: 149px;
     left: 13%;
 }
 #prestigetext8 {
     position: absolute;
-    top: 235px;
-    left: 52.5%;
+    top: 149px;
+    left: 56.5%;
 }
  
 #prestigetext9 {
     position: absolute;
-    top: 290px;
+    top: 184px;
     left: 13%;
 }
 #prestigetext10 {
     position: absolute;
-    top: 290px;
-    left: 52.5%;
+    top: 184px;
+    left: 56.5%;
 }
  
 #buydiamond1 {
     position: absolute;
     width: 150px;
     height: 30px;
-    top: 97px;
-    left: 33%;
+    top: 73px;
+    left: 37%;
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
@@ -1642,8 +1637,8 @@ margin-left: -13px
     position: absolute;
     width: 150px;
     height: 30px;
-    top: 152px;
-    left: 33%;
+    top: 108px;
+    left: 37%;
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
@@ -1654,8 +1649,8 @@ margin-left: -13px
     position: absolute;
     width: 150px;
     height: 30px;
-    top: 207px;
-    left: 33%;
+    top: 143px;
+    left: 37%;
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
@@ -1666,8 +1661,8 @@ margin-left: -13px
     position: absolute;
     width: 150px;
     height: 30px;
-    top: 262px;
-    left: 33%;
+    top: 178px;
+    left: 37%;
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
@@ -1678,8 +1673,8 @@ margin-left: -13px
     position:absolute;
     width: 150px;
     height: 30px;
-    top: 317px;
-    left: 33%;
+    top: 213px;
+    left: 37%;
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
@@ -1698,45 +1693,42 @@ margin-left: -13px
 }
 #crystalupgradestable {
 	position: absolute;
-	top: 81px;
+	top: 260px;
 	padding: 0px;
-	left: 75%;
+	left: 50%;
 	margin-left: -100px;
 }
 #crystalupgradedescription {
 	position: absolute;
-	top: 110px;
+	top: 280px;
 	padding: 0px;
-	left: 75%;
-	margin-left: -100px;
-	width: 300px;
+	left: 50%;
+	margin-left: -375px;
+	width: 750px;
 	height: 100px;
-	border: 1px solid cyan
 }
 #crystalupgradeslevel {
 	position: absolute;
-	top:244px;
+	top:320px;
 	padding: 0px;
-	left: 75%;
-	margin-left: 0px;
-	width: 100px;
+	left: 50%;
+	margin-left: -120px;
+	width: 240px;
 	height: 30px;
-	border: 1px solid plum;
 }
 #crystalupgradescost {
 	position: absolute;
-	top: 212px;
+	top: 300px;
 	padding: 0px;
-	left: 75%;
-	margin-left: -70px;
+	left: 50%;
+	margin-left: -120px;
 	width: 240px;
 	height: 30px;
-	border: 1px solid plum
 }
 
 #prestigeamount {
 	position: absolute;
-	top: 418px;
+	top: 448px;
 	padding: 0px;
 	left: 50%;
 	width: 100px;
@@ -1748,7 +1740,7 @@ margin-left: -13px
 
 #autoprestige {
 	position: absolute;
-	top: 420px;
+	top: 450px;
 	padding: 0px;
 	left: 50%;
 	width: 750px;
@@ -1759,7 +1751,7 @@ margin-left: -13px
 #prestigehotkeys{
 	position: absolute;
 	padding: 5px;
-	top: 460px;
+	top: 490px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -2714,7 +2706,15 @@ margin-left: -13px
 #transcendshardinfo {
 	position: absolute;
 	padding: 0px;
-	top: 20px;
+	top: 220px;
+	width: 700px;
+	left: 50%;
+	margin-left: -350px;
+}
+#transcendshardbonus {
+	position: absolute;
+	padding: 0px;
+	top: 240px;
 	width: 700px;
 	left: 50%;
 	margin-left: -350px;
@@ -2722,14 +2722,14 @@ margin-left: -13px
 
 #mythos1 {
 	position: absolute;
-	top: 83px;
+	top: 58px;
 	left: 10%;
 	margin-left: -18px;
 }
 
 #mythos2 {
 	position: absolute;
-	top: 138px;
+	top: 93px;
 	left: 10%;
 	margin-left: -18px;
 
@@ -2737,7 +2737,7 @@ margin-left: -13px
 
 #mythos3 {
 	position: absolute;
-	top: 193px;
+	top: 128px;
 	left: 10%;
 	margin-left: -18px;
 
@@ -2745,7 +2745,7 @@ margin-left: -13px
 
 #mythos4 {
 	position: absolute;
-	top: 248px;
+	top: 163px;
 	left: 10%;
 	margin-left: -18px;
 
@@ -2753,7 +2753,7 @@ margin-left: -13px
 
 #mythos5 {
 	position: absolute;
-	top: 303px;
+	top: 198px;
 	left: 10%;
 	margin-left: -18px;
 }
@@ -2761,62 +2761,62 @@ margin-left: -13px
 
 #transcendtext1 {
 	position: absolute;
-	top: 70px;
+	top: 43px;
 	left: 13%;
 }
 #transcendtext2 {
 	position: absolute;
-	top: 70px;
-	left: 52.5%;
+	top: 43px;
+	left: 56.5%;
 }
 #transcendtext3 {
 	position: absolute;
-	top: 125px;
+	top: 78px;
 	left: 13%;
 }
 #transcendtext4 {
 	position: absolute;
-	top: 125px;
-	left: 52.5%;
+	top: 78px;
+	left: 56.5%;
 }
 #transcendtext5 {
 	position: absolute;
-	top: 180px;
+	top: 113px;
 	left: 13%;
 }
 #transcendtext6 {
 	position: absolute;
-	top: 180px;
-	left: 52.5%;
+	top: 113px;
+	left: 56.5%;
 }
 #transcendtext7 {
 	position: absolute;
-	top: 235px;
+	top: 148px;
 	left: 13%;
 }
 #transcendtext8 {
 	position: absolute;
-	top: 235px;
-	left: 52.5%;
+	top: 148px;
+	left: 56.5%;
 }
 
 #transcendtext9 {
 	position: absolute;
-	top: 290px;
+	top: 183px;
 	left: 13%;
 }
 #transcendtext10 {
 	position: absolute;
-	top: 290px;
-	left: 52.5%;
+	top: 183px;
+	left: 56.5%;
 }
 
 #buymythos1 {
 	position: absolute;
 	width: 150px;
 	height: 30px;
-	top: 97px;
-	left: 33%;
+	top: 73px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -2827,8 +2827,8 @@ margin-left: -13px
 	position: absolute;
 	width: 150px;
 	height: 30px;
-	top: 152px;
-	left: 33%;
+	top: 108px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -2839,8 +2839,8 @@ margin-left: -13px
 	position: absolute;
 	width: 150px;
 	height: 30px;
-	top: 207px;
-	left: 33%;
+	top: 143px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -2851,8 +2851,8 @@ margin-left: -13px
 	position: absolute;
 	width: 150px;
 	height: 30px;
-	top: 262px;
-	left: 33%;
+	top: 178px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -2863,8 +2863,8 @@ margin-left: -13px
 	position:absolute;
 	width: 150px;
 	height: 30px;
-	top: 317px;
-	left: 33%;
+	top: 213px;
+	left: 37%;
 	margin-top: -15px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -3098,22 +3098,38 @@ margin-left: -13px
 #reincarnationshardinfo {
     position: absolute;
     padding: 0px;
-    top: 20px;
+    top: 240px;
     width: 1000px;
-    left: 38%;
+    left: 50%;
+    margin-left: -500px;
+}
+#reincarnationCrystalInfo{
+	position: absolute;
+    padding: 0px;
+    top: 260px;
+    width: 1000px;
+    left: 50%;
+    margin-left: -500px;
+}
+#reincarnationMythosInfo{
+	position: absolute;
+    padding: 0px;
+    top: 280px;
+    width: 1000px;
+    left: 50%;
     margin-left: -500px;
 }
  
 #particles1 {
     position: absolute;
-    top: 83px;
+    top: 58px;
     left: 10%;
     margin-left: -18px;
 }
  
 #particles2 {
     position: absolute;
-    top: 138px;
+    top: 93px;
     left: 10%;
     margin-left: -18px;
  
@@ -3121,7 +3137,7 @@ margin-left: -13px
  
 #particles3 {
     position: absolute;
-    top: 193px;
+    top: 128px;
     left: 10%;
     margin-left: -18px;
  
@@ -3129,7 +3145,7 @@ margin-left: -13px
  
 #particles4 {
     position: absolute;
-    top: 248px;
+    top: 163px;
     left: 10%;
     margin-left: -18px;
  
@@ -3137,7 +3153,7 @@ margin-left: -13px
  
 #particles5 {
     position: absolute;
-    top: 303px;
+    top: 198px;
     left: 10%;
     margin-left: -18px;
 }
@@ -3145,62 +3161,62 @@ margin-left: -13px
  
 #reincarnationtext1 {
     position: absolute;
-    top: 70px;
+    top: 47px;
     left: 13%;
 }
 #reincarnationtext6 {
     position: absolute;
-    top: 70px;
-    left: 46.5%;
+    top: 47px;
+    left: 56.5%;
 }
 #reincarnationtext2 {
     position: absolute;
-    top: 125px;
+    top: 82px;
     left: 13%;
 }
 #reincarnationtext7 {
     position: absolute;
-    top: 125px;
-    left: 46.5%;
+    top: 82px;
+    left: 56.5%;
 }
 #reincarnationtext3 {
     position: absolute;
-    top: 180px;
+    top: 117px;
     left: 13%;
 }
 #reincarnationtext8 {
     position: absolute;
-    top: 180px;
-    left: 46.5%;
+    top: 117px;
+    left: 56.5%;
 }
 #reincarnationtext4 {
     position: absolute;
-    top: 235px;
+    top: 152px;
     left: 13%;
 }
 #reincarnationtext9 {
     position: absolute;
-    top: 235px;
-    left: 46.5%;
+    top: 152px;
+    left: 56.5%;
 }
  
 #reincarnationtext5 {
     position: absolute;
-    top: 290px;
+    top: 187px;
     left: 13%;
 }
 #reincarnationtext10 {
     position: absolute;
-    top: 290px;
-    left: 46.5%;
+    top: 187px;
+    left: 56.5%;
 }
  
 #buyparticles1 {
     position: absolute;
     width: 150px;
     height: 30px;
-    top: 97px;
-    left: 33%;
+    top: 73px;
+    left: 37%;
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
@@ -3211,8 +3227,8 @@ margin-left: -13px
     position: absolute;
     width: 150px;
     height: 30px;
-    top: 152px;
-    left: 33%;
+    top: 108px;
+    left: 37%;
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
@@ -3223,8 +3239,8 @@ margin-left: -13px
     position: absolute;
     width: 150px;
     height: 30px;
-    top: 207px;
-    left: 33%;
+    top: 143px;
+    left: 37%;
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
@@ -3235,8 +3251,8 @@ margin-left: -13px
     position: absolute;
     width: 150px;
     height: 30px;
-    top: 262px;
-    left: 33%;
+    top: 178px;
+    left: 37%;
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
@@ -3247,8 +3263,8 @@ margin-left: -13px
     position:absolute;
     width: 150px;
     height: 30px;
-    top: 317px;
-    left: 33%;
+    top: 213px;
+    left: 37%;
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;

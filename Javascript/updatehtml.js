@@ -99,6 +99,8 @@ document.getElementById("talisman5area").style.display = "none"
 document.getElementById("talisman6area").style.display = "none"
 document.getElementById("talisman7area").style.display = "none"
 document.getElementById("toggleAutoSacrificeAnt").style.display = "none"
+document.getElementById("reincarnationCrystalInfo").style.display = "none"
+document.getElementById("reincarnationMythosInfo").style.display = "none"
 
 if(player.achievements[38] == 1) document.getElementById("rune2area").style.display = "block";
 if(player.achievements[44] == 1) document.getElementById("rune3area").style.display = "block";
@@ -119,6 +121,8 @@ if(player.achievements[147] == 1) document.getElementById("talisman5area").style
 if(player.antUpgrades[12] > 0) document.getElementById("talisman6area").style.display = "block";
 if(player.shopUpgrades.talismanBought) document.getElementById("talisman7area").style.display = "block";
 if(player.researches[124] > 0) document.getElementById("toggleAutoSacrificeAnt").style.display = "block";
+if(player.researches[39] == 1) document.getElementById("reincarnationCrystalInfo").style.display = "block";
+if(player.researches[40] == 1) document.getElementById("reincarnationMythosInfo").style.display = "block";
 
 
 
@@ -241,24 +245,24 @@ var e = document.getElementsByClassName("auto");
     if (player.upgrades[86] == 1){e[5].style.display = "block";}
     if (player.upgrades[87] == 1){e[6].style.display = "block";}
     if (player.upgrades[88] == 1){e[7].style.display = "block";}
-    if (player.upgrades[91] == 1){e[8].style.display = "block";}
-    if (player.upgrades[92] == 1){e[9].style.display = "block";}
-    if (player.upgrades[99] == 1){e[10].style.display = "block";}
-    if (player.upgrades[90] == 1){e[11].style.display = "block";}
-    if (player.unlocks.prestige) {e[12].style.display = "block";}
-    if (player.achievements[78] == 1){e[13].style.display = "block";}
-    if (player.achievements[85] == 1){e[14].style.display = "block";}
-    if (player.achievements[92] == 1){e[15].style.display = "block";}
-    if (player.achievements[99] == 1){e[16].style.display = "block";}
-    if (player.achievements[106] == 1){e[17].style.display = "block";}
-    if (player.achievements[43] == 1){e[18].style.display = "block";}
-    if (player.upgrades[94] == 1){e[19].style.display = "block";}
-    if (player.upgrades[95] == 1){e[20].style.display = "block";}
-    if (player.upgrades[96] == 1){e[21].style.display = "block";}
-    if (player.upgrades[97] == 1){e[22].style.display = "block";}
-    if (player.upgrades[98] == 1){e[23].style.display = "block";}
-    if (player.upgrades[89] == 1){e[24].style.display = "block";}
-    if (player.researches[46] == 1){e[30].style.display = "block";}
+    if (player.upgrades[91] == 1){e[26].style.display = "block";}
+    if (player.upgrades[92] == 1){e[27].style.display = "block";}
+    if (player.upgrades[99] == 1){e[28].style.display = "block";}
+    if (player.upgrades[90] == 1){e[29].style.display = "block";}
+    if (player.unlocks.prestige) {e[30].style.display = "block";}
+    if (player.achievements[78] == 1){e[8].style.display = "block";}
+    if (player.achievements[85] == 1){e[9].style.display = "block";}
+    if (player.achievements[92] == 1){e[10].style.display = "block";}
+    if (player.achievements[99] == 1){e[11].style.display = "block";}
+    if (player.achievements[106] == 1){e[12].style.display = "block";}
+    if (player.achievements[43] == 1){e[13].style.display = "block";}
+    if (player.upgrades[94] == 1){e[14].style.display = "block";}
+    if (player.upgrades[95] == 1){e[15].style.display = "block";}
+    if (player.upgrades[96] == 1){e[16].style.display = "block";}
+    if (player.upgrades[97] == 1){e[17].style.display = "block";}
+    if (player.upgrades[98] == 1){e[18].style.display = "block";}
+    if (player.upgrades[89] == 1){e[19].style.display = "block";}
+    if (player.researches[46] == 1){e[25].style.display = "block";}
     if (player.prestigeCount > 0.5 || player.reincarnationCount > 0.5){e[31].style.display = "block";}
     if (player.transcendCount > 0.5 || player.reincarnationCount > 0.5){e[32].style.display = "block";}
     if (player.reincarnationCount > 0.5){e[33].style.display = "block";}
@@ -283,23 +287,18 @@ function hideStuff() {
 	document.getElementById("statistics").style.display = "none"
 	document.getElementById("achievementstab").style.backgroundColor = "#171717"
 	document.getElementById("achievementstab").style.color = "white"
-	document.getElementById("prestige").style.display = "none"
-	document.getElementById("prestigetab").style.backgroundColor = "#171717"
-	document.getElementById("runes").style.display = "none"
-	document.getElementById("runestab").style.backgroundColor = "#171717"
-	document.getElementById("transcension").style.display = "none"
-	document.getElementById("transcensiontab").style.backgroundColor = "#171717"
+  document.getElementById("runes").style.display = "none"
+  document.getElementById("runestab").style.backgroundColor = "#171717"
 	document.getElementById("challenges").style.display = "none"
 	document.getElementById("challengetab").style.backgroundColor = "#171717"
-	document.getElementById("reincarnation").style.display = "none"
-	document.getElementById("reincarnationtab").style.backgroundColor = "#171717"
 	document.getElementById("research").style.display = "none"
 	document.getElementById("researchtab").style.backgroundColor = "#171717"
 	document.getElementById("shop").style.display = "none"
 	document.getElementById("shoptab").style.backgroundColor = "purple"
 	document.getElementById("ants").style.display = "none"
-	document.getElementById("anttab").style.backgroundColor = "#171717"
+  document.getElementById("anttab").style.backgroundColor = "#171717"
 
+  
 	document.getElementById("activaterune2").style.display = "none"
 	document.getElementById("activaterune3").style.display = "none"
 	document.getElementById("activaterune4").style.display = "none"
@@ -330,11 +329,6 @@ function hideStuff() {
 		document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints/totalachievementpoints).toPrecision(4) + "%]"
 		player.tabnumber = 3;
 	}
-	if (currentTab == "prestige") {
-		document.getElementById("prestige").style.display = "block"
-		document.getElementById("prestigetab").style.backgroundColor = "blue"
-		player.tabnumber = 4;
-	}
 	if (currentTab == "runes") {
 		document.getElementById("runes").style.display = "block"
 		document.getElementById("runestab").style.backgroundColor = "blue"
@@ -345,36 +339,26 @@ function hideStuff() {
 		displayRuneInformation(3,false)
 		displayRuneInformation(4,false)
 		displayRuneInformation(5,false)
-		player.tabnumber = 5;
-	}
-	if (currentTab == "transcension") {
-		document.getElementById("transcension").style.display = "block"
-		document.getElementById("transcensiontab").style.backgroundColor = "purple"
-		player.tabnumber = 6;
+		player.tabnumber = 4;
 	}
 	if (currentTab == "challenges") {
-		document.getElementById("challenges").style.display = "block"
-		document.getElementById("challengetab").style.backgroundColor = "purple"
-		player.tabnumber = 7;
-	}
-	if (currentTab == "reincarnation") {
-		document.getElementById("reincarnation").style.display = "block"
-		document.getElementById("reincarnationtab").style.backgroundColor = "green"
-		player.tabnumber = 8;
-
+		document.getElementById("challenges").style.display = "block";
+		document.getElementById("challengetab").style.backgroundColor = "purple";
+		player.tabnumber = 5;
 	}
 	if (currentTab == "researches") {
-		document.getElementById("research").style.display = "block"
-		document.getElementById("researchtab").style.backgroundColor = "green"
-		player.tabnumber = 9;
+		document.getElementById("research").style.display = "block";
+		document.getElementById("researchtab").style.backgroundColor = "green";
+		player.tabnumber = 6;
 	}
 	if (currentTab == "shop") {
-	document.getElementById("shop").style.display = "block"
-	document.getElementById("shoptab").style.backgroundColor = "limegreen"
+	document.getElementById("shop").style.display = "block";
+	document.getElementById("shoptab").style.backgroundColor = "limegreen";
 	}
 	if (currentTab == "ants"){
-	document.getElementById("ants").style.display = "block"
-	document.getElementById("anttab").style.backgroundColor = "brown"
+	document.getElementById("ants").style.display = "block";
+  document.getElementById("anttab").style.backgroundColor = "brown";
+  player.tabnumber = 7;
 	}
 
 	if (player.achievements[38] > 0.5) {
@@ -398,27 +382,27 @@ document.getElementById("particlesDisplay").textContent = format(player.reincarn
 document.getElementById("quarkDisplay").textContent = format(player.worlds)
 document.getElementById("obtainiumDisplay").textContent = format(player.researchPoints)
 
-if (currentTab == "buildings") {
+if (currentTab == "buildings" && buildingSubTab == "coin") {
 	let totalProductionDivisor = new Decimal(produceTotal);
 	if (totalProductionDivisor.equals(0))
 	{
 		totalProductionDivisor = new Decimal(1);
 	}
-    document.getElementById("buildtext1").textContent = "Workers: " + format(player.firstOwnedCoin) + " [+" + format(player.firstGeneratedCoin) + "]"
+    document.getElementById("buildtext1").textContent = "Workers: " + format(player.firstOwnedCoin,0,true) + " [+" + format(player.firstGeneratedCoin) + "]"
     document.getElementById("buildtext2").textContent = "Coins/Sec: " + format((produceFirst.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceFirst.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
-    document.getElementById("buildtext3").textContent = "Investments: " + format(player.secondOwnedCoin) + " [+" + format(player.secondGeneratedCoin) + "]"
+    document.getElementById("buildtext3").textContent = "Investments: " + format(player.secondOwnedCoin,0,true) + " [+" + format(player.secondGeneratedCoin) + "]"
     document.getElementById("buildtext4").textContent = "Coins/Sec: " + format((produceSecond.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceSecond.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
-    document.getElementById("buildtext5").textContent = "Printers: " + format(player.thirdOwnedCoin) + " [+" + format(player.thirdGeneratedCoin) + "]"
+    document.getElementById("buildtext5").textContent = "Printers: " + format(player.thirdOwnedCoin,0,true) + " [+" + format(player.thirdGeneratedCoin) + "]"
     document.getElementById("buildtext6").textContent = "Coins/Sec: " + format((produceThird.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceThird.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
-    document.getElementById("buildtext7").textContent = "Coin Mints: " + format(player.fourthOwnedCoin) + " [+" + format(player.fourthGeneratedCoin) + "]"
+    document.getElementById("buildtext7").textContent = "Coin Mints: " + format(player.fourthOwnedCoin,0,true) + " [+" + format(player.fourthGeneratedCoin) + "]"
     document.getElementById("buildtext8").textContent = "Coins/Sec: " + format((produceFourth.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceFourth.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
-    document.getElementById("buildtext9").textContent = "Alchemies: " + format(player.fifthOwnedCoin) + " [+" + format(player.fifthGeneratedCoin) + "]"
+    document.getElementById("buildtext9").textContent = "Alchemies: " + format(player.fifthOwnedCoin,0,true) + " [+" + format(player.fifthGeneratedCoin) + "]"
     document.getElementById("buildtext10").textContent = "Coins/Sec: " + format((produceFifth.dividedBy(taxdivisor)).times(40),2) + " [" + format(produceFifth.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
-    document.getElementById("buildtext11").textContent = "Accelerators: " + format(player.acceleratorBought) + " [+" + format(freeAccelerator) + "]"
+    document.getElementById("buildtext11").textContent = "Accelerators: " + format(player.acceleratorBought,0,true) + " [+" + format(freeAccelerator,0,true) + "]"
     document.getElementById("buildtext12").textContent = "Acceleration Power: " + ((acceleratorPower - 1)*(100)).toPrecision(4) +  "% || Acceleration Multiplier: " + format(acceleratorEffect,2) + "x"
-    document.getElementById("buildtext13").textContent = "Multipliers: " + format(player.multiplierBought) + " [+" + format(freeMultiplier) + "]"
+    document.getElementById("buildtext13").textContent = "Multipliers: " + format(player.multiplierBought,0,true) + " [+" + format(freeMultiplier,0,true) + "]"
     document.getElementById("buildtext14").textContent = "Multiplier Power: " + multiplierPower.toPrecision(4) + "x || Multiplier: " + format(multiplierEffect,2) + "x"
-    document.getElementById("buildtext15").textContent = "Accelerator Boost: " + format(player.acceleratorBoostBought) + " [+" + freeAcceleratorBoost + "]"
+    document.getElementById("buildtext15").textContent = "Accelerator Boost: " + format(player.acceleratorBoostBought,0,true) + " [+" + format(freeAcceleratorBoost,0,true) + "]"
     document.getElementById("buildtext16").textContent = "Reset Diamonds and Prestige Upgrades, but add " + (tuSevenMulti * (1 + player.researches[16]/50) * (1 + player.challengecompletions.two / 100)).toPrecision(4) + "% Acceleration Power and 5 free Accelerators."
 
     document.getElementById("buycoin1").textContent = "Cost: " + format(player.firstCostCoin) + " coins."
@@ -434,17 +418,17 @@ if (currentTab == "buildings") {
 if (currentTab == "upgrades") {}
 if (currentTab == "settings") {}
 if (currentTab == "achievements") {}
-if (currentTab == "prestige") {
+if (currentTab == "buildings" && buildingSubTab == "diamond") {
     document.getElementById("prestigeshardinfo").textContent = "You have " + format(player.prestigeShards,2) + " Crystals, multiplying Coin production by " + format(prestigeMultiplier,2) + "x."
-    document.getElementById("prestigetext1").textContent = "Refineries: " + format(player.firstOwnedDiamonds) + " [+" + format(player.firstGeneratedDiamonds,2) + "]"
+    document.getElementById("prestigetext1").textContent = "Refineries: " + format(player.firstOwnedDiamonds,0,true) + " [+" + format(player.firstGeneratedDiamonds,2) + "]"
     document.getElementById("prestigetext2").textContent = "Crystal/sec: " + format((produceFirstDiamonds).times(40),2)
-    document.getElementById("prestigetext3").textContent = "Coal Plants: " + format(player.secondOwnedDiamonds) + " [+" + format(player.secondGeneratedDiamonds,2) + "]"
+    document.getElementById("prestigetext3").textContent = "Coal Plants: " + format(player.secondOwnedDiamonds,0,true) + " [+" + format(player.secondGeneratedDiamonds,2) + "]"
     document.getElementById("prestigetext4").textContent = "Ref./Sec: " + format((produceSecondDiamonds).times(40),2)
-    document.getElementById("prestigetext5").textContent = "Coal Rigs: " + format(player.thirdOwnedDiamonds) + " [+" + format(player.thirdGeneratedDiamonds,2) + "]"
+    document.getElementById("prestigetext5").textContent = "Coal Rigs: " + format(player.thirdOwnedDiamonds,0,true) + " [+" + format(player.thirdGeneratedDiamonds,2) + "]"
     document.getElementById("prestigetext6").textContent = "Plants/Sec: " + format((produceThirdDiamonds).times(40),2) 
-    document.getElementById("prestigetext7").textContent = "Pickaxes: " + format(player.fourthOwnedDiamonds) + " [+" + format(player.fourthGeneratedDiamonds,2) + "]"
+    document.getElementById("prestigetext7").textContent = "Pickaxes: " + format(player.fourthOwnedDiamonds,0,true) + " [+" + format(player.fourthGeneratedDiamonds,2) + "]"
     document.getElementById("prestigetext8").textContent = "Rigs/Sec: " + format((produceFourthDiamonds).times(40),2) 
-    document.getElementById("prestigetext9").textContent = "Pandora's Boxes: " + format(player.fifthOwnedDiamonds) + " [+" + format(player.fifthGeneratedDiamonds,2) + "]"
+    document.getElementById("prestigetext9").textContent = "Pandora's Boxes: " + format(player.fifthOwnedDiamonds,0,true) + " [+" + format(player.fifthGeneratedDiamonds,2) + "]"
     document.getElementById("prestigetext10").textContent = "Pickaxes/Sec: " + format((produceFifthDiamonds).times(40),2) 
     
     document.getElementById("buydiamond1").textContent = "Cost: " + format(player.firstCostDiamonds,2) + " Diamonds"
@@ -497,17 +481,17 @@ if (currentTab == "runes"){
 
     }
 }
-if (currentTab == "transcension") {
-    document.getElementById("transcendshardinfo").textContent = "You have " + format(player.transcendShards,2) + " Mythos Shards, providing " + format(totalMultiplierBoost) + " Multiplier Power boosts."
-    document.getElementById("transcendtext1").textContent = "Augments: " + format(player.firstOwnedMythos) + " [+" + format(player.firstGeneratedMythos,2) + "]"
+if (currentTab == "buildings" && buildingSubTab == "mythos") {
+    document.getElementById("transcendshardinfo").textContent = "You have " + format(player.transcendShards,2) + " Mythos Shards, providing " + format(totalMultiplierBoost,0,true) + " Multiplier Power boosts."
+    document.getElementById("transcendtext1").textContent = "Augments: " + format(player.firstOwnedMythos,0,true) + " [+" + format(player.firstGeneratedMythos,2) + "]"
     document.getElementById("transcendtext2").textContent = "Shards/Sec: " + format((produceFirstMythos).times(40),2) 
-    document.getElementById("transcendtext3").textContent = "Enchantments: " + format(player.secondOwnedMythos) + " [+" + format(player.secondGeneratedMythos,2) + "]"
+    document.getElementById("transcendtext3").textContent = "Enchantments: " + format(player.secondOwnedMythos,0,true) + " [+" + format(player.secondGeneratedMythos,2) + "]"
     document.getElementById("transcendtext4").textContent = "Augments/Sec: " + format((produceSecondMythos).times(40),2) 
-    document.getElementById("transcendtext5").textContent = "Wizards: " + format(player.thirdOwnedMythos) + " [+" + format(player.thirdGeneratedMythos,2) + "]"
+    document.getElementById("transcendtext5").textContent = "Wizards: " + format(player.thirdOwnedMythos,0,true) + " [+" + format(player.thirdGeneratedMythos,2) + "]"
     document.getElementById("transcendtext6").textContent = "Enchantments/Sec: " + format((produceThirdMythos).times(40),2) 
-    document.getElementById("transcendtext7").textContent = "Oracles: " + format(player.fourthOwnedMythos) + " [+" + format(player.fourthGeneratedMythos,2) + "]"
+    document.getElementById("transcendtext7").textContent = "Oracles: " + format(player.fourthOwnedMythos,0,true) + " [+" + format(player.fourthGeneratedMythos,2) + "]"
     document.getElementById("transcendtext8").textContent = "Wizards/Sec: " + format((produceFourthMythos).times(40),2) 
-    document.getElementById("transcendtext9").textContent = "Grandmasters: " + format(player.fifthOwnedMythos) + " [+" + format(player.fifthGeneratedMythos,2) + "]"
+    document.getElementById("transcendtext9").textContent = "Grandmasters: " + format(player.fifthOwnedMythos,0,true) + " [+" + format(player.fifthGeneratedMythos,2) + "]"
     document.getElementById("transcendtext10").textContent = "Oracles/Sec: " + format((produceFifthMythos).times(40),2)
     
     document.getElementById("buymythos1").textContent = "Cost: " + format(player.firstCostMythos,2) + " Mythos"
@@ -525,8 +509,10 @@ if (currentTab == "transcension") {
 if (currentTab == "challenges") {
 }
 
-if (currentTab == "reincarnation") {
+if (currentTab == "buildings" && buildingSubTab == "particle") {
     document.getElementById("reincarnationshardinfo").textContent = "You have " + format(player.reincarnationShards,2) + " Atoms, providing " + buildingPower.toPrecision(4) + " Building Power. Multiplier to Coin Production: " + format(reincarnationMultiplier)
+    document.getElementById("reincarnationCrystalInfo").textContent = "Thanks to Research 3x9, you also multiply Crystal production by " + format(Decimal.pow(reincarnationMultiplier, 1/50),3,false)
+    document.getElementById("reincarnationMythosInfo").textContent = "Thanks to Research 3x10, you also multiply Mythos Shard production by " + format(Decimal.pow(reincarnationMultiplier, 1/250),3,false)
     document.getElementById("reincarnationtext1").textContent = "Protons: " + format(player.firstOwnedParticles) + " [+" + format(player.firstGeneratedParticles,2) + "]"
     document.getElementById("reincarnationtext6").textContent = "Atoms/Sec: " + format((produceFirstParticles).times(40),2) 
     document.getElementById("reincarnationtext2").textContent = "Elements: " + format(player.secondOwnedParticles) + " [+" + format(player.secondGeneratedParticles,2) + "]"
@@ -632,7 +618,7 @@ if (player.currentChallengeRein == ""){document.getElementById("reincarnatechall
 
 
 
-if (currentTab == "buildings"){
+if (currentTab == "buildings" && buildingSubTab == "coin"){
 document.getElementById("buycoin1").style.backgroundColor = "#171717"
 document.getElementById("buycoin2").style.backgroundColor = "#171717"
 document.getElementById("buycoin3").style.backgroundColor = "#171717"
@@ -655,7 +641,7 @@ if ((!player.toggles.seven || player.upgrades[87] == 0) && player.coins.greaterT
 if ((!player.toggles.eight || player.upgrades[88] == 0) && player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)){document.getElementById("buyacceleratorboost").style.backgroundColor = "#555555"}
 
 }
-if (currentTab == "prestige"){
+if (currentTab == "buildings" && buildingSubTab == "diamond"){
 document.getElementById("buydiamond1").style.backgroundColor = "#171717"
 document.getElementById("buydiamond2").style.backgroundColor = "#171717"
 document.getElementById("buydiamond3").style.backgroundColor = "#171717"
@@ -726,7 +712,7 @@ if (player.researchPoints > 1e11 && player.runeshards > 10000){document.getEleme
 }
 
 }
-if (currentTab == "transcension"){
+if (currentTab == "buildings" && buildingSubTab == "mythos"){
 document.getElementById("buymythos1").style.backgroundColor = "#171717"
 document.getElementById("buymythos2").style.backgroundColor = "#171717"
 document.getElementById("buymythos3").style.backgroundColor = "#171717"
@@ -741,7 +727,7 @@ if ((!player.toggles.twenty || player.upgrades[98] == 0) && player.transcendPoin
 
 
 }
-if (currentTab == "reincarnation"){
+if (currentTab == "buildings" && buildingSubTab == "particle"){
 document.getElementById("buyparticles1").style.backgroundColor = "#171717"
 document.getElementById("buyparticles2").style.backgroundColor = "#171717"
 document.getElementById("buyparticles3").style.backgroundColor = "#171717"
