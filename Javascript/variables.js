@@ -314,4 +314,4 @@ var triggerChallenge = ""
 
 var prevReductionValue = -1;
 
-var buildingSubTab = "coin"
+var buildingSubTab = "Coin"

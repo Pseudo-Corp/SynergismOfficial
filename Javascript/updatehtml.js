@@ -382,7 +382,7 @@ document.getElementById("particlesDisplay").textContent = format(player.reincarn
 document.getElementById("quarkDisplay").textContent = format(player.worlds)
 document.getElementById("obtainiumDisplay").textContent = format(player.researchPoints)
 
-if (currentTab == "buildings" && buildingSubTab == "coin") {
+if (currentTab == "buildings" && buildingSubTab == "Coin") {
 	let totalProductionDivisor = new Decimal(produceTotal);
 	if (totalProductionDivisor.equals(0))
 	{
@@ -418,7 +418,7 @@ if (currentTab == "buildings" && buildingSubTab == "coin") {
 if (currentTab == "upgrades") {}
 if (currentTab == "settings") {}
 if (currentTab == "achievements") {}
-if (currentTab == "buildings" && buildingSubTab == "diamond") {
+if (currentTab == "buildings" && buildingSubTab == "Diamonds") {
     document.getElementById("prestigeshardinfo").textContent = "You have " + format(player.prestigeShards,2) + " Crystals, multiplying Coin production by " + format(prestigeMultiplier,2) + "x."
     document.getElementById("prestigetext1").textContent = "Refineries: " + format(player.firstOwnedDiamonds,0,true) + " [+" + format(player.firstGeneratedDiamonds,2) + "]"
     document.getElementById("prestigetext2").textContent = "Crystal/sec: " + format((produceFirstDiamonds).times(40),2)
@@ -481,7 +481,7 @@ if (currentTab == "runes"){
 
     }
 }
-if (currentTab == "buildings" && buildingSubTab == "mythos") {
+if (currentTab == "buildings" && buildingSubTab == "Mythos") {
     document.getElementById("transcendshardinfo").textContent = "You have " + format(player.transcendShards,2) + " Mythos Shards, providing " + format(totalMultiplierBoost,0,true) + " Multiplier Power boosts."
     document.getElementById("transcendtext1").textContent = "Augments: " + format(player.firstOwnedMythos,0,true) + " [+" + format(player.firstGeneratedMythos,2) + "]"
     document.getElementById("transcendtext2").textContent = "Shards/Sec: " + format((produceFirstMythos).times(40),2) 
@@ -509,7 +509,7 @@ if (currentTab == "buildings" && buildingSubTab == "mythos") {
 if (currentTab == "challenges") {
 }
 
-if (currentTab == "buildings" && buildingSubTab == "particle") {
+if (currentTab == "buildings" && buildingSubTab == "Particles") {
     document.getElementById("reincarnationshardinfo").textContent = "You have " + format(player.reincarnationShards,2) + " Atoms, providing " + buildingPower.toPrecision(4) + " Building Power. Multiplier to Coin Production: " + format(reincarnationMultiplier)
     document.getElementById("reincarnationCrystalInfo").textContent = "Thanks to Research 3x9, you also multiply Crystal production by " + format(Decimal.pow(reincarnationMultiplier, 1/50),3,false)
     document.getElementById("reincarnationMythosInfo").textContent = "Thanks to Research 3x10, you also multiply Mythos Shard production by " + format(Decimal.pow(reincarnationMultiplier, 1/250),3,false)
@@ -618,7 +618,7 @@ if (player.currentChallengeRein == ""){document.getElementById("reincarnatechall
 
 
 
-if (currentTab == "buildings" && buildingSubTab == "coin"){
+if (currentTab == "buildings" && buildingSubTab == "Coin"){
 document.getElementById("buycoin1").style.backgroundColor = "#171717"
 document.getElementById("buycoin2").style.backgroundColor = "#171717"
 document.getElementById("buycoin3").style.backgroundColor = "#171717"
@@ -641,7 +641,7 @@ if ((!player.toggles.seven || player.upgrades[87] == 0) && player.coins.greaterT
 if ((!player.toggles.eight || player.upgrades[88] == 0) && player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)){document.getElementById("buyacceleratorboost").style.backgroundColor = "#555555"}
 
 }
-if (currentTab == "buildings" && buildingSubTab == "diamond"){
+if (currentTab == "buildings" && buildingSubTab == "Diamonds"){
 document.getElementById("buydiamond1").style.backgroundColor = "#171717"
 document.getElementById("buydiamond2").style.backgroundColor = "#171717"
 document.getElementById("buydiamond3").style.backgroundColor = "#171717"
@@ -712,7 +712,7 @@ if (player.researchPoints > 1e11 && player.runeshards > 10000){document.getEleme
 }
 
 }
-if (currentTab == "buildings" && buildingSubTab == "mythos"){
+if (currentTab == "buildings" && buildingSubTab == "Mythos"){
 document.getElementById("buymythos1").style.backgroundColor = "#171717"
 document.getElementById("buymythos2").style.backgroundColor = "#171717"
 document.getElementById("buymythos3").style.backgroundColor = "#171717"
@@ -727,7 +727,7 @@ if ((!player.toggles.twenty || player.upgrades[98] == 0) && player.transcendPoin
 
 
 }
-if (currentTab == "buildings" && buildingSubTab == "particle"){
+if (currentTab == "buildings" && buildingSubTab == "Particles"){
 document.getElementById("buyparticles1").style.backgroundColor = "#171717"
 document.getElementById("buyparticles2").style.backgroundColor = "#171717"
 document.getElementById("buyparticles3").style.backgroundColor = "#171717"

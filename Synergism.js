@@ -2256,24 +2256,34 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 	var type = ""
 	var pos = ""
 	var num = 0
-	if (event.key === "1") {pos = "first"; num += 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemShards(1)}}
-	if (event.key === "2") {pos = "second"; num += 2; if (currentTab == "challenges") {toggleChallenges('two')}; if (currentTab == "runes"){redeemShards(2)}}
-	if (event.key === "3") {pos = "third"; num += 3; if (currentTab == "challenges") {toggleChallenges('three')}; if (currentTab == "runes"){redeemShards(3)}}
-	if (event.key === "4") {pos = "fourth"; num += 4; if (currentTab == "challenges") {toggleChallenges('four')}; if (currentTab == "runes"){redeemShards(4)}}
-	if (event.key === "5") {pos = "fifth"; num += 5; if (currentTab == "challenges") {toggleChallenges('five')}; if(currentTab == "runes"){redeemShards(5)}}
+	if (event.key === "1") {pos = "first"; num = 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemShards(1)}}
+	if (event.key === "2") {pos = "second"; num = 2; if (currentTab == "challenges") {toggleChallenges('two')}; if (currentTab == "runes"){redeemShards(2)}}
+	if (event.key === "3") {pos = "third"; num = 3; if (currentTab == "challenges") {toggleChallenges('three')}; if (currentTab == "runes"){redeemShards(3)}}
+	if (event.key === "4") {pos = "fourth"; num = 4; if (currentTab == "challenges") {toggleChallenges('four')}; if (currentTab == "runes"){redeemShards(4)}}
+	if (event.key === "5") {pos = "fifth"; num = 5; if (currentTab == "challenges") {toggleChallenges('five')}; if(currentTab == "runes"){redeemShards(5)}}
 	if (event.key === "6") {buyCrystalUpgrades(1)}
 	if (event.key === "7") {buyCrystalUpgrades(2)}
 	if (event.key === "8") {buyCrystalUpgrades(3)}
 	if (event.key === "9") {buyCrystalUpgrades(4)}
 	if (event.key === "0") {buyCrystalUpgrades(5)}
-	if (currentTab == "buildings") {type = "Coin"}
-	if (currentTab == "prestige") {type = "Diamonds"; num = 1/2 * (Math.pow(num, 2) + num)}
-	if (currentTab == "transcension") {type = "Mythos"; num = 1/2 * (Math.pow(num, 2) + num)}
-	if (currentTab == "reincarnation" && (event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5")) {buyParticleBuilding(pos)}
-	if ((event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5") && player.currentTab !== "reincarnation") {buyProducer(pos, type, num)}
-	if ((event.key === "A" || event.key === "a") && currentTab == "buildings") {buyAccelerator()}
-	if ((event.key === "B" || event.key === "b") && currentTab == "buildings") {boostAccelerator()}
-	if ((event.key === "M" || event.key === "m") && currentTab == "buildings") {buyMultiplier()}
+    if (currentTab === "buildings" && pos !== "")
+    {
+        if (buildingSubTab === "Particles")
+        {
+            buyParticleBuilding(pos)
+        }
+        else
+        {
+            if (buildingSubTab === "Diamonds" || buildingSubTab === "Mythos")
+            {
+                num = 1/2 * (Math.pow(num, 2) + num)
+            }
+            buyProducer(pos, buildingSubTab, num);
+        }
+    }
+	if ((event.key === "A" || event.key === "a") && currentTab === "buildings" && buildingSubTab === "Coin") {buyAccelerator()}
+	if ((event.key === "B" || event.key === "b") && currentTab === "buildings" && buildingSubTab === "Coin") {boostAccelerator()}
+	if ((event.key === "M" || event.key === "m") && currentTab === "buildings" && buildingSubTab === "Coin") {buyMultiplier()}
 	if ((event.key === "P") || event.key === "p") {resetCheck('prestige')}
 	if ((event.key === "T") || event.key === "t") {resetCheck('transcend')}
 	if ((event.key === "R") || event.key === "r") {resetCheck('reincarnate')}

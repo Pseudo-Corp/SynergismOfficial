@@ -211,10 +211,10 @@ d.style.backgroundColor = "#171717"
 
 
 
-if(buildingSubTab == "coin"){la.style.display = "block"; a.style.backgroundColor = "crimson"}
-if(buildingSubTab == "diamond"){el.style.display = "block"; b.style.backgroundColor = "crimson"}
-if(buildingSubTab == "mythos"){ti.style.display = "block"; c.style.backgroundColor = "crimson"}
-if(buildingSubTab == "particle"){ella.style.display = "block"; d.style.backgroundColor = "crimson"}
+if(buildingSubTab === "Coin"){la.style.display = "block"; a.style.backgroundColor = "crimson"}
+if(buildingSubTab === "Diamonds"){el.style.display = "block"; b.style.backgroundColor = "crimson"}
+if(buildingSubTab === "Mythos"){ti.style.display = "block"; c.style.backgroundColor = "crimson"}
+if(buildingSubTab === "Particles"){ella.style.display = "block"; d.style.backgroundColor = "crimson"}
 }
 
 function toggleRuneScreen(){
