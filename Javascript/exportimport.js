@@ -67,6 +67,9 @@ function exportSynergism() {
         player.worlds += (Math.floor(player.quarkstimer/3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
         player.quarkstimer = (player.quarkstimer % 3600)
     }
+    // set attribute to 0, turn tab back to white
+    document.getElementById('settingstab').setAttribute('full', 0);
+
     saveSynergy();
 
     if('clipboardData' in window) {
@@ -137,6 +140,11 @@ function promocodes() {
         player.shopUpgrades.obtainiumPotion += 2;
         player.shopUpgrades.offeringPotion += 2;
         el.textContent = "It's a shame, isn't it? [+150 Quarks, 2 of each potion!]"
+    }
+    else if(input == "thisCodeCanBeLiterallyAnything" && (player.version == "1.0101") && player.offerpromo24used == false){
+        player.offerpromo24used = true;
+        player.worlds += 200;
+        el.textContent = "And so it was. [+200 Quarks]"
     }
     else {
         el.textContent = "Your code is either invalid or already used. Try again!"

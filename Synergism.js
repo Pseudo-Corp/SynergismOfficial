@@ -414,12 +414,13 @@ const player = {
 			  offerpromo21used: false,
 			  offerpromo22used: false,
 			  offerpromo23used: false,
+			  offerpromo24used: false,
 
-			  loaded1009: false,
-			  loaded1009hotfix1: false,
-			  loaded10091: false,
-			  loaded1010: false,
-			  loaded10101: false,
+			  loaded1009: true,
+			  loaded1009hotfix1: true,
+			  loaded10091: true,
+			  loaded1010: true,
+			  loaded10101: true,
 
 			  shopUpgrades: {
 				  offeringPotion: 1,
@@ -529,6 +530,7 @@ function loadSynergy() {
 	   if (data.loaded1010 === undefined){player.loaded1010 = false;}
 	   if (data.offerpromo22used === undefined){player.offerpromo22used = false;}
 	   if (data.loaded10101 === undefined){player.loaded10101 = false;}
+	   if (data.offerpromo24used === undefined){player.offerpromo24used = false;}
 
 	   if (player.offerpromo6used === undefined){
 		player.offerpromo6used = false; 
@@ -733,13 +735,13 @@ function loadSynergy() {
 		player.researches[92] = 0;
 	}
 
-	if (data.achievements[169] === undefined || player.achievements[169] === undefined || data.shopUpgrades.antSpeedLevel === undefined || player.shopUpgrades.antSpeedLevel === undefined || data.loaded1010 === undefined || player.loaded1010 === false) {
+	if (data.achievements[169] === undefined || player.achievements[169] === undefined || data.shopUpgrades.antSpeedLevel === undefined || player.shopUpgrades.antSpeedLevel === undefined || data.loaded1010 === undefined || data.loaded1010 === false) {
 		player.loaded1010 = true;
 		player.offerpromo21used = false;
 
 		player.firstOwnedAnts = 0;
    		player.firstGeneratedAnts = new Decimal("0");
-   		player.firstCostAnts = new Decimal("1e1200");
+   		player.firstCostAnts = new Decimal("1e800");
    		player.firstProduceAnts = .0001;
 
 		player.secondOwnedAnts = 0;
@@ -859,6 +861,16 @@ function loadSynergy() {
 		player.antMax = false;
 	}
 
+	if(data.offerpromo24used === undefined || data.offerpromo24used === false){
+		player.offerpromo24used = false;
+	}
+	if(player.firstOwnedAnts < 1 && player.firstCostAnts.greaterThanOrEqualTo("1e1200")){
+		player.firstCostAnts = new Decimal("1e800");
+		player.firstOwnedAnts = 0;
+	}
+
+
+
 
 		if (player.transcendCount < 0){player.transcendCount = 0};
 		if (player.reincarnationCount < 0){player.reincarnationCount = 0;};
@@ -891,6 +903,7 @@ function loadSynergy() {
 	}
 
 
+
 var j
 for (j = 1; j < player.upgrades.length; j++) {
 		upgradeupdate(j);
@@ -904,8 +917,6 @@ for (j = 1; j <= (125); j++) {
 }
 
 runescreen = "runes";
-document.getElementById("runecontainer1").style.display = "block";
-document.getElementById("runecontainer2").style.display = "none";
 document.getElementById("togglerunesubtab").textContent = "GO TO TALISMANS"
 document.getElementById("togglerunesubtab").style.border = "2px solid grey"
 
@@ -954,7 +965,6 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
 
 document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * effectiveLevelMult - 100).toPrecision(4) + "%";
 
-document.getElementById("runecontainer2").style.display = "none"
 document.getElementById("talismanlevelup").style.display = "none"
 document.getElementById("talismanrespec").style.display = "none"
 
@@ -1815,6 +1825,13 @@ function resetCheck(i,manual) {
 		}
 	}	
 	}
+	if (i == "ascend"){
+		if(player.challengecompletions.ten > 0){
+			if (manual){
+			resetConfirmation('ascend');
+			}
+		}
+	}
 }	
 
 function resetConfirmation(i) {
@@ -1855,6 +1872,12 @@ function resetConfirmation(i) {
 		else {
 			resetachievementcheck(3);
 			reset(3);
+		}
+	}
+	if (i == 'ascend'){
+		var z = confirm("Reincarnating will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]")
+		if (z){
+			reset(4);
 		}
 	}
 	}
@@ -2137,8 +2160,23 @@ function tick() {
 	if(player.quarkstimer >= 90000){player.quarkstimer = 90000}
 	if(player.researches[61] > 0){player.obtainiumtimer += dt;}
 	if(player.researches[61] > 0){document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + format(0.05 * (player.researches[61] + player.researches[62]) * player.maxobtainiumpersecond * divineBlessing1,3,true) + " Obtainium per second."}
+	
+	const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
+	const maxExportQuarks = (25 * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
+
 	document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)),2) + "s until +" +(1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]) + " export Quark"
-	document.getElementById("quarktimeramount").textContent = "Quarks on export: " + (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125])) + " [Max " + format((25 * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]))) +"]"
+	document.getElementById("quarktimeramount").textContent = "Quarks on export: " 
+		+ onExportQuarks 
+		+ " [Max " 
+		+ format(maxExportQuarks) 
+		+"]"
+
+	if(onExportQuarks === maxExportQuarks) {
+		const settingsTab = document.getElementById('settingstab');
+		settingsTab.style.backgroundColor = 'gold';
+		settingsTab.style.border = '1px solid gold';
+		settingsTab.setAttribute('full', 1);
+	}
 
 	if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle){
 	player.sacrificeTimer += dt
@@ -2218,24 +2256,34 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 	var type = ""
 	var pos = ""
 	var num = 0
-	if (event.key === "1") {pos = "first"; num += 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemShards(1)}}
-	if (event.key === "2") {pos = "second"; num += 2; if (currentTab == "challenges") {toggleChallenges('two')}; if (currentTab == "runes"){redeemShards(2)}}
-	if (event.key === "3") {pos = "third"; num += 3; if (currentTab == "challenges") {toggleChallenges('three')}; if (currentTab == "runes"){redeemShards(3)}}
-	if (event.key === "4") {pos = "fourth"; num += 4; if (currentTab == "challenges") {toggleChallenges('four')}; if (currentTab == "runes"){redeemShards(4)}}
-	if (event.key === "5") {pos = "fifth"; num += 5; if (currentTab == "challenges") {toggleChallenges('five')}; if(currentTab == "runes"){redeemShards(5)}}
+	if (event.key === "1") {pos = "first"; num = 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemShards(1)}}
+	if (event.key === "2") {pos = "second"; num = 2; if (currentTab == "challenges") {toggleChallenges('two')}; if (currentTab == "runes"){redeemShards(2)}}
+	if (event.key === "3") {pos = "third"; num = 3; if (currentTab == "challenges") {toggleChallenges('three')}; if (currentTab == "runes"){redeemShards(3)}}
+	if (event.key === "4") {pos = "fourth"; num = 4; if (currentTab == "challenges") {toggleChallenges('four')}; if (currentTab == "runes"){redeemShards(4)}}
+	if (event.key === "5") {pos = "fifth"; num = 5; if (currentTab == "challenges") {toggleChallenges('five')}; if(currentTab == "runes"){redeemShards(5)}}
 	if (event.key === "6") {buyCrystalUpgrades(1)}
 	if (event.key === "7") {buyCrystalUpgrades(2)}
 	if (event.key === "8") {buyCrystalUpgrades(3)}
 	if (event.key === "9") {buyCrystalUpgrades(4)}
 	if (event.key === "0") {buyCrystalUpgrades(5)}
-	if (currentTab == "buildings") {type = "Coin"}
-	if (currentTab == "prestige") {type = "Diamonds"; num = 1/2 * (Math.pow(num, 2) + num)}
-	if (currentTab == "transcension") {type = "Mythos"; num = 1/2 * (Math.pow(num, 2) + num)}
-	if (currentTab == "reincarnation" && (event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5")) {buyParticleBuilding(pos)}
-	if ((event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5") && player.currentTab !== "reincarnation") {buyProducer(pos, type, num)}
-	if ((event.key === "A" || event.key === "a") && currentTab == "buildings") {buyAccelerator()}
-	if ((event.key === "B" || event.key === "b") && currentTab == "buildings") {boostAccelerator()}
-	if ((event.key === "M" || event.key === "m") && currentTab == "buildings") {buyMultiplier()}
+    if (currentTab === "buildings" && pos !== "")
+    {
+        if (buildingSubTab === "Particles")
+        {
+            buyParticleBuilding(pos)
+        }
+        else
+        {
+            if (buildingSubTab === "Diamonds" || buildingSubTab === "Mythos")
+            {
+                num = 1/2 * (Math.pow(num, 2) + num)
+            }
+            buyProducer(pos, buildingSubTab, num);
+        }
+    }
+	if ((event.key === "A" || event.key === "a") && currentTab === "buildings" && buildingSubTab === "Coin") {buyAccelerator()}
+	if ((event.key === "B" || event.key === "b") && currentTab === "buildings" && buildingSubTab === "Coin") {boostAccelerator()}
+	if ((event.key === "M" || event.key === "m") && currentTab === "buildings" && buildingSubTab === "Coin") {buyMultiplier()}
 	if ((event.key === "P") || event.key === "p") {resetCheck('prestige')}
 	if ((event.key === "T") || event.key === "t") {resetCheck('transcend')}
 	if ((event.key === "R") || event.key === "r") {resetCheck('reincarnate')}
