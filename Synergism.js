@@ -1164,6 +1164,19 @@ function format(input,accuracy,long){
 	}
 }
 
+function formatTimeShort(seconds) {
+	return ((seconds >= 86400)
+		? format(Math.floor(seconds / 86400)) + "d"
+		: '') +
+		((seconds >= 3600)
+			? format(Math.floor(seconds / 3600) % 24) + "h"
+			: '') +
+		((seconds >= 60)
+			? format(Math.floor(seconds/60) % 60) + "m"
+			: '') +
+		format(Math.floor(seconds) % 60) + "s";
+}
+
 function updateCubesPerSec() {
 	let c = player.cubesThisAscension.challenges, r = player.cubesThisAscension.reincarnation,
 		a = player.cubesThisAscension.ascension;
@@ -2309,17 +2322,7 @@ function tick() {
 
 	if (player.achievements[173] == 1){
 		player.antSacrificeTimer += (dt * timeMult)
-		document.getElementById("antSacrificeTimer").textContent = 
-			((player.antSacrificeTimer >= 86400)
-				? format(Math.floor(player.antSacrificeTimer / 86400)) + "d"
-				: '') + 
-			((player.antSacrificeTimer >= 3600)
-				? format(Math.floor(player.antSacrificeTimer / 3600) % 24) + "h"
-				: '') + 
-			((player.antSacrificeTimer >= 60)
-				? format(Math.floor(player.antSacrificeTimer/60) % 60) + "m"
-				: '') + 
-			format(Math.floor(player.antSacrificeTimer) % 60) + "s"
+		document.getElementById("antSacrificeTimer").textContent = formatTimeShort(player.antSacrificeTimer);
 		showSacrifice();
 	}
 	calculateObtainium();
