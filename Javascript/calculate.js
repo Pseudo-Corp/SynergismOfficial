@@ -381,9 +381,6 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
     let maxSimulatedTicks = simulatedTicks;
     player.quarkstimer += timeadd/(divineBlessing1 * (1 + player.researches[121]/200));
     if (player.researches[61] > 0){player.researchPoints += timeadd * (0.05 + 0.05 * player.researches[62]) * player.maxobtainiumpersecond}
-    if (player.achievements[173] == 1){
-        player.antSacrificeTimer += timeadd;
-    }
 
 
     if(player.quarkstimer >= 90000){player.quarkstimer = 90000}
@@ -393,6 +390,9 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
         player.prestigecounter += tickValue;
         player.transcendcounter += tickValue;
         player.reincarnationcounter += tickValue;
+        if (player.achievements[173] == 1){
+            player.antSacrificeTimer += tickValue;
+        }
         resourceGain(tickValue,true);
         calculateObtainium();
         if(simulatedTicks % 2 == 0){
