@@ -872,18 +872,14 @@ function loadSynergy() {
 	if (player.autoSacrificeToggle && player.autoSacrifice > 0.5){document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "orange"};
 
 
-toggleTalismanBuy(player.buyTalismanShardPercent);
-updateTalismanInventory();
-calculateObtainium();
-calculateAnts();
-calculateRuneLevels();
+		toggleTalismanBuy(player.buyTalismanShardPercent);
+		updateTalismanInventory();
+		calculateObtainium();
+		calculateAnts();
+		calculateRuneLevels();
 		setToggleBtnColors();
-}
-updateAchievementBG();
-
-}
-
 	}
+
 	updateAchievementBG();
 }
 
