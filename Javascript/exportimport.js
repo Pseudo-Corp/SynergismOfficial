@@ -67,8 +67,8 @@ function promocodes() {
         player.shopUpgrades.offeringPotion += 2;
         el.textContent = "It's a shame, isn't it? [+150 Quarks, 2 of each potion!]"
     }
-    else if(input == "thisCodeCanBeLiterallyAnything" && (player.version == "1.0101") && player.offerpromo24used == false){
-        player.offerpromo24used = true;
+    else if(input == "thisCodeCanBeLiterallyAnything" && (player.version == "1.0101") && !player.codes.get(24)) {
+        player.codes.set(24, true);
         player.worlds += 200;
         el.textContent = "And so it was. [+200 Quarks]"
     }

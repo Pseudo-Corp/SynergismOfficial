@@ -397,7 +397,7 @@ const player = {
 			  
 	// create a Map with keys defaulting to false
 	codes: new Map(
-		Array.from(Array(23), (_, i) => [i + 1, false])
+		Array.from(Array(24), (_, i) => [i + 1, false])
 	),
 
 			  loaded1009: true,
@@ -518,21 +518,14 @@ function loadSynergy() {
 			if(isDecimal(player[prop])) {
 				return (player[prop] = new Decimal(data[prop]));
 			} else if(prop === 'codes') {
-				player.codes = new Map(data[prop]);
-				return;
+				return (player.codes = new Map(data[prop]));
 			} else if(oldCodesUsed.includes(prop)) { // convert old save to new format
-				if(Array.isArray(player.codes)) {
-					player.codes = new Map(player.codes);
-				}
-
 				const num = Number(prop.replace(/[^\d]/g, '')); // remove non-numeric characters
 				if(!player.codes.has(num) || isNaN(num)) {
 					throw new Error('Non-numeric type encountered loading save: ' + num + ' ' + data[prop], + ' ' + prop);
 				}
 
-				player.codes.set(num, data[prop]);
-
-				return;
+				return player.codes.set(num, data[prop]);
 			}
 
 			return (player[prop] = data[prop]);
@@ -743,9 +736,6 @@ function loadSynergy() {
 			player.antMax = false;
 		}
 
-	if(data.offerpromo24used === undefined || data.offerpromo24used === false){
-		player.offerpromo24used = false;
-	}
 	if(player.firstOwnedAnts < 1 && player.firstCostAnts.greaterThanOrEqualTo("1e1200")){
 		player.firstCostAnts = new Decimal("1e800");
 		player.firstOwnedAnts = 0;
