@@ -152,16 +152,16 @@ function calculateRuneExpToLevel(runeIndex) {
 
 function calculateObtainium(){
     obtainiumGain = 1;
-        if (player.upgrades[69] > 0.5) {
+        if (player.upgrades[69] > 0) {
             obtainiumGain *= Math.min(10, Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))
         }
-        if (player.upgrades[70] > 0.5) {
+        if (player.upgrades[70] > 0) {
             obtainiumGain *= Math.pow(Math.min(19 + 0.6 * player.shopUpgrades.obtainiumTimerLevel, 1 + 2 * player.reincarnationcounter / 400),2)
         }
-        if (player.upgrades[72] > 0.5) {
+        if (player.upgrades[72] > 0) {
             obtainiumGain *= Math.min(50, (1 + 2 * player.challengecompletions.six + 2 * player.challengecompletions.seven + 2 * player.challengecompletions.eight + 2 * player.challengecompletions.nine + 2 * player.challengecompletions.ten))
         }
-        if (player.upgrades[74] > 0.5) {
+        if (player.upgrades[74] > 0) {
             obtainiumGain *= (1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5)))
         }
         obtainiumGain *= (1 + player.researches[65]/50)
@@ -172,13 +172,13 @@ function calculateObtainium(){
         obtainiumGain *= (1 + rune5level/150 * effectiveLevelMult * (1 + player.researches[84]/1000)) * Math.pow(2, rune5level/300 * effectiveLevelMult * (1 + player.researches[84]/1000))
         obtainiumGain *= (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07 * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15 * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147])
         obtainiumGain *= (1 + 9 * (1 - Math.pow(2, -(player.antUpgrades[10] + bonusant10)/125)))
-        if (player.achievements[53] > 0.5){
+        if (player.achievements[53] > 0){
             obtainiumGain *= (1 + 1/2000 * (runeSum))
         }
         if (player.achievements[128]){obtainiumGain *= 1.5};
         if (player.achievements[129]){obtainiumGain *= 1.25};
         
-        if (player.achievements[51] > 0.5){obtainiumGain += 4}
+        if (player.achievements[51] > 0){obtainiumGain += 4}
         if (player.reincarnationcounter >= 30){obtainiumGain += 1 * player.researches[63]}
         if (player.reincarnationcounter >= 60){obtainiumGain += 2 * player.researches[64]}
         obtainiumGain *= Math.min(1 + 3 * player.upgrades[70], Math.pow(player.reincarnationcounter/30, 2));
@@ -313,6 +313,7 @@ function calculateAnts() {
 
 function calculateAntSacrificeELO(){
     antELO = 0;
+    effectiveELO = 0;
     let antUpgradeSum = player.antUpgrades.reduce(function(a, b) {return a + b}, 0);
     if(player.antPoints.greaterThanOrEqualTo("1e40")){
         antELO += Decimal.log(player.antPoints, 10);
@@ -341,7 +342,6 @@ function calculateAntSacrificeELO(){
         antELO += 75 * player.upgrades[80]
         antELO = 1/10 * Math.floor(10 * antELO)
 
-        effectiveELO = 0;
         effectiveELO += 0.5 * Math.min(3500, antELO)
         effectiveELO += 0.1 * Math.min(4000, antELO)
         effectiveELO += 0.1 * Math.min(6000, antELO)
@@ -379,11 +379,8 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
     let progressBarWidth = 0;
     if(timeadd < 1000){simulatedTicks = Math.min(1, Math.floor(timeadd/1.25)); tickValue = Math.min(1.25,timeadd);};
     let maxSimulatedTicks = simulatedTicks;
-    player.quarkstimer += timeadd/(divineBlessing1 * (1 + player.researches[121]/50));
+    player.quarkstimer += timeadd/(divineBlessing1 * (1 + player.researches[121]/200));
     if (player.researches[61] > 0){player.researchPoints += timeadd * (0.05 + 0.05 * player.researches[62]) * player.maxobtainiumpersecond}
-    if (player.achievements[173] == 1){
-        player.antSacrificeTimer += timeadd;
-    }
 
 
     if(player.quarkstimer >= 90000){player.quarkstimer = 90000}
@@ -393,6 +390,9 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
         player.prestigecounter += tickValue;
         player.transcendcounter += tickValue;
         player.reincarnationcounter += tickValue;
+        if (player.achievements[173] == 1){
+            player.antSacrificeTimer += tickValue;
+        }
         resourceGain(tickValue,true);
         calculateObtainium();
         if(simulatedTicks % 2 == 0){

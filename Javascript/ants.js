@@ -290,7 +290,7 @@ function showSacrifice(){
 
     document.getElementById("antELO").childNodes[0].textContent = "Your Ant ELO is "
     document.getElementById("ELO").textContent = format(antELO,2,)
-    if(antELO >= 3500){document.getElementById("effectiveELO").textContent = "[" + format(effectiveELO,2,false) + " effective]"}
+    document.getElementById("effectiveELO").textContent = "[" + format(effectiveELO,2,false) + " effective]"
 
     document.getElementById("antSacrificeMultiplier").childNodes[0].textContent = "Ant Multiplier x" + format(Math.pow(1 + player.antSacrificePoints/5000, 2),3,false) + " --> "
     document.getElementById("SacrificeMultiplier").textContent = "x" + format(Math.pow(1 + (player.antSacrificePoints + effectiveELO * timeMultiplier * mult)/5000, 2),3,false)

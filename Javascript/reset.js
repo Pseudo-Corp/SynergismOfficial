@@ -440,6 +440,86 @@ function reset(i,fast) {
         calculateAnts();
     }
 
+    if(i > 3.5){
+    resetResearches();
+    resetAnts();
+    resetTalismans();
+    player.reincarnationPoints = new Decimal("0");
+    player.reincarnationShards = new Decimal("0");
+    player.obtainiumpersecond = 0;
+    player.maxobtainiumpersecond = 0;
+    player.offeringpersecond = 0;
+    player.antPoints = new Decimal("0");
+    player.antSacrificePoints = 0;
+    player.antSacrificeTimer = 0;
+    player.antUpgrades[12] = 0;
+    for(var j = 61; j <= 80; j++){
+        player.upgrades[j] = 0;
+        document.getElementById("upg"+j).style.backgroundColor = "black"
+    }
+    for(var j = 94; j <= 100; j++){
+        player.upgrades[j] = 0;
+        document.getElementById("upg"+j).style.backgroundColor = "black"
+    }
+    player.firstOwnedParticles = 0;
+    player.secondOwnedParticles = 0;
+    player.thirdOwnedParticles = 0;
+    player.fourthOwnedParticles = 0;
+    player.fifthOwnedParticles = 0;
+    player.firstCostParticles = new Decimal("1");
+    player.secondCostParticles = new Decimal("100");
+    player.thirdCostParticles = new Decimal("1e4");
+    player.fourthCostParticles = new Decimal("1e8");
+    player.fifthCostParticles = new Decimal("1e16");
+    player.runeexp = [0,0,0,0,0];
+    player.runelevels = [0,0,0,0,0];
+    player.runeshards = 0;
+    player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0];
+    
+    player.challengecompletions = {
+        one: 0,
+        two: 0,
+        three: 0,
+        four: 0,
+        five: 0,
+        six: 0,
+        seven: 0,
+        eight: 0,
+        nine: 0,
+        ten: 0
+    }
+
+    player.highestchallengecompletions = {
+        one: 0,
+        two: 0,
+        three: 0,
+        four: 0,
+        five: 0,
+        six: 0,
+        seven: 0,
+        eight: 0,
+        nine: 0,
+        ten: 0
+    }
+
+
+    for (j = 1; j <= (125); j++) {
+        var k = "res" + j
+        if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "purple"}
+        else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "green"}
+        else {document.getElementById(k).style.backgroundColor = "black"}
+    }
+
+    calculateAnts();
+    calculateRuneLevels();
+    calculateAntSacrificeELO();
+    calculateTalismanEffects();
+    calculateObtainium();
+
+
+
+    }
+
 
 
     if (i > 0.5) {
@@ -622,4 +702,37 @@ function resetAnts(){
 
     calculateAnts();
     calculateRuneLevels();
+}
+
+function resetResearches(){
+    player.researchPoints = 0;
+    //Array listing all the research indexes deserving of removal
+    let destroy = [null, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 22, 23, 24, 25,
+                        26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+                        51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 64, 65, 66, 67, 68, 69, 70,
+                        76, 81, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 96, 97, 98,
+                        101, 102, 103, 104, 106, 107, 108, 109, 110, 116, 117, 118, 119, 120, 121, 122, 123]
+    //Iterates through "destroy"
+    for(var i = 1; i < destroy.length; i++){player.researches[destroy[i]] = 0;}
+}
+
+function resetTalismans(){
+    player.talismanLevels = [null, 0, 0, 0, 0, 0, 0, 0];
+    player.talismanRarity = [null, 1, 1, 1, 1, 1, 1, 1];
+
+    player.talismanShards = 0;
+    player.commonFragments = 0;
+    player.uncommonFragments = 0;
+    player.rareFragments = 0;
+    player.epicFragments = 0;
+    player.legendaryFragments = 0;
+    player.mythicalFragments = 0;
+
+    player.talismanOne = [null, -1, 1, 1, 1, -1];
+    player.talismanTwo = [null, 1, 1, -1, -1, 1];
+    player.talismanThree = [null, 1, -1, 1, 1, -1];
+    player.talismanFour = [null, -1, -1, 1, 1, 1];
+    player.talismanFive = [null, 1, 1, -1, -1, 1];
+    player.talismanSix = [null, 1, 1, 1, -1, -1];
+    player.talismanSeven = [null, -1, 1, -1, 1, 1];
 }
