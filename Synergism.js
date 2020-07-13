@@ -506,7 +506,7 @@ function loadSynergy() {
 		const hasOwnProperty = {}.hasOwnProperty;
 
 		const oldCodesUsed = Array.from(
-			Array(23),
+			player.codes.size, // could be defaulted to 24 but this is safer
 			(_, i) => 'offerpromo' + (i+1) + 'used'
 		);
 
