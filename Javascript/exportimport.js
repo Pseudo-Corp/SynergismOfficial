@@ -28,9 +28,14 @@ function exportSynergism() {
 
 // this is stupid
 function importSynergism(input) {
-    saveSynergy = () => {};
-    localStorage.setItem("Synergysave2", input);
-    location.reload();
+    const d = LZString.decompressFromBase64(input);
+    const f = d ? JSON.parse(d) : JSON.parse(atob(input));
+
+    intervalHold.forEach(clearInterval);
+    localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
+    constantIntervals();
+    createTimer();
+    loadSynergy();
 }
 
 function promocodes() {

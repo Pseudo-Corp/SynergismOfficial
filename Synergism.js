@@ -1,3 +1,11 @@
+const intervalHold = [];
+const interval = new Proxy(setInterval, {
+    apply(_, __, c) {
+        const set = setInterval(...c);
+        intervalHold.push(set);
+    }
+});
+
 const player = {
 	worlds: 0,
 	coins: new Decimal("1e2"),
@@ -1957,23 +1965,26 @@ function updateAll() {
 // Functions which (try) to successfully load the game
 
 function constantIntervals() {
-		setInterval(saveSynergy, 5000);
-		setInterval(autoUpgrades, 200);
-		setInterval(buttoncolorchange, 200)
-		setInterval(updateAll,50)
-		setInterval(buildingAchievementCheck, 200)
+	intervalHold.forEach(clearInterval);
 
-		if(!timeWarp){
-			document.getElementById("preload").style.display = "none";
-			document.getElementById("offlineprogressbar").style.display = "none"}
+	interval(saveSynergy, 5000);
+	interval(autoUpgrades, 200);
+	interval(buttoncolorchange, 200)
+	interval(updateAll,50)
+	interval(buildingAchievementCheck, 200)
+
+	if(!timeWarp){
+		document.getElementById("preload").style.display = "none";
+		document.getElementById("offlineprogressbar").style.display = "none"
 	}
+}
 
 let lastUpdate = 0;
 //gameInterval = 0;
 
 function createTimer() {
 	lastUpdate = Date.now();
-	setInterval(tick, 50);
+	interval(tick, 50);
 }
 
 function initToggleBtnColors() {
@@ -2112,7 +2123,6 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 		return;
 	}
 
-	var type = ""
 	var pos = ""
 	var num = 0
 	if (event.key === "1") {pos = "first"; num = 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemShards(1)}}
