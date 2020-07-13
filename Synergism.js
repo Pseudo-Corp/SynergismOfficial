@@ -1,7 +1,7 @@
 const intervalHold = [];
 const interval = new Proxy(setInterval, {
-    apply(_, __, c) {
-        const set = setInterval(...c);
+    apply(handler, _, c) {
+        const set = handler(...c);
         intervalHold.push(set);
     }
 });
@@ -1965,8 +1965,6 @@ function updateAll() {
 // Functions which (try) to successfully load the game
 
 function constantIntervals() {
-	intervalHold.forEach(clearInterval);
-
 	interval(saveSynergy, 5000);
 	interval(autoUpgrades, 200);
 	interval(buttoncolorchange, 200)

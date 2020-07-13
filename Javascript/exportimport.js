@@ -32,6 +32,7 @@ function importSynergism(input) {
     const f = d ? JSON.parse(d) : JSON.parse(atob(input));
 
     intervalHold.forEach(clearInterval);
+    intervalHold.length = 0;
     localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
     constantIntervals();
     createTimer();
