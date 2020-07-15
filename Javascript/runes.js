@@ -85,6 +85,7 @@
         q *= (1 + 1/50 * player.shopUpgrades.offeringAutoLevel);
         q *= (1 + 1/100 * player.shopUpgrades.cashGrabLevel);
         q *= (1 + 4 * (1 - Math.pow(2, -(player.antUpgrades[6] + bonusant6)/125)))
+        q *= cubeBonusMultiplier[3]
         q = Math.floor(q) * 100/100
         player.runeshards += q
 
@@ -97,7 +98,10 @@
         }
     }
 
-function redeemShards(runeIndexPlusOne,auto,autoMult) {
+function redeemShards(runeIndexPlusOne,auto,autoMult,cubeUpgraded) {
+
+    // if automated && 2x10 cube upgrade bought, this will be >0.
+    cubeUpgraded = cubeUpgraded || 0;
 	// runeIndex, the rune being added to
 	let runeIndex = runeIndexPlusOne - 1;
 	
@@ -107,11 +111,11 @@ function redeemShards(runeIndexPlusOne,auto,autoMult) {
 	
 	// How much a runes max level is increased by
     let increaseMaxLevel = [
-		5 *(player.researches[78] + player.researches[111]),
-		5 *(player.researches[80] + player.researches[112]),
-		5 *(player.researches[79] + player.researches[113]),
-		5 *(player.researches[77] + player.researches[114]),
-		5 *(player.researches[115])
+		5 *(player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		5 *(player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		5 *(player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		5 *(player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		5 *(player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
 	];
 
 	// Whether or not a rune is unlocked array
@@ -127,10 +131,11 @@ function redeemShards(runeIndexPlusOne,auto,autoMult) {
 
 	// amount of offerings being spent, if offerings is less than amount set to be bought then set amount to current offerings
     let amount = Math.min(player.runeshards, player.offeringbuyamount * (1 + 999 * player.upgrades[78]));
-    // if autobuyer is enabled then set the amount to the proper autobuyer amount based on the shop upgrade level, or current offerings if it's less than that
-	if (auto){amount = Math.min(player.runeshards, Math.pow(2, 1 + player.shopUpgrades.offeringAutoLevel) * autoMult)}
-    if (player.runeshards >= 1 && player.runelevels[runeIndex] < (500 + increaseMaxLevel[runeIndex]) && unlockedRune[runeIndex]) {
 
+    // if autobuyer is enabled then set the amount to the proper autobuyer amount based on the shop upgrade level, or current offerings if it's less than that
+    if (auto){amount = Math.min(player.runeshards, Math.pow(2, 1 + player.shopUpgrades.offeringAutoLevel) * autoMult)}
+    if (auto && cubeUpgraded > 0){amount = cubeUpgraded}
+    if (player.runeshards >= 1 && player.runelevels[runeIndex] < (500 + increaseMaxLevel[runeIndex]) && unlockedRune[runeIndex]) {
         // Removes the offerings from the player
 		player.runeshards -= amount;
 		// Adds the exp given by the amount of offerings

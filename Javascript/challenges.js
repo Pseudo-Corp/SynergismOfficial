@@ -13,7 +13,7 @@ function challengeDisplay(i,changefocus, automated) {
     }
 
     let maxChallenges = 0;
-    if (i > 5){maxChallenges = 25; quarksMultiplier = 10;}
+    if (i > 5){maxChallenges = 25 + player.cubeUpgrades[29]; quarksMultiplier = 10;}
 
     let a = document.getElementById("challengeName");
     let b = document.getElementById("challengeFlavor");
@@ -32,7 +32,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "No Multipliers Challenge || " + player.challengecompletions.one + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Multipliers make the game a little too fast. Let's take them out!"
         c.textContent = "Transcend and reach the goal except Multipliers do nothing but act like Accelerators, which are nerfed by 50%!"
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirements.one * Math.pow((1 + player.challengecompletions.one), 2) * Math.pow(1.5, Math.max(0, player.challengecompletions.one - 75)))) + " Coins in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirements.one * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.pow((1 + player.challengecompletions.one), 2) * Math.pow(1.5, Math.max(0, player.challengecompletions.one - 75)))) + " Coins in challenge."
         e.textContent = "+10 base Multiplier Boosts! [+0.05 to power!]"
         f.textContent = "+10% total Multiplier Boosts!"
         g.textContent = ""
@@ -44,7 +44,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "No Accelerators Challenge || " + player.challengecompletions.two + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Who needs accelerators? They do basically nothing now."
         c.textContent = "Transcend and reach the goal except Accelerators do nothing! Multipliers are nerfed a bit as well."
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirements.two * Math.pow((1 + player.challengecompletions.two), 2) * Math.pow(1.5, Math.max(0, player.challengecompletions.two - 75)))) + " Coins in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirements.two * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.pow((1 + player.challengecompletions.two), 2) * Math.pow(1.5, Math.max(0, player.challengecompletions.two - 75)))) + " Coins in challenge."
         e.textContent = "+5 Free Accelerators!"
         f.textContent = "+5% Accelerator Boost Power!"
         g.textContent = "+0.25% Accelerator Power!"
@@ -56,7 +56,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "No Shards Challenge || " + player.challengecompletions.three + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Alright, now you're thinking, how else can I make the game harder?"
         c.textContent = "Transcend and reach the goal except you do not produce Crystals or Mythos Shards."
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirements.three * Math.pow((1 + player.challengecompletions.three), 2) * Math.pow(1.5, Math.max(0, player.challengecompletions.three - 75)))) + " Coins in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirements.three * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.pow((1 + player.challengecompletions.three), 2) * Math.pow(1.5, Math.max(0, player.challengecompletions.three - 75)))) + " Coins in challenge."
         e.textContent = "Crystal --> Coin conversion exponent +0.04!"
         f.textContent = "+0.5% to Grandmaster production per Mythos Shard producer bought."
         g.textContent = ""
@@ -68,7 +68,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "Cost+ Challenge || " + player.challengecompletions.four + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You're getting rich now, but inflation hasn't happened yet? I don't think so!"
         c.textContent = "Transcend and reach the goal except Coin/Crystal producers, Accelerators and Multipliers cost more. [Gets harder each time!]"
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirements.four * Math.pow((1 + player.challengecompletions.four), 2) * Math.pow(1.5, Math.max(0, player.challengecompletions.four - 75)))) + " Coins in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirements.four * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.pow((1 + player.challengecompletions.four), 2) * Math.pow(1.5, Math.max(0, player.challengecompletions.four - 75)))) + " Coins in challenge."
         e.textContent = "Accelerator Cost scale slows down by +5 purchases."
         f.textContent = "Multiplier Cost scale slows down by +2 purchases."
         g.textContent = "All producer cost scale slows down by +0.5% of base."
@@ -80,7 +80,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "Reduced Diamonds Challenge || " + player.challengecompletions.five + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You ever wonder how you get so many diamonds?"
         c.textContent = "Transcend and reach the goal except you gain far fewer Diamonds from all sources [Gets harder each time!]"
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirements.five * Math.pow((1 + player.challengecompletions.five), 2) * Math.pow(1.5, Math.max(0, player.challengecompletions.five - 75)))) + " Coins in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirements.five * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.pow((1 + player.challengecompletions.five), 2) * Math.pow(1.5, Math.max(0, player.challengecompletions.five - 75)))) + " Coins in challenge."
         e.textContent = "+0.01 Coin --> Diamond conversion exponent on Prestige!"
         f.textContent = "Multiply Crystal production by 10!"
         g.textContent = ""
@@ -92,7 +92,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "Higher Tax Challenge || " + player.challengecompletions.six + "/" + format(maxChallenges) + " Completions"
         b.textContent = "The tax man caught wind that you reincarnated recently..."
         c.textContent = "Reincarnate and reach the goal except tax has a lower cap, and Coin production is divided by 1e250."
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.six * Math.min(Math.pow(1.3797, player.challengecompletions.six), Math.pow(1 + player.challengecompletions.six, 2)))) + " Mythos Shards in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.six * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions.six), Math.pow(1 + player.challengecompletions.six, 2)))) + " Mythos Shards in challenge."
         e.textContent = "-3.5% Taxes [Multiplicative]!"
         f.textContent = "Thrift Rune cost -2%"
         g.textContent = ""
@@ -104,7 +104,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "No Multipliers/Accelerators Challenge || " + player.challengecompletions.seven + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You're really going to hate this one."
         c.textContent = "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. Coin Production is divided by 1e1,250."
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.seven * Math.min(Math.pow(1.3797, player.challengecompletions.seven), Math.pow(1 + player.challengecompletions.seven, 2)))) + " Mythos Shards in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.seven * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions.seven), Math.pow(1 + player.challengecompletions.seven, 2)))) + " Mythos Shards in challenge."
         e.textContent = "Accelerator/Multiplier boost power exponent +0.04!"
         f.textContent = "Speed Rune cost -2%"
         g.textContent = "Duplication Rune cost -2%"
@@ -116,7 +116,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "Cost++ Challenge || " + player.challengecompletions.eight + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You thought you could outgrow inflation by Reincarnating?"
         c.textContent = "Reincarnate and reach the goal except Cost Scaling for producers and Accelerators/Multipliers scale much, much faster."
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.eight * Math.min(Math.pow(1.3797, player.challengecompletions.eight), Math.pow(1 + player.challengecompletions.eight, 2)))) + " Mythos Shards in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.eight * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions.eight), Math.pow(1 + player.challengecompletions.eight, 2)))) + " Mythos Shards in challenge."
         e.textContent = "Base Building Power +0.25!"
         f.textContent = ""
         g.textContent = ""
@@ -128,7 +128,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "No Runes Challenge || " + player.challengecompletions.nine + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You'll never complain about Prism being bad again."
         c.textContent = "Reincarnate and reach the goal except runes always have level 1 effects. All coin production is divided by e2,000,000."
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.nine * Math.min(Math.pow(1.3797, player.challengecompletions.nine), Math.pow(1 + player.challengecompletions.nine, 2)))) + " Coins in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.nine * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions.nine), Math.pow(1 + player.challengecompletions.nine, 2)))) + " Coins in challenge."
         e.textContent = "+1 free Ant level!"
         f.textContent = "+10% Ant speed [Multiplicative!]"
         g.textContent = ""
@@ -140,7 +140,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "Sadistic Challenge I || " + player.challengecompletions.ten + "/" + format(maxChallenges) + " Completions"
         b.textContent = "I'm sorry for what I've unleashed onto the world."
         c.textContent = "Reincarnate and reach the goal except run the first five challenges AT THE SAME TIME! Coin Production /e12,500,000."
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.ten * Math.min(Math.pow(1.3797, player.challengecompletions.ten), Math.pow(1 + player.challengecompletions.ten, 2)))) + " Coins in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.ten * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions.ten), Math.pow(1 + player.challengecompletions.ten, 2)))) + " Coins in challenge."
         e.textContent = "+100 base ELO for sacrificing ants!"
         f.textContent = "+2% Ant Sacrifice Reward!"
         g.textContent = ""
@@ -151,8 +151,10 @@ function challengeDisplay(i,changefocus, automated) {
     if (changefocus){
         j.textContent = ""
     }
+    if(player.ascensionCount === 0){descriptor = "Quarks"}
+    if(player.ascensionCount > 0){descriptor = "Wow Cubes"}
     if(player.challengecompletions[q] >= player.highestchallengecompletions[q] && player.highestchallengecompletions[q] < maxChallenges && changefocus){
-        j.textContent = "Gain " + Math.floor(quarksMultiplier * player.highestchallengecompletions[q]/10 + 1) + " Quarks for completing this challenge [First Time Bonus]!"
+        j.textContent = "Gain " + Math.floor(quarksMultiplier * player.highestchallengecompletions[q]/10 + 1 + player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41]) + " " + descriptor + " for completing this challenge [First Time Bonus]!"
     }
     
    

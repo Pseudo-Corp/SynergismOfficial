@@ -381,7 +381,7 @@ function buyResearch(index,auto) {
 		else if (player.researches[p] > 0.5) {document.getElementById("res" + player.autoResearch).style.backgroundColor = "purple"}
 		else {document.getElementById("res" + player.autoResearch).style.backgroundColor = "black"}
 	}
-	if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAutoLevel > 0.5){player.autoResearch = index; document.getElementById("res" + index).style.backgroundColor = "orange"}
+	if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAutoLevel > 0.5 && player.cubeUpgrades[10] === 0){player.autoResearch = index; document.getElementById("res" + index).style.backgroundColor = "orange"}
 
     let buyamount = 1;
     let i = 1;
@@ -400,6 +400,15 @@ function buyResearch(index,auto) {
 			i++
 		}
 		if (i > 1){revealStuff()}
+	}
+
+	if(player.researches[index] === researchMaxLevels[index]){document.getElementById("res"+index).style.backgroundColor = "green"}
+
+	if(auto && player.cubeUpgrades[10] == 1){
+		player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+		if(player.researches[player.autoResearch] === researchMaxLevels[player.autoResearch]){player.roombaResearchIndex += 1;}
+		
+		document.getElementById("res"+researchOrderByCost[player.roombaResearchIndex]).style.backgroundColor = "orange"
 	}
 	calculateRuneLevels();
 	calculateAnts();
@@ -486,14 +495,57 @@ function boostAccelerator(automated) {
 
 	}
 
+	function getParticleCost(originalCost, buyTo){
+		--buyTo;
+		originalCost = new Decimal(originalCost)
+		let cost = originalCost.times(Decimal.pow(2,buyTo));
 
-	function buyParticleBuilding(i){
-		let pos = i
-		let counter = 0;
-		while(player[pos + 'CostParticles'].lessThanOrEqualTo(player.reincarnationPoints) && counter < player.particlebuyamount){
-			player.reincarnationPoints = player.reincarnationPoints.sub(player[pos + 'CostParticles']);
-			player[pos + 'CostParticles'] = player[pos + 'CostParticles'].times(2);
-			player[pos + 'OwnedParticles'] += 1;
-			counter++;
+		if(buyTo > 325000){
+			cost = cost.times(Decimal.pow(1.001, (buyTo - 325000) * ((buyTo - 325000 + 1) / 2)));
+		}
+		return(cost)
+	}
+
+	function buyParticleBuilding(pos,originalCost,autobuyer){
+		autobuyer = autobuyer || false
+		var buyTo =  player[pos + 'OwnedParticles'] + 1;
+		var cashToBuy = getParticleCost(originalCost,buyTo)
+		while (player.reincarnationPoints.greaterThanOrEqualTo(cashToBuy))
+		{
+			// then multiply by 4 until it reaches just above the amount needed
+			buyTo = buyTo * 4;
+			cashToBuy = getParticleCost(originalCost, buyTo);
+		}
+		var stepdown = Math.floor(buyTo / 8);
+		while (stepdown !== 0)
+		{
+		 
+			// if step down would push it below out of expense range then divide step down by 2
+			if (getParticleCost(originalCost, buyTo - stepdown).lessThanOrEqualTo(player.reincarnationPoints))
+			{
+				stepdown = Math.floor(stepdown/2);
+			}
+			else
+			{
+				buyTo = buyTo - stepdown;
+			}
+		}
+
+		if(!autobuyer){
+			if (player.particlebuyamount + player[pos + 'OwnedParticles'] < buyTo){
+				buyTo = player[pos + 'OwnedParticles'] + player.particlebuyamount + 1;
+			}
+		}
+
+		// go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
+		var buyFrom = Math.max(buyTo - 7, player[pos + 'OwnedParticles'] + 1);
+		var thisCost = getParticleCost(originalCost, buyFrom);
+		while (buyFrom < buyTo  && player.reincarnationPoints.greaterThanOrEqualTo(getParticleCost(originalCost, buyFrom)))
+		{
+			player.reincarnationPoints = player.reincarnationPoints.sub(thisCost);
+			player[pos + 'OwnedParticles'] = buyFrom;
+			buyFrom = buyFrom + 1;
+			thisCost = getParticleCost(originalCost, buyFrom);
+			player[pos + 'CostParticles'] = thisCost;
 		}
 	}

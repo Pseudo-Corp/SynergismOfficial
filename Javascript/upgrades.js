@@ -183,7 +183,7 @@ function() { return "Mythos-tier producers production x" + format(Math.pow(total
 function() { return "Mythos-tier producers production x" + format(Decimal.pow(globalMythosMultiplier, 0.025),2) +"! It's like inception, or something."},
 function() { return "Augments will produce " + format(Decimal.min("1e1250", Decimal.pow(acceleratorEffect, 1/125)),2) + "x as many Mythos Shards."},
 function() { return "Wizards will produce " + format(Decimal.min("1e2000", Decimal.pow(multiplierEffect, 1/180)),2) + "x as many Enchantments; what productive spirits!"},
-function() { return "Grandmasters will produce " + format((Decimal.pow("1e1000", buildingPower - 1)),2) + "x as many Oracles!"},
+function() { return "Grandmasters will produce " + format((Decimal.pow("1e1000", Math.min(1000, buildingPower - 1))),2) + "x as many Oracles!"},
 function() { return "It's quite obvious, ain't it?"},
 function() { return "Look above!"},
 function() { return "Look above!"},
@@ -463,8 +463,8 @@ var resdesc115 = "[3x25] Scientific Breakthrough [+5 max SI Rune Level per level
 var resdesc116 = "[4x21] Talismans have +0.005 Rune levels per talisman level per level. Levelception!"
 var resdesc117 = "[4x22] Talismans have another +0.005 Rune levels per talisman level per level!"
 var resdesc118 = "[4x23] Don't you hate those negative talisman effects? Reduce them by 0.02 per level per talisman level!"
-var resdesc119 = "[4x24] Gain +1% [Ascend reward] per level upon Ascension."
-var resdesc120 = "[4x25] Gain another +1% [Ascend reward] per level upon Ascension."
+var resdesc119 = "[4x24] Gain +0.25% Wow! Cubes per level upon Ascension."
+var resdesc120 = "[4x25] Gain another +0.25% Wow! per level upon Ascension."
 var resdesc121 = "[5x21] Bend time to your will, making all ticks 0.5% faster each level."
 var resdesc122 = "[5x22] Adds +0.5% ant sacrifice reward per level."
 var resdesc123 = "[5x23] Adds +10 base ant ELO per level."
@@ -488,8 +488,9 @@ function researchdescriptions(i,auto) {
 
     if (!auto && !player.autoResearchToggle){
     if (player.researches[i] > 0.5 && player.researches[i] < researchMaxLevels[i]) {document.getElementById(p).style.backgroundColor = "purple"}
-    if (player.researches[i] > 0.5 && player.researches[i] >= researchMaxLevels[i]) {document.getElementById(p).style.backgroundColor = "green"}
     }
+    if (player.researches[i] > 0.5 && player.researches[i] >= researchMaxLevels[i]) {document.getElementById(p).style.backgroundColor = "green"}
+    
     document.getElementById("researchinfo2").textContent = y
     document.getElementById("researchcost").textContent = z
     document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + researchMaxLevels[i]

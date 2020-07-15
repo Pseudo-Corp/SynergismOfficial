@@ -31,10 +31,10 @@ var antupgdesc8 = "Knows how to salt and pepper food [+1% Rune EXP / level]"
 var antupgdesc9 = "Can make your message to Ant God a little more clear [+1 all Rune Levels / level]"
 var antupgdesc10 = "Has big brain energy [Gain up to 10x Obtainium!]"
 var antupgdesc11 = "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]"
-var antupgdesc12 = "Sacrifices itself to allow you to equip [Unlocks the Ant Talisman!]"
+var antupgdesc12 = "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
 
 const antUpgradeTexts = [null,
-function(){return "ALL Ants work at " + format(Math.pow(1.11 + 1/1000 * player.researches[101], player.antUpgrades[1] + bonusant1),2) + "x speed."},
+function(){return "ALL Ants work at " + format(Decimal.pow(1.11 + 1/1000 * player.researches[101], player.antUpgrades[1] + bonusant1),2) + "x speed."},
 function(){return "Crumb --> Coin exponent is ^" + format(100000 + 900000 * (1 - Math.pow(2, -(player.antUpgrades[2] + bonusant2)/125)))},
 function(){return "Tax growth is multiplied by " + format(0.01 + Math.pow(0.98, player.antUpgrades[3] + bonusant3 + 0.497),4)},
 function(){return "Accelerator Boosts +" + format(2 * player.antUpgrades[4] + 2 * bonusant4) + "%"},
@@ -45,7 +45,7 @@ function(){return "Rune EXP is multiplied by " + format(Math.pow(1.01, player.an
 function(){return "Each rune has +" + format(player.antUpgrades[9] + bonusant9) + " effective levels."},
 function(){return "Obtainium x" + format(calculateSigmoid(10, (player.antUpgrades[10] + bonusant10),125),4)},
 function(){return "Sacrificing is " + format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11)/125)),4) + "x as effective"},
-function(){return "Unlocks the talisman!"}]
+function(){return "Global timer is sped up by a factor of " + format(calculateSigmoid(2, player.antUpgrades[12] + bonusant12,69),4)}]
 
 
 var repeatAnt
@@ -121,7 +121,7 @@ function getAntCost(originalCost, buyTo, type, index){
     --buyTo
 
     //Determine how much the cost is for buyTo
-    let cost = originalCost.times(Decimal.pow(antCostGrowth[index], buyTo));
+    let cost = originalCost.times(Decimal.pow(antCostGrowth[index], buyTo * extinctionMultiplier[player.usedCorruptions[10]]));
     cost.add(1 * buyTo)
 
     return cost;
@@ -191,7 +191,7 @@ function buyAntProducers(pos,type,originalCost,index){
 function getAntUpgradeCost(originalCost, buyTo, index) {
     --buyTo
     
-    let cost = originalCost.times(Decimal.pow(antUpgradeCostIncreases[index], buyTo))
+    let cost = originalCost.times(Decimal.pow(antUpgradeCostIncreases[index], buyTo * extinctionMultiplier[player.usedCorruptions[10]]))
     return cost;
 
 
@@ -251,7 +251,7 @@ function antUpgradeDescription(i) {
     document.getElementById("antspecies").childNodes[0].textContent = content1 + " Level " + format(player.antUpgrades[i])
     document.getElementById("antlevelbonus").textContent = " [+" + format(Math.min(player.antUpgrades[i],bonuslevel)) +"]"
     la.textContent = content2
-    ti.textContent = "Cost: " + format(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i]).times(antUpgradeBaseCost[i])) + " Galactic Crumbs"
+    ti.textContent = "Cost: " + format(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i] * extinctionMultiplier[player.usedCorruptions[10]]).times(antUpgradeBaseCost[i])) + " Galactic Crumbs"
     me.textContent = "CURRENT EFFECT: " + antUpgradeTexts[i]()
 }
 
@@ -284,6 +284,7 @@ function showSacrifice(){
     mult *= (1 + 1/200 * player.researches[122])
     mult *= (1 + 1/10 * player.upgrades[79])
     mult *= (1 + 0.09 * player.upgrades[40])
+    mult *= cubeBonusMultiplier[7]
 
     let timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 900, 2)) * Math.max(1, Math.pow(player.antSacrificeTimer/900, 0.92))
     document.getElementById("antSacrificeSummary").style.display = "block"
@@ -327,6 +328,7 @@ function sacrificeAnts(auto){
     mult *= (1 + 1/200 * player.researches[122])
     mult *= (1 + 1/10 * player.upgrades[79])
     mult *= (1 + 0.09 * player.upgrades[40])
+    mult *= cubeBonusMultiplier[7]
 
     if (player.antPoints.greaterThanOrEqualTo("1e40")){
     if (!auto && player.antSacrificePoints < 100){p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?")}

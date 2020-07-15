@@ -203,7 +203,7 @@ a {color: white;}
 
 	text-align: center;
 	width: 100px;
-	left: 64%;
+	left: 80%;
 	margin-left: -50px;
 	
 
@@ -266,7 +266,7 @@ a {color: white;}
 	text-align: center;
 	width: 100px;
 	border: 1px solid white;
-	left: 72%;
+	left: 88%;
 	margin-left: -50px;
 }
 
@@ -278,6 +278,24 @@ a {color: white;}
 	left: 56%;
 	margin-left: -50px;
 
+}
+
+#cubetab{
+	position: absolute;
+	text-align: center;
+	width: 100px;
+	border: 1px solid orange;
+	left: 64%;
+	margin-left: -50px;
+}
+
+#traitstab{
+	position: absolute;
+	text-align: center;
+	width: 100px;
+	border: 1px solid orange;
+	left: 72%;
+	margin-left: -50px;
 }
 
 .buildingTabs {
@@ -1210,6 +1228,46 @@ margin-left: -13px
 	margin-left: -16px;
 }
 #toggle20 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 197px;
+	left: 51%;
+	margin-left: -16px;
+}
+#toggle22 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 57px;
+	left: 51%;
+	margin-left: -16px;
+}
+#toggle23 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 92px;
+	left: 51%;
+	margin-left: -16px;
+}
+#toggle24 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 127px;
+	left: 51%;
+	margin-left: -16px;
+}
+#toggle25 {
+	position:absolute;
+	width: 80px;
+	height: 30px;
+	top: 162px;
+	left: 51%;
+	margin-left: -16px;
+}
+#toggle26 {
 	position:absolute;
 	width: 80px;
 	height: 30px;
@@ -2594,7 +2652,15 @@ margin-left: -13px
 	top: 255px;
 	text-align: center;
 }
-
+#respecAllTalismans{
+	position: absolute;
+	height: 30px;
+	left: 28%;
+	width: 80px;
+	margin-left: -41px;
+	top: 355px;
+	text-align: center;
+}
 #talismanEffect {
 	position: absolute;
 	left: 50%;
@@ -3773,6 +3839,182 @@ margin-left: -13px
 	padding: 0px;
 	border-spacing: 0px;
 }
+
+#cubes{
+	position:relative;
+	top: 118px;
+	padding: 0px;
+	border: 2px solid black
+}
+#switchCubeSubTab{
+	position: absolute;
+	top: 20px;
+	left: 10%;
+	width: 200px;
+	height: 20px;
+	margin-left: -100px;
+	text-align: center;
+}
+#cubeWelcome{
+	position:absolute;
+	text-align: center;
+	top: 0px;
+	color: orange;
+	font-size: 1.2em;
+	width: 1000px;
+	left: 50%;
+	margin-left: -500px;
+
+}
+#cubeExpository1{
+	position:absolute;
+	text-align: center;
+	top: 30px;
+	color: white;
+	font-size: 1.0em;
+	width: 1000px;
+	left: 50%;
+	margin-left: -500px;
+}
+#cubeExpository2{
+	position:absolute;
+	text-align: center;
+	top: 50px;
+	color: limegreen;
+	font-size: 1.0em;
+	width: 1000px;
+	left: 50%;
+	margin-left: -500px;
+}
+#wowCube{
+	position: absolute;
+	text-align: center;
+	top: 100px;
+	left: 30%;
+	margin-left: -32px;
+}
+#cubeInventory{
+	position: absolute;
+	text-align: center;
+	top: 84px;
+	left: 40%;
+	margin-left: -96px;
+	color: white
+}
+.cubeBtn {
+	height: 30px;
+	width: 100px;
+	border: 1px solid gold;
+	color: white;
+	background-color: black;
+}
+#open1Cube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: -96px;
+}
+#open20Cube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 6px;
+}
+#open1000Cube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 108px;
+}
+#openMostCube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 210px;
+}
+#cubeBonuses{
+	position:absolute;
+	top: 170px;
+	left: 30%;
+	margin-left: -16px;
+}
+#cubeIcons{
+	position:absolute;
+	padding: 0px;
+	border-spacing: 0px;
+}
+#cube1Bonus{
+	width: 1500px;
+}
+#cubeAmount2{
+	position:absolute;
+	padding: 0px;
+	top: 20px;
+	left: 50%;
+	width: 1000px;
+	margin-left: -500px;
+	text-align: center;
+	color: white;
+}
+#cubeUpgradeTable {
+	position:absolute;
+	padding: 0px;
+	top: 75px;
+	left: 50%;
+	margin-left: -170px;
+	border-collapse:collapse;
+	font-size: 0px;
+}
+#cubeUpgradeName {
+	position:absolute;
+	top:250px;
+	width:1000px;
+	height: 42px;
+	left:50%;
+	margin-left: -500px;
+}
+
+#cubeUpgradeDescription {
+	position: absolute;
+	position:absolute;
+	top:273px;
+	width:1000px;
+	height: 42px;
+	left:50%;
+	margin-left: -500px;
+}
+
+#cubeUpgradeCost {
+	position:absolute;
+	top:296px;
+	width: 600px;
+	left: 50%;
+	margin-left: -300px;
+}
+#cubeUpgradeLevel {
+	position:absolute;
+	top:319px;
+	width: 100px;
+	left: 50%;
+	margin-left: -50px;
+}
+#toggleCubeBuy {
+	position:absolute;
+	top:374px;
+	width: 200px;
+	left: 50%;
+	margin-left: -100px;
+	height: 30px;
+}
+
+.gridImg{
+	cursor: pointer;
+}
+
 #switchsettingtab {
 	position: absolute;
 	height: 30px;

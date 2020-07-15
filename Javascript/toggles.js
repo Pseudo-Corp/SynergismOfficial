@@ -158,6 +158,7 @@ function toggleAutoResearch() {
     else {player.autoResearchToggle = true; el.textContent = "Automatic: ON"};
 
 
+
     if(!player.autoResearchToggle){
         for (var i = 1; i <= 125; i++){
             let l = document.getElementById("res" + i)
@@ -166,6 +167,13 @@ function toggleAutoResearch() {
             if (player.researches[i] == researchMaxLevels[i]){l.style.backgroundColor = "green"}
         }
     }
+
+    if(player.autoResearchToggle && player.cubeUpgrades[10] === 1){
+        player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+        document.getElementById("res"+player.autoResearch).style.backgroundColor = "orange"
+    }
+
+
 }
 
 function toggleAutoSacrifice(index) {
@@ -211,10 +219,10 @@ d.style.backgroundColor = "#171717"
 
 
 
-if(buildingSubTab === "Coin"){la.style.display = "block"; a.style.backgroundColor = "crimson"}
-if(buildingSubTab === "Diamonds"){el.style.display = "block"; b.style.backgroundColor = "crimson"}
-if(buildingSubTab === "Mythos"){ti.style.display = "block"; c.style.backgroundColor = "crimson"}
-if(buildingSubTab === "Particles"){ella.style.display = "block"; d.style.backgroundColor = "crimson"}
+if(buildingSubTab == "coin"){la.style.display = "block"; a.style.backgroundColor = "crimson"}
+if(buildingSubTab == "diamond"){el.style.display = "block"; b.style.backgroundColor = "crimson"}
+if(buildingSubTab == "mythos"){ti.style.display = "block"; c.style.backgroundColor = "crimson"}
+if(buildingSubTab == "particle"){ella.style.display = "block"; d.style.backgroundColor = "crimson"}
 }
 
 function toggleRuneScreen(){
@@ -263,4 +271,13 @@ function toggleAntAutoSacrifice(){
     let el = document.getElementById("toggleAutoSacrificeAnt");
     if(player.autoAntSacrifice){player.autoAntSacrifice = false; el.textContent = "Auto Sacrifice Every 15 Minutes: OFF"}
     else{player.autoAntSacrifice = true; el.textContent = "Auto Sacrifice Every 15 Minutes: ON"}
+}
+function toggleMaxBuyCube(){
+    let el = document.getElementById("toggleCubeBuy")
+    if(buyMaxCubeUpgrades){buyMaxCubeUpgrades = false; el.textContent="Upgrade: 1 Level wow"}
+    else{buyMaxCubeUpgrades = true; el.textContent = "Upgrade: MAX [if possible wow]"}
+}
+function toggleCubeSubTab(){
+    if (cubeSubTab == "opening"){cubeSubTab = "upgrades"; document.getElementById("cubeTab1").style.display = "none"; document.getElementById("cubeTab2").style.display = "block";}
+    else{cubeSubTab = "opening"; document.getElementById("cubeTab1").style.display = "block"; document.getElementById("cubeTab2").style.display = "none"}
 }

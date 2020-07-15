@@ -57,7 +57,8 @@ function calculateRecycleMultiplier() {
 		0.075 * player.achievements[122],
 		0.075 * player.achievements[129],
 		0.05 * player.upgrades[61],
-		0.25 * Math.min(1, rune4level / 200)
+        0.25 * Math.min(1, rune4level / 200),
+        0.005 * player.cubeUpgrades[2]
 	]);
 
 	return 1/(1 - recycleFactors);
@@ -89,7 +90,13 @@ function calculateRuneExpGiven(runeIndex) {
 		// Research 4x17
 		1 + (player.researches[92] / 100),
 		// Ant 8
-		Math.pow(1.01, player.antUpgrades[8] + bonusant8),
+        Math.pow(1.01, player.antUpgrades[8] + bonusant8),
+        // Cube Bonus
+        cubeBonusMultiplier[4],
+        // Cube Upgrade Bonus
+        (1 + player.ascensionCounter/1000 * player.cubeUpgrades[32]),
+        // Corruption Divisor
+        1 / droughtMultiplier[player.usedCorruptions[11]]
 	]);
 
 	// Rune multiplier that gets applied to specific runes
@@ -150,6 +157,106 @@ function calculateRuneExpToLevel(runeIndex) {
 
 }
 
+function calculateMaxRunes(i){
+    let max = 500;
+
+    let increaseMaxLevel = [
+        null,
+        5 *(player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		5 *(player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		5 *(player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		5 *(player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		5 *(player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
+    ]
+
+    max += increaseMaxLevel[i]
+    return(max)
+}
+
+function calculateOfferings(i){
+    let q = 0;
+    var a = 0;
+    var b = 0;
+    var c = 0;
+
+    if (i == 4 || i == 6) {
+        a += 15
+        if (player.achievements[52] > 0.5) {
+            a += (25 * Math.min(player.reincarnationcounter/1800, 1))
+        }
+        if (player.upgrades[62] > 0.5) {
+            a += 1 / 5 * (player.challengecompletions.one + player.challengecompletions.two + player.challengecompletions.three + player.challengecompletions.four + player.challengecompletions.five + player.challengecompletions.six + player.challengecompletions.seven + player.challengecompletions.eight)
+        }
+        a += 3 * player.researches[25]
+        if (player.researches[95] == 1){
+            a += 40
+        }
+        a *= Math.pow(player.reincarnationcounter / 600 * Math.pow(Math.min(optimalOfferingTimer/400, player.reincarnationcounter / 400), 1), 0.7)
+
+    }
+    if (i >= 2 && i !== 5) {
+        b += 3
+        if (player.reincarnationCount > 0) {
+            b += 7
+        }
+        if (player.achievements[44] > 0.5) {
+            b += (15 * Math.min(player.transcendcounter/1800, 1))
+        }
+        b += 1 * player.researches[24]
+        b *= Math.pow(player.transcendcounter / 540 * Math.pow(Math.min(optimalOfferingTimer/480, player.transcendcounter / 480), 1), 0.6)
+
+    }
+    if (i >= 1) {
+        c += 1
+        if (player.transcendCount > 0 || player.reincarnationCount > 0) {
+            c += 2
+        }
+        if (player.reincarnationCount > 0) {
+            c += 2
+        }
+        if (player.achievements[37] > 0.5) {
+            c += (15 * Math.min(player.prestigecounter/1800, 1))
+        }
+        c += 1 * player.researches[24]
+        c *= Math.pow(player.prestigecounter / 480 * Math.pow(Math.min(optimalOfferingTimer/600, player.prestigecounter / 600), 1), 0.5)
+    }
+    q = a + b + c
+    
+
+    if (player.achievements[33] > 0.5) {
+        q *= 1.10
+    }
+    if (player.achievements[34] > 0.5) {
+        q *= 1.15
+    }
+    if (player.achievements[35] > 0.5) {
+        q *= 1.25
+    }
+    if (player.upgrades[38] == 1){q *= 1.2}
+    if (player.upgrades[75] > 0.5) {
+        q *= (1 + 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)))
+    }
+    q *= (1 + 1/50 * player.shopUpgrades.offeringAutoLevel);
+    q *= (1 + 1/100 * player.shopUpgrades.cashGrabLevel);
+    q *= (1 + 4 * (1 - Math.pow(2, -(player.antUpgrades[6] + bonusant6)/125)))
+    q *= cubeBonusMultiplier[3]
+    q = Math.floor(q) * 100 / 100
+
+    let persecond = 0;
+    if(i === 1){
+        persecond = q/(1 + player.prestigecounter)
+    }
+    if(i === 2){
+        persecond = q/(1 + player.transcendcounter)
+    }
+    if(i === 4){
+        persecond = q/(1 + player.reincarnationcounter)
+    }
+    if(persecond > player.offeringpersecond){player.offeringpersecond = persecond}
+    return(q);
+
+}
+
 function calculateObtainium(){
     obtainiumGain = 1;
         if (player.upgrades[69] > 0) {
@@ -172,6 +279,8 @@ function calculateObtainium(){
         obtainiumGain *= (1 + rune5level/150 * effectiveLevelMult * (1 + player.researches[84]/1000)) * Math.pow(2, rune5level/300 * effectiveLevelMult * (1 + player.researches[84]/1000))
         obtainiumGain *= (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07 * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15 * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147])
         obtainiumGain *= (1 + 9 * (1 - Math.pow(2, -(player.antUpgrades[10] + bonusant10)/125)))
+        obtainiumGain *= cubeBonusMultiplier[5]
+        obtainiumGain *= (1 + player.cubeUpgrades[47])
         if (player.achievements[53] > 0){
             obtainiumGain *= (1 + 1/2000 * (runeSum))
         }
@@ -182,6 +291,8 @@ function calculateObtainium(){
         if (player.reincarnationcounter >= 30){obtainiumGain += 1 * player.researches[63]}
         if (player.reincarnationcounter >= 60){obtainiumGain += 2 * player.researches[64]}
         obtainiumGain *= Math.min(1 + 3 * player.upgrades[70], Math.pow(player.reincarnationcounter/30, 2));
+
+        obtainiumGain = Math.pow(obtainiumGain, illiteracyPower[player.usedCorruptions[5]])
 
         player.obtainiumpersecond = obtainiumGain/(Math.min(player.reincarnationcounter, 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel) + 1)
         player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond);
@@ -196,6 +307,7 @@ function calculateTalismanEffects(){
     positiveBonus += player.researches[107]/100
     positiveBonus += player.researches[116]/200
     positiveBonus += player.researches[117]/200
+    positiveBonus += (cubeBonusMultiplier[9] - 1)
     negativeBonus += player.researches[118]/50
     for(var i=1; i <= 5; i++){
         if(player.talismanOne[i] == (1)){talisman1Effect[i] = (talismanPositiveModifier[player.talismanRarity[1]] + positiveBonus) * player.talismanLevels[1]}
@@ -347,6 +459,7 @@ function calculateAntSacrificeELO(){
         effectiveELO += 0.1 * Math.min(6000, antELO)
         effectiveELO += 0.1 * Math.min(10000, antELO)
         effectiveELO += 0.2 * antELO
+        effectiveELO += (cubeBonusMultiplier[8] - 1)
 
 
     }
@@ -381,6 +494,9 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
     let maxSimulatedTicks = simulatedTicks;
     player.quarkstimer += timeadd/(divineBlessing1 * (1 + player.researches[121]/200));
     if (player.researches[61] > 0){player.researchPoints += timeadd * (0.05 + 0.05 * player.researches[62]) * player.maxobtainiumpersecond}
+    if (player.achievements[173] == 1){
+        player.antSacrificeTimer += timeadd;
+    }
 
 
     if(player.quarkstimer >= 90000){player.quarkstimer = 90000}
@@ -390,9 +506,6 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
         player.prestigecounter += tickValue;
         player.transcendcounter += tickValue;
         player.reincarnationcounter += tickValue;
-        if (player.achievements[173] == 1){
-            player.antSacrificeTimer += tickValue;
-        }
         resourceGain(tickValue,true);
         calculateObtainium();
         if(simulatedTicks % 2 == 0){
@@ -426,4 +539,85 @@ calculateRuneLevels();
 
 function calculateSigmoid(constant, factor, divisor) {
 return (1 + (constant - 1) * (1 - Math.pow(2, -(factor)/(divisor))));
+}
+
+function calculateCubeBlessings(){
+
+    document.getElementById("cubeQuantity").textContent = format(player.wowCubes,0,true)
+
+    let cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
+    let powerBonus = [null, player.cubeUpgrades[45]/100, player.cubeUpgrades[35]/100, player.cubeUpgrades[24]/100,player.cubeUpgrades[14]/100, 0, 0, player.cubeUpgrades[15]/100, player.cubeUpgrades[25]/100, player.cubeUpgrades[44]/100, player.cubeUpgrades[34]/100]
+    
+    let accuracy = [null,2,2,2,2,2,2,2,1,4,3]
+    for(var i = 1; i <= 10; i++){
+    let power = 1;
+    let mult = 1;
+    let augmentAccuracy = 0;
+    if(cubeArray[i] >= 1000){power = blessingDRPower[i]; mult *= Math.pow(1000, (1 - blessingDRPower[i]) * (1 + powerBonus[i])); augmentAccuracy += 2;}
+    if(i == 6){power = 2.25; mult = 1; augmentAccuracy = 0;}
+
+    cubeBonusMultiplier[i] = 1 + mult * blessingbase[i] * Math.pow(cubeArray[i], power * (1 + powerBonus[i]));
+
+    document.getElementById("blessing"+i+"Amount").textContent = "x"+format(cubeArray[i],0,true)
+    document.getElementById("blessing"+i+"Effect").textContent = "+"+format(100*(cubeBonusMultiplier[i] - 1),accuracy[i] + augmentAccuracy,true) + "%"
+    if(i == 1){document.getElementById("blessing1Effect").textContent = "+"+format(cubeBonusMultiplier[1] - 1,accuracy[1] + augmentAccuracy,true)}
+    if(i == 8){document.getElementById("blessing8Effect").textContent = "+"+format(cubeBonusMultiplier[8] - 1,accuracy[8] + augmentAccuracy,true)}
+    if(i == 9){document.getElementById("blessing9Effect").textContent = "+"+format(cubeBonusMultiplier[9] - 1,accuracy[9] + augmentAccuracy,true)}
+    }
+
+    calculateRuneLevels();
+    calculateAntSacrificeELO();
+    calculateObtainium();
+
+}
+
+function calculateCubeMultiplier() {
+    mult = 1;
+    mult *= (1 + player.researches[119]/400);
+    mult *= (1 + player.researches[120]/400);
+    mult *= (1 + player.cubeUpgrades[1]/10);
+    mult *= (1 + player.cubeUpgrades[11]/10);
+    mult *= (1 + player.cubeUpgrades[21]/10);
+    mult *= (1 + player.cubeUpgrades[31]/10);
+    mult *= (1 + player.cubeUpgrades[41]/10);
+
+    var timeThresholds = [0, 30, 60, 120, 600, 1800, 7200, 28800, 86400, 86400*7]
+    for(var i = 1; i <= 9; i++){
+        if(player.ascensionCounter < timeThresholds[i]){mult *= 1.1}
+    }
+    return(mult)
+}
+
+function calculateTimeAcceleration() {
+    let timeMult = 1;
+    timeMult *= (1 + player.researches[121]/200);
+    timeMult *= divineBlessing1;
+    timeMult *= cubeBonusMultiplier[10];
+    timeMult *= calculateSigmoid(2, player.antUpgrades[12] + bonusant12, 69)
+    timeMult *= lazinessMultiplier[player.usedCorruptions[3]]
+
+    return(timeMult)
+}
+
+function calculateCorruptionPoints(){
+let basePoints = 400;
+let multiplyPoints = 1;
+
+basePoints += corruptionAddPointArray[player.usedCorruptions[1]]
+basePoints += corruptionAddPointArray[player.usedCorruptions[2]]
+basePoints += 2 * corruptionAddPointArray[player.usedCorruptions[3]]
+basePoints += 2 * corruptionAddPointArray[player.usedCorruptions[6]]
+basePoints += 400 * player.usedCorruptions[7]
+basePoints += 400 * player.usedCorruptions[8]
+basePoints += corruptionAddPointArray[player.usedCorruptions[9]]
+basePoints += 1 * corruptionAddPointArray[player.usedCorruptions[11]]
+basePoints += 4 * corruptionAddPointArray[player.usedCorruptions[12]]
+
+multiplyPoints += 1/100 * corruptionMultiplyPointArray[player.usedCorruptions[4]]
+multiplyPoints += 1/100 * corruptionMultiplyPointArray[player.usedCorruptions[5]]
+multiplyPoints += 1/100 * corruptionMultiplyPointArray[player.usedCorruptions[10]]
+
+let totalPoints = basePoints * multiplyPoints
+if(totalPoints === 39600){totalPoints += 400}
+return(totalPoints)
 }

@@ -12,7 +12,7 @@ var upgradeCosts = [0, 6, 7, 8, 10, 12, 20, 25, 30, 35, 45, 55, 75, 110, 150, 20
 // Mega list of Variables to be used elsewhere
 var crystalUpgradesCost = [6, 15, 20, 40, 100, 200, 500, 1000]
 var crystalUpgradeCostIncrement = [8, 15, 20, 40, 100, 200, 500, 1000]
-var researchBaseCosts = [0, 1, 1, 1, 1, 1,
+var researchBaseCosts = [1e100, 1, 1, 1, 1, 1,
 							1, 5, 25, 500, 10000,
 							1, 5, 25, 500, 10000,
 							20, 250, 10, 2500, 750000,
@@ -314,4 +314,29 @@ var triggerChallenge = ""
 
 var prevReductionValue = -1;
 
-var buildingSubTab = "Coin"
+var buildingSubTab = "coin"
+
+var blessingbase = [null, 1/500, 1/5000, 1/3333, 1/750, 1/250, 1/10000, 1/5000, 1/10, 1/10000, 1/1000]
+var blessingDRPower = [null, 1/3, 1/3, 1/3, 1/2, 1/2, 2, 1/3, 1/3, 1/6, 1/16]
+
+var cubeBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+var buyMaxCubeUpgrades = false;
+var autoOfferingCounter = 0;
+var cubeSubTab = "opening"
+
+//this was a pain in the ass to get, probably would have been faster to sort by hand
+var researchOrderByCost = [null,1,2,3,4,5,6,11,41,42,36,46,66,7,12,43,47,18,21,22,26,51,56,71,61,16,67,8,13,28,44,72,27,62,24,52,57,45,63,73,68,17,48,9,14,23,37,64,31,53,58,74,49,25,69,19,29,39,10,15,33,75,65,70,59,40,30,34,54,38,60,20,35,55,76,77,78,79,80,83,81,85,32,86,91,87,88,89,82,90,92,84,93,96,50,94,97,99,95,98,103,101,108,102,104,106,109,100,105,107,110,111,112,113,114,116,115,117,121,122,118,119,123,124,120,125]
+
+var divisivenessMultiplier = [1, 0.75, 0.5, 0.3, 0.2, 0.15, 0.1, 0.06]
+var maladaptiveMultiplier = [1, 0.75, 0.5, 0.3, 0.2, 0.15, 0.1, 0.06]
+var lazinessMultiplier = [1, 0.66, 0.50, 0.33, 0.25, 0.15, 0.05, 0.01]
+var hyperchallengedMultiplier = [1, 1.2, 1.5, 2, 3, 5, 10, 20]
+var illiteracyPower = [1, 0.98, 0.93, 0.85, 0.8, 0.7, 0.6, 0.5]
+var deflationMultiplier = [1, 0.75, 0.5, 0.25, 0.125, 0.06, 0.03, 0.01]
+var extinctionMultiplier = [1, 1.25, 1.5, 2, 3, 6, 11, 26]
+var droughtMultiplier = [1, 2, 3, 5, 10, 20, 50, 100]
+var financialcollapsePower = [1, 0.9, 0.75, 0.5, 0.4, 0.3, 0.2, 0.1]
+
+var corruptionAddPointArray = [0, 50, 100, 150, 200, 300, 400, 500]
+var corruptionMultiplyPointArray = [0, 10, 20, 30, 50, 80, 110, 150]

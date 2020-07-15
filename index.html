@@ -28,8 +28,9 @@
     <script src="Javascript/submit.js"></script>
     <script src="Javascript/talismans.js"></script>
     <script src="Javascript/calculate.js"></script>
+    <script src="Javascript/cubes.js"></script>
     <!--<script src="Javascript/i18n.js"></script>-->
-    <title>Synergism 1.010</title>
+    <title>Synergism 1.011</title>
     </head>
 <main>
     <div class="save">
@@ -85,7 +86,7 @@
             <td><img class="transcendunlock" id="acceleratorboostbtn" src="Pictures/Transparent Pics/AcceleratorBoost.png" onmouseover="resetrepeat(5)" style="cursor:pointer" onclick="boostAccelerator()"></td>
             <td><img class="transcendunlock" id="challengebtn" src="Pictures/Transparent Pics/Challenge.png"  onmouseover="resetrepeat(3)" onclick="resetCheck('challenge')" style="cursor:pointer"></td>
             <td><img class="reincarnationunlock" id="reincarnatechallengebtn" src="Pictures/Transparent Pics/ChallengeReincarnation.png" onmouseover="resetrepeat(6)" onclick="resetCheck('reincarnationchallenge')" style="cursor:pointer"></td>
-            <td><img class="chal10" id="ascendbtn" src="Pictures/questionable.png" onmouseover="resetrepeat(7)"  style="cursor:pointer"></td>
+            <td><img class="chal10" id="ascendbtn" src="Pictures/questionable.png" onmouseover="resetrepeat(7)" onclick="resetCheck('ascend')"  style="cursor:pointer"></td>
             </tr>
         </table>
         <p id="resetinfo"></p>
@@ -125,14 +126,16 @@
         <p class="reincarnationunlock" id="researchtab" style="color:white; cursor: pointer;" onclick="toggleTabs('researches')">Research</p>  
         <p class="reincarnationunlock" id="shoptab" style="color: white; cursor: pointer;" onclick="toggleTabs('shop')">Shop</p> 
         <p class="chal8" id="anttab" style="color: white; cursor: pointer;" onclick="toggleTabs('ants')">Anthill</p>
+        <p class="chal10" id="cubetab" style="color: red;cursor: pointer;"  onclick="toggleTabs('cubes')">WOW! Cubes</p>
+        <p class="chal10" id="traitstab" style="color: red;cursor: pointer;" onclick="toggleTabs('traits')">Corruption</p>
     </div>
 </div>
 
 <div id="buildings">
-    <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow; background-color: crimson" onclick="toggleBuildingScreen('Coin')">Coin Buildings</button> 
-    <button class="buildingTabs prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan" onclick="toggleBuildingScreen('Diamonds')">Diamond Buildings</button>
-    <button class="buildingTabs transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum" onclick="toggleBuildingScreen('Mythos')">Mythos Buildings</button>
-    <button class="buildingTabs reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow" onclick="toggleBuildingScreen('Particles')">Particle Buildings</button>
+    <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow" onclick="toggleBuildingScreen('coin')">Coin Buildings</button> 
+    <button class="buildingTabs prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan" onclick="toggleBuildingScreen('diamond')">Diamond Buildings</button>
+    <button class="buildingTabs transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum" onclick="toggleBuildingScreen('mythos')">Mythos Buildings</button>
+    <button class="buildingTabs reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow" onclick="toggleBuildingScreen('particle')">Particle Buildings</button>
     <div id="coinBuildings">
     <div id="buyamountcoin">
         <table class="coinunlock3" id="coinbuyamount">
@@ -348,11 +351,11 @@
         <p id="reincarnationtext5">Pulsars: 0 [+0]</p>
         <p id="reincarnationtext7">Black Holes: 0 [+0]</p>
         <p id="reincarnationtext9">Quasars: 0 [+0]</p>
-            <button id="buyparticles1" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('first')">Cost: 1 Particles</button>
-            <button id="buyparticles2" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('second')">Cost: 100 Particles</button>
-            <button id="buyparticles3" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('third')">Cost: 1e+4 Particles</button>
-            <button id="buyparticles4" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('fourth')">Cost: 1e+8 Particles</button>
-            <button id="buyparticles5" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('fifth')">Cost: 1e+16 Particles</button>
+            <button id="buyparticles1" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('first',1)">Cost: 1 Particles</button>
+            <button id="buyparticles2" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('second',100)">Cost: 100 Particles</button>
+            <button id="buyparticles3" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('third',1e4)">Cost: 1e+4 Particles</button>
+            <button id="buyparticles4" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('fourth',1e8)">Cost: 1e+8 Particles</button>
+            <button id="buyparticles5" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('fifth',1e16)">Cost: 1e+16 Particles</button>
             <button class="auto" id="toggle22" onclick="toggleSettings(21)" style="background-color: #171717;">Auto: Off</button>
             <button class="auto" id="toggle23" onclick="toggleSettings(22)" style="background-color: #171717;">Auto: Off</button>
             <button class="auto" id="toggle24" onclick="toggleSettings(23)" style="background-color: #171717;">Auto: Off</button>
@@ -1008,6 +1011,8 @@
                     <button id="respectalisman7" style="color: plum; border: 2px solid white" onclick="showRespecInformation(7)">RESPEC</button>
                 </div>
 
+                <button id="respecAllTalismans" style="color: plum; border: 2px solid white" onclick="showRespecInformation(8)">RESPEC ALL</button>
+
                 <div id="talismanEffect">
                     <p id="talismanSummary" style="color: silver"></p>
                     <p id="talismanBonus" style="color: white"></p>
@@ -1329,37 +1334,190 @@
                         <td id="antSacrificeObtainium" style="color: pink"></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9" src="Pictures/TalismanShard.png"></td>
-                        <td class="chal9" id="antSacrificeTalismanShard" style="color: gold"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/TalismanShard.png"></td>
+                        <td class="chal9x1" id="antSacrificeTalismanShard" style="color: gold"></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9" src="Pictures/CommonTalisman.png"></td>
-                        <td class="chal9" id="antSacrificeCommonFragment" style="color: silver"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/CommonTalisman.png"></td>
+                        <td class="chal9x1" id="antSacrificeCommonFragment" style="color: silver"></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9" src="Pictures/UncommonTalisman.png"></td>
-                        <td class="chal9" id="antSacrificeUncommonFragment" style="color: limegreen"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/UncommonTalisman.png"></td>
+                        <td class="chal9x1" id="antSacrificeUncommonFragment" style="color: limegreen"></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9" src="Pictures/RareTalisman.png"></td>
-                        <td class="chal9" id="antSacrificeRareFragment" style="color: darkcyan"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/RareTalisman.png"></td>
+                        <td class="chal9x1" id="antSacrificeRareFragment" style="color: darkcyan"></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9" src="Pictures/EpicTalisman.png"></td>
-                        <td class="chal9" id="antSacrificeEpicFragment" style="color: plum"><td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/EpicTalisman.png"></td>
+                        <td class="chal9x1" id="antSacrificeEpicFragment" style="color: plum"><td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9" src="Pictures/LegendaryTalisman.png"></td>
-                        <td class="chal9" id="antSacrificeLegendaryFragment" style="color: orange"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/LegendaryTalisman.png"></td>
+                        <td class="chal9x1" id="antSacrificeLegendaryFragment" style="color: orange"></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9" src="Pictures/MythicalTalisman.png"></td>
-                        <td class="chal9" id="antSacrificeMythicalFragment" style="color: crimson"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/MythicalTalisman.png"></td>
+                        <td class="chal9x1" id="antSacrificeMythicalFragment" style="color: crimson"></td>
                     </tr>
                 </table>
             </div>
         </div>
 
+        <div id="cubes">
+            <button id="switchCubeSubTab" style="border: 2px solid gold;" onclick="toggleCubeSubTab()">Switch tabs lol</button>
+            <div id="cubeTab1" style="display: block">
+            <p id="cubeWelcome">You feel a sense of Pride and Accomplishment... and a hunger for power.</p>
+            <p id="cubeExpository1">Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.</p>
+            <p id="cubeExpository2">You can also spend them on upgrades that persist through Ascension.</p>
+            <img id="wowCube" src="Pictures/WowCube.png">
+            <p id="cubeInventory">You possess <span id="cubeQuantity" style="color: yellow">13</span> Wow! Cubes. Get more from harder Ascensions and other stuff.</p>
+            <button id="open1Cube" class="cubeBtn" onclick="openCube(1,false)">Open x1</button>
+            <button id="open20Cube" class="cubeBtn" onclick="openCube(20,false)">Open x20</button>
+            <button id="open1000Cube" class="cubeBtn" onclick="openCube(1000,false)">Open x1,000</button>
+            <button id="openMostCube" class="cubeBtn" onclick="openCube(1,true)">Open All</button>
+
+            <div id="cubeBonuses">
+                <table id="cubeIcons" style="width:750px">
+                    <tr>
+                        <td style="font-size: 0;">
+                            <img src="Pictures/Cube1.png">   
+                        </td>
+                        <td id="cube1Bonus" style="color: yellow">Hermes' Blessing <span id="blessing1Amount">x1</span>: <span id="blessing1Effect">+0.01%</span> Accelerators per Accelerator Boost</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 0;">
+                            <img src="Pictures/Cube2.png">   
+                        </td>
+                        <td id="cube2Bonus" style="color: pink">Aphrodite's Blessing <span id="blessing2Amount">x1</span>: <span id="blessing2Effect">+0.01%</span> Multipliers</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 0;">
+                            <img src="Pictures/Cube3.png">   
+                        </td>
+                        <td id="cube3Bonus" style="color: orange">Plutus' Blessing <span id="blessing3Amount">x1</span>: <span id="blessing3Effect">+0.01%</span> Offering Gain</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 0;">
+                            <img src="Pictures/Cube4.png">   
+                        </td>
+                        <td id="cube4Bonus" style="color: limegreen">Iris' Blessing <span id="blessing4Amount">x1</span>: <span id="blessing4Effect">+0.01%</span> Rune EXP</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 0;">
+                            <img src="Pictures/Cube5.png">   
+                        </td>
+                        <td id="cube5Bonus" style="color: aquamarine">Athena's Blessing <span id="blessing5Amount">x1</span>: <span id="blessing5Effect">+0.01%</span> Obtainium Gain</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 0;">
+                            <img src="Pictures/Cube6.png">   
+                        </td>
+                        <td id="cube6Bonus" style="color: brown">Artemis' Blessing <span id="blessing6Amount">x1</span>: <span id="blessing6Effect">+0.01%</span> Ant Speed</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 0;">
+                            <img src="Pictures/Cube7.png">   
+                        </td>
+                        <td id="cube7Bonus" style="color:crimson">Ares' Blessing <span id="blessing7Amount">x1</span>: <span id="blessing7Effect">+0.01%</span> Sacrifice Reward</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 0;">
+                            <img src="Pictures/Cube8.png">   
+                        </td>
+                        <td id="cube8Bonus" style="color: plum">Moloch's Blessing <span id="blessing8Amount">x1</span>: <span id="blessing8Effect">+0.01%</span> Effective ELO</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 0;">
+                            <img src="Pictures/Cube9.png">   
+                        </td>
+                        <td id="cube9Bonus" style="color: bisque">Midas' Blessing <span id="blessing9Amount">x1</span>: <span id="blessing9Effect">+0.01%</span> Bonus Rune Levels on Talismans</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 0;">
+                            <img src="Pictures/Cube10.png">   
+                        </td>
+                        <td id="cube10Bonus" style="color: silver">Chronos' Blessing <span id="blessing10Amount">x1</span>: <span id="blessing10Effect">+0.01%</span> Global Time Acceleration</td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+            <div id="cubeTab2" style="display: none">
+                <p id="cubeAmount2">You have 0 Wow! Cubes</p>
+                <table id="cubeUpgradeTable">
+                    <tr>
+                        <td><img id="cubeUpg1" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(1)" onclick="buyCubeUpgrades(1)"></td>
+                        <td><img id="cubeUpg2" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(2)" onclick="buyCubeUpgrades(2)"></td>
+                        <td><img id="cubeUpg3" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(3)" onclick="buyCubeUpgrades(3)"></td>
+                        <td><img id="cubeUpg4" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(4)" onclick="buyCubeUpgrades(4)"></td>
+                        <td><img id="cubeUpg5" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(5)" onclick="buyCubeUpgrades(5)"></td>
+                        <td><img id="cubeUpg6" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(6)" onclick="buyCubeUpgrades(6)"></td>
+                        <td><img id="cubeUpg7" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(7)" onclick="buyCubeUpgrades(7)"></td>
+                        <td><img id="cubeUpg8" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(8)" onclick="buyCubeUpgrades(8)"></td>
+                        <td><img id="cubeUpg9" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(9)" onclick="buyCubeUpgrades(9)"></td>
+                        <td><img id="cubeUpg10" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(10)" onclick="buyCubeUpgrades(10)"></td>
+                    </tr>
+                    <tr>
+                        <td><img id="cubeUpg11" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(11)" onclick="buyCubeUpgrades(11)"></td>
+                        <td><img id="cubeUpg12" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(12)" onclick="buyCubeUpgrades(12)"></td>
+                        <td><img id="cubeUpg13" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(13)" onclick="buyCubeUpgrades(13)"></td>
+                        <td><img id="cubeUpg14" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(14)" onclick="buyCubeUpgrades(14)"></td>
+                        <td><img id="cubeUpg15" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(15)" onclick="buyCubeUpgrades(15)"></td>
+                        <td><img id="cubeUpg16" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(16)" onclick="buyCubeUpgrades(16)"></td>
+                        <td><img id="cubeUpg17" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(17)" onclick="buyCubeUpgrades(17)"></td>
+                        <td><img id="cubeUpg18" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(18)" onclick="buyCubeUpgrades(18)"></td>
+                        <td><img id="cubeUpg19" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(19)" onclick="buyCubeUpgrades(19)"></td>
+                        <td><img id="cubeUpg20" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(20)" onclick="buyCubeUpgrades(20)"></td>
+                    </tr>
+                    <tr>
+                        <td><img id="cubeUpg21" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(21)" onclick="buyCubeUpgrades(21)"></td>
+                        <td><img id="cubeUpg22" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(22)" onclick="buyCubeUpgrades(22)"></td>
+                        <td><img id="cubeUpg23" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(23)" onclick="buyCubeUpgrades(23)"></td>
+                        <td><img id="cubeUpg24" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(24)" onclick="buyCubeUpgrades(24)"></td>
+                        <td><img id="cubeUpg25" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(25)" onclick="buyCubeUpgrades(25)"></td>
+                        <td><img id="cubeUpg26" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(26)" onclick="buyCubeUpgrades(26)"></td>
+                        <td><img id="cubeUpg27" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(27)" onclick="buyCubeUpgrades(27)"></td>
+                        <td><img id="cubeUpg28" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(28)" onclick="buyCubeUpgrades(28)"></td>
+                        <td><img id="cubeUpg29" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(29)" onclick="buyCubeUpgrades(29)"></td>
+                        <td><img id="cubeUpg30" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(30)" onclick="buyCubeUpgrades(30)"></td>
+                    </tr>
+                    <tr>
+                        <td><img id="cubeUpg31" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(31)" onclick="buyCubeUpgrades(31)"></td>
+                        <td><img id="cubeUpg32" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(32)" onclick="buyCubeUpgrades(32)"></td>
+                        <td><img id="cubeUpg33" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(33)" onclick="buyCubeUpgrades(33)"></td>
+                        <td><img id="cubeUpg34" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(34)" onclick="buyCubeUpgrades(34)"></td>
+                        <td><img id="cubeUpg35" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(35)" onclick="buyCubeUpgrades(35)"></td>
+                        <td><img id="cubeUpg36" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(36)" onclick="buyCubeUpgrades(36)"></td>
+                        <td><img id="cubeUpg37" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(37)" onclick="buyCubeUpgrades(37)"></td>
+                        <td><img id="cubeUpg38" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(38)" onclick="buyCubeUpgrades(38)"></td>
+                        <td><img id="cubeUpg39" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(39)" onclick="buyCubeUpgrades(39)"></td>
+                        <td><img id="cubeUpg40" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(40)" onclick="buyCubeUpgrades(40)"></td>
+                    </tr>
+                    <tr>
+                        <td><img id="cubeUpg41" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(41)" onclick="buyCubeUpgrades(41)"></td>
+                        <td><img id="cubeUpg42" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(42)" onclick="buyCubeUpgrades(42)"></td>
+                        <td><img id="cubeUpg43" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(43)" onclick="buyCubeUpgrades(43)"></td>
+                        <td><img id="cubeUpg44" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(44)" onclick="buyCubeUpgrades(44)"></td>
+                        <td><img id="cubeUpg45" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(45)" onclick="buyCubeUpgrades(45)"></td>
+                        <td><img id="cubeUpg46" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(46)" onclick="buyCubeUpgrades(46)"></td>
+                        <td><img id="cubeUpg47" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(47)" onclick="buyCubeUpgrades(47)"></td>
+                        <td><img id="cubeUpg48" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(48)" onclick="buyCubeUpgrades(48)"></td>
+                        <td><img id="cubeUpg49" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(49)" onclick="buyCubeUpgrades(49)"></td>
+                        <td><img id="cubeUpg50" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(50)" onclick="buyCubeUpgrades(50)"></td>
+                    </tr>
+                </table>
+            <p id="cubeUpgradeName" style="text-align:center; color:white;">Wow! Hover over the upgrades you want to look at!</p>
+            <p id="cubeUpgradeDescription" style="text-align: center; color: lightblue"></p>
+            <p id="cubeUpgradeCost" style="text-align:center; color:pink"></p>
+            <p id="cubeUpgradeLevel" style="text-align: center; color: crimson"></p>
+            <button id="toggleCubeBuy" style="text-align: center;color: white;border: 2px solid pink" onclick="toggleMaxBuyCube()">Upgrade: 1 Level wow</button>
+            </div>
+        </div>
+
+        <div id="traits">
+
+        </div>
         <div id="settings">
             <button id="switchsettingtab" onclick="toggleSettingScreen()">Credits & Acknowledgements</button>
             <div id="settingsubtab">
@@ -1413,7 +1571,7 @@
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
             </a>
 
-            <p id="versionnumber" style="color: gold">You're playing on v1.0101 Update 2!</p>
+            <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: July 15, 2020 1:48AM PDT</p>
         </div>
             <div id="creditssubtab" style="display: none">
             <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>

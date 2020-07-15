@@ -226,11 +226,18 @@ function showRespecInformation(i){
 
     let runeName = [null, "Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"]
     let runeModifier = [null, "Positive", "Positive", "Positive", "Positive"]
-    
-    for (var k=1; k<=5; k++){
-        mirrorTalismanStats[k] = player["talisman"+num[i]][k]
+    if(i <= 7){
+        for (var k=1; k<=5; k++){
+            mirrorTalismanStats[k] = player["talisman"+num[i]][k];
+        }
+        document.getElementById("confirmTalismanRespec").textContent = "Confirm [-100,000 Offerings]"
     }
-
+    if(i === 8){
+        for (var k=1; k<=5; k++){
+            mirrorTalismanStats[k] = 1;
+        } 
+        document.getElementById("confirmTalismanRespec").textContent = "Confirm ALL [-400,000 Offerings]"
+    }
     for (var j=1; j<=5; j++){
         if(mirrorTalismanStats[j] == 1){document.getElementById("talismanRespecButton" + j).style.border = "2px solid limegreen"; runeModifier[j] = "Positive"}
         if(mirrorTalismanStats[j] == -1){document.getElementById("talismanRespecButton" + j).style.border = "2px solid crimson"; runeModifier[j] = "Negative"}
@@ -269,7 +276,7 @@ function changeTalismanModifier(i){
 
 function respecTalismanConfirm(i){
     let num = [null, "One", "Two", "Three", "Four", "Five", "Six", "Seven"]
-    if (player.runeshards >= 100000){
+    if (player.runeshards >= 100000 && i <= 7){
         for (var j = 1; j <= 5; j++){
     player["talisman"+num[i]][j] = mirrorTalismanStats[j];
     }
@@ -278,15 +285,26 @@ function respecTalismanConfirm(i){
     document.getElementById("talismanrespec").style.display = "none";
     document.getElementById("talismanEffect").style.display = "block";
     showTalismanEffect(i);
-    calculateRuneLevels();
+    }
+    else if (player.runeshards >= 400000 && i === 8){
+        player.runeshards -= 400000
+        for (var j = 1; j <= 7; j++){
+            for (var k = 1; k <= 5; k++){
+                player["talisman"+num[j]][k] = mirrorTalismanStats[k];
+            }
+        }
+        document.getElementById("confirmTalismanRespec").style.display = "none";
     }
     else{}
+    calculateRuneLevels();
 }
 
 function respecTalismanCancel(i){
     document.getElementById("talismanrespec").style.display = "none"
+    if(i <= 7){
     document.getElementById("talismanEffect").style.display = "block";
     showTalismanEffect(i);
+    }
 }
 
 function updateTalismanAppearance(i){
@@ -307,11 +325,15 @@ if(rarity == 6){el.style.border = "4px solid crimson"; la.style.color = "crimson
 
 
 function buyTalismanLevels(i){
+    let max = 1;
+    if(player.ascensionCount > 0){max = 30}
+    for(var j = 1; j <= max; j++){
     let checkSum = 0;
     let priceMult = talismanLevelCostMultiplier[i]
     if(player.talismanLevels[i] >= 120){priceMult *= (player.talismanLevels[i] - 90)/30}
     if(player.talismanLevels[i] >= 150){priceMult *= (player.talismanLevels[i] - 120)/30}
 
+    if(player.talismanLevels[i] < (player.talismanRarity[i] * 30)){
     if(player.talismanShards >= priceMult * Math.max(0, Math.floor(1 + 1/8 * Math.pow(player.talismanLevels[i],3)))){checkSum++};
     if(player.commonFragments >= priceMult * Math.max(0, Math.floor(1 + 1/32 * Math.pow(player.talismanLevels[i] - 30,3)))){checkSum++};
     if(player.uncommonFragments >= priceMult * Math.max(0, Math.floor(1 + 1/384 * Math.pow(player.talismanLevels[i] - 60,3)))){checkSum++};
@@ -319,9 +341,9 @@ function buyTalismanLevels(i){
     if(player.epicFragments >= priceMult * Math.max(0, Math.floor(1 + 1/375 * Math.pow(player.talismanLevels[i] - 120,3)))){checkSum++};
     if(player.legendaryFragments >= priceMult * Math.max(0, Math.floor(1 + 1/192 * Math.pow(player.talismanLevels[i] - 150,3)))){checkSum++};
     if(player.mythicalFragments >= priceMult * Math.max(0, Math.floor(1 + 1/1280 * Math.pow(player.talismanLevels[i] - 150,3)))){checkSum++};
+    }
 
-
-    if (checkSum == 7 && player.talismanLevels[i] < (player.talismanRarity[i] * 30)){
+    if (checkSum == 7){
         player.talismanShards -= priceMult * Math.max(0, Math.floor(1 + 1/8 * Math.pow(player.talismanLevels[i],3)))
         player.commonFragments -= priceMult * Math.max(0, Math.floor(1 + 1/32 * Math.pow(player.talismanLevels[i] - 30,3)))
         player.uncommonFragments -= priceMult * Math.max(0, Math.floor(1 + 1/384 * Math.pow(player.talismanLevels[i] - 60,3)))
@@ -331,6 +353,9 @@ function buyTalismanLevels(i){
         player.mythicalFragments -= priceMult * Math.max(0, Math.floor(1 + 1/1280 * Math.pow(player.talismanLevels[i] - 150,3)))
         player.talismanLevels[i] += 1;
 
+    }
+
+    if(checkSum !== 7){break}
     }
     updateTalismanInventory();
     showTalismanPrices(i);

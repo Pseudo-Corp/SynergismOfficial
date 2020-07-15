@@ -61,6 +61,17 @@ function promocodes(i) {
 /**
  * Copy the save file to clipboard (IE) or export it as a file (EVERYTHING else).
  */
+
+function getRealTime() {
+let months = [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+let indicator = ['AM','PM']
+let now = new Date();
+let date = (months[now.getMonth()+1])+'-'+ now.getDate()+'-'+now.getFullYear();
+var time = (now.getHours() % 12) + '-' + now.getMinutes() + '-' + now.getSeconds() + ' ' + indicator[Math.floor(now.getHours()/12)];
+
+return(date+' '+time)
+}
+
 function exportSynergism() {
     player.offlinetick = Date.now();
     if (player.quarkstimer >= 3600){
@@ -79,7 +90,7 @@ function exportSynergism() {
 
     const a = document.createElement('a');
     a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
-    a.setAttribute('download', 'SynergismSave.txt');
+    a.setAttribute('download', 'Synergism-v1011Test-'+getRealTime()+'.txt');
     a.setAttribute('id', 'downloadSave');
     a.click();
 
@@ -89,7 +100,7 @@ function exportSynergism() {
 function importSynergism(input) {
     try {
         const data = JSON.parse(atob(input));
-        if (data.exporttest === "YES!" && data.kongregatetest !== "YES") {
+        if (/*data.exporttest === "NO!" &&*/ data.kongregatetest !== "YES") {
             localStorage.setItem("Synergysave2", input);
             loadSynergy();
             document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
