@@ -2434,7 +2434,8 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		hideStuff();
 
 		// For automated testing, it's best for the tests to control when time-interval operations occur.
-		if(!__karma__) {
+		// Only defined then, so we need to check it as a property of window.
+		if(!window["__karma__"]) {
 			createTimer();
 			constantIntervals();
 		}

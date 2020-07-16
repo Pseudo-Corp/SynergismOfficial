@@ -20,6 +20,13 @@ describe("Basic tests", function() {
     before(function(done) {
         this.timeout(3000); // 6 seconds.
 
+        window.setTimeout(function() {
+            // Use of the optional parameter 'done' indicates that this is asynchronous.
+            // We call done() to tell Mocha that setup is complete.
+            done();
+        }, 2800); // We give the page 2.5 seconds to load as a safety margin.
+
+        // Now that the timeout is set, we can start loading things.
         fixture.setBase('');
 
         // Set the game to a clean state, no offline ticks.  They get in the way of test init.
@@ -27,12 +34,6 @@ describe("Basic tests", function() {
 
         // Loads the actual test page.
         fixture.load("/index.html");
-
-        window.setTimeout(function() {
-            // Use of the optional parameter 'done' indicates that this is asynchronous.
-            // We call done() to tell Mocha that setup is complete.
-            done();
-        }, 2500); // We give the page 2.5 seconds to load as a safety margin.
     });
 
     // Runs this code once BEFORE each test.
@@ -54,7 +55,38 @@ describe("Basic tests", function() {
 
     });
 
-    it("loaded", function() {
+    it("loads without errors", function() {
         assert.isOk(player);
-    })
+    });
+
+    describe("with new save", function() {  
+        it("does not autogenerate resources", function() {
+            // When a player first loads the game, they have no coin buildings purchased.
+            assert.isTrue(player.coins.equals(new Decimal(100)));
+            assert.equal(player.firstOwnedCoin, 0);
+            assert.equal(player.secondOwnedCoin, 0);
+            assert.equal(player.thirdOwnedCoin, 0);
+            assert.equal(player.fourthOwnedCoin, 0);
+            assert.equal(player.fifthOwnedCoin, 0);
+
+            // Just to be extra-sure, let's generate a tick.
+            tick();
+
+            assert.isTrue(player.coins.equals(new Decimal(100)));
+        });
+
+        it("can buy first coin building and earn resources", function() {
+            assert.equal(player.firstOwnedCoin, 0);
+
+            buyProducer('first', 'Coin', 1);
+            assert.equal(player.firstOwnedCoin, 1);
+
+            buyProducer('first', 'Coin', 1)
+            assert.notEqual(player.firstOwnedCoin, 2); // we don't have the money!
+
+            tick();
+
+            assert.isTrue(player.coins.greaterThan(0));
+        });
+    });
 });
