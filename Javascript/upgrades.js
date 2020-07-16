@@ -340,11 +340,7 @@ function upgradeupdate(num, fast) {
     document.getElementById("upgradedescription").style.color = "gold"
     }
     }    
-    else {
-        // Prevents an error when loading saves during automated testing.
-        let ele = document.getElementById(x)
-        if(ele) ele.style.backgroundColor = "Black"
-    }
+    else {document.getElementById(x).style.backgroundColor = "Black"}
 
     if (!fast) revealStuff()
 }
