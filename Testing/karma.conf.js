@@ -60,7 +60,7 @@ module.exports = function(config) {
 
         // if true, Karma captures browsers, runs the tests and exits
         // if false, it generates the pages and acts as a persistent server.
-        singleRun: false,
+        singleRun: true,
 
         // Determines the test report format
         reporters: ['mocha'],
