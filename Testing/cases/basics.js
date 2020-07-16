@@ -1,15 +1,30 @@
 // Provides our assertion library - the set of tools used to judge if the code is working correctly.
 var assert = chai.assert;
 
+function setSaveFromFixture(name) {
+    // true:  'appends' the fixture so that our previous loads aren't lost.
+    let saveToLoad = fixture.load(name, true)
+
+    // Prevent offline loading.  (It's simpler; no need to wait for the calculator.)
+    // Write an alternate version when targetting offline, as controlling _how much_ offline
+    // will require .offlineTick manipulation.
+    saveToLoad.offlinetick = Date.now();
+    localStorage.setItem("Synergysave2", btoa(JSON.stringify(saveToLoad)));
+}
+
 // This test-specification format is due to use of Mocha.
 // describe - creates a named grouping of tests.  May be nested.
 // it - a single unit test.
-
 describe("Basic tests", function() {
     // Runs this code once for the entire test grouping BEFORE any tests run
     before(function(done) {
-        this.timeout(3000); // 3 seconds.
+        this.timeout(3000); // 6 seconds.
+
         fixture.setBase('');
+
+        // Set the game to a clean state, no offline ticks.  They get in the way of test init.
+        setSaveFromFixture("TestSaves/CleanStart.json");
+
         // Loads the actual test page.
         fixture.load("/index.html");
 
@@ -21,8 +36,14 @@ describe("Basic tests", function() {
     });
 
     // Runs this code once BEFORE each test.
-    beforeEach(function() {
+    beforeEach(function(done) {
+        setSaveFromFixture("TestSaves/CleanStart.json");
+        loadSynergy();
 
+        // The game needs a bit of time to load the file.
+        window.setTimeout(function() {
+            done();
+        }, 500)
     });
 
     after(function() {

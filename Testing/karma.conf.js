@@ -17,7 +17,7 @@ module.exports = function(config) {
             "*.css",
             {pattern: "Pictures/**/*.png", watched: false, served: true, included: false},
             {pattern: "Pictures/**/*.gif", watched: false, served: true, included: false},
-            
+
             // Order matters.
             "break_infinity.js",
             "lz-string.js",
@@ -26,18 +26,27 @@ module.exports = function(config) {
             {pattern: "Javascript/*.js", watched: true, served: true, included: true},
 
             // The base folder for the tests we want to run.
-            "Testing/cases/**/*.js",
+            "Testing/Cases/**/*.js",
+
+            // The base folder for our save "file" fixtures.
+            "Testing/TestSaves/**/*.json"
         ],
 
         port: 9876,
 
         preprocessors: {
-            "index.html": ['html2js']
+            "index.html": ["html2js"],
+            "Testing/TestSaves/**/*.json" : ["json_fixtures"]
         },
 
         // The fixture engine expects some sort of prefix.
         html2jsPreprocessor: {
             prependPrefix: "fixtures/"
+        },
+
+        jsonFixturesPreprocessor: {
+            stripPrefix: "Testing", // Keeps the TestSaves prefix for saves.
+            variableName: "__json__"
         },
 
         // Kerma likes to place all 'served' resources underneath a 'base' folder.
