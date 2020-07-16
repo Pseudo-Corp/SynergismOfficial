@@ -56,6 +56,8 @@ describe("Basic tests", function() {
 
     });
 
+    // ACTUAL TEST DEFINITIONS:  BEGIN! ----------------------------------
+
     it("loads without errors", function() {
         assert.isOk(player);
     });

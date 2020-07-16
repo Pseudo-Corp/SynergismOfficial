@@ -55,6 +55,8 @@ describe("Automatic purchases", function() {
 
     });
 
+    // ACTUAL TEST DEFINITIONS:  BEGIN! ----------------------------------
+
     describe("for coin buildings", function() {  
         it("does not autopurchase without perks", function() {
             // We start with a basic start.
