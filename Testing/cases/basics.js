@@ -1,4 +1,5 @@
 // Provides our assertion library - the set of tools used to judge if the code is working correctly.
+// The handy reference:  https://www.chaijs.com/api/assert/
 var assert = chai.assert;
 
 function setSaveFromFixture(name) {
@@ -12,7 +13,7 @@ function setSaveFromFixture(name) {
     localStorage.setItem("Synergysave2", btoa(JSON.stringify(saveToLoad)));
 }
 
-// This test-specification format is due to use of Mocha.
+// This test-specification format is due to use of Mocha.  https://mochajs.org/#getting-started
 // describe - creates a named grouping of tests.  May be nested.
 // it - a single unit test.
 describe("Basic tests", function() {

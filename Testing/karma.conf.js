@@ -26,7 +26,7 @@ module.exports = function(config) {
             {pattern: "Javascript/*.js", watched: true, served: true, included: true},
 
             // The base folder for the tests we want to run.
-            "Testing/Cases/**/*.js",
+            "Testing/cases/**/*.js",
 
             // The base folder for our save "file" fixtures.
             "Testing/TestSaves/**/*.json"
