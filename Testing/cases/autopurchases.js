@@ -244,4 +244,195 @@ describe("Automatic purchases", function() {
             }
         });
     });
+
+    describe("for diamond buildings", function() {  
+        it("does not autopurchase without perks", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.prestigePoints      = Decimal.pow(10, 400000000);
+
+            updateAll();
+
+            assert.equal(player.firstOwnedDiamonds, 0);
+            assert.equal(player.secondOwnedDiamonds, 0);
+            assert.equal(player.thirdOwnedDiamonds, 0);
+            assert.equal(player.fourthOwnedDiamonds, 0);
+            assert.equal(player.fifthOwnedDiamonds, 0);
+        });
+
+        it("does not autopurchase with toggles disabled", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.prestigePoints      = Decimal.pow(10, 400000000);
+
+            player.achievements[78]  = 1;  player.toggles.ten = false;
+            player.achievements[85]  = 1;  player.toggles.eleven = false;
+            player.achievements[92]  = 1;  player.toggles.twelve = false;
+            player.achievements[99]  = 1;  player.toggles.thirteen = false;
+            player.achievements[106] = 1;  player.toggles.fourteen = false;
+
+            updateAll();
+
+            assert.equal(player.firstOwnedDiamonds, 0);
+            assert.equal(player.secondOwnedDiamonds, 0);
+            assert.equal(player.thirdOwnedDiamonds, 0);
+            assert.equal(player.fourthOwnedDiamonds, 0);
+            assert.equal(player.fifthOwnedDiamonds, 0);
+        });
+
+        it("does autopurchase with perks and toggles enabled", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.prestigePoints      = Decimal.pow(10, 400000000);
+
+            player.achievements[78]  = 1;  player.toggles.ten = true;
+            player.achievements[85]  = 1;  player.toggles.eleven = true;
+            player.achievements[92]  = 1;  player.toggles.twelve = true;
+            player.achievements[99]  = 1;  player.toggles.thirteen = true;
+            player.achievements[106] = 1;  player.toggles.fourteen = true;
+
+            updateAll();
+
+            assert.notEqual(player.firstOwnedDiamonds, 0);
+            assert.notEqual(player.secondOwnedDiamonds, 0);
+            assert.notEqual(player.thirdOwnedDiamonds, 0);
+            assert.notEqual(player.fourthOwnedDiamonds, 0);
+            assert.notEqual(player.fifthOwnedDiamonds, 0);
+        });
+    });
+
+    describe("for crystal upgrades", function() {  
+        it("does not autopurchase without perks", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.prestigePoints      = Decimal.pow(10, 400000000);
+            player.prestigeShards      = Decimal.pow(10, 400000000);
+
+            updateAll();
+
+            for(let i=0; i < 5; i++) {
+                assert.equal(player.crystalUpgrades[i], 0);
+            }
+        });
+
+        it("does autopurchase with perks", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.prestigePoints      = Decimal.pow(10, 400000000);
+            player.prestigeShards      = Decimal.pow(10, 400000000);
+
+            player.achievements[79]  = 1;
+            player.achievements[86]  = 1;
+            player.achievements[93]  = 1;
+            player.achievements[100] = 1;
+            player.achievements[107] = 1;
+
+            updateAll();
+
+            for(let i=0; i < 5; i++) {
+                assert.notEqual(player.crystalUpgrades[i], 0);
+            }
+        });
+    });
+
+    describe("for mythos buildings", function() {  
+        it("does not autopurchase without perks", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.transcendPoints = Decimal.pow(10, 400000000);
+
+            updateAll();
+
+            assert.equal(player.firstOwnedMythos, 0);
+            assert.equal(player.secondOwnedMythos, 0);
+            assert.equal(player.thirdOwnedMythos, 0);
+            assert.equal(player.fourthOwnedMythos, 0);
+            assert.equal(player.fifthOwnedMythos, 0);
+        });
+
+        it("does not autopurchase with toggles disabled", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.transcendPoints = Decimal.pow(10, 400000000);
+
+            player.upgrades[94] = 1;  player.toggles.sixteen = false;
+            player.upgrades[95] = 1;  player.toggles.seventeen = false;
+            player.upgrades[96] = 1;  player.toggles.eighteen = false;
+            player.upgrades[97] = 1;  player.toggles.nineteen = false;
+            player.upgrades[98] = 1;  player.toggles.twenty = false;
+
+            updateAll();
+
+            assert.equal(player.firstOwnedMythos, 0);
+            assert.equal(player.secondOwnedMythos, 0);
+            assert.equal(player.thirdOwnedMythos, 0);
+            assert.equal(player.fourthOwnedMythos, 0);
+            assert.equal(player.fifthOwnedMythos, 0);
+        });
+
+        it("does autopurchase with perks and toggles enabled", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.transcendPoints = Decimal.pow(10, 400000000);
+
+            player.upgrades[94] = 1;  player.toggles.sixteen = true;
+            player.upgrades[95] = 1;  player.toggles.seventeen = true;
+            player.upgrades[96] = 1;  player.toggles.eighteen = true;
+            player.upgrades[97] = 1;  player.toggles.nineteen = true;
+            player.upgrades[98] = 1;  player.toggles.twenty = true;
+
+            updateAll();
+
+            assert.notEqual(player.firstOwnedMythos, 0);
+            assert.notEqual(player.secondOwnedMythos, 0);
+            assert.notEqual(player.thirdOwnedMythos, 0);
+            assert.notEqual(player.fourthOwnedMythos, 0);
+            assert.notEqual(player.fifthOwnedMythos, 0);
+        });
+    });
+
+    describe("for particle buildings", function() {  
+        it("does not autopurchase without perks", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.reincarnationPoints = Decimal.pow(10, 400000000);
+
+            updateAll();
+
+            assert.equal(player.firstOwnedParticles, 0);
+            assert.equal(player.secondOwnedParticles, 0);
+            assert.equal(player.thirdOwnedParticles, 0);
+            assert.equal(player.fourthOwnedParticles, 0);
+            assert.equal(player.fifthOwnedParticles, 0);
+        });
+
+        it("does not autopurchase with toggles disabled", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.reincarnationPoints = Decimal.pow(10, 400000000);
+
+            player.cubeUpgrades[7] = 1;  player.toggles.twentytwo = false;
+            player.cubeUpgrades[7] = 1;  player.toggles.twentythree = false;
+            player.cubeUpgrades[8] = 1;  player.toggles.twentyfour = false;
+            player.cubeUpgrades[8] = 1;  player.toggles.twentyfive = false;
+            player.cubeUpgrades[9] = 1;  player.toggles.twentysix = false;
+
+            updateAll();
+
+            assert.equal(player.firstOwnedParticles, 0);
+            assert.equal(player.secondOwnedParticles, 0);
+            assert.equal(player.thirdOwnedParticles, 0);
+            assert.equal(player.fourthOwnedParticles, 0);
+            assert.equal(player.fifthOwnedParticles, 0);
+        });
+
+        it("does autopurchase with perks and toggles enabled", function() {
+            // We start with a basic start and build the 'player' we want from there.
+            player.reincarnationPoints = Decimal.pow(10, 400000000);
+
+            player.cubeUpgrades[7] = 1;  player.toggles.twentytwo = true;
+            player.cubeUpgrades[7] = 1;  player.toggles.twentythree = true;
+            player.cubeUpgrades[8] = 1;  player.toggles.twentyfour = true;
+            player.cubeUpgrades[8] = 1;  player.toggles.twentyfive = true;
+            player.cubeUpgrades[9] = 1;  player.toggles.twentysix = true;
+
+            updateAll();
+
+            assert.notEqual(player.firstOwnedParticles, 0);
+            assert.notEqual(player.secondOwnedParticles, 0);
+            assert.notEqual(player.thirdOwnedParticles, 0);
+            assert.notEqual(player.fourthOwnedParticles, 0);
+            assert.notEqual(player.fifthOwnedParticles, 0);
+        });
+    });
 });
