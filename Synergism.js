@@ -2187,16 +2187,16 @@ function updateAll() {
 // Functions which (try) to successfully load the game
 
 function constantIntervals() {
-		setInterval(saveSynergy, 5000);
-		setInterval(autoUpgrades, 200);
-		setInterval(buttoncolorchange, 200)
-		setInterval(updateAll,50)
-		setInterval(buildingAchievementCheck, 200)
+	setInterval(saveSynergy, 5000);
+	setInterval(autoUpgrades, 200);
+	setInterval(buttoncolorchange, 200)
+	setInterval(updateAll,50)
+	setInterval(buildingAchievementCheck, 200)
 
-		if(!timeWarp){
-			document.getElementById("preload").style.display = "none";
-			document.getElementById("offlineprogressbar").style.display = "none"}
-	}
+	if(!timeWarp){
+		document.getElementById("preload").style.display = "none";
+		document.getElementById("offlineprogressbar").style.display = "none"}
+}
 
 let lastUpdate = 0;
 //gameInterval = 0;
@@ -2432,8 +2432,13 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		initToggleBtnColors();
 		revealStuff();
 		hideStuff();
-		createTimer();
-		constantIntervals();
+
+		// For automated testing, it's best for the tests to control when time-interval operations occur.
+		if(!__karma__) {
+			createTimer();
+			constantIntervals();
+		}
+
 		htmlInserts();
 	}, 0);
 
