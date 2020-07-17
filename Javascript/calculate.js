@@ -298,6 +298,11 @@ function calculateObtainium(){
         player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond);
 }
 
+function calculateAutomaticObtainium() {
+    let timeMult = calculateTimeAcceleration();
+    return 0.05 * (player.researches[61] + player.researches[62]) * player.maxobtainiumpersecond * timeMult * (1 + 4 * player.cubeUpgrades[3] / 5);
+}
+
 function calculateTalismanEffects(){
     let positiveBonus = 0;
     let negativeBonus = 0;
