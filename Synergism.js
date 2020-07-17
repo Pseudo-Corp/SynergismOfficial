@@ -2105,69 +2105,75 @@ const setToggleBtnColors = function() {
 
 function tick() {
 
-	if (!timeWarp){
-	var now = Date.now();
-	var dt = Math.max(0, Math.min(36000, (now - lastUpdate)/1000));
+	if (!timeWarp) {
+		var now = Date.now();
+		var dt = Math.max(0, Math.min(36000, (now - lastUpdate) / 1000));
 
-	let timeMult = calculateTimeAcceleration();
-	lastUpdate = now;
+		let timeMult = calculateTimeAcceleration();
+		lastUpdate = now;
 
-	player.quarkstimer += dt
-	if(player.quarkstimer >= 90000){player.quarkstimer = 90000}
-	if(player.researches[61] > 0){player.obtainiumtimer += (dt * timeMult);}
-	if(player.researches[61] > 0){document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + format(calculateAutomaticObtainium(),3,true) + " Obtainium per real life second."}
-
-	const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
-	const maxExportQuarks = (25 * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
-
-	document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)),2) + "s until +" +(1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]) + " export Quark"
-	document.getElementById("quarktimeramount").textContent = "Quarks on export: "
-		+ onExportQuarks
-		+ " [Max "
-		+ format(maxExportQuarks)
-		+"]"
-
-	if(onExportQuarks === maxExportQuarks) {
-		const settingsTab = document.getElementById('settingstab');
-		settingsTab.style.backgroundColor = 'orange';
-		settingsTab.style.border = '1px solid gold';
-		settingsTab.setAttribute('full', 1);
-	}
-
-	if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle){
-	player.sacrificeTimer += (dt * timeMult)
-	if (player.sacrificeTimer >= 10){
-		if(player.cubeUpgrades[20] === 0){
-		let rune = player.autoSacrifice;
-		redeemShards(rune,true,null,0);
-		player.sacrificeTimer -= 10;
+		player.quarkstimer += dt
+		if (player.quarkstimer >= 90000) {
+			player.quarkstimer = 90000
 		}
-		if(player.cubeUpgrades[20] === 1 && player.runeshards >= 5){
-		let baseAmount = Math.floor(player.runeshards/5);
-		for(var i = 1; i<=5; i++){
-		redeemShards(i,true,null,baseAmount);
-		player.sacrificeTimer = player.sacrificeTimer % 10;
+		if (player.researches[61] > 0) {
+			player.obtainiumtimer += (dt * timeMult);
 		}
+		if (player.researches[61] > 0) {
+			document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + format(calculateAutomaticObtainium(), 3, true) + " Obtainium per real life second."
 		}
-	}
-	}
 
-	if (player.achievements[173] == 1){
-		player.antSacrificeTimer += (dt * timeMult)
-		document.getElementById("antSacrificeTimer").textContent =
-			((player.antSacrificeTimer >= 86400)
-				? format(Math.floor(player.antSacrificeTimer / 86400)) + "d"
-				: '') +
-			((player.antSacrificeTimer >= 3600)
-				? format(Math.floor(player.antSacrificeTimer / 3600) % 24) + "h"
-				: '') +
-			((player.antSacrificeTimer >= 60)
-				? format(Math.floor(player.antSacrificeTimer/60) % 60) + "m"
-				: '') +
-			format(Math.floor(player.antSacrificeTimer) % 60) + "s"
-		showSacrifice();
-	}
-	calculateObtainium();
+		const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
+		const maxExportQuarks = (25 * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
+
+		document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)), 2) + "s until +" + (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]) + " export Quark"
+		document.getElementById("quarktimeramount").textContent = "Quarks on export: "
+			+ onExportQuarks
+			+ " [Max "
+			+ format(maxExportQuarks)
+			+ "]"
+
+		if (onExportQuarks === maxExportQuarks) {
+			const settingsTab = document.getElementById('settingstab');
+			settingsTab.style.backgroundColor = 'orange';
+			settingsTab.style.border = '1px solid gold';
+			settingsTab.setAttribute('full', 1);
+		}
+
+		if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle) {
+			player.sacrificeTimer += (dt * timeMult)
+			if (player.sacrificeTimer >= 10) {
+				if (player.cubeUpgrades[20] === 0) {
+					let rune = player.autoSacrifice;
+					redeemShards(rune, true, null, 0);
+					player.sacrificeTimer -= 10;
+				}
+				if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
+					let baseAmount = Math.floor(player.runeshards / 5);
+					for (var i = 1; i <= 5; i++) {
+						redeemShards(i, true, null, baseAmount);
+						player.sacrificeTimer = player.sacrificeTimer % 10;
+					}
+				}
+			}
+		}
+
+		if (player.achievements[173] == 1) {
+			player.antSacrificeTimer += (dt * timeMult)
+			document.getElementById("antSacrificeTimer").textContent =
+				((player.antSacrificeTimer >= 86400)
+					? format(Math.floor(player.antSacrificeTimer / 86400)) + "d"
+					: '') +
+				((player.antSacrificeTimer >= 3600)
+					? format(Math.floor(player.antSacrificeTimer / 3600) % 24) + "h"
+					: '') +
+				((player.antSacrificeTimer >= 60)
+					? format(Math.floor(player.antSacrificeTimer / 60) % 60) + "m"
+					: '') +
+				format(Math.floor(player.antSacrificeTimer) % 60) + "s"
+			showSacrifice();
+		}
+		calculateObtainium();
 		if (player.researches[61] === 1) {
 			player.researchPoints += dt * calculateAutomaticObtainium();
 			if (player.autoResearch > 0 && player.autoResearchToggle) {
@@ -2175,39 +2181,38 @@ function tick() {
 			}
 		}
 
-	if (player.cubeUpgrades[2] > 0){
-		autoOfferingCounter += dt
-		if(autoOfferingCounter > (1 / player.cubeUpgrades[2])){
-			player.runeshards += Math.floor(autoOfferingCounter * player.cubeUpgrades[2])
+		if (player.cubeUpgrades[2] > 0) {
+			autoOfferingCounter += dt
+			if (autoOfferingCounter > (1 / player.cubeUpgrades[2])) {
+				player.runeshards += Math.floor(autoOfferingCounter * player.cubeUpgrades[2])
+			}
+			autoOfferingCounter = autoOfferingCounter % (1 / player.cubeUpgrades[2])
 		}
-		autoOfferingCounter = autoOfferingCounter % (1/player.cubeUpgrades[2])
-	}
-	if (dt > 5) {
-		while(dt > 5){
-			player.prestigecounter += 5 * timeMult;
-			player.transcendcounter += 5 * timeMult;
-			player.reincarnationcounter += 5 * timeMult;
-			player.ascensionCounter += 5
-			resourceGain(5 * timeMult);
+		if (dt > 5) {
+			while (dt > 5) {
+				player.prestigecounter += 5 * timeMult;
+				player.transcendcounter += 5 * timeMult;
+				player.reincarnationcounter += 5 * timeMult;
+				player.ascensionCounter += 5
+				resourceGain(5 * timeMult);
+				updateAll();
+				dt -= 5
+			}
+			player.prestigecounter += (dt * timeMult);
+			player.transcendcounter += (dt * timeMult);
+			player.reincarnationcounter += (dt * timeMult);
+			player.ascensionCounter += dt
+			resourceGain(dt * timeMult);
 			updateAll();
-			dt -= 5
-		}
-		player.prestigecounter += (dt * timeMult);
-		player.transcendcounter += (dt * timeMult);
-		player.reincarnationcounter += (dt * timeMult);
-		player.ascensionCounter += dt
-		resourceGain(dt * timeMult);
-		updateAll();
-		player.offlinetick = Date.now()
-	}
-	else if (dt <= 5){
+			player.offlinetick = Date.now()
+		} else if (dt <= 5) {
 			resourceGain(dt * timeMult);
 			player.prestigecounter += (dt * timeMult);
 			player.transcendcounter += (dt * timeMult);
 			player.reincarnationcounter += (dt * timeMult);
 			player.ascensionCounter += dt
+		}
 	}
-}
 }
 
 
