@@ -75,7 +75,7 @@ function(){return "Wow! I want Plutus blessing bonuses to scale better 1"},
 function(){return "Wow! I want Moloch blessing bonuses to scale better 1"},
 function(){return "Wow! I want to start Ascensions with rune levels."},
 function(){return "Wow! I want to start Ascensions with one of each reincarnation building."},
-function(){return "Wow! I want to start Ascensions with a lump sum of obtainium."},
+function(){return "Wow! I want finally render Reincarnating obsolete."},
 function(){return "Wow! I want to increase maximum Reincarnation Challenge completions."},
 function(){return "Wow! I want to gain +1 blessing per wow cube opened..."},
 function(){return "Wow! I want more cubes 4."},
@@ -102,21 +102,21 @@ function(){return "Wow! I want to automate Ascensions you stupid developer"}]
 const cubeBaseCost = [null,
     500, 500, 500, 1000, 1000, 1500, 500, 1000, 1500, 2500,
     5000, 3000, 10000, 1e4, 1e4, 1e4, 4000, 1e4, 50000, 7500,
-    5e4, 3e4, 3e4, 1e5, 1e5, 1e4, 1e5, 2e4, 1e5, 5e5,
+    5e4, 3e4, 3e4, 1e5, 1e5, 1e4, 1e5, 177777, 1e5, 5e5,
     5e5, 3e5, 3e5, 1e6, 1e6, 2e5, 5e5, 1e6, 1e6, 5e6,
     5e6, 1e6, 1e6, 1e7, 1e7, 5e5, 2e6, 2e7, 3e7, 5e7] 
 
 const cubeMaxLevel = [null,
-    2, 10, 90, 1, 1, 1, 1, 1, 1, 1,
+    2, 10, 5, 1, 1, 1, 1, 1, 1, 1,
     3, 20, 1, 10, 10, 10, 25, 25, 1, 1,
-    4, 10, 1, 10, 10, 10, 1, 10, 5, 1,
+    4, 10, 1, 10, 10, 10, 1, 1, 5, 1,
     5, 1, 1, 10, 10, 20, 10, 3, 3, 1,
     6, 50, 50, 10, 10, 20, 20, 1, 1, 1]
 
 const cubeUpgradeDescriptions = [null,
 function(){return "You got it! +1 cube from challenges, +10% cubes from Ascending."},
 function(){return "Plutus grants you +1 Offering per second, no matter what, per level. Also a +0.5% Recycling chance!"},
-function(){return "Athena grants you +10% automatic obtainium per level."},
+function(){return "Athena grants you +20% more Obtainium, and +80% Auto Obtainium per level."},
 function(){return "You keep those 5 useful automation upgrades in the upgrade tab!"},
 function(){return "You keep the mythos upgrade automation upgrade in the upgrade tab!"},
 function(){return "You keep the automatic mythos gain upgrade in the upgrad tab!"},
@@ -141,7 +141,7 @@ function(){return "Plutus teaches you the Art of the Deal. The effect power is n
 function(){return "Moloch lends you a hand in communicating with Ant God. The effect power is now increased by +0.01 (+0.0033 if >1000 blessings) per level."},
 function(){return "Start ascensions with 3 additional rune levels [Does not decrease EXP requirement] per level."},
 function(){return "Upon an ascension, you will start with 1 of each reincarnation building to speed up Ascensions."},
-function(){return "Start with 1,000 more obtainium on ascension per level."},
+function(){return "Well, I think you got it? Gain +1% of particles on Reincarnation per second."},
 function(){return "Add +1 to Reincarnation Challenge cap per level."},
 function(){return "Whenever you open a cube, Aphrodite grazes it with a secondary blessing."},
 function(){return "You again? +1 cube from challenges, +10% cubes from Ascending."},
@@ -199,10 +199,14 @@ function cubeUpgradeDesc(i){
 
 function updateCubeUpgradeBG(i){
     let a = document.getElementById("cubeUpg"+i)
-
+    if(player.cubeUpgrades[i] > cubeMaxLevel[i]){
+        console.log("Refunded " + (player.cubeUpgrades[i] - cubeMaxLevel[i]) + " levels of Cube Upgrade " + i + ", adding " + (player.cubeUpgrades[i] - cubeMaxLevel[i]) * cubeBaseCost[i] + " Wow! Cubes to balance.")
+        player.wowCubes += (player.cubeUpgrades[i] - cubeMaxLevel[i]) * cubeBaseCost[i]
+        player.cubeUpgrades[i] = cubeMaxLevel[i]
+    }
     if(player.cubeUpgrades[i] === 0){a.style.backgroundColor = "black"}
-    if(player.cubeUpgrades[i] > 0 && player.cubeUpgrades[i] < cubeMaxLevel[i]){a.style.backgroundColor = "silver"}
-    if(player.cubeUpgrades[i] === cubeMaxLevel[i]){a.style.backgroundColor = "orange"}
+    if(player.cubeUpgrades[i] > 0 && player.cubeUpgrades[i] < cubeMaxLevel[i]){a.style.backgroundColor = "purple"}
+    if(player.cubeUpgrades[i] === cubeMaxLevel[i]){a.style.backgroundColor = "green"}
 
 }
 
