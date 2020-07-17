@@ -2101,7 +2101,7 @@ const setToggleBtnColors = function() {
 		el.style.border = '2px solid ' + (isOn ? 'green' : 'red');
 		el.setAttribute('toggled', isOn ? 1 : 0);
 	}
-}
+} 
 
 function tick() {
 
@@ -2121,10 +2121,10 @@ function tick() {
 	const maxExportQuarks = (25 * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
 
 	document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)),2) + "s until +" +(1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]) + " export Quark"
-	document.getElementById("quarktimeramount").textContent = "Quarks on export: "
-		+ onExportQuarks
-		+ " [Max "
-		+ format(maxExportQuarks)
+	document.getElementById("quarktimeramount").textContent = "Quarks on export: " 
+		+ onExportQuarks 
+		+ " [Max " 
+		+ format(maxExportQuarks) 
 		+"]"
 
 	if(onExportQuarks === maxExportQuarks) {
@@ -2154,16 +2154,16 @@ function tick() {
 
 	if (player.achievements[173] == 1){
 		player.antSacrificeTimer += (dt * timeMult)
-		document.getElementById("antSacrificeTimer").textContent =
+		document.getElementById("antSacrificeTimer").textContent = 
 			((player.antSacrificeTimer >= 86400)
 				? format(Math.floor(player.antSacrificeTimer / 86400)) + "d"
-				: '') +
+				: '') + 
 			((player.antSacrificeTimer >= 3600)
 				? format(Math.floor(player.antSacrificeTimer / 3600) % 24) + "h"
-				: '') +
+				: '') + 
 			((player.antSacrificeTimer >= 60)
 				? format(Math.floor(player.antSacrificeTimer/60) % 60) + "m"
-				: '') +
+				: '') + 
 			format(Math.floor(player.antSacrificeTimer) % 60) + "s"
 		showSacrifice();
 	}
@@ -2300,8 +2300,14 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		initToggleBtnColors();
 		revealStuff();
 		hideStuff();
-		createTimer();
-		constantIntervals();
+
+		// For automated testing, it's best for the tests to control when time-interval operations occur.
+		// Only defined then, so we need to check it as a property of window.
+		if(!window["__karma__"]) {
+			createTimer();
+			constantIntervals();
+		}
+
 		htmlInserts();
 	}, 0);
 
