@@ -1,6 +1,10 @@
-
-
-// BETA SAVE FUNCTION
+const intervalHold = [];
+const interval = new Proxy(setInterval, {
+    apply(handler, _, c) {
+        const set = handler(...c);
+        intervalHold.push(set);
+    }
+});
 
 const player = {
 	worlds: 0,
@@ -391,30 +395,10 @@ const player = {
 			  },
 			  tabnumber: 1,
 			  
-			  offerpromo1used: false,
-			  offerpromo2used: false,
-			  offerpromo3used: false,
-			  offerpromo4used: false,
-			  offerpromo5used: false,
-			  offerpromo6used: false,
-			  offerpromo7used: false,
-			  offerpromo8used: false,
-			  offerpromo9used: false,
-			  offerpromo10used: false,
-			  offerpromo11used: false,
-			  offerpromo12used: false,
-			  offerpromo13used: false,
-			  offerpromo14used: false,
-			  offerpromo15used: false,
-			  offerpromo16used: false,
-			  offerpromo17used: false,
-			  offerpromo18used: false,
-			  offerpromo19used: false,
-			  offerpromo20used: false,
-			  offerpromo21used: false,
-			  offerpromo22used: false,
-			  offerpromo23used: false,
-			  offerpromo24used: false,
+	// create a Map with keys defaulting to false
+	codes: new Map(
+		Array.from(Array(24), (_, i) => [i + 1, false])
+	),
 
 			  loaded1009: true,
 			  loaded1009hotfix1: true,
@@ -498,22 +482,32 @@ const player = {
 
 			  brokenfile1: false,
 			  exporttest: "YES!",
-			  kongregatetest: "NO!"
+			  kongregatetest: "NO!",
+
+	[Symbol.for('version')] : '1.0101'
 }
 
-Object.defineProperty(player, 'version', {
-   configurable: false,
-   enumerable: true,
-   value: '1.0101'
-});
+/**
+ * stringify a map so it can be re-made when importing
+ * @param {Map} m map to stringify
+ */
+const toStringMap = m => {
+	const hold = [];
+	for(const kvPair of m) {
+		hold.push(kvPair);
+	}
+	return hold;
+}
 
 function saveSynergy(button) {
-	   player.offlinetick = Date.now()
-	   player.loaded1009 = true;
-	   player.loaded1009hotfix1 = true;
+	player.offlinetick = Date.now();
+	player.loaded1009 = true;
+	player.loaded1009hotfix1 = true;
 	   
-   	const p = player; // temp hold
-	delete p.version; // don't save
+	// shallow hold, doesn't modify OG object nor is affected by modifications to OG
+	const p = Object.assign({}, player);
+	p.codes = toStringMap(p.codes);
+
    	localStorage.setItem("Synergysave2", btoa(JSON.stringify(p)));	
 
    	if (button) {
@@ -525,136 +519,54 @@ function saveSynergy(button) {
    	}
 }
 
-
-
 function loadSynergy() {
-   const string = localStorage.getItem("Synergysave2");
-   const data = string ? JSON.parse(atob(string)) : null;
+	const save = localStorage.getItem("Synergysave2");
+	const data = save ? JSON.parse(atob(save)) : null;
+	   
+   	if (data) {
+		function isDecimal(o) {
+			if(!(o instanceof Object)) {
+				return false;
+			}
+			return Object.keys(o).length === 2 && Object.keys(o).every(function(v) { return ['mantissa', 'exponent'].indexOf(v) > -1 });
+		}
 
+		const hasOwnProperty = {}.hasOwnProperty;
 
-   if (data) {
-	   function isDecimal(o) {
-		   if(!(o instanceof Object)) {
-			   return false;
-		   }
-		   return Object.keys(o).length === 2 && Object.keys(o).every(function(v) { return ['mantissa', 'exponent'].indexOf(v) > -1 });
-	   }
+		const oldCodesUsed = Array.from(
+			player.codes.size, // could be defaulted to 24 but this is safer
+			(_, i) => 'offerpromo' + (i+1) + 'used'
+		);
 
-	   if(data.version) {
-		   delete data.version;
-	   }
-	   try{
-	   Object.keys(data).forEach(function(v) {
-		   Object.defineProperty(player, v, {
-			   value: isDecimal(player[v]) ? new Decimal(data[v]) : data[v]
-		   });
-	   });}
-	   catch(err){console.log(err)}
+		Object.keys(data).forEach(function(prop) {
+			if(!hasOwnProperty.call(player, prop)) {
+				return;
+			}
+
+			if(isDecimal(player[prop])) {
+				return (player[prop] = new Decimal(data[prop]));
+			} else if(prop === 'codes') {
+				return (player.codes = new Map(data[prop]));
+			} else if(oldCodesUsed.includes(prop)) { // convert old save to new format
+				const num = Number(prop.replace(/[^\d]/g, '')); // remove non-numeric characters
+				if(!player.codes.has(num) || isNaN(num)) {
+					throw new Error('Non-numeric type encountered loading save: ' + num + ' ' + data[prop], + ' ' + prop);
+				}
+
+				return player.codes.set(num, data[prop]);
+			}
+
+			return (player[prop] = data[prop]);
+		});
 
 	   if (data.loaded1009 === undefined || !data.loaded1009 || data.loaded1009 === null){player.loaded1009 = false;}
 	   if (data.loaded1009hotfix1 === undefined || !data.loaded1009hotfix1 || data.loaded1009hotfix1 === null){player.loaded1009hotfix1 = false;}
 	   if (data.loaded10091 === undefined){player.loaded10091 = false;}
-	   if (data.offerpromo20used === undefined){player.offerpromo20used = false;}
 	   if (data.loaded1010 === undefined){player.loaded1010 = false;}
-	   if (data.offerpromo22used === undefined){player.offerpromo22used = false;}
 	   if (data.loaded10101 === undefined){player.loaded10101 = false;}
-	   if (data.offerpromo24used === undefined){player.offerpromo24used = false;}
 
-	   if (player.offerpromo6used === undefined){
-		player.offerpromo6used = false; 
-		player.obtainiumtimer = 0; 
-		player.offlinetick = new Date.now();
-	   }
-	   if (player.offerpromo7used === undefined){
-		player.offerpromo7used = false;
-		if(player.fastestreincarnate < 15) {
-			player.fastestreincarnate = 999999
-		}
-		
-		player.researchPoints += 100 * player.researches[19];
-		player.researchPoints += 1000 * player.researches[20];
-		player.researchPoints += 1 * player.researches[51];
-		player.researchPoints += 10 * player.researches[52];
-		player.researchPoints += 500 * player.researches[53];
-		player.researchPoints += 15000 * player.researches[54];
-		player.researchPoints += 500000 * player.researches[55];
-		player.researchPoints += 5 * player.researches[56];
-		player.researchPoints += 25 * player.researches[57];
-		player.researchPoints += 125 * player.researches[58];
-		player.researchPoints += 625 * player.researches[59];
-		player.researchPoints += 3125 * player.researches[60];
-		player.researchPoints += 5 * player.researches[37];
-		player.researchPoints += 25 * player.researches[38];
-		player.researchPoints += 100 * player.researches[68];
-		player.researchPoints += 250 * player.researches[69];
-		player.researchPoints += 1000 * player.researches[70];
-
-		player.researches[19] = 0;
-		player.researches[20] = 0;
-		player.researches[51] = 0;
-		player.researches[52] = 0;
-		player.researches[53] = 0;
-		player.researches[54] = 0;
-		player.researches[55] = 0;
-		player.researches[56] = 0;
-		player.researches[57] = 0;
-		player.researches[58] = 0;
-		player.researches[59] = 0;
-		player.researches[60] = 0;
-		player.researches[37] = 0;
-		player.researches[38] = 0;
-		player.researches[68] = 0;
-		player.researches[69] = 0;
-		player.researches[70] = 0;   
-	   }
-
-	   if (player.offerpromo8used === undefined){
-		player.offerpromo8used = false;
-		player.researchPoints += 5 * player.researches[61];
-		player.researchPoints += 20 * player.researches[62];
-		player.researchPoints += 80 * player.researches[63];
-		player.researchPoints += 320 * player.researches[64];
-		player.researchPoints += 1280 * player.researches[65];
-
-		player.researches[61] = 0;
-		player.researches[62] = 0;
-		player.researches[63] = 0;
-		player.researches[64] = 0;
-		player.researches[65] = 0;
-
-
-	}
-
-	if (player.offerpromo9used === undefined){
-		player.offerpromo9used = false;
-	}
-	if (player.offerpromo10used === undefined){
-		player.offerpromo10used = false;
-		player.resettoggle1 = 1;
-		player.resettoggle2 = 1;
-		player.resettoggle3 = 1;
-		player.retrychallenges = false
-	}
-	if (player.offerpromo11used === undefined){
-		player.offerpromo11used = false;
-	}
-	if (player.offerpromo12used === undefined) {
-		player.offerpromo12used = false;
-	}
-	if (player.offerpromo13used === undefined){
-		player.offerpromo13used = false;
-		player.researches.push(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-	    player.achievements.push(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-	    player.offeringlocktoggle = false;
-		player.obtainiumlocktoggle = false;
-		player.researchPoints += 51200 * player.researches[50];
-		player.researches[50] = 0;
-		player.maxofferings = player.runeshards;
-		player.maxobtainium = player.researchPoints;
-
-	}
 	if (player.researches[76] === undefined){
-		player.offerpromo13used = false;
+		player.codes.set(13, false);
 		player.researches.push(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 		player.achievements.push(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 		player.maxofferings = player.runeshards;
@@ -664,37 +576,11 @@ function loadSynergy() {
 		player.offeringlocktoggle = false;
 		player.obtainiumlocktoggle = false;
 	}
-
-	if (player.offerpromo14used === undefined){
-		player.offerpromo14used = false;
-		if (player.researches[50] < 0.5) {player.unlocks.rrow4 = false;}
-		player.reincarnatenomultiplier = true;
-	}
 	
 	player.maxofferings = player.maxofferings || 0;
 	player.maxobtainium = player.maxobtainium || 0;
 	player.runeshards = player.runeshards || 0;
 	player.researchPoints = player.researchPoints || 0;
-
-	if (player.offerpromo15used === undefined){
-		player.offerpromo15used = false;
-		if (player.runeshards > 1000000){player.runeshards = 1000000; player.maxofferings = 1000000;};
-		if (player.researchPoints > 1.5e9){player.researchPoints = 1.5e9; player.maxobtainium = 1.5e9;};
-
-	}
-	if (player.offerpromo16used === undefined){
-		player.offerpromo16used = false;
-		player.brokenfile1 = false;
-	}
-	if (player.offerpromo17used === undefined){
-		player.offerpromo17used = false;
-		player.offeringpersecond = 0;
-		player.obtainiumpersecond = 0;
-		player.quarkstimer = 90000;
-		player.researchPoints += (100 * player.researches[31] + 1000 * player.researches[32]);
-		player.researches[31] = 0;
-		player.researches[32] = 0;
-	}
 
 	if (!data.loaded1009 || data.loaded1009 === undefined || data.loaded1009hotfix1 === null || data.shopUpgrades.offeringPotion === undefined) {
 		player.firstOwnedParticles = 0;
@@ -713,7 +599,7 @@ function loadSynergy() {
 		player.autoSacrifice = 0;
 		player.sacrificeTimer = 0;
 		player.loaded1009 = true;
-		player.offerpromo18used = false;
+		player.codes.set(18, false);
 		player.shopUpgrades = {
 			offeringPotion: 1,
 			obtainiumPotion: 1,
@@ -727,7 +613,7 @@ function loadSynergy() {
 	} 
 	if (!data.loaded1009hotfix1 || data.loaded1009hotfix1 === undefined || data.loaded1009hotfix1 === null) {
 		player.loaded1009hotfix1 = true;
-		player.offerpromo19used = true;
+		player.codes.set(19, true);
 		player.firstOwnedParticles = 0;
 		player.secondOwnedParticles = 0;
 		player.thirdOwnedParticles = 0;
@@ -739,8 +625,7 @@ function loadSynergy() {
 		player.fourthCostParticles = new Decimal("1e8");
 		player.fifthCostParticles = new Decimal("1e16");
 	}
-	if (data.offerpromo19used === undefined || data.loaded10091 === undefined || !data.loaded10091 || player.researches[86] > 100 || player.researches[87] > 100 || player.researches[88] > 100 || player.researches[89] > 100 || player.researches[90] > 10){
-		player.offerpromo19used = false;
+	if (data.loaded10091 === undefined || !data.loaded10091 || player.researches[86] > 100 || player.researches[87] > 100 || player.researches[88] > 100 || player.researches[89] > 100 || player.researches[90] > 10){
 		player.loaded10091 = true;
 		player.researchPoints += 7.5e8 * player.researches[82];
 		player.researchPoints += 2e8 * player.researches[83];
@@ -765,7 +650,7 @@ function loadSynergy() {
 
 	if (data.achievements[169] === undefined || player.achievements[169] === undefined || data.shopUpgrades.antSpeedLevel === undefined || player.shopUpgrades.antSpeedLevel === undefined || data.loaded1010 === undefined || data.loaded1010 === false) {
 		player.loaded1010 = true;
-		player.offerpromo21used = false;
+		player.codes.set(21, false);
 
 		player.firstOwnedAnts = 0;
    		player.firstGeneratedAnts = new Decimal("0");
@@ -865,12 +750,7 @@ function loadSynergy() {
 		
 	}
 
-	if(data.offerpromo22used === undefined || data.offerpromo22used === false){
-		player.offerpromo22used = false;
-	}
-
-	if(data.loaded10101 === undefined || data.loaded10101 === false){
-		player.offerpromo23used = false;
+	if(data.loaded10101 === undefined || data.loaded10101 === false) {
 		player.loaded10101 = true;
 
 		let refundThese = [0,31,32,61,62,63,64,76,77,78,79,80,
@@ -889,13 +769,11 @@ function loadSynergy() {
 		player.antMax = false;
 	}
 
-	if(data.offerpromo24used === undefined || data.offerpromo24used === false){
-		player.offerpromo24used = false;
-	}
 	if(player.firstOwnedAnts < 1 && player.firstCostAnts.greaterThanOrEqualTo("1e1200")){
 		player.firstCostAnts = new Decimal("1e800");
 		player.firstOwnedAnts = 0;
 	}
+
 	player.exporttest = "NO!"
 	if(data.ascensionCount === undefined || player.ascensionCount === 0){
 		player.ascensionCount = 0;
@@ -1077,18 +955,6 @@ calculateRuneLevels();
 updateAchievementBG();
 
 }
-
-(function () {
-	const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
-	const isLZString = dec !== '';
- 
-	if(isLZString) {
-		localStorage.clear();
-		localStorage.setItem('Synergysave2', btoa(dec));
-		loadSynergy();
-		alert('Transferred save to new format successfully!');
-	}
- })();
 
 function format(input,accuracy,long){
 	//This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
@@ -2187,11 +2053,11 @@ function updateAll() {
 // Functions which (try) to successfully load the game
 
 function constantIntervals() {
-		setInterval(saveSynergy, 5000);
-		setInterval(autoUpgrades, 200);
-		setInterval(buttoncolorchange, 200)
-		setInterval(updateAll,50)
-		setInterval(buildingAchievementCheck, 200)
+		interval(saveSynergy, 5000);
+		interval(autoUpgrades, 200);
+		interval(buttoncolorchange, 200)
+		interval(updateAll,50)
+		interval(buildingAchievementCheck, 200)
 
 		if(!timeWarp){
 			document.getElementById("preload").style.display = "none";
@@ -2203,7 +2069,7 @@ let lastUpdate = 0;
 
 function createTimer() {
 	lastUpdate = Date.now();
-	setInterval(tick, 50);
+	interval(tick, 50);
 }
 
 function initToggleBtnColors() {
