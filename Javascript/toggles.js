@@ -127,7 +127,7 @@ function toggleauto() {
             }
             let u = i
             let stupidHackTime = [player.toggles.one,player.toggles.two,player.toggles.three,player.toggles.four,player.toggles.five,player.toggles.six,player.toggles.seven,player.toggles.eight,player.toggles.ten,player.toggles.eleven,player.toggles.twelve,player.toggles.thirteen,player.toggles.fourteen,player.toggles.fifteen,player.toggles.sixteen,player.toggles.seventeen,player.toggles.eighteen,player.toggles.nineteen,player.toggles.twenty,player.toggles.twentyone,player.toggles.twentytwo,player.toggles.twentythree,player.toggles.twentyfour,player.toggles.twentyfive,player.toggles.twentysix,player.toggles.twentyseven,player.toggles.nine,player.toggles.ten,player.toggles.eleven,player.toggles.nine,player.toggles.nine,player.toggles.twentyeight,player.toggles.twentynine,player.toggles.thirty]
-            console.log(stupidHackTime.length)
+            //console.log(stupidHackTime.length)
 			if (stupidHackTime[i]){b = "ON]"}
 			if (!stupidHackTime[i]) {b = "OFF]"}
 

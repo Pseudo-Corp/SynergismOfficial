@@ -2298,8 +2298,14 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		initToggleBtnColors();
 		revealStuff();
 		hideStuff();
-		createTimer();
-		constantIntervals();
+
+		// For automated testing, it's best for the tests to control when time-interval operations occur.
+		// Only defined then, so we need to check it as a property of window.
+		if(!window["__karma__"]) {
+			createTimer();
+			constantIntervals();
+		}
+
 		htmlInserts();
 	}, 0);
 
