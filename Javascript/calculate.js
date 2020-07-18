@@ -498,8 +498,7 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
     if(timeadd < 1000){simulatedTicks = Math.min(1, Math.floor(timeadd/1.25)); tickValue = Math.min(1.25,timeadd);};
     let maxSimulatedTicks = simulatedTicks;
     player.quarkstimer += timeadd / calculateTimeAcceleration();
-    // TODO the automatic obt here is wrong, solution: use calculateAutomaticObtainium when it gets merged
-    if (player.researches[61] > 0){player.researchPoints += timeadd * (0.05 + 0.05 * player.researches[62]) * player.maxobtainiumpersecond}
+    if (player.researches[61] > 0){player.researchPoints += timeadd * calculateAutomaticObtainium()}
     if (player.achievements[173] == 1){
         player.antSacrificeTimer += timeadd;
     }
