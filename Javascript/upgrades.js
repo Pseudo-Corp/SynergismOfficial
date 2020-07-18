@@ -495,3 +495,16 @@ function researchdescriptions(i,auto) {
     document.getElementById("researchcost").textContent = z
     document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + researchMaxLevels[i]
 }
+
+function updateResearchBG(j) {
+
+    if(player.researches[j] > researchMaxLevels[j]){
+        player.researchPoints += (player.researches[j] - researchMaxLevels[j]) * researchBaseCosts[j]
+        player.researches[j] = researchMaxLevels[j]
+    }
+
+    var k = "res" + j
+	if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "purple"}
+	else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "green"}
+	else {document.getElementById(k).style.backgroundColor = "black"}
+}
