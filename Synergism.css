@@ -334,6 +334,11 @@ a {color: white;}
 	top: 178px;
 	left: 44.75%;
 }
+#switchToTesseractBuilding{	
+	position: absolute;	
+	top: 178px;	
+	left: 56.75%;	
+}
 #buyamountcoin {
 	position: absolute;
 	padding: 0px;
@@ -1534,6 +1539,13 @@ margin-left: -13px
 	left: 80%;
 	top: 20px;
 }
+#buyAmountTesseract{	
+	position: absolute;	
+	padding: 0px;	
+	font-size: 0px;	
+	left: 80%;	
+	top: 20px;	
+}
 #togglecrystalbuy{
 	color: white;
 	position: absolute;
@@ -1579,6 +1591,15 @@ margin-left: -13px
 	top: 30px;
 	margin-left: -87px;
 }
+#toggleTesseractBuy{	
+	color: white;	
+	position: absolute;	
+	font-size: 11px;	
+	width: 220px;	
+	left: 80%;	
+	top: 30px;	
+	margin-left: -87px;	
+}
 #prestigeshardinfo {
     position: absolute;
     padding: 0px;
@@ -1598,6 +1619,7 @@ margin-left: -13px
 #diamond2 {
     position: absolute;
     top: 93px;
+	
     left: 10%;
     margin-left: -18px;
 
@@ -4059,4 +4081,57 @@ margin-left: -13px
 	margin-left: -500px;
 	top: 280px;
 	font-size: 1.5em;
+}
+#ascension {
+	position: relative;
+	padding: 0px;
+	top: 118px;
+	border: 1px solid orange
+}
+.ascendPics{
+	color: orange;
+	border: 1px solid yellow;
+	position: absolute;
+	margin-left: -18px;
+}
+.ascendTexts {
+	color: orange;
+	position: absolute;
+}
+.tesseractBuyBtn {
+	position: absolute;
+	width: 150px;
+	height: 30px;
+	left: 37%;
+	margin-top: -15px;
+	border: 1px solid white;
+	border-radius: 8px;
+}
+
+#tesseractInfo{
+	position: absolute;
+    padding: 0px;
+    top: 240px;
+    width: 1000px;
+    left: 50%;
+    margin-left: -500px;
+}
+#ascendShardInfo{
+	position: absolute;
+    padding: 0px;
+    top: 260px;
+    width: 1000px;
+    left: 50%;
+    margin-left: -500px;
+}
+#ascendHotKeys{
+	position: absolute;
+	padding: 5px;
+	top: 460px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: gray;
+	text-align: center;
 }
