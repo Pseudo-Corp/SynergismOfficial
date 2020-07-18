@@ -205,7 +205,7 @@ a {color: white;}
 	width: 100px;
 	left: 80%;
 	margin-left: -50px;
-	
+
 
 	border: 1px solid white;
 
@@ -773,7 +773,7 @@ margin-left: -13px
 	top: 150px;
 	left: 70%;
 	margin-left: -88px;
-	
+
 }
 
 #generatortable {
@@ -1396,7 +1396,7 @@ margin-left: -13px
 	text-align: center;
 	padding: 0px;
 	border: 1px solid white
-	
+
 }
 #achievementprogress {
 	position: absolute;
@@ -1587,46 +1587,46 @@ margin-left: -13px
     left: 50%;
     margin-left: -350px;
 }
- 
+
 #diamond1 {
     position: absolute;
     top: 58px;
     left: 10%;
     margin-left: -18px;
 }
- 
+
 #diamond2 {
     position: absolute;
     top: 93px;
     left: 10%;
     margin-left: -18px;
- 
+
 }
- 
+
 #diamond3 {
     position: absolute;
     top: 128px;
     left: 10%;
     margin-left: -18px;
- 
+
 }
- 
+
 #diamond4 {
     position: absolute;
     top: 163px;
     left: 10%;
     margin-left: -18px;
- 
+
 }
- 
+
 #diamond5 {
     position: absolute;
     top: 198px;
     left: 10%;
     margin-left: -18px;
 }
- 
- 
+
+
 #prestigetext1 {
     position: absolute;
     top: 44px;
@@ -1667,7 +1667,7 @@ margin-left: -13px
     top: 149px;
     left: 56.5%;
 }
- 
+
 #prestigetext9 {
     position: absolute;
     top: 184px;
@@ -1678,7 +1678,7 @@ margin-left: -13px
     top: 184px;
     left: 56.5%;
 }
- 
+
 #buydiamond1 {
     position: absolute;
     width: 150px;
@@ -1688,9 +1688,9 @@ margin-left: -13px
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
- 
+
 }
- 
+
 #buydiamond2 {
     position: absolute;
     width: 150px;
@@ -1700,9 +1700,9 @@ margin-left: -13px
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
- 
+
 }
- 
+
 #buydiamond3 {
     position: absolute;
     width: 150px;
@@ -1712,9 +1712,9 @@ margin-left: -13px
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
- 
+
 }
- 
+
 #buydiamond4 {
     position: absolute;
     width: 150px;
@@ -1724,9 +1724,9 @@ margin-left: -13px
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
- 
+
 }
- 
+
 #buydiamond5 {
     position:absolute;
     width: 150px;
@@ -1736,9 +1736,9 @@ margin-left: -13px
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
- 
+
 }
- 
+
 #prestigeinfo {
     color: cyan;
 }
@@ -3160,7 +3160,7 @@ margin-left: -13px
     top: 118px;
     border: 1px solid green
 }
- 
+
 #reincarnationshardinfo {
     position: absolute;
     padding: 0px;
@@ -3185,46 +3185,46 @@ margin-left: -13px
     left: 50%;
     margin-left: -500px;
 }
- 
+
 #particles1 {
     position: absolute;
     top: 58px;
     left: 10%;
     margin-left: -18px;
 }
- 
+
 #particles2 {
     position: absolute;
     top: 93px;
     left: 10%;
     margin-left: -18px;
- 
+
 }
- 
+
 #particles3 {
     position: absolute;
     top: 128px;
     left: 10%;
     margin-left: -18px;
- 
+
 }
- 
+
 #particles4 {
     position: absolute;
     top: 163px;
     left: 10%;
     margin-left: -18px;
- 
+
 }
- 
+
 #particles5 {
     position: absolute;
     top: 198px;
     left: 10%;
     margin-left: -18px;
 }
- 
- 
+
+
 #reincarnationtext1 {
     position: absolute;
     top: 47px;
@@ -3265,7 +3265,7 @@ margin-left: -13px
     top: 152px;
     left: 56.5%;
 }
- 
+
 #reincarnationtext5 {
     position: absolute;
     top: 187px;
@@ -3276,7 +3276,7 @@ margin-left: -13px
     top: 187px;
     left: 56.5%;
 }
- 
+
 #buyparticles1 {
     position: absolute;
     width: 150px;
@@ -3286,9 +3286,9 @@ margin-left: -13px
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
- 
+
 }
- 
+
 #buyparticles2 {
     position: absolute;
     width: 150px;
@@ -3298,9 +3298,9 @@ margin-left: -13px
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
- 
+
 }
- 
+
 #buyparticles3 {
     position: absolute;
     width: 150px;
@@ -3310,9 +3310,9 @@ margin-left: -13px
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
- 
+
 }
- 
+
 #buyparticles4 {
     position: absolute;
     width: 150px;
@@ -3322,9 +3322,9 @@ margin-left: -13px
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
- 
+
 }
- 
+
 #buyparticles5 {
     position:absolute;
     width: 150px;
@@ -3334,7 +3334,7 @@ margin-left: -13px
     margin-top: -15px;
     border: 1px solid white;
     border-radius: 8px;
- 
+
 }
 
 #toggle27 {
@@ -3374,7 +3374,7 @@ margin-left: -13px
 	color: white;
 	background-color: black
 }
- 
+
 #reincarnationinfo {
     color: lime;
 }
@@ -3543,7 +3543,7 @@ margin-left: -13px
 	width: 200px;
 	margin-left: -67px;
 	color: orangered;
-	font-size: 1.2em; 
+	font-size: 1.2em;
 }
 #consumablesimage{
 	position: absolute;
@@ -3861,9 +3861,9 @@ margin-left: -13px
 	top: 0px;
 	color: orange;
 	font-size: 1.2em;
-	width: 1000px;
+	width: 700px;
 	left: 50%;
-	margin-left: -500px;
+	margin-left: -350px;
 
 }
 #cubeExpository1{
