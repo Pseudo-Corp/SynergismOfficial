@@ -99,6 +99,11 @@ function revealStuff() {
 	for (var i = 0; i < example20.length; i++){
 		player.achievements[141] === 1 ? example20[i].style.display = "block" : example20[i].style.display = "none"
 	}
+	
+	let example21 = document.getElementsByClassName("ascendunlock");
+	for (var i = 0; i < example21.length; i++){
+		player.ascensionCount > 0 ? example21[i].style.display = "block" : example21[i].style.display = "none"
+	}
 
 	player.upgrades[89] === 1 ? //Automatic Transcension Upgrade
 		document.getElementById("transcendautomation").style.display = "block":
@@ -476,6 +481,19 @@ function htmlInserts() {
 		} 
 	}
 
+	if (currentTab === "buildings" && buildingSubTab === "tesseract"){
+		let names= [null, 'Dot','Vector','Three-Space','Bent Time','Hilbert Space']
+		let perSecNames = [null, '+Constant/sec', 'Dot/sec', 'Vector/sec', 'Three-Space/sec', 'Bent Time/sec']
+		for(var i = 1; i <= 5; i++){
+			document.getElementById("ascendText"+i).textContent = names[i] + ": " + format(player['ascendBuilding'+i]['owned'],0,true) + " [+" + format(player['ascendBuilding'+i]['generated'],2) + "]"
+			document.getElementById("ascendText"+(5+i)).textContent = perSecNames[i] + ": " + format((ascendBuildingProduction[ordinals[i-1]]),2)
+			document.getElementById("buyTesseracts"+i).textContent = "Cost: BROKE TESSERACTS"// + format(player['ascendBuilding'+i]['cost'],2) + " Tesseracts"
+		}
+
+		document.getElementById("tesseractInfo").textContent = "You have " + format(player.wowTesseracts) + " Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension."
+		document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards,2) + ". Taxes are divided by " + format(Decimal.log(player.ascendShards.add(1),10)+1,4,true) +"."
+	}
+
 	if (currentTab == "upgrades") {}
 
 	if (currentTab == "settings") {}
@@ -495,7 +513,7 @@ function htmlInserts() {
 				place = window[placeholder]
 
 				document.getElementById('rune'+i+'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i-1]) + "/" + format(calculateMaxRunes(i))
-				document.getElementById('rune'+i+'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i-1),2) + " EXP"
+				document.getElementById('rune'+i+'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i-1)-player.runeexp[i-1],2) + " EXP"
 				document.getElementById('bonusrune'+i).textContent = " [" + format(player.antUpgrades[9] + bonusant9 + place) + "]"
 			}
 	
@@ -671,12 +689,12 @@ function buttoncolorchange() {
 		((!player.toggles.fourteen || player.achievements[106] == 0) && player.prestigePoints.greaterThanOrEqualTo(player.fifthCostDiamonds)) ? e.style.backgroundColor = "#555555" : e.style.backgroundColor = "#171717";
 		let k = 0;
 		k += Math.floor(player.runelevels[2]/10 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800)) * 100/100
-		if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== ""){k += 10};
-		(player.achievements[79] < 0.5 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[0] + crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) /2))))) ? f.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
-		(player.achievements[86] < 0.5 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[1] + crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) /2))))) ? g.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
-		(player.achievements[93] < 0.5 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[2] + crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) /2))))) ? h.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
-		(player.achievements[100] < 0.5 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[3] + crystalUpgradeCostIncrement[3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) /2))))) ? i.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
-		(player.achievements[107] < 0.5 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[4] + crystalUpgradeCostIncrement[4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) /2))))) ? j.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
+		if (player.upgrades[73] === 1 && player.currentChallengeRein !== ""){k += 10};
+		(player.achievements[79] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[0] + crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) /2))))) ? f.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
+		(player.achievements[86] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[1] + crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) /2))))) ? g.style.backgroundColor = "purple" : g.style.backgroundColor = "#171717";
+		(player.achievements[93] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[2] + crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) /2))))) ? h.style.backgroundColor = "purple" : h.style.backgroundColor = "#171717";
+		(player.achievements[100] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[3] + crystalUpgradeCostIncrement[3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) /2))))) ? i.style.backgroundColor = "purple" : i.style.backgroundColor = "#171717";
+		(player.achievements[107] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[4] + crystalUpgradeCostIncrement[4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) /2))))) ? j.style.backgroundColor = "purple" : j.style.backgroundColor = "#171717";
 	}
 
   	if (currentTab == "runes") {
@@ -765,4 +783,23 @@ function updateAchievementBG(){
       		achievementaward(i, 0) //This sets all completed ach to green (0 in 2nd arg to prevent awarding quarks/pts again)
     	}
   	}
+}
+
+function CSSAscend() {
+	for(var i = 1; i <= 5; i++){
+		let a = document.getElementById("ascendText"+i);
+		let b = document.getElementById("ascendText"+(5+i));
+		let c = document.getElementById("tesseracts"+i)
+		let d = document.getElementById("buyTesseracts"+i)
+
+		a.style.top = (8 + 35*i)+"px"
+		b.style.top = (8 + 35*i)+"px"
+		c.style.top = (23 + 35*i)+"px"
+		d.style.top = (38 + 35*i)+"px"
+
+		a.style.left = "13%"
+		b.style.left = "56.5%"
+		c.style.left = "10%"
+
+	}
 }
