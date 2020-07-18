@@ -884,6 +884,15 @@ function loadSynergy() {
 	}
 
 	player.wowCubes = player.wowCubes || 0;
+		
+	for(var i = 1; i <= 5; i++){
+		   player['ascendBuilding'+i] = {
+			   cost: new Decimal(player['ascendBuilding'+i].cost),
+			   owned: new Decimal(player['ascendBuilding'+i].owned),
+			   generated: new Decimal(player['ascendBuilding'+i].generated),
+			   multiplier: 0.01
+		   }
+	  }
 
 var j
 for (j = 1; j < player.upgrades.length; j++) {
@@ -891,10 +900,7 @@ for (j = 1; j < player.upgrades.length; j++) {
 	}
 
 for (j = 1; j <= (125); j++) {
-	var k = "res" + j
-	if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "purple"}
-	else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "green"}
-	else {document.getElementById(k).style.backgroundColor = "black"}
+	updateResearchBG(j);
 }
 for (j = 1; j <= 50; j++){
 	updateCubeUpgradeBG(j);
