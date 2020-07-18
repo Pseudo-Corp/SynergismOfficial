@@ -340,3 +340,11 @@ var financialcollapsePower = [1, 0.9, 0.75, 0.5, 0.4, 0.3, 0.2, 0.1]
 
 var corruptionAddPointArray = [0, 50, 100, 150, 200, 300, 400, 500]
 var corruptionMultiplyPointArray = [0, 10, 20, 30, 50, 80, 110, 150]
+
+var ascendBuildingProduction = {
+	first: new Decimal('0'),
+	second: new Decimal('0'),
+	third: new Decimal('0'),
+	fourth: new Decimal('0'),
+	fifth: new Decimal('0'),
+}
