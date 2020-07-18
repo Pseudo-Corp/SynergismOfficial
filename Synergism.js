@@ -2158,7 +2158,7 @@ function tick() {
 	player.quarkstimer += dt
 	if(player.quarkstimer >= 90000){player.quarkstimer = 90000}
 	if(player.researches[61] > 0){player.obtainiumtimer += (dt * timeMult);}
-	if(player.researches[61] > 0){document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + format(0.05 * (player.researches[61] + player.researches[62]) * player.maxobtainiumpersecond * timeMult *(1 + 4 * player.cubeUpgrades[3]/5),3,true) + " Obtainium per real life second."}
+	if(player.researches[61] > 0){document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + format(calculateAutomaticObtainium(),3,true) + " Obtainium per real life second."}
 	
 	const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
 	const maxExportQuarks = (25 * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
@@ -2212,7 +2212,7 @@ function tick() {
 	}
 	calculateObtainium();
 	if (player.researches[61] == 1){
-	player.researchPoints += (player.maxobtainiumpersecond * (dt * timeMult)) * (0.05 + 0.05 * player.researches[62]) * (1 + 4 * player.cubeUpgrades[3]/5)
+	player.researchPoints += calculateAutomaticObtainium() * dt
 	if(player.autoResearch > 0 && player.autoResearchToggle){buyResearch(player.autoResearch,true)}
 	}
 
