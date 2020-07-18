@@ -484,15 +484,16 @@ document.getElementById("offlineprogressbar").style.display = "block"
 timeWarp = true
 if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
     var updatedtime = Date.now()
-    var timeadd = Math.min(28800 * 3 + 7200 * player.researches[31] + 7200 * player.researches[32], Math.max(forceTime, (updatedtime - player.offlinetick) / 1000)) * divineBlessing1;
-    timeadd *= (1 + player.researches[121]/200)
+    var timeadd = Math.min(28800 * 3 + 7200 * player.researches[31] + 7200 * player.researches[32], Math.max(forceTime, (updatedtime - player.offlinetick) / 1000));
+    timeadd *= calculateTimeAcceleration();
     document.getElementById("offlineTimer").textContent = "You have " + format(timeadd,2) + " seconds of Offline Progress!";
     let simulatedTicks = 800;
     let tickValue = timeadd/800;
     let progressBarWidth = 0;
     if(timeadd < 1000){simulatedTicks = Math.min(1, Math.floor(timeadd/1.25)); tickValue = Math.min(1.25,timeadd);};
     let maxSimulatedTicks = simulatedTicks;
-    player.quarkstimer += timeadd/(divineBlessing1 * (1 + player.researches[121]/200));
+    player.quarkstimer += timeadd / calculateTimeAcceleration();
+    // TODO the automatic obt here is wrong, solution: use calculateAutomaticObtainium when it gets merged
     if (player.researches[61] > 0){player.researchPoints += timeadd * (0.05 + 0.05 * player.researches[62]) * player.maxobtainiumpersecond}
     if (player.achievements[173] == 1){
         player.antSacrificeTimer += timeadd;
