@@ -595,10 +595,11 @@ function calculateCubeMultiplier() {
 
 function calculateTimeAcceleration() {
     let timeMult = 1;
-    timeMult *= (1 + player.researches[121]/200);
-    timeMult *= divineBlessing1;
-    timeMult *= cubeBonusMultiplier[10];
-    timeMult *= calculateSigmoid(2, player.antUpgrades[12] + bonusant12, 69)
+    timeMult *= (1 + player.researches[121]/200); // research 5x21
+    timeMult *= divineBlessing1; // speed blessing
+    timeMult *= cubeBonusMultiplier[10]; // Chronos cube blessing
+    timeMult *= 1 + 0.1 * player.cubeUpgrades[18] / 25; // cube upgrade 2x8
+    timeMult *= calculateSigmoid(2, player.antUpgrades[12] + bonusant12, 69) // ant 12
     timeMult *= lazinessMultiplier[player.usedCorruptions[3]]
 
     return(timeMult)
