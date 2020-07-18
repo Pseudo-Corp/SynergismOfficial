@@ -375,6 +375,46 @@
         </div>
         <p id="reincarnatehotkeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
     </div>
+    <div id="ascension" style="display: none">
+        <div id="buyAmountTesseract">
+            <table id="buyTesseractToggles">
+                <tr>
+                    <td><img id="tesseractone" src="Pictures/Transparent Pics/TesseractOne.png" style="cursor:pointer; background-color: green;" onclick="toggleBuyAmount(1,'tesseract')"></td>
+                    <td><img id="tesseractten" src="Pictures/Transparent Pics/TesseractTen.png"  style="cursor:pointer;" onclick="toggleBuyAmount(10,'tesseract')"></td>    
+                    <td><img id="tesseracthundred" src="Pictures/Transparent Pics/TesseractHundred.png"  style="cursor:pointer;" onclick="toggleBuyAmount(100,'tesseract')"></td> 
+                    <td><img id="tesseractthousand" src="Pictures/Transparent Pics/TesseractThousand.png"  style="cursor:pointer;" onclick="toggleBuyAmount(1000,'tesseract')"></td>               
+                </tr>
+            </table>
+            <p id="toggleTesseractBuy">Toggle amount to buy</p>
+        </div>
+        <p id="tesseractInfo" style="color:plum; text-align: center">You have 0 Wow! Tesseracts. Gain more through completing Challenge 10 each ascension.</p>
+        <p id="ascendShardInfo" style="color: orange; text-align: center;">You have a mathematical constant of 3. I Wonder what it's for!</p>
+        <div id="ascendPics">
+            <img class="ascendPics" id="tesseracts1" src="Pictures/TesseractTier1.png">
+            <img class="ascendPics" id="tesseracts2" src="Pictures/TesseractTier2.png">
+            <img class="ascendPics" id="tesseracts3" src="Pictures/TesseractTier3.png">
+            <img class="ascendPics" id="tesseracts4" src="Pictures/TesseractTier4.png">
+            <img class="ascendPics" id="tesseracts5" src="Pictures/TesseractTier5.png">
+        </div>
+        <div id="ascendInfo">
+            <button class="tesseractBuyBtn" id="buyTesseracts1" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('first',1)">Cost: 1 Tesseracts</button>
+            <button class="tesseractBuyBtn" id="buyTesseracts2" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('second',100)">Cost: 10 Tesseracts</button>
+            <button class="tesseractBuyBtn" id="buyTesseracts3" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('third',1e4)">Cost: 100 Tesseracts</button>
+            <button class="tesseractBuyBtn" id="buyTesseracts4" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('fourth',1e8)">Cost: 1000 Tesseracts</button>
+            <button class="tesseractBuyBtn" id="buyTesseracts5" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('fifth',1e16)">Cost: 10000 Tesseracts</button>
+            <p class="ascendTexts" id="ascendText1">Dot: 0 [+0]</p>
+            <p class="ascendTexts" id="ascendText2">Vector: 0 [+0]</p>
+            <p class="ascendTexts" id="ascendText3">Three-Space: 0 [+0]</p>
+            <p class="ascendTexts" id="ascendText4">Bent Time: 0 [+0]</p>
+            <p class="ascendTexts" id="ascendText5">Hilbert Space: 0 [+0]</p>
+            <p class="ascendTexts" id="ascendText6">+100 Constant/sec</p>
+            <p class="ascendTexts" id="ascendText7">100 Dots/sec</p>
+            <p class="ascendTexts" id="ascendText8">100 Vectors/sec</p>
+            <p class="ascendTexts" id="ascendText9">100 Three-Spaces/sec</p>
+            <p class="ascendTexts" id="ascendText10">100 Bent Time/sec</p>
+        </div>
+        <p id="ascendHotKeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
+    </div>
 </div>
 
     <div id="upgrades">
@@ -1445,67 +1485,67 @@
             </div>
             <div id="cubeTab2" style="display: none">
                 <p id="cubeAmount2">You have 0 Wow! Cubes</p>
-                <table id="cubeUpgradeTable">
-                    <tr>
-                        <td><img id="cubeUpg1" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(1)" onclick="buyCubeUpgrades(1)"></td>
-                        <td><img id="cubeUpg2" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(2)" onclick="buyCubeUpgrades(2)"></td>
-                        <td><img id="cubeUpg3" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(3)" onclick="buyCubeUpgrades(3)"></td>
-                        <td><img id="cubeUpg4" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(4)" onclick="buyCubeUpgrades(4)"></td>
-                        <td><img id="cubeUpg5" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(5)" onclick="buyCubeUpgrades(5)"></td>
-                        <td><img id="cubeUpg6" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(6)" onclick="buyCubeUpgrades(6)"></td>
-                        <td><img id="cubeUpg7" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(7)" onclick="buyCubeUpgrades(7)"></td>
-                        <td><img id="cubeUpg8" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(8)" onclick="buyCubeUpgrades(8)"></td>
-                        <td><img id="cubeUpg9" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(9)" onclick="buyCubeUpgrades(9)"></td>
-                        <td><img id="cubeUpg10" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(10)" onclick="buyCubeUpgrades(10)"></td>
-                    </tr>
-                    <tr>
-                        <td><img id="cubeUpg11" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(11)" onclick="buyCubeUpgrades(11)"></td>
-                        <td><img id="cubeUpg12" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(12)" onclick="buyCubeUpgrades(12)"></td>
-                        <td><img id="cubeUpg13" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(13)" onclick="buyCubeUpgrades(13)"></td>
-                        <td><img id="cubeUpg14" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(14)" onclick="buyCubeUpgrades(14)"></td>
-                        <td><img id="cubeUpg15" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(15)" onclick="buyCubeUpgrades(15)"></td>
-                        <td><img id="cubeUpg16" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(16)" onclick="buyCubeUpgrades(16)"></td>
-                        <td><img id="cubeUpg17" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(17)" onclick="buyCubeUpgrades(17)"></td>
-                        <td><img id="cubeUpg18" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(18)" onclick="buyCubeUpgrades(18)"></td>
-                        <td><img id="cubeUpg19" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(19)" onclick="buyCubeUpgrades(19)"></td>
-                        <td><img id="cubeUpg20" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(20)" onclick="buyCubeUpgrades(20)"></td>
-                    </tr>
-                    <tr>
-                        <td><img id="cubeUpg21" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(21)" onclick="buyCubeUpgrades(21)"></td>
-                        <td><img id="cubeUpg22" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(22)" onclick="buyCubeUpgrades(22)"></td>
-                        <td><img id="cubeUpg23" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(23)" onclick="buyCubeUpgrades(23)"></td>
-                        <td><img id="cubeUpg24" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(24)" onclick="buyCubeUpgrades(24)"></td>
-                        <td><img id="cubeUpg25" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(25)" onclick="buyCubeUpgrades(25)"></td>
-                        <td><img id="cubeUpg26" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(26)" onclick="buyCubeUpgrades(26)"></td>
-                        <td><img id="cubeUpg27" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(27)" onclick="buyCubeUpgrades(27)"></td>
-                        <td><img id="cubeUpg28" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(28)" onclick="buyCubeUpgrades(28)"></td>
-                        <td><img id="cubeUpg29" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(29)" onclick="buyCubeUpgrades(29)"></td>
-                        <td><img id="cubeUpg30" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(30)" onclick="buyCubeUpgrades(30)"></td>
-                    </tr>
-                    <tr>
-                        <td><img id="cubeUpg31" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(31)" onclick="buyCubeUpgrades(31)"></td>
-                        <td><img id="cubeUpg32" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(32)" onclick="buyCubeUpgrades(32)"></td>
-                        <td><img id="cubeUpg33" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(33)" onclick="buyCubeUpgrades(33)"></td>
-                        <td><img id="cubeUpg34" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(34)" onclick="buyCubeUpgrades(34)"></td>
-                        <td><img id="cubeUpg35" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(35)" onclick="buyCubeUpgrades(35)"></td>
-                        <td><img id="cubeUpg36" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(36)" onclick="buyCubeUpgrades(36)"></td>
-                        <td><img id="cubeUpg37" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(37)" onclick="buyCubeUpgrades(37)"></td>
-                        <td><img id="cubeUpg38" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(38)" onclick="buyCubeUpgrades(38)"></td>
-                        <td><img id="cubeUpg39" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(39)" onclick="buyCubeUpgrades(39)"></td>
-                        <td><img id="cubeUpg40" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(40)" onclick="buyCubeUpgrades(40)"></td>
-                    </tr>
-                    <tr>
-                        <td><img id="cubeUpg41" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(41)" onclick="buyCubeUpgrades(41)"></td>
-                        <td><img id="cubeUpg42" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(42)" onclick="buyCubeUpgrades(42)"></td>
-                        <td><img id="cubeUpg43" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(43)" onclick="buyCubeUpgrades(43)"></td>
-                        <td><img id="cubeUpg44" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(44)" onclick="buyCubeUpgrades(44)"></td>
-                        <td><img id="cubeUpg45" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(45)" onclick="buyCubeUpgrades(45)"></td>
-                        <td><img id="cubeUpg46" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(46)" onclick="buyCubeUpgrades(46)"></td>
-                        <td><img id="cubeUpg47" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(47)" onclick="buyCubeUpgrades(47)"></td>
-                        <td><img id="cubeUpg48" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(48)" onclick="buyCubeUpgrades(48)"></td>
-                        <td><img id="cubeUpg49" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(49)" onclick="buyCubeUpgrades(49)"></td>
-                        <td><img id="cubeUpg50" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade.png" onmouseover="cubeUpgradeDesc(50)" onclick="buyCubeUpgrades(50)"></td>
-                    </tr>
+                <table id="cubeUpgradeTable">	
+                    <tr>	
+                        <td><img id="cubeUpg1" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade1.png" onmouseover="cubeUpgradeDesc(1)" onclick="buyCubeUpgrades(1)"></td>	
+                        <td><img id="cubeUpg2" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade2.png" onmouseover="cubeUpgradeDesc(2)" onclick="buyCubeUpgrades(2)"></td>	
+                        <td><img id="cubeUpg3" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade3.png" onmouseover="cubeUpgradeDesc(3)" onclick="buyCubeUpgrades(3)"></td>	
+                        <td><img id="cubeUpg4" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade4.png" onmouseover="cubeUpgradeDesc(4)" onclick="buyCubeUpgrades(4)"></td>	
+                        <td><img id="cubeUpg5" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade5.png" onmouseover="cubeUpgradeDesc(5)" onclick="buyCubeUpgrades(5)"></td>	
+                        <td><img id="cubeUpg6" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade6.png" onmouseover="cubeUpgradeDesc(6)" onclick="buyCubeUpgrades(6)"></td>	
+                        <td><img id="cubeUpg7" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade7.png" onmouseover="cubeUpgradeDesc(7)" onclick="buyCubeUpgrades(7)"></td>	
+                        <td><img id="cubeUpg8" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade8.png" onmouseover="cubeUpgradeDesc(8)" onclick="buyCubeUpgrades(8)"></td>	
+                        <td><img id="cubeUpg9" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade9.png" onmouseover="cubeUpgradeDesc(9)" onclick="buyCubeUpgrades(9)"></td>	
+                        <td><img id="cubeUpg10" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade10.png" onmouseover="cubeUpgradeDesc(10)" onclick="buyCubeUpgrades(10)"></td>	
+                    </tr>	
+                    <tr>	
+                        <td><img id="cubeUpg11" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade11.png" onmouseover="cubeUpgradeDesc(11)" onclick="buyCubeUpgrades(11)"></td>	
+                        <td><img id="cubeUpg12" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade12.png" onmouseover="cubeUpgradeDesc(12)" onclick="buyCubeUpgrades(12)"></td>	
+                        <td><img id="cubeUpg13" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade13.png" onmouseover="cubeUpgradeDesc(13)" onclick="buyCubeUpgrades(13)"></td>	
+                        <td><img id="cubeUpg14" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade14.png" onmouseover="cubeUpgradeDesc(14)" onclick="buyCubeUpgrades(14)"></td>	
+                        <td><img id="cubeUpg15" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade15.png" onmouseover="cubeUpgradeDesc(15)" onclick="buyCubeUpgrades(15)"></td>	
+                        <td><img id="cubeUpg16" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade16.png" onmouseover="cubeUpgradeDesc(16)" onclick="buyCubeUpgrades(16)"></td>	
+                        <td><img id="cubeUpg17" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade17.png" onmouseover="cubeUpgradeDesc(17)" onclick="buyCubeUpgrades(17)"></td>	
+                        <td><img id="cubeUpg18" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade18.png" onmouseover="cubeUpgradeDesc(18)" onclick="buyCubeUpgrades(18)"></td>	
+                        <td><img id="cubeUpg19" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade19.png" onmouseover="cubeUpgradeDesc(19)" onclick="buyCubeUpgrades(19)"></td>	
+                        <td><img id="cubeUpg20" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade20.png" onmouseover="cubeUpgradeDesc(20)" onclick="buyCubeUpgrades(20)"></td>	
+                    </tr>	
+                    <tr>	
+                        <td><img id="cubeUpg21" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade21.png" onmouseover="cubeUpgradeDesc(21)" onclick="buyCubeUpgrades(21)"></td>	
+                        <td><img id="cubeUpg22" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade22.png" onmouseover="cubeUpgradeDesc(22)" onclick="buyCubeUpgrades(22)"></td>	
+                        <td><img id="cubeUpg23" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade23.png" onmouseover="cubeUpgradeDesc(23)" onclick="buyCubeUpgrades(23)"></td>	
+                        <td><img id="cubeUpg24" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade24.png" onmouseover="cubeUpgradeDesc(24)" onclick="buyCubeUpgrades(24)"></td>	
+                        <td><img id="cubeUpg25" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade25.png" onmouseover="cubeUpgradeDesc(25)" onclick="buyCubeUpgrades(25)"></td>	
+                        <td><img id="cubeUpg26" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade26.png" onmouseover="cubeUpgradeDesc(26)" onclick="buyCubeUpgrades(26)"></td>	
+                        <td><img id="cubeUpg27" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade27.png" onmouseover="cubeUpgradeDesc(27)" onclick="buyCubeUpgrades(27)"></td>	
+                        <td><img id="cubeUpg28" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade28.png" onmouseover="cubeUpgradeDesc(28)" onclick="buyCubeUpgrades(28)"></td>	
+                        <td><img id="cubeUpg29" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade29.png" onmouseover="cubeUpgradeDesc(29)" onclick="buyCubeUpgrades(29)"></td>	
+                        <td><img id="cubeUpg30" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade30.png" onmouseover="cubeUpgradeDesc(30)" onclick="buyCubeUpgrades(30)"></td>	
+                    </tr>	
+                    <tr>	
+                        <td><img id="cubeUpg31" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade31.png" onmouseover="cubeUpgradeDesc(31)" onclick="buyCubeUpgrades(31)"></td>	
+                        <td><img id="cubeUpg32" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade32.png" onmouseover="cubeUpgradeDesc(32)" onclick="buyCubeUpgrades(32)"></td>	
+                        <td><img id="cubeUpg33" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade33.png" onmouseover="cubeUpgradeDesc(33)" onclick="buyCubeUpgrades(33)"></td>	
+                        <td><img id="cubeUpg34" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade34.png" onmouseover="cubeUpgradeDesc(34)" onclick="buyCubeUpgrades(34)"></td>	
+                        <td><img id="cubeUpg35" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade35.png" onmouseover="cubeUpgradeDesc(35)" onclick="buyCubeUpgrades(35)"></td>	
+                        <td><img id="cubeUpg36" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade36.png" onmouseover="cubeUpgradeDesc(36)" onclick="buyCubeUpgrades(36)"></td>	
+                        <td><img id="cubeUpg37" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade37.png" onmouseover="cubeUpgradeDesc(37)" onclick="buyCubeUpgrades(37)"></td>	
+                        <td><img id="cubeUpg38" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade38.png" onmouseover="cubeUpgradeDesc(38)" onclick="buyCubeUpgrades(38)"></td>	
+                        <td><img id="cubeUpg39" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade39.png" onmouseover="cubeUpgradeDesc(39)" onclick="buyCubeUpgrades(39)"></td>	
+                        <td><img id="cubeUpg40" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade40.png" onmouseover="cubeUpgradeDesc(40)" onclick="buyCubeUpgrades(40)"></td>	
+                    </tr>	
+                    <tr>	
+                        <td><img id="cubeUpg41" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade41.png" onmouseover="cubeUpgradeDesc(41)" onclick="buyCubeUpgrades(41)"></td>	
+                        <td><img id="cubeUpg42" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade42.png" onmouseover="cubeUpgradeDesc(42)" onclick="buyCubeUpgrades(42)"></td>	
+                        <td><img id="cubeUpg43" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade43.png" onmouseover="cubeUpgradeDesc(43)" onclick="buyCubeUpgrades(43)"></td>	
+                        <td><img id="cubeUpg44" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade44.png" onmouseover="cubeUpgradeDesc(44)" onclick="buyCubeUpgrades(44)"></td>	
+                        <td><img id="cubeUpg45" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade45.png" onmouseover="cubeUpgradeDesc(45)" onclick="buyCubeUpgrades(45)"></td>	
+                        <td><img id="cubeUpg46" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade46.png" onmouseover="cubeUpgradeDesc(46)" onclick="buyCubeUpgrades(46)"></td>	
+                        <td><img id="cubeUpg47" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade47.png" onmouseover="cubeUpgradeDesc(47)" onclick="buyCubeUpgrades(47)"></td>	
+                        <td><img id="cubeUpg48" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade48.png" onmouseover="cubeUpgradeDesc(48)" onclick="buyCubeUpgrades(48)"></td>	
+                        <td><img id="cubeUpg49" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade49.png" onmouseover="cubeUpgradeDesc(49)" onclick="buyCubeUpgrades(49)"></td>	
+                        <td><img id="cubeUpg50" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade50.png" onmouseover="cubeUpgradeDesc(50)" onclick="buyCubeUpgrades(50)"></td>	
+                    </tr>	
                 </table>
             <p id="cubeUpgradeName" style="text-align:center; color:white;">Wow! Hover over the upgrades you want to look at!</p>
             <p id="cubeUpgradeDescription" style="text-align: center; color: lightblue"></p>
@@ -1571,7 +1611,7 @@
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
             </a>
 
-            <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: July 15, 2020 1:48AM PDT</p>
+            <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: July 17, 2020 1:27PM PDT</p>
         </div>
             <div id="creditssubtab" style="display: none">
             <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>
