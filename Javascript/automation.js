@@ -59,9 +59,9 @@ function autoUpgrades() {
 	if (player.upgrades[92] > 0.5){
 		var i;
         for (i = 21; i < 38; i++) {if (player.prestigePoints.greaterThanOrEqualTo(Decimal.pow(10,upgradeCosts[i])) && player.shoptoggles.prestige == true){buyUpgrades('prestige',i,true)}}
-        if(player.prestigePoints.greaterThanOrEqualTo(Decimal.pow(10, 50000)) && player.shoptoggles.prestige == true && player.challengecompletions.seven > 0){buyUpgrades('prestige',38,true)}
-        if(player.prestigePoints.greaterThanOrEqualTo(Decimal.pow(10, 100000)) && player.shoptoggles.prestige == true && player.challengecompletions.eight > 0){buyUpgrades('prestige',39,true)}
-        if(player.prestigePoints.greaterThanOrEqualTo(Decimal.pow(10, 200000)) && player.shoptoggles.prestige == true && player.challengecompletions.nine > 0){buyUpgrades('prestige',40,true)}
+        if(player.prestigePoints.greaterThanOrEqualTo(Decimal.pow(10, 50000)) && player.shoptoggles.prestige == true && player.achievements[120] === 1){buyUpgrades('prestige',38,true)}
+        if(player.prestigePoints.greaterThanOrEqualTo(Decimal.pow(10, 100000)) && player.shoptoggles.prestige == true && player.achievements[127] === 1){buyUpgrades('prestige',39,true)}
+        if(player.prestigePoints.greaterThanOrEqualTo(Decimal.pow(10, 200000)) && player.shoptoggles.prestige == true && player.achievements[134] === 1){buyUpgrades('prestige',40,true)}
 
     }
 	if (player.upgrades[99] > 0.5){
