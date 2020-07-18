@@ -200,7 +200,6 @@ function toggleBuildingScreen(input){
     let b = document.getElementById("switchToDiamondBuilding");
     let c = document.getElementById("switchToMythosBuilding");
     let d = document.getElementById("switchToParticleBuilding");
-    let e = document.getElementById("switchToTesseractBuilding");
     buildingSubTab === "coin" ?
     (la.style.display = "block",a.style.backgroundColor = "crimson"):
     (la.style.display = "none",a.style.backgroundColor = "#171717");
@@ -213,10 +212,7 @@ function toggleBuildingScreen(input){
     buildingSubTab === "particle" ?
     (ella.style.display = "block",d.style.backgroundColor = "crimson"):
     (ella.style.display = "none",d.style.backgroundColor = "#171717");
-    buildingSubTab === "tesseract" ?
-    (ellos.style.display = "block",e.style.backgroundColor = "crimson"):
-    (ellos.style.display = "none",e.style.backgroundColor = "#171717");
-    }
+}
 
 function toggleRuneScreen(){
     if (runescreen == "runes"){
