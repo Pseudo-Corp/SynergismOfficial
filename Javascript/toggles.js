@@ -200,16 +200,16 @@ function toggleBuildingScreen(input){
     let b = document.getElementById("switchToDiamondBuilding");
     let c = document.getElementById("switchToMythosBuilding");
     let d = document.getElementById("switchToParticleBuilding");
-    buildingSubTab === "coin" ?
+    buildingSubTab === "Coin" ?
     (la.style.display = "block",a.style.backgroundColor = "crimson"):
     (la.style.display = "none",a.style.backgroundColor = "#171717");
-    buildingSubTab === "diamond" ?
+    buildingSubTab === "Diamonds" ?
     (el.style.display = "block",b.style.backgroundColor = "crimson"):
     (el.style.display = "none",b.style.backgroundColor = "#171717");
-    buildingSubTab === "mythos" ?
+    buildingSubTab === "Mythos" ?
     (ti.style.display = "block",c.style.backgroundColor = "crimson"):
     (ti.style.display = "none",c.style.backgroundColor = "#171717");
-    buildingSubTab === "particle" ?
+    buildingSubTab === "Particles" ?
     (ella.style.display = "block",d.style.backgroundColor = "crimson"):
     (ella.style.display = "none",d.style.backgroundColor = "#171717");
 }
