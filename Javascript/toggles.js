@@ -198,32 +198,33 @@ function toggleAutoSacrifice(index) {
     calculateRuneLevels();
 }
 function toggleBuildingScreen(input){
-buildingSubTab = input
-let la = document.getElementById("coinBuildings");
-let el = document.getElementById("prestige");
-let ti = document.getElementById("transcension");
-let ella = document.getElementById("reincarnation");
-let a = document.getElementById("switchToCoinBuilding")
-let b = document.getElementById("switchToDiamondBuilding")
-let c = document.getElementById("switchToMythosBuilding")
-let d = document.getElementById("switchToParticleBuilding")
-
-la.style.display = "none";
-el.style.display = "none";
-ti.style.display = "none";
-ella.style.display = "none";
-a.style.backgroundColor = "#171717"
-b.style.backgroundColor = "#171717"
-c.style.backgroundColor = "#171717"
-d.style.backgroundColor = "#171717"
-
-
-
-if(buildingSubTab == "coin"){la.style.display = "block"; a.style.backgroundColor = "crimson"}
-if(buildingSubTab == "diamond"){el.style.display = "block"; b.style.backgroundColor = "crimson"}
-if(buildingSubTab == "mythos"){ti.style.display = "block"; c.style.backgroundColor = "crimson"}
-if(buildingSubTab == "particle"){ella.style.display = "block"; d.style.backgroundColor = "crimson"}
-}
+    buildingSubTab = input
+    let la = document.getElementById("coinBuildings");
+    let el = document.getElementById("prestige");
+    let ti = document.getElementById("transcension");
+    let ella = document.getElementById("reincarnation");
+    let ellos = document.getElementById("ascension");
+    let a = document.getElementById("switchToCoinBuilding");
+    let b = document.getElementById("switchToDiamondBuilding");
+    let c = document.getElementById("switchToMythosBuilding");
+    let d = document.getElementById("switchToParticleBuilding");
+    let e = document.getElementById("switchToTesseractBuilding");
+    buildingSubTab === "coin" ?
+    (la.style.display = "block",a.style.backgroundColor = "crimson"):
+    (la.style.display = "none",a.style.backgroundColor = "#171717");
+    buildingSubTab === "diamond" ?
+    (el.style.display = "block",b.style.backgroundColor = "crimson"):
+    (el.style.display = "none",b.style.backgroundColor = "#171717");
+    buildingSubTab === "mythos" ?
+    (ti.style.display = "block",c.style.backgroundColor = "crimson"):
+    (ti.style.display = "none",c.style.backgroundColor = "#171717");
+    buildingSubTab === "particle" ?
+    (ella.style.display = "block",d.style.backgroundColor = "crimson"):
+    (ella.style.display = "none",d.style.backgroundColor = "#171717");
+    buildingSubTab === "tesseract" ?
+    (ellos.style.display = "block",e.style.backgroundColor = "crimson"):
+    (ellos.style.display = "none",e.style.backgroundColor = "#171717");
+    }
 
 function toggleRuneScreen(){
     if (runescreen == "runes"){
