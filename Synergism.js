@@ -2336,6 +2336,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			}
 			if(currentTab === "challenges"){
 				toggleChallenges('one')
+				challengeDisplay(1);
 			}
 			break;
 
@@ -2350,6 +2351,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			}
 			if(currentTab === "challenges"){
 				toggleChallenges('two')
+				challengeDisplay(2);
 			}
 			break;
 		case "3":
@@ -2363,6 +2365,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			}
 			if(currentTab === "challenges"){
 				toggleChallenges('three')
+				challengeDisplay(3);
 			}
 			break;
 		case "4":
@@ -2376,6 +2379,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			}
 			if(currentTab === "challenges"){
 				toggleChallenges('four')
+				challengeDisplay(4);
 			}
 			break;
 		case "5":
@@ -2389,6 +2393,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			}
 			if(currentTab === "challenges"){
 				toggleChallenges('five')
+				challengeDisplay(5);
 			}
 			break;
 		case "6":
@@ -2397,6 +2402,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			}
 			if(currentTab === "challenges" && player.reincarnationCount > 0){
 				toggleChallenges('six')
+				challengeDisplay(6);
 			}
 			 break;
 		case "7":
@@ -2405,6 +2411,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			}
 			if(currentTab === "challenges" && player.achievements[113] === 1){
 				toggleChallenges('seven')
+				challengeDisplay(7);
 			}
 			 break;
 		case "8":
@@ -2413,6 +2420,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			}
 			if(currentTab === "challenges" && player.achievements[120] === 1){
 				toggleChallenges('eight')
+				challengeDisplay(8);
 			}
 			 break;
 		case "9":
@@ -2421,6 +2429,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			}
 			if(currentTab === "challenges" && player.achievements[127] === 1){
 				toggleChallenges('nine')
+				challengeDisplay(9);
 			}
 			 break;
 		case "0":
@@ -2429,6 +2438,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			}
 			if(currentTab === "challenges" && player.achievements[134] === 1){
 				toggleChallenges('ten')
+				challengeDisplay(10);
 			}
 			 break;
 		case "A":
