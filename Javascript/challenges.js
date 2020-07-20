@@ -28,7 +28,7 @@ function challengeDisplay(i,changefocus, automated) {
 
 
     if(i == 1 && challengefocus == 1){
-        maxChallenges = 25 + player.researches[66] + 925 * player.researches[105]
+        maxChallenges = 25 + 5 * player.researches[66] + 925 * player.researches[105]
         a.textContent = "No Multipliers Challenge || " + player.challengecompletions.one + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Multipliers make the game a little too fast. Let's take them out!"
         c.textContent = "Transcend and reach the goal except Multipliers do nothing but act like Accelerators, which are nerfed by 50%!"
@@ -40,7 +40,7 @@ function challengeDisplay(i,changefocus, automated) {
         k.textContent = "Start [No Multipliers]"
     }
     if(i == 2 && challengefocus == 2){
-        maxChallenges = 25 + player.researches[67] + 925 * player.researches[105]
+        maxChallenges = 25 + 5 * player.researches[67] + 925 * player.researches[105]
         a.textContent = "No Accelerators Challenge || " + player.challengecompletions.two + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Who needs accelerators? They do basically nothing now."
         c.textContent = "Transcend and reach the goal except Accelerators do nothing! Multipliers are nerfed a bit as well."
@@ -52,7 +52,7 @@ function challengeDisplay(i,changefocus, automated) {
         k.textContent = "Start [No Accelerators]"
     }
     if(i == 3 && challengefocus == 3){
-        maxChallenges = 25 + player.researches[68] + 925 * player.researches[105]
+        maxChallenges = 25 + 5 * player.researches[68] + 925 * player.researches[105]
         a.textContent = "No Shards Challenge || " + player.challengecompletions.three + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Alright, now you're thinking, how else can I make the game harder?"
         c.textContent = "Transcend and reach the goal except you do not produce Crystals or Mythos Shards."
@@ -64,7 +64,7 @@ function challengeDisplay(i,changefocus, automated) {
         k.textContent = "Start [No Shards]"
     }
     if(i == 4 && challengefocus == 4){
-        maxChallenges = 25 + player.researches[69] + 925 * player.researches[105]
+        maxChallenges = 25 + 5 * player.researches[69] + 925 * player.researches[105]
         a.textContent = "Cost+ Challenge || " + player.challengecompletions.four + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You're getting rich now, but inflation hasn't happened yet? I don't think so!"
         c.textContent = "Transcend and reach the goal except Coin/Crystal producers, Accelerators and Multipliers cost more. [Gets harder each time!]"
@@ -76,7 +76,7 @@ function challengeDisplay(i,changefocus, automated) {
         k.textContent = "Start [Cost+]"
     }
     if(i == 5 && challengefocus == 5){
-        maxChallenges = 25 + player.researches[70] + 925 * player.researches[105]
+        maxChallenges = 25 + 5 * player.researches[70] + 925 * player.researches[105]
         a.textContent = "Reduced Diamonds Challenge || " + player.challengecompletions.five + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You ever wonder how you get so many diamonds?"
         c.textContent = "Transcend and reach the goal except you gain far fewer Diamonds from all sources [Gets harder each time!]"
