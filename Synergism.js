@@ -508,6 +508,7 @@ tesseractbuyamount: 1,
 			  },
 			  ascendShards: new Decimal("0"),
 			  roombaResearchIndex: 1,
+	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "log": true},
 
 			  prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -832,6 +833,11 @@ function loadSynergy() {
 			talismanBonus: 0,
 			globalSpeed: 0
 		}
+		player.cubesThisAscension.challenges = 0;
+		player.cubesThisAscension.reincarnation = 0;
+		player.cubesThisAscension.ascension = 0;
+		player.cubesThisAscension.maxCubesPerSec = 0;
+		player.cubesThisAscension.log = true;
 
 	}
 
@@ -1128,6 +1134,19 @@ function format(input,accuracy,long){
 	{
 		return "undefined";
 	}
+}
+
+function logCubesPerSec() {
+	let c = player.cubesThisAscension.challenges, r = player.cubesThisAscension.reincarnation,
+		a = player.cubesThisAscension.ascension;
+	if (player.challengecompletions.ten > 0)
+		player.cubesThisAscension.maxCubesPerSec = Math.max(player.cubesThisAscension.maxCubesPerSec, (c + r + a) / player.ascensionCounter)
+	console.log(`Cubes gained (this Ascension) from
+Challenges Reincarnations      Ascension     Total
+%10d %14d %14d %9d
+Cubes per second: %.8f`, c, r, a, c + r + a, (c + r + a) / player.ascensionCounter)
+	if (player.challengecompletions.ten > 0)
+		console.log("Max this Ascension: %.8f", player.cubesThisAscension.maxCubesPerSec)
 }
 // Update calculations for Accelerator/Multiplier as well as just Production modifiers in general [Lines 600-897]
 
@@ -1756,8 +1775,18 @@ function resetCheck(i,manual) {
 				var y = x - 65;
 				challengeDisplay(y,true)
 
-				if(player.ascensionCount === 0){player.worlds += (1 + Math.floor(player.highestchallengecompletions[q]/10)) * 100/100}
-				else{player.highestchallengecompletions[q] > 50 ? player.wowCubes += (1 + Math.floor(player.highestchallengecompletions[q]/10 * calculateCorruptionPoints()/400)) * 100/100 + player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41] : player.wowCubes += (1 + Math.floor(player.highestchallengecompletions[q]/10)) * 100/100 + player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41]}
+				if (player.ascensionCount === 0) {
+					player.worlds += (1 + Math.floor(player.highestchallengecompletions[q] / 10)) * 100 / 100
+				} else {
+					let extraCubes = player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41]
+					let corruptionMulti = player.highestchallengecompletions[q] > 50 ? calculateCorruptionPoints() / 400 : 1
+					let toAdd = (1 + Math.floor(player.highestchallengecompletions[q] / 10 * corruptionMulti)) * 100 / 100 + extraCubes
+
+					player.wowCubes += toAdd
+					player.cubesThisAscension.challenges += toAdd
+					if (player.cubesThisAscension.log)
+						logCubesPerSec()
+				}
 			
 				calculateCubeBlessings();
 			}
@@ -1814,9 +1843,21 @@ function resetCheck(i,manual) {
 		player.reincarnationCount -= 1;
 		if (player.challengecompletions[q] > player.highestchallengecompletions[q]){
 			player.highestchallengecompletions[q] += 1;
-			if(player.ascensionCount === 0){player.worlds += player.highestchallengecompletions[q]}
-			else{player.wowCubes += player.highestchallengecompletions[q] + player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41]; calculateCubeBlessings()}
-			
+			if (player.ascensionCount === 0) {
+				player.worlds += player.highestchallengecompletions[q]
+			} else {
+				let extraCubes = player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41];
+				// let corruptionMulti = player.highestchallengecompletions[q] > 15 && q !== "ten" ? calculateCorruptionPoints() / 400 : 1
+				let corruptionMulti = 1;
+				let toAdd = Math.floor(player.highestchallengecompletions[q] * corruptionMulti) + extraCubes;
+
+				player.wowCubes += toAdd;
+				player.cubesThisAscension.challenges += toAdd;
+				calculateCubeBlessings();
+				if (player.cubesThisAscension.log)
+					logCubesPerSec()
+			}
+
 			if(player.ascensionCount > 0 && q == "ten" && player.challengecompletions[q] === 1){player.wowTesseracts += 1;}
 		}
 		if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + player.cubeUpgrades[29]) {
