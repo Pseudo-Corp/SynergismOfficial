@@ -508,6 +508,7 @@ tesseractbuyamount: 1,
 			  },
 			  ascendShards: new Decimal("0"),
 			  roombaResearchIndex: 1,
+	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "log": true},
 
 			  prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -839,6 +840,11 @@ function loadSynergy() {
 			talismanBonus: 0,
 			globalSpeed: 0
 		}
+		player.cubesThisAscension.challenges = 0;
+		player.cubesThisAscension.reincarnation = 0;
+		player.cubesThisAscension.ascension = 0;
+		player.cubesThisAscension.maxCubesPerSec = 0;
+		player.cubesThisAscension.log = true;
 
 	}
 
