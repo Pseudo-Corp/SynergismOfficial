@@ -275,13 +275,13 @@ function showSacrifice(){
     calculateAntSacrificeELO();
     let mult = 1; 
     mult *= (1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11)/125)))
-    mult *= (1 + player.researches[103]/50)
-    mult *= (1 + player.researches[104]/50)
+    mult *= (1 + player.researches[103]/20)
+    mult *= (1 + player.researches[104]/20)
     if(player.achievements[132] == 1){mult *= 1.25}
     if(player.achievements[137] == 1){mult *= 1.25}
     mult *= divineBlessing3
     mult *= (1 + 1/50 * player.challengecompletions.ten)
-    mult *= (1 + 1/200 * player.researches[122])
+    mult *= (1 + 1/50 * player.researches[122])
     mult *= (1 + 1/10 * player.upgrades[79])
     mult *= (1 + 0.09 * player.upgrades[40])
     mult *= cubeBonusMultiplier[7]
@@ -319,13 +319,13 @@ function sacrificeAnts(auto){
     let timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 900, 2)) * Math.max(1, Math.pow(player.antSacrificeTimer/900, 0.92))
     let mult = 1; 
     mult *= (1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11)/125)));
-    mult *= (1 + player.researches[103]/50)
-    mult *= (1 + player.researches[104]/50)
+    mult *= (1 + player.researches[103]/20)
+    mult *= (1 + player.researches[104]/20)
     if(player.achievements[132] == 1){mult *= 1.25}
     if(player.achievements[137] == 1){mult *= 1.25}
     mult *= divineBlessing3
     mult *= (1 + 1/50 * player.challengecompletions.ten)
-    mult *= (1 + 1/200 * player.researches[122])
+    mult *= (1 + 1/50 * player.researches[122])
     mult *= (1 + 1/10 * player.upgrades[79])
     mult *= (1 + 0.09 * player.upgrades[40])
     mult *= cubeBonusMultiplier[7]

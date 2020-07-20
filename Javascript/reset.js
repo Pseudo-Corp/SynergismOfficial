@@ -365,8 +365,12 @@ function reset(i,fast) {
         if (player.reincarnationcounter < player.fastestreincarnate && player.currentChallengeRein == "") {
             player.fastestreincarnate = player.reincarnationcounter;
         }
-        if(player.ascensionCount > 0){
-            player.wowCubes += Math.min(1000, 100/100 * Math.floor(player.reincarnationcounter / 60))
+        if (player.ascensionCount > 0){
+            let toAdd = Math.min(1000, 100/100 * Math.floor(player.reincarnationcounter / 60));
+            player.wowCubes += toAdd;
+            player.cubesThisAscension.reincarnation += toAdd;
+            if (player.cubesThisAscension.log && i < 3.5)
+                logCubesPerSec()
         }
         calculateCubeBlessings();
         player.reincarnationcounter = 0;
@@ -481,6 +485,10 @@ function reset(i,fast) {
 
     player.ascensionCount += 1;
     player.wowCubes += 100/100 * calculateCubeMultiplier() * 250;
+    player.cubesThisAscension.challenges = 0;
+    player.cubesThisAscension.reincarnation = 0;
+    player.cubesThisAscension.maxCubesPerSec = 0;
+    player.cubesThisAscension.ascension = 100/100 * calculateCubeMultiplier() * 250;
     player.ascensionCounter = 0;
 
     updateTalismanInventory();
