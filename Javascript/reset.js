@@ -523,7 +523,7 @@ function reset(i,fast) {
         document.getElementById("upg"+j).style.backgroundColor = "black"
         }
     }
-
+    document.getElementById("toggleofferingbuy").innerHTML = "Toggle amount to use per sacrifice"
     }
 
 
