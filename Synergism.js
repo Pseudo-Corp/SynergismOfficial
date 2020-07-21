@@ -508,7 +508,7 @@ tesseractbuyamount: 1,
 			  },
 			  ascendShards: new Decimal("0"),
 			  roombaResearchIndex: 1,
-	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "log": true},
+	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "log": true},
 
 			  prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -837,6 +837,7 @@ function loadSynergy() {
 		player.cubesThisAscension.reincarnation = 0;
 		player.cubesThisAscension.ascension = 0;
 		player.cubesThisAscension.maxCubesPerSec = 0;
+		player.cubesThisAscension.maxAllTime = 0;
 		player.cubesThisAscension.log = true;
 
 	}
@@ -1140,14 +1141,25 @@ function format(input,accuracy,long){
 function logCubesPerSec() {
 	let c = player.cubesThisAscension.challenges, r = player.cubesThisAscension.reincarnation,
 		a = player.cubesThisAscension.ascension;
-	if (player.challengecompletions.ten > 0)
-		player.cubesThisAscension.maxCubesPerSec = Math.max(player.cubesThisAscension.maxCubesPerSec, (c + r + a) / player.ascensionCounter)
+
+	let leadingSpaces = function(value, width) {
+		let x = value.toFixed(0)
+		return " ".repeat(width-x.length) + x
+	}
 	console.log(`Cubes gained (this Ascension) from
 Challenges Reincarnations      Ascension     Total
-%10d %14d %14d %9d
-Cubes per second: %.8f`, c, r, a, c + r + a, (c + r + a) / player.ascensionCounter)
-	if (player.challengecompletions.ten > 0)
-		console.log("Max this Ascension: %.8f", player.cubesThisAscension.maxCubesPerSec)
+%s %s %s %s
+Cubes per second: %s`, leadingSpaces(c, 10), leadingSpaces(c, 14), leadingSpaces(a, 14),
+		leadingSpaces(c + r + a, 9), ((c + r + a) / player.ascensionCounter).toPrecision(8))
+	if (player.challengecompletions.ten > 0) {
+		player.cubesThisAscension.maxCubesPerSec = Math.max(player.cubesThisAscension.maxCubesPerSec, (c + r + a) / player.ascensionCounter)
+		player.cubesThisAscension.maxAllTime = Math.max(player.cubesThisAscension.maxAllTime, player.cubesThisAscension.maxCubesPerSec)
+		console.log("Max this Ascension: %s\nMax all time: %s\nCubes/s from R: %s",
+			player.cubesThisAscension.maxCubesPerSec.toPrecision(8),
+			player.cubesThisAscension.maxAllTime.toPrecision(8),
+			(calculateTimeAcceleration()/60).toPrecision(6))
+	}
+
 }
 // Update calculations for Accelerator/Multiplier as well as just Production modifiers in general [Lines 600-897]
 
