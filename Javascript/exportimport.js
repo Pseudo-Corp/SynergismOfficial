@@ -1,11 +1,8 @@
 function getRealTime() {
-let months = [null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-let indicator = ['AM','PM']
-let now = new Date();
-let date = (months[now.getMonth()+1])+'-'+ now.getDate()+'-'+now.getFullYear();
-var time = (now.getHours() % 12) + '-' + now.getMinutes() + '-' + now.getSeconds() + ' ' + indicator[Math.floor(now.getHours()/12)];
-
-return(date+' '+time)
+    let now = new Date();
+    let date = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`
+    let time = now.toLocaleTimeString();
+    return date + " " + time;
 }
 
 function exportSynergism() {
