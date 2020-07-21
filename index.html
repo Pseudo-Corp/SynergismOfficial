@@ -5,7 +5,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
 
-    <script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
+    <!--<script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>-->
     <script src="break_infinity.js"></script>
     <script src="lz-string.js"></script>
     <script src="Synergism.js"></script>
@@ -1591,7 +1591,7 @@
         <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
         <p id="exportinfo" style="color: white"></p>
         <p id="saveinfo" style="color: limegreen"></p>
-        <button id="submitstats" onclick="submitStats()" style="border: 2px solid maroon">Submit your stats to Kongregate!</button>
+        <!--<button id="submitstats" onclick="submitStats()" style="border: 2px solid maroon">Submit your stats to Kongregate!</button>-->
         <button id="promocodes" onclick="promocodes()" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
         <p id="promocodeinfo" style="color: goldenrod"></p>
         <textarea id="exporttext" class="exporting" style="color: white; font-size: 0.3em;"></textarea>
@@ -1603,7 +1603,7 @@
         <a href="https://docs.google.com/document/d/17Q1CVrDesdguc274qyCxnKeCkrNw002VipdCvUmAjYQ/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
         </a>
-        <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: July 20, 2020 7:16PM PDT</p>
+        <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: July 20, 2020 3:47AM PDT</p>
     </div>
     <div id="creditssubtab" style="display: none">
         <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>
@@ -1625,13 +1625,23 @@
             <p id="statA10" class="statPortion">Challenge Multiplier: <span id="sA10" class="statNumber">0</span></p>
             <p id="statA11" class="statPortion">Corruption Multipliier: <span id="sA11" class="statNumber">0</span></p>
             <p id="statA12" class="statPortion" style="color: orange">TOTAL FREE ACCELERATORS: <span id="sA12" class="statNumber" style="color:orchid">0</span></p>
-
         </div>
         <div id="acceleratorBoostStats">
-
         </div>
         <div id="multiplierStats">
-
+            <p id="statM1" class="statPortion">Multipliers from upgrades/misc<span id="sM1" class="statNumber"></span></p>
+            <p id="statM2" class="statPortion">Multipliers from Duplication Rune<span id="sM2" class="statNumber"></span></p>
+            <p id="statM3" class="statPortion">Duplication Rune Multiplier<span id="sM3" class="statNumber"></span></p>
+            <p id="statM4" class="statPortion">Upgrade Multiplier<span id="sM4" class="statNumber"></span></p>
+            <p id="statM5" class="statPortion">Achievement Multiplier<span id="sM5" class="statNumber"></span></p>
+            <p id="statM6" class="statPortion">Research 1x2 Multiplier<span id="sM6" class="statNumber"></span></p>
+            <p id="statM7" class="statPortion">Research [3x1]-[3x5] Multiplier<span id="sM7" class="statNumber"></span></p>
+            <p id="statM8" class="statPortion">Research 3x17 Multiplier<span id="sM8" class="statNumber"></span></p>
+            <p id="statM9" class="statPortion">Multa Formicidae Ant Multiplier<span id="sM9" class="statNumber"></span></p>
+            <p id="statM10" class="statPortion">Aphrodite Blessing Multiplier<span id="sM10" class="statNumber"></span></p>
+            <p id="statM11" class="statPortion">Challenge Multiplier<span id="sM11" class="statNumber"></span></p>
+            <p id="statM12" class="statPortion">Corruption Multiplier<span id="sM12" class="statNumber"></span></p>
+            <p id="statM13" class="statPortion" style="color: pink">TOTAL FREE MULTIPLIERS: <span id="sM13" class="statNumber" style="color: orchid"></span></p>
         </div>
         <div id="antStats">
 
@@ -1746,7 +1756,7 @@
     </script>
 
 
-    <script type='text/javascript'>
+ <!--   <script type='text/javascript'>
     
         kongregateAPI.loadAPI(function(){
           window.kongregate = kongregateAPI.getAPI();
@@ -1754,7 +1764,7 @@
           kongregate.services.addEventListener('login', function(){
           });
         });
-      </script>
+      </script> -->
 
     </main>
 </html>
