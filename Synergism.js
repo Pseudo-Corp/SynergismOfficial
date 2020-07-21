@@ -1150,15 +1150,15 @@ function logCubesPerSec() {
 	console.log(`Cubes gained (this Ascension) from
 Challenges Reincarnations      Ascension     Total
 %s %s %s %s
-Cubes per second: %s`, leadingSpaces(c, 10), leadingSpaces(c, 14), leadingSpaces(a, 14),
+Cubes per second:   %s`, leadingSpaces(c, 10), leadingSpaces(c, 14), leadingSpaces(a, 14),
 		leadingSpaces(c + r + a, 9), ((c + r + a) / player.ascensionCounter).toPrecision(8))
 	if (player.challengecompletions.ten > 0) {
 		player.cubesThisAscension.maxCubesPerSec = Math.max(player.cubesThisAscension.maxCubesPerSec, (c + r + a) / player.ascensionCounter)
 		player.cubesThisAscension.maxAllTime = Math.max(player.cubesThisAscension.maxAllTime, player.cubesThisAscension.maxCubesPerSec)
-		console.log("Max this Ascension: %s\nMax all time: %s\nCubes/s from R: %s",
+		console.log("Max this Ascension: %s\nMax all time:       %s\nCubes/s from R:     %s",
 			player.cubesThisAscension.maxCubesPerSec.toPrecision(8),
 			player.cubesThisAscension.maxAllTime.toPrecision(8),
-			(calculateTimeAcceleration() / 60).toPrecision(6))
+			(calculateTimeAcceleration() / 60).toPrecision(8))
 	}
 
 }
