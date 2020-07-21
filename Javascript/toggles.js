@@ -242,19 +242,41 @@ function toggleRuneScreen(){
         document.getElementById("togglerunesubtab").style.border = "2px solid grey"
     };
 }
-function toggleSettingScreen(){
-    if (settingscreen == "settings"){
-        settingscreen = "credits";
-        document.getElementById("settingsubtab").style.display = "none";
-        document.getElementById("creditssubtab").style.display = "block";
-        document.getElementById("switchsettingtab").textContent = "Go back to Settings"
+function toggleSettingScreen(i){
+
+    document.getElementById("settingsubtab").style.display = "none"
+    document.getElementById("creditssubtab").style.display = "none"
+    document.getElementById("statisticsSubTab").style.display = "none"
+    if(i === 1){
+    (settingscreen !== "credits") ?
+        (settingscreen = "credits",
+        document.getElementById("settingsubtab").style.display = "none",
+        document.getElementById("creditssubtab").style.display = "block", 
+        document.getElementById("switchsettingtab").textContent = "Go back to Settings",
+        document.getElementById("switchsettingtab2").textContent = "Stats for Nerds"):
+    
+        (settingscreen = "settings",
+        document.getElementById("settingsubtab").style.display = "block",
+        document.getElementById("creditssubtab").style.display = "none",
+        document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements");  
     }
-    else{
-        settingscreen = "settings";
-        document.getElementById("settingsubtab").style.display = "block";
-        document.getElementById("creditssubtab").style.display = "none";
-        document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements"
-    };
+    if(i === 2){
+    (settingscreen !== "statistics") ?
+        (settingscreen = "statistics",
+        document.getElementById("settingsubtab").style.display = "none",
+        document.getElementById("statisticsSubTab").style.display = "block", 
+        document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements",
+        document.getElementById("switchsettingtab2").textContent = "Go back to Settings"):
+
+        (settingscreen = "settings",
+        document.getElementById("settingsubtab").style.display = "block",
+        document.getElementById("statisticsSubTab").style.display = "none",
+        document.getElementById("switchsettingtab2").textContent = "Stats for Nerds");
+    }
+
+    if(settingscreen === "statistics"){
+        loadStatisticsAccelerator();
+    }
 }
 
 function toggleShopConfirmation(){

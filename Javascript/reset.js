@@ -71,11 +71,7 @@ function resetdetails(i) {
         document.getElementById("resetcurrency2").textContent = ""
         document.getElementById("resetobtainium2").textContent = ""
         if (player.currentChallenge !== "") {
-            if (player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirements[s] * Math.pow(1 + player.challengecompletions[s], 2) * Math.pow(1.5, Math.max(0, player.challengecompletions[s] - 75))))) {
-                document.getElementById("resetinfo").style.color = "limegreen"
-            } else {
-                document.getElementById("resetinfo").style.color = "crimson"
-            }
+            document.getElementById("resetinfo").style.color = "aquamarine"
             document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + format(player.coinsThisTranscension) + "/" + format(Decimal.pow(10, challengebaserequirements[s] * Math.pow(1 + player.challengecompletions[s], 2) * Math.pow(1.5, Math.max(0,player.challengecompletions[s]-75)))) + " Coins. TIME SPENT: " + format(player.transcendcounter) + " seconds."
         }
         if (player.currentChallenge == "") {
@@ -108,11 +104,7 @@ function resetdetails(i) {
         document.getElementById("resetobtainium").src = ""
         document.getElementById("resetobtainium2").textContent = ""
         document.getElementById("resetinfo").textContent = "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: " + format(player.prestigePoints) + "/" + format(player.acceleratorBoostCost) + " Diamonds."
-        if (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {
-            document.getElementById("resetinfo").style.color = "limegreen"
-        } else {
-            document.getElementById("resetinfo").style.color = "crimson"
-        }
+        document.getElementById("resetinfo").style.color = "cyan"
     }
     if (i == 6) {
         var s = player.currentChallengeRein
@@ -124,12 +116,10 @@ function resetdetails(i) {
         document.getElementById("resetcurrency1").src = ""
         document.getElementById("resetcurrency2").textContent = ""
         document.getElementById("resetobtainium2").textContent = ""
+        document.getElementById("resetinfo").style.color = "silver"
         if (player.currentChallengeRein !== "") {
-            if (player[goal].greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirementsrein[s] * Math.min(Math.pow(1.3797, player.challengecompletions[s]),Math.pow(1 + player.challengecompletions[s], 2))))) {
-                document.getElementById("resetinfo").style.color = "limegreen"
-            } else {
-                document.getElementById("resetinfo").style.color = "crimson"
-            }
+ 
+            document.getElementById("resetinfo").style.color = "silver"
             document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + format(player[goal]) + "/" + format(Decimal.pow(10, challengebaserequirementsrein[s] * Math.min(Math.pow(1.3797, player.challengecompletions[s]),Math.pow(1 + player.challengecompletions[s], 2)))) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."
         }
         if (player.currentChallengeRein == "") {

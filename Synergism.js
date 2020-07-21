@@ -952,6 +952,7 @@ if (player.achievements[44] == 1)document.getElementById("runeshowpower3").textC
 if (player.achievements[102] == 1)document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (rune4level/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + rune4level/8 + "%."; */
 
 CSSAscend();
+StatisticShow();
 
 document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * effectiveLevelMult - 100).toPrecision(4) + "%";
 
@@ -1174,23 +1175,15 @@ function updateAllTick() {
 	if (player.achievements[60] > 0.5) {a += 2}
 	if (player.achievements[61] > 0.5) {a += 2}
 	if (player.achievements[62] > 0.5) {a += 2}
-
+	a += 5 * player.challengecompletions.two
+	freeUpgradeAccelerator = a;
 	a += totalAcceleratorBoost * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20] + cubeBonusMultiplier[1]);
 	if (player.unlocks.prestige == true) {
-	a += rune1level  * (1 + rune2level / 200) * effectiveLevelMult
+	a += Math.floor(rune1level * effectiveLevelMult);
+	a *=(1 + rune1level * 1/200 * effectiveLevelMult);
 	}
-	a += 5 * player.challengecompletions.two
-	a *=(1 + rune1level * 1/200) * effectiveLevelMult;
-	a += (player.acceleratorBought * rune1level * 1/200 * effectiveLevelMult)
-	a *=(1 + player.achievements[60]/100)
-	a *=(1 + player.achievements[61]/100)
-	a *=(1 + player.achievements[62]/100)
-	a *=(1 + 1/5 * player.researches[1])
-	a *=(1 + 1/20 * player.researches[6] + 1/25 * player.researches[7] + 1/40 * player.researches[8] + 3/200 * player.researches[9] + 1/200 * player.researches[10]);
-	a *=(1 + 1/20 * player.researches[86])
-	a *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
-	if ((player.currentChallenge !== "" || player.currentChallengeRein !== "") && player.upgrades[50] > 0.5) {a *= 1.25}
-	a *= maladaptiveMultiplier[player.usedCorruptions[2]]
+	calculateAcceleratorMultiplier();
+	a *= acceleratorMultiplier
 	a = Math.floor(a)
 	
 	freeAccelerator = a;
@@ -1694,6 +1687,24 @@ function resourceGain(dt,fast){
 		if (player.antPoints.greaterThanOrEqualTo("1e500") && player.achievements[174] == 0){achievementaward(174)}
 		if (player.antPoints.greaterThanOrEqualTo("1e2500") && player.achievements[175] == 0){achievementaward(175)}
 
+		var chal = player.currentChallenge;
+		var reinchal = player.currentChallengeRein;
+		if (chal !== ""){
+		if (player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirements[chal] * Math.pow(1 + player.challengecompletions[chal], 2) * Math.pow(1.5, Math.max(0, player.challengecompletions[chal] - 75))))){
+			resetCheck('challenge',false);
+		}
+		}
+		if (reinchal == "six" || reinchal == "seven" || reinchal == "eight"){
+			if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirementsrein[reinchal] * Math.min(Math.pow(1.3797, player.challengecompletions[reinchal]),Math.pow(1 + player.challengecompletions[reinchal], 2))))) {
+			resetCheck('reincarnationchallenge',false)
+			}
+		}
+		if (reinchal == "nine" || reinchal == "ten"){
+			if (player.coins.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirementsrein[reinchal] * Math.min(Math.pow(1.3797, player.challengecompletions[reinchal]),Math.pow(1 + player.challengecompletions[reinchal], 2))))) {
+				resetCheck('reincarnationchallenge',false)
+				}
+		}
+
 	}
 
 	//===================================================================
@@ -1999,25 +2010,7 @@ function updateAll() {
 			var time = Math.max(0.25, player.transcendamount);
 		if (player.toggles.twentyone == true && player.upgrades[89] == 1 && player.transcendcounter >= time && player.coinsThisTranscension.greaterThanOrEqualTo(1e100) && player.currentChallenge == "") {resetachievementcheck(2);reset(2,true);}
 		}
-//Challenge Tab Updates
 
-		var chal = player.currentChallenge;
-		var reinchal = player.currentChallengeRein;
-		if (chal !== ""){
-		if (player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirements[chal] * Math.pow(1 + player.challengecompletions[chal], 2) * Math.pow(1.5, Math.max(0, player.challengecompletions[chal] - 75))))){
-			resetCheck('challenge',false);
-		}
-		}
-		if (reinchal == "six" || reinchal == "seven" || reinchal == "eight"){
-			if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirementsrein[reinchal] * Math.min(Math.pow(1.3797, player.challengecompletions[reinchal]),Math.pow(1 + player.challengecompletions[reinchal], 2))))) {
-			resetCheck('reincarnationchallenge',false)
-			}
-		}
-		if (reinchal == "nine" || reinchal == "ten"){
-			if (player.coins.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirementsrein[reinchal] * Math.min(Math.pow(1.3797, player.challengecompletions[reinchal]),Math.pow(1 + player.challengecompletions[reinchal], 2))))) {
-				resetCheck('reincarnationchallenge',false)
-				}
-		}
 
 //Autobuy "Reincarnation" Tab
 

@@ -29,6 +29,7 @@
     <script src="Javascript/talismans.js"></script>
     <script src="Javascript/calculate.js"></script>
     <script src="Javascript/cubes.js"></script>
+    <script src="Javascript/statistic.js"></script>
     <!--<script src="Javascript/i18n.js"></script>-->
     <title>Synergism 1.011</title>
     </head>
@@ -1559,68 +1560,84 @@
         <div id="traits">
 
         </div>
-        <div id="settings">
-            <button id="switchsettingtab" onclick="toggleSettingScreen()">Credits & Acknowledgements</button>
-            <div id="settingsubtab">
-            <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
-            <p class="prestigeunlock" id="settingtitle3" style="color: plum">Miscellaneous Stats</p>
-            <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
-            
-            <p class="prestigeunlock" id="temporarystats1" style="color: lightblue"></p>
-            <p class="transcendunlock" id="temporarystats2" style="color: plum"></p>
-            <p class="reincarnationunlock" id="temporarystats3" style="color: limegreen"></p>
-            <p class="prestigeunlock" id="temporarystats4" style="color: lightblue"></p>
-            <p class="transcendunlock" id="temporarystats5" style="color: plum"></p>
-            <p class="reincarnationunlock" id="temporarystats6" style="color: limegreen"></p>
-            <p class="prestigeunlock" id="temporarystats7" style="color: orangered"></p>
-            <p class="reincarnationunlock" id="temporarystats8" style="color: pink"></p>
-            <p class="reincarnationunlock" id="temporarystats9" style="color: crimson"></p>
-            <p class="reincarnationunlock" id="temporarystats11" style="color: crimson;"></p>
-            <p class="prestigeunlock" id="temporarystats10" style="color: cyan"></p>
-
-
-            <p class="prestigeunlock" id="quarktimeramount" style="color: cyan">Quarks on export: 0 [Max 25]</p>
-            <p class="prestigeunlock" id="quarktimerdisplay" style="color: gold">3600s until +1 export Quark</p>
-    
-            <img class="prestigeunlock" id="settingpic1" src = "Pictures/Prestige.png" style="border: 1px solid cyan">
-            <button class="auto" id="toggle28" onclick="toggleSettings(27)" style="border:2px solid green">On</button>
-    
-            <img class="transcendunlock" id="settingpic2" src = "Pictures/Transcend.png" style="border: 1px solid plum">
-            <button class="auto" id="toggle29" onclick="toggleSettings(28)" style="border:2px solid green">On</button>
-    
-            <img class="reincarnationunlock" id="settingpic3" src = "Pictures/Reincarnate.png" style="border: 1px solid green">
-            <button class="auto" id="toggle30" onclick="toggleSettings(29)" style="border:2px solid green">On</button>
-        
-            
-            <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
-            <p id="importgame" style="color: limegreen">Load game below!</button>
-            <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
-            <p id="exportinfo" style="color: white"></p>
-            <p id="saveinfo" style="color: limegreen"></p>
-            <button id="submitstats" onclick="submitStats()" style="border: 2px solid maroon">Submit your stats to Kongregate!</button>
-            <button id="promocodes" onclick="promocodes()" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
-            <p id="promocodeinfo" style="color: goldenrod"></p>
-            <textarea id="exporttext" class="exporting" style="color: white; font-size: 0.3em;"></textarea>
-            <p id="importinfo" style="color: white"></p>
-
-            <input type="file" id="importfile" accept=".txt" style="color: transparent">
-
-            <a href="https://www.discord.gg/ameCknq" target="_blank">
+<div id="settings">
+    <button id="switchsettingtab" onclick="toggleSettingScreen(1)">Credits & Acknowledgements</button>
+    <button id="switchsettingtab2" onclick="toggleSettingScreen(2)">Stats for Nerds</button>
+    <div id="settingsubtab">
+        <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
+        <p class="prestigeunlock" id="settingtitle3" style="color: plum">Miscellaneous Stats</p>
+        <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
+        <p class="prestigeunlock" id="temporarystats1" style="color: lightblue"></p>
+        <p class="transcendunlock" id="temporarystats2" style="color: plum"></p>
+        <p class="reincarnationunlock" id="temporarystats3" style="color: limegreen"></p>
+        <p class="prestigeunlock" id="temporarystats4" style="color: lightblue"></p>
+        <p class="transcendunlock" id="temporarystats5" style="color: plum"></p>
+        <p class="reincarnationunlock" id="temporarystats6" style="color: limegreen"></p>
+        <p class="prestigeunlock" id="temporarystats7" style="color: orangered"></p>
+        <p class="reincarnationunlock" id="temporarystats8" style="color: pink"></p>
+        <p class="reincarnationunlock" id="temporarystats9" style="color: crimson"></p>
+        <p class="reincarnationunlock" id="temporarystats11" style="color: crimson;"></p>
+        <p class="prestigeunlock" id="temporarystats10" style="color: cyan"></p>
+        <p class="prestigeunlock" id="quarktimeramount" style="color: cyan">Quarks on export: 0 [Max 25]</p>
+        <p class="prestigeunlock" id="quarktimerdisplay" style="color: gold">3600s until +1 export Quark</p>
+        <img class="prestigeunlock" id="settingpic1" src = "Pictures/Prestige.png" style="border: 1px solid cyan">
+        <button class="auto" id="toggle28" onclick="toggleSettings(27)" style="border:2px solid green">On</button>
+        <img class="transcendunlock" id="settingpic2" src = "Pictures/Transcend.png" style="border: 1px solid plum">
+        <button class="auto" id="toggle29" onclick="toggleSettings(28)" style="border:2px solid green">On</button>
+        <img class="reincarnationunlock" id="settingpic3" src = "Pictures/Reincarnate.png" style="border: 1px solid green">
+        <button class="auto" id="toggle30" onclick="toggleSettings(29)" style="border:2px solid green">On</button>
+        <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
+        <p id="importgame" style="color: limegreen">Load game below!</button>
+        <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
+        <p id="exportinfo" style="color: white"></p>
+        <p id="saveinfo" style="color: limegreen"></p>
+        <button id="submitstats" onclick="submitStats()" style="border: 2px solid maroon">Submit your stats to Kongregate!</button>
+        <button id="promocodes" onclick="promocodes()" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
+        <p id="promocodeinfo" style="color: goldenrod"></p>
+        <textarea id="exporttext" class="exporting" style="color: white; font-size: 0.3em;"></textarea>
+        <p id="importinfo" style="color: white"></p>
+        <input type="file" id="importfile" accept=".txt" style="color: transparent">
+        <a href="https://www.discord.gg/ameCknq" target="_blank">
             <img id="discord" src="Pictures/icon.gif" title="Click to join the official Discord!">
-            </a>
-            <a href="https://docs.google.com/document/d/17Q1CVrDesdguc274qyCxnKeCkrNw002VipdCvUmAjYQ/edit?usp=sharing" target="_blank">
+        </a>
+        <a href="https://docs.google.com/document/d/17Q1CVrDesdguc274qyCxnKeCkrNw002VipdCvUmAjYQ/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
-            </a>
+        </a>
+        <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: July 20, 2020 7:16PM PDT</p>
+    </div>
+    <div id="creditssubtab" style="display: none">
+        <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>
+        <p id="artisthelp" style="color:white">People who helped with art/design: Omsi, Alberan, Blank, ThalainTheCat, Sneekxy</p>
+        <p id="boosters" style="color:white">People who Boosted the Discord Server: <span style="color: lightskyblue">earth [Legacy], Flame [Legacy], Kittelson [Legacy], PerspectiveTransform [Legacy], somepersondontask [Legacy]</span>,<span style="color: green"> Gnum [2x!], Internet Car Man [2x!], Julius Dungworth [2x!], mdog245 [2x!], Nethlion [2x!], Slavderr [2x!], Sneekxy [2x!], Tony Tells you to CHECK THE PINS [2x!], Valorswift420 [2x!], Veritas [2x!], Zirios [2x!]</span>,<span style="color: pink"> Ace Rimmer, Arkanos80, BobMcKnob, jables, Mophtran, Schizogen, Stang, theefool, Voltana, Ximon.</span></p>
+        <p id="shameless" style="color: gold">And you, for playing my first ever project, Synergism!</p>             
+    </div>
+    <div id="statisticsSubTab" style="display: none">
+        <div id="acceleratorStats">
+            <p id="statA1" class="statPortion">Accelerators from Upgrades/Misc: <span id="sA1" class="statNumber">0</span></p>
+            <p id="statA2" class="statPortion">Accelerators from Boosts: <span id="sA2" class="statNumber">0</span></p>
+            <p id="statA3" class="statPortion">Accelerators from Speed Rune: <span id="sA3" class="statNumber">0</span></p>
+            <p id="statA4" class="statPortion">Speed Rune Multiplier: <span id="sA4" class="statNumber">0</span></p>
+            <p id="statA5" class="statPortion">Upgrade Multiplier: <span id="sA5" class="statNumber">0</span></p>
+            <p id="statA6" class="statPortion">Achievement Multiplier: <span id="sA6" class="statNumber">0</span></p>
+            <p id="statA7" class="statPortion">Research 1x1 Multiplier: <span id="sA7" class="statNumber">0</span></p>
+            <p id="statA8" class="statPortion">Research [2x1]-[2x5] Multiplier: <span id="sA8" class="statNumber">0</span></p>
+            <p id="statA9" class="statPortion">Research 3x16 Multiplier: <span id="sA9" class="statNumber">0</span></p>
+            <p id="statA10" class="statPortion">Challenge Multiplier: <span id="sA10" class="statNumber">0</span></p>
+            <p id="statA11" class="statPortion">Corruption Multipliier: <span id="sA11" class="statNumber">0</span></p>
+            <p id="statA12" class="statPortion" style="color: orange">TOTAL FREE ACCELERATORS: <span id="sA12" class="statNumber" style="color:orchid">0</span></p>
 
-            <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: July 17, 2020 1:27PM PDT</p>
         </div>
-            <div id="creditssubtab" style="display: none">
-            <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>
-            <p id="artisthelp" style="color:white">People who helped with art/design: Omsi, Alberan, Blank, ThalainTheCat, Sneekxy</p>
-            <p id="boosters" style="color:white">People who Boosted the Discord Server: <span style="color: lightskyblue">earth [Legacy], Flame [Legacy], Kittelson [Legacy], PerspectiveTransform [Legacy], somepersondontask [Legacy]</span>,<span style="color: green"> Gnum [2x!], Internet Car Man [2x!], Julius Dungworth [2x!], mdog245 [2x!], Nethlion [2x!], Slavderr [2x!], Sneekxy [2x!], Tony Tells you to CHECK THE PINS [2x!], Valorswift420 [2x!], Veritas [2x!], Zirios [2x!]</span>,<span style="color: pink"> Ace Rimmer, Arkanos80, BobMcKnob, jables, Mophtran, Schizogen, Stang, theefool, Voltana, Ximon.</span></p>
-            <p id="shameless" style="color: gold">And you, for playing my first ever project, Synergism!</p>             
+        <div id="acceleratorBoostStats">
+
+        </div>
+        <div id="multiplierStats">
+
+        </div>
+        <div id="antStats">
+
         </div>
     </div>
+</div>
 
     <div id="shop">
         <p id="shoptop">Welcome to the Quark Shop. You can't believe what's in stock!</p>

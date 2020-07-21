@@ -803,3 +803,11 @@ function CSSAscend() {
 
 	}
 }
+
+function StatisticShow(){
+	for(var i = 1; i<= 12; i++){
+		let a = document.getElementById("statA"+i)
+		a.style.top = (20*i - 20)+"px"
+		a.style.left = "7%"
+	}
+}

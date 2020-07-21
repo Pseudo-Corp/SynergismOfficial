@@ -45,6 +45,20 @@ function calculateTotalAcceleratorBoost() {
 	totalAcceleratorBoost = Math.floor(player.acceleratorBoostBought + freeAcceleratorBoost) * 100/100;
 }
 
+
+function calculateAcceleratorMultiplier(){
+    acceleratorMultiplier = 1;
+    acceleratorMultiplier *=(1 + player.achievements[60]/100)
+	acceleratorMultiplier *=(1 + player.achievements[61]/100)
+	acceleratorMultiplier *=(1 + player.achievements[62]/100)
+	acceleratorMultiplier *=(1 + 1/5 * player.researches[1])
+	acceleratorMultiplier *=(1 + 1/20 * player.researches[6] + 1/25 * player.researches[7] + 1/40 * player.researches[8] + 3/200 * player.researches[9] + 1/200 * player.researches[10]);
+	acceleratorMultiplier *=(1 + 1/20 * player.researches[86])
+	acceleratorMultiplier *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
+	if ((player.currentChallenge !== "" || player.currentChallengeRein !== "") && player.upgrades[50] > 0.5) {acceleratorMultiplier *= 1.25}
+	acceleratorMultiplier *= maladaptiveMultiplier[player.usedCorruptions[2]]
+}
+
 function calculateRecycleMultiplier() {
 	// Factors where recycle bonus comes from
 	let recycleFactors = sumContents([

@@ -4043,8 +4043,18 @@ margin-left: -13px
 	width: 200px;
 	left: 50%;
 	margin-left: -100px;
-	top: 40px;
+	top: 10px;
 	border: 2px solid gold;
+}
+#switchsettingtab2 {
+	position: absolute;
+	height: 30px;
+	width: 200px;
+	left: 50%;
+	margin-left: -100px;
+	top: 40px;
+	border: 2px solid orange;
+	
 }
 #programminghelp {
 	position: absolute;
@@ -4134,4 +4144,17 @@ margin-left: -13px
 	height: 20px;
 	color: gray;
 	text-align: center;
+}
+
+.statPortion{
+	width: 400px;
+	position: absolute;
+	color: white;
+	text-align: left;
+	font-size: 1em;
+}
+.statNumber{
+	color: yellow;
+	font-size: 0.9em;
+	float: right;
 }
