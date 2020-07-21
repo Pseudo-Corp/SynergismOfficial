@@ -514,7 +514,7 @@ function calculateAntSacrificeRewards() {
     rewards.legendaryFragments = (antELO > 3000) ?
         Math.floor(rewardsMult * Math.pow(1/49 * (Math.max(0,effectiveELO - 3000)), 1.16)) :
         0;
-    rewards.mythicFragments = (antELO > 5000) ?
+    rewards.mythicalFragments = (antELO > 5000) ?
         Math.floor(rewardsMult * Math.pow(1/64 * (Math.max(0,effectiveELO - 4150)), 1)) :
         0;
 
