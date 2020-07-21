@@ -894,6 +894,8 @@ function loadSynergy() {
 	}
 
 	player.wowCubes = player.wowCubes || 0;
+		if (!player.cubesThisAscension.maxAllTime) // Initializes the value if it doesn't exist
+			player.cubesThisAscension.maxAllTime = 0
 
 var j
 for (j = 1; j < player.upgrades.length; j++) {
@@ -1141,10 +1143,9 @@ function format(input,accuracy,long){
 function logCubesPerSec() {
 	let c = player.cubesThisAscension.challenges, r = player.cubesThisAscension.reincarnation,
 		a = player.cubesThisAscension.ascension;
-
-	let leadingSpaces = function(value, width) {
+	let leadingSpaces = function (value, width) {
 		let x = value.toFixed(0)
-		return " ".repeat(width-x.length) + x
+		return " ".repeat(width - x.length) + x
 	}
 	console.log(`Cubes gained (this Ascension) from
 Challenges Reincarnations      Ascension     Total
@@ -1157,7 +1158,7 @@ Cubes per second: %s`, leadingSpaces(c, 10), leadingSpaces(c, 14), leadingSpaces
 		console.log("Max this Ascension: %s\nMax all time: %s\nCubes/s from R: %s",
 			player.cubesThisAscension.maxCubesPerSec.toPrecision(8),
 			player.cubesThisAscension.maxAllTime.toPrecision(8),
-			(calculateTimeAcceleration()/60).toPrecision(6))
+			(calculateTimeAcceleration() / 60).toPrecision(6))
 	}
 
 }
