@@ -517,7 +517,7 @@ function htmlInserts() {
 				document.getElementById('bonusrune'+i).textContent = " [" + format(player.antUpgrades[9] + bonusant9 + place) + "]"
 			}
 	
-    		document.getElementById("runedetails").textContent = "Gain " + (25 + 3 * player.researches[22] + 2 * player.researches[23] + 3 * player.upgrades[66] + 5 * player.upgrades[61]) + "* EXP per offering sacrificed. Optimal Reset time for Offerings: " + format(600 + 0.4 * (rune5level) + 6 * player.researches[85] + 120 * player.shopUpgrades.offeringTimerLevel) + " Seconds." 
+    		document.getElementById("runedetails").textContent = "Gain " + (25 + 3 * player.researches[22] + 2 * player.researches[23] + 3 * player.upgrades[66] + 5 * player.upgrades[61]) + "* EXP per offering sacrificed. Optimal Reset time for Offerings: " + format(600 + 0.4 * (rune5level) + 30 * player.researches[85] + 120 * player.shopUpgrades.offeringTimerLevel) + " Seconds." 
     		document.getElementById("runerecycle").textContent = "You have " +(5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, player.runelevels[3]/8) + 0.5 * player.cubeUpgrades[2])  + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(),2,true) + "!"
 
 		}
