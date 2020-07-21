@@ -292,7 +292,7 @@ function showSacrifice(){
             document.getElementById("antSacrificeRareFragment").textContent = "+" + format(sacRewards.rareFragments) + " [>1,500 ELO]"
             document.getElementById("antSacrificeEpicFragment").textContent = "+" + format(sacRewards.epicFragments) + " [>2,000 ELO]"
             document.getElementById("antSacrificeLegendaryFragment").textContent = "+" + format(sacRewards.legendaryFragments) + " [>3,000 ELO]"
-            document.getElementById("antSacrificeMythicalFragment").textContent = "+" + format(sacRewards.mythicFragments) + " [>5,000 ELO]"
+            document.getElementById("antSacrificeMythicalFragment").textContent = "+" + format(sacRewards.mythicalFragments) + " [>5,000 ELO]"
     }
 }
 
@@ -315,7 +315,7 @@ function sacrificeAnts(auto){
             player.rareFragments += sacRewards.rareFragments;
             player.epicFragments += sacRewards.epicFragments;
             player.legendaryFragments += sacRewards.legendaryFragments;
-            player.mythicFragments += sacRewards.mythicFragments;
+            player.mythicalFragments += sacRewards.mythicalFragments;
         }
         resetAnts();
         player.antSacrificeTimer = 0;
