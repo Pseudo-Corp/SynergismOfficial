@@ -152,7 +152,7 @@ function calculateRuneExpToLevel(runeIndex) {
 		allRuneExpRequiredMultiplier,
 		runeExpRequiredMultiplier[runeIndex]
 	]);
-	
+
 	return expToLevel;
 
 }
@@ -221,7 +221,7 @@ function calculateOfferings(i){
         c *= Math.pow(player.prestigecounter / 480 * Math.pow(Math.min(optimalOfferingTimer/600, player.prestigecounter / 600), 1), 0.5)
     }
     q = a + b + c
-    
+
 
     if (player.achievements[33] > 0.5) {
         q *= 1.10
@@ -286,7 +286,7 @@ function calculateObtainium(){
         }
         if (player.achievements[128]){obtainiumGain *= 1.5};
         if (player.achievements[129]){obtainiumGain *= 1.25};
-        
+
         if (player.achievements[51] > 0){obtainiumGain += 4}
         if (player.reincarnationcounter >= 30){obtainiumGain += 1 * player.researches[63]}
         if (player.reincarnationcounter >= 60){obtainiumGain += 2 * player.researches[64]}
@@ -317,25 +317,25 @@ function calculateTalismanEffects(){
     for(var i=1; i <= 5; i++){
         if(player.talismanOne[i] == (1)){talisman1Effect[i] = (talismanPositiveModifier[player.talismanRarity[1]] + positiveBonus) * player.talismanLevels[1]}
         else{talisman1Effect[i] = (talismanNegativeModifier[player.talismanRarity[1]] - negativeBonus) * player.talismanLevels[1] * (-1)}
-        
+
         if(player.talismanTwo[i] == (1)){talisman2Effect[i] = (talismanPositiveModifier[player.talismanRarity[2]] + positiveBonus) * player.talismanLevels[2]}
         else{talisman2Effect[i] = (talismanNegativeModifier[player.talismanRarity[2]] - negativeBonus) * player.talismanLevels[2] * (-1)}
-        
+
         if(player.talismanThree[i] == (1)){talisman3Effect[i] = (talismanPositiveModifier[player.talismanRarity[3]] + positiveBonus) * player.talismanLevels[3]}
         else{talisman3Effect[i] = (talismanNegativeModifier[player.talismanRarity[3]] - negativeBonus) * player.talismanLevels[3] * (-1)}
-        
+
         if(player.talismanFour[i] == (1)){talisman4Effect[i] = (talismanPositiveModifier[player.talismanRarity[4]] + positiveBonus) * player.talismanLevels[4]}
         else{talisman4Effect[i] = (talismanNegativeModifier[player.talismanRarity[4]] - negativeBonus) * player.talismanLevels[4] * (-1)}
-        
+
         if(player.talismanFive[i] == (1)){talisman5Effect[i] = (talismanPositiveModifier[player.talismanRarity[5]] + positiveBonus) * player.talismanLevels[5]}
         else{talisman5Effect[i] = (talismanNegativeModifier[player.talismanRarity[5]] - negativeBonus) * player.talismanLevels[5] * (-1)}
-        
+
         if(player.talismanSix[i] == (1)){talisman6Effect[i] = (talismanPositiveModifier[player.talismanRarity[6]] + positiveBonus) * player.talismanLevels[6]}
         else{talisman6Effect[i] = (talismanNegativeModifier[player.talismanRarity[6]] - negativeBonus) * player.talismanLevels[6] * (-1)}
-        
+
         if(player.talismanSeven[i] == (1)){talisman7Effect[i] = (talismanPositiveModifier[player.talismanRarity[7]] + positiveBonus) * player.talismanLevels[7]}
         else{talisman7Effect[i] = (talismanNegativeModifier[player.talismanRarity[7]] - negativeBonus) * player.talismanLevels[7] * (-1)}
-        
+
     }
     rune1Talisman = 0;
     rune2Talisman = 0;
@@ -375,8 +375,8 @@ function calculateRuneLevels() {
         document.getElementById("divineblessing"+i).textContent = "";
         document.getElementById("rune"+i).style.backgroundColor = "black";
         if(player.autoSacrifice == i){document.getElementById("rune"+i).style.backgroundColor = "orange"}}
-    
-    
+
+
     divineBlessing5 = 0;
     if (rune1level >= 1250){
         document.getElementById("rune1").style.backgroundColor = "red";
@@ -442,7 +442,7 @@ function calculateAntSacrificeELO(){
         antELO += player.fifthOwnedAnts
         antELO += 2 * player.sixthOwnedAnts
         antELO += 4 * player.seventhOwnedAnts
-        antELO += 8 * player.eighthOwnedAnts 
+        antELO += 8 * player.eighthOwnedAnts
         if(player.achievements[180] == 1){antELO *= 1.01}
         if(player.achievements[181] == 1){antELO *= 1.03/1.01}
         if(player.achievements[182] == 1){antELO *= 1.06/1.03}
@@ -468,6 +468,57 @@ function calculateAntSacrificeELO(){
 
 
     }
+}
+
+function calculateAntSacrificeMultipliers() {
+    timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 900, 2)) * Math.max(1, Math.pow(player.antSacrificeTimer/900, 0.92));
+
+    upgradeMultiplier = 1;
+    upgradeMultiplier *= (1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11)/125)));
+    upgradeMultiplier *= (1 + player.researches[103]/20);
+    upgradeMultiplier *= (1 + player.researches[104]/20);
+    if(player.achievements[132] == 1){upgradeMultiplier *= 1.25};
+    if(player.achievements[137] == 1){upgradeMultiplier *= 1.25};
+    upgradeMultiplier *= divineBlessing3;
+    upgradeMultiplier *= (1 + 1/50 * player.challengecompletions.ten);
+    upgradeMultiplier *= (1 + 1/50 * player.researches[122]);
+    upgradeMultiplier *= (1 + 1/10 * player.upgrades[79]);
+    upgradeMultiplier *= (1 + 0.09 * player.upgrades[40]);
+    upgradeMultiplier *= cubeBonusMultiplier[7];
+}
+
+function calculateAntSacrificeRewards() {
+    calculateAntSacrificeELO();
+    calculateAntSacrificeMultipliers();
+    let rewardsMult = timeMultiplier * upgradeMultiplier;
+    let rewards = {};
+
+    rewards.antSacrificePoints = effectiveELO * rewardsMult;
+    rewards.offerings = player.offeringpersecond * 0.15 * effectiveELO * rewardsMult;
+    rewards.obtainium = player.maxobtainiumpersecond * 0.24 * effectiveELO * rewardsMult;
+    rewards.talismanShards = (antELO > 500) ?
+        Math.floor(rewardsMult * Math.pow(1/4 * (Math.max(0, effectiveELO - 500)), 2)) :
+        0;
+    rewards.commonFragments = (antELO > 750) ?
+        Math.floor(rewardsMult * Math.pow(1/9 * (Math.max(0,effectiveELO - 750)), 1.83)) :
+        0;
+    rewards.uncommonFragments = (antELO > 1000) ?
+        Math.floor(rewardsMult * Math.pow(1/16 * (Math.max(0,effectiveELO - 1000)), 1.66)) :
+        0;
+    rewards.rareFragments = (antELO > 1500) ?
+        Math.floor(rewardsMult * Math.pow(1/25 * (Math.max(0,effectiveELO - 1500)), 1.50)) :
+        0;
+    rewards.epicFragments = (antELO > 2000) ?
+        Math.floor(rewardsMult * Math.pow(1/36 * (Math.max(0,effectiveELO - 2000)), 1.33)) :
+        0;
+    rewards.legendaryFragments = (antELO > 3000) ?
+        Math.floor(rewardsMult * Math.pow(1/49 * (Math.max(0,effectiveELO - 3000)), 1.16)) :
+        0;
+    rewards.mythicFragments = (antELO > 5000) ?
+        Math.floor(rewardsMult * Math.pow(1/64 * (Math.max(0,effectiveELO - 4150)), 1)) :
+        0;
+
+    return rewards;
 }
 
 function initiateTimeWarp(time){
@@ -554,7 +605,7 @@ function calculateCubeBlessings(){
 
     let cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
     let powerBonus = [null, player.cubeUpgrades[45]/100, player.cubeUpgrades[35]/100, player.cubeUpgrades[24]/100,player.cubeUpgrades[14]/100, 0, 0, player.cubeUpgrades[15]/100, player.cubeUpgrades[25]/100, player.cubeUpgrades[44]/100, player.cubeUpgrades[34]/100]
-    
+
     let accuracy = [null,2,2,2,2,2,2,2,1,4,3]
     for(var i = 1; i <= 10; i++){
     let power = 1;
