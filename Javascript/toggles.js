@@ -276,6 +276,7 @@ function toggleSettingScreen(i){
 
     if(settingscreen === "statistics"){
         loadStatisticsAccelerator();
+        loadStatisticsMultiplier();
     }
 }
 

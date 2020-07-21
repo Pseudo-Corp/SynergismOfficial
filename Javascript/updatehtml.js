@@ -810,4 +810,9 @@ function StatisticShow(){
 		a.style.top = (20*i - 20)+"px"
 		a.style.left = "7%"
 	}
+	for(var i = 1; i<= 13; i++){
+		let a = document.getElementById("statM"+i)
+		a.style.top = (20*i - 20)+"px"
+		a.style.left = "63%"
+	}
 }

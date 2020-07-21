@@ -1192,7 +1192,7 @@ function updateAllTick() {
 	freeUpgradeAccelerator = a;
 	a += totalAcceleratorBoost * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20] + cubeBonusMultiplier[1]);
 	if (player.unlocks.prestige == true) {
-	a += Math.floor(rune1level * effectiveLevelMult);
+	a += Math.floor(Math.pow(rune1level * effectiveLevelMult / 2, 2));
 	a *=(1 + rune1level * 1/200 * effectiveLevelMult);
 	}
 	calculateAcceleratorMultiplier();
@@ -1286,12 +1286,6 @@ function updateAllMultiplier() {
 	if (player.upgrades[33] > 0.5) {
 		a += totalAcceleratorBoost
 	}
-    if (player.upgrades[34] > 0.5) {
-		a *= 1.03 * 100/100
-	}
-	if (player.upgrades[35] > 0.5) {
-		a *= 1.05/1.03 * 100/100
-	}
     if (player.upgrades[49] > 0.5) {
         a += Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10)));
 	}
@@ -1312,16 +1306,22 @@ function updateAllMultiplier() {
 	if (player.achievements[59] > 0.5) {a += 1}
 		a += 20 * player.researches[94] * Math.floor((rune1level + rune2level + rune3level + rune4level + rune5level)/20)
 
+		freeUpgradeMultiplier = a
 
 	if (player.achievements[38] > 0.5) {
 		a += Math.floor(Math.floor(rune2level / 10 * effectiveLevelMult) * Math.floor(10 + rune2level / 10 * effectiveLevelMult) / 2) * 100/100
 	}
-	
 	a *= (1 + player.achievements[57]/100)
 	a *= (1 + player.achievements[58]/100)
 	a *= (1 + player.achievements[59]/100)
 	a *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
-    a *=(1 + 1/5 * player.researches[2])
+	if (player.upgrades[34] > 0.5) {
+		a *= 1.03 * 100/100
+	}
+	if (player.upgrades[35] > 0.5) {
+		a *= 1.05/1.03 * 100/100
+	}
+	a *=(1 + 1/5 * player.researches[2])
 	a *=(1 + 1/20 * player.researches[11] + 1/25 * player.researches[12] + 1/40 * player.researches[13] + 3/200 * player.researches[14] + 1/200 * player.researches[15])
 	a *=(1 + rune2level/200 * effectiveLevelMult)
 	a *=(1 + 1/20 * player.researches[87])

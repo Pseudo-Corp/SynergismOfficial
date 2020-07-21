@@ -349,5 +349,7 @@ var ascendBuildingProduction = {
 	fifth: new Decimal('0'),
 }
 var freeUpgradeAccelerator = 0;
+var freeUpgradeMultiplier = 0;
 
 var acceleratorMultiplier = 1;
+var multiplierMultiplier = 1;
