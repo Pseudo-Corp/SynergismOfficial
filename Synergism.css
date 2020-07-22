@@ -870,7 +870,7 @@ margin-left: -13px
 	top: 118px;
 	padding: 0px;
 	text-align: center;
-	border: 1px solid white
+	border-top: 2px solid white
 }
 
 
@@ -4146,12 +4146,32 @@ margin-left: -13px
 	text-align: center;
 }
 
-.statPortion{
+#statisticsSubTab {
+	max-height: 800px;
+	padding-top: 100px;
+	flex-wrap: wrap;
+}
+.statContainer {
 	width: 400px;
-	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-bottom: auto;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.statPortion{
+	width: 380px;
+	height: auto;
+	margin: auto;
 	color: white;
 	text-align: left;
 	font-size: 1em;
+}
+.statPortion.indented{
+	width: 360px;
+	padding-left: 20px;
 }
 .statNumber{
 	color: yellow;
