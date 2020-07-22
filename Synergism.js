@@ -1144,22 +1144,9 @@ function format(input,accuracy,long){
 function updateCubesPerSec() {
 	let c = player.cubesThisAscension.challenges, r = player.cubesThisAscension.reincarnation,
 		a = player.cubesThisAscension.ascension;
-	let leadingSpaces = function (value, width) {
-		let x = value.toFixed(0)
-		return " ".repeat(width - x.length) + x
-	}
-	console.log(`Cubes gained (this Ascension) from
-Challenges Reincarnations      Ascension     Total
-%s %s %s %s
-Cubes per second:   %s`, leadingSpaces(c, 10), leadingSpaces(r, 14), leadingSpaces(a, 14),
-		leadingSpaces(c + r + a, 9), ((c + r + a) / player.ascensionCounter).toPrecision(8))
 	if (player.challengecompletions.ten > 0) {
 		player.cubesThisAscension.maxCubesPerSec = Math.max(player.cubesThisAscension.maxCubesPerSec, (c + r + a) / player.ascensionCounter)
 		player.cubesThisAscension.maxAllTime = Math.max(player.cubesThisAscension.maxAllTime, player.cubesThisAscension.maxCubesPerSec)
-		console.log("Max this Ascension: %s\nMax all time:       %s\nCubes/s from R:     %s",
-			player.cubesThisAscension.maxCubesPerSec.toPrecision(8),
-			player.cubesThisAscension.maxAllTime.toPrecision(8),
-			(calculateTimeAcceleration() / 60).toPrecision(8))
 	}
 
 }
