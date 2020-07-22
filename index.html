@@ -1597,9 +1597,12 @@
         <textarea id="exporttext" class="exporting" style="color: white; font-size: 0.3em;"></textarea>
         <p id="importinfo" style="color: white"></p>
         <input type="file" id="importfile" accept=".txt" style="color: transparent">
-        <a href="https://www.discord.gg/ameCknq" target="_blank">
-            <img id="discord" src="Pictures/icon.gif" title="Click to join the official Discord!">
-        </a>
+        <div id="discord">
+            Click the image below to join the Discord!
+            <a id="discordhref" href="https://www.discord.gg/ameCknq" target="_blank">
+                <img id="discordicon" src="Pictures/icon.gif" title="Click to join the official Discord!">
+            </a>
+        </div>
         <a href="https://docs.google.com/document/d/17Q1CVrDesdguc274qyCxnKeCkrNw002VipdCvUmAjYQ/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
         </a>
@@ -1612,7 +1615,7 @@
         <p id="shameless" style="color: gold">And you, for playing my first ever project, Synergism!</p>             
     </div>
     <div id="statisticsSubTab" style="display: none">
-        <div id="acceleratorStats">
+        <div id="acceleratorStats" class="statContainer">
             <p id="statA1" class="statPortion">Accelerators from Upgrades/Misc: <span id="sA1" class="statNumber">0</span></p>
             <p id="statA2" class="statPortion">Accelerators from Boosts: <span id="sA2" class="statNumber">0</span></p>
             <p id="statA3" class="statPortion">Accelerators from Speed Rune: <span id="sA3" class="statNumber">0</span></p>
@@ -1623,12 +1626,12 @@
             <p id="statA8" class="statPortion">Research [2x1]-[2x5] Multiplier: <span id="sA8" class="statNumber">0</span></p>
             <p id="statA9" class="statPortion">Research 3x16 Multiplier: <span id="sA9" class="statNumber">0</span></p>
             <p id="statA10" class="statPortion">Challenge Multiplier: <span id="sA10" class="statNumber">0</span></p>
-            <p id="statA11" class="statPortion">Corruption Multipliier: <span id="sA11" class="statNumber">0</span></p>
+            <p id="statA11" class="statPortion">Corruption Multiplier: <span id="sA11" class="statNumber">0</span></p>
             <p id="statA12" class="statPortion" style="color: orange">TOTAL FREE ACCELERATORS: <span id="sA12" class="statNumber" style="color:orchid">0</span></p>
         </div>
         <div id="acceleratorBoostStats">
         </div>
-        <div id="multiplierStats">
+        <div id="multiplierStats" class="statContainer">
             <p id="statM1" class="statPortion">Multipliers from upgrades/misc<span id="sM1" class="statNumber"></span></p>
             <p id="statM2" class="statPortion">Multipliers from Duplication Rune<span id="sM2" class="statNumber"></span></p>
             <p id="statM3" class="statPortion">Duplication Rune Multiplier<span id="sM3" class="statNumber"></span></p>
@@ -1645,6 +1648,19 @@
         </div>
         <div id="antStats">
 
+        </div>
+        <div id="cubesPerSecStats" class="statContainer">
+            <p class="statPortion">Cubes this Ascension</p>
+            <p id="statCPS1" class="statPortion indented">from Challenges:<span id="sCPS1" class="statNumber">0</span></p>
+            <p id="statCPS2" class="statPortion indented">from Reincarnations:<span id="sCPS2" class="statNumber">0</span></p>
+            <p id="statCPS3" class="statPortion indented">from Ascension:<span id="sCPS3" class="statNumber">0</span></p>
+            <p id="statCPS4" class="statPortion indented">Total:<span id="sCPS4" class="statNumber">0</span></p>
+            <p id="statCPS5" class="statPortion">Cubes per second: <span id="sCPS5" class="statNumber">0</span></p>
+            <p id="statCPS6" class="statPortion indented" style="display: none">Max this Ascension: <span id="sCPS6" class="statNumber">0</span></p>
+            <p id="statCPS7" class="statPortion indented" style="display: none">Max all Ascensions: <span id="sCPS7" class="statNumber">0</span></p>
+            <p id="statCPS8" class="statPortion indented" style="display: none">Upon C10x1 completion: <span id="sCPS8" class="statNumber">0</span></p>
+            <p id="statCPS9" class="statPortion indented">From Reincarnation: <span id="sCPS9" class="statNumber">0</span></p>
+            <p id="statCPS10" class="statPortion">Total challenge completions: <span id="sCPS10" class="statNumber">0</span></p>
         </div>
     </div>
 </div>

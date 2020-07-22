@@ -264,7 +264,7 @@ function toggleSettingScreen(i){
     (settingscreen !== "statistics") ?
         (settingscreen = "statistics",
         document.getElementById("settingsubtab").style.display = "none",
-        document.getElementById("statisticsSubTab").style.display = "block", 
+        document.getElementById("statisticsSubTab").style.display = "flex",
         document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements",
         document.getElementById("switchsettingtab2").textContent = "Go back to Settings"):
 
@@ -275,8 +275,14 @@ function toggleSettingScreen(i){
     }
 
     if(settingscreen === "statistics"){
-        loadStatisticsAccelerator();
-        loadStatisticsMultiplier();
+        let id = setInterval(refresh, 1000)
+        function refresh() {
+            loadStatisticsAccelerator();
+            loadStatisticsMultiplier();
+            loadStatisticsCubesPerSecond();
+            if (settingscreen !== "statistics")
+                clearInterval(id);
+        }
     }
 }
 

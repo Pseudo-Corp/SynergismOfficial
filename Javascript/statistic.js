@@ -29,3 +29,25 @@ function loadStatisticsMultiplier() {
     document.getElementById("sM13").textContent = format(freeMultiplier,3,true)
 
 }
+
+function loadStatisticsCubesPerSecond() {
+    let c = player.cubesThisAscension.challenges, r = player.cubesThisAscension.reincarnation,
+        a = player.cubesThisAscension.ascension;
+    let total = 0;
+    for (const key of Object.keys(player.highestchallengecompletions)) {
+        total += player.highestchallengecompletions[key]
+    }
+    for (let i = 6; i <= 8; i++) {
+        document.getElementById(`statCPS${i}`).style.display = (player.challengecompletions.ten > 0) ? "block" : "none";
+    }
+    document.getElementById("sCPS1").textContent = "+" + format(c, 0, false)
+    document.getElementById("sCPS2").textContent = "+" + format(r, 0, false)
+    document.getElementById("sCPS3").textContent = "+" + format(a, 0, true)
+    document.getElementById("sCPS4").textContent = "+" + format(c + r + a, 0, false)
+    document.getElementById("sCPS5").textContent = format((c + r + a) / player.ascensionCounter, 4, true)
+    document.getElementById("sCPS6").textContent = format(player.cubesThisAscension.maxCubesPerSec, 4, true)
+    document.getElementById("sCPS7").textContent = format(player.cubesThisAscension.maxAllTime, 4, true)
+    document.getElementById("sCPS7").textContent = format(player.cubesThisAscension.cpsOnC10Comp, 4, true)
+    document.getElementById("sCPS9").textContent = format(calculateTimeAcceleration() / 60, 4, true)
+    document.getElementById("sCPS10").textContent = format(total, 0, false)
+}

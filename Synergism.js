@@ -508,7 +508,7 @@ tesseractbuyamount: 1,
 			  },
 			  ascendShards: new Decimal("0"),
 			  roombaResearchIndex: 1,
-	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "log": true},
+	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "cpsOnC10Comp": 0},
 
 			  prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -837,7 +837,8 @@ function loadSynergy() {
 		player.cubesThisAscension.reincarnation = 0;
 		player.cubesThisAscension.ascension = 0;
 		player.cubesThisAscension.maxCubesPerSec = 0;
-		player.cubesThisAscension.log = true;
+		player.cubesThisAscension.maxAllTime = 0;
+		player.cubesThisAscension.cpsOnC10Comp = 0;
 
 	}
 
@@ -893,6 +894,10 @@ function loadSynergy() {
 	}
 
 	player.wowCubes = player.wowCubes || 0;
+		if (!player.cubesThisAscension.maxAllTime) // Initializes the value if it doesn't exist
+			player.cubesThisAscension.maxAllTime = 0
+		if (!player.cubesThisAscension.cpsOnC10Comp)
+			player.cubesThisAscension.cpsOnC10Comp = 0
 
 var j
 for (j = 1; j < player.upgrades.length; j++) {
@@ -952,7 +957,6 @@ if (player.achievements[44] == 1)document.getElementById("runeshowpower3").textC
 if (player.achievements[102] == 1)document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (rune4level/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + rune4level/8 + "%."; */
 
 CSSAscend();
-StatisticShow();
 
 document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * effectiveLevelMult - 100).toPrecision(4) + "%";
 
@@ -1137,17 +1141,16 @@ function format(input,accuracy,long){
 	}
 }
 
-function logCubesPerSec() {
+function updateCubesPerSec() {
 	let c = player.cubesThisAscension.challenges, r = player.cubesThisAscension.reincarnation,
 		a = player.cubesThisAscension.ascension;
-	if (player.challengecompletions.ten > 0)
+	if (player.challengecompletions.ten > 0) {
+		if (player.challengecompletions.ten === 1)
+			player.cubesThisAscension.cpsOnC10Comp = (c + r + a) / player.ascensionCounter;
 		player.cubesThisAscension.maxCubesPerSec = Math.max(player.cubesThisAscension.maxCubesPerSec, (c + r + a) / player.ascensionCounter)
-	console.log(`Cubes gained (this Ascension) from
-Challenges Reincarnations      Ascension     Total
-%10d %14d %14d %9d
-Cubes per second: %.8f`, c, r, a, c + r + a, (c + r + a) / player.ascensionCounter)
-	if (player.challengecompletions.ten > 0)
-		console.log("Max this Ascension: %.8f", player.cubesThisAscension.maxCubesPerSec)
+		player.cubesThisAscension.maxAllTime = Math.max(player.cubesThisAscension.maxAllTime, player.cubesThisAscension.maxCubesPerSec)
+	}
+
 }
 // Update calculations for Accelerator/Multiplier as well as just Production modifiers in general [Lines 600-897]
 
@@ -1795,8 +1798,7 @@ function resetCheck(i,manual) {
 
 					player.wowCubes += toAdd
 					player.cubesThisAscension.challenges += toAdd
-					if (player.cubesThisAscension.log)
-						logCubesPerSec()
+					updateCubesPerSec()
 				}
 			
 				calculateCubeBlessings();
@@ -1865,8 +1867,7 @@ function resetCheck(i,manual) {
 				player.wowCubes += toAdd;
 				player.cubesThisAscension.challenges += toAdd;
 				calculateCubeBlessings();
-				if (player.cubesThisAscension.log)
-					logCubesPerSec()
+				updateCubesPerSec()
 			}
 
 			if(player.ascensionCount > 0 && q == "ten" && player.challengecompletions[q] === 1){player.wowTesseracts += 1;}
