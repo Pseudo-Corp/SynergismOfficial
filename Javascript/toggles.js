@@ -275,9 +275,14 @@ function toggleSettingScreen(i){
     }
 
     if(settingscreen === "statistics"){
-        loadStatisticsAccelerator();
-        loadStatisticsMultiplier();
-        loadStatisticsCubesPerSecond();
+        let id = setInterval(refresh, 1000)
+        function refresh() {
+            loadStatisticsAccelerator();
+            loadStatisticsMultiplier();
+            loadStatisticsCubesPerSecond();
+            if (settingscreen !== "statistics")
+                clearInterval(id);
+        }
     }
 }
 
