@@ -1371,12 +1371,25 @@ margin-left: -13px
 }
 
 #discord {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	position: absolute;
+	top: 335px;
+	left: 50%;
+	margin-left: -150px;
+	color: gold;
+}
+#discordhref {
 	width: 100px;
 	height: 100px;
-	top: 350px;
-	left: 50%;
-	margin-left: -50px;
+	border-radius: 50%;
+}
+#discordicon {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-top: 5px;
 }
 #versionnumber{
 	position: absolute;
