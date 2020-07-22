@@ -508,7 +508,7 @@ tesseractbuyamount: 1,
 			  },
 			  ascendShards: new Decimal("0"),
 			  roombaResearchIndex: 1,
-	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "log": true},
+	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "cpsOnC10Comp": 0},
 
 			  prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -838,7 +838,7 @@ function loadSynergy() {
 		player.cubesThisAscension.ascension = 0;
 		player.cubesThisAscension.maxCubesPerSec = 0;
 		player.cubesThisAscension.maxAllTime = 0;
-		player.cubesThisAscension.log = true;
+		player.cubesThisAscension.cpsOnC10Comp = 0;
 
 	}
 
@@ -896,6 +896,8 @@ function loadSynergy() {
 	player.wowCubes = player.wowCubes || 0;
 		if (!player.cubesThisAscension.maxAllTime) // Initializes the value if it doesn't exist
 			player.cubesThisAscension.maxAllTime = 0
+		if (!player.cubesThisAscension.cpsOnC10Comp)
+			player.cubesThisAscension.cpsOnC10Comp = 0
 
 var j
 for (j = 1; j < player.upgrades.length; j++) {
@@ -1139,7 +1141,7 @@ function format(input,accuracy,long){
 	}
 }
 
-function logCubesPerSec() {
+function updateCubesPerSec() {
 	let c = player.cubesThisAscension.challenges, r = player.cubesThisAscension.reincarnation,
 		a = player.cubesThisAscension.ascension;
 	let leadingSpaces = function (value, width) {
@@ -1807,8 +1809,7 @@ function resetCheck(i,manual) {
 
 					player.wowCubes += toAdd
 					player.cubesThisAscension.challenges += toAdd
-					if (player.cubesThisAscension.log)
-						logCubesPerSec()
+					updateCubesPerSec()
 				}
 			
 				calculateCubeBlessings();
@@ -1877,8 +1878,7 @@ function resetCheck(i,manual) {
 				player.wowCubes += toAdd;
 				player.cubesThisAscension.challenges += toAdd;
 				calculateCubeBlessings();
-				if (player.cubesThisAscension.log)
-					logCubesPerSec()
+				updateCubesPerSec()
 			}
 
 			if(player.ascensionCount > 0 && q == "ten" && player.challengecompletions[q] === 1){player.wowTesseracts += 1;}

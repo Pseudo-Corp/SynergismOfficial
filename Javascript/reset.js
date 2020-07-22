@@ -359,8 +359,8 @@ function reset(i,fast) {
             let toAdd = Math.min(1000, 100/100 * Math.floor(player.reincarnationcounter / 60));
             player.wowCubes += toAdd;
             player.cubesThisAscension.reincarnation += toAdd;
-            if (player.cubesThisAscension.log && i < 3.5)
-                logCubesPerSec()
+            if (i < 3.5)
+                updateCubesPerSec()
         }
         calculateCubeBlessings();
         player.reincarnationcounter = 0;
