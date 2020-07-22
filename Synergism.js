@@ -1145,6 +1145,8 @@ function updateCubesPerSec() {
 	let c = player.cubesThisAscension.challenges, r = player.cubesThisAscension.reincarnation,
 		a = player.cubesThisAscension.ascension;
 	if (player.challengecompletions.ten > 0) {
+		if (player.challengecompletions.ten === 1)
+			player.cubesThisAscension.cpsOnC10Comp = (c + r + a) / player.ascensionCounter;
 		player.cubesThisAscension.maxCubesPerSec = Math.max(player.cubesThisAscension.maxCubesPerSec, (c + r + a) / player.ascensionCounter)
 		player.cubesThisAscension.maxAllTime = Math.max(player.cubesThisAscension.maxAllTime, player.cubesThisAscension.maxCubesPerSec)
 	}
