@@ -4255,7 +4255,7 @@ margin-left: -13px
 
 #statisticsSubTab {
 	max-height: 800px;
-	padding-top: 100px;
+	padding-top: 52px;
 	flex-wrap: wrap;
 }
 .statContainer {
@@ -4286,4 +4286,38 @@ margin-left: -13px
 }
 .constUpgrade{
 	cursor: pointer;
+}
+
+#settingsubtab {
+	position: relative;
+}
+
+.subtabSwitcher {
+	text-align: left;
+	margin: 9px 0;
+}
+
+.subtabSwitcher > button {
+	display: inline-block;
+	overflow: hidden;
+	height: 30px;
+	width: 150px;
+	text-align: center;
+	/* margins carefully chosen to be as close to buildings tab as possible */
+	margin-left: calc(12% - 154px);
+}
+.subtabSwitcher > button:first-child { margin-left: 8.75%; }
+
+.subtabSwitcher > button.buttonActive {
+	background-color: crimson;
+}
+
+.subtabContent {
+	display: none;
+}
+.subtabContent.subtabActive {
+	display: block;
+}
+.subtabContent.subtabActive.subtabDisplayFlex {
+	display: flex;
 }

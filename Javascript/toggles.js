@@ -247,47 +247,33 @@ function toggleRuneScreen(){
         document.getElementById("togglerunesubtab").style.border = "2px solid grey"
     };
 }
-function toggleSettingScreen(i){
 
-    document.getElementById("settingsubtab").style.display = "none"
-    document.getElementById("creditssubtab").style.display = "none"
-    document.getElementById("statisticsSubTab").style.display = "none"
-    if(i === 1){
-    (settingscreen !== "credits") ?
-        (settingscreen = "credits",
-        document.getElementById("settingsubtab").style.display = "none",
-        document.getElementById("creditssubtab").style.display = "block", 
-        document.getElementById("switchsettingtab").textContent = "Go back to Settings",
-        document.getElementById("switchsettingtab2").textContent = "Stats for Nerds"):
-    
-        (settingscreen = "settings",
-        document.getElementById("settingsubtab").style.display = "block",
-        document.getElementById("creditssubtab").style.display = "none",
-        document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements");  
-    }
-    if(i === 2){
-    (settingscreen !== "statistics") ?
-        (settingscreen = "statistics",
-        document.getElementById("settingsubtab").style.display = "none",
-        document.getElementById("statisticsSubTab").style.display = "flex",
-        document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements",
-        document.getElementById("switchsettingtab2").textContent = "Go back to Settings"):
-
-        (settingscreen = "settings",
-        document.getElementById("settingsubtab").style.display = "block",
-        document.getElementById("statisticsSubTab").style.display = "none",
-        document.getElementById("switchsettingtab2").textContent = "Stats for Nerds");
+function setActiveSettingScreen(subtab, clickedButton) {
+    let subtabEl = document.getElementById(subtab);
+    if(subtabEl.classList.contains("subtabActive")) {
+        return;
     }
 
-    if(settingscreen === "statistics"){
-        let id = setInterval(refresh, 1000)
-        function refresh() {
+    let switcherEl = clickedButton.parentNode;
+    switcherEl.querySelectorAll(".buttonActive").forEach(b => b.classList.remove("buttonActive"));
+    clickedButton.classList.add("buttonActive");
+
+    subtabEl.parentNode.querySelectorAll(".subtabActive").forEach(subtab => subtab.classList.remove("subtabActive"));
+    subtabEl.classList.add("subtabActive");
+
+    if(subtab === "statisticsSubTab") {
+        let id = setInterval(refreshStats, 1000)
+        function refreshStats() {
+            if (currentTab !== "settings") {
+                return;
+            }
             loadStatisticsAccelerator();
             loadStatisticsMultiplier();
             loadStatisticsCubesPerSecond();
-            if (settingscreen !== "statistics")
+            if (!subtabEl.classList.contains("subtabActive"))
                 clearInterval(id);
         }
+        refreshStats();
     }
 }
 
