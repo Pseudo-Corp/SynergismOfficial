@@ -118,6 +118,11 @@ var upgdesc117 = "Protons -> Grandmaster exponent increased from 0.05 to 0.10"
 var upgdesc118 = "Protons -> Grandmaster exponent increased from 0.10 to 0.15"
 var upgdesc119 = "Protons -> Grandmaster exponent increased from 0.15 to 0.20"
 var upgdesc120 = "Protons -> Grandmaster exponent increased from 0.20 to 0.25"
+var upgdesc121 = "You probably autobought this. -50% taxes!"
+var upgdesc122 = "Increase Crystal Upgrade 3 cap from +12% to +100%!"
+var upgdesc123 = "Raise coin production to the power of 1.025. More EXPONENTS."
+var upgdesc124 = "Gain +3% more effective ELO."
+var upgdesc125 = "Gain +2% more green fragments for each completion of Challenge 10 [Up to +60%]."
 var crystalupgdesc1 = "Gain a 5% multiplicative boost to crystals per AP per level."
 var crystalupgdesc2 = "Gain a boost to crystals based on held coins per level."
 var crystalupgdesc3 = "Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: 12%]"
@@ -248,7 +253,13 @@ function() { return "All you need to know is right above this message!"},
 function() { return "All you need to know is right above this message!"},
 function() { return "All you need to know is right above this message!"},
 function() { return "All you need to know is right above this message!"},
-function() { return "All you need to know is right above this message!"}
+function() { return "All you need to know is right above this message!"},
+function() { return "-50% Taxes duh!"},
+function() { return "+88% cap to Crystal Upgrade 3, duh!"},
+function() { return "Coin Production ^1.025, duh!"},
+function() { return "+3% Effective Ant ELO, duh!"},
+function() { return "+"+format(2 * player.challengecompletions.ten,0)+"% more Uncommon fragments!"},
+
 ]
     function upgradeeffects(i) {
         document.getElementById("upgradeeffect").innerHTML = "Effect: " + upgradetexts[i]()
@@ -293,7 +304,7 @@ function upgradedescriptions(i) {
 
     var currency = ''
     var color = ''
-    if ((i <= 20 && i >= 1) || (i <= 110 && i >= 106)) {currency = "Coins"; color = "yellow"}
+    if ((i <= 20 && i >= 1) || (i <= 110 && i >= 106) || (i <= 125 && i >= 121)) {currency = "Coins"; color = "yellow"}
     if ((i <= 40 && i >= 21) || (i <= 105 && i >= 101) || (i <= 115 && i >= 111) || (i <= 87 && i >= 81)) {currency = "Diamonds"; color = "cyan"}
     if ((i <= 60 && i >= 41) || (i <= 120 && i >= 116) || (i <= 93 &&  i >= 88)) {currency = "Mythos"; color = "plum"}
     if ((i <= 80 && i >= 61) || (i <= 100 && i >= 94)) {currency = "Particles"; color = "limegreen"}
@@ -312,7 +323,7 @@ function crystalupgradedescriptions(i) {
     var p = player.crystalUpgrades[u]
     var c = 0;
     if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== "") {c = 10}
-    c += Math.floor(rune3level * (1 + player.researches[5] / 10) * (1 + player.researches[21]/800) / 10) * 100/100
+    c += Math.floor(rune3level * (1 + player.researches[5] / 10) * (1 + player.researches[21]/800) * (1 + player.researches[90]/100) / 40) * 100/100
     var q = Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 - c, 2) / 2)))
     document.getElementById("crystalupgradedescription").textContent = w
     document.getElementById("crystalupgradeslevel").textContent = "Level: " + p;
@@ -326,7 +337,7 @@ function upgradeupdate(num, fast) {
     if (player.upgrades[num] > 0.5 && ((num <= 60 || num > 80) && (num <= 93 || num > 100))) {
     document.getElementById(x).style.backgroundColor = "green"
     }
-    if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100))) {
+    if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100) || (num > 120))) {
     document.getElementById(x).style.backgroundColor = "white"
     }
     var a = "upgdesc" + num
@@ -366,10 +377,10 @@ var resdesc18 = "[4x3] Gain +2 free accelerator per accelerator boost."
 var resdesc19 = "[4x4] Gain +2 free accelerator per accelerator boost."
 var resdesc20 = "[4x5] Gain +3 free accelerator per accelerator boost!"
 var resdesc21 = "[5x1] Most rune effects are increased by 1% per level. (Excludes any recycle chance bonus)"
-var resdesc22 = "[5x2] Each Offering used increases Rune EXP by 3 per level."
-var resdesc23 = "[5x3] Each Offering used increases Rune EXP by another 2 per level!"
-var resdesc24 = "[5x4] Prestige and Transcensions base Offering is increased by 1 per level. (Affected by time factor!)"
-var resdesc25 = "[5x5] Reincarnation and [???] base Offering is increased by 3 per level. (Affected by time factor!)"
+var resdesc22 = "[5x2] Each Offering used increases Rune EXP by 0.6 per level."
+var resdesc23 = "[5x3] Each Offering used increases Rune EXP by another 0.3 per level!"
+var resdesc24 = "[5x4] Prestige and Transcensions base Offering is increased by 0.2 per level."
+var resdesc25 = "[5x5] Reincarnations base Offering is increased by 0.6 per level."
 var resdesc26 = "[1x6] Multiply all crystal producer production by 150% per level (multiplicative)."
 var resdesc27 = "[1x7] Multiply all crystal producer production by 150% per level (multiplicative)."
 var resdesc28 = "[1x8] Coin Exponent is increased by 0.08 per level."
@@ -407,8 +418,8 @@ var resdesc59 = "[2x14] Building Cost Scale is delayed by 0.5% per level."
 var resdesc60 = "[2x15] Building Cost Scale is delayed by 0.5% per level."
 var resdesc61 = "[3x11] Gain +5% of your best obtainium per second AUTOMATICALLY!"
 var resdesc62 = "[3x12] Gain an additional +5% of your best obtainium per second automatically."
-var resdesc63 = "[3x13] If your Reincarnation lasts at least 30 seconds you gain +1 obtainium per level."
-var resdesc64 = "[3x14] If your Reincarnation lasts at least 60 seconds you gain +2 obtainium per level."
+var resdesc63 = "[3x13] If your Reincarnation lasts at least 2 seconds you gain +1 obtainium per level."
+var resdesc64 = "[3x14] If your Reincarnation lasts at least 5 seconds you gain +2 obtainium per level."
 var resdesc65 = "[3x15] Increase the rate of gaining obtainium through reincarnations by 20% per level."
 var resdesc66 = "[4x11] Increase the maximum number of [No Multipliers] completions by 5 per level."
 var resdesc67 = "[4x12] Increase the maximum number of [No Accelerators] completions by 5 per level."
@@ -421,15 +432,15 @@ var resdesc73 = "[5x13] Automatically gain completions for Challenge 3, even wit
 var resdesc74 = "[5x14] Automatically gain completions for Challenge 4, even without running it!"
 var resdesc75 = "[5x15] Automatically gain completions for Challenge 5, even without running it!"
 var resdesc76 = "[1x16] Welcome to the land of expensive researches. Here's +10% obtainium per level to help you out!"
-var resdesc77 = "[1x17] Increase the level cap of Thrift rune by 5 per level, and +2% exp for that rune in particular."
-var resdesc78 = "[1x18] Increase the level cap of Speed rune by 5 per level, and +2% exp for that rune in particular."
-var resdesc79 = "[1x19] Increase the level cap of Prism rune by 5 per level, and +2% exp for that rune in particular."
-var resdesc80 = "[1x20] Increase the level cap of Duplication rune by 5 per level, and +2% exp for that rune in particular."
+var resdesc77 = "[1x17] Increase the level cap of Thrift rune by 25 per level, and +2% exp for that rune in particular."
+var resdesc78 = "[1x18] Increase the level cap of Speed rune by 25 per level, and +2% exp for that rune in particular."
+var resdesc79 = "[1x19] Increase the level cap of Prism rune by 25 per level, and +2% exp for that rune in particular."
+var resdesc80 = "[1x20] Increase the level cap of Duplication rune by 25 per level, and +2% exp for that rune in particular."
 var resdesc81 = "[2x16] You thought the previous researches are expensive? You're going to need this! [+10% Obtainium/level]"
 var resdesc82 = "[2x17] Permanently UNLOCK the Rune of Superior Intellect! [+%Ob / +Ant Speed / +Offering Timer Ext.]"
 var resdesc83 = "[2x18] Taking forever to level up that SI Rune? Here's +5% SI Rune EXP per level."
 var resdesc84 = "[2x19] Does the new rune kinda suck? Power it up! +0.5% level effectiveness for SI rune per level!"
-var resdesc85 = "[2x20] You'll love this. Improve time itself by making offering gain better for another +30 seconds before diminishing returns per level."
+var resdesc85 = "[2x20] Gain +0.01% more offerings per level per challenge completion!"
 var resdesc86 = "[3x16] Yeah, going back to basics. +5% Accelerators/Level."
 var resdesc87 = "[3x17] 0/5 Multipliers SUCK: +5% Multipliers/Level."
 var resdesc88 = "[3x18] -1/5 A.Boosts SUCK: +5% Accelerator Boosts/Level."
@@ -439,7 +450,7 @@ var resdesc91 = "[4x16] Why is the border pink? A simple +5% Rune EXP for all ru
 var resdesc92 = "[4x17] This border is pink too! Another simple +5% Rune EXP for all runes!"
 var resdesc93 = "[4x18] I think Platonic forgot to fix the border color. +1 Accelerator Boost per 20 Summative Rune Levels, per level."
 var resdesc94 = "[4x19] Platonic, this is unplayable 0/5. +20 Multiplier per 20 Summative Rune Levels, per level."
-var resdesc95 = "[4x20] Gain +40 base Offerings from Reincarnations by purchasing this. Math Nerds will love this!"
+var resdesc95 = "[4x20] Gain +4 base Offerings from Reincarnations by purchasing this. Math Nerds will love this!"
 var resdesc96 = "[5x16] Ants slow? Add +0.00025 to ant efficiency increase per ant purchased per level."
 var resdesc97 = "[5x17] Add +4 level to the first six upgradable ants per level!"
 var resdesc98 = "[5x18] Add +4 level to the next five upgradable ants per level!"
@@ -450,19 +461,19 @@ var resdesc102 = "[1x22] Gain +1 bonus level to ALL ants per level! A rainbow at
 var resdesc103 = "[1x23] Pray to Ant God for +5% sacrifice rewards per level!"
 var resdesc104 = "[1x24] You're beginning to feel like an ant god (ant god): +5% sacrifice reward per level!"
 var resdesc105 = "[1x25] Buy this and be able to run the first five challenges infinitely! (Note that requirements scale a LOT faster after 75)"
-var resdesc106 = "[2x21] Engrave your talismans with obtainium to get +0.01 Rune Levels per talisman level per level."
-var resdesc107 = "[2x22] Refine your talismans with the powder of Obtainium to get +0.01 Rune Levels per talisman level per level again."
+var resdesc106 = "[2x21] Engrave your talismans with obtainium to get +0.03 Rune Levels per talisman level per level."
+var resdesc107 = "[2x22] Refine your talismans with the powder of Obtainium to get +0.03 Rune Levels per talisman level per level again."
 var resdesc108 = "[2x23] A simple trick makes your base ant ELO increase by 25 per level!"
 var resdesc109 = "[2x24] A more convoluted trick makes your base ant ELO increase by 25 per level again!"
 var resdesc110 = "[2x25] Gain +1% more ELO from ant sources per level because why not?"
-var resdesc111 = "[3x21] Gotta go fast [+5 max Speed Rune Level per level, +1% EXP to that rune]"
-var resdesc112 = "[3x22] Double Trouble [+5 max Duplication Rune level per level, +1% EXP to that rune]"
-var resdesc113 = "[3x23] Newton's Delight [+5 max Prism Rune Level per level, +1% EXP to that rune]"
-var resdesc114 = "[3x24] Five-Finger discounts [+5 max Thrift Rune Level per level, +1% EXP to that rune]"
-var resdesc115 = "[3x25] Scientific Breakthrough [+5 max SI Rune Level per level +1% EXP to that rune]"
-var resdesc116 = "[4x21] Talismans have +0.005 Rune levels per talisman level per level. Levelception!"
-var resdesc117 = "[4x22] Talismans have another +0.005 Rune levels per talisman level per level!"
-var resdesc118 = "[4x23] Don't you hate those negative talisman effects? Reduce them by 0.02 per level per talisman level!"
+var resdesc111 = "[3x21] Gotta go fast [+25 max Speed Rune Level per level, +1% EXP to that rune]"
+var resdesc112 = "[3x22] Double Trouble [+25 max Duplication Rune level per level, +1% EXP to that rune]"
+var resdesc113 = "[3x23] Newton's Delight [+25 max Prism Rune Level per level, +1% EXP to that rune]"
+var resdesc114 = "[3x24] Five-Finger discounts [+25 max Thrift Rune Level per level, +1% EXP to that rune]"
+var resdesc115 = "[3x25] Scientific Breakthrough [+25 max SI Rune Level per level +1% EXP to that rune]"
+var resdesc116 = "[4x21] Talismans have +0.015 Rune levels per talisman level per level. Levelception!"
+var resdesc117 = "[4x22] Talismans have another +0.015 Rune levels per talisman level per level!"
+var resdesc118 = "[4x23] For 'neutral' talisman effects, increase by +0.06 per level!"
 var resdesc119 = "[4x24] Gain +0.25% Wow! Cubes per level upon Ascension."
 var resdesc120 = "[4x25] Gain another +0.25% Wow! per level upon Ascension."
 var resdesc121 = "[5x21] Bend time to your will, making all ticks 2% faster each level."

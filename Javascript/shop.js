@@ -2,7 +2,7 @@ const offerconsumedesc = "Instantly gain 2 hours of Offerings, based on your all
 const obtainiumconsumedesc = "Instantly gain 2 hours of Obtainium, based on your all time best Obtainium/sec!"
 
 const offertimerdesc = "Each level increases the timer capacity for Offerings by 120 seconds per level!"
-const offerautodesc = "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every 10 seconds, 2^(Level + 1) offerings are spent. TO ACTIVATE: Click on the rune icon (PICTURE) and it will turn orange just for you!"
+const offerautodesc = "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 50 * 2^(Level) offerings are spent. TO ACTIVATE: Click on the rune icon (PICTURE) and it will turn orange just for you!"
 const obtainiumtimerdesc = "Each level increases the timer capacity for Obtainium by 120 seconds per level! WARNING: You need a certain 1e22 Particle Upgrade for this to be useful!"
 const obtainiumautodesc = "Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every reincarnation, dump all Obtainium into research until maxed."
 const instantchallengedesc = "Instead of needing enough coins to get autocompletions, and waiting to complete, you instantly completions up until highest ever completed! Does not work in R. Challenges."

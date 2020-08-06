@@ -159,6 +159,7 @@ a {color: white;}
 	width: 500px;
 	text-align: center;
 	font-size: 15px;
+	font-variant-numeric: tabular-nums;
 }
 #resetrewards {
 	position: absolute;
@@ -798,7 +799,7 @@ margin-left: -13px
 	width: 80px;
 	padding: 0px;
 	height: 30px;
-	top: 25.5px;
+	top: 61.5px;
 	left: 8.4%;
 	margin-left: -16px;
 }
@@ -808,7 +809,7 @@ margin-left: -13px
 	width: 80px;
 	padding: 0px;
 	height: 30px;
-	top: 25.5px;
+	top: 61.5px;
 	left: 23.3%;
 	margin-left: -16px;
 }
@@ -818,7 +819,7 @@ margin-left: -13px
 	width: 80px;
 	padding: 0px;
 	height: 30px;
-	top: 25.5px;
+	top: 61.5px;
 	left: 38.2%;
 	margin-left: -16px;
 }
@@ -828,7 +829,7 @@ margin-left: -13px
 	width: 80px;
 	padding: 0px;
 	height: 30px;
-	top: 25.5px;
+	top: 61.5px;
 	left: 53.1%;
 	margin-left: -16px;
 }
@@ -842,7 +843,7 @@ margin-left: -13px
 #upgradedescription {
 	position: absolute;
 	text-align: center;
-	top: 215px;
+	top: 251px;
 	width: 1000px;
 	left: 48%;
 	margin-left: -500px;
@@ -850,7 +851,7 @@ margin-left: -13px
 
 #upgradecost {
 	position: absolute;
-	top: 235px;
+	top: 271px;
 	width: 300px;
 	left: 48%;
 	margin-left: -150px;
@@ -858,7 +859,7 @@ margin-left: -13px
 
 #upgradeeffect {
 	position: absolute;
-	top: 255px;
+	top: 291px;
 	width: 400px;
 	left: 48%;
 	margin-left: -200px;
@@ -1129,9 +1130,9 @@ margin-left: -13px
 	position:absolute;
 	height: 30px;
 	width: 130px;
-	top: 320px;
-	left: 51%;
-	margin-left: -16px;
+	top: 356px;
+	left: 48%;
+	margin-left: -65px;
 }
 
 #toggle10 {
@@ -3881,60 +3882,52 @@ margin-left: -13px
 	padding: 0px;
 	border: 2px solid black
 }
-#switchCubeSubTab{
+.cubeSwitchTabBtn{
 	position: absolute;
-	top: 20px;
-	left: 10%;
-	width: 200px;
-	height: 20px;
-	margin-left: -100px;
 	text-align: center;
+	width: 250px;
+	height: 30px;
 }
-#cubeWelcome{
+.cubePlacement1{
 	position:absolute;
 	text-align: center;
 	top: 0px;
-	color: orange;
 	font-size: 1.2em;
 	width: 700px;
 	left: 50%;
 	margin-left: -350px;
-
 }
-#cubeExpository1{
+.cubePlacement2{
 	position:absolute;
 	text-align: center;
 	top: 30px;
-	color: white;
 	font-size: 1.0em;
 	width: 1000px;
 	left: 50%;
 	margin-left: -500px;
 }
-#cubeExpository2{
+.cubePlacement3{
 	position:absolute;
 	text-align: center;
 	top: 50px;
-	color: limegreen;
 	font-size: 1.0em;
 	width: 1000px;
 	left: 50%;
 	margin-left: -500px;
 }
-#wowCube{
+.cubePlacement4{
 	position: absolute;
 	text-align: center;
 	top: 100px;
 	left: 30%;
 	margin-left: -32px;
 }
-#cubeInventory{
+.cubePlacement5{
 	position: absolute;
 	text-align: center;
 	top: 84px;
 	left: 40%;
 	margin-left: -96px;
-	color: white
 }
 .cubeBtn {
 	height: 30px;
@@ -3971,18 +3964,80 @@ margin-left: -13px
 	left: 40%;
 	margin-left: 210px;
 }
-#cubeBonuses{
+#open1Tesseract{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: -96px;
+}
+#open20Tesseract{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 6px;
+}
+#open1000Tesseract{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 108px;
+}
+#open1Hypercube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: -96px;
+}
+#open20Hypercube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 6px;
+}
+#open1000Hypercube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 108px;
+}
+#openMostHypercube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 210px;
+}
+#openMostTesseract{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 210px;
+}
+.cubeBonus{
 	position:absolute;
 	top: 170px;
 	left: 30%;
 	margin-left: -16px;
 }
-#cubeIcons{
+.cubeIcon{
 	position:absolute;
 	padding: 0px;
 	border-spacing: 0px;
 }
 #cube1Bonus{
+	width: 1500px;
+}
+#tesseract1Bonus{
+	width: 1500px;
+}
+#hypercube1Bonus{
 	width: 1500px;
 }
 #cubeAmount2{

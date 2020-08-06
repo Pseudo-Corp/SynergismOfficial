@@ -7,7 +7,8 @@ var upgradeCosts = [0, 6, 7, 8, 10, 12, 20, 25, 30, 35, 45, 55, 75, 110, 150, 20
 						1, 2, 3, 5, 6, 7, 42, 65, 87, 150, 300, 500, 1000, 1500, 2000, 3000, 6000, 12000, 25000, 75000,
 						0, 1, 2, 2, 3, 5, 6, 10, 15, 22, 30, 37, 45, 52, 60, 1900, 2500, 3000, 7482, 21397,
 						3, 6, 9, 12, 15, 20, 30, 6, 8, 8, 10, 13, 60, 1, 2, 4, 8, 16, 25, 40,
-						12, 16, 20, 30, 50, 500, 1250, 5000, 25000, 125000, 1500, 7500, 30000, 150000, 1000000, 250, 1000, 5000, 25000, 125000];
+						12, 16, 20, 30, 50, 500, 1250, 5000, 25000, 125000, 1500, 7500, 30000, 150000, 1000000, 250, 1000, 5000, 25000, 125000,
+						1, 1000, 1e6, 1e9, 1e12];
 
 // Mega list of Variables to be used elsewhere
 var crystalUpgradesCost = [6, 15, 20, 40, 100, 200, 500, 1000]
@@ -284,8 +285,8 @@ var talismanFragmentOfferingCosts = [null, 0, 5, 40, 400, 2000, 10000]
 
 var talismanLevelCostMultiplier = [null, 1, 4, 9, 16, 25, 10, 100]
 
-var talismanPositiveModifier = [null, 0.25, 0.5, 0.75, 1, 1.25, 1.5]
-var talismanNegativeModifier = [null, 0.2, 0.4, 0.6, 0.8, 1, 1.2]
+var talismanPositiveModifier = [null, 0.75, 1.5, 2.25, 3, 3.75, 4.5]
+var talismanNegativeModifier = [null, 0, 0, 0, 0, 0, 0]
 
 var commonTalismanEnhanceCost = [null, 0, 3000, 1000, 0, 0, 0, 0]
 var uncommonTalismanEnchanceCost = [null, 0, 10000, 3000, 1000, 0, 0, 0]
@@ -317,13 +318,13 @@ var prevReductionValue = -1;
 var buildingSubTab = "coin"
 
 var blessingbase = [null, 1/500, 1/5000, 1/3333, 1/750, 1/250, 1/10000, 1/5000, 1/10, 1/10000, 1/1000]
-var blessingDRPower = [null, 1/3, 1/3, 1/3, 1/2, 1/2, 2, 1/3, 1/3, 1/6, 1/16]
+var blessingDRPower = [null, 1/3, 1/3, 1/3, 1/2, 1/2, 2, 1/3, 1/3, 1/16, 1/16]
 
 var cubeBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 var buyMaxCubeUpgrades = false;
 var autoOfferingCounter = 0;
-var cubeSubTab = "opening"
+var autoOfferingCounter2 = 0;
 
 //this was a pain in the ass to get, probably would have been faster to sort by hand
 var researchOrderByCost = [null,1,2,3,4,5,6,11,41,42,46,43,47,7,12,18,22,36,51,56,66,71,61,44,26,72,28,62,8,13,21,16,24,52,57,67,45,63,73,27,48,23,64,31,53,58,68,74,17,49,9,14,25,19,37,39,29,69,75,59,10,15,33,40,54,65,70,30,34,60,20,38,55,35,76,77,78,79,80,32,83,85,82,81,90,86,91,87,88,89,84,92,50,93,96,99,97,94,95,98,101,103,102,108,106,104,109,100,105,107,110,111,112,113,114,116,115,117,121,122,118,119,124,123,120,125]

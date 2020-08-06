@@ -34,12 +34,13 @@ function calculatetax(fast) {
     exponent *= (1 - 1/20 * player.researches[51] - 1/40 * player.researches[52] - 1/80 * player.researches[53] - 1/160 * player.researches[54] - 1/320 * player.researches[55])
     exponent *= (1 - 0.05 / 1800 * (player.achievements[45] + player.achievements[46] + 2 * player.achievements[47]) * Math.min(player.prestigecounter,1800))
     exponent *= Math.pow(0.965, player.challengecompletions.six)
-    exponent *= (0.001 + .999 * (Math.pow(6, - (rune2level * effectiveLevelMult) / 500)))
-    exponent *= (0.01 + .99 * (Math.pow(4, Math.min(0, (200 - rune4level)/550))))
+    exponent *= (0.001 + .999 * (Math.pow(6, - (rune2level * effectiveLevelMult) / 2500)))
+    exponent *= (0.01 + .99 * (Math.pow(4, Math.min(0, (1000 - rune4level)/2750))))
     exponent *= (1 - 0.04 * player.achievements[82] - 0.04 * player.achievements[89] - 0.04 * player.achievements[96] - 0.04 * player.achievements[103] - 0.04 * player.achievements[110] - 0.0566 * player.achievements[117] - 0.0566 * player.achievements[124] - 0.0566 * player.achievements[131])
     exponent *= f;
     exponent *= Math.pow(0.9925, player.achievements[118] * (player.challengecompletions.six + player.challengecompletions.seven + player.challengecompletions.eight + player.challengecompletions.nine + player.challengecompletions.ten));
     exponent *= (0.01 + Math.pow(0.98, player.antUpgrades[3] + bonusant3 + .497))
+    exponent *= 1 / (1 + Decimal.log(player.ascendShards.add(1),10))
     if(player.achievements[119] == 1){exponent *= 0.90}
     
     maxexponent = Math.floor(275/(Decimal.log(1.01,10) * exponent)) - 1

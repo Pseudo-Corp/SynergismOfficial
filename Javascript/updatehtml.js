@@ -487,7 +487,7 @@ function htmlInserts() {
 		for(var i = 1; i <= 5; i++){
 			document.getElementById("ascendText"+i).textContent = names[i] + ": " + format(player['ascendBuilding'+i]['owned'],0,true) + " [+" + format(player['ascendBuilding'+i]['generated'],2) + "]"
 			document.getElementById("ascendText"+(5+i)).textContent = perSecNames[i] + ": " + format((ascendBuildingProduction[ordinals[i-1]]),2)
-			document.getElementById("buyTesseracts"+i).textContent = "Cost: BROKE TESSERACTS"// + format(player['ascendBuilding'+i]['cost'],2) + " Tesseracts"
+			document.getElementById("buyTesseracts"+i).textContent = "Cost: " + format(player['ascendBuilding'+i]['cost'],0) + " Tesseracts"
 		}
 
 		document.getElementById("tesseractInfo").textContent = "You have " + format(player.wowTesseracts) + " Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension."
@@ -514,11 +514,11 @@ function htmlInserts() {
 
 				document.getElementById('rune'+i+'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i-1]) + "/" + format(calculateMaxRunes(i))
 				document.getElementById('rune'+i+'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i-1)-player.runeexp[i-1],2) + " EXP"
-				document.getElementById('bonusrune'+i).textContent = " [" + format(player.antUpgrades[9] + bonusant9 + place) + "]"
+				document.getElementById('bonusrune'+i).textContent = " [" + format(3 * (player.antUpgrades[9] + bonusant9) + place) + "]"
 			}
 	
-    		document.getElementById("runedetails").textContent = "Gain " + (25 + 3 * player.researches[22] + 2 * player.researches[23] + 3 * player.upgrades[66] + 5 * player.upgrades[61]) + "* EXP per offering sacrificed. Optimal Reset time for Offerings: " + format(600 + 0.4 * (rune5level) + 30 * player.researches[85] + 120 * player.shopUpgrades.offeringTimerLevel) + " Seconds." 
-    		document.getElementById("runerecycle").textContent = "You have " +(5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, player.runelevels[3]/8) + 0.5 * player.cubeUpgrades[2])  + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(),2,true) + "!"
+    		document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions.one, 1) + 1/10 * player.highestchallengecompletions.one + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3/25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(),2,true) + "* EXP per offering sacrificed."
+    		document.getElementById("runerecycle").textContent = "You have " +(5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, player.runelevels[3]/40) + 0.5 * player.cubeUpgrades[2])  + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(),2,true) + "!"
 
 		}
 
@@ -688,7 +688,7 @@ function buttoncolorchange() {
 		((!player.toggles.thirteen || player.achievements[99] == 0) && player.prestigePoints.greaterThanOrEqualTo(player.fourthCostDiamonds)) ? d.style.backgroundColor = "#555555" : d.style.backgroundColor = "#171717";
 		((!player.toggles.fourteen || player.achievements[106] == 0) && player.prestigePoints.greaterThanOrEqualTo(player.fifthCostDiamonds)) ? e.style.backgroundColor = "#555555" : e.style.backgroundColor = "#171717";
 		let k = 0;
-		k += Math.floor(player.runelevels[2]/10 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800)) * 100/100
+		k += Math.floor(rune3level/40 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800) * (1 + player.researches[90]/100)) * 100/100
 		if (player.upgrades[73] === 1 && player.currentChallengeRein !== ""){k += 10};
 		(player.achievements[79] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[0] + crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) /2))))) ? f.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
 		(player.achievements[86] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[1] + crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) /2))))) ? g.style.backgroundColor = "purple" : g.style.backgroundColor = "#171717";
@@ -801,5 +801,11 @@ function CSSAscend() {
 		b.style.left = "56.5%"
 		c.style.left = "10%"
 
+	}
+
+	for(var i = 1; i<=4 ; i++){
+		let a = document.getElementById("switchCubeSubTab"+i)
+		a.style.top = (65 + 35 * i) + "px"
+		a.style.left = "5%"
 	}
 }
