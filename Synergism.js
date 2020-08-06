@@ -489,7 +489,7 @@ tesseractbuyamount: 1,
 			  },
 			  ascendShards: new Decimal("0"),
 			  roombaResearchIndex: 1,
-	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "cpsOnC10Comp": 0},
+	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "cpsOnC10Comp": 0, "tesseracts": 0, "hypercubes": 0},
 
 			  prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -821,6 +821,8 @@ function loadSynergy() {
 		player.cubesThisAscension.maxCubesPerSec = 0;
 		player.cubesThisAscension.maxAllTime = 0;
 		player.cubesThisAscension.cpsOnC10Comp = 0;
+		player.cubesThisAscension.tesseracts = 0;
+		player.cubesThisAscension.hypercubes = 0;
 
 	}
 
@@ -906,6 +908,10 @@ function loadSynergy() {
 			player.cubesThisAscension.maxAllTime = 0
 		if (!player.cubesThisAscension.cpsOnC10Comp)
 			player.cubesThisAscension.cpsOnC10Comp = 0
+		if (!player.cubesThisAscension.tesseracts)
+			player.cubesThisAscension.tesseracts = 0
+		if (!player.cubesThisAscension.hypercubes)
+			player.cubesThisAscension.hypercubes = 0
 
 var j
 for (j = 1; j < 126; j++) {

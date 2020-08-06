@@ -458,6 +458,8 @@ function reset(i,fast) {
     player.cubesThisAscension.challenges = 0;
     player.cubesThisAscension.reincarnation = 0;
     player.cubesThisAscension.maxCubesPerSec = 0;
+    player.cubesThisAscension.tesseracts = 0;
+    player.cubesThisAscension.hypercubes = 0;
     player.cubesThisAscension.ascension = 100/100 * calculateCubeMultiplier() * 250;
     player.ascensionCounter = 0;
 
