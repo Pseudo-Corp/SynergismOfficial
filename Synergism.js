@@ -155,32 +155,32 @@ const player = {
    eighthProduceAnts: .00000001,
 
    ascendBuilding1: {
-	   cost: new Decimal("1"),
-	   owned: new Decimal("0"),
+	   cost: 1,
+	   owned: 0,
 	   generated: new Decimal("0"),
 	   multiplier: 0.01
    },
    ascendBuilding2: {
-	cost: new Decimal("10"),
-	owned: new Decimal("0"),
+	cost: 10,
+	owned: 0,
 	generated: new Decimal("0"),
 	multiplier: 0.01
 },
 ascendBuilding3: {
-	cost: new Decimal("100"),
-	owned: new Decimal("0"),
+	cost: 100,
+	owned: 0,
 	generated: new Decimal("0"),
 	multiplier: 0.01
 },
 ascendBuilding4: {
-	cost: new Decimal("1000"),
-	owned: new Decimal("0"),
+	cost: 1000,
+	owned: 0,
 	generated: new Decimal("0"),
 	multiplier: 0.01
 },
 ascendBuilding5: {
-	cost: new Decimal("1e4"),
-	owned: new Decimal("0"),
+	cost: 10000,
+	owned: 0,
 	generated: new Decimal("0"),
 	multiplier: 0.01
 },
@@ -416,7 +416,7 @@ tesseractbuyamount: 1,
 			  mythosbuyamount: 1,
 			  particlebuyamount: 1,
 			  offeringbuyamount: 1,
-			  
+			  tesseractbuyamount: 1,
 			  
 			  
 			  shoptoggles: {
@@ -877,13 +877,21 @@ function loadSynergy() {
 		}
 	}
 
+	if(!Number.isInteger(player.ascendBuilding1.cost)){
+		player.ascendBuilding1.cost = 1;
+		player.ascendBuilding1.owned = 0;
+		player.ascendBuilding2.cost = 10;
+		player.ascendBuilding2.owned = 0;
+		player.ascendBuilding3.cost = 100;
+		player.ascendBuilding3.owned = 0;
+		player.ascendBuilding4.cost = 1000;
+		player.ascendBuilding4.owned = 0;
+		player.ascendBuilding5.cost = 10000;
+		player.ascendBuilding5.owned = 0;
+	}
+
 	for(var i = 1; i <= 5; i++){
-		player['ascendBuilding'+i] = {
-			cost: new Decimal(player['ascendBuilding'+i].cost),
-			owned: new Decimal(player['ascendBuilding'+i].owned),
-			generated: new Decimal(player['ascendBuilding'+i].generated),
-			multiplier: 0.01
-		}
+		player['ascendBuilding'+i].generated = new Decimal(player['ascendBuilding'+i].generated)
 	}
 
 	while (player.achievements[210] === undefined){
@@ -891,6 +899,9 @@ function loadSynergy() {
 	}
 	while (player.researches[125] === undefined){
 		player.researches.push(0)
+	}
+	while (player.upgrades[140] === undefined){
+		player.upgrades.push(0)
 	}
 
 	player.wowCubes = player.wowCubes || 0;
@@ -900,7 +911,7 @@ function loadSynergy() {
 			player.cubesThisAscension.cpsOnC10Comp = 0
 
 var j
-for (j = 1; j < player.upgrades.length; j++) {
+for (j = 1; j < 126; j++) {
 		upgradeupdate(j);
 	}
 
@@ -916,8 +927,8 @@ document.getElementById("togglerunesubtab").textContent = "GO TO TALISMANS"
 document.getElementById("togglerunesubtab").style.border = "2px solid grey"
 
 	
-var q = ['coin','crystal','mythos','particle','offering']
-for (j = 0; j <= 4; j++) {
+var q = ['coin','crystal','mythos','particle','offering','tesseract']
+for (j = 0; j <= 5; j++) {
 	for (k = 0; k < 4; k++) {
 		if (k == 0){var d = 'one'}
 		if (k == 1){var d = 'ten'}
@@ -1160,30 +1171,30 @@ function updateAllTick() {
 	
 	costDivisor = 1;
 
-    if (player.upgrades[8] > 0.5) {a += Math.floor(player.multiplierBought / 7);}
-    if (player.upgrades[21] > 0.5) {a += 5;}
-    if (player.upgrades[22] > 0.5) {a += 4;}
-    if (player.upgrades[23] > 0.5) {a += 3;}
-	if (player.upgrades[24] > 0.5) {a += 2;}
-	if (player.upgrades[25] > 0.5) {a += 1;}
-    if (player.upgrades[27] > 0.5) {a += Math.min(250, Math.floor(Decimal.log(player.coins.add(1), 1e3))) + Math.min(1750, Math.max(0, Math.floor(Decimal.log(player.coins.add(1),1e15)) - 50));}
-    if (player.upgrades[29] > 0.5) {a += Math.floor(Math.min(2000,(player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin) / 80))}
-    if (player.upgrades[32] > 0.5) {a += Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)));}
-    if (player.upgrades[45] > 0.5) {a += Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)));}
-	if (player.achievements[5] > 0.5) {a += Math.floor(player.firstOwnedCoin / 500)}
-	if (player.achievements[12] > 0.5) {a += Math.floor(player.secondOwnedCoin / 500)}
-	if (player.achievements[19] > 0.5) {a += Math.floor(player.thirdOwnedCoin / 500)}
-	if (player.achievements[26] > 0.5) {a += Math.floor(player.fourthOwnedCoin / 500)}
-	if (player.achievements[33] > 0.5) {a += Math.floor(player.fifthOwnedCoin / 500)}
-	if (player.achievements[60] > 0.5) {a += 2}
-	if (player.achievements[61] > 0.5) {a += 2}
-	if (player.achievements[62] > 0.5) {a += 2}
+    if (player.upgrades[8] !== 0) {a += Math.floor(player.multiplierBought / 7);}
+    if (player.upgrades[21] !== 0) {a += 5;}
+    if (player.upgrades[22] !== 0) {a += 4;}
+    if (player.upgrades[23] !== 0) {a += 3;}
+	if (player.upgrades[24] !== 0) {a += 2;}
+	if (player.upgrades[25] !== 0) {a += 1;}
+    if (player.upgrades[27] !== 0) {a += Math.min(250, Math.floor(Decimal.log(player.coins.add(1), 1e3))) + Math.min(1750, Math.max(0, Math.floor(Decimal.log(player.coins.add(1),1e15)) - 50));}
+    if (player.upgrades[29] !== 0) {a += Math.floor(Math.min(2000,(player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin) / 80))}
+    if (player.upgrades[32] !== 0) {a += Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)));}
+    if (player.upgrades[45] !== 0) {a += Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)));}
+	if (player.achievements[5] !== 0) {a += Math.floor(player.firstOwnedCoin / 500)}
+	if (player.achievements[12] !== 0) {a += Math.floor(player.secondOwnedCoin / 500)}
+	if (player.achievements[19] !== 0) {a += Math.floor(player.thirdOwnedCoin / 500)}
+	if (player.achievements[26] !== 0) {a += Math.floor(player.fourthOwnedCoin / 500)}
+	if (player.achievements[33] !== 0) {a += Math.floor(player.fifthOwnedCoin / 500)}
+	if (player.achievements[60] !== 0) {a += 2}
+	if (player.achievements[61] !== 0) {a += 2}
+	if (player.achievements[62] !== 0) {a += 2}
 	a += 5 * player.challengecompletions.two
 	freeUpgradeAccelerator = a;
 	a += totalAcceleratorBoost * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20] + cubeBonusMultiplier[1]);
 	if (player.unlocks.prestige == true) {
-	a += Math.floor(Math.pow(rune1level * effectiveLevelMult / 2, 2));
-	a *=(1 + rune1level * 1/200 * effectiveLevelMult);
+	a += Math.floor(Math.pow(rune1level * effectiveLevelMult / 10, 1.25));
+	a *=(1 + rune1level * 1/1000 * effectiveLevelMult);
 	}
 	calculateAcceleratorMultiplier();
 	a *= acceleratorMultiplier
@@ -1299,7 +1310,7 @@ function updateAllMultiplier() {
 		freeUpgradeMultiplier = a
 
 	if (player.achievements[38] > 0.5) {
-		a += Math.floor(Math.floor(rune2level / 10 * effectiveLevelMult) * Math.floor(10 + rune2level / 10 * effectiveLevelMult) / 2) * 100/100
+		a += Math.floor(Math.floor(rune2level / 25 * effectiveLevelMult) * Math.floor(1 + rune2level / 25 * effectiveLevelMult) / 2) * 100/100
 	}
 	a *= (1 + player.achievements[57]/100)
 	a *= (1 + player.achievements[58]/100)
@@ -1313,7 +1324,7 @@ function updateAllMultiplier() {
 	}
 	a *=(1 + 1/5 * player.researches[2])
 	a *=(1 + 1/20 * player.researches[11] + 1/25 * player.researches[12] + 1/40 * player.researches[13] + 3/200 * player.researches[14] + 1/200 * player.researches[15])
-	a *=(1 + rune2level/200 * effectiveLevelMult)
+	a *=(1 + rune2level/1000 * effectiveLevelMult)
 	a *=(1 + 1/20 * player.researches[87])
 	a *=(1 + 1/25 * (player.antUpgrades[5] + bonusant5))
 	a *= cubeBonusMultiplier[2]
@@ -1353,14 +1364,14 @@ function updateAllMultiplier() {
 function multipliers() {
 	let s = new Decimal(1);
 	let c = new Decimal(1);
-prestigeMultiplier = Decimal.pow(player.prestigeShards, 1/3 + Math.min(10, 0.05 * player.crystalUpgrades[3]) + 0.04 * player.challengecompletions.three + 0.08 * (player.researches[28] + player.researches[29] + 0.5 * player.researches[30]) + 0.1 * player.cubeUpgrades[17]).add(1);
+prestigeMultiplier = Decimal.pow(player.prestigeShards, 1/3 + Math.min(10, 0.05 * player.crystalUpgrades[3]) + 0.04 * player.challengecompletions.three + 0.08 * (player.researches[28] + player.researches[29] + 0.5 * player.researches[30]) + 5 * player.cubeUpgrades[17]).add(1);
 
 let c7 = 1;
 if (player.currentChallengeRein == "seven") {c7 = 0.05}
 if (player.currentChallengeRein == "eight") {c7 = 0}
 buildingPower = 1 + (1 - Math.pow(2, -1/160)) * c7 * Decimal.log(player.reincarnationShards.add(1), 10) * (1 + 1/20 * player.researches[36] + 1/40 * player.researches[37] + 1/40 * player.researches[38]) + (c7 + 0.2) * 0.25/1.2 * player.challengecompletions.eight
-buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[12] / 20)
-buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[36] / 20)
+buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[12] / 5)
+buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[36] / 5)
 reincarnationMultiplier = Decimal.pow(buildingPower, totalCoinOwned);
 
 antMultiplier = Decimal.pow(Decimal.max(1, player.antPoints), 100000 + 900000 * (1 - Math.pow(2, -(player.antUpgrades[2] + bonusant2)/125)));
@@ -1468,7 +1479,7 @@ if (player.achievements[37] > 0.5 && player.prestigePoints.greaterThanOrEqualTo(
 	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.log(player.prestigePoints.add(1), 10))
 }
 if (player.achievements[43] > 0.5) {
-	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(rune3level * effectiveLevelMult, 2).times(Decimal.pow(2, rune3level * effectiveLevelMult  - 8).add(1)))
+	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(rune3level/5 * effectiveLevelMult, 2).times(Decimal.pow(2, rune3level * effectiveLevelMult/5  - 8)).add(1))
 }
 if (player.upgrades[36] > 0.5) {globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.min("1e5000", Decimal.pow(player.prestigePoints, 1/500)))}
 if (player.upgrades[63] > 0.5) {globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.min("1e6000",Decimal.pow(player.reincarnationPoints.add(1),6)))}
@@ -1514,7 +1525,7 @@ globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.
 	if (player.upgrades[55] == 1){mythosupgrade15 = mythosupgrade15.times(Decimal.pow("1e1000", Math.min(1000,buildingPower - 1)))};
 
 	globalAntMult = new Decimal(1);
-	globalAntMult = globalAntMult.times(1 + 1/1440 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84]/200), 2))
+	globalAntMult = globalAntMult.times(1 + 1/20000 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84]/200), 2))
 	if(player.upgrades[76] == 1){globalAntMult = globalAntMult.times(5)}
 	globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77]/200 + player.researches[96]/4000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
 	globalAntMult = globalAntMult.times(Math.pow(1.5, player.shopUpgrades.antSpeedLevel));
@@ -1630,7 +1641,7 @@ function resourceGain(dt,fast){
 		player.antPoints = player.antPoints.add(antOneProduce.times(dt/1))
 
 		for(var i = 1; i <= 5; i++){
-		ascendBuildingProduction[ordinals[5-i]] = player['ascendBuilding'+(6-i)]['generated'].add(player['ascendBuilding'+(6-i)]['owned']).times(player['ascendBuilding'+i]['multiplier'])
+		ascendBuildingProduction[ordinals[5-i]] = (player['ascendBuilding'+(6-i)]['generated']).add(player['ascendBuilding'+(6-i)]['owned']).times(player['ascendBuilding'+i]['multiplier'])
 
 		if(i !== 5){player['ascendBuilding'+(5-i)]['generated'] = player['ascendBuilding'+(5-i)]['generated'].add(ascendBuildingProduction[ordinals[5-i]].times(dt))}
 		}
@@ -1789,17 +1800,9 @@ function resetCheck(i,manual) {
 				var y = x - 65;
 				challengeDisplay(y,true)
 
-				if (player.ascensionCount === 0) {
-					player.worlds += (1 + Math.floor(player.highestchallengecompletions[q] / 10)) * 100 / 100
-				} else {
-					let extraCubes = player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41]
-					let corruptionMulti = player.highestchallengecompletions[q] > 50 ? calculateCorruptionPoints() / 400 : 1
-					let toAdd = (1 + Math.floor(player.highestchallengecompletions[q] / 10 * corruptionMulti)) * 100 / 100 + extraCubes
-
-					player.wowCubes += toAdd
-					player.cubesThisAscension.challenges += toAdd
-					updateCubesPerSec()
-				}
+				highestChallengeRewards(q, player.highestchallengecompletions[q])
+				updateCubesPerSec()
+		
 			
 				calculateCubeBlessings();
 			}
@@ -1829,48 +1832,38 @@ function resetCheck(i,manual) {
 	}
 	if (i == "reincarnationchallenge"){
 		if (player.currentChallengeRein !== ""){
-		var y = ""
-		var q = player.currentChallengeRein;
+			var y = ""
+			var q = player.currentChallengeRein;
 			if (q == "six"){y = 6}
 			if (q == "seven"){y = 7}
 			if (q == "eight"){y = 8}
 			if (q == "nine"){y = 9}
 			if (q == "ten"){y = 10}
 			var s = player.currentChallenge
-		if (player.currentChallenge !== "") {
-			player.currentChallenge = ""
+			if (player.currentChallenge !== "") {
+				player.currentChallenge = ""
 			}
-		if(q == "six" || q == "seven" || q == "eight"){
-		if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirementsrein[q] * Math.min(Math.pow(1.3797, player.challengecompletions[q]) , Math.pow(1 + player.challengecompletions[q], 2)))) && player.challengecompletions[q] < 25 + player.cubeUpgrades[29]) {
-			player.challengecompletions[q] += 1
-		}
-		}
-		if (q == "nine" || q == "ten"){
-		if (player.coins.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirementsrein[q] * Math.min(Math.pow(1.3797, player.challengecompletions[q]) , Math.pow(1 + player.challengecompletions[q], 2)))) && player.challengecompletions[q] < 25 + player.cubeUpgrades[29]) {
-			player.challengecompletions[q] += 1
-		}
-		}
+			if(q == "six" || q == "seven" || q == "eight"){
+				if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirementsrein[q] * Math.min(Math.pow(1.3797, player.challengecompletions[q]) , Math.pow(1 + player.challengecompletions[q], 2)))) && player.challengecompletions[q] < 25 + player.cubeUpgrades[29]) {
+					player.challengecompletions[q] += 1
+				}
+			}
+			if (q == "nine" || q == "ten"){
+				if (player.coins.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirementsrein[q] * Math.min(Math.pow(1.3797, player.challengecompletions[q]) , Math.pow(1 + player.challengecompletions[q], 2)))) && player.challengecompletions[q] < 25 + player.cubeUpgrades[29]) {
+					player.challengecompletions[q] += 1
+				}
+			}
 		challengeDisplay(y,true)
 		reset(3);
 		challengeachievementcheck(q);
 		player.reincarnationCount -= 1;
 		if (player.challengecompletions[q] > player.highestchallengecompletions[q]){
 			player.highestchallengecompletions[q] += 1;
-			if (player.ascensionCount === 0) {
-				player.worlds += player.highestchallengecompletions[q]
-			} else {
-				let extraCubes = player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41];
-				// let corruptionMulti = player.highestchallengecompletions[q] > 15 && q !== "ten" ? calculateCorruptionPoints() / 400 : 1
-				let corruptionMulti = 1;
-				let toAdd = Math.floor(player.highestchallengecompletions[q] * corruptionMulti) + extraCubes;
+			highestChallengeRewards(q, player.highestchallengecompletions[q])
+			updateCubesPerSec()
+			calculateCubeBlessings();
+		}
 
-				player.wowCubes += toAdd;
-				player.cubesThisAscension.challenges += toAdd;
-				calculateCubeBlessings();
-				updateCubesPerSec()
-			}
-
-			if(player.ascensionCount > 0 && q == "ten" && player.challengecompletions[q] === 1){player.wowTesseracts += 1;}
 		}
 		if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + player.cubeUpgrades[29]) {
 		player.currentChallengeRein = "";
@@ -1879,7 +1872,7 @@ function resetCheck(i,manual) {
 		calculateAnts();
 		}
 	}	
-	}
+	
 	if (i == "ascend"){
 		if(player.challengecompletions.ten > 0){
 			if (manual){
@@ -1978,7 +1971,7 @@ function updateAll() {
 		if (player.toggles.fifteen == true && player.achievements[43] == 1 && player.prestigecounter >= time && player.coinsThisPrestige.greaterThanOrEqualTo(1e16)) {resetachievementcheck(1);reset(1,true);}
 		}
 		var c = 0;
-		c += Math.floor(rune3level/10 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800)) * 100/100
+		c += Math.floor(rune3level/40 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800) * (1 + player.researches[90]/100)) * 100/100
 		if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== ""){c += 10}
 		if (player.achievements[79] > 0.5 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[0] + crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] - 0.5 - c, 2) /2))))){
 			buyCrystalUpgrades(1,true)
@@ -2214,17 +2207,17 @@ function tick() {
 
 	if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle){
 	player.sacrificeTimer += (dt * timeMult)
-	if (player.sacrificeTimer >= 10){
+	if (player.sacrificeTimer >= 1){
 		if(player.cubeUpgrades[20] === 0){
 		let rune = player.autoSacrifice;
 		redeemShards(rune,true,null,0);
-		player.sacrificeTimer -= 10;
+		player.sacrificeTimer -= 1;
 		}
 		if(player.cubeUpgrades[20] === 1 && player.runeshards >= 5){
 		let baseAmount = Math.floor(player.runeshards/5);
 		for(var i = 1; i<=5; i++){
 		redeemShards(i,true,null,baseAmount);
-		player.sacrificeTimer = player.sacrificeTimer % 10;
+		player.sacrificeTimer = player.sacrificeTimer % 1;
 		}
 		}
 	}
@@ -2251,12 +2244,20 @@ function tick() {
 	if(player.autoResearch > 0 && player.autoResearchToggle){buyResearch(player.autoResearch,true)}
 	}
 
-	if (player.cubeUpgrades[2] > 0){
+	if (player.highestchallengecompletions.three > 0){
 		autoOfferingCounter += dt
-		if(autoOfferingCounter > (1 / player.cubeUpgrades[2])){
-			player.runeshards += Math.floor(autoOfferingCounter * player.cubeUpgrades[2])
+		if(autoOfferingCounter > 2){
+			player.runeshards += Math.floor(autoOfferingCounter/2)
 		}
-		autoOfferingCounter = autoOfferingCounter % (1/player.cubeUpgrades[2])
+		autoOfferingCounter = autoOfferingCounter % 2
+	}
+
+	if (player.cubeUpgrades[2] > 0){
+		autoOfferingCounter2 += dt
+		if(autoOfferingCounter2 > (1 / player.cubeUpgrades[2])){
+			player.runeshards += Math.floor(autoOfferingCounter2 * player.cubeUpgrades[2])
+		}
+		autoOfferingCounter2 = autoOfferingCounter2 % (1/player.cubeUpgrades[2])
 	}
 	if (dt > 5) {
 		while(dt > 5){

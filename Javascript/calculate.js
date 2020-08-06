@@ -1,3 +1,11 @@
+function sumObject(obj){
+    let sum = 0;
+    for (var el in obj){
+        sum += obj[el]
+    }
+    return(sum)
+}
+
 // Returns the sum of all contents in an array
 function sumContents(array) {
 	let sum = 0;
@@ -33,7 +41,7 @@ function calculateTotalAcceleratorBoost() {
 	if (player.achievements[35] > 0.5){b += Math.floor(player.fifthOwnedCoin/2000)}
 
 	b += player.researches[93] * Math.floor(1/20 * (rune1level + rune2level + rune3level + rune4level + rune5level))
-	b += Math.floor((0.01 + rune1level) * effectiveLevelMult / 10);
+	b += Math.floor((0.01 + rune1level) * effectiveLevelMult / 50);
 	b *= (1 + 1/5 * player.researches[3])
 	b *= (1 + 1/20 * player.researches[16] + 1/20 * player.researches[17])
 	b *= (1 + 1/20 * player.researches[88])
@@ -71,7 +79,7 @@ function calculateRecycleMultiplier() {
 		0.075 * player.achievements[122],
 		0.075 * player.achievements[129],
 		0.05 * player.upgrades[61],
-        0.25 * Math.min(1, rune4level / 200),
+        0.25 * Math.min(1, rune4level / 1000),
         0.005 * player.cubeUpgrades[2]
 	]);
 
@@ -79,23 +87,37 @@ function calculateRecycleMultiplier() {
 }
 
 // Returns the amount of exp given per offering by a rune
-function calculateRuneExpGiven(runeIndex) {
+function calculateRuneExpGiven(runeIndex, all) {
+    all = all || false
 	// recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
 	let recycleMultiplier = calculateRecycleMultiplier();
 
 	// Rune multiplier that is summed instead of added
-	let allRuneExpAdditiveMultiplier = Math.floor(sumContents([
+	let allRuneExpAdditiveMultiplier = sumContents([
 		// Base amount multiplied per offering
-		25,
+        1,
+        // +1 if C1 completion
+        Math.min(1, player.highestchallengecompletions.one),
+        // +0.10 per C1 completion
+        1/10 * player.highestchallengecompletions.one,
 		// Research 5x2
-		3 * player.researches[22],
+		0.6 * player.researches[22],
 		// Research 5x3
-		2 * player.researches[23],
+		0.3 * player.researches[23],
 		// Particle Upgrade 1x1
-		5 * player.upgrades[61],
+		2 * player.upgrades[61],
 		// Particle upgrade 3x1
-		player.upgrades[71] * player.runelevels[runeIndex]
-	]));
+		player.upgrades[71] * player.runelevels[runeIndex] / 25
+    ]);
+    
+    if(all){
+        allRuneExpAdditiveMultiplier = sumContents([
+        //Challenge 3 completions
+        1/20 * player.highestchallengecompletions.three,
+        //Reincarnation 3x1
+        1 * player.upgrades[66]
+    ])
+    }
 
 	// Rune multiplier that gets applied to all runes
 	let allRuneExpMultiplier = productContents([
@@ -125,7 +147,7 @@ function calculateRuneExpGiven(runeIndex) {
 			1 + (player.researches[79] / 50), 1 + (player.researches[113]/100)
 		]),
 		productContents([
-			1 + (player.researches[77] / 50), 1 + (player.researches[114]/100)
+			1 + (player.researches[77] / 50), 1 + (player.researches[114]/100), 1 + (player.challengecompletions.six/10)
 		]),
 		productContents([
 			1 + (player.researches[83] / 20), 1 + (player.researches[115]/100)
@@ -145,21 +167,21 @@ function calculateRuneExpToLevel(runeIndex) {
 	let runelevel = player.runelevels[runeIndex];
 
 	let runeExpRequiredMultiplier = [
-		1 - (0.02 * player.challengecompletions.seven),
-		1 - (0.02 * player.challengecompletions.seven),
 		1,
-		1 - (0.02 * player.challengecompletions.six),
+		1,
+		1,
+		1,
 		1
 	];
 
 	// Rune exp required to level multipliers
 	let allRuneExpRequiredMultiplier = productContents([
-			Math.pow(runelevel, 3),
-			((4 * runelevel) + 100) / 500,
-			Math.max(1, (runelevel - 500)/25),
-			Math.max(1, (runelevel - 600)/30),
-			Math.max(1, (runelevel - 700)/25),
-			Math.max(1, Math.pow(1.03, runelevel - 750))
+			Math.pow(runelevel/5, 3),
+			((4 * runelevel/5) + 100) / 500,
+			Math.max(1, (runelevel/5 - 500)/25),
+			Math.max(1, (runelevel/5 - 600)/30),
+			Math.max(1, (runelevel/5 - 700)/25),
+			Math.max(1, Math.pow(1.03, runelevel/5 - 750))
 	]);
 	let expToLevel = productContents([
 		runeexpbase[runeIndex],
@@ -172,15 +194,15 @@ function calculateRuneExpToLevel(runeIndex) {
 }
 
 function calculateMaxRunes(i){
-    let max = 500;
+    let max = 2500;
 
     let increaseMaxLevel = [
         null,
-        5 *(player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		5 *(player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		5 *(player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		5 *(player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		5 *(player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
+        25 *(player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		25 *(player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		25 *(player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		25 *(player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
+		25 *(player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
     ]
 
     max += increaseMaxLevel[i]
@@ -193,37 +215,44 @@ function calculateOfferings(i){
     var b = 0;
     var c = 0;
 
-    if (i == 4 || i == 6) {
-        a += 15
+    if (i == 3) {
+        a += 3
         if (player.achievements[52] > 0.5) {
             a += (25 * Math.min(player.reincarnationcounter/1800, 1))
         }
         if (player.upgrades[62] > 0.5) {
-            a += 1 / 5 * (player.challengecompletions.one + player.challengecompletions.two + player.challengecompletions.three + player.challengecompletions.four + player.challengecompletions.five + player.challengecompletions.six + player.challengecompletions.seven + player.challengecompletions.eight)
+            a += 1 / 50 * (player.challengecompletions.one + player.challengecompletions.two + player.challengecompletions.three + player.challengecompletions.four + player.challengecompletions.five + player.challengecompletions.six + player.challengecompletions.seven + player.challengecompletions.eight)
         }
-        a += 3 * player.researches[25]
+        a += 0.6 * player.researches[25]
         if (player.researches[95] == 1){
-            a += 40
+            a += 4
         }
-        a *= Math.pow(player.reincarnationcounter / 600 * Math.pow(Math.min(optimalOfferingTimer/400, player.reincarnationcounter / 400), 1), 0.7)
+        a += 1/500 * rune5level * effectiveLevelMult * (1 + player.researches[85] / 200)
+        a *= (1 + Math.pow(Decimal.log(player.reincarnationShards.add(1), 10),2/3)/4);
+        a *= Math.min(Math.pow(player.reincarnationcounter/10, 1/2), 1)
 
     }
-    if (i >= 2 && i !== 5) {
-        b += 3
+    if (i >= 2) {
+        b += 2
         if (player.reincarnationCount > 0) {
-            b += 7
+            b += 2
         }
         if (player.achievements[44] > 0.5) {
             b += (15 * Math.min(player.transcendcounter/1800, 1))
         }
-        b += 1 * player.researches[24]
-        b *= Math.pow(player.transcendcounter / 540 * Math.pow(Math.min(optimalOfferingTimer/480, player.transcendcounter / 480), 1), 0.6)
+        if (player.challengecompletions.two > 0){
+            b += 1;
+        }
+        b += 0.2 * player.researches[24]
+        b += 1/500 * rune5level * effectiveLevelMult * (1 + player.researches[85] / 200)
+        b *= (1 + Math.pow(Decimal.log(player.transcendShards.add(1),10),1/2)/5);
+        b *= Math.min(Math.pow(player.transcendcounter/10, 1/2), 1)
 
     }
     if (i >= 1) {
         c += 1
         if (player.transcendCount > 0 || player.reincarnationCount > 0) {
-            c += 2
+            c += 1
         }
         if (player.reincarnationCount > 0) {
             c += 2
@@ -231,8 +260,15 @@ function calculateOfferings(i){
         if (player.achievements[37] > 0.5) {
             c += (15 * Math.min(player.prestigecounter/1800, 1))
         }
-        c += 1 * player.researches[24]
-        c *= Math.pow(player.prestigecounter / 480 * Math.pow(Math.min(optimalOfferingTimer/600, player.prestigecounter / 600), 1), 0.5)
+        if (player.challengecompletions.two > 0){
+            c += 1;
+        }
+        c += 0.2 * player.researches[24]
+        c += 1/500 * rune5level * effectiveLevelMult * (1 + player.researches[85] / 200)
+        c *= (1 + Math.pow(Decimal.log(player.prestigeShards.add(1),10),1/2)/5);
+        c *= (1 + player.challengecompletions.six/50)
+        c *= Math.min(Math.pow(player.prestigecounter/10, 1/2), 1)
+    
     }
     q = a + b + c
 
@@ -252,6 +288,7 @@ function calculateOfferings(i){
     }
     q *= (1 + 1/50 * player.shopUpgrades.offeringAutoLevel);
     q *= (1 + 1/100 * player.shopUpgrades.cashGrabLevel);
+    q *= (1 + 1/10000 * sumObject(player.challengecompletions) * player.researches[85])
     q *= (1 + 4 * (1 - Math.pow(2, -(player.antUpgrades[6] + bonusant6)/125)))
     q *= cubeBonusMultiplier[3]
     q = Math.floor(q) * 100 / 100
@@ -277,7 +314,7 @@ function calculateObtainium(){
             obtainiumGain *= Math.min(10, Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))
         }
         if (player.upgrades[70] > 0) {
-            obtainiumGain *= Math.pow(Math.min(19 + 0.6 * player.shopUpgrades.obtainiumTimerLevel, 1 + 2 * player.reincarnationcounter / 400),2)
+            obtainiumGain *= Math.pow(player.reincarnationcounter/10, 0.9)
         }
         if (player.upgrades[72] > 0) {
             obtainiumGain *= Math.min(50, (1 + 2 * player.challengecompletions.six + 2 * player.challengecompletions.seven + 2 * player.challengecompletions.eight + 2 * player.challengecompletions.nine + 2 * player.challengecompletions.ten))
@@ -290,7 +327,7 @@ function calculateObtainium(){
         obtainiumGain *= (1 + player.researches[81]/10)
         obtainiumGain *= (1 + player.shopUpgrades.obtainiumAutoLevel/50)
         obtainiumGain *= (1 + player.shopUpgrades.cashGrabLevel/100)
-        obtainiumGain *= (1 + rune5level/150 * effectiveLevelMult * (1 + player.researches[84]/200)) * Math.pow(2, rune5level/300 * effectiveLevelMult * (1 + player.researches[84]/200))
+        obtainiumGain *= (1 + rune5level/500 * effectiveLevelMult * (1 + player.researches[84]/200))
         obtainiumGain *= (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07 * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15 * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147])
         obtainiumGain *= (1 + 9 * (1 - Math.pow(2, -(player.antUpgrades[10] + bonusant10)/125)))
         obtainiumGain *= cubeBonusMultiplier[5]
@@ -302,13 +339,13 @@ function calculateObtainium(){
         if (player.achievements[129]){obtainiumGain *= 1.25};
 
         if (player.achievements[51] > 0){obtainiumGain += 4}
-        if (player.reincarnationcounter >= 30){obtainiumGain += 1 * player.researches[63]}
-        if (player.reincarnationcounter >= 60){obtainiumGain += 2 * player.researches[64]}
-        obtainiumGain *= Math.min(1 + 3 * player.upgrades[70], Math.pow(player.reincarnationcounter/30, 2));
-
+        if (player.reincarnationcounter >= 2){obtainiumGain += 1 * player.researches[63]}
+        if (player.reincarnationcounter >= 5){obtainiumGain += 2 * player.researches[64]}
+        obtainiumGain *= Math.min(1 + 3 * player.upgrades[70], Math.pow(player.reincarnationcounter/5, 2));
+        obtainiumGain *= Math.pow(Decimal.log(player.transcendShards.add(1),10)/300,1/2)
         obtainiumGain = Math.pow(obtainiumGain, illiteracyPower[player.usedCorruptions[5]])
 
-        player.obtainiumpersecond = obtainiumGain/(Math.min(player.reincarnationcounter, 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel) + 1)
+        player.obtainiumpersecond = obtainiumGain/(Math.min(player.reincarnationcounter + 0.05, 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel) + 1)
         player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond);
 }
 
@@ -322,12 +359,12 @@ function calculateTalismanEffects(){
     let negativeBonus = 0;
     if(player.achievements[135] == 1){positiveBonus += 0.05}
     if(player.achievements[136] == 1){positiveBonus += 0.05}
-    positiveBonus += player.researches[106]/100
-    positiveBonus += player.researches[107]/100
-    positiveBonus += player.researches[116]/200
-    positiveBonus += player.researches[117]/200
+    positiveBonus += 3 * player.researches[106]/100
+    positiveBonus += 3 * player.researches[107]/100
+    positiveBonus += 3 * player.researches[116]/200
+    positiveBonus += 3 * player.researches[117]/200
     positiveBonus += (cubeBonusMultiplier[9] - 1)
-    negativeBonus += player.researches[118]/50
+    negativeBonus += 3 * player.researches[118]/50
     for(var i=1; i <= 5; i++){
         if(player.talismanOne[i] == (1)){talisman1Effect[i] = (talismanPositiveModifier[player.talismanRarity[1]] + positiveBonus) * player.talismanLevels[1]}
         else{talisman1Effect[i] = (talismanNegativeModifier[player.talismanRarity[1]] - negativeBonus) * player.talismanLevels[1] * (-1)}
@@ -377,11 +414,11 @@ talisman7Quarks = 0;
 function calculateRuneLevels() {
     calculateTalismanEffects();
     if (player.currentChallengeRein !== "nine"){
-		rune1level = Math.max(1, player.runelevels[0] + (player.antUpgrades[9] + bonusant9) + (rune1Talisman))
-		rune2level = Math.max(1, player.runelevels[1] + (player.antUpgrades[9] + bonusant9) + (rune2Talisman))
-		rune3level = Math.max(1, player.runelevels[2] + (player.antUpgrades[9] + bonusant9) + (rune3Talisman))
-		rune4level = Math.max(1, player.runelevels[3] + (player.antUpgrades[9] + bonusant9) + (rune4Talisman))
-		rune5level = Math.max(1, player.runelevels[4] + (player.antUpgrades[9] + bonusant9) + (rune5Talisman))
+		rune1level = Math.max(1, player.runelevels[0] + (player.antUpgrades[9] + bonusant9) * 3 + (rune1Talisman))
+		rune2level = Math.max(1, player.runelevels[1] + (player.antUpgrades[9] + bonusant9) * 3 + (rune2Talisman))
+		rune3level = Math.max(1, player.runelevels[2] + (player.antUpgrades[9] + bonusant9) * 3 + (rune3Talisman))
+		rune4level = Math.max(1, player.runelevels[3] + (player.antUpgrades[9] + bonusant9) * 3 + (rune4Talisman))
+		rune5level = Math.max(1, player.runelevels[4] + (player.antUpgrades[9] + bonusant9) * 3 + (rune5Talisman))
     }
 
     for (var i = 1; i <= 5; i++){
@@ -392,25 +429,25 @@ function calculateRuneLevels() {
 
 
     divineBlessing5 = 0;
-    if (rune1level >= 1250){
+    if (rune1level >= 5000){
         document.getElementById("rune1").style.backgroundColor = "red";
-        divineBlessing1 = (1 + (rune1level - 1250)/500);
+        divineBlessing1 = (1 + (rune1level - 5000)/2000);
         document.getElementById("divineblessing1").textContent = " In-Game timers speed x" + format(divineBlessing1,3);}
-    if (rune2level >= 1500){
+    if (rune2level >= 6000){
         document.getElementById("rune2").style.backgroundColor = "red";
-        divineBlessing2 = (1 + (rune2level-1500)/100);
+        divineBlessing2 = (1 + (rune2level-6000)/400);
         document.getElementById("divineblessing2").textContent = " Multiplier Boost Effect x" + format(divineBlessing2,3);}
-    if (rune3level >= 1000){
+    if (rune3level >= 4000){
         document.getElementById("rune3").style.backgroundColor = "red";
-        divineBlessing3 = (1 + (rune3level-1000)/400);
+        divineBlessing3 = (1 + (rune3level-4000)/1600);
         document.getElementById("divineblessing3").textContent = " Ant Sacrifice Multiplier x" + format(divineBlessing3,3);}
-    if (rune4level >= 1500){
+    if (rune4level >= 6000){
         document.getElementById("rune4").style.backgroundColor = "red";
-        divineBlessing4 = (1 + (rune4level-1500)/1000);
+        divineBlessing4 = (1 + (rune4level-6000)/4000);
         document.getElementById("divineblessing4").textContent = " Accelerator Boost Cost Delay x" + format(divineBlessing4,3)}
-    if (rune5level >= 1000){
+    if (rune5level >= 4000){
         document.getElementById("rune5").style.backgroundColor = "red";
-        divineBlessing5 = (calculateSigmoid(2,(rune5level-1000),600) - 1);
+        divineBlessing5 = (calculateSigmoid(2,(rune5level-4000),2400) - 1);
         document.getElementById("divineblessing5").textContent = " Ant Speed Mult. x" + format(Math.pow(player.researchPoints,divineBlessing5),2) + " [Based on Obtainium]"
     }
     runeSum = 0;
@@ -630,11 +667,11 @@ function calculateCubeBlessings(){
 
     cubeBonusMultiplier[i] = 1 + mult * blessingbase[i] * Math.pow(cubeArray[i], power * (1 + powerBonus[i]));
 
-    document.getElementById("blessing"+i+"Amount").textContent = "x"+format(cubeArray[i],0,true)
-    document.getElementById("blessing"+i+"Effect").textContent = "+"+format(100*(cubeBonusMultiplier[i] - 1),accuracy[i] + augmentAccuracy,true) + "%"
-    if(i == 1){document.getElementById("blessing1Effect").textContent = "+"+format(cubeBonusMultiplier[1] - 1,accuracy[1] + augmentAccuracy,true)}
-    if(i == 8){document.getElementById("blessing8Effect").textContent = "+"+format(cubeBonusMultiplier[8] - 1,accuracy[8] + augmentAccuracy,true)}
-    if(i == 9){document.getElementById("blessing9Effect").textContent = "+"+format(cubeBonusMultiplier[9] - 1,accuracy[9] + augmentAccuracy,true)}
+    document.getElementById("cubeBlessing"+i+"Amount").textContent = "x"+format(cubeArray[i],0,true)
+    document.getElementById("cubeBlessing"+i+"Effect").textContent = "+"+format(100*(cubeBonusMultiplier[i] - 1),accuracy[i] + augmentAccuracy,true) + "%"
+    if(i == 1){document.getElementById("cubeBlessing1Effect").textContent = "+"+format(cubeBonusMultiplier[1] - 1,accuracy[1] + augmentAccuracy,true)}
+    if(i == 8){document.getElementById("cubeBlessing8Effect").textContent = "+"+format(cubeBonusMultiplier[8] - 1,accuracy[8] + augmentAccuracy,true)}
+    if(i == 9){document.getElementById("cubeBlessing9Effect").textContent = "+"+format(cubeBonusMultiplier[9] - 1,accuracy[9] + augmentAccuracy,true)}
     }
 
     calculateRuneLevels();
@@ -665,7 +702,7 @@ function calculateTimeAcceleration() {
     timeMult *= (1 + player.researches[121]/50); // research 5x21
     timeMult *= divineBlessing1; // speed blessing
     timeMult *= cubeBonusMultiplier[10]; // Chronos cube blessing
-    timeMult *= 1 + 0.1 * player.cubeUpgrades[18] / 25; // cube upgrade 2x8
+    timeMult *= 1 + player.cubeUpgrades[18] / 5; // cube upgrade 2x8
     timeMult *= calculateSigmoid(2, player.antUpgrades[12] + bonusant12, 69) // ant 12
     timeMult *= lazinessMultiplier[player.usedCorruptions[3]]
 

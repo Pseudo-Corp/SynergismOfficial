@@ -307,7 +307,31 @@ function toggleMaxBuyCube(){
     if(buyMaxCubeUpgrades){buyMaxCubeUpgrades = false; el.textContent="Upgrade: 1 Level wow"}
     else{buyMaxCubeUpgrades = true; el.textContent = "Upgrade: MAX [if possible wow]"}
 }
-function toggleCubeSubTab(){
-    if (cubeSubTab == "opening"){cubeSubTab = "upgrades"; document.getElementById("cubeTab1").style.display = "none"; document.getElementById("cubeTab2").style.display = "block";}
-    else{cubeSubTab = "opening"; document.getElementById("cubeTab1").style.display = "block"; document.getElementById("cubeTab2").style.display = "none"}
+function toggleCubeSubTab(i){
+    let a = document.getElementById("switchCubeSubTab1")
+    let b = document.getElementById("switchCubeSubTab2")
+    let c = document.getElementById("switchCubeSubTab3")
+    let d = document.getElementById("switchCubeSubTab4")
+
+    for(var j = 1; j <= 4; j++){
+        if(document.getElementById("cubeTab"+j).style.display === "block" && j !== i){
+            document.getElementById("cubeTab"+j).style.display = "none"
+        }
+        if(document.getElementById("cubeTab"+j).style.display === "none" && j === i){
+            document.getElementById("cubeTab"+j).style.display = "block"
+        }
+    }
+
+    i === 1 ?  
+    (a.style.backgroundColor = "crimson"):
+    (a.style.backgroundColor = "black");
+    i === 2 ?  
+    (b.style.backgroundColor = "crimson"):
+    (b.style.backgroundColor = "black");
+    i === 3 ?  
+    (c.style.backgroundColor = "crimson"):
+    (c.style.backgroundColor = "black");
+    i === 4 ?  
+    (d.style.backgroundColor = "crimson"):
+    (d.style.backgroundColor = "black");
 }

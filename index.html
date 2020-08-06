@@ -399,11 +399,11 @@
             <img class="ascendPics" id="tesseracts5" src="Pictures/TesseractTier5.png">
         </div>
         <div id="ascendInfo">
-            <button class="tesseractBuyBtn" id="buyTesseracts1" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding('first',1)">Cost: 1 Tesseracts</button>
-            <button class="tesseractBuyBtn" id="buyTesseracts2" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding('second',100)">Cost: 10 Tesseracts</button>
-            <button class="tesseractBuyBtn" id="buyTesseracts3" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding('third',1e4)">Cost: 100 Tesseracts</button>
-            <button class="tesseractBuyBtn" id="buyTesseracts4" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding('fourth',1e8)">Cost: 1000 Tesseracts</button>
-            <button class="tesseractBuyBtn" id="buyTesseracts5" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding('fifth',1e16)">Cost: 10000 Tesseracts</button>
+            <button class="tesseractBuyBtn" id="buyTesseracts1" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding(1,1)">Cost: 1 Tesseracts</button>
+            <button class="tesseractBuyBtn" id="buyTesseracts2" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding(10,2)">Cost: 10 Tesseracts</button>
+            <button class="tesseractBuyBtn" id="buyTesseracts3" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding(100,3)">Cost: 100 Tesseracts</button>
+            <button class="tesseractBuyBtn" id="buyTesseracts4" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding(1000,4)">Cost: 1000 Tesseracts</button>
+            <button class="tesseractBuyBtn" id="buyTesseracts5" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding(10000,5)">Cost: 10000 Tesseracts</button>
             <p class="ascendTexts" id="ascendText1">Dot: 0 [+0]</p>
             <p class="ascendTexts" id="ascendText2">Vector: 0 [+0]</p>
             <p class="ascendTexts" id="ascendText3">Three-Space: 0 [+0]</p>
@@ -469,6 +469,13 @@
                     <td><img class="transcendunlock" src="Pictures/Transparent Pics/Coin18.png" id="upg18" onclick="buyUpgrades('coin', 18)" onmouseover="upgradedescriptions(18)"></td>
                     <td><img class="transcendunlock" src="Pictures/Transparent Pics/Coin19.png" id="upg19" onclick="buyUpgrades('coin', 19)" onmouseover="upgradedescriptions(19)"></td>
                     <td><img class="transcendunlock" src="Pictures/Transparent Pics/Coin20.png" id="upg20" onclick="buyUpgrades('coin', 20)" onmouseover="upgradedescriptions(20)"></td>
+                </tr>
+                <tr style="text-align:center; border-collapse:collapse;">
+                    <td><img class="ascendunlock" src="Pictures/Transparent Pics/Coin21.png" id="upg121" onclick="buyUpgrades('coin', 121)" onmouseover="upgradedescriptions(121)"></td> 
+                    <td><img class="ascendunlock" src="Pictures/Transparent Pics/Coin22.png" id="upg122" onclick="buyUpgrades('coin', 122)" onmouseover="upgradedescriptions(122)"></td>
+                    <td><img class="ascendunlock" src="Pictures/Transparent Pics/Coin23.png" id="upg123" onclick="buyUpgrades('coin', 123)" onmouseover="upgradedescriptions(123)"></td>
+                    <td><img class="ascendunlock" src="Pictures/Transparent Pics/Coin24.png" id="upg124" onclick="buyUpgrades('coin', 124)" onmouseover="upgradedescriptions(124)"></td>
+                    <td><img class="ascendunlock" src="Pictures/Transparent Pics/Coin25.png" id="upg125" onclick="buyUpgrades('coin', 125)" onmouseover="upgradedescriptions(125)"></td>
                 </tr>
             </table>
              
@@ -1127,9 +1134,9 @@
                 <p id="challengeRestrictions">Restriction: No Multipliers</p>
                 <p id="challengeGoal">Gain 1e10 Coins</p>
                 <p id="challengePerCompletionRewards">Per Completion Bonuses</p>
-                <p id="challengePer1">+10% Multiplier Boosts</p>
-                <p id="challengePer2">+10 base Multiplier Boosts</p>
-                <p id="challengePer3">---</p>
+                <p id="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" style="color:orchid">Current: 0</span></p>
+                <p id="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" style="color:orchid">Current: 0</span></p>
+                <p id="challengePer3">--- <span id="challengeCurrent3" style="color:orchid">Current: 0</span></p>
                 <p id="challengeFirstCompletionRewards">Bonus/Unlock for First Completion</p>
                 <p id="challengeFirst1">+1 Free Multiplier!</p>
                 <p id="challengeQuarkBonus">+1 Quarks</p>    
@@ -1408,84 +1415,237 @@
         </div>
 
         <div id="cubes">
-            <button id="switchCubeSubTab" style="border: 2px solid gold;" onclick="toggleCubeSubTab()">Switch tabs lol</button>
+            <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;" onclick="toggleCubeSubTab(1)">Cube Blessings</button>
+            <button id="switchCubeSubTab2" class="cubeSwitchTabBtn" style="border: 2px solid purple;" onclick="toggleCubeSubTab(2)">Tesseract Gifts</button>
+            <button id="switchCubeSubTab3" class="cubeSwitchTabBtn" style="border: 2px solid red;" onclick="toggleCubeSubTab(3)">Hypercube Benedictions</button>
+            <button id="switchCubeSubTab4" class="cubeSwitchTabBtn" style="border: 2px solid white;" onclick="toggleCubeSubTab(4)">Cube Upgrades</button>
             <div id="cubeTab1" style="display: block">
-            <p id="cubeWelcome">You feel a sense of Pride and Accomplishment... and a hunger for power.</p>
-            <p id="cubeExpository1">Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.</p>
-            <p id="cubeExpository2">You can also spend them on upgrades that persist through Ascension.</p>
-            <img id="wowCube" src="Pictures/WowCube.png">
-            <p id="cubeInventory">You possess <span id="cubeQuantity" style="color: yellow">13</span> Wow! Cubes. Get more from harder Ascensions and other stuff.</p>
+            <p id="cubeWelcome" class="cubePlacement1" style="color: orange">You feel a sense of Pride and Accomplishment... and a hunger for power.</p>
+            <p id="cubeExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.</p>
+            <p id="cubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</p>
+            <img id="wowCube" src="Pictures/WowCube.png" class="cubePlacement4">
+            <p id="cubeInventory" class="cubePlacement5" style="color: white">You possess <span id="cubeQuantity" style="color: yellow">13</span> Wow! Cubes. Get more from harder Ascensions and other stuff.</p>
             <button id="open1Cube" class="cubeBtn" onclick="openCube(1,false)">Open x1</button>
             <button id="open20Cube" class="cubeBtn" onclick="openCube(20,false)">Open x20</button>
             <button id="open1000Cube" class="cubeBtn" onclick="openCube(1000,false)">Open x1,000</button>
             <button id="openMostCube" class="cubeBtn" onclick="openCube(1,true)">Open All</button>
 
-            <div id="cubeBonuses">
-                <table id="cubeIcons" style="width:750px">
+            <div id="cubeBonuses" class="cubeBonus">
+                <table id="cubeIcons" class="cubeIcon" style="width:750px">
                     <tr>
                         <td style="font-size: 0;">
                             <img src="Pictures/Cube1.png">   
                         </td>
-                        <td id="cube1Bonus" style="color: yellow">Hermes' Blessing <span id="blessing1Amount">x1</span>: <span id="blessing1Effect">+0.01%</span> Accelerators per Accelerator Boost</td>
+                        <td id="cube1Bonus" style="color: yellow">Hermes' Blessing <span id="cubeBlessing1Amount">x1</span>: <span id="cubeBlessing1Effect">+0.01%</span> Accelerators per Accelerator Boost</td>
                     </tr>
                     <tr>
                         <td style="font-size: 0;">
                             <img src="Pictures/Cube2.png">   
                         </td>
-                        <td id="cube2Bonus" style="color: pink">Aphrodite's Blessing <span id="blessing2Amount">x1</span>: <span id="blessing2Effect">+0.01%</span> Multipliers</td>
+                        <td id="cube2Bonus" style="color: pink">Aphrodite's Blessing <span id="cubeBlessing2Amount">x1</span>: <span id="cubeBlessing2Effect">+0.01%</span> Multipliers</td>
                     </tr>
                     <tr>
                         <td style="font-size: 0;">
                             <img src="Pictures/Cube3.png">   
                         </td>
-                        <td id="cube3Bonus" style="color: orange">Plutus' Blessing <span id="blessing3Amount">x1</span>: <span id="blessing3Effect">+0.01%</span> Offering Gain</td>
+                        <td id="cube3Bonus" style="color: orange">Plutus' Blessing <span id="cubeBlessing3Amount">x1</span>: <span id="cubeBlessing3Effect">+0.01%</span> Offering Gain</td>
                     </tr>
                     <tr>
                         <td style="font-size: 0;">
                             <img src="Pictures/Cube4.png">   
                         </td>
-                        <td id="cube4Bonus" style="color: limegreen">Iris' Blessing <span id="blessing4Amount">x1</span>: <span id="blessing4Effect">+0.01%</span> Rune EXP</td>
+                        <td id="cube4Bonus" style="color: limegreen">Iris' Blessing <span id="cubeBlessing4Amount">x1</span>: <span id="cubeBlessing4Effect">+0.01%</span> Rune EXP</td>
                     </tr>
                     <tr>
                         <td style="font-size: 0;">
                             <img src="Pictures/Cube5.png">   
                         </td>
-                        <td id="cube5Bonus" style="color: aquamarine">Athena's Blessing <span id="blessing5Amount">x1</span>: <span id="blessing5Effect">+0.01%</span> Obtainium Gain</td>
+                        <td id="cube5Bonus" style="color: aquamarine">Athena's Blessing <span id="cubeBlessing5Amount">x1</span>: <span id="cubeBlessing5Effect">+0.01%</span> Obtainium Gain</td>
                     </tr>
                     <tr>
                         <td style="font-size: 0;">
                             <img src="Pictures/Cube6.png">   
                         </td>
-                        <td id="cube6Bonus" style="color: brown">Artemis' Blessing <span id="blessing6Amount">x1</span>: <span id="blessing6Effect">+0.01%</span> Ant Speed</td>
+                        <td id="cube6Bonus" style="color: brown">Artemis' Blessing <span id="cubeBlessing6Amount">x1</span>: <span id="cubeBlessing6Effect">+0.01%</span> Ant Speed</td>
                     </tr>
                     <tr>
                         <td style="font-size: 0;">
                             <img src="Pictures/Cube7.png">   
                         </td>
-                        <td id="cube7Bonus" style="color:crimson">Ares' Blessing <span id="blessing7Amount">x1</span>: <span id="blessing7Effect">+0.01%</span> Sacrifice Reward</td>
+                        <td id="cube7Bonus" style="color:crimson">Ares' Blessing <span id="cubeBlessing7Amount">x1</span>: <span id="cubeBlessing7Effect">+0.01%</span> Sacrifice Reward</td>
                     </tr>
                     <tr>
                         <td style="font-size: 0;">
                             <img src="Pictures/Cube8.png">   
                         </td>
-                        <td id="cube8Bonus" style="color: plum">Moloch's Blessing <span id="blessing8Amount">x1</span>: <span id="blessing8Effect">+0.01%</span> Effective ELO</td>
+                        <td id="cube8Bonus" style="color: plum">Moloch's Blessing <span id="cubeBlessing8Amount">x1</span>: <span id="cubeBlessing8Effect">+0.01%</span> Effective ELO</td>
                     </tr>
                     <tr>
                         <td style="font-size: 0;">
                             <img src="Pictures/Cube9.png">   
                         </td>
-                        <td id="cube9Bonus" style="color: bisque">Midas' Blessing <span id="blessing9Amount">x1</span>: <span id="blessing9Effect">+0.01%</span> Bonus Rune Levels on Talismans</td>
+                        <td id="cube9Bonus" style="color: bisque">Midas' Blessing <span id="cubeBlessing9Amount">x1</span>: <span id="cubeBlessing9Effect">+0.01%</span> Bonus Rune Levels on Talismans</td>
                     </tr>
                     <tr>
                         <td style="font-size: 0;">
                             <img src="Pictures/Cube10.png">   
                         </td>
-                        <td id="cube10Bonus" style="color: silver">Chronos' Blessing <span id="blessing10Amount">x1</span>: <span id="blessing10Effect">+0.01%</span> Global Time Acceleration</td>
+                        <td id="cube10Bonus" style="color: silver">Chronos' Blessing <span id="cubeBlessing10Amount">x1</span>: <span id="cubeBlessing10Effect">+0.01%</span> Global Time Acceleration</td>
                     </tr>
                 </table>
             </div>
             </div>
             <div id="cubeTab2" style="display: none">
+                <p id="tesseractWelcome" class="cubePlacement1" style="color: orchid">You obtain guidance from beings in another dimension!</p>
+                <p id="tesseractExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Tesseracts, to boost blessings from the previous tier.</p>
+                <p id="tesseractExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</p>
+                <img id="wowTesseract" src="Pictures/WowTessaract.png" class="cubePlacement4">
+                <p id="tesseractInventory" class="cubePlacement5" style="color: orchid">You possess <span id="tesseractQuantity" style="color: yellow">13</span> Wow! TESSERACTS. Get more from harder Ascensions and other stuff.</p>
+                <button id="open1Tesseract" class="cubeBtn" onclick="openCube(1,false)">Open x1</button>
+                <button id="open20Tesseract" class="cubeBtn" onclick="openCube(20,false)">Open x20</button>
+                <button id="open1000Tesseract" class="cubeBtn" onclick="openCube(1000,false)">Open x1,000</button>
+                <button id="openMostTesseract" class="cubeBtn" onclick="openCube(1,true)">Open All</button>
+                <div id="tesseractBonuses" class="cubeBonus">
+                    <table id="tesseractIcons" class="cubeIcon" style="width:750px">
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Tesseract1.png">   
+                            </td>
+                            <td id="tesseract1Bonus" style="color: yellow">Hermes' Gift <span id="tesseractBlessing1Amount">x1</span>: <span id="blessing1Effect">+0.01%</span> Hermes Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Tesseract2.png">   
+                            </td>
+                            <td id="tesseract2Bonus" style="color: pink">Aphrodite's Gift <span id="tesseractBlessing2Amount">x1</span>: <span id="blessing2Effect">+0.01%</span> Aphrodite Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Tesseract3.png">   
+                            </td>
+                            <td id="tesseract3Bonus" style="color: orange">Plutus' Gift <span id="tesseractBlessing3Amount">x1</span>: <span id="blessing3Effect">+0.01%</span> Plutus Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Tesseract4.png">   
+                            </td>
+                            <td id="tesseract4Bonus" style="color: limegreen">Iris' Gift <span id="tesseractBlessing4Amount">x1</span>: <span id="blessing4Effect">+0.01%</span> Iris Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Tesseract5.png">   
+                            </td>
+                            <td id="tesseract5Bonus" style="color: aquamarine">Athena's Gift <span id="tesseractBlessing5Amount">x1</span>: <span id="blessing5Effect">+0.01%</span> Athena Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Tesseract6.png">   
+                            </td>
+                            <td id="tesseract6Bonus" style="color: brown">Artemis' Gift <span id="tesseractBlessing6Amount">x1</span>: <span id="blessing6Effect">+0.01%</span> Artemis Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Tesseract7.png">   
+                            </td>
+                            <td id="tesseract7Bonus" style="color:crimson">Ares' Gift <span id="tesseractBlessing7Amount">x1</span>: <span id="blessing7Effect">+0.01%</span> Ares Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Tesseract8.png">   
+                            </td>
+                            <td id="tesseract8Bonus" style="color: plum">Moloch's Gift <span id="tesseractBlessing8Amount">x1</span>: <span id="blessing8Effect">+0.01%</span> Moloch Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Tesseract9.png">   
+                            </td>
+                            <td id="tesseract9Bonus" style="color: bisque">Midas' Gift <span id="tesseractBlessing9Amount">x1</span>: <span id="blessing9Effect">+0.01%</span> Midas Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                            <img src="Pictures/Tesseract10.png">   
+                            </td>
+                            <td id="tesseract10Bonus" style="color: silver">Chronos' Gift <span id="tesseractBlessing10Amount">x1</span>: <span id="blessing10Effect">+0.01%</span> Chronos Blessing power</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="cubeTab3" style="display: none">
+                <p id="hypercubeWelcome" class="cubePlacement1" style="color: rgb(255, 0, 76)">I didn't know that Wow! enterprises made 5-Dimensional Objects.</p>
+                <p id="hypercubeExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Hypercubes, to boost blessings from the previous tier.</p>
+                <p id="hypercubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</p>
+                <img id="wowHypercube" src="Pictures/WowHypercube.png" class="cubePlacement4">
+                <p id="hypercubeInventory" class="cubePlacement5" style="color: rgb(255, 0, 76)">You possess <span id="hypercubeQuantity" style="color: yellow">13</span> Wow! HYPERCUBES. Get more the corruption.</p>
+                <button id="open1Hypercube" class="cubeBtn" onclick="openCube(1,false)">Open x1</button>
+                <button id="open20Hypercube" class="cubeBtn" onclick="openCube(20,false)">Open x20</button>
+                <button id="open1000Hypercube" class="cubeBtn" onclick="openCube(1000,false)">Open x1,000</button>
+                <button id="openMostHypercube" class="cubeBtn" onclick="openCube(1,true)">Open All</button>
+                <div id="hypercubeBonuses" class="cubeBonus">
+                    <table id="hypercubeIcons" class="cubeIcon" style="width:750px">
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Hypercube1.png">   
+                            </td>
+                            <td id="hypercube1Bonus" style="color: yellow">Hermes' Gift <span id="hypercubeBlessing1Amount">x1</span>: <span id="blessing1Effect">+0.01%</span> Hermes Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Hypercube2.png">   
+                            </td>
+                            <td id="hypercube2Bonus" style="color: pink">Aphrodite's Gift <span id="hypercubeBlessing2Amount">x1</span>: <span id="blessing2Effect">+0.01%</span> Aphrodite Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Hypercube3.png">   
+                            </td>
+                            <td id="hypercube3Bonus" style="color: orange">Plutus' Gift <span id="hypercubeBlessing3Amount">x1</span>: <span id="blessing3Effect">+0.01%</span> Plutus Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Hypercube4.png">   
+                            </td>
+                            <td id="hypercube4Bonus" style="color: limegreen">Iris' Gift <span id="hypercubeBlessing4Amount">x1</span>: <span id="blessing4Effect">+0.01%</span> Iris Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Hypercube5.png">   
+                            </td>
+                            <td id="hypercube5Bonus" style="color: aquamarine">Athena's Gift <span id="hypercubeBlessing5Amount">x1</span>: <span id="blessing5Effect">+0.01%</span> Athena Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Hypercube6.png">   
+                            </td>
+                            <td id="hypercube6Bonus" style="color: brown">Artemis' Gift <span id="hypercubeBlessing6Amount">x1</span>: <span id="blessing6Effect">+0.01%</span> Artemis Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Hypercube7.png">   
+                            </td>
+                            <td id="hypercube7Bonus" style="color:crimson">Ares' Gift <span id="hypercubeBlessing7Amount">x1</span>: <span id="blessing7Effect">+0.01%</span> Ares Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Hypercube8.png">   
+                            </td>
+                            <td id="hypercube8Bonus" style="color: plum">Moloch's Gift <span id="hypercubeBlessing8Amount">x1</span>: <span id="blessing8Effect">+0.01%</span> Moloch Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                                <img src="Pictures/Hypercube9.png">   
+                            </td>
+                            <td id="hypercube9Bonus" style="color: bisque">Midas' Gift <span id="hypercubeBlessing9Amount">x1</span>: <span id="blessing9Effect">+0.01%</span> Midas Blessing power</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;">
+                            <img src="Pictures/Hypercube10.png">   
+                            </td>
+                            <td id="hypercube10Bonus" style="color: silver">Chronos' Gift <span id="hypercubeBlessing10Amount">x1</span>: <span id="blessing10Effect">+0.01%</span> Chronos Blessing power</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="cubeTab4" style="display: none">
                 <p id="cubeAmount2">You have 0 Wow! Cubes</p>
                 <table id="cubeUpgradeTable">	
                     <tr>	
@@ -1606,7 +1766,7 @@
         <a href="https://docs.google.com/document/d/17Q1CVrDesdguc274qyCxnKeCkrNw002VipdCvUmAjYQ/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
         </a>
-        <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: July 20, 2020 3:47AM PDT</p>
+        <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: August 6, 2020 12:12 AM PDT</p>
     </div>
     <div id="creditssubtab" style="display: none">
         <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>

@@ -32,12 +32,13 @@ function resetdetails(i) {
 
     document.getElementById("resetofferings1").style.display = "block"
     document.getElementById("resetofferings2").style.display = "block"
+    var offering = 0;
     if (i == 1) {
         color = 'cyan'
         if (document.getElementById("resetcurrency1").src !== "Pictures/Diamond.png"){
         document.getElementById("resetcurrency1").src = "Pictures/Diamond.png"
         }
-
+        offering = calculateOfferings(1)
         document.getElementById("resetcurrency2").textContent = "+" + format(prestigePointGain)
         document.getElementById("resetobtainium").src = ""
         document.getElementById("resetobtainium2").textContent = ""
@@ -53,6 +54,7 @@ function resetdetails(i) {
         if (document.getElementById("resetcurrency1").src !== "Pictures/Mythos.png"){
         document.getElementById("resetcurrency1").src = "Pictures/Mythos.png"
         }
+        offering = calculateOfferings(2)
         document.getElementById("resetcurrency2").textContent = "+" + format(transcendPointGain)
         document.getElementById("resetobtainium").src = ""
         document.getElementById("resetobtainium2").textContent = ""
@@ -70,6 +72,7 @@ function resetdetails(i) {
         document.getElementById("resetcurrency1").src = ""
         document.getElementById("resetcurrency2").textContent = ""
         document.getElementById("resetobtainium2").textContent = ""
+        offering = calculateOfferings(2)
         if (player.currentChallenge !== "") {
             document.getElementById("resetinfo").style.color = "aquamarine"
             document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + format(player.coinsThisTranscension) + "/" + format(Decimal.pow(10, challengebaserequirements[s] * Math.pow(1 + player.challengecompletions[s], 2) * Math.pow(1.5, Math.max(0,player.challengecompletions[s]-75)))) + " Coins. TIME SPENT: " + format(player.transcendcounter) + " seconds."
@@ -85,6 +88,7 @@ function resetdetails(i) {
         if (document.getElementById("resetcurrency1").src !== "Pictures/Particle.png"){
         document.getElementById("resetcurrency1").src = "Pictures/Particle.png"
         }
+        offering = calculateOfferings(3)
         document.getElementById("resetcurrency2").textContent = "+" + format(reincarnationPointGain)
         document.getElementById("resetobtainium").src = "Pictures/Obtainium.png"
         document.getElementById("resetobtainium2").textContent = "+" + format(Math.floor(obtainiumGain))
@@ -100,6 +104,7 @@ function resetdetails(i) {
         if (document.getElementById("resetcurrency1").src !== "Pictures/Diamond.png"){
         document.getElementById("resetcurrency1").src = "Pictures/Diamond.png"
         }
+        offering = 0
         document.getElementById("resetcurrency2").textContent = "-" + format(player.acceleratorBoostCost)
         document.getElementById("resetobtainium").src = ""
         document.getElementById("resetobtainium2").textContent = ""
@@ -112,6 +117,7 @@ function resetdetails(i) {
         let goaldesc = " Mythos Shards"
         if (player.currentChallengeRein == "nine" || player.currentChallengeRein == "ten"){goal = "coins"; goaldesc = " Coins"}
         color = 'red'
+        offering = calculateOfferings(3)
         document.getElementById("resetobtainium").src = ""
         document.getElementById("resetcurrency1").src = ""
         document.getElementById("resetcurrency2").textContent = ""
@@ -130,7 +136,7 @@ function resetdetails(i) {
     if (i == 7){
         document.getElementById("resetofferings1").style.display = "none"
         document.getElementById("resetofferings2").style.display = "none"
-
+        offering = 0
         document.getElementById("resetobtainium").src = ""
         document.getElementById("resetcurrency1").src = ""
         document.getElementById("resetcurrency2").textContent = ""
@@ -141,7 +147,7 @@ function resetdetails(i) {
     }
 
 
-    document.getElementById("resetofferings2").textContent = "+" + format(calculateOfferings(i))
+    document.getElementById("resetofferings2").textContent = "+" + format(offering)
 
 }
 
@@ -459,6 +465,7 @@ function reset(i,fast) {
     }
 
     player.roombaResearchIndex = 1;
+    player.autoResearch = 1;
 
     for (j = 1; j <= (125); j++) {
         var k = "res" + j
@@ -642,7 +649,7 @@ function resetUpgrades(i, fast) {
         player.crystalUpgradesCost = [7, 15, 20, 40, 100, 200, 500, 1000]
 
         var m = 0;
-        m += Math.floor(rune3level * effectiveLevelMult / 10) * 100 / 100
+        m += Math.floor(rune3level * effectiveLevelMult / 40) * 100 / 100
         if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== "") {
             m += 10
         }
@@ -653,7 +660,7 @@ function resetUpgrades(i, fast) {
     
 
     var x
-    for (x = 1; x < player.upgrades.length; x++) {
+    for (x = 1; x <= 125; x++) {
         upgradeupdate(x, true)
     }
     if (player.achievements[87] > 0.5) {

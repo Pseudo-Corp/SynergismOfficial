@@ -332,7 +332,7 @@ function buyProducer(pos,type,num,autobuyer) {
 	let buythisamount = 0;
     var r = 1;
     var tag = ""
-	r += 1/400 * rune4level * effectiveLevelMult
+	r += 1/2000 * rune4level * effectiveLevelMult
 	r += 1/200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60])
 	r += 1/200 * player.challengecompletions.four
 	r += 3/100 * player.antUpgrades[7] + 3/100 * bonusant7
@@ -449,18 +449,35 @@ function buyUpgrades(type, pos, state) {
 
 	}
 	
-function buyCrystalUpgrades(i) {
-	var u = i - 1
-	var c = 0
-	c += Math.floor(rune3level/10 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800)) * 100/100
-	if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== "") {c += 10}
-	if (player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 - c, 2) /2))))) {
-		player.prestigeShards = player.prestigeShards.sub(Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 -c, 2)/2))));
-		player.crystalUpgrades[u] += 1;
-
+	function calculateCrystalBuy(i){
+		let u = i - 1;
+		let exponent = Decimal.log(player.prestigeShards.add(1), 10);
+	
+		let toBuy = Math.floor(Math.pow(Math.max(0, 2 * (exponent - crystalUpgradesCost[u]) / crystalUpgradeCostIncrement[u] + 1/4), 1/2) + 1/2)
+		return(toBuy)
+	
 	}
-	crystalupgradedescriptions(i)
-}	
+		
+	function buyCrystalUpgrades(i,auto) {
+		auto = auto || false
+		var u = i - 1
+	
+		var c = 0
+		c += Math.floor(rune3level/40 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800) * (1 + player.researches[90]/100)) * 100/100
+		if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== "") {c += 10}
+	
+		let toBuy = calculateCrystalBuy(i);
+	
+		if(toBuy + c > player.crystalUpgrades[u]){
+		player.crystalUpgrades[u]  = 100/100 * (toBuy + c)
+		if(toBuy > 0){
+		player.prestigeShards = player.prestigeShards.sub(Decimal.pow(10, crystalUpgradesCost[u] +  crystalUpgradeCostIncrement[u] * (1/2 * Math.pow(toBuy - 1/2, 2) - 1/8)))
+			if(!auto){
+				crystalupgradedescriptions(i)
+			}
+		}
+		}
+	}
 function boostAccelerator(automated) {
 	var buyamount = 1;
 	if (player.upgrades[46] == 1) {
@@ -551,3 +568,24 @@ function boostAccelerator(automated) {
 			player[pos + 'CostParticles'] = thisCost;
 		}
 	}
+
+
+function getTesseractCost(intCost, index){
+	let buyFrom = player['ascendBuilding'+index]['owned']
+	let subCost = intCost * Math.pow(buyFrom * (buyFrom + 1) / 2, 2)
+
+	buyTo = Math.floor(-1/2 + 1/2 * Math.pow(1 + 8 * Math.pow((player.wowTesseracts + subCost)/intCost, 1/2), 1/2))
+	buyTo = Math.min(buyTo, player.tesseractbuyamount + player['ascendBuilding'+index]['owned'])
+	let actualCost = intCost * Math.pow(buyTo * (buyTo + 1) / 2, 2) - subCost
+	return [buyTo, actualCost]
+}
+
+function buyTesseractBuilding(intCost, index){
+	let buyTo = getTesseractCost(intCost, index)[0]
+	let actualCost = getTesseractCost(intCost, index)[1]
+
+	player['ascendBuilding'+index]['owned'] = buyTo;
+	player.wowTesseracts -= actualCost;
+	player['ascendBuilding'+index]['cost'] = intCost * Math.pow(1 + player['ascendBuilding'+index]['owned'], 3)
+}
+

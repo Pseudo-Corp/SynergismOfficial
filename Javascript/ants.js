@@ -28,7 +28,7 @@ var antupgdesc5 = "Imitates your body through magic shape-shifting powers [+4% M
 var antupgdesc6 = "Tries to please Ant God... but fails [Gain up to 5x Offerings!]"
 var antupgdesc7 = "Helps you build a few things here and there [+3% Building Cost Delay / level]"
 var antupgdesc8 = "Knows how to salt and pepper food [+1% Rune EXP / level]"
-var antupgdesc9 = "Can make your message to Ant God a little more clear [+1 all Rune Levels / level]"
+var antupgdesc9 = "Can make your message to Ant God a little more clear [+3 all Rune Levels / level]"
 var antupgdesc10 = "Has big brain energy [Gain up to 10x Obtainium!]"
 var antupgdesc11 = "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]"
 var antupgdesc12 = "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
@@ -42,7 +42,7 @@ function(){return "Multipliers +" + format(4 * player.antUpgrades[5] + 4 * bonus
 function(){return "Offerings x" + format(calculateSigmoid(5,(player.antUpgrades[6] + bonusant6),125),4)},
 function(){return "Building Costs scale " + format(3 * player.antUpgrades[7] + 3 * bonusant7) + "% slower!"},
 function(){return "Rune EXP is multiplied by " + format(Math.pow(1.01, player.antUpgrades[8] + bonusant8),2) +"!"},
-function(){return "Each rune has +" + format(player.antUpgrades[9] + bonusant9) + " effective levels."},
+function(){return "Each rune has +" + format(3 * (player.antUpgrades[9] + bonusant9)) + " effective levels."},
 function(){return "Obtainium x" + format(calculateSigmoid(10, (player.antUpgrades[10] + bonusant10),125),4)},
 function(){return "Sacrificing is " + format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11)/125)),4) + "x as effective"},
 function(){return "Global timer is sped up by a factor of " + format(calculateSigmoid(2, player.antUpgrades[12] + bonusant12,69),4)}]

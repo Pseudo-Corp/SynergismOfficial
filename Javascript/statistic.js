@@ -1,7 +1,7 @@
 function loadStatisticsAccelerator() {
     document.getElementById("sA1").textContent = "+"+format(freeUpgradeAccelerator,0,false)
     document.getElementById("sA2").textContent = "+"+format(totalAcceleratorBoost * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20] + cubeBonusMultiplier[1]),0,false)
-    document.getElementById("sA3").textContent = "+"+format(Math.floor(Math.pow(rune1level * effectiveLevelMult/2, 2)),0,true)
+    document.getElementById("sA3").textContent = "+"+format(Math.floor(Math.pow(rune1level * effectiveLevelMult/10, 1.1)),0,true)
     document.getElementById("sA4").textContent = "x"+format(1 + rune1level * 1/200 * effectiveLevelMult,3,true)
     document.getElementById("sA5").textContent = "x"+format(Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]),3,true)
     document.getElementById("sA6").textContent = "x"+format(Math.pow(1.01, player.achievements[60] + player.achievements[61] + player.achievements[62]),3,true)
@@ -47,7 +47,7 @@ function loadStatisticsCubesPerSecond() {
     document.getElementById("sCPS5").textContent = format((c + r + a) / player.ascensionCounter, 4, true)
     document.getElementById("sCPS6").textContent = format(player.cubesThisAscension.maxCubesPerSec, 4, true)
     document.getElementById("sCPS7").textContent = format(player.cubesThisAscension.maxAllTime, 4, true)
-    document.getElementById("sCPS7").textContent = format(player.cubesThisAscension.cpsOnC10Comp, 4, true)
+    document.getElementById("sCPS8").textContent = format(player.cubesThisAscension.cpsOnC10Comp, 4, true)
     document.getElementById("sCPS9").textContent = format(calculateTimeAcceleration() / 60, 4, true)
     document.getElementById("sCPS10").textContent = format(total, 0, false)
 }
