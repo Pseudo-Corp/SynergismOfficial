@@ -316,6 +316,17 @@ function reset(i,fast) {
         historyEntry.seconds = player.reincarnationcounter;
         delete historyEntry.mythos;
 
+        // If we got a significant amount of particles from it, we want to record it even though we're
+        // in (entering) a challenge. We'll arbitrarily set this to 10% of the player's total particles.
+        // This makes it so that when a player constantly starts reincarnation challenges while getting boosts,
+        // the gains in between each challenge start are still recorded, but all of the spam and the challenge
+        // attempts themselves aren't.
+        if (!historyUse) {
+            if (reincarnationPointGain.gte(player.reincarnationPoints.div(10))) {
+                historyUse = true;
+            }
+        }
+
         player.researchPoints += Math.floor(obtainiumGain);
 
         let opscheck = obtainiumGain/(1 + player.reincarnationcounter)
@@ -395,8 +406,8 @@ function reset(i,fast) {
     // reset other stuff
     historyCategory = "ascend";
     historyKind = "ascend";
-    // When ascending, log ascend history while in trans/reinc challenges
-    historyUse = player.currentChallenge.ascension === 0;
+    // When ascending, log ascend history while in trans/reinc challenges, or if this ascension took longer than 1min
+    historyUse = player.currentChallenge.ascension === 0 || player.ascensionCounter > 60;
     delete historyEntry.offerings;
     delete historyEntry.obtainium;
     delete historyEntry.particles;
