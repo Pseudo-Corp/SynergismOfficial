@@ -4321,3 +4321,54 @@ margin-left: -13px
 .subtabContent.subtabActive.subtabDisplayFlex {
 	display: flex;
 }
+
+.historySubTab {
+	color: white;
+}
+
+.historySubTab table {
+	margin: auto;
+	border-collapse: collapse;
+	min-width: 100%;
+}
+
+.historySubTab tbody {
+	text-align: left;
+}
+
+.historySubTab tbody img {
+	vertical-align: middle;
+	height: 20px;
+}
+
+.historySubTab tbody td {
+	padding: 4px 6px;
+	margin-right: 10px;
+}
+.historySubTab tbody .history-gain:last-child { margin-right: 0; }
+.historySubTab tbody tr:nth-child(odd) {
+	background: #262626;
+}
+.historySubTab tbody .history-seconds {
+	max-width: 90px; /* fits "90d20h50m50s" */
+	white-space: nowrap;
+}
+.historySubTab tbody .history-filler {
+	padding: 0;
+}
+.historySubTab tbody *[title] {
+	text-decoration: underline dotted 2px;
+}
+
+#historyReset, #historyAnts {
+	height: 500px;
+	overflow-y: auto;
+	min-width: 660px;
+	margin-left: 20px;
+}
+#historyAscend {
+	height: 500px;
+	overflow-y: auto;
+	min-width: 1000px;
+	margin: 0 auto;
+}

@@ -125,6 +125,16 @@ function revealStuff() {
 		player.challengecompletions[14] > 0 ? example25[i].style.display = "block" : example25[i].style.display = "none"
 	}
 
+	let example26 = document.getElementsByClassName("ascendunlockib");
+	for (var i = 0; i < example26.length; i++){
+		example26[i].style.display = player.ascensionCount > 0 ? "inline-block" : "none"
+	}
+
+	let example27 = document.getElementsByClassName("prestigeunlockib");
+	for (var i = 0; i < example27.length; i++){
+		example27[i].style.display = player.unlocks.prestige > 0 ? "inline-block" : "none"
+	}
+
 	player.upgrades[89] === 1 ? //Automatic Transcension Upgrade
 		document.getElementById("transcendautomation").style.display = "block":
 		document.getElementById("transcendautomation").style.display = "none";

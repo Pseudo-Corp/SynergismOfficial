@@ -495,6 +495,9 @@ tesseractbuyamount: 1,
 			  usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
 			  constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			  history: {},
+			  historyCountMax: 15,
+
 			  brokenfile1: false,
 			  exporttest: "YES!",
 			  kongregatetest: "NO!",
@@ -903,6 +906,11 @@ function loadSynergy() {
 		player.upgrades.push(0)
 	}
 
+	if (data.history === undefined || player.history === undefined) {
+		player.history = {};
+		player.historyCountMax = 15;
+	}
+
 	player.wowCubes = player.wowCubes || 0;
 		if (!player.cubesThisAscension.maxAllTime) // Initializes the value if it doesn't exist
 			player.cubesThisAscension.maxAllTime = 0
@@ -1027,6 +1035,7 @@ calculateObtainium();
 calculateAnts();
 calculateRuneLevels();
 		setToggleBtnColors();
+		resetHistoryRenderAllTables();
 }
 updateAchievementBG();
 }

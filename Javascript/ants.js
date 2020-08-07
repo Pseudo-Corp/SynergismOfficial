@@ -305,16 +305,29 @@ function showSacrifice(){
 }
 
 function sacrificeAnts(auto){
+    let historyEntry = {};
+
     auto = auto || false
     let p = true
 
     if (player.antPoints.greaterThanOrEqualTo("1e40")){
     if (!auto && player.antSacrificePoints < 100){p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?")}
     if (p){
+        historyEntry.antSacrificePointsBefore = player.antSacrificePoints;
+
         let sacRewards = calculateAntSacrificeRewards();
         player.antSacrificePoints += sacRewards.antSacrificePoints;
         player.runeshards += sacRewards.offerings;
         player.researchPoints += sacRewards.obtainium;
+
+        historyEntry.seconds = player.antSacrificeTimer;
+        historyEntry.offerings = sacRewards.offerings;
+        historyEntry.obtainium = sacRewards.obtainium;
+        historyEntry.antSacrificePointsAfter = player.antSacrificePoints;
+        historyEntry.baseELO = antELO;
+        historyEntry.effectiveELO = effectiveELO;
+        historyEntry.crumbs = player.antPoints;
+        historyEntry.crumbsPerSecond = antOneProduce;
 
         if(player.challengecompletions[9] > 0){
             player.talismanShards += sacRewards.talismanShards;
@@ -330,6 +343,8 @@ function sacrificeAnts(auto){
         updateTalismanInventory();
         if(player.autoResearch > 0 && player.autoResearchToggle){buyResearch(player.autoResearch,true)}
         calculateAntSacrificeELO();
+
+        resetHistoryAdd("ants", "antsacrifice", historyEntry);
     }
     }
 }
