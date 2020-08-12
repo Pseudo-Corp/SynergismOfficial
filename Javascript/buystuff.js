@@ -179,6 +179,10 @@ function buyMultiplier(autobuyer){
 		thisCost = getCostMultiplier(buyFrom);
 		player.multiplierCost = thisCost;
 	}
+
+	player.prestigenomultiplier = false;
+	player.transcendnomultiplier = false;
+	player.reincarnatenomultiplier = false;
     updateAllMultiplier();
     if (player.multiplierBought >= 2 && player.achievements[155] == 0){achievementaward(155)}
     if (player.multiplierBought >= 20 && player.achievements[156] == 0){achievementaward(156)}
