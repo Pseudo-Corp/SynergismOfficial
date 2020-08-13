@@ -600,7 +600,7 @@ function htmlInserts() {
 	}
 
 	if (currentTab == "ants"){
-		document.getElementById("crumbcount").textContent = "You have " + format(player.antPoints,2) + " Galactic Crumbs [" + format(antOneProduce,2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints),100000 + 900000 * (1 - Math.pow(2, -player.antUpgrades[2]/125)))) + "x Coin Multiplier."
+		document.getElementById("crumbcount").textContent = "You have " + format(player.antPoints,2) + " Galactic Crumbs [" + format(antOneProduce,2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints),100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500/499))) + "x Coin Multiplier."
 	}
 
 	if (currentTab == "cubes"){
