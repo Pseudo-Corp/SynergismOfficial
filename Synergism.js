@@ -1326,7 +1326,7 @@ function updateAllMultiplier() {
 	a *=(1 + 1/20 * player.researches[11] + 1/25 * player.researches[12] + 1/40 * player.researches[13] + 3/200 * player.researches[14] + 1/200 * player.researches[15])
 	a *=(1 + rune2level/1000 * effectiveLevelMult)
 	a *=(1 + 1/20 * player.researches[87])
-	a *=(1 + 1/25 * (player.antUpgrades[5] + bonusant5))
+	a *=calculateSigmoidExponential(39, (player.antUpgrades[5] + bonusant5)/1000 * 40/39)
 	a *= cubeBonusMultiplier[2]
 	if ((player.currentChallenge !== "" || player.currentChallengeRein !== "") && player.upgrades[50] > 0.5) {a *= 1.25};
 	a *= divisivenessMultiplier[player.usedCorruptions[1]]
@@ -1374,7 +1374,7 @@ buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[12] / 5)
 buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[36] / 5)
 reincarnationMultiplier = Decimal.pow(buildingPower, totalCoinOwned);
 
-antMultiplier = Decimal.pow(Decimal.max(1, player.antPoints), 100000 + 900000 * (1 - Math.pow(2, -(player.antUpgrades[2] + bonusant2)/125)));
+antMultiplier = Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500/499));
 
 s = s.times(multiplierEffect);
 s = s.times(acceleratorEffect);
@@ -1527,7 +1527,7 @@ globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.
 	globalAntMult = new Decimal(1);
 	globalAntMult = globalAntMult.times(1 + 1/20000 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84]/200), 2))
 	if(player.upgrades[76] == 1){globalAntMult = globalAntMult.times(5)}
-	globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77]/200 + player.researches[96]/4000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
+	globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77]/250 + player.researches[96]/5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
 	globalAntMult = globalAntMult.times(Math.pow(1.5, player.shopUpgrades.antSpeedLevel));
 	globalAntMult = globalAntMult.times(Decimal.pow(1.11 + player.researches[101]/1000, player.antUpgrades[1] + bonusant1));
 	globalAntMult = globalAntMult.times(Math.pow(1 + player.antSacrificePoints/5000,2))

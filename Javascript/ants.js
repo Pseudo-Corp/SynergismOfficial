@@ -20,30 +20,30 @@ var antspecies10 = "Scientia Formicidae"
 var antspecies11 = "Phylacterium Formicidae"
 var antspecies12 = "Mortuus Est Formicidae"
 
-var antupgdesc1 = "Promotes romance and unity within the colony. [+11% Ant Speed / level]"
-var antupgdesc2 = "Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^1,000,000]"
+var antupgdesc1 = "Promotes romance and unity within the colony. [+12% Ant Speed / level]"
+var antupgdesc2 = "Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]"
 var antupgdesc3 = "Swarms the Taxman into submission [Up to -99% taxes!]"
-var antupgdesc4 = "Scares you into running faster [+2% Accelerator Boosts / level]"
-var antupgdesc5 = "Imitates your body through magic shape-shifting powers [+4% Multipliers / level]"
-var antupgdesc6 = "Tries to please Ant God... but fails [Gain up to 5x Offerings!]"
+var antupgdesc4 = "Scares you into running faster [up to x20]"
+var antupgdesc5 = "Imitates your body through magic shape-shifting powers [up to x40]"
+var antupgdesc6 = "Tries to please Ant God... but fails [Additional Offerings!]"
 var antupgdesc7 = "Helps you build a few things here and there [+3% Building Cost Delay / level]"
 var antupgdesc8 = "Knows how to salt and pepper food [+1% Rune EXP / level]"
 var antupgdesc9 = "Can make your message to Ant God a little more clear [+3 all Rune Levels / level]"
-var antupgdesc10 = "Has big brain energy [Gain up to 10x Obtainium!]"
+var antupgdesc10 = "Has big brain energy [Additional Obtainium!]"
 var antupgdesc11 = "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]"
 var antupgdesc12 = "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
 
 const antUpgradeTexts = [null,
-function(){return "ALL Ants work at " + format(Decimal.pow(1.11 + 1/1000 * player.researches[101], player.antUpgrades[1] + bonusant1),2) + "x speed."},
-function(){return "Crumb --> Coin exponent is ^" + format(100000 + 900000 * (1 - Math.pow(2, -(player.antUpgrades[2] + bonusant2)/125)))},
-function(){return "Tax growth is multiplied by " + format(0.01 + Math.pow(0.98, player.antUpgrades[3] + bonusant3 + 0.497),4)},
-function(){return "Accelerator Boosts +" + format(2 * player.antUpgrades[4] + 2 * bonusant4) + "%"},
-function(){return "Multipliers +" + format(4 * player.antUpgrades[5] + 4 * bonusant5) + "%"},
-function(){return "Offerings x" + format(calculateSigmoid(5,(player.antUpgrades[6] + bonusant6),125),4)},
+function(){return "ALL Ants work at " + format(Decimal.pow(1.12 + 1/1000 * player.researches[101], player.antUpgrades[1] + bonusant1),2) + "x speed."},
+function(){return "Crumb --> Coin exponent is ^" + format(100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500/499))},
+function(){return "Tax growth is multiplied by " + format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3] + bonusant3),4)},
+function(){return "Accelerator Boosts +" + format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4] + bonusant4) / 1000 * 20/19) - 1),3) + "%"},
+function(){return "Multipliers +" + format(100 * (calculateSigmoidExponential(39, (player.antUpgrades[5] + bonusant5)/1000 * 40/39) - 1), 3) + "%"},
+function(){return "Offerings x" + format(1 + Math.pow((player.antUpgrades[6] + bonusant6) / 50, 0.75),4)},
 function(){return "Building Costs scale " + format(3 * player.antUpgrades[7] + 3 * bonusant7) + "% slower!"},
-function(){return "Rune EXP is multiplied by " + format(Math.pow(1.01, player.antUpgrades[8] + bonusant8),2) +"!"},
+function(){return "Rune EXP is multiplied by " + format(calculateSigmoidExponential(999, 1/10000 * Math.pow(player.antUpgrades[8] + bonusant8, 1.1)),3) +"!"},
 function(){return "Each rune has +" + format(3 * (player.antUpgrades[9] + bonusant9)) + " effective levels."},
-function(){return "Obtainium x" + format(calculateSigmoid(10, (player.antUpgrades[10] + bonusant10),125),4)},
+function(){return "Obtainium x" + format(1 + 2 * Math.pow((player.antUpgrades[10] + bonusant10)/50, 0.75),4)},
 function(){return "Sacrificing is " + format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11)/125)),4) + "x as effective"},
 function(){return "Global timer is sped up by a factor of " + format(calculateSigmoid(2, player.antUpgrades[12] + bonusant12,69),4)}]
 

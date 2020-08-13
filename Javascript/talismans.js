@@ -96,52 +96,52 @@ function showTalismanEffect(i){
 
     switch(i){
         case 1: a.textContent = "=-=-=-= Exemption Talisman Effects =-=-=-=";
-                b.textContent = "Taxes -10%"
+                b.textContent = "Taxes -" + format(10 * (player.talismanRarity[1] - 1)) + "%"
                 c.textContent = "Bonus Speed Rune Levels: " + format(talisman1Effect[1],2,true)
                 d.textContent = "Bonus Duplication Rune Levels: " + format(talisman1Effect[2],2,true)
                 e.textContent = "Bonus Prism Rune Levels: " + format(talisman1Effect[3],2,true)
                 f.textContent = "Bonus Thrift Rune Levels: " + format(talisman1Effect[4],2,true)
                 g.textContent = "Bonus SI Rune Levels: " + format(talisman1Effect[5],2,true)
-                h.textContent = "Mythic Effect: +125 Duplication Rune Levels!"
+                h.textContent = "Mythic Effect: +1,000 Duplication Rune Levels!"
         break;
         case 2: a.textContent = "=-=-=-= Chronos Talisman Effects =-=-=-=";
-                b.textContent = "Gain +10% more multiplier boosts."
+                b.textContent = "Gain +" + format(10 * (player.talismanRarity[2] - 1)) + "% Global Speed Acceleration."
                 c.textContent = "Bonus Speed Rune Levels: " + format(talisman2Effect[1],2,true)
                 d.textContent = "Bonus Duplication Rune Levels: " + format(talisman2Effect[2],2,true)
                 e.textContent = "Bonus Prism Rune Levels: " + format(talisman2Effect[3],2,true)
                 f.textContent = "Bonus Thrift Rune Levels: " + format(talisman2Effect[4],2,true)
                 g.textContent = "Bonus SI Rune Levels: " + format(talisman2Effect[5],2,true)
-                h.textContent = "Mythic Effect: +125 Speed Rune Levels!"
+                h.textContent = "Mythic Effect: +1,000 Speed Rune Levels!"
                 break;
         case 3: a.textContent = "=-=-=-= Midas Talisman Effects =-=-=-=";
-                b.textContent = "Building Cost Delay +10%"
+                b.textContent = "Rune Blessing bonuses +" + format(10 * (player.talismanRarity[3] - 1)) + "%"
                 c.textContent = "Bonus Speed Rune Levels: " + format(talisman3Effect[1],2,true)
                 d.textContent = "Bonus Duplication Rune Levels: " + format(talisman3Effect[2],2,true)
                 e.textContent = "Bonus Prism Rune Levels: " + format(talisman3Effect[3],2,true)
                 f.textContent = "Bonus Thrift Rune Levels: " + format(talisman3Effect[4],2,true)
                 g.textContent = "Bonus SI Rune Levels: " + format(talisman3Effect[5],2,true)
-                h.textContent = "Mythic Effect: +125 Thrift Rune Levels!"
+                h.textContent = "Mythic Effect: +1,000 Thrift Rune Levels!"
                 break;
         case 4: a.textContent = "=-=-=-= Metaphysics Talisman Effects =-=-=-=";
-                b.textContent = "+0.05 all positive Talisman Effects"
+                b.textContent = "Talismans' Bonus Rune Levels +" + format(0.05 * (player.talismanRarity[4] - 1),2) + " per level"
                 c.textContent = "Bonus Speed Rune Levels: " + format(talisman4Effect[1],2,true)
                 d.textContent = "Bonus Duplication Rune Levels: " + format(talisman4Effect[2],2,true)
                 e.textContent = "Bonus Prism Rune Levels: " + format(talisman4Effect[3],2,true)
                 f.textContent = "Bonus Thrift Rune Levels: " + format(talisman4Effect[4],2,true)
                 g.textContent = "Bonus SI Rune Levels: " + format(talisman4Effect[5],2,true)
-                h.textContent = "Mythic Effect: +125 Prism Rune Levels!"
+                h.textContent = "Mythic Effect: +1,000 Prism Rune Levels!"
                 break;
         case 5: a.textContent = "=-=-=-= Polymath Talisman Effects =-=-=-=";
-                b.textContent = "???"
+                b.textContent = "Rune Spirit Bonuses +" + format(1 * (player.talismanRarity[5] - 1)) + "%"
                 c.textContent = "Bonus Speed Rune Levels: " + format(talisman5Effect[1],2,true)
                 d.textContent = "Bonus Duplication Rune Levels: " + format(talisman5Effect[2],2,true)
                 e.textContent = "Bonus Prism Rune Levels: " + format(talisman5Effect[3],2,true)
                 f.textContent = "Bonus Thrift Rune Levels: " + format(talisman5Effect[4],2,true)
                 g.textContent = "Bonus SI Rune Levels: " + format(talisman5Effect[5],2,true)
-                h.textContent = "Mythic Effect: +125 SI Rune Levels!"
+                h.textContent = "Mythic Effect: +1,000 SI Rune Levels!"
                 break;
         case 6: a.textContent = "=-=-=-= Mortuus Est Talisman Effects =-=-=-=";
-                b.textContent = "+2 bonus levels to all other ants"
+                b.textContent = "Bonus Ant Levels: +" + format(2 * (player.talismanRarity[6] - 1))
                 c.textContent = "Bonus Speed Rune Levels: " + format(talisman6Effect[1],2,true)
                 d.textContent = "Bonus Duplication Rune Levels: " + format(talisman6Effect[2],2,true)
                 e.textContent = "Bonus Prism Rune Levels: " + format(talisman6Effect[3],2,true)
