@@ -16,7 +16,7 @@
 
         if (i == 1) {
             if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "+(Level/10)^1.25 Accelerator, +0.1% Accelerators per level. +1 Accelerator Boost every 50 levels!"}
-            document.getElementById("runeshowpower1").childNodes[0].textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(Math.pow(rune1level * m/10,1.25))) + " Accelerators, +" + (rune1level/10  * m).toPrecision(2) +"% Accelerators, +" + format(Math.floor(rune1level/50 * m)) + " Accelerator Boosts."
+            document.getElementById("runeshowpower1").childNodes[0].textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(Math.pow(rune1level * m/10,1.25))) + " Accelerators, +" + format((rune1level/10  * m),2,true) +"% Accelerators, +" + format(Math.floor(rune1level/50 * m)) + " Accelerator Boosts."
         }
         if (i == 2) {
             if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "+(Level/25) Multipliers every 25th level, +0.1% Multipliers per level. Tax growth is delayed more for each level!"}
@@ -57,11 +57,11 @@ function redeemShards(runeIndexPlusOne,auto,autoMult,cubeUpgraded) {
 	
 	// How much a runes max level is increased by
     let increaseMaxLevel = [
-		25 *(player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		25 *(player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		25 *(player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		25 *(player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		25 *(player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
+		25 *(player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7],
+		25 *(player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7],
+		25 *(player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7],
+		25 *(player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7],
+		25 *(player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7]
 	];
 
 	// Whether or not a rune is unlocked array

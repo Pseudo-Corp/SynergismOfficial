@@ -126,8 +126,8 @@ function challengeDisplay(i,changefocus, automated) {
         c.textContent = "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. Coin Production is divided by 1e1,250."
         d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.seven * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions.seven), Math.pow(1 + player.challengecompletions.seven, 2)))) + " Mythos Shards in challenge."
         e.textContent = "Accelerator/Multiplier boost power exponent +0.04! Current: "
-        f.textContent = "Speed Rune cost -2% Current: "
-        g.textContent = "Duplication Rune cost -2% Current: "
+        f.textContent = "Speed Rune Exp +10%! Current: "
+        g.textContent = "Duplication Rune Exp +10%! Current: "
         h.textContent = "Multiplier Boost power +25%! The first Discord-Booster Global Diamond Upgrade."
         k.textContent = "Start <No Multipliers/Accelerators>"
         l.textContent = "Exponent = ^" + format(1 + 0.04 * player.challengecompletions.seven, 2, true)
@@ -140,13 +140,13 @@ function challengeDisplay(i,changefocus, automated) {
         c.textContent = "Reincarnate and reach the goal except Cost Scaling for producers and Accelerators/Multipliers scale much, much faster."
         d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.eight * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions.eight), Math.pow(1 + player.challengecompletions.eight, 2)))) + " Mythos Shards in challenge."
         e.textContent = "Base Building Power +0.25! Current: "
-        f.textContent = ""
-        g.textContent = ""
+        f.textContent = "Prism Rune Exp +20%! Current: "
+        g.textContent = "Transcend Offerings +4%! Current: "
         h.textContent = "Unlock the Anthill feature! Includes 20 new Researches. A Global Diamond Upgrade."
         k.textContent = "Start <Cost++>"
         l.textContent = "+"+format(0.25 * player.challengecompletions.eight,2,true)
-        m.textContent = ""
-        n.textContent = ""
+        m.textContent = "+"+format(20 * player.challengecompletions.eight,2,true) + "% EXP"
+        n.textContent = "+"+format(4 * player.challengecompletions.eight,2,true) + "% Transcend-based offerings"
     }
     if(i == 9 && challengefocus == 9){
         a.textContent = "No Runes Challenge || " + player.challengecompletions.nine + "/" + format(maxChallenges) + " Completions"
@@ -155,12 +155,12 @@ function challengeDisplay(i,changefocus, automated) {
         d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.nine * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions.nine), Math.pow(1 + player.challengecompletions.nine, 2)))) + " Coins in challenge."
         e.textContent = "+1 free Ant level! Current: "
         f.textContent = "+10% Ant speed [Multiplicative!] Current: "
-        g.textContent = ""
+        g.textContent = "SI Rune Exp +20%! Current: "
         h.textContent = "Unlock the Talismans feature! [In Runes tab]. A Global Diamond Upgrade."
         k.textContent = "Start <No Runes>"
         l.textContent = "+"+format(player.challengecompletions.nine)+" free levels"
         m.textContent = "x"+format(Math.pow(1.1, player.challengecompletions.nine),2,true)+" Ant Speed"
-        n.textContent = ""
+        n.textContent = "+"+format(20 * player.challengecompletions.nine,2,true) + "% EXP"
     }
     if(i == 10 && challengefocus == 10){
         a.textContent = "Sadistic Challenge I || " + player.challengecompletions.ten + "/" + format(maxChallenges) + " Completions"
@@ -169,12 +169,12 @@ function challengeDisplay(i,changefocus, automated) {
         d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengebaserequirementsrein.ten * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions.ten), Math.pow(1 + player.challengecompletions.ten, 2)))) + " Coins in challenge."
         e.textContent = "+100 base ELO for sacrificing ants! Current: "
         f.textContent = "+2% Ant Sacrifice Reward! Current: "
-        g.textContent = ""
+        g.textContent = "Reincarnation Offerings +10%! Current: "
         h.textContent = "Unlock the [??????] Reset Tier [v1.011]!"
         k.textContent = "Start <Sadistic I>"
         l.textContent = "+"+format(100 * player.challengecompletions.ten)+" Ant ELO"
         m.textContent = "+"+format(2 * player.challengecompletions.ten)+"% Ant Sacrifice reward"
-        n.textContent = "Current: "
+        n.textContent = "+"+format(10 * player.challengecompletions.ten,2,true) + "% Reincarnate-based offerings"
     }
     if (changefocus){
         j.textContent = ""

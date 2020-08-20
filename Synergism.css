@@ -4202,6 +4202,45 @@ margin-left: -13px
     left: 50%;
     margin-left: -500px;
 }
+#constantUpgradeTable{
+	position: absolute;
+    padding: 0px;
+    top: 300px;
+    left: 50%;
+    margin-left: -180px;
+}
+#constUpgradeDescription{
+	position: absolute;
+    padding: 0px;
+    top: 325px;
+    width: 1000px;
+	left: 50%;
+	margin-left: -180px;
+}
+#constUpgradeLevel{
+	position: absolute;
+    padding: 0px;
+    top: 365px;
+    width: 1000px;
+	left: 50%;
+	margin-left: -180px;
+}
+#constUpgradeCost{
+	position: absolute;
+    padding: 0px;
+    top: 345px;
+    width: 1000px;
+	left: 50%;
+	margin-left: -180px;
+}
+#constUpgradeEffect1{
+	position: absolute;
+    padding: 0px;
+    top: 385px;
+    width: 1000px;
+	left: 50%;
+	margin-left: -180px;
+}
 #ascendHotKeys{
 	position: absolute;
 	padding: 5px;
@@ -4244,4 +4283,7 @@ margin-left: -13px
 	color: yellow;
 	font-size: 0.9em;
 	float: right;
+}
+.constUpgrade{
+	cursor: pointer;
 }

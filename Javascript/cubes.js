@@ -104,14 +104,14 @@ const cubeBaseCost = [null,
     5000, 3000, 10000, 4000, 4000, 1e4, 4000, 1e4, 50000, 7500,
     5e4, 3e4, 3e4, 4e4, 4e4, 1e4, 1e5, 177777, 1e5, 5e5,
     5e5, 3e5, 3e5, 4e5, 4e5, 2e5, 5e5, 1e6, 1e6, 5e6,
-    5e6, 1e6, 1e6, 4e6, 4e6, 5e5, 2e6, 2e7, 3e7, 5e7] 
+    5e6, 2e6, 3e6, 4e6, 4e6, 5e5, 2e6, 2e7, 3e7, 5e7] 
 
 const cubeMaxLevel = [null,
     2, 10, 5, 1, 1, 1, 1, 1, 1, 1,
     3, 5, 1, 10, 10, 10, 5, 1, 1, 1,
     4, 10, 1, 10, 10, 10, 1, 1, 5, 1,
     5, 1, 1, 10, 10, 5, 10, 3, 3, 1,
-    6, 50, 50, 10, 10, 20, 20, 1, 1, 1]
+    6, 10, 10, 10, 10, 20, 20, 1, 1, 1]
 
 const cubeUpgradeDescriptions = [null,
 function(){return "You got it! +1 cube from challenges, +10% cubes from Ascending."},
@@ -119,7 +119,7 @@ function(){return "Plutus grants you +1 Offering per second, no matter what, per
 function(){return "Athena grants you +20% more Obtainium, and +80% Auto Obtainium per level."},
 function(){return "You keep those 5 useful automation upgrades in the upgrade tab!"},
 function(){return "You keep the mythos upgrade automation upgrade in the upgrade tab!"},
-function(){return "You keep the automatic mythos gain upgrade in the upgrad tab!"},
+function(){return "You keep the automatic mythos gain upgrade in the upgrades tab!"},
 function(){return "Automatically buy Protons and Elements whenever possible."},
 function(){return "Automatically buy Pulsars and Quasars whenever possible."},
 function(){return "Automatically buy Galactic Nuclei whenever possible."},
@@ -155,8 +155,8 @@ function(){return "If you get at least 5,000 Ascend Points, then you will gain +
 function(){return "If you are in a challenge, then you will gain +1 cube in lower challenges per level."},
 function(){return "If you have purchased the shop upgrade to automatically open cubes, it will now open 200 at a time instead of 20."},
 function(){return "Yeah yeah yeah, +1 cube from challenges, +10% cubes from Ascending."},
-function(){return "Keep 2% of the levels per level."},
-function(){return "Keep 2% of the levels per level."},
+function(){return "Keep 1 level of 3x15 and 1x16 on Ascension per level. [Cannot exceed cap]"},
+function(){return "Keep 1 level of 2x16 on Ascension per level."},
 function(){return "Blah blah blah Midas works harder (same rewards as before)"},
 function(){return "Blah blah blah Hermes works harder (same rewards as before)"},
 function(){return "All reincarnations start out with 3 additional seconds per level."},

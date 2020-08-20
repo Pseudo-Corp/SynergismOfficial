@@ -131,7 +131,16 @@ var crystalupgdesc5 = "Every challenge completion increases crystal gain by 1% p
 var crystalupgdesc6 = "Coming SOON!"
 var crystalupgdesc7 = "Coming SOON!"
 var crystalupgdesc8 = "Coming SOON!"
-
+var constantUpgDesc1 = "Make all Tesseract buildings 5% more productive per level."
+var constantUpgDesc2 = "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max 10%]."
+var constantUpgDesc3 = "Increase offering gain by 0.01% * log10(Constant + 1) * level"
+var constantUpgDesc4 = "Increase obtainium gain by 0.04% * log10(Constant + 1) * level"
+var constantUpgDesc5 = "Multiply ant speed by (1 + log10(Constant + 1)/10)^level"
+var constantUpgDesc6 = "Add +2 free Ant Levels per level."
+var constantUpgDesc7 = "Provides 17 free rune levels and increases the rune cap by 8 per level."
+var constantUpgDesc8 = "Increase the rune EXP given by offerings by 10% per level [Additive]"
+var constantUpgDesc9 = "When bought, rune effectiveness is increased by Log4(Talisman Shards +1) %"
+var constantUpgDesc10 = "When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on ascension."
 
 const upgradetexts = [null,
     function() { return "Worker Production x" + format((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)),2) },
@@ -518,4 +527,75 @@ function updateResearchBG(j) {
 	if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "purple"}
 	else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "green"}
 	else {document.getElementById(k).style.backgroundColor = "black"}
+}
+
+function returnConstUpgEffect(i){
+    let show = "+1"
+    switch(i){
+        case 1:
+            show = "Tesseract building production x" + format(Decimal.pow(1.05, player.constantUpgrades[1]),2,true);
+            return show;
+        case 2:
+            show = "Tesseract building production x" + format(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned),2,true)
+            return show;
+        case 3:
+            show = "Offering gain x" + format(1 + 0.0001 * player.constantUpgrades[3] * Decimal.log(player.ascendShards.add(1), 10),4,true)
+            return show;
+        case 4:
+            show = "Obtainium gain x" + format(1 + 0.0004 * player.constantUpgrades[4] * Decimal.log(player.ascendShards.add(1), 10),4,true)
+            return show;
+        case 5:
+            show = "Ant Speed x" + format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1),10), player.constantUpgrades[5]),2,true)
+            return show;
+        case 6:
+            show = "+" + format(2 * player.constantUpgrades[6]) + " free Ant Levels"
+            return show;
+        case 7:
+            show = "+" + format(17 * player.constantUpgrades[7]) + " free Rune Levels, +" + format(8 * player.constantUpgrades[7]) + " to Rune Cap" 
+            return show;
+        case 8:
+            show = "Rune EXP x" + format(1 + 1/10 * player.constantUpgrades[8],2,true)
+            return show;
+        case 9:
+            show = "Runes effectiveness x" + format(1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]),4,true)
+            return show;
+        case 10:
+            show = "Cubes/Tesseracts on Ascension x" + format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]),4,true)
+            return show;
+    }
+}
+
+function getConstUpgradeMetadata(i){
+    let toBuy = 0;
+    let cost = new Decimal("1")
+    toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(constUpgradeCosts[i])/ Math.log(10)))
+    if(toBuy > player.constantUpgrades[i]){
+    cost = Decimal.pow(10, toBuy - 1).times(constUpgradeCosts[i])
+    }
+    else{
+    cost = Decimal.pow(10, player.constantUpgrades[i]).times(constUpgradeCosts[i])    
+    }
+
+    return[Math.max(1, toBuy - player.constantUpgrades[i]), cost]
+}
+
+function constantUpgradeDescriptions(i){
+    let metaData = getConstUpgradeMetadata(i)
+    var x = 'constantUpgDesc'+i
+    let y = window[x]
+    document.getElementById("constUpgradeDescription").textContent = y
+    document.getElementById("constUpgradeLevel2").textContent = format(player.constantUpgrades[i])
+    document.getElementById("constUpgradeCost2").textContent = format(metaData[1]) + " [+" + format(metaData[0]) + " LVL]"
+    document.getElementById("constUpgradeEffect2").textContent = returnConstUpgEffect(i)
+}
+
+function buyConstantUpgrades(i){
+    let metaData = getConstUpgradeMetadata(i)
+    if(player.ascendShards.greaterThanOrEqualTo(metaData[1])){
+        player.constantUpgrades[i] += metaData[0];
+        player.ascendShards = player.ascendShards.sub(metaData[1]);
+        constantUpgradeDescriptions(i);
+    }
+    calculateAnts();
+    calculateRuneLevels();
 }

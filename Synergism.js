@@ -513,6 +513,7 @@ tesseractbuyamount: 1,
 			  prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
+			  constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  brokenfile1: false,
 			  exporttest: "YES!",
 			  kongregatetest: "NO!",
@@ -947,6 +948,13 @@ for (j = 0; j <= 5; j++) {
 
 }
 
+for(var i = 0; i < researchBaseCosts.length; i++){
+	testArray.push(researchBaseCosts[i]);
+}
+researchOrderByCost = sortWithIndeces(testArray)
+
+
+
 if (player.shoptoggles.coin == false) {document.getElementById("shoptogglecoin").textContent = "Auto: OFF"}
 if (player.shoptoggles.prestige == false) {document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"}
 if (player.shoptoggles.transcend == false) {document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
@@ -1002,6 +1010,9 @@ for(var i = 1; i<=2; i++){
 	toggleAntMaxBuy()
 	toggleAntAutoSacrifice()
 }
+
+player.autoResearch = Math.min(125, player.autoResearch)
+player.autoSacrifice = Math.min(5, player.autoSacrifice)
 
 if (player.autoResearchToggle && player.autoResearch > 0.5){document.getElementById("res" + player.autoResearch).style.backgroundColor = "orange"};
 if (player.autoSacrificeToggle && player.autoSacrifice > 0.5){document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "orange"};
@@ -1539,6 +1550,12 @@ globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.
 	if(player.achievements[171] == 1){globalAntMult = globalAntMult.times(1.16666)}
 	if(player.achievements[172] == 1){globalAntMult = globalAntMult.times(1 + 2 * (1 - Math.pow(2, -Math.min(1, player.reincarnationcounter/7200))))}
 	if(player.upgrades[39] == 1){globalAntMult = globalAntMult.times(1.60)}
+	globalAntMult = globalAntMult.times(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1),10), player.constantUpgrades[5]))
+
+	globalConstantMult = new Decimal("1")
+	globalConstantMult = globalConstantMult.times(Decimal.pow(1.05, player.constantUpgrades[1]))
+	globalConstantMult = globalConstantMult.times(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned))
+
 }
 
  // Function that adds to resources each tick. [Lines 928 - 989]
@@ -1641,7 +1658,7 @@ function resourceGain(dt,fast){
 		player.antPoints = player.antPoints.add(antOneProduce.times(dt/1))
 
 		for(var i = 1; i <= 5; i++){
-		ascendBuildingProduction[ordinals[5-i]] = (player['ascendBuilding'+(6-i)]['generated']).add(player['ascendBuilding'+(6-i)]['owned']).times(player['ascendBuilding'+i]['multiplier'])
+		ascendBuildingProduction[ordinals[5-i]] = (player['ascendBuilding'+(6-i)]['generated']).add(player['ascendBuilding'+(6-i)]['owned']).times(player['ascendBuilding'+i]['multiplier']).times(globalConstantMult)
 
 		if(i !== 5){player['ascendBuilding'+(5-i)]['generated'] = player['ascendBuilding'+(5-i)]['generated'].add(ascendBuildingProduction[ordinals[5-i]].times(dt))}
 		}
@@ -2066,7 +2083,7 @@ function updateAll() {
 			player.maxobtainium = player.researchPoints;
 		}
 
-		effectiveLevelMult = (1 + player.researches[4]/10) * (1 + player.researches[21]/100) * (1 + player.researches[90]/100)
+		effectiveLevelMult = (1 + player.researches[4]/10) * (1 + player.researches[21]/100) * (1 + player.researches[90]/100) * (1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]))
 		optimalOfferingTimer = 600 + 30 * player.researches[85] + 0.4 * rune5level + 120 * player.shopUpgrades.offeringTimerLevel
 		optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel
 		if (player.achievements[176] && player.antPoints.greaterThanOrEqualTo(Decimal.pow( antUpgradeCostIncreases[1], player.antUpgrades[1]).times(antUpgradeBaseCost[1]).times(2))){buyAntUpgrade('100',true,1)}

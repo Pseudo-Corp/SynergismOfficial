@@ -514,7 +514,7 @@ function htmlInserts() {
 
 				document.getElementById('rune'+i+'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i-1]) + "/" + format(calculateMaxRunes(i))
 				document.getElementById('rune'+i+'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i-1)-player.runeexp[i-1],2) + " EXP"
-				document.getElementById('bonusrune'+i).textContent = " [" + format(3 * (player.antUpgrades[9] + bonusant9) + place) + "]"
+				document.getElementById('bonusrune'+i).textContent = " [" + format(17 * player.constantUpgrades[7] + 3 * (player.antUpgrades[9] + bonusant9) + place) + "]"
 			}
 	
     		document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions.one, 1) + 1/10 * player.highestchallengecompletions.one + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3/25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(),2,true) + "* EXP per offering sacrificed."
@@ -732,7 +732,25 @@ function buttoncolorchange() {
     	for(var i = 1; i <= 5; i++){
       		(player.reincarnationPoints.greaterThanOrEqualTo(player[ordinals[i-1]+'CostParticles'])) ? document.getElementById("buyparticles"+i).style.backgroundColor = "#555555" : document.getElementById("buyparticles"+i).style.backgroundColor = "#171717";
     	}
-  	}
+	}
+	  
+	if (currentTab == "buildings" && buildingSubTab == "tesseract"){
+		for(var i = 1; i <= 5; i++){
+			(player.wowTesseracts >= (player['ascendBuilding'+i]['cost'])) ?
+			document.getElementById('buyTesseracts'+i).style.backgroundColor = "#555555":
+			document.getElementById('buyTesseracts'+i).style.backgroundColor = "#171717";
+		}
+		for(var i = 1; i <= 8; i++){
+			(player.ascendShards.greaterThanOrEqualTo(Decimal.pow(10, player.constantUpgrades[i]).times(constUpgradeCosts[i]))) ?
+			document.getElementById('buyConstantUpgrade'+i).style.backgroundColor = "green":
+			document.getElementById('buyConstantUpgrade'+i).style.backgroundColor = "#171717";
+		}
+		for(var i = 9 ; i <= 10; i++){
+			(player.ascendShards.greaterThanOrEqualTo(Decimal.pow(10, player.constantUpgrades[i]).times(constUpgradeCosts[i])) || player.constantUpgrades[i] >= 1) ?
+			document.getElementById('buyConstantUpgrade'+i).style.backgroundColor = "gold":
+			document.getElementById('buyConstantUpgrade'+i).style.backgroundColor = "#171717";
+		}
+	}
 
   	if (currentTab == "ants"){
       	(player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostAnts)) ? document.getElementById("anttier1").style.backgroundColor = "white" : document.getElementById("anttier1").style.backgroundColor = "#171717";

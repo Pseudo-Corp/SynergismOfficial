@@ -1,11 +1,11 @@
 function updateCostDisplay(i) {
     let el = document.getElementById("talismanFragmentCost")
     
-    let obtainiumCost = 1e6;
-    let offeringCost = 0;
+    let obtainiumCost = 1e14;
+    let offeringCost = 1e4;
 
 
-    if (i > 0){obtainiumCost = 3e6}
+    if (i > 0){obtainiumCost = 1e14}
     if (i > 1){obtainiumCost = talismanFragmentObtainiumCosts[i]; offeringCost = talismanFragmentOfferingCosts[i]}
     let maxBuyObtainium = Math.max(1, Math.floor(player.researchPoints/obtainiumCost))
     let maxBuyOffering = Math.max(1, Math.floor(player.runeshards/(offeringCost)));
