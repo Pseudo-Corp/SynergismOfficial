@@ -14,30 +14,30 @@ var upgradeCosts = [0, 6, 7, 8, 10, 12, 20, 25, 30, 35, 45, 55, 75, 110, 150, 20
 var crystalUpgradesCost = [6, 15, 20, 40, 100, 200, 500, 1000]
 var crystalUpgradeCostIncrement = [8, 15, 20, 40, 100, 200, 500, 1000]
 var researchBaseCosts = [1e100, 1, 1, 1, 1, 1,
-							1, 10, 75, 5000, 200000,
-							1, 10, 75, 5000, 200000,
-							100, 1250, 10, 20000, 3000000,
+							1, 10, 100, 10000, 100000000,
+							2, 20, 200, 20000, 200000000,
+							4000, 40000000, 10, 250000, 1e8,
 							80, 10, 500, 100, 2000,
-							40, 200, 50, 5000, 200000,
+							40, 200, 50, 5000, 20000000,
 							777, 7777, 50000, 500000, 5000000,
-							10, 2500, 1e6, 2500, 50000,
+							10, 2500, 1e6, 1e5, 1e9,
 							1, 1, 5, 25, 125,
 							2, 5, 320, 1280, 2.5e9,
-							10, 100, 1000, 100000, 2000000,
-							10, 100, 1000, 25000, 500000,
+							5, 500, 5e3, 5e5, 5e7,
+							5, 500, 5e3, 5e5, 5e7,
 							15, 50, 125, 500, 100000,
-							10, 100, 1000, 10000, 100000,
+							1, 100, 1000, 10000, 100000,
 							10, 40, 160, 1000, 10000,
-							1e8, 1e8, 1e8, 2e8, 2e8,
-							3e8, 7e8, 1e9, 2e9, 4e9,
-							8e9, 1.5e10, 3e10, 6e10, 1e11,
-							2e11, 4e11, 8e11, 1.5e12, 3e12,
-							4e12, 6e12, 1e13, 7.777e14, 7.777e15,
-							1e14, 3e14, 1e15, 3e15, 1e16,
-							3e16, 1e17, 3e17, 1e18, 3e18,
-							1e19, 3e19, 1e20, 3e20, 1e21,
+							1e9, 2e9, 4e9, 8e9, 1.6e10,
+							1e12, 1e13, 3e12, 2e13, 2e13,
+							2e14, 6e14, 2e15, 6e15, 2e16,
+							1e16, 2e16, 2e17, 4e17, 1e18,
+							1e13, 1e14, 1e15, 7.777e18, 7.777e20,
+							1e16, 3e16, 1e17, 3e17, 1e20,
+							1e18, 3e18, 1e19, 3e19, 1e20,
+							1e20, 2e20, 4e20, 8e20, 1e21,
 							3e21, 1e22, 1e23, 1e24, 3e25,
-							1e26, 3e26, 1e27, 7.777e29, 7.777e32
+							1e23, 3e26, 1e27, 1e21, 7.777e32
 							]
 
 
@@ -177,9 +177,9 @@ var challengebaserequirements = {
 var challengebaserequirementsrein = {
 	six: 125,
 	seven: 500,
-	eight: 12000,
-	nine: 2.66e8,
-	ten: 1e9,
+	eight: 10000,
+	nine: 2.5e8,
+	ten: 4e9,
 }
 
 var prestigeamount = 1;
@@ -279,8 +279,8 @@ var runescreen = "runes"
 var settingscreen = "settings"
 
 var talismanShardCost = 1e6
-var talismanFragmentObtainiumCosts = [null, 3e6, 1e7, 1e8, 1e9, 1e10, 1e11]
-var talismanFragmentOfferingCosts = [null, 0, 5, 40, 400, 2000, 10000]
+var talismanFragmentObtainiumCosts = [null, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
+var talismanFragmentOfferingCosts = [null, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 
 
 var talismanLevelCostMultiplier = [null, 1, 4, 9, 16, 25, 10, 100]
@@ -326,8 +326,7 @@ var buyMaxCubeUpgrades = false;
 var autoOfferingCounter = 0;
 var autoOfferingCounter2 = 0;
 
-//this was a pain in the ass to get, probably would have been faster to sort by hand
-var researchOrderByCost = [null,1,2,3,4,5,6,11,41,42,46,43,47,7,12,18,22,36,51,56,66,71,61,44,26,72,28,62,8,13,21,16,24,52,57,67,45,63,73,27,48,23,64,31,53,58,68,74,17,49,9,14,25,19,37,39,29,69,75,59,10,15,33,40,54,65,70,30,34,60,20,38,55,35,76,77,78,79,80,32,83,85,82,81,90,86,91,87,88,89,84,92,50,93,96,99,97,94,95,98,101,103,102,108,106,104,109,100,105,107,110,111,112,113,114,116,115,117,121,122,118,119,124,123,120,125]
+var researchOrderByCost = []
 
 var divisivenessMultiplier = [1, 0.75, 0.5, 0.3, 0.2, 0.15, 0.1, 0.06]
 var maladaptiveMultiplier = [1, 0.75, 0.5, 0.3, 0.2, 0.15, 0.1, 0.06]
@@ -354,3 +353,10 @@ var freeUpgradeMultiplier = 0;
 
 var acceleratorMultiplier = 1;
 var multiplierMultiplier = 1;
+var indevSpeed = 1
+
+var testArray = []
+
+var constUpgradeCosts = [null, 1, 13, 17, 237, 316, 4216, 5623, 74989, 1e10, 1e24]
+
+var globalConstantMult = new Decimal("1")

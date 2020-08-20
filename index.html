@@ -415,6 +415,46 @@
             <p class="ascendTexts" id="ascendText9">100 Three-Spaces/sec</p>
             <p class="ascendTexts" id="ascendText10">100 Bent Time/sec</p>
         </div>
+        <div id="ascendConstantUpgrades">
+            <table id="constantUpgradeTable">
+                <tr>
+                    <td>
+                        <img class="constUpgrade" id='buyConstantUpgrade1' src="Pictures/Transparent Pics/ConstantUpgrade1.png" onmouseover="constantUpgradeDescriptions(1)" onclick="buyConstantUpgrades(1)">
+                    </td>
+                    <td>
+                        <img class="constUpgrade" id='buyConstantUpgrade2' src="Pictures/Transparent Pics/ConstantUpgrade2.png" onmouseover="constantUpgradeDescriptions(2)" onclick="buyConstantUpgrades(2)">
+                    </td>
+                    <td>
+                        <img class="constUpgrade" id='buyConstantUpgrade3' src="Pictures/Transparent Pics/ConstantUpgrade3.png" onmouseover="constantUpgradeDescriptions(3)" onclick="buyConstantUpgrades(3)">
+                    </td>
+                    <td>
+                        <img class="constUpgrade" id='buyConstantUpgrade4' src="Pictures/Transparent Pics/ConstantUpgrade4.png" onmouseover="constantUpgradeDescriptions(4)" onclick="buyConstantUpgrades(4)">
+                    </td>
+                    <td>
+                        <img class="constUpgrade" id='buyConstantUpgrade5' src="Pictures/Transparent Pics/ConstantUpgrade5.png" onmouseover="constantUpgradeDescriptions(5)" onclick="buyConstantUpgrades(5)">
+                    </td>
+                    <td>
+                        <img class="constUpgrade" id='buyConstantUpgrade6' src="Pictures/Transparent Pics/ConstantUpgrade6.png" onmouseover="constantUpgradeDescriptions(6)" onclick="buyConstantUpgrades(6)">
+                    </td>
+                    <td>
+                        <img class="constUpgrade" id='buyConstantUpgrade7' src="Pictures/Transparent Pics/ConstantUpgrade7.png" onmouseover="constantUpgradeDescriptions(7)" onclick="buyConstantUpgrades(7)">
+                    </td>
+                    <td>
+                        <img class="constUpgrade" id='buyConstantUpgrade8' src="Pictures/Transparent Pics/ConstantUpgrade8.png" onmouseover="constantUpgradeDescriptions(8)" onclick="buyConstantUpgrades(8)">
+                    </td>
+                    <td>
+                        <img class="constUpgrade" id='buyConstantUpgrade9' src="Pictures/Transparent Pics/ConstantUpgrade9.png" onmouseover="constantUpgradeDescriptions(9)" onclick="buyConstantUpgrades(9)">
+                    </td>
+                    <td>
+                        <img class="constUpgrade" id='buyConstantUpgrade10' src="Pictures/Transparent Pics/ConstantUpgrade10.png" onmouseover="constantUpgradeDescriptions(10)" onclick="buyConstantUpgrades(10)">
+                    </td>
+                </tr>
+            </table>
+            <p id="constUpgradeDescription" style="color: gold">Hover over an icon for a description of the upgrade. Click to buy it!</p>
+            <p id="constUpgradeLevel" style="color: white">Current Level: <span id="constUpgradeLevel2" style="color: orchid">---</span></p>
+            <p id="constUpgradeCost" style="color: white">Cost: <span id="constUpgradeCost2" style="color: orchid">---</span> from your Constant</p>
+            <p id="constUpgradeEffect1" style="color: white">Current Effect: <span id="constUpgradeEffect2" style="color: orchid">---</span></p>
+        </div>
         <p id="ascendHotKeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
     </div>
 </div>
@@ -1289,10 +1329,10 @@
                     <td><img id="res98" src="Pictures/Transparent Pics/Research98.png" alt="" onclick="buyResearch(98);" class="chal8" onmouseover="researchdescriptions(98)">                    </td>
                     <td><img id="res99" src="Pictures/Transparent Pics/Research99.png" alt="" onclick="buyResearch(99);" class="chal8" onmouseover="researchdescriptions(99)">                    </td>
                     <td><img id="res100" src="Pictures/Transparent Pics/Research100.png" alt="" onclick="buyResearch(100);" class="chal8" onmouseover="researchdescriptions(100)">                    </td>
-                    <td><img id="res121" src="Pictures/Transparent Pics/Research121.png" alt="" onclick="buyResearch(121);" class="chal10" onmouseover="researchdescriptions(121)"></td>
+                    <td><img id="res121" src="Pictures/Transparent Pics/Research121.png" alt="" onclick="buyResearch(121);" class="chal9" onmouseover="researchdescriptions(121)"></td>
                     <td><img id="res122" src="Pictures/Transparent Pics/Research122.png" alt="" onclick="buyResearch(122);" class="chal10" onmouseover="researchdescriptions(122)"></td>
                     <td><img id="res123" src="Pictures/Transparent Pics/Research123.png" alt="" onclick="buyResearch(123);" class="chal10" onmouseover="researchdescriptions(123)"></td>
-                    <td><img id="res124" src="Pictures/Transparent Pics/Research124.png" alt="" onclick="buyResearch(124);" class="chal10" onmouseover="researchdescriptions(124)"></td>
+                    <td><img id="res124" src="Pictures/Transparent Pics/Research124.png" alt="" onclick="buyResearch(124);" class="chal9" onmouseover="researchdescriptions(124)"></td>
                     <td><img id="res125" src="Pictures/Transparent Pics/Research125.png" alt="" onclick="buyResearch(125);" class="chal10" onmouseover="researchdescriptions(125)"></td>
                     </td>
                 </tr>
@@ -1763,10 +1803,10 @@
                 <img id="discordicon" src="Pictures/icon.gif" title="Click to join the official Discord!">
             </a>
         </div>
-        <a href="https://docs.google.com/document/d/17Q1CVrDesdguc274qyCxnKeCkrNw002VipdCvUmAjYQ/edit?usp=sharing" target="_blank">
+        <a href="https://docs.google.com/document/d/13vntkxiCo-mL1en5LRvOmlKQdYhTGhqs9-9mT1XLn1U/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
         </a>
-        <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: August 13, 2020 12:35 PM PDT</p>
+        <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: August 19, 2020 11:42PM PDT</p>
     </div>
     <div id="creditssubtab" style="display: none">
         <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>

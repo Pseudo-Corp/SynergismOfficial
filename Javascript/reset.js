@@ -430,9 +430,9 @@ function reset(i,fast) {
 
     player.researchPoints = 1000 * player.cubeUpgrades[28]
     
-    player.researches[65] = player.cubeUpgrades[42]
+    player.researches[65] = Math.min(5, player.cubeUpgrades[42])
     player.researches[76] = player.cubeUpgrades[42]
-    player.researches[81] = 2 * player.cubeUpgrades[43]
+    player.researches[81] = player.cubeUpgrades[43]
 
     player.reincarnationcounter = 3 * player.cubeUpgrades[46]
 

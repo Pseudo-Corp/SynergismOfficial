@@ -132,22 +132,24 @@ function calculateRuneExpGiven(runeIndex, all) {
         // Cube Upgrade Bonus
         (1 + player.ascensionCounter/1000 * player.cubeUpgrades[32]),
         // Corruption Divisor
-        1 / droughtMultiplier[player.usedCorruptions[11]]
+        1 / droughtMultiplier[player.usedCorruptions[11]],
+        // Constant Upgrade Multiplier
+        1 + 1/10 * player.constantUpgrades[8]
 	]);
 
 	// Rune multiplier that gets applied to specific runes
 	let runeExpMultiplier = [
 		productContents([
-			1 + (player.researches[78] / 50), 1 + (player.researches[111]/100)
+			1 + (player.researches[78] / 50), 1 + (player.researches[111]/100), 1 + (player.challengecompletions.seven / 10)
 		]),
 		productContents([
-			1 + (player.researches[80] / 50), 1 + (player.researches[112]/100)
+			1 + (player.researches[80] / 50), 1 + (player.researches[112]/100), 1 + (player.challengecompletions.seven / 10)
 		]),
 		productContents([
-			1 + (player.researches[79] / 50), 1 + (player.researches[113]/100)
+			1 + (player.researches[79] / 50), 1 + (player.researches[113]/100), 1 + (player.challengecompletions.eight / 5)
 		]),
 		productContents([
-			1 + (player.researches[77] / 50), 1 + (player.researches[114]/100), 1 + (player.challengecompletions.six/10)
+			1 + (player.researches[77] / 50), 1 + (player.researches[114]/100), 1 + (player.challengecompletions.six  / 10)
 		]),
 		productContents([
 			1 + (player.researches[83] / 20), 1 + (player.researches[115]/100)
@@ -198,11 +200,11 @@ function calculateMaxRunes(i){
 
     let increaseMaxLevel = [
         null,
-        25 *(player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		25 *(player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		25 *(player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		25 *(player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]),
-		25 *(player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
+        25 *(player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7],
+		25 *(player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7],
+		25 *(player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7],
+		25 *(player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7],
+		25 *(player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7]
     ]
 
     max += increaseMaxLevel[i]
@@ -230,7 +232,9 @@ function calculateOfferings(i){
         a += 1/500 * rune5level * effectiveLevelMult * (1 + player.researches[85] / 200)
         a *= (1 + Math.pow(Decimal.log(player.reincarnationShards.add(1), 10),2/3)/4);
         a *= Math.min(Math.pow(player.reincarnationcounter/10, 2), 1)
-        a *= Math.max(1, player.reincarnationcounter/10)
+        if(player.reincarnationcounter >= 5){
+            a *= Math.max(1, player.reincarnationcounter/10)
+        }
 
     }
     if (i >= 2) {
@@ -247,9 +251,11 @@ function calculateOfferings(i){
         b += 0.2 * player.researches[24]
         b += 1/500 * rune5level * effectiveLevelMult * (1 + player.researches[85] / 200)
         b *= (1 + Math.pow(Decimal.log(player.transcendShards.add(1),10),1/2)/5);
+        b *= (1 + player.challengecompletions.eight/25)
         b *= Math.min(Math.pow(player.transcendcounter/10, 2), 1)
-        b *= Math.max(1, player.transcendcounter/10)
-
+        if(player.transcendCount >= 5){
+            b *= Math.max(1, player.transcendcounter/10)
+        }
     }
     if (i >= 1) {
         c += 1
@@ -270,8 +276,9 @@ function calculateOfferings(i){
         c *= (1 + Math.pow(Decimal.log(player.prestigeShards.add(1),10),1/2)/5);
         c *= (1 + player.challengecompletions.six/50)
         c *= Math.min(Math.pow(player.prestigecounter/10, 2), 1)
-        c *= Math.max(1, player.prestigecounter/10)
-    
+        if(player.prestigeCount >= 5){
+            c *= Math.max(1, player.prestigecounter/10)
+        }
     }
     q = a + b + c
 
@@ -294,6 +301,7 @@ function calculateOfferings(i){
     q *= (1 + 1/10000 * sumObject(player.challengecompletions) * player.researches[85])
     q *= (1 + Math.pow((player.antUpgrades[6] + bonusant6 /50), 2/3))
     q *= cubeBonusMultiplier[3]
+    q *= (1 + 0.0001 * player.constantUpgrades[3] * Decimal.log(player.ascendShards.add(1), 10))
     q = Math.floor(q) * 100 / 100
 
     let persecond = 0;
@@ -331,6 +339,7 @@ function calculateObtainium(){
         obtainiumGain *= (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07 * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15 * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147])
         obtainiumGain *= (1 + 2 * Math.pow((player.antUpgrades[10] + bonusant10)/50, 2/3))
         obtainiumGain *= cubeBonusMultiplier[5]
+        obtainiumGain *= (1 + 0.0004 * player.constantUpgrades[4] * Decimal.log(player.ascendShards.add(1), 10))
         obtainiumGain *= (1 + player.cubeUpgrades[47])
         if (player.achievements[53] > 0){
             obtainiumGain *= (1 + 1/2000 * (runeSum))
@@ -418,11 +427,11 @@ talisman7Quarks = 0;
 function calculateRuneLevels() {
     calculateTalismanEffects();
     if (player.currentChallengeRein !== "nine"){
-		rune1level = Math.max(1, player.runelevels[0] + (player.antUpgrades[9] + bonusant9) * 3 + (rune1Talisman))
-		rune2level = Math.max(1, player.runelevels[1] + (player.antUpgrades[9] + bonusant9) * 3 + (rune2Talisman))
-		rune3level = Math.max(1, player.runelevels[2] + (player.antUpgrades[9] + bonusant9) * 3 + (rune3Talisman))
-		rune4level = Math.max(1, player.runelevels[3] + (player.antUpgrades[9] + bonusant9) * 3 + (rune4Talisman))
-		rune5level = Math.max(1, player.runelevels[4] + (player.antUpgrades[9] + bonusant9) * 3 + (rune5Talisman))
+		rune1level = Math.max(1, player.runelevels[0] + (player.antUpgrades[9] + bonusant9) * 3 + (rune1Talisman) + 17 * player.constantUpgrades[7])
+		rune2level = Math.max(1, player.runelevels[1] + (player.antUpgrades[9] + bonusant9) * 3 + (rune2Talisman) + 17 * player.constantUpgrades[7])
+		rune3level = Math.max(1, player.runelevels[2] + (player.antUpgrades[9] + bonusant9) * 3 + (rune3Talisman) + 17 * player.constantUpgrades[7])
+		rune4level = Math.max(1, player.runelevels[3] + (player.antUpgrades[9] + bonusant9) * 3 + (rune4Talisman) + 17 * player.constantUpgrades[7])
+		rune5level = Math.max(1, player.runelevels[4] + (player.antUpgrades[9] + bonusant9) * 3 + (rune5Talisman) + 17 * player.constantUpgrades[7])
     }
 
     for (var i = 1; i <= 5; i++){
@@ -469,6 +478,7 @@ function calculateAnts() {
     let talismanBonus = 0;
     talismanBonus += 2 * (player.talismanRarity[6] - 1)
     talismanBonus += player.challengecompletions.nine
+    talismanBonus += 2 * player.constantUpgrades[6]
     bonusant1 = Math.min(player.antUpgrades[1], 4 * player.researches[97] + talismanBonus + player.researches[102])
     bonusant2 =  Math.min(player.antUpgrades[2], 4 * player.researches[97] + talismanBonus + player.researches[102])
     bonusant3 =  Math.min(player.antUpgrades[3], 4 * player.researches[97] + talismanBonus + player.researches[102])
@@ -526,7 +536,9 @@ function calculateAntSacrificeELO(){
 }
 
 function calculateAntSacrificeMultipliers() {
-    timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 900, 2)) * Math.max(1, Math.pow(player.antSacrificeTimer/900, 0.92));
+    timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 10, 2))
+    if(player.achievements[177] === 0){timeMultiplier *= Math.min(1000, Math.max(1, player.antSacrificeTimer / 10))}
+    if(player.achievements[177] > 0){timeMultiplier *= Math.max(1, player.antSacrificeTimer / 10)}
 
     upgradeMultiplier = 1;
     upgradeMultiplier *= (1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11)/125)));
@@ -548,29 +560,29 @@ function calculateAntSacrificeRewards() {
     let rewardsMult = timeMultiplier * upgradeMultiplier;
     let rewards = {};
 
-    rewards.antSacrificePoints = effectiveELO * rewardsMult;
-    rewards.offerings = player.offeringpersecond * 0.15 * effectiveELO * rewardsMult;
-    rewards.obtainium = player.maxobtainiumpersecond * 0.24 * effectiveELO * rewardsMult;
+    rewards.antSacrificePoints = effectiveELO * rewardsMult / 90;
+    rewards.offerings = player.offeringpersecond * 0.15 * effectiveELO * rewardsMult / 180;
+    rewards.obtainium = player.maxobtainiumpersecond * 0.24 * effectiveELO * rewardsMult / 180;
     rewards.talismanShards = (antELO > 500) ?
-        Math.floor(rewardsMult * Math.pow(1/4 * (Math.max(0, effectiveELO - 500)), 2)) :
+        Math.max(1, Math.floor(rewardsMult/180 * Math.pow(1/4 * (Math.max(0, effectiveELO - 500)), 2))) :
         0;
     rewards.commonFragments = (antELO > 750) ?
-        Math.floor(rewardsMult * Math.pow(1/9 * (Math.max(0,effectiveELO - 750)), 1.83)) :
+        Math.max(1, Math.floor(rewardsMult/90 * Math.pow(1/9 * (Math.max(0,effectiveELO - 750)), 1.83))) :
         0;
     rewards.uncommonFragments = (antELO > 1000) ?
-        Math.floor(rewardsMult * Math.pow(1/16 * (Math.max(0,effectiveELO - 1000)), 1.66)) :
+        Math.max(1, Math.floor(rewardsMult/150 * Math.pow(1/16 * (Math.max(0,effectiveELO - 1000)), 1.66))) :
         0;
     rewards.rareFragments = (antELO > 1500) ?
-        Math.floor(rewardsMult * Math.pow(1/25 * (Math.max(0,effectiveELO - 1500)), 1.50)) :
+        Math.max(1, Math.floor(rewardsMult/180 * Math.pow(1/25 * (Math.max(0,effectiveELO - 1500)), 1.50))) :
         0;
     rewards.epicFragments = (antELO > 2000) ?
-        Math.floor(rewardsMult * Math.pow(1/36 * (Math.max(0,effectiveELO - 2000)), 1.33)) :
+        Math.max(1, Math.floor(rewardsMult/210 * Math.pow(1/36 * (Math.max(0,effectiveELO - 2000)), 1.33))) :
         0;
     rewards.legendaryFragments = (antELO > 3000) ?
-        Math.floor(rewardsMult * Math.pow(1/49 * (Math.max(0,effectiveELO - 3000)), 1.16)) :
+        Math.max(1, Math.floor(rewardsMult/240 * Math.pow(1/49 * (Math.max(0,effectiveELO - 3000)), 1.16))) :
         0;
     rewards.mythicalFragments = (antELO > 5000) ?
-        Math.floor(rewardsMult * Math.pow(1/64 * (Math.max(0,effectiveELO - 4150)), 1)) :
+        Math.max(1, Math.floor(rewardsMult/270 * Math.pow(1/64 * (Math.max(0,effectiveELO - 4150)), 1))) :
         0;
 
     return rewards;
@@ -702,6 +714,7 @@ function calculateCubeMultiplier() {
     for(var i = 1; i <= 9; i++){
         if(player.ascensionCounter < timeThresholds[i]){mult *= 1.1}
     }
+    mult *= (1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]))
     return(mult)
 }
 
@@ -716,6 +729,7 @@ function calculateTimeAcceleration() {
     timeMult *= lazinessMultiplier[player.usedCorruptions[3]]
 
     if(timeMult > 100){timeMult = 10 * Math.sqrt(timeMult)}
+    timeMult *= indevSpeed
     return(timeMult)
 }
 
@@ -740,4 +754,25 @@ multiplyPoints += 1/100 * corruptionMultiplyPointArray[player.usedCorruptions[10
 let totalPoints = basePoints * multiplyPoints
 if(totalPoints === 39600){totalPoints += 400}
 return(totalPoints)
+}
+
+//by https://stackoverflow.com/questions/3730510/javascript-sort-array-and-return-an-array-of-indicies-that-indicates-the-positi
+//slightly modified by Platonic
+function sortWithIndeces(toSort) { 
+    let duplicateArray = [] //Prevents changing the original array that is to be sorted
+    for (var i = 0; i < toSort.length; i++){
+        duplicateArray[i] = toSort[i]
+    }
+    for (var i = 0; i < duplicateArray.length; i++) {
+        duplicateArray[i] = [duplicateArray[i], i];
+    }
+    duplicateArray.sort(function(left, right) {
+      return left[0] < right[0] ? -1 : 1;
+    });
+    duplicateArray.sortIndices = [];
+    for (var j = 0; j < duplicateArray.length; j++) {
+        duplicateArray.sortIndices.push(duplicateArray[j][1]);
+        duplicateArray[j] = duplicateArray[j][0];
+    }
+    return duplicateArray.sortIndices;
 }
