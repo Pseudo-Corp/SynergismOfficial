@@ -7,6 +7,7 @@
 
     <!--<script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>-->
     <script src="break_infinity.js"></script>
+    <!--<script src="break_infinity2.js"></script>-->
     <script src="lz-string.js"></script>
     <script src="Synergism.js"></script>
     
@@ -87,6 +88,7 @@
             <td><img class="transcendunlock" id="acceleratorboostbtn" src="Pictures/Transparent Pics/AcceleratorBoost.png" onmouseover="resetrepeat(5)" style="cursor:pointer" onclick="boostAccelerator()"></td>
             <td><img class="transcendunlock" id="challengebtn" src="Pictures/Transparent Pics/Challenge.png"  onmouseover="resetrepeat(3)" onclick="resetCheck('challenge')" style="cursor:pointer"></td>
             <td><img class="reincarnationunlock" id="reincarnatechallengebtn" src="Pictures/Transparent Pics/ChallengeReincarnation.png" onmouseover="resetrepeat(6)" onclick="resetCheck('reincarnationchallenge')" style="cursor:pointer"></td>
+            <td><img class="ascendunlock" id="ascendChallengeBtn" src="Pictures/Transparent Pics/ChallengeAscension.png" onmouseover="resetrepeat(8)" onclick="resetCheck('ascensionChallenge')"></td>
             <td><img class="chal10" id="ascendbtn" src="Pictures/questionable.png" onmouseover="resetrepeat(7)" onclick="resetCheck('ascend')"  style="cursor:pointer"></td>
             </tr>
         </table>
@@ -1154,16 +1156,21 @@
             <div id="challengeSelection">
                 <table id="challengeIcons">
                     <tr>
-                        <td><img id="challengeone" src="Pictures/Transparent Pics/ChallengeOne.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(1)"></td>
-                        <td><img id="challengetwo" src="Pictures/Transparent Pics/ChallengeTwo.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(2)"></td>
-                        <td><img id="challengethree" src="Pictures/Transparent Pics/ChallengeThree.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(3)"></td>
-                        <td><img id="challengefour" src="Pictures/Transparent Pics/ChallengeFour.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(4)"></td>
-                        <td><img id="challengefive" src="Pictures/Transparent Pics/ChallengeFive.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(5)"></td>
-                        <td><img id="challengesix" class="reincarnationunlock" src="Pictures/Transparent Pics/ChallengeSix.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(6)"></td>
-                        <td><img id="challengeseven" class="chal6" src="Pictures/Transparent Pics/ChallengeSeven.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(7)"></td>
-                        <td><img id="challengeeight" class="chal7" src="Pictures/Transparent Pics/ChallengeEight.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(8)"></td>
-                        <td><img id="challengenine" class="chal8" src="Pictures/Transparent Pics/ChallengeNine.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(9)"></td>
-                        <td><img id="challengeten" class="chal9" src="Pictures/Transparent Pics/ChallengeTen.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(10)"></td>
+                        <td><img id="challenge1" src="Pictures/Transparent Pics/ChallengeOne.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(1)"></td>
+                        <td><img id="challenge2" src="Pictures/Transparent Pics/ChallengeTwo.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(2)"></td>
+                        <td><img id="challenge3" src="Pictures/Transparent Pics/ChallengeThree.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(3)"></td>
+                        <td><img id="challenge4" src="Pictures/Transparent Pics/ChallengeFour.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(4)"></td>
+                        <td><img id="challenge5" src="Pictures/Transparent Pics/ChallengeFive.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(5)"></td>
+                        <td><img id="challenge6" class="reincarnationunlock" src="Pictures/Transparent Pics/ChallengeSix.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(6)"></td>
+                        <td><img id="challenge7" class="chal6" src="Pictures/Transparent Pics/ChallengeSeven.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(7)"></td>
+                        <td><img id="challenge8" class="chal7" src="Pictures/Transparent Pics/ChallengeEight.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(8)"></td>
+                        <td><img id="challenge9" class="chal8" src="Pictures/Transparent Pics/ChallengeNine.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(9)"></td>
+                        <td><img id="challenge10" class="chal9" src="Pictures/Transparent Pics/ChallengeTen.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(10)"></td>
+                        <td><img id="challenge11" class="ascendunlock" src="Pictures/Transparent Pics/AscendChallenge.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(11)"></td>
+                        <td><img id="challenge12" class="chal11" src="Pictures/Transparent Pics/AscendChallenge.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(12)"></td>
+                        <td><img id="challenge13" class="chal12" src="Pictures/Transparent Pics/AscendChallenge.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(13)"></td>
+                        <td><img id="challenge14" class="chal13" src="Pictures/Transparent Pics/AscendChallenge.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(14)"></td>
+                        <td><img id="challenge15" class="chal14" src="Pictures/Transparent Pics/AscendChallenge.png" style="cursor: pointer; font-size: 0;" onclick="challengeDisplay(15)"></td>
                 </tr>
                 </table>
             </div>
@@ -1456,8 +1463,8 @@
 
         <div id="cubes">
             <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;" onclick="toggleCubeSubTab(1)">Cube Blessings</button>
-            <button id="switchCubeSubTab2" class="cubeSwitchTabBtn" style="border: 2px solid purple;" onclick="toggleCubeSubTab(2)">Tesseract Gifts</button>
-            <button id="switchCubeSubTab3" class="cubeSwitchTabBtn" style="border: 2px solid red;" onclick="toggleCubeSubTab(3)">Hypercube Benedictions</button>
+            <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid purple;" onclick="toggleCubeSubTab(2)">Tesseract Gifts</button>
+            <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" onclick="toggleCubeSubTab(3)">Hypercube Benedictions</button>
             <button id="switchCubeSubTab4" class="cubeSwitchTabBtn" style="border: 2px solid white;" onclick="toggleCubeSubTab(4)">Cube Upgrades</button>
             <div id="cubeTab1" style="display: block">
             <p id="cubeWelcome" class="cubePlacement1" style="color: orange">You feel a sense of Pride and Accomplishment... and a hunger for power.</p>
@@ -1806,7 +1813,7 @@
         <a href="https://docs.google.com/document/d/13vntkxiCo-mL1en5LRvOmlKQdYhTGhqs9-9mT1XLn1U/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
         </a>
-        <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: August 19, 2020 11:42PM PDT</p>
+        <p id="versionnumber" style="color: gold">You're playing on v1.011 TESTING! Update: August 21, 2020 1:15AM PDT</p>
     </div>
     <div id="creditssubtab" style="display: none">
         <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>

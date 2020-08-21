@@ -198,6 +198,7 @@ function getAntUpgradeCost(originalCost, buyTo, index) {
 }
 
 function buyAntUpgrade(originalCost,auto,index){
+    if(player.currentChallenge.ascension !== 11){
     originalCost = new Decimal(originalCost);
     var buyTo = 1 + player.antUpgrades[index];
     var cashToBuy = getAntUpgradeCost(originalCost, buyTo, index);
@@ -235,7 +236,7 @@ function buyAntUpgrade(originalCost,auto,index){
     calculateAntSacrificeELO();
     if (!auto){antUpgradeDescription(index)}
     if(player.antUpgrades[12] == 1 && index == 12){revealStuff()}
-
+    }
 }
 
 
@@ -248,8 +249,11 @@ function antUpgradeDescription(i) {
     let content1 = window["antspecies" + i];
     let content2 = window["antupgdesc" + i];
     let bonuslevel = window["bonusant" + i];
+
+    let c11 = 0;
+    if(player.currentChallenge.ascension === 11){c11 = 999}
     document.getElementById("antspecies").childNodes[0].textContent = content1 + " Level " + format(player.antUpgrades[i])
-    document.getElementById("antlevelbonus").textContent = " [+" + format(Math.min(player.antUpgrades[i],bonuslevel)) +"]"
+    document.getElementById("antlevelbonus").textContent = " [+" + format(Math.min(player.antUpgrades[i] + c11,bonuslevel)) +"]"
     la.textContent = content2
     ti.textContent = "Cost: " + format(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i] * extinctionMultiplier[player.usedCorruptions[10]]).times(antUpgradeBaseCost[i])) + " Galactic Crumbs"
     me.textContent = "CURRENT EFFECT: " + antUpgradeTexts[i]()
@@ -285,7 +289,7 @@ function showSacrifice(){
     document.getElementById("SacrificeTimeMultiplier").textContent = format(timeMultiplier,3,true) + "x"
     document.getElementById("antSacrificeOffering").textContent = "+" + format(sacRewards.offerings)
     document.getElementById("antSacrificeObtainium").textContent = "+" + format(sacRewards.obtainium)
-    if (player.challengecompletions.nine > 0.5){
+    if (player.challengecompletions[9] > 0){
             document.getElementById("antSacrificeTalismanShard").textContent = "+" + format(sacRewards.talismanShards) + " [>500 ELO]"
             document.getElementById("antSacrificeCommonFragment").textContent = "+" + format(sacRewards.commonFragments) + " [>750 ELO]"
             document.getElementById("antSacrificeUncommonFragment").textContent = "+" + format(sacRewards.uncommonFragments) + " [>1,000 ELO]"
@@ -308,7 +312,7 @@ function sacrificeAnts(auto){
         player.runeshards += sacRewards.offerings;
         player.researchPoints += sacRewards.obtainium;
 
-        if(player.challengecompletions.nine > 0.5){
+        if(player.challengecompletions[9] > 0){
             player.talismanShards += sacRewards.talismanShards;
             player.commonFragments += sacRewards.commonFragments;
             player.uncommonFragments += sacRewards.uncommonFragments;

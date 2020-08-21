@@ -92,7 +92,7 @@ function revealStuff() {
 
 	let example19 = document.getElementsByClassName("chal9x1");
 	for (var i = 0; i < example19.length; i++){
-		player.highestchallengecompletions.nine > 0 ? example19[i].style.display = "block" : example19[i].style.display = "none"
+		player.highestchallengecompletions[9] > 0 ? example19[i].style.display = "block" : example19[i].style.display = "none"
 	}
 
 	let example20 = document.getElementsByClassName("chal10");
@@ -103,6 +103,26 @@ function revealStuff() {
 	let example21 = document.getElementsByClassName("ascendunlock");
 	for (var i = 0; i < example21.length; i++){
 		player.ascensionCount > 0 ? example21[i].style.display = "block" : example21[i].style.display = "none"
+	}
+
+	let example22 = document.getElementsByClassName("chal11");
+	for (var i = 0; i < example22.length; i++){
+		player.challengecompletions[11] > 0 ? example22[i].style.display = "block" : example22[i].style.display = "none"
+	}
+
+	let example23 = document.getElementsByClassName("chal12");
+	for (var i = 0; i < example23.length; i++){
+		player.challengecompletions[12] > 0 ? example23[i].style.display = "block" : example23[i].style.display = "none"
+	}
+
+	let example24 = document.getElementsByClassName("chal13");
+	for (var i = 0; i < example24.length; i++){
+		player.challengecompletions[13] > 0 ? example24[i].style.display = "block" : example24[i].style.display = "none"
+	}
+
+	let example25 = document.getElementsByClassName("chal14");
+	for (var i = 0; i < example25.length; i++){
+		player.challengecompletions[14] > 0 ? example25[i].style.display = "block" : example25[i].style.display = "none"
 	}
 
 	player.upgrades[89] === 1 ? //Automatic Transcension Upgrade
@@ -384,7 +404,7 @@ function htmlInserts() {
     	document.getElementById("buildtext13").textContent = "Multipliers: " + format(player.multiplierBought,0,true) + " [+" + format(freeMultiplier,0,true) + "]"
     	document.getElementById("buildtext14").textContent = "Multiplier Power: " + multiplierPower.toPrecision(4) + "x || Multiplier: " + format(multiplierEffect,2) + "x"
     	document.getElementById("buildtext15").textContent = "Accelerator Boost: " + format(player.acceleratorBoostBought,0,true) + " [+" + format(freeAcceleratorBoost,0,true) + "]"
-		document.getElementById("buildtext16").textContent = "Reset Diamonds and Prestige Upgrades, but add " + (tuSevenMulti * (1 + player.researches[16]/50) * (1 + player.challengecompletions.two / 100)).toPrecision(4) + "% Acceleration Power and 5 free Accelerators."
+		document.getElementById("buildtext16").textContent = "Reset Diamonds and Prestige Upgrades, but add " + (tuSevenMulti * (1 + player.researches[16]/50) * (1 + player.challengecompletions[2] / 100)).toPrecision(4) + "% Acceleration Power and 5 free Accelerators."
     	document.getElementById("buyaccelerator").textContent = "Cost: " + format(player.acceleratorCost) + " coins."
     	document.getElementById("buymultiplier").textContent = "Cost: " + format(player.multiplierCost) + " coins."
     	document.getElementById("buyacceleratorboost").textContent = "Cost: " + format(player.acceleratorBoostCost) + " Diamonds."
@@ -517,7 +537,7 @@ function htmlInserts() {
 				document.getElementById('bonusrune'+i).textContent = " [" + format(17 * player.constantUpgrades[7] + 3 * (player.antUpgrades[9] + bonusant9) + place) + "]"
 			}
 	
-    		document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions.one, 1) + 1/10 * player.highestchallengecompletions.one + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3/25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(),2,true) + "* EXP per offering sacrificed."
+    		document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1/10 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3/25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(),2,true) + "* EXP per offering sacrificed."
     		document.getElementById("runerecycle").textContent = "You have " +(5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, player.runelevels[3]/40) + 0.5 * player.cubeUpgrades[2])  + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(),2,true) + "!"
 
 		}
@@ -525,7 +545,7 @@ function htmlInserts() {
     	if (runescreen == "talismans"){
 
 			for(var i = 1; i <= 7; i++){
-				document.getElementById('talisman'+i+'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i])
+				document.getElementById('talisman'+i+'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * player.challengecompletions[13])
 			}
 		}
 		
@@ -616,11 +636,11 @@ function buttoncolorchange() {
 		document.getElementById('prestigebtn').style.backgroundColor = "green":
 		document.getElementById('prestigebtn').style.backgroundColor = "#171717";
 
-	(player.toggles.twentyone && player.upgrades[89] > 0.5 && (player.currentChallenge == "")) ?
+	(player.toggles.twentyone && player.upgrades[89] > 0.5 && (player.currentChallenge.transcension === 0)) ?
 		document.getElementById('transcendbtn').style.backgroundColor = "green":
 		document.getElementById('transcendbtn').style.backgroundColor = "#171717";
 
-	(player.toggles.twentyseven && player.researches[46] > 0.5 && (player.currentChallenge == "" && player.currentChallengeRein == "")) ?
+	(player.toggles.twentyseven && player.researches[46] > 0.5 && (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0)) ?
 		document.getElementById('reincarnatebtn').style.backgroundColor = "green":
 		document.getElementById('reincarnatebtn').style.backgroundColor = "#171717";
 
@@ -628,14 +648,18 @@ function buttoncolorchange() {
 		document.getElementById('acceleratorboostbtn').style.backgroundColor = "green":
 		document.getElementById('acceleratorboostbtn').style.backgroundColor = "#171717";
 
-	(player.currentChallenge == "") ?
+	(player.currentChallenge.transcension === 0) ?
 		document.getElementById('challengebtn').style.backgroundColor = "#171717":
 		document.getElementById('challengebtn').style.backgroundColor = "purple";
 
-	(player.currentChallengeRein == "") ?
+	(player.currentChallenge.reincarnation === 0) ?
 		document.getElementById('reincarnatechallengebtn').style.backgroundColor = "#171717":
 		document.getElementById('reincarnatechallengebtn').style.backgroundColor = "purple";
 	
+	(player.currentChallenge.ascension === 0) ?
+	document.getElementById('ascendChallengeBtn').style.backgroundColor = "#171717":
+	document.getElementById('ascendChallengeBtn').style.backgroundColor = "purple";
+
 	if (currentTab == "buildings" && buildingSubTab == "coin"){
 		let a = document.getElementById("buycoin1");
 		let b = document.getElementById("buycoin2");
@@ -689,7 +713,7 @@ function buttoncolorchange() {
 		((!player.toggles.fourteen || player.achievements[106] == 0) && player.prestigePoints.greaterThanOrEqualTo(player.fifthCostDiamonds)) ? e.style.backgroundColor = "#555555" : e.style.backgroundColor = "#171717";
 		let k = 0;
 		k += Math.floor(rune3level/40 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800) * (1 + player.researches[90]/100)) * 100/100
-		if (player.upgrades[73] === 1 && player.currentChallengeRein !== ""){k += 10};
+		if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0){k += 10};
 		(player.achievements[79] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[0] + crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) /2))))) ? f.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
 		(player.achievements[86] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[1] + crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) /2))))) ? g.style.backgroundColor = "purple" : g.style.backgroundColor = "#171717";
 		(player.achievements[93] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[2] + crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) /2))))) ? h.style.backgroundColor = "purple" : h.style.backgroundColor = "#171717";
@@ -770,13 +794,17 @@ function buttoncolorchange() {
 
 function updateChallengeDisplay(){
 	//Sets background colors on load/challenge initiation
-  	let ordinals = [null,'one','two','three','four','five','six','seven','eight','nine','ten']
   	let el = ""
   	for (var k = 1; k <= 10; k++){
-    	el = document.getElementById("challenge"+ordinals[k])
+    	el = document.getElementById("challenge"+k)
     	el.style.backgroundColor = "#171717"
-    	if (player.currentChallenge == ordinals[k]){el.style.backgroundColor = "plum"}
-    	if (player.currentChallengeRein == ordinals[k]){el.style.backgroundColor = "plum"}
+    	if (player.currentChallenge.transcension === k){el.style.backgroundColor = "plum"}
+    	if (player.currentChallenge.reincarnation === k){el.style.backgroundColor = "plum"}
+	}
+	for (var k = 11; k <= 15; k++){
+		el = document.getElementById("challenge"+k)
+		el.style.backgroundColor = "#171717"
+		if (player.currentChallenge.ascension === k){el.style.backgroundColor = "plum"}
 	}
   	//Corrects HTML on retry challenges button
   	if(player.retrychallenges){document.getElementById("retryChallenge").textContent = "Retry Challenges: ON"}

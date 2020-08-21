@@ -456,108 +456,108 @@ function resetachievementcheck(i) {
 
 function challengeachievementcheck(i,auto) {
     var generatorcheck = Math.max(player.upgrades[101] + player.upgrades[102] + player.upgrades[103] + player.upgrades[104] + player.upgrades[105])
-if (i == 'one') {
-    if (player.challengecompletions.one > 0.5) {achievementaward(78)}
-    if (player.challengecompletions.one > 2.5) {achievementaward(79)}
-    if (player.challengecompletions.one > 4.5) {achievementaward(80)}
-    if (player.challengecompletions.one > 9.5) {achievementaward(81)}
-    if (player.challengecompletions.one > 19.5) {achievementaward(82)}
-    if (player.challengecompletions.one > 49.5) {achievementaward(83)}
-    if (player.challengecompletions.one > 74.5) {achievementaward(84)}
+if (i === 1) {
+    if (player.challengecompletions[1] > 0.5) {achievementaward(78)}
+    if (player.challengecompletions[1] > 2.5) {achievementaward(79)}
+    if (player.challengecompletions[1] > 4.5) {achievementaward(80)}
+    if (player.challengecompletions[1] > 9.5) {achievementaward(81)}
+    if (player.challengecompletions[1] > 19.5) {achievementaward(82)}
+    if (player.challengecompletions[1] > 49.5) {achievementaward(83)}
+    if (player.challengecompletions[1] > 74.5) {achievementaward(84)}
 
     if (!auto) {
     if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck == 0){achievementaward(75)}
     }
 }
-if (i == 'two') {
-    if (player.challengecompletions.two > 0.5) {achievementaward(85)}
-    if (player.challengecompletions.two > 2.5) {achievementaward(86)}
-    if (player.challengecompletions.two > 4.5) {achievementaward(87)}
-    if (player.challengecompletions.two > 9.5) {achievementaward(88)}
-    if (player.challengecompletions.two > 19.5) {achievementaward(89)}
-    if (player.challengecompletions.two > 49.5) {achievementaward(90)}
-    if (player.challengecompletions.two > 74.5) {achievementaward(91)}
+if (i === 2) {
+    if (player.challengecompletions[2] > 0.5) {achievementaward(85)}
+    if (player.challengecompletions[2] > 2.5) {achievementaward(86)}
+    if (player.challengecompletions[2] > 4.5) {achievementaward(87)}
+    if (player.challengecompletions[2] > 9.5) {achievementaward(88)}
+    if (player.challengecompletions[2] > 19.5) {achievementaward(89)}
+    if (player.challengecompletions[2] > 49.5) {achievementaward(90)}
+    if (player.challengecompletions[2] > 74.5) {achievementaward(91)}
     if (!auto) {
     if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck == 0){achievementaward(76)}
     }
 }
-if (i == 'three') {
+if (i === 3) {
     if (!auto) {
     if (player.coinsThisTranscension.greaterThanOrEqualTo("1e99999") && generatorcheck == 0){achievementaward(77)}
     }
-    if (player.challengecompletions.three > 0.5) {achievementaward(92)}
-    if (player.challengecompletions.three > 2.5) {achievementaward(93)}
-    if (player.challengecompletions.three > 4.5) {achievementaward(94)}
-    if (player.challengecompletions.three > 9.5) {achievementaward(95)}
-    if (player.challengecompletions.three > 19.5) {achievementaward(96)}
-    if (player.challengecompletions.three > 49.5) {achievementaward(97)}
-    if (player.challengecompletions.three > 74.5) {achievementaward(98)}
+    if (player.challengecompletions[3] > 0.5) {achievementaward(92)}
+    if (player.challengecompletions[3] > 2.5) {achievementaward(93)}
+    if (player.challengecompletions[3] > 4.5) {achievementaward(94)}
+    if (player.challengecompletions[3] > 9.5) {achievementaward(95)}
+    if (player.challengecompletions[3] > 19.5) {achievementaward(96)}
+    if (player.challengecompletions[3] > 49.5) {achievementaward(97)}
+    if (player.challengecompletions[3] > 74.5) {achievementaward(98)}
 }
-if (i == 'four') {
-    if (player.challengecompletions.four > 0.5) {achievementaward(99)}
-    if (player.challengecompletions.four > 2.5) {achievementaward(100)}
-    if (player.challengecompletions.four > 4.5) {achievementaward(101)}
-    if (player.challengecompletions.four > 9.5) {achievementaward(102)}
-    if (player.challengecompletions.four > 19.5) {achievementaward(103)}
-    if (player.challengecompletions.four > 49.5) {achievementaward(104)}
-    if (player.challengecompletions.four > 74.5) {achievementaward(105)}
+if (i === 4) {
+    if (player.challengecompletions[4] > 0.5) {achievementaward(99)}
+    if (player.challengecompletions[4] > 2.5) {achievementaward(100)}
+    if (player.challengecompletions[4] > 4.5) {achievementaward(101)}
+    if (player.challengecompletions[4] > 9.5) {achievementaward(102)}
+    if (player.challengecompletions[4] > 19.5) {achievementaward(103)}
+    if (player.challengecompletions[4] > 49.5) {achievementaward(104)}
+    if (player.challengecompletions[4] > 74.5) {achievementaward(105)}
 }
-if (i == 'five') {
+if (i === 5) {
     if (!auto) {
     if (player.coinsThisTranscension.greaterThanOrEqualTo("1e120000")) {achievementaward(63)}
     }
-    if (player.challengecompletions.five > 0.5) {achievementaward(106)}
-    if (player.challengecompletions.five > 2.5) {achievementaward(107)}
-    if (player.challengecompletions.five > 4.5) {achievementaward(108)}
-    if (player.challengecompletions.five > 9.5) {achievementaward(109)}
-    if (player.challengecompletions.five > 19.5) {achievementaward(110)}
-    if (player.challengecompletions.five > 49.5) {achievementaward(111)}
-    if (player.challengecompletions.five > 74.5) {achievementaward(112)}
+    if (player.challengecompletions[5] > 0.5) {achievementaward(106)}
+    if (player.challengecompletions[5] > 2.5) {achievementaward(107)}
+    if (player.challengecompletions[5] > 4.5) {achievementaward(108)}
+    if (player.challengecompletions[5] > 9.5) {achievementaward(109)}
+    if (player.challengecompletions[5] > 19.5) {achievementaward(110)}
+    if (player.challengecompletions[5] > 49.5) {achievementaward(111)}
+    if (player.challengecompletions[5] > 74.5) {achievementaward(112)}
 }
-if (i == 'six') {
-    if (player.challengecompletions.six > 0.5) {achievementaward(113)}
-    if (player.challengecompletions.six > 1.5) {achievementaward(114)}
-    if (player.challengecompletions.six > 2.5) {achievementaward(115)}
-    if (player.challengecompletions.six > 4.5) {achievementaward(116)}
-    if (player.challengecompletions.six > 9.5) {achievementaward(117)}
-    if (player.challengecompletions.six > 14.5) {achievementaward(118)}
-    if (player.challengecompletions.six > 24.5) {achievementaward(119)}
+if (i === 6) {
+    if (player.challengecompletions[6] > 0.5) {achievementaward(113)}
+    if (player.challengecompletions[6] > 1.5) {achievementaward(114)}
+    if (player.challengecompletions[6] > 2.5) {achievementaward(115)}
+    if (player.challengecompletions[6] > 4.5) {achievementaward(116)}
+    if (player.challengecompletions[6] > 9.5) {achievementaward(117)}
+    if (player.challengecompletions[6] > 14.5) {achievementaward(118)}
+    if (player.challengecompletions[6] > 24.5) {achievementaward(119)}
 }
-if (i == 'seven') {
-    if (player.challengecompletions.seven > 0.5) {achievementaward(120)}
-    if (player.challengecompletions.seven > 1.5) {achievementaward(121)}
-    if (player.challengecompletions.seven > 2.5) {achievementaward(122)}
-    if (player.challengecompletions.seven > 4.5) {achievementaward(123)}
-    if (player.challengecompletions.seven > 9.5) {achievementaward(124)}
-    if (player.challengecompletions.seven > 14.5) {achievementaward(125)}
-    if (player.challengecompletions.seven > 24.5) {achievementaward(126)}
+if (i === 7) {
+    if (player.challengecompletions[7] > 0.5) {achievementaward(120)}
+    if (player.challengecompletions[7] > 1.5) {achievementaward(121)}
+    if (player.challengecompletions[7] > 2.5) {achievementaward(122)}
+    if (player.challengecompletions[7] > 4.5) {achievementaward(123)}
+    if (player.challengecompletions[7] > 9.5) {achievementaward(124)}
+    if (player.challengecompletions[7] > 14.5) {achievementaward(125)}
+    if (player.challengecompletions[7] > 24.5) {achievementaward(126)}
 }
-if (i == 'eight') {
-    if (player.challengecompletions.eight > 0.5) {achievementaward(127)}
-    if (player.challengecompletions.eight > 1.5) {achievementaward(128)}
-    if (player.challengecompletions.eight > 2.5) {achievementaward(129)}
-    if (player.challengecompletions.eight > 4.5) {achievementaward(130)}
-    if (player.challengecompletions.eight > 9.5) {achievementaward(131)}
-    if (player.challengecompletions.eight > 19.5) {achievementaward(132)}
-    if (player.challengecompletions.eight > 24.5) {achievementaward(133)}
+if (i === 8) {
+    if (player.challengecompletions[8] > 0.5) {achievementaward(127)}
+    if (player.challengecompletions[8] > 1.5) {achievementaward(128)}
+    if (player.challengecompletions[8] > 2.5) {achievementaward(129)}
+    if (player.challengecompletions[8] > 4.5) {achievementaward(130)}
+    if (player.challengecompletions[8] > 9.5) {achievementaward(131)}
+    if (player.challengecompletions[8] > 19.5) {achievementaward(132)}
+    if (player.challengecompletions[8] > 24.5) {achievementaward(133)}
 }
-if (i == 'nine') {
-    if (player.challengecompletions.nine > 0.5) {achievementaward(134)}
-    if (player.challengecompletions.nine > 1.5) {achievementaward(135)}
-    if (player.challengecompletions.nine > 2.5) {achievementaward(136)}
-    if (player.challengecompletions.nine > 4.5) {achievementaward(137)}
-    if (player.challengecompletions.nine > 9.5) {achievementaward(138)}
-    if (player.challengecompletions.nine > 19.5) {achievementaward(139)}
-    if (player.challengecompletions.nine > 24.5) {achievementaward(140)}
+if (i === 9) {
+    if (player.challengecompletions[9] > 0.5) {achievementaward(134)}
+    if (player.challengecompletions[9] > 1.5) {achievementaward(135)}
+    if (player.challengecompletions[9] > 2.5) {achievementaward(136)}
+    if (player.challengecompletions[9] > 4.5) {achievementaward(137)}
+    if (player.challengecompletions[9] > 9.5) {achievementaward(138)}
+    if (player.challengecompletions[9] > 19.5) {achievementaward(139)}
+    if (player.challengecompletions[9] > 24.5) {achievementaward(140)}
 }
-if (i == 'ten') {
-    if (player.challengecompletions.ten > 0.5) {achievementaward(141)}
-    if (player.challengecompletions.ten > 1.5) {achievementaward(142)}
-    if (player.challengecompletions.ten > 2.5) {achievementaward(143)}
-    if (player.challengecompletions.ten > 4.5) {achievementaward(144)}
-    if (player.challengecompletions.ten > 9.5) {achievementaward(145)}
-    if (player.challengecompletions.ten > 19.5) {achievementaward(146)}
-    if (player.challengecompletions.ten > 24.5) {achievementaward(147)}
+if (i === 10) {
+    if (player.challengecompletions[10] > 0.5) {achievementaward(141)}
+    if (player.challengecompletions[10] > 1.5) {achievementaward(142)}
+    if (player.challengecompletions[10] > 2.5) {achievementaward(143)}
+    if (player.challengecompletions[10] > 4.5) {achievementaward(144)}
+    if (player.challengecompletions[10] > 9.5) {achievementaward(145)}
+    if (player.challengecompletions[10] > 19.5) {achievementaward(146)}
+    if (player.challengecompletions[10] > 24.5) {achievementaward(147)}
 }
 }
 

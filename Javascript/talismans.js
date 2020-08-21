@@ -333,7 +333,7 @@ function buyTalismanLevels(i){
     if(player.talismanLevels[i] >= 120){priceMult *= (player.talismanLevels[i] - 90)/30}
     if(player.talismanLevels[i] >= 150){priceMult *= (player.talismanLevels[i] - 120)/30}
 
-    if(player.talismanLevels[i] < (player.talismanRarity[i] * 30)){
+    if(player.talismanLevels[i] < (player.talismanRarity[i] * 30 + 6 * player.challengecompletions[13])){
     if(player.talismanShards >= priceMult * Math.max(0, Math.floor(1 + 1/8 * Math.pow(player.talismanLevels[i],3)))){checkSum++};
     if(player.commonFragments >= priceMult * Math.max(0, Math.floor(1 + 1/32 * Math.pow(player.talismanLevels[i] - 30,3)))){checkSum++};
     if(player.uncommonFragments >= priceMult * Math.max(0, Math.floor(1 + 1/384 * Math.pow(player.talismanLevels[i] - 60,3)))){checkSum++};

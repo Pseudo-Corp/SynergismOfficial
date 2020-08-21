@@ -161,26 +161,7 @@ var researchfiller2 = "Level: "
 var ordinals = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"]
 var cardinals = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour", "twentyfive", "twentysix", "twentyseven", "twentyeight", "twentynine", "thirty", "thirtyone", "thirtytwo", "thirtythree", "thirtyfour"]
 
-var challengebaserequirements = {
-	one: 10,
-	two: 20,
-	three: 60,
-	four: 100,
-	five: 200,
-	six: 1000,
-	seven: 1000,
-	eight: 1000,
-	nine: 1000,
-	ten: 1000,
-}
-
-var challengebaserequirementsrein = {
-	six: 125,
-	seven: 500,
-	eight: 10000,
-	nine: 2.5e8,
-	ten: 4e9,
-}
+var challengeBaseRequirements = [null, 10, 20, 60, 100, 200, 125, 500, 10000, 2.5e8, 4e9]
 
 var prestigeamount = 1;
 var taxdivisor = new Decimal("1");
