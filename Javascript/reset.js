@@ -168,15 +168,16 @@ function updateAutoReset(i) {
 }
 
 
-function reset(i,fast) {
+function reset(i,fast,from) {
     fast = fast || false
+    from = from || "unknown"
 
     let historyEntry = {};
     let historyKind = "prestige";
     let historyCategory = "reset";
-    // By default, we don't log history entries when the player is in or entering a challenge, but we handle some
+    // By default, we don't log history entries when the player is entering or leaving a challenge, but we handle some
     // special cases down below. This keeps the logs clean when someone in lategame runs 30 challenges in a row.
-    let historyUse = Object.values(player.currentChallenge).reduce((v, c) => v + c) === 0;
+    let historyUse = from !== "enterChallenge" && from !== "leaveChallenge";
 
     historyEntry.offerings = calculateOfferings(i)
     historyEntry.seconds = player.prestigecounter;

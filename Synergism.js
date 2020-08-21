@@ -1889,7 +1889,7 @@ function resetCheck(i,manual) {
 
 			
 			challengeachievementcheck(q);
-			reset(2);
+			reset(2, false, "leaveChallenge");
 			player.transcendCount -= 1;
 			}
 			if (!player.retrychallenges || manual  || player.challengecompletions[q] >= (25 + 5 * player.researches[x] + 925 * player.researches[105])) {
@@ -1927,7 +1927,7 @@ function resetCheck(i,manual) {
 				}
 			}
 		challengeDisplay(q,true)
-		reset(3);
+		reset(3, false, "leaveChallenge");
 		challengeachievementcheck(q);
 		player.reincarnationCount -= 1;
 		if (player.challengecompletions[q] > player.highestchallengecompletions[q]){

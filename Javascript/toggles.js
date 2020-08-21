@@ -14,17 +14,17 @@ function toggleSettings(i) {
 function toggleChallenges(i) {
 if (player.currentChallenge.transcension === 0 && (i <= 5)) {
     player.currentChallenge.transcension = i;
-    reset(2);
+    reset(2, false, "enterChallenge");
     player.transcendCount -= 1;
 }
 if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)) {
     player.currentChallenge.reincarnation = i;
-    reset(3);
+    reset(3, false, "enterChallenge");
     player.reincarnationCount -= 1;
 }
 if((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)){
     player.currentChallenge.ascension = i;
-    reset(4);
+    reset(4, false, "enterChallenge");
     player.ascensionCount -= 1;
 }
 
