@@ -1218,7 +1218,7 @@ function formatTimeShort(seconds, msMaxSeconds) {
 			: '') +
 		format(Math.floor(seconds) % 60) +
 		((msMaxSeconds && seconds < msMaxSeconds)
-			? "." + format(Math.floor((seconds % 1) * 1000))
+			? "." + (Math.floor((seconds % 1) * 1000).toString().padStart(3, '0'))
 			: '') + "s";
 }
 
