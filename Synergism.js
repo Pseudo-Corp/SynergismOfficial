@@ -1164,7 +1164,7 @@ function format(input,accuracy,long){
 	}
 }
 
-function formatTimeShort(seconds) {
+function formatTimeShort(seconds, msMaxSeconds) {
 	return ((seconds >= 86400)
 		? format(Math.floor(seconds / 86400)) + "d"
 		: '') +
@@ -1174,7 +1174,10 @@ function formatTimeShort(seconds) {
 		((seconds >= 60)
 			? format(Math.floor(seconds/60) % 60) + "m"
 			: '') +
-		format(Math.floor(seconds) % 60) + "s";
+		format(Math.floor(seconds) % 60) +
+		((msMaxSeconds && seconds < msMaxSeconds)
+			? "." + format(Math.floor((seconds % 1) * 1000))
+			: '') + "s";
 }
 
 function updateCubesPerSec() {
