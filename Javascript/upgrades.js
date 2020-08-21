@@ -204,7 +204,7 @@ function() { return "Look above!"},
 function() { return "Look above!"},
 function() { return "Look above!"},
 function() { return "+5% Offering Recycle/+5EXP per Offerings. Duh!"},
-function() { return "Base offering amount for Reincarnations +" + Math.floor(1/5 * (player.challengecompletions.one + player.challengecompletions.two + player.challengecompletions.three + player.challengecompletions.four + player.challengecompletions.five + player.challengecompletions.six + player.challengecompletions.seven + player.challengecompletions.eight)) + ". Challenge yourself!"},
+function() { return "Base offering amount for Reincarnations +" + Math.floor(1/5 * (sumContents(player.challengecompletions))) + ". Challenge yourself!"},
 function() { return "All crystal production x" + format(Decimal.min("1e6000", Decimal.pow(player.reincarnationPoints.add(1),6)))},
 function() { return "All mythos shard production x" + format(Decimal.pow(player.reincarnationPoints.add(1),2))},
 function() { return "5x Particle gain from Reincarnations. Duh!"},
@@ -214,7 +214,7 @@ function() { return "Your compliance with tax laws provides you with " + format(
 function() { return "Cosmic Magnetics will allow you to gain " + format(Math.min(10, Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5)),2) + "x as much Obtainium reincarnating, x" + format(Math.min(3,Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5)),2) + " automation gain."},
 function() { return "Your patience will allow you to gain " + format(Math.min(4, Math.max(1, Math.pow(player.reincarnationcounter/30,2))) * Math.pow(Math.min(19 + player.shopUpgrades.obtainiumTimerLevel * 0.6, 1 + player.reincarnationcounter / 200),2),2) + "x more Obtainium on Reincarnation."},
 function() { return "Writing's on the wall. Look above!"},
-function() { return "Obtainium multiplier: x" + Math.min(50, (1 + 2 * player.challengecompletions.six + 2 * player.challengecompletions.seven + 2 * player.challengecompletions.eight + 2 * player.challengecompletions.nine + 2 * player.challengecompletions.ten))},
+function() { return "Obtainium multiplier: x" + Math.min(50, (1 + 2 * player.challengecompletions[6] + 2 * player.challengecompletions[7] + 2 * player.challengecompletions[8] + 2 * player.challengecompletions[9] + 2 * player.challengecompletions[10]))},
 function() { return "Same as Transcend upgrade 10, except you MUST be in a Reincarnation challenge in particular."},
 function() { return "Obtainium multiplier: x" + format((1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5))),2)},
 function() { return "Offering Multiplier: x" + format((1 + 2 * Math.min(1, Math.pow(player.maxobtainium/30000000, 0.5))),2)},
@@ -267,7 +267,7 @@ function() { return "-50% Taxes duh!"},
 function() { return "+88% cap to Crystal Upgrade 3, duh!"},
 function() { return "Coin Production ^1.025, duh!"},
 function() { return "+3% Effective Ant ELO, duh!"},
-function() { return "+"+format(2 * player.challengecompletions.ten,0)+"% more Uncommon fragments!"},
+function() { return "+"+format(2 * player.challengecompletions[10],0)+"% more Uncommon fragments!"},
 
 ]
     function upgradeeffects(i) {
@@ -331,7 +331,7 @@ function crystalupgradedescriptions(i) {
     var u = i - 1
     var p = player.crystalUpgrades[u]
     var c = 0;
-    if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== "") {c = 10}
+    if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {c = 10}
     c += Math.floor(rune3level * (1 + player.researches[5] / 10) * (1 + player.researches[21]/800) * (1 + player.researches[90]/100) / 40) * 100/100
     var q = Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 - c, 2) / 2)))
     document.getElementById("crystalupgradedescription").textContent = w
@@ -492,6 +492,9 @@ var resdesc124 = "[5x24] Unlock the automator for Ant Sacrifice! [Good luck buyi
 var resdesc125 = "[5x25] Good luck, buddy. [+1 Export Quark/hour]"
 function researchdescriptions(i,auto) {
     auto = auto || false
+    var c14 = 0;
+    if(i <= 5){c14 += player.challengecompletions[14]}
+
     var x = "resdesc" + i
     var y = window[x]
     var z = ""
@@ -504,16 +507,16 @@ function researchdescriptions(i,auto) {
     else {document.getElementById("researchcost").style.color = "limegreen"
           document.getElementById("researchinfo3").style.color = "white"}
     
-    if (player.researchPoints < researchBaseCosts[i] && player.researches[i] < researchMaxLevels[i]){document.getElementById("researchcost").style.color = "crimson"}
+    if (player.researchPoints < researchBaseCosts[i] && player.researches[i] < (researchMaxLevels[i] + c14)){document.getElementById("researchcost").style.color = "crimson"}
 
     if (!auto && !player.autoResearchToggle){
-    if (player.researches[i] > 0.5 && player.researches[i] < researchMaxLevels[i]) {document.getElementById(p).style.backgroundColor = "purple"}
+    if (player.researches[i] > 0.5 && player.researches[i] < (researchMaxLevels[i] + c14)) {document.getElementById(p).style.backgroundColor = "purple"}
     }
-    if (player.researches[i] > 0.5 && player.researches[i] >= researchMaxLevels[i]) {document.getElementById(p).style.backgroundColor = "green"}
+    if (player.researches[i] > 0.5 && player.researches[i] >= (researchMaxLevels[i] + c14)) {document.getElementById(p).style.backgroundColor = "green"}
     
     document.getElementById("researchinfo2").textContent = y
     document.getElementById("researchcost").textContent = z
-    document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + researchMaxLevels[i]
+    document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + (researchMaxLevels[i] + c14)
 }
 
 function updateResearchBG(j) {

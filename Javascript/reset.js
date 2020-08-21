@@ -12,23 +12,7 @@ function resetdetails(i) {
 
     document.getElementById("resetofferings1").src = "Pictures/Offering.png"
 
-
-    if (player.currentChallenge == "one") {
-        r = 1
-    }
-    if (player.currentChallenge == "two") {
-        r = 2
-    }
-    if (player.currentChallenge == "three") {
-        r = 3
-    }
-    if (player.currentChallenge == "four") {
-        r = 4
-    }
-    if (player.currentChallenge == "five") {
-        r = 5
-    }
-
+    if(player.currentChallenge.transcension !== 0){r = player.currentChallenge.transcension}
 
     document.getElementById("resetofferings1").style.display = "block"
     document.getElementById("resetofferings2").style.display = "block"
@@ -66,18 +50,18 @@ function resetdetails(i) {
         }
     }
     if (i == 3) {
-        var s = player.currentChallenge
+        var s = player.currentChallenge.transcension
         color = 'red'
         document.getElementById("resetobtainium").src = ""
         document.getElementById("resetcurrency1").src = ""
         document.getElementById("resetcurrency2").textContent = ""
         document.getElementById("resetobtainium2").textContent = ""
         offering = calculateOfferings(2)
-        if (player.currentChallenge !== "") {
+        if (player.currentChallenge.transcension !== 0) {
             document.getElementById("resetinfo").style.color = "aquamarine"
-            document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + format(player.coinsThisTranscension) + "/" + format(Decimal.pow(10, challengebaserequirements[s] * Math.pow(1 + player.challengecompletions[s], 2) * Math.pow(1.5, Math.max(0,player.challengecompletions[s]-75)))) + " Coins. TIME SPENT: " + format(player.transcendcounter) + " seconds."
+            document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + format(player.coinsThisTranscension) + "/" + format(Decimal.pow(10, challengeBaseRequirements[s] * Math.pow(1 + player.challengecompletions[s], 2) * Math.pow(1.5, Math.max(0,player.challengecompletions[s]-75)))) + " Coins. TIME SPENT: " + format(player.transcendcounter) + " seconds."
         }
-        if (player.currentChallenge == "") {
+        if (player.currentChallenge.transcension === 0) {
             document.getElementById("resetinfo").textContent = "You're not in a challenge right now. Get in one before you can leave it, duh!"
             document.getElementById("resetinfo").style.color = "crimson"
         }
@@ -112,10 +96,10 @@ function resetdetails(i) {
         document.getElementById("resetinfo").style.color = "cyan"
     }
     if (i == 6) {
-        var s = player.currentChallengeRein
+        var s = player.currentChallenge.reincarnation
         let goal = "transcendShards";
         let goaldesc = " Mythos Shards"
-        if (player.currentChallengeRein == "nine" || player.currentChallengeRein == "ten"){goal = "coins"; goaldesc = " Coins"}
+        if (player.currentChallenge.reincarnation >= 9){goal = "coins"; goaldesc = " Coins"}
         color = 'red'
         offering = calculateOfferings(3)
         document.getElementById("resetobtainium").src = ""
@@ -123,12 +107,12 @@ function resetdetails(i) {
         document.getElementById("resetcurrency2").textContent = ""
         document.getElementById("resetobtainium2").textContent = ""
         document.getElementById("resetinfo").style.color = "silver"
-        if (player.currentChallengeRein !== "") {
+        if (player.currentChallenge.reincarnation !== 0) {
  
             document.getElementById("resetinfo").style.color = "silver"
-            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + format(player[goal]) + "/" + format(Decimal.pow(10, challengebaserequirementsrein[s] * Math.min(Math.pow(1.3797, player.challengecompletions[s]),Math.pow(1 + player.challengecompletions[s], 2)))) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."
+            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + format(player[goal]) + "/" + format(Decimal.pow(10, challengeBaseRequirements[s] * Math.min(Math.pow(1.3797, player.challengecompletions[s]),Math.pow(1 + player.challengecompletions[s], 2)))) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."
         }
-        if (player.currentChallengeRein == "") {
+        if (player.currentChallenge.reincarnation === 0) {
             document.getElementById("resetinfo").textContent = "You're not in a reincarnation challenge right now. Why would you need to leave it?"
             document.getElementById("resetinfo").style.color = "crimson"
         }
@@ -144,6 +128,18 @@ function resetdetails(i) {
         document.getElementById("resetinfo").style.color = "gold"
         document.getElementById("resetinfo").textContent = "Ascend. 10x1 is required! +"+format(250*calculateCubeMultiplier(),0,true)+" Wow cubes for doing it (i will add more later lol!) Time: " + format(player.ascensionCounter,0,false) + " Seconds."
 
+    }
+
+    if (i == 8){
+        document.getElementById("resetofferings1").style.display = "none"
+        document.getElementById("resetofferings2").style.display = "none"
+        offering = 0
+        document.getElementById("resetobtainium").src = ""
+        document.getElementById("resetcurrency1").src = ""
+        document.getElementById("resetcurrency2").textContent = ""
+        document.getElementById("resetobtainium2").textContent = ""
+        document.getElementById("resetinfo").style.color = "gold"
+        document.getElementById("resetinfo").textContent = "Click this if you're in an Ascension Challenge and want to leave. You get it already!"
     }
 
 
@@ -288,7 +284,7 @@ function reset(i,fast) {
             player.upgrades[87] = 1
         }
 
-        if (player.transcendcounter < player.fastesttranscend && player.currentChallenge == "") {
+        if (player.transcendcounter < player.fastesttranscend && player.currentChallenge.transcension === 0) {
             player.fastesttranscend = player.transcendcounter;
         }
 
@@ -329,25 +325,18 @@ function reset(i,fast) {
         player.transcendPoints = new Decimal("0");
         player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain);
         player.reincarnationShards = new Decimal("0");
-        player.challengecompletions = {
-            one: 0,
-            two: 0,
-            three: 0,
-            four: 0,
-            five: 0,
-            six: player.challengecompletions.six,
-            seven: player.challengecompletions.seven,
-            eight: player.challengecompletions.eight,
-            nine: player.challengecompletions.nine,
-            ten: player.challengecompletions.ten
-        }
+        player.challengecompletions[1] = 0;
+        player.challengecompletions[2] = 0;
+        player.challengecompletions[3] = 0;
+        player.challengecompletions[4] = 0;
+        player.challengecompletions[5] = 0;
 
-        if (player.shopUpgrades.instantChallengeBought && player.currentChallengeRein == ""){
-            player.challengecompletions.one = player.highestchallengecompletions.one
-            player.challengecompletions.two = player.highestchallengecompletions.two
-            player.challengecompletions.three = player.highestchallengecompletions.three
-            player.challengecompletions.four = player.highestchallengecompletions.four
-            player.challengecompletions.five = player.highestchallengecompletions.five
+        if (player.shopUpgrades.instantChallengeBought && player.currentChallenge.reincarnation !== 0){
+            player.challengecompletions[1] = player.highestchallengecompletions[1]
+            player.challengecompletions[2] = player.highestchallengecompletions[2]
+            player.challengecompletions[3] = player.highestchallengecompletions[3]
+            player.challengecompletions[4] = player.highestchallengecompletions[4]
+            player.challengecompletions[5] = player.highestchallengecompletions[5]
 
         }
 
@@ -358,7 +347,7 @@ function reset(i,fast) {
         player.reincarnatenoaccelerator = true;
         player.reincarnatenomultiplier = true;
 
-        if (player.reincarnationcounter < player.fastestreincarnate && player.currentChallengeRein == "") {
+        if (player.reincarnationcounter < player.fastestreincarnate && player.currentChallenge.reincarnation === 0) {
             player.fastestreincarnate = player.reincarnationcounter;
         }
         if (player.ascensionCount > 0){
@@ -428,8 +417,9 @@ function reset(i,fast) {
     player.fifthOwnedParticles = 1;
     }
 
+    if(player.currentChallenge.ascension !== 14){
     player.researchPoints = 1000 * player.cubeUpgrades[28]
-    
+    }
     player.researches[65] = Math.min(5, player.cubeUpgrades[42])
     player.researches[76] = player.cubeUpgrades[42]
     player.researches[81] = player.cubeUpgrades[43]
@@ -438,31 +428,14 @@ function reset(i,fast) {
 
     if(player.cubeUpgrades[48] > 0){player.firstOwnedAnts += 1}
 
-    player.challengecompletions = {
-        one: 0,
-        two: 0,
-        three: 0,
-        four: 0,
-        five: 0,
-        six: player.cubeUpgrades[49],
-        seven: player.cubeUpgrades[49],
-        eight: player.cubeUpgrades[49],
-        nine: 0,
-        ten: 0
+    for(var j = 1; j <= 10; j++){
+    player.challengecompletions[j] = 0;
+    player.highestchallengecompletions[j] = 0;
     }
 
-    player.highestchallengecompletions = {
-        one: 0,
-        two: 0,
-        three: 0,
-        four: 0,
-        five: 0,
-        six: player.cubeUpgrades[49],
-        seven: player.cubeUpgrades[49],
-        eight: player.cubeUpgrades[49],
-        nine: 0,
-        ten: 0
-    }
+    player.challengecompletions[6] = player.highestchallengecompletions[6] = player.cubeUpgrades[49]
+    player.challengecompletions[7] = player.highestchallengecompletions[7] = player.cubeUpgrades[49]
+    player.challengecompletions[8] = player.highestchallengecompletions[8] = player.cubeUpgrades[49]
 
     player.roombaResearchIndex = 1;
     player.autoResearch = 1;
@@ -650,7 +623,7 @@ function resetUpgrades(i, fast) {
 
         var m = 0;
         m += Math.floor(rune3level * effectiveLevelMult / 40) * 100 / 100
-        if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== "") {
+        if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
             m += 10
         }
         player.crystalUpgrades = [m, m, m, m, m, m, m, m]
@@ -702,6 +675,8 @@ function resetAnts(){
     let ant12 = player.antUpgrades[12];
     player.antUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ant12];
     player.antPoints = new Decimal("1");
+
+    if(player.currentChallenge.ascension === 12){player.antPoints = new Decimal("3")}
 
     calculateAnts();
     calculateRuneLevels();

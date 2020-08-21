@@ -163,8 +163,8 @@ a {color: white;}
 }
 #resetrewards {
 	position: absolute;
-	top: -8.6px;
-	left: 250px;
+	top: -10px;
+	left: 288px;
 }
 
 #tabrow {
@@ -3050,7 +3050,7 @@ margin-left: -13px
 	font-size: 0;
 	padding: 0px;
 	top: 50px;
-	margin-left: -342px;
+	margin-left: -510px;
 	left: 50%;
 }
 #challengeDetails {

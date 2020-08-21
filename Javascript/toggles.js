@@ -12,15 +12,20 @@ function toggleSettings(i) {
 }
 
 function toggleChallenges(i) {
-if (player.currentChallenge == "" && (i == 'one' || i == 'two' || i == 'three' || i == 'four' || i == 'five')) {
-    player.currentChallenge = i;
+if (player.currentChallenge.transcension === 0 && (i <= 5)) {
+    player.currentChallenge.transcension = i;
     reset(2);
     player.transcendCount -= 1;
 }
-if (player.currentChallenge == "" && (i == 'six' || i == 'seven' || i == 'eight' || i == 'nine' || i== 'ten') && player.currentChallengeRein == "") {
-    player.currentChallengeRein = i;
+if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)) {
+    player.currentChallenge.reincarnation = i;
     reset(3);
     player.reincarnationCount -= 1;
+}
+if((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)){
+    player.currentChallenge.ascension = i;
+    reset(4);
+    player.ascensionCount -= 1;
 }
 
 	updateChallengeDisplay();
@@ -78,7 +83,7 @@ if (player.unlocks.coinfour == true) {q += 1}
 if (player.unlocks.prestige == true) {q += 1}
 if (player.unlocks.transcend == true) {q += 1}
 if (player.unlocks.reincarnate == true) {q += 1}
-if (player.challengecompletions.eight > 0) {q += 1}
+if (player.challengecompletions[8] > 0) {q += 1}
 player.tabnumber += i
 if (player.tabnumber == q) {player.tabnumber = 1}
 if (player.tabnumber == 0) {player.tabnumber = q - 1}

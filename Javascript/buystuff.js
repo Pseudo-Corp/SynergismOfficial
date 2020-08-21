@@ -2,7 +2,7 @@ function getReductionValue() {
 	let reduction = 1;
 	reduction += 1/400 * rune4level * effectiveLevelMult;
 	reduction += 1/200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]);
-	reduction += 1/200 * player.challengecompletions.four;
+	reduction += 1/200 * player.challengecompletions[4];
 	reduction += 3/100 * (player.antUpgrades[7] + bonusant7);
 	return reduction;
 }
@@ -15,28 +15,28 @@ function getCostAccelerator(buyingTo) {
 
 	cost = cost.times(Decimal.pow(4 / costDivisor, buyingTo));
 
-	if (buyingTo > (125 + 5 * player.challengecompletions.four))
+	if (buyingTo > (125 + 5 * player.challengecompletions[4]))
 	{
-		let num = buyingTo - 125 - 5 * player.challengecompletions.four;
+		let num = buyingTo - 125 - 5 * player.challengecompletions[4];
 		let factorialBit = new Decimal(num).factorial();
 		let multBit = Decimal.pow(4, num);
 		cost = cost.times(multBit.times(factorialBit));
 	}
 
-	if (buyingTo > (2000 + 5 * player.challengecompletions.four))
+	if (buyingTo > (2000 + 5 * player.challengecompletions[4]))
 	{
-		let sumNum = buyingTo - 2000 - 5 * player.challengecompletions.four;
+		let sumNum = buyingTo - 2000 - 5 * player.challengecompletions[4];
 		let sumBit = sumNum * (sumNum + 1) / 2
 		cost = cost.times(Decimal.pow(2, sumBit));
 	}
 
-	if (player.currentChallenge === "four")
+	if (player.currentChallenge.transcension === 4)
 	{
 		let sumBit = buyingTo * (buyingTo + 1) / 2;
 		cost = cost.times(Decimal.pow(10, sumBit));
 	}
 
-	if (player.currentChallengeRein === "eight")
+	if (player.currentChallenge.reincarnation === 8)
 	{
 		let sumBit = buyingTo * (buyingTo + 1) / 2;
 		cost = cost.times(Decimal.pow(1e50, sumBit));
@@ -109,25 +109,25 @@ function getCostMultiplier(buyingTo)
 	let cost = new Decimal(originalCost);
 	cost = cost.times(Decimal.pow(10, buyingTo / costDivisor));
 
-	if (buyingTo > (75 + 2 * player.challengecompletions.four))
+	if (buyingTo > (75 + 2 * player.challengecompletions[4]))
 	{
-		let num = buyingTo - 75 - 2 * player.challengecompletions.four;
+		let num = buyingTo - 75 - 2 * player.challengecompletions[4];
 		let factorialBit = new Decimal(num).factorial();
 		let powBit = Decimal.pow(10, num);
 		cost = cost.times(factorialBit.times(powBit));
 	}
-	if (buyingTo > (2000 + 2 * player.challengecompletions.four))
+	if (buyingTo > (2000 + 2 * player.challengecompletions[4]))
 	{
-		let sumNum = buyingTo - 2000 - 2 * player.challengecompletions.four;
+		let sumNum = buyingTo - 2000 - 2 * player.challengecompletions[4];
 		let sumBit = sumNum * (sumNum + 1) / 2;
 		cost = cost.times(Decimal.pow(2, sumBit));
 	}
-	if (player.currentChallenge === "four")
+	if (player.currentChallenge.transcension === 4)
 	{
 		let sumBit = buyingTo * (buyingTo + 1) / 2;
 		cost = cost.times(Decimal.pow(10, sumBit));
 	}
-	if (player.currentChallengeRein === "eight")
+	if (player.currentChallenge.reincarnation === 8)
 	{
 		let sumBit = buyingTo * (buyingTo + 1) / 2;
 		cost = cost.times(Decimal.pow(1e50, sumBit));
@@ -247,34 +247,34 @@ function buyMultiplier(autobuyer){
 			// god damn that was hard to make an algo for
 			cost = cost.times(Decimal.pow(1.03, (buyingTo - fr) * ((buyingTo - fr + 1) / 2)));
 		}
-		if ((player.currentChallenge == "four") && (type == "Coin" || type == "Diamonds")) {
+		if ((player.currentChallenge.transcension === 4) && (type == "Coin" || type == "Diamonds")) {
 			// you would not fucking believe how long it took me to figure this out
 			// (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-			cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(new Decimal(100).factorial()).times(Decimal.pow(100, buyingTo)), 1.25 + 1/4 * player.challengecompletions.four));
-			if (buyingTo >= (1000 - (10 * player.challengecompletions.four))) {
+			cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(new Decimal(100).factorial()).times(Decimal.pow(100, buyingTo)), 1.25 + 1/4 * player.challengecompletions[4]));
+			if (buyingTo >= (1000 - (10 * player.challengecompletions[4]))) {
 				// and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo 
 				cost = cost.times(Decimal.pow(1.25, (buyingTo * (buyingTo + 1) / 2)));
 			}
 		}
-		if ((player.currentChallengeRein == "ten") && (type == "Coin" || type == "Diamonds")) {
+		if ((player.currentChallenge.reincarnation === 10) && (type == "Coin" || type == "Diamonds")) {
 			// you would not fucking believe how long it took me to figure this out
 			// (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-			cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(new Decimal(100).factorial()).times(Decimal.pow(100, buyingTo)), 1.25 + 1/4 * player.challengecompletions.four));
+			cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(new Decimal(100).factorial()).times(Decimal.pow(100, buyingTo)), 1.25 + 1/4 * player.challengecompletions[4]));
 			if (buyingTo >= (r * 25000)) {
 				// and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo 
 				cost = cost.times(Decimal.pow(1.25, (buyingTo * (buyingTo + 1) / 2)));
 			}
 		}
-		fr = Math.floor(r * 1000 * player.challengecompletions.eight);
-		  if (player.currentChallengeRein == "eight" && (type == "Coin" || type == "Diamonds" || type == "Mythos") && buyingTo >= (1000 * player.challengecompletions.eight * r)){
+		fr = Math.floor(r * 1000 * player.challengecompletions[8]);
+		  if (player.currentChallenge.reincarnation === 8 && (type == "Coin" || type == "Diamonds" || type == "Mythos") && buyingTo >= (1000 * player.challengecompletions[8] * r)){
 			  
-			var sumBuys = (buyingTo - (1000 * player.challengecompletions.eight * r)) * ((buyingTo - (1000 * player.challengecompletions.eight * r) + 1) / 2);
-			var negBuys = (fr       - (1000 * player.challengecompletions.eight * r)) * ((fr       - (1000 * player.challengecompletions.eight * r) + 1) / 2);
+			var sumBuys = (buyingTo - (1000 * player.challengecompletions[8] * r)) * ((buyingTo - (1000 * player.challengecompletions[8] * r) + 1) / 2);
+			var negBuys = (fr       - (1000 * player.challengecompletions[8] * r)) * ((fr       - (1000 * player.challengecompletions[8] * r) + 1) / 2);
 			
 			cost = cost.times(Decimal.pow(2, sumBuys - negBuys));
 	
 			// divided by same amount buying to - fr times
-			cost = cost.dividedBy(Decimal.pow((1 + 1/2 * player.challengecompletions.eight), buyingTo - fr));
+			cost = cost.dividedBy(Decimal.pow((1 + 1/2 * player.challengecompletions[8]), buyingTo - fr));
 		}
 	
 		return cost;
@@ -334,7 +334,7 @@ function buyProducer(pos,type,num,autobuyer) {
     var tag = ""
 	r += 1/2000 * rune4level * effectiveLevelMult
 	r += 1/200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60])
-	r += 1/200 * player.challengecompletions.four
+	r += 1/200 * player.challengecompletions[4]
 	r += 3/100 * player.antUpgrades[7] + 3/100 * bonusant7
 	if (type == 'Diamonds'){tag = "prestigePoints"; var amounttype = "crystal"}
 	if (type == 'Mythos'){tag = "transcendPoints"; var amounttype = "mythos"}
@@ -359,14 +359,14 @@ function buyProducer(pos,type,num,autobuyer) {
 			if (player[pos + 'Owned' + type] >= (250000 * r)){
 				player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(1.03, player[pos + 'Owned' + type] - 250000 * r))  
 			}
-			if (player.currentChallenge == "four" && (type == "Coin" || type == "Diamonds")) {
-				 player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Math.pow(100 * player[pos + 'Owned' + type] + 10000, 1.25 + 1/4 * player.challengecompletions.four));
-				 if (player[pos + 'Owned' + type] >= 1000 - (10 * player.challengecompletions.four)) {
+			if (player.currentChallenge.transcension === 4 && (type == "Coin" || type == "Diamonds")) {
+				 player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Math.pow(100 * player[pos + 'Owned' + type] + 10000, 1.25 + 1/4 * player.challengecompletions[4]));
+				 if (player[pos + 'Owned' + type] >= 1000 - (10 * player.challengecompletions[4])) {
 					player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(1.25, player[pos + 'Owned' + type]));
 				 }
                  }
-            if (player.currentChallengeRein == "eight" && (type == "Coin" || type == "Diamonds" || type == "Mythos") && player[pos + 'Owned' + type] >= (1000 * player.challengecompletions.eight * r)){
-                player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(2, (player[pos + 'Owned' + type] - (1000 * player.challengecompletions.eight * r))/(1 + 1/2 * player.challengecompletions.eight)));
+            if (player.currentChallenge.reincarnation === 8 && (type == "Coin" || type == "Diamonds" || type == "Mythos") && player[pos + 'Owned' + type] >= (1000 * player.challengecompletions[8] * r)){
+                player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(2, (player[pos + 'Owned' + type] - (1000 * player.challengecompletions[8] * r))/(1 + 1/2 * player.challengecompletions[8])));
             }
 				 ticker += 1;
 			 }
@@ -375,6 +375,9 @@ function buyProducer(pos,type,num,autobuyer) {
 
 function buyResearch(index,auto) {
 	auto = auto || false
+	let c14 = 0;
+	if(index <= 5){c14 += player.challengecompletions[14]}
+
 	if (player.autoResearchToggle && player.autoResearch > 0.5 && !auto){
 		let p = player.autoResearch
 		if (player.researches[p] == researchMaxLevels[p]){document.getElementById("res" + player.autoResearch).style.backgroundColor = "green"}
@@ -387,10 +390,10 @@ function buyResearch(index,auto) {
     let i = 1;
 	if (maxbuyresearch || auto){buyamount = 1000}
 		if (auto || !player.autoResearchToggle){
-		while(player.researches[index] < researchMaxLevels[index] && player.researchPoints >= (researchBaseCosts[index]) && buyamount >= i) {
+		while(player.researches[index] < (researchMaxLevels[index] + c14) && player.researchPoints >= (researchBaseCosts[index]) && buyamount >= i) {
 			player.researchPoints -= researchBaseCosts[index]
 			player.researches[index] += 1;
-			researchfiller2 = "Level: " + player.researches[index] + "/" + researchMaxLevels[index]
+			researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index] + c14)
 			researchdescriptions(index,auto)
 
 			if (index == 47 && player.unlocks.rrow1 == false) {player.unlocks.rrow1 = true; revealStuff()}
@@ -403,11 +406,11 @@ function buyResearch(index,auto) {
 	}
 
 	if(index > 0 && index <= 125){
-	if(player.researches[index] === researchMaxLevels[index]){document.getElementById("res"+index).style.backgroundColor = "green"}
+	if(player.researches[index] === (researchMaxLevels[index] + c14)){document.getElementById("res"+index).style.backgroundColor = "green"}
 	}
 	if(auto && player.cubeUpgrades[10] == 1){
 		player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
-		if(player.researches[player.autoResearch] === researchMaxLevels[player.autoResearch]){player.roombaResearchIndex += 1;}
+		if(player.researches[player.autoResearch] === (researchMaxLevels[player.autoResearch] + c14)){player.roombaResearchIndex += 1;}
 		if(player.roombaResearchIndex <= 125){
 		document.getElementById("res"+researchOrderByCost[player.roombaResearchIndex]).style.backgroundColor = "orange"
 		}
@@ -464,7 +467,7 @@ function buyUpgrades(type, pos, state) {
 	
 		var c = 0
 		c += Math.floor(rune3level/40 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800) * (1 + player.researches[90]/100)) * 100/100
-		if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== "") {c += 10}
+		if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {c += 10}
 	
 		let toBuy = calculateCrystalBuy(i);
 	

@@ -20,29 +20,29 @@ toSpendModulo = toSpendModulo % 20;
 
 
 //If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
-    player.cubeBlessings.accelerator += 4 * toSpendDiv20 * (1 + player.cubeUpgrades[30]);
-    player.cubeBlessings.multiplier += 4 * toSpendDiv20 * (1 + player.cubeUpgrades[30]);
-    player.cubeBlessings.offering += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30]);
-    player.cubeBlessings.runeExp += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30]);
-    player.cubeBlessings.obtainium += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30]);
-    player.cubeBlessings.antSpeed += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30]);
-    player.cubeBlessings.antSacrifice += toSpendDiv20 * (1 + player.cubeUpgrades[30]);
-    player.cubeBlessings.antELO += toSpendDiv20 * (1 + player.cubeUpgrades[30]);
-    player.cubeBlessings.talismanBonus += toSpendDiv20 * (1 + player.cubeUpgrades[30]);
-    player.cubeBlessings.globalSpeed += toSpendDiv20 * (1 + player.cubeUpgrades[30]);
+    player.cubeBlessings.accelerator += 4 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    player.cubeBlessings.multiplier += 4 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    player.cubeBlessings.offering += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    player.cubeBlessings.runeExp += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    player.cubeBlessings.obtainium += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    player.cubeBlessings.antSpeed += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    player.cubeBlessings.antSacrifice += toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    player.cubeBlessings.antELO += toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    player.cubeBlessings.talismanBonus += toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    player.cubeBlessings.globalSpeed += toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
 //Then, the remaining cubes will be opened, simulating the probability [RNG Element]
     for (var i = 1; i <= toSpendModulo; i++){
         num = 100 * Math.random();
-        if(num >= 95){player.cubeBlessings.globalSpeed += 1 * (1 + player.cubeUpgrades[30])}
-        else if(num >= 90){player.cubeBlessings.talismanBonus += 1 * (1 + player.cubeUpgrades[30])}
-        else if(num >= 85){player.cubeBlessings.antELO += 1 * (1 + player.cubeUpgrades[30])}
-        else if(num >= 80){player.cubeBlessings.antSacrifice += 1 * (1 + player.cubeUpgrades[30])}
-        else if(num >= 70){player.cubeBlessings.antSpeed += 1 * (1 + player.cubeUpgrades[30])}
-        else if(num >= 60){player.cubeBlessings.obtainium += 1 * (1 + player.cubeUpgrades[30])}
-        else if(num >= 50){player.cubeBlessings.runeExp += 1 * (1 + player.cubeUpgrades[30])}
-        else if(num >= 40){player.cubeBlessings.offering += 1 * (1 + player.cubeUpgrades[30])}
-        else if(num >= 20){player.cubeBlessings.multiplier += 1 * (1 + player.cubeUpgrades[30])}
-        else{player.cubeBlessings.accelerator += 1 * (1 + player.cubeUpgrades[30])}
+        if(num >= 95){player.cubeBlessings.globalSpeed += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
+        else if(num >= 90){player.cubeBlessings.talismanBonus += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
+        else if(num >= 85){player.cubeBlessings.antELO += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
+        else if(num >= 80){player.cubeBlessings.antSacrifice += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
+        else if(num >= 70){player.cubeBlessings.antSpeed += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
+        else if(num >= 60){player.cubeBlessings.obtainium += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
+        else if(num >= 50){player.cubeBlessings.runeExp += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
+        else if(num >= 40){player.cubeBlessings.offering += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
+        else if(num >= 20){player.cubeBlessings.multiplier += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
+        else{player.cubeBlessings.accelerator += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
     }
     calculateCubeBlessings();
 }       

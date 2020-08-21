@@ -34,11 +34,9 @@ function loadStatisticsCubesPerSecond() {
     let c = player.cubesThisAscension.challenges, r = player.cubesThisAscension.reincarnation,
         a = player.cubesThisAscension.ascension;
     let total = 0;
-    for (const key of Object.keys(player.highestchallengecompletions)) {
-        total += player.highestchallengecompletions[key]
-    }
+    total += sumContents(player.highestchallengecompletions)
     for (let i = 6; i <= 8; i++) {
-        document.getElementById(`statCPS${i}`).style.display = (player.challengecompletions.ten > 0) ? "block" : "none";
+        document.getElementById(`statCPS${i}`).style.display = (player.challengecompletions[10] > 0) ? "block" : "none";
     }
     document.getElementById("sCPS1").textContent = "+" + format(c, 0, false)
     document.getElementById("sCPS2").textContent = "+" + format(r, 0, false)
