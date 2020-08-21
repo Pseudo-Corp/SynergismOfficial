@@ -168,8 +168,21 @@ function updateAutoReset(i) {
 }
 
 
-function reset(i,fast) {
+function reset(i,fast,from) {
     fast = fast || false
+    from = from || "unknown"
+
+    let historyEntry = {};
+    let historyKind = "prestige";
+    let historyCategory = "reset";
+    // By default, we don't log history entries when the player is entering or leaving a challenge, but we handle some
+    // special cases down below. This keeps the logs clean when someone in lategame runs 30 challenges in a row.
+    let historyUse = from !== "enterChallenge" && from !== "leaveChallenge";
+
+    historyEntry.offerings = calculateOfferings(i)
+    historyEntry.seconds = player.prestigecounter;
+    historyEntry.diamonds = prestigePointGain;
+
     resetofferings(i)
     resetUpgrades(1,fast);
     player.coins = new Decimal("102");
@@ -218,6 +231,10 @@ function reset(i,fast) {
 
 
     if (i > 1.5) {
+        historyKind = "transcend";
+        historyEntry.seconds = player.transcendcounter;
+        historyEntry.mythos = transcendPointGain;
+        delete historyEntry.diamonds;
         resetUpgrades(2,fast);
         player.coinsThisTranscension = new Decimal("100");
         player.firstOwnedDiamonds = 0;
@@ -294,6 +311,22 @@ function reset(i,fast) {
 
     }
     if (i > 2.5) {
+        historyKind = "reincarnate";
+        historyEntry.obtainium = obtainiumGain;
+        historyEntry.particles = reincarnationPointGain;
+        historyEntry.seconds = player.reincarnationcounter;
+        delete historyEntry.mythos;
+
+        // If we got a significant amount of particles from it, we want to record it even though we're
+        // in (entering) a challenge. We'll arbitrarily set this to 10% of the player's total particles.
+        // This makes it so that when a player constantly starts reincarnation challenges while getting boosts,
+        // the gains in between each challenge start are still recorded, but all of the spam and the challenge
+        // attempts themselves aren't.
+        if (!historyUse) {
+            if (reincarnationPointGain.gte(player.reincarnationPoints.div(10))) {
+                historyUse = true;
+            }
+        }
 
         player.researchPoints += Math.floor(obtainiumGain);
 
@@ -354,6 +387,7 @@ function reset(i,fast) {
             let toAdd = Math.min(1000, 100/100 * Math.floor(player.reincarnationcounter / 60));
             player.wowCubes += toAdd;
             player.cubesThisAscension.reincarnation += toAdd;
+            historyEntry.wowCubes = toAdd;
             if (i < 3.5)
                 updateCubesPerSec()
         }
@@ -370,6 +404,31 @@ function reset(i,fast) {
     }
 
     if(i > 3.5){
+    // reset other stuff
+    historyCategory = "ascend";
+    historyKind = "ascend";
+    // When ascending, log ascend history while in trans/reinc challenges, or if this ascension took longer than 1min
+    historyUse = player.currentChallenge.ascension === 0 || player.ascensionCounter > 60;
+    delete historyEntry.offerings;
+    delete historyEntry.obtainium;
+    delete historyEntry.particles;
+    historyEntry.seconds = player.ascensionCounter;
+    historyEntry.c10Completions = player.challengecompletions[10];
+    // get a copy of the array, not the actual array itself
+    historyEntry.usedCorruptions = player.usedCorruptions.slice(0);
+    historyEntry.corruptionScore = calculateCorruptionPoints();
+    // The value in player.cubesThisAscension isn't updated yet, we need the new value for that, but the current ones
+    // for the others, so we calculate it here
+    const cubesThisAscend = 100/100 * calculateCubeMultiplier() * 250;
+    historyEntry.wowCubes = cubesThisAscend + player.cubesThisAscension.challenges + player.cubesThisAscension.reincarnation;
+    historyEntry.wowCubesAscend = cubesThisAscend;
+    historyEntry.wowCubesChallenge = player.cubesThisAscension.challenges;
+    historyEntry.wowCubesReincarnate = player.cubesThisAscension.reincarnation;
+    historyEntry.wowCubesCps = player.cubesThisAscension.maxCubesPerSec;
+    historyEntry.wowCubesCpsAtC10 = player.cubesThisAscension.cpsOnC10Comp;
+    historyEntry.wowTesseracts = player.cubesThisAscension.tesseracts;
+    historyEntry.wowHypercubes = player.cubesThisAscension.hypercubes;
+
     resetResearches();
     resetAnts();
     resetTalismans();
@@ -458,6 +517,8 @@ function reset(i,fast) {
     player.cubesThisAscension.challenges = 0;
     player.cubesThisAscension.reincarnation = 0;
     player.cubesThisAscension.maxCubesPerSec = 0;
+    player.cubesThisAscension.tesseracts = 0;
+    player.cubesThisAscension.hypercubes = 0;
     player.cubesThisAscension.ascension = 100/100 * calculateCubeMultiplier() * 250;
     player.ascensionCounter = 0;
 
@@ -509,6 +570,10 @@ function reset(i,fast) {
     }
     if (!fast){
     revealStuff();
+    }
+
+    if (historyUse) {
+        resetHistoryAdd(historyCategory, historyKind, historyEntry);
     }
 }
 

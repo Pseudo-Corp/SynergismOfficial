@@ -288,6 +288,7 @@ function highestChallengeRewards(chalNum, highestValue){
     }
     else{
         player.wowTesseracts += toAdd
+        player.cubesThisAscension.tesseracts += toAdd
     }
 
 

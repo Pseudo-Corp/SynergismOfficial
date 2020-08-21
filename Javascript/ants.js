@@ -79,7 +79,7 @@ function updateAntDescription(i) {
 }
 
 function buyAnts(i) {
-let sacrificeMult = Math.pow(1 + player.antSacrificePoints/5000,2)
+let sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints);
 let type = "ant"
 let tier = ""
 if (i == 1){type = "reincarnation";}
@@ -131,7 +131,7 @@ function getAntCost(originalCost, buyTo, type, index){
 
 
 function buyAntProducers(pos,type,originalCost,index){
-    let sacrificeMult = Math.pow(1 + player.antSacrificePoints/5000,2)
+    let sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints);
     //This is a fucking cool function. This will buymax ants cus why not
 
     //Things we need: the position of producers, the costvalues, and input var i
@@ -274,6 +274,10 @@ function antUpgradeDescription(i) {
 //    else{}
 //}
 
+function antSacrificePointsToMultiplier(points) {
+    return Math.pow(1 + points/5000, 2);
+}
+
 function showSacrifice(){
     let sacRewards = calculateAntSacrificeRewards();
     document.getElementById("antSacrificeSummary").style.display = "block"
@@ -282,8 +286,8 @@ function showSacrifice(){
     document.getElementById("ELO").textContent = format(antELO,2,)
     document.getElementById("effectiveELO").textContent = "[" + format(effectiveELO,2,false) + " effective]"
 
-    document.getElementById("antSacrificeMultiplier").childNodes[0].textContent = "Ant Multiplier x" + format(Math.pow(1 + player.antSacrificePoints/5000, 2),3,false) + " --> "
-    document.getElementById("SacrificeMultiplier").textContent = "x" + format(Math.pow(1 + (player.antSacrificePoints + sacRewards.antSacrificePoints)/5000, 2),3,false)
+    document.getElementById("antSacrificeMultiplier").childNodes[0].textContent = "Ant Multiplier x" + format(antSacrificePointsToMultiplier(player.antSacrificePoints),3,false) + " --> "
+    document.getElementById("SacrificeMultiplier").textContent = "x" + format(antSacrificePointsToMultiplier(player.antSacrificePoints + sacRewards.antSacrificePoints),3,false)
 
     document.getElementById("SacrificeUpgradeMultiplier").textContent = format(upgradeMultiplier,3,true) + "x"
     document.getElementById("SacrificeTimeMultiplier").textContent = format(timeMultiplier,3,true) + "x"
@@ -301,16 +305,29 @@ function showSacrifice(){
 }
 
 function sacrificeAnts(auto){
+    let historyEntry = {};
+
     auto = auto || false
     let p = true
 
     if (player.antPoints.greaterThanOrEqualTo("1e40")){
     if (!auto && player.antSacrificePoints < 100){p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?")}
     if (p){
+        historyEntry.antSacrificePointsBefore = player.antSacrificePoints;
+
         let sacRewards = calculateAntSacrificeRewards();
         player.antSacrificePoints += sacRewards.antSacrificePoints;
         player.runeshards += sacRewards.offerings;
         player.researchPoints += sacRewards.obtainium;
+
+        historyEntry.seconds = player.antSacrificeTimer;
+        historyEntry.offerings = sacRewards.offerings;
+        historyEntry.obtainium = sacRewards.obtainium;
+        historyEntry.antSacrificePointsAfter = player.antSacrificePoints;
+        historyEntry.baseELO = antELO;
+        historyEntry.effectiveELO = effectiveELO;
+        historyEntry.crumbs = player.antPoints;
+        historyEntry.crumbsPerSecond = antOneProduce;
 
         if(player.challengecompletions[9] > 0){
             player.talismanShards += sacRewards.talismanShards;
@@ -326,6 +343,8 @@ function sacrificeAnts(auto){
         updateTalismanInventory();
         if(player.autoResearch > 0 && player.autoResearchToggle){buyResearch(player.autoResearch,true)}
         calculateAntSacrificeELO();
+
+        resetHistoryAdd("ants", "antsacrifice", historyEntry);
     }
     }
 }

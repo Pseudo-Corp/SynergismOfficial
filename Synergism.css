@@ -4255,7 +4255,7 @@ margin-left: -13px
 
 #statisticsSubTab {
 	max-height: 800px;
-	padding-top: 100px;
+	padding-top: 52px;
 	flex-wrap: wrap;
 }
 .statContainer {
@@ -4286,4 +4286,89 @@ margin-left: -13px
 }
 .constUpgrade{
 	cursor: pointer;
+}
+
+#settingsubtab {
+	position: relative;
+}
+
+.subtabSwitcher {
+	text-align: left;
+	margin: 9px 0;
+}
+
+.subtabSwitcher > button {
+	display: inline-block;
+	overflow: hidden;
+	height: 30px;
+	width: 150px;
+	text-align: center;
+	/* margins carefully chosen to be as close to buildings tab as possible */
+	margin-left: calc(12% - 154px);
+}
+.subtabSwitcher > button:first-child { margin-left: 8.75%; }
+
+.subtabSwitcher > button.buttonActive {
+	background-color: crimson;
+}
+
+.subtabContent {
+	display: none;
+}
+.subtabContent.subtabActive {
+	display: block;
+}
+.subtabContent.subtabActive.subtabDisplayFlex {
+	display: flex;
+}
+
+.historySubTab {
+	color: white;
+}
+
+.historySubTab table {
+	margin: auto;
+	border-collapse: collapse;
+	min-width: 100%;
+}
+
+.historySubTab tbody {
+	text-align: left;
+}
+
+.historySubTab tbody img {
+	vertical-align: middle;
+	height: 20px;
+}
+
+.historySubTab tbody td {
+	padding: 4px 6px;
+	margin-right: 10px;
+}
+.historySubTab tbody .history-gain:last-child { margin-right: 0; }
+.historySubTab tbody tr:nth-child(odd) {
+	background: #262626;
+}
+.historySubTab tbody .history-seconds {
+	max-width: 90px; /* fits "90d20h50m50s" */
+	white-space: nowrap;
+}
+.historySubTab tbody .history-filler {
+	padding: 0;
+}
+.historySubTab tbody *[title] {
+	text-decoration: underline dotted 2px;
+}
+
+#historyReset, #historyAnts {
+	height: 500px;
+	overflow-y: auto;
+	min-width: 660px;
+	margin-left: 20px;
+}
+#historyAscend {
+	height: 500px;
+	overflow-y: auto;
+	min-width: 1000px;
+	margin: 0 auto;
 }

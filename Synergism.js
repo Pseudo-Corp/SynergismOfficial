@@ -489,12 +489,15 @@ tesseractbuyamount: 1,
 			  },
 			  ascendShards: new Decimal("0"),
 			  roombaResearchIndex: 1,
-	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "cpsOnC10Comp": 0},
+	cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "cpsOnC10Comp": 0, "tesseracts": 0, "hypercubes": 0},
 
 			  prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
 			  constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			  history: {},
+			  historyCountMax: 15,
+
 			  brokenfile1: false,
 			  exporttest: "YES!",
 			  kongregatetest: "NO!",
@@ -821,6 +824,8 @@ function loadSynergy() {
 		player.cubesThisAscension.maxCubesPerSec = 0;
 		player.cubesThisAscension.maxAllTime = 0;
 		player.cubesThisAscension.cpsOnC10Comp = 0;
+		player.cubesThisAscension.tesseracts = 0;
+		player.cubesThisAscension.hypercubes = 0;
 
 	}
 
@@ -901,11 +906,20 @@ function loadSynergy() {
 		player.upgrades.push(0)
 	}
 
+	if (data.history === undefined || player.history === undefined) {
+		player.history = {};
+		player.historyCountMax = 15;
+	}
+
 	player.wowCubes = player.wowCubes || 0;
 		if (!player.cubesThisAscension.maxAllTime) // Initializes the value if it doesn't exist
 			player.cubesThisAscension.maxAllTime = 0
 		if (!player.cubesThisAscension.cpsOnC10Comp)
 			player.cubesThisAscension.cpsOnC10Comp = 0
+		if (!player.cubesThisAscension.tesseracts)
+			player.cubesThisAscension.tesseracts = 0
+		if (!player.cubesThisAscension.hypercubes)
+			player.cubesThisAscension.hypercubes = 0
 
 var j
 for (j = 1; j < 126; j++) {
@@ -1021,6 +1035,7 @@ calculateObtainium();
 calculateAnts();
 calculateRuneLevels();
 		setToggleBtnColors();
+		resetHistoryRenderAllTables();
 }
 updateAchievementBG();
 }
@@ -1162,6 +1177,22 @@ function format(input,accuracy,long){
 	{
 		return "undefined";
 	}
+}
+
+function formatTimeShort(seconds, msMaxSeconds) {
+	return ((seconds >= 86400)
+		? format(Math.floor(seconds / 86400)) + "d"
+		: '') +
+		((seconds >= 3600)
+			? format(Math.floor(seconds / 3600) % 24) + "h"
+			: '') +
+		((seconds >= 60)
+			? format(Math.floor(seconds/60) % 60) + "m"
+			: '') +
+		format(Math.floor(seconds) % 60) +
+		((msMaxSeconds && seconds < msMaxSeconds)
+			? "." + format(Math.floor((seconds % 1) * 1000))
+			: '') + "s";
 }
 
 function updateCubesPerSec() {
@@ -1561,7 +1592,7 @@ globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.
 	globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77]/250 + player.researches[96]/5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
 	globalAntMult = globalAntMult.times(Math.pow(1.5, player.shopUpgrades.antSpeedLevel));
 	globalAntMult = globalAntMult.times(Decimal.pow(1.11 + player.researches[101]/1000, player.antUpgrades[1] + bonusant1));
-	globalAntMult = globalAntMult.times(Math.pow(1 + player.antSacrificePoints/5000,2))
+	globalAntMult = globalAntMult.times(antSacrificePointsToMultiplier(player.antSacrificePoints))
 	globalAntMult = globalAntMult.times(Math.pow(Math.max(1, player.researchPoints), divineBlessing5))
 	globalAntMult = globalAntMult.times(Math.pow(1 + runeSum/100, talisman6Power))
 	globalAntMult = globalAntMult.times(Math.pow(1.1, player.challengecompletions[9]))
@@ -1858,7 +1889,7 @@ function resetCheck(i,manual) {
 
 			
 			challengeachievementcheck(q);
-			reset(2);
+			reset(2, false, "leaveChallenge");
 			player.transcendCount -= 1;
 			}
 			if (!player.retrychallenges || manual  || player.challengecompletions[q] >= (25 + 5 * player.researches[x] + 925 * player.researches[105])) {
@@ -1896,7 +1927,7 @@ function resetCheck(i,manual) {
 				}
 			}
 		challengeDisplay(q,true)
-		reset(3);
+		reset(3, false, "leaveChallenge");
 		challengeachievementcheck(q);
 		player.reincarnationCount -= 1;
 		if (player.challengecompletions[q] > player.highestchallengecompletions[q]){
@@ -2309,17 +2340,7 @@ function tick() {
 
 	if (player.achievements[173] == 1){
 		player.antSacrificeTimer += (dt * timeMult)
-		document.getElementById("antSacrificeTimer").textContent = 
-			((player.antSacrificeTimer >= 86400)
-				? format(Math.floor(player.antSacrificeTimer / 86400)) + "d"
-				: '') + 
-			((player.antSacrificeTimer >= 3600)
-				? format(Math.floor(player.antSacrificeTimer / 3600) % 24) + "h"
-				: '') + 
-			((player.antSacrificeTimer >= 60)
-				? format(Math.floor(player.antSacrificeTimer/60) % 60) + "m"
-				: '') + 
-			format(Math.floor(player.antSacrificeTimer) % 60) + "s"
+		document.getElementById("antSacrificeTimer").textContent = formatTimeShort(player.antSacrificeTimer);
 		showSacrifice();
 	}
 	calculateObtainium();

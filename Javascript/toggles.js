@@ -14,17 +14,17 @@ function toggleSettings(i) {
 function toggleChallenges(i) {
 if (player.currentChallenge.transcension === 0 && (i <= 5)) {
     player.currentChallenge.transcension = i;
-    reset(2);
+    reset(2, false, "enterChallenge");
     player.transcendCount -= 1;
 }
 if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)) {
     player.currentChallenge.reincarnation = i;
-    reset(3);
+    reset(3, false, "enterChallenge");
     player.reincarnationCount -= 1;
 }
 if((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)){
     player.currentChallenge.ascension = i;
-    reset(4);
+    reset(4, false, "enterChallenge");
     player.ascensionCount -= 1;
 }
 
@@ -247,47 +247,33 @@ function toggleRuneScreen(){
         document.getElementById("togglerunesubtab").style.border = "2px solid grey"
     };
 }
-function toggleSettingScreen(i){
 
-    document.getElementById("settingsubtab").style.display = "none"
-    document.getElementById("creditssubtab").style.display = "none"
-    document.getElementById("statisticsSubTab").style.display = "none"
-    if(i === 1){
-    (settingscreen !== "credits") ?
-        (settingscreen = "credits",
-        document.getElementById("settingsubtab").style.display = "none",
-        document.getElementById("creditssubtab").style.display = "block", 
-        document.getElementById("switchsettingtab").textContent = "Go back to Settings",
-        document.getElementById("switchsettingtab2").textContent = "Stats for Nerds"):
-    
-        (settingscreen = "settings",
-        document.getElementById("settingsubtab").style.display = "block",
-        document.getElementById("creditssubtab").style.display = "none",
-        document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements");  
-    }
-    if(i === 2){
-    (settingscreen !== "statistics") ?
-        (settingscreen = "statistics",
-        document.getElementById("settingsubtab").style.display = "none",
-        document.getElementById("statisticsSubTab").style.display = "flex",
-        document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements",
-        document.getElementById("switchsettingtab2").textContent = "Go back to Settings"):
-
-        (settingscreen = "settings",
-        document.getElementById("settingsubtab").style.display = "block",
-        document.getElementById("statisticsSubTab").style.display = "none",
-        document.getElementById("switchsettingtab2").textContent = "Stats for Nerds");
+function setActiveSettingScreen(subtab, clickedButton) {
+    let subtabEl = document.getElementById(subtab);
+    if(subtabEl.classList.contains("subtabActive")) {
+        return;
     }
 
-    if(settingscreen === "statistics"){
-        let id = setInterval(refresh, 1000)
-        function refresh() {
+    let switcherEl = clickedButton.parentNode;
+    switcherEl.querySelectorAll(".buttonActive").forEach(b => b.classList.remove("buttonActive"));
+    clickedButton.classList.add("buttonActive");
+
+    subtabEl.parentNode.querySelectorAll(".subtabActive").forEach(subtab => subtab.classList.remove("subtabActive"));
+    subtabEl.classList.add("subtabActive");
+
+    if(subtab === "statisticsSubTab") {
+        let id = setInterval(refreshStats, 1000)
+        function refreshStats() {
+            if (currentTab !== "settings") {
+                return;
+            }
             loadStatisticsAccelerator();
             loadStatisticsMultiplier();
             loadStatisticsCubesPerSecond();
-            if (settingscreen !== "statistics")
+            if (!subtabEl.classList.contains("subtabActive"))
                 clearInterval(id);
         }
+        refreshStats();
     }
 }
 
