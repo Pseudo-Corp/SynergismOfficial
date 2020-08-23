@@ -5,8 +5,14 @@ const historyGains = {
     particles: {img: "Pictures/Particle.png", formatter: s => extractStringExponent(formatDecimalString(s)), imgTitle: "Particles"},
     diamonds: {img: "Pictures/Diamond.png", formatter: s => extractStringExponent(formatDecimalString(s)), imgTitle: "Diamonds"},
     mythos: {img: "Pictures/Mythos.png", formatter: s => extractStringExponent(formatDecimalString(s)), imgTitle: "Mythos"},
-    wowHypercubes: {img: "Pictures/WowHypercube.png", formatter: format, imgTitle: "Wow! Hypercubes"},
     wowTesseracts: {img: "Pictures/WowTessaract.png", formatter: format, imgTitle: "Wow! Tesseracts"},
+
+    wowHypercubes: {
+        img: "Pictures/WowHypercube.png",
+        formatter: format,
+        imgTitle: "Wow! Hypercubes",
+        onlyif: () => player.challengecompletions[13] > 0
+    },
     wowCubes: {
         img: "Pictures/WowCube.png",
         formatter: format,
