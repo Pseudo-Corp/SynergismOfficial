@@ -505,6 +505,7 @@ ascendBuilding5: {
 			  constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  history: {},
 			  historyCountMax: 15,
+			  historyShowPerSecond: false,
 
 			  autoChallengeRunning: false,
 			  autoChallengeIndex: 1,
@@ -930,6 +931,9 @@ function loadSynergy() {
 		player.history = {};
 		player.historyCountMax = 15;
 	}
+	if (player.historyShowPerSecond === undefined) {
+		player.historyShowPerSecond = false;
+	}
 
 	player.wowCubes = player.wowCubes || 0;
 		if (!player.cubesThisAscension.maxAllTime) // Initializes the value if it doesn't exist
@@ -1042,6 +1046,9 @@ if (player.autoResearchToggle){document.getElementById("toggleautoresearch").tex
 if (!player.autoResearchToggle){document.getElementById("toggleautoresearch").textContent = "Automatic: OFF"}
 if (player.autoSacrificeToggle){document.getElementById("toggleautosacrifice").textContent = "Automatic: ON"}
 if (!player.autoSacrificeToggle){document.getElementById("toggleautosacrifice").textContent = "Automatic: OFF"}
+
+document.getElementById("historyTogglePerSecondButton").textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
+document.getElementById("historyTogglePerSecondButton").style.borderColor = (player.historyShowPerSecond ? "green" : "red");
 
 for(var i = 1; i<=2; i++){
 	toggleAntMaxBuy()

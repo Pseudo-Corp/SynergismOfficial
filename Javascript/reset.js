@@ -412,7 +412,6 @@ function reset(i,fast,from) {
     historyEntry.wowCubesAscend = cubesThisAscend;
     historyEntry.wowCubesChallenge = player.cubesThisAscension.challenges;
     historyEntry.wowCubesReincarnate = player.cubesThisAscension.reincarnation;
-    historyEntry.wowCubesCps = player.cubesThisAscension.maxCubesPerSec;
     historyEntry.wowCubesCpsAtC10 = player.cubesThisAscension.cpsOnC10Comp;
     historyEntry.wowTesseracts = player.cubesThisAscension.tesseracts;
     historyEntry.wowHypercubes = player.cubesThisAscension.hypercubes;

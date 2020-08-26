@@ -4426,6 +4426,16 @@ margin-left: -13px
 	margin: 0 auto;
 }
 
+#historyTogglePerSecondButton {
+	float: right;
+}
+
+.onOffToggle {
+	text-align: center;
+	padding: 5px;
+	border: 2px solid red;
+}
+
 #historyResetTable, #historyAntsTable {
 	min-width: 588px;
 }
