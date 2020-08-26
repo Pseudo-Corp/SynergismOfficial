@@ -11,25 +11,34 @@ function toggleSettings(i) {
     toggleauto();
 }
 
-function toggleChallenges(i) {
+function toggleChallenges(i,auto) {
+auto = auto || false
 if (player.currentChallenge.transcension === 0 && (i <= 5)) {
     player.currentChallenge.transcension = i;
-    reset(2);
+    reset(2, false, "enterChallenge");
     player.transcendCount -= 1;
 }
 if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)) {
     player.currentChallenge.reincarnation = i;
-    reset(3);
+    reset(3, false, "enterChallenge");
     player.reincarnationCount -= 1;
 }
 if((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)){
     player.currentChallenge.ascension = i;
-    reset(4);
+    reset(4, false, "enterChallenge");
     player.ascensionCount -= 1;
+
+    if(player.currentChallenge.ascension === 12){
+        player.antPoints = new Decimal("8")
+    }
 }
 
 	updateChallengeDisplay();
-	getChallengeConditions();
+    getChallengeConditions();
+    
+    if(!auto && player.autoChallengeRunning){
+        toggleAutoChallengeRun();
+    }
 }
 
 
@@ -247,47 +256,33 @@ function toggleRuneScreen(){
         document.getElementById("togglerunesubtab").style.border = "2px solid grey"
     };
 }
-function toggleSettingScreen(i){
 
-    document.getElementById("settingsubtab").style.display = "none"
-    document.getElementById("creditssubtab").style.display = "none"
-    document.getElementById("statisticsSubTab").style.display = "none"
-    if(i === 1){
-    (settingscreen !== "credits") ?
-        (settingscreen = "credits",
-        document.getElementById("settingsubtab").style.display = "none",
-        document.getElementById("creditssubtab").style.display = "block", 
-        document.getElementById("switchsettingtab").textContent = "Go back to Settings",
-        document.getElementById("switchsettingtab2").textContent = "Stats for Nerds"):
-    
-        (settingscreen = "settings",
-        document.getElementById("settingsubtab").style.display = "block",
-        document.getElementById("creditssubtab").style.display = "none",
-        document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements");  
-    }
-    if(i === 2){
-    (settingscreen !== "statistics") ?
-        (settingscreen = "statistics",
-        document.getElementById("settingsubtab").style.display = "none",
-        document.getElementById("statisticsSubTab").style.display = "flex",
-        document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements",
-        document.getElementById("switchsettingtab2").textContent = "Go back to Settings"):
-
-        (settingscreen = "settings",
-        document.getElementById("settingsubtab").style.display = "block",
-        document.getElementById("statisticsSubTab").style.display = "none",
-        document.getElementById("switchsettingtab2").textContent = "Stats for Nerds");
+function setActiveSettingScreen(subtab, clickedButton) {
+    let subtabEl = document.getElementById(subtab);
+    if(subtabEl.classList.contains("subtabActive")) {
+        return;
     }
 
-    if(settingscreen === "statistics"){
-        let id = setInterval(refresh, 1000)
-        function refresh() {
+    let switcherEl = clickedButton.parentNode;
+    switcherEl.querySelectorAll(".buttonActive").forEach(b => b.classList.remove("buttonActive"));
+    clickedButton.classList.add("buttonActive");
+
+    subtabEl.parentNode.querySelectorAll(".subtabActive").forEach(subtab => subtab.classList.remove("subtabActive"));
+    subtabEl.classList.add("subtabActive");
+
+    if(subtab === "statisticsSubTab") {
+        let id = setInterval(refreshStats, 1000)
+        function refreshStats() {
+            if (currentTab !== "settings") {
+                return;
+            }
             loadStatisticsAccelerator();
             loadStatisticsMultiplier();
             loadStatisticsCubesPerSecond();
-            if (settingscreen !== "statistics")
+            if (!subtabEl.classList.contains("subtabActive"))
                 clearInterval(id);
         }
+        refreshStats();
     }
 }
 
@@ -339,4 +334,73 @@ function toggleCubeSubTab(i){
     i === 4 ?  
     (d.style.backgroundColor = "crimson"):
     (d.style.backgroundColor = "black");
+}
+function updateAutoChallenge(i){
+    let t
+    switch(i){
+        case 1:
+            t = parseFloat(document.getElementById('startAutoChallengeTimerInput').value)
+            t = t || 0 ;
+            player.autoChallengeTimer.start = Math.max(t, 0);
+            document.getElementById("startTimerValue").textContent = format(player.autoChallengeTimer.start,2,true) + "s";
+            break;
+        case 2:
+            t = parseFloat(document.getElementById('exitAutoChallengeTimerInput').value)
+            t = t || 0 ;
+            player.autoChallengeTimer.exit = Math.max(t, 0);
+            document.getElementById("exitTimerValue").textContent = format(player.autoChallengeTimer.exit,2,true) + "s";
+            break;
+        case 3:
+            t = parseFloat(document.getElementById('enterAutoChallengeTimerInput').value)
+            t = t || 0 ;
+            player.autoChallengeTimer.enter = Math.max(t, 0);
+            document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter,2,true) + "s";
+            break;
+    }
+}
+
+function toggleAutoChallengesIgnore(i){
+    let el = document.getElementById("toggleAutoChallengeIgnore");
+    if(player.autoChallengeToggles[i]){
+        player.autoChallengeToggles[i] = false;
+        el.style.border = "2px solid red";
+        el.textContent = "Automatically Run Chal." + i + " [OFF]"
+    }
+    else{
+        player.autoChallengeToggles[i] = true;
+        el.style.border = "2px solid green";
+        el.textContent = "Automatically Run Chal." + i + " [ON]"
+    }
+}
+
+function toggleAutoChallengeRun(){
+    let el = document.getElementById('toggleAutoChallengeStart');
+    if(player.autoChallengeRunning){
+        player.autoChallengeRunning = false;
+        el.style.border = "2px solid red"
+        el.textContent = "Auto Challenge Sweep [OFF]"
+        player.autoChallengeIndex = 1;
+        autoChallengeTimerIncrement = 0;
+    }
+    else{
+        player.autoChallengeRunning = true;
+        el.style.border = "2px solid gold"
+        el.textContent = "Auto Challenge Sweep [ON]"
+    }
+}
+
+function toggleAutoChallengeTextColors(i){
+    let a = document.getElementById("startAutoChallengeTimer");
+    let b = document.getElementById("exitAutoChallengeTimer");
+    let c = document.getElementById("enterAutoChallengeTimer");
+
+    (i === 1)?
+    a.style.color = 'gold':
+    a.style.color = 'white';
+    (i === 2)?
+    b.style.color = 'gold':
+    b.style.color = 'white';
+    (i === 3)?
+    c.style.color = 'gold':
+    c.style.color = 'white';
 }

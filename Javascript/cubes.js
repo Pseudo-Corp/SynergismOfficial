@@ -6,6 +6,8 @@ if(max){toSpend = player.wowCubes}
 
 player.wowCubes -= toSpend
 
+toSpend *= (1 + player.researches[138]/1000)
+toSpend = Math.floor(toSpend)
 let toSpendModulo = toSpend % 20
 let toSpendDiv20 = Math.floor(toSpend / 20)
 
@@ -14,6 +16,8 @@ let upgrade13 = 0;
 if(toSpendDiv20 > 0 && player.cubeUpgrades[13] == 1){toSpendModulo += toSpendDiv20}
 if(toSpendDiv20 > 0 && player.cubeUpgrades[23] == 1){toSpendModulo += toSpendDiv20}
 if(toSpendDiv20 > 0 && player.cubeUpgrades[33] == 1){toSpendModulo += toSpendDiv20}
+
+
 
 toSpendDiv20 += 100/100 * Math.floor(toSpendModulo/20);
 toSpendModulo = toSpendModulo % 20;
@@ -54,10 +58,10 @@ function(){return "Wow! I want better passive Obtainium"},
 function(){return "Wow! I want to keep mythos building autobuyers."},
 function(){return "Wow! I want to keep mythos upgrade autobuyer."},
 function(){return "Wow! I want to keep auto mythos gain."},
-function(){return "Wow! I want the first two particle building automators."},
-function(){return "Wow! I want the next two particle building automators."},
-function(){return "Wow! I want the last particle building automator."},
-function(){return "Wow! I want to improve automatic research tools."},
+function(){return "Wow! I want the particle building automators."},
+function(){return "Wow! I want to automate Particle Upgrades."},
+function(){return "Wow! I want to automate researches better dangit."},
+function(){return "Wow! This is pretty good but expensive."},
 function(){return "Wow! I want more cubes 2."},
 function(){return "Wow! I want building power to be useful 1."},
 function(){return "Wow! I want opened cubes to give more blessings 1."},
@@ -100,7 +104,7 @@ function(){return "Wow! I want to start ascension with a challenge 6-8 completio
 function(){return "Wow! I want to automate Ascensions you stupid developer"}]
 
 const cubeBaseCost = [null,
-    500, 500, 500, 1000, 1000, 1500, 500, 1000, 1500, 2500,
+    500, 500, 500, 500, 500, 500, 500, 500, 2000, 1e5,
     5000, 3000, 10000, 4000, 4000, 1e4, 4000, 1e4, 50000, 7500,
     5e4, 3e4, 3e4, 4e4, 4e4, 1e4, 1e5, 177777, 1e5, 5e5,
     5e5, 3e5, 3e5, 4e5, 4e5, 2e5, 5e5, 1e6, 1e6, 5e6,
@@ -120,10 +124,10 @@ function(){return "Athena grants you +20% more Obtainium, and +80% Auto Obtainiu
 function(){return "You keep those 5 useful automation upgrades in the upgrade tab!"},
 function(){return "You keep the mythos upgrade automation upgrade in the upgrade tab!"},
 function(){return "You keep the automatic mythos gain upgrade in the upgrades tab!"},
-function(){return "Automatically buy Protons and Elements whenever possible."},
-function(){return "Automatically buy Pulsars and Quasars whenever possible."},
-function(){return "Automatically buy Galactic Nuclei whenever possible."},
+function(){return "Automatically buy each Particle Building whenever possible."},
+function(){return "Automatically buy Particle Upgrades."},
 function(){return "The research automator in shop now automatically buys cheapest when enabled. It's like a roomba kinda!"},
+function(){return "Unlock some tools to automate Ascensions or whatever. Kinda expensive but cool."},
 function(){return "You got it again! +1 cube from challenges, +10% cubes from Ascending."},
 function(){return "Raise building power to the power of (1 + level * 0.2)."},
 function(){return "For each 20 cubes opened at once, you get 1 additional blessing at random."},

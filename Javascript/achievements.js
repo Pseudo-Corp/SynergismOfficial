@@ -381,12 +381,6 @@ function resetachievementcheck(i) {
         if (player.transcendnocoinorprestigeupgrades == true) {
             achievementaward(66)
         }
-        if (player.transcendnoaccelerator == true) {
-            achievementaward(61)
-        }
-        if (player.transcendnomultiplier == true) {
-            achievementaward(58)
-        }
         if (transcendPointGain.greaterThanOrEqualTo(1)) {
             achievementaward(43)
         }

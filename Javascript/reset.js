@@ -27,11 +27,7 @@ function resetdetails(i) {
         document.getElementById("resetobtainium").src = ""
         document.getElementById("resetobtainium2").textContent = ""
         document.getElementById("resetinfo").textContent = "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: " + format(player.coinsThisPrestige) + "/1e16 Coins || TIME SPENT: " + format(player.prestigecounter) + " seconds."
-        if (player.coinsThisPrestige.greaterThanOrEqualTo(1e16)) {
-            document.getElementById("resetinfo").style.color = "limegreen"
-        } else {
-            document.getElementById("resetinfo").style.color = "crimson"
-        }
+        document.getElementById("resetinfo").style.color = "turquoise"
     }
     if (i == 2) {
         color = 'plum'
@@ -43,11 +39,7 @@ function resetdetails(i) {
         document.getElementById("resetobtainium").src = ""
         document.getElementById("resetobtainium2").textContent = ""
         document.getElementById("resetinfo").textContent = "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: " + format(player.coinsThisTranscension) + "/1e100 Coins || TIME SPENT: " + format(player.transcendcounter) + " seconds." 
-        if (player.coinsThisTranscension.greaterThanOrEqualTo(1e100)) {
-            document.getElementById("resetinfo").style.color = "limegreen"
-        } else {
-            document.getElementById("resetinfo").style.color = "crimson"
-        }
+        document.getElementById("resetinfo").style.color = "orchid"
     }
     if (i == 3) {
         var s = player.currentChallenge.transcension
@@ -77,11 +69,7 @@ function resetdetails(i) {
         document.getElementById("resetobtainium").src = "Pictures/Obtainium.png"
         document.getElementById("resetobtainium2").textContent = "+" + format(Math.floor(obtainiumGain))
         document.getElementById("resetinfo").textContent = "Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: " + format(player.transcendShards) + "/1e300 Mythos Shards || TIME SPENT: " + format(player.reincarnationcounter) + " seconds."
-        if (player.transcendShards.greaterThanOrEqualTo(1e300)) {
-            document.getElementById("resetinfo").style.color = "limegreen"
-        } else {
-            document.getElementById("resetinfo").style.color = "crimson"
-        }
+        document.getElementById('resetinfo').style.color = "limegreen"
     }
     if (i == 5) {
         color = 'cyan'
@@ -168,8 +156,21 @@ function updateAutoReset(i) {
 }
 
 
-function reset(i,fast) {
+function reset(i,fast,from) {
     fast = fast || false
+    from = from || "unknown"
+
+    let historyEntry = {};
+    let historyKind = "prestige";
+    let historyCategory = "reset";
+    // By default, we don't log history entries when the player is entering or leaving a challenge, but we handle some
+    // special cases down below. This keeps the logs clean when someone in lategame runs 30 challenges in a row.
+    let historyUse = from !== "enterChallenge" && from !== "leaveChallenge";
+
+    historyEntry.offerings = calculateOfferings(i)
+    historyEntry.seconds = player.prestigecounter;
+    historyEntry.diamonds = prestigePointGain;
+
     resetofferings(i)
     resetUpgrades(1,fast);
     player.coins = new Decimal("102");
@@ -218,6 +219,10 @@ function reset(i,fast) {
 
 
     if (i > 1.5) {
+        historyKind = "transcend";
+        historyEntry.seconds = player.transcendcounter;
+        historyEntry.mythos = transcendPointGain;
+        delete historyEntry.diamonds;
         resetUpgrades(2,fast);
         player.coinsThisTranscension = new Decimal("100");
         player.firstOwnedDiamonds = 0;
@@ -294,6 +299,22 @@ function reset(i,fast) {
 
     }
     if (i > 2.5) {
+        historyKind = "reincarnate";
+        historyEntry.obtainium = obtainiumGain;
+        historyEntry.particles = reincarnationPointGain;
+        historyEntry.seconds = player.reincarnationcounter;
+        delete historyEntry.mythos;
+
+        // If we got a significant amount of particles from it, we want to record it even though we're
+        // in (entering) a challenge. We'll arbitrarily set this to 10% of the player's total particles.
+        // This makes it so that when a player constantly starts reincarnation challenges while getting boosts,
+        // the gains in between each challenge start are still recorded, but all of the spam and the challenge
+        // attempts themselves aren't.
+        if (!historyUse) {
+            if (reincarnationPointGain.gte(player.reincarnationPoints.div(10))) {
+                historyUse = true;
+            }
+        }
 
         player.researchPoints += Math.floor(obtainiumGain);
 
@@ -301,7 +322,7 @@ function reset(i,fast) {
         if (opscheck > player.obtainiumpersecond){
         player.obtainiumpersecond = opscheck
         }
-        
+        player.currentChallenge.transcension = 0;
         resetUpgrades(3,fast);
         player.coinsThisReincarnation = new Decimal("100");
         player.firstOwnedMythos = 0;
@@ -354,6 +375,7 @@ function reset(i,fast) {
             let toAdd = Math.min(1000, 100/100 * Math.floor(player.reincarnationcounter / 60));
             player.wowCubes += toAdd;
             player.cubesThisAscension.reincarnation += toAdd;
+            historyEntry.wowCubes = toAdd;
             if (i < 3.5)
                 updateCubesPerSec()
         }
@@ -370,6 +392,36 @@ function reset(i,fast) {
     }
 
     if(i > 3.5){
+    // reset other stuff
+    historyCategory = "ascend";
+    historyKind = "ascend";
+    // When ascending, log ascend history while in trans/reinc challenges, or if this ascension took longer than 1min
+    historyUse = player.currentChallenge.ascension === 0 || player.ascensionCounter > 60;
+    delete historyEntry.offerings;
+    delete historyEntry.obtainium;
+    delete historyEntry.particles;
+    historyEntry.seconds = player.ascensionCounter;
+    historyEntry.c10Completions = player.challengecompletions[10];
+    // get a copy of the array, not the actual array itself
+    historyEntry.usedCorruptions = player.usedCorruptions.slice(0);
+    historyEntry.corruptionScore = calculateCorruptionPoints();
+    // The value in player.cubesThisAscension isn't updated yet, we need the new value for that, but the current ones
+    // for the others, so we calculate it here
+    const cubesThisAscend = 100/100 * calculateCubeMultiplier() * 250;
+    historyEntry.wowCubes = cubesThisAscend + player.cubesThisAscension.challenges + player.cubesThisAscension.reincarnation;
+    historyEntry.wowCubesAscend = cubesThisAscend;
+    historyEntry.wowCubesChallenge = player.cubesThisAscension.challenges;
+    historyEntry.wowCubesReincarnate = player.cubesThisAscension.reincarnation;
+    historyEntry.wowCubesCps = player.cubesThisAscension.maxCubesPerSec;
+    historyEntry.wowCubesCpsAtC10 = player.cubesThisAscension.cpsOnC10Comp;
+    historyEntry.wowTesseracts = player.cubesThisAscension.tesseracts;
+    historyEntry.wowHypercubes = player.cubesThisAscension.hypercubes;
+    // reset auto challenges
+    player.currentChallenge.transcension = 0;
+    player.currentChallenge.reincarnation = 0;
+    player.autoChallengeIndex = 1;
+    autoChallengeTimerIncrement = 0;
+    //reset rest
     resetResearches();
     resetAnts();
     resetTalismans();
@@ -428,6 +480,10 @@ function reset(i,fast) {
 
     if(player.cubeUpgrades[48] > 0){player.firstOwnedAnts += 1}
 
+    if(player.challengecompletions[10] > 0){
+        player.wowCubes += 100/100 * calculateCubeMultiplier() * 250;
+    }
+
     for(var j = 1; j <= 10; j++){
     player.challengecompletions[j] = 0;
     player.highestchallengecompletions[j] = 0;
@@ -437,10 +493,10 @@ function reset(i,fast) {
     player.challengecompletions[7] = player.highestchallengecompletions[7] = player.cubeUpgrades[49]
     player.challengecompletions[8] = player.highestchallengecompletions[8] = player.cubeUpgrades[49]
 
-    player.roombaResearchIndex = 1;
+    player.roombaResearchIndex = 0;
     player.autoResearch = 1;
 
-    for (j = 1; j <= (125); j++) {
+    for (j = 1; j <= (155); j++) {
         var k = "res" + j
         if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "purple"}
         else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "green"}
@@ -454,10 +510,11 @@ function reset(i,fast) {
     calculateObtainium();
 
     player.ascensionCount += 1;
-    player.wowCubes += 100/100 * calculateCubeMultiplier() * 250;
     player.cubesThisAscension.challenges = 0;
     player.cubesThisAscension.reincarnation = 0;
     player.cubesThisAscension.maxCubesPerSec = 0;
+    player.cubesThisAscension.tesseracts = 0;
+    player.cubesThisAscension.hypercubes = 0;
     player.cubesThisAscension.ascension = 100/100 * calculateCubeMultiplier() * 250;
     player.ascensionCounter = 0;
 
@@ -509,6 +566,10 @@ function reset(i,fast) {
     }
     if (!fast){
     revealStuff();
+    }
+
+    if (historyUse) {
+        resetHistoryAdd(historyCategory, historyKind, historyEntry);
     }
 }
 
@@ -676,7 +737,7 @@ function resetAnts(){
     player.antUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ant12];
     player.antPoints = new Decimal("1");
 
-    if(player.currentChallenge.ascension === 12){player.antPoints = new Decimal("3")}
+    if(player.currentChallenge.ascension === 12){player.antPoints = new Decimal("7")}
 
     calculateAnts();
     calculateRuneLevels();
@@ -689,7 +750,9 @@ function resetResearches(){
                         26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
                         51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 64, 65, 66, 67, 68, 69, 70,
                         76, 81, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 96, 97, 98,
-                        101, 102, 103, 104, 106, 107, 108, 109, 110, 116, 117, 118, 121, 122, 123]
+                        101, 102, 103, 104, 106, 107, 108, 109, 110, 116, 117, 118, 121, 122, 123,
+                        126, 127, 128, 129, 131, 132, 133, 134, 136, 137, 138, 139, 141, 142, 143, 144, 146, 147, 148, 149,
+                        151, 152, 153, 154]
     //Iterates through "destroy"
     for(var i = 1; i < destroy.length; i++){player.researches[destroy[i]] = 0;}
 }

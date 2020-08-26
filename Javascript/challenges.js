@@ -164,7 +164,7 @@ function challengeDisplay(i,changefocus, automated) {
         a.textContent = "Sadistic Challenge I || " + player.challengecompletions[10] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "I'm sorry for what I've unleashed onto the world."
         c.textContent = "Reincarnate and reach the goal except run the first five challenges AT THE SAME TIME! Coin Production /e12,500,000."
-        d.textContent = "Goal: Gain " + format(Decimal.pow(10, challengeBaseRequirements[10] * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions[10]), Math.pow(1 + player.challengecompletions[10], 2)))) + " Coins in challenge."
+        d.textContent = "Goal: Gain " + format(Decimal.pow(10, (challengeBaseRequirements[10] - (1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185] + player.researches[190]))) * hyperchallengedMultiplier[player.usedCorruptions[4]] * Math.min(Math.pow(1.3797, player.challengecompletions[10]), Math.pow(1 + player.challengecompletions[10], 2)))) + " Coins in challenge."
         e.textContent = "+100 base ELO for sacrificing ants! Current: "
         f.textContent = "+2% Ant Sacrifice Reward! Current: "
         g.textContent = "Reincarnation Offerings +10%! Current: "
@@ -256,6 +256,19 @@ function challengeDisplay(i,changefocus, automated) {
     if(player.challengecompletions[i] >= player.highestchallengecompletions[i] && player.highestchallengecompletions[i] < 10 && i > 10){
         j.textContent = "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)" 
     }
+
+    (i <= 10 && player.researches[150] > 0)?
+    (document.getElementById("toggleAutoChallengeIgnore").style.display = "block", document.getElementById('toggleAutoChallengeIgnore').style.border = "2px solid green"):
+    document.getElementById("toggleAutoChallengeIgnore").style.display = "none";
+    
+    let constructor = "ON"
+    if(!player.autoChallengeToggles[i]){constructor = "OFF"; document.getElementById('toggleAutoChallengeIgnore').style.border = "2px solid red"}
+    document.getElementById("toggleAutoChallengeIgnore").textContent = "Automatically Run Chal." + i + " [" + constructor + "]"
+
+    let ella = document.getElementById("toggleAutoChallengeStart");
+    (player.autoChallengeRunning)?
+    (ella.textContent = "Auto Challenge Sweep [ON]", ella.style.border = "2px solid gold"):
+    (ella.textContent = "Auto Challenge Sweep [OFF]", ella.style.border = "2px solid red");
 }
 
 function getChallengeConditions() {
@@ -288,6 +301,7 @@ function highestChallengeRewards(chalNum, highestValue){
     }
     else{
         player.wowTesseracts += toAdd
+        player.cubesThisAscension.tesseracts += toAdd
     }
 
 
