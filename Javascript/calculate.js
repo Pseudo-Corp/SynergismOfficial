@@ -45,7 +45,9 @@ function calculateTotalAcceleratorBoost() {
 	b *= (1 + 1/5 * player.researches[3])
 	b *= (1 + 1/20 * player.researches[16] + 1/20 * player.researches[17])
 	b *= (1 + 1/20 * player.researches[88])
-	b *= calculateSigmoidExponential(20, (player.antUpgrades[4] + bonusant4) / 1000 * 20/19)
+    b *= calculateSigmoidExponential(20, (player.antUpgrades[4] + bonusant4) / 1000 * 20/19)
+    b *= (1 + 1/100 * player.researches[127])
+    b *= (1 + 0.8/100 * player.researches[142])
 	if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {b *= 2}
 	b = Math.floor(b)
 	freeAcceleratorBoost = b;
@@ -61,7 +63,9 @@ function calculateAcceleratorMultiplier(){
 	acceleratorMultiplier *=(1 + player.achievements[62]/100)
 	acceleratorMultiplier *=(1 + 1/5 * player.researches[1])
 	acceleratorMultiplier *=(1 + 1/20 * player.researches[6] + 1/25 * player.researches[7] + 1/40 * player.researches[8] + 3/200 * player.researches[9] + 1/200 * player.researches[10]);
-	acceleratorMultiplier *=(1 + 1/20 * player.researches[86])
+    acceleratorMultiplier *=(1 + 1/20 * player.researches[86])
+    acceleratorMultiplier *=(1 + 1/100 * player.researches[126])
+    acceleratorMultiplier *=(1 + 0.8/100 * player.researches[141])
 	acceleratorMultiplier *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
 	if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {acceleratorMultiplier *= 1.25}
 	acceleratorMultiplier *= maladaptiveMultiplier[player.usedCorruptions[2]]
@@ -302,6 +306,7 @@ function calculateOfferings(i){
     q *= (1 + Math.pow((player.antUpgrades[6] + bonusant6 /50), 2/3))
     q *= cubeBonusMultiplier[3]
     q *= (1 + 0.0001 * player.constantUpgrades[3] * Decimal.log(player.ascendShards.add(1), 10))
+    q *= (1 + 0.0003 * player.talismanLevels[3] * player.researches[149])
     q *= (1 + 0.12 * player.challengecompletions[12])
     q = Math.floor(q) * 100 / 100
 
@@ -343,6 +348,7 @@ function calculateObtainium(){
         obtainiumGain *= (1 + 0.0004 * player.constantUpgrades[4] * Decimal.log(player.ascendShards.add(1), 10))
         obtainiumGain *= (1 + player.cubeUpgrades[47])
         obtainiumGain *= (1 + 0.5 * player.challengecompletions[12])
+        obtainiumGain *= (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144])
         if (player.achievements[53] > 0){
             obtainiumGain *= (1 + 1/2000 * (runeSum))
         }
@@ -359,7 +365,7 @@ function calculateObtainium(){
         obtainiumGain *= Math.pow(Decimal.log(player.transcendShards.add(1),10)/300,2)
         obtainiumGain = Math.pow(obtainiumGain, illiteracyPower[player.usedCorruptions[5]])
         if(player.currentChallenge.ascension === 14){obtainiumGain = 0}
-        player.obtainiumpersecond = obtainiumGain/(Math.min(player.reincarnationcounter + 0.05, 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel) + 1)
+        player.obtainiumpersecond = obtainiumGain/(0.1 + player.reincarnationcounter)
         player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond);
 }
 
@@ -483,19 +489,21 @@ function calculateAnts() {
     talismanBonus += 2 * player.constantUpgrades[6];
     talismanBonus += 15 * player.challengecompletions[11];
     let c11 = 0;
+    let c11bonus = 0;
     if(player.currentChallenge.ascension === 11){c11 = 999}
-    bonusant1 = Math.min(player.antUpgrades[1] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102])
-    bonusant2 =  Math.min(player.antUpgrades[2] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102])
-    bonusant3 =  Math.min(player.antUpgrades[3] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102])
-    bonusant4 = Math.min(player.antUpgrades[4] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102])
-    bonusant5 = Math.min(player.antUpgrades[5] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102])
-    bonusant6 = Math.min(player.antUpgrades[6] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102])
-    bonusant7 = Math.min(player.antUpgrades[7] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102])
-    bonusant8 =  Math.min(player.antUpgrades[8] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102])
-    bonusant9 = Math.min(player.antUpgrades[9] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102])
-    bonusant10 =  Math.min(player.antUpgrades[10] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102])
-    bonusant11 = Math.min(player.antUpgrades[11] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102])
-    bonusant12 = Math.min(player.antUpgrades[12] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102])
+    if(player.currentChallenge.ascension === 11){c11bonus = Math.floor((15 * player.challengecompletions[8] + 15 * player.challengecompletions[9]) * (1 - player.challengecompletions[11]/10));}
+    bonusant1 = Math.min(player.antUpgrades[1] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant2 =  Math.min(player.antUpgrades[2] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant3 =  Math.min(player.antUpgrades[3] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant4 = Math.min(player.antUpgrades[4] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant5 = Math.min(player.antUpgrades[5] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant6 = Math.min(player.antUpgrades[6] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant7 = Math.min(player.antUpgrades[7] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant8 =  Math.min(player.antUpgrades[8] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant9 = Math.min(player.antUpgrades[9] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant10 =  Math.min(player.antUpgrades[10] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant11 = Math.min(player.antUpgrades[11] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
+    bonusant12 = Math.min(player.antUpgrades[12] + c11, 4 * player.researches[98] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
 
 }
 
@@ -518,6 +526,7 @@ function calculateAntSacrificeELO(){
         if(player.achievements[181] == 1){antELO *= 1.03/1.01}
         if(player.achievements[182] == 1){antELO *= 1.06/1.03}
         antELO *= (1 + player.researches[110]/100)
+        antELO *= (1 + 2.5 * player.researches[148]/100)
 
         if(player.achievements[176] == 1){antELO += 25}
         if(player.achievements[177] == 1){antELO += 50}
@@ -555,6 +564,7 @@ function calculateAntSacrificeMultipliers() {
     upgradeMultiplier *= divineBlessing3;
     upgradeMultiplier *= (1 + 1/50 * player.challengecompletions[10]);
     upgradeMultiplier *= (1 + 1/50 * player.researches[122]);
+    upgradeMultiplier *= (1 + 3/100 * player.researches[133]);
     upgradeMultiplier *= (1 + 1/10 * player.upgrades[79]);
     upgradeMultiplier *= (1 + 0.09 * player.upgrades[40]);
     upgradeMultiplier *= cubeBonusMultiplier[7];
@@ -691,7 +701,7 @@ function calculateCubeBlessings(){
     if(cubeArray[i] >= 1000){power = blessingDRPower[i]; mult *= Math.pow(1000, (1 - blessingDRPower[i]) * (1 + powerBonus[i])); augmentAccuracy += 2;}
     if(i == 6){power = 2.25; mult = 1; augmentAccuracy = 0;}
 
-    cubeBonusMultiplier[i] = 1 + mult * blessingbase[i] * Math.pow(cubeArray[i], power * (1 + powerBonus[i]));
+    cubeBonusMultiplier[i] = 1 + mult * blessingbase[i] * Math.pow(cubeArray[i], power * (1 + powerBonus[i])) * tesseractBonusMultiplier[i];
 
     document.getElementById("cubeBlessing"+i+"Amount").textContent = "x"+format(cubeArray[i],0,true)
     document.getElementById("cubeBlessing"+i+"Effect").textContent = "+"+format(100*(cubeBonusMultiplier[i] - 1),accuracy[i] + augmentAccuracy,true) + "%"
@@ -715,6 +725,8 @@ function calculateCubeMultiplier() {
     mult *= (1 + player.cubeUpgrades[21]/10);
     mult *= (1 + player.cubeUpgrades[31]/10);
     mult *= (1 + player.cubeUpgrades[41]/10);
+    mult *= (1 + player.researches[137] / 100)
+    mult *= (1 + 0.9 * player.researches[152] / 100)
 
     var timeThresholds = [0, 30, 60, 120, 600, 1800, 7200, 28800, 86400, 86400*7]
     for(var i = 1; i <= 9; i++){
@@ -727,6 +739,8 @@ function calculateCubeMultiplier() {
 function calculateTimeAcceleration() {
     let timeMult = 1;
     timeMult *= (1 + player.researches[121]/50); // research 5x21
+    timeMult *= (1 + 0.015 * player.researches[136]) // research 6x11
+    timeMult *= (1 + 0.012 * player.researches[151]) // research 7x1
     timeMult *= divineBlessing1; // speed blessing
     timeMult *= cubeBonusMultiplier[10]; // Chronos cube blessing
     timeMult *= 1 + player.cubeUpgrades[18] / 5; // cube upgrade 2x8

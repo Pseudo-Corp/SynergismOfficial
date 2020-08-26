@@ -36,8 +36,23 @@ var researchBaseCosts = [1e100, 1, 1, 1, 1, 1,
 							1e16, 3e16, 1e17, 3e17, 1e20,
 							1e18, 3e18, 1e19, 3e19, 1e20,
 							1e20, 2e20, 4e20, 8e20, 1e21,
-							3e21, 1e22, 1e23, 1e24, 3e25,
-							1e23, 3e26, 1e27, 1e21, 7.777e32
+							2e21, 4e21, 8e21, 2e22, 4e22,
+							8e22, 2e23, 4e23, 1e21, 7.777e32, 
+				/*ascension tier */				5e8, 5e12, 5e16, 5e20, 5e24,
+							1e25, 2e25, 4e25, 8e25, 1e26,
+							4e26, 8e26, 1e27, 2e27, 1e28,
+				/*challenge 11 tier */			5e9, 5e15, 5e21, 5e27, 5e28,
+							1e29, 2e29, 4e29, 8e29, 1e30,
+							2e30, 4e30, 8e30, 1e31, 2e31,
+				/*challenge 12 tier */			5e31, 1e32, 2e32, 4e32, 8e32,
+							1e33, 2e33, 4e33, 8e33, 1e34,
+							3e34, 1e35, 3e35, 6e35, 1e36,
+				/*challenge 13 tier */			3e36, 1e37, 3e37, 1e38, 3e38,
+							1e39, 3e39, 1e40, 3e40, 1e41,
+							3e41, 1e42, 3e42, 6e42, 1e43,
+				/*challenge 14 tier */			3e43, 1e44, 3e44, 1e45, 3e45,
+							1e46, 3e46, 1e47, 3e47, 1e48,
+							3e48, 1e49, 3e49, 6e49, 1e50
 							]
 
 
@@ -66,7 +81,13 @@ var researchMaxLevels = [0, 1, 1, 1, 1, 1,
 							 10, 10, 20, 25, 25,
 							 50, 50, 50, 50, 100,
 							 10, 10, 10, 100, 100,
-							 25, 25, 25, 1, 1]								
+							 25, 25, 25, 1, 1,
+							 10, 10, 10, 10, 1,
+							 10, 10, 10, 10, 1,
+							 25, 25, 25, 15, 1,
+							 10, 10, 10, 10, 1,
+							 10, 1, 6, 10, 1,
+							 25, 25, 25, 15, 1]								
 
 var ticker = 0;
 
@@ -297,11 +318,20 @@ var triggerChallenge = ""
 var prevReductionValue = -1;
 
 var buildingSubTab = "coin"
-
+//1,000 of each before Diminishing Returns
 var blessingbase = [null, 1/500, 1/5000, 1/2000, 1/750, 1/200, 1/10000, 1/5000, 1/10, 1/10000, 1/1000]
 var blessingDRPower = [null, 1/3, 1/3, 2/3, 1/2, 2/3, 2, 1/3, 1/3, 1/16, 1/16]
+//100 of each before Diminishing Returns
+var giftbase = [null, 1/500, 1/500, 1/500, 1/500, 1/500, 1/500, 1/500, 1/500, 1/500, 1/500]
+var giftDRPower = [null, 1/6, 1/6, 1/3, 1/4, 1/3, 1, 1/6, 1/6, 1/32, 1/32]
+//10 of each before Diminishing Returns
+var benedictionbase = [null, 3/100, 3/100, 3/100, 3/100, 3/100, 3/100, 3/100, 3/100, 3/100, 3/100]
+var benedictionDRPower = [null, 1/12, 1/12, 1/6, 1/8, 1/6, 1/2, 1/12, 1/12, 1/64, 1/64]
+
 
 var cubeBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+var tesseractBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+var hypercubeBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 var buyMaxCubeUpgrades = false;
 var autoOfferingCounter = 0;
@@ -341,3 +371,6 @@ var testArray = []
 var constUpgradeCosts = [null, 1, 13, 17, 237, 316, 4216, 5623, 74989, 1e10, 1e24]
 
 var globalConstantMult = new Decimal("1")
+var autoTalismanTimer = 0
+
+var autoChallengeTimerIncrement = 0;

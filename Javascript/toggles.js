@@ -11,7 +11,8 @@ function toggleSettings(i) {
     toggleauto();
 }
 
-function toggleChallenges(i) {
+function toggleChallenges(i,auto) {
+auto = auto || false
 if (player.currentChallenge.transcension === 0 && (i <= 5)) {
     player.currentChallenge.transcension = i;
     reset(2, false, "enterChallenge");
@@ -26,10 +27,18 @@ if((player.currentChallenge.transcension === 0 && player.currentChallenge.reinca
     player.currentChallenge.ascension = i;
     reset(4, false, "enterChallenge");
     player.ascensionCount -= 1;
+
+    if(player.currentChallenge.ascension === 12){
+        player.antPoints = new Decimal("8")
+    }
 }
 
 	updateChallengeDisplay();
-	getChallengeConditions();
+    getChallengeConditions();
+    
+    if(!auto && player.autoChallengeRunning){
+        toggleAutoChallengeRun();
+    }
 }
 
 
@@ -325,4 +334,73 @@ function toggleCubeSubTab(i){
     i === 4 ?  
     (d.style.backgroundColor = "crimson"):
     (d.style.backgroundColor = "black");
+}
+function updateAutoChallenge(i){
+    let t
+    switch(i){
+        case 1:
+            t = parseFloat(document.getElementById('startAutoChallengeTimerInput').value)
+            t = t || 0 ;
+            player.autoChallengeTimer.start = Math.max(t, 0);
+            document.getElementById("startTimerValue").textContent = format(player.autoChallengeTimer.start,2,true) + "s";
+            break;
+        case 2:
+            t = parseFloat(document.getElementById('exitAutoChallengeTimerInput').value)
+            t = t || 0 ;
+            player.autoChallengeTimer.exit = Math.max(t, 0);
+            document.getElementById("exitTimerValue").textContent = format(player.autoChallengeTimer.exit,2,true) + "s";
+            break;
+        case 3:
+            t = parseFloat(document.getElementById('enterAutoChallengeTimerInput').value)
+            t = t || 0 ;
+            player.autoChallengeTimer.enter = Math.max(t, 0);
+            document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter,2,true) + "s";
+            break;
+    }
+}
+
+function toggleAutoChallengesIgnore(i){
+    let el = document.getElementById("toggleAutoChallengeIgnore");
+    if(player.autoChallengeToggles[i]){
+        player.autoChallengeToggles[i] = false;
+        el.style.border = "2px solid red";
+        el.textContent = "Automatically Run Chal." + i + " [OFF]"
+    }
+    else{
+        player.autoChallengeToggles[i] = true;
+        el.style.border = "2px solid green";
+        el.textContent = "Automatically Run Chal." + i + " [ON]"
+    }
+}
+
+function toggleAutoChallengeRun(){
+    let el = document.getElementById('toggleAutoChallengeStart');
+    if(player.autoChallengeRunning){
+        player.autoChallengeRunning = false;
+        el.style.border = "2px solid red"
+        el.textContent = "Auto Challenge Sweep [OFF]"
+        player.autoChallengeIndex = 1;
+        autoChallengeTimerIncrement = 0;
+    }
+    else{
+        player.autoChallengeRunning = true;
+        el.style.border = "2px solid gold"
+        el.textContent = "Auto Challenge Sweep [ON]"
+    }
+}
+
+function toggleAutoChallengeTextColors(i){
+    let a = document.getElementById("startAutoChallengeTimer");
+    let b = document.getElementById("exitAutoChallengeTimer");
+    let c = document.getElementById("enterAutoChallengeTimer");
+
+    (i === 1)?
+    a.style.color = 'gold':
+    a.style.color = 'white';
+    (i === 2)?
+    b.style.color = 'gold':
+    b.style.color = 'white';
+    (i === 3)?
+    c.style.color = 'gold':
+    c.style.color = 'white';
 }

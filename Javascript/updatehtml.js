@@ -135,6 +135,11 @@ function revealStuff() {
 		example27[i].style.display = player.unlocks.prestige > 0 ? "inline-block" : "none"
 	}
 
+	let example28 = document.getElementsByClassName("research150");
+	for (var i = 0; i < example28.length; i++){
+		example28[i].style.display = player.researches[150] > 0 ? "block" : "none"
+	}
+
 	player.upgrades[89] === 1 ? //Automatic Transcension Upgrade
 		document.getElementById("transcendautomation").style.display = "block":
 		document.getElementById("transcendautomation").style.display = "none";
@@ -561,11 +566,13 @@ function htmlInserts() {
 		
 	}
 
-	if (currentTab == "challenges") {}
+	if (currentTab == "challenges") {
+		if(player.researches[150] > 0){
+			document.getElementById("autoIncrementerAmount").textContent = format(autoChallengeTimerIncrement,2) + "s"
+		}
+	}
 
 	if (currentTab == "researches") {
-    	document.getElementById("researchinfo").textContent = "You have " + format(player.researchPoints,0,true) + " Obtainium"
-    	document.getElementById("contentteaser1").textContent = "Optimal Reincarnation Time for Obtainium [Assuming e22 Upgrade bought]: " + format((3600 + 120 * player.shopUpgrades.obtainiumTimerLevel)) + " Seconds."
 	}
 
 	if (currentTab == "settings") {

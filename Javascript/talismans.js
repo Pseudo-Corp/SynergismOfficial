@@ -324,7 +324,8 @@ if(rarity == 6){el.style.border = "4px solid crimson"; la.style.color = "crimson
 
 
 
-function buyTalismanLevels(i){
+function buyTalismanLevels(i, auto){
+    auto = auto || false
     let max = 1;
     if(player.ascensionCount > 0){max = 30}
     for(var j = 1; j <= max; j++){
@@ -358,11 +359,14 @@ function buyTalismanLevels(i){
     if(checkSum !== 7){break}
     }
     updateTalismanInventory();
+    if(!auto){
     showTalismanPrices(i);
+    }
     calculateRuneLevels();
 }
 
-function buyTalismanEnhance(i){
+function buyTalismanEnhance(i,auto){
+    auto = auto || false
     let checkSum = 0;
     if (player.talismanRarity[i] < 6){
     let priceMult = talismanLevelCostMultiplier[i];
@@ -389,7 +393,9 @@ function buyTalismanEnhance(i){
 
     updateTalismanAppearance(i);
     updateTalismanInventory();
+    if(!auto){
     showEnhanceTalismanPrices(i);
+    }
     calculateRuneLevels();
 }
 }

@@ -3078,6 +3078,69 @@ margin-left: -13px
 	top: 51px;
 	left: 16%;
 }
+#toggleAutoChallengeIgnore{
+	position: absolute;
+	border: 2px solid green;
+	height: 30px;
+	width: 200px;
+	top: 82px;
+	left: 16%
+}
+#toggleAutoChallengeStart{
+	position: absolute;
+	border: 2px solid gold;
+	height: 30px;
+	width: 200px;
+	top: 120px;
+	left: 16%
+}
+#startAutoChallengeTimer{
+	position: absolute;
+	color: white;
+	height: 30px;
+	width: 300px;
+	top: 152px;
+	left: 0%
+}
+#startAutoChallengeTimerInput{
+	position: absolute;
+	top: 174px;
+	width: 50px;
+	left: 30%
+}
+#exitAutoChallengeTimer{
+	position: absolute;
+	color: white;
+	height: 30px;
+	width: 300px;
+	top: 172px;
+	left: 0%
+}
+#exitAutoChallengeTimerInput{
+	position: absolute;
+	top: 194px;
+	width: 50px;
+	left: 30%
+}
+#enterAutoChallengeTimer{
+	position: absolute;
+	color: white;
+	height: 30px;
+	width: 300px;
+	top: 192px;
+	left: 0%
+}
+#enterAutoChallengeTimerInput{
+	position: absolute;
+	top: 214px;
+	width: 50px;
+	left: 30%
+}
+#autoChallengeIncrementer{
+	position: absolute;
+	top: 234px;
+	font-size: 1.25em;
+}
 #challengeName{
 	position:absolute;
 	color: white;
@@ -3432,27 +3495,20 @@ margin-left: -13px
 	padding: 0px;
 	border: 1px solid green
 }
-#researchinfo {
-	position:absolute;
-	top:20px;
-	width: 500px;
-	margin-left: -250px;
-	left: 50%;
-}
 
 #researchtable {
 	position:absolute;
 	padding: 0px;
-	top: 75px;
+	top: 15px;
 	left: 50%;
-	margin-left: -340px;
+	margin-left: -427px;
 	border-collapse:collapse;
 	font-size: 0px;
 }
 
 #researchinfo2 {
 	position:absolute;
-	top:250px;
+	top:280px;
 	width:1000px;
 	height: 42px;
 	left:50%;
@@ -3462,7 +3518,7 @@ margin-left: -13px
 #researchcost {
 	position: absolute;
 	position:absolute;
-	top:273px;
+	top:303px;
 	width:400px;
 	height: 42px;
 	left:50%;
@@ -3471,7 +3527,7 @@ margin-left: -13px
 
 #researchinfo3 {
 	position:absolute;
-	top:296px;
+	top:326px;
 	width: 100px;
 	left: 50%;
 	margin-left: -50px;
@@ -3479,7 +3535,7 @@ margin-left: -13px
 
 #researchpointinfo {
 	position:absolute;
-	top: 330px;
+	top: 346px;
 	width: 900px;
 	left: 50%;
 	margin-left: -450px;
@@ -3498,7 +3554,7 @@ margin-left: -13px
 #automaticobtainium{
 	position: absolute;
 	padding: 5px;
-	top: 350px;
+	top: 365px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -3508,7 +3564,7 @@ margin-left: -13px
 #toggleresearchbuy {
 	position: absolute;
 	padding: 5px;
-	top: 400px;
+	top: 420px;
 	left: 40%;
 	width: 200px;
 	margin-left: -100px;
@@ -3518,23 +3574,14 @@ margin-left: -13px
 #toggleautoresearch {
 	position: absolute;
 	padding: 5px;
-	top: 400px;
+	top: 420px;
 	left: 60%;
 	width: 200px;
 	margin-left: -100px;
 	height: 30px;
 	text-align: center;
 }
-#contentteaser1 {
-	position: absolute;
-	padding: 5px;
-	top: 430px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	text-align: center;
-}
+
 #retrybutton {
 	position: absolute;
 	width: 70px;
