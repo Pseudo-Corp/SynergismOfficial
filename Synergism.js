@@ -496,6 +496,7 @@ tesseractbuyamount: 1,
 				globalSpeed: 0
 			  },
 			  ascendShards: new Decimal("0"),
+
 			  roombaResearchIndex: 0,
 			  cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "cpsOnC10Comp": 0, "tesseracts": 0, "hypercubes": 0},
 
