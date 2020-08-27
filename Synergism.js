@@ -1893,8 +1893,9 @@ function resetCurrency() {
 	if(player.currentChallenge.ascension === 12){reincarnationPointGain = new Decimal("0")}
 	}
 
-function resetCheck(i,manual) {
+function resetCheck(i,manual, leaving) {
 	manual = (manual === null || manual === undefined) ? true : manual;
+	leaving = (leaving === null || leaving === undefined) ? false : leaving;
 	if (i == 'prestige') {
 		if (player.coinsThisPrestige.greaterThanOrEqualTo(1e16) || prestigePointGain.greaterThanOrEqualTo(100)) {
 			if (manual) {
@@ -1921,29 +1922,43 @@ function resetCheck(i,manual) {
 		var q = player.currentChallenge.transcension;
 			var x = q + 65
 		if (player.currentChallenge.transcension !== 0) {
-
-			if (player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengeBaseRequirements[q] * Math.pow(1 + player.challengecompletions[q], 2) * Math.pow(1.5, Math.max(0, player.challengecompletions[q] - 75)))) && player.challengecompletions[q] < (25 + 5 * player.researches[x] + 925 * player.researches[105])) {
-			player.challengecompletions[q] += 1;
-			var y = x - 65
-			challengeDisplay(y,true)
+			let reqCheck = (comp, base) => {
+				return player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10,
+					base * Math.pow(1 + comp, 2) * Math.pow(1.5, Math.max(0, comp - 75))))
+			}
+			let maxCompletions = 25 + 5 * player.researches[x] + 925 * player.researches[105];
+			if (reqCheck(player.challengecompletions[q], challengeBaseRequirements[q]) && player.challengecompletions[q] < maxCompletions) {
+				let maxInc = player.shopUpgrades.instantChallengeBought ? 10 : 1; // TODO: Implement the shop upgrade levels here
+				let counter = 0;
+				let comp = player.challengecompletions[q];
+				while (counter < maxInc) {
+					if (reqCheck(comp, challengeBaseRequirements[q]) && comp < maxCompletions) {
+						comp++;
+					}
+					counter++;
+				}
+				player.challengecompletions[q] = comp;
+				var y = x - 65
+				challengeDisplay(y,true)
 			}
 			if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
-				player.highestchallengecompletions[q] += 1;
-				var y = x - 65;
-				challengeDisplay(y,true)
+				while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
+					player.highestchallengecompletions[q] += 1;
+					var y = x - 65;
+					challengeDisplay(y,true)
+					highestChallengeRewards(q, player.highestchallengecompletions[q])
+					updateCubesPerSec()
+					calculateCubeBlessings();
+				}
 
-				highestChallengeRewards(q, player.highestchallengecompletions[q])
-				updateCubesPerSec()
-		
-			
-				calculateCubeBlessings();
 			}
 
-
-			
 			challengeachievementcheck(q);
-			reset(2, false, "leaveChallenge");
-			player.transcendCount -= 1;
+			if (!player.shopUpgrades.instantChallengeBought || leaving) {
+				reset(2, false, "leaveChallenge");
+				player.transcendCount -= 1;
+			}
+
 			}
 			if (!player.retrychallenges || manual  || player.challengecompletions[q] >= (25 + 5 * player.researches[x] + 925 * player.researches[105])) {
 			player.currentChallenge.transcension = 0;
@@ -1969,29 +1984,46 @@ function resetCheck(i,manual) {
 			if (player.currentChallenge.transcension !== 0) {
 				player.currentChallenge.transcension = 0
 			}
-			if(q <= 8){
-				if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengeBaseRequirements[q] * Math.min(Math.pow(1.3797, player.challengecompletions[q]) , Math.pow(1 + player.challengecompletions[q], 2)))) && player.challengecompletions[q] < 25 + player.cubeUpgrades[29]) {
-					player.challengecompletions[q] += 1
+			let reqCheck = (comp, base) => {
+				if (q <= 8) {
+					return player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10,
+						base * Math.min(Math.pow(1.3797, comp), Math.pow(1 + comp, 2))))
+				} else { // challenges 9 and 10
+					let c10Reduction = 0;
+					if (player.currentChallenge.reincarnation === 10) {
+						c10Reduction = 1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185] + player.researches[200])
+					}
+					return player.coins.greaterThanOrEqualTo(Decimal.pow(10, (base - c10Reduction) * Math.min(Math.pow(1.3797, comp) , Math.pow(1 + comp, 2))))
 				}
 			}
-			if (q >= 9){
-				let c10Reduction = 0;
-				if(player.currentChallenge.reincarnation === 10){c10Reduction = 1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185] + player.researches[200])}
-				if (player.coins.greaterThanOrEqualTo(Decimal.pow(10, (challengeBaseRequirements[q] - c10Reduction) * Math.min(Math.pow(1.3797, player.challengecompletions[q]) , Math.pow(1 + player.challengecompletions[q], 2)))) && player.challengecompletions[q] < 25 + player.cubeUpgrades[29]) {
-					player.challengecompletions[q] += 1
+			let maxCompletions = 25 + player.cubeUpgrades[29];
+			if (reqCheck(player.challengecompletions[q], challengeBaseRequirements[q]) && player.challengecompletions[q] < maxCompletions) {
+				let maxInc = player.shopUpgrades.instantChallengeBought ? 10 : 1; // TODO: Implement the shop upgrade levels here
+				let counter = 0;
+				let comp = player.challengecompletions[q];
+				while (counter < maxInc) {
+					if (reqCheck(comp, challengeBaseRequirements[q]) && comp < maxCompletions) {
+						comp++;
+					}
+					counter++;
 				}
+				player.challengecompletions[q] = comp;
+				challengeDisplay(q,true)
 			}
-		challengeDisplay(q,true)
-		reset(3, false, "leaveChallenge");
+			if (!player.shopUpgrades.instantChallengeBought || leaving) { // TODO: Implement the upgrade levels here
+				reset(3, false, "leaveChallenge");
+				player.reincarnationCount -= 1;
+			}
 		challengeachievementcheck(q);
-		player.reincarnationCount -= 1;
 		if (player.challengecompletions[q] > player.highestchallengecompletions[q]){
-			player.highestchallengecompletions[q] += 1;
-			highestChallengeRewards(q, player.highestchallengecompletions[q])
-			updateCubesPerSec()
-			calculateHypercubeBlessings();
-			calculateTesseractBlessings();
-			calculateCubeBlessings();
+			while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
+				player.highestchallengecompletions[q] += 1;
+				highestChallengeRewards(q, player.highestchallengecompletions[q])
+				updateCubesPerSec()
+				calculateHypercubeBlessings();
+				calculateTesseractBlessings();
+				calculateCubeBlessings();
+			}
 		}
 
 		}
@@ -2459,7 +2491,7 @@ function tick() {
 		autoChallengeTimerIncrement += dt
 		if(autoChallengeTimerIncrement >= player.autoChallengeTimer.exit){
 			if(player.currentChallenge.transcension !== 0 && player.autoChallengeIndex <= 5){
-				resetCheck('challenge')
+				resetCheck('challenge', null, true)
 				autoChallengeTimerIncrement = 0;
 				player.autoChallengeIndex += 1
 				if(player.autoChallengeTimer.enter >= 1){
@@ -2467,7 +2499,7 @@ function tick() {
 				}
 			}
 			if(player.currentChallenge.reincarnation !== 0 && player.autoChallengeIndex > 5){
-				resetCheck('reincarnationchallenge')
+				resetCheck('reincarnationchallenge', null, true)
 				autoChallengeTimerIncrement = 0;
 				player.autoChallengeIndex += 1
 				if(player.autoChallengeTimer.enter >= 1){
@@ -2723,10 +2755,10 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			break;
 		case "E":
 			if(player.currentChallenge.reincarnation !== 0){
-				resetCheck('reincarnationchallenge')
+				resetCheck('reincarnationchallenge', null, true)
 			}
 			if(player.currentChallenge.transcension !== 0){
-				resetCheck('challenge')
+				resetCheck('challenge', null, true)
 			}
 		case "M":
 			buyMultiplier();
