@@ -1891,8 +1891,9 @@ function resetCurrency() {
 	if(player.currentChallenge.ascension === 12){reincarnationPointGain = new Decimal("0")}
 	}
 
-function resetCheck(i,manual) {
+function resetCheck(i,manual, leaving) {
 	manual = (manual === null || manual === undefined) ? true : manual;
+	leaving = (leaving === null || leaving === undefined) ? false : leaving;
 	if (i == 'prestige') {
 		if (player.coinsThisPrestige.greaterThanOrEqualTo(1e16) || prestigePointGain.greaterThanOrEqualTo(100)) {
 			if (manual) {
@@ -1937,11 +1938,12 @@ function resetCheck(i,manual) {
 				calculateCubeBlessings();
 			}
 
-
-			
 			challengeachievementcheck(q);
-			reset(2, false, "leaveChallenge");
-			player.transcendCount -= 1;
+			if (!player.shopUpgrades.instantChallengeBought || leaving) {
+				reset(2, false, "leaveChallenge");
+				player.transcendCount -= 1;
+			}
+
 			}
 			if (!player.retrychallenges || manual  || player.challengecompletions[q] >= (25 + 5 * player.researches[x] + 925 * player.researches[105])) {
 			player.currentChallenge.transcension = 0;
@@ -1979,10 +1981,11 @@ function resetCheck(i,manual) {
 					player.challengecompletions[q] += 1
 				}
 			}
-		challengeDisplay(q,true)
-		reset(3, false, "leaveChallenge");
+			if (!player.shopUpgrades.instantChallengeBought || leaving) { // TODO: Implement the upgrade levels here
+				reset(3, false, "leaveChallenge");
+				player.reincarnationCount -= 1;
+			}
 		challengeachievementcheck(q);
-		player.reincarnationCount -= 1;
 		if (player.challengecompletions[q] > player.highestchallengecompletions[q]){
 			player.highestchallengecompletions[q] += 1;
 			highestChallengeRewards(q, player.highestchallengecompletions[q])
@@ -2457,7 +2460,7 @@ function tick() {
 		autoChallengeTimerIncrement += dt
 		if(autoChallengeTimerIncrement >= player.autoChallengeTimer.exit){
 			if(player.currentChallenge.transcension !== 0 && player.autoChallengeIndex <= 5){
-				resetCheck('challenge')
+				resetCheck('challenge', null, true)
 				autoChallengeTimerIncrement = 0;
 				player.autoChallengeIndex += 1
 				if(player.autoChallengeTimer.enter >= 1){
@@ -2465,7 +2468,7 @@ function tick() {
 				}
 			}
 			if(player.currentChallenge.reincarnation !== 0 && player.autoChallengeIndex > 5){
-				resetCheck('reincarnationchallenge')
+				resetCheck('reincarnationchallenge', null, true)
 				autoChallengeTimerIncrement = 0;
 				player.autoChallengeIndex += 1
 				if(player.autoChallengeTimer.enter >= 1){
@@ -2721,10 +2724,10 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 			break;
 		case "E":
 			if(player.currentChallenge.reincarnation !== 0){
-				resetCheck('reincarnationchallenge')
+				resetCheck('reincarnationchallenge', null, true)
 			}
 			if(player.currentChallenge.transcension !== 0){
-				resetCheck('challenge')
+				resetCheck('challenge', null, true)
 			}
 		case "M":
 			buyMultiplier();
