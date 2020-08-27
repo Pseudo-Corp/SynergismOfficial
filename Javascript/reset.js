@@ -352,7 +352,7 @@ function reset(i,fast,from) {
         player.challengecompletions[4] = 0;
         player.challengecompletions[5] = 0;
 
-        if (player.shopUpgrades.instantChallengeBought && player.currentChallenge.reincarnation !== 0){
+        if (player.shopUpgrades.instantChallengeBought && player.currentChallenge.reincarnation === 0){
             player.challengecompletions[1] = player.highestchallengecompletions[1]
             player.challengecompletions[2] = player.highestchallengecompletions[2]
             player.challengecompletions[3] = player.highestchallengecompletions[3]
