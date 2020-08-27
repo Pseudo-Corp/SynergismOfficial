@@ -1940,15 +1940,15 @@ function resetCheck(i,manual, leaving) {
 				challengeDisplay(y,true)
 			}
 			if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
-				player.highestchallengecompletions[q] += 1;
-				var y = x - 65;
-				challengeDisplay(y,true)
+				while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
+					player.highestchallengecompletions[q] += 1;
+					var y = x - 65;
+					challengeDisplay(y,true)
+					highestChallengeRewards(q, player.highestchallengecompletions[q])
+					updateCubesPerSec()
+					calculateCubeBlessings();
+				}
 
-				highestChallengeRewards(q, player.highestchallengecompletions[q])
-				updateCubesPerSec()
-		
-			
-				calculateCubeBlessings();
 			}
 
 			challengeachievementcheck(q);
@@ -2014,12 +2014,14 @@ function resetCheck(i,manual, leaving) {
 			}
 		challengeachievementcheck(q);
 		if (player.challengecompletions[q] > player.highestchallengecompletions[q]){
-			player.highestchallengecompletions[q] += 1;
-			highestChallengeRewards(q, player.highestchallengecompletions[q])
-			updateCubesPerSec()
-			calculateHypercubeBlessings();
-			calculateTesseractBlessings();
-			calculateCubeBlessings();
+			while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
+				player.highestchallengecompletions[q] += 1;
+				highestChallengeRewards(q, player.highestchallengecompletions[q])
+				updateCubesPerSec()
+				calculateHypercubeBlessings();
+				calculateTesseractBlessings();
+				calculateCubeBlessings();
+			}
 		}
 
 		}
