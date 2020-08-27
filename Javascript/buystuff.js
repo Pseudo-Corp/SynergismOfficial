@@ -388,7 +388,7 @@ function buyResearch(index,auto) {
 		else if (player.researches[p] > 0.5) {document.getElementById("res" + player.autoResearch).style.backgroundColor = "purple"}
 		else {document.getElementById("res" + player.autoResearch).style.backgroundColor = "black"}
 	}
-	if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAutoLevel > 0.5 && player.cubeUpgrades[10] === 0){player.autoResearch = index; document.getElementById("res" + index).style.backgroundColor = "orange"}
+	if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAutoLevel > 0.5 && player.cubeUpgrades[9] === 0){player.autoResearch = index; document.getElementById("res" + index).style.backgroundColor = "orange"}
 
     let buyamount = 1;
     let i = 1;
@@ -412,7 +412,7 @@ function buyResearch(index,auto) {
 	if(index > 0 && index <= 155){
 	if(player.researches[index] === (researchMaxLevels[index] + c14)){document.getElementById("res"+index).style.backgroundColor = "green"}
 	}
-	if(auto && player.cubeUpgrades[10] == 1){
+	if(auto && player.cubeUpgrades[9] == 1){
 		player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
 		if(player.researches[player.autoResearch] === (researchMaxLevels[player.autoResearch] + c14)){player.roombaResearchIndex += 1;}
 		if(player.roombaResearchIndex <= 155){
@@ -428,7 +428,7 @@ function buyUpgrades(type, pos, state) {
 		if (type == "prestige" || type == "transcend" || type == "reincarnation") {
 			addendum = "Point"
 		} 		
-		if (player[type + addendum + 's'].greaterThanOrEqualTo(Decimal.pow(10, upgradeCosts[pos])) && player.upgrades[pos] < 0.5) {
+		if (player[type + addendum + 's'].greaterThanOrEqualTo(Decimal.pow(10, upgradeCosts[pos])) && player.upgrades[pos] === 0) {
 			player[type + addendum + 's'] = player[type + addendum + 's'].sub(Decimal.pow(10, upgradeCosts[pos]))
 			player.upgrades[pos] = 1;
 			upgradeupdate(pos, state)

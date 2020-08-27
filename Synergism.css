@@ -833,7 +833,15 @@ margin-left: -13px
 	left: 53.1%;
 	margin-left: -16px;
 }
-
+#particleAutoUpgrade {
+	position:absolute;
+	width: 80px;
+	padding: 0px;
+	height: 30px;
+	top: 61.5px;
+	left: 83%;
+	margin-left: -16px;
+}
 #upgradesrow3 {
 	position: relative;
 	top: 220px;
@@ -4127,21 +4135,21 @@ margin-left: -13px
 
 #cubeUpgradeCost {
 	position:absolute;
-	top:296px;
+	top:316px;
 	width: 600px;
 	left: 50%;
 	margin-left: -300px;
 }
 #cubeUpgradeLevel {
 	position:absolute;
-	top:319px;
-	width: 100px;
+	top:339px;
+	width: 200px;
 	left: 50%;
-	margin-left: -50px;
+	margin-left: -100px;
 }
 #toggleCubeBuy {
 	position:absolute;
-	top:374px;
+	top:394px;
 	width: 200px;
 	left: 50%;
 	margin-left: -100px;

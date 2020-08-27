@@ -101,21 +101,21 @@ function(){return "Wow! I want reincarnations to start with a few extra seconds.
 function(){return "Wow! I want even MORE obtainium!"},
 function(){return "Wow! I want to start ascension with an ant."},
 function(){return "Wow! I want to start ascension with a challenge 6-8 completion."},
-function(){return "Wow! I want to automate Ascensions you stupid developer"}]
+function(){return "Wow! I want to be enlightened by the power of a thousand suns."}]
 
 const cubeBaseCost = [null,
     500, 500, 500, 500, 500, 500, 500, 500, 2000, 1e5,
     5000, 3000, 10000, 4000, 4000, 1e4, 4000, 1e4, 50000, 7500,
     5e4, 3e4, 3e4, 4e4, 4e4, 1e4, 1e5, 177777, 1e5, 5e5,
     5e5, 3e5, 3e5, 4e5, 4e5, 2e5, 5e5, 1e6, 1e6, 5e6,
-    5e6, 2e6, 3e6, 4e6, 4e6, 5e5, 2e6, 2e7, 3e7, 5e7] 
+    5e6, 2e6, 3e6, 4e6, 4e6, 5e5, 2e6, 2e7, 3e7, 2e9] 
 
 const cubeMaxLevel = [null,
     2, 10, 5, 1, 1, 1, 1, 1, 1, 1,
     3, 5, 1, 10, 10, 10, 5, 1, 1, 1,
     4, 10, 1, 10, 10, 10, 1, 1, 5, 1,
     5, 1, 1, 10, 10, 5, 10, 3, 3, 1,
-    6, 10, 10, 10, 10, 20, 20, 1, 1, 1]
+    6, 10, 10, 10, 10, 20, 20, 1, 1, 1000000]
 
 const cubeUpgradeDescriptions = [null,
 function(){return "You got it! +1 cube from challenges, +10% cubes from Ascending."},
@@ -167,7 +167,7 @@ function(){return "All reincarnations start out with 3 additional seconds per le
 function(){return "Gain +10% more obtainium per level!"},
 function(){return "When you ascend, start with 1 worker ant (this is a lot better than it sounds!)"},
 function(){return "When you ascend, gain 1 of each challenge 6-8 completion, with +15 cubes to compensate."},
-function(){return "Unlocks the tool which lets you auto ascend."}]
+function(){return "What doesn't this boost? +0.03% Accelerators, Multipliers, Accelerator Boosts, +0.1% Obtainium, +0.1% Offerings, +2 Max Rune Levels, +3 Effective ELO, +0.001 Talisman bonuses per level."}]
 
 function getCubeBuyAmount(i){
     let amountToBuy = 0;
@@ -191,7 +191,7 @@ function cubeUpgradeDesc(i){
     a.textContent = cubeUpgradeName[i]();
     b.textContent = cubeUpgradeDescriptions[i]();
     c.textContent = "Cost: " + format(cubeBaseCost[i],0,true) + " Wow! Cubes"; c.style.color = "green"
-    d.textContent = "Level: " + player.cubeUpgrades[i] + "/" + cubeMaxLevel[i]; d.style.color = "white"
+    d.textContent = "Level: " + format(player.cubeUpgrades[i],0,true) + "/" + format(cubeMaxLevel[i],0,true); d.style.color = "white"
 
     if(player.wowCubes < cubeBaseCost[i]){c.style.color = "crimson"}
     if(player.cubeUpgrades[i] === cubeMaxLevel[i]){c.style.color = "gold"; d.style.color = "plum"}

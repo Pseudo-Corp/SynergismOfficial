@@ -352,7 +352,7 @@ function reset(i,fast,from) {
         player.challengecompletions[4] = 0;
         player.challengecompletions[5] = 0;
 
-        if (player.shopUpgrades.instantChallengeBought && player.currentChallenge.reincarnation !== 0){
+        if (player.shopUpgrades.instantChallengeBought && player.currentChallenge.reincarnation === 0){
             player.challengecompletions[1] = player.highestchallengecompletions[1]
             player.challengecompletions[2] = player.highestchallengecompletions[2]
             player.challengecompletions[3] = player.highestchallengecompletions[3]
@@ -416,14 +416,12 @@ function reset(i,fast,from) {
     historyEntry.wowCubesCpsAtC10 = player.cubesThisAscension.cpsOnC10Comp;
     historyEntry.wowTesseracts = player.cubesThisAscension.tesseracts;
     historyEntry.wowHypercubes = player.cubesThisAscension.hypercubes;
-
     // reset auto challenges
     player.currentChallenge.transcension = 0;
     player.currentChallenge.reincarnation = 0;
     player.autoChallengeIndex = 1;
     autoChallengeTimerIncrement = 0;
     //reset rest
-      
     resetResearches();
     resetAnts();
     resetTalismans();
