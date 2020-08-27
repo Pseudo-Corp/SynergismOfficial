@@ -504,7 +504,7 @@ ascendBuilding5: {
 
 			  constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  history: {},
-			  historyCountMax: 15,
+			  historyCountMax: 10,
 			  historyShowPerSecond: false,
 
 			  autoChallengeRunning: false,
@@ -929,10 +929,10 @@ function loadSynergy() {
 
 	if (data.history === undefined || player.history === undefined) {
 		player.history = {};
-		player.historyCountMax = 15;
 	}
-	if (player.historyShowPerSecond === undefined) {
+	if (data.historyShowPerSecond === undefined || player.historyShowPerSecond === undefined) {
 		player.historyShowPerSecond = false;
+		player.historyCountMax = 10;
 	}
 
 	player.wowCubes = player.wowCubes || 0;
