@@ -184,7 +184,6 @@ ascendBuilding5: {
 	generated: new Decimal("0"),
 	multiplier: 0.01
 },
-tesseractbuyamount: 1,
 
    multiplierCost: new Decimal("1e5"),
    multiplierBought: 0,
@@ -389,6 +388,7 @@ tesseractbuyamount: 1,
 				  prestige: true,
 				  transcend: true,
 				  generators: true,
+				  reincarnate: true,
 			  },
 			  tabnumber: 1,
 			  
@@ -425,7 +425,7 @@ tesseractbuyamount: 1,
 			  antPoints: new Decimal("1"),
 			  antUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			  antSacrificePoints: 0,
-			  antSacrificeTimer: 0,
+			  antSacrificeTimer: 900,
 
 			  talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
 			  talismanRarity: [null, 1, 1, 1, 1, 1, 1, 1],
@@ -496,7 +496,6 @@ tesseractbuyamount: 1,
 				globalSpeed: 0
 			  },
 			  ascendShards: new Decimal("0"),
-
 			  roombaResearchIndex: 0,
 			  cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "cpsOnC10Comp": 0, "tesseracts": 0, "hypercubes": 0},
 
@@ -814,6 +813,7 @@ function loadSynergy() {
 	}
 
 	player.exporttest = "NO!"
+	checkVariablesOnLoad(data)
 	if(data.ascensionCount === undefined || player.ascensionCount === 0){
 		player.ascensionCount = 0;
 		player.ascensionCounter = 86400 * 90;
@@ -882,6 +882,7 @@ function loadSynergy() {
 			rrow4: false
 		}
 	}
+
 	if (player.currentChallenge.transcension === undefined){
 		player.currentChallenge = {
 			transcension: 0,
@@ -989,6 +990,7 @@ if (player.shoptoggles.coin == false) {document.getElementById("shoptogglecoin")
 if (player.shoptoggles.prestige == false) {document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"}
 if (player.shoptoggles.transcend == false) {document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
 if (player.shoptoggles.generator == false) {document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"}
+if (!player.shoptoggles.reincarnate) {document.getElementById('particleAutoUpgrade').textContent = "Auto: OFF"}
 
 getChallengeConditions();
 updateChallengeDisplay();

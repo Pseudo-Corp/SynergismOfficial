@@ -69,4 +69,11 @@ function autoUpgrades() {
 		for (i = 41; i < 61; i++) {if (player.transcendPoints.greaterThanOrEqualTo(Decimal.pow(10,upgradeCosts[i])) && player.shoptoggles.transcend == true){buyUpgrades('transcend',i,true)}}
 	}
 
+    if(player.cubeUpgrades[8] > 0){
+        for(var i = 61; i <= 80; i++){
+            if(player.reincarnationPoints.greaterThanOrEqualTo(Decimal.pow(10, upgradeCosts[i])) &&  player.shoptoggles.reincarnate){
+                buyUpgrades('reincarnation',i,true)
+            }
+        }
+    }
 }

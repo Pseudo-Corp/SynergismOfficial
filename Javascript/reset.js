@@ -416,14 +416,12 @@ function reset(i,fast,from) {
     historyEntry.wowCubesCpsAtC10 = player.cubesThisAscension.cpsOnC10Comp;
     historyEntry.wowTesseracts = player.cubesThisAscension.tesseracts;
     historyEntry.wowHypercubes = player.cubesThisAscension.hypercubes;
-
     // reset auto challenges
     player.currentChallenge.transcension = 0;
     player.currentChallenge.reincarnation = 0;
     player.autoChallengeIndex = 1;
     autoChallengeTimerIncrement = 0;
     //reset rest
-      
     resetResearches();
     resetAnts();
     resetTalismans();

@@ -253,9 +253,9 @@ function revealStuff() {
     if (player.upgrades[89] == 1){e[19].style.display = "block";}
     if (player.cubeUpgrades[7] == 1){e[20].style.display = "block";}
     if (player.cubeUpgrades[7] == 1){e[21].style.display = "block";}
-    if (player.cubeUpgrades[8] == 1){e[22].style.display = "block";}
-    if (player.cubeUpgrades[8] == 1){e[23].style.display = "block";}
-    if (player.cubeUpgrades[9] == 1){e[24].style.display = "block";}
+    if (player.cubeUpgrades[7] == 1){e[22].style.display = "block";}
+    if (player.cubeUpgrades[7] == 1){e[23].style.display = "block";}
+    if (player.cubeUpgrades[7] == 1){e[24].style.display = "block";}
     if (player.researches[46] == 1){e[25].style.display = "block";}
     if (player.prestigeCount > 0.5 || player.reincarnationCount > 0.5){e[31].style.display = "block";}
     if (player.transcendCount > 0.5 || player.reincarnationCount > 0.5){e[32].style.display = "block";}
