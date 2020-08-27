@@ -83,7 +83,7 @@ if (i==1 && player.shoptoggles.coin == false) {player.shoptoggles.coin = true; d
 if (i==2 && player.shoptoggles.prestige == false) {player.shoptoggles.prestige = true; document.getElementById("shoptoggleprestige").textContent = "Auto: ON"} else if (i == 2 && player.shoptoggles.prestige == true) {player.shoptoggles.prestige = false; document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"}
 if (i==3 && player.shoptoggles.transcend == false) {player.shoptoggles.transcend = true; document.getElementById("shoptoggletranscend").textContent = "Auto: ON"} else if (i == 3 && player.shoptoggles.transcend == true) {player.shoptoggles.transcend = false; document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
 if (i==4 && player.shoptoggles.generators == false) {player.shoptoggles.generators = true; document.getElementById("shoptogglegenerator").textContent = "Auto: ON"} else if (i == 4 && player.shoptoggles.generators == true) {player.shoptoggles.generators = false; document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"}
-
+if (i==5 && player.shoptoggles.reincarnate == false) {player.shoptoggles.reincarnate = true; document.getElementById("particleAutoUpgrade").textContent = "Auto: ON"} else if (i == 5 && player.shoptoggles.reincarnate == true) {player.shoptoggles.reincarnate = false; document.getElementById("particleAutoUpgrade").textContent = "Auto: OFF"}
 }
 
 function keyboardtabchange(i) {
@@ -182,7 +182,7 @@ function toggleAutoResearch() {
         }
     }
 
-    if(player.autoResearchToggle && player.cubeUpgrades[10] === 1){
+    if(player.autoResearchToggle && player.cubeUpgrades[9] === 1){
         player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
         document.getElementById("res"+player.autoResearch).style.backgroundColor = "orange"
     }
