@@ -1880,23 +1880,52 @@ margin-left: -13px
 	font-size: 1.2em
 }
 
-#togglerunesubtab{
+#toggleRuneSubTab1{
 	position: absolute;
 	padding: 5px;
 	top: 10px;
-	left: 65%;
-	width: 200px;
+	left: 46%;
+	width: 100px;
 	margin-left: -100px;
 	height: 30px;
 	text-align: center;
 }
-
+#toggleRuneSubTab2{
+	position: absolute;
+	padding: 5px;
+	top: 10px;
+	left: 54%;
+	width: 100px;
+	margin-left: -100px;
+	height: 30px;
+	text-align: center;
+}
+#toggleRuneSubTab3{
+	position: absolute;
+	padding: 5px;
+	top: 10px;
+	left: 62%;
+	width: 100px;
+	margin-left: -100px;
+	height: 30px;
+	text-align: center;
+}
+#toggleRuneSubTab4{
+	position: absolute;
+	padding: 5px;
+	top: 10px;
+	left: 70%;
+	width: 100px;
+	margin-left: -100px;
+	height: 30px;
+	text-align: center;
+}
 #toggleautosacrifice {
 	position: absolute;
 	padding: 5px;
 	top: 10px;
-	left: 50%;
-	width: 200px;
+	left: 38%;
+	width: 100px;
 	margin-left: -100px;
 	height: 30px;
 	text-align: center;
@@ -3536,9 +3565,9 @@ margin-left: -13px
 #researchinfo3 {
 	position:absolute;
 	top:326px;
-	width: 100px;
+	width: 200px;
 	left: 50%;
-	margin-left: -50px;
+	margin-left: -100px;
 }
 
 #researchpointinfo {
@@ -4159,7 +4188,42 @@ margin-left: -13px
 .gridImg{
 	cursor: pointer;
 }
+#ascensionAutoEnable {
+	position:absolute;
+	width: 150px;
+	top: 374px;
+	left: 50%;
+	margin-left: -75px;
+}
+#ascensionAutoToggle {
+	position:absolute;
+	width: 150px;
+	top: 394px;
+	left: 50%;
+	margin-left: -75px;
+}
+#autoAscend {
+	position: absolute;
+	top: 420px;
+	padding: 0px;
+	left: 50%;
+	width: 750px;
+	margin-left: -375px;
+	text-align: center;
+	color: white
+}
 
+#ascensionAmount {
+	position: absolute;
+	top: 418px;
+	padding: 0px;
+	left: 50%;
+	width: 100px;
+	margin-left: -50px;
+	border: 1px solid orange;
+	color: gold;
+	background-color: black
+}
 #switchsettingtab {
 	position: absolute;
 	height: 30px;
@@ -4426,6 +4490,7 @@ margin-left: -13px
 	margin: 0 auto;
 }
 
+
 #historyTogglePerSecondButton {
 	float: right;
 }
@@ -4452,3 +4517,40 @@ margin-left: -13px
 #historyAscend .historyTableWrap {
 	min-width: 1032px;
 }
+
+.runeIcons{
+	position: absolute;
+}
+.runeTexts{
+	position: absolute;
+}
+.runeButtons{
+	position: absolute;
+	height: 30px;
+	width: 325px;
+	border: 1px solid yellow;
+	color: gold;
+}
+.runeInputSettings{
+	top: 45px;
+	left: 40%;
+}
+#buyRuneBlessingInput{
+	position: absolute;
+	top: 64px;
+	left: 35%;
+	width: 60px;
+	border: 2px solid crimson;
+	background-color: #171717;
+	color: white
+}
+#buyRuneSpiritInput{
+	position: absolute;
+	top: 64px;
+	left: 35%;
+	width: 60px;
+	border: 2px solid orange;
+	background-color: #171717;
+	color: white
+}
+

@@ -525,30 +525,32 @@ var resdesc155 = "[7x5] Tome 2 of 5: How to win over the Ant universe. Another e
 function researchdescriptions(i,auto) {
     auto = auto || false
     var c14 = 0;
+    var spiritBonus = 0;
     if(i <= 5){c14 += player.challengecompletions[14]}
+    if(i === 84){spiritBonus += Math.ceil(20 * calculateCorruptionPoints()/400 * effectiveRuneSpiritPower[5])}
 
     var x = "resdesc" + i
     var y = window[x]
     var z = ""
     var p = "res" + i
     z = " Cost: " + (format(researchBaseCosts[i],0,true)) + " Obtainium" 
-    if (player.researches[i] == researchMaxLevels[i]) {
+    if (player.researches[i] == (researchMaxLevels[i] + c14 + spiritBonus)) {
         document.getElementById("researchcost").style.color = "Gold"
         document.getElementById("researchinfo3").style.color = "plum"
         z = z + " || MAXED!"}
     else {document.getElementById("researchcost").style.color = "limegreen"
           document.getElementById("researchinfo3").style.color = "white"}
     
-    if (player.researchPoints < researchBaseCosts[i] && player.researches[i] < (researchMaxLevels[i] + c14)){document.getElementById("researchcost").style.color = "crimson"}
+    if (player.researchPoints < researchBaseCosts[i] && player.researches[i] < (researchMaxLevels[i] + c14 + spiritBonus)){document.getElementById("researchcost").style.color = "crimson"}
 
     if (!auto && !player.autoResearchToggle){
-    if (player.researches[i] > 0.5 && player.researches[i] < (researchMaxLevels[i] + c14)) {document.getElementById(p).style.backgroundColor = "purple"}
+    if (player.researches[i] > 0.5 && player.researches[i] < (researchMaxLevels[i] + c14 + spiritBonus)) {document.getElementById(p).style.backgroundColor = "purple"}
     }
-    if (player.researches[i] > 0.5 && player.researches[i] >= (researchMaxLevels[i] + c14)) {document.getElementById(p).style.backgroundColor = "green"}
+    if (player.researches[i] > 0.5 && player.researches[i] >= (researchMaxLevels[i] + c14 + spiritBonus)) {document.getElementById(p).style.backgroundColor = "green"}
     
     document.getElementById("researchinfo2").textContent = y
     document.getElementById("researchcost").textContent = z
-    document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + (researchMaxLevels[i] + c14)
+    document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + (researchMaxLevels[i] + c14 + spiritBonus)
 }
 
 function updateResearchBG(j) {

@@ -122,8 +122,6 @@ if (i == 3){
     if (player.resettoggle3 == 1 || player.resettoggle3 == 0){player.resettoggle3 = 2; document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"}
     else{player.resettoggle3 = 1; document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"}
 }
-
-
 }
 
 function toggleauto() {
@@ -240,21 +238,30 @@ function toggleBuildingScreen(input){
     (ellos.style.display = "none",e.style.backgroundColor = "#171717");
     }
 
-function toggleRuneScreen(){
-    if (runescreen == "runes"){
-        runescreen = "talismans";
-        document.getElementById("runecontainer1").style.display = "none";
-        document.getElementById("runecontainer2").style.display = "block";
-        document.getElementById("togglerunesubtab").textContent = "GO BACK TO RUNES"
-        document.getElementById("togglerunesubtab").style.border = "2px solid orangered"
+function toggleRuneScreen(index){
+    switch(index){
+        case 1:
+           runescreen = "runes";
+           break;
+        case 2:
+            runescreen = "talismans";
+            break;
+        case 3:
+            runescreen = "blessings";
+            break;
+        case 4:
+            runescreen = "spirits";
+            break;
     }
-    else{
-        runescreen = "runes";
-        document.getElementById("runecontainer1").style.display = "block";
-        document.getElementById("runecontainer2").style.display = "none";
-        document.getElementById("togglerunesubtab").textContent = "GO TO TALISMANS"
-        document.getElementById("togglerunesubtab").style.border = "2px solid grey"
-    };
+    let a
+    let b
+    for(var i = 1; i <= 4; i++){
+        a = document.getElementById("toggleRuneSubTab"+i);
+        b = document.getElementById("runeContainer"+i);
+        (i === index)?
+        (a.style.border = "2px solid gold", a.style.backgroundColor = "crimson", b.style.display = "block"):
+        (a.style.border = "2px solid silver", a.style.backgroundColor = "#171717", b.style.display = "none");
+    }
 }
 
 function setActiveSettingScreen(subtab, clickedButton) {
@@ -403,4 +410,29 @@ function toggleAutoChallengeTextColors(i){
     (i === 3)?
     c.style.color = 'gold':
     c.style.color = 'white';
+}
+
+function toggleAutoAscend(){
+    let a = document.getElementById("ascensionAutoEnable");
+    (player.autoAscend)?
+    (player.autoAscend = false, a.style.border = "2px solid red", a.textContent = "Auto Ascend [OFF]"):
+    (player.autoAscend = true, a.style.border = "2px solid green", a.textContent = "Auto Ascend [ON]");
+}
+
+function updateRuneBlessingBuyAmount(i){
+    let t;
+    switch(i){
+        case 1:
+            t = Math.floor(parseFloat(document.getElementById('buyRuneBlessingInput').value));
+            t = t || 1;
+            player.runeBlessingBuyAmount = Math.max(t, 1);
+            document.getElementById('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount,0,true);
+            break;
+        case 2:
+            t = Math.floor(parseFloat(document.getElementById('buyRuneSpiritInput').value));
+            t = t || 1;
+            player.runeSpiritBuyAmount = Math.max(t, 1);
+            document.getElementById('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount,0,true);
+            break;
+    }
 }

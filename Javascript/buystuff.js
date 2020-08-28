@@ -380,7 +380,9 @@ function buyProducer(pos,type,num,autobuyer) {
 function buyResearch(index,auto) {
 	auto = auto || false
 	let c14 = 0;
+	let spiritBonus = 0;
 	if(index <= 5){c14 += player.challengecompletions[14]}
+	if(index === 84){spiritBonus += Math.ceil(20 * calculateCorruptionPoints()/400 * effectiveRuneSpiritPower[5])}
 
 	if (player.autoResearchToggle && player.autoResearch > 0.5 && !auto){
 		let p = player.autoResearch
@@ -394,10 +396,10 @@ function buyResearch(index,auto) {
     let i = 1;
 	if (maxbuyresearch || auto){buyamount = 1000}
 		if (auto || !player.autoResearchToggle){
-		while(player.researches[index] < (researchMaxLevels[index] + c14) && player.researchPoints >= (researchBaseCosts[index]) && buyamount >= i) {
+		while(player.researches[index] < (researchMaxLevels[index] + c14 + spiritBonus) && player.researchPoints >= (researchBaseCosts[index]) && buyamount >= i) {
 			player.researchPoints -= researchBaseCosts[index]
 			player.researches[index] += 1;
-			researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index] + c14)
+			researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index] + c14 + spiritBonus)
 			researchdescriptions(index,auto)
 
 			if (index == 47 && player.unlocks.rrow1 == false) {player.unlocks.rrow1 = true; revealStuff()}
@@ -410,11 +412,11 @@ function buyResearch(index,auto) {
 	}
 
 	if(index > 0 && index <= 155){
-	if(player.researches[index] === (researchMaxLevels[index] + c14)){document.getElementById("res"+index).style.backgroundColor = "green"}
+	if(player.researches[index] === (researchMaxLevels[index] + c14 + spiritBonus)){document.getElementById("res"+index).style.backgroundColor = "green"}
 	}
 	if(auto && player.cubeUpgrades[9] == 1){
 		player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
-		if(player.researches[player.autoResearch] === (researchMaxLevels[player.autoResearch] + c14)){player.roombaResearchIndex += 1;}
+		if(player.researches[player.autoResearch] === (researchMaxLevels[player.autoResearch] + c14 + spiritBonus)){player.roombaResearchIndex += 1;}
 		if(player.roombaResearchIndex <= 155){
 		document.getElementById("res"+researchOrderByCost[player.roombaResearchIndex]).style.backgroundColor = "orange"
 		}
@@ -495,7 +497,7 @@ function boostAccelerator(automated) {
 				if (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {
 					player.acceleratorBoostBought += 1;
 					player.acceleratorBoostCost = player.acceleratorBoostCost.times(1e10).times(Decimal.pow(10, player.acceleratorBoostBought));
-					if (player.acceleratorBoostBought > (1000 * divineBlessing4)) {player.acceleratorBoostCost = player.acceleratorBoostCost.times(Decimal.pow(10, Math.pow(player.acceleratorBoostBought - (1000 * divineBlessing4), 2) / divineBlessing4))}
+					if (player.acceleratorBoostBought > (1000 * (1 + 2 * effectiveRuneBlessingPower[4]))) {player.acceleratorBoostCost = player.acceleratorBoostCost.times(Decimal.pow(10, Math.pow(player.acceleratorBoostBought - (1000 * (1 + 2 * effectiveRuneBlessingPower[4])), 2) / (1 + 2 * effectiveRuneBlessingPower[4])))}
 					player.transcendnoaccelerator = false;
 					player.reincarnatenoaccelerator = false;
 					if (player.upgrades[46] < 0.5) {
@@ -596,3 +598,18 @@ function buyTesseractBuilding(intCost, index){
 	player['ascendBuilding'+index]['cost'] = intCost * Math.pow(1 + player['ascendBuilding'+index]['owned'], 3)
 }
 
+function buyRuneBonusLevels(type, index){ //type 1 for Blessings, type 2 for Spirits
+	let baseCost
+	let baseLevels
+	let levelCap
+	(type === 2)? 
+	(baseCost = 1e20, baseLevels = player.runeSpiritLevels[index], levelCap = player.runeSpiritBuyAmount):
+	(baseCost = 1e7, baseLevels = player.runeBlessingLevels[index], levelCap = player.runeBlessingBuyAmount);
+
+	let metadata = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap); //metadata[0] is the level, metadata[1] is the cost
+	(type === 2)?
+	player.runeSpiritLevels[index] = metadata[0]:
+	player.runeBlessingLevels[index] = metadata[0];
+
+	player.runeshards -= metadata[1];
+}
