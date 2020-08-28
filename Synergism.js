@@ -1942,7 +1942,7 @@ function resetCheck(i,manual, leaving) {
 			}
 			let maxCompletions = 25 + 5 * player.researches[x] + 925 * player.researches[105];
 			if (reqCheck(player.challengecompletions[q], challengeBaseRequirements[q]) && player.challengecompletions[q] < maxCompletions) {
-				let maxInc = player.shopUpgrades.instantChallengeBought ? 10 : 1; // TODO: Implement the shop upgrade levels here
+				let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
 				let counter = 0;
 				let comp = player.challengecompletions[q];
 				while (counter < maxInc) {
@@ -2012,7 +2012,7 @@ function resetCheck(i,manual, leaving) {
 			}
 			let maxCompletions = 25 + player.cubeUpgrades[29];
 			if (reqCheck(player.challengecompletions[q], challengeBaseRequirements[q]) && player.challengecompletions[q] < maxCompletions) {
-				let maxInc = player.shopUpgrades.instantChallengeBought ? 10 : 1; // TODO: Implement the shop upgrade levels here
+				let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
 				let counter = 0;
 				let comp = player.challengecompletions[q];
 				while (counter < maxInc) {
