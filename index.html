@@ -925,8 +925,11 @@
         
 
         <div id="runes">
-            <button id="togglerunesubtab" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen()">GO TO TALISMANS</button>
-            <div id="runecontainer1">
+            <button id="toggleRuneSubTab1" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(1)">Runes</button>
+            <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(2)">Talismans</button>
+            <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(3)">Blessings</button>
+            <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(4)">[=-Spirits-=]</button>
+            <div id="runeContainer1">
             <div id="buyamountoffering">
                 <table id="offeringbuyamount">
                     <tr>
@@ -996,7 +999,7 @@
             <p class="reincarnationunlock" id="researchrunebonus">Thanks to researches, your effective levels are increased by 0%</p>
             <p id="runehotkeys">Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!</p>
             </div>
-            <div id="runecontainer2" style="display: none;">
+            <div id="runeContainer2" style="display: none;">
                 <div id="buyamounttalisman">
                 <table id="talismanbuyamount">
                     <tr>
@@ -1156,6 +1159,56 @@
                     <button class="talismanRespecBtn" id="confirmTalismanRespec" style="border: 2px solid plum" onclick="respecTalismanConfirm(talismanRespec)">Confirm for 100,000 Offerings.</button>
                     <button class="talismanRespecBtn" id="cancelTalismanRespec" style="border: 2px solid red" onclick="respecTalismanCancel(talismanRespec)">Cancel respec changes</button>
                 </div>
+            </div>
+            <div id="runeContainer3" style="display: none">
+                <div id="blessingSeparator1"></div>
+                <img class="runeIcons" id="runeBlessingIcon1" src="Pictures/Speed Blessing.png">
+                <img class="runeIcons" id="runeBlessingIcon2" src="Pictures/Duplication Blessing.png">
+                <img class="runeIcons" id="runeBlessingIcon3" src="Pictures/Prism Blessing.png">
+                <img class="runeIcons" id="runeBlessingIcon4" src="Pictures/Thrift Blessing.png">
+                <img class="runeIcons" id="runeBlessingIcon5" src="Pictures/SI Blessing.png">
+                <p class="runeTexts" id="runeBlessingLevel1" style="color: orchid">Blessing level: <span id="runeBlessingLevel1Value" style="color: white">0</span></p>
+                <p class="runeTexts" id="runeBlessingLevel2" style="color: orchid">Blessing level: <span id="runeBlessingLevel2Value" style="color: white">0</span></p>
+                <p class="runeTexts" id="runeBlessingLevel3" style="color: orchid">Blessing level: <span id="runeBlessingLevel3Value" style="color: white">0</span></p>
+                <p class="runeTexts" id="runeBlessingLevel4" style="color: orchid">Blessing level: <span id="runeBlessingLevel4Value" style="color: white">0</span></p>
+                <p class="runeTexts" id="runeBlessingLevel5" style="color: orchid">Blessing level: <span id="runeBlessingLevel5Value" style="color: white">0</span></p>
+                <button class="runeButtons" id="runeBlessingPurchase1" onclick="buyRuneBonusLevels(1,1)">Increase Level By <span id="runeBlessingPurchaseAmount1" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost1" style="color: orchid">1e7</span> Offerings]</button>
+                <button class="runeButtons" id="runeBlessingPurchase2" onclick="buyRuneBonusLevels(1,2)">Increase Level By <span id="runeBlessingPurchaseAmount2" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost2" style="color: orchid">1e7</span> Offerings]</button>
+                <button class="runeButtons" id="runeBlessingPurchase3" onclick="buyRuneBonusLevels(1,3)">Increase Level By <span id="runeBlessingPurchaseAmount3" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost3" style="color: orchid">1e7</span> Offerings]</button>
+                <button class="runeButtons" id="runeBlessingPurchase4" onclick="buyRuneBonusLevels(1,4)">Increase Level By <span id="runeBlessingPurchaseAmount4" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost4" style="color: orchid">1e7</span> Offerings]</button>
+                <button class="runeButtons" id="runeBlessingPurchase5" onclick="buyRuneBonusLevels(1,5)">Increase Level By <span id="runeBlessingPurchaseAmount5" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost5" style="color: orchid">1e7</span> Offerings]</button>
+                <p class="runeTexts" id="runeBlessingPower1" style="color: white">Blessing Power: <span id="runeBlessingPower1Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower1Value2" style="color: gold">+1.00</span>x Global Speed</p>
+                <p class="runeTexts" id="runeBlessingPower2" style="color: white">Blessing Power: <span id="runeBlessingPower2Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower2Value2" style="color: gold">+1.00</span>x Multiplier Boosts</p>
+                <p class="runeTexts" id="runeBlessingPower3" style="color: white">Blessing Power: <span id="runeBlessingPower3Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower3Value2" style="color: gold">+1.00</span>x Ant Sacrifice Rewards</p>
+                <p class="runeTexts" id="runeBlessingPower4" style="color: white">Blessing Power: <span id="runeBlessingPower4Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower4Value2" style="color: gold">+1.00</span>x Delay for A.Boost Cost</p>
+                <p class="runeTexts" id="runeBlessingPower5" style="color: white">Blessing Power: <span id="runeBlessingPower5Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower5Value2" style="color: gold">+1.00</span> Obtainium --> Ant Mult. Exponent</p>
+                <input type="number" id="buyRuneBlessingInput" min="1" max="999999999" defaultValue="1" oninput="updateRuneBlessingBuyAmount(1)">
+                <p class="runeTexts runeInputSettings" id="buyRuneBlessingToggle" style="color: yellow">Buy up to <span id="buyRuneBlessingToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</p>
+            </div>
+            <div id="runeContainer4" style="display: none">
+                <div id="spiritSeparator1"></div>
+                <img class="runeIcons" id="runeSpiritIcon1" src="Pictures/Speed Spirit.png">
+                <img class="runeIcons" id="runeSpiritIcon2" src="Pictures/Duplication Spirit.png">
+                <img class="runeIcons" id="runeSpiritIcon3" src="Pictures/Prism Spirit.png">
+                <img class="runeIcons" id="runeSpiritIcon4" src="Pictures/Thrift Spirit.png">
+                <img class="runeIcons" id="runeSpiritIcon5" src="Pictures/SI Spirit.png">
+                <p class="runeTexts" id="runeSpiritLevel1" style="color: white">Spirit level: <span id="runeSpiritLevel1Value" style="color: orchid">0</span></p>
+                <p class="runeTexts" id="runeSpiritLevel2" style="color: white">Spirit level: <span id="runeSpiritLevel2Value" style="color: orchid">0</span></p>
+                <p class="runeTexts" id="runeSpiritLevel3" style="color: white">Spirit level: <span id="runeSpiritLevel3Value" style="color: orchid">0</span></p>
+                <p class="runeTexts" id="runeSpiritLevel4" style="color: white">Spirit level: <span id="runeSpiritLevel4Value" style="color: orchid">0</span></p>
+                <p class="runeTexts" id="runeSpiritLevel5" style="color: white">Spirit level: <span id="runeSpiritLevel5Value" style="color: orchid">0</span></p>
+                <button class="runeButtons" id="runeSpiritPurchase1" onclick="buyRuneBonusLevels(2,1)">Increase Level By <span id="runeSpiritPurchaseAmount1" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost1" style="color: orchid">1e7</span> Offerings]</button>
+                <button class="runeButtons" id="runeSpiritPurchase2" onclick="buyRuneBonusLevels(2,2)">Increase Level By <span id="runeSpiritPurchaseAmount2" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost2" style="color: orchid">1e7</span> Offerings]</button>
+                <button class="runeButtons" id="runeSpiritPurchase3" onclick="buyRuneBonusLevels(2,3)">Increase Level By <span id="runeSpiritPurchaseAmount3" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost3" style="color: orchid">1e7</span> Offerings]</button>
+                <button class="runeButtons" id="runeSpiritPurchase4" onclick="buyRuneBonusLevels(2,4)">Increase Level By <span id="runeSpiritPurchaseAmount4" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost4" style="color: orchid">1e7</span> Offerings]</button>
+                <button class="runeButtons" id="runeSpiritPurchase5" onclick="buyRuneBonusLevels(2,5)">Increase Level By <span id="runeSpiritPurchaseAmount5" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost5" style="color: orchid">1e7</span> Offerings]</button>
+                <p class="runeTexts" id="runeSpiritPower1" style="color: white">Spirit Power: <span id="runeSpiritPower1Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower1Value2" style="color: gold">+1.00</span>x Global Speed</p>
+                <p class="runeTexts" id="runeSpiritPower2" style="color: white">Spirit Power: <span id="runeSpiritPower2Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower2Value2" style="color: gold">+1.00</span>x Wow! Cubes by Ascension</p>
+                <p class="runeTexts" id="runeSpiritPower3" style="color: white">Spirit Power: <span id="runeSpiritPower3Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower3Value2" style="color: gold">+1.00</span> Additional levels to Crystal caps</p>
+                <p class="runeTexts" id="runeSpiritPower4" style="color: white">Spirit Power: <span id="runeSpiritPower4Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower4Value2" style="color: gold">+1.00</span>x Obtainium</p>
+                <p class="runeTexts" id="runeSpiritPower5" style="color: white">Spirit Power: <span id="runeSpiritPower5Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower5Value2" style="color: gold">+1.00</span> Additional Research 4x9 cap</p>
+                <input type="number" id="buyRuneSpiritInput" min="1" max="999999999" defaultValue="1" oninput="updateRuneBlessingBuyAmount(2)">
+                <p class="runeTexts runeInputSettings" id="buyRuneSpiritToggle" style="color: yellow">Buy up to <span id="buyRuneSpiritToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</p>
             </div>
         </div>
         <div id="challenges">
@@ -1851,7 +1904,12 @@
         </div>
 
         <div id="traits">
-
+            <div id="ascensionAutomation" class="cubeUpgrade10">
+                <button class="ascendunlock" id="ascensionAutoEnable" style="border: 2px solid green" onclick="toggleAutoAscend()">Auto Ascend [ON]</button>
+                <button id="ascensionAutoToggle" onclick="toggleautoreset(4)" style="border:2px solid orchid; background-color: #171717;">Mode: C10 Completions</button>
+            <input class="ascendunlock" type="number" id="ascensionAmount" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(4)">
+            <p class="ascendunlock" id="autoAscend">Ascend when you've completed Sadistic Challenge I a total of <span id="autoAscendMetric" style="color: orchid">1</span> times.</p>
+            </div>
         </div>
 <div id="settings">
     <div class="subtabSwitcher">
@@ -1904,7 +1962,7 @@
         <a href="https://docs.google.com/document/d/13vntkxiCo-mL1en5LRvOmlKQdYhTGhqs9-9mT1XLn1U/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
         </a>
-        <p id="versionnumber" style="color: gold">You're playing on v2.0.0 TESTING! Update: August 25, 2020 11:29 PM PDT</p>
+        <p id="versionnumber" style="color: gold">You're playing on v2.0.0 TESTING! Update: August 26, 2020 8:03 PM PDT</p>
     </div>
     <div class="subtabContent" id="creditssubtab">
         <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>

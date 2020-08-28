@@ -140,6 +140,11 @@ function revealStuff() {
 		example28[i].style.display = player.researches[150] > 0 ? "block" : "none"
 	}
 
+	let example29 = document.getElementsByClassName("cubeUpgrade10");
+	for (var i = 0; i < example29.length; i++){
+		example29[i].style.display = player.cubeUpgrades[10] > 0 ? "block" : "none"
+	}
+
 	player.upgrades[89] === 1 ? //Automatic Transcension Upgrade
 		document.getElementById("transcendautomation").style.display = "block":
 		document.getElementById("transcendautomation").style.display = "none";
@@ -173,8 +178,8 @@ function revealStuff() {
 		document.getElementById("talisman3area").style.display = "none";
 
 	player.achievements[134] === 1 ? //No Runes Challenge Achievement 1
-		document.getElementById("togglerunesubtab").style.display = "block":
-		document.getElementById("togglerunesubtab").style.display = "none";
+		(document.getElementById("toggleRuneSubTab2").style.display = "block", document.getElementById("toggleRuneSubTab3").style.display = "block"):
+		(document.getElementById("toggleRuneSubTab2").style.display = "none", document.getElementById("toggleRuneSubTab3").style.display = "none");
 
 	player.achievements[140] === 1 ? //No Runes Challenge Achievement 7
 		document.getElementById("talisman4area").style.display = "block":
@@ -558,12 +563,36 @@ function htmlInserts() {
 		}
 
     	if (runescreen == "talismans"){
-
 			for(var i = 1; i <= 7; i++){
 				document.getElementById('talisman'+i+'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * player.challengecompletions[13])
 			}
 		}
+
+		if (runescreen === "blessings"){
+			let blessingMultiplierArray = [0,12,10,6.66,2,1]
+			let t = 0;
+			for(var i = 1; i <= 5; i++){
+				document.getElementById('runeBlessingLevel'+i+'Value').textContent = format(player.runeBlessingLevels[i],0,true)
+				document.getElementById('runeBlessingPower'+i+'Value1').textContent = format(runeBlessings[i])
+				document.getElementById('runeBlessingPurchaseAmount'+i).textContent = format(Math.max(1, calculateSummationLinear(player.runeBlessingLevels[i],1e7,player.runeshards,player.runeBlessingBuyAmount)[0] - player.runeBlessingLevels[i]))
+				document.getElementById('runeBlessingPurchaseCost'+i).textContent = format(Math.max(1e7 * (1 + player.runeBlessingLevels[i]),calculateSummationLinear(player.runeBlessingLevels[i],1e7,player.runeshards,player.runeBlessingBuyAmount)[1]))
+				if(i === 5){t = 1}
+				document.getElementById('runeBlessingPower'+i+'Value2').textContent = format(1 - t + blessingMultiplierArray[i] * effectiveRuneBlessingPower[i], 4, true)
+			}
+		}
 		
+		if (runescreen === "spirits"){
+			let spiritMultiplierArray = [0,1,1,20,1,20]
+			let subtract = [0, 0, 0, 1, 0, 1]
+			for(var i = 1; i <= 5; i++){
+				spiritMultiplierArray[i] *= (calculateCorruptionPoints()/400)
+				document.getElementById('runeSpiritLevel'+i+'Value').textContent = format(player.runeSpiritLevels[i],0,true)
+				document.getElementById('runeSpiritPower'+i+'Value1').textContent = format(runeSpirits[i])
+				document.getElementById('runeSpiritPurchaseAmount'+i).textContent = format(Math.max(1, calculateSummationLinear(player.runeSpiritLevels[i],1e20,player.runeshards,player.runeSpiritBuyAmount)[0] - player.runeSpiritLevels[i]))
+				document.getElementById('runeSpiritPurchaseCost'+i).textContent = format(Math.max(1e20 * (1 + player.runeSpiritLevels[i]),calculateSummationLinear(player.runeSpiritLevels[i],1e20,player.runeshards,player.runeSpiritBuyAmount)[1]))
+				document.getElementById('runeSpiritPower'+i+'Value2').textContent = format(1 - subtract[i] + spiritMultiplierArray[i] * effectiveRuneSpiritPower[i], 4, true)
+			}
+		}
 	}
 
 	if (currentTab == "challenges") {
@@ -642,6 +671,10 @@ function htmlInserts() {
 
 	if (currentTab == "cubes"){
   		document.getElementById("cubeAmount2").textContent = "You have " + format(player.wowCubes,0,true) + " Wow! Cubes =)"
+	}
+	
+	if (currentTab == "traits"){
+		document.getElementById("autoAscendMetric").textContent = format(player.autoAscendThreshold,0,true)
 	}
 
 }
@@ -870,5 +903,37 @@ function CSSAscend() {
 		let a = document.getElementById("switchCubeSubTab"+i)
 		a.style.top = (65 + 35 * i) + "px"
 		a.style.left = "5%"
+	}
+}
+
+function CSSRuneBlessings(){
+	let a;
+	let b;
+	let c;
+	let d;
+	let e;
+	let f;
+	for (var i = 1; i <= 5; i++){
+		a = document.getElementById('runeBlessingIcon'+i);
+		b = document.getElementById('runeSpiritIcon'+i);
+		c = document.getElementById('runeBlessingLevel'+i);
+		d = document.getElementById('runeSpiritLevel'+i);
+		e = document.getElementById('runeBlessingPurchase'+i);
+		f = document.getElementById('runeSpiritPurchase'+i);
+		g = document.getElementById('runeBlessingPower'+i);
+ 		h = document.getElementById('runeSpiritPower'+i);
+
+		a.style.top = b.style.top = (20 + 75 * i) + "px"
+		a.style.left = b.style.left = "10%"
+
+		c.style.top = d.style.top = (23 + 75 * i) + "px"
+		c.style.left = d.style.left = "15%"
+
+		e.style.top = f.style.top = (36 + 75 * i) + "px"
+		e.style.left = f.style.left = "32%"
+
+		g.style.top = h.style.top = (23 + 75 * i) + "px"
+		g.style.left = h.style.left = "59%"
+		
 	}
 }

@@ -348,6 +348,7 @@ function calculateObtainium(){
         obtainiumGain *= (1 + 0.0004 * player.constantUpgrades[4] * Decimal.log(player.ascendShards.add(1), 10))
         obtainiumGain *= (1 + player.cubeUpgrades[47])
         obtainiumGain *= (1 + 0.5 * player.challengecompletions[12])
+        obtainiumGain *= (1 + calculateCorruptionPoints()/400 * effectiveRuneSpiritPower[4])
         obtainiumGain *= (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144])
         if (player.achievements[53] > 0){
             obtainiumGain *= (1 + 1/2000 * (runeSum))
@@ -442,43 +443,31 @@ function calculateRuneLevels() {
 		rune5level = Math.max(1, player.runelevels[4] + (player.antUpgrades[9] + bonusant9) * 3 + (rune5Talisman) + 17 * player.constantUpgrades[7])
     }
 
-    for (var i = 1; i <= 5; i++){
-        window["divineBlessing"+i] = 1;
-        document.getElementById("divineblessing"+i).textContent = "";
-        document.getElementById("rune"+i).style.backgroundColor = "black";
-        if(player.autoSacrifice == i){document.getElementById("rune"+i).style.backgroundColor = "orange"}}
-
-
-    divineBlessing5 = 0;
-    if (rune1level >= 5000){
-        document.getElementById("rune1").style.backgroundColor = "red";
-        divineBlessing1 = (1 + (rune1level - 5000)/2000);
-        document.getElementById("divineblessing1").textContent = " In-Game timers speed x" + format(divineBlessing1,3);}
-    if (rune2level >= 6000){
-        document.getElementById("rune2").style.backgroundColor = "red";
-        divineBlessing2 = (1 + (rune2level-6000)/400);
-        document.getElementById("divineblessing2").textContent = " Multiplier Boost Effect x" + format(divineBlessing2,3);}
-    if (rune3level >= 4000){
-        document.getElementById("rune3").style.backgroundColor = "red";
-        divineBlessing3 = (1 + (rune3level-4000)/1600);
-        document.getElementById("divineblessing3").textContent = " Ant Sacrifice Multiplier x" + format(divineBlessing3,3);}
-    if (rune4level >= 6000){
-        document.getElementById("rune4").style.backgroundColor = "red";
-        divineBlessing4 = (1 + (rune4level-6000)/4000);
-        document.getElementById("divineblessing4").textContent = " Accelerator Boost Cost Delay x" + format(divineBlessing4,3)}
-    if (rune5level >= 4000){
-        document.getElementById("rune5").style.backgroundColor = "red";
-        divineBlessing5 = (calculateSigmoid(2,(rune5level-4000),2400) - 1);
-        document.getElementById("divineblessing5").textContent = " Ant Speed Mult. x" + format(Math.pow(player.researchPoints,divineBlessing5),2) + " [Based on Obtainium]"
-    }
     runeSum = 0;
     for (var i=1; i<=5; i++){
     displayRuneInformation(i,false)
     if(player.autoSacrifice == i){document.getElementById("rune"+i).style.backgroundColor = "orange"}
     runeSum += window['rune'+i+'level']
     }
+    calculateRuneBonuses();
+}
 
+function calculateRuneBonuses(){
+    blessingMultiplier = 1
+    spiritMultiplier = 1
 
+    blessingMultiplier *= (1 + 6.9 * player.researches[134]/100)
+    blessingMultiplier *= (1 + player.talismanRarity[3]/10)
+
+    for (var i = 1; i <= 5; i++){
+        runeBlessings[i] = blessingMultiplier * player.runelevels[i-1] * player.runeBlessingLevels[i]
+        runeSpirits[i] = spiritMultiplier * player.runelevels[i-1] * player.runeSpiritLevels[i]
+    }
+
+    for (var i = 1; i <= 5; i++){
+        effectiveRuneBlessingPower[i] = (Math.pow(runeBlessings[i], 1/5))/400
+        effectiveRuneSpiritPower[i] = (Math.pow(runeSpirits[i],1/5))/400
+    }
 }
 
 function calculateAnts() {
@@ -561,7 +550,7 @@ function calculateAntSacrificeMultipliers() {
     upgradeMultiplier *= (1 + player.researches[104]/20);
     if(player.achievements[132] == 1){upgradeMultiplier *= 1.25};
     if(player.achievements[137] == 1){upgradeMultiplier *= 1.25};
-    upgradeMultiplier *= divineBlessing3;
+    upgradeMultiplier *= (1 + 6.66 * effectiveRuneBlessingPower[3]);
     upgradeMultiplier *= (1 + 1/50 * player.challengecompletions[10]);
     upgradeMultiplier *= (1 + 1/50 * player.researches[122]);
     upgradeMultiplier *= (1 + 3/100 * player.researches[133]);
@@ -727,6 +716,7 @@ function calculateCubeMultiplier() {
     mult *= (1 + player.cubeUpgrades[41]/10);
     mult *= (1 + player.researches[137] / 100)
     mult *= (1 + 0.9 * player.researches[152] / 100)
+    mult *= (1 + calculateCorruptionPoints()/400 * effectiveRuneSpiritPower[2])
 
     var timeThresholds = [0, 30, 60, 120, 600, 1800, 7200, 28800, 86400, 86400*7]
     for(var i = 1; i <= 9; i++){
@@ -738,10 +728,11 @@ function calculateCubeMultiplier() {
 
 function calculateTimeAcceleration() {
     let timeMult = 1;
-    timeMult *= (1 + player.researches[121]/50); // research 5x21
+    timeMult *= (1 + player.researches[121]/50); // research 5x21 
     timeMult *= (1 + 0.015 * player.researches[136]) // research 6x11
     timeMult *= (1 + 0.012 * player.researches[151]) // research 7x1
-    timeMult *= divineBlessing1; // speed blessing
+    timeMult *= (1 + 5 * effectiveRuneBlessingPower[1]); // speed blessing
+    timeMult *= (1 + calculateCorruptionPoints()/400 * effectiveRuneSpiritPower[1]) // speed SPIRIT
     timeMult *= cubeBonusMultiplier[10]; // Chronos cube blessing
     timeMult *= 1 + player.cubeUpgrades[18] / 5; // cube upgrade 2x8
     timeMult *= calculateSigmoid(2, player.antUpgrades[12] + bonusant12, 69) // ant 12
@@ -754,7 +745,7 @@ function calculateTimeAcceleration() {
 }
 
 function calculateCorruptionPoints(){
-let basePoints = 400;
+let basePoints = 40000;
 let multiplyPoints = 1;
 
 basePoints += corruptionAddPointArray[player.usedCorruptions[1]]
@@ -795,4 +786,19 @@ function sortWithIndeces(toSort) {
         duplicateArray[j] = duplicateArray[j][0];
     }
     return duplicateArray.sortIndices;
+}
+
+//If you want to sum from a baseline level i to the maximum buyable level n, what would the cost be and how many levels would you get?
+function calculateSummationLinear(baseLevel,baseCost,resourceAvailable,differenceCap){
+    differenceCap = differenceCap || 1e9
+    let subtractCost;
+    subtractCost = baseCost * baseLevel * (1 + baseLevel) / 2;
+
+    let buyToLevel;
+    buyToLevel = Math.min(baseLevel + differenceCap, Math.floor(-1/2 + Math.sqrt(1/4 + 2 * (resourceAvailable + subtractCost)/baseCost)));
+
+    let realCost;
+    realCost = (baseCost * buyToLevel * (1 + buyToLevel) / 2) - subtractCost;
+
+    return [buyToLevel, realCost]
 }

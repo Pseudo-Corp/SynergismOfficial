@@ -285,7 +285,7 @@ var talismanFragmentObtainiumCosts = [null, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
 var talismanFragmentOfferingCosts = [null, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 
 
-var talismanLevelCostMultiplier = [null, 1, 4, 9, 16, 25, 10, 100]
+var talismanLevelCostMultiplier = [null, 1, 4, 1e4, 1e8, 1e13, 10, 100]
 
 var talismanPositiveModifier = [null, 0.75, 1.5, 2.25, 3, 3.75, 4.5]
 var talismanNegativeModifier = [null, 0, 0, 0, 0, 0, 0]
@@ -307,11 +307,14 @@ var effectiveELO = 0;
 
 var timeWarp = false
 
-var divineBlessing1 = 1;
-var divineBlessing2 = 1;
-var divineBlessing3 = 1;
-var divineBlessing4 = 1;
-var divineBlessing5 = 0;
+var blessingMultiplier = 1;
+var spiritMultiplier = 1;
+var runeBlessings = [0,0,0,0,0,0];
+var runeSpirits = [0,0,0,0,0,0];
+
+var effectiveRuneBlessingPower = [0,0,0,0,0,0];
+var effectiveRuneSpiritPower = [0,0,0,0,0,0];
+
 
 var triggerChallenge = ""
 
