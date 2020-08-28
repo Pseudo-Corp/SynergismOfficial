@@ -153,6 +153,12 @@ function updateAutoReset(i) {
         if (v >= 0){player.reincarnationamount = v;}
         else {player.reincarnationamount = 0;}
     }
+    if (i == 4){
+        var v = parseFloat(document.getElementById("ascensionAmount").value)
+        v = Math.floor(v)
+        if (v >= 1){player.autoAscendThreshold = v}
+        else {player.autoAscendThreshold = 1;}
+    }
 }
 
 
@@ -495,6 +501,8 @@ function reset(i,fast,from) {
 
     player.roombaResearchIndex = 0;
     player.autoResearch = 1;
+
+    player.runeBlessingLevels = [0, 0, 0, 0, 0, 0]
 
     for (j = 1; j <= (155); j++) {
         var k = "res" + j

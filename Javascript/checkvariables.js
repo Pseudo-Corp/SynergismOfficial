@@ -96,5 +96,15 @@ function checkVariablesOnLoad(data){
 				  enter: 2
 			  }
     }
-
+    if(data.autoAscend === undefined){
+        player.autoAscend = false;
+        player.autoAscendMode = "c10Completions";
+        player.autoAscendThreshold = 1;
+    }
+    if(data.runeBlessingLevels === undefined){
+        player.runeBlessingLevels = [0, 0, 0, 0, 0, 0];
+        player.runeSpiritLevels = [0, 0, 0, 0, 0, 0];
+        player.runeBlessingBuyAmount = 0;
+        player.runeSpiritBuyAmount = 0;
+    }
 }
