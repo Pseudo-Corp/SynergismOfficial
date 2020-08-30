@@ -26,10 +26,12 @@ function calculatetax(fast) {
     if (player.currentChallenge.reincarnation === 9){
         e = 0.005
     }
+    //im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236 
     if (player.currentChallenge.ascension === 13){
         e *= 100 * (1 + 1/2 * player.challengecompletions[13])
-        e *= Math.pow(1.2, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[14] - player.challengecompletions[15] - 9))
+        e *= Math.pow(1.2, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[14] - player.challengecompletions[15] - 9 - 3 * player.cubeUpgrades[49]))
     }
+	
     if (player.challengecompletions[6] > 0) {
         f /= 1.075
     }
