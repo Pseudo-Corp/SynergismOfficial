@@ -270,10 +270,10 @@ function() { return "+3% Effective Ant ELO, duh!"},
 function() { return "+"+format(2 * player.challengecompletions[10],0)+"% more Uncommon fragments!"},
 
 ]
-    function upgradeeffects(i) {
-        document.getElementById("upgradeeffect").innerHTML = "Effect: " + upgradetexts[i]()
-     }
 
+function upgradeeffects(i) {
+    document.getElementById("upgradeeffect").innerHTML = "Effect: " + upgradetexts[i]()
+}
 
 
 function upgradedescriptions(i) {
@@ -286,37 +286,64 @@ function upgradedescriptions(i) {
     document.getElementById("upgradedescription").textContent = y + z
     if (player.upgrades[i] > 0.5) {
         document.getElementById("upgradedescription").style.color = "gold"
+    } else {
+        document.getElementById("upgradedescription").style.color = "white"
     }
-    else {document.getElementById("upgradedescription").style.color = "white"}
 
     if (player.toggles.nine === true) {
-        var type = ''   
-        if (i <= 20 && i >= 1) {type = 'coin'}
-        if (i <= 40 && i >= 21) {type = 'prestige'}  
-        if (i <= 60 && i >= 41) {type = 'transcend'}  
-        if (i <= 80 && i >= 61) {type = 'reincarnation'}  
-        if (i <= 87 && i >= 81) {type = 'prestige'}
-        if (i <= 93 && i >= 88) {type = 'transcend'}
-        if (i <= 100 && i >= 94) {type = 'reincarnation'}
+        var type = ''
+        if (i <= 20 && i >= 1) {
+            type = 'coin'
+        }
+        if (i <= 40 && i >= 21) {
+            type = 'prestige'
+        }
+        if (i <= 60 && i >= 41) {
+            type = 'transcend'
+        }
+        if (i <= 80 && i >= 61) {
+            type = 'reincarnation'
+        }
+        if (i <= 87 && i >= 81) {
+            type = 'prestige'
+        }
+        if (i <= 93 && i >= 88) {
+            type = 'transcend'
+        }
+        if (i <= 100 && i >= 94) {
+            type = 'reincarnation'
+        }
         if (type !== '' && i <= 80 && i >= 1) {
-        buyUpgrades(type,i)
+            buyUpgrades(type, i)
         }
         if (type !== '' && i <= 100 && i >= 81) {
-            var q=i-80;
-        buyAutobuyers(q)
+            var q = i - 80;
+            buyAutobuyers(q)
         }
         if (i <= 120 && i >= 101) {
             var q = i - 100
-        buyGenerator(q)
+            buyGenerator(q)
         }
     }
 
     var currency = ''
     var color = ''
-    if ((i <= 20 && i >= 1) || (i <= 110 && i >= 106) || (i <= 125 && i >= 121)) {currency = "Coins"; color = "yellow"}
-    if ((i <= 40 && i >= 21) || (i <= 105 && i >= 101) || (i <= 115 && i >= 111) || (i <= 87 && i >= 81)) {currency = "Diamonds"; color = "cyan"}
-    if ((i <= 60 && i >= 41) || (i <= 120 && i >= 116) || (i <= 93 &&  i >= 88)) {currency = "Mythos"; color = "plum"}
-    if ((i <= 80 && i >= 61) || (i <= 100 && i >= 94)) {currency = "Particles"; color = "limegreen"}
+    if ((i <= 20 && i >= 1) || (i <= 110 && i >= 106) || (i <= 125 && i >= 121)) {
+        currency = "Coins";
+        color = "yellow"
+    }
+    if ((i <= 40 && i >= 21) || (i <= 105 && i >= 101) || (i <= 115 && i >= 111) || (i <= 87 && i >= 81)) {
+        currency = "Diamonds";
+        color = "cyan"
+    }
+    if ((i <= 60 && i >= 41) || (i <= 120 && i >= 116) || (i <= 93 && i >= 88)) {
+        currency = "Mythos";
+        color = "plum"
+    }
+    if ((i <= 80 && i >= 61) || (i <= 100 && i >= 94)) {
+        currency = "Particles";
+        color = "limegreen"
+    }
 
     document.getElementById("upgradecost").textContent = "Cost: " + format(Decimal.pow(10, upgradeCosts[i])) + " " + currency
     document.getElementById("upgradecost").style.color = color
@@ -331,8 +358,10 @@ function crystalupgradedescriptions(i) {
     var u = i - 1
     var p = player.crystalUpgrades[u]
     var c = 0;
-    if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {c = 10}
-    c += Math.floor(rune3level * (1 + player.researches[5] / 10) * (1 + player.researches[21]/800) * (1 + player.researches[90]/100) / 40) * 100/100
+    if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
+        c = 10
+    }
+    c += Math.floor(rune3level * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100) / 40) * 100 / 100
     var q = Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 - c, 2) / 2)))
     document.getElementById("crystalupgradedescription").textContent = w
     document.getElementById("crystalupgradeslevel").textContent = "Level: " + p;
@@ -340,27 +369,27 @@ function crystalupgradedescriptions(i) {
 }
 
 
-
 function upgradeupdate(num, fast) {
-    var x = "upg"+num
+    var x = "upg" + num
     if (player.upgrades[num] > 0.5 && ((num <= 60 || num > 80) && (num <= 93 || num > 100))) {
-    document.getElementById(x).style.backgroundColor = "green"
+        document.getElementById(x).style.backgroundColor = "green"
     }
     if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100) || (num > 120))) {
-    document.getElementById(x).style.backgroundColor = "white"
+        document.getElementById(x).style.backgroundColor = "white"
     }
     var a = "upgdesc" + num
     var b = window[a]
     var c = ""
     if (player.upgrades[num] > 0.5) {
         c = c + " BOUGHT!"
-    
-    if (!fast) {    
-    document.getElementById("upgradedescription").textContent = b + c
-    document.getElementById("upgradedescription").style.color = "gold"
+
+        if (!fast) {
+            document.getElementById("upgradedescription").textContent = b + c
+            document.getElementById("upgradedescription").style.color = "gold"
+        }
+    } else {
+        document.getElementById(x).style.backgroundColor = "Black"
     }
-    }    
-    else {document.getElementById(x).style.backgroundColor = "Black"}
 
     if (!fast) revealStuff()
 }
@@ -522,32 +551,44 @@ var resdesc154 = "[7x4] Make all Tesseract buildings produce 3% faster per level
 var resdesc155 = "[7x5] Tome 2 of 5: How to win over the Ant universe. Another e100M Divider to Challenge 10 Base Requirement on purchase."
 
 
-function researchdescriptions(i,auto) {
+function researchdescriptions(i, auto) {
     auto = auto || false
     var c14 = 0;
     var spiritBonus = 0;
-    if(i <= 5){c14 += player.challengecompletions[14]}
-    if(i === 84){spiritBonus += Math.ceil(20 * calculateCorruptionPoints()/400 * effectiveRuneSpiritPower[5])}
+    if (i <= 5) {
+        c14 += player.challengecompletions[14]
+    }
+    if (i === 84) {
+        spiritBonus += Math.ceil(20 * calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[5])
+    }
 
     var x = "resdesc" + i
     var y = window[x]
     var z = ""
     var p = "res" + i
-    z = " Cost: " + (format(researchBaseCosts[i],0,true)) + " Obtainium" 
+    z = " Cost: " + (format(researchBaseCosts[i], 0, true)) + " Obtainium"
     if (player.researches[i] === (researchMaxLevels[i] + c14 + spiritBonus)) {
         document.getElementById("researchcost").style.color = "Gold"
         document.getElementById("researchinfo3").style.color = "plum"
-        z = z + " || MAXED!"}
-    else {document.getElementById("researchcost").style.color = "limegreen"
-          document.getElementById("researchinfo3").style.color = "white"}
-    
-    if (player.researchPoints < researchBaseCosts[i] && player.researches[i] < (researchMaxLevels[i] + c14 + spiritBonus)){document.getElementById("researchcost").style.color = "crimson"}
-
-    if (!auto && !player.autoResearchToggle){
-    if (player.researches[i] > 0.5 && player.researches[i] < (researchMaxLevels[i] + c14 + spiritBonus)) {document.getElementById(p).style.backgroundColor = "purple"}
+        z = z + " || MAXED!"
+    } else {
+        document.getElementById("researchcost").style.color = "limegreen"
+        document.getElementById("researchinfo3").style.color = "white"
     }
-    if (player.researches[i] > 0.5 && player.researches[i] >= (researchMaxLevels[i] + c14 + spiritBonus)) {document.getElementById(p).style.backgroundColor = "green"}
-    
+
+    if (player.researchPoints < researchBaseCosts[i] && player.researches[i] < (researchMaxLevels[i] + c14 + spiritBonus)) {
+        document.getElementById("researchcost").style.color = "crimson"
+    }
+
+    if (!auto && !player.autoResearchToggle) {
+        if (player.researches[i] > 0.5 && player.researches[i] < (researchMaxLevels[i] + c14 + spiritBonus)) {
+            document.getElementById(p).style.backgroundColor = "purple"
+        }
+    }
+    if (player.researches[i] > 0.5 && player.researches[i] >= (researchMaxLevels[i] + c14 + spiritBonus)) {
+        document.getElementById(p).style.backgroundColor = "green"
+    }
+
     document.getElementById("researchinfo2").textContent = y
     document.getElementById("researchcost").textContent = z
     document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + (researchMaxLevels[i] + c14 + spiritBonus)
@@ -555,70 +596,73 @@ function researchdescriptions(i,auto) {
 
 function updateResearchBG(j) {
 
-    if(player.researches[j] > researchMaxLevels[j]){
+    if (player.researches[j] > researchMaxLevels[j]) {
         player.researchPoints += (player.researches[j] - researchMaxLevels[j]) * researchBaseCosts[j]
         player.researches[j] = researchMaxLevels[j]
     }
 
     var k = "res" + j
-	if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "purple"}
-	else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "green"}
-	else {document.getElementById(k).style.backgroundColor = "black"}
+    if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {
+        document.getElementById(k).style.backgroundColor = "purple"
+    } else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {
+        document.getElementById(k).style.backgroundColor = "green"
+    } else {
+        document.getElementById(k).style.backgroundColor = "black"
+    }
 }
 
-function returnConstUpgEffect(i){
+function returnConstUpgEffect(i) {
     let show = "+1"
-    switch(i){
+    switch (i) {
         case 1:
-            show = "Tesseract building production x" + format(Decimal.pow(1.05, player.constantUpgrades[1]),2,true);
+            show = "Tesseract building production x" + format(Decimal.pow(1.05, player.constantUpgrades[1]), 2, true);
             return show;
         case 2:
-            show = "Tesseract building production x" + format(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned),2,true)
+            show = "Tesseract building production x" + format(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned), 2, true)
             return show;
         case 3:
-            show = "Offering gain x" + format(1 + 0.0001 * player.constantUpgrades[3] * Decimal.log(player.ascendShards.add(1), 10),4,true)
+            show = "Offering gain x" + format(1 + 0.0001 * player.constantUpgrades[3] * Decimal.log(player.ascendShards.add(1), 10), 4, true)
             return show;
         case 4:
-            show = "Obtainium gain x" + format(1 + 0.0004 * player.constantUpgrades[4] * Decimal.log(player.ascendShards.add(1), 10),4,true)
+            show = "Obtainium gain x" + format(1 + 0.0004 * player.constantUpgrades[4] * Decimal.log(player.ascendShards.add(1), 10), 4, true)
             return show;
         case 5:
-            show = "Ant Speed x" + format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1),10), player.constantUpgrades[5]),2,true)
+            show = "Ant Speed x" + format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]), 2, true)
             return show;
         case 6:
             show = "+" + format(2 * player.constantUpgrades[6]) + " free Ant Levels"
             return show;
         case 7:
-            show = "+" + format(17 * player.constantUpgrades[7]) + " free Rune Levels, +" + format(8 * player.constantUpgrades[7]) + " to Rune Cap" 
+            show = "+" + format(17 * player.constantUpgrades[7]) + " free Rune Levels, +" + format(8 * player.constantUpgrades[7]) + " to Rune Cap"
             return show;
         case 8:
-            show = "Rune EXP x" + format(1 + 1/10 * player.constantUpgrades[8],2,true)
+            show = "Rune EXP x" + format(1 + 1 / 10 * player.constantUpgrades[8], 2, true)
             return show;
         case 9:
-            show = "Runes effectiveness x" + format(1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]),4,true)
+            show = "Runes effectiveness x" + format(1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]), 4, true)
             return show;
         case 10:
-            show = "Cubes/Tesseracts on Ascension x" + format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]),4,true)
+            show = "Cubes/Tesseracts on Ascension x" + format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)
             return show;
     }
 }
 
-function getConstUpgradeMetadata(i){
+function getConstUpgradeMetadata(i) {
     let toBuy = 0;
     let cost = new Decimal("1")
-    toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(constUpgradeCosts[i])/ Math.log(10)))
-    if(toBuy > player.constantUpgrades[i]){
-    cost = Decimal.pow(10, toBuy - 1).times(constUpgradeCosts[i])
-    }
-    else{
-    cost = Decimal.pow(10, player.constantUpgrades[i]).times(constUpgradeCosts[i])    
+    toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(constUpgradeCosts[i]) / Math.log(10)))
+    if (toBuy > player.constantUpgrades[i]) {
+        cost = Decimal.pow(10, toBuy - 1).times(constUpgradeCosts[i])
+    } else {
+        cost = Decimal.pow(10, player.constantUpgrades[i]).times(constUpgradeCosts[i])
     }
 
-    return[Math.max(1, toBuy - player.constantUpgrades[i]), cost]
+    return [Math.max(1, toBuy - player.constantUpgrades[i]), cost]
 }
 
-function constantUpgradeDescriptions(i){
+function constantUpgradeDescriptions(i) {
     let metaData = getConstUpgradeMetadata(i)
-    var x = 'constantUpgDesc'+i
+    var x = 'constantUpgDesc' + i
     let y = window[x]
     document.getElementById("constUpgradeDescription").textContent = y
     document.getElementById("constUpgradeLevel2").textContent = format(player.constantUpgrades[i])
@@ -626,9 +670,9 @@ function constantUpgradeDescriptions(i){
     document.getElementById("constUpgradeEffect2").textContent = returnConstUpgEffect(i)
 }
 
-function buyConstantUpgrades(i){
+function buyConstantUpgrades(i) {
     let metaData = getConstUpgradeMetadata(i)
-    if(player.ascendShards.greaterThanOrEqualTo(metaData[1])){
+    if (player.ascendShards.greaterThanOrEqualTo(metaData[1])) {
         player.constantUpgrades[i] += metaData[0];
         player.ascendShards = player.ascendShards.sub(metaData[1]);
         constantUpgradeDescriptions(i);
