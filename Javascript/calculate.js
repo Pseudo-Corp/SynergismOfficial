@@ -221,7 +221,7 @@ function calculateOfferings(i){
     var b = 0;
     var c = 0;
 
-    if (i == 3) {
+    if (i === 3) {
         a += 3
         if (player.achievements[52] > 0.5) {
             a += (25 * Math.min(player.reincarnationcounter/1800, 1))
@@ -230,7 +230,7 @@ function calculateOfferings(i){
             a += 1 / 50 * (sumContents(player.challengecompletions))
         }
         a += 0.6 * player.researches[25]
-        if (player.researches[95] == 1){
+        if (player.researches[95] === 1){
             a += 4
         }
         a += 1/500 * rune5level * effectiveLevelMult * (1 + player.researches[85] / 200)
@@ -296,7 +296,7 @@ function calculateOfferings(i){
     if (player.achievements[35] > 0.5) {
         q *= 1.25
     }
-    if (player.upgrades[38] == 1){q *= 1.2}
+    if (player.upgrades[38] === 1){q *= 1.2}
     if (player.upgrades[75] > 0.5) {
         q *= (1 + 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)))
     }
@@ -378,8 +378,8 @@ function calculateAutomaticObtainium() {
 function calculateTalismanEffects(){
     let positiveBonus = 0;
     let negativeBonus = 0;
-    if(player.achievements[135] == 1){positiveBonus += 0.05}
-    if(player.achievements[136] == 1){positiveBonus += 0.05}
+    if(player.achievements[135] === 1){positiveBonus += 0.05}
+    if(player.achievements[136] === 1){positiveBonus += 0.05}
     positiveBonus += 0.05 * (player.talismanRarity[4] - 1)
     positiveBonus += 3 * player.researches[106]/100
     positiveBonus += 3 * player.researches[107]/100
@@ -388,25 +388,25 @@ function calculateTalismanEffects(){
     positiveBonus += (cubeBonusMultiplier[9] - 1)
     negativeBonus += 3 * player.researches[118]/50
     for(var i=1; i <= 5; i++){
-        if(player.talismanOne[i] == (1)){talisman1Effect[i] = (talismanPositiveModifier[player.talismanRarity[1]] + positiveBonus) * player.talismanLevels[1]}
+        if(player.talismanOne[i] === (1)){talisman1Effect[i] = (talismanPositiveModifier[player.talismanRarity[1]] + positiveBonus) * player.talismanLevels[1]}
         else{talisman1Effect[i] = (talismanNegativeModifier[player.talismanRarity[1]] - negativeBonus) * player.talismanLevels[1] * (-1)}
 
-        if(player.talismanTwo[i] == (1)){talisman2Effect[i] = (talismanPositiveModifier[player.talismanRarity[2]] + positiveBonus) * player.talismanLevels[2]}
+        if(player.talismanTwo[i] === (1)){talisman2Effect[i] = (talismanPositiveModifier[player.talismanRarity[2]] + positiveBonus) * player.talismanLevels[2]}
         else{talisman2Effect[i] = (talismanNegativeModifier[player.talismanRarity[2]] - negativeBonus) * player.talismanLevels[2] * (-1)}
 
-        if(player.talismanThree[i] == (1)){talisman3Effect[i] = (talismanPositiveModifier[player.talismanRarity[3]] + positiveBonus) * player.talismanLevels[3]}
+        if(player.talismanThree[i] === (1)){talisman3Effect[i] = (talismanPositiveModifier[player.talismanRarity[3]] + positiveBonus) * player.talismanLevels[3]}
         else{talisman3Effect[i] = (talismanNegativeModifier[player.talismanRarity[3]] - negativeBonus) * player.talismanLevels[3] * (-1)}
 
-        if(player.talismanFour[i] == (1)){talisman4Effect[i] = (talismanPositiveModifier[player.talismanRarity[4]] + positiveBonus) * player.talismanLevels[4]}
+        if(player.talismanFour[i] === (1)){talisman4Effect[i] = (talismanPositiveModifier[player.talismanRarity[4]] + positiveBonus) * player.talismanLevels[4]}
         else{talisman4Effect[i] = (talismanNegativeModifier[player.talismanRarity[4]] - negativeBonus) * player.talismanLevels[4] * (-1)}
 
-        if(player.talismanFive[i] == (1)){talisman5Effect[i] = (talismanPositiveModifier[player.talismanRarity[5]] + positiveBonus) * player.talismanLevels[5]}
+        if(player.talismanFive[i] === (1)){talisman5Effect[i] = (talismanPositiveModifier[player.talismanRarity[5]] + positiveBonus) * player.talismanLevels[5]}
         else{talisman5Effect[i] = (talismanNegativeModifier[player.talismanRarity[5]] - negativeBonus) * player.talismanLevels[5] * (-1)}
 
-        if(player.talismanSix[i] == (1)){talisman6Effect[i] = (talismanPositiveModifier[player.talismanRarity[6]] + positiveBonus) * player.talismanLevels[6]}
+        if(player.talismanSix[i] === (1)){talisman6Effect[i] = (talismanPositiveModifier[player.talismanRarity[6]] + positiveBonus) * player.talismanLevels[6]}
         else{talisman6Effect[i] = (talismanNegativeModifier[player.talismanRarity[6]] - negativeBonus) * player.talismanLevels[6] * (-1)}
 
-        if(player.talismanSeven[i] == (1)){talisman7Effect[i] = (talismanPositiveModifier[player.talismanRarity[7]] + positiveBonus) * player.talismanLevels[7]}
+        if(player.talismanSeven[i] === (1)){talisman7Effect[i] = (talismanPositiveModifier[player.talismanRarity[7]] + positiveBonus) * player.talismanLevels[7]}
         else{talisman7Effect[i] = (talismanNegativeModifier[player.talismanRarity[7]] - negativeBonus) * player.talismanLevels[7] * (-1)}
 
     }
@@ -424,13 +424,13 @@ function calculateTalismanEffects(){
     }
 talisman6Power = 0;
 talisman7Quarks = 0;
-    if(player.talismanRarity[1] == 6){rune2Talisman += 1000;}
-    if(player.talismanRarity[2] == 6){rune1Talisman += 1000;}
-    if(player.talismanRarity[3] == 6){rune4Talisman += 1000;}
-    if(player.talismanRarity[4] == 6){rune3Talisman += 1000;}
-    if(player.talismanRarity[5] == 6){rune5Talisman += 1000;}
-    if(player.talismanRarity[6] == 6){talisman6Power = 2.5;}
-    if(player.talismanRarity[7] == 6){talisman7Quarks = 2;}
+    if(player.talismanRarity[1] === 6){rune2Talisman += 1000;}
+    if(player.talismanRarity[2] === 6){rune1Talisman += 1000;}
+    if(player.talismanRarity[3] === 6){rune4Talisman += 1000;}
+    if(player.talismanRarity[4] === 6){rune3Talisman += 1000;}
+    if(player.talismanRarity[5] === 6){rune5Talisman += 1000;}
+    if(player.talismanRarity[6] === 6){talisman6Power = 2.5;}
+    if(player.talismanRarity[7] === 6){talisman7Quarks = 2;}
 }
 
 function calculateRuneLevels() {
@@ -446,7 +446,7 @@ function calculateRuneLevels() {
     runeSum = 0;
     for (var i=1; i<=5; i++){
     displayRuneInformation(i,false)
-    if(player.autoSacrifice == i){document.getElementById("rune"+i).style.backgroundColor = "orange"}
+    if(player.autoSacrifice === i){document.getElementById("rune"+i).style.backgroundColor = "orange"}
     runeSum += window['rune'+i+'level']
     }
     calculateRuneBonuses();
@@ -511,16 +511,16 @@ function calculateAntSacrificeELO(){
         antELO += 2 * player.sixthOwnedAnts
         antELO += 4 * player.seventhOwnedAnts
         antELO += 8 * player.eighthOwnedAnts
-        if(player.achievements[180] == 1){antELO *= 1.01}
-        if(player.achievements[181] == 1){antELO *= 1.03/1.01}
-        if(player.achievements[182] == 1){antELO *= 1.06/1.03}
+        if(player.achievements[180] === 1){antELO *= 1.01}
+        if(player.achievements[181] === 1){antELO *= 1.03/1.01}
+        if(player.achievements[182] === 1){antELO *= 1.06/1.03}
         antELO *= (1 + player.researches[110]/100)
         antELO *= (1 + 2.5 * player.researches[148]/100)
 
-        if(player.achievements[176] == 1){antELO += 25}
-        if(player.achievements[177] == 1){antELO += 50}
-        if(player.achievements[178] == 1){antELO += 75}
-        if(player.achievements[179] == 1){antELO += 100}
+        if(player.achievements[176] === 1){antELO += 25}
+        if(player.achievements[177] === 1){antELO += 50}
+        if(player.achievements[178] === 1){antELO += 75}
+        if(player.achievements[179] === 1){antELO += 100}
         antELO += 25 * player.researches[108]
         antELO += 25 * player.researches[109]
         antELO += 40 * player.researches[123]
@@ -548,8 +548,8 @@ function calculateAntSacrificeMultipliers() {
     upgradeMultiplier *= (1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11)/125)));
     upgradeMultiplier *= (1 + player.researches[103]/20);
     upgradeMultiplier *= (1 + player.researches[104]/20);
-    if(player.achievements[132] == 1){upgradeMultiplier *= 1.25};
-    if(player.achievements[137] == 1){upgradeMultiplier *= 1.25};
+    if(player.achievements[132] === 1){upgradeMultiplier *= 1.25};
+    if(player.achievements[137] === 1){upgradeMultiplier *= 1.25};
     upgradeMultiplier *= (1 + 6.66 * effectiveRuneBlessingPower[3]);
     upgradeMultiplier *= (1 + 1/50 * player.challengecompletions[10]);
     upgradeMultiplier *= (1 + 1/50 * player.researches[122]);
@@ -607,7 +607,7 @@ updateTalismanInventory();
 calculateObtainium();
 calculateAnts();
 calculateRuneLevels();
-if (forceTime == 0){document.getElementById("preload").style.display = "block"}
+if (forceTime === 0){document.getElementById("preload").style.display = "block"}
 document.getElementById("offlineprogressbar").style.display = "block"
 timeWarp = true
 if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
@@ -624,7 +624,7 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
     player.ascensionCounter += timeadd / calculateTimeAcceleration();
     if (player.cubeUpgrades[2] > 0) { player.runeshards += Math.floor(player.cubeUpgrades[2] * timeadd / calculateTimeAcceleration()) }
     if (player.researches[61] > 0){player.researchPoints += timeadd * calculateAutomaticObtainium()}
-    if (player.achievements[173] == 1){
+    if (player.achievements[173] === 1){
         player.antSacrificeTimer += timeadd;
     }
 
@@ -638,7 +638,7 @@ if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
         player.reincarnationcounter += tickValue;
         resourceGain(tickValue,true);
         calculateObtainium();
-        if(simulatedTicks % 2 == 0){
+        if(simulatedTicks % 2 === 0){
         updateAll(true);
         }
 
@@ -688,15 +688,15 @@ function calculateCubeBlessings(){
     let mult = 1;
     let augmentAccuracy = 0;
     if(cubeArray[i] >= 1000){power = blessingDRPower[i]; mult *= Math.pow(1000, (1 - blessingDRPower[i]) * (1 + powerBonus[i])); augmentAccuracy += 2;}
-    if(i == 6){power = 2.25; mult = 1; augmentAccuracy = 0;}
+    if(i === 6){power = 2.25; mult = 1; augmentAccuracy = 0;}
 
     cubeBonusMultiplier[i] = 1 + mult * blessingbase[i] * Math.pow(cubeArray[i], power * (1 + powerBonus[i])) * tesseractBonusMultiplier[i];
 
     document.getElementById("cubeBlessing"+i+"Amount").textContent = "x"+format(cubeArray[i],0,true)
     document.getElementById("cubeBlessing"+i+"Effect").textContent = "+"+format(100*(cubeBonusMultiplier[i] - 1),accuracy[i] + augmentAccuracy,true) + "%"
-    if(i == 1){document.getElementById("cubeBlessing1Effect").textContent = "+"+format(cubeBonusMultiplier[1] - 1,accuracy[1] + augmentAccuracy,true)}
-    if(i == 8){document.getElementById("cubeBlessing8Effect").textContent = "+"+format(cubeBonusMultiplier[8] - 1,accuracy[8] + augmentAccuracy,true)}
-    if(i == 9){document.getElementById("cubeBlessing9Effect").textContent = "+"+format(cubeBonusMultiplier[9] - 1,accuracy[9] + augmentAccuracy,true)}
+    if(i === 1){document.getElementById("cubeBlessing1Effect").textContent = "+"+format(cubeBonusMultiplier[1] - 1,accuracy[1] + augmentAccuracy,true)}
+    if(i === 8){document.getElementById("cubeBlessing8Effect").textContent = "+"+format(cubeBonusMultiplier[8] - 1,accuracy[8] + augmentAccuracy,true)}
+    if(i === 9){document.getElementById("cubeBlessing9Effect").textContent = "+"+format(cubeBonusMultiplier[9] - 1,accuracy[9] + augmentAccuracy,true)}
     }
 
     calculateRuneLevels();
@@ -728,7 +728,7 @@ function calculateCubeMultiplier() {
 
 function calculateTimeAcceleration() {
     let timeMult = 1;
-    timeMult *= (1 + player.researches[121]/50); // research 5x21 
+    timeMult *= (1 + player.researches[121]/50); // research 5x21
     timeMult *= (1 + 0.015 * player.researches[136]) // research 6x11
     timeMult *= (1 + 0.012 * player.researches[151]) // research 7x1
     timeMult *= (1 + 5 * effectiveRuneBlessingPower[1]); // speed blessing

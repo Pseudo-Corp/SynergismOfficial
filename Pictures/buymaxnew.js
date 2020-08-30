@@ -55,7 +55,7 @@ function getCost(originalCost, buyingTo, type, num, r)
 			// god damn that was hard to make an algo for
 			cost = cost.times(Decimal.pow(1.03, (buyingTo - fr) * ((buyingTo - fr + 1) / 2)));
 		}
-		if (player.currentChallenge == "four" && (type == "Coin" || type == "Diamonds")) {
+		if (player.currentChallenge === "four" && (type === "Coin" || type === "Diamonds")) {
 			// you would not fucking believe how long it took me to figure this out
 			// (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
 			cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(new Decimal(100).factorial()).times(Decimal.pow(100, buyingTo)), 1.25 + 1/4 * player.challengecompletions.four));
@@ -65,7 +65,7 @@ function getCost(originalCost, buyingTo, type, num, r)
 			}
 		}
 		fr = Math.floor(r * 1000 * player.challengecompletions.eight);
-		  if (player.currentChallengeRein == "eight" && (type == "Coin" || type == "Diamonds" || type == "Mythos") && buyingTo >= (1000 * player.challengecompletions.eight * r)){
+		  if (player.currentChallengeRein === "eight" && (type === "Coin" || type === "Diamonds" || type === "Mythos") && buyingTo >= (1000 * player.challengecompletions.eight * r)){
 			  
 			var sumBuys = (buyingTo - (1000 * player.challengecompletions.eight * r)) * ((buyingTo - (1000 * player.challengecompletions.eight * r) + 1) / 2);
 			var negBuys = (fr       - (1000 * player.challengecompletions.eight * r)) * ((fr       - (1000 * player.challengecompletions.eight * r) + 1) / 2);
@@ -90,10 +90,10 @@ function getCost(originalCost, buyingTo, type, num, r)
 		r += 1/200 * player.challengecompletions.four;
 		r += 3/100 * (player.antUpgrades[7] + bonusant7);
 	
-		if (type == 'Diamonds'){tag = "prestigePoints";}
-		if (type == 'Mythos'){tag = "transcendPoints";}
-		if (type == 'Particles') {tag = "reincarnationPoints";}
-		if (type == "Coin") {tag = "coins";}
+		if (type === 'Diamonds'){tag = "prestigePoints";}
+		if (type === 'Mythos'){tag = "transcendPoints";}
+		if (type === 'Particles') {tag = "reincarnationPoints";}
+		if (type === "Coin") {tag = "coins";}
 	
 		// Start buying at the current amount bought + 1
 		var buyTo =  player[pos + 'Owned' + type] + 1;

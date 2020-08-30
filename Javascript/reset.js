@@ -17,7 +17,7 @@ function resetdetails(i) {
     document.getElementById("resetofferings1").style.display = "block"
     document.getElementById("resetofferings2").style.display = "block"
     var offering = 0;
-    if (i == 1) {
+    if (i === 1) {
         color = 'cyan'
         if (document.getElementById("resetcurrency1").src !== "Pictures/Diamond.png"){
         document.getElementById("resetcurrency1").src = "Pictures/Diamond.png"
@@ -29,7 +29,7 @@ function resetdetails(i) {
         document.getElementById("resetinfo").textContent = "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: " + format(player.coinsThisPrestige) + "/1e16 Coins || TIME SPENT: " + format(player.prestigecounter) + " seconds."
         document.getElementById("resetinfo").style.color = "turquoise"
     }
-    if (i == 2) {
+    if (i === 2) {
         color = 'plum'
         if (document.getElementById("resetcurrency1").src !== "Pictures/Mythos.png"){
         document.getElementById("resetcurrency1").src = "Pictures/Mythos.png"
@@ -41,7 +41,7 @@ function resetdetails(i) {
         document.getElementById("resetinfo").textContent = "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: " + format(player.coinsThisTranscension) + "/1e100 Coins || TIME SPENT: " + format(player.transcendcounter) + " seconds." 
         document.getElementById("resetinfo").style.color = "orchid"
     }
-    if (i == 3) {
+    if (i === 3) {
         var s = player.currentChallenge.transcension
         color = 'red'
         document.getElementById("resetobtainium").src = ""
@@ -59,7 +59,7 @@ function resetdetails(i) {
         }
 
     }
-    if (i == 4) {
+    if (i === 4) {
         color = 'green'
         if (document.getElementById("resetcurrency1").src !== "Pictures/Particle.png"){
         document.getElementById("resetcurrency1").src = "Pictures/Particle.png"
@@ -71,7 +71,7 @@ function resetdetails(i) {
         document.getElementById("resetinfo").textContent = "Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: " + format(player.transcendShards) + "/1e300 Mythos Shards || TIME SPENT: " + format(player.reincarnationcounter) + " seconds."
         document.getElementById('resetinfo').style.color = "limegreen"
     }
-    if (i == 5) {
+    if (i === 5) {
         color = 'cyan'
         if (document.getElementById("resetcurrency1").src !== "Pictures/Diamond.png"){
         document.getElementById("resetcurrency1").src = "Pictures/Diamond.png"
@@ -83,7 +83,7 @@ function resetdetails(i) {
         document.getElementById("resetinfo").textContent = "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: " + format(player.prestigePoints) + "/" + format(player.acceleratorBoostCost) + " Diamonds."
         document.getElementById("resetinfo").style.color = "cyan"
     }
-    if (i == 6) {
+    if (i === 6) {
         var s = player.currentChallenge.reincarnation
         let goal = "transcendShards";
         let goaldesc = " Mythos Shards"
@@ -105,7 +105,7 @@ function resetdetails(i) {
             document.getElementById("resetinfo").style.color = "crimson"
         }
     }
-    if (i == 7){
+    if (i === 7){
         document.getElementById("resetofferings1").style.display = "none"
         document.getElementById("resetofferings2").style.display = "none"
         offering = 0
@@ -118,7 +118,7 @@ function resetdetails(i) {
 
     }
 
-    if (i == 8){
+    if (i === 8){
         document.getElementById("resetofferings1").style.display = "none"
         document.getElementById("resetofferings2").style.display = "none"
         offering = 0
@@ -138,22 +138,22 @@ function resetdetails(i) {
 
 
 function updateAutoReset(i) {
-    if (i == 1) {
+    if (i === 1) {
         var t = document.getElementById("prestigeamount").value
          if (t >= 0){player.prestigeamount = t;}
          else {player.prestigeamount = 0;}
     }
-    if (i == 2) {
+    if (i === 2) {
         var u = document.getElementById("transcendamount").value
          if (u >= 0){player.transcendamount = u;}
          else{player.transcendamount = 0;}
     }
-    if (i == 3) {
+    if (i === 3) {
         var v = document.getElementById("reincarnationamount").value
         if (v >= 0){player.reincarnationamount = v;}
         else {player.reincarnationamount = 0;}
     }
-    if (i == 4){
+    if (i === 4){
         var v = parseFloat(document.getElementById("ascensionAmount").value)
         v = Math.floor(v)
         if (v >= 1){player.autoAscendThreshold = v}
@@ -467,7 +467,7 @@ function reset(i,fast,from) {
     player.runelevels[3] = 3 * player.cubeUpgrades[26];
     player.runelevels[4] = 3 * player.cubeUpgrades[26];
 
-    if(player.cubeUpgrades[27] == 1){
+    if(player.cubeUpgrades[27] === 1){
     player.firstOwnedParticles = 1;
     player.secondOwnedParticles = 1;
     player.thirdOwnedParticles = 1;
@@ -554,7 +554,7 @@ function reset(i,fast,from) {
         document.getElementById("upg"+j).style.backgroundColor = "black"
     }
     for(var j = 94; j <= 100; j++){
-        if (player.upgrades[j] == 0){
+        if (player.upgrades[j] === 0){
         document.getElementById("upg"+j).style.backgroundColor = "black"
         }
     }
@@ -591,7 +591,7 @@ function resetUpgrades(i, fast) {
             }
         }
 
-        if (player.researches[41] == 0) {
+        if (player.researches[41] === 0) {
             player.upgrades[46] = 0;
         }
 
@@ -600,7 +600,7 @@ function resetUpgrades(i, fast) {
         if (player.researches[41] < 0.5) {
             player.upgrades[88] = 0;
         }
-        if (player.achievements[50] == 0) {
+        if (player.achievements[50] === 0) {
             player.upgrades[89] = 0;
         }
         if (player.researches[42] < 0.5) {

@@ -9,7 +9,7 @@ function updateCostDisplay(i) {
     if (i > 1){obtainiumCost = talismanFragmentObtainiumCosts[i]; offeringCost = talismanFragmentOfferingCosts[i]}
     let maxBuyObtainium = Math.max(1, Math.floor(player.researchPoints/obtainiumCost))
     let maxBuyOffering = Math.max(1, Math.floor(player.runeshards/(offeringCost)));
-    if (offeringCost == 0){maxBuyOffering = 1e100}
+    if (offeringCost === 0){maxBuyOffering = 1e100}
 
     let amountToBuy = Math.max(1, Math.floor(player.buyTalismanShardPercent / 100 * Math.min(maxBuyObtainium, maxBuyOffering)))
     
@@ -26,10 +26,10 @@ function toggleTalismanBuy(i) {
     document.getElementById("talismanHundred").style.backgroundColor = "#171717"
     player.buyTalismanShardPercent = i
     let x = "Ten"
-    if (i == 10){x = "Ten"}
-    if (i == 25){x = "TwentyFive"}
-    if (i == 50){x = "Fifty"}
-    if (i == 100){x = "Hundred"}
+    if (i === 10){x = "Ten"}
+    if (i === 25){x = "TwentyFive"}
+    if (i === 50){x = "Fifty"}
+    if (i === 100){x = "Hundred"}
 
     document.getElementById("talisman" + x).style.backgroundColor = "green"
 
@@ -55,16 +55,16 @@ function buyTalismanStuff(i){
 
     let maxBuyObtainium = Math.max(0, Math.floor(player.researchPoints/obtainiumCost))
     let maxBuyOffering = Math.max(0, Math.floor(player.runeshards/(offeringCost)));
-    if (offeringCost == 0){maxBuyOffering = 1e100}
+    if (offeringCost === 0){maxBuyOffering = 1e100}
     let amountToBuy = Math.max(0, Math.floor(player.buyTalismanShardPercent / 100 * Math.min(maxBuyObtainium, maxBuyOffering)))
-    if (maxBuyObtainium > 0 && maxBuyOffering > 0 && amountToBuy == 0){amountToBuy = 1;}
-    if(i == 0){player.talismanShards += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost);}
-    if(i == 1){player.commonFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost);}
-    if(i == 2){player.uncommonFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost); player.runeshards -= (amountToBuy * offeringCost)}
-    if(i == 3){player.rareFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost); player.runeshards -= (amountToBuy * offeringCost)}
-    if(i == 4){player.epicFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost); player.runeshards -= (amountToBuy * offeringCost)}
-    if(i == 5){player.legendaryFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost); player.runeshards -= (amountToBuy * offeringCost)}
-    if(i == 6){player.mythicalFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost); player.runeshards -= (amountToBuy * offeringCost)}
+    if (maxBuyObtainium > 0 && maxBuyOffering > 0 && amountToBuy === 0){amountToBuy = 1;}
+    if(i === 0){player.talismanShards += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost);}
+    if(i === 1){player.commonFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost);}
+    if(i === 2){player.uncommonFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost); player.runeshards -= (amountToBuy * offeringCost)}
+    if(i === 3){player.rareFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost); player.runeshards -= (amountToBuy * offeringCost)}
+    if(i === 4){player.epicFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost); player.runeshards -= (amountToBuy * offeringCost)}
+    if(i === 5){player.legendaryFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost); player.runeshards -= (amountToBuy * offeringCost)}
+    if(i === 6){player.mythicalFragments += amountToBuy; player.researchPoints -= (amountToBuy * obtainiumCost); player.runeshards -= (amountToBuy * offeringCost)}
 
     updateCostDisplay(i)
     updateTalismanInventory()
@@ -239,8 +239,8 @@ function showRespecInformation(i){
         document.getElementById("confirmTalismanRespec").textContent = "Confirm ALL [-400,000 Offerings]"
     }
     for (var j=1; j<=5; j++){
-        if(mirrorTalismanStats[j] == 1){document.getElementById("talismanRespecButton" + j).style.border = "2px solid limegreen"; runeModifier[j] = "Positive"}
-        if(mirrorTalismanStats[j] == -1){document.getElementById("talismanRespecButton" + j).style.border = "2px solid crimson"; runeModifier[j] = "Negative"}
+        if(mirrorTalismanStats[j] === 1){document.getElementById("talismanRespecButton" + j).style.border = "2px solid limegreen"; runeModifier[j] = "Positive"}
+        if(mirrorTalismanStats[j] === -1){document.getElementById("talismanRespecButton" + j).style.border = "2px solid crimson"; runeModifier[j] = "Negative"}
         document.getElementById("talismanRespecButton" + j).textContent = runeName[j] + ": " + runeModifier[j]
     }
 
@@ -250,7 +250,7 @@ function showRespecInformation(i){
 function changeTalismanModifier(i){
     let runeName = [null, "Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"];
     let el = document.getElementById("talismanRespecButton" + i);
-    if(mirrorTalismanStats[i] == 1){
+    if(mirrorTalismanStats[i] === 1){
         mirrorTalismanStats[i] = (-1);
         el.textContent = runeName[i] + ": Negative";
         el.style.border = "2px solid crimson";
@@ -265,7 +265,7 @@ function changeTalismanModifier(i){
         return a + b;
     }, 0);
 
-    if (checkSum == 1){
+    if (checkSum === 1){
     document.getElementById("confirmTalismanRespec").style.display = "block";
     }
     else {
@@ -311,15 +311,15 @@ function updateTalismanAppearance(i){
 let id=""
 let el = document.getElementById("talisman" + i)
 let la = document.getElementById("talisman" + i + "level")
-if(i==2){id = "MultiplierAcceleratorTalisman"}
+if(i===2){id = "MultiplierAcceleratorTalisman"}
 
 let rarity = player.talismanRarity[i];
-if(rarity == 1){el.style.border = "4px solid white"; la.style.color = "white"}
-if(rarity == 2){el.style.border = "4px solid limegreen"; la.style.color = "limegreen"}
-if(rarity == 3){el.style.border = "4px solid lightblue"; la.style.color = "lightblue"}
-if(rarity == 4){el.style.border = "4px solid plum"; la.style.color = "plum"}
-if(rarity == 5){el.style.border = "4px solid orange"; la.style.color = "orange"}
-if(rarity == 6){el.style.border = "4px solid crimson"; la.style.color = "crimson"}
+if(rarity === 1){el.style.border = "4px solid white"; la.style.color = "white"}
+if(rarity === 2){el.style.border = "4px solid limegreen"; la.style.color = "limegreen"}
+if(rarity === 3){el.style.border = "4px solid lightblue"; la.style.color = "lightblue"}
+if(rarity === 4){el.style.border = "4px solid plum"; la.style.color = "plum"}
+if(rarity === 5){el.style.border = "4px solid orange"; la.style.color = "orange"}
+if(rarity === 6){el.style.border = "4px solid crimson"; la.style.color = "crimson"}
 }
 
 
@@ -344,7 +344,7 @@ function buyTalismanLevels(i, auto){
     if(player.mythicalFragments >= priceMult * Math.max(0, Math.floor(1 + 1/1280 * Math.pow(player.talismanLevels[i] - 150,3)))){checkSum++};
     }
 
-    if (checkSum == 7){
+    if (checkSum === 7){
         player.talismanShards -= priceMult * Math.max(0, Math.floor(1 + 1/8 * Math.pow(player.talismanLevels[i],3)))
         player.commonFragments -= priceMult * Math.max(0, Math.floor(1 + 1/32 * Math.pow(player.talismanLevels[i] - 30,3)))
         player.uncommonFragments -= priceMult * Math.max(0, Math.floor(1 + 1/384 * Math.pow(player.talismanLevels[i] - 60,3)))
@@ -381,7 +381,7 @@ function buyTalismanEnhance(i,auto){
     if(player.mythicalFragments >= priceMult * costArray[7]){checkSum++}
 
 
-    if(checkSum == 6){
+    if(checkSum === 6){
         player.commonFragments -= (priceMult * costArray[2])
         player.uncommonFragments -= (priceMult * costArray[3])
         player.rareFragments -= (priceMult * costArray[4])

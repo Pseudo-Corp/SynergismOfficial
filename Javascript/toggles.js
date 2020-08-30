@@ -4,7 +4,7 @@ function toggleTabs(i) {
 }
 
 function toggleSettings(i) {
-    if (player.toggles[cardinals[i]] == true) {
+    if (player.toggles[cardinals[i]] === true) {
         player.toggles[cardinals[i]] = false
     }
     else {player.toggles[cardinals[i]] = true}
@@ -45,10 +45,10 @@ if((player.currentChallenge.transcension === 0 && player.currentChallenge.reinca
 function toggleBuyAmount(quantity, type) {
 player[type + 'buyamount'] = quantity 
 let a = ""
-if (quantity == 1) {a = "one"}
-if (quantity == 10) {a = "ten"}
-if (quantity == 100) {a = "hundred"}
-if (quantity == 1000) {a = "thousand"}
+if (quantity === 1) {a = "one"}
+if (quantity === 10) {a = "ten"}
+if (quantity === 100) {a = "hundred"}
+if (quantity === 1000) {a = "thousand"}
 
 
 let c = type + a
@@ -79,47 +79,47 @@ if (quantity !== 1000) {
 } 
 
 function toggleShops(i) {
-if (i==1 && player.shoptoggles.coin == false) {player.shoptoggles.coin = true; document.getElementById("shoptogglecoin").textContent = "Auto: ON"} else if (i == 1 && player.shoptoggles.coin == true) {player.shoptoggles.coin = false; document.getElementById("shoptogglecoin").textContent = "Auto: OFF"}
-if (i==2 && player.shoptoggles.prestige == false) {player.shoptoggles.prestige = true; document.getElementById("shoptoggleprestige").textContent = "Auto: ON"} else if (i == 2 && player.shoptoggles.prestige == true) {player.shoptoggles.prestige = false; document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"}
-if (i==3 && player.shoptoggles.transcend == false) {player.shoptoggles.transcend = true; document.getElementById("shoptoggletranscend").textContent = "Auto: ON"} else if (i == 3 && player.shoptoggles.transcend == true) {player.shoptoggles.transcend = false; document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
-if (i==4 && player.shoptoggles.generators == false) {player.shoptoggles.generators = true; document.getElementById("shoptogglegenerator").textContent = "Auto: ON"} else if (i == 4 && player.shoptoggles.generators == true) {player.shoptoggles.generators = false; document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"}
-if (i==5 && player.shoptoggles.reincarnate == false) {player.shoptoggles.reincarnate = true; document.getElementById("particleAutoUpgrade").textContent = "Auto: ON"} else if (i == 5 && player.shoptoggles.reincarnate == true) {player.shoptoggles.reincarnate = false; document.getElementById("particleAutoUpgrade").textContent = "Auto: OFF"}
+if (i===1 && player.shoptoggles.coin === false) {player.shoptoggles.coin = true; document.getElementById("shoptogglecoin").textContent = "Auto: ON"} else if (i === 1 && player.shoptoggles.coin === true) {player.shoptoggles.coin = false; document.getElementById("shoptogglecoin").textContent = "Auto: OFF"}
+if (i===2 && player.shoptoggles.prestige === false) {player.shoptoggles.prestige = true; document.getElementById("shoptoggleprestige").textContent = "Auto: ON"} else if (i === 2 && player.shoptoggles.prestige === true) {player.shoptoggles.prestige = false; document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"}
+if (i===3 && player.shoptoggles.transcend === false) {player.shoptoggles.transcend = true; document.getElementById("shoptoggletranscend").textContent = "Auto: ON"} else if (i === 3 && player.shoptoggles.transcend === true) {player.shoptoggles.transcend = false; document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
+if (i===4 && player.shoptoggles.generators === false) {player.shoptoggles.generators = true; document.getElementById("shoptogglegenerator").textContent = "Auto: ON"} else if (i === 4 && player.shoptoggles.generators === true) {player.shoptoggles.generators = false; document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"}
+if (i===5 && player.shoptoggles.reincarnate === false) {player.shoptoggles.reincarnate = true; document.getElementById("particleAutoUpgrade").textContent = "Auto: ON"} else if (i === 5 && player.shoptoggles.reincarnate === true) {player.shoptoggles.reincarnate = false; document.getElementById("particleAutoUpgrade").textContent = "Auto: OFF"}
 }
 
 function keyboardtabchange(i) {
 var q = 3;
-if (player.unlocks.coinfour == true) {q += 1}
-if (player.unlocks.prestige == true) {q += 1}
-if (player.unlocks.transcend == true) {q += 1}
-if (player.unlocks.reincarnate == true) {q += 1}
+if (player.unlocks.coinfour === true) {q += 1}
+if (player.unlocks.prestige === true) {q += 1}
+if (player.unlocks.transcend === true) {q += 1}
+if (player.unlocks.reincarnate === true) {q += 1}
 if (player.challengecompletions[8] > 0) {q += 1}
 player.tabnumber += i
-if (player.tabnumber == q) {player.tabnumber = 1}
-if (player.tabnumber == 0) {player.tabnumber = q - 1}
+if (player.tabnumber === q) {player.tabnumber = 1}
+if (player.tabnumber === 0) {player.tabnumber = q - 1}
 
-if (player.tabnumber == 1) {toggleTabs("buildings")}
-if (player.tabnumber == 2) {toggleTabs("upgrades")}
-if (player.tabnumber == 3) {toggleTabs("achievements")}
-if (player.tabnumber == 4) {toggleTabs("runes")}
-if (player.tabnumber == 5) {toggleTabs("challenges")}
-if (player.tabnumber == 6) {toggleTabs("researches")}
-if (player.tabnumber == 7) {toggleTabs("ants")}
+if (player.tabnumber === 1) {toggleTabs("buildings")}
+if (player.tabnumber === 2) {toggleTabs("upgrades")}
+if (player.tabnumber === 3) {toggleTabs("achievements")}
+if (player.tabnumber === 4) {toggleTabs("runes")}
+if (player.tabnumber === 5) {toggleTabs("challenges")}
+if (player.tabnumber === 6) {toggleTabs("researches")}
+if (player.tabnumber === 7) {toggleTabs("ants")}
 
 
 
 }
 
 function toggleautoreset(i) {
-if (i == 1){
-    if (player.resettoggle1 == 1 || player.resettoggle1 == 0){player.resettoggle1 = 2; document.getElementById("prestigeautotoggle").textContent = "Mode: TIME"}
+if (i === 1){
+    if (player.resettoggle1 === 1 || player.resettoggle1 === 0){player.resettoggle1 = 2; document.getElementById("prestigeautotoggle").textContent = "Mode: TIME"}
     else{player.resettoggle1 = 1; document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"}
 }
-if (i == 2){
-    if (player.resettoggle2 == 1 || player.resettoggle2 == 0){player.resettoggle2 = 2; document.getElementById("transcendautotoggle").textContent = "Mode: TIME"}
+if (i === 2){
+    if (player.resettoggle2 === 1 || player.resettoggle2 === 0){player.resettoggle2 = 2; document.getElementById("transcendautotoggle").textContent = "Mode: TIME"}
     else{player.resettoggle2 = 1; document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"}
 }
-if (i == 3){
-    if (player.resettoggle3 == 1 || player.resettoggle3 == 0){player.resettoggle3 = 2; document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"}
+if (i === 3){
+    if (player.resettoggle3 === 1 || player.resettoggle3 === 0){player.resettoggle3 = 2; document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"}
     else{player.resettoggle3 = 1; document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"}
 }
 }
@@ -130,11 +130,11 @@ function toggleauto() {
 			var a = ""
 			var b = ""
 			if ((i <= 7 && i>=0) || (i <= 12 && i >= 8) || (i <= 18 && i >= 14) || (i <= 24 && i >= 20)) {a = "Auto ["}
-			if (i == 30) {a = "Hover-to-buy ["}
-			if (i == 13) {a = "Auto Prestige ["}
-			if (i == 19) {a = "Auto Transcend ["}
-			if (i == 25) {a = "Auto Reincarnate ["}
-			if ((i == 31) || (i == 32) || (i == 33)){
+			if (i === 30) {a = "Hover-to-buy ["}
+			if (i === 13) {a = "Auto Prestige ["}
+			if (i === 19) {a = "Auto Transcend ["}
+			if (i === 25) {a = "Auto Reincarnate ["}
+			if ((i === 31) || (i === 32) || (i === 33)){
 				a = "["
             }
             let u = i
@@ -174,9 +174,9 @@ function toggleAutoResearch() {
     if(!player.autoResearchToggle){
         for (var i = 1; i <= 125; i++){
             let l = document.getElementById("res" + i)
-            if (player.researches[i] == 0){l.style.backgroundColor = "black"}
+            if (player.researches[i] === 0){l.style.backgroundColor = "black"}
             if (player.researches[i] > 0 && player.researches[i] < researchMaxLevels[i]){l.style.backgroundColor = "purple"}
-            if (player.researches[i] == researchMaxLevels[i]){l.style.backgroundColor = "green"}
+            if (player.researches[i] === researchMaxLevels[i]){l.style.backgroundColor = "green"}
         }
     }
 
@@ -190,7 +190,7 @@ function toggleAutoResearch() {
 
 function toggleAutoSacrifice(index) {
     let el = document.getElementById("toggleautosacrifice")
-    if (index == 0){
+    if (index === 0){
     if (player.autoSacrificeToggle){player.autoSacrificeToggle = false; el.textContent = "Automatic: OFF"; player.autoSacrifice = 0;}
     else {player.autoSacrificeToggle = true; el.textContent = "Automatic: ON"}
     }
@@ -204,7 +204,7 @@ function toggleAutoSacrifice(index) {
     }
     }
     for(var i = 1; i <= 5; i++){
-        if(player.autoSacrifice == i){document.getElementById("rune"+i).style.backgroundColor = "orange"}
+        if(player.autoSacrifice === i){document.getElementById("rune"+i).style.backgroundColor = "orange"}
         else{document.getElementById("rune"+i).style.backgroundColor = "black"}
     }
     calculateRuneLevels();

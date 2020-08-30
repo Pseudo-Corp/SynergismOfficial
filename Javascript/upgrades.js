@@ -289,7 +289,7 @@ function upgradedescriptions(i) {
     }
     else {document.getElementById("upgradedescription").style.color = "white"}
 
-    if (player.toggles.nine == true) { 
+    if (player.toggles.nine === true) {
         var type = ''   
         if (i <= 20 && i >= 1) {type = 'coin'}
         if (i <= 40 && i >= 21) {type = 'prestige'}  
@@ -534,7 +534,7 @@ function researchdescriptions(i,auto) {
     var z = ""
     var p = "res" + i
     z = " Cost: " + (format(researchBaseCosts[i],0,true)) + " Obtainium" 
-    if (player.researches[i] == (researchMaxLevels[i] + c14 + spiritBonus)) {
+    if (player.researches[i] === (researchMaxLevels[i] + c14 + spiritBonus)) {
         document.getElementById("researchcost").style.color = "Gold"
         document.getElementById("researchinfo3").style.color = "plum"
         z = z + " || MAXED!"}

@@ -92,13 +92,13 @@ function buyAccelerator(autobuyer) {
 	player.transcendnoaccelerator = false;
 	player.reincarnatenoaccelerator = false;
     updateAllTick();
-    if (player.acceleratorBought >= 5 && player.achievements[148] == 0){achievementaward(148)} 
-    if (player.acceleratorBought >= 25 && player.achievements[149] == 0){achievementaward(149)} 
-    if (player.acceleratorBought >= 100 && player.achievements[150] == 0){achievementaward(150)} 
-    if (player.acceleratorBought >= 666 && player.achievements[151] == 0){achievementaward(151)} 
-    if (player.acceleratorBought >= 2000 && player.achievements[152] == 0){achievementaward(152)} 
-    if (player.acceleratorBought >= 12500 && player.achievements[153] == 0){achievementaward(153)} 
-    if (player.acceleratorBought >= 100000 && player.achievements[154] == 0){achievementaward(154)} 
+    if (player.acceleratorBought >= 5 && player.achievements[148] === 0){achievementaward(148)}
+    if (player.acceleratorBought >= 25 && player.achievements[149] === 0){achievementaward(149)}
+    if (player.acceleratorBought >= 100 && player.achievements[150] === 0){achievementaward(150)}
+    if (player.acceleratorBought >= 666 && player.achievements[151] === 0){achievementaward(151)}
+    if (player.acceleratorBought >= 2000 && player.achievements[152] === 0){achievementaward(152)}
+    if (player.acceleratorBought >= 12500 && player.achievements[153] === 0){achievementaward(153)}
+    if (player.acceleratorBought >= 100000 && player.achievements[154] === 0){achievementaward(154)}
 }
 
 function getCostMultiplier(buyingTo)
@@ -184,13 +184,13 @@ function buyMultiplier(autobuyer){
 	player.transcendnomultiplier = false;
 	player.reincarnatenomultiplier = false;
     updateAllMultiplier();
-    if (player.multiplierBought >= 2 && player.achievements[155] == 0){achievementaward(155)}
-    if (player.multiplierBought >= 20 && player.achievements[156] == 0){achievementaward(156)}
-    if (player.multiplierBought >= 100 && player.achievements[157] == 0){achievementaward(157)}
-    if (player.multiplierBought >= 500 && player.achievements[158] == 0){achievementaward(158)}
-    if (player.multiplierBought >= 2000 && player.achievements[159] == 0){achievementaward(159)}
-    if (player.multiplierBought >= 12500 && player.achievements[160] == 0){achievementaward(160)}
-    if (player.multiplierBought >= 100000 && player.achievements[161] == 0){achievementaward(161)}
+    if (player.multiplierBought >= 2 && player.achievements[155] === 0){achievementaward(155)}
+    if (player.multiplierBought >= 20 && player.achievements[156] === 0){achievementaward(156)}
+    if (player.multiplierBought >= 100 && player.achievements[157] === 0){achievementaward(157)}
+    if (player.multiplierBought >= 500 && player.achievements[158] === 0){achievementaward(158)}
+    if (player.multiplierBought >= 2000 && player.achievements[159] === 0){achievementaward(159)}
+    if (player.multiplierBought >= 12500 && player.achievements[160] === 0){achievementaward(160)}
+    if (player.multiplierBought >= 100000 && player.achievements[161] === 0){achievementaward(161)}
 
 	}
 
@@ -251,7 +251,7 @@ function buyMultiplier(autobuyer){
 			// god damn that was hard to make an algo for
 			cost = cost.times(Decimal.pow(1.03, (buyingTo - fr) * ((buyingTo - fr + 1) / 2)));
 		}
-		if ((player.currentChallenge.transcension === 4) && (type == "Coin" || type == "Diamonds")) {
+		if ((player.currentChallenge.transcension === 4) && (type === "Coin" || type === "Diamonds")) {
 			// you would not fucking believe how long it took me to figure this out
 			// (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
 			cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(new Decimal(100).factorial()).times(Decimal.pow(100, buyingTo)), 1.25 + 1/4 * player.challengecompletions[4]));
@@ -260,7 +260,7 @@ function buyMultiplier(autobuyer){
 				cost = cost.times(Decimal.pow(1.25, (buyingTo * (buyingTo + 1) / 2)));
 			}
 		}
-		if ((player.currentChallenge.reincarnation === 10) && (type == "Coin" || type == "Diamonds")) {
+		if ((player.currentChallenge.reincarnation === 10) && (type === "Coin" || type === "Diamonds")) {
 			// you would not fucking believe how long it took me to figure this out
 			// (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
 			cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(new Decimal(100).factorial()).times(Decimal.pow(100, buyingTo)), 1.25 + 1/4 * player.challengecompletions[4]));
@@ -270,7 +270,7 @@ function buyMultiplier(autobuyer){
 			}
 		}
 		fr = Math.floor(r * 1000 * player.challengecompletions[8]);
-		  if (player.currentChallenge.reincarnation === 8 && (type == "Coin" || type == "Diamonds" || type == "Mythos") && buyingTo >= (1000 * player.challengecompletions[8] * r)){
+		  if (player.currentChallenge.reincarnation === 8 && (type === "Coin" || type === "Diamonds" || type === "Mythos") && buyingTo >= (1000 * player.challengecompletions[8] * r)){
 			  
 			var sumBuys = (buyingTo - (1000 * player.challengecompletions[8] * r)) * ((buyingTo - (1000 * player.challengecompletions[8] * r) + 1) / 2);
 			var negBuys = (fr       - (1000 * player.challengecompletions[8] * r)) * ((fr       - (1000 * player.challengecompletions[8] * r) + 1) / 2);
@@ -290,10 +290,10 @@ function buyMultiplier(autobuyer){
 		var tag = "";
 		var r = getReductionValue();
 	
-		if (type == 'Diamonds'){tag = "prestigePoints";}
-		if (type == 'Mythos'){tag = "transcendPoints";}
-		if (type == 'Particles') {tag = "reincarnationPoints";}
-		if (type == "Coin") {tag = "coins";}
+		if (type === 'Diamonds'){tag = "prestigePoints";}
+		if (type === 'Mythos'){tag = "transcendPoints";}
+		if (type === 'Particles') {tag = "reincarnationPoints";}
+		if (type === "Coin") {tag = "coins";}
 	
 		// Start buying at the current amount bought + 1
 		var buyTo =  player[pos + 'Owned' + type] + 1;
@@ -340,10 +340,10 @@ function buyProducer(pos,type,num,autobuyer) {
 	r += 1/200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60])
 	r += 1/200 * player.challengecompletions[4]
 	r += 3/100 * player.antUpgrades[7] + 3/100 * bonusant7
-	if (type == 'Diamonds'){tag = "prestigePoints"; var amounttype = "crystal"}
-	if (type == 'Mythos'){tag = "transcendPoints"; var amounttype = "mythos"}
-	if (type == 'Particles') {tag = "reincarnationPoints"; var amounttype = "particle"}
-	if (type == "Coin") {tag = "coins"; var amounttype = "coin"}
+	if (type === 'Diamonds'){tag = "prestigePoints"; var amounttype = "crystal"}
+	if (type === 'Mythos'){tag = "transcendPoints"; var amounttype = "mythos"}
+	if (type === 'Particles') {tag = "reincarnationPoints"; var amounttype = "particle"}
+	if (type === "Coin") {tag = "coins"; var amounttype = "coin"}
 	if (autobuyer){buythisamount = 500}
 	if (!autobuyer){buythisamount = player[amounttype + 'buyamount']}
 		while(player[tag].greaterThanOrEqualTo(player[pos + 'Cost' + type]) && ticker < buythisamount) {
@@ -363,13 +363,13 @@ function buyProducer(pos,type,num,autobuyer) {
 			if (player[pos + 'Owned' + type] >= (250000 * r)){
 				player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(1.03, player[pos + 'Owned' + type] - 250000 * r))  
 			}
-			if (player.currentChallenge.transcension === 4 && (type == "Coin" || type == "Diamonds")) {
+			if (player.currentChallenge.transcension === 4 && (type === "Coin" || type === "Diamonds")) {
 				 player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Math.pow(100 * player[pos + 'Owned' + type] + 10000, 1.25 + 1/4 * player.challengecompletions[4]));
 				 if (player[pos + 'Owned' + type] >= 1000 - (10 * player.challengecompletions[4])) {
 					player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(1.25, player[pos + 'Owned' + type]));
 				 }
                  }
-            if (player.currentChallenge.reincarnation === 8 && (type == "Coin" || type == "Diamonds" || type == "Mythos") && player[pos + 'Owned' + type] >= (1000 * player.challengecompletions[8] * r)){
+            if (player.currentChallenge.reincarnation === 8 && (type === "Coin" || type === "Diamonds" || type === "Mythos") && player[pos + 'Owned' + type] >= (1000 * player.challengecompletions[8] * r)){
                 player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(2, (player[pos + 'Owned' + type] - (1000 * player.challengecompletions[8] * r))/(1 + 1/2 * player.challengecompletions[8])));
             }
 				 ticker += 1;
@@ -386,7 +386,7 @@ function buyResearch(index,auto) {
 
 	if (player.autoResearchToggle && player.autoResearch > 0.5 && !auto){
 		let p = player.autoResearch
-		if (player.researches[p] == researchMaxLevels[p]){document.getElementById("res" + player.autoResearch).style.backgroundColor = "green"}
+		if (player.researches[p] === researchMaxLevels[p]){document.getElementById("res" + player.autoResearch).style.backgroundColor = "green"}
 		else if (player.researches[p] > 0.5) {document.getElementById("res" + player.autoResearch).style.backgroundColor = "purple"}
 		else {document.getElementById("res" + player.autoResearch).style.backgroundColor = "black"}
 	}
@@ -402,10 +402,10 @@ function buyResearch(index,auto) {
 			researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index] + c14 + spiritBonus)
 			researchdescriptions(index,auto)
 
-			if (index == 47 && player.unlocks.rrow1 == false) {player.unlocks.rrow1 = true; revealStuff()}
-			if (index == 48 && player.unlocks.rrow2 == false) {player.unlocks.rrow2 = true; revealStuff()}
-			if (index == 49 && player.unlocks.rrow3 == false) {player.unlocks.rrow3 = true; revealStuff()}
-			if (index == 50 && player.unlocks.rrow4 == false) {player.unlocks.rrow4 = true; revealStuff()}
+			if (index === 47 && player.unlocks.rrow1 === false) {player.unlocks.rrow1 = true; revealStuff()}
+			if (index === 48 && player.unlocks.rrow2 === false) {player.unlocks.rrow2 = true; revealStuff()}
+			if (index === 49 && player.unlocks.rrow3 === false) {player.unlocks.rrow3 = true; revealStuff()}
+			if (index === 50 && player.unlocks.rrow4 === false) {player.unlocks.rrow4 = true; revealStuff()}
 			i++
 		}
 		if (i > 1){revealStuff()}
@@ -414,7 +414,7 @@ function buyResearch(index,auto) {
 	if(index > 0 && index <= 155){
 	if(player.researches[index] === (researchMaxLevels[index] + c14 + spiritBonus)){document.getElementById("res"+index).style.backgroundColor = "green"}
 	}
-	if(auto && player.cubeUpgrades[9] == 1){
+	if(auto && player.cubeUpgrades[9] === 1){
 		player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
 		if(player.researches[player.autoResearch] === (researchMaxLevels[player.autoResearch] + c14 + spiritBonus)){player.roombaResearchIndex += 1;}
 		if(player.roombaResearchIndex <= 155){
@@ -427,7 +427,7 @@ function buyResearch(index,auto) {
 
 function buyUpgrades(type, pos, state) {
 		var addendum = ""
-		if (type == "prestige" || type == "transcend" || type == "reincarnation") {
+		if (type === "prestige" || type === "transcend" || type === "reincarnation") {
 			addendum = "Point"
 		} 		
 		if (player[type + addendum + 's'].greaterThanOrEqualTo(Decimal.pow(10, upgradeCosts[pos])) && player.upgrades[pos] === 0) {
@@ -436,17 +436,17 @@ function buyUpgrades(type, pos, state) {
 			upgradeupdate(pos, state)
 		}
 
-		if (type == "transcend") {
+		if (type === "transcend") {
 			player.reincarnatenocoinprestigeortranscendupgrades = false;
 			player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
 		}
-		if (type == "prestige") {
+		if (type === "prestige") {
 			player.transcendnocoinorprestigeupgrades = false;
 			player.reincarnatenocoinorprestigeupgrades = false;
 			player.reincarnatenocoinprestigeortranscendupgrades = false;
 			player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
 		}
-		if (type == "coin") {
+		if (type === "coin") {
 			player.prestigenocoinupgrades = false;
 			player.transcendnocoinupgrades = false;
 			player.transcendnocoinorprestigeupgrades = false;
@@ -489,9 +489,9 @@ function buyUpgrades(type, pos, state) {
 	}
 function boostAccelerator(automated) {
 	var buyamount = 1;
-	if (player.upgrades[46] == 1) {
+	if (player.upgrades[46] === 1) {
 	buyamount = player.coinbuyamount;
-	if (automated == true) {buyamount = 9999};
+	if (automated === true) {buyamount = 9999};
 	}
 		while(player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost) && ticker < buyamount) {
 				if (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {
@@ -512,13 +512,13 @@ function boostAccelerator(automated) {
 				ticker++
 			}
                 ticker = 0;
-    if (player.acceleratorBoostBought >= 2 && player.achievements[162] == 0){achievementaward(162)}
-    if (player.acceleratorBoostBought >= 10 && player.achievements[163] == 0){achievementaward(163)}
-    if (player.acceleratorBoostBought >= 50 && player.achievements[164] == 0){achievementaward(164)}
-    if (player.acceleratorBoostBought >= 200 && player.achievements[165] == 0){achievementaward(165)}
-    if (player.acceleratorBoostBought >= 1000 && player.achievements[166] == 0){achievementaward(166)}
-    if (player.acceleratorBoostBought >= 5000 && player.achievements[167] == 0){achievementaward(167)}
-    if (player.acceleratorBoostBought >= 15000 && player.achievements[168] == 0){achievementaward(168)}
+    if (player.acceleratorBoostBought >= 2 && player.achievements[162] === 0){achievementaward(162)}
+    if (player.acceleratorBoostBought >= 10 && player.achievements[163] === 0){achievementaward(163)}
+    if (player.acceleratorBoostBought >= 50 && player.achievements[164] === 0){achievementaward(164)}
+    if (player.acceleratorBoostBought >= 200 && player.achievements[165] === 0){achievementaward(165)}
+    if (player.acceleratorBoostBought >= 1000 && player.achievements[166] === 0){achievementaward(166)}
+    if (player.acceleratorBoostBought >= 5000 && player.achievements[167] === 0){achievementaward(167)}
+    if (player.acceleratorBoostBought >= 15000 && player.achievements[168] === 0){achievementaward(168)}
 
 
 	}

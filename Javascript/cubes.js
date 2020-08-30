@@ -21,13 +21,13 @@ function openCube(value, max) {
         globalSpeed:    {weight:1, pdf:(x) => {95 < x && x <= 100}}
     }
 
-    if (toSpendDiv20 > 0 && player.cubeUpgrades[13] == 1) {
+    if (toSpendDiv20 > 0 && player.cubeUpgrades[13] === 1) {
         toSpendModulo += toSpendDiv20
     }
-    if (toSpendDiv20 > 0 && player.cubeUpgrades[23] == 1) {
+    if (toSpendDiv20 > 0 && player.cubeUpgrades[23] === 1) {
         toSpendModulo += toSpendDiv20
     }
-    if (toSpendDiv20 > 0 && player.cubeUpgrades[33] == 1) {
+    if (toSpendDiv20 > 0 && player.cubeUpgrades[33] === 1) {
         toSpendModulo += toSpendDiv20
     }
 

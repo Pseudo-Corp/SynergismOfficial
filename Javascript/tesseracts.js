@@ -52,7 +52,7 @@ function calculateTesseractBlessings(){
         let mult = 1;
         let augmentAccuracy = 0;
         if(tesseractArray[i] >= 100){power = giftDRPower[i]; mult *= Math.pow(100, (1 - giftDRPower[i])); augmentAccuracy += 2;}
-        if(i == 6){power = 1; mult = 1; augmentAccuracy = 0;}
+        if(i === 6){power = 1; mult = 1; augmentAccuracy = 0;}
     
         tesseractBonusMultiplier[i] = 1 + mult * giftbase[i] * Math.pow(tesseractArray[i], power) * hypercubeBonusMultiplier[i];
     

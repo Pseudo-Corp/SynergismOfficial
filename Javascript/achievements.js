@@ -329,14 +329,14 @@ var areward182 = "Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacteri
 
 
 function resetachievementcheck(i) {
-    if (i == 1) {
-        if (player.prestigenoaccelerator == true) {
+    if (i === 1) {
+        if (player.prestigenoaccelerator === true) {
             achievementaward(60)
         }
-        if (player.prestigenomultiplier == true) {
+        if (player.prestigenomultiplier === true) {
             achievementaward(57)
         }
-        if (player.prestigenocoinupgrades == true){
+        if (player.prestigenocoinupgrades === true){
             achievementaward(64)
         }
         if (prestigePointGain.greaterThanOrEqualTo(1)) {
@@ -368,17 +368,17 @@ function resetachievementcheck(i) {
 
         }
     }
-    if (i == 2) {
-        if (player.transcendnoaccelerator == true) {
+    if (i === 2) {
+        if (player.transcendnoaccelerator === true) {
             achievementaward(61)
         }
-        if (player.transcendnomultiplier == true) {
+        if (player.transcendnomultiplier === true) {
             achievementaward(58)
         }
-        if (player.transcendnocoinupgrades == true) {
+        if (player.transcendnocoinupgrades === true) {
             achievementaward(65)
         }
-        if (player.transcendnocoinorprestigeupgrades == true) {
+        if (player.transcendnocoinorprestigeupgrades === true) {
             achievementaward(66)
         }
         if (transcendPointGain.greaterThanOrEqualTo(1)) {
@@ -403,23 +403,23 @@ function resetachievementcheck(i) {
             achievementaward(49)
         }
     }
-    if (i == 3) {
-        if (player.reincarnatenoaccelerator == true) {
+    if (i === 3) {
+        if (player.reincarnatenoaccelerator === true) {
             achievementaward(62)
         }
-        if (player.reincarnatenomultiplier == true) {
+        if (player.reincarnatenomultiplier === true) {
             achievementaward(59)
         }
-        if (player.reincarnatenocoinupgrades == true) {
+        if (player.reincarnatenocoinupgrades === true) {
             achievementaward(67)
         }
-        if (player.reincarnatenocoinorprestigeupgrades == true) {
+        if (player.reincarnatenocoinorprestigeupgrades === true) {
             achievementaward(68)
         }
-        if (player.reincarnatenocoinprestigeortranscendupgrades == true) {
+        if (player.reincarnatenocoinprestigeortranscendupgrades === true) {
             achievementaward(69)
         }
-        if (player.reincarnatenocoinprestigetranscendorgeneratorupgrades == true) {
+        if (player.reincarnatenocoinprestigetranscendorgeneratorupgrades === true) {
             achievementaward(70)
         }
         if (reincarnationPointGain.greaterThanOrEqualTo(1)) {
@@ -466,7 +466,7 @@ if (i === 1) {
     if (player.challengecompletions[1] > 74.5) {achievementaward(84)}
 
     if (!auto) {
-    if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck == 0){achievementaward(75)}
+    if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck === 0){achievementaward(75)}
     }
 }
 if (i === 2) {
@@ -478,12 +478,12 @@ if (i === 2) {
     if (player.challengecompletions[2] > 49.5) {achievementaward(90)}
     if (player.challengecompletions[2] > 74.5) {achievementaward(91)}
     if (!auto) {
-    if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck == 0){achievementaward(76)}
+    if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck === 0){achievementaward(76)}
     }
 }
 if (i === 3) {
     if (!auto) {
-    if (player.coinsThisTranscension.greaterThanOrEqualTo("1e99999") && generatorcheck == 0){achievementaward(77)}
+    if (player.coinsThisTranscension.greaterThanOrEqualTo("1e99999") && generatorcheck === 0){achievementaward(77)}
     }
     if (player.challengecompletions[3] > 0.5) {achievementaward(92)}
     if (player.challengecompletions[3] > 2.5) {achievementaward(93)}

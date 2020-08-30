@@ -82,7 +82,7 @@ function buyAnts(i) {
 let sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints);
 let type = "ant"
 let tier = ""
-if (i == 1){type = "reincarnation";}
+if (i === 1){type = "reincarnation";}
 
 switch(i){
     case 1: tier = "first"; break;
@@ -104,13 +104,13 @@ while(player[type + "Points"].greaterThanOrEqualTo(player[tier + "CostAnts"]) &&
 ticker = 0;
 calculateAntSacrificeELO();
 
-if(sacrificeMult > 2 && player.secondOwnedAnts > 0 && player.achievements[176] == 0){achievementaward(176)}
-if(sacrificeMult > 6 && player.thirdOwnedAnts > 0 && player.achievements[177] == 0){achievementaward(177)}
-if(sacrificeMult > 20 && player.fourthOwnedAnts > 0 && player.achievements[178] == 0){achievementaward(178)}
-if(sacrificeMult > 100 && player.fifthOwnedAnts > 0 && player.achievements[179] == 0){achievementaward(179)}
-if(sacrificeMult > 500 && player.sixthOwnedAnts > 0 && player.achievements[180] == 0){achievementaward(180)}
-if(sacrificeMult > 6666 && player.seventhOwnedAnts > 0 && player.achievements[181] == 0){achievementaward(181)}
-if(sacrificeMult > 77777 && player.eighthOwnedAnts > 0 && player.achievements[182] == 0){achievementaward(182)}
+if(sacrificeMult > 2 && player.secondOwnedAnts > 0 && player.achievements[176] === 0){achievementaward(176)}
+if(sacrificeMult > 6 && player.thirdOwnedAnts > 0 && player.achievements[177] === 0){achievementaward(177)}
+if(sacrificeMult > 20 && player.fourthOwnedAnts > 0 && player.achievements[178] === 0){achievementaward(178)}
+if(sacrificeMult > 100 && player.fifthOwnedAnts > 0 && player.achievements[179] === 0){achievementaward(179)}
+if(sacrificeMult > 500 && player.sixthOwnedAnts > 0 && player.achievements[180] === 0){achievementaward(180)}
+if(sacrificeMult > 6666 && player.seventhOwnedAnts > 0 && player.achievements[181] === 0){achievementaward(181)}
+if(sacrificeMult > 77777 && player.eighthOwnedAnts > 0 && player.achievements[182] === 0){achievementaward(182)}
 
 
 
@@ -139,7 +139,7 @@ function buyAntProducers(pos,type,originalCost,index){
     let tag = ""
 
     //Initiate type of resource used
-    if(index == 1){tag = "reincarnationPoints"}
+    if(index === 1){tag = "reincarnationPoints"}
     else{tag = "antPoints"}
 
     var buyTo = player[pos + "Owned" + type] + 1;
@@ -179,13 +179,13 @@ function buyAntProducers(pos,type,originalCost,index){
     if(player.antPoints.lessThan(0)){player.antPoints = new Decimal("0")}
     calculateAntSacrificeELO();
 
-    if(sacrificeMult > 2 && player.secondOwnedAnts > 0 && player.achievements[176] == 0){achievementaward(176)}
-    if(sacrificeMult > 6 && player.thirdOwnedAnts > 0 && player.achievements[177] == 0){achievementaward(177)}
-    if(sacrificeMult > 20 && player.fourthOwnedAnts > 0 && player.achievements[178] == 0){achievementaward(178)}
-    if(sacrificeMult > 100 && player.fifthOwnedAnts > 0 && player.achievements[179] == 0){achievementaward(179)}
-    if(sacrificeMult > 500 && player.sixthOwnedAnts > 0 && player.achievements[180] == 0){achievementaward(180)}
-    if(sacrificeMult > 6666 && player.seventhOwnedAnts > 0 && player.achievements[181] == 0){achievementaward(181)}
-    if(sacrificeMult > 77777 && player.eighthOwnedAnts > 0 && player.achievements[182] == 0){achievementaward(182)}
+    if(sacrificeMult > 2 && player.secondOwnedAnts > 0 && player.achievements[176] === 0){achievementaward(176)}
+    if(sacrificeMult > 6 && player.thirdOwnedAnts > 0 && player.achievements[177] === 0){achievementaward(177)}
+    if(sacrificeMult > 20 && player.fourthOwnedAnts > 0 && player.achievements[178] === 0){achievementaward(178)}
+    if(sacrificeMult > 100 && player.fifthOwnedAnts > 0 && player.achievements[179] === 0){achievementaward(179)}
+    if(sacrificeMult > 500 && player.sixthOwnedAnts > 0 && player.achievements[180] === 0){achievementaward(180)}
+    if(sacrificeMult > 6666 && player.seventhOwnedAnts > 0 && player.achievements[181] === 0){achievementaward(181)}
+    if(sacrificeMult > 77777 && player.eighthOwnedAnts > 0 && player.achievements[182] === 0){achievementaward(182)}
 }
 
 function getAntUpgradeCost(originalCost, buyTo, index) {
@@ -235,7 +235,7 @@ function buyAntUpgrade(originalCost,auto,index){
     calculateRuneLevels();
     calculateAntSacrificeELO();
     if (!auto){antUpgradeDescription(index)}
-    if(player.antUpgrades[12] == 1 && index == 12){revealStuff()}
+    if(player.antUpgrades[12] === 1 && index === 12){revealStuff()}
     }
 }
 
