@@ -9,16 +9,16 @@ function openCube(value, max) {
     let toSpendModulo = toSpend % 20
     let toSpendDiv20 = Math.floor(toSpend / 20)
     let blessings = {
-        accelerator:    {weight:4, pdf:(x) => {0 <= x && x <= 20}},
-        multiplier:     {weight:4, pdf:(x) => {20 < x && x <= 40}},
-        offering:       {weight:2, pdf:(x) => {40 < x && x <= 50}},
-        runeExp:        {weight:2, pdf:(x) => {50 < x && x <= 60}},
-        obtainium:      {weight:2, pdf:(x) => {60 < x && x <= 70}},
-        antSpeed:       {weight:2, pdf:(x) => {70 < x && x <= 80}},
-        antSacrifice:   {weight:1, pdf:(x) => {80 < x && x <= 85}},
-        antELO:         {weight:1, pdf:(x) => {85 < x && x <= 90}},
-        talismanBonus:  {weight:1, pdf:(x) => {90 < x && x <= 95}},
-        globalSpeed:    {weight:1, pdf:(x) => {95 < x && x <= 100}}
+        accelerator:    {weight:4, pdf:(x) => {return 0 <= x && x <= 20}},
+        multiplier:     {weight:4, pdf:(x) => {return 20 < x && x <= 40}},
+        offering:       {weight:2, pdf:(x) => {return 40 < x && x <= 50}},
+        runeExp:        {weight:2, pdf:(x) => {return 50 < x && x <= 60}},
+        obtainium:      {weight:2, pdf:(x) => {return 60 < x && x <= 70}},
+        antSpeed:       {weight:2, pdf:(x) => {return 70 < x && x <= 80}},
+        antSacrifice:   {weight:1, pdf:(x) => {return 80 < x && x <= 85}},
+        antELO:         {weight:1, pdf:(x) => {return 85 < x && x <= 90}},
+        talismanBonus:  {weight:1, pdf:(x) => {return 90 < x && x <= 95}},
+        globalSpeed:    {weight:1, pdf:(x) => {return 95 < x && x <= 100}}
     }
 
     if (toSpendDiv20 > 0 && player.cubeUpgrades[13] == 1) {
