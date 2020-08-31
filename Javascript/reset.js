@@ -6,9 +6,9 @@ function resetrepeat(i) {
 }
 
 function resetdetails(i) {
-    var color = ''
-    var text = ''
-    var r = 0;
+    let color = '';
+    let text = '';
+    let r = 0;
 
     document.getElementById("resetofferings1").src = "Pictures/Offering.png"
 
@@ -44,7 +44,7 @@ function resetdetails(i) {
         document.getElementById("resetinfo").style.color = "orchid"
     }
     if (i === 3) {
-        var s = player.currentChallenge.transcension
+        let s = player.currentChallenge.transcension;
         color = 'red'
         document.getElementById("resetobtainium").src = ""
         document.getElementById("resetcurrency1").src = ""
@@ -86,7 +86,7 @@ function resetdetails(i) {
         document.getElementById("resetinfo").style.color = "cyan"
     }
     if (i === 6) {
-        var s = player.currentChallenge.reincarnation
+        let s = player.currentChallenge.reincarnation;
         let goal = "transcendShards";
         let goaldesc = " Mythos Shards"
         if (player.currentChallenge.reincarnation >= 9) {
@@ -143,7 +143,7 @@ function resetdetails(i) {
 
 function updateAutoReset(i) {
     if (i === 1) {
-        var t = document.getElementById("prestigeamount").value
+        const t = document.getElementById("prestigeamount").value;
         if (t >= 0) {
             player.prestigeamount = t;
         } else {
@@ -151,7 +151,7 @@ function updateAutoReset(i) {
         }
     }
     if (i === 2) {
-        var u = document.getElementById("transcendamount").value
+        const u = document.getElementById("transcendamount").value;
         if (u >= 0) {
             player.transcendamount = u;
         } else {
@@ -159,7 +159,7 @@ function updateAutoReset(i) {
         }
     }
     if (i === 3) {
-        var v = document.getElementById("reincarnationamount").value
+        const v = document.getElementById("reincarnationamount").value
         if (v >= 0) {
             player.reincarnationamount = v;
         } else {
@@ -167,7 +167,7 @@ function updateAutoReset(i) {
         }
     }
     if (i === 4) {
-        var v = parseFloat(document.getElementById("ascensionAmount").value)
+        let v = parseFloat(document.getElementById("ascensionAmount").value);
         v = Math.floor(v)
         if (v >= 1) {
             player.autoAscendThreshold = v
@@ -316,9 +316,9 @@ function reset(i, fast, from) {
         }
 
         player.transcendcounter = 0;
-
-
     }
+
+
     if (i > 2.5) {
         historyKind = "reincarnate";
         historyEntry.obtainium = obtainiumGain;
@@ -412,6 +412,7 @@ function reset(i, fast, from) {
 
     }
 
+
     if (i > 3.5) {
         // reset other stuff
         historyCategory = "ascend";
@@ -455,10 +456,10 @@ function reset(i, fast, from) {
         player.antSacrificePoints = 0;
         player.antSacrificeTimer = 0;
         player.antUpgrades[12] = 0;
-        for (var j = 61; j <= 80; j++) {
+        for (let j = 61; j <= 80; j++) {
             player.upgrades[j] = 0;
         }
-        for (var j = 94; j <= 100; j++) {
+        for (let j = 94; j <= 100; j++) {
             player.upgrades[j] = 0;
         }
         player.firstOwnedParticles = 0;
@@ -507,7 +508,7 @@ function reset(i, fast, from) {
             player.wowCubes += 100 / 100 * calculateCubeMultiplier() * 250;
         }
 
-        for (var j = 1; j <= 10; j++) {
+        for (let j = 1; j <= 10; j++) {
             player.challengecompletions[j] = 0;
             player.highestchallengecompletions[j] = 0;
         }
@@ -521,8 +522,8 @@ function reset(i, fast, from) {
 
         player.runeBlessingLevels = [0, 0, 0, 0, 0, 0]
 
-        for (j = 1; j <= (155); j++) {
-            var k = "res" + j
+        for (let j = 1; j <= (155); j++) {
+            let k = "res" + j;
             if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {
                 document.getElementById(k).style.backgroundColor = "purple"
             } else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {
@@ -571,10 +572,10 @@ function reset(i, fast, from) {
             player.upgrades[100] = 1
         }
 
-        for (var j = 61; j <= 80; j++) {
+        for (let j = 61; j <= 80; j++) {
             document.getElementById("upg" + j).style.backgroundColor = "black"
         }
-        for (var j = 94; j <= 100; j++) {
+        for (let j = 94; j <= 100; j++) {
             if (player.upgrades[j] === 0) {
                 document.getElementById("upg" + j).style.backgroundColor = "black"
             }
@@ -604,8 +605,7 @@ function reset(i, fast, from) {
 function resetUpgrades(i, fast) {
     fast = fast || false
     if (i > 2.5) {
-        var i
-        for (i = 41; i < 61; i++) {
+        for (let i = 41; i < 61; i++) {
             if (i !== 46) {
                 player.upgrades[i] = 0;
             }
@@ -649,8 +649,7 @@ function resetUpgrades(i, fast) {
 
     }
 
-    var j
-    for (j = 1; j < 21; j++) {
+    for (let j = 1; j < 21; j++) {
         player.upgrades[j] = 0;
     }
     player.upgrades[106] = 0;
@@ -693,8 +692,7 @@ function resetUpgrades(i, fast) {
     }
 
     if (i > 1.5) {
-        var k
-        for (k = 21; k < 41; k++) {
+        for (let k = 21; k < 41; k++) {
             player.upgrades[k] = 0;
         }
 
@@ -709,7 +707,7 @@ function resetUpgrades(i, fast) {
         player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
         player.crystalUpgradesCost = [7, 15, 20, 40, 100, 200, 500, 1000]
 
-        var m = 0;
+        let m = 0;
         m += Math.floor(rune3level * effectiveLevelMult / 40) * 100 / 100
         if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
             m += 10
@@ -718,8 +716,7 @@ function resetUpgrades(i, fast) {
     }
 
 
-    var x
-    for (x = 1; x <= 125; x++) {
+    for (let x = 1; x <= 125; x++) {
         upgradeupdate(x, true)
     }
     if (player.achievements[87] > 0.5) {

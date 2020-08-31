@@ -233,9 +233,9 @@ function calculateMaxRunes(i) {
 
 function calculateOfferings(i) {
     let q = 0;
-    var a = 0;
-    var b = 0;
-    var c = 0;
+    let a = 0;
+    let b = 0;
+    let c = 0;
 
     if (i === 3) {
         a += 3
@@ -376,11 +376,9 @@ function calculateObtainium() {
     if (player.achievements[128]) {
         obtainiumGain *= 1.5
     }
-    ;
     if (player.achievements[129]) {
         obtainiumGain *= 1.25
     }
-    ;
 
     if (player.achievements[51] > 0) {
         obtainiumGain += 4
@@ -425,7 +423,7 @@ function calculateTalismanEffects() {
     positiveBonus += 3 * player.researches[117] / 200
     positiveBonus += (cubeBonusMultiplier[9] - 1)
     negativeBonus += 3 * player.researches[118] / 50
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         if (player.talismanOne[i] === (1)) {
             talisman1Effect[i] = (talismanPositiveModifier[player.talismanRarity[1]] + positiveBonus) * player.talismanLevels[1]
         } else {
@@ -474,7 +472,7 @@ function calculateTalismanEffects() {
     rune3Talisman = 0;
     rune4Talisman = 0;
     rune5Talisman = 0;
-    for (var i = 1; i <= 7; i++) {
+    for (let i = 1; i <= 7; i++) {
         rune1Talisman += window["talisman" + i + "Effect"][1]
         rune2Talisman += window["talisman" + i + "Effect"][2]
         rune3Talisman += window["talisman" + i + "Effect"][3]
@@ -534,12 +532,12 @@ function calculateRuneBonuses() {
     blessingMultiplier *= (1 + 6.9 * player.researches[134] / 100)
     blessingMultiplier *= (1 + player.talismanRarity[3] / 10)
 
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         runeBlessings[i] = blessingMultiplier * player.runelevels[i - 1] * player.runeBlessingLevels[i]
         runeSpirits[i] = spiritMultiplier * player.runelevels[i - 1] * player.runeSpiritLevels[i]
     }
 
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         effectiveRuneBlessingPower[i] = (Math.pow(runeBlessings[i], 1 / 5)) / 400
         effectiveRuneSpiritPower[i] = (Math.pow(runeSpirits[i], 1 / 5)) / 400
     }
@@ -650,11 +648,9 @@ function calculateAntSacrificeMultipliers() {
     if (player.achievements[132] === 1) {
         upgradeMultiplier *= 1.25
     }
-    ;
     if (player.achievements[137] === 1) {
         upgradeMultiplier *= 1.25
     }
-    ;
     upgradeMultiplier *= (1 + 6.66 * effectiveRuneBlessingPower[3]);
     upgradeMultiplier *= (1 + 1 / 50 * player.challengecompletions[10]);
     upgradeMultiplier *= (1 + 1 / 50 * player.researches[122]);
@@ -720,8 +716,8 @@ function calculateOffline(forceTime) {
     if (player.offlinetick < 1.5e12) {
         player.offlinetick = Date.now()
     }
-    var updatedtime = Date.now()
-    var timeadd = Math.min(28800 * 3 + 7200 * player.researches[31] + 7200 * player.researches[32], Math.max(forceTime, (updatedtime - player.offlinetick) / 1000));
+    const updatedtime = Date.now();
+    let timeadd = Math.min(28800 * 3 + 7200 * player.researches[31] + 7200 * player.researches[32], Math.max(forceTime, (updatedtime - player.offlinetick) / 1000));
     timeadd *= calculateTimeAcceleration();
     document.getElementById("offlineTimer").textContent = "You have " + format(timeadd, 2) + " seconds of Offline Progress!";
     let simulatedTicks = 800;
@@ -731,7 +727,6 @@ function calculateOffline(forceTime) {
         simulatedTicks = Math.min(1, Math.floor(timeadd / 1.25));
         tickValue = Math.min(1.25, timeadd);
     }
-    ;
     let maxSimulatedTicks = simulatedTicks;
     player.quarkstimer += timeadd / calculateTimeAcceleration();
     player.ascensionCounter += timeadd / calculateTimeAcceleration();
@@ -805,7 +800,7 @@ function calculateCubeBlessings() {
     let powerBonus = [null, player.cubeUpgrades[45] / 100, player.cubeUpgrades[35] / 100, player.cubeUpgrades[24] / 100, player.cubeUpgrades[14] / 100, 0, 0, player.cubeUpgrades[15] / 100, player.cubeUpgrades[25] / 100, player.cubeUpgrades[44] / 100, player.cubeUpgrades[34] / 100]
 
     let accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
-    for (var i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 10; i++) {
         let power = 1;
         let mult = 1;
         let augmentAccuracy = 0;
@@ -854,8 +849,8 @@ function calculateCubeMultiplier() {
     mult *= (1 + 0.9 * player.researches[152] / 100)
     mult *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2])
 
-    var timeThresholds = [0, 30, 60, 120, 600, 1800, 7200, 28800, 86400, 86400 * 7]
-    for (var i = 1; i <= 9; i++) {
+    const timeThresholds = [0, 30, 60, 120, 600, 1800, 7200, 28800, 86400, 86400 * 7];
+    for (let i = 1; i <= 9; i++) {
         if (player.ascensionCounter < timeThresholds[i]) {
             mult *= 1.1
         }
@@ -913,17 +908,17 @@ function calculateCorruptionPoints() {
 //slightly modified by Platonic
 function sortWithIndeces(toSort) {
     let duplicateArray = [] //Prevents changing the original array that is to be sorted
-    for (var i = 0; i < toSort.length; i++) {
+    for (let i = 0; i < toSort.length; i++) {
         duplicateArray[i] = toSort[i]
     }
-    for (var i = 0; i < duplicateArray.length; i++) {
+    for (let i = 0; i < duplicateArray.length; i++) {
         duplicateArray[i] = [duplicateArray[i], i];
     }
     duplicateArray.sort(function (left, right) {
         return left[0] < right[0] ? -1 : 1;
     });
     duplicateArray.sortIndices = [];
-    for (var j = 0; j < duplicateArray.length; j++) {
+    for (let j = 0; j < duplicateArray.length; j++) {
         duplicateArray.sortIndices.push(duplicateArray[j][1]);
         duplicateArray[j] = duplicateArray[j][0];
     }

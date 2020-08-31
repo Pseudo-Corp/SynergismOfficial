@@ -88,7 +88,7 @@ var researchMaxLevels = [0, 1, 1, 1, 1, 1,
     10, 1, 6, 10, 1,
     25, 25, 25, 15, 1]
 
-var ticker = 0;
+var ticker = 0; //TODO: Axe this
 
 var costDivisor = 1;
 

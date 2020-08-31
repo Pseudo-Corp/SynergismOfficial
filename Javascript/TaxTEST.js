@@ -1,10 +1,10 @@
 function calculatetax(fast) {
     fast = fast || false
-    var a = new Decimal(0);
-    var c = 0;
-    var e = 1;
-    var f = 1;
-    var compareC = 0;
+    let a = new Decimal(0);
+    let c = 0;
+    let e = 1;
+    let f = 1;
+    let compareC = 0;
     produceFirst = (player.firstGeneratedCoin.add(player.firstOwnedCoin)).times(globalCoinMultiplier).times(coinOneMulti).times(player.firstProduceCoin);
     produceSecond = (player.secondGeneratedCoin.add(player.secondOwnedCoin)).times(globalCoinMultiplier).times(coinTwoMulti).times(player.secondProduceCoin);
     produceThird = (player.thirdGeneratedCoin.add(player.thirdOwnedCoin)).times(globalCoinMultiplier).times(coinThreeMulti).times(player.thirdProduceCoin);
@@ -43,7 +43,7 @@ function calculatetax(fast) {
     if (player.challengecompletions[6] > 0) {
         f /= 1.075
     }
-    var exponent = 1;
+    let exponent = 1;
     exponent *= e;
     exponent *= (1 - 1 / 20 * player.researches[51] - 1 / 40 * player.researches[52] - 1 / 80 * player.researches[53] - 1 / 160 * player.researches[54] - 1 / 320 * player.researches[55])
     exponent *= (1 - 0.05 / 1800 * (player.achievements[45] + player.achievements[46] + 2 * player.achievements[47]) * Math.min(player.prestigecounter, 1800))
@@ -69,7 +69,7 @@ function calculatetax(fast) {
 
     taxdivisor = Decimal.pow(1.01, (c) * (exponent))
     taxdivisorcheck = Decimal.pow(1.01, (compareC) * (exponent))
-    var warning = ""
+    let warning = "";
     if (player.reincarnationCount > 0.5) {
         warning = "Your tax also caps your Coin gain at " + format(Decimal.pow(10, maxexponent - Decimal.log(taxdivisorcheck, 10))) + "/s."
     }

@@ -126,7 +126,7 @@ function toggleShops(i) {
 }
 
 function keyboardtabchange(i) {
-    var q = 3;
+    let q = 3;
     if (player.unlocks.coinfour === true) {
         q += 1
     }
@@ -206,10 +206,10 @@ function toggleautoreset(i) {
 }
 
 function toggleauto() {
-    var e = document.getElementsByClassName("auto");
-    for (var i = 0; i < e.length; i++) {
-        var a = ""
-        var b = ""
+    const e = document.getElementsByClassName("auto");
+    for (let i = 0; i < e.length; i++) {
+        let a = "";
+        let b = "";
         if ((i <= 7 && i >= 0) || (i <= 12 && i >= 8) || (i <= 18 && i >= 14) || (i <= 24 && i >= 20)) {
             a = "Auto ["
         }
@@ -271,11 +271,10 @@ function toggleAutoResearch() {
         player.autoResearchToggle = true;
         el.textContent = "Automatic: ON"
     }
-    ;
 
 
     if (!player.autoResearchToggle) {
-        for (var i = 1; i <= 125; i++) {
+        for (let i = 1; i <= 125; i++) {
             let l = document.getElementById("res" + i)
             if (player.researches[i] === 0) {
                 l.style.backgroundColor = "black"
@@ -384,7 +383,7 @@ function toggleRuneScreen(index) {
     }
     let a
     let b
-    for (var i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 4; i++) {
         a = document.getElementById("toggleRuneSubTab" + i);
         b = document.getElementById("runeContainer" + i);
         (i === index) ?
@@ -444,7 +443,6 @@ function toggleAntMaxBuy() {
         player.antMax = true;
         el.textContent = "Buy Max: ON";
     }
-    ;
 }
 
 function toggleAntAutoSacrifice() {
@@ -475,7 +473,7 @@ function toggleCubeSubTab(i) {
     let c = document.getElementById("switchCubeSubTab3")
     let d = document.getElementById("switchCubeSubTab4")
 
-    for (var j = 1; j <= 4; j++) {
+    for (let j = 1; j <= 4; j++) {
         if (document.getElementById("cubeTab" + j).style.display === "block" && j !== i) {
             document.getElementById("cubeTab" + j).style.display = "none"
         }

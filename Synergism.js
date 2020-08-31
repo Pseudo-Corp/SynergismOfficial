@@ -615,10 +615,10 @@ function loadSynergy() {
             return (player[prop] = data[prop]);
         });
 
-        if (data.loaded1009 === undefined || !data.loaded1009 || data.loaded1009 === null) {
+        if (data.loaded1009 === undefined || !data.loaded1009) {
             player.loaded1009 = false;
         }
-        if (data.loaded1009hotfix1 === undefined || !data.loaded1009hotfix1 || data.loaded1009hotfix1 === null) {
+        if (data.loaded1009hotfix1 === undefined || !data.loaded1009hotfix1) {
             player.loaded1009hotfix1 = false;
         }
         if (data.loaded10091 === undefined) {
@@ -648,7 +648,7 @@ function loadSynergy() {
         player.runeshards = player.runeshards || 0;
         player.researchPoints = player.researchPoints || 0;
 
-        if (!data.loaded1009 || data.loaded1009 === undefined || data.loaded1009hotfix1 === null || data.shopUpgrades.offeringPotion === undefined) {
+        if (!data.loaded1009 || data.loaded1009hotfix1 === null || data.shopUpgrades.offeringPotion === undefined) {
             player.firstOwnedParticles = 0;
             player.secondOwnedParticles = 0;
             player.thirdOwnedParticles = 0;
@@ -677,7 +677,7 @@ function loadSynergy() {
                 cashGrabLevel: 0
             };
         }
-        if (!data.loaded1009hotfix1 || data.loaded1009hotfix1 === undefined || data.loaded1009hotfix1 === null) {
+        if (!data.loaded1009hotfix1) {
             player.loaded1009hotfix1 = true;
             player.codes.set(19, true);
             player.firstOwnedParticles = 0;
@@ -733,8 +733,8 @@ function loadSynergy() {
             player.thirdCostAnts = new Decimal("100");
             player.thirdProduceAnts = .00002;
 
-            player.fourthOwnedAnts = 0,
-                player.fourthGeneratedAnts = new Decimal("0");
+            player.fourthOwnedAnts = 0;
+            player.fourthGeneratedAnts = new Decimal("0");
             player.fourthCostAnts = new Decimal("1e4");
             player.fourthProduceAnts = .00001;
 
@@ -827,7 +827,7 @@ function loadSynergy() {
                 2e8, 3e10, 1e11, 1e12, 2e11, 1e12, 2e10,
                 2e11, 1e12, 2e13, 5e13, 1e14, 2e14, 5e14, 1e15,
                 2e15, 1e16, 1e15, 1e16, 1e14, 1e15, 1e15, 1e20];
-            for (var i = 1; i < refundThese.length; i++) {
+            for (let i = 1; i < refundThese.length; i++) {
                 player.researchPoints += player.researches[refundThese[i]] * refundReward[i]
                 player.researches[refundThese[i]] = 0;
             }
@@ -887,19 +887,15 @@ function loadSynergy() {
         if (player.transcendCount < 0) {
             player.transcendCount = 0
         }
-        ;
         if (player.reincarnationCount < 0) {
             player.reincarnationCount = 0;
         }
-        ;
         if (player.runeshards < 0) {
             player.runeshards = 0;
         }
-        ;
         if (player.researchPoints < 0) {
             player.researchPoints = 0;
         }
-        ;
 
         if (player.resettoggle1 === 0) {
             player.resettoggle1 = 1;
@@ -933,7 +929,7 @@ function loadSynergy() {
             let highestChallengeCompletionArray = [0, player.highestchallengecompletions.one, player.highestchallengecompletions.two, player.highestchallengecompletions.three, player.highestchallengecompletions.four, player.highestchallengecompletions.five, player.highestchallengecompletions.six, player.highestchallengecompletions.seven, player.highestchallengecompletions.eight, player.highestchallengecompletions.nine, player.highestchallengecompletions.ten, 0, 0, 0, 0, 0]
             player.challengecompletions = []
             player.highestchallengecompletions = []
-            for (var i = 0; i <= 15; i++) {
+            for (let i = 0; i <= 15; i++) {
                 player.challengecompletions.push(challengeCompletionArray[i])
                 player.highestchallengecompletions.push(highestChallengeCompletionArray[i])
             }
@@ -952,7 +948,7 @@ function loadSynergy() {
             player.ascendBuilding5.owned = 0;
         }
 
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             player['ascendBuilding' + i].generated = new Decimal(player['ascendBuilding' + i].generated)
         }
 
@@ -981,15 +977,14 @@ function loadSynergy() {
         if (!player.cubesThisAscension.hypercubes)
             player.cubesThisAscension.hypercubes = 0
 
-        var j
-        for (j = 1; j < 126; j++) {
+        for (let j = 1; j < 126; j++) {
             upgradeupdate(j);
         }
 
-        for (j = 1; j <= (155); j++) {
+        for (let j = 1; j <= (155); j++) {
             updateResearchBG(j);
         }
-        for (j = 1; j <= 50; j++) {
+        for (let j = 1; j <= 50; j++) {
             updateCubeUpgradeBG(j);
         }
 
@@ -998,44 +993,46 @@ function loadSynergy() {
         document.getElementById("toggleRuneSubTab1").style.border = '2px solid gold'
 
 
-        var q = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract']
-        for (j = 0; j <= 5; j++) {
-            for (k = 0; k < 4; k++) {
+        const q = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract'];
+        for (let j = 0; j <= 5; j++) {
+            for (let k = 0; k < 4; k++) {
+                let d;
                 if (k === 0) {
-                    var d = 'one'
+                    d = 'one';
                 }
                 if (k === 1) {
-                    var d = 'ten'
+                    d = 'ten'
                 }
                 if (k === 2) {
-                    var d = 'hundred'
+                    d = 'hundred'
                 }
                 if (k === 3) {
-                    var d = 'thousand'
+                    d = 'thousand'
                 }
-                var e = q[j] + d
+                let e = q[j] + d
                 document.getElementById(e).style.backgroundColor = "#000000"
             }
+            let c;
             if (player[q[j] + 'buyamount'] === 1) {
-                var c = 'one'
+                c = 'one'
             }
             if (player[q[j] + 'buyamount'] === 10) {
-                var c = 'ten'
+                c = 'ten'
             }
             if (player[q[j] + 'buyamount'] === 100) {
-                var c = 'hundred'
+                c = 'hundred'
             }
             if (player[q[j] + 'buyamount'] === 1000) {
-                var c = 'thousand'
+                c = 'thousand'
             }
 
-            var b = q[j] + c
+            const b = q[j] + c;
             document.getElementById(b).style.backgroundColor = "green"
 
         }
 
         testArray = []
-        for (var i = 0; i < researchBaseCosts.length; i++) {
+        for (let i = 0; i < researchBaseCosts.length; i++) {
             testArray.push(researchBaseCosts[i]);
         }
         researchOrderByCost = sortWithIndeces(testArray)
@@ -1068,7 +1065,7 @@ function loadSynergy() {
         document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s"
 
 
-        var m = 1;
+        let m = 1;
         m *= effectiveLevelMult
 
         /* document.getElementById("runeshowpower1").textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(rune1level * m)) + " Accelerators, +" + (rune1level/2  * m).toPrecision(2) +"% Accelerators, +" + format(Math.floor(rune1level/10 * m)) + " Accelerator Boosts."
@@ -1138,7 +1135,7 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
             document.getElementById("ascensionAutoEnable").style.border = "2px solid red"
         }
 
-        for (var i = 1; i <= 2; i++) {
+        for (let i = 1; i <= 2; i++) {
             toggleAntMaxBuy()
             toggleAntAutoSacrifice()
         }
@@ -1149,11 +1146,9 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "orange"
         }
-        ;
         if (player.autoSacrificeToggle && player.autoSacrifice > 0.5) {
             document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "orange"
         }
-        ;
 
         calculateOffline();
 
@@ -1179,18 +1174,16 @@ function format(input, accuracy, long) {
     long = long || false;
     let power;
     let mantissa;
-    // Gets power and mantissa if input is of type decimal
     if (input instanceof Decimal) {
+        // Gets power and mantissa if input is of type decimal
         power = input.e;
         mantissa = input.mantissa;
-    }
-    // Gets power and mantissa if input is of type number and isnt 0
-    else if (typeof input === "number" && input !== 0) {
+    } else if (typeof input === "number" && input !== 0) {
+        // Gets power and mantissa if input is of type number and isnt 0
         power = Math.floor(Math.log10(Math.abs(input)));
         mantissa = input / Math.pow(10, power);
-    }
-    // If it isn't one of those two it isn't formattable, return 0
-    else {
+    } else {
+        // If it isn't one of those two it isn't formattable, return 0
         return "0";
     }
     // This prevents numbers from jittering between two different powers by rounding errors
@@ -1205,9 +1198,8 @@ function format(input, accuracy, long) {
     // If the power is less than 12 it's effectively 0
     if (power < -12) {
         return "0";
-    }
-    // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
-    else if (power < 6 || (long && power < 13)) {
+    } else if (power < 6 || (long && power < 13)) {
+        // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
         // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13
         let standard = mantissa * Math.pow(10, power);
         // Rounds up if the number experiences a rounding error
@@ -1217,9 +1209,8 @@ function format(input, accuracy, long) {
         // If the power is less than 1 or format long and less than 3 apply toFixed(accuracy) to get decimal places
         if ((power < 1 || (long && power < 3)) && accuracy > 0) {
             standard = standard.toFixed(accuracy);
-        }
-        // If it doesn't fit those criteria drop the decimal places
-        else {
+        } else {
+            // If it doesn't fit those criteria drop the decimal places
             standard = Math.floor(standard);
         }
         // Turn the number to string
@@ -1235,14 +1226,12 @@ function format(input, accuracy, long) {
         // if the back is undefined that means there are no decimals to display, return just the front
         if (back === undefined) {
             return front;
-        }
-        // Else return the front.back
-        else {
+        } else {
+            // Else return the front.back
             return front + "." + back;
         }
-    }
-    // If the power is less than 1e6 then apply standard scientific notation
-    else if (power < 1e6) {
+    } else if (power < 1e6) {
+        // If the power is less than 1e6 then apply standard scientific notation
         // Makes mantissa be rounded down to 2 decimal places
         let mantissaLook = Math.floor(mantissa * 100) / 100;
         // Makes mantissa be to 2 decimal places
@@ -1253,9 +1242,8 @@ function format(input, accuracy, long) {
         powerLook = powerLook.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // returns format (1.23e456,789)
         return mantissaLook + "e" + powerLook;
-    }
-    // if the power is greater than 1e6 apply notation scientific notation
-    else if (power >= 1e6) {
+    } else if (power >= 1e6) {
+        // if the power is greater than 1e6 apply notation scientific notation
         // Makes mantissa be rounded down to 2 decimal places
         let mantissaLook = Math.floor(mantissa * 100) / 100;
         // Makes mantissa be to 2 decimal places
@@ -1304,9 +1292,8 @@ function format(input, accuracy, long) {
         }
         // If it doesn't fit a notation then default to mantissa e power
         return mantissa + "e" + power;
-    }
-    // Failsafe
-    else {
+    } else {
+        // Failsafe
         return "undefined";
     }
 }
@@ -1424,7 +1411,7 @@ function updateAllTick() {
 
     acceleratorPower = Math.pow(1.1 + tuSevenMulti * (totalAcceleratorBoost / 100) * (1 + player.challengecompletions[2] / 20), 1 + 0.04 * player.challengecompletions[7]);
     acceleratorPower += 1 / 200 * Math.floor(player.challengecompletions[2] / 2) * 100 / 100
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         if (player.achievements[7 * i - 4] > 0) {
             acceleratorPower += 0.0005 * i
         }
@@ -1564,7 +1551,6 @@ function updateAllMultiplier() {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
-    ;
     a *= divisivenessMultiplier[player.usedCorruptions[1]]
     a = Math.floor(a)
     freeMultiplier = a;
@@ -1881,7 +1867,7 @@ function resourceGain(dt, fast) {
     multipliers();
     calculatetax(fast);
     if (produceTotal.greaterThanOrEqualTo(0.001)) {
-        var addcoin = new Decimal.min(produceTotal.dividedBy(taxdivisor), Decimal.pow(10, maxexponent - Decimal.log(taxdivisorcheck, 10)))
+        let addcoin = new Decimal.min(produceTotal.dividedBy(taxdivisor), Decimal.pow(10, maxexponent - Decimal.log(taxdivisorcheck, 10)))
         player.coins = player.coins.add(addcoin.times(dt / 0.025));
         player.coinsThisPrestige = player.coinsThisPrestige.add(addcoin.times(dt / 0.025));
         player.coinsThisTranscension = player.coinsThisTranscension.add(addcoin.times(dt / 0.025));
@@ -1930,7 +1916,7 @@ function resourceGain(dt, fast) {
     produceMythos = (player.firstGeneratedMythos.add(player.firstOwnedMythos)).times(player.firstProduceMythos).times(globalMythosMultiplier).times(mythosupgrade13);
     producePerSecondMythos = produceMythos.times(40);
 
-    var pm = new Decimal('1');
+    let pm = new Decimal('1');
     if (player.upgrades[67] > 0.5) {
         pm = pm.times(Decimal.pow(1.03, player.firstOwnedParticles + player.secondOwnedParticles + player.thirdOwnedParticles + player.fourthOwnedParticles + player.fifthOwnedParticles))
     }
@@ -1974,7 +1960,7 @@ function resourceGain(dt, fast) {
 
     player.antPoints = player.antPoints.add(antOneProduce.times(dt / 1))
 
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         ascendBuildingProduction[ordinals[5 - i]] = (player['ascendBuilding' + (6 - i)]['generated']).add(player['ascendBuilding' + (6 - i)]['owned']).times(player['ascendBuilding' + i]['multiplier']).times(globalConstantMult)
 
         if (i !== 5) {
@@ -2051,9 +2037,9 @@ function resourceGain(dt, fast) {
         achievementaward(175)
     }
 
-    var chal = player.currentChallenge.transcension;
-    var reinchal = player.currentChallenge.reincarnation;
-    var ascendchal = player.currentChallenge.ascension;
+    let chal = player.currentChallenge.transcension;
+    let reinchal = player.currentChallenge.reincarnation;
+    let ascendchal = player.currentChallenge.ascension;
     if (chal !== 0) {
         if (player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengeBaseRequirements[chal] * Math.pow(1 + player.challengecompletions[chal], 2) * Math.pow(1.5, Math.max(0, player.challengecompletions[chal] - 75))))) {
             resetCheck('challenge', false);
@@ -2166,8 +2152,8 @@ function resetCheck(i, manual, leaving) {
         }
     }
     if (i === 'challenge') {
-        var q = player.currentChallenge.transcension;
-        var x = q + 65
+        let q = player.currentChallenge.transcension;
+        let x = q + 65
         if (player.currentChallenge.transcension !== 0) {
             let reqCheck = (comp, base) => {
                 return player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10,
@@ -2185,13 +2171,13 @@ function resetCheck(i, manual, leaving) {
                     counter++;
                 }
                 player.challengecompletions[q] = comp;
-                var y = x - 65
+                let y = x - 65
                 challengeDisplay(y, true)
             }
             if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                 while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                     player.highestchallengecompletions[q] += 1;
-                    var y = x - 65;
+                    let y = x - 65;
                     challengeDisplay(y, true)
                     highestChallengeRewards(q, player.highestchallengecompletions[q])
                     updateCubesPerSec()
@@ -2226,8 +2212,8 @@ function resetCheck(i, manual, leaving) {
     }
     if (i === "reincarnationchallenge") {
         if (player.currentChallenge.reincarnation !== 0) {
-            var q = player.currentChallenge.reincarnation;
-            var s = player.currentChallenge.transcension
+            let q = player.currentChallenge.reincarnation;
+            let s = player.currentChallenge.transcension
             if (player.currentChallenge.transcension !== 0) {
                 player.currentChallenge.transcension = 0
             }
@@ -2291,9 +2277,9 @@ function resetCheck(i, manual, leaving) {
     }
 
     if (i === "ascensionChallenge") {
-        var a = player.currentChallenge.ascension;
-        var r = player.currentChallenge.reincarnation;
-        var t = player.currentChallenge.transcension;
+        let a = player.currentChallenge.ascension;
+        let r = player.currentChallenge.reincarnation;
+        let t = player.currentChallenge.transcension;
 
         if (a !== 0 && a < 15) {
             if (player.challengecompletions[10] >= (1 + player.challengecompletions[a])) {
@@ -2330,7 +2316,7 @@ function resetCheck(i, manual, leaving) {
 function resetConfirmation(i) {
     if (i === 'prestige') {
         if (player.toggles.twentyeight === true) {
-            var r = confirm("Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
+            let r = confirm("Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
             if (r === true) {
                 resetachievementcheck(1);
                 reset(1);
@@ -2342,7 +2328,7 @@ function resetConfirmation(i) {
     }
     if (i === 'transcend') {
         if (player.toggles.twentynine === true) {
-            var z = confirm("Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
+            let z = confirm("Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
             if (z === true) {
                 resetachievementcheck(2);
                 reset(2);
@@ -2355,7 +2341,7 @@ function resetConfirmation(i) {
     if (i === 'reincarnate') {
         if (player.currentChallenge.ascension !== 12) {
             if (player.toggles.thirty === true) {
-                var z = confirm("Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]")
+                let z = confirm("Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]")
                 if (z === true) {
                     resetachievementcheck(3);
                     reset(3);
@@ -2367,7 +2353,7 @@ function resetConfirmation(i) {
         }
     }
     if (i === 'ascend') {
-        var z = confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]")
+        let z = confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]")
         if (z) {
             reset(4);
         }
@@ -2440,13 +2426,13 @@ function updateAll() {
         }
     }
     if (player.resettoggle1 === 2) {
-        var time = Math.max(0.25, player.prestigeamount);
+        let time = Math.max(0.25, player.prestigeamount);
         if (player.toggles.fifteen === true && player.achievements[43] === 1 && player.prestigecounter >= time && player.coinsThisPrestige.greaterThanOrEqualTo(1e16)) {
             resetachievementcheck(1);
             reset(1, true);
         }
     }
-    var c = 0;
+    let c = 0;
     c += Math.floor(rune3level / 40 * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100)) * 100 / 100
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
         c += 10
@@ -2492,7 +2478,7 @@ function updateAll() {
         }
     }
     if (player.resettoggle2 === 2) {
-        var time = Math.max(0.25, player.transcendamount);
+        let time = Math.max(0.25, player.transcendamount);
         if (player.toggles.twentyone === true && player.upgrades[89] === 1 && player.transcendcounter >= time && player.coinsThisTranscension.greaterThanOrEqualTo(1e100) && player.currentChallenge.transcension === 0) {
             resetachievementcheck(2);
             reset(2, true);
@@ -2519,7 +2505,7 @@ function updateAll() {
     }
     if (player.currentChallenge.ascension !== 12) {
         if (player.resettoggle3 === 2) {
-            var time = Math.max(0.25, player.reincarnationamount);
+            let time = Math.max(0.25, player.reincarnationamount);
             if (player.toggles.twentyseven === true && player.researches[46] > 0.5 && player.transcendShards.greaterThanOrEqualTo("1e300") && player.reincarnationcounter >= time && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
                 resetachievementcheck(3);
                 reset(3, true);
@@ -2550,10 +2536,10 @@ function updateAll() {
     if (player.upgrades[105] > 0.5) {
         player.fifthGeneratedCoin = player.fifthGeneratedCoin.add(player.firstOwnedCoin);
     }
-    var p = 1;
+    let p = 1;
     p += 1 / 100 * (player.achievements[71] + player.achievements[72] + player.achievements[73] + player.achievements[74] + player.achievements[75] + player.achievements[76] + player.achievements[77])
 
-    var a = 0;
+    let a = 0;
     if (player.upgrades[106] > 0.5) {
         a += 0.10
     }
@@ -2571,7 +2557,7 @@ function updateAll() {
     }
     a *= p
 
-    var b = 0;
+    let b = 0;
     if (player.upgrades[111] > 0.5) {
         b += 0.08
     }
@@ -2589,7 +2575,7 @@ function updateAll() {
     }
     b *= p
 
-    var c = 0;
+    c = 0;
     if (player.upgrades[116] > 0.5) {
         c += 0.05
     }
@@ -2798,8 +2784,8 @@ const setToggleBtnColors = function () {
 function tick() {
 
     if (!timeWarp) {
-        var now = Date.now();
-        var dt = Math.max(0, Math.min(36000, (now - lastUpdate) / 1000));
+        let now = Date.now();
+        let dt = Math.max(0, Math.min(36000, (now - lastUpdate) / 1000));
 
         let timeMult = calculateTimeAcceleration();
         lastUpdate = now;
@@ -2842,7 +2828,7 @@ function tick() {
                 }
                 if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
                     let baseAmount = Math.floor(player.runeshards / 5);
-                    for (var i = 1; i <= 5; i++) {
+                    for (let i = 1; i <= 5; i++) {
                         redeemShards(i, true, null, baseAmount);
                         player.sacrificeTimer = player.sacrificeTimer % 1;
                     }
@@ -3065,9 +3051,9 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
         return;
     }
 
-    var type = ""
-    var pos = ""
-    var num = 0
+    let type = ""
+    let pos = ""
+    let num = 0
 
     cost = [null, 1, 100, 1e4, 1e8, 1e16]
     if (buildingSubTab === "coin") {
@@ -3082,7 +3068,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
         type = "Mythos"
     }
 
-    var key = event.key.toUpperCase()
+    let key = event.key.toUpperCase()
     switch (key) {
         case "1":
             pos = 'first';

@@ -174,11 +174,9 @@ function getCubeBuyAmount(i) {
     if (buyMaxCubeUpgrades) {
         amountToBuy = 100 / 100 * Math.floor(player.wowCubes / cubeBaseCost[i])
     }
-    ;
     if (!buyMaxCubeUpgrades) {
         amountToBuy = Math.min(1, Math.floor(player.wowCubes / cubeBaseCost[i]))
     }
-    ;
     amountToBuy = Math.min(amountToBuy, cubeMaxLevel[i] - player.cubeUpgrades[i]);
     return (amountToBuy)
 }

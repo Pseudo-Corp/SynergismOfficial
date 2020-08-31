@@ -5,7 +5,7 @@
 }(this, function () {
     'use strict';
     /** @class i18n */
-    var i18n = function (language) {
+    const i18n = function (language) {
         if (!(this instanceof i18n)) {
             return new i18n(language);
         }
@@ -49,7 +49,7 @@
                 });
             }
         });
-    }
+    };
 
     return i18n;
 }));

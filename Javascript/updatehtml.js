@@ -1,147 +1,147 @@
 function revealStuff() {
 
     let example = document.getElementsByClassName("coinunlock1");
-    for (var i = 0; i < example.length; i++) {
+    for (let i = 0; i < example.length; i++) {
         player.unlocks.coinone ? example[i].style.display = "block" : example[i].style.display = "none"
     }
 
     let example2 = document.getElementsByClassName("coinunlock2");
-    for (var i = 0; i < example2.length; i++) {
+    for (let i = 0; i < example2.length; i++) {
         player.unlocks.cointwo ? example2[i].style.display = "block" : example2[i].style.display = "none"
     }
 
     let example3 = document.getElementsByClassName("coinunlock3");
-    for (var i = 0; i < example3.length; i++) {
+    for (let i = 0; i < example3.length; i++) {
         player.unlocks.cointhree ? example3[i].style.display = "block" : example3[i].style.display = "none"
     }
 
     let example4 = document.getElementsByClassName("coinunlock4");
-    for (var i = 0; i < example4.length; i++) {
+    for (let i = 0; i < example4.length; i++) {
         player.unlocks.coinfour ? example4[i].style.display = "block" : example4[i].style.display = "none"
     }
 
     let example5 = document.getElementsByClassName("prestigeunlock");
-    for (var i = 0; i < example5.length; i++) {
+    for (let i = 0; i < example5.length; i++) {
         player.unlocks.prestige ? example5[i].style.display = "block" : example5[i].style.display = "none"
     }
 
     let example6 = document.getElementsByClassName("generationunlock");
-    for (var i = 0; i < example6.length; i++) {
+    for (let i = 0; i < example6.length; i++) {
         player.unlocks.generation ? example6[i].style.display = "block" : example6[i].style.display = "none"
     }
 
     let example7 = document.getElementsByClassName("transcendunlock");
-    for (var i = 0; i < example7.length; i++) {
+    for (let i = 0; i < example7.length; i++) {
         player.unlocks.transcend ? example7[i].style.display = "block" : example7[i].style.display = "none"
     }
 
     let example8 = document.getElementsByClassName("reincarnationunlock");
-    for (var i = 0; i < example8.length; i++) {
+    for (let i = 0; i < example8.length; i++) {
         player.unlocks.reincarnate ? example8[i].style.display = "block" : example8[i].style.display = "none"
     }
 
     let example9 = document.getElementsByClassName("auto");
-    for (var i = 0; i < example9.length; i++) {
+    for (let i = 0; i < example9.length; i++) {
         example9[i].style.display = "none"
     }
 
     let example10 = document.getElementsByClassName("reinrow1");
-    for (var i = 0; i < example10.length; i++) {
+    for (let i = 0; i < example10.length; i++) {
         player.researches[47] === 1 ? example10[i].style.display = "block" : example10[i].style.display = "none"
     }
 
     let example11 = document.getElementsByClassName("reinrow2");
-    for (var i = 0; i < example11.length; i++) {
+    for (let i = 0; i < example11.length; i++) {
         player.researches[48] === 1 ? example11[i].style.display = "block" : example11[i].style.display = "none"
     }
 
     let example12 = document.getElementsByClassName("reinrow3");
-    for (var i = 0; i < example12.length; i++) {
+    for (let i = 0; i < example12.length; i++) {
         player.researches[49] === 1 ? example12[i].style.display = "block" : example12[i].style.display = "none"
     }
 
     let example13 = document.getElementsByClassName("reinrow4");
-    for (var i = 0; i < example13.length; i++) {
+    for (let i = 0; i < example13.length; i++) {
         player.researches[50] === 1 ? example13[i].style.display = "block" : example13[i].style.display = "none"
     }
 
     let example14 = document.getElementsByClassName("chal6");
-    for (var i = 0; i < example14.length; i++) {
+    for (let i = 0; i < example14.length; i++) {
         player.achievements[113] === 1 ? example14[i].style.display = "block" : example14[i].style.display = "none"
     }
 
     let example15 = document.getElementsByClassName("chal7");
-    for (var i = 0; i < example15.length; i++) {
+    for (let i = 0; i < example15.length; i++) {
         player.achievements[120] === 1 ? example15[i].style.display = "block" : example15[i].style.display = "none"
     }
 
     let example16 = document.getElementsByClassName("chal7x10");
-    for (var i = 0; i < example16.length; i++) {
+    for (let i = 0; i < example16.length; i++) {
         player.achievements[124] === 1 ? example16[i].style.display = "block" : example16[i].style.display = "none"
     }
 
     let example17 = document.getElementsByClassName("chal8");
-    for (var i = 0; i < example17.length; i++) {
+    for (let i = 0; i < example17.length; i++) {
         player.achievements[127] === 1 ? example17[i].style.display = "block" : example17[i].style.display = "none"
     }
 
     let example18 = document.getElementsByClassName("chal9");
-    for (var i = 0; i < example18.length; i++) {
+    for (let i = 0; i < example18.length; i++) {
         player.achievements[134] === 1 ? example18[i].style.display = "block" : example18[i].style.display = "none"
     }
 
     let example19 = document.getElementsByClassName("chal9x1");
-    for (var i = 0; i < example19.length; i++) {
+    for (let i = 0; i < example19.length; i++) {
         player.highestchallengecompletions[9] > 0 ? example19[i].style.display = "block" : example19[i].style.display = "none"
     }
 
     let example20 = document.getElementsByClassName("chal10");
-    for (var i = 0; i < example20.length; i++) {
+    for (let i = 0; i < example20.length; i++) {
         player.achievements[141] === 1 ? example20[i].style.display = "block" : example20[i].style.display = "none"
     }
 
     let example21 = document.getElementsByClassName("ascendunlock");
-    for (var i = 0; i < example21.length; i++) {
+    for (let i = 0; i < example21.length; i++) {
         player.ascensionCount > 0 ? example21[i].style.display = "block" : example21[i].style.display = "none"
     }
 
     let example22 = document.getElementsByClassName("chal11");
-    for (var i = 0; i < example22.length; i++) {
+    for (let i = 0; i < example22.length; i++) {
         player.challengecompletions[11] > 0 ? example22[i].style.display = "block" : example22[i].style.display = "none"
     }
 
     let example23 = document.getElementsByClassName("chal12");
-    for (var i = 0; i < example23.length; i++) {
+    for (let i = 0; i < example23.length; i++) {
         player.challengecompletions[12] > 0 ? example23[i].style.display = "block" : example23[i].style.display = "none"
     }
 
     let example24 = document.getElementsByClassName("chal13");
-    for (var i = 0; i < example24.length; i++) {
+    for (let i = 0; i < example24.length; i++) {
         player.challengecompletions[13] > 0 ? example24[i].style.display = "block" : example24[i].style.display = "none"
     }
 
     let example25 = document.getElementsByClassName("chal14");
-    for (var i = 0; i < example25.length; i++) {
+    for (let i = 0; i < example25.length; i++) {
         player.challengecompletions[14] > 0 ? example25[i].style.display = "block" : example25[i].style.display = "none"
     }
 
     let example26 = document.getElementsByClassName("ascendunlockib");
-    for (var i = 0; i < example26.length; i++) {
+    for (let i = 0; i < example26.length; i++) {
         example26[i].style.display = player.ascensionCount > 0 ? "inline-block" : "none"
     }
 
     let example27 = document.getElementsByClassName("prestigeunlockib");
-    for (var i = 0; i < example27.length; i++) {
+    for (let i = 0; i < example27.length; i++) {
         example27[i].style.display = player.unlocks.prestige > 0 ? "inline-block" : "none"
     }
 
     let example28 = document.getElementsByClassName("research150");
-    for (var i = 0; i < example28.length; i++) {
+    for (let i = 0; i < example28.length; i++) {
         example28[i].style.display = player.researches[150] > 0 ? "block" : "none"
     }
 
     let example29 = document.getElementsByClassName("cubeUpgrade10");
-    for (var i = 0; i < example29.length; i++) {
+    for (let i = 0; i < example29.length; i++) {
         example29[i].style.display = player.cubeUpgrades[10] > 0 ? "block" : "none"
     }
 
@@ -230,7 +230,7 @@ function revealStuff() {
         document.getElementById("talisman7area").style.display = "none";
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
-    var e = document.getElementsByClassName("auto");
+    let e = document.getElementsByClassName("auto");
     if (player.upgrades[81] === 1) {
         e[0].style.display = "block";
     }
@@ -479,7 +479,7 @@ function htmlInserts() {
             totalProductionDivisor = new Decimal(1);
         }
 
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             placeholder = "produce" + upper[i]
             place = window[placeholder]
             document.getElementById("buildtext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[ordinals[i - 1] + 'OwnedCoin'], 0, true) + " [+" + format(player[ordinals[i - 1] + 'GeneratedCoin']) + "]"
@@ -510,7 +510,7 @@ function htmlInserts() {
 
         document.getElementById("prestigeshardinfo").textContent = "You have " + format(player.prestigeShards, 2) + " Crystals, multiplying Coin production by " + format(prestigeMultiplier, 2) + "x."
 
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             placeholder = "produce" + upper[i];
             place = window[placeholder];
 
@@ -520,7 +520,7 @@ function htmlInserts() {
         }
 
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
-            var p = new Decimal.pow(10, Decimal.log(prestigePointGain.add(1), 10) - Decimal.log(player.prestigePoints.sub(1), 10))
+            let p = new Decimal.pow(10, Decimal.log(prestigePointGain.add(1), 10) - Decimal.log(player.prestigePoints.sub(1), 10))
             document.getElementById("autoprestige").textContent = "Prestige when your Diamonds can increase by a factor " + format(Decimal.pow(10, player.prestigeamount)) + " [Toggle number above]. Current Multiplier: " + format(p) + "."
         }
         if (player.resettoggle1 === 2) {
@@ -540,7 +540,7 @@ function htmlInserts() {
 
         document.getElementById("transcendshardinfo").textContent = "You have " + format(player.transcendShards, 2) + " Mythos Shards, providing " + format(totalMultiplierBoost, 0, true) + " Multiplier Power boosts."
 
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             placeholder = "produce" + upper[i];
             place = window[placeholder];
 
@@ -568,7 +568,7 @@ function htmlInserts() {
         let placeholder = ''
         let place = ''
 
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             placeholder = "produce" + upper[i];
             place = window[placeholder];
 
@@ -592,7 +592,7 @@ function htmlInserts() {
     if (currentTab === "buildings" && buildingSubTab === "tesseract") {
         let names = [null, 'Dot', 'Vector', 'Three-Space', 'Bent Time', 'Hilbert Space']
         let perSecNames = [null, '+Constant/sec', 'Dot/sec', 'Vector/sec', 'Three-Space/sec', 'Bent Time/sec']
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             document.getElementById("ascendText" + i).textContent = names[i] + ": " + format(player['ascendBuilding' + i]['owned'], 0, true) + " [+" + format(player['ascendBuilding' + i]['generated'], 2) + "]"
             document.getElementById("ascendText" + (5 + i)).textContent = perSecNames[i] + ": " + format((ascendBuildingProduction[ordinals[i - 1]]), 2)
             document.getElementById("buyTesseracts" + i).textContent = "Cost: " + format(player['ascendBuilding' + i]['cost'], 0) + " Tesseracts"
@@ -619,7 +619,7 @@ function htmlInserts() {
 
             document.getElementById("runeshards").textContent = "You have " + format(player.runeshards, 0, true) + " Offerings."
 
-            for (var i = 1; i <= 5; i++) { //First one updates level, second one updates TNL, third updates orange bonus levels
+            for (let i = 1; i <= 5; i++) { //First one updates level, second one updates TNL, third updates orange bonus levels
                 placeholder = 'rune' + i + "Talisman"
                 place = window[placeholder]
 
@@ -634,7 +634,7 @@ function htmlInserts() {
         }
 
         if (runescreen === "talismans") {
-            for (var i = 1; i <= 7; i++) {
+            for (let i = 1; i <= 7; i++) {
                 document.getElementById('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * player.challengecompletions[13])
             }
         }
@@ -642,7 +642,7 @@ function htmlInserts() {
         if (runescreen === "blessings") {
             let blessingMultiplierArray = [0, 12, 10, 6.66, 2, 1]
             let t = 0;
-            for (var i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 5; i++) {
                 document.getElementById('runeBlessingLevel' + i + 'Value').textContent = format(player.runeBlessingLevels[i], 0, true)
                 document.getElementById('runeBlessingPower' + i + 'Value1').textContent = format(runeBlessings[i])
                 document.getElementById('runeBlessingPurchaseAmount' + i).textContent = format(Math.max(1, calculateSummationLinear(player.runeBlessingLevels[i], 1e7, player.runeshards, player.runeBlessingBuyAmount)[0] - player.runeBlessingLevels[i]))
@@ -657,7 +657,7 @@ function htmlInserts() {
         if (runescreen === "spirits") {
             let spiritMultiplierArray = [0, 1, 1, 20, 1, 20]
             let subtract = [0, 0, 0, 1, 0, 1]
-            for (var i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 5; i++) {
                 spiritMultiplierArray[i] *= (calculateCorruptionPoints() / 400)
                 document.getElementById('runeSpiritLevel' + i + 'Value').textContent = format(player.runeSpiritLevels[i], 0, true)
                 document.getElementById('runeSpiritPower' + i + 'Value1').textContent = format(runeSpirits[i])
@@ -849,7 +849,7 @@ function buttoncolorchange() {
 
     if (currentTab === "runes") {
         if (runescreen === "runes") {
-            for (var i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 5; i++) {
                 player.runeshards > 0.5 ? document.getElementById("activaterune" + i).style.backgroundColor = "purple" : document.getElementById("activaterune" + i).style.backgroundColor = "#171717";
             }
         }
@@ -873,29 +873,29 @@ function buttoncolorchange() {
 
     if (currentTab === "buildings" && buildingSubTab === "mythos") {
         let ordArray = [null, 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             ((player.toggles[ordArray[i]] || player.upgrades[93 + i]) && player.transcendPoints.greaterThanOrEqualTo(player[ordinals[i - 1] + 'CostMythos'])) ? document.getElementById('buymythos' + i).style.backgroundColor = "#555555" : document.getElementById('buymythos' + i).style.backgroundColor = "#171717"
         }
     }
 
     if (currentTab === "buildings" && buildingSubTab === "particle") {
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             (player.reincarnationPoints.greaterThanOrEqualTo(player[ordinals[i - 1] + 'CostParticles'])) ? document.getElementById("buyparticles" + i).style.backgroundColor = "#555555" : document.getElementById("buyparticles" + i).style.backgroundColor = "#171717";
         }
     }
 
     if (currentTab === "buildings" && buildingSubTab === "tesseract") {
-        for (var i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             (player.wowTesseracts >= (player['ascendBuilding' + i]['cost'])) ?
                 document.getElementById('buyTesseracts' + i).style.backgroundColor = "#555555" :
                 document.getElementById('buyTesseracts' + i).style.backgroundColor = "#171717";
         }
-        for (var i = 1; i <= 8; i++) {
+        for (let i = 1; i <= 8; i++) {
             (player.ascendShards.greaterThanOrEqualTo(Decimal.pow(10, player.constantUpgrades[i]).times(constUpgradeCosts[i]))) ?
                 document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "green" :
                 document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "#171717";
         }
-        for (var i = 9; i <= 10; i++) {
+        for (let i = 9; i <= 10; i++) {
             (player.ascendShards.greaterThanOrEqualTo(Decimal.pow(10, player.constantUpgrades[i]).times(constUpgradeCosts[i])) || player.constantUpgrades[i] >= 1) ?
                 document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "gold" :
                 document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "#171717";
@@ -904,10 +904,10 @@ function buttoncolorchange() {
 
     if (currentTab === "ants") {
         (player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostAnts)) ? document.getElementById("anttier1").style.backgroundColor = "white" : document.getElementById("anttier1").style.backgroundColor = "#171717";
-        for (var i = 2; i <= 8; i++) {
+        for (let i = 2; i <= 8; i++) {
             (player.antPoints.greaterThanOrEqualTo(player[ordinals[i - 1] + 'CostAnts'])) ? document.getElementById("anttier" + i).style.backgroundColor = "white" : document.getElementById("anttier" + i).style.backgroundColor = "#171717";
         }
-        for (var i = 1; i <= 12; i++) {
+        for (let i = 1; i <= 12; i++) {
             if (player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i] * extinctionMultiplier[player.usedCorruptions[10]]).times(antUpgradeBaseCost[i]))) {
                 document.getElementById("antUpgrade" + i).style.backgroundColor = "silver"
             } else {
@@ -920,7 +920,7 @@ function buttoncolorchange() {
 function updateChallengeDisplay() {
     //Sets background colors on load/challenge initiation
     let el = ""
-    for (var k = 1; k <= 10; k++) {
+    for (let k = 1; k <= 10; k++) {
         el = document.getElementById("challenge" + k)
         el.style.backgroundColor = "#171717"
         if (player.currentChallenge.transcension === k) {
@@ -930,7 +930,7 @@ function updateChallengeDisplay() {
             el.style.backgroundColor = "plum"
         }
     }
-    for (var k = 11; k <= 15; k++) {
+    for (let k = 11; k <= 15; k++) {
         el = document.getElementById("challenge" + k)
         el.style.backgroundColor = "#171717"
         if (player.currentChallenge.ascension === k) {
@@ -947,18 +947,18 @@ function updateChallengeDisplay() {
 
 function updateAchievementBG() {
     //When loading/importing, the game needs to correctly update achievement backgrounds.
-    for (var i = 1; i <= 182; i++) { //Initiates by setting all to default
+    for (let i = 1; i <= 182; i++) { //Initiates by setting all to default
         document.getElementById("ach" + i).style.backgroundColor = "black"
     }
-    var fixDisplay1 = document.getElementsByClassName('purpleach')
-    var fixDisplay2 = document.getElementsByClassName('redach')
-    for (var i = 0; i < fixDisplay1.length; i++) {
+    let fixDisplay1 = document.getElementsByClassName('purpleach')
+    let fixDisplay2 = document.getElementsByClassName('redach')
+    for (let i = 0; i < fixDisplay1.length; i++) {
         fixDisplay1[i].style.backgroundColor = "purple" //Sets the appropriate achs to purple
     }
-    for (var i = 0; i < fixDisplay2.length; i++) {
+    for (let i = 0; i < fixDisplay2.length; i++) {
         fixDisplay2[i].style.backgroundColor = "maroon" //Sets the appropriate achs to maroon (red)
     }
-    for (var i = 1; i < player.achievements.length; i++) {
+    for (let i = 1; i < player.achievements.length; i++) {
         if (player.achievements[i] > 0.5 && player.achievements[i] !== undefined) {
             achievementaward(i, 0) //This sets all completed ach to green (0 in 2nd arg to prevent awarding quarks/pts again)
         }
@@ -966,7 +966,7 @@ function updateAchievementBG() {
 }
 
 function CSSAscend() {
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         let a = document.getElementById("ascendText" + i);
         let b = document.getElementById("ascendText" + (5 + i));
         let c = document.getElementById("tesseracts" + i)
@@ -983,7 +983,7 @@ function CSSAscend() {
 
     }
 
-    for (var i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 4; i++) {
         let a = document.getElementById("switchCubeSubTab" + i)
         a.style.top = (65 + 35 * i) + "px"
         a.style.left = "5%"
@@ -997,7 +997,7 @@ function CSSRuneBlessings() {
     let d;
     let e;
     let f;
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         a = document.getElementById('runeBlessingIcon' + i);
         b = document.getElementById('runeSpiritIcon' + i);
         c = document.getElementById('runeBlessingLevel' + i);

@@ -42,14 +42,14 @@ function getCostAccelerator(buyingTo) {
 
 function buyAccelerator(autobuyer) {
     // Start buying at the current amount bought + 1
-    var buyTo = player.acceleratorBought + 1;
-    var cashToBuy = getCostAccelerator(buyTo);
+    let buyTo = player.acceleratorBought + 1;
+    let cashToBuy = getCostAccelerator(buyTo);
     while (player.coins.greaterThanOrEqualTo(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
         buyTo = buyTo * 4;
         cashToBuy = getCostAccelerator(buyTo);
     }
-    var stepdown = Math.floor(buyTo / 8);
+    let stepdown = Math.floor(buyTo / 8);
     while (stepdown !== 0) {
 
         // if step down would push it below out of expense range then divide step down by 2
@@ -134,14 +134,14 @@ function getCostMultiplier(buyingTo) {
 
 function buyMultiplier(autobuyer) {
     // Start buying at the current amount bought + 1
-    var buyTo = player.multiplierBought + 1;
-    var cashToBuy = getCostMultiplier(buyTo);
+    let buyTo = player.multiplierBought + 1;
+    let cashToBuy = getCostMultiplier(buyTo);
     while (player.coins.greaterThanOrEqualTo(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
         buyTo = buyTo * 4;
         cashToBuy = getCostMultiplier(buyTo);
     }
-    var stepdown = Math.floor(buyTo / 8);
+    let stepdown = Math.floor(buyTo / 8);
     while (stepdown !== 0) {
 
         // if step down would push it below out of expense range then divide step down by 2
@@ -210,7 +210,7 @@ function getCost(originalCost, buyingTo, type, num, r) {
     cost = cost.add(1 * buyingTo);
 
     // floored r value gets used a lot in removing calculations
-    var fr = Math.floor(r * 1000);
+    let fr = Math.floor(r * 1000);
     if (buyingTo >= r * 1000) {
 
         // Accounts for all multiplications of itself up to buyingTo, while neglecting all multiplications of itself up to r*1000
@@ -273,8 +273,8 @@ function getCost(originalCost, buyingTo, type, num, r) {
     fr = Math.floor(r * 1000 * player.challengecompletions[8]);
     if (player.currentChallenge.reincarnation === 8 && (type === "Coin" || type === "Diamonds" || type === "Mythos") && buyingTo >= (1000 * player.challengecompletions[8] * r)) {
 
-        var sumBuys = (buyingTo - (1000 * player.challengecompletions[8] * r)) * ((buyingTo - (1000 * player.challengecompletions[8] * r) + 1) / 2);
-        var negBuys = (fr - (1000 * player.challengecompletions[8] * r)) * ((fr - (1000 * player.challengecompletions[8] * r) + 1) / 2);
+        const sumBuys = (buyingTo - (1000 * player.challengecompletions[8] * r)) * ((buyingTo - (1000 * player.challengecompletions[8] * r) + 1) / 2);
+        const negBuys = (fr - (1000 * player.challengecompletions[8] * r)) * ((fr - (1000 * player.challengecompletions[8] * r) + 1) / 2);
 
         cost = cost.times(Decimal.pow(2, sumBuys - negBuys));
 
@@ -287,8 +287,8 @@ function getCost(originalCost, buyingTo, type, num, r) {
 
 function buyMax(pos, type, num, originalCost, autobuyer = false) {
     autobuyer = autobuyer || false;
-    var tag = "";
-    var r = getReductionValue();
+    let tag = "";
+    const r = getReductionValue();
 
     if (type === 'Diamonds') {
         tag = "prestigePoints";
@@ -304,14 +304,14 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
     }
 
     // Start buying at the current amount bought + 1
-    var buyTo = player[pos + 'Owned' + type] + 1;
-    var cashToBuy = getCost(originalCost, buyTo, type, num, r);
+    let buyTo = player[pos + 'Owned' + type] + 1;
+    let cashToBuy = getCost(originalCost, buyTo, type, num, r);
     while (player[tag].greaterThanOrEqualTo(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
         buyTo = buyTo * 4;
         cashToBuy = getCost(originalCost, buyTo, type, num, r);
     }
-    var stepdown = Math.floor(buyTo / 8);
+    let stepdown = Math.floor(buyTo / 8);
     while (stepdown !== 0) {
 
         // if step down would push it below out of expense range then divide step down by 2
@@ -322,8 +322,8 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
         }
     }
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-    var buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
-    var thisCost = getCost(originalCost, buyFrom, type, num, r);
+    let buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
+    let thisCost = getCost(originalCost, buyFrom, type, num, r);
     while (buyFrom < buyTo && player[tag].greaterThanOrEqualTo(getCost(originalCost, buyFrom, type, num, r))) {
         player[tag] = player[tag].sub(thisCost);
         player[pos + 'Owned' + type] = buyFrom;
@@ -335,28 +335,29 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
 
 
 function buyProducer(pos, type, num, autobuyer) {
+    let amounttype;
     let buythisamount = 0;
-    var r = 1;
-    var tag = ""
+    let r = 1;
+    let tag = "";
     r += 1 / 2000 * rune4level * effectiveLevelMult
     r += 1 / 200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60])
     r += 1 / 200 * player.challengecompletions[4]
     r += 3 / 100 * player.antUpgrades[7] + 3 / 100 * bonusant7
     if (type === 'Diamonds') {
         tag = "prestigePoints";
-        var amounttype = "crystal"
+        amounttype = "crystal";
     }
     if (type === 'Mythos') {
         tag = "transcendPoints";
-        var amounttype = "mythos"
+        amounttype = "mythos"
     }
     if (type === 'Particles') {
         tag = "reincarnationPoints";
-        var amounttype = "particle"
+        amounttype = "particle"
     }
     if (type === "Coin") {
         tag = "coins";
-        var amounttype = "coin"
+        amounttype = "coin"
     }
     if (autobuyer) {
         buythisamount = 500
@@ -518,9 +519,9 @@ function calculateCrystalBuy(i) {
 
 function buyCrystalUpgrades(i, auto) {
     auto = auto || false
-    var u = i - 1
+    const u = i - 1;
 
-    var c = 0
+    let c = 0;
     c += Math.floor(rune3level / 40 * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100)) * 100 / 100
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
         c += 10
@@ -540,13 +541,12 @@ function buyCrystalUpgrades(i, auto) {
 }
 
 function boostAccelerator(automated) {
-    var buyamount = 1;
+    let buyamount = 1;
     if (player.upgrades[46] === 1) {
         buyamount = player.coinbuyamount;
         if (automated === true) {
             buyamount = 9999
         }
-        ;
     }
     while (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost) && ticker < buyamount) {
         if (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {
@@ -607,8 +607,8 @@ function getParticleCost(originalCost, buyTo) {
 
 function buyParticleBuilding(pos, originalCost, autobuyer) {
     autobuyer = autobuyer || false
-    var buyTo = player[pos + 'OwnedParticles'] + 1;
-    var cashToBuy = getParticleCost(originalCost, buyTo)
+    let buyTo = player[pos + 'OwnedParticles'] + 1;
+    let cashToBuy = getParticleCost(originalCost, buyTo);
     while (player.reincarnationPoints.greaterThanOrEqualTo(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
         buyTo = buyTo * 4;
@@ -632,8 +632,8 @@ function buyParticleBuilding(pos, originalCost, autobuyer) {
     }
 
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-    var buyFrom = Math.max(buyTo - 7, player[pos + 'OwnedParticles'] + 1);
-    var thisCost = getParticleCost(originalCost, buyFrom);
+    let buyFrom = Math.max(buyTo - 7, player[pos + 'OwnedParticles'] + 1);
+    let thisCost = getParticleCost(originalCost, buyFrom);
     while (buyFrom < buyTo && player.reincarnationPoints.greaterThanOrEqualTo(getParticleCost(originalCost, buyFrom))) {
         player.reincarnationPoints = player.reincarnationPoints.sub(thisCost);
         player[pos + 'OwnedParticles'] = buyFrom;

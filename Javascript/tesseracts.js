@@ -60,7 +60,7 @@ function calculateTesseractBlessings() {
     let tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
 
     let accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
-    for (var i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 10; i++) {
         let power = 1;
         let mult = 1;
         let augmentAccuracy = 0;

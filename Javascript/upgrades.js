@@ -277,9 +277,9 @@ function upgradeeffects(i) {
 
 
 function upgradedescriptions(i) {
-    var x = "upgdesc" + i
-    var y = window[x]
-    var z = ""
+    let x = "upgdesc" + i
+    let y = window[x]
+    let z = ""
     if (player.upgrades[i] > 0.5) {
         z = z + " BOUGHT!"
     }
@@ -291,7 +291,7 @@ function upgradedescriptions(i) {
     }
 
     if (player.toggles.nine === true) {
-        var type = ''
+        let type = ''
         if (i <= 20 && i >= 1) {
             type = 'coin'
         }
@@ -317,17 +317,17 @@ function upgradedescriptions(i) {
             buyUpgrades(type, i)
         }
         if (type !== '' && i <= 100 && i >= 81) {
-            var q = i - 80;
+            let q = i - 80;
             buyAutobuyers(q)
         }
         if (i <= 120 && i >= 101) {
-            var q = i - 100
+            let q = i - 100
             buyGenerator(q)
         }
     }
 
-    var currency = ''
-    var color = ''
+    let currency = ''
+    let color = ''
     if ((i <= 20 && i >= 1) || (i <= 110 && i >= 106) || (i <= 125 && i >= 121)) {
         currency = "Coins";
         color = "yellow"
@@ -352,17 +352,17 @@ function upgradedescriptions(i) {
 
 function crystalupgradedescriptions(i) {
 
-    var v = "crystalupgdesc" + i
-    var w = window[v]
+    let v = "crystalupgdesc" + i
+    let w = window[v]
 
-    var u = i - 1
-    var p = player.crystalUpgrades[u]
-    var c = 0;
+    let u = i - 1
+    let p = player.crystalUpgrades[u]
+    let c = 0;
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
         c = 10
     }
     c += Math.floor(rune3level * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100) / 40) * 100 / 100
-    var q = Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 - c, 2) / 2)))
+    let q = Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 - c, 2) / 2)))
     document.getElementById("crystalupgradedescription").textContent = w
     document.getElementById("crystalupgradeslevel").textContent = "Level: " + p;
     document.getElementById("crystalupgradescost").textContent = "Cost: " + format(q) + " crystals"
@@ -370,16 +370,16 @@ function crystalupgradedescriptions(i) {
 
 
 function upgradeupdate(num, fast) {
-    var x = "upg" + num
+    let x = "upg" + num
     if (player.upgrades[num] > 0.5 && ((num <= 60 || num > 80) && (num <= 93 || num > 100))) {
         document.getElementById(x).style.backgroundColor = "green"
     }
     if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100) || (num > 120))) {
         document.getElementById(x).style.backgroundColor = "white"
     }
-    var a = "upgdesc" + num
-    var b = window[a]
-    var c = ""
+    let a = "upgdesc" + num
+    let b = window[a]
+    let c = ""
     if (player.upgrades[num] > 0.5) {
         c = c + " BOUGHT!"
 
@@ -553,8 +553,8 @@ var resdesc155 = "[7x5] Tome 2 of 5: How to win over the Ant universe. Another e
 
 function researchdescriptions(i, auto) {
     auto = auto || false
-    var c14 = 0;
-    var spiritBonus = 0;
+    let c14 = 0;
+    let spiritBonus = 0;
     if (i <= 5) {
         c14 += player.challengecompletions[14]
     }
@@ -562,10 +562,10 @@ function researchdescriptions(i, auto) {
         spiritBonus += Math.ceil(20 * calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[5])
     }
 
-    var x = "resdesc" + i
-    var y = window[x]
-    var z = ""
-    var p = "res" + i
+    let x = "resdesc" + i
+    let y = window[x]
+    let z = ""
+    let p = "res" + i
     z = " Cost: " + (format(researchBaseCosts[i], 0, true)) + " Obtainium"
     if (player.researches[i] === (researchMaxLevels[i] + c14 + spiritBonus)) {
         document.getElementById("researchcost").style.color = "Gold"
@@ -601,7 +601,7 @@ function updateResearchBG(j) {
         player.researches[j] = researchMaxLevels[j]
     }
 
-    var k = "res" + j
+    let k = "res" + j
     if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {
         document.getElementById(k).style.backgroundColor = "purple"
     } else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {
@@ -662,7 +662,7 @@ function getConstUpgradeMetadata(i) {
 
 function constantUpgradeDescriptions(i) {
     let metaData = getConstUpgradeMetadata(i)
-    var x = 'constantUpgDesc' + i
+    let x = 'constantUpgDesc' + i
     let y = window[x]
     document.getElementById("constUpgradeDescription").textContent = y
     document.getElementById("constUpgradeLevel2").textContent = format(player.constantUpgrades[i])

@@ -81,42 +81,36 @@ function buyShopUpgrades(i) {
                     player.worlds -= 35;
                     player.shopUpgrades.offeringPotion += 1;
                 }
-                ;
                 break;
             case 2:
                 if (player.worlds >= shopBaseCosts.obtainiumPotion) {
                     player.worlds -= 35;
                     player.shopUpgrades.obtainiumPotion += 1;
                 }
-                ;
                 break;
             case 3:
                 if (player.worlds >= (shopBaseCosts.offerTimer + 25 * player.shopUpgrades.offeringTimerLevel) && player.shopUpgrades.offeringTimerLevel < 7) {
                     player.worlds -= (shopBaseCosts.offerTimer + 25 * player.shopUpgrades.offeringTimerLevel);
                     player.shopUpgrades.offeringTimerLevel += 1;
                 }
-                ;
                 break;
             case 4:
                 if (player.worlds >= (shopBaseCosts.offerAuto + 25 * player.shopUpgrades.offeringAutoLevel) && player.shopUpgrades.offeringAutoLevel < 7) {
                     player.worlds -= (shopBaseCosts.offerAuto + 25 * player.shopUpgrades.offeringAutoLevel);
                     player.shopUpgrades.offeringAutoLevel += 1;
                 }
-                ;
                 break;
             case 5:
                 if (player.worlds >= (shopBaseCosts.obtainiumTimer + 25 * player.shopUpgrades.obtainiumTimerLevel) && player.shopUpgrades.obtainiumTimerLevel < 7) {
                     player.worlds -= (shopBaseCosts.obtainiumTimer + 25 * player.shopUpgrades.obtainiumTimerLevel);
                     player.shopUpgrades.obtainiumTimerLevel += 1;
                 }
-                ;
                 break;
             case 6:
                 if (player.worlds >= (shopBaseCosts.obtainiumAuto + 25 * player.shopUpgrades.obtainiumAutoLevel) && player.shopUpgrades.obtainiumAutoLevel < 7) {
                     player.worlds -= (shopBaseCosts.obtainiumAuto + 25 * player.shopUpgrades.obtainiumAutoLevel);
                     player.shopUpgrades.obtainiumAutoLevel += 1;
                 }
-                ;
                 break;
 
             case 7:
@@ -124,28 +118,24 @@ function buyShopUpgrades(i) {
                     player.worlds -= 300;
                     player.shopUpgrades.instantChallengeBought = true;
                 }
-                ;
                 break;
             case 8:
                 if (player.worlds >= (shopBaseCosts.cashGrab + 100 * player.shopUpgrades.cashGrabLevel) && player.shopUpgrades.cashGrabLevel < 7) {
                     player.worlds -= (shopBaseCosts.cashGrab + 100 * player.shopUpgrades.cashGrabLevel);
                     player.shopUpgrades.cashGrabLevel += 1;
                 }
-                ;
                 break;
             case 9:
                 if (player.worlds >= (shopBaseCosts.antSpeed + 200 * player.shopUpgrades.antSpeedLevel) && player.shopUpgrades.antSpeedLevel < 3) {
                     player.worlds -= (shopBaseCosts.antSpeed + 200 * player.shopUpgrades.antSpeedLevel);
                     player.shopUpgrades.antSpeedLevel += 1;
                 }
-                ;
                 break;
             case 10:
                 if (player.worlds >= 1500 && !player.shopUpgrades.talismanBought) {
                     player.worlds -= 1500;
                     player.shopUpgrades.talismanBought = true;
                 }
-                ;
                 break;
 
         }
@@ -165,14 +155,12 @@ function useConsumable(i) {
                     player.shopUpgrades.offeringPotion -= 1;
                     player.runeshards += Math.floor(7200 * player.offeringpersecond);
                 }
-                ;
                 break;
             case 2:
                 if (player.shopUpgrades.obtainiumPotion > 0.5) {
                     player.shopUpgrades.obtainiumPotion -= 1;
                     player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond);
                 }
-                ;
                 break;
         }
     }
