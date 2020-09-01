@@ -1,12 +1,12 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, global.i18n = factory());
-}(this, function () { 
+        typeof define === 'function' && define.amd ? define(factory) :
+            (global = global || self, global.i18n = factory());
+}(this, function () {
     'use strict';
     /** @class i18n */
-    var i18n = function(language) {
-        if(!(this instanceof i18n)) {
+    const i18n = function (language) {
+        if (!(this instanceof i18n)) {
             return new i18n(language);
         }
 
@@ -26,8 +26,8 @@
 
         /** get translations */
         Object.defineProperty(this, 'getJSON', {
-            value: function() {
-                if(i18n.c) {
+            value: function () {
+                if (i18n.c) {
                     return i18n.c;
                 }
 
@@ -35,13 +35,13 @@
                 res.open('GET', 'i18n/' + this.realLanguage + '.json');
                 res.send();
 
-                return new Promise(function(resolve) {
-                    res.onreadystatechange = function() {
-                        if(this.readyState === 4) {
+                return new Promise(function (resolve) {
+                    res.onreadystatechange = function () {
+                        if (this.readyState === 4) {
                             resolve(this.response);
                         }
                     }
-                }).then(function(result) {
+                }).then(function (result) {
                     Object.defineProperty(i18n, 'c', {
                         value: JSON.parse(result),
                         writable: !0
@@ -49,7 +49,7 @@
                 });
             }
         });
-    }
-  
+    };
+
     return i18n;
 }));

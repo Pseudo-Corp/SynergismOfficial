@@ -136,6 +136,7 @@ function resetHistoryRenderRow(category, data) {
             }
             let formatter = gainInfo.formatter || dontChange;
             let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle||''}"> ${formatter(data[showing], data)}`;
+
             if (gainInfo.titler) {
                 let title = gainInfo.titler(data);
                 if (title !== "") {
