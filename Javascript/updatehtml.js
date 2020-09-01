@@ -635,7 +635,7 @@ function htmlInserts() {
 
         if (runescreen === "talismans") {
             for (let i = 1; i <= 7; i++) {
-                document.getElementById('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * player.challengecompletions[13])
+				        document.getElementById('talisman'+i+'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * player.challengecompletions[13] + Math.floor(player.researches[200]/100))
             }
         }
 
@@ -749,7 +749,6 @@ function htmlInserts() {
     if (currentTab === "traits") {
         document.getElementById("autoAscendMetric").textContent = format(player.autoAscendThreshold, 0, true)
     }
-
 }
 
 

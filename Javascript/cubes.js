@@ -5,6 +5,9 @@ function openCube(value, max) {
     player.wowCubes -= toSpend
 
     toSpend *= (1 + player.researches[138] / 1000)
+    toSpend *= (1 + 0.8 * player.researches[168] / 1000)
+    toSpend *= (1 + 0.6 * player.researches[198] / 1000)
+
     toSpend = Math.floor(toSpend)
     let toSpendModulo = toSpend % 20
     let toSpendDiv20 = Math.floor(toSpend / 20)
@@ -115,7 +118,8 @@ const cubeMaxLevel = [null,
     3, 5, 1, 10, 10, 10, 5, 1, 1, 1,
     4, 10, 1, 10, 10, 10, 1, 1, 5, 1,
     5, 1, 1, 10, 10, 5, 10, 3, 3, 1,
-    6, 10, 10, 10, 10, 20, 20, 1, 1, 1000000]
+    6, 10, 10, 10, 10, 20, 20, 1, 1, 100000]
+
 
 const cubeUpgradeDescriptions = [null,
     function () {return "You got it! +1 cube from challenges, +10% cubes from Ascending."},
@@ -167,9 +171,10 @@ const cubeUpgradeDescriptions = [null,
     function () {return "Gain +10% more obtainium per level!"},
     function () {return "When you ascend, start with 1 worker ant (this is a lot better than it sounds!)"},
     function () {return "When you ascend, gain 1 of each challenge 6-8 completion, with +15 cubes to compensate."},
-    function () {return "What doesn't this boost? +0.03% Accelerators, Multipliers, Accelerator Boosts, +0.1% Obtainium, +0.1% Offerings, +2 Max Rune Levels, +3 Effective ELO, +0.001 Talisman bonuses per level."}]
+    function () {return "What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.1% Obtainium, +0.1% Offerings, +2 Max Rune Levels, +3 Effective ELO, +0.001 Talisman bonuses per level."}]
 
 function getCubeBuyAmount(i) {
+
     let amountToBuy = 0;
     if (buyMaxCubeUpgrades) {
         amountToBuy = 100 / 100 * Math.floor(player.wowCubes / cubeBaseCost[i])

@@ -677,4 +677,3 @@ function buyRuneBonusLevels(type, index) { //type 1 for Blessings, type 2 for Sp
         player.runeBlessingLevels[index] = metadata[0];
 
     player.runeshards -= metadata[1];
-}

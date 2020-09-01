@@ -56,6 +56,7 @@ function calculatetax(fast) {
     exponent *= (0.01 + Math.pow(0.98, player.antUpgrades[3] + bonusant3 + .497))
     exponent *= 1 / (1 + Decimal.log(player.ascendShards.add(1), 10))
     exponent *= (1 - 0.10 * (player.talismanRarity[1] - 1))
+    exponent *= Math.pow(0.98, 3/5 * Math.log(1 + player.rareFragments)/Math.log(10))
     maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1
     a = Math.min(maxexponent, Math.floor(Decimal.log(produceTotal.add(1), 10)));
 
@@ -77,4 +78,5 @@ function calculatetax(fast) {
 }
 
 // Note that, for E < 1000 the tax is just 0, so we leave a 1.00 multiplier. For 1000 < E < 500,000 we denote tax as a dynamic progression from 1.01 to 5.00.
+
 //If E > 500,000 we always want tax to be 5.

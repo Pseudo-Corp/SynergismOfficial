@@ -80,5 +80,4 @@ function calculateTesseractBlessings() {
         document.getElementById("tesseractBlessing" + i + "Amount").textContent = "x" + format(tesseractArray[i], 0, true)
         document.getElementById("tesseractBlessing" + i + "Effect").textContent = "+" + format(100 * (tesseractBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true) + "%"
     }
-}
-    
+}   
