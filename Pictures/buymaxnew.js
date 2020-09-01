@@ -11,7 +11,7 @@ function getCost(originalCost, buyingTo, type, num, r) {
     cost = cost.add(1 * buyingTo);
 
     // floored r value gets used a lot in removing calculations
-    var fr = Math.floor(r * 1000);
+    let fr = Math.floor(r * 1000);
     if (buyingTo >= r * 1000) {
 
         // Accounts for all multiplications of itself up to buyingTo, while neglecting all multiplications of itself up to r*1000
@@ -65,8 +65,8 @@ function getCost(originalCost, buyingTo, type, num, r) {
     fr = Math.floor(r * 1000 * player.challengecompletions.eight);
     if (player.currentChallengeRein === "eight" && (type === "Coin" || type === "Diamonds" || type === "Mythos") && buyingTo >= (1000 * player.challengecompletions.eight * r)) {
 
-        var sumBuys = (buyingTo - (1000 * player.challengecompletions.eight * r)) * ((buyingTo - (1000 * player.challengecompletions.eight * r) + 1) / 2);
-        var negBuys = (fr - (1000 * player.challengecompletions.eight * r)) * ((fr - (1000 * player.challengecompletions.eight * r) + 1) / 2);
+        let sumBuys = (buyingTo - (1000 * player.challengecompletions.eight * r)) * ((buyingTo - (1000 * player.challengecompletions.eight * r) + 1) / 2);
+        let negBuys = (fr - (1000 * player.challengecompletions.eight * r)) * ((fr - (1000 * player.challengecompletions.eight * r) + 1) / 2);
 
         cost = cost.times(Decimal.pow(2, sumBuys - negBuys));
 
@@ -80,8 +80,8 @@ function getCost(originalCost, buyingTo, type, num, r) {
 function buyMax(pos, type, num, originalCost, autobuyer = false) {
     autobuyer = autobuyer || false;
     originalCost = new Decimal(originalCost);
-    var tag = "";
-    var r = 1
+    let tag = "";
+    let r = 1;
     r += 1 / 400 * rune4level * effectiveLevelMult;
     r += 1 / 200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]);
     r += 1 / 200 * player.challengecompletions.four;
@@ -101,14 +101,14 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
     }
 
     // Start buying at the current amount bought + 1
-    var buyTo = player[pos + 'Owned' + type] + 1;
-    var cashToBuy = getCost(originalCost, buyTo, type, num, r);
+    let buyTo = player[pos + 'Owned' + type] + 1;
+    let cashToBuy = getCost(originalCost, buyTo, type, num, r);
     while (player[tag].greaterThanOrEqualTo(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
         buyTo = buyTo * 4;
         cashToBuy = getCost(originalCost, buyTo, type, num, r);
     }
-    var stepdown = Math.floor(buyTo / 8);
+    let stepdown = Math.floor(buyTo / 8);
     while (stepdown !== 0) {
 
         // if step down would push it below out of expense range then divide step down by 2
@@ -119,8 +119,8 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
         }
     }
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-    var buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
-    var thisCost = getCost(originalCost, buyFrom, type, num, r);
+    let buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
+    let thisCost = getCost(originalCost, buyFrom, type, num, r);
     while (buyFrom < buyTo && player[tag].greaterThanOrEqualTo(getCost(originalCost, buyFrom, type, num, r))) {
         player[tag] = player[tag].sub(thisCost);
         player[pos + 'Owned' + type] = buyFrom;

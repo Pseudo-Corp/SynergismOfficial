@@ -174,7 +174,7 @@ function resetShopUpgrades() {
 
     if (p && player.worlds >= 15) {
         player.worlds -= 15;
-        for (var i = 0; i < 10; i++) {
+        for (let i = 0; i < 10; i++) {
             if (player.shopUpgrades.offeringTimerLevel > 0) {
                 player.shopUpgrades.offeringTimerLevel -= 1;
                 player.worlds += (150 + 25 * i)

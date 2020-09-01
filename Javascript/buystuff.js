@@ -464,7 +464,7 @@ function buyResearch(index, auto) {
     }
     if (auto && player.cubeUpgrades[9] === 1) {
         player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
-        if (player.researches[player.autoResearch] === (researchMaxLevels[player.autoResearch] + c14 + spiritBonus)) {
+        if (player.researches[player.autoResearch] >= (researchMaxLevels[player.autoResearch] + c14 + spiritBonus)) {
             player.roombaResearchIndex += 1;
         }
         if (player.roombaResearchIndex <= 155) {
@@ -476,7 +476,7 @@ function buyResearch(index, auto) {
 }
 
 function buyUpgrades(type, pos, state) {
-    var addendum = ""
+    let addendum = ""
     if (type === "prestige" || type === "transcend" || type === "reincarnation") {
         addendum = "Point"
     }
@@ -558,8 +558,7 @@ function boostAccelerator(automated) {
             player.transcendnoaccelerator = false;
             player.reincarnatenoaccelerator = false;
             if (player.upgrades[46] < 0.5) {
-                var j
-                for (j = 21; j < 41; j++) {
+                for (let j = 21; j < 41; j++) {
                     player.upgrades[j] = 0;
                 }
                 reset(1);
@@ -614,7 +613,7 @@ function buyParticleBuilding(pos, originalCost, autobuyer) {
         buyTo = buyTo * 4;
         cashToBuy = getParticleCost(originalCost, buyTo);
     }
-    var stepdown = Math.floor(buyTo / 8);
+    let stepdown = Math.floor(buyTo / 8);
     while (stepdown !== 0) {
 
         // if step down would push it below out of expense range then divide step down by 2
@@ -677,3 +676,4 @@ function buyRuneBonusLevels(type, index) { //type 1 for Blessings, type 2 for Sp
         player.runeBlessingLevels[index] = metadata[0];
 
     player.runeshards -= metadata[1];
+}
