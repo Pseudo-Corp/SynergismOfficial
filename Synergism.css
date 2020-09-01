@@ -4445,6 +4445,10 @@ margin-left: -13px
 	color: white;
 }
 
+.historySubTab p {
+	margin: 8px 0 12px 0;
+}
+
 .historySubTab table {
 	margin: auto;
 	border-collapse: collapse;
@@ -4480,16 +4484,38 @@ margin-left: -13px
 }
 
 #historyReset, #historyAnts {
-	height: 500px;
-	overflow-y: auto;
-	min-width: 660px;
 	margin-left: 20px;
 }
 #historyAscend {
-	height: 500px;
-	overflow-y: auto;
-	min-width: 1000px;
 	margin: 0 auto;
+}
+
+
+#historyTogglePerSecondButton {
+	float: right;
+}
+
+.onOffToggle {
+	text-align: center;
+	padding: 5px;
+	border: 2px solid red;
+}
+
+#historyResetTable, #historyAntsTable {
+	min-width: 588px;
+}
+
+#historyAscendTable {
+	min-width: 1000px;
+}
+
+.historyTableWrap {
+	min-width: 620px;
+	max-height: 450px;
+	overflow-y: auto;
+}
+#historyAscend .historyTableWrap {
+	min-width: 1032px;
 }
 
 .runeIcons{
@@ -4527,3 +4553,4 @@ margin-left: -13px
 	background-color: #171717;
 	color: white
 }
+

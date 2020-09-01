@@ -7,537 +7,529 @@ const interval = new Proxy(setInterval, {
 });
 
 const player = {
-    worlds: 0,
-    coins: new Decimal("1e2"),
-    coinsThisPrestige: new Decimal("1e2"),
-    coinsThisTranscension: new Decimal("1e2"),
-    coinsThisReincarnation: new Decimal("1e2"),
-    coinsTotal: new Decimal("100"),
-
-    firstOwnedCoin: 0,
-    firstGeneratedCoin: new Decimal("0"),
-    firstCostCoin: new Decimal("100"),
-    firstProduceCoin: 0.25,
-
-    secondOwnedCoin: 0,
-    secondGeneratedCoin: new Decimal("0"),
-    secondCostCoin: new Decimal("2e3"),
-    secondProduceCoin: 2.5,
-
-    thirdOwnedCoin: 0,
-    thirdGeneratedCoin: new Decimal("0"),
-    thirdCostCoin: new Decimal("4e4"),
-    thirdProduceCoin: 25,
-
-    fourthOwnedCoin: 0,
-    fourthGeneratedCoin: new Decimal("0"),
-    fourthCostCoin: new Decimal("8e5"),
-    fourthProduceCoin: 250,
-
-    fifthOwnedCoin: 0,
-    fifthGeneratedCoin: new Decimal("0"),
-    fifthCostCoin: new Decimal("16e6"),
-    fifthProduceCoin: 2500,
-
-    firstOwnedDiamonds: 0,
-    firstGeneratedDiamonds: new Decimal("0"),
-    firstCostDiamonds: new Decimal("100"),
-    firstProduceDiamonds: 0.05,
-
-    secondOwnedDiamonds: 0,
-    secondGeneratedDiamonds: new Decimal("0"),
-    secondCostDiamonds: new Decimal("1e5"),
-    secondProduceDiamonds: 0.0005,
-
-    thirdOwnedDiamonds: 0,
-    thirdGeneratedDiamonds: new Decimal("0"),
-    thirdCostDiamonds: new Decimal("1e15"),
-    thirdProduceDiamonds: 0.00005,
-
-    fourthOwnedDiamonds: 0,
-    fourthGeneratedDiamonds: new Decimal("0"),
-    fourthCostDiamonds: new Decimal("1e40"),
-    fourthProduceDiamonds: 0.000005,
-
-    fifthOwnedDiamonds: 0,
-    fifthGeneratedDiamonds: new Decimal("0"),
-    fifthCostDiamonds: new Decimal("1e100"),
-    fifthProduceDiamonds: 0.000005,
-
-    firstOwnedMythos: 0,
-    firstGeneratedMythos: new Decimal("0"),
-    firstCostMythos: new Decimal("1"),
-    firstProduceMythos: 1,
-
-    secondOwnedMythos: 0,
-    secondGeneratedMythos: new Decimal("0"),
-    secondCostMythos: new Decimal("100"),
-    secondProduceMythos: 0.01,
-
-    thirdOwnedMythos: 0,
-    thirdGeneratedMythos: new Decimal("0"),
-    thirdCostMythos: new Decimal("1e4"),
-    thirdProduceMythos: 0.001,
-
-    fourthOwnedMythos: 0,
-    fourthGeneratedMythos: new Decimal("0"),
-    fourthCostMythos: new Decimal("1e8"),
-    fourthProduceMythos: 0.0002,
-
-    fifthOwnedMythos: 0,
-    fifthGeneratedMythos: new Decimal("0"),
-    fifthCostMythos: new Decimal("1e16"),
-    fifthProduceMythos: 0.00004,
-
-    firstOwnedParticles: 0,
-    firstGeneratedParticles: new Decimal("0"),
-    firstCostParticles: new Decimal("1"),
-    firstProduceParticles: .25,
-
-    secondOwnedParticles: 0,
-    secondGeneratedParticles: new Decimal("0"),
-    secondCostParticles: new Decimal("100"),
-    secondProduceParticles: .20,
-
-    thirdOwnedParticles: 0,
-    thirdGeneratedParticles: new Decimal("0"),
-    thirdCostParticles: new Decimal("1e4"),
-    thirdProduceParticles: .15,
-
-    fourthOwnedParticles: 0,
-    fourthGeneratedParticles: new Decimal("0"),
-    fourthCostParticles: new Decimal("1e8"),
-    fourthProduceParticles: .10,
-
-    fifthOwnedParticles: 0,
-    fifthGeneratedParticles: new Decimal("0"),
-    fifthCostParticles: new Decimal("1e16"),
-    fifthProduceParticles: .5,
-
-    firstOwnedAnts: 0,
-    firstGeneratedAnts: new Decimal("0"),
-    firstCostAnts: new Decimal("1e800"),
-    firstProduceAnts: .0001,
-
-    secondOwnedAnts: 0,
-    secondGeneratedAnts: new Decimal("0"),
-    secondCostAnts: new Decimal("3"),
-    secondProduceAnts: .00005,
-
-    thirdOwnedAnts: 0,
-    thirdGeneratedAnts: new Decimal("0"),
-    thirdCostAnts: new Decimal("100"),
-    thirdProduceAnts: .00002,
-
-    fourthOwnedAnts: 0,
-    fourthGeneratedAnts: new Decimal("0"),
-    fourthCostAnts: new Decimal("1e4"),
-    fourthProduceAnts: .00001,
-
-    fifthOwnedAnts: 0,
-    fifthGeneratedAnts: new Decimal("0"),
-    fifthCostAnts: new Decimal("1e12"),
-    fifthProduceAnts: .000005,
-
-    sixthOwnedAnts: 0,
-    sixthGeneratedAnts: new Decimal("0"),
-    sixthCostAnts: new Decimal("1e36"),
-    sixthProduceAnts: .000002,
-
-    seventhOwnedAnts: 0,
-    seventhGeneratedAnts: new Decimal("0"),
-    seventhCostAnts: new Decimal("1e100"),
-    seventhProduceAnts: .000001,
-
-    eighthOwnedAnts: 0,
-    eighthGeneratedAnts: new Decimal("0"),
-    eighthCostAnts: new Decimal("1e300"),
-    eighthProduceAnts: .00000001,
-
-    ascendBuilding1: {
-        cost: 1,
-        owned: 0,
-        generated: new Decimal("0"),
-        multiplier: 0.01
-    },
-    ascendBuilding2: {
-        cost: 10,
-        owned: 0,
-        generated: new Decimal("0"),
-        multiplier: 0.01
-    },
-    ascendBuilding3: {
-        cost: 100,
-        owned: 0,
-        generated: new Decimal("0"),
-        multiplier: 0.01
-    },
-    ascendBuilding4: {
-        cost: 1000,
-        owned: 0,
-        generated: new Decimal("0"),
-        multiplier: 0.01
-    },
-    ascendBuilding5: {
-        cost: 10000,
-        owned: 0,
-        generated: new Decimal("0"),
-        multiplier: 0.01
-    },
-
-    multiplierCost: new Decimal("1e5"),
-    multiplierBought: 0,
-
-    acceleratorCost: new Decimal("500"),
-    acceleratorBought: 0,
-
-    acceleratorBoostBought: 0,
-    acceleratorBoostCost: new Decimal("1e3"),
-
-    upgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //Coin Upgrades, Ignore First.
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    //Prestige Upgrades
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Transcend Upgrades
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Reincarnation Upgrades
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Automation Upgrades
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,   //Generator Upgrades
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // Post Ascension Upgrades
-
-
-    prestigeCount: 0,
-    transcendCount: 0,
-    reincarnationCount: 0,
-
-    prestigePoints: new Decimal("0"),
-    transcendPoints: new Decimal("0"),
-    reincarnationPoints: new Decimal("0"),
-
-    prestigeShards: new Decimal("0"),
-    transcendShards: new Decimal("0"),
-    reincarnationShards: new Decimal("0"),
-
-    toggles: {
-        one: false,
-        two: false,
-        three: false,
-        four: false,
-        five: false,
-        six: false,
-        seven: false,
-        eight: false,
-        nine: false,
-        ten: false,
-        eleven: false,
-        twelve: false,
-        thirteen: false,
-        fourteen: false,
-        fifteen: false,
-        sixteen: false,
-        seventeen: false,
-        eighteen: false,
-        nineteen: false,
-        twenty: false,
-        twentyone: false,
-        twentytwo: true,
-        twentythree: true,
-        twentyfour: true,
-        twentyfive: true,
-        twentysix: true,
-        twentyseven: false,
-        twentyeight: true,
-        twentynine: true,
-        thirty: true,
-        thirtyone: false,
-        thirtytwo: false,
-        thirtythree: false,
-    },
-
-    resourceGenerators: {
-        diamonds: false,
-        mythos: false,
-    },
-
-    keepUpgrades: {
-        coinUpgrades: false,
-        prestigeUpgrades: false,
-        crystalUpgrades: false,
-        transcendUpgrades: false,
-        autobuyers: false,
-        generators: false
-    },
-
-    challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    highestchallengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-
-    retrychallenges: false,
-    currentChallenge: {
-        transcension: 0,
-        reincarnation: 0,
-        ascension: 0,
-    },
-    researchPoints: 0,
-    obtainiumtimer: 0,
-    obtainiumlocktoggle: false,
-    obtainiumpersecond: 0,
-    maxobtainiumpersecond: 0,
-    maxobtainium: 0,
-    // Ignore the first index. The other 25 are shaped in a 5x5 grid similar to the production appearance
-    researches: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-
-    unlocks: {
-        coinone: false,
-        cointwo: false,
-        cointhree: false,
-        coinfour: false,
-        prestige: false,
-        generation: false,
-        transcend: false,
-        reincarnate: false,
-        rrow1: false,
-        rrow2: false,
-        rrow3: false,
-        rrow4: false
-    },
-    achievements: [0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0],
-
-    achievementPoints: 0,
-
-    prestigenomultiplier: true,
-    prestigenoaccelerator: true,
-    transcendnomultiplier: true,
-    transcendnoaccelerator: true,
-    reincarnatenomultiplier: true,
-    reincarnatenoaccelerator: true,
-    prestigenocoinupgrades: true,
-    transcendnocoinupgrades: true,
-    transcendnocoinorprestigeupgrades: true,
-    reincarnatenocoinupgrades: true,
-    reincarnatenocoinorprestigeupgrades: true,
-    reincarnatenocoinprestigeortranscendupgrades: true,
-    reincarnatenocoinprestigetranscendorgeneratorupgrades: true,
-
-    crystalUpgrades: [0, 0, 0, 0, 0, 0, 0, 0],
-    crystalUpgradesCost: [7, 15, 20, 40, 100, 200, 500, 1000],
-
-    runelevels: [1, 1, 1, 1, 1],
-    runeexp: [0, 0, 0, 0, 0,],
-    runeshards: 0,
-    offeringlocktoggle: false,
-    maxofferings: 0,
-    offeringpersecond: 0,
-
-    prestigecounter: 0,
-    transcendcounter: 0,
-    reincarnationcounter: 0,
-    offlinetick: 0,
-
-    prestigeamount: 0,
-    transcendamount: 0,
-    reincarnationamount: 0,
-
-    fastestprestige: 9999999999,
-    fastesttranscend: 99999999999,
-    fastestreincarnate: 999999999999,
-
-    resettoggle1: 1,
-    resettoggle2: 1,
-    resettoggle3: 1,
-
-    coinbuyamount: 1,
-    crystalbuyamount: 1,
-    mythosbuyamount: 1,
-    particlebuyamount: 1,
-    offeringbuyamount: 1,
-    tesseractbuyamount: 1,
-
-
-    shoptoggles: {
-        coin: true,
-        prestige: true,
-        transcend: true,
-        generators: true,
-        reincarnate: true,
-    },
-    tabnumber: 1,
-
-    // create a Map with keys defaulting to false
-    codes: new Map(
-        Array.from(Array(24), (_, i) => [i + 1, false])
-    ),
-
-    loaded1009: true,
-    loaded1009hotfix1: true,
-    loaded10091: true,
-    loaded1010: true,
-    loaded10101: true,
-
-    shopUpgrades: {
-        offeringPotion: 1,
-        obtainiumPotion: 1,
-        offeringTimerLevel: 0,
-        obtainiumTimerLevel: 0,
-        offeringAutoLevel: 0,
-        obtainiumAutoLevel: 0,
-        instantChallengeBought: false,
-        cashGrabLevel: 0,
-        antSpeedLevel: 0,
-        talismanBought: false,
-    },
-    autoSacrificeToggle: false,
-    autoResearchToggle: false,
-    autoResearch: 0,
-    autoSacrifice: 0,
-    sacrificeTimer: 0,
-    quarkstimer: 90000,
-
-    antPoints: new Decimal("1"),
-    antUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    antSacrificePoints: 0,
-    antSacrificeTimer: 900,
-
-    talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
-    talismanRarity: [null, 1, 1, 1, 1, 1, 1, 1],
-    talismanOne: [null, -1, 1, 1, 1, -1],
-    talismanTwo: [null, 1, 1, -1, -1, 1],
-    talismanThree: [null, 1, -1, 1, 1, -1],
-    talismanFour: [null, -1, -1, 1, 1, 1],
-    talismanFive: [null, 1, 1, -1, -1, 1],
-    talismanSix: [null, 1, 1, 1, -1, -1],
-    talismanSeven: [null, -1, 1, -1, 1, 1],
-    talismanShards: 0,
-    commonFragments: 0,
-    uncommonFragments: 0,
-    rareFragments: 0,
-    epicFragments: 0,
-    legendaryFragments: 0,
-    mythicalFragments: 0,
-
-    buyTalismanShardPercent: 10,
-
-    autoAntSacrifice: false,
-    antMax: false,
-
-    ascensionCount: 0,
-    ascensionCounter: 0,
-    cubeUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    wowCubes: 0,
-    wowTesseracts: 0,
-    wowHypercubes: 0,
-    cubeBlessings: {
-        accelerator: 0,
-        multiplier: 0,
-        offering: 0,
-        runeExp: 0,
-        obtainium: 0,
-        antSpeed: 0,
-        antSacrifice: 0,
-        antELO: 0,
-        talismanBonus: 0,
-        globalSpeed: 0
-    },
-    tesseractBlessings: {
-        accelerator: 0,
-        multiplier: 0,
-        offering: 0,
-        runeExp: 0,
-        obtainium: 0,
-        antSpeed: 0,
-        antSacrifice: 0,
-        antELO: 0,
-        talismanBonus: 0,
-        globalSpeed: 0
-    },
-    hypercubeBlessings: {
-        accelerator: 0,
-        multiplier: 0,
-        offering: 0,
-        runeExp: 0,
-        obtainium: 0,
-        antSpeed: 0,
-        antSacrifice: 0,
-        antELO: 0,
-        talismanBonus: 0,
-        globalSpeed: 0
-    },
-    ascendShards: new Decimal("0"),
-    autoAscend: false,
-    autoAscendMode: "c10Completions",
-    autoAscendThreshold: 1,
-    roombaResearchIndex: 0,
-    cubesThisAscension: {
-        "challenges": 0,
-        "reincarnation": 0,
-        "ascension": 0,
-        "maxCubesPerSec": 0,
-        "maxAllTime": 0,
-        "cpsOnC10Comp": 0,
-        "tesseracts": 0,
-        "hypercubes": 0
-    },
-
-    prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-
-    constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    history: {},
-    historyCountMax: 15,
-
-    autoChallengeRunning: false,
-    autoChallengeIndex: 1,
-    autoChallengeToggles: [false, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false],
-    autoChallengeStartExponent: 10,
-    autoChallengeTimer: {
-        start: 10,
-        exit: 2,
-        enter: 2
-    },
-
-    runeBlessingLevels: [0, 0, 0, 0, 0, 0],
-    runeSpiritLevels: [0, 0, 0, 0, 0, 0],
-    runeBlessingBuyAmount: 0,
-    runeSpiritBuyAmount: 0,
-
-    brokenfile1: false,
-    exporttest: "YES!",
-    kongregatetest: "NO!",
-
-    [Symbol.for('version')]: '1.0101'
+	worlds: 0,
+	coins: new Decimal("1e2"),
+	coinsThisPrestige: new Decimal("1e2"),
+	coinsThisTranscension: new Decimal("1e2"),
+	coinsThisReincarnation: new Decimal("1e2"),
+	coinsTotal: new Decimal("100"),
+
+	firstOwnedCoin: 0,
+	firstGeneratedCoin: new  Decimal("0"),
+	firstCostCoin: new Decimal("100"),
+	firstProduceCoin: 0.25,
+
+	secondOwnedCoin: 0,
+	secondGeneratedCoin: new Decimal("0"),
+	secondCostCoin: new Decimal("2e3"),
+	secondProduceCoin: 2.5,
+
+	thirdOwnedCoin: 0,
+   thirdGeneratedCoin: new Decimal("0"),
+   thirdCostCoin: new Decimal("4e4"),
+   thirdProduceCoin: 25,
+
+   fourthOwnedCoin: 0,
+   fourthGeneratedCoin: new Decimal("0"),
+   fourthCostCoin: new Decimal("8e5"),
+   fourthProduceCoin: 250,
+
+   fifthOwnedCoin: 0,
+   fifthGeneratedCoin: new Decimal("0"),
+   fifthCostCoin: new Decimal("16e6"),
+   fifthProduceCoin: 2500,
+
+   firstOwnedDiamonds: 0,
+   firstGeneratedDiamonds: new Decimal("0"),
+   firstCostDiamonds: new Decimal("100"),
+   firstProduceDiamonds: 0.05,
+   
+   secondOwnedDiamonds: 0,
+   secondGeneratedDiamonds: new Decimal("0"),
+   secondCostDiamonds: new Decimal("1e5"),
+   secondProduceDiamonds: 0.0005,
+   
+   thirdOwnedDiamonds: 0,
+   thirdGeneratedDiamonds: new Decimal("0"),
+   thirdCostDiamonds: new Decimal("1e15"),
+   thirdProduceDiamonds: 0.00005,
+   
+   fourthOwnedDiamonds: 0,
+   fourthGeneratedDiamonds: new Decimal("0"),
+   fourthCostDiamonds: new Decimal("1e40"),
+   fourthProduceDiamonds: 0.000005,
+   
+   fifthOwnedDiamonds: 0,
+   fifthGeneratedDiamonds: new Decimal("0"),
+   fifthCostDiamonds: new Decimal("1e100"),
+   fifthProduceDiamonds: 0.000005,
+
+   firstOwnedMythos: 0,
+   firstGeneratedMythos: new Decimal("0"),
+   firstCostMythos: new Decimal("1"),
+   firstProduceMythos: 1,
+
+   secondOwnedMythos: 0,
+   secondGeneratedMythos: new Decimal("0"),
+   secondCostMythos: new Decimal("100"),
+   secondProduceMythos: 0.01,
+
+   thirdOwnedMythos: 0,
+   thirdGeneratedMythos: new Decimal("0"),
+   thirdCostMythos: new Decimal("1e4"),
+   thirdProduceMythos: 0.001,
+
+   fourthOwnedMythos: 0,
+   fourthGeneratedMythos: new Decimal("0"),
+   fourthCostMythos: new Decimal("1e8"),
+   fourthProduceMythos: 0.0002,
+
+   fifthOwnedMythos: 0,
+   fifthGeneratedMythos: new Decimal("0"),
+   fifthCostMythos: new Decimal("1e16"),
+   fifthProduceMythos: 0.00004,
+
+   firstOwnedParticles: 0,
+   firstGeneratedParticles: new Decimal("0"),
+   firstCostParticles: new Decimal("1"),
+   firstProduceParticles: .25,
+
+   secondOwnedParticles: 0,
+   secondGeneratedParticles: new Decimal("0"),
+   secondCostParticles: new Decimal("100"),
+   secondProduceParticles: .20,
+   
+   thirdOwnedParticles: 0,
+   thirdGeneratedParticles: new Decimal("0"),
+   thirdCostParticles: new Decimal("1e4"),
+   thirdProduceParticles: .15,
+
+   fourthOwnedParticles: 0,
+   fourthGeneratedParticles: new Decimal("0"),
+   fourthCostParticles: new Decimal("1e8"),
+   fourthProduceParticles: .10,
+
+   fifthOwnedParticles: 0,
+   fifthGeneratedParticles: new Decimal("0"),
+   fifthCostParticles: new Decimal("1e16"),
+   fifthProduceParticles: .5,
+
+   firstOwnedAnts: 0,
+   firstGeneratedAnts: new Decimal("0"),
+   firstCostAnts: new Decimal("1e800"),
+   firstProduceAnts: .0001,
+
+   secondOwnedAnts: 0,
+   secondGeneratedAnts: new Decimal("0"),
+   secondCostAnts: new Decimal("3"),
+   secondProduceAnts: .00005,
+
+   thirdOwnedAnts: 0,
+   thirdGeneratedAnts: new Decimal("0"),
+   thirdCostAnts: new Decimal("100"),
+   thirdProduceAnts: .00002,
+
+   fourthOwnedAnts: 0,
+   fourthGeneratedAnts: new Decimal("0"),
+   fourthCostAnts: new Decimal("1e4"),
+   fourthProduceAnts: .00001,
+
+   fifthOwnedAnts: 0,
+   fifthGeneratedAnts: new Decimal("0"),
+   fifthCostAnts: new Decimal("1e12"),
+   fifthProduceAnts: .000005,
+
+   sixthOwnedAnts: 0,
+   sixthGeneratedAnts: new Decimal("0"),
+   sixthCostAnts: new Decimal("1e36"),
+   sixthProduceAnts: .000002,
+
+   seventhOwnedAnts: 0,
+   seventhGeneratedAnts: new Decimal("0"),
+   seventhCostAnts: new Decimal("1e100"),
+   seventhProduceAnts: .000001,
+
+   eighthOwnedAnts: 0,
+   eighthGeneratedAnts: new Decimal("0"),
+   eighthCostAnts: new Decimal("1e300"),
+   eighthProduceAnts: .00000001,
+
+   ascendBuilding1: {
+	   cost: 1,
+	   owned: 0,
+	   generated: new Decimal("0"),
+	   multiplier: 0.01
+   },
+   ascendBuilding2: {
+	cost: 10,
+	owned: 0,
+	generated: new Decimal("0"),
+	multiplier: 0.01
+},
+ascendBuilding3: {
+	cost: 100,
+	owned: 0,
+	generated: new Decimal("0"),
+	multiplier: 0.01
+},
+ascendBuilding4: {
+	cost: 1000,
+	owned: 0,
+	generated: new Decimal("0"),
+	multiplier: 0.01
+},
+ascendBuilding5: {
+	cost: 10000,
+	owned: 0,
+	generated: new Decimal("0"),
+	multiplier: 0.01
+},
+
+   multiplierCost: new Decimal("1e5"),
+   multiplierBought: 0,
+
+   acceleratorCost: new Decimal("500"),
+   acceleratorBought: 0,
+
+   acceleratorBoostBought: 0,
+   acceleratorBoostCost: new Decimal("1e3"),
+
+   upgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //Coin Upgrades, Ignore First.
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    //Prestige Upgrades
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Transcend Upgrades
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Reincarnation Upgrades
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Automation Upgrades
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,   //Generator Upgrades
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // Post Ascension Upgrades
+   
+
+			   prestigeCount: 0,
+			   transcendCount: 0,
+			   reincarnationCount: 0,
+			  
+			   prestigePoints: new Decimal("0"),
+			   transcendPoints: new Decimal("0"),
+			   reincarnationPoints: new Decimal("0"),
+			  
+			   prestigeShards: new Decimal("0"),
+			   transcendShards: new Decimal("0"),
+			   reincarnationShards: new Decimal("0"),
+			  
+			   toggles: {
+				   one: false,
+				   two: false,
+				   three: false,
+				   four: false,
+				   five: false,
+				   six: false,
+				   seven: false,
+				   eight: false,
+				   nine: false,
+				   ten: false,
+				   eleven: false,
+				   twelve: false,
+				   thirteen: false,
+				   fourteen: false,
+				   fifteen: false,
+				   sixteen: false,
+				   seventeen: false,
+				   eighteen: false,
+				   nineteen: false,
+				   twenty: false,
+				   twentyone: false,
+				   twentytwo: true,
+				   twentythree: true,
+				   twentyfour: true,
+				   twentyfive: true,
+				   twentysix: true,
+				   twentyseven: false,
+				   twentyeight: true,
+				   twentynine: true,
+				   thirty: true,
+				   thirtyone: false,
+				   thirtytwo: false,
+				   thirtythree: false,
+			   },
+			   
+			  resourceGenerators: {
+				  diamonds: false,
+				  mythos: false,
+			  },
+			  
+			  keepUpgrades: {
+				  coinUpgrades: false,
+				  prestigeUpgrades: false,
+				  crystalUpgrades: false,
+				  transcendUpgrades: false,
+				  autobuyers: false,
+				  generators: false
+			  },
+			  
+			  challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			  highestchallengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			  
+			  retrychallenges: false,
+			   currentChallenge: {
+				   transcension: 0,
+				   reincarnation: 0,
+				   ascension: 0,
+			   },
+			  researchPoints: 0,
+			  obtainiumtimer: 0,
+			  obtainiumlocktoggle: false,
+			  obtainiumpersecond: 0,
+			  maxobtainiumpersecond: 0,
+			  maxobtainium: 0,
+			  // Ignore the first index. The other 25 are shaped in a 5x5 grid similar to the production appearance
+			  researches: [0, 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							  	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							  	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+								0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+								0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+								0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+								0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+								0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			  
+			  unlocks: {
+				  coinone: false,
+				  cointwo: false,
+				  cointhree: false,
+				  coinfour: false,
+				  prestige: false,
+				  generation: false,
+				  transcend: false,
+				  reincarnate: false,
+				  rrow1: false,
+				  rrow2: false,
+				  rrow3: false,
+				  rrow4: false
+			  },
+			  achievements: [0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0],
+			  
+			  achievementPoints: 0,
+			  
+			  prestigenomultiplier: true,
+			  prestigenoaccelerator: true,
+			  transcendnomultiplier: true,
+			  transcendnoaccelerator: true,
+			  reincarnatenomultiplier: true,
+			  reincarnatenoaccelerator: true,
+			  prestigenocoinupgrades: true,
+			  transcendnocoinupgrades: true,
+			  transcendnocoinorprestigeupgrades: true,
+			  reincarnatenocoinupgrades: true,
+			  reincarnatenocoinorprestigeupgrades: true,
+			  reincarnatenocoinprestigeortranscendupgrades: true,
+			  reincarnatenocoinprestigetranscendorgeneratorupgrades: true,
+			  
+			  crystalUpgrades: [0,0,0,0,0,0,0,0],
+			  crystalUpgradesCost: [7, 15, 20, 40, 100, 200, 500, 1000],
+			  
+			  runelevels: [1, 1, 1, 1, 1],
+			  runeexp: [0, 0, 0, 0, 0,],
+			  runeshards: 0,
+			  offeringlocktoggle: false,
+			  maxofferings: 0,
+			  offeringpersecond: 0,
+
+			  prestigecounter: 0,
+			  transcendcounter: 0,
+			  reincarnationcounter: 0,
+			  offlinetick: 0,
+			  
+			  prestigeamount: 0,
+			  transcendamount: 0,
+			  reincarnationamount: 0,
+			  
+			  fastestprestige: 9999999999,
+			  fastesttranscend: 99999999999,
+			  fastestreincarnate: 999999999999,
+			  
+			  resettoggle1: 1,
+			  resettoggle2: 1,
+			  resettoggle3: 1,
+			  
+			  coinbuyamount: 1,
+			  crystalbuyamount: 1,
+			  mythosbuyamount: 1,
+			  particlebuyamount: 1,
+			  offeringbuyamount: 1,
+			  tesseractbuyamount: 1,
+			  
+			  
+			  shoptoggles: {
+				  coin: true,
+				  prestige: true,
+				  transcend: true,
+				  generators: true,
+				  reincarnate: true,
+			  },
+			  tabnumber: 1,
+			  
+	// create a Map with keys defaulting to false
+	codes: new Map(
+		Array.from(Array(24), (_, i) => [i + 1, false])
+	),
+
+			  loaded1009: true,
+			  loaded1009hotfix1: true,
+			  loaded10091: true,
+			  loaded1010: true,
+			  loaded10101: true,
+
+			  shopUpgrades: {
+				  offeringPotion: 1,
+				  obtainiumPotion: 1,
+				  offeringTimerLevel: 0,
+				  obtainiumTimerLevel: 0,
+				  offeringAutoLevel: 0,
+				  obtainiumAutoLevel: 0,
+				  instantChallengeBought: false,
+				  cashGrabLevel: 0,
+				  antSpeedLevel: 0,
+				  talismanBought: false,
+			  },
+			  autoSacrificeToggle: false,
+			  autoResearchToggle: false,
+			  autoResearch: 0,
+			  autoSacrifice: 0,
+			  sacrificeTimer: 0,
+			  quarkstimer: 90000,
+
+			  antPoints: new Decimal("1"),
+			  antUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			  antSacrificePoints: 0,
+			  antSacrificeTimer: 900,
+
+			  talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
+			  talismanRarity: [null, 1, 1, 1, 1, 1, 1, 1],
+			  talismanOne: [null, -1, 1, 1, 1, -1],
+			  talismanTwo: [null, 1, 1, -1, -1, 1],
+			  talismanThree: [null, 1, -1, 1, 1, -1],
+			  talismanFour: [null, -1, -1, 1, 1, 1],
+			  talismanFive: [null, 1, 1, -1, -1, 1],
+			  talismanSix: [null, 1, 1, 1, -1, -1],
+			  talismanSeven: [null, -1, 1, -1, 1, 1],
+			  talismanShards: 0,
+			  commonFragments: 0,
+			  uncommonFragments: 0,
+			  rareFragments: 0,
+			  epicFragments: 0,
+			  legendaryFragments: 0,
+			  mythicalFragments: 0,
+
+			  buyTalismanShardPercent: 10,
+
+			  autoAntSacrifice: false,
+			  antMax: false,
+
+			  ascensionCount: 0,
+			  ascensionCounter: 0,
+			  cubeUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+										   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+										   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+										   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+										   0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			  wowCubes: 0,
+			  wowTesseracts: 0,
+			  wowHypercubes: 0,
+			  cubeBlessings: {
+				  accelerator: 0,
+				  multiplier: 0,
+				  offering: 0,
+				  runeExp: 0,
+				  obtainium: 0,
+				  antSpeed: 0,
+				  antSacrifice: 0,
+				  antELO: 0,
+				  talismanBonus: 0,
+				  globalSpeed: 0
+			  },
+			  tesseractBlessings: {
+				accelerator: 0,
+				multiplier: 0,
+				offering: 0,
+				runeExp: 0,
+				obtainium: 0,
+				antSpeed: 0,
+				antSacrifice: 0,
+				antELO: 0,
+				talismanBonus: 0,
+				globalSpeed: 0
+			  },
+			  hypercubeBlessings: {
+				accelerator: 0,
+				multiplier: 0,
+				offering: 0,
+				runeExp: 0,
+				obtainium: 0,
+				antSpeed: 0,
+				antSacrifice: 0,
+				antELO: 0,
+				talismanBonus: 0,
+				globalSpeed: 0
+			  },
+			  ascendShards: new Decimal("0"),
+			  autoAscend: false,
+			  autoAscendMode: "c10Completions",
+			  autoAscendThreshold: 1,
+			  roombaResearchIndex: 0,
+			  cubesThisAscension : {"challenges":0, "reincarnation": 0, "ascension": 0, "maxCubesPerSec": 0, "maxAllTime": 0, "cpsOnC10Comp": 0, "tesseracts": 0, "hypercubes": 0},
+
+			  prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			  usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+			  constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			  history: {},
+			  historyCountMax: 10,
+			  historyShowPerSecond: false,
+
+			  autoChallengeRunning: false,
+			  autoChallengeIndex: 1,
+			  autoChallengeToggles: [false, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false],
+			  autoChallengeStartExponent: 10,
+			  autoChallengeTimer: {
+				  start: 10,
+				  exit: 2,
+				  enter: 2
+			  },
+
+			  runeBlessingLevels: [0, 0, 0, 0, 0, 0],
+			  runeSpiritLevels: [0, 0, 0, 0, 0, 0],
+			  runeBlessingBuyAmount: 0,
+			  runeSpiritBuyAmount: 0,
+
+			  brokenfile1: false,
+			  exporttest: "YES!",
+			  kongregatetest: "NO!",
+
+	[Symbol.for('version')] : '1.0101'
 }
 
 /**
@@ -917,6 +909,13 @@ function loadSynergy() {
             }
         }
 
+	if (data.history === undefined || player.history === undefined) {
+		player.history = {};
+	}
+	if (data.historyShowPerSecond === undefined || player.historyShowPerSecond === undefined) {
+		player.historyShowPerSecond = false;
+		player.historyCountMax = 10;
+	}
         if (player.currentChallenge.transcension === undefined) {
             player.currentChallenge = {
                 transcension: 0,
@@ -1139,6 +1138,17 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         }
 
 
+document.getElementById("historyTogglePerSecondButton").textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
+document.getElementById("historyTogglePerSecondButton").style.borderColor = (player.historyShowPerSecond ? "green" : "red");
+
+if (!player.autoAscend){document.getElementById("ascensionAutoEnable").textContent = "Auto Ascend [OFF]"; document.getElementById("ascensionAutoEnable").style.border = "2px solid red"}
+
+
+for(var i = 1; i<=2; i++){
+	toggleAntMaxBuy()
+	toggleAntAutoSacrifice()
+}
+
         player.autoResearch = Math.min(200, player.autoResearch)
         player.autoSacrifice = Math.min(5, player.autoSacrifice)
 
@@ -1299,19 +1309,19 @@ function format(input, accuracy, long) {
 }
 
 function formatTimeShort(seconds, msMaxSeconds) {
-    return ((seconds >= 86400)
-        ? format(Math.floor(seconds / 86400)) + "d"
-        : '') +
-        ((seconds >= 3600)
-            ? format(Math.floor(seconds / 3600) % 24) + "h"
-            : '') +
-        ((seconds >= 60)
-            ? format(Math.floor(seconds / 60) % 60) + "m"
-            : '') +
-        format(Math.floor(seconds) % 60) +
-        ((msMaxSeconds && seconds < msMaxSeconds)
-            ? "." + format(Math.floor((seconds % 1) * 1000))
-            : '') + "s";
+	return ((seconds >= 86400)
+		? format(Math.floor(seconds / 86400)) + "d"
+		: '') +
+		((seconds >= 3600)
+			? format(Math.floor(seconds / 3600) % 24) + "h"
+			: '') +
+		((seconds >= 60)
+			? format(Math.floor(seconds/60) % 60) + "m"
+			: '') +
+		format(Math.floor(seconds) % 60) +
+		((msMaxSeconds && seconds < msMaxSeconds)
+			? "." + (Math.floor((seconds % 1) * 1000).toString().padStart(3, '0'))
+			: '') + "s";
 }
 
 function updateCubesPerSec() {

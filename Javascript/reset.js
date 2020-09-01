@@ -412,110 +412,106 @@ function reset(i, fast, from) {
 
     }
 
+    if(i > 3.5){
+    // reset other stuff
+    historyCategory = "ascend";
+    historyKind = "ascend";
+    // When ascending, log ascend history while in trans/reinc challenges, or if this ascension took longer than 1min
+    historyUse = player.currentChallenge.ascension === 0 || player.ascensionCounter > 60;
+    delete historyEntry.offerings;
+    delete historyEntry.obtainium;
+    delete historyEntry.particles;
+    historyEntry.seconds = player.ascensionCounter;
+    historyEntry.c10Completions = player.challengecompletions[10];
+    // get a copy of the array, not the actual array itself
+    historyEntry.usedCorruptions = player.usedCorruptions.slice(0);
+    historyEntry.corruptionScore = calculateCorruptionPoints();
+    // The value in player.cubesThisAscension isn't updated yet, we need the new value for that, but the current ones
+    // for the others, so we calculate it here
+    const cubesThisAscend = 100/100 * calculateCubeMultiplier() * 250;
+    historyEntry.wowCubes = cubesThisAscend + player.cubesThisAscension.challenges + player.cubesThisAscension.reincarnation;
+    historyEntry.wowCubesAscend = cubesThisAscend;
+    historyEntry.wowCubesChallenge = player.cubesThisAscension.challenges;
+    historyEntry.wowCubesReincarnate = player.cubesThisAscension.reincarnation;
+    historyEntry.wowCubesCpsAtC10 = player.cubesThisAscension.cpsOnC10Comp;
+    historyEntry.wowTesseracts = player.cubesThisAscension.tesseracts;
+    historyEntry.wowHypercubes = player.cubesThisAscension.hypercubes;
+    // reset auto challenges
+    player.currentChallenge.transcension = 0;
+    player.currentChallenge.reincarnation = 0;
+    player.autoChallengeIndex = 1;
+    autoChallengeTimerIncrement = 0;
+    //reset rest
+    resetResearches();
+    resetAnts();
+    resetTalismans();
+    player.reincarnationPoints = new Decimal("0");
+    player.reincarnationShards = new Decimal("0");
+    player.obtainiumpersecond = 0;
+    player.maxobtainiumpersecond = 0;
+    player.offeringpersecond = 0;
+    player.antPoints = new Decimal("0");
+    player.antSacrificePoints = 0;
+    player.antSacrificeTimer = 0;
+    player.antUpgrades[12] = 0;
+    for(var j = 61; j <= 80; j++){
+        player.upgrades[j] = 0;
+    }
+    for(var j = 94; j <= 100; j++){
+        player.upgrades[j] = 0;
+    }
+    player.firstOwnedParticles = 0;
+    player.secondOwnedParticles = 0;
+    player.thirdOwnedParticles = 0;
+    player.fourthOwnedParticles = 0;
+    player.fifthOwnedParticles = 0;
+    player.firstCostParticles = new Decimal("1");
+    player.secondCostParticles = new Decimal("100");
+    player.thirdCostParticles = new Decimal("1e4");
+    player.fourthCostParticles = new Decimal("1e8");
+    player.fifthCostParticles = new Decimal("1e16");
+    player.runeexp = [0,0,0,0,0];
+    player.runelevels = [0,0,0,0,0];
+    player.runeshards = 0;
+    player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0];
 
-    if (i > 3.5) {
-        // reset other stuff
-        historyCategory = "ascend";
-        historyKind = "ascend";
-        // When ascending, log ascend history while in trans/reinc challenges, or if this ascension took longer than 1min
-        historyUse = player.currentChallenge.ascension === 0 || player.ascensionCounter > 60;
-        delete historyEntry.offerings;
-        delete historyEntry.obtainium;
-        delete historyEntry.particles;
-        historyEntry.seconds = player.ascensionCounter;
-        historyEntry.c10Completions = player.challengecompletions[10];
-        // get a copy of the array, not the actual array itself
-        historyEntry.usedCorruptions = player.usedCorruptions.slice(0);
-        historyEntry.corruptionScore = calculateCorruptionPoints();
-        // The value in player.cubesThisAscension isn't updated yet, we need the new value for that, but the current ones
-        // for the others, so we calculate it here
-        const cubesThisAscend = 100 / 100 * calculateCubeMultiplier() * 250;
-        historyEntry.wowCubes = cubesThisAscend + player.cubesThisAscension.challenges + player.cubesThisAscension.reincarnation;
-        historyEntry.wowCubesAscend = cubesThisAscend;
-        historyEntry.wowCubesChallenge = player.cubesThisAscension.challenges;
-        historyEntry.wowCubesReincarnate = player.cubesThisAscension.reincarnation;
-        historyEntry.wowCubesCps = player.cubesThisAscension.maxCubesPerSec;
-        historyEntry.wowCubesCpsAtC10 = player.cubesThisAscension.cpsOnC10Comp;
-        historyEntry.wowTesseracts = player.cubesThisAscension.tesseracts;
-        historyEntry.wowHypercubes = player.cubesThisAscension.hypercubes;
-        // reset auto challenges
-        player.currentChallenge.transcension = 0;
-        player.currentChallenge.reincarnation = 0;
-        player.autoChallengeIndex = 1;
-        autoChallengeTimerIncrement = 0;
-        //reset rest
-        resetResearches();
-        resetAnts();
-        resetTalismans();
-        player.reincarnationPoints = new Decimal("0");
-        player.reincarnationShards = new Decimal("0");
-        player.obtainiumpersecond = 0;
-        player.maxobtainiumpersecond = 0;
-        player.offeringpersecond = 0;
-        player.antPoints = new Decimal("0");
-        player.antSacrificePoints = 0;
-        player.antSacrificeTimer = 0;
-        player.antUpgrades[12] = 0;
-        for (let j = 61; j <= 80; j++) {
-            player.upgrades[j] = 0;
-        }
-        for (let j = 94; j <= 100; j++) {
-            player.upgrades[j] = 0;
-        }
-        player.firstOwnedParticles = 0;
-        player.secondOwnedParticles = 0;
-        player.thirdOwnedParticles = 0;
-        player.fourthOwnedParticles = 0;
-        player.fifthOwnedParticles = 0;
-        player.firstCostParticles = new Decimal("1");
-        player.secondCostParticles = new Decimal("100");
-        player.thirdCostParticles = new Decimal("1e4");
-        player.fourthCostParticles = new Decimal("1e8");
-        player.fifthCostParticles = new Decimal("1e16");
-        player.runeexp = [0, 0, 0, 0, 0];
-        player.runelevels = [0, 0, 0, 0, 0];
-        player.runeshards = 0;
-        player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0];
+    player.runelevels[0] = 3 * player.cubeUpgrades[26];
+    player.runelevels[1] = 3 * player.cubeUpgrades[26];
+    player.runelevels[2] = 3 * player.cubeUpgrades[26];
+    player.runelevels[3] = 3 * player.cubeUpgrades[26];
+    player.runelevels[4] = 3 * player.cubeUpgrades[26];
 
-        player.runelevels[0] = 3 * player.cubeUpgrades[26];
-        player.runelevels[1] = 3 * player.cubeUpgrades[26];
-        player.runelevels[2] = 3 * player.cubeUpgrades[26];
-        player.runelevels[3] = 3 * player.cubeUpgrades[26];
-        player.runelevels[4] = 3 * player.cubeUpgrades[26];
+    if(player.cubeUpgrades[27] == 1){
+    player.firstOwnedParticles = 1;
+    player.secondOwnedParticles = 1;
+    player.thirdOwnedParticles = 1;
+    player.fourthOwnedParticles = 1;
+    player.fifthOwnedParticles = 1;
+    }
 
-        if (player.cubeUpgrades[27] === 1) {
-            player.firstOwnedParticles = 1;
-            player.secondOwnedParticles = 1;
-            player.thirdOwnedParticles = 1;
-            player.fourthOwnedParticles = 1;
-            player.fifthOwnedParticles = 1;
-        }
+    if(player.currentChallenge.ascension !== 14){
+    player.researchPoints = 1000 * player.cubeUpgrades[28]
+    }
+    player.researches[65] = Math.min(5, player.cubeUpgrades[42])
+    player.researches[76] = player.cubeUpgrades[42]
+    player.researches[81] = player.cubeUpgrades[43]
 
-        if (player.currentChallenge.ascension !== 14) {
-            player.researchPoints = 1000 * player.cubeUpgrades[28]
-        }
-        player.researches[65] = Math.min(5, player.cubeUpgrades[42])
-        player.researches[76] = player.cubeUpgrades[42]
-        player.researches[81] = player.cubeUpgrades[43]
+    player.reincarnationcounter = 3 * player.cubeUpgrades[46]
 
-        player.reincarnationcounter = 3 * player.cubeUpgrades[46]
+    if(player.cubeUpgrades[48] > 0){player.firstOwnedAnts += 1}
 
-        if (player.cubeUpgrades[48] > 0) {
-            player.firstOwnedAnts += 1
-        }
+    if(player.challengecompletions[10] > 0){
+        player.wowCubes += 100/100 * calculateCubeMultiplier() * 250;
+    }
 
-        if (player.challengecompletions[10] > 0) {
-            player.wowCubes += 100 / 100 * calculateCubeMultiplier() * 250;
-        }
+    for(var j = 1; j <= 10; j++){
+    player.challengecompletions[j] = 0;
+    player.highestchallengecompletions[j] = 0;
+    }
 
-        for (let j = 1; j <= 10; j++) {
-            player.challengecompletions[j] = 0;
-            player.highestchallengecompletions[j] = 0;
-        }
-
-        player.challengecompletions[6] = player.highestchallengecompletions[6] = player.cubeUpgrades[49]
-        player.challengecompletions[7] = player.highestchallengecompletions[7] = player.cubeUpgrades[49]
-        player.challengecompletions[8] = player.highestchallengecompletions[8] = player.cubeUpgrades[49]
+    player.challengecompletions[6] = player.highestchallengecompletions[6] = player.cubeUpgrades[49]
+    player.challengecompletions[7] = player.highestchallengecompletions[7] = player.cubeUpgrades[49]
+    player.challengecompletions[8] = player.highestchallengecompletions[8] = player.cubeUpgrades[49]
 
         player.roombaResearchIndex = 0;
         player.autoResearch = 1;
