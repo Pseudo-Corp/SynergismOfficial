@@ -635,7 +635,7 @@ function htmlInserts() {
 
         if (runescreen === "talismans") {
             for (let i = 1; i <= 7; i++) {
-				        document.getElementById('talisman'+i+'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * player.challengecompletions[13] + Math.floor(player.researches[200]/100))
+                document.getElementById('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * player.challengecompletions[13] + Math.floor(player.researches[200] / 100))
             }
         }
 

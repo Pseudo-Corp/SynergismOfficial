@@ -2,7 +2,7 @@ function buyGenerator(i, state) {
     if (i === 1 && player.prestigePoints.greaterThanOrEqualTo(1e12) && player.unlocks.generation === false) {
         player.unlocks.generation = true
     }
-    var q = 100 + i
+    let q = 100 + i
     let type = "transcendPoints"
     if (q <= 110 && q >= 106) {
         type = "coins"
@@ -10,8 +10,8 @@ function buyGenerator(i, state) {
         type = "prestigePoints"
     }
 
-    var cost = Decimal.pow(10, upgradeCosts[q])
-    var achievementCheck = Math.max(player.upgrades[101], player.upgrades[102], player.upgrades[103], player.upgrades[104], player.upgrades[105])
+    let cost = Decimal.pow(10, upgradeCosts[q])
+    let achievementCheck = Math.max(player.upgrades[101], player.upgrades[102], player.upgrades[103], player.upgrades[104], player.upgrades[105])
 
     if (player.upgrades[q] === 0 && player[type].greaterThanOrEqualTo(cost)) {
 

@@ -31,7 +31,7 @@ function exportSynergism() {
 }
 
 const resetGame = () => {
-    if(blank_save) {
+    if (blank_save) {
         const hold = blank_save;
         hold.codes = toStringMap(hold.codes);
 

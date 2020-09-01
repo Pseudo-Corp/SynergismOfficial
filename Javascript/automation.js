@@ -10,8 +10,8 @@ function buyGenerator(i, state, auto) {
         type = "prestigePoints"
     }
 
-    var cost = Decimal.pow(10, upgradeCosts[q])
-    var achievementCheck = Math.max(player.upgrades[101], player.upgrades[102], player.upgrades[103], player.upgrades[104], player.upgrades[105])
+    let cost = Decimal.pow(10, upgradeCosts[q])
+    let achievementCheck = Math.max(player.upgrades[101], player.upgrades[102], player.upgrades[103], player.upgrades[104], player.upgrades[105])
 
     if (player.upgrades[q] === 0 && player[type].greaterThanOrEqualTo(cost)) {
         if (achievementCheck === 0) {

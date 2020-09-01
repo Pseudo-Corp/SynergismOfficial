@@ -1,11 +1,13 @@
-function openHypercube(value,max){
+function openHypercube(value, max) {
     max = max || false
     let num = 0;
     let toSpend = Math.min(player.wowHypercubes, value)
-    if(max){toSpend = player.wowHypercubes}
-    
+    if (max) {
+        toSpend = player.wowHypercubes
+    }
+
     player.wowHypercubes -= toSpend
-    
+
     let toSpendModulo = toSpend % 20
     let toSpendDiv20 = Math.floor(toSpend / 20)
     let blessings = {
@@ -20,7 +22,7 @@ function openHypercube(value,max){
         talismanBonus:  {weight:1, pdf:(x) => {return 90 < x && x <= 95}},
         globalSpeed:    {weight:1, pdf:(x) => {return 95 < x && x <= 100}}
     }
-    
+
     //If you're opening more than 20 Hypercubes, it will consume all Hypercubes until remainder mod 20, giving expected values.
     for (let key of Object.keys(player.hypercubeBlessings)) {
         player.hypercubeBlessings[key] += blessings[key].weight * toSpendDiv20;
@@ -33,28 +35,32 @@ function openHypercube(value,max){
                 player.hypercubeBlessings[key] += 1;
         }
     }
-        calculateHypercubeBlessings();
-        let extraTesseractBlessings = 0
-        player.wowTesseracts += extraTesseractBlessings
-        openTesseract(extraTesseractBlessings, false)
-    }
+    calculateHypercubeBlessings();
+    let extraTesseractBlessings = 0
+    player.wowTesseracts += extraTesseractBlessings
+    openTesseract(extraTesseractBlessings, false)
+}
 
-function calculateHypercubeBlessings(){
+function calculateHypercubeBlessings() {
 
-    document.getElementById("hypercubeQuantity").textContent = format(player.wowHypercubes,0,true)
-    
-        let hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
-    
-        let accuracy = [null,2,2,2,2,2,2,2,2,2,2]
-        for(var i = 1; i <= 10; i++){
+    document.getElementById("hypercubeQuantity").textContent = format(player.wowHypercubes, 0, true)
+
+    let hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
+
+    let accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+    for (let i = 1; i <= 10; i++) {
         let power = 1;
         let mult = 1;
         let augmentAccuracy = 0;
-        if(hypercubeArray[i] >= 10){power = benedictionDRPower[i]; mult *= Math.pow(10, (1 - benedictionDRPower[i])); augmentAccuracy += 2;}
-    
-        hypercubeBonusMultiplier[i] = 1 + mult * benedictionbase[i] * Math.pow(hypercubeArray[i], power);
-    
-        document.getElementById("hypercubeBlessing"+i+"Amount").textContent = "x"+format(hypercubeArray[i],0,true)
-        document.getElementById("hypercubeBlessing"+i+"Effect").textContent = "+"+format(100*(hypercubeBonusMultiplier[i] - 1),accuracy[i] + augmentAccuracy,true) + "%"
+        if (hypercubeArray[i] >= 10) {
+            power = benedictionDRPower[i];
+            mult *= Math.pow(10, (1 - benedictionDRPower[i]));
+            augmentAccuracy += 2;
         }
+
+        hypercubeBonusMultiplier[i] = 1 + mult * benedictionbase[i] * Math.pow(hypercubeArray[i], power);
+
+        document.getElementById("hypercubeBlessing" + i + "Amount").textContent = "x" + format(hypercubeArray[i], 0, true)
+        document.getElementById("hypercubeBlessing" + i + "Effect").textContent = "+" + format(100 * (hypercubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true) + "%"
+    }
 }

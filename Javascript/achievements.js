@@ -449,7 +449,7 @@ function resetachievementcheck(i) {
 
 
 function challengeachievementcheck(i, auto) {
-    var generatorcheck = Math.max(player.upgrades[101] + player.upgrades[102] + player.upgrades[103] + player.upgrades[104] + player.upgrades[105])
+    let generatorcheck = Math.max(player.upgrades[101] + player.upgrades[102] + player.upgrades[103] + player.upgrades[104] + player.upgrades[105])
     if (i === 1) {
         if (player.challengecompletions[1] > 0.5) {
             achievementaward(78)
@@ -811,12 +811,12 @@ function buildingAchievementCheck() {
 }
 
 function achievementdescriptions(i) {
-    var x = "adesc" + i
-    var y = window[x]
-    var z = ""
-    var k = ""
+    let x = "adesc" + i
+    let y = window[x]
+    let z = ""
+    let k = ""
 
-    var j = "areward" + i
+    let j = "areward" + i
     k = window[j]
     if (k === undefined) {
         k = ""
@@ -842,7 +842,7 @@ function achievementaward(num) {
         player.achievements[num] = 1;
         revealStuff()
     }
-    var x = "ach" + num
+    let x = "ach" + num
     document.getElementById(x).style.backgroundColor = "Green"
 }
 

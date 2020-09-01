@@ -327,7 +327,7 @@ function toggleAutoSacrifice(index) {
                 break;
         }
     }
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         if (player.autoSacrifice === i) {
             document.getElementById("rune" + i).style.backgroundColor = "orange"
         } else {

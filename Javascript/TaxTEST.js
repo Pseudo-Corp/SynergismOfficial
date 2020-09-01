@@ -36,9 +36,9 @@ function calculatetax(fast) {
     if (player.currentChallenge.reincarnation === 9) {
         e = 0.005
     }
-     //im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236 
-    if (player.currentChallenge.ascension === 13){
-        e *= 100 * (1 + 1/2 * player.challengecompletions[13])
+    //im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
+    if (player.currentChallenge.ascension === 13) {
+        e *= 100 * (1 + 1 / 2 * player.challengecompletions[13])
         e *= Math.pow(1.2, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[14] - player.challengecompletions[15] - 9 - 3 * player.cubeUpgrades[49]))
     }
     if (player.challengecompletions[6] > 0) {
@@ -57,7 +57,7 @@ function calculatetax(fast) {
     exponent *= (0.01 + Math.pow(0.98, player.antUpgrades[3] + bonusant3 + .497))
     exponent *= 1 / (1 + Decimal.log(player.ascendShards.add(1), 10))
     exponent *= (1 - 0.10 * (player.talismanRarity[1] - 1))
-    exponent *= Math.pow(0.98, 3/5 * Math.log(1 + player.rareFragments)/Math.log(10))
+    exponent *= Math.pow(0.98, 3 / 5 * Math.log(1 + player.rareFragments) / Math.log(10))
     maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1
     a = Math.min(maxexponent, Math.floor(Decimal.log(produceTotal.add(1), 10)));
 

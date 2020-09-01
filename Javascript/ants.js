@@ -227,14 +227,14 @@ function buyAntProducers(pos, type, originalCost, index) {
         tag = "antPoints"
     }
 
-    var buyTo = player[pos + "Owned" + type] + 1;
-    var cashToBuy = getAntCost(originalCost, buyTo, type, index);
+    let buyTo = player[pos + "Owned" + type] + 1;
+    let cashToBuy = getAntCost(originalCost, buyTo, type, index);
     while (player[tag].greaterThanOrEqualTo(cashToBuy)) {
         // Multiply by 4 until the desired amount. Iterate from there
         buyTo = buyTo * 4;
         cashToBuy = getAntCost(originalCost, buyTo, type, index);
     }
-    var stepdown = Math.floor(buyTo / 8);
+    let stepdown = Math.floor(buyTo / 8);
     while (stepdown !== 0) {
         if (getAntCost(originalCost, buyTo - stepdown, type, index).lessThanOrEqualTo(player[tag])) {
             stepdown = Math.floor(stepdown / 2);
@@ -249,8 +249,8 @@ function buyAntProducers(pos, type, originalCost, index) {
         }
     }
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-    var buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
-    var thisCost = getAntCost(originalCost, buyFrom, type, index);
+    let buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
+    let thisCost = getAntCost(originalCost, buyFrom, type, index);
     while (buyFrom <= buyTo && player[tag].greaterThanOrEqualTo(getAntCost(originalCost, buyFrom, type, index))) {
         player[tag] = player[tag].sub(thisCost);
         player[pos + 'Owned' + type] = buyFrom;
@@ -301,14 +301,14 @@ function getAntUpgradeCost(originalCost, buyTo, index) {
 function buyAntUpgrade(originalCost, auto, index) {
     if (player.currentChallenge.ascension !== 11) {
         originalCost = new Decimal(originalCost);
-        var buyTo = 1 + player.antUpgrades[index];
-        var cashToBuy = getAntUpgradeCost(originalCost, buyTo, index);
+        let buyTo = 1 + player.antUpgrades[index];
+        let cashToBuy = getAntUpgradeCost(originalCost, buyTo, index);
         while (player.antPoints.greaterThanOrEqualTo(cashToBuy)) {
             // Multiply by 4 until the desired amount. Iterate from there
             buyTo = buyTo * 4;
             cashToBuy = getAntUpgradeCost(originalCost, buyTo, index);
         }
-        var stepdown = Math.floor(buyTo / 8);
+        let stepdown = Math.floor(buyTo / 8);
         while (stepdown !== 0) {
             if (getAntUpgradeCost(originalCost, buyTo - stepdown, index).lessThanOrEqualTo(player.antPoints)) {
                 stepdown = Math.floor(stepdown / 2);
@@ -322,8 +322,8 @@ function buyAntUpgrade(originalCost, auto, index) {
             }
         }
         // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-        var buyFrom = Math.max(buyTo - 7, 1 + player.antUpgrades[index]);
-        var thisCost = getAntUpgradeCost(originalCost, buyFrom, index);
+        let buyFrom = Math.max(buyTo - 7, 1 + player.antUpgrades[index]);
+        let thisCost = getAntUpgradeCost(originalCost, buyFrom, index);
         while (buyFrom <= buyTo && player.antPoints.greaterThanOrEqualTo(thisCost)) {
             player.antPoints = player.antPoints.sub(thisCost);
             player.antUpgrades[index] = buyFrom;

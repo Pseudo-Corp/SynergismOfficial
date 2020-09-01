@@ -357,7 +357,7 @@ function respecTalismanConfirm(i) {
     } else if (player.runeshards >= 400000 && i === 8) {
         player.runeshards -= 400000
         for (let j = 1; j <= 7; j++) {
-            for (var k = 1; k <= 5; k++) {
+            for (let k = 1; k <= 5; k++) {
                 player["talisman" + num[j]][k] = mirrorTalismanStats[k];
             }
         }
