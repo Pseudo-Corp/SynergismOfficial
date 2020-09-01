@@ -1,55 +1,57 @@
-function openCube(value,max){
-max = max || false
-let num = 0;
-let toSpend = Math.min(player.wowCubes, value)
-if(max){toSpend = player.wowCubes}
+function openCube(value, max) {
+    max = max || false
+    let toSpend = max ? player.wowCubes : Math.min(player.wowCubes, value)
 
-player.wowCubes -= toSpend
+    player.wowCubes -= toSpend
 
-toSpend *= (1 + player.researches[138]/1000)
-toSpend = Math.floor(toSpend)
-let toSpendModulo = toSpend % 20
-let toSpendDiv20 = Math.floor(toSpend / 20)
+    toSpend *= (1 + player.researches[138] / 1000)
+    toSpend *= (1 + 0.8 * player.researches[168] / 1000)
+    toSpend *= (1 + 0.6 * player.researches[198] / 1000)
+    toSpend = Math.floor(toSpend)
+    let toSpendModulo = toSpend % 20
+    let toSpendDiv20 = Math.floor(toSpend / 20)
+    let blessings = {
+        accelerator:    {weight:4, pdf:(x) => {0 <= x && x <= 20}},
+        multiplier:     {weight:4, pdf:(x) => {20 < x && x <= 40}},
+        offering:       {weight:2, pdf:(x) => {40 < x && x <= 50}},
+        runeExp:        {weight:2, pdf:(x) => {50 < x && x <= 60}},
+        obtainium:      {weight:2, pdf:(x) => {60 < x && x <= 70}},
+        antSpeed:       {weight:2, pdf:(x) => {70 < x && x <= 80}},
+        antSacrifice:   {weight:1, pdf:(x) => {80 < x && x <= 85}},
+        antELO:         {weight:1, pdf:(x) => {85 < x && x <= 90}},
+        talismanBonus:  {weight:1, pdf:(x) => {90 < x && x <= 95}},
+        globalSpeed:    {weight:1, pdf:(x) => {95 < x && x <= 100}}
+    }
 
-let upgrade13 = 0;
+    if (toSpendDiv20 > 0 && player.cubeUpgrades[13] == 1) {
+        toSpendModulo += toSpendDiv20
+    }
+    if (toSpendDiv20 > 0 && player.cubeUpgrades[23] == 1) {
+        toSpendModulo += toSpendDiv20
+    }
+    if (toSpendDiv20 > 0 && player.cubeUpgrades[33] == 1) {
+        toSpendModulo += toSpendDiv20
+    }
 
-if(toSpendDiv20 > 0 && player.cubeUpgrades[13] == 1){toSpendModulo += toSpendDiv20}
-if(toSpendDiv20 > 0 && player.cubeUpgrades[23] == 1){toSpendModulo += toSpendDiv20}
-if(toSpendDiv20 > 0 && player.cubeUpgrades[33] == 1){toSpendModulo += toSpendDiv20}
 
-
-
-toSpendDiv20 += 100/100 * Math.floor(toSpendModulo/20);
-toSpendModulo = toSpendModulo % 20;
-
+    toSpendDiv20 += 100 / 100 * Math.floor(toSpendModulo / 20);
+    toSpendModulo = toSpendModulo % 20;
 
 //If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
-    player.cubeBlessings.accelerator += 4 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
-    player.cubeBlessings.multiplier += 4 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
-    player.cubeBlessings.offering += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
-    player.cubeBlessings.runeExp += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
-    player.cubeBlessings.obtainium += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
-    player.cubeBlessings.antSpeed += 2 * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
-    player.cubeBlessings.antSacrifice += toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
-    player.cubeBlessings.antELO += toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
-    player.cubeBlessings.talismanBonus += toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
-    player.cubeBlessings.globalSpeed += toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    for (let key of Object.keys(player.cubeBlessings)) {
+        player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+    }
+
 //Then, the remaining cubes will be opened, simulating the probability [RNG Element]
-    for (var i = 1; i <= toSpendModulo; i++){
-        num = 100 * Math.random();
-        if(num >= 95){player.cubeBlessings.globalSpeed += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
-        else if(num >= 90){player.cubeBlessings.talismanBonus += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
-        else if(num >= 85){player.cubeBlessings.antELO += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
-        else if(num >= 80){player.cubeBlessings.antSacrifice += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
-        else if(num >= 70){player.cubeBlessings.antSpeed += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
-        else if(num >= 60){player.cubeBlessings.obtainium += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
-        else if(num >= 50){player.cubeBlessings.runeExp += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
-        else if(num >= 40){player.cubeBlessings.offering += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
-        else if(num >= 20){player.cubeBlessings.multiplier += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
-        else{player.cubeBlessings.accelerator += 1 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12])}
+    for (let i = 0; i<= toSpendModulo; i++) {
+        let num = 100 * Math.random();
+        for (let key of Object.keys(player.cubeBlessings)) {
+            if (blessings[key].pdf(num))
+                player.cubeBlessings[key] += (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+        }
     }
     calculateCubeBlessings();
-}       
+}
 
 const cubeUpgradeName = [null,
 function(){return "Wow! I want more Cubes."},
@@ -115,7 +117,7 @@ const cubeMaxLevel = [null,
     3, 5, 1, 10, 10, 10, 5, 1, 1, 1,
     4, 10, 1, 10, 10, 10, 1, 1, 5, 1,
     5, 1, 1, 10, 10, 5, 10, 3, 3, 1,
-    6, 10, 10, 10, 10, 20, 20, 1, 1, 1000000]
+    6, 10, 10, 10, 10, 20, 20, 1, 1, 100000]
 
 const cubeUpgradeDescriptions = [null,
 function(){return "You got it! +1 cube from challenges, +10% cubes from Ascending."},
@@ -167,7 +169,7 @@ function(){return "All reincarnations start out with 3 additional seconds per le
 function(){return "Gain +10% more obtainium per level!"},
 function(){return "When you ascend, start with 1 worker ant (this is a lot better than it sounds!)"},
 function(){return "When you ascend, gain 1 of each challenge 6-8 completion, with +15 cubes to compensate."},
-function(){return "What doesn't this boost? +0.03% Accelerators, Multipliers, Accelerator Boosts, +0.1% Obtainium, +0.1% Offerings, +2 Max Rune Levels, +3 Effective ELO, +0.001 Talisman bonuses per level."}]
+function(){return "What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.1% Obtainium, +0.1% Offerings, +2 Max Rune Levels, +3 Effective ELO, +0.001 Talisman bonuses per level."}]
 
 function getCubeBuyAmount(i){
     let amountToBuy = 0;
