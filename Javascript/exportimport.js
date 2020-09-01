@@ -30,6 +30,18 @@ function exportSynergism() {
     document.getElementById("exportinfo").textContent = "Savefile copied to file!"
 }
 
+const resetGame = () => {
+    if(blank_save) {
+        const hold = blank_save;
+        hold.codes = toStringMap(hold.codes);
+
+        importSynergism(btoa(JSON.stringify(blank_save)));
+    } else {
+        // handle this here
+        // idk lol
+    }
+}
+
 function importSynergism(input) {
     const d = LZString.decompressFromBase64(input);
     const f = d ? JSON.parse(d) : JSON.parse(atob(input));
