@@ -36,9 +36,10 @@ function calculatetax(fast) {
     if (player.currentChallenge.reincarnation === 9) {
         e = 0.005
     }
-    if (player.currentChallenge.ascension === 13) {
-        e *= 100 * (1 + 1 / 2 * player.challengecompletions[13])
-        e *= Math.pow(1.2, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[14] - player.challengecompletions[15] - 9))
+     //im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236 
+    if (player.currentChallenge.ascension === 13){
+        e *= 100 * (1 + 1/2 * player.challengecompletions[13])
+        e *= Math.pow(1.2, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[14] - player.challengecompletions[15] - 9 - 3 * player.cubeUpgrades[49]))
     }
     if (player.challengecompletions[6] > 0) {
         f /= 1.075
@@ -80,3 +81,4 @@ function calculatetax(fast) {
 // Note that, for E < 1000 the tax is just 0, so we leave a 1.00 multiplier. For 1000 < E < 500,000 we denote tax as a dynamic progression from 1.01 to 5.00.
 
 //If E > 500,000 we always want tax to be 5.
+
