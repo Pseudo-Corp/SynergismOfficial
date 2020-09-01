@@ -9,9 +9,9 @@ function produceDiamondBuildings() {
     player.thirdGeneratedDiamonds = player.thirdGeneratedDiamonds.add(produceFourthDiamonds)
     player.secondGeneratedDiamonds = player.secondGeneratedDiamonds.add(produceThirdDiamonds)
     player.firstGeneratedDiamonds = player.firstGeneratedDiamonds.add(produceSecondDiamonds)
-    produceDiamonds = produceFirstDiamonds;    
-    
+    produceDiamonds = produceFirstDiamonds;
+
     if (player.currentChallenge.transcension !== 3) {
-    player.prestigeShards = player.prestigeShards.add(produceDiamonds)
+        player.prestigeShards = player.prestigeShards.add(produceDiamonds)
     }
 }
