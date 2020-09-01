@@ -532,6 +532,8 @@ ascendBuilding5: {
 	[Symbol.for('version')] : '1.0101'
 }
 
+const blank_save = Object.assign({}, player);
+
 /**
  * stringify a map so it can be re-made when importing
  * @param {Map} m map to stringify

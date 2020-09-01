@@ -1,6 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Decimal = void 0;
 /**
  * An implementation of Decimal.js that uses BigInts.
  * @author Khafra (KhafraDev)
@@ -163,6 +161,3 @@ class Decimal {
         return x;
     }
 }
-exports.Decimal = Decimal;
-const d = new Decimal('4');
-console.log(d.root());
