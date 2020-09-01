@@ -26,7 +26,7 @@ function openHypercube(value,max){
         player.hypercubeBlessings[key] += blessings[key].weight * toSpendDiv20;
     }
     //Then, the remaining hypercube will be opened, simulating the probability [RNG Element]
-    for (let i = 0; i <= toSpendModulo; i++) {
+    for (let i = 0; i < toSpendModulo; i++) {
         let num = 100 * Math.random();
         for (let key of Object.keys(player.hypercubeBlessings)) {
             if (blessings[key].pdf(num))
