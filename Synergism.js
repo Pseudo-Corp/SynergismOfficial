@@ -2284,9 +2284,9 @@ function resetCheck(i, manual, leaving) {
         }
     }
     if (i === "reincarnationchallenge") {
+        let q = player.currentChallenge.reincarnation;
+        let s = player.currentChallenge.transcension;
         if (player.currentChallenge.reincarnation !== 0) {
-            let q = player.currentChallenge.reincarnation;
-            let s = player.currentChallenge.transcension
             if (player.currentChallenge.transcension !== 0) {
                 player.currentChallenge.transcension = 0
             }
