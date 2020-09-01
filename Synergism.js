@@ -2408,7 +2408,7 @@ function resetCheck(i, manual, leaving) {
                 } else { // challenges 9 and 10
                     let c10Reduction = 0;
                     if (player.currentChallenge.reincarnation === 10) {
-                        c10Reduction = 1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185] + player.researches[200])
+                        c10Reduction = 1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185])
                     }
                     return player.coins.greaterThanOrEqualTo(Decimal.pow(10, (base - c10Reduction) * Math.min(Math.pow(1.3797, comp), Math.pow(1 + comp, 2))))
                 }
@@ -3032,7 +3032,12 @@ function tick() {
         if (player.researches[61] === 1) {
             player.researchPoints += calculateAutomaticObtainium() * dt
             if (player.autoResearch > 0 && player.autoResearchToggle) {
-                buyResearch(player.autoResearch, true)
+                let counter = 0;
+                let maxCount = 1 + player.challengecompletions[14];
+                while (counter < maxCount) {
+                    buyResearch(player.autoResearch, true)
+                    counter++;
+                }
             }
         }
 
