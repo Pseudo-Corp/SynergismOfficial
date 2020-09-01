@@ -464,7 +464,7 @@ function buyResearch(index, auto) {
     }
     if (auto && player.cubeUpgrades[9] === 1) {
         player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
-        if (player.researches[player.autoResearch] === (researchMaxLevels[player.autoResearch] + c14 + spiritBonus)) {
+        if (player.researches[player.autoResearch] >= (researchMaxLevels[player.autoResearch] + c14 + spiritBonus)) {
             player.roombaResearchIndex += 1;
         }
         if (player.roombaResearchIndex <= 155) {
