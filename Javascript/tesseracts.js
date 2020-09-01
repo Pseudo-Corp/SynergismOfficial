@@ -59,4 +59,3 @@ function calculateTesseractBlessings(){
         document.getElementById("tesseractBlessing"+i+"Effect").textContent = "+"+format(100*(tesseractBonusMultiplier[i] - 1),accuracy[i] + augmentAccuracy,true) + "%"
         }
 }
-    
