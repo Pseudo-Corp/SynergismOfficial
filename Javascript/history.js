@@ -2,9 +2,21 @@ const historyGains = {
     offerings: {img: "Pictures/Offering.png", formatter: format, imgTitle: "Offerings"},
     obtainium: {img: "Pictures/Obtainium.png", formatter: format, imgTitle: "Obtainium"},
     antMulti: {img: "Pictures/AntSacrifice.png", formatter: format, imgTitle: "Ant Multiplier gains"},
-    particles: {img: "Pictures/Particle.png", formatter: s => extractStringExponent(formatDecimalString(s)), imgTitle: "Particles"},
-    diamonds: {img: "Pictures/Diamond.png", formatter: s => extractStringExponent(formatDecimalString(s)), imgTitle: "Diamonds"},
-    mythos: {img: "Pictures/Mythos.png", formatter: s => extractStringExponent(formatDecimalString(s)), imgTitle: "Mythos"},
+    particles: {
+        img: "Pictures/Particle.png",
+        formatter: s => extractStringExponent(formatDecimalString(s)),
+        imgTitle: "Particles"
+    },
+    diamonds: {
+        img: "Pictures/Diamond.png",
+        formatter: s => extractStringExponent(formatDecimalString(s)),
+        imgTitle: "Diamonds"
+    },
+    mythos: {
+        img: "Pictures/Mythos.png",
+        formatter: s => extractStringExponent(formatDecimalString(s)),
+        imgTitle: "Mythos"
+    },
     wowHypercubes: {img: "Pictures/WowHypercube.png", formatter: format, imgTitle: "Wow! Hypercubes"},
     wowTesseracts: {img: "Pictures/WowTessaract.png", formatter: format, imgTitle: "Wow! Tesseracts"},
     wowCubes: {
@@ -112,7 +124,7 @@ function resetHistoryRenderRow(category, data) {
                 continue;
             }
             let formatter = gainInfo.formatter || dontChange;
-            let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle||''}"> ${formatter(data[showing])}`;
+            let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}"> ${formatter(data[showing])}`;
             if (gainInfo.titler) {
                 let title = gainInfo.titler(data);
                 if (title !== "") {
