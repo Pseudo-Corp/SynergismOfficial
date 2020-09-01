@@ -1582,7 +1582,6 @@ function updateAllMultiplier() {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
-    ;
     a *= divisivenessMultiplier[player.usedCorruptions[1]]
     a = Math.floor(a)
     freeMultiplier = a;
@@ -1717,22 +1716,19 @@ function updateAllMultiplier() {
     mythosupgrade13 = new Decimal(1);
     mythosupgrade14 = new Decimal(1);
     mythosupgrade15 = new Decimal(1);
-    if (player.upgrades[53] == 1) {
+    if (player.upgrades[53] === 1) {
         mythosupgrade13 = mythosupgrade13.times(Decimal.min("1e1250", Decimal.pow(acceleratorEffect, 1 / 125)))
     }
-    ;
-    if (player.upgrades[54] == 1) {
+    if (player.upgrades[54] === 1) {
         mythosupgrade14 = mythosupgrade14.times(Decimal.min("1e2000", Decimal.pow(multiplierEffect, 1 / 180)))
     }
-    ;
-    if (player.upgrades[55] == 1) {
+    if (player.upgrades[55] === 1) {
         mythosupgrade15 = mythosupgrade15.times(Decimal.pow("1e1000", Math.min(1000, buildingPower - 1)))
     }
-    ;
 
     globalAntMult = new Decimal(1);
     globalAntMult = globalAntMult.times(1 + 1 / 20000 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84] / 200), 2))
-    if (player.upgrades[76] == 1) {
+    if (player.upgrades[76] === 1) {
         globalAntMult = globalAntMult.times(5)
     }
     globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
@@ -1743,16 +1739,16 @@ function updateAllMultiplier() {
     globalAntMult = globalAntMult.times(Math.pow(1 + runeSum / 100, talisman6Power))
     globalAntMult = globalAntMult.times(Math.pow(1.1, player.challengecompletions[9]))
     globalAntMult = globalAntMult.times(cubeBonusMultiplier[6])
-    if (player.achievements[169] == 1) {
+    if (player.achievements[169] === 1) {
         globalAntMult = globalAntMult.times(Decimal.log(player.antPoints.add(10), 10))
     }
-    if (player.achievements[171] == 1) {
+    if (player.achievements[171] === 1) {
         globalAntMult = globalAntMult.times(1.16666)
     }
-    if (player.achievements[172] == 1) {
+    if (player.achievements[172] === 1) {
         globalAntMult = globalAntMult.times(1 + 2 * (1 - Math.pow(2, -Math.min(1, player.reincarnationcounter / 7200))))
     }
-    if (player.upgrades[39] == 1) {
+    if (player.upgrades[39] === 1) {
         globalAntMult = globalAntMult.times(1.60)
     }
     globalAntMult = globalAntMult.times(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]))
@@ -1978,19 +1974,19 @@ function multipliers() {
     mythosupgrade13 = new Decimal(1);
     mythosupgrade14 = new Decimal(1);
     mythosupgrade15 = new Decimal(1);
-    if (player.upgrades[53] == 1) {
+    if (player.upgrades[53] === 1) {
         mythosupgrade13 = mythosupgrade13.times(Decimal.min("1e1250", Decimal.pow(acceleratorEffect, 1 / 125)))
     }
-    if (player.upgrades[54] == 1) {
+    if (player.upgrades[54] === 1) {
         mythosupgrade14 = mythosupgrade14.times(Decimal.min("1e2000", Decimal.pow(multiplierEffect, 1 / 180)))
     }
-    if (player.upgrades[55] == 1) {
+    if (player.upgrades[55] === 1) {
         mythosupgrade15 = mythosupgrade15.times(Decimal.pow("1e1000", Math.min(1000, buildingPower - 1)))
     }
 
     globalAntMult = new Decimal(1);
     globalAntMult = globalAntMult.times(1 + 1 / 20000 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84] / 200), 2))
-    if (player.upgrades[76] == 1) {
+    if (player.upgrades[76] === 1) {
         globalAntMult = globalAntMult.times(5)
     }
     globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
@@ -2001,16 +1997,16 @@ function multipliers() {
     globalAntMult = globalAntMult.times(Math.pow(1 + runeSum / 100, talisman6Power))
     globalAntMult = globalAntMult.times(Math.pow(1.1, player.challengecompletions[9]))
     globalAntMult = globalAntMult.times(cubeBonusMultiplier[6])
-    if (player.achievements[169] == 1) {
+    if (player.achievements[169] === 1) {
         globalAntMult = globalAntMult.times(Decimal.log(player.antPoints.add(10), 10))
     }
-    if (player.achievements[171] == 1) {
+    if (player.achievements[171] === 1) {
         globalAntMult = globalAntMult.times(1.16666)
     }
-    if (player.achievements[172] == 1) {
+    if (player.achievements[172] === 1) {
         globalAntMult = globalAntMult.times(1 + 2 * (1 - Math.pow(2, -Math.min(1, player.reincarnationcounter / 7200))))
     }
-    if (player.upgrades[39] == 1) {
+    if (player.upgrades[39] === 1) {
         globalAntMult = globalAntMult.times(1.60)
     }
     globalAntMult = globalAntMult.times(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]))

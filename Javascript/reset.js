@@ -481,7 +481,7 @@ function reset(i, fast, from) {
         player.runelevels[3] = 3 * player.cubeUpgrades[26];
         player.runelevels[4] = 3 * player.cubeUpgrades[26];
 
-        if (player.cubeUpgrades[27] == 1) {
+        if (player.cubeUpgrades[27] === 1) {
             player.firstOwnedParticles = 1;
             player.secondOwnedParticles = 1;
             player.thirdOwnedParticles = 1;
