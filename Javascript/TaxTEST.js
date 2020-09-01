@@ -46,6 +46,7 @@ function calculatetax(fast) {
     exponent *= (0.01 + Math.pow(0.98, player.antUpgrades[3] + bonusant3 + .497))
     exponent *= 1 / (1 + Decimal.log(player.ascendShards.add(1),10))
     exponent *= (1 - 0.10 * (player.talismanRarity[1] - 1))
+    exponent *= Math.pow(0.98, 3/5 * Math.log(1 + player.rareFragments)/Math.log(10))
     maxexponent = Math.floor(275/(Decimal.log(1.01,10) * exponent)) - 1
     a = Math.min(maxexponent, Math.floor(Decimal.log(produceTotal.add(1), 10)));
     

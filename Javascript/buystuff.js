@@ -411,13 +411,13 @@ function buyResearch(index,auto) {
 		if (i > 1){revealStuff()}
 	}
 
-	if(index > 0 && index <= 155){
+	if(index > 0 && index <= 200){
 	if(player.researches[index] === (researchMaxLevels[index] + c14 + spiritBonus)){document.getElementById("res"+index).style.backgroundColor = "green"}
 	}
 	if(auto && player.cubeUpgrades[9] == 1){
 		player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
 		if(player.researches[player.autoResearch] === (researchMaxLevels[player.autoResearch] + c14 + spiritBonus)){player.roombaResearchIndex += 1;}
-		if(player.roombaResearchIndex <= 155){
+		if(player.roombaResearchIndex <= 200){
 		document.getElementById("res"+researchOrderByCost[player.roombaResearchIndex]).style.backgroundColor = "orange"
 		}
 	}

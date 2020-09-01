@@ -35,7 +35,7 @@ function openTesseract(value,max){
             else{player.tesseractBlessings.accelerator += 1}
         }
         calculateTesseractBlessings();
-        let extraCubeBlessings = Math.floor(12 * toSpend * player.researches[153])
+        let extraCubeBlessings = Math.floor(1 * toSpend * player.researches[153])
         player.wowCubes += extraCubeBlessings
         openCube(extraCubeBlessings, false)
     }

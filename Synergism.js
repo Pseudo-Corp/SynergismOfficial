@@ -954,7 +954,7 @@ for (j = 1; j < 126; j++) {
 		upgradeupdate(j);
 	}
 
-for (j = 1; j <= (155); j++) {
+for (j = 1; j <= (200); j++) {
 	updateResearchBG(j);
 }
 for (j = 1; j <= 50; j++){
@@ -1062,7 +1062,7 @@ for(var i = 1; i<=2; i++){
 	toggleAntAutoSacrifice()
 }
 
-player.autoResearch = Math.min(155, player.autoResearch)
+player.autoResearch = Math.min(200, player.autoResearch)
 player.autoSacrifice = Math.min(5, player.autoSacrifice)
 
 if (player.autoResearchToggle && player.autoResearch > 0.5){document.getElementById("res" + player.autoResearch).style.backgroundColor = "orange"};
@@ -1414,7 +1414,12 @@ function updateAllMultiplier() {
 	a *=(1 + rune2level/1000 * effectiveLevelMult)
 	a *=(1 + 1/20 * player.researches[87])
 	a *=(1 + 1/100 * player.researches[128])
-	a *=(1 + 0/8/100 * player.researches[143])
+	a *=(1 + 0.8/100 * player.researches[143])
+	a *=(1 + 0.6/100 * player.researches[158])
+	a *=(1 + 0.4/100 * player.researches[173])
+	a *=(1 + 0.2/100 * player.researches[188])
+	a *=(1 + 0.01/100 * player.researches[200])
+	a *=(1 + 0.01/100 * player.cubeUpgrades[50])
 	a *=calculateSigmoidExponential(39, (player.antUpgrades[5] + bonusant5)/1000 * 40/39)
 	a *= cubeBonusMultiplier[2]
 	if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {a *= 1.25};
@@ -1641,7 +1646,7 @@ globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.
 	if(player.upgrades[76] == 1){globalAntMult = globalAntMult.times(5)}
 	globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77]/250 + player.researches[96]/5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
 	globalAntMult = globalAntMult.times(Math.pow(1.5, player.shopUpgrades.antSpeedLevel));
-	globalAntMult = globalAntMult.times(Decimal.pow(1.11 + player.researches[101]/1000, player.antUpgrades[1] + bonusant1));
+	globalAntMult = globalAntMult.times(Decimal.pow(1.11 + player.researches[101]/1000 + player.researches[162]/10000, player.antUpgrades[1] + bonusant1));
 	globalAntMult = globalAntMult.times(antSacrificePointsToMultiplier(player.antSacrificePoints))
 	globalAntMult = globalAntMult.times(Math.pow(Math.max(1, player.researchPoints), effectiveRuneBlessingPower[5]))
 	globalAntMult = globalAntMult.times(Math.pow(1 + runeSum/100, talisman6Power))
@@ -1654,6 +1659,7 @@ globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.
 	globalAntMult = globalAntMult.times(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1),10), player.constantUpgrades[5]))
 	globalAntMult = globalAntMult.times(Decimal.pow(1e15, player.challengecompletions[11]))
 	if(player.researches[147] > 0){globalAntMult = globalAntMult.times(Decimal.log(player.antPoints.add(10),10))}
+	if(player.researches[177] > 0){globalAntMult = globalAntMult.times(Decimal.pow(Decimal.log(player.antPoints.add(10),10),player.researches[177]))}
 
 	if(player.currentChallenge.ascension === 12){globalAntMult = Decimal.pow(globalAntMult, 0.35)}
 	if(player.currentChallenge.ascension === 13){globalAntMult = Decimal.pow(globalAntMult, 0.25)}
@@ -1664,6 +1670,9 @@ globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.
 	globalConstantMult = globalConstantMult.times(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned))
 	globalConstantMult = globalConstantMult.times(1 + 2/100 * player.researches[139])
 	globalConstantMult = globalConstantMult.times(1 + 3/100 * player.researches[154])
+	globalConstantMult = globalConstantMult.times(1 + 4/100 * player.researches[169])
+	globalConstantMult = globalConstantMult.times(1 + 5/100 * player.researches[184])
+	globalConstantMult = globalConstantMult.times(1 + 10/100 * player.researches[199])
 }
 
  // Function that adds to resources each tick. [Lines 928 - 989]
@@ -2288,6 +2297,9 @@ function updateAll() {
 		effectiveLevelMult *= (1 + player.researches[90]/100) //Research 4x15
 		effectiveLevelMult *= (1 + player.researches[131]/200) //Research 6x6
 		effectiveLevelMult *= (1 + player.researches[146]/200 * 4/5) //Research 6x21
+		effectiveLevelMult *= (1 + player.researches[161]/200 * 3/5) //Research 7x11
+		effectiveLevelMult *= (1 + player.researches[176]/200 * 2/5) //Research 8x1
+		effectiveLevelMult *= (1 + player.researches[191]/200 * 1/5) //Research 8x16
 		effectiveLevelMult *= (1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]))
 
 		optimalOfferingTimer = 600 + 30 * player.researches[85] + 0.4 * rune5level + 120 * player.shopUpgrades.offeringTimerLevel
