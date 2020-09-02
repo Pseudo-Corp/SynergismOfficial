@@ -2412,6 +2412,8 @@ function updateAll() {
         uFifteenMulti = Decimal.pow(1.15, freeAccelerator)
     }
 
+//Autobuy "Building" Tab
+
     if (player.toggles.one === true && player.upgrades[81] === 1 && player.coins.greaterThanOrEqualTo(player.firstCostCoin)) {
         buyMax('first', 'Coin', 1, 100, true)
     }
@@ -2436,7 +2438,9 @@ function updateAll() {
     if (player.toggles.eight === true && player.upgrades[88] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {
         boostAccelerator(true);
     }
-  
+
+//Autobuy "Prestige" Tab
+
     if (player.toggles.ten === true && player.achievements[78] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.firstCostDiamonds)) {
         buyMax('first', 'Diamonds', 1, 1e2, true)
     }
@@ -2488,6 +2492,8 @@ function updateAll() {
         buyCrystalUpgrades(5, true)
     }
 
+//Autobuy "Transcension" Tab
+
     if (player.toggles.sixteen === true && player.upgrades[94] === 1 && player.transcendPoints.greaterThanOrEqualTo(player.firstCostMythos)) {
         buyMax('first', 'Mythos', 1, 1, true)
     }
@@ -2516,6 +2522,10 @@ function updateAll() {
             resetachievementcheck(2);
             reset(2, true);
         }
+    }
+
+
+//Autobuy "Reincarnation" Tab
 
     if (player.toggles.twentytwo === true && player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostParticles)) {
         buyParticleBuilding('first', 1, true)
@@ -2574,8 +2584,11 @@ function updateAll() {
             buyTesseractBuilding(1, 1)
         }
     }
-      
+    
+
 //Generation
+
+
     if (player.upgrades[101] > 0.5) {
         player.fourthGeneratedCoin = player.fourthGeneratedCoin.add((player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(uFifteenMulti).times(generatorPower));
     }
@@ -2844,8 +2857,10 @@ const setToggleBtnColors = function () {
         el.setAttribute('toggled', isOn ? 1 : 0);
     }
 }
-    
-  if (!timeWarp) {
+
+function tick() {
+
+    if (!timeWarp) {
         let now = Date.now();
         let dt = Math.max(0, Math.min(36000, (now - lastUpdate) / 1000));
 
@@ -3092,6 +3107,8 @@ const setToggleBtnColors = function () {
         }
     }
 }
+
+
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('beforeunload', function () {
     if (typeof updatetimer === 'function') {
