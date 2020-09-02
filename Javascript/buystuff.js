@@ -21,7 +21,7 @@ function getCostAccelerator(buyingTo) {
         let multBit = Decimal.pow(4, num);
         cost = cost.times(multBit.times(factorialBit));
     }
-
+  
     if (buyingTo > (2000 + 5 * CalcECC('transcend',player.challengecompletions[4]))) {
         let sumNum = buyingTo - 2000 - 5 * CalcECC('transcend',player.challengecompletions[4]);
         let sumBit = sumNum * (sumNum + 1) / 2
@@ -116,6 +116,7 @@ function getCostMultiplier(buyingTo) {
         let powBit = Decimal.pow(10, num);
         cost = cost.times(factorialBit.times(powBit));
     }
+
     if (buyingTo > (2000 + 2 * CalcECC('transcend',player.challengecompletions[4]))) {
         let sumNum = buyingTo - 2000 - 2 * CalcECC('transcend',player.challengecompletions[4]);
         let sumBit = sumNum * (sumNum + 1) / 2;

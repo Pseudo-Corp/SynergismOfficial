@@ -532,9 +532,9 @@ const player = {
     runeBlessingLevels: [0, 0, 0, 0, 0, 0],
     runeSpiritLevels: [0, 0, 0, 0, 0, 0],
     runeBlessingBuyAmount: 0,
-	runeSpiritBuyAmount: 0,
+	  runeSpiritBuyAmount: 0,
 	
-	autoTesseracts: [false, false, false, false, false, false],
+	  autoTesseracts: [false, false, false, false, false, false],
 
     brokenfile1: false,
     exporttest: "YES!",
@@ -1085,7 +1085,7 @@ if (player.achievements[38] == 1)document.getElementById("runeshowpower2").textC
 if (player.achievements[44] == 1)document.getElementById("runeshowpower3").textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(rune3level * m, 2).times(Decimal.pow(2, rune3level * m - 8).add(1))) + ", gain +" + format(Math.floor(rune3level/10 * m)) + " free crystal levels.";
 if (player.achievements[102] == 1)document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (rune4level/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + rune4level/8 + "%."; */
 
-        CSSAscend();
+    CSSAscend();
 		CSSRuneBlessings();
 		
 		for(var j = 1; j <= 5; j++){
@@ -1105,7 +1105,6 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         calculateHypercubeBlessings();
         calculateTesseractBlessings();
         calculateCubeBlessings();
-
         updateTalismanAppearance(1);
         updateTalismanAppearance(2);
         updateTalismanAppearance(3);
@@ -1186,7 +1185,6 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         }
 
         calculateOffline();
-
         toggleTalismanBuy(player.buyTalismanShardPercent);
         updateTalismanInventory();
         calculateObtainium();
@@ -1530,7 +1528,6 @@ function updateAllMultiplier() {
     if (player.upgrades[68] > 0) {
         a += Math.min(2500, Math.floor(Decimal.log(taxdivisor, 10) * 1 / 1000))
     }
-
     if (player.challengecompletions[1] > 0) {
         a += 1
     }
@@ -2404,8 +2401,6 @@ function resetConfirmation(i) {
     }
 }
 
-// Functions which update the game each, roughly each tick. [Lines 1330 - 1766]
-
 function updateAll() {
     uFourteenMulti = new Decimal(1);
     uFifteenMulti = new Decimal(1);
@@ -2416,8 +2411,6 @@ function updateAll() {
     if (player.upgrades[15] > 0.5) {
         uFifteenMulti = Decimal.pow(1.15, freeAccelerator)
     }
-
-//Autobuy "Building" Tab
 
     if (player.toggles.one === true && player.upgrades[81] === 1 && player.coins.greaterThanOrEqualTo(player.firstCostCoin)) {
         buyMax('first', 'Coin', 1, 100, true)
@@ -2443,9 +2436,7 @@ function updateAll() {
     if (player.toggles.eight === true && player.upgrades[88] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {
         boostAccelerator(true);
     }
-
-//Autobuy "Prestige" Tab
-
+  
     if (player.toggles.ten === true && player.achievements[78] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.firstCostDiamonds)) {
         buyMax('first', 'Diamonds', 1, 1e2, true)
     }
@@ -2497,8 +2488,6 @@ function updateAll() {
         buyCrystalUpgrades(5, true)
     }
 
-//Autobuy "Transcension" Tab
-
     if (player.toggles.sixteen === true && player.upgrades[94] === 1 && player.transcendPoints.greaterThanOrEqualTo(player.firstCostMythos)) {
         buyMax('first', 'Mythos', 1, 1, true)
     }
@@ -2527,10 +2516,6 @@ function updateAll() {
             resetachievementcheck(2);
             reset(2, true);
         }
-    }
-
-
-//Autobuy "Reincarnation" Tab
 
     if (player.toggles.twentytwo === true && player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostParticles)) {
         buyParticleBuilding('first', 1, true)
@@ -2589,11 +2574,8 @@ function updateAll() {
             buyTesseractBuilding(1, 1)
         }
     }
-    
-
+      
 //Generation
-
-
     if (player.upgrades[101] > 0.5) {
         player.fourthGeneratedCoin = player.fourthGeneratedCoin.add((player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(uFifteenMulti).times(generatorPower));
     }
@@ -2810,8 +2792,6 @@ function updateAll() {
     }
 }
 
-// Functions which (try) to successfully load the game
-
 function constantIntervals() {
     interval(saveSynergy, 5000);
     interval(autoUpgrades, 200);
@@ -2864,10 +2844,8 @@ const setToggleBtnColors = function () {
         el.setAttribute('toggled', isOn ? 1 : 0);
     }
 }
-
-function tick() {
-
-    if (!timeWarp) {
+    
+  if (!timeWarp) {
         let now = Date.now();
         let dt = Math.max(0, Math.min(36000, (now - lastUpdate) / 1000));
 
@@ -3114,7 +3092,6 @@ function tick() {
         }
     }
 }
-
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('beforeunload', function () {
     if (typeof updatetimer === 'function') {

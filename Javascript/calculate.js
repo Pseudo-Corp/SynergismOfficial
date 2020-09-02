@@ -1021,3 +1021,4 @@ function CalcECC(type, completions){ //ECM stands for "Effective Challenge Compl
             return(effective);
     }
 }
+

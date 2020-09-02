@@ -974,14 +974,14 @@ function CSSAscend() {
         let a = document.getElementById("ascendText" + i);
         let b = document.getElementById("ascendText" + (5 + i));
         let c = document.getElementById("tesseracts" + i);
-		let d = document.getElementById("buyTesseracts" + i);
-		let e = document.getElementById("tesseractAutoToggle"+i);
+		    let d = document.getElementById("buyTesseracts" + i);
+		    let e = document.getElementById("tesseractAutoToggle"+i);
 
         a.style.top = (8 + 35 * i) + "px"
         b.style.top = (8 + 35 * i) + "px"
         c.style.top = (23 + 35 * i) + "px"
-		d.style.top = (38 + 35 * i) + "px"
-		e.style.top = (22 + 35 * i) + "px"
+		    d.style.top = (38 + 35 * i) + "px"
+		    e.style.top = (22 + 35 * i) + "px"
 
         a.style.left = "13%"
         b.style.left = "56.5%"
