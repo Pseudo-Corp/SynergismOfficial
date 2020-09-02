@@ -37,6 +37,7 @@
     <script src="Javascript/statistic.js"></script>
     <script src="Javascript/history.js"></script>
     <script src="Javascript/checkvariables.js"></script>
+    <script src="Javascript/research.js"></script>
     <!--<script src="Javascript/i18n.js"></script>-->
     <title>Synergism v2.0.0 BETA</title>
     </head>
@@ -412,6 +413,11 @@
             <button class="tesseractBuyBtn" id="buyTesseracts3" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding(100,3)">Cost: 100 Tesseracts</button>
             <button class="tesseractBuyBtn" id="buyTesseracts4" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding(1000,4)">Cost: 1000 Tesseracts</button>
             <button class="tesseractBuyBtn" id="buyTesseracts5" style="border: 1px solid white; border-radius: 8px;" onclick="buyTesseractBuilding(10000,5)">Cost: 10000 Tesseracts</button>
+            <button class="ascendAuto" id="tesseractAutoToggle1" onclick="toggleAutoTesseracts(1)" style="background-color: #171717;">Auto [OFF]</button>
+            <button class="ascendAuto" id="tesseractAutoToggle2" onclick="toggleAutoTesseracts(2)" style="background-color: #171717;">Auto [OFF]</button>
+            <button class="ascendAuto" id="tesseractAutoToggle3" onclick="toggleAutoTesseracts(3)" style="background-color: #171717;">Auto [OFF]</button>
+            <button class="ascendAuto" id="tesseractAutoToggle4" onclick="toggleAutoTesseracts(4)" style="background-color: #171717;">Auto [OFF]</button>
+            <button class="ascendAuto" id="tesseractAutoToggle5" onclick="toggleAutoTesseracts(5)" style="background-color: #171717;">Auto [OFF]</button>
             <p class="ascendTexts" id="ascendText1">Dot: 0 [+0]</p>
             <p class="ascendTexts" id="ascendText2">Vector: 0 [+0]</p>
             <p class="ascendTexts" id="ascendText3">Three-Space: 0 [+0]</p>
@@ -1268,223 +1274,223 @@
 
         </div>
 
-        <div id="research">            
+        <div id="research">
             <table id = "researchtable">
                 <tr>
-                    <td><img id="res1" src="Pictures/Transparent Pics/Research1.png" alt="" onclick="buyResearch(1);" onmouseover="researchdescriptions(1)"></td>
-                    <td><img id="res2" src="Pictures/Transparent Pics/Research2.png" alt="" onclick="buyResearch(2);" onmouseover="researchdescriptions(2)"></td>
-                    <td><img id="res3" src="Pictures/Transparent Pics/Research3.png" alt="" onclick="buyResearch(3);" onmouseover="researchdescriptions(3)"></td>
-                    <td><img id="res4" src="Pictures/Transparent Pics/Research4.png" alt="" onclick="buyResearch(4);" onmouseover="researchdescriptions(4)"></td>
-                    <td><img id="res5" src="Pictures/Transparent Pics/Research5.png" alt="" onclick="buyResearch(5);" onmouseover="researchdescriptions(5)"></td>
-                    <td><img id="res6" src="Pictures/Transparent Pics/Research6.png" alt="" onclick="buyResearch(6);" onmouseover="researchdescriptions(6)"></td>
-                    <td><img id="res7" src="Pictures/Transparent Pics/Research7.png" alt="" onclick="buyResearch(7);" onmouseover="researchdescriptions(7)"></td>
-                    <td><img id="res8" src="Pictures/Transparent Pics/Research8.png" alt="" onclick="buyResearch(8);" onmouseover="researchdescriptions(8)"></td>
-                    <td><img id="res9" src="Pictures/Transparent Pics/Research9.png" alt="" onclick="buyResearch(9);" onmouseover="researchdescriptions(9)"></td>
-                    <td><img id="res10" src="Pictures/Transparent Pics/Research10.png" alt="" onclick="buyResearch(10);" onmouseover="researchdescriptions(10)"></td>
-                    <td><img id="res11" src="Pictures/Transparent Pics/Research11.png" alt="" onclick="buyResearch(11);" onmouseover="researchdescriptions(11)"></td>
-                    <td><img id="res12" src="Pictures/Transparent Pics/Research12.png" alt="" onclick="buyResearch(12);" onmouseover="researchdescriptions(12)"></td>
-                    <td><img id="res13" src="Pictures/Transparent Pics/Research13.png" alt="" onclick="buyResearch(13);" onmouseover="researchdescriptions(13)"></td>
-                    <td><img id="res14" src="Pictures/Transparent Pics/Research14.png" alt="" onclick="buyResearch(14);" onmouseover="researchdescriptions(14)"></td>
-                    <td><img id="res15" src="Pictures/Transparent Pics/Research15.png" alt="" onclick="buyResearch(15);" onmouseover="researchdescriptions(15)"></td>
-                    <td><img id="res16" src="Pictures/Transparent Pics/Research16.png" alt="" onclick="buyResearch(16);" onmouseover="researchdescriptions(16)"></td>
-                    <td><img id="res17" src="Pictures/Transparent Pics/Research17.png" alt="" onclick="buyResearch(17);" onmouseover="researchdescriptions(17)"></td>
-                    <td><img id="res18" src="Pictures/Transparent Pics/Research18.png" alt="" onclick="buyResearch(18);" onmouseover="researchdescriptions(18)"></td>
-                    <td><img id="res19" src="Pictures/Transparent Pics/Research19.png" alt="" onclick="buyResearch(19);" onmouseover="researchdescriptions(19)"></td>
-                    <td><img id="res20" src="Pictures/Transparent Pics/Research20.png" alt="" onclick="buyResearch(20);" onmouseover="researchdescriptions(20)"></td>
-                    <td><img id="res21" src="Pictures/Transparent Pics/Research21.png" alt="" onclick="buyResearch(21);" onmouseover="researchdescriptions(21)"></td>
-                    <td><img id="res22" src="Pictures/Transparent Pics/Research22.png" alt="" onclick="buyResearch(22);" onmouseover="researchdescriptions(22)"></td>
-                    <td><img id="res23" src="Pictures/Transparent Pics/Research23.png" alt="" onclick="buyResearch(23);" onmouseover="researchdescriptions(23)"></td>
-                    <td><img id="res24" src="Pictures/Transparent Pics/Research24.png" alt="" onclick="buyResearch(24);" onmouseover="researchdescriptions(24)"></td>
-                    <td><img id="res25" src="Pictures/Transparent Pics/Research25.png" alt="" onclick="buyResearch(25);" onmouseover="researchdescriptions(25)"></td>
+                    <td><img id="res1" src="Pictures/Transparent Pics/Research1.png" alt="" onclick="buyResearch(1);" onmouseover="researchDescriptions(1)"></td>
+                    <td><img id="res2" src="Pictures/Transparent Pics/Research2.png" alt="" onclick="buyResearch(2);" onmouseover="researchDescriptions(2)"></td>
+                    <td><img id="res3" src="Pictures/Transparent Pics/Research3.png" alt="" onclick="buyResearch(3);" onmouseover="researchDescriptions(3)"></td>
+                    <td><img id="res4" src="Pictures/Transparent Pics/Research4.png" alt="" onclick="buyResearch(4);" onmouseover="researchDescriptions(4)"></td>
+                    <td><img id="res5" src="Pictures/Transparent Pics/Research5.png" alt="" onclick="buyResearch(5);" onmouseover="researchDescriptions(5)"></td>
+                    <td><img id="res6" src="Pictures/Transparent Pics/Research6.png" alt="" onclick="buyResearch(6);" onmouseover="researchDescriptions(6)"></td>
+                    <td><img id="res7" src="Pictures/Transparent Pics/Research7.png" alt="" onclick="buyResearch(7);" onmouseover="researchDescriptions(7)"></td>
+                    <td><img id="res8" src="Pictures/Transparent Pics/Research8.png" alt="" onclick="buyResearch(8);" onmouseover="researchDescriptions(8)"></td>
+                    <td><img id="res9" src="Pictures/Transparent Pics/Research9.png" alt="" onclick="buyResearch(9);" onmouseover="researchDescriptions(9)"></td>
+                    <td><img id="res10" src="Pictures/Transparent Pics/Research10.png" alt="" onclick="buyResearch(10);" onmouseover="researchDescriptions(10)"></td>
+                    <td><img id="res11" src="Pictures/Transparent Pics/Research11.png" alt="" onclick="buyResearch(11);" onmouseover="researchDescriptions(11)"></td>
+                    <td><img id="res12" src="Pictures/Transparent Pics/Research12.png" alt="" onclick="buyResearch(12);" onmouseover="researchDescriptions(12)"></td>
+                    <td><img id="res13" src="Pictures/Transparent Pics/Research13.png" alt="" onclick="buyResearch(13);" onmouseover="researchDescriptions(13)"></td>
+                    <td><img id="res14" src="Pictures/Transparent Pics/Research14.png" alt="" onclick="buyResearch(14);" onmouseover="researchDescriptions(14)"></td>
+                    <td><img id="res15" src="Pictures/Transparent Pics/Research15.png" alt="" onclick="buyResearch(15);" onmouseover="researchDescriptions(15)"></td>
+                    <td><img id="res16" src="Pictures/Transparent Pics/Research16.png" alt="" onclick="buyResearch(16);" onmouseover="researchDescriptions(16)"></td>
+                    <td><img id="res17" src="Pictures/Transparent Pics/Research17.png" alt="" onclick="buyResearch(17);" onmouseover="researchDescriptions(17)"></td>
+                    <td><img id="res18" src="Pictures/Transparent Pics/Research18.png" alt="" onclick="buyResearch(18);" onmouseover="researchDescriptions(18)"></td>
+                    <td><img id="res19" src="Pictures/Transparent Pics/Research19.png" alt="" onclick="buyResearch(19);" onmouseover="researchDescriptions(19)"></td>
+                    <td><img id="res20" src="Pictures/Transparent Pics/Research20.png" alt="" onclick="buyResearch(20);" onmouseover="researchDescriptions(20)"></td>
+                    <td><img id="res21" src="Pictures/Transparent Pics/Research21.png" alt="" onclick="buyResearch(21);" onmouseover="researchDescriptions(21)"></td>
+                    <td><img id="res22" src="Pictures/Transparent Pics/Research22.png" alt="" onclick="buyResearch(22);" onmouseover="researchDescriptions(22)"></td>
+                    <td><img id="res23" src="Pictures/Transparent Pics/Research23.png" alt="" onclick="buyResearch(23);" onmouseover="researchDescriptions(23)"></td>
+                    <td><img id="res24" src="Pictures/Transparent Pics/Research24.png" alt="" onclick="buyResearch(24);" onmouseover="researchDescriptions(24)"></td>
+                    <td><img id="res25" src="Pictures/Transparent Pics/Research25.png" alt="" onclick="buyResearch(25);" onmouseover="researchDescriptions(25)"></td>
                 </tr>
                 <tr>
-                    <td><img id="res26" src="Pictures/Transparent Pics/Research26.png" alt="" onclick="buyResearch(26);" onmouseover="researchdescriptions(26)"></td>
-                    <td><img id="res27" src="Pictures/Transparent Pics/Research27.png" alt="" onclick="buyResearch(27);" onmouseover="researchdescriptions(27)"></td>
-                    <td><img id="res28" src="Pictures/Transparent Pics/Research28.png" alt="" onclick="buyResearch(28);" onmouseover="researchdescriptions(28)"></td>
-                    <td><img id="res29" src="Pictures/Transparent Pics/Research29.png" alt="" onclick="buyResearch(29);" onmouseover="researchdescriptions(29)"></td>
-                    <td><img id="res30" src="Pictures/Transparent Pics/Research30.png" alt="" onclick="buyResearch(30);" onmouseover="researchdescriptions(30)"></td>
-                    <td><img id="res31" src="Pictures/Transparent Pics/Research31.png" alt="" onclick="buyResearch(31);" onmouseover="researchdescriptions(31)"></td>
-                    <td><img id="res32" src="Pictures/Transparent Pics/Research32.png" alt="" onclick="buyResearch(32);" onmouseover="researchdescriptions(32)"></td>
-                    <td><img id="res33" src="Pictures/Transparent Pics/Research33.png" alt="" onclick="buyResearch(33);" onmouseover="researchdescriptions(33)"></td>
-                    <td><img id="res34" src="Pictures/Transparent Pics/Research34.png" alt="" onclick="buyResearch(34);" onmouseover="researchdescriptions(34)"></td>
-                    <td><img id="res35" src="Pictures/Transparent Pics/Research35.png" alt="" onclick="buyResearch(35);" onmouseover="researchdescriptions(35)"></td>
-                    <td><img id="res36" src="Pictures/Transparent Pics/Research36.png" alt="" onclick="buyResearch(36);" onmouseover="researchdescriptions(36)"></td>
-                    <td><img id="res37" src="Pictures/Transparent Pics/Research37.png" alt="" onclick="buyResearch(37);" onmouseover="researchdescriptions(37)"></td>
-                    <td><img id="res38" src="Pictures/Transparent Pics/Research38.png" alt="" onclick="buyResearch(38);" onmouseover="researchdescriptions(38)"></td>
-                    <td><img id="res39" src="Pictures/Transparent Pics/Research39.png" alt="" onclick="buyResearch(39);" onmouseover="researchdescriptions(39)"></td>
-                    <td><img id="res40" src="Pictures/Transparent Pics/Research40.png" alt="" onclick="buyResearch(40);" onmouseover="researchdescriptions(40)"></td>
-                    <td><img id="res41" src="Pictures/Transparent Pics/Research41.png" alt="" onclick="buyResearch(41);" onmouseover="researchdescriptions(41)"></td>
-                    <td><img id="res42" src="Pictures/Transparent Pics/Research42.png" alt="" onclick="buyResearch(42);" onmouseover="researchdescriptions(42)"></td>
-                    <td><img id="res43" src="Pictures/Transparent Pics/Research43.png" alt="" onclick="buyResearch(43);" onmouseover="researchdescriptions(43)"></td>
-                    <td><img id="res44" src="Pictures/Transparent Pics/Research44.png" alt="" onclick="buyResearch(44);" onmouseover="researchdescriptions(44)"></td>
-                    <td><img id="res45" src="Pictures/Transparent Pics/Research45.png" alt="" onclick="buyResearch(45);" onmouseover="researchdescriptions(45)"></td>
-                    <td><img id="res46" src="Pictures/Transparent Pics/Research46.png" alt="" onclick="buyResearch(46);" onmouseover="researchdescriptions(46)"></td>
-                    <td><img id="res47" src="Pictures/Transparent Pics/Research47.png" alt="" onclick="buyResearch(47);" onmouseover="researchdescriptions(47)"></td>
-                    <td><img id="res48" src="Pictures/Transparent Pics/Research48.png" alt="" onclick="buyResearch(48);" onmouseover="researchdescriptions(48)"></td>
-                    <td><img id="res49" src="Pictures/Transparent Pics/Research49.png" alt="" onclick="buyResearch(49);" onmouseover="researchdescriptions(49)"></td>
-                    <td><img id="res50" src="Pictures/Transparent Pics/Research50.png" alt="" onclick="buyResearch(50);" onmouseover="researchdescriptions(50)"></td>
+                    <td><img id="res26" src="Pictures/Transparent Pics/Research26.png" alt="" onclick="buyResearch(26);" onmouseover="researchDescriptions(26)"></td>
+                    <td><img id="res27" src="Pictures/Transparent Pics/Research27.png" alt="" onclick="buyResearch(27);" onmouseover="researchDescriptions(27)"></td>
+                    <td><img id="res28" src="Pictures/Transparent Pics/Research28.png" alt="" onclick="buyResearch(28);" onmouseover="researchDescriptions(28)"></td>
+                    <td><img id="res29" src="Pictures/Transparent Pics/Research29.png" alt="" onclick="buyResearch(29);" onmouseover="researchDescriptions(29)"></td>
+                    <td><img id="res30" src="Pictures/Transparent Pics/Research30.png" alt="" onclick="buyResearch(30);" onmouseover="researchDescriptions(30)"></td>
+                    <td><img id="res31" src="Pictures/Transparent Pics/Research31.png" alt="" onclick="buyResearch(31);" onmouseover="researchDescriptions(31)"></td>
+                    <td><img id="res32" src="Pictures/Transparent Pics/Research32.png" alt="" onclick="buyResearch(32);" onmouseover="researchDescriptions(32)"></td>
+                    <td><img id="res33" src="Pictures/Transparent Pics/Research33.png" alt="" onclick="buyResearch(33);" onmouseover="researchDescriptions(33)"></td>
+                    <td><img id="res34" src="Pictures/Transparent Pics/Research34.png" alt="" onclick="buyResearch(34);" onmouseover="researchDescriptions(34)"></td>
+                    <td><img id="res35" src="Pictures/Transparent Pics/Research35.png" alt="" onclick="buyResearch(35);" onmouseover="researchDescriptions(35)"></td>
+                    <td><img id="res36" src="Pictures/Transparent Pics/Research36.png" alt="" onclick="buyResearch(36);" onmouseover="researchDescriptions(36)"></td>
+                    <td><img id="res37" src="Pictures/Transparent Pics/Research37.png" alt="" onclick="buyResearch(37);" onmouseover="researchDescriptions(37)"></td>
+                    <td><img id="res38" src="Pictures/Transparent Pics/Research38.png" alt="" onclick="buyResearch(38);" onmouseover="researchDescriptions(38)"></td>
+                    <td><img id="res39" src="Pictures/Transparent Pics/Research39.png" alt="" onclick="buyResearch(39);" onmouseover="researchDescriptions(39)"></td>
+                    <td><img id="res40" src="Pictures/Transparent Pics/Research40.png" alt="" onclick="buyResearch(40);" onmouseover="researchDescriptions(40)"></td>
+                    <td><img id="res41" src="Pictures/Transparent Pics/Research41.png" alt="" onclick="buyResearch(41);" onmouseover="researchDescriptions(41)"></td>
+                    <td><img id="res42" src="Pictures/Transparent Pics/Research42.png" alt="" onclick="buyResearch(42);" onmouseover="researchDescriptions(42)"></td>
+                    <td><img id="res43" src="Pictures/Transparent Pics/Research43.png" alt="" onclick="buyResearch(43);" onmouseover="researchDescriptions(43)"></td>
+                    <td><img id="res44" src="Pictures/Transparent Pics/Research44.png" alt="" onclick="buyResearch(44);" onmouseover="researchDescriptions(44)"></td>
+                    <td><img id="res45" src="Pictures/Transparent Pics/Research45.png" alt="" onclick="buyResearch(45);" onmouseover="researchDescriptions(45)"></td>
+                    <td><img id="res46" src="Pictures/Transparent Pics/Research46.png" alt="" onclick="buyResearch(46);" onmouseover="researchDescriptions(46)"></td>
+                    <td><img id="res47" src="Pictures/Transparent Pics/Research47.png" alt="" onclick="buyResearch(47);" onmouseover="researchDescriptions(47)"></td>
+                    <td><img id="res48" src="Pictures/Transparent Pics/Research48.png" alt="" onclick="buyResearch(48);" onmouseover="researchDescriptions(48)"></td>
+                    <td><img id="res49" src="Pictures/Transparent Pics/Research49.png" alt="" onclick="buyResearch(49);" onmouseover="researchDescriptions(49)"></td>
+                    <td><img id="res50" src="Pictures/Transparent Pics/Research50.png" alt="" onclick="buyResearch(50);" onmouseover="researchDescriptions(50)"></td>
                 </tr>
                 <tr>
-                    <td><img id="res51" src="Pictures/Transparent Pics/Research51.png" alt="" onclick="buyResearch(51);" onmouseover="researchdescriptions(51)"></td>
-                    <td><img id="res52" src="Pictures/Transparent Pics/Research52.png" alt="" onclick="buyResearch(52);" onmouseover="researchdescriptions(52)"></td>
-                    <td><img id="res53" src="Pictures/Transparent Pics/Research53.png" alt="" onclick="buyResearch(53);" onmouseover="researchdescriptions(53)"></td>
-                    <td><img id="res54" src="Pictures/Transparent Pics/Research54.png" alt="" onclick="buyResearch(54);" onmouseover="researchdescriptions(54)"></td>
-                    <td><img id="res55" src="Pictures/Transparent Pics/Research55.png" alt="" onclick="buyResearch(55);" onmouseover="researchdescriptions(55)"></td>
-                    <td><img id="res56" src="Pictures/Transparent Pics/Research56.png" alt="" onclick="buyResearch(56);" onmouseover="researchdescriptions(56)"></td>
-                    <td><img id="res57" src="Pictures/Transparent Pics/Research57.png" alt="" onclick="buyResearch(57);" onmouseover="researchdescriptions(57)"></td>
-                    <td><img id="res58" src="Pictures/Transparent Pics/Research58.png" alt="" onclick="buyResearch(58);" onmouseover="researchdescriptions(58)"></td>
-                    <td><img id="res59" src="Pictures/Transparent Pics/Research59.png" alt="" onclick="buyResearch(59);" onmouseover="researchdescriptions(59)"></td>
-                    <td><img id="res60" src="Pictures/Transparent Pics/Research60.png" alt="" onclick="buyResearch(60);" onmouseover="researchdescriptions(60)"></td>
-                    <td><img id="res61" src="Pictures/Transparent Pics/Research61.png" alt="" onclick="buyResearch(61);" onmouseover="researchdescriptions(61)"></td>
-                    <td><img id="res62" src="Pictures/Transparent Pics/Research62.png" alt="" onclick="buyResearch(62);" onmouseover="researchdescriptions(62)"></td>
-                    <td><img id="res63" src="Pictures/Transparent Pics/Research63.png" alt="" onclick="buyResearch(63);" onmouseover="researchdescriptions(63)"></td>
-                    <td><img id="res64" src="Pictures/Transparent Pics/Research64.png" alt="" onclick="buyResearch(64);" onmouseover="researchdescriptions(64)"></td>
-                    <td><img id="res65" src="Pictures/Transparent Pics/Research65.png" alt="" onclick="buyResearch(65);" onmouseover="researchdescriptions(65)"></td>
-                    <td><img id="res66" src="Pictures/Transparent Pics/Research66.png" alt="" onclick="buyResearch(66);" onmouseover="researchdescriptions(66)"></td>
-                    <td><img id="res67" src="Pictures/Transparent Pics/Research67.png" alt="" onclick="buyResearch(67);" onmouseover="researchdescriptions(67)"></td>                    
-                    <td><img id="res68" src="Pictures/Transparent Pics/Research68.png" alt="" onclick="buyResearch(68);" onmouseover="researchdescriptions(68)"></td>
-                    <td><img id="res69" src="Pictures/Transparent Pics/Research69.png" alt="" onclick="buyResearch(69);" onmouseover="researchdescriptions(69)"></td>
-                    <td><img id="res70" src="Pictures/Transparent Pics/Research70.png" alt="" onclick="buyResearch(70);" onmouseover="researchdescriptions(70)"></td>
-                    <td><img id="res71" src="Pictures/Transparent Pics/Research71.png" alt="" onclick="buyResearch(71);" onmouseover="researchdescriptions(71)"></td>
-                    <td><img id="res72" src="Pictures/Transparent Pics/Research72.png" alt="" onclick="buyResearch(72);" onmouseover="researchdescriptions(72)"></td>
-                    <td><img id="res73" src="Pictures/Transparent Pics/Research73.png" alt="" onclick="buyResearch(73);" onmouseover="researchdescriptions(73)"></td>
-                    <td><img id="res74" src="Pictures/Transparent Pics/Research74.png" alt="" onclick="buyResearch(74);" onmouseover="researchdescriptions(74)"></td>                    
-                    <td><img id="res75" src="Pictures/Transparent Pics/Research75.png" alt="" onclick="buyResearch(75);" onmouseover="researchdescriptions(75)"></td>
+                    <td><img id="res51" src="Pictures/Transparent Pics/Research51.png" alt="" onclick="buyResearch(51);" onmouseover="researchDescriptions(51)"></td>
+                    <td><img id="res52" src="Pictures/Transparent Pics/Research52.png" alt="" onclick="buyResearch(52);" onmouseover="researchDescriptions(52)"></td>
+                    <td><img id="res53" src="Pictures/Transparent Pics/Research53.png" alt="" onclick="buyResearch(53);" onmouseover="researchDescriptions(53)"></td>
+                    <td><img id="res54" src="Pictures/Transparent Pics/Research54.png" alt="" onclick="buyResearch(54);" onmouseover="researchDescriptions(54)"></td>
+                    <td><img id="res55" src="Pictures/Transparent Pics/Research55.png" alt="" onclick="buyResearch(55);" onmouseover="researchDescriptions(55)"></td>
+                    <td><img id="res56" src="Pictures/Transparent Pics/Research56.png" alt="" onclick="buyResearch(56);" onmouseover="researchDescriptions(56)"></td>
+                    <td><img id="res57" src="Pictures/Transparent Pics/Research57.png" alt="" onclick="buyResearch(57);" onmouseover="researchDescriptions(57)"></td>
+                    <td><img id="res58" src="Pictures/Transparent Pics/Research58.png" alt="" onclick="buyResearch(58);" onmouseover="researchDescriptions(58)"></td>
+                    <td><img id="res59" src="Pictures/Transparent Pics/Research59.png" alt="" onclick="buyResearch(59);" onmouseover="researchDescriptions(59)"></td>
+                    <td><img id="res60" src="Pictures/Transparent Pics/Research60.png" alt="" onclick="buyResearch(60);" onmouseover="researchDescriptions(60)"></td>
+                    <td><img id="res61" src="Pictures/Transparent Pics/Research61.png" alt="" onclick="buyResearch(61);" onmouseover="researchDescriptions(61)"></td>
+                    <td><img id="res62" src="Pictures/Transparent Pics/Research62.png" alt="" onclick="buyResearch(62);" onmouseover="researchDescriptions(62)"></td>
+                    <td><img id="res63" src="Pictures/Transparent Pics/Research63.png" alt="" onclick="buyResearch(63);" onmouseover="researchDescriptions(63)"></td>
+                    <td><img id="res64" src="Pictures/Transparent Pics/Research64.png" alt="" onclick="buyResearch(64);" onmouseover="researchDescriptions(64)"></td>
+                    <td><img id="res65" src="Pictures/Transparent Pics/Research65.png" alt="" onclick="buyResearch(65);" onmouseover="researchDescriptions(65)"></td>
+                    <td><img id="res66" src="Pictures/Transparent Pics/Research66.png" alt="" onclick="buyResearch(66);" onmouseover="researchDescriptions(66)"></td>
+                    <td><img id="res67" src="Pictures/Transparent Pics/Research67.png" alt="" onclick="buyResearch(67);" onmouseover="researchDescriptions(67)"></td>
+                    <td><img id="res68" src="Pictures/Transparent Pics/Research68.png" alt="" onclick="buyResearch(68);" onmouseover="researchDescriptions(68)"></td>
+                    <td><img id="res69" src="Pictures/Transparent Pics/Research69.png" alt="" onclick="buyResearch(69);" onmouseover="researchDescriptions(69)"></td>
+                    <td><img id="res70" src="Pictures/Transparent Pics/Research70.png" alt="" onclick="buyResearch(70);" onmouseover="researchDescriptions(70)"></td>
+                    <td><img id="res71" src="Pictures/Transparent Pics/Research71.png" alt="" onclick="buyResearch(71);" onmouseover="researchDescriptions(71)"></td>
+                    <td><img id="res72" src="Pictures/Transparent Pics/Research72.png" alt="" onclick="buyResearch(72);" onmouseover="researchDescriptions(72)"></td>
+                    <td><img id="res73" src="Pictures/Transparent Pics/Research73.png" alt="" onclick="buyResearch(73);" onmouseover="researchDescriptions(73)"></td>
+                    <td><img id="res74" src="Pictures/Transparent Pics/Research74.png" alt="" onclick="buyResearch(74);" onmouseover="researchDescriptions(74)"></td>
+                    <td><img id="res75" src="Pictures/Transparent Pics/Research75.png" alt="" onclick="buyResearch(75);" onmouseover="researchDescriptions(75)"></td>
                 </tr>
                 <tr>
-                    <td><img id="res76" src="Pictures/Transparent Pics/Research76.png" alt="" onclick="buyResearch(76);" class="chal7x10" style="display:none" onmouseover="researchdescriptions(76)">                    </td>
-                    <td><img id="res77" src="Pictures/Transparent Pics/Research77.png" alt="" onclick="buyResearch(77);" class="chal7x10" style="display:none" onmouseover="researchdescriptions(77)">                    </td>
-                    <td><img id="res78" src="Pictures/Transparent Pics/Research78.png" alt="" onclick="buyResearch(78);" class="chal7x10" style="display:none" onmouseover="researchdescriptions(78)">                    </td>
-                    <td><img id="res79" src="Pictures/Transparent Pics/Research79.png" alt="" onclick="buyResearch(79);" class="chal7x10" style="display:none" onmouseover="researchdescriptions(79)">                    </td>
-                    <td><img id="res80" src="Pictures/Transparent Pics/Research80.png" alt="" onclick="buyResearch(80);" class="chal7x10" style="display:none" onmouseover="researchdescriptions(80)">                    </td>
-                    <td><img id="res81" src="Pictures/Transparent Pics/Research81.png" alt="" onclick="buyResearch(81);" class="chal8" onmouseover="researchdescriptions(81)">                    </td>
-                    <td><img id="res82" src="Pictures/Transparent Pics/Research82.png" alt="" onclick="buyResearch(82);" class="chal8" onmouseover="researchdescriptions(82)">                    </td>
-                    <td><img id="res83" src="Pictures/Transparent Pics/Research83.png" alt="" onclick="buyResearch(83);" class="chal8" onmouseover="researchdescriptions(83)">                    </td>
-                    <td><img id="res84" src="Pictures/Transparent Pics/Research84.png" alt="" onclick="buyResearch(84);" class="chal8" onmouseover="researchdescriptions(84)">                    </td>
-                    <td><img id="res85" src="Pictures/Transparent Pics/Research85.png" alt="" onclick="buyResearch(85);" class="chal8" onmouseover="researchdescriptions(85)">                    </td>                  </td>
-                    <td><img id="res86" src="Pictures/Transparent Pics/Research86.png" alt="" onclick="buyResearch(86);" class="chal8" onmouseover="researchdescriptions(86)">                    </td>
-                    <td><img id="res87" src="Pictures/Transparent Pics/Research87.png" alt="" onclick="buyResearch(87);" class="chal8" onmouseover="researchdescriptions(87)">                    </td>
-                    <td><img id="res88" src="Pictures/Transparent Pics/Research88.png" alt="" onclick="buyResearch(88);" class="chal8" onmouseover="researchdescriptions(88)">                    </td>
-                    <td><img id="res89" src="Pictures/Transparent Pics/Research89.png" alt="" onclick="buyResearch(89);" class="chal8" onmouseover="researchdescriptions(89)">                    </td>
-                    <td><img id="res90" src="Pictures/Transparent Pics/Research90.png" alt="" onclick="buyResearch(90);" class="chal8" onmouseover="researchdescriptions(90)">                    </td>                    </td>
-                    <td><img id="res91" src="Pictures/Transparent Pics/Research91.png" alt="" onclick="buyResearch(91);" class="chal8" onmouseover="researchdescriptions(91)">                    </td>
-                    <td><img id="res92" src="Pictures/Transparent Pics/Research92.png" alt="" onclick="buyResearch(92);" class="chal8" onmouseover="researchdescriptions(92)">                    </td>
-                    <td><img id="res93" src="Pictures/Transparent Pics/Research93.png" alt="" onclick="buyResearch(93);" class="chal8" onmouseover="researchdescriptions(93)">                    </td>
-                    <td><img id="res94" src="Pictures/Transparent Pics/Research94.png" alt="" onclick="buyResearch(94);" class="chal8" onmouseover="researchdescriptions(94)">                    </td>
-                    <td><img id="res95" src="Pictures/Transparent Pics/Research95.png" alt="" onclick="buyResearch(95);" class="chal8" onmouseover="researchdescriptions(95)">                    </td>
-                    <td><img id="res96" src="Pictures/Transparent Pics/Research96.png" alt="" onclick="buyResearch(96);" class="chal8" onmouseover="researchdescriptions(96)">                    </td>
-                    <td><img id="res97" src="Pictures/Transparent Pics/Research97.png" alt="" onclick="buyResearch(97);" class="chal8" onmouseover="researchdescriptions(97)">                    </td>
-                    <td><img id="res98" src="Pictures/Transparent Pics/Research98.png" alt="" onclick="buyResearch(98);" class="chal8" onmouseover="researchdescriptions(98)">                    </td>
-                    <td><img id="res99" src="Pictures/Transparent Pics/Research99.png" alt="" onclick="buyResearch(99);" class="chal8" onmouseover="researchdescriptions(99)">                    </td>
-                    <td><img id="res100" src="Pictures/Transparent Pics/Research100.png" alt="" onclick="buyResearch(100);" class="chal8" onmouseover="researchdescriptions(100)">                    </td>
+                    <td><img id="res76" src="Pictures/Transparent Pics/Research76.png" alt="" onclick="buyResearch(76);" class="chal7x10" style="display:none" onmouseover="researchDescriptions(76)">                    </td>
+                    <td><img id="res77" src="Pictures/Transparent Pics/Research77.png" alt="" onclick="buyResearch(77);" class="chal7x10" style="display:none" onmouseover="researchDescriptions(77)">                    </td>
+                    <td><img id="res78" src="Pictures/Transparent Pics/Research78.png" alt="" onclick="buyResearch(78);" class="chal7x10" style="display:none" onmouseover="researchDescriptions(78)">                    </td>
+                    <td><img id="res79" src="Pictures/Transparent Pics/Research79.png" alt="" onclick="buyResearch(79);" class="chal7x10" style="display:none" onmouseover="researchDescriptions(79)">                    </td>
+                    <td><img id="res80" src="Pictures/Transparent Pics/Research80.png" alt="" onclick="buyResearch(80);" class="chal7x10" style="display:none" onmouseover="researchDescriptions(80)">                    </td>
+                    <td><img id="res81" src="Pictures/Transparent Pics/Research81.png" alt="" onclick="buyResearch(81);" class="chal8" onmouseover="researchDescriptions(81)">                    </td>
+                    <td><img id="res82" src="Pictures/Transparent Pics/Research82.png" alt="" onclick="buyResearch(82);" class="chal8" onmouseover="researchDescriptions(82)">                    </td>
+                    <td><img id="res83" src="Pictures/Transparent Pics/Research83.png" alt="" onclick="buyResearch(83);" class="chal8" onmouseover="researchDescriptions(83)">                    </td>
+                    <td><img id="res84" src="Pictures/Transparent Pics/Research84.png" alt="" onclick="buyResearch(84);" class="chal8" onmouseover="researchDescriptions(84)">                    </td>
+                    <td><img id="res85" src="Pictures/Transparent Pics/Research85.png" alt="" onclick="buyResearch(85);" class="chal8" onmouseover="researchDescriptions(85)">                    </td>
+                    <td><img id="res86" src="Pictures/Transparent Pics/Research86.png" alt="" onclick="buyResearch(86);" class="chal8" onmouseover="researchDescriptions(86)">                    </td>
+                    <td><img id="res87" src="Pictures/Transparent Pics/Research87.png" alt="" onclick="buyResearch(87);" class="chal8" onmouseover="researchDescriptions(87)">                    </td>
+                    <td><img id="res88" src="Pictures/Transparent Pics/Research88.png" alt="" onclick="buyResearch(88);" class="chal8" onmouseover="researchDescriptions(88)">                    </td>
+                    <td><img id="res89" src="Pictures/Transparent Pics/Research89.png" alt="" onclick="buyResearch(89);" class="chal8" onmouseover="researchDescriptions(89)">                    </td>
+                    <td><img id="res90" src="Pictures/Transparent Pics/Research90.png" alt="" onclick="buyResearch(90);" class="chal8" onmouseover="researchDescriptions(90)">                    </td>
+                    <td><img id="res91" src="Pictures/Transparent Pics/Research91.png" alt="" onclick="buyResearch(91);" class="chal8" onmouseover="researchDescriptions(91)">                    </td>
+                    <td><img id="res92" src="Pictures/Transparent Pics/Research92.png" alt="" onclick="buyResearch(92);" class="chal8" onmouseover="researchDescriptions(92)">                    </td>
+                    <td><img id="res93" src="Pictures/Transparent Pics/Research93.png" alt="" onclick="buyResearch(93);" class="chal8" onmouseover="researchDescriptions(93)">                    </td>
+                    <td><img id="res94" src="Pictures/Transparent Pics/Research94.png" alt="" onclick="buyResearch(94);" class="chal8" onmouseover="researchDescriptions(94)">                    </td>
+                    <td><img id="res95" src="Pictures/Transparent Pics/Research95.png" alt="" onclick="buyResearch(95);" class="chal8" onmouseover="researchDescriptions(95)">                    </td>
+                    <td><img id="res96" src="Pictures/Transparent Pics/Research96.png" alt="" onclick="buyResearch(96);" class="chal8" onmouseover="researchDescriptions(96)">                    </td>
+                    <td><img id="res97" src="Pictures/Transparent Pics/Research97.png" alt="" onclick="buyResearch(97);" class="chal8" onmouseover="researchDescriptions(97)">                    </td>
+                    <td><img id="res98" src="Pictures/Transparent Pics/Research98.png" alt="" onclick="buyResearch(98);" class="chal8" onmouseover="researchDescriptions(98)">                    </td>
+                    <td><img id="res99" src="Pictures/Transparent Pics/Research99.png" alt="" onclick="buyResearch(99);" class="chal8" onmouseover="researchDescriptions(99)">                    </td>
+                    <td><img id="res100" src="Pictures/Transparent Pics/Research100.png" alt="" onclick="buyResearch(100);" class="chal8" onmouseover="researchDescriptions(100)">                    </td>
                 </tr>
                 <tr>
-                    <td><img id="res101" src="Pictures/Transparent Pics/Research101.png" alt="" onclick="buyResearch(101);" class="chal9" style="display:none" onmouseover="researchdescriptions(101)">                    </td>
-                    <td><img id="res102" src="Pictures/Transparent Pics/Research102.png" alt="" onclick="buyResearch(102);" class="chal9" style="display:none" onmouseover="researchdescriptions(102)">                    </td>
-                    <td><img id="res103" src="Pictures/Transparent Pics/Research103.png" alt="" onclick="buyResearch(103);" class="chal9" style="display:none" onmouseover="researchdescriptions(103)">                    </td>
-                    <td><img id="res104" src="Pictures/Transparent Pics/Research104.png" alt="" onclick="buyResearch(104);" class="chal9" style="display:none" onmouseover="researchdescriptions(104)">                    </td>
-                    <td><img id="res105" src="Pictures/Transparent Pics/Research105.png" alt="" onclick="buyResearch(105);" class="chal9" style="display:none" onmouseover="researchdescriptions(105)">                    </td>
-                    <td><img id="res106" src="Pictures/Transparent Pics/Research106.png" alt="" onclick="buyResearch(106);" class="chal9" style="display:none" onmouseover="researchdescriptions(106)"></td>
-                    <td><img id="res107" src="Pictures/Transparent Pics/Research107.png" alt="" onclick="buyResearch(107);" class="chal9" style="display:none" onmouseover="researchdescriptions(107)"></td>
-                    <td><img id="res108" src="Pictures/Transparent Pics/Research108.png" alt="" onclick="buyResearch(108);" class="chal9" style="display:none" onmouseover="researchdescriptions(108)"></td>
-                    <td><img id="res109" src="Pictures/Transparent Pics/Research109.png" alt="" onclick="buyResearch(109);" class="chal9" style="display:none" onmouseover="researchdescriptions(109)"></td>
-                    <td><img id="res110" src="Pictures/Transparent Pics/Research110.png" alt="" onclick="buyResearch(110);" class="chal9" style="display:none" onmouseover="researchdescriptions(110)"></td>
-                    <td><img id="res111" src="Pictures/Transparent Pics/Research111.png" alt="" onclick="buyResearch(111);" class="chal10" onmouseover="researchdescriptions(111)"></td>
-                    <td><img id="res112" src="Pictures/Transparent Pics/Research112.png" alt="" onclick="buyResearch(112);" class="chal10" onmouseover="researchdescriptions(112)"></td>
-                    <td><img id="res113" src="Pictures/Transparent Pics/Research113.png" alt="" onclick="buyResearch(113);" class="chal10" onmouseover="researchdescriptions(113)"></td>
-                    <td><img id="res114" src="Pictures/Transparent Pics/Research114.png" alt="" onclick="buyResearch(114);" class="chal10" onmouseover="researchdescriptions(114)"></td>
-                    <td><img id="res115" src="Pictures/Transparent Pics/Research115.png" alt="" onclick="buyResearch(115);" class="chal10" onmouseover="researchdescriptions(115)"></td>
-                    <td><img id="res116" src="Pictures/Transparent Pics/Research116.png" alt="" onclick="buyResearch(116);" class="chal10" onmouseover="researchdescriptions(116)"></td>
-                    <td><img id="res117" src="Pictures/Transparent Pics/Research117.png" alt="" onclick="buyResearch(117);" class="chal10" onmouseover="researchdescriptions(117)"></td>
-                    <td><img id="res118" src="Pictures/Transparent Pics/Research118.png" alt="" onclick="buyResearch(118);" class="chal10" onmouseover="researchdescriptions(118)"></td>
-                    <td><img id="res119" src="Pictures/Transparent Pics/Research119.png" alt="" onclick="buyResearch(119);" class="chal10" onmouseover="researchdescriptions(119)"></td>
-                    <td><img id="res120" src="Pictures/Transparent Pics/Research120.png" alt="" onclick="buyResearch(120);" class="chal10" onmouseover="researchdescriptions(120)"></td>
-                    <td><img id="res121" src="Pictures/Transparent Pics/Research121.png" alt="" onclick="buyResearch(121);" class="chal9" onmouseover="researchdescriptions(121)"></td>
-                    <td><img id="res122" src="Pictures/Transparent Pics/Research122.png" alt="" onclick="buyResearch(122);" class="chal10" onmouseover="researchdescriptions(122)"></td>
-                    <td><img id="res123" src="Pictures/Transparent Pics/Research123.png" alt="" onclick="buyResearch(123);" class="chal10" onmouseover="researchdescriptions(123)"></td>
-                    <td><img id="res124" src="Pictures/Transparent Pics/Research124.png" alt="" onclick="buyResearch(124);" class="chal9" onmouseover="researchdescriptions(124)"></td>
-                    <td><img id="res125" src="Pictures/Transparent Pics/Research125.png" alt="" onclick="buyResearch(125);" class="chal10" onmouseover="researchdescriptions(125)"></td>
+                    <td><img id="res101" src="Pictures/Transparent Pics/Research101.png" alt="" onclick="buyResearch(101);" class="chal9" style="display:none" onmouseover="researchDescriptions(101)">                    </td>
+                    <td><img id="res102" src="Pictures/Transparent Pics/Research102.png" alt="" onclick="buyResearch(102);" class="chal9" style="display:none" onmouseover="researchDescriptions(102)">                    </td>
+                    <td><img id="res103" src="Pictures/Transparent Pics/Research103.png" alt="" onclick="buyResearch(103);" class="chal9" style="display:none" onmouseover="researchDescriptions(103)">                    </td>
+                    <td><img id="res104" src="Pictures/Transparent Pics/Research104.png" alt="" onclick="buyResearch(104);" class="chal9" style="display:none" onmouseover="researchDescriptions(104)">                    </td>
+                    <td><img id="res105" src="Pictures/Transparent Pics/Research105.png" alt="" onclick="buyResearch(105);" class="chal9" style="display:none" onmouseover="researchDescriptions(105)">                    </td>
+                    <td><img id="res106" src="Pictures/Transparent Pics/Research106.png" alt="" onclick="buyResearch(106);" class="chal9" style="display:none" onmouseover="researchDescriptions(106)"></td>
+                    <td><img id="res107" src="Pictures/Transparent Pics/Research107.png" alt="" onclick="buyResearch(107);" class="chal9" style="display:none" onmouseover="researchDescriptions(107)"></td>
+                    <td><img id="res108" src="Pictures/Transparent Pics/Research108.png" alt="" onclick="buyResearch(108);" class="chal9" style="display:none" onmouseover="researchDescriptions(108)"></td>
+                    <td><img id="res109" src="Pictures/Transparent Pics/Research109.png" alt="" onclick="buyResearch(109);" class="chal9" style="display:none" onmouseover="researchDescriptions(109)"></td>
+                    <td><img id="res110" src="Pictures/Transparent Pics/Research110.png" alt="" onclick="buyResearch(110);" class="chal9" style="display:none" onmouseover="researchDescriptions(110)"></td>
+                    <td><img id="res111" src="Pictures/Transparent Pics/Research111.png" alt="" onclick="buyResearch(111);" class="chal10" onmouseover="researchDescriptions(111)"></td>
+                    <td><img id="res112" src="Pictures/Transparent Pics/Research112.png" alt="" onclick="buyResearch(112);" class="chal10" onmouseover="researchDescriptions(112)"></td>
+                    <td><img id="res113" src="Pictures/Transparent Pics/Research113.png" alt="" onclick="buyResearch(113);" class="chal10" onmouseover="researchDescriptions(113)"></td>
+                    <td><img id="res114" src="Pictures/Transparent Pics/Research114.png" alt="" onclick="buyResearch(114);" class="chal10" onmouseover="researchDescriptions(114)"></td>
+                    <td><img id="res115" src="Pictures/Transparent Pics/Research115.png" alt="" onclick="buyResearch(115);" class="chal10" onmouseover="researchDescriptions(115)"></td>
+                    <td><img id="res116" src="Pictures/Transparent Pics/Research116.png" alt="" onclick="buyResearch(116);" class="chal10" onmouseover="researchDescriptions(116)"></td>
+                    <td><img id="res117" src="Pictures/Transparent Pics/Research117.png" alt="" onclick="buyResearch(117);" class="chal10" onmouseover="researchDescriptions(117)"></td>
+                    <td><img id="res118" src="Pictures/Transparent Pics/Research118.png" alt="" onclick="buyResearch(118);" class="chal10" onmouseover="researchDescriptions(118)"></td>
+                    <td><img id="res119" src="Pictures/Transparent Pics/Research119.png" alt="" onclick="buyResearch(119);" class="chal10" onmouseover="researchDescriptions(119)"></td>
+                    <td><img id="res120" src="Pictures/Transparent Pics/Research120.png" alt="" onclick="buyResearch(120);" class="chal10" onmouseover="researchDescriptions(120)"></td>
+                    <td><img id="res121" src="Pictures/Transparent Pics/Research121.png" alt="" onclick="buyResearch(121);" class="chal9" onmouseover="researchDescriptions(121)"></td>
+                    <td><img id="res122" src="Pictures/Transparent Pics/Research122.png" alt="" onclick="buyResearch(122);" class="chal10" onmouseover="researchDescriptions(122)"></td>
+                    <td><img id="res123" src="Pictures/Transparent Pics/Research123.png" alt="" onclick="buyResearch(123);" class="chal10" onmouseover="researchDescriptions(123)"></td>
+                    <td><img id="res124" src="Pictures/Transparent Pics/Research124.png" alt="" onclick="buyResearch(124);" class="chal9" onmouseover="researchDescriptions(124)"></td>
+                    <td><img id="res125" src="Pictures/Transparent Pics/Research125.png" alt="" onclick="buyResearch(125);" class="chal10" onmouseover="researchDescriptions(125)"></td>
                 </tr>
                 <tr>
-                    <td><img id="res126" src="Pictures/Transparent Pics/Research126.png" alt="" onclick='buyResearch(126);' class="ascendunlock" onmouseover="researchdescriptions(126)"></td>
-                    <td><img id="res127" src="Pictures/Transparent Pics/Research127.png" alt="" onclick='buyResearch(127);' class="ascendunlock" onmouseover="researchdescriptions(127)"></td>
-                    <td><img id="res128" src="Pictures/Transparent Pics/Research128.png" alt="" onclick='buyResearch(128);' class="ascendunlock" onmouseover="researchdescriptions(128)"></td>
-                    <td><img id="res129" src="Pictures/Transparent Pics/Research129.png" alt="" onclick='buyResearch(129);' class="ascendunlock" onmouseover="researchdescriptions(129)"></td>
-                    <td><img id="res130" src="Pictures/Transparent Pics/Research130.png" alt="" onclick='buyResearch(130);' class="ascendunlock" onmouseover="researchdescriptions(130)"></td>
-                    <td><img id="res131" src="Pictures/Transparent Pics/Research131.png" alt="" onclick='buyResearch(131);' class="ascendunlock" onmouseover="researchdescriptions(131)"></td>
-                    <td><img id="res132" src="Pictures/Transparent Pics/Research132.png" alt="" onclick='buyResearch(132);' class="ascendunlock" onmouseover="researchdescriptions(132)"></td>
-                    <td><img id="res133" src="Pictures/Transparent Pics/Research133.png" alt="" onclick='buyResearch(133);' class="ascendunlock" onmouseover="researchdescriptions(133)"></td>
-                    <td><img id="res134" src="Pictures/Transparent Pics/Research134.png" alt="" onclick='buyResearch(134);' class="ascendunlock" onmouseover="researchdescriptions(134)"></td>
-                    <td><img id="res135" src="Pictures/Transparent Pics/Research135.png" alt="" onclick='buyResearch(135);' class="ascendunlock" onmouseover="researchdescriptions(135)"></td>
-                    <td><img id="res136" src="Pictures/Transparent Pics/Research136.png" alt="" onclick='buyResearch(136);' class="ascendunlock" onmouseover="researchdescriptions(136)"></td>
-                    <td><img id="res137" src="Pictures/Transparent Pics/Research137.png" alt="" onclick='buyResearch(137);' class="ascendunlock" onmouseover="researchdescriptions(137)"></td>
-                    <td><img id="res138" src="Pictures/Transparent Pics/Research138.png" alt="" onclick='buyResearch(138);' class="ascendunlock" onmouseover="researchdescriptions(138)"></td>
-                    <td><img id="res139" src="Pictures/Transparent Pics/Research139.png" alt="" onclick='buyResearch(139);' class="ascendunlock" onmouseover="researchdescriptions(139)"></td>
-                    <td><img id="res140" src="Pictures/Transparent Pics/Research140.png" alt="" onclick='buyResearch(140);' class="ascendunlock" onmouseover="researchdescriptions(140)"></td>
-                    <td><img id="res141" src="Pictures/Transparent Pics/Research141.png" alt="" onclick='buyResearch(141);' class="chal11" onmouseover="researchdescriptions(141)"></td>
-                    <td><img id="res142" src="Pictures/Transparent Pics/Research142.png" alt="" onclick='buyResearch(142);' class="chal11" onmouseover="researchdescriptions(142)"></td>
-                    <td><img id="res143" src="Pictures/Transparent Pics/Research143.png" alt="" onclick='buyResearch(143);' class="chal11" onmouseover="researchdescriptions(143)"></td>
-                    <td><img id="res144" src="Pictures/Transparent Pics/Research144.png" alt="" onclick='buyResearch(144);' class="chal11" onmouseover="researchdescriptions(144)"></td>
-                    <td><img id="res145" src="Pictures/Transparent Pics/Research145.png" alt="" onclick='buyResearch(145);' class="chal11" onmouseover="researchdescriptions(145)"></td>
-                    <td><img id="res146" src="Pictures/Transparent Pics/Research146.png" alt="" onclick='buyResearch(146);' class="chal11" onmouseover="researchdescriptions(146)"></td>
-                    <td><img id="res147" src="Pictures/Transparent Pics/Research147.png" alt="" onclick='buyResearch(147);' class="chal11" onmouseover="researchdescriptions(147)"></td>
-                    <td><img id="res148" src="Pictures/Transparent Pics/Research148.png" alt="" onclick='buyResearch(148);' class="chal11" onmouseover="researchdescriptions(148)"></td>
-                    <td><img id="res149" src="Pictures/Transparent Pics/Research149.png" alt="" onclick='buyResearch(149);' class="chal11" onmouseover="researchdescriptions(149)"></td>
-                    <td><img id="res150" src="Pictures/Transparent Pics/Research150.png" alt="" onclick='buyResearch(150);' class="chal11" onmouseover="researchdescriptions(150)"></td>
+                    <td><img id="res126" src="Pictures/Transparent Pics/Research126.png" alt="" onclick='buyResearch(126);' class="ascendunlock" onmouseover="researchDescriptions(126)"></td>
+                    <td><img id="res127" src="Pictures/Transparent Pics/Research127.png" alt="" onclick='buyResearch(127);' class="ascendunlock" onmouseover="researchDescriptions(127)"></td>
+                    <td><img id="res128" src="Pictures/Transparent Pics/Research128.png" alt="" onclick='buyResearch(128);' class="ascendunlock" onmouseover="researchDescriptions(128)"></td>
+                    <td><img id="res129" src="Pictures/Transparent Pics/Research129.png" alt="" onclick='buyResearch(129);' class="ascendunlock" onmouseover="researchDescriptions(129)"></td>
+                    <td><img id="res130" src="Pictures/Transparent Pics/Research130.png" alt="" onclick='buyResearch(130);' class="ascendunlock" onmouseover="researchDescriptions(130)"></td>
+                    <td><img id="res131" src="Pictures/Transparent Pics/Research131.png" alt="" onclick='buyResearch(131);' class="ascendunlock" onmouseover="researchDescriptions(131)"></td>
+                    <td><img id="res132" src="Pictures/Transparent Pics/Research132.png" alt="" onclick='buyResearch(132);' class="ascendunlock" onmouseover="researchDescriptions(132)"></td>
+                    <td><img id="res133" src="Pictures/Transparent Pics/Research133.png" alt="" onclick='buyResearch(133);' class="ascendunlock" onmouseover="researchDescriptions(133)"></td>
+                    <td><img id="res134" src="Pictures/Transparent Pics/Research134.png" alt="" onclick='buyResearch(134);' class="ascendunlock" onmouseover="researchDescriptions(134)"></td>
+                    <td><img id="res135" src="Pictures/Transparent Pics/Research135.png" alt="" onclick='buyResearch(135);' class="ascendunlock" onmouseover="researchDescriptions(135)"></td>
+                    <td><img id="res136" src="Pictures/Transparent Pics/Research136.png" alt="" onclick='buyResearch(136);' class="ascendunlock" onmouseover="researchDescriptions(136)"></td>
+                    <td><img id="res137" src="Pictures/Transparent Pics/Research137.png" alt="" onclick='buyResearch(137);' class="ascendunlock" onmouseover="researchDescriptions(137)"></td>
+                    <td><img id="res138" src="Pictures/Transparent Pics/Research138.png" alt="" onclick='buyResearch(138);' class="ascendunlock" onmouseover="researchDescriptions(138)"></td>
+                    <td><img id="res139" src="Pictures/Transparent Pics/Research139.png" alt="" onclick='buyResearch(139);' class="ascendunlock" onmouseover="researchDescriptions(139)"></td>
+                    <td><img id="res140" src="Pictures/Transparent Pics/Research140.png" alt="" onclick='buyResearch(140);' class="ascendunlock" onmouseover="researchDescriptions(140)"></td>
+                    <td><img id="res141" src="Pictures/Transparent Pics/Research141.png" alt="" onclick='buyResearch(141);' class="chal11" onmouseover="researchDescriptions(141)"></td>
+                    <td><img id="res142" src="Pictures/Transparent Pics/Research142.png" alt="" onclick='buyResearch(142);' class="chal11" onmouseover="researchDescriptions(142)"></td>
+                    <td><img id="res143" src="Pictures/Transparent Pics/Research143.png" alt="" onclick='buyResearch(143);' class="chal11" onmouseover="researchDescriptions(143)"></td>
+                    <td><img id="res144" src="Pictures/Transparent Pics/Research144.png" alt="" onclick='buyResearch(144);' class="chal11" onmouseover="researchDescriptions(144)"></td>
+                    <td><img id="res145" src="Pictures/Transparent Pics/Research145.png" alt="" onclick='buyResearch(145);' class="chal11" onmouseover="researchDescriptions(145)"></td>
+                    <td><img id="res146" src="Pictures/Transparent Pics/Research146.png" alt="" onclick='buyResearch(146);' class="chal11" onmouseover="researchDescriptions(146)"></td>
+                    <td><img id="res147" src="Pictures/Transparent Pics/Research147.png" alt="" onclick='buyResearch(147);' class="chal11" onmouseover="researchDescriptions(147)"></td>
+                    <td><img id="res148" src="Pictures/Transparent Pics/Research148.png" alt="" onclick='buyResearch(148);' class="chal11" onmouseover="researchDescriptions(148)"></td>
+                    <td><img id="res149" src="Pictures/Transparent Pics/Research149.png" alt="" onclick='buyResearch(149);' class="chal11" onmouseover="researchDescriptions(149)"></td>
+                    <td><img id="res150" src="Pictures/Transparent Pics/Research150.png" alt="" onclick='buyResearch(150);' class="chal11" onmouseover="researchDescriptions(150)"></td>
                 </tr>
                 <tr>
-                    <td><img id="res151" src="Pictures/Transparent Pics/Research151.png" alt="" onclick='buyResearch(151);' class="chal11" onmouseover="researchdescriptions(151)"></td>
-                    <td><img id="res152" src="Pictures/Transparent Pics/Research152.png" alt="" onclick='buyResearch(152);' class="chal11" onmouseover="researchdescriptions(152)"></td>
-                    <td><img id="res153" src="Pictures/Transparent Pics/Research153.png" alt="" onclick='buyResearch(153);' class="chal11" onmouseover="researchdescriptions(153)"></td>
-                    <td><img id="res154" src="Pictures/Transparent Pics/Research154.png" alt="" onclick='buyResearch(154);' class="chal11" onmouseover="researchdescriptions(154)"></td>
-                    <td><img id="res155" src="Pictures/Transparent Pics/Research155.png" alt="" onclick='buyResearch(155);' class="chal11" onmouseover="researchdescriptions(155)"></td>
-                    <td><img id="res156" src="Pictures/Transparent Pics/Research156.png" alt="" onclick='buyResearch(156);' class="chal12" onmouseover="researchdescriptions(156)"></td>
-                    <td><img id="res157" src="Pictures/Transparent Pics/Research157.png" alt="" onclick='buyResearch(157);' class="chal12" onmouseover="researchdescriptions(157)"></td>
-                    <td><img id="res158" src="Pictures/Transparent Pics/Research158.png" alt="" onclick='buyResearch(158);' class="chal12" onmouseover="researchdescriptions(158)"></td>
-                    <td><img id="res159" src="Pictures/Transparent Pics/Research159.png" alt="" onclick='buyResearch(159);' class="chal12" onmouseover="researchdescriptions(159)"></td>
-                    <td><img id="res160" src="Pictures/Transparent Pics/Research160.png" alt="" onclick='buyResearch(160);' class="chal12" onmouseover="researchdescriptions(160)"></td>
-                    <td><img id="res161" src="Pictures/Transparent Pics/Research161.png" alt="" onclick='buyResearch(161);' class="chal12" onmouseover="researchdescriptions(161)"></td>
-                    <td><img id="res162" src="Pictures/Transparent Pics/Research162.png" alt="" onclick='buyResearch(162);' class="chal12" onmouseover="researchdescriptions(162)"></td>
-                    <td><img id="res163" src="Pictures/Transparent Pics/Research163.png" alt="" onclick='buyResearch(163);' class="chal12" onmouseover="researchdescriptions(163)"></td>
-                    <td><img id="res164" src="Pictures/Transparent Pics/Research164.png" alt="" onclick='buyResearch(164);' class="chal12" onmouseover="researchdescriptions(164)"></td>
-                    <td><img id="res165" src="Pictures/Transparent Pics/Research165.png" alt="" onclick='buyResearch(165);' class="chal12" onmouseover="researchdescriptions(165)"></td>
-                    <td><img id="res166" src="Pictures/Transparent Pics/Research166.png" alt="" onclick='buyResearch(166);' class="chal12" onmouseover="researchdescriptions(166)"></td>
-                    <td><img id="res167" src="Pictures/Transparent Pics/Research167.png" alt="" onclick='buyResearch(167);' class="chal12" onmouseover="researchdescriptions(167)"></td>
-                    <td><img id="res168" src="Pictures/Transparent Pics/Research168.png" alt="" onclick='buyResearch(168);' class="chal12" onmouseover="researchdescriptions(168)"></td>
-                    <td><img id="res169" src="Pictures/Transparent Pics/Research169.png" alt="" onclick='buyResearch(169);' class="chal12" onmouseover="researchdescriptions(169)"></td>
-                    <td><img id="res170" src="Pictures/Transparent Pics/Research170.png" alt="" onclick='buyResearch(170);' class="chal12" onmouseover="researchdescriptions(170)"></td>
-                    <td><img id="res171" src="Pictures/Transparent Pics/Research171.png" alt="" onclick='buyResearch(171);' class="chal13" onmouseover="researchdescriptions(171)"></td>
-                    <td><img id="res172" src="Pictures/Transparent Pics/Research172.png" alt="" onclick='buyResearch(172);' class="chal13" onmouseover="researchdescriptions(172)"></td>
-                    <td><img id="res173" src="Pictures/Transparent Pics/Research173.png" alt="" onclick='buyResearch(173);' class="chal13" onmouseover="researchdescriptions(173)"></td>
-                    <td><img id="res174" src="Pictures/Transparent Pics/Research174.png" alt="" onclick='buyResearch(174);' class="chal13" onmouseover="researchdescriptions(174)"></td>
-                    <td><img id="res175" src="Pictures/Transparent Pics/Research175.png" alt="" onclick='buyResearch(175);' class="chal13" onmouseover="researchdescriptions(175)"></td>
+                    <td><img id="res151" src="Pictures/Transparent Pics/Research151.png" alt="" onclick='buyResearch(151);' class="chal11" onmouseover="researchDescriptions(151)"></td>
+                    <td><img id="res152" src="Pictures/Transparent Pics/Research152.png" alt="" onclick='buyResearch(152);' class="chal11" onmouseover="researchDescriptions(152)"></td>
+                    <td><img id="res153" src="Pictures/Transparent Pics/Research153.png" alt="" onclick='buyResearch(153);' class="chal11" onmouseover="researchDescriptions(153)"></td>
+                    <td><img id="res154" src="Pictures/Transparent Pics/Research154.png" alt="" onclick='buyResearch(154);' class="chal11" onmouseover="researchDescriptions(154)"></td>
+                    <td><img id="res155" src="Pictures/Transparent Pics/Research155.png" alt="" onclick='buyResearch(155);' class="chal11" onmouseover="researchDescriptions(155)"></td>
+                    <td><img id="res156" src="Pictures/Transparent Pics/Research156.png" alt="" onclick='buyResearch(156);' class="chal12" onmouseover="researchDescriptions(156)"></td>
+                    <td><img id="res157" src="Pictures/Transparent Pics/Research157.png" alt="" onclick='buyResearch(157);' class="chal12" onmouseover="researchDescriptions(157)"></td>
+                    <td><img id="res158" src="Pictures/Transparent Pics/Research158.png" alt="" onclick='buyResearch(158);' class="chal12" onmouseover="researchDescriptions(158)"></td>
+                    <td><img id="res159" src="Pictures/Transparent Pics/Research159.png" alt="" onclick='buyResearch(159);' class="chal12" onmouseover="researchDescriptions(159)"></td>
+                    <td><img id="res160" src="Pictures/Transparent Pics/Research160.png" alt="" onclick='buyResearch(160);' class="chal12" onmouseover="researchDescriptions(160)"></td>
+                    <td><img id="res161" src="Pictures/Transparent Pics/Research161.png" alt="" onclick='buyResearch(161);' class="chal12" onmouseover="researchDescriptions(161)"></td>
+                    <td><img id="res162" src="Pictures/Transparent Pics/Research162.png" alt="" onclick='buyResearch(162);' class="chal12" onmouseover="researchDescriptions(162)"></td>
+                    <td><img id="res163" src="Pictures/Transparent Pics/Research163.png" alt="" onclick='buyResearch(163);' class="chal12" onmouseover="researchDescriptions(163)"></td>
+                    <td><img id="res164" src="Pictures/Transparent Pics/Research164.png" alt="" onclick='buyResearch(164);' class="chal12" onmouseover="researchDescriptions(164)"></td>
+                    <td><img id="res165" src="Pictures/Transparent Pics/Research165.png" alt="" onclick='buyResearch(165);' class="chal12" onmouseover="researchDescriptions(165)"></td>
+                    <td><img id="res166" src="Pictures/Transparent Pics/Research166.png" alt="" onclick='buyResearch(166);' class="chal12" onmouseover="researchDescriptions(166)"></td>
+                    <td><img id="res167" src="Pictures/Transparent Pics/Research167.png" alt="" onclick='buyResearch(167);' class="chal12" onmouseover="researchDescriptions(167)"></td>
+                    <td><img id="res168" src="Pictures/Transparent Pics/Research168.png" alt="" onclick='buyResearch(168);' class="chal12" onmouseover="researchDescriptions(168)"></td>
+                    <td><img id="res169" src="Pictures/Transparent Pics/Research169.png" alt="" onclick='buyResearch(169);' class="chal12" onmouseover="researchDescriptions(169)"></td>
+                    <td><img id="res170" src="Pictures/Transparent Pics/Research170.png" alt="" onclick='buyResearch(170);' class="chal12" onmouseover="researchDescriptions(170)"></td>
+                    <td><img id="res171" src="Pictures/Transparent Pics/Research171.png" alt="" onclick='buyResearch(171);' class="chal13" onmouseover="researchDescriptions(171)"></td>
+                    <td><img id="res172" src="Pictures/Transparent Pics/Research172.png" alt="" onclick='buyResearch(172);' class="chal13" onmouseover="researchDescriptions(172)"></td>
+                    <td><img id="res173" src="Pictures/Transparent Pics/Research173.png" alt="" onclick='buyResearch(173);' class="chal13" onmouseover="researchDescriptions(173)"></td>
+                    <td><img id="res174" src="Pictures/Transparent Pics/Research174.png" alt="" onclick='buyResearch(174);' class="chal13" onmouseover="researchDescriptions(174)"></td>
+                    <td><img id="res175" src="Pictures/Transparent Pics/Research175.png" alt="" onclick='buyResearch(175);' class="chal13" onmouseover="researchDescriptions(175)"></td>
                 </tr>
                 <tr>
-                    <td><img id="res176" src="Pictures/Transparent Pics/Research176.png" alt="" onclick='buyResearch(176);' class="chal13" onmouseover="researchdescriptions(176)"></td>
-                    <td><img id="res177" src="Pictures/Transparent Pics/Research177.png" alt="" onclick='buyResearch(177);' class="chal13" onmouseover="researchdescriptions(177)"></td>
-                    <td><img id="res178" src="Pictures/Transparent Pics/Research178.png" alt="" onclick='buyResearch(178);' class="chal13" onmouseover="researchdescriptions(178)"></td>
-                    <td><img id="res179" src="Pictures/Transparent Pics/Research179.png" alt="" onclick='buyResearch(179);' class="chal13" onmouseover="researchdescriptions(179)"></td>
-                    <td><img id="res180" src="Pictures/Transparent Pics/Research180.png" alt="" onclick='buyResearch(180);' class="chal13" onmouseover="researchdescriptions(180)"></td>
-                    <td><img id="res181" src="Pictures/Transparent Pics/Research181.png" alt="" onclick='buyResearch(181);' class="chal13" onmouseover="researchdescriptions(181)"></td>
-                    <td><img id="res182" src="Pictures/Transparent Pics/Research182.png" alt="" onclick='buyResearch(182);' class="chal13" onmouseover="researchdescriptions(182)"></td>
-                    <td><img id="res183" src="Pictures/Transparent Pics/Research183.png" alt="" onclick='buyResearch(183);' class="chal13" onmouseover="researchdescriptions(183)"></td>
-                    <td><img id="res184" src="Pictures/Transparent Pics/Research184.png" alt="" onclick='buyResearch(184);' class="chal13" onmouseover="researchdescriptions(184)"></td>
-                    <td><img id="res185" src="Pictures/Transparent Pics/Research185.png" alt="" onclick='buyResearch(185);' class="chal13" onmouseover="researchdescriptions(185)"></td>
-                    <td><img id="res186" src="Pictures/Transparent Pics/Research186.png" alt="" onclick='buyResearch(186);' class="chal14" onmouseover="researchdescriptions(186)"></td>
-                    <td><img id="res187" src="Pictures/Transparent Pics/Research187.png" alt="" onclick='buyResearch(187);' class="chal14" onmouseover="researchdescriptions(187)"></td>
-                    <td><img id="res188" src="Pictures/Transparent Pics/Research188.png" alt="" onclick='buyResearch(188);' class="chal14" onmouseover="researchdescriptions(188)"></td>
-                    <td><img id="res189" src="Pictures/Transparent Pics/Research189.png" alt="" onclick='buyResearch(189);' class="chal14" onmouseover="researchdescriptions(189)"></td>
-                    <td><img id="res190" src="Pictures/Transparent Pics/Research190.png" alt="" onclick='buyResearch(190);' class="chal14" onmouseover="researchdescriptions(190)"></td>
-                    <td><img id="res191" src="Pictures/Transparent Pics/Research191.png" alt="" onclick='buyResearch(191);' class="chal14" onmouseover="researchdescriptions(191)"></td>
-                    <td><img id="res192" src="Pictures/Transparent Pics/Research192.png" alt="" onclick='buyResearch(192);' class="chal14" onmouseover="researchdescriptions(192)"></td>
-                    <td><img id="res193" src="Pictures/Transparent Pics/Research193.png" alt="" onclick='buyResearch(193);' class="chal14" onmouseover="researchdescriptions(193)"></td>
-                    <td><img id="res194" src="Pictures/Transparent Pics/Research194.png" alt="" onclick='buyResearch(194);' class="chal14" onmouseover="researchdescriptions(194)"></td>
-                    <td><img id="res195" src="Pictures/Transparent Pics/Research195.png" alt="" onclick='buyResearch(195);' class="chal14" onmouseover="researchdescriptions(195)"></td>
-                    <td><img id="res196" src="Pictures/Transparent Pics/Research196.png" alt="" onclick='buyResearch(196);' class="chal14" onmouseover="researchdescriptions(196)"></td>
-                    <td><img id="res197" src="Pictures/Transparent Pics/Research197.png" alt="" onclick='buyResearch(197);' class="chal14" onmouseover="researchdescriptions(197)"></td>
-                    <td><img id="res198" src="Pictures/Transparent Pics/Research198.png" alt="" onclick='buyResearch(198);' class="chal14" onmouseover="researchdescriptions(198)"></td>
-                    <td><img id="res199" src="Pictures/Transparent Pics/Research199.png" alt="" onclick='buyResearch(199);' class="chal14" onmouseover="researchdescriptions(199)"></td>
-                    <td><img id="res200" src="Pictures/Transparent Pics/Research200.png" alt="" onclick='buyResearch(200);' class="chal14" onmouseover="researchdescriptions(200)"></td>
+                    <td><img id="res176" src="Pictures/Transparent Pics/Research176.png" alt="" onclick='buyResearch(176);' class="chal13" onmouseover="researchDescriptions(176)"></td>
+                    <td><img id="res177" src="Pictures/Transparent Pics/Research177.png" alt="" onclick='buyResearch(177);' class="chal13" onmouseover="researchDescriptions(177)"></td>
+                    <td><img id="res178" src="Pictures/Transparent Pics/Research178.png" alt="" onclick='buyResearch(178);' class="chal13" onmouseover="researchDescriptions(178)"></td>
+                    <td><img id="res179" src="Pictures/Transparent Pics/Research179.png" alt="" onclick='buyResearch(179);' class="chal13" onmouseover="researchDescriptions(179)"></td>
+                    <td><img id="res180" src="Pictures/Transparent Pics/Research180.png" alt="" onclick='buyResearch(180);' class="chal13" onmouseover="researchDescriptions(180)"></td>
+                    <td><img id="res181" src="Pictures/Transparent Pics/Research181.png" alt="" onclick='buyResearch(181);' class="chal13" onmouseover="researchDescriptions(181)"></td>
+                    <td><img id="res182" src="Pictures/Transparent Pics/Research182.png" alt="" onclick='buyResearch(182);' class="chal13" onmouseover="researchDescriptions(182)"></td>
+                    <td><img id="res183" src="Pictures/Transparent Pics/Research183.png" alt="" onclick='buyResearch(183);' class="chal13" onmouseover="researchDescriptions(183)"></td>
+                    <td><img id="res184" src="Pictures/Transparent Pics/Research184.png" alt="" onclick='buyResearch(184);' class="chal13" onmouseover="researchDescriptions(184)"></td>
+                    <td><img id="res185" src="Pictures/Transparent Pics/Research185.png" alt="" onclick='buyResearch(185);' class="chal13" onmouseover="researchDescriptions(185)"></td>
+                    <td><img id="res186" src="Pictures/Transparent Pics/Research186.png" alt="" onclick='buyResearch(186);' class="chal14" onmouseover="researchDescriptions(186)"></td>
+                    <td><img id="res187" src="Pictures/Transparent Pics/Research187.png" alt="" onclick='buyResearch(187);' class="chal14" onmouseover="researchDescriptions(187)"></td>
+                    <td><img id="res188" src="Pictures/Transparent Pics/Research188.png" alt="" onclick='buyResearch(188);' class="chal14" onmouseover="researchDescriptions(188)"></td>
+                    <td><img id="res189" src="Pictures/Transparent Pics/Research189.png" alt="" onclick='buyResearch(189);' class="chal14" onmouseover="researchDescriptions(189)"></td>
+                    <td><img id="res190" src="Pictures/Transparent Pics/Research190.png" alt="" onclick='buyResearch(190);' class="chal14" onmouseover="researchDescriptions(190)"></td>
+                    <td><img id="res191" src="Pictures/Transparent Pics/Research191.png" alt="" onclick='buyResearch(191);' class="chal14" onmouseover="researchDescriptions(191)"></td>
+                    <td><img id="res192" src="Pictures/Transparent Pics/Research192.png" alt="" onclick='buyResearch(192);' class="chal14" onmouseover="researchDescriptions(192)"></td>
+                    <td><img id="res193" src="Pictures/Transparent Pics/Research193.png" alt="" onclick='buyResearch(193);' class="chal14" onmouseover="researchDescriptions(193)"></td>
+                    <td><img id="res194" src="Pictures/Transparent Pics/Research194.png" alt="" onclick='buyResearch(194);' class="chal14" onmouseover="researchDescriptions(194)"></td>
+                    <td><img id="res195" src="Pictures/Transparent Pics/Research195.png" alt="" onclick='buyResearch(195);' class="chal14" onmouseover="researchDescriptions(195)"></td>
+                    <td><img id="res196" src="Pictures/Transparent Pics/Research196.png" alt="" onclick='buyResearch(196);' class="chal14" onmouseover="researchDescriptions(196)"></td>
+                    <td><img id="res197" src="Pictures/Transparent Pics/Research197.png" alt="" onclick='buyResearch(197);' class="chal14" onmouseover="researchDescriptions(197)"></td>
+                    <td><img id="res198" src="Pictures/Transparent Pics/Research198.png" alt="" onclick='buyResearch(198);' class="chal14" onmouseover="researchDescriptions(198)"></td>
+                    <td><img id="res199" src="Pictures/Transparent Pics/Research199.png" alt="" onclick='buyResearch(199);' class="chal14" onmouseover="researchDescriptions(199)"></td>
+                    <td><img id="res200" src="Pictures/Transparent Pics/Research200.png" alt="" onclick='buyResearch(200);' class="chal14" onmouseover="researchDescriptions(200)"></td>
                 </tr>
             </table>
     
@@ -1964,7 +1970,7 @@
         <a href="https://docs.google.com/document/d/13vntkxiCo-mL1en5LRvOmlKQdYhTGhqs9-9mT1XLn1U/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!">
         </a>
-        <p id="versionnumber" style="color: gold">You're playing on v2.0.0 TESTING! Update: August 27, 2020 9:44 PM PDT</p>
+        <p id="versionnumber" style="color: gold">You're playing on v2.0.0 TESTING! Update: September 1, 2020 11:17 PM PDT</p>
     </div>
     <div class="subtabContent" id="creditssubtab">
         <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>
@@ -2024,23 +2030,32 @@
     <div class="subtabContent subtabDisplayFlex historySubTab" id="resetHistorySubTab">
         <div id="historyReset">
             <p>Here's what you got from your last resets (except challenges):</p>
-            <table id="historyResetTable">
-                <tbody></tbody>
-            </table>
+            <div class="historyTableWrap">
+                <table id="historyResetTable">
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
         <div id="historyAnts" class="chal9">
             <p>Your sacrifices got you the following:</p>
-            <table id="historyAntsTable">
-                <tbody></tbody>
-            </table>
+            <div class="historyTableWrap">
+                <table id="historyAntsTable">
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="subtabContent subtabDisplayFlex historySubTab" id="ascendHistorySubTab">
         <div id="historyAscend">
-            <p>Your last ascensions got you the following:</p>
-            <table id="historyAscendTable">
-                <tbody></tbody>
-            </table>
+            <div>
+                <p style="float: left">Your last ascensions got you the following:</p>
+                <button class="onOffToggle" id="historyTogglePerSecondButton" onclick="resetHistoryTogglePerSecond('ascend')">Per second: OFF</button>
+            </div>
+            <div class="historyTableWrap" style="clear: both">
+                <table id="historyAscendTable">
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

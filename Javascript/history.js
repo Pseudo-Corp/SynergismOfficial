@@ -1,15 +1,39 @@
 const historyGains = {
-    offerings: {img: "Pictures/Offering.png", formatter: format, imgTitle: "Offerings"},
-    obtainium: {img: "Pictures/Obtainium.png", formatter: format, imgTitle: "Obtainium"},
-    antMulti: {img: "Pictures/AntSacrifice.png", formatter: format, imgTitle: "Ant Multiplier gains"},
-    particles: {img: "Pictures/Particle.png", formatter: s => extractStringExponent(formatDecimalString(s)), imgTitle: "Particles"},
-    diamonds: {img: "Pictures/Diamond.png", formatter: s => extractStringExponent(formatDecimalString(s)), imgTitle: "Diamonds"},
-    mythos: {img: "Pictures/Mythos.png", formatter: s => extractStringExponent(formatDecimalString(s)), imgTitle: "Mythos"},
-    wowHypercubes: {img: "Pictures/WowHypercube.png", formatter: format, imgTitle: "Wow! Hypercubes"},
-    wowTesseracts: {img: "Pictures/WowTessaract.png", formatter: format, imgTitle: "Wow! Tesseracts"},
+    offerings: {img: "Pictures/Offering.png", formatter: formatPlain, imgTitle: "Offerings"},
+    obtainium: {img: "Pictures/Obtainium.png", formatter: formatPlain, imgTitle: "Obtainium"},
+
+    antMulti: {img: "Pictures/AntSacrifice.png", formatter: formatPlain, imgTitle: "Ant Multiplier gains"},
+
+    particles: {
+        img: "Pictures/Particle.png",
+        formatter: s => extractStringExponent(formatDecimalString(s)),
+        imgTitle: "Particles"
+    },
+    diamonds: {
+        img: "Pictures/Diamond.png",
+        formatter: s => extractStringExponent(formatDecimalString(s)),
+        imgTitle: "Diamonds"
+    },
+    mythos: {
+        img: "Pictures/Mythos.png",
+        formatter: s => extractStringExponent(formatDecimalString(s)),
+        imgTitle: "Mythos"
+    },
+
+    wowTesseracts: {
+        img: "Pictures/WowTessaract.png",
+        formatter: conditionalFormatPerSecond,
+        imgTitle: "Wow! Tesseracts"
+    },
+    wowHypercubes: {
+        img: "Pictures/WowHypercube.png",
+        formatter: conditionalFormatPerSecond,
+        imgTitle: "Wow! Hypercubes",
+        onlyif: () => player.challengecompletions[13] > 0
+    },
     wowCubes: {
         img: "Pictures/WowCube.png",
-        formatter: format,
+        formatter: conditionalFormatPerSecond,
         onlyif: () => player.ascensionCount > 0,
         imgTitle: "Wow! Cubes",
         titler: (data) => {
@@ -39,6 +63,21 @@ const resetHistoryTableMapping = {
     "reset": "historyResetTable",
     "ascend": "historyAscendTable",
 };
+
+// This doesn't pass the extra args to format, and that's on purpose
+function formatPlain(str) {
+    return format(str);
+}
+
+function conditionalFormatPerSecond(numOrStr, data) {
+    if (typeof (numOrStr) === "number" && player.historyShowPerSecond) {
+        if (numOrStr === 0) { // work around format(0, 3) return 0 instead of 0.000, for consistency
+            return "0.000/s";
+        }
+        return format(numOrStr / ((data.seconds && data.seconds > 0) ? data.seconds : 1), 3) + "/s";
+    }
+    return format(numOrStr);
+}
 
 function formatDecimalString(str) {
     return format(new Decimal(str));
@@ -112,7 +151,8 @@ function resetHistoryRenderRow(category, data) {
                 continue;
             }
             let formatter = gainInfo.formatter || dontChange;
-            let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle||''}"> ${formatter(data[showing])}`;
+            let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}"> ${formatter(data[showing], data)}`;
+
             if (gainInfo.titler) {
                 let title = gainInfo.titler(data);
                 if (title !== "") {
@@ -190,4 +230,12 @@ function resetHistoryRenderAllTables() {
     Object.keys(resetHistoryTableMapping).forEach(
         key => resetHistoryRenderFullTable(key, document.getElementById(resetHistoryTableMapping[key]))
     );
+}
+
+function resetHistoryTogglePerSecond(category) {
+    player.historyShowPerSecond = !player.historyShowPerSecond;
+    resetHistoryRenderAllTables();
+    let button = document.getElementById("historyTogglePerSecondButton");
+    button.textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
+    button.style.borderColor = player.historyShowPerSecond ? "green" : "red";
 }
