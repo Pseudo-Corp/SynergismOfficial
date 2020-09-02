@@ -2464,14 +2464,14 @@ function resetCheck(i, manual, leaving) {
         let a = player.currentChallenge.ascension;
         let r = player.currentChallenge.reincarnation;
         let t = player.currentChallenge.transcension;
-
+        let maxCompletions = a < 15 ? 10 : 1;
         if (a !== 0 && a < 15) {
-            if (player.challengecompletions[10] >= (1 + player.challengecompletions[a])) {
+            if (player.challengecompletions[10] >= (1 + player.challengecompletions[a]) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
             }
         }
         if (a === 15) {
-            if (player.coins.greaterThanOrEqualTo("1e4000000000000")) {
+            if (player.coins.greaterThanOrEqualTo("1e4000000000000") && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
             }
         }
@@ -2490,7 +2490,7 @@ function resetCheck(i, manual, leaving) {
             player.wowHypercubes += 1;
         }
 
-        if (!player.retrychallenges || manual || player.challengecompletions[a] >= 10) {
+        if (!player.retrychallenges || manual || player.challengecompletions[a] >= maxCompletions) {
             player.currentChallenge.ascension = 0;
         }
         updateChallengeDisplay();
