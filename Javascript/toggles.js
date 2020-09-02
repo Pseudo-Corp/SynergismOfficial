@@ -274,12 +274,12 @@ function toggleAutoResearch() {
 
 
     if (!player.autoResearchToggle) {
-        for (let i = 1; i <= 125; i++) {
+        for (let i = 1; i <= maxRoombaResearchIndex(player); i++) {
             let l = document.getElementById("res" + i)
             if (player.researches[i] === 0) {
                 l.style.backgroundColor = "black"
             }
-            if (player.researches[i] > 0 && player.researches[i] < researchMaxLevels[i]) {
+            if (0 < player.researches[i] && player.researches[i] < researchMaxLevels[i]) {
                 l.style.backgroundColor = "purple"
             }
             if (player.researches[i] === researchMaxLevels[i]) {
