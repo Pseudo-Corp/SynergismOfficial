@@ -40,7 +40,7 @@ function openCube(value, max) {
 
 //If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
     for (let key of Object.keys(player.cubeBlessings)) {
-        player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+        player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + player.cubeUpgrades[30] + Math.floor(CalcECC('ascension',player.challengecompletions[12])));
     }
 
 //Then, the remaining cubes will be opened, simulating the probability [RNG Element]
@@ -48,7 +48,7 @@ function openCube(value, max) {
         let num = 100 * Math.random();
         for (let key of Object.keys(player.cubeBlessings)) {
             if (blessings[key].pdf(num))
-                player.cubeBlessings[key] += (1 + player.cubeUpgrades[30] + player.challengecompletions[12]);
+                player.cubeBlessings[key] += (1 + player.cubeUpgrades[30] + Math.floor(CalcECC('ascension',player.challengecompletions[12])));
         }
     }
     calculateCubeBlessings();
@@ -150,7 +150,7 @@ const cubeUpgradeDescriptions = [null,
     function () {return "Start ascensions with 3 additional rune levels [Does not decrease EXP requirement] per level."},
     function () {return "Upon an ascension, you will start with 1 of each reincarnation building to speed up Ascensions."},
     function () {return "Well, I think you got it? Gain +1% of particles on Reincarnation per second."},
-    function () {return "Add +1 to Reincarnation Challenge cap per level."},
+    function () {return "Add +5 to Reincarnation Challenge cap per level. Completions after 25 scale faster in requirement!"},
     function () {return "Whenever you open a cube, Aphrodite grazes it with a secondary blessing."},
     function () {return "You again? +1 cube from challenges, +10% cubes from Ascending."},
     function () {return "Gain +0.1% Rune EXP per second you have spent in an Ascension. This has no cap!"},

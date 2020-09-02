@@ -170,19 +170,19 @@ function calculateRuneExpGiven(runeIndex, all) {
     // Rune multiplier that gets applied to specific runes
     let runeExpMultiplier = [
         productContents([
-            1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (player.challengecompletions[7] / 10)
+            1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (CalcECC('reincarnation',player.challengecompletions[7]) / 10)
         ]),
         productContents([
-            1 + (player.researches[80] / 50), 1 + (player.researches[112] / 100), 1 + (player.challengecompletions[7] / 10)
+            1 + (player.researches[80] / 50), 1 + (player.researches[112] / 100), 1 + (CalcECC('reincarnation',player.challengecompletions[7]) / 10)
         ]),
         productContents([
-            1 + (player.researches[79] / 50), 1 + (player.researches[113] / 100), 1 + (player.challengecompletions[8] / 5)
+            1 + (player.researches[79] / 50), 1 + (player.researches[113] / 100), 1 + (CalcECC('reincarnation',player.challengecompletions[8]) / 5)
         ]),
         productContents([
-            1 + (player.researches[77] / 50), 1 + (player.researches[114] / 100), 1 + (player.challengecompletions[6] / 10)
+            1 + (player.researches[77] / 50), 1 + (player.researches[114] / 100), 1 + (CalcECC('reincarnation',player.challengecompletions[6]) / 10)
         ]),
         productContents([
-            1 + (player.researches[83] / 20), 1 + (player.researches[115] / 100), 1 + (player.challengecompletions[9] / 5)
+            1 + (player.researches[83] / 20), 1 + (player.researches[115] / 100), 1 + (CalcECC('reincarnation',player.challengecompletions[9]) / 5)
         ])
     ];
 
@@ -230,11 +230,11 @@ function calculateMaxRunes(i) {
 
     let increaseMaxLevel = [
         null,
-        25 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * player.challengecompletions[11] + 500 * player.challengecompletions[14] + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * player.challengecompletions[11] + 500 * player.challengecompletions[14] + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * player.challengecompletions[11] + 500 * player.challengecompletions[14] + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * player.challengecompletions[11] + 500 * player.challengecompletions[14] + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * player.challengecompletions[11] + 500 * player.challengecompletions[14] + 2 * player.researches[200] + 2 * player.cubeUpgrades[50]
+        25 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
+        25 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
+        25 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
+        25 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
+        25 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50]
     ]
 
     max += increaseMaxLevel[i]
@@ -281,7 +281,7 @@ function calculateOfferings(i) {
         b += 0.2 * player.researches[24]
         b += 1 / 500 * rune5level * effectiveLevelMult * (1 + player.researches[85] / 200)
         b *= (1 + Math.pow(Decimal.log(player.transcendShards.add(1), 10), 1 / 2) / 5);
-        b *= (1 + player.challengecompletions[8] / 25)
+        b *= (1 + CalcECC('reincarnation',player.challengecompletions[8]) / 25)
         b *= Math.min(Math.pow(player.transcendcounter / 10, 2), 1)
         if (player.transcendCount >= 5) {
             b *= Math.max(1, player.transcendcounter / 10)
@@ -304,7 +304,7 @@ function calculateOfferings(i) {
         c += 0.2 * player.researches[24]
         c += 1 / 500 * rune5level * effectiveLevelMult * (1 + player.researches[85] / 200)
         c *= (1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5);
-        c *= (1 + player.challengecompletions[6] / 50)
+        c *= (1 + CalcECC('reincarnation',player.challengecompletions[6]) / 50)
         c *= Math.min(Math.pow(player.prestigecounter / 10, 2), 1)
         if (player.prestigeCount >= 5) {
             c *= Math.max(1, player.prestigecounter / 10)
@@ -335,7 +335,7 @@ function calculateOfferings(i) {
     q *= cubeBonusMultiplier[3]
     q *= (1 + 0.0001 * player.constantUpgrades[3] * Decimal.log(player.ascendShards.add(1), 10))
     q *= (1 + 0.0003 * player.talismanLevels[3] * player.researches[149])
-    q *= (1 + 0.12 * player.challengecompletions[12])
+    q *= (1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]))
     q *= (1 + 0.1 / 100 * player.researches[200])
     q *= (1 + 0.1 / 100 * player.cubeUpgrades[50])
     q = Math.floor(q) * 100 / 100
@@ -379,7 +379,7 @@ function calculateObtainium() {
     obtainiumGain *= cubeBonusMultiplier[5]
     obtainiumGain *= (1 + 0.0004 * player.constantUpgrades[4] * Decimal.log(player.ascendShards.add(1), 10))
     obtainiumGain *= (1 + player.cubeUpgrades[47])
-    obtainiumGain *= (1 + 0.5 * player.challengecompletions[12])
+    obtainiumGain *= (1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]))
     obtainiumGain *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[4])
     obtainiumGain *= (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144])
     obtainiumGain *= (1 + 0.1 / 100 * player.cubeUpgrades[50])
@@ -570,9 +570,9 @@ function calculateAnts() {
 
     let talismanBonus = 0;
     talismanBonus += 2 * (player.talismanRarity[6] - 1);
-    talismanBonus += player.challengecompletions[9];
+    talismanBonus += CalcECC('reincarnation',player.challengecompletions[9]);
     talismanBonus += 2 * player.constantUpgrades[6];
-    talismanBonus += 15 * player.challengecompletions[11];
+    talismanBonus += 15 * CalcECC('ascension', player.challengecompletions[11]);
     talismanBonus += Math.floor(1 / 40 * player.researches[200]);
     let c11 = 0;
     let c11bonus = 0;
@@ -580,7 +580,7 @@ function calculateAnts() {
         c11 = 999
     }
     if (player.currentChallenge.ascension === 11) {
-        c11bonus = Math.floor((15 * player.challengecompletions[8] + 15 * player.challengecompletions[9]) * (1 - player.challengecompletions[11] / 10));
+        c11bonus = Math.floor((6 * player.challengecompletions[8] + 28 * player.challengecompletions[9]) * Math.max(0, (1 - player.challengecompletions[11] / 10)));
     }
     bonusant1 = Math.min(player.antUpgrades[1] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
     bonusant2 = Math.min(player.antUpgrades[2] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
@@ -643,7 +643,7 @@ function calculateAntSacrificeELO() {
         antELO += 25 * player.researches[108]
         antELO += 25 * player.researches[109]
         antELO += 40 * player.researches[123]
-        antELO += 100 * player.challengecompletions[10]
+        antELO += 100 * CalcECC('reincarnation',player.challengecompletions[10])
         antELO += 75 * player.upgrades[80]
         antELO = 1 / 10 * Math.floor(10 * antELO)
 
@@ -679,7 +679,7 @@ function calculateAntSacrificeMultipliers() {
         upgradeMultiplier *= 1.25
     }
     upgradeMultiplier *= (1 + 6.66 * effectiveRuneBlessingPower[3]);
-    upgradeMultiplier *= (1 + 1 / 50 * player.challengecompletions[10]);
+    upgradeMultiplier *= (1 + 1 / 50 * CalcECC('reincarnation',player.challengecompletions[10]));
     upgradeMultiplier *= (1 + 1 / 50 * player.researches[122]);
     upgradeMultiplier *= (1 + 3 / 100 * player.researches[133]);
     upgradeMultiplier *= (1 + 2 / 100 * player.researches[163]);
@@ -979,3 +979,46 @@ function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differ
 
     return [buyToLevel, realCost]
 }
+
+//Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping
+function calculateChallengeRequirementMultiplier(type, completions){
+    let requirementMultiplier = 1
+    requirementMultiplier *= hyperchallengedMultiplier[player.usedCorruptions[4]]
+    switch(type){
+        case "transcend":
+            (completions >= 75)?
+            requirementMultiplier *= Math.pow(1 + completions, 12) / Math.pow(75, 8):
+            requirementMultiplier *= Math.pow(1 + completions, 2);
+            return(requirementMultiplier)
+        case "reincarnation":
+            (completions >= 25)?
+            requirementMultiplier *= Math.pow(1 + completions, 5) / 625:
+            requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions));
+            return(requirementMultiplier)
+        case "ascension":
+            (completions >= 10)?
+            requirementMultiplier *= (2 * (1 + completions) - 10):
+            requirementMultiplier *= (1 + completions);
+            return(requirementMultiplier)
+    }
+}
+
+//Works to mitigate the difficulty of calculating challenge reward multipliers when considering softcapping
+function CalcECC(type, completions){ //ECM stands for "Effective Challenge Completions"
+    let effective = 0;
+    switch(type){
+        case "transcend":
+            effective += Math.min(100, completions);
+            effective += 1/20 * (Math.max(100, completions) - 100);
+            return(effective);
+        case "reincarnation":
+            effective += Math.min(25, completions);
+            effective += 1/2 * (Math.max(25, completions) - 25);
+            return(effective);
+        case "ascension":
+            effective += Math.min(10, completions);
+            effective += 1/2 * (Math.max(10, completions) - 10);
+            return(effective);
+    }
+}
+

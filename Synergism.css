@@ -4553,4 +4553,11 @@ margin-left: -13px
 	background-color: #171717;
 	color: white
 }
+.ascendAuto{
+	position: absolute;
+	height: 30px;
+	width: 80px;
+	border: 2px solid red;
+	left: 49.85%;
+}
 

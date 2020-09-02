@@ -8,7 +8,7 @@ function getRealTime() {
 function exportSynergism() {
     player.offlinetick = Date.now();
     if (player.quarkstimer >= 3600) {
-        player.worlds += (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
+        player.worlds += (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
         player.quarkstimer = (player.quarkstimer % 3600)
     }
     // set attribute to 0, turn tab back to white

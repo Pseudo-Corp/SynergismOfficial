@@ -245,6 +245,9 @@ function showTalismanPrices(i) {
     if (player.talismanLevels[i] >= 150) {
         m *= (player.talismanLevels[i] - 120) / 30
     }
+    if (player.talismanLevels[i] >= 180) {
+        m *= (player.talismanLevels[i] - 170) / 10
+    }
     a.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i], 3))));
     b.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i] - 30, 3))));
     c.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i] - 60, 3))));
@@ -426,8 +429,11 @@ function buyTalismanLevels(i, auto) {
         if (player.talismanLevels[i] >= 150) {
             priceMult *= (player.talismanLevels[i] - 120) / 30
         }
+        if (player.talismanLevels[i] >= 180) {
+            priceMult *= (player.talismanLevels[i] - 170) / 10
+        }
 
-        if (player.talismanLevels[i] < (player.talismanRarity[i] * 30 + 6 * player.challengecompletions[13])) {
+        if (player.talismanLevels[i] < (player.talismanRarity[i] * 30 + 6 * CalcECC('ascension',player.challengecompletions[13]) + Math.floor(player.researches[200]/100))) {
             if (player.talismanShards >= priceMult * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i], 3)))) {
                 checkSum++
             }
