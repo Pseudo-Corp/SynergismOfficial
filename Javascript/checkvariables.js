@@ -117,8 +117,12 @@ function checkVariablesOnLoad(data) {
         player.runeSpiritBuyAmount = 0;
     }
 
-    if (player.researches[180] > 1){player.researches[180] = 1;}
+    if (player.researches[180] > 1) {
+        player.researches[180] = 1;
+    }
 
-    if (data.autoTesseracts === undefined){player.autoTesseracts = [false, false, false, false, false, false]}
-    
+    if (data.autoTesseracts === undefined) {
+        player.autoTesseracts = [false, false, false, false, false, false]
+    }
+
 }

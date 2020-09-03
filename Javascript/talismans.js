@@ -433,7 +433,7 @@ function buyTalismanLevels(i, auto) {
             priceMult *= (player.talismanLevels[i] - 170) / 10
         }
 
-        if (player.talismanLevels[i] < (player.talismanRarity[i] * 30 + 6 * CalcECC('ascension',player.challengecompletions[13]) + Math.floor(player.researches[200]/100))) {
+        if (player.talismanLevels[i] < (player.talismanRarity[i] * 30 + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 100))) {
             if (player.talismanShards >= priceMult * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i], 3)))) {
                 checkSum++
             }

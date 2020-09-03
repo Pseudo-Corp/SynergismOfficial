@@ -453,16 +453,16 @@ function constantUpgradeDescriptions(i) {
     document.getElementById("constUpgradeEffect2").textContent = returnConstUpgEffect(i)
 }
 
-function buyConstantUpgrades(i,fast) {
+function buyConstantUpgrades(i, fast) {
     fast = fast || false
     let metaData = getConstUpgradeMetadata(i)
     if (player.ascendShards.greaterThanOrEqualTo(metaData[1])) {
         player.constantUpgrades[i] += metaData[0];
-        if(player.researches[175] === 0){
-        player.ascendShards = player.ascendShards.sub(metaData[1]);
+        if (player.researches[175] === 0) {
+            player.ascendShards = player.ascendShards.sub(metaData[1]);
         }
-        if(!fast){
-        constantUpgradeDescriptions(i);
+        if (!fast) {
+            constantUpgradeDescriptions(i);
         }
     }
     calculateAnts();
