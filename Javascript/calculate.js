@@ -170,19 +170,19 @@ function calculateRuneExpGiven(runeIndex, all) {
     // Rune multiplier that gets applied to specific runes
     let runeExpMultiplier = [
         productContents([
-            1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (CalcECC('reincarnation',player.challengecompletions[7]) / 10)
+            1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10)
         ]),
         productContents([
-            1 + (player.researches[80] / 50), 1 + (player.researches[112] / 100), 1 + (CalcECC('reincarnation',player.challengecompletions[7]) / 10)
+            1 + (player.researches[80] / 50), 1 + (player.researches[112] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10)
         ]),
         productContents([
-            1 + (player.researches[79] / 50), 1 + (player.researches[113] / 100), 1 + (CalcECC('reincarnation',player.challengecompletions[8]) / 5)
+            1 + (player.researches[79] / 50), 1 + (player.researches[113] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[8]) / 5)
         ]),
         productContents([
-            1 + (player.researches[77] / 50), 1 + (player.researches[114] / 100), 1 + (CalcECC('reincarnation',player.challengecompletions[6]) / 10)
+            1 + (player.researches[77] / 50), 1 + (player.researches[114] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[6]) / 10)
         ]),
         productContents([
-            1 + (player.researches[83] / 20), 1 + (player.researches[115] / 100), 1 + (CalcECC('reincarnation',player.challengecompletions[9]) / 5)
+            1 + (player.researches[83] / 20), 1 + (player.researches[115] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[9]) / 5)
         ])
     ];
 
@@ -281,7 +281,7 @@ function calculateOfferings(i) {
         b += 0.2 * player.researches[24]
         b += 1 / 500 * rune5level * effectiveLevelMult * (1 + player.researches[85] / 200)
         b *= (1 + Math.pow(Decimal.log(player.transcendShards.add(1), 10), 1 / 2) / 5);
-        b *= (1 + CalcECC('reincarnation',player.challengecompletions[8]) / 25)
+        b *= (1 + CalcECC('reincarnation', player.challengecompletions[8]) / 25)
         b *= Math.min(Math.pow(player.transcendcounter / 10, 2), 1)
         if (player.transcendCount >= 5) {
             b *= Math.max(1, player.transcendcounter / 10)
@@ -304,7 +304,7 @@ function calculateOfferings(i) {
         c += 0.2 * player.researches[24]
         c += 1 / 500 * rune5level * effectiveLevelMult * (1 + player.researches[85] / 200)
         c *= (1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5);
-        c *= (1 + CalcECC('reincarnation',player.challengecompletions[6]) / 50)
+        c *= (1 + CalcECC('reincarnation', player.challengecompletions[6]) / 50)
         c *= Math.min(Math.pow(player.prestigecounter / 10, 2), 1)
         if (player.prestigeCount >= 5) {
             c *= Math.max(1, player.prestigecounter / 10)
@@ -570,7 +570,7 @@ function calculateAnts() {
 
     let talismanBonus = 0;
     talismanBonus += 2 * (player.talismanRarity[6] - 1);
-    talismanBonus += CalcECC('reincarnation',player.challengecompletions[9]);
+    talismanBonus += CalcECC('reincarnation', player.challengecompletions[9]);
     talismanBonus += 2 * player.constantUpgrades[6];
     talismanBonus += 15 * CalcECC('ascension', player.challengecompletions[11]);
     talismanBonus += Math.floor(1 / 40 * player.researches[200]);
@@ -643,7 +643,7 @@ function calculateAntSacrificeELO() {
         antELO += 25 * player.researches[108]
         antELO += 25 * player.researches[109]
         antELO += 40 * player.researches[123]
-        antELO += 100 * CalcECC('reincarnation',player.challengecompletions[10])
+        antELO += 100 * CalcECC('reincarnation', player.challengecompletions[10])
         antELO += 75 * player.upgrades[80]
         antELO = 1 / 10 * Math.floor(10 * antELO)
 
@@ -679,7 +679,7 @@ function calculateAntSacrificeMultipliers() {
         upgradeMultiplier *= 1.25
     }
     upgradeMultiplier *= (1 + 6.66 * effectiveRuneBlessingPower[3]);
-    upgradeMultiplier *= (1 + 1 / 50 * CalcECC('reincarnation',player.challengecompletions[10]));
+    upgradeMultiplier *= (1 + 1 / 50 * CalcECC('reincarnation', player.challengecompletions[10]));
     upgradeMultiplier *= (1 + 1 / 50 * player.researches[122]);
     upgradeMultiplier *= (1 + 3 / 100 * player.researches[133]);
     upgradeMultiplier *= (1 + 2 / 100 * player.researches[163]);
@@ -737,7 +737,7 @@ function calculateOffline(forceTime) {
     // should fix offline obtainium gain bug in c14 //
     if (player.currentChallenge.ascension != 14) {
         calculateObtainium();
-    } 
+    }
     calculateAnts();
     calculateRuneLevels();
     if (forceTime === 0) {

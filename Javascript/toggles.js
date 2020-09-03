@@ -589,8 +589,8 @@ function updateRuneBlessingBuyAmount(i) {
     }
 }
 
-function toggleAutoTesseracts(i){
+function toggleAutoTesseracts(i) {
     (player.autoTesseracts[i]) ?
-    (player.autoTesseracts[i] = false, document.getElementById('tesseractAutoToggle'+i).textContent = "Auto [OFF]", document.getElementById('tesseractAutoToggle'+i).style.border = "2px solid red"):
-    (player.autoTesseracts[i] = true, document.getElementById('tesseractAutoToggle'+i).textContent = "Auto [ON]", document.getElementById('tesseractAutoToggle'+i).style.border = "2px solid green");
+        (player.autoTesseracts[i] = false, document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [OFF]", document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid red") :
+        (player.autoTesseracts[i] = true, document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [ON]", document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid green");
 }
