@@ -2088,10 +2088,10 @@ function resourceGain(dt, fast) {
         }
     }
     if (reinchal < 9 && reinchal !== 0) {
-        if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengeBaseRequirements[reinchal] * Math.min(Math.pow(1.3797, player.challengecompletions[reinchal]), Math.pow(1 + player.challengecompletions[reinchal], 2))))) {
+        if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengeBaseRequirements[reinchal] * calculateChallengeRequirementMultiplier('reincarnation',player.challengecompletions[reinchal])))) {
             resetCheck('reincarnationchallenge', false)
             autoChallengeTimerIncrement = 0;
-            if (player.challengecompletions[reinchal] >= (25 + player.cubeUpgrades[29])) {
+            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29])) {
                 player.autoChallengeIndex += 1
             }
         }
@@ -3034,8 +3034,8 @@ function tick() {
                         break;
                     }
                 }
+                if(player.currentChallenge.transcend === 0 && player.currentChallenge.reincarnation === 0){autoChallengeTimerIncrement = 0;}
                 toggleChallenges(player.autoChallengeIndex, true);
-                autoChallengeTimerIncrement = 0;
                 if (player.autoChallengeTimer.exit >= 1) {
                     toggleAutoChallengeTextColors(2)
                 }
@@ -3061,7 +3061,7 @@ function tick() {
                     autoChallengeTimerIncrement = 0;
                 }
                 if (player.currentChallenge.reincarnation === 0 && player.autoChallengeIndex > 5) {
-                    while (player.challengecompletions[player.autoChallengeIndex] >= (25 + player.cubeUpgrades[29]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
+                    while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
                         player.autoChallengeIndex += 1
                         if (player.autoChallengeIndex > 10) {
                             player.autoChallengeIndex = 1;

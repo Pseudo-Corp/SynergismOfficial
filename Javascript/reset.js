@@ -53,7 +53,7 @@ function resetdetails(i) {
         offering = calculateOfferings(2)
         if (player.currentChallenge.transcension !== 0) {
             document.getElementById("resetinfo").style.color = "aquamarine"
-            document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + format(player.coinsThisTranscension) + "/" + format(Decimal.pow(10, challengeBaseRequirements[s] * Math.pow(1 + player.challengecompletions[s], 2) * Math.pow(1.5, Math.max(0, player.challengecompletions[s] - 75)))) + " Coins. TIME SPENT: " + format(player.transcendcounter) + " seconds."
+            document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + format(player.coinsThisTranscension) + "/" + format(Decimal.pow(10, challengeBaseRequirements[s] * calculateChallengeRequirementMultiplier('transcend',player.challengecompletions[s]))) + " Coins. TIME SPENT: " + format(player.transcendcounter) + " seconds."
         }
         if (player.currentChallenge.transcension === 0) {
             document.getElementById("resetinfo").textContent = "You're not in a challenge right now. Get in one before you can leave it, duh!"
@@ -103,7 +103,7 @@ function resetdetails(i) {
         if (player.currentChallenge.reincarnation !== 0) {
 
             document.getElementById("resetinfo").style.color = "silver"
-            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + format(player[goal]) + "/" + format(Decimal.pow(10, challengeBaseRequirements[s] * Math.min(Math.pow(1.3797, player.challengecompletions[s]), Math.pow(1 + player.challengecompletions[s], 2)))) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."
+            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + format(player[goal]) + "/" + format(Decimal.pow(10, challengeBaseRequirements[s] * calculateChallengeRequirementMultiplier('reincarnation',player.challengecompletions[s]))) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."
         }
         if (player.currentChallenge.reincarnation === 0) {
             document.getElementById("resetinfo").textContent = "You're not in a reincarnation challenge right now. Why would you need to leave it?"
