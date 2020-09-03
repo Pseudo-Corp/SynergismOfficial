@@ -2088,10 +2088,10 @@ function resourceGain(dt, fast) {
         }
     }
     if (reinchal < 9 && reinchal !== 0) {
-        if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengeBaseRequirements[reinchal] * Math.min(Math.pow(1.3797, player.challengecompletions[reinchal]), Math.pow(1 + player.challengecompletions[reinchal], 2))))) {
+        if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengeBaseRequirements[reinchal] * calculateChallengeRequirementMultiplier('reincarnation',player.challengecompletions[reinchal])))) {
             resetCheck('reincarnationchallenge', false)
             autoChallengeTimerIncrement = 0;
-            if (player.challengecompletions[reinchal] >= (25 + player.cubeUpgrades[29])) {
+            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29])) {
                 player.autoChallengeIndex += 1
             }
         }
@@ -2412,6 +2412,8 @@ function updateAll() {
         uFifteenMulti = Decimal.pow(1.15, freeAccelerator)
     }
 
+//Autobuy "Building" Tab
+
     if (player.toggles.one === true && player.upgrades[81] === 1 && player.coins.greaterThanOrEqualTo(player.firstCostCoin)) {
         buyMax('first', 'Coin', 1, 100, true)
     }
@@ -2436,7 +2438,9 @@ function updateAll() {
     if (player.toggles.eight === true && player.upgrades[88] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {
         boostAccelerator(true);
     }
-  
+
+//Autobuy "Prestige" Tab
+
     if (player.toggles.ten === true && player.achievements[78] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.firstCostDiamonds)) {
         buyMax('first', 'Diamonds', 1, 1e2, true)
     }
@@ -2488,6 +2492,8 @@ function updateAll() {
         buyCrystalUpgrades(5, true)
     }
 
+//Autobuy "Transcension" Tab
+
     if (player.toggles.sixteen === true && player.upgrades[94] === 1 && player.transcendPoints.greaterThanOrEqualTo(player.firstCostMythos)) {
         buyMax('first', 'Mythos', 1, 1, true)
     }
@@ -2516,6 +2522,10 @@ function updateAll() {
             resetachievementcheck(2);
             reset(2, true);
         }
+    }
+
+
+//Autobuy "Reincarnation" Tab
 
     if (player.toggles.twentytwo === true && player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostParticles)) {
         buyParticleBuilding('first', 1, true)
@@ -2574,8 +2584,11 @@ function updateAll() {
             buyTesseractBuilding(1, 1)
         }
     }
-      
+    
+
 //Generation
+
+
     if (player.upgrades[101] > 0.5) {
         player.fourthGeneratedCoin = player.fourthGeneratedCoin.add((player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(uFifteenMulti).times(generatorPower));
     }
@@ -2844,8 +2857,10 @@ const setToggleBtnColors = function () {
         el.setAttribute('toggled', isOn ? 1 : 0);
     }
 }
-    
-  if (!timeWarp) {
+
+function tick() {
+
+    if (!timeWarp) {
         let now = Date.now();
         let dt = Math.max(0, Math.min(36000, (now - lastUpdate) / 1000));
 
@@ -3019,8 +3034,8 @@ const setToggleBtnColors = function () {
                         break;
                     }
                 }
+                if(player.currentChallenge.transcend === 0 && player.currentChallenge.reincarnation === 0){autoChallengeTimerIncrement = 0;}
                 toggleChallenges(player.autoChallengeIndex, true);
-                autoChallengeTimerIncrement = 0;
                 if (player.autoChallengeTimer.exit >= 1) {
                     toggleAutoChallengeTextColors(2)
                 }
@@ -3046,7 +3061,7 @@ const setToggleBtnColors = function () {
                     autoChallengeTimerIncrement = 0;
                 }
                 if (player.currentChallenge.reincarnation === 0 && player.autoChallengeIndex > 5) {
-                    while (player.challengecompletions[player.autoChallengeIndex] >= (25 + player.cubeUpgrades[29]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
+                    while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
                         player.autoChallengeIndex += 1
                         if (player.autoChallengeIndex > 10) {
                             player.autoChallengeIndex = 1;
@@ -3092,6 +3107,8 @@ const setToggleBtnColors = function () {
         }
     }
 }
+
+
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('beforeunload', function () {
     if (typeof updatetimer === 'function') {
