@@ -184,7 +184,7 @@ function challengeDisplay(i, changefocus, automated) {
     if (i === 11 && challengefocus === 11) {
         a.textContent = "Reduced Ants Challenge || " + player.challengecompletions[11] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "The great Ant War of '21 wiped off all of the skilled ants."
-        c.textContent = "Ascend and reach the goal but Ant Upgrades are not purchasable. However, free ants will always count."
+        c.textContent = "Ascend and reach the goal but only get free ant upgrades and from Challenge8/9 completions. FOR ASCENSION CHALLENGES YOU MUST CLEAR CHALLENGE 10 TO ATTEMPT THEM."
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + calculateChallengeRequirementMultiplier('ascension', player.challengecompletions[11]) + " times."
         e.textContent = "+15 free Ant Levels! Current: "
         f.textContent = "Ant Speed x(1e15)^completions! Current: "

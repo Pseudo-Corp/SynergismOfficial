@@ -634,7 +634,7 @@ function htmlInserts() {
 
                 document.getElementById('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i - 1]) + "/" + format(calculateMaxRunes(i))
                 document.getElementById('rune' + i + 'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP"
-                document.getElementById('bonusrune' + i).textContent = " [" + format(17 * player.constantUpgrades[7] + 3 * (player.antUpgrades[9] + bonusant9) + place) + "]"
+                document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(17 * player.constantUpgrades[7] + 3 * (player.antUpgrades[9] + bonusant9) + place) + "]"
             }
 
             document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 10 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + "* EXP per offering sacrificed."

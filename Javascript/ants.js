@@ -27,7 +27,7 @@ var antupgdesc4 = "Scares you into running faster [up to x20]"
 var antupgdesc5 = "Imitates your body through magic shape-shifting powers [up to x40]"
 var antupgdesc6 = "Tries to please Ant God... but fails [Additional Offerings!]"
 var antupgdesc7 = "Helps you build a few things here and there [+3% Building Cost Delay / level]"
-var antupgdesc8 = "Knows how to salt and pepper food [+1% Rune EXP / level]"
+var antupgdesc8 = "Knows how to salt and pepper food [Up to 1,000x Rune EXP!]"
 var antupgdesc9 = "Can make your message to Ant God a little more clear [+3 all Rune Levels / level]"
 var antupgdesc10 = "Has big brain energy [Additional Obtainium!]"
 var antupgdesc11 = "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]"
@@ -203,7 +203,7 @@ function getAntCost(originalCost, buyTo, type, index) {
     --buyTo
 
     //Determine how much the cost is for buyTo
-    let cost = originalCost.times(Decimal.pow(antCostGrowth[index], buyTo * extinctionMultiplier[player.usedCorruptions[10]]));
+    let cost = originalCost.times(Decimal.pow(antCostGrowth[index], buyTo));
     cost.add(1 * buyTo)
 
     return cost;
@@ -292,7 +292,7 @@ function buyAntProducers(pos, type, originalCost, index) {
 function getAntUpgradeCost(originalCost, buyTo, index) {
     --buyTo
 
-    let cost = originalCost.times(Decimal.pow(antUpgradeCostIncreases[index], buyTo * extinctionMultiplier[player.usedCorruptions[10]]))
+    let cost = originalCost.times(Decimal.pow(antUpgradeCostIncreases[index], buyTo))
     return cost;
 
 

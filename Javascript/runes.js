@@ -10,7 +10,7 @@ function displayRuneInformation(i, updatelevelup) {
     let m = effectiveLevelMult
     let SILevelMult = (1 + player.researches[84] / 200)
     let amountPerOffering = calculateRuneExpGiven(i - 1);
-    if (player.upgrades[78] === 1) document.getElementById("toggleofferingbuy").innerHTML = "Toggle amount used by sacrifice, multiplied by 1000<br>due to a Reincarnation Upgrade.";
+    if (player.upgrades[78] === 1) {document.getElementById("toggleofferingbuy").textContent = "Toggle amount used by sacrifice, multiplied by 1000<br>due to a Reincarnation Upgrade.";}
 
 
     if (i === 1) {
@@ -119,4 +119,5 @@ function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
         displayRuneInformation(runeIndexPlusOne);
     }
     calculateRuneLevels();
+    if(player.runeshards < 0){player.runeshards = 0}
 }

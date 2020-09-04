@@ -1430,6 +1430,7 @@ function updateAllTick() {
     }
     calculateAcceleratorMultiplier();
     a *= acceleratorMultiplier
+    a = Math.pow(a, maladaptivePower[player.usedCorruptions[2]])
     a = Math.floor(a)
 
     freeAccelerator = a;
@@ -1588,7 +1589,7 @@ function updateAllMultiplier() {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
-    a *= divisivenessMultiplier[player.usedCorruptions[1]]
+    a = Math.pow(a, divisivenessPower[player.usedCorruptions[1]])
     a = Math.floor(a)
     freeMultiplier = a;
     totalMultiplier = freeMultiplier + player.multiplierBought;
@@ -1703,7 +1704,7 @@ function multipliers() {
     c = Decimal.pow(s, 1 + 0.001 * player.researches[17]);
 
     globalCoinMultiplier = c;
-    globalCoinMultiplier = Decimal.pow(globalCoinMultiplier, financialcollapsePower[player.usedCorruptions[12]])
+    globalCoinMultiplier = Decimal.pow(globalCoinMultiplier, financialcollapsePower[player.usedCorruptions[9]])
 
     coinOneMulti = new Decimal(1);
 
@@ -1884,6 +1885,7 @@ function multipliers() {
     if (player.currentChallenge.ascension === 14) {
         globalAntMult = Decimal.pow(globalAntMult, 0.15)
     }
+        globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
 
     globalConstantMult = new Decimal("1")
     globalConstantMult = globalConstantMult.times(Decimal.pow(1.05, player.constantUpgrades[1]))
@@ -2141,7 +2143,7 @@ function resetCurrency() {
         prestigePow = (1e-4) / (1 + player.challengecompletions[10]);
         transcendPow = 0.001;
     }
-    prestigePow *= deflationMultiplier[player.usedCorruptions[9]]
+    prestigePow *= deflationMultiplier[player.usedCorruptions[6]]
     //Prestige Point Formulae
     prestigePointGain = Decimal.floor(Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow));
     if (player.upgrades[16] > 0.5 && player.currentChallenge.transcension !== 5 && player.currentChallenge.reincarnation !== 10) {
@@ -2318,6 +2320,11 @@ function resetCheck(i, manual, leaving) {
     }
 
     if (i === "ascensionChallenge") {
+        let r = true
+        if(manual){
+        r = confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
+        }
+        if(r){
         let a = player.currentChallenge.ascension;
         let r = player.currentChallenge.reincarnation;
         let t = player.currentChallenge.transcension;
@@ -2351,6 +2358,7 @@ function resetCheck(i, manual, leaving) {
             player.currentChallenge.ascension = 0;
         }
         updateChallengeDisplay();
+        }
     }
 }
 
@@ -2768,7 +2776,7 @@ function updateAll() {
 
     if (player.researches[175] > 0) {
         for (let i = 1; i <= 10; i++) {
-            if (player.ascendShards.greaterThanOrEqualTo(getConstUpgradeMetadata(i))) {
+            if (player.ascendShards.greaterThanOrEqualTo(getConstUpgradeMetadata(i)[1])) {
                 buyConstantUpgrades(i, true);
             }
         }
@@ -3029,12 +3037,12 @@ function tick() {
             }
             if (player.autoChallengeIndex === 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.start) {
                 while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
-                    player.autoChallengeIndex += 1
+                    player.autoChallengeIndex += (!player.autoChallengeToggles[player.autoChallengeIndex]) ? 1: 0;
                     if (player.autoChallengeIndex === 10) {
                         break;
                     }
                 }
-                if(player.currentChallenge.transcend === 0 && player.currentChallenge.reincarnation === 0){autoChallengeTimerIncrement = 0;}
+                if(player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0){autoChallengeTimerIncrement = 0;}
                 toggleChallenges(player.autoChallengeIndex, true);
                 if (player.autoChallengeTimer.exit >= 1) {
                     toggleAutoChallengeTextColors(2)
@@ -3116,6 +3124,13 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('befo
 });
 
 document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('keydown', function (event) {
+
+    if (document.activeElement.localName === 'input') {
+        // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
+        // finally fixes the bug where hotkeys would be activated when typing in an input field
+        event.stopPropagation();
+        return;
+    }
     // activeElement is the focused element on page
     // if the autoprestige input is focused, hotkeys shouldn't work
     // fixes https://github.com/Pseudo-Corp/Synergism-Issue-Tracker/issues/2
