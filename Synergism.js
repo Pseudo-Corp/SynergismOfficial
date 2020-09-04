@@ -1885,7 +1885,7 @@ function multipliers() {
     if (player.currentChallenge.ascension === 14) {
         globalAntMult = Decimal.pow(globalAntMult, 0.15)
     }
-        globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
+    globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
 
     globalConstantMult = new Decimal("1")
     globalConstantMult = globalConstantMult.times(Decimal.pow(1.05, player.constantUpgrades[1]))
@@ -2315,11 +2315,13 @@ function resetCheck(i, manual, leaving) {
     }
 
     if (i === "ascensionChallenge") {
-        let r = true
-        if(manual){
-        r = confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
+        let conf = true
+        if (manual) {
+            conf = confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
         }
-        if(r){
+        if (!conf) {
+            return;
+        }
         let a = player.currentChallenge.ascension;
         let r = player.currentChallenge.reincarnation;
         let t = player.currentChallenge.transcension;
@@ -2353,7 +2355,6 @@ function resetCheck(i, manual, leaving) {
             player.currentChallenge.ascension = 0;
         }
         updateChallengeDisplay();
-        }
     }
 }
 
@@ -3032,12 +3033,14 @@ function tick() {
             }
             if (player.autoChallengeIndex === 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.start) {
                 while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
-                    player.autoChallengeIndex += (!player.autoChallengeToggles[player.autoChallengeIndex]) ? 1: 0;
+                    player.autoChallengeIndex += (!player.autoChallengeToggles[player.autoChallengeIndex]) ? 1 : 0;
                     if (player.autoChallengeIndex === 10) {
                         break;
                     }
                 }
-                if(player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0){autoChallengeTimerIncrement = 0;}
+                if (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
+                    autoChallengeTimerIncrement = 0;
+                }
                 toggleChallenges(player.autoChallengeIndex, true);
                 if (player.autoChallengeTimer.exit >= 1) {
                     toggleAutoChallengeTextColors(2)
