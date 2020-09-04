@@ -30,7 +30,7 @@ function buyResearch(index, auto) {
     if (maxbuyresearch || auto) {
         buyamount = 1000
     }
-    if (auto || !player.autoResearchToggle) {
+    if ((auto || !player.autoResearchToggle) && index < maxResearchIndex) {
         while (player.researches[index] < (researchMaxLevels[index] + c14 + spiritBonus) && player.researchPoints >= (researchBaseCosts[index]) && buyamount >= i) {
             player.researchPoints -= researchBaseCosts[index]
             player.researches[index] += 1;

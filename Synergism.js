@@ -2929,7 +2929,8 @@ function tick() {
         calculateObtainium();
         if (player.researches[61] === 1) {
             player.researchPoints += calculateAutomaticObtainium() * dt
-            if (player.autoResearch > 0 && player.autoResearchToggle) {
+            if (player.autoResearch > 0 && player.autoResearchToggle && player.autoResearch <= maxRoombaResearchIndex(player)) {
+                // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
                 let counter = 0;
                 let maxCount = 1 + player.challengecompletions[14];
                 while (counter < maxCount) {
