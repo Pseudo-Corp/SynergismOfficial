@@ -24,16 +24,17 @@ function toggleChallenges(i, auto) {
         reset(3, false, "enterChallenge");
         player.reincarnationCount -= 1;
     }
-    if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
-        player.currentChallenge.ascension = i;
-        reset(4, false, "enterChallenge");
-        player.ascensionCount -= 1;
+    if (player.challengecompletions[10] > 0){
+        if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
+            player.currentChallenge.ascension = i;
+            reset(4, false, "enterChallenge");
+            player.ascensionCount -= 1;
 
-        if (player.currentChallenge.ascension === 12) {
-            player.antPoints = new Decimal("8")
+            if (player.currentChallenge.ascension === 12) {
+                player.antPoints = new Decimal("8")
+            }
         }
     }
-
     updateChallengeDisplay();
     getChallengeConditions();
 

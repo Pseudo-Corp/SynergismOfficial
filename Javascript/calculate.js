@@ -94,7 +94,6 @@ function calculateAcceleratorMultiplier() {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         acceleratorMultiplier *= 1.25
     }
-    acceleratorMultiplier *= maladaptiveMultiplier[player.usedCorruptions[2]]
 }
 
 function calculateRecycleMultiplier() {
@@ -162,7 +161,7 @@ function calculateRuneExpGiven(runeIndex, all) {
         // Cube Upgrade Bonus
         (1 + player.ascensionCounter / 1000 * player.cubeUpgrades[32]),
         // Corruption Divisor
-        1 / droughtMultiplier[player.usedCorruptions[11]],
+        1 / droughtMultiplier[player.usedCorruptions[8]],
         // Constant Upgrade Multiplier
         1 + 1 / 10 * player.constantUpgrades[8]
     ]);
@@ -981,3 +980,46 @@ function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differ
 }
 
 
+//Banked Cubes, Score, Cube Gain, Tesseract Gain, Hypercube Gain
+function CalcCorruptionStuff(){
+    let corruptionArrayMultiplier = [1, 1.3, 1.5, 2, 3, 4, 5]
+
+    let cubeBank = 0;
+    let challengeModifier = 1;
+    let bankMultiplier = 1;
+    for(var i = 1; i <= 10; i++){
+        challengeModifier = (i >= 6)? 5: 1;
+        cubeBank += challengeModifier * player.highestchallengecompletions[i]
+    }
+
+    let baseScore = 0;
+    let challengeScoreArrays1 = [null, 7, 8, 9, 10, 12, 50, 70, 100, 150, 250];
+    let challengeScoreArrays2 = [null, 10, 12, 14, 17, 20, 70, 100, 150, 250, 400];
+
+    for(var i = 1; i <= 10; i++){
+        baseScore += challengeScoreArrays1[i] * player.highestchallengecompletions[i]
+        if(i <= 5 && player.highestchallengecompletions[i] >= 75){
+            baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 75)
+        }
+        if(i <= 10 && i > 5 && player.highestchallengecompletions[i] >= 25){
+            baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 25)
+        }
+    }
+    baseScore *= Math.pow(1.05, player.highestchallengecompletions[10]);
+
+    for(var i = 1; i <= 10; i++){
+        baseScore *= corruptionArrayMultiplier[player.usedCorruptions[i]]
+    }
+
+    bankMultiplier = Math.sqrt(1 + baseScore / 10000);
+    let cubeGain = cubeBank * bankMultiplier;
+    cubeGain *= calculateCubeMultiplier();
+
+    let tesseractGain = (baseScore >= 1e5) ? 1: 0;
+    tesseractGain *= Math.pow(1 + (baseScore - 100000)/100000 , 2/3);
+
+    let hypercubeGain = (baseScore >= 1e9) ? 1: 0;
+    hypercubeGain *= Math.pow(1 + (baseScore - 1e9)/1e9, .9);
+
+    return[cubeBank, Math.floor(baseScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
+}
