@@ -2295,6 +2295,11 @@ function resetCheck(i, manual, leaving) {
         }
         if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29]) {
             player.currentChallenge.reincarnation = 0;
+            if (player.shopUpgrades.instantChallengeBought) {
+                for (let i = 1; i <= 5; i++) {
+                    player.challengecompletions[i] = player.highestchallengecompletions[i];
+                }
+            }
             updateChallengeDisplay();
             calculateRuneLevels();
             calculateAnts();
