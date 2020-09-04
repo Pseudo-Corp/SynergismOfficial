@@ -1977,6 +1977,15 @@ margin-left: -13px
 	color: plum;
 	text-align: center;
 }
+#bonusrune1{
+	position: absolute;
+	padding: 0px;
+	top: 213px;
+	left: 20%;
+	width: 200px;
+	margin-left: -100px;
+	text-align: center;
+}
 #rune2level {
 	position: absolute;
 	padding: 0px;
@@ -1985,6 +1994,15 @@ margin-left: -13px
 	width: 200px;
 	margin-left: -100px;
 	color: plum;
+	text-align: center;
+}
+#bonusrune2{
+	position: absolute;
+	padding: 0px;
+	top: 213px;
+	left: 35%;
+	width: 200px;
+	margin-left: -100px;
 	text-align: center;
 }
 #rune3level {
@@ -1997,6 +2015,15 @@ margin-left: -13px
 	color: plum;
 	text-align: center;
 }
+#bonusrune3{
+	position: absolute;
+	padding: 0px;
+	top: 213px;
+	left: 50%;
+	width: 200px;
+	margin-left: -100px;
+	text-align: center;
+}
 #rune4level {
 	position: absolute;
 	padding: 0px;
@@ -2005,6 +2032,15 @@ margin-left: -13px
 	width: 200px;
 	margin-left: -100px;
 	color: plum;
+	text-align: center;
+}
+#bonusrune4{
+	position: absolute;
+	padding: 0px;
+	top: 213px;
+	left: 65%;
+	width: 200px;
+	margin-left: -100px;
 	text-align: center;
 }
 #rune5level {
@@ -2017,10 +2053,19 @@ margin-left: -13px
 	color: plum;
 	text-align: center;
 }
+#bonusrune5{
+	position: absolute;
+	padding: 0px;
+	top: 213px;
+	left: 80%;
+	width: 200px;
+	margin-left: -100px;
+	text-align: center;
+}
 #rune1exp {
 	position:absolute;
 	padding: 0px;
-	top: 212px;
+	top: 232px;
 	left: 20%;
 	width: 200px;
 	margin-left: -100px;
@@ -2030,7 +2075,7 @@ margin-left: -13px
 #rune2exp {
 	position:absolute;
 	padding: 0px;
-	top: 212px;
+	top: 232px;
 	left: 35%;
 	width: 200px;
 	margin-left: -100px;
@@ -2040,7 +2085,7 @@ margin-left: -13px
 #rune3exp {
 	position:absolute;
 	padding: 0px;
-	top: 212px;
+	top: 232px;
 	left: 50%;
 	width: 200px;
 	margin-left: -100px;
@@ -2050,7 +2095,7 @@ margin-left: -13px
 #rune4exp {
 	position:absolute;
 	padding: 0px;
-	top: 212px;
+	top: 232px;
 	left: 65%;
 	width: 200px;
 	margin-left: -100px;
@@ -2060,7 +2105,7 @@ margin-left: -13px
 #rune5exp {
 	position:absolute;
 	padding: 0px;
-	top: 212px;
+	top: 232px;
 	left: 80%;
 	width: 200px;
 	margin-left: -100px;
@@ -2071,7 +2116,7 @@ margin-left: -13px
 #activaterune1 {
 	position: absolute;
 	padding: 5px;
-	top: 255px;
+	top: 275px;
 	left: 20%;
 	width: 111px;
 	height: 30px;
@@ -2083,7 +2128,7 @@ margin-left: -13px
 #activaterune2 {
 	position: absolute;
 	padding: 5px;
-	top: 255px;
+	top: 275px;
 	left: 35%;
 	width: 112px;
 	height: 30px;
@@ -2095,7 +2140,7 @@ margin-left: -13px
 #activaterune3 {
 	position: absolute;
 	padding: 5px;
-	top: 255px;
+	top: 275px;
 	left: 50%;
 	width: 112px;
 	height: 30px;
@@ -2107,7 +2152,7 @@ margin-left: -13px
 #activaterune4 {
 	position: absolute;
 	padding: 5px;
-	top: 255px;
+	top: 275px;
 	left: 65%;
 	width: 112px;
 	height: 30px;
@@ -2119,7 +2164,7 @@ margin-left: -13px
 #activaterune5 {
 	position: absolute;
 	padding: 5px;
-	top: 255px;
+	top: 275px;
 	left: 80%;
 	width: 112px;
 	height: 30px;
@@ -2202,7 +2247,7 @@ margin-left: -13px
 #runeshowlevelup {
 	position: absolute;
 	padding: 5px;
-	top: 275px;
+	top: 295px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -2213,7 +2258,7 @@ margin-left: -13px
 #runedisplayexp {
 	position: absolute;
 	padding: 5px;
-	top: 295px;
+	top: 315px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -2224,7 +2269,7 @@ margin-left: -13px
 #bonussummation {
 	position: absolute;
 	padding: 5px;
-	top: 315px;
+	top: 335px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -2236,7 +2281,7 @@ margin-left: -13px
 #runeshowpower1 {
 	position: absolute;
 	padding: 5px;
-	top: 335px;
+	top: 355px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -2247,7 +2292,7 @@ margin-left: -13px
 #runeshowpower2 {
 	position: absolute;
 	padding: 5px;
-	top: 355px;
+	top: 375px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -2258,7 +2303,7 @@ margin-left: -13px
 #runeshowpower3 {
 	position: absolute;
 	padding: 5px;
-	top: 375px;
+	top: 395px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -2269,7 +2314,7 @@ margin-left: -13px
 #runeshowpower4 {
 	position: absolute;
 	padding: 5px;
-	top: 395px;
+	top: 415px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -2280,7 +2325,7 @@ margin-left: -13px
 #runeshowpower5 {
 	position: absolute;
 	padding: 5px;
-	top: 415px;
+	top: 435px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -2291,7 +2336,7 @@ margin-left: -13px
 #researchrunebonus {
 	position: absolute;
 	padding: 5px;
-	top: 435px;
+	top: 455px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -3194,14 +3239,14 @@ margin-left: -13px
 	position:absolute;
 	color:crimson;
 	width: 500px;
-	top: 50px;
+	top: 40px;
 	left: 38%;
 
 }
 #challengeGoal{
 	position:absolute;
 	color: gold;
-	top: 90px;
+	top: 100px;
 	left: 38%;
 
 }

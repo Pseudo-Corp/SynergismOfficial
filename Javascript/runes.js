@@ -10,7 +10,7 @@ function displayRuneInformation(i, updatelevelup) {
     let m = effectiveLevelMult
     let SILevelMult = (1 + player.researches[84] / 200)
     let amountPerOffering = calculateRuneExpGiven(i - 1);
-    if (player.upgrades[78] === 1) document.getElementById("toggleofferingbuy").innerHTML = "Toggle amount used by sacrifice, multiplied by 1000<br>due to a Reincarnation Upgrade.";
+    if (player.upgrades[78] === 1) {document.getElementById("toggleofferingbuy").textContent = "Toggle amount used by sacrifice, multiplied by 1000<br>due to a Reincarnation Upgrade.";}
 
 
     if (i === 1) {
@@ -68,11 +68,11 @@ function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
 
     // How much a runes max level is increased by
     let increaseMaxLevel = [
-        25 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension',player.challengecompletions[11]) + 500 * CalcECC('ascension',player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension',player.challengecompletions[11]) + 500 * CalcECC('ascension',player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension',player.challengecompletions[11]) + 500 * CalcECC('ascension',player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension',player.challengecompletions[11]) + 500 * CalcECC('ascension',player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension',player.challengecompletions[11]) + 500 * CalcECC('ascension',player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50]
+        25 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
+        25 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
+        25 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
+        25 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
+        25 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50]
     ];
 
     // Whether or not a rune is unlocked array
@@ -119,4 +119,5 @@ function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
         displayRuneInformation(runeIndexPlusOne);
     }
     calculateRuneLevels();
+    if(player.runeshards < 0){player.runeshards = 0}
 }

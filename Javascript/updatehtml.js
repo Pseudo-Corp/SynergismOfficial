@@ -213,10 +213,10 @@ function revealStuff() {
         document.getElementById("toggleAutoSacrificeAnt").style.display = "block" :
         document.getElementById("toggleAutoSacrificeAnt").style.display = "none";
 
-    for(var z = 1; z <= 5; z++){
+    for (let z = 1; z <= 5; z++) {
         (player.researches[190] > 0) ? //8x15 Research [Auto Tesseracts]
-            document.getElementById("tesseractAutoToggle"+z).style.display = "block":
-            document.getElementById("tesseractAutoToggle"+z).style.display = "none";
+            document.getElementById("tesseractAutoToggle" + z).style.display = "block" :
+            document.getElementById("tesseractAutoToggle" + z).style.display = "none";
     }
     player.antUpgrades[12] > 0 ? //Ant Talisman Unlock, Mortuus
         document.getElementById("talisman6area").style.display = "block" :
@@ -501,7 +501,7 @@ function htmlInserts() {
         document.getElementById("buildtext13").textContent = "Multipliers: " + format(player.multiplierBought, 0, true) + " [+" + format(freeMultiplier, 0, true) + "]"
         document.getElementById("buildtext14").textContent = "Multiplier Power: " + multiplierPower.toPrecision(4) + "x || Multiplier: " + format(multiplierEffect, 2) + "x"
         document.getElementById("buildtext15").textContent = "Accelerator Boost: " + format(player.acceleratorBoostBought, 0, true) + " [+" + format(freeAcceleratorBoost, 0, true) + "]"
-        document.getElementById("buildtext16").textContent = "Reset Diamonds and Prestige Upgrades, but add " + (tuSevenMulti * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend',player.challengecompletions[2]) / 100)).toPrecision(4) + "% Acceleration Power and 5 free Accelerators."
+        document.getElementById("buildtext16").textContent = "Reset Diamonds and Prestige Upgrades, but add " + (tuSevenMulti * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', player.challengecompletions[2]) / 100)).toPrecision(4) + "% Acceleration Power and 5 free Accelerators."
         document.getElementById("buyaccelerator").textContent = "Cost: " + format(player.acceleratorCost) + " coins."
         document.getElementById("buymultiplier").textContent = "Cost: " + format(player.multiplierCost) + " coins."
         document.getElementById("buyacceleratorboost").textContent = "Cost: " + format(player.acceleratorBoostCost) + " Diamonds."
@@ -634,7 +634,7 @@ function htmlInserts() {
 
                 document.getElementById('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i - 1]) + "/" + format(calculateMaxRunes(i))
                 document.getElementById('rune' + i + 'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP"
-                document.getElementById('bonusrune' + i).textContent = " [" + format(17 * player.constantUpgrades[7] + 3 * (player.antUpgrades[9] + bonusant9) + place) + "]"
+                document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(17 * player.constantUpgrades[7] + 3 * (player.antUpgrades[9] + bonusant9) + place) + "]"
             }
 
             document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 10 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + "* EXP per offering sacrificed."
@@ -644,7 +644,7 @@ function htmlInserts() {
 
         if (runescreen === "talismans") {
             for (let i = 1; i <= 7; i++) {
-                document.getElementById('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * CalcECC('ascension',player.challengecompletions[13]) + Math.floor(player.researches[200] / 100))
+                document.getElementById('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 100))
             }
         }
 
@@ -978,14 +978,14 @@ function CSSAscend() {
         let a = document.getElementById("ascendText" + i);
         let b = document.getElementById("ascendText" + (5 + i));
         let c = document.getElementById("tesseracts" + i);
-		    let d = document.getElementById("buyTesseracts" + i);
-		    let e = document.getElementById("tesseractAutoToggle"+i);
+        let d = document.getElementById("buyTesseracts" + i);
+        let e = document.getElementById("tesseractAutoToggle" + i);
 
         a.style.top = (8 + 35 * i) + "px"
         b.style.top = (8 + 35 * i) + "px"
         c.style.top = (23 + 35 * i) + "px"
-		    d.style.top = (38 + 35 * i) + "px"
-		    e.style.top = (22 + 35 * i) + "px"
+        d.style.top = (38 + 35 * i) + "px"
+        e.style.top = (22 + 35 * i) + "px"
 
         a.style.left = "13%"
         b.style.left = "56.5%"
@@ -1029,5 +1029,5 @@ function CSSRuneBlessings() {
         g.style.top = h.style.top = (23 + 75 * i) + "px"
         g.style.left = h.style.left = "59%"
 
-	}
+    }
 }

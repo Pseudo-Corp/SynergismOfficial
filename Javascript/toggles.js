@@ -24,16 +24,17 @@ function toggleChallenges(i, auto) {
         reset(3, false, "enterChallenge");
         player.reincarnationCount -= 1;
     }
-    if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
-        player.currentChallenge.ascension = i;
-        reset(4, false, "enterChallenge");
-        player.ascensionCount -= 1;
+    if (player.challengecompletions[10] > 0){
+        if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
+            player.currentChallenge.ascension = i;
+            reset(4, false, "enterChallenge");
+            player.ascensionCount -= 1;
 
-        if (player.currentChallenge.ascension === 12) {
-            player.antPoints = new Decimal("8")
+            if (player.currentChallenge.ascension === 12) {
+                player.antPoints = new Decimal("8")
+            }
         }
     }
-
     updateChallengeDisplay();
     getChallengeConditions();
 
@@ -589,8 +590,8 @@ function updateRuneBlessingBuyAmount(i) {
     }
 }
 
-function toggleAutoTesseracts(i){
+function toggleAutoTesseracts(i) {
     (player.autoTesseracts[i]) ?
-    (player.autoTesseracts[i] = false, document.getElementById('tesseractAutoToggle'+i).textContent = "Auto [OFF]", document.getElementById('tesseractAutoToggle'+i).style.border = "2px solid red"):
-    (player.autoTesseracts[i] = true, document.getElementById('tesseractAutoToggle'+i).textContent = "Auto [ON]", document.getElementById('tesseractAutoToggle'+i).style.border = "2px solid green");
+        (player.autoTesseracts[i] = false, document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [OFF]", document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid red") :
+        (player.autoTesseracts[i] = true, document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [ON]", document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid green");
 }

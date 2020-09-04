@@ -40,7 +40,7 @@ function openCube(value, max) {
 
 //If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
     for (let key of Object.keys(player.cubeBlessings)) {
-        player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + player.cubeUpgrades[30] + Math.floor(CalcECC('ascension',player.challengecompletions[12])));
+        player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + player.cubeUpgrades[30] + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
     }
 
 //Then, the remaining cubes will be opened, simulating the probability [RNG Element]
@@ -48,7 +48,7 @@ function openCube(value, max) {
         let num = 100 * Math.random();
         for (let key of Object.keys(player.cubeBlessings)) {
             if (blessings[key].pdf(num))
-                player.cubeBlessings[key] += (1 + player.cubeUpgrades[30] + Math.floor(CalcECC('ascension',player.challengecompletions[12])));
+                player.cubeBlessings[key] += (1 + player.cubeUpgrades[30] + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
         }
     }
     calculateCubeBlessings();

@@ -2,7 +2,7 @@ function getReductionValue() {
     let reduction = 1;
     reduction += 1 / 400 * rune4level * effectiveLevelMult;
     reduction += 1 / 200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]);
-    reduction += 1 / 200 * CalcECC('transcend',player.challengecompletions[4]);
+    reduction += 1 / 200 * CalcECC('transcend', player.challengecompletions[4]);
     reduction += 3 / 100 * (player.antUpgrades[7] + bonusant7);
     return reduction;
 }
@@ -15,15 +15,15 @@ function getCostAccelerator(buyingTo) {
 
     cost = cost.times(Decimal.pow(4 / costDivisor, buyingTo));
 
-    if (buyingTo > (125 + 5 * CalcECC('transcend',player.challengecompletions[4]))) {
-        let num = buyingTo - 125 - 5 * CalcECC('transcend',player.challengecompletions[4]);
+    if (buyingTo > (125 + 5 * CalcECC('transcend', player.challengecompletions[4]))) {
+        let num = buyingTo - 125 - 5 * CalcECC('transcend', player.challengecompletions[4]);
         let factorialBit = new Decimal(num).factorial();
         let multBit = Decimal.pow(4, num);
         cost = cost.times(multBit.times(factorialBit));
     }
-  
-    if (buyingTo > (2000 + 5 * CalcECC('transcend',player.challengecompletions[4]))) {
-        let sumNum = buyingTo - 2000 - 5 * CalcECC('transcend',player.challengecompletions[4]);
+
+    if (buyingTo > (2000 + 5 * CalcECC('transcend', player.challengecompletions[4]))) {
+        let sumNum = buyingTo - 2000 - 5 * CalcECC('transcend', player.challengecompletions[4]);
         let sumBit = sumNum * (sumNum + 1) / 2
         cost = cost.times(Decimal.pow(2, sumBit));
     }
@@ -110,15 +110,15 @@ function getCostMultiplier(buyingTo) {
     let cost = new Decimal(originalCost);
     cost = cost.times(Decimal.pow(10, buyingTo / costDivisor));
 
-    if (buyingTo > (75 + 2 * CalcECC('transcend',player.challengecompletions[4]))) {
-        let num = buyingTo - 75 - 2 * CalcECC('transcend',player.challengecompletions[4]);
+    if (buyingTo > (75 + 2 * CalcECC('transcend', player.challengecompletions[4]))) {
+        let num = buyingTo - 75 - 2 * CalcECC('transcend', player.challengecompletions[4]);
         let factorialBit = new Decimal(num).factorial();
         let powBit = Decimal.pow(10, num);
         cost = cost.times(factorialBit.times(powBit));
     }
 
-    if (buyingTo > (2000 + 2 * CalcECC('transcend',player.challengecompletions[4]))) {
-        let sumNum = buyingTo - 2000 - 2 * CalcECC('transcend',player.challengecompletions[4]);
+    if (buyingTo > (2000 + 2 * CalcECC('transcend', player.challengecompletions[4]))) {
+        let sumNum = buyingTo - 2000 - 2 * CalcECC('transcend', player.challengecompletions[4]);
         let sumBit = sumNum * (sumNum + 1) / 2;
         cost = cost.times(Decimal.pow(2, sumBit));
     }
@@ -342,7 +342,7 @@ function buyProducer(pos, type, num, autobuyer) {
     let tag = "";
     r += 1 / 2000 * rune4level * effectiveLevelMult
     r += 1 / 200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60])
-    r += 1 / 200 * CalcECC('transcend',player.challengecompletions[4])
+    r += 1 / 200 * CalcECC('transcend', player.challengecompletions[4])
     r += 3 / 100 * player.antUpgrades[7] + 3 / 100 * bonusant7
     if (type === 'Diamonds') {
         tag = "prestigePoints";
