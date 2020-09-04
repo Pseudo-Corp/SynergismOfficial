@@ -580,7 +580,7 @@ function reset(i, fast, from) {
                 document.getElementById("upg" + j).style.backgroundColor = "black"
             }
         }
-        document.getElementById("toggleofferingbuy").innerHTML = "Toggle amount to use per sacrifice"
+        document.getElementById("toggleofferingbuy").textContent = "Toggle amount to use per sacrifice"
     }
 
 
