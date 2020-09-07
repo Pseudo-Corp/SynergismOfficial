@@ -92,6 +92,41 @@ function maxRoombaResearchIndex(p = player) {
     return base + c11 + c12 + c13 + c14;
 }
 
+function isResearchUnlocked(index) {
+    let base = 3 * 25
+    let c7x10 = base + 5;
+    let c8x1 = c7x10 + 20;
+    let c9x1 = c8x1 + 10;
+    let c10x1 = c9x1 + 15;
+    let A = c10x1 + 15;
+    let c11 = A + 15;
+    let c12 = c11 + 15;
+    let c13 = c12 + 15;
+    let c14 = c13 + 15;
+
+    if (index <= base) {
+        return player.achievements[50] > 0;
+    } else if (index <= c7x10) {
+        return player.achievements[124] > 0;
+    } else if (index <= c8x1) {
+        return player.achievements[127] > 0;
+    } else if (index <= c9x1 || index === 121 || index === 124) {
+        return player.achievements[134] > 0;
+    } else if (index <= c10x1) {
+        return player.achievements[141] > 0;
+    } else if (index <= A) {
+        return player.achievements[183] > 0;
+    } else if (index <= c11) {
+        return player.achievements[197] > 0;
+    } else if (index <= c12) {
+        return player.achievements[204] > 0;
+    } else if (index <= c13) {
+        return player.achievements[211] > 0;
+    } else if (index <= c14) {
+        return player.achievements[218] > 0;
+    }
+}
+
 
 let resdesc;
 resdesc = [null,
