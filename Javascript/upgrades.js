@@ -271,7 +271,7 @@ const upgradetexts = [null,
 ]
 
 function upgradeeffects(i) {
-    document.getElementById("upgradeeffect").innerHTML = "Effect: " + upgradetexts[i]()
+    document.getElementById("upgradeeffect").textContent = "Effect: " + upgradetexts[i]()
 }
 
 

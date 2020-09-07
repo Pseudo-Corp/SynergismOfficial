@@ -113,6 +113,10 @@ function buyTalismanStuff(i) {
         player.mythicalFragments += amountToBuy;
         player.researchPoints -= (amountToBuy * obtainiumCost);
         player.runeshards -= (amountToBuy * offeringCost)
+
+        if(player.mythicalFragments >= 1e25 && player.achievements[239] < 1){
+            achievementaward(239)
+        }
     }
 
     updateCostDisplay(i)
@@ -433,7 +437,7 @@ function buyTalismanLevels(i, auto) {
             priceMult *= (player.talismanLevels[i] - 170) / 10
         }
 
-        if (player.talismanLevels[i] < (player.talismanRarity[i] * 30 + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 100))) {
+        if (player.talismanLevels[i] < (player.talismanRarity[i] * 30 + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 400))) {
             if (player.talismanShards >= priceMult * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i], 3)))) {
                 checkSum++
             }

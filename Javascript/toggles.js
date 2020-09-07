@@ -41,6 +41,10 @@ function toggleChallenges(i, auto) {
     if (!auto && player.autoChallengeRunning) {
         toggleAutoChallengeRun();
     }
+
+    if(player.currentChallenge.transcension !== 0 && player.currentChallenge.reincarnation !== 0 && player.currentChallenge.ascension !== 0 && player.achievements[238] < 1){
+        achievementaward(238)
+    }
 }
 
 
@@ -594,4 +598,20 @@ function toggleAutoTesseracts(i) {
     (player.autoTesseracts[i]) ?
         (player.autoTesseracts[i] = false, document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [OFF]", document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid red") :
         (player.autoTesseracts[i] = true, document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [ON]", document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid green");
+}
+
+function toggleCorruptionLevel(index, value){
+    if(value > 0 && player.prototypeCorruptions[index] < 5 && index <= 9){
+    player.prototypeCorruptions[index] += 1
+    }
+    if(value < 0 && player.prototypeCorruptions[index] > 0){
+    player.prototypeCorruptions[index] -= 1 
+    }
+    if(value === 999){
+    for(var i = 1; i <= 9; i++){
+        player.usedCorruptions[i] = 0;
+        player.prototypeCorruptions[i] = 0;
+    }
+    }
+    corruptionDisplay(index)
 }

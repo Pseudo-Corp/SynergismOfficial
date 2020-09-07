@@ -15,7 +15,7 @@ body {background-color: #111111 ;
 }
 
 body {
-	color: black;
+	color: white;
 	margin: 0;
 	box-sizing: border-box;
 }
@@ -1435,7 +1435,7 @@ margin-left: -13px
 #achievementstable {
 	position: absolute;
 	top: 55px;
-	margin-left: -420px;
+	margin-left: -618px;
 	left: 50%;
 }
 
@@ -4236,20 +4236,20 @@ margin-left: -13px
 #ascensionAutoEnable {
 	position:absolute;
 	width: 150px;
-	top: 374px;
+	top: 664px;
 	left: 50%;
 	margin-left: -75px;
 }
 #ascensionAutoToggle {
 	position:absolute;
 	width: 150px;
-	top: 394px;
+	top: 684px;
 	left: 50%;
 	margin-left: -75px;
 }
 #autoAscend {
 	position: absolute;
-	top: 420px;
+	top: 620px;
 	padding: 0px;
 	left: 50%;
 	width: 750px;
@@ -4260,7 +4260,7 @@ margin-left: -13px
 
 #ascensionAmount {
 	position: absolute;
-	top: 418px;
+	top: 618px;
 	padding: 0px;
 	left: 50%;
 	width: 100px;
@@ -4606,3 +4606,136 @@ margin-left: -13px
 	left: 49.85%;
 }
 
+#corruptionIntroduction{
+	position: absolute;
+	top: 190px;
+	font-size: 1.2em;
+	color: darkorchid;
+	left: 50%;
+	width: 600px;
+	margin-left: -300px;
+	text-align: center;
+}
+#corruptionInfo1{
+	position: absolute;
+	top: 210px;
+	color: yellow;
+	left: 50%;
+	width: 800px;
+	margin-left: -400px;
+	text-align: center;
+}
+#corruptionList{
+	position: absolute;
+	top: 240px;
+	left: 50%;
+	margin-left: -344px;
+}
+#corruptionDetails {
+	position: absolute;
+	top: 300px;
+	margin-left: -400px;
+	left: 50%;
+}
+#corruptionName{
+	position: absolute;
+	font-size: 1.2em;
+	text-align: center;
+	width: 800px;
+}
+#corruptionDescription{
+	position: absolute;
+	top: 25px;
+	text-align: center;
+	width: 800px;
+}
+#corruptionLevelCurrent{
+	position: absolute;
+	top: 45px;
+	text-align: center;
+	width: 800px;
+}
+#corruptionLevelPlanned{
+	position: absolute;
+	top: 65px;
+	text-align: center;
+	width: 800px;
+}
+#corruptionMultiplierContribution{
+	position: absolute;
+	top: 85px;
+	text-align: center;
+	width: 800px;
+}
+#corruptLevelUp{
+	position: absolute;
+	top: 135px;
+	height: 30px;
+	width: 200px;
+	margin-left: 180px;
+	border: 2px solid gold
+}
+#corruptLevelDown{
+	position: absolute;
+	top: 135px;
+	height: 30px;
+	width: 200px;
+	margin-left: 420px;
+	border: 2px solid gold
+}
+#corruptionCleanse{
+	position: absolute;
+	top: 135px;
+	height: 30px;
+	width: 200px;
+	margin-left: 300px;
+	border: 2px solid darkmagenta
+}
+#corruptionAntExponent{
+	position: absolute;
+	top: 450px;
+	left: 50%;
+	width: 800px;
+	margin-left: -400px;
+	text-align: center;
+}
+#corruptionBank{
+	position: absolute;
+	top: 480px;
+	left: 50%;
+	width: 800px;
+	margin-left: -400px;
+	text-align: center;
+}
+#corruptionScore{
+	position: absolute;
+	top: 500px;
+	left: 50%;
+	width: 600px;
+	margin-left: -300px;
+	text-align: center;
+}
+#corruptionCubes{
+	position: absolute;
+	top: 520px;
+	left: 50%;
+	width: 900px;
+	margin-left: -450px;
+	text-align: center;
+}
+#corruptionTesseracts{
+	position: absolute;
+	top: 540px;
+	left: 50%;
+	width: 900px;
+	margin-left: -450px;
+	text-align: center;
+}
+#corruptionHypercubes{
+	position: absolute;
+	top: 560px;
+	left: 50%;
+	width: 900px;
+	margin-left: -450px;
+	text-align: center;
+}

@@ -2,6 +2,9 @@ function openCube(value, max) {
     max = max || false
     let toSpend = max ? player.wowCubes : Math.min(player.wowCubes, value)
 
+    if(value === 1 && player.cubeBlessings.accelerator >= 2e11 && player.achievements[246] < 1){
+        achievementaward(246)
+    }
     player.wowCubes -= toSpend
 
     toSpend *= (1 + player.researches[138] / 1000)
@@ -107,7 +110,7 @@ const cubeUpgradeName = [null,
     function () {return "Wow! I want to be enlightened by the power of a thousand suns."}]
 
 const cubeBaseCost = [null,
-    500, 500, 500, 500, 500, 500, 500, 500, 2000, 1e5,
+    200, 200, 200, 500, 500, 500, 500, 500, 2000, 1e5,
     5000, 3000, 10000, 4000, 4000, 1e4, 4000, 1e4, 50000, 7500,
     5e4, 3e4, 3e4, 4e4, 4e4, 1e4, 1e5, 177777, 1e5, 5e5,
     5e5, 3e5, 3e5, 4e5, 4e5, 2e5, 5e5, 1e6, 1e6, 5e6,
@@ -115,14 +118,14 @@ const cubeBaseCost = [null,
 
 const cubeMaxLevel = [null,
     2, 10, 5, 1, 1, 1, 1, 1, 1, 1,
-    3, 5, 1, 10, 10, 10, 5, 1, 1, 1,
-    4, 10, 1, 10, 10, 10, 1, 1, 5, 1,
-    5, 1, 1, 10, 10, 5, 10, 3, 3, 1,
-    6, 10, 10, 10, 10, 20, 20, 1, 1, 100000]
+    2, 5, 1, 10, 10, 10, 5, 1, 1, 1,
+    2, 10, 1, 10, 10, 10, 1, 1, 5, 1,
+    2, 1, 1, 10, 10, 5, 10, 3, 3, 1,
+    2, 10, 10, 10, 10, 20, 20, 1, 1, 100000]
 
 
 const cubeUpgradeDescriptions = [null,
-    function () {return "You got it! +1 cube from challenges, +10% cubes from Ascending."},
+    function () {return "You got it! +10% cubes from Ascending per level."},
     function () {return "Plutus grants you +1 Offering per second, no matter what, per level. Also a +0.5% Recycling chance!"},
     function () {return "Athena grants you +20% more Obtainium, and +80% Auto Obtainium per level."},
     function () {return "You keep those 5 useful automation upgrades in the upgrade tab!"},
@@ -132,7 +135,7 @@ const cubeUpgradeDescriptions = [null,
     function () {return "Automatically buy Particle Upgrades."},
     function () {return "The research automator in shop now automatically buys cheapest when enabled. It's like a roomba kinda!"},
     function () {return "Unlock some tools to automate Ascensions or whatever. Kinda expensive but cool."},
-    function () {return "You got it again! +1 cube from challenges, +10% cubes from Ascending."},
+    function () {return "You got it again! +10% cubes from Ascending per level."},
     function () {return "Raise building power to the power of (1 + level * 0.2)."},
     function () {return "For each 20 cubes opened at once, you get 1 additional blessing at random."},
     function () {return "Iris shines her light on you. The effect power is now increased by +0.01 (+0.005 if >1000 blessings) per level."},
@@ -142,7 +145,7 @@ const cubeUpgradeDescriptions = [null,
     function () {return "Quantum tunnelling ftw. +20% global game speed."},
     function () {return "Unlocks new coin upgrades ranging from start of ascend to post c10 and beyond. [NOT IMPLEMENTED YET]"},
     function () {return "The rune automator in shop now spends all offerings automatically, 'splitting' them into each of the 5 runes equally."},
-    function () {return "You got it once more! +1 cube from challenges, +10% cubes from Ascending."},
+    function () {return "You got it once more! +10% cubes from Ascending per level."},
     function () {return "Lol Platonic is bad and hasn't made this yet"},
     function () {return "For each 20 cubes opened at once, you get 1 additional blessing at random."},
     function () {return "Plutus teaches you the Art of the Deal. The effect power is now increased by +0.01 (+0.0033 if >1000 blessings) per level."},
@@ -152,7 +155,7 @@ const cubeUpgradeDescriptions = [null,
     function () {return "Well, I think you got it? Gain +1% of particles on Reincarnation per second."},
     function () {return "Add +5 to Reincarnation Challenge cap per level. Completions after 25 scale faster in requirement!"},
     function () {return "Whenever you open a cube, Aphrodite grazes it with a secondary blessing."},
-    function () {return "You again? +1 cube from challenges, +10% cubes from Ascending."},
+    function () {return "You again? +10% cubes from Ascending per level."},
     function () {return "Gain +0.1% Rune EXP per second you have spent in an Ascension. This has no cap!"},
     function () {return "For each 20 cubes opened at once, you get yet another additional blessing at random."},
     function () {return "Chronus overclocks the universe for your personal benefit. (Rewards the same as others)"},
@@ -162,7 +165,7 @@ const cubeUpgradeDescriptions = [null,
     function () {return "If you get at least 5,000 Ascend Points, then you will gain +1 cube in challenge per level."},
     function () {return "If you are in a challenge, then you will gain +1 cube in lower challenges per level."},
     function () {return "If you have purchased the shop upgrade to automatically open cubes, it will now open 200 at a time instead of 20."},
-    function () {return "Yeah yeah yeah, +1 cube from challenges, +10% cubes from Ascending."},
+    function () {return "Yeah yeah yeah, +10% cubes from Ascending per level. Isn't it enough?"},
     function () {return "Keep 1 level of 3x15 and 1x16 on Ascension per level. [Cannot exceed cap]"},
     function () {return "Keep 1 level of 2x16 on Ascension per level."},
     function () {return "Blah blah blah Midas works harder (same rewards as before)"},
@@ -171,7 +174,7 @@ const cubeUpgradeDescriptions = [null,
     function () {return "Gain +10% more obtainium per level!"},
     function () {return "When you ascend, start with 1 worker ant (this is a lot better than it sounds!)"},
     function () {return "When you ascend, gain 1 of each challenge 6-8 completion, with +15 cubes to compensate."},
-    function () {return "What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.1% Obtainium, +0.1% Offerings, +2 Max Rune Levels, +3 Effective ELO, +0.001 Talisman bonuses per level."}]
+    function () {return "What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.1 Max Rune Levels, +1 Effective ELO, +0.001 Talisman bonuses per level."}]
 
 function getCubeBuyAmount(i) {
 

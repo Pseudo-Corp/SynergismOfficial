@@ -456,4 +456,8 @@ function sacrificeAnts(auto) {
             resetHistoryAdd("ants", "antsacrifice", historyEntry);
         }
     }
+
+    if(player.mythicalFragments >= 1e11 && player.currentChallenge.ascension === 14 && player.achievements[248] < 1){
+        achievementaward(248)
+    }
 }

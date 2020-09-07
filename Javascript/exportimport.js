@@ -84,6 +84,12 @@ function promocodes() {
         player.codes.set(24, true);
         player.worlds += 200;
         el.textContent = "And so it was. [+200 Quarks]"
+    } else if (input === ":unsmith:" && player.achievements[243] < 1){
+        achievementaward(243);
+        el.textContent = "It's Spaghetti Time! [Awarded an achievement!!!]";
+    } else if (input === ":antismith:" && player.achievements[244] < 1){
+        achievementaward(244);
+        el.textContent = "Hey, isn't this just a reference to Antimatter Dimensions? Shh. [Awarded an achievement!!!]";
     } else if (input === "x1") {
         indevSpeed = 1;
         el.textContent = "Indev Speed set to 1x"

@@ -644,7 +644,7 @@ function htmlInserts() {
 
         if (runescreen === "talismans") {
             for (let i = 1; i <= 7; i++) {
-                document.getElementById('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 100))
+                document.getElementById('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 400))
             }
         }
 
@@ -757,6 +757,16 @@ function htmlInserts() {
 
     if (currentTab === "traits") {
         document.getElementById("autoAscendMetric").textContent = format(player.autoAscendThreshold, 0, true)
+        let metaData = CalcCorruptionStuff();
+
+        document.getElementById("corruptionBankValue").textContent = format(metaData[0])
+        document.getElementById("corruptionScoreValue").textContent = format(metaData[1],0,true)
+        document.getElementById("corruptionMultiplierValue").textContent = format(metaData[2],1,true)
+        document.getElementById("corruptionTotalScore").textContent = format(metaData[3],0,true)
+        document.getElementById("corruptionCubesValue").textContent = format(metaData[4],0,true)
+        document.getElementById("corruptionTesseractsValue").textContent = format(metaData[5])
+        document.getElementById("corruptionHypercubesValue").textContent = format(metaData[6])
+        document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.8/54 * sumContents(player.usedCorruptions)) * extinctionMultiplier[player.usedCorruptions[7]],3)
     }
 }
 
