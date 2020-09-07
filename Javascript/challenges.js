@@ -251,6 +251,20 @@ function challengeDisplay(i, changefocus, automated) {
         m.textContent = ""
         n.textContent = ""
     }
+    var scoreArray1 = [0, 7, 8, 9, 10, 12, 50, 70, 100, 150, 250]
+    var scoreArray2 = [0, 10, 12, 14, 17, 20, 70, 100, 150, 250, 400]
+
+    let scoreDisplay = 0;
+    if(i <= 5){
+        player.highestchallengecompletions[i] >= 75 ?
+        scoreDisplay = scoreArray2[i]:
+        scoreDisplay = scoreArray1[i];
+    }
+    if(i > 5 && i <= 10){
+        player.highestchallengecompletions[i] >= 25 ?
+        scoreDisplay = scoreArray2[i]:
+        scoreDisplay = scoreArray1[i]
+    }
     if (changefocus) {
         j.textContent = ""
     }
@@ -258,16 +272,11 @@ function challengeDisplay(i, changefocus, automated) {
         descriptor = "Quarks";
         j.style.color = "cyan"
     }
-    if (player.ascensionCount > 0) {
-        descriptor = "Wow Cubes";
-        j.style.color = "orange"
-    }
-    if (player.ascensionCount > 0 && i >= 10) {
-        descriptor = "Wow TESSERACTS";
-        j.style.color = "orchid"
-    }
-    if (player.challengecompletions[i] >= player.highestchallengecompletions[i] && player.highestchallengecompletions[i] < maxChallenges && changefocus) {
+    if (player.challengecompletions[i] >= player.highestchallengecompletions[i] && player.highestchallengecompletions[i] < maxChallenges && changefocus && player.ascensionCount < 1) {
         j.textContent = "Gain " + Math.floor(quarksMultiplier * player.highestchallengecompletions[i] / 10 + 1 + player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41]) + " " + descriptor + " for completing this challenge [First Time Bonus]!"
+    }
+    if(player.challengecompletions[i] >= player.highestchallengecompletions[i] && player.highestchallengecompletions[i] < maxChallenges && changefocus && player.ascensionCount >= 1){
+        j.textContent = "Completing the challenge adds " + ((i > 5) ? 2 : 1) + " to Ascension Bank and increase base Score by " + scoreDisplay + "." 
     }
     if (player.challengecompletions[i] >= player.highestchallengecompletions[i] && player.highestchallengecompletions[i] < 10 && i > 10) {
         j.textContent = "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)"
@@ -313,24 +322,13 @@ function toggleRetryChallenges() {
 }
 
 function highestChallengeRewards(chalNum, highestValue) {
-    let extraCubes = player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41]
     let multiplier = 1 / 10
-    let corruptionMulti = highestValue > 50 ? calculateCorruptionPoints() / 400 : 1
     if (chalNum >= 6) {
         multiplier = 1;
     }
-    let toAdd = (1 + Math.floor(highestValue * corruptionMulti * multiplier)) * 100 / 100 + extraCubes
     if (player.ascensionCount === 0) {
         player.worlds += (1 + Math.floor(highestValue * multiplier) * 100 / 100)
-    } else if (player.ascensionCount > 0 && chalNum < 10) {
-        player.wowCubes += toAdd
-        player.cubesThisAscension.challenges += toAdd
-    } else {
-        player.wowTesseracts += toAdd
-        player.cubesThisAscension.tesseracts += toAdd
     }
-
-
 }
 
 //Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping

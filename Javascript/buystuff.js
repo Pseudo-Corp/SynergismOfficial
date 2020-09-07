@@ -599,4 +599,19 @@ function buyRuneBonusLevels(type, index) { //type 1 for Blessings, type 2 for Sp
         player.runeBlessingLevels[index] = metadata[0];
 
     player.runeshards -= metadata[1];
+
+    if(index === 1){
+        let requirementArray = [0, 1e5, 1e8, 1e11]
+        for(i = 1; i <=3; i++){
+            if(player.runeBlessingLevels[1] >= requirementArray[i] && player.achievements[231+i] < 1){
+                achievementaward(231+i)
+            }
+            if(player.runeSpiritLevels[1] >= 10 * requirementArray[i] && player.achievements[234+i] < 1){
+                achievementaward(234+i)
+            }
+        }
+        if(player.runeBlessingLevels[1] >= 1e22 && player.achievements[245] < 1){
+            achievementaward(245)
+        }
+    }
 }

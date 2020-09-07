@@ -292,7 +292,7 @@ resdesc = [null,
     "[8x22] +0.6% cubes in Ascension Bank / level",
     "[8x23] +0.06% blessings when using cubes / level!",
     "[8x24] +10% faster Tesseract Buildings / level",
-    "[8x25] Gain the power of a thousand suns! +0.01% Accelerators [And Boosts], +0.01% Multipliers, +0.1% Offerings, +0.10% Cubes, +2 Max Rune level, + Floor(level/100) max Talisman Level, +Floor(level/40) free Ant Level each purchase."
+    "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.1 Max Rune level, + Floor(level/400) max Talisman Level, +Floor(level/200) free Ant Level each purchase."
 ];
 
 function researchDescriptions(i, auto) {
