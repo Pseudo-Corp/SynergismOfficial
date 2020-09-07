@@ -2962,7 +2962,8 @@ function tick() {
                 let counter = 0;
                 let maxCount = 1 + player.challengecompletions[14];
                 while (counter < maxCount) {
-                    buyResearch(player.autoResearch, true)
+                    if (player.autoResearch)
+                        buyResearch(player.autoResearch, true)
                     counter++;
                 }
             }

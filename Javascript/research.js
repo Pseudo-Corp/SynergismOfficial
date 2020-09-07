@@ -71,7 +71,9 @@ function buyResearch(index, auto) {
             player.roombaResearchIndex += 1;
         }
         if (player.roombaResearchIndex <= maxResearchIndex) {
-            document.getElementById("res" + researchOrderByCost[player.roombaResearchIndex]).style.backgroundColor = "orange"
+            let doc = document.getElementById("res" + researchOrderByCost[player.roombaResearchIndex])
+            if (doc)
+                doc.style.backgroundColor = "orange"
         }
     }
     calculateRuneLevels();
