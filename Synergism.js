@@ -2375,7 +2375,6 @@ function resetCheck(i, manual, leaving) {
         }
         updateChallengeDisplay();
         challengeachievementcheck(a,true)
-        }
     }
 }
 
