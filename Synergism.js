@@ -2109,13 +2109,13 @@ function resourceGain(dt, fast) {
     let ascendchal = player.currentChallenge.ascension;
     if (chal !== 0) {
         if (player.coinsThisTranscension.greaterThanOrEqualTo(challengeRequirement(chal, player.challengecompletions[chal]))) {
-            resetCheck('challenge', false, true);
+            resetCheck('challenge', false);
             autoChallengeTimerIncrement = 0;
         }
     }
     if (reinchal < 9 && reinchal !== 0) {
         if (player.transcendShards.greaterThanOrEqualTo(challengeRequirement(reinchal, player.challengecompletions[reinchal]))) {
-            resetCheck('reincarnationchallenge', false, true)
+            resetCheck('reincarnationchallenge', false)
             autoChallengeTimerIncrement = 0;
             if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29])) {
                 player.autoChallengeIndex += 1
@@ -2124,7 +2124,7 @@ function resourceGain(dt, fast) {
     }
     if (reinchal >= 9) {
         if (player.coins.greaterThanOrEqualTo(challengeRequirement(reinchal, player.challengecompletions[reinchal]))) {
-            resetCheck('reincarnationchallenge', false, true)
+            resetCheck('reincarnationchallenge', false)
             autoChallengeTimerIncrement = 0;
             if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29])) {
                 player.autoChallengeIndex += 1
