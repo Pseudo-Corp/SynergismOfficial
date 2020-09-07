@@ -149,7 +149,7 @@ function resetHistoryRenderRow(category, data) {
                 continue;
             }
             let formatter = gainInfo.formatter || dontChange;
-            let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}"> ${formatter(data[showing], data)}`;
+            let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}">${formatter(data[showing], data)}`;
 
             if (gainInfo.titler) {
                 let title = gainInfo.titler(data);
@@ -173,7 +173,7 @@ function resetHistoryRenderRow(category, data) {
         ];
     } else if (data.kind === "ascend") {
         extra = [
-            `<img src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions"> ${data.c10Completions}`
+            `<img src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`
         ];
 
         // TODO: Track and display corruption data here

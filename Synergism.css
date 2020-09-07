@@ -4507,6 +4507,7 @@ margin-left: -13px
 .historySubTab tbody img {
 	vertical-align: middle;
 	height: 20px;
+	margin-right: 3px;
 }
 
 .historySubTab tbody td {
