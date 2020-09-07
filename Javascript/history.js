@@ -64,6 +64,8 @@ const resetHistoryTableMapping = {
     "ascend": "historyAscendTable",
 };
 
+const resetHistoryShowMillisecondsMaxSec = 60;
+
 // This doesn't pass the extra args to format, and that's on purpose
 function formatPlain(str) {
     return format(str);
@@ -140,7 +142,7 @@ function resetHistoryRenderRow(category, data) {
     let kindMeta = historyKinds[data.kind];
 
     let localDate = new Date(data.date).toLocaleString();
-    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${formatTimeShort(data.seconds, 10)}</td>`;
+    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${formatTimeShort(data.seconds, resetHistoryShowMillisecondsMaxSec)}</td>`;
 
     let gains = [];
     for (let gainIdx = 0; gainIdx < historyGainsOrder.length; ++gainIdx) {
