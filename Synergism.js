@@ -1006,12 +1006,24 @@ function loadSynergy() {
 
 
         const q = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract'];
-        if(player.coinbuyamount !== 1 && player.coinbuyamount !== 10 && player.coinbuyamount !== 100 && player.coinbuyamount !== 1000){player.coinbuyamount = 1;}
-        if(player.crystalbuyamount !== 1 && player.crystalbuyamount !== 10 && player.crystalbuyamount !== 100 && player.crystalbuyamount !== 1000){player.crystalbuyamount = 1;}
-        if(player.mythosbuyamount !== 1 && player.mythosbuyamount !== 10 && player.mythosbuyamount !== 100 && player.mythosbuyamount !== 1000){player.mythosbuyamount = 1;}
-        if(player.particlebuyamount !== 1 && player.particlebuyamount !== 10 && player.particlebuyamount !== 100 && player.particlebuyamount !== 1000){player.particlebuyamount = 1;}
-        if(player.offeringbuyamount !== 1 && player.offeringbuyamount !== 10 && player.offeringbuyamount !== 100 && player.offeringbuyamount !== 1000){player.offeringbuyamount = 1;}
-        if(player.tesseractbuyamount !== 1 && player.tesseractbuyamount !== 10 && player.tesseractbuyamount !== 100 && player.tesseractbuyamount !== 1000){player.tesseractbuyamount = 1;}
+        if (player.coinbuyamount !== 1 && player.coinbuyamount !== 10 && player.coinbuyamount !== 100 && player.coinbuyamount !== 1000) {
+            player.coinbuyamount = 1;
+        }
+        if (player.crystalbuyamount !== 1 && player.crystalbuyamount !== 10 && player.crystalbuyamount !== 100 && player.crystalbuyamount !== 1000) {
+            player.crystalbuyamount = 1;
+        }
+        if (player.mythosbuyamount !== 1 && player.mythosbuyamount !== 10 && player.mythosbuyamount !== 100 && player.mythosbuyamount !== 1000) {
+            player.mythosbuyamount = 1;
+        }
+        if (player.particlebuyamount !== 1 && player.particlebuyamount !== 10 && player.particlebuyamount !== 100 && player.particlebuyamount !== 1000) {
+            player.particlebuyamount = 1;
+        }
+        if (player.offeringbuyamount !== 1 && player.offeringbuyamount !== 10 && player.offeringbuyamount !== 100 && player.offeringbuyamount !== 1000) {
+            player.offeringbuyamount = 1;
+        }
+        if (player.tesseractbuyamount !== 1 && player.tesseractbuyamount !== 10 && player.tesseractbuyamount !== 100 && player.tesseractbuyamount !== 1000) {
+            player.tesseractbuyamount = 1;
+        }
         for (let j = 0; j <= 5; j++) {
             for (let k = 0; k < 4; k++) {
                 let d;
@@ -1892,8 +1904,8 @@ function multipliers() {
         globalAntMult = Decimal.pow(globalAntMult, 0.15)
     }
 
-        globalAntMult = Decimal.pow(globalAntMult, 1 - 0.8/54 * sumContents(player.usedCorruptions))
-        globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
+    globalAntMult = Decimal.pow(globalAntMult, 1 - 0.8 / 54 * sumContents(player.usedCorruptions))
+    globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
 
     globalConstantMult = new Decimal("1")
     globalConstantMult = globalConstantMult.times(Decimal.pow(1.05, player.constantUpgrades[1]))
@@ -2021,7 +2033,7 @@ function resourceGain(dt, fast) {
 
     player.ascendShards = player.ascendShards.add(ascendBuildingProduction.first.times(dt))
 
-    if(player.ascensionCount > 0){
+    if (player.ascensionCount > 0) {
         ascensionAchievementCheck(2)
     }
 
@@ -2125,7 +2137,7 @@ function resourceGain(dt, fast) {
     if (ascendchal !== 0 && ascendchal < 15) {
         if (player.challengecompletions[10] >= challengeRequirement(ascendchal, player.challengecompletions[ascendchal])) {
             resetCheck('ascensionChallenge', false)
-            challengeachievementcheck(ascendchal,true)
+            challengeachievementcheck(ascendchal, true)
         }
     }
     if (ascendchal === 15) {
@@ -2340,7 +2352,7 @@ function resetCheck(i, manual, leaving) {
         let r = player.currentChallenge.reincarnation;
         let t = player.currentChallenge.transcension;
 
-        if(player.challengecompletions[10] >= 50 && a === 11 && player.usedCorruptions[7] >= 5 && player.achievements[247] < 1){
+        if (player.challengecompletions[10] >= 50 && a === 11 && player.usedCorruptions[7] >= 5 && player.achievements[247] < 1) {
             achievementaward(247)
         }
 
@@ -2374,7 +2386,7 @@ function resetCheck(i, manual, leaving) {
             player.currentChallenge.ascension = 0;
         }
         updateChallengeDisplay();
-        challengeachievementcheck(a,true)
+        challengeachievementcheck(a, true)
     }
 }
 
@@ -2436,10 +2448,10 @@ function updateAll() {
         uFifteenMulti = Decimal.pow(1.15, freeAccelerator)
     }
 
-    if(player.researches[200] >= 1e5 && player.achievements[250] < 1){
+    if (player.researches[200] >= 1e5 && player.achievements[250] < 1) {
         achievementaward(250)
     }
-    if(player.cubeUpgrades[50] >= 1e5 && player.achievements[251] < 1){
+    if (player.cubeUpgrades[50] >= 1e5 && player.achievements[251] < 1) {
         achievementaward(251)
     }
 
