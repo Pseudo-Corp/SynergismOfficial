@@ -71,7 +71,9 @@ function buyResearch(index, auto) {
             player.roombaResearchIndex += 1;
         }
         if (player.roombaResearchIndex <= maxResearchIndex) {
-            document.getElementById("res" + researchOrderByCost[player.roombaResearchIndex]).style.backgroundColor = "orange"
+            let doc = document.getElementById("res" + researchOrderByCost[player.roombaResearchIndex])
+            if (doc)
+                doc.style.backgroundColor = "orange"
         }
     }
     calculateRuneLevels();
@@ -82,7 +84,7 @@ function buyResearch(index, auto) {
  * Calculates the max research index for the research roomba
  */
 function maxRoombaResearchIndex(p = player) {
-    let base = p.ascensionCount > 0 ? 140 : 0; // 125 researches pre-A + 15 from A
+    let base = p.ascensionCount > 0 ? 140 : 125; // 125 researches pre-A + 15 from A
     let c11 = p.challengecompletions[11] > 0 ? 15 : 0;
     let c12 = p.challengecompletions[12] > 0 ? 15 : 0;
     let c13 = p.challengecompletions[13] > 0 ? 15 : 0;

@@ -22,8 +22,9 @@ function exportSynergism() {
     }
 
     const a = document.createElement('a');
+    const filename = typeof player.saveString === 'function' ? player.saveString() : player.saveString;
     a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
-    a.setAttribute('download', 'Synergism-v1011Test-' + getRealTime() + '.txt');
+    a.setAttribute('download', filename);
     a.setAttribute('id', 'downloadSave');
     a.click();
 
