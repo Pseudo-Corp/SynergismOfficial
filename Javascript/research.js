@@ -105,6 +105,7 @@ function isResearchUnlocked(index) {
             return player.achievements[chievos[i]] > 0;
         }
     }
+    return false;
 }
 
 
