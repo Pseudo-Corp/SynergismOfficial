@@ -963,52 +963,11 @@ function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differ
     return [buyToLevel, realCost]
 }
 
-//Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping
-function calculateChallengeRequirementMultiplier(type, completions) {
-    let requirementMultiplier = 1
-    requirementMultiplier *= hyperchallengedMultiplier[player.usedCorruptions[4]]
-    switch (type) {
-        case "transcend":
-            (completions >= 75) ?
-                requirementMultiplier *= Math.pow(1 + completions, 12) / Math.pow(75, 8) :
-                requirementMultiplier *= Math.pow(1 + completions, 2);
-            return (requirementMultiplier);
-        case "reincarnation":
-            (completions >= 25) ?
-                requirementMultiplier *= Math.pow(1 + completions, 5) / 625 :
-                requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions));
-            return (requirementMultiplier);
-        case "ascension":
-            (completions >= 10) ?
-                requirementMultiplier *= (2 * (1 + completions) - 10) :
-                requirementMultiplier *= (1 + completions);
-            return (requirementMultiplier);
-    }
-}
-
-//Works to mitigate the difficulty of calculating challenge reward multipliers when considering softcapping
-function CalcECC(type, completions) { //ECM stands for "Effective Challenge Completions"
-    let effective = 0;
-    switch (type) {
-        case "transcend":
-            effective += Math.min(100, completions);
-            effective += 1 / 20 * (Math.max(100, completions) - 100);
-            return (effective);
-        case "reincarnation":
-            effective += Math.min(25, completions);
-            effective += 1 / 2 * (Math.max(25, completions) - 25);
-            return (effective);
-        case "ascension":
-            effective += Math.min(10, completions);
-            effective += 1 / 2 * (Math.max(10, completions) - 10);
-            return (effective);
-    }
-}
 
 //Banked Cubes, Score, Cube Gain, Tesseract Gain, Hypercube Gain
 function CalcCorruptionStuff(){
     let corruptionArrayMultiplier = [1, 1.3, 1.5, 2, 3, 4, 5]
-    
+
     let cubeBank = 0;
     let challengeModifier = 1;
     let corruptionMultiplier = 1;
@@ -1033,7 +992,6 @@ function CalcCorruptionStuff(){
         }
     }
     baseScore *= Math.pow(1.03, player.highestchallengecompletions[10]);
-    
     for(var i = 1; i <= 10; i++){
         corruptionMultiplier *= corruptionArrayMultiplier[player.usedCorruptions[i]]
     }

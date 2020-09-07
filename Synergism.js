@@ -1891,6 +1891,7 @@ function multipliers() {
     if (player.currentChallenge.ascension === 14) {
         globalAntMult = Decimal.pow(globalAntMult, 0.15)
     }
+
         globalAntMult = Decimal.pow(globalAntMult, 1 - 0.8/54 * sumContents(player.usedCorruptions))
         globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
 
@@ -2095,14 +2096,14 @@ function resourceGain(dt, fast) {
     let reinchal = player.currentChallenge.reincarnation;
     let ascendchal = player.currentChallenge.ascension;
     if (chal !== 0) {
-        if (player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengeBaseRequirements[chal] * calculateChallengeRequirementMultiplier('transcend', player.challengecompletions[chal])))) {
-            resetCheck('challenge', false);
+        if (player.coinsThisTranscension.greaterThanOrEqualTo(challengeRequirement(chal, player.challengecompletions[chal]))) {
+            resetCheck('challenge', false, true);
             autoChallengeTimerIncrement = 0;
         }
     }
     if (reinchal < 9 && reinchal !== 0) {
-        if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengeBaseRequirements[reinchal] * calculateChallengeRequirementMultiplier('reincarnation',player.challengecompletions[reinchal])))) {
-            resetCheck('reincarnationchallenge', false)
+        if (player.transcendShards.greaterThanOrEqualTo(challengeRequirement(reinchal, player.challengecompletions[reinchal]))) {
+            resetCheck('reincarnationchallenge', false, true)
             autoChallengeTimerIncrement = 0;
             if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29])) {
                 player.autoChallengeIndex += 1
@@ -2110,12 +2111,8 @@ function resourceGain(dt, fast) {
         }
     }
     if (reinchal >= 9) {
-        let c10Reduction = 0;
-        if (reinchal === 10) {
-            c10Reduction = 1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185])
-        }
-        if (player.coins.greaterThanOrEqualTo(Decimal.pow(10, (challengeBaseRequirements[reinchal] - c10Reduction) * calculateChallengeRequirementMultiplier('reincarnation', player.challengecompletions[reinchal])))) {
-            resetCheck('reincarnationchallenge', false)
+        if (player.coins.greaterThanOrEqualTo(challengeRequirement(reinchal, player.challengecompletions[reinchal]))) {
+            resetCheck('reincarnationchallenge', false, true)
             autoChallengeTimerIncrement = 0;
             if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29])) {
                 player.autoChallengeIndex += 1
@@ -2126,13 +2123,13 @@ function resourceGain(dt, fast) {
         }
     }
     if (ascendchal !== 0 && ascendchal < 15) {
-        if (player.challengecompletions[10] >= calculateChallengeRequirementMultiplier('ascension', player.challengecompletions[ascendchal])) {
+        if (player.challengecompletions[10] >= challengeRequirement(ascendchal, player.challengecompletions[ascendchal])) {
             resetCheck('ascensionChallenge', false)
             challengeachievementcheck(ascendchal,true)
         }
     }
     if (ascendchal === 15) {
-        if (player.coins.greaterThanOrEqualTo("1e4000000000000000000")) {
+        if (player.coins.greaterThanOrEqualTo(challengeRequirement(ascendchal, player.challengecompletions[ascendchal]))) {
             resetCheck('ascensionChallenge', false)
         }
     }
@@ -2210,17 +2207,16 @@ function resetCheck(i, manual, leaving) {
         let q = player.currentChallenge.transcension;
         let x = q + 65
         if (player.currentChallenge.transcension !== 0) {
-            let reqCheck = (comp, base) => {
-                return player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10,
-                    base * calculateChallengeRequirementMultiplier('transcend', comp)))
+            let reqCheck = (comp) => {
+                return player.coinsThisTranscension.greaterThanOrEqualTo(challengeRequirement(q, comp))
             }
             let maxCompletions = 25 + 5 * player.researches[x] + 925 * player.researches[105];
-            if (reqCheck(player.challengecompletions[q], challengeBaseRequirements[q]) && player.challengecompletions[q] < maxCompletions) {
+            if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
                 let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
                 let counter = 0;
                 let comp = player.challengecompletions[q];
                 while (counter < maxInc) {
-                    if (reqCheck(comp, challengeBaseRequirements[q]) && comp < maxCompletions) {
+                    if (reqCheck(comp) && comp < maxCompletions) {
                         comp++;
                     }
                     counter++;
@@ -2273,25 +2269,20 @@ function resetCheck(i, manual, leaving) {
             if (player.currentChallenge.transcension !== 0) {
                 player.currentChallenge.transcension = 0
             }
-            let reqCheck = (comp, base) => {
+            let reqCheck = (comp) => {
                 if (q <= 8) {
-                    return player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10,
-                        base * calculateChallengeRequirementMultiplier('reincarnation', comp)))
+                    return player.transcendShards.greaterThanOrEqualTo(challengeRequirement(q, comp))
                 } else { // challenges 9 and 10
-                    let c10Reduction = 0;
-                    if (player.currentChallenge.reincarnation === 10) {
-                        c10Reduction = 1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185])
-                    }
-                    return player.coins.greaterThanOrEqualTo(Decimal.pow(10, (base - c10Reduction) * calculateChallengeRequirementMultiplier('reincarnation', comp)))
+                    return player.coins.greaterThanOrEqualTo(challengeRequirement(q, comp))
                 }
             }
             let maxCompletions = 25 + 5 * player.cubeUpgrades[29];
-            if (reqCheck(player.challengecompletions[q], challengeBaseRequirements[q]) && player.challengecompletions[q] < maxCompletions) {
+            if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
                 let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
                 let counter = 0;
                 let comp = player.challengecompletions[q];
                 while (counter < maxInc) {
-                    if (reqCheck(comp, challengeBaseRequirements[q]) && comp < maxCompletions) {
+                    if (reqCheck(comp) && comp < maxCompletions) {
                         comp++;
                     }
                     counter++;
@@ -2318,6 +2309,11 @@ function resetCheck(i, manual, leaving) {
         }
         if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29]) {
             player.currentChallenge.reincarnation = 0;
+            if (player.shopUpgrades.instantChallengeBought) {
+                for (let i = 1; i <= 5; i++) {
+                    player.challengecompletions[i] = player.highestchallengecompletions[i];
+                }
+            }
             updateChallengeDisplay();
             calculateRuneLevels();
             calculateAnts();
@@ -2333,11 +2329,13 @@ function resetCheck(i, manual, leaving) {
     }
 
     if (i === "ascensionChallenge") {
-        let r = true
-        if(manual){
-        r = confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
+        let conf = true
+        if (manual) {
+            conf = confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
         }
-        if(r){
+        if (!conf) {
+            return;
+        }
         let a = player.currentChallenge.ascension;
         let r = player.currentChallenge.reincarnation;
         let t = player.currentChallenge.transcension;
@@ -2348,12 +2346,12 @@ function resetCheck(i, manual, leaving) {
 
         let maxCompletions = a < 15 ? 30 : 1;
         if (a !== 0 && a < 15) {
-            if (player.challengecompletions[10] >= calculateChallengeRequirementMultiplier('ascension', player.challengecompletions[a]) && player.challengecompletions[a] < maxCompletions) {
+            if (player.challengecompletions[10] >= challengeRequirement(a, player.challengecompletions[a]) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
             }
         }
         if (a === 15) {
-            if (player.coins.greaterThanOrEqualTo("1e40000000000000000000") && player.challengecompletions[a] < maxCompletions) {
+            if (player.coins.greaterThanOrEqualTo(challengeRequirement(a, player.challengecompletions[a])) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
             }
         }
@@ -3063,12 +3061,14 @@ function tick() {
             }
             if (player.autoChallengeIndex === 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.start) {
                 while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
-                    player.autoChallengeIndex += (!player.autoChallengeToggles[player.autoChallengeIndex]) ? 1: 0;
+                    player.autoChallengeIndex += (!player.autoChallengeToggles[player.autoChallengeIndex]) ? 1 : 0;
                     if (player.autoChallengeIndex === 10) {
                         break;
                     }
                 }
-                if(player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0){autoChallengeTimerIncrement = 0;}
+                if (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
+                    autoChallengeTimerIncrement = 0;
+                }
                 toggleChallenges(player.autoChallengeIndex, true);
                 if (player.autoChallengeTimer.exit >= 1) {
                     toggleAutoChallengeTextColors(2)
