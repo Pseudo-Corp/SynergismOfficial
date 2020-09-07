@@ -511,8 +511,8 @@ const player = {
         "hypercubes": 0
     },
 
-    prototypeCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    usedCorruptions: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     history: {},
@@ -964,7 +964,7 @@ function loadSynergy() {
             player['ascendBuilding' + i].generated = new Decimal(player['ascendBuilding' + i].generated)
         }
 
-        while (player.achievements[210] === undefined) {
+        while (player.achievements[252] === undefined) {
             player.achievements.push(0)
         }
         while (player.researches[200] === undefined) {
@@ -1006,6 +1006,12 @@ function loadSynergy() {
 
 
         const q = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract'];
+        if(player.coinbuyamount !== 1 && player.coinbuyamount !== 10 && player.coinbuyamount !== 100 && player.coinbuyamount !== 1000){player.coinbuyamount = 1;}
+        if(player.crystalbuyamount !== 1 && player.crystalbuyamount !== 10 && player.crystalbuyamount !== 100 && player.crystalbuyamount !== 1000){player.crystalbuyamount = 1;}
+        if(player.mythosbuyamount !== 1 && player.mythosbuyamount !== 10 && player.mythosbuyamount !== 100 && player.mythosbuyamount !== 1000){player.mythosbuyamount = 1;}
+        if(player.particlebuyamount !== 1 && player.particlebuyamount !== 10 && player.particlebuyamount !== 100 && player.particlebuyamount !== 1000){player.particlebuyamount = 1;}
+        if(player.offeringbuyamount !== 1 && player.offeringbuyamount !== 10 && player.offeringbuyamount !== 100 && player.offeringbuyamount !== 1000){player.offeringbuyamount = 1;}
+        if(player.tesseractbuyamount !== 1 && player.tesseractbuyamount !== 10 && player.tesseractbuyamount !== 100 && player.tesseractbuyamount !== 1000){player.tesseractbuyamount = 1;}
         for (let j = 0; j <= 5; j++) {
             for (let k = 0; k < 4; k++) {
                 let d;
@@ -1885,6 +1891,7 @@ function multipliers() {
     if (player.currentChallenge.ascension === 14) {
         globalAntMult = Decimal.pow(globalAntMult, 0.15)
     }
+        globalAntMult = Decimal.pow(globalAntMult, 1 - 0.8/54 * sumContents(player.usedCorruptions))
         globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
 
     globalConstantMult = new Decimal("1")
@@ -2013,6 +2020,10 @@ function resourceGain(dt, fast) {
 
     player.ascendShards = player.ascendShards.add(ascendBuildingProduction.first.times(dt))
 
+    if(player.ascensionCount > 0){
+        ascensionAchievementCheck(2)
+    }
+
     if (player.researches[71] > 0.5 && player.challengecompletions[1] < (Math.min(player.highestchallengecompletions[1], 25 + 5 * player.researches[66] + 925 * player.researches[105])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.25 * challengeBaseRequirements.one * Math.pow(1 + player.challengecompletions[1], 2)))) {
         player.challengecompletions[1] += 1;
         challengeDisplay(1, false, true);
@@ -2117,6 +2128,7 @@ function resourceGain(dt, fast) {
     if (ascendchal !== 0 && ascendchal < 15) {
         if (player.challengecompletions[10] >= calculateChallengeRequirementMultiplier('ascension', player.challengecompletions[ascendchal])) {
             resetCheck('ascensionChallenge', false)
+            challengeachievementcheck(ascendchal,true)
         }
     }
     if (ascendchal === 15) {
@@ -2256,6 +2268,7 @@ function resetCheck(i, manual, leaving) {
     if (i === "reincarnationchallenge") {
         let q = player.currentChallenge.reincarnation;
         let s = player.currentChallenge.transcension;
+
         if (player.currentChallenge.reincarnation !== 0) {
             if (player.currentChallenge.transcension !== 0) {
                 player.currentChallenge.transcension = 0
@@ -2328,6 +2341,11 @@ function resetCheck(i, manual, leaving) {
         let a = player.currentChallenge.ascension;
         let r = player.currentChallenge.reincarnation;
         let t = player.currentChallenge.transcension;
+
+        if(player.challengecompletions[10] >= 50 && a === 11 && player.usedCorruptions[7] >= 5 && player.achievements[247] < 1){
+            achievementaward(247)
+        }
+
         let maxCompletions = a < 15 ? 30 : 1;
         if (a !== 0 && a < 15) {
             if (player.challengecompletions[10] >= calculateChallengeRequirementMultiplier('ascension', player.challengecompletions[a]) && player.challengecompletions[a] < maxCompletions) {
@@ -2358,6 +2376,7 @@ function resetCheck(i, manual, leaving) {
             player.currentChallenge.ascension = 0;
         }
         updateChallengeDisplay();
+        challengeachievementcheck(a,true)
         }
     }
 }
@@ -2418,6 +2437,13 @@ function updateAll() {
     }
     if (player.upgrades[15] > 0.5) {
         uFifteenMulti = Decimal.pow(1.15, freeAccelerator)
+    }
+
+    if(player.researches[200] >= 1e5 && player.achievements[250] < 1){
+        achievementaward(250)
+    }
+    if(player.cubeUpgrades[50] >= 1e5 && player.achievements[251] < 1){
+        achievementaward(251)
     }
 
 //Autobuy "Building" Tab

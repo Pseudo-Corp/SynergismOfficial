@@ -23,7 +23,17 @@ var achievementpointvalues = [0, 1, 2, 4, 6, 8, 9, 10,
     1, 2, 4, 6, 8, 9, 10,
     1, 2, 4, 6, 8, 9, 10,
     10, 10, 10, 10, 10, 10, 10,
-    10, 10, 10, 10, 10, 10, 10]
+    10, 10, 10, 10, 10, 10, 10,
+    20, 20, 20, 40, 60, 60, 100,
+    20, 20, 40, 40, 60, 60, 100,
+    20, 20, 40, 40, 60, 60, 100,
+    20, 40, 40, 40, 60, 60, 100,
+    40, 40, 40, 60, 60, 100, 100,
+    40, 40, 60, 60, 100, 100, 100,
+    20, 40, 40, 60, 60, 100, 100,
+    40, 60, 100, 60, 100, 100, 40,
+    40, 40, 40, 40, 40, 40, 40,
+    40, 40, 40, 40, 100, 100, 0]
 
 var totalachievementpoints = achievementpointvalues.reduce(function (a, b) {
     return a + b
@@ -211,7 +221,76 @@ var adesc179 = "Ant Devil?: Amass a 100x Ant Multiplier through sacrifice and ow
 var adesc180 = "The world's best chef: Amass a 500x Ant Multiplier through sacrifice and own a Tier 6 Ant."
 var adesc181 = "6 Michelin Stars: Amass a 6,666x Ant Multiplier through sacrifice and own a Tier 7 Ant."
 var adesc182 = "Keys to the Restaurant at the end of the Universe: Amass a 77,777x Ant Multiplier through sacrifice and own a Tier 8 Ant."
-
+var adesc183 = "Up: Ascend Once."
+var adesc184 = "Double-Up: Ascend Twice."
+var adesc185 = "Give me Ten!: Ascend Ten Times."
+var adesc186 = "Give me a Hundred: Ascend 100 Times."
+var adesc187 = "Give me a Thousand: Ascend 1,000 Times."
+var adesc188 = "Give me some arbitrary number I: Ascend 14,142 Times."
+var adesc189 = "Give me some arbitrary number II: Ascend 141,423 Times."
+var adesc190 = "Now that's what I call getting some &Pi!: Attain a constant of 3.14."
+var adesc191 = "One in a million: Attain a constant of 1,000,000 [1e6]."
+var adesc192 = "A number: Attain a constant of 4.32e10."
+var adesc193 = "The coolest of numbers: Attain a constant of 6.9e21."
+var adesc194 = "Planck^(-1): Attain a constant of 1.509e33."
+var adesc195 = "Epsilon > a lot: Attain a constant of 1e66."
+var adesc196 = "NUM_MAX: Attain a constant of 1.8e308."
+var adesc197 = "Casualties: Clear 'Reduced Ants' challenge once."
+var adesc198 = "Fatalities: Clear 'Reduced Ants' challenge twice."
+var adesc199 = "Destruction: Clear 'Reduced Ants' challenge three times."
+var adesc200 = "War, what is it good for?: Clear 'Reduced Ants' challenge five times."
+var adesc201 = "Absolutely everything.: Clear 'Reduced Ants' challenge ten times."
+var adesc202 = "Perfect Storm: Clear 'Reduced Ants' challenge twenty times."
+var adesc203 = "Immaculate Storm: Clear 'Reduced Ants' challenge thirty times."
+var adesc204 = "I didn't need those stupid reincarnations anyway!: Clear 'No Reincarnation' challenge once."
+var adesc205 = "[x1,x2,0,x3]: Clear 'No Reincarnation' challenge twice."
+var adesc206 = "Nonmetaphysical: Clear 'No Reincarnation' challenge three times."
+var adesc207 = "Living alone: Clear 'No Reincarnation' challenge five times."
+var adesc208 = "DM me on discord if you read these names: Clear 'No Reincarnation' challenge ten times."
+var adesc209 = "Yeah: Clear 'No Reincarnation' challenge twenty times."
+var adesc210 = "Science! Clear 'No Reincarnation' challenge thirty times."
+var adesc211 = "The IRS strikes back: Clear 'Tax+++' challenge once."
+var adesc212 = "Fiscal Policy: Clear 'Tax+++' challenge twice."
+var adesc213 = "Economic Boom: Clear 'Tax+++' challenge three times."
+var adesc214 = "Ant-onomics: Clear 'Tax+++' challenge five times."
+var adesc215 = "'Wow Platonic Tax sucks 1/5': Clear 'Tax+++' challenge ten times."
+var adesc216 = "Haha this is hard for some reason: Clear 'Tax+++' challenge twenty times."
+var adesc217 = "Taxes are hard: Clear 'Tax+++' challenge thirty times."
+var adesc218 = "Shiny Blue Rock: Clear 'No Obtainium' once."
+var adesc219 = "It's like Avatar: Clear 'No Obtainium' twice."
+var adesc220 = "It's like Unobtainium: Clear 'No Obtainium' three times."
+var adesc221 = "It's like a thing: Clear 'No Obtainium' five times."
+var adesc222 = "It's like: Clear 'No Obtainium' ten times."
+var adesc223 = "It's: Clear 'No Obtainium' twenty times."
+var adesc224 = "It: Clear 'No Obtainium' thirty times."
+var adesc225 = "Pretty Corrupt: Clear an Ascension with above 100,000 score."
+var adesc226 = "Bought out: Clear an Ascension with above 1 million score."
+var adesc227 = "Utterly Corrupt: Clear an Ascension with above 10 million score."
+var adesc228 = "Antitrust: Clear an Ascension with above 100 million score."
+var adesc229 = "Ant-i-trust: Clear an Ascension with above 1 billion sccore."
+var adesc230 = "This is pretty unfair: Clear an Ascension with above 5 billion score."
+var adesc231 = "Antichrist: Clear an Ascension with above 25 billion score."
+var adesc232 = "Highly Blessed: Level your Speed Rune blessing to 100,000."
+var adesc233 = "Divine Blessing: Level your Speed Rune blessing to 100,000,000."
+var adesc234 = "Blessing III: Level your Speed Rune blessing to 100 billion."
+var adesc235 = "Spirit I: Level your Speed Spirit to 1 Million."
+var adesc236 = "Spirit II: Level your Speed Spirit to 1 Billion."
+var adesc237 = "Spirit III: Level your Speed Spirit to 1 Trillion."
+var adesc238 = "Three-folded: [Hint: you may want to look into the inception]"
+var adesc239 = "Seeing red: [Hint: you may need a lot of red items]"
+var adesc240 = "ASCENDED: [Hint: you may need a LOT of ascensions]"
+var adesc241 = "Aesop: [Hint: you gotta be pretty dang slow]"
+var adesc242 = "Aesop's Revenge: [Hint: you gotta be pretty dang fast]"
+var adesc243 = "Unsmith: [Hint: unsmith emoji :unsmith: can be a pretty good input]"
+var adesc244 = "Smith: [Hint: :antismith: looks promising as well]"
+var adesc245 = "BLESSED: [Hint: Your Speed Blessing best be unreasonably high!]"
+var adesc246 = "Why? [Hint: Sometimes even 1 in over a Trillion counts!]"
+var adesc247 = "Challenging! [Hint: Challenge 11 is calling your name, but with even less ants]"
+var adesc248 = "Seeing Red but not Blue: [Hint: Can you get red stuff without getting blue stuff?]"
+var adesc249 = "Overtaxed: [Hint: It might pay not to read!]"
+var adesc250 = "The Thousand Suns: [Hint: You need to fully research into becoming GOD]"
+var adesc251 = "The Thousand Moons: [Hint: You may need to cube yourself up]"
+var adesc252 = "Ultimate: Complete 'SADISTIC II' challenge."
 
 var areward3 = "Gain +.05% to Accelerator Power."
 var areward4 = "Start transcensions/challenges with Worker Autobuyer unlocked."
@@ -700,6 +779,14 @@ function challengeachievementcheck(i, auto) {
             achievementaward(147)
         }
     }
+    if (i >= 11 && i <= 14){
+        let challengeArray = [0, 1, 2, 3, 5, 10, 20, 30]
+        for(var j = 1; j <= 7; j++){
+            if(player.challengecompletions[i] >= challengeArray[j] && player.achievements[119 + 7 * i + j] < 1){
+                achievementaward(119+7*i+j)
+            }
+        }
+    }
 }
 
 function buildingAchievementCheck() {
@@ -807,6 +894,37 @@ function buildingAchievementCheck() {
     }
     if (player.fifthOwnedCoin >= 42777 && player.achievements[35] < 0.5) {
         achievementaward(35)
+    }
+}
+
+function ascensionAchievementCheck(i,score){
+    score = score || 0
+    if(i === 1){
+        let ascendCountArray = [0, 1, 2, 10, 100, 1000, 14142, 141421, 1414213]
+        for(var i = 1; i <= 7; i++){
+            if(player.ascensionCount >= ascendCountArray[i] && player.achievements[182+i] < 1){
+                achievementaward(182+i)
+            }
+        }
+        if(player.ascensionCount >= ascendCountArray[8] && player.achievements[240] < 1){
+            achievementaward(240)
+        }
+    }
+    if(i === 2){
+        let constantArray = [0, 3.14, 1e6, 4.32e10, 6.9e21, 1.509e33, 1e66, "1.8e308"]
+        for(var i = 1; i <= 7; i++){
+            if(player.ascendShards.greaterThanOrEqualTo(constantArray[i]) && player.achievements[189+i] < 1){
+                achievementaward(189+i)
+            }
+        }
+    }
+    if(i === 3){
+        let scoreArray = [0, 1e5, 1e6, 1e7, 1e8, 1e9, 5e9, 2.5e10]
+        for(var j = 1; j <= 7; j++){
+            if(score >= scoreArray[j] && player.achievements[224+j] < 1){
+                achievementaward(224+j)
+            }
+        }
     }
 }
 

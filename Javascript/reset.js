@@ -119,7 +119,7 @@ function resetdetails(i) {
         document.getElementById("resetcurrency2").textContent = ""
         document.getElementById("resetobtainium2").textContent = ""
         document.getElementById("resetinfo").style.color = "gold"
-        document.getElementById("resetinfo").textContent = "Ascend. 10x1 is required! +" + format(250 * calculateCubeMultiplier(), 0, true) + " Wow cubes for doing it (i will add more later lol!) Time: " + format(player.ascensionCounter, 0, false) + " Seconds."
+        document.getElementById("resetinfo").textContent = "Ascend. 10x1 is required! +" + format(CalcCorruptionStuff()[4], 0, true) + " Wow! Cubes for doing it! Time: " + format(player.ascensionCounter, 0, false) + " Seconds."
 
     }
 
@@ -392,14 +392,7 @@ function reset(i, fast, from) {
         if (player.reincarnationcounter < player.fastestreincarnate && player.currentChallenge.reincarnation === 0) {
             player.fastestreincarnate = player.reincarnationcounter;
         }
-        if (player.ascensionCount > 0) {
-            let toAdd = Math.min(1000, 100 / 100 * Math.floor(player.reincarnationcounter / 60));
-            player.wowCubes += toAdd;
-            player.cubesThisAscension.reincarnation += toAdd;
-            historyEntry.wowCubes = toAdd;
-            if (i < 3.5)
-                updateCubesPerSec()
-        }
+
         calculateCubeBlessings();
         player.reincarnationcounter = 0;
 
@@ -413,6 +406,8 @@ function reset(i, fast, from) {
     }
 
     if (i > 3.5) {
+        let metaData = CalcCorruptionStuff()
+        ascensionAchievementCheck(3, metaData[3])
         // reset other stuff
         historyCategory = "ascend";
         historyKind = "ascend";
@@ -425,17 +420,16 @@ function reset(i, fast, from) {
         historyEntry.c10Completions = player.challengecompletions[10];
         // get a copy of the array, not the actual array itself
         historyEntry.usedCorruptions = player.usedCorruptions.slice(0);
-        historyEntry.corruptionScore = calculateCorruptionPoints();
+        historyEntry.corruptionScore = metaData[3];
         // The value in player.cubesThisAscension isn't updated yet, we need the new value for that, but the current ones
         // for the others, so we calculate it here
-        const cubesThisAscend = 100 / 100 * calculateCubeMultiplier() * 250;
-        historyEntry.wowCubes = cubesThisAscend + player.cubesThisAscension.challenges + player.cubesThisAscension.reincarnation;
-        historyEntry.wowCubesAscend = cubesThisAscend;
-        historyEntry.wowCubesChallenge = player.cubesThisAscension.challenges;
-        historyEntry.wowCubesReincarnate = player.cubesThisAscension.reincarnation;
-        historyEntry.wowCubesCpsAtC10 = player.cubesThisAscension.cpsOnC10Comp;
-        historyEntry.wowTesseracts = player.cubesThisAscension.tesseracts;
-        historyEntry.wowHypercubes = player.cubesThisAscension.hypercubes;
+        historyEntry.wowCubes = metaData[4];
+        historyEntry.wowCubesAscend = metaData[4];
+        historyEntry.wowCubesChallenge = 0;
+        historyEntry.wowCubesReincarnate = 0;
+        historyEntry.wowCubesCpsAtC10 = metaData[5] / player.ascensionCounter;
+        historyEntry.wowTesseracts = metaData[5];
+        historyEntry.wowHypercubes = metaData[6];
         // reset auto challenges
         player.currentChallenge.transcension = 0;
         player.currentChallenge.reincarnation = 0;
@@ -501,9 +495,10 @@ function reset(i, fast, from) {
         if (player.cubeUpgrades[48] > 0) {
             player.firstOwnedAnts += 1
         }
-
         if (player.challengecompletions[10] > 0) {
-            player.wowCubes += 100 / 100 * calculateCubeMultiplier() * 250;
+            player.wowCubes += metaData[4]; //Metadata is defined up in the top of the (i > 3.5) case
+            player.wowTesseracts += metaData[5];
+            player.wowHypercubes += metaData[6];
         }
 
         for (let j = 1; j <= 10; j++) {
@@ -540,6 +535,7 @@ function reset(i, fast, from) {
         calculateObtainium();
 
         player.ascensionCount += 1;
+        ascensionAchievementCheck(1);
         player.cubesThisAscension.challenges = 0;
         player.cubesThisAscension.reincarnation = 0;
         player.cubesThisAscension.maxCubesPerSec = 0;
@@ -579,6 +575,9 @@ function reset(i, fast, from) {
             if (player.upgrades[j] === 0) {
                 document.getElementById("upg" + j).style.backgroundColor = "black"
             }
+        }
+        for(var i = 1; i <= 9; i++){
+            player.usedCorruptions[i] = player.prototypeCorruptions[i]
         }
         document.getElementById("toggleofferingbuy").textContent = "Toggle amount to use per sacrifice"
     }

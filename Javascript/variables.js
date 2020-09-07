@@ -52,7 +52,7 @@ var researchBaseCosts = [1e100, 1, 1, 1, 1, 1,
     3e41, 1e42, 3e42, 6e42, 1e43,
     /*challenge 14 tier */            3e43, 1e44, 3e44, 1e45, 3e45,
     1e46, 3e46, 1e47, 3e47, 1e60,
-    3e48, 1e49, 3e49, 6e49, 1e52
+    3e48, 1e49, 3e49, 6e49, 7.777e54
 ]
 
 
@@ -352,16 +352,15 @@ var researchOrderByCost = []
 
 var divisivenessPower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 1/3]
 var maladaptivePower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 1/3]
-var lazinessMultiplier = [1, 0.5, 0.2, 0.1, 0.03, 1e-3, 1e-6]
+var lazinessMultiplier = [1, 1/3, 1/10, 1/40, 1/200, 1/10000, 1/1000000]
 var hyperchallengedMultiplier = [1, 1.2, 1.5, 1.7, 2, 2.5, 3]
 var illiteracyPower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3]
 var deflationMultiplier = [1, 0.3, 0.1, 0.03, 0.01, 0.003, 0]
-var extinctionMultiplier = [1, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1]
+var extinctionMultiplier = [1, 0.92, 0.86, 0.8, 0.74, 0.68, 0.6]
 var droughtMultiplier = [1, 5, 25, 200, 1e4, 1e8, 1e16]
 var financialcollapsePower = [1, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3]
 
-var corruptionAddPointArray = [0, 50, 100, 150, 200, 300, 400, 500]
-var corruptionMultiplyPointArray = [0, 10, 20, 30, 50, 80, 110, 150]
+var corruptionPointMultipliers = [1, 1.3, 1.5, 2, 3, 4, 5]
 
 var ascendBuildingProduction = {
     first: new Decimal('0'),
@@ -385,3 +384,4 @@ var globalConstantMult = new Decimal("1")
 var autoTalismanTimer = 0
 
 var autoChallengeTimerIncrement = 0;
+var corruptionTrigger = 1;

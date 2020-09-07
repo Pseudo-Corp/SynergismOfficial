@@ -70,8 +70,8 @@ function checkVariablesOnLoad(data) {
         }
     }
     if (data.prototypeCorruptions === undefined) {
-        player.prototypeCorruptions = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        player.usedCorruptions = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
     if (data.constantUpgrades === undefined) {
         player.ascendShards = new Decimal("0")
@@ -123,6 +123,11 @@ function checkVariablesOnLoad(data) {
 
     if (data.autoTesseracts === undefined) {
         player.autoTesseracts = [false, false, false, false, false, false]
+    }
+
+    if (player.prototypeCorruptions[0] === null || player.prototypeCorruptions[0] === undefined){
+        player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
 
 }

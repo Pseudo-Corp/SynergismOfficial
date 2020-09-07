@@ -229,11 +229,11 @@ function calculateMaxRunes(i) {
 
     let increaseMaxLevel = [
         null,
-        25 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50],
-        25 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + 2 * player.researches[200] + 2 * player.cubeUpgrades[50]
+        25 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
+        25 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
+        25 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
+        25 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
+        25 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50])
     ]
 
     max += increaseMaxLevel[i]
@@ -335,8 +335,8 @@ function calculateOfferings(i) {
     q *= (1 + 0.0001 * player.constantUpgrades[3] * Decimal.log(player.ascendShards.add(1), 10))
     q *= (1 + 0.0003 * player.talismanLevels[3] * player.researches[149])
     q *= (1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]))
-    q *= (1 + 0.1 / 100 * player.researches[200])
-    q *= (1 + 0.1 / 100 * player.cubeUpgrades[50])
+    q *= (1 + 0.01 / 100 * player.researches[200])
+    q *= (1 + 0.02 / 100 * player.cubeUpgrades[50])
     q = Math.floor(q) * 100 / 100
 
     let persecond = 0;
@@ -381,7 +381,7 @@ function calculateObtainium() {
     obtainiumGain *= (1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]))
     obtainiumGain *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[4])
     obtainiumGain *= (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144])
-    obtainiumGain *= (1 + 0.1 / 100 * player.cubeUpgrades[50])
+    obtainiumGain *= (1 + 0.02 / 100 * player.cubeUpgrades[50])
     if (player.achievements[53] > 0) {
         obtainiumGain *= (1 + 1 / 2000 * (runeSum))
     }
@@ -572,7 +572,7 @@ function calculateAnts() {
     talismanBonus += CalcECC('reincarnation', player.challengecompletions[9]);
     talismanBonus += 2 * player.constantUpgrades[6];
     talismanBonus += 15 * CalcECC('ascension', player.challengecompletions[11]);
-    talismanBonus += Math.floor(1 / 40 * player.researches[200]);
+    talismanBonus += Math.floor(1 / 200 * player.researches[200]);
     let c11 = 0;
     let c11bonus = 0;
     if (player.currentChallenge.ascension === 11) {
@@ -652,7 +652,7 @@ function calculateAntSacrificeELO() {
         effectiveELO += 0.1 * Math.min(10000, antELO)
         effectiveELO += 0.2 * antELO
         effectiveELO += (cubeBonusMultiplier[8] - 1)
-        effectiveELO += 3 * player.cubeUpgrades[50]
+        effectiveELO += 1 * player.cubeUpgrades[50]
 
 
     }
@@ -883,14 +883,7 @@ function calculateCubeMultiplier() {
     mult *= (1 + 0.6 * player.researches[187] / 100)
     mult *= (1 + 0.03 / 100 * player.researches[192] * player.antUpgrades[12])
     mult *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2])
-    mult *= (1 + 0.1 / 100 * player.researches[200])
-
-    const timeThresholds = [0, 30, 60, 120, 600, 1800, 7200, 28800, 86400, 86400 * 7];
-    for (let i = 1; i <= 9; i++) {
-        if (player.ascensionCounter < timeThresholds[i]) {
-            mult *= 1.1
-        }
-    }
+    mult *= (1 + 0.004 / 100 * player.researches[200])
     mult *= (1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]))
     return (mult)
 }
@@ -915,32 +908,23 @@ function calculateTimeAcceleration() {
         timeMult = 10 * Math.sqrt(timeMult)
     }
     timeMult *= indevSpeed
+    if(player.usedCorruptions[3] >= 6 && player.achievements[241] < 1){
+        achievementaward(241)
+    }
+    if(timeMult > 3600 * indevSpeed && player.achievements[242] < 1){
+        achievementaward(242)
+    }
     return (timeMult)
 }
 
 function calculateCorruptionPoints() {
     let basePoints = 400;
-    let multiplyPoints = 1;
 
-    basePoints += corruptionAddPointArray[player.usedCorruptions[1]]
-    basePoints += corruptionAddPointArray[player.usedCorruptions[2]]
-    basePoints += 2 * corruptionAddPointArray[player.usedCorruptions[3]]
-    basePoints += 2 * corruptionAddPointArray[player.usedCorruptions[6]]
-    basePoints += 400 * player.usedCorruptions[7]
-    basePoints += 400 * player.usedCorruptions[8]
-    basePoints += corruptionAddPointArray[player.usedCorruptions[9]]
-    basePoints += 1 * corruptionAddPointArray[player.usedCorruptions[11]]
-    basePoints += 4 * corruptionAddPointArray[player.usedCorruptions[12]]
-
-    multiplyPoints += 1 / 100 * corruptionMultiplyPointArray[player.usedCorruptions[4]]
-    multiplyPoints += 1 / 100 * corruptionMultiplyPointArray[player.usedCorruptions[5]]
-    multiplyPoints += 1 / 100 * corruptionMultiplyPointArray[player.usedCorruptions[10]]
-
-    let totalPoints = basePoints * multiplyPoints
-    if (totalPoints === 39600) {
-        totalPoints += 400
+    for(var i = 1; i <= 9; i++){
+    basePoints += 16 * Math.pow(player.usedCorruptions[i],2)
     }
-    return (totalPoints)
+
+    return (basePoints)
 }
 
 //by https://stackoverflow.com/questions/3730510/javascript-sort-array-and-return-an-array-of-indicies-that-indicates-the-positi
@@ -1027,9 +1011,11 @@ function CalcCorruptionStuff(){
     
     let cubeBank = 0;
     let challengeModifier = 1;
+    let corruptionMultiplier = 1;
     let bankMultiplier = 1;
+    let effectiveScore = 1;
     for(var i = 1; i <= 10; i++){
-        challengeModifier = (i >= 6)? 5: 1;
+        challengeModifier = (i >= 6)? 2: 1;
         cubeBank += challengeModifier * player.highestchallengecompletions[i]
     }
 
@@ -1046,21 +1032,23 @@ function CalcCorruptionStuff(){
             baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 25)
         }
     }
-    baseScore *= Math.pow(1.05, player.highestchallengecompletions[10]);
+    baseScore *= Math.pow(1.03, player.highestchallengecompletions[10]);
     
     for(var i = 1; i <= 10; i++){
-        baseScore *= corruptionArrayMultiplier[player.usedCorruptions[i]]
+        corruptionMultiplier *= corruptionArrayMultiplier[player.usedCorruptions[i]]
     }
 
-    bankMultiplier = Math.sqrt(1 + baseScore / 10000);
+    effectiveScore = baseScore * corruptionMultiplier
+
+    bankMultiplier = Math.sqrt(1 + effectiveScore / 10000);
     let cubeGain = cubeBank * bankMultiplier;
     cubeGain *= calculateCubeMultiplier();
 
-    let tesseractGain = (baseScore >= 1e5) ? 1: 0;
-    tesseractGain *= Math.pow(1 + (baseScore - 100000)/100000 , 2/3);
+    let tesseractGain = 1;
+    tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 100000))/10000 , .8);
 
-    let hypercubeGain = (baseScore >= 1e9) ? 1: 0;
-    hypercubeGain *= Math.pow(1 + (baseScore - 1e9)/1e9, .9);
+    let hypercubeGain = (effectiveScore >= 1e9) ? 1: 0;
+    hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9))/1e9, .9);
 
-    return[cubeBank, Math.floor(baseScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
+    return[cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
 }
