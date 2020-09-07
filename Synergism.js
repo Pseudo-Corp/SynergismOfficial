@@ -1688,9 +1688,10 @@ function multipliers() {
     s = s.times(prestigeMultiplier);
     s = s.times(reincarnationMultiplier);
     s = s.times(antMultiplier)
+    let first6CoinUp = new Decimal(totalCoinOwned + 1).times(Decimal.min(1e30, Decimal.pow(1.008, totalCoinOwned)));
 
     if (player.upgrades[6] > 0.5) {
-        s = s.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));
+        s = s.times(first6CoinUp);
     }
     if (player.upgrades[12] > 0.5) {
         s = s.times(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)));
@@ -1705,7 +1706,7 @@ function multipliers() {
         s = s.times(Decimal.min(1e30, Decimal.pow(1.01, player.transcendCount)));
     }
     if (player.upgrades[48] > 0.5) {
-        s = s.times(Math.pow((totalMultiplier * totalAccelerator / 1000 + 1), 8));
+        s = s.times(Decimal.pow((totalMultiplier * totalAccelerator / 1000 + 1), 8));
     }
     if (player.currentChallenge.reincarnation === 6) {
         s = s.dividedBy(1e250)
@@ -1725,9 +1726,8 @@ function multipliers() {
     globalCoinMultiplier = Decimal.pow(globalCoinMultiplier, financialcollapsePower[player.usedCorruptions[9]])
 
     coinOneMulti = new Decimal(1);
-
     if (player.upgrades[1] > 0.5) {
-        coinOneMulti = coinOneMulti.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));
+        coinOneMulti = coinOneMulti.times(first6CoinUp);
     }
     if (player.upgrades[10] > 0.5) {
         coinOneMulti = coinOneMulti.times(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)));
@@ -1737,9 +1737,8 @@ function multipliers() {
     }
 
     coinTwoMulti = new Decimal(1);
-
     if (player.upgrades[2] > 0.5) {
-        coinTwoMulti = coinTwoMulti.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));
+        coinTwoMulti = coinTwoMulti.times(first6CoinUp);
     }
     if (player.upgrades[13] > 0.5) {
         coinTwoMulti = coinTwoMulti.times(Decimal.min(1e50, Decimal.pow(player.firstGeneratedMythos.add(player.firstOwnedMythos).add(1), 4 / 3).times(1e10)));
@@ -1752,9 +1751,8 @@ function multipliers() {
     }
 
     coinThreeMulti = new Decimal(1);
-
     if (player.upgrades[3] > 0.5) {
-        coinThreeMulti = coinThreeMulti.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));
+        coinThreeMulti = coinThreeMulti.times(first6CoinUp);
     }
     if (player.upgrades[18] > 0.5) {
         coinThreeMulti = coinThreeMulti.times(Decimal.min(1e125, player.transcendShards.add(1)));
@@ -1764,25 +1762,20 @@ function multipliers() {
     }
 
     coinFourMulti = new Decimal(1);
-
     if (player.upgrades[4] > 0.5) {
-        coinFourMulti = coinFourMulti.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));
+        coinFourMulti = coinFourMulti.times(first6CoinUp);
     }
-
     if (player.upgrades[17] > 0.5) {
         coinFourMulti = coinFourMulti.times(1e100);
     }
-
     if (player.upgrades[59] > 0.5) {
         coinFourMulti = coinFourMulti.times("1e25000")
     }
 
     coinFiveMulti = new Decimal(1);
-
     if (player.upgrades[5] > 0.5) {
-        coinFiveMulti = coinFiveMulti.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));
+        coinFiveMulti = coinFiveMulti.times(first6CoinUp);
     }
-
     if (player.upgrades[60] > 0.5) {
         coinFiveMulti = coinFiveMulti.times("1e35000")
     }
@@ -1828,7 +1821,7 @@ function multipliers() {
         globalMythosMultiplier = globalMythosMultiplier.times(Math.pow(1.05, player.achievementPoints)).times(player.achievementPoints + 1)
     }
     if (player.upgrades[51] > 0.5) {
-        globalMythosMultiplier = globalMythosMultiplier.times(Math.pow(totalAcceleratorBoost, 2))
+        globalMythosMultiplier = globalMythosMultiplier.times(Decimal.pow(totalAcceleratorBoost, 2))
     }
     if (player.upgrades[52] > 0.5) {
         globalMythosMultiplier = globalMythosMultiplier.times(Decimal.pow(globalMythosMultiplier, 0.025))
