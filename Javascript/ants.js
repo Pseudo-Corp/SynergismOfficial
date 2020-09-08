@@ -70,8 +70,7 @@ function updateAntDescription(i) {
 
     let priceType = "Galactic Crumbs"
     let tier = ""
-    let content1 = antdesc["antdesc" + i]
-    el.textContent = content1
+    el.textContent = antdesc["antdesc" + i]
 
     switch (i) {
         case 1:
@@ -115,37 +114,11 @@ function updateAntDescription(i) {
 function buyAnts(i) {
     let sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints);
     let type = "ant"
-    let tier = ""
     if (i === 1) {
         type = "reincarnation";
     }
-
-    switch (i) {
-        case 1:
-            tier = "first";
-            break;
-        case 2:
-            tier = "second";
-            break;
-        case 3:
-            tier = "third";
-            break;
-        case 4:
-            tier = "fourth";
-            break;
-        case 5:
-            tier = "fifth";
-            break;
-        case 6:
-            tier = "sixth";
-            break;
-        case 7:
-            tier = "seventh";
-            break;
-        case 8:
-            tier = "eighth";
-            break;
-    }
+    let ordinals = [null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth"]
+    let tier = ordinals[i]
     let amountBuy = 1;
     while (player[type + "Points"].greaterThanOrEqualTo(player[tier + "CostAnts"]) && ticker < amountBuy) {
         player[type + "Points"] = player[type + "Points"].sub(player[tier + "CostAnts"]);
@@ -408,7 +381,7 @@ function sacrificeAnts(auto) {
         }
     }
 
-    if(player.mythicalFragments >= 1e11 && player.currentChallenge.ascension === 14 && player.achievements[248] < 1){
+    if (player.mythicalFragments >= 1e11 && player.currentChallenge.ascension === 14 && player.achievements[248] < 1) {
         achievementaward(248)
     }
 }
