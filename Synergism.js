@@ -977,10 +977,6 @@ function loadSynergy() {
             player.upgrades.push(0)
         }
 
-        if (data.history === undefined || player.history === undefined) {
-            player.history = {};
-            player.historyCountMax = 15;
-        }
         if (player.saveString === "") {
             player.saveString = () => `Synergism-v2.0.0Test-${getRealTime()}.txt`
         }
