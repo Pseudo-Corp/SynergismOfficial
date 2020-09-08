@@ -463,7 +463,7 @@ function sacrificeAnts(auto) {
 }
 
 function autoBuyAnts() {
-    const canAffordUpgrade = (x, m) => player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[x], player.antUpgrades[x]).times(antUpgradeBaseCost[x]).times(m))
+    const canAffordUpgrade = (x, m) => player.antPoints.greaterThanOrEqualTo(getAntUpgradeCost(new Decimal(antUpgradeBaseCost[x]), player.antUpgrades[x] + 1, x).times(m))
     let ach = [null, 176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
     let cost = [null, "100", "100", "1000", "1000", "1e5", "1e6", "1e8", "1e11", "1e15", "1e20", "1e40", "1e100"];
     if (player.currentChallenge.ascension !== 11) {
