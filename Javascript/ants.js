@@ -156,29 +156,12 @@ function buyAnts(i) {
     ticker = 0;
     calculateAntSacrificeELO();
 
-    if (sacrificeMult > 2 && player.secondOwnedAnts > 0 && player.achievements[176] === 0) {
-        achievementaward(176)
+    let achRequirements = [2, 6, 20, 100, 500, 666, 77777]
+    for (let j = 0; j < 7; j++) {
+        if (sacrificeMult > achRequirements[j] && player[ordinals[2 + j] + "OwnedAnts"] > 0 && player.achievements[176 + j] === 0) {
+            achievementaward(176 + j)
+        }
     }
-    if (sacrificeMult > 6 && player.thirdOwnedAnts > 0 && player.achievements[177] === 0) {
-        achievementaward(177)
-    }
-    if (sacrificeMult > 20 && player.fourthOwnedAnts > 0 && player.achievements[178] === 0) {
-        achievementaward(178)
-    }
-    if (sacrificeMult > 100 && player.fifthOwnedAnts > 0 && player.achievements[179] === 0) {
-        achievementaward(179)
-    }
-    if (sacrificeMult > 500 && player.sixthOwnedAnts > 0 && player.achievements[180] === 0) {
-        achievementaward(180)
-    }
-    if (sacrificeMult > 6666 && player.seventhOwnedAnts > 0 && player.achievements[181] === 0) {
-        achievementaward(181)
-    }
-    if (sacrificeMult > 77777 && player.eighthOwnedAnts > 0 && player.achievements[182] === 0) {
-        achievementaward(182)
-    }
-
-
 }
 
 
@@ -249,26 +232,11 @@ function buyAntProducers(pos, type, originalCost, index) {
     }
     calculateAntSacrificeELO();
 
-    if (sacrificeMult > 2 && player.secondOwnedAnts > 0 && player.achievements[176] === 0) {
-        achievementaward(176)
-    }
-    if (sacrificeMult > 6 && player.thirdOwnedAnts > 0 && player.achievements[177] === 0) {
-        achievementaward(177)
-    }
-    if (sacrificeMult > 20 && player.fourthOwnedAnts > 0 && player.achievements[178] === 0) {
-        achievementaward(178)
-    }
-    if (sacrificeMult > 100 && player.fifthOwnedAnts > 0 && player.achievements[179] === 0) {
-        achievementaward(179)
-    }
-    if (sacrificeMult > 500 && player.sixthOwnedAnts > 0 && player.achievements[180] === 0) {
-        achievementaward(180)
-    }
-    if (sacrificeMult > 6666 && player.seventhOwnedAnts > 0 && player.achievements[181] === 0) {
-        achievementaward(181)
-    }
-    if (sacrificeMult > 77777 && player.eighthOwnedAnts > 0 && player.achievements[182] === 0) {
-        achievementaward(182)
+    let achRequirements = [2, 6, 20, 100, 500, 666, 77777]
+    for (let j = 0; j < 7; j++) {
+        if (sacrificeMult > achRequirements[j] && player[ordinals[2 + j] + "OwnedAnts"] > 0 && player.achievements[176 + j] === 0) {
+            achievementaward(176 + j)
+        }
     }
 }
 
