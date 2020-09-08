@@ -69,7 +69,11 @@ function buyResearch(index, auto) {
         if (isResearchMaxed(player.autoResearch)) {
             player.roombaResearchIndex += 1;
         }
-        if (player.roombaResearchIndex <= maxResearchIndex) {
+        while (!isResearchUnlocked(player.autoResearch)) {
+            player.roombaResearchIndex += 1;
+            player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+        }
+        if (isResearchUnlocked(player.autoResearch)) {
             let doc = document.getElementById("res" + researchOrderByCost[player.roombaResearchIndex])
             if (doc)
                 doc.style.backgroundColor = "orange"
