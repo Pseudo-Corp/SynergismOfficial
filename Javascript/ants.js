@@ -461,3 +461,70 @@ function sacrificeAnts(auto) {
         achievementaward(248)
     }
 }
+
+function autoBuyAnts() {
+    const canAffordUpgrade = (x, m) => player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[x], player.antUpgrades[x]).times(antUpgradeBaseCost[x]).times(m))
+    if (player.currentChallenge.ascension !== 11) {
+        if (player.achievements[176] && canAffordUpgrade(1, 2)) {
+            buyAntUpgrade('100', true, 1)
+        }
+        if (player.achievements[176] && canAffordUpgrade(2, 2)) {
+            buyAntUpgrade('100', true, 2)
+        }
+        if (player.achievements[177] && canAffordUpgrade(3, 2)) {
+            buyAntUpgrade('1000', true, 3)
+        }
+        if (player.achievements[178] && canAffordUpgrade(4, 2)) {
+            buyAntUpgrade('1000', true, 4)
+        }
+        if (player.achievements[178] && canAffordUpgrade(5, 2)) {
+            buyAntUpgrade('1e5', true, 5)
+        }
+        if (player.achievements[179] && canAffordUpgrade(6, 2)) {
+            buyAntUpgrade('1e6', true, 6)
+        }
+        if (player.achievements[180] && canAffordUpgrade(7, 2)) {
+            buyAntUpgrade('1e8', true, 7)
+        }
+        if (player.achievements[180] && canAffordUpgrade(8, 2)) {
+            buyAntUpgrade('1e11', true, 8)
+        }
+        if (player.achievements[181] && canAffordUpgrade(9, 2)) {
+            buyAntUpgrade('1e15', true, 9)
+        }
+        if (player.achievements[182] && canAffordUpgrade(10, 2)) {
+            buyAntUpgrade('1e20', true, 10)
+        }
+        if (player.achievements[182] && canAffordUpgrade(11, 2)) {
+            buyAntUpgrade('1e40', true, 11)
+        }
+        if (player.researches[145] > 0 && canAffordUpgrade(12, 2)) {
+            buyAntUpgrade('1e100', true, 12)
+        }
+    }
+
+    if (player.achievements[173] === 1 && player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostAnts)) {
+        buyAntProducers('first', 'Ants', '1e800', 1);
+    }
+    if (player.achievements[176] === 1 && player.antPoints.greaterThanOrEqualTo(player.secondCostAnts.times(2))) {
+        buyAntProducers('second', 'Ants', '3', 2);
+    }
+    if (player.achievements[177] === 1 && player.antPoints.greaterThanOrEqualTo(player.thirdCostAnts.times(2))) {
+        buyAntProducers('third', 'Ants', '100', 3);
+    }
+    if (player.achievements[178] === 1 && player.antPoints.greaterThanOrEqualTo(player.fourthCostAnts.times(2))) {
+        buyAntProducers('fourth', 'Ants', '10000', 4);
+    }
+    if (player.achievements[179] === 1 && player.antPoints.greaterThanOrEqualTo(player.fifthCostAnts.times(2))) {
+        buyAntProducers('fifth', 'Ants', '1e12', 5);
+    }
+    if (player.achievements[180] === 1 && player.antPoints.greaterThanOrEqualTo(player.sixthCostAnts.times(2))) {
+        buyAntProducers('sixth', 'Ants', '1e36', 6);
+    }
+    if (player.achievements[181] === 1 && player.antPoints.greaterThanOrEqualTo(player.seventhCostAnts.times(2))) {
+        buyAntProducers('seventh', 'Ants', '1e100', 7);
+    }
+    if (player.achievements[182] === 1 && player.antPoints.greaterThanOrEqualTo(player.eighthCostAnts.times(2))) {
+        buyAntProducers('eighth', 'Ants', '1e300', 8);
+    }
+}
