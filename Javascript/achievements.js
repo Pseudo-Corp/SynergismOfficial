@@ -39,259 +39,261 @@ var totalachievementpoints = achievementpointvalues.reduce(function (a, b) {
     return a + b
 }, 0);
 
-var adesc1 = "A Loyal Employee: Hire your first worker."
-var adesc2 = "Small Business: Hire 10 workers."
-var adesc3 = "Now we're synergizing!: Hire 100 workers."
-var adesc4 = "Gaining Redundancies: Hire 1,000 workers."
-var adesc5 = "A cog in the machine: Hire 5,000 workers."
-var adesc6 = "A nail in the machine: Hire 10,000 workers."
-var adesc7 = "Are we even in the machine anymore?: Hire 20,000 workers."
-var adesc8 = "STONKS!!!: Purchase 1 Investment."
-var adesc9 = "Planning ahead: Purchase 10 Investments."
-var adesc10 = "Inside Trading: Purchase 100 Investments."
-var adesc11 = "Outside Trading?: Purchase 1,000 Investments."
-var adesc12 = "Market Takeover: Purchase 5,000 Investments."
-var adesc13 = "Trickle-Down Economics: Purchase 10,000 Investments."
-var adesc14 = "Eliminated Regulation: Purchase 20,000 Investments."
-var adesc15 = "Stationery!: Build 1 Printer."
-var adesc16 = "Printing Press: Build 10 Printers."
-var adesc17 = "It prints free money!: Build 100 Printers."
-var adesc18 = "Solving Our Debts: Build 1,000 Printers."
-var adesc19 = "Monopolizing the market: Build 5,000 Printers."
-var adesc20 = "We're running out of Ink!: Build 10,000 Printers."
-var adesc21 = "3D-printing the universe: Build 20,000 Printers."
-var adesc22 = "A national treasure: Establish 1 Coin Mint."
-var adesc23 = "Now with competition!: Establish 10 Coin Mints."
-var adesc24 = "Counterfeiting with Style!: Establish 100 Coin Mints."
-var adesc25 = "Why do we need all these?: Establish 1000 Coin Mints."
-var adesc26 = "No really, why??: Establish 5,000 Coin Mints."
-var adesc27 = "Is no one to stop us???: Establish 10,000 Coin Mints."
-var adesc28 = "Oh well, time to mint: Establish 20,000 Coin Mints."
-var adesc29 = "Newton's Apprentice: Create 1 Alchemy."
-var adesc30 = "Lab Work: Create 10 Alchemies."
-var adesc31 = "Satanic Becomings: Create 66 Alchemies."
-var adesc32 = "Satan Incarnate: Create 666 Alchemies."
-var adesc33 = "Is this more demonic?: Create 6,666 Alchemies."
-var adesc34 = "Golden Paradise: Create 17,777 Alchemies."
-var adesc35 = "Unlocking secrets to the world: Create 42,777 Alchemies."
-var adesc36 = "Leveling up: Prestige for at least 1 Diamond."
-var adesc37 = "High-Tiered: Prestige for at least 1e+6 Diamonds."
-var adesc38 = "Highly Regarded: Prestige for at least 1e+100 Diamonds."
-var adesc39 = "Prestigious: Prestige for at least 1e+1000 Diamonds."
-var adesc40 = "Legendary: Prestige for at least 1e+10000 Diamonds."
-var adesc41 = "Divine: Prestige for at least 1e+77777 Diamonds."
-var adesc42 = "Perfectly Respected: Prestige for at least 1e+250000 Diamonds."
-var adesc43 = "A Simple Detour: Transcend for at least 1 Mythos."
-var adesc44 = "Tunnel Vision: Transcend for at least 1e+6 Mythos."
-var adesc45 = "Risen from the Ashes: Transcend for at least 1e+50 Mythos."
-var adesc46 = "Paradigm Shift: Transcend for at least 1e+308 Mythos."
-var adesc47 = "Preparation: Transcend for at least 1e+2000 Mythos."
-var adesc48 = "Revising the Plan: Transcend for at least 1e+25000 Mythos."
-var adesc49 = "Leaving the Universe: Transcend for at least 1e+100000 Mythos."
-var adesc50 = "Going Quantum: Reincarnate for at least 1 Particle."
-var adesc51 = "Tunneling Vision: Reincarnate for at least 100,000 Particles."
-var adesc52 = "Simulating the World: Reincarnate for at least 1e+30 Particles."
-var adesc53 = "Multidimensional Creation: Reincarnate for at least 1e+200 Particles."
-var adesc54 = "Lepton Dance: Reincarnate for at least 1e+1500 Particles."
-var adesc55 = "Do we have enough yet?: Reincarnate for at least 1e+5000 Particles."
-var adesc56 = "I Feel Luck in My Cells: Reincarnate for at least 1e+7777 Particles."
-var adesc57 = "One Way Only: Prestige without buying multipliers."
-var adesc58 = "Authentic Shifting: Transcend without having bought a multiplier."
-var adesc59 = "The Singularity: Reincarnate without having bought a multiplier."
-var adesc60 = "Gotta go SLOW!: Prestige without buying Accelerators or Accelerator Boosts."
-var adesc61 = "I'm really going slow: Transcend without having bought Accelerators or Boosts."
-var adesc62 = "Are we there yet?: Reincarnate without having bought Accelerators or Boosts."
-var adesc63 = "A careful search for Diamonds: Get 1e120,000 Coins in [Diamond-] without buying Accelerators or Boosts."
-var adesc64 = "Very Based: Prestige without purchasing Coin Upgrades."
-var adesc65 = "Miser: Transcend without purchasing Coin Upgrades."
-var adesc66 = "True Miser: Transcend without purchasing Coin or Diamond Upgrades."
-var adesc67 = "Coinless Pursuit: Reincarnate without purchasing Coin Upgrades."
-var adesc68 = "Diamonds don't matter to me!: Reincarnate without purchasing Coin or Diamond Upgrades."
-var adesc69 = "Leave nothing behind: Reincarnate without purchasing Coin, Diamond or Mythos Upgrades."
-var adesc70 = "Leave NOTHING behind.: Reincarnate without purchasing Coin, Diamond, Mythos, or Generator Upgrades."
-var adesc71 = "Out of Order: Buy Generator Upgrade Row 1, #2 first in a transcension (IV -> III)"
-var adesc72 = "More Out of Order: Buy Generator Upgrade Row 1, #3 first in a transcension (III -> II)"
-var adesc73 = "Four's a Company: Buy Generator Upgrade Row 1, #4 first in a transcension (II -> I)"
-var adesc74 = "Five's a Croud: Buy Generator Upgrade Row 1, #5 first in a transcension (I -> V)"
-var adesc75 = "Vaseline without the Machine: Exit [No Multiplier] with at least 1e1000 coins and without any of the row 1 generator upgrades."
-var adesc76 = "Rage against the Machine: Exit [No Accelerator] with at least 1e1000 coins and without any of the row 1 generator upgrades."
-var adesc77 = "Amish Paradise: Exit [No Shards] with at least 1e99,999 coins and without any of the row 1 generator upgrades."
-var adesc78 = "Single-Cell: Complete [No Multiplier] once."
-var adesc79 = "Solidarity: Complete [No Multiplier] three times."
-var adesc80 = "Duplication-Free!: Complete [No Multiplier] five times."
-var adesc81 = "Multitasking Challenged: Complete [No Multiplier] ten times."
-var adesc82 = "No Deaths: Complete [No Multiplier] twenty times."
-var adesc83 = "Population One: Complete [No Multiplier] fifty times."
-var adesc84 = "Insert Another Token: Complete [No Multiplier] seventy-five times."
-var adesc85 = "Slow Start: Complete [No Accelerator] once"
-var adesc86 = "Respawn Rate -12%: Complete [No Accelerator] three times."
-var adesc87 = "Putting the Breaks On: Complete [No Accelerator] five times."
-var adesc88 = "Racing a Sloth...: Complete [No Accelerator] ten times."
-var adesc89 = "... and Losing.: Complete [No Accelerator] twenty times."
-var adesc90 = "Planck Distance Traveled: Complete [No Accelerator] fifty times."
-var adesc91 = "Inverse-Ackermann Growth: Complete [No Accelerator] seventy-five times."
-var adesc92 = "Intact: Complete [No Shards] once."
-var adesc93 = "Augments are Stupid!: Complete [No Shards] three times."
-var adesc94 = "Grandmasters are Brilliant!: Complete [No Shards] five times."
-var adesc95 = "Gotta get those Grandmasters Stronger: Complete [No Shards] ten times."
-var adesc96 = "Summoning Enhancements: Complete [No Shards] twenty times."
-var adesc97 = "Magic 99/99: Complete [No Shards] fifty times."
-var adesc98 = "Perfect Foresight: Complete [No Shards] seventy-five times."
-var adesc99 = "Inflation: Complete [Cost+] once."
-var adesc100 = "Hyperinflation: Complete [Cost+] three times."
-var adesc101 = "Market Bubble: Complete [Cost+] five times."
-var adesc102 = "Bull Market: Complete [Cost+] ten times."
-var adesc103 = "Wealth Inequality: Complete [Cost+] twenty times."
-var adesc104 = "Severe Overpay: Complete [Cost+] fifty times."
-var adesc105 = "Societal Collapse: Complete [Cost+] seventy-five times."
-var adesc106 = "Excavation: Complete [Diamond-] once."
-var adesc107 = "Digging Deep: Complete [Diamond-] three times."
-var adesc108 = "Frack As Needed: Complete [Diamond-] five times."
-var adesc109 = "Unobtainium Pickaxe: Complete [Diamond-] ten times."
-var adesc110 = "Fortune III: Complete [Diamond-] twenty times."
-var adesc111 = "Every kiss...: Complete [Diamond-] fifty times."
-var adesc112 = "...begins with K.: Complete [Diamond-] seventy-five times."
-var adesc113 = "Tax evasion!: Complete {[Tax+]} once."
-var adesc114 = "Keeping up with the Joneses: Complete {[Tax+]} twice."
-var adesc115 = "Offshore deposits: Complete {[Tax+]} three times."
-var adesc116 = "Bribing officials: Complete {[Tax+]} five times."
-var adesc117 = "Becoming President: Complete {[Tax+]} ten times."
-var adesc118 = "Charitable Donation: Complete {[Tax+]} fifteen times."
-var adesc119 = "IRS Audit: Complete {[Tax+]} twenty-five times."
-var adesc120 = "Is there anybody in there?: Complete {[No Accelerator/Multiplier]} once."
-var adesc121 = "Human being: Complete {[No Accelerator/Multiplier]} twice."
-var adesc122 = "Interdimensional: Complete {[No Accelerator/Multiplier]} three times."
-var adesc123 = "A slow nickel: Complete {[No Accelerator/Multiplier]} five times."
-var adesc124 = "Multipliers don't even work 0/5: Complete {[No Accelerator/Multiplier]} ten times."
-var adesc125 = "Accelerators don't even work -5/5: Complete {[No Accelerator/Multiplier]} fifteen times."
-var adesc126 = "ACCELERATOR BOOSTS DON'T EVEN WORK -100/5: Complete {[No Accelerator/Multiplier]} twenty-five times."
-var adesc127 = "I hate this challenge: Complete Cost++ Once."
-var adesc128 = "A costly mistake: Complete Cost++ Twice."
-var adesc129 = "Impetus: Complete Cost++ Three Times."
-var adesc130 = "Are you broke yet? Complete Cost++ Five Times."
-var adesc131 = "The world of Finance: Complete Cost++ Ten Times."
-var adesc132 = "Marginal Gains: Complete Cost++ Twenty Times."
-var adesc133 = "I buy these: Complete Cost++ Twenty-Five Times."
-var adesc134 = "Agnostic: Complete No Runes Once."
-var adesc135 = "Ant-i Runes: Complete No Runes Twice."
-var adesc136 = "Isn't it getting tiresome?: Complete No Runes Three Times."
-var adesc137 = "Machine does not accept offerings: Complete No Runes Five Times."
-var adesc138 = "Runes Suck 1/5: Complete No Runes Ten Times."
-var adesc139 = "I didn't even notice Prism was gone: Complete No Runes Twenty Times."
-var adesc140 = "Atheist: Complete No Runes Twenty-Five Times."
-var adesc141 = "Sadism: Complete {[Sadistic I]} Once."
-var adesc142 = "Masochism: Complete {[Sadistic I]} Twice."
-var adesc143 = "Insanity: Complete {[Sadistic I]} Three Times."
-var adesc144 = "How? Complete {[Sadistic I]} Five Times."
-var adesc145 = "Why? Complete {[Sadistic I]} Ten Times."
-var adesc146 = "Descend: Complete {[Sadistic I]} Twenty Times."
-var adesc147 = "End of the Universe: Complete {[Sadistic I]} Twenty-Five Times."
-var adesc148 = "Gas gas gas: Purchase 5 Accelerators."
-var adesc149 = "0 to 25: Purchase 25 Accelerators."
-var adesc150 = "0 to 100: Purchase 100 Accelerators"
-var adesc151 = "Highway to Hell: Purchase 666 Accelerators."
-var adesc152 = "Perhaps you should brake: Purchase 2,000 Accelerators."
-var adesc153 = "Exit the vehicle now!: Purchase 12,500 Accelerators."
-var adesc154 = "Faster than light: Purchase 100,000 Accelerators."
-var adesc155 = "I've been duped!: Purchase 2 Multipliers."
-var adesc156 = "Funhouse Mirrors: Purchase 20 Multipliers."
-var adesc157 = "Friend of binary: Purchase 100 Multipliers."
-var adesc158 = "Feeling the cost growth yet?: Purchase 500 Multipliers."
-var adesc159 = "Perhaps you'll feel the cost now: Purchase 2,000 Multipliers."
-var adesc160 = "Exponential Synergy: Purchase 12,500 Multipliers."
-var adesc161 = "Cloned: Purchase 100,000 Multipliers."
-var adesc162 = "Jerk > 0: Purchase 2 Accelerator Boosts."
-var adesc163 = "Can't the spedometer move any faster?: Purchase 10 Accelerator Boosts."
-var adesc164 = "50 G rotations: Purchase 50 Accelerator Boosts."
-var adesc165 = "Dematerialize: Purchase 200 Accelerator Booosts."
-var adesc166 = "Breaking the laws of Physics: Purchase 1,000 Accelerator Boosts."
-var adesc167 = "Decayed Realism: Purchase 5,000 Accelerator Boosts."
-var adesc168 = "Kinda fast: Purchase 15,000 Accelerator Boosts."
-var adesc169 = "The Galactic Feast: Obtain 3 Galactic Crumbs."
-var adesc170 = "Only the finest: Obtain 100,000 Galactic Crumbs."
-var adesc171 = "Six-Course Meal: Obtain 666,666,666 Galactic Crumbs."
-var adesc172 = "Accumulation of Food: Obtain 1e20 Galactic Crumbs."
-var adesc173 = "Cookie Clicking: Obtain 1e40 Galactic Crumbs."
-var adesc174 = "Unlimited Bread Sticks!: Obtain 1e500 Galactic Crumbs."
-var adesc175 = "Restaurant at the end of the Universe: Obtain 1e2500 Galactic Crumbs."
-var adesc176 = "Ant-icipation!: Amass a 2x Ant Multiplier through sacrifice and own a Tier 2 ant."
-var adesc177 = "Ant-ecedent: Amass a 6x Ant Multiplier through sacrifice and own a Tier 3 ant."
-var adesc178 = "Ants are friends, not food!: Amass a 20x Ant Multiplier through sacrifice and own a Tier 4 Ant."
-var adesc179 = "Ant Devil?: Amass a 100x Ant Multiplier through sacrifice and own a Tier 5 Ant."
-var adesc180 = "The world's best chef: Amass a 500x Ant Multiplier through sacrifice and own a Tier 6 Ant."
-var adesc181 = "6 Michelin Stars: Amass a 6,666x Ant Multiplier through sacrifice and own a Tier 7 Ant."
-var adesc182 = "Keys to the Restaurant at the end of the Universe: Amass a 77,777x Ant Multiplier through sacrifice and own a Tier 8 Ant."
-var adesc183 = "Up: Ascend Once."
-var adesc184 = "Double-Up: Ascend Twice."
-var adesc185 = "Give me Ten!: Ascend Ten Times."
-var adesc186 = "Give me a Hundred: Ascend 100 Times."
-var adesc187 = "Give me a Thousand: Ascend 1,000 Times."
-var adesc188 = "Give me some arbitrary number I: Ascend 14,142 Times."
-var adesc189 = "Give me some arbitrary number II: Ascend 141,423 Times."
-var adesc190 = "Now that's what I call getting some &Pi!: Attain a constant of 3.14."
-var adesc191 = "One in a million: Attain a constant of 1,000,000 [1e6]."
-var adesc192 = "A number: Attain a constant of 4.32e10."
-var adesc193 = "The coolest of numbers: Attain a constant of 6.9e21."
-var adesc194 = "Planck^(-1): Attain a constant of 1.509e33."
-var adesc195 = "Epsilon > a lot: Attain a constant of 1e66."
-var adesc196 = "NUM_MAX: Attain a constant of 1.8e308."
-var adesc197 = "Casualties: Clear 'Reduced Ants' challenge once."
-var adesc198 = "Fatalities: Clear 'Reduced Ants' challenge twice."
-var adesc199 = "Destruction: Clear 'Reduced Ants' challenge three times."
-var adesc200 = "War, what is it good for?: Clear 'Reduced Ants' challenge five times."
-var adesc201 = "Absolutely everything.: Clear 'Reduced Ants' challenge ten times."
-var adesc202 = "Perfect Storm: Clear 'Reduced Ants' challenge twenty times."
-var adesc203 = "Immaculate Storm: Clear 'Reduced Ants' challenge thirty times."
-var adesc204 = "I didn't need those stupid reincarnations anyway!: Clear 'No Reincarnation' challenge once."
-var adesc205 = "[x1,x2,0,x3]: Clear 'No Reincarnation' challenge twice."
-var adesc206 = "Nonmetaphysical: Clear 'No Reincarnation' challenge three times."
-var adesc207 = "Living alone: Clear 'No Reincarnation' challenge five times."
-var adesc208 = "DM me on discord if you read these names: Clear 'No Reincarnation' challenge ten times."
-var adesc209 = "Yeah: Clear 'No Reincarnation' challenge twenty times."
-var adesc210 = "Science! Clear 'No Reincarnation' challenge thirty times."
-var adesc211 = "The IRS strikes back: Clear 'Tax+++' challenge once."
-var adesc212 = "Fiscal Policy: Clear 'Tax+++' challenge twice."
-var adesc213 = "Economic Boom: Clear 'Tax+++' challenge three times."
-var adesc214 = "Ant-onomics: Clear 'Tax+++' challenge five times."
-var adesc215 = "'Wow Platonic Tax sucks 1/5': Clear 'Tax+++' challenge ten times."
-var adesc216 = "Haha this is hard for some reason: Clear 'Tax+++' challenge twenty times."
-var adesc217 = "Taxes are hard: Clear 'Tax+++' challenge thirty times."
-var adesc218 = "Shiny Blue Rock: Clear 'No Obtainium' once."
-var adesc219 = "It's like Avatar: Clear 'No Obtainium' twice."
-var adesc220 = "It's like Unobtainium: Clear 'No Obtainium' three times."
-var adesc221 = "It's like a thing: Clear 'No Obtainium' five times."
-var adesc222 = "It's like: Clear 'No Obtainium' ten times."
-var adesc223 = "It's: Clear 'No Obtainium' twenty times."
-var adesc224 = "It: Clear 'No Obtainium' thirty times."
-var adesc225 = "Pretty Corrupt: Clear an Ascension with above 100,000 score."
-var adesc226 = "Bought out: Clear an Ascension with above 1 million score."
-var adesc227 = "Utterly Corrupt: Clear an Ascension with above 10 million score."
-var adesc228 = "Antitrust: Clear an Ascension with above 100 million score."
-var adesc229 = "Ant-i-trust: Clear an Ascension with above 1 billion sccore."
-var adesc230 = "This is pretty unfair: Clear an Ascension with above 5 billion score."
-var adesc231 = "Antichrist: Clear an Ascension with above 25 billion score."
-var adesc232 = "Highly Blessed: Level your Speed Rune blessing to 100,000."
-var adesc233 = "Divine Blessing: Level your Speed Rune blessing to 100,000,000."
-var adesc234 = "Blessing III: Level your Speed Rune blessing to 100 billion."
-var adesc235 = "Spirit I: Level your Speed Spirit to 1 Million."
-var adesc236 = "Spirit II: Level your Speed Spirit to 1 Billion."
-var adesc237 = "Spirit III: Level your Speed Spirit to 1 Trillion."
-var adesc238 = "Three-folded: [Hint: you may want to look into the inception]"
-var adesc239 = "Seeing red: [Hint: you may need a lot of red items]"
-var adesc240 = "ASCENDED: [Hint: you may need a LOT of ascensions]"
-var adesc241 = "Aesop: [Hint: you gotta be pretty dang slow]"
-var adesc242 = "Aesop's Revenge: [Hint: you gotta be pretty dang fast]"
-var adesc243 = "Unsmith: [Hint: unsmith emoji :unsmith: can be a pretty good input]"
-var adesc244 = "Smith: [Hint: :antismith: looks promising as well]"
-var adesc245 = "BLESSED: [Hint: Your Speed Blessing best be unreasonably high!]"
-var adesc246 = "Why? [Hint: Sometimes even 1 in over a Trillion counts!]"
-var adesc247 = "Challenging! [Hint: Challenge 11 is calling your name, but with even less ants]"
-var adesc248 = "Seeing Red but not Blue: [Hint: Can you get red stuff without getting blue stuff?]"
-var adesc249 = "Overtaxed: [Hint: It might pay not to read!]"
-var adesc250 = "The Thousand Suns: [Hint: You need to fully research into becoming GOD]"
-var adesc251 = "The Thousand Moons: [Hint: You may need to cube yourself up]"
-var adesc252 = "Ultimate: Complete 'SADISTIC II' challenge."
-
+var adesc;
+adesc = {
+    adesc1: "A Loyal Employee: Hire your first worker.",
+    adesc2: "Small Business: Hire 10 workers.",
+    adesc3: "Now we're synergizing!: Hire 100 workers.",
+    adesc4: "Gaining Redundancies: Hire 1,000 workers.",
+    adesc5: "A cog in the machine: Hire 5,000 workers.",
+    adesc6: "A nail in the machine: Hire 10,000 workers.",
+    adesc7: "Are we even in the machine anymore?: Hire 20,000 workers.",
+    adesc8: "STONKS!!!: Purchase 1 Investment.",
+    adesc9: "Planning ahead: Purchase 10 Investments.",
+    adesc10: "Inside Trading: Purchase 100 Investments.",
+    adesc11: "Outside Trading?: Purchase 1,000 Investments.",
+    adesc12: "Market Takeover: Purchase 5,000 Investments.",
+    adesc13: "Trickle-Down Economics: Purchase 10,000 Investments.",
+    adesc14: "Eliminated Regulation: Purchase 20,000 Investments.",
+    adesc15: "Stationery!: Build 1 Printer.",
+    adesc16: "Printing Press: Build 10 Printers.",
+    adesc17: "It prints free money!: Build 100 Printers.",
+    adesc18: "Solving Our Debts: Build 1,000 Printers.",
+    adesc19: "Monopolizing the market: Build 5,000 Printers.",
+    adesc20: "We're running out of Ink!: Build 10,000 Printers.",
+    adesc21: "3D-printing the universe: Build 20,000 Printers.",
+    adesc22: "A national treasure: Establish 1 Coin Mint.",
+    adesc23: "Now with competition!: Establish 10 Coin Mints.",
+    adesc24: "Counterfeiting with Style!: Establish 100 Coin Mints.",
+    adesc25: "Why do we need all these?: Establish 1000 Coin Mints.",
+    adesc26: "No really, why??: Establish 5,000 Coin Mints.",
+    adesc27: "Is no one to stop us???: Establish 10,000 Coin Mints.",
+    adesc28: "Oh well, time to mint: Establish 20,000 Coin Mints.",
+    adesc29: "Newton's Apprentice: Create 1 Alchemy.",
+    adesc30: "Lab Work: Create 10 Alchemies.",
+    adesc31: "Satanic Becomings: Create 66 Alchemies.",
+    adesc32: "Satan Incarnate: Create 666 Alchemies.",
+    adesc33: "Is this more demonic?: Create 6,666 Alchemies.",
+    adesc34: "Golden Paradise: Create 17,777 Alchemies.",
+    adesc35: "Unlocking secrets to the world: Create 42,777 Alchemies.",
+    adesc36: "Leveling up: Prestige for at least 1 Diamond.",
+    adesc37: "High-Tiered: Prestige for at least 1e+6 Diamonds.",
+    adesc38: "Highly Regarded: Prestige for at least 1e+100 Diamonds.",
+    adesc39: "Prestigious: Prestige for at least 1e+1000 Diamonds.",
+    adesc40: "Legendary: Prestige for at least 1e+10000 Diamonds.",
+    adesc41: "Divine: Prestige for at least 1e+77777 Diamonds.",
+    adesc42: "Perfectly Respected: Prestige for at least 1e+250000 Diamonds.",
+    adesc43: "A Simple Detour: Transcend for at least 1 Mythos.",
+    adesc44: "Tunnel Vision: Transcend for at least 1e+6 Mythos.",
+    adesc45: "Risen from the Ashes: Transcend for at least 1e+50 Mythos.",
+    adesc46: "Paradigm Shift: Transcend for at least 1e+308 Mythos.",
+    adesc47: "Preparation: Transcend for at least 1e+2000 Mythos.",
+    adesc48: "Revising the Plan: Transcend for at least 1e+25000 Mythos.",
+    adesc49: "Leaving the Universe: Transcend for at least 1e+100000 Mythos.",
+    adesc50: "Going Quantum: Reincarnate for at least 1 Particle.",
+    adesc51: "Tunneling Vision: Reincarnate for at least 100,000 Particles.",
+    adesc52: "Simulating the World: Reincarnate for at least 1e+30 Particles.",
+    adesc53: "Multidimensional Creation: Reincarnate for at least 1e+200 Particles.",
+    adesc54: "Lepton Dance: Reincarnate for at least 1e+1500 Particles.",
+    adesc55: "Do we have enough yet?: Reincarnate for at least 1e+5000 Particles.",
+    adesc56: "I Feel Luck in My Cells: Reincarnate for at least 1e+7777 Particles.",
+    adesc57: "One Way Only: Prestige without buying multipliers.",
+    adesc58: "Authentic Shifting: Transcend without having bought a multiplier.",
+    adesc59: "The Singularity: Reincarnate without having bought a multiplier.",
+    adesc60: "Gotta go SLOW!: Prestige without buying Accelerators or Accelerator Boosts.",
+    adesc61: "I'm really going slow: Transcend without having bought Accelerators or Boosts.",
+    adesc62: "Are we there yet?: Reincarnate without having bought Accelerators or Boosts.",
+    adesc63: "A careful search for Diamonds: Get 1e120,000 Coins in [Diamond-] without buying Accelerators or Boosts.",
+    adesc64: "Very Based: Prestige without purchasing Coin Upgrades.",
+    adesc65: "Miser: Transcend without purchasing Coin Upgrades.",
+    adesc66: "True Miser: Transcend without purchasing Coin or Diamond Upgrades.",
+    adesc67: "Coinless Pursuit: Reincarnate without purchasing Coin Upgrades.",
+    adesc68: "Diamonds don't matter to me!: Reincarnate without purchasing Coin or Diamond Upgrades.",
+    adesc69: "Leave nothing behind: Reincarnate without purchasing Coin, Diamond or Mythos Upgrades.",
+    adesc70: "Leave NOTHING behind.: Reincarnate without purchasing Coin, Diamond, Mythos, or Generator Upgrades.",
+    adesc71: "Out of Order: Buy Generator Upgrade Row 1, #2 first in a transcension (IV -> III)",
+    adesc72: "More Out of Order: Buy Generator Upgrade Row 1, #3 first in a transcension (III -> II)",
+    adesc73: "Four's a Company: Buy Generator Upgrade Row 1, #4 first in a transcension (II -> I)",
+    adesc74: "Five's a Croud: Buy Generator Upgrade Row 1, #5 first in a transcension (I -> V)",
+    adesc75: "Vaseline without the Machine: Exit [No Multiplier] with at least 1e1000 coins and without any of the row 1 generator upgrades.",
+    adesc76: "Rage against the Machine: Exit [No Accelerator] with at least 1e1000 coins and without any of the row 1 generator upgrades.",
+    adesc77: "Amish Paradise: Exit [No Shards] with at least 1e99,999 coins and without any of the row 1 generator upgrades.",
+    adesc78: "Single-Cell: Complete [No Multiplier] once.",
+    adesc79: "Solidarity: Complete [No Multiplier] three times.",
+    adesc80: "Duplication-Free!: Complete [No Multiplier] five times.",
+    adesc81: "Multitasking Challenged: Complete [No Multiplier] ten times.",
+    adesc82: "No Deaths: Complete [No Multiplier] twenty times.",
+    adesc83: "Population One: Complete [No Multiplier] fifty times.",
+    adesc84: "Insert Another Token: Complete [No Multiplier] seventy-five times.",
+    adesc85: "Slow Start: Complete [No Accelerator] once",
+    adesc86: "Respawn Rate -12%: Complete [No Accelerator] three times.",
+    adesc87: "Putting the Breaks On: Complete [No Accelerator] five times.",
+    adesc88: "Racing a Sloth...: Complete [No Accelerator] ten times.",
+    adesc89: "... and Losing.: Complete [No Accelerator] twenty times.",
+    adesc90: "Planck Distance Traveled: Complete [No Accelerator] fifty times.",
+    adesc91: "Inverse-Ackermann Growth: Complete [No Accelerator] seventy-five times.",
+    adesc92: "Intact: Complete [No Shards] once.",
+    adesc93: "Augments are Stupid!: Complete [No Shards] three times.",
+    adesc94: "Grandmasters are Brilliant!: Complete [No Shards] five times.",
+    adesc95: "Gotta get those Grandmasters Stronger: Complete [No Shards] ten times.",
+    adesc96: "Summoning Enhancements: Complete [No Shards] twenty times.",
+    adesc97: "Magic 99/99: Complete [No Shards] fifty times.",
+    adesc98: "Perfect Foresight: Complete [No Shards] seventy-five times.",
+    adesc99: "Inflation: Complete [Cost+] once.",
+    adesc100: "Hyperinflation: Complete [Cost+] three times.",
+    adesc101: "Market Bubble: Complete [Cost+] five times.",
+    adesc102: "Bull Market: Complete [Cost+] ten times.",
+    adesc103: "Wealth Inequality: Complete [Cost+] twenty times.",
+    adesc104: "Severe Overpay: Complete [Cost+] fifty times.",
+    adesc105: "Societal Collapse: Complete [Cost+] seventy-five times.",
+    adesc106: "Excavation: Complete [Diamond-] once.",
+    adesc107: "Digging Deep: Complete [Diamond-] three times.",
+    adesc108: "Frack As Needed: Complete [Diamond-] five times.",
+    adesc109: "Unobtainium Pickaxe: Complete [Diamond-] ten times.",
+    adesc110: "Fortune III: Complete [Diamond-] twenty times.",
+    adesc111: "Every kiss...: Complete [Diamond-] fifty times.",
+    adesc112: "...begins with K.: Complete [Diamond-] seventy-five times.",
+    adesc113: "Tax evasion!: Complete {[Tax+]} once.",
+    adesc114: "Keeping up with the Joneses: Complete {[Tax+]} twice.",
+    adesc115: "Offshore deposits: Complete {[Tax+]} three times.",
+    adesc116: "Bribing officials: Complete {[Tax+]} five times.",
+    adesc117: "Becoming President: Complete {[Tax+]} ten times.",
+    adesc118: "Charitable Donation: Complete {[Tax+]} fifteen times.",
+    adesc119: "IRS Audit: Complete {[Tax+]} twenty-five times.",
+    adesc120: "Is there anybody in there?: Complete {[No Accelerator/Multiplier]} once.",
+    adesc121: "Human being: Complete {[No Accelerator/Multiplier]} twice.",
+    adesc122: "Interdimensional: Complete {[No Accelerator/Multiplier]} three times.",
+    adesc123: "A slow nickel: Complete {[No Accelerator/Multiplier]} five times.",
+    adesc124: "Multipliers don't even work 0/5: Complete {[No Accelerator/Multiplier]} ten times.",
+    adesc125: "Accelerators don't even work -5/5: Complete {[No Accelerator/Multiplier]} fifteen times.",
+    adesc126: "ACCELERATOR BOOSTS DON'T EVEN WORK -100/5: Complete {[No Accelerator/Multiplier]} twenty-five times.",
+    adesc127: "I hate this challenge: Complete Cost++ Once.",
+    adesc128: "A costly mistake: Complete Cost++ Twice.",
+    adesc129: "Impetus: Complete Cost++ Three Times.",
+    adesc130: "Are you broke yet? Complete Cost++ Five Times.",
+    adesc131: "The world of Finance: Complete Cost++ Ten Times.",
+    adesc132: "Marginal Gains: Complete Cost++ Twenty Times.",
+    adesc133: "I buy these: Complete Cost++ Twenty-Five Times.",
+    adesc134: "Agnostic: Complete No Runes Once.",
+    adesc135: "Ant-i Runes: Complete No Runes Twice.",
+    adesc136: "Isn't it getting tiresome?: Complete No Runes Three Times.",
+    adesc137: "Machine does not accept offerings: Complete No Runes Five Times.",
+    adesc138: "Runes Suck 1/5: Complete No Runes Ten Times.",
+    adesc139: "I didn't even notice Prism was gone: Complete No Runes Twenty Times.",
+    adesc140: "Atheist: Complete No Runes Twenty-Five Times.",
+    adesc141: "Sadism: Complete {[Sadistic I]} Once.",
+    adesc142: "Masochism: Complete {[Sadistic I]} Twice.",
+    adesc143: "Insanity: Complete {[Sadistic I]} Three Times.",
+    adesc144: "How? Complete {[Sadistic I]} Five Times.",
+    adesc145: "Why? Complete {[Sadistic I]} Ten Times.",
+    adesc146: "Descend: Complete {[Sadistic I]} Twenty Times.",
+    adesc147: "End of the Universe: Complete {[Sadistic I]} Twenty-Five Times.",
+    adesc148: "Gas gas gas: Purchase 5 Accelerators.",
+    adesc149: "0 to 25: Purchase 25 Accelerators.",
+    adesc150: "0 to 100: Purchase 100 Accelerators",
+    adesc151: "Highway to Hell: Purchase 666 Accelerators.",
+    adesc152: "Perhaps you should brake: Purchase 2,000 Accelerators.",
+    adesc153: "Exit the vehicle now!: Purchase 12,500 Accelerators.",
+    adesc154: "Faster than light: Purchase 100,000 Accelerators.",
+    adesc155: "I've been duped!: Purchase 2 Multipliers.",
+    adesc156: "Funhouse Mirrors: Purchase 20 Multipliers.",
+    adesc157: "Friend of binary: Purchase 100 Multipliers.",
+    adesc158: "Feeling the cost growth yet?: Purchase 500 Multipliers.",
+    adesc159: "Perhaps you'll feel the cost now: Purchase 2,000 Multipliers.",
+    adesc160: "Exponential Synergy: Purchase 12,500 Multipliers.",
+    adesc161: "Cloned: Purchase 100,000 Multipliers.",
+    adesc162: "Jerk > 0: Purchase 2 Accelerator Boosts.",
+    adesc163: "Can't the spedometer move any faster?: Purchase 10 Accelerator Boosts.",
+    adesc164: "50 G rotations: Purchase 50 Accelerator Boosts.",
+    adesc165: "Dematerialize: Purchase 200 Accelerator Booosts.",
+    adesc166: "Breaking the laws of Physics: Purchase 1,000 Accelerator Boosts.",
+    adesc167: "Decayed Realism: Purchase 5,000 Accelerator Boosts.",
+    adesc168: "Kinda fast: Purchase 15,000 Accelerator Boosts.",
+    adesc169: "The Galactic Feast: Obtain 3 Galactic Crumbs.",
+    adesc170: "Only the finest: Obtain 100,000 Galactic Crumbs.",
+    adesc171: "Six-Course Meal: Obtain 666,666,666 Galactic Crumbs.",
+    adesc172: "Accumulation of Food: Obtain 1e20 Galactic Crumbs.",
+    adesc173: "Cookie Clicking: Obtain 1e40 Galactic Crumbs.",
+    adesc174: "Unlimited Bread Sticks!: Obtain 1e500 Galactic Crumbs.",
+    adesc175: "Restaurant at the end of the Universe: Obtain 1e2500 Galactic Crumbs.",
+    adesc176: "Ant-icipation!: Amass a 2x Ant Multiplier through sacrifice and own a Tier 2 ant.",
+    adesc177: "Ant-ecedent: Amass a 6x Ant Multiplier through sacrifice and own a Tier 3 ant.",
+    adesc178: "Ants are friends, not food!: Amass a 20x Ant Multiplier through sacrifice and own a Tier 4 Ant.",
+    adesc179: "Ant Devil?: Amass a 100x Ant Multiplier through sacrifice and own a Tier 5 Ant.",
+    adesc180: "The world's best chef: Amass a 500x Ant Multiplier through sacrifice and own a Tier 6 Ant.",
+    adesc181: "6 Michelin Stars: Amass a 6,666x Ant Multiplier through sacrifice and own a Tier 7 Ant.",
+    adesc182: "Keys to the Restaurant at the end of the Universe: Amass a 77,777x Ant Multiplier through sacrifice and own a Tier 8 Ant.",
+    adesc183: "Up: Ascend Once.",
+    adesc184: "Double-Up: Ascend Twice.",
+    adesc185: "Give me Ten!: Ascend Ten Times.",
+    adesc186: "Give me a Hundred: Ascend 100 Times.",
+    adesc187: "Give me a Thousand: Ascend 1,000 Times.",
+    adesc188: "Give me some arbitrary number I: Ascend 14,142 Times.",
+    adesc189: "Give me some arbitrary number II: Ascend 141,423 Times.",
+    adesc190: "Now that's what I call getting some &Pi!: Attain a constant of 3.14.",
+    adesc191: "One in a million: Attain a constant of 1,000,000 [1e6].",
+    adesc192: "A number: Attain a constant of 4.32e10.",
+    adesc193: "The coolest of numbers: Attain a constant of 6.9e21.",
+    adesc194: "Planck^(-1): Attain a constant of 1.509e33.",
+    adesc195: "Epsilon > a lot: Attain a constant of 1e66.",
+    adesc196: "NUM_MAX: Attain a constant of 1.8e308.",
+    adesc197: "Casualties: Clear 'Reduced Ants' challenge once.",
+    adesc198: "Fatalities: Clear 'Reduced Ants' challenge twice.",
+    adesc199: "Destruction: Clear 'Reduced Ants' challenge three times.",
+    adesc200: "War, what is it good for?: Clear 'Reduced Ants' challenge five times.",
+    adesc201: "Absolutely everything.: Clear 'Reduced Ants' challenge ten times.",
+    adesc202: "Perfect Storm: Clear 'Reduced Ants' challenge twenty times.",
+    adesc203: "Immaculate Storm: Clear 'Reduced Ants' challenge thirty times.",
+    adesc204: "I didn't need those stupid reincarnations anyway!: Clear 'No Reincarnation' challenge once.",
+    adesc205: "[x1,x2,0,x3]: Clear 'No Reincarnation' challenge twice.",
+    adesc206: "Nonmetaphysical: Clear 'No Reincarnation' challenge three times.",
+    adesc207: "Living alone: Clear 'No Reincarnation' challenge five times.",
+    adesc208: "DM me on discord if you read these names: Clear 'No Reincarnation' challenge ten times.",
+    adesc209: "Yeah: Clear 'No Reincarnation' challenge twenty times.",
+    adesc210: "Science! Clear 'No Reincarnation' challenge thirty times.",
+    adesc211: "The IRS strikes back: Clear 'Tax+++' challenge once.",
+    adesc212: "Fiscal Policy: Clear 'Tax+++' challenge twice.",
+    adesc213: "Economic Boom: Clear 'Tax+++' challenge three times.",
+    adesc214: "Ant-onomics: Clear 'Tax+++' challenge five times.",
+    adesc215: "'Wow Platonic Tax sucks 1/5': Clear 'Tax+++' challenge ten times.",
+    adesc216: "Haha this is hard for some reason: Clear 'Tax+++' challenge twenty times.",
+    adesc217: "Taxes are hard: Clear 'Tax+++' challenge thirty times.",
+    adesc218: "Shiny Blue Rock: Clear 'No Obtainium' once.",
+    adesc219: "It's like Avatar: Clear 'No Obtainium' twice.",
+    adesc220: "It's like Unobtainium: Clear 'No Obtainium' three times.",
+    adesc221: "It's like a thing: Clear 'No Obtainium' five times.",
+    adesc222: "It's like: Clear 'No Obtainium' ten times.",
+    adesc223: "It's: Clear 'No Obtainium' twenty times.",
+    adesc224: "It: Clear 'No Obtainium' thirty times.",
+    adesc225: "Pretty Corrupt: Clear an Ascension with above 100,000 score.",
+    adesc226: "Bought out: Clear an Ascension with above 1 million score.",
+    adesc227: "Utterly Corrupt: Clear an Ascension with above 10 million score.",
+    adesc228: "Antitrust: Clear an Ascension with above 100 million score.",
+    adesc229: "Ant-i-trust: Clear an Ascension with above 1 billion sccore.",
+    adesc230: "This is pretty unfair: Clear an Ascension with above 5 billion score.",
+    adesc231: "Antichrist: Clear an Ascension with above 25 billion score.",
+    adesc232: "Highly Blessed: Level your Speed Rune blessing to 100,000.",
+    adesc233: "Divine Blessing: Level your Speed Rune blessing to 100,000,000.",
+    adesc234: "Blessing III: Level your Speed Rune blessing to 100 billion.",
+    adesc235: "Spirit I: Level your Speed Spirit to 1 Million.",
+    adesc236: "Spirit II: Level your Speed Spirit to 1 Billion.",
+    adesc237: "Spirit III: Level your Speed Spirit to 1 Trillion.",
+    adesc238: "Three-folded: [Hint: you may want to look into the inception]",
+    adesc239: "Seeing red: [Hint: you may need a lot of red items]",
+    adesc240: "ASCENDED: [Hint: you may need a LOT of ascensions]",
+    adesc241: "Aesop: [Hint: you gotta be pretty dang slow]",
+    adesc242: "Aesop's Revenge: [Hint: you gotta be pretty dang fast]",
+    adesc243: "Unsmith: [Hint: unsmith emoji :unsmith: can be a pretty good input]",
+    adesc244: "Smith: [Hint: :antismith: looks promising as well]",
+    adesc245: "BLESSED: [Hint: Your Speed Blessing best be unreasonably high!]",
+    adesc246: "Why? [Hint: Sometimes even 1 in over a Trillion counts!]",
+    adesc247: "Challenging! [Hint: Challenge 11 is calling your name, but with even less ants]",
+    adesc248: "Seeing Red but not Blue: [Hint: Can you get red stuff without getting blue stuff?]",
+    adesc249: "Overtaxed: [Hint: It might pay not to read!]",
+    adesc250: "The Thousand Suns: [Hint: You need to fully research into becoming GOD]",
+    adesc251: "The Thousand Moons: [Hint: You may need to cube yourself up]",
+    adesc252: "Ultimate: Complete 'SADISTIC II' challenge."
+}
 var areward3 = "Gain +.05% to Accelerator Power."
 var areward4 = "Start transcensions/challenges with Worker Autobuyer unlocked."
 var areward5 = "Gain +1 Accelerator per 500 Workers owned."
@@ -930,7 +932,7 @@ function ascensionAchievementCheck(i,score){
 
 function achievementdescriptions(i) {
     let x = "adesc" + i
-    let y = window[x]
+    let y = adesc[x]
     let z = ""
     let k = ""
 
