@@ -294,114 +294,117 @@ adesc = {
     adesc251: "The Thousand Moons: [Hint: You may need to cube yourself up]",
     adesc252: "Ultimate: Complete 'SADISTIC II' challenge."
 }
-var areward3 = "Gain +.05% to Accelerator Power."
-var areward4 = "Start transcensions/challenges with Worker Autobuyer unlocked."
-var areward5 = "Gain +1 Accelerator per 500 Workers owned."
-var areward6 = "Gain +1 Multiplier per 1,000 Workers owned."
-var areward7 = "Gain +1 Accelerator Boost per 2,000 workers owned."
-var areward10 = "Gain +.10% to Accelerator Power."
-var areward11 = "Start transcensions/challenges with Investment Autobuyer unlocked."
-var areward12 = "Gain +1 Accelerator per 500 Investments owned."
-var areward13 = "Gain +1 Multiplier per 1,000 Investments owned."
-var areward14 = "Gain +1 Accelerator Boost per 2,000 Investments owned."
-var areward17 = "Gain +.15% to Accelerator Power."
-var areward18 = "Start transcensions/challenges with Printer Autobuyer unlocked."
-var areward19 = "Gain +1 Accelerator per 500 Printers owned."
-var areward20 = "Gain +1 Multiplier per 1,000 Printers owned."
-var areward21 = "Gain +1 Accelerator Boost per 2,000 Printers owned."
-var areward24 = "Gain +.20% to Accelerator Power."
-var areward25 = "Start transcensions/challenges with Coin Mint Autobuyer unlocked."
-var areward26 = "Gain +1 Accelerator per 500 Mints owned."
-var areward27 = "Gain +1 Multiplier per 1,000 Mints owned."
-var areward28 = "Gain +1 Accelerator Boost per 2,000 Mints owned."
-var areward31 = "Gain +.25% to Accelerator Power."
-var areward32 = "Start transcensions/challenges with Alchemy Autobuyer unlocked."
-var areward33 = "Gain 10% more offerings from resets || +1 Accelerator per 500 Alchemies!"
-var areward34 = "Gain 15% more offerings from resets (stacks multiplicatively!) || +1 Multiplier per 1,000 Alchemies!"
-var areward35 = "Gain 25% more offerings from resets (stacks multiplicatively!) || +1 Accelerator Boost per 2,000 Alchemies!"
-var areward36 = "Multiply Crystal Production by 2x."
-var areward37 = "Multiply Crystal Production by the common logarithm of owned Diamonds. Prestiges give more offerings based on time spent (Up to +15 at 1800 seconds)"
-var areward38 = "Unlock the Duplication rune!"
-var areward43 = "Accelerator Boosts can be purchased from any screen. Unlock the Auto-Prestige feature."
-var areward44 = "Unlock the Prism Rune! Transcensions give more offerings based on time spent (Up to +15 at 1800 seconds)"
-var areward45 = "Reduce tax scaling by up to 5%, depending on the length of prestige."
-var areward46 = "Reduce tax scaling by up to another 5%, depending on length of prestige."
-var areward47 = "Reduce tax scaling by up to ANOTHER 10%, depending on length of prestige!"
-var areward50 = "Unlock new Atomic production and unlock 3 new incredibly difficult challenges! Gain 2x particles on all future Reincarnations!"
-var areward51 = "Manual Reincarnations give +4 Obtainium (unaffected by multipliers except time multiplier)!"
-var areward52 = "Reincarnations give more offerings based on time spent (Up to +25 at 1800 seconds)"
-var areward53 = "Increase the amount of obtainium gained through all features by 0.05% additive for each rune level."
-var areward57 = "Gain +1, +1% free Multipliers!"
-var areward58 = "Gain +1, +1% more free Multipliers!"
-var areward59 = "Gain +1, +1% more, MORE free Multipliers!"
-var areward60 = "Gain +2, +1% free Accelerators!"
-var areward61 = "Gain +2, +1% more free Accelerators!"
-var areward62 = "Gain +2, +1% more, MORE free Accelerators!"
-var areward71 = "+1% Conversion Exponent on all generator upgrades!"
-var areward72 = "+1% Conversion Exponent on all generator upgrades!"
-var areward73 = "+1% Conversion Exponent on all generator upgrades!"
-var areward74 = "+1% Conversion Exponent on all generator upgrades!"
-var areward75 = "+1% Conversion Exponent on all generator upgrades!"
-var areward76 = "+1% Conversion Exponent on all generator upgrades!"
-var areward77 = "+1% Conversion Exponent on all generator upgrades! They're in overdrive now!"
-var areward78 = "Start transcensions/challenges with 1 Refinery and automatically buy Refineries."
-var areward79 = "Automatically buy the first crystal upgrade if you can afford it!"
-var areward80 = "Start transcensions/challenges with Multiplier Autobuyer unlocked. +5% offering recycle."
-var areward82 = "Delay tax growth by 4%."
-var areward84 = "+1% obtainium (stacks additively with other achievement rewards)"
-var areward85 = "Start transcensions/challenges with 1 Coal Plant and automatically buy Coal Plants."
-var areward86 = "Automatically buy the second crystal upgrade if you can afford it!"
-var areward87 = "Start transcensions/challenges with Accelerator Autobuyer unlocked. +5% offering recycle."
-var areward89 = "Delay tax growth by 4%."
-var areward91 = "+3% obtainium (stacks additively with other achievement rewards)"
-var areward92 = "Start transcensions/challenges with 1 Coal Rig and automatically buy Coal Rigs."
-var areward93 = "Automatically buy the third crystal upgrade if you can afford it!"
-var areward94 = "+5% offering recycle."
-var areward96 = "Delay tax growth by 4%."
-var areward98 = "+5% obtainium (stacks additively with other achievement rewards)"
-var areward99 = "Start transcensions/challenges with 1 Diamond Pickaxe and automatically buy Diamond Pickaxes."
-var areward100 = "Automatically buy the fourth crystal upgrade if you can afford it!"
-var areward101 = "+5% offering recycle."
-var areward102 = "Unlock the Thrift rune!"
-var areward103 = "Delay tax growth by 4%."
-var areward105 = "+7% obtainium (stacks additively with other achievement rewards)"
-var areward106 = "Start transcensions/challenges with 1 Pandora's Box and automatically buy Pandora's Boxes."
-var areward107 = "Automatically buy the fifth crystal upgrade if you can afford it!"
-var areward108 = "+5% offering recycle."
-var areward110 = "Delay tax growth by 4%."
-var areward112 = "+9% obtainium (stacks additively with other achievement rewards)"
-var areward115 = "+5% offering recycle."
-var areward117 = "Delay tax growth by 5.66%."
-var areward118 = "Each Reincarnation challenge completion delays tax growth by 0.75% per level, multiplicative"
-var areward119 = "+11% obtainium. Unlock a nice trinket somewhere..."
-var areward122 = "+7.5% offering recycle."
-var areward124 = "Delay tax growth by 5.66%. Unlock 5 new incredibly powerful researches!"
-var areward126 = "+13% obtainium. You get an accessory to commemorate this moment!"
-var areward127 = "Unlock 20 new incredibly expensive yet good researches. Unlock the [Anthill] feature!"
-var areward128 = "Make researches go Cost-- with 1.5x Obtainium!"
-var areward129 = "+7.5% offering recycle. Gain another 1.25x Obtainium multiplier!"
-var areward131 = "Delay tax growth by 5.66%."
-var areward132 = "Permanently gain +25% more sacrifice reward!"
-var areward133 = "+15% obtainium. Obtain the gift of Midas himself."
-var areward134 = "Unlock 10 newer incredibly expensive yet good researches. Unlock <<Talismans>> in the Runes Tab!"
-var areward135 = "Talisman positive bonuses are now +0.05 stronger per level."
-var areward136 = "Talisman positive bonuses are now +0.05 even stronger per level."
-var areward137 = "Permanently gain +25% more sacrifice reward!"
-var areward140 = "+17% obtainium. Lazy joke about not leaking talismans here [You get a new one]"
-var areward141 = "Unlock a new reset tier!"
-var areward147 = "+19% obtainium (Achievement total is up to 100%!). Gain the Polymath Talisman!"
-var areward169 = "ALL Ant speed multiplied by log10(crumbs + 10)"
-var areward171 = "+16.666% ALL Ant speed!"
-var areward172 = "Gain more ants the longer your reincarnation lasts (max speed achieved in 2 hours)"
-var areward173 = "Unlock Ant Sacrifice, allowing you to reset your ants and ant upgrades in exchange for amazing rewards! Automatically buy Worker Ants."
-var areward176 = "Unlock Tier 2 Ant autobuy, and autobuy Inceptus and Fortunae ants! Add +25 Base Ant ELO."
-var areward177 = "Unlock Tier 3 Ant autobuy, and autobuy Tributum ants! Add +50 Base Ant ELO."
-var areward178 = "Unlock Tier 4 Ant autobuy, and autobuy Celeritus and Multa ants! Add +75 Base Ant ELO."
-var areward179 = "Unlock Tier 5 Ant autobuy, and autobuy Sacrificium ants! Add +100 Base Ant ELO."
-var areward180 = "Unlock Tier 6 Ant autobuy, and autobuy Hic and Experientia ants! Add +1% Base Ant ELO."
-var areward181 = "Unlock Tier 7 Ant autobuy, and autobuy Praemoenio ants! Add +2% Base Ant ELO."
-var areward182 = "Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacterium ants! Add +3% Base Ant ELO."
 
+let areward;
+areward = {
+    areward3: "Gain +.05% to Accelerator Power.",
+    areward4: "Start transcensions/challenges with Worker Autobuyer unlocked.",
+    areward5: "Gain +1 Accelerator per 500 Workers owned.",
+    areward6: "Gain +1 Multiplier per 1,000 Workers owned.",
+    areward7: "Gain +1 Accelerator Boost per 2,000 workers owned.",
+    areward10: "Gain +.10% to Accelerator Power.",
+    areward11: "Start transcensions/challenges with Investment Autobuyer unlocked.",
+    areward12: "Gain +1 Accelerator per 500 Investments owned.",
+    areward13: "Gain +1 Multiplier per 1,000 Investments owned.",
+    areward14: "Gain +1 Accelerator Boost per 2,000 Investments owned.",
+    areward17: "Gain +.15% to Accelerator Power.",
+    areward18: "Start transcensions/challenges with Printer Autobuyer unlocked.",
+    areward19: "Gain +1 Accelerator per 500 Printers owned.",
+    areward20: "Gain +1 Multiplier per 1,000 Printers owned.",
+    areward21: "Gain +1 Accelerator Boost per 2,000 Printers owned.",
+    areward24: "Gain +.20% to Accelerator Power.",
+    areward25: "Start transcensions/challenges with Coin Mint Autobuyer unlocked.",
+    areward26: "Gain +1 Accelerator per 500 Mints owned.",
+    areward27: "Gain +1 Multiplier per 1,000 Mints owned.",
+    areward28: "Gain +1 Accelerator Boost per 2,000 Mints owned.",
+    areward31: "Gain +.25% to Accelerator Power.",
+    areward32: "Start transcensions/challenges with Alchemy Autobuyer unlocked.",
+    areward33: "Gain 10% more offerings from resets || +1 Accelerator per 500 Alchemies!",
+    areward34: "Gain 15% more offerings from resets (stacks multiplicatively!) || +1 Multiplier per 1,000 Alchemies!",
+    areward35: "Gain 25% more offerings from resets (stacks multiplicatively!) || +1 Accelerator Boost per 2,000 Alchemies!",
+    areward36: "Multiply Crystal Production by 2x.",
+    areward37: "Multiply Crystal Production by the common logarithm of owned Diamonds. Prestiges give more offerings based on time spent (Up to +15 at 1800 seconds)",
+    areward38: "Unlock the Duplication rune!",
+    areward43: "Accelerator Boosts can be purchased from any screen. Unlock the Auto-Prestige feature.",
+    areward44: "Unlock the Prism Rune! Transcensions give more offerings based on time spent (Up to +15 at 1800 seconds)",
+    areward45: "Reduce tax scaling by up to 5%, depending on the length of prestige.",
+    areward46: "Reduce tax scaling by up to another 5%, depending on length of prestige.",
+    areward47: "Reduce tax scaling by up to ANOTHER 10%, depending on length of prestige!",
+    areward50: "Unlock new Atomic production and unlock 3 new incredibly difficult challenges! Gain 2x particles on all future Reincarnations!",
+    areward51: "Manual Reincarnations give +4 Obtainium (unaffected by multipliers except time multiplier)!",
+    areward52: "Reincarnations give more offerings based on time spent (Up to +25 at 1800 seconds)",
+    areward53: "Increase the amount of obtainium gained through all features by 0.05% additive for each rune level.",
+    areward57: "Gain +1, +1% free Multipliers!",
+    areward58: "Gain +1, +1% more free Multipliers!",
+    areward59: "Gain +1, +1% more, MORE free Multipliers!",
+    areward60: "Gain +2, +1% free Accelerators!",
+    areward61: "Gain +2, +1% more free Accelerators!",
+    areward62: "Gain +2, +1% more, MORE free Accelerators!",
+    areward71: "+1% Conversion Exponent on all generator upgrades!",
+    areward72: "+1% Conversion Exponent on all generator upgrades!",
+    areward73: "+1% Conversion Exponent on all generator upgrades!",
+    areward74: "+1% Conversion Exponent on all generator upgrades!",
+    areward75: "+1% Conversion Exponent on all generator upgrades!",
+    areward76: "+1% Conversion Exponent on all generator upgrades!",
+    areward77: "+1% Conversion Exponent on all generator upgrades! They're in overdrive now!",
+    areward78: "Start transcensions/challenges with 1 Refinery and automatically buy Refineries.",
+    areward79: "Automatically buy the first crystal upgrade if you can afford it!",
+    areward80: "Start transcensions/challenges with Multiplier Autobuyer unlocked. +5% offering recycle.",
+    areward82: "Delay tax growth by 4%.",
+    areward84: "+1% obtainium (stacks additively with other achievement rewards)",
+    areward85: "Start transcensions/challenges with 1 Coal Plant and automatically buy Coal Plants.",
+    areward86: "Automatically buy the second crystal upgrade if you can afford it!",
+    areward87: "Start transcensions/challenges with Accelerator Autobuyer unlocked. +5% offering recycle.",
+    areward89: "Delay tax growth by 4%.",
+    areward91: "+3% obtainium (stacks additively with other achievement rewards)",
+    areward92: "Start transcensions/challenges with 1 Coal Rig and automatically buy Coal Rigs.",
+    areward93: "Automatically buy the third crystal upgrade if you can afford it!",
+    areward94: "+5% offering recycle.",
+    areward96: "Delay tax growth by 4%.",
+    areward98: "+5% obtainium (stacks additively with other achievement rewards)",
+    areward99: "Start transcensions/challenges with 1 Diamond Pickaxe and automatically buy Diamond Pickaxes.",
+    areward100: "Automatically buy the fourth crystal upgrade if you can afford it!",
+    areward101: "+5% offering recycle.",
+    areward102: "Unlock the Thrift rune!",
+    areward103: "Delay tax growth by 4%.",
+    areward105: "+7% obtainium (stacks additively with other achievement rewards)",
+    areward106: "Start transcensions/challenges with 1 Pandora's Box and automatically buy Pandora's Boxes.",
+    areward107: "Automatically buy the fifth crystal upgrade if you can afford it!",
+    areward108: "+5% offering recycle.",
+    areward110: "Delay tax growth by 4%.",
+    areward112: "+9% obtainium (stacks additively with other achievement rewards)",
+    areward115: "+5% offering recycle.",
+    areward117: "Delay tax growth by 5.66%.",
+    areward118: "Each Reincarnation challenge completion delays tax growth by 0.75% per level, multiplicative",
+    areward119: "+11% obtainium. Unlock a nice trinket somewhere...",
+    areward122: "+7.5% offering recycle.",
+    areward124: "Delay tax growth by 5.66%. Unlock 5 new incredibly powerful researches!",
+    areward126: "+13% obtainium. You get an accessory to commemorate this moment!",
+    areward127: "Unlock 20 new incredibly expensive yet good researches. Unlock the [Anthill] feature!",
+    areward128: "Make researches go Cost-- with 1.5x Obtainium!",
+    areward129: "+7.5% offering recycle. Gain another 1.25x Obtainium multiplier!",
+    areward131: "Delay tax growth by 5.66%.",
+    areward132: "Permanently gain +25% more sacrifice reward!",
+    areward133: "+15% obtainium. Obtain the gift of Midas himself.",
+    areward134: "Unlock 10 newer incredibly expensive yet good researches. Unlock <<Talismans>> in the Runes Tab!",
+    areward135: "Talisman positive bonuses are now +0.05 stronger per level.",
+    areward136: "Talisman positive bonuses are now +0.05 even stronger per level.",
+    areward137: "Permanently gain +25% more sacrifice reward!",
+    areward140: "+17% obtainium. Lazy joke about not leaking talismans here [You get a new one]",
+    areward141: "Unlock a new reset tier!",
+    areward147: "+19% obtainium (Achievement total is up to 100%!). Gain the Polymath Talisman!",
+    areward169: "ALL Ant speed multiplied by log10(crumbs + 10)",
+    areward171: "+16.666% ALL Ant speed!",
+    areward172: "Gain more ants the longer your reincarnation lasts (max speed achieved in 2 hours)",
+    areward173: "Unlock Ant Sacrifice, allowing you to reset your ants and ant upgrades in exchange for amazing rewards! Automatically buy Worker Ants.",
+    areward176: "Unlock Tier 2 Ant autobuy, and autobuy Inceptus and Fortunae ants! Add +25 Base Ant ELO.",
+    areward177: "Unlock Tier 3 Ant autobuy, and autobuy Tributum ants! Add +50 Base Ant ELO.",
+    areward178: "Unlock Tier 4 Ant autobuy, and autobuy Celeritus and Multa ants! Add +75 Base Ant ELO.",
+    areward179: "Unlock Tier 5 Ant autobuy, and autobuy Sacrificium ants! Add +100 Base Ant ELO.",
+    areward180: "Unlock Tier 6 Ant autobuy, and autobuy Hic and Experientia ants! Add +1% Base Ant ELO.",
+    areward181: "Unlock Tier 7 Ant autobuy, and autobuy Praemoenio ants! Add +2% Base Ant ELO.",
+    areward182: "Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacterium ants! Add +3% Base Ant ELO."
+}
 
 function resetachievementcheck(i) {
     if (i === 1) {
@@ -937,7 +940,7 @@ function achievementdescriptions(i) {
     let k = ""
 
     let j = "areward" + i
-    k = window[j]
+    k = areward[j]
     if (k === undefined) {
         k = ""
     }
