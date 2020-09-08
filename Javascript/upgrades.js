@@ -1,146 +1,154 @@
-var upgdesc1 = "Increase production of Workers per producer bought." //Coin Upgrades 1-20
-var upgdesc2 = "Increase production of Investments per producer bought."
-var upgdesc3 = "Increase production of Printers per producer bought."
-var upgdesc4 = "Increase production of Mints per producer bought."
-var upgdesc5 = "Increase production of Alchemies per producer bought."
-var upgdesc6 = "Increase all production by 25% per producer bought."
-var upgdesc7 = "Gain free multipliers based on your purchased Alchemies."
-var upgdesc8 = "Gain 1 free Accelerator per 7 purchased Multipliers."
-var upgdesc9 = "Gain 1 free Multiplier per 10 purchased Accelerators."
-var upgdesc10 = "Improve Workers based on the first 750 purchased Investments."
-var upgdesc11 = "Accelerators improve generation production by 2% each."
-var upgdesc12 = "Each prestige multiplies production by 1.01, multiplicatively (Max: 1e4x)."
-var upgdesc13 = "Augments buff the production of Investments."
-var upgdesc14 = "Free Accelerators buff generation of Printers."
-var upgdesc15 = "Free Accelerators buff generation of Mints."
-var upgdesc16 = "Acceleration Multiplier buffs Diamond gain."
-var upgdesc17 = "Multiply Mint production by 1e+100."
-var upgdesc18 = "Multiply Printer production based on Mythos Shards."
-var upgdesc19 = "Multiply Investment production based on Mythos."
-var upgdesc20 = "Coin upgrade 1 is raised to the eleventh power."
-var upgdesc21 = "Gain 1 Multiplier and 5 Accelerators plus 1% more free Multipliers/Accelerators." //Prestige Upgrades 21-40
-var upgdesc22 = "Gain 1 Multiplier and 4 Accelerators plus 1% more free Multipliers/Accelerators."
-var upgdesc23 = "Gain 1 Multiplier and 3 Accelerators plus 1% more free Multipliers/Accelerators."
-var upgdesc24 = "Gain 1 Multiplier and 2 Accelerators plus 1% more free Multipliers/Accelerators."
-var upgdesc25 = "Gain 1 Multiplier and 1 Accelerators plus 1% more free Multipliers/Accelerators."
-var upgdesc26 = "Gain a free Accelerator Boost."
-var upgdesc27 = "Gain free Accelerators based on unspent Coins."
-var upgdesc28 = "Gain a free Multiplier per 160 Coin producers bought."
-var upgdesc29 = "Gain a free Accelerator per 80 Coin producers bought."
-var upgdesc30 = "Gain free Multipliers based on unspent Coins."
-var upgdesc31 = "Gain 1 free Accelerator Boost per 2,000 Coin producers bought."
-var upgdesc32 = "Gain free Accelerators based on Unspent Diamonds."
-var upgdesc33 = "Gain 1 free Multiplier for each Accelerator Boost owned."
-var upgdesc34 = "Gain 3% more free Multipliers."
-var upgdesc35 = "Gain 2% more free Multipliers."
-var upgdesc36 = "Multiply crystal production by Diamonds, maximum 1e5000x."
-var upgdesc37 = "Multiply mythos shard production by the squared logarithm of Diamonds."
-var upgdesc38 = "Gain +20% more offerings thanks to generous Discord Server Boosters!"
-var upgdesc39 = "Gain +60% more Ant Speed thanks to generous Discord Server Boosters!"
-var upgdesc40 = "Gain +9% more Ant Sacrifice rewards thanks to generous Discord Server Boosters!"
-var upgdesc41 = "Multiply production based on unspent Mythos."
-var upgdesc42 = "Multiply Mythos Shard production based on unspent Diamonds."
-var upgdesc43 = "Multiply coin production by 1.01 per transcension (Max: 1e30x)."
-var upgdesc44 = "Multiply Mythos gain on Transcend by 1.01 per transcension (Max: 1e6x)."
-var upgdesc45 = "Gain free Accelerators based on Mythos Shards."
-var upgdesc46 = "Accelerator Boosts are 5% stronger and do not reset prestige features."
-var upgdesc47 = "Multiply Mythos Shard production based on your AP."
-var upgdesc48 = "Multiply production based on owned Accelerators and Multipliers."
-var upgdesc49 = "Gain free Multipliers based on unspent Mythos."
-var upgdesc50 = "Gain +25% free Accelerators and Multipliers, but ONLY while doing challenges."
-var upgdesc51 = "Increase production of all Mythos buildings based on owned Accelerator Boosts."
-var upgdesc52 = "Mythos building exponent +0.025."
-var upgdesc53 = "Augments produce more Shards based on Acceleration Multiplier."
-var upgdesc54 = "Wizards produce more Enchantments based on Multiplier."
-var upgdesc55 = "Grandmasters produce more Oracles based on Building power."
-var upgdesc56 = "Worker production is multiplied by 1e+5000."
-var upgdesc57 = "Investment production is multiplied by 1e+7500."
-var upgdesc58 = "Printer production is multiplied by 1e+15000."
-var upgdesc59 = "Coin Mint production is multiplied by 1e+25000."
-var upgdesc60 = "Alchemies production is multiplied by 1e+35000." //Reincarnation Upgrades 61-100
-var upgdesc61 = "Welcome to reincarnation! +5% Offering Recycle, +5 EXP/Offering!"
-var upgdesc62 = "Completing challenges, automatically or manually, increase offerings gained in Reincarnation. Bonus subject to time multiplier!"
-var upgdesc63 = "Crystal Production is multiplied based on Particles to the sixth power [Caps at 1e6000x]."
-var upgdesc64 = "Mythos Shard Production is multiplied by your Particles squared."
-var upgdesc65 = "Multiply the gain of Particles from Reincarnation by 5x!"
-var upgdesc66 = "When you use an Offering, every unlocked rune will get 3 free experience."
-var upgdesc67 = "Atom gain is increased by 3% per Particle producer purchased!"
-var upgdesc68 = "Gain a free multiplier for every 1e1000x increase in tax."
-var upgdesc69 = "Gain more Obtainium based on your particle gain. [Works with automation at a reduced rate!]"
-var upgdesc70 = "Gain more Obtainium from Reincarnations based on how long your current reincarnation is."
-var upgdesc71 = "Runes will gain (Rune Level) additional EXP per offering used."
-var upgdesc72 = "Obtainium gain from Reincarnations is multiplied (1 + 2C) where C is #Reincarnation Challenges completed, up to 50x!"
-var upgdesc73 = "Gain +100% free accelerator boosts and +10 free Crystal Upgrade levels, but only in Reincarnation Challenges."
-var upgdesc74 = "Obtainium gain is increased based on highest ever unspent offerings. [Max: 100,000 unspent]"
-var upgdesc75 = "Offering gain is increased based on highest ever unspent obtainium [Max: 30,000,000 obtainium]"
-var upgdesc76 = "Ant generation kinda slow? I agree! Make all ant tiers 5x faster!"
-var upgdesc77 = "This is Synergism, right? Let's make each purchased ant make all ants 0.4% faster."
-var upgdesc78 = "Hate spam clicking? Autosacrifice AND Manual spending spends 1,000x more offerings at a time."
-var upgdesc79 = "The Ant God will accept an arbitrary number of Particles in order to give you 10% more from sacrifices."
-var upgdesc80 = "The Ant God will accept a larger arbitrary number of Particles to give you more ant ELO."
-var upgdesc81 = "Automatically buy Workers if affordable." //Automation Upgrades 81-100
-var upgdesc82 = "Automatically buy Investments if affordable."
-var upgdesc83 = "Automatically buy Printers if affordable."
-var upgdesc84 = "Automatically buy Coin Mints if affordable."
-var upgdesc85 = "Automatically buy Alchemies if affordable."
-var upgdesc86 = "Automatically buy Accelerators if affordable."
-var upgdesc87 = "Automatically buy Multipliers if affordable."
-var upgdesc88 = "Automatically buy Accelerator Boosts if affordable."
-var upgdesc89 = "Unlock Automatic Transcensions."
-var upgdesc90 = "Automatically buy from the Generator Shop."
-var upgdesc91 = "Automatically buy Coin Upgrades."
-var upgdesc92 = "Automatically buy Diamond Upgrades."
-var upgdesc93 = "Generate 1% of Diamond Gain from prestiging per second."
-var upgdesc94 = "Automatically buy Augments if affordable."
-var upgdesc95 = "Automatically buy Enchantments if affordable."
-var upgdesc96 = "Automatically buy Wizards if affordable."
-var upgdesc97 = "Automatically buy Oracles if affordable."
-var upgdesc98 = "Automatically buy Grandmasters if affordable."
-var upgdesc99 = "Automatically buy Mythos Upgrades if affordable."
-var upgdesc100 = "Generate 1% of Mythos Gain from transcending per second."
-var upgdesc101 = "Alchemies will produce Coin Mints." // Generator Upgrades 101-120
-var upgdesc102 = "Coin Mints will produce Printers."
-var upgdesc103 = "Printers will produce Investments."
-var upgdesc104 = "Investments will produce Workers."
-var upgdesc105 = "Purchased Workers will produce Alchemies."
-var upgdesc106 = "Refineries can produce Alchemies equal to Refineries owned raised to 0.10"
-var upgdesc107 = "Refinery -> Alchemy exponent increased from 0.10 to 0.25."
-var upgdesc108 = "Refinery -> Alchemy exponent increased from 0.25 to 0.50"
-var upgdesc109 = "Refinery -> Alchemy exponent increased from 0.50 to 0.75"
-var upgdesc110 = "Refinery -> Alchemy exponent increased from 0.75 to 1"
-var upgdesc111 = "Augments can produce Pandora Boxes equal to Augments owned raised to 0.08"
-var upgdesc112 = "Augment -> Box exponent increased from 0.08 to 0.16"
-var upgdesc113 = "Augment -> Box exponent increased from 0.16 to 0.24"
-var upgdesc114 = "Augment -> Box exponent increased from 0.24 to 0.32"
-var upgdesc115 = "Augment -> Box exponent increased from 0.32 to 0.40"
-var upgdesc116 = "Protons can produce Grandmasters equal to Protons owned raised to 0.05"
-var upgdesc117 = "Protons -> Grandmaster exponent increased from 0.05 to 0.10"
-var upgdesc118 = "Protons -> Grandmaster exponent increased from 0.10 to 0.15"
-var upgdesc119 = "Protons -> Grandmaster exponent increased from 0.15 to 0.20"
-var upgdesc120 = "Protons -> Grandmaster exponent increased from 0.20 to 0.25"
-var upgdesc121 = "You probably autobought this. -50% taxes!"
-var upgdesc122 = "Increase Crystal Upgrade 3 cap from +12% to +100%!"
-var upgdesc123 = "Raise coin production to the power of 1.025. More EXPONENTS."
-var upgdesc124 = "Gain +3% more effective ELO."
-var upgdesc125 = "Gain +2% more green fragments for each completion of Challenge 10 [Up to +60%]."
-var crystalupgdesc1 = "Gain a 5% multiplicative boost to crystals per AP per level."
-var crystalupgdesc2 = "Gain a boost to crystals based on held coins per level."
-var crystalupgdesc3 = "Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: 12%]"
-var crystalupgdesc4 = "Improve the multiplier to coin production by .05 exponent per level. [MAX: +10.00]"
-var crystalupgdesc5 = "Every challenge completion increases crystal gain by 1% per level."
-var crystalupgdesc6 = "Coming SOON!"
-var crystalupgdesc7 = "Coming SOON!"
-var crystalupgdesc8 = "Coming SOON!"
-var constantUpgDesc1 = "Make all Tesseract buildings 5% more productive per level."
-var constantUpgDesc2 = "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max 10%]."
-var constantUpgDesc3 = "Increase offering gain by 0.01% * log10(Constant + 1) * level"
-var constantUpgDesc4 = "Increase obtainium gain by 0.04% * log10(Constant + 1) * level"
-var constantUpgDesc5 = "Multiply ant speed by (1 + log10(Constant + 1)/10)^level"
-var constantUpgDesc6 = "Add +2 free Ant Levels per level."
-var constantUpgDesc7 = "Provides 17 free rune levels and increases the rune cap by 8 per level."
-var constantUpgDesc8 = "Increase the rune EXP given by offerings by 10% per level [Additive]"
-var constantUpgDesc9 = "When bought, rune effectiveness is increased by Log4(Talisman Shards +1) %"
-var constantUpgDesc10 = "When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on ascension."
+let upgdesc = {
+    upgdesc1: "Increase production of Workers per producer bought.", //Coin Upgrades 1-20
+    upgdesc2: "Increase production of Investments per producer bought.",
+    upgdesc3: "Increase production of Printers per producer bought.",
+    upgdesc4: "Increase production of Mints per producer bought.",
+    upgdesc5: "Increase production of Alchemies per producer bought.",
+    upgdesc6: "Increase all production by 25% per producer bought.",
+    upgdesc7: "Gain free multipliers based on your purchased Alchemies.",
+    upgdesc8: "Gain 1 free Accelerator per 7 purchased Multipliers.",
+    upgdesc9: "Gain 1 free Multiplier per 10 purchased Accelerators.",
+    upgdesc10: "Improve Workers based on the first 750 purchased Investments.",
+    upgdesc11: "Accelerators improve generation production by 2% each.",
+    upgdesc12: "Each prestige multiplies production by 1.01, multiplicatively (Max: 1e4x).",
+    upgdesc13: "Augments buff the production of Investments.",
+    upgdesc14: "Free Accelerators buff generation of Printers.",
+    upgdesc15: "Free Accelerators buff generation of Mints.",
+    upgdesc16: "Acceleration Multiplier buffs Diamond gain.",
+    upgdesc17: "Multiply Mint production by 1e+100.",
+    upgdesc18: "Multiply Printer production based on Mythos Shards.",
+    upgdesc19: "Multiply Investment production based on Mythos.",
+    upgdesc20: "Coin upgrade 1 is raised to the eleventh power.",
+    upgdesc21: "Gain 1 Multiplier and 5 Accelerators plus 1% more free Multipliers/Accelerators.", //Prestige Upgrades 21-40
+    upgdesc22: "Gain 1 Multiplier and 4 Accelerators plus 1% more free Multipliers/Accelerators.",
+    upgdesc23: "Gain 1 Multiplier and 3 Accelerators plus 1% more free Multipliers/Accelerators.",
+    upgdesc24: "Gain 1 Multiplier and 2 Accelerators plus 1% more free Multipliers/Accelerators.",
+    upgdesc25: "Gain 1 Multiplier and 1 Accelerators plus 1% more free Multipliers/Accelerators.",
+    upgdesc26: "Gain a free Accelerator Boost.",
+    upgdesc27: "Gain free Accelerators based on unspent Coins.",
+    upgdesc28: "Gain a free Multiplier per 160 Coin producers bought.",
+    upgdesc29: "Gain a free Accelerator per 80 Coin producers bought.",
+    upgdesc30: "Gain free Multipliers based on unspent Coins.",
+    upgdesc31: "Gain 1 free Accelerator Boost per 2,000 Coin producers bought.",
+    upgdesc32: "Gain free Accelerators based on Unspent Diamonds.",
+    upgdesc33: "Gain 1 free Multiplier for each Accelerator Boost owned.",
+    upgdesc34: "Gain 3% more free Multipliers.",
+    upgdesc35: "Gain 2% more free Multipliers.",
+    upgdesc36: "Multiply crystal production by Diamonds, maximum 1e5000x.",
+    upgdesc37: "Multiply mythos shard production by the squared logarithm of Diamonds.",
+    upgdesc38: "Gain +20% more offerings thanks to generous Discord Server Boosters!",
+    upgdesc39: "Gain +60% more Ant Speed thanks to generous Discord Server Boosters!",
+    upgdesc40: "Gain +9% more Ant Sacrifice rewards thanks to generous Discord Server Boosters!",
+    upgdesc41: "Multiply production based on unspent Mythos.",
+    upgdesc42: "Multiply Mythos Shard production based on unspent Diamonds.",
+    upgdesc43: "Multiply coin production by 1.01 per transcension (Max: 1e30x).",
+    upgdesc44: "Multiply Mythos gain on Transcend by 1.01 per transcension (Max: 1e6x).",
+    upgdesc45: "Gain free Accelerators based on Mythos Shards.",
+    upgdesc46: "Accelerator Boosts are 5% stronger and do not reset prestige features.",
+    upgdesc47: "Multiply Mythos Shard production based on your AP.",
+    upgdesc48: "Multiply production based on owned Accelerators and Multipliers.",
+    upgdesc49: "Gain free Multipliers based on unspent Mythos.",
+    upgdesc50: "Gain +25% free Accelerators and Multipliers, but ONLY while doing challenges.",
+    upgdesc51: "Increase production of all Mythos buildings based on owned Accelerator Boosts.",
+    upgdesc52: "Mythos building exponent +0.025.",
+    upgdesc53: "Augments produce more Shards based on Acceleration Multiplier.",
+    upgdesc54: "Wizards produce more Enchantments based on Multiplier.",
+    upgdesc55: "Grandmasters produce more Oracles based on Building power.",
+    upgdesc56: "Worker production is multiplied by 1e+5000.",
+    upgdesc57: "Investment production is multiplied by 1e+7500.",
+    upgdesc58: "Printer production is multiplied by 1e+15000.",
+    upgdesc59: "Coin Mint production is multiplied by 1e+25000.",
+    upgdesc60: "Alchemies production is multiplied by 1e+35000.", //Reincarnation Upgrades 61-100
+    upgdesc61: "Welcome to reincarnation! +5% Offering Recycle, +5 EXP/Offering!",
+    upgdesc62: "Completing challenges, automatically or manually, increase offerings gained in Reincarnation. Bonus subject to time multiplier!",
+    upgdesc63: "Crystal Production is multiplied based on Particles to the sixth power [Caps at 1e6000x].",
+    upgdesc64: "Mythos Shard Production is multiplied by your Particles squared.",
+    upgdesc65: "Multiply the gain of Particles from Reincarnation by 5x!",
+    upgdesc66: "When you use an Offering, every unlocked rune will get 3 free experience.",
+    upgdesc67: "Atom gain is increased by 3% per Particle producer purchased!",
+    upgdesc68: "Gain a free multiplier for every 1e1000x increase in tax.",
+    upgdesc69: "Gain more Obtainium based on your particle gain. [Works with automation at a reduced rate!]",
+    upgdesc70: "Gain more Obtainium from Reincarnations based on how long your current reincarnation is.",
+    upgdesc71: "Runes will gain (Rune Level) additional EXP per offering used.",
+    upgdesc72: "Obtainium gain from Reincarnations is multiplied (1 + 2C) where C is #Reincarnation Challenges completed, up to 50x!",
+    upgdesc73: "Gain +100% free accelerator boosts and +10 free Crystal Upgrade levels, but only in Reincarnation Challenges.",
+    upgdesc74: "Obtainium gain is increased based on highest ever unspent offerings. [Max: 100,000 unspent]",
+    upgdesc75: "Offering gain is increased based on highest ever unspent obtainium [Max: 30,000,000 obtainium]",
+    upgdesc76: "Ant generation kinda slow? I agree! Make all ant tiers 5x faster!",
+    upgdesc77: "This is Synergism, right? Let's make each purchased ant make all ants 0.4% faster.",
+    upgdesc78: "Hate spam clicking? Autosacrifice AND Manual spending spends 1,000x more offerings at a time.",
+    upgdesc79: "The Ant God will accept an arbitrary number of Particles in order to give you 10% more from sacrifices.",
+    upgdesc80: "The Ant God will accept a larger arbitrary number of Particles to give you more ant ELO.",
+    upgdesc81: "Automatically buy Workers if affordable.", //Automation Upgrades 81-100
+    upgdesc82: "Automatically buy Investments if affordable.",
+    upgdesc83: "Automatically buy Printers if affordable.",
+    upgdesc84: "Automatically buy Coin Mints if affordable.",
+    upgdesc85: "Automatically buy Alchemies if affordable.",
+    upgdesc86: "Automatically buy Accelerators if affordable.",
+    upgdesc87: "Automatically buy Multipliers if affordable.",
+    upgdesc88: "Automatically buy Accelerator Boosts if affordable.",
+    upgdesc89: "Unlock Automatic Transcensions.",
+    upgdesc90: "Automatically buy from the Generator Shop.",
+    upgdesc91: "Automatically buy Coin Upgrades.",
+    upgdesc92: "Automatically buy Diamond Upgrades.",
+    upgdesc93: "Generate 1% of Diamond Gain from prestiging per second.",
+    upgdesc94: "Automatically buy Augments if affordable.",
+    upgdesc95: "Automatically buy Enchantments if affordable.",
+    upgdesc96: "Automatically buy Wizards if affordable.",
+    upgdesc97: "Automatically buy Oracles if affordable.",
+    upgdesc98: "Automatically buy Grandmasters if affordable.",
+    upgdesc99: "Automatically buy Mythos Upgrades if affordable.",
+    upgdesc100: "Generate 1% of Mythos Gain from transcending per second.",
+    upgdesc101: "Alchemies will produce Coin Mints.", // Generator Upgrades 101-120
+    upgdesc102: "Coin Mints will produce Printers.",
+    upgdesc103: "Printers will produce Investments.",
+    upgdesc104: "Investments will produce Workers.",
+    upgdesc105: "Purchased Workers will produce Alchemies.",
+    upgdesc106: "Refineries can produce Alchemies equal to Refineries owned raised to 0.10",
+    upgdesc107: "Refinery -> Alchemy exponent increased from 0.10 to 0.25.",
+    upgdesc108: "Refinery -> Alchemy exponent increased from 0.25 to 0.50",
+    upgdesc109: "Refinery -> Alchemy exponent increased from 0.50 to 0.75",
+    upgdesc110: "Refinery -> Alchemy exponent increased from 0.75 to 1",
+    upgdesc111: "Augments can produce Pandora Boxes equal to Augments owned raised to 0.08",
+    upgdesc112: "Augment -> Box exponent increased from 0.08 to 0.16",
+    upgdesc113: "Augment -> Box exponent increased from 0.16 to 0.24",
+    upgdesc114: "Augment -> Box exponent increased from 0.24 to 0.32",
+    upgdesc115: "Augment -> Box exponent increased from 0.32 to 0.40",
+    upgdesc116: "Protons can produce Grandmasters equal to Protons owned raised to 0.05",
+    upgdesc117: "Protons -> Grandmaster exponent increased from 0.05 to 0.10",
+    upgdesc118: "Protons -> Grandmaster exponent increased from 0.10 to 0.15",
+    upgdesc119: "Protons -> Grandmaster exponent increased from 0.15 to 0.20",
+    upgdesc120: "Protons -> Grandmaster exponent increased from 0.20 to 0.25",
+    upgdesc121: "You probably autobought this. -50% taxes!",
+    upgdesc122: "Increase Crystal Upgrade 3 cap from +12% to +100%!",
+    upgdesc123: "Raise coin production to the power of 1.025. More EXPONENTS.",
+    upgdesc124: "Gain +3% more effective ELO.",
+    upgdesc125: "Gain +2% more green fragments for each completion of Challenge 10 [Up to +60%]."
+}
+
+let crystalupgdesc = {
+    crystalupgdesc1: "Gain a 5% multiplicative boost to crystals per AP per level.",
+    crystalupgdesc2: "Gain a boost to crystals based on held coins per level.",
+    crystalupgdesc3: "Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: 12%]",
+    crystalupgdesc4: "Improve the multiplier to coin production by .05 exponent per level. [MAX: +10.00]",
+    crystalupgdesc5: "Every challenge completion increases crystal gain by 1% per level.",
+    crystalupgdesc6: "Coming SOON!",
+    crystalupgdesc7: "Coming SOON!",
+    crystalupgdesc8: "Coming SOON!"
+}
+
+let constantUpgDesc = {
+    constantUpgDesc1: "Make all Tesseract buildings 5% more productive per level.",
+    constantUpgDesc2: "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max 10%].",
+    constantUpgDesc3: "Increase offering gain by 0.01% * log10(Constant + 1) * level",
+    constantUpgDesc4: "Increase obtainium gain by 0.04% * log10(Constant + 1) * level",
+    constantUpgDesc5: "Multiply ant speed by (1 + log10(Constant + 1)/10)^level",
+    constantUpgDesc6: "Add +2 free Ant Levels per level.",
+    constantUpgDesc7: "Provides 17 free rune levels and increases the rune cap by 8 per level.",
+    constantUpgDesc8: "Increase the rune EXP given by offerings by 10% per level [Additive]",
+    constantUpgDesc9: "When bought, rune effectiveness is increased by Log4(Talisman Shards +1) %",
+    constantUpgDesc10: "When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on ascension."
+}
 
 const upgradetexts = [null,
     () => "Worker Production x" + format((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)), 2),
@@ -277,7 +285,7 @@ function upgradeeffects(i) {
 
 function upgradedescriptions(i) {
     let x = "upgdesc" + i
-    let y = window[x]
+    let y = upgdesc[x]
     let z = ""
     if (player.upgrades[i] > 0.5) {
         z = z + " BOUGHT!"
@@ -352,7 +360,7 @@ function upgradedescriptions(i) {
 function crystalupgradedescriptions(i) {
 
     let v = "crystalupgdesc" + i
-    let w = window[v]
+    let w = crystalupgdesc[v]
 
     let u = i - 1
     let p = player.crystalUpgrades[u]
@@ -377,7 +385,7 @@ function upgradeupdate(num, fast) {
         document.getElementById(x).style.backgroundColor = "white"
     }
     let a = "upgdesc" + num
-    let b = window[a]
+    let b = upgdesc[a]
     let c = ""
     if (player.upgrades[num] > 0.5) {
         c = c + " BOUGHT!"
@@ -446,7 +454,7 @@ function getConstUpgradeMetadata(i) {
 function constantUpgradeDescriptions(i) {
     let metaData = getConstUpgradeMetadata(i)
     let x = 'constantUpgDesc' + i
-    let y = window[x]
+    let y = constantUpgDesc[x]
     document.getElementById("constUpgradeDescription").textContent = y
     document.getElementById("constUpgradeLevel2").textContent = format(player.constantUpgrades[i])
     document.getElementById("constUpgradeCost2").textContent = format(metaData[1]) + " [+" + format(metaData[0]) + " LVL]"
