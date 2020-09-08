@@ -229,7 +229,7 @@ adesc = {
     adesc186: "Give me a Hundred: Ascend 100 Times.",
     adesc187: "Give me a Thousand: Ascend 1,000 Times.",
     adesc188: "Give me some arbitrary number I: Ascend 14,142 Times.",
-    adesc189: "Give me some arbitrary number II: Ascend 141,423 Times.",
+    adesc189: "Give me some arbitrary number II: Ascend 141,421 Times.",
     adesc190: "Now that's what I call getting some &Pi!: Attain a constant of 3.14.",
     adesc191: "One in a million: Attain a constant of 1,000,000 [1e6].",
     adesc192: "A number: Attain a constant of 4.32e10.",
