@@ -39,7 +39,7 @@ var totalachievementpoints = achievementpointvalues.reduce(function (a, b) {
     return a + b
 }, 0);
 
-var adesc;
+let adesc;
 adesc = {
     adesc1: "A Loyal Employee: Hire your first worker.",
     adesc2: "Small Business: Hire 10 workers.",
@@ -784,11 +784,11 @@ function challengeachievementcheck(i, auto) {
             achievementaward(147)
         }
     }
-    if (i >= 11 && i <= 14){
+    if (i >= 11 && i <= 14) {
         let challengeArray = [0, 1, 2, 3, 5, 10, 20, 30]
-        for(var j = 1; j <= 7; j++){
-            if(player.challengecompletions[i] >= challengeArray[j] && player.achievements[119 + 7 * i + j] < 1){
-                achievementaward(119+7*i+j)
+        for (var j = 1; j <= 7; j++) {
+            if (player.challengecompletions[i] >= challengeArray[j] && player.achievements[119 + 7 * i + j] < 1) {
+                achievementaward(119 + 7 * i + j)
             }
         }
     }
@@ -902,32 +902,32 @@ function buildingAchievementCheck() {
     }
 }
 
-function ascensionAchievementCheck(i,score){
+function ascensionAchievementCheck(i, score) {
     score = score || 0
-    if(i === 1){
+    if (i === 1) {
         let ascendCountArray = [0, 1, 2, 10, 100, 1000, 14142, 141421, 1414213]
-        for(var i = 1; i <= 7; i++){
-            if(player.ascensionCount >= ascendCountArray[i] && player.achievements[182+i] < 1){
-                achievementaward(182+i)
+        for (var i = 1; i <= 7; i++) {
+            if (player.ascensionCount >= ascendCountArray[i] && player.achievements[182 + i] < 1) {
+                achievementaward(182 + i)
             }
         }
-        if(player.ascensionCount >= ascendCountArray[8] && player.achievements[240] < 1){
+        if (player.ascensionCount >= ascendCountArray[8] && player.achievements[240] < 1) {
             achievementaward(240)
         }
     }
-    if(i === 2){
+    if (i === 2) {
         let constantArray = [0, 3.14, 1e6, 4.32e10, 6.9e21, 1.509e33, 1e66, "1.8e308"]
-        for(var i = 1; i <= 7; i++){
-            if(player.ascendShards.greaterThanOrEqualTo(constantArray[i]) && player.achievements[189+i] < 1){
-                achievementaward(189+i)
+        for (var i = 1; i <= 7; i++) {
+            if (player.ascendShards.greaterThanOrEqualTo(constantArray[i]) && player.achievements[189 + i] < 1) {
+                achievementaward(189 + i)
             }
         }
     }
-    if(i === 3){
+    if (i === 3) {
         let scoreArray = [0, 1e5, 1e6, 1e7, 1e8, 1e9, 5e9, 2.5e10]
-        for(var j = 1; j <= 7; j++){
-            if(score >= scoreArray[j] && player.achievements[224+j] < 1){
-                achievementaward(224+j)
+        for (var j = 1; j <= 7; j++) {
+            if (score >= scoreArray[j] && player.achievements[224 + j] < 1) {
+                achievementaward(224 + j)
             }
         }
     }
