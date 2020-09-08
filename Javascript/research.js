@@ -2,7 +2,6 @@ function buyResearch(index, auto) {
     auto = auto || false
     let c14 = 0;
     let spiritBonus = 0;
-    let maxResearchIndex = maxRoombaResearchIndex(player);
     if (index <= 5) {
         c14 += player.challengecompletions[14]
     }
@@ -30,8 +29,8 @@ function buyResearch(index, auto) {
     if (maxbuyresearch || auto) {
         buyamount = 1000
     }
-    if ((auto || !player.autoResearchToggle) && index <= maxResearchIndex) {
-        while (player.researches[index] < (researchMaxLevels[index] + c14 + spiritBonus) && player.researchPoints >= (researchBaseCosts[index]) && buyamount >= i) {
+    if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index)) {
+        while (!isResearchMaxed(index) && player.researchPoints >= researchBaseCosts[index] && buyamount >= i) {
             player.researchPoints -= researchBaseCosts[index]
             player.researches[index] += 1;
             researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index] + c14 + spiritBonus)
@@ -60,14 +59,14 @@ function buyResearch(index, auto) {
         }
     }
 
-    if (0 < index && index <= maxResearchIndex) {
+    if (0 < index && isResearchUnlocked(index)) {
         if (player.researches[index] === (researchMaxLevels[index] + c14 + spiritBonus)) {
             document.getElementById("res" + index).style.backgroundColor = "green"
         }
     }
     if (auto && player.cubeUpgrades[9] === 1) {
         player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
-        if (player.researches[player.autoResearch] >= (researchMaxLevels[player.autoResearch] + c14 + spiritBonus)) {
+        if (isResearchMaxed(player.autoResearch)) {
             player.roombaResearchIndex += 1;
         }
         if (player.roombaResearchIndex <= maxResearchIndex) {
@@ -106,6 +105,18 @@ function isResearchUnlocked(index) {
         }
     }
     return false;
+}
+
+function isResearchMaxed(index) {
+    let c14 = 0;
+    let spiritBonus = 0;
+    if (index <= 5) {
+        c14 += player.challengecompletions[14]
+    }
+    if (index === 84) {
+        spiritBonus += Math.ceil(20 * calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[5])
+    }
+    return researchMaxLevels[index] + c14 + spiritBonus <= player.researches[index]
 }
 
 
