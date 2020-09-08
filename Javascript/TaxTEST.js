@@ -61,7 +61,7 @@ function calculatetax(fast) {
     maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1
     a = Math.min(maxexponent, Math.floor(Decimal.log(produceTotal.add(1), 10)));
 
-    if(player.currentChallenge.ascension === 13 && maxexponent <= 99999 && player.achievements[249] < 1){
+    if (player.currentChallenge.ascension === 13 && maxexponent <= 99999 && player.achievements[249] < 1) {
         achievementaward(249)
     }
 

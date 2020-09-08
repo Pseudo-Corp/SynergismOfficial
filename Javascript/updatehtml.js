@@ -235,7 +235,7 @@ function revealStuff() {
         document.getElementById("talisman7area").style.display = "none";
 
     player.cubeUpgrades[8] > 0 ?
-        document.getElementById('particleAutoUpgrade').style.display = "block":
+        document.getElementById('particleAutoUpgrade').style.display = "block" :
         document.getElementById('particleAutoUpgrade').style.display = "none";
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
@@ -760,13 +760,13 @@ function htmlInserts() {
         let metaData = CalcCorruptionStuff();
 
         document.getElementById("corruptionBankValue").textContent = format(metaData[0])
-        document.getElementById("corruptionScoreValue").textContent = format(metaData[1],0,true)
-        document.getElementById("corruptionMultiplierValue").textContent = format(metaData[2],1,true)
-        document.getElementById("corruptionTotalScore").textContent = format(metaData[3],0,true)
-        document.getElementById("corruptionCubesValue").textContent = format(metaData[4],0,true)
+        document.getElementById("corruptionScoreValue").textContent = format(metaData[1], 0, true)
+        document.getElementById("corruptionMultiplierValue").textContent = format(metaData[2], 1, true)
+        document.getElementById("corruptionTotalScore").textContent = format(metaData[3], 0, true)
+        document.getElementById("corruptionCubesValue").textContent = format(metaData[4], 0, true)
         document.getElementById("corruptionTesseractsValue").textContent = format(metaData[5])
         document.getElementById("corruptionHypercubesValue").textContent = format(metaData[6])
-        document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.8/54 * sumContents(player.usedCorruptions)) * extinctionMultiplier[player.usedCorruptions[7]],3)
+        document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.8 / 54 * sumContents(player.usedCorruptions)) * extinctionMultiplier[player.usedCorruptions[7]], 3)
     }
 }
 
