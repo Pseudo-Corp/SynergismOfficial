@@ -17,33 +17,33 @@ function displayRuneInformation(i, updatelevelup) {
 
     if (i === 1) {
         if (updatelevelup) {
-            document.getElementById("runeshowlevelup").textContent = "+(Level/10)^1.25 Accelerator, +0.1% Accelerators per level. +1 Accelerator Boost every 50 levels!"
+            document.getElementById("runeshowlevelup").textContent = "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!"
         }
-        document.getElementById("runeshowpower1").childNodes[0].textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(Math.pow(rune1level * m / 10, 1.25))) + " Accelerators, +" + format((rune1level / 10 * m), 2, true) + "% Accelerators, +" + format(Math.floor(rune1level / 50 * m)) + " Accelerator Boosts."
+        document.getElementById("runeshowpower1").childNodes[0].textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(Math.pow(rune1level * m / 4, 1.25))) + " Accelerators, +" + format((rune1level / 4 * m), 2, true) + "% Accelerators, +" + format(Math.floor(rune1level / 20 * m)) + " Accelerator Boosts."
     }
     if (i === 2) {
         if (updatelevelup) {
-            document.getElementById("runeshowlevelup").textContent = "+(Level/25) Multipliers every 25th level, +0.1% Multipliers per level. Tax growth is delayed more for each level!"
+            document.getElementById("runeshowlevelup").textContent = "+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!"
         }
-        document.getElementById("runeshowpower2").childNodes[0].textContent = "Duplication Rune Bonus: " + "+" + format(Math.floor(rune2level * m / 25) * Math.floor(1 + rune2level * m / 25) / 2) + " Multipliers, +" + format(m * rune2level / 10, 1, true) + "% Multipliers, -" + (99.9 * (1 - Math.pow(6, -(rune2level * m) / 2500))).toPrecision(4) + "% Tax Growth."
+        document.getElementById("runeshowpower2").childNodes[0].textContent = "Duplication Rune Bonus: " + "+" + format(Math.floor(rune2level * m / 10) * Math.floor(1 + rune2level * m / 10) / 2) + " Multipliers, +" + format(m * rune2level / 4, 1, true) + "% Multipliers, -" + (99.9 * (1 - Math.pow(6, -(rune2level * m) / 1000))).toPrecision(4) + "% Tax Growth."
     }
     if (i === 3) {
         if (updatelevelup) {
-            document.getElementById("runeshowlevelup").textContent = "~(1 + (Level/5)^2 * 2^(Level/5) / 256)x Crystal Production. +1 free level for each Crystal upgrade per 40 levels!"
+            document.getElementById("runeshowlevelup").textContent = "~(1 + (Level/2)^2 * 2^(Level/2) / 256)x Crystal Production. +1 free level for each Crystal upgrade per 16 levels!"
         }
-        document.getElementById("runeshowpower3").childNodes[0].textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(rune3level * m / 5, 2).times(Decimal.pow(2, rune3level * m / 5 - 8)).add(1), 3) + ", gain +" + format(Math.floor(rune3level / 40 * m)) + " free crystal levels."
+        document.getElementById("runeshowpower3").childNodes[0].textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(rune3level * m / 2, 2).times(Decimal.pow(2, rune3level * m / 2 - 8)).add(1), 3) + ", gain +" + format(Math.floor(rune3level / 16 * m)) + " free crystal levels."
     }
     if (i === 4) {
         if (updatelevelup) {
-            document.getElementById("runeshowlevelup").textContent = "+0.05% building cost growth delay per level, +0.025% offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/2750) Tax growth multiplier AFTER level 1000"
+            document.getElementById("runeshowlevelup").textContent = "+0.125% building cost growth delay per level, +0.065% offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/1100) Tax growth multiplier AFTER level 400"
         }
-        document.getElementById("runeshowpower4").childNodes[0].textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (rune4level / 20 * m).toPrecision(3) + "%. Offering recycle chance: +" + Math.min(25, rune4level / 40) + "%. -" + (99 * (1 - Math.pow(4, Math.min(0, (1000 - rune4level) / 2750)))).toPrecision(4) + "% Tax Growth"
+        document.getElementById("runeshowpower4").childNodes[0].textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (rune4level / 8 * m).toPrecision(3) + "%. Offering recycle chance: +" + Math.min(25, rune4level / 16) + "%. -" + (99 * (1 - Math.pow(4, Math.min(0, (400 - rune4level) / 1100)))).toPrecision(4) + "% Tax Growth"
     }
     if (i === 5) {
         if (updatelevelup) {
-            document.getElementById("runeshowlevelup").textContent = "~(1 + level/500)x Obtainium, (1 + Level^2/20000)x Ant Hatch Speed, +0.002 base offerings for each tier per level"
+            document.getElementById("runeshowlevelup").textContent = "~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, +0.005 base offerings for each tier per level"
         }
-        document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + format((1 + rune5level / 500 * m * SILevelMult), 2, true) + ". Ant Speed: x" + format(1 + Math.pow(rune5level * m * SILevelMult, 2) / 20000) + ". Base Offerings: +" + format((rune5level * m * SILevelMult * 0.002), 3, true)
+        document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + format((1 + rune5level / 200 * m * SILevelMult), 2, true) + ". Ant Speed: x" + format(1 + Math.pow(rune5level * m * SILevelMult, 2) / 2500) + ". Base Offerings: +" + format((rune5level * m * SILevelMult * 0.005), 3, true)
     }
     if (updatelevelup) document.getElementById("runedisplayexp").textContent = "+" + format(amountPerOffering) + " EXP per offering."
 
@@ -70,11 +70,11 @@ function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
 
     // How much a runes max level is increased by
     let increaseMaxLevel = [
-        25 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
-        25 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
-        25 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
-        25 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
-        25 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50])
+        10 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
+        10 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
+        10 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
+        10 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
+        10 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50])
     ];
 
     // Whether or not a rune is unlocked array
@@ -101,7 +101,7 @@ function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
     if (auto && cubeUpgraded > 0) {
         amount = cubeUpgraded
     }
-    if (player.runeshards >= 1 && player.runelevels[runeIndex] < (2500 + increaseMaxLevel[runeIndex]) && unlockedRune[runeIndex]) {
+    if (player.runeshards >= 1 && player.runelevels[runeIndex] < (1000 + increaseMaxLevel[runeIndex]) && unlockedRune[runeIndex]) {
         // Removes the offerings from the player
         player.runeshards -= amount;
         // Adds the exp given by the amount of offerings
@@ -112,7 +112,7 @@ function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
                 if (runeToUpdate !== runeIndex) {
                     player.runeexp[runeToUpdate] += amount * calculateRuneExpGiven(runeToUpdate, true)
                 }
-                while (player.runeexp[runeToUpdate] >= calculateRuneExpToLevel(runeToUpdate) && player.runelevels[runeToUpdate] < (2500 + increaseMaxLevel[runeToUpdate])) {
+                while (player.runeexp[runeToUpdate] >= calculateRuneExpToLevel(runeToUpdate) && player.runelevels[runeToUpdate] < (1000 + increaseMaxLevel[runeToUpdate])) {
                     player.runelevels[runeToUpdate] += 1;
                 }
             }

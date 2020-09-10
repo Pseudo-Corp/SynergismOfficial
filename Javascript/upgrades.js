@@ -368,7 +368,7 @@ function crystalupgradedescriptions(i) {
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
         c = 10
     }
-    c += Math.floor(rune3level * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100) / 40) * 100 / 100
+    c += Math.floor(rune3level * effectiveLevelMult /16) * 100 / 100
     let q = Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 - c, 2) / 2)))
     document.getElementById("crystalupgradedescription").textContent = w
     document.getElementById("crystalupgradeslevel").textContent = "Level: " + p;

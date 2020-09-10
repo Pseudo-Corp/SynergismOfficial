@@ -295,7 +295,9 @@ function toggleAutoResearch() {
 
     if (player.autoResearchToggle && player.cubeUpgrades[9] === 1) {
         player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
-        document.getElementById("res" + player.autoResearch).style.backgroundColor = "orange"
+        let doc = document.getElementById("res" + player.autoResearch)
+        if (doc)
+            doc.style.backgroundColor = "orange"
     }
 
 

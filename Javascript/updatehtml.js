@@ -634,11 +634,11 @@ function htmlInserts() {
 
                 document.getElementById('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i - 1]) + "/" + format(calculateMaxRunes(i))
                 document.getElementById('rune' + i + 'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP"
-                document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(17 * player.constantUpgrades[7] + 3 * (player.antUpgrades[9] + bonusant9) + place) + "]"
+                document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + 1 * (player.antUpgrades[9] + bonusant9) + place) + "]"
             }
 
-            document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 10 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + "* EXP per offering sacrificed."
-            document.getElementById("runerecycle").textContent = "You have " + (5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, player.runelevels[3] / 40) + 0.5 * player.cubeUpgrades[2]) + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(), 2, true) + "!"
+            document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 25 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + "* EXP per offering sacrificed."
+            document.getElementById("runerecycle").textContent = "You have " + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, rune4level / 16) + 0.5 * player.cubeUpgrades[2]),2,true) + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(), 2, true) + "!"
 
         }
 
@@ -655,7 +655,7 @@ function htmlInserts() {
                 document.getElementById('runeBlessingLevel' + i + 'Value').textContent = format(player.runeBlessingLevels[i], 0, true)
                 document.getElementById('runeBlessingPower' + i + 'Value1').textContent = format(runeBlessings[i])
                 document.getElementById('runeBlessingPurchaseAmount' + i).textContent = format(Math.max(1, calculateSummationLinear(player.runeBlessingLevels[i], 1e7, player.runeshards, player.runeBlessingBuyAmount)[0] - player.runeBlessingLevels[i]))
-                document.getElementById('runeBlessingPurchaseCost' + i).textContent = format(Math.max(1e7 * (1 + player.runeBlessingLevels[i]), calculateSummationLinear(player.runeBlessingLevels[i], 1e7, player.runeshards, player.runeBlessingBuyAmount)[1]))
+                document.getElementById('runeBlessingPurchaseCost' + i).textContent = format(Math.max(1e6 * (1 + player.runeBlessingLevels[i]), calculateSummationLinear(player.runeBlessingLevels[i], 1e6, player.runeshards, player.runeBlessingBuyAmount)[1]))
                 if (i === 5) {
                     t = 1
                 }
@@ -853,7 +853,7 @@ function buttoncolorchange() {
         ((!player.toggles.thirteen || player.achievements[99] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.fourthCostDiamonds)) ? d.style.backgroundColor = "#555555" : d.style.backgroundColor = "#171717";
         ((!player.toggles.fourteen || player.achievements[106] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.fifthCostDiamonds)) ? e.style.backgroundColor = "#555555" : e.style.backgroundColor = "#171717";
         let k = 0;
-        k += Math.floor(rune3level / 40 * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100)) * 100 / 100
+        k += Math.floor(rune3level / 16 * effectiveLevelMult) * 100 / 100
         if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0) {
             k += 10
         }

@@ -44,12 +44,12 @@ function challengeDisplay(i, changefocus, automated) {
         d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i])) + " Coins in challenge."
         e.textContent = "+10 base Multiplier Boosts! [+0.05 to power!] Current: "
         f.textContent = "+10% total Multiplier Boosts! Current: "
-        g.textContent = "+0.10 base Rune exp per Offering! Current: "
+        g.textContent = "+0.04 base Rune exp per Offering! Current: "
         h.textContent = "+1 free Multiplier! +1 Base EXP per offering used!"
         k.textContent = "Start [No Multipliers]"
         l.textContent = "+" + format(10 * CalcECC('transcend', player.challengecompletions[1])) + " Boosts"
         m.textContent = "+" + format(10 * CalcECC('transcend', player.challengecompletions[1])) + "% more Boosts"
-        n.textContent = "+" + format(0.1 * CalcECC('transcend', player.challengecompletions[1]), 2, true) + " Rune EXP [Highest Completion]"
+        n.textContent = "+" + format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true) + " Rune EXP [Highest Completion]"
     }
     if (i === 2 && challengefocus === 2) {
         maxChallenges = 25 + 5 * player.researches[67] + 925 * player.researches[105]
@@ -74,12 +74,12 @@ function challengeDisplay(i, changefocus, automated) {
         d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i])) + " Coins in challenge."
         e.textContent = "Crystal --> Coin conversion exponent +0.04! Current: "
         f.textContent = "+0.5% to Grandmaster production per Mythos producer bought. Current: "
-        g.textContent = "When you use a rune, all other runes gain +0.05 EXP. Current: "
+        g.textContent = "When you use a rune, all other runes gain +0.01 EXP. Current: "
         h.textContent = "Gain an offering automatically every 2 seconds!"
         k.textContent = "Start [No Shards]"
         l.textContent = "Exponent +" + format(0.04 * player.challengecompletions[3], 2, true)
         m.textContent = "+" + format(0.5 * CalcECC('transcend', player.challengecompletions[3]), 2, true) + "%"
-        n.textContent = "+" + format(0.05 * CalcECC('transcend', player.challengecompletions[3]), 2, true) + " EXP"
+        n.textContent = "+" + format(0.01 * CalcECC('transcend', player.challengecompletions[3]), 2, true) + " EXP"
     }
     if (i === 4 && challengefocus === 4) {
         maxChallenges = 25 + 5 * player.researches[69] + 925 * player.researches[105]
@@ -188,12 +188,12 @@ function challengeDisplay(i, changefocus, automated) {
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
         e.textContent = "+15 free Ant Levels! Current: "
         f.textContent = "Ant Speed x(1e15)^completions! Current: "
-        g.textContent = "+200 to Rune Caps! Current: "
+        g.textContent = "+80 to Rune Caps! Current: "
         h.textContent = "Unlock 15 Researches, and unlock the ability to open Tesseracts!"
         k.textContent = "Start <[(Reduced Ants)]>"
         l.textContent = "+" + format(15 * CalcECC('ascension', player.challengecompletions[11])) + " free ant levels"
         m.textContent = "Ant Speed x" + format(Decimal.pow(1e15, CalcECC('ascension', player.challengecompletions[11])))
-        n.textContent = "+" + format(200 * CalcECC('ascension', player.challengecompletions[11])) + " to Rune Caps"
+        n.textContent = "+" + format(80 * CalcECC('ascension', player.challengecompletions[11])) + " to Rune Caps"
     }
     if (i === 12 && challengefocus === 12) {
         a.textContent = "No Reincarnation Challenge || " + player.challengecompletions[12] + "/" + format(maxChallenges) + " Completions"
@@ -230,12 +230,12 @@ function challengeDisplay(i, changefocus, automated) {
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
         e.textContent = "+1 to the level caps on the first five researches! Current: "
         f.textContent = "+1 research purchased per roomba tick! Current: "
-        g.textContent = "+500 to Rune Caps! Current: "
+        g.textContent = "+200 to Rune Caps! Current: "
         h.textContent = "Unlock 15 Researches, and a way to coalesce your power into the Singularity [Coming Soon]"
         k.textContent = "Start <[(No Research)]>"
         l.textContent = "+" + format(1 * player.challengecompletions[14]) + " Level Cap"
         m.textContent = "+" + format(1 * player.challengecompletions[14]) + " per Tick"
-        n.textContent = "+" + format(500 * CalcECC('ascension', player.challengecompletions[14])) + " to Rune Caps"
+        n.textContent = "+" + format(200 * CalcECC('ascension', player.challengecompletions[14])) + " to Rune Caps"
     }
     if (i === 15 && challengefocus === 15) {
         a.textContent = "SADISTIC CHALLENGE II || " + player.challengecompletions[15] + "/1 Completions"

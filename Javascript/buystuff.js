@@ -1,6 +1,6 @@
 function getReductionValue() {
     let reduction = 1;
-    reduction += 1 / 400 * rune4level * effectiveLevelMult;
+    reduction += 1 / 160 * rune4level * effectiveLevelMult;
     reduction += 1 / 200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]);
     reduction += 1 / 200 * CalcECC('transcend', player.challengecompletions[4]);
     reduction += 3 / 100 * (player.antUpgrades[7] + bonusant7);
@@ -340,7 +340,7 @@ function buyProducer(pos, type, num, autobuyer) {
     let buythisamount = 0;
     let r = 1;
     let tag = "";
-    r += 1 / 2000 * rune4level * effectiveLevelMult
+    r += 1 / 160 * rune4level * effectiveLevelMult
     r += 1 / 200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60])
     r += 1 / 200 * CalcECC('transcend', player.challengecompletions[4])
     r += 3 / 100 * player.antUpgrades[7] + 3 / 100 * bonusant7
@@ -445,7 +445,7 @@ function buyCrystalUpgrades(i, auto) {
     const u = i - 1;
 
     let c = 0;
-    c += Math.floor(rune3level / 40 * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100)) * 100 / 100
+    c += Math.floor(rune3level / 16 * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100)) * 100 / 100
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
         c += 10
     }
@@ -591,7 +591,7 @@ function buyRuneBonusLevels(type, index) { //type 1 for Blessings, type 2 for Sp
     let levelCap
     (type === 2) ?
         (baseCost = 1e20, baseLevels = player.runeSpiritLevels[index], levelCap = player.runeSpiritBuyAmount) :
-        (baseCost = 1e7, baseLevels = player.runeBlessingLevels[index], levelCap = player.runeBlessingBuyAmount);
+        (baseCost = 1e6, baseLevels = player.runeBlessingLevels[index], levelCap = player.runeBlessingBuyAmount);
 
     let metadata = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap); //metadata[0] is the level, metadata[1] is the cost
     (type === 2) ?

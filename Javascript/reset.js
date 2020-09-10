@@ -706,7 +706,7 @@ function resetUpgrades(i, fast) {
         player.crystalUpgradesCost = [7, 15, 20, 40, 100, 200, 500, 1000]
 
         let m = 0;
-        m += Math.floor(rune3level * effectiveLevelMult / 40) * 100 / 100
+        m += Math.floor(rune3level * effectiveLevelMult / 16) * 100 / 100
         if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
             m += 10
         }

@@ -49,8 +49,8 @@ function calculatetax(fast) {
     exponent *= (1 - 1 / 20 * player.researches[51] - 1 / 40 * player.researches[52] - 1 / 80 * player.researches[53] - 1 / 160 * player.researches[54] - 1 / 320 * player.researches[55])
     exponent *= (1 - 0.05 / 1800 * (player.achievements[45] + player.achievements[46] + 2 * player.achievements[47]) * Math.min(player.prestigecounter, 1800))
     exponent *= Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6]))
-    exponent *= (0.001 + .999 * (Math.pow(6, -(rune2level * effectiveLevelMult) / 2500)))
-    exponent *= (0.01 + .99 * (Math.pow(4, Math.min(0, (1000 - rune4level) / 2750))))
+    exponent *= (0.001 + .999 * (Math.pow(6, -(rune2level * effectiveLevelMult) / 1000)))
+    exponent *= (0.01 + .99 * (Math.pow(4, Math.min(0, (400 - rune4level) / 1100))))
     exponent *= (1 - 0.04 * player.achievements[82] - 0.04 * player.achievements[89] - 0.04 * player.achievements[96] - 0.04 * player.achievements[103] - 0.04 * player.achievements[110] - 0.0566 * player.achievements[117] - 0.0566 * player.achievements[124] - 0.0566 * player.achievements[131])
     exponent *= f;
     exponent *= Math.pow(0.9925, player.achievements[118] * (player.challengecompletions[6] + player.challengecompletions[7] + player.challengecompletions[8] + player.challengecompletions[9] + player.challengecompletions[10]));
