@@ -18,8 +18,8 @@ function corruptionDisplay(index){
         case 2:
             a.textContent = "Corruption II: Maladaption"
             b.textContent = "Insert Cool Text Here."
-            c.textContent = "On this Ascension, this corruption is level " + format(player.usedCorruptions[2]) + ". Effect: Free Multiplier Exponent ^" + format(maladaptivePower[player.usedCorruptions[2]],3)
-            d.textContent = "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[2]) + ". Effect: Free Multiplier Exponent ^" + format(maladaptivePower[player.prototypeCorruptions[2]],3)
+            c.textContent = "On this Ascension, this corruption is level " + format(player.usedCorruptions[2]) + ". Effect: Free Accelerator Exponent ^" + format(maladaptivePower[player.usedCorruptions[2]],3)
+            d.textContent = "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[2]) + ". Effect: Free Accelerator Exponent ^" + format(maladaptivePower[player.prototypeCorruptions[2]],3)
             e.textContent = "Current Score Multiplier: " + format(corruptionPointMultipliers[player.usedCorruptions[2]],1) + " / Next Ascension Score Multiplier: " + format(corruptionPointMultipliers[player.prototypeCorruptions[2]],1)
             break;
         case 3:
