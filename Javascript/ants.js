@@ -28,7 +28,7 @@ var antupgdesc5 = "Imitates your body through magic shape-shifting powers [up to
 var antupgdesc6 = "Tries to please Ant God... but fails [Additional Offerings!]"
 var antupgdesc7 = "Helps you build a few things here and there [+3% Building Cost Delay / level]"
 var antupgdesc8 = "Knows how to salt and pepper food [Up to 1,000x Rune EXP!]"
-var antupgdesc9 = "Can make your message to Ant God a little more clear [+3 all Rune Levels / level]"
+var antupgdesc9 = "Can make your message to Ant God a little more clear [+1 all Rune Levels / level]"
 var antupgdesc10 = "Has big brain energy [Additional Obtainium!]"
 var antupgdesc11 = "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]"
 var antupgdesc12 = "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
@@ -59,7 +59,7 @@ const antUpgradeTexts = [null,
         return "Rune EXP is multiplied by " + format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8] + bonusant8, 1.1)), 3) + "!"
     },
     function () {
-        return "Each rune has +" + format(3 * (player.antUpgrades[9] + bonusant9)) + " effective levels."
+        return "Each rune has +" + format(1 * (player.antUpgrades[9] + bonusant9)) + " effective levels."
     },
     function () {
         return "Obtainium x" + format(1 + 2 * Math.pow((player.antUpgrades[10] + bonusant10) / 50, 0.75), 4)
@@ -211,7 +211,7 @@ function getAntCost(originalCost, buyTo, type, index) {
 
 }
 
-
+//Note to self: REWRITE THIS SHIT PLATONIC
 function buyAntProducers(pos, type, originalCost, index) {
     let sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints);
     //This is a fucking cool function. This will buymax ants cus why not

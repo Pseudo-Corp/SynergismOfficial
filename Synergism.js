@@ -541,6 +541,8 @@ const player = {
     exporttest: "YES!",
     kongregatetest: "NO!",
 
+    sept10Test: false, //Remove This Before releasing v2
+
     [Symbol.for('version')]: '1.0101'
 }
 
@@ -1447,8 +1449,8 @@ function updateAllTick() {
     freeUpgradeAccelerator = a;
     a += totalAcceleratorBoost * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20] + cubeBonusMultiplier[1]);
     if (player.unlocks.prestige === true) {
-        a += Math.floor(Math.pow(rune1level * effectiveLevelMult / 10, 1.25));
-        a *= (1 + rune1level * 1 / 1000 * effectiveLevelMult);
+        a += Math.floor(Math.pow(rune1level * effectiveLevelMult / 4, 1.25));
+        a *= (1 + rune1level * 1 / 400 * effectiveLevelMult);
     }
     calculateAcceleratorMultiplier();
     a *= acceleratorMultiplier
@@ -1578,12 +1580,12 @@ function updateAllMultiplier() {
     if (player.achievements[59] > 0.5) {
         a += 1
     }
-    a += 20 * player.researches[94] * Math.floor((rune1level + rune2level + rune3level + rune4level + rune5level) / 20)
+    a += 20 * player.researches[94] * Math.floor((rune1level + rune2level + rune3level + rune4level + rune5level) / 8)
 
     freeUpgradeMultiplier = a
 
     if (player.achievements[38] > 0.5) {
-        a += Math.floor(Math.floor(rune2level / 25 * effectiveLevelMult) * Math.floor(1 + rune2level / 25 * effectiveLevelMult) / 2) * 100 / 100
+        a += Math.floor(Math.floor(rune2level / 10 * effectiveLevelMult) * Math.floor(1 + rune2level / 10 * effectiveLevelMult) / 2) * 100 / 100
     }
     a *= (1 + player.achievements[57] / 100)
     a *= (1 + player.achievements[58] / 100)
@@ -1597,7 +1599,7 @@ function updateAllMultiplier() {
     }
     a *= (1 + 1 / 5 * player.researches[2])
     a *= (1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15])
-    a *= (1 + rune2level / 1000 * effectiveLevelMult)
+    a *= (1 + rune2level / 400 * effectiveLevelMult)
     a *= (1 + 1 / 20 * player.researches[87])
     a *= (1 + 1 / 100 * player.researches[128])
     a *= (1 + 0.8 / 100 * player.researches[143])
@@ -1792,7 +1794,7 @@ function multipliers() {
         globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.log(player.prestigePoints.add(1), 10))
     }
     if (player.achievements[43] > 0.5) {
-        globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(rune3level / 5 * effectiveLevelMult, 2).times(Decimal.pow(2, rune3level * effectiveLevelMult / 5 - 8)).add(1))
+        globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(rune3level / 2 * effectiveLevelMult, 2).times(Decimal.pow(2, rune3level * effectiveLevelMult / 2 - 8)).add(1))
     }
     if (player.upgrades[36] > 0.5) {
         globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.min("1e5000", Decimal.pow(player.prestigePoints, 1 / 500)))
@@ -1858,7 +1860,7 @@ function multipliers() {
     }
 
     globalAntMult = new Decimal(1);
-    globalAntMult = globalAntMult.times(1 + 1 / 20000 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84] / 200), 2))
+    globalAntMult = globalAntMult.times(1 + 1 / 2500 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84] / 200), 2))
     if (player.upgrades[76] === 1) {
         globalAntMult = globalAntMult.times(5)
     }
@@ -2512,7 +2514,7 @@ function updateAll() {
         }
     }
     let c = 0;
-    c += Math.floor(rune3level / 40 * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100)) * 100 / 100
+    c += Math.floor(rune3level / 16 * effectiveLevelMult) * 100 / 100
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
         c += 10
     }
