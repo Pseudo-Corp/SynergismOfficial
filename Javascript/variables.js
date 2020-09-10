@@ -13,7 +13,8 @@ var upgradeCosts = [0, 6, 7, 8, 10, 12, 20, 25, 30, 35, 45, 55, 75, 110, 150, 20
 // Mega list of Variables to be used elsewhere
 var crystalUpgradesCost = [6, 15, 20, 40, 100, 200, 500, 1000]
 var crystalUpgradeCostIncrement = [8, 15, 20, 40, 100, 200, 500, 1000]
-var researchBaseCosts = [1e100, 1, 1, 1, 1, 1,
+var researchBaseCosts = [1e100,
+    1, 1, 1, 1, 1,
     1, 1e2, 1e4, 1e6, 1e8,
     2, 2e2, 2e4, 2e6, 2e8,
     4e4, 4e8, 10, 1e5, 1e9,
@@ -38,19 +39,19 @@ var researchBaseCosts = [1e100, 1, 1, 1, 1, 1,
     1e20, 2e20, 4e20, 8e20, 1e21,
     2e21, 4e21, 8e21, 2e22, 4e22,
     8e22, 2e23, 4e23, 1e21, 7.777e32,
-    /*ascension tier */                5e8, 5e12, 5e16, 5e20, 5e24,
+    5e8, 5e12, 5e16, 5e20, 5e24, /*ascension tier */
     1e25, 2e25, 4e25, 8e25, 1e26,
     4e26, 8e26, 1e27, 2e27, 1e28,
-    /*challenge 11 tier */            5e9, 5e15, 5e21, 5e27, 5e28,
+    5e9, 5e15, 5e21, 5e27, 5e28, /*challenge 11 tier */
     1e29, 2e29, 4e29, 8e29, 1e30,
     2e30, 4e30, 8e30, 1e31, 2e31,
-    /*challenge 12 tier */            5e31, 1e32, 2e32, 4e32, 8e32,
+    5e31, 1e32, 2e32, 4e32, 8e32, /*challenge 12 tier */
     1e33, 2e33, 4e33, 8e33, 1e34,
     3e34, 1e35, 3e35, 6e35, 1e36,
-    /*challenge 13 tier */            3e36, 1e37, 3e37, 1e38, 3e38,
+    3e36, 1e37, 3e37, 1e38, 3e38, /*challenge 13 tier */
     1e39, 3e39, 1e40, 3e40, 1e50,
     3e41, 1e42, 3e42, 6e42, 1e43,
-    /*challenge 14 tier */            3e43, 1e44, 3e44, 1e45, 3e45,
+    3e43, 1e44, 3e44, 1e45, 3e45, /*challenge 14 tier */
     1e46, 3e46, 1e47, 3e47, 1e60,
     3e48, 1e49, 3e49, 6e49, 5e54
 ]
@@ -350,9 +351,9 @@ var autoOfferingCounter2 = 0;
 
 var researchOrderByCost = []
 
-var divisivenessPower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 1/3]
-var maladaptivePower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 1/3]
-var lazinessMultiplier = [1, 1/3, 1/10, 1/40, 1/200, 1/10000, 1/1000000]
+var divisivenessPower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 1 / 3]
+var maladaptivePower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 1 / 3]
+var lazinessMultiplier = [1, 1 / 3, 1 / 10, 1 / 40, 1 / 200, 1 / 10000, 1 / 1000000]
 var hyperchallengedMultiplier = [1, 1.2, 1.5, 1.7, 2, 2.5, 3]
 var illiteracyPower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3]
 var deflationMultiplier = [1, 0.3, 0.1, 0.03, 0.01, 0.003, 0]

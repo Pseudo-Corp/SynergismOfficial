@@ -208,11 +208,11 @@ function calculateRuneExpToLevel(runeIndex) {
     // Rune exp required to level multipliers
     let allRuneExpRequiredMultiplier = productContents([
         Math.pow(runelevel / 2, 3),
-        ((4 * runelevel) + 100) / 500,
-        Math.max(1, (runelevel - 500) / 20),
-        Math.max(1, (runelevel - 1000) / 25),
-        Math.max(1, (runelevel - 1500) / 30),
-        Math.max(1, Math.pow(1.03, (runelevel - 2000)/4))
+        ((8 * runelevel) + 100) / 500,
+        Math.max(1, (runelevel - 200) / 8),
+        Math.max(1, (runelevel - 400) / 10),
+        Math.max(1, (runelevel - 600) / 12),
+        Math.max(1, Math.pow(1.03, (runelevel - 800)/4))
     ]);
     let expToLevel = productContents([
         runeexpbase[runeIndex],

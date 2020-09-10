@@ -1,11 +1,11 @@
 var antdesc1 = "Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!"
-var antdesc2 = "Gain a breeder ant which can producer worker ants automatically!"
-var antdesc3 = "Gain a meta-breeder ant which can produce breeder ants automatically!"
-var antdesc4 = "Gain a mega-breeder ant which can produce meta-breeder ants automatically!"
-var antdesc5 = "Gain a Queen ant which can produce mega-breeder ants automatically!"
-var antdesc6 = "Gain a Lord Royal ant which can produce Queen ants automatically!"
-var antdesc7 = "Gain an ALMIGHTY ANT which can produce Lord Royal ants automatically!"
-var antdesc8 = "Gain a DISCIPLE OF ANT GOD which can produce ALMIGHTY ANTS automatically!"
+var antdesc2 = "Gain a breeder ant that produces worker ants automatically!"
+var antdesc3 = "Gain a meta-breeder ant that produces breeder ants automatically!"
+var antdesc4 = "Gain a mega-breeder ant that produces meta-breeder ants automatically!"
+var antdesc5 = "Gain a Queen ant that produces mega-breeder ants automatically!"
+var antdesc6 = "Gain a Lord Royal ant that produces Queen ants automatically!"
+var antdesc7 = "Gain an ALMIGHTY ANT that produces Lord Royal ants automatically!"
+var antdesc8 = "Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!"
 
 var antspecies1 = "Inceptus Formicidae"
 var antspecies2 = "Fortunae Formicidae"
@@ -461,3 +461,27 @@ function sacrificeAnts(auto) {
         achievementaward(248)
     }
 }
+function autoBuyAnts() {
+    const canAffordUpgrade = (x, m) => player.antPoints.greaterThanOrEqualTo(getAntUpgradeCost(new Decimal(antUpgradeBaseCost[x]), player.antUpgrades[x] + 1, x).times(m))
+    let ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
+    let cost = ["100", "100", "1000", "1000", "1e5", "1e6", "1e8", "1e11", "1e15", "1e20", "1e40", "1e100"];
+    if (player.currentChallenge.ascension !== 11) {
+        for (let i = 1; i <= ach.length; i++) {
+            let check = i === 12 ? player.researches[ach[i - 1]] : player.achievements[ach[i - 1]];
+            if (check && canAffordUpgrade(i, 2)) {
+                buyAntUpgrade(cost[i - 1], true, i);
+            }
+        }
+    }
+
+    ach = [173, 176, 177, 178, 179, 180, 181, 182];
+    cost = ["1e800", "3", "100", "10000", "1e12", "1e36", "1e100", "1e300"];
+    for (let i = 1; i <= ach.length; i++) {
+        let res = i === 1 ? player.reincarnationPoints : player.antPoints;
+        let m = i === 1 ? 1 : 2; // no multiplier on the first ant cost because it costs particles
+        if (player.achievements[ach[i - 1]] && res.greaterThanOrEqualTo(player[ordinals[i - 1] + "CostAnts"].times(m))) {
+            buyAntProducers(ordinals[i - 1], "Ants", cost[i - 1], i);
+        }
+    }
+}
+

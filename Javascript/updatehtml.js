@@ -638,7 +638,7 @@ function htmlInserts() {
             }
 
             document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 25 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + "* EXP per offering sacrificed."
-            document.getElementById("runerecycle").textContent = "You have " + (5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, rune4level / 400) + 0.5 * player.cubeUpgrades[2]) + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(), 2, true) + "!"
+            document.getElementById("runerecycle").textContent = "You have " + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, rune4level / 16) + 0.5 * player.cubeUpgrades[2]),2,true) + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(), 2, true) + "!"
 
         }
 
@@ -655,7 +655,7 @@ function htmlInserts() {
                 document.getElementById('runeBlessingLevel' + i + 'Value').textContent = format(player.runeBlessingLevels[i], 0, true)
                 document.getElementById('runeBlessingPower' + i + 'Value1').textContent = format(runeBlessings[i])
                 document.getElementById('runeBlessingPurchaseAmount' + i).textContent = format(Math.max(1, calculateSummationLinear(player.runeBlessingLevels[i], 1e7, player.runeshards, player.runeBlessingBuyAmount)[0] - player.runeBlessingLevels[i]))
-                document.getElementById('runeBlessingPurchaseCost' + i).textContent = format(Math.max(1e7 * (1 + player.runeBlessingLevels[i]), calculateSummationLinear(player.runeBlessingLevels[i], 1e7, player.runeshards, player.runeBlessingBuyAmount)[1]))
+                document.getElementById('runeBlessingPurchaseCost' + i).textContent = format(Math.max(1e6 * (1 + player.runeBlessingLevels[i]), calculateSummationLinear(player.runeBlessingLevels[i], 1e6, player.runeshards, player.runeBlessingBuyAmount)[1]))
                 if (i === 5) {
                     t = 1
                 }
