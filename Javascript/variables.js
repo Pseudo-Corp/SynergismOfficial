@@ -8,28 +8,28 @@ var upgradeCosts = [0, 6, 7, 8, 10, 12, 20, 25, 30, 35, 45, 55, 75, 110, 150, 20
     0, 1, 2, 2, 3, 5, 6, 10, 15, 22, 30, 37, 45, 52, 60, 1900, 2500, 3000, 7482, 21397,
     3, 6, 9, 12, 15, 20, 30, 6, 8, 8, 10, 13, 60, 1, 2, 4, 8, 16, 25, 40,
     12, 16, 20, 30, 50, 500, 1250, 5000, 25000, 125000, 1500, 7500, 30000, 150000, 1000000, 250, 1000, 5000, 25000, 125000,
-    1, 1000, 1e6, 1e9, 1e12];
+    1e3, 1e6, 1e9, 1e12, 1e15];
 
 // Mega list of Variables to be used elsewhere
 var crystalUpgradesCost = [6, 15, 20, 40, 100, 200, 500, 1000]
 var crystalUpgradeCostIncrement = [8, 15, 20, 40, 100, 200, 500, 1000]
 var researchBaseCosts = [1e100,
     1, 1, 1, 1, 1,
-    1, 10, 100, 10000, 100000000,
-    2, 20, 200, 20000, 200000000,
-    4000, 40000000, 10, 250000, 1e8,
-    80, 10, 500, 100, 2000,
+    1, 1e2, 1e4, 1e6, 1e8,
+    2, 2e2, 2e4, 2e6, 2e8,
+    4e4, 4e8, 10, 1e5, 1e9,
+    100, 100, 1e4, 2e3, 2e5,
     40, 200, 50, 5000, 20000000,
     777, 7777, 50000, 500000, 5000000,
-    10, 2500, 1e6, 1e5, 1e9,
+    2e3, 2e6, 2e9, 1e5, 1e9,
     1, 1, 5, 25, 125,
     2, 5, 320, 1280, 2.5e9,
-    5, 500, 5e3, 5e5, 5e7,
-    5, 500, 5e3, 5e5, 5e7,
-    15, 50, 125, 500, 100000,
-    1, 100, 1000, 10000, 100000,
+    10, 2e3, 4e5, 8e7, 2e9,
+    5, 400, 1e4, 3e6, 9e8,
+    100, 2500, 100, 2000, 2e5,
+    1, 20, 3e3, 4e5, 5e7,
     10, 40, 160, 1000, 10000,
-    1e9, 2e9, 4e9, 8e9, 1.6e10,
+    4e9, 7e9, 1e10, 1.2e10, 1.5e10,
     1e12, 1e13, 3e12, 2e13, 2e13,
     2e14, 6e14, 2e15, 6e15, 2e16,
     1e16, 2e16, 2e17, 4e17, 1e18,
@@ -53,7 +53,7 @@ var researchBaseCosts = [1e100,
     3e41, 1e42, 3e42, 6e42, 1e43,
     3e43, 1e44, 3e44, 1e45, 3e45, /*challenge 14 tier */
     1e46, 3e46, 1e47, 3e47, 1e60,
-    3e48, 1e49, 3e49, 6e49, 7.777e54
+    3e48, 1e49, 3e49, 6e49, 5e54
 ]
 
 
@@ -191,7 +191,7 @@ var researchfiller2 = "Level: "
 var ordinals = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"]
 var cardinals = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour", "twentyfive", "twentysix", "twentyseven", "twentyeight", "twentynine", "thirty", "thirtyone", "thirtytwo", "thirtythree", "thirtyfour"]
 
-var challengeBaseRequirements = [null, 10, 20, 60, 100, 200, 125, 500, 10000, 2.5e8, 4e9]
+var challengeBaseRequirements = [null, 10, 20, 60, 100, 200, 125, 500, 10000, 2.5e8, 3.2e9]
 
 var prestigeamount = 1;
 var taxdivisor = new Decimal("1");

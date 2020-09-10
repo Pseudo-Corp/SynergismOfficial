@@ -1,11 +1,11 @@
 var antdesc1 = "Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!"
-var antdesc2 = "Gain a breeder ant which can producer worker ants automatically!"
-var antdesc3 = "Gain a meta-breeder ant which can produce breeder ants automatically!"
-var antdesc4 = "Gain a mega-breeder ant which can produce meta-breeder ants automatically!"
-var antdesc5 = "Gain a Queen ant which can produce mega-breeder ants automatically!"
-var antdesc6 = "Gain a Lord Royal ant which can produce Queen ants automatically!"
-var antdesc7 = "Gain an ALMIGHTY ANT which can produce Lord Royal ants automatically!"
-var antdesc8 = "Gain a DISCIPLE OF ANT GOD which can produce ALMIGHTY ANTS automatically!"
+var antdesc2 = "Gain a breeder ant that produces worker ants automatically!"
+var antdesc3 = "Gain a meta-breeder ant that produces breeder ants automatically!"
+var antdesc4 = "Gain a mega-breeder ant that produces meta-breeder ants automatically!"
+var antdesc5 = "Gain a Queen ant that produces mega-breeder ants automatically!"
+var antdesc6 = "Gain a Lord Royal ant that produces Queen ants automatically!"
+var antdesc7 = "Gain an ALMIGHTY ANT that produces Lord Royal ants automatically!"
+var antdesc8 = "Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!"
 
 var antspecies1 = "Inceptus Formicidae"
 var antspecies2 = "Fortunae Formicidae"
@@ -28,7 +28,7 @@ var antupgdesc5 = "Imitates your body through magic shape-shifting powers [up to
 var antupgdesc6 = "Tries to please Ant God... but fails [Additional Offerings!]"
 var antupgdesc7 = "Helps you build a few things here and there [+3% Building Cost Delay / level]"
 var antupgdesc8 = "Knows how to salt and pepper food [Up to 1,000x Rune EXP!]"
-var antupgdesc9 = "Can make your message to Ant God a little more clear [+3 all Rune Levels / level]"
+var antupgdesc9 = "Can make your message to Ant God a little more clear [+1 all Rune Levels / level]"
 var antupgdesc10 = "Has big brain energy [Additional Obtainium!]"
 var antupgdesc11 = "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]"
 var antupgdesc12 = "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
@@ -59,7 +59,7 @@ const antUpgradeTexts = [null,
         return "Rune EXP is multiplied by " + format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8] + bonusant8, 1.1)), 3) + "!"
     },
     function () {
-        return "Each rune has +" + format(3 * (player.antUpgrades[9] + bonusant9)) + " effective levels."
+        return "Each rune has +" + format(1 * (player.antUpgrades[9] + bonusant9)) + " effective levels."
     },
     function () {
         return "Obtainium x" + format(1 + 2 * Math.pow((player.antUpgrades[10] + bonusant10) / 50, 0.75), 4)
@@ -211,7 +211,7 @@ function getAntCost(originalCost, buyTo, type, index) {
 
 }
 
-
+//Note to self: REWRITE THIS SHIT PLATONIC
 function buyAntProducers(pos, type, originalCost, index) {
     let sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints);
     //This is a fucking cool function. This will buymax ants cus why not
@@ -461,7 +461,6 @@ function sacrificeAnts(auto) {
         achievementaward(248)
     }
 }
-
 function autoBuyAnts() {
     const canAffordUpgrade = (x, m) => player.antPoints.greaterThanOrEqualTo(getAntUpgradeCost(new Decimal(antUpgradeBaseCost[x]), player.antUpgrades[x] + 1, x).times(m))
     let ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
@@ -485,3 +484,4 @@ function autoBuyAnts() {
         }
     }
 }
+
