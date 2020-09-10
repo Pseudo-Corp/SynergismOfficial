@@ -2,7 +2,6 @@ function buyResearch(index, auto) {
     auto = auto || false
     let c14 = 0;
     let spiritBonus = 0;
-    let maxResearchIndex = maxRoombaResearchIndex(player);
     if (index <= 5) {
         c14 += player.challengecompletions[14]
     }
@@ -30,8 +29,8 @@ function buyResearch(index, auto) {
     if (maxbuyresearch || auto) {
         buyamount = 1000
     }
-    if ((auto || !player.autoResearchToggle) && index <= maxResearchIndex) {
-        while (player.researches[index] < (researchMaxLevels[index] + c14 + spiritBonus) && player.researchPoints >= (researchBaseCosts[index]) && buyamount >= i) {
+    if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index)) {
+        while (!isResearchMaxed(index) && player.researchPoints >= researchBaseCosts[index] && buyamount >= i) {
             player.researchPoints -= researchBaseCosts[index]
             player.researches[index] += 1;
             researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index] + c14 + spiritBonus)
@@ -60,17 +59,21 @@ function buyResearch(index, auto) {
         }
     }
 
-    if (0 < index && index <= maxResearchIndex) {
+    if (0 < index && isResearchUnlocked(index)) {
         if (player.researches[index] === (researchMaxLevels[index] + c14 + spiritBonus)) {
             document.getElementById("res" + index).style.backgroundColor = "green"
         }
     }
     if (auto && player.cubeUpgrades[9] === 1) {
         player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
-        if (player.researches[player.autoResearch] >= (researchMaxLevels[player.autoResearch] + c14 + spiritBonus)) {
+        if (isResearchMaxed(player.autoResearch)) {
             player.roombaResearchIndex += 1;
         }
-        if (player.roombaResearchIndex <= maxResearchIndex) {
+        while (!isResearchUnlocked(player.autoResearch)) {
+            player.roombaResearchIndex += 1;
+            player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+        }
+        if (isResearchUnlocked(player.autoResearch)) {
             let doc = document.getElementById("res" + researchOrderByCost[player.roombaResearchIndex])
             if (doc)
                 doc.style.backgroundColor = "orange"
@@ -90,6 +93,34 @@ function maxRoombaResearchIndex(p = player) {
     let c13 = p.challengecompletions[13] > 0 ? 15 : 0;
     let c14 = p.challengecompletions[14] > 0 ? 15 : 0;
     return base + c11 + c12 + c13 + c14;
+}
+
+function isResearchUnlocked(index) {
+    // https://stackoverflow.com/questions/20477177/creating-an-array-of-cumulative-sum-in-javascript
+    const cumuSum = (sum => value => sum += value)(0);
+    let indices = [3 * 25, 5, 20, 10, 15, 15, 15, 15, 15, 15].map(cumuSum);
+    let chievos = [50, 124, 127, 134, 141, 183, 197, 204, 211, 218];
+    for (let i = 0; i < indices.length; i++) {
+        if (i === 3 && (index === 121 || index === 124)) {
+            return player.achievements[chievos[i]] > 0;
+        }
+        if (index <= indices[i]) {
+            return player.achievements[chievos[i]] > 0;
+        }
+    }
+    return false;
+}
+
+function isResearchMaxed(index) {
+    let c14 = 0;
+    let spiritBonus = 0;
+    if (index <= 5) {
+        c14 += player.challengecompletions[14]
+    }
+    if (index === 84) {
+        spiritBonus += Math.ceil(20 * calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[5])
+    }
+    return researchMaxLevels[index] + c14 + spiritBonus <= player.researches[index]
 }
 
 

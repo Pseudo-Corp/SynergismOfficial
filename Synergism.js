@@ -2733,69 +2733,7 @@ function updateAll() {
 
     optimalOfferingTimer = 600 + 30 * player.researches[85] + 0.4 * rune5level + 120 * player.shopUpgrades.offeringTimerLevel
     optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel
-    if (player.currentChallenge.ascension !== 11) {
-        if (player.achievements[176] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[1], player.antUpgrades[1]).times(antUpgradeBaseCost[1]).times(2))) {
-            buyAntUpgrade('100', true, 1)
-        }
-        if (player.achievements[176] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[2], player.antUpgrades[2]).times(antUpgradeBaseCost[2]).times(2))) {
-            buyAntUpgrade('100', true, 2)
-        }
-        if (player.achievements[177] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[3], player.antUpgrades[3]).times(antUpgradeBaseCost[3]).times(2))) {
-            buyAntUpgrade('1000', true, 3)
-        }
-        if (player.achievements[178] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[4], player.antUpgrades[4]).times(antUpgradeBaseCost[4]).times(2))) {
-            buyAntUpgrade('1000', true, 4)
-        }
-        if (player.achievements[178] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[5], player.antUpgrades[5]).times(antUpgradeBaseCost[5]).times(2))) {
-            buyAntUpgrade('1e5', true, 5)
-        }
-        if (player.achievements[179] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[6], player.antUpgrades[6]).times(antUpgradeBaseCost[6]).times(2))) {
-            buyAntUpgrade('1e6', true, 6)
-        }
-        if (player.achievements[180] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[7], player.antUpgrades[7]).times(antUpgradeBaseCost[7]).times(2))) {
-            buyAntUpgrade('1e8', true, 7)
-        }
-        if (player.achievements[180] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[8], player.antUpgrades[8]).times(antUpgradeBaseCost[8]).times(2))) {
-            buyAntUpgrade('1e11', true, 8)
-        }
-        if (player.achievements[181] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[9], player.antUpgrades[9]).times(antUpgradeBaseCost[9]).times(2))) {
-            buyAntUpgrade('1e15', true, 9)
-        }
-        if (player.achievements[182] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[10], player.antUpgrades[10]).times(antUpgradeBaseCost[10]).times(2))) {
-            buyAntUpgrade('1e20', true, 10)
-        }
-        if (player.achievements[182] && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[11], player.antUpgrades[11]).times(antUpgradeBaseCost[11]).times(2))) {
-            buyAntUpgrade('1e40', true, 11)
-        }
-        if (player.researches[145] > 0 && player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[12], player.antUpgrades[12]).times(antUpgradeBaseCost[12]).times(2))) {
-            buyAntUpgrade('1e100', true, 12)
-        }
-    }
-
-    if (player.achievements[173] === 1 && player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostAnts)) {
-        buyAntProducers('first', 'Ants', '1e800', 1);
-    }
-    if (player.achievements[176] === 1 && player.antPoints.greaterThanOrEqualTo(player.secondCostAnts.times(2))) {
-        buyAntProducers('second', 'Ants', '3', 2);
-    }
-    if (player.achievements[177] === 1 && player.antPoints.greaterThanOrEqualTo(player.thirdCostAnts.times(2))) {
-        buyAntProducers('third', 'Ants', '100', 3);
-    }
-    if (player.achievements[178] === 1 && player.antPoints.greaterThanOrEqualTo(player.fourthCostAnts.times(2))) {
-        buyAntProducers('fourth', 'Ants', '10000', 4);
-    }
-    if (player.achievements[179] === 1 && player.antPoints.greaterThanOrEqualTo(player.fifthCostAnts.times(2))) {
-        buyAntProducers('fifth', 'Ants', '1e12', 5);
-    }
-    if (player.achievements[180] === 1 && player.antPoints.greaterThanOrEqualTo(player.sixthCostAnts.times(2))) {
-        buyAntProducers('sixth', 'Ants', '1e36', 6);
-    }
-    if (player.achievements[181] === 1 && player.antPoints.greaterThanOrEqualTo(player.seventhCostAnts.times(2))) {
-        buyAntProducers('seventh', 'Ants', '1e100', 7);
-    }
-    if (player.achievements[182] === 1 && player.antPoints.greaterThanOrEqualTo(player.eighthCostAnts.times(2))) {
-        buyAntProducers('eighth', 'Ants', '1e300', 8);
-    }
+    autoBuyAnts()
 
     if (player.antSacrificeTimer >= 900 && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
         sacrificeAnts(true)

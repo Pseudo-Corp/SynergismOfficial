@@ -461,3 +461,27 @@ function sacrificeAnts(auto) {
         achievementaward(248)
     }
 }
+function autoBuyAnts() {
+    const canAffordUpgrade = (x, m) => player.antPoints.greaterThanOrEqualTo(getAntUpgradeCost(new Decimal(antUpgradeBaseCost[x]), player.antUpgrades[x] + 1, x).times(m))
+    let ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
+    let cost = ["100", "100", "1000", "1000", "1e5", "1e6", "1e8", "1e11", "1e15", "1e20", "1e40", "1e100"];
+    if (player.currentChallenge.ascension !== 11) {
+        for (let i = 1; i <= ach.length; i++) {
+            let check = i === 12 ? player.researches[ach[i - 1]] : player.achievements[ach[i - 1]];
+            if (check && canAffordUpgrade(i, 2)) {
+                buyAntUpgrade(cost[i - 1], true, i);
+            }
+        }
+    }
+
+    ach = [173, 176, 177, 178, 179, 180, 181, 182];
+    cost = ["1e800", "3", "100", "10000", "1e12", "1e36", "1e100", "1e300"];
+    for (let i = 1; i <= ach.length; i++) {
+        let res = i === 1 ? player.reincarnationPoints : player.antPoints;
+        let m = i === 1 ? 1 : 2; // no multiplier on the first ant cost because it costs particles
+        if (player.achievements[ach[i - 1]] && res.greaterThanOrEqualTo(player[ordinals[i - 1] + "CostAnts"].times(m))) {
+            buyAntProducers(ordinals[i - 1], "Ants", cost[i - 1], i);
+        }
+    }
+}
+

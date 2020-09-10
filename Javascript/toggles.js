@@ -295,7 +295,9 @@ function toggleAutoResearch() {
 
     if (player.autoResearchToggle && player.cubeUpgrades[9] === 1) {
         player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
-        document.getElementById("res" + player.autoResearch).style.backgroundColor = "orange"
+        let doc = document.getElementById("res" + player.autoResearch)
+        if (doc)
+            doc.style.backgroundColor = "orange"
     }
 
 
@@ -605,7 +607,7 @@ function toggleCorruptionLevel(index, value){
     player.prototypeCorruptions[index] += 1
     }
     if(value < 0 && player.prototypeCorruptions[index] > 0){
-    player.prototypeCorruptions[index] -= 1 
+    player.prototypeCorruptions[index] -= 1
     }
     if(value === 999){
     for(var i = 1; i <= 9; i++){
