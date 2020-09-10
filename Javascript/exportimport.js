@@ -5,6 +5,18 @@ function getRealTime() {
     return date + " " + time;
 }
 
+function saveFilename() {
+    let s = player.saveString
+    let re = /(.+)\$TIME\$(.*)\.txt/
+    let match = s.match(re)
+    console.log(match)
+    if (match !== null) {
+        return match[1] + getRealTime() + match[2] + ".txt"
+    } else {
+        return s
+    }
+}
+
 function exportSynergism() {
     player.offlinetick = Date.now();
     if (player.quarkstimer >= 3600) {
@@ -22,7 +34,7 @@ function exportSynergism() {
     }
 
     const a = document.createElement('a');
-    const filename = typeof player.saveString === 'function' ? player.saveString() : player.saveString;
+    const filename = saveFilename()
     a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
     a.setAttribute('download', filename);
     a.setAttribute('id', 'downloadSave');
