@@ -53,7 +53,7 @@ function resetdetails(i) {
         offering = calculateOfferings(2)
         if (player.currentChallenge.transcension !== 0) {
             document.getElementById("resetinfo").style.color = "aquamarine"
-            document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + format(player.coinsThisTranscension) + "/" + format(Decimal.pow(10, challengeBaseRequirements[s] * calculateChallengeRequirementMultiplier('transcend',player.challengecompletions[s]))) + " Coins. TIME SPENT: " + format(player.transcendcounter) + " seconds."
+            document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + format(player.coinsThisTranscension) + "/" + format(challengeRequirement(s, player.challengecompletions[s])) + " Coins. TIME SPENT: " + format(player.transcendcounter) + " seconds."
         }
         if (player.currentChallenge.transcension === 0) {
             document.getElementById("resetinfo").textContent = "You're not in a challenge right now. Get in one before you can leave it, duh!"
@@ -101,9 +101,8 @@ function resetdetails(i) {
         document.getElementById("resetobtainium2").textContent = ""
         document.getElementById("resetinfo").style.color = "silver"
         if (player.currentChallenge.reincarnation !== 0) {
-
             document.getElementById("resetinfo").style.color = "silver"
-            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + format(player[goal]) + "/" + format(Decimal.pow(10, challengeBaseRequirements[s] * calculateChallengeRequirementMultiplier('reincarnation',player.challengecompletions[s]))) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."
+            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + format(player[goal]) + "/" + format(challengeRequirement(s, player.challengecompletions[s])) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."
         }
         if (player.currentChallenge.reincarnation === 0) {
             document.getElementById("resetinfo").textContent = "You're not in a reincarnation challenge right now. Why would you need to leave it?"
@@ -707,7 +706,7 @@ function resetUpgrades(i, fast) {
         player.crystalUpgradesCost = [7, 15, 20, 40, 100, 200, 500, 1000]
 
         let m = 0;
-        m += Math.floor(rune3level * effectiveLevelMult / 40) * 100 / 100
+        m += Math.floor(rune3level * effectiveLevelMult / 16) * 100 / 100
         if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
             m += 10
         }

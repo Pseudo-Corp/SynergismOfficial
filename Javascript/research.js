@@ -30,7 +30,7 @@ function buyResearch(index, auto) {
     if (maxbuyresearch || auto) {
         buyamount = 1000
     }
-    if (auto || !player.autoResearchToggle) {
+    if ((auto || !player.autoResearchToggle) && index <= maxResearchIndex) {
         while (player.researches[index] < (researchMaxLevels[index] + c14 + spiritBonus) && player.researchPoints >= (researchBaseCosts[index]) && buyamount >= i) {
             player.researchPoints -= researchBaseCosts[index]
             player.researches[index] += 1;
@@ -71,7 +71,9 @@ function buyResearch(index, auto) {
             player.roombaResearchIndex += 1;
         }
         if (player.roombaResearchIndex <= maxResearchIndex) {
-            document.getElementById("res" + researchOrderByCost[player.roombaResearchIndex]).style.backgroundColor = "orange"
+            let doc = document.getElementById("res" + researchOrderByCost[player.roombaResearchIndex])
+            if (doc)
+                doc.style.backgroundColor = "orange"
         }
     }
     calculateRuneLevels();
@@ -82,7 +84,7 @@ function buyResearch(index, auto) {
  * Calculates the max research index for the research roomba
  */
 function maxRoombaResearchIndex(p = player) {
-    let base = p.ascensionCount > 0 ? 140 : 0; // 125 researches pre-A + 15 from A
+    let base = p.ascensionCount > 0 ? 140 : 125; // 125 researches pre-A + 15 from A
     let c11 = p.challengecompletions[11] > 0 ? 15 : 0;
     let c12 = p.challengecompletions[12] > 0 ? 15 : 0;
     let c13 = p.challengecompletions[13] > 0 ? 15 : 0;
@@ -169,10 +171,10 @@ resdesc = [null,
     "[3x24] Automatically gain completions for Challenge 4, even without running it!",
     "[3x25] Automatically gain completions for Challenge 5, even without running it!",
     "[4x1] Welcome to the land of expensive researches. Here's +10% obtainium per level to help you out!",
-    "[4x2] Increase the level cap of Thrift rune by 25 per level, and +2% exp for that rune in particular.",
-    "[4x3] Increase the level cap of Speed rune by 25 per level, and +2% exp for that rune in particular.",
-    "[4x4] Increase the level cap of Prism rune by 25 per level, and +2% exp for that rune in particular.",
-    "[4x5] Increase the level cap of Duplication rune by 25 per level, and +2% exp for that rune in particular.",
+    "[4x2] Increase the level cap of Thrift rune by 10 per level, and +2% exp for that rune in particular.",
+    "[4x3] Increase the level cap of Speed rune by 10 per level, and +2% exp for that rune in particular.",
+    "[4x4] Increase the level cap of Prism rune by 10 per level, and +2% exp for that rune in particular.",
+    "[4x5] Increase the level cap of Duplication rune by 10 per level, and +2% exp for that rune in particular.",
     "[4x6] You thought the previous researches are expensive? You're going to need this! [+10% Obtainium/level]",
     "[4x7] Permanently UNLOCK the Rune of Superior Intellect! [+%Ob / +Ant Speed / +Offering Timer Ext.]",
     "[4x8] Taking forever to level up that SI Rune? Here's +5% SI Rune EXP per level.",
@@ -186,7 +188,7 @@ resdesc = [null,
     "[4x16] Why is the border pink? A simple +5% Rune EXP for all runes!",
     "[4x17] This border is pink too! Another simple +5% Rune EXP for all runes!",
     "[4x18] I think Platonic forgot to fix the border color. +1 Accelerator Boost per 20 Summative Rune Levels, per level.",
-    "[4x19] Platonic, this is unplayable 0/5. +20 Multiplier per 20 Summative Rune Levels, per level.",
+    "[4x19] Platonic, this is unplayable 0/5. +20 Multiplier per 8 Summative Rune Levels, per level.",
     "[4x20] Gain +4 base Offerings from Reincarnations by purchasing this. Math Nerds will love this!",
     "[4x21] Ants slow? Add +0.0002 to ant efficiency increase per ant purchased per level.",
     "[4x22] Add +4 level to the first six upgradable ants per level!",
@@ -203,11 +205,11 @@ resdesc = [null,
     "[5x8] A simple trick makes your base ant ELO increase by 25 per level!",
     "[5x9] A more convoluted trick makes your base ant ELO increase by 25 per level again!",
     "[5x10] Gain +1% more ELO from ant sources per level because why not?",
-    "[5x11] Gotta go fast [+25 max Speed Rune Level per level, +1% EXP to that rune]",
-    "[5x12] Double Trouble [+25 max Duplication Rune level per level, +1% EXP to that rune]",
-    "[5x13] Newton's Delight [+25 max Prism Rune Level per level, +1% EXP to that rune]",
-    "[5x14] Five-Finger discounts [+25 max Thrift Rune Level per level, +1% EXP to that rune]",
-    "[5x15] Scientific Breakthrough [+25 max SI Rune Level per level +1% EXP to that rune]",
+    "[5x11] Gotta go fast [+10 max Speed Rune Level per level, +1% EXP to that rune]",
+    "[5x12] Double Trouble [+10 max Duplication Rune level per level, +1% EXP to that rune]",
+    "[5x13] Newton's Delight [+10 max Prism Rune Level per level, +1% EXP to that rune]",
+    "[5x14] Five-Finger discounts [+10 max Thrift Rune Level per level, +1% EXP to that rune]",
+    "[5x15] Scientific Breakthrough [+10 max SI Rune Level per level +1% EXP to that rune]",
     "[5x16] Talismans have +0.015 Rune levels per talisman level per level. Levelception!",
     "[5x17] Talismans have another +0.015 Rune levels per talisman level per level!",
     "[5x18] For 'neutral' talisman effects, increase by +0.06 per level!",
@@ -292,7 +294,7 @@ resdesc = [null,
     "[8x22] +0.6% cubes in Ascension Bank / level",
     "[8x23] +0.06% blessings when using cubes / level!",
     "[8x24] +10% faster Tesseract Buildings / level",
-    "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.1 Max Rune level, + Floor(level/400) max Talisman Level, +Floor(level/200) free Ant Level each purchase."
+    "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.04 Max Rune level, + Floor(level/400) max Talisman Level, +Floor(level/200) free ants."
 ];
 
 function researchDescriptions(i, auto) {

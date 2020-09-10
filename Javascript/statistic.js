@@ -9,7 +9,7 @@ function loadStatisticsAccelerator() {
     document.getElementById("sA8").textContent = "x" + format(1 + 1 / 20 * player.researches[6] + 1 / 25 * player.researches[7] + 1 / 40 * player.researches[8] + 3 / 200 * player.researches[9] + 1 / 200 * player.researches[10], 3, true)
     document.getElementById("sA9").textContent = "x" + format(1 + 1 / 20 * player.researches[86], 3, true)
     document.getElementById("sA10").textContent = "x" + format(1.25, 3, true)
-    document.getElementById("sA11").textContent = "x" + format(maladaptiveMultiplier[player.usedCorruptions[2]], 3, true)
+    document.getElementById("sA11").textContent = "^" + format(maladaptivePower[player.usedCorruptions[2]], 3, true)
     document.getElementById("sA12").textContent = format(freeAccelerator, 0, true)
 }
 
@@ -25,9 +25,8 @@ function loadStatisticsMultiplier() {
     document.getElementById("sM9").textContent = "x" + format(1 + 1 / 25 * (player.antUpgrades[5] + bonusant5), 3, true)
     document.getElementById("sM10").textContent = "x" + format(cubeBonusMultiplier[2], 3, true)
     document.getElementById("sM11").textContent = "x" + format(1.25, 3, true)
-    document.getElementById("sM12").textContent = "x" + format(divisivenessMultiplier[player.usedCorruptions[1]], 3, true)
+    document.getElementById("sM12").textContent = "^" + format(divisivenessPower[player.usedCorruptions[1]], 3, true)
     document.getElementById("sM13").textContent = format(freeMultiplier, 3, true)
-
 }
 
 function loadStatisticsCubesPerSecond() {
