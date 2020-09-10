@@ -188,12 +188,12 @@ function challengeDisplay(i, changefocus, automated) {
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
         e.textContent = "+15 free Ant Levels! Current: "
         f.textContent = "Ant Speed x(1e15)^completions! Current: "
-        g.textContent = "+200 to Rune Caps! Current: "
+        g.textContent = "+80 to Rune Caps! Current: "
         h.textContent = "Unlock 15 Researches, and unlock the ability to open Tesseracts!"
         k.textContent = "Start <[(Reduced Ants)]>"
         l.textContent = "+" + format(15 * CalcECC('ascension', player.challengecompletions[11])) + " free ant levels"
         m.textContent = "Ant Speed x" + format(Decimal.pow(1e15, CalcECC('ascension', player.challengecompletions[11])))
-        n.textContent = "+" + format(200 * CalcECC('ascension', player.challengecompletions[11])) + " to Rune Caps"
+        n.textContent = "+" + format(80 * CalcECC('ascension', player.challengecompletions[11])) + " to Rune Caps"
     }
     if (i === 12 && challengefocus === 12) {
         a.textContent = "No Reincarnation Challenge || " + player.challengecompletions[12] + "/" + format(maxChallenges) + " Completions"
@@ -230,12 +230,12 @@ function challengeDisplay(i, changefocus, automated) {
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
         e.textContent = "+1 to the level caps on the first five researches! Current: "
         f.textContent = "+1 research purchased per roomba tick! Current: "
-        g.textContent = "+500 to Rune Caps! Current: "
+        g.textContent = "+200 to Rune Caps! Current: "
         h.textContent = "Unlock 15 Researches, and a way to coalesce your power into the Singularity [Coming Soon]"
         k.textContent = "Start <[(No Research)]>"
         l.textContent = "+" + format(1 * player.challengecompletions[14]) + " Level Cap"
         m.textContent = "+" + format(1 * player.challengecompletions[14]) + " per Tick"
-        n.textContent = "+" + format(500 * CalcECC('ascension', player.challengecompletions[14])) + " to Rune Caps"
+        n.textContent = "+" + format(200 * CalcECC('ascension', player.challengecompletions[14])) + " to Rune Caps"
     }
     if (i === 15 && challengefocus === 15) {
         a.textContent = "SADISTIC CHALLENGE II || " + player.challengecompletions[15] + "/1 Completions"

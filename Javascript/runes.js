@@ -68,11 +68,11 @@ function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
 
     // How much a runes max level is increased by
     let increaseMaxLevel = [
-        25 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
-        25 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
-        25 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
-        25 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50]),
-        25 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 8 * player.constantUpgrades[7] + 200 * CalcECC('ascension', player.challengecompletions[11]) + 500 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.1 * player.researches[200] + 0.1 * player.cubeUpgrades[50])
+        10 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
+        10 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
+        10 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
+        10 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
+        10 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50])
     ];
 
     // Whether or not a rune is unlocked array
@@ -99,7 +99,7 @@ function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
     if (auto && cubeUpgraded > 0) {
         amount = cubeUpgraded
     }
-    if (player.runeshards >= 1 && player.runelevels[runeIndex] < (2500 + increaseMaxLevel[runeIndex]) && unlockedRune[runeIndex]) {
+    if (player.runeshards >= 1 && player.runelevels[runeIndex] < (1000 + increaseMaxLevel[runeIndex]) && unlockedRune[runeIndex]) {
         // Removes the offerings from the player
         player.runeshards -= amount;
         // Adds the exp given by the amount of offerings
@@ -110,7 +110,7 @@ function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
                 if (runeToUpdate !== runeIndex) {
                     player.runeexp[runeToUpdate] += amount * calculateRuneExpGiven(runeToUpdate, true)
                 }
-                while (player.runeexp[runeToUpdate] >= calculateRuneExpToLevel(runeToUpdate) && player.runelevels[runeToUpdate] < (2500 + increaseMaxLevel[runeToUpdate])) {
+                while (player.runeexp[runeToUpdate] >= calculateRuneExpToLevel(runeToUpdate) && player.runelevels[runeToUpdate] < (1000 + increaseMaxLevel[runeToUpdate])) {
                     player.runelevels[runeToUpdate] += 1;
                 }
             }
