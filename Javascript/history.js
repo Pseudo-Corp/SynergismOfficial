@@ -60,6 +60,18 @@ const resetHistoryTableMapping = {
     "ascend": "historyAscendTable",
 };
 
+const resetHistoryCorruptionImages = [
+    "Pictures/Divisiveness Level 7.png",
+    "Pictures/Maladaption Lvl 7.png",
+    "Pictures/Laziness Lvl 7.png",
+    "Pictures/Hyperchallenged Lvl 7.png",
+    "Pictures/Scientific Illiteracy Lvl 7.png",
+    "Pictures/Deflation Lvl 7.png",
+    "Pictures/Extinction Lvl 7.png",
+    "Pictures/Drought Lvl 7.png",
+    "Pictures/Financial Collapse Lvl 7.png"
+];
+
 const resetHistoryShowMillisecondsMaxSec = 60;
 
 // This doesn't pass the extra args to format, and that's on purpose
@@ -176,9 +188,10 @@ function resetHistoryRenderRow(category, data) {
             `<img src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`
         ];
 
-        // TODO: Track and display corruption data here
-        if (data.corruptionScore) {
-            extra.push(`Score: ${data.corruptionScore}`);
+        let corruptions = resetHistoryFormatCorruptions(data);
+        if (corruptions !== null) {
+            extra.push(corruptions[0]);
+            extra.push(corruptions[1]);
         }
     }
 
@@ -236,4 +249,16 @@ function resetHistoryTogglePerSecond(category) {
     let button = document.getElementById("historyTogglePerSecondButton");
     button.textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
     button.style.borderColor = player.historyShowPerSecond ? "green" : "red";
+}
+
+function resetHistoryFormatCorruptions(data) {
+    let score = "Score: " + format(data.corruptionScore, 0, true);
+    let corruptions = "";
+    for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
+        let corruptionIdx = i + 1;
+        if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
+            corruptions += ` <img src="${resetHistoryCorruptionImages[i]}">${data.usedCorruptions[corruptionIdx]}`;
+        }
+    }
+    return [score, corruptions];
 }
