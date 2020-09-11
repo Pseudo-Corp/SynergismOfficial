@@ -35,11 +35,7 @@ const historyGains = {
         img: "Pictures/WowCube.png",
         formatter: conditionalFormatPerSecond,
         onlyif: () => player.ascensionCount > 0,
-        imgTitle: "Wow! Cubes",
-        titler: (data) => {
-            if (!data.wowCubesAscend) return "";
-            return `Reincarnation: ${format(data.wowCubesReincarnate)} / Challenges: ${format(data.wowCubesChallenge)} / Ascension: ${format(data.wowCubesAscend)}`;
-        }
+        imgTitle: "Wow! Cubes"
     },
 };
 
