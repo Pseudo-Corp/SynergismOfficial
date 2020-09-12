@@ -128,7 +128,7 @@ function buyAnts(i) {
     ticker = 0;
     calculateAntSacrificeELO();
 
-    let achRequirements = [2, 6, 20, 100, 500, 666, 77777]
+    let achRequirements = [2, 6, 20, 100, 500, 6666, 77777]
     for (let j = 0; j < 7; j++) {
         if (sacrificeMult > achRequirements[j] && player[ordinals[j + 1] + "OwnedAnts"] > 0 && player.achievements[176 + j] === 0) {
             achievementaward(176 + j)
@@ -204,7 +204,7 @@ function buyAntProducers(pos, type, originalCost, index) {
     }
     calculateAntSacrificeELO();
 
-    let achRequirements = [2, 6, 20, 100, 500, 666, 77777]
+    let achRequirements = [2, 6, 20, 100, 500, 6666, 77777]
     for (let j = 0; j < 7; j++) {
         if (sacrificeMult > achRequirements[j] && player[ordinals[j + 1] + "OwnedAnts"] > 0 && player.achievements[176 + j] === 0) {
             achievementaward(176 + j)
