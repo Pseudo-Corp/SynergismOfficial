@@ -87,6 +87,11 @@ function autoUpgrades() {
                 buyUpgrades('coin', i, true)
             }
         }
+        for (let i = 121; i <= 125; i++){
+            if (player.coins.greaterThanOrEqualTo(Decimal.pow(10, upgradeCosts[i])) && player.shoptoggles.coin === true && player.cubeUpgrades[19] > 0) {
+                buyUpgrades('coin',i,true)
+            }
+        }
     }
     if (player.upgrades[92] > 0.5) {
         for (let i = 21; i < 38; i++) {

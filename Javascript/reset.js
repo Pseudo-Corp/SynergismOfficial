@@ -423,10 +423,6 @@ function reset(i, fast, from) {
         // The value in player.cubesThisAscension isn't updated yet, we need the new value for that, but the current ones
         // for the others, so we calculate it here
         historyEntry.wowCubes = metaData[4];
-        historyEntry.wowCubesAscend = metaData[4];
-        historyEntry.wowCubesChallenge = 0;
-        historyEntry.wowCubesReincarnate = 0;
-        historyEntry.wowCubesCpsAtC10 = metaData[5] / player.ascensionCounter;
         historyEntry.wowTesseracts = metaData[5];
         historyEntry.wowHypercubes = metaData[6];
         // reset auto challenges
@@ -647,7 +643,10 @@ function resetUpgrades(i, fast) {
 
     }
 
-    for (let j = 1; j < 21; j++) {
+    for (let j = 1; j <= 20; j++) {
+        player.upgrades[j] = 0;
+    }
+    for (let j = 121; j <= 125; j++){
         player.upgrades[j] = 0;
     }
     player.upgrades[106] = 0;

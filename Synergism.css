@@ -3694,7 +3694,7 @@ margin-left: -13px
 #displayquarks {
 	position: absolute;
 	top: 35px;
-	left: 50%;
+	left: 23.25%;
 	width: 600px;
 	margin-left: -268px;
 	color: cyan;
@@ -3729,21 +3729,13 @@ margin-left: -13px
 	height: 40px;
 }
 
-#permshopupgrades {
-	position: absolute;
-	top: 100px;
-	left: 57%;
-	width: 200px;
-	margin-left: -114px;
-	color: limegreen;
-	font-size: 1.2em;
-}
+
 
 #shopToggles{
 	position: absolute;
-	top: 113px;
+	top: 335px;
 	left: 75%;
-	margin-left: -150px;
+	margin-left: -169px;
 
 }
 #resetShopUpgrades{
@@ -3757,7 +3749,7 @@ margin-left: -13px
 
 #permshopimage{
 	position: absolute;
-	top: 145px;
+	top: 50px;
 	left: 47%;
 	width: 400px;
 	margin-left: -270px;
@@ -4507,6 +4499,7 @@ margin-left: -13px
 .historySubTab tbody img {
 	vertical-align: middle;
 	height: 20px;
+	margin-right: 3px;
 }
 
 .historySubTab tbody td {

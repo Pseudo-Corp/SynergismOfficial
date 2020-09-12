@@ -303,7 +303,10 @@ function antUpgradeDescription(i) {
 //}
 
 function antSacrificePointsToMultiplier(points) {
-    return Math.pow(1 + points / 5000, 2);
+    let multiplier = Math.pow(1 + points / 5000, 2)
+    multiplier *= (1 + 0.2 * Math.log(1 + points)/Math.log(10))
+    if(player.achievements[174] > 0){multiplier *= (1 + 0.4 * Math.log(1 + points)/Math.log(10))}
+    return multiplier;
 }
 
 function showSacrifice() {

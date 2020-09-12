@@ -55,9 +55,10 @@ function calculatetax(fast) {
     exponent *= f;
     exponent *= Math.pow(0.9925, player.achievements[118] * (player.challengecompletions[6] + player.challengecompletions[7] + player.challengecompletions[8] + player.challengecompletions[9] + player.challengecompletions[10]));
     exponent *= (0.01 + Math.pow(0.98, player.antUpgrades[3] + bonusant3 + .497))
-    exponent *= 1 / (1 + Decimal.log(player.ascendShards.add(1), 10))
+    exponent *= 1 / Math.pow((1 + Decimal.log(player.ascendShards.add(1), 10)), 1 + .2/60 * player.challengecompletions[10] * player.upgrades[125])
     exponent *= (1 - 0.10 * (player.talismanRarity[1] - 1))
     exponent *= Math.pow(0.98, 3 / 5 * Math.log(1 + player.rareFragments) / Math.log(10))
+    if(player.upgrades[121] > 0){exponent *= 0.5}
     maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1
     a = Math.min(maxexponent, Math.floor(Decimal.log(produceTotal.add(1), 10)));
 

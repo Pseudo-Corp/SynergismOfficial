@@ -123,7 +123,7 @@ let upgdesc = {
     upgdesc122: "Increase Crystal Upgrade 3 cap from +12% to +100%!",
     upgdesc123: "Raise coin production to the power of 1.025. More EXPONENTS.",
     upgdesc124: "Gain +3% more effective ELO.",
-    upgdesc125: "Gain +2% more green fragments for each completion of Challenge 10 [Up to +60%]."
+    upgdesc125: "Constant Tax divisor is 0.333% stronger per challenge 10 completion. [Divisor^(1 + upgrade)]"
 }
 
 let crystalupgdesc = {
@@ -275,7 +275,7 @@ const upgradetexts = [null,
     () => "+88% cap to Crystal Upgrade 3, duh!",
     () => "Coin Production ^1.025, duh!",
     () => "+3% Effective Ant ELO, duh!",
-    () => "+" + format(2 * player.challengecompletions[10], 0) + "% more Uncommon fragments!"
+    () => "+" + format(0.333 * player.challengecompletions[10], 0) + "% Constant Divisor power."
 ]
 
 function upgradeeffects(i) {
