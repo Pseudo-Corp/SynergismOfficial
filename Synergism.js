@@ -977,12 +977,9 @@ function loadSynergy() {
             player.upgrades.push(0)
         }
 
-        if (data.history === undefined || player.history === undefined) {
-            player.history = {};
-            player.historyCountMax = 15;
-        }
-        if (player.saveString === undefined || player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
-            player.saveString = "Synergism-v2.0.0Test-$TIME$.txt"
+
+        if (player.saveString === "") {
+            player.saveString = () => `Synergism-v2.0.0Test-${getRealTime()}.txt`
         }
 
         player.wowCubes = player.wowCubes || 0;
