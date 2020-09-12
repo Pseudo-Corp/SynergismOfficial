@@ -575,7 +575,7 @@ function reset(i, fast, from) {
                 document.getElementById("upg" + j).style.backgroundColor = "black"
             }
         }
-        for(var i = 1; i <= 9; i++){
+        for (let i = 1; i <= 9; i++) {
             player.usedCorruptions[i] = player.prototypeCorruptions[i]
         }
         document.getElementById("toggleofferingbuy").textContent = "Toggle amount to use per sacrifice"

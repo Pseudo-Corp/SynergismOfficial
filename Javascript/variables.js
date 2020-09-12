@@ -324,6 +324,8 @@ var runeSpirits = [0, 0, 0, 0, 0, 0];
 var effectiveRuneBlessingPower = [0, 0, 0, 0, 0, 0];
 var effectiveRuneSpiritPower = [0, 0, 0, 0, 0, 0];
 
+var blessingBaseCost = 1e6;
+var spiritBaseCost = 1e20;
 
 var triggerChallenge = ""
 

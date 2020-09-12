@@ -114,7 +114,7 @@ function buyTalismanStuff(i) {
         player.researchPoints -= (amountToBuy * obtainiumCost);
         player.runeshards -= (amountToBuy * offeringCost)
 
-        if(player.mythicalFragments >= 1e25 && player.achievements[239] < 1){
+        if (player.mythicalFragments >= 1e25 && player.achievements[239] < 1) {
             achievementaward(239)
         }
     }

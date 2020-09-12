@@ -536,7 +536,7 @@ const player = {
 
     autoTesseracts: [false, false, false, false, false, false],
 
-    saveString: "Synergism-v1011Test.txt",
+    saveString: "",
     brokenfile1: false,
     exporttest: "YES!",
     kongregatetest: "NO!",
@@ -981,8 +981,8 @@ function loadSynergy() {
             player.history = {};
             player.historyCountMax = 15;
         }
-        if (player.saveString === "") {
-            player.saveString = () => `Synergism-v2.0.0Test-${getRealTime()}.txt`
+        if (player.saveString === undefined || player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
+            player.saveString = "Synergism-v2.0.0Test-$TIME$.txt"
         }
 
         player.wowCubes = player.wowCubes || 0;
