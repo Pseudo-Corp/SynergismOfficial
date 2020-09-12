@@ -536,7 +536,7 @@ const player = {
 
     autoTesseracts: [false, false, false, false, false, false],
 
-    saveString: "Synergism-v1011Test.txt",
+    saveString: "",
     brokenfile1: false,
     exporttest: "YES!",
     kongregatetest: "NO!",
@@ -976,6 +976,7 @@ function loadSynergy() {
         while (player.upgrades[140] === undefined) {
             player.upgrades.push(0)
         }
+
 
         if (player.saveString === "") {
             player.saveString = () => `Synergism-v2.0.0Test-${getRealTime()}.txt`

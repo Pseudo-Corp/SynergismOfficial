@@ -590,8 +590,8 @@ function buyRuneBonusLevels(type, index) { //type 1 for Blessings, type 2 for Sp
     let baseLevels
     let levelCap
     (type === 2) ?
-        (baseCost = 1e20, baseLevels = player.runeSpiritLevels[index], levelCap = player.runeSpiritBuyAmount) :
-        (baseCost = 1e6, baseLevels = player.runeBlessingLevels[index], levelCap = player.runeBlessingBuyAmount);
+        (baseCost = spiritBaseCost, baseLevels = player.runeSpiritLevels[index], levelCap = player.runeSpiritBuyAmount) :
+        (baseCost = blessingBaseCost, baseLevels = player.runeBlessingLevels[index], levelCap = player.runeBlessingBuyAmount);
 
     let metadata = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap); //metadata[0] is the level, metadata[1] is the cost
     (type === 2) ?
