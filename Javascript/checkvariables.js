@@ -140,4 +140,18 @@ function checkVariablesOnLoad(data) {
             player.runelevels[i] = 0
         }
     }
+
+    if(data.shopUpgrades.challengeExtension === undefined){
+        player.shopUpgrades.challengeExtension = 0;
+        player.shopUpgrades.challenge10Tomes = 0;
+        player.shopUpgrades.seasonPassLevel = 0;
+        player.shopUpgrades.cubeToQuarkBought = false;
+        player.shopUpgrades.tesseractToQuarkBought = false;
+        player.shopUpgrades.hypercubeToQuarkBought = false;
+    }
+    if(data.cubeUpgrades[19] === 0 || player.cubeUpgrades[19] === 0){
+        for(var i = 121; i <= 125; i++){
+            player.upgrades[i] = 0
+        }
+    }
 }

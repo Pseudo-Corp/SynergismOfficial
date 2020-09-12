@@ -643,7 +643,10 @@ function resetUpgrades(i, fast) {
 
     }
 
-    for (let j = 1; j < 21; j++) {
+    for (let j = 1; j <= 20; j++) {
+        player.upgrades[j] = 0;
+    }
+    for (let j = 121; j <= 125; j++){
         player.upgrades[j] = 0;
     }
     player.upgrades[106] = 0;

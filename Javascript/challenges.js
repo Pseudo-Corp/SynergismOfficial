@@ -14,7 +14,7 @@ function challengeDisplay(i, changefocus, automated) {
 
     let maxChallenges = 0;
     if (i > 5) {
-        maxChallenges = 25 + 5 * player.cubeUpgrades[29];
+        maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
         quarksMultiplier = 10;
     }
     if (i > 10) {
@@ -379,8 +379,8 @@ function challengeRequirement(challenge, completion) {
         return Decimal.pow(10, base * calculateChallengeRequirementMultiplier("transcend", completion))
     } else if (challenge <= 10) {
         let c10Reduction = 0;
-        if (player.currentChallenge.reincarnation === 10) {
-            c10Reduction = 1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185])
+        if (challenge === 10) {
+            c10Reduction = (1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185]) + 2e7 * player.shopUpgrades.challenge10Tomes)
         }
         return Decimal.pow(10, (base - c10Reduction) * calculateChallengeRequirementMultiplier('reincarnation', completion))
     } else if (challenge <= 14) {
