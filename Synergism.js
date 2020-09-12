@@ -414,6 +414,12 @@ const player = {
         cashGrabLevel: 0,
         antSpeedLevel: 0,
         talismanBought: false,
+        challengeExtension: 0,
+        challenge10Tomes: 0,
+        seasonPassLevel: 0,
+        cubeToQuarkBought: false,
+        tesseractToQuarkBought: false,
+        hypercubeToQuarkBought: false
     },
     autoSacrificeToggle: false,
     autoResearchToggle: false,
@@ -536,7 +542,7 @@ const player = {
 
     autoTesseracts: [false, false, false, false, false, false],
 
-    saveString: "Synergism-v1011Test.txt",
+    saveString: "",
     brokenfile1: false,
     exporttest: "YES!",
     kongregatetest: "NO!",
@@ -977,10 +983,7 @@ function loadSynergy() {
             player.upgrades.push(0)
         }
 
-        if (data.history === undefined || player.history === undefined) {
-            player.history = {};
-            player.historyCountMax = 15;
-        }
+
         if (player.saveString === "") {
             player.saveString = () => `Synergism-v2.0.0Test-${getRealTime()}.txt`
         }
@@ -1727,7 +1730,7 @@ function multipliers() {
         s = s.dividedBy("1e12500000")
     }
     c = Decimal.pow(s, 1 + 0.001 * player.researches[17]);
-
+    lol = Decimal.pow(c, 1 + 0.025 * player.upgrades[123])
     globalCoinMultiplier = c;
     globalCoinMultiplier = Decimal.pow(globalCoinMultiplier, financialcollapsePower[player.usedCorruptions[9]])
 
@@ -2116,7 +2119,7 @@ function resourceGain(dt, fast) {
         if (player.transcendShards.greaterThanOrEqualTo(challengeRequirement(reinchal, player.challengecompletions[reinchal]))) {
             resetCheck('reincarnationchallenge', false)
             autoChallengeTimerIncrement = 0;
-            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29])) {
+            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension)) {
                 player.autoChallengeIndex += 1
             }
         }
@@ -2125,7 +2128,7 @@ function resourceGain(dt, fast) {
         if (player.coins.greaterThanOrEqualTo(challengeRequirement(reinchal, player.challengecompletions[reinchal]))) {
             resetCheck('reincarnationchallenge', false)
             autoChallengeTimerIncrement = 0;
-            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29])) {
+            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension)) {
                 player.autoChallengeIndex += 1
                 if (player.autoChallengeIndex > 10) {
                     player.autoChallengeIndex = 1
@@ -2287,7 +2290,7 @@ function resetCheck(i, manual, leaving) {
                     return player.coins.greaterThanOrEqualTo(challengeRequirement(q, comp))
                 }
             }
-            let maxCompletions = 25 + 5 * player.cubeUpgrades[29];
+            let maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
                 let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
                 let counter = 0;
@@ -2318,7 +2321,7 @@ function resetCheck(i, manual, leaving) {
             }
 
         }
-        if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29]) {
+        if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension) {
             player.currentChallenge.reincarnation = 0;
             if (player.shopUpgrades.instantChallengeBought) {
                 for (let i = 1; i <= 5; i++) {

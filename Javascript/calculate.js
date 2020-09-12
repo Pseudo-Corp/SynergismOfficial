@@ -208,10 +208,10 @@ function calculateRuneExpToLevel(runeIndex) {
     // Rune exp required to level multipliers
     let allRuneExpRequiredMultiplier = productContents([
         Math.pow(runelevel / 2, 3),
-        ((8 * runelevel) + 100) / 500,
-        Math.max(1, (runelevel - 200) / 8),
-        Math.max(1, (runelevel - 400) / 10),
-        Math.max(1, (runelevel - 600) / 12),
+        ((3.5 * runelevel) + 100) / 500,
+        Math.max(1, (runelevel - 200) / 9),
+        Math.max(1, (runelevel - 400) / 12),
+        Math.max(1, (runelevel - 600) / 15),
         Math.max(1, Math.pow(1.03, (runelevel - 800)/4))
     ]);
     let expToLevel = productContents([
@@ -227,17 +227,21 @@ function calculateRuneExpToLevel(runeIndex) {
 function calculateMaxRunes(i) {
     let max = 1000;
 
+    let increaseAll = 10 * (2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
+        + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11])
+        + 200 * CalcECC('ascension', player.challengecompletions[14])
+        + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50])
     let increaseMaxLevel = [
         null,
-        10 * (player.researches[78] + player.researches[111] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 4 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
-        10 * (player.researches[80] + player.researches[112] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 4 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
-        10 * (player.researches[79] + player.researches[113] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 4 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
-        10 * (player.researches[77] + player.researches[114] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 4 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50]),
-        10 * (player.researches[115] + 2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37]) + 4 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11]) + 200 * CalcECC('ascension', player.challengecompletions[14]) + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50])
+        10 * (player.researches[78] + player.researches[111]) + increaseAll,
+        10 * (player.researches[80] + player.researches[112]) + increaseAll,
+        10 * (player.researches[79] + player.researches[113]) + increaseAll,
+        10 * (player.researches[77] + player.researches[114]) + increaseAll,
+        10 * player.researches[115] + increaseAll
     ]
 
     max += increaseMaxLevel[i]
-    return (max)
+    return max
 }
 
 function calculateOfferings(i) {
@@ -328,6 +332,7 @@ function calculateOfferings(i) {
         q *= (1 + 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)))
     }
     q *= (1 + 1 / 50 * player.shopUpgrades.offeringAutoLevel);
+    q *= (1 + 1/400 * Math.pow(player.shopUpgrades.offeringTimerLevel,2))
     q *= (1 + 1 / 100 * player.shopUpgrades.cashGrabLevel);
     q *= (1 + 1 / 10000 * sumContents(player.challengecompletions) * player.researches[85])
     q *= (1 + Math.pow((player.antUpgrades[6] + bonusant6 / 50), 2 / 3))
@@ -383,7 +388,7 @@ function calculateObtainium() {
     obtainiumGain *= (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144])
     obtainiumGain *= (1 + 0.02 / 100 * player.cubeUpgrades[50])
     if (player.achievements[53] > 0) {
-        obtainiumGain *= (1 + 1 / 2000 * (runeSum))
+        obtainiumGain *= (1 + 1 / 800 * (runeSum))
     }
     if (player.achievements[128]) {
         obtainiumGain *= 1.5
@@ -402,6 +407,7 @@ function calculateObtainium() {
         obtainiumGain += 2 * player.researches[64]
     }
     obtainiumGain *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2));
+    obtainiumGain *= (1 + 1/200 * Math.floor(player.shopUpgrades.obtainiumTimerLevel,2))
     if (player.reincarnationCount >= 5) {
         obtainiumGain *= Math.max(1, player.reincarnationcounter / 10)
     }
@@ -653,6 +659,7 @@ function calculateAntSacrificeELO() {
         effectiveELO += 0.2 * antELO
         effectiveELO += (cubeBonusMultiplier[8] - 1)
         effectiveELO += 1 * player.cubeUpgrades[50]
+        effectiveELO *= (1 + 0.03 * player.upgrades[124])
 
 
     }
@@ -694,7 +701,7 @@ function calculateAntSacrificeRewards() {
     let rewardsMult = timeMultiplier * upgradeMultiplier;
     let rewards = {};
 
-    rewards.antSacrificePoints = effectiveELO * rewardsMult / 70;
+    rewards.antSacrificePoints = effectiveELO * rewardsMult / 85;
     rewards.offerings = player.offeringpersecond * 0.15 * effectiveELO * rewardsMult / 180;
     rewards.obtainium = player.maxobtainiumpersecond * 0.24 * effectiveELO * rewardsMult / 180;
     rewards.talismanShards = (antELO > 500) ?
@@ -869,6 +876,7 @@ function calculateCubeBlessings() {
 
 function calculateCubeMultiplier() {
     mult = 1;
+    mult *= (1 + 3/100 * player.shopUpgrades.seasonPassLevel)
     mult *= (1 + player.researches[119] / 400);
     mult *= (1 + player.researches[120] / 400);
     mult *= (1 + player.cubeUpgrades[1] / 10);
