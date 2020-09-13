@@ -789,6 +789,10 @@ function htmlInserts() {
 
     if (currentTab === "cubes") {
         document.getElementById("cubeAmount2").textContent = "You have " + format(player.wowCubes, 0, true) + " Wow! Cubes =)"
+        document.getElementById("cubeToQuarkTimerValue").textContent = format(Math.floor(player.dayTimer/3600),0) + " Hours " + format(Math.floor(player.dayTimer/60 % 60),0) + " Mins " + format(Math.floor(player.dayTimer % 60),0) + " Secs "
+        
+        let prefixes = ['cube','tesseract','hypercube']
+        
     }
 
     if (currentTab === "traits") {

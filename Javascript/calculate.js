@@ -1018,3 +1018,24 @@ function CalcCorruptionStuff(){
 
     return[cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
 }
+
+function dailyResetCheck(){
+    if(player.dayCheck === 0){player.dayCheck = new Date(); console.log('date successfully calibrated!')}
+
+    let d = new Date()
+    let h = d.getHours()
+    let m = d.getMinutes()
+    let s = d.getSeconds()
+    player.dayTimer = (60 * 60 * 24) - (60 * 60 * h) - (60 * m) - s
+    if(d.getDate()!=player.dayCheck.getDate()||d.getMonth()!=player.dayCheck.getMonth()||d.getFullYear()!=player.dayCheck.getFullYear()){
+        player.dayCheck = new Date();
+        player.cubeQuarkDaily = 0;
+        player.tesseractQuarkDaily = 0;
+        player.hypercubeQuarkDaily = 0;
+        player.cubeOpenedDaily = 0;
+        player.tesseractOpenedDaily = 0;
+        player.hypercubeOpenedDaily = 0;
+        console.log('success!')
+    }
+
+}

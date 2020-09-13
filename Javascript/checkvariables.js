@@ -149,9 +149,17 @@ function checkVariablesOnLoad(data) {
         player.shopUpgrades.tesseractToQuarkBought = false;
         player.shopUpgrades.hypercubeToQuarkBought = false;
     }
-    if(data.cubeUpgrades[19] === 0 || player.cubeUpgrades[19] === 0){
+    if(player.cubeUpgrades[19] === 0){
         for(var i = 121; i <= 125; i++){
             player.upgrades[i] = 0
         }
+    }
+
+    if(data.dayCheck === undefined){
+        player.dayCheck = 0;
+        player.dayTimer = 0;
+        player.cubeQuarkDaily = 0;
+        player.tesseractQuarkDaily = 0;
+        player.hypercubeQuarkDaily = 0;
     }
 }
