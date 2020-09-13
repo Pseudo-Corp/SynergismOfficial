@@ -125,23 +125,23 @@ function checkVariablesOnLoad(data) {
         player.autoTesseracts = [false, false, false, false, false, false]
     }
 
-    if (player.prototypeCorruptions[0] === null || player.prototypeCorruptions[0] === undefined){
+    if (player.prototypeCorruptions[0] === null || player.prototypeCorruptions[0] === undefined) {
         player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
 
-    if(data.sept10Test === undefined || !data.sept10Test){
+    if (data.sept10Test === undefined || !data.sept10Test) {
         player.sept10Test = true
         player.runelevels = [0, 0, 0, 0, 0]
         console.log('successfully reset rune levels for testing (September 10, 2020)')
     }
-    for(var i = 0; i <= 4; i++){
-        if(player.runelevels[i] > calculateMaxRunes(i+1)){
+    for (let i = 0; i <= 4; i++) {
+        if (player.runelevels[i] > calculateMaxRunes(i + 1)) {
             player.runelevels[i] = 0
         }
     }
 
-    if(data.shopUpgrades.challengeExtension === undefined){
+    if (data.shopUpgrades.challengeExtension === undefined) {
         player.shopUpgrades.challengeExtension = 0;
         player.shopUpgrades.challenge10Tomes = 0;
         player.shopUpgrades.seasonPassLevel = 0;
@@ -149,8 +149,8 @@ function checkVariablesOnLoad(data) {
         player.shopUpgrades.tesseractToQuarkBought = false;
         player.shopUpgrades.hypercubeToQuarkBought = false;
     }
-    if(player.cubeUpgrades[19] === 0){
-        for(var i = 121; i <= 125; i++){
+    if (data.cubeUpgrades === undefined || data.cubeUpgrades[19] === 0 || player.cubeUpgrades[19] === 0) {
+        for (let i = 121; i <= 125; i++) {
             player.upgrades[i] = 0
         }
     }

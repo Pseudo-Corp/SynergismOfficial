@@ -295,9 +295,8 @@ var talisman7Quarks = 0;
 var runescreen = "runes"
 var settingscreen = "settings"
 
-var talismanShardCost = 1e6
-var talismanFragmentObtainiumCosts = [null, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
-var talismanFragmentOfferingCosts = [null, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
+var talismanResourceObtainiumCosts = [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
+var talismanResourceOfferingCosts = [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 
 
 var talismanLevelCostMultiplier = [null, 1, 4, 1e4, 1e8, 1e13, 10, 100]

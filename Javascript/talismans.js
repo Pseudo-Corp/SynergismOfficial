@@ -1,17 +1,8 @@
 function updateCostDisplay(i) {
     let el = document.getElementById("talismanFragmentCost")
 
-    let obtainiumCost = 1e14;
-    let offeringCost = 1e4;
-
-
-    if (i > 0) {
-        obtainiumCost = 1e14
-    }
-    if (i > 1) {
-        obtainiumCost = talismanFragmentObtainiumCosts[i];
-        offeringCost = talismanFragmentOfferingCosts[i]
-    }
+    let obtainiumCost = talismanResourceObtainiumCosts[i];
+    let offeringCost = talismanResourceOfferingCosts[i]
     let maxBuyObtainium = Math.max(1, Math.floor(player.researchPoints / obtainiumCost))
     let maxBuyOffering = Math.max(1, Math.floor(player.runeshards / (offeringCost)));
     if (offeringCost === 0) {
@@ -62,15 +53,8 @@ function updateTalismanInventory() {
 }
 
 function buyTalismanStuff(i) {
-    let obtainiumCost = 1e6;
-    let offeringCost = 0;
-
-    if (i > 0) {
-        obtainiumCost = talismanFragmentObtainiumCosts[i]
-    }
-    if (i > 1) {
-        offeringCost = talismanFragmentOfferingCosts[i]
-    }
+    let obtainiumCost = talismanResourceObtainiumCosts[i]
+    let offeringCost = talismanResourceOfferingCosts[i]
 
     let maxBuyObtainium = Math.max(0, Math.floor(player.researchPoints / obtainiumCost))
     let maxBuyOffering = Math.max(0, Math.floor(player.runeshards / (offeringCost)));
@@ -83,41 +67,25 @@ function buyTalismanStuff(i) {
     }
     if (i === 0) {
         player.talismanShards += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-    }
-    if (i === 1) {
+    } else if (i === 1) {
         player.commonFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-    }
-    if (i === 2) {
+    } else if (i === 2) {
         player.uncommonFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-        player.runeshards -= (amountToBuy * offeringCost)
-    }
-    if (i === 3) {
+    } else if (i === 3) {
         player.rareFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-        player.runeshards -= (amountToBuy * offeringCost)
-    }
-    if (i === 4) {
+    } else if (i === 4) {
         player.epicFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-        player.runeshards -= (amountToBuy * offeringCost)
-    }
-    if (i === 5) {
+    } else if (i === 5) {
         player.legendaryFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-        player.runeshards -= (amountToBuy * offeringCost)
-    }
-    if (i === 6) {
+    } else if (i === 6) {
         player.mythicalFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-        player.runeshards -= (amountToBuy * offeringCost)
 
         if (player.mythicalFragments >= 1e25 && player.achievements[239] < 1) {
             achievementaward(239)
         }
     }
+    player.researchPoints -= (amountToBuy * obtainiumCost);
+    player.runeshards -= (amountToBuy * offeringCost)
 
     updateCostDisplay(i)
     updateTalismanInventory()

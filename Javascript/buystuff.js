@@ -471,25 +471,58 @@ function boostAccelerator(automated) {
             buyamount = 9999
         }
     }
-    while (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost) && ticker < buyamount) {
-        if (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {
-            player.acceleratorBoostBought += 1;
-            player.acceleratorBoostCost = player.acceleratorBoostCost.times(1e10).times(Decimal.pow(10, player.acceleratorBoostBought));
-            if (player.acceleratorBoostBought > (1000 * (1 + 2 * effectiveRuneBlessingPower[4]))) {
-                player.acceleratorBoostCost = player.acceleratorBoostCost.times(Decimal.pow(10, Math.pow(player.acceleratorBoostBought - (1000 * (1 + 2 * effectiveRuneBlessingPower[4])), 2) / (1 + 2 * effectiveRuneBlessingPower[4])))
-            }
-            player.transcendnoaccelerator = false;
-            player.reincarnatenoaccelerator = false;
-            if (player.upgrades[46] < 0.5) {
-                for (let j = 21; j < 41; j++) {
-                    player.upgrades[j] = 0;
+    let ticker = 0
+    if (player.upgrades[46] < 1) {
+        while (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost) && ticker < buyamount) {
+            if (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {
+                player.acceleratorBoostBought += 1;
+                player.acceleratorBoostCost = player.acceleratorBoostCost.times(1e10).times(Decimal.pow(10, player.acceleratorBoostBought));
+                if (player.acceleratorBoostBought > (1000 * (1 + 2 * effectiveRuneBlessingPower[4]))) {
+                    player.acceleratorBoostCost = player.acceleratorBoostCost.times(Decimal.pow(10, Math.pow(player.acceleratorBoostBought - (1000 * (1 + 2 * effectiveRuneBlessingPower[4])), 2) / (1 + 2 * effectiveRuneBlessingPower[4])))
                 }
-                reset(1);
-                player.prestigePoints = new Decimal(0);
+                player.transcendnoaccelerator = false;
+                player.reincarnatenoaccelerator = false;
+                if (player.upgrades[46] < 0.5) {
+                    for (let j = 21; j < 41; j++) {
+                        player.upgrades[j] = 0;
+                    }
+                    reset(1);
+                    player.prestigePoints = new Decimal(0);
+                }
+            }
+            ticker++
+        }
+    } else {
+        let buyTo = player.acceleratorBoostBought + 1;
+        let cost = getAcceleratorBoostCost(buyTo);
+        while (player.prestigePoints.greaterThanOrEqualTo(cost)) {
+            buyTo *= 4;
+            cost = getAcceleratorBoostCost(buyTo);
+        }
+        let stepdown = Math.floor(buyTo / 8)
+        while (stepdown !== 0) {
+            // if step down would push it below out of expense range then divide step down by 2
+            if (getAcceleratorBoostCost(buyTo - stepdown).lessThanOrEqualTo(player.prestigePoints)) {
+                stepdown = Math.floor(stepdown / 2);
+            } else {
+                buyTo = buyTo - stepdown;
             }
         }
-        ticker++
+        // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
+        let buyFrom = Math.max(buyTo - 7, player.acceleratorBoostBought + 1);
+        let thisCost = getAcceleratorBoostCost(player.acceleratorBoostBought);
+        while (buyFrom < buyTo && player.prestigePoints.greaterThanOrEqualTo(getAcceleratorBoostCost(buyFrom))) {
+            player.prestigePoints = player.prestigePoints.sub(thisCost);
+            player.acceleratorBoostBought = buyFrom;
+            buyFrom = buyFrom + 1;
+            thisCost = getAcceleratorBoostCost(buyFrom);
+            player.acceleratorBoostCost = thisCost;
+
+            player.transcendnoaccelerator = false;
+            player.reincarnatenoaccelerator = false;
+        }
     }
+
     ticker = 0;
     if (player.acceleratorBoostBought >= 2 && player.achievements[162] === 0) {
         achievementaward(162)
@@ -514,6 +547,20 @@ function boostAccelerator(automated) {
     }
 
 
+}
+
+function getAcceleratorBoostCost(level = 1) {
+    let base = new Decimal(1e3)
+    let eff = 1 + 2 * effectiveRuneBlessingPower[4]
+    let linSum = (n) => n * (n + 1) / 2
+    let sqrSum = (n) => n * (n + 1) * (2 * n + 1) / 6
+    if (level > 1000 * eff) {
+        return base.times(Decimal.pow(10, 10 * level
+            + linSum(level) // each level increases the exponent by 1 more each time
+            + sqrSum(level - 1000 * eff) / eff)) // after cost delay is passed each level increases the cost by the square each time
+    } else {
+        return base.times(Decimal.pow(10, 10 * level + linSum(level)))
+    }
 }
 
 function getParticleCost(originalCost, buyTo) {
@@ -600,17 +647,17 @@ function buyRuneBonusLevels(type, index) { //type 1 for Blessings, type 2 for Sp
 
     player.runeshards -= metadata[1];
 
-    if(index === 1){
+    if (index === 1) {
         let requirementArray = [0, 1e5, 1e8, 1e11]
-        for(i = 1; i <=3; i++){
-            if(player.runeBlessingLevels[1] >= requirementArray[i] && player.achievements[231+i] < 1){
-                achievementaward(231+i)
+        for (i = 1; i <= 3; i++) {
+            if (player.runeBlessingLevels[1] >= requirementArray[i] && player.achievements[231 + i] < 1) {
+                achievementaward(231 + i)
             }
-            if(player.runeSpiritLevels[1] >= 10 * requirementArray[i] && player.achievements[234+i] < 1){
-                achievementaward(234+i)
+            if (player.runeSpiritLevels[1] >= 10 * requirementArray[i] && player.achievements[234 + i] < 1) {
+                achievementaward(234 + i)
             }
         }
-        if(player.runeBlessingLevels[1] >= 1e22 && player.achievements[245] < 1){
+        if (player.runeBlessingLevels[1] >= 1e22 && player.achievements[245] < 1) {
             achievementaward(245)
         }
     }
