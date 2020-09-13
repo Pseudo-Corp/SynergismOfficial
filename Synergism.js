@@ -453,6 +453,7 @@ const player = {
     buyTalismanShardPercent: 10,
 
     autoAntSacrifice: false,
+    autoAntSacTimer: 900,
     antMax: false,
 
     ascensionCount: 0,
@@ -898,7 +899,9 @@ function loadSynergy() {
             player.cubesThisAscension.cpsOnC10Comp = 0;
             player.cubesThisAscension.tesseracts = 0;
             player.cubesThisAscension.hypercubes = 0;
-
+        }
+        if (data.autoAntSacTimer === undefined) {
+            player.autoAntSacTimer = 900;
         }
 
         if (player.cubeUpgrades[7] === 0 && player.toggles.twentytwo) {
@@ -2759,7 +2762,7 @@ function updateAll() {
     optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel
     autoBuyAnts()
 
-    if (player.antSacrificeTimer >= 900 && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
+    if (player.antSacrificeTimer >= player.autoAntSacTimer && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
         sacrificeAnts(true)
     }
 
