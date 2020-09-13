@@ -4009,6 +4009,14 @@ margin-left: -13px
 	width: 250px;
 	height: 30px;
 }
+#cubeToQuarkTimer{
+	position: absolute;
+	text-align: center;
+	top: 230px;
+	width: 250px;
+	left: 65px;
+	font-size: 1.2em;
+}
 .cubePlacement1{
 	position:absolute;
 	text-align: center;

@@ -548,6 +548,15 @@ const player = {
     exporttest: "YES!",
     kongregatetest: "NO!",
 
+    dayCheck: 0,
+    dayTimer: 0,
+    cubeOpenedDaily: 0,
+    cubeQuarkDaily: 0,
+    tesseractOpenedDaily: 0,
+    tesseractQuarkDaily: 0,
+    hypercubeOpenedDaily: 0,
+    hypercubeQuarkDaily: 0,
+
     sept10Test: false, //Remove This Before releasing v2
 
     [Symbol.for('version')]: '1.0101'
@@ -972,6 +981,10 @@ function loadSynergy() {
             player.ascendBuilding5.owned = 0;
         }
 
+        if (player.dayCheck !== 0){
+            player.dayCheck = new Date(player.dayCheck)
+        }
+
         for (let i = 1; i <= 5; i++) {
             player['ascendBuilding' + i].generated = new Decimal(player['ascendBuilding' + i].generated)
         }
@@ -1224,6 +1237,12 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         resetHistoryRenderAllTables();
     }
     updateAchievementBG();
+
+    let d = new Date()
+    let h = d.getHours()
+    let m = d.getMinutes()
+    let s = d.getSeconds()
+    player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
 }
 
 function format(input, accuracy, long) {
@@ -2850,6 +2869,7 @@ function tick() {
         let now = Date.now();
         let dt = Math.max(0, Math.min(36000, (now - lastUpdate) / 1000));
 
+        dailyResetCheck();
         let timeMult = calculateTimeAcceleration();
         lastUpdate = now;
 
