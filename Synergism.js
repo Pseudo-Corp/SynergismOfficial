@@ -847,7 +847,6 @@ function loadSynergy() {
                 player.researches[refundThese[i]] = 0;
             }
             player.autoAntSacrifice = false;
-            player.autoAntSacTimer = 900;
             player.antMax = false;
         }
 
@@ -889,7 +888,9 @@ function loadSynergy() {
             player.cubesThisAscension.cpsOnC10Comp = 0;
             player.cubesThisAscension.tesseracts = 0;
             player.cubesThisAscension.hypercubes = 0;
-
+        }
+        if (data.autoAntSacTimer === undefined) {
+            player.autoAntSacTimer = 900;
         }
 
         if (player.cubeUpgrades[7] === 0 && player.toggles.twentytwo) {
