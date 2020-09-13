@@ -154,4 +154,12 @@ function checkVariablesOnLoad(data) {
             player.upgrades[i] = 0
         }
     }
+
+    if(data.dayCheck === undefined){
+        player.dayCheck = 0;
+        player.dayTimer = 0;
+        player.cubeQuarkDaily = 0;
+        player.tesseractQuarkDaily = 0;
+        player.hypercubeQuarkDaily = 0;
+    }
 }
