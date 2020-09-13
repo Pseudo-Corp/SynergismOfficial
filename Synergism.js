@@ -999,8 +999,8 @@ function loadSynergy() {
         }
 
 
-        if (player.saveString === "") {
-            player.saveString = () => `Synergism-v2.0.0Test-${getRealTime()}.txt`
+        if (player.saveString === undefined || player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
+            player.saveString = "Synergism-v2.0.0Test-$TIME$.txt"
         }
 
         player.wowCubes = player.wowCubes || 0;
