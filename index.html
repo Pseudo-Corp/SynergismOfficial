@@ -100,7 +100,7 @@
             <td><img class="chal10" id="ascendbtn" src="Pictures/questionable.png" onmouseover="resetrepeat(7)" onclick="resetCheck('ascend')"  style="cursor:pointer" alt=""></td>
             </tr>
         </table>
-        <p id="resetinfo"></p>
+        <p id="resetinfo" style="color:white"></p>
         <table id="resetrewards" style="display: block;">
             <tr>
             <td>
@@ -119,11 +119,10 @@
         <img id="resetobtainium" src="" alt="">
             </td>
             <td>
-        <p id="resetobtainium2" style="color:pink" style="font-size: 0;"></p>
+        <p id="resetobtainium2" style="color:pink; font-size: 0;"></p>
             </td>
         </tr>
         </table>
-        <p id="resetinfo" style="color:white"></p>
     </div>
 
     <div id="tabrow">
@@ -241,7 +240,7 @@
             <button class="auto" id="toggle15" onclick="toggleSettings(14)" style="background-color: #171717;">Automatic Prestige & Customization Being Developed!</button>
             <div id="prestigeautomation">
             <button id="prestigeautotoggle" onclick="toggleautoreset(1)" style="border:2px solid green; background-color: #171717;"></button>
-            <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(1)"></input>
+                <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(1)"/>
                 <p class="transcendunlock" id="autoprestige"></p>
             </div>
         </div>
@@ -264,7 +263,7 @@
         <p id="prestigetext10">100 Oracles/sec</p>
         </div>
         <div id="crystalupgrades">
-            <table id="crystalupgradestable" style="padding: 0; font-size: 0px;">
+            <table id="crystalupgradestable" style="padding: 0; font-size: 0;">
                 <tr>
                     <td><img id="buycrystalupgrade1" src="Pictures/Transparent Pics/CrystalUpgrade1.png" onmouseover="crystalupgradedescriptions(1)" onclick="buyCrystalUpgrades(1)" alt=""></td>
                     <td><img id="buycrystalupgrade2" src="Pictures/Transparent Pics/CrystalUpgrade2.png" onmouseover="crystalupgradedescriptions(2)" onclick="buyCrystalUpgrades(2)" alt=""></td>
@@ -495,7 +494,7 @@
 
         <div id="upgradesrow2">
 
-            <table id="coinupgradestable" style="padding: 0px; font-size:0;">
+            <table id="coinupgradestable" style="padding: 0; font-size:0;">
 
                 <tr style="text-align:center; border-collapse:collapse;">
                     <td><img src="Pictures/Transparent Pics/Coin1.png" id="upg1" onclick="buyUpgrades('coin', 1)" onmouseover="upgradedescriptions(1)" alt=""></td>
@@ -535,7 +534,7 @@
             </table>
 
 
-             <table class="prestigeunlock" id="prestigeupgradestable" style="padding: 0px; font-size:0;">
+             <table class="prestigeunlock" id="prestigeupgradestable" style="padding: 0; font-size:0;">
                     <tr style="text-align:center; border-collapse:collapse;">
                         <td><img src="Pictures/Transparent Pics/Diamond1.png" id="upg21" onclick="buyUpgrades('prestige', 21)" onmouseover="upgradedescriptions(21)" alt=""></td>
                         <td><img src="Pictures/Transparent Pics/Diamond2.png" id="upg22" onclick="buyUpgrades('prestige', 22)" onmouseover="upgradedescriptions(22)" alt=""></td>
@@ -567,7 +566,7 @@
 
              </table>
 
-             <table class="transcendunlock" id="transcendupgradestable" style="padding: 0px; font-size:0;">
+             <table class="transcendunlock" id="transcendupgradestable" style="padding: 0; font-size:0;">
                 <tr style="text-align:center; border-collapse:collapse;">
                     <td><img src="Pictures/Transparent Pics/Mythos1.png" id="upg41" onclick="buyUpgrades('transcend', 41)" onmouseover="upgradedescriptions(41)" alt=""></td>
                     <td><img src="Pictures/Transparent Pics/Mythos2.png" id="upg42" onclick="buyUpgrades('transcend', 42)" onmouseover="upgradedescriptions(42)" alt=""></td>
@@ -598,7 +597,7 @@
                 </tr>
              </table>
 
-             <table class="reincarnationunlock" id="reincarnationupgradestable" style="padding: 0px; font-size:0;">
+             <table class="reincarnationunlock" id="reincarnationupgradestable" style="padding: 0; font-size:0;">
                 <tr style="text-align:center; border-collapse:collapse;">
                     <td><img class="reinrow1" src="Pictures/Transparent Pics/Particle1.png" id="upg61" onclick="buyUpgrades('reincarnation', 61)" onmouseover="upgradedescriptions(61)" alt=""></td>
                     <td><img class="reinrow1" src="Pictures/Transparent Pics/Particle2.png" id="upg62" onclick="buyUpgrades('reincarnation', 62)" onmouseover="upgradedescriptions(62)" alt=""></td>
@@ -628,7 +627,7 @@
                     <td><img class="reinrow4" src="Pictures/Transparent Pics/Particle20.png" id="upg80" onclick="buyUpgrades('reincarnation', 80)" onmouseover="upgradedescriptions(80)" alt=""></td>
                 </tr>
              </table>
-             <table class="prestigeunlock" id="automationtable" style="padding: 0px; font-size:0;">
+             <table class="prestigeunlock" id="automationtable" style="padding: 0; font-size:0;">
                 <tr>
                    <td>                    <img id="upg81" src="Pictures/Transparent Pics/AutomationOne.png" onclick="buyAutobuyers(1)" onmouseover="upgradedescriptions(81)" alt="">                </td>
                    <td>                   <img id="upg82" src="Pictures/Transparent Pics/AutomationTwo.png" onclick="buyAutobuyers(2)" onmouseover="upgradedescriptions(82)" alt="">                </td>
@@ -658,7 +657,7 @@
                    <td>                    <img id="upg100" class="reincarnationunlock" src="Pictures/Transparent Pics/AutomationTwenty.png" onclick="buyAutobuyers(20)" onmouseover="upgradedescriptions(100)" alt="">                </td>
                </tr>
            </table>
-           <table class="prestigeunlock" id="generatortable" style="padding: 0px; font-size:0;">
+           <table class="prestigeunlock" id="generatortable" style="padding: 0; font-size:0;">
                    <tr>
                        <td>                        <img id="upg101" src="Pictures/Transparent Pics/GeneratorOne.png" onclick="buyGenerator(1)" onmouseover="upgradedescriptions(101)" alt="">                    </td>
                        <td>                        <img id="upg102" class="generationunlock" src="Pictures/Transparent Pics/GeneratorTwo.png"  onclick="buyGenerator(2)" onmouseover="upgradedescriptions(102)" alt="">                    </td>
@@ -713,7 +712,7 @@
                 <p id="achievementcolorcode2">Purple background: Unachieved, provides bonus multiplier.</p>
                 <p id="achievementcolorcode3">Red background: Unachieved, provides content/feature unlock.</p>
                 <p id="achievementcolorcode4">No background: Unachieved, nothing special.</p>
-                <table id="achievementstable" style="padding: 0px; font-size:0;">
+                <table id="achievementstable" style="padding: 0; font-size:0;">
                     <tr>
                         <td><img src="Pictures/Transparent Pics/ach1.png" id="ach1" onmouseover="achievementdescriptions(1)" alt=""></td>
                         <td><img src="Pictures/Transparent Pics/ach2.png" id="ach8" onmouseover="achievementdescriptions(8)" alt=""></td>
@@ -1034,7 +1033,7 @@
             <div id="rune2area">
             <p id="duplicationrune" style="color: plum">Duplication Rune</p>
             <img id="rune2" src="Pictures/Transparent Pics/DuplicationRune.png" onmouseover="displayRuneInformation(2)" onclick="toggleAutoSacrifice(2)" alt="">
-            <p id="rune2level">Level: 1/500</span></p>
+            <p id="rune2level">Level: 1/500</p>
             <p id="bonusrune2" style="color: orange"></p>
             <p id="rune2exp">Exp: 0/40</p>
             <button id="activaterune2" onclick="redeemShards(2)">SACRIFICE</button>
@@ -1101,7 +1100,7 @@
                     <tr>
                         <td style="font-size: 0; width: 32px"><img src="Pictures/CommonTalisman.png" alt=""></td>
                         <td style="width: 68px; color: white"><p id="commonFragmentInventory">0</p></td>
-                        <td><button class="talismanbtn" id="buyCommonFragment" style="border:2px solid white" onmouseover="updateCostDisplay(1)" onclick="buyTalismanStuff(1)">BUY</td>
+                        <td><button class="talismanbtn" id="buyCommonFragment" style="border:2px solid white" onmouseover="updateCostDisplay(1)" onclick="buyTalismanStuff(1)">BUY</button></td>
                     </tr>
                     <tr>
                         <td style="font-size: 0; width: 32px"><img src="Pictures/UncommonTalisman.png" alt=""></td>
@@ -1128,9 +1127,6 @@
                         <td style="width: 68px; color: crimson"><p id="mythicalFragmentInventory">0</p></td>
                         <td><button class="talismanbtn" id="buyMythicalFragment" style="border:2px solid red" onmouseover="updateCostDisplay(6)" onclick="buyTalismanStuff(6)">BUY</button></td>
                     </tr>
-                </table>
-                <table id="talismancounter" style="table-layout: fixed;">
-
                 </table>
                 <table id="buyfragments">
 
@@ -1224,7 +1220,7 @@
                             <td style="width: 68px; color: plum"><p id="talismanEpicFragmentCost"></p></td>
                             <td style="font-size: 0; width: 32px"><img src="Pictures/LegendaryTalisman.png" alt=""></td>
                             <td style="width: 68px; color: orange"><p id="talismanLegendaryFragmentCost"></p></td>
-                            <td style="font-size: 0; width: 32px"><img src="Pictures/MythicalTalisman.png"></td>
+                            <td style="font-size: 0; width: 32px"><img src="Pictures/MythicalTalisman.png" alt=""></td>
                             <td style="width: 68px; color: crimson"><p id="talismanMythicalFragmentCost"></p></td>
                         </tr>
                     </table>
@@ -1639,7 +1635,7 @@
             <div id="antSacrificeSummary" style="display: none">
                 <p id="antELO" style="color: plum">Your Ant ELO is <span id="ELO" style="color: gold">0 ELO</span> <span id="effectiveELO" style="color: white"> </span></p>
                 <p id="antUpgradeMultiplier" style="color: white">Upgrade Multiplier: <span id="SacrificeUpgradeMultiplier" style="color: gold">0.01x</span></p>
-                <p id="antTimeMultiplier" style="color: white">Time Multiplier: <span id="SacrificeTimeMultiplier" style="color: lightseagreen">0.01x</p>
+                <p id="antTimeMultiplier" style="color: white">Time Multiplier: <span id="SacrificeTimeMultiplier" style="color: lightseagreen">0.01x</span></p>
                 <p id="antSacrificeTitle" style="color: crimson">Reset Anthill features for:</p>
                 <p id="antSacrificeMultiplier" style="color: white">Ant Sacrifice Multiplier: 1x --> <span id="SacrificeMultiplier" style="color: limegreen">x2</span></p>
                 <table id="antSacrificeTable">
@@ -1688,7 +1684,7 @@
             <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid purple;" onclick="toggleCubeSubTab(2)">Tesseract Gifts</button>
             <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" onclick="toggleCubeSubTab(3)">Hypercube Benedictions</button>
             <button id="switchCubeSubTab4" class="cubeSwitchTabBtn" style="border: 2px solid white;" onclick="toggleCubeSubTab(4)">Cube Upgrades</button>
-            <p id="cubeToQuarkTimer">-=- Time Until Daily Refill -=- <span id="cubeToQuarkTimerValue" style="color: cyan">11 hours 10 mins 5 seconds</p>
+            <p id="cubeToQuarkTimer">-=- Time Until Daily Refill -=- <span id="cubeToQuarkTimerValue" style="color: cyan">11 hours 10 mins 5 seconds</span></p>
             <p id="cubeQuarksToday">Quarks gained from Cubes: 0/25</p>
             <p id="cubeQuarksOpenRequirement">Open <span id="cubeQuarksOpenRequirementValue">1</span> cubes for next quark.</p>
             <p id="cubeQuarksOpenToday">Cubes opened today: <span id="cubeQuarksOpenTodayValue" style="color: orchid">0</span></p>
@@ -2090,7 +2086,7 @@
         <img class="reincarnationunlock" id="settingpic3" src = "Pictures/Reincarnate.png" style="border: 1px solid green" alt="">
         <button class="auto" id="toggle30" onclick="toggleSettings(29)" style="border:2px solid green">On</button>
         <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
-        <p id="importgame" style="color: limegreen">Load game below!</button>
+        <p id="importgame" style="color: limegreen">Load game below!</p>
         <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
         <p id="exportinfo" style="color: white"></p>
         <p id="saveinfo" style="color: limegreen"></p>
@@ -2262,7 +2258,7 @@
                 <td><button class="permshopbutton" id="instantchallengebutton" style="border: 2px solid plum" onmouseover="shopDescriptions(7)" onclick="buyShopUpgrades(7)">Buy for 300 Quarks</button>
                 <td><button class="permshopbutton" id="antspeedbutton" style="border: 2px solid maroon" onmouseover="shopDescriptions(9)" onclick="buyShopUpgrades(9)">Upgrade for 200 Quarks</button></td>
                 <td><button class="permshopbutton" id="cashgrabbutton" style="border: 2px solid limegreen" onmouseover="shopDescriptions(8)" onclick="buyShopUpgrades(8)">Upgrade for 100 Quarks</button></td>
-                <td><button class="permshopbutton" id="shoptalismanbutton" style="border: 2px solid chartreuse" onmouseover="shopDescriptions(10)" onclick="buyShopUpgrades(10)">Buy for 1,500 Quarks</td>
+                <td><button class="permshopbutton" id="shoptalismanbutton" style="border: 2px solid chartreuse" onmouseover="shopDescriptions(10)" onclick="buyShopUpgrades(10)">Buy for 1,500 Quarks</button></td>
             </tr>
             <tr>
                 <td style="font-size: 0;"><img src="Pictures/Challenge Upgrade.png" onmouseover="shopDescriptions(11)" alt=""></td>
@@ -2280,14 +2276,13 @@
                 <td id="tesseractToQuark" onmouseover="shopDescriptions(15)">Not Bought</td>
                 <td id="hypercubeToQuark" onmouseover="shopDescriptions(16)">Not Bought</td>
             </tr>
-                <td><button class="permshopbutton" id="challengeUpgradeButton" style="border: 2px solid gray" onmouseover="shopDescriptions(11)" onclick="buyShopUpgrades(11)"></td>
-                <td><button class="permshopbutton" id="challenge10TomeButton" style="border: 2px solid gold" onmouseover="shopDescriptions(12)" onclick="buyShopUpgrades(12)"></td>
-                <td><button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange" onmouseover="shopDescriptions(13)" onclick="buyShopUpgrades(13)"></td>
-                <td><button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow" onmouseover="shopDescriptions(14)" onclick="buyShopUpgrades(14)"></td>
-                <td><button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid" onmouseover="shopDescriptions(15)" onclick="buyShopUpgrades(15)"></td>
-                <td><button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red" onmouseover="shopDescriptions(16)" onclick="buyShopUpgrades(16)"></td>
             <tr>
-
+                <td><button class="permshopbutton" id="challengeUpgradeButton" style="border: 2px solid gray" onmouseover="shopDescriptions(11)" onclick="buyShopUpgrades(11)"></button></td>
+                <td><button class="permshopbutton" id="challenge10TomeButton" style="border: 2px solid gold" onmouseover="shopDescriptions(12)" onclick="buyShopUpgrades(12)"></button></td>
+                <td><button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange" onmouseover="shopDescriptions(13)" onclick="buyShopUpgrades(13)"></button></td>
+                <td><button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow" onmouseover="shopDescriptions(14)" onclick="buyShopUpgrades(14)"></button></td>
+                <td><button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid" onmouseover="shopDescriptions(15)" onclick="buyShopUpgrades(15)"></button></td>
+                <td><button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red" onmouseover="shopDescriptions(16)" onclick="buyShopUpgrades(16)"></button></td>
             </tr>
         </table>
 
