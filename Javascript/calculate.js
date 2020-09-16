@@ -874,26 +874,30 @@ function calculateCubeBlessings() {
 
 }
 
-function calculateCubeMultiplier() {
-    mult = 1;
-    mult *= (1 + 3/100 * player.shopUpgrades.seasonPassLevel)
-    mult *= (1 + player.researches[119] / 400);
-    mult *= (1 + player.researches[120] / 400);
-    mult *= (1 + player.cubeUpgrades[1] / 10);
-    mult *= (1 + player.cubeUpgrades[11] / 10);
-    mult *= (1 + player.cubeUpgrades[21] / 10);
-    mult *= (1 + player.cubeUpgrades[31] / 10);
-    mult *= (1 + player.cubeUpgrades[41] / 10);
-    mult *= (1 + player.researches[137] / 100)
-    mult *= (1 + 0.9 * player.researches[152] / 100)
-    mult *= (1 + 0.8 * player.researches[167] / 100)
-    mult *= (1 + 0.7 * player.researches[182] / 100)
-    mult *= (1 + 0.6 * player.researches[187] / 100)
-    mult *= (1 + 0.03 / 100 * player.researches[192] * player.antUpgrades[12])
-    mult *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2])
-    mult *= (1 + 0.004 / 100 * player.researches[200])
-    mult *= (1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]))
-    return (mult)
+function calculateCubeMultiplier(calcMult = true) {
+    let arr = [];
+    arr.push(1 + 3/100 * player.shopUpgrades.seasonPassLevel)
+    arr.push(1 + player.researches[119] / 400);
+    arr.push(1 + player.researches[120] / 400);
+    arr.push(1 + player.cubeUpgrades[1] / 10);
+    arr.push(1 + player.cubeUpgrades[11] / 10);
+    arr.push(1 + player.cubeUpgrades[21] / 10);
+    arr.push(1 + player.cubeUpgrades[31] / 10);
+    arr.push(1 + player.cubeUpgrades[41] / 10);
+    arr.push(1 + player.researches[137] / 100);
+    arr.push(1 + 0.9 * player.researches[152] / 100);
+    arr.push(1 + 0.8 * player.researches[167] / 100);
+    arr.push(1 + 0.7 * player.researches[182] / 100);
+    arr.push(1 + 0.6 * player.researches[187] / 100);
+    arr.push(1 + 0.03 / 100 * player.researches[192] * player.antUpgrades[12]);
+    arr.push(1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2]);
+    arr.push(1 + 0.004 / 100 * player.researches[200]);
+    arr.push(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]));
+    if (calcMult) {
+        return productContents(arr);
+    } else {
+        return arr;
+    }
 }
 
 function calculateTimeAcceleration() {
