@@ -888,7 +888,7 @@ function calculateCubeMultiplier(calcMult = true) {
     arr.push(1 + 0.9 * player.researches[152] / 100);
     arr.push(1 + 0.8 * player.researches[167] / 100);
     arr.push(1 + 0.7 * player.researches[182] / 100);
-    arr.push(1 + 0.6 * player.researches[187] / 100);
+    arr.push(1 + 0.6 * player.researches[197] / 100);
     arr.push(1 + 0.03 / 100 * player.researches[192] * player.antUpgrades[12]);
     arr.push(1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2]);
     arr.push(1 + 0.004 / 100 * player.researches[200]);
