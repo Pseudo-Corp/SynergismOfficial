@@ -212,7 +212,7 @@ function calculateRuneExpToLevel(runeIndex) {
         Math.max(1, (runelevel - 200) / 9),
         Math.max(1, (runelevel - 400) / 12),
         Math.max(1, (runelevel - 600) / 15),
-        Math.max(1, Math.pow(1.03, (runelevel - 800)/4))
+        Math.max(1, Math.pow(1.03, (runelevel - 800) / 4))
     ]);
     let expToLevel = productContents([
         runeexpbase[runeIndex],
@@ -332,7 +332,7 @@ function calculateOfferings(i) {
         q *= (1 + 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)))
     }
     q *= (1 + 1 / 50 * player.shopUpgrades.offeringAutoLevel);
-    q *= (1 + 1/400 * Math.pow(player.shopUpgrades.offeringTimerLevel,2))
+    q *= (1 + 1 / 400 * Math.pow(player.shopUpgrades.offeringTimerLevel, 2))
     q *= (1 + 1 / 100 * player.shopUpgrades.cashGrabLevel);
     q *= (1 + 1 / 10000 * sumContents(player.challengecompletions) * player.researches[85])
     q *= (1 + Math.pow((player.antUpgrades[6] + bonusant6 / 50), 2 / 3))
@@ -407,7 +407,7 @@ function calculateObtainium() {
         obtainiumGain += 2 * player.researches[64]
     }
     obtainiumGain *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2));
-    obtainiumGain *= (1 + 1/200 * Math.floor(player.shopUpgrades.obtainiumTimerLevel,2))
+    obtainiumGain *= (1 + 1 / 200 * Math.floor(player.shopUpgrades.obtainiumTimerLevel, 2))
     if (player.reincarnationCount >= 5) {
         obtainiumGain *= Math.max(1, player.reincarnationcounter / 10)
     }
@@ -876,7 +876,7 @@ function calculateCubeBlessings() {
 
 function calculateCubeMultiplier(calcMult = true) {
     let arr = [];
-    arr.push(1 + 3/100 * player.shopUpgrades.seasonPassLevel)
+    arr.push(1 + 3 / 100 * player.shopUpgrades.seasonPassLevel)
     arr.push(1 + player.researches[119] / 400);
     arr.push(1 + player.researches[120] / 400);
     arr.push(1 + player.cubeUpgrades[1] / 10);
@@ -920,10 +920,10 @@ function calculateTimeAcceleration() {
         timeMult = 10 * Math.sqrt(timeMult)
     }
     timeMult *= indevSpeed
-    if(player.usedCorruptions[3] >= 6 && player.achievements[241] < 1){
+    if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
     }
-    if(timeMult > 3600 * indevSpeed && player.achievements[242] < 1){
+    if (timeMult > 3600 * indevSpeed && player.achievements[242] < 1) {
         achievementaward(242)
     }
     return (timeMult)
@@ -932,8 +932,8 @@ function calculateTimeAcceleration() {
 function calculateCorruptionPoints() {
     let basePoints = 400;
 
-    for(var i = 1; i <= 9; i++){
-    basePoints += 16 * Math.pow(player.usedCorruptions[i],2)
+    for (var i = 1; i <= 9; i++) {
+        basePoints += 16 * Math.pow(player.usedCorruptions[i], 2)
     }
 
     return (basePoints)
@@ -977,7 +977,7 @@ function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differ
 
 
 //Banked Cubes, Score, Cube Gain, Tesseract Gain, Hypercube Gain
-function CalcCorruptionStuff(){
+function CalcCorruptionStuff() {
     let corruptionArrayMultiplier = [1, 1.3, 1.5, 2, 3, 4, 5]
 
     let cubeBank = 0;
@@ -985,8 +985,8 @@ function CalcCorruptionStuff(){
     let corruptionMultiplier = 1;
     let bankMultiplier = 1;
     let effectiveScore = 1;
-    for(var i = 1; i <= 10; i++){
-        challengeModifier = (i >= 6)? 2: 1;
+    for (var i = 1; i <= 10; i++) {
+        challengeModifier = (i >= 6) ? 2 : 1;
         cubeBank += challengeModifier * player.highestchallengecompletions[i]
     }
 
@@ -994,17 +994,17 @@ function CalcCorruptionStuff(){
     let challengeScoreArrays1 = [null, 7, 8, 9, 10, 12, 50, 70, 100, 150, 250];
     let challengeScoreArrays2 = [null, 10, 12, 14, 17, 20, 70, 100, 150, 250, 400];
 
-    for(var i = 1; i <= 10; i++){
+    for (var i = 1; i <= 10; i++) {
         baseScore += challengeScoreArrays1[i] * player.highestchallengecompletions[i]
-        if(i <= 5 && player.highestchallengecompletions[i] >= 75){
+        if (i <= 5 && player.highestchallengecompletions[i] >= 75) {
             baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 75)
         }
-        if(i <= 10 && i > 5 && player.highestchallengecompletions[i] >= 25){
+        if (i <= 10 && i > 5 && player.highestchallengecompletions[i] >= 25) {
             baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 25)
         }
     }
     baseScore *= Math.pow(1.03, player.highestchallengecompletions[10]);
-    for(var i = 1; i <= 10; i++){
+    for (var i = 1; i <= 10; i++) {
         corruptionMultiplier *= corruptionArrayMultiplier[player.usedCorruptions[i]]
     }
 
@@ -1015,23 +1015,26 @@ function CalcCorruptionStuff(){
     cubeGain *= calculateCubeMultiplier();
 
     let tesseractGain = 1;
-    tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 100000))/10000 , .8);
+    tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 100000)) / 10000, .8);
 
-    let hypercubeGain = (effectiveScore >= 1e9) ? 1: 0;
-    hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9))/1e9, .9);
+    let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
+    hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9)) / 1e9, .9);
 
-    return[cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
+    return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
 }
 
-function dailyResetCheck(){
-    if(player.dayCheck === 0){player.dayCheck = new Date(); console.log('date successfully calibrated!')}
+function dailyResetCheck() {
+    if (player.dayCheck === 0) {
+        player.dayCheck = new Date();
+        console.log('date successfully calibrated!')
+    }
 
     let d = new Date()
     let h = d.getHours()
     let m = d.getMinutes()
     let s = d.getSeconds()
     player.dayTimer = (60 * 60 * 24) - (60 * 60 * h) - (60 * m) - s
-    if(d.getDate()!=player.dayCheck.getDate()||d.getMonth()!=player.dayCheck.getMonth()||d.getFullYear()!=player.dayCheck.getFullYear()){
+    if (d.getDate() != player.dayCheck.getDate() || d.getMonth() != player.dayCheck.getMonth() || d.getFullYear() != player.dayCheck.getFullYear()) {
         player.dayCheck = new Date();
         player.cubeQuarkDaily = 0;
         player.tesseractQuarkDaily = 0;
