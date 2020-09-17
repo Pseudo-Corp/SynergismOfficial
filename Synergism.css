@@ -1038,9 +1038,9 @@ margin-left: -13px
 }
 #savegame{
 	position: absolute;
-	top: 230px;
-	width: 192px;
-	left: 100%;
+	top: 420px;
+	width: 180px;
+	left: 60%;
 	margin-left: 125px;
 }
 #saveinfo {
@@ -4507,6 +4507,14 @@ margin-left: -13px
 	color: yellow;
 	font-size: 0.9em;
 	float: right;
+}
+.statPortion.statTotal{
+	color: orange;
+	font-weight: bold;
+	font-size: 1em;
+}
+.statNumber.statTotal{
+	color: deepskyblue;
 }
 .constUpgrade{
 	cursor: pointer;
