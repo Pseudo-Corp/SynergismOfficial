@@ -1931,7 +1931,7 @@ function multipliers() {
         globalAntMult = Decimal.pow(globalAntMult, 0.15)
     }
 
-    globalAntMult = Decimal.pow(globalAntMult, 1 - 0.8 / 54 * sumContents(player.usedCorruptions))
+    globalAntMult = Decimal.pow(globalAntMult, 1 - 0.8 / 63 * sumContents(player.usedCorruptions))
     globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
 
     globalConstantMult = new Decimal("1")

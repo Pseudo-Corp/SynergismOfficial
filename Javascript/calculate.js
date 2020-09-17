@@ -569,7 +569,7 @@ function calculateRuneBonuses() {
     }
 
     for (let i = 1; i <= 5; i++) {
-        effectiveRuneBlessingPower[i] = (Math.pow(runeBlessings[i], 1 / 4)) / 4000
+        effectiveRuneBlessingPower[i] = (Math.pow(runeBlessings[i], 1 / 8)) / 75
         effectiveRuneSpiritPower[i] = (Math.pow(runeSpirits[i], 1 / 8)) / 75
     }
 }
@@ -974,7 +974,7 @@ function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differ
 
 //Banked Cubes, Score, Cube Gain, Tesseract Gain, Hypercube Gain
 function CalcCorruptionStuff(){
-    let corruptionArrayMultiplier = [1, 1.3, 1.5, 2, 3, 4, 5]
+    let corruptionArrayMultiplier = [1, 1.3, 1.5, 2, 3, 4, 5, 7]
 
     let cubeBank = 0;
     let challengeModifier = 1;
