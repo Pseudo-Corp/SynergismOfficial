@@ -4510,6 +4510,14 @@ margin-left: -13px
 	font-size: 0.9em;
 	float: right;
 }
+.statPortion.statTotal{
+	color: orange;
+	font-weight: bold;
+	font-size: 1em;
+}
+.statNumber.statTotal{
+	color: deepskyblue;
+}
 .constUpgrade{
 	cursor: pointer;
 }

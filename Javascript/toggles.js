@@ -423,7 +423,7 @@ function setActiveSettingScreen(subtab, clickedButton) {
             }
             loadStatisticsAccelerator();
             loadStatisticsMultiplier();
-            loadStatisticsCubesPerSecond();
+            loadStatisticsCubeMultipliers();
             if (!subtabEl.classList.contains("subtabActive"))
                 clearInterval(id);
         }
