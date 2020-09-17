@@ -3626,10 +3626,8 @@ margin-left: -13px
 	position: absolute;
 	padding: 5px;
 	top: 460px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
+	margin-left: 25%;
+	width: 50%;
 	color: plum;
 	text-align: center;
 }
