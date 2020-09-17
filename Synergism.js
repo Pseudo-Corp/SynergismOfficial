@@ -1922,13 +1922,13 @@ function multipliers() {
     }
 
     if (player.currentChallenge.ascension === 12) {
-        globalAntMult = Decimal.pow(globalAntMult, 0.35)
+        globalAntMult = Decimal.pow(globalAntMult, 0.7)
     }
     if (player.currentChallenge.ascension === 13) {
-        globalAntMult = Decimal.pow(globalAntMult, 0.25)
+        globalAntMult = Decimal.pow(globalAntMult, 0.45)
     }
     if (player.currentChallenge.ascension === 14) {
-        globalAntMult = Decimal.pow(globalAntMult, 0.15)
+        globalAntMult = Decimal.pow(globalAntMult, 0.3)
     }
 
     globalAntMult = Decimal.pow(globalAntMult, 1 - 0.9 / 90 * sumContents(player.usedCorruptions))
@@ -2026,7 +2026,7 @@ function resourceGain(dt, fast) {
     producePerSecondParticles = produceParticles.times(40);
 
     if (player.currentChallenge.transcension !== 3 && player.currentChallenge.reincarnation !== 10) {
-        player.transcendShards = player.transcendShards.add(produceMythos.times(dt / 1));
+        player.transcendShards = player.transcendShards.add(produceMythos.times(dt / 0.025));
     }
     if (player.currentChallenge.reincarnation !== 10) {
         player.reincarnationShards = player.reincarnationShards.add(produceParticles.times(dt / 0.025))
