@@ -1482,7 +1482,7 @@ function updateAllTick() {
     }
     calculateAcceleratorMultiplier();
     a *= acceleratorMultiplier
-    a = Math.pow(a, maladaptivePower[player.usedCorruptions[2]])
+    a = Math.pow(a, maladaptivePower[player.usedCorruptions[2]] * (1/2 + 1/2 * divisivenessPower[player.usedCorruptions[1]]) / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2])))
     a = Math.floor(a)
 
     freeAccelerator = a;
@@ -1641,7 +1641,7 @@ function updateAllMultiplier() {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
-    a = Math.pow(a, divisivenessPower[player.usedCorruptions[1]])
+    a = Math.pow(a, divisivenessPower[player.usedCorruptions[1]] * (1/2 + 1/2 * maladaptivePower[player.usedCorruptions[2]]) / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2])))
     a = Math.floor(a)
     freeMultiplier = a;
     totalMultiplier = freeMultiplier + player.multiplierBought;
@@ -1931,7 +1931,7 @@ function multipliers() {
         globalAntMult = Decimal.pow(globalAntMult, 0.15)
     }
 
-    globalAntMult = Decimal.pow(globalAntMult, 1 - 0.8 / 63 * sumContents(player.usedCorruptions))
+    globalAntMult = Decimal.pow(globalAntMult, 1 - 0.9 / 90 * sumContents(player.usedCorruptions))
     globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
 
     globalConstantMult = new Decimal("1")
