@@ -654,7 +654,7 @@ function htmlInserts() {
         }
 
         if (runescreen === "blessings") {
-            let blessingMultiplierArray = [0, 12, 10, 6.66, 2, 1]
+            let blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
             let t = 0;
             for (let i = 1; i <= 5; i++) {
                 document.getElementById('runeBlessingLevel' + i + 'Value').textContent = format(player.runeBlessingLevels[i], 0, true)
@@ -747,7 +747,7 @@ function htmlInserts() {
 
         player.shopUpgrades.antSpeedLevel === 10 ?
             document.getElementById("antspeedbutton").textContent = "Maxed!" :
-            document.getElementById("antspeedbutton").textContent = "Upgrade for " + (shopBaseCosts.antSpeed + 200 * player.shopUpgrades.antSpeedLevel) + " Quarks";
+            document.getElementById("antspeedbutton").textContent = "Upgrade for " + (shopBaseCosts.antSpeed + 80 * player.shopUpgrades.antSpeedLevel) + " Quarks";
 
         player.shopUpgrades.cashGrabLevel === 10 ?
             document.getElementById("cashgrabbutton").textContent = "Maxed!" :
@@ -770,15 +770,15 @@ function htmlInserts() {
             document.getElementById("seasonPassButton").textContent = "Buy for " + (shopBaseCosts.seasonPass + 250 * player.shopUpgrades.seasonPassLevel) + " Quarks";
         
         player.shopUpgrades.cubeToQuarkBought ?
-            document.getElementById("cubeToQuarkButton").textContent = "Maxed!" :
+            (document.getElementById("cubeToQuarkButton").textContent = "Maxed!" , document.getElementById('cubeToQuark').textContent = "Bought!"):
             document.getElementById("cubeToQuarkButton").textContent = "Buy for " + (shopBaseCosts.cubeToQuark) + " Quarks";
 
         player.shopUpgrades.tesseractToQuarkBought ?
-            document.getElementById("tesseractToQuarkButton").textContent = "Maxed!" :
+            (document.getElementById("tesseractToQuarkButton").textContent = "Maxed!" , document.getElementById('tesseractToQuark').textContent = "Bought!") :
             document.getElementById("tesseractToQuarkButton").textContent = "Buy for " + (shopBaseCosts.tesseractToQuark) + " Quarks";
 
         player.shopUpgrades.hypercubeToQuarkBought ?
-            document.getElementById("hypercubeToQuarkButton").textContent = "Maxed!" :
+            (document.getElementById("hypercubeToQuarkButton").textContent = "Maxed!" , document.getElementById('hypercubeToQuark').textContent = "Bought!") :
             document.getElementById("hypercubeToQuarkButton").textContent = "Buy for " + (shopBaseCosts.hypercubeToQuark) + " Quarks";
         
     }
@@ -792,7 +792,14 @@ function htmlInserts() {
         document.getElementById("cubeToQuarkTimerValue").textContent = format(Math.floor(player.dayTimer/3600),0) + " Hours " + format(Math.floor(player.dayTimer/60 % 60),0) + " Mins " + format(Math.floor(player.dayTimer % 60),0) + " Secs "
         
         let prefixes = ['cube','tesseract','hypercube']
-        
+        let power = [4, 3, 2]
+        let multipliers = [10, 10, 5]
+        for(var i = 0; i <= 2; i++){
+            document.getElementById(prefixes[i]+'QuarksTodayValue').textContent = format(player[prefixes[i]+'QuarkDaily'])+"/"+format(25 + 75 * player.shopUpgrades[prefixes[i]+'ToQuarkBought']);
+            document.getElementById(prefixes[i]+'QuarksOpenTodayValue').textContent = format(player[prefixes[i]+'OpenedDaily'],0,true);
+            document.getElementById(prefixes[i]+'QuarksOpenRequirementValue').textContent = format(Math.max(0, multipliers[i] * Math.pow(Math.min(25 + 75 * player.shopUpgrades[prefixes[i]+'ToQuarkBought'], 1 + player[prefixes[i]+'QuarkDaily']),power[i]) - player[prefixes[i]+'OpenedDaily']),0,true)
+        }
+
     }
 
     if (currentTab === "traits") {

@@ -140,11 +140,11 @@ let crystalupgdesc = {
 let constantUpgDesc = {
     constantUpgDesc1: "Make all Tesseract buildings 5% more productive per level.",
     constantUpgDesc2: "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max 10%].",
-    constantUpgDesc3: "Increase offering gain by 0.01% * log10(Constant + 1) * level",
-    constantUpgDesc4: "Increase obtainium gain by 0.04% * log10(Constant + 1) * level",
+    constantUpgDesc3: "Increase offering gain +2% per level.",
+    constantUpgDesc4: "Increase obtainium gain +4% per level.",
     constantUpgDesc5: "Multiply ant speed by (1 + log10(Constant + 1)/10)^level",
     constantUpgDesc6: "Add +2 free Ant Levels per level.",
-    constantUpgDesc7: "Provides 17 free rune levels and increases the rune cap by 8 per level.",
+    constantUpgDesc7: "Provides 7 free rune levels and increases the rune cap by 3 per level.",
     constantUpgDesc8: "Increase the rune EXP given by offerings by 10% per level [Additive]",
     constantUpgDesc9: "When bought, rune effectiveness is increased by Log4(Talisman Shards +1) %",
     constantUpgDesc10: "When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on ascension."
@@ -412,10 +412,10 @@ function returnConstUpgEffect(i) {
             show = "Tesseract building production x" + format(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned), 2, true)
             return show;
         case 3:
-            show = "Offering gain x" + format(1 + 0.0001 * player.constantUpgrades[3] * Decimal.log(player.ascendShards.add(1), 10), 4, true)
+            show = "Offering gain x" + format(1 + 0.02 * player.constantUpgrades[3], 2, true)
             return show;
         case 4:
-            show = "Obtainium gain x" + format(1 + 0.0004 * player.constantUpgrades[4] * Decimal.log(player.ascendShards.add(1), 10), 4, true)
+            show = "Obtainium gain x" + format(1 + 0.04 * player.constantUpgrades[4], 2, true)
             return show;
         case 5:
             show = "Ant Speed x" + format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]), 2, true)

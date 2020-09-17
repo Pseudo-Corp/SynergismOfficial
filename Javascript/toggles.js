@@ -383,9 +383,11 @@ function toggleRuneScreen(index) {
             break;
         case 3:
             runescreen = "blessings";
+            CSSRuneBlessings()
             break;
         case 4:
             runescreen = "spirits";
+            CSSRuneBlessings()
             break;
     }
     let a

@@ -7,7 +7,14 @@ function openTesseract(value, max) {
     }
 
     player.wowTesseracts -= toSpend
+    player.tesseractOpenedDaily += toSpend
 
+    if(player.tesseractQuarkDaily < 25 + 75 * player.shopUpgrades.tesseractToQuarkBought){
+        while(player.tesseractOpenedDaily >= 10 * Math.pow(1 + player.tesseractQuarkDaily, 3) && player.tesseractQuarkDaily < 25 + 75 * player.shopUpgrades.tesseractToQuarkBought){
+            player.tesseractQuarkDaily += 1;
+            player.worlds += 1;
+        }
+    }
     let toSpendModulo = toSpend % 20
     let toSpendDiv20 = Math.floor(toSpend / 20)
     let blessings = {

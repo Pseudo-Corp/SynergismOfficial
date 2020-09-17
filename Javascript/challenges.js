@@ -186,13 +186,13 @@ function challengeDisplay(i, changefocus, automated) {
         b.textContent = "The great Ant War of '21 wiped off all of the skilled ants."
         c.textContent = "Ascend and reach the goal but only get free ant upgrades and from Challenge8/9 completions. FOR ASCENSION CHALLENGES YOU MUST CLEAR CHALLENGE 10 TO ATTEMPT THEM."
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
-        e.textContent = "+15 free Ant Levels! Current: "
-        f.textContent = "Ant Speed x(1e15)^completions! Current: "
+        e.textContent = "+10 free Ant Levels! Current: "
+        f.textContent = "Ant Speed x(1e3)^completions! Current: "
         g.textContent = "+80 to Rune Caps! Current: "
         h.textContent = "Unlock 15 Researches, and unlock the ability to open Tesseracts!"
         k.textContent = "Start <[(Reduced Ants)]>"
-        l.textContent = "+" + format(15 * CalcECC('ascension', player.challengecompletions[11])) + " free ant levels"
-        m.textContent = "Ant Speed x" + format(Decimal.pow(1e15, CalcECC('ascension', player.challengecompletions[11])))
+        l.textContent = "+" + format(10 * CalcECC('ascension', player.challengecompletions[11])) + " free ant levels"
+        m.textContent = "Ant Speed x" + format(Decimal.pow(1e3, CalcECC('ascension', player.challengecompletions[11])))
         n.textContent = "+" + format(80 * CalcECC('ascension', player.challengecompletions[11])) + " to Rune Caps"
     }
     if (i === 12 && challengefocus === 12) {
@@ -388,4 +388,90 @@ function challengeRequirement(challenge, completion) {
     } else if (challenge === 15) {
         return Decimal.pow(10, 4 * Math.pow(10, 19))
     }
+}
+
+function runChallengeSweep(dt){
+//This auto challenge thing is sure a doozy aint it
+if (player.researches[150] > 0 && player.autoChallengeRunning && (player.reincarnationPoints.greaterThanOrEqualTo(Decimal.pow(10, player.autoChallengeStartExponent)) || player.currentChallenge.ascension === 12)) {
+    autoChallengeTimerIncrement += dt
+    if (autoChallengeTimerIncrement >= player.autoChallengeTimer.exit) {
+        if (player.currentChallenge.transcension !== 0 && player.autoChallengeIndex <= 5) {
+            resetCheck('challenge', null, true)
+            autoChallengeTimerIncrement = 0;
+            player.autoChallengeIndex += 1
+            if (player.autoChallengeTimer.enter >= 1) {
+                toggleAutoChallengeTextColors(3)
+            }
+        }
+        if (player.currentChallenge.reincarnation !== 0 && player.autoChallengeIndex > 5) {
+            resetCheck('reincarnationchallenge', null, true)
+            autoChallengeTimerIncrement = 0;
+            player.autoChallengeIndex += 1
+            if (player.autoChallengeTimer.enter >= 1) {
+                toggleAutoChallengeTextColors(3)
+            }
+        }
+        if (player.autoChallengeIndex > 10) {
+            player.autoChallengeIndex = 1
+            if (player.autoChallengeTimer.start >= 1) {
+                toggleAutoChallengeTextColors(1)
+            }
+        }
+    }
+    if (player.autoChallengeIndex === 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.start) {
+        while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
+            player.autoChallengeIndex += (!player.autoChallengeToggles[player.autoChallengeIndex]) ? 1 : 0;
+            if (player.autoChallengeIndex === 10) {
+                break;
+            }
+        }
+        if (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
+            autoChallengeTimerIncrement = 0;
+        }
+        toggleChallenges(player.autoChallengeIndex, true);
+        if (player.autoChallengeTimer.exit >= 1) {
+            toggleAutoChallengeTextColors(2)
+        }
+    }
+    if (player.autoChallengeIndex !== 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.enter) {
+        if (player.currentChallenge.transcension === 0 && player.autoChallengeIndex <= 5) {
+            while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
+                player.autoChallengeIndex += 1
+                if (player.autoChallengeIndex > 10) {
+                    player.autoChallengeIndex = 1;
+                    if (player.autoChallengeTimer.start >= 1) {
+                        toggleAutoChallengeTextColors(1)
+                    }
+                    break;
+                }
+            }
+            if (player.autoChallengeIndex !== 1) {
+                toggleChallenges(player.autoChallengeIndex, true);
+                if (player.autoChallengeTimer.exit >= 1) {
+                    toggleAutoChallengeTextColors(2)
+                }
+            }
+            autoChallengeTimerIncrement = 0;
+        }
+        if (player.currentChallenge.reincarnation === 0 && player.autoChallengeIndex > 5) {
+            while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
+                player.autoChallengeIndex += 1
+                if (player.autoChallengeIndex > 10) {
+                    player.autoChallengeIndex = 1;
+                    if (player.autoChallengeTimer.start >= 1) {
+                        toggleAutoChallengeTextColors(1)
+                    }
+                    break;
+                }
+            }
+            if (player.autoChallengeIndex !== 1) {
+                toggleChallenges(player.autoChallengeIndex, true);
+                if (player.autoChallengeTimer.exit >= 1) {
+                    toggleAutoChallengeTextColors(2)
+                }
+            }
+            autoChallengeTimerIncrement = 0;
+        }
+    }
+}
 }

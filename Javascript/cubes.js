@@ -6,6 +6,14 @@ function openCube(value, max) {
         achievementaward(246)
     }
     player.wowCubes -= toSpend
+    player.cubeOpenedDaily += toSpend
+
+    if(player.cubeQuarkDaily < 25 + 75 * player.shopUpgrades.cubeToQuarkBought){
+        while(player.cubeOpenedDaily >= 10 * Math.pow(1 + player.cubeQuarkDaily, 4) && player.cubeQuarkDaily < 25 + 75 * player.shopUpgrades.cubeToQuarkBought){
+            player.cubeQuarkDaily += 1;
+            player.worlds += 1;
+        }
+    }
 
     toSpend *= (1 + player.researches[138] / 1000)
     toSpend *= (1 + 0.8 * player.researches[168] / 1000)
@@ -111,8 +119,8 @@ const cubeUpgradeName = [null,
 ]
 
 const cubeBaseCost = [null,
-    200, 200, 200, 500, 500, 500, 500, 500, 2000, 1e5,
-    5000, 3000, 10000, 4000, 4000, 1e4, 4000, 1e4, 50000, 7500,
+    200, 200, 200, 500, 500, 500, 500, 500, 2000, 40000,
+    5000, 1000, 10000, 4000, 4000, 1e4, 4000, 1e4, 50000, 7500,
     5e4, 3e4, 3e4, 4e4, 4e4, 1e4, 1e5, 177777, 1e5, 5e5,
     5e5, 3e5, 3e5, 4e5, 4e5, 2e5, 5e5, 1e6, 1e6, 5e6,
     5e6, 2e6, 3e6, 4e6, 4e6, 5e5, 2e6, 2e7, 3e7, 2e9]
@@ -248,6 +256,21 @@ function buyCubeUpgrades(i) {
     let amountToBuy = getCubeBuyAmount(i);
     player.cubeUpgrades[i] += amountToBuy;
     player.wowCubes -= 100 / 100 * (amountToBuy * cubeBaseCost[i]);
+
+    if(i === 4 && player.cubeUpgrades[4] > 0){
+        for(var j = 94; j <= 98; j++){
+            player.upgrades[j] = 1;
+            upgradeupdate(j, true)
+        }
+    }
+    if(i === 5 && player.cubeUpgrades[5] > 0){
+        player.upgrades[99] = 1
+        upgradeupdate(99, true)
+    }
+    if(i === 6 && player.cubeUpgrades[6] > 0){
+        player.upgrades[100] = 1
+        upgradeupdate(100, true)
+    }
 
     cubeUpgradeDesc(i);
     updateCubeUpgradeBG(i);

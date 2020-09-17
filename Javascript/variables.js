@@ -38,12 +38,12 @@ var researchBaseCosts = [1e100,
     1e18, 3e18, 1e19, 3e19, 1e20,
     1e20, 2e20, 4e20, 8e20, 1e21,
     2e21, 4e21, 8e21, 2e22, 4e22,
-    8e22, 2e23, 4e23, 1e21, 7.777e32,
+    3.2e21, 2e23, 4e23, 1e21, 7.777e32,
     5e8, 5e12, 5e16, 5e20, 5e24, /*ascension tier */
     1e25, 2e25, 4e25, 8e25, 1e26,
     4e26, 8e26, 1e27, 2e27, 1e28,
-    5e9, 5e15, 5e21, 5e27, 5e28, /*challenge 11 tier */
-    1e29, 2e29, 4e29, 8e29, 1e30,
+    5e9, 5e15, 5e21, 5e27, 1e28, /*challenge 11 tier */
+    1e29, 2e29, 4e29, 8e29, 1e27,
     2e30, 4e30, 8e30, 1e31, 2e31,
     5e31, 1e32, 2e32, 4e32, 8e32, /*challenge 12 tier */
     1e33, 2e33, 4e33, 8e33, 1e34,
@@ -233,8 +233,8 @@ const shopBaseCosts = {
     challengeExtension: 500,
     challenge10Upgrade: 500,
     cubeToQuark: 2000,
-    tesseractToQuark: 5000,
-    hypercubeToQuark: 10000,
+    tesseractToQuark: 3500,
+    hypercubeToQuark: 5000,
 }
 
 var shopConfirmation = true;

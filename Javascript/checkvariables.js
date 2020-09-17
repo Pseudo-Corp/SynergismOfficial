@@ -161,5 +161,8 @@ function checkVariablesOnLoad(data) {
         player.cubeQuarkDaily = 0;
         player.tesseractQuarkDaily = 0;
         player.hypercubeQuarkDaily = 0;
+        player.cubeOpenedDaily = 0;
+        player.tesseractOpenedDaily = 0;
+        player.hypercubeOpenedDaily = 0;
     }
 }
