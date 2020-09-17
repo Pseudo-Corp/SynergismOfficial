@@ -39,6 +39,7 @@
     <script src="Javascript/checkvariables.js"></script>
     <script src="Javascript/research.js"></script>
     <script src="Javascript/corruptions.js"></script>
+    <script src="Javascript/experimental.js"></script>
     <!--<script src="Javascript/i18n.js"></script>-->
     <title>Synergism v2.0.0 BETA</title>
     </head>
@@ -1202,7 +1203,7 @@
                     <p id="talismanMythicEffect" style="color: gold"></p>
                 </div>
 
-                <div id="talismanlevelup" style="table-layout: fixed;">
+                <div id="talismanlevelup" style="table-layout: fixed; display: none">
                     <p id="talismanLevelUpSummary" style="color: silver">-=-=- Resources Required to Level Up -=-=-</p>
                     <table>
                         <tr>
@@ -1226,7 +1227,7 @@
                     </table>
                 </div>
 
-                <div id="talismanrespec">
+                <div id="talismanrespec" style="display: none">
                     <p id="talismanRespecSummary" style="color: orchid">+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+</p>
                     <button class="talismanRespecBtn" id="talismanRespecButton1" onclick="changeTalismanModifier(1)">Speed Rune: POSITIVE</button>
                     <button class="talismanRespecBtn" id="talismanRespecButton2" onclick="changeTalismanModifier(2)">Duplication Rune: POSITIVE</button>
@@ -1507,7 +1508,7 @@
                     <td><img id="res147" src="Pictures/Transparent Pics/Research147.png" alt="" onclick='buyResearch(147);' class="chal11" onmouseover="researchDescriptions(147)"></td>
                     <td><img id="res148" src="Pictures/Transparent Pics/Research148.png" alt="" onclick='buyResearch(148);' class="chal11" onmouseover="researchDescriptions(148)"></td>
                     <td><img id="res149" src="Pictures/Transparent Pics/Research149.png" alt="" onclick='buyResearch(149);' class="chal11" onmouseover="researchDescriptions(149)"></td>
-                    <td><img id="res150" src="Pictures/Transparent Pics/Research150.png" alt="" onclick='buyResearch(150);' class="chal11" onmouseover="researchDescriptions(150)"></td>
+                    <td><img id="res150" src="Pictures/Transparent Pics/Research150.png" alt="" onclick='buyResearch(150);' class="ascendunlock" onmouseover="researchDescriptions(150)"></td>
                 </tr>
                 <tr>
                     <td><img id="res151" src="Pictures/Transparent Pics/Research151.png" alt="" onclick='buyResearch(151);' class="chal11" onmouseover="researchDescriptions(151)"></td>
@@ -1684,16 +1685,16 @@
             <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid purple;" onclick="toggleCubeSubTab(2)">Tesseract Gifts</button>
             <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" onclick="toggleCubeSubTab(3)">Hypercube Benedictions</button>
             <button id="switchCubeSubTab4" class="cubeSwitchTabBtn" style="border: 2px solid white;" onclick="toggleCubeSubTab(4)">Cube Upgrades</button>
-            <p id="cubeToQuarkTimer">-=- Time Until Daily Refill -=- <span id="cubeToQuarkTimerValue" style="color: cyan">11 hours 10 mins 5 seconds</span></p>
-            <p id="cubeQuarksToday">Quarks gained from Cubes: 0/25</p>
-            <p id="cubeQuarksOpenRequirement">Open <span id="cubeQuarksOpenRequirementValue">1</span> cubes for next quark.</p>
+            <p id="cubeToQuarkTimer">-=- Time Until Daily Refill -=- <span id="cubeToQuarkTimerValue" style="color: cyan">11 hours 10 mins 5 seconds</p>
+            <p id="cubeQuarksToday">Quarks gained from Cubes: <span id="cubeQuarksTodayValue" style="color: cyan">0/25</p></p>
+            <p id="cubeQuarksOpenRequirement">Open <span id="cubeQuarksOpenRequirementValue" style="color: yellow">1</span> cubes for next quark.</p>
             <p id="cubeQuarksOpenToday">Cubes opened today: <span id="cubeQuarksOpenTodayValue" style="color: orchid">0</span></p>
-            <p id="tesseractQuarksToday">Quarks gained from Tesseracts: 0/25</p>
-            <p id="tesseractQuarksOpenRequirement">Open <span id="tesseractQuarksOpenRequirementValue">1</span> tesseracts for next quark.</p>
-            <p id="tesseractQuarksOpenToday">Tesseracts opened today: <span id="tesseractQuarksOpenTodayValue" style="color: orchid">0</span></p>
-            <p id="hypercubeQuarksToday">Quarks gained from Hypercubes: 0/25</p>
-            <p id="hypercubeQuarksOpenRequirement">Open <span id="hypercubeQuarksOpenRequirementValue">1</span> hypercubes for next quark.</p>
-            <p id="hypercubeQuarksOpenToday">Hypercubes opened today: <span id="hypercubeQuarksOpenTodayValue" style="color: orchid;">0</span></p>
+            <p id="tesseractQuarksToday" class="chal11">Quarks gained from Tesseracts: <span id="tesseractQuarksTodayValue" style="color: cyan">0/25</p></p>
+            <p id="tesseractQuarksOpenRequirement" class="chal11">Open <span id="tesseractQuarksOpenRequirementValue" style="color: yellow">1</span> tesseracts for next quark.</p>
+            <p id="tesseractQuarksOpenToday" class="chal11">Tesseracts opened today: <span id="tesseractQuarksOpenTodayValue" style="color: orchid">0</span></p>            
+            <p id="hypercubeQuarksToday" class="chal13">Quarks gained from Hypercubes: <span id="hypercubeQuarksTodayValue" style="color: cyan">0/25</p></p>
+            <p id="hypercubeQuarksOpenRequirement" class="chal13">Open <span id="hypercubeQuarksOpenRequirementValue" style="color: yellow">1</span> hypercubes for next quark.</p>
+            <p id="hypercubeQuarksOpenToday" class="chal13">Hypercubes opened today: <span id="hypercubeQuarksOpenTodayValue" style="color: orchid;">0</span></p>
             <div id="cubeTab1" style="display: block">
             <p id="cubeWelcome" class="cubePlacement1" style="color: orange">You feel a sense of Pride and Accomplishment... and a hunger for power.</p>
             <p id="cubeExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.</p>
@@ -2105,7 +2106,7 @@
         <a href="https://docs.google.com/document/d/13vntkxiCo-mL1en5LRvOmlKQdYhTGhqs9-9mT1XLn1U/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!" alt="">
         </a>
-        <p id="versionnumber" style="color: gold">You're playing on v2.0.0 TESTING! Update: September 12, 2020 12:57 AM PDT</p>
+        <p id="versionnumber" style="color: gold">You're playing on v2.0.0 TESTING! Update: September 16, 2020 5:07 PM PDT</p>
     </div>
     <div class="subtabContent" id="creditssubtab">
         <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>
@@ -2270,28 +2271,28 @@
                 <td><button class="permshopbutton" id="shoptalismanbutton" style="border: 2px solid chartreuse" onmouseover="shopDescriptions(10)" onclick="buyShopUpgrades(10)">Buy for 1,500 Quarks</button></td>
             </tr>
             <tr>
-                <td style="font-size: 0;"><img src="Pictures/Challenge Upgrade.png" onmouseover="shopDescriptions(11)" alt=""></td>
-                <td style="font-size: 0;"><img src="Pictures/Challenge 10 Tome Upgrade.png" onmouseover="shopDescriptions(12)" alt=""></td>
-                <td style="font-size: 0;"><img src="Pictures/VIP Pass Upgrade.png" onmouseover="shopDescriptions(13)" alt=""></td>
-                <td style="font-size: 0;"><img src="Pictures/Cube Quark Upgrade.png" onmouseover="shopDescriptions(14)" alt=""></td>
-                <td style="font-size: 0;"><img src="Pictures/Tesseract Quark Upgrade.png" onmouseover="shopDescriptions(15)" alt=""></td>
-                <td style="font-size: 0;"><img src="Pictures/Hypercube Quark Upgrade.png" onmouseover="shopDescriptions(16)" alt=""></td>
+                <td style="font-size: 0;"><img src="Pictures/VIP Pass Upgrade.png" onmouseover="shopDescriptions(13)"></td>
+                <td style="font-size: 0;"><img src="Pictures/Challenge Upgrade.png" onmouseover="shopDescriptions(11)"></td>
+                <td style="font-size: 0;"><img src="Pictures/Challenge 10 Tome Upgrade.png" onmouseover="shopDescriptions(12)"></td>
+                <td style="font-size: 0;"><img src="Pictures/Cube Quark Upgrade.png" onmouseover="shopDescriptions(14)"></td>
+                <td style="font-size: 0;"><img src="Pictures/Tesseract Quark Upgrade.png" onmouseover="shopDescriptions(15)"></td>
+                <td style="font-size: 0;"><img src="Pictures/Hypercube Quark Upgrade.png" onmouseover="shopDescriptions(16)"></td>
             </tr>
             <tr>
+                <td id="seasonPassLevel" onmouseover="shopDescriptions(13)">Level: 0/5</td>
                 <td id="challengeUpgradeLevel" onmouseover="shopDescriptions(11)">Level: 0/5</td>
                 <td id="challenge10TomeLevel" onmouseover="shopDescriptions(12)">Level: 0/5</td>
-                <td id="seasonPassLevel" onmouseover="shopDescriptions(13)">Level: 0/5</td>
                 <td id="cubeToQuark" onmouseover="shopDescriptions(14)">Not Bought</td>
                 <td id="tesseractToQuark" onmouseover="shopDescriptions(15)">Not Bought</td>
                 <td id="hypercubeToQuark" onmouseover="shopDescriptions(16)">Not Bought</td>
             </tr>
             <tr>
-                <td><button class="permshopbutton" id="challengeUpgradeButton" style="border: 2px solid gray" onmouseover="shopDescriptions(11)" onclick="buyShopUpgrades(11)"></button></td>
-                <td><button class="permshopbutton" id="challenge10TomeButton" style="border: 2px solid gold" onmouseover="shopDescriptions(12)" onclick="buyShopUpgrades(12)"></button></td>
-                <td><button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange" onmouseover="shopDescriptions(13)" onclick="buyShopUpgrades(13)"></button></td>
-                <td><button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow" onmouseover="shopDescriptions(14)" onclick="buyShopUpgrades(14)"></button></td>
-                <td><button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid" onmouseover="shopDescriptions(15)" onclick="buyShopUpgrades(15)"></button></td>
-                <td><button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red" onmouseover="shopDescriptions(16)" onclick="buyShopUpgrades(16)"></button></td>
+                <td><button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange" onmouseover="shopDescriptions(13)" onclick="buyShopUpgrades(13)"></td>
+                <td><button class="permshopbutton" id="challengeUpgradeButton" style="border: 2px solid gray" onmouseover="shopDescriptions(11)" onclick="buyShopUpgrades(11)"></td>
+                <td><button class="permshopbutton" id="challenge10TomeButton" style="border: 2px solid gold" onmouseover="shopDescriptions(12)" onclick="buyShopUpgrades(12)"></td>
+                <td><button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow" onmouseover="shopDescriptions(14)" onclick="buyShopUpgrades(14)"></td>
+                <td><button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid" onmouseover="shopDescriptions(15)" onclick="buyShopUpgrades(15)"></td>
+                <td><button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red" onmouseover="shopDescriptions(16)" onclick="buyShopUpgrades(16)"></td>
             </tr>
         </table>
 

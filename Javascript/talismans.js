@@ -127,7 +127,7 @@ function showTalismanEffect(i) {
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman1Effect[3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(talisman1Effect[4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(talisman1Effect[5], 2, true)
-            h.textContent = "Mythic Effect: +1,000 Duplication Rune Levels!"
+            h.textContent = "Mythic Effect: +400 Duplication Rune Levels!"
             break;
         case 2:
             a.textContent = "=-=-=-= Chronos Talisman Effects =-=-=-=";
@@ -137,7 +137,7 @@ function showTalismanEffect(i) {
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman2Effect[3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(talisman2Effect[4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(talisman2Effect[5], 2, true)
-            h.textContent = "Mythic Effect: +1,000 Speed Rune Levels!"
+            h.textContent = "Mythic Effect: +400 Speed Rune Levels!"
             break;
         case 3:
             a.textContent = "=-=-=-= Midas Talisman Effects =-=-=-=";
@@ -147,7 +147,7 @@ function showTalismanEffect(i) {
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman3Effect[3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(talisman3Effect[4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(talisman3Effect[5], 2, true)
-            h.textContent = "Mythic Effect: +1,000 Thrift Rune Levels!"
+            h.textContent = "Mythic Effect: +400 Thrift Rune Levels!"
             break;
         case 4:
             a.textContent = "=-=-=-= Metaphysics Talisman Effects =-=-=-=";
@@ -157,7 +157,7 @@ function showTalismanEffect(i) {
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman4Effect[3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(talisman4Effect[4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(talisman4Effect[5], 2, true)
-            h.textContent = "Mythic Effect: +1,000 Prism Rune Levels!"
+            h.textContent = "Mythic Effect: +400 Prism Rune Levels!"
             break;
         case 5:
             a.textContent = "=-=-=-= Polymath Talisman Effects =-=-=-=";
@@ -167,7 +167,7 @@ function showTalismanEffect(i) {
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman5Effect[3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(talisman5Effect[4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(talisman5Effect[5], 2, true)
-            h.textContent = "Mythic Effect: +1,000 SI Rune Levels!"
+            h.textContent = "Mythic Effect: +400 SI Rune Levels!"
             break;
         case 6:
             a.textContent = "=-=-=-= Mortuus Est Talisman Effects =-=-=-=";

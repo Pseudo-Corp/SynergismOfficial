@@ -337,7 +337,7 @@ function calculateOfferings(i) {
     q *= (1 + 1 / 10000 * sumContents(player.challengecompletions) * player.researches[85])
     q *= (1 + Math.pow((player.antUpgrades[6] + bonusant6 / 50), 2 / 3))
     q *= cubeBonusMultiplier[3]
-    q *= (1 + 0.0001 * player.constantUpgrades[3] * Decimal.log(player.ascendShards.add(1), 10))
+    q *= (1 + 0.02 * player.constantUpgrades[3])
     q *= (1 + 0.0003 * player.talismanLevels[3] * player.researches[149])
     q *= (1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]))
     q *= (1 + 0.01 / 100 * player.researches[200])
@@ -381,7 +381,7 @@ function calculateObtainium() {
     obtainiumGain *= (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07 * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15 * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147])
     obtainiumGain *= (1 + 2 * Math.pow((player.antUpgrades[10] + bonusant10) / 50, 2 / 3))
     obtainiumGain *= cubeBonusMultiplier[5]
-    obtainiumGain *= (1 + 0.0004 * player.constantUpgrades[4] * Decimal.log(player.ascendShards.add(1), 10))
+    obtainiumGain *= (1 + 0.04 * player.constantUpgrades[4])
     obtainiumGain *= (1 + player.cubeUpgrades[47])
     obtainiumGain *= (1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]))
     obtainiumGain *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[4])
@@ -553,6 +553,9 @@ function calculateRuneBonuses() {
     blessingMultiplier *= (1 + player.talismanRarity[3] / 10)
     blessingMultiplier *= (1 + 0.10 * Math.log(player.epicFragments + 1) / Math.log(10))
     blessingMultiplier *= (1 + player.researches[194] / 100)
+    if (player.researches[160] > 0){
+    blessingMultiplier *= Math.pow(1.25,8)
+    }
     spiritMultiplier *= (1 + 8 * player.researches[164] / 100)
     if (player.researches[165] > 0 && player.currentChallenge.ascension !== 0) {
         spiritMultiplier *= 32
@@ -566,8 +569,8 @@ function calculateRuneBonuses() {
     }
 
     for (let i = 1; i <= 5; i++) {
-        effectiveRuneBlessingPower[i] = (Math.pow(runeBlessings[i], 1 / 5)) / 400
-        effectiveRuneSpiritPower[i] = (Math.pow(runeSpirits[i], 1 / 5)) / 400
+        effectiveRuneBlessingPower[i] = (Math.pow(runeBlessings[i], 1 / 4)) / 4000
+        effectiveRuneSpiritPower[i] = (Math.pow(runeSpirits[i], 1 / 8)) / 75
     }
 }
 
@@ -577,7 +580,7 @@ function calculateAnts() {
     talismanBonus += 2 * (player.talismanRarity[6] - 1);
     talismanBonus += CalcECC('reincarnation', player.challengecompletions[9]);
     talismanBonus += 2 * player.constantUpgrades[6];
-    talismanBonus += 15 * CalcECC('ascension', player.challengecompletions[11]);
+    talismanBonus += 10 * CalcECC('ascension', player.challengecompletions[11]);
     talismanBonus += Math.floor(1 / 200 * player.researches[200]);
     let c11 = 0;
     let c11bonus = 0;
@@ -585,7 +588,7 @@ function calculateAnts() {
         c11 = 999
     }
     if (player.currentChallenge.ascension === 11) {
-        c11bonus = Math.floor((6 * player.challengecompletions[8] + 28 * player.challengecompletions[9]) * Math.max(0, (1 - player.challengecompletions[11] / 10)));
+        c11bonus = Math.floor((3 * player.challengecompletions[8] + 22 * player.challengecompletions[9]) * Math.max(0, (1 - player.challengecompletions[11] / 10)));
     }
     bonusant1 = Math.min(player.antUpgrades[1] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
     bonusant2 = Math.min(player.antUpgrades[2] + c11, 4 * player.researches[97] + talismanBonus + player.researches[102] + 2 * player.researches[132] + c11bonus)
@@ -736,90 +739,87 @@ function initiateTimeWarp(time) {
     }
 }
 
-function calculateOffline(forceTime) {
-    forceTime = forceTime || 0
+function calculateOffline(forceTime){
+    forceTime = forceTime || 0;
+    timeWarp = true;
+
+    //Variable Declarations i guess
+    let maximumTimer = 86400 + 7200 * player.researches[31] + 7200 + player.researches[32];
+    const updatedTime = Date.now();
+    let timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - player.offlinetick) / 1000))
+    document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " real-life seconds of Offline Progress!";
+    let simulatedTicks = (timeAdd > 1000) ? 200: 1 + Math.floor(timeAdd/5);
+    console.log(simulatedTicks)
+    let tickValue = (timeAdd > 1000) ? timeAdd / 200: Math.min(5, timeAdd);
+    console.log(tickValue)
+    let timeMultiplier = 1;
+    let maxSimulatedTicks = simulatedTicks;
+    let progressBarWidth = 0;
+    let automaticObtainium = 0;
+
+    //Some one-time tick things that are relatively important
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
-    // should fix offline obtainium gain bug in c14 //
-    if (player.currentChallenge.ascension != 14) {
-        calculateObtainium();
-    }
-    calculateAnts();
-    calculateRuneLevels();
-    if (forceTime === 0) {
-        document.getElementById("preload").style.display = "block"
-    }
-    document.getElementById("offlineprogressbar").style.display = "block"
-    timeWarp = true
-    if (player.offlinetick < 1.5e12) {
-        player.offlinetick = Date.now()
-    }
-    const updatedtime = Date.now();
-    let timeadd = Math.min(28800 * 3 + 7200 * player.researches[31] + 7200 * player.researches[32], Math.max(forceTime, (updatedtime - player.offlinetick) / 1000));
-    timeadd *= calculateTimeAcceleration();
-    document.getElementById("offlineTimer").textContent = "You have " + format(timeadd, 2) + " seconds of Offline Progress!";
-    let simulatedTicks = 800;
-    let tickValue = timeadd / 800;
-    let progressBarWidth = 0;
-    if (timeadd < 1000) {
-        simulatedTicks = Math.min(1, Math.floor(timeadd / 1.25));
-        tickValue = Math.min(1.25, timeadd);
-    }
-    let maxSimulatedTicks = simulatedTicks;
-    player.quarkstimer += timeadd / calculateTimeAcceleration();
-    player.ascensionCounter += timeadd / calculateTimeAcceleration();
-    if (player.cubeUpgrades[2] > 0) {
-        player.runeshards += Math.floor(player.cubeUpgrades[2] * timeadd / calculateTimeAcceleration())
-    }
-    if (player.researches[61] > 0) {
-        player.researchPoints += timeadd * calculateAutomaticObtainium()
-    }
-    if (player.achievements[173] === 1) {
-        player.antSacrificeTimer += timeadd;
-    }
-
-
-    if (player.quarkstimer >= 90000) {
-        player.quarkstimer = 90000
-    }
-
+    player.quarkstimer += timeAdd
+    player.quarkstimer = Math.min(90000 + 45000 * player.researches[195], player.quarkstimer)
+    player.ascensionCounter += timeAdd
+    player.runeshards += timeAdd * (1/2 * Math.min(1, player.highestchallengecompletions[2]) + player.cubeUpgrades[2])
+    document.getElementById('preload').style.display = (forceTime > 0) ? 'none': 'block';
+    document.getElementById("offlineprogressbar").style.display = "block";
+    player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
     let runOffline = setInterval(runSimulator, 0)
 
+    //The cool shit that forces the repetitive loops
     function runSimulator() {
-        player.prestigecounter += tickValue;
-        player.transcendcounter += tickValue;
-        player.reincarnationcounter += tickValue;
-        resourceGain(tickValue, true);
+        timeMultiplier = calculateTimeAcceleration();
         calculateObtainium();
-        if (simulatedTicks % 2 === 0) {
-            updateAll(true);
+        //Reset Stuff lmao!
+        player.prestigecounter += tickValue * timeMultiplier;
+        player.transcendcounter += tickValue * timeMultiplier;
+        player.reincarnationcounter += tickValue * timeMultiplier;
+        //Credit Resources
+        resourceGain(tickValue * timeMultiplier)
+        //Auto Obtainium Stuff
+        if(player.researches[61] > 0 && player.currentChallenge.ascension !== 14){
+            calculateObtainium();
+            automaticObtainium = calculateAutomaticObtainium();
+            player.researchPoints += tickValue * automaticObtainium;
         }
-
-        if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle) {
-            player.sacrificeTimer += tickValue
-            if (player.sacrificeTimer >= 10) {
+        //Auto Ant Sacrifice Stuff
+        if(player.achievements[173] > 0){
+            player.antSacrificeTimer += tickValue * timeMultiplier;
+        }
+        //Auto Rune Sacrifice Stuff
+        if(player.shopUpgrades.offeringAutoLevel > 0 && player.autoSacrificeToggle){
+            player.sacrificeTimer += tickValue;
+            if(player.sacrificeTimer >= 1){
                 let rune = player.autoSacrifice;
-                redeemShards(rune, true, Math.floor(player.sacrificeTimer / 10));
-                player.sacrificeTimer = player.sacrificeTimer % 10;
+                redeemShards(rune, true, Math.floor(player.sacrificeTimer));
+                player.sacrificeTimer = player.sacrificeTimer % 1;
             }
         }
+        //Otherwise, Update All every simulated tick
+        updateAll(true)
+        //Misc functions
         simulatedTicks -= 1;
-        progressBarWidth = 750 * (1 - simulatedTicks / maxSimulatedTicks)
-        document.getElementById("offlineprogressdone").style.width = progressBarWidth + "px"
+        progressBarWidth = 750 * (1 - simulatedTicks / maxSimulatedTicks);
+        document.getElementById("offlineprogressdone").style.width = progressBarWidth + "px";
         if (simulatedTicks < 1) {
             clearInterval(runOffline);
             timeWarp = false;
             document.getElementById("offlineprogressbar").style.display = "none";
             document.getElementById("preload").style.display = "none";
         }
+        console.log('does this even work?')
     }
 
-    player.offlinetick = updatedtime
+    player.offlinetick = updatedTime
     saveSynergy();
     updateTalismanInventory();
     calculateObtainium();
     calculateAnts();
     calculateRuneLevels();
+    
 }
 
 function calculateSigmoid(constant, factor, divisor) {
@@ -908,7 +908,7 @@ function calculateTimeAcceleration() {
     timeMult *= (1 + 0.009 * player.researches[166]) // research 7x16
     timeMult *= (1 + 0.006 * player.researches[151]) // research 8x6
     timeMult *= (1 + 0.003 * player.researches[166]) // research 8x21
-    timeMult *= (1 + 5 * effectiveRuneBlessingPower[1]); // speed blessing
+    timeMult *= (1 + 8 * effectiveRuneBlessingPower[1]); // speed blessing
     timeMult *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[1]) // speed SPIRIT
     timeMult *= cubeBonusMultiplier[10]; // Chronos cube blessing
     timeMult *= 1 + player.cubeUpgrades[18] / 5; // cube upgrade 2x8
@@ -1010,7 +1010,7 @@ function CalcCorruptionStuff() {
 
     effectiveScore = baseScore * corruptionMultiplier
 
-    bankMultiplier = Math.sqrt(1 + effectiveScore / 10000);
+    bankMultiplier = Math.pow(1 + effectiveScore / 5000, 1/3);
     let cubeGain = cubeBank * bankMultiplier;
     cubeGain *= calculateCubeMultiplier();
 
@@ -1042,7 +1042,15 @@ function dailyResetCheck() {
         player.cubeOpenedDaily = 0;
         player.tesseractOpenedDaily = 0;
         player.hypercubeOpenedDaily = 0;
-        console.log('success!')
+
+        document.getElementById('cubeQuarksOpenRequirement').style.display = "block"
+        if(player.challengecompletions[11] > 0){
+            document.getElementById('tesseractQuarksOpenRequirement').style.display = "block"
+        }
+        if(player.challengecompletions[13] > 0){
+            document.getElementById('hypercubeQuarksOpenRequirement').style.display = "block"
+        }
+
     }
 
 }

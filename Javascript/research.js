@@ -101,7 +101,7 @@ function isResearchUnlocked(index) {
     let indices = [3 * 25, 5, 20, 10, 15, 15, 15, 15, 15, 15].map(cumuSum);
     let chievos = [50, 124, 127, 134, 141, 183, 197, 204, 211, 218];
     for (let i = 0; i < indices.length; i++) {
-        if (i === 3 && (index === 121 || index === 124)) {
+        if (i === 3 && (index === 121 || index === 124 || index === 150)) {
             return player.achievements[chievos[i]] > 0;
         }
         if (index <= indices[i]) {
@@ -285,7 +285,7 @@ resdesc = [null,
     "[7x7] Gas, gas, gas. +0.6% Accelerator Boosts / level.",
     "[7x8] Dupe DUPE DUPE. +0.6% Multipliers / level.",
     "[7x9] Somehow, I can't explain why, you reduce your taxes by 2% multiplicative, based on 3/5 * log10(Rare Fragments)!",
-    "[7x10] Don't you hate how Ascensions reset your blessings? No more! Keep your blessing levels on Ascend.",
+    "[7x10] Want a permanent blessing boost? I know you do. A permanent +25% effect to all blessings.",
     "[7x11] +0.3% Rune Effectiveness / level [NOTE TO TESTER: I did not really have time to make flavor texts after 7x10 sorry!]",
     "[7x12] +0.01% to Inceptus power / level",
     "[7x13] +2% Ant Sacrifice rewards / level",
@@ -308,7 +308,7 @@ resdesc = [null,
     "[8x5] +1 Export Quark per hour, yet again.",
     "[8x6] +0.6% faster ticks / level",
     "[8x7] +0.7% cubes in ascension bank / level",
-    "[8x8] When you open a Hypercube, you also open a Tesseract! (This works with 7x3, if you were curious.)",
+    "[8x8] When you open a Hypercube, you also open 100 Tesseracts! (This works with 7x3, if you were curious.)",
     "[8x9] +5% faster Tesseract Buildings / level",
     "[8x10] Tome 4 of 4: e100M Divider!",
     "[8x11] +0.2% Accelerators / level",

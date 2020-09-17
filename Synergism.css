@@ -4001,7 +4001,6 @@ margin-left: -13px
 	position:relative;
 	top: 118px;
 	padding: 0px;
-	border: 2px solid black
 }
 .cubeSwitchTabBtn{
 	position: absolute;
@@ -4016,6 +4015,69 @@ margin-left: -13px
 	width: 250px;
 	left: 65px;
 	font-size: 1.2em;
+}
+#cubeQuarksToday{
+	position: absolute;
+	text-align: center;
+	top: 280px;
+	width: 300px;
+	left: 40px;
+}
+#tesseractQuarksToday{
+	position: absolute;
+	text-align: center;
+	top: 350px;
+	width: 300px;
+	left: 40px;
+}
+#hypercubeQuarksToday{
+	position: absolute;
+	text-align: center;
+	top: 420px;
+	width: 300px;
+	left: 40px;
+}
+#cubeQuarksOpenRequirement{
+	position: absolute;
+	text-align: center;
+	top: 300px;
+	width: 340px;
+	left: 20px;
+}
+#tesseractQuarksOpenRequirement{
+	position: absolute;
+	text-align: center;
+	top: 370px;
+	width: 340px;
+	left: 20px;
+}
+#hypercubeQuarksOpenRequirement{
+	position: absolute;
+	text-align: center;
+	top: 440px;
+	width: 340px;
+	left: 20px;
+}
+#cubeQuarksOpenToday{
+	position: absolute;
+	text-align: center;
+	top: 320px;
+	width: 340px;
+	left: 20px;
+}
+#tesseractQuarksOpenToday{
+	position: absolute;
+	text-align: center;
+	top: 390px;
+	width: 340px;
+	left: 20px;
+}
+#hypercubeQuarksOpenToday{
+	position: absolute;
+	text-align: center;
+	top: 460px;
+	width: 340px;
+	left: 20px;
 }
 .cubePlacement1{
 	position:absolute;
@@ -4191,39 +4253,39 @@ margin-left: -13px
 #cubeUpgradeName {
 	position:absolute;
 	top:250px;
-	width:1000px;
+	width:600px;
 	height: 42px;
 	left:50%;
-	margin-left: -500px;
+	margin-left: -300px;
 }
 
 #cubeUpgradeDescription {
 	position: absolute;
 	position:absolute;
 	top:273px;
-	width:1000px;
+	width:500px;
 	height: 42px;
 	left:50%;
-	margin-left: -500px;
+	margin-left: -250px;
 }
 
 #cubeUpgradeCost {
 	position:absolute;
-	top:316px;
+	top:336px;
 	width: 600px;
 	left: 50%;
 	margin-left: -300px;
 }
 #cubeUpgradeLevel {
 	position:absolute;
-	top:339px;
+	top:359px;
 	width: 200px;
 	left: 50%;
 	margin-left: -100px;
 }
 #toggleCubeBuy {
 	position:absolute;
-	top:394px;
+	top:414px;
 	width: 200px;
 	left: 50%;
 	margin-left: -100px;
