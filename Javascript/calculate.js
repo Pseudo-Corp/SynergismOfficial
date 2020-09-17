@@ -1031,7 +1031,7 @@ function dailyResetCheck(){
     let m = d.getMinutes()
     let s = d.getSeconds()
     player.dayTimer = (60 * 60 * 24) - (60 * 60 * h) - (60 * m) - s
-    if(d.getDate()!=player.dayCheck.getDate()||d.getMonth()!=player.dayCheck.getMonth()||d.getFullYear()!=player.dayCheck.getFullYear()){
+    if(d.getDate()!==player.dayCheck.getDate()||d.getMonth()!==player.dayCheck.getMonth()||d.getFullYear()!==player.dayCheck.getFullYear()){
         player.dayCheck = new Date();
         player.cubeQuarkDaily = 0;
         player.tesseractQuarkDaily = 0;
