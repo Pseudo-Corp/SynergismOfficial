@@ -423,7 +423,7 @@ function setActiveSettingScreen(subtab, clickedButton) {
             }
             loadStatisticsAccelerator();
             loadStatisticsMultiplier();
-            loadStatisticsCubeMultipliers();
+            loadStatisticsCubesPerSecond();
             if (!subtabEl.classList.contains("subtabActive"))
                 clearInterval(id);
         }
@@ -605,7 +605,7 @@ function toggleAutoTesseracts(i) {
 }
 
 function toggleCorruptionLevel(index, value) {
-    if (value > 0 && player.prototypeCorruptions[index] < 7 && index <= 9) {
+    if (value > 0 && player.prototypeCorruptions[index] < 10 && index <= 9) {
         player.prototypeCorruptions[index] += 1
     }
     if (value < 0 && player.prototypeCorruptions[index] > 0) {

@@ -813,7 +813,7 @@ function htmlInserts() {
         document.getElementById("corruptionCubesValue").textContent = format(metaData[4], 0, true)
         document.getElementById("corruptionTesseractsValue").textContent = format(metaData[5])
         document.getElementById("corruptionHypercubesValue").textContent = format(metaData[6])
-        document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.8 / 63 * sumContents(player.usedCorruptions)) * extinctionMultiplier[player.usedCorruptions[7]], 3)
+        document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * extinctionMultiplier[player.usedCorruptions[7]], 3)
     }
 }
 
