@@ -25,8 +25,8 @@ function corruptionDisplay(index){
         case 3:
             a.textContent = "Corruption III: Spacial Dilation"
             b.textContent = "Way to go, Albert."
-            c.textContent = "On this Ascension, this corruption is level " + format(player.usedCorruptions[3]) + ". Effect: Time x" + format(lazinessMultiplier[player.usedCorruptions[3]],5)
-            d.textContent = "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[3]) + ". Effect: Time x" + format(lazinessMultiplier[player.prototypeCorruptions[3]],5)
+            c.textContent = "On this Ascension, this corruption is level " + format(player.usedCorruptions[3]) + ". Effect: Time Speed is divided by " + format(1 / lazinessMultiplier[player.usedCorruptions[3]],5)
+            d.textContent = "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[3]) + ". Effect: Time is divided by " + format(1 / lazinessMultiplier[player.prototypeCorruptions[3]],5)
             e.textContent = "Current Score Multiplier: " + format(corruptionPointMultipliers[player.usedCorruptions[3]],1) + " / Next Ascension Score Multiplier: " + format(corruptionPointMultipliers[player.prototypeCorruptions[3]],1)
             break;
         case 4:

@@ -358,17 +358,17 @@ var autoOfferingCounter2 = 0;
 
 var researchOrderByCost = []
 
-var divisivenessPower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 1 / 3]
-var maladaptivePower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 1 / 3]
-var lazinessMultiplier = [1, 1 / 3, 1 / 10, 1 / 40, 1 / 200, 1 / 10000, 1 / 1000000]
-var hyperchallengedMultiplier = [1, 1.2, 1.5, 1.7, 2, 2.5, 3]
-var illiteracyPower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3]
-var deflationMultiplier = [1, 0.3, 0.1, 0.03, 0.01, 0.003, 0]
-var extinctionMultiplier = [1, 0.92, 0.86, 0.8, 0.74, 0.68, 0.6]
-var droughtMultiplier = [1, 5, 25, 200, 1e4, 1e8, 1e16]
-var financialcollapsePower = [1, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3]
+var divisivenessPower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.35, 0.275]
+var maladaptivePower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.35, 0.275]
+var lazinessMultiplier = [1, 1 / 3, 1 / 10, 1 / 40, 1 / 200, 1 / 10000, 1 / 1000000, 1 / 1e10]
+var hyperchallengedMultiplier = [1, 1.2, 1.5, 1.7, 2, 2.5, 3, 4]
+var illiteracyPower = [1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.15]
+var deflationMultiplier = [1, 0.3, 0.1, 0.03, 0.01, 0.003, 0.001, 0]
+var extinctionMultiplier = [1, 0.92, 0.86, 0.8, 0.74, 0.68, 0.6, 0.55]
+var droughtMultiplier = [1, 5, 25, 200, 1e4, 1e8, 1e16, 1e25]
+var financialcollapsePower = [1, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.27]
 
-var corruptionPointMultipliers = [1, 1.3, 1.5, 2, 3, 4, 5]
+var corruptionPointMultipliers = [1, 1.3, 1.5, 2, 3, 4, 5, 7]
 
 var ascendBuildingProduction = {
     first: new Decimal('0'),
