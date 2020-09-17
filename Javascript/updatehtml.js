@@ -939,7 +939,7 @@ function buttoncolorchange() {
     if (currentTab === "buildings" && buildingSubTab === "mythos") {
         let ordArray = [null, 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']
         for (let i = 1; i <= 5; i++) {
-            ((player.toggles[ordArray[i]] || player.upgrades[93 + i]) && player.transcendPoints.greaterThanOrEqualTo(player[ordinals[i - 1] + 'CostMythos'])) ? document.getElementById('buymythos' + i).style.backgroundColor = "#555555" : document.getElementById('buymythos' + i).style.backgroundColor = "#171717"
+            ((!player.toggles[ordArray[i]] || !player.upgrades[93 + i]) && player.transcendPoints.greaterThanOrEqualTo(player[ordinals[i - 1] + 'CostMythos'])) ? document.getElementById('buymythos' + i).style.backgroundColor = "#555555" : document.getElementById('buymythos' + i).style.backgroundColor = "#171717"
         }
     }
 
