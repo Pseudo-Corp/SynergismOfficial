@@ -932,7 +932,7 @@ function calculateTimeAcceleration() {
 function calculateCorruptionPoints() {
     let basePoints = 400;
 
-    for(var i = 1; i <= 9; i++){
+    for(let i = 1; i <= 9; i++){
     basePoints += 16 * Math.pow(player.usedCorruptions[i],2)
     }
 
@@ -985,7 +985,7 @@ function CalcCorruptionStuff(){
     let corruptionMultiplier = 1;
     let bankMultiplier = 1;
     let effectiveScore = 1;
-    for(var i = 1; i <= 10; i++){
+    for(let i = 1; i <= 10; i++){
         challengeModifier = (i >= 6)? 2: 1;
         cubeBank += challengeModifier * player.highestchallengecompletions[i]
     }
@@ -994,7 +994,7 @@ function CalcCorruptionStuff(){
     let challengeScoreArrays1 = [null, 7, 8, 9, 10, 12, 50, 70, 100, 150, 250];
     let challengeScoreArrays2 = [null, 10, 12, 14, 17, 20, 70, 100, 150, 250, 400];
 
-    for(var i = 1; i <= 10; i++){
+    for(let i = 1; i <= 10; i++){
         baseScore += challengeScoreArrays1[i] * player.highestchallengecompletions[i]
         if(i <= 5 && player.highestchallengecompletions[i] >= 75){
             baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 75)
@@ -1004,7 +1004,7 @@ function CalcCorruptionStuff(){
         }
     }
     baseScore *= Math.pow(1.03, player.highestchallengecompletions[10]);
-    for(var i = 1; i <= 10; i++){
+    for(let i = 1; i <= 10; i++){
         corruptionMultiplier *= corruptionArrayMultiplier[player.usedCorruptions[i]]
     }
 
