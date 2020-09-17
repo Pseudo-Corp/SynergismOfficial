@@ -9,7 +9,6 @@ function saveFilename() {
     let s = player.saveString
     let re = /(.+)\$TIME\$(.*)\.txt/
     let match = s.match(re)
-    console.log(match)
     if (match !== null) {
         return match[1] + getRealTime() + match[2] + ".txt"
     } else {

@@ -7,7 +7,14 @@ function openHypercube(value, max) {
     }
 
     player.wowHypercubes -= toSpend
+    player.hypercubeOpenedDaily += toSpend
 
+    if(player.hypercubeQuarkDaily < 25 + 75 * player.shopUpgrades.hypercubeToQuarkBought){
+        while(player.hypercubeOpenedDaily >= 5 * Math.pow(1 + player.hypercubeQuarkDaily, 2) && player.hypercubeQuarkDaily < 25 + 75 * player.shopUpgrades.hypercubeToQuarkBought){
+            player.hypercubeQuarkDaily += 1;
+            player.worlds += 1;
+        }
+    }
     let toSpendModulo = toSpend % 20
     let toSpendDiv20 = Math.floor(toSpend / 20)
     let blessings = {
@@ -36,7 +43,7 @@ function openHypercube(value, max) {
         }
     }
     calculateHypercubeBlessings();
-    let extraTesseractBlessings = 0
+    let extraTesseractBlessings = Math.floor(toSpend * 100 * player.researches[183])
     player.wowTesseracts += extraTesseractBlessings
     openTesseract(extraTesseractBlessings, false)
 }

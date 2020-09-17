@@ -237,11 +237,11 @@ const player = {
         nineteen: false,
         twenty: false,
         twentyone: false,
-        twentytwo: true,
-        twentythree: true,
-        twentyfour: true,
-        twentyfive: true,
-        twentysix: true,
+        twentytwo: false,
+        twentythree: false,
+        twentyfour: false,
+        twentyfive: false,
+        twentysix: false,
         twentyseven: false,
         twentyeight: true,
         twentynine: true,
@@ -370,6 +370,7 @@ const player = {
     fastestprestige: 9999999999,
     fastesttranscend: 99999999999,
     fastestreincarnate: 999999999999,
+    fastestAscend: 999999999999,
 
     resettoggle1: 1,
     resettoggle2: 1,
@@ -453,6 +454,7 @@ const player = {
     buyTalismanShardPercent: 10,
 
     autoAntSacrifice: false,
+    autoAntSacTimer: 900,
     antMax: false,
 
     ascensionCount: 0,
@@ -867,7 +869,9 @@ function loadSynergy() {
         checkVariablesOnLoad(data)
         if (data.ascensionCount === undefined || player.ascensionCount === 0) {
             player.ascensionCount = 0;
-            player.ascensionCounter = 86400 * 90;
+            if (player.ascensionCounter === undefined || player.ascensionCounter === 0) {
+                player.ascensionCounter = 86400 * 90;
+            }
             player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -896,7 +900,9 @@ function loadSynergy() {
             player.cubesThisAscension.cpsOnC10Comp = 0;
             player.cubesThisAscension.tesseracts = 0;
             player.cubesThisAscension.hypercubes = 0;
-
+        }
+        if (data.autoAntSacTimer === undefined) {
+            player.autoAntSacTimer = 900;
         }
 
         if (player.cubeUpgrades[7] === 0 && player.toggles.twentytwo) {
@@ -997,8 +1003,8 @@ function loadSynergy() {
         }
 
 
-        if (player.saveString === "") {
-            player.saveString = () => `Synergism-v2.0.0Test-${getRealTime()}.txt`
+        if (player.saveString === undefined || player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
+            player.saveString = "Synergism-v2.0.0Test-$TIME$.txt"
         }
 
         player.wowCubes = player.wowCubes || 0;
@@ -1907,7 +1913,7 @@ function multipliers() {
         globalAntMult = globalAntMult.times(1.60)
     }
     globalAntMult = globalAntMult.times(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]))
-    globalAntMult = globalAntMult.times(Decimal.pow(1e15, CalcECC('ascension', player.challengecompletions[11])))
+    globalAntMult = globalAntMult.times(Decimal.pow(1e3, CalcECC('ascension', player.challengecompletions[11])))
     if (player.researches[147] > 0) {
         globalAntMult = globalAntMult.times(Decimal.log(player.antPoints.add(10), 10))
     }
@@ -2757,7 +2763,7 @@ function updateAll() {
     optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel
     autoBuyAnts()
 
-    if (player.antSacrificeTimer >= 900 && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
+    if (player.antSacrificeTimer >= player.autoAntSacTimer && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
         sacrificeAnts(true)
     }
 
@@ -2767,10 +2773,11 @@ function updateAll() {
             reset(4, true)
         }
     }
-
+    let metaData = ''
     if (player.researches[175] > 0) {
         for (let i = 1; i <= 10; i++) {
-            if (player.ascendShards.greaterThanOrEqualTo(getConstUpgradeMetadata(i)[1])) {
+            metaData = getConstUpgradeMetadata(i)
+            if (player.ascendShards.greaterThanOrEqualTo(metaData[1])) {
                 buyConstantUpgrades(i, true);
             }
         }
@@ -3005,89 +3012,8 @@ function tick() {
             }
         }
 
-        //This auto challenge thing is sure a doozy aint it
-        if (player.researches[150] > 0 && player.autoChallengeRunning && (player.reincarnationPoints.greaterThanOrEqualTo(Decimal.pow(10, player.autoChallengeStartExponent)) || player.currentChallenge.ascension === 12)) {
-            autoChallengeTimerIncrement += dt
-            if (autoChallengeTimerIncrement >= player.autoChallengeTimer.exit) {
-                if (player.currentChallenge.transcension !== 0 && player.autoChallengeIndex <= 5) {
-                    resetCheck('challenge', null, true)
-                    autoChallengeTimerIncrement = 0;
-                    player.autoChallengeIndex += 1
-                    if (player.autoChallengeTimer.enter >= 1) {
-                        toggleAutoChallengeTextColors(3)
-                    }
-                }
-                if (player.currentChallenge.reincarnation !== 0 && player.autoChallengeIndex > 5) {
-                    resetCheck('reincarnationchallenge', null, true)
-                    autoChallengeTimerIncrement = 0;
-                    player.autoChallengeIndex += 1
-                    if (player.autoChallengeTimer.enter >= 1) {
-                        toggleAutoChallengeTextColors(3)
-                    }
-                }
-                if (player.autoChallengeIndex > 10) {
-                    player.autoChallengeIndex = 1
-                    if (player.autoChallengeTimer.start >= 1) {
-                        toggleAutoChallengeTextColors(1)
-                    }
-                }
-            }
-            if (player.autoChallengeIndex === 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.start) {
-                while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
-                    player.autoChallengeIndex += (!player.autoChallengeToggles[player.autoChallengeIndex]) ? 1 : 0;
-                    if (player.autoChallengeIndex === 10) {
-                        break;
-                    }
-                }
-                if (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
-                    autoChallengeTimerIncrement = 0;
-                }
-                toggleChallenges(player.autoChallengeIndex, true);
-                if (player.autoChallengeTimer.exit >= 1) {
-                    toggleAutoChallengeTextColors(2)
-                }
-            }
-            if (player.autoChallengeIndex !== 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.enter) {
-                if (player.currentChallenge.transcension === 0 && player.autoChallengeIndex <= 5) {
-                    while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
-                        player.autoChallengeIndex += 1
-                        if (player.autoChallengeIndex > 10) {
-                            player.autoChallengeIndex = 1;
-                            if (player.autoChallengeTimer.start >= 1) {
-                                toggleAutoChallengeTextColors(1)
-                            }
-                            break;
-                        }
-                    }
-                    if (player.autoChallengeIndex !== 1) {
-                        toggleChallenges(player.autoChallengeIndex, true);
-                        if (player.autoChallengeTimer.exit >= 1) {
-                            toggleAutoChallengeTextColors(2)
-                        }
-                    }
-                    autoChallengeTimerIncrement = 0;
-                }
-                if (player.currentChallenge.reincarnation === 0 && player.autoChallengeIndex > 5) {
-                    while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
-                        player.autoChallengeIndex += 1
-                        if (player.autoChallengeIndex > 10) {
-                            player.autoChallengeIndex = 1;
-                            if (player.autoChallengeTimer.start >= 1) {
-                                toggleAutoChallengeTextColors(1)
-                            }
-                            break;
-                        }
-                    }
-                    if (player.autoChallengeIndex !== 1) {
-                        toggleChallenges(player.autoChallengeIndex, true);
-                        if (player.autoChallengeTimer.exit >= 1) {
-                            toggleAutoChallengeTextColors(2)
-                        }
-                    }
-                    autoChallengeTimerIncrement = 0;
-                }
-            }
-        }
+        runChallengeSweep(dt);
+
         if (dt > 5) {
             while (dt > 5) {
                 player.prestigecounter += 5 * timeMult;

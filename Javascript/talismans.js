@@ -1,17 +1,8 @@
 function updateCostDisplay(i) {
     let el = document.getElementById("talismanFragmentCost")
 
-    let obtainiumCost = 1e14;
-    let offeringCost = 1e4;
-
-
-    if (i > 0) {
-        obtainiumCost = 1e14
-    }
-    if (i > 1) {
-        obtainiumCost = talismanFragmentObtainiumCosts[i];
-        offeringCost = talismanFragmentOfferingCosts[i]
-    }
+    let obtainiumCost = talismanResourceObtainiumCosts[i];
+    let offeringCost = talismanResourceOfferingCosts[i]
     let maxBuyObtainium = Math.max(1, Math.floor(player.researchPoints / obtainiumCost))
     let maxBuyOffering = Math.max(1, Math.floor(player.runeshards / (offeringCost)));
     if (offeringCost === 0) {
@@ -62,15 +53,8 @@ function updateTalismanInventory() {
 }
 
 function buyTalismanStuff(i) {
-    let obtainiumCost = 1e6;
-    let offeringCost = 0;
-
-    if (i > 0) {
-        obtainiumCost = talismanFragmentObtainiumCosts[i]
-    }
-    if (i > 1) {
-        offeringCost = talismanFragmentOfferingCosts[i]
-    }
+    let obtainiumCost = talismanResourceObtainiumCosts[i]
+    let offeringCost = talismanResourceOfferingCosts[i]
 
     let maxBuyObtainium = Math.max(0, Math.floor(player.researchPoints / obtainiumCost))
     let maxBuyOffering = Math.max(0, Math.floor(player.runeshards / (offeringCost)));
@@ -83,41 +67,25 @@ function buyTalismanStuff(i) {
     }
     if (i === 0) {
         player.talismanShards += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-    }
-    if (i === 1) {
+    } else if (i === 1) {
         player.commonFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-    }
-    if (i === 2) {
+    } else if (i === 2) {
         player.uncommonFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-        player.runeshards -= (amountToBuy * offeringCost)
-    }
-    if (i === 3) {
+    } else if (i === 3) {
         player.rareFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-        player.runeshards -= (amountToBuy * offeringCost)
-    }
-    if (i === 4) {
+    } else if (i === 4) {
         player.epicFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-        player.runeshards -= (amountToBuy * offeringCost)
-    }
-    if (i === 5) {
+    } else if (i === 5) {
         player.legendaryFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-        player.runeshards -= (amountToBuy * offeringCost)
-    }
-    if (i === 6) {
+    } else if (i === 6) {
         player.mythicalFragments += amountToBuy;
-        player.researchPoints -= (amountToBuy * obtainiumCost);
-        player.runeshards -= (amountToBuy * offeringCost)
 
         if (player.mythicalFragments >= 1e25 && player.achievements[239] < 1) {
             achievementaward(239)
         }
     }
+    player.researchPoints -= (amountToBuy * obtainiumCost);
+    player.runeshards -= (amountToBuy * offeringCost)
 
     updateCostDisplay(i)
     updateTalismanInventory()
@@ -159,7 +127,7 @@ function showTalismanEffect(i) {
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman1Effect[3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(talisman1Effect[4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(talisman1Effect[5], 2, true)
-            h.textContent = "Mythic Effect: +1,000 Duplication Rune Levels!"
+            h.textContent = "Mythic Effect: +400 Duplication Rune Levels!"
             break;
         case 2:
             a.textContent = "=-=-=-= Chronos Talisman Effects =-=-=-=";
@@ -169,7 +137,7 @@ function showTalismanEffect(i) {
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman2Effect[3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(talisman2Effect[4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(talisman2Effect[5], 2, true)
-            h.textContent = "Mythic Effect: +1,000 Speed Rune Levels!"
+            h.textContent = "Mythic Effect: +400 Speed Rune Levels!"
             break;
         case 3:
             a.textContent = "=-=-=-= Midas Talisman Effects =-=-=-=";
@@ -179,7 +147,7 @@ function showTalismanEffect(i) {
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman3Effect[3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(talisman3Effect[4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(talisman3Effect[5], 2, true)
-            h.textContent = "Mythic Effect: +1,000 Thrift Rune Levels!"
+            h.textContent = "Mythic Effect: +400 Thrift Rune Levels!"
             break;
         case 4:
             a.textContent = "=-=-=-= Metaphysics Talisman Effects =-=-=-=";
@@ -189,7 +157,7 @@ function showTalismanEffect(i) {
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman4Effect[3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(talisman4Effect[4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(talisman4Effect[5], 2, true)
-            h.textContent = "Mythic Effect: +1,000 Prism Rune Levels!"
+            h.textContent = "Mythic Effect: +400 Prism Rune Levels!"
             break;
         case 5:
             a.textContent = "=-=-=-= Polymath Talisman Effects =-=-=-=";
@@ -199,7 +167,7 @@ function showTalismanEffect(i) {
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman5Effect[3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(talisman5Effect[4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(talisman5Effect[5], 2, true)
-            h.textContent = "Mythic Effect: +1,000 SI Rune Levels!"
+            h.textContent = "Mythic Effect: +400 SI Rune Levels!"
             break;
         case 6:
             a.textContent = "=-=-=-= Mortuus Est Talisman Effects =-=-=-=";

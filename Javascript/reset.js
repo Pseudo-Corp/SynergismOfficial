@@ -405,6 +405,10 @@ function reset(i, fast, from) {
     }
 
     if (i > 3.5) {
+        if(player.ascensionCount === 0){
+            CSSAscend()
+        }
+
         let metaData = CalcCorruptionStuff()
         ascensionAchievementCheck(3, metaData[3])
         // reset other stuff
@@ -507,10 +511,6 @@ function reset(i, fast, from) {
 
         player.roombaResearchIndex = 0;
         player.autoResearch = 1;
-
-        if (player.researches[160] === 0) {
-            player.runeBlessingLevels = [0, 0, 0, 0, 0, 0]
-        }
 
         for (let j = 1; j <= (200); j++) {
             let k = "res" + j;
