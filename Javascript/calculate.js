@@ -116,7 +116,7 @@ function calculateRecycleMultiplier() {
 }
 
 // Returns the amount of exp given per offering by a rune
-function calculateRuneExpGiven(runeIndex, all = false) {
+function calculateRuneExpGiven(runeIndex, all = false, runeLevel = player.runelevels[runeIndex]) {
     // recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
     let recycleMultiplier = calculateRecycleMultiplier();
 
@@ -135,7 +135,7 @@ function calculateRuneExpGiven(runeIndex, all = false) {
         // Particle Upgrade 1x1
         2 * player.upgrades[61],
         // Particle upgrade 3x1
-        player.upgrades[71] * player.runelevels[runeIndex] / 25
+        player.upgrades[71] * runeLevel / 25
     ]);
 
     if (all) {
@@ -193,34 +193,22 @@ function calculateRuneExpGiven(runeIndex, all = false) {
 }
 
 // Returns the amount of exp required to level a rune
-function calculateRuneExpToLevel(runeIndex) {
-    let runelevel = player.runelevels[runeIndex];
-
-    let runeExpRequiredMultiplier = [
-        1,
-        1,
-        1,
-        1,
-        1
-    ];
-
+function calculateRuneExpToLevel(runeIndex, runeLevel= player.runelevels[runeIndex]) {
     // Rune exp required to level multipliers
     let allRuneExpRequiredMultiplier = productContents([
-        Math.pow(runelevel / 2, 3),
-        ((3.5 * runelevel) + 100) / 500,
-        Math.max(1, (runelevel - 200) / 9),
-        Math.max(1, (runelevel - 400) / 12),
-        Math.max(1, (runelevel - 600) / 15),
-        Math.max(1, Math.pow(1.03, (runelevel - 800)/4))
+        Math.pow(runeLevel / 2, 3),
+        ((3.5 * runeLevel) + 100) / 500,
+        Math.max(1, (runeLevel - 200) / 9),
+        Math.max(1, (runeLevel - 400) / 12),
+        Math.max(1, (runeLevel - 600) / 15),
+        Math.max(1, Math.pow(1.03, (runeLevel - 800)/4))
     ]);
     let expToLevel = productContents([
         runeexpbase[runeIndex],
-        allRuneExpRequiredMultiplier,
-        runeExpRequiredMultiplier[runeIndex]
+        allRuneExpRequiredMultiplier
     ]);
 
     return expToLevel;
-
 }
 
 function calculateMaxRunes(i) {

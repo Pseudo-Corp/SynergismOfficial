@@ -9,7 +9,7 @@ function displayRuneInformation(i, updatelevelup) {
 
     let m = effectiveLevelMult
     let SILevelMult = (1 + player.researches[84] / 200)
-    let amountPerOffering = calculateRuneExpGiven(i - 1);
+    let amountPerOffering = calculateRuneExpGiven(i - 1, false, player.runelevels[i - 1]);
     if (player.upgrades[78] === 1) {
         document.getElementById("toggleofferingbuy").textContent = "Toggle amount used by sacrifice, multiplied by 1000 due to a Reincarnation Upgrade.";
     }
@@ -78,7 +78,7 @@ function redeemShards(runeIndexPlusOne, auto = false, autoMult = 1, cubeUpgraded
 
     // amount of offerings being spent, if offerings is less than amount set to be bought then set amount to current offerings
     let amount = Math.min(player.runeshards, player.offeringbuyamount * (1 + 999 * player.upgrades[78]));
-    if (player.offeringbuyamount > 100) {
+    if (player.offeringbuyamount === 1000) {
         amount = player.runeshards
     }
 
@@ -112,4 +112,18 @@ function redeemShards(runeIndexPlusOne, auto = false, autoMult = 1, cubeUpgraded
     if (player.runeshards < 0) {
         player.runeshards = 0
     }
+}
+
+function calculateOfferingsToLevelXTimes(runeIndex, runeLevel, levels) {
+    let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
+    let amount = 0
+    let levelsAdded = 0
+    while (levelsAdded < levels) {
+        let expPerOff = calculateRuneExpGiven(runeIndex, false, runeLevel + levelsAdded)
+        amount += exp / expPerOff
+        levelsAdded += 1
+        exp = calculateRuneExpToLevel(runeIndex, runeLevel + levelsAdded)
+            - calculateRuneExpToLevel(runeIndex, runeLevel + levelsAdded - 1)
+    }
+    return amount;
 }
