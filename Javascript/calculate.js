@@ -116,8 +116,7 @@ function calculateRecycleMultiplier() {
 }
 
 // Returns the amount of exp given per offering by a rune
-function calculateRuneExpGiven(runeIndex, all) {
-    all = all || false
+function calculateRuneExpGiven(runeIndex, all = false) {
     // recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
     let recycleMultiplier = calculateRecycleMultiplier();
 
