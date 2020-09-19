@@ -4,7 +4,7 @@ let upgdesc = {
     upgdesc3: "Increase production of Printers per producer bought.",
     upgdesc4: "Increase production of Mints per producer bought.",
     upgdesc5: "Increase production of Alchemies per producer bought.",
-    upgdesc6: "Increase all production by 25% per producer bought.",
+    upgdesc6: "Increase all production based on producer bought.",
     upgdesc7: "Gain free multipliers based on your purchased Alchemies.",
     upgdesc8: "Gain 1 free Accelerator per 7 purchased Multipliers.",
     upgdesc9: "Gain 1 free Multiplier per 10 purchased Accelerators.",
@@ -424,7 +424,7 @@ function returnConstUpgEffect(i) {
             show = "+" + format(2 * player.constantUpgrades[6]) + " free Ant Levels"
             return show;
         case 7:
-            show = "+" + format(17 * player.constantUpgrades[7]) + " free Rune Levels, +" + format(8 * player.constantUpgrades[7]) + " to Rune Cap"
+            show = "+" + format(7 * player.constantUpgrades[7]) + " free Rune Levels, +" + format(3 * player.constantUpgrades[7]) + " to Rune Cap"
             return show;
         case 8:
             show = "Rune EXP x" + format(1 + 1 / 10 * player.constantUpgrades[8], 2, true)

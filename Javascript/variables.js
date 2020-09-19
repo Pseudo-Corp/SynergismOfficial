@@ -368,7 +368,7 @@ var extinctionMultiplier = [1, 0.92, 0.86, 0.8, 0.74, 0.68, 0.6, 0.55, 0.5, 0.45
 var droughtMultiplier = [1, 5, 25, 200, 1e4, 1e8, 1e16, 1e25, 1e36, 1e49, 1e64]
 var financialcollapsePower = [1, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.27, 0.24, 0.22, 0.2]
 
-var corruptionPointMultipliers = [1, 1.3, 1.5, 2, 3, 4, 5, 7, 9, 12, 15]
+var corruptionPointMultipliers = [1, 1.5, 2, 3, 4, 5, 6, 7, 9, 12, 15]
 
 var ascendBuildingProduction = {
     first: new Decimal('0'),
