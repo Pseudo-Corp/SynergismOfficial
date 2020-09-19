@@ -500,6 +500,10 @@ function reset(i, fast, from) {
             player.wowHypercubes += metaData[6];
         }
 
+        if (historyUse && player.challengecompletions[10] > 0){
+            resetHistoryAdd(historyCategory, historyKind, historyEntry);
+        }
+
         for (let j = 1; j <= 10; j++) {
             player.challengecompletions[j] = 0;
             player.highestchallengecompletions[j] = 0;
@@ -548,6 +552,8 @@ function reset(i, fast, from) {
         updateTalismanAppearance(6);
         updateTalismanAppearance(7);
         calculateCubeBlessings();
+        calculateTesseractBlessings();
+        calculateHypercubeBlessings();
 
         if (player.cubeUpgrades[4] === 1) {
             player.upgrades[94] = 1;
@@ -591,7 +597,7 @@ function reset(i, fast, from) {
         revealStuff();
     }
 
-    if (historyUse) {
+    if (historyUse && i < 4) {
         resetHistoryAdd(historyCategory, historyKind, historyEntry);
     }
 }

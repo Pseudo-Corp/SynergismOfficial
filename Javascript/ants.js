@@ -76,35 +76,35 @@ function updateAntDescription(i) {
         case 1:
             priceType = "Particles";
             tier = "first";
-            me.textContent = "Generates " + format(antOneProduce, 3) + " Crumbs/sec";
+            me.textContent = "Generates " + format(antOneProduce, 5) + " Crumbs/sec";
             break;
         case 2:
             tier = "second";
-            me.textContent = "Generates " + format(antTwoProduce, 3) + " Workers/sec";
+            me.textContent = "Generates " + format(antTwoProduce, 5) + " Workers/sec";
             break;
         case 3:
             tier = "third";
-            me.textContent = "Generates " + format(antThreeProduce, 3) + " Breeders/sec";
+            me.textContent = "Generates " + format(antThreeProduce, 5) + " Breeders/sec";
             break;
         case 4:
             tier = "fourth";
-            me.textContent = "Generates " + format(antFourProduce, 3) + " MetaBreeders/sec";
+            me.textContent = "Generates " + format(antFourProduce, 5) + " MetaBreeders/sec";
             break;
         case 5:
             tier = "fifth";
-            me.textContent = "Generates " + format(antFiveProduce, 3) + " MegaBreeders/sec";
+            me.textContent = "Generates " + format(antFiveProduce, 5) + " MegaBreeders/sec";
             break;
         case 6:
             tier = "sixth";
-            me.textContent = "Generates " + format(antSixProduce, 3) + " Queens/sec";
+            me.textContent = "Generates " + format(antSixProduce, 5) + " Queens/sec";
             break;
         case 7:
             tier = "seventh";
-            me.textContent = "Generates " + format(antSevenProduce, 3) + " Royals/sec";
+            me.textContent = "Generates " + format(antSevenProduce, 5) + " Royals/sec";
             break;
         case 8:
             tier = "eighth";
-            me.textContent = "Generates " + format(antEightProduce, 3) + " ALMIGHTIES/sec";
+            me.textContent = "Generates " + format(antEightProduce, 5) + " ALMIGHTIES/sec";
             break;
     }
     la.textContent = "Cost: " + format(player[tier + "CostAnts"]) + " " + priceType

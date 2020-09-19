@@ -1482,7 +1482,7 @@ function updateAllTick() {
     }
     calculateAcceleratorMultiplier();
     a *= acceleratorMultiplier
-    a = Math.pow(a, maladaptivePower[player.usedCorruptions[2]] * (1/2 + 1/2 * divisivenessPower[player.usedCorruptions[1]]) / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2])))
+    a = Math.pow(a, maladaptivePower[player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2])))
     a = Math.floor(a)
 
     freeAccelerator = a;
@@ -1641,7 +1641,7 @@ function updateAllMultiplier() {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
-    a = Math.pow(a, divisivenessPower[player.usedCorruptions[1]] * (1/2 + 1/2 * maladaptivePower[player.usedCorruptions[2]]) / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2])))
+    a = Math.pow(a, divisivenessPower[player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2])))
     a = Math.floor(a)
     freeMultiplier = a;
     totalMultiplier = freeMultiplier + player.multiplierBought;
@@ -1913,7 +1913,7 @@ function multipliers() {
         globalAntMult = globalAntMult.times(1.60)
     }
     globalAntMult = globalAntMult.times(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]))
-    globalAntMult = globalAntMult.times(Decimal.pow(1e3, CalcECC('ascension', player.challengecompletions[11])))
+    globalAntMult = globalAntMult.times(Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])))
     if (player.researches[147] > 0) {
         globalAntMult = globalAntMult.times(Decimal.log(player.antPoints.add(10), 10))
     }
@@ -2801,7 +2801,7 @@ function updateAll() {
         let originalCosts = [
             [100, 2e3, 4e4, 8e5, 1.6e7],
             [1e2, 1e5, 1e15, 1e40, 1e100],
-            [1, 1e2, 1e4, 1e8, 1e16]
+            [1, 1e2, 1e4, 1e8, 1e16],
         ];
 
         for (let res = 0; res < resources.length; ++res) {
@@ -2810,6 +2810,13 @@ function updateAll() {
                 let num = ordinals[ord];
                 player[num + "Cost" + resource] = getCost(originalCosts[res][ord], player[num + "Owned" + resource] + 1, resource, scalings[res](ord + 1), reductionValue);
             }
+        }
+
+        for (let i = 0; i <= 4; i++){
+            let particleOriginalCost = [1,1e2,1e4,1e8,1e16]
+            let array = ['first','second','third','fourth','fifth']
+            let buyTo = player[array[i]+'OwnedParticles'] + 1
+            player[array[i]+'CostParticles'] = new Decimal(Decimal.pow(2, buyTo - 1).times(Decimal.pow(1.001, Math.max(0, (buyTo - 325000)) * Math.max(0, (buyTo - 325000) + 1) / 2))).times(particleOriginalCost[i])
         }
     }
 }
@@ -3039,6 +3046,8 @@ function tick() {
             player.ascensionCounter += dt
         }
     }
+
+    calculateOfferings(3)
 }
 
 

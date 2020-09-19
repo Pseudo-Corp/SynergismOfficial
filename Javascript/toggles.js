@@ -492,13 +492,13 @@ function toggleCubeSubTab(i) {
     }
 
     i === 1 ?
-        (a.style.backgroundColor = "crimson") :
+        (a.style.backgroundColor = "crimson", calculateCubeBlessings()) :
         (a.style.backgroundColor = "black");
     i === 2 ?
-        (b.style.backgroundColor = "crimson") :
+        (b.style.backgroundColor = "crimson", calculateTesseractBlessings()) :
         (b.style.backgroundColor = "black");
     i === 3 ?
-        (c.style.backgroundColor = "crimson") :
+        (c.style.backgroundColor = "crimson", calculateHypercubeBlessings()) :
         (c.style.backgroundColor = "black");
     i === 4 ?
         (d.style.backgroundColor = "crimson") :

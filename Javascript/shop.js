@@ -9,7 +9,7 @@ const instantchallengedesc = "Instead of needing enough coins to get autocomplet
 const cashgrabdesc = "This is a cash grab but it gives a couple cool stats. +1% production per level to everything, including Offerings and Obtainium."
 const antspeeddesc = "Each level gives a 1.5x speed multiplier to all Ant tiers' production! Short and simple."
 const shoptalismandesc = "Permanently unlock a Shop talisman! [Warning: you can't refund this and this is VERY expensive to level. Be sure you want to buy it!]"
-const challengeExtDesc = "Using some amazing trick, you manage to increase your Reincarnation Challenge cap by 2 for each level!"
+const challengeExtDesc = "Using some amazing trick, you manage to increase your Reincarnation Challenge cap by 2 for each level! [Cannot be Refunded!]"
 const challenge10TomeDesc = "The extended cut: This fifth forgotten tome gives you an additional -20M exponent reduction on the Challenge 10 requirement per level."
 const seasonPassDesc = "Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +3% cubes per level when you ascend!"
 const cubeToQuarkDesc = "Instead of a daily cap of 25 Quarks by opening Wow! Cubes, how about 100 instead? This adds 75 to the daily cap! [Cannot be Refunded!]"
@@ -79,7 +79,7 @@ function shopDescriptions(i) {
             break;
         case 12:
             rofl.textContent = challenge10TomeDesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.challenge10Upgrade + 250 * player.shopUpgrades.challengeExtension) + " Quarks."
+            lmao.textContent = "Cost: " + (shopBaseCosts.challenge10Upgrade + 250 * player.shopUpgrades.challenge10Tomes) + " Quarks."
             lol.textContent = "CURRENT Effect: Challenge 10 Exponent Requirement reduced by " + format(20*player.shopUpgrades.challenge10Tomes) + "M."
             break;
         case 13:
@@ -274,10 +274,6 @@ function resetShopUpgrades() {
             if (player.shopUpgrades.cashGrabLevel > 0) {
                 player.shopUpgrades.cashGrabLevel -= 1;
                 player.worlds += (100 + 100 * i)
-            }
-            if (player.shopUpgrades.challengeExtension > 0){
-                player.shopUpgrades.challengeExtension -= 1;
-                player.worlds += (500 + 250 * i)
             }
             if (player.shopUpgrades.challenge10Tomes > 0){
                 player.shopUpgrades.challenge10Tomes -= 1;
