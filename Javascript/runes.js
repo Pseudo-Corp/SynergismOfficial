@@ -57,7 +57,7 @@ function resetofferings(i) {
     player.runeshards += calculateOfferings(i)
 }
 
-function redeemShards(runeIndexPlusOne, auto = false, autoMult = 1, cubeUpgraded = 0) {
+function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
 
     // if automated && 2x10 cube upgrade bought, this will be >0.
     // runeIndex, the rune being added to

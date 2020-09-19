@@ -781,7 +781,7 @@ function calculateOffline(forceTime){
             player.sacrificeTimer += tickValue;
             if(player.sacrificeTimer >= 1){
                 let rune = player.autoSacrifice;
-                redeemShards(rune, true, Math.floor(player.sacrificeTimer));
+                redeemShards(rune, true);
                 player.sacrificeTimer = player.sacrificeTimer % 1;
             }
         }

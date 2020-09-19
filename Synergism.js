@@ -2910,13 +2910,13 @@ function tick() {
             if (player.sacrificeTimer >= 1) {
                 if (player.cubeUpgrades[20] === 0) {
                     let rune = player.autoSacrifice;
-                    redeemShards(rune, true, null, 0);
+                    redeemShards(rune, true, 0);
                     player.sacrificeTimer -= 1;
                 }
                 if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
                     let baseAmount = Math.floor(player.runeshards / 5);
                     for (let i = 1; i <= 5; i++) {
-                        redeemShards(i, true, null, baseAmount);
+                        redeemShards(i, true, baseAmount);
                         player.sacrificeTimer = player.sacrificeTimer % 1;
                     }
                 }
