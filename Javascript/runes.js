@@ -50,7 +50,7 @@ function displayRuneInformation(i, updatelevelup) {
             offerings += arr[j]
             j++;
         }
-        let check = player.offeringbuyamount === j || offerings > player.runeshards
+        let check = player.offeringbuyamount === j && offerings <= player.runeshards
         let s = player.offeringbuyamount === 1 ? "once" : `${check ? j : j - 1} times`
         document.getElementById("runeDisplayInfo").textContent = `+${format(amountPerOffering)} EXP per offering. ${format(offerings)} Offerings to level up ${s}.`
     }
