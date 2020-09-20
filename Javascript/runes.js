@@ -116,9 +116,10 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
 
 function calculateOfferingsToLevelXTimes(runeIndex, runeLevel, levels) {
     let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
+    let maxLevel = calculateMaxRunes(runeIndex + 1)
     let arr = []
     let levelsAdded = 0
-    while (levelsAdded < levels) {
+    while (levelsAdded < levels && runeLevel + levelsAdded < maxLevel) {
         let expPerOff = calculateRuneExpGiven(runeIndex, false, runeLevel + levelsAdded)
         let amount = Math.ceil(exp / expPerOff)
         arr.push(amount)
