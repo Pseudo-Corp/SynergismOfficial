@@ -3922,26 +3922,45 @@ margin-left: -13px
 	padding: 0;
 	top: 474px;
 	width: 1000px;
+	height: 100px;
 	text-align: center;
-	left: 50%;
-	margin-left: -500px;
+	margin-left: 200px;
 }
 
 #toggleAntMax{
 	position: absolute;
 	height: 30px;
 	width: 100px;
-	left: 50%;
-	margin-left: -50px;
+	right: 51%;
 	border: 1px solid gold;
 }
 #toggleAutoSacrificeAnt{
 	position: absolute;
 	height: 30px;
-	width: 250px;
-	left: 50%;
-	margin-left: 75px;
+	width: 150px;
+	top: 0;
+	left: 51%;
 	border: 1px solid crimson
+}
+#autoSacrificeAntMode {
+	position: absolute;
+	height: 20px;
+	width: 150px;
+	left: 51%;
+	top: 35px;
+	border: 1px solid green;
+}
+#autoAntSacrificeAmount {
+	position: absolute;
+	width: 150px;
+	left: 51%;
+	top: 60px;
+}
+#autoAntSacrifice {
+	position: absolute;
+	top: 60px;
+	text-align: center;
+	width: 1000px;
 }
 
 #antSacrificeTimer{
