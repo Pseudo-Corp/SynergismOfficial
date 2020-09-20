@@ -125,10 +125,13 @@ function calculateOfferingsToLevelXTimes(runeIndex, runeLevel, levels) {
     let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
     let maxLevel = calculateMaxRunes(runeIndex + 1)
     let arr = []
+    let sum = 0
+    let off = player.runeshards
     let levelsAdded = 0
-    while (levelsAdded < levels && runeLevel + levelsAdded < maxLevel) {
+    while (levelsAdded < levels && runeLevel + levelsAdded < maxLevel && sum < off) {
         let expPerOff = calculateRuneExpGiven(runeIndex, false, runeLevel + levelsAdded)
         let amount = Math.ceil(exp / expPerOff)
+        sum += amount
         arr.push(amount)
         levelsAdded += 1
         exp = calculateRuneExpToLevel(runeIndex, runeLevel + levelsAdded)
