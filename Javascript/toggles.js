@@ -189,8 +189,7 @@ function toggleautoreset(i) {
             player.resettoggle1 = 1;
             document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"
         }
-    }
-    if (i === 2) {
+    } else if (i === 2) {
         if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
             player.resettoggle2 = 2;
             document.getElementById("transcendautotoggle").textContent = "Mode: TIME"
@@ -198,8 +197,7 @@ function toggleautoreset(i) {
             player.resettoggle2 = 1;
             document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"
         }
-    }
-    if (i === 3) {
+    } else if (i === 3) {
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
             player.resettoggle3 = 2;
             document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"
@@ -207,6 +205,8 @@ function toggleautoreset(i) {
             player.resettoggle3 = 1;
             document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"
         }
+    } else if (i === 4) {
+        // To be ascend toggle
     }
 }
 
