@@ -46,8 +46,9 @@ function displayRuneInformation(i, updatelevelup) {
         document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + format((1 + rune5level / 200 * m * SILevelMult), 2, true) + ". Ant Speed: x" + format(1 + Math.pow(rune5level * m * SILevelMult, 2) / 2500) + ". Base Offerings: +" + format((rune5level * m * SILevelMult * 0.005), 3, true)
     }
     if (updatelevelup) {
-        let offerings = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], 1)[0]
-        document.getElementById("runeDisplayInfo").textContent = `+${format(amountPerOffering)} EXP per offering. ${format(offerings)} Offerings to level up.`
+        let offerings = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], player.offeringbuyamount).reduce((a, b) => a + b, 0)
+        let s = player.offeringbuyamount === 1 ? " once" : `, up to ${player.offeringbuyamount} times`
+        document.getElementById("runeDisplayInfo").textContent = `+${format(amountPerOffering)} EXP per offering. ${format(offerings)} Offerings to level up${s}.`
     }
 
 }
