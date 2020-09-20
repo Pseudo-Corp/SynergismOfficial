@@ -454,14 +454,25 @@ function toggleAntMaxBuy() {
     }
 }
 
-function toggleAntAutoSacrifice() {
-    let el = document.getElementById("toggleAutoSacrificeAnt");
-    if (player.autoAntSacrifice) {
-        player.autoAntSacrifice = false;
-        el.textContent = "Auto Sacrifice Every 15 Minutes: OFF"
-    } else {
-        player.autoAntSacrifice = true;
-        el.textContent = "Auto Sacrifice Every 15 Minutes: ON"
+function toggleAntAutoSacrifice(mode = 0) {
+    if (mode === 0) {
+        let el = document.getElementById("toggleAutoSacrificeAnt");
+        if (player.autoAntSacrifice) {
+            player.autoAntSacrifice = false;
+            el.textContent = "Auto Sacrifice: OFF"
+        } else {
+            player.autoAntSacrifice = true;
+            el.textContent = "Auto Sacrifice: ON"
+        }
+    } else if (mode === 1) {
+        let el = document.getElementById("autoSacrificeAntMode");
+        if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
+            player.autoAntSacrificeMode = 2;
+            el.textContent = "Mode: Real time";
+        } else {
+            player.autoAntSacrificeMode = 1;
+            el.textContent = "Mode: In-game time";
+        }
     }
 }
 

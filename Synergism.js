@@ -2767,7 +2767,8 @@ function updateAll() {
     optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel
     autoBuyAnts()
 
-    if (player.antSacrificeTimer >= player.autoAntSacTimer && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
+    let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimer / calculateTimeAcceleration() : player.antSacrificeTimer;
+    if (timer >= player.autoAntSacTimer && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
         sacrificeAnts(true)
     }
 
