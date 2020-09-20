@@ -3933,6 +3933,7 @@ margin-left: -13px
 	width: 100px;
 	left: 50%;
 	margin-left: -50px;
+	border: 1px solid gold;
 }
 #toggleAutoSacrificeAnt{
 	position: absolute;
@@ -3940,6 +3941,7 @@ margin-left: -13px
 	width: 250px;
 	left: 50%;
 	margin-left: 75px;
+	border: 1px solid crimson
 }
 
 #antSacrificeTimer{
