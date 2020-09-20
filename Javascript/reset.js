@@ -170,6 +170,9 @@ function updateAutoReset(i) {
         } else {
             player.autoAscendThreshold = 1;
         }
+    } else if (i === 5) {
+        let v = parseFloat(document.getElementById("autoAntSacrificeAmount").value);
+        player.autoAntSacTimer = Math.max(0, v);
     }
 }
 
