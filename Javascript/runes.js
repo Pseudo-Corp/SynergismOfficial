@@ -43,8 +43,14 @@ function displayRuneInformation(i, updatelevelup) {
         document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + format((1 + rune5level / 200 * m * SILevelMult), 2, true) + ". Ant Speed: x" + format(1 + Math.pow(rune5level * m * SILevelMult, 2) / 2500) + ". Base Offerings: +" + format((rune5level * m * SILevelMult * 0.005), 3, true)
     }
     if (updatelevelup) {
-        let offerings = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], player.offeringbuyamount).reduce((a, b) => a + b, 0)
-        let s = player.offeringbuyamount === 1 ? " once" : `, up to ${player.offeringbuyamount} times`
+        let arr = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], player.offeringbuyamount);
+        let offerings = 0;
+        let j = 0;
+        while (offerings < player.runeshards && j < arr.length) {
+            offerings += arr[j]
+            j++;
+        }
+        let s = player.offeringbuyamount === 1 ? " once" : `, up to ${player.offeringbuyamount === j ? j : j - 1} times`
         document.getElementById("runeDisplayInfo").textContent = `+${format(amountPerOffering)} EXP per offering. ${format(offerings)} Offerings to level up${s}.`
     }
 
@@ -74,7 +80,7 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
         levelsToAdd = Math.pow(2, player.shopUpgrades.offeringAutoLevel)
     }
     if (auto && cubeUpgraded > 0) {
-        levelsToAdd =  Math.min(1e4, calculateMaxRunes(runeIndex + 1)) // limit to max 10k levels per call so the execution doesn't take too long if things get stuck
+        levelsToAdd = Math.min(1e4, calculateMaxRunes(runeIndex + 1)) // limit to max 10k levels per call so the execution doesn't take too long if things get stuck
     }
     let amountArray = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
     let levelsAdded = 0
