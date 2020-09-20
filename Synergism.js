@@ -455,6 +455,7 @@ const player = {
 
     autoAntSacrifice: false,
     autoAntSacTimer: 900,
+    autoAntSacrificeMode: 0,
     antMax: false,
 
     ascensionCount: 0,
@@ -903,6 +904,9 @@ function loadSynergy() {
         }
         if (data.autoAntSacTimer === undefined) {
             player.autoAntSacTimer = 900;
+        }
+        if (data.autoAntSacrificeMode === undefined) {
+            player.autoAntSacrificeMode = 0;
         }
 
         if (player.cubeUpgrades[7] === 0 && player.toggles.twentytwo) {
