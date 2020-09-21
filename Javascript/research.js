@@ -54,9 +54,6 @@ function buyResearch(index, auto) {
             }
             i++
         }
-        if (i > 1) {
-            revealStuff()
-        }
     }
 
     if (0 < index && isResearchUnlocked(index)) {

@@ -3048,6 +3048,7 @@ function tick() {
     }
 
     calculateOfferings(3)
+    revealStuff()
 }
 
 
