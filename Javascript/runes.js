@@ -46,7 +46,7 @@ function displayRuneInformation(i, updatelevelup) {
         document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + format((1 + rune5level / 200 * m * SILevelMult), 2, true) + ". Ant Speed: x" + format(1 + Math.pow(rune5level * m * SILevelMult, 2) / 2500) + ". Base Offerings: +" + format((rune5level * m * SILevelMult * 0.005), 3, true)
     }
     if (updatelevelup) {
-        let offerings = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], 1)[0]
+        let offerings = calculateOfferingsToLevel(i - 1, player.runelevels[i - 1])
         document.getElementById("runeDisplayInfo").textContent = `+${format(amountPerOffering)} EXP per offering. ${format(offerings)} Offerings to level up.`
     }
 
@@ -77,9 +77,8 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
         levelsToAdd = Math.pow(2, player.shopUpgrades.offeringAutoLevel)
     }
     if (auto && cubeUpgraded > 0) {
-        levelsToAdd = 1e4 // limit to max 10k levels per call so the execution doesn't take too long if things get stuck
+        levelsToAdd = calculateMaxRunes(runeIndex + 1)
     }
-    let amountArray = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
     let levelsAdded = 0
     if (player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune[runeIndex]) {
         let toSpendTotal = player.runeshards
@@ -87,7 +86,7 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
             toSpendTotal = Math.min(player.runeshards, cubeUpgraded)
         }
         while (toSpendTotal > 0 && levelsAdded < levelsToAdd) {
-            let toSpend = Math.min(toSpendTotal, amountArray[levelsAdded])
+            let toSpend = Math.min(toSpendTotal, calculateOfferingsToLevel(runeIndex, player.runelevels[runeIndex]) + levelsAdded)
             toSpendTotal -= toSpend
             player.runeshards -= toSpend
             player.runeexp[runeIndex] += toSpend * calculateRuneExpGiven(runeIndex);
@@ -113,6 +112,14 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
     }
 }
 
+function calculateOfferingsToLevel(runeIndex, runeLevel) {
+    let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
+    let expPerOff = calculateRuneExpGiven(runeIndex, false, runeLevel)
+    let amount = Math.ceil(exp / expPerOff)
+    return amount;
+}
+
+//if this function is not used anywhere else outside of runes.js then it can be deleted as it is no longer called within runes.js
 function calculateOfferingsToLevelXTimes(runeIndex, runeLevel, levels) {
     let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
     let arr = []
