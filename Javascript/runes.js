@@ -125,12 +125,6 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
     }
 }
 
-function calculateOfferingsToLevel(runeIndex, runeLevel) {
-    let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
-    let expPerOff = calculateRuneExpGiven(runeIndex, false, runeLevel)
-    return Math.ceil(exp / expPerOff);
-}
-
 //if this function is not used anywhere else outside of runes.js then it can be deleted as it is no longer called within runes.js
 function calculateOfferingsToLevelXTimes(runeIndex, runeLevel, levels) {
     let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
