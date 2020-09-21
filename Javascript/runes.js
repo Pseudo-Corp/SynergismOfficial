@@ -91,11 +91,16 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
         }
         let all = 0
         let maxLevel = calculateMaxRunes(runeIndex + 1)
+        let amountArr = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
+        let fact = calculateRuneExpGiven(runeIndex, false, player.runelevels[runeIndex], true)
+        let a = player.upgrades[71] / 25
+        let add = fact[0] - a * player.runelevels[runeIndex]
+        let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
         while (toSpendTotal > 0 && levelsAdded < levelsToAdd && player.runelevels[runeIndex] < maxLevel) {
-            let toSpend = Math.min(toSpendTotal, calculateOfferingsToLevel(runeIndex, player.runelevels[runeIndex]))
+            let toSpend = Math.min(toSpendTotal, amountArr[levelsAdded])
             toSpendTotal -= toSpend
             player.runeshards -= toSpend
-            player.runeexp[runeIndex] += toSpend * calculateRuneExpGiven(runeIndex);
+            player.runeexp[runeIndex] += toSpend * (add + a * player.runelevels[runeIndex]) * mult;
             all += toSpend
             while (player.runeexp[runeIndex] >= calculateRuneExpToLevel(runeIndex) && player.runelevels[runeIndex] < maxLevel) {
                 player.runelevels[runeIndex] += 1;
@@ -134,8 +139,12 @@ function calculateOfferingsToLevelXTimes(runeIndex, runeLevel, levels) {
     let sum = 0
     let off = player.runeshards
     let levelsAdded = 0
+    let fact = calculateRuneExpGiven(runeIndex, false, runeLevel, true)
+    let a = player.upgrades[71] / 25
+    let add = fact[0] - a * runeLevel
+    let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
     while (levelsAdded < levels && runeLevel + levelsAdded < maxLevel && sum < off) {
-        let expPerOff = calculateRuneExpGiven(runeIndex, false, runeLevel + levelsAdded)
+        let expPerOff = (add + a * (runeLevel + levelsAdded)) * mult
         let amount = Math.ceil(exp / expPerOff)
         sum += amount
         arr.push(amount)

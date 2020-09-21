@@ -116,7 +116,7 @@ function calculateRecycleMultiplier() {
 }
 
 // Returns the amount of exp given per offering by a rune
-function calculateRuneExpGiven(runeIndex, all = false, runeLevel = player.runelevels[runeIndex]) {
+function calculateRuneExpGiven(runeIndex, all = false, runeLevel = player.runelevels[runeIndex], returnFactors = false) {
     // recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
     let recycleMultiplier = calculateRecycleMultiplier();
 
@@ -184,12 +184,17 @@ function calculateRuneExpGiven(runeIndex, all = false, runeLevel = player.runele
         ])
     ];
 
-    return productContents([
+    let fact = [
         allRuneExpAdditiveMultiplier,
         allRuneExpMultiplier,
         recycleMultiplier,
         runeExpMultiplier[runeIndex]
-    ]);
+    ]
+    if (returnFactors) {
+        return fact
+    } else {
+        return productContents(fact);
+    }
 }
 
 function lookupTableGen(runeLevel) {
