@@ -83,7 +83,6 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
     if (auto && cubeUpgraded > 0) {
         levelsToAdd = Math.min(1e4, calculateMaxRunes(runeIndex + 1)) // limit to max 10k levels per call so the execution doesn't take too long if things get stuck
     }
-    let amountArray = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
     let levelsAdded = 0
     if (player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune[runeIndex]) {
         let toSpendTotal = player.runeshards
@@ -93,7 +92,7 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
         let all = 0
         let maxLevel = calculateMaxRunes(runeIndex + 1)
         while (toSpendTotal > 0 && levelsAdded < levelsToAdd && player.runelevels[runeIndex] < maxLevel) {
-            let toSpend = Math.min(toSpendTotal, amountArray[levelsAdded])
+            let toSpend = Math.min(toSpendTotal, calculateOfferingsToLevel(runeIndex, player.runelevels[runeIndex]))
             toSpendTotal -= toSpend
             player.runeshards -= toSpend
             player.runeexp[runeIndex] += toSpend * calculateRuneExpGiven(runeIndex);
@@ -121,6 +120,13 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
     }
 }
 
+function calculateOfferingsToLevel(runeIndex, runeLevel) {
+    let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
+    let expPerOff = calculateRuneExpGiven(runeIndex, false, runeLevel)
+    return Math.ceil(exp / expPerOff);
+}
+
+//if this function is not used anywhere else outside of runes.js then it can be deleted as it is no longer called within runes.js
 function calculateOfferingsToLevelXTimes(runeIndex, runeLevel, levels) {
     let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
     let maxLevel = calculateMaxRunes(runeIndex + 1)
