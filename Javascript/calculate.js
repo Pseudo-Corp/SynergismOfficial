@@ -192,8 +192,7 @@ function calculateRuneExpGiven(runeIndex, all = false, runeLevel = player.runele
     ]);
 }
 
-// Returns the amount of exp required to level a rune
-function calculateRuneExpToLevel(runeIndex, runeLevel = player.runelevels[runeIndex]) {
+function lookupTableGen(runeLevel) {
     // Rune exp required to level multipliers
     let allRuneExpRequiredMultiplier = productContents([
         Math.pow(runeLevel / 2, 3),
@@ -203,12 +202,19 @@ function calculateRuneExpToLevel(runeIndex, runeLevel = player.runelevels[runeIn
         Math.max(1, (runeLevel - 600) / 15),
         Math.max(1, Math.pow(1.03, (runeLevel - 800) / 4))
     ]);
-    let expToLevel = productContents([
-        runeexpbase[runeIndex],
-        allRuneExpRequiredMultiplier
-    ]);
+    return allRuneExpRequiredMultiplier
+}
 
-    return expToLevel;
+let lookupTableRuneExp = function() {
+    let lookup = {};
+    for (let runeLevel = 0; runeLevel <= 20000; ++runeLevel) {
+        lookup[runeLevel] = lookupTableGen(runeLevel);
+    }
+    return lookup;
+}();
+// Returns the amount of exp required to level a rune
+function calculateRuneExpToLevel(runeIndex, runeLevel= player.runelevels[runeIndex]) {
+    return lookupTableRuneExp[runeLevel] * runeexpbase[runeIndex];
 }
 
 function calculateMaxRunes(i) {
