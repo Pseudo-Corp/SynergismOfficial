@@ -212,45 +212,6 @@ function toggleautoreset(i) {
     }
 }
 
-function toggleauto() {
-    const e = document.getElementsByClassName("auto");
-    for (let i = 0; i < e.length; i++) {
-        let a = "";
-        let b = "";
-        if ((0 <= i && i <= 7) || (8 <= i && i <= 12) || (14 <= i && i <= 18) || (20 <= i && i <= 24)) {
-            a = "Auto ["
-        }
-        if (i === 30) {
-            a = "Hover-to-buy ["
-        }
-        if (i === 13) {
-            a = "Auto Prestige ["
-        }
-        if (i === 19) {
-            a = "Auto Transcend ["
-        }
-        if (i === 25) {
-            a = "Auto Reincarnate ["
-        }
-        if (31 <= i && i <= 33) {
-            a = "["
-        }
-        let u = i
-        let stupidHackTime = [player.toggles.one, player.toggles.two, player.toggles.three, player.toggles.four, player.toggles.five, player.toggles.six, player.toggles.seven, player.toggles.eight, player.toggles.ten, player.toggles.eleven, player.toggles.twelve, player.toggles.thirteen, player.toggles.fourteen, player.toggles.fifteen, player.toggles.sixteen, player.toggles.seventeen, player.toggles.eighteen, player.toggles.nineteen, player.toggles.twenty, player.toggles.twentyone, player.toggles.twentytwo, player.toggles.twentythree, player.toggles.twentyfour, player.toggles.twentyfive, player.toggles.twentysix, player.toggles.twentyseven, player.toggles.nine, player.toggles.ten, player.toggles.eleven, player.toggles.nine, player.toggles.nine, player.toggles.twentyeight, player.toggles.twentynine, player.toggles.thirty]
-        //console.log(stupidHackTime.length)
-        if (stupidHackTime[i]) {
-            b = "ON]"
-        }
-        if (!stupidHackTime[i]) {
-            b = "OFF]"
-        }
-
-        if (i <= 25 || i >= 30) {
-            e[u].textContent = a + b
-        }
-    }
-
-}
 
 function toggleauto() {
     let autos = document.getElementsByClassName("auto");
