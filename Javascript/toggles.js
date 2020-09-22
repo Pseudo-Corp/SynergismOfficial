@@ -190,8 +190,7 @@ function toggleautoreset(i) {
             player.resettoggle1 = 1;
             document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"
         }
-    }
-    if (i === 2) {
+    } else if (i === 2) {
         if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
             player.resettoggle2 = 2;
             document.getElementById("transcendautotoggle").textContent = "Mode: TIME"
@@ -199,8 +198,7 @@ function toggleautoreset(i) {
             player.resettoggle2 = 1;
             document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"
         }
-    }
-    if (i === 3) {
+    } else if (i === 3) {
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
             player.resettoggle3 = 2;
             document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"
@@ -208,6 +206,8 @@ function toggleautoreset(i) {
             player.resettoggle3 = 1;
             document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"
         }
+    } else if (i === 4) {
+        // To be ascend toggle
     }
 }
 
@@ -455,14 +455,25 @@ function toggleAntMaxBuy() {
     }
 }
 
-function toggleAntAutoSacrifice() {
-    let el = document.getElementById("toggleAutoSacrificeAnt");
-    if (player.autoAntSacrifice) {
-        player.autoAntSacrifice = false;
-        el.textContent = "Auto Sacrifice Every 15 Minutes: OFF"
-    } else {
-        player.autoAntSacrifice = true;
-        el.textContent = "Auto Sacrifice Every 15 Minutes: ON"
+function toggleAntAutoSacrifice(mode = 0) {
+    if (mode === 0) {
+        let el = document.getElementById("toggleAutoSacrificeAnt");
+        if (player.autoAntSacrifice) {
+            player.autoAntSacrifice = false;
+            el.textContent = "Auto Sacrifice: OFF"
+        } else {
+            player.autoAntSacrifice = true;
+            el.textContent = "Auto Sacrifice: ON"
+        }
+    } else if (mode === 1) {
+        let el = document.getElementById("autoSacrificeAntMode");
+        if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
+            player.autoAntSacrificeMode = 2;
+            el.textContent = "Mode: Real time";
+        } else {
+            player.autoAntSacrificeMode = 1;
+            el.textContent = "Mode: In-game time";
+        }
     }
 }
 

@@ -1625,8 +1625,13 @@
             </div>
 
             <div id="antToggleFeatures">
-                <button id="toggleAntMax" onclick="toggleAntMaxBuy()" style="border: 1px solid gold">Buy Max: ON</button>
-                <button id="toggleAutoSacrificeAnt" onclick="toggleAntAutoSacrifice()" style="border: 1px solid crimson">Auto Sacrifice Every 15 Minutes: OFF</button>
+                <button id="toggleAntMax" onclick="toggleAntMaxBuy()">Buy Max: ON</button>
+                <div id="antSacrificeButtons">
+                    <button id="toggleAutoSacrificeAnt" onclick="toggleAntAutoSacrifice(0)">Auto Sacrifice: OFF</button>
+                    <button id="autoSacrificeAntMode" onclick="toggleAntAutoSacrifice(1)">Mode: In-game time</button>
+                    <input id="autoAntSacrificeAmount" type="number" oninput="updateAutoReset(5)">
+                    <p id="autoAntSacrifice"></p>
+                </div>
             </div>
 
             <div id="sacrificeAnts" style="display: none">

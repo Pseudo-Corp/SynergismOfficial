@@ -148,24 +148,21 @@ function updateAutoReset(i) {
         } else {
             player.prestigeamount = 0;
         }
-    }
-    if (i === 2) {
+    } else if (i === 2) {
         const u = document.getElementById("transcendamount").value;
         if (u >= 0) {
             player.transcendamount = u;
         } else {
             player.transcendamount = 0;
         }
-    }
-    if (i === 3) {
+    } else if (i === 3) {
         const v = document.getElementById("reincarnationamount").value
         if (v >= 0) {
             player.reincarnationamount = v;
         } else {
             player.reincarnationamount = 0;
         }
-    }
-    if (i === 4) {
+    } else if (i === 4) {
         let v = parseFloat(document.getElementById("ascensionAmount").value);
         v = Math.floor(v)
         if (v >= 1) {
@@ -173,6 +170,9 @@ function updateAutoReset(i) {
         } else {
             player.autoAscendThreshold = 1;
         }
+    } else if (i === 5) {
+        let v = parseFloat(document.getElementById("autoAntSacrificeAmount").value);
+        player.autoAntSacTimer = Math.max(0, v);
     }
 }
 
@@ -405,7 +405,7 @@ function reset(i, fast, from) {
     }
 
     if (i > 3.5) {
-        if(player.ascensionCount === 0){
+        if (player.ascensionCount === 0) {
             CSSAscend()
         }
 
@@ -500,7 +500,7 @@ function reset(i, fast, from) {
             player.wowHypercubes += metaData[6];
         }
 
-        if (historyUse && player.challengecompletions[10] > 0){
+        if (historyUse && player.challengecompletions[10] > 0) {
             resetHistoryAdd(historyCategory, historyKind, historyEntry);
         }
 
@@ -651,7 +651,7 @@ function resetUpgrades(i, fast) {
     for (let j = 1; j <= 20; j++) {
         player.upgrades[j] = 0;
     }
-    for (let j = 121; j <= 125; j++){
+    for (let j = 121; j <= 125; j++) {
         player.upgrades[j] = 0;
     }
     player.upgrades[106] = 0;

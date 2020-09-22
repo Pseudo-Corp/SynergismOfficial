@@ -455,6 +455,7 @@ const player = {
 
     autoAntSacrifice: false,
     autoAntSacTimer: 900,
+    autoAntSacrificeMode: 0,
     antMax: false,
 
     ascensionCount: 0,
@@ -903,6 +904,9 @@ function loadSynergy() {
         }
         if (data.autoAntSacTimer === undefined) {
             player.autoAntSacTimer = 900;
+        }
+        if (data.autoAntSacrificeMode === undefined) {
+            player.autoAntSacrificeMode = 0;
         }
 
         if (player.cubeUpgrades[7] === 0 && player.toggles.twentytwo) {
@@ -2763,7 +2767,8 @@ function updateAll() {
     optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel
     autoBuyAnts()
 
-    if (player.antSacrificeTimer >= player.autoAntSacTimer && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
+    let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimer / calculateTimeAcceleration() : player.antSacrificeTimer;
+    if (timer >= player.autoAntSacTimer && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
         sacrificeAnts(true)
     }
 
