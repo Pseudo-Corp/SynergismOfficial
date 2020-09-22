@@ -929,13 +929,11 @@ function buttoncolorchange() {
             let e = document.getElementById("buyEpicFragment");
             let f = document.getElementById("buyLegendaryFragment");
             let g = document.getElementById("buyMythicalFragment");
-            (player.researchPoints > 1e6) ? a.style.backgroundColor = "purple" : a.style.backgroundColor = "#171717";
-            (player.researchPoints > 3e6) ? b.style.backgroundColor = "purple" : b.style.backgroundColor = "#171717";
-            (player.researchPoints > 1e7 && player.runeshards > 5) ? c.style.backgroundColor = "purple" : c.style.backgroundColor = "#171717";
-            (player.researchPoints > 1e8 && player.runeshards > 40) ? d.style.backgroundColor = "purple" : d.style.backgroundColor = "#171717";
-            (player.researchPoints > 1e9 && player.runeshards > 400) ? e.style.backgroundColor = "purple" : e.style.backgroundColor = "#171717";
-            (player.researchPoints > 1e10 && player.runeshards > 2000) ? f.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
-            (player.researchPoints > 1e11 && player.runeshards > 10000) ? g.style.backgroundColor = "purple" : g.style.backgroundColor = "#171717";
+            let arr = [a, b, c, d, e, f, g];
+            for (let i = 0; i < arr.length; i++) {
+                arr[i].style.backgroundColor = (player.researchPoints > talismanResourceObtainiumCosts[i]
+                    && player.runeshards > talismanResourceOfferingCosts[i]) ? "purple" : "#171717"
+            }
         }
     }
 
