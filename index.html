@@ -2070,9 +2070,7 @@
         <button class="ascendunlockib" style="border: 2px solid darkorange" onclick="setActiveSettingScreen('ascendHistorySubTab', this)">Ascend History</button>
     </div>
     <div class="subtabContent subtabActive" id="settingsubtab">
-        <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
         <p class="prestigeunlock" id="settingtitle3" style="color: plum">Miscellaneous Stats</p>
-        <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
         <p class="prestigeunlock" id="temporarystats1" style="color: lightblue"></p>
         <p class="transcendunlock" id="temporarystats2" style="color: plum"></p>
         <p class="reincarnationunlock" id="temporarystats3" style="color: limegreen"></p>
@@ -2086,12 +2084,16 @@
         <p class="prestigeunlock" id="temporarystats10" style="color: cyan"></p>
         <p class="prestigeunlock" id="quarktimeramount" style="color: cyan">Quarks on export: 0 [Max 25]</p>
         <p class="prestigeunlock" id="quarktimerdisplay" style="color: gold">3600s until +1 export Quark</p>
-        <img class="prestigeunlock" id="settingpic1" src = "Pictures/Prestige.png" style="border: 1px solid cyan" alt="">
-        <button class="auto" id="toggle28" onclick="toggleSettings(27)" style="border:2px solid green">On</button>
-        <img class="transcendunlock" id="settingpic2" src = "Pictures/Transcend.png" style="border: 1px solid plum" alt="">
-        <button class="auto" id="toggle29" onclick="toggleSettings(28)" style="border:2px solid green">On</button>
-        <img class="reincarnationunlock" id="settingpic3" src = "Pictures/Reincarnate.png" style="border: 1px solid green" alt="">
-        <button class="auto" id="toggle30" onclick="toggleSettings(29)" style="border:2px solid green">On</button>
+        <div id="confirmationToggles">
+            <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
+            <img class="prestigeunlock" id="settingpic1" src = "Pictures/Prestige.png" style="border: 1px solid cyan" alt="">
+            <button class="auto" id="toggle28" onclick="toggleSettings(27)" style="border:2px solid green">On</button>
+            <img class="transcendunlock" id="settingpic2" src = "Pictures/Transcend.png" style="border: 1px solid plum" alt="">
+            <button class="auto" id="toggle29" onclick="toggleSettings(28)" style="border:2px solid green">On</button>
+            <img class="reincarnationunlock" id="settingpic3" src = "Pictures/Reincarnate.png" style="border: 1px solid green" alt="">
+            <button class="auto" id="toggle30" onclick="toggleSettings(29)" style="border:2px solid green">On</button>
+            <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
+        </div>
         <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
         <p id="importgame" style="color: limegreen">Load game below!</p>
         <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
