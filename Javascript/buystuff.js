@@ -287,6 +287,10 @@ function getCost(originalCost, buyingTo, type, num, r) {
         // divided by same amount buying to - fr times
         cost.exponent -= Math.log10(1 + (1 / 2 * player.challengecompletions[8])) * (buyingTo - fr);
     }
+    let extra = cost.exponent - Math.floor(cost.exponent);
+    cost.exponent = Math.floor(cost.exponent);
+    cost.mantissa *= Math.pow(10, extra);
+    cost.normalize();
     return cost;
 }
 
