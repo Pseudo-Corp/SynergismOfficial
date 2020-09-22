@@ -1,5 +1,6 @@
 function toggleTabs(i) {
     currentTab = i;
+    revealStuff();
     hideStuff();
 }
 

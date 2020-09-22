@@ -580,7 +580,6 @@ function reset(i, fast, from) {
         for (let i = 1; i <= 9; i++) {
             player.usedCorruptions[i] = player.prototypeCorruptions[i]
         }
-        document.getElementById("toggleofferingbuy").textContent = "Toggle amount to use per sacrifice"
     }
 
 
