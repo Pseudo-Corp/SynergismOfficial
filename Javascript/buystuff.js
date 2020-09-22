@@ -198,16 +198,21 @@ function buyMultiplier(autobuyer) {
 
 }
 
+const fact100 = 9.3326215443944152681699238856267e+157;
+
 function getCost(originalCost, buyingTo, type, num, r) {
+
+
     // It's 0 indexed by mistake so you have to subtract 1 somewhere.
     --buyingTo;
-    originalCost = new Decimal(originalCost);
+
     // Prevents multiple recreations of this variable because .factorial() is the only one that doesn't create a clone (?)
     let buyingToDec = new Decimal(buyingTo);
     // Accounts for the multiplies by 1.25^num buyingTo times
-    let cost = originalCost.times(Decimal.pow(Math.pow(1.25, num), buyingTo));
+    let cost = new Decimal(originalCost);
+    cost.exponent += Math.log10(1.25) * num * buyingTo;
 
-    // Accounts for the add 1s
+    // Accounts for the add 1s (this is relatively hard to do without this method surprisingly, but could be cleaned up if really necessary)
     cost = cost.add(1 * buyingTo);
 
     // floored r value gets used a lot in removing calculations
@@ -227,8 +232,8 @@ function getCost(originalCost, buyingTo, type, num, r) {
     fr = Math.floor(r * 5000);
     if (buyingTo >= r * 5000) {
         cost = cost.times(buyingToDec.factorial().dividedBy(new Decimal(fr).factorial()));
-        cost = cost.times(Decimal.pow(10, buyingTo - fr));
-        cost = cost.times(Decimal.pow(10 + num * 10, buyingTo - fr));
+        cost.exponent += (buyingTo - fr - 1) + 1;
+        cost.exponent += (Math.log10(10 + num * 10) * (buyingTo - fr - 1));
     }
 
     fr = Math.floor(r * 20000);
@@ -236,8 +241,8 @@ function getCost(originalCost, buyingTo, type, num, r) {
         // To truncate this expression I used Decimal.pow(Decimal.factorial(buyingTo), 3) which suprisingly (to me anyways) does actually work
         // So it takes all numbers up to buyingTo and pow3's them, then divides by all numbers up to r*20000 pow3'd
         cost = cost.times(Decimal.pow(buyingToDec.factorial(), 3)).dividedBy(Decimal.pow(new Decimal(fr).factorial(), 3));
-        cost = cost.times(Decimal.pow(100000, buyingTo - fr));
-        cost = cost.times(Decimal.pow(100 + num * 100, buyingTo - fr));
+        cost.exponent += (Math.log10(100000) * (buyingTo - fr));
+        cost.exponent += (Math.log10(100 + num * 100) * (buyingTo - fr));
     }
 
     fr = Math.floor(r * 250000);
@@ -251,24 +256,24 @@ function getCost(originalCost, buyingTo, type, num, r) {
         // (1.03^(sum from 0 to buyingTo - fr)) is the multiplier
         // so (1.03^( (buyingTo-fr)(buyingTo-fr+1)/2 )
         // god damn that was hard to make an algo for
-        cost = cost.times(Decimal.pow(1.03, (buyingTo - fr) * ((buyingTo - fr + 1) / 2)));
+        cost.exponent += Math.log10(1.03) * (buyingTo - fr) * ((buyingTo - fr + 1) / 2);
     }
     if ((player.currentChallenge.transcension === 4) && (type === "Coin" || type === "Diamonds")) {
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(new Decimal(100).factorial()).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
+        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
         if (buyingTo >= (1000 - (10 * player.challengecompletions[4]))) {
             // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
-            cost = cost.times(Decimal.pow(1.25, (buyingTo * (buyingTo + 1) / 2)));
+            cost.exponent += Math.log10(1.25) * (buyingTo * (buyingTo + 1) / 2);
         }
     }
     if ((player.currentChallenge.reincarnation === 10) && (type === "Coin" || type === "Diamonds")) {
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(new Decimal(100).factorial()).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
+        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
         if (buyingTo >= (r * 25000)) {
             // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
-            cost = cost.times(Decimal.pow(1.25, (buyingTo * (buyingTo + 1) / 2)));
+            cost.exponent += Math.log10(1.25) * (buyingTo * (buyingTo + 1) / 2);
         }
     }
     fr = Math.floor(r * 1000 * player.challengecompletions[8]);
@@ -277,12 +282,11 @@ function getCost(originalCost, buyingTo, type, num, r) {
         const sumBuys = (buyingTo - (1000 * player.challengecompletions[8] * r)) * ((buyingTo - (1000 * player.challengecompletions[8] * r) + 1) / 2);
         const negBuys = (fr - (1000 * player.challengecompletions[8] * r)) * ((fr - (1000 * player.challengecompletions[8] * r) + 1) / 2);
 
-        cost = cost.times(Decimal.pow(2, sumBuys - negBuys));
+        cost.exponent += Math.log10(2) * (sumBuys - negBuys);
 
         // divided by same amount buying to - fr times
-        cost = cost.dividedBy(Decimal.pow((1 + 1 / 2 * player.challengecompletions[8]), buyingTo - fr));
+        cost.exponent -= Math.log10(1 + (1 / 2 * player.challengecompletions[8])) * (buyingTo - fr);
     }
-
     return cost;
 }
 
@@ -305,27 +309,27 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
     }
 
     // Start buying at the current amount bought + 1
-    let buyTo = player[pos + 'Owned' + type] + 1;
-    let cashToBuy = getCost(originalCost, buyTo, type, num, r);
+    let buyStart = player[pos + 'Owned' + type];
+    let buyInc = 1;
+    let cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
     while (player[tag].greaterThanOrEqualTo(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
-        buyTo = buyTo * 4;
-        cashToBuy = getCost(originalCost, buyTo, type, num, r);
+        buyInc = buyInc * 4;
+        cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
     }
-    let stepdown = Math.floor(buyTo / 8);
+    let stepdown = Math.floor(buyInc / 8);
     while (stepdown !== 0) {
-
         // if step down would push it below out of expense range then divide step down by 2
-        if (getCost(originalCost, buyTo - stepdown, type, num, r).lessThanOrEqualTo(player[tag])) {
+        if (getCost(originalCost, buyStart + buyInc - stepdown, type, num, r).lessThanOrEqualTo(player[tag])) {
             stepdown = Math.floor(stepdown / 2);
         } else {
-            buyTo = buyTo - stepdown;
+            buyInc = buyInc - stepdown;
         }
     }
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-    let buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
+    let buyFrom = Math.max(buyStart + buyInc - 7, player[pos + 'Owned' + type] + 1);
     let thisCost = getCost(originalCost, buyFrom, type, num, r);
-    while (buyFrom < buyTo && player[tag].greaterThanOrEqualTo(getCost(originalCost, buyFrom, type, num, r))) {
+    while (buyFrom < buyStart + buyInc && player[tag].greaterThanOrEqualTo(thisCost)) {
         player[tag] = player[tag].sub(thisCost);
         player[pos + 'Owned' + type] = buyFrom;
         buyFrom = buyFrom + 1;
@@ -333,7 +337,6 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
         player[pos + 'Cost' + type] = thisCost;
     }
 }
-
 
 function buyProducer(pos, type, num, autobuyer) {
     let amounttype;
