@@ -371,6 +371,21 @@ function sacrificeAnts(auto) {
                 player.legendaryFragments += sacRewards.legendaryFragments;
                 player.mythicalFragments += sacRewards.mythicalFragments;
             }
+
+            // Refer to analogous code in Syngergism.js, function tick().
+            if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle) {
+                // Since ants boost rune EXP, we need to auto-spend offerings NOW, before reset, if cube-tier auto-spend is enabled.
+                if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
+                    let baseAmount = Math.floor(player.runeshards / 5);
+                    for (let i = 1; i <= 5; i++) {
+                        redeemShards(i, true, baseAmount);
+                    }
+                    player.sacrificeTimer = 0;
+                }
+                // Other cases don't perform a spend-all and are thus safely handled by the standard tick() function.
+            }
+
+            // Now we're safe to reset the ants.
             resetAnts();
             player.antSacrificeTimer = 0;
             updateTalismanInventory();
