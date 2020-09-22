@@ -244,108 +244,50 @@ function revealStuff() {
         document.getElementById('particleAutoUpgrade').style.display = "none";
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
+    // note to 2019 and 2020 Platonic, you're welcome
     let e = document.getElementsByClassName("auto");
-    if (player.upgrades[81] === 1) {
-        e[0].style.display = "block";
+    let automationUnlocks = {
+        0: player.upgrades[81] === 1,
+        1: player.upgrades[82] === 1,
+        2: player.upgrades[83] === 1,
+        3: player.upgrades[84] === 1,
+        4: player.upgrades[85] === 1,
+        5: player.upgrades[86] === 1,
+        6: player.upgrades[87] === 1,
+        7: player.upgrades[88] === 1,
+        8: player.achievements[78] === 1,
+        9: player.achievements[85] === 1,
+        10: player.achievements[92] === 1,
+        11: player.achievements[99] === 1,
+        12: player.achievements[106] === 1,
+        13: player.achievements[43] === 1,
+        14: player.upgrades[94] === 1,
+        15: player.upgrades[95] === 1,
+        16: player.upgrades[96] === 1,
+        17: player.upgrades[97] === 1,
+        18: player.upgrades[98] === 1,
+        19: player.upgrades[89] === 1,
+        20: player.cubeUpgrades[7] === 1,
+        21: player.cubeUpgrades[7] === 1,
+        22: player.cubeUpgrades[7] === 1,
+        23: player.cubeUpgrades[7] === 1,
+        24: player.cubeUpgrades[7] === 1,
+        25: player.researches[46] === 1,
+        26: player.upgrades[91] === 1,
+        27: player.upgrades[92] === 1,
+        28: player.upgrades[99] === 1,
+        29: player.upgrades[90] === 1,
+        30: player.unlocks.prestige,
+        31: player.prestigeCount > 0.5 || player.reincarnationCount > 0.5,
+        32: player.transcendCount > 0.5 || player.reincarnationCount > 0.5,
+        33: player.reincarnationCount > 0.5,
+        34: player.ascensionCount > 0,
+        35: player.achievements[173] > 0
     }
-    if (player.upgrades[82] === 1) {
-        e[1].style.display = "block";
-    }
-    if (player.upgrades[83] === 1) {
-        e[2].style.display = "block";
-    }
-    if (player.upgrades[84] === 1) {
-        e[3].style.display = "block";
-    }
-    if (player.upgrades[85] === 1) {
-        e[4].style.display = "block";
-    }
-    if (player.upgrades[86] === 1) {
-        e[5].style.display = "block";
-    }
-    if (player.upgrades[87] === 1) {
-        e[6].style.display = "block";
-    }
-    if (player.upgrades[88] === 1) {
-        e[7].style.display = "block";
-    }
-    if (player.upgrades[91] === 1) {
-        e[26].style.display = "block";
-    }
-    if (player.upgrades[92] === 1) {
-        e[27].style.display = "block";
-    }
-    if (player.upgrades[99] === 1) {
-        e[28].style.display = "block";
-    }
-    if (player.upgrades[90] === 1) {
-        e[29].style.display = "block";
-    }
-    if (player.unlocks.prestige) {
-        e[30].style.display = "block";
-    }
-    if (player.achievements[78] === 1) {
-        e[8].style.display = "block";
-    }
-    if (player.achievements[85] === 1) {
-        e[9].style.display = "block";
-    }
-    if (player.achievements[92] === 1) {
-        e[10].style.display = "block";
-    }
-    if (player.achievements[99] === 1) {
-        e[11].style.display = "block";
-    }
-    if (player.achievements[106] === 1) {
-        e[12].style.display = "block";
-    }
-    if (player.achievements[43] === 1) {
-        e[13].style.display = "block";
-    }
-    if (player.upgrades[94] === 1) {
-        e[14].style.display = "block";
-    }
-    if (player.upgrades[95] === 1) {
-        e[15].style.display = "block";
-    }
-    if (player.upgrades[96] === 1) {
-        e[16].style.display = "block";
-    }
-    if (player.upgrades[97] === 1) {
-        e[17].style.display = "block";
-    }
-    if (player.upgrades[98] === 1) {
-        e[18].style.display = "block";
-    }
-    if (player.upgrades[89] === 1) {
-        e[19].style.display = "block";
-    }
-    if (player.cubeUpgrades[7] === 1) {
-        e[20].style.display = "block";
-    }
-    if (player.cubeUpgrades[7] === 1) {
-        e[21].style.display = "block";
-    }
-    if (player.cubeUpgrades[7] === 1) {
-        e[22].style.display = "block";
-    }
-    if (player.cubeUpgrades[7] === 1) {
-        e[23].style.display = "block";
-    }
-    if (player.cubeUpgrades[7] === 1) {
-        e[24].style.display = "block";
-    }
-    if (player.researches[46] === 1) {
-        e[25].style.display = "block";
-    }
-    if (player.prestigeCount > 0.5 || player.reincarnationCount > 0.5) {
-        e[31].style.display = "block";
-    }
-    if (player.transcendCount > 0.5 || player.reincarnationCount > 0.5) {
-        e[32].style.display = "block";
-    }
-    if (player.reincarnationCount > 0.5) {
-        e[33].style.display = "block";
+    for (let i = 0; i < e.length; i++) {
+        if (automationUnlocks[i]) {
+            e[i].style.display = "block";
+        }
     }
 }
 
