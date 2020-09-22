@@ -175,7 +175,7 @@ function challengeDisplay(i, changefocus, automated) {
         e.textContent = "+100 base ELO for sacrificing ants! Current: "
         f.textContent = "+2% Ant Sacrifice Reward! Current: "
         g.textContent = "Reincarnation Offerings +10%! Current: "
-        h.textContent = "Unlock the [??????] Reset Tier [v1.011]!"
+        h.textContent = "Unlock the Ascension Reset Tier!"
         k.textContent = "Start <Sadistic I>"
         l.textContent = "+" + format(100 * CalcECC('reincarnation', player.challengecompletions[10])) + " Ant ELO"
         m.textContent = "+" + format(2 * CalcECC('reincarnation', player.challengecompletions[10])) + "% Ant Sacrifice reward"
