@@ -287,6 +287,10 @@ function getCost(originalCost, buyingTo, type, num, r) {
         // divided by same amount buying to - fr times
         cost.exponent -= Math.log10(1 + (1 / 2 * player.challengecompletions[8])) * (buyingTo - fr);
     }
+    let extra = cost.exponent - Math.floor(cost.exponent);
+    cost.exponent = Math.floor(cost.exponent);
+    cost.mantissa *= Math.pow(10, extra);
+    cost.normalize();
     return cost;
 }
 
@@ -329,6 +333,7 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
     let buyFrom = Math.max(buyStart + buyInc - 7, player[pos + 'Owned' + type] + 1);
     let thisCost = getCost(originalCost, buyFrom, type, num, r);
+    console.log(thisCost);
     while (buyFrom < buyStart + buyInc && player[tag].greaterThanOrEqualTo(thisCost)) {
         player[tag] = player[tag].sub(thisCost);
         player[pos + 'Owned' + type] = buyFrom;
