@@ -215,7 +215,6 @@ function toggleautoreset(i) {
 
 function toggleauto() {
     let autos = document.getElementsByClassName("auto");
-    console.log(player.toggles);
     for (let auto of autos) {
         let format = auto.getAttribute("format");
         let toggleId = auto.getAttribute("toggleId");
