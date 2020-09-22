@@ -883,26 +883,12 @@ margin-left: -13px
 }
 
 
-#settingtitle2 {
-	position: absolute;
-	top: 0;
-	width: 500px;
-	left: 25%;
-	margin-left: -250px;
-}
 #settingtitle3 {
 	position: absolute;
 	top: 0;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
-}
-#confirmationdisclaimer {
-	position: absolute;
-	top: 120px;
-	width: 300px;
-	left: 25%;
-	margin-left: -150px;
 }
 
 #submitstats {
@@ -930,7 +916,13 @@ margin-left: -13px
 	margin-left: -112.5px;
 }
 
-
+#settingtitle2 {
+	position: absolute;
+	top: 0;
+	width: 500px;
+	left: 25%;
+	margin-left: -250px;
+}
 #settingpic1 {
 	position: absolute;
 	top: 60px;
@@ -950,6 +942,13 @@ margin-left: -13px
 	top: 60px;
 	left: 30%;
 	margin-left: -18px;
+}
+#confirmationdisclaimer {
+	position: absolute;
+	top: 120px;
+	width: 300px;
+	left: 25%;
+	margin-left: -150px;
 }
 
 #temporarystats1 {
