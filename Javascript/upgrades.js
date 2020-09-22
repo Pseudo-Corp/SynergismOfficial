@@ -297,7 +297,7 @@ function upgradedescriptions(i) {
         document.getElementById("upgradedescription").style.color = "white"
     }
 
-    if (player.toggles.nine === true) {
+    if (player.toggles[9] === true) {
         let type = ''
         if (i <= 20 && i >= 1) {
             type = 'coin'

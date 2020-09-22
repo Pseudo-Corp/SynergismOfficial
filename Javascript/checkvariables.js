@@ -154,6 +154,13 @@ function checkVariablesOnLoad(data) {
             player.upgrades[i] = 0
         }
     }
+    if (data.toggles.one !== undefined) {
+        for (let i = 0; i < 50; ++i)
+            if (player.toggles[cardinals[i]] !== undefined) {
+                player.toggles[i] = player.toggles[cardinals[i]];
+                player.toggles[cardinals[i]] = undefined;
+            }
+    }
 
     if(data.dayCheck === undefined){
         player.dayCheck = 0;
