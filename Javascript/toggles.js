@@ -216,7 +216,7 @@ function toggleauto() {
     for (let i = 0; i < e.length; i++) {
         let a = "";
         let b = "";
-        if ((i <= 7 && i >= 0) || (i <= 12 && i >= 8) || (i <= 18 && i >= 14) || (i <= 24 && i >= 20)) {
+        if ((0 <= i && i <= 7) || (8 <= i && i <= 12) || (14 <= i && i <= 18) || (20 <= i && i <= 24)) {
             a = "Auto ["
         }
         if (i === 30) {
@@ -231,7 +231,7 @@ function toggleauto() {
         if (i === 25) {
             a = "Auto Reincarnate ["
         }
-        if ((i === 31) || (i === 32) || (i === 33)) {
+        if (31 <= i && i <= 33) {
             a = "["
         }
         let u = i
