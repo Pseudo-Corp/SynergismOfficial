@@ -916,61 +916,41 @@ margin-left: -13px
 	margin-left: -112.5px;
 }
 
+#confirmationToggleBox {
+	position: absolute;
+	width: 400px;
+	left: 150px;
+	margin-top: 30px;
+}
+.center {
+	margin: auto;
+}
+.confirmationToggles {
+	display: flex;
+	flex-direction: row;
+	margin: auto;
+}
+.confirmationToggle {
+	display: flex;
+	flex-direction: column;
+	width: 40px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
 #settingtitle2 {
-	position: absolute;
-	top: 0;
-	width: 500px;
-	left: 25%;
-	margin-left: -250px;
+	width: 100%;
+	margin: 20px 0;
 }
-#settingpic1 {
-	position: absolute;
-	top: 60px;
-	left: 20%;
-	margin-left: -18px;
+.settingpic {
+	flex-grow: unset;
+	margin: 3px;
 }
-
-#settingpic2 {
-	position: absolute;
-	top: 60px;
-	left: 25%;
-	margin-left: -18px;
-}
-
-#settingpic3 {
-	position: absolute;
-	top: 60px;
-	left: 30%;
-	margin-left: -18px;
+.auto.square {
+	width: 40px;
+	height: 40px;
 }
 #confirmationdisclaimer {
-	position: absolute;
-	top: 120px;
-	width: 300px;
-	left: 25%;
-	margin-left: -150px;
-}
-#toggle28 {
-	position: absolute;
-	width: 40px;
-	height: 40px;
-	top: 95px;
-	left: 18.45%;
-
-}
-#toggle29 {
-	position: absolute;
-	width: 40px;
-	height: 40px;
-	top: 95px;
-	left: 23.45%
-}
-#toggle30 {
-	position: absolute;
-	width: 40px;
-	height: 40px;
-	top: 95px;
-	left: 28.45%
+	width: 100%;
 }
 
 #temporarystats1 {

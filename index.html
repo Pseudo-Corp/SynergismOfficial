@@ -2083,16 +2083,32 @@
         <p class="prestigeunlock" id="temporarystats10" style="color: cyan"></p>
         <p class="prestigeunlock" id="quarktimeramount" style="color: cyan">Quarks on export: 0 [Max 25]</p>
         <p class="prestigeunlock" id="quarktimerdisplay" style="color: gold">3600s until +1 export Quark</p>
-        <div id="confirmationToggles">
+        <div id="confirmationToggleBox">
             <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
-            <img class="prestigeunlock" id="settingpic1" src = "Pictures/Prestige.png" style="border: 1px solid cyan" alt="">
-            <button class="auto" id="toggle28" toggleid="28" format="[$]" onclick="toggleSettings(27)" style="border:2px solid green">On</button>
-            <img class="transcendunlock" id="settingpic2" src = "Pictures/Transcend.png" style="border: 1px solid plum" alt="">
-            <button class="auto" id="toggle29" toggleid="29" format="[$]" onclick="toggleSettings(28)" style="border:2px solid green">On</button>
-            <img class="reincarnationunlock" id="settingpic3" src = "Pictures/Reincarnate.png" style="border: 1px solid green" alt="">
-            <button class="auto" id="toggle30" toggleid="30" format="[$]" onclick="toggleSettings(29)" style="border:2px solid green">On</button>
-            <img class="ascensionunlock" id="settingpic4" src = "Pictures/questionable.png" style="border: 1px solid green" alt="">
-            <button class="auto" id="toggle31" toggleid="31" format="[$]" onclick="toggleSettings(30)" style="border:2px solid green">On</button>
+            <div class="confirmationToggles">
+                <div class="center"></div>
+                <div class="confirmationToggle">
+                    <img class="prestigeunlock settingpic" id="settingpic1" src = "Pictures/Prestige.png" alt="">
+                    <button class="auto square" id="toggle28" toggleid="28" format="[$]" onclick="toggleSettings(27)" style="border:2px solid green">[ON]</button>
+                </div>
+                <div class="confirmationToggle">
+                    <img class="transcendunlock settingpic" id="settingpic2" src = "Pictures/Transcend.png" alt="">
+                    <button class="auto square" id="toggle29" toggleid="29" format="[$]" onclick="toggleSettings(28)" style="border:2px solid green">[ON]</button>
+                </div>
+                <div class="confirmationToggle">
+                    <img class="reincarnationunlock settingpic" id="settingpic3" src = "Pictures/Reincarnate.png" alt="">
+                    <button class="auto square" id="toggle30" toggleid="30" format="[$]" onclick="toggleSettings(29)" style="border:2px solid green">[ON]</button>
+                </div>
+                <div class="confirmationToggle">
+                    <img class="ascendunlock settingpic" id="settingpic4" src = "Pictures/questionable.png" alt="">
+                    <button class="auto square" id="toggle31" toggleid="31" format="[$]" onclick="toggleSettings(30)" style="border:2px solid green">[ON]</button>
+                </div>
+                <div class="confirmationToggle">
+                    <img class="reincarnationunlock settingpic" id="settingpic5" src = "Pictures/Transparent%20Pics/Research124.png" alt="">
+                    <button class="auto square" id="toggle32" toggleid="32" format="[$]" onclick="toggleSettings(31)" style="border:2px solid green">[ON]</button>
+                </div>
+                <div class="center"></div>
+            </div>
             <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
         </div>
         <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>

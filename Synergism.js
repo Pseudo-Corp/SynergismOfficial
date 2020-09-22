@@ -2457,8 +2457,8 @@ function resetConfirmation(i) {
             }
         }
     }
-    if (i === 'ascend') { // TODO Confirmation toggle here
-        let z = confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]")
+    if (i === 'ascend') {
+        let z = !player.toggles[31] || confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]")
         if (z) {
             reset(4);
         }
