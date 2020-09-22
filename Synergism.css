@@ -950,6 +950,28 @@ margin-left: -13px
 	left: 25%;
 	margin-left: -150px;
 }
+#toggle28 {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 95px;
+	left: 18.45%;
+
+}
+#toggle29 {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 95px;
+	left: 23.45%
+}
+#toggle30 {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 95px;
+	left: 28.45%
+}
 
 #temporarystats1 {
 	position: absolute;
@@ -1288,28 +1310,7 @@ margin-left: -13px
 	left: 51%;
 	margin-left: -16px;
 }
-#toggle28 {
-	position: absolute;
-	width: 40px;
-	height: 40px;
-	top: 95px;
-	left: 18.45%;
 
-}
-#toggle29 {
-	position: absolute;
-	width: 40px;
-	height: 40px;
-	top: 95px;
-	left: 23.45%
-}
-#toggle30 {
-	position: absolute;
-	width: 40px;
-	height: 40px;
-	top: 95px;
-	left: 28.45%
-}
 #quarktimerdisplay {
 	position: absolute;
 	width: 250px;
