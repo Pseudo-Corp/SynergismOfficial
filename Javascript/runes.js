@@ -85,20 +85,20 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
     }
     let levelsAdded = 0
     if (player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune[runeIndex]) {
-        let toSpendTotal = player.runeshards
-        if (cubeUpgraded > 0) {
-            toSpendTotal = Math.min(player.runeshards, cubeUpgraded)
-        }
         let all = 0
         let maxLevel = calculateMaxRunes(runeIndex + 1)
         let amountArr = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
+        let toSpendTotal = Math.min(player.runeshards, amountArr.reduce((x, y) => x + y, 0))
+        if (cubeUpgraded > 0) {
+            toSpendTotal = Math.min(player.runeshards, cubeUpgraded)
+        }
         let fact = calculateRuneExpGiven(runeIndex, false, player.runelevels[runeIndex], true)
         let a = player.upgrades[71] / 25
         let add = fact[0] - a * player.runelevels[runeIndex]
         let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
         while (toSpendTotal > 0 && levelsAdded < levelsToAdd && player.runelevels[runeIndex] < maxLevel) {
             let toSpend = Math.min(toSpendTotal, amountArr[levelsAdded])
-            if (!toSpend) {
+            if (toSpend === undefined) {
                 toSpend = toSpendTotal
             }
             toSpendTotal -= toSpend
