@@ -1291,7 +1291,7 @@ margin-left: -13px
 	margin-left: -16px;
 }
 
-#quarktimerdisplay {
+#exportButtons {
 	position: absolute;
 	display: flex;
 	flex-direction: column;
