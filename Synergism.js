@@ -870,7 +870,7 @@ function loadSynergy() {
         checkVariablesOnLoad(data)
         if (data.ascensionCount === undefined || player.ascensionCount === 0) {
             player.ascensionCount = 0;
-            if (player.ascensionCounter === undefined || player.ascensionCounter === 0) {
+            if (player.ascensionCounter === undefined || (player.ascensionCounter === 0 && player.prestigeCount > 0)) {
                 player.ascensionCounter = 86400 * 90;
             }
             player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
