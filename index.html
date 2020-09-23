@@ -48,7 +48,7 @@
         <button class="saveClose"></button>
     </div>
 
-<img src="Pictures/preloader.png" id="preload" alt="">
+<img src="Pictures/Splash/preloader.png" id="preload" alt="" style="width: 100%;">
 <div id="offlineprogressbar">
 <p id="offlineTimer" style="color: plum"></p>
 <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
@@ -198,14 +198,14 @@
         <button class="prestigeunlock" id="buyacceleratorboost" onclick="boostAccelerator()" style="background-color: #070707;">Cost: 500 Coins.</button>
         <p class="prestigeunlock" id="buildtext16" style="color: crimson">Next one adds 1.00% Acceleration Factor.</p>
 
-        <button class="auto" id="toggle1" onclick="toggleSettings(0)" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle2" onclick="toggleSettings(1)" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle3" onclick="toggleSettings(2)" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle4" onclick="toggleSettings(3)" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle5" onclick="toggleSettings(4)" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle6" onclick="toggleSettings(5)" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle7" onclick="toggleSettings(6)" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle8" onclick="toggleSettings(7)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle1" toggleid="1" onclick="toggleSettings(0)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle2" toggleid="2" onclick="toggleSettings(1)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle3" toggleid="3" onclick="toggleSettings(2)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle4" toggleid="4" onclick="toggleSettings(3)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle5" toggleid="5" onclick="toggleSettings(4)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle6" toggleid="6" onclick="toggleSettings(5)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle7" toggleid="7" onclick="toggleSettings(6)" style="background-color: #171717;">Auto: On</button>
+        <button class="auto" id="toggle8" toggleid="8" onclick="toggleSettings(7)" style="background-color: #171717;">Auto: On</button>
 
         <p class="prestigeunlock" id="taxinfo" style="color: orange;">Due to your excessive wealth, all coin production is divided by 1.00 to pay taxes!</p>
         <p class="prestigeunlock" id="buildinghotkeys">Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost. Press [left arrow] or [right arrow] to switch tabs. Enjoy!</p>
@@ -233,12 +233,12 @@
         <img id="diamond5" src="Pictures/DiamondTier5.png" style="border: 1px solid cyan" alt="">
         </div>
         <div id="autocrystalbuild">
-            <button class="auto" id="toggle10" onclick="toggleSettings(9)" style="background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle11" onclick="toggleSettings(10)" style="background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle12" onclick="toggleSettings(11)" style="background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle13" onclick="toggleSettings(12)" style="background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle14" onclick="toggleSettings(13)" style="background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle15" onclick="toggleSettings(14)" style="background-color: #171717;">Automatic Prestige & Customization Being Developed!</button>
+            <button class="auto" id="toggle10" toggleid="10" onclick="toggleSettings(9)" style="background-color: #171717;">Auto: On</button>
+            <button class="auto" id="toggle11" toggleid="11" onclick="toggleSettings(10)" style="background-color: #171717;">Auto: On</button>
+            <button class="auto" id="toggle12" toggleid="12" onclick="toggleSettings(11)" style="background-color: #171717;">Auto: On</button>
+            <button class="auto" id="toggle13" toggleid="13" onclick="toggleSettings(12)" style="background-color: #171717;">Auto: On</button>
+            <button class="auto" id="toggle14" toggleid="14" onclick="toggleSettings(13)" style="background-color: #171717;">Auto: On</button>
+            <button class="auto" id="toggle15" toggleid="15" format="Auto Prestige [$]" onclick="toggleSettings(14)" style="background-color: #171717;">Automatic Prestige & Customization Being Developed!</button>
             <div id="prestigeautomation">
             <button id="prestigeautotoggle" onclick="toggleautoreset(1)" style="border:2px solid green; background-color: #171717;"></button>
                 <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(1)"/>
@@ -302,13 +302,12 @@
         <img id="mythos5" src="Pictures/MythosTier5.png" style="border: 1px solid plum" alt="">
         </div>
         <div id="transcendauto">
-            <button class="auto" id="toggle16" onclick="toggleSettings(15)" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle17" onclick="toggleSettings(16)" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle18" onclick="toggleSettings(17)" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle19" onclick="toggleSettings(18)" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle20" onclick="toggleSettings(19)" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle21" onclick="toggleSettings(20)" style="background-color: #171717;">Auto: Off</button>
-
+            <button class="auto" id="toggle16" toggleid="16" onclick="toggleSettings(15)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle17" toggleid="17" onclick="toggleSettings(16)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle18" toggleid="18" onclick="toggleSettings(17)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle19" toggleid="19" onclick="toggleSettings(18)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle20" toggleid="20" onclick="toggleSettings(19)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle21" toggleid="21" format="Auto Transcend [$]" onclick="toggleSettings(20)" style="background-color: #171717;">Auto: Off</button>
         </div>
         <div id="transcendinfo">
         <p id="transcendtext1">Augments: 0 [+0]</p>
@@ -368,12 +367,12 @@
             <button id="buyparticles3" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('third',1e4)">Cost: 1e+4 Particles</button>
             <button id="buyparticles4" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('fourth',1e8)">Cost: 1e+8 Particles</button>
             <button id="buyparticles5" style="border: 1px solid white; border-radius: 8px;" onclick="buyParticleBuilding('fifth',1e16)">Cost: 1e+16 Particles</button>
-            <button class="auto" id="toggle22" onclick="toggleSettings(21)" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle23" onclick="toggleSettings(22)" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle24" onclick="toggleSettings(23)" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle25" onclick="toggleSettings(24)" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle26" onclick="toggleSettings(25)" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle27" onclick="toggleSettings(26)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle22" toggleid="22" onclick="toggleSettings(21)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle23" toggleid="23" onclick="toggleSettings(22)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle24" toggleid="24" onclick="toggleSettings(23)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle25" toggleid="25" onclick="toggleSettings(24)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle26" toggleid="26" onclick="toggleSettings(25)" style="background-color: #171717;">Auto: Off</button>
+            <button class="auto" id="toggle27" toggleid="27" format="Auto Reincarnate [$]" onclick="toggleSettings(26)" style="background-color: #171717;">Auto: Off</button>
         <p id="reincarnationtext3">100 Atoms/sec</p>
         <p id="reincarnationtext4">100 Protons/sec</p>
         <p id="reincarnationtext6">100 Elements/sec</p>
@@ -701,7 +700,7 @@
             <p id="upgradedescription" style="color: beige">Hover over an upgrade icon to see details!</p>
             <p id="upgradecost"></p>
             <p id="upgradeeffect"></p>
-            <button class="auto" id="toggle9" onclick="toggleSettings(8)" style="border:2px solid green">Hover-To-Buy: Off</button>
+            <button class="auto" id="toggle9" toggleid="9" format="Hover-to-Buy [$]" onclick="toggleSettings(8)" style="border:2px solid green">Hover-To-Buy: Off</button>
         </div>
         </div>
 
@@ -1015,7 +1014,7 @@
                     <td><img id="offeringthousand" src="Pictures/Transparent Pics/OfferingThousand.png"  style="cursor:pointer;" onclick="toggleBuyAmount(1000,'offering')" alt=""></td>
                     </tr>
                 </table>
-                <p id="toggleofferingbuy">Toggle amount to use per sacrifice</p>
+                <p id="toggleofferingbuy">Toggle the number of levels to buy per sacrifice</p>
             </div>
             <p id="runeshards">You have 0 Offerings.</p>
 
@@ -1027,7 +1026,7 @@
             <p id="rune1level">Level: 166/500</p>
             <p id="bonusrune1" style="color: orange"></p>
             <p id="rune1exp">Exp: 0/40</p>
-            <button id="activaterune1"  onclick="redeemShards(1)">SACRIFICE</button>
+            <button id="activaterune1" onclick="redeemShards(1)" onmouseover="displayRuneInformation(1)">SACRIFICE</button>
             <p id="runeshowpower1">1<span id="divineblessing1" style="color: yellow"> </span></p>
             </div>
 
@@ -1037,7 +1036,7 @@
             <p id="rune2level">Level: 1/500</p>
             <p id="bonusrune2" style="color: orange"></p>
             <p id="rune2exp">Exp: 0/40</p>
-            <button id="activaterune2" onclick="redeemShards(2)">SACRIFICE</button>
+            <button id="activaterune2" onclick="redeemShards(2)" onmouseover="displayRuneInformation(2)">SACRIFICE</button>
             <p id="runeshowpower2">1<span id="divineblessing2" style="color: yellow"> </span></p>
             </div>
 
@@ -1047,7 +1046,7 @@
             <p id="rune3level">Level: 1/500</p>
             <p id="bonusrune3" style="color: orange"></p>
             <p id="rune3exp">Exp: 0/40</p>
-            <button id="activaterune3" onclick="redeemShards(3)">SACRIFICE</button>
+            <button id="activaterune3" onclick="redeemShards(3)" onmouseover="displayRuneInformation(3)">SACRIFICE</button>
             <p id="runeshowpower3">1<span id="divineblessing3" style="color: yellow"> </span></p>
             </div>
 
@@ -1057,7 +1056,7 @@
             <p id="rune4level">Level: 1/500</p>
             <p id="bonusrune4" style="color: orange"></p>
             <p id="rune4exp">TNL: 0</p>
-            <button id="activaterune4" onclick="redeemShards(4)">SACRIFICE</button>
+            <button id="activaterune4" onclick="redeemShards(4)" onmouseover="displayRuneInformation(4)">SACRIFICE</button>
             <p id="runeshowpower4">1<span id="divineblessing4" style="color: yellow"> </span></p>
             </div>
 
@@ -1067,14 +1066,14 @@
             <p id="rune5level">Level: 1/500</p>
             <p id="bonusrune5" style="color: orange"></p>
             <p id="rune5exp">TNL: 0</p>
-            <button id="activaterune5" onclick="redeemShards(5)">SACRIFICE</button>
+            <button id="activaterune5" onclick="redeemShards(5)" onmouseover="displayRuneInformation(5)">SACRIFICE</button>
             <p id="runeshowpower5">1<span id="divineblessing5" style="color: yellow"> </span></p>
             </div>
 
             <p id="runedetails">Gain 25 rune experience per Offering.</p>
             <p id="runerecycle">You have 0.5% chance of recycling your offerings. Recycled offerings are not spent!</p>
             <p id="runeshowlevelup">Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!</p>
-            <p id="runedisplayexp"></p>
+            <p id="runeDisplayInfo"></p>
             <p id="bonussummation">=====RUNE EFFECT SUMMARY=====</p>
 
             <p class="reincarnationunlock" id="researchrunebonus">Thanks to researches, your effective levels are increased by 0%</p>
@@ -1625,8 +1624,13 @@
             </div>
 
             <div id="antToggleFeatures">
-                <button id="toggleAntMax" onclick="toggleAntMaxBuy()" style="border: 1px solid gold">Buy Max: ON</button>
-                <button id="toggleAutoSacrificeAnt" onclick="toggleAntAutoSacrifice()" style="border: 1px solid crimson">Auto Sacrifice Every 15 Minutes: OFF</button>
+                <button id="toggleAntMax" onclick="toggleAntMaxBuy()">Buy Max: ON</button>
+                <div id="antSacrificeButtons">
+                    <button id="toggleAutoSacrificeAnt" onclick="toggleAntAutoSacrifice(0)">Auto Sacrifice: OFF</button>
+                    <button id="autoSacrificeAntMode" onclick="toggleAntAutoSacrifice(1)">Mode: In-game time</button>
+                    <input id="autoAntSacrificeAmount" type="number" oninput="updateAutoReset(5)">
+                    <p id="autoAntSacrifice"></p>
+                </div>
             </div>
 
             <div id="sacrificeAnts" style="display: none">
@@ -2065,9 +2069,7 @@
         <button class="ascendunlockib" style="border: 2px solid darkorange" onclick="setActiveSettingScreen('ascendHistorySubTab', this)">Ascend History</button>
     </div>
     <div class="subtabContent subtabActive" id="settingsubtab">
-        <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
         <p class="prestigeunlock" id="settingtitle3" style="color: plum">Miscellaneous Stats</p>
-        <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
         <p class="prestigeunlock" id="temporarystats1" style="color: lightblue"></p>
         <p class="transcendunlock" id="temporarystats2" style="color: plum"></p>
         <p class="reincarnationunlock" id="temporarystats3" style="color: limegreen"></p>
@@ -2079,18 +2081,46 @@
         <p class="reincarnationunlock" id="temporarystats9" style="color: crimson"></p>
         <p class="reincarnationunlock" id="temporarystats11" style="color: crimson;"></p>
         <p class="prestigeunlock" id="temporarystats10" style="color: cyan"></p>
-        <p class="prestigeunlock" id="quarktimeramount" style="color: cyan">Quarks on export: 0 [Max 25]</p>
-        <p class="prestigeunlock" id="quarktimerdisplay" style="color: gold">3600s until +1 export Quark</p>
-        <img class="prestigeunlock" id="settingpic1" src = "Pictures/Prestige.png" style="border: 1px solid cyan" alt="">
-        <button class="auto" id="toggle28" onclick="toggleSettings(27)" style="border:2px solid green">On</button>
-        <img class="transcendunlock" id="settingpic2" src = "Pictures/Transcend.png" style="border: 1px solid plum" alt="">
-        <button class="auto" id="toggle29" onclick="toggleSettings(28)" style="border:2px solid green">On</button>
-        <img class="reincarnationunlock" id="settingpic3" src = "Pictures/Reincarnate.png" style="border: 1px solid green" alt="">
-        <button class="auto" id="toggle30" onclick="toggleSettings(29)" style="border:2px solid green">On</button>
-        <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
+        <div id="confirmationToggleBox"> 
+            <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
+            <div class="confirmationToggles">
+                <div class="center"></div>
+                <div class="confirmationToggle">
+                    <img class="prestigeunlock settingpic" id="settingpic1" src = "Pictures/Prestige.png" alt="">
+                    <button class="auto square" id="toggle28" toggleid="28" format="[$]" onclick="toggleSettings(27)" style="border:2px solid green">[ON]</button>
+                </div>
+                <div class="confirmationToggle">
+                    <img class="transcendunlock settingpic" id="settingpic2" src = "Pictures/Transcend.png" alt="">
+                    <button class="auto square" id="toggle29" toggleid="29" format="[$]" onclick="toggleSettings(28)" style="border:2px solid green">[ON]</button>
+                </div>
+                <div class="confirmationToggle">
+                    <img class="reincarnationunlock settingpic" id="settingpic3" src = "Pictures/Reincarnate.png" alt="">
+                    <button class="auto square" id="toggle30" toggleid="30" format="[$]" onclick="toggleSettings(29)" style="border:2px solid green">[ON]</button>
+                </div>
+                <div class="confirmationToggle">
+                    <img class="ascendunlock settingpic" id="settingpic4" src = "Pictures/questionable.png" alt="">
+                    <button class="auto square" id="toggle31" toggleid="31" format="[$]" onclick="toggleSettings(30)" style="border:2px solid green">[ON]</button>
+                </div>
+                <div class="confirmationToggle">
+                    <img class="sacrificeAnts settingpic" id="settingpic5" src = "Pictures/Transparent%20Pics/Research124.png" alt="">
+                    <button class="auto square" id="toggle32" toggleid="32" format="[$]" onclick="toggleSettings(31)" style="border:2px solid green">[ON]</button>
+                </div>
+                <div class="center"></div>
+            </div>
+            <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
+        </div>
+        <div id="exportButtons">
+            <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
+            <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
+            <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
+            <p id="exportinfo" class="tightText" style="color: white"></p>
+            <label>
+                <input id="saveStringInput" onblur="updateSaveString()">
+            </label>
+            <p id="saveString" class="tightText"></p>
+        </div>
         <p id="importgame" style="color: limegreen">Load game below!</p>
         <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
-        <p id="exportinfo" style="color: white"></p>
         <p id="saveinfo" style="color: limegreen"></p>
         <!--<button id="submitstats" onclick="submitStats()" style="border: 2px solid maroon">Submit your stats to Kongregate!</button>-->
         <button id="promocodes" onclick="promocodes()" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
@@ -2107,7 +2137,7 @@
         <a href="https://docs.google.com/document/d/13vntkxiCo-mL1en5LRvOmlKQdYhTGhqs9-9mT1XLn1U/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!" alt="">
         </a>
-        <p id="versionnumber" style="color: gold">You're playing on v2.0.0 TESTING! Update: September 18, 2020 12:00 PM PDT</p>
+        <p id="versionnumber" style="color: gold">You're playing on v2.0.0 TESTING! Update: September 23, 2020 2:03AM PDT</p>
     </div>
     <div class="subtabContent" id="creditssubtab">
         <p id="programminghelp" style="color:white">People who helped with programming: Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup]</p>

@@ -304,8 +304,10 @@ function antUpgradeDescription(i) {
 
 function antSacrificePointsToMultiplier(points) {
     let multiplier = Math.pow(1 + points / 5000, 2)
-    multiplier *= (1 + 0.2 * Math.log(1 + points)/Math.log(10))
-    if(player.achievements[174] > 0){multiplier *= (1 + 0.4 * Math.log(1 + points)/Math.log(10))}
+    multiplier *= (1 + 0.2 * Math.log(1 + points) / Math.log(10))
+    if (player.achievements[174] > 0) {
+        multiplier *= (1 + 0.4 * Math.log(1 + points) / Math.log(10))
+    }
     return multiplier;
 }
 
@@ -342,7 +344,7 @@ function sacrificeAnts(auto) {
     let p = true
 
     if (player.antPoints.greaterThanOrEqualTo("1e40")) {
-        if (!auto && player.antSacrificePoints < 100) {
+        if (!auto && player.antSacrificePoints < 100 && player.toggles[32]) {
             p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?")
         }
         if (p) {
@@ -371,6 +373,21 @@ function sacrificeAnts(auto) {
                 player.legendaryFragments += sacRewards.legendaryFragments;
                 player.mythicalFragments += sacRewards.mythicalFragments;
             }
+
+            // Refer to analogous code in Syngergism.js, function tick().
+            if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle) {
+                // Since ants boost rune EXP, we need to auto-spend offerings NOW, before reset, if cube-tier auto-spend is enabled.
+                if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
+                    let baseAmount = Math.floor(player.runeshards / 5);
+                    for (let i = 1; i <= 5; i++) {
+                        redeemShards(i, true, baseAmount);
+                    }
+                    player.sacrificeTimer = 0;
+                }
+                // Other cases don't perform a spend-all and are thus safely handled by the standard tick() function.
+            }
+
+            // Now we're safe to reset the ants.
             resetAnts();
             player.antSacrificeTimer = 0;
             updateTalismanInventory();
@@ -387,6 +404,7 @@ function sacrificeAnts(auto) {
         achievementaward(248)
     }
 }
+
 function autoBuyAnts() {
     const canAffordUpgrade = (x, m) => player.antPoints.greaterThanOrEqualTo(getAntUpgradeCost(new Decimal(antUpgradeBaseCost[x]), player.antUpgrades[x] + 1, x).times(m))
     let ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];

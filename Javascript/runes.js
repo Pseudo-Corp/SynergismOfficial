@@ -9,10 +9,7 @@ function displayRuneInformation(i, updatelevelup) {
 
     let m = effectiveLevelMult
     let SILevelMult = (1 + player.researches[84] / 200)
-    let amountPerOffering = calculateRuneExpGiven(i - 1);
-    if (player.upgrades[78] === 1) {
-        document.getElementById("toggleofferingbuy").textContent = "Toggle amount used by sacrifice, multiplied by 1000 due to a Reincarnation Upgrade.";
-    }
+    let amountPerOffering = calculateRuneExpGiven(i - 1, false, player.runelevels[i - 1]);
 
 
     if (i === 1) {
@@ -45,8 +42,18 @@ function displayRuneInformation(i, updatelevelup) {
         }
         document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + format((1 + rune5level / 200 * m * SILevelMult), 2, true) + ". Ant Speed: x" + format(1 + Math.pow(rune5level * m * SILevelMult, 2) / 2500) + ". Base Offerings: +" + format((rune5level * m * SILevelMult * 0.005), 3, true)
     }
-    if (updatelevelup) document.getElementById("runedisplayexp").textContent = "+" + format(amountPerOffering) + " EXP per offering."
-
+    if (updatelevelup) {
+        let arr = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], player.offeringbuyamount);
+        let offerings = 0;
+        let j = 0;
+        while (offerings < player.runeshards && j < arr.length) {
+            offerings += arr[j]
+            j++;
+        }
+        let check = player.offeringbuyamount === j && offerings <= player.runeshards
+        let s = player.offeringbuyamount === 1 ? "once" : `${check ? j : Math.max(j - 1, 0)} times`
+        document.getElementById("runeDisplayInfo").textContent = `+${format(amountPerOffering)} EXP per offering. ${format(offerings)} Offerings to level up ${s}.`
+    }
 
 }
 
@@ -55,18 +62,10 @@ function resetofferings(i) {
     player.runeshards += calculateOfferings(i)
 }
 
-function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
-
+function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
     // if automated && 2x10 cube upgrade bought, this will be >0.
-    cubeUpgraded = cubeUpgraded || 0;
     // runeIndex, the rune being added to
     let runeIndex = runeIndexPlusOne - 1;
-
-    auto = auto || false;
-    autoMult = autoMult || 1;
-    if (player.upgrades[78] === 1) {
-        autoMult *= 1000
-    }
 
     // Whether or not a rune is unlocked array
     let unlockedRune = [
@@ -77,42 +76,78 @@ function redeemShards(runeIndexPlusOne, auto, autoMult, cubeUpgraded) {
         player.researches[82] > 0.5
     ];
 
-    let recycleMultiplier = calculateRecycleMultiplier();
-
-    // amount of offerings being spent, if offerings is less than amount set to be bought then set amount to current offerings
-    let amount = Math.min(player.runeshards, player.offeringbuyamount * (1 + 999 * player.upgrades[78]));
-    if (player.offeringbuyamount > 100) {
-        amount = player.runeshards
-    }
-
-    // if autobuyer is enabled then set the amount to the proper autobuyer amount based on the shop upgrade level, or current offerings if it's less than that
+    let levelsToAdd = player.offeringbuyamount
     if (auto) {
-        amount = Math.min(player.runeshards, 50 * Math.pow(2, player.shopUpgrades.offeringAutoLevel) * autoMult)
+        levelsToAdd = Math.pow(2, player.shopUpgrades.offeringAutoLevel)
     }
     if (auto && cubeUpgraded > 0) {
-        amount = cubeUpgraded
+        levelsToAdd = Math.min(1e4, calculateMaxRunes(runeIndex + 1)) // limit to max 10k levels per call so the execution doesn't take too long if things get stuck
     }
-    if (player.runeshards >= 1 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune[runeIndex]) {
-        // Removes the offerings from the player
-        player.runeshards -= amount;
-        // Adds the exp given by the amount of offerings
-        player.runeexp[runeIndex] += amount * calculateRuneExpGiven(runeIndex);
-        // foreach rune update it's value
+    let levelsAdded = 0
+    if (player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune[runeIndex]) {
+        let all = 0
+        let maxLevel = calculateMaxRunes(runeIndex + 1)
+        let amountArr = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
+        let toSpendTotal = Math.min(player.runeshards, amountArr.reduce((x, y) => x + y, 0))
+        if (cubeUpgraded > 0) {
+            toSpendTotal = Math.min(player.runeshards, cubeUpgraded)
+        }
+        let fact = calculateRuneExpGiven(runeIndex, false, player.runelevels[runeIndex], true)
+        let a = player.upgrades[71] / 25
+        let add = fact[0] - a * player.runelevels[runeIndex]
+        let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
+        while (toSpendTotal > 0 && levelsAdded < levelsToAdd && player.runelevels[runeIndex] < maxLevel) {
+            let toSpend = Math.min(toSpendTotal, amountArr[levelsAdded])
+            if (toSpend === undefined) {
+                toSpend = toSpendTotal
+            }
+            toSpendTotal -= toSpend
+            player.runeshards -= toSpend
+            player.runeexp[runeIndex] += toSpend * (add + a * player.runelevels[runeIndex]) * mult;
+            all += toSpend
+            while (player.runeexp[runeIndex] >= calculateRuneExpToLevel(runeIndex) && player.runelevels[runeIndex] < maxLevel) {
+                player.runelevels[runeIndex] += 1;
+                levelsAdded++;
+            }
+        }
         for (let runeToUpdate = 0; runeToUpdate < 5; ++runeToUpdate) {
             if (unlockedRune[runeToUpdate]) {
                 if (runeToUpdate !== runeIndex) {
-                    player.runeexp[runeToUpdate] += amount * calculateRuneExpGiven(runeToUpdate, true)
+                    player.runeexp[runeToUpdate] += all * calculateRuneExpGiven(runeToUpdate, true)
                 }
                 while (player.runeexp[runeToUpdate] >= calculateRuneExpToLevel(runeToUpdate) && player.runelevels[runeToUpdate] < calculateMaxRunes(runeToUpdate + 1)) {
                     player.runelevels[runeToUpdate] += 1;
                 }
             }
         }
-
         displayRuneInformation(runeIndexPlusOne);
     }
     calculateRuneLevels();
-    if (player.runeshards < 0) {
+    if (player.runeshards < 0 || player.runeshards === undefined) {
         player.runeshards = 0
     }
+}
+
+//if this function is not used anywhere else outside of runes.js then it can be deleted as it is no longer called within runes.js
+function calculateOfferingsToLevelXTimes(runeIndex, runeLevel, levels) {
+    let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
+    let maxLevel = calculateMaxRunes(runeIndex + 1)
+    let arr = []
+    let sum = 0
+    let off = player.runeshards
+    let levelsAdded = 0
+    let fact = calculateRuneExpGiven(runeIndex, false, runeLevel, true)
+    let a = player.upgrades[71] / 25
+    let add = fact[0] - a * runeLevel
+    let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
+    while (levelsAdded < levels && runeLevel + levelsAdded < maxLevel && sum < off) {
+        let expPerOff = (add + a * (runeLevel + levelsAdded)) * mult
+        let amount = Math.ceil(exp / expPerOff)
+        sum += amount
+        arr.push(amount)
+        levelsAdded += 1
+        exp = calculateRuneExpToLevel(runeIndex, runeLevel + levelsAdded)
+            - calculateRuneExpToLevel(runeIndex, runeLevel + levelsAdded - 1)
+    }
+    return arr;
 }

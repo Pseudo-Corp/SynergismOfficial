@@ -215,8 +215,8 @@ function revealStuff() {
         document.getElementById("rune5area").style.display = "none";
 
     player.researches[124] > 0 ? //5x24 Research [AutoSac]
-        document.getElementById("toggleAutoSacrificeAnt").style.display = "block" :
-        document.getElementById("toggleAutoSacrificeAnt").style.display = "none";
+        document.getElementById("antSacrificeButtons").style.display = "block" :
+        document.getElementById("antSacrificeButtons").style.display = "none";
 
     for (let z = 1; z <= 5; z++) {
         (player.researches[190] > 0) ? //8x15 Research [Auto Tesseracts]
@@ -244,108 +244,50 @@ function revealStuff() {
         document.getElementById('particleAutoUpgrade').style.display = "none";
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
+    // note to 2019 and 2020 Platonic, you're welcome
     let e = document.getElementsByClassName("auto");
-    if (player.upgrades[81] === 1) {
-        e[0].style.display = "block";
+    let automationUnlocks = {
+        0: player.upgrades[81] === 1,
+        1: player.upgrades[82] === 1,
+        2: player.upgrades[83] === 1,
+        3: player.upgrades[84] === 1,
+        4: player.upgrades[85] === 1,
+        5: player.upgrades[86] === 1,
+        6: player.upgrades[87] === 1,
+        7: player.upgrades[88] === 1,
+        8: player.achievements[78] === 1,
+        9: player.achievements[85] === 1,
+        10: player.achievements[92] === 1,
+        11: player.achievements[99] === 1,
+        12: player.achievements[106] === 1,
+        13: player.achievements[43] === 1,
+        14: player.upgrades[94] === 1,
+        15: player.upgrades[95] === 1,
+        16: player.upgrades[96] === 1,
+        17: player.upgrades[97] === 1,
+        18: player.upgrades[98] === 1,
+        19: player.upgrades[89] === 1,
+        20: player.cubeUpgrades[7] === 1,
+        21: player.cubeUpgrades[7] === 1,
+        22: player.cubeUpgrades[7] === 1,
+        23: player.cubeUpgrades[7] === 1,
+        24: player.cubeUpgrades[7] === 1,
+        25: player.researches[46] === 1,
+        26: player.upgrades[91] === 1,
+        27: player.upgrades[92] === 1,
+        28: player.upgrades[99] === 1,
+        29: player.upgrades[90] === 1,
+        30: player.unlocks.prestige,
+        31: player.prestigeCount > 0.5 || player.reincarnationCount > 0.5,
+        32: player.transcendCount > 0.5 || player.reincarnationCount > 0.5,
+        33: player.reincarnationCount > 0.5,
+        34: player.ascensionCount > 0,
+        35: player.achievements[173] > 0
     }
-    if (player.upgrades[82] === 1) {
-        e[1].style.display = "block";
-    }
-    if (player.upgrades[83] === 1) {
-        e[2].style.display = "block";
-    }
-    if (player.upgrades[84] === 1) {
-        e[3].style.display = "block";
-    }
-    if (player.upgrades[85] === 1) {
-        e[4].style.display = "block";
-    }
-    if (player.upgrades[86] === 1) {
-        e[5].style.display = "block";
-    }
-    if (player.upgrades[87] === 1) {
-        e[6].style.display = "block";
-    }
-    if (player.upgrades[88] === 1) {
-        e[7].style.display = "block";
-    }
-    if (player.upgrades[91] === 1) {
-        e[26].style.display = "block";
-    }
-    if (player.upgrades[92] === 1) {
-        e[27].style.display = "block";
-    }
-    if (player.upgrades[99] === 1) {
-        e[28].style.display = "block";
-    }
-    if (player.upgrades[90] === 1) {
-        e[29].style.display = "block";
-    }
-    if (player.unlocks.prestige) {
-        e[30].style.display = "block";
-    }
-    if (player.achievements[78] === 1) {
-        e[8].style.display = "block";
-    }
-    if (player.achievements[85] === 1) {
-        e[9].style.display = "block";
-    }
-    if (player.achievements[92] === 1) {
-        e[10].style.display = "block";
-    }
-    if (player.achievements[99] === 1) {
-        e[11].style.display = "block";
-    }
-    if (player.achievements[106] === 1) {
-        e[12].style.display = "block";
-    }
-    if (player.achievements[43] === 1) {
-        e[13].style.display = "block";
-    }
-    if (player.upgrades[94] === 1) {
-        e[14].style.display = "block";
-    }
-    if (player.upgrades[95] === 1) {
-        e[15].style.display = "block";
-    }
-    if (player.upgrades[96] === 1) {
-        e[16].style.display = "block";
-    }
-    if (player.upgrades[97] === 1) {
-        e[17].style.display = "block";
-    }
-    if (player.upgrades[98] === 1) {
-        e[18].style.display = "block";
-    }
-    if (player.upgrades[89] === 1) {
-        e[19].style.display = "block";
-    }
-    if (player.cubeUpgrades[7] === 1) {
-        e[20].style.display = "block";
-    }
-    if (player.cubeUpgrades[7] === 1) {
-        e[21].style.display = "block";
-    }
-    if (player.cubeUpgrades[7] === 1) {
-        e[22].style.display = "block";
-    }
-    if (player.cubeUpgrades[7] === 1) {
-        e[23].style.display = "block";
-    }
-    if (player.cubeUpgrades[7] === 1) {
-        e[24].style.display = "block";
-    }
-    if (player.researches[46] === 1) {
-        e[25].style.display = "block";
-    }
-    if (player.prestigeCount > 0.5 || player.reincarnationCount > 0.5) {
-        e[31].style.display = "block";
-    }
-    if (player.transcendCount > 0.5 || player.reincarnationCount > 0.5) {
-        e[32].style.display = "block";
-    }
-    if (player.reincarnationCount > 0.5) {
-        e[33].style.display = "block";
+    for (let i = 0; i < e.length; i++) {
+        if (automationUnlocks[i]) {
+            e[i].style.display = "block";
+        }
     }
 }
 
@@ -613,7 +555,7 @@ function htmlInserts() {
         }
 
         document.getElementById("tesseractInfo").textContent = "You have " + format(player.wowTesseracts) + " Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension."
-        document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards, 2) + ". Taxes are divided by " + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2/60 * player.challengecompletions[10] * player.upgrades[125] + 0.001), 4, true) + "."
+        document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards, 2) + ". Taxes are divided by " + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.001), 4, true) + "."
     }
 
     if (currentTab === "upgrades") {
@@ -643,7 +585,7 @@ function htmlInserts() {
             }
 
             document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 25 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + "* EXP per offering sacrificed."
-            document.getElementById("runerecycle").textContent = "You have " + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, rune4level / 16) + 0.5 * player.cubeUpgrades[2]),2,true) + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(), 2, true) + "!"
+            document.getElementById("runerecycle").textContent = "You have " + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, rune4level / 16) + 0.5 * player.cubeUpgrades[2]), 2, true) + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(), 2, true) + "!"
 
         }
 
@@ -704,6 +646,8 @@ function htmlInserts() {
         document.getElementById("temporarystats9").textContent = "Best Obtainium/sec: " + format(player.maxobtainiumpersecond, 2, true)
         document.getElementById("temporarystats10").textContent = "Summative Rune Levels: " + format(runeSum)
         document.getElementById("temporarystats11").textContent = "Current Obtainium/sec " + format(player.obtainiumpersecond, 2, true)
+
+        document.getElementById("saveString").textContent = `Currently: ${player.saveString}`
     }
 
     if (currentTab === "shop") {
@@ -756,21 +700,21 @@ function htmlInserts() {
         player.shopUpgrades.talismanBought ?
             (document.getElementById("shoptalismanbutton").textContent = "Bought!", document.getElementById("shoptalisman").textContent = "Bought!") :
             document.getElementById("shoptalismanbutton").textContent = "Buy for 1500 Quarks";
-        
-        player.shopUpgrades.challengeExtension  === 5 ?
+
+        player.shopUpgrades.challengeExtension === 5 ?
             document.getElementById("challengeUpgradeButton").textContent = "Maxed!" :
             document.getElementById("challengeUpgradeButton").textContent = "Buy for " + (shopBaseCosts.challengeExtension + 250 * player.shopUpgrades.challengeExtension) + " Quarks";
-        
-        player.shopUpgrades.challenge10Tomes  === 5 ?
+
+        player.shopUpgrades.challenge10Tomes === 5 ?
             document.getElementById("challenge10TomeButton").textContent = "Maxed!" :
             document.getElementById("challenge10TomeButton").textContent = "Buy for " + (shopBaseCosts.challenge10Upgrade + 250 * player.shopUpgrades.challenge10Tomes) + " Quarks";
 
-        player.shopUpgrades.seasonPassLevel  === 5 ?
+        player.shopUpgrades.seasonPassLevel === 5 ?
             document.getElementById("seasonPassButton").textContent = "Maxed!" :
             document.getElementById("seasonPassButton").textContent = "Buy for " + (shopBaseCosts.seasonPass + 250 * player.shopUpgrades.seasonPassLevel) + " Quarks";
-        
+
         player.shopUpgrades.cubeToQuarkBought ?
-            (document.getElementById("cubeToQuarkButton").textContent = "Maxed!" , document.getElementById('cubeToQuark').textContent = "Bought!"):
+            (document.getElementById("cubeToQuarkButton").textContent = "Maxed!" , document.getElementById('cubeToQuark').textContent = "Bought!") :
             document.getElementById("cubeToQuarkButton").textContent = "Buy for " + (shopBaseCosts.cubeToQuark) + " Quarks";
 
         player.shopUpgrades.tesseractToQuarkBought ?
@@ -780,24 +724,27 @@ function htmlInserts() {
         player.shopUpgrades.hypercubeToQuarkBought ?
             (document.getElementById("hypercubeToQuarkButton").textContent = "Maxed!" , document.getElementById('hypercubeToQuark').textContent = "Bought!") :
             document.getElementById("hypercubeToQuarkButton").textContent = "Buy for " + (shopBaseCosts.hypercubeToQuark) + " Quarks";
-        
+
     }
 
     if (currentTab === "ants") {
         document.getElementById("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(antOneProduce, 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499))) + "x Coin Multiplier."
+        let mode = player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
+        let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimer / calculateTimeAcceleration() : player.antSacrificeTimer;
+        document.getElementById("autoAntSacrifice").textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer)}`
     }
 
     if (currentTab === "cubes") {
         document.getElementById("cubeAmount2").textContent = "You have " + format(player.wowCubes, 0, true) + " Wow! Cubes =)"
-        document.getElementById("cubeToQuarkTimerValue").textContent = format(Math.floor(player.dayTimer/3600),0) + " Hours " + format(Math.floor(player.dayTimer/60 % 60),0) + " Mins " + format(Math.floor(player.dayTimer % 60),0) + " Secs "
-        
-        let prefixes = ['cube','tesseract','hypercube']
+        document.getElementById("cubeToQuarkTimerValue").textContent = format(Math.floor(player.dayTimer / 3600), 0) + " Hours " + format(Math.floor(player.dayTimer / 60 % 60), 0) + " Mins " + format(Math.floor(player.dayTimer % 60), 0) + " Secs "
+
+        let prefixes = ['cube', 'tesseract', 'hypercube']
         let power = [4, 3, 2]
         let multipliers = [10, 10, 5]
-        for(var i = 0; i <= 2; i++){
-            document.getElementById(prefixes[i]+'QuarksTodayValue').textContent = format(player[prefixes[i]+'QuarkDaily'])+"/"+format(25 + 75 * player.shopUpgrades[prefixes[i]+'ToQuarkBought']);
-            document.getElementById(prefixes[i]+'QuarksOpenTodayValue').textContent = format(player[prefixes[i]+'OpenedDaily'],0,true);
-            document.getElementById(prefixes[i]+'QuarksOpenRequirementValue').textContent = format(Math.max(0, multipliers[i] * Math.pow(Math.min(25 + 75 * player.shopUpgrades[prefixes[i]+'ToQuarkBought'], 1 + player[prefixes[i]+'QuarkDaily']),power[i]) - player[prefixes[i]+'OpenedDaily']),0,true)
+        for (var i = 0; i <= 2; i++) {
+            document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = format(player[prefixes[i] + 'QuarkDaily']) + "/" + format(25 + 75 * player.shopUpgrades[prefixes[i] + 'ToQuarkBought']);
+            document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = format(player[prefixes[i] + 'OpenedDaily'], 0, true);
+            document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = format(Math.max(0, multipliers[i] * Math.pow(Math.min(25 + 75 * player.shopUpgrades[prefixes[i] + 'ToQuarkBought'], 1 + player[prefixes[i] + 'QuarkDaily']), power[i]) - player[prefixes[i] + 'OpenedDaily']), 0, true)
         }
 
     }
@@ -820,19 +767,19 @@ function htmlInserts() {
 
 function buttoncolorchange() {
 
-    (player.toggles.fifteen && player.achievements[43] === 1) ?
+    (player.toggles[15] && player.achievements[43] === 1) ?
         document.getElementById('prestigebtn').style.backgroundColor = "green" :
         document.getElementById('prestigebtn').style.backgroundColor = "#171717";
 
-    (player.toggles.twentyone && player.upgrades[89] > 0.5 && (player.currentChallenge.transcension === 0)) ?
+    (player.toggles[21] && player.upgrades[89] > 0.5 && (player.currentChallenge.transcension === 0)) ?
         document.getElementById('transcendbtn').style.backgroundColor = "green" :
         document.getElementById('transcendbtn').style.backgroundColor = "#171717";
 
-    (player.toggles.twentyseven && player.researches[46] > 0.5 && (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0)) ?
+    (player.toggles[27] && player.researches[46] > 0.5 && (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0)) ?
         document.getElementById('reincarnatebtn').style.backgroundColor = "green" :
         document.getElementById('reincarnatebtn').style.backgroundColor = "#171717";
 
-    (player.toggles.eight && player.upgrades[88] > 0.5) ?
+    (player.toggles[8] && player.upgrades[88] > 0.5) ?
         document.getElementById('acceleratorboostbtn').style.backgroundColor = "green" :
         document.getElementById('acceleratorboostbtn').style.backgroundColor = "#171717";
 
@@ -857,28 +804,28 @@ function buttoncolorchange() {
         let f = document.getElementById("buyaccelerator");
         let g = document.getElementById("buymultiplier");
         let h = document.getElementById("buyacceleratorboost");
-        ((!player.toggles.one || player.upgrades[81] === 0) && player.coins.greaterThanOrEqualTo(player.firstCostCoin)) ?
+        ((!player.toggles[1] || player.upgrades[81] === 0) && player.coins.greaterThanOrEqualTo(player.firstCostCoin)) ?
             a.style.backgroundColor = "#555555" :
             a.style.backgroundColor = "#171717";
-        ((!player.toggles.two || player.upgrades[82] === 0) && player.coins.greaterThanOrEqualTo(player.secondCostCoin)) ?
+        ((!player.toggles[2] || player.upgrades[82] === 0) && player.coins.greaterThanOrEqualTo(player.secondCostCoin)) ?
             b.style.backgroundColor = "#555555" :
             b.style.backgroundColor = "#171717";
-        ((!player.toggles.three || player.upgrades[83] === 0) && player.coins.greaterThanOrEqualTo(player.thirdCostCoin)) ?
+        ((!player.toggles[3] || player.upgrades[83] === 0) && player.coins.greaterThanOrEqualTo(player.thirdCostCoin)) ?
             c.style.backgroundColor = "#555555" :
             c.style.backgroundColor = "#171717";
-        ((!player.toggles.four || player.upgrades[84] === 0) && player.coins.greaterThanOrEqualTo(player.fourthCostCoin)) ?
+        ((!player.toggles[4] || player.upgrades[84] === 0) && player.coins.greaterThanOrEqualTo(player.fourthCostCoin)) ?
             d.style.backgroundColor = "#555555" :
             d.style.backgroundColor = "#171717";
-        ((!player.toggles.five || player.upgrades[85] === 0) && player.coins.greaterThanOrEqualTo(player.fifthCostCoin)) ?
+        ((!player.toggles[5] || player.upgrades[85] === 0) && player.coins.greaterThanOrEqualTo(player.fifthCostCoin)) ?
             e.style.backgroundColor = "#555555" :
             e.style.backgroundColor = "#171717";
-        ((!player.toggles.six || player.upgrades[86] === 0) && player.coins.greaterThanOrEqualTo(player.acceleratorCost)) ?
+        ((!player.toggles[6] || player.upgrades[86] === 0) && player.coins.greaterThanOrEqualTo(player.acceleratorCost)) ?
             f.style.backgroundColor = "#555555" :
             f.style.backgroundColor = "#171717";
-        ((!player.toggles.seven || player.upgrades[87] === 0) && player.coins.greaterThanOrEqualTo(player.multiplierCost)) ?
+        ((!player.toggles[7] || player.upgrades[87] === 0) && player.coins.greaterThanOrEqualTo(player.multiplierCost)) ?
             g.style.backgroundColor = "#555555" :
             g.style.backgroundColor = "#171717";
-        ((!player.toggles.eight || player.upgrades[88] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) ?
+        ((!player.toggles[8] || player.upgrades[88] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) ?
             h.style.backgroundColor = "#555555" :
             h.style.backgroundColor = "#171717";
     }
@@ -894,11 +841,11 @@ function buttoncolorchange() {
         let h = document.getElementById("buycrystalupgrade3");
         let i = document.getElementById("buycrystalupgrade4");
         let j = document.getElementById("buycrystalupgrade5");
-        ((!player.toggles.ten || player.achievements[78] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.firstCostDiamonds)) ? a.style.backgroundColor = "#555555" : a.style.backgroundColor = "#171717";
-        ((!player.toggles.eleven || player.achievements[85] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.secondCostDiamonds)) ? b.style.backgroundColor = "#555555" : b.style.backgroundColor = "#171717";
-        ((!player.toggles.twelve || player.achievements[92] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.thirdCostDiamonds)) ? c.style.backgroundColor = "#555555" : c.style.backgroundColor = "#171717";
-        ((!player.toggles.thirteen || player.achievements[99] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.fourthCostDiamonds)) ? d.style.backgroundColor = "#555555" : d.style.backgroundColor = "#171717";
-        ((!player.toggles.fourteen || player.achievements[106] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.fifthCostDiamonds)) ? e.style.backgroundColor = "#555555" : e.style.backgroundColor = "#171717";
+        ((!player.toggles[10] || player.achievements[78] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.firstCostDiamonds)) ? a.style.backgroundColor = "#555555" : a.style.backgroundColor = "#171717";
+        ((!player.toggles[11] || player.achievements[85] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.secondCostDiamonds)) ? b.style.backgroundColor = "#555555" : b.style.backgroundColor = "#171717";
+        ((!player.toggles[12] || player.achievements[92] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.thirdCostDiamonds)) ? c.style.backgroundColor = "#555555" : c.style.backgroundColor = "#171717";
+        ((!player.toggles[13] || player.achievements[99] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.fourthCostDiamonds)) ? d.style.backgroundColor = "#555555" : d.style.backgroundColor = "#171717";
+        ((!player.toggles[14] || player.achievements[106] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.fifthCostDiamonds)) ? e.style.backgroundColor = "#555555" : e.style.backgroundColor = "#171717";
         let k = 0;
         k += Math.floor(rune3level / 16 * effectiveLevelMult) * 100 / 100
         if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0) {
@@ -926,20 +873,17 @@ function buttoncolorchange() {
             let e = document.getElementById("buyEpicFragment");
             let f = document.getElementById("buyLegendaryFragment");
             let g = document.getElementById("buyMythicalFragment");
-            (player.researchPoints > 1e6) ? a.style.backgroundColor = "purple" : a.style.backgroundColor = "#171717";
-            (player.researchPoints > 3e6) ? b.style.backgroundColor = "purple" : b.style.backgroundColor = "#171717";
-            (player.researchPoints > 1e7 && player.runeshards > 5) ? c.style.backgroundColor = "purple" : c.style.backgroundColor = "#171717";
-            (player.researchPoints > 1e8 && player.runeshards > 40) ? d.style.backgroundColor = "purple" : d.style.backgroundColor = "#171717";
-            (player.researchPoints > 1e9 && player.runeshards > 400) ? e.style.backgroundColor = "purple" : e.style.backgroundColor = "#171717";
-            (player.researchPoints > 1e10 && player.runeshards > 2000) ? f.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
-            (player.researchPoints > 1e11 && player.runeshards > 10000) ? g.style.backgroundColor = "purple" : g.style.backgroundColor = "#171717";
+            let arr = [a, b, c, d, e, f, g];
+            for (let i = 0; i < arr.length; i++) {
+                arr[i].style.backgroundColor = (player.researchPoints > talismanResourceObtainiumCosts[i]
+                    && player.runeshards > talismanResourceOfferingCosts[i]) ? "purple" : "#171717"
+            }
         }
     }
 
     if (currentTab === "buildings" && buildingSubTab === "mythos") {
-        let ordArray = [null, 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']
         for (let i = 1; i <= 5; i++) {
-            ((!player.toggles[ordArray[i]] || !player.upgrades[93 + i]) && player.transcendPoints.greaterThanOrEqualTo(player[ordinals[i - 1] + 'CostMythos'])) ? document.getElementById('buymythos' + i).style.backgroundColor = "#555555" : document.getElementById('buymythos' + i).style.backgroundColor = "#171717"
+            ((!player.toggles[i + 15] || !player.upgrades[93 + i]) && player.transcendPoints.greaterThanOrEqualTo(player[ordinals[i - 1] + 'CostMythos'])) ? document.getElementById('buymythos' + i).style.backgroundColor = "#555555" : document.getElementById('buymythos' + i).style.backgroundColor = "#171717"
         }
     }
 

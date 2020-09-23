@@ -116,8 +116,7 @@ function calculateRecycleMultiplier() {
 }
 
 // Returns the amount of exp given per offering by a rune
-function calculateRuneExpGiven(runeIndex, all) {
-    all = all || false
+function calculateRuneExpGiven(runeIndex, all = false, runeLevel = player.runelevels[runeIndex], returnFactors = false) {
     // recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
     let recycleMultiplier = calculateRecycleMultiplier();
 
@@ -136,7 +135,7 @@ function calculateRuneExpGiven(runeIndex, all) {
         // Particle Upgrade 1x1
         2 * player.upgrades[61],
         // Particle upgrade 3x1
-        player.upgrades[71] * player.runelevels[runeIndex] / 25
+        player.upgrades[71] * runeLevel / 25
     ]);
 
     if (all) {
@@ -185,43 +184,42 @@ function calculateRuneExpGiven(runeIndex, all) {
         ])
     ];
 
-    return productContents([
+    let fact = [
         allRuneExpAdditiveMultiplier,
         allRuneExpMultiplier,
         recycleMultiplier,
         runeExpMultiplier[runeIndex]
-    ]);
+    ]
+    if (returnFactors) {
+        return fact
+    } else {
+        return productContents(fact);
+    }
 }
 
-// Returns the amount of exp required to level a rune
-function calculateRuneExpToLevel(runeIndex) {
-    let runelevel = player.runelevels[runeIndex];
-
-    let runeExpRequiredMultiplier = [
-        1,
-        1,
-        1,
-        1,
-        1
-    ];
-
+function lookupTableGen(runeLevel) {
     // Rune exp required to level multipliers
     let allRuneExpRequiredMultiplier = productContents([
-        Math.pow(runelevel / 2, 3),
-        ((3.5 * runelevel) + 100) / 500,
-        Math.max(1, (runelevel - 200) / 9),
-        Math.max(1, (runelevel - 400) / 12),
-        Math.max(1, (runelevel - 600) / 15),
-        Math.max(1, Math.pow(1.03, (runelevel - 800)/4))
+        Math.pow(runeLevel / 2, 3),
+        ((3.5 * runeLevel) + 100) / 500,
+        Math.max(1, (runeLevel - 200) / 9),
+        Math.max(1, (runeLevel - 400) / 12),
+        Math.max(1, (runeLevel - 600) / 15),
+        Math.max(1, Math.pow(1.03, (runeLevel - 800) / 4))
     ]);
-    let expToLevel = productContents([
-        runeexpbase[runeIndex],
-        allRuneExpRequiredMultiplier,
-        runeExpRequiredMultiplier[runeIndex]
-    ]);
+    return allRuneExpRequiredMultiplier
+}
 
-    return expToLevel;
-
+let lookupTableRuneExp = function() {
+    let lookup = {};
+    for (let runeLevel = 0; runeLevel <= 20000; ++runeLevel) {
+        lookup[runeLevel] = lookupTableGen(runeLevel);
+    }
+    return lookup;
+}();
+// Returns the amount of exp required to level a rune
+function calculateRuneExpToLevel(runeIndex, runeLevel= player.runelevels[runeIndex]) {
+    return lookupTableRuneExp[runeLevel] * runeexpbase[runeIndex];
 }
 
 function calculateMaxRunes(i) {
@@ -332,7 +330,7 @@ function calculateOfferings(i) {
         q *= (1 + 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)))
     }
     q *= (1 + 1 / 50 * player.shopUpgrades.offeringAutoLevel);
-    q *= (1 + 1/400 * Math.pow(player.shopUpgrades.offeringTimerLevel,2))
+    q *= (1 + 1 / 400 * Math.pow(player.shopUpgrades.offeringTimerLevel, 2))
     q *= (1 + 1 / 100 * player.shopUpgrades.cashGrabLevel);
     q *= (1 + 1 / 10000 * sumContents(player.challengecompletions) * player.researches[85])
     q *= (1 + Math.pow((player.antUpgrades[6] + bonusant6 / 50), 2 / 3))
@@ -407,7 +405,7 @@ function calculateObtainium() {
         obtainiumGain += 2 * player.researches[64]
     }
     obtainiumGain *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2));
-    obtainiumGain *= (1 + 1/200 * Math.floor(player.shopUpgrades.obtainiumTimerLevel,2))
+    obtainiumGain *= (1 + 1 / 200 * Math.floor(player.shopUpgrades.obtainiumTimerLevel, 2))
     if (player.reincarnationCount >= 5) {
         obtainiumGain *= Math.max(1, player.reincarnationcounter / 10)
     }
@@ -553,8 +551,8 @@ function calculateRuneBonuses() {
     blessingMultiplier *= (1 + player.talismanRarity[3] / 10)
     blessingMultiplier *= (1 + 0.10 * Math.log(player.epicFragments + 1) / Math.log(10))
     blessingMultiplier *= (1 + player.researches[194] / 100)
-    if (player.researches[160] > 0){
-    blessingMultiplier *= Math.pow(1.25,8)
+    if (player.researches[160] > 0) {
+        blessingMultiplier *= Math.pow(1.25, 8)
     }
     spiritMultiplier *= (1 + 8 * player.researches[164] / 100)
     if (player.researches[165] > 0 && player.currentChallenge.ascension !== 0) {
@@ -739,7 +737,7 @@ function initiateTimeWarp(time) {
     }
 }
 
-function calculateOffline(forceTime){
+function calculateOffline(forceTime) {
     forceTime = forceTime || 0;
     timeWarp = true;
 
@@ -748,8 +746,8 @@ function calculateOffline(forceTime){
     const updatedTime = Date.now();
     let timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - player.offlinetick) / 1000))
     document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " real-life seconds of Offline Progress!";
-    let simulatedTicks = (timeAdd > 1000) ? 200: 1 + Math.floor(timeAdd/5);
-    let tickValue = (timeAdd > 1000) ? timeAdd / 200: Math.min(5, timeAdd);
+    let simulatedTicks = (timeAdd > 1000) ? 200 : 1 + Math.floor(timeAdd / 5);
+    let tickValue = (timeAdd > 1000) ? timeAdd / 200 : Math.min(5, timeAdd);
     let timeMultiplier = 1;
     let maxSimulatedTicks = simulatedTicks;
     let progressBarWidth = 0;
@@ -761,8 +759,8 @@ function calculateOffline(forceTime){
     player.quarkstimer += timeAdd
     player.quarkstimer = Math.min(90000 + 45000 * player.researches[195], player.quarkstimer)
     player.ascensionCounter += timeAdd
-    player.runeshards += timeAdd * (1/2 * Math.min(1, player.highestchallengecompletions[2]) + player.cubeUpgrades[2])
-    document.getElementById('preload').style.display = (forceTime > 0) ? 'none': 'block';
+    player.runeshards += timeAdd * (1 / 2 * Math.min(1, player.highestchallengecompletions[2]) + player.cubeUpgrades[2])
+    document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
     document.getElementById("offlineprogressbar").style.display = "block";
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
     let runOffline = setInterval(runSimulator, 0)
@@ -778,21 +776,21 @@ function calculateOffline(forceTime){
         //Credit Resources
         resourceGain(tickValue * timeMultiplier)
         //Auto Obtainium Stuff
-        if(player.researches[61] > 0 && player.currentChallenge.ascension !== 14){
+        if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
             calculateObtainium();
             automaticObtainium = calculateAutomaticObtainium();
             player.researchPoints += tickValue * automaticObtainium;
         }
         //Auto Ant Sacrifice Stuff
-        if(player.achievements[173] > 0){
+        if (player.achievements[173] > 0) {
             player.antSacrificeTimer += tickValue * timeMultiplier;
         }
         //Auto Rune Sacrifice Stuff
-        if(player.shopUpgrades.offeringAutoLevel > 0 && player.autoSacrificeToggle){
+        if (player.shopUpgrades.offeringAutoLevel > 0 && player.autoSacrificeToggle) {
             player.sacrificeTimer += tickValue;
-            if(player.sacrificeTimer >= 1){
+            if (player.sacrificeTimer >= 1) {
                 let rune = player.autoSacrifice;
-                redeemShards(rune, true, Math.floor(player.sacrificeTimer));
+                redeemShards(rune, true);
                 player.sacrificeTimer = player.sacrificeTimer % 1;
             }
         }
@@ -816,7 +814,7 @@ function calculateOffline(forceTime){
     calculateObtainium();
     calculateAnts();
     calculateRuneLevels();
-    
+
 }
 
 function calculateSigmoid(constant, factor, divisor) {
@@ -873,7 +871,7 @@ function calculateCubeBlessings() {
 
 function calculateCubeMultiplier(calcMult = true) {
     let arr = [];
-    arr.push(1 + 3/100 * player.shopUpgrades.seasonPassLevel)
+    arr.push(1 + 3 / 100 * player.shopUpgrades.seasonPassLevel)
     arr.push(1 + player.researches[119] / 400);
     arr.push(1 + player.researches[120] / 400);
     arr.push(1 + player.cubeUpgrades[1] / 10);
@@ -917,10 +915,10 @@ function calculateTimeAcceleration() {
         timeMult = 10 * Math.sqrt(timeMult)
     }
     timeMult *= indevSpeed
-    if(player.usedCorruptions[3] >= 6 && player.achievements[241] < 1){
+    if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
     }
-    if(timeMult > 3600 * indevSpeed && player.achievements[242] < 1){
+    if (timeMult > 3600 * indevSpeed && player.achievements[242] < 1) {
         achievementaward(242)
     }
     return (timeMult)
@@ -929,8 +927,8 @@ function calculateTimeAcceleration() {
 function calculateCorruptionPoints() {
     let basePoints = 400;
 
-    for(let i = 1; i <= 9; i++){
-    basePoints += 16 * Math.pow(player.usedCorruptions[i],2)
+    for (let i = 1; i <= 9; i++) {
+        basePoints += 16 * Math.pow(player.usedCorruptions[i], 2)
     }
 
     return (basePoints)
@@ -974,7 +972,7 @@ function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differ
 
 
 //Banked Cubes, Score, Cube Gain, Tesseract Gain, Hypercube Gain
-function CalcCorruptionStuff(){
+function CalcCorruptionStuff() {
     let corruptionArrayMultiplier = [1, 1.5, 2, 3, 4, 5, 6, 7, 9, 12, 15]
 
     let cubeBank = 0;
@@ -982,8 +980,8 @@ function CalcCorruptionStuff(){
     let corruptionMultiplier = 1;
     let bankMultiplier = 1;
     let effectiveScore = 1;
-    for(let i = 1; i <= 10; i++){
-        challengeModifier = (i >= 6)? 2: 1;
+    for (let i = 1; i <= 10; i++) {
+        challengeModifier = (i >= 6) ? 2 : 1;
         cubeBank += challengeModifier * player.highestchallengecompletions[i]
     }
 
@@ -991,44 +989,47 @@ function CalcCorruptionStuff(){
     let challengeScoreArrays1 = [null, 7, 8, 9, 10, 12, 50, 70, 100, 150, 250];
     let challengeScoreArrays2 = [null, 10, 12, 14, 17, 20, 70, 100, 150, 250, 400];
 
-    for(let i = 1; i <= 10; i++){
+    for (let i = 1; i <= 10; i++) {
         baseScore += challengeScoreArrays1[i] * player.highestchallengecompletions[i]
-        if(i <= 5 && player.highestchallengecompletions[i] >= 75){
+        if (i <= 5 && player.highestchallengecompletions[i] >= 75) {
             baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 75)
         }
-        if(i <= 10 && i > 5 && player.highestchallengecompletions[i] >= 25){
+        if (i <= 10 && i > 5 && player.highestchallengecompletions[i] >= 25) {
             baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 25)
         }
     }
     baseScore *= Math.pow(1.03, player.highestchallengecompletions[10]);
-    for(let i = 1; i <= 10; i++){
+    for (let i = 1; i <= 10; i++) {
         corruptionMultiplier *= corruptionArrayMultiplier[player.usedCorruptions[i]]
     }
 
     effectiveScore = baseScore * corruptionMultiplier
 
-    bankMultiplier = Math.pow(1 + effectiveScore / 5000, 1/3);
+    bankMultiplier = Math.pow(1 + effectiveScore / 5000, 1 / 3);
     let cubeGain = cubeBank * bankMultiplier;
     cubeGain *= calculateCubeMultiplier();
 
     let tesseractGain = 1;
-    tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e5))/1e4 , .6);
+    tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e5)) / 1e4, .6);
 
-    let hypercubeGain = (effectiveScore >= 1e9) ? 1: 0;
-    hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9))/1e8, .6);
+    let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
+    hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9)) / 1e8, .6);
 
-    return[cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
+    return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
 }
 
-function dailyResetCheck(){
-    if(player.dayCheck === 0){player.dayCheck = new Date(); console.log('date successfully calibrated!')}
+function dailyResetCheck() {
+    if (player.dayCheck === 0) {
+        player.dayCheck = new Date();
+        console.log('date successfully calibrated!')
+    }
 
     let d = new Date()
     let h = d.getHours()
     let m = d.getMinutes()
     let s = d.getSeconds()
     player.dayTimer = (60 * 60 * 24) - (60 * 60 * h) - (60 * m) - s
-    if(d.getDate()!==player.dayCheck.getDate()||d.getMonth()!==player.dayCheck.getMonth()||d.getFullYear()!==player.dayCheck.getFullYear()){
+    if (d.getDate() !== player.dayCheck.getDate() || d.getMonth() !== player.dayCheck.getMonth() || d.getFullYear() !== player.dayCheck.getFullYear()) {
         player.dayCheck = new Date();
         player.cubeQuarkDaily = 0;
         player.tesseractQuarkDaily = 0;
@@ -1038,10 +1039,10 @@ function dailyResetCheck(){
         player.hypercubeOpenedDaily = 0;
 
         document.getElementById('cubeQuarksOpenRequirement').style.display = "block"
-        if(player.challengecompletions[11] > 0){
+        if (player.challengecompletions[11] > 0) {
             document.getElementById('tesseractQuarksOpenRequirement').style.display = "block"
         }
-        if(player.challengecompletions[13] > 0){
+        if (player.challengecompletions[13] > 0) {
             document.getElementById('hypercubeQuarksOpenRequirement').style.display = "block"
         }
 

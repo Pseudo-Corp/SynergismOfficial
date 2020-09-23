@@ -175,7 +175,7 @@ function challengeDisplay(i, changefocus, automated) {
         e.textContent = "+100 base ELO for sacrificing ants! Current: "
         f.textContent = "+2% Ant Sacrifice Reward! Current: "
         g.textContent = "Reincarnation Offerings +10%! Current: "
-        h.textContent = "Unlock the [??????] Reset Tier [v1.011]!"
+        h.textContent = "Unlock the Ascension Reset Tier!"
         k.textContent = "Start <Sadistic I>"
         l.textContent = "+" + format(100 * CalcECC('reincarnation', player.challengecompletions[10])) + " Ant ELO"
         m.textContent = "+" + format(2 * CalcECC('reincarnation', player.challengecompletions[10])) + "% Ant Sacrifice reward"
@@ -198,7 +198,7 @@ function challengeDisplay(i, changefocus, automated) {
     if (i === 12 && challengefocus === 12) {
         a.textContent = "No Reincarnation Challenge || " + player.challengecompletions[12] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "For some reason, you just can't do it."
-        c.textContent = "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! Ant production ^0.7."
+        c.textContent = "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! Ant production ^0.6."
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
         e.textContent = "+50% Obtainium! Current: "
         f.textContent = "+12% Offerings! Current: "
@@ -212,7 +212,7 @@ function challengeDisplay(i, changefocus, automated) {
     if (i === 13 && challengefocus === 13) {
         a.textContent = "Tax+++ Challenge || " + player.challengecompletions[13] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Good luck with the IRS, buddy."
-        c.textContent = "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.45"
+        c.textContent = "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.3"
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
         e.textContent = "Taxes -8% while corrupted! "
         f.textContent = "+6 maximum to Talisman Level Cap! Current: "
@@ -226,7 +226,7 @@ function challengeDisplay(i, changefocus, automated) {
     if (i === 14 && challengefocus === 14) {
         a.textContent = "No Research Challenge || " + player.challengecompletions[14] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "The dimension that never progressed past the dark ages. Many fear to even step foot."
-        c.textContent = "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.3."
+        c.textContent = "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2."
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
         e.textContent = "+1 to the level caps on the first five researches! Current: "
         f.textContent = "+1 research purchased per roomba tick! Current: "

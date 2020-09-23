@@ -1,13 +1,15 @@
 function toggleTabs(i) {
     currentTab = i;
+    revealStuff();
     hideStuff();
 }
 
 function toggleSettings(i) {
-    if (player.toggles[cardinals[i]] === true) {
-        player.toggles[cardinals[i]] = false
+    i++
+    if (player.toggles[i] === true) {
+        player.toggles[i] = false
     } else {
-        player.toggles[cardinals[i]] = true
+        player.toggles[i] = true
     }
     toggleauto();
 }
@@ -189,8 +191,7 @@ function toggleautoreset(i) {
             player.resettoggle1 = 1;
             document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"
         }
-    }
-    if (i === 2) {
+    } else if (i === 2) {
         if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
             player.resettoggle2 = 2;
             document.getElementById("transcendautotoggle").textContent = "Mode: TIME"
@@ -198,8 +199,7 @@ function toggleautoreset(i) {
             player.resettoggle2 = 1;
             document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"
         }
-    }
-    if (i === 3) {
+    } else if (i === 3) {
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
             player.resettoggle3 = 2;
             document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"
@@ -207,47 +207,39 @@ function toggleautoreset(i) {
             player.resettoggle3 = 1;
             document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"
         }
+    } else if (i === 4) {
+        // To be ascend toggle
     }
 }
 
+
 function toggleauto() {
-    const e = document.getElementsByClassName("auto");
-    for (let i = 0; i < e.length; i++) {
-        let a = "";
-        let b = "";
-        if ((i <= 7 && i >= 0) || (i <= 12 && i >= 8) || (i <= 18 && i >= 14) || (i <= 24 && i >= 20)) {
-            a = "Auto ["
+    let autos = document.getElementsByClassName("auto");
+    for (let auto of autos) {
+        let format = auto.getAttribute("format");
+        let toggleId = auto.getAttribute("toggleId");
+        if (toggleId === undefined || toggleId === null) {
+            continue;
         }
-        if (i === 30) {
-            a = "Hover-to-buy ["
+        if (format === undefined || format === null) {
+            format = "Auto [$]";
         }
-        if (i === 13) {
-            a = "Auto Prestige ["
-        }
-        if (i === 19) {
-            a = "Auto Transcend ["
-        }
-        if (i === 25) {
-            a = "Auto Reincarnate ["
-        }
-        if ((i === 31) || (i === 32) || (i === 33)) {
-            a = "["
-        }
-        let u = i
-        let stupidHackTime = [player.toggles.one, player.toggles.two, player.toggles.three, player.toggles.four, player.toggles.five, player.toggles.six, player.toggles.seven, player.toggles.eight, player.toggles.ten, player.toggles.eleven, player.toggles.twelve, player.toggles.thirteen, player.toggles.fourteen, player.toggles.fifteen, player.toggles.sixteen, player.toggles.seventeen, player.toggles.eighteen, player.toggles.nineteen, player.toggles.twenty, player.toggles.twentyone, player.toggles.twentytwo, player.toggles.twentythree, player.toggles.twentyfour, player.toggles.twentyfive, player.toggles.twentysix, player.toggles.twentyseven, player.toggles.nine, player.toggles.ten, player.toggles.eleven, player.toggles.nine, player.toggles.nine, player.toggles.twentyeight, player.toggles.twentynine, player.toggles.thirty]
-        //console.log(stupidHackTime.length)
-        if (stupidHackTime[i]) {
-            b = "ON]"
-        }
-        if (!stupidHackTime[i]) {
-            b = "OFF]"
+        let formatSides = format.split("$");
+        let finishedSides = [];
+        // Pushes escaped $'s (\\$) back into format
+        for (let i = 0; i < formatSides.length; ++i) {
+            let test = formatSides[i];
+            if (test[test.length - 1] === '\\' && i + 1 !== formatSides.length) {
+                formatSides[i + 1] = test.substring(0, test.length - 1) + formatSides[i + 1];
+            } else {
+                finishedSides.push(formatSides[i]);
+            }
         }
 
-        if (i <= 25 || i >= 30) {
-            e[u].textContent = a + b
-        }
+        let finishedString = finishedSides[0] + (player.toggles[toggleId] ? "ON" : "OFF") + finishedSides[1];
+        auto.textContent = finishedString;
+        auto.style.border = "2px solid " + (player.toggles[toggleId] ? "green" : "red");
     }
-
 }
 
 function toggleResearchBuy() {
@@ -454,14 +446,25 @@ function toggleAntMaxBuy() {
     }
 }
 
-function toggleAntAutoSacrifice() {
-    let el = document.getElementById("toggleAutoSacrificeAnt");
-    if (player.autoAntSacrifice) {
-        player.autoAntSacrifice = false;
-        el.textContent = "Auto Sacrifice Every 15 Minutes: OFF"
-    } else {
-        player.autoAntSacrifice = true;
-        el.textContent = "Auto Sacrifice Every 15 Minutes: ON"
+function toggleAntAutoSacrifice(mode = 0) {
+    if (mode === 0) {
+        let el = document.getElementById("toggleAutoSacrificeAnt");
+        if (player.autoAntSacrifice) {
+            player.autoAntSacrifice = false;
+            el.textContent = "Auto Sacrifice: OFF"
+        } else {
+            player.autoAntSacrifice = true;
+            el.textContent = "Auto Sacrifice: ON"
+        }
+    } else if (mode === 1) {
+        let el = document.getElementById("autoSacrificeAntMode");
+        if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
+            player.autoAntSacrificeMode = 2;
+            el.textContent = "Mode: Real time";
+        } else {
+            player.autoAntSacrificeMode = 1;
+            el.textContent = "Mode: In-game time";
+        }
     }
 }
 
