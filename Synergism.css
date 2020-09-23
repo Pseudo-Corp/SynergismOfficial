@@ -883,12 +883,26 @@ margin-left: -13px
 }
 
 
+#settingtitle2 {
+	position: absolute;
+	top: 0;
+	width: 500px;
+	left: 25%;
+	margin-left: -250px;
+}
 #settingtitle3 {
 	position: absolute;
 	top: 0;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
+}
+#confirmationdisclaimer {
+	position: absolute;
+	top: 120px;
+	width: 300px;
+	left: 25%;
+	margin-left: -150px;
 }
 
 #submitstats {
@@ -916,41 +930,26 @@ margin-left: -13px
 	margin-left: -112.5px;
 }
 
-#confirmationToggleBox {
+
+#settingpic1 {
 	position: absolute;
-	width: 400px;
-	left: 150px;
-	margin-top: 30px;
+	top: 60px;
+	left: 20%;
+	margin-left: -18px;
 }
-.center {
-	margin: auto;
+
+#settingpic2 {
+	position: absolute;
+	top: 60px;
+	left: 25%;
+	margin-left: -18px;
 }
-.confirmationToggles {
-	display: flex;
-	flex-direction: row;
-	margin: auto;
-}
-.confirmationToggle {
-	display: flex;
-	flex-direction: column;
-	width: 40px;
-	margin-left: 5px;
-	margin-right: 5px;
-}
-#settingtitle2 {
-	width: 100%;
-	margin: 20px 0;
-}
-.settingpic {
-	flex-grow: unset;
-	margin: 3px;
-}
-.auto.square {
-	width: 40px;
-	height: 40px;
-}
-#confirmationdisclaimer {
-	width: 100%;
+
+#settingpic3 {
+	position: absolute;
+	top: 60px;
+	left: 30%;
+	margin-left: -18px;
 }
 
 #temporarystats1 {
@@ -1290,8 +1289,29 @@ margin-left: -13px
 	left: 51%;
 	margin-left: -16px;
 }
+#toggle28 {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 95px;
+	left: 18.45%;
 
-#quarktimerdisplay {
+}
+#toggle29 {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 95px;
+	left: 23.45%
+}
+#toggle30 {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 95px;
+	left: 28.45%
+}
+#exportButtons {
 	position: absolute;
 	display: flex;
 	flex-direction: column;
@@ -3942,7 +3962,7 @@ margin-left: -13px
 	position: absolute;
 	top: 60px;
 	text-align: center;
-	width: 100%;
+	width: 1000px;
 }
 
 #antSacrificeTimer{
