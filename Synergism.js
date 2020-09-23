@@ -246,8 +246,8 @@ const player = {
         28: true,
         29: true,
         30: true,
-        31: false,
-        32: false,
+        31: true,
+        32: true,
         33: false,
     },
 
