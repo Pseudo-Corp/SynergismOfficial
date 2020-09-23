@@ -1714,7 +1714,7 @@ function multipliers() {
     }
     buildingPower = 1 + (1 - Math.pow(2, -1 / 160)) * c7 * Decimal.log(player.reincarnationShards.add(1), 10) * (1 + 1 / 20 * player.researches[36] + 1 / 40 * player.researches[37] + 1 / 40 * player.researches[38]) + (c7 + 0.2) * 0.25 / 1.2 * CalcECC('reincarnation', player.challengecompletions[8])
     buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[12] / 5)
-    buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[36] / 5)
+    buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[36] / 20)
     reincarnationMultiplier = Decimal.pow(buildingPower, totalCoinOwned);
 
     antMultiplier = Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499));

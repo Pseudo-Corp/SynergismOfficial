@@ -59,9 +59,9 @@ function calculateHypercubeBlessings() {
         let power = 1;
         let mult = 1;
         let augmentAccuracy = 0;
-        if (hypercubeArray[i] >= 10) {
+        if (hypercubeArray[i] >= 1000) {
             power = benedictionDRPower[i];
-            mult *= Math.pow(10, (1 - benedictionDRPower[i]));
+            mult *= Math.pow(1000, (1 - benedictionDRPower[i]));
             augmentAccuracy += 2;
         }
 

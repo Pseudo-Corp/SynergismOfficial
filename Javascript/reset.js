@@ -485,11 +485,6 @@ function reset(i, fast, from) {
         if (player.currentChallenge.ascension !== 14) {
             player.researchPoints = 1000 * player.cubeUpgrades[28]
         }
-        player.researches[65] = Math.min(5, player.cubeUpgrades[42])
-        player.researches[76] = player.cubeUpgrades[42]
-        player.researches[81] = player.cubeUpgrades[43]
-
-        player.reincarnationcounter = 3 * player.cubeUpgrades[46]
 
         if (player.cubeUpgrades[48] > 0) {
             player.firstOwnedAnts += 1
