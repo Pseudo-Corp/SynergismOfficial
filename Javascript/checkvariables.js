@@ -157,12 +157,12 @@ function checkVariablesOnLoad(data) {
     if (data.toggles.one !== undefined) {
         for (let i = 0; i < 50; ++i)
             if (player.toggles[cardinals[i]] !== undefined) {
-                player.toggles[i] = player.toggles[cardinals[i]];
+                player.toggles[i + 1] = player.toggles[cardinals[i]];
                 player.toggles[cardinals[i]] = undefined;
             }
     }
 
-    if(data.dayCheck === undefined){
+    if (data.dayCheck === undefined) {
         player.dayCheck = 0;
         player.dayTimer = 0;
         player.cubeQuarkDaily = 0;
