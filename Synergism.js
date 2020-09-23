@@ -1924,13 +1924,13 @@ function multipliers() {
     }
 
     if (player.currentChallenge.ascension === 12) {
-        globalAntMult = Decimal.pow(globalAntMult, 0.7)
+        globalAntMult = Decimal.pow(globalAntMult, 0.6)
     }
     if (player.currentChallenge.ascension === 13) {
-        globalAntMult = Decimal.pow(globalAntMult, 0.45)
+        globalAntMult = Decimal.pow(globalAntMult, 0.3)
     }
     if (player.currentChallenge.ascension === 14) {
-        globalAntMult = Decimal.pow(globalAntMult, 0.3)
+        globalAntMult = Decimal.pow(globalAntMult, 0.2)
     }
 
     globalAntMult = Decimal.pow(globalAntMult, 1 - 0.9 / 90 * sumContents(player.usedCorruptions))
