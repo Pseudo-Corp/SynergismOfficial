@@ -5,6 +5,10 @@ function getRealTime() {
     return date + " " + time;
 }
 
+function updateSaveString() {
+    player.saveString = document.getElementById("saveStringInput").value
+}
+
 function saveFilename() {
     let s = player.saveString
     let re = /(.+)\$TIME\$(.*)\.txt/

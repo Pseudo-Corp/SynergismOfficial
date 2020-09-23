@@ -704,6 +704,8 @@ function htmlInserts() {
         document.getElementById("temporarystats9").textContent = "Best Obtainium/sec: " + format(player.maxobtainiumpersecond, 2, true)
         document.getElementById("temporarystats10").textContent = "Summative Rune Levels: " + format(runeSum)
         document.getElementById("temporarystats11").textContent = "Current Obtainium/sec " + format(player.obtainiumpersecond, 2, true)
+
+        document.getElementById("saveString").textContent = `Currently: ${player.saveString}`
     }
 
     if (currentTab === "shop") {
