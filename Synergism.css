@@ -1293,29 +1293,39 @@ margin-left: -13px
 
 #quarktimerdisplay {
 	position: absolute;
-	width: 250px;
-	height: 40px;
-	top: 85px;
-	left: 50%;
-	margin-left: -125px
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	left: 500px;
+	height: 220px;
+}
+.tightText {
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+#quarktimerdisplay {
+	height: 22px;
+	margin-top: 60px;
 }
 
 #quarktimeramount {
-	position: absolute;
-	width: 250px;
-	height: 40px;
-	top: 105px;
-	left: 50%;
-	margin-left: -125px
+	height: 22px;
 }
 
 #exportgame {
-	position: absolute;
 	width: 150px;
 	height: 40px;
-	top: 145px;
-	left: 50%;
-	margin-left: -75px
+	margin: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#exportinfo {
+	height: 20px;
+}
+#saveStringInput {
+	width: 250px;
 }
 
 #importgame {
@@ -1333,14 +1343,6 @@ margin-left: -13px
 	top: 240px;
 	left: 50%;
 	margin-left: -40px
-}
-#exportinfo {
-	position: absolute;
-	width: 500px;
-	height: 40px;
-	top: 170px;
-	left: 50%;
-	margin-left: -250px
 }
 #exporttext {
 	position: absolute;
@@ -4477,6 +4479,7 @@ margin-left: -13px
 	color: gray;
 	text-align: center;
 }
+
 
 #statisticsSubTab {
 	max-height: 800px;

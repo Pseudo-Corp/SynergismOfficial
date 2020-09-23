@@ -545,7 +545,7 @@ const player = {
 
     autoTesseracts: [false, false, false, false, false, false],
 
-    saveString: "",
+    saveString: "Synergism-v2.0.0Test-$TIME$.txt", // TODO CHANGE THIS BEFORE RELEASE (REMOVE TEST)
     brokenfile1: false,
     exporttest: "YES!",
     kongregatetest: "NO!",
@@ -1006,8 +1006,9 @@ function loadSynergy() {
 
 
         if (player.saveString === undefined || player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
-            player.saveString = "Synergism-v2.0.0Test-$TIME$.txt"
+            player.saveString = "Synergism-v2.0.0Test-$TIME$.txt" // TODO CHANGE THIS BEFORE RELEASE (REMOVE TEST)
         }
+        document.getElementById("saveStringInput").value = player.saveString
 
         player.wowCubes = player.wowCubes || 0;
         if (!player.cubesThisAscension.maxAllTime) // Initializes the value if it doesn't exist
