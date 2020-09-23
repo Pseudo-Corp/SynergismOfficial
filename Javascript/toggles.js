@@ -5,10 +5,11 @@ function toggleTabs(i) {
 }
 
 function toggleSettings(i) {
-    if (player.toggles[cardinals[i]] === true) {
-        player.toggles[cardinals[i]] = false
+    i++
+    if (player.toggles[i] === true) {
+        player.toggles[i] = false
     } else {
-        player.toggles[cardinals[i]] = true
+        player.toggles[i] = true
     }
     toggleauto();
 }
@@ -211,44 +212,34 @@ function toggleautoreset(i) {
     }
 }
 
+
 function toggleauto() {
-    const e = document.getElementsByClassName("auto");
-    for (let i = 0; i < e.length; i++) {
-        let a = "";
-        let b = "";
-        if ((0 <= i && i <= 7) || (8 <= i && i <= 12) || (14 <= i && i <= 18) || (20 <= i && i <= 24)) {
-            a = "Auto ["
+    let autos = document.getElementsByClassName("auto");
+    for (let auto of autos) {
+        let format = auto.getAttribute("format");
+        let toggleId = auto.getAttribute("toggleId");
+        if (toggleId === undefined || toggleId === null) {
+            continue;
         }
-        if (i === 30) {
-            a = "Hover-to-buy ["
+        if (format === undefined || format === null) {
+            format = "Auto [$]";
         }
-        if (i === 13) {
-            a = "Auto Prestige ["
-        }
-        if (i === 19) {
-            a = "Auto Transcend ["
-        }
-        if (i === 25) {
-            a = "Auto Reincarnate ["
-        }
-        if (31 <= i && i <= 33) {
-            a = "["
-        }
-        let u = i
-        let stupidHackTime = [player.toggles.one, player.toggles.two, player.toggles.three, player.toggles.four, player.toggles.five, player.toggles.six, player.toggles.seven, player.toggles.eight, player.toggles.ten, player.toggles.eleven, player.toggles.twelve, player.toggles.thirteen, player.toggles.fourteen, player.toggles.fifteen, player.toggles.sixteen, player.toggles.seventeen, player.toggles.eighteen, player.toggles.nineteen, player.toggles.twenty, player.toggles.twentyone, player.toggles.twentytwo, player.toggles.twentythree, player.toggles.twentyfour, player.toggles.twentyfive, player.toggles.twentysix, player.toggles.twentyseven, player.toggles.nine, player.toggles.ten, player.toggles.eleven, player.toggles.nine, player.toggles.nine, player.toggles.twentyeight, player.toggles.twentynine, player.toggles.thirty]
-        //console.log(stupidHackTime.length)
-        if (stupidHackTime[i]) {
-            b = "ON]"
-        }
-        if (!stupidHackTime[i]) {
-            b = "OFF]"
+        let formatSides = format.split("$");
+        let finishedSides = [];
+        // Pushes escaped $'s (\\$) back into format
+        for (let i = 0; i < formatSides.length; ++i) {
+            let test = formatSides[i];
+            if (test[test.length - 1] === '\\' && i + 1 !== formatSides.length) {
+                formatSides[i + 1] = test.substring(0, test.length - 1) + formatSides[i + 1];
+            } else {
+                finishedSides.push(formatSides[i]);
+            }
         }
 
-        if (i <= 25 || i >= 30) {
-            e[u].textContent = a + b
-        }
+        let finishedString = finishedSides[0] + (player.toggles[toggleId] ? "ON" : "OFF") + finishedSides[1];
+        auto.textContent = finishedString;
+        auto.style.border = "2px solid " + (player.toggles[toggleId] ? "green" : "red");
     }
-
 }
 
 function toggleResearchBuy() {
