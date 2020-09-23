@@ -97,13 +97,15 @@ function redeemShards(runeIndexPlusOne, auto = false, cubeUpgraded = 0) {
         let add = fact[0] - a * player.runelevels[runeIndex]
         let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
         while (toSpendTotal > 0 && levelsAdded < levelsToAdd && player.runelevels[runeIndex] < maxLevel) {
-            let toSpend = Math.min(toSpendTotal, amountArr[levelsAdded])
-            if (toSpend === undefined) {
+            let exp = calculateRuneExpToLevel(runeIndex, player.runelevels[runeIndex]) - player.runeexp[runeIndex]
+            let expPerOff = (add + a * player.runelevels[runeIndex]) * mult;
+            let toSpend = Math.min(toSpendTotal, Math.ceil(exp / expPerOff))
+            if (toSpend === undefined || isNaN(toSpend)) {
                 toSpend = toSpendTotal
             }
             toSpendTotal -= toSpend
             player.runeshards -= toSpend
-            player.runeexp[runeIndex] += toSpend * (add + a * player.runelevels[runeIndex]) * mult;
+            player.runeexp[runeIndex] += toSpend * expPerOff
             all += toSpend
             while (player.runeexp[runeIndex] >= calculateRuneExpToLevel(runeIndex) && player.runelevels[runeIndex] < maxLevel) {
                 player.runelevels[runeIndex] += 1;
