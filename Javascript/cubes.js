@@ -51,7 +51,7 @@ function openCube(value, max) {
 
 //If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
     for (let key of Object.keys(player.cubeBlessings)) {
-        player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + player.cubeUpgrades[30] + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
+        player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
     }
 
 //Then, the remaining cubes will be opened, simulating the probability [RNG Element]
@@ -59,7 +59,7 @@ function openCube(value, max) {
         let num = 100 * Math.random();
         for (let key of Object.keys(player.cubeBlessings)) {
             if (blessings[key].pdf(num))
-                player.cubeBlessings[key] += (1 + player.cubeUpgrades[30] + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
+                player.cubeBlessings[key] += (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
         }
     }
     calculateCubeBlessings();
@@ -87,7 +87,7 @@ const cubeUpgradeName = [null,
     () => "Wow! I want to unlock a couple more coin upgrades.",
     () => "Wow! I want to improve automatic rune tools.",
     () => "Wow! I want more cubes 3.",
-    () => "Wow! I wish Corruptions boosted by ants(?)",
+    () => "Wow! I wish my Artemis was a little better 1",
     () => "Wow! I want opened cubes to give more blessings 2.",
     () => "Wow! I want Plutus blessing bonuses to scale better 1",
     () => "Wow! I want Moloch blessing bonuses to scale better 1",
@@ -95,7 +95,7 @@ const cubeUpgradeName = [null,
     () => "Wow! I want to start Ascensions with one of each reincarnation building.",
     () => "Wow! I want finally render Reincarnating obsolete.",
     () => "Wow! I want to increase maximum Reincarnation Challenge completions.",
-    () => "Wow! I want to gain +1 blessing per wow cube opened...",
+    () => "Wow! I want to arbitrarily increase my cube and tesseract gain.",
     () => "Wow! I want more cubes 4.",
     () => "Wow! I want runes to be easier to level up over time.",
     () => "Wow! I want opened cubes to give more blessings 3.",
@@ -103,15 +103,15 @@ const cubeUpgradeName = [null,
     () => "Wow! I want Aphrodite blessing bonuses to scale better 1",
     () => "Wow! I want building power to be useful 2.",
     () => "Wow! I want more rune levels 2.",
-    () => "Wow! I want more cubes in challenges during corruption.",
-    () => "Wow! I want more cubes in challenges during ascension challenge.",
-    () => "Wow! I want to automatically open cubes faster 1.",
+    () => "Wow! I want more tesseracts while corrupted!",
+    () => "Wow! I want more score from challenge 10 completions.",
+    () => "Wow! I want Athena blessing bonuses to scale better 1.",
     () => "Wow! I want more cubes 5.",
-    () => "Wow! I want to keep Research 3x15 and 1x16.",
-    () => "Wow! I want to keep Research 2x16.",
+    () => "Wow! I want some Uncorruptable Obtainium.",
+    () => "Wow! I want even more Uncorruptable Obtainium!",
     () => "Wow! I want Midas Blessing bonus to scale better 1.",
     () => "Wow! I want Hermes Blessing bonus to scale better 1.",
-    () => "Wow! I want reincarnations to start with a few extra seconds.",
+    () => "Wow! I want even MORE offerings!",
     () => "Wow! I want even MORE obtainium!",
     () => "Wow! I want to start ascension with an ant.",
     () => "Wow! I want to start ascension with a challenge 6-8 completion.",
@@ -121,15 +121,15 @@ const cubeUpgradeName = [null,
 const cubeBaseCost = [null,
     200, 200, 200, 500, 500, 500, 500, 500, 2000, 40000,
     5000, 1000, 10000, 4000, 4000, 1e4, 4000, 1e4, 50000, 7500,
-    5e4, 3e4, 3e4, 4e4, 4e4, 1e4, 1e5, 177777, 1e5, 5e5,
-    5e5, 3e5, 3e5, 4e5, 4e5, 2e5, 5e5, 1e6, 1e6, 5e6,
-    5e6, 2e6, 3e6, 4e6, 4e6, 5e5, 2e6, 2e7, 3e7, 2e9]
+    5e4, 3e4, 3e4, 4e4, 4e4, 1e4, 1e5, 177777, 1e5, 1e6,
+    5e5, 3e5, 2e6, 4e6, 4e6, 1e7, 1e6, 2e7, 5e7, 1e7,
+    5e6, 1e7, 1e8, 4e7, 4e7, 5e7, 5e7, 1e8, 5e8, 5e10]
 
 const cubeMaxLevel = [null,
     2, 10, 5, 1, 1, 1, 1, 1, 1, 1,
     2, 5, 1, 10, 10, 10, 5, 1, 1, 1,
     2, 10, 1, 10, 10, 10, 1, 1, 5, 1,
-    2, 1, 1, 10, 10, 5, 10, 3, 3, 1,
+    2, 1, 1, 10, 10, 10, 10, 1, 1, 10,
     2, 10, 10, 10, 10, 20, 20, 1, 1, 100000]
 
 
@@ -155,7 +155,7 @@ const cubeUpgradeDescriptions = [null,
     () => "Unlocks new coin upgrades ranging from start of ascend to post c10 and beyond.",
     () => "The rune automator in shop now spends all offerings automatically, 'splitting' them into each of the 5 runes equally.",
     () => "You got it once more! +10% cubes from Ascending per level.",
-    () => "Lol Platonic is bad and hasn't made this yet",
+    () => "The exponent of the bonus of Artemis is increased by 0.05 per level.",
     () => "For each 20 cubes opened at once, you get 1 additional blessing at random.",
     () => "Plutus teaches you the Art of the Deal. The effect power is now increased by +0.01 (+0.0033 if >1000 blessings) per level.",
     () => "Moloch lends you a hand in communicating with Ant God. The effect power is now increased by +0.01 (+0.0033 if >1000 blessings) per level.",
@@ -163,26 +163,26 @@ const cubeUpgradeDescriptions = [null,
     () => "Upon an ascension, you will start with 1 of each reincarnation building to speed up Ascensions.",
     () => "Well, I think you got it? Gain +1% of particles on Reincarnation per second.",
     () => "Add +5 to Reincarnation Challenge cap per level. Completions after 25 scale faster in requirement!",
-    () => "Whenever you open a cube, Aphrodite graces it with a secondary blessing.",
+    () => "You now get +25% Cubes and Tesseracts forever!",
     () => "You again? +10% cubes from Ascending per level.",
     () => "Gain +0.1% Rune EXP per second you have spent in an Ascension. This has no cap!",
     () => "For each 20 cubes opened at once, you get yet another additional blessing at random.",
     () => "Chronus overclocks the universe for your personal benefit. (Rewards the same as others)",
     () => "Aphrodite increases the fertility of your coins. (Rewards the same as others)",
-    () => "Raise building power to (1 + 0.2 * Level) once more.",
+    () => "Raise building power to (1 + 0.05 * Level) once more.",
     () => "Adds +20 to ALL rune caps again per level.",
-    () => "If you get at least 5,000 Ascend Points, then you will gain +1 cube in challenge per level.",
-    () => "If you are in a challenge, then you will gain +1 cube in lower challenges per level.",
-    () => "If you have purchased the shop upgrade to automatically open cubes, it will now open 200 at a time instead of 20.",
+    () => "Gain +0.5% more tesseracts on ascension for each additional level in a corruption you enable.",
+    () => "Instead of the multiplier being 1.03^(C10 completions), it is now 1.035^(C10 completions)!",
+    () => "Athena is very smart (Rewards the same as others).",
     () => "Yeah yeah yeah, +10% cubes from Ascending per level. Isn't it enough?",
-    () => "Keep 1 level of 3x15 and 1x16 on Ascension per level. [Cannot exceed cap]",
-    () => "Keep 1 level of 2x16 on Ascension per level.",
+    () => "You now gain +4% Obtainium per level, which is not dependent on corruptions!",
+    () => "Gain another +3% corruption-independent Obtainium per level.",
     () => "Blah blah blah Midas works harder (same rewards as before)",
     () => "Blah blah blah Hermes works harder (same rewards as before)",
-    () => "All reincarnations start out with 3 additional seconds per level.",
+    () => "Gain +5% more offerings per level!",
     () => "Gain +10% more obtainium per level!",
     () => "When you ascend, start with 1 worker ant (this is a lot better than it sounds!)",
-    () => "When you ascend, gain 1 of each challenge 6-8 completion, with +15 cubes to compensate.",
+    () => "When you ascend, gain 1 of each challenge 6-8 completion.",
     () => "What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.1 Max Rune Levels, +1 Effective ELO, +0.001 Talisman bonuses per level."
 ]
 

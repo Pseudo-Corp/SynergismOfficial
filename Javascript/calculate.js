@@ -340,6 +340,7 @@ function calculateOfferings(i) {
     q *= (1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]))
     q *= (1 + 0.01 / 100 * player.researches[200])
     q *= (1 + 0.02 / 100 * player.cubeUpgrades[50])
+    q *= (1 + 0.05 * player.cubeUpgrades[46])
     q = Math.floor(q) * 100 / 100
 
     let persecond = 0;
@@ -411,6 +412,8 @@ function calculateObtainium() {
     }
     obtainiumGain *= Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)
     obtainiumGain = Math.pow(obtainiumGain, illiteracyPower[player.usedCorruptions[5]])
+    obtainiumGain *= (1 + 4/100 * player.cubeUpgrades[42])
+    obtainiumGain *= (1 + 3/100 * player.cubeUpgrades[43])
     if (player.currentChallenge.ascension === 14) {
         obtainiumGain = 0
     }
@@ -830,7 +833,7 @@ function calculateCubeBlessings() {
     document.getElementById("cubeQuantity").textContent = format(player.wowCubes, 0, true)
 
     let cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
-    let powerBonus = [null, player.cubeUpgrades[45] / 100, player.cubeUpgrades[35] / 100, player.cubeUpgrades[24] / 100, player.cubeUpgrades[14] / 100, 0, 0, player.cubeUpgrades[15] / 100, player.cubeUpgrades[25] / 100, player.cubeUpgrades[44] / 100, player.cubeUpgrades[34] / 100]
+    let powerBonus = [null, player.cubeUpgrades[45] / 100, player.cubeUpgrades[35] / 100, player.cubeUpgrades[24] / 100, player.cubeUpgrades[14] / 100, player.cubeUpgrades[40]/100, player.cubeUpgrades[22]/40, player.cubeUpgrades[15] / 100, player.cubeUpgrades[25] / 100, player.cubeUpgrades[44] / 100, player.cubeUpgrades[34] / 100]
 
     let accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
     for (let i = 1; i <= 10; i++) {
@@ -888,6 +891,7 @@ function calculateCubeMultiplier(calcMult = true) {
     arr.push(1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2]);
     arr.push(1 + 0.004 / 100 * player.researches[200]);
     arr.push(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]));
+    arr.push(1 + 0.25 * player.cubeUpgrades[30])
     if (calcMult) {
         return productContents(arr);
     } else {
@@ -998,7 +1002,7 @@ function CalcCorruptionStuff() {
             baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 25)
         }
     }
-    baseScore *= Math.pow(1.03, player.highestchallengecompletions[10]);
+    baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39], player.highestchallengecompletions[10]);
     for (let i = 1; i <= 10; i++) {
         corruptionMultiplier *= corruptionArrayMultiplier[player.usedCorruptions[i]]
     }
@@ -1011,6 +1015,8 @@ function CalcCorruptionStuff() {
 
     let tesseractGain = 1;
     tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e5)) / 1e4, .6);
+    tesseractGain *= (1 + 0.25 * player.cubeUpgrades[30])
+    tesseractGain *= (1 + 1/200 * player.cubeUpgrades[38] * sumContents(player.usedCorruptions))
 
     let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
     hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9)) / 1e8, .6);

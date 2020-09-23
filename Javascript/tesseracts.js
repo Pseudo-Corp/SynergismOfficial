@@ -59,9 +59,9 @@ function calculateTesseractBlessings() {
         let power = 1;
         let mult = 1;
         let augmentAccuracy = 0;
-        if (tesseractArray[i] >= 100) {
+        if (tesseractArray[i] >= 1000) {
             power = giftDRPower[i];
-            mult *= Math.pow(100, (1 - giftDRPower[i]));
+            mult *= Math.pow(1000, (1 - giftDRPower[i]));
             augmentAccuracy += 2;
         }
         if (i === 6) {

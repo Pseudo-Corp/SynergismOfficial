@@ -52,8 +52,8 @@ var researchBaseCosts = [1e100,
     1e39, 3e39, 1e40, 3e40, 1e50,
     3e41, 1e42, 3e42, 6e42, 1e43,
     3e43, 1e44, 3e44, 1e45, 3e45, /*challenge 14 tier */
-    1e46, 3e46, 1e47, 3e47, 1e60,
-    3e48, 1e49, 3e49, 6e49, 5e54
+    2e46, 6e46, 2e47, 6e47, 1e60,
+    6e48, 2e49, 1e50, 1e51, 1e56
 ]
 
 
@@ -341,10 +341,10 @@ var buildingSubTab = "coin"
 var blessingbase = [null, 1 / 500, 1 / 5000, 1 / 2000, 1 / 750, 1 / 200, 1 / 10000, 1 / 5000, 1 / 10, 1 / 10000, 1 / 1000]
 var blessingDRPower = [null, 1 / 3, 1 / 3, 2 / 3, 1 / 2, 2 / 3, 2, 1 / 3, 1 / 3, 1 / 16, 1 / 16]
 //100 of each before Diminishing Returns
-var giftbase = [null, 1 / 500, 1 / 500, 1 / 500, 1 / 500, 1 / 500, 1 / 500, 1 / 500, 1 / 500, 1 / 500, 1 / 500]
+var giftbase = [null, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500]
 var giftDRPower = [null, 1 / 6, 1 / 6, 1 / 3, 1 / 4, 1 / 3, 1, 1 / 6, 1 / 6, 1 / 32, 1 / 32]
 //10 of each before Diminishing Returns
-var benedictionbase = [null, 3 / 100, 3 / 100, 3 / 100, 3 / 100, 3 / 100, 3 / 100, 3 / 100, 3 / 100, 3 / 100, 3 / 100]
+var benedictionbase = [null, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000]
 var benedictionDRPower = [null, 1 / 12, 1 / 12, 1 / 6, 1 / 8, 1 / 6, 1 / 2, 1 / 12, 1 / 12, 1 / 64, 1 / 64]
 
 
@@ -368,7 +368,7 @@ var extinctionMultiplier = [1, 0.92, 0.86, 0.8, 0.74, 0.68, 0.6, 0.55, 0.5, 0.45
 var droughtMultiplier = [1, 5, 25, 200, 1e4, 1e8, 1e16, 1e25, 1e36, 1e49, 1e64]
 var financialcollapsePower = [1, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.27, 0.24, 0.22, 0.2]
 
-var corruptionPointMultipliers = [1, 1.5, 2, 3, 4, 5, 6, 7, 9, 12, 15]
+var corruptionPointMultipliers = [1, 1.4, 2, 3, 4, 5, 6, 7, 9, 12, 15]
 
 var ascendBuildingProduction = {
     first: new Decimal('0'),
