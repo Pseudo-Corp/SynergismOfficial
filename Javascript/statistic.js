@@ -30,8 +30,8 @@ function loadStatisticsMultiplier() {
 }
 
 function loadStatisticsCubeMultipliers() {
-    let arr = calculateCubeMultiplier(false)
-    let map = {
+    const arr = calculateCubeMultiplier(false)
+    const map = {
         1: {acc: 2, desc: "Season pass:"},
         2: {acc: 4, desc: "Research 5x19:"},
         3: {acc: 4, desc: "Research 5x20:"},
