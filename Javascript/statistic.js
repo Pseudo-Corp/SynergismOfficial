@@ -31,9 +31,29 @@ function loadStatisticsMultiplier() {
 
 function loadStatisticsCubeMultipliers() {
     let arr = calculateCubeMultiplier(false)
-    let acc = [2, 4, 4, 1, 1, 1, 1, 1, 2, 3, 3, 3, 3, 4, 4, 5, 4]
+    let map = {
+        1: {acc: 2, desc: "Season pass:"},
+        2: {acc: 4, desc: "Research 5x19:"},
+        3: {acc: 4, desc: "Research 5x20:"},
+        4: {acc: 1, desc: "Cube upgrade 1x1:"},
+        5: {acc: 1, desc: "Cube upgrade 2x1:"},
+        6: {acc: 1, desc: "Cube upgrade 3x1:"},
+        7: {acc: 1, desc: "Cube upgrade 4x1:"},
+        8: {acc: 1, desc: "Cube upgrade 5x1:"},
+        9: {acc: 2, desc: "Research 6x12:"},
+        10: {acc: 3, desc: "Research 7x2:"},
+        11: {acc: 3, desc: "Research 7x17:"},
+        12: {acc: 3, desc: "Research 8x7:"},
+        13: {acc: 3, desc: "Research 8x22:"},
+        14: {acc: 4, desc: "Bought Mortuus Est ants (R8x17):"},
+        15: {acc: 4, desc: "Duplication Spirit Power:"},
+        16: {acc: 5, desc: "Research 8x25:"},
+        17: {acc: 4, desc: "Constant upgrade 10:"},
+        18: {acc: 2, desc: "Cube upgrade 3x10:"}
+    }
     for (let i = 0; i < arr.length; i++) {
-        document.getElementById(`sCM${i+1}`).textContent = `x${format(arr[i], acc[i], true)}`
+        document.getElementById(`statCM${i + 1}`).textContent = map[i].desc;
+        document.getElementById(`sCM${i + 1}`).textContent = `x${format(arr[i], map[i].acc, true)}`
     }
     document.getElementById("sCMT").textContent = `x${format(calculateCubeMultiplier(true), 3)}`
 }

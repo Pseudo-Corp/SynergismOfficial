@@ -891,7 +891,7 @@ function calculateCubeMultiplier(calcMult = true) {
     arr.push(1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2]);
     arr.push(1 + 0.004 / 100 * player.researches[200]);
     arr.push(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]));
-    arr.push(1 + 0.25 * player.cubeUpgrades[30])
+    arr.push(1 + 0.25 * player.cubeUpgrades[30]) // statistics include everything up to this point
     if (calcMult) {
         return productContents(arr);
     } else {
