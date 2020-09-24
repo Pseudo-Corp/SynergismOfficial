@@ -1895,6 +1895,7 @@ function multipliers() {
         globalAntMult = globalAntMult.times(5)
     }
     globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
+    globalAntMult = globalAntMult.times(1 + player.upgrades[78] * 0.01 * Math.pow(Math.log(player.runeshards + 1)/Math.log(10),2))
     globalAntMult = globalAntMult.times(Math.pow(1.5, player.shopUpgrades.antSpeedLevel));
     globalAntMult = globalAntMult.times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1] + bonusant1));
     globalAntMult = globalAntMult.times(antSacrificePointsToMultiplier(player.antSacrificePoints))

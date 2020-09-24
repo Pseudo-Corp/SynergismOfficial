@@ -106,27 +106,6 @@ function promocodes() {
     } else if (input === ":antismith:" && player.achievements[244] < 1) {
         achievementaward(244);
         el.textContent = "Hey, isn't this just a reference to Antimatter Dimensions? Shh. [Awarded an achievement!!!]";
-    } else if (input === "x1") {
-        indevSpeed = 1;
-        el.textContent = "Indev Speed set to 1x"
-    } else if (input === "x2") {
-        indevSpeed = 2;
-        el.textContent = "Indev Speed set to 2x"
-    } else if (input === "x5") {
-        indevSpeed = 5;
-        el.textContent = "Indev Speed set to 5x"
-    } else if (input === "x10") {
-        indevSpeed = 10;
-        el.textContent = "Indev Speedset to 10x"
-    } else if (input === "x20") {
-        indevSpeed = 20;
-        el.textContent = "Indev Speedset to 20x"
-    } else if (input === "x50") {
-        indevSpeed = 50;
-        el.textContent = "Indev Speedset to 50x"
-    } else if (input === "x100") {
-        indevSpeed = 100;
-        el.textContent = "Indev Speedset to 100x"
     } else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }

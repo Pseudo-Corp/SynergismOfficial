@@ -150,6 +150,11 @@ function revealStuff() {
         example30[i].style.display = player.cubeUpgrades[19] > 0 ? "block" : "none"
     }
 
+    let example31 = document.getElementsByClassName("sacrificeAnts")
+    for (let ex of example31) { //Galactic Crumb Achievement 5
+        ex.style.display = player.achievements[173] === 1 ? "block" : "none";
+    }
+
     player.upgrades[89] === 1 ? //Automatic Transcension Upgrade
         document.getElementById("transcendautomation").style.display = "block" :
         document.getElementById("transcendautomation").style.display = "none";
