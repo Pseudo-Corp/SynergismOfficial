@@ -1627,7 +1627,7 @@ function updateAllMultiplier() {
     if (player.upgrades[35] > 0.5) {
         a *= 1.05 / 1.03 * 100 / 100
     }
-    a *= (1 + 1 / 5 * player.researches[2])
+    a *= (1 + 1 / 5 * player.researches[2] * (1 + 1/2 * CalcECC('ascension', player.challengecompletions[14])))
     a *= (1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15])
     a *= (1 + rune2level / 400 * effectiveLevelMult)
     a *= (1 + 1 / 20 * player.researches[87])
@@ -1841,6 +1841,7 @@ function multipliers() {
     globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1 + Math.min(0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4), 0.001 * player.crystalUpgrades[2]), player.firstOwnedDiamonds + player.secondOwnedDiamonds + player.thirdOwnedDiamonds + player.fourthOwnedDiamonds + player.fifthOwnedDiamonds))
     globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1.01, (player.challengecompletions[1] + player.challengecompletions[2] + player.challengecompletions[3] + player.challengecompletions[4] + player.challengecompletions[5]) * player.crystalUpgrades[4]))
     globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(10, CalcECC('transcend', player.challengecompletions[5])))
+    globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1e4, player.researches[5] * (1 + 1/2 * CalcECC('ascension', player.challengecompletions[14]))))
     globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.researches[26]))
     globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.researches[27]))
 
@@ -1890,7 +1891,7 @@ function multipliers() {
     }
 
     globalAntMult = new Decimal(1);
-    globalAntMult = globalAntMult.times(1 + 1 / 2500 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84] / 200), 2))
+    globalAntMult = globalAntMult.times(1 + 1 / 2500 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84] / 200 * (1 + 1 * effectiveRuneSpiritPower[5] * calculateCorruptionPoints()/400)), 2))
     if (player.upgrades[76] === 1) {
         globalAntMult = globalAntMult.times(5)
     }
@@ -2752,7 +2753,7 @@ function updateAll() {
     }
 
     effectiveLevelMult = 1;
-    effectiveLevelMult *= (1 + player.researches[4] / 10) //Research 1x4
+    effectiveLevelMult *= (1 + player.researches[4] / 10 * (1 + 1/2 * CalcECC('ascension', player.challengecompletions[14]))) //Research 1x4
     effectiveLevelMult *= (1 + player.researches[21] / 100) //Research 2x6
     effectiveLevelMult *= (1 + player.researches[90] / 100) //Research 4x15
     effectiveLevelMult *= (1 + player.researches[131] / 200) //Research 6x6
