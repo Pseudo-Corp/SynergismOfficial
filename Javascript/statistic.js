@@ -52,8 +52,8 @@ function loadStatisticsCubeMultipliers() {
         18: {acc: 2, desc: "Cube upgrade 3x10:"}
     }
     for (let i = 0; i < arr.length; i++) {
-        document.getElementById(`statCM${i + 1}`).textContent = map[i].desc;
-        document.getElementById(`sCM${i + 1}`).textContent = `x${format(arr[i], map[i].acc, true)}`
+        document.getElementById(`statCM${i + 1}`).textContent = map[i + 1].desc;
+        document.getElementById(`sCM${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`
     }
     document.getElementById("sCMT").textContent = `x${format(calculateCubeMultiplier(true), 3)}`;
 }
