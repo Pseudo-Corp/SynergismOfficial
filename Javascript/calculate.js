@@ -336,7 +336,7 @@ function calculateOfferings(i) {
     q *= (1 + Math.pow((player.antUpgrades[6] + bonusant6 / 50), 2 / 3))
     q *= cubeBonusMultiplier[3]
     q *= (1 + 0.02 * player.constantUpgrades[3])
-    q *= (1 + 0.0003 * player.talismanLevels[3] * player.researches[149])
+    q *= (1 + 0.0003 * player.talismanLevels[3] * player.researches[149] + 0.0004 * player.talismanLevels[3] * player.researches[179])
     q *= (1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]))
     q *= (1 + 0.01 / 100 * player.researches[200])
     q *= (1 + 0.02 / 100 * player.cubeUpgrades[50])
@@ -901,6 +901,7 @@ function calculateCubeMultiplier(calcMult = true) {
 
 function calculateTimeAcceleration() {
     let timeMult = 1;
+    timeMult *= (1 + 1/200 * Math.log(player.researchPoints + 1)/Math.log(10) * player.upgrades[70]) //Particle upgrade 2x5
     timeMult *= (1 + player.researches[121] / 50); // research 5x21
     timeMult *= (1 + 0.015 * player.researches[136]) // research 6x11
     timeMult *= (1 + 0.012 * player.researches[151]) // research 7x1
@@ -918,11 +919,10 @@ function calculateTimeAcceleration() {
     if (timeMult > 100) {
         timeMult = 10 * Math.sqrt(timeMult)
     }
-    timeMult *= indevSpeed
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
     }
-    if (timeMult > 3600 * indevSpeed && player.achievements[242] < 1) {
+    if (timeMult > 3600 && player.achievements[242] < 1) {
         achievementaward(242)
     }
     return (timeMult)

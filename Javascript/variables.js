@@ -382,7 +382,6 @@ var freeUpgradeMultiplier = 0;
 
 var acceleratorMultiplier = 1;
 var multiplierMultiplier = 1;
-var indevSpeed = 1
 
 var testArray = []
 
