@@ -8,7 +8,7 @@ function displayRuneInformation(i, updatelevelup) {
     updatelevelup = (updatelevelup === null || updatelevelup === undefined) ? true : updatelevelup;
 
     let m = effectiveLevelMult
-    let SILevelMult = (1 + player.researches[84] / 200)
+    let SILevelMult = (1 + player.researches[84] / 200 * (1 + 1 * effectiveRuneSpiritPower[5] * calculateCorruptionPoints()/400))
     let amountPerOffering = calculateRuneExpGiven(i - 1, false, player.runelevels[i - 1]);
 
 

@@ -155,11 +155,16 @@ function checkVariablesOnLoad(data) {
         }
     }
     if (data.toggles.one !== undefined) {
-        for (let i = 0; i < 50; ++i)
+        for (let i = 0; i < 50; ++i) {
             if (player.toggles[cardinals[i]] !== undefined) {
                 player.toggles[i + 1] = player.toggles[cardinals[i]];
                 player.toggles[cardinals[i]] = undefined;
             }
+        }
+    }
+    if (data.ascensionCount === 0) {
+        player.toggles[31] = true;
+        player.toggles[32] = true;
     }
 
     if (data.dayCheck === undefined) {

@@ -46,8 +46,8 @@ function corruptionDisplay(index){
         case 6:
             a.textContent = "Corruption VI: Market Deflation"
             b.textContent = "Diamond Mine destroyed... no more monopolies!"
-            c.textContent = "On this Ascension, this corruption is level " + format(player.usedCorruptions[6]) + ". Effect: Diamond gain ^" + format(deflationMultiplier[player.usedCorruptions[6]],3)
-            d.textContent = "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[6]) + ". Effect: Diamond gain ^" + format(deflationMultiplier[player.prototypeCorruptions[6]],3)
+            c.textContent = "On this Ascension, this corruption is level " + format(player.usedCorruptions[6]) + ". Effect: Diamond gain ^" + format(deflationMultiplier[player.usedCorruptions[6]],9)
+            d.textContent = "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[6]) + ". Effect: Diamond gain ^" + format(deflationMultiplier[player.prototypeCorruptions[6]],9)
             e.textContent = "Current Score Multiplier: " + format(corruptionPointMultipliers[player.usedCorruptions[6]],1) + " / Next Ascension Score Multiplier: " + format(corruptionPointMultipliers[player.prototypeCorruptions[6]],1)
             break;
         case 7:

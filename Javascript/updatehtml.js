@@ -228,7 +228,7 @@ function revealStuff() {
             document.getElementById("tesseractAutoToggle" + z).style.display = "block" :
             document.getElementById("tesseractAutoToggle" + z).style.display = "none";
     }
-    player.antUpgrades[12] > 0 ? //Ant Talisman Unlock, Mortuus
+    (player.antUpgrades[12] > 0 || player.ascensionCount > 0)? //Ant Talisman Unlock, Mortuus
         document.getElementById("talisman6area").style.display = "block" :
         document.getElementById("talisman6area").style.display = "none";
 
@@ -452,7 +452,7 @@ function htmlInserts() {
         document.getElementById("buildtext12").textContent = "Acceleration Power: " + ((acceleratorPower - 1) * (100)).toPrecision(4) + "% || Acceleration Multiplier: " + format(acceleratorEffect, 2) + "x"
         document.getElementById("buildtext13").textContent = "Multipliers: " + format(player.multiplierBought, 0, true) + " [+" + format(freeMultiplier, 0, true) + "]"
         document.getElementById("buildtext14").textContent = "Multiplier Power: " + multiplierPower.toPrecision(4) + "x || Multiplier: " + format(multiplierEffect, 2) + "x"
-        document.getElementById("buildtext15").textContent = "Accelerator Boost: " + format(player.acceleratorBoostBought, 0, true) + " [+" + format(freeAcceleratorBoost, 0, true) + "]"
+        document.getElementById("buildtext15").textContent = "Accelerator Boost: " + format(player.acceleratorBoostBought, 0, true) + " [+" + format(freeAcceleratorBoost, 0, false) + "]"
         document.getElementById("buildtext16").textContent = "Reset Diamonds and Prestige Upgrades, but add " + (tuSevenMulti * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', player.challengecompletions[2]) / 100)).toPrecision(4) + "% Acceleration Power and 5 free Accelerators."
         document.getElementById("buyaccelerator").textContent = "Cost: " + format(player.acceleratorCost) + " coins."
         document.getElementById("buymultiplier").textContent = "Cost: " + format(player.multiplierCost) + " coins."
@@ -539,8 +539,8 @@ function htmlInserts() {
         }
 
         document.getElementById("reincarnationshardinfo").textContent = "You have " + format(player.reincarnationShards, 2) + " Atoms, providing " + buildingPower.toPrecision(4) + " Building Power. Multiplier to Coin Production: " + format(reincarnationMultiplier)
-        document.getElementById("reincarnationCrystalInfo").textContent = "Thanks to Research 3x9, you also multiply Crystal production by " + format(Decimal.pow(reincarnationMultiplier, 1 / 50), 3, false)
-        document.getElementById("reincarnationMythosInfo").textContent = "Thanks to Research 3x10, you also multiply Mythos Shard production by " + format(Decimal.pow(reincarnationMultiplier, 1 / 250), 3, false)
+        document.getElementById("reincarnationCrystalInfo").textContent = "Thanks to Research 2x14, you also multiply Crystal production by " + format(Decimal.pow(reincarnationMultiplier, 1 / 50), 3, false)
+        document.getElementById("reincarnationMythosInfo").textContent = "Thanks to Research 2x15, you also multiply Mythos Shard production by " + format(Decimal.pow(reincarnationMultiplier, 1 / 250), 3, false)
 
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
             document.getElementById("autoreincarnate").textContent = "Reincarnate when your Particles can increase by a factor " + format(Decimal.pow(10, player.reincarnationamount)) + " [Toggle number above]. Current Multiplier: " + format(Decimal.pow(10, Decimal.log(reincarnationPointGain.add(1), 10) - Decimal.log(player.reincarnationPoints.add(1), 10), 2)) + "."
@@ -616,8 +616,8 @@ function htmlInserts() {
         }
 
         if (runescreen === "spirits") {
-            let spiritMultiplierArray = [0, 1, 1, 20, 1, 20]
-            let subtract = [0, 0, 0, 1, 0, 1]
+            let spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
+            let subtract = [0, 0, 0, 1, 0, 0]
             for (let i = 1; i <= 5; i++) {
                 spiritMultiplierArray[i] *= (calculateCorruptionPoints() / 400)
                 document.getElementById('runeSpiritLevel' + i + 'Value').textContent = format(player.runeSpiritLevels[i], 0, true)
