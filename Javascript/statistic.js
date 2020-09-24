@@ -55,5 +55,5 @@ function loadStatisticsCubeMultipliers() {
         document.getElementById(`statCM${i + 1}`).textContent = map[i].desc;
         document.getElementById(`sCM${i + 1}`).textContent = `x${format(arr[i], map[i].acc, true)}`
     }
-    document.getElementById("sCMT").textContent = `x${format(calculateCubeMultiplier(true), 3)}`
+    document.getElementById("sCMT").textContent = `x${format(calculateCubeMultiplier(true), 3)}`;
 }

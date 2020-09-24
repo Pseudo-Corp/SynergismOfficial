@@ -1,13 +1,5 @@
 function buyResearch(index, auto) {
     auto = auto || false
-    let c14 = 0;
-    let spiritBonus = 0;
-    if (index <= 5) {
-        c14 += player.challengecompletions[14]
-    }
-    if (index === 84) {
-        spiritBonus += Math.ceil(20 * calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[5])
-    }
 
     if (player.autoResearchToggle && player.autoResearch > 0.5 && !auto) {
         let p = player.autoResearch
@@ -19,6 +11,7 @@ function buyResearch(index, auto) {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "black"
         }
     }
+
     if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAutoLevel > 0.5 && player.cubeUpgrades[9] === 0) {
         player.autoResearch = index;
         document.getElementById("res" + index).style.backgroundColor = "orange"
@@ -33,7 +26,7 @@ function buyResearch(index, auto) {
         while (!isResearchMaxed(index) && player.researchPoints >= researchBaseCosts[index] && buyamount >= i) {
             player.researchPoints -= researchBaseCosts[index]
             player.researches[index] += 1;
-            researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index] + c14 + spiritBonus)
+            researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index])
             researchDescriptions(index, auto)
 
             if (index === 47 && player.unlocks.rrow1 === false) {
@@ -57,7 +50,7 @@ function buyResearch(index, auto) {
     }
 
     if (0 < index && isResearchUnlocked(index)) {
-        if (player.researches[index] === (researchMaxLevels[index] + c14 + spiritBonus)) {
+        if (player.researches[index] === (researchMaxLevels[index])) {
             document.getElementById("res" + index).style.backgroundColor = "green"
         }
     }
@@ -109,15 +102,7 @@ function isResearchUnlocked(index) {
 }
 
 function isResearchMaxed(index) {
-    let c14 = 0;
-    let spiritBonus = 0;
-    if (index <= 5) {
-        c14 += player.challengecompletions[14]
-    }
-    if (index === 84) {
-        spiritBonus += Math.ceil(20 * calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[5])
-    }
-    return researchMaxLevels[index] + c14 + spiritBonus <= player.researches[index]
+    return researchMaxLevels[index] <= player.researches[index]
 }
 
 
@@ -327,20 +312,11 @@ resdesc = [null,
 
 function researchDescriptions(i, auto) {
     auto = auto || false
-    let c14 = 0;
-    let spiritBonus = 0;
-    if (i <= 5) {
-        c14 += player.challengecompletions[14]
-    }
-    if (i === 84) {
-        spiritBonus += Math.ceil(20 * calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[5])
-    }
-
     let y = resdesc[i]
     let z = ""
     let p = "res" + i
     z = " Cost: " + (format(researchBaseCosts[i], 0, true)) + " Obtainium"
-    if (player.researches[i] === (researchMaxLevels[i] + c14 + spiritBonus)) {
+    if (player.researches[i] === (researchMaxLevels[i])) {
         document.getElementById("researchcost").style.color = "Gold"
         document.getElementById("researchinfo3").style.color = "plum"
         z = z + " || MAXED!"
@@ -349,22 +325,22 @@ function researchDescriptions(i, auto) {
         document.getElementById("researchinfo3").style.color = "white"
     }
 
-    if (player.researchPoints < researchBaseCosts[i] && player.researches[i] < (researchMaxLevels[i] + c14 + spiritBonus)) {
+    if (player.researchPoints < researchBaseCosts[i] && player.researches[i] < (researchMaxLevels[i])) {
         document.getElementById("researchcost").style.color = "crimson"
     }
 
     if (!auto && !player.autoResearchToggle) {
-        if (player.researches[i] > 0.5 && player.researches[i] < (researchMaxLevels[i] + c14 + spiritBonus)) {
+        if (player.researches[i] > 0.5 && player.researches[i] < (researchMaxLevels[i])) {
             document.getElementById(p).style.backgroundColor = "purple"
         }
     }
-    if (player.researches[i] > 0.5 && player.researches[i] >= (researchMaxLevels[i] + c14 + spiritBonus)) {
+    if (player.researches[i] > 0.5 && player.researches[i] >= (researchMaxLevels[i])) {
         document.getElementById(p).style.backgroundColor = "green"
     }
 
     document.getElementById("researchinfo2").textContent = y
     document.getElementById("researchcost").textContent = z
-    document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + (researchMaxLevels[i] + c14 + spiritBonus)
+    document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + (researchMaxLevels[i])
 }
 
 function updateResearchBG(j) {

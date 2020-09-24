@@ -54,7 +54,7 @@ function calculateTotalAcceleratorBoost() {
 
     b += player.researches[93] * Math.floor(1 / 20 * (rune1level + rune2level + rune3level + rune4level + rune5level))
     b += Math.floor((0.01 + rune1level) * effectiveLevelMult / 20);
-    b *= (1 + 1 / 5 * player.researches[3])
+    b *= (1 + 1 / 5 * player.researches[3] * (1 + 1/2 * CalcECC('ascension', player.challengecompletions[14])))
     b *= (1 + 1 / 20 * player.researches[16] + 1 / 20 * player.researches[17])
     b *= (1 + 1 / 20 * player.researches[88])
     b *= calculateSigmoidExponential(20, (player.antUpgrades[4] + bonusant4) / 1000 * 20 / 19)
@@ -80,7 +80,7 @@ function calculateAcceleratorMultiplier() {
     acceleratorMultiplier *= (1 + player.achievements[60] / 100)
     acceleratorMultiplier *= (1 + player.achievements[61] / 100)
     acceleratorMultiplier *= (1 + player.achievements[62] / 100)
-    acceleratorMultiplier *= (1 + 1 / 5 * player.researches[1])
+    acceleratorMultiplier *= (1 + 1 / 5 * player.researches[1] * (1 + 1/2 * CalcECC('ascension', player.challengecompletions[14])))
     acceleratorMultiplier *= (1 + 1 / 20 * player.researches[6] + 1 / 25 * player.researches[7] + 1 / 40 * player.researches[8] + 3 / 200 * player.researches[9] + 1 / 200 * player.researches[10]);
     acceleratorMultiplier *= (1 + 1 / 20 * player.researches[86])
     acceleratorMultiplier *= (1 + 1 / 100 * player.researches[126])
@@ -376,7 +376,7 @@ function calculateObtainium() {
     obtainiumGain *= (1 + player.researches[81] / 10)
     obtainiumGain *= (1 + player.shopUpgrades.obtainiumAutoLevel / 50)
     obtainiumGain *= (1 + player.shopUpgrades.cashGrabLevel / 100)
-    obtainiumGain *= (1 + rune5level / 200 * effectiveLevelMult * (1 + player.researches[84] / 200))
+    obtainiumGain *= (1 + rune5level / 200 * effectiveLevelMult * (1 + player.researches[84] / 200 * (1 + 1 * effectiveRuneSpiritPower[5] * calculateCorruptionPoints()/400)))
     obtainiumGain *= (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07 * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15 * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147])
     obtainiumGain *= (1 + 2 * Math.pow((player.antUpgrades[10] + bonusant10) / 50, 2 / 3))
     obtainiumGain *= cubeBonusMultiplier[5]
@@ -766,7 +766,7 @@ function calculateOffline(forceTime) {
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
     document.getElementById("offlineprogressbar").style.display = "block";
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
-    let runOffline = setInterval(runSimulator, 0)
+    let runOffline = interval(runSimulator, 0)
 
     //The cool shit that forces the repetitive loops
     function runSimulator() {
