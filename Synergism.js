@@ -3,6 +3,7 @@ const interval = new Proxy(setInterval, {
     apply(handler, _, c) {
         const set = handler(...c);
         intervalHold.push(set);
+        return set;
     }
 });
 
