@@ -766,7 +766,7 @@ function calculateOffline(forceTime) {
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
     document.getElementById("offlineprogressbar").style.display = "block";
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
-    let runOffline = setInterval(runSimulator, 0)
+    let runOffline = interval(runSimulator, 0)
 
     //The cool shit that forces the repetitive loops
     function runSimulator() {

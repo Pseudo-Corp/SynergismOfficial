@@ -407,11 +407,11 @@ function setActiveSettingScreen(subtab, clickedButton) {
     subtabEl.classList.add("subtabActive");
 
     if (subtab === "statisticsSubTab") {
-        let id = setInterval(refreshStats, 1000)
+        let id = interval(refreshStats, 1000)
 
         function refreshStats() {
             if (currentTab !== "settings") {
-                return;
+                clearInterval(id);
             }
             loadStatisticsAccelerator();
             loadStatisticsMultiplier();
