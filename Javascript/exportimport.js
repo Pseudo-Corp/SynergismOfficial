@@ -1,70 +1,29 @@
-/* function exportSynergism() {
-    var string = localStorage.getItem("Synergysave2");
-    document.getElementById('exporttext').textContent = string
-
-    var text = document.getElementById('exporttext')
-    text.select()
-    document.execCommand("copy")
-
-    document.getElementById("exportinfo").textContent = "Copied to clickboard! Paste it somewhere safe."
-    document.getElementById("importinfo").textContent = ""
-  }
-
-function importSynergism() {
-    var text=""
-    text = prompt("Got a save? Great! Just paste it below.")
-    try {
-    var decompressed = LZString.decompressFromBase64(text)
-    var data = JSON.parse(decompressed)
-    if (data.exporttest == "YES!" && data.kongregatetest !== "YES!") {
-            localStorage.setItem("Synergysave2",text);
-            loadSynergy(true)
-            document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
-            document.getElementById("exportinfo").textContent = ""
-        }
-    else {document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
-          document.getElementById("exportinfo").textContent = ""}
-    }
-    catch(err) {
-        document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
-        document.getElementById("exportinfo").textContent = ""
-    }
-    promocodes(text)
-
+function getRealTime() {
+    let now = new Date();
+    let date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
+    let time = now.toLocaleTimeString();
+    return date + " " + time;
 }
 
-function promocodes(i) {
-    if (i == "synergism2020" && player.offerpromo1used == false){player.offerpromo1used = true; player.runeshards += 25; player.worlds += 50; console.log("Successfully applied promo code!"); document.getElementById("importinfo").textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"}
+function updateSaveString() {
+    player.saveString = document.getElementById("saveStringInput").value
+}
 
-    if (i == "synergism1007" && (ver == 1.007) && player.offerpromo12used == false){
-        player.offerpromo12used = true;
-        player.worlds += 50
-
-        
-        document.getElementById("importinfo").textContent = "Promo Code 'synergism1007' Applied! +50 Quarks."
+function saveFilename() {
+    let s = player.saveString
+    let re = /(.+)\$TIME\$(.*)\.txt/
+    let match = s.match(re)
+    if (match !== null) {
+        return match[1] + getRealTime() + match[2] + ".txt"
+    } else {
+        return s
     }
-} */
+}
 
-/*function exportSynergism() {
-    var string = localStorage.getItem("Synergysave2");
-    document.getElementById('exporttext').textContent = string
-
-    var text = document.getElementById('exporttext')
-    text.select()
-    document.execCommand("copy")
-
-    document.getElementById("exportinfo").textContent = "Copied to clickboard! Paste it somewhere safe."
-    document.getElementById("importinfo").textContent = ""
-  }
-*/
-
-/**
- * Copy the save file to clipboard (IE) or export it as a file (EVERYTHING else).
- */
 function exportSynergism() {
     player.offlinetick = Date.now();
-    if (player.quarkstimer >= 3600){
-        player.worlds += (Math.floor(player.quarkstimer/3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]));
+    if (player.quarkstimer >= 3600) {
+        player.worlds += (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
         player.quarkstimer = (player.quarkstimer % 3600)
     }
     // set attribute to 0, turn tab back to white
@@ -72,85 +31,85 @@ function exportSynergism() {
 
     saveSynergy();
 
-    if('clipboardData' in window) {
+    if ('clipboardData' in window) {
         window.clipboardData.setData('Text', localStorage.getItem('Synergysave2'));
         return;
     }
 
     const a = document.createElement('a');
+    const filename = saveFilename()
     a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
-    a.setAttribute('download', 'SynergismSave.txt');
+    a.setAttribute('download', filename);
     a.setAttribute('id', 'downloadSave');
     a.click();
 
     document.getElementById("exportinfo").textContent = "Savefile copied to file!"
 }
 
-function importSynergism(input) {
-    try {
-        const data = JSON.parse(atob(input));
-        if (data.exporttest === "YES!" && data.kongregatetest !== "YES") {
-            localStorage.setItem("Synergysave2", input);
-            loadSynergy();
-            document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
-        } else { 
-            document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code!"
-        }
-    } catch(err) {
-        if(err instanceof SyntaxError) {
-            const lzData = JSON.parse(LZString.decompressFromBase64(input));
-            if(lzData) {
-                localStorage.clear();
-                localStorage.setItem('Synergysave2', btoa(JSON.stringify(lzData)));
-                loadSynergy();
-            }
-        } else {
-            document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code!";
-        }
-    }
+const resetGame = () => {
+    if (blank_save) {
+        const hold = Object.assign({}, blank_save);
+        hold.codes = toStringMap(hold.codes);
 
-    document.getElementById("exportinfo").textContent = '';
-    revealStuff();
+        importSynergism(btoa(JSON.stringify(hold)));
+    } else {
+        // handle this here
+        // idk lol
+    }
+}
+
+function importSynergism(input) {
+    const d = LZString.decompressFromBase64(input);
+    const f = d ? JSON.parse(d) : JSON.parse(atob(input));
+    if(f.exporttest === "YES!"){
+        intervalHold.forEach(clearInterval);
+        intervalHold.length = 0;
+        localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
+        constantIntervals();
+        createTimer();
+        loadSynergy();
+    }
 }
 
 function promocodes() {
     const input = prompt("Got a code? Great! Enter it in (CaSe SeNsItIvE).");
     const el = document.getElementById("promocodeinfo");
-    if(input == "synergism2020" && !player.offerpromo1used) {
-        player.offerpromo1used = true; 
-        player.runeshards += 25; 
-        player.worlds += 50; 
+    const version = player[Symbol.for('version')];
+
+    if (input === "synergism2020" && !player.codes.get(1)) {
+        player.codes.set(1, true);
+        player.runeshards += 25;
+        player.worlds += 50;
         el.textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"
-    }
-    else if (input == "anticipation" && (player.version == "1.010" || player.version == "1.0101") && player.offerpromo21used == false){
-        player.offerpromo21used = true;
-        player.worlds += 250;
-        el.textContent = "It's finally here. Thank you for sticking with the game and playing it this long! [+250 Quarks]"
-    }
-    else if(input == "750,000" && (player.version == "1.010" || player.version == "1.0101") && player.offerpromo22used == false){
-        player.offerpromo22used = true;
-        player.worlds += 150;
-        player.shopUpgrades.obtainiumPotion += 2;
-        player.shopUpgrades.offeringPotion += 2;
-        el.textContent = "Three Quarters of a million plays in under 2 months! Thank you so much for playing! [+150 Quarks, 2 of each potion!]"
-    }
-    else if(input == "RIPKongregate" && (player.version == "1.0101") && player.offerpromo23used == false){
-        player.offerpromo23used = true;
-        player.worlds += 150;
-        player.shopUpgrades.obtainiumPotion += 2;
-        player.shopUpgrades.offeringPotion += 2;
-        el.textContent = "It's a shame, isn't it? [+150 Quarks, 2 of each potion!]"
-    }
-    else if(input == "thisCodeCanBeLiterallyAnything" && (player.version == "1.0101") && player.offerpromo24used == false){
-        player.offerpromo24used = true;
-        player.worlds += 200;
-        el.textContent = "And so it was. [+200 Quarks]"
-    }
-    else {
+    } else if (input === "reimagining" && player[Object.getOwnPropertySymbols(player)[0]] && !player.codes.get(25)) {
+        player.codes.set(25, true);
+        let quarkValue = 0
+        quarkValue += 250
+        if(player.challengecompletions[8] > 0 || player.ascensionCount > 0){
+            quarkValue += 250
+        }
+        if(player.challengecompletions[9] > 0 || player.ascensionCount > 0){
+            quarkValue += 250
+        }
+        if(player.challengecompletions[10] > 0 || player.ascensionCount >0){
+            quarkValue += 250
+        }
+        if(player.challengecompletions[10] > 2 && player.ascensionCount === 0){
+            quarkValue += 500
+        }
+        el.textContent = "The conscience of the universe is now one. +" + format(quarkValue) + " Quarks based on your progress!"
+        player.worlds += quarkValue
+    } else if (input === ":unsmith:" && player.achievements[243] < 1) {
+        achievementaward(243);
+        el.textContent = "It's Spaghetti Time! [Awarded an achievement!!!]";
+    } else if (input === ":antismith:" && player.achievements[244] < 1) {
+        achievementaward(244);
+        el.textContent = "Hey, isn't this just a reference to Antimatter Dimensions? Shh. [Awarded an achievement!!!]";
+    } else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
-        
-    setTimeout(function() {
+
+    setTimeout(function () {
         el.textContent = ''
     }, 15000);
 }
