@@ -48,10 +48,10 @@ function exportSynergism() {
 
 const resetGame = () => {
     if (blank_save) {
-        const hold = blank_save;
+        const hold = Object.assign({}, blank_save);
         hold.codes = toStringMap(hold.codes);
 
-        importSynergism(btoa(JSON.stringify(blank_save)));
+        importSynergism(btoa(JSON.stringify(hold)));
     } else {
         // handle this here
         // idk lol
@@ -61,15 +61,14 @@ const resetGame = () => {
 function importSynergism(input) {
     const d = LZString.decompressFromBase64(input);
     const f = d ? JSON.parse(d) : JSON.parse(atob(input));
-    console.log(f.coins)
-   // if(f.exporttest === "YES!"){
-    intervalHold.forEach(clearInterval);
-    intervalHold.length = 0;
-    localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
-    constantIntervals();
-    createTimer();
-    loadSynergy();
-    //}
+    if(f.exporttest === "YES!"){
+        intervalHold.forEach(clearInterval);
+        intervalHold.length = 0;
+        localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
+        constantIntervals();
+        createTimer();
+        loadSynergy();
+    }
 }
 
 function promocodes() {
@@ -82,25 +81,26 @@ function promocodes() {
         player.runeshards += 25;
         player.worlds += 50;
         el.textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"
-    } else if (input === "Wait, is this the update?" && player[Object.getOwnPropertySymbols(player)[0]] && !player.codes.get(25)) {
+    } else if (input === "reimagining" && player[Object.getOwnPropertySymbols(player)[0]] && !player.codes.get(25)) {
         player.codes.set(25, true);
-        player.worlds += 777;
-        if(player.challengecompletions[8] > 0){
-            player.shopUpgrades.offeringPotion += 1
-            player.shopUpgrades.obtainiumPotion += 1
+        let quarkValue = 0
+        quarkValue += 250
+        if(player.challengecompletions[8] > 0 || player.ascensionCount > 0){
+            quarkValue += 250
         }
-        if(player.challengecompletions[9] > 0){
-            player.shopUpgrades.offeringPotion += 2
-            player.shopUpgrades.obtainiumPotion += 2
+        if(player.challengecompletions[9] > 0 || player.ascensionCount > 0){
+            quarkValue += 250
         }
-        if(player.challengecompletions[10] > 0){
-            player.shopUpgrades.offeringPotion += 2
-            player.shopUpgrades.obtainiumPotion += 2
+        if(player.challengecompletions[10] > 0 || player.ascensionCount >0){
+            quarkValue += 250
         }
         if(player.challengecompletions[10] > 2 && player.ascensionCount === 0){
-            player.worlds += 777
+            quarkValue += 500
         }
-        el.textContent = "The conscious of the universe is now one. +777 Quarks, potions depending on your progress."
+        el.textContent = "The conscience of the universe is now one. +" + format(quarkValue) + " Quarks based on your progress!"
+        player.worlds += quarkValue
+        player.shopUpgrades.offeringPotion += potionValue
+        player.shopUpgrades.obtainiumPotion += potionValue
     } else if (input === ":unsmith:" && player.achievements[243] < 1) {
         achievementaward(243);
         el.textContent = "It's Spaghetti Time! [Awarded an achievement!!!]";

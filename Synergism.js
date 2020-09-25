@@ -563,18 +563,13 @@ const player = {
 }
 
 const blank_save = Object.assign({}, player);
+blank_save.codes = new Map(Array.from(Array(24), (_, i) => [i + 1, false]));
 
 /**
  * stringify a map so it can be re-made when importing
  * @param {Map} m map to stringify
  */
-const toStringMap = m => {
-    const hold = [];
-    for (const kvPair of m) {
-        hold.push(kvPair);
-    }
-    return hold;
-}
+const toStringMap = m => Array.from(m);
 
 function saveSynergy(button) {
     player.offlinetick = Date.now();
@@ -597,7 +592,6 @@ function saveSynergy(button) {
 }
 
 function loadSynergy() {
-
     const save = localStorage.getItem("Synergysave2");
     const data = save ? JSON.parse(atob(save)) : null;
 
@@ -614,9 +608,21 @@ function loadSynergy() {
         const hasOwnProperty = {}.hasOwnProperty;
 
         const oldCodesUsed = Array.from(
-            player.codes.size, // could be defaulted to 24 but this is safer
+            24, // old codes only went up to 24
             (_, i) => 'offerpromo' + (i + 1) + 'used'
         );
+
+        // size before loading
+        const size = player.codes.size;
+
+        const oldPromoKeys = Object.keys(data).filter(k => k.includes('offerpromo'));
+        if(oldPromoKeys.length > 0) {
+            oldPromoKeys.forEach(k => {
+                const value = data[k];
+                const num = +k.replace(/[^\d]/g, '');
+                player.codes.set(num, Boolean(value));
+            });
+        }
 
         Object.keys(data).forEach(function (prop) {
             if (!hasOwnProperty.call(player, prop)) {
@@ -627,17 +633,24 @@ function loadSynergy() {
                 return (player[prop] = new Decimal(data[prop]));
             } else if (prop === 'codes') {
                 return (player.codes = new Map(data[prop]));
-            } else if (oldCodesUsed.includes(prop)) { // convert old save to new format
-                const num = Number(prop.replace(/[^\d]/g, '')); // remove non-numeric characters
-                if (!player.codes.has(num) || isNaN(num)) {
-                    throw new Error('Non-numeric type encountered loading save: ' + num + ' ' + data[prop], +' ' + prop);
-                }
-
-                return player.codes.set(num, data[prop]);
+            } else if(oldCodesUsed.includes(prop)) {
+                return;
             }
 
             return (player[prop] = data[prop]);
         });
+        if(data.offerpromo24used !== undefined){
+            player.codes.set(25, false)
+        }
+
+        // sets all non-existent codes to default value false
+        if(player.codes.size < size) {
+            for(let i = player.codes.size + 1; i <= size; i++) {
+                if(!player.codes.has(i)) {
+                    player.codes.set(i, false);
+                }
+            }
+        }
 
         if (data.loaded1009 === undefined || !data.loaded1009) {
             player.loaded1009 = false;
@@ -2348,6 +2361,7 @@ function resetCheck(i, manual, leaving) {
 
         }
         if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension) {
+            reset(3, false, "leaveChallenge");
             player.currentChallenge.reincarnation = 0;
             if (player.shopUpgrades.instantChallengeBought) {
                 for (let i = 1; i <= 5; i++) {
