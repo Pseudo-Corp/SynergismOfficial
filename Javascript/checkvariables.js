@@ -130,11 +130,6 @@ function checkVariablesOnLoad(data) {
         player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
 
-    if (data.sept10Test === undefined || !data.sept10Test) {
-        player.sept10Test = true
-        player.runelevels = [0, 0, 0, 0, 0]
-        console.log('successfully reset rune levels for testing (September 10, 2020)')
-    }
     for (let i = 0; i <= 4; i++) {
         if (player.runelevels[i] > calculateMaxRunes(i + 1)) {
             player.runelevels[i] = 0
@@ -176,5 +171,6 @@ function checkVariablesOnLoad(data) {
         player.cubeOpenedDaily = 0;
         player.tesseractOpenedDaily = 0;
         player.hypercubeOpenedDaily = 0;
+
     }
 }

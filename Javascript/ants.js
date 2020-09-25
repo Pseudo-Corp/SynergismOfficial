@@ -59,7 +59,7 @@ var repeatAnt
 
 function antRepeat(i) {
     clearInterval(repeatAnt);
-    repeatAnt = setInterval(updateAntDescription, 50, i)
+    repeatAnt = interval(updateAntDescription, 50, i)
 }
 
 function updateAntDescription(i) {
