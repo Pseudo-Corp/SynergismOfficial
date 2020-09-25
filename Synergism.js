@@ -563,18 +563,13 @@ const player = {
 }
 
 const blank_save = Object.assign({}, player);
+blank_save.codes = new Map(Array.from(Array(24), (_, i) => [i + 1, false]));
 
 /**
  * stringify a map so it can be re-made when importing
  * @param {Map} m map to stringify
  */
-const toStringMap = m => {
-    const hold = [];
-    for (const kvPair of m) {
-        hold.push(kvPair);
-    }
-    return hold;
-}
+const toStringMap = m => Array.from(m);
 
 function saveSynergy(button) {
     player.offlinetick = Date.now();
@@ -597,7 +592,6 @@ function saveSynergy(button) {
 }
 
 function loadSynergy() {
-
     const save = localStorage.getItem("Synergysave2");
     const data = save ? JSON.parse(atob(save)) : null;
 
@@ -643,7 +637,7 @@ function loadSynergy() {
         });
 
         // sets all non-existent codes to default value false
-        if(player.codes.size !== size) {
+        if(player.codes.size < size) {
             for(let i = player.codes.size + 1; i <= size; i++) {
                 if(!player.codes.has(i)) {
                     player.codes.set(i, false);

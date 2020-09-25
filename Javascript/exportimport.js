@@ -48,10 +48,10 @@ function exportSynergism() {
 
 const resetGame = () => {
     if (blank_save) {
-        const hold = blank_save;
+        const hold = Object.assign({}, blank_save);
         hold.codes = toStringMap(hold.codes);
 
-        importSynergism(btoa(JSON.stringify(blank_save)));
+        importSynergism(btoa(JSON.stringify(hold)));
     } else {
         // handle this here
         // idk lol
