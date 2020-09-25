@@ -32,7 +32,7 @@ function displayRuneInformation(i, updatelevelup) {
     }
     if (i === 4) {
         if (updatelevelup) {
-            document.getElementById("runeshowlevelup").textContent = "+0.125% building cost growth delay per level, +0.065% offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/1100) Tax growth multiplier AFTER level 400"
+            document.getElementById("runeshowlevelup").textContent = "+0.125% building cost growth delay per level, +0.0625% offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/1100) Tax growth multiplier AFTER level 400"
         }
         document.getElementById("runeshowpower4").childNodes[0].textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (rune4level / 8 * m).toPrecision(3) + "%. Offering recycle chance: +" + Math.min(25, rune4level / 16) + "%. -" + (99 * (1 - Math.pow(4, Math.min(0, (400 - rune4level) / 1100)))).toPrecision(4) + "% Tax Growth"
     }

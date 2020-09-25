@@ -185,7 +185,7 @@ function challengeDisplay(i, changefocus, automated) {
         a.textContent = "Reduced Ants Challenge || " + player.challengecompletions[11] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "The great Ant War of '21 wiped off all of the skilled ants."
         c.textContent = "Ascend and reach the goal but only get free ant upgrades and from Challenge8/9 completions. FOR ASCENSION CHALLENGES YOU MUST CLEAR CHALLENGE 10 TO ATTEMPT THEM."
-        d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
+        d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + format(challengeRequirement(i, player.challengecompletions[i])) + " times."
         e.textContent = "+12 free Ant Levels! Current: "
         f.textContent = "Ant Speed x(1e5)^completions! Current: "
         g.textContent = "+80 to Rune Caps! Current: "
@@ -199,7 +199,7 @@ function challengeDisplay(i, changefocus, automated) {
         a.textContent = "No Reincarnation Challenge || " + player.challengecompletions[12] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "For some reason, you just can't do it."
         c.textContent = "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! Ant production ^0.6."
-        d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
+        d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + format(challengeRequirement(i, player.challengecompletions[i])) + " times."
         e.textContent = "+50% Obtainium! Current: "
         f.textContent = "+12% Offerings! Current: "
         g.textContent = "+1 Cube Blessing per opening! Current: "
@@ -213,13 +213,13 @@ function challengeDisplay(i, changefocus, automated) {
         a.textContent = "Tax+++ Challenge || " + player.challengecompletions[13] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Good luck with the IRS, buddy."
         c.textContent = "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.3"
-        d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
-        e.textContent = "Taxes -8% while corrupted! "
+        d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + format(challengeRequirement(i, player.challengecompletions[i])) + " times."
+        e.textContent = "Taxes -3.33%! Multiplicative! Current: "
         f.textContent = "+6 maximum to Talisman Level Cap! Current: "
         g.textContent = "+3% Spirit Power effectiveness! Current: "
-        h.textContent = "Unlock 15 Researches, and unlock the power of the Hypercube! How on earth do you gain its power?"
+        h.textContent = "Unlock 15 Researches, and unlock the power of the Hypercube!"
         k.textContent = "Start <[(Tax+++)]>"
-        l.textContent = "-" + format(8 * CalcECC('ascension', player.challengecompletions[13])) + "% Corruption Tax"
+        l.textContent = "-" + format(100 - 100 * Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13])),3,true) + "% Corruption Tax"
         m.textContent = "+" + format(6 * CalcECC('ascension', player.challengecompletions[13])) + " Talisman Level Cap"
         n.textContent = "+" + format(3 * CalcECC('ascension', player.challengecompletions[13])) + "% Effectiveness"
     }
@@ -227,11 +227,11 @@ function challengeDisplay(i, changefocus, automated) {
         a.textContent = "No Research Challenge || " + player.challengecompletions[14] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "The dimension that never progressed past the dark ages. Many fear to even step foot."
         c.textContent = "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2."
-        d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + challengeRequirement(i, player.challengecompletions[i]) + " times."
+        d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + format(challengeRequirement(i, player.challengecompletions[i])) + " times."
         e.textContent = "+50% stronger effect on researches 1x1 through 1x5. Current: "
         f.textContent = "+1 research purchased per roomba tick! Current: "
         g.textContent = "+200 to Rune Caps! Current: "
-        h.textContent = "Unlock 15 Researches, and a way to coalesce your power into the Singularity [Coming Soon]"
+        h.textContent = "Unlock 15 Researches, and a way to coalesce your power into the Singularity."
         k.textContent = "Start <[(No Research)]>"
         l.textContent = "+" + format(50 * CalcECC('ascension', player.challengecompletions[14])) + "% Power"
         m.textContent = "+" + format(1 * player.challengecompletions[14]) + " per Tick"
@@ -251,8 +251,8 @@ function challengeDisplay(i, changefocus, automated) {
         m.textContent = ""
         n.textContent = ""
     }
-    var scoreArray1 = [0, 7, 8, 9, 10, 12, 50, 70, 100, 150, 250]
-    var scoreArray2 = [0, 10, 12, 14, 17, 20, 70, 100, 150, 250, 400]
+    var scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
+    var scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
 
     let scoreDisplay = 0;
     if(i <= 5){

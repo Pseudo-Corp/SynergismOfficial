@@ -61,13 +61,15 @@ const resetGame = () => {
 function importSynergism(input) {
     const d = LZString.decompressFromBase64(input);
     const f = d ? JSON.parse(d) : JSON.parse(atob(input));
-
+    console.log(f.coins)
+   // if(f.exporttest === "YES!"){
     intervalHold.forEach(clearInterval);
     intervalHold.length = 0;
     localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
     constantIntervals();
     createTimer();
     loadSynergy();
+    //}
 }
 
 function promocodes() {
@@ -80,26 +82,25 @@ function promocodes() {
         player.runeshards += 25;
         player.worlds += 50;
         el.textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"
-    } else if (input === "anticipation" && ['1.010', '1.0101'].includes(version) && !player.codes.get(21)) {
-        player.codes.set(21, true);
-        player.worlds += 250;
-        el.textContent = "It's finally here. Thank you for sticking with the game and playing it this long! [+250 Quarks]"
-    } else if (input === "750,000" && ['1.010', '1.0101'].includes(version) && !player.codes.get(22)) {
-        player.codes.set(22, true);
-        player.worlds += 150;
-        player.shopUpgrades.obtainiumPotion += 2;
-        player.shopUpgrades.offeringPotion += 2;
-        el.textContent = "Three Quarters of a million plays in under 2 months! Thank you so much for playing! [+150 Quarks, 2 of each potion!]"
-    } else if (input === "RIPKongregate" && version === "1.0101" && !player.codes.get(23)) {
-        player.codes.set(23, true);
-        player.worlds += 150;
-        player.shopUpgrades.obtainiumPotion += 2;
-        player.shopUpgrades.offeringPotion += 2;
-        el.textContent = "It's a shame, isn't it? [+150 Quarks, 2 of each potion!]"
-    } else if (input === "thisCodeCanBeLiterallyAnything" && (player.version === "1.0101") && !player.codes.get(24)) {
-        player.codes.set(24, true);
-        player.worlds += 200;
-        el.textContent = "And so it was. [+200 Quarks]"
+    } else if (input === "Wait, is this the update?" && player[Object.getOwnPropertySymbols(player)[0]] && !player.codes.get(25)) {
+        player.codes.set(25, true);
+        player.worlds += 777;
+        if(player.challengecompletions[8] > 0){
+            player.shopUpgrades.offeringPotion += 1
+            player.shopUpgrades.obtainiumPotion += 1
+        }
+        if(player.challengecompletions[9] > 0){
+            player.shopUpgrades.offeringPotion += 2
+            player.shopUpgrades.obtainiumPotion += 2
+        }
+        if(player.challengecompletions[10] > 0){
+            player.shopUpgrades.offeringPotion += 2
+            player.shopUpgrades.obtainiumPotion += 2
+        }
+        if(player.challengecompletions[10] > 2 && player.ascensionCount === 0){
+            player.worlds += 777
+        }
+        el.textContent = "The conscious of the universe is now one. +777 Quarks, potions depending on your progress."
     } else if (input === ":unsmith:" && player.achievements[243] < 1) {
         achievementaward(243);
         el.textContent = "It's Spaghetti Time! [Awarded an achievement!!!]";

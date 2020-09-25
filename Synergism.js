@@ -396,7 +396,7 @@ const player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from(Array(24), (_, i) => [i + 1, false])
+        Array.from(Array(25), (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -546,7 +546,7 @@ const player = {
 
     autoTesseracts: [false, false, false, false, false, false],
 
-    saveString: "Synergism-v2.0.0Test-$TIME$.txt", // TODO CHANGE THIS BEFORE RELEASE (REMOVE TEST)
+    saveString: "Synergism-v2.0.0-$TIME$.txt", // TODO CHANGE THIS BEFORE RELEASE (REMOVE TEST)
     brokenfile1: false,
     exporttest: "YES!",
     kongregatetest: "NO!",
@@ -559,10 +559,7 @@ const player = {
     tesseractQuarkDaily: 0,
     hypercubeOpenedDaily: 0,
     hypercubeQuarkDaily: 0,
-
-    sept10Test: false, //Remove This Before releasing v2
-
-    [Symbol.for('version')]: '1.0101'
+    [Symbol.for('version')]: '2.0.0'
 }
 
 const blank_save = Object.assign({}, player);
@@ -867,7 +864,6 @@ function loadSynergy() {
             player.firstOwnedAnts = 0;
         }
 
-        player.exporttest = "NO!"
         checkVariablesOnLoad(data)
         if (data.ascensionCount === undefined || player.ascensionCount === 0) {
             player.ascensionCount = 0;
@@ -1714,7 +1710,7 @@ function multipliers() {
         c7 = 0
     }
     buildingPower = 1 + (1 - Math.pow(2, -1 / 160)) * c7 * Decimal.log(player.reincarnationShards.add(1), 10) * (1 + 1 / 20 * player.researches[36] + 1 / 40 * player.researches[37] + 1 / 40 * player.researches[38]) + (c7 + 0.2) * 0.25 / 1.2 * CalcECC('reincarnation', player.challengecompletions[8])
-    buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[12] / 5)
+    buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[12] / 20)
     buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[36] / 20)
     reincarnationMultiplier = Decimal.pow(buildingPower, totalCoinOwned);
 
@@ -2962,7 +2958,7 @@ function tick() {
                     if (player.achievements[147] > 0) {
                         buyTalismanEnhance(5, true)
                     }
-                    if (player.antUpgrades[12] > 0) {
+                    if (player.antUpgrades[12] > 0 || player.ascensionCount > 0) {
                         buyTalismanEnhance(6, true)
                     }
                     if (player.shopUpgrades.talismanBought) {
@@ -2985,7 +2981,7 @@ function tick() {
                     if (player.achievements[147] > 0) {
                         buyTalismanLevels(5, true)
                     }
-                    if (player.antUpgrades[12] > 0) {
+                    if (player.antUpgrades[12] > 0 || player.ascensionCount > 0) {
                         buyTalismanLevels(6, true)
                     }
                     if (player.shopUpgrades.talismanBought) {
