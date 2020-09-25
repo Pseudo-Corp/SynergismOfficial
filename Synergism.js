@@ -618,6 +618,16 @@ function loadSynergy() {
         // size before loading
         const size = player.codes.size;
 
+        const oldPromoKeys = Object.keys(data).filter(k => k.includes('offerpromo'));
+        if(oldPromoKeys.length > 0) {
+            oldPromoKeys.forEach(k => {
+                const value = data[k];
+                const num = +k.replace(/[^\d]/g, '');
+                console.log(value, num);
+                player.codes.set(num, Boolean(value));
+            });
+        }
+
         Object.keys(data).forEach(function (prop) {
             if (!hasOwnProperty.call(player, prop)) {
                 return;
@@ -627,13 +637,8 @@ function loadSynergy() {
                 return (player[prop] = new Decimal(data[prop]));
             } else if (prop === 'codes') {
                 return (player.codes = new Map(data[prop]));
-            } else if (oldCodesUsed.includes(prop)) { // convert old save to new format
-                const num = Number(prop.replace(/[^\d]/g, '')); // remove non-numeric characters
-                if (!player.codes.has(num) || isNaN(num)) {
-                    throw new Error('Non-numeric type encountered loading save: ' + num + ' ' + data[prop], +' ' + prop);
-                }
-
-                return player.codes.set(num, data[prop]);
+            } else if(oldCodesUsed.includes(prop)) {
+                return;
             }
 
             return (player[prop] = data[prop]);
