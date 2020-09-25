@@ -623,7 +623,6 @@ function loadSynergy() {
             oldPromoKeys.forEach(k => {
                 const value = data[k];
                 const num = +k.replace(/[^\d]/g, '');
-                console.log(value, num);
                 player.codes.set(num, Boolean(value));
             });
         }
