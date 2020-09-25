@@ -99,8 +99,6 @@ function promocodes() {
         }
         el.textContent = "The conscience of the universe is now one. +" + format(quarkValue) + " Quarks based on your progress!"
         player.worlds += quarkValue
-        player.shopUpgrades.offeringPotion += potionValue
-        player.shopUpgrades.obtainiumPotion += potionValue
     } else if (input === ":unsmith:" && player.achievements[243] < 1) {
         achievementaward(243);
         el.textContent = "It's Spaghetti Time! [Awarded an achievement!!!]";
