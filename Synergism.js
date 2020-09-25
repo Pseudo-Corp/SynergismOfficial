@@ -617,9 +617,12 @@ function loadSynergy() {
         const hasOwnProperty = {}.hasOwnProperty;
 
         const oldCodesUsed = Array.from(
-            player.codes.size, // could be defaulted to 24 but this is safer
+            24, // old codes only went up to 24
             (_, i) => 'offerpromo' + (i + 1) + 'used'
         );
+
+        // size before loading
+        const size = player.codes.size;
 
         Object.keys(data).forEach(function (prop) {
             if (!hasOwnProperty.call(player, prop)) {
@@ -641,6 +644,15 @@ function loadSynergy() {
 
             return (player[prop] = data[prop]);
         });
+
+        // sets all non-existent codes to default value false
+        if(player.codes.size !== size) {
+            for(let i = player.codes.size + 1; i <= size; i++) {
+                if(!player.codes.has(i)) {
+                    player.codes.set(i, false);
+                }
+            }
+        }
 
         if (data.loaded1009 === undefined || !data.loaded1009) {
             player.loaded1009 = false;
