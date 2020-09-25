@@ -1025,7 +1025,7 @@ function loadSynergy() {
 
 
         if (player.saveString === undefined || player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
-            player.saveString = "Synergism-v2.0.0Test-$TIME$.txt" // TODO CHANGE THIS BEFORE RELEASE (REMOVE TEST)
+            player.saveString = "Synergism-v2.0.0-$TIME$.txt"
         }
         document.getElementById("saveStringInput").value = player.saveString
 
