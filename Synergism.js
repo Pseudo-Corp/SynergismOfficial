@@ -639,6 +639,18 @@ function loadSynergy() {
 
             return (player[prop] = data[prop]);
         });
+        if(data.offerpromo24used !== undefined){
+            player.codes.set(25, false)
+        }
+
+        // sets all non-existent codes to default value false
+        if(player.codes.size < size) {
+            for(let i = player.codes.size + 1; i <= size; i++) {
+                if(!player.codes.has(i)) {
+                    player.codes.set(i, false);
+                }
+            }
+        }
 
         // sets all non-existent codes to default value false
         if(player.codes.size < size) {

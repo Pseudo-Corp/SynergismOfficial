@@ -164,7 +164,7 @@ a {color: white;}
 #resetrewards {
 	position: absolute;
 	top: -10px;
-	left: 288px;
+	left: 260px;
 }
 
 #tabrow {
@@ -893,7 +893,7 @@ margin-left: -13px
 
 #submitstats {
 	position: absolute;
-	top: 225px;
+	top: 241px;
 	width: 225px;
 	height: 30px;
 	left: 25%;
@@ -901,7 +901,7 @@ margin-left: -13px
 }
 #promocodes {
 	position: absolute;
-	top: 255px;
+	top: 210px;
 	width: 225px;
 	height: 30px;
 	left: 25%;
@@ -909,7 +909,7 @@ margin-left: -13px
 }
 #promocodeinfo {
 	position: absolute;
-	top: 285px;
+	top: 240px;
 	width: 225px;
 	height: 30px;
 	left: 25%;
@@ -920,7 +920,7 @@ margin-left: -13px
 	position: absolute;
 	width: 400px;
 	left: 150px;
-	margin-top: 30px;
+	margin-top: 0px;
 }
 .center {
 	margin: auto;
@@ -1039,10 +1039,10 @@ margin-left: -13px
 }
 #savegame{
 	position: absolute;
-	top: 420px;
+	top: 260px;
 	width: 180px;
-	left: 60%;
-	margin-left: 125px;
+	left: 50%;
+	margin-left: -90px;
 }
 #saveinfo {
 	position: absolute;
@@ -1296,8 +1296,8 @@ margin-left: -13px
 	display: flex;
 	flex-direction: column;
 	width: 400px;
-	left: 500px;
-	height: 220px;
+	left: 485px;
+	height: 100px;
 }
 .tightText {
 	margin-top: 0;
@@ -1332,7 +1332,7 @@ margin-left: -13px
 	position: absolute;
 	width: 150px;
 	height: 40px;
-	top: 200px;
+	top: 185px;
 	left: 50%;
 	margin-left: -75px
 }
@@ -1340,7 +1340,7 @@ margin-left: -13px
 	position: absolute;
 	width: 150px;
 	height: 40px;
-	top: 240px;
+	top: 225px;
 	left: 50%;
 	margin-left: -40px
 }
@@ -3595,7 +3595,7 @@ margin-left: -13px
 #researchcost {
 	position: absolute;
 	position:absolute;
-	top:303px;
+	top:323px;
 	width:400px;
 	height: 42px;
 	left:50%;
@@ -3604,7 +3604,7 @@ margin-left: -13px
 
 #researchinfo3 {
 	position:absolute;
-	top:326px;
+	top:346px;
 	width: 200px;
 	left: 50%;
 	margin-left: -100px;
@@ -3612,7 +3612,7 @@ margin-left: -13px
 
 #researchpointinfo {
 	position:absolute;
-	top: 346px;
+	top: 366px;
 	width: 900px;
 	left: 50%;
 	margin-left: -450px;
@@ -3629,7 +3629,7 @@ margin-left: -13px
 #automaticobtainium{
 	position: absolute;
 	padding: 5px;
-	top: 365px;
+	top: 385px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -3639,7 +3639,7 @@ margin-left: -13px
 #toggleresearchbuy {
 	position: absolute;
 	padding: 5px;
-	top: 420px;
+	top: 440px;
 	left: 40%;
 	width: 200px;
 	margin-left: -100px;
@@ -3649,7 +3649,7 @@ margin-left: -13px
 #toggleautoresearch {
 	position: absolute;
 	padding: 5px;
-	top: 420px;
+	top: 440px;
 	left: 60%;
 	width: 200px;
 	margin-left: -100px;
@@ -3942,18 +3942,20 @@ margin-left: -13px
 	height: 20px;
 	width: 150px;
 	left: 51%;
-	top: 35px;
+	margin-left: 155px;
+	top: 0;
 	border: 1px solid green;
 }
 #autoAntSacrificeAmount {
 	position: absolute;
 	width: 150px;
 	left: 51%;
-	top: 60px;
+	margin-left: 155px;
+	top: 21px;
 }
 #autoAntSacrifice {
 	position: absolute;
-	top: 60px;
+	top: 25px;
 	text-align: center;
 	width: 100%;
 }
