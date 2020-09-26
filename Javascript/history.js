@@ -34,7 +34,6 @@ const historyGains = {
     wowCubes: {
         img: "Pictures/WowCube.png",
         formatter: conditionalFormatPerSecond,
-        onlyif: () => player.ascensionCount > 0,
         imgTitle: "Wow! Cubes"
     },
 };
