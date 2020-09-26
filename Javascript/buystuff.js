@@ -212,12 +212,17 @@ function getCost(originalCost, buyingTo, type, num, r) {
     let cost = new Decimal(originalCost);
     cost.exponent += Math.log10(1.25) * num * buyingTo;
 
+    let extra = cost.exponent - Math.floor(cost.exponent);
+    cost.exponent = Math.floor(cost.exponent);
+    cost.mantissa *= Math.pow(10, extra);
     // Accounts for the add 1s (this is relatively hard to do without this method surprisingly, but could be cleaned up if really necessary)
     cost = cost.add(1 * buyingTo);
-
     // floored r value gets used a lot in removing calculations
     let fr = Math.floor(r * 1000);
     if (buyingTo >= r * 1000) {
+        extra = cost.exponent - Math.floor(cost.exponent);
+        cost.exponent = Math.floor(cost.exponent);
+        cost.mantissa *= Math.pow(10, extra);
 
         // Accounts for all multiplications of itself up to buyingTo, while neglecting all multiplications of itself up to r*1000
         cost = cost.times(buyingToDec.factorial().dividedBy((new Decimal(fr).factorial())));
@@ -231,6 +236,10 @@ function getCost(originalCost, buyingTo, type, num, r) {
 
     fr = Math.floor(r * 5000);
     if (buyingTo >= r * 5000) {
+        extra = cost.exponent - Math.floor(cost.exponent);
+        cost.exponent = Math.floor(cost.exponent);
+        cost.mantissa *= Math.pow(10, extra);
+
         cost = cost.times(buyingToDec.factorial().dividedBy(new Decimal(fr).factorial()));
         cost.exponent += (buyingTo - fr - 1) + 1;
         cost.exponent += (Math.log10(10 + num * 10) * (buyingTo - fr - 1));
@@ -238,6 +247,9 @@ function getCost(originalCost, buyingTo, type, num, r) {
 
     fr = Math.floor(r * 20000);
     if (buyingTo >= r * 20000) {
+        extra = cost.exponent - Math.floor(cost.exponent);
+        cost.exponent = Math.floor(cost.exponent);
+        cost.mantissa *= Math.pow(10, extra);
         // To truncate this expression I used Decimal.pow(Decimal.factorial(buyingTo), 3) which suprisingly (to me anyways) does actually work
         // So it takes all numbers up to buyingTo and pow3's them, then divides by all numbers up to r*20000 pow3'd
         cost = cost.times(Decimal.pow(buyingToDec.factorial(), 3)).dividedBy(Decimal.pow(new Decimal(fr).factorial(), 3));
@@ -259,6 +271,10 @@ function getCost(originalCost, buyingTo, type, num, r) {
         cost.exponent += Math.log10(1.03) * (buyingTo - fr) * ((buyingTo - fr + 1) / 2);
     }
     if ((player.currentChallenge.transcension === 4) && (type === "Coin" || type === "Diamonds")) {
+        extra = cost.exponent - Math.floor(cost.exponent);
+        cost.exponent = Math.floor(cost.exponent);
+        cost.mantissa *= Math.pow(10, extra);
+
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
         cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
@@ -268,6 +284,10 @@ function getCost(originalCost, buyingTo, type, num, r) {
         }
     }
     if ((player.currentChallenge.reincarnation === 10) && (type === "Coin" || type === "Diamonds")) {
+        extra = cost.exponent - Math.floor(cost.exponent);
+        cost.exponent = Math.floor(cost.exponent);
+        cost.mantissa *= Math.pow(10, extra);
+
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
         cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
@@ -287,10 +307,10 @@ function getCost(originalCost, buyingTo, type, num, r) {
         // divided by same amount buying to - fr times
         cost.exponent -= Math.log10(1 + (1 / 2 * player.challengecompletions[8])) * (buyingTo - fr);
     }
-    let extra = cost.exponent - Math.floor(cost.exponent);
+    
+    extra = cost.exponent - Math.floor(cost.exponent);
     cost.exponent = Math.floor(cost.exponent);
     cost.mantissa *= Math.pow(10, extra);
-    cost.normalize();
     return cost;
 }
 
