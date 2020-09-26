@@ -311,6 +311,7 @@ function getCost(originalCost, buyingTo, type, num, r) {
     extra = cost.exponent - Math.floor(cost.exponent);
     cost.exponent = Math.floor(cost.exponent);
     cost.mantissa *= Math.pow(10, extra);
+    cost.normalize();
     return cost;
 }
 
