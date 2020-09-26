@@ -1324,7 +1324,9 @@ function format(input, accuracy = 0, long = false) {
         // Split it on the decimal place
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
-        const frontFormatted = BigInt(front).toLocaleString();
+        const frontFormatted = 'BigInt' in window 
+            ? BigInt(front).toLocaleString()
+            : front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // if the back is undefined that means there are no decimals to display, return just the front
         if (back === undefined) {
             return frontFormatted;
@@ -1337,7 +1339,9 @@ function format(input, accuracy = 0, long = false) {
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
         // Makes the power group 3 with commas
-        const powerLook = BigInt(power).toLocaleString();
+        const powerLook = 'BigInt' in window 
+            ? BigInt(power).toLocaleString()
+            : power.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // returns format (1.23e456,789)
         return mantissaLook + "e" + powerLook;
     } else if (power >= 1e6) {
