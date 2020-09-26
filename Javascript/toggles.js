@@ -1,149 +1,255 @@
 function toggleTabs(i) {
     currentTab = i;
+    revealStuff();
     hideStuff();
 }
 
 function toggleSettings(i) {
-    if (player.toggles[cardinals[i]] == true) {
-        player.toggles[cardinals[i]] = false
+    i++
+    if (player.toggles[i] === true) {
+        player.toggles[i] = false
+    } else {
+        player.toggles[i] = true
     }
-    else {player.toggles[cardinals[i]] = true}
     toggleauto();
 }
 
-function toggleChallenges(i) {
-if (player.currentChallenge == "" && (i == 'one' || i == 'two' || i == 'three' || i == 'four' || i == 'five')) {
-    player.currentChallenge = i;
-    reset(2);
-    player.transcendCount -= 1;
-}
-if (player.currentChallenge == "" && (i == 'six' || i == 'seven' || i == 'eight' || i == 'nine' || i== 'ten') && player.currentChallengeRein == "") {
-    player.currentChallengeRein = i;
-    reset(3);
-    player.reincarnationCount -= 1;
-}
+function toggleChallenges(i, auto) {
+    auto = auto || false
+    if (player.currentChallenge.transcension === 0 && (i <= 5)) {
+        player.currentChallenge.transcension = i;
+        reset(2, false, "enterChallenge");
+        player.transcendCount -= 1;
+    }
+    if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)) {
+        player.currentChallenge.reincarnation = i;
+        reset(3, false, "enterChallenge");
+        player.reincarnationCount -= 1;
+    }
+    if (player.challengecompletions[10] > 0) {
+        if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
+            player.currentChallenge.ascension = i;
+            reset(4, false, "enterChallenge");
+            player.ascensionCount -= 1;
 
-	updateChallengeDisplay();
-	getChallengeConditions();
+            if (player.currentChallenge.ascension === 12) {
+                player.antPoints = new Decimal("8")
+            }
+        }
+    }
+    updateChallengeDisplay();
+    getChallengeConditions();
+
+    if (!auto && player.autoChallengeRunning) {
+        toggleAutoChallengeRun();
+    }
+
+    if (player.currentChallenge.transcension !== 0 && player.currentChallenge.reincarnation !== 0 && player.currentChallenge.ascension !== 0 && player.achievements[238] < 1) {
+        achievementaward(238)
+    }
 }
 
 
 function toggleBuyAmount(quantity, type) {
-player[type + 'buyamount'] = quantity 
-let a = ""
-if (quantity == 1) {a = "one"}
-if (quantity == 10) {a = "ten"}
-if (quantity == 100) {a = "hundred"}
-if (quantity == 1000) {a = "thousand"}
+    player[type + 'buyamount'] = quantity
+    let a = ""
+    if (quantity === 1) {
+        a = "one"
+    }
+    if (quantity === 10) {
+        a = "ten"
+    }
+    if (quantity === 100) {
+        a = "hundred"
+    }
+    if (quantity === 1000) {
+        a = "thousand"
+    }
 
 
-let c = type + a
-let d = ""
- d = d + c
+    let c = type + a
+    let d = ""
+    d = d + c
 
-document.getElementById(d).style.backgroundColor = "Green";
-if (quantity !== 1) {
-    a = "one"
-    d = type + a
-    document.getElementById(d).style.backgroundColor = "Black"
+    document.getElementById(d).style.backgroundColor = "Green";
+    if (quantity !== 1) {
+        a = "one"
+        d = type + a
+        document.getElementById(d).style.backgroundColor = "Black"
+    }
+    if (quantity !== 10) {
+        a = "ten"
+        d = type + a
+        document.getElementById(d).style.backgroundColor = "Black"
+    }
+    if (quantity !== 100) {
+        a = "hundred"
+        d = type + a
+        document.getElementById(d).style.backgroundColor = "Black"
+    }
+    if (quantity !== 1000) {
+        a = "thousand"
+        d = type + a
+        document.getElementById(d).style.backgroundColor = "Black"
+    }
 }
-if (quantity !== 10) {
-    a = "ten"
-    d = type + a
-    document.getElementById(d).style.backgroundColor = "Black"
-}
-if (quantity !== 100) {
-    a = "hundred"
-    d = type + a
-    document.getElementById(d).style.backgroundColor = "Black"
-}
-if (quantity !== 1000) {
-    a = "thousand"
-    d = type + a
-    document.getElementById(d).style.backgroundColor = "Black"
-}
-} 
 
 function toggleShops(i) {
-if (i==1 && player.shoptoggles.coin == false) {player.shoptoggles.coin = true; document.getElementById("shoptogglecoin").textContent = "Auto: ON"} else if (i == 1 && player.shoptoggles.coin == true) {player.shoptoggles.coin = false; document.getElementById("shoptogglecoin").textContent = "Auto: OFF"}
-if (i==2 && player.shoptoggles.prestige == false) {player.shoptoggles.prestige = true; document.getElementById("shoptoggleprestige").textContent = "Auto: ON"} else if (i == 2 && player.shoptoggles.prestige == true) {player.shoptoggles.prestige = false; document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"}
-if (i==3 && player.shoptoggles.transcend == false) {player.shoptoggles.transcend = true; document.getElementById("shoptoggletranscend").textContent = "Auto: ON"} else if (i == 3 && player.shoptoggles.transcend == true) {player.shoptoggles.transcend = false; document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
-if (i==4 && player.shoptoggles.generators == false) {player.shoptoggles.generators = true; document.getElementById("shoptogglegenerator").textContent = "Auto: ON"} else if (i == 4 && player.shoptoggles.generators == true) {player.shoptoggles.generators = false; document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"}
-
+    if (i === 1 && player.shoptoggles.coin === false) {
+        player.shoptoggles.coin = true;
+        document.getElementById("shoptogglecoin").textContent = "Auto: ON"
+    } else if (i === 1 && player.shoptoggles.coin === true) {
+        player.shoptoggles.coin = false;
+        document.getElementById("shoptogglecoin").textContent = "Auto: OFF"
+    }
+    if (i === 2 && player.shoptoggles.prestige === false) {
+        player.shoptoggles.prestige = true;
+        document.getElementById("shoptoggleprestige").textContent = "Auto: ON"
+    } else if (i === 2 && player.shoptoggles.prestige === true) {
+        player.shoptoggles.prestige = false;
+        document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"
+    }
+    if (i === 3 && player.shoptoggles.transcend === false) {
+        player.shoptoggles.transcend = true;
+        document.getElementById("shoptoggletranscend").textContent = "Auto: ON"
+    } else if (i === 3 && player.shoptoggles.transcend === true) {
+        player.shoptoggles.transcend = false;
+        document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"
+    }
+    if (i === 4 && player.shoptoggles.generators === false) {
+        player.shoptoggles.generators = true;
+        document.getElementById("shoptogglegenerator").textContent = "Auto: ON"
+    } else if (i === 4 && player.shoptoggles.generators === true) {
+        player.shoptoggles.generators = false;
+        document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"
+    }
+    if (i === 5 && player.shoptoggles.reincarnate === false) {
+        player.shoptoggles.reincarnate = true;
+        document.getElementById("particleAutoUpgrade").textContent = "Auto: ON"
+    } else if (i === 5 && player.shoptoggles.reincarnate === true) {
+        player.shoptoggles.reincarnate = false;
+        document.getElementById("particleAutoUpgrade").textContent = "Auto: OFF"
+    }
 }
 
 function keyboardtabchange(i) {
-var q = 3;
-if (player.unlocks.coinfour == true) {q += 1}
-if (player.unlocks.prestige == true) {q += 1}
-if (player.unlocks.transcend == true) {q += 1}
-if (player.unlocks.reincarnate == true) {q += 1}
-if (player.challengecompletions.eight > 0) {q += 1}
-player.tabnumber += i
-if (player.tabnumber == q) {player.tabnumber = 1}
-if (player.tabnumber == 0) {player.tabnumber = q - 1}
+    let q = 3;
+    if (player.unlocks.coinfour === true) {
+        q += 1
+    }
+    if (player.unlocks.prestige === true) {
+        q += 1
+    }
+    if (player.unlocks.transcend === true) {
+        q += 1
+    }
+    if (player.unlocks.reincarnate === true) {
+        q += 1
+    }
+    if (player.challengecompletions[8] > 0) {
+        q += 1
+    }
+    player.tabnumber += i
+    if (player.tabnumber === q) {
+        player.tabnumber = 1
+    }
+    if (player.tabnumber === 0) {
+        player.tabnumber = q - 1
+    }
 
-if (player.tabnumber == 1) {toggleTabs("buildings")}
-if (player.tabnumber == 2) {toggleTabs("upgrades")}
-if (player.tabnumber == 3) {toggleTabs("achievements")}
-if (player.tabnumber == 4) {toggleTabs("runes")}
-if (player.tabnumber == 5) {toggleTabs("challenges")}
-if (player.tabnumber == 6) {toggleTabs("researches")}
-if (player.tabnumber == 7) {toggleTabs("ants")}
-
+    if (player.tabnumber === 1) {
+        toggleTabs("buildings")
+    }
+    if (player.tabnumber === 2) {
+        toggleTabs("upgrades")
+    }
+    if (player.tabnumber === 3) {
+        toggleTabs("achievements")
+    }
+    if (player.tabnumber === 4) {
+        toggleTabs("runes")
+    }
+    if (player.tabnumber === 5) {
+        toggleTabs("challenges")
+    }
+    if (player.tabnumber === 6) {
+        toggleTabs("researches")
+    }
+    if (player.tabnumber === 7) {
+        toggleTabs("ants")
+    }
 
 
 }
 
 function toggleautoreset(i) {
-if (i == 1){
-    if (player.resettoggle1 == 1 || player.resettoggle1 == 0){player.resettoggle1 = 2; document.getElementById("prestigeautotoggle").textContent = "Mode: TIME"}
-    else{player.resettoggle1 = 1; document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"}
-}
-if (i == 2){
-    if (player.resettoggle2 == 1 || player.resettoggle2 == 0){player.resettoggle2 = 2; document.getElementById("transcendautotoggle").textContent = "Mode: TIME"}
-    else{player.resettoggle2 = 1; document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"}
-}
-if (i == 3){
-    if (player.resettoggle3 == 1 || player.resettoggle3 == 0){player.resettoggle3 = 2; document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"}
-    else{player.resettoggle3 = 1; document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"}
+    if (i === 1) {
+        if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
+            player.resettoggle1 = 2;
+            document.getElementById("prestigeautotoggle").textContent = "Mode: TIME"
+        } else {
+            player.resettoggle1 = 1;
+            document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"
+        }
+    } else if (i === 2) {
+        if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
+            player.resettoggle2 = 2;
+            document.getElementById("transcendautotoggle").textContent = "Mode: TIME"
+        } else {
+            player.resettoggle2 = 1;
+            document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"
+        }
+    } else if (i === 3) {
+        if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
+            player.resettoggle3 = 2;
+            document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"
+        } else {
+            player.resettoggle3 = 1;
+            document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"
+        }
+    } else if (i === 4) {
+        // To be ascend toggle
+    }
 }
 
-
-}
 
 function toggleauto() {
-	var e = document.getElementsByClassName("auto");
-		for (var i = 0; i < e.length; i++) {
-			var a = ""
-			var b = ""
-			if ((i <= 7 && i>=0) || (i <= 12 && i >= 8) || (i <= 18 && i >= 14) || (i <= 24 && i >= 20)) {a = "Auto ["}
-			if (i == 30) {a = "Hover-to-buy ["}
-			if (i == 13) {a = "Auto Prestige ["}
-			if (i == 19) {a = "Auto Transcend ["}
-			if (i == 25) {a = "Auto Reincarnate ["}
-			if ((i == 31) || (i == 32) || (i == 33)){
-				a = "["
+    let autos = document.getElementsByClassName("auto");
+    for (let auto of autos) {
+        let format = auto.getAttribute("format");
+        let toggleId = auto.getAttribute("toggleId");
+        if (toggleId === undefined || toggleId === null) {
+            continue;
+        }
+        if (format === undefined || format === null) {
+            format = "Auto [$]";
+        }
+        let formatSides = format.split("$");
+        let finishedSides = [];
+        // Pushes escaped $'s (\\$) back into format
+        for (let i = 0; i < formatSides.length; ++i) {
+            let test = formatSides[i];
+            if (test[test.length - 1] === '\\' && i + 1 !== formatSides.length) {
+                formatSides[i + 1] = test.substring(0, test.length - 1) + formatSides[i + 1];
+            } else {
+                finishedSides.push(formatSides[i]);
             }
-            let u = i
-            let stupidHackTime = [player.toggles.one,player.toggles.two,player.toggles.three,player.toggles.four,player.toggles.five,player.toggles.six,player.toggles.seven,player.toggles.eight,player.toggles.ten,player.toggles.eleven,player.toggles.twelve,player.toggles.thirteen,player.toggles.fourteen,player.toggles.fifteen,player.toggles.sixteen,player.toggles.seventeen,player.toggles.eighteen,player.toggles.nineteen,player.toggles.twenty,player.toggles.twentyone,player.toggles.twentytwo,player.toggles.twentythree,player.toggles.twentyfour,player.toggles.twentyfive,player.toggles.twentysix,player.toggles.twentyseven,player.toggles.nine,player.toggles.ten,player.toggles.eleven,player.toggles.nine,player.toggles.nine,player.toggles.twentyeight,player.toggles.twentynine,player.toggles.thirty]
-            console.log(stupidHackTime.length)
-			if (stupidHackTime[i]){b = "ON]"}
-			if (!stupidHackTime[i]) {b = "OFF]"}
+        }
 
-			if (i <= 25 || i >= 30) {
-			e[u].textContent = a + b
-			}
-	}
-
+        let finishedString = finishedSides[0] + (player.toggles[toggleId] ? "ON" : "OFF") + finishedSides[1];
+        auto.textContent = finishedString;
+        auto.style.border = "2px solid " + (player.toggles[toggleId] ? "green" : "red");
+    }
 }
 
 function toggleResearchBuy() {
-    if (maxbuyresearch){
+    if (maxbuyresearch) {
         maxbuyresearch = false;
         document.getElementById("toggleresearchbuy").textContent = "Upgrade: 1 Level"
+    } else {
+        maxbuyresearch = true;
+        document.getElementById("toggleresearchbuy").textContent = "Upgrade: MAX [if possible]"
     }
-    else {maxbuyresearch = true; document.getElementById("toggleresearchbuy").textContent = "Upgrade: MAX [if possible]"}
 }
 
 /*function toggleFocus(i) {
@@ -154,42 +260,83 @@ function toggleResearchBuy() {
 
 function toggleAutoResearch() {
     let el = document.getElementById("toggleautoresearch")
-    if (player.autoResearchToggle){player.autoResearchToggle = false; el.textContent = "Automatic: OFF"; player.autoResearch = 0;}
-    else {player.autoResearchToggle = true; el.textContent = "Automatic: ON"};
+    if (player.autoResearchToggle) {
+        player.autoResearchToggle = false;
+        el.textContent = "Automatic: OFF";
+        player.autoResearch = 0;
+    } else {
+        player.autoResearchToggle = true;
+        el.textContent = "Automatic: ON"
+    }
 
 
-    if(!player.autoResearchToggle){
-        for (var i = 1; i <= 125; i++){
+    if (!player.autoResearchToggle) {
+        for (let i = 1; i <= maxRoombaResearchIndex(player); i++) {
             let l = document.getElementById("res" + i)
-            if (player.researches[i] == 0){l.style.backgroundColor = "black"}
-            if (player.researches[i] > 0 && player.researches[i] < researchMaxLevels[i]){l.style.backgroundColor = "purple"}
-            if (player.researches[i] == researchMaxLevels[i]){l.style.backgroundColor = "green"}
+            if (player.researches[i] === 0) {
+                l.style.backgroundColor = "black"
+            }
+            if (0 < player.researches[i] && player.researches[i] < researchMaxLevels[i]) {
+                l.style.backgroundColor = "purple"
+            }
+            if (player.researches[i] === researchMaxLevels[i]) {
+                l.style.backgroundColor = "green"
+            }
         }
     }
+
+    if (player.autoResearchToggle && player.cubeUpgrades[9] === 1) {
+        player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+        let doc = document.getElementById("res" + player.autoResearch)
+        if (doc)
+            doc.style.backgroundColor = "orange"
+    }
+
+
 }
 
 function toggleAutoSacrifice(index) {
     let el = document.getElementById("toggleautosacrifice")
-    if (index == 0){
-    if (player.autoSacrificeToggle){player.autoSacrificeToggle = false; el.textContent = "Automatic: OFF"; player.autoSacrifice = 0;}
-    else {player.autoSacrificeToggle = true; el.textContent = "Automatic: ON"}
+    if (index === 0) {
+        if (player.autoSacrificeToggle) {
+            player.autoSacrificeToggle = false;
+            el.textContent = "Automatic: OFF";
+            player.autoSacrifice = 0;
+        } else {
+            player.autoSacrificeToggle = true;
+            el.textContent = "Automatic: ON"
+        }
     }
-    if(player.autoSacrificeToggle && player.shopUpgrades.offeringAutoLevel > 0.5){
-    switch(index){
-        case 1: player.autoSacrifice = 1; break;
-        case 2: player.autoSacrifice = 2; break;
-        case 3: player.autoSacrifice = 3; break;
-        case 4: player.autoSacrifice = 4; break;
-        case 5: player.autoSacrifice = 5; break;
+    if (player.autoSacrificeToggle && player.shopUpgrades.offeringAutoLevel > 0.5) {
+        switch (index) {
+            case 1:
+                player.autoSacrifice = 1;
+                break;
+            case 2:
+                player.autoSacrifice = 2;
+                break;
+            case 3:
+                player.autoSacrifice = 3;
+                break;
+            case 4:
+                player.autoSacrifice = 4;
+                break;
+            case 5:
+                player.autoSacrifice = 5;
+                break;
+        }
     }
-    }
-    for(var i = 1; i <= 5; i++){
-        if(player.autoSacrifice == i){document.getElementById("rune"+i).style.backgroundColor = "orange"}
-        else{document.getElementById("rune"+i).style.backgroundColor = "black"}
+    for (let i = 1; i <= 5; i++) {
+        if (player.autoSacrifice === i) {
+            document.getElementById("rune" + i).style.backgroundColor = "orange"
+        } else {
+            document.getElementById("rune" + i).style.backgroundColor = "black"
+        }
     }
     calculateRuneLevels();
 }
-function toggleBuildingScreen(input){
+
+function toggleBuildingScreen(input) {
     buildingSubTab = input
     let la = document.getElementById("coinBuildings");
     let el = document.getElementById("prestige");
@@ -200,64 +347,278 @@ function toggleBuildingScreen(input){
     let b = document.getElementById("switchToDiamondBuilding");
     let c = document.getElementById("switchToMythosBuilding");
     let d = document.getElementById("switchToParticleBuilding");
-    buildingSubTab === "Coin" ?
-    (la.style.display = "block",a.style.backgroundColor = "crimson"):
-    (la.style.display = "none",a.style.backgroundColor = "#171717");
-    buildingSubTab === "Diamonds" ?
-    (el.style.display = "block",b.style.backgroundColor = "crimson"):
-    (el.style.display = "none",b.style.backgroundColor = "#171717");
-    buildingSubTab === "Mythos" ?
-    (ti.style.display = "block",c.style.backgroundColor = "crimson"):
-    (ti.style.display = "none",c.style.backgroundColor = "#171717");
-    buildingSubTab === "Particles" ?
-    (ella.style.display = "block",d.style.backgroundColor = "crimson"):
-    (ella.style.display = "none",d.style.backgroundColor = "#171717");
+    let e = document.getElementById("switchToTesseractBuilding");
+    buildingSubTab === "coin" ?
+        (la.style.display = "block", a.style.backgroundColor = "crimson") :
+        (la.style.display = "none", a.style.backgroundColor = "#171717");
+    buildingSubTab === "diamond" ?
+        (el.style.display = "block", b.style.backgroundColor = "crimson") :
+        (el.style.display = "none", b.style.backgroundColor = "#171717");
+    buildingSubTab === "mythos" ?
+        (ti.style.display = "block", c.style.backgroundColor = "crimson") :
+        (ti.style.display = "none", c.style.backgroundColor = "#171717");
+    buildingSubTab === "particle" ?
+        (ella.style.display = "block", d.style.backgroundColor = "crimson") :
+        (ella.style.display = "none", d.style.backgroundColor = "#171717");
+    buildingSubTab === "tesseract" ?
+        (ellos.style.display = "block", e.style.backgroundColor = "crimson") :
+        (ellos.style.display = "none", e.style.backgroundColor = "#171717");
 }
 
-function toggleRuneScreen(){
-    if (runescreen == "runes"){
-        runescreen = "talismans";
-        document.getElementById("runecontainer1").style.display = "none";
-        document.getElementById("runecontainer2").style.display = "block";
-        document.getElementById("togglerunesubtab").textContent = "GO BACK TO RUNES"
-        document.getElementById("togglerunesubtab").style.border = "2px solid orangered"
+function toggleRuneScreen(index) {
+    switch (index) {
+        case 1:
+            runescreen = "runes";
+            break;
+        case 2:
+            runescreen = "talismans";
+            break;
+        case 3:
+            runescreen = "blessings";
+            CSSRuneBlessings()
+            break;
+        case 4:
+            runescreen = "spirits";
+            CSSRuneBlessings()
+            break;
     }
-    else{
-        runescreen = "runes";
-        document.getElementById("runecontainer1").style.display = "block";
-        document.getElementById("runecontainer2").style.display = "none";
-        document.getElementById("togglerunesubtab").textContent = "GO TO TALISMANS"
-        document.getElementById("togglerunesubtab").style.border = "2px solid grey"
-    };
-}
-function toggleSettingScreen(){
-    if (settingscreen == "settings"){
-        settingscreen = "credits";
-        document.getElementById("settingsubtab").style.display = "none";
-        document.getElementById("creditssubtab").style.display = "block";
-        document.getElementById("switchsettingtab").textContent = "Go back to Settings"
+    let a
+    let b
+    for (let i = 1; i <= 4; i++) {
+        a = document.getElementById("toggleRuneSubTab" + i);
+        b = document.getElementById("runeContainer" + i);
+        (i === index) ?
+            (a.style.border = "2px solid gold", a.style.backgroundColor = "crimson", b.style.display = "block") :
+            (a.style.border = "2px solid silver", a.style.backgroundColor = "#171717", b.style.display = "none");
     }
-    else{
-        settingscreen = "settings";
-        document.getElementById("settingsubtab").style.display = "block";
-        document.getElementById("creditssubtab").style.display = "none";
-        document.getElementById("switchsettingtab").textContent = "Credits & Acknowledgements"
-    };
 }
 
-function toggleShopConfirmation(){
+function setActiveSettingScreen(subtab, clickedButton) {
+    let subtabEl = document.getElementById(subtab);
+    if (subtabEl.classList.contains("subtabActive")) {
+        return;
+    }
+
+    let switcherEl = clickedButton.parentNode;
+    switcherEl.querySelectorAll(".buttonActive").forEach(b => b.classList.remove("buttonActive"));
+    clickedButton.classList.add("buttonActive");
+
+    subtabEl.parentNode.querySelectorAll(".subtabActive").forEach(subtab => subtab.classList.remove("subtabActive"));
+    subtabEl.classList.add("subtabActive");
+
+    if (subtab === "statisticsSubTab") {
+        let id = interval(refreshStats, 1000)
+
+        function refreshStats() {
+            if (currentTab !== "settings") {
+                clearInterval(id);
+            }
+            loadStatisticsAccelerator();
+            loadStatisticsMultiplier();
+            loadStatisticsCubeMultipliers();
+            if (!subtabEl.classList.contains("subtabActive"))
+                clearInterval(id);
+        }
+
+        refreshStats();
+    }
+}
+
+function toggleShopConfirmation() {
     let el = document.getElementById("toggleConfirmShop")
-    if(shopConfirmation){shopConfirmation = false; el.textContent = "Shop Confirmations: OFF"}
-    else{shopConfirmation = true; el.textContent = "Shop Confirmations: ON"}
+    if (shopConfirmation) {
+        shopConfirmation = false;
+        el.textContent = "Shop Confirmations: OFF"
+    } else {
+        shopConfirmation = true;
+        el.textContent = "Shop Confirmations: ON"
+    }
 }
 
 function toggleAntMaxBuy() {
     let el = document.getElementById("toggleAntMax");
-    if(player.antMax){player.antMax = false; el.textContent = "Buy Max: OFF";}
-    else{player.antMax = true; el.textContent = "Buy Max: ON";};
+    if (player.antMax) {
+        player.antMax = false;
+        el.textContent = "Buy Max: OFF";
+    } else {
+        player.antMax = true;
+        el.textContent = "Buy Max: ON";
+    }
 }
-function toggleAntAutoSacrifice(){
-    let el = document.getElementById("toggleAutoSacrificeAnt");
-    if(player.autoAntSacrifice){player.autoAntSacrifice = false; el.textContent = "Auto Sacrifice Every 15 Minutes: OFF"}
-    else{player.autoAntSacrifice = true; el.textContent = "Auto Sacrifice Every 15 Minutes: ON"}
+
+function toggleAntAutoSacrifice(mode = 0) {
+    if (mode === 0) {
+        let el = document.getElementById("toggleAutoSacrificeAnt");
+        if (player.autoAntSacrifice) {
+            player.autoAntSacrifice = false;
+            el.textContent = "Auto Sacrifice: OFF"
+        } else {
+            player.autoAntSacrifice = true;
+            el.textContent = "Auto Sacrifice: ON"
+        }
+    } else if (mode === 1) {
+        let el = document.getElementById("autoSacrificeAntMode");
+        if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
+            player.autoAntSacrificeMode = 2;
+            el.textContent = "Mode: Real time";
+        } else {
+            player.autoAntSacrificeMode = 1;
+            el.textContent = "Mode: In-game time";
+        }
+    }
+}
+
+function toggleMaxBuyCube() {
+    let el = document.getElementById("toggleCubeBuy")
+    if (buyMaxCubeUpgrades) {
+        buyMaxCubeUpgrades = false;
+        el.textContent = "Upgrade: 1 Level wow"
+    } else {
+        buyMaxCubeUpgrades = true;
+        el.textContent = "Upgrade: MAX [if possible wow]"
+    }
+}
+
+function toggleCubeSubTab(i) {
+    let a = document.getElementById("switchCubeSubTab1")
+    let b = document.getElementById("switchCubeSubTab2")
+    let c = document.getElementById("switchCubeSubTab3")
+    let d = document.getElementById("switchCubeSubTab4")
+
+    for (let j = 1; j <= 4; j++) {
+        if (document.getElementById("cubeTab" + j).style.display === "block" && j !== i) {
+            document.getElementById("cubeTab" + j).style.display = "none"
+        }
+        if (document.getElementById("cubeTab" + j).style.display === "none" && j === i) {
+            document.getElementById("cubeTab" + j).style.display = "block"
+        }
+    }
+
+    i === 1 ?
+        (a.style.backgroundColor = "crimson", calculateCubeBlessings()) :
+        (a.style.backgroundColor = "black");
+    i === 2 ?
+        (b.style.backgroundColor = "crimson", calculateTesseractBlessings()) :
+        (b.style.backgroundColor = "black");
+    i === 3 ?
+        (c.style.backgroundColor = "crimson", calculateHypercubeBlessings()) :
+        (c.style.backgroundColor = "black");
+    i === 4 ?
+        (d.style.backgroundColor = "crimson") :
+        (d.style.backgroundColor = "black");
+}
+
+function updateAutoChallenge(i) {
+    let t
+    switch (i) {
+        case 1:
+            t = parseFloat(document.getElementById('startAutoChallengeTimerInput').value)
+            t = t || 0;
+            player.autoChallengeTimer.start = Math.max(t, 0);
+            document.getElementById("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s";
+            break;
+        case 2:
+            t = parseFloat(document.getElementById('exitAutoChallengeTimerInput').value)
+            t = t || 0;
+            player.autoChallengeTimer.exit = Math.max(t, 0);
+            document.getElementById("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s";
+            break;
+        case 3:
+            t = parseFloat(document.getElementById('enterAutoChallengeTimerInput').value)
+            t = t || 0;
+            player.autoChallengeTimer.enter = Math.max(t, 0);
+            document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s";
+            break;
+    }
+}
+
+function toggleAutoChallengesIgnore(i) {
+    let el = document.getElementById("toggleAutoChallengeIgnore");
+    if (player.autoChallengeToggles[i]) {
+        player.autoChallengeToggles[i] = false;
+        el.style.border = "2px solid red";
+        el.textContent = "Automatically Run Chal." + i + " [OFF]"
+    } else {
+        player.autoChallengeToggles[i] = true;
+        el.style.border = "2px solid green";
+        el.textContent = "Automatically Run Chal." + i + " [ON]"
+    }
+}
+
+function toggleAutoChallengeRun() {
+    let el = document.getElementById('toggleAutoChallengeStart');
+    if (player.autoChallengeRunning) {
+        player.autoChallengeRunning = false;
+        el.style.border = "2px solid red"
+        el.textContent = "Auto Challenge Sweep [OFF]"
+        player.autoChallengeIndex = 1;
+        autoChallengeTimerIncrement = 0;
+    } else {
+        player.autoChallengeRunning = true;
+        el.style.border = "2px solid gold"
+        el.textContent = "Auto Challenge Sweep [ON]"
+    }
+}
+
+function toggleAutoChallengeTextColors(i) {
+    let a = document.getElementById("startAutoChallengeTimer");
+    let b = document.getElementById("exitAutoChallengeTimer");
+    let c = document.getElementById("enterAutoChallengeTimer");
+
+    (i === 1) ?
+        a.style.color = 'gold' :
+        a.style.color = 'white';
+    (i === 2) ?
+        b.style.color = 'gold' :
+        b.style.color = 'white';
+    (i === 3) ?
+        c.style.color = 'gold' :
+        c.style.color = 'white';
+}
+
+function toggleAutoAscend() {
+    let a = document.getElementById("ascensionAutoEnable");
+    (player.autoAscend) ?
+        (player.autoAscend = false, a.style.border = "2px solid red", a.textContent = "Auto Ascend [OFF]") :
+        (player.autoAscend = true, a.style.border = "2px solid green", a.textContent = "Auto Ascend [ON]");
+}
+
+function updateRuneBlessingBuyAmount(i) {
+    let t;
+    switch (i) {
+        case 1:
+            t = Math.floor(parseFloat(document.getElementById('buyRuneBlessingInput').value));
+            t = t || 1;
+            player.runeBlessingBuyAmount = Math.max(t, 1);
+            document.getElementById('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
+            break;
+        case 2:
+            t = Math.floor(parseFloat(document.getElementById('buyRuneSpiritInput').value));
+            t = t || 1;
+            player.runeSpiritBuyAmount = Math.max(t, 1);
+            document.getElementById('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
+            break;
+    }
+}
+
+function toggleAutoTesseracts(i) {
+    (player.autoTesseracts[i]) ?
+        (player.autoTesseracts[i] = false, document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [OFF]", document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid red") :
+        (player.autoTesseracts[i] = true, document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [ON]", document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid green");
+}
+
+function toggleCorruptionLevel(index, value) {
+    if (value > 0 && player.prototypeCorruptions[index] < 10 && index <= 9) {
+        player.prototypeCorruptions[index] += 1
+    }
+    if (value < 0 && player.prototypeCorruptions[index] > 0) {
+        player.prototypeCorruptions[index] -= 1
+    }
+    if (value === 999) {
+        for (var i = 1; i <= 9; i++) {
+            player.usedCorruptions[i] = 0;
+            player.prototypeCorruptions[i] = 0;
+        }
+    }
+    corruptionDisplay(index)
 }
