@@ -1269,15 +1269,15 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
 }
 
-function format(input, accuracy, long) {
-    //This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
-
-    //Input is the number to be formatted (string or value)
-    //Accuracy is how many decimal points that are to be displayed (Values <10 if !long, <1000 if long)
-    // Accuracy only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
-    //Long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
-    accuracy = accuracy || 0;
-    long = long || false;
+/**
+ * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
+ * @param {Decimal | number} input number/Decimal to be formatted
+ * @param {number} accuracy 
+ * how many decimal points that are to be displayed (Values <10 if !long, <1000 if long). 
+ * only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
+ * @param {*} long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
+ */
+function format(input, accuracy = 0, long = false) {
     let power;
     let mantissa;
     if (input instanceof Decimal) {
@@ -1320,32 +1320,24 @@ function format(input, accuracy, long) {
             standard = Math.floor(standard);
         }
         // Turn the number to string
-        standard = standard.toString();
+        const standardString = standard.toString();
         // Split it on the decimal place
-        let split = standard.split('.');
-        // Get the front half of the number (pre-decimal point)
-        let front = split[0];
-        // Get the back half of the number (post-decimal point)
-        let back = split[1];
+        const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
-        front = front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+        const frontFormatted = BigInt(front).toLocaleString();
         // if the back is undefined that means there are no decimals to display, return just the front
         if (back === undefined) {
-            return front;
+            return frontFormatted;
         } else {
             // Else return the front.back
-            return front + "." + back;
+            return frontFormatted + "." + back;
         }
     } else if (power < 1e6) {
         // If the power is less than 1e6 then apply standard scientific notation
         // Makes mantissa be rounded down to 2 decimal places
-        let mantissaLook = Math.floor(mantissa * 100) / 100;
-        // Makes mantissa be to 2 decimal places
-        mantissaLook = mantissaLook.toFixed(2);
-        mantissaLook = mantissaLook.toString();
+        const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
         // Makes the power group 3 with commas
-        let powerLook = power.toString();
-        powerLook = powerLook.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+        const powerLook = BigInt(power).toLocaleString();
         // returns format (1.23e456,789)
         return mantissaLook + "e" + powerLook;
     } else if (power >= 1e6) {

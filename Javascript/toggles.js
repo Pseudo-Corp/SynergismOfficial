@@ -214,29 +214,15 @@ function toggleautoreset(i) {
 
 
 function toggleauto() {
-    let autos = document.getElementsByClassName("auto");
-    for (let auto of autos) {
-        let format = auto.getAttribute("format");
-        let toggleId = auto.getAttribute("toggleId");
+    const autos = document.getElementsByClassName("auto");
+    for (const auto of autos) {
+        const format = auto.getAttribute("format") || 'Auto [$]';
+        const toggleId = auto.getAttribute("toggleId");
         if (toggleId === undefined || toggleId === null) {
             continue;
         }
-        if (format === undefined || format === null) {
-            format = "Auto [$]";
-        }
-        let formatSides = format.split("$");
-        let finishedSides = [];
-        // Pushes escaped $'s (\\$) back into format
-        for (let i = 0; i < formatSides.length; ++i) {
-            let test = formatSides[i];
-            if (test[test.length - 1] === '\\' && i + 1 !== formatSides.length) {
-                formatSides[i + 1] = test.substring(0, test.length - 1) + formatSides[i + 1];
-            } else {
-                finishedSides.push(formatSides[i]);
-            }
-        }
 
-        let finishedString = finishedSides[0] + (player.toggles[toggleId] ? "ON" : "OFF") + finishedSides[1];
+        const finishedString = format.replace('$', player.toggles[toggleId] ? "ON" : "OFF")
         auto.textContent = finishedString;
         auto.style.border = "2px solid " + (player.toggles[toggleId] ? "green" : "red");
     }
