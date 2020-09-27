@@ -2323,51 +2323,47 @@ function resetCheck(i, manual, leaving) {
             }
         }
     }
-    if (i === "reincarnationchallenge") {
+    if (i === "reincarnationchallenge" && player.currentChallenge.reincarnation !== 0) {
         let q = player.currentChallenge.reincarnation;
         let s = player.currentChallenge.transcension;
-
-        if (player.currentChallenge.reincarnation !== 0) {
-            if (player.currentChallenge.transcension !== 0) {
-                player.currentChallenge.transcension = 0
+        if (player.currentChallenge.transcension !== 0) {
+            player.currentChallenge.transcension = 0
+        }
+        let reqCheck = (comp) => {
+            if (q <= 8) {
+                return player.transcendShards.greaterThanOrEqualTo(challengeRequirement(q, comp))
+            } else { // challenges 9 and 10
+                return player.coins.greaterThanOrEqualTo(challengeRequirement(q, comp))
             }
-            let reqCheck = (comp) => {
-                if (q <= 8) {
-                    return player.transcendShards.greaterThanOrEqualTo(challengeRequirement(q, comp))
-                } else { // challenges 9 and 10
-                    return player.coins.greaterThanOrEqualTo(challengeRequirement(q, comp))
+        }
+        let maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
+        if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
+            let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
+            let counter = 0;
+            let comp = player.challengecompletions[q];
+            while (counter < maxInc) {
+                if (reqCheck(comp) && comp < maxCompletions) {
+                    comp++;
                 }
+                counter++;
             }
-            let maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
-            if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-                let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
-                let counter = 0;
-                let comp = player.challengecompletions[q];
-                while (counter < maxInc) {
-                    if (reqCheck(comp) && comp < maxCompletions) {
-                        comp++;
-                    }
-                    counter++;
-                }
-                player.challengecompletions[q] = comp;
-                challengeDisplay(q, true)
+            player.challengecompletions[q] = comp;
+            challengeDisplay(q, true)
+        }
+        if (!player.shopUpgrades.instantChallengeBought || leaving) { // TODO: Implement the upgrade levels here
+            reset(3, false, "leaveChallenge");
+            player.reincarnationCount -= 1;
+        }
+        challengeachievementcheck(q);
+        if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
+            while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
+                player.highestchallengecompletions[q] += 1;
+                highestChallengeRewards(q, player.highestchallengecompletions[q])
+                updateCubesPerSec()
+                calculateHypercubeBlessings();
+                calculateTesseractBlessings();
+                calculateCubeBlessings();
             }
-            if (!player.shopUpgrades.instantChallengeBought || leaving) { // TODO: Implement the upgrade levels here
-                reset(3, false, "leaveChallenge");
-                player.reincarnationCount -= 1;
-            }
-            challengeachievementcheck(q);
-            if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
-                while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
-                    player.highestchallengecompletions[q] += 1;
-                    highestChallengeRewards(q, player.highestchallengecompletions[q])
-                    updateCubesPerSec()
-                    calculateHypercubeBlessings();
-                    calculateTesseractBlessings();
-                    calculateCubeBlessings();
-                }
-            }
-
         }
         if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension) {
             reset(3, false, "leaveChallenge");
@@ -2391,7 +2387,7 @@ function resetCheck(i, manual, leaving) {
         }
     }
 
-    if (i === "ascensionChallenge") {
+    if (i === "ascensionChallenge" && player.currentChallenge.ascension !== 0) {
         let conf = true
         if (manual) {
             conf = confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
