@@ -69,7 +69,7 @@ let upgdesc = {
     upgdesc68: "Gain a free multiplier for every 1e1000x increase in tax.",
     upgdesc69: "Gain more Obtainium based on your particle gain. [Works with automation at a reduced rate!]",
     upgdesc70: "Time seems to go +0.5*log10(Obtainium+1)% faster when you buy this.",
-    upgdesc71: "Runes will gain (Rune Level) additional EXP per offering used.",
+    upgdesc71: "Runes will gain (Rune Level/25) additional EXP per offering used.",
     upgdesc72: "Obtainium gain from Reincarnations is multiplied (1 + 2C) where C is #Reincarnation Challenges completed, up to 50x!",
     upgdesc73: "Gain +100% free accelerator boosts and +10 free Crystal Upgrade levels, but only in Reincarnation Challenges.",
     upgdesc74: "Obtainium gain is increased based on highest ever unspent offerings. [Max: 100,000 unspent]",
