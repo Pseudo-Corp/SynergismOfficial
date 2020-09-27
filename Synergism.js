@@ -3095,7 +3095,15 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[1]) : buyMax(pos, type, num, cost[1], false)
             }
             if (currentTab === "runes") {
-                redeemShards(1)
+                if(runescreen === "runes"){
+                    redeemShards(1)
+                }
+                if(runescreen === "blessings"){
+                    buyRuneBonusLevels(1,1)
+                }
+                if(runescreen === "spirits"){
+                    buyRuneBonusLevels(2,1)
+                }
             }
             if (currentTab === "challenges") {
                 toggleChallenges(1)
@@ -3110,7 +3118,15 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[2]) : buyMax(pos, type, num, cost[2], false)
             }
             if (currentTab === "runes") {
-                redeemShards(2)
+                if(runescreen === "runes"){
+                    redeemShards(1)
+                }
+                if(runescreen === "blessings"){
+                    buyRuneBonusLevels(1,2)
+                }
+                if(runescreen === "spirits"){
+                    buyRuneBonusLevels(2,2)
+                }
             }
             if (currentTab === "challenges") {
                 toggleChallenges(2)
@@ -3124,7 +3140,15 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[3]) : buyMax(pos, type, num, cost[3], false)
             }
             if (currentTab === "runes") {
-                redeemShards(3)
+                if(runescreen === "runes"){
+                    redeemShards(1)
+                }
+                if(runescreen === "blessings"){
+                    buyRuneBonusLevels(1,3)
+                }
+                if(runescreen === "spirits"){
+                    buyRuneBonusLevels(2,3)
+                }
             }
             if (currentTab === "challenges") {
                 toggleChallenges(3)
@@ -3138,7 +3162,15 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[4]) : buyMax(pos, type, num, cost[4], false)
             }
             if (currentTab === "runes") {
-                redeemShards(4)
+                if(runescreen === "runes"){
+                    redeemShards(1)
+                }
+                if(runescreen === "blessings"){
+                    buyRuneBonusLevels(1,4)
+                }
+                if(runescreen === "spirits"){
+                    buyRuneBonusLevels(2,4)
+                }
             }
             if (currentTab === "challenges") {
                 toggleChallenges(4)
@@ -3152,7 +3184,15 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[5]) : buyMax(pos, type, num, cost[5], false)
             }
             if (currentTab === "runes") {
-                redeemShards(5)
+                if(runescreen === "runes"){
+                    redeemShards(1)
+                }
+                if(runescreen === "blessings"){
+                    buyRuneBonusLevels(1,5)
+                }
+                if(runescreen === "spirits"){
+                    buyRuneBonusLevels(2,5)
+                }
             }
             if (currentTab === "challenges") {
                 toggleChallenges(5)
