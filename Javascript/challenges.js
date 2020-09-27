@@ -13,12 +13,28 @@ function challengeDisplay(i, changefocus, automated) {
     }
 
     let maxChallenges = 0;
-    if (i > 5) {
+        if (i <= 5 && player.challengecompletions[i] >= 75){
+        document.getElementById('completionSoftcap').textContent = "|| Softcapped past 75! Effective completion count: " + CalcECC('transcend',player.challengecompletions[i])
+    }
+
+    if (i > 5 && i <= 10) {
         maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
         quarksMultiplier = 10;
+        if(player.challengecompletions[i] >= 25){
+            document.getElementById('completionSoftcap').textContent = "|| Softcapped past 25! Effective completion count: " + format(CalcECC('reincarnation',player.challengecompletions[i]),2,true)
+        }
+        else{
+            document.getElementById('completionSoftcap').textContent = ""    
+        }
     }
     if (i > 10) {
         maxChallenges = 30
+        if(player.challengecompletions[i] >= 10){
+            document.getElementById('completionSoftcap').textContent = "|| Softcapped past 25! Effective completion count: " + format(CalcECC('ascension',player.challengecompletions[i]),2,true)
+        }
+        else{
+            document.getElementById('completionSoftcap').textContent = ""
+        }
     }
     let descriptor = ""
     let a = document.getElementById("challengeName");
