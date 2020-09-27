@@ -482,7 +482,7 @@ function buyCrystalUpgrades(i, auto) {
     const u = i - 1;
 
     let c = 0;
-    c += Math.floor(rune3level / 16 * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100)) * 100 / 100
+    c += Math.floor(rune3level / 16 * effectiveLevelMult) * 100 / 100
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
         c += 10
     }
