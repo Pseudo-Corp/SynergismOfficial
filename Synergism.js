@@ -3122,7 +3122,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             }
             if (currentTab === "runes") {
                 if(runescreen === "runes"){
-                    redeemShards(1)
+                    redeemShards(2)
                 }
                 if(runescreen === "blessings"){
                     buyRuneBonusLevels(1,2)
@@ -3144,7 +3144,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             }
             if (currentTab === "runes") {
                 if(runescreen === "runes"){
-                    redeemShards(1)
+                    redeemShards(3)
                 }
                 if(runescreen === "blessings"){
                     buyRuneBonusLevels(1,3)
@@ -3166,7 +3166,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             }
             if (currentTab === "runes") {
                 if(runescreen === "runes"){
-                    redeemShards(1)
+                    redeemShards(4)
                 }
                 if(runescreen === "blessings"){
                     buyRuneBonusLevels(1,4)
@@ -3188,7 +3188,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             }
             if (currentTab === "runes") {
                 if(runescreen === "runes"){
-                    redeemShards(1)
+                    redeemShards(5)
                 }
                 if(runescreen === "blessings"){
                     buyRuneBonusLevels(1,5)
