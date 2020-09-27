@@ -1341,7 +1341,7 @@ function format(input, accuracy = 0, long = false) {
         // Makes the power group 3 with commas
         const powerLook = 'BigInt' in window 
             ? BigInt(power).toLocaleString()
-            : power.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+            : power.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // returns format (1.23e456,789)
         return mantissaLook + "e" + powerLook;
     } else if (power >= 1e6) {
