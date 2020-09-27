@@ -382,7 +382,7 @@ function calculateObtainium() {
     obtainiumGain *= cubeBonusMultiplier[5]
     obtainiumGain *= (1 + 0.04 * player.constantUpgrades[4])
     obtainiumGain *= (1 + 0.1 * player.cubeUpgrades[47])
-    obtainiumGain *= (1 + 0.2 * player.cubeUpgrades[3])
+    obtainiumGain *= (1 + 0.1 * player.cubeUpgrades[3])
     obtainiumGain *= (1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]))
     obtainiumGain *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[4])
     obtainiumGain *= (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144])
