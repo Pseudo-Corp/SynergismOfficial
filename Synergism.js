@@ -2225,6 +2225,9 @@ function resetCurrency() {
 
     //Reincarnation Point Formulae
     reincarnationPointGain = Decimal.floor(Decimal.pow(player.transcendShards.dividedBy(1e300), 0.01));
+    if (player.currentChallenge.reincarnation !== 0){
+    	reincarnationPointGain = Decimal.pow(reincarnationPointGain, 0.01)
+    }
     if (player.achievements[50] === 1) {
         reincarnationPointGain = reincarnationPointGain.times(2)
     }
