@@ -178,9 +178,9 @@ function resetHistoryRenderRow(category, data) {
         let newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter);
         let diff = newMulti - oldMulti;
         extra = [
-            `<span title="${format(oldMulti, 3, false)}-&gt;${format(newMulti, 3, false)}"><img src="Pictures/Plus.png">+${format(diff, 3, false)} multi</span>`,
-            `<span title="+${formatDecimalString(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png">${extractStringExponent(formatDecimalString(data.crumbs))}</span>`,
-            `<span title="${format(data.baseELO)} base">${format(data.effectiveELO)} ELO</span>`
+            `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
+            `<span title="+${formatDecimalString(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalString(data.crumbs))}</span>`,
+            `<span title="${format(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
         ];
     } else if (data.kind === "ascend") {
         extra = [
