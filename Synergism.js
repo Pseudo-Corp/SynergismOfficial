@@ -1941,7 +1941,7 @@ function multipliers() {
     }
 
     if (player.currentChallenge.ascension === 12) {
-        globalAntMult = Decimal.pow(globalAntMult, 0.6)
+        globalAntMult = Decimal.pow(globalAntMult, 0.5)
     }
     if (player.currentChallenge.ascension === 13) {
         globalAntMult = Decimal.pow(globalAntMult, 0.3)
