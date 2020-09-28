@@ -978,7 +978,7 @@ function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differ
 
 //Banked Cubes, Score, Cube Gain, Tesseract Gain, Hypercube Gain
 function CalcCorruptionStuff() {
-    let corruptionArrayMultiplier = [1, 2, 3, 4, 5, 5.5, 6, 6.5, 7, 7.5, 8]
+    let corruptionArrayMultiplier = [1, 2, 2.75, 3.5, 4.5, 5, 5.75, 6.5, 7, 7.5, 8]
 
     let cubeBank = 0;
     let challengeModifier = 1;
