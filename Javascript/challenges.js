@@ -13,12 +13,32 @@ function challengeDisplay(i, changefocus, automated) {
     }
 
     let maxChallenges = 0;
-    if (i > 5) {
+    if (i <= 5 && changefocus){
+        if(player.challengecompletions[i] >= 100){
+            document.getElementById('completionSoftcap').textContent = "|| Softcapped past 100! Effective completion count: " + CalcECC('transcend',player.challengecompletions[i])
+        }
+        else{
+            document.getElementById('completionSoftcap').textContent = ""
+        }
+    }
+    if (i > 5 && i <= 10) {
         maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
         quarksMultiplier = 10;
+        if(player.challengecompletions[i] >= 25 && changefocus){
+            document.getElementById('completionSoftcap').textContent = "|| Softcapped past 25! Effective completion count: " + format(CalcECC('reincarnation',player.challengecompletions[i]),2,true)
+        }
+        else{
+            document.getElementById('completionSoftcap').textContent = ""    
+        }
     }
     if (i > 10) {
         maxChallenges = 30
+        if(player.challengecompletions[i] >= 10){
+            document.getElementById('completionSoftcap').textContent = "|| Softcapped past 25! Effective completion count: " + format(CalcECC('ascension',player.challengecompletions[i]),2,true)
+        }
+        else{
+            document.getElementById('completionSoftcap').textContent = ""
+        }
     }
     let descriptor = ""
     let a = document.getElementById("challengeName");
@@ -198,7 +218,7 @@ function challengeDisplay(i, changefocus, automated) {
     if (i === 12 && challengefocus === 12) {
         a.textContent = "No Reincarnation Challenge || " + player.challengecompletions[12] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "For some reason, you just can't do it."
-        c.textContent = "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! Ant production ^0.6."
+        c.textContent = "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! Ant production ^0.5."
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + format(challengeRequirement(i, player.challengecompletions[i])) + " times."
         e.textContent = "+50% Obtainium! Current: "
         f.textContent = "+12% Offerings! Current: "

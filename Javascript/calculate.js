@@ -381,8 +381,8 @@ function calculateObtainium() {
     obtainiumGain *= (1 + 2 * Math.pow((player.antUpgrades[10] + bonusant10) / 50, 2 / 3))
     obtainiumGain *= cubeBonusMultiplier[5]
     obtainiumGain *= (1 + 0.04 * player.constantUpgrades[4])
-    obtainiumGain *= (1 + 0.2 * player.cubeUpgrades[3])
     obtainiumGain *= (1 + 0.1 * player.cubeUpgrades[47])
+    obtainiumGain *= (1 + 0.1 * player.cubeUpgrades[3])
     obtainiumGain *= (1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]))
     obtainiumGain *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[4])
     obtainiumGain *= (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144])
@@ -978,7 +978,7 @@ function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differ
 
 //Banked Cubes, Score, Cube Gain, Tesseract Gain, Hypercube Gain
 function CalcCorruptionStuff() {
-    let corruptionArrayMultiplier = [1, 2, 3, 4, 5, 5.5, 6, 6.5, 7, 7.5, 8]
+    let corruptionArrayMultiplier = [1, 2, 2.75, 3.5, 4.5, 5, 5.75, 6.5, 7, 7.5, 8]
 
     let cubeBank = 0;
     let challengeModifier = 1;
@@ -1010,12 +1010,15 @@ function CalcCorruptionStuff() {
 
     effectiveScore = baseScore * corruptionMultiplier
 
-    bankMultiplier = Math.pow(effectiveScore / 3000, 1 / 4.25);
+    bankMultiplier = Math.pow(effectiveScore / 3000, 1 / 4.1);
     let cubeGain = cubeBank * bankMultiplier;
     cubeGain *= calculateCubeMultiplier();
 
     let tesseractGain = 1;
-    tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e5)) / 1e4, .4);
+    tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e5)) / 1e4, .35);
+    if(effectiveScore >= 100000){
+        tesseractGain += 2
+    }
     tesseractGain *= (1 + 0.25 * player.cubeUpgrades[30])
     tesseractGain *= (1 + 1/200 * player.cubeUpgrades[38] * sumContents(player.usedCorruptions))
 
