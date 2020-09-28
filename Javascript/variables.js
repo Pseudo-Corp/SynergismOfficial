@@ -341,7 +341,7 @@ var buildingSubTab = "coin"
 var blessingbase = [null, 1 / 500, 1 / 5000, 1 / 2000, 1 / 750, 1 / 200, 1 / 10000, 1 / 5000, 1 / 10, 1 / 10000, 1 / 1000]
 var blessingDRPower = [null, 1 / 3, 1 / 3, 2 / 3, 1 / 2, 2 / 3, 2, 1 / 3, 1 / 3, 1 / 16, 1 / 16]
 //100 of each before Diminishing Returns
-var giftbase = [null, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500, 1 / 2500]
+var giftbase = [null, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000]
 var giftDRPower = [null, 1 / 6, 1 / 6, 1 / 3, 1 / 4, 1 / 3, 1, 1 / 6, 1 / 6, 1 / 32, 1 / 32]
 //10 of each before Diminishing Returns
 var benedictionbase = [null, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000]
@@ -368,7 +368,7 @@ var extinctionMultiplier = [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4
 var droughtMultiplier = [1, 5, 25, 200, 1e4, 1e11, 1e17, 1e33, 1e50, 1e83, 1e133]
 var financialcollapsePower = [1, 0.9, 0.7, 0.6, 0.5, 0.37, 0.30, 0.23, 0.18, 0.15, 0.12]
 
-var corruptionPointMultipliers = [1, 2, 3, 4, 5, 5.5, 6, 6.5, 7, 7.5, 8]
+var corruptionPointMultipliers = [1, 2, 2.75, 3.5, 4.25, 5, 5.75, 6.5, 7, 7.5, 8]
 
 var ascendBuildingProduction = {
     first: new Decimal('0'),
