@@ -232,7 +232,7 @@ function challengeDisplay(i, changefocus, automated) {
     if (i === 13 && challengefocus === 13) {
         a.textContent = "Tax+++ Challenge || " + player.challengecompletions[13] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Good luck with the IRS, buddy."
-        c.textContent = "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.25"
+        c.textContent = "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.23"
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + format(challengeRequirement(i, player.challengecompletions[i])) + " times."
         e.textContent = "Taxes -3.33%! Multiplicative! Current: "
         f.textContent = "+6 maximum to Talisman Level Cap! Current: "
