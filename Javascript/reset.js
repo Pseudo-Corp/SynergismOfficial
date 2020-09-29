@@ -418,11 +418,10 @@ function reset(i, fast, from) {
 
         let metaData = CalcCorruptionStuff()
         ascensionAchievementCheck(3, metaData[3])
-        // reset other stuff
         historyCategory = "ascend";
         historyKind = "ascend";
-        // When ascending, log ascend history while in trans/reinc challenges, or if this ascension took longer than 1min
-        historyUse = player.currentChallenge.ascension === 0 || player.ascensionCounter > 60;
+        // Log history for every ascend with a C10 completion, overriding previous restrictions
+        historyUse = player.challengecompletions[10] > 0;
         delete historyEntry.offerings;
         delete historyEntry.obtainium;
         delete historyEntry.particles;
@@ -501,10 +500,6 @@ function reset(i, fast, from) {
             player.wowTesseracts += metaData[5];
             player.wowHypercubes += metaData[6];
             player.wowPlatonicCubes += metaData[7];
-        }
-
-        if (historyUse && player.challengecompletions[10] > 0) {
-            resetHistoryAdd(historyCategory, historyKind, historyEntry);
         }
 
         for (let j = 1; j <= 10; j++) {
@@ -597,7 +592,7 @@ function reset(i, fast, from) {
         revealStuff();
     }
 
-    if (historyUse && i < 4) {
+    if (historyUse) {
         resetHistoryAdd(historyCategory, historyKind, historyEntry);
     }
 }
