@@ -70,6 +70,17 @@ const resetHistoryCorruptionImages = [
     "Pictures/Drought Lvl 7.png",
     "Pictures/Financial Collapse Lvl 7.png"
 ];
+const resetHistoryCorruptionTitles = [
+    "Divisiveness [Multipliers]",
+    "Maladaption [Accelerators]",
+    "Spacial Dilation [Time]",
+    "Hyperchallenged [Challenge Requirements]",
+    "Scientific Illiteracy [Obtainium]",
+    "Market Deflation [Diamonds]",
+    "Extinction [Ants]",
+    "Drought [Offering EXP]",
+    "Financial Recession [Coins]"
+];
 
 const resetHistoryShowMillisecondsMaxSec = 60;
 
@@ -256,7 +267,7 @@ function resetHistoryFormatCorruptions(data) {
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
         let corruptionIdx = i + 1;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
-            corruptions += ` <img src="${resetHistoryCorruptionImages[i]}">${data.usedCorruptions[corruptionIdx]}`;
+            corruptions += ` <img src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }
     }
     if (data.currentChallenge !== undefined) {
