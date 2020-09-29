@@ -30,7 +30,6 @@ function toggleChallenges(i, auto) {
         if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
             reset(4, false, "enterChallenge");
             player.currentChallenge.ascension = i;
-            player.ascensionCount -= 1;
 
             if (player.currentChallenge.ascension === 12) {
                 player.antPoints = new Decimal("8")

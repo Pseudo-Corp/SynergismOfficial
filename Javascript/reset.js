@@ -493,6 +493,7 @@ function reset(i, fast, from) {
             player.firstOwnedAnts += 1
         }
         if (player.challengecompletions[10] > 0) {
+            player.ascensionCount += 1;
             player.wowCubes += metaData[4]; //Metadata is defined up in the top of the (i > 3.5) case
             player.wowTesseracts += metaData[5];
             player.wowHypercubes += metaData[6];
@@ -532,7 +533,6 @@ function reset(i, fast, from) {
         calculateTalismanEffects();
         calculateObtainium();
 
-        player.ascensionCount += 1;
         ascensionAchievementCheck(1);
         player.cubesThisAscension.challenges = 0;
         player.cubesThisAscension.reincarnation = 0;

@@ -2475,7 +2475,6 @@ function resetCheck(i, manual, leaving) {
         }
         challengeDisplay(a, true)
         reset(4)
-        player.ascensionCount -= 1;
 
         if (player.challengecompletions[a] > player.highestchallengecompletions[a]) {
             player.highestchallengecompletions[a] += 1;
