@@ -2112,10 +2112,10 @@
             <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
             <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
             <p id="exportinfo" class="tightText" style="color: white"></p>
-            <label>
+            <label title="Use $TIME$ for 24h time, $TIME12$ for 12h">
                 <input id="saveStringInput" onblur="updateSaveString()">
             </label>
-            <p id="saveString" class="tightText"></p>
+            <p id="saveString" class="tightText" title="Use $TIME$ for 24h time, $TIME12$ for 12h"></p>
         </div>
         <p id="importgame" style="color: limegreen">Load game below!</p>
         <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
