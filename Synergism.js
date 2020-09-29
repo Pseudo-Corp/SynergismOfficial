@@ -1944,7 +1944,7 @@ function multipliers() {
         globalAntMult = Decimal.pow(globalAntMult, 0.5)
     }
     if (player.currentChallenge.ascension === 13) {
-        globalAntMult = Decimal.pow(globalAntMult, 0.3)
+        globalAntMult = Decimal.pow(globalAntMult, 0.23)
     }
     if (player.currentChallenge.ascension === 14) {
         globalAntMult = Decimal.pow(globalAntMult, 0.2)
