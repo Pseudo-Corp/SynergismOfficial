@@ -1,9 +1,17 @@
 const intervalHold = [];
 const interval = new Proxy(setInterval, {
-    apply(handler, _, c) {
-        const set = handler(...c);
+    apply(target, thisArg, args) {
+        const set = target.apply(thisArg, args);
         intervalHold.push(set);
         return set;
+    }
+});
+
+const clearInt = new Proxy(clearInterval, {
+    apply(target, thisArg, args) {
+        const id = args[0];
+        intervalHold.splice(intervalHold.indexOf(id), 1); // remove from intervalHold array
+        return target.apply(thisArg, args);
     }
 });
 

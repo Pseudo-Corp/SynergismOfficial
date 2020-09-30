@@ -1,7 +1,7 @@
 var repeatreset
 
 function resetrepeat(i) {
-    clearInterval(repeatreset);
+    clearInt(repeatreset);
     repeatreset = interval(resetdetails, 50, i)
 }
 
