@@ -587,6 +587,8 @@ function boostAccelerator(automated) {
 }
 
 function getAcceleratorBoostCost(level = 1) {
+    // formula starts at 0 but buying starts at 1
+    level--;
     let base = new Decimal(1e3)
     let eff = 1 + 2 * effectiveRuneBlessingPower[4]
     let linSum = (n) => n * (n + 1) / 2
