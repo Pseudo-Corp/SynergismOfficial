@@ -316,7 +316,7 @@ function getCost(originalCost, buyingTo, type, num, r) {
         // divided by same amount buying to - fr times
         cost.exponent -= Math.log10(1 + (1 / 2 * player.challengecompletions[8])) * (buyingTo - fr);
     }
-    
+
     extra = cost.exponent - Math.floor(cost.exponent);
     cost.exponent = Math.floor(cost.exponent);
     cost.mantissa *= Math.pow(10, extra);
@@ -530,25 +530,26 @@ function boostAccelerator(automated) {
             ticker++
         }
     } else {
-        let buyTo = player.acceleratorBoostBought + 1;
-        let cost = getAcceleratorBoostCost(buyTo);
+        let buyStart = player.acceleratorBoostBought;
+        let buyInc = 1;
+        let cost = getAcceleratorBoostCost(buyStart + buyInc);
         while (player.prestigePoints.greaterThanOrEqualTo(cost)) {
-            buyTo *= 4;
-            cost = getAcceleratorBoostCost(buyTo);
+            buyInc *= 4;
+            cost = getAcceleratorBoostCost(buyStart + buyInc);
         }
-        let stepdown = Math.floor(buyTo / 8)
+        let stepdown = Math.floor(buyInc / 8)
         while (stepdown !== 0) {
             // if step down would push it below out of expense range then divide step down by 2
-            if (getAcceleratorBoostCost(buyTo - stepdown).lessThanOrEqualTo(player.prestigePoints)) {
+            if (getAcceleratorBoostCost(buyStart + buyInc - stepdown).lessThanOrEqualTo(player.prestigePoints)) {
                 stepdown = Math.floor(stepdown / 2);
             } else {
-                buyTo = buyTo - stepdown;
+                buyInc = buyInc - stepdown;
             }
         }
         // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-        let buyFrom = Math.max(buyTo - 7, player.acceleratorBoostBought + 1);
+        let buyFrom = Math.max(buyStart + buyInc - 7, player.acceleratorBoostBought + 1);
         let thisCost = getAcceleratorBoostCost(player.acceleratorBoostBought);
-        while (buyFrom < buyTo && player.prestigePoints.greaterThanOrEqualTo(getAcceleratorBoostCost(buyFrom))) {
+        while (buyFrom < buyStart + buyInc && player.prestigePoints.greaterThanOrEqualTo(getAcceleratorBoostCost(buyFrom))) {
             player.prestigePoints = player.prestigePoints.sub(thisCost);
             player.acceleratorBoostBought = buyFrom;
             buyFrom = buyFrom + 1;
@@ -700,19 +701,19 @@ function buyRuneBonusLevels(type, index) { //type 1 for Blessings, type 2 for Sp
             achievementaward(245)
         }
     }
-    
+
     calculateRuneBonuses()
 
-    if(type === 1){
+    if (type === 1) {
         let blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
-        let t = (index === 5)? 1: 0;
+        let t = (index === 5) ? 1 : 0;
         document.getElementById('runeBlessingPower' + index + 'Value1').textContent = format(runeBlessings[index])
         document.getElementById('runeBlessingPower' + index + 'Value2').textContent = format(1 - t + blessingMultiplierArray[index] * effectiveRuneBlessingPower[index], 4, true)
     }
-    if(type === 2){
+    if (type === 2) {
         let spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
         spiritMultiplierArray[index] *= (calculateCorruptionPoints() / 400)
-        let t = (index === 3)? 1: 0;
+        let t = (index === 3) ? 1 : 0;
         document.getElementById('runeSpiritPower' + index + 'Value1').textContent = format(runeSpirits[index])
         document.getElementById('runeSpiritPower' + index + 'Value2').textContent = format(1 - t + spiritMultiplierArray[index] * effectiveRuneSpiritPower[index], 4, true)
     }
