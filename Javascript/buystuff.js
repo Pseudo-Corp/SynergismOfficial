@@ -155,8 +155,7 @@ function buyMultiplier(autobuyer) {
 
     if (!autobuyer && player.coinbuyamount !== "max") {
         if (player.multiplierBought + player.coinbuyamount < buyTo) {
-            console.log(player.coinbuyamount + player.multiplierBought);
-            buyTo = player.multiplierBought + player.coinbuyamount;
+                        buyTo = player.multiplierBought + player.coinbuyamount;
         }
     }
 
@@ -198,71 +197,106 @@ function buyMultiplier(autobuyer) {
 
 }
 
-const fact100 = 9.3326215443944152681699238856267e+157;
+/*
+// Uses same as Decimal prototype but does so without creating new objects
+Decimal.prototype.factorial = function () {
+  // Using Stirling's Approximation.
+  // https://en.wikipedia.org/wiki/Stirling%27s_approximation#Versions_suitable_for_calculators
+  var n = this.toNumber() + 1;
+  return Decimal.pow(n / Math.E * Math.sqrt(n * Math.sinh(1 / n) + 1 / (810 * Math.pow(n, 6))), n).mul(Math.sqrt(2 * Math.PI / n));
+};
+*/
+const RETRIEVE_STATUS = false;
+const STORE_STATUS = true;
+var factorialStorage = {};
 
+function cleanFactorialStorage() {
+    factorialStorage = {};
+}
+
+function factorialMantissaPart(fact, status) {
+    --fact;
+    if (status === undefined) {
+        return Math.sqrt(2 * Math.PI / fact);
+    } else if (status === RETRIEVE_STATUS) {
+        return factorialStorage[`m${fact.toString()}`];
+    } else if (status === STORE_STATUS) {
+        factorialStorage[`m${fact.toString()}`] = Math.sqrt(2 * Math.PI / fact);
+        return factorialStorage[`m${fact.toString()}`];
+    }
+}
+function factorialExponentPart(fact, status) {
+    --fact;
+    if (status === undefined) {
+        return Math.log10(fact / Math.E * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6))) * fact);
+    } else if (status === RETRIEVE_STATUS) {
+        return factorialStorage[`e${fact.toString()}`];
+    } else if (status === STORE_STATUS) {
+        factorialStorage[`e${fact.toString()}`] = Math.log10(fact / Math.E * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6))) * fact);
+        return factorialStorage[`e${fact.toString()}`];
+    }
+}
+
+function fastFactorialMult(num, fact, status) {
+    num.exponent += factorialExponentPart(fact, status);
+    num.mantissa *= factorialMantissaPart(fact, status);
+}
+function fastFactorialDiv(num, fact, status) {
+    num.exponent -= factorialExponentPart(fact, status);
+    num.mantissa /= factorialMantissaPart(fact, status);
+}
+
+const fact100exponent = Math.log10(9.3326215443944152681699238856267e+157);
+
+// system of equations
+// 16 digits of precision
+// 1.25x = log10(x)+16
+// see: https://www.wolframalpha.com/input/?i=1.25x+%3D+log10%28x%29%2B12
+// x ~= 13.7096203425077943151735126166599547989660866808378
+const precision16_loss_addition_of_ones = 13.7096203425077943151735126166599547989660866808378;
+
+// prev 5.35ms worst 0.35 best benchmark
+// post 2.22ms worst 0.25 best benchmark
 function getCost(originalCost, buyingTo, type, num, r) {
 
 
     // It's 0 indexed by mistake so you have to subtract 1 somewhere.
     --buyingTo;
 
-    // Prevents multiple recreations of this variable because .factorial() is the only one that doesn't create a clone (?)
-    let buyingToDec = new Decimal(buyingTo);
     // Accounts for the multiplies by 1.25^num buyingTo times
     let cost = new Decimal(originalCost);
     cost.exponent += Math.log10(1.25) * num * buyingTo;
-
-    let extra = cost.exponent - Math.floor(cost.exponent);
-    cost.exponent = Math.floor(cost.exponent);
-    cost.mantissa *= Math.pow(10, extra);
-    cost.normalize();
-
-    // Accounts for the add 1s (this is relatively hard to do without this method surprisingly, but could be cleaned up if really necessary)
-    cost = cost.add(1 * buyingTo);
-    // floored r value gets used a lot in removing calculations
+    if (buyingTo < precision16_loss_addition_of_ones / num) {
+        cost.mantissa += buyingTo / Math.pow(10, cost.exponent);
+    }
+        // floored r value gets used a lot in removing calculations
     let fr = Math.floor(r * 1000);
     if (buyingTo >= r * 1000) {
-        extra = cost.exponent - Math.floor(cost.exponent);
-        cost.exponent = Math.floor(cost.exponent);
-        cost.mantissa *= Math.pow(10, extra);
-        cost.normalize();
-
         // Accounts for all multiplications of itself up to buyingTo, while neglecting all multiplications of itself up to r*1000
-        cost = cost.times(buyingToDec.factorial().dividedBy((new Decimal(fr).factorial())));
-
-        // Accounts for all divisions of itself buyingTo times, while neglecting all divisions up to r*1000 times
-        cost = cost.dividedBy(Decimal.pow(1000, buyingTo - fr));
-
-        // Accounts for all multiplications of 1 + num/2, while neglecting all divisions up to r*1000 times
-        cost = cost.times(Decimal.pow(1 + num / 2, buyingTo - fr));
+        // Accounts for all divisions of itself buyingTo times, 
+        fastFactorialMult(cost, buyingTo, STORE_STATUS);
+        fastFactorialDiv(cost, fr);
+        // neglects all divisions up to r*1000 times, also accounts for all multiplications of 1 + num/2
+        cost.exponent += (-2 + (num / 2)) * (buyingTo - fr);
     }
-
     fr = Math.floor(r * 5000);
     if (buyingTo >= r * 5000) {
-        extra = cost.exponent - Math.floor(cost.exponent);
-        cost.exponent = Math.floor(cost.exponent);
-        cost.mantissa *= Math.pow(10, extra);
-        cost.normalize();
-
-        cost = cost.times(buyingToDec.factorial().dividedBy(new Decimal(fr).factorial()));
-        cost.exponent += (buyingTo - fr - 1) + 1;
-        cost.exponent += (Math.log10(10 + num * 10) * (buyingTo - fr - 1));
+        fastFactorialMult(cost, buyingTo, RETRIEVE_STATUS);
+        fastFactorialDiv(cost, fr);
+        cost.exponent += ((Math.log10(10 + num * 10) + 1) * (buyingTo - fr - 1)) + 1;
     }
-
     fr = Math.floor(r * 20000);
     if (buyingTo >= r * 20000) {
-        extra = cost.exponent - Math.floor(cost.exponent);
-        cost.exponent = Math.floor(cost.exponent);
-        cost.mantissa *= Math.pow(10, extra);
-        cost.normalize();
-
         // To truncate this expression I used Decimal.pow(Decimal.factorial(buyingTo), 3) which suprisingly (to me anyways) does actually work
         // So it takes all numbers up to buyingTo and pow3's them, then divides by all numbers up to r*20000 pow3'd
-        cost = cost.times(Decimal.pow(buyingToDec.factorial(), 3)).dividedBy(Decimal.pow(new Decimal(fr).factorial(), 3));
-        cost.exponent += (Math.log10(100000) * (buyingTo - fr));
-        cost.exponent += (Math.log10(100 + num * 100) * (buyingTo - fr));
+        cost.exponent += factorialExponentPart(buyingTo, RETRIEVE_STATUS) * 3;
+        cost.mantissa *= Math.pow(factorialMantissaPart(buyingTo, RETRIEVE_STATUS), 3);
+                cost.exponent -= factorialExponentPart(fr) * 3;
+        cost.mantissa /= Math.pow(factorialMantissaPart(fr), 3);
+        // PREV
+        // cost = cost.times(Decimal.pow(buyingToDec.factorial(), 3)).dividedBy(Decimal.pow(new Decimal(fr).factorial(), 3));
+        cost.exponent += (Math.log10(1 + num) + 7) * (buyingTo - fr);
     }
-
     fr = Math.floor(r * 250000);
     if (buyingTo >= r * 250000) {
         //1.03^x*1.03^y = 1.03^(x+y), we'll abuse this for this section of the algorithm
@@ -277,31 +311,21 @@ function getCost(originalCost, buyingTo, type, num, r) {
         cost.exponent += Math.log10(1.03) * (buyingTo - fr) * ((buyingTo - fr + 1) / 2);
     }
     if ((player.currentChallenge.transcension === 4) && (type === "Coin" || type === "Diamonds")) {
-        extra = cost.exponent - Math.floor(cost.exponent);
-        cost.exponent = Math.floor(cost.exponent);
-        cost.mantissa *= Math.pow(10, extra);
-        cost.normalize();
-
-
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
+        cost.exponent += (factorialExponentPart(buyingTo + 100, STORE_STATUS) - fact100exponent + (2 * buyingTo)) * (1.25 + (0.25 * player.challengecompletions[4]));
+        cost.mantissa *= Math.pow(factorialMantissaPart(buyingTo + 100, STORE_STATUS), 1.25 + (0.25 * player.challengecompletions[4]));
+        // PREV
+        // cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
         if (buyingTo >= (1000 - (10 * player.challengecompletions[4]))) {
             // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
             cost.exponent += Math.log10(1.25) * (buyingTo * (buyingTo + 1) / 2);
         }
     }
-    if ((player.currentChallenge.reincarnation === 10) && (type === "Coin" || type === "Diamonds")) {
-        extra = cost.exponent - Math.floor(cost.exponent);
-        cost.exponent = Math.floor(cost.exponent);
-        cost.mantissa *= Math.pow(10, extra);
-        cost.normalize();
-
-        // you would not fucking believe how long it took me to figure this out
-        // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
+        if ((player.currentChallenge.reincarnation === 10) && (type === "Coin" || type === "Diamonds")) {
+        cost.exponent += (factorialExponentPart(buyingTo + 100, RETRIEVE_STATUS) - fact100exponent + (2 * buyingTo)) * (1.25 + (0.25 * player.challengecompletions[4]));
+        cost.mantissa *= Math.pow(factorialMantissaPart(buyingTo + 100, RETRIEVE_STATUS), 1.25 + (0.25 * player.challengecompletions[4]));
         if (buyingTo >= (r * 25000)) {
-            // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
             cost.exponent += Math.log10(1.25) * (buyingTo * (buyingTo + 1) / 2);
         }
     }
@@ -316,7 +340,7 @@ function getCost(originalCost, buyingTo, type, num, r) {
         // divided by same amount buying to - fr times
         cost.exponent -= Math.log10(1 + (1 / 2 * player.challengecompletions[8])) * (buyingTo - fr);
     }
-    
+    cleanFactorialStorage();
     extra = cost.exponent - Math.floor(cost.exponent);
     cost.exponent = Math.floor(cost.exponent);
     cost.mantissa *= Math.pow(10, extra);
@@ -348,10 +372,10 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
     let cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
     while (player[tag].greaterThanOrEqualTo(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
-        buyInc = buyInc * 4;
+        buyInc = buyInc * 16;
         cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
     }
-    let stepdown = Math.floor(buyInc / 8);
+    let stepdown = Math.floor(buyInc / 16);
     while (stepdown !== 0) {
         // if step down would push it below out of expense range then divide step down by 2
         if (getCost(originalCost, buyStart + buyInc - stepdown, type, num, r).lessThanOrEqualTo(player[tag])) {
