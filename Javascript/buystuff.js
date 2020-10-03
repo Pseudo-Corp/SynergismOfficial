@@ -482,7 +482,7 @@ function buyCrystalUpgrades(i, auto) {
     const u = i - 1;
 
     let c = 0;
-    c += Math.floor(rune3level / 16 * (1 + player.researches[5] / 10) * (1 + player.researches[21] / 800) * (1 + player.researches[90] / 100)) * 100 / 100
+    c += Math.floor(rune3level / 16 * effectiveLevelMult) * 100 / 100
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
         c += 10
     }
@@ -697,5 +697,21 @@ function buyRuneBonusLevels(type, index) { //type 1 for Blessings, type 2 for Sp
         if (player.runeBlessingLevels[1] >= 1e22 && player.achievements[245] < 1) {
             achievementaward(245)
         }
+    }
+    
+    calculateRuneBonuses()
+
+    if(type === 1){
+        let blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
+        let t = (index === 5)? 1: 0;
+        document.getElementById('runeBlessingPower' + index + 'Value1').textContent = format(runeBlessings[index])
+        document.getElementById('runeBlessingPower' + index + 'Value2').textContent = format(1 - t + blessingMultiplierArray[index] * effectiveRuneBlessingPower[index], 4, true)
+    }
+    if(type === 2){
+        let spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
+        spiritMultiplierArray[index] *= (calculateCorruptionPoints() / 400)
+        let t = (index === 3)? 1: 0;
+        document.getElementById('runeSpiritPower' + index + 'Value1').textContent = format(runeSpirits[index])
+        document.getElementById('runeSpiritPower' + index + 'Value2').textContent = format(1 - t + spiritMultiplierArray[index] * effectiveRuneSpiritPower[index], 4, true)
     }
 }

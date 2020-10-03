@@ -10,14 +10,8 @@ function updateSaveString() {
 }
 
 function saveFilename() {
-    let s = player.saveString
-    let re = /(.+)\$TIME\$(.*)\.txt/
-    let match = s.match(re)
-    if (match !== null) {
-        return match[1] + getRealTime() + match[2] + ".txt"
-    } else {
-        return s
-    }
+    const s = player.saveString
+    return s.replace('$TIME$', getRealTime());
 }
 
 function exportSynergism() {

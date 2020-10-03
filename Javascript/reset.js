@@ -319,6 +319,10 @@ function reset(i, fast, from) {
 
 
     if (i > 2.5) {
+        // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
+        if(player.ascensionCount > 0 && player.achievements[183] < 1){
+            ascensionAchievementCheck(1);
+        }
         historyKind = "reincarnate";
         historyEntry.obtainium = obtainiumGain;
         historyEntry.particles = reincarnationPointGain;
@@ -364,9 +368,7 @@ function reset(i, fast, from) {
         player.reincarnationCount += 1;
 
         player.transcendPoints = new Decimal("0");
-        if (player.currentChallenge.reincarnation === 0) {
-            player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain);
-        }
+        player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain);
         player.reincarnationShards = new Decimal("0");
         player.challengecompletions[1] = 0;
         player.challengecompletions[2] = 0;

@@ -1269,15 +1269,15 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
 }
 
-function format(input, accuracy, long) {
-    //This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
-
-    //Input is the number to be formatted (string or value)
-    //Accuracy is how many decimal points that are to be displayed (Values <10 if !long, <1000 if long)
-    // Accuracy only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
-    //Long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
-    accuracy = accuracy || 0;
-    long = long || false;
+/**
+ * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
+ * @param {Decimal | number} input number/Decimal to be formatted
+ * @param {number} accuracy 
+ * how many decimal points that are to be displayed (Values <10 if !long, <1000 if long). 
+ * only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
+ * @param {*} long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
+ */
+function format(input, accuracy = 0, long = false) {
     let power;
     let mantissa;
     if (input instanceof Decimal) {
@@ -1320,32 +1320,28 @@ function format(input, accuracy, long) {
             standard = Math.floor(standard);
         }
         // Turn the number to string
-        standard = standard.toString();
+        const standardString = standard.toString();
         // Split it on the decimal place
-        let split = standard.split('.');
-        // Get the front half of the number (pre-decimal point)
-        let front = split[0];
-        // Get the back half of the number (post-decimal point)
-        let back = split[1];
+        const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
-        front = front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+        const frontFormatted = 'BigInt' in window 
+            ? BigInt(front).toLocaleString()
+            : front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // if the back is undefined that means there are no decimals to display, return just the front
         if (back === undefined) {
-            return front;
+            return frontFormatted;
         } else {
             // Else return the front.back
-            return front + "." + back;
+            return frontFormatted + "." + back;
         }
     } else if (power < 1e6) {
         // If the power is less than 1e6 then apply standard scientific notation
         // Makes mantissa be rounded down to 2 decimal places
-        let mantissaLook = Math.floor(mantissa * 100) / 100;
-        // Makes mantissa be to 2 decimal places
-        mantissaLook = mantissaLook.toFixed(2);
-        mantissaLook = mantissaLook.toString();
+        const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
         // Makes the power group 3 with commas
-        let powerLook = power.toString();
-        powerLook = powerLook.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+        const powerLook = 'BigInt' in window 
+            ? BigInt(power).toLocaleString()
+            : power.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // returns format (1.23e456,789)
         return mantissaLook + "e" + powerLook;
     } else if (power >= 1e6) {
@@ -1732,8 +1728,8 @@ function multipliers() {
         c7 = 0
     }
     buildingPower = 1 + (1 - Math.pow(2, -1 / 160)) * c7 * Decimal.log(player.reincarnationShards.add(1), 10) * (1 + 1 / 20 * player.researches[36] + 1 / 40 * player.researches[37] + 1 / 40 * player.researches[38]) + (c7 + 0.2) * 0.25 / 1.2 * CalcECC('reincarnation', player.challengecompletions[8])
-    buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[12] / 20)
-    buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[36] / 20)
+    buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[12] * 0.09)
+    buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[36] * 0.05)
     reincarnationMultiplier = Decimal.pow(buildingPower, totalCoinOwned);
 
     antMultiplier = Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499));
@@ -1915,7 +1911,7 @@ function multipliers() {
         globalAntMult = globalAntMult.times(5)
     }
     globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
-    globalAntMult = globalAntMult.times(1 + player.upgrades[78] * 0.01 * Math.pow(Math.log(player.runeshards + 1)/Math.log(10),2))
+    globalAntMult = globalAntMult.times(1 + player.upgrades[78] * 0.005 * Math.pow(Math.log(player.maxofferings + 1)/Math.log(10),2))
     globalAntMult = globalAntMult.times(Math.pow(1.5, player.shopUpgrades.antSpeedLevel));
     globalAntMult = globalAntMult.times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1] + bonusant1));
     globalAntMult = globalAntMult.times(antSacrificePointsToMultiplier(player.antSacrificePoints))
@@ -1945,10 +1941,10 @@ function multipliers() {
     }
 
     if (player.currentChallenge.ascension === 12) {
-        globalAntMult = Decimal.pow(globalAntMult, 0.6)
+        globalAntMult = Decimal.pow(globalAntMult, 0.5)
     }
     if (player.currentChallenge.ascension === 13) {
-        globalAntMult = Decimal.pow(globalAntMult, 0.3)
+        globalAntMult = Decimal.pow(globalAntMult, 0.23)
     }
     if (player.currentChallenge.ascension === 14) {
         globalAntMult = Decimal.pow(globalAntMult, 0.2)
@@ -2229,6 +2225,9 @@ function resetCurrency() {
 
     //Reincarnation Point Formulae
     reincarnationPointGain = Decimal.floor(Decimal.pow(player.transcendShards.dividedBy(1e300), 0.01));
+    if (player.currentChallenge.reincarnation !== 0){
+    	reincarnationPointGain = Decimal.pow(reincarnationPointGain, 0.01)
+    }
     if (player.achievements[50] === 1) {
         reincarnationPointGain = reincarnationPointGain.times(2)
     }
@@ -2323,51 +2322,47 @@ function resetCheck(i, manual, leaving) {
             }
         }
     }
-    if (i === "reincarnationchallenge") {
+    if (i === "reincarnationchallenge" && player.currentChallenge.reincarnation !== 0) {
         let q = player.currentChallenge.reincarnation;
         let s = player.currentChallenge.transcension;
-
-        if (player.currentChallenge.reincarnation !== 0) {
-            if (player.currentChallenge.transcension !== 0) {
-                player.currentChallenge.transcension = 0
+        if (player.currentChallenge.transcension !== 0) {
+            player.currentChallenge.transcension = 0
+        }
+        let reqCheck = (comp) => {
+            if (q <= 8) {
+                return player.transcendShards.greaterThanOrEqualTo(challengeRequirement(q, comp))
+            } else { // challenges 9 and 10
+                return player.coins.greaterThanOrEqualTo(challengeRequirement(q, comp))
             }
-            let reqCheck = (comp) => {
-                if (q <= 8) {
-                    return player.transcendShards.greaterThanOrEqualTo(challengeRequirement(q, comp))
-                } else { // challenges 9 and 10
-                    return player.coins.greaterThanOrEqualTo(challengeRequirement(q, comp))
+        }
+        let maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
+        if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
+            let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
+            let counter = 0;
+            let comp = player.challengecompletions[q];
+            while (counter < maxInc) {
+                if (reqCheck(comp) && comp < maxCompletions) {
+                    comp++;
                 }
+                counter++;
             }
-            let maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
-            if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-                let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
-                let counter = 0;
-                let comp = player.challengecompletions[q];
-                while (counter < maxInc) {
-                    if (reqCheck(comp) && comp < maxCompletions) {
-                        comp++;
-                    }
-                    counter++;
-                }
-                player.challengecompletions[q] = comp;
-                challengeDisplay(q, true)
+            player.challengecompletions[q] = comp;
+            challengeDisplay(q, true)
+        }
+        if (!player.shopUpgrades.instantChallengeBought || leaving) { // TODO: Implement the upgrade levels here
+            reset(3, false, "leaveChallenge");
+            player.reincarnationCount -= 1;
+        }
+        challengeachievementcheck(q);
+        if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
+            while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
+                player.highestchallengecompletions[q] += 1;
+                highestChallengeRewards(q, player.highestchallengecompletions[q])
+                updateCubesPerSec()
+                calculateHypercubeBlessings();
+                calculateTesseractBlessings();
+                calculateCubeBlessings();
             }
-            if (!player.shopUpgrades.instantChallengeBought || leaving) { // TODO: Implement the upgrade levels here
-                reset(3, false, "leaveChallenge");
-                player.reincarnationCount -= 1;
-            }
-            challengeachievementcheck(q);
-            if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
-                while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
-                    player.highestchallengecompletions[q] += 1;
-                    highestChallengeRewards(q, player.highestchallengecompletions[q])
-                    updateCubesPerSec()
-                    calculateHypercubeBlessings();
-                    calculateTesseractBlessings();
-                    calculateCubeBlessings();
-                }
-            }
-
         }
         if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension) {
             reset(3, false, "leaveChallenge");
@@ -2391,7 +2386,7 @@ function resetCheck(i, manual, leaving) {
         }
     }
 
-    if (i === "ascensionChallenge") {
+    if (i === "ascensionChallenge" && player.currentChallenge.ascension !== 0) {
         let conf = true
         if (manual) {
             conf = confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
@@ -3103,7 +3098,15 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[1]) : buyMax(pos, type, num, cost[1], false)
             }
             if (currentTab === "runes") {
-                redeemShards(1)
+                if(runescreen === "runes"){
+                    redeemShards(1)
+                }
+                if(runescreen === "blessings"){
+                    buyRuneBonusLevels(1,1)
+                }
+                if(runescreen === "spirits"){
+                    buyRuneBonusLevels(2,1)
+                }
             }
             if (currentTab === "challenges") {
                 toggleChallenges(1)
@@ -3118,7 +3121,15 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[2]) : buyMax(pos, type, num, cost[2], false)
             }
             if (currentTab === "runes") {
-                redeemShards(2)
+                if(runescreen === "runes"){
+                    redeemShards(2)
+                }
+                if(runescreen === "blessings"){
+                    buyRuneBonusLevels(1,2)
+                }
+                if(runescreen === "spirits"){
+                    buyRuneBonusLevels(2,2)
+                }
             }
             if (currentTab === "challenges") {
                 toggleChallenges(2)
@@ -3132,7 +3143,15 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[3]) : buyMax(pos, type, num, cost[3], false)
             }
             if (currentTab === "runes") {
-                redeemShards(3)
+                if(runescreen === "runes"){
+                    redeemShards(3)
+                }
+                if(runescreen === "blessings"){
+                    buyRuneBonusLevels(1,3)
+                }
+                if(runescreen === "spirits"){
+                    buyRuneBonusLevels(2,3)
+                }
             }
             if (currentTab === "challenges") {
                 toggleChallenges(3)
@@ -3146,7 +3165,15 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[4]) : buyMax(pos, type, num, cost[4], false)
             }
             if (currentTab === "runes") {
-                redeemShards(4)
+                if(runescreen === "runes"){
+                    redeemShards(4)
+                }
+                if(runescreen === "blessings"){
+                    buyRuneBonusLevels(1,4)
+                }
+                if(runescreen === "spirits"){
+                    buyRuneBonusLevels(2,4)
+                }
             }
             if (currentTab === "challenges") {
                 toggleChallenges(4)
@@ -3160,7 +3187,15 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[5]) : buyMax(pos, type, num, cost[5], false)
             }
             if (currentTab === "runes") {
-                redeemShards(5)
+                if(runescreen === "runes"){
+                    redeemShards(5)
+                }
+                if(runescreen === "blessings"){
+                    buyRuneBonusLevels(1,5)
+                }
+                if(runescreen === "spirits"){
+                    buyRuneBonusLevels(2,5)
+                }
             }
             if (currentTab === "challenges") {
                 toggleChallenges(5)
