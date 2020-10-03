@@ -34,7 +34,7 @@ function challengeDisplay(i, changefocus, automated) {
     if (i > 10) {
         maxChallenges = 30
         if(player.challengecompletions[i] >= 10){
-            document.getElementById('completionSoftcap').textContent = "|| Softcapped past 25! Effective completion count: " + format(CalcECC('ascension',player.challengecompletions[i]),2,true)
+            document.getElementById('completionSoftcap').textContent = "|| Softcapped past 10! Effective completion count: " + format(CalcECC('ascension',player.challengecompletions[i]),2,true)
         }
         else{
             document.getElementById('completionSoftcap').textContent = ""
