@@ -149,6 +149,12 @@ function keyboardtabchange(i) {
     if (player.challengecompletions[8] > 0) {
         q += 1
     }
+    if (player.achievements[183]) {
+        q++;
+    }
+    if (player.achievements[185]) {
+        q++;
+    }
     player.tabnumber += i
     if (player.tabnumber === q) {
         player.tabnumber = 1
@@ -178,8 +184,12 @@ function keyboardtabchange(i) {
     if (player.tabnumber === 7) {
         toggleTabs("ants")
     }
-
-
+    if (player.tabnumber === 8) {
+        toggleTabs("cubes")
+    }
+    if (player.tabnumber === 9) {
+        toggleTabs("traits")
+    }
 }
 
 function toggleautoreset(i) {
