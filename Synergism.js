@@ -616,7 +616,7 @@ function loadSynergy() {
         const size = player.codes.size;
 
         const oldPromoKeys = Object.keys(data).filter(k => k.includes('offerpromo'));
-        if(oldPromoKeys.length > 0) {
+        if (oldPromoKeys.length > 0) {
             oldPromoKeys.forEach(k => {
                 const value = data[k];
                 const num = +k.replace(/[^\d]/g, '');
@@ -633,29 +633,29 @@ function loadSynergy() {
                 return (player[prop] = new Decimal(data[prop]));
             } else if (prop === 'codes') {
                 return (player.codes = new Map(data[prop]));
-            } else if(oldCodesUsed.includes(prop)) {
+            } else if (oldCodesUsed.includes(prop)) {
                 return;
             }
 
             return (player[prop] = data[prop]);
         });
-        if(data.offerpromo24used !== undefined){
+        if (data.offerpromo24used !== undefined) {
             player.codes.set(25, false)
         }
 
         // sets all non-existent codes to default value false
-        if(player.codes.size < size) {
-            for(let i = player.codes.size + 1; i <= size; i++) {
-                if(!player.codes.has(i)) {
+        if (player.codes.size < size) {
+            for (let i = player.codes.size + 1; i <= size; i++) {
+                if (!player.codes.has(i)) {
                     player.codes.set(i, false);
                 }
             }
         }
 
         // sets all non-existent codes to default value false
-        if(player.codes.size < size) {
-            for(let i = player.codes.size + 1; i <= size; i++) {
-                if(!player.codes.has(i)) {
+        if (player.codes.size < size) {
+            for (let i = player.codes.size + 1; i <= size; i++) {
+                if (!player.codes.has(i)) {
                     player.codes.set(i, false);
                 }
             }
@@ -1272,8 +1272,8 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
  * @param {Decimal | number} input number/Decimal to be formatted
- * @param {number} accuracy 
- * how many decimal points that are to be displayed (Values <10 if !long, <1000 if long). 
+ * @param {number} accuracy
+ * how many decimal points that are to be displayed (Values <10 if !long, <1000 if long).
  * only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
  * @param {*} long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
  */
@@ -1324,7 +1324,7 @@ function format(input, accuracy = 0, long = false) {
         // Split it on the decimal place
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
-        const frontFormatted = 'BigInt' in window 
+        const frontFormatted = 'BigInt' in window
             ? BigInt(front).toLocaleString()
             : front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // if the back is undefined that means there are no decimals to display, return just the front
@@ -1339,7 +1339,7 @@ function format(input, accuracy = 0, long = false) {
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
         // Makes the power group 3 with commas
-        const powerLook = 'BigInt' in window 
+        const powerLook = 'BigInt' in window
             ? BigInt(power).toLocaleString()
             : power.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // returns format (1.23e456,789)
@@ -1642,7 +1642,7 @@ function updateAllMultiplier() {
     if (player.upgrades[35] > 0.5) {
         a *= 1.05 / 1.03 * 100 / 100
     }
-    a *= (1 + 1 / 5 * player.researches[2] * (1 + 1/2 * CalcECC('ascension', player.challengecompletions[14])))
+    a *= (1 + 1 / 5 * player.researches[2] * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14])))
     a *= (1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15])
     a *= (1 + rune2level / 400 * effectiveLevelMult)
     a *= (1 + 1 / 20 * player.researches[87])
@@ -1856,7 +1856,7 @@ function multipliers() {
     globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1 + Math.min(0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4), 0.001 * player.crystalUpgrades[2]), player.firstOwnedDiamonds + player.secondOwnedDiamonds + player.thirdOwnedDiamonds + player.fourthOwnedDiamonds + player.fifthOwnedDiamonds))
     globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1.01, (player.challengecompletions[1] + player.challengecompletions[2] + player.challengecompletions[3] + player.challengecompletions[4] + player.challengecompletions[5]) * player.crystalUpgrades[4]))
     globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(10, CalcECC('transcend', player.challengecompletions[5])))
-    globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1e4, player.researches[5] * (1 + 1/2 * CalcECC('ascension', player.challengecompletions[14]))))
+    globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1e4, player.researches[5] * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14]))))
     globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.researches[26]))
     globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(2.5, player.researches[27]))
 
@@ -1906,12 +1906,12 @@ function multipliers() {
     }
 
     globalAntMult = new Decimal(1);
-    globalAntMult = globalAntMult.times(1 + 1 / 2500 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84] / 200 * (1 + 1 * effectiveRuneSpiritPower[5] * calculateCorruptionPoints()/400)), 2))
+    globalAntMult = globalAntMult.times(1 + 1 / 2500 * Math.pow(rune5level * effectiveLevelMult * (1 + player.researches[84] / 200 * (1 + 1 * effectiveRuneSpiritPower[5] * calculateCorruptionPoints() / 400)), 2))
     if (player.upgrades[76] === 1) {
         globalAntMult = globalAntMult.times(5)
     }
     globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
-    globalAntMult = globalAntMult.times(1 + player.upgrades[78] * 0.01 * Math.pow(Math.log(player.runeshards + 1)/Math.log(10),2))
+    globalAntMult = globalAntMult.times(1 + player.upgrades[78] * 0.01 * Math.pow(Math.log(player.runeshards + 1) / Math.log(10), 2))
     globalAntMult = globalAntMult.times(Math.pow(1.5, player.shopUpgrades.antSpeedLevel));
     globalAntMult = globalAntMult.times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1] + bonusant1));
     globalAntMult = globalAntMult.times(antSacrificePointsToMultiplier(player.antSacrificePoints))
@@ -2225,8 +2225,8 @@ function resetCurrency() {
 
     //Reincarnation Point Formulae
     reincarnationPointGain = Decimal.floor(Decimal.pow(player.transcendShards.dividedBy(1e300), 0.01));
-    if (player.currentChallenge.reincarnation !== 0){
-    	reincarnationPointGain = Decimal.pow(reincarnationPointGain, 0.01)
+    if (player.currentChallenge.reincarnation !== 0) {
+        reincarnationPointGain = Decimal.pow(reincarnationPointGain, 0.01)
     }
     if (player.achievements[50] === 1) {
         reincarnationPointGain = reincarnationPointGain.times(2)
@@ -2768,7 +2768,7 @@ function updateAll() {
     }
 
     effectiveLevelMult = 1;
-    effectiveLevelMult *= (1 + player.researches[4] / 10 * (1 + 1/2 * CalcECC('ascension', player.challengecompletions[14]))) //Research 1x4
+    effectiveLevelMult *= (1 + player.researches[4] / 10 * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14]))) //Research 1x4
     effectiveLevelMult *= (1 + player.researches[21] / 100) //Research 2x6
     effectiveLevelMult *= (1 + player.researches[90] / 100) //Research 4x15
     effectiveLevelMult *= (1 + player.researches[131] / 200) //Research 6x6
@@ -3098,14 +3098,14 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[1]) : buyMax(pos, type, num, cost[1], false)
             }
             if (currentTab === "runes") {
-                if(runescreen === "runes"){
+                if (runescreen === "runes") {
                     redeemShards(1)
                 }
-                if(runescreen === "blessings"){
-                    buyRuneBonusLevels(1,1)
+                if (runescreen === "blessings") {
+                    buyRuneBonusLevels(1, 1)
                 }
-                if(runescreen === "spirits"){
-                    buyRuneBonusLevels(2,1)
+                if (runescreen === "spirits") {
+                    buyRuneBonusLevels(2, 1)
                 }
             }
             if (currentTab === "challenges") {
@@ -3121,14 +3121,14 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[2]) : buyMax(pos, type, num, cost[2], false)
             }
             if (currentTab === "runes") {
-                if(runescreen === "runes"){
+                if (runescreen === "runes") {
                     redeemShards(2)
                 }
-                if(runescreen === "blessings"){
-                    buyRuneBonusLevels(1,2)
+                if (runescreen === "blessings") {
+                    buyRuneBonusLevels(1, 2)
                 }
-                if(runescreen === "spirits"){
-                    buyRuneBonusLevels(2,2)
+                if (runescreen === "spirits") {
+                    buyRuneBonusLevels(2, 2)
                 }
             }
             if (currentTab === "challenges") {
@@ -3143,14 +3143,14 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[3]) : buyMax(pos, type, num, cost[3], false)
             }
             if (currentTab === "runes") {
-                if(runescreen === "runes"){
+                if (runescreen === "runes") {
                     redeemShards(3)
                 }
-                if(runescreen === "blessings"){
-                    buyRuneBonusLevels(1,3)
+                if (runescreen === "blessings") {
+                    buyRuneBonusLevels(1, 3)
                 }
-                if(runescreen === "spirits"){
-                    buyRuneBonusLevels(2,3)
+                if (runescreen === "spirits") {
+                    buyRuneBonusLevels(2, 3)
                 }
             }
             if (currentTab === "challenges") {
@@ -3165,14 +3165,14 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[4]) : buyMax(pos, type, num, cost[4], false)
             }
             if (currentTab === "runes") {
-                if(runescreen === "runes"){
+                if (runescreen === "runes") {
                     redeemShards(4)
                 }
-                if(runescreen === "blessings"){
-                    buyRuneBonusLevels(1,4)
+                if (runescreen === "blessings") {
+                    buyRuneBonusLevels(1, 4)
                 }
-                if(runescreen === "spirits"){
-                    buyRuneBonusLevels(2,4)
+                if (runescreen === "spirits") {
+                    buyRuneBonusLevels(2, 4)
                 }
             }
             if (currentTab === "challenges") {
@@ -3187,14 +3187,14 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
                 buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[5]) : buyMax(pos, type, num, cost[5], false)
             }
             if (currentTab === "runes") {
-                if(runescreen === "runes"){
+                if (runescreen === "runes") {
                     redeemShards(5)
                 }
-                if(runescreen === "blessings"){
-                    buyRuneBonusLevels(1,5)
+                if (runescreen === "blessings") {
+                    buyRuneBonusLevels(1, 5)
                 }
-                if(runescreen === "spirits"){
-                    buyRuneBonusLevels(2,5)
+                if (runescreen === "spirits") {
+                    buyRuneBonusLevels(2, 5)
                 }
             }
             if (currentTab === "challenges") {
