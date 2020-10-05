@@ -378,10 +378,10 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
     let cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
     while (player[tag].greaterThanOrEqualTo(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
-        buyInc = buyInc * 16;
+        buyInc = buyInc * 4;
         cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
     }
-    let stepdown = Math.floor(buyInc / 16);
+    let stepdown = Math.floor(buyInc / 8);
     while (stepdown !== 0) {
         // if step down would push it below out of expense range then divide step down by 2
         if (getCost(originalCost, buyStart + buyInc - stepdown, type, num, r).lessThanOrEqualTo(player[tag])) {
