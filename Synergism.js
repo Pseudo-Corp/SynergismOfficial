@@ -2953,8 +2953,10 @@ function tick() {
                 let counter = 0;
                 let maxCount = 1 + player.challengecompletions[14];
                 while (counter < maxCount) {
-                    if (player.autoResearch)
-                        buyResearch(player.autoResearch, true)
+                    if (player.autoResearch){
+                        linGrowth = (player.autoResearch === 200)? 0.01: 0;
+                        buyResearch(player.autoResearch, true, linGrowth)
+                    }
                     counter++;
                 }
             }
