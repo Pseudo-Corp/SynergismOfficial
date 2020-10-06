@@ -215,7 +215,7 @@ function factorialByExponent(fact) {
     if (fact === 0) {
         return 0;
     }
-    return ((Math.log10(fact * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6)))) - exponentPartExtra) * fact) + ((mantissaPartExtra - Math.log10(fact)) / 2);
+    return ((Math.log10(fact * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6)))) - exponentFactorialPartExtra) * fact) + ((mantissaFactorialPartExtra - Math.log10(fact)) / 2);
 }
 
 const fact100exponent = Math.log10(9.3326215443944152681699238856267e+157);
