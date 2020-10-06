@@ -207,18 +207,18 @@ Decimal.prototype.factorial = function () {
 };
 */
 function factorialMantissaPart(fact) {
-    --fact;
+    ++fact;
     if (fact === 0) {
         return 1;
     }
     return Math.sqrt(2 * Math.PI / fact);
 }
 function factorialExponentPart(fact) {
-    --fact;
+    ++fact;
     if (fact === 0) {
         return 0;
     }
-    return Math.log10(fact / Math.E * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6))) * fact);
+    return Math.log10(fact / Math.E * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6)))) * fact;
 }
 
 function fastFactorialMult(num, fact) {
@@ -331,7 +331,6 @@ function getCost(originalCost, buyingTo, type, num, r) {
     // Applies the factorial w/ formula from earlier n times to avoid multiple computations
     cost.exponent += fastFactMultBuyTo100 * ((factorialExponentPart(buyingTo + 100) - fact100exponent + (2 * buyingTo)) * (1.25 + (0.25 * player.challengecompletions[4])));
     cost.mantissa *= Math.pow(Math.pow(factorialMantissaPart(buyingTo + 100), 1.25 + (0.25 * player.challengecompletions[4])), fastFactMultBuyTo100);
-
     // Applies all the Math.log10(1.25)s from earlier n times to avoid multiple computations
     // log10(1.25)
     cost.exponent += known_log10s[1.25] * mlog10125;
