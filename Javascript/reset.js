@@ -1,7 +1,7 @@
 var repeatreset
 
 function resetrepeat(i) {
-    clearInterval(repeatreset);
+    clearInt(repeatreset);
     repeatreset = interval(resetdetails, 50, i)
 }
 
@@ -323,6 +323,7 @@ function reset(i, fast, from) {
         if (player.ascensionCount > 0 && player.achievements[183] < 1) {
             ascensionAchievementCheck(1);
         }
+
         historyKind = "reincarnate";
         historyEntry.obtainium = obtainiumGain;
         historyEntry.particles = reincarnationPointGain;

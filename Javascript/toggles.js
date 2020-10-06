@@ -407,13 +407,13 @@ function setActiveSettingScreen(subtab, clickedButton) {
 
         function refreshStats() {
             if (currentTab !== "settings") {
-                clearInterval(id);
+                clearInt(id);
             }
             loadStatisticsAccelerator();
             loadStatisticsMultiplier();
             loadStatisticsCubeMultipliers();
             if (!subtabEl.classList.contains("subtabActive"))
-                clearInterval(id);
+                clearInt(id);
         }
 
         refreshStats();

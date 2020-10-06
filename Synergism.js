@@ -1,9 +1,17 @@
 const intervalHold = [];
 const interval = new Proxy(setInterval, {
-    apply(handler, _, c) {
-        const set = handler(...c);
+    apply(target, thisArg, args) {
+        const set = target.apply(thisArg, args);
         intervalHold.push(set);
         return set;
+    }
+});
+
+const clearInt = new Proxy(clearInterval, {
+    apply(target, thisArg, args) {
+        const id = args[0];
+        intervalHold.splice(intervalHold.indexOf(id), 1); // remove from intervalHold array
+        return target.apply(thisArg, args);
     }
 });
 
@@ -1280,6 +1288,7 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
 }
 
+const numberFormatter = new Intl.NumberFormat('en-US');
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
  * @param {Decimal | number} input number/Decimal to be formatted
@@ -1335,8 +1344,8 @@ function format(input, accuracy = 0, long = false) {
         // Split it on the decimal place
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
-        const frontFormatted = 'BigInt' in window
-            ? BigInt(front).toLocaleString()
+        const frontFormatted = 'BigInt' in window 
+            ? numberFormatter.format(BigInt(front))
             : front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // if the back is undefined that means there are no decimals to display, return just the front
         if (back === undefined) {
@@ -1350,8 +1359,8 @@ function format(input, accuracy = 0, long = false) {
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
         // Makes the power group 3 with commas
-        const powerLook = 'BigInt' in window
-            ? BigInt(power).toLocaleString()
+        const powerLook = 'BigInt' in window 
+            ? numberFormatter.format(BigInt(power))
             : power.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // returns format (1.23e456,789)
         return mantissaLook + "e" + powerLook;
