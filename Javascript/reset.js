@@ -321,8 +321,9 @@ function reset(i, fast, from) {
     if (i > 2.5) {
         // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
         if(player.ascensionCount > 0 && player.achievements[183] < 1){
-            ascensionAchievementCheck(1);
+        ascensionAchievementCheck(1);
         }
+
         historyKind = "reincarnate";
         historyEntry.obtainium = obtainiumGain;
         historyEntry.particles = reincarnationPointGain;

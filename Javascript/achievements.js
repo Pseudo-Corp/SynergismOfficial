@@ -230,7 +230,7 @@ adesc = {
     adesc187: "Give me a Thousand: Ascend 1,000 Times.",
     adesc188: "Give me some arbitrary number I: Ascend 14,142 Times.",
     adesc189: "Give me some arbitrary number II: Ascend 141,421 Times.",
-    adesc190: "Now that's what I call getting some &Pi!: Attain a constant of 3.14.",
+    adesc190: "Now that's what I call getting some Pi!: Attain a constant of 3.14.",
     adesc191: "One in a million: Attain a constant of 1,000,000 [1e6].",
     adesc192: "A number: Attain a constant of 4.32e10.",
     adesc193: "The coolest of numbers: Attain a constant of 6.9e21.",
@@ -404,7 +404,10 @@ areward = {
     areward179: "Unlock Tier 5 Ant autobuy, and autobuy Sacrificium ants! Add +100 Base Ant ELO.",
     areward180: "Unlock Tier 6 Ant autobuy, and autobuy Hic and Experientia ants! Add +1% Base Ant ELO.",
     areward181: "Unlock Tier 7 Ant autobuy, and autobuy Praemoenio ants! Add +2% Base Ant ELO.",
-    areward182: "Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacterium ants! Add +3% Base Ant ELO."
+    areward182: "Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacterium ants! Add +3% Base Ant ELO.",
+    areward186: "You gain a linear multiplier to Cube/Tesseract/Hypercube rewards after 10 seconds in your current Ascension!",
+    areward193: "Gain (log(Constant+1)/4)% more Cubes on ascension!",
+    areward195: "Gain (log(Constant+1)/4)% more Cubes and Tesseracts on ascension! Multiplicative with the other Ach. bonus."
 }
 
 function resetachievementcheck(i) {

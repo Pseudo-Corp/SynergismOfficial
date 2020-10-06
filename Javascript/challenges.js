@@ -21,6 +21,8 @@ function challengeDisplay(i, changefocus, automated) {
             document.getElementById('completionSoftcap').textContent = ""
         }
     }
+    
+
     if (i > 5 && i <= 10) {
         maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
         quarksMultiplier = 10;

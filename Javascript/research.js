@@ -1,6 +1,13 @@
-function buyResearch(index, auto) {
-    auto = auto || false
+function getResearchCost(index,buyAmount,linGrowth){
+    buyAmount = buyAmount || 1
+    buyAmount = Math.min(researchMaxLevels[index] - player.researches[index], buyAmount)
+    let metaData = calculateSummationNonLinear(player.researches[index], researchBaseCosts[index], player.researchPoints, linGrowth, buyAmount)
+    return [metaData[0],metaData[1]]
+}
 
+function buyResearch(index, auto, linGrowth) {
+    auto = auto || false
+    linGrowth = linGrowth || 0
     if (player.autoResearchToggle && player.autoResearch > 0.5 && !auto) {
         let p = player.autoResearch
         if (player.researches[p] === researchMaxLevels[p]) {
@@ -17,17 +24,13 @@ function buyResearch(index, auto) {
         document.getElementById("res" + index).style.backgroundColor = "orange"
     }
 
-    let buyamount = 1;
-    let i = 1;
-    if (maxbuyresearch || auto) {
-        buyamount = 1000
-    }
-    if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index)) {
-        while (!isResearchMaxed(index) && player.researchPoints >= researchBaseCosts[index] && buyamount >= i) {
-            player.researchPoints -= researchBaseCosts[index]
-            player.researches[index] += 1;
+    let buyamount = (maxbuyresearch || auto)? 1e5: 1;
+    let metaData = getResearchCost(index,buyamount,linGrowth)
+    if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && player.researchPoints >= metaData[1]) {
+            player.researchPoints -= metaData[1]
+            player.researches[index] = metaData[0];
             researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index])
-            researchDescriptions(index, auto)
+            researchDescriptions(index, auto, linGrowth)
 
             if (index === 47 && player.unlocks.rrow1 === false) {
                 player.unlocks.rrow1 = true;
@@ -45,8 +48,6 @@ function buyResearch(index, auto) {
                 player.unlocks.rrow4 = true;
                 revealStuff()
             }
-            i++
-        }
     }
 
     if (0 < index && isResearchUnlocked(index)) {
@@ -59,7 +60,7 @@ function buyResearch(index, auto) {
         if (isResearchMaxed(player.autoResearch)) {
             player.roombaResearchIndex += 1;
         }
-        while (!isResearchUnlocked(player.autoResearch)) {
+        while (!isResearchUnlocked(player.autoResearch) && player.autoResearch < 200 && player.autoResearch >= 1) {
             player.roombaResearchIndex += 1;
             player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
         }
@@ -310,12 +311,15 @@ resdesc = [null,
     "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.04 Max Rune level, + Floor(level/400) max Talisman Level, +Floor(level/200) free ants."
 ];
 
-function researchDescriptions(i, auto) {
+function researchDescriptions(i, auto, linGrowth) {
     auto = auto || false
+    linGrowth = linGrowth || 0
+    let buyAmount = (maxbuyresearch || auto)? 100000: 1;
     let y = resdesc[i]
     let z = ""
     let p = "res" + i
-    z = " Cost: " + (format(researchBaseCosts[i], 0, true)) + " Obtainium"
+    let metaData = getResearchCost(i,buyAmount,linGrowth);
+    z = " Cost: " + (format(metaData[1], 0, false)) + " Obtainium [+" + format(metaData[0]-player.researches[i],0,true) + " Levels]"
     if (player.researches[i] === (researchMaxLevels[i])) {
         document.getElementById("researchcost").style.color = "Gold"
         document.getElementById("researchinfo3").style.color = "plum"
