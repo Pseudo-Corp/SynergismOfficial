@@ -129,6 +129,14 @@ function checkVariablesOnLoad(data) {
         player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
+    if (player.corruptionLoadouts === undefined) {
+        player.corruptionLoadouts = {
+            1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        };
+        player.corruptionShowStats = true
+    }
 
     for (let i = 0; i <= 4; i++) {
         if (player.runelevels[i] > calculateMaxRunes(i + 1)) {
