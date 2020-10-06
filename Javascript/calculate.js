@@ -805,7 +805,7 @@ function calculateOffline(forceTime) {
         progressBarWidth = 750 * (1 - simulatedTicks / maxSimulatedTicks);
         document.getElementById("offlineprogressdone").style.width = progressBarWidth + "px";
         if (simulatedTicks < 1) {
-            clearInterval(runOffline);
+            clearInt(runOffline);
             timeWarp = false;
             document.getElementById("offlineprogressbar").style.display = "none";
             document.getElementById("preload").style.display = "none";
