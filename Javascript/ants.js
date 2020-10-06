@@ -58,7 +58,7 @@ const antUpgradeTexts = [null,
 var repeatAnt
 
 function antRepeat(i) {
-    clearInterval(repeatAnt);
+    clearInt(repeatAnt);
     repeatAnt = interval(updateAntDescription, 50, i)
 }
 

@@ -56,7 +56,7 @@ function importSynergism(input) {
     const d = LZString.decompressFromBase64(input);
     const f = d ? JSON.parse(d) : JSON.parse(atob(input));
     if(f.exporttest === "YES!"){
-        intervalHold.forEach(clearInterval);
+        intervalHold.forEach(clearInt);
         intervalHold.length = 0;
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
         constantIntervals();
