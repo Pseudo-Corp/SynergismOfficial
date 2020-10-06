@@ -204,6 +204,7 @@ function corruptionLoadoutSaveLoad(save = true, loadout = 1) {
     } else {
         player.prototypeCorruptions = Array.from(player.corruptionLoadouts[loadout])
         corruptionLoadoutTableUpdate(0)
+        corruptionStatsUpdate()
     }
 }
 
