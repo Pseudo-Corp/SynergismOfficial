@@ -698,7 +698,7 @@ function buyRuneBonusLevels(type, index) { //type 1 for Blessings, type 2 for Sp
             achievementaward(245)
         }
     }
-    
+
     calculateRuneBonuses()
 
     if(type === 1){
@@ -714,4 +714,6 @@ function buyRuneBonusLevels(type, index) { //type 1 for Blessings, type 2 for Sp
         document.getElementById('runeSpiritPower' + index + 'Value1').textContent = format(runeSpirits[index])
         document.getElementById('runeSpiritPower' + index + 'Value2').textContent = format(1 - t + spiritMultiplierArray[index] * effectiveRuneSpiritPower[index], 4, true)
     }
+
+
 }
