@@ -573,6 +573,7 @@ const player = {
     tesseractQuarkDaily: 0,
     hypercubeOpenedDaily: 0,
     hypercubeQuarkDaily: 0,
+    loadedOct4Hotfix: false,
     [Symbol.for('version')]: '2.0.0'
 }
 
