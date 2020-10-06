@@ -258,16 +258,11 @@ function getCost(originalCost, buyingTo, type, num, r) {
     --buyingTo;
     // Accounts for the multiplies by 1.25^num buyingTo times
     let cost = new Decimal(originalCost);
-    cost.exponent += Math.log10(1.25) * num * buyingTo;
-
-    let extra = cost.exponent - Math.floor(cost.exponent);
-    cost.exponent = Math.floor(cost.exponent);
-    cost.mantissa *= Math.pow(10, extra);
-    cost.normalize();
-
-    // Accounts for the add 1s (this is relatively hard to do without this method surprisingly, but could be cleaned up if really necessary)
-    cost = cost.add(1 * buyingTo);
-
+    let mlog10125 = num * buyingTo;
+    // Accounts for the add 1s
+    if (buyingTo < precision16_loss_addition_of_ones / num) {
+        cost.mantissa += buyingTo / Math.pow(10, cost.exponent);
+    }
     let fastFactMultBuyTo = 0;
     // floored r value gets used a lot in removing calculations
     let fr = Math.floor(r * 1000);
@@ -311,32 +306,21 @@ function getCost(originalCost, buyingTo, type, num, r) {
     cost.exponent += factorialByExponent(buyingTo) * fastFactMultBuyTo;
     let fastFactMultBuyTo100 = 0;
     if ((player.currentChallenge.transcension === 4) && (type === "Coin" || type === "Diamonds")) {
-        extra = cost.exponent - Math.floor(cost.exponent);
-        cost.exponent = Math.floor(cost.exponent);
-        cost.mantissa *= Math.pow(10, extra);
-        cost.normalize();
-
-
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + (player.challengecompletions[4] / 4)));
+        ++fastFactMultBuyTo100;
         if (buyingTo >= (1000 - (10 * player.challengecompletions[4]))) {
             // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
-            cost.exponent += Math.log10(1.25) * (buyingTo * (buyingTo + 1) / 2);
+            mlog10125 += (buyingTo * (buyingTo + 1) / 2);
         }
     }
     if ((player.currentChallenge.reincarnation === 10) && (type === "Coin" || type === "Diamonds")) {
-        extra = cost.exponent - Math.floor(cost.exponent);
-        cost.exponent = Math.floor(cost.exponent);
-        cost.mantissa *= Math.pow(10, extra);
-        cost.normalize();
-
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + (player.challengecompletions[4] / 4)));
+        ++fastFactMultBuyTo100;
         if (buyingTo >= (r * 25000)) {
             // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
-            cost.exponent += Math.log10(1.25) * (buyingTo * (buyingTo + 1) / 2);
+            mlog10125 += (buyingTo * (buyingTo + 1) / 2);
         }
     }
     // Applies the factorial w/ formula from earlier n times to avoid multiple computations
