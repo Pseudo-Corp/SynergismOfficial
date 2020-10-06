@@ -206,28 +206,15 @@ Decimal.prototype.factorial = function () {
   return Decimal.pow(n / Math.E * Math.sqrt(n * Math.sinh(1 / n) + 1 / (810 * Math.pow(n, 6))), n).mul(Math.sqrt(2 * Math.PI / n));
 };
 */
-function factorialMantissaPart(fact) {
-    ++fact;
-    if (fact === 0) {
-        return 1;
-    }
-    return Math.sqrt(2 * Math.PI / fact);
-}
-function factorialExponentPart(fact) {
+
+const mantissaPartExtra = Math.log10(2 * Math.PI);
+const exponentPartExtra = Math.log10(Math.E);
+function factorialByExponent(fact) {
     ++fact;
     if (fact === 0) {
         return 0;
     }
-    return Math.log10(fact / Math.E * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6)))) * fact;
-}
-
-function fastFactorialMult(num, fact) {
-    num.exponent += factorialExponentPart(fact);
-    num.mantissa *= factorialMantissaPart(fact);
-}
-function fastFactorialDiv(num, fact) {
-    num.exponent -= factorialExponentPart(fact);
-    num.mantissa /= factorialMantissaPart(fact);
+    return ((Math.log10(fact * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6)))) - exponentPartExtra) * fact) + ((1 / 2) * (mantissaPartExtra - Math.log10(fact)));
 }
 
 const fact100exponent = Math.log10(9.3326215443944152681699238856267e+157);
@@ -244,8 +231,8 @@ const known_log10s = function() {
     let needed = [1.03,1.25];
     let nums = [1,2,3,4,5,6,10,15];
     for (let num of nums) {
-        needed.push(num + 1);
-        needed.push(10 + num * 10);
+        needed.push(100 + (100 * num));
+        needed.push(10 + (10 * num));
     }
 
     // Gets all possible challenge 8 completion amounts
@@ -281,19 +268,22 @@ function getCost(originalCost, buyingTo, type, num, r) {
     if (buyingTo >= r * 1000) {
         // This code is such a mess at this point, just know that this is equivalent to what it was before
         ++fastFactMultBuyTo;
-        cost.exponent += (-2 + (num / 2)) * (buyingTo - fr);
+        cost.exponent -= factorialByExponent(fr);
+        cost.exponent += (-3 + Math.log10(1 + (num / 2))) * (buyingTo - fr);
     }
     fr = Math.floor(r * 5000);
     if (buyingTo >= r * 5000) {
         // This code is such a mess at this point, just know that this is equivalent to what it was before
         ++fastFactMultBuyTo;
+        cost.exponent -= factorialByExponent(fr);
         cost.exponent += ((known_log10s[10 + num * 10] + 1) * (buyingTo - fr - 1)) + 1;
     }
     fr = Math.floor(r * 20000);
     if (buyingTo >= r * 20000) {
         // This code is such a mess at this point, just know that this is equivalent to what it was before
         fastFactMultBuyTo += 3;
-        cost.exponent += (known_log10s[1 + num] + 7) * (buyingTo - fr);
+        cost.exponent -= factorialByExponent(fr) * 3;
+        cost.exponent += (known_log10s[100 + (100 * num)] + 5) * (buyingTo - fr);
     }
     fr = Math.floor(r * 250000);
     if (buyingTo >= r * 250000) {
@@ -310,8 +300,7 @@ function getCost(originalCost, buyingTo, type, num, r) {
         cost.exponent += known_log10s[1.03] * (buyingTo - fr) * ((buyingTo - fr + 1) / 2);
     }
     // Applies the factorials from earlier without computing them 5 times
-    cost.exponent += factorialExponentPart(buyingTo) * fastFactMultBuyTo;
-    cost.mantissa *= Math.pow(factorialMantissaPart(buyingTo), fastFactMultBuyTo);
+    cost.exponent += factorialByExponent(buyingTo) * fastFactMultBuyTo;
     let fastFactMultBuyTo100 = 0;
     if ((player.currentChallenge.transcension === 4) && (type === "Coin" || type === "Diamonds")) {
         // This code is such a mess at this point, just know that this is equivalent to what it was before
@@ -329,22 +318,13 @@ function getCost(originalCost, buyingTo, type, num, r) {
         }
     }
     // Applies the factorial w/ formula from earlier n times to avoid multiple computations
-    cost.exponent += fastFactMultBuyTo100 * ((factorialExponentPart(buyingTo + 100) - fact100exponent + (2 * buyingTo)) * (1.25 + (0.25 * player.challengecompletions[4])));
-    cost.mantissa *= Math.pow(Math.pow(factorialMantissaPart(buyingTo + 100), 1.25 + (0.25 * player.challengecompletions[4])), fastFactMultBuyTo100);
+    cost.exponent += fastFactMultBuyTo100 * ((factorialByExponent(buyingTo + 100) - fact100exponent + (2 * buyingTo)) * (1.25 + (0.25 * player.challengecompletions[4])));
     // Applies all the Math.log10(1.25)s from earlier n times to avoid multiple computations
     // log10(1.25)
     cost.exponent += known_log10s[1.25] * mlog10125;
-
     fr = Math.floor(r * 1000 * player.challengecompletions[8]);
     if (player.currentChallenge.reincarnation === 8 && (type === "Coin" || type === "Diamonds" || type === "Mythos") && buyingTo >= (1000 * player.challengecompletions[8] * r)) {
-
-        const sumBuys = (buyingTo - (1000 * player.challengecompletions[8] * r)) * ((buyingTo - (1000 * player.challengecompletions[8] * r) + 1) / 2);
-        const negBuys = (fr - (1000 * player.challengecompletions[8] * r)) * ((fr - (1000 * player.challengecompletions[8] * r) + 1) / 2);
-
-        cost.exponent += known_log10s[2] * (sumBuys - negBuys);
-
-        // divided by same amount buying to - fr times
-        cost.exponent -= known_log10s[1 + (1 / 2 * player.challengecompletions[8])] * (buyingTo - fr);
+        cost.exponent += ((known_log10s[2] * ((buyingTo - fr + 1) / 2)) - known_log10s[1 + (1 / 2 * player.challengecompletions[8])]) * (buyingTo - fr);
     }
     extra = cost.exponent - Math.floor(cost.exponent);
     cost.exponent = Math.floor(cost.exponent);
