@@ -902,7 +902,7 @@ function calculateCubeMultiplier(calcMult = true) {
 
 function calculateTimeAcceleration() {
     let timeMult = 1;
-    timeMult *= (1 + 1/200 * Math.log(player.researchPoints + 1)/Math.log(10) * player.upgrades[70]) //Particle upgrade 2x5
+    timeMult *= (1 + 1/300 * Math.log(player.maxobtainium + 1)/Math.log(10) * player.upgrades[70]) //Particle upgrade 2x5
     timeMult *= (1 + player.researches[121] / 50); // research 5x21
     timeMult *= (1 + 0.015 * player.researches[136]) // research 6x11
     timeMult *= (1 + 0.012 * player.researches[151]) // research 7x1
