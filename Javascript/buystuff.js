@@ -207,8 +207,8 @@ Decimal.prototype.factorial = function () {
 };
 */
 
-const mantissaPartExtra = Math.log10(2 * Math.PI);
-const exponentPartExtra = Math.log10(Math.E);
+const mantissaFactorialPartExtra = Math.log10(2 * Math.PI);
+const exponentFactorialPartExtra = Math.log10(Math.E);
 function factorialByExponent(fact) {
     ++fact;
     if (fact === 0) {
