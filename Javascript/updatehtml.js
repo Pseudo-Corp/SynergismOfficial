@@ -142,7 +142,7 @@ function revealStuff() {
 
     let example29 = document.getElementsByClassName("cubeUpgrade10");
     for (let i = 0; i < example29.length; i++) {
-        example29[i].style.display = player.cubeUpgrades[10] > 0 ? "block" : "none"
+        example29[i].style.display = player.cubeUpgrades[10] > 0 ? "flex" : "none"
     }
 
     let example30 = document.getElementsByClassName("cubeUpgrade19");
@@ -397,7 +397,7 @@ function hideStuff() {
         player.tabnumber = 8;
     }
     if (currentTab === "traits") {
-        document.getElementById("traits").style.display = "block";
+        document.getElementById("traits").style.display = "flex";
         document.getElementById("traitstab").style.backgroundColor = "white";
         player.tabnumber = 9;
     }
@@ -1035,5 +1035,19 @@ function CSSRuneBlessings() {
         g.style.top = h.style.top = (23 + 75 * i) + "px"
         g.style.left = h.style.left = "59%"
 
+    }
+}
+
+function showCorruptionStatsLoadouts() {
+    if (player.corruptionShowStats) {
+        document.getElementById("corruptionStats").style.display = "block"
+        document.getElementById("corruptionLoadouts").style.display = "none"
+        document.getElementById("corrStatsBtn").style.borderColor = "dodgerblue"
+        document.getElementById("corrLoadoutsBtn").style.borderColor = "white"
+    } else {
+        document.getElementById("corruptionStats").style.display = "none"
+        document.getElementById("corruptionLoadouts").style.display = "block"
+        document.getElementById("corrStatsBtn").style.borderColor = "white"
+        document.getElementById("corrLoadoutsBtn").style.borderColor = "dodgerblue"
     }
 }

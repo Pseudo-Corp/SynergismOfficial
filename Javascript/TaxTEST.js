@@ -59,6 +59,8 @@ function calculatetax(fast) {
     exponent *= (1 - 0.10 * (player.talismanRarity[1] - 1))
     exponent *= Math.pow(0.98, 3 / 5 * Math.log(1 + player.rareFragments) / Math.log(10))
     exponent *= Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13]))
+    exponent *= (1 - 0.666 * player.researches[200]/100000)
+    exponent *= (1 - 0.666 * player.cubeUpgrades[50]/100000)
     if(player.upgrades[121] > 0){exponent *= 0.5}
     maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1
     a = Math.min(maxexponent, Math.floor(Decimal.log(produceTotal.add(1), 10)));

@@ -41,7 +41,7 @@
     <script src="Javascript/corruptions.js"></script>
     <script src="Javascript/experimental.js"></script>
     <!--<script src="Javascript/i18n.js"></script>-->
-    <title>Synergism v2.0.3</title>
+    <title>Synergism v2.0.4</title>
     </head>
 <main>
 
@@ -1559,7 +1559,7 @@
                     <td><img id="res197" src="Pictures/Transparent Pics/Research197.png" alt="" onclick='buyResearch(197);' class="chal14" onmouseover="researchDescriptions(197)"></td>
                     <td><img id="res198" src="Pictures/Transparent Pics/Research198.png" alt="" onclick='buyResearch(198);' class="chal14" onmouseover="researchDescriptions(198)"></td>
                     <td><img id="res199" src="Pictures/Transparent Pics/Research199.png" alt="" onclick='buyResearch(199);' class="chal14" onmouseover="researchDescriptions(199)"></td>
-                    <td><img id="res200" src="Pictures/Transparent Pics/Research200.png" alt="" onclick='buyResearch(200);' class="chal14" onmouseover="researchDescriptions(200)"></td>
+                    <td><img id="res200" src="Pictures/Transparent Pics/Research200.png" alt="" onclick='buyResearch(200,false,0.01);' class="chal14" onmouseover="researchDescriptions(200,false,0.01)"></td>
                 </tr>
             </table>
 
@@ -1694,7 +1694,7 @@
             <p id="cubeQuarksOpenToday">Cubes opened today: <span id="cubeQuarksOpenTodayValue" style="color: orchid">0</span></p>
             <p id="tesseractQuarksToday" class="chal11">Quarks gained from Tesseracts: <span id="tesseractQuarksTodayValue" style="color: cyan">0/25</span></p>
             <p id="tesseractQuarksOpenRequirement" class="chal11">Open <span id="tesseractQuarksOpenRequirementValue" style="color: yellow">1</span> tesseracts for next quark.</p>
-            <p id="tesseractQuarksOpenToday" class="chal11">Tesseracts opened today: <span id="tesseractQuarksOpenTodayValue" style="color: orchid">0</span></p>
+            <p id="tesseractQuarksOpenToday" class="chal11">Tesseracts opened today: <span id="tesseractQuarksOpenTodayValue" style="color: orchid">0</span></p>            
             <p id="hypercubeQuarksToday" class="chal13">Quarks gained from Hypercubes: <span id="hypercubeQuarksTodayValue" style="color: cyan">0/25</span></p>
             <p id="hypercubeQuarksOpenRequirement" class="chal13">Open <span id="hypercubeQuarksOpenRequirementValue" style="color: yellow">1</span> hypercubes for next quark.</p>
             <p id="hypercubeQuarksOpenToday" class="chal13">Hypercubes opened today: <span id="hypercubeQuarksOpenTodayValue" style="color: orchid;">0</span></p>
@@ -1985,7 +1985,7 @@
                         <td><img id="cubeUpg47" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade47.png" onmouseover="cubeUpgradeDesc(47)" onclick="buyCubeUpgrades(47)" alt=""></td>
                         <td><img id="cubeUpg48" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade48.png" onmouseover="cubeUpgradeDesc(48)" onclick="buyCubeUpgrades(48)" alt=""></td>
                         <td><img id="cubeUpg49" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade49.png" onmouseover="cubeUpgradeDesc(49)" onclick="buyCubeUpgrades(49)" alt=""></td>
-                        <td><img id="cubeUpg50" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade50.png" onmouseover="cubeUpgradeDesc(50)" onclick="buyCubeUpgrades(50)" alt=""></td>
+                        <td><img id="cubeUpg50" class="gridImg" src="Pictures/Transparent Pics/CubeUpgrade50.png" onmouseover="cubeUpgradeDesc(50,0.01)" onclick="buyCubeUpgrades(50,0.01)" alt=""></td>
                     </tr>
                 </table>
             <p id="cubeUpgradeName" style="text-align:center; color:white;">Wow! Hover over the upgrades you want to look at!</p>
@@ -1997,65 +1997,107 @@
         </div>
 
         <div id="traits">
-            <div id="corruptionIntroduction">The most rewarding ventures are those few would dare to embark.</div>
-            <div id="corruptionInfo1">Select the trait levels you wish to run with. Choose wisely! <span style="color: red">Don't bite off more than you can chew...</span></div>
-
-            <table id="corruptionList">
-                <tr>
-                    <td>
-                        <img src="Pictures/Divisiveness Level 7.png" onclick="corruptionDisplay(1)" style="cursor: pointer;" alt="">
-                    </td>
-                    <td>
-                        <img src="Pictures/Maladaption Lvl 7.png" onclick="corruptionDisplay(2)" style="cursor: pointer;" alt="">
-                    </td>
-                    <td>
-                        <img src="Pictures/Laziness Lvl 7.png" onclick="corruptionDisplay(3)" style="cursor: pointer;" alt="">
-                    </td>
-                    <td>
-                        <img src="Pictures/Hyperchallenged Lvl 7.png" onclick="corruptionDisplay(4)" style="cursor: pointer;" alt="">
-                    </td>
-                    <td>
-                        <img src="Pictures/Scientific Illiteracy Lvl 7.png" onclick="corruptionDisplay(5)" style="cursor: pointer;" alt="">
-                    </td>
-                    <td>
-                        <img src="Pictures/Deflation Lvl 7.png" onclick="corruptionDisplay(6)" style="cursor: pointer;" alt="">
-                    </td>
-                    <td>
-                        <img src="Pictures/Extinction Lvl 7.png" onclick="corruptionDisplay(7)" style="cursor: pointer;" alt="">
-                    </td>
-                    <td>
-                        <img src="Pictures/Drought Lvl 7.png" onclick="corruptionDisplay(8)" style="cursor: pointer;" alt="">
-                    </td>
-                    <td>
-                        <img src="Pictures/Financial Collapse Lvl 7.png" onclick="corruptionDisplay(9)" style="cursor: pointer;" alt="">
-                    </td>
-                    <td>
-                        <img src="Pictures/ExitCorruption.png" onclick="corruptionDisplay(10)" style="cursor: pointer;" alt="">
-                    </td>
-                </tr>
-            </table>
-
-            <div id="corruptionDetails" style="display: none">
-                <p id="corruptionName" style="color: red"></p>
-                <p id="corruptionDescription" style="color: darkviolet"></p>
-                <p id="corruptionLevelCurrent" style="color: orchid"></p>
-                <p id="corruptionLevelPlanned" style="color: lime"></p>
-                <p id="corruptionMultiplierContribution"></p>
-                <button id="corruptLevelUp" onclick="toggleCorruptionLevel(corruptionTrigger,1)">Add 1 Level [Max 10]</button>
-                <button id="corruptLevelDown" onclick="toggleCorruptionLevel(corruptionTrigger,-1)">Sub 1 Level [Min 0]</button>
-                <button id="corruptionCleanse" onclick="toggleCorruptionLevel(corruptionTrigger, 999)">CLEANSE</button>
+            <div id="corruptionStatsLoadouts" class="vAlign">
+                <span id="corrButtonRow" class="flex row center">
+                    <button id="corrStatsBtn" class="hCenter tight" onclick="toggleCorruptionLoadoutsStats(true)">Corruption Stats</button>
+                    <button id="corrLoadoutsBtn" class="hCenter tight" onclick="toggleCorruptionLoadoutsStats(false)">Corruption Loadouts</button>
+                </span>
+                <div id="corruptionStats">
+                    <span class="corruptionStatRow">
+                        <img src="Pictures/Divisiveness Level 7.png" class="corruptionImg" alt="">
+                    </span>
+                    <span class="corruptionStatRow">
+                        <img src="Pictures/Maladaption Lvl 7.png" class="corruptionImg" alt="">
+                    </span>
+                    <span class="corruptionStatRow">
+                        <img src="Pictures/Laziness Lvl 7.png" class="corruptionImg" alt="">
+                    </span>
+                    <span class="corruptionStatRow">
+                        <img src="Pictures/Hyperchallenged Lvl 7.png" class="corruptionImg" alt="">
+                    </span>
+                    <span class="corruptionStatRow">
+                        <img src="Pictures/Scientific Illiteracy Lvl 7.png" class="corruptionImg" alt="">
+                    </span>
+                    <span class="corruptionStatRow">
+                        <img src="Pictures/Deflation Lvl 7.png" class="corruptionImg" alt="">
+                    </span>
+                    <span class="corruptionStatRow">
+                        <img src="Pictures/Extinction Lvl 7.png" class="corruptionImg" alt="">
+                    </span>
+                    <span class="corruptionStatRow">
+                        <img src="Pictures/Drought Lvl 7.png" class="corruptionImg" alt="">
+                    </span>
+                    <span class="corruptionStatRow">
+                        <img src="Pictures/Financial Collapse Lvl 7.png" class="corruptionImg" alt="">
+                    </span>
+                    <script>corruptionButtonsAdd()</script>
+                </div>
+                <div id="corruptionLoadouts" style="display: none">
+                    <table id="corruptionLoadoutTable">
+                        <tr>
+                            <th></th>
+                            <th>
+                                <img src="Pictures/Divisiveness Level 7.png" class="corruptionImg small" alt="">
+                            </th>
+                            <th>
+                                <img src="Pictures/Maladaption Lvl 7.png" class="corruptionImg small" alt="">
+                            </th>
+                            <th>
+                                <img src="Pictures/Laziness Lvl 7.png" class="corruptionImg small" alt="">
+                            </th>
+                            <th>
+                                <img src="Pictures/Hyperchallenged Lvl 7.png" class="corruptionImg small" alt="">
+                            </th>
+                            <th>
+                                <img src="Pictures/Scientific Illiteracy Lvl 7.png" class="corruptionImg small" alt="">
+                            </th>
+                            <th>
+                                <img src="Pictures/Deflation Lvl 7.png" class="corruptionImg small" alt="">
+                            </th>
+                            <th>
+                                <img src="Pictures/Extinction Lvl 7.png" class="corruptionImg small" alt="">
+                            </th>
+                            <th>
+                                <img src="Pictures/Drought Lvl 7.png" class="corruptionImg small" alt="">
+                            </th>
+                            <th>
+                                <img src="Pictures/Financial Collapse Lvl 7.png" class="corruptionImg small" alt="">
+                            </th>
+                        </tr>
+                    </table>
+                    <script>corruptionLoadoutTableCreate()</script>
+                </div>
+                <div class="flex row center" onclick="corruptionDisplay(10)">
+                    <img src="Pictures/ExitCorruption.png" class="corruptionImg" alt="">
+                    <button id="corruptionCleanse" onclick="corruptionCleanseConfirm()">Cleanse</button>
+                    <button id="corruptionCleanseConfirm" onclick="toggleCorruptionLevel(0, 999)">Confirm</button>
+                </div>
             </div>
-            <p id="corruptionAntExponent" style="color: crimson">This Ascension's climate raises ant production to the power of <span id="corruptionAntExponentValue" style="color: darkorchid; font-size: 1.2em">1.000</span>.</span></p>
-            <p id="corruptionBank">You have <span id="corruptionBankValue" style="color: crimson">1</span> Wow! Cubes in the Ascension bank. Gain more by finishing challenges! Ascend to redeem them.</p>
-            <p id="corruptionScore">Your Ascension Score is <span id="corruptionScoreValue" style="color: goldenrod">1</span> (base) * <span id="corruptionMultiplierValue" style="color: crimson">4</span> (Corruption mult) = <span id="corruptionTotalScore" style="color: darkorchid">4</span></p>
-            <p id="corruptionCubes">If you ascend now, you will gain <span id="corruptionCubesValue" style="color: yellow; font-size: 1.2em">32</span> Wow! Cubes.</p>
-            <p id="corruptionTesseracts">If you ascend now, you will gain <span id="corruptionTesseractsValue" style="color: darkviolet; font-size: 1.2em">32</span> Wow! Tesseracts. [<span style="color: orchid">Get more if Score >100,000</span>]</p>
-            <p id="corruptionHypercubes" class="chal13">If you ascend now, you will gain <span id="corruptionHypercubesValue" style="color: crimson; font-size: 1.2em">32</span> Wow! Hypercubes. [<span style="color: red">Req Score: >1,000,000,000</span>]</p>
-            <div id="ascensionAutomation" class="cubeUpgrade10">
-                <button class="ascendunlock" id="ascensionAutoEnable" style="border: 2px solid green" onclick="toggleAutoAscend()">Auto Ascend [ON]</button>
-                <button id="ascensionAutoToggle" onclick="toggleautoreset(4)" style="border:2px solid orchid; background-color: #171717;">Mode: C10 Completions</button>
-            <input class="ascendunlock" type="number" id="ascensionAmount" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(4)">
-            <p class="ascendunlock" id="autoAscend">Ascend when you've completed Sadistic Challenge I a total of <span id="autoAscendMetric" style="color: orchid">1</span> times.</p>
+            <div id="corruptionMain" class="vAlign">
+                <div id="corruptionIntroduction" class="tightText">The most rewarding ventures are those few would dare to embark.</div>
+                <div id="corruptionInfo1" class="tightText">Select the trait levels you wish to run with. Choose wisely! <span style="color: red">Don't bite off more than you can chew...</span></div>
+                <div id="corruptionSelected" class="hCenter">
+                    <img id="corruptionSelectedPic" class="corruptionImg" src="Pictures/ExitCorruption.png" style="visibility: hidden" alt="">
+                </div>
+                <div id="corruptionDetails" class="vAlign">
+                    <p id="corruptionName" class="tightText"></p>
+                    <p id="corruptionDescription" class="tightText"></p>
+                    <p id="corruptionLevelCurrent" class="tightText"></p>
+                    <p id="corruptionLevelPlanned" class="tightText"></p>
+                    <p id="corruptionMultiplierContribution" class="tightText"></p>
+                </div>
+                <p id="corruptionAntExponent" class="tightText" style="color: crimson">This Ascension's climate raises ant production to the power of <span id="corruptionAntExponentValue" style="color: darkorchid; font-size: 1.2em">1.000</span>.</p>
+                <p id="corruptionBank" class="tightText">You have <span id="corruptionBankValue" style="color: crimson">1</span> Wow! Cubes in the Ascension bank. Gain more by finishing challenges! Ascend to redeem them.</p>
+                <p id="corruptionScore" class="tightText">Your Ascension Score is <span id="corruptionScoreValue" style="color: goldenrod">1</span> (base) * <span id="corruptionMultiplierValue" style="color: crimson">4</span> (Corruption mult) = <span id="corruptionTotalScore" style="color: darkorchid">4</span></p>
+                <p id="corruptionCubes" class="tightText">If you ascend now, you will gain <span id="corruptionCubesValue" style="color: yellow; font-size: 1.2em">32</span> Wow! Cubes.</p>
+                <p id="corruptionTesseracts" class="tightText">If you ascend now, you will gain <span id="corruptionTesseractsValue" style="color: darkviolet; font-size: 1.2em">32</span> Wow! Tesseracts. [<span style="color: orchid">Get more if Score >100,000</span>]</p>
+                <p id="corruptionHypercubes" class="chal13 tightText">If you ascend now, you will gain <span id="corruptionHypercubesValue" style="color: crimson; font-size: 1.2em">32</span> Wow! Hypercubes. [<span style="color: red">Req Score: >1,000,000,000</span>]</p>
+                <div id="ascensionAutomation" class="cubeUpgrade10 vAlign">
+                    <input id="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(4)">
+                    <p id="autoAscend" class="ascendunlock tightText">Ascend when you've completed Sadistic Challenge I a total of <span id="autoAscendMetric" style="color: orchid">1</span> times.</p>
+                    <button id="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green" onclick="toggleAutoAscend()">Auto Ascend [ON]</button>
+                    <button id="ascensionAutoToggle" class="hCenter tight" onclick="toggleautoreset(4)" style="border:2px solid orchid; background-color: #171717;">Mode: C10 Completions</button>
+                </div>
             </div>
         </div>
 <div id="settings">
@@ -2079,7 +2121,7 @@
         <p class="reincarnationunlock" id="temporarystats9" style="color: crimson"></p>
         <p class="reincarnationunlock" id="temporarystats11" style="color: crimson;"></p>
         <p class="prestigeunlock" id="temporarystats10" style="color: cyan"></p>
-        <div id="confirmationToggleBox">
+        <div id="confirmationToggleBox"> 
             <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
             <div class="confirmationToggles">
                 <div class="center"></div>
@@ -2112,10 +2154,10 @@
             <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
             <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
             <p id="exportinfo" class="tightText" style="color: white"></p>
-            <label>
+            <label title="Use $TIME$ for 24h time, $TIME12$ for 12h">
                 <input id="saveStringInput" onblur="updateSaveString()">
             </label>
-            <p id="saveString" class="tightText"></p>
+            <p id="saveString" class="tightText" title="Use $TIME$ for 24h time, $TIME12$ for 12h"></p>
         </div>
         <p id="importgame" style="color: limegreen">Load game below!</p>
         <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
@@ -2136,12 +2178,12 @@
             [NEW!] Support Development on Patreon!
             <a id="patreonhref" href="https://www.patreon.com/synergism" target="_blank">
                 <img id="patreonicon" src="Pictures/Patreonlogo.png" title="Click to support development!" alt="">
-            </a>
+            </a> 
         </div>
         <a href="https://docs.google.com/document/d/13vntkxiCo-mL1en5LRvOmlKQdYhTGhqs9-9mT1XLn1U/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!" alt="">
         </a>
-        <p id="versionnumber" style="color: gold">You're playing on v2.0.3 - The Great Reimagining [Last Update: 3:00PM UTC-8 Sept 29]</p>
+        <p id="versionnumber" style="color: gold">You're playing on v2.0.4 - The Great Reimagining [Last Update: 4:40AM UTC-8 Oct 06]</p>
     </div>
     <div class="subtabContent" id="creditssubtab">
         <p id="programminghelp" style="color:white">People who helped with programming: AlienC4 [A ton of bug fixes, content changes and improved performance, Statistics help], Kewne [History tab] Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup], Kino [Contribution to runes.js], Jahwsuf [Testing and other files], Bigwhupdude [Major tester], Yasmir, Jacobnlsn, PassMeTheCobb [Idea for revamps], Xander374 among others!</p>
@@ -2186,24 +2228,27 @@
         </div>
                 <div id="cubeMultiplierStats" class="statContainer ascendunlock">
             <p class="statPortion">Cube multipliers</p>
-            <p id="statCM1" class="statPortion">Season pass:<span id="sCM1" class="statNumber">0</span></p>
-            <p id="statCM2" class="statPortion ">Research 5x19:<span id="sCM2" class="statNumber">0</span></p>
-            <p id="statCM3" class="statPortion">Research 5x20:<span id="sCM3" class="statNumber">0</span></p>
-            <p id="statCM4" class="statPortion">Cube upgrade 1x1:<span id="sCM4" class="statNumber">0</span></p>
-            <p id="statCM5" class="statPortion">Cube upgrade 2x1: <span id="sCM5" class="statNumber">0</span></p>
-            <p id="statCM6" class="statPortion">Cube upgrade 3x1: <span id="sCM6" class="statNumber">0</span></p>
-            <p id="statCM7" class="statPortion">Cube upgrade 4x1: <span id="sCM7" class="statNumber">0</span></p>
-            <p id="statCM8" class="statPortion">Cube upgrade 5x1: <span id="sCM8" class="statNumber">0</span></p>
-            <p id="statCM9" class="statPortion">Research 6x12: <span id="sCM9" class="statNumber">0</span></p>
-            <p id="statCM10" class="statPortion chal11">Research 7x2: <span id="sCM10" class="statNumber">0</span></p>
-            <p id="statCM11" class="statPortion chal12">Research 7x17: <span id="sCM11" class="statNumber">0</span></p>
-            <p id="statCM12" class="statPortion chal13">Research 8x7: <span id="sCM12" class="statNumber">0</span></p>
-            <p id="statCM13" class="statPortion chal14">Research 8x22: <span id="sCM13" class="statNumber">0</span></p>
-            <p id="statCM14" class="statPortion chal14">Bought Mortuus Est ants (R8x17): <span id="sCM14" class="statNumber">0</span></p>
-            <p id="statCM15" class="statPortion chal12">Duplication Spirit Power: <span id="sCM15" class="statNumber">0</span></p>
-            <p id="statCM16" class="statPortion chal14">Research 8x25: <span id="sCM16" class="statNumber">0</span></p>
-            <p id="statCM17" class="statPortion">Constant upgrade 10: <span id="sCM17" class="statNumber">0</span></p>
-            <p id="statCM18" class="statPortion">Cube upgrade 3x10: <span id="sCM18" class="statNumber">0</span></p>
+            <p id="statCM1" class="statPortion">Ascend Time Multi:<span id="sCM1" class="statNumber">0</span></p>
+            <p id="statCM2" class="statPortion">Season pass:<span id="sCM2" class="statNumber">0</span></p>
+            <p id="statCM3" class="statPortion ">Research 5x19:<span id="sCM3" class="statNumber">0</span></p>
+            <p id="statCM4" class="statPortion">Research 5x20:<span id="sCM4" class="statNumber">0</span></p>
+            <p id="statCM5" class="statPortion">Cube upgrade 1x1:<span id="sCM5" class="statNumber">0</span></p>
+            <p id="statCM6" class="statPortion">Cube upgrade 2x1: <span id="sCM6" class="statNumber">0</span></p>
+            <p id="statCM7" class="statPortion">Cube upgrade 3x1: <span id="sCM7" class="statNumber">0</span></p>
+            <p id="statCM8" class="statPortion">Cube upgrade 4x1: <span id="sCM8" class="statNumber">0</span></p>
+            <p id="statCM9" class="statPortion">Cube upgrade 5x1: <span id="sCM9" class="statNumber">0</span></p>
+            <p id="statCM10" class="statPortion">Research 6x12: <span id="sCM10" class="statNumber">0</span></p>
+            <p id="statCM11" class="statPortion chal11">Research 7x2: <span id="sCM11" class="statNumber">0</span></p>
+            <p id="statCM12" class="statPortion chal12">Research 7x17: <span id="sCM12" class="statNumber">0</span></p>
+            <p id="statCM13" class="statPortion chal13">Research 8x7: <span id="sCM13" class="statNumber">0</span></p>
+            <p id="statCM14" class="statPortion chal14">Research 8x22: <span id="sCM14" class="statNumber">0</span></p>
+            <p id="statCM15" class="statPortion chal14">Bought Mortuus Est ants (R8x17): <span id="sCM15" class="statNumber">0</span></p>
+            <p id="statCM16" class="statPortion chal12">Duplication Spirit Power: <span id="sCM16" class="statNumber">0</span></p>
+            <p id="statCM17" class="statPortion chal14">Research 8x25: <span id="sCM17" class="statNumber">0</span></p>
+            <p id="statCM18" class="statPortion">Constant upgrade 10: <span id="sCM18" class="statNumber">0</span></p>
+            <p id="statCM19" class="statPortion">Cube upgrade 3x10: <span id="sCM19" class="statNumber">0</span></p>
+            <p id="statCM20" class="statPortion">Num Ach 4: <span id="sCM20" class="statNumber">0</span></p>
+            <p id="statCM21" class="statPortion">Num Ach 6: <span id="sCM21" class="statNumber">0</span></p>
             <p id="statCMT" class="statPortion statTotal" style="color: orange">TOTAL CUBE MULTIPLIER: <span
                     id="sCMT" class="statNumber statTotal">0</span></p>
         </div>

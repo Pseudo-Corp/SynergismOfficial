@@ -99,7 +99,7 @@ const cubeUpgradeName = [null,
     () => "Wow! I want more cubes 4.",
     () => "Wow! I want runes to be easier to level up over time.",
     () => "Wow! I want opened cubes to give more blessings 3.",
-    () => "Wow! I want Chronus blessing bonuses to scale better 1",
+    () => "Wow! I want Chronos blessing bonuses to scale better 1",
     () => "Wow! I want Aphrodite blessing bonuses to scale better 1",
     () => "Wow! I want building power to be useful 2.",
     () => "Wow! I want more rune levels 2.",
@@ -123,7 +123,7 @@ const cubeBaseCost = [null,
     5000, 1000, 10000, 20000, 40000, 10000, 4000, 1e4, 50000, 12500,
     5e4, 3e4, 3e4, 4e4, 2e5, 4e5, 1e5, 177777, 1e5, 1e6,
     5e5, 3e5, 2e6, 4e6, 2e6, 4e6, 1e6, 2e7, 5e7, 1e7,
-    5e6, 1e7, 1e8, 4e7, 2e7, 4e7, 5e7, 1e8, 5e8, 5e10]
+    5e6, 1e7, 1e8, 4e7, 2e7, 4e7, 5e7, 1e8, 5e8, 1e8]
 
 const cubeMaxLevel = [null,
     2, 10, 5, 1, 1, 1, 1, 1, 1, 1,
@@ -186,26 +186,17 @@ const cubeUpgradeDescriptions = [null,
     () => "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.1 Max Rune Levels, +1 Effective ELO, +0.001 Talisman bonuses per level."
 ]
 
-function getCubeBuyAmount(i) {
-
-    let amountToBuy = 0;
-    if (buyMaxCubeUpgrades) {
-        amountToBuy = 100 / 100 * Math.floor(player.wowCubes / cubeBaseCost[i])
-    }
-    if (!buyMaxCubeUpgrades) {
-        amountToBuy = Math.min(1, Math.floor(player.wowCubes / cubeBaseCost[i]))
-    }
-    amountToBuy = Math.min(amountToBuy, cubeMaxLevel[i] - player.cubeUpgrades[i]);
-    return (amountToBuy)
+function getCubeCost(i,linGrowth) {
+    linGrowth = linGrowth || 0
+    let amountToBuy = (buyMaxCubeUpgrades)? 1e5: 1;
+    amountToBuy = Math.min(cubeMaxLevel[i] - player.cubeUpgrades[i], amountToBuy)
+    let metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i], player.wowCubes, linGrowth, amountToBuy)
+    return([metaData[0],metaData[1]]) //metaData[0] is the levelup amount, metaData[1] is the total cube cost
 }
 
-function getCubeUpgradeTotalCost(i) {
-    let amountToBuy = getCubeBuyAmount(i);
-    let cost = 100 / 100 * amountToBuy * cubeBaseCost[i]
-    return (cost)
-}
-
-function cubeUpgradeDesc(i) {
+function cubeUpgradeDesc(i,linGrowth) {
+    linGrowth = linGrowth || 0
+    let metaData = getCubeCost(i,linGrowth)
     let a = document.getElementById("cubeUpgradeName")
     let b = document.getElementById("cubeUpgradeDescription")
     let c = document.getElementById("cubeUpgradeCost")
@@ -213,7 +204,7 @@ function cubeUpgradeDesc(i) {
 
     a.textContent = cubeUpgradeName[i]();
     b.textContent = cubeUpgradeDescriptions[i]();
-    c.textContent = "Cost: " + format(cubeBaseCost[i], 0, true) + " Wow! Cubes";
+    c.textContent = "Cost: " + format(metaData[1], 0, true) + " Wow! Cubes [+" + format(metaData[0]-player.cubeUpgrades[i],0,true) + " Levels]";
     c.style.color = "green"
     d.textContent = "Level: " + format(player.cubeUpgrades[i], 0, true) + "/" + format(cubeMaxLevel[i], 0, true);
     d.style.color = "white"
@@ -224,10 +215,6 @@ function cubeUpgradeDesc(i) {
     if (player.cubeUpgrades[i] === cubeMaxLevel[i]) {
         c.style.color = "gold";
         d.style.color = "plum"
-    }
-
-    if (buyMaxCubeUpgrades && player.wowCubes >= cubeBaseCost[i] && player.cubeUpgrades[i] !== cubeMaxLevel[i]) {
-        c.textContent = "Cost: " + format(getCubeUpgradeTotalCost(i), 0, true) + " Wow Cubes! [+" + format(getCubeBuyAmount(i), 0, true) + " Levels]"
     }
 }
 
@@ -251,11 +238,13 @@ function updateCubeUpgradeBG(i) {
 
 }
 
-function buyCubeUpgrades(i) {
-    let cost = getCubeUpgradeTotalCost(i);
-    let amountToBuy = getCubeBuyAmount(i);
-    player.cubeUpgrades[i] += amountToBuy;
-    player.wowCubes -= 100 / 100 * (amountToBuy * cubeBaseCost[i]);
+function buyCubeUpgrades(i,linGrowth) {
+    linGrowth = linGrowth || 0;
+    let metaData = getCubeCost(i,linGrowth);
+    if(player.wowCubes >= metaData[1] && player.cubeUpgrades[i] <= cubeMaxLevel[i]){
+    player.wowCubes -= 100 / 100 * metaData[1];
+    player.cubeUpgrades[i] = metaData[0];
+    }
 
     if(i === 4 && player.cubeUpgrades[4] > 0){
         for(var j = 94; j <= 98; j++){
@@ -272,7 +261,7 @@ function buyCubeUpgrades(i) {
         upgradeupdate(100, true)
     }
 
-    cubeUpgradeDesc(i);
+    cubeUpgradeDesc(i, linGrowth);
     updateCubeUpgradeBG(i);
     revealStuff();
     calculateCubeBlessings();
