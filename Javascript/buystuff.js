@@ -267,6 +267,8 @@ function getCost(originalCost, buyingTo, type, num, r) {
 
     // Accounts for the add 1s (this is relatively hard to do without this method surprisingly, but could be cleaned up if really necessary)
     cost = cost.add(1 * buyingTo);
+
+    let fastFactMultBuyTo = 0;
     // floored r value gets used a lot in removing calculations
     let fr = Math.floor(r * 1000);
     if (buyingTo >= r * 1000) {
