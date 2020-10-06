@@ -1042,6 +1042,7 @@ function CalcCorruptionStuff() {
 
     let tesseractGain = 1;
     tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e5)) / 1e4, .35);
+    tesseractGain *= (1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]));
     if(effectiveScore >= 100000){
         tesseractGain += 2
     }
