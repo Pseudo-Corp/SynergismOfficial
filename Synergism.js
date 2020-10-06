@@ -1970,6 +1970,9 @@ function multipliers() {
     if (player.currentChallenge.ascension === 14) {
         globalAntMult = Decimal.pow(globalAntMult, 0.2)
     }
+    if (player.currentChallenge.ascension === 15){
+        globalAntMult = Decimal.pow(globalAntMult, 0)
+    }
 
     globalAntMult = Decimal.pow(globalAntMult, 1 - 0.9 / 90 * sumContents(player.usedCorruptions))
     globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
