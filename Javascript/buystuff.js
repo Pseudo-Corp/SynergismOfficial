@@ -1,9 +1,9 @@
 function getReductionValue() {
     let reduction = 1;
-    reduction += 1 / 160 * rune4level * effectiveLevelMult;
-    reduction += 1 / 200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]);
-    reduction += 1 / 200 * CalcECC('transcend', player.challengecompletions[4]);
-    reduction += 3 / 100 * (player.antUpgrades[7] + bonusant7);
+    reduction += (rune4level * effectiveLevelMult) / 160;
+    reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
+    reduction += CalcECC('transcend', player.challengecompletions[4]) / 200;
+    reduction += (3 * (player.antUpgrades[7] + bonusant7)) / 100;
     return reduction;
 }
 
@@ -215,7 +215,7 @@ function factorialByExponent(fact) {
     if (fact === 0) {
         return 0;
     }
-    return ((Math.log10(fact * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6)))) - exponentPartExtra) * fact) + ((1 / 2) * (mantissaPartExtra - Math.log10(fact)));
+    return ((Math.log10(fact * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6)))) - exponentPartExtra) * fact) + ((mantissaPartExtra - Math.log10(fact)) / 2);
 }
 
 const fact100exponent = Math.log10(9.3326215443944152681699238856267e+157);
@@ -239,7 +239,7 @@ const known_log10s = function() {
     // Gets all possible challenge 8 completion amounts
     const chalcompletions = 1000;
     for (let i = 0; i < chalcompletions; ++i) {
-        needed.push(1 + (1/2 * i));
+        needed.push(1 + (i / 2));
     } 
 
     // constructing all logs
@@ -256,9 +256,6 @@ function getCost(originalCost, buyingTo, type, num, r) {
 
     // It's 0 indexed by mistake so you have to subtract 1 somewhere.
     --buyingTo;
-
-    // Prevents multiple recreations of this variable because .factorial() is the only one that doesn't create a clone (?)
-    let buyingToDec = new Decimal(buyingTo);
     // Accounts for the multiplies by 1.25^num buyingTo times
     let cost = new Decimal(originalCost);
     cost.exponent += Math.log10(1.25) * num * buyingTo;
@@ -320,7 +317,7 @@ function getCost(originalCost, buyingTo, type, num, r) {
 
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
+        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + (player.challengecompletions[4] / 4)));
         if (buyingTo >= (1000 - (10 * player.challengecompletions[4]))) {
             // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
             cost.exponent += Math.log10(1.25) * (buyingTo * (buyingTo + 1) / 2);
@@ -334,20 +331,20 @@ function getCost(originalCost, buyingTo, type, num, r) {
 
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + 1 / 4 * player.challengecompletions[4]));
+        cost = cost.times(Decimal.pow(new Decimal(buyingTo + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, buyingTo)), 1.25 + (player.challengecompletions[4] / 4)));
         if (buyingTo >= (r * 25000)) {
             // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
             cost.exponent += Math.log10(1.25) * (buyingTo * (buyingTo + 1) / 2);
         }
     }
     // Applies the factorial w/ formula from earlier n times to avoid multiple computations
-    cost.exponent += fastFactMultBuyTo100 * ((factorialByExponent(buyingTo + 100) - fact100exponent + (2 * buyingTo)) * (1.25 + (0.25 * player.challengecompletions[4])));
+    cost.exponent += fastFactMultBuyTo100 * ((factorialByExponent(buyingTo + 100) - fact100exponent + (2 * buyingTo)) * (1.25 + (player.challengecompletions[4] / 4)));
     // Applies all the Math.log10(1.25)s from earlier n times to avoid multiple computations
     // log10(1.25)
     cost.exponent += known_log10s[1.25] * mlog10125;
     fr = Math.floor(r * 1000 * player.challengecompletions[8]);
     if (player.currentChallenge.reincarnation === 8 && (type === "Coin" || type === "Diamonds" || type === "Mythos") && buyingTo >= (1000 * player.challengecompletions[8] * r)) {
-        cost.exponent += ((known_log10s[2] * ((buyingTo - fr + 1) / 2)) - known_log10s[1 + (1 / 2 * player.challengecompletions[8])]) * (buyingTo - fr);
+        cost.exponent += ((known_log10s[2] * ((buyingTo - fr + 1) / 2)) - known_log10s[1 + (player.challengecompletions[8] / 2)]) * (buyingTo - fr);
     }
 
     extra = cost.exponent - Math.floor(cost.exponent);
@@ -410,10 +407,10 @@ function buyProducer(pos, type, num, autobuyer) {
     let buythisamount = 0;
     let r = 1;
     let tag = "";
-    r += 1 / 160 * rune4level * effectiveLevelMult
-    r += 1 / 200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60])
-    r += 1 / 200 * CalcECC('transcend', player.challengecompletions[4])
-    r += 3 / 100 * player.antUpgrades[7] + 3 / 100 * bonusant7
+    r += (rune4level * effectiveLevelMult) / 160;
+    r += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
+    r += CalcECC('transcend', player.challengecompletions[4]) / 200 
+    r += (3 * (bonusant7 + player.antUpgrades[7])) / 100;
     if (type === 'Diamonds') {
         tag = "prestigePoints";
         amounttype = "crystal";
@@ -460,7 +457,7 @@ function buyProducer(pos, type, num, autobuyer) {
             }
         }
         if (player.currentChallenge.reincarnation === 8 && (type === "Coin" || type === "Diamonds" || type === "Mythos") && player[pos + 'Owned' + type] >= (1000 * player.challengecompletions[8] * r)) {
-            player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(2, (player[pos + 'Owned' + type] - (1000 * player.challengecompletions[8] * r)) / (1 + 1 / 2 * player.challengecompletions[8])));
+            player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(2, (player[pos + 'Owned' + type] - (1000 * player.challengecompletions[8] * r)) / (1 + (player.challengecompletions[8] / 2))));
         }
         ticker += 1;
     }
