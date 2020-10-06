@@ -604,17 +604,30 @@ function toggleAutoTesseracts(i) {
 }
 
 function toggleCorruptionLevel(index, value) {
-    if (value > 0 && player.prototypeCorruptions[index] < 10 && index <= 9) {
-        player.prototypeCorruptions[index] += 1
+    let current = player.prototypeCorruptions[index]
+    let maxCorruption = 10
+    if (value > 0 && current < maxCorruption && index <= 9) {
+        player.prototypeCorruptions[index] += Math.min(maxCorruption - current, value)
     }
-    if (value < 0 && player.prototypeCorruptions[index] > 0) {
-        player.prototypeCorruptions[index] -= 1
+    if (value < 0 && current > 0) {
+        player.prototypeCorruptions[index] -= Math.min(current, -value)
     }
+    player.prototypeCorruptions[index] = Math.min(maxCorruption, Math.max(0, player.prototypeCorruptions[index]))
     if (value === 999) {
-        for (var i = 1; i <= 9; i++) {
+        let trig = corruptionTrigger
+        for (let i = 1; i <= 9; i++) {
             player.usedCorruptions[i] = 0;
             player.prototypeCorruptions[i] = 0;
+            corruptionDisplay(i)
         }
+        corruptionDisplay(trig)
+        document.getElementById("corruptionCleanseConfirm").style.visibility = "hidden";
     }
     corruptionDisplay(index)
+    corruptionLoadoutTableUpdate(0);
+}
+
+function toggleCorruptionLoadoutsStats(stats) {
+    player.corruptionShowStats = stats
+    showCorruptionStatsLoadouts()
 }

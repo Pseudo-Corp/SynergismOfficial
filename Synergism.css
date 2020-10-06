@@ -74,8 +74,31 @@ button:focus {
 
 a {color: white;}
 
-
-
+.flex {
+	display: flex;
+}
+.flex.row {
+	flex-flow: row;
+}
+.flex.column {
+	flex-flow: column;
+}
+.flex.center {
+	justify-content: center;
+}
+.vAlign {
+	display: flex;
+	justify-content: center;
+	flex-flow: column;
+}
+.hCenter {
+	margin-left: auto;
+	margin-right: auto;
+}
+.hCenter.tight {
+	margin-top: 0;
+	margin-bottom: 0;
+}
 #resourcesrow {
 	position: relative;
 	font-size: 16px;
@@ -1304,6 +1327,7 @@ margin-left: -13px
 	margin-bottom: 0;
 	margin-left: auto;
 	margin-right: auto;
+    text-align: center;
 }
 #quarktimerdisplay {
 	height: 22px;
@@ -4311,42 +4335,6 @@ margin-left: -13px
 .gridImg{
 	cursor: pointer;
 }
-#ascensionAutoEnable {
-	position:absolute;
-	width: 150px;
-	top: 664px;
-	left: 50%;
-	margin-left: -75px;
-}
-#ascensionAutoToggle {
-	position:absolute;
-	width: 150px;
-	top: 684px;
-	left: 50%;
-	margin-left: -75px;
-}
-#autoAscend {
-	position: absolute;
-	top: 620px;
-	padding: 0;
-	left: 50%;
-	width: 750px;
-	margin-left: -375px;
-	text-align: center;
-	color: white
-}
-
-#ascensionAmount {
-	position: absolute;
-	top: 618px;
-	padding: 0;
-	left: 50%;
-	width: 100px;
-	margin-left: -50px;
-	border: 1px solid orange;
-	color: gold;
-	background-color: black
-}
 #switchsettingtab {
 	position: absolute;
 	height: 30px;
@@ -4694,136 +4682,163 @@ margin-left: -13px
 	left: 49.85%;
 }
 
+#traits {
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	top: 118px;
+	width: 100%;
+	min-height: 550px;
+    max-height: 600px;
+    border-top: 2px solid orange;
+
+}
+#corruptionMain {
+	width: 800px;
+	margin: 10px;
+	padding: 10px;
+}
 #corruptionIntroduction{
-	position: absolute;
-	top: 190px;
 	font-size: 1.2em;
 	color: darkorchid;
-	left: 50%;
-	width: 600px;
-	margin-left: -300px;
-	text-align: center;
 }
 #corruptionInfo1{
-	position: absolute;
-	top: 210px;
 	color: yellow;
-	left: 50%;
-	width: 800px;
-	margin-left: -400px;
-	text-align: center;
 }
-#corruptionList{
-	position: absolute;
-	top: 240px;
-	left: 50%;
-	margin-left: -344px;
+#corruptionSelected {
+	height: 70px;
+	margin-top: 15px;
 }
 #corruptionDetails {
-	position: absolute;
-	top: 300px;
-	margin-left: -400px;
-	left: 50%;
+	display: flex;
+    min-height: 150px;
+	visibility: hidden;
 }
 #corruptionName{
-	position: absolute;
 	font-size: 1.2em;
-	text-align: center;
-	width: 800px;
+    color: red;
 }
 #corruptionDescription{
-	position: absolute;
-	top: 25px;
-	text-align: center;
-	width: 800px;
+    color: darkviolet;
 }
 #corruptionLevelCurrent{
-	position: absolute;
-	top: 45px;
-	text-align: center;
-	width: 800px;
+    color: orchid
 }
 #corruptionLevelPlanned{
-	position: absolute;
-	top: 65px;
+    color: lime
+}
+
+#ascensionAutomation {
+	position: relative;
+	top: 20px;
+	width: 100%;
+	min-height: 100px;
+}
+
+#ascensionAmount {
+	width: 150px;
+	border: 1px solid orange;
+	color: gold;
+	background-color: black;
+}
+#autoAscend {
+	color: white
+}
+#ascensionAutoEnable {
+	width: 150px;
+}
+#ascensionAutoToggle {
+	width: 150px;
+}
+
+#corruptionStatsLoadouts {
+	width: 500px;
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid orange;
+}
+#corrStatsBtn {
+	width: 120px;
+	height: 25px;
+	border: 2px solid;
+}
+#corrButtonRow {
+	min-width: 300px;
+}
+#corrLoadoutsBtn {
+	width: 120px;
+	height: 25px;
+	border: 2px solid;
+}
+.corruptionStatRow {
+	display: flex;
+	flex-flow: row;
+	height: 40px;
+	margin: 5px 0;
+	padding-left: 10px;
+}
+.corruptionImg {
+	height: 100%;
+	object-fit: contain;
+}
+.corrDesc {
+	height: 30px;
+	min-width: 150px;
+	margin: auto;
 	text-align: center;
-	width: 800px;
 }
-#corruptionMultiplierContribution{
-	position: absolute;
-	top: 85px;
-	text-align: center;
-	width: 800px;
-}
-#corruptLevelUp{
-	position: absolute;
-	top: 135px;
+.corrBtn {
+	width: 30px;
 	height: 30px;
-	width: 200px;
-	margin-left: 180px;
-	border: 2px solid gold
+	margin: 5px;
+	padding: 3px;
 }
-#corruptLevelDown{
-	position: absolute;
-	top: 135px;
-	height: 30px;
-	width: 200px;
-	margin-left: 420px;
-	border: 2px solid gold
+.corruptionMax {
+	border: 2px solid green;
 }
-#corruptionCleanse{
-	position: absolute;
-	top: 135px;
+.corruptionUp {
+	border: 1px solid green;
+}
+.corruptionDown {
+	border: 1px solid red;
+}
+.corruptionReset {
+	border: 2px solid red;
+}
+
+#corruptionLoadouts {
+	height: 410px;
+	padding-top: 30px;
+	box-sizing: border-box;
+}
+#corrPicRow {
 	height: 30px;
-	width: 200px;
-	margin-left: 300px;
+}
+img.small {
+	height: 32px;
+}
+.corrSave {
+	padding: 3px 4px;
+	border: 1px solid dodgerblue;
+	margin-left: 10px;
+}
+.corrLoad {
+	padding: 3px 4px;
+	border: 1px solid #5b5ddc;
+}
+
+#corruptionCleanse {
+	height: 30px;
+	width: 150px;
+	margin: auto 20px auto;
 	border: 2px solid darkmagenta
 }
-#corruptionAntExponent{
-	position: absolute;
-	top: 450px;
-	left: 50%;
-	width: 800px;
-	margin-left: -400px;
-	text-align: center;
-}
-#corruptionBank{
-	position: absolute;
-	top: 480px;
-	left: 50%;
-	width: 800px;
-	margin-left: -400px;
-	text-align: center;
-}
-#corruptionScore{
-	position: absolute;
-	top: 500px;
-	left: 50%;
-	width: 900px;
-	margin-left: -450px;
-	text-align: center;
-}
-#corruptionCubes{
-	position: absolute;
-	top: 520px;
-	left: 50%;
-	width: 900px;
-	margin-left: -450px;
-	text-align: center;
-}
-#corruptionTesseracts{
-	position: absolute;
-	top: 540px;
-	left: 50%;
-	width: 900px;
-	margin-left: -450px;
-	text-align: center;
-}
-#corruptionHypercubes{
-	position: absolute;
-	top: 560px;
-	left: 50%;
-	width: 900px;
-	margin-left: -450px;
-	text-align: center;
+#corruptionCleanseConfirm {
+	height: 30px;
+	width: 100px;
+	margin: auto;
+	border: 2px solid green;
+	visibility: hidden;
 }

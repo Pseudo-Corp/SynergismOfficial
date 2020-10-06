@@ -1037,3 +1037,17 @@ function CSSRuneBlessings() {
 
     }
 }
+
+function showCorruptionStatsLoadouts() {
+    if (player.corruptionShowStats) {
+        document.getElementById("corruptionStats").style.display = "block"
+        document.getElementById("corruptionLoadouts").style.display = "none"
+        document.getElementById("corrStatsBtn").style.borderColor = "dodgerblue"
+        document.getElementById("corrLoadoutsBtn").style.borderColor = "white"
+    } else {
+        document.getElementById("corruptionStats").style.display = "none"
+        document.getElementById("corruptionLoadouts").style.display = "block"
+        document.getElementById("corrStatsBtn").style.borderColor = "white"
+        document.getElementById("corrLoadoutsBtn").style.borderColor = "dodgerblue"
+    }
+}

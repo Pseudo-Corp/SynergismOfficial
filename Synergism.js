@@ -523,6 +523,12 @@ const player = {
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    corruptionLoadouts: {
+        1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    corruptionShowStats: true,
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     history: {},
@@ -1155,6 +1161,11 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
 
         CSSAscend();
         CSSRuneBlessings();
+        corruptionStatsUpdate();
+        for (let i = 0; i < 4; i++) {
+            corruptionLoadoutTableUpdate(i);
+        }
+        showCorruptionStatsLoadouts()
 
         for (let j = 1; j <= 5; j++) {
             let ouch = document.getElementById("tesseractAutoToggle" + j);

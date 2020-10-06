@@ -576,9 +576,8 @@ function reset(i, fast, from) {
                 document.getElementById("upg" + j).style.backgroundColor = "black"
             }
         }
-        for (let i = 1; i <= 9; i++) {
-            player.usedCorruptions[i] = player.prototypeCorruptions[i]
-        }
+        player.usedCorruptions = Array.from(player.prototypeCorruptions)
+        corruptionStatsUpdate()
     }
 
 
