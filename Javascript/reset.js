@@ -1,7 +1,7 @@
 var repeatreset
 
 function resetrepeat(i) {
-    clearInterval(repeatreset);
+    clearInt(repeatreset);
     repeatreset = interval(resetdetails, 50, i)
 }
 
@@ -320,8 +320,8 @@ function reset(i, fast, from) {
 
     if (i > 2.5) {
         // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
-        if(player.ascensionCount > 0 && player.achievements[183] < 1){
-        ascensionAchievementCheck(1);
+        if (player.ascensionCount > 0 && player.achievements[183] < 1) {
+            ascensionAchievementCheck(1);
         }
 
         historyKind = "reincarnate";
@@ -577,9 +577,8 @@ function reset(i, fast, from) {
                 document.getElementById("upg" + j).style.backgroundColor = "black"
             }
         }
-        for (let i = 1; i <= 9; i++) {
-            player.usedCorruptions[i] = player.prototypeCorruptions[i]
-        }
+        player.usedCorruptions = Array.from(player.prototypeCorruptions)
+        corruptionStatsUpdate()
     }
 
 

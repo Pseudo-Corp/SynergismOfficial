@@ -258,13 +258,13 @@ adesc = {
     adesc215: "'Wow Platonic Tax sucks 1/5': Clear 'Tax+++' challenge ten times.",
     adesc216: "Haha this is hard for some reason: Clear 'Tax+++' challenge twenty times.",
     adesc217: "Taxes are hard: Clear 'Tax+++' challenge thirty times.",
-    adesc218: "Shiny Blue Rock: Clear 'No Obtainium' once.",
-    adesc219: "It's like Avatar: Clear 'No Obtainium' twice.",
-    adesc220: "It's like Unobtainium: Clear 'No Obtainium' three times.",
-    adesc221: "It's like a thing: Clear 'No Obtainium' five times.",
-    adesc222: "It's like: Clear 'No Obtainium' ten times.",
-    adesc223: "It's: Clear 'No Obtainium' twenty times.",
-    adesc224: "It: Clear 'No Obtainium' thirty times.",
+    adesc218: "Shiny Blue Rock: Clear 'No Research' once.",
+    adesc219: "It's like Avatar: Clear 'No Research' twice.",
+    adesc220: "It's like Unobtainium: Clear 'No Research' three times.",
+    adesc221: "It's like a thing: Clear 'No Research' five times.",
+    adesc222: "It's like: Clear 'No Research' ten times.",
+    adesc223: "It's: Clear 'No Research' twenty times.",
+    adesc224: "It: Clear 'No Research' thirty times.",
     adesc225: "Pretty Corrupt: Clear an Ascension with above 100,000 score.",
     adesc226: "Bought out: Clear an Ascension with above 1 million score.",
     adesc227: "Utterly Corrupt: Clear an Ascension with above 10 million score.",
@@ -405,9 +405,11 @@ areward = {
     areward180: "Unlock Tier 6 Ant autobuy, and autobuy Hic and Experientia ants! Add +1% Base Ant ELO.",
     areward181: "Unlock Tier 7 Ant autobuy, and autobuy Praemoenio ants! Add +2% Base Ant ELO.",
     areward182: "Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacterium ants! Add +3% Base Ant ELO.",
-    areward186: "You gain a linear multiplier to Cube/Tesseract/Hypercube rewards after 10 seconds in your current Ascension!",
     areward193: "Gain (log(Constant+1)/4)% more Cubes on ascension!",
-    areward195: "Gain (log(Constant+1)/4)% more Cubes and Tesseracts on ascension! Multiplicative with the other Ach. bonus."
+    areward195: "Gain (log(Constant+1)/4)% more Cubes and Tesseracts on ascension! Multiplicative with the other Ach. bonus.",
+    areward204: "You will gain 25% of excess time after 10 seconds each Ascension as a linear multiplier to rewards.",
+    areward211: "You will gain 25% MORE excess time (Total: 50%) after 10 seconds each Ascension as a linear multiplier to rewards.",
+    areward218: "You gain gain 50% MORE MORE excess time (Total: 100%) after 10 seconds each Ascension as a linear multiplier to rewards."
 }
 
 function resetachievementcheck(i) {
