@@ -405,9 +405,9 @@ areward = {
     areward180: "Unlock Tier 6 Ant autobuy, and autobuy Hic and Experientia ants! Add +1% Base Ant ELO.",
     areward181: "Unlock Tier 7 Ant autobuy, and autobuy Praemoenio ants! Add +2% Base Ant ELO.",
     areward182: "Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacterium ants! Add +3% Base Ant ELO.",
-    areward186: "You gain a linear multiplier to Cube/Tesseract/Hypercube rewards after 10 seconds in your current Ascension!",
     areward193: "Gain (log(Constant+1)/4)% more Cubes on ascension!",
-    areward195: "Gain (log(Constant+1)/4)% more Cubes and Tesseracts on ascension! Multiplicative with the other Ach. bonus."
+    areward195: "Gain (log(Constant+1)/4)% more Cubes and Tesseracts on ascension! Multiplicative with the other Ach. bonus.",
+    areward218: "You gain a linear multiplier to Cube/Tesseract/Hypercube rewards after 10 seconds in your current Ascension!",
 }
 
 function resetachievementcheck(i) {
