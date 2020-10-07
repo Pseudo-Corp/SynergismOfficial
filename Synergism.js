@@ -1289,7 +1289,6 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
 }
 
-const numberFormatter = new Intl.NumberFormat('en-US');
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
  * @param {Decimal | number} input number/Decimal to be formatted
@@ -1346,7 +1345,7 @@ function format(input, accuracy = 0, long = false) {
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
         const frontFormatted = 'BigInt' in window 
-            ? numberFormatter.format(BigInt(front))
+            ? BigInt(front).toLocaleString('en-US')
             : front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // if the back is undefined that means there are no decimals to display, return just the front
         if (back === undefined) {
@@ -1361,7 +1360,7 @@ function format(input, accuracy = 0, long = false) {
         const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
         // Makes the power group 3 with commas
         const powerLook = 'BigInt' in window 
-            ? numberFormatter.format(BigInt(power))
+            ? BigInt(power).toLocaleString('en-US')
             : power.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // returns format (1.23e456,789)
         return mantissaLook + "e" + powerLook;
