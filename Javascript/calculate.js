@@ -560,7 +560,7 @@ function calculateRuneBonuses() {
     }
     spiritMultiplier *= (1 + 8 * player.researches[164] / 100)
     if (player.researches[165] > 0 && player.currentChallenge.ascension !== 0) {
-        spiritMultiplier *= 32
+        spiritMultiplier *= Math.pow(2,8)
     }
     spiritMultiplier *= (1 + 0.15 * Math.log(player.legendaryFragments + 1) / Math.log(10))
     spiritMultiplier *= (1 + 2 * player.researches[194] / 100)

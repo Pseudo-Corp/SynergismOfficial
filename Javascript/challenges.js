@@ -262,8 +262,8 @@ function challengeDisplay(i, changefocus, automated) {
     if (i === 15 && challengefocus === 15) {
         a.textContent = "SADISTIC CHALLENGE II || " + player.challengecompletions[15] + "/1 Completions"
         b.textContent = "The worst sin a man can do is making others suffer."
-        c.textContent = "Ascend and reach the goal but run each of the first TEN challenges at once."
-        d.textContent = "Goal: More coins than you can get."
+        c.textContent = "Ascend and reach the goal but you're FULLY corrupt and must stay that way."
+        d.textContent = "Goal: 1e4T Coins, but get bonuses based on your best attempt."
         e.textContent = "You have no idea "
         f.textContent = "what you have just done "
         g.textContent = "the ant god shakes their mighty head "
