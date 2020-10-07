@@ -402,7 +402,8 @@ function reset(i, fast, from) {
 
 
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
-            buyResearch(player.autoResearch, true)
+            let linGrowth = (player.autoResearch === 200)? 0.01: 0;
+            buyResearch(player.autoResearch, true, linGrowth)
         }
         calculateRuneLevels();
         calculateAnts();
