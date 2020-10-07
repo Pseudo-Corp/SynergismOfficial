@@ -28,12 +28,19 @@ function toggleChallenges(i, auto) {
     }
     if (player.challengecompletions[10] > 0) {
         if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
-            player.currentChallenge.ascension = i;
             reset(4, false, "enterChallenge");
+            player.currentChallenge.ascension = i;
             player.ascensionCount -= 1;
 
             if (player.currentChallenge.ascension === 12) {
                 player.antPoints = new Decimal("8")
+            }
+            if (player.currentChallenge.ascension === 15){
+                player.usedCorruptions[0] = 0;
+                player.prototypeCorruptions[0] = 0;
+                for (var i = 1; i <= 9; i++){
+                    player.usedCorruptions[i] = 10;
+                }
             }
         }
     }

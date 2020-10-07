@@ -194,4 +194,8 @@ function checkVariablesOnLoad(data) {
         player.cubeUpgrades[50] = 0
         console.log('Refunded w5x10. Enjoy!')
     }
+    if (player.usedCorruptions[0] > 0 || data.usedCorruptions[0] > 0){
+        player.prototypeCorruptions[0] = 0
+        player.usedCorruptions[0] = 0
+    }
 }
