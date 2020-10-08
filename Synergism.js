@@ -2908,7 +2908,7 @@ function tick() {
         const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
         const maxExportQuarks = ((25 * (1 + player.researches[195] / 2)) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
 
-        document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)), 2) + "s until +" + (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]) + " export Quark"
+        document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)), 2) + "s until +" + (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]) + " export Quark"
         document.getElementById("quarktimeramount").textContent = "Quarks on export: "
             + onExportQuarks
             + " [Max "
