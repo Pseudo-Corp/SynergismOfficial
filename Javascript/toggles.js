@@ -625,7 +625,8 @@ function toggleCorruptionLevel(index, value) {
         for (let i = 0; i <= 9; i++) {
             player.usedCorruptions[i] = 0;
             player.prototypeCorruptions[i] = 0;
-            corruptionDisplay(i)
+            if (i > 0)
+                corruptionDisplay(i)
         }
         corruptionDisplay(trig)
         document.getElementById("corruptionCleanseConfirm").style.visibility = "hidden";
