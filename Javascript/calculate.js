@@ -560,7 +560,7 @@ function calculateRuneBonuses() {
     }
     spiritMultiplier *= (1 + 8 * player.researches[164] / 100)
     if (player.researches[165] > 0 && player.currentChallenge.ascension !== 0) {
-        spiritMultiplier *= 32
+        spiritMultiplier *= Math.pow(2,8)
     }
     spiritMultiplier *= (1 + 0.15 * Math.log(player.legendaryFragments + 1) / Math.log(10))
     spiritMultiplier *= (1 + 2 * player.researches[194] / 100)
@@ -875,7 +875,7 @@ function calculateCubeBlessings() {
 
 function calculateCubeMultiplier(calcMult = true) {
     let arr = [];
-    arr.push(Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + player.achievements[186] * Math.max(0, player.ascensionCounter/10 - 1)))
+    arr.push(Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + (1/4 * player.achievements[204] + 1/4 * player.achievements[211] + 1/2 * player.achievements[218]) * Math.max(0, player.ascensionCounter/10 - 1)))
     arr.push(1 + 3 / 100 * player.shopUpgrades.seasonPassLevel)
     arr.push(1 + player.researches[119] / 400);
     arr.push(1 + player.researches[120] / 400);
@@ -1049,11 +1049,11 @@ function CalcCorruptionStuff() {
     tesseractGain *= (1 + 0.25 * player.cubeUpgrades[30])
     tesseractGain *= (1 + 1/200 * player.cubeUpgrades[38] * sumContents(player.usedCorruptions))
     tesseractGain *= (1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1),10)/400)
-    tesseractGain *= Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + player.achievements[186] * Math.max(0, player.ascensionCounter/10 - 1))
+    tesseractGain *= Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + (1/4 * player.achievements[204] + 1/4 * player.achievements[211] + 1/2 * player.achievements[218]) * Math.max(0, player.ascensionCounter/10 - 1))
 
     let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
     hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9)) / 1e8, .5);
-    hypercubeGain *= Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + player.achievements[186] * Math.max(0, player.ascensionCounter/10 - 1))
+    hypercubeGain *= Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + (1/4 * player.achievements[204] + 1/4 * player.achievements[211] + 1/2 * player.achievements[218]) * Math.max(0, player.ascensionCounter/10 - 1))
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
 }
 
