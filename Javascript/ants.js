@@ -58,7 +58,7 @@ const antUpgradeTexts = [null,
 var repeatAnt
 
 function antRepeat(i) {
-    clearInterval(repeatAnt);
+    clearInt(repeatAnt);
     repeatAnt = interval(updateAntDescription, 50, i)
 }
 
@@ -392,7 +392,8 @@ function sacrificeAnts(auto) {
             player.antSacrificeTimer = 0;
             updateTalismanInventory();
             if (player.autoResearch > 0 && player.autoResearchToggle) {
-                buyResearch(player.autoResearch, true)
+                let linGrowth = (player.autoResearch === 200)? 0.01: 0;
+                buyResearch(player.autoResearch, true, linGrowth)
             }
             calculateAntSacrificeELO();
 

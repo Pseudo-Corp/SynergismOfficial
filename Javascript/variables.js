@@ -52,7 +52,7 @@ var researchBaseCosts = [1e100,
     1e39, 3e39, 1e40, 3e40, 1e50,
     3e41, 1e42, 3e42, 6e42, 1e43,
     3e43, 1e44, 3e44, 1e45, 3e45, /*challenge 14 tier */
-    2e46, 6e46, 2e47, 6e47, 1e60,
+    2e46, 6e46, 2e47, 6e47, 1e64,
     6e48, 2e49, 1e50, 1e51, 1e56
 ]
 
@@ -90,7 +90,7 @@ var researchMaxLevels = [0, 1, 1, 1, 1, 1,
     25, 25, 1, 15, 1,
     10, 10, 10, 10, 1,
     10, 10, 10, 10, 1,
-    25, 25, 1, 15, 1,
+    25, 25, 25, 15, 1,
     10, 10, 10, 10, 1,
     10, 3, 6, 10, 1,
     25, 25, 1, 15, 1,
@@ -360,12 +360,12 @@ var researchOrderByCost = []
 
 var divisivenessPower = [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3]
 var maladaptivePower = [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3]
-var lazinessMultiplier = [1, 1 / 3, 1 / 10, 1 / 40, 1 / 200, 1 / 1e6, 1 / 1e9, 1 / 1e13, 1/1e15, 1/1e18, 1/1e25]
+var lazinessMultiplier = [1, 1 / 3, 1 / 10, 1 / 40, 1 / 200, 1 / 1e5, 1 / 1e7, 1 / 1e10, 1/1e13, 1/1e16, 1/1e20]
 var hyperchallengedMultiplier = [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55]
 var illiteracyPower = [1, 0.8, 0.7, 0.6, 0.5, 0.3, 0.2, 0.15, 0.10, 0.06, 0.04]
 var deflationMultiplier = [1, 0.3, 0.1, 0.03, 0.01, 1/1e6, 1/1e8, 1/1e10, 1/1e12, 1/1e15, 0]
 var extinctionMultiplier = [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35]
-var droughtMultiplier = [1, 5, 25, 200, 1e4, 1e11, 1e17, 1e33, 1e50, 1e83, 1e133]
+var droughtMultiplier = [1, 5, 25, 200, 1e4, 1e7, 1e11, 1e16, 1e22, 1e30, 1e40]
 var financialcollapsePower = [1, 0.9, 0.7, 0.6, 0.5, 0.37, 0.30, 0.23, 0.18, 0.15, 0.12]
 
 var corruptionPointMultipliers = [1, 2, 2.75, 3.5, 4.25, 5, 5.75, 6.5, 7, 7.5, 8]

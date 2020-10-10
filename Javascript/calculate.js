@@ -560,7 +560,7 @@ function calculateRuneBonuses() {
     }
     spiritMultiplier *= (1 + 8 * player.researches[164] / 100)
     if (player.researches[165] > 0 && player.currentChallenge.ascension !== 0) {
-        spiritMultiplier *= 32
+        spiritMultiplier *= Math.pow(2,8)
     }
     spiritMultiplier *= (1 + 0.15 * Math.log(player.legendaryFragments + 1) / Math.log(10))
     spiritMultiplier *= (1 + 2 * player.researches[194] / 100)
@@ -805,7 +805,7 @@ function calculateOffline(forceTime) {
         progressBarWidth = 750 * (1 - simulatedTicks / maxSimulatedTicks);
         document.getElementById("offlineprogressdone").style.width = progressBarWidth + "px";
         if (simulatedTicks < 1) {
-            clearInterval(runOffline);
+            clearInt(runOffline);
             timeWarp = false;
             document.getElementById("offlineprogressbar").style.display = "none";
             document.getElementById("preload").style.display = "none";
@@ -875,6 +875,7 @@ function calculateCubeBlessings() {
 
 function calculateCubeMultiplier(calcMult = true) {
     let arr = [];
+    arr.push(Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + (1/4 * player.achievements[204] + 1/4 * player.achievements[211] + 1/2 * player.achievements[218]) * Math.max(0, player.ascensionCounter/10 - 1)))
     arr.push(1 + 3 / 100 * player.shopUpgrades.seasonPassLevel)
     arr.push(1 + player.researches[119] / 400);
     arr.push(1 + player.researches[120] / 400);
@@ -892,7 +893,10 @@ function calculateCubeMultiplier(calcMult = true) {
     arr.push(1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2]);
     arr.push(1 + 0.004 / 100 * player.researches[200]);
     arr.push(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]));
-    arr.push(1 + 0.25 * player.cubeUpgrades[30]) // statistics include everything up to this point
+    arr.push(1 + 0.25 * player.cubeUpgrades[30])
+    arr.push(1 + player.achievements[193] * Decimal.log(player.ascendShards.add(1),10)/400);
+    arr.push(1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1),10)/400);
+    // statistics include everything up to this point
     if (calcMult) {
         return productContents(arr);
     } else {
@@ -975,10 +979,32 @@ function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differ
     return [buyToLevel, realCost]
 }
 
+//If you want to sum from a baseline level baseLevel to some level where the cost per level is base * (1 + level * diffPerLevel), this finds out how many total levels you can buy.
+function calculateSummationNonLinear(baseLevel, baseCost, resourceAvailable, diffPerLevel, buyAmount) {
+    let c = diffPerLevel/2
+    resourceAvailable = resourceAvailable || 0
+    let alreadySpent = baseCost * (c * Math.pow(baseLevel,2) + baseLevel * (1 - c))
+    resourceAvailable += alreadySpent
+    let v = resourceAvailable/baseCost
+    let buyToLevel = 0
+    if (c > 0){
+    buyToLevel = Math.max(0, Math.floor((c-1)/(2*c) + Math.pow(Math.pow(1-c,2) + 4*c*v,1/2)/(2*c)))
+    }
+    if (c == 0){
+    buyToLevel = Math.floor(v)
+    }
+    buyToLevel = Math.min(buyToLevel, buyAmount + baseLevel)
+    let totalCost = baseCost * (c * Math.pow(buyToLevel,2) + buyToLevel * (1-c)) - alreadySpent
+    if(buyToLevel == baseLevel){
+    totalCost = baseCost * (1 + 2*c * baseLevel)
+    }
+    return [buyToLevel, totalCost]
+}
+
 
 //Banked Cubes, Score, Cube Gain, Tesseract Gain, Hypercube Gain
 function CalcCorruptionStuff() {
-    let corruptionArrayMultiplier = [1, 2, 2.75, 3.5, 4.5, 5, 5.75, 6.5, 7, 7.5, 8]
+    let corruptionArrayMultiplier = [1, 2, 2.75, 3.5, 4.25, 5, 5.75, 6.5, 7, 7.5, 8]
 
     let cubeBank = 0;
     let challengeModifier = 1;
@@ -1016,15 +1042,18 @@ function CalcCorruptionStuff() {
 
     let tesseractGain = 1;
     tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e5)) / 1e4, .35);
+    tesseractGain *= (1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]));
     if(effectiveScore >= 100000){
         tesseractGain += 2
     }
     tesseractGain *= (1 + 0.25 * player.cubeUpgrades[30])
     tesseractGain *= (1 + 1/200 * player.cubeUpgrades[38] * sumContents(player.usedCorruptions))
+    tesseractGain *= (1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1),10)/400)
+    tesseractGain *= Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + (1/4 * player.achievements[204] + 1/4 * player.achievements[211] + 1/2 * player.achievements[218]) * Math.max(0, player.ascensionCounter/10 - 1))
 
     let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
     hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9)) / 1e8, .5);
-
+    hypercubeGain *= Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + (1/4 * player.achievements[204] + 1/4 * player.achievements[211] + 1/2 * player.achievements[218]) * Math.max(0, player.ascensionCounter/10 - 1))
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
 }
 

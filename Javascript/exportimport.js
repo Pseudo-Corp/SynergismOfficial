@@ -1,7 +1,7 @@
-function getRealTime() {
+function getRealTime(clock12h = false) {
     let now = new Date();
     let date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
-    let time = now.toLocaleTimeString();
+    let time = now.toLocaleTimeString([], {hour12: clock12h});
     return date + " " + time;
 }
 
@@ -11,7 +11,7 @@ function updateSaveString() {
 
 function saveFilename() {
     const s = player.saveString
-    return s.replace('$TIME$', getRealTime());
+    return s.replace('$TIME$', getRealTime()).replace("$TIME12$", getRealTime(true));
 }
 
 function exportSynergism() {
@@ -56,7 +56,7 @@ function importSynergism(input) {
     const d = LZString.decompressFromBase64(input);
     const f = d ? JSON.parse(d) : JSON.parse(atob(input));
     if(f.exporttest === "YES!"){
-        intervalHold.forEach(clearInterval);
+        intervalHold.forEach(clearInt);
         intervalHold.length = 0;
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
         constantIntervals();

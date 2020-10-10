@@ -1,7 +1,7 @@
 var repeatreset
 
 function resetrepeat(i) {
-    clearInterval(repeatreset);
+    clearInt(repeatreset);
     repeatreset = interval(resetdetails, 50, i)
 }
 
@@ -320,9 +320,10 @@ function reset(i, fast, from) {
 
     if (i > 2.5) {
         // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
-        if(player.ascensionCount > 0 && player.achievements[183] < 1){
+        if (player.ascensionCount > 0 && player.achievements[183] < 1) {
             ascensionAchievementCheck(1);
         }
+
         historyKind = "reincarnate";
         historyEntry.obtainium = obtainiumGain;
         historyEntry.particles = reincarnationPointGain;
@@ -401,7 +402,8 @@ function reset(i, fast, from) {
 
 
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
-            buyResearch(player.autoResearch, true)
+            let linGrowth = (player.autoResearch === 200)? 0.01: 0;
+            buyResearch(player.autoResearch, true, linGrowth)
         }
         calculateRuneLevels();
         calculateAnts();
@@ -447,7 +449,6 @@ function reset(i, fast, from) {
         player.obtainiumpersecond = 0;
         player.maxobtainiumpersecond = 0;
         player.offeringpersecond = 0;
-        player.antPoints = new Decimal("0");
         player.antSacrificePoints = 0;
         player.antSacrificeTimer = 0;
         player.antUpgrades[12] = 0;
@@ -484,10 +485,6 @@ function reset(i, fast, from) {
             player.thirdOwnedParticles = 1;
             player.fourthOwnedParticles = 1;
             player.fifthOwnedParticles = 1;
-        }
-
-        if (player.currentChallenge.ascension !== 14) {
-            player.researchPoints = 1000 * player.cubeUpgrades[28]
         }
 
         if (player.cubeUpgrades[48] > 0) {
@@ -576,9 +573,8 @@ function reset(i, fast, from) {
                 document.getElementById("upg" + j).style.backgroundColor = "black"
             }
         }
-        for (let i = 1; i <= 9; i++) {
-            player.usedCorruptions[i] = player.prototypeCorruptions[i]
-        }
+        player.usedCorruptions = Array.from(player.prototypeCorruptions)
+        corruptionStatsUpdate()
     }
 
 
@@ -729,6 +725,10 @@ function resetUpgrades(i, fast) {
 
 function resetAnts() {
     player.firstOwnedAnts = 0;
+    if (player.cubeUpgrades[48] > 0){
+        player.firstOwnedAnts = 1
+    }
+
     player.secondOwnedAnts = 0;
     player.thirdOwnedAnts = 0;
     player.fourthOwnedAnts = 0;
@@ -754,7 +754,6 @@ function resetAnts() {
     player.sixthCostAnts = new Decimal("1e36");
     player.seventhCostAnts = new Decimal("1e100");
     player.eighthCostAnts = new Decimal("1e300");
-
 
     let ant12 = player.antUpgrades[12];
     player.antUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ant12];
