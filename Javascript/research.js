@@ -1,8 +1,8 @@
-function getResearchCost(index,buyAmount,linGrowth){
+function getResearchCost(index, buyAmount, linGrowth) {
     buyAmount = buyAmount || 1
     buyAmount = Math.min(researchMaxLevels[index] - player.researches[index], buyAmount)
     let metaData = calculateSummationNonLinear(player.researches[index], researchBaseCosts[index], player.researchPoints, linGrowth, buyAmount)
-    return [metaData[0],metaData[1]]
+    return [metaData[0], metaData[1]]
 }
 
 function buyResearch(index, auto, linGrowth) {
@@ -24,30 +24,30 @@ function buyResearch(index, auto, linGrowth) {
         document.getElementById("res" + index).style.backgroundColor = "orange"
     }
 
-    let buyamount = (maxbuyresearch || auto)? 1e5: 1;
-    let metaData = getResearchCost(index,buyamount,linGrowth)
+    let buyamount = (maxbuyresearch || auto) ? 1e5 : 1;
+    let metaData = getResearchCost(index, buyamount, linGrowth)
     if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && player.researchPoints >= metaData[1]) {
-            player.researchPoints -= metaData[1]
-            player.researches[index] = metaData[0];
-            researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index])
-            researchDescriptions(index, auto, linGrowth)
+        player.researchPoints -= metaData[1]
+        player.researches[index] = metaData[0];
+        researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index])
+        researchDescriptions(index, auto, linGrowth)
 
-            if (index === 47 && player.unlocks.rrow1 === false) {
-                player.unlocks.rrow1 = true;
-                revealStuff()
-            }
-            if (index === 48 && player.unlocks.rrow2 === false) {
-                player.unlocks.rrow2 = true;
-                revealStuff()
-            }
-            if (index === 49 && player.unlocks.rrow3 === false) {
-                player.unlocks.rrow3 = true;
-                revealStuff()
-            }
-            if (index === 50 && player.unlocks.rrow4 === false) {
-                player.unlocks.rrow4 = true;
-                revealStuff()
-            }
+        if (index === 47 && player.unlocks.rrow1 === false) {
+            player.unlocks.rrow1 = true;
+            revealStuff()
+        }
+        if (index === 48 && player.unlocks.rrow2 === false) {
+            player.unlocks.rrow2 = true;
+            revealStuff()
+        }
+        if (index === 49 && player.unlocks.rrow3 === false) {
+            player.unlocks.rrow3 = true;
+            revealStuff()
+        }
+        if (index === 50 && player.unlocks.rrow4 === false) {
+            player.unlocks.rrow4 = true;
+            revealStuff()
+        }
     }
 
     if (0 < index && isResearchUnlocked(index)) {
@@ -314,12 +314,12 @@ resdesc = [null,
 function researchDescriptions(i, auto, linGrowth) {
     auto = auto || false
     linGrowth = linGrowth || 0
-    let buyAmount = (maxbuyresearch || auto)? 100000: 1;
+    let buyAmount = (maxbuyresearch || auto) ? 100000 : 1;
     let y = resdesc[i]
     let z = ""
     let p = "res" + i
-    let metaData = getResearchCost(i,buyAmount,linGrowth);
-    z = " Cost: " + (format(metaData[1], 0, false)) + " Obtainium [+" + format(metaData[0]-player.researches[i],0,true) + " Levels]"
+    let metaData = getResearchCost(i, buyAmount, linGrowth);
+    z = " Cost: " + (format(metaData[1], 0, false)) + " Obtainium [+" + format(metaData[0] - player.researches[i], 0, true) + " Levels]"
     if (player.researches[i] === (researchMaxLevels[i])) {
         document.getElementById("researchcost").style.color = "Gold"
         document.getElementById("researchinfo3").style.color = "plum"
