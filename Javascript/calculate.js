@@ -911,8 +911,8 @@ function calculateTimeAcceleration() {
     timeMult *= (1 + 0.015 * player.researches[136]) // research 6x11
     timeMult *= (1 + 0.012 * player.researches[151]) // research 7x1
     timeMult *= (1 + 0.009 * player.researches[166]) // research 7x16
-    timeMult *= (1 + 0.006 * player.researches[151]) // research 8x6
-    timeMult *= (1 + 0.003 * player.researches[166]) // research 8x21
+    timeMult *= (1 + 0.006 * player.researches[181]) // research 8x6
+    timeMult *= (1 + 0.003 * player.researches[196]) // research 8x21
     timeMult *= (1 + 8 * effectiveRuneBlessingPower[1]); // speed blessing
     timeMult *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[1]) // speed SPIRIT
     timeMult *= cubeBonusMultiplier[10]; // Chronos cube blessing
