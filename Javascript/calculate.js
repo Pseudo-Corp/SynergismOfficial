@@ -788,6 +788,7 @@ function calculateOffline(forceTime) {
         //Auto Ant Sacrifice Stuff
         if (player.achievements[173] > 0) {
             player.antSacrificeTimer += tickValue * timeMultiplier;
+            player.antSacrificeTimerReal += tickValue;
         }
         //Auto Rune Sacrifice Stuff
         if (player.shopUpgrades.offeringAutoLevel > 0 && player.autoSacrificeToggle) {

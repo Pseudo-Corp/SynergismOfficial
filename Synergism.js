@@ -442,6 +442,7 @@ const player = {
     antUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     antSacrificePoints: 0,
     antSacrificeTimer: 900,
+    antSacrificeTimerReal: 900,
 
     talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
     talismanRarity: [null, 1, 1, 1, 1, 1, 1, 1],
@@ -2802,7 +2803,7 @@ function updateAll() {
     optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel
     autoBuyAnts()
 
-    let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimer / calculateTimeAcceleration() : player.antSacrificeTimer;
+    let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
     if (timer >= player.autoAntSacTimer && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
         sacrificeAnts(true)
     }
@@ -2942,6 +2943,7 @@ function tick() {
 
         if (player.achievements[173] === 1) {
             player.antSacrificeTimer += (dt * timeMult)
+            player.antSacrificeTimerReal += dt;
             document.getElementById("antSacrificeTimer").textContent = formatTimeShort(player.antSacrificeTimer);
             showSacrifice();
         }

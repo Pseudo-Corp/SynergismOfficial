@@ -451,6 +451,7 @@ function reset(i, fast, from) {
         player.offeringpersecond = 0;
         player.antSacrificePoints = 0;
         player.antSacrificeTimer = 0;
+        player.antSacrificeTimerReal = 0;
         player.antUpgrades[12] = 0;
         for (let j = 61; j <= 80; j++) {
             player.upgrades[j] = 0;

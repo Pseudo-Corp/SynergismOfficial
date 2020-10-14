@@ -390,6 +390,7 @@ function sacrificeAnts(auto) {
             // Now we're safe to reset the ants.
             resetAnts();
             player.antSacrificeTimer = 0;
+            player.antSacrificeTimerReal = 0;
             updateTalismanInventory();
             if (player.autoResearch > 0 && player.autoResearchToggle) {
                 let linGrowth = (player.autoResearch === 200)? 0.01: 0;
