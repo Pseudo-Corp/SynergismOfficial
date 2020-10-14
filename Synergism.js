@@ -1345,7 +1345,7 @@ function format(input, accuracy = 0, long = false) {
         // Split it on the decimal place
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
-        const frontFormatted = 'BigInt' in window 
+        const frontFormatted = 'BigInt' in window
             ? BigInt(front).toLocaleString('en-US')
             : front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // if the back is undefined that means there are no decimals to display, return just the front
@@ -1360,7 +1360,7 @@ function format(input, accuracy = 0, long = false) {
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
         // Makes the power group 3 with commas
-        const powerLook = 'BigInt' in window 
+        const powerLook = 'BigInt' in window
             ? BigInt(power).toLocaleString('en-US')
             : power.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // returns format (1.23e456,789)
@@ -2955,8 +2955,8 @@ function tick() {
                 let counter = 0;
                 let maxCount = 1 + player.challengecompletions[14];
                 while (counter < maxCount) {
-                    if (player.autoResearch){
-                        linGrowth = (player.autoResearch === 200)? 0.01: 0;
+                    if (player.autoResearch) {
+                        linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
                         buyResearch(player.autoResearch, true, linGrowth)
                     }
                     counter++;

@@ -393,7 +393,7 @@ function sacrificeAnts(auto) {
             player.antSacrificeTimerReal = 0;
             updateTalismanInventory();
             if (player.autoResearch > 0 && player.autoResearchToggle) {
-                let linGrowth = (player.autoResearch === 200)? 0.01: 0;
+                let linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
                 buyResearch(player.autoResearch, true, linGrowth)
             }
             calculateAntSacrificeELO();

@@ -402,7 +402,7 @@ function reset(i, fast, from) {
 
 
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
-            let linGrowth = (player.autoResearch === 200)? 0.01: 0;
+            let linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
             buyResearch(player.autoResearch, true, linGrowth)
         }
         calculateRuneLevels();
@@ -726,7 +726,7 @@ function resetUpgrades(i, fast) {
 
 function resetAnts() {
     player.firstOwnedAnts = 0;
-    if (player.cubeUpgrades[48] > 0){
+    if (player.cubeUpgrades[48] > 0) {
         player.firstOwnedAnts = 1
     }
 

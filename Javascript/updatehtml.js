@@ -228,7 +228,7 @@ function revealStuff() {
             document.getElementById("tesseractAutoToggle" + z).style.display = "block" :
             document.getElementById("tesseractAutoToggle" + z).style.display = "none";
     }
-    (player.antUpgrades[12] > 0 || player.ascensionCount > 0)? //Ant Talisman Unlock, Mortuus
+    (player.antUpgrades[12] > 0 || player.ascensionCount > 0) ? //Ant Talisman Unlock, Mortuus
         document.getElementById("talisman6area").style.display = "block" :
         document.getElementById("talisman6area").style.display = "none";
 
