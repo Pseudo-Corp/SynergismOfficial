@@ -144,7 +144,7 @@ function checkVariablesOnLoad(data) {
         }
     }
 
-    if (data.shopUpgrades.challengeExtension === undefined) {
+    if (!data.shopUpgrades || data.shopUpgrades.challengeExtension === undefined) {
         player.shopUpgrades.challengeExtension = 0;
         player.shopUpgrades.challenge10Tomes = 0;
         player.shopUpgrades.seasonPassLevel = 0;
@@ -194,7 +194,11 @@ function checkVariablesOnLoad(data) {
         player.cubeUpgrades[50] = 0
         console.log('Refunded w5x10. Enjoy!')
     }
-    if (player.usedCorruptions[0] > 0 || data.usedCorruptions[0] > 0){
+
+    if (
+        player.usedCorruptions[0] > 0 || 
+        (Array.isArray(data.usedCorruptions) && data.usedCorruptions[0] > 0)
+    ) {
         player.prototypeCorruptions[0] = 0
         player.usedCorruptions[0] = 0
     }
