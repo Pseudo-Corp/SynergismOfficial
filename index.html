@@ -2152,6 +2152,12 @@
         <div id="exportButtons">
             <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
             <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
+
+            <div>
+                <input style="float:center;" type="checkbox" id="saveType" name="saveType" checked>
+                <label style="display: inline;" for="saveType">Copy to Clipboard</label>
+            </div>
+            
             <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
             <p id="exportinfo" class="tightText" style="color: white"></p>
             <label title="Use $TIME$ for 24h time, $TIME12$ for 12h">
