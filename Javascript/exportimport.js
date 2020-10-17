@@ -14,7 +14,7 @@ function saveFilename() {
     return s.replace('$TIME$', getRealTime()).replace("$TIME12$", getRealTime(true));
 }
 
-function exportSynergism() {
+async function exportSynergism() {
     player.offlinetick = Date.now();
     if (player.quarkstimer >= 3600) {
         player.worlds += (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
@@ -25,19 +25,39 @@ function exportSynergism() {
 
     saveSynergy();
 
-    if ('clipboardData' in window) {
-        window.clipboardData.setData('Text', localStorage.getItem('Synergysave2'));
-        return;
+    const toClipboard = document.getElementById('saveType').checked;
+    const save = localStorage.getItem('Synergysave2');
+    if('clipboard' in navigator && toClipboard) {
+        await navigator.clipboard.writeText(save)
+            .catch(e => console.error(e));
+    } else if(toClipboard) { // old browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = save;
+        textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try { document.execCommand('copy'); } catch(_) {}
+
+        document.body.removeChild(textArea);
+    } else {
+        const a = document.createElement('a');
+        a.setAttribute('href', 'data:text/plain;charset=utf-8,' + save);
+        a.setAttribute('download', saveFilename());
+        a.setAttribute('id', 'downloadSave');
+        // "Starting in Firefox 75, the click() function works even when the element is not attached to a DOM tree."
+        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click
+        // so let's have it work on older versions of Firefox, doesn't change functionality.
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
+    
 
-    const a = document.createElement('a');
-    const filename = saveFilename()
-    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
-    a.setAttribute('download', filename);
-    a.setAttribute('id', 'downloadSave');
-    a.click();
-
-    document.getElementById("exportinfo").textContent = "Savefile copied to file!"
+    document.getElementById("exportinfo").textContent = toClipboard 
+        ? 'Copied save to your clipboard!'
+        : 'Savefile copied to file!';
 }
 
 const resetGame = () => {
