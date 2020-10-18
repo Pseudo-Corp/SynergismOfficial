@@ -638,3 +638,13 @@ function toggleCorruptionLoadoutsStats(stats) {
     player.corruptionShowStats = stats
     showCorruptionStatsLoadouts()
 }
+
+function toggleAscStatPerSecond(id) {
+    if (player.ascStatToggles[id]) {
+        player.ascStatToggles[id] = false;
+        document.getElementById(`unit${id}`).textContent = "/s";
+    } else {
+        player.ascStatToggles[id] = true;
+        document.getElementById(`unit${id}`).textContent = "";
+    }
+}

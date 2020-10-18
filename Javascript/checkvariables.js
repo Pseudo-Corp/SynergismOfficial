@@ -195,6 +195,14 @@ function checkVariablesOnLoad(data) {
         console.log('Refunded w5x10. Enjoy!')
     }
 
+    if (player.ascStatToggles === undefined || data.ascStatToggles === undefined) {
+        player.ascStatToggles = {
+            1: false,
+            2: false,
+            3: false
+        };
+    }
+
     if (
         player.usedCorruptions[0] > 0 || 
         (Array.isArray(data.usedCorruptions) && data.usedCorruptions[0] > 0)
