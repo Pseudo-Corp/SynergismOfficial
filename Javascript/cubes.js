@@ -241,7 +241,7 @@ function updateCubeUpgradeBG(i) {
 function buyCubeUpgrades(i,linGrowth) {
     linGrowth = linGrowth || 0;
     let metaData = getCubeCost(i,linGrowth);
-    if(player.wowCubes >= metaData[1] && player.cubeUpgrades[i] <= cubeMaxLevel[i]){
+    if(player.wowCubes >= metaData[1] && player.cubeUpgrades[i] < cubeMaxLevel[i]){
     player.wowCubes -= 100 / 100 * metaData[1];
     player.cubeUpgrades[i] = metaData[0];
     }
