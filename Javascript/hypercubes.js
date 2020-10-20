@@ -70,4 +70,5 @@ function calculateHypercubeBlessings() {
         document.getElementById("hypercubeBlessing" + i + "Amount").textContent = "x" + format(hypercubeArray[i], 0, true)
         document.getElementById("hypercubeBlessing" + i + "Effect").textContent = "+" + format(100 * (hypercubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true) + "%"
     }
+	document.getElementById("hypercubeBlessingTotalAmount").textContent = format(sumContents(hypercubeArray), 0, true);
 }

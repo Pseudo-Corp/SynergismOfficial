@@ -866,7 +866,7 @@ function calculateCubeBlessings() {
             document.getElementById("cubeBlessing9Effect").textContent = "+" + format(cubeBonusMultiplier[9] - 1, accuracy[9] + augmentAccuracy, true)
         }
     }
-
+	document.getElementById("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray), 0, true);
     calculateRuneLevels();
     calculateAntSacrificeELO();
     calculateObtainium();
