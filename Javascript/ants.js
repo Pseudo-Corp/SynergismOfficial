@@ -378,11 +378,18 @@ function sacrificeAnts(auto) {
             if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle) {
                 // Since ants boost rune EXP, we need to auto-spend offerings NOW, before reset, if cube-tier auto-spend is enabled.
                 if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
-                    let baseAmount = Math.floor(player.runeshards / 5);
+                    let unmaxed = 0;
                     for (let i = 1; i <= 5; i++) {
-                        redeemShards(i, true, baseAmount);
+                        if (player.runelevels[i] < calculateMaxRunes(i))
+                            unmaxed++;
                     }
-                    player.sacrificeTimer = 0;
+                    if (unmaxed > 0) {
+                        let baseAmount = Math.floor(player.runeshards / unmaxed);
+                        for (let i = 1; i <= 5; i++) {
+                            redeemShards(i, true, baseAmount);
+                        }
+                        player.sacrificeTimer = 0;
+                    }
                 }
                 // Other cases don't perform a spend-all and are thus safely handled by the standard tick() function.
             }
@@ -390,9 +397,10 @@ function sacrificeAnts(auto) {
             // Now we're safe to reset the ants.
             resetAnts();
             player.antSacrificeTimer = 0;
+            player.antSacrificeTimerReal = 0;
             updateTalismanInventory();
             if (player.autoResearch > 0 && player.autoResearchToggle) {
-                let linGrowth = (player.autoResearch === 200)? 0.01: 0;
+                let linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
                 buyResearch(player.autoResearch, true, linGrowth)
             }
             calculateAntSacrificeELO();

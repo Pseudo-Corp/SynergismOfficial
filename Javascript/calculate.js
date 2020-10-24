@@ -54,7 +54,7 @@ function calculateTotalAcceleratorBoost() {
 
     b += player.researches[93] * Math.floor(1 / 20 * (rune1level + rune2level + rune3level + rune4level + rune5level))
     b += Math.floor((0.01 + rune1level) * effectiveLevelMult / 20);
-    b *= (1 + 1 / 5 * player.researches[3] * (1 + 1/2 * CalcECC('ascension', player.challengecompletions[14])))
+    b *= (1 + 1 / 5 * player.researches[3] * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14])))
     b *= (1 + 1 / 20 * player.researches[16] + 1 / 20 * player.researches[17])
     b *= (1 + 1 / 20 * player.researches[88])
     b *= calculateSigmoidExponential(20, (player.antUpgrades[4] + bonusant4) / 1000 * 20 / 19)
@@ -80,7 +80,7 @@ function calculateAcceleratorMultiplier() {
     acceleratorMultiplier *= (1 + player.achievements[60] / 100)
     acceleratorMultiplier *= (1 + player.achievements[61] / 100)
     acceleratorMultiplier *= (1 + player.achievements[62] / 100)
-    acceleratorMultiplier *= (1 + 1 / 5 * player.researches[1] * (1 + 1/2 * CalcECC('ascension', player.challengecompletions[14])))
+    acceleratorMultiplier *= (1 + 1 / 5 * player.researches[1] * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14])))
     acceleratorMultiplier *= (1 + 1 / 20 * player.researches[6] + 1 / 25 * player.researches[7] + 1 / 40 * player.researches[8] + 3 / 200 * player.researches[9] + 1 / 200 * player.researches[10]);
     acceleratorMultiplier *= (1 + 1 / 20 * player.researches[86])
     acceleratorMultiplier *= (1 + 1 / 100 * player.researches[126])
@@ -210,15 +210,16 @@ function lookupTableGen(runeLevel) {
     return allRuneExpRequiredMultiplier
 }
 
-let lookupTableRuneExp = function() {
+let lookupTableRuneExp = function () {
     let lookup = {};
     for (let runeLevel = 0; runeLevel <= 20000; ++runeLevel) {
         lookup[runeLevel] = lookupTableGen(runeLevel);
     }
     return lookup;
 }();
+
 // Returns the amount of exp required to level a rune
-function calculateRuneExpToLevel(runeIndex, runeLevel= player.runelevels[runeIndex]) {
+function calculateRuneExpToLevel(runeIndex, runeLevel = player.runelevels[runeIndex]) {
     return lookupTableRuneExp[runeLevel] * runeexpbase[runeIndex];
 }
 
@@ -379,7 +380,7 @@ function calculateObtainium() {
     obtainiumGain *= (1 + player.researches[81] / 10)
     obtainiumGain *= (1 + player.shopUpgrades.obtainiumAutoLevel / 50)
     obtainiumGain *= (1 + player.shopUpgrades.cashGrabLevel / 100)
-    obtainiumGain *= (1 + rune5level / 200 * effectiveLevelMult * (1 + player.researches[84] / 200 * (1 + 1 * effectiveRuneSpiritPower[5] * calculateCorruptionPoints()/400)))
+    obtainiumGain *= (1 + rune5level / 200 * effectiveLevelMult * (1 + player.researches[84] / 200 * (1 + 1 * effectiveRuneSpiritPower[5] * calculateCorruptionPoints() / 400)))
     obtainiumGain *= (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07 * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15 * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147])
     obtainiumGain *= (1 + 2 * Math.pow((player.antUpgrades[10] + bonusant10) / 50, 2 / 3))
     obtainiumGain *= cubeBonusMultiplier[5]
@@ -560,14 +561,14 @@ function calculateRuneBonuses() {
 
     blessingMultiplier *= (1 + 6.9 * player.researches[134] / 100)
     blessingMultiplier *= (1 + player.talismanRarity[3] / 10)
-    blessingMultiplier *= (1 + 0.10 * Math.log(player.epicFragments + 1) / Math.log(10))
+    blessingMultiplier *= (1 + 0.10 * Math.log(player.epicFragments + 1) / Math.log(10) * player.researches[174])
     blessingMultiplier *= (1 + player.researches[194] / 100)
     if (player.researches[160] > 0) {
         blessingMultiplier *= Math.pow(1.25, 8)
     }
     spiritMultiplier *= (1 + 8 * player.researches[164] / 100)
     if (player.researches[165] > 0 && player.currentChallenge.ascension !== 0) {
-        spiritMultiplier *= Math.pow(2,8)
+        spiritMultiplier *= Math.pow(2, 8)
     }
     spiritMultiplier *= (1 + 0.15 * Math.log(player.legendaryFragments + 1) / Math.log(10))
     spiritMultiplier *= (1 + 2 * player.researches[194] / 100)
@@ -795,6 +796,7 @@ function calculateOffline(forceTime) {
         //Auto Ant Sacrifice Stuff
         if (player.achievements[173] > 0) {
             player.antSacrificeTimer += tickValue * timeMultiplier;
+            player.antSacrificeTimerReal += tickValue;
         }
         //Auto Rune Sacrifice Stuff
         if (player.shopUpgrades.offeringAutoLevel > 0 && player.autoSacrificeToggle) {
@@ -841,7 +843,7 @@ function calculateCubeBlessings() {
     document.getElementById("cubeQuantity").textContent = format(player.wowCubes, 0, true)
 
     let cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
-    let powerBonus = [null, player.cubeUpgrades[45] / 100, player.cubeUpgrades[35] / 100, player.cubeUpgrades[24] / 100, player.cubeUpgrades[14] / 100, player.cubeUpgrades[40]/100, player.cubeUpgrades[22]/40, player.cubeUpgrades[15] / 100, player.cubeUpgrades[25] / 100, player.cubeUpgrades[44] / 100, player.cubeUpgrades[34] / 100]
+    let powerBonus = [null, player.cubeUpgrades[45] / 100, player.cubeUpgrades[35] / 100, player.cubeUpgrades[24] / 100, player.cubeUpgrades[14] / 100, player.cubeUpgrades[40] / 100, player.cubeUpgrades[22] / 40, player.cubeUpgrades[15] / 100, player.cubeUpgrades[25] / 100, player.cubeUpgrades[44] / 100, player.cubeUpgrades[34] / 100]
 
     let accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
     for (let i = 1; i <= 10; i++) {
@@ -873,7 +875,7 @@ function calculateCubeBlessings() {
             document.getElementById("cubeBlessing9Effect").textContent = "+" + format(cubeBonusMultiplier[9] - 1, accuracy[9] + augmentAccuracy, true)
         }
     }
-
+	document.getElementById("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray), 0, true);
     calculateRuneLevels();
     calculateAntSacrificeELO();
     calculateObtainium();
@@ -882,7 +884,7 @@ function calculateCubeBlessings() {
 
 function calculateCubeMultiplier(calcMult = true) {
     let arr = [];
-    arr.push(Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + (1/4 * player.achievements[204] + 1/4 * player.achievements[211] + 1/2 * player.achievements[218]) * Math.max(0, player.ascensionCounter/10 - 1)))
+    arr.push(Math.pow(Math.min(1, player.ascensionCounter / 10), 2) * (1 + (1 / 4 * player.achievements[204] + 1 / 4 * player.achievements[211] + 1 / 2 * player.achievements[218]) * Math.max(0, player.ascensionCounter / 10 - 1)))
     arr.push(1 + 3 / 100 * player.shopUpgrades.seasonPassLevel)
     arr.push(1 + player.researches[119] / 400);
     arr.push(1 + player.researches[120] / 400);
@@ -895,14 +897,14 @@ function calculateCubeMultiplier(calcMult = true) {
     arr.push(1 + 0.9 * player.researches[152] / 100);
     arr.push(1 + 0.8 * player.researches[167] / 100);
     arr.push(1 + 0.7 * player.researches[182] / 100);
-    arr.push(1 + 0.6 * player.researches[187] / 100);
+    arr.push(1 + 0.6 * player.researches[197] / 100);
     arr.push(1 + 0.03 / 100 * player.researches[192] * player.antUpgrades[12]);
     arr.push(1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2]);
     arr.push(1 + 0.004 / 100 * player.researches[200]);
     arr.push(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]));
     arr.push(1 + 0.25 * player.cubeUpgrades[30])
-    arr.push(1 + player.achievements[193] * Decimal.log(player.ascendShards.add(1),10)/400);
-    arr.push(1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1),10)/400);
+    arr.push(1 + player.achievements[193] * Decimal.log(player.ascendShards.add(1), 10) / 400);
+    arr.push(1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1), 10) / 400);
     // statistics include everything up to this point
     if (calcMult) {
         return productContents(arr);
@@ -913,13 +915,13 @@ function calculateCubeMultiplier(calcMult = true) {
 
 function calculateTimeAcceleration() {
     let timeMult = 1;
-    timeMult *= (1 + 1/300 * Math.log(player.maxobtainium + 1)/Math.log(10) * player.upgrades[70]) //Particle upgrade 2x5
+    timeMult *= (1 + 1 / 300 * Math.log(player.maxobtainium + 1) / Math.log(10) * player.upgrades[70]) //Particle upgrade 2x5
     timeMult *= (1 + player.researches[121] / 50); // research 5x21
     timeMult *= (1 + 0.015 * player.researches[136]) // research 6x11
     timeMult *= (1 + 0.012 * player.researches[151]) // research 7x1
     timeMult *= (1 + 0.009 * player.researches[166]) // research 7x16
-    timeMult *= (1 + 0.006 * player.researches[151]) // research 8x6
-    timeMult *= (1 + 0.003 * player.researches[166]) // research 8x21
+    timeMult *= (1 + 0.006 * player.researches[181]) // research 8x6
+    timeMult *= (1 + 0.003 * player.researches[196]) // research 8x21
     timeMult *= (1 + 8 * effectiveRuneBlessingPower[1]); // speed blessing
     timeMult *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[1]) // speed SPIRIT
     timeMult *= cubeBonusMultiplier[10]; // Chronos cube blessing
@@ -994,22 +996,22 @@ function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differ
 
 //If you want to sum from a baseline level baseLevel to some level where the cost per level is base * (1 + level * diffPerLevel), this finds out how many total levels you can buy.
 function calculateSummationNonLinear(baseLevel, baseCost, resourceAvailable, diffPerLevel, buyAmount) {
-    let c = diffPerLevel/2
+    let c = diffPerLevel / 2
     resourceAvailable = resourceAvailable || 0
-    let alreadySpent = baseCost * (c * Math.pow(baseLevel,2) + baseLevel * (1 - c))
+    let alreadySpent = baseCost * (c * Math.pow(baseLevel, 2) + baseLevel * (1 - c))
     resourceAvailable += alreadySpent
-    let v = resourceAvailable/baseCost
+    let v = resourceAvailable / baseCost
     let buyToLevel = 0
-    if (c > 0){
-    buyToLevel = Math.max(0, Math.floor((c-1)/(2*c) + Math.pow(Math.pow(1-c,2) + 4*c*v,1/2)/(2*c)))
+    if (c > 0) {
+        buyToLevel = Math.max(0, Math.floor((c - 1) / (2 * c) + Math.pow(Math.pow(1 - c, 2) + 4 * c * v, 1 / 2) / (2 * c)))
     }
-    if (c == 0){
-    buyToLevel = Math.floor(v)
+    if (c == 0) {
+        buyToLevel = Math.floor(v)
     }
     buyToLevel = Math.min(buyToLevel, buyAmount + baseLevel)
-    let totalCost = baseCost * (c * Math.pow(buyToLevel,2) + buyToLevel * (1-c)) - alreadySpent
-    if(buyToLevel == baseLevel){
-    totalCost = baseCost * (1 + 2*c * baseLevel)
+    let totalCost = baseCost * (c * Math.pow(buyToLevel, 2) + buyToLevel * (1 - c)) - alreadySpent
+    if (buyToLevel == baseLevel) {
+        totalCost = baseCost * (1 + 2 * c * baseLevel)
     }
     return [buyToLevel, totalCost]
 }
@@ -1070,7 +1072,7 @@ function CalcCorruptionStuff() {
     let tesseractGain = 1;
     tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e5)) / 1e4, .35);
     tesseractGain *= (1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]));
-    if(effectiveScore >= 100000){
+    if (effectiveScore >= 100000) {
         tesseractGain += 2
     }
     tesseractGain *= (1 + 0.25 * player.cubeUpgrades[30])
