@@ -8,7 +8,7 @@ html {
 
 }
 body {background-color: #111111 ;
-	transform: scale(0.9);
+	/*transform: scale(0.9);*/
 	transform-origin: 0 0;
 	overflow-x: hidden;
 	overflow-y: hidden;
@@ -4841,4 +4841,32 @@ img.small {
 	margin: auto;
 	border: 2px solid green;
 	visibility: hidden;
+}
+
+#ascensionStats {
+	display: flex;
+	flex-flow: row;
+	flex-direction: row;
+	justify-content: center;
+	height: 20px;
+	padding-top: 10px;
+	margin-bottom: -10px;
+}
+#AscLen {
+	color: darkcyan;
+}
+#AscC10 {
+	color: limegreen;
+}
+#AscCubes {
+	color: yellow;
+}
+#AscTess {
+	color: orchid;
+}
+#AscHyper {
+	color: crimson;
+}
+#AscTimeAccel {
+	color: royalblue;
 }

@@ -529,6 +529,11 @@ const player = {
         "tesseracts": 0,
         "hypercubes": 0
     },
+    ascStatToggles: { // false here means show per second
+        1: false,
+        2: false,
+        3: false
+    },
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

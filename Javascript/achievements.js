@@ -407,6 +407,7 @@ areward = {
     areward182: "Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacterium ants! Add +3% Base Ant ELO.",
     areward193: "Gain (log(Constant+1)/4)% more Cubes on ascension!",
     areward195: "Gain (log(Constant+1)/4)% more Cubes and Tesseracts on ascension! Multiplicative with the other Ach. bonus.",
+    areward197: "You will unlock a stat tracker for ascensions.",
     areward204: "You will gain 25% of excess time after 10 seconds each Ascension as a linear multiplier to rewards.",
     areward211: "You will gain 25% MORE excess time (Total: 50%) after 10 seconds each Ascension as a linear multiplier to rewards.",
     areward218: "You gain gain 50% MORE MORE excess time (Total: 100%) after 10 seconds each Ascension as a linear multiplier to rewards."

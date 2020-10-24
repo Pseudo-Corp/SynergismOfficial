@@ -51,7 +51,28 @@
 <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
 <div id="offlineprogressdone"></div>
 </div>
-<div style="height: 20px"></div>
+    <div id="ascensionStats">
+        <div style="height: inherit;">
+            <span onclick="toggleAscStatPerSecond(1)">
+                <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
+                <span id="AscCubes">x</span> C<span id="unit1">/s</span>
+            </span>
+            <span onclick="toggleAscStatPerSecond(2)">
+                <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
+                <span id="AscTess">x</span> T<span  id="unit2">/s</span>
+            </span>
+            <span onclick="toggleAscStatPerSecond(3)" id="AscHyperSpan" style="display: none">
+                <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
+                <span id="AscHyper">x</span> H<span  id="unit3">/s</span>
+            </span>
+            <img src="Pictures/questionable.png" class="corruptionImg" alt="">
+            <span id="AscLen">x</span>
+            <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
+            <span id="AscC10">x</span>
+            <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
+            <span id="AscTimeAccel">x</span>
+        </div>
+    </div>
 <div id="navbar">
 
     <div id="resourcesrow">
@@ -740,7 +761,7 @@
                         <td><img class="chal8 redach" src="Pictures/Transparent Pics/ach309.png" id="ach176" onmouseover="achievementdescriptions(176)" alt=""></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach316.png" id="ach183" onmouseover="achievementdescriptions(183)" alt=""></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach323.png" id="ach190" onmouseover="achievementdescriptions(190)" alt=""></td>
-                        <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach330.png" id="ach197" onmouseover="achievementdescriptions(197)" alt=""></td>
+                        <td><img class="ascendunlock redach" src="Pictures/Transparent Pics/ach330.png" id="ach197" onmouseover="achievementdescriptions(197)" alt=""></td>
                         <td><img class="chal11 redach" src="Pictures/Transparent Pics/ach337.png" id="ach204" onmouseover="achievementdescriptions(204)" alt=""></td>
                         <td><img class="chal12 redach" src="Pictures/Transparent Pics/ach344.png" id="ach211" onmouseover="achievementdescriptions(211)" alt=""></td>
                         <td><img class="chal13 redach" src="Pictures/Transparent Pics/ach351.png" id="ach218" onmouseover="achievementdescriptions(218)" alt=""></td>
