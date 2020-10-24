@@ -2931,9 +2931,16 @@ function tick() {
                     player.sacrificeTimer -= 1;
                 }
                 if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
-                    let baseAmount = Math.floor(player.runeshards / 5);
+                    let unmaxed = 0;
                     for (let i = 1; i <= 5; i++) {
-                        redeemShards(i, true, baseAmount);
+                        if (player.runelevels[i] < calculateMaxRunes(i))
+                            unmaxed++;
+                    }
+                    if (unmaxed > 0) {
+                        let baseAmount = Math.floor(player.runeshards / unmaxed);
+                        for (let i = 1; i <= 5; i++) {
+                            redeemShards(i, true, baseAmount);
+                        }
                         player.sacrificeTimer = player.sacrificeTimer % 1;
                     }
                 }

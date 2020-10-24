@@ -553,7 +553,7 @@ function calculateRuneBonuses() {
 
     blessingMultiplier *= (1 + 6.9 * player.researches[134] / 100)
     blessingMultiplier *= (1 + player.talismanRarity[3] / 10)
-    blessingMultiplier *= (1 + 0.10 * Math.log(player.epicFragments + 1) / Math.log(10))
+    blessingMultiplier *= (1 + 0.10 * Math.log(player.epicFragments + 1) / Math.log(10)) // this is missing the effect from leveling research 174
     blessingMultiplier *= (1 + player.researches[194] / 100)
     if (player.researches[160] > 0) {
         blessingMultiplier *= Math.pow(1.25, 8)
@@ -888,7 +888,7 @@ function calculateCubeMultiplier(calcMult = true) {
     arr.push(1 + 0.9 * player.researches[152] / 100);
     arr.push(1 + 0.8 * player.researches[167] / 100);
     arr.push(1 + 0.7 * player.researches[182] / 100);
-    arr.push(1 + 0.6 * player.researches[187] / 100);
+    arr.push(1 + 0.6 * player.researches[197] / 100);
     arr.push(1 + 0.03 / 100 * player.researches[192] * player.antUpgrades[12]);
     arr.push(1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2]);
     arr.push(1 + 0.004 / 100 * player.researches[200]);
@@ -911,8 +911,8 @@ function calculateTimeAcceleration() {
     timeMult *= (1 + 0.015 * player.researches[136]) // research 6x11
     timeMult *= (1 + 0.012 * player.researches[151]) // research 7x1
     timeMult *= (1 + 0.009 * player.researches[166]) // research 7x16
-    timeMult *= (1 + 0.006 * player.researches[151]) // research 8x6
-    timeMult *= (1 + 0.003 * player.researches[166]) // research 8x21
+    timeMult *= (1 + 0.006 * player.researches[181]) // research 8x6
+    timeMult *= (1 + 0.003 * player.researches[196]) // research 8x21
     timeMult *= (1 + 8 * effectiveRuneBlessingPower[1]); // speed blessing
     timeMult *= (1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[1]) // speed SPIRIT
     timeMult *= cubeBonusMultiplier[10]; // Chronos cube blessing
