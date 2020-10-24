@@ -41,7 +41,7 @@ function calculatetax(fast) {
     }
     //im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
     if (player.currentChallenge.ascension === 13) {
-        e *= 500 * (1 + 1 / 9 * player.challengecompletions[13])
+        e *= 700 * (1 + 1 / 6 * player.challengecompletions[13])
         e *= Math.pow(1.05, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15] - 3 * player.cubeUpgrades[49]))
     }
     if (player.challengecompletions[6] > 0) {
@@ -61,6 +61,7 @@ function calculatetax(fast) {
     exponent *= 1 / Math.pow((1 + Decimal.log(player.ascendShards.add(1), 10)), 1 + .2/60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + 0.5 * player.platonicUpgrades[15])
     exponent *= (1 - 0.10 * (player.talismanRarity[1] - 1))
     exponent *= Math.pow(0.98, 3 / 5 * Math.log(1 + player.rareFragments) / Math.log(10) * player.researches[159])
+    exponent *= Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13]))
     exponent *= (1 - 0.666 * player.researches[200]/100000)
     exponent *= (1 - 0.666 * player.cubeUpgrades[50]/100000)
     if(player.upgrades[121] > 0){exponent *= 0.5}
