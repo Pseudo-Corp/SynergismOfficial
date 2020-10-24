@@ -442,6 +442,7 @@ const player = {
     antUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     antSacrificePoints: 0,
     antSacrificeTimer: 900,
+    antSacrificeTimerReal: 900,
 
     talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
     talismanRarity: [null, 1, 1, 1, 1, 1, 1, 1],
@@ -1045,7 +1046,7 @@ function loadSynergy() {
 
 
         if (player.saveString === undefined || player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
-            player.saveString = "Synergism-v2.0.0-$TIME$.txt"
+            player.saveString = "Synergism-v2.0.5-$TIME$.txt"
         }
         document.getElementById("saveStringInput").value = player.saveString
 
@@ -1349,7 +1350,7 @@ function format(input, accuracy = 0, long = false) {
         // Split it on the decimal place
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
-        const frontFormatted = 'BigInt' in window 
+        const frontFormatted = 'BigInt' in window
             ? BigInt(front).toLocaleString('en-US')
             : front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // if the back is undefined that means there are no decimals to display, return just the front
@@ -1364,7 +1365,7 @@ function format(input, accuracy = 0, long = false) {
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
         // Makes the power group 3 with commas
-        const powerLook = 'BigInt' in window 
+        const powerLook = 'BigInt' in window
             ? BigInt(power).toLocaleString('en-US')
             : power.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // returns format (1.23e456,789)
@@ -2807,7 +2808,7 @@ function updateAll() {
     optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel
     autoBuyAnts()
 
-    let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimer / calculateTimeAcceleration() : player.antSacrificeTimer;
+    let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
     if (timer >= player.autoAntSacTimer && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.greaterThanOrEqualTo("1e40")) {
         sacrificeAnts(true)
     }
@@ -2913,7 +2914,7 @@ function tick() {
         const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
         const maxExportQuarks = ((25 * (1 + player.researches[195] / 2)) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
 
-        document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)), 2) + "s until +" + (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125]) + " export Quark"
+        document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)), 2) + "s until +" + (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]) + " export Quark"
         document.getElementById("quarktimeramount").textContent = "Quarks on export: "
             + onExportQuarks
             + " [Max "
@@ -2936,9 +2937,16 @@ function tick() {
                     player.sacrificeTimer -= 1;
                 }
                 if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
-                    let baseAmount = Math.floor(player.runeshards / 5);
+                    let unmaxed = 0;
                     for (let i = 1; i <= 5; i++) {
-                        redeemShards(i, true, baseAmount);
+                        if (player.runelevels[i] < calculateMaxRunes(i))
+                            unmaxed++;
+                    }
+                    if (unmaxed > 0) {
+                        let baseAmount = Math.floor(player.runeshards / unmaxed);
+                        for (let i = 1; i <= 5; i++) {
+                            redeemShards(i, true, baseAmount);
+                        }
                         player.sacrificeTimer = player.sacrificeTimer % 1;
                     }
                 }
@@ -2947,6 +2955,7 @@ function tick() {
 
         if (player.achievements[173] === 1) {
             player.antSacrificeTimer += (dt * timeMult)
+            player.antSacrificeTimerReal += dt;
             document.getElementById("antSacrificeTimer").textContent = formatTimeShort(player.antSacrificeTimer);
             showSacrifice();
         }
@@ -2958,8 +2967,8 @@ function tick() {
                 let counter = 0;
                 let maxCount = 1 + player.challengecompletions[14];
                 while (counter < maxCount) {
-                    if (player.autoResearch){
-                        linGrowth = (player.autoResearch === 200)? 0.01: 0;
+                    if (player.autoResearch) {
+                        linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
                         buyResearch(player.autoResearch, true, linGrowth)
                     }
                     counter++;
