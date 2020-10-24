@@ -4167,6 +4167,33 @@ margin-left: -13px
 	color: white;
 	background-color: black;
 }
+#cubeBlessingsTotal{
+	position: absolute;
+	padding: 5px;
+	top: 500px;
+	margin-left: 25%;
+	width: 50%;
+	color: orange;
+	text-align: center;
+}
+#tesseractBlessingsTotal{
+	position: absolute;
+	padding: 5px;
+	top: 500px;
+	margin-left: 25%;
+	width: 50%;
+	color: orchid;
+	text-align: center;
+}
+#hypercubeBlessingsTotal{
+	position: absolute;
+	padding: 5px;
+	top: 500px;
+	margin-left: 25%;
+	width: 50%;
+	color: rgb(255, 0, 76);
+	text-align: center;
+}
 #open1Cube{
 	position: absolute;
 	text-align: center;
