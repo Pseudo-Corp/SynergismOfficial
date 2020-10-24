@@ -199,4 +199,7 @@ function checkVariablesOnLoad(data) {
         player.prototypeCorruptions[0] = 0
         player.usedCorruptions[0] = 0
     }
+    if (player.antSacrificeTimerReal === undefined) {
+        player.antSacrificeTimerReal = player.antSacrificeTimer / calculateTimeAcceleration();
+    }
 }
