@@ -1323,10 +1323,7 @@ margin-left: -13px
 	height: 100px;
 }
 .tightText {
-	margin-top: 0;
-	margin-bottom: 0;
-	margin-left: auto;
-	margin-right: auto;
+    margin: 0 auto;
     text-align: center;
 }
 #quarktimerdisplay {
@@ -1341,9 +1338,7 @@ margin-left: -13px
 #exportgame {
 	width: 150px;
 	height: 40px;
-	margin: 5px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 5px auto;
 }
 #exportinfo {
 	height: 20px;
