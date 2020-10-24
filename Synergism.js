@@ -276,6 +276,8 @@ const player = {
 
     challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     highestchallengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    challenge15Exponent: 0,
+    highestChallenge15Exponent: 0,
 
     retrychallenges: false,
     currentChallenge: {
@@ -474,9 +476,12 @@ const player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: 0,
     wowTesseracts: 0,
     wowHypercubes: 0,
+    wowPlatonicCubes: 0,
+    wowAbyssals: 0,
     cubeBlessings: {
         accelerator: 0,
         multiplier: 0,
@@ -1519,7 +1524,7 @@ function updateAllTick() {
     }
     calculateAcceleratorMultiplier();
     a *= acceleratorMultiplier
-    a = Math.pow(a, maladaptivePower[player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2])))
+    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6]/10) * maladaptivePower[player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
     a = Math.floor(a)
 
     freeAccelerator = a;
@@ -1678,7 +1683,7 @@ function updateAllMultiplier() {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
-    a = Math.pow(a, divisivenessPower[player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2])))
+    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6]/10) * divisivenessPower[player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
     a = Math.floor(a)
     freeMultiplier = a;
     totalMultiplier = freeMultiplier + player.multiplierBought;
@@ -1793,6 +1798,12 @@ function multipliers() {
     }
     c = Decimal.pow(s, 1 + 0.001 * player.researches[17]);
     lol = Decimal.pow(c, 1 + 0.025 * player.upgrades[123])
+    if(player.currentChallenge.ascension === 15 && player.platonicUpgrades[5] > 0){
+        lol = Decimal.pow(lol, 1.1)
+    }
+    if(player.currentChallenge.ascension === 15 && player.platonicUpgrades[14] > 0){
+        lol = Decimal.pow(lol, 1 + 1/11 * player.usedCorruptions[9] * Decimal.log(player.coins.add(1), 10)/(1e7 + Decimal.log(player.coins.add(1),10)))
+    }
     globalCoinMultiplier = c;
     globalCoinMultiplier = Decimal.pow(globalCoinMultiplier, financialcollapsePower[player.usedCorruptions[9]])
 
@@ -1972,6 +1983,13 @@ function multipliers() {
 
     globalAntMult = Decimal.pow(globalAntMult, 1 - 0.9 / 90 * sumContents(player.usedCorruptions))
     globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
+    
+    if (player.platonicUpgrades[12] > 0){
+        globalAntMult = globalAntMult.times(Decimal.pow(1 + 1/20 * player.platonicUpgrades[12], sumContents(player.highestchallengecompletions)))
+    }
+    if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[10] > 0){
+        globalAntMult = Decimal.pow(globalAntMult, 1.25)
+    }
 
     globalConstantMult = new Decimal("1")
     globalConstantMult = globalConstantMult.times(Decimal.pow(1.05, player.constantUpgrades[1]))
@@ -1981,6 +1999,16 @@ function multipliers() {
     globalConstantMult = globalConstantMult.times(1 + 4 / 100 * player.researches[169])
     globalConstantMult = globalConstantMult.times(1 + 5 / 100 * player.researches[184])
     globalConstantMult = globalConstantMult.times(1 + 10 / 100 * player.researches[199])
+    if(player.platonicUpgrades[5] > 0){
+        globalConstantMult = globalConstantMult.times(2)
+    }
+    if(player.platonicUpgrades[10] > 0){
+        globalConstantMult = globalConstantMult.times(10)
+    }
+    if(player.platonicUpgrades[15] > 0){
+        globalConstantMult = globalConstantMult.times(1e5)
+    }
+
 }
 
 
@@ -2174,13 +2202,13 @@ function resourceGain(dt, fast) {
     let reinchal = player.currentChallenge.reincarnation;
     let ascendchal = player.currentChallenge.ascension;
     if (chal !== 0) {
-        if (player.coinsThisTranscension.greaterThanOrEqualTo(challengeRequirement(chal, player.challengecompletions[chal]))) {
+        if (player.coinsThisTranscension.greaterThanOrEqualTo(challengeRequirement(chal, player.challengecompletions[chal], chal))) {
             resetCheck('challenge', false);
             autoChallengeTimerIncrement = 0;
         }
     }
     if (reinchal < 9 && reinchal !== 0) {
-        if (player.transcendShards.greaterThanOrEqualTo(challengeRequirement(reinchal, player.challengecompletions[reinchal]))) {
+        if (player.transcendShards.greaterThanOrEqualTo(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
             resetCheck('reincarnationchallenge', false)
             autoChallengeTimerIncrement = 0;
             if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension)) {
@@ -2189,7 +2217,7 @@ function resourceGain(dt, fast) {
         }
     }
     if (reinchal >= 9) {
-        if (player.coins.greaterThanOrEqualTo(challengeRequirement(reinchal, player.challengecompletions[reinchal]))) {
+        if (player.coins.greaterThanOrEqualTo(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
             resetCheck('reincarnationchallenge', false)
             autoChallengeTimerIncrement = 0;
             if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension)) {
@@ -2201,13 +2229,13 @@ function resourceGain(dt, fast) {
         }
     }
     if (ascendchal !== 0 && ascendchal < 15) {
-        if (player.challengecompletions[10] >= challengeRequirement(ascendchal, player.challengecompletions[ascendchal])) {
+        if (player.challengecompletions[10] >= challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal)) {
             resetCheck('ascensionChallenge', false)
             challengeachievementcheck(ascendchal, true)
         }
     }
     if (ascendchal === 15) {
-        if (player.coins.greaterThanOrEqualTo(challengeRequirement(ascendchal, player.challengecompletions[ascendchal]))) {
+        if (player.coins.greaterThanOrEqualTo(challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal))) {
             resetCheck('ascensionChallenge', false)
         }
     }
@@ -2289,7 +2317,7 @@ function resetCheck(i, manual, leaving) {
         let x = q + 65
         if (player.currentChallenge.transcension !== 0) {
             let reqCheck = (comp) => {
-                return player.coinsThisTranscension.greaterThanOrEqualTo(challengeRequirement(q, comp))
+                return player.coinsThisTranscension.greaterThanOrEqualTo(challengeRequirement(q, comp, q))
             }
             let maxCompletions = 25 + 5 * player.researches[x] + 925 * player.researches[105];
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
@@ -2350,12 +2378,12 @@ function resetCheck(i, manual, leaving) {
         }
         let reqCheck = (comp) => {
             if (q <= 8) {
-                return player.transcendShards.greaterThanOrEqualTo(challengeRequirement(q, comp))
+                return player.transcendShards.greaterThanOrEqualTo(challengeRequirement(q, comp, q))
             } else { // challenges 9 and 10
-                return player.coins.greaterThanOrEqualTo(challengeRequirement(q, comp))
+                return player.coins.greaterThanOrEqualTo(challengeRequirement(q, comp, q))
             }
         }
-        let maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
+        let maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
             let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
             let counter = 0;
@@ -2384,7 +2412,7 @@ function resetCheck(i, manual, leaving) {
                 calculateCubeBlessings();
             }
         }
-        if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension) {
+        if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15]) {
             reset(3, false, "leaveChallenge");
             player.currentChallenge.reincarnation = 0;
             if (player.shopUpgrades.instantChallengeBought) {
@@ -2422,14 +2450,14 @@ function resetCheck(i, manual, leaving) {
             achievementaward(247)
         }
 
-        let maxCompletions = a < 15 ? 30 : 1;
+        let maxCompletions = a < 15 ? 30 + 3 * player.platonicUpgrades[5] + 3 * player.platonicUpgrades[10] + 4 * player.platonicUpgrades[15] : 1;
         if (a !== 0 && a < 15) {
-            if (player.challengecompletions[10] >= challengeRequirement(a, player.challengecompletions[a]) && player.challengecompletions[a] < maxCompletions) {
+            if (player.challengecompletions[10] >= challengeRequirement(a, player.challengecompletions[a], a) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
             }
         }
         if (a === 15) {
-            if (player.coins.greaterThanOrEqualTo(challengeRequirement(a, player.challengecompletions[a])) && player.challengecompletions[a] < maxCompletions) {
+            if (player.coins.greaterThanOrEqualTo(challengeRequirement(a, player.challengecompletions[a], a)) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
             }
         }

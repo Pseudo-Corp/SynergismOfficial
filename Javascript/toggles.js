@@ -612,7 +612,7 @@ function toggleAutoTesseracts(i) {
 
 function toggleCorruptionLevel(index, value) {
     let current = player.prototypeCorruptions[index]
-    let maxCorruption = 10
+    let maxCorruption = 11
     if (value > 0 && current < maxCorruption && index <= 9) {
         player.prototypeCorruptions[index] += Math.min(maxCorruption - current, value)
     }
