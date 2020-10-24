@@ -36,13 +36,19 @@ const historyGains = {
         formatter: conditionalFormatPerSecond,
         imgTitle: "Wow! Cubes"
     },
+    wowPlatonicCubes: {
+        img: "Pictures/PlatonicCube.png",
+        formatter: conditionalFormatPerSecond,
+        imgTitle: "PLATONIC CUBES",
+        onlyif: () => player.challengecompletions[14] > 0,
+    },
 };
 
 const historyGainsOrder = [
     "offerings", "obtainium",
     "antMulti",
     "particles", "diamonds", "mythos",
-    "wowCubes", "wowTesseracts", "wowHypercubes",
+    "wowCubes", "wowTesseracts", "wowHypercubes", "wowPlatonicCubes",
 ];
 
 const historyKinds = {

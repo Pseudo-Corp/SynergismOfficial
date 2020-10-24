@@ -435,6 +435,7 @@ function reset(i, fast, from) {
         historyEntry.wowCubes = metaData[4];
         historyEntry.wowTesseracts = metaData[5];
         historyEntry.wowHypercubes = metaData[6];
+        historyEntry.wowPlatonicCubes = metaData[7];
         if (player.currentChallenge.ascension && from !== "enterChallenge") {
             historyEntry.currentChallenge = player.currentChallenge.ascension;
         }
