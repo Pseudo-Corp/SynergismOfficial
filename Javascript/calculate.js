@@ -160,7 +160,7 @@ function calculateRuneExpGiven(runeIndex, all = false, runeLevel = player.runele
         // Cube Upgrade Bonus
         (1 + player.ascensionCounter / 1000 * player.cubeUpgrades[32]),
         // Corruption Divisor
-        1 / droughtMultiplier[player.usedCorruptions[8]],
+        1 / Math.pow(droughtMultiplier[player.usedCorruptions[8]], 1 - 2/3 * player.platonicUpgrades[13]),
         // Constant Upgrade Multiplier
         1 + 1 / 10 * player.constantUpgrades[8]
     ]);
@@ -342,6 +342,9 @@ function calculateOfferings(i) {
     q *= (1 + 0.01 / 100 * player.researches[200])
     q *= (1 + 0.02 / 100 * player.cubeUpgrades[50])
     q *= (1 + 0.05 * player.cubeUpgrades[46])
+    q *= (1 + player.platonicUpgrades[5])
+    q *= (1 + 2.5 * player.platonicUpgrades[10])
+    q *= (1 + 5 * player.platonicUpgrades[15])
     q = Math.floor(q) * 100 / 100
 
     let persecond = 0;
@@ -413,9 +416,13 @@ function calculateObtainium() {
         obtainiumGain *= Math.max(1, player.reincarnationcounter / 10)
     }
     obtainiumGain *= Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)
-    obtainiumGain = Math.pow(obtainiumGain, illiteracyPower[player.usedCorruptions[5]])
-    obtainiumGain *= (1 + 4 / 100 * player.cubeUpgrades[42])
-    obtainiumGain *= (1 + 3 / 100 * player.cubeUpgrades[43])
+    obtainiumGain = Math.pow(obtainiumGain, Math.min(1, illiteracyPower[player.usedCorruptions[5]] * (1 + 9/50 * player.platonicUpgrades[9] * Math.min(50, Math.log(player.researchPoints + 10)/Math.log(10)))))
+    obtainiumGain *= (1 + 4/100 * player.cubeUpgrades[42])
+    obtainiumGain *= (1 + 3/100 * player.cubeUpgrades[43])
+    obtainiumGain *= (1 + player.platonicUpgrades[5])
+    obtainiumGain *= (1 + 1.5 * player.platonicUpgrades[9])
+    obtainiumGain *= (1 + 2.5 * player.platonicUpgrades[10])
+    obtainiumGain *= (1 + 5 * player.platonicUpgrades[15])
     if (player.currentChallenge.ascension === 14) {
         obtainiumGain = 0
     }
@@ -922,9 +929,15 @@ function calculateTimeAcceleration() {
     timeMult *= calculateSigmoid(2, player.antUpgrades[12] + bonusant12, 69) // ant 12
     timeMult *= (1 + 0.10 * (player.talismanRarity[2] - 1)) // Chronos Talisman bonus
     timeMult *= lazinessMultiplier[player.usedCorruptions[3]]
-
+    
+    if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[15] > 0){
+        timeMult *= 1000
+    }
     if (timeMult > 100) {
         timeMult = 10 * Math.sqrt(timeMult)
+    }
+    if (timeMult < 1){
+        timeMult = Math.pow(timeMult, 1 - player.platonicUpgrades[7]/20)
     }
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
@@ -1006,8 +1019,8 @@ function calculateSummationNonLinear(baseLevel, baseCost, resourceAvailable, dif
 
 //Banked Cubes, Score, Cube Gain, Tesseract Gain, Hypercube Gain
 function CalcCorruptionStuff() {
-    let corruptionArrayMultiplier = [1, 2, 2.75, 3.5, 4.25, 5, 5.75, 6.5, 7, 7.5, 8]
-
+    let corruptionArrayMultiplier = [1, 2, 2.75, 3.5, 4.25, 5, 5.75, 6.5, 7, 7.5, 8, 9]
+    let corruptionLevelSum = sumContents(player.usedCorruptions)
     let cubeBank = 0;
     let challengeModifier = 1;
     let corruptionMultiplier = 1;
@@ -1021,17 +1034,24 @@ function CalcCorruptionStuff() {
     let baseScore = 0;
     let challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
     let challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
+    let challengeScoreArrays3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
 
     for (let i = 1; i <= 10; i++) {
         baseScore += challengeScoreArrays1[i] * player.highestchallengecompletions[i]
         if (i <= 5 && player.highestchallengecompletions[i] >= 75) {
             baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 75)
+            if (player.highestchallengecompletions[i] >= 750){
+            baseScore += challengeScoreArrays3[i] * (player.highestchallengecompletions[i] - 750)
+            }
         }
         if (i <= 10 && i > 5 && player.highestchallengecompletions[i] >= 25) {
             baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 25)
+            if (player.highestchallengecompletions[i] >= 60){
+                baseScore += challengeScoreArrays3[i] * (player.highestchallengecompletions[i] - 60)
+            }
         }
     }
-    baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39], player.highestchallengecompletions[10]);
+    baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39] + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10] + player.platonicUpgrades[15]), player.highestchallengecompletions[10]);
     for (let i = 1; i <= 10; i++) {
         corruptionMultiplier *= corruptionArrayMultiplier[player.usedCorruptions[i]]
     }
@@ -1041,6 +1061,13 @@ function CalcCorruptionStuff() {
     bankMultiplier = Math.pow(effectiveScore / 3000, 1 / 4.1);
     let cubeGain = cubeBank * bankMultiplier;
     cubeGain *= calculateCubeMultiplier();
+    cubeGain *= (1 + 0.0001 * corruptionLevelSum * player.platonicUpgrades[1])
+    if(effectiveScore > 5e12 && player.platonicUpgrades[10] > 0){
+        cubeGain *= 2;
+    }
+    if(effectiveScore > 25e12 && player.platonicUpgrades[15] > 0){
+        cubeGain *= 2.25
+    }
 
     let tesseractGain = 1;
     tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e5)) / 1e4, .35);
@@ -1049,14 +1076,41 @@ function CalcCorruptionStuff() {
         tesseractGain += 2
     }
     tesseractGain *= (1 + 0.25 * player.cubeUpgrades[30])
-    tesseractGain *= (1 + 1 / 200 * player.cubeUpgrades[38] * sumContents(player.usedCorruptions))
-    tesseractGain *= (1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1), 10) / 400)
-    tesseractGain *= Math.pow(Math.min(1, player.ascensionCounter / 10), 2) * (1 + (1 / 4 * player.achievements[204] + 1 / 4 * player.achievements[211] + 1 / 2 * player.achievements[218]) * Math.max(0, player.ascensionCounter / 10 - 1))
+    tesseractGain *= (1 + 1/200 * player.cubeUpgrades[38] * sumContents(player.usedCorruptions))
+    tesseractGain *= (1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1),10)/400)
+    tesseractGain *= Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + (1/4 * player.achievements[204] + 1/4 * player.achievements[211] + 1/2 * player.achievements[218]) * Math.max(0, player.ascensionCounter/10 - 1))
+    tesseractGain *= (1 + 0.0002 * corruptionLevelSum * player.platonicUpgrades[2])
+    if(effectiveScore > 7.5e12 && player.platonicUpgrades[10] > 0){
+        tesseractGain *= 2
+    }
+    if(effectiveScore > 50e12 && player.platonicUpgrades[15] > 0){
+        tesseractGain *= 2.25
+    }
 
     let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
     hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9)) / 1e8, .5);
-    hypercubeGain *= Math.pow(Math.min(1, player.ascensionCounter / 10), 2) * (1 + (1 / 4 * player.achievements[204] + 1 / 4 * player.achievements[211] + 1 / 2 * player.achievements[218]) * Math.max(0, player.ascensionCounter / 10 - 1))
-    return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain)]
+    hypercubeGain *= Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + (1/4 * player.achievements[204] + 1/4 * player.achievements[211] + 1/2 * player.achievements[218]) * Math.max(0, player.ascensionCounter/10 - 1))
+    hypercubeGain *= (1 + 0.0003 * corruptionLevelSum * player.platonicUpgrades[3])
+    if(effectiveScore > 10e12 && player.platonicUpgrades[10] > 0){
+        hypercubeGain *= 2
+    }
+    if(effectiveScore > 100e12 && player.platonicUpgrades[15] > 0){
+        hypercubeGain *= 2.25
+    }
+
+    let platonicGain = (effectiveScore >= 1.337e12) ? 1: 0;
+    platonicGain *= Math.pow(1 + Math.max(0, effectiveScore - 1.337e12) / 1.337e11, .75)
+    platonicGain *= Math.pow(Math.min(1, player.ascensionCounter/10),2) * (1 + (1/4 * player.achievements[204] + 1/4 * player.achievements[211] + 1/2 * player.achievements[218]) * Math.max(0, player.ascensionCounter/10 - 1))
+    if(effectiveScore > 2.5e12){
+        platonicGain *= (1 + player.platonicUpgrades[4]/100)
+    }
+    if(effectiveScore > 20e12 && player.platonicUpgrades[10] > 0){
+        platonicGain *= 2
+    }
+    if(effectiveScore > 250e12 && player.platonicUpgrades[15] > 0){
+        platonicGain *= 2.25
+    }
+    return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain), Math.floor(platonicGain)]
 }
 
 function dailyResetCheck() {

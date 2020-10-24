@@ -370,6 +370,7 @@ function reset(i, fast, from) {
 
         player.transcendPoints = new Decimal("0");
         player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain);
+        if(player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0){player.prestigePoints = player.prestigePoints.add(reincarnationPointGain)}
         player.reincarnationShards = new Decimal("0");
         player.challengecompletions[1] = 0;
         player.challengecompletions[2] = 0;
@@ -495,6 +496,7 @@ function reset(i, fast, from) {
             player.wowCubes += metaData[4]; //Metadata is defined up in the top of the (i > 3.5) case
             player.wowTesseracts += metaData[5];
             player.wowHypercubes += metaData[6];
+            player.wowPlatonicCubes += metaData[7];
         }
 
         if (historyUse && player.challengecompletions[10] > 0) {

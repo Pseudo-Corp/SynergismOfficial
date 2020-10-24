@@ -565,7 +565,7 @@ function htmlInserts() {
         }
 
         document.getElementById("tesseractInfo").textContent = "You have " + format(player.wowTesseracts) + " Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension."
-        document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards, 2) + ". Taxes are divided by " + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.001), 4, true) + "."
+        document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards, 2) + ". Taxes are divided by " + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + 0.5 * player.platonicUpgrades[15]), 4, true) + "."
     }
 
     if (currentTab === "upgrades") {
@@ -770,6 +770,7 @@ function htmlInserts() {
         document.getElementById("corruptionCubesValue").textContent = format(metaData[4], 0, true)
         document.getElementById("corruptionTesseractsValue").textContent = format(metaData[5])
         document.getElementById("corruptionHypercubesValue").textContent = format(metaData[6])
+        document.getElementById("corruptionPlatonicCubesValue").textContent = format(metaData[7])
         document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * extinctionMultiplier[player.usedCorruptions[7]], 3)
     }
 }
