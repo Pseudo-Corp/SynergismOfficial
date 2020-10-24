@@ -436,6 +436,9 @@ function reset(i, fast, from) {
         historyEntry.wowCubes = metaData[4];
         historyEntry.wowTesseracts = metaData[5];
         historyEntry.wowHypercubes = metaData[6];
+        if (player.currentChallenge.ascension && from !== "enterChallenge") {
+            historyEntry.currentChallenge = player.currentChallenge.ascension;
+        }
         // reset auto challenges
         player.currentChallenge.transcension = 0;
         player.currentChallenge.reincarnation = 0;

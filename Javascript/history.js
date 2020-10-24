@@ -259,5 +259,8 @@ function resetHistoryFormatCorruptions(data) {
             corruptions += ` <img src="${resetHistoryCorruptionImages[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }
     }
+    if (data.currentChallenge !== undefined) {
+        score += ` / C${data.currentChallenge}`;
+    }
     return [score, corruptions];
 }
