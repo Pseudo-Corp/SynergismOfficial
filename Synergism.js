@@ -609,10 +609,10 @@ function saveSynergy(button) {
     localStorage.setItem("Synergysave2", btoa(JSON.stringify(p)));
 
     if (button) {
-        let el = document.getElementById("saveinfo").textContent;
-        el = "Game saved successfully!"
+        let el = document.getElementById("saveinfo");
+        el.textContent = "Game saved successfully!"
         setTimeout(function () {
-            el = '';
+            el.textContent = '';
         }, 4000);
     }
 }
