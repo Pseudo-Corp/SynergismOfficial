@@ -171,13 +171,3 @@ function buyPlatonicUpgrades(index){
         player.wowAbyssals -= platUpgradeBaseCosts[index].abyssals
     }
 }
-
-function testPlatUpgrades(index){
-    player.researchPoints += platUpgradeBaseCosts[index].obtainium
-    player.runeshards += platUpgradeBaseCosts[index].offerings
-    player.wowCubes += platUpgradeBaseCosts[index].cubes
-    player.wowTesseracts += platUpgradeBaseCosts[index].tesseracts
-    player.wowHypercubes += platUpgradeBaseCosts[index].hypercubes
-    player.wowPlatonicCubes += platUpgradeBaseCosts[index].platonics
-    player.wowAbyssals += platUpgradeBaseCosts[index].abyssals
-}
