@@ -4878,6 +4878,14 @@ img.small {
 	height: 20px;
 	padding-top: 10px;
 	margin-bottom: -10px;
+	width: 90%
+}
+#ascensionStats > * {
+	width: 16%;
+	display: flex;
+}
+#ascensionStats > * > div {
+	margin-left: .5rem;
 }
 #AscLen {
 	color: darkcyan;
