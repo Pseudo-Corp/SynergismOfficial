@@ -211,18 +211,24 @@ function resetHistoryRenderRow(category, data) {
         }
     }
 
-    colsUsed += gains.length + extra.length;
+    // This rendering is done this way so that all rows should have the same number of columns, which makes rows
+    // equal size and prevents bad rendering. We do 2 of these so that the history doesn't shift when
+    // hypercubes or platcubes get added as players unlock them.
+    // The 6 and 4 numbers are arbitrary but should never be less than the actual amount of columns that can be
+    // realistically displayed; you can increase them if more gains are added.
 
+    // Render the gains plus the gains filler
+    colsUsed += gains.length;
     rowContentHtml += gains.reduce((acc, value) => {
         return `${acc}<td class="history-gain">${value}</td>`;
     }, "");
+    rowContentHtml += `<td class="history-filler" colspan="${6 - colsUsed}"></td>`;
+
+    // Render the other stuff
     rowContentHtml += extra.reduce((acc, value) => {
         return `${acc}<td class="history-extra">${value}</td>`;
     }, "");
-
-    // This exists to give all rows the same number of columns without having to calculate them ahead of time
-    // Makes the trs equal size
-    rowContentHtml += `<td class="history-filler" colspan="${10 - colsUsed}"></td>`;
+    rowContentHtml += `<td class="history-filler" colspan="${4 - extra.length}"></td>`;
 
     row.innerHTML = rowContentHtml;
     return row;
