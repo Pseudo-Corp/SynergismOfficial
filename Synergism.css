@@ -4877,7 +4877,7 @@ img.small {
 	justify-content: center;
 	height: 20px;
 	padding-top: 10px;
-	margin-bottom: -10px;
+	margin-bottom: 0 auto -10px;
 	width: 90%
 }
 #ascensionStats > * {
