@@ -51,29 +51,32 @@
 <p id="offlineTimer" style="color: plum"></p>
 <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
 <div id="offlineprogressdone"></div>
+<div id="ascensionStats">
+    <span onclick="toggleAscStatPerSecond(1)" id="AscCubeStats">
+        <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
+        <div><span id="AscCubes">x</span> C<span id="unit1">/s</span></div>
+    </span>
+    <span onclick="toggleAscStatPerSecond(2)" id="AscTessStats">
+        <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
+        <div><span id="AscTess">x</span> T<span  id="unit2">/s</span></div>
+    </span>
+    <span onclick="toggleAscStatPerSecond(3)" id="AscHyperSpan">
+        <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
+        <div><span id="AscHyper">x</span> H<span  id="unit3">/s</span></div>
+    </span>
+    <span id="AscTimeTakenStats">
+        <img src="Pictures/questionable.png" class="corruptionImg" alt="">
+        <div><span id="AscLen">x</span></div>
+    </span>
+    <span id="AscC10CompletionsStats">
+        <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
+        <div><span id="AscC10">x</span></div>
+    </span>
+    <span id="AscTimeFactorStats">
+        <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
+        <div><span id="AscTimeAccel">x</span></div>
+    </span>
 </div>
-    <div id="ascensionStats">
-        <div style="height: inherit;">
-            <span onclick="toggleAscStatPerSecond(1)">
-                <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
-                <span id="AscCubes">x</span> C<span id="unit1">/s</span>
-            </span>
-            <span onclick="toggleAscStatPerSecond(2)">
-                <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
-                <span id="AscTess">x</span> T<span  id="unit2">/s</span>
-            </span>
-            <span onclick="toggleAscStatPerSecond(3)" id="AscHyperSpan" style="display: none">
-                <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
-                <span id="AscHyper">x</span> H<span  id="unit3">/s</span>
-            </span>
-            <img src="Pictures/questionable.png" class="corruptionImg" alt="">
-            <span id="AscLen">x</span>
-            <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
-            <span id="AscC10">x</span>
-            <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
-            <span id="AscTimeAccel">x</span>
-        </div>
-    </div>
 <div id="navbar">
 
     <div id="resourcesrow">
@@ -1795,7 +1798,7 @@
                         </tr>
                     </table>
                 </div>
-				<p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube blessings!</p>
+                <p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube blessings!</p>
             </div>
             <div id="cubeTab2" style="display: none">
                 <p id="tesseractWelcome" class="cubePlacement1" style="color: orchid">You obtain guidance from beings in another dimension!</p>
@@ -1871,7 +1874,7 @@
                         </tr>
                     </table>
                 </div>
-				<p id="tesseractBlessingsTotal">You have a total of <span id="tesseractBlessingTotalAmount">0</span> Tesseract gifts!</p>
+                <p id="tesseractBlessingsTotal">You have a total of <span id="tesseractBlessingTotalAmount">0</span> Tesseract gifts!</p>
             </div>
             <div id="cubeTab3" style="display: none">
                 <p id="hypercubeWelcome" class="cubePlacement1" style="color: rgb(255, 0, 76)">I didn't know that Wow! enterprises made 5-Dimensional Objects.</p>
@@ -1947,7 +1950,7 @@
                         </tr>
                     </table>
                 </div>
-				<p id="hypercubeBlessingsTotal">You have a total of <span id="hypercubeBlessingTotalAmount">0</span> Hypercube benedictions!</p>
+                <p id="hypercubeBlessingsTotal">You have a total of <span id="hypercubeBlessingTotalAmount">0</span> Hypercube benedictions!</p>
             </div>
             <div id="cubeTab4" style="display: none">
                 <p id="cubeAmount2">You have 0 Wow! Cubes</p>

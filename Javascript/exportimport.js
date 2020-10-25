@@ -1,7 +1,7 @@
 function getRealTime(clock12h = false) {
     let now = new Date();
     let date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
-    let time = now.toLocaleTimeString([], {hour12: clock12h});
+    let time = now.toLocaleTimeString('en-GB', {hour12: clock12h});
     return date + " " + time;
 }
 
