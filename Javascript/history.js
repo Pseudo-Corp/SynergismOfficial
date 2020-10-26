@@ -37,9 +37,9 @@ const historyGains = {
         imgTitle: "Wow! Cubes"
     },
     wowPlatonicCubes: {
-        img: "Pictures/PlatonicCube.png",
+        img: "Pictures/Platonic Cube.png",
         formatter: conditionalFormatPerSecond,
-        imgTitle: "PLATONIC CUBES",
+        imgTitle: "Platonic Cubes",
         onlyif: () => player.challengecompletions[14] > 0,
     },
 };
