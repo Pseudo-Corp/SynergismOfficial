@@ -2186,28 +2186,25 @@
         <div id="exportButtons">
             <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
             <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
-
             <div>
-                <input style="float:center;" type="checkbox" id="saveType" name="saveType">
+                <input type="checkbox" id="saveType" name="saveType">
                 <label style="display: inline;" for="saveType">Copy to Clipboard</label>
             </div>
-            
             <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
             <p id="exportinfo" class="tightText" style="color: white"></p>
             <label title="Use $TIME$ for 24h time, $TIME12$ for 12h">
                 <input id="saveStringInput" onblur="updateSaveString()">
             </label>
             <p id="saveString" class="tightText" title="Use $TIME$ for 24h time, $TIME12$ for 12h"></p>
+            <p id="importgame" class="tightText" style="color: limegreen">Load game below!</p>
+            <label id="importFileButton" for="importfile">Choose File</label>
+            <input type="file" id="importfile" accept=".txt" style="display: none">
+            <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
         </div>
-        <p id="importgame" style="color: limegreen">Load game below!</p>
-        <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
         <p id="saveinfo" style="color: limegreen"></p>
         <button id="submitstats" onclick="submitStats()" style="border: 2px solid maroon">Submit your stats to Kongregate!</button>
         <button id="promocodes" onclick="promocodes()" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
         <p id="promocodeinfo" style="color: goldenrod"></p>
-        <textarea id="exporttext" class="exporting" style="color: white; font-size: 0.3em;"></textarea>
-        <p id="importinfo" style="color: white"></p>
-        <input type="file" id="importfile" accept=".txt" style="color: transparent">
         <div id="discord">
             Click the image below to join the Discord!
             <a id="discordhref" href="https://www.discord.gg/ameCknq" target="_blank">

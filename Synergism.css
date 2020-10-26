@@ -1060,13 +1060,6 @@ margin-left: -13px
 	left: 75%;
 	margin-left: -64px;
 }
-#savegame{
-	position: absolute;
-	top: 260px;
-	width: 180px;
-	left: 50%;
-	margin-left: -90px;
-}
 #saveinfo {
 	position: absolute;
 	top: 390px;
@@ -1319,8 +1312,7 @@ margin-left: -13px
 	display: flex;
 	flex-direction: column;
 	width: 400px;
-	left: 485px;
-	height: 100px;
+	left: 500px;
 }
 .tightText {
     margin: 0 auto;
@@ -1348,36 +1340,16 @@ margin-left: -13px
 }
 
 #importgame {
-	position: absolute;
 	width: 150px;
-	height: 40px;
-	top: 185px;
-	left: 50%;
-	margin-left: -75px
 }
-#importfile{
-	position: absolute;
-	width: 150px;
-	height: 40px;
-	top: 225px;
-	left: 50%;
-	margin-left: -40px
+#importFileButton {
+	width: 100px;
+	margin: 2px auto;
+	border: 1px solid white;
 }
-#exporttext {
-	position: absolute;
-	width: 0;
-	height: 0;
-	top: 180px;
-	left: 13324px;
-	margin-left: 0
-}
-#importinfo {
-	position: absolute;
-	width: 500px;
-	height: 40px;
-	top: 275px;
-	left: 50%;
-	margin-left: -250px
+#savegame{
+	width: 180px;
+	margin: 2px auto;
 }
 
 #discord {
