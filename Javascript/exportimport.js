@@ -11,7 +11,8 @@ function updateSaveString() {
 
 function saveFilename() {
     const s = player.saveString
-    return s.replace('$TIME$', getRealTime()).replace("$TIME12$", getRealTime(true));
+    const version = player[Symbol.for('version')];
+    return s.replace("$VERSION$", "v" + version).replace('$TIME$', getRealTime()).replace("$TIME12$", getRealTime(true));
 }
 
 async function exportSynergism() {

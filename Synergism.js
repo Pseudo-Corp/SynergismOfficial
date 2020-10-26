@@ -572,7 +572,7 @@ const player = {
 
     autoTesseracts: [false, false, false, false, false, false],
 
-    saveString: "Synergism-v2.0.0-$TIME$.txt", // TODO CHANGE THIS BEFORE RELEASE (REMOVE TEST)
+    saveString: "Synergism-$VERSION$-$TIME$.txt",
     brokenfile1: false,
     exporttest: "YES!",
     kongregatetest: "NO!",
@@ -586,7 +586,7 @@ const player = {
     hypercubeOpenedDaily: 0,
     hypercubeQuarkDaily: 0,
     loadedOct4Hotfix: false,
-    [Symbol.for('version')]: '2.0.0'
+    [Symbol.for('version')]: '2.0.6'
 }
 
 const blank_save = Object.assign({}, player);
@@ -1052,7 +1052,7 @@ function loadSynergy() {
 
 
         if (player.saveString === undefined || player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
-            player.saveString = "Synergism-v2.0.5-$TIME$.txt"
+            player.saveString = "Synergism-$VERSION$-$TIME$.txt"
         }
         document.getElementById("saveStringInput").value = player.saveString
 

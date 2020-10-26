@@ -658,7 +658,7 @@ function htmlInserts() {
         document.getElementById("temporarystats10").textContent = "Summative Rune Levels: " + format(runeSum)
         document.getElementById("temporarystats11").textContent = "Current Obtainium/sec " + format(player.obtainiumpersecond, 2, true)
 
-        document.getElementById("saveString").textContent = `Currently: ${player.saveString}`
+        document.getElementById("saveString").textContent = `Currently: ${player.saveString.replace("$VERSION$", "v" + player[Symbol.for('version')])}`
     }
 
     if (currentTab === "shop") {
