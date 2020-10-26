@@ -58,9 +58,9 @@ function calculatetax(fast) {
     exponent *= f;
     exponent *= Math.pow(0.9925, player.achievements[118] * (player.challengecompletions[6] + player.challengecompletions[7] + player.challengecompletions[8] + player.challengecompletions[9] + player.challengecompletions[10]));
     exponent *= (0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3] + bonusant3))
-    exponent *= 1 / Math.pow((1 + Decimal.log(player.ascendShards.add(1), 10)), 1 + .2/60 * player.challengecompletions[10] * player.upgrades[125])
+    exponent *= 1 / Math.pow((1 + Decimal.log(player.ascendShards.add(1), 10)), 1 + .2/60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + 0.5 * player.platonicUpgrades[15])
     exponent *= (1 - 0.10 * (player.talismanRarity[1] - 1))
-    exponent *= Math.pow(0.98, 3 / 5 * Math.log(1 + player.rareFragments) / Math.log(10))
+    exponent *= Math.pow(0.98, 3 / 5 * Math.log(1 + player.rareFragments) / Math.log(10) * player.researches[159])
     exponent *= Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13]))
     exponent *= (1 - 0.666 * player.researches[200]/100000)
     exponent *= (1 - 0.666 * player.cubeUpgrades[50]/100000)

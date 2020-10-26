@@ -10,8 +10,8 @@ html {
 body {background-color: #111111 ;
 	transform: scale(0.9);
 	transform-origin: 0 0;
-	overflow-x: hidden;
-	overflow-y: hidden;
+	/*overflow-x: hidden;
+	overflow-y: hidden;*/
 }
 
 body {
@@ -4167,6 +4167,33 @@ margin-left: -13px
 	color: white;
 	background-color: black;
 }
+#cubeBlessingsTotal{
+	position: absolute;
+	padding: 5px;
+	top: 500px;
+	margin-left: 25%;
+	width: 50%;
+	color: orange;
+	text-align: center;
+}
+#tesseractBlessingsTotal{
+	position: absolute;
+	padding: 5px;
+	top: 500px;
+	margin-left: 25%;
+	width: 50%;
+	color: orchid;
+	text-align: center;
+}
+#hypercubeBlessingsTotal{
+	position: absolute;
+	padding: 5px;
+	top: 500px;
+	margin-left: 25%;
+	width: 50%;
+	color: rgb(255, 0, 76);
+	text-align: center;
+}
 #open1Cube{
 	position: absolute;
 	text-align: center;
@@ -4841,4 +4868,32 @@ img.small {
 	margin: auto;
 	border: 2px solid green;
 	visibility: hidden;
+}
+
+#ascensionStats {
+	display: flex;
+	flex-flow: row;
+	flex-direction: row;
+	justify-content: center;
+	height: 20px;
+	padding-top: 10px;
+	margin-bottom: -10px;
+}
+#AscLen {
+	color: darkcyan;
+}
+#AscC10 {
+	color: limegreen;
+}
+#AscCubes {
+	color: yellow;
+}
+#AscTess {
+	color: orchid;
+}
+#AscHyper {
+	color: crimson;
+}
+#AscTimeAccel {
+	color: royalblue;
 }

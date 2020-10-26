@@ -370,6 +370,7 @@ function reset(i, fast, from) {
 
         player.transcendPoints = new Decimal("0");
         player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain);
+        if(player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0){player.prestigePoints = player.prestigePoints.add(reincarnationPointGain)}
         player.reincarnationShards = new Decimal("0");
         player.challengecompletions[1] = 0;
         player.challengecompletions[2] = 0;
@@ -402,7 +403,7 @@ function reset(i, fast, from) {
 
 
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
-            let linGrowth = (player.autoResearch === 200)? 0.01: 0;
+            let linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
             buyResearch(player.autoResearch, true, linGrowth)
         }
         calculateRuneLevels();
@@ -451,6 +452,7 @@ function reset(i, fast, from) {
         player.offeringpersecond = 0;
         player.antSacrificePoints = 0;
         player.antSacrificeTimer = 0;
+        player.antSacrificeTimerReal = 0;
         player.antUpgrades[12] = 0;
         for (let j = 61; j <= 80; j++) {
             player.upgrades[j] = 0;
@@ -494,6 +496,7 @@ function reset(i, fast, from) {
             player.wowCubes += metaData[4]; //Metadata is defined up in the top of the (i > 3.5) case
             player.wowTesseracts += metaData[5];
             player.wowHypercubes += metaData[6];
+            player.wowPlatonicCubes += metaData[7];
         }
 
         if (historyUse && player.challengecompletions[10] > 0) {
@@ -725,7 +728,7 @@ function resetUpgrades(i, fast) {
 
 function resetAnts() {
     player.firstOwnedAnts = 0;
-    if (player.cubeUpgrades[48] > 0){
+    if (player.cubeUpgrades[48] > 0) {
         player.firstOwnedAnts = 1
     }
 

@@ -24,7 +24,7 @@ function challengeDisplay(i, changefocus, automated) {
     
 
     if (i > 5 && i <= 10) {
-        maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension;
+        maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
         quarksMultiplier = 10;
         if(player.challengecompletions[i] >= 25 && changefocus){
             document.getElementById('completionSoftcap').textContent = "|| Softcapped past 25! Effective completion count: " + format(CalcECC('reincarnation',player.challengecompletions[i]),2,true)
@@ -34,7 +34,7 @@ function challengeDisplay(i, changefocus, automated) {
         }
     }
     if (i > 10) {
-        maxChallenges = 30
+        maxChallenges = 30 + 3 * player.platonicUpgrades[5] + 3 * player.platonicUpgrades[10] + 4 * player.platonicUpgrades[15]
         if(player.challengecompletions[i] >= 10){
             document.getElementById('completionSoftcap').textContent = "|| Softcapped past 10! Effective completion count: " + format(CalcECC('ascension',player.challengecompletions[i]),2,true)
         }
@@ -137,7 +137,7 @@ function challengeDisplay(i, changefocus, automated) {
         a.textContent = "Higher Tax Challenge || " + player.challengecompletions[6] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "The tax man caught wind that you reincarnated recently..."
         c.textContent = "Reincarnate and reach the goal except tax has a lower cap, and Coin production is divided by 1e250."
-        d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i])) + " Mythos Shards in challenge."
+        d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i], 6)) + " Mythos Shards in challenge."
         e.textContent = "-3.5% Taxes [Multiplicative]! Current: "
         f.textContent = "Thrift Rune Exp +10%! Current: "
         g.textContent = "Prestige Offerings +2%! Current: "
@@ -151,7 +151,7 @@ function challengeDisplay(i, changefocus, automated) {
         a.textContent = "No Multipliers/Accelerators Challenge || " + player.challengecompletions[7] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You're really going to hate this one."
         c.textContent = "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. Coin Production is divided by 1e1,250."
-        d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i])) + " Mythos Shards in challenge."
+        d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i],7)) + " Mythos Shards in challenge."
         e.textContent = "Accelerator/Multiplier boost power exponent +0.04! Current: "
         f.textContent = "Speed Rune Exp +10%! Current: "
         g.textContent = "Duplication Rune Exp +10%! Current: "
@@ -165,7 +165,7 @@ function challengeDisplay(i, changefocus, automated) {
         a.textContent = "Cost++ Challenge || " + player.challengecompletions[8] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You thought you could outgrow inflation by Reincarnating?"
         c.textContent = "Reincarnate and reach the goal except Cost Scaling for producers and Accelerators/Multipliers scale much, much faster."
-        d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i])) + " Mythos Shards in challenge."
+        d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i],8)) + " Mythos Shards in challenge."
         e.textContent = "Base Building Power +0.25! Current: "
         f.textContent = "Prism Rune Exp +20%! Current: "
         g.textContent = "Transcend Offerings +4%! Current: "
@@ -275,17 +275,17 @@ function challengeDisplay(i, changefocus, automated) {
     }
     var scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
     var scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
-
+    var scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
     let scoreDisplay = 0;
     if(i <= 5){
-        player.highestchallengecompletions[i] >= 75 ?
-        scoreDisplay = scoreArray2[i]:
-        scoreDisplay = scoreArray1[i];
+        if(player.highestchallengecompletions[i] >= 750){scoreDisplay = scoreArray3[i]}
+        else if(player.highestchallengecompletions[i] >= 75){scoreDisplay = scoreArray2[i]}
+        else{scoreDisplay = scoreArray1[i]}
     }
     if(i > 5 && i <= 10){
-        player.highestchallengecompletions[i] >= 25 ?
-        scoreDisplay = scoreArray2[i]:
-        scoreDisplay = scoreArray1[i]
+        if(player.highestchallengecompletions[i] >= 60){scoreDisplay = scoreArray3[i]}
+        else if(player.highestchallengecompletions[i] >= 25){scoreDisplay = scoreArray2[i]}
+        else{scoreDisplay = scoreArray1[i]}
     }
     if (changefocus) {
         j.textContent = ""
@@ -354,9 +354,10 @@ function highestChallengeRewards(chalNum, highestValue) {
 }
 
 //Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping
-function calculateChallengeRequirementMultiplier(type, completions) {
-    let requirementMultiplier = 1
-    requirementMultiplier *= hyperchallengedMultiplier[player.usedCorruptions[4]]
+function calculateChallengeRequirementMultiplier(type, completions, special) {
+    special = special || 0;
+    let requirementMultiplier = 1;
+    requirementMultiplier *= Math.max(1, hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8]));
     switch (type) {
         case "transcend":
             (completions >= 75) ?
@@ -364,10 +365,27 @@ function calculateChallengeRequirementMultiplier(type, completions) {
                 requirementMultiplier *= Math.pow(1 + completions, 2);
             return (requirementMultiplier)
         case "reincarnation":
-            (completions >= 25) ?
-                requirementMultiplier *= Math.pow(1 + completions, 5) / 625 :
-                requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions));
-            return (requirementMultiplier)
+            if (completions >= 60){
+                if(special === 8){ /*Multiplier is reduced significantly for challenges requiring mythos shards*/
+                    requirementMultiplier *= Math.pow(1 + completions,1) / 60
+                }
+                else if(special === 7){
+                    requirementMultiplier *= Math.pow(1 + completions,1) / 30
+                }
+                else if(special === 6){
+                    requirementMultiplier *= Math.pow(1 + completions,2) / 360
+                }
+                else{
+                    requirementMultiplier *= Math.pow(1 + completions, 5) / 7200
+                }
+            }
+            if (completions >= 25){
+                requirementMultiplier *= Math.pow(1 + completions, 5) / 625
+            }
+            if (completions < 25){
+            requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions));
+            }
+            return requirementMultiplier
         case "ascension":
             (completions >= 10) ?
                 requirementMultiplier *= (2 * (1 + completions) - 10) :
@@ -395,20 +413,21 @@ function CalcECC(type, completions) { //ECC stands for "Effective Challenge Comp
     }
 }
 
-function challengeRequirement(challenge, completion) {
+function challengeRequirement(challenge, completion, special) {
+    special = special || 0
     let base = challengeBaseRequirements[challenge];
     if (challenge <= 5) {
-        return Decimal.pow(10, base * calculateChallengeRequirementMultiplier("transcend", completion))
+        return Decimal.pow(10, base * calculateChallengeRequirementMultiplier("transcend", completion, special))
     } else if (challenge <= 10) {
         let c10Reduction = 0;
         if (challenge === 10) {
             c10Reduction = (1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185]) + 2e7 * player.shopUpgrades.challenge10Tomes)
         }
-        return Decimal.pow(10, (base - c10Reduction) * calculateChallengeRequirementMultiplier('reincarnation', completion))
+        return Decimal.pow(10, (base - c10Reduction) * calculateChallengeRequirementMultiplier('reincarnation', completion, special))
     } else if (challenge <= 14) {
-        return calculateChallengeRequirementMultiplier("ascension", completion)
+        return calculateChallengeRequirementMultiplier("ascension", completion, special)
     } else if (challenge === 15) {
-        return Decimal.pow(10, 4 * Math.pow(10, 19))
+        return Decimal.pow(10, 1 * Math.pow(10, 12))
     }
 }
 

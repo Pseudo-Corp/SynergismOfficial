@@ -228,7 +228,7 @@ function revealStuff() {
             document.getElementById("tesseractAutoToggle" + z).style.display = "block" :
             document.getElementById("tesseractAutoToggle" + z).style.display = "none";
     }
-    (player.antUpgrades[12] > 0 || player.ascensionCount > 0)? //Ant Talisman Unlock, Mortuus
+    (player.antUpgrades[12] > 0 || player.ascensionCount > 0) ? //Ant Talisman Unlock, Mortuus
         document.getElementById("talisman6area").style.display = "block" :
         document.getElementById("talisman6area").style.display = "none";
 
@@ -247,6 +247,9 @@ function revealStuff() {
     player.cubeUpgrades[8] > 0 ?
         document.getElementById('particleAutoUpgrade').style.display = "block" :
         document.getElementById('particleAutoUpgrade').style.display = "none";
+
+    document.getElementById("ascensionStats").style.visibility = player.achievements[197] > 0 ? "visible" : "hidden";
+    document.getElementById("AscHyperSpan").style.display = player.challengecompletions[13] > 0 ? "" : "none";
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
     // note to 2019 and 2020 Platonic, you're welcome
@@ -425,6 +428,8 @@ function htmlInserts() {
     document.getElementById("quarkDisplay").textContent = format(player.worlds)
     document.getElementById("obtainiumDisplay").textContent = format(player.researchPoints)
 
+    updateAscensionStats()
+
     //When you're in Building --> Coin, update these.
     if (currentTab === "buildings" && buildingSubTab === "coin") {
         // For the display of Coin Buildings
@@ -560,7 +565,7 @@ function htmlInserts() {
         }
 
         document.getElementById("tesseractInfo").textContent = "You have " + format(player.wowTesseracts) + " Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension."
-        document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards, 2) + ". Taxes are divided by " + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.001), 4, true) + "."
+        document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards, 2) + ". Taxes are divided by " + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + 0.5 * player.platonicUpgrades[15]), 4, true) + "."
     }
 
     if (currentTab === "upgrades") {
@@ -735,7 +740,7 @@ function htmlInserts() {
     if (currentTab === "ants") {
         document.getElementById("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(antOneProduce, 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499))) + "x Coin Multiplier."
         let mode = player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
-        let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimer / calculateTimeAcceleration() : player.antSacrificeTimer;
+        let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
         document.getElementById("autoAntSacrifice").textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer)}`
     }
 
@@ -765,6 +770,7 @@ function htmlInserts() {
         document.getElementById("corruptionCubesValue").textContent = format(metaData[4], 0, true)
         document.getElementById("corruptionTesseractsValue").textContent = format(metaData[5])
         document.getElementById("corruptionHypercubesValue").textContent = format(metaData[6])
+        document.getElementById("corruptionPlatonicCubesValue").textContent = format(metaData[7])
         document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * extinctionMultiplier[player.usedCorruptions[7]], 3)
     }
 }
@@ -1049,5 +1055,21 @@ function showCorruptionStatsLoadouts() {
         document.getElementById("corruptionLoadouts").style.display = "block"
         document.getElementById("corrStatsBtn").style.borderColor = "white"
         document.getElementById("corrLoadoutsBtn").style.borderColor = "dodgerblue"
+    }
+}
+
+function updateAscensionStats() {
+    let t = player.ascensionCounter;
+    let [cubes, tess, hyper] = CalcCorruptionStuff().splice(4);
+    let fillers = {
+        "AscLen": formatTimeShort(player.ascensionCounter),
+        "AscCubes": format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2, true),
+        "AscTess": format(tess * (player.ascStatToggles[2] ? 1 : 1 / t), 3, true),
+        "AscHyper": format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4, true),
+        "AscC10": player.challengecompletions[10],
+        "AscTimeAccel": `${format(calculateTimeAcceleration(), 3, true)}x`
+    }
+    for (const key of Object.keys(fillers)) {
+        document.getElementById(key).textContent = fillers[key];
     }
 }

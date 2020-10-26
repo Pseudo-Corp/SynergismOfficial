@@ -39,9 +39,10 @@
     <script src="Javascript/checkvariables.js"></script>
     <script src="Javascript/research.js"></script>
     <script src="Javascript/corruptions.js"></script>
+    <script src="Javascript/platonic.js"></script>
     <script src="Javascript/experimental.js"></script>
     <!--<script src="Javascript/i18n.js"></script>-->
-    <title>Synergism v2.0.5</title>
+    <title>Synergism v2.0.6</title>
     </head>
 <main>
 
@@ -51,7 +52,28 @@
 <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
 <div id="offlineprogressdone"></div>
 </div>
-<div style="height: 20px"></div>
+    <div id="ascensionStats">
+        <div style="height: inherit;">
+            <span onclick="toggleAscStatPerSecond(1)">
+                <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
+                <span id="AscCubes">x</span> C<span id="unit1">/s</span>
+            </span>
+            <span onclick="toggleAscStatPerSecond(2)">
+                <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
+                <span id="AscTess">x</span> T<span  id="unit2">/s</span>
+            </span>
+            <span onclick="toggleAscStatPerSecond(3)" id="AscHyperSpan" style="display: none">
+                <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
+                <span id="AscHyper">x</span> H<span  id="unit3">/s</span>
+            </span>
+            <img src="Pictures/questionable.png" class="corruptionImg" alt="">
+            <span id="AscLen">x</span>
+            <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
+            <span id="AscC10">x</span>
+            <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
+            <span id="AscTimeAccel">x</span>
+        </div>
+    </div>
 <div id="navbar">
 
     <div id="resourcesrow">
@@ -740,7 +762,7 @@
                         <td><img class="chal8 redach" src="Pictures/Transparent Pics/ach309.png" id="ach176" onmouseover="achievementdescriptions(176)" alt=""></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach316.png" id="ach183" onmouseover="achievementdescriptions(183)" alt=""></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach323.png" id="ach190" onmouseover="achievementdescriptions(190)" alt=""></td>
-                        <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach330.png" id="ach197" onmouseover="achievementdescriptions(197)" alt=""></td>
+                        <td><img class="ascendunlock redach" src="Pictures/Transparent Pics/ach330.png" id="ach197" onmouseover="achievementdescriptions(197)" alt=""></td>
                         <td><img class="chal11 redach" src="Pictures/Transparent Pics/ach337.png" id="ach204" onmouseover="achievementdescriptions(204)" alt=""></td>
                         <td><img class="chal12 redach" src="Pictures/Transparent Pics/ach344.png" id="ach211" onmouseover="achievementdescriptions(211)" alt=""></td>
                         <td><img class="chal13 redach" src="Pictures/Transparent Pics/ach351.png" id="ach218" onmouseover="achievementdescriptions(218)" alt=""></td>
@@ -1773,6 +1795,7 @@
                         </tr>
                     </table>
                 </div>
+				<p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube blessings!</p>
             </div>
             <div id="cubeTab2" style="display: none">
                 <p id="tesseractWelcome" class="cubePlacement1" style="color: orchid">You obtain guidance from beings in another dimension!</p>
@@ -1848,6 +1871,7 @@
                         </tr>
                     </table>
                 </div>
+				<p id="tesseractBlessingsTotal">You have a total of <span id="tesseractBlessingTotalAmount">0</span> Tesseract gifts!</p>
             </div>
             <div id="cubeTab3" style="display: none">
                 <p id="hypercubeWelcome" class="cubePlacement1" style="color: rgb(255, 0, 76)">I didn't know that Wow! enterprises made 5-Dimensional Objects.</p>
@@ -1923,6 +1947,7 @@
                         </tr>
                     </table>
                 </div>
+				<p id="hypercubeBlessingsTotal">You have a total of <span id="hypercubeBlessingTotalAmount">0</span> Hypercube benedictions!</p>
             </div>
             <div id="cubeTab4" style="display: none">
                 <p id="cubeAmount2">You have 0 Wow! Cubes</p>
@@ -2070,7 +2095,7 @@
                 <div class="flex row center" onclick="corruptionDisplay(10)">
                     <img src="Pictures/ExitCorruption.png" class="corruptionImg" alt="">
                     <button id="corruptionCleanse" onclick="corruptionCleanseConfirm()">Cleanse</button>
-                    <button id="corruptionCleanseConfirm" onclick="toggleCorruptionLevel(0, 999)">Confirm</button>
+                    <button id="corruptionCleanseConfirm" onclick="toggleCorruptionLevel(10, 999)">Confirm</button>
                 </div>
             </div>
             <div id="corruptionMain" class="vAlign">
@@ -2092,6 +2117,7 @@
                 <p id="corruptionCubes" class="tightText">If you ascend now, you will gain <span id="corruptionCubesValue" style="color: yellow; font-size: 1.2em">32</span> Wow! Cubes.</p>
                 <p id="corruptionTesseracts" class="tightText">If you ascend now, you will gain <span id="corruptionTesseractsValue" style="color: darkviolet; font-size: 1.2em">32</span> Wow! Tesseracts. [<span style="color: orchid">Get more if Score >100,000</span>]</p>
                 <p id="corruptionHypercubes" class="chal13 tightText">If you ascend now, you will gain <span id="corruptionHypercubesValue" style="color: crimson; font-size: 1.2em">32</span> Wow! Hypercubes. [<span style="color: red">Req Score: >1,000,000,000</span>]</p>
+                <p id="corruptionPlatonicCubes" class="chal14 tightText">If you ascend now, you will gain <span id="corruptionPlatonicCubesValue" style="color: lightgoldenrodyellow; font-size: 1.2em">32</span> PLATONIC CUBES. [<span style="color: lightgoldenrodyellow">Req Score: >1,337,000,000,000</span>]</p>
                 <div id="ascensionAutomation" class="cubeUpgrade10 vAlign">
                     <input id="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(4)">
                     <p id="autoAscend" class="ascendunlock tightText">Ascend when you've completed Sadistic Challenge I a total of <span id="autoAscendMetric" style="color: orchid">1</span> times.</p>
@@ -2154,7 +2180,7 @@
             <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
 
             <div>
-                <input style="float:center;" type="checkbox" id="saveType" name="saveType" checked>
+                <input style="float:center;" type="checkbox" id="saveType" name="saveType">
                 <label style="display: inline;" for="saveType">Copy to Clipboard</label>
             </div>
             
@@ -2189,7 +2215,7 @@
         <a href="https://docs.google.com/document/d/13vntkxiCo-mL1en5LRvOmlKQdYhTGhqs9-9mT1XLn1U/edit?usp=sharing" target="_blank">
             <img id="patchnotes" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!" alt="">
         </a>
-        <p id="versionnumber" style="color: gold">You're playing on v2.0.5 - The Great Reimagining [Last Update: 10:30 AM UTC-8 Oct 07]</p>
+        <p id="versionnumber" style="color: gold">You're playing on v2.0.6 - The Great Reimagining [Last Update: 4:00 AM UTC-8 Oct 24]</p>
     </div>
     <div class="subtabContent" id="creditssubtab">
         <p id="programminghelp" style="color:white">People who helped with programming: AlienC4 [A ton of bug fixes, content changes and improved performance, Statistics help], Kewne [History tab] Khafra [General, Saving], Halo [Buying Features], Nyan Cat [Some Optimizations/Cleanup], Kino [Contribution to runes.js], Jahwsuf [Testing and other files], Bigwhupdude [Major tester], Yasmir, Jacobnlsn, PassMeTheCobb [Idea for revamps], Xander374 among others!</p>
