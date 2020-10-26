@@ -3349,6 +3349,13 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 });
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load', function () {
+    if(location.href.includes('kong')) {
+        // kongregate
+        const script = document.createElement('script');
+        script.setAttribute('src', 'https://cdn1.kongregate.com/javascripts/kongregate_api.js');
+        document.head.appendChild(script);
+    }
+
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
     const isLZString = dec !== '';
 
