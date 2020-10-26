@@ -537,7 +537,8 @@ const player = {
     ascStatToggles: { // false here means show per second
         1: false,
         2: false,
-        3: false
+        3: false,
+        4: false
     },
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

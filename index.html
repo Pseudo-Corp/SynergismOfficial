@@ -46,38 +46,42 @@
     </head>
 <main>
 
-<img src="Pictures/Splash/preloader.png" id="preload" alt="" style="width: 100%;">
-<div id="offlineprogressbar">
-    <p id="offlineTimer" style="color: plum"></p>
-    <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
-    <div id="offlineprogressdone"></div>
-</div>
-<div id="ascensionStats">
+    <img src="Pictures/Splash/preloader.png" id="preload" alt="" style="width: 100%;">
+    <div id="offlineprogressbar">
+        <p id="offlineTimer" style="color: plum"></p>
+        <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
+        <div id="offlineprogressdone"></div>
+    </div>
+    <div id="ascensionStats">
     <span onclick="toggleAscStatPerSecond(1)" id="AscCubeStats">
         <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
-        <div><span id="AscCubes">x</span> C<span id="unit1">/s</span></div>
+        <span><span id="AscCubes">x</span> C<span id="unit1">/s</span></span>
     </span>
     <span onclick="toggleAscStatPerSecond(2)" id="AscTessStats">
         <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
-        <div><span id="AscTess">x</span> T<span  id="unit2">/s</span></div>
+        <span><span id="AscTess">x</span> T<span id="unit2">/s</span></span>
     </span>
     <span onclick="toggleAscStatPerSecond(3)" id="AscHyperSpan">
         <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
-        <div><span id="AscHyper">x</span> H<span  id="unit3">/s</span></div>
+        <span><span id="AscHyper">x</span> H<span id="unit3">/s</span></span>
+    </span>
+    <span onclick="toggleAscStatPerSecond(4)" id="AscPlatonicSpan">
+        <img src="Pictures/Particle.png" class="corruptionImg" alt="">
+        <span><span id="AscPlatonic">x</span> P<span id="unit4">/s</span></span>
     </span>
     <span id="AscTimeTakenStats">
         <img src="Pictures/questionable.png" class="corruptionImg" alt="">
-        <div><span id="AscLen">x</span></div>
+        <span id="AscLen">x</span>
     </span>
     <span id="AscC10CompletionsStats">
         <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
-        <div><span id="AscC10">x</span></div>
+        <span id="AscC10">x</span>
     </span>
     <span id="AscTimeFactorStats">
         <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
-        <div><span id="AscTimeAccel">x</span></div>
+        <span id="AscTimeAccel">x</span>
     </span>
-</div>
+    </div>
 <div id="navbar">
 
     <div id="resourcesrow">

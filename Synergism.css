@@ -4872,15 +4872,25 @@ img.small {
 	justify-content: center;
 	height: 20px;
 	padding-top: 10px;
-	margin-bottom: 0 auto -10px;
+	margin: 0 auto -10px;
 	width: 90%
 }
-#ascensionStats > * {
-	width: 16%;
+#ascensionStats > span {
 	display: flex;
 }
-#ascensionStats > * > div {
-	margin-left: .5rem;
+#ascensionStats > span:nth-child(-n+5) {
+	min-width: 10%;
+}
+#ascensionStats > span:nth-child(-n+2) {
+	width: 12%;
+}
+#ascensionStats > span:nth-last-child(2) {
+	width: 4%;
+}
+#ascensionStats img {
+	position: relative;
+	top: 3px;
+	margin-right: 4px;
 }
 #AscLen {
 	color: darkcyan;
@@ -4896,6 +4906,9 @@ img.small {
 }
 #AscHyper {
 	color: crimson;
+}
+#AscPlatonic {
+	color: lightgoldenrodyellow;
 }
 #AscTimeAccel {
 	color: royalblue;
