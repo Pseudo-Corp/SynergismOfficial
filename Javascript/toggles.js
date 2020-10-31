@@ -341,31 +341,34 @@ function toggleAutoSacrifice(index) {
 
 function toggleBuildingScreen(input) {
     buildingSubTab = input
-    let la = document.getElementById("coinBuildings");
-    let el = document.getElementById("prestige");
-    let ti = document.getElementById("transcension");
-    let ella = document.getElementById("reincarnation");
-    let ellos = document.getElementById("ascension");
-    let a = document.getElementById("switchToCoinBuilding");
-    let b = document.getElementById("switchToDiamondBuilding");
-    let c = document.getElementById("switchToMythosBuilding");
-    let d = document.getElementById("switchToParticleBuilding");
-    let e = document.getElementById("switchToTesseractBuilding");
-    buildingSubTab === "coin" ?
-        (la.style.display = "block", a.style.backgroundColor = "crimson") :
-        (la.style.display = "none", a.style.backgroundColor = "#171717");
-    buildingSubTab === "diamond" ?
-        (el.style.display = "block", b.style.backgroundColor = "crimson") :
-        (el.style.display = "none", b.style.backgroundColor = "#171717");
-    buildingSubTab === "mythos" ?
-        (ti.style.display = "block", c.style.backgroundColor = "crimson") :
-        (ti.style.display = "none", c.style.backgroundColor = "#171717");
-    buildingSubTab === "particle" ?
-        (ella.style.display = "block", d.style.backgroundColor = "crimson") :
-        (ella.style.display = "none", d.style.backgroundColor = "#171717");
-    buildingSubTab === "tesseract" ?
-        (ellos.style.display = "block", e.style.backgroundColor = "crimson") :
-        (ellos.style.display = "none", e.style.backgroundColor = "#171717");
+    let screen = {
+        "coin": {
+            screen: "coinBuildings",
+            button: "switchToCoinBuilding"
+        },
+        "diamond": {
+            screen: "prestige",
+            button: "switchToDiamondBuilding"
+        },
+        "mythos": {
+            screen: "transcension",
+            button: "switchToMythosBuilding"
+        },
+        "particle": {
+            screen: "reincarnation",
+            button: "switchToParticleBuilding"
+        },
+        "tesseract": {
+            screen: "ascension",
+            button: "switchToTesseractBuilding"
+        }
+    }
+    Object.keys(screen).forEach((key) => {
+        document.getElementById(screen[key].screen).style.display = "none";
+        document.getElementById(screen[key].button).style.display = "#171717";
+    })
+    document.getElementById(screen[buildingSubTab].screen).style.display = "block"
+    document.getElementById(screen[buildingSubTab].button).style.backgroundColor = "crimson"
 }
 
 function toggleRuneScreen(index) {
