@@ -3324,6 +3324,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             if (player.currentChallenge.transcension !== 0) {
                 resetCheck('challenge', null, true)
             }
+            break;
         case "M":
             buyMultiplier();
             break;
