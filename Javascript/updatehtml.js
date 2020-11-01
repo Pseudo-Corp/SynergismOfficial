@@ -355,6 +355,7 @@ function hideStuff() {
             settingsTab.style.color = "black"
             settingsTab.style.border = '1px solid white';
         }
+        player.tabnumber = -1
     }
     if (currentTab === "achievements") {
         document.getElementById("statistics").style.display = "block"
@@ -388,6 +389,7 @@ function hideStuff() {
     if (currentTab === "shop") {
         document.getElementById("shop").style.display = "block";
         document.getElementById("shoptab").style.backgroundColor = "limegreen";
+        player.tabnumber = 0;
     }
     if (currentTab === "ants") {
         document.getElementById("ants").style.display = "block";

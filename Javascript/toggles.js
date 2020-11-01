@@ -35,10 +35,10 @@ function toggleChallenges(i, auto) {
             if (player.currentChallenge.ascension === 12) {
                 player.antPoints = new Decimal("8")
             }
-            if (player.currentChallenge.ascension === 15){
+            if (player.currentChallenge.ascension === 15) {
                 player.usedCorruptions[0] = 0;
                 player.prototypeCorruptions[0] = 0;
-                for (var i = 1; i <= 9; i++){
+                for (var i = 1; i <= 9; i++) {
                     player.usedCorruptions[i] = 10;
                 }
             }
@@ -199,6 +199,169 @@ function keyboardtabchange(i) {
     }
 }
 
+function tabs(mainTab) {
+    let tabs = {
+        "-1": {tabName: "settings", unlocked: true},
+        0: {tabName: "shop", unlocked: player.unlocks.reincarnate},
+        1: {tabName: "buildings", unlocked: true},
+        2: {tabName: "upgrades", unlocked: true},
+        3: {tabName: "achievements", unlocked: player.unlocks.coinfour},
+        4: {tabName: "runes", unlocked: player.unlocks.prestige},
+        5: {tabName: "challenges", unlocked: player.unlocks.transcend},
+        6: {tabName: "researches", unlocked: player.unlocks.reincarnate},
+        7: {tabName: "ants", unlocked: player.achievements[127] > 0},
+        8: {tabName: "cubes", unlocked: player.achievements[183] > 0},
+        9: {tabName: "traits", unlocked: player.achievements[185] > 0}
+    }
+    if (mainTab === undefined)
+        return tabs
+    else
+        return tabs[mainTab];
+}
+
+/**
+ *
+ * @param mainTab the index of the main tab
+ * @returns Object()
+ */
+function subTabsInMainTab(mainTab) {
+    /**
+     * An array of sub-tab objects with the IDs for the sub-tabs and buttons, and unlock conditions
+     * @type Object(
+     *  subTabList: Array(Object(
+     *      subTabID: string, ID of the subTab that will be passed as parameter to tabSwitcher
+     *      buttonID: string, ID of the button element that is used to check which sub-tab is selected when changing main tabs
+     *      unlocked: boolean)), unlock condition for the sub-tab
+     *  tabSwitcher: function A function that handles changing the sub-tabs
+     * )
+     */
+    let subTabs = {
+        "-1": {
+            tabSwitcher: setActiveSettingScreen,
+            subTabList: [
+                {subTabID: "settingsubtab", unlocked: true},
+                {subTabID: "creditssubtab", unlocked: true},
+                {subTabID: "statisticsSubTab", unlocked: true},
+                {subTabID: "resetHistorySubTab", unlocked: player.unlocks.prestige},
+                {subTabID: "ascendHistorySubTab", unlocked: player.ascensionCount > 0}]
+        },
+        0: {subTabList: []},
+        1: {
+            tabSwitcher: toggleBuildingScreen,
+            subTabList: [
+                {subTabID: "coin", unlocked: true, buttonID: "switchToCoinBuilding"},
+                {subTabID: "diamond", unlocked: player.unlocks.prestige, buttonID: "switchToDiamondBuilding"},
+                {subTabID: "mythos", unlocked: player.unlocks.transcend, buttonID: "switchToMythosBuilding"},
+                {subTabID: "particle", unlocked: player.unlocks.reincarnate, buttonID: "switchToParticleBuilding"},
+                {subTabID: "tesseract", unlocked: player.achievements[183] > 0, buttonID: "switchToTesseractBuilding"}]
+        },
+        2: {subTabList: []},
+        3: {subTabList: []},
+        4: {
+            tabSwitcher: toggleRuneScreen,
+            subTabList: [
+                {subTabID: 1, unlocked: player.unlocks.prestige, buttonID: "toggleRuneSubTab1"},
+                {subTabID: 2, unlocked: player.achievements[134] > 0, buttonID: "toggleRuneSubTab2"},
+                {subTabID: 3, unlocked: player.achievements[134] > 0, buttonID: "toggleRuneSubTab3"},
+                {subTabID: 4, unlocked: player.achievements[204] > 0, buttonID: "toggleRuneSubTab4"}]
+        },
+        5: {subTabList: []},
+        6: {subTabList: []},
+        7: {subTabList: []},
+        8: {
+            tabSwitcher: toggleCubeSubTab,
+            subTabList: [
+                {subTabID: 1, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab1"},
+                {subTabID: 2, unlocked: player.achievements[197] > 0, buttonID: "switchCubeSubTab2"},
+                {subTabID: 3, unlocked: player.achievements[211] > 0, buttonID: "switchCubeSubTab3"},
+                {subTabID: 4, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab4"}]
+        },
+        9: {
+            tabSwitcher: toggleCorruptionLoadoutsStats,
+            subTabList: [
+                {subTabID: true, unlocked: player.achievements[185] > 0, buttonID: "corrStatsBtn"},
+                {subTabID: false, unlocked: player.achievements[185] > 0, buttonID: "corrLoadoutsBtn"}]
+        },
+    }
+    return subTabs[mainTab];
+}
+
+function keyboardTabChange(dir = 1, main = true) {
+    if (main) {
+        player.tabnumber += dir
+        let maxTab = Object.keys(tabs()).reduce((a, b) => Math.max(a, b))
+        let minTab = Object.keys(tabs()).reduce((a, b) => Math.min(a, b))
+        // The loop point is chosen to be before settings so that new tabs can just be added to the end of the list
+        // without needing to mess with the settings and shop
+        let handleLoopBack = () => {
+            if (player.tabnumber === maxTab + 1) { // went over from the right
+                player.tabnumber = minTab // loop back left
+            }
+            if (player.tabnumber === minTab - 1) { // and vice versa
+                player.tabnumber = maxTab
+            }
+        }
+        handleLoopBack()
+        while (!tabs(player.tabnumber).unlocked) {
+            player.tabnumber += dir
+            handleLoopBack()
+        }
+        toggleTabs(tabs(player.tabnumber).tabName)
+        let subTabList = subTabsInMainTab(player.tabnumber).subTabList
+        if (player.tabnumber !== -1) {
+            for (let i = 0; i < subTabList.length; i++) {
+                let button = document.getElementById(subTabList[i].buttonID)
+                if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
+                    player.subtabNumber = i
+                    break;
+                }
+                if (player.tabnumber === 9 && button.style.borderColor === "dodgerblue") { // handle corruption tab
+                    player.subtabNumber = i
+                    break;
+                }
+            }
+        } else { // handle settings tab
+            // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
+            let btns = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children
+            for (let i = 0; i < btns.length; i++) {
+                if (btns[i].classList.contains("buttonActive")) {
+                    player.subtabNumber = i
+                    break;
+                }
+            }
+        }
+    } else {
+        let subTabList = subTabsInMainTab(player.tabnumber).subTabList
+        if (subTabList.length === 0)
+            return
+        player.subtabNumber += dir
+        let handleLoopBack = () => {
+            let numSubTabs = subTabList.length
+            player.subtabNumber = (player.subtabNumber + numSubTabs) % numSubTabs
+        }
+        handleLoopBack()
+        while (!subTabList[player.subtabNumber].unlocked) {
+            player.subtabNumber += dir
+            handleLoopBack()
+        }
+        toggleSubTab(player.tabnumber, player.subtabNumber)
+    }
+}
+
+function toggleSubTab(mainTab = 1, subTab = 0) {
+    if (tabs(mainTab).unlocked && subTabsInMainTab(mainTab).subTabList.length > 0) {
+        if (mainTab === -1) {
+            // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
+            let btn = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children[subTab]
+            if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked)
+                subTabsInMainTab(mainTab).tabSwitcher(subTabsInMainTab(mainTab).subTabList[subTab].subTabID, btn)
+        } else {
+            if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked)
+                subTabsInMainTab(mainTab).tabSwitcher(subTabsInMainTab(mainTab).subTabList[subTab].subTabID)
+        }
+    }
+}
+
 function toggleautoreset(i) {
     if (i === 1) {
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
@@ -344,31 +507,37 @@ function toggleBuildingScreen(input) {
     let screen = {
         "coin": {
             screen: "coinBuildings",
-            button: "switchToCoinBuilding"
+            button: "switchToCoinBuilding",
+            subtabNumber: 0
         },
         "diamond": {
             screen: "prestige",
-            button: "switchToDiamondBuilding"
+            button: "switchToDiamondBuilding",
+            subtabNumber: 1
         },
         "mythos": {
             screen: "transcension",
-            button: "switchToMythosBuilding"
+            button: "switchToMythosBuilding",
+            subtabNumber: 2
         },
         "particle": {
             screen: "reincarnation",
-            button: "switchToParticleBuilding"
+            button: "switchToParticleBuilding",
+            subtabNumber: 3
         },
         "tesseract": {
             screen: "ascension",
-            button: "switchToTesseractBuilding"
+            button: "switchToTesseractBuilding",
+            subtabNumber: 4
         }
     }
-    Object.keys(screen).forEach((key) => {
+    for (let key of Object.keys(screen)) {
         document.getElementById(screen[key].screen).style.display = "none";
-        document.getElementById(screen[key].button).style.display = "#171717";
-    })
+        document.getElementById(screen[key].button).style.backgroundColor = "#171717";
+    }
     document.getElementById(screen[buildingSubTab].screen).style.display = "block"
     document.getElementById(screen[buildingSubTab].button).style.backgroundColor = "crimson"
+    player.subtabNumber = screen[buildingSubTab].subtabNumber
 }
 
 function toggleRuneScreen(index) {
@@ -393,10 +562,17 @@ function toggleRuneScreen(index) {
     for (let i = 1; i <= 4; i++) {
         a = document.getElementById("toggleRuneSubTab" + i);
         b = document.getElementById("runeContainer" + i);
-        (i === index) ?
-            (a.style.border = "2px solid gold", a.style.backgroundColor = "crimson", b.style.display = "block") :
-            (a.style.border = "2px solid silver", a.style.backgroundColor = "#171717", b.style.display = "none");
+        if (i === index) {
+            a.style.border = "2px solid gold"
+            a.style.backgroundColor = "crimson"
+            b.style.display = "block";
+        } else {
+            a.style.border = "2px solid silver"
+            a.style.backgroundColor = "#171717"
+            b.style.display = "none";
+        }
     }
+    player.subtabNumber = index - 1
 }
 
 function setActiveSettingScreen(subtab, clickedButton) {
@@ -497,6 +673,7 @@ function toggleCubeSubTab(i) {
         }
         if (document.getElementById("cubeTab" + j).style.display === "none" && j === i) {
             document.getElementById("cubeTab" + j).style.display = "block"
+            player.subtabNumber = j - 1
         }
     }
 
@@ -584,9 +761,15 @@ function toggleAutoChallengeTextColors(i) {
 
 function toggleAutoAscend() {
     let a = document.getElementById("ascensionAutoEnable");
-    (player.autoAscend) ?
-        (player.autoAscend = false, a.style.border = "2px solid red", a.textContent = "Auto Ascend [OFF]") :
-        (player.autoAscend = true, a.style.border = "2px solid green", a.textContent = "Auto Ascend [ON]");
+    if (player.autoAscend) {
+        player.autoAscend = false
+        a.style.border = "2px solid red"
+        a.textContent = "Auto Ascend [OFF]";
+    } else {
+        player.autoAscend = true
+        a.style.border = "2px solid green"
+        a.textContent = "Auto Ascend [ON]";
+    }
 }
 
 function updateRuneBlessingBuyAmount(i) {
@@ -608,9 +791,15 @@ function updateRuneBlessingBuyAmount(i) {
 }
 
 function toggleAutoTesseracts(i) {
-    (player.autoTesseracts[i]) ?
-        (player.autoTesseracts[i] = false, document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [OFF]", document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid red") :
-        (player.autoTesseracts[i] = true, document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [ON]", document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid green");
+    if (player.autoTesseracts[i]) {
+        player.autoTesseracts[i] = false
+        document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [OFF]"
+        document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid red";
+    } else {
+        player.autoTesseracts[i] = true
+        document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [ON]"
+        document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid green";
+    }
 }
 
 function toggleCorruptionLevel(index, value) {
