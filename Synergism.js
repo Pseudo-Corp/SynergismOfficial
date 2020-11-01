@@ -3336,6 +3336,9 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
         case "R":
             resetCheck('reincarnate');
             break;
+        case "S":
+            sacrificeAnts();
+            break;
         case "T":
             resetCheck('transcend');
             break;
