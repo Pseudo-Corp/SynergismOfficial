@@ -56,7 +56,6 @@ function toggleChallenges(i, auto) {
     }
 }
 
-
 function toggleBuyAmount(quantity, type) {
     player[type + 'buyamount'] = quantity
     let a = ""
@@ -136,66 +135,6 @@ function toggleShops(i) {
     } else if (i === 5 && player.shoptoggles.reincarnate === true) {
         player.shoptoggles.reincarnate = false;
         document.getElementById("particleAutoUpgrade").textContent = "Auto: OFF"
-    }
-}
-
-function keyboardtabchange(i) {
-    let q = 3;
-    if (player.unlocks.coinfour === true) {
-        q += 1
-    }
-    if (player.unlocks.prestige === true) {
-        q += 1
-    }
-    if (player.unlocks.transcend === true) {
-        q += 1
-    }
-    if (player.unlocks.reincarnate === true) {
-        q += 1
-    }
-    if (player.challengecompletions[8] > 0) {
-        q += 1
-    }
-    if (player.achievements[183]) {
-        q++;
-    }
-    if (player.achievements[185]) {
-        q++;
-    }
-    player.tabnumber += i
-    if (player.tabnumber === q) {
-        player.tabnumber = 1
-    }
-    if (player.tabnumber === 0) {
-        player.tabnumber = q - 1
-    }
-
-    if (player.tabnumber === 1) {
-        toggleTabs("buildings")
-    }
-    if (player.tabnumber === 2) {
-        toggleTabs("upgrades")
-    }
-    if (player.tabnumber === 3) {
-        toggleTabs("achievements")
-    }
-    if (player.tabnumber === 4) {
-        toggleTabs("runes")
-    }
-    if (player.tabnumber === 5) {
-        toggleTabs("challenges")
-    }
-    if (player.tabnumber === 6) {
-        toggleTabs("researches")
-    }
-    if (player.tabnumber === 7) {
-        toggleTabs("ants")
-    }
-    if (player.tabnumber === 8) {
-        toggleTabs("cubes")
-    }
-    if (player.tabnumber === 9) {
-        toggleTabs("traits")
     }
 }
 
@@ -391,7 +330,6 @@ function toggleautoreset(i) {
         // To be ascend toggle
     }
 }
-
 
 function toggleauto() {
     const autos = document.getElementsByClassName("auto");
