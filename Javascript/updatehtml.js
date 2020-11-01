@@ -249,8 +249,8 @@ function revealStuff() {
         document.getElementById('particleAutoUpgrade').style.display = "none";
 
     document.getElementById("ascensionStats").style.visibility = player.achievements[197] > 0 ? "visible" : "hidden";
-    document.getElementById("AscHyperSpan").style.display = player.challengecompletions[13] > 0 ? "" : "none";
-    document.getElementById("AscPlatonicSpan").style.display = player.challengecompletions[14] > 0 ? "" : "none";
+    document.getElementById("AscHyperStats").style.display = player.challengecompletions[13] > 0 ? "" : "none";
+    document.getElementById("AscPlatonicStats").style.display = player.challengecompletions[14] > 0 ? "" : "none";
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
     // note to 2019 and 2020 Platonic, you're welcome
