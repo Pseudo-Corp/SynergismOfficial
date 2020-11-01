@@ -4850,13 +4850,13 @@ img.small {
 #ascensionStats > span {
 	display: flex;
 }
-#ascensionStats > span:nth-child(-n+5) {
+#ascHyperStats, #ascPlatonicStats, #ascTimeTakenStats {
 	min-width: 10%;
 }
-#ascensionStats > span:nth-child(-n+2) {
+#ascCubeStats, #ascTessStats {
 	width: 12%;
 }
-#ascensionStats > span:nth-last-child(2) {
+#ascC10CompletionsStats {
 	width: 4%;
 }
 #ascensionStats img {
