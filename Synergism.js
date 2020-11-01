@@ -1212,6 +1212,10 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         updateTalismanAppearance(5);
         updateTalismanAppearance(6);
         updateTalismanAppearance(7);
+        for (let id of Object.keys(player.ascStatToggles)) {
+            toggleAscStatPerSecond(id); // toggle each stat twice to make sure the displays are correct and match what they used to be
+            toggleAscStatPerSecond(id);
+        }
 
 
         if (player.resettoggle1 === 1) {
@@ -3334,6 +3338,9 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
         case "R":
             resetCheck('reincarnate');
             break;
+        case "S":
+            sacrificeAnts();
+            break;
         case "T":
             resetCheck('transcend');
             break;
@@ -3350,6 +3357,13 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 });
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load', function () {
+    if(location.href.includes('kong')) {
+        // kongregate
+        const script = document.createElement('script');
+        script.setAttribute('src', 'https://cdn1.kongregate.com/javascripts/kongregate_api.js');
+        document.head.appendChild(script);
+    }
+
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
     const isLZString = dec !== '';
 

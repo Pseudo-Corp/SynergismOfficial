@@ -182,17 +182,20 @@ function checkVariablesOnLoad(data) {
     }
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
         player.loadedOct4Hotfix = true;
-        player.researchPoints += player.researches[200] * 1e56;
-        player.researches[200] = 0;
-        buyResearch(200, true, 0.01);
-        console.log('Refunded 8x25, and gave you ' + format(player.researches[200]) + ' levels of new cost 8x25. Sorry!')
-        player.researchPoints += player.researches[195] * 1e60;
-        player.worlds += 250 * player.researches[195]
-        player.researches[195] = 0;
-        console.log('Refunded 8x20 and gave 250 quarks for each level you had prior to loading up the game.')
-        player.wowCubes += player.cubeUpgrades[50] * 5e10
-        player.cubeUpgrades[50] = 0
-        console.log('Refunded w5x10. Enjoy!')
+        // Only process refund if the save's researches array is already updated to v2
+        if (player.researches.length > 200) {
+            player.researchPoints += player.researches[200] * 1e56;
+            player.researches[200] = 0;
+            buyResearch(200, true, 0.01);
+            console.log('Refunded 8x25, and gave you ' + format(player.researches[200]) + ' levels of new cost 8x25. Sorry!')
+            player.researchPoints += player.researches[195] * 1e60;
+            player.worlds += 250 * player.researches[195]
+            player.researches[195] = 0;
+            console.log('Refunded 8x20 and gave 250 quarks for each level you had prior to loading up the game.')
+            player.wowCubes += player.cubeUpgrades[50] * 5e10
+            player.cubeUpgrades[50] = 0
+            console.log('Refunded w5x10. Enjoy!')
+        }
     }
 
     if (player.ascStatToggles === undefined || data.ascStatToggles === undefined) {
