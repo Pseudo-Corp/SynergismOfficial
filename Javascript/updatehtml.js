@@ -249,8 +249,8 @@ function revealStuff() {
         document.getElementById('particleAutoUpgrade').style.display = "none";
 
     document.getElementById("ascensionStats").style.visibility = player.achievements[197] > 0 ? "visible" : "hidden";
-    document.getElementById("AscHyperStats").style.display = player.challengecompletions[13] > 0 ? "" : "none";
-    document.getElementById("AscPlatonicStats").style.display = player.challengecompletions[14] > 0 ? "" : "none";
+    document.getElementById("ascHyperStats").style.display = player.challengecompletions[13] > 0 ? "" : "none";
+    document.getElementById("ascPlatonicStats").style.display = player.challengecompletions[14] > 0 ? "" : "none";
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
     // note to 2019 and 2020 Platonic, you're welcome
@@ -1063,13 +1063,13 @@ function updateAscensionStats() {
     let t = player.ascensionCounter;
     let [cubes, tess, hyper, platonic] = CalcCorruptionStuff().splice(4);
     let fillers = {
-        "AscLen": formatTimeShort(player.ascensionCounter),
-        "AscCubes": format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2, true),
-        "AscTess": format(tess * (player.ascStatToggles[2] ? 1 : 1 / t), 3, true),
-        "AscHyper": format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4, true),
-        "AscPlatonic": format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5, true),
-        "AscC10": player.challengecompletions[10],
-        "AscTimeAccel": `${format(calculateTimeAcceleration(), 3, true)}x`
+        "ascLen": formatTimeShort(player.ascensionCounter),
+        "ascCubes": format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2, true),
+        "ascTess": format(tess * (player.ascStatToggles[2] ? 1 : 1 / t), 3, true),
+        "ascHyper": format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4, true),
+        "ascPlatonic": format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5, true),
+        "ascC10": player.challengecompletions[10],
+        "ascTimeAccel": `${format(calculateTimeAcceleration(), 3, true)}x`
     }
     for (const key of Object.keys(fillers)) {
         document.getElementById(key).textContent = fillers[key];
