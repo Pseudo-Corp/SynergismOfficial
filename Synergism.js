@@ -1211,6 +1211,10 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         updateTalismanAppearance(5);
         updateTalismanAppearance(6);
         updateTalismanAppearance(7);
+        for (let id of Object.keys(player.ascStatToggles)) {
+            toggleAscStatPerSecond(id); // toggle each stat twice to make sure the displays are correct and match what they used to be
+            toggleAscStatPerSecond(id);
+        }
 
 
         if (player.resettoggle1 === 1) {
