@@ -8,7 +8,7 @@ function getRealTime(clock12h = false) {
     let minute = new Intl.DateTimeFormat(loc, {minute: "2-digit"}).format(now)
     let second = new Intl.DateTimeFormat(loc, {second: "2-digit"}).format(now)
     let date = `${year}-${month}-${day}`
-    let time = `${hour[0]}:${minute}:${second}${hour[1] ? ` ${hour[1]}` : ""}`;
+    let time = `${hour[0]}_${minute.padStart(2, "0")}_${second.padStart(2, "0")}${hour[1] ? ` ${hour[1]}` : ""}`;
     return date + " " + time;
 }
 
