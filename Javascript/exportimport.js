@@ -1,7 +1,14 @@
 function getRealTime(clock12h = false) {
     let now = new Date();
-    let date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
-    let time = now.toLocaleTimeString([], {hour12: clock12h});
+    let loc = "en"
+    let year = new Intl.DateTimeFormat(loc, {year: "numeric"}).format(now)
+    let month = new Intl.DateTimeFormat(loc, {month: "2-digit"}).format(now)
+    let day = new Intl.DateTimeFormat(loc, {day: "2-digit"}).format(now)
+    let hour = new Intl.DateTimeFormat(loc, {hour: "2-digit", hour12: clock12h}).format(now).split(" ")
+    let minute = new Intl.DateTimeFormat(loc, {minute: "2-digit"}).format(now)
+    let second = new Intl.DateTimeFormat(loc, {second: "2-digit"}).format(now)
+    let date = `${year}-${month}-${day}`
+    let time = `${hour[0]}:${minute}:${second}${hour[1] ? ` ${hour[1]}` : ""}`;
     return date + " " + time;
 }
 
@@ -11,7 +18,8 @@ function updateSaveString() {
 
 function saveFilename() {
     const s = player.saveString
-    return s.replace('$TIME$', getRealTime()).replace("$TIME12$", getRealTime(true));
+    const version = player[Symbol.for('version')];
+    return s.replace("$VERSION$", "v" + version).replace('$TIME$', getRealTime()).replace("$TIME12$", getRealTime(true));
 }
 
 async function exportSynergism() {
@@ -75,7 +83,7 @@ const resetGame = () => {
 function importSynergism(input) {
     const d = LZString.decompressFromBase64(input);
     const f = d ? JSON.parse(d) : JSON.parse(atob(input));
-    if(f.exporttest === "YES!"){
+    if (f.exporttest === "YES!") {
         intervalHold.forEach(clearInt);
         intervalHold.length = 0;
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
@@ -99,16 +107,16 @@ function promocodes() {
         player.codes.set(25, true);
         let quarkValue = 0
         quarkValue += 250
-        if(player.challengecompletions[8] > 0 || player.ascensionCount > 0){
+        if (player.challengecompletions[8] > 0 || player.ascensionCount > 0) {
             quarkValue += 250
         }
-        if(player.challengecompletions[9] > 0 || player.ascensionCount > 0){
+        if (player.challengecompletions[9] > 0 || player.ascensionCount > 0) {
             quarkValue += 250
         }
-        if(player.challengecompletions[10] > 0 || player.ascensionCount >0){
+        if (player.challengecompletions[10] > 0 || player.ascensionCount > 0) {
             quarkValue += 250
         }
-        if(player.challengecompletions[10] > 2 && player.ascensionCount === 0){
+        if (player.challengecompletions[10] > 2 && player.ascensionCount === 0) {
             quarkValue += 500
         }
         el.textContent = "The conscience of the universe is now one. +" + format(quarkValue) + " Quarks based on your progress!"
