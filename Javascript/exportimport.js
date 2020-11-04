@@ -25,18 +25,6 @@ function getRealTime(use12 = false) {
         .reduce((a, x) => {a[x.type] = x.value; return a}, {});
     return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${(use12 ? " " + dateParts.dayPeriod : "").toUpperCase()}`
 }
-    let now = new Date();
-    let loc = "en"
-    let year = new Intl.DateTimeFormat(loc, {year: "numeric"}).format(now)
-    let month = new Intl.DateTimeFormat(loc, {month: "2-digit"}).format(now)
-    let day = new Intl.DateTimeFormat(loc, {day: "2-digit"}).format(now)
-    let hour = new Intl.DateTimeFormat(loc, {hour: "2-digit", hour12: clock12h}).format(now).split(" ")
-    let minute = new Intl.DateTimeFormat(loc, {minute: "2-digit"}).format(now)
-    let second = new Intl.DateTimeFormat(loc, {second: "2-digit"}).format(now)
-    let date = `${year}-${month}-${day}`
-    let time = `${hour[0]}_${minute.padStart(2, "0")}_${second.padStart(2, "0")}${hour[1] ? ` ${hour[1]}` : ""}`;
-    return date + " " + time;
-}
 
 function updateSaveString() {
     player.saveString = document.getElementById("saveStringInput").value
