@@ -1,4 +1,30 @@
-function getRealTime(clock12h = false) {
+const format24 = new Intl.DateTimeFormat("EN-GB", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    hour12: false,
+    minute: "2-digit",
+    second: "2-digit"
+})
+const format12 = new Intl.DateTimeFormat("EN-GB", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    hour12: true,
+    minute: "2-digit",
+    second: "2-digit"
+})
+
+function getRealTime(use12 = false) {
+    format = use12 ? format12 : format24;
+    let dateParts = format
+        .formatToParts(new Date())
+        .filter((x) => x.type != "literal")
+        .reduce((a, x) => {a[x.type] = x.value; return a}, {});
+    return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${(use12 ? " " + dateParts.dayPeriod : "").toUpperCase()}`
+}
     let now = new Date();
     let loc = "en"
     let year = new Intl.DateTimeFormat(loc, {year: "numeric"}).format(now)
