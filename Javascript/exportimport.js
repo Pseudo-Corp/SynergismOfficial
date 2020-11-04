@@ -21,9 +21,12 @@ function getRealTime(use12 = false) {
     format = use12 ? format12 : format24;
     let dateParts = format
         .formatToParts(new Date())
-        .filter((x) => x.type != "literal")
-        .reduce((a, x) => {a[x.type] = x.value; return a}, {});
-    return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${(use12 ? " " + dateParts.dayPeriod : "").toUpperCase()}`
+        .filter((x) => x.type !== "literal")
+        .reduce((a, x) => {
+            a[x.type] = x.value;
+            return a
+        }, {});
+    return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${(use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : "")}`
 }
 
 function updateSaveString() {
@@ -33,7 +36,7 @@ function updateSaveString() {
 function saveFilename() {
     const s = player.saveString
     const version = player[Symbol.for('version')];
-    return s.replace("$VERSION$", "v" + version).replace('$TIME$', getRealTime()).replace("$TIME12$", getRealTime(true));
+    return s.replace("$VERSION$", "v" + version).replace("$TIME$", getRealTime()).replace("$TIME12$", getRealTime(true));
 }
 
 async function exportSynergism() {
@@ -49,10 +52,10 @@ async function exportSynergism() {
 
     const toClipboard = document.getElementById('saveType').checked;
     const save = localStorage.getItem('Synergysave2');
-    if('clipboard' in navigator && toClipboard) {
+    if ('clipboard' in navigator && toClipboard) {
         await navigator.clipboard.writeText(save)
             .catch(e => console.error(e));
-    } else if(toClipboard) { // old browsers
+    } else if (toClipboard) { // old browsers
         const textArea = document.createElement('textarea');
         textArea.value = save;
         textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
@@ -60,7 +63,10 @@ async function exportSynergism() {
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-        try { document.execCommand('copy'); } catch(_) {}
+        try {
+            document.execCommand('copy');
+        } catch (_) {
+        }
 
         document.body.removeChild(textArea);
     } else {
@@ -75,9 +81,8 @@ async function exportSynergism() {
         a.click();
         document.body.removeChild(a);
     }
-    
 
-    document.getElementById("exportinfo").textContent = toClipboard 
+    document.getElementById("exportinfo").textContent = toClipboard
         ? 'Copied save to your clipboard!'
         : 'Savefile copied to file!';
 }
