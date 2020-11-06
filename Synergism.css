@@ -4850,11 +4850,17 @@ img.small {
 #ascensionStats > span {
 	display: flex;
 }
-#ascHyperStats, #ascPlatonicStats, #ascTimeTakenStats {
+#ascHyperStats, #ascPlatonicStats {
+	width: 10%;
+}
+#ascTimeTakenStats {
 	min-width: 10%;
 }
-#ascCubeStats, #ascTessStats {
-	width: 12%;
+#ascCubeStats {
+	width: 12.5%;
+}
+#ascTessStats {
+	width: 11%;
 }
 #ascC10CompletionsStats {
 	width: 4%;
