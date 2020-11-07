@@ -34,8 +34,13 @@ const historyGains = {
     wowCubes: {
         img: "Pictures/WowCube.png",
         formatter: conditionalFormatPerSecond,
-        onlyif: () => player.ascensionCount > 0,
         imgTitle: "Wow! Cubes"
+    },
+    wowPlatonicCubes: {
+        img: "Pictures/Platonic Cube.png",
+        formatter: conditionalFormatPerSecond,
+        imgTitle: "Platonic Cubes",
+        onlyif: () => player.challengecompletions[14] > 0,
     },
 };
 
@@ -43,7 +48,7 @@ const historyGainsOrder = [
     "offerings", "obtainium",
     "antMulti",
     "particles", "diamonds", "mythos",
-    "wowCubes", "wowTesseracts", "wowHypercubes",
+    "wowCubes", "wowTesseracts", "wowHypercubes", "wowPlatonicCubes",
 ];
 
 const historyKinds = {
@@ -70,6 +75,17 @@ const resetHistoryCorruptionImages = [
     "Pictures/Extinction Lvl 7.png",
     "Pictures/Drought Lvl 7.png",
     "Pictures/Financial Collapse Lvl 7.png"
+];
+const resetHistoryCorruptionTitles = [
+    "Divisiveness [Multipliers]",
+    "Maladaption [Accelerators]",
+    "Spacial Dilation [Time]",
+    "Hyperchallenged [Challenge Requirements]",
+    "Scientific Illiteracy [Obtainium]",
+    "Market Deflation [Diamonds]",
+    "Extinction [Ants]",
+    "Drought [Offering EXP]",
+    "Financial Recession [Coins]"
 ];
 
 const resetHistoryShowMillisecondsMaxSec = 60;
@@ -179,9 +195,9 @@ function resetHistoryRenderRow(category, data) {
         let newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter);
         let diff = newMulti - oldMulti;
         extra = [
-            `<span title="${format(oldMulti, 3, false)}-&gt;${format(newMulti, 3, false)}"><img src="Pictures/Plus.png">+${format(diff, 3, false)} multi</span>`,
-            `<span title="+${formatDecimalString(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png">${extractStringExponent(formatDecimalString(data.crumbs))}</span>`,
-            `<span title="${format(data.baseELO)} base">${format(data.effectiveELO)} ELO</span>`
+            `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
+            `<span title="+${formatDecimalString(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalString(data.crumbs))}</span>`,
+            `<span title="${format(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
         ];
     } else if (data.kind === "ascend") {
         extra = [
@@ -195,18 +211,24 @@ function resetHistoryRenderRow(category, data) {
         }
     }
 
-    colsUsed += gains.length + extra.length;
+    // This rendering is done this way so that all rows should have the same number of columns, which makes rows
+    // equal size and prevents bad rendering. We do 2 of these so that the history doesn't shift when
+    // hypercubes or platcubes get added as players unlock them.
+    // The 6 and 4 numbers are arbitrary but should never be less than the actual amount of columns that can be
+    // realistically displayed; you can increase them if more gains are added.
 
+    // Render the gains plus the gains filler
+    colsUsed += gains.length;
     rowContentHtml += gains.reduce((acc, value) => {
         return `${acc}<td class="history-gain">${value}</td>`;
     }, "");
+    rowContentHtml += `<td class="history-filler" colspan="${6 - colsUsed}"></td>`;
+
+    // Render the other stuff
     rowContentHtml += extra.reduce((acc, value) => {
         return `${acc}<td class="history-extra">${value}</td>`;
     }, "");
-
-    // This exists to give all rows the same number of columns without having to calculate them ahead of time
-    // Makes the trs equal size
-    rowContentHtml += `<td class="history-filler" colspan="${10 - colsUsed}"></td>`;
+    rowContentHtml += `<td class="history-filler" colspan="${4 - extra.length}"></td>`;
 
     row.innerHTML = rowContentHtml;
     return row;
@@ -257,8 +279,11 @@ function resetHistoryFormatCorruptions(data) {
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
         let corruptionIdx = i + 1;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
-            corruptions += ` <img src="${resetHistoryCorruptionImages[i]}">${data.usedCorruptions[corruptionIdx]}`;
+            corruptions += ` <img src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }
+    }
+    if (data.currentChallenge !== undefined) {
+        score += ` / C${data.currentChallenge}`;
     }
     return [score, corruptions];
 }
