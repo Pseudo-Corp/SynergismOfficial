@@ -36,8 +36,10 @@ function updateSaveString() {
 
 function saveFilename() {
     const s = player.saveString
-    const version = player[Symbol.for('version')];
-    return s.replace("$VERSION$", "v" + version).replace("$TIME$", getRealTime()).replace("$TIME12$", getRealTime(true));
+    return s
+        .replace("$VERSION$", "v" + player.version)
+        .replace("$TIME$", getRealTime())
+        .replace("$TIME12$", getRealTime(true));
 }
 
 async function exportSynergism() {
@@ -116,14 +118,13 @@ function importSynergism(input) {
 function promocodes() {
     const input = prompt("Got a code? Great! Enter it in (CaSe SeNsItIvE).");
     const el = document.getElementById("promocodeinfo");
-    const version = player[Symbol.for('version')];
 
     if (input === "synergism2020" && !player.codes.get(1)) {
         player.codes.set(1, true);
         player.runeshards += 25;
         player.worlds += 50;
         el.textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"
-    } else if (input === "reimagining" && player[Object.getOwnPropertySymbols(player)[0]] && !player.codes.get(25)) {
+    } else if (input === "reimagining" && !player.codes.get(25)) {
         player.codes.set(25, true);
         let quarkValue = 0
         quarkValue += 250
@@ -147,6 +148,11 @@ function promocodes() {
     } else if (input === ":antismith:" && player.achievements[244] < 1) {
         achievementaward(244);
         el.textContent = "Hey, isn't this just a reference to Antimatter Dimensions? Shh. [Awarded an achievement!!!]";
+    } else if(input === 'Khafra' && !player.codes.get(26)) {
+        player.codes.set(26, true);
+        const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
+        player.worlds += quarks;
+        el.textContent = 'Khafra has blessed you with ' + quarks + ' quarks!';
     } else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }

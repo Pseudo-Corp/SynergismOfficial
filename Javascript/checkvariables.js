@@ -206,7 +206,7 @@ function checkVariablesOnLoad(data) {
             4: false
         };
     }
-    if (player.ascStatToggles[4] === undefined || data.ascStatToggles[4] === undefined) {
+    if (player.ascStatToggles[4] === undefined || !('ascStatToggles' in data) || data.ascStatToggles[4] === undefined) {
         player.ascStatToggles[4] = false;
     }
 

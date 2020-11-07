@@ -407,7 +407,7 @@ const player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from(Array(25), (_, i) => [i + 1, false])
+        Array.from(Array(26), (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -587,11 +587,11 @@ const player = {
     hypercubeOpenedDaily: 0,
     hypercubeQuarkDaily: 0,
     loadedOct4Hotfix: false,
-    [Symbol.for('version')]: '2.0.6'
+    version: '2.0.8~beta1'
 }
 
 const blank_save = Object.assign({}, player);
-blank_save.codes = new Map(Array.from(Array(24), (_, i) => [i + 1, false]));
+blank_save.codes = new Map(Array.from(Array(26), (_, i) => [i + 1, false]));
 
 /**
  * stringify a map so it can be re-made when importing
@@ -3374,6 +3374,9 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
         document.head.appendChild(script);
     }
 
+    const ver = document.getElementById('versionnumber');
+    ver && (ver.textContent = `You're playing on v${player.version} - The Great Reimagining [Last Update: 02:35 PM UTC-5 Nov 7]`);
+
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
     const isLZString = dec !== '';
 
@@ -3383,33 +3386,12 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
         alert('Transferred save to new format successfully!');
     }
 
-    // Make sure language is loaded first no matter what
-    /* new i18n().getJSON().then(function() {
-		console.log('Language localized!');
-		loadSynergy();
-		saveSynergy();
-		revealStuff();
-		hideStuff();
-		createTimer();
-		constantIntervals();
-		htmlInserts();
-	}); */
-
-
     setTimeout(function () {
         loadSynergy();
         saveSynergy();
         toggleauto();
         revealStuff();
         hideStuff();
-
-        // For automated testing, it's best for the tests to control when time-interval operations occur.
-        // Only defined then, so we need to check it as a property of window.
-        if (!window["__karma__"]) {
-            createTimer();
-            constantIntervals();
-        }
-
         htmlInserts();
     }, 0);
 });
