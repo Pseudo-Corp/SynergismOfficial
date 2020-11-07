@@ -407,7 +407,7 @@ const player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from(Array(25), (_, i) => [i + 1, false])
+        Array.from(Array(26), (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -591,7 +591,7 @@ const player = {
 }
 
 const blank_save = Object.assign({}, player);
-blank_save.codes = new Map(Array.from(Array(24), (_, i) => [i + 1, false]));
+blank_save.codes = new Map(Array.from(Array(26), (_, i) => [i + 1, false]));
 
 /**
  * stringify a map so it can be re-made when importing
@@ -3393,5 +3393,8 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
         revealStuff();
         hideStuff();
         htmlInserts();
+        // thanks Kewne
+        createTimer();
+        constantIntervals();
     }, 0);
 });
