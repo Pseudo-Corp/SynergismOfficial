@@ -1,15 +1,33 @@
-function getRealTime(clock12h = false) {
-    let now = new Date();
-    let loc = "en"
-    let year = new Intl.DateTimeFormat(loc, {year: "numeric"}).format(now)
-    let month = new Intl.DateTimeFormat(loc, {month: "2-digit"}).format(now)
-    let day = new Intl.DateTimeFormat(loc, {day: "2-digit"}).format(now)
-    let hour = new Intl.DateTimeFormat(loc, {hour: "2-digit", hour12: clock12h}).format(now).split(" ")
-    let minute = new Intl.DateTimeFormat(loc, {minute: "2-digit"}).format(now)
-    let second = new Intl.DateTimeFormat(loc, {second: "2-digit"}).format(now)
-    let date = `${year}-${month}-${day}`
-    let time = `${hour[0]}:${minute}:${second}${hour[1] ? ` ${hour[1]}` : ""}`;
-    return date + " " + time;
+const format24 = new Intl.DateTimeFormat("EN-GB", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    hour12: false,
+    minute: "2-digit",
+    second: "2-digit"
+})
+const format12 = new Intl.DateTimeFormat("EN-GB", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    hour12: true,
+    minute: "2-digit",
+    second: "2-digit"
+})
+
+function getRealTime(use12 = false) {
+    format = use12 ? format12 : format24;
+    let dateParts = format
+        .formatToParts(new Date())
+        .filter((x) => x.type !== "literal")
+        .reduce((a, x) => {
+            a[x.type] = x.value;
+            return a
+        }, {});
+    return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${(use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : "")}`
+
 }
 
 function updateSaveString() {
@@ -19,7 +37,7 @@ function updateSaveString() {
 function saveFilename() {
     const s = player.saveString
     const version = player[Symbol.for('version')];
-    return s.replace("$VERSION$", "v" + version).replace('$TIME$', getRealTime()).replace("$TIME12$", getRealTime(true));
+    return s.replace("$VERSION$", "v" + version).replace("$TIME$", getRealTime()).replace("$TIME12$", getRealTime(true));
 }
 
 async function exportSynergism() {
@@ -35,10 +53,10 @@ async function exportSynergism() {
 
     const toClipboard = document.getElementById('saveType').checked;
     const save = localStorage.getItem('Synergysave2');
-    if('clipboard' in navigator && toClipboard) {
+    if ('clipboard' in navigator && toClipboard) {
         await navigator.clipboard.writeText(save)
             .catch(e => console.error(e));
-    } else if(toClipboard) { // old browsers
+    } else if (toClipboard) { // old browsers
         const textArea = document.createElement('textarea');
         textArea.value = save;
         textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
@@ -46,7 +64,10 @@ async function exportSynergism() {
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-        try { document.execCommand('copy'); } catch(_) {}
+        try {
+            document.execCommand('copy');
+        } catch (_) {
+        }
 
         document.body.removeChild(textArea);
     } else {
@@ -61,9 +82,8 @@ async function exportSynergism() {
         a.click();
         document.body.removeChild(a);
     }
-    
 
-    document.getElementById("exportinfo").textContent = toClipboard 
+    document.getElementById("exportinfo").textContent = toClipboard
         ? 'Copied save to your clipboard!'
         : 'Savefile copied to file!';
 }
