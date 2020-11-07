@@ -202,18 +202,23 @@ function checkVariablesOnLoad(data) {
         player.ascStatToggles = {
             1: false,
             2: false,
-            3: false
+            3: false,
+            4: false
         };
     }
+    if (player.ascStatToggles[4] === undefined || data.ascStatToggles[4] === undefined) {
+        player.ascStatToggles[4] = false;
+    }
 
-    if (
-        player.usedCorruptions[0] > 0 || 
-        (Array.isArray(data.usedCorruptions) && data.usedCorruptions[0] > 0)
-    ) {
+    if (player.usedCorruptions[0] > 0 ||
+        (Array.isArray(data.usedCorruptions) && data.usedCorruptions[0] > 0)) {
         player.prototypeCorruptions[0] = 0
         player.usedCorruptions[0] = 0
     }
     if (player.antSacrificeTimerReal === undefined) {
         player.antSacrificeTimerReal = player.antSacrificeTimer / calculateTimeAcceleration();
+    }
+    if (player.subtabNumber === undefined || data.subtabNumber === undefined) {
+        player.subtabNumber = 0;
     }
 }

@@ -380,7 +380,7 @@ function sacrificeAnts(auto) {
                 if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
                     let unmaxed = 0;
                     for (let i = 1; i <= 5; i++) {
-                        if (player.runelevels[i] < calculateMaxRunes(i))
+                        if (player.runelevels[i - 1] < calculateMaxRunes(i))
                             unmaxed++;
                     }
                     if (unmaxed > 0) {

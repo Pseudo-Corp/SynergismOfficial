@@ -1060,13 +1060,6 @@ margin-left: -13px
 	left: 75%;
 	margin-left: -64px;
 }
-#savegame{
-	position: absolute;
-	top: 260px;
-	width: 180px;
-	left: 50%;
-	margin-left: -90px;
-}
 #saveinfo {
 	position: absolute;
 	top: 390px;
@@ -1319,14 +1312,10 @@ margin-left: -13px
 	display: flex;
 	flex-direction: column;
 	width: 400px;
-	left: 485px;
-	height: 100px;
+	left: 500px;
 }
 .tightText {
-	margin-top: 0;
-	margin-bottom: 0;
-	margin-left: auto;
-	margin-right: auto;
+    margin: 0 auto;
     text-align: center;
 }
 #quarktimerdisplay {
@@ -1341,9 +1330,7 @@ margin-left: -13px
 #exportgame {
 	width: 150px;
 	height: 40px;
-	margin: 5px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 5px auto;
 }
 #exportinfo {
 	height: 20px;
@@ -1353,36 +1340,16 @@ margin-left: -13px
 }
 
 #importgame {
-	position: absolute;
 	width: 150px;
-	height: 40px;
-	top: 185px;
-	left: 50%;
-	margin-left: -75px
 }
-#importfile{
-	position: absolute;
-	width: 150px;
-	height: 40px;
-	top: 225px;
-	left: 50%;
-	margin-left: -40px
+#importFileButton {
+	width: 100px;
+	margin: 2px auto;
+	border: 1px solid white;
 }
-#exporttext {
-	position: absolute;
-	width: 0;
-	height: 0;
-	top: 180px;
-	left: 13324px;
-	margin-left: 0
-}
-#importinfo {
-	position: absolute;
-	width: 500px;
-	height: 40px;
-	top: 275px;
-	left: 50%;
-	margin-left: -250px
+#savegame{
+	width: 180px;
+	margin: 2px auto;
 }
 
 #discord {
@@ -4621,7 +4588,6 @@ margin-left: -13px
 	background: #262626;
 }
 .historySubTab tbody .history-seconds {
-	max-width: 90px; /* fits "90d20h50m50s" */
 	white-space: nowrap;
 }
 .historySubTab tbody .history-filler {
@@ -4649,21 +4615,23 @@ margin-left: -13px
 	border: 2px solid red;
 }
 
-#historyResetTable, #historyAntsTable {
-	min-width: 588px;
+#historyResetTable {
+	min-width: 540px;
+}
+#historyAntsTable {
+	min-width: 700px;
 }
 
 #historyAscendTable {
-	min-width: 1000px;
+	min-width: 1180px;
 }
 
 .historyTableWrap {
-	min-width: 620px;
 	max-height: 450px;
 	overflow-y: auto;
 }
 #historyAscend .historyTableWrap {
-	min-width: 1032px;
+	min-width: 1212px;
 }
 
 .runeIcons{
@@ -4877,23 +4845,50 @@ img.small {
 	justify-content: center;
 	height: 20px;
 	padding-top: 10px;
-	margin-bottom: -10px;
+	margin: 0 auto -10px;
+	width: 90%
 }
-#AscLen {
+#ascensionStats > span {
+	display: flex;
+}
+#ascHyperStats, #ascPlatonicStats {
+	width: 10%;
+}
+#ascTimeTakenStats {
+	min-width: 10%;
+}
+#ascCubeStats {
+	width: 12.5%;
+}
+#ascTessStats {
+	width: 11%;
+}
+#ascC10CompletionsStats {
+	width: 4%;
+}
+#ascensionStats img {
+	position: relative;
+	top: 3px;
+	margin-right: 4px;
+}
+#ascLen {
 	color: darkcyan;
 }
-#AscC10 {
+#ascC10 {
 	color: limegreen;
 }
-#AscCubes {
+#ascCubes {
 	color: yellow;
 }
-#AscTess {
+#ascTess {
 	color: orchid;
 }
-#AscHyper {
+#ascHyper {
 	color: crimson;
 }
-#AscTimeAccel {
+#ascPlatonic {
+	color: lightgoldenrodyellow;
+}
+#ascTimeAccel {
 	color: royalblue;
 }

@@ -27,6 +27,7 @@ function getRealTime(use12 = false) {
             return a
         }, {});
     return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${(use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : "")}`
+
 }
 
 function updateSaveString() {

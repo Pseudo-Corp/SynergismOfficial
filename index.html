@@ -12,7 +12,7 @@
     <!--<script src="Decimal.js"></script>-->
     <script src="lz-string.js"></script>
     <script src="Synergism.js"></script>
-
+    <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16">
     <script src="Javascript/ants.js"></script>
     <script src="Javascript/shop.js"></script>
     <script src="Javascript/buystuff.js"></script>
@@ -41,38 +41,47 @@
     <script src="Javascript/corruptions.js"></script>
     <script src="Javascript/platonic.js"></script>
     <script src="Javascript/experimental.js"></script>
+    <script src="Javascript/utilities.js"></script>
     <!--<script src="Javascript/i18n.js"></script>-->
     <title>Synergism v2.0.6</title>
     </head>
 <main>
 
-<img src="Pictures/Splash/preloader.png" id="preload" alt="" style="width: 100%;">
-<div id="offlineprogressbar">
-<p id="offlineTimer" style="color: plum"></p>
-<p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
-<div id="offlineprogressdone"></div>
-</div>
+    <img src="Pictures/Splash/preloader.png" id="preload" alt="" style="width: 100%;">
+    <div id="offlineprogressbar">
+        <p id="offlineTimer" style="color: plum"></p>
+        <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
+        <div id="offlineprogressdone"></div>
+    </div>
     <div id="ascensionStats">
-        <div style="height: inherit;">
-            <span onclick="toggleAscStatPerSecond(1)">
-                <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
-                <span id="AscCubes">x</span> C<span id="unit1">/s</span>
-            </span>
-            <span onclick="toggleAscStatPerSecond(2)">
-                <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
-                <span id="AscTess">x</span> T<span  id="unit2">/s</span>
-            </span>
-            <span onclick="toggleAscStatPerSecond(3)" id="AscHyperSpan" style="display: none">
-                <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
-                <span id="AscHyper">x</span> H<span  id="unit3">/s</span>
-            </span>
-            <img src="Pictures/questionable.png" class="corruptionImg" alt="">
-            <span id="AscLen">x</span>
-            <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
-            <span id="AscC10">x</span>
-            <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
-            <span id="AscTimeAccel">x</span>
-        </div>
+    <span onclick="toggleAscStatPerSecond(1)" id="ascCubeStats">
+        <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
+        <span><span id="ascCubes">x</span> C<span id="unit1">/s</span></span>
+    </span>
+    <span onclick="toggleAscStatPerSecond(2)" id="ascTessStats">
+        <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
+        <span><span id="ascTess">x</span> T<span id="unit2">/s</span></span>
+    </span>
+    <span onclick="toggleAscStatPerSecond(3)" id="ascHyperStats">
+        <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
+        <span><span id="ascHyper">x</span> H<span id="unit3">/s</span></span>
+    </span>
+    <span onclick="toggleAscStatPerSecond(4)" id="ascPlatonicStats">
+        <img src="Pictures/Platonic%20Cube.png" class="corruptionImg" alt="">
+        <span><span id="ascPlatonic">x</span> P<span id="unit4">/s</span></span>
+    </span>
+    <span id="ascTimeTakenStats">
+        <img src="Pictures/questionable.png" class="corruptionImg" alt="">
+        <span id="ascLen">x</span>
+    </span>
+    <span id="ascC10CompletionsStats">
+        <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
+        <span id="ascC10">x</span>
+    </span>
+    <span id="ascTimeFactorStats">
+        <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
+        <span id="ascTimeAccel">x</span>
+    </span>
     </div>
 <div id="navbar">
 
@@ -163,11 +172,11 @@
 </div>
 
 <div id="buildings">
-    <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow" onclick="toggleBuildingScreen('coin')">Coin Buildings</button>
-    <button class="buildingTabs prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan" onclick="toggleBuildingScreen('diamond')">Diamond Buildings</button>
-    <button class="buildingTabs transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum" onclick="toggleBuildingScreen('mythos')">Mythos Buildings</button>
-    <button class="buildingTabs reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow" onclick="toggleBuildingScreen('particle')">Particle Buildings</button>
-    <button class="buildingTabs ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange" onclick="toggleBuildingScreen('tesseract')">Tesseract Buildings</button>
+    <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow" onclick="toggleSubTab(1, 0)">Coin Buildings</button>
+    <button class="buildingTabs prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan" onclick="toggleSubTab(1, 1)">Diamond Buildings</button>
+    <button class="buildingTabs transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum" onclick="toggleSubTab(1, 2)">Mythos Buildings</button>
+    <button class="buildingTabs reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow" onclick="toggleSubTab(1, 3)">Particle Buildings</button>
+    <button class="buildingTabs ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange" onclick="toggleSubTab(1, 4)">Tesseract Buildings</button>
     <div id="coinBuildings">
     <div id="buyamountcoin">
         <table class="coinunlock3" id="coinbuyamount">
@@ -1020,10 +1029,10 @@
 
 
         <div id="runes">
-            <button id="toggleRuneSubTab1" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(1)">Runes</button>
-            <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(2)">Talismans</button>
-            <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(3)">Blessings</button>
-            <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(4)">[=-Spirits-=]</button>
+            <button id="toggleRuneSubTab1" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 0)">Runes</button>
+            <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 1)">Talismans</button>
+            <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 2)">Blessings</button>
+            <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 3)">[=-Spirits-=]</button>
             <div id="runeContainer1">
             <div id="buyamountoffering">
                 <table id="offeringbuyamount">
@@ -1706,10 +1715,10 @@
         </div>
 
         <div id="cubes">
-            <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;" onclick="toggleCubeSubTab(1)">Cube Blessings</button>
-            <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid purple;" onclick="toggleCubeSubTab(2)">Tesseract Gifts</button>
-            <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" onclick="toggleCubeSubTab(3)">Hypercube Benedictions</button>
-            <button id="switchCubeSubTab4" class="cubeSwitchTabBtn" style="border: 2px solid white;" onclick="toggleCubeSubTab(4)">Cube Upgrades</button>
+            <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;" onclick="toggleSubTab(8, 0)">Cube Blessings</button>
+            <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid purple;" onclick="toggleSubTab(8, 1)">Tesseract Gifts</button>
+            <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" onclick="toggleSubTab(8, 2)">Hypercube Benedictions</button>
+            <button id="switchCubeSubTab4" class="cubeSwitchTabBtn" style="border: 2px solid white;" onclick="toggleSubTab(8, 3)">Cube Upgrades</button>
             <p id="cubeToQuarkTimer">-=- Time Until Daily Refill -=- <span id="cubeToQuarkTimerValue" style="color: cyan">11 hours 10 mins 5 seconds</span></p>
             <p id="cubeQuarksToday">Quarks gained from Cubes: <span id="cubeQuarksTodayValue" style="color: cyan">0/25</span></p>
             <p id="cubeQuarksOpenRequirement">Open <span id="cubeQuarksOpenRequirementValue" style="color: yellow">1</span> cubes for next quark.</p>
@@ -1795,7 +1804,7 @@
                         </tr>
                     </table>
                 </div>
-				<p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube blessings!</p>
+                <p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube blessings!</p>
             </div>
             <div id="cubeTab2" style="display: none">
                 <p id="tesseractWelcome" class="cubePlacement1" style="color: orchid">You obtain guidance from beings in another dimension!</p>
@@ -1871,7 +1880,7 @@
                         </tr>
                     </table>
                 </div>
-				<p id="tesseractBlessingsTotal">You have a total of <span id="tesseractBlessingTotalAmount">0</span> Tesseract gifts!</p>
+                <p id="tesseractBlessingsTotal">You have a total of <span id="tesseractBlessingTotalAmount">0</span> Tesseract gifts!</p>
             </div>
             <div id="cubeTab3" style="display: none">
                 <p id="hypercubeWelcome" class="cubePlacement1" style="color: rgb(255, 0, 76)">I didn't know that Wow! enterprises made 5-Dimensional Objects.</p>
@@ -1947,7 +1956,7 @@
                         </tr>
                     </table>
                 </div>
-				<p id="hypercubeBlessingsTotal">You have a total of <span id="hypercubeBlessingTotalAmount">0</span> Hypercube benedictions!</p>
+                <p id="hypercubeBlessingsTotal">You have a total of <span id="hypercubeBlessingTotalAmount">0</span> Hypercube benedictions!</p>
             </div>
             <div id="cubeTab4" style="display: none">
                 <p id="cubeAmount2">You have 0 Wow! Cubes</p>
@@ -2024,8 +2033,8 @@
         <div id="traits">
             <div id="corruptionStatsLoadouts" class="vAlign">
                 <span id="corrButtonRow" class="flex row center">
-                    <button id="corrStatsBtn" class="hCenter tight" onclick="toggleCorruptionLoadoutsStats(true)">Corruption Stats</button>
-                    <button id="corrLoadoutsBtn" class="hCenter tight" onclick="toggleCorruptionLoadoutsStats(false)">Corruption Loadouts</button>
+                    <button id="corrStatsBtn" class="hCenter tight" onclick="toggleSubTab(9, 0)">Corruption Stats</button>
+                    <button id="corrLoadoutsBtn" class="hCenter tight" onclick="toggleSubTab(9, 1)">Corruption Loadouts</button>
                 </span>
                 <div id="corruptionStats">
                     <span class="corruptionStatRow">
@@ -2128,11 +2137,11 @@
         </div>
 <div id="settings">
     <div class="subtabSwitcher">
-        <button style="border: 2px solid white" onclick="setActiveSettingScreen('settingsubtab', this)">Settings</button>
-        <button style="border: 2px solid gold" onclick="setActiveSettingScreen('creditssubtab', this)">Credits</button>
-        <button style="border: 2px solid orange" onclick="setActiveSettingScreen('statisticsSubTab', this)">Stats for Nerds</button>
-        <button class="prestigeunlockib" style="border: 2px solid brown" onclick="setActiveSettingScreen('resetHistorySubTab', this)">Reset History</button>
-        <button class="ascendunlockib" style="border: 2px solid darkorange" onclick="setActiveSettingScreen('ascendHistorySubTab', this)">Ascend History</button>
+        <button style="border: 2px solid white" onclick="toggleSubTab(-1, 0)">Settings</button>
+        <button style="border: 2px solid gold" onclick="toggleSubTab(-1, 1)">Credits</button>
+        <button style="border: 2px solid orange" onclick="toggleSubTab(-1, 2)">Stats for Nerds</button>
+        <button class="prestigeunlockib" style="border: 2px solid brown" onclick="toggleSubTab(-1, 3)">Reset History</button>
+        <button class="ascendunlockib" style="border: 2px solid darkorange" onclick="toggleSubTab(-1, 4)">Ascend History</button>
     </div>
     <div class="subtabContent subtabActive" id="settingsubtab">
         <p class="prestigeunlock" id="settingtitle3" style="color: plum">Miscellaneous Stats</p>
@@ -2178,28 +2187,25 @@
         <div id="exportButtons">
             <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
             <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
-
             <div>
-                <input style="float:center;" type="checkbox" id="saveType" name="saveType">
+                <input type="checkbox" id="saveType" name="saveType">
                 <label style="display: inline;" for="saveType">Copy to Clipboard</label>
             </div>
-            
             <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
             <p id="exportinfo" class="tightText" style="color: white"></p>
-            <label title="Use $TIME$ for 24h time, $TIME12$ for 12h">
+            <label title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h">
                 <input id="saveStringInput" onblur="updateSaveString()">
             </label>
-            <p id="saveString" class="tightText" title="Use $TIME$ for 24h time, $TIME12$ for 12h"></p>
+            <p id="saveString" class="tightText" title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h"></p>
+            <p id="importgame" class="tightText" style="color: limegreen">Load game below!</p>
+            <label id="importFileButton" for="importfile">Choose File</label>
+            <input type="file" id="importfile" accept=".txt" style="display: none">
+            <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
         </div>
-        <p id="importgame" style="color: limegreen">Load game below!</p>
-        <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
         <p id="saveinfo" style="color: limegreen"></p>
         <button id="submitstats" onclick="submitStats()" style="border: 2px solid maroon">Submit your stats to Kongregate!</button>
         <button id="promocodes" onclick="promocodes()" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
         <p id="promocodeinfo" style="color: goldenrod"></p>
-        <textarea id="exporttext" class="exporting" style="color: white; font-size: 0.3em;"></textarea>
-        <p id="importinfo" style="color: white"></p>
-        <input type="file" id="importfile" accept=".txt" style="color: transparent">
         <div id="discord">
             Click the image below to join the Discord!
             <a id="discordhref" href="https://www.discord.gg/ameCknq" target="_blank">
@@ -2294,7 +2300,7 @@
                 </table>
             </div>
         </div>
-        <div id="historyAnts" class="chal9">
+        <div id="historyAnts" class="sacrificeAnts">
             <p>Your sacrifices got you the following:</p>
             <div class="historyTableWrap">
                 <table id="historyAntsTable">
