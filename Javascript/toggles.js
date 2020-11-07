@@ -770,11 +770,17 @@ function toggleCorruptionLoadoutsStats(stats) {
 }
 
 function toggleAscStatPerSecond(id) {
+    const el = document.getElementById(`unit${id}`);
+    if(!el) {
+        console.log(id, 'platonic needs to fix');
+        return;
+    }
+
     if (player.ascStatToggles[id]) {
         player.ascStatToggles[id] = false;
-        document.getElementById(`unit${id}`).textContent = "/s";
+        el.textContent = "/s";
     } else {
         player.ascStatToggles[id] = true;
-        document.getElementById(`unit${id}`).textContent = "";
+        el.textContent = '';
     }
 }
