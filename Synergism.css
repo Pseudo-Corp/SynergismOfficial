@@ -4621,7 +4621,6 @@ margin-left: -13px
 	background: #262626;
 }
 .historySubTab tbody .history-seconds {
-	max-width: 90px; /* fits "90d20h50m50s" */
 	white-space: nowrap;
 }
 .historySubTab tbody .history-filler {
@@ -4649,21 +4648,23 @@ margin-left: -13px
 	border: 2px solid red;
 }
 
-#historyResetTable, #historyAntsTable {
-	min-width: 588px;
+#historyResetTable {
+	min-width: 540px;
+}
+#historyAntsTable {
+	min-width: 700px;
 }
 
 #historyAscendTable {
-	min-width: 1000px;
+	min-width: 1180px;
 }
 
 .historyTableWrap {
-	min-width: 620px;
 	max-height: 450px;
 	overflow-y: auto;
 }
 #historyAscend .historyTableWrap {
-	min-width: 1032px;
+	min-width: 1212px;
 }
 
 .runeIcons{
