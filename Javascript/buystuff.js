@@ -373,7 +373,7 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
         if (getCost(originalCost, buyStart + buyInc - stepdown, type, num, r).lessThanOrEqualTo(player[tag])) {
             stepdown = Math.floor(stepdown / 2);
         } else {
-            buyInc = buyInc - stepdown;
+            buyInc = buyInc - Math.max(smallestInc(buyInc), stepdown);
         }
     }
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
@@ -382,7 +382,7 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
     while (buyFrom < buyStart + buyInc && player[tag].greaterThanOrEqualTo(thisCost)) {
         player[tag] = player[tag].sub(thisCost);
         player[pos + 'Owned' + type] = buyFrom;
-        buyFrom = buyFrom + 1;
+        buyFrom = buyFrom + smallestInc(buyFrom);
         thisCost = getCost(originalCost, buyFrom, type, num, r);
         player[pos + 'Cost' + type] = thisCost;
     }
@@ -559,7 +559,7 @@ function boostAccelerator(automated) {
             if (getAcceleratorBoostCost(buyStart + buyInc - stepdown).lessThanOrEqualTo(player.prestigePoints)) {
                 stepdown = Math.floor(stepdown / 2);
             } else {
-                buyInc = buyInc - stepdown;
+                buyInc = buyInc - Math.max(smallestInc(buyInc),stepdown);
             }
         }
         // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
@@ -568,7 +568,7 @@ function boostAccelerator(automated) {
         while (buyFrom < buyStart + buyInc && player.prestigePoints.greaterThanOrEqualTo(getAcceleratorBoostCost(buyFrom))) {
             player.prestigePoints = player.prestigePoints.sub(thisCost);
             player.acceleratorBoostBought = buyFrom;
-            buyFrom = buyFrom + 1;
+            buyFrom = buyFrom + smallestInc(buyInc);
             thisCost = getAcceleratorBoostCost(buyFrom);
             player.acceleratorBoostCost = thisCost;
 
