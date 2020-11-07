@@ -587,7 +587,7 @@ const player = {
     hypercubeOpenedDaily: 0,
     hypercubeQuarkDaily: 0,
     loadedOct4Hotfix: false,
-    version: '2.0.8~beta1'
+    version: '2.0.8~beta2'
 }
 
 const blank_save = Object.assign({}, player);
@@ -3376,6 +3376,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 
     const ver = document.getElementById('versionnumber');
     ver && (ver.textContent = `You're playing on v${player.version} - The Great Reimagining [Last Update: 02:35 PM UTC-5 Nov 7]`);
+    document.title = 'Synergism v' + player.version;
 
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
     const isLZString = dec !== '';
