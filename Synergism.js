@@ -538,7 +538,8 @@ const player = {
     ascStatToggles: { // false here means show per second
         1: false,
         2: false,
-        3: false
+        3: false,
+        4: false
     },
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -572,7 +573,7 @@ const player = {
 
     autoTesseracts: [false, false, false, false, false, false],
 
-    saveString: "Synergism-v2.0.0-$TIME$.txt", // TODO CHANGE THIS BEFORE RELEASE (REMOVE TEST)
+    saveString: "Synergism-$VERSION$-$TIME$.txt",
     brokenfile1: false,
     exporttest: "YES!",
     kongregatetest: "NO!",
@@ -586,7 +587,7 @@ const player = {
     hypercubeOpenedDaily: 0,
     hypercubeQuarkDaily: 0,
     loadedOct4Hotfix: false,
-    [Symbol.for('version')]: '2.0.0'
+    [Symbol.for('version')]: '2.0.6'
 }
 
 const blank_save = Object.assign({}, player);
@@ -610,10 +611,10 @@ function saveSynergy(button) {
     localStorage.setItem("Synergysave2", btoa(JSON.stringify(p)));
 
     if (button) {
-        let el = document.getElementById("saveinfo").textContent;
-        el = "Game saved successfully!"
+        let el = document.getElementById("saveinfo");
+        el.textContent = "Game saved successfully!"
         setTimeout(function () {
-            el = '';
+            el.textContent = '';
         }, 4000);
     }
 }
@@ -1052,7 +1053,7 @@ function loadSynergy() {
 
 
         if (player.saveString === undefined || player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
-            player.saveString = "Synergism-v2.0.5-$TIME$.txt"
+            player.saveString = "Synergism-$VERSION$-$TIME$.txt"
         }
         document.getElementById("saveStringInput").value = player.saveString
 
@@ -1536,7 +1537,7 @@ function updateAllTick() {
     }
     calculateAcceleratorMultiplier();
     a *= acceleratorMultiplier
-    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6]/10) * maladaptivePower[player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
+    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 10) * maladaptivePower[player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
     a = Math.floor(a)
 
     freeAccelerator = a;
@@ -1695,7 +1696,7 @@ function updateAllMultiplier() {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
-    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6]/10) * divisivenessPower[player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
+    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 10) * divisivenessPower[player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
     a = Math.floor(a)
     freeMultiplier = a;
     totalMultiplier = freeMultiplier + player.multiplierBought;
@@ -1810,11 +1811,11 @@ function multipliers() {
     }
     c = Decimal.pow(s, 1 + 0.001 * player.researches[17]);
     lol = Decimal.pow(c, 1 + 0.025 * player.upgrades[123])
-    if(player.currentChallenge.ascension === 15 && player.platonicUpgrades[5] > 0){
+    if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[5] > 0) {
         lol = Decimal.pow(lol, 1.1)
     }
-    if(player.currentChallenge.ascension === 15 && player.platonicUpgrades[14] > 0){
-        lol = Decimal.pow(lol, 1 + 1/11 * player.usedCorruptions[9] * Decimal.log(player.coins.add(1), 10)/(1e7 + Decimal.log(player.coins.add(1),10)))
+    if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[14] > 0) {
+        lol = Decimal.pow(lol, 1 + 1 / 11 * player.usedCorruptions[9] * Decimal.log(player.coins.add(1), 10) / (1e7 + Decimal.log(player.coins.add(1), 10)))
     }
     globalCoinMultiplier = c;
     globalCoinMultiplier = Decimal.pow(globalCoinMultiplier, financialcollapsePower[player.usedCorruptions[9]])
@@ -1995,11 +1996,11 @@ function multipliers() {
 
     globalAntMult = Decimal.pow(globalAntMult, 1 - 0.9 / 90 * sumContents(player.usedCorruptions))
     globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
-    
-    if (player.platonicUpgrades[12] > 0){
-        globalAntMult = globalAntMult.times(Decimal.pow(1 + 1/20 * player.platonicUpgrades[12], sumContents(player.highestchallengecompletions)))
+
+    if (player.platonicUpgrades[12] > 0) {
+        globalAntMult = globalAntMult.times(Decimal.pow(1 + 1 / 20 * player.platonicUpgrades[12], sumContents(player.highestchallengecompletions)))
     }
-    if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[10] > 0){
+    if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[10] > 0) {
         globalAntMult = Decimal.pow(globalAntMult, 1.25)
     }
 
@@ -2011,13 +2012,13 @@ function multipliers() {
     globalConstantMult = globalConstantMult.times(1 + 4 / 100 * player.researches[169])
     globalConstantMult = globalConstantMult.times(1 + 5 / 100 * player.researches[184])
     globalConstantMult = globalConstantMult.times(1 + 10 / 100 * player.researches[199])
-    if(player.platonicUpgrades[5] > 0){
+    if (player.platonicUpgrades[5] > 0) {
         globalConstantMult = globalConstantMult.times(2)
     }
-    if(player.platonicUpgrades[10] > 0){
+    if (player.platonicUpgrades[10] > 0) {
         globalConstantMult = globalConstantMult.times(10)
     }
-    if(player.platonicUpgrades[15] > 0){
+    if (player.platonicUpgrades[15] > 0) {
         globalConstantMult = globalConstantMult.times(1e5)
     }
 
@@ -2972,7 +2973,7 @@ function tick() {
                 if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
                     let unmaxed = 0;
                     for (let i = 1; i <= 5; i++) {
-                        if (player.runelevels[i] < calculateMaxRunes(i))
+                        if (player.runelevels[i - 1] < calculateMaxRunes(i))
                             unmaxed++;
                     }
                     if (unmaxed > 0) {

@@ -47,33 +47,41 @@
     </head>
 <main>
 
-<img src="Pictures/Splash/preloader.png" id="preload" alt="" style="width: 100%;">
-<div id="offlineprogressbar">
-<p id="offlineTimer" style="color: plum"></p>
-<p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
-<div id="offlineprogressdone"></div>
-</div>
+    <img src="Pictures/Splash/preloader.png" id="preload" alt="" style="width: 100%;">
+    <div id="offlineprogressbar">
+        <p id="offlineTimer" style="color: plum"></p>
+        <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
+        <div id="offlineprogressdone"></div>
+    </div>
     <div id="ascensionStats">
-        <div style="height: inherit;">
-            <span onclick="toggleAscStatPerSecond(1)">
-                <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
-                <span id="AscCubes">x</span> C<span id="unit1">/s</span>
-            </span>
-            <span onclick="toggleAscStatPerSecond(2)">
-                <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
-                <span id="AscTess">x</span> T<span  id="unit2">/s</span>
-            </span>
-            <span onclick="toggleAscStatPerSecond(3)" id="AscHyperSpan" style="display: none">
-                <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
-                <span id="AscHyper">x</span> H<span  id="unit3">/s</span>
-            </span>
-            <img src="Pictures/questionable.png" class="corruptionImg" alt="">
-            <span id="AscLen">x</span>
-            <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
-            <span id="AscC10">x</span>
-            <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
-            <span id="AscTimeAccel">x</span>
-        </div>
+    <span onclick="toggleAscStatPerSecond(1)" id="ascCubeStats">
+        <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
+        <span><span id="ascCubes">x</span> C<span id="unit1">/s</span></span>
+    </span>
+    <span onclick="toggleAscStatPerSecond(2)" id="ascTessStats">
+        <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
+        <span><span id="ascTess">x</span> T<span id="unit2">/s</span></span>
+    </span>
+    <span onclick="toggleAscStatPerSecond(3)" id="ascHyperStats">
+        <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
+        <span><span id="ascHyper">x</span> H<span id="unit3">/s</span></span>
+    </span>
+    <span onclick="toggleAscStatPerSecond(4)" id="ascPlatonicStats">
+        <img src="Pictures/Platonic%20Cube.png" class="corruptionImg" alt="">
+        <span><span id="ascPlatonic">x</span> P<span id="unit4">/s</span></span>
+    </span>
+    <span id="ascTimeTakenStats">
+        <img src="Pictures/questionable.png" class="corruptionImg" alt="">
+        <span id="ascLen">x</span>
+    </span>
+    <span id="ascC10CompletionsStats">
+        <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
+        <span id="ascC10">x</span>
+    </span>
+    <span id="ascTimeFactorStats">
+        <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
+        <span id="ascTimeAccel">x</span>
+    </span>
     </div>
 <div id="navbar">
 
@@ -1796,7 +1804,7 @@
                         </tr>
                     </table>
                 </div>
-				<p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube blessings!</p>
+                <p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube blessings!</p>
             </div>
             <div id="cubeTab2" style="display: none">
                 <p id="tesseractWelcome" class="cubePlacement1" style="color: orchid">You obtain guidance from beings in another dimension!</p>
@@ -1872,7 +1880,7 @@
                         </tr>
                     </table>
                 </div>
-				<p id="tesseractBlessingsTotal">You have a total of <span id="tesseractBlessingTotalAmount">0</span> Tesseract gifts!</p>
+                <p id="tesseractBlessingsTotal">You have a total of <span id="tesseractBlessingTotalAmount">0</span> Tesseract gifts!</p>
             </div>
             <div id="cubeTab3" style="display: none">
                 <p id="hypercubeWelcome" class="cubePlacement1" style="color: rgb(255, 0, 76)">I didn't know that Wow! enterprises made 5-Dimensional Objects.</p>
@@ -1948,7 +1956,7 @@
                         </tr>
                     </table>
                 </div>
-				<p id="hypercubeBlessingsTotal">You have a total of <span id="hypercubeBlessingTotalAmount">0</span> Hypercube benedictions!</p>
+                <p id="hypercubeBlessingsTotal">You have a total of <span id="hypercubeBlessingTotalAmount">0</span> Hypercube benedictions!</p>
             </div>
             <div id="cubeTab4" style="display: none">
                 <p id="cubeAmount2">You have 0 Wow! Cubes</p>
@@ -2179,28 +2187,25 @@
         <div id="exportButtons">
             <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
             <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
-
             <div>
-                <input style="float:center;" type="checkbox" id="saveType" name="saveType">
+                <input type="checkbox" id="saveType" name="saveType">
                 <label style="display: inline;" for="saveType">Copy to Clipboard</label>
             </div>
-            
             <button id="exportgame" onclick="exportSynergism()" style="border:2px solid green">Export the game here.</button>
             <p id="exportinfo" class="tightText" style="color: white"></p>
-            <label title="Use $TIME$ for 24h time, $TIME12$ for 12h">
+            <label title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h">
                 <input id="saveStringInput" onblur="updateSaveString()">
             </label>
-            <p id="saveString" class="tightText" title="Use $TIME$ for 24h time, $TIME12$ for 12h"></p>
+            <p id="saveString" class="tightText" title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h"></p>
+            <p id="importgame" class="tightText" style="color: limegreen">Load game below!</p>
+            <label id="importFileButton" for="importfile">Choose File</label>
+            <input type="file" id="importfile" accept=".txt" style="display: none">
+            <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
         </div>
-        <p id="importgame" style="color: limegreen">Load game below!</p>
-        <button id="savegame" onclick="saveSynergy(true)" style="border: 2px solid plum">Save the game manually.</button>
         <p id="saveinfo" style="color: limegreen"></p>
         <button id="submitstats" onclick="submitStats()" style="border: 2px solid maroon">Submit your stats to Kongregate!</button>
         <button id="promocodes" onclick="promocodes()" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
         <p id="promocodeinfo" style="color: goldenrod"></p>
-        <textarea id="exporttext" class="exporting" style="color: white; font-size: 0.3em;"></textarea>
-        <p id="importinfo" style="color: white"></p>
-        <input type="file" id="importfile" accept=".txt" style="color: transparent">
         <div id="discord">
             Click the image below to join the Discord!
             <a id="discordhref" href="https://www.discord.gg/ameCknq" target="_blank">
