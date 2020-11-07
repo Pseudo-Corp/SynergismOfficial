@@ -403,6 +403,7 @@ const player = {
         reincarnate: true,
     },
     tabnumber: 1,
+    subtabNumber: 0,
 
     // create a Map with keys defaulting to false
     codes: new Map(
@@ -1076,6 +1077,7 @@ function loadSynergy() {
             updateCubeUpgradeBG(j);
         }
 
+        player.subtabNumber = 0;
         runescreen = "runes";
         document.getElementById("toggleRuneSubTab1").style.backgroundColor = 'crimson'
         document.getElementById("toggleRuneSubTab1").style.border = '2px solid gold'
@@ -3327,6 +3329,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             if (player.currentChallenge.transcension !== 0) {
                 resetCheck('challenge', null, true)
             }
+            break;
         case "M":
             buyMultiplier();
             break;
@@ -3344,11 +3347,19 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             break;
         case "ARROWLEFT":
             event.preventDefault();
-            keyboardtabchange(-1);
+            keyboardTabChange(-1);
             break;
         case "ARROWRIGHT":
             event.preventDefault();
-            keyboardtabchange(1);
+            keyboardTabChange(1);
+            break;
+        case "ARROWUP":
+            event.preventDefault();
+            keyboardTabChange(-1, false);
+            break;
+        case "ARROWDOWN":
+            event.preventDefault();
+            keyboardTabChange(1, false);
             break;
     }
 

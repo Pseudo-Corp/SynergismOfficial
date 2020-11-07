@@ -164,11 +164,11 @@
 </div>
 
 <div id="buildings">
-    <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow" onclick="toggleBuildingScreen('coin')">Coin Buildings</button>
-    <button class="buildingTabs prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan" onclick="toggleBuildingScreen('diamond')">Diamond Buildings</button>
-    <button class="buildingTabs transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum" onclick="toggleBuildingScreen('mythos')">Mythos Buildings</button>
-    <button class="buildingTabs reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow" onclick="toggleBuildingScreen('particle')">Particle Buildings</button>
-    <button class="buildingTabs ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange" onclick="toggleBuildingScreen('tesseract')">Tesseract Buildings</button>
+    <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow" onclick="toggleSubTab(1, 0)">Coin Buildings</button>
+    <button class="buildingTabs prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan" onclick="toggleSubTab(1, 1)">Diamond Buildings</button>
+    <button class="buildingTabs transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum" onclick="toggleSubTab(1, 2)">Mythos Buildings</button>
+    <button class="buildingTabs reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow" onclick="toggleSubTab(1, 3)">Particle Buildings</button>
+    <button class="buildingTabs ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange" onclick="toggleSubTab(1, 4)">Tesseract Buildings</button>
     <div id="coinBuildings">
     <div id="buyamountcoin">
         <table class="coinunlock3" id="coinbuyamount">
@@ -1021,10 +1021,10 @@
 
 
         <div id="runes">
-            <button id="toggleRuneSubTab1" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(1)">Runes</button>
-            <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(2)">Talismans</button>
-            <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(3)">Blessings</button>
-            <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid grey; color: white" onclick="toggleRuneScreen(4)">[=-Spirits-=]</button>
+            <button id="toggleRuneSubTab1" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 0)">Runes</button>
+            <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 1)">Talismans</button>
+            <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 2)">Blessings</button>
+            <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 3)">[=-Spirits-=]</button>
             <div id="runeContainer1">
             <div id="buyamountoffering">
                 <table id="offeringbuyamount">
@@ -1707,10 +1707,10 @@
         </div>
 
         <div id="cubes">
-            <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;" onclick="toggleCubeSubTab(1)">Cube Blessings</button>
-            <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid purple;" onclick="toggleCubeSubTab(2)">Tesseract Gifts</button>
-            <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" onclick="toggleCubeSubTab(3)">Hypercube Benedictions</button>
-            <button id="switchCubeSubTab4" class="cubeSwitchTabBtn" style="border: 2px solid white;" onclick="toggleCubeSubTab(4)">Cube Upgrades</button>
+            <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;" onclick="toggleSubTab(8, 0)">Cube Blessings</button>
+            <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid purple;" onclick="toggleSubTab(8, 1)">Tesseract Gifts</button>
+            <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" onclick="toggleSubTab(8, 2)">Hypercube Benedictions</button>
+            <button id="switchCubeSubTab4" class="cubeSwitchTabBtn" style="border: 2px solid white;" onclick="toggleSubTab(8, 3)">Cube Upgrades</button>
             <p id="cubeToQuarkTimer">-=- Time Until Daily Refill -=- <span id="cubeToQuarkTimerValue" style="color: cyan">11 hours 10 mins 5 seconds</span></p>
             <p id="cubeQuarksToday">Quarks gained from Cubes: <span id="cubeQuarksTodayValue" style="color: cyan">0/25</span></p>
             <p id="cubeQuarksOpenRequirement">Open <span id="cubeQuarksOpenRequirementValue" style="color: yellow">1</span> cubes for next quark.</p>
@@ -2025,8 +2025,8 @@
         <div id="traits">
             <div id="corruptionStatsLoadouts" class="vAlign">
                 <span id="corrButtonRow" class="flex row center">
-                    <button id="corrStatsBtn" class="hCenter tight" onclick="toggleCorruptionLoadoutsStats(true)">Corruption Stats</button>
-                    <button id="corrLoadoutsBtn" class="hCenter tight" onclick="toggleCorruptionLoadoutsStats(false)">Corruption Loadouts</button>
+                    <button id="corrStatsBtn" class="hCenter tight" onclick="toggleSubTab(9, 0)">Corruption Stats</button>
+                    <button id="corrLoadoutsBtn" class="hCenter tight" onclick="toggleSubTab(9, 1)">Corruption Loadouts</button>
                 </span>
                 <div id="corruptionStats">
                     <span class="corruptionStatRow">
@@ -2129,11 +2129,11 @@
         </div>
 <div id="settings">
     <div class="subtabSwitcher">
-        <button style="border: 2px solid white" onclick="setActiveSettingScreen('settingsubtab', this)">Settings</button>
-        <button style="border: 2px solid gold" onclick="setActiveSettingScreen('creditssubtab', this)">Credits</button>
-        <button style="border: 2px solid orange" onclick="setActiveSettingScreen('statisticsSubTab', this)">Stats for Nerds</button>
-        <button class="prestigeunlockib" style="border: 2px solid brown" onclick="setActiveSettingScreen('resetHistorySubTab', this)">History</button>
-        <button class="ascendunlockib" style="border: 2px solid darkorange" onclick="setActiveSettingScreen('ascendHistorySubTab', this)">Ascend History</button>
+        <button style="border: 2px solid white" onclick="toggleSubTab(-1, 0)">Settings</button>
+        <button style="border: 2px solid gold" onclick="toggleSubTab(-1, 1)">Credits</button>
+        <button style="border: 2px solid orange" onclick="toggleSubTab(-1, 2)">Stats for Nerds</button>
+        <button class="prestigeunlockib" style="border: 2px solid brown" onclick="toggleSubTab(-1, 3)">Reset History</button>
+        <button class="ascendunlockib" style="border: 2px solid darkorange" onclick="toggleSubTab(-1, 4)">Ascend History</button>
     </div>
     <div class="subtabContent subtabActive" id="settingsubtab">
         <p class="prestigeunlock" id="settingtitle3" style="color: plum">Miscellaneous Stats</p>

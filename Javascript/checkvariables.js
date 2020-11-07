@@ -216,4 +216,7 @@ function checkVariablesOnLoad(data) {
     if (player.antSacrificeTimerReal === undefined) {
         player.antSacrificeTimerReal = player.antSacrificeTimer / calculateTimeAcceleration();
     }
+    if (player.subtabNumber === undefined || data.subtabNumber === undefined) {
+        player.subtabNumber = 0;
+    }
 }
