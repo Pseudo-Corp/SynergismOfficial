@@ -18,7 +18,7 @@ const format12 = new Intl.DateTimeFormat("EN-GB", {
 })
 
 function getRealTime(use12 = false) {
-    format = use12 ? format12 : format24;
+    let format = use12 ? format12 : format24;
     let dateParts = format
         .formatToParts(new Date())
         .filter((x) => x.type !== "literal")
