@@ -210,6 +210,7 @@ Decimal.prototype.factorial = function () {
 
 const mantissaFactorialPartExtra = Math.log10(2 * Math.PI);
 const exponentFactorialPartExtra = Math.log10(Math.E);
+
 function factorialByExponent(fact) {
     ++fact;
     if (fact === 0) {
@@ -227,10 +228,10 @@ const fact100exponent = Math.log10(9.3326215443944152681699238856267e+157);
 // xn ~= 188.582
 // x ~= 188.582/n
 const precision16_loss_addition_of_ones = 188.582;
-const known_log10s = function() {
+const known_log10s = function () {
     // needed logs
-    let needed = [1.03,1.25];
-    let nums = [1,2,3,4,5,6,10,15];
+    let needed = [1.03, 1.25];
+    let nums = [1, 2, 3, 4, 5, 6, 10, 15];
     for (let num of nums) {
         needed.push(100 + (100 * num));
         needed.push(10 + (10 * num));
@@ -240,7 +241,7 @@ const known_log10s = function() {
     const chalcompletions = 1000;
     for (let i = 0; i < chalcompletions; ++i) {
         needed.push(1 + (i / 2));
-    } 
+    }
 
     // constructing all logs
     let obj = {};
@@ -251,6 +252,7 @@ const known_log10s = function() {
     }
     return obj;
 }();
+
 function getCost(originalCost, buyingTo, type, num, r) {
 
 
@@ -395,7 +397,7 @@ function buyProducer(pos, type, num, autobuyer) {
     let tag = "";
     r += (rune4level * effectiveLevelMult) / 160;
     r += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
-    r += CalcECC('transcend', player.challengecompletions[4]) / 200 
+    r += CalcECC('transcend', player.challengecompletions[4]) / 200
     r += (3 * (bonusant7 + player.antUpgrades[7])) / 100;
     if (type === 'Diamonds') {
         tag = "prestigePoints";
