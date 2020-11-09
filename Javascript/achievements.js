@@ -410,7 +410,8 @@ areward = {
     areward197: "You will unlock a stat tracker for ascensions.",
     areward204: "You will gain 25% of excess time after 10 seconds each Ascension as a linear multiplier to rewards.",
     areward211: "You will gain 25% MORE excess time (Total: 50%) after 10 seconds each Ascension as a linear multiplier to rewards.",
-    areward218: "You gain gain 50% MORE MORE excess time (Total: 100%) after 10 seconds each Ascension as a linear multiplier to rewards."
+    areward218: "You gain gain 50% MORE MORE excess time (Total: 100%) after 10 seconds each Ascension as a linear multiplier to rewards.",
+    areward251: "You gain a permanent +111% Obtainium, Offering bonus, with +11.1% Wow Cubes, Tesseracts, Hypercubes, Platonic Cubes, and +1.11% Coin Exponent!"
 }
 
 function resetachievementcheck(i) {

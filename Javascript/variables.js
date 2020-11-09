@@ -390,3 +390,26 @@ var autoTalismanTimer = 0
 
 var autoChallengeTimerIncrement = 0;
 var corruptionTrigger = 1;
+
+var challenge15Rewards = {
+    coinExponent: 1,
+    acceleratorBoost: 1,
+    multiplier: 1,
+    runeExp: 1,
+    runeBonus: 1,
+    transcendChallengeReduction: 1,
+    reincarnationChallengeReduction: 1,
+    obtainium: 1,
+    offering: 1,
+    antSpeed: 1,
+    bonusAntLevel: 1,
+    talismanBonus: 1,
+    blessingBonus: 1,
+    globalSpeed: 1,
+    cube: 1,
+    tesseract: 1,
+    hypercube: 1,
+    platonic: 1,
+    spiritBonus: 1,
+    score: 1,
+}

@@ -8,10 +8,10 @@ html {
 
 }
 body {background-color: #111111 ;
-	transform: scale(0.9);
+	transform: scale(0.8);
 	transform-origin: 0 0;
-	/*overflow-x: hidden;
-	overflow-y: hidden;*/
+	overflow-x: hidden;
+	/*overflow-y: hidden;*/
 }
 
 body {
@@ -159,7 +159,7 @@ a {color: white;}
 
 #resetrow {
 	position: relative;
-	left: 700px;
+	left: 644px;
 	top: 28.5px;
 	width: 10%
 }
@@ -4133,18 +4133,18 @@ margin-left: -13px
 	text-align: center;
 	top: 30px;
 	font-size: 1.0em;
-	width: 1000px;
+	width: 700px;
 	left: 50%;
-	margin-left: -500px;
+	margin-left: -350px;
 }
 .cubePlacement3{
 	position:absolute;
 	text-align: center;
 	top: 50px;
 	font-size: 1.0em;
-	width: 1000px;
+	width: 700px;
 	left: 50%;
-	margin-left: -500px;
+	margin-left: -350px;
 }
 .cubePlacement4{
 	position: absolute;
@@ -4896,4 +4896,40 @@ img.small {
 }
 #AscTimeAccel {
 	color: royalblue;
+}
+#c15Rewards{
+	position: absolute;
+	top: 65px;
+	left: 30%
+}
+.challengeContainer {
+	width: 450px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-bottom: auto;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+.challengePortion{
+	width: 410px;
+	height: auto;
+	margin: auto;
+	color: white;
+	text-align: left;
+	font-size: 1em;
+}
+.challengeNumber{
+	width: 380px;
+	height: auto;
+	margin: auto;
+	color: white;
+	text-align: left;
+	font-size: 1em;
+}
+
+#platonicUpgrades{
+	position: absolute;
+	left: 69%;
+	top: 65px;
 }
