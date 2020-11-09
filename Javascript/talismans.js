@@ -84,8 +84,18 @@ function buyTalismanStuff(i) {
             achievementaward(239)
         }
     }
+    if(amountToBuy < 1e15){
     player.researchPoints -= (amountToBuy * obtainiumCost);
-    player.runeshards -= (amountToBuy * offeringCost)
+    player.runeshards -= (amountToBuy * offeringCost);
+    }
+    if(amountToBuy >= 1e15){
+        if(offeringCost === 0){
+        player.researchPoints *= (1 - 1/100 * player.buyTalismanShardPercent)
+        }
+        if(offeringCost > 0){
+            player.runeshards *= (1 - 1/100 * player.buyTalismanShardPercent)
+        }
+    }
 
     updateCostDisplay(i)
     updateTalismanInventory()

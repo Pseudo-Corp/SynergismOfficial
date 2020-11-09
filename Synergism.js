@@ -1297,6 +1297,7 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         calculateAnts();
         calculateRuneLevels();
         resetHistoryRenderAllTables();
+        c15RewardUpdate();
     }
     updateAchievementBG();
 
@@ -1691,7 +1692,7 @@ function updateAllMultiplier() {
     a *= (1 + 0.2 / 100 * player.researches[188])
     a *= (1 + 0.01 / 100 * player.researches[200])
     a *= (1 + 0.01 / 100 * player.cubeUpgrades[50])
-    a *= calculateSigmoidExponential(39, (player.antUpgrades[5] + bonusant5) / 1000 * 40 / 39)
+    a *= calculateSigmoidExponential(40, (player.antUpgrades[5] + bonusant5) / 1000 * 40 / 39)
     a *= cubeBonusMultiplier[2]
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
@@ -2472,6 +2473,12 @@ function resetCheck(i, manual, leaving) {
         if (a === 15) {
             if (player.coins.greaterThanOrEqualTo(challengeRequirement(a, player.challengecompletions[a], a)) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
+            }
+            else{
+                if(player.coins.greaterThanOrEqualTo(Decimal.pow(10, player.challenge15Exponent))){
+                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10);
+                    c15RewardUpdate();
+                }
             }
         }
         if (r !== 0) {

@@ -427,7 +427,7 @@ function challengeRequirement(challenge, completion, special) {
     } else if (challenge <= 14) {
         return calculateChallengeRequirementMultiplier("ascension", completion, special)
     } else if (challenge === 15) {
-        return Decimal.pow(10, 1 * Math.pow(10, 12))
+        return Decimal.pow(10, 4 * Math.pow(10, 12))
     }
 }
 

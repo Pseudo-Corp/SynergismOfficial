@@ -37,8 +37,8 @@ function toggleChallenges(i, auto) {
             if (player.currentChallenge.ascension === 15) {
                 player.usedCorruptions[0] = 0;
                 player.prototypeCorruptions[0] = 0;
-                for (var i = 1; i <= 9; i++) {
-                    player.usedCorruptions[i] = 10;
+                for (var i = 1; i <= 9; i++){
+                    player.usedCorruptions[i] = 11;
                 }
             }
         }
@@ -534,6 +534,7 @@ function setActiveSettingScreen(subtab, clickedButton) {
             }
             loadStatisticsAccelerator();
             loadStatisticsMultiplier();
+            loadStatisticsOfferingMultipliers();
             loadStatisticsCubeMultipliers();
             if (!subtabEl.classList.contains("subtabActive"))
                 clearInt(id);
@@ -603,8 +604,9 @@ function toggleCubeSubTab(i) {
     let b = document.getElementById("switchCubeSubTab2")
     let c = document.getElementById("switchCubeSubTab3")
     let d = document.getElementById("switchCubeSubTab4")
+    let e = document.getElementById("switchCubeSubTab5")
 
-    for (let j = 1; j <= 4; j++) {
+    for (let j = 1; j <= 5; j++) {
         if (document.getElementById("cubeTab" + j).style.display === "block" && j !== i) {
             document.getElementById("cubeTab" + j).style.display = "none"
         }
@@ -626,6 +628,9 @@ function toggleCubeSubTab(i) {
     i === 4 ?
         (d.style.backgroundColor = "crimson") :
         (d.style.backgroundColor = "black");
+    i === 5 ?
+        (e.style.backgroundColor = "crimson") :
+        (e.style.backgroundColor = "black");
 }
 
 function updateAutoChallenge(i) {

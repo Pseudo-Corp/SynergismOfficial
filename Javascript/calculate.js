@@ -243,7 +243,7 @@ function calculateMaxRunes(i) {
     return max
 }
 
-function calculateOfferings(i) {
+function calculateOfferings(i, calcMult = true, statistic = false) {
     let q = 0;
     let a = 0;
     let b = 0;
@@ -314,37 +314,39 @@ function calculateOfferings(i) {
     }
     q = a + b + c
 
+    let arr=[]
+    arr.push(1 + 10 * player.achievements[33] / 100) // Alchemy Achievement 5
+    arr.push(1 + 15 * player.achievements[34] / 100) // Alchemy Achievement 6
+    arr.push(1 + 25 * player.achievements[35] / 100) // Alchemy Achievement 7
+    arr.push(1 + 20 * player.upgrades[38] / 100) // Diamond Upgrade 4x3
+    arr.push(1 + player.upgrades[75] * 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5))) // Particle Upgrade 3x5
+    arr.push(1 + 1/50 * player.shopUpgrades.offeringAutoLevel); // Auto Offering Shop
+    arr.push(1 + 1 / 400 * Math.pow(player.shopUpgrades.offeringTimerLevel, 2)) // Offering EX Shop
+    arr.push(1 + 1 / 100 * player.shopUpgrades.cashGrabLevel) // Cash Grab
+    arr.push(1 + 1 / 10000 * sumContents(player.challengecompletions) * player.researches[85]) //Research 4x10
+    arr.push(1 + Math.pow((player.antUpgrades[6] + bonusant6), .66)) // Ant Upgrade:
+    arr.push(cubeBonusMultiplier[3]) // Brutus
+    arr.push(1 + 0.02 * player.constantUpgrades[3]) // Constant Upgrade 3
+    arr.push(1 + 0.0003 * player.talismanLevels[3] * player.researches[149] + 0.0004 * player.talismanLevels[3] * player.researches[179]) //Research 6x24,8x4
+    arr.push(1 + 0.12 * CalcECC('ascension', player.challengecompletions[12])) // Challenge 12
+    arr.push(1 + 0.01 / 100 * player.researches[200]) // Research 8x25
+    arr.push(1 + 0.05 * player.cubeUpgrades[46]) // Cube Upgrade 5x6
+    arr.push(1 + 0.02 / 100 * player.cubeUpgrades[50]) // Cube Upgrade 5x10
+    arr.push(1 + player.platonicUpgrades[5]) //Platonic ALPHA
+    arr.push(1 + 2.5 * player.platonicUpgrades[10]) //Platonic BETA
+    arr.push(1 + 5 * player.platonicUpgrades[15]) //Platonic OMEGA
 
-    if (player.achievements[33] > 0.5) {
-        q *= 1.10
+    if(calcMult){
+        q *= productContents(arr)
     }
-    if (player.achievements[34] > 0.5) {
-        q *= 1.15
+    else if(!calcMult){
+        return arr;
     }
-    if (player.achievements[35] > 0.5) {
-        q *= 1.25
+    
+    if(statistic){
+        return productContents(arr)
     }
-    if (player.upgrades[38] === 1) {
-        q *= 1.2
-    }
-    if (player.upgrades[75] > 0.5) {
-        q *= (1 + 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)))
-    }
-    q *= (1 + 1 / 50 * player.shopUpgrades.offeringAutoLevel);
-    q *= (1 + 1 / 400 * Math.pow(player.shopUpgrades.offeringTimerLevel, 2))
-    q *= (1 + 1 / 100 * player.shopUpgrades.cashGrabLevel);
-    q *= (1 + 1 / 10000 * sumContents(player.challengecompletions) * player.researches[85])
-    q *= (1 + Math.pow((player.antUpgrades[6] + bonusant6 / 50), 2 / 3))
-    q *= cubeBonusMultiplier[3]
-    q *= (1 + 0.02 * player.constantUpgrades[3])
-    q *= (1 + 0.0003 * player.talismanLevels[3] * player.researches[149] + 0.0004 * player.talismanLevels[3] * player.researches[179])
-    q *= (1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]))
-    q *= (1 + 0.01 / 100 * player.researches[200])
-    q *= (1 + 0.02 / 100 * player.cubeUpgrades[50])
-    q *= (1 + 0.05 * player.cubeUpgrades[46])
-    q *= (1 + player.platonicUpgrades[5])
-    q *= (1 + 2.5 * player.platonicUpgrades[10])
-    q *= (1 + 5 * player.platonicUpgrades[15])
+
     q = Math.floor(q) * 100 / 100
 
     let persecond = 0;
@@ -364,7 +366,7 @@ function calculateOfferings(i) {
 
 }
 
-function calculateObtainium() {
+function calculateObtainium(calcMult = true) {
     obtainiumGain = 1;
     if (player.upgrades[69] > 0) {
         obtainiumGain *= Math.min(10, Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))
