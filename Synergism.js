@@ -2186,9 +2186,6 @@ function resourceGain(dt, fast) {
         player.unlocks.coinfour = true;
         revealStuff();
     }
-    if (!fast) {
-        htmlInserts();
-    }
     if (player.antPoints.greaterThanOrEqualTo(3) && player.achievements[169] === 0) {
         achievementaward(169)
     }
@@ -2905,6 +2902,7 @@ function constantIntervals() {
     interval(saveSynergy, 5000);
     interval(autoUpgrades, 200);
     interval(buttoncolorchange, 200)
+    interval(htmlInserts, 50)
     interval(updateAll, 100)
     interval(buildingAchievementCheck, 200)
 
