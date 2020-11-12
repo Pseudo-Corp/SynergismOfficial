@@ -1,5 +1,4 @@
-function calculatetax(fast) {
-    fast = fast || false
+function calculatetax() {
     let a = new Decimal(0);
     let c = 0;
     let e = 1;

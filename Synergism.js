@@ -2027,8 +2027,7 @@ function multipliers() {
 
 // Function that adds to resources each tick. [Lines 928 - 989]
 
-function resourceGain(dt, fast) {
-    fast = fast || false
+function resourceGain(dt) {
 
     calculateTotalCoinOwned();
     calculateTotalAcceleratorBoost();
@@ -2036,7 +2035,7 @@ function resourceGain(dt, fast) {
     updateAllTick();
     updateAllMultiplier();
     multipliers();
-    calculatetax(fast);
+    calculatetax();
     if (produceTotal.greaterThanOrEqualTo(0.001)) {
         let addcoin = new Decimal.min(produceTotal.dividedBy(taxdivisor), Decimal.pow(10, maxexponent - Decimal.log(taxdivisorcheck, 10)))
         player.coins = player.coins.add(addcoin.times(dt / 0.025));
