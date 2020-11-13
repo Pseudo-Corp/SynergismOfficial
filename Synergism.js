@@ -520,6 +520,17 @@ const player = {
         talismanBonus: 0,
         globalSpeed: 0
     },
+    platonicBlessings: {
+        cubes: 0,
+        tesseracts: 0,
+        hypercubes: 0,
+        platonics: 0,
+        hypercubeBonus: 0,
+        taxes: 0,
+        scoreBonus: 0,
+        globalSpeed: 0,
+
+    },
     ascendShards: new Decimal("0"),
     autoAscend: false,
     autoAscendMode: "c10Completions",
@@ -587,11 +598,12 @@ const player = {
     hypercubeOpenedDaily: 0,
     hypercubeQuarkDaily: 0,
     loadedOct4Hotfix: false,
-    version: '2.0.8~beta2'
+    loadedNov13Vers: true,
+    version: '2.1.0'
 }
 
 const blank_save = Object.assign({}, player);
-blank_save.codes = new Map(Array.from(Array(26), (_, i) => [i + 1, false]));
+blank_save.codes = new Map(Array.from(Array(29), (_, i) => [i + 1, false]));
 
 /**
  * stringify a map so it can be re-made when importing
@@ -1204,6 +1216,7 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
 
         document.getElementById("talismanlevelup").style.display = "none"
         document.getElementById("talismanrespec").style.display = "none"
+        calculatePlatonicBlessings();
         calculateHypercubeBlessings();
         calculateTesseractBlessings();
         calculateCubeBlessings();
@@ -1430,6 +1443,21 @@ function format(input, accuracy = 0, long = false) {
         }
         if (power < 1e36) {
             return mantissaLook + "e" + powerLook + "Dc";
+        }
+        if (power < 1e39) {
+            return mantissaLook + "e" + powerLook + "UDc";
+        }
+        if (power < 1e42) {
+            return mantissaLook + "e" + powerLook + "DDc";
+        }
+        if (power < 1e45) {
+            return mantissaLook + "e" + powerLook + "TDc";
+        }
+        if (power < 1e48) {
+            return mantissaLook + "e" + powerLook + "QaDc";
+        }
+        if (power < 1e51) {
+            return mantissaLook + "e" + powerLook + "QaDc";
         }
         // If it doesn't fit a notation then default to mantissa e power
         return mantissa + "e" + power;
@@ -1697,6 +1725,7 @@ function updateAllMultiplier() {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
+    a *= challenge15Rewards.multiplier
     a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 10) * divisivenessPower[player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
     a = Math.floor(a)
     freeMultiplier = a;
@@ -1818,7 +1847,8 @@ function multipliers() {
     if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[14] > 0) {
         lol = Decimal.pow(lol, 1 + 1 / 11 * player.usedCorruptions[9] * Decimal.log(player.coins.add(1), 10) / (1e7 + Decimal.log(player.coins.add(1), 10)))
     }
-    globalCoinMultiplier = c;
+    lol = Decimal.pow(lol, challenge15Rewards.coinExponent)
+    globalCoinMultiplier = lol;
     globalCoinMultiplier = Decimal.pow(globalCoinMultiplier, financialcollapsePower[player.usedCorruptions[9]])
 
     coinOneMulti = new Decimal(1);
@@ -1997,6 +2027,7 @@ function multipliers() {
 
     globalAntMult = Decimal.pow(globalAntMult, 1 - 0.9 / 90 * sumContents(player.usedCorruptions))
     globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
+    globalAntMult = globalAntMult.times(challenge15Rewards.antSpeed)
 
     if (player.platonicUpgrades[12] > 0) {
         globalAntMult = globalAntMult.times(Decimal.pow(1 + 1 / 20 * player.platonicUpgrades[12], sumContents(player.highestchallengecompletions)))
@@ -2013,6 +2044,7 @@ function multipliers() {
     globalConstantMult = globalConstantMult.times(1 + 4 / 100 * player.researches[169])
     globalConstantMult = globalConstantMult.times(1 + 5 / 100 * player.researches[184])
     globalConstantMult = globalConstantMult.times(1 + 10 / 100 * player.researches[199])
+    globalConstantMult = globalConstantMult.times(challenge15Rewards.constantBonus)
     if (player.platonicUpgrades[5] > 0) {
         globalConstantMult = globalConstantMult.times(2)
     }
@@ -2276,7 +2308,7 @@ function resetCurrency() {
     //Prestige Point Formulae
     prestigePointGain = Decimal.floor(Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow));
     if (player.upgrades[16] > 0.5 && player.currentChallenge.transcension !== 5 && player.currentChallenge.reincarnation !== 10) {
-        prestigePointGain = prestigePointGain.times(Decimal.pow(acceleratorEffect, 1 / 3 * deflationMultiplier[player.usedCorruptions[9]]));
+        prestigePointGain = prestigePointGain.times(Decimal.min(Decimal.pow(10, 1e33), Decimal.pow(acceleratorEffect, 1 / 3 * deflationMultiplier[player.usedCorruptions[6]])));
     }
 
     //Transcend Point Formulae
@@ -2495,7 +2527,7 @@ function resetCheck(i, manual, leaving) {
             player.wowHypercubes += 1;
         }
 
-        if (!player.retrychallenges || manual || player.challengecompletions[a] >= maxCompletions) {
+        if (!player.retrychallenges || manual || player.challengecompletions[a] >= maxCompletions /*|| a === 15*/) {
             player.currentChallenge.ascension = 0;
         }
         updateChallengeDisplay();
@@ -2844,6 +2876,7 @@ function updateAll() {
     effectiveLevelMult *= (1 + player.researches[191] / 200 * 1 / 5) //Research 8x16
     effectiveLevelMult *= (1 + player.researches[146] / 200 * 4 / 5) //Research 6x21
     effectiveLevelMult *= (1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]))
+    effectiveLevelMult *= challenge15Rewards.runeBonus
 
     optimalOfferingTimer = 600 + 30 * player.researches[85] + 0.4 * rune5level + 120 * player.shopUpgrades.offeringTimerLevel
     optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel
@@ -3382,7 +3415,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
     }
 
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're playing on v${player.version} - The Great Reimagining [Last Update: 02:35 PM UTC-5 Nov 7]`);
+    ver && (ver.textContent = `You're playing on v${player.version} - The Abyss [Last Update: 2:00 PM UTC-8 Nov 13]`);
     document.title = 'Synergism v' + player.version;
 
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));

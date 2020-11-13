@@ -221,4 +221,36 @@ function checkVariablesOnLoad(data) {
     if (player.subtabNumber === undefined || data.subtabNumber === undefined) {
         player.subtabNumber = 0;
     }
+    if (data.wowPlatonicCubes === undefined){
+        player.wowPlatonicCubes = 0;
+        player.wowAbyssals = 0;
+    }
+    if (data.platonicBlessings === undefined){
+        let ascCount = player.ascensionCount
+        if(player.currentChallenge.ascension !== 0 && player.currentChallenge.ascension !== 15){
+            resetCheck('ascensionChallenge',false,true);
+        }
+        if(player.currentChallenge.ascension === 15){
+            resetCheck('ascensionChallenge',false,true);
+            player.challenge15Exponent = 0;
+            c15RewardUpdate();
+        }
+        player.ascensionCount = ascCount
+        player.challengecompletions[15] = 0;
+        player.highestchallengecompletions[15] = 0;
+        player.platonicBlessings = {
+            cubes: 0,
+            tesseracts: 0,
+            hypercubes: 0,
+            platonics: 0,
+            hypercubeBonus: 0,
+            taxes: 0,
+            scoreBonus: 0,
+            globalSpeed: 0,
+        }
+        player.platonicUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        player.challenge15Exponent = 0
+        player.loadedNov13Vers = false;
+    }
 }
+

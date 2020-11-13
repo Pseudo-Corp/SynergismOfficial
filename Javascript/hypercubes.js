@@ -65,7 +65,7 @@ function calculateHypercubeBlessings() {
             augmentAccuracy += 2;
         }
 
-        hypercubeBonusMultiplier[i] = 1 + mult * benedictionbase[i] * Math.pow(hypercubeArray[i], power);
+        hypercubeBonusMultiplier[i] = 1 + mult * benedictionbase[i] * Math.pow(hypercubeArray[i], power) * platonicBonusMultiplier[4];
 
         document.getElementById("hypercubeBlessing" + i + "Amount").textContent = "x" + format(hypercubeArray[i], 0, true)
         document.getElementById("hypercubeBlessing" + i + "Effect").textContent = "+" + format(100 * (hypercubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true) + "%"
