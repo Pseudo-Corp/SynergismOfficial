@@ -364,16 +364,16 @@ function visualUpdateShop() {
     document.getElementById("obtainiumtimerlevel").textContent = "Level: " + player.shopUpgrades.obtainiumTimerLevel + "/15"
     document.getElementById("offeringautolevel").textContent = "Level: " + player.shopUpgrades.offeringAutoLevel + "/15"
     document.getElementById("obtainiumautolevel").textContent = "Level: " + player.shopUpgrades.obtainiumAutoLevel + "/15"
-    document.getElementById("instantchallenge").textContent = "Not Bought"
+    document.getElementById("instantchallenge").textContent = player.shopUpgrades.instantChallengeBought ? "Bought" : "Not Bought"
     document.getElementById("antspeed").textContent = "Level: " + player.shopUpgrades.antSpeedLevel + "/10"
     document.getElementById("cashgrab").textContent = "Level: " + player.shopUpgrades.cashGrabLevel + "/10"
-    document.getElementById("shoptalisman").textContent = "Not Bought"
+    document.getElementById("shoptalisman").textContent = player.shopUpgrades.talismanBought ? "Bought" : "Not Bought"
     document.getElementById("challengeUpgradeLevel").textContent = "Level: " + player.shopUpgrades.challengeExtension + "/5"
     document.getElementById("challenge10TomeLevel").textContent = "Level: " + player.shopUpgrades.challenge10Tomes + "/15"
     document.getElementById("seasonPassLevel").textContent = "Level: " + player.shopUpgrades.seasonPassLevel + "/15"
-    document.getElementById("cubeToQuark").textContent = "Not Bought"
-    document.getElementById("tesseractToQuark").textContent = "Not Bought"
-    document.getElementById("hypercubeToQuark").textContent = "Not Bought"
+    document.getElementById("cubeToQuark").textContent = player.shopUpgrades.cubeToQuarkBought ? "Bought" : "Not Bought"
+    document.getElementById("tesseractToQuark").textContent = player.shopUpgrades.tesseractToQuarkBought ? "Bought" : "Not Bought"
+    document.getElementById("hypercubeToQuark").textContent = player.shopUpgrades.hypercubeToQuarkBought ? "Bought" : "Not Bought"
 
     player.shopUpgrades.offeringTimerLevel === 15 ?
         document.getElementById("offeringtimerbutton").textContent = "Maxed!" :
@@ -392,7 +392,7 @@ function visualUpdateShop() {
         document.getElementById("obtainiumautobutton").textContent = "Upgrade for " + (shopBaseCosts.obtainiumAuto + 25 * player.shopUpgrades.obtainiumAutoLevel) + " Quarks";
 
     player.shopUpgrades.instantChallengeBought ?
-        (document.getElementById("instantchallengebutton").textContent = "Bought!", document.getElementById("instantchallenge").textContent = "Bought!") :
+        (document.getElementById("instantchallengebutton").textContent = "Bought!") :
         document.getElementById("instantchallengebutton").textContent = "Buy for " + (shopBaseCosts.instantChallenge) + " Quarks";
 
     player.shopUpgrades.antSpeedLevel === 10 ?
@@ -404,7 +404,7 @@ function visualUpdateShop() {
         document.getElementById("cashgrabbutton").textContent = "Upgrade for " + (shopBaseCosts.cashGrab + 100 * player.shopUpgrades.cashGrabLevel) + " Quarks";
 
     player.shopUpgrades.talismanBought ?
-        (document.getElementById("shoptalismanbutton").textContent = "Bought!", document.getElementById("shoptalisman").textContent = "Bought!") :
+        (document.getElementById("shoptalismanbutton").textContent = "Bought!") :
         document.getElementById("shoptalismanbutton").textContent = "Buy for 1500 Quarks";
 
     player.shopUpgrades.challengeExtension === 5 ?
@@ -420,14 +420,14 @@ function visualUpdateShop() {
         document.getElementById("seasonPassButton").textContent = "Buy for " + (shopBaseCosts.seasonPass + 250 * player.shopUpgrades.seasonPassLevel) + " Quarks";
 
     player.shopUpgrades.cubeToQuarkBought ?
-        (document.getElementById("cubeToQuarkButton").textContent = "Maxed!" , document.getElementById('cubeToQuark').textContent = "Bought!") :
+        (document.getElementById("cubeToQuarkButton").textContent = "Maxed!") :
         document.getElementById("cubeToQuarkButton").textContent = "Buy for " + (shopBaseCosts.cubeToQuark) + " Quarks";
 
     player.shopUpgrades.tesseractToQuarkBought ?
-        (document.getElementById("tesseractToQuarkButton").textContent = "Maxed!" , document.getElementById('tesseractToQuark').textContent = "Bought!") :
+        (document.getElementById("tesseractToQuarkButton").textContent = "Maxed!") :
         document.getElementById("tesseractToQuarkButton").textContent = "Buy for " + (shopBaseCosts.tesseractToQuark) + " Quarks";
 
     player.shopUpgrades.hypercubeToQuarkBought ?
-        (document.getElementById("hypercubeToQuarkButton").textContent = "Maxed!" , document.getElementById('hypercubeToQuark').textContent = "Bought!") :
+        (document.getElementById("hypercubeToQuarkButton").textContent = "Maxed!") :
         document.getElementById("hypercubeToQuarkButton").textContent = "Buy for " + (shopBaseCosts.hypercubeToQuark) + " Quarks";
 }
