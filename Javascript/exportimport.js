@@ -153,6 +153,37 @@ function promocodes() {
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds += quarks;
         el.textContent = 'Khafra has blessed you with ' + quarks + ' quarks!';
+    } else if(input === 'november13' && !player.codes.get(27)) {
+        player.codes.set(27, true);
+        player.worlds += 300;
+        el.textContent = 'Be careful, on friday the thirteenth! [+300 Quarks]';
+    } else if(input === '2million' && !player.codes.get(28)) {
+        player.codes.set(28, true);
+        player.worlds += 700;
+        el.textContent = 'Thank you for 2 million plays on kongregate!';
+    } else if(input === 'version2.1.0' && !player.codes.get(29)) {
+        player.codes.set(29, true);
+        let quarkCounter = 250;
+        if(player.challengecompletions[11] > 0 || player.highestchallengecompletions[11] >0){
+            quarkCounter += 250;
+        }
+        if(player.challengecompletions[12] > 0 || player.highestchallengecompletions[12] >0){
+            quarkCounter += 250;
+        }
+        if(player.challengecompletions[13] > 0 || player.highestchallengecompletions[13] >0){
+            quarkCounter += 500;
+        }
+        if(player.challengecompletions[14] > 0 || player.highestchallengecompletions[14] >0){
+            quarkCounter += 500;
+        }
+        if(player.challengecompletions[13] >= 18 || player.highestchallengecompletions[13] >= 18){
+            quarkCounter += 750;
+        }
+        if(player.challengecompletions[13] >= 22 || player.highestchallengecompletions[13] >= 22){
+            quarkCounter += 1;
+        }
+        player.worlds += quarkCounter
+        el.textContent = 'Welcome to the Abyss! Based on your progress, you gained ' + format(quarkCounter) + " Quarks.";
     } else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }

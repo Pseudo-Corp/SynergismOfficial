@@ -10,8 +10,8 @@ html {
 body {background-color: #111111 ;
 	transform: scale(0.9);
 	transform-origin: 0 0;
-	/*overflow-x: hidden;
-	overflow-y: hidden;*/
+	overflow-x: hidden;
+	/*overflow-y: hidden;*/
 }
 
 body {
@@ -4018,7 +4018,7 @@ margin-left: -13px
 #cubeToQuarkTimer{
 	position: absolute;
 	text-align: center;
-	top: 230px;
+	top: 270px;
 	width: 250px;
 	left: 65px;
 	font-size: 1.2em;
@@ -4026,63 +4026,63 @@ margin-left: -13px
 #cubeQuarksToday{
 	position: absolute;
 	text-align: center;
-	top: 280px;
+	top: 320px;
 	width: 300px;
 	left: 40px;
 }
 #tesseractQuarksToday{
 	position: absolute;
 	text-align: center;
-	top: 350px;
+	top: 390px;
 	width: 300px;
 	left: 40px;
 }
 #hypercubeQuarksToday{
 	position: absolute;
 	text-align: center;
-	top: 420px;
+	top: 460px;
 	width: 300px;
 	left: 40px;
 }
 #cubeQuarksOpenRequirement{
 	position: absolute;
 	text-align: center;
-	top: 300px;
+	top: 340px;
 	width: 340px;
 	left: 20px;
 }
 #tesseractQuarksOpenRequirement{
 	position: absolute;
 	text-align: center;
-	top: 370px;
+	top: 410px;
 	width: 340px;
 	left: 20px;
 }
 #hypercubeQuarksOpenRequirement{
 	position: absolute;
 	text-align: center;
-	top: 440px;
+	top: 480px;
 	width: 340px;
 	left: 20px;
 }
 #cubeQuarksOpenToday{
 	position: absolute;
 	text-align: center;
-	top: 320px;
+	top: 360px;
 	width: 340px;
 	left: 20px;
 }
 #tesseractQuarksOpenToday{
 	position: absolute;
 	text-align: center;
-	top: 390px;
+	top: 430px;
 	width: 340px;
 	left: 20px;
 }
 #hypercubeQuarksOpenToday{
 	position: absolute;
 	text-align: center;
-	top: 460px;
+	top: 500px;
 	width: 340px;
 	left: 20px;
 }
@@ -4100,18 +4100,18 @@ margin-left: -13px
 	text-align: center;
 	top: 30px;
 	font-size: 1.0em;
-	width: 1000px;
+	width: 700px;
 	left: 50%;
-	margin-left: -500px;
+	margin-left: -350px;
 }
 .cubePlacement3{
 	position:absolute;
 	text-align: center;
 	top: 50px;
 	font-size: 1.0em;
-	width: 1000px;
+	width: 700px;
 	left: 50%;
-	margin-left: -500px;
+	margin-left: -350px;
 }
 .cubePlacement4{
 	position: absolute;
@@ -4159,6 +4159,15 @@ margin-left: -13px
 	margin-left: 25%;
 	width: 50%;
 	color: rgb(255, 0, 76);
+	text-align: center;
+}
+#platonicBlessingsTotal{
+	position: absolute;
+	padding: 5px;
+	top: 450px;
+	margin-left: 25%;
+	width: 50%;
+	color:orange;
 	text-align: center;
 }
 #open1Cube{
@@ -4239,6 +4248,34 @@ margin-left: -13px
 	margin-left: 210px;
 }
 #openMostTesseract{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 210px;
+}
+#open1PlatonicCube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: -96px;
+}
+#open40kPlatonicCube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 6px;
+}
+#open1mPlatonicCube{
+	position: absolute;
+	text-align: center;
+	top: 128px;
+	left: 40%;
+	margin-left: 108px;
+}
+#openMostPlatonicCube{
 	position: absolute;
 	text-align: center;
 	top: 128px;
@@ -4891,4 +4928,65 @@ img.small {
 }
 #ascTimeAccel {
 	color: royalblue;
+}
+#c15Rewards{
+	position: absolute;
+	top: 65px;
+	left: 25%
+}
+.challengeContainer {
+	width: 410px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-bottom: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.challengePortion{
+	width: 410px;
+	height: auto;
+	margin: auto;
+	color: white;
+	text-align: left;
+	font-size: 1em;
+}
+.challengeNumber{
+	width: 380px;
+	height: auto;
+	margin: auto;
+	color: white;
+	text-align: left;
+	font-size: 1em;
+}
+
+#platonicUpgrades{
+	position: absolute;
+	left: 60%;
+	top: 65px;
+}
+.platonicUpgradeImage{
+	cursor: pointer;
+}
+#platonicUpgradeDescriptions{
+	position: absolute;
+	left: 60%;
+	top: 210px;
+}
+.platonicContainer {
+	width: 400px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-bottom: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.platonicPortion{
+	width: 380px;
+	height: auto;
+	margin: auto;
+	color: white;
+	text-align: left;
+	font-size: 1em;
 }

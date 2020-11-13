@@ -698,9 +698,9 @@ function CSSAscend() {
 
     }
 
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 6; i++) {
         let a = document.getElementById("switchCubeSubTab" + i)
-        a.style.top = (65 + 35 * i) + "px"
+        a.style.top = (30 + 35 * i) + "px"
         a.style.left = "5%"
     }
 }

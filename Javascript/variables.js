@@ -53,7 +53,7 @@ var researchBaseCosts = [1e100,
     3e41, 1e42, 3e42, 6e42, 1e43,
     3e43, 1e44, 3e44, 1e45, 3e45, /*challenge 14 tier */
     2e46, 6e46, 2e47, 6e47, 1e64,
-    6e48, 2e49, 1e50, 1e51, 1e56
+    6e48, 2e49, 1e50, 1e51, 4e56
 ]
 
 
@@ -344,11 +344,15 @@ var giftbase = [null, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000
 var giftDRPower = [null, 1 / 6, 1 / 6, 1 / 3, 1 / 4, 1 / 3, 1, 1 / 6, 1 / 6, 1 / 32, 1 / 32]
 var benedictionbase = [null, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000]
 var benedictionDRPower = [null, 1 / 12, 1 / 12, 1 / 6, 1 / 8, 1 / 6, 1 / 2, 1 / 12, 1 / 12, 1 / 64, 1 / 64]
+//10 Million of each before Diminishing returns on first 3, 200k for second, and 10k for the last few
+var platonicCubeBase = [2/1e7, 1.5/1e7, 1/1e7, 0.5/2e5, 1/1e4, 1/1e5, 1/5e4, 1/1e4]
+var platonicDRPower = [1/6, 1/6, 1/6, 1/6, 1/16, 1/16, 1/4, 1/8]
 
 
 var cubeBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 var tesseractBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 var hypercubeBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+var platonicBonusMultiplier = [1, 1, 1, 1, 1, 1, 1, 1]
 
 var buyMaxCubeUpgrades = false;
 var autoOfferingCounter = 0;
@@ -390,3 +394,28 @@ var autoTalismanTimer = 0
 
 var autoChallengeTimerIncrement = 0;
 var corruptionTrigger = 1;
+
+var challenge15Rewards = {
+    coinExponent: 1,
+    taxes: 1,
+    acceleratorBoost: 1,
+    multiplier: 1,
+    runeExp: 1,
+    runeBonus: 1,
+    transcendChallengeReduction: 1,
+    reincarnationChallengeReduction: 1,
+    obtainium: 1,
+    offering: 1,
+    antSpeed: 1,
+    bonusAntLevel: 1,
+    talismanBonus: 1,
+    globalSpeed: 1,
+    blessingBonus: 1,
+    constantBonus: 1,
+    cube: 1,
+    tesseract: 1,
+    hypercube: 1,
+    platonic: 1,
+    spiritBonus: 1,
+    score: 1,
+}

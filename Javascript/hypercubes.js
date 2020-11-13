@@ -59,6 +59,6 @@ function calculateHypercubeBlessings() {
             mult *= Math.pow(1000, (1 - benedictionDRPower[i]));
         }
 
-        hypercubeBonusMultiplier[i] = 1 + mult * benedictionbase[i] * Math.pow(hypercubeArray[i], power);
+        hypercubeBonusMultiplier[i] = 1 + mult * benedictionbase[i] * Math.pow(hypercubeArray[i], power) * platonicBonusMultiplier[4];
     }
 }
