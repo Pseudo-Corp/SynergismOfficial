@@ -599,33 +599,20 @@ function toggleMaxBuyCube() {
 }
 
 function toggleCubeSubTab(i) {
-    let a = document.getElementById("switchCubeSubTab1")
-    let b = document.getElementById("switchCubeSubTab2")
-    let c = document.getElementById("switchCubeSubTab3")
-    let d = document.getElementById("switchCubeSubTab4")
-
-    for (let j = 1; j <= 4; j++) {
-        if (document.getElementById("cubeTab" + j).style.display === "block" && j !== i) {
-            document.getElementById("cubeTab" + j).style.display = "none"
+    let numSubTabs = subTabsInMainTab(8).subTabList.length
+    for (let j = 1; j <= numSubTabs; j++) {
+        let cubeTab = document.getElementById(`cubeTab${j}`);
+        if (cubeTab.style.display === "block" && j !== i) {
+            cubeTab.style.display = "none"
         }
-        if (document.getElementById("cubeTab" + j).style.display === "none" && j === i) {
-            document.getElementById("cubeTab" + j).style.display = "block"
+        if (cubeTab.style.display === "none" && j === i) {
+            cubeTab.style.display = "block"
             player.subtabNumber = j - 1
         }
+        document.getElementById("switchCubeSubTab" + j).style.backgroundColor = i === j ? "crimson" : "#171717"
     }
 
-    i === 1 ?
-        (a.style.backgroundColor = "crimson", calculateCubeBlessings()) :
-        (a.style.backgroundColor = "black");
-    i === 2 ?
-        (b.style.backgroundColor = "crimson", calculateTesseractBlessings()) :
-        (b.style.backgroundColor = "black");
-    i === 3 ?
-        (c.style.backgroundColor = "crimson", calculateHypercubeBlessings()) :
-        (c.style.backgroundColor = "black");
-    i === 4 ?
-        (d.style.backgroundColor = "crimson") :
-        (d.style.backgroundColor = "black");
+    visualUpdateCubes()
 }
 
 function updateAutoChallenge(i) {
