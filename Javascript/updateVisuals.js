@@ -300,6 +300,18 @@ function visualUpdateCubes() {
             document.getElementById("tesseractBlessingTotalAmount").textContent = format(sumContents(tesseractArray), 0, true);
             break;
         case 2:
+            document.getElementById("hypercubeQuantity").textContent = format(player.wowHypercubes, 0, true)
+            let hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
+            accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+            for (let i = 1; i <= 10; i++) {
+                let augmentAccuracy = 0;
+                if (hypercubeArray[i] >= 1000) {
+                    augmentAccuracy += 2;
+                }
+                document.getElementById(`hypercubeBlessing${i}Amount`).textContent = `x${format(hypercubeArray[i], 0, true)}`
+                document.getElementById(`hypercubeBlessing${i}Effect`).textContent = `+${format(100 * (hypercubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+            }
+            document.getElementById("hypercubeBlessingTotalAmount").textContent = format(sumContents(hypercubeArray), 0, true);
             break;
         case 3:
             document.getElementById("cubeAmount2").textContent = "You have " + format(player.wowCubes, 0, true) + " Wow! Cubes =)"
