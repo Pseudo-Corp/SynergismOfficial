@@ -409,32 +409,11 @@ function toggleAutoSacrifice(index) {
             player.autoSacrificeToggle = true;
             el.textContent = "Automatic: ON"
         }
-    }
-    if (player.autoSacrificeToggle && player.shopUpgrades.offeringAutoLevel > 0.5) {
-        switch (index) {
-            case 1:
-                player.autoSacrifice = 1;
-                break;
-            case 2:
-                player.autoSacrifice = 2;
-                break;
-            case 3:
-                player.autoSacrifice = 3;
-                break;
-            case 4:
-                player.autoSacrifice = 4;
-                break;
-            case 5:
-                player.autoSacrifice = 5;
-                break;
-        }
+    } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAutoLevel > 0.5) {
+        player.autoSacrifice = index;
     }
     for (let i = 1; i <= 5; i++) {
-        if (player.autoSacrifice === i) {
-            document.getElementById("rune" + i).style.backgroundColor = "orange"
-        } else {
-            document.getElementById("rune" + i).style.backgroundColor = "black"
-        }
+        document.getElementById("rune" + i).style.backgroundColor = player.autoSacrifice === i ? "orange" : "#171717";
     }
     calculateRuneLevels();
 }
@@ -492,11 +471,9 @@ function toggleRuneScreen(index) {
             runescreen = "spirits";
             break;
     }
-    let a
-    let b
     for (let i = 1; i <= 4; i++) {
-        a = document.getElementById("toggleRuneSubTab" + i);
-        b = document.getElementById("runeContainer" + i);
+        let a = document.getElementById("toggleRuneSubTab" + i);
+        let b = document.getElementById("runeContainer" + i);
         if (i === index) {
             a.style.border = "2px solid gold"
             a.style.backgroundColor = "crimson"
@@ -756,7 +733,7 @@ function toggleCorruptionLoadoutsStats(stats) {
 
 function toggleAscStatPerSecond(id) {
     const el = document.getElementById(`unit${id}`);
-    if(!el) {
+    if (!el) {
         console.log(id, 'platonic needs to fix');
         return;
     }

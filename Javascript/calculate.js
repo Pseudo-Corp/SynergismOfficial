@@ -547,9 +547,6 @@ function calculateRuneLevels() {
     runeSum = 0;
     for (let i = 1; i <= 5; i++) {
         displayRuneInformation(i, false)
-        if (player.autoSacrifice === i) {
-            document.getElementById("rune" + i).style.backgroundColor = "orange"
-        }
         runeSum += window['rune' + i + 'level']
     }
     calculateRuneBonuses();

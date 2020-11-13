@@ -706,21 +706,15 @@ function CSSAscend() {
 }
 
 function CSSRuneBlessings() {
-    let a;
-    let b;
-    let c;
-    let d;
-    let e;
-    let f;
     for (let i = 1; i <= 5; i++) {
-        a = document.getElementById('runeBlessingIcon' + i);
-        b = document.getElementById('runeSpiritIcon' + i);
-        c = document.getElementById('runeBlessingLevel' + i);
-        d = document.getElementById('runeSpiritLevel' + i);
-        e = document.getElementById('runeBlessingPurchase' + i);
-        f = document.getElementById('runeSpiritPurchase' + i);
-        g = document.getElementById('runeBlessingPower' + i);
-        h = document.getElementById('runeSpiritPower' + i);
+        let a = document.getElementById('runeBlessingIcon' + i);
+        let b = document.getElementById('runeSpiritIcon' + i);
+        let c = document.getElementById('runeBlessingLevel' + i);
+        let d = document.getElementById('runeSpiritLevel' + i);
+        let e = document.getElementById('runeBlessingPurchase' + i);
+        let f = document.getElementById('runeSpiritPurchase' + i);
+        let g = document.getElementById('runeBlessingPower' + i);
+        let h = document.getElementById('runeSpiritPower' + i);
 
         a.style.top = b.style.top = (20 + 75 * i) + "px"
         a.style.left = b.style.left = "10%"
