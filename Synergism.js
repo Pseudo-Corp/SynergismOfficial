@@ -3411,6 +3411,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
         document.head.appendChild(script);
     }
 
+    const version = player.version
     const ver = document.getElementById('versionnumber');
     ver && (ver.textContent = `You're playing on v${player.version} - The Abyss [Last Update: 2:00 PM UTC-8 Nov 13]`);
     document.title = 'Synergism v' + player.version;
@@ -3434,5 +3435,6 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
         // thanks Kewne
         createTimer();
         constantIntervals();
+        player.version = version;
     }, 0);
 });
