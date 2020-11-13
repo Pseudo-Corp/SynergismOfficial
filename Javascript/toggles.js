@@ -2,6 +2,29 @@ function toggleTabs(i) {
     currentTab = i;
     revealStuff();
     hideStuff();
+    let subTabList = subTabsInMainTab(player.tabnumber).subTabList
+    if (player.tabnumber !== -1) {
+        for (let i = 0; i < subTabList.length; i++) {
+            let button = document.getElementById(subTabList[i].buttonID)
+            if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
+                player.subtabNumber = i
+                break;
+            }
+            if (player.tabnumber === 9 && button.style.borderColor === "dodgerblue") { // handle corruption tab
+                player.subtabNumber = i
+                break;
+            }
+        }
+    } else { // handle settings tab
+        // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
+        let btns = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children
+        for (let i = 0; i < btns.length; i++) {
+            if (btns[i].classList.contains("buttonActive")) {
+                player.subtabNumber = i
+                break;
+            }
+        }
+    }
 }
 
 function toggleSettings(i) {
@@ -245,29 +268,6 @@ function keyboardTabChange(dir = 1, main = true) {
             handleLoopBack()
         }
         toggleTabs(tabs(player.tabnumber).tabName)
-        let subTabList = subTabsInMainTab(player.tabnumber).subTabList
-        if (player.tabnumber !== -1) {
-            for (let i = 0; i < subTabList.length; i++) {
-                let button = document.getElementById(subTabList[i].buttonID)
-                if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
-                    player.subtabNumber = i
-                    break;
-                }
-                if (player.tabnumber === 9 && button.style.borderColor === "dodgerblue") { // handle corruption tab
-                    player.subtabNumber = i
-                    break;
-                }
-            }
-        } else { // handle settings tab
-            // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-            let btns = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children
-            for (let i = 0; i < btns.length; i++) {
-                if (btns[i].classList.contains("buttonActive")) {
-                    player.subtabNumber = i
-                    break;
-                }
-            }
-        }
     } else {
         let subTabList = subTabsInMainTab(player.tabnumber).subTabList
         if (subTabList.length === 0)
