@@ -412,10 +412,6 @@ function reset(i, fast, from) {
     }
 
     if (i > 3.5) {
-        if (player.ascensionCount === 0) {
-            CSSAscend()
-        }
-
         let metaData = CalcCorruptionStuff()
         ascensionAchievementCheck(3, metaData[3])
         historyCategory = "ascend";

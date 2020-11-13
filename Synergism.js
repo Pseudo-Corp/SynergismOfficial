@@ -1182,8 +1182,6 @@ if (player.achievements[38] == 1)document.getElementById("runeshowpower2").textC
 if (player.achievements[44] == 1)document.getElementById("runeshowpower3").textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(rune3level * m, 2).times(Decimal.pow(2, rune3level * m - 8).add(1))) + ", gain +" + format(Math.floor(rune3level/10 * m)) + " free crystal levels.";
 if (player.achievements[102] == 1)document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (rune4level/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + rune4level/8 + "%."; */
 
-        CSSAscend();
-        CSSRuneBlessings();
         corruptionStatsUpdate();
         for (let i = 0; i < 4; i++) {
             corruptionLoadoutTableUpdate(i);
@@ -1298,6 +1296,8 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         calculateRuneLevels();
         resetHistoryRenderAllTables();
     }
+    CSSAscend();
+    CSSRuneBlessings();
     updateAchievementBG();
 
     let d = new Date()
@@ -2901,7 +2901,7 @@ function constantIntervals() {
     interval(saveSynergy, 5000);
     interval(autoUpgrades, 200);
     interval(buttoncolorchange, 200)
-    interval(htmlInserts, 50)
+    interval(htmlInserts, 16)
     interval(updateAll, 100)
     interval(buildingAchievementCheck, 200)
 
@@ -2917,7 +2917,7 @@ let lastUpdate = 0;
 
 function createTimer() {
     lastUpdate = Date.now();
-    interval(tick, 50);
+    interval(tick, 5);
 }
 
 
