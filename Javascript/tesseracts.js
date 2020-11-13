@@ -49,31 +49,16 @@ function openTesseract(value, max) {
 }
 
 function calculateTesseractBlessings() {
-
-    document.getElementById("tesseractQuantity").textContent = format(player.wowTesseracts, 0, true)
-
     let tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
 
-    let accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
     for (let i = 1; i <= 10; i++) {
         let power = 1;
         let mult = 1;
-        let augmentAccuracy = 0;
-        if (tesseractArray[i] >= 1000) {
+        if (tesseractArray[i] >= 1000 && i !== 6) {
             power = giftDRPower[i];
             mult *= Math.pow(1000, (1 - giftDRPower[i]));
-            augmentAccuracy += 2;
-        }
-        if (i === 6) {
-            power = 1;
-            mult = 1;
-            augmentAccuracy = 0;
         }
 
         tesseractBonusMultiplier[i] = 1 + mult * giftbase[i] * Math.pow(tesseractArray[i], power) * hypercubeBonusMultiplier[i];
-
-        document.getElementById("tesseractBlessing" + i + "Amount").textContent = "x" + format(tesseractArray[i], 0, true)
-        document.getElementById("tesseractBlessing" + i + "Effect").textContent = "+" + format(100 * (tesseractBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true) + "%"
     }
-	document.getElementById("tesseractBlessingTotalAmount").textContent = format(sumContents(tesseractArray), 0, true);
 }

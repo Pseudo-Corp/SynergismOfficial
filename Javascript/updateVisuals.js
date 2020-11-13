@@ -257,12 +257,13 @@ function visualUpdateCubes() {
         document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = format(Math.max(0, multipliers[i] * Math.pow(Math.min(25 + 75 * player.shopUpgrades[prefixes[i] + 'ToQuarkBought'], 1 + player[prefixes[i] + 'QuarkDaily']), power[i]) - player[prefixes[i] + 'OpenedDaily']), 0, true)
     }
 
+    let accuracy;
     switch (player.subtabNumber) {
         case 0:
             document.getElementById("cubeQuantity").textContent = format(player.wowCubes, 0, true)
             let cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
 
-            let accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
+            accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
                 if (cubeArray[i] >= 1000)
@@ -285,6 +286,18 @@ function visualUpdateCubes() {
             document.getElementById("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray), 0, true);
             break;
         case 1:
+            document.getElementById("tesseractQuantity").textContent = format(player.wowTesseracts, 0, true)
+            let tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
+            accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+            for (let i = 1; i <= 10; i++) {
+                let augmentAccuracy = 0;
+                if (tesseractArray[i] >= 1000 && i !== 6) {
+                    augmentAccuracy += 2;
+                }
+                document.getElementById(`tesseractBlessing${i}Amount`).textContent = `x${format(tesseractArray[i], 0, true)}`
+                document.getElementById(`tesseractBlessing${i}Effect`).textContent = `+${format(100 * (tesseractBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+            }
+            document.getElementById("tesseractBlessingTotalAmount").textContent = format(sumContents(tesseractArray), 0, true);
             break;
         case 2:
             break;
