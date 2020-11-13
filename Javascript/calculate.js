@@ -546,7 +546,6 @@ function calculateRuneLevels() {
 
     runeSum = 0;
     for (let i = 1; i <= 5; i++) {
-        displayRuneInformation(i, false)
         runeSum += window['rune' + i + 'level']
     }
     calculateRuneBonuses();
