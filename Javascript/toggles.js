@@ -212,8 +212,8 @@ function subTabsInMainTab(mainTab) {
                 {subTabID: 1, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab1"},
                 {subTabID: 2, unlocked: player.achievements[197] > 0, buttonID: "switchCubeSubTab2"},
                 {subTabID: 3, unlocked: player.achievements[211] > 0, buttonID: "switchCubeSubTab3"},
-                {subTabID: 4, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab4"},
-                {subTabID: 5, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab5"},
+                {subTabID: 4, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab4"},
+                {subTabID: 5, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab5"},
                 {subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab6"}]
         },
         9: {
