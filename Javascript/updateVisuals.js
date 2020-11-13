@@ -256,6 +256,45 @@ function visualUpdateCubes() {
         document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = format(player[prefixes[i] + 'OpenedDaily'], 0, true);
         document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = format(Math.max(0, multipliers[i] * Math.pow(Math.min(25 + 75 * player.shopUpgrades[prefixes[i] + 'ToQuarkBought'], 1 + player[prefixes[i] + 'QuarkDaily']), power[i]) - player[prefixes[i] + 'OpenedDaily']), 0, true)
     }
+
+    switch (player.subtabNumber) {
+        case 0:
+            document.getElementById("cubeQuantity").textContent = format(player.wowCubes, 0, true)
+            let cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
+
+            let accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
+            for (let i = 1; i <= 10; i++) {
+                let augmentAccuracy = 0;
+                if (cubeArray[i] >= 1000)
+                    augmentAccuracy += 2;
+                if (i === 6)
+                    augmentAccuracy = 0;
+
+                document.getElementById("cubeBlessing" + i + "Amount").textContent = "x" + format(cubeArray[i], 0, true)
+                document.getElementById("cubeBlessing" + i + "Effect").textContent = "+" + format(100 * (cubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true) + "%"
+                if (i === 1) {
+                    document.getElementById("cubeBlessing1Effect").textContent = "+" + format(cubeBonusMultiplier[1] - 1, accuracy[1] + augmentAccuracy, true)
+                }
+                if (i === 8) {
+                    document.getElementById("cubeBlessing8Effect").textContent = "+" + format(cubeBonusMultiplier[8] - 1, accuracy[8] + augmentAccuracy, true)
+                }
+                if (i === 9) {
+                    document.getElementById("cubeBlessing9Effect").textContent = "+" + format(cubeBonusMultiplier[9] - 1, accuracy[9] + augmentAccuracy, true)
+                }
+            }
+            document.getElementById("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray), 0, true);
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            document.getElementById("cubeAmount2").textContent = "You have " + format(player.wowCubes, 0, true) + " Wow! Cubes =)"
+            break;
+        default:
+            console.log(`player.subtabNumber (${player.subtabNumber}) was outside of the allowed range (${subTabsInMainTab(8).subTabList.length}) for the cube tab`);
+            break;
+    }
 }
 
 function visualUpdateCorruptions() {

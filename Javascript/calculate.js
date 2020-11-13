@@ -839,43 +839,23 @@ function calculateSigmoidExponential(constant, coefficient) {
 }
 
 function calculateCubeBlessings() {
-
-    document.getElementById("cubeQuantity").textContent = format(player.wowCubes, 0, true)
-
     let cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
     let powerBonus = [null, player.cubeUpgrades[45] / 100, player.cubeUpgrades[35] / 100, player.cubeUpgrades[24] / 100, player.cubeUpgrades[14] / 100, player.cubeUpgrades[40] / 100, player.cubeUpgrades[22] / 40, player.cubeUpgrades[15] / 100, player.cubeUpgrades[25] / 100, player.cubeUpgrades[44] / 100, player.cubeUpgrades[34] / 100]
 
-    let accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
     for (let i = 1; i <= 10; i++) {
         let power = 1;
         let mult = 1;
-        let augmentAccuracy = 0;
         if (cubeArray[i] >= 1000) {
             power = blessingDRPower[i];
             mult *= Math.pow(1000, (1 - blessingDRPower[i]) * (1 + powerBonus[i]));
-            augmentAccuracy += 2;
         }
         if (i === 6) {
             power = 2.25;
             mult = 1;
-            augmentAccuracy = 0;
         }
 
         cubeBonusMultiplier[i] = 1 + mult * blessingbase[i] * Math.pow(cubeArray[i], power * (1 + powerBonus[i])) * tesseractBonusMultiplier[i];
-
-        document.getElementById("cubeBlessing" + i + "Amount").textContent = "x" + format(cubeArray[i], 0, true)
-        document.getElementById("cubeBlessing" + i + "Effect").textContent = "+" + format(100 * (cubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true) + "%"
-        if (i === 1) {
-            document.getElementById("cubeBlessing1Effect").textContent = "+" + format(cubeBonusMultiplier[1] - 1, accuracy[1] + augmentAccuracy, true)
-        }
-        if (i === 8) {
-            document.getElementById("cubeBlessing8Effect").textContent = "+" + format(cubeBonusMultiplier[8] - 1, accuracy[8] + augmentAccuracy, true)
-        }
-        if (i === 9) {
-            document.getElementById("cubeBlessing9Effect").textContent = "+" + format(cubeBonusMultiplier[9] - 1, accuracy[9] + augmentAccuracy, true)
-        }
     }
-	document.getElementById("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray), 0, true);
     calculateRuneLevels();
     calculateAntSacrificeELO();
     calculateObtainium();
