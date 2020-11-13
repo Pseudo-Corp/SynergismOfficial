@@ -124,24 +124,6 @@ function promocodes() {
         player.runeshards += 25;
         player.worlds += 50;
         el.textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"
-    } else if (input === "reimagining" && !player.codes.get(25)) {
-        player.codes.set(25, true);
-        let quarkValue = 0
-        quarkValue += 250
-        if (player.challengecompletions[8] > 0 || player.ascensionCount > 0) {
-            quarkValue += 250
-        }
-        if (player.challengecompletions[9] > 0 || player.ascensionCount > 0) {
-            quarkValue += 250
-        }
-        if (player.challengecompletions[10] > 0 || player.ascensionCount > 0) {
-            quarkValue += 250
-        }
-        if (player.challengecompletions[10] > 2 && player.ascensionCount === 0) {
-            quarkValue += 500
-        }
-        el.textContent = "The conscience of the universe is now one. +" + format(quarkValue) + " Quarks based on your progress!"
-        player.worlds += quarkValue
     } else if (input === ":unsmith:" && player.achievements[243] < 1) {
         achievementaward(243);
         el.textContent = "It's Spaghetti Time! [Awarded an achievement!!!]";
