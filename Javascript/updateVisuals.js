@@ -147,7 +147,7 @@ function visualUpdateBuildings() {
         }
 
         document.getElementById("tesseractInfo").textContent = "You have " + format(player.wowTesseracts) + " Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension."
-        document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards, 2) + ". Taxes are divided by " + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + 0.5 * player.platonicUpgrades[15]), 4, true) + "."
+        document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards, 2) + ". Taxes are divided by " + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + 0.5 * player.platonicUpgrades[15] + (platonicBonusMultiplier[5] - 1)), 4, true) + "."
     }
 }
 
@@ -178,7 +178,7 @@ function visualUpdateRunes() {
 
             document.getElementById('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i - 1]) + "/" + format(calculateMaxRunes(i))
             document.getElementById('rune' + i + 'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP"
-            document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + 1 * (player.antUpgrades[9] + bonusant9) + place) + "]"
+            document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9] + bonusant9) + place) + "]"
 
             displayRuneInformation(i, false)
         }
@@ -375,19 +375,19 @@ function visualUpdateShop() {
     document.getElementById("tesseractToQuark").textContent = "Not Bought"
     document.getElementById("hypercubeToQuark").textContent = "Not Bought"
 
-    player.shopUpgrades.offeringTimerLevel === 10 ?
+    player.shopUpgrades.offeringTimerLevel === 15 ?
         document.getElementById("offeringtimerbutton").textContent = "Maxed!" :
         document.getElementById("offeringtimerbutton").textContent = "Upgrade for " + (shopBaseCosts.offerTimer + 25 * player.shopUpgrades.offeringTimerLevel) + " Quarks";
 
-    player.shopUpgrades.offeringAutoLevel === 10 ?
+    player.shopUpgrades.offeringAutoLevel === 15 ?
         document.getElementById("offeringautobutton").textContent = "Maxed!" :
         document.getElementById("offeringautobutton").textContent = "Upgrade for " + (shopBaseCosts.offerAuto + 25 * player.shopUpgrades.offeringAutoLevel) + " Quarks"
 
-    player.shopUpgrades.obtainiumTimerLevel === 10 ?
+    player.shopUpgrades.obtainiumTimerLevel === 15 ?
         document.getElementById("obtainiumtimerbutton").textContent = "Maxed!" :
         document.getElementById("obtainiumtimerbutton").textContent = "Upgrade for " + (shopBaseCosts.obtainiumTimer + 25 * player.shopUpgrades.obtainiumTimerLevel) + " Quarks"
 
-    player.shopUpgrades.obtainiumAutoLevel === 10 ?
+    player.shopUpgrades.obtainiumAutoLevel === 15 ?
         document.getElementById("obtainiumautobutton").textContent = "Maxed!" :
         document.getElementById("obtainiumautobutton").textContent = "Upgrade for " + (shopBaseCosts.obtainiumAuto + 25 * player.shopUpgrades.obtainiumAutoLevel) + " Quarks";
 
@@ -411,11 +411,11 @@ function visualUpdateShop() {
         document.getElementById("challengeUpgradeButton").textContent = "Maxed!" :
         document.getElementById("challengeUpgradeButton").textContent = "Buy for " + (shopBaseCosts.challengeExtension + 250 * player.shopUpgrades.challengeExtension) + " Quarks";
 
-    player.shopUpgrades.challenge10Tomes === 5 ?
+    player.shopUpgrades.challenge10Tomes === 15 ?
         document.getElementById("challenge10TomeButton").textContent = "Maxed!" :
         document.getElementById("challenge10TomeButton").textContent = "Buy for " + (shopBaseCosts.challenge10Upgrade + 250 * player.shopUpgrades.challenge10Tomes) + " Quarks";
 
-    player.shopUpgrades.seasonPassLevel === 5 ?
+    player.shopUpgrades.seasonPassLevel === 15 ?
         document.getElementById("seasonPassButton").textContent = "Maxed!" :
         document.getElementById("seasonPassButton").textContent = "Buy for " + (shopBaseCosts.seasonPass + 250 * player.shopUpgrades.seasonPassLevel) + " Quarks";
 
