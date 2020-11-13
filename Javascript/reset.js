@@ -496,7 +496,18 @@ function reset(i, fast, from) {
             player.firstOwnedAnts += 1
         }
         if (player.challengecompletions[10] > 0) {
-            player.ascensionCount += 1;
+            let ascCount = 1
+            if(player.ascensionCounter >= 10){
+                if(player.achievements[188] > 0){
+                    ascCount += 99
+                }
+                ascCount *= (Math.min(24 * 3600,player.ascensionCounter)/10) * 1/5 * (player.achievements[189] + player.achievements[202] + player.achievements[209] + player.achievements[216] + player.achievements[223])
+            }
+            if(player.achievements[187] > 0 && metaData[3] > 1e8){
+                ascCount *= (Math.log(metaData[3])/Math.log(10) - 1)
+            }
+            ascCount = Math.floor(ascCount)
+            player.ascensionCount += ascCount;
             player.wowCubes += metaData[4]; //Metadata is defined up in the top of the (i > 3.5) case
             player.wowTesseracts += metaData[5];
             player.wowHypercubes += metaData[6];

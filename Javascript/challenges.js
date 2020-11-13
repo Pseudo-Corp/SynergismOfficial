@@ -260,7 +260,7 @@ function challengeDisplay(i, changefocus, automated) {
         n.textContent = "+" + format(200 * CalcECC('ascension', player.challengecompletions[14])) + " to Rune Caps"
     }
     if (i === 15 && challengefocus === 15) {
-        a.textContent = "SADISTIC CHALLENGE II || " + player.challengecompletions[15] + "/1 Completions"
+        a.textContent = "SADISTIC CHALLENGE II || " + player.challengecompletions[15] + "/9001 Completions"
         b.textContent = "The worst sin a man can do is making others suffer."
         c.textContent = "Ascend and reach the goal but you're FULLY corrupt and must stay that way."
         d.textContent = "Goal: 1e4T Coins, but get bonuses based on your best attempt."
@@ -363,6 +363,7 @@ function calculateChallengeRequirementMultiplier(type, completions, special) {
             (completions >= 75) ?
                 requirementMultiplier *= Math.pow(1 + completions, 12) / Math.pow(75, 8) :
                 requirementMultiplier *= Math.pow(1 + completions, 2);
+            requirementMultiplier *= challenge15Rewards.transcendChallengeReduction
             return (requirementMultiplier)
         case "reincarnation":
             if (completions >= 60){
@@ -385,6 +386,7 @@ function calculateChallengeRequirementMultiplier(type, completions, special) {
             if (completions < 25){
             requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions));
             }
+            requirementMultiplier *= challenge15Rewards.reincarnationChallengeReduction
             return requirementMultiplier
         case "ascension":
             (completions >= 10) ?
@@ -427,7 +429,7 @@ function challengeRequirement(challenge, completion, special) {
     } else if (challenge <= 14) {
         return calculateChallengeRequirementMultiplier("ascension", completion, special)
     } else if (challenge === 15) {
-        return Decimal.pow(10, 1 * Math.pow(10, 12))
+        return Decimal.pow(10, 4 * Math.pow(10, 30))
     }
 }
 

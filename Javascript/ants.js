@@ -31,9 +31,9 @@ let antupgdesc = {
     antupgdesc4: "Scares you into running faster [up to x20]",
     antupgdesc5: "Imitates your body through magic shape-shifting powers [up to x40]",
     antupgdesc6: "Tries to please Ant God... but fails [Additional Offerings!]",
-    antupgdesc7: "Helps you build a few things here and there [+3% Building Cost Delay / level]",
+    antupgdesc7: "Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]",
     antupgdesc8: "Knows how to salt and pepper food [Up to 1,000x Rune EXP!]",
-    antupgdesc9: "Can make your message to Ant God a little more clear [+1 all Rune Levels / level]",
+    antupgdesc9: "Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 10 Million]",
     antupgdesc10: "Has big brain energy [Additional Obtainium!]",
     antupgdesc11: "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]",
     antupgdesc12: "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
@@ -44,11 +44,11 @@ const antUpgradeTexts = [null,
     () => "Crumb --> Coin exponent is ^" + format(100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499)),
     () => "Tax growth is multiplied by " + format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3] + bonusant3), 4),
     () => "Accelerator Boosts +" + format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4] + bonusant4) / 1000 * 20 / 19) - 1), 3) + "%",
-    () => "Multipliers +" + format(100 * (calculateSigmoidExponential(39, (player.antUpgrades[5] + bonusant5) / 1000 * 40 / 39) - 1), 3) + "%",
+    () => "Multipliers +" + format(100 * (calculateSigmoidExponential(40, (player.antUpgrades[5] + bonusant5) / 1000 * 40 / 39) - 1), 3) + "%",
     () => "Offerings x" + format(1 + Math.pow((player.antUpgrades[6] + bonusant6) / 50, 0.75), 4),
-    () => "Building Costs scale " + format(3 * player.antUpgrades[7] + 3 * bonusant7) + "% slower!",
+    () => "Building Costs scale " + format(Math.min(9999999,3 * player.antUpgrades[7] + 3 * bonusant7),0,true) + "% slower!",
     () => "Rune EXP is multiplied by " + format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8] + bonusant8, 1.1)), 3) + "!",
-    () => "Each rune has +" + format(1 * (player.antUpgrades[9] + bonusant9)) + " effective levels.",
+    () => "Each rune has +" + format(1 * Math.min(1e7, (player.antUpgrades[9] + bonusant9)),0,true) + " effective levels.",
     () => "Obtainium x" + format(1 + 2 * Math.pow((player.antUpgrades[10] + bonusant10) / 50, 0.75), 4),
     () => "Sacrificing is " + format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11) / 125)), 4) + "x as effective",
     () => "Global timer is sped up by a factor of " + format(calculateSigmoid(2, player.antUpgrades[12] + bonusant12, 69), 4)
@@ -209,6 +209,10 @@ function buyAntProducers(pos, type, originalCost, index) {
         if (sacrificeMult > achRequirements[j] && player[ordinals[j + 1] + "OwnedAnts"] > 0 && player.achievements[176 + j] === 0) {
             achievementaward(176 + j)
         }
+    }
+
+    if(player.firstOwnedAnts > 6.9e7){
+        player.firstOwnedAnts = 6.9e7
     }
 }
 

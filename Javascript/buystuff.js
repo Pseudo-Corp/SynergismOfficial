@@ -3,7 +3,7 @@ function getReductionValue() {
     reduction += (rune4level * effectiveLevelMult) / 160;
     reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
     reduction += CalcECC('transcend', player.challengecompletions[4]) / 200;
-    reduction += (3 * (player.antUpgrades[7] + bonusant7)) / 100;
+    reduction += Math.min(99999.9, (3 * (player.antUpgrades[7] + bonusant7)) / 100);
     return reduction;
 }
 

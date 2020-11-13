@@ -37,8 +37,8 @@ function toggleChallenges(i, auto) {
             if (player.currentChallenge.ascension === 15) {
                 player.usedCorruptions[0] = 0;
                 player.prototypeCorruptions[0] = 0;
-                for (var i = 1; i <= 9; i++) {
-                    player.usedCorruptions[i] = 10;
+                for (var i = 1; i <= 9; i++){
+                    player.usedCorruptions[i] = 11;
                 }
             }
         }
@@ -212,7 +212,9 @@ function subTabsInMainTab(mainTab) {
                 {subTabID: 1, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab1"},
                 {subTabID: 2, unlocked: player.achievements[197] > 0, buttonID: "switchCubeSubTab2"},
                 {subTabID: 3, unlocked: player.achievements[211] > 0, buttonID: "switchCubeSubTab3"},
-                {subTabID: 4, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab4"}]
+                {subTabID: 4, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab4"},
+                {subTabID: 5, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab5"},
+                {subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab6"}]
         },
         9: {
             tabSwitcher: toggleCorruptionLoadoutsStats,
@@ -534,6 +536,7 @@ function setActiveSettingScreen(subtab, clickedButton) {
             }
             loadStatisticsAccelerator();
             loadStatisticsMultiplier();
+            loadStatisticsOfferingMultipliers();
             loadStatisticsCubeMultipliers();
             if (!subtabEl.classList.contains("subtabActive"))
                 clearInt(id);
@@ -603,8 +606,10 @@ function toggleCubeSubTab(i) {
     let b = document.getElementById("switchCubeSubTab2")
     let c = document.getElementById("switchCubeSubTab3")
     let d = document.getElementById("switchCubeSubTab4")
+    let e = document.getElementById("switchCubeSubTab5")
+    let f = document.getElementById("switchCubeSubTab6")
 
-    for (let j = 1; j <= 4; j++) {
+    for (let j = 1; j <= 6; j++) {
         if (document.getElementById("cubeTab" + j).style.display === "block" && j !== i) {
             document.getElementById("cubeTab" + j).style.display = "none"
         }
@@ -624,8 +629,14 @@ function toggleCubeSubTab(i) {
         (c.style.backgroundColor = "crimson", calculateHypercubeBlessings()) :
         (c.style.backgroundColor = "black");
     i === 4 ?
-        (d.style.backgroundColor = "crimson") :
+        ((d.style.backgroundColor = "crimson"), calculatePlatonicBlessings()) :
         (d.style.backgroundColor = "black");
+    i === 5 ?
+        (e.style.backgroundColor = "crimson") :
+        (e.style.backgroundColor = "black");
+    i === 6 ?
+        (f.style.backgroundColor = "crimson") :
+        (f.style.backgroundColor = "black");
 }
 
 function updateAutoChallenge(i) {
@@ -749,7 +760,7 @@ function toggleCorruptionLevel(index, value) {
         player.prototypeCorruptions[index] -= Math.min(current, -value)
     }
     player.prototypeCorruptions[index] = Math.min(maxCorruption, Math.max(0, player.prototypeCorruptions[index]))
-    if (value === 999) {
+    if (value === 999 && player.currentChallenge.ascension !== 15) {
         let trig = corruptionTrigger
         for (let i = 0; i <= 9; i++) {
             player.usedCorruptions[i] = 0;
@@ -759,6 +770,10 @@ function toggleCorruptionLevel(index, value) {
         }
         corruptionDisplay(trig)
         document.getElementById("corruptionCleanseConfirm").style.visibility = "hidden";
+
+        if(player.currentChallenge.ascension === 15){
+            resetCheck('ascensionChallenge', false, true)
+        }
     }
     corruptionDisplay(index)
     corruptionLoadoutTableUpdate(0);

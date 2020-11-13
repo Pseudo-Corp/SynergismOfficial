@@ -124,24 +124,6 @@ function promocodes() {
         player.runeshards += 25;
         player.worlds += 50;
         el.textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"
-    } else if (input === "reimagining" && !player.codes.get(25)) {
-        player.codes.set(25, true);
-        let quarkValue = 0
-        quarkValue += 250
-        if (player.challengecompletions[8] > 0 || player.ascensionCount > 0) {
-            quarkValue += 250
-        }
-        if (player.challengecompletions[9] > 0 || player.ascensionCount > 0) {
-            quarkValue += 250
-        }
-        if (player.challengecompletions[10] > 0 || player.ascensionCount > 0) {
-            quarkValue += 250
-        }
-        if (player.challengecompletions[10] > 2 && player.ascensionCount === 0) {
-            quarkValue += 500
-        }
-        el.textContent = "The conscience of the universe is now one. +" + format(quarkValue) + " Quarks based on your progress!"
-        player.worlds += quarkValue
     } else if (input === ":unsmith:" && player.achievements[243] < 1) {
         achievementaward(243);
         el.textContent = "It's Spaghetti Time! [Awarded an achievement!!!]";
@@ -153,6 +135,37 @@ function promocodes() {
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds += quarks;
         el.textContent = 'Khafra has blessed you with ' + quarks + ' quarks!';
+    } else if(input === 'november13' && !player.codes.get(27)) {
+        player.codes.set(27, true);
+        player.worlds += 300;
+        el.textContent = 'Be careful, on friday the thirteenth! [+300 Quarks]';
+    } else if(input === '2million' && !player.codes.get(28)) {
+        player.codes.set(28, true);
+        player.worlds += 700;
+        el.textContent = 'Thank you for 2 million plays on kongregate!';
+    } else if(input === 'version2.1.0' && !player.codes.get(29)) {
+        player.codes.set(29, true);
+        let quarkCounter = 250;
+        if(player.challengecompletions[11] > 0 || player.highestchallengecompletions[11] >0){
+            quarkCounter += 250;
+        }
+        if(player.challengecompletions[12] > 0 || player.highestchallengecompletions[12] >0){
+            quarkCounter += 250;
+        }
+        if(player.challengecompletions[13] > 0 || player.highestchallengecompletions[13] >0){
+            quarkCounter += 500;
+        }
+        if(player.challengecompletions[14] > 0 || player.highestchallengecompletions[14] >0){
+            quarkCounter += 500;
+        }
+        if(player.challengecompletions[13] >= 18 || player.highestchallengecompletions[13] >= 18){
+            quarkCounter += 750;
+        }
+        if(player.challengecompletions[13] >= 22 || player.highestchallengecompletions[13] >= 22){
+            quarkCounter += 1;
+        }
+        player.worlds += quarkCounter
+        el.textContent = 'Welcome to the Abyss! Based on your progress, you gained ' + format(quarkCounter) + " Quarks.";
     } else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
