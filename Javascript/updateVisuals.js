@@ -266,21 +266,13 @@ function visualUpdateCubes() {
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
-                if (cubeArray[i] >= 1000)
+                if (cubeArray[i] >= 1000 && i !== 6) {
                     augmentAccuracy += 2;
-                if (i === 6)
-                    augmentAccuracy = 0;
-
-                document.getElementById("cubeBlessing" + i + "Amount").textContent = "x" + format(cubeArray[i], 0, true)
-                document.getElementById("cubeBlessing" + i + "Effect").textContent = "+" + format(100 * (cubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true) + "%"
-                if (i === 1) {
-                    document.getElementById("cubeBlessing1Effect").textContent = "+" + format(cubeBonusMultiplier[1] - 1, accuracy[1] + augmentAccuracy, true)
                 }
-                if (i === 8) {
-                    document.getElementById("cubeBlessing8Effect").textContent = "+" + format(cubeBonusMultiplier[8] - 1, accuracy[8] + augmentAccuracy, true)
-                }
-                if (i === 9) {
-                    document.getElementById("cubeBlessing9Effect").textContent = "+" + format(cubeBonusMultiplier[9] - 1, accuracy[9] + augmentAccuracy, true)
+                document.getElementById(`cubeBlessing${i}Amount`).textContent = `x${format(cubeArray[i], 0, true)}`
+                document.getElementById(`cubeBlessing${i}Effect`).textContent = `+${format(100 * (cubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                if (i === 1 || i === 8 || i === 9) {
+                    document.getElementById(`cubeBlessing${i}Effect`).textContent = `+${format(cubeBonusMultiplier[i] - 1, accuracy[i] + augmentAccuracy, true)}`
                 }
             }
             document.getElementById("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray), 0, true);
