@@ -81,11 +81,6 @@ function calculatetax() {
 
     taxdivisor = Decimal.pow(1.01, (c) * (exponent))
     taxdivisorcheck = Decimal.pow(1.01, (compareC) * (exponent))
-    let warning = "";
-    if (player.reincarnationCount > 0.5) {
-        warning = "Your tax also caps your Coin gain at " + format(Decimal.pow(10, maxexponent - Decimal.log(taxdivisorcheck, 10))) + "/s."
-    }
-    document.getElementById("taxinfo").textContent = "Due to your excessive wealth, coin production is divided by " + format(taxdivisor, 2) + " to pay taxes! " + warning
 }
 
 // Note that, for E < 1000 the tax is just 0, so we leave a 1.00 multiplier. For 1000 < E < 500,000 we denote tax as a dynamic progression from 1.01 to 5.00.
