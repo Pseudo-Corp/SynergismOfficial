@@ -32,7 +32,7 @@ var talismanResourceCosts = {
     },
 }
 
-function getTalismanResourceInfo(type, percentage){
+function getTalismanResourceInfo(type, percentage) {
     percentage = percentage || player.buyTalismanShardPercent;
     let obtainiumCost = talismanResourceCosts[type].obtainium;
     let offeringCost = talismanResourceCosts[type].offerings;
@@ -40,7 +40,7 @@ function getTalismanResourceInfo(type, percentage){
     let maxBuyObtainium = Math.max(1, Math.floor(player.researchPoints / obtainiumCost));
     let maxBuyOffering = Math.max(1, Math.floor(player.runeshards / (offeringCost)));
     let amountToBuy = Math.max(1, Math.floor(percentage / 100 * Math.min(maxBuyObtainium, maxBuyOffering)));
-    let canBuy = (obtainiumCost <= player.researchPoints && offeringCost <= player.runeshards)? true: false;
+    let canBuy = (obtainiumCost <= player.researchPoints && offeringCost <= player.runeshards) ? true : false;
     return {
         canBuy: canBuy, //Boolean, if false will not buy any fragments
         buyAmount: amountToBuy, //Integer, will buy as specified above.
@@ -95,26 +95,19 @@ function updateTalismanInventory() {
 function buyTalismanResources(type, percentage) {
     percentage = percentage || player.buyTalismanShardPercent;
     let talismanResourcesData = getTalismanResourceInfo(type, percentage)
-    console.log(talismanResourcesData.buy)
-    if(talismanResourcesData.canBuy){
-        if (type === 'shard'){
+
+    if (talismanResourcesData.canBuy) {
+        if (type === 'shard') {
             player.talismanShards += talismanResourcesData.buyAmount
+        } else {
+            player[type + 's'] += talismanResourcesData.buyAmount
         }
-        else{
-            player[type+'s'] += talismanResourcesData.buyAmount
-        }
-        if(type === 'mythicalFragment' && player.mythicalFragments >= 1e25 && player.achievements[239] < 1){
+        if (type === 'mythicalFragment' && player.mythicalFragments >= 1e25 && player.achievements[239] < 1) {
             achievementaward(239)
         }
 
-        if(talismanResourcesData.buyAmount < 1e3){
-            player.researchPoints -= talismanResourcesData.obtainiumCost;
-            player.runeshards -= talismanResourcesData.offeringCost;
-        }
-        if(talismanResourcesData.buyAmount >= 1e3){
-                player.researchPoints *= (1 - 1/100 * percentage)
-                player.runeshards *= (1 - 1/100 * percentage)
-        }
+        player.researchPoints -= talismanResourcesData.obtainiumCost;
+        player.runeshards -= talismanResourcesData.offeringCost;
     }
     updateTalismanCostDisplay(type, percentage)
     updateTalismanInventory()
