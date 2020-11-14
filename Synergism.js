@@ -2527,7 +2527,7 @@ function resetCheck(i, manual, leaving) {
             player.wowHypercubes += 1;
         }
 
-        if (!player.retrychallenges || manual || player.challengecompletions[a] >= maxCompletions /*|| a === 15*/) {
+        if (!player.retrychallenges || manual || player.challengecompletions[a] >= maxCompletions || a === 15) {
             player.currentChallenge.ascension = 0;
         }
         updateChallengeDisplay();
