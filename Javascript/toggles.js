@@ -17,14 +17,18 @@ function toggleSettings(i) {
 function toggleChallenges(i, auto) {
     auto = auto || false
     if (player.currentChallenge.transcension === 0 && (i <= 5)) {
-        player.currentChallenge.transcension = i;
-        reset(2, false, "enterChallenge");
-        player.transcendCount -= 1;
+        if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
+            player.currentChallenge.transcension = i;
+            reset(2, false, "enterChallenge");
+            player.transcendCount -= 1;
+        }
     }
-    if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)) {
-        player.currentChallenge.reincarnation = i;
-        reset(3, false, "enterChallenge");
-        player.reincarnationCount -= 1;
+    if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)){
+        if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
+            player.currentChallenge.reincarnation = i;
+            reset(3, false, "enterChallenge");
+            player.reincarnationCount -= 1;
+        }
     }
     if (player.challengecompletions[10] > 0) {
         if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
