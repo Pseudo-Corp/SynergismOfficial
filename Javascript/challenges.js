@@ -224,7 +224,7 @@ function challengeDisplay(i, changefocus, automated) {
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + format(challengeRequirement(i, player.challengecompletions[i])) + " times."
         e.textContent = "+50% Obtainium! Current: "
         f.textContent = "+12% Offerings! Current: "
-        g.textContent = "+1 Cube Blessing per opening! Current: "
+        g.textContent = "+1 Cube Tribute per opening! Current: "
         h.textContent = "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab."
         k.textContent = "Start <[(No Reincarnation)]>"
         l.textContent = "+" + format(50 * CalcECC('ascension', player.challengecompletions[12])) + "% Obtainium"
