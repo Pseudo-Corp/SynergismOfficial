@@ -725,7 +725,7 @@ function toggleCorruptionLevel(index, value) {
         corruptionDisplay(trig)
         document.getElementById("corruptionCleanseConfirm").style.visibility = "hidden";
 
-        if(player.currentChallenge.ascension === 15) {
+        if (player.currentChallenge.ascension === 15) {
             resetCheck('ascensionChallenge', false, true)
         }
     }

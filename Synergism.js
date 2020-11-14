@@ -2501,9 +2501,8 @@ function resetCheck(i, manual, leaving) {
         if (a === 15) {
             if (player.coins.greaterThanOrEqualTo(challengeRequirement(a, player.challengecompletions[a], a)) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
-            }
-            else{
-                if(player.coins.greaterThanOrEqualTo(Decimal.pow(10, player.challenge15Exponent))){
+            } else {
+                if (player.coins.greaterThanOrEqualTo(Decimal.pow(10, player.challenge15Exponent))) {
                     player.challenge15Exponent = Decimal.log(player.coins.add(1), 10);
                     c15RewardUpdate();
                 }
@@ -3404,7 +3403,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 });
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load', function () {
-    if(location.href.includes('kong')) {
+    if (location.href.includes('kong')) {
         // kongregate
         const script = document.createElement('script');
         script.setAttribute('src', 'https://cdn1.kongregate.com/javascripts/kongregate_api.js');
