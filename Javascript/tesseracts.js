@@ -49,6 +49,7 @@ function openTesseract(value, max) {
 }
 
 function calculateTesseractBlessings() {
+    // The visual updates are handled in visualUpdateCubes()
     let tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
 
     for (let i = 1; i <= 10; i++) {

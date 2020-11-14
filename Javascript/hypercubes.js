@@ -49,6 +49,7 @@ function openHypercube(value, max) {
 }
 
 function calculateHypercubeBlessings() {
+    // The visual updates are handled in visualUpdateCubes()
     let hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
 
     for (let i = 1; i <= 10; i++) {
