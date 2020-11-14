@@ -370,7 +370,9 @@ function reset(i, fast, from) {
 
         player.transcendPoints = new Decimal("0");
         player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain);
-        if(player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0){player.prestigePoints = player.prestigePoints.add(reincarnationPointGain)}
+        if (player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0) {
+            player.prestigePoints = player.prestigePoints.add(reincarnationPointGain)
+        }
         player.reincarnationShards = new Decimal("0");
         player.challengecompletions[1] = 0;
         player.challengecompletions[2] = 0;
@@ -497,14 +499,14 @@ function reset(i, fast, from) {
         }
         if (player.challengecompletions[10] > 0) {
             let ascCount = 1
-            if(player.ascensionCounter >= 10){
-                if(player.achievements[188] > 0){
+            if (player.ascensionCounter >= 10) {
+                if (player.achievements[188] > 0) {
                     ascCount += 99
                 }
-                ascCount *= (Math.min(24 * 3600,player.ascensionCounter)/10) * 1/5 * (player.achievements[189] + player.achievements[202] + player.achievements[209] + player.achievements[216] + player.achievements[223])
+                ascCount *= 1 + (Math.min(24 * 3600, player.ascensionCounter) / 10 - 1) * 0.2 * (player.achievements[189] + player.achievements[202] + player.achievements[209] + player.achievements[216] + player.achievements[223])
             }
-            if(player.achievements[187] > 0 && metaData[3] > 1e8){
-                ascCount *= (Math.log(metaData[3])/Math.log(10) - 1)
+            if (player.achievements[187] > 0 && metaData[3] > 1e8) {
+                ascCount *= (Math.log(metaData[3]) / Math.log(10) - 1)
             }
             ascCount = Math.floor(ascCount)
             player.ascensionCount += ascCount;
