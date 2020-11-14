@@ -234,6 +234,10 @@ function visualUpdateChallenges() {
 function visualUpdateResearch() {
     if (currentTab !== "researches")
         return
+
+    if (player.researches[61] > 0) {
+        document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + format(calculateAutomaticObtainium(), 3, true) + " Obtainium per real life second."
+    }
 }
 
 function visualUpdateAnts() {
@@ -243,6 +247,10 @@ function visualUpdateAnts() {
     let mode = player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
     let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
     document.getElementById("autoAntSacrifice").textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer)}`
+    if (player.achievements[173] === 1) {
+        document.getElementById("antSacrificeTimer").textContent = formatTimeShort(player.antSacrificeTimer);
+        showSacrifice();
+    }
 }
 
 function visualUpdateCubes() {
@@ -369,6 +377,23 @@ function visualUpdateSettings() {
 
     document.getElementById("saveString").textContent =
         `Currently: ${player.saveString.replace("$VERSION$", "v" + player.version)}`;
+
+    const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
+    const maxExportQuarks = ((25 * (1 + player.researches[195] / 2)) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
+
+    document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)), 2) + "s until +" + (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]) + " export Quark"
+    document.getElementById("quarktimeramount").textContent = "Quarks on export: "
+        + onExportQuarks
+        + " [Max "
+        + format(maxExportQuarks)
+        + "]"
+
+    if (onExportQuarks === maxExportQuarks) {
+        const settingsTab = document.getElementById('settingstab');
+        settingsTab.style.backgroundColor = 'orange';
+        settingsTab.style.border = '1px solid gold';
+        settingsTab.setAttribute('full', 1);
+    }
 }
 
 function visualUpdateShop() {
