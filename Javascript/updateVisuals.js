@@ -308,10 +308,27 @@ function visualUpdateCubes() {
             document.getElementById("hypercubeBlessingTotalAmount").textContent = format(sumContents(hypercubeArray), 0, true);
             break;
         case 3:
-            document.getElementById("cubeAmount2").textContent = "You have " + format(player.wowCubes, 0, true) + " Wow! Cubes =)"
+            document.getElementById("platonicQuantity").textContent = format(player.wowPlatonicCubes, 0, true)
+            let platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
+            let DRThreshold = [1e7, 1e7, 1e7, 2e5, 1e4, 1e4, 1e4, 1e4]
+            accuracy = [5, 5, 5, 5, 2, 3, 3, 2]
+            for (let i = 0; i < platonicArray.length; i++) {
+                let augmentAccuracy = 0;
+                if (platonicArray[i] >= DRThreshold[i]) {
+                    augmentAccuracy += 1;
+                }
+                document.getElementById(`platonicBlessing${i + 1}Amount`).textContent = `x${format(platonicArray[i], 0, true)}`
+                document.getElementById(`platonicBlessing${i + 1}Effect`).textContent = `+${format(100 * (platonicBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+            }
+            document.getElementById("platonicBlessingTotalAmount").textContent = format(sumContents(platonicArray), 0, true);
+            break;
+        case 4:
+            document.getElementById("cubeAmount2").textContent = `You have ${format(player.wowCubes, 0, true)} Wow! Cubes =)`
+            break;
+        case 5:
             break;
         default:
-            console.log(`player.subtabNumber (${player.subtabNumber}) was outside of the allowed range (${subTabsInMainTab(8).subTabList.length}) for the cube tab`);
+            // console.log(`player.subtabNumber (${player.subtabNumber}) was outside of the allowed range (${subTabsInMainTab(8).subTabList.length}) for the cube tab`);
             break;
     }
 }

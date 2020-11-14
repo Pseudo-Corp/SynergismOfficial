@@ -53,26 +53,16 @@ function openPlatonic(value, max) {
 }
 
 function calculatePlatonicBlessings() {
-
-    document.getElementById("platonicQuantity").textContent = format(player.wowPlatonicCubes, 0, true)
-
     let platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
     let DRThreshold = [1e7, 1e7, 1e7, 2e5, 1e4, 1e4, 1e4, 1e4]
-    let accuracy = [5, 5, 5, 5, 2, 3, 3, 2]
     for (let i = 0; i < platonicArray.length; i++) {
         let power = 1;
         let mult = 1;
-        let augmentAccuracy = 0;
         if (platonicArray[i] >= DRThreshold[i]) {
             power = platonicDRPower[i];
             mult *= Math.pow(DRThreshold[i], (1 - platonicDRPower[i]));
-            augmentAccuracy += 1;
         }
 
         platonicBonusMultiplier[i] = 1 + mult * platonicCubeBase[i] * Math.pow(platonicArray[i], power);
-
-        document.getElementById("platonicBlessing" + (i+1) + "Amount").textContent = "x" + format(platonicArray[i], 0, true)
-        document.getElementById("platonicBlessing" + (i+1) + "Effect").textContent = "+" + format(100 * (platonicBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true) + "%"
     }
-	document.getElementById("platonicBlessingTotalAmount").textContent = format(sumContents(platonicArray), 0, true);
 }
