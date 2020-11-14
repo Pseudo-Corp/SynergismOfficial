@@ -345,7 +345,7 @@ var giftDRPower = [null, 1 / 6, 1 / 6, 1 / 3, 1 / 4, 1 / 3, 1, 1 / 6, 1 / 6, 1 /
 var benedictionbase = [null, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000]
 var benedictionDRPower = [null, 1 / 12, 1 / 12, 1 / 6, 1 / 8, 1 / 6, 1 / 2, 1 / 12, 1 / 12, 1 / 64, 1 / 64]
 //10 Million of each before Diminishing returns on first 3, 200k for second, and 10k for the last few
-var platonicCubeBase = [2/1e7, 1.5/1e7, 1/1e7, 0.5/2e5, 1/1e4, 1/1e5, 1/5e4, 1/1e4]
+var platonicCubeBase = [2/4e6, 1.5/4e6, 1/4e6, 1/8e4, 1/1e4, 1/1e5, 1/5e4, 1/1e4]
 var platonicDRPower = [1/6, 1/6, 1/6, 1/6, 1/16, 1/16, 1/4, 1/8]
 
 

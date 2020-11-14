@@ -2522,7 +2522,7 @@ function resetCheck(i, manual, leaving) {
             player.wowHypercubes += 1;
         }
 
-        if (!player.retrychallenges || manual || player.challengecompletions[a] >= maxCompletions /*|| a === 15*/) {
+        if (!player.retrychallenges || manual || player.challengecompletions[a] >= maxCompletions || a === 15) {
             player.currentChallenge.ascension = 0;
         }
         updateChallengeDisplay();
@@ -3412,7 +3412,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 
     const version = player.version
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're playing on v${player.version} - The Abyss [Last Update: 2:00 PM UTC-8 Nov 13]`);
+    ver && (ver.textContent = `You're playing on v${player.version} - The Abyss [Last Update: 4:45 PM UTC-8 Nov 13]`);
     document.title = 'Synergism v' + player.version;
 
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));

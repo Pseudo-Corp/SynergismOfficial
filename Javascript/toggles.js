@@ -40,14 +40,18 @@ function toggleSettings(i) {
 function toggleChallenges(i, auto) {
     auto = auto || false
     if (player.currentChallenge.transcension === 0 && (i <= 5)) {
-        player.currentChallenge.transcension = i;
-        reset(2, false, "enterChallenge");
-        player.transcendCount -= 1;
+        if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
+            player.currentChallenge.transcension = i;
+            reset(2, false, "enterChallenge");
+            player.transcendCount -= 1;
+        }
     }
-    if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)) {
-        player.currentChallenge.reincarnation = i;
-        reset(3, false, "enterChallenge");
-        player.reincarnationCount -= 1;
+    if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)){
+        if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
+            player.currentChallenge.reincarnation = i;
+            reset(3, false, "enterChallenge");
+            player.reincarnationCount -= 1;
+        }
     }
     if (player.challengecompletions[10] > 0) {
         if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
@@ -235,8 +239,8 @@ function subTabsInMainTab(mainTab) {
                 {subTabID: 1, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab1"},
                 {subTabID: 2, unlocked: player.achievements[197] > 0, buttonID: "switchCubeSubTab2"},
                 {subTabID: 3, unlocked: player.achievements[211] > 0, buttonID: "switchCubeSubTab3"},
-                {subTabID: 4, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab4"},
-                {subTabID: 5, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab5"},
+                {subTabID: 4, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab4"},
+                {subTabID: 5, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab5"},
                 {subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab6"}]
         },
         9: {
