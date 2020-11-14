@@ -54,7 +54,7 @@ function calculatePlatonicBlessings() {
     document.getElementById("platonicQuantity").textContent = format(player.wowPlatonicCubes, 0, true)
 
     let platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
-    let DRThreshold = [1e7, 1e7, 1e7, 2e5, 1e4, 1e4, 1e4, 1e4]
+    let DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4]
     let accuracy = [5, 5, 5, 5, 2, 3, 3, 2]
     for (let i = 0; i < platonicArray.length; i++) {
         let power = 1;
