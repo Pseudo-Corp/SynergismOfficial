@@ -221,17 +221,17 @@ function checkVariablesOnLoad(data) {
     if (player.subtabNumber === undefined || data.subtabNumber === undefined) {
         player.subtabNumber = 0;
     }
-    if (data.wowPlatonicCubes === undefined){
+    if (data.wowPlatonicCubes === undefined) {
         player.wowPlatonicCubes = 0;
         player.wowAbyssals = 0;
     }
-    if (data.platonicBlessings === undefined){
+    if (data.platonicBlessings === undefined) {
         let ascCount = player.ascensionCount
-        if(player.currentChallenge.ascension !== 0 && player.currentChallenge.ascension !== 15){
-            resetCheck('ascensionChallenge',false,true);
+        if (player.currentChallenge.ascension !== 0 && player.currentChallenge.ascension !== 15) {
+            resetCheck('ascensionChallenge', false, true);
         }
-        if(player.currentChallenge.ascension === 15){
-            resetCheck('ascensionChallenge',false,true);
+        if (player.currentChallenge.ascension === 15) {
+            resetCheck('ascensionChallenge', false, true);
             player.challenge15Exponent = 0;
             c15RewardUpdate();
         }
@@ -251,6 +251,11 @@ function checkVariablesOnLoad(data) {
         player.platonicUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         player.challenge15Exponent = 0
         player.loadedNov13Vers = false;
+    }
+    if (player.researches.includes(null)) { // Makes sure any nulls in the research array are fixed
+        for (let i = 0; i < 200; i++) {
+            player.researches[i + 1] = player.researches[i + 1] || 0;
+        }
     }
 }
 
