@@ -43,6 +43,7 @@
     <script src="Javascript/experimental.js"></script>
     <script src="Javascript/utilities.js"></script>
     <script src="Javascript/platonic_cubes.js"></script>
+    <script src="Javascript/updateVisuals.js"></script>
     <!--<script src="Javascript/i18n.js"></script>-->
     <title>Synergism v2.1.0</title>
     </head>
@@ -1057,7 +1058,7 @@
             <p id="bonusrune1" style="color: orange"></p>
             <p id="rune1exp">Exp: 0/40</p>
             <button id="activaterune1" onclick="redeemShards(1)" onmouseover="displayRuneInformation(1)">SACRIFICE</button>
-            <p id="runeshowpower1">1<span id="divineblessing1" style="color: yellow"> </span></p>
+            <p id="runeshowpower1">1</p>
             </div>
 
             <div id="rune2area">
@@ -1067,7 +1068,7 @@
             <p id="bonusrune2" style="color: orange"></p>
             <p id="rune2exp">Exp: 0/40</p>
             <button id="activaterune2" onclick="redeemShards(2)" onmouseover="displayRuneInformation(2)">SACRIFICE</button>
-            <p id="runeshowpower2">1<span id="divineblessing2" style="color: yellow"> </span></p>
+            <p id="runeshowpower2">1</p>
             </div>
 
             <div id="rune3area">
@@ -1077,7 +1078,7 @@
             <p id="bonusrune3" style="color: orange"></p>
             <p id="rune3exp">Exp: 0/40</p>
             <button id="activaterune3" onclick="redeemShards(3)" onmouseover="displayRuneInformation(3)">SACRIFICE</button>
-            <p id="runeshowpower3">1<span id="divineblessing3" style="color: yellow"> </span></p>
+            <p id="runeshowpower3">1</p>
             </div>
 
             <div id="rune4area">
@@ -1087,7 +1088,7 @@
             <p id="bonusrune4" style="color: orange"></p>
             <p id="rune4exp">TNL: 0</p>
             <button id="activaterune4" onclick="redeemShards(4)" onmouseover="displayRuneInformation(4)">SACRIFICE</button>
-            <p id="runeshowpower4">1<span id="divineblessing4" style="color: yellow"> </span></p>
+            <p id="runeshowpower4">1</p>
             </div>
 
             <div id="rune5area">
@@ -1097,7 +1098,7 @@
             <p id="bonusrune5" style="color: orange"></p>
             <p id="rune5exp">TNL: 0</p>
             <button id="activaterune5" onclick="redeemShards(5)" onmouseover="displayRuneInformation(5)">SACRIFICE</button>
-            <p id="runeshowpower5">1<span id="divineblessing5" style="color: yellow"> </span></p>
+            <p id="runeshowpower5">1</p>
             </div>
 
             <p id="runedetails">Gain 25 rune experience per Offering.</p>
@@ -1716,7 +1717,7 @@
         </div>
 
         <div id="cubes">
-            <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;" onclick="toggleSubTab(8, 0)">Cube Blessings</button>
+            <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;" onclick="toggleSubTab(8, 0)">Cube Tributes</button>
             <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid purple;" onclick="toggleSubTab(8, 1)">Tesseract Gifts</button>
             <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" onclick="toggleSubTab(8, 2)">Hypercube Benedictions</button>
             <button id="switchCubeSubTab4" class="cubeSwitchTabBtn chal14" style="border: 2px solid orange;" onclick="toggleSubTab(8, 3)">Platonic Statues</button>
@@ -1807,11 +1808,11 @@
                         </tr>
                     </table>
                 </div>
-                <p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube blessings!</p>
+                <p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube tributes!</p>
             </div>
             <div id="cubeTab2" style="display: none">
                 <p id="tesseractWelcome" class="cubePlacement1" style="color: orchid">You obtain guidance from beings in another dimension!</p>
-                <p id="tesseractExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Tesseracts, to boost blessings from the previous tier.</p>
+                <p id="tesseractExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.</p>
                 <p id="tesseractExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</p>
                 <img id="wowTesseract" src="Pictures/WowTessaract.png" class="cubePlacement4" alt="">
                 <p id="tesseractInventory" class="cubePlacement5" style="color: orchid">You possess <span id="tesseractQuantity" style="color: yellow">13</span> Wow! TESSERACTS. Get more from harder Ascensions and other stuff.</p>
@@ -2410,7 +2411,7 @@
             <p id="statOff8" class="statPortion reincarnationunlock">Cash Grab Shop Upgrade:<span id="sOff8" class="statNumber">0</span></p>
             <p id="statOff9" class="statPortion reincarnationunlock">Research 4x10:<span id="sOff9" class="statNumber">0</span></p>
             <p id="statOff10" class="statPortion chal8">Sacrificium Formicidae:<span id="sOff10" class="statNumber">0</span></p>
-            <p id="statOff11" class="statPortion ascendunlock">Brutus Cube Blessing:<span id="sOff11" class="statNumber">0</span></p>
+            <p id="statOff11" class="statPortion ascendunlock">Brutus Cube Tribute:<span id="sOff11" class="statNumber">0</span></p>
             <p id="statOff12" class="statPortion ascendunlock">Constant Upgrade 3:<span id="sOff12" class="statNumber">0</span></p>
             <p id="statOff13" class="statPortion chal11">Research 6x24,8x4:<span id="sOff13" class="statNumber">0</span></p>
             <p id="statOff14" class="statPortion chal11">Challenge 12:<span id="sOff14" class="statNumber">0</span></p>

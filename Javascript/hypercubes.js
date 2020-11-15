@@ -9,8 +9,8 @@ function openHypercube(value, max) {
     player.wowHypercubes -= toSpend
     player.hypercubeOpenedDaily += toSpend
 
-    if(player.hypercubeQuarkDaily < 25 + 75 * player.shopUpgrades.hypercubeToQuarkBought){
-        while(player.hypercubeOpenedDaily >= 5 * Math.pow(1 + player.hypercubeQuarkDaily, 2) && player.hypercubeQuarkDaily < 25 + 75 * player.shopUpgrades.hypercubeToQuarkBought){
+    if (player.hypercubeQuarkDaily < 25 + 75 * player.shopUpgrades.hypercubeToQuarkBought) {
+        while (player.hypercubeOpenedDaily >= 5 * Math.pow(1 + player.hypercubeQuarkDaily, 2) && player.hypercubeQuarkDaily < 25 + 75 * player.shopUpgrades.hypercubeToQuarkBought) {
             player.hypercubeQuarkDaily += 1;
             player.worlds += 1;
         }
@@ -49,26 +49,17 @@ function openHypercube(value, max) {
 }
 
 function calculateHypercubeBlessings() {
-
-    document.getElementById("hypercubeQuantity").textContent = format(player.wowHypercubes, 0, true)
-
+    // The visual updates are handled in visualUpdateCubes()
     let hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
 
-    let accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
     for (let i = 1; i <= 10; i++) {
         let power = 1;
         let mult = 1;
-        let augmentAccuracy = 0;
         if (hypercubeArray[i] >= 1000) {
             power = benedictionDRPower[i];
             mult *= Math.pow(1000, (1 - benedictionDRPower[i]));
-            augmentAccuracy += 2;
         }
 
         hypercubeBonusMultiplier[i] = 1 + mult * benedictionbase[i] * Math.pow(hypercubeArray[i], power) * platonicBonusMultiplier[4];
-
-        document.getElementById("hypercubeBlessing" + i + "Amount").textContent = "x" + format(hypercubeArray[i], 0, true)
-        document.getElementById("hypercubeBlessing" + i + "Effect").textContent = "+" + format(100 * (hypercubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true) + "%"
     }
-	document.getElementById("hypercubeBlessingTotalAmount").textContent = format(sumContents(hypercubeArray), 0, true);
 }
