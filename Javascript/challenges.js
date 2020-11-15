@@ -229,7 +229,7 @@ function challengeDisplay(i, changefocus, automated) {
         k.textContent = "Start <[(No Reincarnation)]>"
         l.textContent = "+" + format(50 * CalcECC('ascension', player.challengecompletions[12])) + "% Obtainium"
         m.textContent = "+" + format(12 * CalcECC('ascension', player.challengecompletions[12])) + "% Offerings"
-        n.textContent = "+" + format(CalcECC('ascension', player.challengecompletions[12])) + " additional Cube Blessings"
+        n.textContent = "+" + format(CalcECC('ascension', player.challengecompletions[12])) + " additional Cube Tributes"
     }
     if (i === 13 && challengefocus === 13) {
         a.textContent = "Tax+++ Challenge || " + player.challengecompletions[13] + "/" + format(maxChallenges) + " Completions"
