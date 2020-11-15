@@ -252,5 +252,10 @@ function checkVariablesOnLoad(data) {
         player.challenge15Exponent = 0
         player.loadedNov13Vers = false;
     }
+    if (player.researches.includes(null)) { // Makes sure any nulls in the research array are fixed
+        for (let i = 0; i < 200; i++) {
+            player.researches[i + 1] = player.researches[i + 1] || 0;
+        }
+    }
 }
 
