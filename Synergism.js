@@ -1194,8 +1194,6 @@ if (player.achievements[38] == 1)document.getElementById("runeshowpower2").textC
 if (player.achievements[44] == 1)document.getElementById("runeshowpower3").textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(rune3level * m, 2).times(Decimal.pow(2, rune3level * m - 8).add(1))) + ", gain +" + format(Math.floor(rune3level/10 * m)) + " free crystal levels.";
 if (player.achievements[102] == 1)document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (rune4level/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + rune4level/8 + "%."; */
 
-        CSSAscend();
-        CSSRuneBlessings();
         corruptionStatsUpdate();
         for (let i = 0; i < 4; i++) {
             corruptionLoadoutTableUpdate(i);
@@ -1312,6 +1310,8 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         resetHistoryRenderAllTables();
         c15RewardUpdate();
     }
+    CSSAscend();
+    CSSRuneBlessings();
     updateAchievementBG();
 
     let d = new Date()
@@ -1319,6 +1319,24 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
     let m = d.getMinutes()
     let s = d.getSeconds()
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
+}
+
+let numberFormatter = false;
+if (window.BigInt && window.Intl && window.Intl.NumberFormat) {
+    // Check if there's BigInt support + a browser that can sanely format BigInts (some versions of Chrome/Firefox can't).
+    try {
+        numberFormatter = new Intl.NumberFormat("en-US");
+        if (!numberFormatter || numberFormatter.format(BigInt(1234)) !== "1,234") {
+            numberFormatter = false;
+        }
+    } catch (e) {
+        // Browser can't do it, leave numberFormatter set to false to fall back to regex code
+        numberFormatter = false;
+        console.log("Using slower number formatting code: browser failed self-test");
+    }
+}
+else {
+    console.log("Using slower number formatting code: browser doesn't support necessary features");
 }
 
 /**
@@ -1376,8 +1394,8 @@ function format(input, accuracy = 0, long = false) {
         // Split it on the decimal place
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
-        const frontFormatted = 'BigInt' in window
-            ? BigInt(front).toLocaleString('en-US')
+        const frontFormatted = numberFormatter
+            ? numberFormatter.format(BigInt(front))
             : front.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // if the back is undefined that means there are no decimals to display, return just the front
         if (back === undefined) {
@@ -1391,8 +1409,8 @@ function format(input, accuracy = 0, long = false) {
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
         // Makes the power group 3 with commas
-        const powerLook = 'BigInt' in window
-            ? BigInt(power).toLocaleString('en-US')
+        const powerLook = numberFormatter
+            ? numberFormatter.format(BigInt(power))
             : power.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1,");
         // returns format (1.23e456,789)
         return mantissaLook + "e" + powerLook;
@@ -2060,8 +2078,7 @@ function multipliers() {
 
 // Function that adds to resources each tick. [Lines 928 - 989]
 
-function resourceGain(dt, fast) {
-    fast = fast || false
+function resourceGain(dt) {
 
     calculateTotalCoinOwned();
     calculateTotalAcceleratorBoost();
@@ -2069,7 +2086,7 @@ function resourceGain(dt, fast) {
     updateAllTick();
     updateAllMultiplier();
     multipliers();
-    calculatetax(fast);
+    calculatetax();
     if (produceTotal.greaterThanOrEqualTo(0.001)) {
         let addcoin = new Decimal.min(produceTotal.dividedBy(taxdivisor), Decimal.pow(10, maxexponent - Decimal.log(taxdivisorcheck, 10)))
         player.coins = player.coins.add(addcoin.times(dt / 0.025));
@@ -2218,9 +2235,6 @@ function resourceGain(dt, fast) {
     if (player.coins.greaterThanOrEqualTo(8e6) && player.unlocks.coinfour === false) {
         player.unlocks.coinfour = true;
         revealStuff();
-    }
-    if (!fast) {
-        htmlInserts();
     }
     if (player.antPoints.greaterThanOrEqualTo(3) && player.achievements[169] === 0) {
         achievementaward(169)
@@ -2505,9 +2519,8 @@ function resetCheck(i, manual, leaving) {
         if (a === 15) {
             if (player.coins.greaterThanOrEqualTo(challengeRequirement(a, player.challengecompletions[a], a)) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
-            }
-            else{
-                if(player.coins.greaterThanOrEqualTo(Decimal.pow(10, player.challenge15Exponent))){
+            } else {
+                if (player.coins.greaterThanOrEqualTo(Decimal.pow(10, player.challenge15Exponent))) {
                     player.challenge15Exponent = Decimal.log(player.coins.add(1), 10);
                     c15RewardUpdate();
                 }
@@ -2945,6 +2958,7 @@ function constantIntervals() {
     interval(saveSynergy, 5000);
     interval(autoUpgrades, 200);
     interval(buttoncolorchange, 200)
+    interval(htmlInserts, 16)
     interval(updateAll, 100)
     interval(buildingAchievementCheck, 200)
 
@@ -2960,7 +2974,7 @@ let lastUpdate = 0;
 
 function createTimer() {
     lastUpdate = Date.now();
-    interval(tick, 50);
+    interval(tick, 5);
 }
 
 
@@ -2980,26 +2994,6 @@ function tick() {
         }
         if (player.researches[61] > 0) {
             player.obtainiumtimer += (dt * timeMult);
-        }
-        if (player.researches[61] > 0) {
-            document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + format(calculateAutomaticObtainium(), 3, true) + " Obtainium per real life second."
-        }
-
-        const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
-        const maxExportQuarks = ((25 * (1 + player.researches[195] / 2)) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
-
-        document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)), 2) + "s until +" + (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]) + " export Quark"
-        document.getElementById("quarktimeramount").textContent = "Quarks on export: "
-            + onExportQuarks
-            + " [Max "
-            + format(maxExportQuarks)
-            + "]"
-
-        if (onExportQuarks === maxExportQuarks) {
-            const settingsTab = document.getElementById('settingstab');
-            settingsTab.style.backgroundColor = 'orange';
-            settingsTab.style.border = '1px solid gold';
-            settingsTab.setAttribute('full', 1);
         }
 
         if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle) {
@@ -3030,8 +3024,6 @@ function tick() {
         if (player.achievements[173] === 1) {
             player.antSacrificeTimer += (dt * timeMult)
             player.antSacrificeTimerReal += dt;
-            document.getElementById("antSacrificeTimer").textContent = formatTimeShort(player.antSacrificeTimer);
-            showSacrifice();
         }
         calculateObtainium();
         if (player.researches[61] === 1) {
@@ -3407,13 +3399,14 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 });
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load', function () {
-    if(location.href.includes('kong')) {
+    if (location.href.includes('kong')) {
         // kongregate
         const script = document.createElement('script');
         script.setAttribute('src', 'https://cdn1.kongregate.com/javascripts/kongregate_api.js');
         document.head.appendChild(script);
     }
 
+    const version = player.version
     const ver = document.getElementById('versionnumber');
     ver && (ver.textContent = `You're playing on v${player.version} - The Abyss [Last Update: 4:45 PM UTC-8 Nov 13]`);
     document.title = 'Synergism v' + player.version;
@@ -3437,5 +3430,6 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
         // thanks Kewne
         createTimer();
         constantIntervals();
+        player.version = version;
     }, 0);
 });

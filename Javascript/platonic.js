@@ -169,10 +169,10 @@ var platUpgradeBaseCosts = {
     }
 }
 
-function checkPlatonicUpgrade(index){
+function checkPlatonicUpgrade(index) {
     let checksum = 0
-    let resources = ['obtainium','offerings','cubes','tesseracts','hypercubes','platonics','abyssals']
-    let resourceNames = ['researchPoints','runeshards','wowCubes','wowTesseracts','wowHypercubes','wowPlatonicCubes','wowAbyssals']
+    let resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals']
+    let resourceNames = ['researchPoints', 'runeshards', 'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowAbyssals']
     let checks = {
         obtainium: false,
         offerings: false,
@@ -183,26 +183,28 @@ function checkPlatonicUpgrade(index){
         abyssals: false,
         canBuy: false,
     }
-    for(var i = 0; i < resources.length; i++){
-        if (platUpgradeBaseCosts[index][resources[i]] <= player[resourceNames[i]]){
+    for (var i = 0; i < resources.length; i++) {
+        if (platUpgradeBaseCosts[index][resources[i]] <= player[resourceNames[i]]) {
             checksum++;
             checks[resources[i]] = true
         }
     }
-    if (checksum === resources.length && player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel){
+    if (checksum === resources.length && player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
         checks.canBuy = true
     }
     return checks
 }
 
-function createPlatonicDescription(index){
+function createPlatonicDescription(index) {
     let maxLevelAppend = "";
-    if(player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel){maxLevelAppend = " [MAX]"};
+    if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
+        maxLevelAppend = " [MAX]"
+    }
     let resourceCheck = checkPlatonicUpgrade(index);
     document.getElementById('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index];
     document.getElementById('platonicUpgradeLevel').textContent = "Level: " + format(player.platonicUpgrades[index]) + "/" + format(platUpgradeBaseCosts[index].maxLevel) + maxLevelAppend
     document.getElementById('platonicOfferingCost').textContent = format(player.runeshards) + "/" + format(platUpgradeBaseCosts[index].offerings) + " Offerings"
-    document.getElementById('platonicObtainiumCost').textContent =  format(player.researchPoints) + "/" + format(platUpgradeBaseCosts[index].obtainium) + " Obtainium"
+    document.getElementById('platonicObtainiumCost').textContent = format(player.researchPoints) + "/" + format(platUpgradeBaseCosts[index].obtainium) + " Obtainium"
     document.getElementById('platonicCubeCost').textContent = format(player.wowCubes) + "/" + format(platUpgradeBaseCosts[index].cubes) + " Wow! Cubes"
     document.getElementById('platonicTesseractCost').textContent = format(player.wowTesseracts) + "/" + format(platUpgradeBaseCosts[index].tesseracts) + " Wow! Tesseracts"
     document.getElementById('platonicHypercubeCost').textContent = format(player.wowHypercubes) + "/" + format(platUpgradeBaseCosts[index].hypercubes) + " Wow! Hypercubes"
@@ -210,50 +212,50 @@ function createPlatonicDescription(index){
     document.getElementById('platonicHepteractCost').textContent = format(player.wowAbyssals) + "/" + format(platUpgradeBaseCosts[index].abyssals) + " Hepteracts of the Abyss"
 
     resourceCheck.offerings ?
-    document.getElementById('platonicOfferingCost').style.color = "lime":
-    document.getElementById('platonicOfferingCost').style.color = "crimson";
+        document.getElementById('platonicOfferingCost').style.color = "lime" :
+        document.getElementById('platonicOfferingCost').style.color = "crimson";
 
     resourceCheck.obtainium ?
-    document.getElementById('platonicObtainiumCost').style.color = "lime":
-    document.getElementById('platonicObtainiumCost').style.color = "crimson";
+        document.getElementById('platonicObtainiumCost').style.color = "lime" :
+        document.getElementById('platonicObtainiumCost').style.color = "crimson";
 
     resourceCheck.cubes ?
-    document.getElementById('platonicCubeCost').style.color = "lime":
-    document.getElementById('platonicCubeCost').style.color = "crimson";
+        document.getElementById('platonicCubeCost').style.color = "lime" :
+        document.getElementById('platonicCubeCost').style.color = "crimson";
 
     resourceCheck.tesseracts ?
-    document.getElementById('platonicTesseractCost').style.color = "lime":
-    document.getElementById('platonicTesseractCost').style.color = "crimson";
+        document.getElementById('platonicTesseractCost').style.color = "lime" :
+        document.getElementById('platonicTesseractCost').style.color = "crimson";
 
     resourceCheck.hypercubes ?
-    document.getElementById('platonicHypercubeCost').style.color = "lime":
-    document.getElementById('platonicHypercubeCost').style.color = "crimson";
+        document.getElementById('platonicHypercubeCost').style.color = "lime" :
+        document.getElementById('platonicHypercubeCost').style.color = "crimson";
 
     resourceCheck.platonics ?
-    document.getElementById('platonicPlatonicCost').style.color = "lime":
-    document.getElementById('platonicPlatonicCost').style.color = "crimson";
+        document.getElementById('platonicPlatonicCost').style.color = "lime" :
+        document.getElementById('platonicPlatonicCost').style.color = "crimson";
 
     resourceCheck.abyssals ?
-    document.getElementById('platonicHepteractCost').style.color = "lime":
-    document.getElementById('platonicHepteractCost').style.color = "crimson";
+        document.getElementById('platonicHepteractCost').style.color = "lime" :
+        document.getElementById('platonicHepteractCost').style.color = "crimson";
 
-    if(player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel){
+    if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
         document.getElementById('platonicUpgradeLevel').style.color = 'cyan'
         resourceCheck.canBuy ?
-            (document.getElementById('platonicCanBuy').style.color = "gold", document.getElementById('platonicCanBuy').textContent="===Affordable! Click to buy!==="):
-            (document.getElementById('platonicCanBuy').style.color = "crimson", document.getElementById('platonicCanBuy').textContent="===You cannot afford this!===");
+            (document.getElementById('platonicCanBuy').style.color = "gold", document.getElementById('platonicCanBuy').textContent = "===Affordable! Click to buy!===") :
+            (document.getElementById('platonicCanBuy').style.color = "crimson", document.getElementById('platonicCanBuy').textContent = "===You cannot afford this!===");
     }
 
-    if(player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel){
+    if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
         document.getElementById('platonicUpgradeLevel').style.color = 'gold'
         document.getElementById('platonicCanBuy').style.color = "orchid"
         document.getElementById('platonicCanBuy').textContent = "===Maxed==="
     }
 }
 
-function buyPlatonicUpgrades(index){
+function buyPlatonicUpgrades(index) {
     let resourceCheck = checkPlatonicUpgrade(index)
-    if (resourceCheck.canBuy){
+    if (resourceCheck.canBuy) {
         player.platonicUpgrades[index] += 1
         player.researchPoints -= platUpgradeBaseCosts[index].obtainium
         player.runeshards -= platUpgradeBaseCosts[index].offerings

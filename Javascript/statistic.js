@@ -81,7 +81,7 @@ function loadStatisticsOfferingMultipliers() {
         8: {acc: 3, desc: "Cash Grab Shop Upgrade:"},
         9: {acc: 3, desc: "Research 4x10:"},
         10: {acc: 3, desc: "Sacrificium Formicidae:"},
-        11: {acc: 3, desc: "Brutus Cube Blessing:"},
+        11: {acc: 3, desc: "Brutus Cube Tribute:"},
         12: {acc: 3, desc: "Constant Upgrade 3:"},
         13: {acc: 3, desc: "Research 6x24,8x4:"},
         14: {acc: 3, desc: "Challenge 12:"},

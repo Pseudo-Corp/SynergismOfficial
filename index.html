@@ -43,6 +43,7 @@
     <script src="Javascript/experimental.js"></script>
     <script src="Javascript/utilities.js"></script>
     <script src="Javascript/platonic_cubes.js"></script>
+    <script src="Javascript/updateVisuals.js"></script>
     <!--<script src="Javascript/i18n.js"></script>-->
     <title>Synergism v2.1.0</title>
     </head>
@@ -1057,7 +1058,7 @@
             <p id="bonusrune1" style="color: orange"></p>
             <p id="rune1exp">Exp: 0/40</p>
             <button id="activaterune1" onclick="redeemShards(1)" onmouseover="displayRuneInformation(1)">SACRIFICE</button>
-            <p id="runeshowpower1">1<span id="divineblessing1" style="color: yellow"> </span></p>
+            <p id="runeshowpower1">1</p>
             </div>
 
             <div id="rune2area">
@@ -1067,7 +1068,7 @@
             <p id="bonusrune2" style="color: orange"></p>
             <p id="rune2exp">Exp: 0/40</p>
             <button id="activaterune2" onclick="redeemShards(2)" onmouseover="displayRuneInformation(2)">SACRIFICE</button>
-            <p id="runeshowpower2">1<span id="divineblessing2" style="color: yellow"> </span></p>
+            <p id="runeshowpower2">1</p>
             </div>
 
             <div id="rune3area">
@@ -1077,7 +1078,7 @@
             <p id="bonusrune3" style="color: orange"></p>
             <p id="rune3exp">Exp: 0/40</p>
             <button id="activaterune3" onclick="redeemShards(3)" onmouseover="displayRuneInformation(3)">SACRIFICE</button>
-            <p id="runeshowpower3">1<span id="divineblessing3" style="color: yellow"> </span></p>
+            <p id="runeshowpower3">1</p>
             </div>
 
             <div id="rune4area">
@@ -1087,7 +1088,7 @@
             <p id="bonusrune4" style="color: orange"></p>
             <p id="rune4exp">TNL: 0</p>
             <button id="activaterune4" onclick="redeemShards(4)" onmouseover="displayRuneInformation(4)">SACRIFICE</button>
-            <p id="runeshowpower4">1<span id="divineblessing4" style="color: yellow"> </span></p>
+            <p id="runeshowpower4">1</p>
             </div>
 
             <div id="rune5area">
@@ -1097,7 +1098,7 @@
             <p id="bonusrune5" style="color: orange"></p>
             <p id="rune5exp">TNL: 0</p>
             <button id="activaterune5" onclick="redeemShards(5)" onmouseover="displayRuneInformation(5)">SACRIFICE</button>
-            <p id="runeshowpower5">1<span id="divineblessing5" style="color: yellow"> </span></p>
+            <p id="runeshowpower5">1</p>
             </div>
 
             <p id="runedetails">Gain 25 rune experience per Offering.</p>
@@ -1123,37 +1124,37 @@
                 </div>
                 <table id="talismancounter" style="table-layout: fixed;">
                     <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/TalismanShard.png" alt=""></td>
+                        <td style="font-size: 0; width: 32px"><img src="Pictures/TalismanShard.png" title='Talisman Shard' style="font-size:0;" alt=""></td>
                         <td style="width: 66px; color: yellow"><p id="talismanShardInventory">0</p></td>
                         <td><button class="talismanbtn" id="buyShard" style="border: 2px solid gold" onmouseover="updateTalismanCostDisplay('shard')" onclick="buyTalismanResources('shard')">BUY</button></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/CommonTalisman.png" alt=""></td>
+                        <td style="font-size: 0; width: 32px"><img src="Pictures/CommonTalisman.png" title='Common Fragment' style="font-size:0;" alt=""></td>
                         <td style="width: 68px; color: white"><p id="commonFragmentInventory">0</p></td>
                         <td><button class="talismanbtn" id="buyCommonFragment" style="border:2px solid white" onmouseover="updateTalismanCostDisplay('commonFragment')" onclick="buyTalismanResources('commonFragment')">BUY</button></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/UncommonTalisman.png" alt=""></td>
+                        <td style="font-size: 0; width: 32px"><img src="Pictures/UncommonTalisman.png" title='Uncommon Fragment' style="font-size:0;" alt=""></td>
                         <td style="width: 68px; color: limegreen"><p id="uncommonFragmentInventory">0</p></td>
                         <td><button class="talismanbtn" id="buyUncommonFragment" style="border:2px solid lime" onmouseover="updateTalismanCostDisplay('uncommonFragment')" onclick="buyTalismanResources('uncommonFragment')">BUY</button></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/RareTalisman.png" alt=""></td>
+                        <td style="font-size: 0; width: 32px"><img src="Pictures/RareTalisman.png" title='Rare Fragment' style="font-size:0;"  alt=""></td>
                         <td style="width: 68px; color: darkcyan"><p id="rareFragmentInventory">0</p></td>
                         <td><button class="talismanbtn" id="buyRareFragment" style="border:2px solid aqua" onmouseover="updateTalismanCostDisplay('rareFragment')" onclick="buyTalismanResources('rareFragment')">BUY</button></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/EpicTalisman.png" alt=""></td>
+                        <td style="font-size: 0; width: 32px"><img src="Pictures/EpicTalisman.png" title='Epic Fragment' style="font-size:0;"  alt=""></td>
                         <td style="width: 68px; color: plum"><p id="epicFragmentInventory">0</p></td>
                         <td><button class="talismanbtn" id="buyEpicFragment" style="border:2px solid purple" onmouseover="updateTalismanCostDisplay('epicFragment')" onclick="buyTalismanResources('epicFragment')">BUY</button></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/LegendaryTalisman.png" alt=""></td>
+                        <td style="font-size: 0; width: 32px"><img src="Pictures/LegendaryTalisman.png" title='Legendary Fragment' style="font-size:0;"  alt=""></td>
                         <td style="width: 68px; color: orange"><p id="legendaryFragmentInventory">0</p></td>
                         <td><button class="talismanbtn" id="buyLegendaryFragment" style="border:2px solid orange" onmouseover="updateTalismanCostDisplay('legendaryFragment')" onclick="buyTalismanResources('legendaryFragment')">BUY</button></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/MythicalTalisman.png" alt=""></td>
+                        <td style="font-size: 0; width: 32px"><img src="Pictures/MythicalTalisman.png" title='Mythical Fragment' style="font-size:0;" alt=""></td>
                         <td style="width: 68px; color: crimson"><p id="mythicalFragmentInventory">0</p></td>
                         <td><button class="talismanbtn" id="buyMythicalFragment" style="border:2px solid red" onmouseover="updateTalismanCostDisplay('mythicalFragment')" onclick="buyTalismanResources('mythicalFragment')">BUY</button></td>
                     </tr>
@@ -1716,7 +1717,7 @@
         </div>
 
         <div id="cubes">
-            <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;" onclick="toggleSubTab(8, 0)">Cube Blessings</button>
+            <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;" onclick="toggleSubTab(8, 0)">Cube Tributes</button>
             <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid purple;" onclick="toggleSubTab(8, 1)">Tesseract Gifts</button>
             <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" onclick="toggleSubTab(8, 2)">Hypercube Benedictions</button>
             <button id="switchCubeSubTab4" class="cubeSwitchTabBtn chal14" style="border: 2px solid orange;" onclick="toggleSubTab(8, 3)">Platonic Statues</button>
@@ -1749,69 +1750,69 @@
                             <td style="font-size: 0;">
                                 <img src="Pictures/Cube1.png" alt="">
                             </td>
-                            <td id="cube1Bonus" style="color: yellow">Hermes' Blessing <span id="cubeBlessing1Amount">x1</span>: <span id="cubeBlessing1Effect">+0.01%</span> Accelerators per Accelerator Boost</td>
+                            <td id="cube1Bonus" style="color: yellow">Hermes' Tribute <span id="cubeBlessing1Amount">x1</span>: <span id="cubeBlessing1Effect">+0.01%</span> Accelerators per Accelerator Boost</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Cube2.png" alt="">
                             </td>
-                            <td id="cube2Bonus" style="color: pink">Aphrodite's Blessing <span id="cubeBlessing2Amount">x1</span>: <span id="cubeBlessing2Effect">+0.01%</span> Multipliers</td>
+                            <td id="cube2Bonus" style="color: pink">Aphrodite's Tribute <span id="cubeBlessing2Amount">x1</span>: <span id="cubeBlessing2Effect">+0.01%</span> Multipliers</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Cube3.png" alt="">
                             </td>
-                            <td id="cube3Bonus" style="color: orange">Plutus' Blessing <span id="cubeBlessing3Amount">x1</span>: <span id="cubeBlessing3Effect">+0.01%</span> Offering Gain</td>
+                            <td id="cube3Bonus" style="color: orange">Plutus' Tribute <span id="cubeBlessing3Amount">x1</span>: <span id="cubeBlessing3Effect">+0.01%</span> Offering Gain</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Cube4.png" alt="">
                             </td>
-                            <td id="cube4Bonus" style="color: limegreen">Iris' Blessing <span id="cubeBlessing4Amount">x1</span>: <span id="cubeBlessing4Effect">+0.01%</span> Rune EXP</td>
+                            <td id="cube4Bonus" style="color: limegreen">Iris' Tribute <span id="cubeBlessing4Amount">x1</span>: <span id="cubeBlessing4Effect">+0.01%</span> Rune EXP</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Cube5.png" alt="">
                             </td>
-                            <td id="cube5Bonus" style="color: aquamarine">Athena's Blessing <span id="cubeBlessing5Amount">x1</span>: <span id="cubeBlessing5Effect">+0.01%</span> Obtainium Gain</td>
+                            <td id="cube5Bonus" style="color: aquamarine">Athena's Tribute <span id="cubeBlessing5Amount">x1</span>: <span id="cubeBlessing5Effect">+0.01%</span> Obtainium Gain</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Cube6.png" alt="">
                             </td>
-                            <td id="cube6Bonus" style="color: brown">Artemis' Blessing <span id="cubeBlessing6Amount">x1</span>: <span id="cubeBlessing6Effect">+0.01%</span> Ant Speed</td>
+                            <td id="cube6Bonus" style="color: brown">Artemis' Tribute <span id="cubeBlessing6Amount">x1</span>: <span id="cubeBlessing6Effect">+0.01%</span> Ant Speed</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Cube7.png" alt="">
                             </td>
-                            <td id="cube7Bonus" style="color:crimson">Ares' Blessing <span id="cubeBlessing7Amount">x1</span>: <span id="cubeBlessing7Effect">+0.01%</span> Sacrifice Reward</td>
+                            <td id="cube7Bonus" style="color:crimson">Ares' Tribute <span id="cubeBlessing7Amount">x1</span>: <span id="cubeBlessing7Effect">+0.01%</span> Sacrifice Reward</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Cube8.png" alt="">
                             </td>
-                            <td id="cube8Bonus" style="color: plum">Moloch's Blessing <span id="cubeBlessing8Amount">x1</span>: <span id="cubeBlessing8Effect">+0.01%</span> Effective ELO</td>
+                            <td id="cube8Bonus" style="color: plum">Moloch's Tribute <span id="cubeBlessing8Amount">x1</span>: <span id="cubeBlessing8Effect">+0.01%</span> Effective ELO</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Cube9.png" alt="">
                             </td>
-                            <td id="cube9Bonus" style="color: bisque">Midas' Blessing <span id="cubeBlessing9Amount">x1</span>: <span id="cubeBlessing9Effect">+0.01%</span> Bonus Rune Levels on Talismans</td>
+                            <td id="cube9Bonus" style="color: bisque">Midas' Tribute <span id="cubeBlessing9Amount">x1</span>: <span id="cubeBlessing9Effect">+0.01%</span> Bonus Rune Levels on Talismans</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Cube10.png" alt="">
                             </td>
-                            <td id="cube10Bonus" style="color: silver">Chronos' Blessing <span id="cubeBlessing10Amount">x1</span>: <span id="cubeBlessing10Effect">+0.01%</span> Global Time Acceleration</td>
+                            <td id="cube10Bonus" style="color: silver">Chronos' Tribute <span id="cubeBlessing10Amount">x1</span>: <span id="cubeBlessing10Effect">+0.01%</span> Global Time Acceleration</td>
                         </tr>
                     </table>
                 </div>
-                <p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube blessings!</p>
+                <p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube tributes!</p>
             </div>
             <div id="cubeTab2" style="display: none">
                 <p id="tesseractWelcome" class="cubePlacement1" style="color: orchid">You obtain guidance from beings in another dimension!</p>
-                <p id="tesseractExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Tesseracts, to boost blessings from the previous tier.</p>
+                <p id="tesseractExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.</p>
                 <p id="tesseractExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</p>
                 <img id="wowTesseract" src="Pictures/WowTessaract.png" class="cubePlacement4" alt="">
                 <p id="tesseractInventory" class="cubePlacement5" style="color: orchid">You possess <span id="tesseractQuantity" style="color: yellow">13</span> Wow! TESSERACTS. Get more from harder Ascensions and other stuff.</p>
@@ -1825,61 +1826,61 @@
                             <td style="font-size: 0;">
                                 <img src="Pictures/Tesseract1.png" alt="">
                             </td>
-                            <td id="tesseract1Bonus" style="color: yellow">Hermes' Gift <span id="tesseractBlessing1Amount">x1</span>: <span id="tesseractBlessing1Effect">+0.01%</span> Hermes Blessing power</td>
+                            <td id="tesseract1Bonus" style="color: yellow">Hermes' Gift <span id="tesseractBlessing1Amount">x1</span>: <span id="tesseractBlessing1Effect">+0.01%</span> Hermes' Tribute power</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Tesseract2.png" alt="">
                             </td>
-                            <td id="tesseract2Bonus" style="color: pink">Aphrodite's Gift <span id="tesseractBlessing2Amount">x1</span>: <span id="tesseractBlessing2Effect">+0.01%</span> Aphrodite Blessing power</td>
+                            <td id="tesseract2Bonus" style="color: pink">Aphrodite's Gift <span id="tesseractBlessing2Amount">x1</span>: <span id="tesseractBlessing2Effect">+0.01%</span> Aphrodite's Tribute power</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Tesseract3.png" alt="">
                             </td>
-                            <td id="tesseract3Bonus" style="color: orange">Plutus' Gift <span id="tesseractBlessing3Amount">x1</span>: <span id="tesseractBlessing3Effect">+0.01%</span> Plutus Blessing power</td>
+                            <td id="tesseract3Bonus" style="color: orange">Plutus' Gift <span id="tesseractBlessing3Amount">x1</span>: <span id="tesseractBlessing3Effect">+0.01%</span> Plutus' Tribute power</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Tesseract4.png" alt="">
                             </td>
-                            <td id="tesseract4Bonus" style="color: limegreen">Iris' Gift <span id="tesseractBlessing4Amount">x1</span>: <span id="tesseractBlessing4Effect">+0.01%</span> Iris Blessing power</td>
+                            <td id="tesseract4Bonus" style="color: limegreen">Iris' Gift <span id="tesseractBlessing4Amount">x1</span>: <span id="tesseractBlessing4Effect">+0.01%</span> Iris' Tribute power</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Tesseract5.png" alt="">
                             </td>
-                            <td id="tesseract5Bonus" style="color: aquamarine">Athena's Gift <span id="tesseractBlessing5Amount">x1</span>: <span id="tesseractBlessing5Effect">+0.01%</span> Athena Blessing power</td>
+                            <td id="tesseract5Bonus" style="color: aquamarine">Athena's Gift <span id="tesseractBlessing5Amount">x1</span>: <span id="tesseractBlessing5Effect">+0.01%</span> Athena's Tribute power</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Tesseract6.png" alt="">
                             </td>
-                            <td id="tesseract6Bonus" style="color: brown">Artemis' Gift <span id="tesseractBlessing6Amount">x1</span>: <span id="tesseractBlessing6Effect">+0.01%</span> Artemis Blessing power</td>
+                            <td id="tesseract6Bonus" style="color: brown">Artemis' Gift <span id="tesseractBlessing6Amount">x1</span>: <span id="tesseractBlessing6Effect">+0.01%</span> Artemis' Tribute power</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Tesseract7.png" alt="">
                             </td>
-                            <td id="tesseract7Bonus" style="color:crimson">Ares' Gift <span id="tesseractBlessing7Amount">x1</span>: <span id="tesseractBlessing7Effect">+0.01%</span> Ares Blessing power</td>
+                            <td id="tesseract7Bonus" style="color:crimson">Ares' Gift <span id="tesseractBlessing7Amount">x1</span>: <span id="tesseractBlessing7Effect">+0.01%</span> Ares' Tribute power</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Tesseract8.png" alt="">
                             </td>
-                            <td id="tesseract8Bonus" style="color: plum">Moloch's Gift <span id="tesseractBlessing8Amount">x1</span>: <span id="tesseractBlessing8Effect">+0.01%</span> Moloch Blessing power</td>
+                            <td id="tesseract8Bonus" style="color: plum">Moloch's Gift <span id="tesseractBlessing8Amount">x1</span>: <span id="tesseractBlessing8Effect">+0.01%</span> Moloch's Tribute power</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                                 <img src="Pictures/Tesseract9.png" alt="">
                             </td>
-                            <td id="tesseract9Bonus" style="color: bisque">Midas' Gift <span id="tesseractBlessing9Amount">x1</span>: <span id="tesseractBlessing9Effect">+0.01%</span> Midas Blessing power</td>
+                            <td id="tesseract9Bonus" style="color: bisque">Midas' Gift <span id="tesseractBlessing9Amount">x1</span>: <span id="tesseractBlessing9Effect">+0.01%</span> Midas' Tribute power</td>
                         </tr>
                         <tr>
                             <td style="font-size: 0;">
                             <img src="Pictures/Tesseract10.png" alt="">
                             </td>
-                            <td id="tesseract10Bonus" style="color: silver">Chronos' Gift <span id="tesseractBlessing10Amount">x1</span>: <span id="tesseractBlessing10Effect">+0.01%</span> Chronos Blessing power</td>
+                            <td id="tesseract10Bonus" style="color: silver">Chronos' Gift <span id="tesseractBlessing10Amount">x1</span>: <span id="tesseractBlessing10Effect">+0.01%</span> Chronos' Tribute power</td>
                         </tr>
                     </table>
                 </div>
@@ -2390,7 +2391,7 @@
             <p id="statM7" class="statPortion">Research [1x11]-[1x15] Multiplier<span id="sM7" class="statNumber"></span></p>
             <p id="statM8" class="statPortion">Research [4x12] Multiplier<span id="sM8" class="statNumber"></span></p>
             <p id="statM9" class="statPortion">Multa Formicidae Ant Multiplier<span id="sM9" class="statNumber"></span></p>
-            <p id="statM10" class="statPortion">Aphrodite Blessing Multiplier<span id="sM10" class="statNumber"></span></p>
+            <p id="statM10" class="statPortion">Aphrodite Tribute Multiplier<span id="sM10" class="statNumber"></span></p>
             <p id="statM11" class="statPortion">Challenge Multiplier<span id="sM11" class="statNumber"></span></p>
             <p id="statM12" class="statPortion">Corruption Exponent<span id="sM12" class="statNumber"></span></p>
             <p id="statM13" class="statPortion statTotal">TOTAL FREE MULTIPLIERS: <span id="sM13" class="statNumber statTotal">0</span></p>
@@ -2410,7 +2411,7 @@
             <p id="statOff8" class="statPortion reincarnationunlock">Cash Grab Shop Upgrade:<span id="sOff8" class="statNumber">0</span></p>
             <p id="statOff9" class="statPortion reincarnationunlock">Research 4x10:<span id="sOff9" class="statNumber">0</span></p>
             <p id="statOff10" class="statPortion chal8">Sacrificium Formicidae:<span id="sOff10" class="statNumber">0</span></p>
-            <p id="statOff11" class="statPortion ascendunlock">Brutus Cube Blessing:<span id="sOff11" class="statNumber">0</span></p>
+            <p id="statOff11" class="statPortion ascendunlock">Brutus Cube Tribute:<span id="sOff11" class="statNumber">0</span></p>
             <p id="statOff12" class="statPortion ascendunlock">Constant Upgrade 3:<span id="sOff12" class="statNumber">0</span></p>
             <p id="statOff13" class="statPortion chal11">Research 6x24,8x4:<span id="sOff13" class="statNumber">0</span></p>
             <p id="statOff14" class="statPortion chal11">Challenge 12:<span id="sOff14" class="statNumber">0</span></p>
