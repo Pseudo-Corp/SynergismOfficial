@@ -433,6 +433,9 @@ function calculateObtainium(calcMult = true) {
     obtainiumGain *= (1 + 2.5 * player.platonicUpgrades[10])
     obtainiumGain *= (1 + 5 * player.platonicUpgrades[15])
     obtainiumGain *= challenge15Rewards.obtainium
+    if (player.currentChallenge.ascension === 15) {
+        obtainiumGain += 1;
+    }
     if (player.currentChallenge.ascension === 14) {
         obtainiumGain = 0
     }

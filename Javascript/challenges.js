@@ -321,7 +321,7 @@ function challengeDisplay(i, changefocus, automated) {
         (ella.textContent = "Auto Challenge Sweep [OFF]", ella.style.border = "2px solid red");
 }
 
-function getChallengeConditions() {
+function getChallengeConditions(i) {
     if (player.currentChallenge.reincarnation === 9) {
         rune1level = 1;
         rune2level = 1;
@@ -329,6 +329,13 @@ function getChallengeConditions() {
         rune4level = 1;
         rune5level = 1;
         player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+    prestigePointGain = new Decimal('0')
+    if (i >= 6){
+        transcendPointGain = new Decimal('0')
+    }
+    if (i >= 11){
+        reincarnationPointGain = new Decimal('0')
     }
     calculateRuneLevels();
 }

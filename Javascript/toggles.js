@@ -71,7 +71,7 @@ function toggleChallenges(i, auto) {
         }
     }
     updateChallengeDisplay();
-    getChallengeConditions();
+    getChallengeConditions(i);
 
     if (!auto && player.autoChallengeRunning) {
         toggleAutoChallengeRun();

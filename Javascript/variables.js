@@ -419,3 +419,10 @@ var challenge15Rewards = {
     spiritBonus: 1,
     score: 1,
 }
+
+var autoResetTimers = {
+    prestige: 0,
+    transcension: 0,
+    reincarnation: 0,
+    ascension: 0
+}

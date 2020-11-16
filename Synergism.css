@@ -1053,6 +1053,13 @@ margin-left: -13px
 	left: 75%;
 	margin-left: -250px;
 }
+#temporarystats12 {
+	position: absolute;
+	top: 250px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
 #patchnotes {
 	position: absolute;
 	top: 300px;
@@ -4761,7 +4768,9 @@ margin-left: -13px
 #corruptionLevelPlanned{
     color: lime
 }
-
+#corruptionSpiritContribution{
+	color: gold
+}
 #ascensionAutomation {
 	position: relative;
 	top: 20px;

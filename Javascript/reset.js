@@ -235,8 +235,10 @@ function reset(i, fast, from) {
         player.fastestprestige = player.prestigecounter;
     }
 
+    prestigePointGain = new Decimal('0');
 
     player.prestigecounter = 0;
+    autoResetTimers.prestige = 0;
 
 
     if (i > 1.5) {
@@ -274,6 +276,8 @@ function reset(i, fast, from) {
         player.transcendnocoinorprestigeupgrades = true;
         player.transcendnoaccelerator = true;
         player.transcendnomultiplier = true;
+
+        transcendPointGain = new Decimal('0')
 
         if (player.achievements[78] > 0.5) {
             player.firstOwnedDiamonds += 1
@@ -315,6 +319,7 @@ function reset(i, fast, from) {
         }
 
         player.transcendcounter = 0;
+        autoResetTimers.transcension = 0;
     }
 
 
@@ -380,6 +385,8 @@ function reset(i, fast, from) {
         player.challengecompletions[4] = 0;
         player.challengecompletions[5] = 0;
 
+        reincarnationPointGain = new Decimal('0');
+
         if (player.shopUpgrades.instantChallengeBought && player.currentChallenge.reincarnation === 0) {
             player.challengecompletions[1] = player.highestchallengecompletions[1]
             player.challengecompletions[2] = player.highestchallengecompletions[2]
@@ -402,6 +409,7 @@ function reset(i, fast, from) {
 
         calculateCubeBlessings();
         player.reincarnationcounter = 0;
+        autoResetTimers.reincarnation = 0;
 
 
         if (player.autoResearchToggle && player.autoResearch > 0.5) {

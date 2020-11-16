@@ -72,7 +72,7 @@ function visualUpdateBuildings() {
             document.getElementById("autoprestige").textContent = "Prestige when your Diamonds can increase by a factor " + format(Decimal.pow(10, player.prestigeamount)) + " [Toggle number above]. Current Multiplier: " + format(p) + "."
         }
         if (player.resettoggle1 === 2) {
-            document.getElementById("autoprestige").textContent = "Prestige when the timer is at least " + (player.prestigeamount) + " seconds. [Toggle number above]. Current timer: " + format(player.prestigecounter, 1) + "s."
+            document.getElementById("autoprestige").textContent = "Prestige when the autotimer is at least " + (player.prestigeamount) + " real-life seconds. [Toggle number above]. Current timer: " + format(autoResetTimers.prestige, 1) + "s."
         }
     }
 
@@ -101,7 +101,7 @@ function visualUpdateBuildings() {
             document.getElementById("autotranscend").textContent = "Prestige when your Mythos can increase by a factor " + format(Decimal.pow(10, player.transcendamount)) + " [Toggle number above]. Current Multiplier: " + format(Decimal.pow(10, Decimal.log(transcendPointGain.add(1), 10) - Decimal.log(player.transcendPoints.add(1), 10), 2)) + "."
         }
         if (player.resettoggle2 === 2) {
-            document.getElementById("autotranscend").textContent = "Transcend when the timer is at least " + (player.transcendamount) + " seconds. [Toggle number above]. Current timer: " + format(player.transcendcounter, 1) + "s."
+            document.getElementById("autotranscend").textContent = "Transcend when the autotimer is at least " + (player.transcendamount) + " real-life seconds. [Toggle number above]. Current timer: " + format(autoResetTimers.transcension, 1) + "s."
         }
     }
 
@@ -133,7 +133,7 @@ function visualUpdateBuildings() {
             document.getElementById("autoreincarnate").textContent = "Reincarnate when your Particles can increase by a factor " + format(Decimal.pow(10, player.reincarnationamount)) + " [Toggle number above]. Current Multiplier: " + format(Decimal.pow(10, Decimal.log(reincarnationPointGain.add(1), 10) - Decimal.log(player.reincarnationPoints.add(1), 10), 2)) + "."
         }
         if (player.resettoggle3 === 2) {
-            document.getElementById("autoreincarnate").textContent = "Reincarnate when the timer is at least " + (player.reincarnationamount) + " seconds. [Toggle number above]. Current timer: " + format(player.reincarnationcounter, 1) + "s."
+            document.getElementById("autoreincarnate").textContent = "Reincarnate when the autotimer is at least " + (player.reincarnationamount) + " real-life seconds. [Toggle number above]. Current timer: " + format(autoResetTimers.reincarnation, 1) + "s."
         }
     }
 
@@ -357,15 +357,16 @@ function visualUpdateCorruptions() {
     document.getElementById("corruptionHypercubesValue").textContent = format(metaData[6])
     document.getElementById("corruptionPlatonicCubesValue").textContent = format(metaData[7])
     document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * extinctionMultiplier[player.usedCorruptions[7]], 3)
+    document.getElementById("corruptionSpiritBonusValue").textContent = format(calculateCorruptionPoints()/400,2,true)
 }
 
 function visualUpdateSettings() {
     if (currentTab !== "settings")
         return
     //I was unable to clean this up in a way that didn't somehow make it less clean, sorry.
-    document.getElementById("temporarystats1").textContent = "Prestige count: " + format(player.prestigeCount)
-    document.getElementById("temporarystats2").textContent = "Transcend count: " + format(player.transcendCount)
-    document.getElementById("temporarystats3").textContent = "Reincarnation count: " + format(player.reincarnationCount)
+    document.getElementById("temporarystats1").textContent = "Prestige count: " + format(player.prestigeCount, 0, true)
+    document.getElementById("temporarystats2").textContent = "Transcend count: " + format(player.transcendCount, 0, true)
+    document.getElementById("temporarystats3").textContent = "Reincarnation count: " + format(player.reincarnationCount, 0, true)
     document.getElementById("temporarystats4").textContent = "Fastest Prestige: " + format(1000 * player.fastestprestige) + "ms"
     document.getElementById("temporarystats5").textContent = "Fastest Transcend: " + format(1000 * player.fastesttranscend) + "ms"
     document.getElementById("temporarystats6").textContent = "Fastest Reincarnation: " + format(1000 * player.fastestreincarnate) + "ms"
@@ -374,6 +375,7 @@ function visualUpdateSettings() {
     document.getElementById("temporarystats9").textContent = "Best Obtainium/sec: " + format(player.maxobtainiumpersecond, 2, true)
     document.getElementById("temporarystats10").textContent = "Summative Rune Levels: " + format(runeSum)
     document.getElementById("temporarystats11").textContent = "Current Obtainium/sec " + format(player.obtainiumpersecond, 2, true)
+    document.getElementById("temporarystats12").textContent = "Ascension Count: " + format(player.ascensionCount, 0, true)
 
     document.getElementById("saveString").textContent =
         `Currently: ${player.saveString.replace("$VERSION$", "v" + player.version)}`;
