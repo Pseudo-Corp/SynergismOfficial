@@ -175,8 +175,8 @@ function tabs(mainTab) {
         5: {tabName: "challenges", unlocked: player.unlocks.transcend},
         6: {tabName: "researches", unlocked: player.unlocks.reincarnate},
         7: {tabName: "ants", unlocked: player.achievements[127] > 0},
-        8: {tabName: "cubes", unlocked: player.achievements[183] > 0},
-        9: {tabName: "traits", unlocked: player.achievements[185] > 0}
+        8: {tabName: "cubes", unlocked: player.achievements[141] > 0},
+        9: {tabName: "traits", unlocked: player.achievements[141] > 0}
     }
     if (mainTab === undefined)
         return tabs
@@ -236,18 +236,18 @@ function subTabsInMainTab(mainTab) {
         8: {
             tabSwitcher: toggleCubeSubTab,
             subTabList: [
-                {subTabID: 1, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab1"},
+                {subTabID: 1, unlocked: player.achievements[141] > 0, buttonID: "switchCubeSubTab1"},
                 {subTabID: 2, unlocked: player.achievements[197] > 0, buttonID: "switchCubeSubTab2"},
                 {subTabID: 3, unlocked: player.achievements[211] > 0, buttonID: "switchCubeSubTab3"},
                 {subTabID: 4, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab4"},
-                {subTabID: 5, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab5"},
+                {subTabID: 5, unlocked: player.achievements[141] > 0, buttonID: "switchCubeSubTab5"},
                 {subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab6"}]
         },
         9: {
             tabSwitcher: toggleCorruptionLoadoutsStats,
             subTabList: [
-                {subTabID: true, unlocked: player.achievements[185] > 0, buttonID: "corrStatsBtn"},
-                {subTabID: false, unlocked: player.achievements[185] > 0, buttonID: "corrLoadoutsBtn"}]
+                {subTabID: true, unlocked: player.achievements[141] > 0, buttonID: "corrStatsBtn"},
+                {subTabID: false, unlocked: player.achievements[141] > 0, buttonID: "corrLoadoutsBtn"}]
         },
     }
     return subTabs[mainTab];
