@@ -504,7 +504,7 @@ if (player.researches[150] > 0 && player.autoChallengeRunning && (player.reincar
             autoChallengeTimerIncrement = 0;
         }
         if (player.currentChallenge.reincarnation === 0 && player.autoChallengeIndex > 5) {
-            while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
+            while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
                 player.autoChallengeIndex += 1
                 if (player.autoChallengeIndex > 10) {
                     player.autoChallengeIndex = 1;
