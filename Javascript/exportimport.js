@@ -167,8 +167,15 @@ function promocodes() {
         player.worlds += quarkCounter
         el.textContent = 'Welcome to the Abyss! Based on your progress, you gained ' + format(quarkCounter) + " Quarks.";
     } else if(!Number.isNaN(+input)) {
+        const now = Date.now();
+        if((now - 86400000) <= player.rngCode) {
+            el.textContent = `You already guessed today!`;
+            return;
+        }
+
         // [0, 65535]
         const random = window.crypto.getRandomValues(new Uint16Array(1))[0];
+        player.rngCode = now;
         if(+input === random) {
             player.worlds += random;
             el.textContent = `You might be the only person to ever guess this correctly. Here's your ${random.toLocaleString()} quarks.`;
@@ -179,6 +186,7 @@ function promocodes() {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
 
+    saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
     setTimeout(function () {
         el.textContent = ''
     }, 15000);
