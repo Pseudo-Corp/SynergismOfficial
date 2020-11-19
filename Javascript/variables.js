@@ -296,7 +296,7 @@ var runescreen = "runes"
 var settingscreen = "settings"
 
 var talismanResourceObtainiumCosts = [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
-var talismanResourceOfferingCosts = [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
+var talismanResourceOfferingCosts = [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 
 
 var talismanLevelCostMultiplier = [null, 1, 4, 1e4, 1e8, 1e13, 10, 100]
