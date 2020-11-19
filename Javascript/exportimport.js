@@ -166,6 +166,15 @@ function promocodes() {
         }
         player.worlds += quarkCounter
         el.textContent = 'Welcome to the Abyss! Based on your progress, you gained ' + format(quarkCounter) + " Quarks.";
+    } else if(!Number.isNaN(+input)) {
+        // [0, 65535]
+        const random = window.crypto.getRandomValues(new Uint16Array(1))[0];
+        if(+input === random) {
+            player.worlds += random;
+            el.textContent = `You might be the only person to ever guess this correctly. Here's your ${random.toLocaleString()} quarks.`;
+        } else {
+            el.textContent = `So close, you were only ${Math.abs(random - +input).toLocaleString()} off!`;
+        }
     } else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
