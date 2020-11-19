@@ -166,7 +166,7 @@ function promocodes() {
         }
         player.worlds += quarkCounter
         el.textContent = 'Welcome to the Abyss! Based on your progress, you gained ' + format(quarkCounter) + " Quarks.";
-    } else if(!Number.isNaN(+input)) {
+    }/* else if(!Number.isNaN(+input)) {
         const now = Date.now();
         if((now - 86400000) <= player.rngCode) {
             el.textContent = `You already guessed today!`;
@@ -182,7 +182,7 @@ function promocodes() {
         } else {
             el.textContent = `So close, you were only ${Math.abs(random - +input).toLocaleString()} off!`;
         }
-    } else {
+    } */else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
 
