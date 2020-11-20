@@ -3135,7 +3135,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('befo
 
 document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('keydown', function (event) {
 
-    if (document.activeElement.localName === 'input') {
+    if (document.activeElement && document.activeElement.localName === 'input') {
         // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
         // finally fixes the bug where hotkeys would be activated when typing in an input field
         event.stopPropagation();
