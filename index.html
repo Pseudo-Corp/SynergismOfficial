@@ -1362,11 +1362,11 @@
                 <button class="research150" id="toggleAutoChallengeIgnore" onclick="toggleAutoChallengesIgnore(triggerChallenge)">---</button>
                 <button class="research150" id="toggleAutoChallengeStart" onclick="toggleAutoChallengeRun()">Auto Challenge Sweep [ON]</button>
                 <p class="research150" id="startAutoChallengeTimer">Time for start of sweep: <span id="startTimerValue" style="color: orchid">10s</span></p>
-                <input type="number" class="research150" id="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10" oninput="updateAutoChallenge(1)">
+                <input type="number" class="research150" id="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10" onblur="updateAutoChallenge(1)">
                 <p class="research150" id="exitAutoChallengeTimer">Time before exiting challenge: <span id="exitTimerValue" style="color: orchid">2s</span></p>
-                <input type="number" class="research150" id="exitAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2" oninput="updateAutoChallenge(2)">
+                <input type="number" class="research150" id="exitAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2" onblur="updateAutoChallenge(2)">
                 <p class="research150" id="enterAutoChallengeTimer">Time before entering challenge: <span id="enterTimerValue" style="color: orchid">2s</span></p>
-                <input type="number" class="research150" id="enterAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2" oninput="updateAutoChallenge(3)">
+                <input type="number" class="research150" id="enterAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2" onblur="updateAutoChallenge(3)">
                 <p class="research150" id="autoChallengeIncrementer" style='color: orange'>Auto Timer: <span id="autoIncrementerAmount" style="color: orchid">0s</span></p>
             </div>
 
@@ -1660,7 +1660,7 @@
                 <div id="antSacrificeButtons">
                     <button id="toggleAutoSacrificeAnt" onclick="toggleAntAutoSacrifice(0)">Auto Sacrifice: OFF</button>
                     <button id="autoSacrificeAntMode" onclick="toggleAntAutoSacrifice(1)">Mode: In-game time</button>
-                    <input id="autoAntSacrificeAmount" type="number" oninput="updateAutoReset(5)">
+                    <input id="autoAntSacrificeAmount" type="number" onblur="updateAutoReset(5)">
                     <p id="autoAntSacrifice"></p>
                 </div>
             </div>
