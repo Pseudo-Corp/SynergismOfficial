@@ -273,7 +273,7 @@
             <button class="auto" id="toggle15" toggleid="15" format="Auto Prestige [$]" onclick="toggleSettings(14)" style="background-color: #171717;">Automatic Prestige & Customization Being Developed!</button>
             <div id="prestigeautomation">
             <button id="prestigeautotoggle" onclick="toggleautoreset(1)" style="border:2px solid green; background-color: #171717;"></button>
-                <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(1)"/>
+                <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1" onblur="updateAutoReset(1)"/>
                 <p class="transcendunlock" id="autoprestige"></p>
             </div>
         </div>
@@ -361,7 +361,7 @@
         </div>
         <div id="transcendautomation">
             <button id="transcendautotoggle" onclick="toggleautoreset(2)" style="border:2px solid green; background-color: #171717;"></button>
-        <input class="transcendunlock" type="number" id="transcendamount" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(2)">
+        <input class="transcendunlock" type="number" id="transcendamount" min="1" max="999999999" defaultValue="1" onblur="updateAutoReset(2)">
         <p class="transcendunlock" id="autotranscend"></p>
         </div>
         <p id="transcendhotkeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
@@ -413,7 +413,7 @@
         </div>
         <div id="reincarnateautomation">
             <button id="reincarnateautotoggle" onclick="toggleautoreset(3)" style="border:2px solid green; background-color: #171717;"></button>
-        <input class="reincarnationunlock" type="number" id="reincarnationamount" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(3)">
+        <input class="reincarnationunlock" type="number" id="reincarnationamount" min="1" max="999999999" defaultValue="1" onblur="updateAutoReset(3)">
         <p class="reincarnationunlock" id="autoreincarnate"></p>
         </div>
         <p id="reincarnatehotkeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
@@ -2266,7 +2266,7 @@
                 <p id="corruptionHypercubes" class="chal13 tightText">If you ascend now, you will gain <span id="corruptionHypercubesValue" style="color: crimson; font-size: 1.2em">32</span> Wow! Hypercubes. [<span style="color: red">Req Score: >1,000,000,000</span>]</p>
                 <p id="corruptionPlatonicCubes" class="chal14 tightText">If you ascend now, you will gain <span id="corruptionPlatonicCubesValue" style="color: lightgoldenrodyellow; font-size: 1.2em">32</span> PLATONIC CUBES. [<span style="color: lightgoldenrodyellow">Req Score: >1,337,000,000,000</span>]</p>
                 <div id="ascensionAutomation" class="cubeUpgrade10 vAlign">
-                    <input id="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1" oninput="updateAutoReset(4)">
+                    <input id="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1" onblur="updateAutoReset(4)">
                     <p id="autoAscend" class="ascendunlock tightText">Ascend when you've completed Sadistic Challenge I a total of <span id="autoAscendMetric" style="color: orchid">1</span> times.</p>
                     <button id="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green" onclick="toggleAutoAscend()">Auto Ascend [ON]</button>
                     <button id="ascensionAutoToggle" class="hCenter tight" onclick="toggleautoreset(4)" style="border:2px solid orchid; background-color: #171717;">Mode: C10 Completions</button>
