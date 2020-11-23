@@ -166,23 +166,25 @@ function promocodes() {
         }
         player.worlds += quarkCounter
         el.textContent = 'Welcome to the Abyss! Based on your progress, you gained ' + format(quarkCounter) + " Quarks.";
-    }/* else if(!Number.isNaN(+input)) {
-        const now = Date.now();
-        if((now - 86400000) <= player.rngCode) {
-            el.textContent = `You already guessed today!`;
+    } else if(input === 'add') {
+        if(player.rngCode >= (Date.now() - 3600000)) { // 1 hour
+            el.textContent = `You already used this promocode in the last hour!`;
             return;
         }
 
-        // [0, 65535]
-        const random = window.crypto.getRandomValues(new Uint16Array(1))[0];
-        player.rngCode = now;
-        if(+input === random) {
-            player.worlds += random;
-            el.textContent = `You might be the only person to ever guess this correctly. Here's your ${random.toLocaleString()} quarks.`;
+        const amount = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16; // [0, 15]
+        const first = window.crypto.getRandomValues(new Uint8Array(1))[0];
+        const second = window.crypto.getRandomValues(new Uint8Array(1))[0];
+        const addPrompt = prompt(`What is ${first} + ${second}?`);
+
+        if(first + second === +addPrompt) {
+            player.worlds += amount;
+            el.textContent = `You were awarded ${amount} quarks! Wait an hour to use this code again!`;
         } else {
-            el.textContent = `So close, you were only ${Math.abs(random - +input).toLocaleString()} off!`;
+            el.textContent = `You guessed ${addPrompt}, but the answer was ${first + second}. Try again in an hour!`;
         }
-    } */else {
+        player.rngCode = Date.now();
+    } else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
 
