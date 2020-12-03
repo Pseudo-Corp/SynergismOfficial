@@ -4509,10 +4509,54 @@ margin-left: -13px
 	left: 50%;
 	margin-left: -180px;
 }
+
+#tesseractautobuytoggle {
+	position:absolute;
+	width: 150px;
+	top: 440px;
+	left: 50%;
+	margin-left: -75px;
+}
+
+#autotesseract {
+	position: absolute;
+	top: 500px;
+	padding: 0;
+	left: 50%;
+	width: 750px;
+	margin-left: -375px;
+	text-align: center;
+	color: white
+}
+
+#tesseractamount {
+	position: absolute;
+	top: 465px;
+	padding: 0;
+	left: 50%;
+	width: 100px;
+	margin-left: -50px;
+	border: 1px solid green;
+	color: white;
+	background-color: black
+}
+
+#autotessbuyeramount{
+	position: absolute;
+	padding: 5px;
+	top: 465px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: white;
+	text-align: center;
+}
+
 #ascendHotKeys{
 	position: absolute;
 	padding: 5px;
-	top: 460px;
+	top: 500px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;

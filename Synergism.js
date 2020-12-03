@@ -361,6 +361,9 @@ const player = {
     resettoggle2: 1,
     resettoggle3: 1,
 
+    tesseractautobuyer: 0,
+    autotesseractbuyamount: 0,
+
     coinbuyamount: 1,
     crystalbuyamount: 1,
     mythosbuyamount: 1,
@@ -971,6 +974,9 @@ function loadSynergy() {
             player.resettoggle2 = 1;
             player.resettoggle3 = 1;
         }
+        if (player.tesseractautobuyer === 0) {
+            player.tesseractautobuyer = 1;
+        }
         if (player.reincarnationCount < 0.5 && player.unlocks.rrow4 === true) {
             player.unlocks = {
                 coinone: false,
@@ -1230,6 +1236,14 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
             document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"
         }
 
+        if (player.tesseractautobuyer === 1) {
+            document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: ON"
+            document.getElementById("tesseractautobuytoggle").style.border = "2px solid green"
+        }
+        if (player.tesseractautobuyer === 2) {
+            document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: OFF"
+            document.getElementById("tesseractautobuytoggle").style.border = "2px solid red"
+        }
 
         if (player.autoResearchToggle) {
             document.getElementById("toggleautoresearch").textContent = "Automatic: ON"
@@ -2703,11 +2717,11 @@ function updateAll() {
         }
     }
 
-//Now loops through all buildings which have AutoBuy turned 'on' and purchases the cheapest available building that player can afford
-    if (player.researches[190] > 0) {
+//Loops through all buildings which have AutoBuy turned 'on' and purchases the cheapest available building that player can afford
+    if ((player.researches[190] > 0) && (player.tesseractautobuyer == 1)) {
         cheapestTesseractBuilding =  {cost:0, intCost:0, index:0, intCostArray:[1,10,100,1000,10000]}
         for (let i = 0; i < cheapestTesseractBuilding.intCostArray.length; i++){
-            if (player.wowTesseracts >= cheapestTesseractBuilding.intCostArray[i] * Math.pow(1 + player['ascendBuilding' + (i+1)]['owned'], 3) && player.autoTesseracts[i+1]) {
+            if ((player.wowTesseracts >= cheapestTesseractBuilding.intCostArray[i] * Math.pow(1 + player['ascendBuilding' + (i+1)]['owned'], 3) + player.autotesseractbuyamount) && player.autoTesseracts[i+1]) {
                 if ((getTesseractCost([cheapestTesseractBuilding.intCostArray[i]], [i+1])[1] < cheapestTesseractBuilding.cost) || (cheapestTesseractBuilding.cost == 0)){
                     cheapestTesseractBuilding.cost = getTesseractCost([cheapestTesseractBuilding.intCostArray[i]], [i+1])[1];
                     cheapestTesseractBuilding.intCost=cheapestTesseractBuilding.intCostArray[i];
