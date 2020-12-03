@@ -4510,7 +4510,7 @@ margin-left: -13px
 	margin-left: -180px;
 }
 
-#tesseractautobuytoggle {
+#tesseractautobuytoggle{
 	position:absolute;
 	width: 150px;
 	top: 440px;
@@ -4518,18 +4518,7 @@ margin-left: -13px
 	margin-left: -75px;
 }
 
-#autotesseract {
-	position: absolute;
-	top: 500px;
-	padding: 0;
-	left: 50%;
-	width: 750px;
-	margin-left: -375px;
-	text-align: center;
-	color: white
-}
-
-#tesseractamount {
+#tesseractamount{
 	position: absolute;
 	top: 465px;
 	padding: 0;
