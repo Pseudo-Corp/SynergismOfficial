@@ -337,13 +337,13 @@ function toggleautoreset(i) {
 }
 
 function toggleautobuytesseract() {
-    if (player.tesseractautobuyer === 1 || player.tesseractautobuyer === 0) {
-        player.tesseractautobuyer = 2;
+    if (player.tesseractAutoBuyerToggle === 1 || player.tesseractAutoBuyerToggle === 0) {
+        player.tesseractAutoBuyerToggle = 2;
         document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: OFF"
         document.getElementById("tesseractautobuytoggle").style.border = "2px solid red"
         
     } else {
-        player.tesseractautobuyer = 1;
+        player.tesseractAutoBuyerToggle = 1;
         document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: ON"
         document.getElementById("tesseractautobuytoggle").style.border = "2px solid green"
         }

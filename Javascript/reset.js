@@ -177,12 +177,12 @@ function updateAutoReset(i) {
 }
 
 function updateTesseractAutoBuyAmount() {
-    let v = parseFloat(document.getElementById("tesseractamount").value);
+    let v = parseFloat(document.getElementById("tesseractAmount").value);
         v = Math.floor(v)
         if (v >= 0) {
-            player.autotesseractbuyamount = v
+            player.tesseractAutoBuyerAmount = v
         } else {
-            player.autotesseractbuyamount = 0;
+            player.tesseractAutoBuyerAmount = 0;
         }
 }
 
