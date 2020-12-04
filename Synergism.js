@@ -1161,8 +1161,11 @@ function loadSynergy() {
         toggleauto();
 
         document.getElementById("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s"
+        document.getElementById("startAutoChallengeTimerInput").value = player.autoChallengeTimer.start;
         document.getElementById("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s"
+        document.getElementById("exitAutoChallengeTimerInput").value = player.autoChallengeTimer.exit;
         document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s"
+        document.getElementById("enterAutoChallengeTimerInput").value = player.autoChallengeTimer.enter;
 
 
         let m = 1;
