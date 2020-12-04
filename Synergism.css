@@ -3128,11 +3128,15 @@ margin-left: -13px
 	margin-left: -510px;
 	left: 50%;
 }
+#challengeIcons .challengeLevels {
+	font-size: 12px;
+	text-align: center;
+}
 #challengeDetails {
 	position: absolute;
 	text-align: left;
 	padding: 0;
-	top: 120px;
+	top: 125px;
 	width: 1000px;
 	margin-left: -500px;
 	left: 50%;
@@ -3297,7 +3301,7 @@ margin-left: -13px
 #challengehotkeys {
 	position: absolute;
 	padding: 5px;
-	top: 400px;
+	top: 405px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -3308,7 +3312,7 @@ margin-left: -13px
 #challengewarning {
 	position: absolute;
 	padding: 5px;
-	top: 420px;
+	top: 425px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -3319,7 +3323,7 @@ margin-left: -13px
 #challengewarningreincarnation {
 	position: absolute;
 	padding: 5px;
-	top: 440px;
+	top: 445px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
