@@ -2,13 +2,13 @@ function challengeDisplay(i, changefocus, automated) {
     changefocus = (changefocus === null || changefocus === undefined) ? true : changefocus;
     if (changefocus) {
         challengefocus = i;
-        document.getElementById("challengeDetails").style.display = "block"
+        document.getElementById("oneChallengeDetails").style.display = "block"
     }
 
     let quarksMultiplier = 1;
     if (changefocus) {
         challengefocus = i;
-        document.getElementById("challengeDetails").style.display = "block";
+        document.getElementById("oneChallengeDetails").style.display = "block";
         triggerChallenge = i
     }
 

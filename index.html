@@ -1360,22 +1360,23 @@
                 </table>
             </div>
 
-            <div id="challengeDetails" style="display:none">
-                <p id="challengeName">No Multiplier || Completions: 0/25</p>
-                <p id="challengeFlavor">Multipliers make the game a little fast, let's take them out!</p>
-                <p id="challengeRestrictions">Restriction: No Multipliers</p>
-                <p id="challengeGoal">Gain 1e10 Coins</p>
-                <p id="challengePerCompletionRewards">Per Completion Bonuses <span id="completionSoftcap" style="color: orchid"></span></p>
-                <p id="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" style="color:orchid">Current: 0</span></p>
-                <p id="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" style="color:orchid">Current: 0</span></p>
-                <p id="challengePer3">--- <span id="challengeCurrent3" style="color:orchid">Current: 0</span></p>
-                <p id="challengeFirstCompletionRewards">Bonus/Unlock for First Completion</p>
-                <p id="challengeFirst1">+1 Free Multiplier!</p>
-                <p id="challengeQuarkBonus">+1 Quarks</p>
-
-                <button id="startChallenge" onclick="toggleChallenges(triggerChallenge, false)">Start Challenge 1</button>
-                <button id="retryChallenge" onclick="toggleRetryChallenges()">Retry Challenges: OFF</button>
-                <button class="research150" id="toggleAutoChallengeIgnore" onclick="toggleAutoChallengesIgnore(triggerChallenge)">---</button>
+            <div id="challengeDetails">
+                <div id="oneChallengeDetails" style="display:none">
+                    <p id="challengeName">No Multiplier || Completions: 0/25</p>
+                    <p id="challengeFlavor">Multipliers make the game a little fast, let's take them out!</p>
+                    <p id="challengeRestrictions">Restriction: No Multipliers</p>
+                    <p id="challengeGoal">Gain 1e10 Coins</p>
+                    <p id="challengePerCompletionRewards">Per Completion Bonuses <span id="completionSoftcap" style="color: orchid"></span></p>
+                    <p id="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" style="color:orchid">Current: 0</span></p>
+                    <p id="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" style="color:orchid">Current: 0</span></p>
+                    <p id="challengePer3">--- <span id="challengeCurrent3" style="color:orchid">Current: 0</span></p>
+                    <p id="challengeFirstCompletionRewards">Bonus/Unlock for First Completion</p>
+                    <p id="challengeFirst1">+1 Free Multiplier!</p>
+                    <p id="challengeQuarkBonus">+1 Quarks</p>
+                    <button id="startChallenge" onclick="toggleChallenges(triggerChallenge, false)">Start Challenge 1</button>
+                    <button id="retryChallenge" onclick="toggleRetryChallenges()">Retry Challenges: OFF</button>
+                    <button class="research150" id="toggleAutoChallengeIgnore" onclick="toggleAutoChallengesIgnore(triggerChallenge)">---</button>
+                </div>
                 <button class="research150" id="toggleAutoChallengeStart" onclick="toggleAutoChallengeRun()">Auto Challenge Sweep [ON]</button>
                 <p class="research150" id="startAutoChallengeTimer">Time for start of sweep: <span id="startTimerValue" style="color: orchid">10s</span></p>
                 <input type="number" class="research150" id="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10" oninput="updateAutoChallenge(1)">
