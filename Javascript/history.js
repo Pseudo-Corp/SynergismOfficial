@@ -100,7 +100,7 @@ function conditionalFormatPerSecond(numOrStr, data) {
         if (numOrStr === 0) { // work around format(0, 3) return 0 instead of 0.000, for consistency
             return "0.000/s";
         }
-        return format(numOrStr / ((data.seconds && data.seconds > 0) ? data.seconds : 1), 3) + "/s";
+        return format(numOrStr / ((data.seconds && data.seconds > 0) ? data.seconds : 1), 3, true) + "/s";
     }
     return format(numOrStr);
 }

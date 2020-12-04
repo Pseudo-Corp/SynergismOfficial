@@ -10,7 +10,6 @@ function openPlatonic(value, max) {
 
     let toSpendModulo = toSpend % 40000
     let toSpendDiv40000 = Math.floor(toSpend / 40000)
-    console.log(toSpendDiv40000)
     let blessings = {
         cubes:          {weight: 13200, pdf: (x) => 0 <= x && x <= 33.000},
         tesseracts:     {weight: 13200, pdf: (x) => 33.000 < x && x <= 66.000},

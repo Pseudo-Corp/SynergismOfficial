@@ -381,7 +381,7 @@ const player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from(Array(26), (_, i) => [i + 1, false])
+        Array.from(Array(30), (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -573,11 +573,12 @@ const player = {
     hypercubeQuarkDaily: 0,
     loadedOct4Hotfix: false,
     loadedNov13Vers: true,
-    version: '2.1.1'
+    version: '2.1.1',
+    rngCode: 0
 }
 
 const blank_save = Object.assign({}, player);
-blank_save.codes = new Map(Array.from(Array(29), (_, i) => [i + 1, false]));
+blank_save.codes = new Map(Array.from(Array(30), (_, i) => [i + 1, false]));
 
 /**
  * stringify a map so it can be re-made when importing
@@ -673,6 +674,10 @@ function loadSynergy() {
                     player.codes.set(i, false);
                 }
             }
+        }
+
+        if(!('rngCode' in data)) {
+            player.rngCode = 0;
         }
 
         if (data.loaded1009 === undefined || !data.loaded1009) {
@@ -3130,7 +3135,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('befo
 
 document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('keydown', function (event) {
 
-    if (document.activeElement.localName === 'input') {
+    if (document.activeElement && document.activeElement.localName === 'input') {
         // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
         // finally fixes the bug where hotkeys would be activated when typing in an input field
         event.stopPropagation();
