@@ -510,18 +510,14 @@ function calculateTalismanEffects() {
         }
 
     }
-    rune1Talisman = 0;
-    rune2Talisman = 0;
-    rune3Talisman = 0;
-    rune4Talisman = 0;
-    rune5Talisman = 0;
-    for (let i = 1; i <= 7; i++) {
-        rune1Talisman += window["talisman" + i + "Effect"][1]
-        rune2Talisman += window["talisman" + i + "Effect"][2]
-        rune3Talisman += window["talisman" + i + "Effect"][3]
-        rune4Talisman += window["talisman" + i + "Effect"][4]
-        rune5Talisman += window["talisman" + i + "Effect"][5]
-    }
+    const talismansEffects = [talisman1Effect, talisman2Effect, talisman3Effect, talisman4Effect, talisman5Effect, talisman6Effect, talisman7Effect];
+    const runesTalisman = [0, 0, 0, 0, 0, 0];
+    talismansEffects.forEach((talismanEffect) => {
+        talismanEffect.forEach((levels, runeNumber) => {
+            runesTalisman[runeNumber] += levels;
+        });
+     });
+    [, rune1Talisman, rune2Talisman, rune3Talisman, rune4Talisman, rune5Talisman] = runesTalisman;
     talisman6Power = 0;
     talisman7Quarks = 0;
     if (player.talismanRarity[1] === 6) {
@@ -557,10 +553,7 @@ function calculateRuneLevels() {
         rune5level = Math.max(1, player.runelevels[4] + Math.min(1e7, (player.antUpgrades[9] + bonusant9)) * 1 + (rune5Talisman) + 7 * player.constantUpgrades[7])
     }
 
-    runeSum = 0;
-    for (let i = 1; i <= 5; i++) {
-        runeSum += window['rune' + i + 'level']
-    }
+    runeSum = [rune1level, rune2level, rune3level, rune4level, rune5level].reduce((a, b) => a + b, 0);
     calculateRuneBonuses();
 }
 
