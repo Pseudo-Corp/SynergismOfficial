@@ -2912,19 +2912,25 @@ function createTimer() {
     interval(tick, 5);
 }
 
-let dt = 5 / 1000;
+let dt = 5;
 
 function tick() {
     let now = performance.now();
     let delta = now - lastUpdate;
     let n = 0;
-    let compensation = 0;
+    let dtEffective;
     while (delta > 5) {
-      compensation = n > 5 ? n - 5 : 0;
-      tack(dt + compensation / 1000);
-      lastUpdate += 5 + compensation;
-      delta -= 5 + compensation;
-      n += 1;
+        // tack will compute dtEffective milliseconds of game time
+        dtEffective = dt;
+        // If we're lagging more than a whole frame (16ms) behind, compensate by computing delta - dt ms, up to 1 hour
+        dtEffective += delta > 16 ? Math.min(3600 * 1000, delta - dt) : 0;
+        // If tack is called more than 5 times in one tick, start increasing dtEffective
+        dtEffective += n > 5 ? n - 5 : 0;
+        // run tack and record timings
+        tack(dtEffective / 1000);
+        lastUpdate += dtEffective;
+        delta -= dtEffective;
+        n += 1;
     }
 }
 
