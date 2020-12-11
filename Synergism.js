@@ -2904,24 +2904,47 @@ function constantIntervals() {
 }
 
 let lastUpdate = 0;
+let lastLog = 0
 
 //gameInterval = 0;
 
 function createTimer() {
-    lastUpdate = Date.now();
+    lastUpdate = performance.now();
+    lastLog = performance.now();
     interval(tick, 5);
 }
 
+const deltas = [];
+let dt = 5 / 1000;
+let ticks = 0;
+let dtMean = 0;
 
 function tick() {
+    let now = performance.now();
+    let delta = now - lastUpdate;
+    let n = 0;
+    lag1 = now - lastUpdate;
+    while (delta > 5) {
+      let compensation = n > 5 ? n - 5 : 0;
+      tack(dt + compensation / 1000);
+      deltas.push(dt * 1000 + compensation);
+      lastUpdate += 5 + compensation;
+      delta -= 5 + compensation;
+      n += 1;
+      dtMean = (dtMean * ticks + dt * 1000 + compensation) / (ticks + 1);
+      ticks +=1;
+    }
+    if ((now - lastLog) > 1000) {
+      console.log({n, lag1, lag2: now - lastUpdate, dtMean});
+      lastLog = now;
+    }
+}
+
+function tack(dt) {
 
     if (!timeWarp) {
-        let now = Date.now();
-        let dt = Math.max(0, Math.min(36000, (now - lastUpdate) / 1000));
-
         dailyResetCheck();
         let timeMult = calculateTimeAcceleration();
-        lastUpdate = now;
 
         player.quarkstimer += dt
         if (player.quarkstimer >= (90000 + 45000 * player.researches[195])) {
