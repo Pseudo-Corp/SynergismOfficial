@@ -2913,24 +2913,26 @@ function createTimer() {
 }
 
 let dt = 5;
+let filterStrength = 20;
+let deltaMean = 0;
 
 function tick() {
     let now = performance.now();
     let delta = now - lastUpdate;
-    let n = 0;
+    // compute pseudo-average delta cf. https://stackoverflow.com/a/5111475/343834
+    deltaMean += (delta - deltaMean) / filterStrength;
     let dtEffective;
     while (delta > 5) {
         // tack will compute dtEffective milliseconds of game time
         dtEffective = dt;
-        // If we're lagging more than a whole frame (16ms) behind, compensate by computing delta - dt ms, up to 1 hour
-        dtEffective += delta > 16 ? Math.min(3600 * 1000, delta - dt) : 0;
-        // If tack is called more than 5 times in one tick, start increasing dtEffective
-        dtEffective += n > 5 ? n - 5 : 0;
+        // If the mean lag (deltaMean) is more than a whole frame (16ms), compensate by computing deltaMean - dt ms, up to 1 hour
+        dtEffective += deltaMean > 16 ? Math.min(3600 * 1000, deltaMean - dt) : 0;
+        // compute at max delta ms to avoid negative delta
+        dtEffective = Math.min(delta, dtEffective);
         // run tack and record timings
         tack(dtEffective / 1000);
         lastUpdate += dtEffective;
         delta -= dtEffective;
-        n += 1;
     }
 }
 
