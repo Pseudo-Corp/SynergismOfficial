@@ -1167,8 +1167,11 @@ function loadSynergy() {
         toggleauto();
 
         document.getElementById("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s"
+        document.getElementById("startAutoChallengeTimerInput").value = player.autoChallengeTimer.start;
         document.getElementById("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s"
+        document.getElementById("exitAutoChallengeTimerInput").value = player.autoChallengeTimer.exit;
         document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s"
+        document.getElementById("enterAutoChallengeTimerInput").value = player.autoChallengeTimer.enter;
 
 
         let m = 1;
@@ -2385,13 +2388,15 @@ function resetCheck(i, manual, leaving) {
                 }
                 player.challengecompletions[q] = comp;
                 let y = x - 65
-                challengeDisplay(y, true)
+                challengeDisplay(y, false)
+                updateChallengeLevel(y)
             }
             if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                 while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                     player.highestchallengecompletions[q] += 1;
                     let y = x - 65;
-                    challengeDisplay(y, true)
+                    challengeDisplay(y, false)
+                    updateChallengeLevel(y)
                     highestChallengeRewards(q, player.highestchallengecompletions[q])
                     updateCubesPerSec()
                     calculateCubeBlessings();
@@ -2448,7 +2453,8 @@ function resetCheck(i, manual, leaving) {
                 counter++;
             }
             player.challengecompletions[q] = comp;
-            challengeDisplay(q, true)
+            challengeDisplay(q, true);
+            updateChallengeLevel(q);
         }
         if (!player.shopUpgrades.instantChallengeBought || leaving) { // TODO: Implement the upgrade levels here
             reset(3, false, "leaveChallenge");
