@@ -364,7 +364,7 @@ function highestChallengeRewards(chalNum, highestValue) {
 function calculateChallengeRequirementMultiplier(type, completions, special) {
     special = special || 0;
     let requirementMultiplier = 1;
-    requirementMultiplier *= Math.max(1, hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8]));
+    requirementMultiplier *= Math.max(1, hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5));
     switch (type) {
         case "transcend":
             (completions >= 75) ?

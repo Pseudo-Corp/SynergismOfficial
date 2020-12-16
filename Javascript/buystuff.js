@@ -626,8 +626,10 @@ function getParticleCost(originalCost, buyTo) {
     originalCost = new Decimal(originalCost)
     let cost = originalCost.times(Decimal.pow(2, buyTo));
 
-    if (buyTo > 325000) {
-        cost = cost.times(Decimal.pow(1.001, (buyTo - 325000) * ((buyTo - 325000 + 1) / 2)));
+    let DR = (player.currentChallenge.ascension !== 15)? 325000: 1000;
+
+    if (buyTo > DR) {
+        cost = cost.times(Decimal.pow(1.001, (buyTo - DR) * ((buyTo - DR + 1) / 2)));
     }
     return (cost)
 }

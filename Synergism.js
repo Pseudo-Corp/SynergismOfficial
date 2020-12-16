@@ -576,12 +576,13 @@ const player = {
     hypercubeQuarkDaily: 0,
     loadedOct4Hotfix: false,
     loadedNov13Vers: true,
-    version: '2.1.1',
+    loadedDec16Vers: true,
+    version: '2.1.2',
     rngCode: 0
 }
 
 const blank_save = Object.assign({}, player);
-blank_save.codes = new Map(Array.from(Array(30), (_, i) => [i + 1, false]));
+blank_save.codes = new Map(Array.from(Array(31), (_, i) => [i + 1, false]));
 
 /**
  * stringify a map so it can be re-made when importing
@@ -1580,7 +1581,8 @@ function updateAllTick() {
     }
     calculateAcceleratorMultiplier();
     a *= acceleratorMultiplier
-    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 10) * maladaptivePower[player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
+    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * maladaptivePower[player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
+    a *= challenge15Rewards.accelerator
     a = Math.floor(a)
 
     freeAccelerator = a;
@@ -1739,8 +1741,8 @@ function updateAllMultiplier() {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
+    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * divisivenessPower[player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
     a *= challenge15Rewards.multiplier
-    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 10) * divisivenessPower[player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
     a = Math.floor(a)
     freeMultiplier = a;
     totalMultiplier = freeMultiplier + player.multiplierBought;
@@ -1814,7 +1816,7 @@ function multipliers() {
     buildingPower = Math.pow(buildingPower, 1 + player.cubeUpgrades[36] * 0.05)
     reincarnationMultiplier = Decimal.pow(buildingPower, totalCoinOwned);
 
-    antMultiplier = Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499));
+    antMultiplier = Decimal.pow(Decimal.max(1, player.antPoints), calculateCrumbToCoinExp());
 
     s = s.times(multiplierEffect);
     s = s.times(acceleratorEffect);
@@ -1859,7 +1861,7 @@ function multipliers() {
         lol = Decimal.pow(lol, 1.1)
     }
     if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[14] > 0) {
-        lol = Decimal.pow(lol, 1 + 1 / 11 * player.usedCorruptions[9] * Decimal.log(player.coins.add(1), 10) / (1e7 + Decimal.log(player.coins.add(1), 10)))
+        lol = Decimal.pow(lol, 1 + 1 / 20 * player.usedCorruptions[9] * Decimal.log(player.coins.add(1), 10) / (1e7 + Decimal.log(player.coins.add(1), 10)))
     }
     lol = Decimal.pow(lol, challenge15Rewards.coinExponent)
     globalCoinMultiplier = lol;
@@ -2039,12 +2041,12 @@ function multipliers() {
         globalAntMult = Decimal.pow(globalAntMult, 0.2)
     }
 
-    globalAntMult = Decimal.pow(globalAntMult, 1 - 0.9 / 90 * sumContents(player.usedCorruptions))
+    globalAntMult = Decimal.pow(globalAntMult, 1 - 0.9 / 90 * Math.min(99, sumContents(player.usedCorruptions)))
     globalAntMult = Decimal.pow(globalAntMult, extinctionMultiplier[player.usedCorruptions[7]])
     globalAntMult = globalAntMult.times(challenge15Rewards.antSpeed)
 
     if (player.platonicUpgrades[12] > 0) {
-        globalAntMult = globalAntMult.times(Decimal.pow(1 + 1 / 20 * player.platonicUpgrades[12], sumContents(player.highestchallengecompletions)))
+        globalAntMult = globalAntMult.times(Decimal.pow(1 + 1 / 100 * player.platonicUpgrades[12], sumContents(player.highestchallengecompletions)))
     }
     if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[10] > 0) {
         globalAntMult = Decimal.pow(globalAntMult, 1.25)
@@ -3430,7 +3432,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 
     const version = player.version
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're playing on v${player.version} - The Abyss [Last Update: 5:30 PM UTC-8 Nov 13]`);
+    ver && (ver.textContent = `You're playing on v${player.version} - The Abyss [Last Update: 2:40 UTC-8 Dec 16]`);
     document.title = 'Synergism v' + player.version;
 
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));

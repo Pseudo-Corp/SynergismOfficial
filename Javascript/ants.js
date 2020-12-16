@@ -39,9 +39,20 @@ let antupgdesc = {
     antupgdesc12: "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
 }
 
+function calculateCrumbToCoinExp(){
+    let exponent = 1
+    if(player.currentChallenge.ascension !== 15){
+        exponent = 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499)
+    }
+    else{
+        exponent = 1/10000 * (100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499))
+    }
+    return exponent
+}
+
 const antUpgradeTexts = [null,
     () => "ALL Ants work at " + format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1] + bonusant1), 2) + "x speed.",
-    () => "Crumb --> Coin exponent is ^" + format(100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499)),
+    () => "Crumb --> Coin exponent is ^" + format(calculateCrumbToCoinExp()),
     () => "Tax growth is multiplied by " + format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3] + bonusant3), 4),
     () => "Accelerator Boosts +" + format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4] + bonusant4) / 1000 * 20 / 19) - 1), 3) + "%",
     () => "Multipliers +" + format(100 * (calculateSigmoidExponential(40, (player.antUpgrades[5] + bonusant5) / 1000 * 40 / 39) - 1), 3) + "%",

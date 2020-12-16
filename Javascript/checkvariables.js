@@ -257,5 +257,15 @@ function checkVariablesOnLoad(data) {
             player.researches[i + 1] = player.researches[i + 1] || 0;
         }
     }
+    if (data.loadedDec16Vers === false || data.loadedDec16Vers === undefined){
+        if (player.currentChallenge.ascension === 15) {
+            resetCheck('ascensionChallenge', false, true);
+            player.challenge15Exponent = 0;
+            c15RewardUpdate();
+        }
+        player.challenge15Exponent = 0;
+        c15RewardUpdate();
+        player.loadedDec16Vers = true;
+    }
 }
 

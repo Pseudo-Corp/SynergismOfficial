@@ -1,19 +1,19 @@
 const platonicUpgradeDesc = {
-    1: '+0.01% cubes per corruption level per level!',
-    2: '+0.02% tesseracts per corruption level per level!',
-    3: '+0.03% hypercubes per corruption level per level!',
-    4: 'Gain +1% platonic cubes per level if >2.5 Trillion Score!',
+    1: '+0.0075% cubes per corruption level per level!',
+    2: '+0.015% tesseracts per corruption level per level!',
+    3: '+0.045% hypercubes per corruption level per level!',
+    4: 'Gain +2% platonic cubes per level if >2.5 Trillion Score!',
     5: 'C10 Exponent: 1.035 --> 1.0375, Constant tax exponent +0.10, 2x faster constant production, +5/+3 Challenge caps, +100% Obtainium/Offerings, ^1.10 coin gain in C15!',
-    6: 'Raises corruption 1 and 2 exponent ^(1 + level/10), capacity of ^1 on Mult/Accel.',
-    7: 'Raises speed below 1x to the power of ^(1 - level/20).',
-    8: 'Divides Hyperchallenged by its level, with a minimum 1x challenge req. multiplier!',
-    9: 'Gain more obtainium with the illiteracy corruption, up until 1e50 obtainium!',
+    6: 'Raises corruption 1 and 2 exponent ^(1 + level/30), capacity of ^1 on Mult/Accel.',
+    7: 'Raises speed below 1x to the power of ^(1 - level/30).',
+    8: 'Divides Hyperchallenged by (1 + 0.4 * level), with a minimum 1x challenge req. multiplier!',
+    9: 'Gain more obtainium with the illiteracy corruption, up until 1e100 obtainium!',
     10: 'C10 Exponent: 1.0375 --> 1.04, Const. tax exponent +0.20 and 10x faster constant production, +5/+3 Challenge caps, +250% Obtainium and Offerings, +100% Cubes/Tesseracts/Hypercubes/Platonics for 5T/7.5T/10T/20T score. ^1.25 ant exponent in C15!',
-    11: 'Placeholder',
-    12: 'Placeholder',
-    13: 'Placeholder',
-    14: 'Placeholder',
-    15: 'Placeholder'
+    11: 'With this upgrade, you will gain diamonds equal to particle gain!',
+    12: 'Gain (1 + lvl/100)x ant multiplier per challenge completion, ignoring corruptions to ants.',
+    13: 'Effect of Drought is raised to the power of 0.5.',
+    14: 'Gain a small coin exponent dependent on your coins, up until 1e4T coins.',
+    15: 'I suppose that, after all, we all are Everywhere at the End of Time.'
 }
 
 var platUpgradeBaseCosts = {

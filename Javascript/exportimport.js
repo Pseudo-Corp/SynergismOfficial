@@ -184,7 +184,14 @@ function promocodes() {
             el.textContent = `You guessed ${addPrompt}, but the answer was ${first + second}. Try again in an hour!`;
         }
         player.rngCode = Date.now();
-    } else {
+    } else if(input === 'holiday' && !player.codes.get(31)){
+        player.codes.set(31, true);
+        let quarkCounter = 2500
+        if(player.platonicUpgrades[5] > 0){quarkCounter += 1}
+        player.worlds += quarkCounter
+        el.textContent = 'Happy holidays from Platonic, to you and yours! A gift of ' + format(quarkCounter) + " Quarks, just for you."
+    }
+    else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
 
