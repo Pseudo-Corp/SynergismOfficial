@@ -2,6 +2,29 @@ function toggleTabs(i) {
     currentTab = i;
     revealStuff();
     hideStuff();
+    let subTabList = subTabsInMainTab(player.tabnumber).subTabList
+    if (player.tabnumber !== -1) {
+        for (let i = 0; i < subTabList.length; i++) {
+            let button = document.getElementById(subTabList[i].buttonID)
+            if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
+                player.subtabNumber = i
+                break;
+            }
+            if (player.tabnumber === 9 && button.style.borderColor === "dodgerblue") { // handle corruption tab
+                player.subtabNumber = i
+                break;
+            }
+        }
+    } else { // handle settings tab
+        // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
+        let btns = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children
+        for (let i = 0; i < btns.length; i++) {
+            if (btns[i].classList.contains("buttonActive")) {
+                player.subtabNumber = i
+                break;
+            }
+        }
+    }
 }
 
 function toggleSettings(i) {
@@ -17,14 +40,18 @@ function toggleSettings(i) {
 function toggleChallenges(i, auto) {
     auto = auto || false
     if (player.currentChallenge.transcension === 0 && (i <= 5)) {
-        player.currentChallenge.transcension = i;
-        reset(2, false, "enterChallenge");
-        player.transcendCount -= 1;
+        if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
+            player.currentChallenge.transcension = i;
+            reset(2, false, "enterChallenge");
+            player.transcendCount -= 1;
+        }
     }
-    if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)) {
-        player.currentChallenge.reincarnation = i;
-        reset(3, false, "enterChallenge");
-        player.reincarnationCount -= 1;
+    if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)){
+        if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
+            player.currentChallenge.reincarnation = i;
+            reset(3, false, "enterChallenge");
+            player.reincarnationCount -= 1;
+        }
     }
     if (player.challengecompletions[10] > 0) {
         if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
@@ -37,14 +64,14 @@ function toggleChallenges(i, auto) {
             if (player.currentChallenge.ascension === 15) {
                 player.usedCorruptions[0] = 0;
                 player.prototypeCorruptions[0] = 0;
-                for (var i = 1; i <= 9; i++){
+                for (var i = 1; i <= 9; i++) {
                     player.usedCorruptions[i] = 11;
                 }
             }
         }
     }
     updateChallengeDisplay();
-    getChallengeConditions();
+    getChallengeConditions(i);
 
     if (!auto && player.autoChallengeRunning) {
         toggleAutoChallengeRun();
@@ -148,8 +175,8 @@ function tabs(mainTab) {
         5: {tabName: "challenges", unlocked: player.unlocks.transcend},
         6: {tabName: "researches", unlocked: player.unlocks.reincarnate},
         7: {tabName: "ants", unlocked: player.achievements[127] > 0},
-        8: {tabName: "cubes", unlocked: player.achievements[183] > 0},
-        9: {tabName: "traits", unlocked: player.achievements[185] > 0}
+        8: {tabName: "cubes", unlocked: player.achievements[141] > 0},
+        9: {tabName: "traits", unlocked: player.achievements[141] > 0}
     }
     if (mainTab === undefined)
         return tabs
@@ -209,18 +236,18 @@ function subTabsInMainTab(mainTab) {
         8: {
             tabSwitcher: toggleCubeSubTab,
             subTabList: [
-                {subTabID: 1, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab1"},
+                {subTabID: 1, unlocked: player.achievements[141] > 0, buttonID: "switchCubeSubTab1"},
                 {subTabID: 2, unlocked: player.achievements[197] > 0, buttonID: "switchCubeSubTab2"},
                 {subTabID: 3, unlocked: player.achievements[211] > 0, buttonID: "switchCubeSubTab3"},
-                {subTabID: 4, unlocked: player.achievements[183] > 0, buttonID: "switchCubeSubTab4"},
-                {subTabID: 5, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab5"},
+                {subTabID: 4, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab4"},
+                {subTabID: 5, unlocked: player.achievements[141] > 0, buttonID: "switchCubeSubTab5"},
                 {subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab6"}]
         },
         9: {
             tabSwitcher: toggleCorruptionLoadoutsStats,
             subTabList: [
-                {subTabID: true, unlocked: player.achievements[185] > 0, buttonID: "corrStatsBtn"},
-                {subTabID: false, unlocked: player.achievements[185] > 0, buttonID: "corrLoadoutsBtn"}]
+                {subTabID: true, unlocked: player.achievements[141] > 0, buttonID: "corrStatsBtn"},
+                {subTabID: false, unlocked: player.achievements[141] > 0, buttonID: "corrLoadoutsBtn"}]
         },
     }
     return subTabs[mainTab];
@@ -247,29 +274,6 @@ function keyboardTabChange(dir = 1, main = true) {
             handleLoopBack()
         }
         toggleTabs(tabs(player.tabnumber).tabName)
-        let subTabList = subTabsInMainTab(player.tabnumber).subTabList
-        if (player.tabnumber !== -1) {
-            for (let i = 0; i < subTabList.length; i++) {
-                let button = document.getElementById(subTabList[i].buttonID)
-                if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
-                    player.subtabNumber = i
-                    break;
-                }
-                if (player.tabnumber === 9 && button.style.borderColor === "dodgerblue") { // handle corruption tab
-                    player.subtabNumber = i
-                    break;
-                }
-            }
-        } else { // handle settings tab
-            // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-            let btns = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children
-            for (let i = 0; i < btns.length; i++) {
-                if (btns[i].classList.contains("buttonActive")) {
-                    player.subtabNumber = i
-                    break;
-                }
-            }
-        }
     } else {
         let subTabList = subTabsInMainTab(player.tabnumber).subTabList
         if (subTabList.length === 0)
@@ -330,6 +334,19 @@ function toggleautoreset(i) {
     } else if (i === 4) {
         // To be ascend toggle
     }
+}
+
+function toggleautobuytesseract() {
+    if (player.tesseractAutoBuyerToggle === 1 || player.tesseractAutoBuyerToggle === 0) {
+        player.tesseractAutoBuyerToggle = 2;
+        document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: OFF"
+        document.getElementById("tesseractautobuytoggle").style.border = "2px solid red"
+        
+    } else {
+        player.tesseractAutoBuyerToggle = 1;
+        document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: ON"
+        document.getElementById("tesseractautobuytoggle").style.border = "2px solid green"
+        }
 }
 
 function toggleauto() {
@@ -411,32 +428,11 @@ function toggleAutoSacrifice(index) {
             player.autoSacrificeToggle = true;
             el.textContent = "Automatic: ON"
         }
-    }
-    if (player.autoSacrificeToggle && player.shopUpgrades.offeringAutoLevel > 0.5) {
-        switch (index) {
-            case 1:
-                player.autoSacrifice = 1;
-                break;
-            case 2:
-                player.autoSacrifice = 2;
-                break;
-            case 3:
-                player.autoSacrifice = 3;
-                break;
-            case 4:
-                player.autoSacrifice = 4;
-                break;
-            case 5:
-                player.autoSacrifice = 5;
-                break;
-        }
+    } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAutoLevel > 0.5) {
+        player.autoSacrifice = index;
     }
     for (let i = 1; i <= 5; i++) {
-        if (player.autoSacrifice === i) {
-            document.getElementById("rune" + i).style.backgroundColor = "orange"
-        } else {
-            document.getElementById("rune" + i).style.backgroundColor = "black"
-        }
+        document.getElementById("rune" + i).style.backgroundColor = player.autoSacrifice === i ? "orange" : "#171717";
     }
     calculateRuneLevels();
 }
@@ -489,18 +485,14 @@ function toggleRuneScreen(index) {
             break;
         case 3:
             runescreen = "blessings";
-            CSSRuneBlessings()
             break;
         case 4:
             runescreen = "spirits";
-            CSSRuneBlessings()
             break;
     }
-    let a
-    let b
     for (let i = 1; i <= 4; i++) {
-        a = document.getElementById("toggleRuneSubTab" + i);
-        b = document.getElementById("runeContainer" + i);
+        let a = document.getElementById("toggleRuneSubTab" + i);
+        let b = document.getElementById("runeContainer" + i);
         if (i === index) {
             a.style.border = "2px solid gold"
             a.style.backgroundColor = "crimson"
@@ -602,41 +594,20 @@ function toggleMaxBuyCube() {
 }
 
 function toggleCubeSubTab(i) {
-    let a = document.getElementById("switchCubeSubTab1")
-    let b = document.getElementById("switchCubeSubTab2")
-    let c = document.getElementById("switchCubeSubTab3")
-    let d = document.getElementById("switchCubeSubTab4")
-    let e = document.getElementById("switchCubeSubTab5")
-    let f = document.getElementById("switchCubeSubTab6")
-
-    for (let j = 1; j <= 6; j++) {
-        if (document.getElementById("cubeTab" + j).style.display === "block" && j !== i) {
-            document.getElementById("cubeTab" + j).style.display = "none"
+    let numSubTabs = subTabsInMainTab(8).subTabList.length
+    for (let j = 1; j <= numSubTabs; j++) {
+        let cubeTab = document.getElementById(`cubeTab${j}`);
+        if (cubeTab.style.display === "block" && j !== i) {
+            cubeTab.style.display = "none"
         }
-        if (document.getElementById("cubeTab" + j).style.display === "none" && j === i) {
-            document.getElementById("cubeTab" + j).style.display = "block"
+        if (cubeTab.style.display === "none" && j === i) {
+            cubeTab.style.display = "block"
             player.subtabNumber = j - 1
         }
+        document.getElementById("switchCubeSubTab" + j).style.backgroundColor = i === j ? "crimson" : "#171717"
     }
 
-    i === 1 ?
-        (a.style.backgroundColor = "crimson", calculateCubeBlessings()) :
-        (a.style.backgroundColor = "black");
-    i === 2 ?
-        (b.style.backgroundColor = "crimson", calculateTesseractBlessings()) :
-        (b.style.backgroundColor = "black");
-    i === 3 ?
-        (c.style.backgroundColor = "crimson", calculateHypercubeBlessings()) :
-        (c.style.backgroundColor = "black");
-    i === 4 ?
-        ((d.style.backgroundColor = "crimson"), calculatePlatonicBlessings()) :
-        (d.style.backgroundColor = "black");
-    i === 5 ?
-        (e.style.backgroundColor = "crimson") :
-        (e.style.backgroundColor = "black");
-    i === 6 ?
-        (f.style.backgroundColor = "crimson") :
-        (f.style.backgroundColor = "black");
+    visualUpdateCubes()
 }
 
 function updateAutoChallenge(i) {
@@ -752,7 +723,7 @@ function toggleAutoTesseracts(i) {
 
 function toggleCorruptionLevel(index, value) {
     let current = player.prototypeCorruptions[index]
-    let maxCorruption = 11
+    let maxCorruption = 12
     if (value > 0 && current < maxCorruption && 0 < index && index <= 9) {
         player.prototypeCorruptions[index] += Math.min(maxCorruption - current, value)
     }
@@ -771,7 +742,7 @@ function toggleCorruptionLevel(index, value) {
         corruptionDisplay(trig)
         document.getElementById("corruptionCleanseConfirm").style.visibility = "hidden";
 
-        if(player.currentChallenge.ascension === 15){
+        if (player.currentChallenge.ascension === 15) {
             resetCheck('ascensionChallenge', false, true)
         }
     }
@@ -786,7 +757,7 @@ function toggleCorruptionLoadoutsStats(stats) {
 
 function toggleAscStatPerSecond(id) {
     const el = document.getElementById(`unit${id}`);
-    if(!el) {
+    if (!el) {
         console.log(id, 'platonic needs to fix');
         return;
     }

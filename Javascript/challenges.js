@@ -2,13 +2,13 @@ function challengeDisplay(i, changefocus, automated) {
     changefocus = (changefocus === null || changefocus === undefined) ? true : changefocus;
     if (changefocus) {
         challengefocus = i;
-        document.getElementById("challengeDetails").style.display = "block"
+        document.getElementById("oneChallengeDetails").style.display = "block"
     }
 
     let quarksMultiplier = 1;
     if (changefocus) {
         challengefocus = i;
-        document.getElementById("challengeDetails").style.display = "block";
+        document.getElementById("oneChallengeDetails").style.display = "block";
         triggerChallenge = i
     }
 
@@ -224,12 +224,12 @@ function challengeDisplay(i, changefocus, automated) {
         d.textContent = "Goal: Complete Challenge 10 [Sadistic Challenge I] " + format(challengeRequirement(i, player.challengecompletions[i])) + " times."
         e.textContent = "+50% Obtainium! Current: "
         f.textContent = "+12% Offerings! Current: "
-        g.textContent = "+1 Cube Blessing per opening! Current: "
+        g.textContent = "+1 Cube Tribute per opening! Current: "
         h.textContent = "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab."
         k.textContent = "Start <[(No Reincarnation)]>"
         l.textContent = "+" + format(50 * CalcECC('ascension', player.challengecompletions[12])) + "% Obtainium"
         m.textContent = "+" + format(12 * CalcECC('ascension', player.challengecompletions[12])) + "% Offerings"
-        n.textContent = "+" + format(CalcECC('ascension', player.challengecompletions[12])) + " additional Cube Blessings"
+        n.textContent = "+" + format(CalcECC('ascension', player.challengecompletions[12])) + " additional Cube Tributes"
     }
     if (i === 13 && challengefocus === 13) {
         a.textContent = "Tax+++ Challenge || " + player.challengecompletions[13] + "/" + format(maxChallenges) + " Completions"
@@ -321,7 +321,7 @@ function challengeDisplay(i, changefocus, automated) {
         (ella.textContent = "Auto Challenge Sweep [OFF]", ella.style.border = "2px solid red");
 }
 
-function getChallengeConditions() {
+function getChallengeConditions(i) {
     if (player.currentChallenge.reincarnation === 9) {
         rune1level = 1;
         rune2level = 1;
@@ -329,6 +329,13 @@ function getChallengeConditions() {
         rune4level = 1;
         rune5level = 1;
         player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+    prestigePointGain = new Decimal('0')
+    if (i >= 6){
+        transcendPointGain = new Decimal('0')
+    }
+    if (i >= 11){
+        reincarnationPointGain = new Decimal('0')
     }
     calculateRuneLevels();
 }
@@ -357,7 +364,7 @@ function highestChallengeRewards(chalNum, highestValue) {
 function calculateChallengeRequirementMultiplier(type, completions, special) {
     special = special || 0;
     let requirementMultiplier = 1;
-    requirementMultiplier *= Math.max(1, hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8]));
+    requirementMultiplier *= Math.max(1, hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5));
     switch (type) {
         case "transcend":
             (completions >= 75) ?
@@ -497,7 +504,7 @@ if (player.researches[150] > 0 && player.autoChallengeRunning && (player.reincar
             autoChallengeTimerIncrement = 0;
         }
         if (player.currentChallenge.reincarnation === 0 && player.autoChallengeIndex > 5) {
-            while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
+            while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
                 player.autoChallengeIndex += 1
                 if (player.autoChallengeIndex > 10) {
                     player.autoChallengeIndex = 1;

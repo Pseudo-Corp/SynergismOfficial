@@ -4,35 +4,42 @@ var talismanResourceOfferingCosts = [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 var talismanResourceCosts = {
     shard: {
         obtainium: 1e13,
-        offerings: 1e2
+        offerings: 1e2,
+        name: "Talisman Shard"
     },
     commonFragment: {
         obtainium: 1e14,
-        offerings: 1e4
+        offerings: 1e4,
+        name: "Common Fragment"
     },
     uncommonFragment: {
         obtainium: 1e16,
-        offerings: 1e5
+        offerings: 1e5,
+        name: "Uncommon Fragment"
     },
     rareFragment: {
         obtainium: 1e18,
-        offerings: 1e6
+        offerings: 1e6,
+        name: "Rare Fragment"
     },
     epicFragment: {
         obtainium: 1e20,
-        offerings: 1e7
+        offerings: 1e7,
+        name: "Epic Fragment"
     },
     legendaryFragment: {
         obtainium: 1e22,
-        offerings: 1e8
+        offerings: 1e8,
+        name: "Legendary Fragment"
     },
     mythicalFragment: {
         obtainium: 1e24,
-        offerings: 1e9
+        offerings: 1e9,
+        name: "Mythical Fragment"
     },
 }
 
-function getTalismanResourceInfo(type, percentage){
+function getTalismanResourceInfo(type, percentage) {
     percentage = percentage || player.buyTalismanShardPercent;
     let obtainiumCost = talismanResourceCosts[type].obtainium;
     let offeringCost = talismanResourceCosts[type].offerings;
@@ -40,7 +47,7 @@ function getTalismanResourceInfo(type, percentage){
     let maxBuyObtainium = Math.max(1, Math.floor(player.researchPoints / obtainiumCost));
     let maxBuyOffering = Math.max(1, Math.floor(player.runeshards / (offeringCost)));
     let amountToBuy = Math.max(1, Math.floor(percentage / 100 * Math.min(maxBuyObtainium, maxBuyOffering)));
-    let canBuy = (obtainiumCost <= player.researchPoints && offeringCost <= player.runeshards)? true: false;
+    let canBuy = (obtainiumCost <= player.researchPoints && offeringCost <= player.runeshards) ? true : false;
     return {
         canBuy: canBuy, //Boolean, if false will not buy any fragments
         buyAmount: amountToBuy, //Integer, will buy as specified above.
@@ -53,8 +60,9 @@ function updateTalismanCostDisplay(type, percentage) {
     percentage = percentage || player.buyTalismanShardPercent;
     let el = document.getElementById("talismanFragmentCost");
     let talismanCostInfo = getTalismanResourceInfo(type, percentage);
+    let TalismanName = talismanResourceCosts[type].name;
 
-    el.textContent = "Cost to buy " + format(talismanCostInfo.buyAmount) + ": " + format(talismanCostInfo.obtainiumCost) + " Obtainium and " + format(talismanCostInfo.offeringCost) + " offerings."
+    el.textContent = "Cost to buy " + format(talismanCostInfo.buyAmount) + " " + TalismanName + (talismanCostInfo.buyAmount>1?"s":"") + ": " + format(talismanCostInfo.obtainiumCost) + " Obtainium and " + format(talismanCostInfo.offeringCost) + " offerings."
 }
 
 function toggleTalismanBuy(i) {
@@ -95,25 +103,32 @@ function updateTalismanInventory() {
 function buyTalismanResources(type, percentage) {
     percentage = percentage || player.buyTalismanShardPercent;
     let talismanResourcesData = getTalismanResourceInfo(type, percentage)
-    console.log(talismanResourcesData.buy)
-    if(talismanResourcesData.canBuy){
-        if (type === 'shard'){
+
+    if (talismanResourcesData.canBuy) {
+        if (type === 'shard') {
             player.talismanShards += talismanResourcesData.buyAmount
+        } else {
+            player[type + 's'] += talismanResourcesData.buyAmount
         }
-        else{
-            player[type+'s'] += talismanResourcesData.buyAmount
-        }
-        if(type === 'mythicalFragment' && player.mythicalFragments >= 1e25 && player.achievements[239] < 1){
+        if (type === 'mythicalFragment' && player.mythicalFragments >= 1e25 && player.achievements[239] < 1) {
             achievementaward(239)
         }
 
-        if(talismanResourcesData.buyAmount < 1e3){
-            player.researchPoints -= talismanResourcesData.obtainiumCost;
-            player.runeshards -= talismanResourcesData.offeringCost;
+        player.researchPoints -= talismanResourcesData.obtainiumCost;
+        player.runeshards -= talismanResourcesData.offeringCost;
+
+        // When dealing with high values, calculations can be very slightly off due to floating point precision
+        // and result in buying slightly (usually 1) more than the player can actually afford.
+        // This results in negative obtainium or offerings with further calcs somehow resulting in NaN/undefined.
+        // Instead of trying to work around floating point limits, just make sure nothing breaks as a result.
+        // The calculation being done overall is similar to the following calculation:
+        // 2.9992198253874083e47 - (Math.floor(2.9992198253874083e47 / 1e20) * 1e20)
+        // which, for most values, returns 0, but values like this example will return a negative number instead.
+        if (player.researchPoints < 0) {
+            player.researchPoints = 0;
         }
-        if(talismanResourcesData.buyAmount >= 1e3){
-                player.researchPoints *= (1 - 1/100 * percentage)
-                player.runeshards *= (1 - 1/100 * percentage)
+        if (player.runeshards < 0) {
+            player.runeshards = 0;
         }
     }
     updateTalismanCostDisplay(type, percentage)

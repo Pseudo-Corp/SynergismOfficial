@@ -1053,6 +1053,13 @@ margin-left: -13px
 	left: 75%;
 	margin-left: -250px;
 }
+#temporarystats12 {
+	position: absolute;
+	top: 250px;
+	width: 500px;
+	left: 75%;
+	margin-left: -250px;
+}
 #patchnotes {
 	position: absolute;
 	top: 300px;
@@ -3121,11 +3128,15 @@ margin-left: -13px
 	margin-left: -510px;
 	left: 50%;
 }
+#challengeIcons .challengeLevels {
+	font-size: 12px;
+	text-align: center;
+}
 #challengeDetails {
 	position: absolute;
 	text-align: left;
 	padding: 0;
-	top: 120px;
+	top: 125px;
 	width: 1000px;
 	margin-left: -500px;
 	left: 50%;
@@ -3290,7 +3301,7 @@ margin-left: -13px
 #challengehotkeys {
 	position: absolute;
 	padding: 5px;
-	top: 400px;
+	top: 405px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -3301,7 +3312,7 @@ margin-left: -13px
 #challengewarning {
 	position: absolute;
 	padding: 5px;
-	top: 420px;
+	top: 425px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -3312,7 +3323,7 @@ margin-left: -13px
 #challengewarningreincarnation {
 	position: absolute;
 	padding: 5px;
-	top: 440px;
+	top: 445px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -4502,10 +4513,43 @@ margin-left: -13px
 	left: 50%;
 	margin-left: -180px;
 }
+
+#tesseractautobuytoggle{
+	position:absolute;
+	width: 150px;
+	top: 440px;
+	left: 50%;
+	margin-left: -75px;
+}
+
+#tesseractAmount{
+	position: absolute;
+	top: 465px;
+	padding: 0;
+	left: 50%;
+	width: 100px;
+	margin-left: -50px;
+	border: 1px solid green;
+	color: white;
+	background-color: black
+}
+
+#autotessbuyeramount{
+	position: absolute;
+	padding: 5px;
+	top: 465px;
+	left: 50%;
+	width: 1200px;
+	margin-left: -600px;
+	height: 20px;
+	color: white;
+	text-align: center;
+}
+
 #ascendHotKeys{
 	position: absolute;
 	padding: 5px;
-	top: 460px;
+	top: 500px;
 	left: 50%;
 	width: 1200px;
 	margin-left: -600px;
@@ -4761,7 +4805,9 @@ margin-left: -13px
 #corruptionLevelPlanned{
     color: lime
 }
-
+#corruptionSpiritContribution{
+	color: gold
+}
 #ascensionAutomation {
 	position: relative;
 	top: 20px;

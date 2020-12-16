@@ -176,6 +176,15 @@ function updateAutoReset(i) {
     }
 }
 
+function updateTesseractAutoBuyAmount() {
+    let v = parseFloat(document.getElementById("tesseractAmount").value);
+        v = Math.floor(v)
+        if (v >= 0) {
+            player.tesseractAutoBuyerAmount = v
+        } else {
+            player.tesseractAutoBuyerAmount = 0;
+        }
+}
 
 function reset(i, fast, from) {
     fast = fast || false
@@ -235,8 +244,10 @@ function reset(i, fast, from) {
         player.fastestprestige = player.prestigecounter;
     }
 
+    prestigePointGain = new Decimal('0');
 
     player.prestigecounter = 0;
+    autoResetTimers.prestige = 0;
 
 
     if (i > 1.5) {
@@ -274,6 +285,8 @@ function reset(i, fast, from) {
         player.transcendnocoinorprestigeupgrades = true;
         player.transcendnoaccelerator = true;
         player.transcendnomultiplier = true;
+
+        transcendPointGain = new Decimal('0')
 
         if (player.achievements[78] > 0.5) {
             player.firstOwnedDiamonds += 1
@@ -315,6 +328,7 @@ function reset(i, fast, from) {
         }
 
         player.transcendcounter = 0;
+        autoResetTimers.transcension = 0;
     }
 
 
@@ -370,13 +384,17 @@ function reset(i, fast, from) {
 
         player.transcendPoints = new Decimal("0");
         player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain);
-        if(player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0){player.prestigePoints = player.prestigePoints.add(reincarnationPointGain)}
+        if (player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0) {
+            player.prestigePoints = player.prestigePoints.add(reincarnationPointGain)
+        }
         player.reincarnationShards = new Decimal("0");
         player.challengecompletions[1] = 0;
         player.challengecompletions[2] = 0;
         player.challengecompletions[3] = 0;
         player.challengecompletions[4] = 0;
         player.challengecompletions[5] = 0;
+
+        reincarnationPointGain = new Decimal('0');
 
         if (player.shopUpgrades.instantChallengeBought && player.currentChallenge.reincarnation === 0) {
             player.challengecompletions[1] = player.highestchallengecompletions[1]
@@ -400,6 +418,7 @@ function reset(i, fast, from) {
 
         calculateCubeBlessings();
         player.reincarnationcounter = 0;
+        autoResetTimers.reincarnation = 0;
 
 
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
@@ -412,10 +431,6 @@ function reset(i, fast, from) {
     }
 
     if (i > 3.5) {
-        if (player.ascensionCount === 0) {
-            CSSAscend()
-        }
-
         let metaData = CalcCorruptionStuff()
         ascensionAchievementCheck(3, metaData[3])
         historyCategory = "ascend";
@@ -497,15 +512,16 @@ function reset(i, fast, from) {
         }
         if (player.challengecompletions[10] > 0) {
             let ascCount = 1
-            if(player.ascensionCounter >= 10){
-                if(player.achievements[188] > 0){
+            if (player.ascensionCounter >= 10) {
+                if (player.achievements[188] > 0) {
                     ascCount += 99
                 }
-                ascCount *= (Math.min(24 * 3600,player.ascensionCounter)/10) * 1/5 * (player.achievements[189] + player.achievements[202] + player.achievements[209] + player.achievements[216] + player.achievements[223])
+                ascCount *= 1 + (Math.min(24 * 3600, player.ascensionCounter) / 10 - 1 ) * 0.2 * (player.achievements[189] + player.achievements[202] + player.achievements[209] + player.achievements[216] + player.achievements[223])
             }
-            if(player.achievements[187] > 0 && metaData[3] > 1e8){
-                ascCount *= (Math.log(metaData[3])/Math.log(10) - 1)
+            if (player.achievements[187] > 0 && metaData[3] > 1e8) {
+                ascCount *= (Math.log(metaData[3]) / Math.log(10) - 1)
             }
+            ascCount *= challenge15Rewards.ascensions
             ascCount = Math.floor(ascCount)
             player.ascensionCount += ascCount;
             player.wowCubes += metaData[4]; //Metadata is defined up in the top of the (i > 3.5) case

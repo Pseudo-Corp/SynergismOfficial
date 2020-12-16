@@ -1,8 +1,8 @@
-function getResearchCost(index,buyAmount,linGrowth){
+function getResearchCost(index, buyAmount, linGrowth) {
     buyAmount = buyAmount || 1
     buyAmount = Math.min(researchMaxLevels[index] - player.researches[index], buyAmount)
     let metaData = calculateSummationNonLinear(player.researches[index], researchBaseCosts[index], player.researchPoints, linGrowth, buyAmount)
-    return [metaData[0],metaData[1]]
+    return [metaData[0], metaData[1]]
 }
 
 function buyResearch(index, auto, linGrowth) {
@@ -24,30 +24,30 @@ function buyResearch(index, auto, linGrowth) {
         document.getElementById("res" + index).style.backgroundColor = "orange"
     }
 
-    let buyamount = (maxbuyresearch || auto)? 1e5: 1;
-    let metaData = getResearchCost(index,buyamount,linGrowth)
+    let buyamount = (maxbuyresearch || auto) ? 1e5 : 1;
+    let metaData = getResearchCost(index, buyamount, linGrowth)
     if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && player.researchPoints >= metaData[1]) {
-            player.researchPoints -= metaData[1]
-            player.researches[index] = metaData[0];
-            researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index])
-            researchDescriptions(index, auto, linGrowth)
+        player.researchPoints -= metaData[1]
+        player.researches[index] = metaData[0];
+        researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index])
+        researchDescriptions(index, auto, linGrowth)
 
-            if (index === 47 && player.unlocks.rrow1 === false) {
-                player.unlocks.rrow1 = true;
-                revealStuff()
-            }
-            if (index === 48 && player.unlocks.rrow2 === false) {
-                player.unlocks.rrow2 = true;
-                revealStuff()
-            }
-            if (index === 49 && player.unlocks.rrow3 === false) {
-                player.unlocks.rrow3 = true;
-                revealStuff()
-            }
-            if (index === 50 && player.unlocks.rrow4 === false) {
-                player.unlocks.rrow4 = true;
-                revealStuff()
-            }
+        if (index === 47 && player.unlocks.rrow1 === false) {
+            player.unlocks.rrow1 = true;
+            revealStuff()
+        }
+        if (index === 48 && player.unlocks.rrow2 === false) {
+            player.unlocks.rrow2 = true;
+            revealStuff()
+        }
+        if (index === 49 && player.unlocks.rrow3 === false) {
+            player.unlocks.rrow3 = true;
+            revealStuff()
+        }
+        if (index === 50 && player.unlocks.rrow4 === false) {
+            player.unlocks.rrow4 = true;
+            revealStuff()
+        }
     }
 
     if (0 < index && isResearchUnlocked(index)) {
@@ -246,7 +246,7 @@ resdesc = [null,
     "[6x10] Unlock automation for Enhancing talismans! Activates every 2 real life seconds.",
     "[6x11] It may be time to look back. Makes all ticks 1.5% faster each level.",
     "[6x12] Paying off Wow! Industries, they'll sponsor +1% cubes per level towards your Ascension bank.",
-    "[6x13] When you open Wow! Cubes you will get +0.1% blessings per level!",
+    "[6x13] When you open Wow! Cubes you will get +0.1% tributes per level!",
     "[6x14] Make all Tesseract buildings produce 2% faster per level.",
     "[6x15] The first of a Tetralogy, this tome reduces the base requirements of Challenge 10 by dividing it by 1e100M! A must-read!",
     "[6x16] The Ant God has infiltrated your mind. Run away from your conscience! (+0.8% Accelerators / level)",
@@ -261,7 +261,7 @@ resdesc = [null,
     "[6x25] Auto Challenge. Enough said. (Lets you automatically run and complete challenges!)",
     "[7x1] A new row, old upgrade. Makes all ticks 1.2% faster each level.",
     "[7x2] Wow! Industries sponsors another +0.9% cubes per level towards your Ascension bank!",
-    "[7x3] Hey, I totally didn't steal this idea. You gain 12 blessings of Wow! Cube tier for every Tesseract opened.",
+    "[7x3] Hey, I totally didn't steal this idea. You gain 12 tributes of Wow! Cube tier for every Tesseract opened.",
     "[7x4] Make all Tesseract buildings produce 3% faster per level. Hey, isn't that more than the last research tier?",
     "[7x5] Tome 2 of 4: How to win over the Ant universe. Another e100M Divider to Challenge 10 Base Requirement on purchase.",
     "[7x6] What, again? Alright. +0.6% Accelerators / level.",
@@ -276,7 +276,7 @@ resdesc = [null,
     "[7x15] Gain 2x the Spirit buffs in challenges!",
     "[7x16] < T I M E >: +0.9% faster ticks / level ",
     "[7x17] Because of sponsorships, Wow! Industries is raising cubes gained in Ascension by 0.8% per level.",
-    "[7x18] Gain +0.08% blessings from cubes per level. You know, you should expect it at this point.",
+    "[7x18] Gain +0.08% tributes from cubes per level. You know, you should expect it at this point.",
     "[7x19] +4% faster Tesseract Buildings / level. It's GROWING.",
     "[7x20] Tome 3 of 4: How to totally ROCK challenge 10. e100m divisor!",
     "[7x21] You should know how this goes. +0.4% Accelerator Boosts / level",
@@ -306,7 +306,7 @@ resdesc = [null,
     "[8x20] Gain +1 export Quark per level, and increases the max timer to redeem quarks by 12.5 hours each!",
     "[8x21] +0.3% faster ticks / level, because you just can't wait to become the singularity.",
     "[8x22] +0.6% cubes in Ascension Bank / level. No one knows how. Bank error perhaps.",
-    "[8x23] +0.06% blessings from cubes / level!. Wow! Cubes really has a lot of manufacturing errors in your favor.",
+    "[8x23] +0.06% tributes from cubes / level!. Wow! Cubes really has a lot of manufacturing errors in your favor.",
     "[8x24] +10% faster Tesseract Buildings / level. THE ARISEN. WITH THE PRAISE OF THE SINGULARITY.",
     "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.04 Max Rune level, + Floor(level/400) max Talisman Level, +Floor(level/200) free ants."
 ];
@@ -314,12 +314,12 @@ resdesc = [null,
 function researchDescriptions(i, auto, linGrowth) {
     auto = auto || false
     linGrowth = linGrowth || 0
-    let buyAmount = (maxbuyresearch || auto)? 100000: 1;
+    let buyAmount = (maxbuyresearch || auto) ? 100000 : 1;
     let y = resdesc[i]
     let z = ""
     let p = "res" + i
-    let metaData = getResearchCost(i,buyAmount,linGrowth);
-    z = " Cost: " + (format(metaData[1], 0, false)) + " Obtainium [+" + format(metaData[0]-player.researches[i],0,true) + " Levels]"
+    let metaData = getResearchCost(i, buyAmount, linGrowth);
+    z = " Cost: " + (format(metaData[1], 0, false)) + " Obtainium [+" + format(metaData[0] - player.researches[i], 0, true) + " Levels]"
     if (player.researches[i] === (researchMaxLevels[i])) {
         document.getElementById("researchcost").style.color = "Gold"
         document.getElementById("researchinfo3").style.color = "plum"

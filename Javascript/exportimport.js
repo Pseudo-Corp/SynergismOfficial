@@ -166,10 +166,36 @@ function promocodes() {
         }
         player.worlds += quarkCounter
         el.textContent = 'Welcome to the Abyss! Based on your progress, you gained ' + format(quarkCounter) + " Quarks.";
-    } else {
+    } else if(input === 'add') {
+        if(player.rngCode >= (Date.now() - 3600000)) { // 1 hour
+            el.textContent = `You already used this promocode in the last hour!`;
+            return;
+        }
+
+        const amount = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16; // [0, 15]
+        const first = window.crypto.getRandomValues(new Uint8Array(1))[0];
+        const second = window.crypto.getRandomValues(new Uint8Array(1))[0];
+        const addPrompt = prompt(`What is ${first} + ${second}?`);
+
+        if(first + second === +addPrompt) {
+            player.worlds += amount;
+            el.textContent = `You were awarded ${amount} quarks! Wait an hour to use this code again!`;
+        } else {
+            el.textContent = `You guessed ${addPrompt}, but the answer was ${first + second}. Try again in an hour!`;
+        }
+        player.rngCode = Date.now();
+    } else if(input === 'holiday' && !player.codes.get(31)){
+        player.codes.set(31, true);
+        let quarkCounter = 2500
+        if(player.platonicUpgrades[5] > 0){quarkCounter += 1}
+        player.worlds += quarkCounter
+        el.textContent = 'Happy holidays from Platonic, to you and yours! A gift of ' + format(quarkCounter) + " Quarks, just for you."
+    }
+    else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
 
+    saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
     setTimeout(function () {
         el.textContent = ''
     }, 15000);
