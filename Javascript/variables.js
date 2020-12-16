@@ -349,6 +349,7 @@ var platonicCubeBase = [2/4e6, 1.5/4e6, 1/4e6, 1/8e4, 1/1e4, 1/1e5, 1/1e4, 1/1e4
 var platonicDRPower = [1/5, 1/5, 1/5, 1/5, 1/16, 1/16, 1/4, 1/8]
 
 
+
 var cubeBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 var tesseractBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 var hypercubeBonusMultiplier = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]

@@ -1107,6 +1107,7 @@ function CalcCorruptionStuff() {
     hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9)) / 1e8, .5);
     hypercubeGain *= Math.pow(Math.min(1, player.ascensionCounter / 10), 2) * (1 + (1 / 4 * player.achievements[204] + 1 / 4 * player.achievements[211] + 1 / 2 * player.achievements[218]) * Math.max(0, player.ascensionCounter / 10 - 1))
     hypercubeGain *= (1 + 0.00045 * corruptionLevelSum * player.platonicUpgrades[3])
+
     if (effectiveScore > 10e12 && player.platonicUpgrades[10] > 0) {
         hypercubeGain *= 2
     }
