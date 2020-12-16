@@ -2927,20 +2927,39 @@ let lastUpdate = 0;
 //gameInterval = 0;
 
 function createTimer() {
-    lastUpdate = Date.now();
+    lastUpdate = performance.now();
     interval(tick, 5);
 }
 
+let dt = 5;
+let filterStrength = 20;
+let deltaMean = 0;
 
 function tick() {
+    let now = performance.now();
+    let delta = now - lastUpdate;
+    // compute pseudo-average delta cf. https://stackoverflow.com/a/5111475/343834
+    deltaMean += (delta - deltaMean) / filterStrength;
+    let dtEffective;
+    while (delta > 5) {
+        // tack will compute dtEffective milliseconds of game time
+        dtEffective = dt;
+        // If the mean lag (deltaMean) is more than a whole frame (16ms), compensate by computing deltaMean - dt ms, up to 1 hour
+        dtEffective += deltaMean > 16 ? Math.min(3600 * 1000, deltaMean - dt) : 0;
+        // compute at max delta ms to avoid negative delta
+        dtEffective = Math.min(delta, dtEffective);
+        // run tack and record timings
+        tack(dtEffective / 1000);
+        lastUpdate += dtEffective;
+        delta -= dtEffective;
+    }
+}
+
+function tack(dt) {
 
     if (!timeWarp) {
-        let now = Date.now();
-        let dt = Math.max(0, Math.min(36000, (now - lastUpdate) / 1000));
-
         dailyResetCheck();
         let timeMult = calculateTimeAcceleration();
-        lastUpdate = now;
 
         player.quarkstimer += dt
         if (player.quarkstimer >= (90000 + 45000 * player.researches[195])) {
