@@ -176,6 +176,15 @@ function updateAutoReset(i) {
     }
 }
 
+function updateTesseractAutoBuyAmount() {
+    let v = parseFloat(document.getElementById("tesseractAmount").value);
+        v = Math.floor(v)
+        if (v >= 0) {
+            player.tesseractAutoBuyerAmount = v
+        } else {
+            player.tesseractAutoBuyerAmount = 0;
+        }
+}
 
 function reset(i, fast, from) {
     fast = fast || false
