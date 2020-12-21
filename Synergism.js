@@ -1268,10 +1268,10 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         }
 
         for (let i = 1; i <= 2; i++) {
-            toggleAntMaxBuy()
-            toggleAntAutoSacrifice()
+            toggleAntMaxBuy();
+            toggleAntAutoSacrifice(0);
+            toggleAntAutoSacrifice(1);
         }
-
 
         document.getElementById("historyTogglePerSecondButton").textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
         document.getElementById("historyTogglePerSecondButton").style.borderColor = (player.historyShowPerSecond ? "green" : "red");
@@ -1279,12 +1279,6 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         if (!player.autoAscend) {
             document.getElementById("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
             document.getElementById("ascensionAutoEnable").style.border = "2px solid red"
-        }
-
-
-        for (let i = 1; i <= 2; i++) {
-            toggleAntMaxBuy()
-            toggleAntAutoSacrifice()
         }
 
         player.autoResearch = Math.min(200, player.autoResearch)
