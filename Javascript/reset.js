@@ -102,7 +102,7 @@ function resetdetails(i) {
         document.getElementById("resetinfo").style.color = "silver"
         if (player.currentChallenge.reincarnation !== 0) {
             document.getElementById("resetinfo").style.color = "silver"
-            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + format(player[goal]) + "/" + format(challengeRequirement(s, player.challengecompletions[s])) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."
+            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + format(player[goal]) + "/" + format(challengeRequirement(s, player.challengecompletions[s], s)) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."
         }
         if (player.currentChallenge.reincarnation === 0) {
             document.getElementById("resetinfo").textContent = "You're not in a reincarnation challenge right now. Why would you need to leave it?"
