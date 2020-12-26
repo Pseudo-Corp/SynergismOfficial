@@ -563,7 +563,7 @@ function calculateRuneBonuses() {
     blessingMultiplier *= (1 + 6.9 * player.researches[134] / 100)
     blessingMultiplier *= (1 + (player.talismanRarity[3] - 1) / 10)
     blessingMultiplier *= (1 + 0.10 * Math.log(player.epicFragments + 1) / Math.log(10) * player.researches[174])
-    blessingMultiplier *= (1 + player.researches[194] / 100)
+    blessingMultiplier *= (1 + 2 * player.researches[194] / 100)
     if (player.researches[160] > 0) {
         blessingMultiplier *= Math.pow(1.25, 8)
     }
