@@ -13,6 +13,7 @@ function visualUpdateBuildings() {
         // Placeholder is of form "produce+upper[i]", which feeds info place in the form of window function
         let placeholder = ''
         let place = ''
+        let percentage = new Decimal()
 
         let totalProductionDivisor = new Decimal(produceTotal);
         if (totalProductionDivisor.equals(0)) {
@@ -24,7 +25,8 @@ function visualUpdateBuildings() {
             place = window[placeholder]
             document.getElementById("buildtext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[ordinals[i - 1] + 'OwnedCoin'], 0, true) + " [+" + format(player[ordinals[i - 1] + 'GeneratedCoin']) + "]"
             document.getElementById("buycoin" + i).textContent = "Cost: " + format(player[ordinals[i - 1] + 'CostCoin']) + " coins."
-            document.getElementById("buildtext" + (2 * i)).textContent = "Coins/Sec: " + format((place.dividedBy(taxdivisor)).times(40), 2) + " [" + format(place.dividedBy(totalProductionDivisor).times(100), 3) + "%]"
+            percentage = percentage.fromMantissaExponent(place.mantissa / totalProductionDivisor.mantissa, place.exponent - totalProductionDivisor.exponent).times(100)
+            document.getElementById("buildtext" + (2 * i)).textContent = "Coins/Sec: " + format((place.dividedBy(taxdivisor)).times(40), 2) + " [" + format(percentage, 3) + "%]"
         }
 
         document.getElementById("buildtext11").textContent = "Accelerators: " + format(player.acceleratorBought, 0, true) + " [+" + format(freeAccelerator, 0, true) + "]"
