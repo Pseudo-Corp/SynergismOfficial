@@ -573,6 +573,7 @@ function calculateRuneBonuses() {
     }
     spiritMultiplier *= (1 + 0.15 * Math.log(player.legendaryFragments + 1) / Math.log(10) * player.researches[189])
     spiritMultiplier *= (1 + 2 * player.researches[194] / 100)
+    spiritMultiplier *= (1 + (player.talismanRarity[5] - 1) / 100)
 
     for (let i = 1; i <= 5; i++) {
         runeBlessings[i] = blessingMultiplier * player.runelevels[i - 1] * player.runeBlessingLevels[i]
