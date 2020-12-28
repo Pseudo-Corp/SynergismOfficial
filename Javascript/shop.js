@@ -280,18 +280,6 @@ function resetShopUpgrades() {
                 player.worlds += (500 + 250 * i)
             }
         }
-
-        if (player.autoResearch > 0.5) {
-            document.getElementById("res" + player.autoResearch).style.backgroundColor = "black"
-        }
-        if (player.autoSacrifice > 0.5) {
-            document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "black"
-        }
-        player.autoSacrificeToggle = false;
-        player.autoResearchToggle = false;
-        player.autoResearch = 0;
-        player.autoSacrifice = 0;
-        player.sacrificeTimer = 0;
         revealStuff();
     }
 }
