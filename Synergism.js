@@ -412,6 +412,8 @@ const player = {
         hypercubeToQuarkBought: false
     },
     autoSacrificeToggle: false,
+    autoFortifyToggle: false,
+    autoEnhanceToggle: false,
     autoResearchToggle: false,
     autoResearch: 0,
     autoSacrifice: 0,
@@ -732,6 +734,8 @@ function loadSynergy() {
             player.autoResearchToggle = false;
             player.autoResearch = 0;
             player.autoSacrifice = 0;
+            player.autoEnhanceToggle = false
+            player.autoFortifyToggle = false
             player.sacrificeTimer = 0;
             player.loaded1009 = true;
             player.codes.set(18, false);
@@ -1255,13 +1259,30 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         if (!player.autoResearchToggle) {
             document.getElementById("toggleautoresearch").textContent = "Automatic: OFF"
         }
-        if (player.autoSacrificeToggle) {
-            document.getElementById("toggleautosacrifice").textContent = "Automatic: ON"
+        if (player.autoSacrificeToggle == true) {
+            document.getElementById("toggleautosacrifice").textContent = "Auto Rune: ON"
+            document.getElementById("toggleautosacrifice").style.border = "2px solid green"
         }
-        if (!player.autoSacrificeToggle) {
-            document.getElementById("toggleautosacrifice").textContent = "Automatic: OFF"
+        if (player.autoSacrificeToggle == false) {
+            document.getElementById("toggleautosacrifice").textContent = "Auto Rune: OFF"
+            document.getElementById("toggleautosacrifice").style.border = "2px solid red"
         }
-
+        if (player.autoFortifyToggle == true) {
+            document.getElementById("toggleautofortify").textContent = "Auto Fortify: ON"
+            document.getElementById("toggleautofortify").style.border = "2px solid green"
+        }
+        if (player.autoFortifyToggle == false) {
+            document.getElementById("toggleautofortify").textContent = "Auto Fortify: OFF"
+            document.getElementById("toggleautofortify").style.border = "2px solid red"
+        }
+        if (player.autoEnhanceToggle == true) {
+            document.getElementById("toggleautoenhance").textContent = "Auto Enhance: ON"
+            document.getElementById("toggleautoenhance").style.border = "2px solid green"
+        }
+        if (player.autoEnhanceToggle == false) {
+            document.getElementById("toggleautoenhance").textContent = "Auto Enhance: OFF"
+            document.getElementById("toggleautoenhance").style.border = "2px solid red"
+        }
         if (!player.autoAscend) {
             document.getElementById("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
             document.getElementById("ascensionAutoEnable").style.border = "2px solid red"
@@ -3034,54 +3055,50 @@ function tack(dt) {
         }
 
         if (player.researches[130] > 0 || player.researches[135] > 0) {
-            autoTalismanTimer += dt
-            if (autoTalismanTimer >= 2) {
-                autoTalismanTimer = autoTalismanTimer % 2;
-                if (player.researches[135] > 0) {
-                    if (player.achievements[119] > 0) {
-                        buyTalismanEnhance(1, true)
-                    }
-                    if (player.achievements[126] > 0) {
-                        buyTalismanEnhance(2, true)
-                    }
-                    if (player.achievements[133] > 0) {
-                        buyTalismanEnhance(3, true)
-                    }
-                    if (player.achievements[140] > 0) {
-                        buyTalismanEnhance(4, true)
-                    }
-                    if (player.achievements[147] > 0) {
-                        buyTalismanEnhance(5, true)
-                    }
-                    if (player.antUpgrades[12] > 0 || player.ascensionCount > 0) {
-                        buyTalismanEnhance(6, true)
-                    }
-                    if (player.shopUpgrades.talismanBought) {
-                        buyTalismanEnhance(7, true)
-                    }
+            if (player.researches[135] > 0 && player.autoEnhanceToggle == true) {
+                if (player.achievements[119] > 0) {
+                    buyTalismanEnhance(1, true)
                 }
-                if (player.researches[130] > 0) {
-                    if (player.achievements[119] > 0) {
-                        buyTalismanLevels(1, true)
-                    }
-                    if (player.achievements[126] > 0) {
-                        buyTalismanLevels(2, true)
-                    }
-                    if (player.achievements[133] > 0) {
-                        buyTalismanLevels(3, true)
-                    }
-                    if (player.achievements[140] > 0) {
-                        buyTalismanLevels(4, true)
-                    }
-                    if (player.achievements[147] > 0) {
-                        buyTalismanLevels(5, true)
-                    }
-                    if (player.antUpgrades[12] > 0 || player.ascensionCount > 0) {
-                        buyTalismanLevels(6, true)
-                    }
-                    if (player.shopUpgrades.talismanBought) {
-                        buyTalismanLevels(7, true)
-                    }
+                if (player.achievements[126] > 0) {
+                    buyTalismanEnhance(2, true)
+                }
+                if (player.achievements[133] > 0) {
+                    buyTalismanEnhance(3, true)
+                }
+                if (player.achievements[140] > 0) {
+                    buyTalismanEnhance(4, true)
+                }
+                if (player.achievements[147] > 0) {
+                    buyTalismanEnhance(5, true)
+                }
+                if (player.antUpgrades[12] > 0 || player.ascensionCount > 0) {
+                    buyTalismanEnhance(6, true)
+                }
+                if (player.shopUpgrades.talismanBought) {
+                    buyTalismanEnhance(7, true)
+                }
+            }
+            if (player.researches[130] > 0 && player.autoFortifyToggle == true) {
+                if (player.achievements[119] > 0) {
+                    buyTalismanLevels(1, true)
+                }
+                if (player.achievements[126] > 0) {
+                    buyTalismanLevels(2, true)
+                }
+                if (player.achievements[133] > 0) {
+                    buyTalismanLevels(3, true)
+                }
+                if (player.achievements[140] > 0) {
+                    buyTalismanLevels(4, true)
+                }
+                if (player.achievements[147] > 0) {
+                    buyTalismanLevels(5, true)
+                }
+                if (player.antUpgrades[12] > 0 || player.ascensionCount > 0) {
+                    buyTalismanLevels(6, true)
+                }
+                if (player.shopUpgrades.talismanBought) {
+                    buyTalismanLevels(7, true)
                 }
             }
         }
