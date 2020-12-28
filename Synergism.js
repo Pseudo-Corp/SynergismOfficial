@@ -734,8 +734,6 @@ function loadSynergy() {
             player.autoResearchToggle = false;
             player.autoResearch = 0;
             player.autoSacrifice = 0;
-            player.autoEnhanceToggle = false
-            player.autoFortifyToggle = false
             player.sacrificeTimer = 0;
             player.loaded1009 = true;
             player.codes.set(18, false);
