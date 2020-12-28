@@ -219,9 +219,13 @@ function revealStuff() {
         document.getElementById("rune5area").style.display = "block" :
         document.getElementById("rune5area").style.display = "none";
 
-    player.researches[124] > 0 ? //5x24 Research [AutoSac]
-        document.getElementById("antSacrificeButtons").style.display = "block" :
-        document.getElementById("antSacrificeButtons").style.display = "none";
+    player.researches[130] > 0 ? //6x5 Research [Talisman Auto Fortify]
+        document.getElementById("toggleautofortify").style.display = "block" :
+        document.getElementById("toggleautofortify").style.display = "none";
+
+    player.researches[135] > 0 ? //6x10 Research [Talisman Auto Sac]
+        document.getElementById("toggleautoenhance").style.display = "block" :
+        document.getElementById("toggleautoenhance").style.display = "none";
 
     for (let z = 1; z <= 5; z++) {
         (player.researches[190] > 0) ? //8x15 Research [Auto Tesseracts]
