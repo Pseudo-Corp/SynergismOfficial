@@ -766,7 +766,7 @@ function calculateOffline(forceTime) {
     timeWarp = true;
 
     //Variable Declarations i guess
-    let maximumTimer = 86400 + 7200 * player.researches[31] + 7200 + player.researches[32];
+    let maximumTimer = 86400 + 7200 * player.researches[31] + 7200 * player.researches[32];
     const updatedTime = Date.now();
     let timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - player.offlinetick) / 1000))
     document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " real-life seconds of Offline Progress!";
