@@ -232,6 +232,15 @@ function revealStuff() {
             document.getElementById("tesseractAutoToggle" + z).style.display = "block" :
             document.getElementById("tesseractAutoToggle" + z).style.display = "none";
     }
+    player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
+        document.getElementById("tesseractautobuytoggle").style.display = "block" :
+        document.getElementById("tesseractautobuytoggle").style.display = "none";
+    player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
+        document.getElementById("tesseractAmount").style.display = "block" :
+        document.getElementById("tesseractAmount").style.display = "none";
+    player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
+        document.getElementById("autotessbuyeramount").style.display = "block" :
+        document.getElementById("autotessbuyeramount").style.display = "none";
     (player.antUpgrades[12] > 0 || player.ascensionCount > 0) ? //Ant Talisman Unlock, Mortuus
         document.getElementById("talisman6area").style.display = "block" :
         document.getElementById("talisman6area").style.display = "none";
