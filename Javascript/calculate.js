@@ -766,7 +766,7 @@ function calculateOffline(forceTime) {
     timeWarp = true;
 
     //Variable Declarations i guess
-    let maximumTimer = 86400 + 7200 * player.researches[31] + 7200 + player.researches[32];
+    let maximumTimer = 86400 + 7200 * player.researches[31] + 7200 * player.researches[32];
     const updatedTime = Date.now();
     let timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - player.offlinetick) / 1000))
     document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " real-life seconds of Offline Progress!";
@@ -1135,7 +1135,7 @@ function CalcCorruptionStuff() {
     }
     platonicGain *= platonicBonusMultiplier[3]
     platonicGain *= (challenge15Rewards.cube1 * challenge15Rewards.cube2 * challenge15Rewards.cube3 * challenge15Rewards.cube4)
-    platonicGain *= (1 + player.achievements[223] * Math.min(0.25, player.ascensionCount / 1.337e9))
+    platonicGain *= (1 + player.achievements[223] * Math.min(2, player.ascensionCount / 1.337e9))
     platonicGain *= (1 + 4 / 100 * (player.achievements[219] + player.achievements[220] + player.achievements[221]) + 3 / 100 * player.achievements[222])
     platonicGain *= (1 + player.achievements[196] * 1 / 5000 * Decimal.log(player.ascendShards.add(1), 10))
     platonicGain *= (1 + player.achievements[240] * Math.max(0.1, 1 / 20 * Math.log(speed + 0.01) / Math.log(10)))
