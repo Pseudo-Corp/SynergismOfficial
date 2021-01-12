@@ -219,15 +219,28 @@ function revealStuff() {
         document.getElementById("rune5area").style.display = "block" :
         document.getElementById("rune5area").style.display = "none";
 
-    player.researches[124] > 0 ? //5x24 Research [AutoSac]
-        document.getElementById("antSacrificeButtons").style.display = "block" :
-        document.getElementById("antSacrificeButtons").style.display = "none";
+    player.researches[130] > 0 ? //6x5 Research [Talisman Auto Fortify]
+        document.getElementById("toggleautofortify").style.display = "block" :
+        document.getElementById("toggleautofortify").style.display = "none";
+
+    player.researches[135] > 0 ? //6x10 Research [Talisman Auto Sac]
+        document.getElementById("toggleautoenhance").style.display = "block" :
+        document.getElementById("toggleautoenhance").style.display = "none";
 
     for (let z = 1; z <= 5; z++) {
         (player.researches[190] > 0) ? //8x15 Research [Auto Tesseracts]
             document.getElementById("tesseractAutoToggle" + z).style.display = "block" :
             document.getElementById("tesseractAutoToggle" + z).style.display = "none";
     }
+    player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
+        document.getElementById("tesseractautobuytoggle").style.display = "block" :
+        document.getElementById("tesseractautobuytoggle").style.display = "none";
+    player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
+        document.getElementById("tesseractAmount").style.display = "block" :
+        document.getElementById("tesseractAmount").style.display = "none";
+    player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
+        document.getElementById("autotessbuyeramount").style.display = "block" :
+        document.getElementById("autotessbuyeramount").style.display = "none";
     (player.antUpgrades[12] > 0 || player.ascensionCount > 0) ? //Ant Talisman Unlock, Mortuus
         document.getElementById("talisman6area").style.display = "block" :
         document.getElementById("talisman6area").style.display = "none";

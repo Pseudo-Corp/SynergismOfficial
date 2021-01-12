@@ -1918,8 +1918,8 @@ margin-left: -13px
 	padding: 5px;
 	top: 10px;
 	left: 38%;
-	width: 100px;
-	margin-left: -100px;
+	width: 120px;
+	margin-left: -120px;
 	height: 30px;
 	text-align: center;
 }
@@ -2348,7 +2348,22 @@ margin-left: -13px
 	color: gray;
 	text-align: center;
 }
-
+#toggleautofortify {
+	position: absolute;
+	top: 65px;
+	margin-left: 10px;
+	width: 125px;
+	height: 30px;
+	text-align: center;
+}
+#toggleautoenhance {
+	position: absolute;
+	top: 100px;
+	margin-left: 10px;
+	width: 125px;
+	height: 30px;
+	text-align: center;
+}
 #talismancounter {
 	position: absolute;
 	top: 45px;

@@ -422,11 +422,13 @@ function toggleAutoSacrifice(index) {
     if (index === 0) {
         if (player.autoSacrificeToggle) {
             player.autoSacrificeToggle = false;
-            el.textContent = "Automatic: OFF";
+            el.textContent = "Auto Runes: OFF";
+            document.getElementById("toggleautosacrifice").style.border = "2px solid red"
             player.autoSacrifice = 0;
         } else {
             player.autoSacrificeToggle = true;
-            el.textContent = "Automatic: ON"
+            el.textContent = "Auto Runes: ON"
+            document.getElementById("toggleautosacrifice").style.border = "2px solid green"
         }
     } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAutoLevel > 0.5) {
         player.autoSacrifice = index;
@@ -504,6 +506,30 @@ function toggleRuneScreen(index) {
         }
     }
     player.subtabNumber = index - 1
+}
+
+function toggleautofortify() {
+    if (player.autoFortifyToggle === false && player.researches[130] == 1) {
+        player.autoFortifyToggle = true;
+        document.getElementById("toggleautofortify").textContent = "Auto Fortify: ON"
+        document.getElementById("toggleautofortify").style.border = "2px solid green"        
+    } else {
+        player.autoFortifyToggle = false;
+        document.getElementById("toggleautofortify").textContent = "Auto Fortify: OFF"
+        document.getElementById("toggleautofortify").style.border = "2px solid red"
+        }
+}
+
+function toggleautoenhance() {
+    if (player.autoEnhanceToggle === false && player.researches[135] == 1) {
+        player.autoEnhanceToggle = true;
+        document.getElementById("toggleautoenhance").textContent = "Auto Enhance: ON"
+        document.getElementById("toggleautoenhance").style.border = "2px solid green"        
+    } else {
+        player.autoEnhanceToggle = false;
+        document.getElementById("toggleautoenhance").textContent = "Auto Enhance: OFF"
+        document.getElementById("toggleautoenhance").style.border = "2px solid red"
+        }
 }
 
 function setActiveSettingScreen(subtab, clickedButton) {

@@ -2,10 +2,10 @@ const offerconsumedesc = "Instantly gain 2 real life hours of Offerings, based o
 const obtainiumconsumedesc = "Instantly gain 2 real life hours of Obtainium, based on your all time best Obtainium/sec and speed acceleration!"
 
 const offertimerdesc = "Gain +(level)^2 /4% more offerings from all sources!"
-const offerautodesc = "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) levels worth of offerings are spent. TO ACTIVATE: Click on the rune icon (PICTURE) and it will turn orange just for you!"
+const offerautodesc = "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) levels worth of offerings are spent. [First Level Cannot be refunded!]"
 const obtainiumtimerdesc = "Gain +(level)^2 /2% more obtainium from all sources!"
-const obtainiumautodesc = "Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every reincarnation, dump all Obtainium into research until maxed."
-const instantchallengedesc = "T and R challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Addtionally, instantly gain T challenge completions up to highest completed when exiting R challenges."
+const obtainiumautodesc = "Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every reincarnation, dump all Obtainium into research until maxed. [First Level Cannot be Refunded!]"
+const instantchallengedesc = "T and R challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Addtionally, instantly gain T challenge completions up to highest completed when exiting R challenges. [Cannot be Refunded!]"
 const cashgrabdesc = "This is a cash grab but it gives a couple cool stats. +1% production per level to Offerings and Obtainium."
 const antspeeddesc = "Each level gives a 1.5x speed multiplier to all Ant tiers' production! Short and simple."
 const shoptalismandesc = "Permanently unlock a Shop talisman! [Warning: you can't refund this and this is VERY expensive to level. Be sure you want to buy it!]"
@@ -251,21 +251,17 @@ function resetShopUpgrades() {
                 player.shopUpgrades.offeringTimerLevel -= 1;
                 player.worlds += (150 + 25 * i)
             }
-            if (player.shopUpgrades.offeringAutoLevel > 0) {
+            if (player.shopUpgrades.offeringAutoLevel > 1) {
                 player.shopUpgrades.offeringAutoLevel -= 1;
-                player.worlds += (150 + 25 * i)
+                player.worlds += (175 + 25 * i)
             }
             if (player.shopUpgrades.obtainiumTimerLevel > 0) {
                 player.shopUpgrades.obtainiumTimerLevel -= 1;
                 player.worlds += (150 + 25 * i)
             }
-            if (player.shopUpgrades.obtainiumAutoLevel > 0) {
+            if (player.shopUpgrades.obtainiumAutoLevel > 1) {
                 player.shopUpgrades.obtainiumAutoLevel -= 1;
-                player.worlds += (150 + 25 * i)
-            }
-            if (player.shopUpgrades.instantChallengeBought) {
-                player.shopUpgrades.instantChallengeBought = false;
-                player.worlds += (300)
+                player.worlds += (175 + 25 * i)
             }
             if (player.shopUpgrades.antSpeedLevel > 0) {
                 player.shopUpgrades.antSpeedLevel -= 1;
@@ -284,18 +280,6 @@ function resetShopUpgrades() {
                 player.worlds += (500 + 250 * i)
             }
         }
-
-        if (player.autoResearch > 0.5) {
-            document.getElementById("res" + player.autoResearch).style.backgroundColor = "black"
-        }
-        if (player.autoSacrifice > 0.5) {
-            document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "black"
-        }
-        player.autoSacrificeToggle = false;
-        player.autoResearchToggle = false;
-        player.autoResearch = 0;
-        player.autoSacrifice = 0;
-        player.sacrificeTimer = 0;
         revealStuff();
     }
 }

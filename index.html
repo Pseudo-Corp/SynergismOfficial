@@ -1036,6 +1036,7 @@
 
 
         <div id="runes">
+            <button id="toggleautosacrifice" style="border: 2px solid orangered; color: white" onclick="toggleAutoSacrifice(0)">Auto Rune: OFF</button>
             <button id="toggleRuneSubTab1" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 0)">Runes</button>
             <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 1)">Talismans</button>
             <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid grey; color: white" onclick="toggleSubTab(4, 2)">Blessings</button>
@@ -1053,9 +1054,6 @@
                 <p id="toggleofferingbuy">Toggle the number of levels to buy per sacrifice</p>
             </div>
             <p id="runeshards">You have 0 Offerings.</p>
-
-            <button id="toggleautosacrifice" style="border: 2px solid orangered; color: yellow" onclick="toggleAutoSacrifice(0)">Automatic: OFF</button>
-
             <div id="rune1area">
             <p id="speedrune" style="color: cyan">Speed Rune</p>
             <img id="rune1" src="Pictures/Transparent Pics/SpeedRune.png" onmouseover="displayRuneInformation(1)" onclick="toggleAutoSacrifice(1)" alt="">
@@ -1125,6 +1123,8 @@
                         <td><img id="talismanHundred" src="Pictures/Transparent Pics/TalismanHundred.png"  style="cursor:pointer;" onclick="toggleTalismanBuy(100)" alt=""></td>
                     </tr>
                 </table>
+                <button id="toggleautoenhance" style="border: 2px solid red; color: white" onclick="toggleautoenhance()">Auto Enhance: OFF</button>
+                <button id="toggleautofortify" style="border: 2px solid red; color: white" onclick="toggleautofortify()">Auto Enhance: OFF</button>
                 <p id="toggletalismanbuy">Toggle percent resources used</p>
                 </div>
                 <table id="talismancounter" style="table-layout: fixed;">
