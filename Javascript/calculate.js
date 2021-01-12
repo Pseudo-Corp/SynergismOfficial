@@ -561,9 +561,9 @@ function calculateRuneBonuses() {
     spiritMultiplier = 1
 
     blessingMultiplier *= (1 + 6.9 * player.researches[134] / 100)
-    blessingMultiplier *= (1 + player.talismanRarity[3] / 10)
+    blessingMultiplier *= (1 + (player.talismanRarity[3] - 1) / 10)
     blessingMultiplier *= (1 + 0.10 * Math.log(player.epicFragments + 1) / Math.log(10) * player.researches[174])
-    blessingMultiplier *= (1 + player.researches[194] / 100)
+    blessingMultiplier *= (1 + 2 * player.researches[194] / 100)
     if (player.researches[160] > 0) {
         blessingMultiplier *= Math.pow(1.25, 8)
     }
@@ -571,8 +571,9 @@ function calculateRuneBonuses() {
     if (player.researches[165] > 0 && player.currentChallenge.ascension !== 0) {
         spiritMultiplier *= Math.pow(2, 8)
     }
-    spiritMultiplier *= (1 + 0.15 * Math.log(player.legendaryFragments + 1) / Math.log(10))
+    spiritMultiplier *= (1 + 0.15 * Math.log(player.legendaryFragments + 1) / Math.log(10) * player.researches[189])
     spiritMultiplier *= (1 + 2 * player.researches[194] / 100)
+    spiritMultiplier *= (1 + (player.talismanRarity[5] - 1) / 100)
 
     for (let i = 1; i <= 5; i++) {
         runeBlessings[i] = blessingMultiplier * player.runelevels[i - 1] * player.runeBlessingLevels[i]
