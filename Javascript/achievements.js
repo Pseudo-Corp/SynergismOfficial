@@ -280,7 +280,7 @@ adesc = {
     adesc237: "Spirit III: Level your Speed Spirit to 1 Trillion.",
     adesc238: "Three-folded: [Hint: you may want to look into the inception]",
     adesc239: "Seeing red: [Hint: you may need a lot of red items]",
-    adesc240: "ASCENDED: [Hint: you may need a LOT of ascensions OR an particularly amazing ascension]",
+    adesc240: "ASCENDED: [Hint: you may need a LOT of ascensions OR a particularly amazing ascension]",
     adesc241: "Aesop: [Hint: you gotta be pretty dang slow]",
     adesc242: "Aesop's Revenge: [Hint: you gotta be pretty dang fast]",
     adesc243: "Unsmith: [Hint: unsmith emoji :unsmith: can be a pretty good input]",
