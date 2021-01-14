@@ -468,7 +468,7 @@ function toggleBuildingScreen(input) {
             subtabNumber: 4
         }
     }
-    for (let key of Object.keys(screen)) {
+    for (const key in screen) {
         document.getElementById(screen[key].screen).style.display = "none";
         document.getElementById(screen[key].button).style.backgroundColor = "#171717";
     }

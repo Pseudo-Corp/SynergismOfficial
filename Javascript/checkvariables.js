@@ -1,3 +1,4 @@
+// TODO: figure out wtf this is
 function checkVariablesOnLoad(data) {
     if (data.wowCubes === undefined) {
         player.wowCubes = 0;

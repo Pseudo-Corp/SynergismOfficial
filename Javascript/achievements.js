@@ -294,8 +294,7 @@ const adesc = {
     adesc252: "Ultimate: Complete 'SADISTIC II' challenge."
 }
 
-let areward;
-areward = {
+const areward = {
     areward3: "Gain +.05% to Accelerator Power.",
     areward4: "Start transcensions/challenges with Worker Autobuyer unlocked.",
     areward5: "Gain +1 Accelerator per 500 Workers owned.",

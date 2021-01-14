@@ -31,13 +31,13 @@ function openTesseract(value, max) {
     }
 
     //If you're opening more than 20 Tesseracts, it will consume all Tesseracts until remainder mod 20, giving expected values.
-    for (let key of Object.keys(player.tesseractBlessings)) {
+    for (const key in player.tesseractBlessings) {
         player.tesseractBlessings[key] += blessings[key].weight * toSpendDiv20;
     }
     //Then, the remaining tesseract will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
         let num = 100 * Math.random();
-        for (let key of Object.keys(player.tesseractBlessings)) {
+        for (const key in player.tesseractBlessings) {
             if (blessings[key].pdf(num))
                 player.tesseractBlessings[key] += 1;
         }

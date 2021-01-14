@@ -1,5 +1,4 @@
-function openCube(value, max) {
-    max = max || false
+function openCube(value, max = false) {
     let toSpend = max ? player.wowCubes : Math.min(player.wowCubes, value)
 
     if (value === 1 && player.cubeBlessings.accelerator >= 2e11 && player.achievements[246] < 1) {
@@ -50,14 +49,14 @@ function openCube(value, max) {
     toSpendModulo = toSpendModulo % 20;
 
 //If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
-    for (let key of Object.keys(player.cubeBlessings)) {
+    for (const key in player.cubeBlessings) {
         player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
     }
 
 //Then, the remaining cubes will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
         let num = 100 * Math.random();
-        for (let key of Object.keys(player.cubeBlessings)) {
+        for (const key in player.cubeBlessings) {
             if (blessings[key].pdf(num))
                 player.cubeBlessings[key] += (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
         }
@@ -186,17 +185,18 @@ const cubeUpgradeDescriptions = [null,
     () => "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.1 Max Rune Levels, +1 Effective ELO, +0.001 Talisman bonuses per level."
 ]
 
-function getCubeCost(i,linGrowth) {
-    linGrowth = linGrowth || 0
-    let amountToBuy = (buyMaxCubeUpgrades)? 1e5: 1;
-    amountToBuy = Math.min(cubeMaxLevel[i] - player.cubeUpgrades[i], amountToBuy)
-    let metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i], player.wowCubes, linGrowth, amountToBuy)
-    return([metaData[0],metaData[1]]) //metaData[0] is the levelup amount, metaData[1] is the total cube cost
+function getCubeCost(i,linGrowth = 0) {
+    const amountToBuy = Math.min(
+        cubeMaxLevel[i] - player.cubeUpgrades[i], 
+        buyMaxCubeUpgrades ? 1e5: 1
+    );
+
+    const [levelupAmount, totalCubeCost] = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i], player.wowCubes, linGrowth, amountToBuy);
+    return [levelupAmount, totalCubeCost]; //metaData[0] is the levelup amount, metaData[1] is the total cube cost
 }
 
-function cubeUpgradeDesc(i,linGrowth) {
-    linGrowth = linGrowth || 0
-    let metaData = getCubeCost(i,linGrowth)
+function cubeUpgradeDesc(i,linGrowth = 0) {
+    let [level, cost] = getCubeCost(i,linGrowth)
     let a = document.getElementById("cubeUpgradeName")
     let b = document.getElementById("cubeUpgradeDescription")
     let c = document.getElementById("cubeUpgradeCost")
@@ -204,7 +204,7 @@ function cubeUpgradeDesc(i,linGrowth) {
 
     a.textContent = cubeUpgradeName[i]();
     b.textContent = cubeUpgradeDescriptions[i]();
-    c.textContent = "Cost: " + format(metaData[1], 0, true) + " Wow! Cubes [+" + format(metaData[0]-player.cubeUpgrades[i],0,true) + " Levels]";
+    c.textContent = "Cost: " + format(cost, 0, true) + " Wow! Cubes [+" + format(level-player.cubeUpgrades[i],0,true) + " Levels]";
     c.style.color = "green"
     d.textContent = "Level: " + format(player.cubeUpgrades[i], 0, true) + "/" + format(cubeMaxLevel[i], 0, true);
     d.style.color = "white"
@@ -238,12 +238,11 @@ function updateCubeUpgradeBG(i) {
 
 }
 
-function buyCubeUpgrades(i,linGrowth) {
-    linGrowth = linGrowth || 0;
-    let metaData = getCubeCost(i,linGrowth);
-    if(player.wowCubes >= metaData[1] && player.cubeUpgrades[i] < cubeMaxLevel[i]){
-    player.wowCubes -= 100 / 100 * metaData[1];
-    player.cubeUpgrades[i] = metaData[0];
+function buyCubeUpgrades(i,linGrowth = 0) {
+    let [level, cost] = getCubeCost(i,linGrowth);
+    if(player.wowCubes >= cost && player.cubeUpgrades[i] < cubeMaxLevel[i]){
+        player.wowCubes -= 100 / 100 * cost;
+        player.cubeUpgrades[i] = level
     }
 
     if(i === 4 && player.cubeUpgrades[4] > 0){

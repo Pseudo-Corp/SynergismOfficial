@@ -812,7 +812,7 @@ function updateAscensionStats() {
         "ascC10": player.challengecompletions[10],
         "ascTimeAccel": `${format(calculateTimeAcceleration(), 3, true)}x`
     }
-    for (const key of Object.keys(fillers)) {
+    for (const key in fillers) {
         document.getElementById(key).textContent = fillers[key];
     }
 }

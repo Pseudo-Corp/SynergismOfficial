@@ -22,7 +22,7 @@ function openPlatonic(value, max) {
     }
 
     //If you're opening more than 40,000 Platonics, it will consume all Platonics until remainder mod 40,000, giving expected values.
-    for (let key of Object.keys(player.platonicBlessings)) {
+    for (const key in player.platonicBlessings) {
         player.platonicBlessings[key] += blessings[key].weight * toSpendDiv40000;
     }
     //Then, the remaining hypercube will be opened, simulating the probability [RNG Element]
@@ -43,7 +43,7 @@ function openPlatonic(value, max) {
 
     for (let i = 0; i < toSpendModulo; i++) {
         let num = 100 * Math.random();
-        for (let key of Object.keys(player.platonicBlessings)) {
+        for (const key in player.platonicBlessings) {
             if (blessings[key].pdf(num))
                 player.platonicBlessings[key] += 1;
         }

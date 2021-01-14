@@ -341,13 +341,11 @@ function getChallengeConditions(i) {
 }
 
 function toggleRetryChallenges() {
-    if (player.retrychallenges) {
-        player.retrychallenges = false;
-        document.getElementById("retryChallenge").textContent = "Retry Challenges: OFF"
-    } else {
-        player.retrychallenges = true;
-        document.getElementById("retryChallenge").textContent = "Retry Challenges: ON"
-    }
+    document.getElementById("retryChallenge").textContent = player.retrychallenges
+        ? "Retry Challenges: OFF"
+        : "Retry Challenges: ON";
+
+    player.retrychallenges = !player.retrychallenges;
 }
 
 function highestChallengeRewards(chalNum, highestValue) {
@@ -361,10 +359,12 @@ function highestChallengeRewards(chalNum, highestValue) {
 }
 
 //Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping
-function calculateChallengeRequirementMultiplier(type, completions, special) {
-    special = special || 0;
-    let requirementMultiplier = 1;
-    requirementMultiplier *= Math.max(1, hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5));
+function calculateChallengeRequirementMultiplier(type, completions, special = 0) {
+    let requirementMultiplier = Math.max(
+        1, 
+        hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)
+    );
+    
     switch (type) {
         case "transcend":
             (completions >= 75) ?
@@ -410,21 +410,22 @@ function CalcECC(type, completions) { //ECC stands for "Effective Challenge Comp
         case "transcend":
             effective += Math.min(100, completions);
             effective += 1 / 20 * (Math.max(100, completions) - 100);
-            return (effective);
+            break;
         case "reincarnation":
             effective += Math.min(25, completions);
             effective += 1 / 2 * (Math.max(25, completions) - 25);
-            return (effective);
+            break;
         case "ascension":
             effective += Math.min(10, completions);
             effective += 1 / 2 * (Math.max(10, completions) - 10);
-            return (effective);
+            break;
     }
+
+    return effective;
 }
 
-function challengeRequirement(challenge, completion, special) {
-    special = special || 0
-    let base = challengeBaseRequirements[challenge];
+function challengeRequirement(challenge, completion, special = 0) {
+    const base = challengeBaseRequirements[challenge];
     if (challenge <= 5) {
         return Decimal.pow(10, base * calculateChallengeRequirementMultiplier("transcend", completion, special))
     } else if (challenge <= 10) {
@@ -441,87 +442,91 @@ function challengeRequirement(challenge, completion, special) {
 }
 
 function runChallengeSweep(dt){
-//This auto challenge thing is sure a doozy aint it
-if (player.researches[150] > 0 && player.autoChallengeRunning && (player.reincarnationPoints.greaterThanOrEqualTo('0') || player.currentChallenge.ascension === 12)) {
-    autoChallengeTimerIncrement += dt
-    if (autoChallengeTimerIncrement >= player.autoChallengeTimer.exit) {
-        if (player.currentChallenge.transcension !== 0 && player.autoChallengeIndex <= 5) {
-            resetCheck('challenge', null, true)
-            autoChallengeTimerIncrement = 0;
-            player.autoChallengeIndex += 1
-            if (player.autoChallengeTimer.enter >= 1) {
-                toggleAutoChallengeTextColors(3)
+    //This auto challenge thing is sure a doozy aint it
+    if (
+        player.researches[150] > 0 && 
+        player.autoChallengeRunning && 
+        (player.reincarnationPoints.greaterThanOrEqualTo('0') || player.currentChallenge.ascension === 12)
+    ) {
+        autoChallengeTimerIncrement += dt
+        if (autoChallengeTimerIncrement >= player.autoChallengeTimer.exit) {
+            if (player.currentChallenge.transcension !== 0 && player.autoChallengeIndex <= 5) {
+                resetCheck('challenge', null, true)
+                autoChallengeTimerIncrement = 0;
+                player.autoChallengeIndex += 1
+                if (player.autoChallengeTimer.enter >= 1) {
+                    toggleAutoChallengeTextColors(3)
+                }
+            }
+            if (player.currentChallenge.reincarnation !== 0 && player.autoChallengeIndex > 5) {
+                resetCheck('reincarnationchallenge', null, true)
+                autoChallengeTimerIncrement = 0;
+                player.autoChallengeIndex += 1
+                if (player.autoChallengeTimer.enter >= 1) {
+                    toggleAutoChallengeTextColors(3)
+                }
+            }
+            if (player.autoChallengeIndex > 10) {
+                player.autoChallengeIndex = 1
+                if (player.autoChallengeTimer.start >= 1) {
+                    toggleAutoChallengeTextColors(1)
+                }
             }
         }
-        if (player.currentChallenge.reincarnation !== 0 && player.autoChallengeIndex > 5) {
-            resetCheck('reincarnationchallenge', null, true)
-            autoChallengeTimerIncrement = 0;
-            player.autoChallengeIndex += 1
-            if (player.autoChallengeTimer.enter >= 1) {
-                toggleAutoChallengeTextColors(3)
-            }
-        }
-        if (player.autoChallengeIndex > 10) {
-            player.autoChallengeIndex = 1
-            if (player.autoChallengeTimer.start >= 1) {
-                toggleAutoChallengeTextColors(1)
-            }
-        }
-    }
-    if (player.autoChallengeIndex === 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.start) {
-        while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
-            player.autoChallengeIndex += (!player.autoChallengeToggles[player.autoChallengeIndex]) ? 1 : 0;
-            if (player.autoChallengeIndex === 10) {
-                break;
-            }
-        }
-        if (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
-            autoChallengeTimerIncrement = 0;
-        }
-        toggleChallenges(player.autoChallengeIndex, true);
-        if (player.autoChallengeTimer.exit >= 1) {
-            toggleAutoChallengeTextColors(2)
-        }
-    }
-    if (player.autoChallengeIndex !== 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.enter) {
-        if (player.currentChallenge.transcension === 0 && player.autoChallengeIndex <= 5) {
+        if (player.autoChallengeIndex === 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.start) {
             while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
-                player.autoChallengeIndex += 1
-                if (player.autoChallengeIndex > 10) {
-                    player.autoChallengeIndex = 1;
-                    if (player.autoChallengeTimer.start >= 1) {
-                        toggleAutoChallengeTextColors(1)
-                    }
+                player.autoChallengeIndex += (!player.autoChallengeToggles[player.autoChallengeIndex]) ? 1 : 0;
+                if (player.autoChallengeIndex === 10) {
                     break;
                 }
             }
-            if (player.autoChallengeIndex !== 1) {
-                toggleChallenges(player.autoChallengeIndex, true);
-                if (player.autoChallengeTimer.exit >= 1) {
-                    toggleAutoChallengeTextColors(2)
-                }
+            if (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
+                autoChallengeTimerIncrement = 0;
             }
-            autoChallengeTimerIncrement = 0;
+            toggleChallenges(player.autoChallengeIndex, true);
+            if (player.autoChallengeTimer.exit >= 1) {
+                toggleAutoChallengeTextColors(2)
+            }
         }
-        if (player.currentChallenge.reincarnation === 0 && player.autoChallengeIndex > 5) {
-            while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
-                player.autoChallengeIndex += 1
-                if (player.autoChallengeIndex > 10) {
-                    player.autoChallengeIndex = 1;
-                    if (player.autoChallengeTimer.start >= 1) {
-                        toggleAutoChallengeTextColors(1)
+        if (player.autoChallengeIndex !== 1 && autoChallengeTimerIncrement >= player.autoChallengeTimer.enter) {
+            if (player.currentChallenge.transcension === 0 && player.autoChallengeIndex <= 5) {
+                while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
+                    player.autoChallengeIndex += 1
+                    if (player.autoChallengeIndex > 10) {
+                        player.autoChallengeIndex = 1;
+                        if (player.autoChallengeTimer.start >= 1) {
+                            toggleAutoChallengeTextColors(1)
+                        }
+                        break;
                     }
-                    break;
                 }
-            }
-            if (player.autoChallengeIndex !== 1) {
-                toggleChallenges(player.autoChallengeIndex, true);
-                if (player.autoChallengeTimer.exit >= 1) {
-                    toggleAutoChallengeTextColors(2)
+                if (player.autoChallengeIndex !== 1) {
+                    toggleChallenges(player.autoChallengeIndex, true);
+                    if (player.autoChallengeTimer.exit >= 1) {
+                        toggleAutoChallengeTextColors(2)
+                    }
                 }
+                autoChallengeTimerIncrement = 0;
             }
-            autoChallengeTimerIncrement = 0;
+            if (player.currentChallenge.reincarnation === 0 && player.autoChallengeIndex > 5) {
+                while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
+                    player.autoChallengeIndex += 1
+                    if (player.autoChallengeIndex > 10) {
+                        player.autoChallengeIndex = 1;
+                        if (player.autoChallengeTimer.start >= 1) {
+                            toggleAutoChallengeTextColors(1)
+                        }
+                        break;
+                    }
+                }
+                if (player.autoChallengeIndex !== 1) {
+                    toggleChallenges(player.autoChallengeIndex, true);
+                    if (player.autoChallengeTimer.exit >= 1) {
+                        toggleAutoChallengeTextColors(2)
+                    }
+                }
+                autoChallengeTimerIncrement = 0;
+            }
         }
     }
-}
 }

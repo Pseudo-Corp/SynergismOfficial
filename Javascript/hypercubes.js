@@ -1,10 +1,5 @@
-function openHypercube(value, max) {
-    max = max || false
-    let num = 0;
-    let toSpend = Math.min(player.wowHypercubes, value)
-    if (max) {
-        toSpend = player.wowHypercubes
-    }
+function openHypercube(value, max = false) {
+    const toSpend = max ? player.wowHypercubes : Math.min(player.wowHypercubes, value);
 
     player.wowHypercubes -= toSpend
     player.hypercubeOpenedDaily += toSpend
@@ -31,13 +26,13 @@ function openHypercube(value, max) {
     }
 
     //If you're opening more than 20 Hypercubes, it will consume all Hypercubes until remainder mod 20, giving expected values.
-    for (let key of Object.keys(player.hypercubeBlessings)) {
+    for (const key in player.hypercubeBlessings) {
         player.hypercubeBlessings[key] += blessings[key].weight * toSpendDiv20;
     }
     //Then, the remaining hypercube will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
         let num = 100 * Math.random();
-        for (let key of Object.keys(player.hypercubeBlessings)) {
+        for (const key in player.hypercubeBlessings) {
             if (blessings[key].pdf(num))
                 player.hypercubeBlessings[key] += 1;
         }
@@ -50,16 +45,16 @@ function openHypercube(value, max) {
 
 function calculateHypercubeBlessings() {
     // The visual updates are handled in visualUpdateCubes()
-    let hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
+    for (const key in player.hypercubeBlessings) {
+        const obj = player.hypercubeBlessings[key];
 
-    for (let i = 1; i <= 10; i++) {
         let power = 1;
         let mult = 1;
-        if (hypercubeArray[i] >= 1000) {
+        if (obj >= 1000) {
             power = benedictionDRPower[i];
             mult *= Math.pow(1000, (1 - benedictionDRPower[i]));
         }
 
-        hypercubeBonusMultiplier[i] = 1 + mult * benedictionbase[i] * Math.pow(hypercubeArray[i], power) * platonicBonusMultiplier[4];
+        hypercubeBonusMultiplier[i] = 1 + mult * benedictionbase[i] * Math.pow(obj, power) * platonicBonusMultiplier[4];
     }
 }

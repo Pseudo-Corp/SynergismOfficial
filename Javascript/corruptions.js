@@ -1,9 +1,10 @@
 function corruptionDisplay(index) {
-    if (document.getElementById("corruptionDetails").style.visibility !== "visible") {
-        document.getElementById("corruptionDetails").style.visibility = "visible"
+    let el;
+    if ((el = document.getElementById("corruptionDetails")).style.visibility !== "visible") {
+        el.style.visibility = "visible"
     }
-    if (document.getElementById("corruptionSelectedPic").style.visibility !== "visible") {
-        document.getElementById("corruptionSelectedPic").style.visibility = "visible"
+    if ((el = document.getElementById("corruptionSelectedPic")).style.visibility !== "visible") {
+        el.style.visibility = "visible"
     }
     corruptionTrigger = index
     let corruptionTexts = {
