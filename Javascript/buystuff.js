@@ -155,7 +155,6 @@ function buyMultiplier(autobuyer) {
 
     if (!autobuyer && player.coinbuyamount !== "max") {
         if (player.multiplierBought + player.coinbuyamount < buyTo) {
-            console.log(player.coinbuyamount + player.multiplierBought);
             buyTo = player.multiplierBought + player.coinbuyamount;
         }
     }
@@ -489,8 +488,7 @@ function calculateCrystalBuy(i) {
 
 }
 
-function buyCrystalUpgrades(i, auto) {
-    auto = auto || false
+function buyCrystalUpgrades(i, auto = false) {
     const u = i - 1;
 
     let c = 0;
@@ -628,8 +626,7 @@ function getParticleCost(originalCost, buyTo) {
     return (cost)
 }
 
-function buyParticleBuilding(pos, originalCost, autobuyer) {
-    autobuyer = autobuyer || false
+function buyParticleBuilding(pos, originalCost, autobuyer = false) {
     let buyTo = player[pos + 'OwnedParticles'] + 1;
     let cashToBuy = getParticleCost(originalCost, buyTo);
     while (player.reincarnationPoints.greaterThanOrEqualTo(cashToBuy)) {

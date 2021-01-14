@@ -1,10 +1,7 @@
-function openPlatonic(value, max) {
-    max = max || false
-    let num = 0;
-    let toSpend = Math.min(player.wowPlatonicCubes, value)
-    if (max) {
-        toSpend = player.wowPlatonicCubes
-    }
+function openPlatonic(value, max = false) {
+    const toSpend = max 
+        ? player.wowPlatonicCubes
+        : Math.min(player.wowPlatonicCubes, value)
 
     player.wowPlatonicCubes -= toSpend
 

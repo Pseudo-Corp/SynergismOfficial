@@ -754,8 +754,7 @@ function initiateTimeWarp(time) {
     }
 }
 
-function calculateOffline(forceTime) {
-    forceTime = forceTime || 0;
+function calculateOffline(forceTime = 0) {
     timeWarp = true;
 
     //Variable Declarations i guess
@@ -982,16 +981,10 @@ function sortWithIndeces(toSort) {
 }
 
 //If you want to sum from a baseline level i to the maximum buyable level n, what would the cost be and how many levels would you get?
-function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differenceCap) {
-    differenceCap = differenceCap || 1e9
-    let subtractCost;
-    subtractCost = baseCost * baseLevel * (1 + baseLevel) / 2;
-
-    let buyToLevel;
-    buyToLevel = Math.min(baseLevel + differenceCap, Math.floor(-1 / 2 + Math.sqrt(1 / 4 + 2 * (resourceAvailable + subtractCost) / baseCost)));
-
-    let realCost;
-    realCost = (baseCost * buyToLevel * (1 + buyToLevel) / 2) - subtractCost;
+function calculateSummationLinear(baseLevel, baseCost, resourceAvailable, differenceCap = 1e9) {
+    const subtractCost = baseCost * baseLevel * (1 + baseLevel) / 2;
+    const buyToLevel = Math.min(baseLevel + differenceCap, Math.floor(-1 / 2 + Math.sqrt(1 / 4 + 2 * (resourceAvailable + subtractCost) / baseCost)));
+    const realCost = (baseCost * buyToLevel * (1 + buyToLevel) / 2) - subtractCost;
 
     return [buyToLevel, realCost]
 }

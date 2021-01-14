@@ -39,8 +39,7 @@ var talismanResourceCosts = {
     },
 }
 
-function getTalismanResourceInfo(type, percentage) {
-    percentage = percentage || player.buyTalismanShardPercent;
+function getTalismanResourceInfo(type, percentage = player.buyTalismanShardPercent) {
     let obtainiumCost = talismanResourceCosts[type].obtainium;
     let offeringCost = talismanResourceCosts[type].offerings;
 
@@ -56,8 +55,7 @@ function getTalismanResourceInfo(type, percentage) {
     };
 };
 
-function updateTalismanCostDisplay(type, percentage) {
-    percentage = percentage || player.buyTalismanShardPercent;
+function updateTalismanCostDisplay(type, percentage = player.buyTalismanShardPercent) {
     let el = document.getElementById("talismanFragmentCost");
     let talismanCostInfo = getTalismanResourceInfo(type, percentage);
     let TalismanName = talismanResourceCosts[type].name;
@@ -65,8 +63,7 @@ function updateTalismanCostDisplay(type, percentage) {
     el.textContent = "Cost to buy " + format(talismanCostInfo.buyAmount) + " " + TalismanName + (talismanCostInfo.buyAmount>1?"s":"") + ": " + format(talismanCostInfo.obtainiumCost) + " Obtainium and " + format(talismanCostInfo.offeringCost) + " offerings."
 }
 
-function toggleTalismanBuy(i) {
-    i = i || player.buyTalismanShardPercent
+function toggleTalismanBuy(i = player.buyTalismanShardPercent) {
     document.getElementById("talismanTen").style.backgroundColor = "#171717"
     document.getElementById("talismanTwentyFive").style.backgroundColor = "#171717"
     document.getElementById("talismanFifty").style.backgroundColor = "#171717"
@@ -100,8 +97,7 @@ function updateTalismanInventory() {
     document.getElementById("mythicalFragmentInventory").textContent = format(player.mythicalFragments);
 }
 
-function buyTalismanResources(type, percentage) {
-    percentage = percentage || player.buyTalismanShardPercent;
+function buyTalismanResources(type, percentage = player.buyTalismanShardPercent) {
     let talismanResourcesData = getTalismanResourceInfo(type, percentage)
 
     if (talismanResourcesData.canBuy) {
@@ -430,8 +426,7 @@ function updateTalismanAppearance(i) {
 }
 
 
-function buyTalismanLevels(i, auto) {
-    auto = auto || false
+function buyTalismanLevels(i, auto = false) {
     let max = 1;
     if (player.ascensionCount > 0) {
         max = 30
@@ -496,8 +491,7 @@ function buyTalismanLevels(i, auto) {
     calculateRuneLevels();
 }
 
-function buyTalismanEnhance(i, auto) {
-    auto = auto || false
+function buyTalismanEnhance(i, auto = false) {
     let checkSum = 0;
     if (player.talismanRarity[i] < 6) {
         let priceMult = talismanLevelCostMultiplier[i];

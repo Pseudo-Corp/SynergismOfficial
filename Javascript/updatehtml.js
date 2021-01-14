@@ -1,3 +1,4 @@
+// yikes
 function revealStuff() {
 
     let example = document.getElementsByClassName("coinunlock1");

@@ -1,6 +1,4 @@
-function openTesseract(value, max) {
-    max = max || false
-    let num = 0;
+function openTesseract(value, max = false) {
     let toSpend = Math.min(player.wowTesseracts, value)
     if (max) {
         toSpend = player.wowTesseracts

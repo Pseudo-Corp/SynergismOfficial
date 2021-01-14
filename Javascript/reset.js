@@ -178,18 +178,15 @@ function updateAutoReset(i) {
 
 function updateTesseractAutoBuyAmount() {
     let v = parseFloat(document.getElementById("tesseractAmount").value);
-        v = Math.floor(v)
-        if (v >= 0) {
-            player.tesseractAutoBuyerAmount = v
-        } else {
-            player.tesseractAutoBuyerAmount = 0;
-        }
+    v = Math.floor(v)
+    if (v >= 0) {
+        player.tesseractAutoBuyerAmount = v
+    } else {
+        player.tesseractAutoBuyerAmount = 0;
+    }
 }
 
-function reset(i, fast, from) {
-    fast = fast || false
-    from = from || "unknown"
-
+function reset(i, fast = false, from = 'unknown') {
     let historyEntry = {};
     let historyKind = "prestige";
     let historyCategory = "reset";
@@ -625,8 +622,7 @@ function reset(i, fast, from) {
     }
 }
 
-function resetUpgrades(i, fast) {
-    fast = fast || false
+function resetUpgrades(i, fast = false) {
     if (i > 2.5) {
         for (let i = 41; i < 61; i++) {
             if (i !== 46) {

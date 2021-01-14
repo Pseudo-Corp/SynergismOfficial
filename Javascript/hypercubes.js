@@ -45,16 +45,21 @@ function openHypercube(value, max = false) {
 
 function calculateHypercubeBlessings() {
     // The visual updates are handled in visualUpdateCubes()
-    for (const key in player.hypercubeBlessings) {
+
+    // we use Object.keys here instead of a for-in loop because we need the index of the key.
+    const keys = Object.keys(player.hypercubeBlessings);
+
+    for (const key of keys) {
         const obj = player.hypercubeBlessings[key];
+        const idx = keys.indexOf(key) + 1;
 
         let power = 1;
         let mult = 1;
         if (obj >= 1000) {
-            power = benedictionDRPower[i];
-            mult *= Math.pow(1000, (1 - benedictionDRPower[i]));
+            power = benedictionDRPower[idx];
+            mult *= Math.pow(1000, (1 - benedictionDRPower[idx]));
         }
 
-        hypercubeBonusMultiplier[i] = 1 + mult * benedictionbase[i] * Math.pow(obj, power) * platonicBonusMultiplier[4];
+        hypercubeBonusMultiplier[idx] = 1 + mult * benedictionbase[idx] * Math.pow(obj, power) * platonicBonusMultiplier[4];
     }
 }

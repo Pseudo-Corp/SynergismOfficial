@@ -1,13 +1,10 @@
-function getResearchCost(index, buyAmount, linGrowth) {
-    buyAmount = buyAmount || 1
+function getResearchCost(index, buyAmount = 1, linGrowth = 0) {
     buyAmount = Math.min(researchMaxLevels[index] - player.researches[index], buyAmount)
     let metaData = calculateSummationNonLinear(player.researches[index], researchBaseCosts[index], player.researchPoints, linGrowth, buyAmount)
     return [metaData[0], metaData[1]]
 }
 
-function buyResearch(index, auto, linGrowth) {
-    auto = auto || false
-    linGrowth = linGrowth || 0
+function buyResearch(index, auto = false, linGrowth = 0) {
     if (player.autoResearchToggle && player.autoResearch > 0.5 && !auto) {
         let p = player.autoResearch
         if (player.researches[p] === researchMaxLevels[p]) {
@@ -311,9 +308,7 @@ resdesc = [null,
     "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.04 Max Rune level, + Floor(level/400) max Talisman Level, +Floor(level/200) free ants."
 ];
 
-function researchDescriptions(i, auto, linGrowth) {
-    auto = auto || false
-    linGrowth = linGrowth || 0
+function researchDescriptions(i, auto = false, linGrowth = 0) {
     let buyAmount = (maxbuyresearch || auto) ? 100000 : 1;
     let y = resdesc[i]
     let z = ""

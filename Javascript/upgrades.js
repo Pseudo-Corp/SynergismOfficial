@@ -1,4 +1,4 @@
-let upgdesc = {
+const upgdesc = {
     upgdesc1: "Increase production of Workers per producer bought.", //Coin Upgrades 1-20
     upgdesc2: "Increase production of Investments per producer bought.",
     upgdesc3: "Increase production of Printers per producer bought.",
@@ -126,7 +126,7 @@ let upgdesc = {
     upgdesc125: "Constant Tax divisor is 0.333% stronger per challenge 10 completion. [Divisor^(1 + upgrade)]"
 }
 
-let crystalupgdesc = {
+const crystalupgdesc = {
     crystalupgdesc1: "Gain a 5% multiplicative boost to crystals per AP per level.",
     crystalupgdesc2: "Gain a boost to crystals based on held coins per level.",
     crystalupgdesc3: "Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: 12%]",
@@ -137,7 +137,7 @@ let crystalupgdesc = {
     crystalupgdesc8: "Coming SOON!"
 }
 
-let constantUpgDesc = {
+const constantUpgDesc = {
     constantUpgDesc1: "Make all Tesseract buildings 5% more productive per level.",
     constantUpgDesc2: "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max 10%].",
     constantUpgDesc3: "Increase offering gain +2% per level.",
@@ -150,7 +150,7 @@ let constantUpgDesc = {
     constantUpgDesc10: "When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on ascension."
 }
 
-const upgradetexts = [null,
+const upgradetexts = [
     () => "Worker Production x" + format((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)), 2),
     () => "Investment Production x" + format((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)), 2),
     () => "Printer Production x" + format((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)), 2),
@@ -279,23 +279,17 @@ const upgradetexts = [null,
 ]
 
 function upgradeeffects(i) {
-    document.getElementById("upgradeeffect").textContent = "Effect: " + upgradetexts[i]()
+    document.getElementById("upgradeeffect").textContent = "Effect: " + upgradetexts[i - 1]();
 }
 
 
 function upgradedescriptions(i) {
-    let x = "upgdesc" + i
-    let y = upgdesc[x]
-    let z = ""
-    if (player.upgrades[i] > 0.5) {
-        z = z + " BOUGHT!"
-    }
-    document.getElementById("upgradedescription").textContent = y + z
-    if (player.upgrades[i] > 0.5) {
-        document.getElementById("upgradedescription").style.color = "gold"
-    } else {
-        document.getElementById("upgradedescription").style.color = "white"
-    }
+    const y = upgdesc[`upgdesc${i}`];
+    const z = player.upgrades[i] > 0.5 ? ' BOUGHT!' : '';
+
+    const el = document.getElementById("upgradedescription");
+    el.textContent = y + z;
+    el.style.color = player.upgrades[i] > 0.5 ? 'gold' : 'white';
 
     if (player.toggles[9] === true) {
         let type = ''
@@ -324,12 +318,10 @@ function upgradedescriptions(i) {
             buyUpgrades(type, i)
         }
         if (type !== '' && i <= 100 && i >= 81) {
-            let q = i - 80;
-            buyAutobuyers(q)
+            buyAutobuyers(i - 80);
         }
         if (i <= 120 && i >= 101) {
-            let q = i - 100
-            buyGenerator(q)
+            buyGenerator(i - 100);
         }
     }
 
@@ -358,18 +350,13 @@ function upgradedescriptions(i) {
 }
 
 function crystalupgradedescriptions(i) {
-
-    let v = "crystalupgdesc" + i
-    let w = crystalupgdesc[v]
-
-    let u = i - 1
-    let p = player.crystalUpgrades[u]
-    let c = 0;
-    if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
-        c = 10
-    }
-    c += Math.floor(rune3level * effectiveLevelMult /16) * 100 / 100
-    let q = Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 - c, 2) / 2)))
+    const w = crystalupgdesc[`crystalupgdesc${i}`];
+    const p = player.crystalUpgrades[i - 1];
+    const c = 
+        (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0 ? 10 : 0) +
+        (Math.floor(rune3level * effectiveLevelMult /16) * 100 / 100);
+    
+    const q = Decimal.pow(10, (crystalUpgradesCost[i - 1] + crystalUpgradeCostIncrement[i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)))
     document.getElementById("crystalupgradedescription").textContent = w
     document.getElementById("crystalupgradeslevel").textContent = "Level: " + p;
     document.getElementById("crystalupgradescost").textContent = "Cost: " + format(q) + " crystals"
@@ -377,31 +364,28 @@ function crystalupgradedescriptions(i) {
 
 
 function upgradeupdate(num, fast) {
-    let x = "upg" + num
+    const el = document.getElementById(`upg${num}`);
     if (player.upgrades[num] > 0.5 && ((num <= 60 || num > 80) && (num <= 93 || num > 100))) {
-        document.getElementById(x).style.backgroundColor = "green"
+        el.style.backgroundColor = "green"
+    } else if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100) || (num > 120))) {
+        el.style.backgroundColor = "white"
     }
-    if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100) || (num > 120))) {
-        document.getElementById(x).style.backgroundColor = "white"
-    }
-    let a = "upgdesc" + num
-    let b = upgdesc[a]
-    let c = ""
-    if (player.upgrades[num] > 0.5) {
-        c = c + " BOUGHT!"
 
+    const b = upgdesc[`upgdesc${num}`];
+    const c = player.upgrades[num] > 0.5 ? ' BOUGHT!' : '';
+    if (player.upgrades[num] > 0.5) {
         if (!fast) {
             document.getElementById("upgradedescription").textContent = b + c
             document.getElementById("upgradedescription").style.color = "gold"
         }
     } else {
-        document.getElementById(x).style.backgroundColor = "Black"
+        el.style.backgroundColor = "Black"
     }
 
     if (!fast) revealStuff()
 }
 
-
+// TODO: clean
 function returnConstUpgEffect(i) {
     let show = "+1"
     switch (i) {
@@ -439,9 +423,8 @@ function returnConstUpgEffect(i) {
 }
 
 function getConstUpgradeMetadata(i) {
-    let toBuy = 0;
-    let cost = new Decimal("1")
-    toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(constUpgradeCosts[i]) / Math.log(10)))
+    const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(constUpgradeCosts[i]) / Math.log(10)));
+    let cost = new Decimal("1");
     if (toBuy > player.constantUpgrades[i]) {
         cost = Decimal.pow(10, toBuy - 1).times(constUpgradeCosts[i])
     } else {
@@ -452,22 +435,20 @@ function getConstUpgradeMetadata(i) {
 }
 
 function constantUpgradeDescriptions(i) {
-    let metaData = getConstUpgradeMetadata(i)
-    let x = 'constantUpgDesc' + i
-    let y = constantUpgDesc[x]
+    const [level, cost] = getConstUpgradeMetadata(i)
+    const y = constantUpgDesc[`constantUpgDesc${i}`];
     document.getElementById("constUpgradeDescription").textContent = y
     document.getElementById("constUpgradeLevel2").textContent = format(player.constantUpgrades[i])
-    document.getElementById("constUpgradeCost2").textContent = format(metaData[1]) + " [+" + format(metaData[0]) + " LVL]"
+    document.getElementById("constUpgradeCost2").textContent = format(cost) + " [+" + format(level) + " LVL]"
     document.getElementById("constUpgradeEffect2").textContent = returnConstUpgEffect(i)
 }
 
-function buyConstantUpgrades(i, fast) {
-    fast = fast || false
-    let metaData = getConstUpgradeMetadata(i)
-    if (player.ascendShards.greaterThanOrEqualTo(metaData[1])) {
-        player.constantUpgrades[i] += metaData[0];
+function buyConstantUpgrades(i, fast = false) {
+    const [level, cost] = getConstUpgradeMetadata(i)
+    if (player.ascendShards.greaterThanOrEqualTo(cost)) {
+        player.constantUpgrades[i] += level;
         if (player.researches[175] === 0) {
-            player.ascendShards = player.ascendShards.sub(metaData[1]);
+            player.ascendShards = player.ascendShards.sub(cost);
         }
         if (!fast) {
             constantUpgradeDescriptions(i);

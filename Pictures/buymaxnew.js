@@ -77,8 +77,7 @@ function getCost(originalCost, buyingTo, type, num, r) {
     return cost;
 }
 
-function buyMax(pos, type, num, originalCost, autobuyer = false) {
-    autobuyer = autobuyer || false;
+function buyMax(pos, type, num, originalCost) {
     originalCost = new Decimal(originalCost);
     let tag = "";
     let r = 1;

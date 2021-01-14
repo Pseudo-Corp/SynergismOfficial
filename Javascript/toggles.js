@@ -37,8 +37,7 @@ function toggleSettings(i) {
     toggleauto();
 }
 
-function toggleChallenges(i, auto) {
-    auto = auto || false
+function toggleChallenges(i, auto = false) {
     if (player.currentChallenge.transcension === 0 && (i <= 5)) {
         if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
             player.currentChallenge.transcension = i;
@@ -478,20 +477,9 @@ function toggleBuildingScreen(input) {
 }
 
 function toggleRuneScreen(index) {
-    switch (index) {
-        case 1:
-            runescreen = "runes";
-            break;
-        case 2:
-            runescreen = "talismans";
-            break;
-        case 3:
-            runescreen = "blessings";
-            break;
-        case 4:
-            runescreen = "spirits";
-            break;
-    }
+    const screens = ['runes', 'talismans', 'blessings', 'spirits'];
+    runescreen = screens[index - 1];
+
     for (let i = 1; i <= 4; i++) {
         let a = document.getElementById("toggleRuneSubTab" + i);
         let b = document.getElementById("runeContainer" + i);
@@ -509,27 +497,29 @@ function toggleRuneScreen(index) {
 }
 
 function toggleautofortify() {
+    const el = document.getElementById("toggleautofortify");
     if (player.autoFortifyToggle === false && player.researches[130] == 1) {
-        player.autoFortifyToggle = true;
-        document.getElementById("toggleautofortify").textContent = "Auto Fortify: ON"
-        document.getElementById("toggleautofortify").style.border = "2px solid green"        
+        el.textContent = "Auto Fortify: ON"
+        el.style.border = "2px solid green"        
     } else {
-        player.autoFortifyToggle = false;
-        document.getElementById("toggleautofortify").textContent = "Auto Fortify: OFF"
-        document.getElementById("toggleautofortify").style.border = "2px solid red"
-        }
+        el.textContent = "Auto Fortify: OFF"
+        el.style.border = "2px solid red"
+    }
+    
+    player.autoFortifyToggle = !player.autoFortifyToggle;
 }
 
 function toggleautoenhance() {
+    const el = document.getElementById("toggleautoenhance");
     if (player.autoEnhanceToggle === false && player.researches[135] == 1) {
-        player.autoEnhanceToggle = true;
-        document.getElementById("toggleautoenhance").textContent = "Auto Enhance: ON"
-        document.getElementById("toggleautoenhance").style.border = "2px solid green"        
+        el.textContent = "Auto Enhance: ON"
+        el.style.border = "2px solid green"        
     } else {
-        player.autoEnhanceToggle = false;
-        document.getElementById("toggleautoenhance").textContent = "Auto Enhance: OFF"
-        document.getElementById("toggleautoenhance").style.border = "2px solid red"
-        }
+        el.textContent = "Auto Enhance: OFF"
+        el.style.border = "2px solid red"
+    }
+
+    player.autoEnhanceToggle = !player.autoEnhanceToggle;
 }
 
 function setActiveSettingScreen(subtab, clickedButton) {
@@ -565,25 +555,21 @@ function setActiveSettingScreen(subtab, clickedButton) {
 }
 
 function toggleShopConfirmation() {
-    let el = document.getElementById("toggleConfirmShop")
-    if (shopConfirmation) {
-        shopConfirmation = false;
-        el.textContent = "Shop Confirmations: OFF"
-    } else {
-        shopConfirmation = true;
-        el.textContent = "Shop Confirmations: ON"
-    }
+    const el = document.getElementById("toggleConfirmShop")
+    el.textContent = shopConfirmation
+        ? "Shop Confirmations: OFF"
+        : "Shop Confirmations: ON";
+
+    shopConfirmation = !shopConfirmation;
 }
 
 function toggleAntMaxBuy() {
-    let el = document.getElementById("toggleAntMax");
-    if (player.antMax) {
-        player.antMax = false;
-        el.textContent = "Buy Max: OFF";
-    } else {
-        player.antMax = true;
-        el.textContent = "Buy Max: ON";
-    }
+    const el = document.getElementById("toggleAntMax");
+    el.textContent = player.antMax 
+        ? "Buy Max: OFF"
+        : "Buy Max: ON";
+
+    player.antMax = !player.antMax;
 }
 
 function toggleAntAutoSacrifice(mode = 0) {
@@ -637,114 +623,102 @@ function toggleCubeSubTab(i) {
 }
 
 function updateAutoChallenge(i) {
-    let t
     switch (i) {
         case 1:
-            t = parseFloat(document.getElementById('startAutoChallengeTimerInput').value)
-            t = t || 0;
+            const t = parseFloat(document.getElementById('startAutoChallengeTimerInput').value) || 0;
             player.autoChallengeTimer.start = Math.max(t, 0);
             document.getElementById("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s";
-            break;
+            return;
         case 2:
-            t = parseFloat(document.getElementById('exitAutoChallengeTimerInput').value)
-            t = t || 0;
-            player.autoChallengeTimer.exit = Math.max(t, 0);
+            const u = parseFloat(document.getElementById('exitAutoChallengeTimerInput').value) || 0;
+            player.autoChallengeTimer.exit = Math.max(u, 0);
             document.getElementById("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s";
-            break;
+            return;
         case 3:
-            t = parseFloat(document.getElementById('enterAutoChallengeTimerInput').value)
-            t = t || 0;
-            player.autoChallengeTimer.enter = Math.max(t, 0);
+            const v = parseFloat(document.getElementById('enterAutoChallengeTimerInput').value) || 0;
+            player.autoChallengeTimer.enter = Math.max(v, 0);
             document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s";
-            break;
+            return;
     }
 }
 
 function toggleAutoChallengesIgnore(i) {
-    let el = document.getElementById("toggleAutoChallengeIgnore");
+    const el = document.getElementById("toggleAutoChallengeIgnore");
     if (player.autoChallengeToggles[i]) {
-        player.autoChallengeToggles[i] = false;
         el.style.border = "2px solid red";
         el.textContent = "Automatically Run Chal." + i + " [OFF]"
     } else {
-        player.autoChallengeToggles[i] = true;
         el.style.border = "2px solid green";
         el.textContent = "Automatically Run Chal." + i + " [ON]"
     }
+
+    player.autoChallengeToggles[i] = !player.autoChallengeToggles[i];
 }
 
 function toggleAutoChallengeRun() {
-    let el = document.getElementById('toggleAutoChallengeStart');
+    const el = document.getElementById('toggleAutoChallengeStart');
     if (player.autoChallengeRunning) {
-        player.autoChallengeRunning = false;
         el.style.border = "2px solid red"
         el.textContent = "Auto Challenge Sweep [OFF]"
         player.autoChallengeIndex = 1;
         autoChallengeTimerIncrement = 0;
     } else {
-        player.autoChallengeRunning = true;
         el.style.border = "2px solid gold"
         el.textContent = "Auto Challenge Sweep [ON]"
     }
+
+    player.autoChallengeRunning = !player.autoChallengeRunning;
 }
 
 function toggleAutoChallengeTextColors(i) {
-    let a = document.getElementById("startAutoChallengeTimer");
-    let b = document.getElementById("exitAutoChallengeTimer");
-    let c = document.getElementById("enterAutoChallengeTimer");
+    const a = document.getElementById("startAutoChallengeTimer");
+    const b = document.getElementById("exitAutoChallengeTimer");
+    const c = document.getElementById("enterAutoChallengeTimer");
 
-    (i === 1) ?
-        a.style.color = 'gold' :
-        a.style.color = 'white';
-    (i === 2) ?
-        b.style.color = 'gold' :
-        b.style.color = 'white';
-    (i === 3) ?
-        c.style.color = 'gold' :
-        c.style.color = 'white';
+    a.style.color = i === 1 ? 'gold' : 'white';
+    b.style.color = i === 2 ? 'gold' : 'white';
+    c.style.color = i === 3 ? 'gold' : 'white';
 }
 
 function toggleAutoAscend() {
-    let a = document.getElementById("ascensionAutoEnable");
+    const a = document.getElementById("ascensionAutoEnable");
     if (player.autoAscend) {
-        player.autoAscend = false
         a.style.border = "2px solid red"
         a.textContent = "Auto Ascend [OFF]";
     } else {
-        player.autoAscend = true
         a.style.border = "2px solid green"
         a.textContent = "Auto Ascend [ON]";
     }
+
+    player.autoAscend = !player.autoAscend;
 }
 
 function updateRuneBlessingBuyAmount(i) {
-    let t;
     switch (i) {
         case 1:
-            t = Math.floor(parseFloat(document.getElementById('buyRuneBlessingInput').value));
-            t = t || 1;
+            const t = Math.floor(parseFloat(document.getElementById('buyRuneBlessingInput').value)) || 1;
             player.runeBlessingBuyAmount = Math.max(t, 1);
             document.getElementById('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
-            break;
+            return;
         case 2:
-            t = Math.floor(parseFloat(document.getElementById('buyRuneSpiritInput').value));
-            t = t || 1;
-            player.runeSpiritBuyAmount = Math.max(t, 1);
+            const u = Math.floor(parseFloat(document.getElementById('buyRuneSpiritInput').value)) || 1;
+            player.runeSpiritBuyAmount = Math.max(u, 1);
             document.getElementById('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
-            break;
+            return;
     }
 }
 
 function toggleAutoTesseracts(i) {
+    const el = document.getElementById('tesseractAutoToggle' + i);
     if (player.autoTesseracts[i]) {
-        player.autoTesseracts[i] = false
-        document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [OFF]"
-        document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid red";
+        el.textContent = "Auto [OFF]"
+        el.style.border = "2px solid red";
     } else {
-        player.autoTesseracts[i] = true
-        document.getElementById('tesseractAutoToggle' + i).textContent = "Auto [ON]"
-        document.getElementById('tesseractAutoToggle' + i).style.border = "2px solid green";
+        el.textContent = "Auto [ON]"
+        el.style.border = "2px solid green";
     }
+
+    player.autoTesseracts[i] = !player.autoTesseracts[i];
 }
 
 function toggleCorruptionLevel(index, value) {
@@ -788,11 +762,6 @@ function toggleAscStatPerSecond(id) {
         return;
     }
 
-    if (player.ascStatToggles[id]) {
-        player.ascStatToggles[id] = false;
-        el.textContent = "/s";
-    } else {
-        player.ascStatToggles[id] = true;
-        el.textContent = '';
-    }
+    el.textContent = player.ascStatToggles[id] ? '/s' : '';
+    player.ascStatToggles[id] = !player.ascStatToggles[id];
 }
