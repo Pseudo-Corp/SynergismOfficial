@@ -22,7 +22,7 @@ function loadStatisticsMultiplier() {
     document.getElementById("sM6").textContent = "x" + format(1 + 1 / 5 * player.researches[2], 3, true)
     document.getElementById("sM7").textContent = "x" + format(1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15], 3, true)
     document.getElementById("sM8").textContent = "x" + format(1 + 1 / 20 * player.researches[87], 3, true)
-    document.getElementById("sM9").textContent = "x" + format(calculateSigmoidExponential(40, (player.antUpgrades[5] + bonusant5) / 1000 * 40 / 39),2,true)
+    document.getElementById("sM9").textContent = "x" + format(calculateSigmoidExponential(40, (player.antUpgrades[5-1] + bonusant5) / 1000 * 40 / 39),2,true)
     document.getElementById("sM10").textContent = "x" + format(cubeBonusMultiplier[2], 3, true)
     document.getElementById("sM11").textContent = "x" + format(1.25, 3, true)
     document.getElementById("sM12").textContent = "^" + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * divisivenessPower[player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))), 3, true)

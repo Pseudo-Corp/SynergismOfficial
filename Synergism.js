@@ -421,13 +421,13 @@ const player = {
     quarkstimer: 90000,
 
     antPoints: new Decimal("1"),
-    antUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    antUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     antSacrificePoints: 0,
     antSacrificeTimer: 900,
     antSacrificeTimerReal: 900,
 
-    talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
-    talismanRarity: [null, 1, 1, 1, 1, 1, 1, 1],
+    talismanLevels: [0, 0, 0, 0, 0, 0, 0],
+    talismanRarity: [1, 1, 1, 1, 1, 1, 1],
     talismanOne: [null, -1, 1, 1, 1, -1],
     talismanTwo: [null, 1, 1, -1, -1, 1],
     talismanThree: [null, 1, -1, 1, 1, -1],
@@ -846,7 +846,7 @@ function loadSynergy() {
             player.shopUpgrades.antSpeedLevel = 0;
             player.shopUpgrades.talismanBought = false;
 
-            player.antUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            player.antUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
             player.unlocks.rrow4 = false;
             player.researchPoints += 3e7 * player.researches[50];
@@ -859,8 +859,8 @@ function loadSynergy() {
             player.researches[98] = 0;
             player.researches.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-            player.talismanLevels = [null, 0, 0, 0, 0, 0, 0, 0];
-            player.talismanRarity = [null, 1, 1, 1, 1, 1, 1, 1];
+            player.talismanLevels = [0, 0, 0, 0, 0, 0, 0];
+            player.talismanRarity = [1, 1, 1, 1, 1, 1, 1];
 
             player.talismanShards = 0;
             player.commonFragments = 0;
@@ -1749,7 +1749,7 @@ function updateAllMultiplier() {
     a *= (1 + 0.2 / 100 * player.researches[188])
     a *= (1 + 0.01 / 100 * player.researches[200])
     a *= (1 + 0.01 / 100 * player.cubeUpgrades[50])
-    a *= calculateSigmoidExponential(40, (player.antUpgrades[5] + bonusant5) / 1000 * 40 / 39)
+    a *= calculateSigmoidExponential(40, (player.antUpgrades[5-1] + bonusant5) / 1000 * 40 / 39)
     a *= cubeBonusMultiplier[2]
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
@@ -2017,7 +2017,7 @@ function multipliers() {
     globalAntMult = globalAntMult.times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
     globalAntMult = globalAntMult.times(1 + player.upgrades[78] * 0.005 * Math.pow(Math.log(player.maxofferings + 1) / Math.log(10), 2))
     globalAntMult = globalAntMult.times(Math.pow(1.5, player.shopUpgrades.antSpeedLevel));
-    globalAntMult = globalAntMult.times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1] + bonusant1));
+    globalAntMult = globalAntMult.times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1-1] + bonusant1));
     globalAntMult = globalAntMult.times(antSacrificePointsToMultiplier(player.antSacrificePoints))
     globalAntMult = globalAntMult.times(Decimal.pow(Math.max(1, player.researchPoints), effectiveRuneBlessingPower[5]))
     globalAntMult = globalAntMult.times(Math.pow(1 + runeSum / 100, talisman6Power))
@@ -3063,7 +3063,7 @@ function tack(dt) {
                 if (player.achievements[147] > 0) {
                     buyTalismanEnhance(5, true)
                 }
-                if (player.antUpgrades[12] > 0 || player.ascensionCount > 0) {
+                if (player.antUpgrades[12-1] > 0 || player.ascensionCount > 0) {
                     buyTalismanEnhance(6, true)
                 }
                 if (player.shopUpgrades.talismanBought) {
@@ -3086,7 +3086,7 @@ function tack(dt) {
                 if (player.achievements[147] > 0) {
                     buyTalismanLevels(5, true)
                 }
-                if (player.antUpgrades[12] > 0 || player.ascensionCount > 0) {
+                if (player.antUpgrades[12-1] > 0 || player.ascensionCount > 0) {
                     buyTalismanLevels(6, true)
                 }
                 if (player.shopUpgrades.talismanBought) {

@@ -84,7 +84,7 @@ function buyMax(pos, type, num, originalCost) {
     r += 1 / 400 * rune4level * effectiveLevelMult;
     r += 1 / 200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]);
     r += 1 / 200 * player.challengecompletions.four;
-    r += 3 / 100 * (player.antUpgrades[7] + bonusant7);
+    r += 3 / 100 * (player.antUpgrades[7-1] + bonusant7);
 
     if (type === 'Diamonds') {
         tag = "prestigePoints";

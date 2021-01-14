@@ -42,27 +42,27 @@ let antupgdesc = {
 function calculateCrumbToCoinExp(){
     let exponent = 1
     if(player.currentChallenge.ascension !== 15){
-        exponent = 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499)
+        exponent = 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + bonusant2) / 5000 * 500 / 499)
     }
     else{
-        exponent = 1/10000 * (100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499))
+        exponent = 1/10000 * (100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + bonusant2) / 5000 * 500 / 499))
     }
     return exponent
 }
 
 const antUpgradeTexts = [null,
-    () => "ALL Ants work at " + format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1] + bonusant1), 2) + "x speed.",
+    () => "ALL Ants work at " + format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1-1] + bonusant1), 2) + "x speed.",
     () => "Crumb --> Coin exponent is ^" + format(calculateCrumbToCoinExp()),
-    () => "Tax growth is multiplied by " + format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3] + bonusant3), 4),
-    () => "Accelerator Boosts +" + format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4] + bonusant4) / 1000 * 20 / 19) - 1), 3) + "%",
-    () => "Multipliers +" + format(100 * (calculateSigmoidExponential(40, (player.antUpgrades[5] + bonusant5) / 1000 * 40 / 39) - 1), 3) + "%",
-    () => "Offerings x" + format(1 + Math.pow((player.antUpgrades[6] + bonusant6) / 50, 0.75), 4),
-    () => "Building Costs scale " + format(Math.min(9999999,3 * player.antUpgrades[7] + 3 * bonusant7),0,true) + "% slower!",
-    () => "Rune EXP is multiplied by " + format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8] + bonusant8, 1.1)), 3) + "!",
-    () => "Each rune has +" + format(1 * Math.min(1e7, (player.antUpgrades[9] + bonusant9)),0,true) + " effective levels.",
-    () => "Obtainium x" + format(1 + 2 * Math.pow((player.antUpgrades[10] + bonusant10) / 50, 0.75), 4),
-    () => "Sacrificing is " + format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11] + bonusant11) / 125)), 4) + "x as effective",
-    () => "Global timer is sped up by a factor of " + format(calculateSigmoid(2, player.antUpgrades[12] + bonusant12, 69), 4)
+    () => "Tax growth is multiplied by " + format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3-1] + bonusant3), 4),
+    () => "Accelerator Boosts +" + format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4-1] + bonusant4) / 1000 * 20 / 19) - 1), 3) + "%",
+    () => "Multipliers +" + format(100 * (calculateSigmoidExponential(40, (player.antUpgrades[5-1] + bonusant5) / 1000 * 40 / 39) - 1), 3) + "%",
+    () => "Offerings x" + format(1 + Math.pow((player.antUpgrades[6-1] + bonusant6) / 50, 0.75), 4),
+    () => "Building Costs scale " + format(Math.min(9999999,3 * player.antUpgrades[7-1] + 3 * bonusant7),0,true) + "% slower!",
+    () => "Rune EXP is multiplied by " + format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8-1] + bonusant8, 1.1)), 3) + "!",
+    () => "Each rune has +" + format(1 * Math.min(1e7, (player.antUpgrades[9-1] + bonusant9)),0,true) + " effective levels.",
+    () => "Obtainium x" + format(1 + 2 * Math.pow((player.antUpgrades[10-1] + bonusant10) / 50, 0.75), 4),
+    () => "Sacrificing is " + format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11-1] + bonusant11) / 125)), 4) + "x as effective",
+    () => "Global timer is sped up by a factor of " + format(calculateSigmoid(2, player.antUpgrades[12-1] + bonusant12, 69), 4)
 ]
 
 
@@ -230,7 +230,7 @@ function buyAntProducers(pos, type, originalCost, index) {
 function buyAntUpgrade(originalCost, auto, index) {
     if (player.currentChallenge.ascension !== 11) {
         originalCost = new Decimal(originalCost);
-        let buyTo = 1 + player.antUpgrades[index];
+        let buyTo = 1 + player.antUpgrades[index-1];
         let cashToBuy = getAntUpgradeCost(originalCost, buyTo, index);
         while (player.antPoints.greaterThanOrEqualTo(cashToBuy)) {
             // Multiply by 4 until the desired amount. Iterate from there
@@ -246,16 +246,16 @@ function buyAntUpgrade(originalCost, auto, index) {
             }
         }
         if (!player.antMax) {
-            if (player.antUpgrades[index] + 1 < buyTo) {
-                buyTo = 1 + player.antUpgrades[index]
+            if (player.antUpgrades[index-1] + 1 < buyTo) {
+                buyTo = 1 + player.antUpgrades[index-1]
             }
         }
         // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-        let buyFrom = Math.max(buyTo - 7, 1 + player.antUpgrades[index]);
+        let buyFrom = Math.max(buyTo - 7, 1 + player.antUpgrades[index-1]);
         let thisCost = getAntUpgradeCost(originalCost, buyFrom, index);
         while (buyFrom <= buyTo && player.antPoints.greaterThanOrEqualTo(thisCost)) {
             player.antPoints = player.antPoints.sub(thisCost);
-            player.antUpgrades[index] = buyFrom;
+            player.antUpgrades[index-1] = buyFrom;
             buyFrom = buyFrom + 1;
             thisCost = getAntUpgradeCost(originalCost, buyFrom, index);
         }
@@ -265,7 +265,7 @@ function buyAntUpgrade(originalCost, auto, index) {
         if (!auto) {
             antUpgradeDescription(index)
         }
-        if (player.antUpgrades[12] === 1 && index === 12) {
+        if (player.antUpgrades[12-1] === 1 && index === 12) {
             revealStuff()
         }
     }
@@ -285,24 +285,24 @@ function antUpgradeDescription(i) {
 
     const c11 = player.currentChallenge.ascension === 11 ? 999 : 0;
 
-    el.childNodes[0].textContent = content1 + " Level " + format(player.antUpgrades[i])
-    al.textContent = " [+" + format(Math.min(player.antUpgrades[i] + c11, bonuslevel)) + "]"
+    el.childNodes[0].textContent = content1 + " Level " + format(player.antUpgrades[i-1])
+    al.textContent = " [+" + format(Math.min(player.antUpgrades[i-1] + c11, bonuslevel)) + "]"
     la.textContent = content2
-    ti.textContent = "Cost: " + format(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i] * extinctionMultiplier[player.usedCorruptions[10]]).times(antUpgradeBaseCost[i])) + " Galactic Crumbs"
+    ti.textContent = "Cost: " + format(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i-1] * extinctionMultiplier[player.usedCorruptions[10]]).times(antUpgradeBaseCost[i])) + " Galactic Crumbs"
     me.textContent = "CURRENT EFFECT: " + antUpgradeTexts[i]()
 }
 
 //function buyAntUpgrade(i,auto) {
-//    if(player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[i] * player.antUpgrades[i]).times(antUpgradeBaseCost[i]))){
-//        player.antPoints = player.antPoints.sub(Decimal.pow(10, antUpgradeCostIncreases[i] * player.antUpgrades[i]).times(antUpgradeBaseCost[i]));
-//        player.antUpgrades[i]++
+//    if(player.antPoints.greaterThanOrEqualTo(Decimal.pow(10, antUpgradeCostIncreases[i] * player.antUpgrades[i-1]).times(antUpgradeBaseCost[i]))){
+//        player.antPoints = player.antPoints.sub(Decimal.pow(10, antUpgradeCostIncreases[i] * player.antUpgrades[i-1]).times(antUpgradeBaseCost[i]));
+//        player.antUpgrades[i-1]++
 //        calculateAnts();
 //        calculateRuneLevels();
 //        calculateAntSacrificeELO();
 
 
 //        if(!auto){antUpgradeDescription(i)}
-//        if(player.antUpgrades[12] == 1 && i == 12){revealStuff()}
+//        if(player.antUpgrades[12-1] == 1 && i == 12){revealStuff()}
 //    }
 //    else{}
 //}
@@ -418,7 +418,7 @@ function sacrificeAnts(auto = false) {
 }
 
 function autoBuyAnts() {
-    const canAffordUpgrade = (x, m) => player.antPoints.greaterThanOrEqualTo(getAntUpgradeCost(new Decimal(antUpgradeBaseCost[x]), player.antUpgrades[x] + 1, x).times(m))
+    const canAffordUpgrade = (x, m) => player.antPoints.greaterThanOrEqualTo(getAntUpgradeCost(new Decimal(antUpgradeBaseCost[x]), player.antUpgrades[x-1] + 1, x).times(m))
     const ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
     const cost = ["100", "100", "1000", "1000", "1e5", "1e6", "1e8", "1e11", "1e15", "1e20", "1e40", "1e100"];
     if (player.currentChallenge.ascension !== 11) {

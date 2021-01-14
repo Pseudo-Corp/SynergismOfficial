@@ -181,7 +181,7 @@ function visualUpdateRunes() {
 
             document.getElementById('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i - 1]) + "/" + format(calculateMaxRunes(i))
             document.getElementById('rune' + i + 'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP"
-            document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9] + bonusant9) + place) + "]"
+            document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + bonusant9) + place) + "]"
 
             displayRuneInformation(i, false)
         }
@@ -193,7 +193,7 @@ function visualUpdateRunes() {
 
     if (runescreen === "talismans") {
         for (let i = 1; i <= 7; i++) {
-            document.getElementById('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i] + "/" + (30 * player.talismanRarity[i] + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 400))
+            document.getElementById('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i-1] + "/" + (30 * player.talismanRarity[i-1] + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 400))
         }
     }
 
@@ -246,7 +246,7 @@ function visualUpdateResearch() {
 function visualUpdateAnts() {
     if (currentTab !== "ants")
         return
-    document.getElementById("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(antOneProduce, 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2] + bonusant2) / 5000 * 500 / 499))) + "x Coin Multiplier."
+    document.getElementById("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(antOneProduce, 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + bonusant2) / 5000 * 500 / 499))) + "x Coin Multiplier."
     let mode = player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
     let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
     document.getElementById("autoAntSacrifice").textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer)}`

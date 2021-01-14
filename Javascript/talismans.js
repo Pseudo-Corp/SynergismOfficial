@@ -146,7 +146,7 @@ function showTalismanEffect(i) {
     let g = document.getElementById("talismanRune5Effect")
     let h = document.getElementById("talismanMythicEffect")
 
-    let index = player.talismanRarity[i]
+    let index = player.talismanRarity[i-1]
     let modifiers = [null, "+", "+", "+", "+", "+"]
     let num = talismanPositiveModifier[index];
     let talismanRarityMult = [null, num, num, num, num, num]
@@ -161,7 +161,7 @@ function showTalismanEffect(i) {
     switch (i) {
         case 1:
             a.textContent = "=-=-=-= Exemption Talisman Effects =-=-=-=";
-            b.textContent = "Taxes -" + format(10 * (player.talismanRarity[1] - 1)) + "%"
+            b.textContent = "Taxes -" + format(10 * (player.talismanRarity[1-1] - 1)) + "%"
             c.textContent = "Bonus Speed Rune Levels: " + format(talisman1Effect[1], 2, true)
             d.textContent = "Bonus Duplication Rune Levels: " + format(talisman1Effect[2], 2, true)
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman1Effect[3], 2, true)
@@ -171,7 +171,7 @@ function showTalismanEffect(i) {
             break;
         case 2:
             a.textContent = "=-=-=-= Chronos Talisman Effects =-=-=-=";
-            b.textContent = "Gain +" + format(10 * (player.talismanRarity[2] - 1)) + "% Global Speed Acceleration."
+            b.textContent = "Gain +" + format(10 * (player.talismanRarity[2-1] - 1)) + "% Global Speed Acceleration."
             c.textContent = "Bonus Speed Rune Levels: " + format(talisman2Effect[1], 2, true)
             d.textContent = "Bonus Duplication Rune Levels: " + format(talisman2Effect[2], 2, true)
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman2Effect[3], 2, true)
@@ -181,7 +181,7 @@ function showTalismanEffect(i) {
             break;
         case 3:
             a.textContent = "=-=-=-= Midas Talisman Effects =-=-=-=";
-            b.textContent = "Rune Blessing bonuses +" + format(10 * (player.talismanRarity[3] - 1)) + "%"
+            b.textContent = "Rune Blessing bonuses +" + format(10 * (player.talismanRarity[3-1] - 1)) + "%"
             c.textContent = "Bonus Speed Rune Levels: " + format(talisman3Effect[1], 2, true)
             d.textContent = "Bonus Duplication Rune Levels: " + format(talisman3Effect[2], 2, true)
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman3Effect[3], 2, true)
@@ -191,7 +191,7 @@ function showTalismanEffect(i) {
             break;
         case 4:
             a.textContent = "=-=-=-= Metaphysics Talisman Effects =-=-=-=";
-            b.textContent = "Talismans' Bonus Rune Levels +" + format(0.05 * (player.talismanRarity[4] - 1), 2) + " per level"
+            b.textContent = "Talismans' Bonus Rune Levels +" + format(0.05 * (player.talismanRarity[4-1] - 1), 2) + " per level"
             c.textContent = "Bonus Speed Rune Levels: " + format(talisman4Effect[1], 2, true)
             d.textContent = "Bonus Duplication Rune Levels: " + format(talisman4Effect[2], 2, true)
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman4Effect[3], 2, true)
@@ -201,7 +201,7 @@ function showTalismanEffect(i) {
             break;
         case 5:
             a.textContent = "=-=-=-= Polymath Talisman Effects =-=-=-=";
-            b.textContent = "Rune Spirit Bonuses +" + format(1 * (player.talismanRarity[5] - 1)) + "%"
+            b.textContent = "Rune Spirit Bonuses +" + format(1 * (player.talismanRarity[5-1] - 1)) + "%"
             c.textContent = "Bonus Speed Rune Levels: " + format(talisman5Effect[1], 2, true)
             d.textContent = "Bonus Duplication Rune Levels: " + format(talisman5Effect[2], 2, true)
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman5Effect[3], 2, true)
@@ -211,7 +211,7 @@ function showTalismanEffect(i) {
             break;
         case 6:
             a.textContent = "=-=-=-= Mortuus Est Talisman Effects =-=-=-=";
-            b.textContent = "Bonus Ant Levels: +" + format(2 * (player.talismanRarity[6] - 1))
+            b.textContent = "Bonus Ant Levels: +" + format(2 * (player.talismanRarity[6-1] - 1))
             c.textContent = "Bonus Speed Rune Levels: " + format(talisman6Effect[1], 2, true)
             d.textContent = "Bonus Duplication Rune Levels: " + format(talisman6Effect[2], 2, true)
             e.textContent = "Bonus Prism Rune Levels: " + format(talisman6Effect[3], 2, true)
@@ -230,7 +230,7 @@ function showTalismanEffect(i) {
             h.textContent = "Mythic Effect: +2 Quarks per Hour on Export!"
             break;
     }
-    if (player.talismanRarity[i] !== 6) {
+    if (player.talismanRarity[i-1] !== 6) {
         h.textContent = "Get Max Enhance for a Mythical bonus effect!"
     }
 }
@@ -251,22 +251,22 @@ function showTalismanPrices(i) {
     document.getElementById("talismanLevelUpSummary").style.color = "silver"
 
     let m = talismanLevelCostMultiplier[i]
-    if (player.talismanLevels[i] >= 120) {
-        m *= (player.talismanLevels[i] - 90) / 30
+    if (player.talismanLevels[i-1] >= 120) {
+        m *= (player.talismanLevels[i-1] - 90) / 30
     }
-    if (player.talismanLevels[i] >= 150) {
-        m *= (player.talismanLevels[i] - 120) / 30
+    if (player.talismanLevels[i-1] >= 150) {
+        m *= (player.talismanLevels[i-1] - 120) / 30
     }
-    if (player.talismanLevels[i] >= 180) {
-        m *= (player.talismanLevels[i] - 170) / 10
+    if (player.talismanLevels[i-1] >= 180) {
+        m *= (player.talismanLevels[i-1] - 170) / 10
     }
-    a.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i], 3))));
-    b.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i] - 30, 3))));
-    c.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i] - 60, 3))));
-    d.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 500 * Math.pow(player.talismanLevels[i] - 90, 3))));
-    e.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 375 * Math.pow(player.talismanLevels[i] - 120, 3))));
-    f.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i] - 150, 3))));
-    g.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i] - 150, 3))));
+    a.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i-1], 3))));
+    b.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i-1] - 30, 3))));
+    c.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i-1] - 60, 3))));
+    d.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 500 * Math.pow(player.talismanLevels[i-1] - 90, 3))));
+    e.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 375 * Math.pow(player.talismanLevels[i-1] - 120, 3))));
+    f.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i-1] - 150, 3))));
+    g.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i-1] - 150, 3))));
 }
 
 function showEnhanceTalismanPrices(i) {
@@ -285,7 +285,7 @@ function showEnhanceTalismanPrices(i) {
     document.getElementById("talismanLevelUpSummary").style.color = "gold"
 
     let array = [null, commonTalismanEnhanceCost, uncommonTalismanEnchanceCost, rareTalismanEnchanceCost, epicTalismanEnhanceCost, legendaryTalismanEnchanceCost, mythicalTalismanEnchanceCost]
-    let index = player.talismanRarity[i];
+    let index = player.talismanRarity[i-1];
     let costArray = array[index];
     let m = talismanLevelCostMultiplier[i]
     a.textContent = format(m * costArray[1]);
@@ -398,7 +398,7 @@ function updateTalismanAppearance(i) {
         id = "MultiplierAcceleratorTalisman"
     }
 
-    let rarity = player.talismanRarity[i];
+    let rarity = player.talismanRarity[i-1];
     if (rarity === 1) {
         el.style.border = "4px solid white";
         la.style.color = "white"
@@ -434,49 +434,49 @@ function buyTalismanLevels(i, auto = false) {
     for (let j = 1; j <= max; j++) {
         let checkSum = 0;
         let priceMult = talismanLevelCostMultiplier[i]
-        if (player.talismanLevels[i] >= 120) {
-            priceMult *= (player.talismanLevels[i] - 90) / 30
+        if (player.talismanLevels[i-1] >= 120) {
+            priceMult *= (player.talismanLevels[i-1] - 90) / 30
         }
-        if (player.talismanLevels[i] >= 150) {
-            priceMult *= (player.talismanLevels[i] - 120) / 30
+        if (player.talismanLevels[i-1] >= 150) {
+            priceMult *= (player.talismanLevels[i-1] - 120) / 30
         }
-        if (player.talismanLevels[i] >= 180) {
-            priceMult *= (player.talismanLevels[i] - 170) / 10
+        if (player.talismanLevels[i-1] >= 180) {
+            priceMult *= (player.talismanLevels[i-1] - 170) / 10
         }
 
-        if (player.talismanLevels[i] < (player.talismanRarity[i] * 30 + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 400))) {
-            if (player.talismanShards >= priceMult * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i], 3)))) {
+        if (player.talismanLevels[i-1] < (player.talismanRarity[i-1] * 30 + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 400))) {
+            if (player.talismanShards >= priceMult * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i-1], 3)))) {
                 checkSum++
             }
-            if (player.commonFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i] - 30, 3)))) {
+            if (player.commonFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i-1] - 30, 3)))) {
                 checkSum++
             }
-            if (player.uncommonFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i] - 60, 3)))) {
+            if (player.uncommonFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i-1] - 60, 3)))) {
                 checkSum++
             }
-            if (player.rareFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 500 * Math.pow(player.talismanLevels[i] - 90, 3)))) {
+            if (player.rareFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 500 * Math.pow(player.talismanLevels[i-1] - 90, 3)))) {
                 checkSum++
             }
-            if (player.epicFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 375 * Math.pow(player.talismanLevels[i] - 120, 3)))) {
+            if (player.epicFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 375 * Math.pow(player.talismanLevels[i-1] - 120, 3)))) {
                 checkSum++
             }
-            if (player.legendaryFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i] - 150, 3)))) {
+            if (player.legendaryFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i-1] - 150, 3)))) {
                 checkSum++
             }
-            if (player.mythicalFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i] - 150, 3)))) {
+            if (player.mythicalFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i-1] - 150, 3)))) {
                 checkSum++
             }
         }
 
         if (checkSum === 7) {
-            player.talismanShards -= priceMult * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i], 3)))
-            player.commonFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i] - 30, 3)))
-            player.uncommonFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i] - 60, 3)))
-            player.rareFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 500 * Math.pow(player.talismanLevels[i] - 90, 3)))
-            player.epicFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 375 * Math.pow(player.talismanLevels[i] - 120, 3)))
-            player.legendaryFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i] - 150, 3)))
-            player.mythicalFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i] - 150, 3)))
-            player.talismanLevels[i] += 1;
+            player.talismanShards -= priceMult * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i-1], 3)))
+            player.commonFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i-1] - 30, 3)))
+            player.uncommonFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i-1] - 60, 3)))
+            player.rareFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 500 * Math.pow(player.talismanLevels[i-1] - 90, 3)))
+            player.epicFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 375 * Math.pow(player.talismanLevels[i-1] - 120, 3)))
+            player.legendaryFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i-1] - 150, 3)))
+            player.mythicalFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i-1] - 150, 3)))
+            player.talismanLevels[i-1] += 1;
 
         }
 
@@ -493,10 +493,10 @@ function buyTalismanLevels(i, auto = false) {
 
 function buyTalismanEnhance(i, auto = false) {
     let checkSum = 0;
-    if (player.talismanRarity[i] < 6) {
+    if (player.talismanRarity[i-1] < 6) {
         let priceMult = talismanLevelCostMultiplier[i];
         let array = [null, commonTalismanEnhanceCost, uncommonTalismanEnchanceCost, rareTalismanEnchanceCost, epicTalismanEnhanceCost, legendaryTalismanEnchanceCost, mythicalTalismanEnchanceCost];
-        let index = player.talismanRarity[i];
+        let index = player.talismanRarity[i-1];
         let costArray = array[index];
         if (player.commonFragments >= priceMult * costArray[2]) {
             checkSum++
@@ -525,7 +525,7 @@ function buyTalismanEnhance(i, auto = false) {
             player.epicFragments -= (priceMult * costArray[5])
             player.legendaryFragments -= (priceMult * costArray[6])
             player.mythicalFragments -= (priceMult * costArray[7])
-            player.talismanRarity[i] += 1
+            player.talismanRarity[i-1] += 1
         }
 
         updateTalismanAppearance(i);

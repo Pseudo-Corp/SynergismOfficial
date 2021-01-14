@@ -468,7 +468,7 @@ function reset(i, fast = false, from = 'unknown') {
         player.antSacrificePoints = 0;
         player.antSacrificeTimer = 0;
         player.antSacrificeTimerReal = 0;
-        player.antUpgrades[12] = 0;
+        player.antUpgrades[12-1] = 0;
         for (let j = 61; j <= 80; j++) {
             player.upgrades[j] = 0;
         }
@@ -780,8 +780,8 @@ function resetAnts() {
     player.seventhCostAnts = new Decimal("1e100");
     player.eighthCostAnts = new Decimal("1e300");
 
-    let ant12 = player.antUpgrades[12];
-    player.antUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ant12];
+    let ant12 = player.antUpgrades[12-1];
+    player.antUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ant12];
     player.antPoints = new Decimal("1");
 
     if (player.currentChallenge.ascension === 12) {
@@ -810,8 +810,8 @@ function resetResearches() {
 }
 
 function resetTalismans() {
-    player.talismanLevels = [null, 0, 0, 0, 0, 0, 0, 0];
-    player.talismanRarity = [null, 1, 1, 1, 1, 1, 1, 1];
+    player.talismanLevels = [0, 0, 0, 0, 0, 0, 0];
+    player.talismanRarity = [1, 1, 1, 1, 1, 1, 1];
 
     player.talismanShards = 0;
     player.commonFragments = 0;

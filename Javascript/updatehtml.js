@@ -242,7 +242,7 @@ function revealStuff() {
     player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
         document.getElementById("autotessbuyeramount").style.display = "block" :
         document.getElementById("autotessbuyeramount").style.display = "none";
-    (player.antUpgrades[12] > 0 || player.ascensionCount > 0) ? //Ant Talisman Unlock, Mortuus
+    (player.antUpgrades[12-1] > 0 || player.ascensionCount > 0) ? //Ant Talisman Unlock, Mortuus
         document.getElementById("talisman6area").style.display = "block" :
         document.getElementById("talisman6area").style.display = "none";
 
@@ -635,7 +635,7 @@ function buttoncolorchange() {
             (player.antPoints.greaterThanOrEqualTo(player[ordinals[i - 1] + 'CostAnts'])) ? document.getElementById("anttier" + i).style.backgroundColor = "white" : document.getElementById("anttier" + i).style.backgroundColor = "#171717";
         }
         for (let i = 1; i <= 12; i++) {
-            if (player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i] * extinctionMultiplier[player.usedCorruptions[10]]).times(antUpgradeBaseCost[i]))) {
+            if (player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i-1] * extinctionMultiplier[player.usedCorruptions[10]]).times(antUpgradeBaseCost[i]))) {
                 document.getElementById("antUpgrade" + i).style.backgroundColor = "silver"
             } else {
                 document.getElementById("antUpgrade" + i).style.backgroundColor = "#171717";
