@@ -148,16 +148,22 @@ function buyAnts(i) {
 }
 
 
-function getAntCost(originalCost, buyTo, type, index) {
+function getAntCost(originalCost, buyTo, index) {
     --buyTo
 
     //Determine how much the cost is for buyTo
-    let cost = originalCost.times(Decimal.pow(antCostGrowth[index], buyTo));
-    cost.add(1 * buyTo)
+    const cost = originalCost
+        .times(Decimal.pow(antCostGrowth[index], buyTo))
+        .add(1 * buyTo);
 
     return cost;
+}
 
+function getAntUpgradeCost(originalCost, buyTo, index) {
+    --buyTo
 
+    const cost = originalCost.times(Decimal.pow(antUpgradeCostIncreases[index], buyTo));
+    return cost;
 }
 
 //Note to self: REWRITE THIS SHIT PLATONIC
@@ -167,25 +173,19 @@ function buyAntProducers(pos, type, originalCost, index) {
 
     //Things we need: the position of producers, the costvalues, and input var i
     originalCost = new Decimal(originalCost)
-    let tag = ""
-
     //Initiate type of resource used
-    if (index === 1) {
-        tag = "reincarnationPoints"
-    } else {
-        tag = "antPoints"
-    }
+    const tag = index === 1 ? 'reincarnationPoints' : 'antPoints';
 
     let buyTo = player[pos + "Owned" + type] + 1;
-    let cashToBuy = getAntCost(originalCost, buyTo, type, index);
+    let cashToBuy = getAntCost(originalCost, buyTo, index);
     while (player[tag].greaterThanOrEqualTo(cashToBuy)) {
         // Multiply by 4 until the desired amount. Iterate from there
         buyTo = buyTo * 4;
-        cashToBuy = getAntCost(originalCost, buyTo, type, index);
+        cashToBuy = getAntCost(originalCost, buyTo, index);
     }
     let stepdown = Math.floor(buyTo / 8);
     while (stepdown !== 0) {
-        if (getAntCost(originalCost, buyTo - stepdown, type, index).lessThanOrEqualTo(player[tag])) {
+        if (getAntCost(originalCost, buyTo - stepdown, index).lessThanOrEqualTo(player[tag])) {
             stepdown = Math.floor(stepdown / 2);
         } else {
             buyTo = buyTo - stepdown;
@@ -199,12 +199,12 @@ function buyAntProducers(pos, type, originalCost, index) {
     }
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
     let buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
-    let thisCost = getAntCost(originalCost, buyFrom, type, index);
-    while (buyFrom <= buyTo && player[tag].greaterThanOrEqualTo(getAntCost(originalCost, buyFrom, type, index))) {
+    let thisCost = getAntCost(originalCost, buyFrom, index);
+    while (buyFrom <= buyTo && player[tag].greaterThanOrEqualTo(getAntCost(originalCost, buyFrom, index))) {
         player[tag] = player[tag].sub(thisCost);
         player[pos + 'Owned' + type] = buyFrom;
         buyFrom = buyFrom + 1;
-        thisCost = getAntCost(originalCost, buyFrom, type, index);
+        thisCost = getAntCost(originalCost, buyFrom, index);
         player[pos + 'Cost' + type] = thisCost;
     }
     if (player.reincarnationPoints.lessThan(0)) {
@@ -215,8 +215,8 @@ function buyAntProducers(pos, type, originalCost, index) {
     }
     calculateAntSacrificeELO();
 
-    let achRequirements = [2, 6, 20, 100, 500, 6666, 77777]
-    for (let j = 0; j < 7; j++) {
+    const achRequirements = [2, 6, 20, 100, 500, 6666, 77777];
+    for (let j = 0; j < achRequirements.length; j++) {
         if (sacrificeMult > achRequirements[j] && player[ordinals[j + 1] + "OwnedAnts"] > 0 && player.achievements[176 + j] === 0) {
             achievementaward(176 + j)
         }
@@ -225,15 +225,6 @@ function buyAntProducers(pos, type, originalCost, index) {
     if(player.firstOwnedAnts > 6.9e7){
         player.firstOwnedAnts = 6.9e7
     }
-}
-
-function getAntUpgradeCost(originalCost, buyTo, index) {
-    --buyTo
-
-    let cost = originalCost.times(Decimal.pow(antUpgradeCostIncreases[index], buyTo))
-    return cost;
-
-
 }
 
 function buyAntUpgrade(originalCost, auto, index) {
@@ -282,21 +273,20 @@ function buyAntUpgrade(originalCost, auto, index) {
 
 
 function antUpgradeDescription(i) {
-    let el = document.getElementById("antspecies")
-    let la = document.getElementById("antupgradedescription")
-    let ti = document.getElementById("antupgradecost")
-    let me = document.getElementById("antupgradeeffect")
+    const el = document.getElementById("antspecies")
+    const al = document.getElementById("antlevelbonus");
+    const la = document.getElementById("antupgradedescription")
+    const ti = document.getElementById("antupgradecost")
+    const me = document.getElementById("antupgradeeffect")
 
-    let content1 = antspecies["antspecies" + i];
-    let content2 = antupgdesc["antupgdesc" + i];
-    let bonuslevel = window["bonusant" + i];
+    const content1 = antspecies["antspecies" + i];
+    const content2 = antupgdesc["antupgdesc" + i];
+    const bonuslevel = window["bonusant" + i];
 
-    let c11 = 0;
-    if (player.currentChallenge.ascension === 11) {
-        c11 = 999
-    }
-    document.getElementById("antspecies").childNodes[0].textContent = content1 + " Level " + format(player.antUpgrades[i])
-    document.getElementById("antlevelbonus").textContent = " [+" + format(Math.min(player.antUpgrades[i] + c11, bonuslevel)) + "]"
+    const c11 = player.currentChallenge.ascension === 11 ? 999 : 0;
+
+    el.childNodes[0].textContent = content1 + " Level " + format(player.antUpgrades[i])
+    al.textContent = " [+" + format(Math.min(player.antUpgrades[i] + c11, bonuslevel)) + "]"
     la.textContent = content2
     ti.textContent = "Cost: " + format(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i] * extinctionMultiplier[player.usedCorruptions[10]]).times(antUpgradeBaseCost[i])) + " Galactic Crumbs"
     me.textContent = "CURRENT EFFECT: " + antUpgradeTexts[i]()
@@ -327,7 +317,7 @@ function antSacrificePointsToMultiplier(points) {
 }
 
 function showSacrifice() {
-    let sacRewards = calculateAntSacrificeRewards();
+    const sacRewards = calculateAntSacrificeRewards();
     document.getElementById("antSacrificeSummary").style.display = "block"
 
     document.getElementById("antELO").childNodes[0].textContent = "Your Ant ELO is "
@@ -352,10 +342,8 @@ function showSacrifice() {
     }
 }
 
-function sacrificeAnts(auto) {
+function sacrificeAnts(auto = false) {
     let historyEntry = {};
-
-    auto = auto || false
     let p = true
 
     if (player.antPoints.greaterThanOrEqualTo("1e40")) {
@@ -415,7 +403,7 @@ function sacrificeAnts(auto) {
             player.antSacrificeTimerReal = 0;
             updateTalismanInventory();
             if (player.autoResearch > 0 && player.autoResearchToggle) {
-                let linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
+                const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
                 buyResearch(player.autoResearch, true, linGrowth)
             }
             calculateAntSacrificeELO();
@@ -431,8 +419,8 @@ function sacrificeAnts(auto) {
 
 function autoBuyAnts() {
     const canAffordUpgrade = (x, m) => player.antPoints.greaterThanOrEqualTo(getAntUpgradeCost(new Decimal(antUpgradeBaseCost[x]), player.antUpgrades[x] + 1, x).times(m))
-    let ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
-    let cost = ["100", "100", "1000", "1000", "1e5", "1e6", "1e8", "1e11", "1e15", "1e20", "1e40", "1e100"];
+    const ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
+    const cost = ["100", "100", "1000", "1000", "1e5", "1e6", "1e8", "1e11", "1e15", "1e20", "1e40", "1e100"];
     if (player.currentChallenge.ascension !== 11) {
         for (let i = 1; i <= ach.length; i++) {
             let check = i === 12 ? player.researches[ach[i - 1]] : player.achievements[ach[i - 1]];
@@ -442,13 +430,13 @@ function autoBuyAnts() {
         }
     }
 
-    ach = [173, 176, 177, 178, 179, 180, 181, 182];
-    cost = ["1e800", "3", "100", "10000", "1e12", "1e36", "1e100", "1e300"];
-    for (let i = 1; i <= ach.length; i++) {
+    const _ach = [173, 176, 177, 178, 179, 180, 181, 182];
+    const _cost = ["1e800", "3", "100", "10000", "1e12", "1e36", "1e100", "1e300"];
+    for (let i = 1; i <= _ach.length; i++) {
         let res = i === 1 ? player.reincarnationPoints : player.antPoints;
         let m = i === 1 ? 1 : 2; // no multiplier on the first ant cost because it costs particles
-        if (player.achievements[ach[i - 1]] && res.greaterThanOrEqualTo(player[ordinals[i - 1] + "CostAnts"].times(m))) {
-            buyAntProducers(ordinals[i - 1], "Ants", cost[i - 1], i);
+        if (player.achievements[_ach[i - 1]] && res.greaterThanOrEqualTo(player[ordinals[i - 1] + "CostAnts"].times(m))) {
+            buyAntProducers(ordinals[i - 1], "Ants", _cost[i - 1], i);
         }
     }
 }

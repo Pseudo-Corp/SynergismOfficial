@@ -342,22 +342,15 @@ function getCost(originalCost, buyingTo, type, num, r) {
     return cost;
 }
 
-function buyMax(pos, type, num, originalCost, autobuyer = false) {
-    autobuyer = autobuyer || false;
-    let tag = "";
+function buyMax(pos, type, num, originalCost) {
     const r = getReductionValue();
 
-    if (type === 'Diamonds') {
-        tag = "prestigePoints";
-    }
-    if (type === 'Mythos') {
-        tag = "transcendPoints";
-    }
-    if (type === 'Particles') {
-        tag = "reincarnationPoints";
-    }
-    if (type === "Coin") {
-        tag = "coins";
+    let tag = '';
+    switch (type) {
+        case 'Diamonds': tag = 'prestigePoints'; break;
+        case 'Mythos': tag = 'transcendPoints'; break;
+        case 'Particles': tag = 'reincarnationPoints'; break;
+        case 'Coin': tag = 'coins'; break;
     }
 
     // Start buying at the current amount bought + 1
@@ -390,6 +383,7 @@ function buyMax(pos, type, num, originalCost, autobuyer = false) {
     }
 }
 
+// TODO: clean
 function buyProducer(pos, type, num, autobuyer) {
     let amounttype;
     let buythisamount = 0;

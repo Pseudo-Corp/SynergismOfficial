@@ -1,4 +1,5 @@
-var achievementpointvalues = [0, 1, 2, 4, 6, 8, 9, 10,
+const achievementpointvalues = [0, 
+    1, 2, 4, 6, 8, 9, 10,
     1, 2, 4, 6, 8, 9, 10,
     1, 2, 4, 6, 8, 9, 10,
     1, 2, 4, 6, 8, 9, 10,
@@ -33,14 +34,12 @@ var achievementpointvalues = [0, 1, 2, 4, 6, 8, 9, 10,
     20, 40, 40, 60, 60, 100, 100,
     40, 60, 100, 60, 100, 100, 40,
     40, 40, 40, 40, 40, 40, 40,
-    40, 40, 40, 40, 100, 100, 0]
+    40, 40, 40, 40, 100, 100, 0
+];
 
-var totalachievementpoints = achievementpointvalues.reduce(function (a, b) {
-    return a + b
-}, 0);
+const totalachievementpoints = achievementpointvalues.reduce((a, b) => a + b, 0);
 
-let adesc;
-adesc = {
+const adesc = {
     adesc1: "A Loyal Employee: Hire your first worker.",
     adesc2: "Small Business: Hire 10 workers.",
     adesc3: "Now we're synergizing!: Hire 100 workers.",
@@ -440,6 +439,7 @@ areward = {
     areward251: "You gain a permanent +100% Obtainium and Offering bonus, with +10% all cube types!"
 }
 
+// TODO: clean this up
 function resetachievementcheck(i) {
     if (i === 1) {
         if (player.prestigenoaccelerator === true) {
@@ -827,116 +827,60 @@ function challengeachievementcheck(i, auto) {
     }
 }
 
-function buildingAchievementCheck() {
-    if (player.firstOwnedCoin >= 1 && player.achievements[1] < 0.5) {
-        achievementaward(1)
-    }
-    if (player.firstOwnedCoin >= 10 && player.achievements[2] < 0.5) {
-        achievementaward(2)
-    }
-    if (player.firstOwnedCoin >= 100 && player.achievements[3] < 0.5) {
-        achievementaward(3)
-    }
-    if (player.firstOwnedCoin >= 1000 && player.achievements[4] < 0.5) {
-        achievementaward(4)
-    }
-    if (player.firstOwnedCoin >= 5000 && player.achievements[5] < 0.5) {
-        achievementaward(5)
-    }
-    if (player.firstOwnedCoin >= 10000 && player.achievements[6] < 0.5) {
-        achievementaward(6)
-    }
-    if (player.firstOwnedCoin >= 20000 && player.achievements[7] < 0.5) {
-        achievementaward(7)
-    }
-    if (player.secondOwnedCoin >= 1 && player.achievements[8] < 0.5) {
-        achievementaward(8)
-    }
-    if (player.secondOwnedCoin >= 10 && player.achievements[9] < 0.5) {
-        achievementaward(9)
-    }
-    if (player.secondOwnedCoin >= 100 && player.achievements[10] < 0.5) {
-        achievementaward(10)
-    }
-    if (player.secondOwnedCoin >= 1000 && player.achievements[11] < 0.5) {
-        achievementaward(11)
-    }
-    if (player.secondOwnedCoin >= 5000 && player.achievements[12] < 0.5) {
-        achievementaward(12)
-    }
-    if (player.secondOwnedCoin >= 10000 && player.achievements[13] < 0.5) {
-        achievementaward(13)
-    }
-    if (player.secondOwnedCoin >= 20000 && player.achievements[14] < 0.5) {
-        achievementaward(14)
-    }
-    if (player.thirdOwnedCoin >= 1 && player.achievements[15] < 0.5) {
-        achievementaward(15)
-    }
-    if (player.thirdOwnedCoin >= 10 && player.achievements[16] < 0.5) {
-        achievementaward(16)
-    }
-    if (player.thirdOwnedCoin >= 100 && player.achievements[17] < 0.5) {
-        achievementaward(17)
-    }
-    if (player.thirdOwnedCoin >= 1000 && player.achievements[18] < 0.5) {
-        achievementaward(18)
-    }
-    if (player.thirdOwnedCoin >= 5000 && player.achievements[19] < 0.5) {
-        achievementaward(19)
-    }
-    if (player.thirdOwnedCoin >= 10000 && player.achievements[20] < 0.5) {
-        achievementaward(20)
-    }
-    if (player.thirdOwnedCoin >= 20000 && player.achievements[21] < 0.5) {
-        achievementaward(21)
-    }
-    if (player.fourthOwnedCoin >= 1 && player.achievements[22] < 0.5) {
-        achievementaward(22)
-    }
-    if (player.fourthOwnedCoin >= 10 && player.achievements[23] < 0.5) {
-        achievementaward(23)
-    }
-    if (player.fourthOwnedCoin >= 100 && player.achievements[24] < 0.5) {
-        achievementaward(24)
-    }
-    if (player.fourthOwnedCoin >= 1000 && player.achievements[25] < 0.5) {
-        achievementaward(25)
-    }
-    if (player.fourthOwnedCoin >= 5000 && player.achievements[26] < 0.5) {
-        achievementaward(26)
-    }
-    if (player.fourthOwnedCoin >= 10000 && player.achievements[27] < 0.5) {
-        achievementaward(27)
-    }
-    if (player.fourthOwnedCoin >= 20000 && player.achievements[28] < 0.5) {
-        achievementaward(28)
-    }
-    if (player.fifthOwnedCoin >= 1 && player.achievements[29] < 0.5) {
-        achievementaward(29)
-    }
-    if (player.fifthOwnedCoin >= 10 && player.achievements[30] < 0.5) {
-        achievementaward(30)
-    }
-    if (player.fifthOwnedCoin >= 66 && player.achievements[31] < 0.5) {
-        achievementaward(31)
-    }
-    if (player.fifthOwnedCoin >= 666 && player.achievements[32] < 0.5) {
-        achievementaward(32)
-    }
-    if (player.fifthOwnedCoin >= 6666 && player.achievements[33] < 0.5) {
-        achievementaward(33)
-    }
-    if (player.fifthOwnedCoin >= 17777 && player.achievements[34] < 0.5) {
-        achievementaward(34)
-    }
-    if (player.fifthOwnedCoin >= 42777 && player.achievements[35] < 0.5) {
-        achievementaward(35)
+// \) \{\n\s+achievementaward\(\d+\)\n\s+\}
+
+/**
+ * Requirements for each building achievement
+ * @type {(() => boolean)[]}
+ */
+const buildAchievementReq = [
+    () => player.firstOwnedCoin >= 1 && player.achievements[1] < 0.5,
+    () => player.firstOwnedCoin >= 10 && player.achievements[2] < 0.5,
+    () => player.firstOwnedCoin >= 100 && player.achievements[3] < 0.5,
+    () => player.firstOwnedCoin >= 1000 && player.achievements[4] < 0.5,
+    () => player.firstOwnedCoin >= 5000 && player.achievements[5] < 0.5,
+    () => player.firstOwnedCoin >= 10000 && player.achievements[6] < 0.5,
+    () => player.firstOwnedCoin >= 20000 && player.achievements[7] < 0.5,
+    () => player.secondOwnedCoin >= 1 && player.achievements[8] < 0.5,
+    () => player.secondOwnedCoin >= 10 && player.achievements[9] < 0.5,
+    () => player.secondOwnedCoin >= 100 && player.achievements[10] < 0.5,
+    () => player.secondOwnedCoin >= 1000 && player.achievements[11] < 0.5,
+    () => player.secondOwnedCoin >= 5000 && player.achievements[12] < 0.5,
+    () => player.secondOwnedCoin >= 10000 && player.achievements[13] < 0.5,
+    () => player.secondOwnedCoin >= 20000 && player.achievements[14] < 0.5,
+    () => player.thirdOwnedCoin >= 1 && player.achievements[15] < 0.5,
+    () => player.thirdOwnedCoin >= 10 && player.achievements[16] < 0.5,
+    () => player.thirdOwnedCoin >= 100 && player.achievements[17] < 0.5,
+    () => player.thirdOwnedCoin >= 1000 && player.achievements[18] < 0.5,
+    () => player.thirdOwnedCoin >= 5000 && player.achievements[19] < 0.5,
+    () => player.thirdOwnedCoin >= 10000 && player.achievements[20] < 0.5,
+    () => player.thirdOwnedCoin >= 20000 && player.achievements[21] < 0.5,
+    () => player.fourthOwnedCoin >= 1 && player.achievements[22] < 0.5,
+    () => player.fourthOwnedCoin >= 10 && player.achievements[23] < 0.5,
+    () => player.fourthOwnedCoin >= 100 && player.achievements[24] < 0.5,
+    () => player.fourthOwnedCoin >= 1000 && player.achievements[25] < 0.5,
+    () => player.fourthOwnedCoin >= 5000 && player.achievements[26] < 0.5,
+    () => player.fourthOwnedCoin >= 10000 && player.achievements[27] < 0.5,
+    () => player.fourthOwnedCoin >= 20000 && player.achievements[28] < 0.5,
+    () => player.fifthOwnedCoin >= 1 && player.achievements[29] < 0.5,
+    () => player.fifthOwnedCoin >= 10 && player.achievements[30] < 0.5,
+    () => player.fifthOwnedCoin >= 66 && player.achievements[31] < 0.5,
+    () => player.fifthOwnedCoin >= 666 && player.achievements[32] < 0.5,
+    () => player.fifthOwnedCoin >= 6666 && player.achievements[33] < 0.5,
+    () => player.fifthOwnedCoin >= 17777 && player.achievements[34] < 0.5,
+    () => player.fifthOwnedCoin >= 42777 && player.achievements[35] < 0.5,
+];
+
+const buildingAchievementCheck = () => {
+    for (const req of buildAchievementReq) {
+        if(req()) {
+            const idx = buildAchievementReq.indexOf(req) + 1;
+            achievementaward(idx);
+        }
     }
 }
 
-function ascensionAchievementCheck(i, score) {
-    score = score || 0
+function ascensionAchievementCheck(i, score = 0) {
     if (i === 1) {
         let ascendCountArray = [0, 1, 2, 10, 100, 1000, 14142, 141421, 1414213]
         for (let j = 1; j <= 7; j++) {
@@ -967,20 +911,10 @@ function ascensionAchievementCheck(i, score) {
 }
 
 function achievementdescriptions(i) {
-    let x = "adesc" + i
-    let y = adesc[x]
-    let z = ""
-    let k = ""
+    const y = adesc[`adesc${i}`];
+    const z = player.achievements[i] > 0.5 ? ' COMPLETED!' : '';
+    const k = areward[`areward${i}`] || '';
 
-    let j = "areward" + i
-    k = areward[j]
-    if (k === undefined) {
-        k = ""
-    }
-
-    if (player.achievements[i] > 0.5) {
-        z = z + " COMPLETED!"
-    }
     document.getElementById("achievementdescription").textContent = y + z
     document.getElementById("achievementreward").textContent = "Reward: " + achievementpointvalues[i] + " AP. " + achievementpointvalues[i] + " Quarks! " + k
     if (player.achievements[i] > 0.5) {
@@ -998,7 +932,6 @@ function achievementaward(num) {
         player.achievements[num] = 1;
         revealStuff()
     }
-    let x = "ach" + num
-    document.getElementById(x).style.backgroundColor = "Green"
+    document.getElementById(`ach${num}`).style.backgroundColor = "Green"
 }
 

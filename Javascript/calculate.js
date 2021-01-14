@@ -6,23 +6,19 @@ function sumObject(obj) {
     return (sum)
 }
 
-// Returns the sum of all contents in an array
-function sumContents(array) {
-    let sum = 0;
-    for (let i = 0; i < array.length; ++i) {
-        sum += array[i];
-    }
-    return sum;
-}
+/** 
+ * Returns the sum of all contents in an array
+ * @param array {(number|string)[]}
+ * @returns {number}
+ */
+const sumContents = array => array.reduce((a, b) => a + b, 0);
 
-// Returns the product of all contents in an array
-function productContents(array) {
-    let product = 1;
-    for (let i = 0; i < array.length; ++i) {
-        product *= array[i];
-    }
-    return product;
-}
+/** 
+ * Returns the product of all contents in an array
+ * @param array {number[]}
+ * @returns {number}
+ */
+const productContents = array => array.reduce((a, b) => a * b);
 
 function calculateTotalCoinOwned() {
     totalCoinOwned = player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin;
@@ -186,22 +182,19 @@ function calculateRuneExpGiven(runeIndex, all = false, runeLevel = player.runele
         ])
     ];
 
-    let fact = [
+    const fact = [
         allRuneExpAdditiveMultiplier,
         allRuneExpMultiplier,
         recycleMultiplier,
         runeExpMultiplier[runeIndex]
-    ]
-    if (returnFactors) {
-        return fact
-    } else {
-        return productContents(fact);
-    }
+    ];
+
+    return returnFactors ? fact : productContents(fact);
 }
 
 function lookupTableGen(runeLevel) {
     // Rune exp required to level multipliers
-    let allRuneExpRequiredMultiplier = productContents([
+    const allRuneExpRequiredMultiplier = productContents([
         Math.pow(runeLevel / 2, 3),
         ((3.5 * runeLevel) + 100) / 500,
         Math.max(1, (runeLevel - 200) / 9),
@@ -212,13 +205,13 @@ function lookupTableGen(runeLevel) {
     return allRuneExpRequiredMultiplier
 }
 
-let lookupTableRuneExp = function () {
-    let lookup = {};
-    for (let runeLevel = 0; runeLevel <= 20000; ++runeLevel) {
-        lookup[runeLevel] = lookupTableGen(runeLevel);
-    }
-    return lookup;
-}();
+/**
+ * @type {{ [key: number]: number }}
+ */
+const lookupTableRuneExp = Object.assign(
+    {}, 
+    ...Array.from({ length: 20000 }, (_, i) => ({ [i]: lookupTableGen(i) }))
+);
 
 // Returns the amount of exp required to level a rune
 function calculateRuneExpToLevel(runeIndex, runeLevel = player.runelevels[runeIndex]) {
@@ -316,6 +309,7 @@ function calculateOfferings(i, calcMult = true, statistic = false) {
     }
     q = a + b + c
 
+    // TODO: clean
     let arr = []
     arr.push(1 + 10 * player.achievements[33] / 100) // Alchemy Achievement 5
     arr.push(1 + 15 * player.achievements[34] / 100) // Alchemy Achievement 6
@@ -370,7 +364,7 @@ function calculateOfferings(i, calcMult = true, statistic = false) {
 
 }
 
-function calculateObtainium(calcMult = true) {
+function calculateObtainium() {
     obtainiumGain = 1;
     if (player.upgrades[69] > 0) {
         obtainiumGain *= Math.min(10, Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))
@@ -631,9 +625,7 @@ function calculateAnts() {
 function calculateAntSacrificeELO() {
     antELO = 0;
     effectiveELO = 0;
-    let antUpgradeSum = player.antUpgrades.reduce(function (a, b) {
-        return a + b
-    }, 0);
+    let antUpgradeSum = sumContents(player.antUpgrades);
     if (player.antPoints.greaterThanOrEqualTo("1e40")) {
         antELO += Decimal.log(player.antPoints, 10);
         antELO += 1 / 2 * antUpgradeSum;

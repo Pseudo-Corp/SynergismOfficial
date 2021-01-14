@@ -14,19 +14,8 @@ function buyGenerator(i, state, auto) {
     let achievementCheck = Math.max(player.upgrades[101], player.upgrades[102], player.upgrades[103], player.upgrades[104], player.upgrades[105])
 
     if (player.upgrades[q] === 0 && player[type].greaterThanOrEqualTo(cost)) {
-        if (achievementCheck === 0) {
-            if (q === 102) {
-                achievementaward(71)
-            }
-            if (q === 103) {
-                achievementaward(72)
-            }
-            if (q === 104) {
-                achievementaward(73)
-            }
-            if (q === 105) {
-                achievementaward(74)
-            }
+        if (achievementCheck === 0 && q >= 102 && q <= 105) {
+            achievementaward(q - 31);
         }
         player[type] = player[type].sub(cost);
         player.upgrades[q] = 1;
@@ -57,6 +46,7 @@ function buyAutobuyers(i, state) {
     }
 }
 
+// TODO: clean this crap up
 function autoUpgrades() {
     if (player.upgrades[90] > 0.5 && player.shoptoggles.generators === true) {
 

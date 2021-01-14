@@ -18,16 +18,15 @@ const format12 = new Intl.DateTimeFormat("EN-GB", {
 })
 
 function getRealTime(use12 = false) {
-    let format = use12 ? format12 : format24;
-    let dateParts = format
+    const format = use12 ? format12 : format24;
+    const dateParts = Object.assign({}, ...format
         .formatToParts(new Date())
         .filter((x) => x.type !== "literal")
-        .reduce((a, x) => {
-            a[x.type] = x.value;
-            return a
-        }, {});
-    return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${(use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : "")}`
-
+        .map(p => ({ [p.type]: p.value }))
+    );
+        
+    const period = use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : '';
+    return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`;
 }
 
 function updateSaveString() {
@@ -36,10 +35,15 @@ function updateSaveString() {
 
 function saveFilename() {
     const s = player.saveString
-    return s
-        .replace("$VERSION$", "v" + player.version)
-        .replace("$TIME$", getRealTime())
-        .replace("$TIME12$", getRealTime(true));
+    const t = s.replace(/\$(.*?)\$/g, (_, b) => {
+        switch (b) {
+            case 'VERSION': return `v${player.version}`;
+            case 'TIME': return getRealTime();
+            case 'TIME12': return getRealTime(true);
+        }
+    });
+
+    return t;
 }
 
 async function exportSynergism() {
@@ -91,15 +95,10 @@ async function exportSynergism() {
 }
 
 const resetGame = () => {
-    if (blank_save) {
-        const hold = Object.assign({}, blank_save);
-        hold.codes = toStringMap(hold.codes);
+    const hold = Object.assign({}, blank_save);
+    hold.codes = toStringMap(hold.codes);
 
-        importSynergism(btoa(JSON.stringify(hold)));
-    } else {
-        // handle this here
-        // idk lol
-    }
+    importSynergism(btoa(JSON.stringify(hold)));
 }
 
 function importSynergism(input) {

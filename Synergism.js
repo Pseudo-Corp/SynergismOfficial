@@ -2630,19 +2630,19 @@ function updateAll() {
 //Autobuy "Building" Tab
 
     if (player.toggles[1] === true && player.upgrades[81] === 1 && player.coins.greaterThanOrEqualTo(player.firstCostCoin)) {
-        buyMax('first', 'Coin', 1, 100, true)
+        buyMax('first', 'Coin', 1, 100)
     }
     if (player.toggles[2] === true && player.upgrades[82] === 1 && player.coins.greaterThanOrEqualTo(player.secondCostCoin)) {
-        buyMax('second', 'Coin', 2, 2e3, true)
+        buyMax('second', 'Coin', 2, 2e3)
     }
     if (player.toggles[3] === true && player.upgrades[83] === 1 && player.coins.greaterThanOrEqualTo(player.thirdCostCoin)) {
-        buyMax('third', 'Coin', 3, 4e4, true)
+        buyMax('third', 'Coin', 3, 4e4)
     }
     if (player.toggles[4] === true && player.upgrades[84] === 1 && player.coins.greaterThanOrEqualTo(player.fourthCostCoin)) {
-        buyMax('fourth', 'Coin', 4, 8e5, true)
+        buyMax('fourth', 'Coin', 4, 8e5)
     }
     if (player.toggles[5] === true && player.upgrades[85] === 1 && player.coins.greaterThanOrEqualTo(player.fifthCostCoin)) {
-        buyMax('fifth', 'Coin', 5, 1.6e7, true)
+        buyMax('fifth', 'Coin', 5, 1.6e7)
     }
     if (player.toggles[6] === true && player.upgrades[86] === 1 && player.coins.greaterThanOrEqualTo(player.acceleratorCost)) {
         buyAccelerator(true);
@@ -2657,19 +2657,19 @@ function updateAll() {
 //Autobuy "Prestige" Tab
 
     if (player.toggles[10] === true && player.achievements[78] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.firstCostDiamonds)) {
-        buyMax('first', 'Diamonds', 1, 1e2, true)
+        buyMax('first', 'Diamonds', 1, 1e2)
     }
     if (player.toggles[11] === true && player.achievements[85] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.secondCostDiamonds)) {
-        buyMax('second', 'Diamonds', 3, 1e5, true)
+        buyMax('second', 'Diamonds', 3, 1e5)
     }
     if (player.toggles[12] === true && player.achievements[92] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.thirdCostDiamonds)) {
-        buyMax('third', 'Diamonds', 6, 1e15, true)
+        buyMax('third', 'Diamonds', 6, 1e15)
     }
     if (player.toggles[13] === true && player.achievements[99] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.fourthCostDiamonds)) {
-        buyMax('fourth', 'Diamonds', 10, 1e40, true)
+        buyMax('fourth', 'Diamonds', 10, 1e40)
     }
     if (player.toggles[14] === true && player.achievements[106] === 1 && player.prestigePoints.greaterThanOrEqualTo(player.fifthCostDiamonds)) {
-        buyMax('fifth', 'Diamonds', 15, 1e100, true)
+        buyMax('fifth', 'Diamonds', 15, 1e100)
     }
 
     let c = 0;
@@ -2696,19 +2696,19 @@ function updateAll() {
 //Autobuy "Transcension" Tab
 
     if (player.toggles[16] === true && player.upgrades[94] === 1 && player.transcendPoints.greaterThanOrEqualTo(player.firstCostMythos)) {
-        buyMax('first', 'Mythos', 1, 1, true)
+        buyMax('first', 'Mythos', 1, 1)
     }
     if (player.toggles[17] === true && player.upgrades[95] === 1 && player.transcendPoints.greaterThanOrEqualTo(player.secondCostMythos)) {
-        buyMax('second', 'Mythos', 3, 1e2, true)
+        buyMax('second', 'Mythos', 3, 1e2)
     }
     if (player.toggles[18] === true && player.upgrades[96] === 1 && player.transcendPoints.greaterThanOrEqualTo(player.thirdCostMythos)) {
-        buyMax('third', 'Mythos', 6, 1e4, true)
+        buyMax('third', 'Mythos', 6, 1e4)
     }
     if (player.toggles[19] === true && player.upgrades[97] === 1 && player.transcendPoints.greaterThanOrEqualTo(player.fourthCostMythos)) {
-        buyMax('fourth', 'Mythos', 10, 1e8, true)
+        buyMax('fourth', 'Mythos', 10, 1e8)
     }
     if (player.toggles[20] === true && player.upgrades[98] === 1 && player.transcendPoints.greaterThanOrEqualTo(player.fifthCostMythos)) {
-        buyMax('fifth', 'Mythos', 15, 1e16, true)
+        buyMax('fifth', 'Mythos', 15, 1e16)
     }
 
 //Autobuy "Reincarnation" Tab
@@ -3230,7 +3230,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             pos = 'first';
             num = 1;
             if (currentTab === "buildings") {
-                buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[1]) : buyMax(pos, type, num, cost[1], false)
+                buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[1]) : buyMax(pos, type, num, cost[1])
             }
             if (currentTab === "runes") {
                 if (runescreen === "runes") {
@@ -3253,7 +3253,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             pos = 'second';
             buildingSubTab === "coin" ? num = 2 : num = 3
             if (currentTab === "buildings") {
-                buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[2]) : buyMax(pos, type, num, cost[2], false)
+                buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[2]) : buyMax(pos, type, num, cost[2])
             }
             if (currentTab === "runes") {
                 if (runescreen === "runes") {
@@ -3275,7 +3275,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             pos = 'third';
             buildingSubTab === "coin" ? num = 3 : num = 6
             if (currentTab === "buildings") {
-                buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[3]) : buyMax(pos, type, num, cost[3], false)
+                buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[3]) : buyMax(pos, type, num, cost[3])
             }
             if (currentTab === "runes") {
                 if (runescreen === "runes") {
@@ -3297,7 +3297,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             pos = 'fourth';
             buildingSubTab === "coin" ? num = 4 : num = 10
             if (currentTab === "buildings") {
-                buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[4]) : buyMax(pos, type, num, cost[4], false)
+                buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[4]) : buyMax(pos, type, num, cost[4])
             }
             if (currentTab === "runes") {
                 if (runescreen === "runes") {
@@ -3319,7 +3319,7 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
             pos = 'fifth';
             buildingSubTab === "coin" ? num = 5 : num = 15
             if (currentTab === "buildings") {
-                buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[5]) : buyMax(pos, type, num, cost[5], false)
+                buildingSubTab === "particle" ? buyParticleBuilding(pos, cost[5]) : buyMax(pos, type, num, cost[5])
             }
             if (currentTab === "runes") {
                 if (runescreen === "runes") {
