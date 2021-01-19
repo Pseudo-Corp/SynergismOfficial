@@ -388,31 +388,31 @@ export function calculateOfferings(i: number, calcMult = true, statistic = false
         cashGrabLevel
     } = player.shopUpgrades as Record<string, number>;
 
-    // TODO: clean
-    let arr = []
-    arr.push(1 + 10 * player.achievements[33] / 100) // Alchemy Achievement 5
-    arr.push(1 + 15 * player.achievements[34] / 100) // Alchemy Achievement 6
-    arr.push(1 + 25 * player.achievements[35] / 100) // Alchemy Achievement 7
-    arr.push(1 + 20 * player.upgrades[38] / 100) // Diamond Upgrade 4x3
-    arr.push(1 + player.upgrades[75] * 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5))) // Particle Upgrade 3x5
-    arr.push(1 + 1 / 50 * offeringAutoLevel); // Auto Offering Shop
-    arr.push(1 + 1 / 400 * Math.pow(offeringTimerLevel, 2)) // Offering EX Shop
-    arr.push(1 + 1 / 100 * cashGrabLevel) // Cash Grab
-    arr.push(1 + 1 / 10000 * sumContents(player.challengecompletions) * player.researches[85]) //Research 4x10
-    arr.push(1 + Math.pow((player.antUpgrades[6-1] + bonusant6), .66)) // Ant Upgrade:
-    arr.push(cubeBonusMultiplier[3]) // Brutus
-    arr.push(1 + 0.02 * player.constantUpgrades[3]) // Constant Upgrade 3
-    arr.push(1 + 0.0003 * player.talismanLevels[3-1] * player.researches[149] + 0.0004 * player.talismanLevels[3-1] * player.researches[179]) //Research 6x24,8x4
-    arr.push(1 + 0.12 * CalcECC('ascension', player.challengecompletions[12])) // Challenge 12
-    arr.push(1 + 0.01 / 100 * player.researches[200]) // Research 8x25
-    arr.push(1 + Math.min(1, player.ascensionCount / 1e6) * player.achievements[187]) //Ascension Count Achievement
-    arr.push(1 + .6 * player.achievements[250] + 1 * player.achievements[251]) //Sun&Moon Achievements
-    arr.push(1 + 0.05 * player.cubeUpgrades[46]) // Cube Upgrade 5x6
-    arr.push(1 + 0.02 / 100 * player.cubeUpgrades[50]) // Cube Upgrade 5x10
-    arr.push(1 + player.platonicUpgrades[5]) //Platonic ALPHA
-    arr.push(1 + 2.5 * player.platonicUpgrades[10]) //Platonic BETA
-    arr.push(1 + 5 * player.platonicUpgrades[15]) //Platonic OMEGA
-    arr.push(challenge15Rewards.offering) //C15 Reward
+    const arr = [
+        1 + 10 * player.achievements[33] / 100, // Alchemy Achievement 5
+        1 + 15 * player.achievements[34] / 100, // Alchemy Achievement 6
+        1 + 25 * player.achievements[35] / 100, // Alchemy Achievement 7
+        1 + 20 * player.upgrades[38] / 100, // Diamond Upgrade 4x3
+        1 + player.upgrades[75] * 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)), // Particle Upgrade 3x5
+        1 + 1 / 50 * offeringAutoLevel, // Auto Offering Shop
+        1 + 1 / 400 * Math.pow(offeringTimerLevel, 2), // Offering EX Shop
+        1 + 1 / 100 * cashGrabLevel, // Cash Grab
+        1 + 1 / 10000 * sumContents(player.challengecompletions) * player.researches[85], // Research 4x10
+        1 + Math.pow((player.antUpgrades[6-1] + bonusant6), .66), // Ant Upgrade:
+        cubeBonusMultiplier[3], // Brutus
+        1 + 0.02 * player.constantUpgrades[3], // Constant Upgrade 3
+        1 + 0.0003 * player.talismanLevels[3-1] * player.researches[149] + 0.0004 * player.talismanLevels[3-1] * player.researches[179], // Research 6x24,8x4
+        1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]), // Challenge 12
+        1 + 0.01 / 100 * player.researches[200], // Research 8x25
+        1 + Math.min(1, player.ascensionCount / 1e6) * player.achievements[187], // Ascension Count Achievement
+        1 + .6 * player.achievements[250] + 1 * player.achievements[251], // Sun&Moon Achievements
+        1 + 0.05 * player.cubeUpgrades[46],  // Cube Upgrade 5x6
+        1 + 0.02 / 100 * player.cubeUpgrades[50],  // Cube Upgrade 5x10
+        1 + player.platonicUpgrades[5],  // Platonic ALPHA
+        1 + 2.5 * player.platonicUpgrades[10], // Platonic BETA
+        1 + 5 * player.platonicUpgrades[15], // Platonic OMEGA
+        challenge15Rewards.offering, // C15 Reward
+    ];
 
     if (calcMult) {
         q *= productContents(arr)
@@ -439,8 +439,8 @@ export function calculateOfferings(i: number, calcMult = true, statistic = false
     if (persecond > player.offeringpersecond) {
         player.offeringpersecond = persecond
     }
-    return (q);
 
+    return q;
 }
 
 export const calculateObtainium = () => {
@@ -962,34 +962,35 @@ export const calculateCubeBlessings = () => {
 export function calculateCubeMultiplier(): number;
 export function calculateCubeMultiplier(calcMult: boolean): number[];
 export function calculateCubeMultiplier(calcMult: boolean = true) {
-    let arr = [];
-    arr.push(Math.pow(Math.min(1, player.ascensionCounter / 10), 2) * (1 + (1 / 4 * player.achievements[204] + 1 / 4 * player.achievements[211] + 1 / 2 * player.achievements[218]) * Math.max(0, player.ascensionCounter / 10 - 1)))
-    arr.push(1 + 3 / 100 * (player.shopUpgrades.seasonPassLevel as number))
-    arr.push(1 + player.researches[119] / 400);
-    arr.push(1 + player.researches[120] / 400);
-    arr.push(1 + 14 * player.cubeUpgrades[1] / 100);
-    arr.push(1 + 7 * player.cubeUpgrades[11] / 100);
-    arr.push(1 + 7 * player.cubeUpgrades[21] / 100);
-    arr.push(1 + 7 * player.cubeUpgrades[31] / 100);
-    arr.push(1 + 7 * player.cubeUpgrades[41] / 100);
-    arr.push(1 + player.researches[137] / 100);
-    arr.push(1 + 0.9 * player.researches[152] / 100);
-    arr.push(1 + 0.8 * player.researches[167] / 100);
-    arr.push(1 + 0.7 * player.researches[182] / 100);
-    arr.push(1 + 0.6 * player.researches[197] / 100);
-    arr.push(1 + player.achievements[189] * Math.min(2, player.ascensionCount / 2.5e8));
-    arr.push(1 + 0.03 / 100 * player.researches[192] * player.antUpgrades[12-1]);
-    arr.push(1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2]);
-    arr.push(1 + 0.004 / 100 * player.researches[200]);
-    arr.push(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]));
-    arr.push(1 + 0.25 * player.cubeUpgrades[30])
-    arr.push(1 + player.achievements[193] * Decimal.log(player.ascendShards.add(1), 10) / 400);
-    arr.push(1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1), 10) / 400);
-    arr.push(1 + 4 / 100 * (player.achievements[198] + player.achievements[199] + player.achievements[200]) + 3 / 100 * player.achievements[201])
-    arr.push(1 + player.achievements[240] * Math.max(0.1, 1 / 20 * Math.log(calculateTimeAcceleration() + 0.01) / Math.log(10)))
-    arr.push(1 + 6 / 100 * player.achievements[250] + 10 / 100 * player.achievements[251])
-    arr.push(platonicBonusMultiplier[0])
-    arr.push(challenge15Rewards.cube1 * challenge15Rewards.cube2 * challenge15Rewards.cube3 * challenge15Rewards.cube4)
+    const arr = [
+        Math.pow(Math.min(1, player.ascensionCounter / 10), 2) * (1 + (1 / 4 * player.achievements[204] + 1 / 4 * player.achievements[211] + 1 / 2 * player.achievements[218]) * Math.max(0, player.ascensionCounter / 10 - 1)),
+        1 + 3 / 100 * (player.shopUpgrades.seasonPassLevel as number),
+        1 + player.researches[119] / 400,
+        1 + player.researches[120] / 400,
+        1 + 14 * player.cubeUpgrades[1] / 100,
+        1 + 7 * player.cubeUpgrades[11] / 100,
+        1 + 7 * player.cubeUpgrades[21] / 100,
+        1 + 7 * player.cubeUpgrades[31] / 100,
+        1 + 7 * player.cubeUpgrades[41] / 100,
+        1 + player.researches[137] / 100,
+        1 + 0.9 * player.researches[152] / 100,
+        1 + 0.8 * player.researches[167] / 100,
+        1 + 0.7 * player.researches[182] / 100,
+        1 + 0.6 * player.researches[197] / 100,
+        1 + player.achievements[189] * Math.min(2, player.ascensionCount / 2.5e8),
+        1 + 0.03 / 100 * player.researches[192] * player.antUpgrades[12-1],
+        1 + calculateCorruptionPoints() / 400 * effectiveRuneSpiritPower[2],
+        1 + 0.004 / 100 * player.researches[200],
+        1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]),
+        1 + 0.25 * player.cubeUpgrades[30],
+        1 + player.achievements[193] * Decimal.log(player.ascendShards.add(1), 10) / 400,
+        1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1), 10) / 400,
+        1 + 4 / 100 * (player.achievements[198] + player.achievements[199] + player.achievements[200]) + 3 / 100 * player.achievements[201],
+        1 + player.achievements[240] * Math.max(0.1, 1 / 20 * Math.log(calculateTimeAcceleration() + 0.01) / Math.log(10)),
+        1 + 6 / 100 * player.achievements[250] + 10 / 100 * player.achievements[251],
+        platonicBonusMultiplier[0],
+        challenge15Rewards.cube1 * challenge15Rewards.cube2 * challenge15Rewards.cube3 * challenge15Rewards.cube4
+    ];
     // statistics include everything up to this point
     if (calcMult) {
         return productContents(arr);
@@ -1072,13 +1073,10 @@ export const calculateSummationNonLinear = (
     let alreadySpent = baseCost * (c * Math.pow(baseLevel, 2) + baseLevel * (1 - c))
     resourceAvailable += alreadySpent
     let v = resourceAvailable / baseCost
-    let buyToLevel = 0
-    if (c > 0) {
-        buyToLevel = Math.max(0, Math.floor((c - 1) / (2 * c) + Math.pow(Math.pow(1 - c, 2) + 4 * c * v, 1 / 2) / (2 * c)))
-    }
-    if (c == 0) {
-        buyToLevel = Math.floor(v)
-    }
+    let buyToLevel = c > 0
+        ? Math.max(0, Math.floor((c - 1) / (2 * c) + Math.pow(Math.pow(1 - c, 2) + 4 * c * v, 1 / 2) / (2 * c)))
+        : Math.floor(v);
+
     buyToLevel = Math.min(buyToLevel, buyAmount + baseLevel)
     let totalCost = baseCost * (c * Math.pow(buyToLevel, 2) + buyToLevel * (1 - c)) - alreadySpent
     if (buyToLevel == baseLevel) {
@@ -1231,7 +1229,5 @@ export const dailyResetCheck = () => {
         if (player.challengecompletions[13] > 0) {
             document.getElementById('hypercubeQuarksOpenRequirement').style.display = "block"
         }
-
     }
-
 }

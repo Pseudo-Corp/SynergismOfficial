@@ -402,42 +402,20 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
     if (!fast) revealStuff()
 }
 
-// TODO: clean
-export const returnConstUpgEffect = (i: number) => {
-    let show = "+1"
-    switch (i) {
-        case 1:
-            show = "Tesseract building production x" + format(Decimal.pow(1.05, player.constantUpgrades[1]), 2, true);
-            return show;
-        case 2:
-            show = "Tesseract building production x" + format(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned), 2, true)
-            return show;
-        case 3:
-            show = "Offering gain x" + format(1 + 0.02 * player.constantUpgrades[3], 2, true)
-            return show;
-        case 4:
-            show = "Obtainium gain x" + format(1 + 0.04 * player.constantUpgrades[4], 2, true)
-            return show;
-        case 5:
-            show = "Ant Speed x" + format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]), 2, true)
-            return show;
-        case 6:
-            show = "+" + format(2 * player.constantUpgrades[6]) + " free Ant Levels"
-            return show;
-        case 7:
-            show = "+" + format(7 * player.constantUpgrades[7]) + " free Rune Levels, +" + format(3 * player.constantUpgrades[7]) + " to Rune Cap"
-            return show;
-        case 8:
-            show = "Rune EXP x" + format(1 + 1 / 10 * player.constantUpgrades[8], 2, true)
-            return show;
-        case 9:
-            show = "Runes effectiveness x" + format(1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]), 4, true)
-            return show;
-        case 10:
-            show = "Cubes/Tesseracts on Ascension x" + format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)
-            return show;
-    }
+const constUpgEffect: Record<number, () => string> = {
+    1: () => `Tesseract building production x${format(Decimal.pow(1.05, player.constantUpgrades[1]), 2, true)}`,
+    2: () => `Tesseract building production x${format(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned), 2, true)}`,
+    3: () => `Offering gain x${format(1 + 0.02 * player.constantUpgrades[3], 2, true)}`,
+    4: () => `Obtainium gain x${format(1 + 0.04 * player.constantUpgrades[4], 2, true)}`,        
+    5: () => `Ant Speed x${format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]), 2, true)}`,
+    6: () => `+ ${format(2 * player.constantUpgrades[6])} free Ant Levels`,
+    7: () => `+${format(7 * player.constantUpgrades[7])} free Rune Levels, +${format(3 * player.constantUpgrades[7])} to Rune Cap`,
+    8: () => `Rune EXP x${format(1 + 1 / 10 * player.constantUpgrades[8], 2, true)}`,
+    9: () => `Runes effectiveness x${format(1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]), 4, true)}`,
+    10: () => `Cubes/Tesseracts on Ascension x${format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)}` 
 }
+
+export const returnConstUpgEffect = (i: number) => constUpgEffect[i]?.();
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
     const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(Globals.constUpgradeCosts[i]) / Math.log(10)));

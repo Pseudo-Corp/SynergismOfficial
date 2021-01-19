@@ -461,7 +461,7 @@ export const toggleAutoSacrifice = (index: number) => {
     calculateRuneLevels();
 }
 
-export const toggleBuildingScreen = (input: any) => {
+export const toggleBuildingScreen = (input: string) => {
     buildingSubTab = input
     let screen: Record<string, { screen: string, button: string, subtabNumber: number }> = {
         "coin": {

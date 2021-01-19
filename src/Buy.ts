@@ -409,38 +409,22 @@ export const buyMax = (pos: string, type: string, num: number, originalCost: Dec
     }
 }
 
-// TODO: clean
-export const buyProducer = (pos: string, type: string, num: number, autobuyer: any) => {
-    let amounttype;
-    let buythisamount = 0;
+const buyProducerTypes: Record<string, readonly [string, string]> = {
+    Diamonds: ['prestigePoints', 'crystal'],
+    Mythos: ['transcendPoints', 'mythos'],
+    Particles: ['reincarnationPoints', 'particle'],
+    Coin: ['coins', 'coin']
+} as const;
+
+export const buyProducer = (pos: string, type: string, num: number, autobuyer: boolean) => {
+    const [tag, amounttype] = buyProducerTypes[type];
+    const buythisamount = autobuyer ? 500 : player[`${amounttype}buyamount`];
     let r = 1;
-    let tag = "";
     r += (rune4level * effectiveLevelMult) / 160;
     r += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
     r += CalcECC('transcend', player.challengecompletions[4]) / 200
     r += (3 * (bonusant7 + player.antUpgrades[7-1])) / 100;
-    if (type === 'Diamonds') {
-        tag = "prestigePoints";
-        amounttype = "crystal";
-    }
-    if (type === 'Mythos') {
-        tag = "transcendPoints";
-        amounttype = "mythos"
-    }
-    if (type === 'Particles') {
-        tag = "reincarnationPoints";
-        amounttype = "particle"
-    }
-    if (type === "Coin") {
-        tag = "coins";
-        amounttype = "coin"
-    }
-    if (autobuyer) {
-        buythisamount = 500
-    }
-    if (!autobuyer) {
-        buythisamount = player[amounttype + 'buyamount']
-    }
+    
     while (player[tag].greaterThanOrEqualTo(player[pos + 'Cost' + type]) && ticker < buythisamount) {
         player[tag] = player[tag].sub(player[pos + 'Cost' + type]);
         player[pos + 'Owned' + type] += 1;
@@ -506,12 +490,11 @@ export const buyUpgrades = (type: string, pos: number, state?: boolean) => {
 }
 
 export const calculateCrystalBuy = (i: number) => {
-    let u = i - 1;
-    let exponent = Decimal.log(player.prestigeShards.add(1), 10);
+    const u = i - 1;
+    const exponent = Decimal.log(player.prestigeShards.add(1), 10);
 
-    let toBuy = Math.floor(Math.pow(Math.max(0, 2 * (exponent - crystalUpgradesCost[u]) / crystalUpgradeCostIncrement[u] + 1 / 4), 1 / 2) + 1 / 2)
-    return (toBuy)
-
+    const toBuy = Math.floor(Math.pow(Math.max(0, 2 * (exponent - crystalUpgradesCost[u]) / crystalUpgradeCostIncrement[u] + 1 / 4), 1 / 2) + 1 / 2)
+    return toBuy;
 }
 
 export const buyCrystalUpgrades = (i: number, auto = false) => {
@@ -539,11 +522,9 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 export const boostAccelerator = (automated?: boolean) => {
     let buyamount = 1;
     if (player.upgrades[46] === 1) {
-        buyamount = player.coinbuyamount;
-        if (automated === true) {
-            buyamount = 9999
-        }
+        buyamount = automated ? 9999 : player.coinbuyamount;
     }
+
     let ticker = 0
     if (player.upgrades[46] < 1) {
         while (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost) && ticker < buyamount) {
@@ -652,7 +633,7 @@ const getParticleCost = (originalCost: DecimalSource, buyTo: number) => {
     return (cost)
 }
 
-export const buyParticleBuilding = (pos: string, originalCost: any, autobuyer = false) => {
+export const buyParticleBuilding = (pos: string, originalCost: DecimalSource, autobuyer = false) => {
     let buyTo = player[pos + 'OwnedParticles'] + 1;
     let cashToBuy = getParticleCost(originalCost, buyTo);
     while (player.reincarnationPoints.greaterThanOrEqualTo(cashToBuy)) {

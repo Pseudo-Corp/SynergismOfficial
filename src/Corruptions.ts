@@ -25,7 +25,7 @@ export const corruptionDisplay = (index: number) => {
         document.getElementById("corruptionSelectedPic").style.visibility = "visible"
     }
     corruptionTrigger = index
-    let corruptionTexts: Record<number, any> = {
+    let corruptionTexts: Record<number, Record<string, string>> = {
         1: {
             name: "Corruption I: Divisiveness",
             description: "Your multipliers get disintegrated! Is extra devious without also using Maladaption Corruption",
