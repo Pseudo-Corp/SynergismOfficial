@@ -3,6 +3,8 @@ import Decimal, { DecimalSource } from 'break_infinity.js';
 import { isDecimal } from './Utility';
 import { antSacrificePointsToMultiplier } from './Ants';
 
+// TODO: no explanation needed
+
 type Category = 'ants' | 'reset' | 'ascend';
 
 // This doesn't pass the extra args to format, and that's on purpose

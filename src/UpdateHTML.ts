@@ -457,8 +457,21 @@ export const hideStuff = () => {
     }
 }
 
-export const htmlInserts = () => {
+const visualTab: Record<string, () => void> = {
+    buildings: visualUpdateBuildings,
+    upgrades: visualUpdateUpgrades,
+    achievements: visualUpdateAchievements,
+    runes: visualUpdateRunes,
+    challenges: visualUpdateChallenges,
+    research: visualUpdateResearch,
+    settings: visualUpdateSettings,
+    shop: visualUpdateShop,
+    ants: visualUpdateAnts,
+    cubes: visualUpdateCubes,
+    traits: visualUpdateCorruptions
+}
 
+export const htmlInserts = () => {
     // ALWAYS Update these, for they are the most important resources
     document.getElementById("coinDisplay").textContent = format(player.coins)
     document.getElementById("offeringDisplay").textContent = format(player.runeshards)
@@ -471,41 +484,7 @@ export const htmlInserts = () => {
 
     updateAscensionStats()
 
-    const { currentTab } = Globals;
-
-    if (currentTab === "buildings") {
-        visualUpdateBuildings()
-    }
-    if (currentTab === "upgrades") {
-        visualUpdateUpgrades()
-    }
-    if (currentTab === "achievements") {
-        visualUpdateAchievements()
-    }
-    if (currentTab === "runes") {
-        visualUpdateRunes()
-    }
-    if (currentTab === "challenges") {
-        visualUpdateChallenges()
-    }
-    if (currentTab === "researches") {
-        visualUpdateResearch()
-    }
-    if (currentTab === "settings") {
-        visualUpdateSettings()
-    }
-    if (currentTab === "shop") {
-        visualUpdateShop()
-    }
-    if (currentTab === "ants") {
-        visualUpdateAnts()
-    }
-    if (currentTab === "cubes") {
-        visualUpdateCubes()
-    }
-    if (currentTab === "traits") {
-        visualUpdateCorruptions()
-    }
+    visualTab[Globals.currentTab]?.();
 }
 
 export const buttoncolorchange = () => {

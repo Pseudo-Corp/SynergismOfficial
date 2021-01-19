@@ -27,17 +27,8 @@ export const buyGenerator = (i: number, state?: boolean) => {
     if (player.upgrades[q] === 0 && player[type].greaterThanOrEqualTo(cost)) {
 
         if (achievementCheck === 0) {
-            if (q === 102) {
-                achievementaward(71)
-            }
-            if (q === 103) {
-                achievementaward(72)
-            }
-            if (q === 104) {
-                achievementaward(73)
-            }
-            if (q === 105) {
-                achievementaward(74)
+            if([102, 103, 104, 105].includes(q)) {
+                achievementaward(q - 31);
             }
         }
 
