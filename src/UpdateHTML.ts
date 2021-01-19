@@ -1,5 +1,5 @@
 import { player, format, formatTimeShort, /*formatTimeShort*/ } from './Synergism';
-import { Globals } from './Variables';
+import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { CalcCorruptionStuff, calculateTimeAcceleration } from './Calculate';
 import { achievementaward, totalachievementpoints } from './Achievements';
@@ -22,7 +22,7 @@ const {
     extinctionMultiplier,
     antUpgradeBaseCost,
     
-} = Globals;
+} = G;
 
 export const revealStuff = () => {
     let example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
@@ -376,18 +376,18 @@ export const hideStuff = () => {
     document.getElementById("activaterune3").style.display = "none"
     document.getElementById("activaterune4").style.display = "none"
 
-    if (currentTab === "buildings") {
+    if (G['currentTab'] === "buildings") {
         document.getElementById("buildingstab").style.backgroundColor = "orange";
         document.getElementById("buildings").style.display = "block"
         player.tabnumber = 1;
     }
-    if (currentTab === "upgrades") {
+    if (G['currentTab'] === "upgrades") {
         document.getElementById("upgrades").style.display = "block"
         document.getElementById("upgradestab").style.backgroundColor = "orange"
         document.getElementById("upgradedescription").textContent = "Hover over an upgrade to view details!"
         player.tabnumber = 2;
     }
-    if (currentTab === "settings") {
+    if (G['currentTab'] === "settings") {
         document.getElementById("settings").style.display = "block"
         if (settingsTab.getAttribute('full') === '0') {
             settingsTab.style.backgroundColor = "white"
@@ -396,14 +396,14 @@ export const hideStuff = () => {
         }
         player.tabnumber = -1
     }
-    if (currentTab === "achievements") {
+    if (G['currentTab'] === "achievements") {
         document.getElementById("statistics").style.display = "block"
         document.getElementById("achievementstab").style.backgroundColor = "white"
         document.getElementById("achievementstab").style.color = "black"
         document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + "%]"
         player.tabnumber = 3;
     }
-    if (currentTab === "runes") {
+    if (G['currentTab'] === "runes") {
         document.getElementById("runes").style.display = "block"
         document.getElementById("runestab").style.backgroundColor = "blue"
         document.getElementById("runeshowlevelup").textContent = "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!"
@@ -415,32 +415,32 @@ export const hideStuff = () => {
         displayRuneInformation(5, false)
         player.tabnumber = 4;
     }
-    if (currentTab === "challenges") {
+    if (G['currentTab'] === "challenges") {
         document.getElementById("challenges").style.display = "block";
         document.getElementById("challengetab").style.backgroundColor = "purple";
         player.tabnumber = 5;
     }
-    if (currentTab === "researches") {
+    if (G['currentTab'] === "researches") {
         document.getElementById("research").style.display = "block";
         document.getElementById("researchtab").style.backgroundColor = "green";
         player.tabnumber = 6;
     }
-    if (currentTab === "shop") {
+    if (G['currentTab'] === "shop") {
         document.getElementById("shop").style.display = "block";
         document.getElementById("shoptab").style.backgroundColor = "limegreen";
         player.tabnumber = 0;
     }
-    if (currentTab === "ants") {
+    if (G['currentTab'] === "ants") {
         document.getElementById("ants").style.display = "block";
         document.getElementById("anttab").style.backgroundColor = "brown";
         player.tabnumber = 7;
     }
-    if (currentTab === "cubes") {
+    if (G['currentTab'] === "cubes") {
         document.getElementById("cubes").style.display = "block";
         document.getElementById("cubetab").style.backgroundColor = "white"
         player.tabnumber = 8;
     }
-    if (currentTab === "traits") {
+    if (G['currentTab'] === "traits") {
         document.getElementById("traits").style.display = "flex";
         document.getElementById("traitstab").style.backgroundColor = "white";
         player.tabnumber = 9;
@@ -484,7 +484,7 @@ export const htmlInserts = () => {
 
     updateAscensionStats()
 
-    visualTab[Globals.currentTab]?.();
+    visualTab[G.currentTab]?.();
 }
 
 export const buttoncolorchange = () => {

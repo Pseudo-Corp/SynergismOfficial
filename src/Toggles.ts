@@ -37,7 +37,7 @@ type SubTab = Record<number, {
 }>
 
 export const toggleTabs = (name: string) => {
-    currentTab = name;
+    Globals.currentTab = name;
     revealStuff();
     hideStuff();
     let subTabList = subTabsInMainTab(player.tabnumber).subTabList
