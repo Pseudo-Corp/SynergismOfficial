@@ -115,10 +115,7 @@ export const isResearchUnlocked = (index: number) => {
     return false;
 }
 
-const isResearchMaxed = (index: number) => {
-    return researchMaxLevels[index] <= player.researches[index]
-}
-
+const isResearchMaxed = (index: number) => researchMaxLevels[index] <= player.researches[index];
 
 const resdesc = [null,
     "[1x1] Increase the number of free Accelerators gained by 20% from all sources.",

@@ -227,19 +227,13 @@ export const corruptionLoadoutTableUpdate = (updateRow = 0) => {
     }
 }
 
-function corruptionLoadoutSaveLoad(save = true, loadout = 1) {
+const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
     if (save) {
         player.corruptionLoadouts[loadout] = Array.from(player.prototypeCorruptions)
         corruptionLoadoutTableUpdate(loadout)
     } else {
         player.prototypeCorruptions = Array.from(player.corruptionLoadouts[loadout])
-        corruptionLoadoutTableUpdate(0)
+        corruptionLoadoutTableUpdate()
         corruptionStatsUpdate()
     }
-}
-
-function corruptionCleanseConfirm() {
-    document.getElementById("corruptionCleanseConfirm").style.visibility = "visible";
-    let hide = () => document.getElementById("corruptionCleanseConfirm").style.visibility = "hidden";
-    setTimeout(hide, 10000)
 }

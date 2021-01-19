@@ -89,17 +89,14 @@ const antupgdesc: Record<string, string> = {
 }
 
 export const calculateCrumbToCoinExp = () => {
-    let exponent = 1
-    if(player.currentChallenge.ascension !== 15){
-        exponent = 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + bonusant2) / 5000 * 500 / 499)
-    }
-    else{
-        exponent = 1/10000 * (100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + bonusant2) / 5000 * 500 / 499))
-    }
+    const exponent = player.currentChallenge.ascension !== 15
+        ? 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + bonusant2) / 5000 * 500 / 499)
+        : 1/10000 * (100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + bonusant2) / 5000 * 500 / 499));
+    
     return exponent
 }
 
-const antUpgradeTexts = [null,
+const antUpgradeTexts = [
     () => "ALL Ants work at " + format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1-1] + bonusant1), 2) + "x speed.",
     () => "Crumb --> Coin exponent is ^" + format(calculateCrumbToCoinExp()),
     () => "Tax growth is multiplied by " + format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3-1] + bonusant3), 4),
@@ -113,7 +110,6 @@ const antUpgradeTexts = [null,
     () => "Sacrificing is " + format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11-1] + bonusant11) / 125)), 4) + "x as effective",
     () => "Global timer is sped up by a factor of " + format(calculateSigmoid(2, player.antUpgrades[12-1] + bonusant12, 69), 4)
 ]
-
 
 let repeatAnt: NodeJS.Timeout = null;
 
@@ -170,32 +166,6 @@ const updateAntDescription = (i: number) => {
     la.textContent = "Cost: " + format(player[tier + "CostAnts"]) + " " + priceType
     ti.textContent = "Owned: " + format(player[tier + "OwnedAnts"]) + " [+" + format(player[tier + "GeneratedAnts"], 2) + "]"
 }
-
-export const buyAnts = (i: number) => {
-    let sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints);
-    let type = "ant"
-    if (i === 1) {
-        type = "reincarnation";
-    }
-    let tier = ordinals[i - 1] // i is 1-based, ordinals is 0-based
-    let amountBuy = 1;
-    while (player[type + "Points"].greaterThanOrEqualTo(player[tier + "CostAnts"]) && ticker < amountBuy) {
-        player[type + "Points"] = player[type + "Points"].sub(player[tier + "CostAnts"]);
-        player[tier + "CostAnts"] = player[tier + "CostAnts"].times(antCostGrowth[i]);
-        player[tier + "OwnedAnts"]++
-        ticker++
-    }
-    ticker = 0;
-    calculateAntSacrificeELO();
-
-    let achRequirements = [2, 6, 20, 100, 500, 6666, 77777]
-    for (let j = 0; j < 7; j++) {
-        if (sacrificeMult > achRequirements[j] && player[ordinals[j + 1] + "OwnedAnts"] > 0 && player.achievements[176 + j] === 0) {
-            achievementaward(176 + j)
-        }
-    }
-}
-
 
 const getAntCost = (originalCost: Decimal, buyTo: number, index: number) => {
     --buyTo
@@ -337,7 +307,7 @@ const antUpgradeDescription = (i: number) => {
     al.textContent = " [+" + format(Math.min(player.antUpgrades[i-1] + c11, bonuslevel)) + "]"
     la.textContent = content2
     ti.textContent = "Cost: " + format(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i-1] * extinctionMultiplier[player.usedCorruptions[10]]).times(antUpgradeBaseCost[i])) + " Galactic Crumbs"
-    me.textContent = "CURRENT EFFECT: " + antUpgradeTexts[i]()
+    me.textContent = "CURRENT EFFECT: " + antUpgradeTexts[i - 1]()
 }
 
 //function buyAntUpgrade(i,auto) {

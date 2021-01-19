@@ -14,12 +14,6 @@ const {
     rune5level
 } = Globals;
 
-export const resettimers = () => {
-    player.prestigecounter += 0.05;
-    player.transcendcounter += 0.05;
-    player.reincarnationcounter += 0.05;
-}
-
 export const displayRuneInformation = (i: number, updatelevelup = true) => {
     let m = effectiveLevelMult
     let SILevelMult = (1 + player.researches[84] / 200 * (1 + 1 * effectiveRuneSpiritPower[5] * calculateCorruptionPoints()/400))
@@ -70,7 +64,6 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
     }
 
 }
-
 
 export const resetofferings = (i: number) => {
     player.runeshards += calculateOfferings(i);
@@ -144,7 +137,6 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
     }
 }
 
-//if this function is not used anywhere else outside of runes.js then it can be deleted as it is no longer called within runes.js
 export const calculateOfferingsToLevelXTimes = (runeIndex: number, runeLevel: number, levels: number) => {
     let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
     let maxLevel = calculateMaxRunes(runeIndex + 1)

@@ -230,7 +230,7 @@ export const c15RewardUpdate = () => {
     updateDisplayC15Rewards();
 }
 
-function updateDisplayC15Rewards(){
+const updateDisplayC15Rewards = () => {
     document.getElementById('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
     let exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10]
     let values = Object.values(challenge15Rewards)

@@ -652,7 +652,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
     }
 }
 
-export const resetUpgrades = (i: number, fast = false) => {
+const resetUpgrades = (i: number, fast = false) => {
     if (i > 2.5) {
         for (let i = 41; i < 61; i++) {
             if (i !== 46) {
@@ -822,7 +822,7 @@ export const resetAnts = () => {
     calculateRuneLevels();
 }
 
-function resetResearches() {
+const resetResearches = () => {
     player.researchPoints = 0;
     //Array listing all the research indexes deserving of removal
     let destroy = [null, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 22, 23, 24, 25,
@@ -839,7 +839,7 @@ function resetResearches() {
     }
 }
 
-function resetTalismans() {
+const resetTalismans = () => {
     player.talismanLevels = [0, 0, 0, 0, 0, 0, 0];
     player.talismanRarity = [1, 1, 1, 1, 1, 1, 1];
 

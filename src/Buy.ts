@@ -734,6 +734,4 @@ export const buyRuneBonusLevels = (type: number, index: number) => { //type 1 fo
         document.getElementById('runeSpiritPower' + index + 'Value1').textContent = format(runeSpirits[index])
         document.getElementById('runeSpiritPower' + index + 'Value2').textContent = format(1 - t + spiritMultiplierArray[index] * effectiveRuneSpiritPower[index], 4, true)
     }
-
-
 }

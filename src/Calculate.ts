@@ -76,14 +76,6 @@ const {
     lazinessMultiplier,
 } = Globals;
 
-export const sumObject = (obj: any) => {
-    let sum = 0;
-    for (let el in obj) {
-        sum += obj[el]
-    }
-    return (sum)
-}
-
 export const calculateTotalCoinOwned = () => {
     totalCoinOwned = 
         player.firstOwnedCoin + 
@@ -139,7 +131,6 @@ export const calculateTotalAcceleratorBoost = () => {
     totalAcceleratorBoost = Math.floor(player.acceleratorBoostBought + freeAcceleratorBoost) * 100 / 100;
 }
 
-
 export const calculateAcceleratorMultiplier = () => {
     acceleratorMultiplier = 1;
     acceleratorMultiplier *= (1 + player.achievements[60] / 100)
@@ -189,30 +180,31 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
     let recycleMultiplier = calculateRecycleMultiplier();
 
     // Rune multiplier that is summed instead of added
-    let allRuneExpAdditiveMultiplier = sumContents([
-        // Base amount multiplied per offering
-        1,
-        // +1 if C1 completion
-        Math.min(1, player.highestchallengecompletions[1]),
-        // +0.10 per C1 completion
-        0.4 / 10 * player.highestchallengecompletions[1],
-        // Research 5x2
-        0.6 * player.researches[22],
-        // Research 5x3
-        0.3 * player.researches[23],
-        // Particle Upgrade 1x1
-        2 * player.upgrades[61],
-        // Particle upgrade 3x1
-        player.upgrades[71] * runeLevel / 25
-    ]);
-
+    let allRuneExpAdditiveMultiplier: number | null = null;
     if (all) {
         allRuneExpAdditiveMultiplier = sumContents([
             //Challenge 3 completions
             1 / 100 * player.highestchallengecompletions[3],
             //Reincarnation 3x1
             1 * player.upgrades[66]
-        ])
+        ]);
+    } else {
+        allRuneExpAdditiveMultiplier = sumContents([
+            // Base amount multiplied per offering
+            1,
+            // +1 if C1 completion
+            Math.min(1, player.highestchallengecompletions[1]),
+            // +0.10 per C1 completion
+            0.4 / 10 * player.highestchallengecompletions[1],
+            // Research 5x2
+            0.6 * player.researches[22],
+            // Research 5x3
+            0.3 * player.researches[23],
+            // Particle Upgrade 1x1
+            2 * player.upgrades[61],
+            // Particle upgrade 3x1
+            player.upgrades[71] * runeLevel / 25
+        ]);
     }
 
     // Rune multiplier that gets applied to all runes
@@ -631,7 +623,7 @@ export const calculateRuneLevels = () => {
         rune5level = Math.max(1, player.runelevels[4] + Math.min(1e7, (player.antUpgrades[9-1] + bonusant9)) * 1 + (rune5Talisman) + 7 * player.constantUpgrades[7])
     }
 
-    runeSum = [rune1level, rune2level, rune3level, rune4level, rune5level].reduce((a, b) => a + b, 0);
+    runeSum = sumContents([rune1level, rune2level, rune3level, rune4level, rune5level]);
     calculateRuneBonuses();
 }
 
@@ -763,12 +755,10 @@ export const calculateAntSacrificeELO = () => {
         effectiveELO += (cubeBonusMultiplier[8] - 1)
         effectiveELO += 1 * player.cubeUpgrades[50]
         effectiveELO *= (1 + 0.03 * player.upgrades[124])
-
-
     }
 }
 
-function calculateAntSacrificeMultipliers() {
+const calculateAntSacrificeMultipliers = () => {
     timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 10, 2))
     if (player.achievements[177] === 0) {
         timeMultiplier *= Math.min(1000, Math.max(1, player.antSacrificeTimer / 10))
@@ -830,13 +820,6 @@ export const calculateAntSacrificeRewards = () => {
         0;
 
     return rewards;
-}
-
-export const initiateTimeWarp = (time: number) => {
-    if (!timeWarp) {
-        player.worlds -= 0;
-        calculateOffline(time);
-    }
 }
 
 export const calculateOffline = (forceTime = 0) => {

@@ -770,7 +770,7 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
         }
     }
     corruptionDisplay(index)
-    corruptionLoadoutTableUpdate(0);
+    corruptionLoadoutTableUpdate();
 }
 
 export const toggleCorruptionLoadoutsStats = (stats: boolean) => {

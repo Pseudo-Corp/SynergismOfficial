@@ -141,7 +141,6 @@ const cubeMaxLevel = [null,
     2, 1, 1, 10, 10, 10, 10, 1, 1, 10,
     2, 10, 10, 10, 10, 20, 20, 1, 1, 100000]
 
-
 const cubeUpgradeDescriptions = [null,
     () => "[1x1] You got it! +14% cubes from Ascending per level.",
     () => "[1x2] Plutus grants you +1 Offering per second, no matter what, per level. Also a +0.5% Recycling chance!",
@@ -195,7 +194,7 @@ const cubeUpgradeDescriptions = [null,
     () => "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.1 Max Rune Levels, +1 Effective ELO, +0.001 Talisman bonuses per level."
 ]
 
-export const getCubeCost = (i: number, linGrowth = 0) => {
+const getCubeCost = (i: number, linGrowth = 0) => {
     let amountToBuy = Globals.buyMaxCubeUpgrades ? 1e5: 1;
     amountToBuy = Math.min(cubeMaxLevel[i] - player.cubeUpgrades[i], amountToBuy)
     let metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i], player.wowCubes, linGrowth, amountToBuy)

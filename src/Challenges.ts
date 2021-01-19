@@ -385,7 +385,7 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
 }
 
 //Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping
-function calculateChallengeRequirementMultiplier(type: string, completions: number, special = 0) {
+const calculateChallengeRequirementMultiplier = (type: string, completions: number, special = 0) => {
     let requirementMultiplier = Math.max(
         1, 
         hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)

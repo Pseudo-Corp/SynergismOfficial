@@ -62,7 +62,7 @@ const talismanResourceCosts = {
     },
 }
 
-export const getTalismanResourceInfo = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
+const getTalismanResourceInfo = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
     let obtainiumCost = talismanResourceCosts[type].obtainium;
     let offeringCost = talismanResourceCosts[type].offerings;
 
@@ -78,7 +78,7 @@ export const getTalismanResourceInfo = (type: keyof typeof talismanResourceCosts
     };
 };
 
-export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
+const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
     let el = document.getElementById("talismanFragmentCost");
     let talismanCostInfo = getTalismanResourceInfo(type, percentage);
     let TalismanName = talismanResourceCosts[type].name;
@@ -150,7 +150,7 @@ export const buyTalismanResources = (type: keyof typeof talismanResourceCosts, p
     updateTalismanInventory()
 }
 
-export const showTalismanEffect = (i: number) => {
+const showTalismanEffect = (i: number) => {
     let ord = [null, "One", "Two", "Three", "Four", "Five", "Six", "Seven"]
     document.getElementById("talismanlevelup").style.display = "none"
     document.getElementById("talismanEffect").style.display = "block"
@@ -287,7 +287,7 @@ export const showTalismanPrices = (i: number) => {
     g.textContent = format(m * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i-1] - 150, 3))));
 }
 
-export const showEnhanceTalismanPrices = (i: number) => {
+const showEnhanceTalismanPrices = (i: number) => {
     document.getElementById("talismanEffect").style.display = "none"
     document.getElementById("talismanlevelup").style.display = "block"
     document.getElementById("talismanrespec").style.display = "none"
