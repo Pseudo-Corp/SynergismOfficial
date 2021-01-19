@@ -131,13 +131,6 @@ export const corruptionDisplay = (index: number) => {
     }
 }
 
-export const corruptionStatsUpdate = () => {
-    for (let i = 1; i <= 9; i++) {
-        document.getElementById(`corrCurrent${i}`).textContent = format(player.usedCorruptions[i])
-        document.getElementById(`corrNext${i}`).textContent = format(player.prototypeCorruptions[i])
-    }
-}
-
 export const corruptionButtonsAdd = () => {
     let rows = document.getElementsByClassName("corruptionStatRow");
     for (let i = 0; i < rows.length; i++) {
@@ -234,6 +227,5 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
     } else {
         player.prototypeCorruptions = Array.from(player.corruptionLoadouts[loadout])
         corruptionLoadoutTableUpdate()
-        corruptionStatsUpdate()
     }
 }

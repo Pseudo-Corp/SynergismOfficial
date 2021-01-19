@@ -26,7 +26,8 @@ import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { checkVariablesOnLoad } from './CheckVariables';
 import { updateCubeUpgradeBG } from './Cubes';
-import { corruptionLoadoutTableUpdate, corruptionStatsUpdate } from './Corruptions';
+import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate } from './Corruptions';
+import { generateEventHandlers } from './EventListeners';
 
 let {
     runescreen,
@@ -1268,7 +1269,6 @@ if (player.achievements[38] == 1)document.getElementById("runeshowpower2").textC
 if (player.achievements[44] == 1)document.getElementById("runeshowpower3").textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(rune3level * m, 2).times(Decimal.pow(2, rune3level * m - 8).add(1))) + ", gain +" + format(Math.floor(rune3level/10 * m)) + " free crystal levels.";
 if (player.achievements[102] == 1)document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (rune4level/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + rune4level/8 + "%."; */
 
-        corruptionStatsUpdate();
         for (let i = 0; i < 4; i++) {
             corruptionLoadoutTableUpdate(i);
         }
@@ -1423,6 +1423,10 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
  * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
  */
 export const format = (input: Decimal | number, accuracy = 0, long = false): string => {
+    if (!(input instanceof Decimal) && typeof input !== 'number') {
+        return '0 [und.]';
+    }
+
     let power;
     let mantissa;
     if (isDecimal(input)) {
@@ -1554,7 +1558,6 @@ export const format = (input: Decimal | number, accuracy = 0, long = false): str
         // If it doesn't fit a notation then default to mantissa e power
         return `${mantissa}e${power}`;
     } else {
-        console.log(input);
         return `0 [und.]`;
     }
 }
@@ -3506,7 +3509,11 @@ window.addEventListener('load', () => {
         alert('Transferred save to new format successfully!');
     }
 
+    corruptionButtonsAdd();
+    corruptionLoadoutTableCreate();
+
     setTimeout(() => {
+        generateEventHandlers();
         loadSynergy();
         saveSynergy();
         toggleauto();

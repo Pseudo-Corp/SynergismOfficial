@@ -13,7 +13,6 @@ import { buyResearch } from './Research';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { resetHistoryAdd } from './History';
 import { challengeRequirement } from './Challenges';
-import { corruptionStatsUpdate } from './Corruptions';
 
 let {
     prestigePointGain,
@@ -630,7 +629,6 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
             }
         }
         player.usedCorruptions = Array.from(player.prototypeCorruptions)
-        corruptionStatsUpdate()
     }
 
 

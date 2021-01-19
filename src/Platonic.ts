@@ -197,7 +197,7 @@ const checkPlatonicUpgrade = (index: number) => {
     return checks
 }
 
-const createPlatonicDescription = (index: number) => {
+export const createPlatonicDescription = (index: number) => {
     let maxLevelAppend = "";
     if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
         maxLevelAppend = " [MAX]"

@@ -201,7 +201,7 @@ const getCubeCost = (i: number, linGrowth = 0) => {
     return([metaData[0],metaData[1]]) //metaData[0] is the levelup amount, metaData[1] is the total cube cost
 }
 
-const cubeUpgradeDesc = (i: number, linGrowth = 0) => {
+export const cubeUpgradeDesc = (i: number, linGrowth = 0) => {
     let metaData = getCubeCost(i,linGrowth)
     let a = document.getElementById("cubeUpgradeName")
     let b = document.getElementById("cubeUpgradeDescription")

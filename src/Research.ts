@@ -320,7 +320,7 @@ const resdesc = [null,
     "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.04 Max Rune level, + Floor(level/400) max Talisman Level, +Floor(level/200) free ants."
 ];
 
-const researchDescriptions = (i: number, auto = false, linGrowth = 0) => {
+export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => {
     let buyAmount = (maxbuyresearch || auto) ? 100000 : 1;
     let y = resdesc[i]
     let z = ""

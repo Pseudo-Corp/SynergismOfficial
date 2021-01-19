@@ -416,7 +416,7 @@ const buyProducerTypes: Record<string, readonly [string, string]> = {
     Coin: ['coins', 'coin']
 } as const;
 
-export const buyProducer = (pos: string, type: string, num: number, autobuyer: boolean) => {
+export const buyProducer = (pos: string, type: string, num: number, autobuyer?: boolean) => {
     const [tag, amounttype] = buyProducerTypes[type];
     const buythisamount = autobuyer ? 500 : player[`${amounttype}buyamount`];
     let r = 1;

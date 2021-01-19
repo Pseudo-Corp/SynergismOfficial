@@ -118,7 +118,7 @@ export const antRepeat = (i: number) => {
     repeatAnt = interval(() => updateAntDescription(i), 50);
 }
 
-const updateAntDescription = (i: number) => {
+export const updateAntDescription = (i: number) => {
     let el = document.getElementById("anttierdescription")
     let la = document.getElementById("antprice")
     let ti = document.getElementById("antquantity")
@@ -186,7 +186,7 @@ const getAntUpgradeCost = (originalCost: Decimal, buyTo: number, index: number) 
 }
 
 //Note to self: REWRITE THIS SHIT Kevin :3
-const buyAntProducers = (pos: string, type: string, originalCost: DecimalSource, index: number) => {
+export const buyAntProducers = (pos: string, type: string, originalCost: DecimalSource, index: number) => {
     let sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints);
     //This is a fucking cool function. This will buymax ants cus why not
 
@@ -246,7 +246,7 @@ const buyAntProducers = (pos: string, type: string, originalCost: DecimalSource,
     }
 }
 
-const buyAntUpgrade = (originalCost: DecimalSource, auto: boolean, index: number) => {
+export const buyAntUpgrade = (originalCost: DecimalSource, auto: boolean, index: number) => {
     if (player.currentChallenge.ascension !== 11) {
         originalCost = new Decimal(originalCost);
         let buyTo = 1 + player.antUpgrades[index-1];
@@ -290,7 +290,7 @@ const buyAntUpgrade = (originalCost: DecimalSource, auto: boolean, index: number
     }
 }
 
-const antUpgradeDescription = (i: number) => {
+export const antUpgradeDescription = (i: number) => {
     const el = document.getElementById("antspecies")
     const al = document.getElementById("antlevelbonus");
     const la = document.getElementById("antupgradedescription")
