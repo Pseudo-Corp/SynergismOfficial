@@ -1,12 +1,6 @@
 import { player } from './Synergism';
-import { Globals } from './Variables';
+import { Globals as G } from './Variables';
 import { revealStuff } from './UpdateHTML';
-
-const {
-    prestigePointGain,
-    transcendPointGain,
-    reincarnationPointGain
-} = Globals;
 
 const achievementpointvalues = [0, 
     1, 2, 4, 6, 8, 9, 10,
@@ -460,31 +454,31 @@ export const resetachievementcheck = (i: number) => {
         if (player.prestigenocoinupgrades === true) {
             achievementaward(64)
         }
-        if (prestigePointGain.greaterThanOrEqualTo(1)) {
+        if (G['prestigePointGain'].greaterThanOrEqualTo(1)) {
             achievementaward(36)
 
         }
-        if (prestigePointGain.greaterThanOrEqualTo(1e6)) {
+        if (G['prestigePointGain'].greaterThanOrEqualTo(1e6)) {
             achievementaward(37)
 
         }
-        if (prestigePointGain.greaterThanOrEqualTo(1e100)) {
+        if (G['prestigePointGain'].greaterThanOrEqualTo(1e100)) {
             achievementaward(38)
 
         }
-        if (prestigePointGain.greaterThanOrEqualTo("1e1000")) {
+        if (G['prestigePointGain'].greaterThanOrEqualTo("1e1000")) {
             achievementaward(39)
 
         }
-        if (prestigePointGain.greaterThanOrEqualTo("1e10000")) {
+        if (G['prestigePointGain'].greaterThanOrEqualTo("1e10000")) {
             achievementaward(40)
 
         }
-        if (prestigePointGain.greaterThanOrEqualTo("1e77777")) {
+        if (G['prestigePointGain'].greaterThanOrEqualTo("1e77777")) {
             achievementaward(41)
 
         }
-        if (prestigePointGain.greaterThanOrEqualTo("1e250000")) {
+        if (G['prestigePointGain'].greaterThanOrEqualTo("1e250000")) {
             achievementaward(42)
 
         }
@@ -502,25 +496,25 @@ export const resetachievementcheck = (i: number) => {
         if (player.transcendnocoinorprestigeupgrades === true) {
             achievementaward(66)
         }
-        if (transcendPointGain.greaterThanOrEqualTo(1)) {
+        if (G['transcendPointGain'].greaterThanOrEqualTo(1)) {
             achievementaward(43)
         }
-        if (transcendPointGain.greaterThanOrEqualTo(1e6)) {
+        if (G['transcendPointGain'].greaterThanOrEqualTo(1e6)) {
             achievementaward(44)
         }
-        if (transcendPointGain.greaterThanOrEqualTo(1e50)) {
+        if (G['transcendPointGain'].greaterThanOrEqualTo(1e50)) {
             achievementaward(45)
         }
-        if (transcendPointGain.greaterThanOrEqualTo(1e308)) {
+        if (G['transcendPointGain'].greaterThanOrEqualTo(1e308)) {
             achievementaward(46)
         }
-        if (transcendPointGain.greaterThanOrEqualTo("1e1500")) {
+        if (G['transcendPointGain'].greaterThanOrEqualTo("1e1500")) {
             achievementaward(47)
         }
-        if (transcendPointGain.greaterThanOrEqualTo("1e25000")) {
+        if (G['transcendPointGain'].greaterThanOrEqualTo("1e25000")) {
             achievementaward(48)
         }
-        if (transcendPointGain.greaterThanOrEqualTo("1e100000")) {
+        if (G['transcendPointGain'].greaterThanOrEqualTo("1e100000")) {
             achievementaward(49)
         }
     }
@@ -543,31 +537,31 @@ export const resetachievementcheck = (i: number) => {
         if (player.reincarnatenocoinprestigetranscendorgeneratorupgrades === true) {
             achievementaward(70)
         }
-        if (reincarnationPointGain.greaterThanOrEqualTo(1)) {
+        if (G['reincarnationPointGain'].greaterThanOrEqualTo(1)) {
             achievementaward(50)
 
         }
-        if (reincarnationPointGain.greaterThanOrEqualTo(1e5)) {
+        if (G['reincarnationPointGain'].greaterThanOrEqualTo(1e5)) {
             achievementaward(51)
 
         }
-        if (reincarnationPointGain.greaterThanOrEqualTo(1e30)) {
+        if (G['reincarnationPointGain'].greaterThanOrEqualTo(1e30)) {
             achievementaward(52)
 
         }
-        if (reincarnationPointGain.greaterThanOrEqualTo(1e200)) {
+        if (G['reincarnationPointGain'].greaterThanOrEqualTo(1e200)) {
             achievementaward(53)
 
         }
-        if (reincarnationPointGain.greaterThanOrEqualTo("1e1500")) {
+        if (G['reincarnationPointGain'].greaterThanOrEqualTo("1e1500")) {
             achievementaward(54)
 
         }
-        if (reincarnationPointGain.greaterThanOrEqualTo("1e5000")) {
+        if (G['reincarnationPointGain'].greaterThanOrEqualTo("1e5000")) {
             achievementaward(55)
 
         }
-        if (reincarnationPointGain.greaterThanOrEqualTo("1e7777")) {
+        if (G['reincarnationPointGain'].greaterThanOrEqualTo("1e7777")) {
             achievementaward(56)
 
         }

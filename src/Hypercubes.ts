@@ -1,13 +1,6 @@
 import { player } from './Synergism';
 import { openTesseract } from './Tesseracts';
-import { Globals } from './Variables';
-
-const {
-    benedictionDRPower,
-    hypercubeBonusMultiplier,
-    benedictionbase,
-    platonicBonusMultiplier
-} = Globals;
+import { Globals as G } from './Variables';
 
 type Bless = keyof typeof player['hypercubeBlessings'];
 
@@ -69,10 +62,10 @@ export const calculateHypercubeBlessings = () => {
         let power = 1;
         let mult = 1;
         if (obj >= 1000) {
-            power = benedictionDRPower[idx];
-            mult *= Math.pow(1000, (1 - benedictionDRPower[idx]));
+            power = G['benedictionDRPower'][idx];
+            mult *= Math.pow(1000, (1 - G['benedictionDRPower'][idx]));
         }
 
-        hypercubeBonusMultiplier[idx] = 1 + mult * benedictionbase[idx] * Math.pow(obj, power) * platonicBonusMultiplier[4];
+        G['hypercubeBonusMultiplier'][idx] = 1 + mult * G['benedictionbase'][idx] * Math.pow(obj, power) * G['platonicBonusMultiplier'][4];
     }
 }
