@@ -108,7 +108,7 @@ export const resetGame = () => {
     importSynergism(btoa(JSON.stringify(hold)));
 }
 
-const importSynergism = (input: string) => {
+export const importSynergism = (input: string) => {
     const d = LZString.decompressFromBase64(input);
     const f = d ? JSON.parse(d) : JSON.parse(atob(input));
     if (f.exporttest === "YES!") {
