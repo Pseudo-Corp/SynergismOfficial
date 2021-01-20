@@ -23,12 +23,7 @@ import { corruptionDisplay } from "./Corruptions"
 import { exportSynergism, updateSaveString, promocodes } from "./ImportExport"
 import { resetHistoryTogglePerSecond } from "./History"
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable } from "./Shop"
-import { Globals } from './Variables';
-
-const {
-    talismanRespec,
-    triggerChallenge,
-} = Globals;
+import { Globals as G } from './Variables';
 
 /* STYLE GUIDE */
 /* 
@@ -303,8 +298,8 @@ export const generateEventHandlers = () => {
         }
 
         document.getElementById('respecAllTalismans').addEventListener('click', () => showRespecInformation(8))
-        document.getElementById('confirmTalismanRespec').addEventListener('click', () => respecTalismanConfirm(talismanRespec))
-        document.getElementById('cancelTalismanRespec').addEventListener('click', () => respecTalismanCancel(talismanRespec))
+        document.getElementById('confirmTalismanRespec').addEventListener('click', () => respecTalismanConfirm(G['talismanRespec']))
+        document.getElementById('cancelTalismanRespec').addEventListener('click', () => respecTalismanCancel(G['talismanRespec']))
 
         for (let index = 0; index < 5; index++) {
             
@@ -332,10 +327,10 @@ export const generateEventHandlers = () => {
         }
     //Part 2: QoL Buttons
         // Individual buttons (Start, Retry)
-        document.getElementById('startChallenge').addEventListener('click', () => toggleChallenges(triggerChallenge, false))
+        document.getElementById('startChallenge').addEventListener('click', () => toggleChallenges(G['triggerChallenge'], false))
         document.getElementById('retryChallenge').addEventListener('click', () => toggleRetryChallenges())
         // Autochallenge buttons
-        document.getElementById('toggleAutoChallengeIgnore').addEventListener('click', () => toggleAutoChallengesIgnore(triggerChallenge))
+        document.getElementById('toggleAutoChallengeIgnore').addEventListener('click', () => toggleAutoChallengesIgnore(G['triggerChallenge']))
         document.getElementById('toggleAutoChallengeStart').addEventListener('click', () => toggleAutoChallengeRun())
         document.getElementById('startAutoChallengeTimerInput').addEventListener('blur', () => updateAutoChallenge(1))
         document.getElementById('exitAutoChallengeTimerInput').addEventListener('blur', () => updateAutoChallenge(2))

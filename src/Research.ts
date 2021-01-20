@@ -1,29 +1,18 @@
 import { player, format } from './Synergism';
 import { calculateSummationNonLinear, calculateRuneLevels, calculateAnts } from './Calculate';
 import { revealStuff } from './UpdateHTML';
-import { Globals } from './Variables';
-
-const {
-    researchMaxLevels,
-    researchBaseCosts,
-    maxbuyresearch,
-    researchOrderByCost
-} = Globals;
-
-let {
-    researchfiller2
-} = Globals;
+import { Globals as G } from './Variables';
 
 const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, number] => {
-    buyAmount = Math.min(researchMaxLevels[index] - player.researches[index], buyAmount)
-    let metaData = calculateSummationNonLinear(player.researches[index], researchBaseCosts[index], player.researchPoints, linGrowth, buyAmount)
+    buyAmount = Math.min(G['researchMaxLevels'][index] - player.researches[index], buyAmount)
+    let metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index], player.researchPoints, linGrowth, buyAmount)
     return [metaData[0], metaData[1]]
 }
 
 export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
     if (player.autoResearchToggle && player.autoResearch > 0.5 && !auto) {
         let p = player.autoResearch
-        if (player.researches[p] === researchMaxLevels[p]) {
+        if (player.researches[p] === G['researchMaxLevels'][p]) {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "green"
         } else if (player.researches[p] > 0.5) {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "purple"
@@ -37,12 +26,12 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
         document.getElementById("res" + index).style.backgroundColor = "orange"
     }
 
-    let buyamount = (maxbuyresearch || auto) ? 1e5 : 1;
+    let buyamount = (G['maxbuyresearch'] || auto) ? 1e5 : 1;
     let metaData = getResearchCost(index, buyamount, linGrowth)
     if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && player.researchPoints >= metaData[1]) {
         player.researchPoints -= metaData[1]
         player.researches[index] = metaData[0];
-        researchfiller2 = "Level: " + player.researches[index] + "/" + (researchMaxLevels[index])
+        G['researchfiller2'] = "Level: " + player.researches[index] + "/" + (G['researchMaxLevels'][index])
         researchDescriptions(index, auto, linGrowth)
 
         if (index === 47 && player.unlocks.rrow1 === false) {
@@ -64,21 +53,21 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
     }
 
     if (0 < index && isResearchUnlocked(index)) {
-        if (player.researches[index] === (researchMaxLevels[index])) {
+        if (player.researches[index] === (G['researchMaxLevels'][index])) {
             document.getElementById("res" + index).style.backgroundColor = "green"
         }
     }
     if (auto && player.cubeUpgrades[9] === 1) {
-        player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+        player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
         if (isResearchMaxed(player.autoResearch)) {
             player.roombaResearchIndex += 1;
         }
         while (!isResearchUnlocked(player.autoResearch) && player.autoResearch < 200 && player.autoResearch >= 1) {
             player.roombaResearchIndex += 1;
-            player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+            player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
         }
         if (isResearchUnlocked(player.autoResearch)) {
-            let doc = document.getElementById("res" + researchOrderByCost[player.roombaResearchIndex])
+            let doc = document.getElementById("res" + G['researchOrderByCost'][player.roombaResearchIndex])
             if (doc)
                 doc.style.backgroundColor = "orange"
         }
@@ -115,7 +104,7 @@ export const isResearchUnlocked = (index: number) => {
     return false;
 }
 
-const isResearchMaxed = (index: number) => researchMaxLevels[index] <= player.researches[index];
+const isResearchMaxed = (index: number) => G['researchMaxLevels'][index] <= player.researches[index];
 
 const resdesc = [null,
     "[1x1] Increase the number of free Accelerators gained by 20% from all sources.",
@@ -321,13 +310,13 @@ const resdesc = [null,
 ];
 
 export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => {
-    let buyAmount = (maxbuyresearch || auto) ? 100000 : 1;
+    let buyAmount = (G['maxbuyresearch'] || auto) ? 100000 : 1;
     let y = resdesc[i]
     let z = ""
     let p = "res" + i
     let metaData = getResearchCost(i, buyAmount, linGrowth);
     z = " Cost: " + (format(metaData[1], 0, false)) + " Obtainium [+" + format(metaData[0] - player.researches[i], 0, true) + " Levels]"
-    if (player.researches[i] === (researchMaxLevels[i])) {
+    if (player.researches[i] === (G['researchMaxLevels'][i])) {
         document.getElementById("researchcost").style.color = "Gold"
         document.getElementById("researchinfo3").style.color = "plum"
         z = z + " || MAXED!"
@@ -336,35 +325,35 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
         document.getElementById("researchinfo3").style.color = "white"
     }
 
-    if (player.researchPoints < researchBaseCosts[i] && player.researches[i] < (researchMaxLevels[i])) {
+    if (player.researchPoints < G['researchBaseCosts'][i] && player.researches[i] < (G['researchMaxLevels'][i])) {
         document.getElementById("researchcost").style.color = "crimson"
     }
 
     if (!auto && !player.autoResearchToggle) {
-        if (player.researches[i] > 0.5 && player.researches[i] < (researchMaxLevels[i])) {
+        if (player.researches[i] > 0.5 && player.researches[i] < (G['researchMaxLevels'][i])) {
             document.getElementById(p).style.backgroundColor = "purple"
         }
     }
-    if (player.researches[i] > 0.5 && player.researches[i] >= (researchMaxLevels[i])) {
+    if (player.researches[i] > 0.5 && player.researches[i] >= (G['researchMaxLevels'][i])) {
         document.getElementById(p).style.backgroundColor = "green"
     }
 
     document.getElementById("researchinfo2").textContent = y
     document.getElementById("researchcost").textContent = z
-    document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + (researchMaxLevels[i])
+    document.getElementById("researchinfo3").textContent = "Level " + player.researches[i] + "/" + (G['researchMaxLevels'][i])
 }
 
 export const updateResearchBG = (j: number) => {
 
-    if (player.researches[j] > researchMaxLevels[j]) {
-        player.researchPoints += (player.researches[j] - researchMaxLevels[j]) * researchBaseCosts[j]
-        player.researches[j] = researchMaxLevels[j]
+    if (player.researches[j] > G['researchMaxLevels'][j]) {
+        player.researchPoints += (player.researches[j] - G['researchMaxLevels'][j]) * G['researchBaseCosts'][j]
+        player.researches[j] = G['researchMaxLevels'][j]
     }
 
     let k = "res" + j
-    if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {
+    if (player.researches[j] > 0.5 && player.researches[j] < G['researchMaxLevels'][j]) {
         document.getElementById(k).style.backgroundColor = "purple"
-    } else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {
+    } else if (player.researches[j] > 0.5 && player.researches[j] >= G['researchMaxLevels'][j]) {
         document.getElementById(k).style.backgroundColor = "green"
     } else {
         document.getElementById(k).style.backgroundColor = "black"

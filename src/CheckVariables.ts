@@ -4,11 +4,6 @@ import Decimal from 'break_infinity.js';
 import { calculateMaxRunes, calculateTimeAcceleration } from './Calculate';
 import { buyResearch } from './Research';
 import { c15RewardUpdate } from './Statistics';
-import { Globals } from './Variables';
-
-const {
-    cardinals
-} = Globals;
 
 export const checkVariablesOnLoad = (data: Player) => {
     if (data.wowCubes === undefined) {

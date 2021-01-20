@@ -1,14 +1,7 @@
 import { player } from './Synergism';
 import { Player } from './types/Synergism';
-import { Globals } from './Variables';
+import { Globals as G } from './Variables';
 import { openCube } from './Cubes';
-
-let {
-    giftDRPower,
-    tesseractBonusMultiplier,
-    giftbase,
-    hypercubeBonusMultiplier
-} = Globals;
 
 export const openTesseract = (value: number, max = false) => {
     let toSpend = Math.min(player.wowTesseracts, value)
@@ -69,10 +62,10 @@ export const calculateTesseractBlessings = () => {
         let power = 1;
         let mult = 1;
         if (tesseractArray[i] >= 1000 && i !== 6) {
-            power = giftDRPower[i];
-            mult *= Math.pow(1000, (1 - giftDRPower[i]));
+            power = G['giftDRPower'][i];
+            mult *= Math.pow(1000, (1 - G['giftDRPower'][i]));
         }
 
-        tesseractBonusMultiplier[i] = 1 + mult * giftbase[i] * Math.pow(tesseractArray[i], power) * hypercubeBonusMultiplier[i];
+        G['tesseractBonusMultiplier'][i] = 1 + mult * G['giftbase'][i] * Math.pow(tesseractArray[i], power) * G['hypercubeBonusMultiplier'][i];
     }
 }

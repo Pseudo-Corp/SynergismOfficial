@@ -1,28 +1,8 @@
 import { player, format } from './Synergism';
-import { Globals } from './Variables';
+import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
 import { calculateRuneLevels } from './Calculate';
 import { achievementaward } from './Achievements';
-
-const {
-    talismanPositiveModifier,
-    talismanNegativeModifier,
-    talisman1Effect,
-    talisman2Effect,
-    talisman3Effect,
-    talisman4Effect,
-    talisman5Effect,
-    talisman6Effect,
-    talisman7Effect,
-    talismanLevelCostMultiplier,
-    commonTalismanEnhanceCost,
-    uncommonTalismanEnchanceCost,
-    rareTalismanEnchanceCost,
-    epicTalismanEnhanceCost,
-    legendaryTalismanEnchanceCost,
-    mythicalTalismanEnchanceCost,
-    mirrorTalismanStats
-} = Globals;
 
 const talismanResourceCosts = {
     shard: {
@@ -166,13 +146,13 @@ export const showTalismanEffect = (i: number) => {
 
     let index = player.talismanRarity[i-1]
     let modifiers = [null, "+", "+", "+", "+", "+"]
-    let num = talismanPositiveModifier[index];
+    let num = G['talismanPositiveModifier'][index];
     let talismanRarityMult = [null, num, num, num, num, num]
 
     for (let j = 1; j <= 5; j++) {
         if (player["talisman" + ord[i]][j] < 0) {
             modifiers[j] = "-";
-            talismanRarityMult[j] = talismanNegativeModifier[index]
+            talismanRarityMult[j] = G['talismanNegativeModifier'][index]
         }
     }
 
@@ -180,71 +160,71 @@ export const showTalismanEffect = (i: number) => {
         case 1:
             a.textContent = "=-=-=-= Exemption Talisman Effects =-=-=-=";
             b.textContent = "Taxes -" + format(10 * (player.talismanRarity[1-1] - 1)) + "%"
-            c.textContent = "Bonus Speed Rune Levels: " + format(talisman1Effect[1], 2, true)
-            d.textContent = "Bonus Duplication Rune Levels: " + format(talisman1Effect[2], 2, true)
-            e.textContent = "Bonus Prism Rune Levels: " + format(talisman1Effect[3], 2, true)
-            f.textContent = "Bonus Thrift Rune Levels: " + format(talisman1Effect[4], 2, true)
-            g.textContent = "Bonus SI Rune Levels: " + format(talisman1Effect[5], 2, true)
+            c.textContent = "Bonus Speed Rune Levels: " + format(G['talisman1Effect'][1], 2, true)
+            d.textContent = "Bonus Duplication Rune Levels: " + format(G['talisman1Effect'][2], 2, true)
+            e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman1Effect'][3], 2, true)
+            f.textContent = "Bonus Thrift Rune Levels: " + format(G['talisman1Effect'][4], 2, true)
+            g.textContent = "Bonus SI Rune Levels: " + format(G['talisman1Effect'][5], 2, true)
             h.textContent = "Mythic Effect: +400 Duplication Rune Levels!"
             break;
         case 2:
             a.textContent = "=-=-=-= Chronos Talisman Effects =-=-=-=";
             b.textContent = "Gain +" + format(10 * (player.talismanRarity[2-1] - 1)) + "% Global Speed Acceleration."
-            c.textContent = "Bonus Speed Rune Levels: " + format(talisman2Effect[1], 2, true)
-            d.textContent = "Bonus Duplication Rune Levels: " + format(talisman2Effect[2], 2, true)
-            e.textContent = "Bonus Prism Rune Levels: " + format(talisman2Effect[3], 2, true)
-            f.textContent = "Bonus Thrift Rune Levels: " + format(talisman2Effect[4], 2, true)
-            g.textContent = "Bonus SI Rune Levels: " + format(talisman2Effect[5], 2, true)
+            c.textContent = "Bonus Speed Rune Levels: " + format(G['talisman2Effect'][1], 2, true)
+            d.textContent = "Bonus Duplication Rune Levels: " + format(G['talisman2Effect'][2], 2, true)
+            e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman2Effect'][3], 2, true)
+            f.textContent = "Bonus Thrift Rune Levels: " + format(G['talisman2Effect'][4], 2, true)
+            g.textContent = "Bonus SI Rune Levels: " + format(G['talisman2Effect'][5], 2, true)
             h.textContent = "Mythic Effect: +400 Speed Rune Levels!"
             break;
         case 3:
             a.textContent = "=-=-=-= Midas Talisman Effects =-=-=-=";
             b.textContent = "Rune Blessing bonuses +" + format(10 * (player.talismanRarity[3-1] - 1)) + "%"
-            c.textContent = "Bonus Speed Rune Levels: " + format(talisman3Effect[1], 2, true)
-            d.textContent = "Bonus Duplication Rune Levels: " + format(talisman3Effect[2], 2, true)
-            e.textContent = "Bonus Prism Rune Levels: " + format(talisman3Effect[3], 2, true)
-            f.textContent = "Bonus Thrift Rune Levels: " + format(talisman3Effect[4], 2, true)
-            g.textContent = "Bonus SI Rune Levels: " + format(talisman3Effect[5], 2, true)
+            c.textContent = "Bonus Speed Rune Levels: " + format(G['talisman3Effect'][1], 2, true)
+            d.textContent = "Bonus Duplication Rune Levels: " + format(G['talisman3Effect'][2], 2, true)
+            e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman3Effect'][3], 2, true)
+            f.textContent = "Bonus Thrift Rune Levels: " + format(G['talisman3Effect'][4], 2, true)
+            g.textContent = "Bonus SI Rune Levels: " + format(G['talisman3Effect'][5], 2, true)
             h.textContent = "Mythic Effect: +400 Thrift Rune Levels!"
             break;
         case 4:
             a.textContent = "=-=-=-= Metaphysics Talisman Effects =-=-=-=";
             b.textContent = "Talismans' Bonus Rune Levels +" + format(0.05 * (player.talismanRarity[4-1] - 1), 2) + " per level"
-            c.textContent = "Bonus Speed Rune Levels: " + format(talisman4Effect[1], 2, true)
-            d.textContent = "Bonus Duplication Rune Levels: " + format(talisman4Effect[2], 2, true)
-            e.textContent = "Bonus Prism Rune Levels: " + format(talisman4Effect[3], 2, true)
-            f.textContent = "Bonus Thrift Rune Levels: " + format(talisman4Effect[4], 2, true)
-            g.textContent = "Bonus SI Rune Levels: " + format(talisman4Effect[5], 2, true)
+            c.textContent = "Bonus Speed Rune Levels: " + format(G['talisman4Effect'][1], 2, true)
+            d.textContent = "Bonus Duplication Rune Levels: " + format(G['talisman4Effect'][2], 2, true)
+            e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman4Effect'][3], 2, true)
+            f.textContent = "Bonus Thrift Rune Levels: " + format(G['talisman4Effect'][4], 2, true)
+            g.textContent = "Bonus SI Rune Levels: " + format(G['talisman4Effect'][5], 2, true)
             h.textContent = "Mythic Effect: +400 Prism Rune Levels!"
             break;
         case 5:
             a.textContent = "=-=-=-= Polymath Talisman Effects =-=-=-=";
             b.textContent = "Rune Spirit Bonuses +" + format(1 * (player.talismanRarity[5-1] - 1)) + "%"
-            c.textContent = "Bonus Speed Rune Levels: " + format(talisman5Effect[1], 2, true)
-            d.textContent = "Bonus Duplication Rune Levels: " + format(talisman5Effect[2], 2, true)
-            e.textContent = "Bonus Prism Rune Levels: " + format(talisman5Effect[3], 2, true)
-            f.textContent = "Bonus Thrift Rune Levels: " + format(talisman5Effect[4], 2, true)
-            g.textContent = "Bonus SI Rune Levels: " + format(talisman5Effect[5], 2, true)
+            c.textContent = "Bonus Speed Rune Levels: " + format(G['talisman5Effect'][1], 2, true)
+            d.textContent = "Bonus Duplication Rune Levels: " + format(G['talisman5Effect'][2], 2, true)
+            e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman5Effect'][3], 2, true)
+            f.textContent = "Bonus Thrift Rune Levels: " + format(G['talisman5Effect'][4], 2, true)
+            g.textContent = "Bonus SI Rune Levels: " + format(G['talisman5Effect'][5], 2, true)
             h.textContent = "Mythic Effect: +400 SI Rune Levels!"
             break;
         case 6:
             a.textContent = "=-=-=-= Mortuus Est Talisman Effects =-=-=-=";
             b.textContent = "Bonus Ant Levels: +" + format(2 * (player.talismanRarity[6-1] - 1))
-            c.textContent = "Bonus Speed Rune Levels: " + format(talisman6Effect[1], 2, true)
-            d.textContent = "Bonus Duplication Rune Levels: " + format(talisman6Effect[2], 2, true)
-            e.textContent = "Bonus Prism Rune Levels: " + format(talisman6Effect[3], 2, true)
-            f.textContent = "Bonus Thrift Rune Levels: " + format(talisman6Effect[4], 2, true)
-            g.textContent = "Bonus SI Rune Levels: " + format(talisman6Effect[5], 2, true)
+            c.textContent = "Bonus Speed Rune Levels: " + format(G['talisman6Effect'][1], 2, true)
+            d.textContent = "Bonus Duplication Rune Levels: " + format(G['talisman6Effect'][2], 2, true)
+            e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman6Effect'][3], 2, true)
+            f.textContent = "Bonus Thrift Rune Levels: " + format(G['talisman6Effect'][4], 2, true)
+            g.textContent = "Bonus SI Rune Levels: " + format(G['talisman6Effect'][5], 2, true)
             h.textContent = "Mythic Effect: Gain ant speed based on your total rune level!"
             break;
         case 7:
             a.textContent = "=-=-=-= Plastic Talisman Effects =-=-=-=";
             b.textContent = "Gain 1x normal production"
-            c.textContent = "Bonus Speed Rune Levels: " + format(talisman7Effect[1], 2, true)
-            d.textContent = "Bonus Duplication Rune Levels: " + format(talisman7Effect[2], 2, true)
-            e.textContent = "Bonus Prism Rune Levels: " + format(talisman7Effect[3], 2, true)
-            f.textContent = "Bonus Thrift Rune Levels: " + format(talisman7Effect[4], 2, true)
-            g.textContent = "Bonus SI Rune Levels: " + format(talisman7Effect[5], 2, true)
+            c.textContent = "Bonus Speed Rune Levels: " + format(G['talisman7Effect'][1], 2, true)
+            d.textContent = "Bonus Duplication Rune Levels: " + format(G['talisman7Effect'][2], 2, true)
+            e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman7Effect'][3], 2, true)
+            f.textContent = "Bonus Thrift Rune Levels: " + format(G['talisman7Effect'][4], 2, true)
+            g.textContent = "Bonus SI Rune Levels: " + format(G['talisman7Effect'][5], 2, true)
             h.textContent = "Mythic Effect: +2 Quarks per Hour on Export!"
             break;
     }
@@ -268,7 +248,7 @@ export const showTalismanPrices = (i: number) => {
     document.getElementById("talismanLevelUpSummary").textContent = "-=-=- Resources Required to Level Up -=-=-"
     document.getElementById("talismanLevelUpSummary").style.color = "silver"
 
-    let m = talismanLevelCostMultiplier[i]
+    let m = G['talismanLevelCostMultiplier'][i]
     if (player.talismanLevels[i-1] >= 120) {
         m *= (player.talismanLevels[i-1] - 90) / 30
     }
@@ -302,10 +282,10 @@ export const showEnhanceTalismanPrices = (i: number) => {
     document.getElementById("talismanLevelUpSummary").textContent = "=-=-= Resources Required to ENHANCE =-=-="
     document.getElementById("talismanLevelUpSummary").style.color = "gold"
 
-    let array = [null, commonTalismanEnhanceCost, uncommonTalismanEnchanceCost, rareTalismanEnchanceCost, epicTalismanEnhanceCost, legendaryTalismanEnchanceCost, mythicalTalismanEnchanceCost]
+    let array = [null, G['commonTalismanEnhanceCost'], G['uncommonTalismanEnchanceCost'], G['rareTalismanEnchanceCost'], G['epicTalismanEnhanceCost'], G['legendaryTalismanEnchanceCost'], G['mythicalTalismanEnchanceCost']]
     let index = player.talismanRarity[i-1];
     let costArray = array[index];
-    let m = talismanLevelCostMultiplier[i]
+    let m = G['talismanLevelCostMultiplier'][i]
     a.textContent = format(m * costArray[1]);
     b.textContent = format(m * costArray[2]);
     c.textContent = format(m * costArray[3]);
@@ -316,7 +296,7 @@ export const showEnhanceTalismanPrices = (i: number) => {
 }
 
 export const showRespecInformation = (i: number) => {
-    Globals.talismanRespec = i;
+    G['talismanRespec'] = i;
     let num = [null, "One", "Two", "Three", "Four", "Five", "Six", "Seven"]
     document.getElementById("talismanEffect").style.display = "none"
     document.getElementById("talismanlevelup").style.display = "none"
@@ -326,22 +306,22 @@ export const showRespecInformation = (i: number) => {
     let runeModifier = [null, "Positive", "Positive", "Positive", "Positive"]
     if (i <= 7) {
         for (let k = 1; k <= 5; k++) {
-            mirrorTalismanStats[k] = player["talisman" + num[i]][k];
+            G['mirrorTalismanStats'][k] = player["talisman" + num[i]][k];
         }
         document.getElementById("confirmTalismanRespec").textContent = "Confirm [-100,000 Offerings]"
     }
     if (i === 8) {
         for (let k = 1; k <= 5; k++) {
-            mirrorTalismanStats[k] = 1;
+            G['mirrorTalismanStats'][k] = 1;
         }
         document.getElementById("confirmTalismanRespec").textContent = "Confirm ALL [-400,000 Offerings]"
     }
     for (let j = 1; j <= 5; j++) {
-        if (mirrorTalismanStats[j] === 1) {
+        if (G['mirrorTalismanStats'][j] === 1) {
             document.getElementById("talismanRespecButton" + j).style.border = "2px solid limegreen";
             runeModifier[j] = "Positive"
         }
-        if (mirrorTalismanStats[j] === -1) {
+        if (G['mirrorTalismanStats'][j] === -1) {
             document.getElementById("talismanRespecButton" + j).style.border = "2px solid crimson";
             runeModifier[j] = "Negative"
         }
@@ -354,17 +334,17 @@ export const showRespecInformation = (i: number) => {
 export const changeTalismanModifier = (i: number) => {
     let runeName = [null, "Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"];
     let el = document.getElementById("talismanRespecButton" + i);
-    if (mirrorTalismanStats[i] === 1) {
-        mirrorTalismanStats[i] = (-1);
+    if (G['mirrorTalismanStats'][i] === 1) {
+        G['mirrorTalismanStats'][i] = (-1);
         el.textContent = runeName[i] + ": Negative";
         el.style.border = "2px solid crimson";
     } else {
-        mirrorTalismanStats[i] = (1);
+        G['mirrorTalismanStats'][i] = (1);
         el.textContent = runeName[i] + ": Positive";
         el.style.border = "2px solid limegreen";
     }
 
-    let checkSum = mirrorTalismanStats.reduce(function (a, b) {
+    let checkSum = G['mirrorTalismanStats'].reduce(function (a, b) {
         return a + b;
     }, 0);
 
@@ -380,7 +360,7 @@ export const respecTalismanConfirm = (i: number) => {
     let num = [null, "One", "Two", "Three", "Four", "Five", "Six", "Seven"]
     if (player.runeshards >= 100000 && i <= 7) {
         for (let j = 1; j <= 5; j++) {
-            player["talisman" + num[i]][j] = mirrorTalismanStats[j];
+            player["talisman" + num[i]][j] = G['mirrorTalismanStats'][j];
         }
         player.runeshards -= 100000;
         document.getElementById("confirmTalismanRespec").style.display = "none";
@@ -391,7 +371,7 @@ export const respecTalismanConfirm = (i: number) => {
         player.runeshards -= 400000
         for (let j = 1; j <= 7; j++) {
             for (let k = 1; k <= 5; k++) {
-                player["talisman" + num[j]][k] = mirrorTalismanStats[k];
+                player["talisman" + num[j]][k] = G['mirrorTalismanStats'][k];
             }
         }
         document.getElementById("confirmTalismanRespec").style.display = "none";
@@ -446,7 +426,7 @@ export const buyTalismanLevels = (i: number, auto = false) => {
     }
     for (let j = 1; j <= max; j++) {
         let checkSum = 0;
-        let priceMult = talismanLevelCostMultiplier[i]
+        let priceMult = G['talismanLevelCostMultiplier'][i]
         if (player.talismanLevels[i-1] >= 120) {
             priceMult *= (player.talismanLevels[i-1] - 90) / 30
         }
@@ -508,8 +488,8 @@ export const buyTalismanLevels = (i: number, auto = false) => {
 export const buyTalismanEnhance = (i: number, auto = false) => {
     let checkSum = 0;
     if (player.talismanRarity[i-1] < 6) {
-        let priceMult = talismanLevelCostMultiplier[i];
-        let array = [null, commonTalismanEnhanceCost, uncommonTalismanEnchanceCost, rareTalismanEnchanceCost, epicTalismanEnhanceCost, legendaryTalismanEnchanceCost, mythicalTalismanEnchanceCost];
+        let priceMult = G['talismanLevelCostMultiplier'][i];
+        let array = [null, G['commonTalismanEnhanceCost'], G['uncommonTalismanEnchanceCost'], G['rareTalismanEnchanceCost'], G['epicTalismanEnhanceCost'], G['legendaryTalismanEnchanceCost'], G['mythicalTalismanEnchanceCost']];
         let index = player.talismanRarity[i-1];
         let costArray = array[index];
         if (player.commonFragments >= priceMult * costArray[2]) {

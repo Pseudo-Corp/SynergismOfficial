@@ -1,11 +1,5 @@
 import { player } from './Synergism';
-import { Globals } from './Variables';
-
-const {
-    platonicDRPower,
-    platonicBonusMultiplier,
-    platonicCubeBase
-} = Globals;
+import { Globals as G } from './Variables';
 
 type Bless = keyof typeof player['platonicBlessings'];
 
@@ -67,10 +61,10 @@ export const calculatePlatonicBlessings = () => {
         let power = 1;
         let mult = 1;
         if (platonicArray[i] >= DRThreshold[i]) {
-            power = platonicDRPower[i];
-            mult *= Math.pow(DRThreshold[i], (1 - platonicDRPower[i]));
+            power = G['platonicDRPower'][i];
+            mult *= Math.pow(DRThreshold[i], (1 - G['platonicDRPower'][i]));
         }
 
-        platonicBonusMultiplier[i] = 1 + mult * platonicCubeBase[i] * Math.pow(platonicArray[i], power);
+        G['platonicBonusMultiplier'][i] = 1 + mult * G['platonicCubeBase'][i] * Math.pow(platonicArray[i], power);
     }
 }

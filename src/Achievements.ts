@@ -454,31 +454,31 @@ export const resetachievementcheck = (i: number) => {
         if (player.prestigenocoinupgrades === true) {
             achievementaward(64)
         }
-        if (G['prestigePointGain'].greaterThanOrEqualTo(1)) {
+        if (G['prestigePointGain'].gte(1)) {
             achievementaward(36)
 
         }
-        if (G['prestigePointGain'].greaterThanOrEqualTo(1e6)) {
+        if (G['prestigePointGain'].gte(1e6)) {
             achievementaward(37)
 
         }
-        if (G['prestigePointGain'].greaterThanOrEqualTo(1e100)) {
+        if (G['prestigePointGain'].gte(1e100)) {
             achievementaward(38)
 
         }
-        if (G['prestigePointGain'].greaterThanOrEqualTo("1e1000")) {
+        if (G['prestigePointGain'].gte("1e1000")) {
             achievementaward(39)
 
         }
-        if (G['prestigePointGain'].greaterThanOrEqualTo("1e10000")) {
+        if (G['prestigePointGain'].gte("1e10000")) {
             achievementaward(40)
 
         }
-        if (G['prestigePointGain'].greaterThanOrEqualTo("1e77777")) {
+        if (G['prestigePointGain'].gte("1e77777")) {
             achievementaward(41)
 
         }
-        if (G['prestigePointGain'].greaterThanOrEqualTo("1e250000")) {
+        if (G['prestigePointGain'].gte("1e250000")) {
             achievementaward(42)
 
         }
@@ -496,25 +496,25 @@ export const resetachievementcheck = (i: number) => {
         if (player.transcendnocoinorprestigeupgrades === true) {
             achievementaward(66)
         }
-        if (G['transcendPointGain'].greaterThanOrEqualTo(1)) {
+        if (G['transcendPointGain'].gte(1)) {
             achievementaward(43)
         }
-        if (G['transcendPointGain'].greaterThanOrEqualTo(1e6)) {
+        if (G['transcendPointGain'].gte(1e6)) {
             achievementaward(44)
         }
-        if (G['transcendPointGain'].greaterThanOrEqualTo(1e50)) {
+        if (G['transcendPointGain'].gte(1e50)) {
             achievementaward(45)
         }
-        if (G['transcendPointGain'].greaterThanOrEqualTo(1e308)) {
+        if (G['transcendPointGain'].gte(1e308)) {
             achievementaward(46)
         }
-        if (G['transcendPointGain'].greaterThanOrEqualTo("1e1500")) {
+        if (G['transcendPointGain'].gte("1e1500")) {
             achievementaward(47)
         }
-        if (G['transcendPointGain'].greaterThanOrEqualTo("1e25000")) {
+        if (G['transcendPointGain'].gte("1e25000")) {
             achievementaward(48)
         }
-        if (G['transcendPointGain'].greaterThanOrEqualTo("1e100000")) {
+        if (G['transcendPointGain'].gte("1e100000")) {
             achievementaward(49)
         }
     }
@@ -537,31 +537,31 @@ export const resetachievementcheck = (i: number) => {
         if (player.reincarnatenocoinprestigetranscendorgeneratorupgrades === true) {
             achievementaward(70)
         }
-        if (G['reincarnationPointGain'].greaterThanOrEqualTo(1)) {
+        if (G['reincarnationPointGain'].gte(1)) {
             achievementaward(50)
 
         }
-        if (G['reincarnationPointGain'].greaterThanOrEqualTo(1e5)) {
+        if (G['reincarnationPointGain'].gte(1e5)) {
             achievementaward(51)
 
         }
-        if (G['reincarnationPointGain'].greaterThanOrEqualTo(1e30)) {
+        if (G['reincarnationPointGain'].gte(1e30)) {
             achievementaward(52)
 
         }
-        if (G['reincarnationPointGain'].greaterThanOrEqualTo(1e200)) {
+        if (G['reincarnationPointGain'].gte(1e200)) {
             achievementaward(53)
 
         }
-        if (G['reincarnationPointGain'].greaterThanOrEqualTo("1e1500")) {
+        if (G['reincarnationPointGain'].gte("1e1500")) {
             achievementaward(54)
 
         }
-        if (G['reincarnationPointGain'].greaterThanOrEqualTo("1e5000")) {
+        if (G['reincarnationPointGain'].gte("1e5000")) {
             achievementaward(55)
 
         }
-        if (G['reincarnationPointGain'].greaterThanOrEqualTo("1e7777")) {
+        if (G['reincarnationPointGain'].gte("1e7777")) {
             achievementaward(56)
 
         }
@@ -593,7 +593,7 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
             achievementaward(84)
         }
         if (!auto) {
-            if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck === 0) {
+            if (player.coinsThisTranscension.gte("1e1000") && generatorcheck === 0) {
                 achievementaward(75)
             }
         }
@@ -621,14 +621,14 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
             achievementaward(91)
         }
         if (!auto) {
-            if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck === 0) {
+            if (player.coinsThisTranscension.gte("1e1000") && generatorcheck === 0) {
                 achievementaward(76)
             }
         }
     }
     if (i === 3) {
         if (!auto) {
-            if (player.coinsThisTranscension.greaterThanOrEqualTo("1e99999") && generatorcheck === 0) {
+            if (player.coinsThisTranscension.gte("1e99999") && generatorcheck === 0) {
                 achievementaward(77)
             }
         }
@@ -679,7 +679,7 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
     }
     if (i === 5) {
         if (!auto) {
-            if (player.coinsThisTranscension.greaterThanOrEqualTo("1e120000")) {
+            if (player.coinsThisTranscension.gte("1e120000")) {
                 achievementaward(63)
             }
         }
@@ -898,7 +898,7 @@ export const ascensionAchievementCheck = (i: number, score = 0) => {
     if (i === 2) {
         let constantArray = [0, 3.14, 1e6, 4.32e10, 6.9e21, 1.509e33, 1e66, "1.8e308"]
         for (let j = 1; j <= 7; j++) {
-            if (player.ascendShards.greaterThanOrEqualTo(constantArray[j]) && player.achievements[189 + j] < 1) {
+            if (player.ascendShards.gte(constantArray[j]) && player.achievements[189 + j] < 1) {
                 achievementaward(189 + j)
             }
         }

@@ -5,7 +5,7 @@ import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { revealStuff } from './UpdateHTML';
 import { upgradeupdate } from './Upgrades';
-import { Globals } from './Variables';
+import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { getElementById } from './Utility';
 import { ascensionAchievementCheck } from './Achievements';
@@ -13,22 +13,6 @@ import { buyResearch } from './Research';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { resetHistoryAdd } from './History';
 import { challengeRequirement } from './Challenges';
-
-let {
-    prestigePointGain,
-    transcendPointGain,
-    reincarnationPointGain,
-    autoChallengeTimerIncrement
-} = Globals;
-
-const {
-    obtainiumGain,
-    autoResetTimers,
-    challenge15Rewards,
-    researchMaxLevels,
-    rune3level,
-    effectiveLevelMult
-} = Globals;
 
 let repeatreset: NodeJS.Timeout;
 
@@ -38,8 +22,6 @@ export const resetrepeat = (i: number) => {
 }
 
 export const resetdetails = (i: number) => {
-    let color = '';
-    let text = '';
     let r = 0;
 
     getElementById<HTMLImageElement>('resetofferings1').src = "Pictures/Offering.png"
@@ -52,24 +34,22 @@ export const resetdetails = (i: number) => {
     document.getElementById("resetofferings2").style.display = "block"
     let offering = 0;
     if (i === 1) {
-        color = 'cyan'
         if (getElementById<HTMLImageElement>("resetcurrency1").src !== "Pictures/Diamond.png") {
             getElementById<HTMLImageElement>("resetcurrency1").src = "Pictures/Diamond.png"
         }
         offering = calculateOfferings(1)
-        document.getElementById("resetcurrency2").textContent = "+" + format(prestigePointGain)
+        document.getElementById("resetcurrency2").textContent = "+" + format(G['prestigePointGain'])
         getElementById<HTMLImageElement>("resetobtainium").src = ""
         document.getElementById("resetobtainium2").textContent = ""
         document.getElementById("resetinfo").textContent = "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: " + format(player.coinsThisPrestige) + "/1e16 Coins || TIME SPENT: " + format(player.prestigecounter) + " seconds."
         document.getElementById("resetinfo").style.color = "turquoise"
     }
     if (i === 2) {
-        color = 'plum'
         if (getElementById<HTMLImageElement>("resetcurrency1").src !== "Pictures/Mythos.png") {
             getElementById<HTMLImageElement>("resetcurrency1").src = "Pictures/Mythos.png"
         }
         offering = calculateOfferings(2)
-        document.getElementById("resetcurrency2").textContent = "+" + format(transcendPointGain)
+        document.getElementById("resetcurrency2").textContent = "+" + format(G['transcendPointGain'])
         getElementById<HTMLImageElement>("resetobtainium").src = ""
         document.getElementById("resetobtainium2").textContent = ""
         document.getElementById("resetinfo").textContent = "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: " + format(player.coinsThisTranscension) + "/1e100 Coins || TIME SPENT: " + format(player.transcendcounter) + " seconds."
@@ -77,7 +57,6 @@ export const resetdetails = (i: number) => {
     }
     if (i === 3) {
         let s = player.currentChallenge.transcension;
-        color = 'red'
         getElementById<HTMLImageElement>("resetobtainium").src = ""
         getElementById<HTMLImageElement>("resetcurrency1").src = ""
         document.getElementById("resetcurrency2").textContent = ""
@@ -94,19 +73,17 @@ export const resetdetails = (i: number) => {
 
     }
     if (i === 4) {
-        color = 'green'
         if (getElementById<HTMLImageElement>("resetcurrency1").src !== "Pictures/Particle.png") {
             getElementById<HTMLImageElement>("resetcurrency1").src = "Pictures/Particle.png"
         }
         offering = calculateOfferings(3)
-        document.getElementById("resetcurrency2").textContent = "+" + format(reincarnationPointGain)
+        document.getElementById("resetcurrency2").textContent = "+" + format(G['reincarnationPointGain'])
         getElementById<HTMLImageElement>("resetobtainium").src = "Pictures/Obtainium.png"
-        document.getElementById("resetobtainium2").textContent = "+" + format(Math.floor(obtainiumGain))
+        document.getElementById("resetobtainium2").textContent = "+" + format(Math.floor(G['obtainiumGain']))
         document.getElementById("resetinfo").textContent = "Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: " + format(player.transcendShards) + "/1e300 Mythos Shards || TIME SPENT: " + format(player.reincarnationcounter) + " seconds."
         document.getElementById('resetinfo').style.color = "limegreen"
     }
     if (i === 5) {
-        color = 'cyan'
         if (getElementById<HTMLImageElement>("resetcurrency1").src !== "Pictures/Diamond.png") {
             getElementById<HTMLImageElement>("resetcurrency1").src = "Pictures/Diamond.png"
         }
@@ -125,7 +102,6 @@ export const resetdetails = (i: number) => {
             goal = "coins";
             goaldesc = " Coins"
         }
-        color = 'red'
         offering = calculateOfferings(3)
         getElementById<HTMLImageElement>("resetobtainium").src = ""
         getElementById<HTMLImageElement>("resetcurrency1").src = ""
@@ -225,7 +201,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
 
     historyEntry.offerings = calculateOfferings(i)
     historyEntry.seconds = player.prestigecounter;
-    historyEntry.diamonds = prestigePointGain;
+    historyEntry.diamonds = G['prestigePointGain'];
 
     resetofferings(i)
     resetUpgrades(1, fast);
@@ -258,7 +234,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
 
     player.prestigeCount += 1;
 
-    player.prestigePoints = player.prestigePoints.add(prestigePointGain);
+    player.prestigePoints = player.prestigePoints.add(G['prestigePointGain']);
     player.prestigeShards = new Decimal("0");
     player.prestigenoaccelerator = true;
     player.prestigenomultiplier = true;
@@ -270,16 +246,16 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         player.fastestprestige = player.prestigecounter;
     }
 
-    prestigePointGain = new Decimal('0');
+    G['prestigePointGain'] = new Decimal('0');
 
     player.prestigecounter = 0;
-    autoResetTimers.prestige = 0;
+    G['autoResetTimers'].prestige = 0;
 
 
     if (i > 1.5) {
         historyKind = "transcend";
         historyEntry.seconds = player.transcendcounter;
-        historyEntry.mythos = transcendPointGain;
+        historyEntry.mythos = G['transcendPointGain'];
         delete historyEntry.diamonds;
         resetUpgrades(2, fast);
         player.coinsThisTranscension = new Decimal("100");
@@ -305,14 +281,14 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
 
 
         player.prestigePoints = new Decimal("0");
-        player.transcendPoints = player.transcendPoints.add(transcendPointGain);
+        player.transcendPoints = player.transcendPoints.add(G['transcendPointGain']);
         player.transcendShards = new Decimal("0");
         player.transcendnocoinupgrades = true;
         player.transcendnocoinorprestigeupgrades = true;
         player.transcendnoaccelerator = true;
         player.transcendnomultiplier = true;
 
-        transcendPointGain = new Decimal('0')
+        G['transcendPointGain'] = new Decimal('0')
 
         if (player.achievements[78] > 0.5) {
             player.firstOwnedDiamonds += 1
@@ -354,7 +330,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         }
 
         player.transcendcounter = 0;
-        autoResetTimers.transcension = 0;
+        G['autoResetTimers'].transcension = 0;
     }
 
 
@@ -365,8 +341,8 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         }
 
         historyKind = "reincarnate";
-        historyEntry.obtainium = obtainiumGain;
-        historyEntry.particles = reincarnationPointGain;
+        historyEntry.obtainium = G['obtainiumGain'];
+        historyEntry.particles = G['reincarnationPointGain'];
         historyEntry.seconds = player.reincarnationcounter;
         delete historyEntry.mythos;
 
@@ -376,14 +352,14 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         // the gains in between each challenge start are still recorded, but all of the spam and the challenge
         // attempts themselves aren't.
         if (!historyUse) {
-            if (reincarnationPointGain.gte(player.reincarnationPoints.div(10))) {
+            if (G['reincarnationPointGain'].gte(player.reincarnationPoints.div(10))) {
                 historyUse = true;
             }
         }
 
-        player.researchPoints += Math.floor(obtainiumGain);
+        player.researchPoints += Math.floor(G['obtainiumGain']);
 
-        let opscheck = obtainiumGain / (1 + player.reincarnationcounter)
+        let opscheck = G['obtainiumGain'] / (1 + player.reincarnationcounter)
         if (opscheck > player.obtainiumpersecond) {
             player.obtainiumpersecond = opscheck
         }
@@ -409,9 +385,9 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         player.reincarnationCount += 1;
 
         player.transcendPoints = new Decimal("0");
-        player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain);
+        player.reincarnationPoints = player.reincarnationPoints.add(G['reincarnationPointGain']);
         if (player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0) {
-            player.prestigePoints = player.prestigePoints.add(reincarnationPointGain)
+            player.prestigePoints = player.prestigePoints.add(G['reincarnationPointGain'])
         }
         player.reincarnationShards = new Decimal("0");
         player.challengecompletions[1] = 0;
@@ -420,7 +396,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         player.challengecompletions[4] = 0;
         player.challengecompletions[5] = 0;
 
-        reincarnationPointGain = new Decimal('0');
+        G['reincarnationPointGain'] = new Decimal('0');
 
         if (player.shopUpgrades.instantChallengeBought && player.currentChallenge.reincarnation === 0) {
             player.challengecompletions[1] = player.highestchallengecompletions[1]
@@ -444,7 +420,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
 
         calculateCubeBlessings();
         player.reincarnationcounter = 0;
-        autoResetTimers.reincarnation = 0;
+        G['autoResetTimers'].reincarnation = 0;
 
 
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
@@ -484,7 +460,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         player.currentChallenge.transcension = 0;
         player.currentChallenge.reincarnation = 0;
         player.autoChallengeIndex = 1;
-        autoChallengeTimerIncrement = 0;
+        G['autoChallengeTimerIncrement'] = 0;
         //reset rest
         resetResearches();
         resetAnts();
@@ -547,7 +523,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
             if (player.achievements[187] > 0 && metaData[3] > 1e8) {
                 ascCount *= (Math.log(metaData[3]) / Math.log(10) - 1)
             }
-            ascCount *= challenge15Rewards.ascensions
+            ascCount *= G['challenge15Rewards'].ascensions
             ascCount = Math.floor(ascCount)
             player.ascensionCount += ascCount;
             player.wowCubes += metaData[4]; //Metadata is defined up in the top of the (i > 3.5) case
@@ -570,9 +546,9 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
 
         for (let j = 1; j <= (200); j++) {
             let k = "res" + j;
-            if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {
+            if (player.researches[j] > 0.5 && player.researches[j] < G['researchMaxLevels'][j]) {
                 document.getElementById(k).style.backgroundColor = "purple"
-            } else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {
+            } else if (player.researches[j] > 0.5 && player.researches[j] >= G['researchMaxLevels'][j]) {
                 document.getElementById(k).style.backgroundColor = "green"
             } else {
                 document.getElementById(k).style.backgroundColor = "black"
@@ -758,13 +734,12 @@ const resetUpgrades = (i: number, fast = false) => {
         player.crystalUpgradesCost = [7, 15, 20, 40, 100, 200, 500, 1000]
 
         let m = 0;
-        m += Math.floor(rune3level * effectiveLevelMult / 16) * 100 / 100
+        m += Math.floor(G['rune3level'] * G['effectiveLevelMult'] / 16) * 100 / 100
         if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
             m += 10
         }
         player.crystalUpgrades = [m, m, m, m, m, m, m, m]
     }
-
 
     for (let x = 1; x <= 125; x++) {
         upgradeupdate(x, true)

@@ -1,6 +1,6 @@
 import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts } from './UpdateHTML';
 import { player, interval, clearInt, format, resetCheck } from './Synergism';
-import { Globals } from './Variables';
+import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { visualUpdateCubes } from './UpdateVisuals';
 import { calculateRuneLevels } from './Calculate';
@@ -10,20 +10,6 @@ import { getChallengeConditions } from './Challenges';
 import { maxRoombaResearchIndex } from './Research';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier } from './Statistics';
 import { corruptionDisplay, corruptionLoadoutTableUpdate } from './Corruptions';
-
-let {
-    currentTab,
-    maxbuyresearch,
-    buildingSubTab,
-    shopConfirmation,
-    buyMaxCubeUpgrades,
-} = Globals;
-
-const {
-    researchOrderByCost,
-    researchMaxLevels,
-    corruptionTrigger
-} = Globals;
 
 type TabValue = { tabName: string, unlocked: boolean };
 type Tab = Record<number, TabValue>;
@@ -37,7 +23,7 @@ type SubTab = Record<number, {
 }>
 
 export const toggleTabs = (name: string) => {
-    Globals.currentTab = name;
+    G['currentTab'] = name;
     revealStuff();
     hideStuff();
     let subTabList = subTabsInMainTab(player.tabnumber).subTabList
@@ -387,11 +373,11 @@ export const toggleauto = () => {
 }
 
 export const toggleResearchBuy = () => {
-    if (maxbuyresearch) {
-        maxbuyresearch = false;
+    if (G['maxbuyresearch']) {
+        G['maxbuyresearch'] = false;
         document.getElementById("toggleresearchbuy").textContent = "Upgrade: 1 Level"
     } else {
-        maxbuyresearch = true;
+        G['maxbuyresearch'] = true;
         document.getElementById("toggleresearchbuy").textContent = "Upgrade: MAX [if possible]"
     }
 }
@@ -420,17 +406,17 @@ export const toggleAutoResearch = () => {
             if (player.researches[i] === 0) {
                 l.style.backgroundColor = "black"
             }
-            if (0 < player.researches[i] && player.researches[i] < researchMaxLevels[i]) {
+            if (0 < player.researches[i] && player.researches[i] < G['researchMaxLevels'][i]) {
                 l.style.backgroundColor = "purple"
             }
-            if (player.researches[i] === researchMaxLevels[i]) {
+            if (player.researches[i] === G['researchMaxLevels'][i]) {
                 l.style.backgroundColor = "green"
             }
         }
     }
 
     if (player.autoResearchToggle && player.cubeUpgrades[9] === 1) {
-        player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+        player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
         let doc = document.getElementById("res" + player.autoResearch)
         if (doc)
             doc.style.backgroundColor = "orange"
@@ -462,7 +448,7 @@ export const toggleAutoSacrifice = (index: number) => {
 }
 
 export const toggleBuildingScreen = (input: string) => {
-    buildingSubTab = input
+    G['buildingSubTab'] = input
     let screen: Record<string, { screen: string, button: string, subtabNumber: number }> = {
         "coin": {
             screen: "coinBuildings",
@@ -494,14 +480,14 @@ export const toggleBuildingScreen = (input: string) => {
         document.getElementById(screen[key].screen).style.display = "none";
         document.getElementById(screen[key].button).style.backgroundColor = "#171717";
     }
-    document.getElementById(screen[buildingSubTab].screen).style.display = "block"
-    document.getElementById(screen[buildingSubTab].button).style.backgroundColor = "crimson"
-    player.subtabNumber = screen[buildingSubTab].subtabNumber
+    document.getElementById(screen[G['buildingSubTab']].screen).style.display = "block"
+    document.getElementById(screen[G['buildingSubTab']].button).style.backgroundColor = "crimson"
+    player.subtabNumber = screen[G['buildingSubTab']].subtabNumber
 }
 
 export const toggleRuneScreen = (index: number) => {
     const screens = ['runes', 'talismans', 'blessings', 'spirits'];
-    Globals.runescreen = screens[index - 1];
+    G['runescreen'] = screens[index - 1];
 
     for (let i = 1; i <= 4; i++) {
         let a = document.getElementById("toggleRuneSubTab" + i);
@@ -562,7 +548,7 @@ function setActiveSettingScreen(subtab: string, clickedButton: HTMLButtonElement
         let id = interval(refreshStats, 1000)
 
         function refreshStats() {
-            if (currentTab !== "settings") {
+            if (G['currentTab'] !== "settings") {
                 clearInt(id);
             }
             loadStatisticsAccelerator();
@@ -579,11 +565,11 @@ function setActiveSettingScreen(subtab: string, clickedButton: HTMLButtonElement
 
 export const toggleShopConfirmation = () => {
     const el = document.getElementById("toggleConfirmShop")
-    el.textContent = shopConfirmation
+    el.textContent = G['shopConfirmation']
         ? "Shop Confirmations: OFF"
         : "Shop Confirmations: ON";
 
-    shopConfirmation = !shopConfirmation;
+    G['shopConfirmation'] = !G['shopConfirmation'];
 }
 
 export const toggleAntMaxBuy = () => {
@@ -619,11 +605,11 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
 
 export const toggleMaxBuyCube = () => {
     let el = document.getElementById("toggleCubeBuy")
-    if (buyMaxCubeUpgrades) {
-        buyMaxCubeUpgrades = false;
+    if (G['buyMaxCubeUpgrades']) {
+        G['buyMaxCubeUpgrades'] = false;
         el.textContent = "Upgrade: 1 Level wow"
     } else {
-        buyMaxCubeUpgrades = true;
+        G['buyMaxCubeUpgrades'] = true;
         el.textContent = "Upgrade: MAX [if possible wow]"
     }
 }
@@ -684,7 +670,7 @@ export const toggleAutoChallengeRun = () => {
         el.style.border = "2px solid red"
         el.textContent = "Auto Challenge Sweep [OFF]"
         player.autoChallengeIndex = 1;
-        Globals.autoChallengeTimerIncrement = 0;
+        G['autoChallengeTimerIncrement'] = 0;
     } else {
         el.style.border = "2px solid gold"
         el.textContent = "Auto Challenge Sweep [ON]"
@@ -762,7 +748,7 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
                 corruptionDisplay(i)
         }
         
-        corruptionDisplay(corruptionTrigger)
+        corruptionDisplay(G['corruptionTrigger'])
         document.getElementById("corruptionCleanseConfirm").style.visibility = "hidden";
 
         if (player.currentChallenge.ascension === 15) {

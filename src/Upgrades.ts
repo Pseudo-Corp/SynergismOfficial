@@ -1,5 +1,5 @@
 import { player, format } from './Synergism';
-import { Globals } from './Variables';
+import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { calculateAnts, calculateRuneLevels } from './Calculate';
 import { sumContents } from './Utility';
@@ -161,41 +161,41 @@ const constantUpgDesc: Record<string, string> = {
 }
 
 const upgradetexts = [
-    () => "Worker Production x" + format((Globals.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, Globals.totalCoinOwned)), 2),
-    () => "Investment Production x" + format((Globals.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, Globals.totalCoinOwned)), 2),
-    () => "Printer Production x" + format((Globals.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, Globals.totalCoinOwned)), 2),
-    () => "Mint Production x" + format((Globals.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, Globals.totalCoinOwned)), 2),
-    () => "Alchemy Production x" + format((Globals.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, Globals.totalCoinOwned)), 2),
-    () => "All Coin production x" + format((Globals.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, Globals.totalCoinOwned)), 2),
+    () => "Worker Production x" + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => "Investment Production x" + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => "Printer Production x" + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => "Mint Production x" + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => "Alchemy Production x" + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => "All Coin production x" + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
     () => "Gain " + Math.min(4, 1 + Math.floor(Decimal.log(player.fifthOwnedCoin + 1, 10))) + " free multipliers from bought Alchemies.",
     () => "+" + Math.floor(player.multiplierBought / 7) + " free Accelerators.",
     () => "+" + Math.floor(player.acceleratorBought / 10) + " free Multipliers.",
     () => "Worker Production x" + format(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)), 2),
-    () => "Generator efficiency x" + format(Decimal.pow(1.02, Globals.freeAccelerator), 2),
+    () => "Generator efficiency x" + format(Decimal.pow(1.02, G['freeAccelerator']), 2),
     () => "All Coin production x" + format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
     () => "Investment Production x" + format(Decimal.min(1e50, Decimal.pow(player.firstGeneratedMythos.add(player.firstOwnedMythos).add(1), 4 / 3).times(1e10)), 2),
-    () => "Printer Generation x" + format(Decimal.pow(1.15, Globals.freeAccelerator), 2),
-    () => "Mint Generation x" + format(Decimal.pow(1.15, Globals.freeAccelerator), 2),
-    () => "Gain " + format(Decimal.pow(Globals.acceleratorEffect, 1 / 3), 2) + "x more Diamonds on prestige",
+    () => "Printer Generation x" + format(Decimal.pow(1.15, G['freeAccelerator']), 2),
+    () => "Mint Generation x" + format(Decimal.pow(1.15, G['freeAccelerator']), 2),
+    () => "Gain " + format(Decimal.pow(G['acceleratorEffect'], 1 / 3), 2) + "x more Diamonds on prestige",
     () => "Mint Production x1e100 (Duh)",
     () => "Printer Production x" + format(Decimal.min(1e125, player.transcendShards.add(1))),
     () => "Investment Production x" + format(Decimal.min(1e200, player.transcendPoints.times(1e30).add(1))),
-    () => "All coin production is further multiplied by " + format(Decimal.pow((Globals.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, Globals.totalCoinOwned)), 10), 2) + " [Stacks with upgrade 1]!",
-    () => "+" + format(Math.floor((1 + (1 / 101 * Globals.freeMultiplier)))) + " Multipliers, +" + format(Math.floor((5 + (1 / 101 * Globals.freeAccelerator)))) + " Accelerators.",
-    () => "+" + format(Math.floor((1 + (1 / 101 * Globals.freeMultiplier)))) + " Multipliers, +" + format(Math.floor((4 + (1 / 101 * Globals.freeAccelerator)))) + " Accelerators.",
-    () => "+" + format(Math.floor((1 + (1 / 101 * Globals.freeMultiplier)))) + " Multipliers, +" + format(Math.floor((3 + (1 / 101 * Globals.freeAccelerator)))) + " Accelerators.",
-    () => "+" + format(Math.floor((1 + (1 / 101 * Globals.freeMultiplier)))) + " Multipliers, +" + format(Math.floor((2 + (1 / 101 * Globals.freeAccelerator)))) + " Accelerators.",
-    () => "+" + format(Math.floor((1 + (1 / 101 * Globals.freeMultiplier)))) + " Multipliers, +" + format(Math.floor((1 + (1 / 101 * Globals.freeAccelerator)))) + " Accelerators.",
+    () => "All coin production is further multiplied by " + format(Decimal.pow((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 10), 2) + " [Stacks with upgrade 1]!",
+    () => "+" + format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))) + " Multipliers, +" + format(Math.floor((5 + (1 / 101 * G['freeAccelerator'])))) + " Accelerators.",
+    () => "+" + format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))) + " Multipliers, +" + format(Math.floor((4 + (1 / 101 * G['freeAccelerator'])))) + " Accelerators.",
+    () => "+" + format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))) + " Multipliers, +" + format(Math.floor((3 + (1 / 101 * G['freeAccelerator'])))) + " Accelerators.",
+    () => "+" + format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))) + " Multipliers, +" + format(Math.floor((2 + (1 / 101 * G['freeAccelerator'])))) + " Accelerators.",
+    () => "+" + format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))) + " Multipliers, +" + format(Math.floor((1 + (1 / 101 * G['freeAccelerator'])))) + " Accelerators.",
     () => "+1 Accelerator Boost.",
     () => "+" + format(Math.min(250, Math.floor(Decimal.log(player.coins.add(1), 1e3))) + Math.max(0, Math.min(1750, Math.floor(Decimal.log(player.coins.add(1), 1e15)) - 50))) + " Accelerators.",
     () => "+" + format(Math.min(1000, Math.floor((player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin) / 160))) + " Multipliers.",
     () => "+" + format(Math.floor(Math.min(2000, (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin) / 80))) + " Accelerators.",
     () => "+" + format(Math.min(75, Math.floor(Decimal.log(player.coins.add(1), 1e10))) + Math.min(925, Math.floor(Decimal.log(player.coins.add(1), 1e30)))) + " Multipliers.",
-    () => "+" + format(Math.floor(Globals.totalCoinOwned / 2000)) + " Accelerator Boosts",
+    () => "+" + format(Math.floor(G['totalCoinOwned'] / 2000)) + " Accelerator Boosts",
     () => "+" + format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))) + " Accelerators",
-    () => "+" + format(Globals.totalAcceleratorBoost) + " Multipliers",
-    () => "+" + format(Math.floor(3 / 103 * Globals.freeMultiplier)) + " Multipliers",
-    () => "+" + format(Math.floor(2 / 102 * Globals.freeMultiplier)) + " Multipliers",
+    () => "+" + format(G['totalAcceleratorBoost']) + " Multipliers",
+    () => "+" + format(Math.floor(3 / 103 * G['freeMultiplier'])) + " Multipliers",
+    () => "+" + format(Math.floor(2 / 102 * G['freeMultiplier'])) + " Multipliers",
     () => "All Crystal producers x" + format(Decimal.min("1e5000", Decimal.pow(player.prestigePoints, 1 / 500)), 2),
     () => "All Mythos producers production x" + format(Decimal.pow(Decimal.log(player.prestigePoints.add(10), 10), 2), 2),
     () => "Thank you for getting the server above 30 boosts!",
@@ -208,14 +208,14 @@ const upgradetexts = [
     () => "+" + format(Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)))) + " Accelerators!",
     () => "It's kinda self-evident, ain't it?",
     () => "Mythos-tier producers production x" + format(Math.pow(1.05, player.achievementPoints) * (player.achievementPoints + 1), 2),
-    () => "Multiply coin production by a factor of " + format(Math.pow((Globals.totalMultiplier * Globals.totalAccelerator / 1000 + 1), 8)) + "!",
+    () => "Multiply coin production by a factor of " + format(Math.pow((G['totalMultiplier'] * G['totalAccelerator'] / 1000 + 1), 8)) + "!",
     () => "+" + format(Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10)))) + " Multipliers through magic!",
     () => "It's quite obvious what the benefit is, but you must be in a challenge for it to be in use!",
-    () => "Mythos-tier producers production x" + format(Math.pow(Globals.totalAcceleratorBoost, 2), 2) + "!",
-    () => "Mythos-tier producers production x" + format(Decimal.pow(Globals.globalMythosMultiplier, 0.025), 2) + "! It's like inception, or something.",
-    () => "Augments will produce " + format(Decimal.min("1e1250", Decimal.pow(Globals.acceleratorEffect, 1 / 125)), 2) + "x as many Mythos Shards.",
-    () => "Wizards will produce " + format(Decimal.min("1e2000", Decimal.pow(Globals.multiplierEffect, 1 / 180)), 2) + "x as many Enchantments; what productive spirits!",
-    () => "Grandmasters will produce " + format((Decimal.pow("1e1000", Math.min(1000, Globals.buildingPower - 1))), 2) + "x as many Oracles!",
+    () => "Mythos-tier producers production x" + format(Math.pow(G['totalAcceleratorBoost'], 2), 2) + "!",
+    () => "Mythos-tier producers production x" + format(Decimal.pow(G['globalMythosMultiplier'], 0.025), 2) + "! It's like inception, or something.",
+    () => "Augments will produce " + format(Decimal.min("1e1250", Decimal.pow(G['acceleratorEffect'], 1 / 125)), 2) + "x as many Mythos Shards.",
+    () => "Wizards will produce " + format(Decimal.min("1e2000", Decimal.pow(G['multiplierEffect'], 1 / 180)), 2) + "x as many Enchantments; what productive spirits!",
+    () => "Grandmasters will produce " + format((Decimal.pow("1e1000", Math.min(1000, G['buildingPower'] - 1))), 2) + "x as many Oracles!",
     () => "It's quite obvious, ain't it?",
     () => "Look above!",
     () => "Look above!",
@@ -228,10 +228,10 @@ const upgradetexts = [
     () => "5x Particle gain from Reincarnations. Duh!",
     () => "It's quite clear in the description!",
     () => "The first particle-tier producer is " + format(Decimal.pow(1.03, player.firstOwnedParticles + player.secondOwnedParticles + player.thirdOwnedParticles + player.fourthOwnedParticles + player.fifthOwnedParticles), 2) + "x as productive.",
-    () => "Your compliance with tax laws provides you with " + format(Math.min(2500, Math.floor(1 / 1000 * Decimal.log(Globals.taxdivisor, 10)))) + " free Multipliers, for some reason.",
+    () => "Your compliance with tax laws provides you with " + format(Math.min(2500, Math.floor(1 / 1000 * Decimal.log(G['taxdivisor'], 10)))) + " free Multipliers, for some reason.",
     () => {
-        const a = Decimal.pow(Decimal.log(Globals.reincarnationPointGain.add(10), 10), 0.5);
-        const b = Decimal.pow(Decimal.log(Globals.reincarnationPointGain.add(10), 10), 0.5);
+        const a = Decimal.pow(Decimal.log(G['reincarnationPointGain'].add(10), 10), 0.5);
+        const b = Decimal.pow(Decimal.log(G['reincarnationPointGain'].add(10), 10), 0.5);
         return "Cosmic Magnetics will allow you to gain " + 
             format(Math.min(10, new Decimal(a).toNumber()), 2) + 
             "x as much Obtainium reincarnating, x" + 
@@ -361,7 +361,7 @@ export const upgradedescriptions = (i: number) => {
         color = "limegreen"
     }
 
-    document.getElementById("upgradecost").textContent = "Cost: " + format(Decimal.pow(10, Globals.upgradeCosts[i])) + " " + currency
+    document.getElementById("upgradecost").textContent = "Cost: " + format(Decimal.pow(10, G['upgradeCosts'][i])) + " " + currency
     document.getElementById("upgradecost").style.color = color
     upgradeeffects(i)
 }
@@ -371,9 +371,9 @@ export const crystalupgradedescriptions = (i: number) => {
     const p = player.crystalUpgrades[i - 1];
     const c = 
         (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0 ? 10 : 0) +
-        (Math.floor(Globals.rune3level * Globals.effectiveLevelMult /16) * 100 / 100);
+        (Math.floor(G['rune3level'] * G['effectiveLevelMult'] /16) * 100 / 100);
     
-    const q = Decimal.pow(10, (Globals.crystalUpgradesCost[i - 1] + Globals.crystalUpgradeCostIncrement[i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)))
+    const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)))
     document.getElementById("crystalupgradedescription").textContent = w
     document.getElementById("crystalupgradeslevel").textContent = "Level: " + p;
     document.getElementById("crystalupgradescost").textContent = "Cost: " + format(q) + " crystals"
@@ -418,12 +418,12 @@ const constUpgEffect: Record<number, () => string> = {
 export const returnConstUpgEffect = (i: number) => constUpgEffect[i]?.();
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
-    const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(Globals.constUpgradeCosts[i]) / Math.log(10)));
+    const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G['constUpgradeCosts'][i]) / Math.log(10)));
     let cost = new Decimal("1");
     if (toBuy > player.constantUpgrades[i]) {
-        cost = Decimal.pow(10, toBuy - 1).times(Globals.constUpgradeCosts[i])
+        cost = Decimal.pow(10, toBuy - 1).times(G['constUpgradeCosts'][i])
     } else {
-        cost = Decimal.pow(10, player.constantUpgrades[i]).times(Globals.constUpgradeCosts[i])
+        cost = Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i])
     }
 
     return [Math.max(1, toBuy - player.constantUpgrades[i]), cost]
@@ -440,7 +440,7 @@ export const constantUpgradeDescriptions = (i: number) => {
 
 export const buyConstantUpgrades = (i: number, fast = false) => {
     const [level, cost] = getConstUpgradeMetadata(i)
-    if (player.ascendShards.greaterThanOrEqualTo(cost)) {
+    if (player.ascendShards.gte(cost)) {
         player.constantUpgrades[i] += level;
         if (player.researches[175] === 0) {
             player.ascendShards = player.ascendShards.sub(cost);

@@ -102,7 +102,7 @@ function buyMax(pos, type, num, originalCost) {
     // Start buying at the current amount bought + 1
     let buyTo = player[pos + 'Owned' + type] + 1;
     let cashToBuy = getCost(originalCost, buyTo, type, num, r);
-    while (player[tag].greaterThanOrEqualTo(cashToBuy)) {
+    while (player[tag].gte(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
         buyTo = buyTo * 4;
         cashToBuy = getCost(originalCost, buyTo, type, num, r);
@@ -111,7 +111,7 @@ function buyMax(pos, type, num, originalCost) {
     while (stepdown !== 0) {
 
         // if step down would push it below out of expense range then divide step down by 2
-        if (getCost(originalCost, buyTo - stepdown, type, num, r).lessThanOrEqualTo(player[tag])) {
+        if (getCost(originalCost, buyTo - stepdown, type, num, r).lte(player[tag])) {
             stepdown = Math.floor(stepdown / 2);
         } else {
             buyTo = buyTo - stepdown;
@@ -120,7 +120,7 @@ function buyMax(pos, type, num, originalCost) {
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
     let buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
     let thisCost = getCost(originalCost, buyFrom, type, num, r);
-    while (buyFrom < buyTo && player[tag].greaterThanOrEqualTo(getCost(originalCost, buyFrom, type, num, r))) {
+    while (buyFrom < buyTo && player[tag].gte(getCost(originalCost, buyFrom, type, num, r))) {
         player[tag] = player[tag].sub(thisCost);
         player[pos + 'Owned' + type] = buyFrom;
         buyFrom = buyFrom + 1;

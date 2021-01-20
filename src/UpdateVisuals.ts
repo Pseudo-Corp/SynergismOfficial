@@ -1,5 +1,5 @@
 import Decimal from 'break_infinity.js';
-import { Globals } from './Variables';
+import { Globals as G } from './Variables';
 import { player, format, formatTimeShort } from './Synergism';
 import { CalcECC } from './Challenges';
 import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium } from './Calculate';
@@ -7,61 +7,14 @@ import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
 
-const {
-    currentTab,
-    buildingSubTab,
-    produceTotal,
-    taxdivisor,
-    ordinals,
-    freeAccelerator,
-    acceleratorPower,
-    acceleratorEffect,
-    freeMultiplier,
-    multiplierPower,
-    multiplierEffect,
-    freeAcceleratorBoost,
-    tuSevenMulti,
-    maxexponent,
-    taxdivisorcheck,
-    prestigeMultiplier,
-    prestigePointGain,
-    autoResetTimers,
-    totalMultiplierBoost,
-    transcendPointGain,
-    buildingPower,
-    reincarnationMultiplier,
-    reincarnationPointGain,
-    ascendBuildingProduction,
-    platonicBonusMultiplier,
-    runescreen,
-    bonusant9,
-    runeBlessings,
-    effectiveRuneBlessingPower,
-    runeSpirits,
-    effectiveRuneSpiritPower,
-    autoChallengeTimerIncrement,
-    cubeBonusMultiplier,
-    tesseractBonusMultiplier,
-    hypercubeBonusMultiplier,
-    runeSum,
-    talisman7Quarks,
-    shopBaseCosts,
-    antOneProduce,
-    bonusant2,
-    blessingBaseCost,
-    rune4level,
-    spiritBaseCost,
-    extinctionMultiplier
-} = Globals;
-
 export const visualUpdateBuildings = () => {
-    if (currentTab !== "buildings") {
+    if (G['currentTab'] !== "buildings") {
         console.log("buildings update happened not in buildings")
         return;
     }
     
     //When you're in Building --> Coin, update these.
-    if (buildingSubTab === "coin") {
+    if (G['buildingSubTab'] === "coin") {
         // For the display of Coin Buildings
         let upper = ['produceFirst', 'produceSecond', 'produceThird', 'produceFourth', 'produceFifth'] as const;
         let names = [null, 'Workers', 'Investments', 'Printers', 'Coin Mints', 'Alchemies']
@@ -69,25 +22,25 @@ export const visualUpdateBuildings = () => {
         // Placeholder is of form "produce+upper[i]", which feeds info place in the form of window function
         let percentage = new Decimal()
 
-        let totalProductionDivisor = new Decimal(produceTotal);
+        let totalProductionDivisor = new Decimal(G['produceTotal']);
         if (totalProductionDivisor.equals(0)) {
             totalProductionDivisor = new Decimal(1);
         }
 
         for (let i = 1; i <= 5; i++) {
-            const place = Globals[upper[i - 1]];
-            document.getElementById("buildtext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[ordinals[i - 1] + 'OwnedCoin'], 0, true) + " [+" + format(player[ordinals[i - 1] + 'GeneratedCoin']) + "]"
-            document.getElementById("buycoin" + i).textContent = "Cost: " + format(player[ordinals[i - 1] + 'CostCoin']) + " coins."
+            const place = G[upper[i - 1]];
+            document.getElementById("buildtext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[G['ordinals'][i - 1] + 'OwnedCoin'], 0, true) + " [+" + format(player[G['ordinals'][i - 1] + 'GeneratedCoin']) + "]"
+            document.getElementById("buycoin" + i).textContent = "Cost: " + format(player[G['ordinals'][i - 1] + 'CostCoin']) + " coins."
             percentage = percentage.fromMantissaExponent(place.mantissa / totalProductionDivisor.mantissa, place.exponent - totalProductionDivisor.exponent).times(100)
-            document.getElementById("buildtext" + (2 * i)).textContent = "Coins/Sec: " + format((place.dividedBy(taxdivisor)).times(40), 2) + " [" + format(percentage, 3) + "%]"
+            document.getElementById("buildtext" + (2 * i)).textContent = "Coins/Sec: " + format((place.dividedBy(G['taxdivisor'])).times(40), 2) + " [" + format(percentage, 3) + "%]"
         }
 
-        document.getElementById("buildtext11").textContent = "Accelerators: " + format(player.acceleratorBought, 0, true) + " [+" + format(freeAccelerator, 0, true) + "]"
-        document.getElementById("buildtext12").textContent = "Acceleration Power: " + ((acceleratorPower - 1) * (100)).toPrecision(4) + "% || Acceleration Multiplier: " + format(acceleratorEffect, 2) + "x"
-        document.getElementById("buildtext13").textContent = "Multipliers: " + format(player.multiplierBought, 0, true) + " [+" + format(freeMultiplier, 0, true) + "]"
-        document.getElementById("buildtext14").textContent = "Multiplier Power: " + multiplierPower.toPrecision(4) + "x || Multiplier: " + format(multiplierEffect, 2) + "x"
-        document.getElementById("buildtext15").textContent = "Accelerator Boost: " + format(player.acceleratorBoostBought, 0, true) + " [+" + format(freeAcceleratorBoost, 0, false) + "]"
-        document.getElementById("buildtext16").textContent = "Reset Diamonds and Prestige Upgrades, but add " + (tuSevenMulti * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', player.challengecompletions[2]) / 100)).toPrecision(4) + "% Acceleration Power and 5 free Accelerators."
+        document.getElementById("buildtext11").textContent = "Accelerators: " + format(player.acceleratorBought, 0, true) + " [+" + format(G['freeAccelerator'], 0, true) + "]"
+        document.getElementById("buildtext12").textContent = "Acceleration Power: " + ((G['acceleratorPower'] - 1) * (100)).toPrecision(4) + "% || Acceleration Multiplier: " + format(G['acceleratorEffect'], 2) + "x"
+        document.getElementById("buildtext13").textContent = "Multipliers: " + format(player.multiplierBought, 0, true) + " [+" + format(G['freeMultiplier'], 0, true) + "]"
+        document.getElementById("buildtext14").textContent = "Multiplier Power: " + G['multiplierPower'].toPrecision(4) + "x || Multiplier: " + format(G['multiplierEffect'], 2) + "x"
+        document.getElementById("buildtext15").textContent = "Accelerator Boost: " + format(player.acceleratorBoostBought, 0, true) + " [+" + format(G['freeAcceleratorBoost'], 0, false) + "]"
+        document.getElementById("buildtext16").textContent = "Reset Diamonds and Prestige Upgrades, but add " + (G['tuSevenMulti'] * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', player.challengecompletions[2]) / 100)).toPrecision(4) + "% Acceleration Power and 5 free Accelerators."
         document.getElementById("buyaccelerator").textContent = "Cost: " + format(player.acceleratorCost) + " coins."
         document.getElementById("buymultiplier").textContent = "Cost: " + format(player.multiplierCost) + " coins."
         document.getElementById("buyacceleratorboost").textContent = "Cost: " + format(player.acceleratorBoostCost) + " Diamonds."
@@ -95,62 +48,62 @@ export const visualUpdateBuildings = () => {
         // update the tax text
         let warning = "";
         if (player.reincarnationCount > 0.5) {
-            warning = `Your tax also caps your Coin gain at ${format(Decimal.pow(10, maxexponent - Decimal.log(taxdivisorcheck, 10)))}/s.`
+            warning = `Your tax also caps your Coin gain at ${format(Decimal.pow(10, G['maxexponent'] - Decimal.log(G['taxdivisorcheck'], 10)))}/s.`
         }
         document.getElementById("taxinfo").textContent =
-            `Due to your excessive wealth, coin production is divided by ${format(taxdivisor, 2)} to pay taxes! ${warning}`
+            `Due to your excessive wealth, coin production is divided by ${format(G['taxdivisor'], 2)} to pay taxes! ${warning}`
     }
 
-    if (buildingSubTab === "diamond") {
+    if (G['buildingSubTab'] === "diamond") {
         // For the display of Diamond Buildings
         let upper = ['produceFirstDiamonds', 'produceSecondDiamonds', 'produceThirdDiamonds', 'produceFourthDiamonds', 'produceFifthDiamonds'] as const;
         let names = [null, 'Refineries', 'Coal Plants', 'Coal Rigs', 'Pickaxes', 'Pandoras Boxes']
         let perSecNames = [null, "Crystal/sec", "Ref./sec", "Plants/sec", "Rigs/sec", "Pickaxes/sec"]
 
-        document.getElementById("prestigeshardinfo").textContent = "You have " + format(player.prestigeShards, 2) + " Crystals, multiplying Coin production by " + format(prestigeMultiplier, 2) + "x."
+        document.getElementById("prestigeshardinfo").textContent = "You have " + format(player.prestigeShards, 2) + " Crystals, multiplying Coin production by " + format(G['prestigeMultiplier'], 2) + "x."
 
         for (let i = 1; i <= 5; i++) {
-            const place = Globals[upper[i-1]];
+            const place = G[upper[i-1]];
 
-            document.getElementById("prestigetext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[ordinals[i - 1] + 'OwnedDiamonds'], 0, true) + " [+" + format(player[ordinals[i - 1] + 'GeneratedDiamonds'], 2) + "]"
+            document.getElementById("prestigetext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[G['ordinals'][i - 1] + 'OwnedDiamonds'], 0, true) + " [+" + format(player[G['ordinals'][i - 1] + 'GeneratedDiamonds'], 2) + "]"
             document.getElementById("prestigetext" + (2 * i)).textContent = perSecNames[i] + ": " + format((place).times(40), 2)
-            document.getElementById("buydiamond" + i).textContent = "Cost: " + format(player[ordinals[i - 1] + 'CostDiamonds'], 2) + " Diamonds"
+            document.getElementById("buydiamond" + i).textContent = "Cost: " + format(player[G['ordinals'][i - 1] + 'CostDiamonds'], 2) + " Diamonds"
         }
 
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
-            let p = Decimal.pow(10, Decimal.log(prestigePointGain.add(1), 10) - Decimal.log(player.prestigePoints.sub(1), 10))
+            let p = Decimal.pow(10, Decimal.log(G['prestigePointGain'].add(1), 10) - Decimal.log(player.prestigePoints.sub(1), 10))
             document.getElementById("autoprestige").textContent = "Prestige when your Diamonds can increase by a factor " + format(Decimal.pow(10, player.prestigeamount)) + " [Toggle number above]. Current Multiplier: " + format(p) + "."
         }
         if (player.resettoggle1 === 2) {
-            document.getElementById("autoprestige").textContent = "Prestige when the autotimer is at least " + (player.prestigeamount) + " real-life seconds. [Toggle number above]. Current timer: " + format(autoResetTimers.prestige, 1) + "s."
+            document.getElementById("autoprestige").textContent = "Prestige when the autotimer is at least " + (player.prestigeamount) + " real-life seconds. [Toggle number above]. Current timer: " + format(G['autoResetTimers'].prestige, 1) + "s."
         }
     }
 
-    if (buildingSubTab === "mythos") {
+    if (G['buildingSubTab'] === "mythos") {
         // For the display of Mythos Buildings
         let upper = ['produceFirstMythos', 'produceSecondMythos', 'produceThirdMythos', 'produceFourthMythos', 'produceFifthMythos'] as const;
         let names = [null, 'Augments', 'Enchantments', 'Wizards', 'Oracles', 'Grandmasters']
         let perSecNames = [null, "Shards/sec", "Augments/sec", "Enchantments/sec", "Wizards/sec", "Oracles/sec"]
 
-        document.getElementById("transcendshardinfo").textContent = "You have " + format(player.transcendShards, 2) + " Mythos Shards, providing " + format(totalMultiplierBoost, 0, true) + " Multiplier Power boosts."
+        document.getElementById("transcendshardinfo").textContent = "You have " + format(player.transcendShards, 2) + " Mythos Shards, providing " + format(G['totalMultiplierBoost'], 0, true) + " Multiplier Power boosts."
 
         for (let i = 1; i <= 5; i++) {
-            const place = Globals[upper[i-1]];
+            const place = G[upper[i-1]];
 
-            document.getElementById("transcendtext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[ordinals[i - 1] + 'OwnedMythos'], 0, true) + " [+" + format(player[ordinals[i - 1] + 'GeneratedMythos'], 2) + "]"
+            document.getElementById("transcendtext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[G['ordinals'][i - 1] + 'OwnedMythos'], 0, true) + " [+" + format(player[G['ordinals'][i - 1] + 'GeneratedMythos'], 2) + "]"
             document.getElementById("transcendtext" + (2 * i)).textContent = perSecNames[i] + ": " + format((place).times(40), 2)
-            document.getElementById("buymythos" + i).textContent = "Cost: " + format(player[ordinals[i - 1] + 'CostMythos'], 2) + " Mythos"
+            document.getElementById("buymythos" + i).textContent = "Cost: " + format(player[G['ordinals'][i - 1] + 'CostMythos'], 2) + " Mythos"
         }
 
         if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
-            document.getElementById("autotranscend").textContent = "Prestige when your Mythos can increase by a factor " + format(Decimal.pow(10, player.transcendamount)) + " [Toggle number above]. Current Multiplier: " + format(Decimal.pow(10, Decimal.log(transcendPointGain.add(1), 10) - Decimal.log(player.transcendPoints.add(1), 10)), 2) + "."
+            document.getElementById("autotranscend").textContent = "Prestige when your Mythos can increase by a factor " + format(Decimal.pow(10, player.transcendamount)) + " [Toggle number above]. Current Multiplier: " + format(Decimal.pow(10, Decimal.log(G['transcendPointGain'].add(1), 10) - Decimal.log(player.transcendPoints.add(1), 10)), 2) + "."
         }
         if (player.resettoggle2 === 2) {
-            document.getElementById("autotranscend").textContent = "Transcend when the autotimer is at least " + (player.transcendamount) + " real-life seconds. [Toggle number above]. Current timer: " + format(autoResetTimers.transcension, 1) + "s."
+            document.getElementById("autotranscend").textContent = "Transcend when the autotimer is at least " + (player.transcendamount) + " real-life seconds. [Toggle number above]. Current timer: " + format(G['autoResetTimers'].transcension, 1) + "s."
         }
     }
 
-    if (buildingSubTab === "particle") {
+    if (G['buildingSubTab'] === "particle") {
 
         // For the display of Particle Buildings
         let upper = ['produceFirstParticles', 'produceSecondParticles', 'produceThirdParticles', 'produceFourthParticles', 'produceFifthParticles'] as const;
@@ -158,57 +111,57 @@ export const visualUpdateBuildings = () => {
         let perSecNames = [null, "Atoms/sec", "Protons/sec", "Elements/sec", "Pulsars/sec", "Quasars/sec"]
 
         for (let i = 1; i <= 5; i++) {
-            const place = Globals[upper[i-1]];
+            const place = G[upper[i-1]];
 
-            document.getElementById("reincarnationtext" + (i)).textContent = names[i] + ": " + format(player[ordinals[i - 1] + 'OwnedParticles'], 0, true) + " [+" + format(player[ordinals[i - 1] + 'GeneratedParticles'], 2) + "]"
+            document.getElementById("reincarnationtext" + (i)).textContent = names[i] + ": " + format(player[G['ordinals'][i - 1] + 'OwnedParticles'], 0, true) + " [+" + format(player[G['ordinals'][i - 1] + 'GeneratedParticles'], 2) + "]"
             document.getElementById("reincarnationtext" + (5 + i)).textContent = perSecNames[i] + ": " + format((place).times(40), 2)
-            document.getElementById("buyparticles" + i).textContent = "Cost: " + format(player[ordinals[i - 1] + 'CostParticles'], 2) + " Particles"
+            document.getElementById("buyparticles" + i).textContent = "Cost: " + format(player[G['ordinals'][i - 1] + 'CostParticles'], 2) + " Particles"
         }
 
-        document.getElementById("reincarnationshardinfo").textContent = "You have " + format(player.reincarnationShards, 2) + " Atoms, providing " + buildingPower.toPrecision(4) + " Building Power. Multiplier to Coin Production: " + format(reincarnationMultiplier)
-        document.getElementById("reincarnationCrystalInfo").textContent = "Thanks to Research 2x14, you also multiply Crystal production by " + format(Decimal.pow(reincarnationMultiplier, 1 / 50), 3, false)
-        document.getElementById("reincarnationMythosInfo").textContent = "Thanks to Research 2x15, you also multiply Mythos Shard production by " + format(Decimal.pow(reincarnationMultiplier, 1 / 250), 3, false)
+        document.getElementById("reincarnationshardinfo").textContent = "You have " + format(player.reincarnationShards, 2) + " Atoms, providing " + G['buildingPower'].toPrecision(4) + " Building Power. Multiplier to Coin Production: " + format(G['reincarnationMultiplier'])
+        document.getElementById("reincarnationCrystalInfo").textContent = "Thanks to Research 2x14, you also multiply Crystal production by " + format(Decimal.pow(G['reincarnationMultiplier'], 1 / 50), 3, false)
+        document.getElementById("reincarnationMythosInfo").textContent = "Thanks to Research 2x15, you also multiply Mythos Shard production by " + format(Decimal.pow(G['reincarnationMultiplier'], 1 / 250), 3, false)
 
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
-            document.getElementById("autoreincarnate").textContent = "Reincarnate when your Particles can increase by a factor " + format(Decimal.pow(10, player.reincarnationamount)) + " [Toggle number above]. Current Multiplier: " + format(Decimal.pow(10, Decimal.log(reincarnationPointGain.add(1), 10) - Decimal.log(player.reincarnationPoints.add(1), 10)), 2) + "."
+            document.getElementById("autoreincarnate").textContent = "Reincarnate when your Particles can increase by a factor " + format(Decimal.pow(10, player.reincarnationamount)) + " [Toggle number above]. Current Multiplier: " + format(Decimal.pow(10, Decimal.log(G['reincarnationPointGain'].add(1), 10) - Decimal.log(player.reincarnationPoints.add(1), 10)), 2) + "."
         }
         if (player.resettoggle3 === 2) {
-            document.getElementById("autoreincarnate").textContent = "Reincarnate when the autotimer is at least " + (player.reincarnationamount) + " real-life seconds. [Toggle number above]. Current timer: " + format(autoResetTimers.reincarnation, 1) + "s."
+            document.getElementById("autoreincarnate").textContent = "Reincarnate when the autotimer is at least " + (player.reincarnationamount) + " real-life seconds. [Toggle number above]. Current timer: " + format(G['autoResetTimers'].reincarnation, 1) + "s."
         }
     }
 
-    if (buildingSubTab === "tesseract") {
+    if (G['buildingSubTab'] === "tesseract") {
         let names = [null, 'Dot', 'Vector', 'Three-Space', 'Bent Time', 'Hilbert Space']
         let perSecNames = [null, '+Constant/sec', 'Dot/sec', 'Vector/sec', 'Three-Space/sec', 'Bent Time/sec']
         for (let i = 1; i <= 5; i++) {
             document.getElementById("ascendText" + i).textContent = names[i] + ": " + format(player['ascendBuilding' + i]['owned'], 0, true) + " [+" + format(player['ascendBuilding' + i]['generated'], 2) + "]"
             document.getElementById("ascendText" + (5 + i)).textContent = 
-                perSecNames[i] + ": " + format(((ascendBuildingProduction as { [key: string]: Decimal })[ordinals[i - 1]]), 2)
+                perSecNames[i] + ": " + format(((G['ascendBuildingProduction'] as { [key: string]: Decimal })[G['ordinals'][i - 1]]), 2)
             document.getElementById("buyTesseracts" + i).textContent = "Cost: " + format(player['ascendBuilding' + i]['cost'], 0) + " Tesseracts"
         }
 
         document.getElementById("tesseractInfo").textContent = "You have " + format(player.wowTesseracts) + " Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension."
-        document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards, 2) + ". Taxes are divided by " + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + 0.5 * player.platonicUpgrades[15] + (platonicBonusMultiplier[5] - 1)), 4, true) + "."
+        document.getElementById("ascendShardInfo").textContent = "You have a mathematical constant of " + format(player.ascendShards, 2) + ". Taxes are divided by " + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + 0.5 * player.platonicUpgrades[15] + (G['platonicBonusMultiplier'][5] - 1)), 4, true) + "."
         document.getElementById("autotessbuyeramount").textContent = "Auto buyer will save at least " + format(player.tesseractAutoBuyerAmount) + " tesseracts. [Enter number above]."
     }
 }
 
 export const visualUpdateUpgrades = () => {
-    if (currentTab !== "upgrades")
+    if (G['currentTab'] !== "upgrades")
         return
 
 }
 
 export const visualUpdateAchievements = () => {
-    if (currentTab !== "achievements")
+    if (G['currentTab'] !== "achievements")
         return
 
 }
 
 export const visualUpdateRunes = () => {
-    if (currentTab !== "runes")
+    if (G['currentTab'] !== "runes")
         return
-    if (runescreen === "runes") { //Placeholder and place work similarly to buildings, except for the specific Talismans.
+    if (G['runescreen'] === "runes") { //Placeholder and place work similarly to buildings, except for the specific Talismans.
 
         const talismans = [
             'rune1Talisman',
@@ -221,64 +174,64 @@ export const visualUpdateRunes = () => {
         document.getElementById("runeshards").textContent = "You have " + format(player.runeshards, 0, true) + " Offerings."
 
         for (let i = 1; i <= 5; i++) { //First one updates level, second one updates TNL, third updates orange bonus levels
-            const place = Globals[talismans[i-1]];
+            const place = G[talismans[i-1]];
 
             document.getElementById('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i - 1]) + "/" + format(calculateMaxRunes(i))
             document.getElementById('rune' + i + 'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP"
-            document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + bonusant9) + place) + "]"
+            document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + G['bonusant9']) + place) + "]"
 
             displayRuneInformation(i, false)
         }
 
         document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 25 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + "* EXP per offering sacrificed."
-        document.getElementById("runerecycle").textContent = "You have " + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, rune4level / 16) + 0.5 * player.cubeUpgrades[2]), 2, true) + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(), 2, true) + "!"
+        document.getElementById("runerecycle").textContent = "You have " + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, G['rune4level'] / 16) + 0.5 * player.cubeUpgrades[2]), 2, true) + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(), 2, true) + "!"
     }
 
-    if (runescreen === "talismans") {
+    if (G['runescreen'] === "talismans") {
         for (let i = 1; i <= 7; i++) {
             document.getElementById('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i-1] + "/" + (30 * player.talismanRarity[i-1] + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 400))
         }
     }
 
-    if (runescreen === "blessings") {
+    if (G['runescreen'] === "blessings") {
         let blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
         let t = 0;
         for (let i = 1; i <= 5; i++) {
             document.getElementById('runeBlessingLevel' + i + 'Value').textContent = format(player.runeBlessingLevels[i], 0, true)
-            document.getElementById('runeBlessingPower' + i + 'Value1').textContent = format(runeBlessings[i])
-            document.getElementById('runeBlessingPurchaseAmount' + i).textContent = format(Math.max(1, calculateSummationLinear(player.runeBlessingLevels[i], blessingBaseCost, player.runeshards, player.runeBlessingBuyAmount)[0] - player.runeBlessingLevels[i]))
-            document.getElementById('runeBlessingPurchaseCost' + i).textContent = format(Math.max(blessingBaseCost * (1 + player.runeBlessingLevels[i]), calculateSummationLinear(player.runeBlessingLevels[i], blessingBaseCost, player.runeshards, player.runeBlessingBuyAmount)[1]))
+            document.getElementById('runeBlessingPower' + i + 'Value1').textContent = format(G['runeBlessings'][i])
+            document.getElementById('runeBlessingPurchaseAmount' + i).textContent = format(Math.max(1, calculateSummationLinear(player.runeBlessingLevels[i], G['blessingBaseCost'], player.runeshards, player.runeBlessingBuyAmount)[0] - player.runeBlessingLevels[i]))
+            document.getElementById('runeBlessingPurchaseCost' + i).textContent = format(Math.max(G['blessingBaseCost'] * (1 + player.runeBlessingLevels[i]), calculateSummationLinear(player.runeBlessingLevels[i], G['blessingBaseCost'], player.runeshards, player.runeBlessingBuyAmount)[1]))
             if (i === 5) {
                 t = 1
             }
-            document.getElementById('runeBlessingPower' + i + 'Value2').textContent = format(1 - t + blessingMultiplierArray[i] * effectiveRuneBlessingPower[i], 4, true)
+            document.getElementById('runeBlessingPower' + i + 'Value2').textContent = format(1 - t + blessingMultiplierArray[i] * G['effectiveRuneBlessingPower'][i], 4, true)
         }
     }
 
-    if (runescreen === "spirits") {
+    if (G['runescreen'] === "spirits") {
         let spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
         let subtract = [0, 0, 0, 1, 0, 0]
         for (let i = 1; i <= 5; i++) {
             spiritMultiplierArray[i] *= (calculateCorruptionPoints() / 400)
             document.getElementById('runeSpiritLevel' + i + 'Value').textContent = format(player.runeSpiritLevels[i], 0, true)
-            document.getElementById('runeSpiritPower' + i + 'Value1').textContent = format(runeSpirits[i])
-            document.getElementById('runeSpiritPurchaseAmount' + i).textContent = format(Math.max(1, calculateSummationLinear(player.runeSpiritLevels[i], spiritBaseCost, player.runeshards, player.runeSpiritBuyAmount)[0] - player.runeSpiritLevels[i]))
-            document.getElementById('runeSpiritPurchaseCost' + i).textContent = format(Math.max(spiritBaseCost * (1 + player.runeSpiritLevels[i]), calculateSummationLinear(player.runeSpiritLevels[i], spiritBaseCost, player.runeshards, player.runeSpiritBuyAmount)[1]))
-            document.getElementById('runeSpiritPower' + i + 'Value2').textContent = format(1 - subtract[i] + spiritMultiplierArray[i] * effectiveRuneSpiritPower[i], 4, true)
+            document.getElementById('runeSpiritPower' + i + 'Value1').textContent = format(G['runeSpirits'][i])
+            document.getElementById('runeSpiritPurchaseAmount' + i).textContent = format(Math.max(1, calculateSummationLinear(player.runeSpiritLevels[i], G['spiritBaseCost'], player.runeshards, player.runeSpiritBuyAmount)[0] - player.runeSpiritLevels[i]))
+            document.getElementById('runeSpiritPurchaseCost' + i).textContent = format(Math.max(G['spiritBaseCost'] * (1 + player.runeSpiritLevels[i]), calculateSummationLinear(player.runeSpiritLevels[i], G['spiritBaseCost'], player.runeshards, player.runeSpiritBuyAmount)[1]))
+            document.getElementById('runeSpiritPower' + i + 'Value2').textContent = format(1 - subtract[i] + spiritMultiplierArray[i] * G['effectiveRuneSpiritPower'][i], 4, true)
         }
     }
 }
 
 export const visualUpdateChallenges = () => {
-    if (currentTab !== "challenges")
+    if (G['currentTab'] !== "challenges")
         return
     if (player.researches[150] > 0) {
-        document.getElementById("autoIncrementerAmount").textContent = format(autoChallengeTimerIncrement, 2) + "s"
+        document.getElementById("autoIncrementerAmount").textContent = format(G['autoChallengeTimerIncrement'], 2) + "s"
     }
 }
 
 export const visualUpdateResearch = () => {
-    if (currentTab !== "researches")
+    if (G['currentTab'] !== "researches")
         return
 
     if (player.researches[61] > 0) {
@@ -287,9 +240,9 @@ export const visualUpdateResearch = () => {
 }
 
 export const visualUpdateAnts = () => {
-    if (currentTab !== "ants")
+    if (G['currentTab'] !== "ants")
         return
-    document.getElementById("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(antOneProduce, 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + bonusant2) / 5000 * 500 / 499))) + "x Coin Multiplier."
+    document.getElementById("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(G['antOneProduce'], 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + G['bonusant2']) / 5000 * 500 / 499))) + "x Coin Multiplier."
     let mode = player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
     let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
     document.getElementById("autoAntSacrifice").textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer)}`
@@ -300,7 +253,7 @@ export const visualUpdateAnts = () => {
 }
 
 export const visualUpdateCubes = () => {
-    if (currentTab !== "cubes")
+    if (G['currentTab'] !== "cubes")
         return
     document.getElementById("cubeToQuarkTimerValue").textContent = format(Math.floor(player.dayTimer / 3600), 0) + " Hours " + format(Math.floor(player.dayTimer / 60 % 60), 0) + " Mins " + format(Math.floor(player.dayTimer % 60), 0) + " Secs "
 
@@ -329,9 +282,9 @@ export const visualUpdateCubes = () => {
                     augmentAccuracy += 2;
                 }
                 document.getElementById(`cubeBlessing${i}Amount`).textContent = `x${format(cubeArray[i], 0, true)}`
-                document.getElementById(`cubeBlessing${i}Effect`).textContent = `+${format(100 * (cubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                document.getElementById(`cubeBlessing${i}Effect`).textContent = `+${format(100 * (G['cubeBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
                 if (i === 1 || i === 8 || i === 9) {
-                    document.getElementById(`cubeBlessing${i}Effect`).textContent = `+${format(cubeBonusMultiplier[i] - 1, accuracy[i] + augmentAccuracy, true)}`
+                    document.getElementById(`cubeBlessing${i}Effect`).textContent = `+${format(G['cubeBonusMultiplier'][i] - 1, accuracy[i] + augmentAccuracy, true)}`
                 }
             }
             document.getElementById("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray), 0, true);
@@ -346,7 +299,7 @@ export const visualUpdateCubes = () => {
                     augmentAccuracy += 2;
                 }
                 document.getElementById(`tesseractBlessing${i}Amount`).textContent = `x${format(tesseractArray[i], 0, true)}`
-                document.getElementById(`tesseractBlessing${i}Effect`).textContent = `+${format(100 * (tesseractBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                document.getElementById(`tesseractBlessing${i}Effect`).textContent = `+${format(100 * (G['tesseractBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
             }
             document.getElementById("tesseractBlessingTotalAmount").textContent = format(sumContents(tesseractArray), 0, true);
             break;
@@ -360,7 +313,7 @@ export const visualUpdateCubes = () => {
                     augmentAccuracy += 2;
                 }
                 document.getElementById(`hypercubeBlessing${i}Amount`).textContent = `x${format(hypercubeArray[i], 0, true)}`
-                document.getElementById(`hypercubeBlessing${i}Effect`).textContent = `+${format(100 * (hypercubeBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                document.getElementById(`hypercubeBlessing${i}Effect`).textContent = `+${format(100 * (G['hypercubeBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
             }
             document.getElementById("hypercubeBlessingTotalAmount").textContent = format(sumContents(hypercubeArray), 0, true);
             break;
@@ -375,7 +328,7 @@ export const visualUpdateCubes = () => {
                     augmentAccuracy += 1;
                 }
                 document.getElementById(`platonicBlessing${i + 1}Amount`).textContent = `x${format(platonicArray[i], 0, true)}`
-                document.getElementById(`platonicBlessing${i + 1}Effect`).textContent = `+${format(100 * (platonicBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                document.getElementById(`platonicBlessing${i + 1}Effect`).textContent = `+${format(100 * (G['platonicBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
             }
             document.getElementById("platonicBlessingTotalAmount").textContent = format(sumContents(platonicArray), 0, true);
             break;
@@ -391,7 +344,7 @@ export const visualUpdateCubes = () => {
 }
 
 export const visualUpdateCorruptions = () => {
-    if (currentTab !== "traits")
+    if (G['currentTab'] !== "traits")
         return
 
     document.getElementById("autoAscendMetric").textContent = format(player.autoAscendThreshold, 0, true)
@@ -405,12 +358,12 @@ export const visualUpdateCorruptions = () => {
     document.getElementById("corruptionTesseractsValue").textContent = format(metaData[5])
     document.getElementById("corruptionHypercubesValue").textContent = format(metaData[6])
     document.getElementById("corruptionPlatonicCubesValue").textContent = format(metaData[7])
-    document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * extinctionMultiplier[player.usedCorruptions[7]], 3)
+    document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * G['extinctionMultiplier'][player.usedCorruptions[7]], 3)
     document.getElementById("corruptionSpiritBonusValue").textContent = format(calculateCorruptionPoints()/400,2,true)
 }
 
 export const visualUpdateSettings = () => {
-    if (currentTab !== "settings")
+    if (G['currentTab'] !== "settings")
         return
     //I was unable to clean this up in a way that didn't somehow make it less clean, sorry.
     document.getElementById("temporarystats1").textContent = "Prestige count: " + format(player.prestigeCount, 0, true)
@@ -422,17 +375,17 @@ export const visualUpdateSettings = () => {
     document.getElementById("temporarystats7").textContent = "Most Offerings saved at once: " + format(player.maxofferings)
     document.getElementById("temporarystats8").textContent = "Most Obtainium saved at once: " + format(player.maxobtainium)
     document.getElementById("temporarystats9").textContent = "Best Obtainium/sec: " + format(player.maxobtainiumpersecond, 2, true)
-    document.getElementById("temporarystats10").textContent = "Summative Rune Levels: " + format(runeSum)
+    document.getElementById("temporarystats10").textContent = "Summative Rune Levels: " + format(G['runeSum'])
     document.getElementById("temporarystats11").textContent = "Current Obtainium/sec " + format(player.obtainiumpersecond, 2, true)
     document.getElementById("temporarystats12").textContent = "Ascension Count: " + format(player.ascensionCount, 0, true)
 
     document.getElementById("saveString").textContent =
         `Currently: ${player.saveString.replace("$VERSION$", "v" + player.version)}`;
 
-    const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
-    const maxExportQuarks = ((25 * (1 + player.researches[195] / 2)) * (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]));
+    const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + G['talisman7Quarks'] + player.researches[125] + player.researches[180] + player.researches[195]));
+    const maxExportQuarks = ((25 * (1 + player.researches[195] / 2)) * (1 + player.researches[99] + player.researches[100] + G['talisman7Quarks'] + player.researches[125] + player.researches[180] + player.researches[195]));
 
-    document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)), 2) + "s until +" + (1 + player.researches[99] + player.researches[100] + talisman7Quarks + player.researches[125] + player.researches[180] + player.researches[195]) + " export Quark"
+    document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)), 2) + "s until +" + (1 + player.researches[99] + player.researches[100] + G['talisman7Quarks'] + player.researches[125] + player.researches[180] + player.researches[195]) + " export Quark"
     document.getElementById("quarktimeramount").textContent = "Quarks on export: "
         + onExportQuarks
         + " [Max "
@@ -448,7 +401,7 @@ export const visualUpdateSettings = () => {
 }
 
 export const visualUpdateShop = () => {
-    if (currentTab !== "shop")
+    if (G['currentTab'] !== "shop")
         return
     document.getElementById("quarkamount").textContent = "You have " + format(player.worlds) + " Quarks!"
     document.getElementById("offeringpotionowned").textContent = "Own: " + format(player.shopUpgrades.offeringPotion as number)
@@ -470,31 +423,31 @@ export const visualUpdateShop = () => {
 
     player.shopUpgrades.offeringTimerLevel === 15 ?
         document.getElementById("offeringtimerbutton").textContent = "Maxed!" :
-        document.getElementById("offeringtimerbutton").textContent = "Upgrade for " + (shopBaseCosts.offerTimer + 25 * (player.shopUpgrades.offeringTimerLevel as number)) + " Quarks";
+        document.getElementById("offeringtimerbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].offerTimer + 25 * (player.shopUpgrades.offeringTimerLevel as number)) + " Quarks";
 
     player.shopUpgrades.offeringAutoLevel === 15 ?
         document.getElementById("offeringautobutton").textContent = "Maxed!" :
-        document.getElementById("offeringautobutton").textContent = "Upgrade for " + (shopBaseCosts.offerAuto + 25 * (player.shopUpgrades.offeringAutoLevel as number)) + " Quarks"
+        document.getElementById("offeringautobutton").textContent = "Upgrade for " + (G['shopBaseCosts'].offerAuto + 25 * (player.shopUpgrades.offeringAutoLevel as number)) + " Quarks"
 
     player.shopUpgrades.obtainiumTimerLevel === 15 ?
         document.getElementById("obtainiumtimerbutton").textContent = "Maxed!" :
-        document.getElementById("obtainiumtimerbutton").textContent = "Upgrade for " + (shopBaseCosts.obtainiumTimer + 25 * (player.shopUpgrades.obtainiumTimerLevel as number)) + " Quarks"
+        document.getElementById("obtainiumtimerbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].obtainiumTimer + 25 * (player.shopUpgrades.obtainiumTimerLevel as number)) + " Quarks"
 
     player.shopUpgrades.obtainiumAutoLevel === 15 ?
         document.getElementById("obtainiumautobutton").textContent = "Maxed!" :
-        document.getElementById("obtainiumautobutton").textContent = "Upgrade for " + (shopBaseCosts.obtainiumAuto + 25 * (player.shopUpgrades.obtainiumAutoLevel as number)) + " Quarks";
+        document.getElementById("obtainiumautobutton").textContent = "Upgrade for " + (G['shopBaseCosts'].obtainiumAuto + 25 * (player.shopUpgrades.obtainiumAutoLevel as number)) + " Quarks";
 
     player.shopUpgrades.instantChallengeBought ?
         (document.getElementById("instantchallengebutton").textContent = "Bought!") :
-        document.getElementById("instantchallengebutton").textContent = "Buy for " + (shopBaseCosts.instantChallenge) + " Quarks";
+        document.getElementById("instantchallengebutton").textContent = "Buy for " + (G['shopBaseCosts'].instantChallenge) + " Quarks";
 
     player.shopUpgrades.antSpeedLevel === 10 ?
         document.getElementById("antspeedbutton").textContent = "Maxed!" :
-        document.getElementById("antspeedbutton").textContent = "Upgrade for " + (shopBaseCosts.antSpeed + 80 * (player.shopUpgrades.antSpeedLevel as number)) + " Quarks";
+        document.getElementById("antspeedbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].antSpeed + 80 * (player.shopUpgrades.antSpeedLevel as number)) + " Quarks";
 
     player.shopUpgrades.cashGrabLevel === 10 ?
         document.getElementById("cashgrabbutton").textContent = "Maxed!" :
-        document.getElementById("cashgrabbutton").textContent = "Upgrade for " + (shopBaseCosts.cashGrab + 100 * (player.shopUpgrades.cashGrabLevel as number)) + " Quarks";
+        document.getElementById("cashgrabbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].cashGrab + 100 * (player.shopUpgrades.cashGrabLevel as number)) + " Quarks";
 
     player.shopUpgrades.talismanBought ?
         (document.getElementById("shoptalismanbutton").textContent = "Bought!") :
@@ -502,25 +455,25 @@ export const visualUpdateShop = () => {
 
     player.shopUpgrades.challengeExtension === 5 ?
         document.getElementById("challengeUpgradeButton").textContent = "Maxed!" :
-        document.getElementById("challengeUpgradeButton").textContent = "Buy for " + (shopBaseCosts.challengeExtension + 250 * (player.shopUpgrades.challengeExtension as number)) + " Quarks";
+        document.getElementById("challengeUpgradeButton").textContent = "Buy for " + (G['shopBaseCosts'].challengeExtension + 250 * (player.shopUpgrades.challengeExtension as number)) + " Quarks";
 
     player.shopUpgrades.challenge10Tomes === 15 ?
         document.getElementById("challenge10TomeButton").textContent = "Maxed!" :
-        document.getElementById("challenge10TomeButton").textContent = "Buy for " + (shopBaseCosts.challenge10Upgrade + 250 * (player.shopUpgrades.challenge10Tomes as number)) + " Quarks";
+        document.getElementById("challenge10TomeButton").textContent = "Buy for " + (G['shopBaseCosts'].challenge10Upgrade + 250 * (player.shopUpgrades.challenge10Tomes as number)) + " Quarks";
 
     player.shopUpgrades.seasonPassLevel === 15 ?
         document.getElementById("seasonPassButton").textContent = "Maxed!" :
-        document.getElementById("seasonPassButton").textContent = "Buy for " + (shopBaseCosts.seasonPass + 250 * (player.shopUpgrades.seasonPassLevel as number)) + " Quarks";
+        document.getElementById("seasonPassButton").textContent = "Buy for " + (G['shopBaseCosts'].seasonPass + 250 * (player.shopUpgrades.seasonPassLevel as number)) + " Quarks";
 
     player.shopUpgrades.cubeToQuarkBought ?
         (document.getElementById("cubeToQuarkButton").textContent = "Maxed!") :
-        document.getElementById("cubeToQuarkButton").textContent = "Buy for " + (shopBaseCosts.cubeToQuark) + " Quarks";
+        document.getElementById("cubeToQuarkButton").textContent = "Buy for " + (G['shopBaseCosts'].cubeToQuark) + " Quarks";
 
     player.shopUpgrades.tesseractToQuarkBought ?
         (document.getElementById("tesseractToQuarkButton").textContent = "Maxed!") :
-        document.getElementById("tesseractToQuarkButton").textContent = "Buy for " + (shopBaseCosts.tesseractToQuark) + " Quarks";
+        document.getElementById("tesseractToQuarkButton").textContent = "Buy for " + (G['shopBaseCosts'].tesseractToQuark) + " Quarks";
 
     player.shopUpgrades.hypercubeToQuarkBought ?
         (document.getElementById("hypercubeToQuarkButton").textContent = "Maxed!") :
-        document.getElementById("hypercubeToQuarkButton").textContent = "Buy for " + (shopBaseCosts.hypercubeToQuark) + " Quarks";
+        document.getElementById("hypercubeToQuarkButton").textContent = "Buy for " + (G['shopBaseCosts'].hypercubeToQuark) + " Quarks";
 }

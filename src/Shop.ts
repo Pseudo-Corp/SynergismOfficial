@@ -1,12 +1,7 @@
 import { player, format } from './Synergism';
-import { Globals } from './Variables';
+import { Globals as G } from './Variables';
 import { revealStuff } from './UpdateHTML';
 import { calculateTimeAcceleration } from './Calculate';
-
-const {
-    shopBaseCosts,
-    shopConfirmation
-} = Globals;
 
 const offerconsumedesc = "Instantly gain 2 real life hours of Offerings, based on your all time best Offerings/sec and speed acceleration!"
 const obtainiumconsumedesc = "Instantly gain 2 real life hours of Obtainium, based on your all time best Obtainium/sec and speed acceleration!"
@@ -46,47 +41,47 @@ export const shopDescriptions = (i: number) => {
     switch (i) {
         case 1:
             rofl.textContent = offerconsumedesc;
-            lmao.textContent = "Cost: " + shopBaseCosts.offerPotion + " Quarks.";
+            lmao.textContent = "Cost: " + G['shopBaseCosts'].offerPotion + " Quarks.";
             lol.textContent = "Gain " + format((7200 * player.offeringpersecond * calculateTimeAcceleration()), 0, true) + " Offerings."
             break;
         case 2:
             rofl.textContent = obtainiumconsumedesc;
-            lmao.textContent = "Cost: " + shopBaseCosts.obtainiumPotion + " Quarks.";
+            lmao.textContent = "Cost: " + G['shopBaseCosts'].obtainiumPotion + " Quarks.";
             lol.textContent = "Gain " + format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration()), 0, true) + " Obtainium.";
             break;
         case 3:
             rofl.textContent = offertimerdesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.offerTimer + 25 * offeringTimerLevel) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].offerTimer + 25 * offeringTimerLevel) + " Quarks."
             lol.textContent = "CURRENT Effect: Offering gain +" + format(1/4 * Math.pow(offeringTimerLevel,2),2,true) + "%!"
             break;
         case 4:
             rofl.textContent = offerautodesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.offerAuto + 25 * offeringAutoLevel) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].offerAuto + 25 * offeringAutoLevel) + " Quarks."
             lol.textContent = "CURRENT Effect: Per 10 seconds, pour " + format(Math.pow(2, 1 + offeringAutoLevel)) + " Offerings. +" + format(2 * offeringAutoLevel, 2) + "% Offerings."
             break;
         case 5:
             rofl.textContent = obtainiumtimerdesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.obtainiumTimer + 25 * obtainiumTimerLevel) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].obtainiumTimer + 25 * obtainiumTimerLevel) + " Quarks."
             lol.textContent = "CURRENT Effect: Obtainium gain +" + format(1/2 * Math.pow(obtainiumTimerLevel,2),2,true) + "%!"
             break;
         case 6:
             rofl.textContent = obtainiumautodesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.obtainiumAuto + 25 * obtainiumAutoLevel) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].obtainiumAuto + 25 * obtainiumAutoLevel) + " Quarks."
             lol.textContent = "CURRENT Effect: Try to upgrade research each reincarnation, and gain +" + format(obtainiumAutoLevel * 2, 2) + "% more Obtainium."
             break;
         case 7:
             rofl.textContent = instantchallengedesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.instantChallenge) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].instantChallenge) + " Quarks."
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?"
             break;
         case 8:
             rofl.textContent = cashgrabdesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.cashGrab + 100 * cashGrabLevel) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].cashGrab + 100 * cashGrabLevel) + " Quarks."
             lol.textContent = "CURRENT Effect: Obtainium and Offerings increased by " + format(cashGrabLevel, 2) + "%."
             break;
         case 9:
             rofl.textContent = antspeeddesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.antSpeed + 80 * antSpeedLevel) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].antSpeed + 80 * antSpeedLevel) + " Quarks."
             lol.textContent = "CURRENT Effect: All Ants' Speed x" + format(Math.pow(1.5, antSpeedLevel), 2)
             break;
         case 10:
@@ -96,32 +91,32 @@ export const shopDescriptions = (i: number) => {
             break;
         case 11:
             rofl.textContent = challengeExtDesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.challengeExtension + 250 * challengeExtension) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].challengeExtension + 250 * challengeExtension) + " Quarks."
             lol.textContent = "CURRENT Effect: Reincarnation Challenges may be completed an additional " + format(2*challengeExtension) + " times."
             break;
         case 12:
             rofl.textContent = challenge10TomeDesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.challenge10Upgrade + 250 * challenge10Tomes) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].challenge10Upgrade + 250 * challenge10Tomes) + " Quarks."
             lol.textContent = "CURRENT Effect: Challenge 10 Exponent Requirement reduced by " + format(20*challenge10Tomes) + "M."
             break;
         case 13:
             rofl.textContent = seasonPassDesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.seasonPass + 250 * seasonPassLevel) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].seasonPass + 250 * seasonPassLevel) + " Quarks."
             lol.textContent = "CURRENT Effect: Ascensions give  +" + format(3*seasonPassLevel) + "% cubes."
             break;
         case 14:
             rofl.textContent = cubeToQuarkDesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.cubeToQuark) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].cubeToQuark) + " Quarks."
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?"
             break;
         case 15:
             rofl.textContent = tesseractToQuarkDesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.tesseractToQuark) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].tesseractToQuark) + " Quarks."
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?"
             break;
         case 16:
             rofl.textContent = hypercubeToQuarkDesc;
-            lmao.textContent = "Cost: " + (shopBaseCosts.hypercubeToQuark) + " Quarks."
+            lmao.textContent = "Cost: " + (G['shopBaseCosts'].hypercubeToQuark) + " Quarks."
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?"
             break;
     }
@@ -150,63 +145,63 @@ export const buyShopUpgrades = (i: number) => {
     } = player.shopUpgrades as { [key: string]: boolean };
 
     let p = true;
-    if (shopConfirmation) {
+    if (G['shopConfirmation']) {
         p = confirm("Are you sure of your purchase?")
     }
     if (p) {
         switch (i) {
             case 1:
-                if (player.worlds >= shopBaseCosts.offerPotion) {
+                if (player.worlds >= G['shopBaseCosts'].offerPotion) {
                     player.worlds -= 100;
                     (player.shopUpgrades.offeringPotion as number) += 1;
                 }
                 break;
             case 2:
-                if (player.worlds >= shopBaseCosts.obtainiumPotion) {
+                if (player.worlds >= G['shopBaseCosts'].obtainiumPotion) {
                     player.worlds -= 100;
                     (player.shopUpgrades.obtainiumPotion as number) += 1;
                 }
                 break;
             case 3:
-                if (player.worlds >= (shopBaseCosts.offerTimer + 25 * offeringTimerLevel) && offeringTimerLevel < 15) {
-                    player.worlds -= (shopBaseCosts.offerTimer + 25 * offeringTimerLevel);
+                if (player.worlds >= (G['shopBaseCosts'].offerTimer + 25 * offeringTimerLevel) && offeringTimerLevel < 15) {
+                    player.worlds -= (G['shopBaseCosts'].offerTimer + 25 * offeringTimerLevel);
                     offeringTimerLevel += 1;
                 }
                 break;
             case 4:
-                if (player.worlds >= (shopBaseCosts.offerAuto + 25 * offeringAutoLevel) && offeringAutoLevel < 15) {
-                    player.worlds -= (shopBaseCosts.offerAuto + 25 * offeringAutoLevel);
+                if (player.worlds >= (G['shopBaseCosts'].offerAuto + 25 * offeringAutoLevel) && offeringAutoLevel < 15) {
+                    player.worlds -= (G['shopBaseCosts'].offerAuto + 25 * offeringAutoLevel);
                     offeringAutoLevel += 1;
                 }
                 break;
             case 5:
-                if (player.worlds >= (shopBaseCosts.obtainiumTimer + 25 * obtainiumTimerLevel) && obtainiumTimerLevel < 15) {
-                    player.worlds -= (shopBaseCosts.obtainiumTimer + 25 * obtainiumTimerLevel);
+                if (player.worlds >= (G['shopBaseCosts'].obtainiumTimer + 25 * obtainiumTimerLevel) && obtainiumTimerLevel < 15) {
+                    player.worlds -= (G['shopBaseCosts'].obtainiumTimer + 25 * obtainiumTimerLevel);
                     obtainiumTimerLevel += 1;
                 }
                 break;
             case 6:
-                if (player.worlds >= (shopBaseCosts.obtainiumAuto + 25 * obtainiumAutoLevel) && obtainiumAutoLevel < 15) {
-                    player.worlds -= (shopBaseCosts.obtainiumAuto + 25 * obtainiumAutoLevel);
+                if (player.worlds >= (G['shopBaseCosts'].obtainiumAuto + 25 * obtainiumAutoLevel) && obtainiumAutoLevel < 15) {
+                    player.worlds -= (G['shopBaseCosts'].obtainiumAuto + 25 * obtainiumAutoLevel);
                     obtainiumAutoLevel += 1;
                 }
                 break;
 
             case 7:
-                if (player.worlds >= shopBaseCosts.instantChallenge && !instantChallengeBought) {
+                if (player.worlds >= G['shopBaseCosts'].instantChallenge && !instantChallengeBought) {
                     player.worlds -= 300;
                     instantChallengeBought = true;
                 }
                 break;
             case 8:
-                if (player.worlds >= (shopBaseCosts.cashGrab + 100 * cashGrabLevel) && cashGrabLevel < 10) {
-                    player.worlds -= (shopBaseCosts.cashGrab + 100 * cashGrabLevel);
+                if (player.worlds >= (G['shopBaseCosts'].cashGrab + 100 * cashGrabLevel) && cashGrabLevel < 10) {
+                    player.worlds -= (G['shopBaseCosts'].cashGrab + 100 * cashGrabLevel);
                     cashGrabLevel += 1;
                 }
                 break;
             case 9:
-                if (player.worlds >= (shopBaseCosts.antSpeed + 80 * antSpeedLevel) && antSpeedLevel < 10) {
-                    player.worlds -= (shopBaseCosts.antSpeed + 80 * antSpeedLevel);
+                if (player.worlds >= (G['shopBaseCosts'].antSpeed + 80 * antSpeedLevel) && antSpeedLevel < 10) {
+                    player.worlds -= (G['shopBaseCosts'].antSpeed + 80 * antSpeedLevel);
                     antSpeedLevel += 1;
                 }
                 break;
@@ -217,38 +212,38 @@ export const buyShopUpgrades = (i: number) => {
                 }
                 break;
             case 11:
-                if (player.worlds >= (shopBaseCosts.challengeExtension + 250 * challengeExtension) && challengeExtension < 5) {
-                    player.worlds -= (shopBaseCosts.challengeExtension + 250 * challengeExtension);
+                if (player.worlds >= (G['shopBaseCosts'].challengeExtension + 250 * challengeExtension) && challengeExtension < 5) {
+                    player.worlds -= (G['shopBaseCosts'].challengeExtension + 250 * challengeExtension);
                     challengeExtension += 1;
                 }
                 break;
             case 12:
-                if (player.worlds >= (shopBaseCosts.challenge10Upgrade + 250 * challenge10Tomes) && challenge10Tomes < 15) {
-                    player.worlds -= (shopBaseCosts.challenge10Upgrade + 250 * challenge10Tomes);
+                if (player.worlds >= (G['shopBaseCosts'].challenge10Upgrade + 250 * challenge10Tomes) && challenge10Tomes < 15) {
+                    player.worlds -= (G['shopBaseCosts'].challenge10Upgrade + 250 * challenge10Tomes);
                     challenge10Tomes += 1;
                 }
                 break;
             case 13:
-                if (player.worlds >= (shopBaseCosts.seasonPass + 250 * seasonPassLevel) && seasonPassLevel < 15) {
-                    player.worlds -= (shopBaseCosts.seasonPass + 250 * seasonPassLevel);
+                if (player.worlds >= (G['shopBaseCosts'].seasonPass + 250 * seasonPassLevel) && seasonPassLevel < 15) {
+                    player.worlds -= (G['shopBaseCosts'].seasonPass + 250 * seasonPassLevel);
                     seasonPassLevel += 1;
                 }
                 break;
             case 14:
-                if (player.worlds >= (shopBaseCosts.cubeToQuark) && !cubeToQuarkBought) {
-                    player.worlds -= (shopBaseCosts.cubeToQuark);
+                if (player.worlds >= (G['shopBaseCosts'].cubeToQuark) && !cubeToQuarkBought) {
+                    player.worlds -= (G['shopBaseCosts'].cubeToQuark);
                     cubeToQuarkBought = true;
                 }
                 break;
             case 15:
-                if (player.worlds >= (shopBaseCosts.tesseractToQuark) && !tesseractToQuarkBought) {
-                    player.worlds -= (shopBaseCosts.tesseractToQuark);
+                if (player.worlds >= (G['shopBaseCosts'].tesseractToQuark) && !tesseractToQuarkBought) {
+                    player.worlds -= (G['shopBaseCosts'].tesseractToQuark);
                     tesseractToQuarkBought = true;
                 }
                 break;
             case 16:
-                if (player.worlds >= (shopBaseCosts.hypercubeToQuark) && !hypercubeToQuarkBought) {
-                    player.worlds -= (shopBaseCosts.hypercubeToQuark);
+                if (player.worlds >= (G['shopBaseCosts'].hypercubeToQuark) && !hypercubeToQuarkBought) {
+                    player.worlds -= (G['shopBaseCosts'].hypercubeToQuark);
                     hypercubeToQuarkBought = true;
                 }
                 break;
@@ -263,7 +258,7 @@ export const useConsumable = (i: number) => {
         obtainiumPotion
     } = player.shopUpgrades as { [key: string]: number };
     
-    const p = shopConfirmation
+    const p = G['shopConfirmation']
         ? confirm('Would you like to use this potion?')
         : true;
 
@@ -297,7 +292,7 @@ export const resetShopUpgrades = () => {
         seasonPassLevel
     } = player.shopUpgrades as { [key: string]: number };
 
-    const p = shopConfirmation
+    const p = G['shopConfirmation']
         ? confirm("This will refund 100% of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?")
         : true;
 

@@ -6,24 +6,6 @@ import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
 
-const { 
-    currentTab, 
-    effectiveLevelMult, 
-    buildingSubTab, 
-    rune3level, 
-    crystalUpgradesCost,
-    crystalUpgradeCostIncrement,
-    runescreen,
-    talismanResourceObtainiumCosts,
-    talismanResourceOfferingCosts,
-    constUpgradeCosts,
-    ordinals,
-    antUpgradeCostIncreases,
-    extinctionMultiplier,
-    antUpgradeBaseCost,
-    
-} = G;
-
 export const revealStuff = () => {
     let example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example.length; i++) {
@@ -407,7 +389,7 @@ export const hideStuff = () => {
         document.getElementById("runes").style.display = "block"
         document.getElementById("runestab").style.backgroundColor = "blue"
         document.getElementById("runeshowlevelup").textContent = "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!"
-        document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * effectiveLevelMult - 100).toPrecision(4) + "%"
+        document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + "%"
         displayRuneInformation(1, false)
         displayRuneInformation(2, false)
         displayRuneInformation(3, false)
@@ -484,7 +466,7 @@ export const htmlInserts = () => {
 
     updateAscensionStats()
 
-    visualTab[G.currentTab]?.();
+    visualTab[G['currentTab']]?.();
 }
 
 export const buttoncolorchange = () => {
@@ -516,7 +498,7 @@ export const buttoncolorchange = () => {
         document.getElementById('ascendChallengeBtn').style.backgroundColor = "#171717" :
         document.getElementById('ascendChallengeBtn').style.backgroundColor = "purple";
 
-    if (currentTab === "buildings" && buildingSubTab === "coin") {
+    if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "coin") {
         let a = document.getElementById("buycoin1");
         let b = document.getElementById("buycoin2");
         let c = document.getElementById("buycoin3");
@@ -525,33 +507,33 @@ export const buttoncolorchange = () => {
         let f = document.getElementById("buyaccelerator");
         let g = document.getElementById("buymultiplier");
         let h = document.getElementById("buyacceleratorboost");
-        ((!player.toggles[1] || player.upgrades[81] === 0) && player.coins.greaterThanOrEqualTo(player.firstCostCoin)) ?
+        ((!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(player.firstCostCoin)) ?
             a.style.backgroundColor = "#555555" :
             a.style.backgroundColor = "#171717";
-        ((!player.toggles[2] || player.upgrades[82] === 0) && player.coins.greaterThanOrEqualTo(player.secondCostCoin)) ?
+        ((!player.toggles[2] || player.upgrades[82] === 0) && player.coins.gte(player.secondCostCoin)) ?
             b.style.backgroundColor = "#555555" :
             b.style.backgroundColor = "#171717";
-        ((!player.toggles[3] || player.upgrades[83] === 0) && player.coins.greaterThanOrEqualTo(player.thirdCostCoin)) ?
+        ((!player.toggles[3] || player.upgrades[83] === 0) && player.coins.gte(player.thirdCostCoin)) ?
             c.style.backgroundColor = "#555555" :
             c.style.backgroundColor = "#171717";
-        ((!player.toggles[4] || player.upgrades[84] === 0) && player.coins.greaterThanOrEqualTo(player.fourthCostCoin)) ?
+        ((!player.toggles[4] || player.upgrades[84] === 0) && player.coins.gte(player.fourthCostCoin)) ?
             d.style.backgroundColor = "#555555" :
             d.style.backgroundColor = "#171717";
-        ((!player.toggles[5] || player.upgrades[85] === 0) && player.coins.greaterThanOrEqualTo(player.fifthCostCoin)) ?
+        ((!player.toggles[5] || player.upgrades[85] === 0) && player.coins.gte(player.fifthCostCoin)) ?
             e.style.backgroundColor = "#555555" :
             e.style.backgroundColor = "#171717";
-        ((!player.toggles[6] || player.upgrades[86] === 0) && player.coins.greaterThanOrEqualTo(player.acceleratorCost)) ?
+        ((!player.toggles[6] || player.upgrades[86] === 0) && player.coins.gte(player.acceleratorCost)) ?
             f.style.backgroundColor = "#555555" :
             f.style.backgroundColor = "#171717";
-        ((!player.toggles[7] || player.upgrades[87] === 0) && player.coins.greaterThanOrEqualTo(player.multiplierCost)) ?
+        ((!player.toggles[7] || player.upgrades[87] === 0) && player.coins.gte(player.multiplierCost)) ?
             g.style.backgroundColor = "#555555" :
             g.style.backgroundColor = "#171717";
-        ((!player.toggles[8] || player.upgrades[88] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) ?
+        ((!player.toggles[8] || player.upgrades[88] === 0) && player.prestigePoints.gte(player.acceleratorBoostCost)) ?
             h.style.backgroundColor = "#555555" :
             h.style.backgroundColor = "#171717";
     }
 
-    if (currentTab === "buildings" && buildingSubTab === "diamond") {
+    if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "diamond") {
         let a = document.getElementById("buydiamond1");
         let b = document.getElementById("buydiamond2");
         let c = document.getElementById("buydiamond3");
@@ -562,31 +544,31 @@ export const buttoncolorchange = () => {
         let h = document.getElementById("buycrystalupgrade3");
         let i = document.getElementById("buycrystalupgrade4");
         let j = document.getElementById("buycrystalupgrade5");
-        ((!player.toggles[10] || player.achievements[78] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.firstCostDiamonds)) ? a.style.backgroundColor = "#555555" : a.style.backgroundColor = "#171717";
-        ((!player.toggles[11] || player.achievements[85] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.secondCostDiamonds)) ? b.style.backgroundColor = "#555555" : b.style.backgroundColor = "#171717";
-        ((!player.toggles[12] || player.achievements[92] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.thirdCostDiamonds)) ? c.style.backgroundColor = "#555555" : c.style.backgroundColor = "#171717";
-        ((!player.toggles[13] || player.achievements[99] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.fourthCostDiamonds)) ? d.style.backgroundColor = "#555555" : d.style.backgroundColor = "#171717";
-        ((!player.toggles[14] || player.achievements[106] === 0) && player.prestigePoints.greaterThanOrEqualTo(player.fifthCostDiamonds)) ? e.style.backgroundColor = "#555555" : e.style.backgroundColor = "#171717";
+        ((!player.toggles[10] || player.achievements[78] === 0) && player.prestigePoints.gte(player.firstCostDiamonds)) ? a.style.backgroundColor = "#555555" : a.style.backgroundColor = "#171717";
+        ((!player.toggles[11] || player.achievements[85] === 0) && player.prestigePoints.gte(player.secondCostDiamonds)) ? b.style.backgroundColor = "#555555" : b.style.backgroundColor = "#171717";
+        ((!player.toggles[12] || player.achievements[92] === 0) && player.prestigePoints.gte(player.thirdCostDiamonds)) ? c.style.backgroundColor = "#555555" : c.style.backgroundColor = "#171717";
+        ((!player.toggles[13] || player.achievements[99] === 0) && player.prestigePoints.gte(player.fourthCostDiamonds)) ? d.style.backgroundColor = "#555555" : d.style.backgroundColor = "#171717";
+        ((!player.toggles[14] || player.achievements[106] === 0) && player.prestigePoints.gte(player.fifthCostDiamonds)) ? e.style.backgroundColor = "#555555" : e.style.backgroundColor = "#171717";
         let k = 0;
-        k += Math.floor(rune3level / 16 * effectiveLevelMult) * 100 / 100
+        k += Math.floor(G['rune3level'] / 16 * G['effectiveLevelMult']) * 100 / 100
         if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0) {
             k += 10
         }
         
-        (player.achievements[79] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[0] + crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2))))) ? f.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
-        (player.achievements[86] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[1] + crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2))))) ? g.style.backgroundColor = "purple" : g.style.backgroundColor = "#171717";
-        (player.achievements[93] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[2] + crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2))))) ? h.style.backgroundColor = "purple" : h.style.backgroundColor = "#171717";
-        (player.achievements[100] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[3] + crystalUpgradeCostIncrement[3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2))))) ? i.style.backgroundColor = "purple" : i.style.backgroundColor = "#171717";
-        (player.achievements[107] < 1 && player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[4] + crystalUpgradeCostIncrement[4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2))))) ? j.style.backgroundColor = "purple" : j.style.backgroundColor = "#171717";
+        (player.achievements[79] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][0] + G['crystalUpgradeCostIncrement'][0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2))))) ? f.style.backgroundColor = "purple" : f.style.backgroundColor = "#171717";
+        (player.achievements[86] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][1] + G['crystalUpgradeCostIncrement'][1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2))))) ? g.style.backgroundColor = "purple" : g.style.backgroundColor = "#171717";
+        (player.achievements[93] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][2] + G['crystalUpgradeCostIncrement'][2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2))))) ? h.style.backgroundColor = "purple" : h.style.backgroundColor = "#171717";
+        (player.achievements[100] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][3] + G['crystalUpgradeCostIncrement'][3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2))))) ? i.style.backgroundColor = "purple" : i.style.backgroundColor = "#171717";
+        (player.achievements[107] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][4] + G['crystalUpgradeCostIncrement'][4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2))))) ? j.style.backgroundColor = "purple" : j.style.backgroundColor = "#171717";
     }
 
-    if (currentTab === "runes") {
-        if (runescreen === "runes") {
+    if (G['currentTab'] === "runes") {
+        if (G['runescreen'] === "runes") {
             for (let i = 1; i <= 5; i++) {
                 player.runeshards > 0.5 ? document.getElementById("activaterune" + i).style.backgroundColor = "purple" : document.getElementById("activaterune" + i).style.backgroundColor = "#171717";
             }
         }
-        if (runescreen === "talismans") {
+        if (G['runescreen'] === "talismans") {
             let a = document.getElementById("buyShard");
             let b = document.getElementById("buyCommonFragment");
             let c = document.getElementById("buyUncommonFragment");
@@ -596,32 +578,32 @@ export const buttoncolorchange = () => {
             let g = document.getElementById("buyMythicalFragment");
             let arr = [a, b, c, d, e, f, g];
             for (let i = 0; i < arr.length; i++) {
-                arr[i].style.backgroundColor = (player.researchPoints > talismanResourceObtainiumCosts[i]
-                    && player.runeshards > talismanResourceOfferingCosts[i]) ? "purple" : "#171717"
+                arr[i].style.backgroundColor = (player.researchPoints > G['talismanResourceObtainiumCosts'][i]
+                    && player.runeshards > G['talismanResourceOfferingCosts'][i]) ? "purple" : "#171717"
             }
         }
     }
 
-    if (currentTab === "buildings" && buildingSubTab === "mythos") {
+    if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "mythos") {
         for (let i = 1; i <= 5; i++) {
             const toggle = player.toggles[i + 15];
-            const mythos = player[`${ordinals[i - 1]}CostMythos`];
-            (!toggle || !player.upgrades[93 + i]) && player.transcendPoints.greaterThanOrEqualTo(mythos) 
+            const mythos = player[`${G['ordinals'][i - 1]}CostMythos`];
+            (!toggle || !player.upgrades[93 + i]) && player.transcendPoints.gte(mythos) 
                 ? document.getElementById('buymythos' + i).style.backgroundColor = "#555555" 
                 : document.getElementById('buymythos' + i).style.backgroundColor = "#171717"
         }
     }
 
-    if (currentTab === "buildings" && buildingSubTab === "particle") {
+    if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "particle") {
         for (let i = 1; i <= 5; i++) {
-            const costParticles = player[ordinals[i - 1] + 'CostParticles'] as Decimal;
-            player.reincarnationPoints.greaterThanOrEqualTo(costParticles) 
+            const costParticles = player[G['ordinals'][i - 1] + 'CostParticles'] as Decimal;
+            player.reincarnationPoints.gte(costParticles) 
                 ? document.getElementById("buyparticles" + i).style.backgroundColor = "#555555" 
                 : document.getElementById("buyparticles" + i).style.backgroundColor = "#171717";
         }
     }
 
-    if (currentTab === "buildings" && buildingSubTab === "tesseract") {
+    if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "tesseract") {
         for (let i = 1; i <= 5; i++) {
             const ascendBuilding = player['ascendBuilding' + i]['cost'] as number;
             player.wowTesseracts >= ascendBuilding ?
@@ -629,27 +611,27 @@ export const buttoncolorchange = () => {
                 document.getElementById('buyTesseracts' + i).style.backgroundColor = "#171717";
         }
         for (let i = 1; i <= 8; i++) {
-            (player.ascendShards.greaterThanOrEqualTo(Decimal.pow(10, player.constantUpgrades[i]).times(constUpgradeCosts[i]))) ?
+            (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i]))) ?
                 document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "green" :
                 document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "#171717";
         }
         for (let i = 9; i <= 10; i++) {
-            (player.ascendShards.greaterThanOrEqualTo(Decimal.pow(10, player.constantUpgrades[i]).times(constUpgradeCosts[i])) || player.constantUpgrades[i] >= 1) ?
+            (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i])) || player.constantUpgrades[i] >= 1) ?
                 document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "gold" :
                 document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "#171717";
         }
     }
 
-    if (currentTab === "ants") {
-        (player.reincarnationPoints.greaterThanOrEqualTo(player.firstCostAnts)) ? document.getElementById("anttier1").style.backgroundColor = "white" : document.getElementById("anttier1").style.backgroundColor = "#171717";
+    if (G['currentTab'] === "ants") {
+        (player.reincarnationPoints.gte(player.firstCostAnts)) ? document.getElementById("anttier1").style.backgroundColor = "white" : document.getElementById("anttier1").style.backgroundColor = "#171717";
         for (let i = 2; i <= 8; i++) {
-            const costAnts = player[ordinals[i - 1] + 'CostAnts'] as Decimal | number;
-            player.antPoints.greaterThanOrEqualTo(costAnts) 
+            const costAnts = player[G['ordinals'][i - 1] + 'CostAnts'] as Decimal | number;
+            player.antPoints.gte(costAnts) 
                 ? document.getElementById("anttier" + i).style.backgroundColor = "white" 
                 : document.getElementById("anttier" + i).style.backgroundColor = "#171717";
         }
         for (let i = 1; i <= 12; i++) {
-            if (player.antPoints.greaterThanOrEqualTo(Decimal.pow(antUpgradeCostIncreases[i], player.antUpgrades[i-1] * extinctionMultiplier[player.usedCorruptions[10]]).times(antUpgradeBaseCost[i]))) {
+            if (player.antPoints.gte(Decimal.pow(G['antUpgradeCostIncreases'][i], player.antUpgrades[i-1] * G['extinctionMultiplier'][player.usedCorruptions[10]]).times(G['antUpgradeBaseCost'][i]))) {
                 document.getElementById("antUpgrade" + i).style.backgroundColor = "silver"
             } else {
                 document.getElementById("antUpgrade" + i).style.backgroundColor = "#171717";

@@ -4,7 +4,7 @@ import { CalcECC } from "./Challenges"
 import { calculateCubeBlessings, calculateSummationNonLinear } from "./Calculate"
 import { upgradeupdate } from "./Upgrades"
 import { revealStuff } from "./UpdateHTML"
-import Globals from "./Variables"
+import { Globals as G } from "./Variables"
 
 type Bless = keyof typeof player['cubeBlessings']
 
@@ -195,7 +195,7 @@ const cubeUpgradeDescriptions = [null,
 ]
 
 const getCubeCost = (i: number, linGrowth = 0) => {
-    let amountToBuy = Globals.buyMaxCubeUpgrades ? 1e5: 1;
+    let amountToBuy = G['buyMaxCubeUpgrades'] ? 1e5: 1;
     amountToBuy = Math.min(cubeMaxLevel[i] - player.cubeUpgrades[i], amountToBuy)
     let metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i], player.wowCubes, linGrowth, amountToBuy)
     return([metaData[0],metaData[1]]) //metaData[0] is the levelup amount, metaData[1] is the total cube cost
