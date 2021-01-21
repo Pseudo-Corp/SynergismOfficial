@@ -1,8 +1,9 @@
-import { player, saveSynergy, blankSave, clearInt, format, intervalHold, constantIntervals, createTimer, loadSynergy } from './Synergism';
+import { player, saveSynergy, blankSave, clearInt, format, intervalHold, constantIntervals, createTimer, loadSynergy, isTesting } from './Synergism';
 import { getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
 import { Globals as G } from './Variables';
+import { Player } from './types/Synergism';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -110,8 +111,11 @@ export const resetGame = () => {
 
 export const importSynergism = (input: string) => {
     const d = LZString.decompressFromBase64(input);
-    const f = d ? JSON.parse(d) : JSON.parse(atob(input));
-    if (f.exporttest === "YES!") {
+    const f: Player = d ? JSON.parse(d) : JSON.parse(atob(input));
+    if (
+        (f.exporttest === "YES!" || f.exporttest === true) ||
+        (f.exporttest === false && isTesting)
+    ) {
         intervalHold.forEach(clearInt);
         intervalHold.length = 0;
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));

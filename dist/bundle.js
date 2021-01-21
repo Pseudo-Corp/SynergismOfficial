@@ -6,6 +6,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isTesting": () => /* binding */ isTesting,
 /* harmony export */   "intervalHold": () => /* binding */ intervalHold,
 /* harmony export */   "interval": () => /* binding */ interval,
 /* harmony export */   "clearInt": () => /* binding */ clearInt,
@@ -83,6 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const isTesting = true;
 const intervalHold = [];
 const interval = new Proxy(setInterval, {
     apply(target, thisArg, args) {
@@ -568,7 +570,7 @@ const player = {
     autoTesseracts: [false, false, false, false, false, false],
     saveString: "Synergism-$VERSION$-$TIME$.txt",
     brokenfile1: false,
-    exporttest: "YES!",
+    exporttest: false,
     kongregatetest: "NO!",
     dayCheck: null,
     dayTimer: 0,
@@ -15023,6 +15025,9 @@ const checkVariablesOnLoad = (data) => {
         (0,_Statistics__WEBPACK_IMPORTED_MODULE_4__.c15RewardUpdate)();
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.loadedDec16Vers = true;
     }
+    if (typeof data.exporttest === 'string') {
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.exporttest = false;
+    }
 };
 
 
@@ -15810,7 +15815,8 @@ const resetGame = () => {
 const importSynergism = (input) => {
     const d = lz_string__WEBPACK_IMPORTED_MODULE_2___default().decompressFromBase64(input);
     const f = d ? JSON.parse(d) : JSON.parse(atob(input));
-    if (f.exporttest === "YES!") {
+    if ((f.exporttest === "YES!" || f.exporttest === true) ||
+        (f.exporttest === false && _Synergism__WEBPACK_IMPORTED_MODULE_0__.isTesting)) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.intervalHold.forEach(_Synergism__WEBPACK_IMPORTED_MODULE_0__.clearInt);
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.intervalHold.length = 0;
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));

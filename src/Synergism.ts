@@ -29,6 +29,12 @@ import { updateCubeUpgradeBG } from './Cubes';
 import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 
+/**
+ * Whether or not the current version is a testing version or a main version.
+ * This should be detected when importing a file.
+ */
+export const isTesting = true;
+
 export const intervalHold: NodeJS.Timeout[] = [];
 export const interval = new Proxy(setInterval, {
     apply(target, thisArg, args) {
@@ -589,7 +595,7 @@ export const player: Player = {
 
     saveString: "Synergism-$VERSION$-$TIME$.txt",
     brokenfile1: false,
-    exporttest: "YES!",
+    exporttest: false,
     kongregatetest: "NO!",
 
     dayCheck: null,

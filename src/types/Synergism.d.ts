@@ -466,7 +466,7 @@ export interface Player {
 
     saveString: string
     brokenfile1: boolean
-    exporttest: string
+    exporttest: string | boolean
     kongregatetest: string
 
     dayCheck: Date | null
