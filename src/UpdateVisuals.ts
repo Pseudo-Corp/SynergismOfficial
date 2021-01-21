@@ -406,34 +406,34 @@ export const visualUpdateShop = () => {
     document.getElementById("quarkamount").textContent = "You have " + format(player.worlds) + " Quarks!"
     document.getElementById("offeringpotionowned").textContent = "Own: " + format(player.shopUpgrades.offeringPotion as number)
     document.getElementById("obtainiumpotionowned").textContent = "Own: " + format(player.shopUpgrades.obtainiumPotion as number)
-    document.getElementById("offeringtimerlevel").textContent = "Level: " + player.shopUpgrades.offeringTimerLevel + "/15"
-    document.getElementById("obtainiumtimerlevel").textContent = "Level: " + player.shopUpgrades.obtainiumTimerLevel + "/15"
-    document.getElementById("offeringautolevel").textContent = "Level: " + player.shopUpgrades.offeringAutoLevel + "/15"
-    document.getElementById("obtainiumautolevel").textContent = "Level: " + player.shopUpgrades.obtainiumAutoLevel + "/15"
+    document.getElementById("offeringtimerlevel").textContent = "Level: " + player.shopUpgrades.offeringTimerLevel + "/100"
+    document.getElementById("obtainiumtimerlevel").textContent = "Level: " + player.shopUpgrades.obtainiumTimerLevel + "/100"
+    document.getElementById("offeringautolevel").textContent = "Level: " + player.shopUpgrades.offeringAutoLevel + "/100"
+    document.getElementById("obtainiumautolevel").textContent = "Level: " + player.shopUpgrades.obtainiumAutoLevel + "/100"
     document.getElementById("instantchallenge").textContent = player.shopUpgrades.instantChallengeBought ? "Bought" : "Not Bought"
     document.getElementById("antspeed").textContent = "Level: " + player.shopUpgrades.antSpeedLevel + "/10"
     document.getElementById("cashgrab").textContent = "Level: " + player.shopUpgrades.cashGrabLevel + "/10"
     document.getElementById("shoptalisman").textContent = player.shopUpgrades.talismanBought ? "Bought" : "Not Bought"
     document.getElementById("challengeUpgradeLevel").textContent = "Level: " + player.shopUpgrades.challengeExtension + "/5"
     document.getElementById("challenge10TomeLevel").textContent = "Level: " + player.shopUpgrades.challenge10Tomes + "/15"
-    document.getElementById("seasonPassLevel").textContent = "Level: " + player.shopUpgrades.seasonPassLevel + "/15"
+    document.getElementById("seasonPassLevel").textContent = "Level: " + player.shopUpgrades.seasonPassLevel + "/100"
     document.getElementById("cubeToQuark").textContent = player.shopUpgrades.cubeToQuarkBought ? "Bought" : "Not Bought"
     document.getElementById("tesseractToQuark").textContent = player.shopUpgrades.tesseractToQuarkBought ? "Bought" : "Not Bought"
     document.getElementById("hypercubeToQuark").textContent = player.shopUpgrades.hypercubeToQuarkBought ? "Bought" : "Not Bought"
 
-    player.shopUpgrades.offeringTimerLevel === 15 ?
+    player.shopUpgrades.offeringTimerLevel === 100 ?
         document.getElementById("offeringtimerbutton").textContent = "Maxed!" :
         document.getElementById("offeringtimerbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].offerTimer + 25 * (player.shopUpgrades.offeringTimerLevel as number)) + " Quarks";
 
-    player.shopUpgrades.offeringAutoLevel === 15 ?
+    player.shopUpgrades.offeringAutoLevel === 100 ?
         document.getElementById("offeringautobutton").textContent = "Maxed!" :
         document.getElementById("offeringautobutton").textContent = "Upgrade for " + (G['shopBaseCosts'].offerAuto + 25 * (player.shopUpgrades.offeringAutoLevel as number)) + " Quarks"
 
-    player.shopUpgrades.obtainiumTimerLevel === 15 ?
+    player.shopUpgrades.obtainiumTimerLevel === 100 ?
         document.getElementById("obtainiumtimerbutton").textContent = "Maxed!" :
         document.getElementById("obtainiumtimerbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].obtainiumTimer + 25 * (player.shopUpgrades.obtainiumTimerLevel as number)) + " Quarks"
 
-    player.shopUpgrades.obtainiumAutoLevel === 15 ?
+    player.shopUpgrades.obtainiumAutoLevel === 100 ?
         document.getElementById("obtainiumautobutton").textContent = "Maxed!" :
         document.getElementById("obtainiumautobutton").textContent = "Upgrade for " + (G['shopBaseCosts'].obtainiumAuto + 25 * (player.shopUpgrades.obtainiumAutoLevel as number)) + " Quarks";
 
@@ -441,11 +441,11 @@ export const visualUpdateShop = () => {
         (document.getElementById("instantchallengebutton").textContent = "Bought!") :
         document.getElementById("instantchallengebutton").textContent = "Buy for " + (G['shopBaseCosts'].instantChallenge) + " Quarks";
 
-    player.shopUpgrades.antSpeedLevel === 10 ?
+    player.shopUpgrades.antSpeedLevel === 100 ?
         document.getElementById("antspeedbutton").textContent = "Maxed!" :
         document.getElementById("antspeedbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].antSpeed + 80 * (player.shopUpgrades.antSpeedLevel as number)) + " Quarks";
 
-    player.shopUpgrades.cashGrabLevel === 10 ?
+    player.shopUpgrades.cashGrabLevel === 100 ?
         document.getElementById("cashgrabbutton").textContent = "Maxed!" :
         document.getElementById("cashgrabbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].cashGrab + 100 * (player.shopUpgrades.cashGrabLevel as number)) + " Quarks";
 
@@ -461,7 +461,7 @@ export const visualUpdateShop = () => {
         document.getElementById("challenge10TomeButton").textContent = "Maxed!" :
         document.getElementById("challenge10TomeButton").textContent = "Buy for " + (G['shopBaseCosts'].challenge10Upgrade + 250 * (player.shopUpgrades.challenge10Tomes as number)) + " Quarks";
 
-    player.shopUpgrades.seasonPassLevel === 15 ?
+    player.shopUpgrades.seasonPassLevel === 100 ?
         document.getElementById("seasonPassButton").textContent = "Maxed!" :
         document.getElementById("seasonPassButton").textContent = "Buy for " + (G['shopBaseCosts'].seasonPass + 250 * (player.shopUpgrades.seasonPassLevel as number)) + " Quarks";
 

@@ -14075,39 +14075,39 @@ const visualUpdateShop = () => {
     document.getElementById("quarkamount").textContent = "You have " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.worlds) + " Quarks!";
     document.getElementById("offeringpotionowned").textContent = "Own: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringPotion);
     document.getElementById("obtainiumpotionowned").textContent = "Own: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumPotion);
-    document.getElementById("offeringtimerlevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringTimerLevel + "/15";
-    document.getElementById("obtainiumtimerlevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumTimerLevel + "/15";
-    document.getElementById("offeringautolevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringAutoLevel + "/15";
-    document.getElementById("obtainiumautolevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumAutoLevel + "/15";
+    document.getElementById("offeringtimerlevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringTimerLevel + "/100";
+    document.getElementById("obtainiumtimerlevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumTimerLevel + "/100";
+    document.getElementById("offeringautolevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringAutoLevel + "/100";
+    document.getElementById("obtainiumautolevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumAutoLevel + "/100";
     document.getElementById("instantchallenge").textContent = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.instantChallengeBought ? "Bought" : "Not Bought";
     document.getElementById("antspeed").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.antSpeedLevel + "/10";
     document.getElementById("cashgrab").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.cashGrabLevel + "/10";
     document.getElementById("shoptalisman").textContent = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.talismanBought ? "Bought" : "Not Bought";
     document.getElementById("challengeUpgradeLevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.challengeExtension + "/5";
     document.getElementById("challenge10TomeLevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.challenge10Tomes + "/15";
-    document.getElementById("seasonPassLevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.seasonPassLevel + "/15";
+    document.getElementById("seasonPassLevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.seasonPassLevel + "/100";
     document.getElementById("cubeToQuark").textContent = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.cubeToQuarkBought ? "Bought" : "Not Bought";
     document.getElementById("tesseractToQuark").textContent = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.tesseractToQuarkBought ? "Bought" : "Not Bought";
     document.getElementById("hypercubeToQuark").textContent = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.hypercubeToQuarkBought ? "Bought" : "Not Bought";
-    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringTimerLevel === 15 ?
+    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringTimerLevel === 100 ?
         document.getElementById("offeringtimerbutton").textContent = "Maxed!" :
         document.getElementById("offeringtimerbutton").textContent = "Upgrade for " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringTimerLevel) + " Quarks";
-    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringAutoLevel === 15 ?
+    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringAutoLevel === 100 ?
         document.getElementById("offeringautobutton").textContent = "Maxed!" :
         document.getElementById("offeringautobutton").textContent = "Upgrade for " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringAutoLevel) + " Quarks";
-    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumTimerLevel === 15 ?
+    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumTimerLevel === 100 ?
         document.getElementById("obtainiumtimerbutton").textContent = "Maxed!" :
         document.getElementById("obtainiumtimerbutton").textContent = "Upgrade for " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumTimerLevel) + " Quarks";
-    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumAutoLevel === 15 ?
+    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumAutoLevel === 100 ?
         document.getElementById("obtainiumautobutton").textContent = "Maxed!" :
         document.getElementById("obtainiumautobutton").textContent = "Upgrade for " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumAutoLevel) + " Quarks";
     _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.instantChallengeBought ?
         (document.getElementById("instantchallengebutton").textContent = "Bought!") :
         document.getElementById("instantchallengebutton").textContent = "Buy for " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.instantChallenge) + " Quarks";
-    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.antSpeedLevel === 10 ?
+    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.antSpeedLevel === 100 ?
         document.getElementById("antspeedbutton").textContent = "Maxed!" :
         document.getElementById("antspeedbutton").textContent = "Upgrade for " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 80 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.antSpeedLevel) + " Quarks";
-    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.cashGrabLevel === 10 ?
+    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.cashGrabLevel === 100 ?
         document.getElementById("cashgrabbutton").textContent = "Maxed!" :
         document.getElementById("cashgrabbutton").textContent = "Upgrade for " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 100 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.cashGrabLevel) + " Quarks";
     _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.talismanBought ?
@@ -14119,7 +14119,7 @@ const visualUpdateShop = () => {
     _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.challenge10Tomes === 15 ?
         document.getElementById("challenge10TomeButton").textContent = "Maxed!" :
         document.getElementById("challenge10TomeButton").textContent = "Buy for " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.challenge10Tomes) + " Quarks";
-    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.seasonPassLevel === 15 ?
+    _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.seasonPassLevel === 100 ?
         document.getElementById("seasonPassButton").textContent = "Maxed!" :
         document.getElementById("seasonPassButton").textContent = "Buy for " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.seasonPassLevel) + " Quarks";
     _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.cubeToQuarkBought ?
@@ -16059,25 +16059,25 @@ const buyShopUpgrades = (i) => {
                 }
                 break;
             case 3:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 25 * offeringTimerLevel) && offeringTimerLevel < 15) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 25 * offeringTimerLevel) && offeringTimerLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 25 * offeringTimerLevel);
                     offeringTimerLevel += 1;
                 }
                 break;
             case 4:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 25 * offeringAutoLevel) && offeringAutoLevel < 15) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 25 * offeringAutoLevel) && offeringAutoLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 25 * offeringAutoLevel);
                     offeringAutoLevel += 1;
                 }
                 break;
             case 5:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 25 * obtainiumTimerLevel) && obtainiumTimerLevel < 15) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 25 * obtainiumTimerLevel) && obtainiumTimerLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 25 * obtainiumTimerLevel);
                     obtainiumTimerLevel += 1;
                 }
                 break;
             case 6:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 25 * obtainiumAutoLevel) && obtainiumAutoLevel < 15) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 25 * obtainiumAutoLevel) && obtainiumAutoLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 25 * obtainiumAutoLevel);
                     obtainiumAutoLevel += 1;
                 }
@@ -16089,13 +16089,13 @@ const buyShopUpgrades = (i) => {
                 }
                 break;
             case 8:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 100 * cashGrabLevel) && cashGrabLevel < 10) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 100 * cashGrabLevel) && cashGrabLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 100 * cashGrabLevel);
                     cashGrabLevel += 1;
                 }
                 break;
             case 9:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 80 * antSpeedLevel) && antSpeedLevel < 10) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 80 * antSpeedLevel) && antSpeedLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 80 * antSpeedLevel);
                     antSpeedLevel += 1;
                 }
@@ -16119,7 +16119,7 @@ const buyShopUpgrades = (i) => {
                 }
                 break;
             case 13:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 250 * seasonPassLevel) && seasonPassLevel < 15) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 250 * seasonPassLevel) && seasonPassLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 250 * seasonPassLevel);
                     seasonPassLevel += 1;
                 }
@@ -16175,7 +16175,7 @@ const resetShopUpgrades = () => {
         : true;
     if (p && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= 15) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= 15;
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 100; i++) {
             if (offeringTimerLevel > 0) {
                 offeringTimerLevel -= 1;
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += (150 + 25 * i);
