@@ -313,7 +313,7 @@ export function calculateOfferings(i: number, calcMult = true, statistic = false
         1 + 20 * player.upgrades[38] / 100, // Diamond Upgrade 4x3
         1 + player.upgrades[75] * 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)), // Particle Upgrade 3x5
         1 + 1 / 50 * player.shopUpgrades.offeringAutoLevel, // Auto Offering Shop
-        1 + 1 / 400 * Math.pow(player.shopUpgrades.offeringTimerLevel, 2), // Offering EX Shop
+        1 + 1 / 25 * player.shopUpgrades.offeringTimerLevel, // Offering EX Shop
         1 + 1 / 100 * player.shopUpgrades.cashGrabLevel, // Cash Grab
         1 + 1 / 10000 * sumContents(player.challengecompletions) * player.researches[85], // Research 4x10
         1 + Math.pow((player.antUpgrades[6-1] + G['bonusant6']), .66), // Ant Upgrade:
@@ -410,7 +410,7 @@ export const calculateObtainium = () => {
         G['obtainiumGain'] += 2 * player.researches[64]
     }
     G['obtainiumGain'] *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2));
-    G['obtainiumGain'] *= (1 + 1 / 200 * Math.pow(player.shopUpgrades.obtainiumTimerLevel, 2))
+    G['obtainiumGain'] *= (1 + 1 / 25 * player.shopUpgrades.obtainiumTimerLevel)
     if (player.reincarnationCount >= 5) {
         G['obtainiumGain'] *= Math.max(1, player.reincarnationcounter / 10)
     }
@@ -867,7 +867,7 @@ export function calculateCubeMultiplier(calcMult: boolean): number[];
 export function calculateCubeMultiplier(calcMult: boolean = true) {
     const arr = [
         Math.pow(Math.min(1, player.ascensionCounter / 10), 2) * (1 + (1 / 4 * player.achievements[204] + 1 / 4 * player.achievements[211] + 1 / 2 * player.achievements[218]) * Math.max(0, player.ascensionCounter / 10 - 1)),
-        1 + 3 / 100 * player.shopUpgrades.seasonPassLevel,
+        1 + 3 / 200 * player.shopUpgrades.seasonPassLevel,
         1 + player.researches[119] / 400,
         1 + player.researches[120] / 400,
         1 + 14 * player.cubeUpgrades[1] / 100,
@@ -1063,6 +1063,7 @@ export const CalcCorruptionStuff = () => {
     tesseractGain *= (1 + 4 / 100 * (player.achievements[205] + player.achievements[206] + player.achievements[207]) + 3 / 100 * player.achievements[208])
     tesseractGain *= (1 + player.achievements[240] * Math.max(0.1, 1 / 20 * Math.log(speed + 0.01) / Math.log(10)))
     tesseractGain *= (1 + 6 / 100 * player.achievements[250] + 10 / 100 * player.achievements[251])
+    tesseractGain *= (1 + 3 / 200 * player.shopUpgrades.seasonPassLevel)
 
     let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
     hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9)) / 1e8, .5);
