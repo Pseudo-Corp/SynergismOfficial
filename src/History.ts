@@ -3,22 +3,65 @@ import Decimal, { DecimalSource } from 'break_infinity.js';
 import { isDecimal } from './Utility';
 import { antSacrificePointsToMultiplier } from './Ants';
 
-// TODO: no explanation needed
+export type Category = 'ants' | 'reset' | 'ascend';
+export type Kind = 'antsacrifice' | 'prestige' | 'transcend' | 'reincarnate' | 'ascend';
+export type ResetHistoryDate = { 
+    antSacrificePointsAfter: number
+    antSacrificePointsBefore: number
+    baseELO: number
+    crumbs: string | Decimal
+    crumbsPerSecond: string | Decimal
+    date: number
+    effectiveELO: number
+    kind: Kind
+    obtainium: number
+    offerings: number
+    seconds: number
+    [key: string]: any
+};
 
-type Category = 'ants' | 'reset' | 'ascend';
+export type ResetHistoryAscend = {
+    diamonds: Decimal
+    offerings: number
+    seconds: number
+    mythos: Decimal
+    obtainium: number
+    particles: Decimal
+    c10Completions: number
+    usedCorruptions: number[]
+    corruptionScore: number
+    wowCubes: number
+    wowTesseracts: number
+    wowHypercubes: number
+    wowPlatonicCubes: number
+    currentChallenge: number
+    date?: number
+    kind?: Kind
+    [key: string]: any
+}
 
 // This doesn't pass the extra args to format, and that's on purpose
 const formatPlain = (str: number | Decimal) => format(str);
 
 const formatDecimalString = (str: DecimalSource) => format(new Decimal(str));
 
+const conditionalFormatPerSecond = (numOrStr: Decimal | number, data: { seconds: number; }) => {
+    if (typeof (numOrStr) === "number" && player.historyShowPerSecond) {
+        if (numOrStr === 0) { // work around format(0, 3) return 0 instead of 0.000, for consistency
+            return "0.000/s";
+        }
+        return format(numOrStr / ((data.seconds && data.seconds > 0) ? data.seconds : 1), 3, true) + "/s";
+    }
+    return format(numOrStr);
+}
+
 const historyGains: Record<
     string,
     {
         img: string
         imgTitle: string
-        formatter: (p?: any, q?: any) => string,
-        onlyif?: (p?: any) => boolean
+        formatter: (...args: any[]) => string,
+        onlyif?: (...args: any[]) => boolean
     }
 > = {
     offerings: {img: "Pictures/Offering.png", formatter: formatPlain, imgTitle: "Offerings"},
@@ -98,6 +141,7 @@ const resetHistoryCorruptionImages = [
     "Pictures/Drought Lvl 7.png",
     "Pictures/Financial Collapse Lvl 7.png"
 ];
+
 const resetHistoryCorruptionTitles = [
     "Divisiveness [Multipliers]",
     "Maladaption [Accelerators]",
@@ -110,24 +154,9 @@ const resetHistoryCorruptionTitles = [
     "Financial Recession [Coins]"
 ];
 
-const resetHistoryShowMillisecondsMaxSec = 60;
-
-function conditionalFormatPerSecond(numOrStr: number, data: { seconds: number; }) {
-    if (typeof (numOrStr) === "number" && player.historyShowPerSecond) {
-        if (numOrStr === 0) { // work around format(0, 3) return 0 instead of 0.000, for consistency
-            return "0.000/s";
-        }
-        return format(numOrStr / ((data.seconds && data.seconds > 0) ? data.seconds : 1), 3, true) + "/s";
-    }
-    return format(numOrStr);
-}
-
 const extractStringExponent = (str: string) => {
-    let m;
-    if ((m = str.match(/e\+?(.+)/)) !== null) {
-        return "e" + m[1];
-    }
-    return str;
+    let m: RegExpMatchArray | null = null;
+    return (m = str.match(/e\+?(.+)/)) !== null ? `e${m[1]}` : str;
 }
 
 /**
@@ -138,12 +167,8 @@ const extractStringExponent = (str: string) => {
  */
 export const resetHistoryAdd = (
     category: Category,
-    kind: 'antsacrifice' | 'prestige' | 'transcend' | 'reincarnate' | 'ascend',
-    data: { 
-        date?: number; 
-        kind?: string;
-        [key: string]: any
-    }
+    kind: Kind,
+    data: ResetHistoryDate | ResetHistoryAscend
 ) => {
     data.date = Date.now();
     data.kind = kind;
@@ -156,11 +181,11 @@ export const resetHistoryAdd = (
     }
 
     // Convert Decimal objects to string representation, so that the data is loaded properly after a refresh
-    Object.keys(data).forEach(k => {
+    for (const k in data) {
         if (isDecimal(data[k])) {
             data[k] = data[k].toString();
         }
-    });
+    }
 
     player.history[category].push(data);
     resetHistoryPushNewRow(category, data);
@@ -178,7 +203,7 @@ function resetHistoryPushNewRow(category: Category, data: any) {
 
 const resetHistoryRenderRow = (
     _category: Category, 
-    data: { [key: string]: any }
+    data: ResetHistoryAscend | ResetHistoryDate
 ) => {
     let colsUsed = 1;
     let row = document.createElement("tr");
@@ -187,7 +212,7 @@ const resetHistoryRenderRow = (
     let kindMeta = historyKinds[data.kind as keyof typeof historyKinds];
 
     let localDate = new Date(data.date).toLocaleString();
-    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${formatTimeShort(data.seconds, resetHistoryShowMillisecondsMaxSec)}</td>`;
+    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
 
     let gains = [];
     for (let gainIdx = 0; gainIdx < historyGainsOrder.length; ++gainIdx) {

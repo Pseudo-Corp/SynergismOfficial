@@ -9,7 +9,7 @@ import { redeemShards } from './Runes';
 import { updateTalismanInventory } from './Talismans';
 import { buyResearch } from './Research';
 import { resetAnts } from './Reset';
-import { resetHistoryAdd } from './History';
+import { resetHistoryAdd, ResetHistoryDate } from './History';
 
 const antdesc: Record<string, string> = {
     antdesc1: "Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!",
@@ -302,9 +302,9 @@ export const showSacrifice = () => {
     const sacRewards = calculateAntSacrificeRewards();
     document.getElementById("antSacrificeSummary").style.display = "block"
 
-    document.getElementById("G['antELO']").childNodes[0].textContent = "Your Ant ELO is "
+    document.getElementById("antELO").childNodes[0].textContent = "Your Ant ELO is "
     document.getElementById("ELO").textContent = format(G['antELO'], 2,)
-    document.getElementById("G['effectiveELO']").textContent = "[" + format(G['effectiveELO'], 2, false) + " effective]"
+    document.getElementById("effectiveELO").textContent = "[" + format(G['effectiveELO'], 2, false) + " effective]"
 
     document.getElementById("antSacrificeMultiplier").childNodes[0].textContent = "Ant Multiplier x" + format(antSacrificePointsToMultiplier(player.antSacrificePoints), 3, false) + " --> "
     document.getElementById("SacrificeMultiplier").textContent = "x" + format(antSacrificePointsToMultiplier(player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false)
@@ -325,7 +325,7 @@ export const showSacrifice = () => {
 }
 
 export const sacrificeAnts = (auto = false) => {
-    let historyEntry: Record<string, number | Decimal> = {};
+    let historyEntry: Partial<ResetHistoryDate> = {};
     let p = true
 
     if (player.antPoints.gte("1e40")) {
@@ -390,7 +390,7 @@ export const sacrificeAnts = (auto = false) => {
             }
             calculateAntSacrificeELO();
 
-            resetHistoryAdd("ants", "antsacrifice", historyEntry);
+            resetHistoryAdd("ants", "antsacrifice", historyEntry as ResetHistoryDate);
         }
     }
 

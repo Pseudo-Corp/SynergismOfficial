@@ -11,7 +11,7 @@ import { getElementById } from './Utility';
 import { ascensionAchievementCheck } from './Achievements';
 import { buyResearch } from './Research';
 import { calculateHypercubeBlessings } from './Hypercubes';
-import { resetHistoryAdd } from './History';
+import { resetHistoryAdd, ResetHistoryAscend, Category, Kind } from './History';
 import { challengeRequirement } from './Challenges';
 
 let repeatreset: NodeJS.Timeout;
@@ -192,7 +192,7 @@ export const updateTesseractAutoBuyAmount = () => {
 }
 
 export const reset = (i: number, fast = false, from = 'unknown') => {
-    let historyEntry: Record<string, any> = {};
+    let historyEntry: Partial<ResetHistoryAscend> = {};
     let historyKind = "prestige";
     let historyCategory = "reset";
     // By default, we don't log history entries when the player is entering or leaving a challenge, but we handle some
@@ -622,7 +622,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
     }
 
     if (historyUse) {
-        resetHistoryAdd(historyCategory as 'ascend', historyKind as 'prestige', historyEntry);
+        resetHistoryAdd(historyCategory as Category, historyKind as Kind, historyEntry as ResetHistoryAscend);
     }
 }
 
