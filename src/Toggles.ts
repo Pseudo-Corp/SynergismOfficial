@@ -11,7 +11,7 @@ import { maxRoombaResearchIndex } from './Research';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier } from './Statistics';
 import { corruptionDisplay, corruptionLoadoutTableUpdate } from './Corruptions';
 
-type TabValue = { tabName: string, unlocked: boolean };
+type TabValue = { tabName: keyof typeof tabNumberConst, unlocked: boolean };
 type Tab = Record<number, TabValue>;
 type SubTab = Record<number, { 
     tabSwitcher?: Function, 
@@ -22,10 +22,27 @@ type SubTab = Record<number, {
     }[] 
 }>
 
-export const toggleTabs = (name: string) => {
+const tabNumberConst = {
+    "settings": -1,
+    "shop": 0,
+    "buildings": 1,
+    "upgrades": 2,
+    "achievements": 3,
+    "runes": 4,
+    "challenges": 5,
+    "researches": 6,
+    "ants": 7,
+    "cubes": 8,
+    "traits": 9
+} as const;
+
+export const toggleTabs = (name: keyof typeof tabNumberConst) => {
     G['currentTab'] = name;
+    player.tabnumber = tabNumberConst[name];
+
     revealStuff();
     hideStuff();
+    
     let subTabList = subTabsInMainTab(player.tabnumber).subTabList
     if (player.tabnumber !== -1) {
         for (let i = 0; i < subTabList.length; i++) {
@@ -265,7 +282,7 @@ export const keyboardTabChange = (dir = 1, main = true) => {
     if (main) {
         player.tabnumber += dir
         let maxTab = Object.keys(tabs()).reduce((a, b) => Math.max(a, +b), -Infinity);
-        let minTab = Object.keys(tabs()).reduce((a, b) => Math.min(a, +b), -Infinity);
+        let minTab = Object.keys(tabs()).reduce((a, b) => Math.min(a, +b), Infinity);
         // The loop point is chosen to be before settings so that new tabs can just be added to the end of the list
         // without needing to mess with the settings and shop
         let handleLoopBack = () => {

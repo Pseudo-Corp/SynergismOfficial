@@ -111,16 +111,8 @@ export const generateEventHandlers = () => {
     let buildingTypesAlternate3 = ['Coin', 'Diamonds', 'Mythos'] //TODO: A cleaner way to implement this dumb shit
     for (let index = 0; index < 3; index++){
         for (let index2 = 1; index2 <= 5; index2++) {
-            function generateCostLevel(){
-                if (index === 0){
-                    return index2
-                }
-                else {
-                    return (index2) * (index2+1)/2
-                }
-            }
-            console.log(generateCostLevel());
-            document.getElementById(`buy${buildingTypesAlternate2[index]}${index2}`).addEventListener('click', () => buyProducer(ordinals[index2], buildingTypesAlternate3[index], generateCostLevel()))                
+            document.getElementById(`buy${buildingTypesAlternate2[index]}${index2}`).addEventListener('click', () => 
+                buyProducer(ordinals[index2], buildingTypesAlternate3[index], index === 0 ? index2 : index2 * (index2+1) / 2))                
         }
     }
 

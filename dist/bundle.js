@@ -6180,8 +6180,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const tabNumberConst = {
+    "settings": -1,
+    "shop": 0,
+    "buildings": 1,
+    "upgrades": 2,
+    "achievements": 3,
+    "runes": 4,
+    "challenges": 5,
+    "researches": 6,
+    "ants": 7,
+    "cubes": 8,
+    "traits": 9
+};
 const toggleTabs = (name) => {
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.currentTab = name;
+    _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber = tabNumberConst[name];
     (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_0__.revealStuff)();
     (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_0__.hideStuff)();
     let subTabList = subTabsInMainTab(_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber).subTabList;
@@ -6409,7 +6423,7 @@ const keyboardTabChange = (dir = 1, main = true) => {
     if (main) {
         _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber += dir;
         let maxTab = Object.keys(tabs()).reduce((a, b) => Math.max(a, +b), -Infinity);
-        let minTab = Object.keys(tabs()).reduce((a, b) => Math.min(a, +b), -Infinity);
+        let minTab = Object.keys(tabs()).reduce((a, b) => Math.min(a, +b), Infinity);
         let handleLoopBack = () => {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber === maxTab + 1) {
                 _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber = minTab;
@@ -7205,13 +7219,11 @@ const hideStuff = () => {
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "buildings") {
         document.getElementById("buildingstab").style.backgroundColor = "orange";
         document.getElementById("buildings").style.display = "block";
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = 1;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "upgrades") {
         document.getElementById("upgrades").style.display = "block";
         document.getElementById("upgradestab").style.backgroundColor = "orange";
         document.getElementById("upgradedescription").textContent = "Hover over an upgrade to view details!";
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = 2;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "settings") {
         document.getElementById("settings").style.display = "block";
@@ -7220,14 +7232,12 @@ const hideStuff = () => {
             settingsTab.style.color = "black";
             settingsTab.style.border = '1px solid white';
         }
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = -1;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "achievements") {
         document.getElementById("statistics").style.display = "block";
         document.getElementById("achievementstab").style.backgroundColor = "white";
         document.getElementById("achievementstab").style.color = "black";
         document.getElementById("achievementprogress").textContent = "Achievement Points: " + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievementPoints + "/" + _Achievements__WEBPACK_IMPORTED_MODULE_4__.totalachievementpoints + " [" + (100 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievementPoints / _Achievements__WEBPACK_IMPORTED_MODULE_4__.totalachievementpoints).toPrecision(4) + "%]";
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = 3;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "runes") {
         document.getElementById("runes").style.display = "block";
@@ -7239,37 +7249,30 @@ const hideStuff = () => {
         (0,_Runes__WEBPACK_IMPORTED_MODULE_5__.displayRuneInformation)(3, false);
         (0,_Runes__WEBPACK_IMPORTED_MODULE_5__.displayRuneInformation)(4, false);
         (0,_Runes__WEBPACK_IMPORTED_MODULE_5__.displayRuneInformation)(5, false);
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = 4;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "challenges") {
         document.getElementById("challenges").style.display = "block";
         document.getElementById("challengetab").style.backgroundColor = "purple";
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = 5;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "researches") {
         document.getElementById("research").style.display = "block";
         document.getElementById("researchtab").style.backgroundColor = "green";
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = 6;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "shop") {
         document.getElementById("shop").style.display = "block";
         document.getElementById("shoptab").style.backgroundColor = "limegreen";
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = 0;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "ants") {
         document.getElementById("ants").style.display = "block";
         document.getElementById("anttab").style.backgroundColor = "brown";
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = 7;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "cubes") {
         document.getElementById("cubes").style.display = "block";
         document.getElementById("cubetab").style.backgroundColor = "white";
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = 8;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "traits") {
         document.getElementById("traits").style.display = "flex";
         document.getElementById("traitstab").style.backgroundColor = "white";
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tabnumber = 9;
     }
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[38] > 0.5) {
         document.getElementById("activaterune2").style.display = "block";
@@ -15147,16 +15150,7 @@ const generateEventHandlers = () => {
     let buildingTypesAlternate3 = ['Coin', 'Diamonds', 'Mythos'];
     for (let index = 0; index < 3; index++) {
         for (let index2 = 1; index2 <= 5; index2++) {
-            function generateCostLevel() {
-                if (index === 0) {
-                    return index2;
-                }
-                else {
-                    return (index2) * (index2 + 1) / 2;
-                }
-            }
-            console.log(generateCostLevel());
-            document.getElementById(`buy${buildingTypesAlternate2[index]}${index2}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyProducer)(ordinals[index2], buildingTypesAlternate3[index], generateCostLevel()));
+            document.getElementById(`buy${buildingTypesAlternate2[index]}${index2}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyProducer)(ordinals[index2], buildingTypesAlternate3[index], index === 0 ? index2 : index2 * (index2 + 1) / 2));
         }
     }
     for (let index = 1; index <= 5; index++) {
