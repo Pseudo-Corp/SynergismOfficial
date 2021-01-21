@@ -3062,7 +3062,7 @@ window.addEventListener('load', () => {
         document.head.appendChild(script);
     }
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're playing on GITHUB v${player.version} - The Abyss [Last Update: 5:00 UTC-8 11-Jan-2021]. This version is NOT on Kongregate!`);
+    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 10:50 UTC-8 20-Jan-2021]. Savefiles cannot be used in live!`);
     document.title = 'Synergism v' + player.version;
     const dec = lz_string__WEBPACK_IMPORTED_MODULE_1___default().decompressFromBase64(localStorage.getItem('Synergysave2'));
     const isLZString = dec !== '';
@@ -15026,7 +15026,7 @@ const checkVariablesOnLoad = (data) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.loadedDec16Vers = true;
     }
     if (typeof data.exporttest === 'string') {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.exporttest = false;
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.exporttest = !_Synergism__WEBPACK_IMPORTED_MODULE_0__.isTesting;
     }
 };
 
