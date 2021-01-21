@@ -684,7 +684,7 @@ export const updateChallengeLevel = (k: number) => {
         case 8:
         case 9:
         case 10:
-            maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * (player.shopUpgrades.challengeExtension as number) + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
+            maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
             break;
         case 11:
         case 12:

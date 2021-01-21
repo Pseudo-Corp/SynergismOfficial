@@ -867,7 +867,7 @@ export function calculateCubeMultiplier(calcMult: boolean): number[];
 export function calculateCubeMultiplier(calcMult: boolean = true) {
     const arr = [
         Math.pow(Math.min(1, player.ascensionCounter / 10), 2) * (1 + (1 / 4 * player.achievements[204] + 1 / 4 * player.achievements[211] + 1 / 2 * player.achievements[218]) * Math.max(0, player.ascensionCounter / 10 - 1)),
-        1 + 3 / 100 * (player.shopUpgrades.seasonPassLevel as number),
+        1 + 3 / 100 * player.shopUpgrades.seasonPassLevel,
         1 + player.researches[119] / 400,
         1 + player.researches[120] / 400,
         1 + 14 * player.cubeUpgrades[1] / 100,

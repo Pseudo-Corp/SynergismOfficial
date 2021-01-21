@@ -75,7 +75,7 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
 
     let levelsToAdd = player.offeringbuyamount
     if (auto) {
-        levelsToAdd = Math.pow(2, player.shopUpgrades.offeringAutoLevel as number);
+        levelsToAdd = Math.pow(2, player.shopUpgrades.offeringAutoLevel);
     }
     if (auto && cubeUpgraded > 0) {
         levelsToAdd = Math.min(1e4, calculateMaxRunes(runeIndex + 1)) // limit to max 10k levels per call so the execution doesn't take too long if things get stuck
@@ -134,7 +134,7 @@ export const calculateOfferingsToLevelXTimes = (runeIndex: number, runeLevel: nu
     let sum = 0
     let off = player.runeshards
     let levelsAdded = 0
-    let fact = calculateRuneExpGiven(runeIndex, false, runeLevel, true) as number[];
+    let fact = calculateRuneExpGiven(runeIndex, false, runeLevel, true);
     let a = player.upgrades[71] / 25
     let add = fact[0] - a * runeLevel
     let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)

@@ -30,7 +30,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
     
 
     if (i > 5 && i <= 10) {
-        maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * (player.shopUpgrades.challengeExtension as number) + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
+        maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
         quarksMultiplier = 10;
         if(player.challengecompletions[i] >= 25 && changefocus){
             document.getElementById('completionSoftcap').textContent = "|| Softcapped past 25! Effective completion count: " + format(CalcECC('reincarnation',player.challengecompletions[i]),2,true)
@@ -437,7 +437,7 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     } else if (challenge <= 10) {
         let c10Reduction = 0;
         if (challenge === 10) {
-            c10Reduction = (1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185]) + 2e7 * (player.shopUpgrades.challenge10Tomes as number))
+            c10Reduction = (1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185]) + 2e7 * player.shopUpgrades.challenge10Tomes)
         }
         return Decimal.pow(10, (base - c10Reduction) * calculateChallengeRequirementMultiplier('reincarnation', completion, special))
     } else if (challenge <= 14) {
@@ -515,7 +515,7 @@ export const runChallengeSweep = (dt: number) => {
                 G['autoChallengeTimerIncrement'] = 0;
             }
             if (player.currentChallenge.reincarnation === 0 && player.autoChallengeIndex > 5) {
-                while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29] + 2 * (player.shopUpgrades.challengeExtension as number) + 5 * player.platonicUpgrades[5]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
+                while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
                     player.autoChallengeIndex += 1
                     if (player.autoChallengeIndex > 10) {
                         player.autoChallengeIndex = 1;

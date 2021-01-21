@@ -122,13 +122,13 @@ export const buyShopUpgrades = (i: number) => {
             case 1:
                 if (player.worlds >= G['shopBaseCosts'].offerPotion) {
                     player.worlds -= 100;
-                    (player.shopUpgrades.offeringPotion as number) += 1;
+                    player.shopUpgrades.offeringPotion += 1;
                 }
                 break;
             case 2:
                 if (player.worlds >= G['shopBaseCosts'].obtainiumPotion) {
                     player.worlds -= 100;
-                    (player.shopUpgrades.obtainiumPotion as number) += 1;
+                    player.shopUpgrades.obtainiumPotion += 1;
                 }
                 break;
             case 3:

@@ -2032,7 +2032,7 @@ export const multipliers = () => {
     }
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
     G['globalAntMult'] = G['globalAntMult'].times(1 + player.upgrades[78] * 0.005 * Math.pow(Math.log(player.maxofferings + 1) / Math.log(10), 2))
-    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1.5, player.shopUpgrades.antSpeedLevel as number));
+    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1.5, player.shopUpgrades.antSpeedLevel));
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1-1] + G['bonusant1']));
     G['globalAntMult'] = G['globalAntMult'].times(antSacrificePointsToMultiplier(player.antSacrificePoints))
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(Math.max(1, player.researchPoints), G['effectiveRuneBlessingPower'][5]))
@@ -2295,7 +2295,7 @@ export const resourceGain = (dt: number) => {
         if (player.transcendShards.gte(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
             resetCheck('reincarnationchallenge', false)
             G['autoChallengeTimerIncrement'] = 0;
-            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29] + 2 * (player.shopUpgrades.challengeExtension as number))) {
+            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension)) {
                 player.autoChallengeIndex += 1
             }
         }
@@ -2304,7 +2304,7 @@ export const resourceGain = (dt: number) => {
         if (player.coins.gte(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
             resetCheck('reincarnationchallenge', false)
             G['autoChallengeTimerIncrement'] = 0;
-            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29] + 2 * (player.shopUpgrades.challengeExtension as number))) {
+            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension)) {
                 player.autoChallengeIndex += 1
                 if (player.autoChallengeIndex > 10) {
                     player.autoChallengeIndex = 1
@@ -2462,7 +2462,7 @@ export const resetCheck = (i: string, manual = true, leaving = false) => {
                 return player.coins.gte(challengeRequirement(q, comp, q))
             }
         }
-        let maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * (player.shopUpgrades.challengeExtension as number) + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
+        let maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
             let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
             let counter = 0;
@@ -2492,7 +2492,7 @@ export const resetCheck = (i: string, manual = true, leaving = false) => {
                 calculateCubeBlessings();
             }
         }
-        if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * (player.shopUpgrades.challengeExtension as number) + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15]) {
+        if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15]) {
             reset(3, false, "leaveChallenge");
             player.currentChallenge.reincarnation = 0;
             if (player.shopUpgrades.instantChallengeBought) {
@@ -2867,8 +2867,8 @@ export const updateAll = () => {
     G['effectiveLevelMult'] *= (1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]))
     G['effectiveLevelMult'] *= G['challenge15Rewards'].runeBonus
 
-    G['optimalOfferingTimer'] = 600 + 30 * player.researches[85] + 0.4 * G['rune5level'] + 120 * (player.shopUpgrades.offeringTimerLevel as number)
-    G['optimalObtainiumTimer'] = 3600 + 120 * (player.shopUpgrades.obtainiumTimerLevel as number)
+    G['optimalOfferingTimer'] = 600 + 30 * player.researches[85] + 0.4 * G['rune5level'] + 120 * player.shopUpgrades.offeringTimerLevel;
+    G['optimalObtainiumTimer'] = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel;
     autoBuyAnts()
 
     let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;

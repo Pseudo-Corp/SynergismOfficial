@@ -404,8 +404,8 @@ export const visualUpdateShop = () => {
     if (G['currentTab'] !== "shop")
         return
     document.getElementById("quarkamount").textContent = "You have " + format(player.worlds) + " Quarks!"
-    document.getElementById("offeringpotionowned").textContent = "Own: " + format(player.shopUpgrades.offeringPotion as number)
-    document.getElementById("obtainiumpotionowned").textContent = "Own: " + format(player.shopUpgrades.obtainiumPotion as number)
+    document.getElementById("offeringpotionowned").textContent = "Own: " + format(player.shopUpgrades.offeringPotion)
+    document.getElementById("obtainiumpotionowned").textContent = "Own: " + format(player.shopUpgrades.obtainiumPotion)
     document.getElementById("offeringtimerlevel").textContent = "Level: " + player.shopUpgrades.offeringTimerLevel + "/100"
     document.getElementById("obtainiumtimerlevel").textContent = "Level: " + player.shopUpgrades.obtainiumTimerLevel + "/100"
     document.getElementById("offeringautolevel").textContent = "Level: " + player.shopUpgrades.offeringAutoLevel + "/100"
@@ -423,19 +423,19 @@ export const visualUpdateShop = () => {
 
     player.shopUpgrades.offeringTimerLevel === 100 ?
         document.getElementById("offeringtimerbutton").textContent = "Maxed!" :
-        document.getElementById("offeringtimerbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].offerTimer + 25 * (player.shopUpgrades.offeringTimerLevel as number)) + " Quarks";
+        document.getElementById("offeringtimerbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].offerTimer + 25 * player.shopUpgrades.offeringTimerLevel) + " Quarks";
 
     player.shopUpgrades.offeringAutoLevel === 100 ?
         document.getElementById("offeringautobutton").textContent = "Maxed!" :
-        document.getElementById("offeringautobutton").textContent = "Upgrade for " + (G['shopBaseCosts'].offerAuto + 25 * (player.shopUpgrades.offeringAutoLevel as number)) + " Quarks"
+        document.getElementById("offeringautobutton").textContent = "Upgrade for " + (G['shopBaseCosts'].offerAuto + 25 * player.shopUpgrades.offeringAutoLevel) + " Quarks"
 
     player.shopUpgrades.obtainiumTimerLevel === 100 ?
         document.getElementById("obtainiumtimerbutton").textContent = "Maxed!" :
-        document.getElementById("obtainiumtimerbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].obtainiumTimer + 25 * (player.shopUpgrades.obtainiumTimerLevel as number)) + " Quarks"
+        document.getElementById("obtainiumtimerbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].obtainiumTimer + 25 * player.shopUpgrades.obtainiumTimerLevel) + " Quarks"
 
     player.shopUpgrades.obtainiumAutoLevel === 100 ?
         document.getElementById("obtainiumautobutton").textContent = "Maxed!" :
-        document.getElementById("obtainiumautobutton").textContent = "Upgrade for " + (G['shopBaseCosts'].obtainiumAuto + 25 * (player.shopUpgrades.obtainiumAutoLevel as number)) + " Quarks";
+        document.getElementById("obtainiumautobutton").textContent = "Upgrade for " + (G['shopBaseCosts'].obtainiumAuto + 25 * player.shopUpgrades.obtainiumAutoLevel) + " Quarks";
 
     player.shopUpgrades.instantChallengeBought ?
         (document.getElementById("instantchallengebutton").textContent = "Bought!") :
@@ -443,11 +443,11 @@ export const visualUpdateShop = () => {
 
     player.shopUpgrades.antSpeedLevel === 100 ?
         document.getElementById("antspeedbutton").textContent = "Maxed!" :
-        document.getElementById("antspeedbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].antSpeed + 80 * (player.shopUpgrades.antSpeedLevel as number)) + " Quarks";
+        document.getElementById("antspeedbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].antSpeed + 80 * player.shopUpgrades.antSpeedLevel) + " Quarks";
 
     player.shopUpgrades.cashGrabLevel === 100 ?
         document.getElementById("cashgrabbutton").textContent = "Maxed!" :
-        document.getElementById("cashgrabbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].cashGrab + 100 * (player.shopUpgrades.cashGrabLevel as number)) + " Quarks";
+        document.getElementById("cashgrabbutton").textContent = "Upgrade for " + (G['shopBaseCosts'].cashGrab + 100 * player.shopUpgrades.cashGrabLevel) + " Quarks";
 
     player.shopUpgrades.talismanBought ?
         (document.getElementById("shoptalismanbutton").textContent = "Bought!") :
@@ -455,15 +455,15 @@ export const visualUpdateShop = () => {
 
     player.shopUpgrades.challengeExtension === 5 ?
         document.getElementById("challengeUpgradeButton").textContent = "Maxed!" :
-        document.getElementById("challengeUpgradeButton").textContent = "Buy for " + (G['shopBaseCosts'].challengeExtension + 250 * (player.shopUpgrades.challengeExtension as number)) + " Quarks";
+        document.getElementById("challengeUpgradeButton").textContent = "Buy for " + (G['shopBaseCosts'].challengeExtension + 250 * player.shopUpgrades.challengeExtension) + " Quarks";
 
     player.shopUpgrades.challenge10Tomes === 15 ?
         document.getElementById("challenge10TomeButton").textContent = "Maxed!" :
-        document.getElementById("challenge10TomeButton").textContent = "Buy for " + (G['shopBaseCosts'].challenge10Upgrade + 250 * (player.shopUpgrades.challenge10Tomes as number)) + " Quarks";
+        document.getElementById("challenge10TomeButton").textContent = "Buy for " + (G['shopBaseCosts'].challenge10Upgrade + 250 * player.shopUpgrades.challenge10Tomes) + " Quarks";
 
     player.shopUpgrades.seasonPassLevel === 100 ?
         document.getElementById("seasonPassButton").textContent = "Maxed!" :
-        document.getElementById("seasonPassButton").textContent = "Buy for " + (G['shopBaseCosts'].seasonPass + 250 * (player.shopUpgrades.seasonPassLevel as number)) + " Quarks";
+        document.getElementById("seasonPassButton").textContent = "Buy for " + (G['shopBaseCosts'].seasonPass + 250 * player.shopUpgrades.seasonPassLevel) + " Quarks";
 
     player.shopUpgrades.cubeToQuarkBought ?
         (document.getElementById("cubeToQuarkButton").textContent = "Maxed!") :
