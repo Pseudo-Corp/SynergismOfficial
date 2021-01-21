@@ -1,11 +1,12 @@
 import Decimal from 'break_infinity.js';
 
 export const isDecimal = (o: any): o is Decimal => 
-    typeof o === 'object' &&
+    o instanceof Decimal ||
+    (typeof o === 'object' &&
     o !== null &&
     Object.keys(o).length === 2 &&
     'mantissa' in o &&
-    'exponent' in o
+    'exponent' in o)
 ;
 
 /**

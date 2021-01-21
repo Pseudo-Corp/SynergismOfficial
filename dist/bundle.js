@@ -5163,11 +5163,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "sortWithIndeces": () => /* binding */ sortWithIndeces,
 /* harmony export */   "getElementById": () => /* binding */ getElementById
 /* harmony export */ });
-const isDecimal = (o) => typeof o === 'object' &&
-    o !== null &&
-    Object.keys(o).length === 2 &&
-    'mantissa' in o &&
-    'exponent' in o;
+/* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+
+const isDecimal = (o) => o instanceof break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default ||
+    (typeof o === 'object' &&
+        o !== null &&
+        Object.keys(o).length === 2 &&
+        'mantissa' in o &&
+        'exponent' in o);
 const smallestInc = (x = 0) => {
     if (x <= Number.MAX_SAFE_INTEGER) {
         return 1;
