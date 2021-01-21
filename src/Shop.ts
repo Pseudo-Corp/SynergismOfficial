@@ -163,25 +163,25 @@ export const buyShopUpgrades = (i: number) => {
                 }
                 break;
             case 3:
-                if (player.worlds >= (G['shopBaseCosts'].offerTimer + 25 * offeringTimerLevel) && offeringTimerLevel < 15) {
+                if (player.worlds >= (G['shopBaseCosts'].offerTimer + 25 * offeringTimerLevel) && offeringTimerLevel < 100) {
                     player.worlds -= (G['shopBaseCosts'].offerTimer + 25 * offeringTimerLevel);
                     offeringTimerLevel += 1;
                 }
                 break;
             case 4:
-                if (player.worlds >= (G['shopBaseCosts'].offerAuto + 25 * offeringAutoLevel) && offeringAutoLevel < 15) {
+                if (player.worlds >= (G['shopBaseCosts'].offerAuto + 25 * offeringAutoLevel) && offeringAutoLevel < 100) {
                     player.worlds -= (G['shopBaseCosts'].offerAuto + 25 * offeringAutoLevel);
                     offeringAutoLevel += 1;
                 }
                 break;
             case 5:
-                if (player.worlds >= (G['shopBaseCosts'].obtainiumTimer + 25 * obtainiumTimerLevel) && obtainiumTimerLevel < 15) {
+                if (player.worlds >= (G['shopBaseCosts'].obtainiumTimer + 25 * obtainiumTimerLevel) && obtainiumTimerLevel < 100) {
                     player.worlds -= (G['shopBaseCosts'].obtainiumTimer + 25 * obtainiumTimerLevel);
                     obtainiumTimerLevel += 1;
                 }
                 break;
             case 6:
-                if (player.worlds >= (G['shopBaseCosts'].obtainiumAuto + 25 * obtainiumAutoLevel) && obtainiumAutoLevel < 15) {
+                if (player.worlds >= (G['shopBaseCosts'].obtainiumAuto + 25 * obtainiumAutoLevel) && obtainiumAutoLevel < 100) {
                     player.worlds -= (G['shopBaseCosts'].obtainiumAuto + 25 * obtainiumAutoLevel);
                     obtainiumAutoLevel += 1;
                 }
@@ -194,13 +194,13 @@ export const buyShopUpgrades = (i: number) => {
                 }
                 break;
             case 8:
-                if (player.worlds >= (G['shopBaseCosts'].cashGrab + 100 * cashGrabLevel) && cashGrabLevel < 10) {
+                if (player.worlds >= (G['shopBaseCosts'].cashGrab + 100 * cashGrabLevel) && cashGrabLevel < 100) {
                     player.worlds -= (G['shopBaseCosts'].cashGrab + 100 * cashGrabLevel);
                     cashGrabLevel += 1;
                 }
                 break;
             case 9:
-                if (player.worlds >= (G['shopBaseCosts'].antSpeed + 80 * antSpeedLevel) && antSpeedLevel < 10) {
+                if (player.worlds >= (G['shopBaseCosts'].antSpeed + 80 * antSpeedLevel) && antSpeedLevel < 100) {
                     player.worlds -= (G['shopBaseCosts'].antSpeed + 80 * antSpeedLevel);
                     antSpeedLevel += 1;
                 }
@@ -224,7 +224,7 @@ export const buyShopUpgrades = (i: number) => {
                 }
                 break;
             case 13:
-                if (player.worlds >= (G['shopBaseCosts'].seasonPass + 250 * seasonPassLevel) && seasonPassLevel < 15) {
+                if (player.worlds >= (G['shopBaseCosts'].seasonPass + 250 * seasonPassLevel) && seasonPassLevel < 100) {
                     player.worlds -= (G['shopBaseCosts'].seasonPass + 250 * seasonPassLevel);
                     seasonPassLevel += 1;
                 }
@@ -298,7 +298,7 @@ export const resetShopUpgrades = () => {
 
     if (p && player.worlds >= 15) {
         player.worlds -= 15;
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 100; i++) {
             if (offeringTimerLevel > 0) {
                 offeringTimerLevel -= 1;
                 player.worlds += (150 + 25 * i)
