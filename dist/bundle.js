@@ -13188,7 +13188,6 @@ const resetHistoryCorruptionTitles = [
     "Drought [Offering EXP]",
     "Financial Recession [Coins]"
 ];
-const resetHistoryShowMillisecondsMaxSec = 60;
 const extractStringExponent = (str) => {
     let m = null;
     return (m = str.match(/e\+?(.+)/)) !== null ? `e${m[1]}` : str;
@@ -13225,7 +13224,7 @@ const resetHistoryRenderRow = (_category, data) => {
     let rowContentHtml = "";
     let kindMeta = historyKinds[data.kind];
     let localDate = new Date(data.date).toLocaleString();
-    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.formatTimeShort)(data.seconds, resetHistoryShowMillisecondsMaxSec)}</td>`;
+    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.formatTimeShort)(data.seconds, 60)}</td>`;
     let gains = [];
     for (let gainIdx = 0; gainIdx < historyGainsOrder.length; ++gainIdx) {
         let showing = historyGainsOrder[gainIdx];
