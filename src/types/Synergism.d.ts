@@ -328,7 +328,25 @@ export interface Player {
     loaded1010: boolean,
     loaded10101: boolean,
 
-    shopUpgrades: Record<string, number | boolean>
+    shopUpgrades: {
+        offeringPotion: number
+        obtainiumPotion: number
+        offeringTimerLevel: number
+        obtainiumTimerLevel: number
+        offeringAutoLevel: number
+        obtainiumAutoLevel: number
+        instantChallengeBought: boolean
+        cashGrabLevel: number
+        antSpeedLevel: number
+        talismanBought: boolean
+        challengeExtension: number
+        challenge10Tomes: number
+        seasonPassLevel: number
+        cubeToQuarkBought: boolean
+        tesseractToQuarkBought: boolean
+        hypercubeToQuarkBought: boolean
+        [key: string]: number | boolean
+    }
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,
     autoEnhanceToggle: boolean,

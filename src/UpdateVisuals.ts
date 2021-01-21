@@ -257,14 +257,14 @@ export const visualUpdateCubes = () => {
         return
     document.getElementById("cubeToQuarkTimerValue").textContent = format(Math.floor(player.dayTimer / 3600), 0) + " Hours " + format(Math.floor(player.dayTimer / 60 % 60), 0) + " Mins " + format(Math.floor(player.dayTimer % 60), 0) + " Secs "
 
-    let prefixes = ['cube', 'tesseract', 'hypercube']
+    let prefixes = ['cube', 'tesseract', 'hypercube'] as const;
     let power = [4, 3, 2]
     let multipliers = [10, 10, 5]
     for (var i = 0; i <= 2; i++) {
         document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = format(player[prefixes[i] + 'QuarkDaily']) + "/" + format(25 + 75 * (player.shopUpgrades[prefixes[i] + 'ToQuarkBought'] as number));
         document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = format(player[prefixes[i] + 'OpenedDaily'], 0, true);
         document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = format(Math.max(0, multipliers[i] * Math.pow(
-            Math.min(25 + 75 * (player.shopUpgrades[prefixes[i] + 'ToQuarkBought'] as number), 
+            Math.min(25 + 75 * +player.shopUpgrades[prefixes[i] + 'ToQuarkBought'], 
             1 + player[prefixes[i] + 'QuarkDaily']), power[i]) - player[prefixes[i] + 'OpenedDaily']
         ), 0, true);
     }

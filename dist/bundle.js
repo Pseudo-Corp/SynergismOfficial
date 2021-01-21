@@ -701,16 +701,7 @@ const loadSynergy = () => {
             player.sacrificeTimer = 0;
             player.loaded1009 = true;
             player.codes.set(18, false);
-            player.shopUpgrades = {
-                offeringPotion: 1,
-                obtainiumPotion: 1,
-                offeringTimerLevel: 0,
-                obtainiumTimerLevel: 0,
-                offeringAutoLevel: 0,
-                obtainiumAutoLevel: 0,
-                instantChallengeBought: false,
-                cashGrabLevel: 0
-            };
+            player.shopUpgrades = Object.assign({}, blankSave.shopUpgrades);
         }
         if (!data.loaded1009hotfix1) {
             player.loaded1009hotfix1 = true;
@@ -7924,16 +7915,15 @@ function calculateOfferings(i, calcMult = true, statistic = false) {
         }
     }
     q = a + b + c;
-    let { offeringAutoLevel, offeringTimerLevel, cashGrabLevel } = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades;
     const arr = [
         1 + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[33] / 100,
         1 + 15 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[34] / 100,
         1 + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[35] / 100,
         1 + 20 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[38] / 100,
         1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[75] * 2 * Math.min(1, Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.maxobtainium / 30000000, 0.5)),
-        1 + 1 / 50 * offeringAutoLevel,
-        1 + 1 / 400 * Math.pow(offeringTimerLevel, 2),
-        1 + 1 / 100 * cashGrabLevel,
+        1 + 1 / 50 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel,
+        1 + 1 / 400 * Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel, 2),
+        1 + 1 / 100 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel,
         1 + 1 / 10000 * (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.sumContents)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions) * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[85],
         1 + Math.pow((_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[6 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant6), .66),
         _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.cubeBonusMultiplier[3],
@@ -7976,7 +7966,6 @@ function calculateOfferings(i, calcMult = true, statistic = false) {
     return q;
 }
 const calculateObtainium = () => {
-    let { obtainiumAutoLevel, cashGrabLevel, obtainiumTimerLevel } = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades;
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain = 1;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[69] > 0) {
         _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= Math.min(10, new break_infinity_js__WEBPACK_IMPORTED_MODULE_4__.default(break_infinity_js__WEBPACK_IMPORTED_MODULE_4__.default.pow(break_infinity_js__WEBPACK_IMPORTED_MODULE_4__.default.log(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.reincarnationPointGain.add(10), 10), 0.5)).toNumber());
@@ -7990,8 +7979,8 @@ const calculateObtainium = () => {
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[65] / 5);
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[76] / 10);
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[81] / 10);
-    _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + obtainiumAutoLevel / 50);
-    _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + cashGrabLevel / 100);
+    _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel / 50);
+    _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel / 100);
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level / 200 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveLevelMult * (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[84] / 200 * (1 + 1 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveRuneSpiritPower[5] * calculateCorruptionPoints() / 400)));
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + 0.01 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[84] + 0.03 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[91] + 0.05 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[98] + 0.07 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[105] + 0.09 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[112] + 0.11 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[119] + 0.13 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[126] + 0.15 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[133] + 0.17 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[140] + 0.19 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[147]);
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + 2 * Math.pow((_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[10 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant10) / 50, 2 / 3));
@@ -8024,7 +8013,7 @@ const calculateObtainium = () => {
         _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain += 2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[64];
     }
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= Math.min(1, Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter / 10, 2));
-    _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + 1 / 200 * Math.pow(obtainiumTimerLevel, 2));
+    _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= (1 + 1 / 200 * Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel, 2));
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationCount >= 5) {
         _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.obtainiumGain *= Math.max(1, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter / 10);
     }
@@ -11054,9 +11043,9 @@ const openTesseract = (value, max = false) => {
     }
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowTesseracts -= toSpend;
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractOpenedDaily += toSpend;
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractQuarkDaily < 25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.tesseractToQuarkBought) {
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractQuarkDaily < 25 + 75 * +_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.tesseractToQuarkBought) {
         while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractOpenedDaily >= 10 * Math.pow(1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractQuarkDaily, 3) &&
-            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractQuarkDaily < 25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.tesseractToQuarkBought) {
+            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractQuarkDaily < 25 + 75 * +_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.tesseractToQuarkBought) {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractQuarkDaily += 1;
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += 1;
         }
@@ -11137,8 +11126,8 @@ const openCube = (value, max = false) => {
     }
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.wowCubes -= toSpend;
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeOpenedDaily += toSpend;
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeQuarkDaily < 25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.shopUpgrades.cubeToQuarkBought) {
-        while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeOpenedDaily >= 10 * Math.pow(1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeQuarkDaily, 4) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeQuarkDaily < 25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.shopUpgrades.cubeToQuarkBought) {
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeQuarkDaily < 25 + 75 * +_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.shopUpgrades.cubeToQuarkBought) {
+        while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeOpenedDaily >= 10 * Math.pow(1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeQuarkDaily, 4) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeQuarkDaily < 25 + 75 * +_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.shopUpgrades.cubeToQuarkBought) {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeQuarkDaily += 1;
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.worlds += 1;
         }
@@ -13032,8 +13021,8 @@ const openHypercube = (value, max = false) => {
     const toSpend = max ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowHypercubes : Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowHypercubes, value);
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowHypercubes -= toSpend;
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeOpenedDaily += toSpend;
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeQuarkDaily < 25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.hypercubeToQuarkBought) {
-        while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeOpenedDaily >= 5 * Math.pow(1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeQuarkDaily, 2) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeQuarkDaily < 25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.hypercubeToQuarkBought) {
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeQuarkDaily < 25 + 75 * +_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.hypercubeToQuarkBought) {
+        while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeOpenedDaily >= 5 * Math.pow(1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeQuarkDaily, 2) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeQuarkDaily < 25 + 75 * +_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.hypercubeToQuarkBought) {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeQuarkDaily += 1;
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += 1;
         }
@@ -13951,7 +13940,7 @@ const visualUpdateCubes = () => {
     for (var i = 0; i <= 2; i++) {
         document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'QuarkDaily']) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades[prefixes[i] + 'ToQuarkBought']);
         document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'OpenedDaily'], 0, true);
-        document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(Math.max(0, multipliers[i] * Math.pow(Math.min(25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades[prefixes[i] + 'ToQuarkBought'], 1 + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'QuarkDaily']), power[i]) - _Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'OpenedDaily']), 0, true);
+        document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(Math.max(0, multipliers[i] * Math.pow(Math.min(25 + 75 * +_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades[prefixes[i] + 'ToQuarkBought'], 1 + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'QuarkDaily']), power[i]) - _Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'OpenedDaily']), 0, true);
     }
     let accuracy;
     switch (_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.subtabNumber) {
@@ -15956,7 +15945,6 @@ const shopDescriptions = (i) => {
     let rofl = document.getElementById("quarkdescription");
     let lmao = document.getElementById("quarkcost");
     let lol = document.getElementById("quarkeffect");
-    let { offeringTimerLevel, offeringAutoLevel, obtainiumTimerLevel, obtainiumAutoLevel, cashGrabLevel, antSpeedLevel, challengeExtension, challenge10Tomes, seasonPassLevel } = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades;
     switch (i) {
         case 1:
             rofl.textContent = offerconsumedesc;
@@ -15970,23 +15958,23 @@ const shopDescriptions = (i) => {
             break;
         case 3:
             rofl.textContent = offertimerdesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 25 * offeringTimerLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Offering gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 / 4 * Math.pow(offeringTimerLevel, 2), 2, true) + "%!";
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel) + " Quarks.";
+            lol.textContent = "CURRENT Effect: Offering gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 / 4 * Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel, 2), 2, true) + "%!";
             break;
         case 4:
             rofl.textContent = offerautodesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 25 * offeringAutoLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Per 10 seconds, pour " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.pow(2, 1 + offeringAutoLevel)) + " Offerings. +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(2 * offeringAutoLevel, 2) + "% Offerings.";
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel) + " Quarks.";
+            lol.textContent = "CURRENT Effect: Per 10 seconds, pour " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.pow(2, 1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel)) + " Offerings. +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel, 2) + "% Offerings.";
             break;
         case 5:
             rofl.textContent = obtainiumtimerdesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 25 * obtainiumTimerLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Obtainium gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 / 2 * Math.pow(obtainiumTimerLevel, 2), 2, true) + "%!";
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel) + " Quarks.";
+            lol.textContent = "CURRENT Effect: Obtainium gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 / 2 * Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel, 2), 2, true) + "%!";
             break;
         case 6:
             rofl.textContent = obtainiumautodesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 25 * obtainiumAutoLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Try to upgrade research each reincarnation, and gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(obtainiumAutoLevel * 2, 2) + "% more Obtainium.";
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel) + " Quarks.";
+            lol.textContent = "CURRENT Effect: Try to upgrade research each reincarnation, and gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel * 2, 2) + "% more Obtainium.";
             break;
         case 7:
             rofl.textContent = instantchallengedesc;
@@ -15995,13 +15983,13 @@ const shopDescriptions = (i) => {
             break;
         case 8:
             rofl.textContent = cashgrabdesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 100 * cashGrabLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Obtainium and Offerings increased by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(cashGrabLevel, 2) + "%.";
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 100 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel) + " Quarks.";
+            lol.textContent = "CURRENT Effect: Obtainium and Offerings increased by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel, 2) + "%.";
             break;
         case 9:
             rofl.textContent = antspeeddesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 80 * antSpeedLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: All Ants' Speed x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.pow(1.5, antSpeedLevel), 2);
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 80 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel) + " Quarks.";
+            lol.textContent = "CURRENT Effect: All Ants' Speed x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.pow(1.5, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel), 2);
             break;
         case 10:
             rofl.textContent = shoptalismandesc;
@@ -16010,18 +15998,18 @@ const shopDescriptions = (i) => {
             break;
         case 11:
             rofl.textContent = challengeExtDesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * challengeExtension) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Reincarnation Challenges may be completed an additional " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(2 * challengeExtension) + " times.";
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension) + " Quarks.";
+            lol.textContent = "CURRENT Effect: Reincarnation Challenges may be completed an additional " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension) + " times.";
             break;
         case 12:
             rofl.textContent = challenge10TomeDesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * challenge10Tomes) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Challenge 10 Exponent Requirement reduced by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(20 * challenge10Tomes) + "M.";
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes) + " Quarks.";
+            lol.textContent = "CURRENT Effect: Challenge 10 Exponent Requirement reduced by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(20 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes) + "M.";
             break;
         case 13:
             rofl.textContent = seasonPassDesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 250 * seasonPassLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Ascensions give  +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(3 * seasonPassLevel) + "% cubes.";
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel) + " Quarks.";
+            lol.textContent = "CURRENT Effect: Ascensions give  +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(3 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel) + "% cubes.";
             break;
         case 14:
             rofl.textContent = cubeToQuarkDesc;
@@ -16041,8 +16029,6 @@ const shopDescriptions = (i) => {
     }
 };
 const buyShopUpgrades = (i) => {
-    let { offeringAutoLevel, offeringTimerLevel, obtainiumTimerLevel, obtainiumAutoLevel, cashGrabLevel, antSpeedLevel, challengeExtension, challenge10Tomes, seasonPassLevel, } = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades;
-    let { instantChallengeBought, talismanBought, cubeToQuarkBought, tesseractToQuarkBought, hypercubeToQuarkBought } = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades;
     let p = true;
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopConfirmation) {
         p = confirm("Are you sure of your purchase?");
@@ -16062,87 +16048,87 @@ const buyShopUpgrades = (i) => {
                 }
                 break;
             case 3:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 25 * offeringTimerLevel) && offeringTimerLevel < 100) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 25 * offeringTimerLevel);
-                    offeringTimerLevel += 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel < 100) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel += 1;
                 }
                 break;
             case 4:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 25 * offeringAutoLevel) && offeringAutoLevel < 100) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 25 * offeringAutoLevel);
-                    offeringAutoLevel += 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel < 100) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel += 1;
                 }
                 break;
             case 5:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 25 * obtainiumTimerLevel) && obtainiumTimerLevel < 100) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 25 * obtainiumTimerLevel);
-                    obtainiumTimerLevel += 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel < 100) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel += 1;
                 }
                 break;
             case 6:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 25 * obtainiumAutoLevel) && obtainiumAutoLevel < 100) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 25 * obtainiumAutoLevel);
-                    obtainiumAutoLevel += 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel < 100) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel += 1;
                 }
                 break;
             case 7:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.instantChallenge && !instantChallengeBought) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.instantChallenge && !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.instantChallengeBought) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= 300;
-                    instantChallengeBought = true;
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.instantChallengeBought = true;
                 }
                 break;
             case 8:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 100 * cashGrabLevel) && cashGrabLevel < 100) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 100 * cashGrabLevel);
-                    cashGrabLevel += 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 100 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel < 100) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 100 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel += 1;
                 }
                 break;
             case 9:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 80 * antSpeedLevel) && antSpeedLevel < 100) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 80 * antSpeedLevel);
-                    antSpeedLevel += 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 80 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel < 100) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 80 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel += 1;
                 }
                 break;
             case 10:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= 1500 && !talismanBought) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= 1500 && !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.talismanBought) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= 1500;
-                    talismanBought = true;
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.talismanBought = true;
                 }
                 break;
             case 11:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * challengeExtension) && challengeExtension < 5) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * challengeExtension);
-                    challengeExtension += 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension < 5) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension += 1;
                 }
                 break;
             case 12:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * challenge10Tomes) && challenge10Tomes < 15) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * challenge10Tomes);
-                    challenge10Tomes += 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes < 15) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes += 1;
                 }
                 break;
             case 13:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 250 * seasonPassLevel) && seasonPassLevel < 100) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 250 * seasonPassLevel);
-                    seasonPassLevel += 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel < 100) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel += 1;
                 }
                 break;
             case 14:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cubeToQuark) && !cubeToQuarkBought) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cubeToQuark) && !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cubeToQuarkBought) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cubeToQuark);
-                    cubeToQuarkBought = true;
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cubeToQuarkBought = true;
                 }
                 break;
             case 15:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.tesseractToQuark) && !tesseractToQuarkBought) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.tesseractToQuark) && !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.tesseractToQuarkBought) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.tesseractToQuark);
-                    tesseractToQuarkBought = true;
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.tesseractToQuarkBought = true;
                 }
                 break;
             case 16:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.hypercubeToQuark) && !hypercubeToQuarkBought) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.hypercubeToQuark) && !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.hypercubeToQuarkBought) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.hypercubeToQuark);
-                    hypercubeToQuarkBought = true;
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.hypercubeToQuarkBought = true;
                 }
                 break;
         }
@@ -16150,21 +16136,20 @@ const buyShopUpgrades = (i) => {
     }
 };
 const useConsumable = (i) => {
-    let { offeringPotion, obtainiumPotion } = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades;
     const p = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopConfirmation
         ? confirm('Would you like to use this potion?')
         : true;
     if (p) {
         switch (i) {
             case 1:
-                if (offeringPotion > 0.5) {
-                    offeringPotion -= 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringPotion > 0.5) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringPotion -= 1;
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards += Math.floor(7200 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringpersecond * (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateTimeAcceleration)());
                 }
                 break;
             case 2:
-                if (obtainiumPotion > 0.5) {
-                    obtainiumPotion -= 1;
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumPotion > 0.5) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumPotion -= 1;
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += Math.floor(7200 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.maxobtainiumpersecond * (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateTimeAcceleration)());
                 }
                 break;
@@ -16172,43 +16157,42 @@ const useConsumable = (i) => {
     }
 };
 const resetShopUpgrades = () => {
-    let { offeringTimerLevel, offeringAutoLevel, obtainiumTimerLevel, obtainiumAutoLevel, antSpeedLevel, cashGrabLevel, challenge10Tomes, seasonPassLevel } = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades;
     const p = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopConfirmation
         ? confirm("This will refund 100% of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?")
         : true;
     if (p && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= 15) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= 15;
         for (let i = 0; i < 100; i++) {
-            if (offeringTimerLevel > 0) {
-                offeringTimerLevel -= 1;
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel > 0) {
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel -= 1;
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += (150 + 25 * i);
             }
-            if (offeringAutoLevel > 1) {
-                offeringAutoLevel -= 1;
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel > 1) {
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel -= 1;
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += (175 + 25 * i);
             }
-            if (obtainiumTimerLevel > 0) {
-                obtainiumTimerLevel -= 1;
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel > 0) {
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel -= 1;
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += (150 + 25 * i);
             }
-            if (obtainiumAutoLevel > 1) {
-                obtainiumAutoLevel -= 1;
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel > 1) {
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel -= 1;
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += (175 + 25 * i);
             }
-            if (antSpeedLevel > 0) {
-                antSpeedLevel -= 1;
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel > 0) {
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel -= 1;
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += (200 + 80 * i);
             }
-            if (cashGrabLevel > 0) {
-                cashGrabLevel -= 1;
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel > 0) {
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel -= 1;
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += (100 + 100 * i);
             }
-            if (challenge10Tomes > 0) {
-                challenge10Tomes -= 1;
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes > 0) {
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes -= 1;
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += (500 + 250 * i);
             }
-            if (seasonPassLevel > 0) {
-                seasonPassLevel -= 1;
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel > 0) {
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel -= 1;
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += (500 + 250 * i);
             }
         }

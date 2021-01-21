@@ -306,21 +306,15 @@ export function calculateOfferings(i: number, calcMult = true, statistic = false
     }
     q = a + b + c
 
-    let {
-        offeringAutoLevel,
-        offeringTimerLevel,
-        cashGrabLevel
-    } = player.shopUpgrades as Record<string, number>;
-
     const arr = [
         1 + 10 * player.achievements[33] / 100, // Alchemy Achievement 5
         1 + 15 * player.achievements[34] / 100, // Alchemy Achievement 6
         1 + 25 * player.achievements[35] / 100, // Alchemy Achievement 7
         1 + 20 * player.upgrades[38] / 100, // Diamond Upgrade 4x3
         1 + player.upgrades[75] * 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)), // Particle Upgrade 3x5
-        1 + 1 / 50 * offeringAutoLevel, // Auto Offering Shop
-        1 + 1 / 400 * Math.pow(offeringTimerLevel, 2), // Offering EX Shop
-        1 + 1 / 100 * cashGrabLevel, // Cash Grab
+        1 + 1 / 50 * player.shopUpgrades.offeringAutoLevel, // Auto Offering Shop
+        1 + 1 / 400 * Math.pow(player.shopUpgrades.offeringTimerLevel, 2), // Offering EX Shop
+        1 + 1 / 100 * player.shopUpgrades.cashGrabLevel, // Cash Grab
         1 + 1 / 10000 * sumContents(player.challengecompletions) * player.researches[85], // Research 4x10
         1 + Math.pow((player.antUpgrades[6-1] + G['bonusant6']), .66), // Ant Upgrade:
         G['cubeBonusMultiplier'][3], // Brutus
@@ -368,12 +362,6 @@ export function calculateOfferings(i: number, calcMult = true, statistic = false
 }
 
 export const calculateObtainium = () => {
-    let {
-        obtainiumAutoLevel,
-        cashGrabLevel,
-        obtainiumTimerLevel
-    } = player.shopUpgrades as Record<string, number>;
-
     G['obtainiumGain'] = 1;
     if (player.upgrades[69] > 0) {
         G['obtainiumGain'] *= Math.min(10, new Decimal(Decimal.pow(Decimal.log(G['reincarnationPointGain'].add(10), 10), 0.5)).toNumber())
@@ -387,8 +375,8 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + player.researches[65] / 5)
     G['obtainiumGain'] *= (1 + player.researches[76] / 10)
     G['obtainiumGain'] *= (1 + player.researches[81] / 10)
-    G['obtainiumGain'] *= (1 + obtainiumAutoLevel / 50)
-    G['obtainiumGain'] *= (1 + cashGrabLevel / 100)
+    G['obtainiumGain'] *= (1 + player.shopUpgrades.obtainiumAutoLevel / 50)
+    G['obtainiumGain'] *= (1 + player.shopUpgrades.cashGrabLevel / 100)
     G['obtainiumGain'] *= (1 + G['rune5level'] / 200 * G['effectiveLevelMult'] * (1 + player.researches[84] / 200 * (1 + 1 * G['effectiveRuneSpiritPower'][5] * calculateCorruptionPoints() / 400)))
     G['obtainiumGain'] *= (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07 * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15 * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147])
     G['obtainiumGain'] *= (1 + 2 * Math.pow((player.antUpgrades[10-1] + G['bonusant10']) / 50, 2 / 3))
@@ -422,7 +410,7 @@ export const calculateObtainium = () => {
         G['obtainiumGain'] += 2 * player.researches[64]
     }
     G['obtainiumGain'] *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2));
-    G['obtainiumGain'] *= (1 + 1 / 200 * Math.pow(obtainiumTimerLevel, 2))
+    G['obtainiumGain'] *= (1 + 1 / 200 * Math.pow(player.shopUpgrades.obtainiumTimerLevel, 2))
     if (player.reincarnationCount >= 5) {
         G['obtainiumGain'] *= Math.max(1, player.reincarnationcounter / 10)
     }

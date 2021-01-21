@@ -752,16 +752,7 @@ export const loadSynergy = () => {
             player.sacrificeTimer = 0;
             player.loaded1009 = true;
             player.codes.set(18, false);
-            player.shopUpgrades = {
-                offeringPotion: 1,
-                obtainiumPotion: 1,
-                offeringTimerLevel: 0,
-                obtainiumTimerLevel: 0,
-                offeringAutoLevel: 0,
-                obtainiumAutoLevel: 0,
-                instantChallengeBought: false,
-                cashGrabLevel: 0
-            };
+            player.shopUpgrades = Object.assign({}, blankSave.shopUpgrades);
         }
         if (!data.loaded1009hotfix1) {
             player.loaded1009hotfix1 = true;
