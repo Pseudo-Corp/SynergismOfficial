@@ -606,6 +606,11 @@ const saveSynergy = (button) => {
 const loadSynergy = () => {
     const save = localStorage.getItem("Synergysave2");
     const data = save ? JSON.parse(atob(save)) : null;
+    if (isTesting) {
+        Object.defineProperty(window, 'player', {
+            value: player
+        });
+    }
     if (data) {
         const hasOwnProperty = {}.hasOwnProperty;
         const oldCodesUsed = Array.from({ length: 24 }, (_, i) => 'offerpromo' + (i + 1) + 'used');
