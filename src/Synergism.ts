@@ -28,6 +28,7 @@ import { checkVariablesOnLoad } from './CheckVariables';
 import { updateCubeUpgradeBG } from './Cubes';
 import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
+import { loadPlugins } from './Plugins/Plugins';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -3444,6 +3445,7 @@ window.addEventListener('load', () => {
         htmlInserts();
         createTimer();
         constantIntervals();
+        loadPlugins();
     }, 0);
 });
 

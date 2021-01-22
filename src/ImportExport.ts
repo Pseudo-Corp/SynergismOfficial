@@ -102,6 +102,10 @@ export const exportSynergism = async () => {
 }
 
 export const resetGame = () => {
+    if (!confirm('Are you sure you want to reset your game?')) {
+        return;
+    }
+
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
     });
