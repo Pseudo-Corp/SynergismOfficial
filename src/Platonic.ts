@@ -1,4 +1,5 @@
 import { player, format } from './Synergism';
+import { Synergism } from './Events';
 
 const platonicUpgradeDesc: Record<number, string> = {
     1: '+0.0075% cubes per corruption level per level!',
@@ -18,7 +19,18 @@ const platonicUpgradeDesc: Record<number, string> = {
     15: 'I suppose that, after all, we all are Everywhere at the End of Time.'
 }
 
-const platUpgradeBaseCosts: Record<number, { [key: string]: number }> = {
+interface IPlatBaseCost {
+    obtainium: number
+    offerings: number
+    cubes: number
+    tesseracts: number
+    hypercubes: number
+    platonics: number
+    abyssals: number
+    maxLevel: number
+}
+
+const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     1: {
         obtainium: 1e70,
         offerings: 1e45,
@@ -173,7 +185,7 @@ const platUpgradeBaseCosts: Record<number, { [key: string]: number }> = {
 
 const checkPlatonicUpgrade = (index: number) => {
     let checksum = 0
-    let resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals']
+    let resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'] as const;
     let resourceNames = ['researchPoints', 'runeshards', 'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowAbyssals']
     let checks: Record<string, boolean> = {
         obtainium: false,
@@ -266,6 +278,8 @@ export const buyPlatonicUpgrades = (index: number) => {
         player.wowHypercubes -= platUpgradeBaseCosts[index].hypercubes
         player.wowPlatonicCubes -= platUpgradeBaseCosts[index].platonics
         player.wowAbyssals -= platUpgradeBaseCosts[index].abyssals
+
+        Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index]);
     }
     createPlatonicDescription(index)
 }

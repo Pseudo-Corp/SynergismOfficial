@@ -1,6 +1,7 @@
 import { player } from './Synergism';
 import { Globals as G } from './Variables';
 import { revealStuff } from './UpdateHTML';
+import { Synergism } from './Events';
 
 const achievementpointvalues = [0, 
     1, 2, 4, 6, 8, 9, 10,
@@ -935,6 +936,7 @@ export const achievementaward = (num: number) => {
         player.achievements[num] = 1;
         revealStuff()
     }
-    document.getElementById(`ach${num}`).style.backgroundColor = "Green"
+    document.getElementById(`ach${num}`).style.backgroundColor = "Green";
+    Synergism.emit('achievement', num);
 }
 

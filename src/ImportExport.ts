@@ -4,6 +4,7 @@ import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
 import { Globals as G } from './Variables';
 import { Player } from './types/Synergism';
+import { Synergism } from './Events';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -211,6 +212,8 @@ export const promocodes = () => {
     }
 
     saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
+    Synergism.emit('promocode', input);
+
     setTimeout(function () {
         el.textContent = ''
     }, 15000);

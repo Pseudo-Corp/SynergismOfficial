@@ -1,5 +1,6 @@
 import { player } from './Synergism';
 import { Globals as G } from './Variables';
+import { Synergism } from './Events';
 
 type Bless = keyof typeof player['platonicBlessings'];
 
@@ -37,9 +38,9 @@ export const openPlatonic = (value: number, max = false) => {
         }
     }
     let gainValues = [Math.floor(33 * toSpendModulo / 100), Math.floor(33 * toSpendModulo / 100), Math.floor(33 * toSpendModulo / 100), Math.floor(396 * toSpendModulo / 40000)]
-    let commonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics']
+    let commonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics'] as const;
     for (let i = 0; i < commonDrops.length; i++) {
-        player.platonicBlessings[commonDrops[i] as Bless] += gainValues[i]
+        player.platonicBlessings[commonDrops[i]] += gainValues[i]
         toSpendModulo -= gainValues[i]
     }
 
@@ -50,7 +51,8 @@ export const openPlatonic = (value: number, max = false) => {
                 player.platonicBlessings[key as Bless] += 1;
         }
     }
-    calculatePlatonicBlessings()
+    calculatePlatonicBlessings();
+    Synergism.emit('openPlatonic', toSpend);
 }
 
 export const calculatePlatonicBlessings = () => {

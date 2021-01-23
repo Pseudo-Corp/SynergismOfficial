@@ -35,29 +35,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Utility__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
 /* harmony import */ var _Challenges__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
-/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(16);
-/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20);
+/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(18);
+/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(22);
 /* harmony import */ var _UpdateHTML__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8);
-/* harmony import */ var _Hypercubes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(21);
-/* harmony import */ var _Tesseracts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(14);
+/* harmony import */ var _Hypercubes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(23);
+/* harmony import */ var _Tesseracts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(16);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(9);
 /* harmony import */ var _Talismans__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(10);
 /* harmony import */ var _Toggles__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(7);
-/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(25);
-/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(22);
-/* harmony import */ var _PlatonicCubes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(27);
-/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(23);
-/* harmony import */ var _Tax__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(28);
+/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(27);
+/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(24);
+/* harmony import */ var _PlatonicCubes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(29);
+/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(25);
+/* harmony import */ var _Tax__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(30);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(11);
-/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(12);
-/* harmony import */ var _Buy__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(17);
-/* harmony import */ var _Automation__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(19);
-/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(13);
-/* harmony import */ var _CheckVariables__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(29);
-/* harmony import */ var _Cubes__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(15);
-/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(26);
-/* harmony import */ var _EventListeners__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(30);
-/* harmony import */ var _Plugins_Plugins__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(34);
+/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(14);
+/* harmony import */ var _Buy__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(19);
+/* harmony import */ var _Automation__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(21);
+/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(15);
+/* harmony import */ var _CheckVariables__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(31);
+/* harmony import */ var _Cubes__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(17);
+/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(28);
+/* harmony import */ var _EventListeners__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(32);
+/* harmony import */ var _Plugins_Plugins__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(36);
 
 
 
@@ -6162,14 +6162,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
-/* harmony import */ var _UpdateVisuals__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(24);
+/* harmony import */ var _UpdateVisuals__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
-/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12);
+/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(14);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(11);
 /* harmony import */ var _Challenges__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(6);
-/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(20);
-/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(25);
-/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(26);
+/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(22);
+/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(27);
+/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(28);
 
 
 
@@ -6921,8 +6921,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
-/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
-/* harmony import */ var _UpdateVisuals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(24);
+/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
+/* harmony import */ var _UpdateVisuals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(26);
 
 
 
@@ -7669,9 +7669,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Challenges__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(1);
 /* harmony import */ var _Talismans__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
-/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12);
+/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(14);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(11);
-/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(13);
+/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(15);
 
 
 
@@ -9204,6 +9204,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var _UpdateHTML__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
+
 
 
 
@@ -10110,11 +10112,370 @@ const achievementaward = (num) => {
         (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_2__.revealStuff)();
     }
     document.getElementById(`ach${num}`).style.backgroundColor = "Green";
+    _Events__WEBPACK_IMPORTED_MODULE_3__.Synergism.emit('achievement', num);
 };
 
 
 /***/ }),
 /* 12 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Synergism": () => /* binding */ Synergism
+/* harmony export */ });
+/* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(eventemitter3__WEBPACK_IMPORTED_MODULE_0__);
+
+const Synergism = new (eventemitter3__WEBPACK_IMPORTED_MODULE_0___default())();
+
+
+/***/ }),
+/* 13 */
+/***/ ((module) => {
+
+"use strict";
+
+
+var has = Object.prototype.hasOwnProperty
+  , prefix = '~';
+
+/**
+ * Constructor to create a storage for our `EE` objects.
+ * An `Events` instance is a plain object whose properties are event names.
+ *
+ * @constructor
+ * @private
+ */
+function Events() {}
+
+//
+// We try to not inherit from `Object.prototype`. In some engines creating an
+// instance in this way is faster than calling `Object.create(null)` directly.
+// If `Object.create(null)` is not supported we prefix the event names with a
+// character to make sure that the built-in object properties are not
+// overridden or used as an attack vector.
+//
+if (Object.create) {
+  Events.prototype = Object.create(null);
+
+  //
+  // This hack is needed because the `__proto__` property is still inherited in
+  // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.
+  //
+  if (!new Events().__proto__) prefix = false;
+}
+
+/**
+ * Representation of a single event listener.
+ *
+ * @param {Function} fn The listener function.
+ * @param {*} context The context to invoke the listener with.
+ * @param {Boolean} [once=false] Specify if the listener is a one-time listener.
+ * @constructor
+ * @private
+ */
+function EE(fn, context, once) {
+  this.fn = fn;
+  this.context = context;
+  this.once = once || false;
+}
+
+/**
+ * Add a listener for a given event.
+ *
+ * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {*} context The context to invoke the listener with.
+ * @param {Boolean} once Specify if the listener is a one-time listener.
+ * @returns {EventEmitter}
+ * @private
+ */
+function addListener(emitter, event, fn, context, once) {
+  if (typeof fn !== 'function') {
+    throw new TypeError('The listener must be a function');
+  }
+
+  var listener = new EE(fn, context || emitter, once)
+    , evt = prefix ? prefix + event : event;
+
+  if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;
+  else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);
+  else emitter._events[evt] = [emitter._events[evt], listener];
+
+  return emitter;
+}
+
+/**
+ * Clear event by name.
+ *
+ * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
+ * @param {(String|Symbol)} evt The Event name.
+ * @private
+ */
+function clearEvent(emitter, evt) {
+  if (--emitter._eventsCount === 0) emitter._events = new Events();
+  else delete emitter._events[evt];
+}
+
+/**
+ * Minimal `EventEmitter` interface that is molded against the Node.js
+ * `EventEmitter` interface.
+ *
+ * @constructor
+ * @public
+ */
+function EventEmitter() {
+  this._events = new Events();
+  this._eventsCount = 0;
+}
+
+/**
+ * Return an array listing the events for which the emitter has registered
+ * listeners.
+ *
+ * @returns {Array}
+ * @public
+ */
+EventEmitter.prototype.eventNames = function eventNames() {
+  var names = []
+    , events
+    , name;
+
+  if (this._eventsCount === 0) return names;
+
+  for (name in (events = this._events)) {
+    if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
+  }
+
+  if (Object.getOwnPropertySymbols) {
+    return names.concat(Object.getOwnPropertySymbols(events));
+  }
+
+  return names;
+};
+
+/**
+ * Return the listeners registered for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Array} The registered listeners.
+ * @public
+ */
+EventEmitter.prototype.listeners = function listeners(event) {
+  var evt = prefix ? prefix + event : event
+    , handlers = this._events[evt];
+
+  if (!handlers) return [];
+  if (handlers.fn) return [handlers.fn];
+
+  for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {
+    ee[i] = handlers[i].fn;
+  }
+
+  return ee;
+};
+
+/**
+ * Return the number of listeners listening to a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Number} The number of listeners.
+ * @public
+ */
+EventEmitter.prototype.listenerCount = function listenerCount(event) {
+  var evt = prefix ? prefix + event : event
+    , listeners = this._events[evt];
+
+  if (!listeners) return 0;
+  if (listeners.fn) return 1;
+  return listeners.length;
+};
+
+/**
+ * Calls each of the listeners registered for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Boolean} `true` if the event had listeners, else `false`.
+ * @public
+ */
+EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+  var evt = prefix ? prefix + event : event;
+
+  if (!this._events[evt]) return false;
+
+  var listeners = this._events[evt]
+    , len = arguments.length
+    , args
+    , i;
+
+  if (listeners.fn) {
+    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
+
+    switch (len) {
+      case 1: return listeners.fn.call(listeners.context), true;
+      case 2: return listeners.fn.call(listeners.context, a1), true;
+      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
+      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
+      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
+      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
+    }
+
+    for (i = 1, args = new Array(len -1); i < len; i++) {
+      args[i - 1] = arguments[i];
+    }
+
+    listeners.fn.apply(listeners.context, args);
+  } else {
+    var length = listeners.length
+      , j;
+
+    for (i = 0; i < length; i++) {
+      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
+
+      switch (len) {
+        case 1: listeners[i].fn.call(listeners[i].context); break;
+        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
+        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
+        case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;
+        default:
+          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
+            args[j - 1] = arguments[j];
+          }
+
+          listeners[i].fn.apply(listeners[i].context, args);
+      }
+    }
+  }
+
+  return true;
+};
+
+/**
+ * Add a listener for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {*} [context=this] The context to invoke the listener with.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */
+EventEmitter.prototype.on = function on(event, fn, context) {
+  return addListener(this, event, fn, context, false);
+};
+
+/**
+ * Add a one-time listener for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {*} [context=this] The context to invoke the listener with.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */
+EventEmitter.prototype.once = function once(event, fn, context) {
+  return addListener(this, event, fn, context, true);
+};
+
+/**
+ * Remove the listeners of a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn Only remove the listeners that match this function.
+ * @param {*} context Only remove the listeners that have this context.
+ * @param {Boolean} once Only remove one-time listeners.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */
+EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
+  var evt = prefix ? prefix + event : event;
+
+  if (!this._events[evt]) return this;
+  if (!fn) {
+    clearEvent(this, evt);
+    return this;
+  }
+
+  var listeners = this._events[evt];
+
+  if (listeners.fn) {
+    if (
+      listeners.fn === fn &&
+      (!once || listeners.once) &&
+      (!context || listeners.context === context)
+    ) {
+      clearEvent(this, evt);
+    }
+  } else {
+    for (var i = 0, events = [], length = listeners.length; i < length; i++) {
+      if (
+        listeners[i].fn !== fn ||
+        (once && !listeners[i].once) ||
+        (context && listeners[i].context !== context)
+      ) {
+        events.push(listeners[i]);
+      }
+    }
+
+    //
+    // Reset the array, or remove it completely if we have no more listeners.
+    //
+    if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;
+    else clearEvent(this, evt);
+  }
+
+  return this;
+};
+
+/**
+ * Remove all listeners, or those of the specified event.
+ *
+ * @param {(String|Symbol)} [event] The event name.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */
+EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
+  var evt;
+
+  if (event) {
+    evt = prefix ? prefix + event : event;
+    if (this._events[evt]) clearEvent(this, evt);
+  } else {
+    this._events = new Events();
+    this._eventsCount = 0;
+  }
+
+  return this;
+};
+
+//
+// Alias methods names because people roll like that.
+//
+EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
+EventEmitter.prototype.addListener = EventEmitter.prototype.on;
+
+//
+// Expose the prefix.
+//
+EventEmitter.prefixed = prefix;
+
+//
+// Allow `EventEmitter` to be imported as module namespace.
+//
+EventEmitter.EventEmitter = EventEmitter;
+
+//
+// Expose the module.
+//
+if (true) {
+  module.exports = EventEmitter;
+}
+
+
+/***/ }),
+/* 14 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10129,18 +10490,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
-/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(15);
 /* harmony import */ var _Talismans__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10);
-/* harmony import */ var _Tesseracts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(14);
+/* harmony import */ var _Tesseracts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(16);
 /* harmony import */ var _UpdateHTML__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
-/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(16);
+/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(18);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1);
 /* harmony import */ var _Utility__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(4);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(11);
-/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(20);
-/* harmony import */ var _Hypercubes__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(21);
-/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(22);
+/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(22);
+/* harmony import */ var _Hypercubes__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(23);
+/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(24);
 /* harmony import */ var _Challenges__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(6);
 
 
@@ -10876,7 +11237,7 @@ const resetTalismans = () => {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11032,7 +11393,7 @@ const calculateOfferingsToLevelXTimes = (runeIndex, runeLevel, levels) => {
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11043,7 +11404,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
-/* harmony import */ var _Cubes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(15);
+/* harmony import */ var _Cubes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
 
 
 
@@ -11105,7 +11466,7 @@ const calculateTesseractBlessings = () => {
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11120,7 +11481,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
 /* harmony import */ var _Challenges__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
-/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(16);
+/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
 /* harmony import */ var _UpdateHTML__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
 
@@ -11373,7 +11734,7 @@ const buyCubeUpgrades = (i, linGrowth = 0) => {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11393,9 +11754,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
 /* harmony import */ var _Utility__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
-/* harmony import */ var _Buy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(17);
-/* harmony import */ var _Generators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(18);
-/* harmony import */ var _Automation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(19);
+/* harmony import */ var _Buy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(19);
+/* harmony import */ var _Generators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20);
+/* harmony import */ var _Automation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(21);
 /* harmony import */ var _UpdateHTML__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8);
 
 
@@ -11835,7 +12196,7 @@ const buyConstantUpgrades = (i, fast = false) => {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11861,8 +12222,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
 /* harmony import */ var _Utility__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
-/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(16);
-/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12);
+/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(18);
+/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(14);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5);
 
@@ -12464,7 +12825,7 @@ const buyRuneBonusLevels = (type, index) => {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12472,7 +12833,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "buyGenerator": () => /* binding */ buyGenerator
 /* harmony export */ });
-/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
+/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(18);
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
@@ -12514,7 +12875,7 @@ const buyGenerator = (i, state) => {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12526,10 +12887,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
-/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
+/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18);
 /* harmony import */ var _UpdateHTML__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5);
-/* harmony import */ var _Buy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(17);
+/* harmony import */ var _Buy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(19);
 
 
 
@@ -12651,7 +13012,7 @@ const autoUpgrades = () => {
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13015,7 +13376,7 @@ const updateResearchBG = (j) => {
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13025,7 +13386,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "calculateHypercubeBlessings": () => /* binding */ calculateHypercubeBlessings
 /* harmony export */ });
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _Tesseracts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
+/* harmony import */ var _Tesseracts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
 
 
@@ -13086,7 +13447,7 @@ const calculateHypercubeBlessings = () => {
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13100,7 +13461,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var _Utility__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23);
+/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
 
 
 
@@ -13329,7 +13690,7 @@ function resetHistoryFormatCorruptions(data) {
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13352,11 +13713,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
 /* harmony import */ var _UpdateHTML__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
-/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
+/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(15);
 /* harmony import */ var _Talismans__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(10);
-/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(20);
-/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(12);
-/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(22);
+/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(22);
+/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(14);
+/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(24);
 
 
 
@@ -13714,7 +14075,7 @@ const autoBuyAnts = () => {
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13737,8 +14098,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var _Challenges__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
-/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
-/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(23);
+/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
+/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(25);
 /* harmony import */ var _Utility__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(4);
 
 
@@ -14140,7 +14501,7 @@ const visualUpdateShop = () => {
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14358,7 +14719,7 @@ const updateDisplayC15Rewards = () => {
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14584,7 +14945,7 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14595,6 +14956,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
+/* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+
 
 
 const openPlatonic = (value, max = false) => {
@@ -14639,6 +15002,7 @@ const openPlatonic = (value, max = false) => {
         }
     }
     calculatePlatonicBlessings();
+    _Events__WEBPACK_IMPORTED_MODULE_2__.Synergism.emit('openPlatonic', toSpend);
 };
 const calculatePlatonicBlessings = () => {
     let platonicArray = [_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.cubes, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.tesseracts, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.hypercubes, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.platonics, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.hypercubeBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.taxes, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.scoreBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.globalSpeed];
@@ -14656,7 +15020,7 @@ const calculatePlatonicBlessings = () => {
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14755,7 +15119,7 @@ const calculatetax = () => {
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14766,8 +15130,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
-/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20);
-/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(25);
+/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(22);
+/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27);
 
 
 
@@ -15040,7 +15404,7 @@ const checkVariablesOnLoad = (data) => {
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15049,27 +15413,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "generateEventHandlers": () => /* binding */ generateEventHandlers
 /* harmony export */ });
 /* harmony import */ var _Toggles__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
-/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-/* harmony import */ var _Buy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
-/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(16);
-/* harmony import */ var _Automation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(19);
-/* harmony import */ var _Generators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(18);
+/* harmony import */ var _Buy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
+/* harmony import */ var _Upgrades__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
+/* harmony import */ var _Automation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(21);
+/* harmony import */ var _Generators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(11);
-/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(13);
+/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(15);
 /* harmony import */ var _Talismans__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(10);
 /* harmony import */ var _Challenges__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(6);
-/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(20);
-/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(23);
-/* harmony import */ var _Cubes__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(15);
-/* harmony import */ var _Tesseracts__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(14);
-/* harmony import */ var _Hypercubes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(21);
-/* harmony import */ var _PlatonicCubes__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(27);
-/* harmony import */ var _Platonic__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(31);
-/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(26);
-/* harmony import */ var _ImportExport__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(32);
-/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(22);
-/* harmony import */ var _Shop__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(33);
+/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(22);
+/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(25);
+/* harmony import */ var _Cubes__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(17);
+/* harmony import */ var _Tesseracts__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(16);
+/* harmony import */ var _Hypercubes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(23);
+/* harmony import */ var _PlatonicCubes__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(29);
+/* harmony import */ var _Platonic__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(33);
+/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(28);
+/* harmony import */ var _ImportExport__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(34);
+/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(24);
+/* harmony import */ var _Shop__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(35);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(5);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -15421,7 +15785,7 @@ const generateEventHandlers = () => {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15431,6 +15795,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "buyPlatonicUpgrades": () => /* binding */ buyPlatonicUpgrades
 /* harmony export */ });
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+
 
 const platonicUpgradeDesc = {
     1: '+0.0075% cubes per corruption level per level!',
@@ -15685,13 +16051,14 @@ const buyPlatonicUpgrades = (index) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowHypercubes -= platUpgradeBaseCosts[index].hypercubes;
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowPlatonicCubes -= platUpgradeBaseCosts[index].platonics;
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowAbyssals -= platUpgradeBaseCosts[index].abyssals;
+        _Events__WEBPACK_IMPORTED_MODULE_1__.Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index]);
     }
     createPlatonicDescription(index);
 };
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15709,6 +16076,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lz_string__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lz_string__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
+/* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(12);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -15718,6 +16086,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 
@@ -15915,6 +16284,7 @@ const promocodes = () => {
         el.textContent = "Your code is either invalid or already used. Try again!";
     }
     (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.saveSynergy)();
+    _Events__WEBPACK_IMPORTED_MODULE_5__.Synergism.emit('promocode', input);
     setTimeout(function () {
         el.textContent = '';
     }, 15000);
@@ -15922,7 +16292,7 @@ const promocodes = () => {
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16218,7 +16588,7 @@ const resetShopUpgrades = () => {
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16240,7 +16610,7 @@ const RegisteredPlugins = [
 ];
 const loadPlugins = () => __awaiter(void 0, void 0, void 0, function* () {
     for (const [name, fileName] of RegisteredPlugins) {
-        const file = (yield __webpack_require__(35)(`./${fileName}`));
+        const file = (yield __webpack_require__(37)(`./${fileName}`));
         if (Object.prototype.toString.call(file.main) === '[object AsyncFunction]') {
             yield file.main();
         }
@@ -16253,23 +16623,23 @@ const loadPlugins = () => __awaiter(void 0, void 0, void 0, function* () {
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
 	"./Example": [
-		36,
+		38,
 		1
 	],
 	"./Example.ts": [
-		36,
+		38,
 		1
 	],
 	"./Plugins": [
-		34
+		36
 	],
 	"./Plugins.ts": [
-		34
+		36
 	]
 };
 function webpackAsyncContext(req) {
@@ -16287,7 +16657,7 @@ function webpackAsyncContext(req) {
 	});
 }
 webpackAsyncContext.keys = () => Object.keys(map);
-webpackAsyncContext.id = 35;
+webpackAsyncContext.id = 37;
 module.exports = webpackAsyncContext;
 
 /***/ })
