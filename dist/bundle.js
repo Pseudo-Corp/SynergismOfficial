@@ -43,8 +43,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(9);
 /* harmony import */ var _Talismans__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(10);
 /* harmony import */ var _Toggles__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(7);
-/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(27);
-/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(24);
+/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(26);
+/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(28);
 /* harmony import */ var _PlatonicCubes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(29);
 /* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(25);
 /* harmony import */ var _Tax__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(30);
@@ -55,7 +55,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(15);
 /* harmony import */ var _CheckVariables__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(31);
 /* harmony import */ var _Cubes__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(17);
-/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(28);
+/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(27);
 /* harmony import */ var _EventListeners__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(32);
 /* harmony import */ var _Plugins_Plugins__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(36);
 
@@ -6162,14 +6162,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
-/* harmony import */ var _UpdateVisuals__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
+/* harmony import */ var _UpdateVisuals__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(24);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
 /* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(14);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(11);
 /* harmony import */ var _Challenges__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(6);
 /* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(22);
-/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(27);
-/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(28);
+/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(26);
+/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(27);
 
 
 
@@ -6922,7 +6922,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
 /* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
-/* harmony import */ var _UpdateVisuals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(26);
+/* harmony import */ var _UpdateVisuals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(24);
 
 
 
@@ -10501,8 +10501,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(11);
 /* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(22);
 /* harmony import */ var _Hypercubes__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(23);
-/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(24);
-/* harmony import */ var _Challenges__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(6);
+/* harmony import */ var _Challenges__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(6);
+/* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(12);
 
 
 
@@ -10563,7 +10563,7 @@ const resetdetails = (i) => {
         offering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(2);
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension !== 0) {
             document.getElementById("resetinfo").style.color = "aquamarine";
-            document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Challenges__WEBPACK_IMPORTED_MODULE_14__.challengeRequirement)(s, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[s])) + " Coins. TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter) + " seconds.";
+            document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Challenges__WEBPACK_IMPORTED_MODULE_13__.challengeRequirement)(s, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[s])) + " Coins. TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter) + " seconds.";
         }
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension === 0) {
             document.getElementById("resetinfo").textContent = "You're not in a challenge right now. Get in one before you can leave it, duh!";
@@ -10608,7 +10608,7 @@ const resetdetails = (i) => {
         document.getElementById("resetinfo").style.color = "silver";
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation !== 0) {
             document.getElementById("resetinfo").style.color = "silver";
-            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[goal]) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Challenges__WEBPACK_IMPORTED_MODULE_14__.challengeRequirement)(s, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[s], s)) + goaldesc + ". TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter) + " Seconds.";
+            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[goal]) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Challenges__WEBPACK_IMPORTED_MODULE_13__.challengeRequirement)(s, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[s], s)) + goaldesc + ". TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter) + " Seconds.";
         }
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation === 0) {
             document.getElementById("resetinfo").textContent = "You're not in a reincarnation challenge right now. Why would you need to leave it?";
@@ -10695,7 +10695,7 @@ const updateTesseractAutoBuyAmount = () => {
 const reset = (i, fast = false, from = 'unknown') => {
     let historyEntry = {};
     let historyKind = "prestige";
-    let historyCategory = "reset";
+    const historyCategory = i > 3.5 ? 'ascend' : 'reset';
     let historyUse = from !== "enterChallenge" && from !== "leaveChallenge";
     historyEntry.offerings = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(i);
     historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter;
@@ -10892,7 +10892,6 @@ const reset = (i, fast = false, from = 'unknown') => {
     if (i > 3.5) {
         let metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.CalcCorruptionStuff)();
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_10__.ascensionAchievementCheck)(3, metaData[3]);
-        historyCategory = "ascend";
         historyKind = "ascend";
         historyUse = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 0;
         delete historyEntry.offerings;
@@ -11060,7 +11059,7 @@ const reset = (i, fast = false, from = 'unknown') => {
         (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_5__.revealStuff)();
     }
     if (historyUse) {
-        (0,_History__WEBPACK_IMPORTED_MODULE_13__.resetHistoryAdd)(historyCategory, historyKind, historyEntry);
+        _Events__WEBPACK_IMPORTED_MODULE_14__.Synergism.emit('historyAdd', historyCategory, historyKind, historyEntry);
     }
 };
 const resetUpgrades = (i, fast = false) => {
@@ -13453,634 +13452,6 @@ const calculateHypercubeBlessings = () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "resetHistoryAdd": () => /* binding */ resetHistoryAdd,
-/* harmony export */   "resetHistoryClearAll": () => /* binding */ resetHistoryClearAll,
-/* harmony export */   "resetHistoryRenderAllTables": () => /* binding */ resetHistoryRenderAllTables,
-/* harmony export */   "resetHistoryTogglePerSecond": () => /* binding */ resetHistoryTogglePerSecond
-/* harmony export */ });
-/* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var _Utility__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
-
-
-
-
-const formatPlain = (str) => (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(str);
-const formatDecimalString = (str) => (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(new break_infinity_js__WEBPACK_IMPORTED_MODULE_1__.default(str));
-const conditionalFormatPerSecond = (numOrStr, data) => {
-    if (typeof (numOrStr) === "number" && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond) {
-        if (numOrStr === 0) {
-            return "0.000/s";
-        }
-        return (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(numOrStr / ((data.seconds && data.seconds > 0) ? data.seconds : 1), 3, true) + "/s";
-    }
-    return (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(numOrStr);
-};
-const historyGains = {
-    offerings: { img: "Pictures/Offering.png", formatter: formatPlain, imgTitle: "Offerings" },
-    obtainium: { img: "Pictures/Obtainium.png", formatter: formatPlain, imgTitle: "Obtainium" },
-    antMulti: { img: "Pictures/AntSacrifice.png", formatter: formatPlain, imgTitle: "Ant Multiplier gains" },
-    particles: {
-        img: "Pictures/Particle.png",
-        formatter: (s) => extractStringExponent(formatDecimalString(s)),
-        imgTitle: "Particles"
-    },
-    diamonds: {
-        img: "Pictures/Diamond.png",
-        formatter: (s) => extractStringExponent(formatDecimalString(s)),
-        imgTitle: "Diamonds"
-    },
-    mythos: {
-        img: "Pictures/Mythos.png",
-        formatter: (s) => extractStringExponent(formatDecimalString(s)),
-        imgTitle: "Mythos"
-    },
-    wowTesseracts: {
-        img: "Pictures/WowTessaract.png",
-        formatter: conditionalFormatPerSecond,
-        imgTitle: "Wow! Tesseracts"
-    },
-    wowHypercubes: {
-        img: "Pictures/WowHypercube.png",
-        formatter: conditionalFormatPerSecond,
-        imgTitle: "Wow! Hypercubes",
-        onlyif: () => _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[13] > 0
-    },
-    wowCubes: {
-        img: "Pictures/WowCube.png",
-        formatter: conditionalFormatPerSecond,
-        imgTitle: "Wow! Cubes"
-    },
-    wowPlatonicCubes: {
-        img: "Pictures/Platonic Cube.png",
-        formatter: conditionalFormatPerSecond,
-        imgTitle: "Platonic Cubes",
-        onlyif: () => _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[14] > 0,
-    },
-};
-const historyGainsOrder = [
-    "offerings", "obtainium",
-    "antMulti",
-    "particles", "diamonds", "mythos",
-    "wowCubes", "wowTesseracts", "wowHypercubes", "wowPlatonicCubes",
-];
-const historyKinds = {
-    "antsacrifice": { img: "Pictures/AntSacrifice.png" },
-    "prestige": { img: "Pictures/Transparent Pics/Prestige.png" },
-    "transcend": { img: "Pictures/Transparent Pics/Transcend.png" },
-    "reincarnate": { img: "Pictures/Transparent Pics/Reincarnate.png" },
-    "ascend": { img: "Pictures/questionable.png" },
-};
-const resetHistoryTableMapping = {
-    "ants": "historyAntsTable",
-    "reset": "historyResetTable",
-    "ascend": "historyAscendTable",
-};
-const resetHistoryCorruptionImages = [
-    "Pictures/Divisiveness Level 7.png",
-    "Pictures/Maladaption Lvl 7.png",
-    "Pictures/Laziness Lvl 7.png",
-    "Pictures/Hyperchallenged Lvl 7.png",
-    "Pictures/Scientific Illiteracy Lvl 7.png",
-    "Pictures/Deflation Lvl 7.png",
-    "Pictures/Extinction Lvl 7.png",
-    "Pictures/Drought Lvl 7.png",
-    "Pictures/Financial Collapse Lvl 7.png"
-];
-const resetHistoryCorruptionTitles = [
-    "Divisiveness [Multipliers]",
-    "Maladaption [Accelerators]",
-    "Spacial Dilation [Time]",
-    "Hyperchallenged [Challenge Requirements]",
-    "Scientific Illiteracy [Obtainium]",
-    "Market Deflation [Diamonds]",
-    "Extinction [Ants]",
-    "Drought [Offering EXP]",
-    "Financial Recession [Coins]"
-];
-const extractStringExponent = (str) => {
-    let m = null;
-    return (m = str.match(/e\+?(.+)/)) !== null ? `e${m[1]}` : str;
-};
-const resetHistoryAdd = (category, kind, data) => {
-    data.date = Date.now();
-    data.kind = kind;
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category] === undefined) {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category] = [];
-    }
-    while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category].length > (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyCountMax - 1)) {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category].shift();
-    }
-    for (const k in data) {
-        if ((0,_Utility__WEBPACK_IMPORTED_MODULE_2__.isDecimal)(data[k])) {
-            data[k] = data[k].toString();
-        }
-    }
-    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category].push(data);
-    resetHistoryPushNewRow(category, data);
-};
-function resetHistoryPushNewRow(category, data) {
-    let row = resetHistoryRenderRow(category, data);
-    let table = document.getElementById(resetHistoryTableMapping[category]);
-    let tbody = table.querySelector("tbody");
-    tbody.insertBefore(row, tbody.childNodes[0]);
-    while (tbody.childNodes.length > _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyCountMax) {
-        tbody.removeChild(tbody.lastChild);
-    }
-}
-const resetHistoryRenderRow = (_category, data) => {
-    let colsUsed = 1;
-    let row = document.createElement("tr");
-    let rowContentHtml = "";
-    let kindMeta = historyKinds[data.kind];
-    let localDate = new Date(data.date).toLocaleString();
-    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.formatTimeShort)(data.seconds, 60)}</td>`;
-    let gains = [];
-    for (let gainIdx = 0; gainIdx < historyGainsOrder.length; ++gainIdx) {
-        let showing = historyGainsOrder[gainIdx];
-        if (data.hasOwnProperty(showing)) {
-            let gainInfo = historyGains[showing];
-            if (gainInfo.onlyif && !gainInfo.onlyif(data)) {
-                continue;
-            }
-            let formatter = gainInfo.formatter || (() => { });
-            let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}">${formatter(data[showing], data)}`;
-            gains.push(str);
-        }
-    }
-    let extra = [];
-    if (data.kind === "antsacrifice") {
-        let oldMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_3__.antSacrificePointsToMultiplier)(data.antSacrificePointsBefore);
-        let newMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_3__.antSacrificePointsToMultiplier)(data.antSacrificePointsAfter);
-        let diff = newMulti - oldMulti;
-        extra = [
-            `<span title="Ant Multiplier: ${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(oldMulti, 3, false)}--&gt;${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(diff, 3, false)}</span>`,
-            `<span title="+${formatDecimalString(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalString(data.crumbs))}</span>`,
-            `<span title="${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.effectiveELO)}</span>`
-        ];
-    }
-    else if (data.kind === "ascend") {
-        extra = [
-            `<img src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`
-        ];
-        let corruptions = resetHistoryFormatCorruptions(data);
-        if (corruptions !== null) {
-            extra.push(corruptions[0]);
-            extra.push(corruptions[1]);
-        }
-    }
-    colsUsed += gains.length;
-    rowContentHtml += gains.reduce((acc, value) => {
-        return `${acc}<td class="history-gain">${value}</td>`;
-    }, "");
-    rowContentHtml += `<td class="history-filler" colspan="${6 - colsUsed}"></td>`;
-    rowContentHtml += extra.reduce((acc, value) => {
-        return `${acc}<td class="history-extra">${value}</td>`;
-    }, "");
-    rowContentHtml += `<td class="history-filler" colspan="${4 - extra.length}"></td>`;
-    row.innerHTML = rowContentHtml;
-    return row;
-};
-function resetHistoryRenderFullTable(categoryToRender, targetTable) {
-    let tbody = targetTable.querySelector("tbody");
-    tbody.innerHTML = "";
-    if (!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender]) {
-        return;
-    }
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender].length > 0) {
-        for (let i = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender].length - 1; i >= 0; --i) {
-            let row = resetHistoryRenderRow(categoryToRender, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender][i]);
-            tbody.appendChild(row);
-        }
-    }
-}
-const resetHistoryClearAll = () => {
-    Object.keys(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history).forEach(key => {
-        if (Array.isArray(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[key])) {
-            delete _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[key];
-        }
-    });
-    resetHistoryRenderAllTables();
-};
-const resetHistoryRenderAllTables = () => {
-    Object.keys(resetHistoryTableMapping).forEach(key => resetHistoryRenderFullTable(key, document.getElementById(resetHistoryTableMapping[key])));
-};
-const resetHistoryTogglePerSecond = () => {
-    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond = !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond;
-    resetHistoryRenderAllTables();
-    let button = document.getElementById("historyTogglePerSecondButton");
-    button.textContent = "Per second: " + (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond ? "ON" : "OFF");
-    button.style.borderColor = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond ? "green" : "red";
-};
-function resetHistoryFormatCorruptions(data) {
-    let score = "Score: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.corruptionScore, 0, true);
-    let corruptions = "";
-    for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
-        let corruptionIdx = i + 1;
-        if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
-            corruptions += ` <img src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
-        }
-    }
-    if (data.currentChallenge !== undefined) {
-        score += ` / C${data.currentChallenge}`;
-    }
-    return [score, corruptions];
-}
-
-
-/***/ }),
-/* 25 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "calculateCrumbToCoinExp": () => /* binding */ calculateCrumbToCoinExp,
-/* harmony export */   "antRepeat": () => /* binding */ antRepeat,
-/* harmony export */   "updateAntDescription": () => /* binding */ updateAntDescription,
-/* harmony export */   "buyAntProducers": () => /* binding */ buyAntProducers,
-/* harmony export */   "buyAntUpgrade": () => /* binding */ buyAntUpgrade,
-/* harmony export */   "antUpgradeDescription": () => /* binding */ antUpgradeDescription,
-/* harmony export */   "antSacrificePointsToMultiplier": () => /* binding */ antSacrificePointsToMultiplier,
-/* harmony export */   "showSacrifice": () => /* binding */ showSacrifice,
-/* harmony export */   "sacrificeAnts": () => /* binding */ sacrificeAnts,
-/* harmony export */   "autoBuyAnts": () => /* binding */ autoBuyAnts
-/* harmony export */ });
-/* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
-/* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
-/* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
-/* harmony import */ var _UpdateHTML__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
-/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(15);
-/* harmony import */ var _Talismans__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(10);
-/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(22);
-/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(14);
-/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(24);
-
-
-
-
-
-
-
-
-
-
-
-const antdesc = {
-    antdesc1: "Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!",
-    antdesc2: "Gain a breeder ant that produces worker ants automatically!",
-    antdesc3: "Gain a meta-breeder ant that produces breeder ants automatically!",
-    antdesc4: "Gain a mega-breeder ant that produces meta-breeder ants automatically!",
-    antdesc5: "Gain a Queen ant that produces mega-breeder ants automatically!",
-    antdesc6: "Gain a Lord Royal ant that produces Queen ants automatically!",
-    antdesc7: "Gain an ALMIGHTY ANT that produces Lord Royal ants automatically!",
-    antdesc8: "Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!"
-};
-const antspecies = {
-    antspecies1: "Inceptus Formicidae",
-    antspecies2: "Fortunae Formicidae",
-    antspecies3: "Tributum Formicidae",
-    antspecies4: "Celeritas Formicidae",
-    antspecies5: "Multa Formicidae",
-    antspecies6: "Sacrificium Formicidae",
-    antspecies7: "Hic Formicidae",
-    antspecies8: "Experientia Formicidae",
-    antspecies9: "Praemoenio Formicidae",
-    antspecies10: "Scientia Formicidae",
-    antspecies11: "Phylacterium Formicidae",
-    antspecies12: "Mortuus Est Formicidae"
-};
-const antupgdesc = {
-    antupgdesc1: "Promotes romance and unity within the colony. [+12% Ant Speed / level]",
-    antupgdesc2: "Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]",
-    antupgdesc3: "Swarms the Taxman into submission [Up to -99% taxes!]",
-    antupgdesc4: "Scares you into running faster [up to x20]",
-    antupgdesc5: "Imitates your body through magic shape-shifting powers [up to x40]",
-    antupgdesc6: "Tries to please Ant God... but fails [Additional Offerings!]",
-    antupgdesc7: "Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]",
-    antupgdesc8: "Knows how to salt and pepper food [Up to 1,000x Rune EXP!]",
-    antupgdesc9: "Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 10 Million]",
-    antupgdesc10: "Has big brain energy [Additional Obtainium!]",
-    antupgdesc11: "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]",
-    antupgdesc12: "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
-};
-const calculateCrumbToCoinExp = () => {
-    const exponent = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 15
-        ? 100000 + (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoidExponential)(49900000, (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[2 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant2) / 5000 * 500 / 499)
-        : 1 / 10000 * (100000 + (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoidExponential)(49900000, (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[2 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant2) / 5000 * 500 / 499));
-    return exponent;
-};
-const antUpgradeTexts = [
-    () => "ALL Ants work at " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(1.12 + 1 / 1000 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[101], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[1 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant1), 2) + "x speed.",
-    () => "Crumb --> Coin exponent is ^" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(calculateCrumbToCoinExp()),
-    () => "Tax growth is multiplied by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(0.005 + 0.995 * Math.pow(0.99, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[3 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant3), 4),
-    () => "Accelerator Boosts +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(100 * ((0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoidExponential)(20, (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[4 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant4) / 1000 * 20 / 19) - 1), 3) + "%",
-    () => "Multipliers +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(100 * ((0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoidExponential)(40, (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[5 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant5) / 1000 * 40 / 39) - 1), 3) + "%",
-    () => "Offerings x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 + Math.pow((_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[6 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant6) / 50, 0.75), 4),
-    () => "Building Costs scale " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.min(9999999, 3 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[7 - 1] + 3 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant7), 0, true) + "% slower!",
-    () => "Rune EXP is multiplied by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoidExponential)(999, 1 / 10000 * Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[8 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant8, 1.1)), 3) + "!",
-    () => "Each rune has +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 * Math.min(1e7, (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[9 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant9)), 0, true) + " effective levels.",
-    () => "Obtainium x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 + 2 * Math.pow((_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[10 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant10) / 50, 0.75), 4),
-    () => "Sacrificing is " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 + 2 * (1 - Math.pow(2, -(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[11 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant11) / 125)), 4) + "x as effective",
-    () => "Global timer is sped up by a factor of " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoid)(2, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[12 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant12, 69), 4)
-];
-let repeatAnt = null;
-const antRepeat = (i) => {
-    (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.clearInt)(repeatAnt);
-    repeatAnt = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.interval)(() => updateAntDescription(i), 50);
-};
-const updateAntDescription = (i) => {
-    let el = document.getElementById("anttierdescription");
-    let la = document.getElementById("antprice");
-    let ti = document.getElementById("antquantity");
-    let me = document.getElementById("generateant");
-    let priceType = "Galactic Crumbs";
-    let tier = "";
-    el.textContent = antdesc["antdesc" + i];
-    switch (i) {
-        case 1:
-            priceType = "Particles";
-            tier = "first";
-            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antOneProduce, 5) + " Crumbs/sec";
-            break;
-        case 2:
-            tier = "second";
-            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antTwoProduce, 5) + " Workers/sec";
-            break;
-        case 3:
-            tier = "third";
-            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antThreeProduce, 5) + " Breeders/sec";
-            break;
-        case 4:
-            tier = "fourth";
-            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antFourProduce, 5) + " MetaBreeders/sec";
-            break;
-        case 5:
-            tier = "fifth";
-            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antFiveProduce, 5) + " MegaBreeders/sec";
-            break;
-        case 6:
-            tier = "sixth";
-            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antSixProduce, 5) + " Queens/sec";
-            break;
-        case 7:
-            tier = "seventh";
-            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antSevenProduce, 5) + " Royals/sec";
-            break;
-        case 8:
-            tier = "eighth";
-            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antEightProduce, 5) + " ALMIGHTIES/sec";
-            break;
-    }
-    la.textContent = "Cost: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tier + "CostAnts"]) + " " + priceType;
-    ti.textContent = "Owned: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tier + "OwnedAnts"]) + " [+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tier + "GeneratedAnts"], 2) + "]";
-};
-const getAntCost = (originalCost, buyTo, index) => {
-    --buyTo;
-    const cost = originalCost
-        .times(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antCostGrowth[index], buyTo))
-        .add(1 * buyTo);
-    return cost;
-};
-const getAntUpgradeCost = (originalCost, buyTo, index) => {
-    --buyTo;
-    const cost = originalCost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeCostIncreases[index], buyTo));
-    return cost;
-};
-const buyAntProducers = (pos, type, originalCost, index) => {
-    let sacrificeMult = antSacrificePointsToMultiplier(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints);
-    originalCost = new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default(originalCost);
-    const tag = index === 1 ? 'reincarnationPoints' : 'antPoints';
-    let buyTo = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + "Owned" + type] + 1;
-    let cashToBuy = getAntCost(originalCost, buyTo, index);
-    while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag].gte(cashToBuy)) {
-        buyTo = buyTo * 4;
-        cashToBuy = getAntCost(originalCost, buyTo, index);
-    }
-    let stepdown = Math.floor(buyTo / 8);
-    while (stepdown !== 0) {
-        if (getAntCost(originalCost, buyTo - stepdown, index).lte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag])) {
-            stepdown = Math.floor(stepdown / 2);
-        }
-        else {
-            buyTo = buyTo - stepdown;
-        }
-    }
-    if (!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antMax) {
-        if (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + "Owned" + type] < buyTo) {
-            buyTo = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + "Owned" + type] + 1;
-        }
-    }
-    let buyFrom = Math.max(buyTo - 7, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + 'Owned' + type] + 1);
-    let thisCost = getAntCost(originalCost, buyFrom, index);
-    while (buyFrom <= buyTo && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag].gte(getAntCost(originalCost, buyFrom, index))) {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag] = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag].sub(thisCost);
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + 'Owned' + type] = buyFrom;
-        buyFrom = buyFrom + 1;
-        thisCost = getAntCost(originalCost, buyFrom, index);
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + 'Cost' + type] = thisCost;
-    }
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationPoints.lt(0)) {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationPoints = new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default("0");
-    }
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.lt(0)) {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints = new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default("0");
-    }
-    (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeELO)();
-    const achRequirements = [2, 6, 20, 100, 500, 6666, 77777];
-    for (let j = 0; j < achRequirements.length; j++) {
-        if (sacrificeMult > achRequirements[j] && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.ordinals[j + 1] + "OwnedAnts"] > 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[176 + j] === 0) {
-            (0,_Achievements__WEBPACK_IMPORTED_MODULE_4__.achievementaward)(176 + j);
-        }
-    }
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstOwnedAnts > 6.9e7) {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstOwnedAnts = 6.9e7;
-    }
-};
-const buyAntUpgrade = (originalCost, auto, index) => {
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 11) {
-        originalCost = new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default(originalCost);
-        let buyTo = 1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[index - 1];
-        let cashToBuy = getAntUpgradeCost(originalCost, buyTo, index);
-        while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte(cashToBuy)) {
-            buyTo = buyTo * 4;
-            cashToBuy = getAntUpgradeCost(originalCost, buyTo, index);
-        }
-        let stepdown = Math.floor(buyTo / 8);
-        while (stepdown !== 0) {
-            if (getAntUpgradeCost(originalCost, buyTo - stepdown, index).lte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints)) {
-                stepdown = Math.floor(stepdown / 2);
-            }
-            else {
-                buyTo = buyTo - stepdown;
-            }
-        }
-        if (!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antMax) {
-            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[index - 1] + 1 < buyTo) {
-                buyTo = 1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[index - 1];
-            }
-        }
-        let buyFrom = Math.max(buyTo - 7, 1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[index - 1]);
-        let thisCost = getAntUpgradeCost(originalCost, buyFrom, index);
-        while (buyFrom <= buyTo && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte(thisCost)) {
-            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.sub(thisCost);
-            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[index - 1] = buyFrom;
-            buyFrom = buyFrom + 1;
-            thisCost = getAntUpgradeCost(originalCost, buyFrom, index);
-        }
-        (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAnts)();
-        (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneLevels)();
-        (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeELO)();
-        if (!auto) {
-            antUpgradeDescription(index);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[12 - 1] === 1 && index === 12) {
-            (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_5__.revealStuff)();
-        }
-    }
-};
-const antUpgradeDescription = (i) => {
-    const el = document.getElementById("antspecies");
-    const al = document.getElementById("antlevelbonus");
-    const la = document.getElementById("antupgradedescription");
-    const ti = document.getElementById("antupgradecost");
-    const me = document.getElementById("antupgradeeffect");
-    const content1 = antspecies["antspecies" + i];
-    const content2 = antupgdesc["antupgdesc" + i];
-    const bonuslevel = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals["bonusant" + i];
-    const c11 = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension === 11 ? 999 : 0;
-    el.childNodes[0].textContent = content1 + " Level " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1]);
-    al.textContent = " [+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1] + c11, bonuslevel)) + "]";
-    la.textContent = content2;
-    ti.textContent = "Cost: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeCostIncreases[i], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1] * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.extinctionMultiplier[_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions[10]]).times(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeBaseCost[i])) + " Galactic Crumbs";
-    me.textContent = "CURRENT EFFECT: " + antUpgradeTexts[i - 1]();
-};
-const antSacrificePointsToMultiplier = (points) => {
-    let multiplier = Math.pow(1 + points / 5000, 2);
-    multiplier *= (1 + 0.2 * Math.log(1 + points) / Math.log(10));
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[174] > 0) {
-        multiplier *= (1 + 0.4 * Math.log(1 + points) / Math.log(10));
-    }
-    return multiplier;
-};
-const showSacrifice = () => {
-    const sacRewards = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeRewards)();
-    document.getElementById("antSacrificeSummary").style.display = "block";
-    document.getElementById("antELO").childNodes[0].textContent = "Your Ant ELO is ";
-    document.getElementById("ELO").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO, 2);
-    document.getElementById("effectiveELO").textContent = "[" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO, 2, false) + " effective]";
-    document.getElementById("antSacrificeMultiplier").childNodes[0].textContent = "Ant Multiplier x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(antSacrificePointsToMultiplier(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints), 3, false) + " --> ";
-    document.getElementById("SacrificeMultiplier").textContent = "x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(antSacrificePointsToMultiplier(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false);
-    document.getElementById("SacrificeUpgradeMultiplier").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.upgradeMultiplier, 3, true) + "x";
-    document.getElementById("SacrificeTimeMultiplier").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.timeMultiplier, 3, true) + "x";
-    document.getElementById("antSacrificeOffering").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.offerings);
-    document.getElementById("antSacrificeObtainium").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.obtainium);
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 0) {
-        document.getElementById("antSacrificeTalismanShard").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.talismanShards) + " [>500 ELO]";
-        document.getElementById("antSacrificeCommonFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.commonFragments) + " [>750 ELO]";
-        document.getElementById("antSacrificeUncommonFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.uncommonFragments) + " [>1,000 ELO]";
-        document.getElementById("antSacrificeRareFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.rareFragments) + " [>1,500 ELO]";
-        document.getElementById("antSacrificeEpicFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.epicFragments) + " [>2,000 ELO]";
-        document.getElementById("antSacrificeLegendaryFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.legendaryFragments) + " [>3,000 ELO]";
-        document.getElementById("antSacrificeMythicalFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.mythicalFragments) + " [>5,000 ELO]";
-    }
-};
-const sacrificeAnts = (auto = false) => {
-    let historyEntry = {};
-    let p = true;
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte("1e40")) {
-        if (!auto && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints < 100 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.toggles[32]) {
-            p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?");
-        }
-        if (p) {
-            historyEntry.antSacrificePointsBefore = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints;
-            let sacRewards = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeRewards)();
-            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints += sacRewards.antSacrificePoints;
-            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards += sacRewards.offerings;
-            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += sacRewards.obtainium;
-            historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificeTimer;
-            historyEntry.offerings = sacRewards.offerings;
-            historyEntry.obtainium = sacRewards.obtainium;
-            historyEntry.antSacrificePointsAfter = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints;
-            historyEntry.baseELO = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO;
-            historyEntry.effectiveELO = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO;
-            historyEntry.crumbs = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints;
-            historyEntry.crumbsPerSecond = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antOneProduce;
-            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 0) {
-                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanShards += sacRewards.talismanShards;
-                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.commonFragments += sacRewards.commonFragments;
-                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.uncommonFragments += sacRewards.uncommonFragments;
-                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.rareFragments += sacRewards.rareFragments;
-                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.epicFragments += sacRewards.epicFragments;
-                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.legendaryFragments += sacRewards.legendaryFragments;
-                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.mythicalFragments += sacRewards.mythicalFragments;
-            }
-            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel > 0.5 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoSacrificeToggle) {
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[20] === 1 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards >= 5) {
-                    let unmaxed = 0;
-                    for (let i = 1; i <= 5; i++) {
-                        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[i - 1] < (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateMaxRunes)(i))
-                            unmaxed++;
-                    }
-                    if (unmaxed > 0) {
-                        let baseAmount = Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards / unmaxed);
-                        for (let i = 1; i <= 5; i++) {
-                            (0,_Runes__WEBPACK_IMPORTED_MODULE_6__.redeemShards)(i, true, baseAmount);
-                        }
-                        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.sacrificeTimer = 0;
-                    }
-                }
-            }
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_9__.resetAnts)();
-            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificeTimer = 0;
-            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificeTimerReal = 0;
-            (0,_Talismans__WEBPACK_IMPORTED_MODULE_7__.updateTalismanInventory)();
-            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch > 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle) {
-                const linGrowth = (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch === 200) ? 0.01 : 0;
-                (0,_Research__WEBPACK_IMPORTED_MODULE_8__.buyResearch)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch, true, linGrowth);
-            }
-            (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeELO)();
-            (0,_History__WEBPACK_IMPORTED_MODULE_10__.resetHistoryAdd)("ants", "antsacrifice", historyEntry);
-        }
-    }
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.mythicalFragments >= 1e11 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension === 14 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[248] < 1) {
-        (0,_Achievements__WEBPACK_IMPORTED_MODULE_4__.achievementaward)(248);
-    }
-};
-const autoBuyAnts = () => {
-    const canAffordUpgrade = (x, m) => _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte(getAntUpgradeCost(new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeBaseCost[x]), _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[x - 1] + 1, x).times(m));
-    const ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
-    const cost = ["100", "100", "1000", "1000", "1e5", "1e6", "1e8", "1e11", "1e15", "1e20", "1e40", "1e100"];
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 11) {
-        for (let i = 1; i <= ach.length; i++) {
-            let check = i === 12 ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[ach[i - 1]] : _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[ach[i - 1]];
-            if (check && canAffordUpgrade(i, 2)) {
-                buyAntUpgrade(cost[i - 1], true, i);
-            }
-        }
-    }
-    const _ach = [173, 176, 177, 178, 179, 180, 181, 182];
-    const _cost = ["1e800", "3", "100", "10000", "1e12", "1e36", "1e100", "1e300"];
-    for (let i = 1; i <= _ach.length; i++) {
-        let res = i === 1 ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationPoints : _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints;
-        let m = i === 1 ? 1 : 2;
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[_ach[i - 1]] && res.gte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.ordinals[i - 1] + "CostAnts"].times(m))) {
-            buyAntProducers(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.ordinals[i - 1], "Ants", _cost[i - 1], i);
-        }
-    }
-};
-
-
-/***/ }),
-/* 26 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "visualUpdateBuildings": () => /* binding */ visualUpdateBuildings,
 /* harmony export */   "visualUpdateUpgrades": () => /* binding */ visualUpdateUpgrades,
 /* harmony export */   "visualUpdateAchievements": () => /* binding */ visualUpdateAchievements,
@@ -14501,7 +13872,392 @@ const visualUpdateShop = () => {
 
 
 /***/ }),
-/* 27 */
+/* 25 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "calculateCrumbToCoinExp": () => /* binding */ calculateCrumbToCoinExp,
+/* harmony export */   "antRepeat": () => /* binding */ antRepeat,
+/* harmony export */   "updateAntDescription": () => /* binding */ updateAntDescription,
+/* harmony export */   "buyAntProducers": () => /* binding */ buyAntProducers,
+/* harmony export */   "buyAntUpgrade": () => /* binding */ buyAntUpgrade,
+/* harmony export */   "antUpgradeDescription": () => /* binding */ antUpgradeDescription,
+/* harmony export */   "antSacrificePointsToMultiplier": () => /* binding */ antSacrificePointsToMultiplier,
+/* harmony export */   "showSacrifice": () => /* binding */ showSacrifice,
+/* harmony export */   "sacrificeAnts": () => /* binding */ sacrificeAnts,
+/* harmony export */   "autoBuyAnts": () => /* binding */ autoBuyAnts
+/* harmony export */ });
+/* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
+/* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
+/* harmony import */ var _Achievements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
+/* harmony import */ var _UpdateHTML__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
+/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(15);
+/* harmony import */ var _Talismans__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(10);
+/* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(22);
+/* harmony import */ var _Reset__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(14);
+/* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(12);
+
+
+
+
+
+
+
+
+
+
+
+const antdesc = {
+    antdesc1: "Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!",
+    antdesc2: "Gain a breeder ant that produces worker ants automatically!",
+    antdesc3: "Gain a meta-breeder ant that produces breeder ants automatically!",
+    antdesc4: "Gain a mega-breeder ant that produces meta-breeder ants automatically!",
+    antdesc5: "Gain a Queen ant that produces mega-breeder ants automatically!",
+    antdesc6: "Gain a Lord Royal ant that produces Queen ants automatically!",
+    antdesc7: "Gain an ALMIGHTY ANT that produces Lord Royal ants automatically!",
+    antdesc8: "Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!"
+};
+const antspecies = {
+    antspecies1: "Inceptus Formicidae",
+    antspecies2: "Fortunae Formicidae",
+    antspecies3: "Tributum Formicidae",
+    antspecies4: "Celeritas Formicidae",
+    antspecies5: "Multa Formicidae",
+    antspecies6: "Sacrificium Formicidae",
+    antspecies7: "Hic Formicidae",
+    antspecies8: "Experientia Formicidae",
+    antspecies9: "Praemoenio Formicidae",
+    antspecies10: "Scientia Formicidae",
+    antspecies11: "Phylacterium Formicidae",
+    antspecies12: "Mortuus Est Formicidae"
+};
+const antupgdesc = {
+    antupgdesc1: "Promotes romance and unity within the colony. [+12% Ant Speed / level]",
+    antupgdesc2: "Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]",
+    antupgdesc3: "Swarms the Taxman into submission [Up to -99% taxes!]",
+    antupgdesc4: "Scares you into running faster [up to x20]",
+    antupgdesc5: "Imitates your body through magic shape-shifting powers [up to x40]",
+    antupgdesc6: "Tries to please Ant God... but fails [Additional Offerings!]",
+    antupgdesc7: "Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]",
+    antupgdesc8: "Knows how to salt and pepper food [Up to 1,000x Rune EXP!]",
+    antupgdesc9: "Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 10 Million]",
+    antupgdesc10: "Has big brain energy [Additional Obtainium!]",
+    antupgdesc11: "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]",
+    antupgdesc12: "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
+};
+const calculateCrumbToCoinExp = () => {
+    const exponent = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 15
+        ? 100000 + (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoidExponential)(49900000, (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[2 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant2) / 5000 * 500 / 499)
+        : 1 / 10000 * (100000 + (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoidExponential)(49900000, (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[2 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant2) / 5000 * 500 / 499));
+    return exponent;
+};
+const antUpgradeTexts = [
+    () => "ALL Ants work at " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(1.12 + 1 / 1000 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[101], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[1 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant1), 2) + "x speed.",
+    () => "Crumb --> Coin exponent is ^" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(calculateCrumbToCoinExp()),
+    () => "Tax growth is multiplied by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(0.005 + 0.995 * Math.pow(0.99, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[3 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant3), 4),
+    () => "Accelerator Boosts +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(100 * ((0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoidExponential)(20, (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[4 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant4) / 1000 * 20 / 19) - 1), 3) + "%",
+    () => "Multipliers +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(100 * ((0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoidExponential)(40, (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[5 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant5) / 1000 * 40 / 39) - 1), 3) + "%",
+    () => "Offerings x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 + Math.pow((_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[6 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant6) / 50, 0.75), 4),
+    () => "Building Costs scale " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.min(9999999, 3 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[7 - 1] + 3 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant7), 0, true) + "% slower!",
+    () => "Rune EXP is multiplied by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoidExponential)(999, 1 / 10000 * Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[8 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant8, 1.1)), 3) + "!",
+    () => "Each rune has +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 * Math.min(1e7, (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[9 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant9)), 0, true) + " effective levels.",
+    () => "Obtainium x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 + 2 * Math.pow((_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[10 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant10) / 50, 0.75), 4),
+    () => "Sacrificing is " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 + 2 * (1 - Math.pow(2, -(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[11 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant11) / 125)), 4) + "x as effective",
+    () => "Global timer is sped up by a factor of " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSigmoid)(2, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[12 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant12, 69), 4)
+];
+let repeatAnt = null;
+const antRepeat = (i) => {
+    (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.clearInt)(repeatAnt);
+    repeatAnt = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.interval)(() => updateAntDescription(i), 50);
+};
+const updateAntDescription = (i) => {
+    let el = document.getElementById("anttierdescription");
+    let la = document.getElementById("antprice");
+    let ti = document.getElementById("antquantity");
+    let me = document.getElementById("generateant");
+    let priceType = "Galactic Crumbs";
+    let tier = "";
+    el.textContent = antdesc["antdesc" + i];
+    switch (i) {
+        case 1:
+            priceType = "Particles";
+            tier = "first";
+            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antOneProduce, 5) + " Crumbs/sec";
+            break;
+        case 2:
+            tier = "second";
+            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antTwoProduce, 5) + " Workers/sec";
+            break;
+        case 3:
+            tier = "third";
+            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antThreeProduce, 5) + " Breeders/sec";
+            break;
+        case 4:
+            tier = "fourth";
+            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antFourProduce, 5) + " MetaBreeders/sec";
+            break;
+        case 5:
+            tier = "fifth";
+            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antFiveProduce, 5) + " MegaBreeders/sec";
+            break;
+        case 6:
+            tier = "sixth";
+            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antSixProduce, 5) + " Queens/sec";
+            break;
+        case 7:
+            tier = "seventh";
+            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antSevenProduce, 5) + " Royals/sec";
+            break;
+        case 8:
+            tier = "eighth";
+            me.textContent = "Generates " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antEightProduce, 5) + " ALMIGHTIES/sec";
+            break;
+    }
+    la.textContent = "Cost: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tier + "CostAnts"]) + " " + priceType;
+    ti.textContent = "Owned: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tier + "OwnedAnts"]) + " [+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tier + "GeneratedAnts"], 2) + "]";
+};
+const getAntCost = (originalCost, buyTo, index) => {
+    --buyTo;
+    const cost = originalCost
+        .times(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antCostGrowth[index], buyTo))
+        .add(1 * buyTo);
+    return cost;
+};
+const getAntUpgradeCost = (originalCost, buyTo, index) => {
+    --buyTo;
+    const cost = originalCost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeCostIncreases[index], buyTo));
+    return cost;
+};
+const buyAntProducers = (pos, type, originalCost, index) => {
+    let sacrificeMult = antSacrificePointsToMultiplier(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints);
+    originalCost = new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default(originalCost);
+    const tag = index === 1 ? 'reincarnationPoints' : 'antPoints';
+    let buyTo = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + "Owned" + type] + 1;
+    let cashToBuy = getAntCost(originalCost, buyTo, index);
+    while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag].gte(cashToBuy)) {
+        buyTo = buyTo * 4;
+        cashToBuy = getAntCost(originalCost, buyTo, index);
+    }
+    let stepdown = Math.floor(buyTo / 8);
+    while (stepdown !== 0) {
+        if (getAntCost(originalCost, buyTo - stepdown, index).lte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag])) {
+            stepdown = Math.floor(stepdown / 2);
+        }
+        else {
+            buyTo = buyTo - stepdown;
+        }
+    }
+    if (!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antMax) {
+        if (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + "Owned" + type] < buyTo) {
+            buyTo = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + "Owned" + type] + 1;
+        }
+    }
+    let buyFrom = Math.max(buyTo - 7, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + 'Owned' + type] + 1);
+    let thisCost = getAntCost(originalCost, buyFrom, index);
+    while (buyFrom <= buyTo && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag].gte(getAntCost(originalCost, buyFrom, index))) {
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag] = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag].sub(thisCost);
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + 'Owned' + type] = buyFrom;
+        buyFrom = buyFrom + 1;
+        thisCost = getAntCost(originalCost, buyFrom, index);
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + 'Cost' + type] = thisCost;
+    }
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationPoints.lt(0)) {
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationPoints = new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default("0");
+    }
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.lt(0)) {
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints = new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default("0");
+    }
+    (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeELO)();
+    const achRequirements = [2, 6, 20, 100, 500, 6666, 77777];
+    for (let j = 0; j < achRequirements.length; j++) {
+        if (sacrificeMult > achRequirements[j] && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.ordinals[j + 1] + "OwnedAnts"] > 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[176 + j] === 0) {
+            (0,_Achievements__WEBPACK_IMPORTED_MODULE_4__.achievementaward)(176 + j);
+        }
+    }
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstOwnedAnts > 6.9e7) {
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstOwnedAnts = 6.9e7;
+    }
+};
+const buyAntUpgrade = (originalCost, auto, index) => {
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 11) {
+        originalCost = new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default(originalCost);
+        let buyTo = 1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[index - 1];
+        let cashToBuy = getAntUpgradeCost(originalCost, buyTo, index);
+        while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte(cashToBuy)) {
+            buyTo = buyTo * 4;
+            cashToBuy = getAntUpgradeCost(originalCost, buyTo, index);
+        }
+        let stepdown = Math.floor(buyTo / 8);
+        while (stepdown !== 0) {
+            if (getAntUpgradeCost(originalCost, buyTo - stepdown, index).lte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints)) {
+                stepdown = Math.floor(stepdown / 2);
+            }
+            else {
+                buyTo = buyTo - stepdown;
+            }
+        }
+        if (!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antMax) {
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[index - 1] + 1 < buyTo) {
+                buyTo = 1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[index - 1];
+            }
+        }
+        let buyFrom = Math.max(buyTo - 7, 1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[index - 1]);
+        let thisCost = getAntUpgradeCost(originalCost, buyFrom, index);
+        while (buyFrom <= buyTo && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte(thisCost)) {
+            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.sub(thisCost);
+            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[index - 1] = buyFrom;
+            buyFrom = buyFrom + 1;
+            thisCost = getAntUpgradeCost(originalCost, buyFrom, index);
+        }
+        (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAnts)();
+        (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneLevels)();
+        (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeELO)();
+        if (!auto) {
+            antUpgradeDescription(index);
+        }
+        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[12 - 1] === 1 && index === 12) {
+            (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_5__.revealStuff)();
+        }
+    }
+};
+const antUpgradeDescription = (i) => {
+    const el = document.getElementById("antspecies");
+    const al = document.getElementById("antlevelbonus");
+    const la = document.getElementById("antupgradedescription");
+    const ti = document.getElementById("antupgradecost");
+    const me = document.getElementById("antupgradeeffect");
+    const content1 = antspecies["antspecies" + i];
+    const content2 = antupgdesc["antupgdesc" + i];
+    const bonuslevel = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals["bonusant" + i];
+    const c11 = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension === 11 ? 999 : 0;
+    el.childNodes[0].textContent = content1 + " Level " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1]);
+    al.textContent = " [+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1] + c11, bonuslevel)) + "]";
+    la.textContent = content2;
+    ti.textContent = "Cost: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeCostIncreases[i], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1] * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.extinctionMultiplier[_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions[10]]).times(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeBaseCost[i])) + " Galactic Crumbs";
+    me.textContent = "CURRENT EFFECT: " + antUpgradeTexts[i - 1]();
+};
+const antSacrificePointsToMultiplier = (points) => {
+    let multiplier = Math.pow(1 + points / 5000, 2);
+    multiplier *= (1 + 0.2 * Math.log(1 + points) / Math.log(10));
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[174] > 0) {
+        multiplier *= (1 + 0.4 * Math.log(1 + points) / Math.log(10));
+    }
+    return multiplier;
+};
+const showSacrifice = () => {
+    const sacRewards = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeRewards)();
+    document.getElementById("antSacrificeSummary").style.display = "block";
+    document.getElementById("antELO").childNodes[0].textContent = "Your Ant ELO is ";
+    document.getElementById("ELO").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO, 2);
+    document.getElementById("effectiveELO").textContent = "[" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO, 2, false) + " effective]";
+    document.getElementById("antSacrificeMultiplier").childNodes[0].textContent = "Ant Multiplier x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(antSacrificePointsToMultiplier(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints), 3, false) + " --> ";
+    document.getElementById("SacrificeMultiplier").textContent = "x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(antSacrificePointsToMultiplier(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false);
+    document.getElementById("SacrificeUpgradeMultiplier").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.upgradeMultiplier, 3, true) + "x";
+    document.getElementById("SacrificeTimeMultiplier").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.timeMultiplier, 3, true) + "x";
+    document.getElementById("antSacrificeOffering").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.offerings);
+    document.getElementById("antSacrificeObtainium").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.obtainium);
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 0) {
+        document.getElementById("antSacrificeTalismanShard").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.talismanShards) + " [>500 ELO]";
+        document.getElementById("antSacrificeCommonFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.commonFragments) + " [>750 ELO]";
+        document.getElementById("antSacrificeUncommonFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.uncommonFragments) + " [>1,000 ELO]";
+        document.getElementById("antSacrificeRareFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.rareFragments) + " [>1,500 ELO]";
+        document.getElementById("antSacrificeEpicFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.epicFragments) + " [>2,000 ELO]";
+        document.getElementById("antSacrificeLegendaryFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.legendaryFragments) + " [>3,000 ELO]";
+        document.getElementById("antSacrificeMythicalFragment").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(sacRewards.mythicalFragments) + " [>5,000 ELO]";
+    }
+};
+const sacrificeAnts = (auto = false) => {
+    let historyEntry = {};
+    let p = true;
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte("1e40")) {
+        if (!auto && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints < 100 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.toggles[32]) {
+            p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?");
+        }
+        if (p) {
+            historyEntry.antSacrificePointsBefore = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints;
+            let sacRewards = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeRewards)();
+            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints += sacRewards.antSacrificePoints;
+            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards += sacRewards.offerings;
+            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += sacRewards.obtainium;
+            historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificeTimer;
+            historyEntry.offerings = sacRewards.offerings;
+            historyEntry.obtainium = sacRewards.obtainium;
+            historyEntry.antSacrificePointsAfter = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints;
+            historyEntry.baseELO = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO;
+            historyEntry.effectiveELO = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO;
+            historyEntry.crumbs = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints;
+            historyEntry.crumbsPerSecond = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antOneProduce;
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 0) {
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanShards += sacRewards.talismanShards;
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.commonFragments += sacRewards.commonFragments;
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.uncommonFragments += sacRewards.uncommonFragments;
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.rareFragments += sacRewards.rareFragments;
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.epicFragments += sacRewards.epicFragments;
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.legendaryFragments += sacRewards.legendaryFragments;
+                _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.mythicalFragments += sacRewards.mythicalFragments;
+            }
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel > 0.5 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoSacrificeToggle) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[20] === 1 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards >= 5) {
+                    let unmaxed = 0;
+                    for (let i = 1; i <= 5; i++) {
+                        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[i - 1] < (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateMaxRunes)(i))
+                            unmaxed++;
+                    }
+                    if (unmaxed > 0) {
+                        let baseAmount = Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards / unmaxed);
+                        for (let i = 1; i <= 5; i++) {
+                            (0,_Runes__WEBPACK_IMPORTED_MODULE_6__.redeemShards)(i, true, baseAmount);
+                        }
+                        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.sacrificeTimer = 0;
+                    }
+                }
+            }
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_9__.resetAnts)();
+            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificeTimer = 0;
+            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificeTimerReal = 0;
+            (0,_Talismans__WEBPACK_IMPORTED_MODULE_7__.updateTalismanInventory)();
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch > 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle) {
+                const linGrowth = (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch === 200) ? 0.01 : 0;
+                (0,_Research__WEBPACK_IMPORTED_MODULE_8__.buyResearch)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch, true, linGrowth);
+            }
+            (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeELO)();
+            _Events__WEBPACK_IMPORTED_MODULE_10__.Synergism.emit('historyAdd', 'ants', 'antsacrifice', historyEntry);
+        }
+    }
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.mythicalFragments >= 1e11 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension === 14 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[248] < 1) {
+        (0,_Achievements__WEBPACK_IMPORTED_MODULE_4__.achievementaward)(248);
+    }
+};
+const autoBuyAnts = () => {
+    const canAffordUpgrade = (x, m) => _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte(getAntUpgradeCost(new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeBaseCost[x]), _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[x - 1] + 1, x).times(m));
+    const ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
+    const cost = ["100", "100", "1000", "1000", "1e5", "1e6", "1e8", "1e11", "1e15", "1e20", "1e40", "1e100"];
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 11) {
+        for (let i = 1; i <= ach.length; i++) {
+            let check = i === 12 ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[ach[i - 1]] : _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[ach[i - 1]];
+            if (check && canAffordUpgrade(i, 2)) {
+                buyAntUpgrade(cost[i - 1], true, i);
+            }
+        }
+    }
+    const _ach = [173, 176, 177, 178, 179, 180, 181, 182];
+    const _cost = ["1e800", "3", "100", "10000", "1e12", "1e36", "1e100", "1e300"];
+    for (let i = 1; i <= _ach.length; i++) {
+        let res = i === 1 ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationPoints : _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints;
+        let m = i === 1 ? 1 : 2;
+        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[_ach[i - 1]] && res.gte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.ordinals[i - 1] + "CostAnts"].times(m))) {
+            buyAntProducers(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.ordinals[i - 1], "Ants", _cost[i - 1], i);
+        }
+    }
+};
+
+
+/***/ }),
+/* 26 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14719,7 +14475,7 @@ const updateDisplayC15Rewards = () => {
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14945,6 +14701,257 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
 
 
 /***/ }),
+/* 28 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "resetHistoryClearAll": () => /* binding */ resetHistoryClearAll,
+/* harmony export */   "resetHistoryRenderAllTables": () => /* binding */ resetHistoryRenderAllTables,
+/* harmony export */   "resetHistoryTogglePerSecond": () => /* binding */ resetHistoryTogglePerSecond
+/* harmony export */ });
+/* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _Utility__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
+/* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
+
+
+
+
+
+const formatPlain = (str) => (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(str);
+const formatDecimalString = (str) => (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(new break_infinity_js__WEBPACK_IMPORTED_MODULE_1__.default(str));
+const conditionalFormatPerSecond = (numOrStr, data) => {
+    if (typeof (numOrStr) === "number" && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond) {
+        if (numOrStr === 0) {
+            return "0.000/s";
+        }
+        return (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(numOrStr / ((data.seconds && data.seconds > 0) ? data.seconds : 1), 3, true) + "/s";
+    }
+    return (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(numOrStr);
+};
+const historyGains = {
+    offerings: {
+        img: "Pictures/Offering.png",
+        formatter: formatPlain,
+        imgTitle: "Offerings"
+    },
+    obtainium: {
+        img: "Pictures/Obtainium.png",
+        formatter: formatPlain,
+        imgTitle: "Obtainium"
+    },
+    antMulti: {
+        img: "Pictures/AntSacrifice.png",
+        formatter: formatPlain,
+        imgTitle: "Ant Multiplier gains"
+    },
+    particles: {
+        img: "Pictures/Particle.png",
+        formatter: (s) => extractStringExponent(formatDecimalString(s)),
+        imgTitle: "Particles"
+    },
+    diamonds: {
+        img: "Pictures/Diamond.png",
+        formatter: (s) => extractStringExponent(formatDecimalString(s)),
+        imgTitle: "Diamonds"
+    },
+    mythos: {
+        img: "Pictures/Mythos.png",
+        formatter: (s) => extractStringExponent(formatDecimalString(s)),
+        imgTitle: "Mythos"
+    },
+    wowTesseracts: {
+        img: "Pictures/WowTessaract.png",
+        formatter: conditionalFormatPerSecond,
+        imgTitle: "Wow! Tesseracts"
+    },
+    wowHypercubes: {
+        img: "Pictures/WowHypercube.png",
+        formatter: conditionalFormatPerSecond,
+        imgTitle: "Wow! Hypercubes",
+        onlyif: () => _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[13] > 0
+    },
+    wowCubes: {
+        img: "Pictures/WowCube.png",
+        formatter: conditionalFormatPerSecond,
+        imgTitle: "Wow! Cubes"
+    },
+    wowPlatonicCubes: {
+        img: "Pictures/Platonic Cube.png",
+        formatter: conditionalFormatPerSecond,
+        imgTitle: "Platonic Cubes",
+        onlyif: () => _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[14] > 0,
+    },
+};
+const historyGainsOrder = [
+    "offerings", "obtainium",
+    "antMulti",
+    "particles", "diamonds", "mythos",
+    "wowCubes", "wowTesseracts", "wowHypercubes", "wowPlatonicCubes",
+];
+const historyKinds = {
+    "antsacrifice": { img: "Pictures/AntSacrifice.png" },
+    "prestige": { img: "Pictures/Transparent Pics/Prestige.png" },
+    "transcend": { img: "Pictures/Transparent Pics/Transcend.png" },
+    "reincarnate": { img: "Pictures/Transparent Pics/Reincarnate.png" },
+    "ascend": { img: "Pictures/questionable.png" },
+};
+const resetHistoryTableMapping = {
+    "ants": "historyAntsTable",
+    "reset": "historyResetTable",
+    "ascend": "historyAscendTable",
+};
+const resetHistoryCorruptionImages = [
+    "Pictures/Divisiveness Level 7.png",
+    "Pictures/Maladaption Lvl 7.png",
+    "Pictures/Laziness Lvl 7.png",
+    "Pictures/Hyperchallenged Lvl 7.png",
+    "Pictures/Scientific Illiteracy Lvl 7.png",
+    "Pictures/Deflation Lvl 7.png",
+    "Pictures/Extinction Lvl 7.png",
+    "Pictures/Drought Lvl 7.png",
+    "Pictures/Financial Collapse Lvl 7.png"
+];
+const resetHistoryCorruptionTitles = [
+    "Divisiveness [Multipliers]",
+    "Maladaption [Accelerators]",
+    "Spacial Dilation [Time]",
+    "Hyperchallenged [Challenge Requirements]",
+    "Scientific Illiteracy [Obtainium]",
+    "Market Deflation [Diamonds]",
+    "Extinction [Ants]",
+    "Drought [Offering EXP]",
+    "Financial Recession [Coins]"
+];
+const extractStringExponent = (str) => {
+    let m = null;
+    return (m = str.match(/e\+?(.+)/)) !== null ? `e${m[1]}` : str;
+};
+const resetHistoryAdd = (category, kind, data) => {
+    data.date = Date.now();
+    data.kind = kind;
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category] === undefined) {
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category] = [];
+    }
+    while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category].length > (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyCountMax - 1)) {
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category].shift();
+    }
+    for (const k in data) {
+        if ((0,_Utility__WEBPACK_IMPORTED_MODULE_2__.isDecimal)(data[k])) {
+            data[k] = data[k].toString();
+        }
+    }
+    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category].push(data);
+    resetHistoryPushNewRow(category, data);
+};
+_Events__WEBPACK_IMPORTED_MODULE_4__.Synergism.on('historyAdd', resetHistoryAdd);
+const resetHistoryPushNewRow = (category, data) => {
+    let row = resetHistoryRenderRow(category, data);
+    let table = document.getElementById(resetHistoryTableMapping[category]);
+    let tbody = table.querySelector("tbody");
+    tbody.insertBefore(row, tbody.childNodes[0]);
+    while (tbody.childNodes.length > _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyCountMax) {
+        tbody.removeChild(tbody.lastChild);
+    }
+};
+const resetHistoryRenderRow = (_category, data) => {
+    let colsUsed = 1;
+    let row = document.createElement("tr");
+    let rowContentHtml = "";
+    let kindMeta = historyKinds[data.kind];
+    let localDate = new Date(data.date).toLocaleString();
+    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.formatTimeShort)(data.seconds, 60)}</td>`;
+    let gains = [];
+    for (let gainIdx = 0; gainIdx < historyGainsOrder.length; ++gainIdx) {
+        let showing = historyGainsOrder[gainIdx];
+        if (data.hasOwnProperty(showing)) {
+            let gainInfo = historyGains[showing];
+            if (gainInfo.onlyif && !gainInfo.onlyif(data)) {
+                continue;
+            }
+            let formatter = gainInfo.formatter || (() => { });
+            let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}">${formatter(data[showing], data)}`;
+            gains.push(str);
+        }
+    }
+    let extra = [];
+    if (data.kind === "antsacrifice") {
+        let oldMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_3__.antSacrificePointsToMultiplier)(data.antSacrificePointsBefore);
+        let newMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_3__.antSacrificePointsToMultiplier)(data.antSacrificePointsAfter);
+        let diff = newMulti - oldMulti;
+        extra.push(`<span title="Ant Multiplier: ${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(oldMulti, 3, false)}--&gt;${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(diff, 3, false)}</span>`, `<span title="+${formatDecimalString(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalString(data.crumbs))}</span>`, `<span title="${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.effectiveELO)}</span>`);
+    }
+    else if (data.kind === "ascend") {
+        extra.push(`<img src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`);
+        let corruptions = resetHistoryFormatCorruptions(data);
+        if (corruptions !== null) {
+            extra.push(corruptions[0]);
+            extra.push(corruptions[1]);
+        }
+    }
+    colsUsed += gains.length;
+    rowContentHtml += gains.reduce((acc, value) => {
+        return `${acc}<td class="history-gain">${value}</td>`;
+    }, "");
+    rowContentHtml += `<td class="history-filler" colspan="${6 - colsUsed}"></td>`;
+    rowContentHtml += extra.reduce((acc, value) => {
+        return `${acc}<td class="history-extra">${value}</td>`;
+    }, "");
+    rowContentHtml += `<td class="history-filler" colspan="${4 - extra.length}"></td>`;
+    row.innerHTML = rowContentHtml;
+    return row;
+};
+const resetHistoryRenderFullTable = (categoryToRender, targetTable) => {
+    const tbody = targetTable.querySelector("tbody");
+    tbody.innerHTML = "";
+    if (!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender]) {
+        return;
+    }
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender].length > 0) {
+        for (let i = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender].length - 1; i >= 0; --i) {
+            let row = resetHistoryRenderRow(categoryToRender, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender][i]);
+            tbody.appendChild(row);
+        }
+    }
+};
+const resetHistoryClearAll = () => {
+    Object.keys(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history).forEach(key => {
+        if (Array.isArray(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[key])) {
+            delete _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[key];
+        }
+    });
+    resetHistoryRenderAllTables();
+};
+const resetHistoryRenderAllTables = () => {
+    Object.keys(resetHistoryTableMapping).forEach(key => resetHistoryRenderFullTable(key, document.getElementById(resetHistoryTableMapping[key])));
+};
+const resetHistoryTogglePerSecond = () => {
+    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond = !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond;
+    resetHistoryRenderAllTables();
+    const button = document.getElementById("historyTogglePerSecondButton");
+    button.textContent = "Per second: " + (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond ? "ON" : "OFF");
+    button.style.borderColor = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond ? "green" : "red";
+};
+const resetHistoryFormatCorruptions = (data) => {
+    let score = "Score: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.corruptionScore, 0, true);
+    let corruptions = "";
+    for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
+        let corruptionIdx = i + 1;
+        if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
+            corruptions += ` <img src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
+        }
+    }
+    if (data.currentChallenge !== undefined) {
+        score += ` / C${data.currentChallenge}`;
+    }
+    return [score, corruptions];
+};
+
+
+/***/ }),
 /* 29 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -15131,7 +15138,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
 /* harmony import */ var _Research__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(22);
-/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27);
+/* harmony import */ var _Statistics__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
 
 
 
@@ -15430,9 +15437,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Hypercubes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(23);
 /* harmony import */ var _PlatonicCubes__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(29);
 /* harmony import */ var _Platonic__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(33);
-/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(28);
+/* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(27);
 /* harmony import */ var _ImportExport__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(34);
-/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(24);
+/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(28);
 /* harmony import */ var _Shop__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(35);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(5);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {

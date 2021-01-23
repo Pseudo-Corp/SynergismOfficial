@@ -9,7 +9,8 @@ import { redeemShards } from './Runes';
 import { updateTalismanInventory } from './Talismans';
 import { buyResearch } from './Research';
 import { resetAnts } from './Reset';
-import { resetHistoryAdd, ResetHistoryDate } from './History';
+import type { ResetHistoryDate } from './History';
+import { Synergism } from './Events';
 
 const antdesc: Record<string, string> = {
     antdesc1: "Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!",
@@ -390,7 +391,7 @@ export const sacrificeAnts = (auto = false) => {
             }
             calculateAntSacrificeELO();
 
-            resetHistoryAdd("ants", "antsacrifice", historyEntry as ResetHistoryDate);
+            Synergism.emit('historyAdd', 'ants', 'antsacrifice', historyEntry as ResetHistoryDate);
         }
     }
 

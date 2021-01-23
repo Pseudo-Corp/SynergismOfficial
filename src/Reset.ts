@@ -11,8 +11,9 @@ import { getElementById } from './Utility';
 import { ascensionAchievementCheck } from './Achievements';
 import { buyResearch } from './Research';
 import { calculateHypercubeBlessings } from './Hypercubes';
-import { resetHistoryAdd, ResetHistoryAscend, Category, Kind } from './History';
+import type { ResetHistoryAscend, Kind } from './History';
 import { challengeRequirement } from './Challenges';
+import { Synergism } from './Events';
 
 let repeatreset: NodeJS.Timeout;
 
@@ -194,7 +195,7 @@ export const updateTesseractAutoBuyAmount = () => {
 export const reset = (i: number, fast = false, from = 'unknown') => {
     let historyEntry: Partial<ResetHistoryAscend> = {};
     let historyKind = "prestige";
-    let historyCategory = "reset";
+    const historyCategory = i > 3.5 ? 'ascend' : 'reset';
     // By default, we don't log history entries when the player is entering or leaving a challenge, but we handle some
     // special cases down below. This keeps the logs clean when someone in lategame runs 30 challenges in a row.
     let historyUse = from !== "enterChallenge" && from !== "leaveChallenge";
@@ -435,7 +436,6 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
     if (i > 3.5) {
         let metaData = CalcCorruptionStuff()
         ascensionAchievementCheck(3, metaData[3])
-        historyCategory = "ascend";
         historyKind = "ascend";
         // Log history for every ascend with a C10 completion, overriding previous restrictions
         historyUse = player.challengecompletions[10] > 0;
@@ -622,7 +622,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
     }
 
     if (historyUse) {
-        resetHistoryAdd(historyCategory as Category, historyKind as Kind, historyEntry as ResetHistoryAscend);
+        Synergism.emit('historyAdd', historyCategory, historyKind as Kind, historyEntry as ResetHistoryAscend);
     }
 }
 

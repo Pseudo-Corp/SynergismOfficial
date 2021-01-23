@@ -2,6 +2,7 @@ import { player, format, formatTimeShort } from './Synergism';
 import Decimal, { DecimalSource } from 'break_infinity.js';
 import { isDecimal } from './Utility';
 import { antSacrificePointsToMultiplier } from './Ants';
+import { Synergism } from './Events';
 
 export type Category = 'ants' | 'reset' | 'ascend';
 export type Kind = 'antsacrifice' | 'prestige' | 'transcend' | 'reincarnate' | 'ascend';
@@ -42,10 +43,9 @@ export type ResetHistoryAscend = {
 
 // This doesn't pass the extra args to format, and that's on purpose
 const formatPlain = (str: number | Decimal) => format(str);
-
 const formatDecimalString = (str: DecimalSource) => format(new Decimal(str));
 
-const conditionalFormatPerSecond = (numOrStr: Decimal | number, data: { seconds: number; }) => {
+const conditionalFormatPerSecond = (numOrStr: Decimal | number, data: ResetHistoryAscend | ResetHistoryDate) => {
     if (typeof (numOrStr) === "number" && player.historyShowPerSecond) {
         if (numOrStr === 0) { // work around format(0, 3) return 0 instead of 0.000, for consistency
             return "0.000/s";
@@ -64,11 +64,21 @@ const historyGains: Record<
         onlyif?: (...args: any[]) => boolean
     }
 > = {
-    offerings: {img: "Pictures/Offering.png", formatter: formatPlain, imgTitle: "Offerings"},
-    obtainium: {img: "Pictures/Obtainium.png", formatter: formatPlain, imgTitle: "Obtainium"},
-
-    antMulti: {img: "Pictures/AntSacrifice.png", formatter: formatPlain, imgTitle: "Ant Multiplier gains"},
-
+    offerings: {
+        img: "Pictures/Offering.png", 
+        formatter: formatPlain, 
+        imgTitle: "Offerings"
+    },
+    obtainium: {
+        img: "Pictures/Obtainium.png", 
+        formatter: formatPlain, 
+        imgTitle: "Obtainium"
+    },
+    antMulti: {
+        img: "Pictures/AntSacrifice.png", 
+        formatter: formatPlain, 
+        imgTitle: "Ant Multiplier gains"
+    },
     particles: {
         img: "Pictures/Particle.png",
         formatter: (s: DecimalSource) => extractStringExponent(formatDecimalString(s)),
@@ -84,7 +94,6 @@ const historyGains: Record<
         formatter: (s: DecimalSource) => extractStringExponent(formatDecimalString(s)),
         imgTitle: "Mythos"
     },
-
     wowTesseracts: {
         img: "Pictures/WowTessaract.png",
         formatter: conditionalFormatPerSecond,
@@ -116,7 +125,7 @@ const historyGainsOrder = [
     "wowCubes", "wowTesseracts", "wowHypercubes", "wowPlatonicCubes",
 ];
 
-const historyKinds = {
+const historyKinds: Record<Kind, { img: string }> = {
     "antsacrifice": {img: "Pictures/AntSacrifice.png"},
     "prestige": {img: "Pictures/Transparent Pics/Prestige.png"},
     "transcend": {img: "Pictures/Transparent Pics/Transcend.png"},
@@ -165,7 +174,7 @@ const extractStringExponent = (str: string) => {
  * @param {string} kind One of "antsacrifice", "prestige", "transcend", "reincarnate" or "ascend"
  * @param {object} data Applicable gains and poorly documented extra data
  */
-export const resetHistoryAdd = (
+const resetHistoryAdd = (
     category: Category,
     kind: Kind,
     data: ResetHistoryDate | ResetHistoryAscend
@@ -191,7 +200,9 @@ export const resetHistoryAdd = (
     resetHistoryPushNewRow(category, data);
 }
 
-function resetHistoryPushNewRow(category: Category, data: any) {
+Synergism.on('historyAdd', resetHistoryAdd);
+
+const resetHistoryPushNewRow = (category: Category, data: ResetHistoryAscend | ResetHistoryDate) => {
     let row = resetHistoryRenderRow(category, data);
     let table = document.getElementById(resetHistoryTableMapping[category]);
     let tbody = table.querySelector("tbody");
@@ -209,7 +220,7 @@ const resetHistoryRenderRow = (
     let row = document.createElement("tr");
     let rowContentHtml = "";
 
-    let kindMeta = historyKinds[data.kind as keyof typeof historyKinds];
+    let kindMeta = historyKinds[data.kind];
 
     let localDate = new Date(data.date).toLocaleString();
     rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
@@ -234,15 +245,15 @@ const resetHistoryRenderRow = (
         let oldMulti = antSacrificePointsToMultiplier(data.antSacrificePointsBefore);
         let newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter);
         let diff = newMulti - oldMulti;
-        extra = [
+        extra.push(
             `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
             `<span title="+${formatDecimalString(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalString(data.crumbs))}</span>`,
             `<span title="${format(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
-        ];
+        );
     } else if (data.kind === "ascend") {
-        extra = [
+        extra.push(
             `<img src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`
-        ];
+        );
 
         let corruptions = resetHistoryFormatCorruptions(data);
         if (corruptions !== null) {
@@ -274,8 +285,8 @@ const resetHistoryRenderRow = (
     return row;
 }
 
-function resetHistoryRenderFullTable(categoryToRender: Category, targetTable: HTMLElement) {
-    let tbody = targetTable.querySelector("tbody");
+const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HTMLElement) => {
+    const tbody = targetTable.querySelector("tbody");
     tbody.innerHTML = "";
 
     if (!player.history[categoryToRender]) {
@@ -308,12 +319,12 @@ export const resetHistoryRenderAllTables = () => {
 export const resetHistoryTogglePerSecond = () => {
     player.historyShowPerSecond = !player.historyShowPerSecond;
     resetHistoryRenderAllTables();
-    let button = document.getElementById("historyTogglePerSecondButton");
+    const button = document.getElementById("historyTogglePerSecondButton");
     button.textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
     button.style.borderColor = player.historyShowPerSecond ? "green" : "red";
 }
 
-function resetHistoryFormatCorruptions(data: { [key: string]: any }) {
+const resetHistoryFormatCorruptions = (data: ResetHistoryAscend | ResetHistoryDate): [string, string] => {
     let score = "Score: " + format(data.corruptionScore, 0, true);
     let corruptions = "";
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
@@ -325,5 +336,6 @@ function resetHistoryFormatCorruptions(data: { [key: string]: any }) {
     if (data.currentChallenge !== undefined) {
         score += ` / C${data.currentChallenge}`;
     }
+
     return [score, corruptions];
 }

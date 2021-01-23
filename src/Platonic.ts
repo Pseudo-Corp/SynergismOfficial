@@ -19,7 +19,7 @@ const platonicUpgradeDesc: Record<number, string> = {
     15: 'I suppose that, after all, we all are Everywhere at the End of Time.'
 }
 
-interface IPlatBaseCost {
+export interface IPlatBaseCost {
     obtainium: number
     offerings: number
     cubes: number
