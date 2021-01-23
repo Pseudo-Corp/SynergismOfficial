@@ -205,7 +205,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
     historyEntry.diamonds = G['prestigePointGain'];
 
     resetofferings(i)
-    resetUpgrades(1, fast);
+    resetUpgrades(1);
     player.coins = new Decimal("102");
     player.coinsThisPrestige = new Decimal("100");
     player.firstOwnedCoin = 0;
@@ -252,13 +252,12 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
     player.prestigecounter = 0;
     G['autoResetTimers'].prestige = 0;
 
-
     if (i > 1.5) {
         historyKind = "transcend";
         historyEntry.seconds = player.transcendcounter;
         historyEntry.mythos = G['transcendPointGain'];
         delete historyEntry.diamonds;
-        resetUpgrades(2, fast);
+        resetUpgrades(2);
         player.coinsThisTranscension = new Decimal("100");
         player.firstOwnedDiamonds = 0;
         player.firstCostDiamonds = new Decimal("100");
@@ -279,7 +278,6 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         player.acceleratorBoostCost = new Decimal("1e3");
 
         player.transcendCount += 1;
-
 
         player.prestigePoints = new Decimal("0");
         player.transcendPoints = player.transcendPoints.add(G['transcendPointGain']);
@@ -365,7 +363,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
             player.obtainiumpersecond = opscheck
         }
         player.currentChallenge.transcension = 0;
-        resetUpgrades(3, fast);
+        resetUpgrades(3);
         player.coinsThisReincarnation = new Decimal("100");
         player.firstOwnedMythos = 0;
         player.firstCostMythos = new Decimal("1");
@@ -423,14 +421,13 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         player.reincarnationcounter = 0;
         G['autoResetTimers'].reincarnation = 0;
 
-
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
             let linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
             buyResearch(player.autoResearch, true, linGrowth)
         }
+
         calculateRuneLevels();
         calculateAnts();
-
     }
 
     if (i > 3.5) {
@@ -626,7 +623,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
     }
 }
 
-const resetUpgrades = (i: number, fast = false) => {
+const resetUpgrades = (i: number) => {
     if (i > 2.5) {
         for (let i = 41; i < 61; i++) {
             if (i !== 46) {
@@ -668,21 +665,17 @@ const resetUpgrades = (i: number, fast = false) => {
         player.upgrades[118] = 0;
         player.upgrades[119] = 0;
         player.upgrades[120] = 0;
-
-
     }
 
     for (let j = 1; j <= 20; j++) {
         player.upgrades[j] = 0;
     }
-    for (let j = 121; j <= 125; j++) {
+
+    // both indices go up by 5, so we can put them together!
+    for (let j = 121, k = 106; j <= 125; j++, k++) {
         player.upgrades[j] = 0;
+        player.upgrades[k] = 0;
     }
-    player.upgrades[106] = 0;
-    player.upgrades[107] = 0;
-    player.upgrades[108] = 0;
-    player.upgrades[109] = 0;
-    player.upgrades[110] = 0;
 
     if (i > 1.5) {
         if (player.achievements[4] < 0.5) {
@@ -746,8 +739,6 @@ const resetUpgrades = (i: number, fast = false) => {
     }
     if (player.achievements[87] > 0.5) {
         player.upgrades[86] = 1
-    }
-    if (!fast) {
     }
 }
 

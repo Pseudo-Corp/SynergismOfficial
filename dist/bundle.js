@@ -10701,7 +10701,7 @@ const reset = (i, fast = false, from = 'unknown') => {
     historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter;
     historyEntry.diamonds = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.prestigePointGain;
     (0,_Runes__WEBPACK_IMPORTED_MODULE_2__.resetofferings)(i);
-    resetUpgrades(1, fast);
+    resetUpgrades(1);
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coins = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("102");
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisPrestige = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("100");
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstOwnedCoin = 0;
@@ -10746,7 +10746,7 @@ const reset = (i, fast = false, from = 'unknown') => {
         historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter;
         historyEntry.mythos = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.transcendPointGain;
         delete historyEntry.diamonds;
-        resetUpgrades(2, fast);
+        resetUpgrades(2);
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("100");
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstOwnedDiamonds = 0;
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstCostDiamonds = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("100");
@@ -10833,7 +10833,7 @@ const reset = (i, fast = false, from = 'unknown') => {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.obtainiumpersecond = opscheck;
         }
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension = 0;
-        resetUpgrades(3, fast);
+        resetUpgrades(3);
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisReincarnation = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("100");
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstOwnedMythos = 0;
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstCostMythos = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("1");
@@ -11062,7 +11062,7 @@ const reset = (i, fast = false, from = 'unknown') => {
         _Events__WEBPACK_IMPORTED_MODULE_14__.Synergism.emit('historyAdd', historyCategory, historyKind, historyEntry);
     }
 };
-const resetUpgrades = (i, fast = false) => {
+const resetUpgrades = (i) => {
     if (i > 2.5) {
         for (let i = 41; i < 61; i++) {
             if (i !== 46) {
@@ -11104,14 +11104,10 @@ const resetUpgrades = (i, fast = false) => {
     for (let j = 1; j <= 20; j++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[j] = 0;
     }
-    for (let j = 121; j <= 125; j++) {
+    for (let j = 121, k = 106; j <= 125; j++, k++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[j] = 0;
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[k] = 0;
     }
-    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[106] = 0;
-    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[107] = 0;
-    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[108] = 0;
-    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[109] = 0;
-    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[110] = 0;
     if (i > 1.5) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[4] < 0.5) {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[81] = 0;
@@ -11165,8 +11161,6 @@ const resetUpgrades = (i, fast = false) => {
     }
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[87] > 0.5) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[86] = 1;
-    }
-    if (!fast) {
     }
 };
 const resetAnts = () => {

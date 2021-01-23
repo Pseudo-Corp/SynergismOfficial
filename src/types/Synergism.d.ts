@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js';
+import type Decimal from 'break_infinity.js';
 import { Category, Kind, ResetHistoryAscend, ResetHistoryDate } from '../History';
 import { IPlatBaseCost } from '../Platonic';
 
