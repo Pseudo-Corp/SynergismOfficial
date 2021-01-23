@@ -840,22 +840,22 @@ export const calculateSigmoidExponential = (constant: number, coefficient: numbe
 
 export const calculateCubeBlessings = () => {
     // The visual updates are handled in visualUpdateCubes()
-    let cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
-    let powerBonus = [null, player.cubeUpgrades[45] / 100, player.cubeUpgrades[35] / 100, player.cubeUpgrades[24] / 100, player.cubeUpgrades[14] / 100, player.cubeUpgrades[40] / 100, player.cubeUpgrades[22] / 40, player.cubeUpgrades[15] / 100, player.cubeUpgrades[25] / 100, player.cubeUpgrades[44] / 100, player.cubeUpgrades[34] / 100]
+    let cubeArray = [player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
+    let powerBonus = [player.cubeUpgrades[45] / 100, player.cubeUpgrades[35] / 100, player.cubeUpgrades[24] / 100, player.cubeUpgrades[14] / 100, player.cubeUpgrades[40] / 100, player.cubeUpgrades[22] / 40, player.cubeUpgrades[15] / 100, player.cubeUpgrades[25] / 100, player.cubeUpgrades[44] / 100, player.cubeUpgrades[34] / 100]
 
     for (let i = 1; i <= 10; i++) {
         let power = 1;
         let mult = 1;
-        if (cubeArray[i] >= 1000) {
+        if (cubeArray[i-1] >= 1000) {
             power = G['blessingDRPower'][i];
-            mult *= Math.pow(1000, (1 - G['blessingDRPower'][i]) * (1 + powerBonus[i]));
+            mult *= Math.pow(1000, (1 - G['blessingDRPower'][i]) * (1 + powerBonus[i-1]));
         }
         if (i === 6) {
             power = 2.25;
             mult = 1;
         }
 
-        G['cubeBonusMultiplier'][i] = 1 + mult * G['blessingbase'][i] * Math.pow(cubeArray[i], power * (1 + powerBonus[i])) * G['tesseractBonusMultiplier'][i];
+        G['cubeBonusMultiplier'][i] = 1 + mult * G['blessingbase'][i] * Math.pow(cubeArray[i-1], power * (1 + powerBonus[i-1])) * G['tesseractBonusMultiplier'][i];
     }
     calculateRuneLevels();
     calculateAntSacrificeELO();

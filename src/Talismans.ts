@@ -131,7 +131,7 @@ export const buyTalismanResources = (type: keyof typeof talismanResourceCosts, p
 }
 
 export const showTalismanEffect = (i: number) => {
-    let ord = [null, "One", "Two", "Three", "Four", "Five", "Six", "Seven"]
+    let ord = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"]
     document.getElementById("talismanlevelup").style.display = "none"
     document.getElementById("talismanEffect").style.display = "block"
     document.getElementById("talismanrespec").style.display = "none"
@@ -145,11 +145,11 @@ export const showTalismanEffect = (i: number) => {
     let h = document.getElementById("talismanMythicEffect")
 
     let index = player.talismanRarity[i-1]
-    let modifiers = [null, "+", "+", "+", "+", "+"]
+    let modifiers = ["+", "+", "+", "+", "+"]
     let num = G['talismanPositiveModifier'][index];
-    let talismanRarityMult = [null, num, num, num, num, num]
+    let talismanRarityMult = [num, num, num, num, num]
 
-    for (let j = 1; j <= 5; j++) {
+    for (let j = 0; j < 5; j++) {
         if (player["talisman" + ord[i]][j] < 0) {
             modifiers[j] = "-";
             talismanRarityMult[j] = G['talismanNegativeModifier'][index]
@@ -282,9 +282,9 @@ export const showEnhanceTalismanPrices = (i: number) => {
     document.getElementById("talismanLevelUpSummary").textContent = "=-=-= Resources Required to ENHANCE =-=-="
     document.getElementById("talismanLevelUpSummary").style.color = "gold"
 
-    let array = [null, G['commonTalismanEnhanceCost'], G['uncommonTalismanEnchanceCost'], G['rareTalismanEnchanceCost'], G['epicTalismanEnhanceCost'], G['legendaryTalismanEnchanceCost'], G['mythicalTalismanEnchanceCost']]
+    let array = [G['commonTalismanEnhanceCost'], G['uncommonTalismanEnchanceCost'], G['rareTalismanEnchanceCost'], G['epicTalismanEnhanceCost'], G['legendaryTalismanEnchanceCost'], G['mythicalTalismanEnchanceCost']]
     let index = player.talismanRarity[i-1];
-    let costArray = array[index];
+    let costArray = array[index-1];
     let m = G['talismanLevelCostMultiplier'][i]
     a.textContent = format(m * costArray[1]);
     b.textContent = format(m * costArray[2]);
@@ -297,16 +297,16 @@ export const showEnhanceTalismanPrices = (i: number) => {
 
 export const showRespecInformation = (i: number) => {
     G['talismanRespec'] = i;
-    let num = [null, "One", "Two", "Three", "Four", "Five", "Six", "Seven"]
+    let num = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"]
     document.getElementById("talismanEffect").style.display = "none"
     document.getElementById("talismanlevelup").style.display = "none"
     document.getElementById("talismanrespec").style.display = "block"
 
-    let runeName = [null, "Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"]
-    let runeModifier = [null, "Positive", "Positive", "Positive", "Positive"]
+    let runeName = ["Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"]
+    let runeModifier = ["Positive", "Positive", "Positive", "Positive"]
     if (i <= 7) {
         for (let k = 1; k <= 5; k++) {
-            G['mirrorTalismanStats'][k] = player["talisman" + num[i]][k];
+            G['mirrorTalismanStats'][k] = player["talisman" + num[i-1]][k];
         }
         document.getElementById("confirmTalismanRespec").textContent = "Confirm [-100,000 Offerings]"
     }
@@ -319,13 +319,12 @@ export const showRespecInformation = (i: number) => {
     for (let j = 1; j <= 5; j++) {
         if (G['mirrorTalismanStats'][j] === 1) {
             document.getElementById("talismanRespecButton" + j).style.border = "2px solid limegreen";
-            runeModifier[j] = "Positive"
-        }
-        if (G['mirrorTalismanStats'][j] === -1) {
+            runeModifier[j-1] = "Positive"
+        } else if (G['mirrorTalismanStats'][j] === -1) {
             document.getElementById("talismanRespecButton" + j).style.border = "2px solid crimson";
-            runeModifier[j] = "Negative"
+            runeModifier[j-1] = "Negative"
         }
-        document.getElementById("talismanRespecButton" + j).textContent = runeName[j] + ": " + runeModifier[j]
+        document.getElementById("talismanRespecButton" + j).textContent = runeName[j-1] + ": " + runeModifier[j-1]
     }
 
     document.getElementById("confirmTalismanRespec").style.display = "none"

@@ -106,7 +106,7 @@ export const isResearchUnlocked = (index: number) => {
 
 const isResearchMaxed = (index: number) => G['researchMaxLevels'][index] <= player.researches[index];
 
-const resdesc = [null,
+const resdesc = [
     "[1x1] Increase the number of free Accelerators gained by 20% from all sources.",
     "[1x2] Increase the number of free Multipliers gained by 20% from all sources.",
     "[1x3] Increase the number of free Accelerator Boosts gained by 20% from all sources.",
@@ -311,7 +311,7 @@ const resdesc = [null,
 
 export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => {
     let buyAmount = (G['maxbuyresearch'] || auto) ? 100000 : 1;
-    let y = resdesc[i]
+    let y = resdesc[i-1];
     let z = ""
     let p = "res" + i
     let metaData = getResearchCost(i, buyAmount, linGrowth);

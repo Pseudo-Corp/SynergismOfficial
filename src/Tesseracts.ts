@@ -56,16 +56,16 @@ export const openTesseract = (value: number, max = false) => {
 
 export const calculateTesseractBlessings = () => {
     // The visual updates are handled in visualUpdateCubes()
-    let tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
+    let tesseractArray = [player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
 
     for (let i = 1; i <= 10; i++) {
         let power = 1;
         let mult = 1;
         if (tesseractArray[i] >= 1000 && i !== 6) {
-            power = G['giftDRPower'][i];
+            power = G['giftDRPower'][i-1];
             mult *= Math.pow(1000, (1 - G['giftDRPower'][i]));
         }
 
-        G['tesseractBonusMultiplier'][i] = 1 + mult * G['giftbase'][i] * Math.pow(tesseractArray[i], power) * G['hypercubeBonusMultiplier'][i];
+        G['tesseractBonusMultiplier'][i] = 1 + mult * G['giftbase'][i] * Math.pow(tesseractArray[i-1], power) * G['hypercubeBonusMultiplier'][i];
     }
 }
