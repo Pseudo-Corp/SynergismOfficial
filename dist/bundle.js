@@ -9205,6 +9205,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var _UpdateHTML__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 /* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
+/* harmony import */ var _Utility__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
+
 
 
 
@@ -9755,256 +9757,37 @@ const resetachievementcheck = (i) => {
         }
     }
 };
+const challengeCompletionsBar = [
+    [1, 0.5, 78], [1, 2.5, 79], [1, 4.5, 80], [1, 9.5, 81], [1, 19.5, 82], [1, 49.5, 83], [1, 74.5, 84],
+    [2, 0.5, 85], [2, 2.5, 86], [2, 4.5, 87], [2, 9.5, 88], [2, 19.5, 89], [2, 49.5, 90], [2, 74.5, 91],
+    [3, 0.5, 92], [3, 2.5, 93], [3, 4.5, 94], [3, 9.5, 95], [3, 19.5, 96], [3, 49.5, 97], [3, 74.5, 98],
+    [4, 0.5, 99], [4, 2.5, 100], [4, 4.5, 101], [4, 9.5, 102], [4, 19.5, 103], [4, 49.5, 104], [4, 74.5, 105],
+    [5, 0.5, 106], [5, 2.5, 107], [5, 4.5, 108], [5, 9.5, 109], [5, 19.5, 110], [5, 49.5, 111], [5, 74.5, 112],
+    [6, 0.5, 113], [6, 1.5, 114], [6, 2.5, 115], [6, 4.5, 116], [6, 9.5, 117], [6, 14.5, 118], [6, 24.5, 119],
+    [7, 0.5, 120], [7, 1.5, 121], [7, 2.5, 122], [7, 4.5, 123], [7, 9.5, 124], [7, 14.5, 125], [7, 24.5, 126],
+    [8, 0.5, 127], [8, 1.5, 128], [8, 2.5, 129], [8, 4.5, 130], [8, 9.5, 131], [8, 19.5, 132], [8, 24.5, 133],
+    [9, 0.5, 134], [9, 1.5, 135], [9, 2.5, 136], [9, 4.5, 137], [9, 9.5, 138], [9, 19.5, 139], [9, 24.5, 140],
+    [10, 0.5, 141], [10, 1.5, 142], [10, 2.5, 143], [10, 4.5, 144], [10, 9.5, 145], [10, 19.5, 146], [10, 24.5, 147]
+];
+const challengeCompletionsNotAuto = [
+    [1, '1e1000', 75],
+    [2, '1e1000', 76],
+    [3, '1e99999', 77],
+    [5, '1e120000', 63]
+];
 const challengeachievementcheck = (i, auto) => {
-    let generatorcheck = Math.max(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[101] + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[102] + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[103] + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[104] + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[105]);
-    if (i === 1) {
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[1] > 0.5) {
-            achievementaward(78);
+    const generatorcheck = (0,_Utility__WEBPACK_IMPORTED_MODULE_4__.sumContents)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades.slice(100, 105));
+    for (const [, bar, ach] of challengeCompletionsBar.filter(([o]) => o === i)) {
+        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[i] > bar) {
+            achievementaward(ach);
         }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[1] > 2.5) {
-            achievementaward(79);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[1] > 4.5) {
-            achievementaward(80);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[1] > 9.5) {
-            achievementaward(81);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[1] > 19.5) {
-            achievementaward(82);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[1] > 49.5) {
-            achievementaward(83);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[1] > 74.5) {
-            achievementaward(84);
-        }
+    }
+    if ([1, 2, 3, 5].includes(i)) {
+        const [, gte, ach] = challengeCompletionsNotAuto[i];
         if (!auto) {
-            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte("1e1000") && generatorcheck === 0) {
-                achievementaward(75);
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte(gte) && generatorcheck === 0) {
+                achievementaward(ach);
             }
-        }
-    }
-    if (i === 2) {
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[2] > 0.5) {
-            achievementaward(85);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[2] > 2.5) {
-            achievementaward(86);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[2] > 4.5) {
-            achievementaward(87);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[2] > 9.5) {
-            achievementaward(88);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[2] > 19.5) {
-            achievementaward(89);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[2] > 49.5) {
-            achievementaward(90);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[2] > 74.5) {
-            achievementaward(91);
-        }
-        if (!auto) {
-            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte("1e1000") && generatorcheck === 0) {
-                achievementaward(76);
-            }
-        }
-    }
-    if (i === 3) {
-        if (!auto) {
-            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte("1e99999") && generatorcheck === 0) {
-                achievementaward(77);
-            }
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[3] > 0.5) {
-            achievementaward(92);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[3] > 2.5) {
-            achievementaward(93);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[3] > 4.5) {
-            achievementaward(94);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[3] > 9.5) {
-            achievementaward(95);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[3] > 19.5) {
-            achievementaward(96);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[3] > 49.5) {
-            achievementaward(97);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[3] > 74.5) {
-            achievementaward(98);
-        }
-    }
-    if (i === 4) {
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4] > 0.5) {
-            achievementaward(99);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4] > 2.5) {
-            achievementaward(100);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4] > 4.5) {
-            achievementaward(101);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4] > 9.5) {
-            achievementaward(102);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4] > 19.5) {
-            achievementaward(103);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4] > 49.5) {
-            achievementaward(104);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4] > 74.5) {
-            achievementaward(105);
-        }
-    }
-    if (i === 5) {
-        if (!auto) {
-            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte("1e120000")) {
-                achievementaward(63);
-            }
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[5] > 0.5) {
-            achievementaward(106);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[5] > 2.5) {
-            achievementaward(107);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[5] > 4.5) {
-            achievementaward(108);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[5] > 9.5) {
-            achievementaward(109);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[5] > 19.5) {
-            achievementaward(110);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[5] > 49.5) {
-            achievementaward(111);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[5] > 74.5) {
-            achievementaward(112);
-        }
-    }
-    if (i === 6) {
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[6] > 0.5) {
-            achievementaward(113);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[6] > 1.5) {
-            achievementaward(114);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[6] > 2.5) {
-            achievementaward(115);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[6] > 4.5) {
-            achievementaward(116);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[6] > 9.5) {
-            achievementaward(117);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[6] > 14.5) {
-            achievementaward(118);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[6] > 24.5) {
-            achievementaward(119);
-        }
-    }
-    if (i === 7) {
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[7] > 0.5) {
-            achievementaward(120);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[7] > 1.5) {
-            achievementaward(121);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[7] > 2.5) {
-            achievementaward(122);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[7] > 4.5) {
-            achievementaward(123);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[7] > 9.5) {
-            achievementaward(124);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[7] > 14.5) {
-            achievementaward(125);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[7] > 24.5) {
-            achievementaward(126);
-        }
-    }
-    if (i === 8) {
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[8] > 0.5) {
-            achievementaward(127);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[8] > 1.5) {
-            achievementaward(128);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[8] > 2.5) {
-            achievementaward(129);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[8] > 4.5) {
-            achievementaward(130);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[8] > 9.5) {
-            achievementaward(131);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[8] > 19.5) {
-            achievementaward(132);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[8] > 24.5) {
-            achievementaward(133);
-        }
-    }
-    if (i === 9) {
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 0.5) {
-            achievementaward(134);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 1.5) {
-            achievementaward(135);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 2.5) {
-            achievementaward(136);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 4.5) {
-            achievementaward(137);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 9.5) {
-            achievementaward(138);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 19.5) {
-            achievementaward(139);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 24.5) {
-            achievementaward(140);
-        }
-    }
-    if (i === 10) {
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 0.5) {
-            achievementaward(141);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 1.5) {
-            achievementaward(142);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 2.5) {
-            achievementaward(143);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 4.5) {
-            achievementaward(144);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 9.5) {
-            achievementaward(145);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 19.5) {
-            achievementaward(146);
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 24.5) {
-            achievementaward(147);
         }
     }
     if (i >= 11 && i <= 14) {
