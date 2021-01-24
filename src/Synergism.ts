@@ -2988,6 +2988,7 @@ function tack(dt: number) {
         dailyResetCheck();
         let timeMult = calculateTimeAcceleration();
 
+        //Adds time (in milliseconds) to all reset functions, and quarks timer.
         addTimers("prestige", dt)
         addTimers("transcension", dt)
         addTimers("reincarnation", dt)
@@ -3109,31 +3110,6 @@ function tack(dt: number) {
         }
 
         runChallengeSweep(dt);
-
-        if (dt > 5) {
-            while (dt > 5) {
-                player.prestigecounter += 5 * timeMult;
-                player.transcendcounter += 5 * timeMult;
-                player.reincarnationcounter += 5 * timeMult;
-                player.ascensionCounter += 5
-                resourceGain(5 * timeMult);
-                updateAll();
-                dt -= 5
-            }
-            player.prestigecounter += (dt * timeMult);
-            player.transcendcounter += (dt * timeMult);
-            player.reincarnationcounter += (dt * timeMult);
-            player.ascensionCounter += dt
-            resourceGain(dt * timeMult);
-            updateAll();
-            player.offlinetick = Date.now()
-        } else if (dt <= 5) {
-            resourceGain(dt * timeMult);
-            player.prestigecounter += (dt * timeMult);
-            player.transcendcounter += (dt * timeMult);
-            player.reincarnationcounter += (dt * timeMult);
-            player.ascensionCounter += dt
-        }
 
         //Check for automatic resets
         //Auto Prestige. === 1 indicates amount, === 2 indicates time.

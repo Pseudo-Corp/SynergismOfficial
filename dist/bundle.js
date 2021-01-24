@@ -2763,31 +2763,6 @@ function tack(dt) {
             }
         }
         (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.runChallengeSweep)(dt);
-        if (dt > 5) {
-            while (dt > 5) {
-                player.prestigecounter += 5 * timeMult;
-                player.transcendcounter += 5 * timeMult;
-                player.reincarnationcounter += 5 * timeMult;
-                player.ascensionCounter += 5;
-                resourceGain(5 * timeMult);
-                updateAll();
-                dt -= 5;
-            }
-            player.prestigecounter += (dt * timeMult);
-            player.transcendcounter += (dt * timeMult);
-            player.reincarnationcounter += (dt * timeMult);
-            player.ascensionCounter += dt;
-            resourceGain(dt * timeMult);
-            updateAll();
-            player.offlinetick = Date.now();
-        }
-        else if (dt <= 5) {
-            resourceGain(dt * timeMult);
-            player.prestigecounter += (dt * timeMult);
-            player.transcendcounter += (dt * timeMult);
-            player.reincarnationcounter += (dt * timeMult);
-            player.ascensionCounter += dt;
-        }
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
             if (player.toggles[15] === true && player.achievements[43] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.prestigePointGain.gte(player.prestigePoints.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, player.prestigeamount))) && player.coinsThisPrestige.gte(1e16)) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
