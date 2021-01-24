@@ -264,7 +264,7 @@ export const visualUpdateCubes = () => {
         document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = format(player[prefixes[i] + 'QuarkDaily']) + "/" + format(25 + 75 * (player.shopUpgrades[prefixes[i] + 'ToQuarkBought'] as number));
         document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = format(player[prefixes[i] + 'OpenedDaily'], 0, true);
         document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = format(Math.max(0, multipliers[i] * Math.pow(
-            Math.min(25 + 75 * +player.shopUpgrades[prefixes[i] + 'ToQuarkBought'], 
+            Math.min(25 + 75 * +player.shopUpgrades[`${prefixes[i]}ToQuarkBought`], 
             1 + player[prefixes[i] + 'QuarkDaily']), power[i]) - player[prefixes[i] + 'OpenedDaily']
         ), 0, true);
     }

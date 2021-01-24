@@ -13462,7 +13462,7 @@ const visualUpdateCubes = () => {
     for (var i = 0; i <= 2; i++) {
         document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'QuarkDaily']) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades[prefixes[i] + 'ToQuarkBought']);
         document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'OpenedDaily'], 0, true);
-        document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(Math.max(0, multipliers[i] * Math.pow(Math.min(25 + 75 * +_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades[prefixes[i] + 'ToQuarkBought'], 1 + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'QuarkDaily']), power[i]) - _Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'OpenedDaily']), 0, true);
+        document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(Math.max(0, multipliers[i] * Math.pow(Math.min(25 + 75 * +_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades[`${prefixes[i]}ToQuarkBought`], 1 + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'QuarkDaily']), power[i]) - _Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'OpenedDaily']), 0, true);
     }
     let accuracy;
     switch (_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.subtabNumber) {
