@@ -29,6 +29,7 @@ import { updateCubeUpgradeBG } from './Cubes';
 import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import { loadPlugins } from './Plugins/Plugins';
+import { addTimers } from './Helper';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -2988,10 +2989,11 @@ function tack(dt: number) {
         dailyResetCheck();
         let timeMult = calculateTimeAcceleration();
 
-        player.quarkstimer += dt
-        if (player.quarkstimer >= (90000 + 45000 * player.researches[195])) {
-            player.quarkstimer = (90000 + 45000 * player.researches[195])
-        }
+        addTimers("prestige", dt)
+        addTimers("transcension", dt)
+        addTimers("reincarnation", dt)
+        addTimers("ascension", dt)
+        addTimers("quarks", dt)
         if (player.researches[61] > 0) {
             player.obtainiumtimer += (dt * timeMult);
         }
