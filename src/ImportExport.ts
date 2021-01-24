@@ -103,13 +103,13 @@ export const exportSynergism = async () => {
 }
 
 export const resetGame = () => {
-    if (!confirm('Are you sure you want to wipe your savefile?')) {
+    const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
+    const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
+
+    if (+prompt(`Answer the question to confirm you'd like to reset: what is ${a}+${b}? (Hint: ${a+b})`) !== a + b) {
         return;
     }
 
-    if (!confirm('Are you ABSOLUTELY sure you want to wipe your savefile? This is your final confirmation!')){
-        return;
-    }
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
     });
