@@ -458,7 +458,7 @@ export const player: Player = {
     antSacrificeTimerReal: 900,
 
     talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
-    talismanRarity: [null, 1, 1, 1, 1, 1, 1, 1],
+    talismanRarity: [1, 1, 1, 1, 1, 1, 1],
     talismanOne: [null, -1, 1, 1, 1, -1],
     talismanTwo: [null, 1, 1, -1, -1, 1],
     talismanThree: [null, 1, -1, 1, 1, -1],
@@ -677,6 +677,14 @@ export const loadSynergy = () => {
                 return (player.codes = new Map(data[prop]));
             } else if (oldCodesUsed.includes(prop)) {
                 return;
+            } else if (Array.isArray(data[prop])) {
+                // in old savefiles, some arrays may be 1-based instead of 0-based (newer)
+                // so if the lengths of the savefile key is greater than that of the player obj
+                // it means a key was removed; likely a 1-based index where array[0] was null
+                // so we can get rid of it entirely.
+                if (player[prop].length < data[prop].length) {
+                    return player[prop] = data[prop].slice(data[prop].length - player[prop].length);
+                }
             }
 
             return (player[prop] = data[prop]);

@@ -444,7 +444,7 @@ const player = {
     antSacrificeTimer: 900,
     antSacrificeTimerReal: 900,
     talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
-    talismanRarity: [null, 1, 1, 1, 1, 1, 1, 1],
+    talismanRarity: [1, 1, 1, 1, 1, 1, 1],
     talismanOne: [null, -1, 1, 1, 1, -1],
     talismanTwo: [null, 1, 1, -1, -1, 1],
     talismanThree: [null, 1, -1, 1, 1, -1],
@@ -637,6 +637,11 @@ const loadSynergy = () => {
             }
             else if (oldCodesUsed.includes(prop)) {
                 return;
+            }
+            else if (Array.isArray(data[prop])) {
+                if (player[prop].length < data[prop].length) {
+                    return player[prop] = data[prop].slice(data[prop].length - player[prop].length);
+                }
             }
             return (player[prop] = data[prop]);
         });
@@ -9155,7 +9160,7 @@ const buyTalismanEnhance = (i, auto = false) => {
     let checkSum = 0;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1] < 6) {
         let priceMult = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanLevelCostMultiplier[i];
-        let array = [null, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.commonTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.uncommonTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.rareTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.epicTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.legendaryTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mythicalTalismanEnchanceCost];
+        let array = [_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.commonTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.uncommonTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.rareTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.epicTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.legendaryTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mythicalTalismanEnchanceCost];
         let index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1];
         let costArray = array[index];
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.commonFragments >= priceMult * costArray[2]) {
