@@ -113,7 +113,7 @@ const statValues = {
         const realtime = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.autoAntSacrificeMode === 2;
         const seconds = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.autoAntSacTimer;
         const text = el.firstChild;
-        text.data = `(${seconds} ${realtime ? 'real' : 'igt'} seconds) `;
+        text.textContent = `(${seconds} ${realtime ? 'real' : 'igt'} seconds) `;
         const button = el.lastElementChild;
         button.style.color = autosac ? 'green' : 'red';
         button.textContent = autosac ? 'ON' : 'OFF';

@@ -119,8 +119,7 @@ const statValues: Record<number, (el: HTMLElement) => void> = {
         const realtime = player.autoAntSacrificeMode === 2
         const seconds = player.autoAntSacTimer
         const text = el.firstChild as HTMLElement;
-        // @ts-ignore
-        text.data = `(${seconds} ${realtime ? 'real' : 'igt'} seconds) `;
+        text.textContent = `(${seconds} ${realtime ? 'real' : 'igt'} seconds) `;
         const button = el.lastElementChild as HTMLElement;
         button.style.color = autosac ? 'green' : 'red'
         button.textContent = autosac ? 'ON' : 'OFF'
