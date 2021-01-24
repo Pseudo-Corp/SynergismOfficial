@@ -1,6 +1,3 @@
-
-// Example of adding event listener on researches
-
 import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation } from "./Toggles"
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from "./Reset"
 import { resetCheck, saveSynergy } from "./Synergism"
@@ -20,7 +17,7 @@ import { openHypercube } from "./Hypercubes"
 import { openPlatonic } from "./PlatonicCubes"
 import { buyPlatonicUpgrades, createPlatonicDescription } from "./Platonic"
 import { corruptionDisplay } from "./Corruptions"
-import { exportSynergism, updateSaveString, promocodes, importSynergism } from "./ImportExport"
+import { exportSynergism, updateSaveString, promocodes, importSynergism, resetGame } from "./ImportExport"
 import { resetHistoryTogglePerSecond } from "./History"
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable } from "./Shop"
 import { Globals as G } from './Variables';
@@ -39,7 +36,7 @@ import { Globals as G } from './Variables';
     Platonic and/or Khafra have the right to close PRs that do not conform to this style guide
 
     If you are editing this script, please update the below time:
-    Last Edited: January 19 2021  2:15UTC-8 
+    Last Edited: January 24 2021  1:15UTC-8 
 */
 
 export const generateEventHandlers = () => {
@@ -457,6 +454,7 @@ for (let index = 0; index < 5; index++) {
 /*Export Files*/ document.getElementById('exportgame').addEventListener('click', () => exportSynergism())
 /*Update name of File*/ document.getElementById('saveStringInput').addEventListener('blur', () => updateSaveString())
 /*Save Game Button*/ document.getElementById('savegame').addEventListener('click', () => saveSynergy(true))
+/*Delete Save Button*/ document.getElementById('deleteGame').addEventListener('click', () => resetGame())
 /*Submit Stats [Note: will eventually become obsolete if kong closes]*/ // document.getElementById('submitstats').addEventListener('click', () => submitStats()) 
 /*Promotion Codes*/ document.getElementById('promocodes').addEventListener('click', () => promocodes())
 /*Toggle Ascension Per-Second Setting*/ document.getElementById('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())

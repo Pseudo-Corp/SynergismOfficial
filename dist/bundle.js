@@ -13565,18 +13565,18 @@ const visualUpdateCorruptions = () => {
 const visualUpdateSettings = () => {
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab !== "settings")
         return;
-    document.getElementById("temporarystats1").textContent = "Prestige count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.prestigeCount, 0, true);
-    document.getElementById("temporarystats2").textContent = "Transcend count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.transcendCount, 0, true);
-    document.getElementById("temporarystats3").textContent = "Reincarnation count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.reincarnationCount, 0, true);
-    document.getElementById("temporarystats4").textContent = "Fastest Prestige: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastestprestige) + "ms";
-    document.getElementById("temporarystats5").textContent = "Fastest Transcend: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastesttranscend) + "ms";
-    document.getElementById("temporarystats6").textContent = "Fastest Reincarnation: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastestreincarnate) + "ms";
-    document.getElementById("temporarystats7").textContent = "Most Offerings saved at once: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxofferings);
-    document.getElementById("temporarystats8").textContent = "Most Obtainium saved at once: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxobtainium);
-    document.getElementById("temporarystats9").textContent = "Best Obtainium/sec: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxobtainiumpersecond, 2, true);
-    document.getElementById("temporarystats10").textContent = "Summative Rune Levels: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.runeSum);
-    document.getElementById("temporarystats11").textContent = "Current Obtainium/sec " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.obtainiumpersecond, 2, true);
-    document.getElementById("temporarystats12").textContent = "Ascension Count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.ascensionCount, 0, true);
+    document.getElementById("prestigeCountStatistic").textContent = "Prestige count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.prestigeCount, 0, true);
+    document.getElementById("transcensionCountStatistic").textContent = "Transcension count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.transcendCount, 0, true);
+    document.getElementById("reincarnationCountStatistic").textContent = "Reincarnation count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.reincarnationCount, 0, true);
+    document.getElementById("fastestPrestigeStatistic").textContent = "Fastest Prestige: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastestprestige) + "ms";
+    document.getElementById("fastestTranscensionStatistic").textContent = "Fastest Transcension: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastesttranscend) + "ms";
+    document.getElementById("fastestReincarnationStatistic").textContent = "Fastest Reincarnation: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastestreincarnate) + "ms";
+    document.getElementById("mostOfferingStatistic").textContent = "Most Offerings saved at once: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxofferings);
+    document.getElementById("mostObtainiumStatistic").textContent = "Most Obtainium saved at once: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxobtainium);
+    document.getElementById("mostObtainiumPerSecondStatistic").textContent = "Best Obtainium/sec: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxobtainiumpersecond, 2, true);
+    document.getElementById("runeSumStatistic").textContent = "Summative Rune Levels: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.runeSum);
+    document.getElementById("obtainiumPerSecondStatistic").textContent = "Current Obtainium/sec " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.obtainiumpersecond, 2, true);
+    document.getElementById("ascensionCountStatistic").textContent = "Ascension Count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.ascensionCount, 0, true);
     document.getElementById("saveString").textContent =
         `Currently: ${_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.saveString.replace("$VERSION$", "v" + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.version)}`;
     const onExportQuarks = (Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.quarkstimer / 3600) * (1 + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[99] + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[100] + _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talisman7Quarks + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[125] + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[180] + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[195]));
@@ -15498,6 +15498,7 @@ const generateEventHandlers = () => {
     document.getElementById('exportgame').addEventListener('click', () => (0,_ImportExport__WEBPACK_IMPORTED_MODULE_19__.exportSynergism)());
     document.getElementById('saveStringInput').addEventListener('blur', () => (0,_ImportExport__WEBPACK_IMPORTED_MODULE_19__.updateSaveString)());
     document.getElementById('savegame').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.saveSynergy)(true));
+    document.getElementById('deleteGame').addEventListener('click', () => (0,_ImportExport__WEBPACK_IMPORTED_MODULE_19__.resetGame)());
     document.getElementById('promocodes').addEventListener('click', () => (0,_ImportExport__WEBPACK_IMPORTED_MODULE_19__.promocodes)());
     document.getElementById('historyTogglePerSecondButton').addEventListener('click', () => (0,_History__WEBPACK_IMPORTED_MODULE_20__.resetHistoryTogglePerSecond)());
     document.getElementById('resetShopUpgrades').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.resetShopUpgrades)());

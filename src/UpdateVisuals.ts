@@ -366,18 +366,18 @@ export const visualUpdateSettings = () => {
     if (G['currentTab'] !== "settings")
         return
     //I was unable to clean this up in a way that didn't somehow make it less clean, sorry.
-    document.getElementById("temporarystats1").textContent = "Prestige count: " + format(player.prestigeCount, 0, true)
-    document.getElementById("temporarystats2").textContent = "Transcend count: " + format(player.transcendCount, 0, true)
-    document.getElementById("temporarystats3").textContent = "Reincarnation count: " + format(player.reincarnationCount, 0, true)
-    document.getElementById("temporarystats4").textContent = "Fastest Prestige: " + format(1000 * player.fastestprestige) + "ms"
-    document.getElementById("temporarystats5").textContent = "Fastest Transcend: " + format(1000 * player.fastesttranscend) + "ms"
-    document.getElementById("temporarystats6").textContent = "Fastest Reincarnation: " + format(1000 * player.fastestreincarnate) + "ms"
-    document.getElementById("temporarystats7").textContent = "Most Offerings saved at once: " + format(player.maxofferings)
-    document.getElementById("temporarystats8").textContent = "Most Obtainium saved at once: " + format(player.maxobtainium)
-    document.getElementById("temporarystats9").textContent = "Best Obtainium/sec: " + format(player.maxobtainiumpersecond, 2, true)
-    document.getElementById("temporarystats10").textContent = "Summative Rune Levels: " + format(G['runeSum'])
-    document.getElementById("temporarystats11").textContent = "Current Obtainium/sec " + format(player.obtainiumpersecond, 2, true)
-    document.getElementById("temporarystats12").textContent = "Ascension Count: " + format(player.ascensionCount, 0, true)
+    document.getElementById("prestigeCountStatistic").textContent = "Prestige count: " + format(player.prestigeCount, 0, true)
+    document.getElementById("transcensionCountStatistic").textContent = "Transcension count: " + format(player.transcendCount, 0, true)
+    document.getElementById("reincarnationCountStatistic").textContent = "Reincarnation count: " + format(player.reincarnationCount, 0, true)
+    document.getElementById("fastestPrestigeStatistic").textContent = "Fastest Prestige: " + format(1000 * player.fastestprestige) + "ms"
+    document.getElementById("fastestTranscensionStatistic").textContent = "Fastest Transcension: " + format(1000 * player.fastesttranscend) + "ms"
+    document.getElementById("fastestReincarnationStatistic").textContent = "Fastest Reincarnation: " + format(1000 * player.fastestreincarnate) + "ms"
+    document.getElementById("mostOfferingStatistic").textContent = "Most Offerings saved at once: " + format(player.maxofferings)
+    document.getElementById("mostObtainiumStatistic").textContent = "Most Obtainium saved at once: " + format(player.maxobtainium)
+    document.getElementById("mostObtainiumPerSecondStatistic").textContent = "Best Obtainium/sec: " + format(player.maxobtainiumpersecond, 2, true)
+    document.getElementById("runeSumStatistic").textContent = "Summative Rune Levels: " + format(G['runeSum'])
+    document.getElementById("obtainiumPerSecondStatistic").textContent = "Current Obtainium/sec " + format(player.obtainiumpersecond, 2, true)
+    document.getElementById("ascensionCountStatistic").textContent = "Ascension Count: " + format(player.ascensionCount, 0, true)
 
     document.getElementById("saveString").textContent =
         `Currently: ${player.saveString.replace("$VERSION$", "v" + player.version)}`;

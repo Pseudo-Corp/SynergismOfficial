@@ -908,7 +908,7 @@ margin-left: -13px
 
 #settingtitle3 {
 	position: absolute;
-	top: 0;
+	top: 70px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
@@ -976,86 +976,86 @@ margin-left: -13px
 	width: 100%;
 }
 
-#temporarystats1 {
+#prestigeCountStatistic {
 	position: absolute;
-	top: 30px;
+	top: 105px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats2 {
+#fastestPrestigeStatistic {
 	position: absolute;
-	top: 70px;
+	top: 125px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats3 {
+#mostOfferingStatistic {
 	position: absolute;
-	top: 110px;
+	top: 145px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats4 {
+#runeSumStatistic {
 	position: absolute;
-	top: 50px;
+	top: 165px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats5 {
+#transcensionCountStatistic {
 	position: absolute;
-	top: 90px;
+	top: 185px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats6 {
+#fastestTranscensionStatistic {
 	position: absolute;
-	top: 130px;
+	top: 205px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats7 {
+#reincarnationCountStatistic {
 	position: absolute;
-	top: 150px;
+	top: 225px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats8 {
+#fastestReincarnationStatistic {
 	position: absolute;
-	top: 170px;
+	top: 245px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats9 {
+#mostObtainiumStatistic {
 	position: absolute;
-	top: 190px;
+	top: 265px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats10 {
+#mostObtainiumPerSecondStatistic {
 	position: absolute;
-	top: 230px;
+	top: 285px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats11 {
+#obtainiumPerSecondStatistic {
 	position: absolute;
-	top: 210px;
+	top: 305px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
 }
-#temporarystats12 {
+#ascensionCountStatistic {
 	position: absolute;
-	top: 250px;
+	top: 325px;
 	width: 500px;
 	left: 75%;
 	margin-left: -250px;
@@ -1355,6 +1355,10 @@ margin-left: -13px
 	border: 1px solid white;
 }
 #savegame{
+	width: 180px;
+	margin: 2px auto;
+}
+#deleteGame{
 	width: 180px;
 	margin: 2px auto;
 }
