@@ -388,14 +388,14 @@ export const buyMax = (pos: string, type: string, num: number, originalCost: Dec
     }
 }
 
-const buyProducerTypes: Record<string, readonly [string, string]> = {
+const buyProducerTypes = {
     Diamonds: ['prestigePoints', 'crystal'],
     Mythos: ['transcendPoints', 'mythos'],
     Particles: ['reincarnationPoints', 'particle'],
     Coin: ['coins', 'coin']
 } as const;
 
-export const buyProducer = (pos: string, type: string, num: number, autobuyer?: boolean) => {
+export const buyProducer = (pos: string, type: keyof typeof buyProducerTypes, num: number, autobuyer?: boolean) => {
     const [tag, amounttype] = buyProducerTypes[type];
     const buythisamount = autobuyer ? 500 : player[`${amounttype}buyamount`];
     let r = 1;

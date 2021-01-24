@@ -108,7 +108,7 @@ export const generateEventHandlers = () => {
 
     // Coin, Diamond and Mythos Buildings
     let buildingTypesAlternate2 = ['coin', 'diamond', 'mythos']
-    let buildingTypesAlternate3 = ['Coin', 'Diamonds', 'Mythos'] //TODO: A cleaner way to implement this dumb shit
+    let buildingTypesAlternate3 = ['Coin', 'Diamonds', 'Mythos'] as const; //TODO: A cleaner way to implement this dumb shit
     for (let index = 0; index < 3; index++){
         for (let index2 = 1; index2 <= 5; index2++) {
             document.getElementById(`buy${buildingTypesAlternate2[index]}${index2}`).addEventListener('click', () => 

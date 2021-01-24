@@ -777,8 +777,7 @@ export interface GlobalVariables {
     autoOfferingCounter: number
     autoOfferingCounter2: number
 
-    // TODO: figure out what type this is
-    researchOrderByCost: any[],
+    researchOrderByCost: number[],
 
     divisivenessPower: number[]
     maladaptivePower: number[]
@@ -804,9 +803,6 @@ export interface GlobalVariables {
 
     acceleratorMultiplier: number
     multiplierMultiplier: number
-
-    // TODO: figure out what type this is
-    testArray: any[]
 
     constUpgradeCosts: number[]
 
