@@ -6,7 +6,8 @@ interface IPlugin {
 // so plugins must be registered manually below. 
 
 const RegisteredPlugins: readonly (readonly [string, string])[] = [
-    [ 'Example Plugin', 'Example.ts' ]
+    [ 'Example Plugin', 'Example.ts' ],
+    [ 'Synergism Dashboard', 'Dashboard.ts' ]
 ] as const;
 
 export const loadPlugins = async () => {

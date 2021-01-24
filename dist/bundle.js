@@ -5863,9 +5863,9 @@ const challengeDisplay = (i, changefocus) => {
         m.textContent = "";
         n.textContent = "";
     }
-    var scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
-    var scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
-    var scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
+    let scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
+    let scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
+    let scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
     let scoreDisplay = 0;
     if (i <= 5) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.highestchallengecompletions[i] >= 750) {
@@ -6259,7 +6259,7 @@ const toggleChallenges = (i, auto = false) => {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.ascension === 15) {
                 _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.usedCorruptions[0] = 0;
                 _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.prototypeCorruptions[0] = 0;
-                for (var i = 1; i <= 9; i++) {
+                for (let i = 1; i <= 9; i++) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.usedCorruptions[i] = 11;
                 }
             }
@@ -9792,7 +9792,7 @@ const challengeachievementcheck = (i, auto) => {
     }
     if (i >= 11 && i <= 14) {
         let challengeArray = [0, 1, 2, 3, 5, 10, 20, 30];
-        for (var j = 1; j <= 7; j++) {
+        for (let j = 1; j <= 7; j++) {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[i] >= challengeArray[j] && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[119 + 7 * i + j] < 1) {
                 achievementaward(119 + 7 * i + j);
             }
@@ -11489,7 +11489,7 @@ const buyCubeUpgrades = (i, linGrowth = 0) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i] = metaData[0];
     }
     if (i === 4 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[4] > 0) {
-        for (var j = 94; j <= 98; j++) {
+        for (let j = 94; j <= 98; j++) {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.upgrades[j] = 1;
             (0,_Upgrades__WEBPACK_IMPORTED_MODULE_4__.upgradeupdate)(j, true);
         }
@@ -13459,7 +13459,7 @@ const visualUpdateCubes = () => {
     let prefixes = ['cube', 'tesseract', 'hypercube'];
     let power = [4, 3, 2];
     let multipliers = [10, 10, 5];
-    for (var i = 0; i <= 2; i++) {
+    for (let i = 0; i <= 2; i++) {
         document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'QuarkDaily']) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades[prefixes[i] + 'ToQuarkBought']);
         document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'OpenedDaily'], 0, true);
         document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(Math.max(0, multipliers[i] * Math.pow(Math.min(25 + 75 * +_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades[`${prefixes[i]}ToQuarkBought`], 1 + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'QuarkDaily']), power[i]) - _Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'OpenedDaily']), 0, true);
@@ -15575,6 +15575,7 @@ const generateEventHandlers = () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "platUpgradeBaseCosts": () => /* binding */ platUpgradeBaseCosts,
 /* harmony export */   "createPlatonicDescription": () => /* binding */ createPlatonicDescription,
 /* harmony export */   "buyPlatonicUpgrades": () => /* binding */ buyPlatonicUpgrades
 /* harmony export */ });
@@ -15765,7 +15766,7 @@ const checkPlatonicUpgrade = (index) => {
         abyssals: false,
         canBuy: false,
     };
-    for (var i = 0; i < resources.length; i++) {
+    for (let i = 0; i < resources.length; i++) {
         if (platUpgradeBaseCosts[index][resources[i]] <= _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[resourceNames[i]]) {
             checksum++;
             checks[resources[i]] = true;
@@ -16390,7 +16391,8 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
     });
 };
 const RegisteredPlugins = [
-    ['Example Plugin', 'Example.ts']
+    ['Example Plugin', 'Example.ts'],
+    ['Synergism Dashboard', 'Dashboard.ts']
 ];
 const loadPlugins = () => __awaiter(void 0, void 0, void 0, function* () {
     for (const [name, fileName] of RegisteredPlugins) {
@@ -16411,13 +16413,21 @@ const loadPlugins = () => __awaiter(void 0, void 0, void 0, function* () {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
-	"./Example": [
+	"./Dashboard": [
 		38,
 		1
 	],
-	"./Example.ts": [
+	"./Dashboard.ts": [
 		38,
 		1
+	],
+	"./Example": [
+		39,
+		2
+	],
+	"./Example.ts": [
+		39,
+		2
 	],
 	"./Plugins": [
 		36

@@ -260,7 +260,7 @@ export const visualUpdateCubes = () => {
     let prefixes = ['cube', 'tesseract', 'hypercube'] as const;
     let power = [4, 3, 2]
     let multipliers = [10, 10, 5]
-    for (var i = 0; i <= 2; i++) {
+    for (let i = 0; i <= 2; i++) {
         document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = format(player[prefixes[i] + 'QuarkDaily']) + "/" + format(25 + 75 * (player.shopUpgrades[prefixes[i] + 'ToQuarkBought'] as number));
         document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = format(player[prefixes[i] + 'OpenedDaily'], 0, true);
         document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = format(Math.max(0, multipliers[i] * Math.pow(

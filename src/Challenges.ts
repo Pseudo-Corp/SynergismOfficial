@@ -279,9 +279,9 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         m.textContent = ""
         n.textContent = ""
     }
-    var scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
-    var scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
-    var scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
+    let scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
+    let scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
+    let scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
     let scoreDisplay = 0;
     if(i <= 5){
         if(player.highestchallengecompletions[i] >= 750){scoreDisplay = scoreArray3[i]}

@@ -104,7 +104,7 @@ export const toggleChallenges = (i: number, auto = false) => {
             if (player.currentChallenge.ascension === 15) {
                 player.usedCorruptions[0] = 0;
                 player.prototypeCorruptions[0] = 0;
-                for (var i = 1; i <= 9; i++) {
+                for (let i = 1; i <= 9; i++) {
                     player.usedCorruptions[i] = 11;
                 }
             }

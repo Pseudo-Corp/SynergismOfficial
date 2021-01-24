@@ -30,7 +30,7 @@ export interface IPlatBaseCost {
     maxLevel: number
 }
 
-const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
+export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     1: {
         obtainium: 1e70,
         offerings: 1e45,
@@ -197,7 +197,7 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
         abyssals: false,
         canBuy: false,
     }
-    for (var i = 0; i < resources.length; i++) {
+    for (let i = 0; i < resources.length; i++) {
         if (platUpgradeBaseCosts[index][resources[i]] <= player[resourceNames[i]]) {
             checksum++;
             checks[resources[i]] = true

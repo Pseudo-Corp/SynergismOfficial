@@ -253,7 +253,7 @@ export const buyCubeUpgrades = (i: number, linGrowth = 0) => {
     }
 
     if(i === 4 && player.cubeUpgrades[4] > 0){
-        for(var j = 94; j <= 98; j++){
+        for(let j = 94; j <= 98; j++){
             player.upgrades[j] = 1;
             upgradeupdate(j, true)
         }

@@ -613,7 +613,7 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
 
     if (i >= 11 && i <= 14) {
         let challengeArray = [0, 1, 2, 3, 5, 10, 20, 30]
-        for (var j = 1; j <= 7; j++) {
+        for (let j = 1; j <= 7; j++) {
             if (player.challengecompletions[i] >= challengeArray[j] && player.achievements[119 + 7 * i + j] < 1) {
                 achievementaward(119 + 7 * i + j)
             }
