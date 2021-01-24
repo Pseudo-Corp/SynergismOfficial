@@ -2391,7 +2391,6 @@ export const resetCheck = (i: string, manual = true, leaving = false) => {
                 resetachievementcheck(1);
                 reset(1);
             }
-        } else {
         }
     }
     if (i === 'transcend') {
@@ -3380,10 +3379,10 @@ document.addEventListener('keydown', (event) => {
             break;
         case "E":
             if (player.currentChallenge.reincarnation !== 0) {
-                resetCheck('reincarnationchallenge', null, true)
+                resetCheck('reincarnationchallenge', undefined, true)
             }
             if (player.currentChallenge.transcension !== 0) {
-                resetCheck('challenge', null, true)
+                resetCheck('challenge', undefined, true)
             }
             break;
         case "M":
