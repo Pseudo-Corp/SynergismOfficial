@@ -58,6 +58,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Corruptions__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(27);
 /* harmony import */ var _EventListeners__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(32);
 /* harmony import */ var _Plugins_Plugins__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(36);
+/* harmony import */ var _Helper__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(38);
+
 
 
 
@@ -2124,8 +2126,6 @@ const resetCheck = (i, manual = true, leaving = false) => {
                 (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(1);
             }
         }
-        else {
-        }
     }
     if (i === 'transcend') {
         if ((player.coinsThisTranscension.gte(1e100) || _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.transcendPointGain.gte(0.5)) && player.currentChallenge.transcension === 0) {
@@ -2649,10 +2649,11 @@ function tack(dt) {
     if (!_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.timeWarp) {
         (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.dailyResetCheck)();
         let timeMult = (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateTimeAcceleration)();
-        player.quarkstimer += dt;
-        if (player.quarkstimer >= (90000 + 45000 * player.researches[195])) {
-            player.quarkstimer = (90000 + 45000 * player.researches[195]);
-        }
+        (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("prestige", dt);
+        (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("transcension", dt);
+        (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("reincarnation", dt);
+        (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("ascension", dt);
+        (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("quarks", dt);
         if (player.researches[61] > 0) {
             player.obtainiumtimer += (dt * timeMult);
         }
@@ -3019,10 +3020,10 @@ document.addEventListener('keydown', (event) => {
             break;
         case "E":
             if (player.currentChallenge.reincarnation !== 0) {
-                resetCheck('reincarnationchallenge', null, true);
+                resetCheck('reincarnationchallenge', undefined, true);
             }
             if (player.currentChallenge.transcension !== 0) {
-                resetCheck('challenge', null, true);
+                resetCheck('challenge', undefined, true);
             }
             break;
         case "M":
@@ -6048,7 +6049,7 @@ const runChallengeSweep = (dt) => {
         _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoChallengeTimerIncrement += dt;
         if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoChallengeTimerIncrement >= _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.autoChallengeTimer.exit) {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.currentChallenge.transcension !== 0 && _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.autoChallengeIndex <= 5) {
-                (0,_Synergism__WEBPACK_IMPORTED_MODULE_1__.resetCheck)('challenge', null, true);
+                (0,_Synergism__WEBPACK_IMPORTED_MODULE_1__.resetCheck)('challenge', undefined, true);
                 _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoChallengeTimerIncrement = 0;
                 _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.autoChallengeIndex += 1;
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.autoChallengeTimer.enter >= 1) {
@@ -6056,7 +6057,7 @@ const runChallengeSweep = (dt) => {
                 }
             }
             if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.currentChallenge.reincarnation !== 0 && _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.autoChallengeIndex > 5) {
-                (0,_Synergism__WEBPACK_IMPORTED_MODULE_1__.resetCheck)('reincarnationchallenge', null, true);
+                (0,_Synergism__WEBPACK_IMPORTED_MODULE_1__.resetCheck)('reincarnationchallenge', undefined, true);
                 _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoChallengeTimerIncrement = 0;
                 _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.autoChallengeIndex += 1;
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.autoChallengeTimer.enter >= 1) {
@@ -15280,8 +15281,8 @@ const generateEventHandlers = () => {
     document.getElementById('transcendbtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('transcend'));
     document.getElementById('reincarnatebtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('reincarnate'));
     document.getElementById('acceleratorboostbtn').addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.boostAccelerator)());
-    document.getElementById('challengebtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('challenge', null, true));
-    document.getElementById('reincarnatechallengebtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('reincarnationchallenge', null, true));
+    document.getElementById('challengebtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('challenge', undefined, true));
+    document.getElementById('reincarnatechallengebtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('reincarnationchallenge', undefined, true));
     document.getElementById('ascendChallengeBtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('ascensionChallenge'));
     document.getElementById('ascendbtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('ascend'));
     document.getElementById('buildingstab').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleTabs)('buildings'));
@@ -16428,19 +16429,19 @@ const loadPlugins = () => __awaiter(void 0, void 0, void 0, function* () {
 
 var map = {
 	"./Dashboard": [
-		38,
+		39,
 		1
 	],
 	"./Dashboard.ts": [
-		38,
+		39,
 		1
 	],
 	"./Example": [
-		39,
+		40,
 		2
 	],
 	"./Example.ts": [
-		39,
+		40,
 		2
 	],
 	"./Plugins": [
@@ -16467,6 +16468,49 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = () => Object.keys(map);
 webpackAsyncContext.id = 37;
 module.exports = webpackAsyncContext;
+
+/***/ }),
+/* 38 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getMaxQuarkTime": () => /* binding */ getMaxQuarkTime,
+/* harmony export */   "addTimers": () => /* binding */ addTimers
+/* harmony export */ });
+/* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
+
+
+const getMaxQuarkTime = () => {
+    let time = 90000;
+    time += 45000 * _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.researches[195];
+    return time;
+};
+const addTimers = (input, time) => {
+    let timeMultiplier = (input == "ascension" || input == "quarks") ? 1 : (0,_Calculate__WEBPACK_IMPORTED_MODULE_0__.calculateTimeAcceleration)();
+    switch (input) {
+        case "prestige":
+            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.prestigecounter += time * timeMultiplier;
+            break;
+        case "transcension":
+            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.transcendcounter += time * timeMultiplier;
+            break;
+        case "reincarnation":
+            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.reincarnationcounter += time * timeMultiplier;
+            break;
+        case "ascension":
+            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.ascensionCounter += time * timeMultiplier;
+            break;
+        case "quarks":
+            let maxQuarkTimer = getMaxQuarkTime();
+            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.quarkstimer += time * timeMultiplier;
+            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.quarkstimer = (_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.quarkstimer > maxQuarkTimer) ? maxQuarkTimer : _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.quarkstimer;
+            break;
+    }
+};
+
 
 /***/ })
 /******/ 	]);

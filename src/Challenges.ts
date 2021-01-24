@@ -457,7 +457,7 @@ export const runChallengeSweep = (dt: number) => {
         G['autoChallengeTimerIncrement'] += dt
         if (G['autoChallengeTimerIncrement'] >= player.autoChallengeTimer.exit) {
             if (player.currentChallenge.transcension !== 0 && player.autoChallengeIndex <= 5) {
-                resetCheck('challenge', null, true)
+                resetCheck('challenge', undefined, true)
                 G['autoChallengeTimerIncrement'] = 0;
                 player.autoChallengeIndex += 1
                 if (player.autoChallengeTimer.enter >= 1) {
@@ -465,7 +465,7 @@ export const runChallengeSweep = (dt: number) => {
                 }
             }
             if (player.currentChallenge.reincarnation !== 0 && player.autoChallengeIndex > 5) {
-                resetCheck('reincarnationchallenge', null, true)
+                resetCheck('reincarnationchallenge', undefined, true)
                 G['autoChallengeTimerIncrement'] = 0;
                 player.autoChallengeIndex += 1
                 if (player.autoChallengeTimer.enter >= 1) {
