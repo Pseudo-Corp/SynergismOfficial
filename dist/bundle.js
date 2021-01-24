@@ -15972,7 +15972,10 @@ const exportSynergism = () => __awaiter(void 0, void 0, void 0, function* () {
         : 'Savefile copied to file!';
 });
 const resetGame = () => {
-    if (!confirm('Are you sure you want to reset your game?')) {
+    if (!confirm('Are you sure you want to wipe your savefile?')) {
+        return;
+    }
+    if (!confirm('Are you ABSOLUTELY sure you want to wipe your savefile? This is your final confirmation!')) {
         return;
     }
     const hold = Object.assign({}, _Synergism__WEBPACK_IMPORTED_MODULE_0__.blankSave, {

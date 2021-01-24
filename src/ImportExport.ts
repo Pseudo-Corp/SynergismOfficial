@@ -103,10 +103,13 @@ export const exportSynergism = async () => {
 }
 
 export const resetGame = () => {
-    if (!confirm('Are you sure you want to reset your game?')) {
+    if (!confirm('Are you sure you want to wipe your savefile?')) {
         return;
     }
 
+    if (!confirm('Are you ABSOLUTELY sure you want to wipe your savefile? This is your final confirmation!')){
+        return;
+    }
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
     });
