@@ -30,10 +30,7 @@ const SplitTime = (numberOfHours) => {
     return ({ Days, Hours, Minutes });
 };
 const getCubeTimes = (i = 5, levels = 1) => {
-    const x = (0,_Calculate__WEBPACK_IMPORTED_MODULE_0__.CalcCorruptionStuff)();
-    const tess = x[5];
-    const hyper = x[6];
-    const plat = x[7];
+    const [, , , , , tess, hyper, plat] = (0,_Calculate__WEBPACK_IMPORTED_MODULE_0__.CalcCorruptionStuff)();
     const Upgrades = _Platonic__WEBPACK_IMPORTED_MODULE_1__.platUpgradeBaseCosts[i];
     const tessCost = Upgrades.tesseracts * levels;
     const hyperCost = Upgrades.hypercubes * levels;
@@ -50,22 +47,21 @@ const getCubeTimes = (i = 5, levels = 1) => {
     const Tess = SplitTime(Math.max(0, tessTimeNeeded));
     const totalTimeNeeded = Math.max(0, platTimeNeeded, hyperTimeNeeded, tessTimeNeeded);
     const minutesToAdd = totalTimeNeeded * 60;
-    const currentDate = new Date();
-    const futureDate = new Date(currentDate.getTime() + minutesToAdd * 60000);
-    return `
-Time left until next ${levels} level(s) of platonic upgrade ${i} purchase:
-Plats: ${Plats.Days} Days, ${Plats.Hours} Hours, ${Plats.Minutes} Minutes
-Hypers: ${Hypers.Days} Days, ${Hypers.Hours} Hours, ${Hypers.Minutes} Minutes
-Tess: ${Tess.Days} Days, ${Tess.Hours} Hours, ${Tess.Minutes} Minutes
+    const futureDate = new Date(Date.now() + minutesToAdd * 60000);
+    return _Utility__WEBPACK_IMPORTED_MODULE_5__.stripIndents `
+        Time left until next ${levels} level(s) of platonic upgrade ${i} purchase:
+        Plats: ${Plats.Days} Days, ${Plats.Hours} Hours, ${Plats.Minutes} Minutes
+        Hypers: ${Hypers.Days} Days, ${Hypers.Hours} Hours, ${Hypers.Minutes} Minutes
+        Tess: ${Tess.Days} Days, ${Tess.Hours} Hours, ${Tess.Minutes} Minutes
 
-At your current rate, you are expected to get this at:
-${futureDate}
+        At your current rate, you are expected to get this at:
+        ${futureDate}
 
-Leftovers after ${(totalTimeNeeded / 24).toPrecision(4)} days:
-Platonics: ${(platRate * (totalTimeNeeded - platTimeNeeded)).toPrecision(4)}
-Hypers: ${(hyperRate * (totalTimeNeeded - hyperTimeNeeded)).toPrecision(4)}
-Tesseracts: ${(tessRate * (totalTimeNeeded - tessTimeNeeded)).toPrecision(4)}
-    `.trim();
+        Leftovers after ${(totalTimeNeeded / 24).toPrecision(4)} days:
+        Platonics: ${(platRate * (totalTimeNeeded - platTimeNeeded)).toPrecision(4)}
+        Hypers: ${(hyperRate * (totalTimeNeeded - hyperTimeNeeded)).toPrecision(4)}
+        Tesseracts: ${(tessRate * (totalTimeNeeded - tessTimeNeeded)).toPrecision(4)}
+    `;
 };
 const GM_addStyle = (css) => {
     const style = document.createElement('style');

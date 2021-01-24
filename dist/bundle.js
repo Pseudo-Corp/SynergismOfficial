@@ -5160,7 +5160,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "sumContents": () => /* binding */ sumContents,
 /* harmony export */   "productContents": () => /* binding */ productContents,
 /* harmony export */   "sortWithIndeces": () => /* binding */ sortWithIndeces,
-/* harmony export */   "getElementById": () => /* binding */ getElementById
+/* harmony export */   "getElementById": () => /* binding */ getElementById,
+/* harmony export */   "stripIndents": () => /* binding */ stripIndents
 /* harmony export */ });
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 
@@ -5191,6 +5192,15 @@ const sortWithIndeces = (toSort) => {
         .sort((a, b) => toSort[a] < toSort[b] ? -1 : +(toSort[b] < toSort[a]));
 };
 const getElementById = (id) => document.getElementById(id);
+const stripIndents = (...temp) => {
+    var _a;
+    const [s, ...args] = temp;
+    let f = '';
+    for (let i = 0; i < s.length; i++) {
+        f += `${s[i].replace(/\n +/g, '\n')}${(_a = args.shift()) !== null && _a !== void 0 ? _a : ''}`;
+    }
+    return f.trim();
+};
 
 
 /***/ }),
@@ -10307,11 +10317,8 @@ const resetrepeat = (i) => {
     repeatreset = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.interval)(() => resetdetails(i), 50);
 };
 const resetdetails = (i) => {
-    let r = 0;
     (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)('resetofferings1').src = "Pictures/Offering.png";
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension !== 0) {
-        r = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension;
-    }
+    const r = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension;
     document.getElementById("resetofferings1").style.display = "block";
     document.getElementById("resetofferings2").style.display = "block";
     let offering = 0;

@@ -54,3 +54,18 @@ export const sortWithIndeces = (toSort: number[]) => {
  * @param id {string}
  */
 export const getElementById = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+
+/**
+ * Remove leading indents at the beginning of new lines in a template literal. 
+ */
+export const stripIndents = (...temp: TemplateStringsArray[] | any[]) => {
+    const [s, ...args] = temp;
+    let f = '';
+    for (let i = 0; i < s.length; i++) {
+        // rather than using \s+ for all whitespace, we use a normal space
+        // this fixes a bug where two+ new lines will be transformed into 1
+        f += `${s[i].replace(/\n +/g, '\n')}${args.shift() ?? ''}`
+    }
+
+    return f.trim();
+}

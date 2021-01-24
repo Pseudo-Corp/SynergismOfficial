@@ -23,13 +23,9 @@ export const resetrepeat = (i: number) => {
 }
 
 export const resetdetails = (i: number) => {
-    let r = 0;
-
     getElementById<HTMLImageElement>('resetofferings1').src = "Pictures/Offering.png"
 
-    if (player.currentChallenge.transcension !== 0) {
-        r = player.currentChallenge.transcension
-    }
+    const r = player.currentChallenge.transcension;
 
     document.getElementById("resetofferings1").style.display = "block"
     document.getElementById("resetofferings2").style.display = "block"
