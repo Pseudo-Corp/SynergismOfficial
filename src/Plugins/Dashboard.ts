@@ -91,8 +91,8 @@ const statValues: Record<number, (el: HTMLElement) => void> = {
     13: el => {
         const talismanColors = [ 'white', 'limegreen', 'lightblue', 'plum', 'orange', 'crimson' ];
         el.querySelectorAll('span').forEach((span, i) => {
-            span.style.color = talismanColors[player.talismanRarity[i + 1] - 1];
-            span.textContent = player.talismanLevels[i + 1] + '';
+            span.style.color = talismanColors[player.talismanRarity[i] - 1];
+            span.textContent = player.talismanLevels[i] + '';
         });
     },
     14: el => {

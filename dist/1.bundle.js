@@ -85,8 +85,8 @@ const statValues = {
     13: el => {
         const talismanColors = ['white', 'limegreen', 'lightblue', 'plum', 'orange', 'crimson'];
         el.querySelectorAll('span').forEach((span, i) => {
-            span.style.color = talismanColors[_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.talismanRarity[i + 1] - 1];
-            span.textContent = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.talismanLevels[i + 1] + '';
+            span.style.color = talismanColors[_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.talismanRarity[i] - 1];
+            span.textContent = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.talismanLevels[i] + '';
         });
     },
     14: el => {
