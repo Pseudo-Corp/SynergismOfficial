@@ -9759,12 +9759,12 @@ const challengeCompletionsBar = [
     [9, 0.5, 134], [9, 1.5, 135], [9, 2.5, 136], [9, 4.5, 137], [9, 9.5, 138], [9, 19.5, 139], [9, 24.5, 140],
     [10, 0.5, 141], [10, 1.5, 142], [10, 2.5, 143], [10, 4.5, 144], [10, 9.5, 145], [10, 19.5, 146], [10, 24.5, 147]
 ];
-const challengeCompletionsNotAuto = [
-    [1, '1e1000', 75],
-    [2, '1e1000', 76],
-    [3, '1e99999', 77],
-    [5, '1e120000', 63]
-];
+const challengeCompletionsNotAuto = {
+    1: ['1e1000', 75],
+    2: ['1e1000', 76],
+    3: ['1e99999', 77],
+    5: ['1e120000', 63]
+};
 const challengeachievementcheck = (i, auto) => {
     const generatorcheck = (0,_Utility__WEBPACK_IMPORTED_MODULE_4__.sumContents)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades.slice(100, 105));
     for (const [, bar, ach] of challengeCompletionsBar.filter(([o]) => o === i)) {
@@ -9773,7 +9773,7 @@ const challengeachievementcheck = (i, auto) => {
         }
     }
     if ([1, 2, 3, 5].includes(i)) {
-        const [, gte, ach] = challengeCompletionsNotAuto[i];
+        const [gte, ach] = challengeCompletionsNotAuto[i];
         if (!auto) {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte(gte) && generatorcheck === 0) {
                 achievementaward(ach);

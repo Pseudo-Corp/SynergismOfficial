@@ -586,12 +586,12 @@ const challengeCompletionsBar: [number, number, number][] = [
     [10, 0.5, 141], [10, 1.5, 142], [10, 2.5, 143], [10, 4.5, 144], [10, 9.5, 145], [10, 19.5, 146], [10, 24.5, 147]
 ];
 
-const challengeCompletionsNotAuto: [number, string, number][] = [
-    [1, '1e1000', 75],
-    [2, '1e1000', 76],
-    [3, '1e99999', 77],
-    [5, '1e120000', 63]
-]
+const challengeCompletionsNotAuto: Record<number, [string, number]> = {
+    1: ['1e1000', 75],
+    2: ['1e1000', 76],
+    3: ['1e99999', 77],
+    5: ['1e120000', 63]
+}
 
 export const challengeachievementcheck = (i: number, auto?: boolean) => {
     const generatorcheck = sumContents(player.upgrades.slice(100, 105));
@@ -603,7 +603,7 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
     }
 
     if ([1, 2, 3, 5].includes(i)) {
-        const [, gte, ach] = challengeCompletionsNotAuto[i];
+        const [gte, ach] = challengeCompletionsNotAuto[i];
         if (!auto) {
             if (player.coinsThisTranscension.gte(gte) && generatorcheck === 0) {
                 achievementaward(ach);
