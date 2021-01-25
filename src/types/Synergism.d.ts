@@ -775,7 +775,6 @@ export interface GlobalVariables {
 
     buyMaxCubeUpgrades: boolean,
     autoOfferingCounter: number
-    autoOfferingCounter2: number
 
     researchOrderByCost: number[],
 

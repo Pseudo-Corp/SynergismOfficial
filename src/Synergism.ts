@@ -11,7 +11,7 @@ import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Researc
 import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, CSSRuneBlessings, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateTimeAcceleration, calculateMaxRunes, calculateOfferings, calculateAutomaticObtainium, calculateAcceleratorMultiplier } from './Calculate';
+import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
 import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, keyboardTabChange, toggleauto } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
@@ -29,7 +29,7 @@ import { updateCubeUpgradeBG } from './Cubes';
 import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import { loadPlugins } from './Plugins/Plugins';
-import { addTimers } from './Helper';
+import { addTimers, automaticTools } from './Helper';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -2885,12 +2885,6 @@ export const updateAll = () => {
     G['optimalObtainiumTimer'] = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel;
     autoBuyAnts()
 
-    let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
-    if (timer >= player.autoAntSacTimer && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.gte("1e40")) {
-        sacrificeAnts(true)
-    }
-
-
     if (player.autoAscend) {
         if (player.autoAscendMode === "c10Completions" && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
             reset(4, true)
@@ -2986,7 +2980,6 @@ const tick = () => {
 function tack(dt: number) {
     if (!G['timeWarp']) {
         dailyResetCheck();
-        let timeMult = calculateTimeAcceleration();
 
         //Adds time (in milliseconds) to all reset functions, and quarks timer.
         addTimers("prestige", dt)
@@ -2994,43 +2987,21 @@ function tack(dt: number) {
         addTimers("reincarnation", dt)
         addTimers("ascension", dt)
         addTimers("quarks", dt)
-        if (player.researches[61] > 0) {
-            player.obtainiumtimer += (dt * timeMult);
-        }
 
+        //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
         if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle) {
-            player.sacrificeTimer += (dt * timeMult)
-            if (player.sacrificeTimer >= 1) {
-                if (player.cubeUpgrades[20] === 0) {
-                    let rune = player.autoSacrifice;
-                    redeemShards(rune, true, 0);
-                    player.sacrificeTimer -= 1;
-                }
-                if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
-                    let unmaxed = 0;
-                    for (let i = 1; i <= 5; i++) {
-                        if (player.runelevels[i - 1] < calculateMaxRunes(i))
-                            unmaxed++;
-                    }
-                    if (unmaxed > 0) {
-                        let baseAmount = Math.floor(player.runeshards / unmaxed);
-                        for (let i = 1; i <= 5; i++) {
-                            redeemShards(i, true, baseAmount);
-                        }
-                        player.sacrificeTimer = player.sacrificeTimer % 1;
-                    }
-                }
-            }
+            automaticTools("runeSacrifice", dt)
         }
 
+        //Triggers automatic ant sacrifice (adds milliseonds to payload timers)
         if (player.achievements[173] === 1) {
-            player.antSacrificeTimer += (dt * timeMult)
-            player.antSacrificeTimerReal += dt;
+            automaticTools("antSacrifice", dt);
         }
-        calculateObtainium();
         if (player.researches[61] === 1) {
-            player.researchPoints += calculateAutomaticObtainium() * dt
-            if (player.autoResearch > 0 && player.autoResearchToggle && player.autoResearch <= maxRoombaResearchIndex(player)) {
+            automaticTools("addObtainium", dt)
+        }
+
+        if (player.autoResearch > 0 && player.autoResearchToggle && player.autoResearch <= maxRoombaResearchIndex(player)) {
                 // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
                 let counter = 0;
                 let maxCount = 1 + player.challengecompletions[14];
@@ -3044,20 +3015,14 @@ function tack(dt: number) {
             }
         }
 
+        // Adds an offering every 2 seconds
         if (player.highestchallengecompletions[3] > 0) {
-            G['autoOfferingCounter'] += dt
-            if (G['autoOfferingCounter'] > 2) {
-                player.runeshards += Math.floor(G['autoOfferingCounter'] / 2)
-            }
-            G['autoOfferingCounter'] = G['autoOfferingCounter'] % 2
+            automaticTools("addOfferings", dt/2)
         }
 
+        // Adds an offering every 1/(cube upgrade 1x2) seconds. It shares a timer with the one above.
         if (player.cubeUpgrades[2] > 0) {
-            G['autoOfferingCounter2'] += dt
-            if (G['autoOfferingCounter2'] > (1 / player.cubeUpgrades[2])) {
-                player.runeshards += Math.floor(G['autoOfferingCounter2'] * player.cubeUpgrades[2])
-            }
-            G['autoOfferingCounter2'] = G['autoOfferingCounter2'] % (1 / player.cubeUpgrades[2])
+            automaticTools("addOfferings", dt * player.cubeUpgrades[2])
         }
 
         if (player.researches[130] > 0 || player.researches[135] > 0) {
@@ -3159,10 +3124,9 @@ function tack(dt: number) {
                 }
             }
         }
+        calculateOfferings(3)
     }
 
-    calculateOfferings(3)
-}
 
 document.addEventListener('keydown', (event) => {
     if (document.activeElement && document.activeElement.localName === 'input') {

@@ -434,8 +434,7 @@ export const calculateObtainium = () => {
 }
 
 export const calculateAutomaticObtainium = () => {
-    let timeMult = calculateTimeAcceleration();
-    return 0.05 * (10 * player.researches[61] + 2 * player.researches[62]) * player.maxobtainiumpersecond * timeMult * (1 + 4 * player.cubeUpgrades[3] / 5);
+    return 0.05 * (10 * player.researches[61] + 2 * player.researches[62]) * player.maxobtainiumpersecond * (1 + 4 * player.cubeUpgrades[3] / 5);
 }
 
 export const calculateTalismanEffects = () => {
@@ -783,7 +782,7 @@ export const calculateOffline = (forceTime = 0) => {
         if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
             calculateObtainium();
             automaticObtainium = calculateAutomaticObtainium();
-            player.researchPoints += tickValue * automaticObtainium;
+            player.researchPoints += tickValue * timeMultiplier * automaticObtainium;
         }
         //Auto Ant Sacrifice Stuff
         if (player.achievements[173] > 0) {
