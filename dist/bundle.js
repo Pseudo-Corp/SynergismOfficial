@@ -2564,10 +2564,6 @@ const updateAll = () => {
     _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.optimalOfferingTimer = 600 + 30 * player.researches[85] + 0.4 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.rune5level + 120 * player.shopUpgrades.offeringTimerLevel;
     _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel;
     (0,_Ants__WEBPACK_IMPORTED_MODULE_16__.autoBuyAnts)();
-    let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
-    if (timer >= player.autoAntSacTimer && player.researches[124] === 1 && player.autoAntSacrifice && player.antPoints.gte("1e40")) {
-        (0,_Ants__WEBPACK_IMPORTED_MODULE_16__.sacrificeAnts)(true);
-    }
     if (player.autoAscend) {
         if (player.autoAscendMode === "c10Completions" && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
             (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(4, true);
@@ -2648,163 +2644,128 @@ const tick = () => {
 function tack(dt) {
     if (!_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.timeWarp) {
         (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.dailyResetCheck)();
-        let timeMult = (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateTimeAcceleration)();
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("prestige", dt);
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("transcension", dt);
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("reincarnation", dt);
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("ascension", dt);
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("quarks", dt);
-        if (player.researches[61] > 0) {
-            player.obtainiumtimer += (dt * timeMult);
-        }
         if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle) {
-            player.sacrificeTimer += (dt * timeMult);
-            if (player.sacrificeTimer >= 1) {
-                if (player.cubeUpgrades[20] === 0) {
-                    let rune = player.autoSacrifice;
-                    (0,_Runes__WEBPACK_IMPORTED_MODULE_22__.redeemShards)(rune, true, 0);
-                    player.sacrificeTimer -= 1;
-                }
-                if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
-                    let unmaxed = 0;
-                    for (let i = 1; i <= 5; i++) {
-                        if (player.runelevels[i - 1] < (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateMaxRunes)(i))
-                            unmaxed++;
-                    }
-                    if (unmaxed > 0) {
-                        let baseAmount = Math.floor(player.runeshards / unmaxed);
-                        for (let i = 1; i <= 5; i++) {
-                            (0,_Runes__WEBPACK_IMPORTED_MODULE_22__.redeemShards)(i, true, baseAmount);
-                        }
-                        player.sacrificeTimer = player.sacrificeTimer % 1;
-                    }
-                }
-            }
+            (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.automaticTools)("runeSacrifice", dt);
         }
         if (player.achievements[173] === 1) {
-            player.antSacrificeTimer += (dt * timeMult);
-            player.antSacrificeTimerReal += dt;
+            (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.automaticTools)("antSacrifice", dt);
         }
-        (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateObtainium)();
         if (player.researches[61] === 1) {
-            player.researchPoints += (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateAutomaticObtainium)() * dt;
-            if (player.autoResearch > 0 && player.autoResearchToggle && player.autoResearch <= (0,_Research__WEBPACK_IMPORTED_MODULE_6__.maxRoombaResearchIndex)(player)) {
-                let counter = 0;
-                let maxCount = 1 + player.challengecompletions[14];
-                while (counter < maxCount) {
-                    if (player.autoResearch) {
-                        const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
-                        (0,_Research__WEBPACK_IMPORTED_MODULE_6__.buyResearch)(player.autoResearch, true, linGrowth);
-                    }
-                    counter++;
+            (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.automaticTools)("addObtainium", dt);
+        }
+        if (player.autoResearch > 0 && player.autoResearchToggle && player.autoResearch <= (0,_Research__WEBPACK_IMPORTED_MODULE_6__.maxRoombaResearchIndex)(player)) {
+            let counter = 0;
+            let maxCount = 1 + player.challengecompletions[14];
+            while (counter < maxCount) {
+                if (player.autoResearch) {
+                    const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
+                    (0,_Research__WEBPACK_IMPORTED_MODULE_6__.buyResearch)(player.autoResearch, true, linGrowth);
                 }
+                counter++;
             }
         }
-        if (player.highestchallengecompletions[3] > 0) {
-            _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoOfferingCounter += dt;
-            if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoOfferingCounter > 2) {
-                player.runeshards += Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoOfferingCounter / 2);
+    }
+    if (player.highestchallengecompletions[3] > 0) {
+        (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.automaticTools)("addOfferings", dt / 2);
+    }
+    if (player.cubeUpgrades[2] > 0) {
+        (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.automaticTools)("addOfferings", dt * player.cubeUpgrades[2]);
+    }
+    if (player.researches[130] > 0 || player.researches[135] > 0) {
+        if (player.researches[135] > 0 && player.autoEnhanceToggle == true) {
+            if (player.achievements[119] > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(1, true);
             }
-            _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoOfferingCounter = _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoOfferingCounter % 2;
-        }
-        if (player.cubeUpgrades[2] > 0) {
-            _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoOfferingCounter2 += dt;
-            if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoOfferingCounter2 > (1 / player.cubeUpgrades[2])) {
-                player.runeshards += Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoOfferingCounter2 * player.cubeUpgrades[2]);
+            if (player.achievements[126] > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(2, true);
             }
-            _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoOfferingCounter2 = _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoOfferingCounter2 % (1 / player.cubeUpgrades[2]);
-        }
-        if (player.researches[130] > 0 || player.researches[135] > 0) {
-            if (player.researches[135] > 0 && player.autoEnhanceToggle == true) {
-                if (player.achievements[119] > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(1, true);
-                }
-                if (player.achievements[126] > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(2, true);
-                }
-                if (player.achievements[133] > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(3, true);
-                }
-                if (player.achievements[140] > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(4, true);
-                }
-                if (player.achievements[147] > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(5, true);
-                }
-                if (player.antUpgrades[12 - 1] > 0 || player.ascensionCount > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(6, true);
-                }
-                if (player.shopUpgrades.talismanBought) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(7, true);
-                }
+            if (player.achievements[133] > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(3, true);
             }
-            if (player.researches[130] > 0 && player.autoFortifyToggle == true) {
-                if (player.achievements[119] > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(1, true);
-                }
-                if (player.achievements[126] > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(2, true);
-                }
-                if (player.achievements[133] > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(3, true);
-                }
-                if (player.achievements[140] > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(4, true);
-                }
-                if (player.achievements[147] > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(5, true);
-                }
-                if (player.antUpgrades[12 - 1] > 0 || player.ascensionCount > 0) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(6, true);
-                }
-                if (player.shopUpgrades.talismanBought) {
-                    (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(7, true);
-                }
+            if (player.achievements[140] > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(4, true);
+            }
+            if (player.achievements[147] > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(5, true);
+            }
+            if (player.antUpgrades[12 - 1] > 0 || player.ascensionCount > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(6, true);
+            }
+            if (player.shopUpgrades.talismanBought) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(7, true);
             }
         }
-        (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.runChallengeSweep)(dt);
-        if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
-            if (player.toggles[15] === true && player.achievements[43] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.prestigePointGain.gte(player.prestigePoints.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, player.prestigeamount))) && player.coinsThisPrestige.gte(1e16)) {
-                (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(1, true);
+        if (player.researches[130] > 0 && player.autoFortifyToggle == true) {
+            if (player.achievements[119] > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(1, true);
+            }
+            if (player.achievements[126] > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(2, true);
+            }
+            if (player.achievements[133] > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(3, true);
+            }
+            if (player.achievements[140] > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(4, true);
+            }
+            if (player.achievements[147] > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(5, true);
+            }
+            if (player.antUpgrades[12 - 1] > 0 || player.ascensionCount > 0) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(6, true);
+            }
+            if (player.shopUpgrades.talismanBought) {
+                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(7, true);
             }
         }
-        if (player.resettoggle1 === 2) {
-            _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.prestige += dt;
-            let time = Math.max(0.01, player.prestigeamount);
-            if (player.toggles[15] === true && player.achievements[43] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.prestige >= time && player.coinsThisPrestige.gte(1e16)) {
-                (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(1, true);
+    }
+    (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.runChallengeSweep)(dt);
+    if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
+        if (player.toggles[15] === true && player.achievements[43] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.prestigePointGain.gte(player.prestigePoints.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, player.prestigeamount))) && player.coinsThisPrestige.gte(1e16)) {
+            (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(1, true);
+        }
+    }
+    if (player.resettoggle1 === 2) {
+        _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.prestige += dt;
+        let time = Math.max(0.01, player.prestigeamount);
+        if (player.toggles[15] === true && player.achievements[43] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.prestige >= time && player.coinsThisPrestige.gte(1e16)) {
+            (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(1, true);
+        }
+    }
+    if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
+        if (player.toggles[21] === true && player.upgrades[89] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.transcendPointGain.gte(player.transcendPoints.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, player.transcendamount))) && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
+            (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(2, true);
+        }
+    }
+    if (player.resettoggle2 === 2) {
+        _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.transcension += dt;
+        let time = Math.max(0.01, player.transcendamount);
+        if (player.toggles[21] === true && player.upgrades[89] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.transcension >= time && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
+            (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(2, true);
+        }
+    }
+    if (player.currentChallenge.ascension !== 12) {
+        _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.reincarnation += dt;
+        if (player.resettoggle3 === 2) {
+            let time = Math.max(0.01, player.reincarnationamount);
+            if (player.toggles[27] === true && player.researches[46] > 0.5 && player.transcendShards.gte("1e300") && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.reincarnation >= time && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
+                (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3, true);
             }
         }
-        if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
-            if (player.toggles[21] === true && player.upgrades[89] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.transcendPointGain.gte(player.transcendPoints.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, player.transcendamount))) && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
-                (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(2, true);
-            }
-        }
-        if (player.resettoggle2 === 2) {
-            _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.transcension += dt;
-            let time = Math.max(0.01, player.transcendamount);
-            if (player.toggles[21] === true && player.upgrades[89] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.transcension >= time && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
-                (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(2, true);
-            }
-        }
-        if (player.currentChallenge.ascension !== 12) {
-            _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.reincarnation += dt;
-            if (player.resettoggle3 === 2) {
-                let time = Math.max(0.01, player.reincarnationamount);
-                if (player.toggles[27] === true && player.researches[46] > 0.5 && player.transcendShards.gte("1e300") && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.reincarnation >= time && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
-                    (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
-                    (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3, true);
-                }
-            }
-            if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
-                if (player.toggles[27] === true && player.researches[46] > 0.5 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.reincarnationPointGain.gte(player.reincarnationPoints.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, player.reincarnationamount))) && player.transcendShards.gte(1e300) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
-                    (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
-                    (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3, true);
-                }
+        if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
+            if (player.toggles[27] === true && player.researches[46] > 0.5 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.reincarnationPointGain.gte(player.reincarnationPoints.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, player.reincarnationamount))) && player.transcendShards.gte(1e300) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
+                (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3, true);
             }
         }
     }
@@ -5492,7 +5453,6 @@ const Globals = {
     platonicBonusMultiplier: [1, 1, 1, 1, 1, 1, 1, 1],
     buyMaxCubeUpgrades: false,
     autoOfferingCounter: 0,
-    autoOfferingCounter2: 0,
     researchOrderByCost: [],
     divisivenessPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1],
     maladaptivePower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1],
@@ -8034,8 +7994,7 @@ const calculateObtainium = () => {
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.maxobtainiumpersecond = Math.max(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.maxobtainiumpersecond, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.obtainiumpersecond);
 };
 const calculateAutomaticObtainium = () => {
-    let timeMult = calculateTimeAcceleration();
-    return 0.05 * (10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[61] + 2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[62]) * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.maxobtainiumpersecond * timeMult * (1 + 4 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[3] / 5);
+    return 0.05 * (10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[61] + 2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[62]) * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.maxobtainiumpersecond * (1 + 4 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[3] / 5);
 };
 const calculateTalismanEffects = () => {
     let positiveBonus = 0;
@@ -8355,7 +8314,7 @@ const calculateOffline = (forceTime = 0) => {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[61] > 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 14) {
             calculateObtainium();
             automaticObtainium = calculateAutomaticObtainium();
-            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += tickValue * automaticObtainium;
+            _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += tickValue * timeMultiplier * automaticObtainium;
         }
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[173] > 0) {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificeTimer += tickValue * timeMultiplier;
@@ -13424,7 +13383,7 @@ const visualUpdateResearch = () => {
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab !== "researches")
         return;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[61] > 0) {
-        document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.calculateAutomaticObtainium)(), 3, true) + " Obtainium per real life second.";
+        document.getElementById("automaticobtainium").textContent = "Thanks to researches you automatically gain " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.calculateAutomaticObtainium)() * (0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.calculateTimeAcceleration)(), 3, true) + " Obtainium per real life second.";
     }
 };
 const visualUpdateAnts = () => {
@@ -16452,36 +16411,99 @@ module.exports = webpackAsyncContext;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getMaxQuarkTime": () => /* binding */ getMaxQuarkTime,
-/* harmony export */   "addTimers": () => /* binding */ addTimers
+/* harmony export */   "addTimers": () => /* binding */ addTimers,
+/* harmony export */   "checkMaxRunes": () => /* binding */ checkMaxRunes,
+/* harmony export */   "automaticTools": () => /* binding */ automaticTools
 /* harmony export */ });
-/* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
-/* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
+/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
+/* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
+/* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(15);
+/* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
+/* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
+
+
+
 
 
 const getMaxQuarkTime = () => {
     let time = 90000;
-    time += 45000 * _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.researches[195];
+    time += 45000 * _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.researches[195];
     return time;
 };
 const addTimers = (input, time) => {
-    let timeMultiplier = (input == "ascension" || input == "quarks") ? 1 : (0,_Calculate__WEBPACK_IMPORTED_MODULE_0__.calculateTimeAcceleration)();
+    let timeMultiplier = (input == "ascension" || input == "quarks") ? 1 : (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateTimeAcceleration)();
     switch (input) {
         case "prestige":
-            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.prestigecounter += time * timeMultiplier;
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.prestigecounter += time * timeMultiplier;
             break;
         case "transcension":
-            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.transcendcounter += time * timeMultiplier;
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.transcendcounter += time * timeMultiplier;
             break;
         case "reincarnation":
-            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.reincarnationcounter += time * timeMultiplier;
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.reincarnationcounter += time * timeMultiplier;
             break;
         case "ascension":
-            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.ascensionCounter += time * timeMultiplier;
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.ascensionCounter += time * timeMultiplier;
             break;
         case "quarks":
             let maxQuarkTimer = getMaxQuarkTime();
-            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.quarkstimer += time * timeMultiplier;
-            _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.quarkstimer = (_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.quarkstimer > maxQuarkTimer) ? maxQuarkTimer : _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.quarkstimer;
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.quarkstimer += time * timeMultiplier;
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.quarkstimer = (_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.quarkstimer > maxQuarkTimer) ? maxQuarkTimer : _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.quarkstimer;
+            break;
+    }
+};
+const checkMaxRunes = () => {
+    let maxxed = 0;
+    for (let i = 1; i <= 5; i++) {
+        if (_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.runelevels[i - 1] >= (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateMaxRunes)(i))
+            maxxed++;
+    }
+    return maxxed;
+};
+const automaticTools = (input, time) => {
+    let timeMultiplier = (input == "runeSacrifice"
+        || input == "addOfferings") ? 1 : (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateTimeAcceleration)();
+    switch (input) {
+        case "addObtainium":
+            (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateObtainium)();
+            let obtainiumGain = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAutomaticObtainium)();
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.researchPoints += obtainiumGain * time * timeMultiplier;
+            break;
+        case "addOfferings":
+            _Variables__WEBPACK_IMPORTED_MODULE_4__.Globals.autoOfferingCounter += time;
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.runeshards += Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_4__.Globals.autoOfferingCounter);
+            _Variables__WEBPACK_IMPORTED_MODULE_4__.Globals.autoOfferingCounter %= 1;
+            break;
+        case "runeSacrifice":
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.sacrificeTimer += time;
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.sacrificeTimer >= 1) {
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.cubeUpgrades[20] === 1) {
+                    let notMaxed = (5 - checkMaxRunes());
+                    if (notMaxed > 0) {
+                        let baseAmount = Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.runeshards / notMaxed);
+                        for (let i = 0; i < 5; i++) {
+                            (0,_Runes__WEBPACK_IMPORTED_MODULE_2__.redeemShards)(i + 1, true, baseAmount);
+                        }
+                    }
+                }
+                else {
+                    let rune = _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.autoSacrifice;
+                    (0,_Runes__WEBPACK_IMPORTED_MODULE_2__.redeemShards)(rune, true, 0);
+                }
+                _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.sacrificeTimer %= 1;
+            }
+            ;
+            break;
+        case "antSacrifice":
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.antSacrificeTimer += time * timeMultiplier;
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.antSacrificeTimerReal += time;
+            let antSacrificeTimer = (_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.autoAntSacrificeMode === 2) ?
+                _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.antSacrificeTimerReal : _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.antSacrificeTimer;
+            if (antSacrificeTimer >= _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.autoAntSacTimer && _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.researches[124] === 1
+                && _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.autoAntSacrifice && _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.antPoints.gte("1e40")) {
+                (0,_Ants__WEBPACK_IMPORTED_MODULE_0__.sacrificeAnts)(true);
+            }
+            ;
             break;
     }
 };

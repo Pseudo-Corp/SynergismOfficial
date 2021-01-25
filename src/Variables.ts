@@ -359,7 +359,6 @@ const Globals: GlobalVariables = {
 
     buyMaxCubeUpgrades: false,
     autoOfferingCounter: 0,
-    autoOfferingCounter2: 0,
     researchOrderByCost: [],
 
     divisivenessPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1],
