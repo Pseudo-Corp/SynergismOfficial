@@ -45,7 +45,7 @@ export const productContents = (array: number[]): number => array.reduce((a, b) 
 
 export const sortWithIndeces = (toSort: number[]) => {
     return Array
-        .from(Array(toSort).keys())
+        .from([...toSort.keys()])
         .sort((a, b) => toSort[a] < toSort[b] ? -1 : +(toSort[b] < toSort[a]));
 }
 

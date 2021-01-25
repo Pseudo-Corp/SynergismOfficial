@@ -24,7 +24,7 @@ export const getMaxQuarkTime = () => {
  * @param input 
  * @param time 
  */
-export const addTimers = (input: string, time: number) => {
+export const addTimers = (input: string, time?: number) => {
 
     let timeMultiplier = (input == "ascension" || input == "quarks")? 1: calculateTimeAcceleration();
     switch(input){

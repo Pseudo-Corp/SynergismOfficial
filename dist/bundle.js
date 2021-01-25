@@ -2660,13 +2660,16 @@ function tack(dt) {
         if (player.researches[61] === 1) {
             (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.automaticTools)("addObtainium", dt);
         }
-        if (player.autoResearch > 0 && player.autoResearchToggle && player.autoResearch <= (0,_Research__WEBPACK_IMPORTED_MODULE_6__.maxRoombaResearchIndex)(player)) {
+        if (player.autoResearchToggle && player.autoResearch <= (0,_Research__WEBPACK_IMPORTED_MODULE_6__.maxRoombaResearchIndex)(player)) {
             let counter = 0;
             let maxCount = 1 + player.challengecompletions[14];
             while (counter < maxCount) {
-                if (player.autoResearch) {
+                if (player.autoResearch > 0) {
                     const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
                     (0,_Research__WEBPACK_IMPORTED_MODULE_6__.buyResearch)(player.autoResearch, true, linGrowth);
+                }
+                else {
+                    break;
                 }
                 counter++;
             }
@@ -5132,7 +5135,7 @@ const sumContents = (array) => {
 const productContents = (array) => array.reduce((a, b) => a * b);
 const sortWithIndeces = (toSort) => {
     return Array
-        .from(Array(toSort).keys())
+        .from([...toSort.keys()])
         .sort((a, b) => toSort[a] < toSort[b] ? -1 : +(toSort[b] < toSort[a]));
 };
 const getElementById = (id) => document.getElementById(id);
@@ -5171,7 +5174,7 @@ const Globals = {
         1e3, 1e6, 1e9, 1e12, 1e15],
     crystalUpgradesCost: [6, 15, 20, 40, 100, 200, 500, 1000],
     crystalUpgradeCostIncrement: [8, 15, 20, 40, 100, 200, 500, 1000],
-    researchBaseCosts: [1e100,
+    researchBaseCosts: [1e200,
         1, 1, 1, 1, 1,
         1, 1e2, 1e4, 1e6, 1e8,
         2, 2e2, 2e4, 2e6, 2e8,
@@ -12762,19 +12765,19 @@ const getResearchCost = (index, buyAmount = 1, linGrowth = 0) => {
     return [metaData[0], metaData[1]];
 };
 const buyResearch = (index, auto = false, linGrowth = 0) => {
-    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch > 0.5 && !auto) {
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch > 0 && !auto) {
         let p = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch;
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[p] === _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchMaxLevels[p]) {
             document.getElementById("res" + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch).style.backgroundColor = "green";
         }
-        else if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[p] > 0.5) {
+        else if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[p] >= 1) {
             document.getElementById("res" + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch).style.backgroundColor = "purple";
         }
         else {
             document.getElementById("res" + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch).style.backgroundColor = "black";
         }
     }
-    if (!auto && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel > 0.5 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[9] === 0) {
+    if (!auto && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel >= 1 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[9] < 1) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch = index;
         document.getElementById("res" + index).style.backgroundColor = "orange";
     }
@@ -12802,7 +12805,7 @@ const buyResearch = (index, auto = false, linGrowth = 0) => {
             (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_2__.revealStuff)();
         }
     }
-    if (0 < index && isResearchUnlocked(index)) {
+    if (index > 0 && isResearchUnlocked(index)) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[index] === (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchMaxLevels[index])) {
             document.getElementById("res" + index).style.backgroundColor = "green";
         }

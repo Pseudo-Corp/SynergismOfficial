@@ -17,7 +17,7 @@ const Globals: GlobalVariables = {
     // Mega list of Variables to be used elsewhere
     crystalUpgradesCost: [6, 15, 20, 40, 100, 200, 500, 1000],
     crystalUpgradeCostIncrement: [8, 15, 20, 40, 100, 200, 500, 1000],
-    researchBaseCosts: [1e100,
+    researchBaseCosts: [1e200,
         1, 1, 1, 1, 1,
         1, 1e2, 1e4, 1e6, 1e8,
         2, 2e2, 2e4, 2e6, 2e8,

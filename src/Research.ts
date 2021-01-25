@@ -9,31 +9,49 @@ const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, 
     return [metaData[0], metaData[1]]
 }
 
+/**
+ * Buys Research of index.
+ * @param index 
+ * @param auto 
+ * @param linGrowth 
+ */
 export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
-    if (player.autoResearchToggle && player.autoResearch > 0.5 && !auto) {
+    // Handles background color of the currently focused research if auto research is upgrading something else
+    if (player.autoResearchToggle && player.autoResearch > 0 && !auto) {
         let p = player.autoResearch
+        //Is max level, make green
         if (player.researches[p] === G['researchMaxLevels'][p]) {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "green"
-        } else if (player.researches[p] > 0.5) {
+        }
+        //Not max level but leveled at least once 
+        else if (player.researches[p] >= 1) {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "purple"
-        } else {
+        }
+        //Not Upgraded
+        else {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "black"
         }
     }
 
-    if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAutoLevel > 0.5 && player.cubeUpgrades[9] === 0) {
+    // Handles toggling auto research focus, for when cube Upgrade 1x9 is NOT BOUGHT
+    if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAutoLevel >= 1 && player.cubeUpgrades[9] < 1) {
         player.autoResearch = index;
         document.getElementById("res" + index).style.backgroundColor = "orange"
     }
 
+    // Buys Research. metaData returns amount of levels to buy and cost, array
     let buyamount = (G['maxbuyresearch'] || auto) ? 1e5 : 1;
     let metaData = getResearchCost(index, buyamount, linGrowth)
+
     if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && player.researchPoints >= metaData[1]) {
         player.researchPoints -= metaData[1]
         player.researches[index] = metaData[0];
+
+        //Updates Progress Description
         G['researchfiller2'] = "Level: " + player.researches[index] + "/" + (G['researchMaxLevels'][index])
         researchDescriptions(index, auto, linGrowth)
 
+        // Particle Upgrade rows. Researches 2x22, 2x23, 2x24, 2x25
         if (index === 47 && player.unlocks.rrow1 === false) {
             player.unlocks.rrow1 = true;
             revealStuff()
@@ -52,26 +70,33 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
         }
     }
 
-    if (0 < index && isResearchUnlocked(index)) {
+    // Updates research background color to green if you purchased to max level
+    if (index > 0 && isResearchUnlocked(index)) {
         if (player.researches[index] === (G['researchMaxLevels'][index])) {
             document.getElementById("res" + index).style.backgroundColor = "green"
         }
     }
+    // Auto Research for cube upgrade 1x9 bought
     if (auto && player.cubeUpgrades[9] === 1) {
+        // This overwrites manually selected automatic research (intended)
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
         if (isResearchMaxed(player.autoResearch)) {
             player.roombaResearchIndex += 1;
         }
+        // This completely skims over researches one has not unlocked as long as you stay in bounds
         while (!isResearchUnlocked(player.autoResearch) && player.autoResearch < 200 && player.autoResearch >= 1) {
             player.roombaResearchIndex += 1;
             player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
         }
+        // Researches that are unlocked work
         if (isResearchUnlocked(player.autoResearch)) {
             let doc = document.getElementById("res" + G['researchOrderByCost'][player.roombaResearchIndex])
             if (doc)
                 doc.style.backgroundColor = "orange"
         }
     }
+
+    // Some researches update Rune and Ant values, so these recalculations are sometimes necessary
     calculateRuneLevels();
     calculateAnts();
 }

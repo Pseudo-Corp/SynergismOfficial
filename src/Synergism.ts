@@ -1162,9 +1162,11 @@ export const loadSynergy = () => {
         }
 
         const testArray = []
+        //Creates a copy of research costs array
         for (let i = 0; i < G['researchBaseCosts'].length; i++) {
             testArray.push(G['researchBaseCosts'][i]);
         }
+        //Sorts the above array, and returns the index order of sorted array
         G['researchOrderByCost'] = sortWithIndeces(testArray)
         player.roombaResearchIndex = 0;
 
@@ -3003,14 +3005,18 @@ function tack(dt: number) {
             automaticTools("addObtainium", dt)
         }
 
-        if (player.autoResearch > 0 && player.autoResearchToggle && player.autoResearch <= maxRoombaResearchIndex(player)) {
+        //Automatically tries and buys researches lol
+        if (player.autoResearchToggle && player.autoResearch <= maxRoombaResearchIndex(player)) {
                 // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
                 let counter = 0;
                 let maxCount = 1 + player.challengecompletions[14];
                 while (counter < maxCount) {
-                    if (player.autoResearch) {
+                    if (player.autoResearch > 0) {
                         const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
                         buyResearch(player.autoResearch, true, linGrowth)
+                    }
+                    else {
+                        break;
                     }
                     counter++;
                 }
