@@ -7352,13 +7352,13 @@ const buttoncolorchange = () => {
             }
         }
         if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.runescreen === "talismans") {
-            let a = document.getElementById("buyShard");
-            let b = document.getElementById("buyCommonFragment");
-            let c = document.getElementById("buyUncommonFragment");
-            let d = document.getElementById("buyRareFragment");
-            let e = document.getElementById("buyEpicFragment");
-            let f = document.getElementById("buyLegendaryFragment");
-            let g = document.getElementById("buyMythicalFragment");
+            let a = document.getElementById("buyTalismanItem1");
+            let b = document.getElementById("buyTalismanItem2");
+            let c = document.getElementById("buyTalismanItem3");
+            let d = document.getElementById("buyTalismanItem4");
+            let e = document.getElementById("buyTalismanItem5");
+            let f = document.getElementById("buyTalismanItem6");
+            let g = document.getElementById("buyTalismanItem7");
             let arr = [a, b, c, d, e, f, g];
             for (let i = 0; i < arr.length; i++) {
                 arr[i].style.backgroundColor = (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints > _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanResourceObtainiumCosts[i]
