@@ -2644,6 +2644,8 @@ const tick = () => {
 function tack(dt) {
     if (!_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.timeWarp) {
         (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.dailyResetCheck)();
+        let timeMult = (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateTimeAcceleration)();
+        resourceGain(dt * timeMult);
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("prestige", dt);
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("transcension", dt);
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("reincarnation", dt);

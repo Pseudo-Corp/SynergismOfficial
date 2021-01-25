@@ -11,7 +11,7 @@ import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Researc
 import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, CSSRuneBlessings, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier } from './Calculate';
+import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
 import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, keyboardTabChange, toggleauto } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
@@ -2980,7 +2980,9 @@ const tick = () => {
 function tack(dt: number) {
     if (!G['timeWarp']) {
         dailyResetCheck();
-
+        //Adds Resources (coins, ants, etc)
+        let timeMult = calculateTimeAcceleration();
+        resourceGain(dt * timeMult)
         //Adds time (in milliseconds) to all reset functions, and quarks timer.
         addTimers("prestige", dt)
         addTimers("transcension", dt)
