@@ -15292,10 +15292,9 @@ const generateEventHandlers = () => {
         document.getElementById(`upg${index}`).addEventListener('mouseover', () => (0,_Upgrades__WEBPACK_IMPORTED_MODULE_4__.upgradedescriptions)(index));
         console.log('Successfully added "Onmouseover" event to upgrades 1-120!');
     }
-    let resourceType = '';
-    let resourceTypes = ['coin', 'prestige', 'transcend', 'reincarnation'];
+    const resourceTypes = ['coin', 'prestige', 'transcend', 'reincarnation'];
     for (let index = 1; index <= 80; index++) {
-        resourceType = resourceTypes[Math.floor((index - 1) / 20)];
+        const resourceType = resourceTypes[Math.floor((index - 1) / 20)];
         document.getElementById(`upg${index}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyUpgrades)(resourceType, index));
         console.log('Successfully added "Onmouseover" event to upgrades 1-120!');
     }

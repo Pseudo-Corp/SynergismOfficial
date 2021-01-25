@@ -178,11 +178,10 @@ export const generateEventHandlers = () => {
 
 // The first 80 upgrades (Coin-Particle upgrade) are annoying since there are four cases based on which resource is needed.
 //Note: this part can almost certainly be improved, this was just the quickest implementation
-    let resourceType = ''
-    let resourceTypes = ['coin', 'prestige', 'transcend', 'reincarnation'] //Upgrades 1-20 are coin, 21-40 prestige, 41-60 transcend, 61-80 reincarnation
+    const resourceTypes = ['coin', 'prestige', 'transcend', 'reincarnation'] //Upgrades 1-20 are coin, 21-40 prestige, 41-60 transcend, 61-80 reincarnation
     //End of shit portion (This is used in the following for loop though)
     for (let index = 1; index <= 80; index++) {
-        resourceType = resourceTypes[Math.floor((index - 1)/20)]
+        const resourceType = resourceTypes[Math.floor((index - 1)/20)];
 
         //Onclick events (Regular upgrades 1-80)
         document.getElementById(`upg${index}`).addEventListener('click', () => buyUpgrades(resourceType,index));
