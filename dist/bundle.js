@@ -16436,7 +16436,7 @@ const getMaxQuarkTime = () => {
     return time;
 };
 const addTimers = (input, time) => {
-    let timeMultiplier = (input == "ascension" || input == "quarks") ? 1 : (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateTimeAcceleration)();
+    const timeMultiplier = (input === "ascension" || input === "quarks") ? 1 : (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateTimeAcceleration)();
     switch (input) {
         case "prestige":
             _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.prestigecounter += time * timeMultiplier;
@@ -16466,8 +16466,7 @@ const checkMaxRunes = () => {
     return maxxed;
 };
 const automaticTools = (input, time) => {
-    let timeMultiplier = (input == "runeSacrifice"
-        || input == "addOfferings") ? 1 : (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateTimeAcceleration)();
+    const timeMultiplier = (input === "runeSacrifice" || input === "addOfferings") ? 1 : (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateTimeAcceleration)();
     switch (input) {
         case "addObtainium":
             (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateObtainium)();

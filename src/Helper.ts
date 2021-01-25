@@ -19,14 +19,16 @@ export const getMaxQuarkTime = () => {
 
 }
 
+type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks';
+
 /**
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
  * @param input 
  * @param time 
  */
-export const addTimers = (input: string, time?: number) => {
+export const addTimers = (input: TimerInput, time?: number) => {
+    const timeMultiplier = (input === "ascension" || input === "quarks") ? 1 : calculateTimeAcceleration();
 
-    let timeMultiplier = (input == "ascension" || input == "quarks")? 1: calculateTimeAcceleration();
     switch(input){
         case "prestige":
             player.prestigecounter += time * timeMultiplier;
@@ -49,7 +51,6 @@ export const addTimers = (input: string, time?: number) => {
             player.quarkstimer = (player.quarkstimer > maxQuarkTimer)? maxQuarkTimer: player.quarkstimer;
             break;
     }
-
 }
 
 /**
@@ -65,14 +66,15 @@ export const checkMaxRunes = () => {
     return maxxed
 }
 
+type AutoToolInput = 'addObtainium' | 'addOfferings' | 'runeSacrifice' | 'antSacrifice';
+
 /**
  * Assortment of tools which are used when actions are automated.
  * @param input 
  * @param time 
  */
-export const automaticTools = (input: string, time: number) => {
-    let timeMultiplier = (input == "runeSacrifice"
-    || input == "addOfferings")? 1: calculateTimeAcceleration()
+export const automaticTools = (input: AutoToolInput, time: number) => {
+    const timeMultiplier = (input === "runeSacrifice" || input === "addOfferings") ? 1 : calculateTimeAcceleration()
 
     switch(input){
         case "addObtainium":
