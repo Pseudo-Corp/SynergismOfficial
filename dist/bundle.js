@@ -445,7 +445,7 @@ const player = {
     antSacrificePoints: 0,
     antSacrificeTimer: 900,
     antSacrificeTimerReal: 900,
-    talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
+    talismanLevels: [0, 0, 0, 0, 0, 0, 0],
     talismanRarity: [1, 1, 1, 1, 1, 1, 1],
     talismanOne: [null, -1, 1, 1, 1, -1],
     talismanTwo: [null, 1, 1, -1, -1, 1],
@@ -15109,6 +15109,9 @@ const checkVariablesOnLoad = (data) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challenge15Exponent = 0;
         (0,_Statistics__WEBPACK_IMPORTED_MODULE_4__.c15RewardUpdate)();
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.loadedDec16Vers = true;
+    }
+    if (data.talismanLevels[0] === null) {
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanLevels = data.talismanLevels.slice(1);
     }
     if (typeof data.exporttest === 'string') {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.exporttest = !_Synergism__WEBPACK_IMPORTED_MODULE_0__.isTesting;

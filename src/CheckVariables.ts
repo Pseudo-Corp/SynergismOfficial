@@ -274,6 +274,9 @@ export const checkVariablesOnLoad = (data: Player) => {
         c15RewardUpdate();
         player.loadedDec16Vers = true;
     }
+    if (data.talismanLevels[0] === null) {
+      player.talismanLevels = data.talismanLevels.slice(1);
+    }
 
     // in old versions of the game (pre 2.5.0), the import function will only work
     // if this variable = "YES!". Don't ask Platonic why.

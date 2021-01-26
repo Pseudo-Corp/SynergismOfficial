@@ -364,7 +364,7 @@ export interface Player {
     antSacrificeTimer: number
     antSacrificeTimerReal: number
 
-    talismanLevels: (null | number)[]
+    talismanLevels: number[]
     talismanRarity: number[]
     talismanOne: (null | number)[]
     talismanTwo: (null | number)[]

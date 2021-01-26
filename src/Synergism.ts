@@ -458,7 +458,7 @@ export const player: Player = {
     antSacrificeTimer: 900,
     antSacrificeTimerReal: 900,
 
-    talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
+    talismanLevels: [0, 0, 0, 0, 0, 0, 0],
     talismanRarity: [1, 1, 1, 1, 1, 1, 1],
     talismanOne: [null, -1, 1, 1, 1, -1],
     talismanTwo: [null, 1, 1, -1, -1, 1],
