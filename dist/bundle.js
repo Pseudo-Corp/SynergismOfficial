@@ -14818,7 +14818,7 @@ const calculatetax = () => {
         exponent *= 0.5;
     }
     _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.maxexponent = Math.floor(275 / (break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.log(1.01, 10) * exponent)) - 1;
-    const a2 = Math.min(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.maxexponent, Math.floor(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.log(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.produceTotal.add(1).toNumber(), 10)));
+    const a2 = Math.min(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.maxexponent, Math.floor(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.log(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.produceTotal.add(1), 10)));
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension === 13 && _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.maxexponent <= 99999 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[249] < 1) {
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_5__.achievementaward)(249);
     }
