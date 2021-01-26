@@ -15110,12 +15110,6 @@ const checkVariablesOnLoad = (data) => {
         (0,_Statistics__WEBPACK_IMPORTED_MODULE_4__.c15RewardUpdate)();
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.loadedDec16Vers = true;
     }
-    if (data.talismanLevels[0] === null) {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanLevels = data.talismanLevels.slice(1);
-    }
-    if (data.antUpgrades[0] === null) {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades = data.antUpgrades.slice(1);
-    }
     if (typeof data.exporttest === 'string') {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.exporttest = !_Synergism__WEBPACK_IMPORTED_MODULE_0__.isTesting;
     }
