@@ -9732,7 +9732,7 @@ const challengeCompletionsNotAuto = {
     5: ['1e120000', 63]
 };
 const challengeachievementcheck = (i, auto) => {
-    const generatorcheck = (0,_Utility__WEBPACK_IMPORTED_MODULE_4__.sumContents)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades.slice(100, 105));
+    const generatorcheck = (0,_Utility__WEBPACK_IMPORTED_MODULE_4__.sumContents)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades.slice(101, 105));
     for (const [, bar, ach] of challengeCompletionsBar.filter(([o]) => o === i)) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[i] > bar) {
             achievementaward(ach);
