@@ -9104,7 +9104,7 @@ const buyTalismanEnhance = (i, auto = false) => {
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1] < 6) {
         let priceMult = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanLevelCostMultiplier[i];
         let array = [_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.commonTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.uncommonTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.rareTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.epicTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.legendaryTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mythicalTalismanEnchanceCost];
-        let index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1];
+        let index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1] - 1;
         let costArray = array[index];
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.commonFragments >= priceMult * costArray[2]) {
             checkSum++;

@@ -489,7 +489,7 @@ export const buyTalismanEnhance = (i: number, auto = false) => {
     if (player.talismanRarity[i-1] < 6) {
         let priceMult = G['talismanLevelCostMultiplier'][i];
         let array = [G['commonTalismanEnhanceCost'], G['uncommonTalismanEnchanceCost'], G['rareTalismanEnchanceCost'], G['epicTalismanEnhanceCost'], G['legendaryTalismanEnchanceCost'], G['mythicalTalismanEnchanceCost']];
-        let index = player.talismanRarity[i-1];
+        let index = player.talismanRarity[i-1] - 1;
         let costArray = array[index];
         if (player.commonFragments >= priceMult * costArray[2]) {
             checkSum++
