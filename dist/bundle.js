@@ -8072,6 +8072,7 @@ const calculateTalismanEffects = () => {
             runesTalisman[runeNumber] += levels;
         });
     });
+    [, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune1Talisman, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune2Talisman, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune3Talisman, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune4Talisman, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5Talisman] = runesTalisman;
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.talisman6Power = 0;
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.talisman7Quarks = 0;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[1 - 1] === 6) {
