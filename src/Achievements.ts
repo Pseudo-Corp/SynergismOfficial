@@ -594,7 +594,7 @@ const challengeCompletionsNotAuto: Record<number, [string, number]> = {
 }
 
 export const challengeachievementcheck = (i: number, auto?: boolean) => {
-    const generatorcheck = sumContents(player.upgrades.slice(101, 105));
+    const generatorcheck = sumContents(player.upgrades.slice(101, 106));
     
     for (const [, bar, ach] of challengeCompletionsBar.filter(([o]) => o === i)) {
         if (player.challengecompletions[i] > bar) {
