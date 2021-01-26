@@ -858,3 +858,8 @@ export interface SynergismEvents {
     boughtPlatonicUpgrade: [ IPlatBaseCost ],
     openPlatonic: [ number ]
 }
+
+// If changing these, make reset tiers on top, then challenge types, then specific actions
+export type resetNames =   "prestige" | "transcension" | "reincarnation" | "ascension" |
+                    "transcensionChallenge" | "reincarnationChallenge" | "ascensionChallenge" |
+                    "acceleratorBoost"

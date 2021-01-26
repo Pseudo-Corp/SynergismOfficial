@@ -3,6 +3,7 @@ import { calculateRuneExpGiven, calculateCorruptionPoints, calculateOfferings, c
 import { Globals as G } from './Variables';
 
 import Decimal from 'break_infinity.js';
+import { resetNames } from './types/Synergism';
 
 export const displayRuneInformation = (i: number, updatelevelup = true) => {
     let m = G['effectiveLevelMult']
@@ -55,8 +56,8 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
 
 }
 
-export const resetofferings = (i: number) => {
-    player.runeshards += calculateOfferings(i);
+export const resetofferings = (input: resetNames) => {
+    player.runeshards += calculateOfferings(input);
 }
 
 export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgraded = 0) => {

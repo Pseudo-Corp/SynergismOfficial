@@ -2391,7 +2391,7 @@ export const resetCheck = (i: string, manual = true, leaving = false) => {
                 resetConfirmation('prestige');
             } else {
                 resetachievementcheck(1);
-                reset(1);
+                reset("prestige");
             }
         }
     }
@@ -2402,7 +2402,7 @@ export const resetCheck = (i: string, manual = true, leaving = false) => {
             }
             if (!manual) {
                 resetachievementcheck(2);
-                reset(2);
+                reset("transcension");
             }
         }
     }
@@ -2444,7 +2444,7 @@ export const resetCheck = (i: string, manual = true, leaving = false) => {
 
             challengeachievementcheck(q);
             if (!player.shopUpgrades.instantChallengeBought || leaving) {
-                reset(2, false, "leaveChallenge");
+                reset("transcensionChallenge", false, "leaveChallenge");
                 player.transcendCount -= 1;
             }
 
@@ -2462,7 +2462,7 @@ export const resetCheck = (i: string, manual = true, leaving = false) => {
             }
             if (!manual) {
                 resetachievementcheck(3);
-                reset(3);
+                reset("reincarnation");
             }
         }
     }
@@ -2494,7 +2494,7 @@ export const resetCheck = (i: string, manual = true, leaving = false) => {
             updateChallengeLevel(q);
         }
         if (!player.shopUpgrades.instantChallengeBought || leaving) { // TODO: Implement the upgrade levels here
-            reset(3, false, "leaveChallenge");
+            reset("reincarnationChallenge", false, "leaveChallenge");
             player.reincarnationCount -= 1;
         }
         challengeachievementcheck(q);
@@ -2509,7 +2509,7 @@ export const resetCheck = (i: string, manual = true, leaving = false) => {
             }
         }
         if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15]) {
-            reset(3, false, "leaveChallenge");
+            reset("reincarnationChallenge", false, "leaveChallenge");
             player.currentChallenge.reincarnation = 0;
             if (player.shopUpgrades.instantChallengeBought) {
                 for (let i = 1; i <= 5; i++) {
@@ -2569,7 +2569,7 @@ export const resetCheck = (i: string, manual = true, leaving = false) => {
             player.currentChallenge.transcension = 0;
         }
         challengeDisplay(a, true)
-        reset(4)
+        reset("ascensionChallenge")
 
         if (player.challengecompletions[a] > player.highestchallengecompletions[a]) {
             player.highestchallengecompletions[a] += 1;
@@ -2590,11 +2590,11 @@ export const resetConfirmation = (i: string) => {
             let r = confirm("Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
             if (r === true) {
                 resetachievementcheck(1);
-                reset(1);
+                reset("prestige");
             }
         } else {
             resetachievementcheck(1);
-            reset(1);
+            reset("prestige");
         }
     }
     if (i === 'transcend') {
@@ -2602,11 +2602,11 @@ export const resetConfirmation = (i: string) => {
             let z = confirm("Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
             if (z === true) {
                 resetachievementcheck(2);
-                reset(2);
+                reset("transcension");
             }
         } else {
             resetachievementcheck(2);
-            reset(2);
+            reset("transcension");
         }
     }
     if (i === 'reincarnate') {
@@ -2615,18 +2615,18 @@ export const resetConfirmation = (i: string) => {
                 let z = confirm("Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]")
                 if (z === true) {
                     resetachievementcheck(3);
-                    reset(3);
+                    reset("reincarnation");
                 }
             } else {
                 resetachievementcheck(3);
-                reset(3);
+                reset("reincarnation");
             }
         }
     }
     if (i === 'ascend') {
         let z = !player.toggles[31] || confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]")
         if (z) {
-            reset(4);
+            reset("ascension");
         }
     }
 }
@@ -2889,7 +2889,7 @@ export const updateAll = () => {
 
     if (player.autoAscend) {
         if (player.autoAscendMode === "c10Completions" && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
-            reset(4, true)
+            reset("ascension", true)
         }
     }
     let metaData = null;
@@ -3089,7 +3089,7 @@ function tack(dt: number) {
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
             if (player.toggles[15] === true && player.achievements[43] === 1 && G['prestigePointGain'].gte(player.prestigePoints.times(Decimal.pow(10, player.prestigeamount))) && player.coinsThisPrestige.gte(1e16)) {
                 resetachievementcheck(1);
-                reset(1, true)
+                reset("prestige", true)
             }
         }
         if (player.resettoggle1 === 2) {
@@ -3097,14 +3097,14 @@ function tack(dt: number) {
             let time = Math.max(0.01, player.prestigeamount);
             if (player.toggles[15] === true && player.achievements[43] === 1 && G['autoResetTimers'].prestige >= time && player.coinsThisPrestige.gte(1e16)) {
                 resetachievementcheck(1);
-                reset(1, true);
+                reset("prestige", true);
             }
         }
 
         if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
             if (player.toggles[21] === true && player.upgrades[89] === 1 && G['transcendPointGain'].gte(player.transcendPoints.times(Decimal.pow(10, player.transcendamount))) && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
                 resetachievementcheck(2);
-                reset(2, true);
+                reset("transcension", true);
             }
         }
         if (player.resettoggle2 === 2) {
@@ -3112,7 +3112,7 @@ function tack(dt: number) {
             let time = Math.max(0.01, player.transcendamount);
             if (player.toggles[21] === true && player.upgrades[89] === 1 && G['autoResetTimers'].transcension >= time && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
                 resetachievementcheck(2);
-                reset(2, true);
+                reset("transcension", true);
             }
         }
 
@@ -3122,17 +3122,17 @@ function tack(dt: number) {
                 let time = Math.max(0.01, player.reincarnationamount);
                 if (player.toggles[27] === true && player.researches[46] > 0.5 && player.transcendShards.gte("1e300") && G['autoResetTimers'].reincarnation >= time && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
                     resetachievementcheck(3);
-                    reset(3, true);
+                    reset("reincarnation", true);
                 }
             }
             if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
                 if (player.toggles[27] === true && player.researches[46] > 0.5 && G['reincarnationPointGain'].gte(player.reincarnationPoints.times(Decimal.pow(10, player.reincarnationamount))) && player.transcendShards.gte(1e300) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
                     resetachievementcheck(3);
-                    reset(3, true)
+                    reset("reincarnation", true)
                 }
             }
         }
-        calculateOfferings(3)
+        calculateOfferings("reincarnation")
     }
 
 

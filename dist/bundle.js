@@ -2123,7 +2123,7 @@ const resetCheck = (i, manual = true, leaving = false) => {
             }
             else {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(1);
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("prestige");
             }
         }
     }
@@ -2134,7 +2134,7 @@ const resetCheck = (i, manual = true, leaving = false) => {
             }
             if (!manual) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(2);
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("transcension");
             }
         }
     }
@@ -2174,7 +2174,7 @@ const resetCheck = (i, manual = true, leaving = false) => {
             }
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.challengeachievementcheck)(q);
             if (!player.shopUpgrades.instantChallengeBought || leaving) {
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(2, false, "leaveChallenge");
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("transcensionChallenge", false, "leaveChallenge");
                 player.transcendCount -= 1;
             }
         }
@@ -2190,7 +2190,7 @@ const resetCheck = (i, manual = true, leaving = false) => {
             }
             if (!manual) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3);
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("reincarnation");
             }
         }
     }
@@ -2223,7 +2223,7 @@ const resetCheck = (i, manual = true, leaving = false) => {
             (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_7__.updateChallengeLevel)(q);
         }
         if (!player.shopUpgrades.instantChallengeBought || leaving) {
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3, false, "leaveChallenge");
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("reincarnationChallenge", false, "leaveChallenge");
             player.reincarnationCount -= 1;
         }
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.challengeachievementcheck)(q);
@@ -2238,7 +2238,7 @@ const resetCheck = (i, manual = true, leaving = false) => {
             }
         }
         if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15]) {
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3, false, "leaveChallenge");
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("reincarnationChallenge", false, "leaveChallenge");
             player.currentChallenge.reincarnation = 0;
             if (player.shopUpgrades.instantChallengeBought) {
                 for (let i = 1; i <= 5; i++) {
@@ -2295,7 +2295,7 @@ const resetCheck = (i, manual = true, leaving = false) => {
             player.currentChallenge.transcension = 0;
         }
         (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeDisplay)(a, true);
-        (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(4);
+        (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("ascensionChallenge");
         if (player.challengecompletions[a] > player.highestchallengecompletions[a]) {
             player.highestchallengecompletions[a] += 1;
             player.wowHypercubes += 1;
@@ -2313,12 +2313,12 @@ const resetConfirmation = (i) => {
             let r = confirm("Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]");
             if (r === true) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(1);
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("prestige");
             }
         }
         else {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(1);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("prestige");
         }
     }
     if (i === 'transcend') {
@@ -2326,12 +2326,12 @@ const resetConfirmation = (i) => {
             let z = confirm("Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]");
             if (z === true) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(2);
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("transcension");
             }
         }
         else {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(2);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("transcension");
         }
     }
     if (i === 'reincarnate') {
@@ -2340,19 +2340,19 @@ const resetConfirmation = (i) => {
                 let z = confirm("Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]");
                 if (z === true) {
                     (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
-                    (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3);
+                    (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("reincarnation");
                 }
             }
             else {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3);
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("reincarnation");
             }
         }
     }
     if (i === 'ascend') {
         let z = !player.toggles[31] || confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]");
         if (z) {
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(4);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("ascension");
         }
     }
 };
@@ -2566,7 +2566,7 @@ const updateAll = () => {
     (0,_Ants__WEBPACK_IMPORTED_MODULE_16__.autoBuyAnts)();
     if (player.autoAscend) {
         if (player.autoAscendMode === "c10Completions" && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(4, true);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("ascension", true);
         }
     }
     let metaData = null;
@@ -2733,7 +2733,7 @@ function tack(dt) {
     if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
         if (player.toggles[15] === true && player.achievements[43] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.prestigePointGain.gte(player.prestigePoints.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, player.prestigeamount))) && player.coinsThisPrestige.gte(1e16)) {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(1, true);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("prestige", true);
         }
     }
     if (player.resettoggle1 === 2) {
@@ -2741,13 +2741,13 @@ function tack(dt) {
         let time = Math.max(0.01, player.prestigeamount);
         if (player.toggles[15] === true && player.achievements[43] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.prestige >= time && player.coinsThisPrestige.gte(1e16)) {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(1, true);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("prestige", true);
         }
     }
     if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
         if (player.toggles[21] === true && player.upgrades[89] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.transcendPointGain.gte(player.transcendPoints.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, player.transcendamount))) && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(2, true);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("transcension", true);
         }
     }
     if (player.resettoggle2 === 2) {
@@ -2755,7 +2755,7 @@ function tack(dt) {
         let time = Math.max(0.01, player.transcendamount);
         if (player.toggles[21] === true && player.upgrades[89] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.transcension >= time && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(2, true);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("transcension", true);
         }
     }
     if (player.currentChallenge.ascension !== 12) {
@@ -2764,17 +2764,17 @@ function tack(dt) {
             let time = Math.max(0.01, player.reincarnationamount);
             if (player.toggles[27] === true && player.researches[46] > 0.5 && player.transcendShards.gte("1e300") && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.reincarnation >= time && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3, true);
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("reincarnation", true);
             }
         }
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
             if (player.toggles[27] === true && player.researches[46] > 0.5 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.reincarnationPointGain.gte(player.reincarnationPoints.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, player.reincarnationamount))) && player.transcendShards.gte(1e300) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
-                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)(3, true);
+                (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("reincarnation", true);
             }
         }
     }
-    (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateOfferings)(3);
+    (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateOfferings)("reincarnation");
 }
 document.addEventListener('keydown', (event) => {
     if (document.activeElement && document.activeElement.localName === 'input') {
@@ -6193,20 +6193,20 @@ const toggleChallenges = (i, auto = false) => {
     if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.transcension === 0 && (i <= 5)) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.ascension !== 15 || _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.ascensionCounter >= 2) {
             _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.transcension = i;
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)(2, false, "enterChallenge");
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)("transcensionChallenge", false, "enterChallenge");
             _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.transcendCount -= 1;
         }
     }
     if ((_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.transcension === 0 && _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.ascension !== 15 || _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.ascensionCounter >= 2) {
             _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.reincarnation = i;
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)(3, false, "enterChallenge");
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)("reincarnationChallenge", false, "enterChallenge");
             _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.reincarnationCount -= 1;
         }
     }
     if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.challengecompletions[10] > 0) {
         if ((_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.transcension === 0 && _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.reincarnation === 0 && _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.ascension === 0) && (i >= 11)) {
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)(4, false, "enterChallenge");
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)("ascensionChallenge", false, "enterChallenge");
             _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.ascension = i;
             if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.currentChallenge.ascension === 12) {
                 _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.antPoints = new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default("8");
@@ -7810,12 +7810,15 @@ const calculateMaxRunes = (i) => {
     max += increaseMaxLevel[i];
     return max;
 };
-function calculateOfferings(i, calcMult = true, statistic = false) {
+function calculateOfferings(input, calcMult = true, statistic = false) {
+    if (input == "acceleratorBoost" || input == "ascension" || input == "ascensionChallenge") {
+        return 0;
+    }
     let q = 0;
     let a = 0;
     let b = 0;
     let c = 0;
-    if (i === 3) {
+    if (input == "reincarnation" || input == "reincarnationChallenge") {
         a += 3;
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[52] > 0.5) {
             a += (25 * Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter / 1800, 1));
@@ -7834,7 +7837,8 @@ function calculateOfferings(i, calcMult = true, statistic = false) {
             a *= Math.max(1, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter / 10);
         }
     }
-    if (i >= 2) {
+    if (input == "transcension" || input == "transcensionChallenge" || input == "reincarnation" ||
+        input == "reincarnationChallenge") {
         b += 2;
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationCount > 0) {
             b += 2;
@@ -7854,28 +7858,26 @@ function calculateOfferings(i, calcMult = true, statistic = false) {
             b *= Math.max(1, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter / 10);
         }
     }
-    if (i >= 1) {
+    c += 1;
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendCount > 0 || _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationCount > 0) {
         c += 1;
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendCount > 0 || _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationCount > 0) {
-            c += 1;
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationCount > 0) {
-            c += 2;
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[37] > 0.5) {
-            c += (15 * Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter / 1800, 1));
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[2] > 0) {
-            c += 1;
-        }
-        c += 0.2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[24];
-        c += 1 / 200 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveLevelMult * (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[85] / 200);
-        c *= (1 + Math.pow(break_infinity_js__WEBPACK_IMPORTED_MODULE_4__.default.log(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigeShards.add(1), 10), 1 / 2) / 5);
-        c *= (1 + (0,_Challenges__WEBPACK_IMPORTED_MODULE_3__.CalcECC)('reincarnation', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[6]) / 50);
-        c *= Math.min(Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter / 10, 2), 1);
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigeCount >= 5) {
-            c *= Math.max(1, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter / 10);
-        }
+    }
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationCount > 0) {
+        c += 2;
+    }
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[37] > 0.5) {
+        c += (15 * Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter / 1800, 1));
+    }
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[2] > 0) {
+        c += 1;
+    }
+    c += 0.2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[24];
+    c += 1 / 200 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveLevelMult * (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[85] / 200);
+    c *= (1 + Math.pow(break_infinity_js__WEBPACK_IMPORTED_MODULE_4__.default.log(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigeShards.add(1), 10), 1 / 2) / 5);
+    c *= (1 + (0,_Challenges__WEBPACK_IMPORTED_MODULE_3__.CalcECC)('reincarnation', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[6]) / 50);
+    c *= Math.min(Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter / 10, 2), 1);
+    if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigeCount >= 5) {
+        c *= Math.max(1, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter / 10);
     }
     q = a + b + c;
     const arr = [
@@ -7914,13 +7916,13 @@ function calculateOfferings(i, calcMult = true, statistic = false) {
     }
     q = Math.floor(q) * 100 / 100;
     let persecond = 0;
-    if (i === 1) {
+    if (input === "prestige") {
         persecond = q / (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter);
     }
-    if (i === 2) {
+    if (input === "transcension" || input == "transcensionChallenge") {
         persecond = q / (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter);
     }
-    if (i === 3) {
+    if (input === "reincarnation" || input == "reincarnationChallenge") {
         persecond = q / (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter);
     }
     if (persecond > _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringpersecond) {
@@ -8348,7 +8350,7 @@ const calculateOffline = (forceTime = 0) => {
     if (!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.loadedNov13Vers) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[14] > 0 || _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.highestchallengecompletions[14] > 0) {
             let ascCount = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount;
-            (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)(4);
+            (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)("ascensionChallenge");
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount = (ascCount + 1);
         }
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.loadedNov13Vers = true;
@@ -10256,120 +10258,96 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let repeatreset;
-const resetrepeat = (i) => {
+const resetrepeat = (input) => {
     (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.clearInt)(repeatreset);
-    repeatreset = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.interval)(() => resetdetails(i), 50);
+    repeatreset = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.interval)(() => resetdetails(input), 50);
 };
-const resetdetails = (i) => {
+const resetdetails = (input) => {
     (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)('resetofferings1').src = "Pictures/Offering.png";
-    const r = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension;
-    document.getElementById("resetofferings1").style.display = "block";
-    document.getElementById("resetofferings2").style.display = "block";
-    let offering = 0;
-    if (i === 1) {
-        if ((0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src !== "Pictures/Diamond.png") {
-            (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src = "Pictures/Diamond.png";
-        }
-        offering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(1);
-        document.getElementById("resetcurrency2").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.prestigePointGain);
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium").src = "";
-        document.getElementById("resetobtainium2").textContent = "";
-        document.getElementById("resetinfo").textContent = "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisPrestige) + "/1e16 Coins || TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter) + " seconds.";
-        document.getElementById("resetinfo").style.color = "turquoise";
-    }
-    if (i === 2) {
-        if ((0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src !== "Pictures/Mythos.png") {
-            (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src = "Pictures/Mythos.png";
-        }
-        offering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(2);
-        document.getElementById("resetcurrency2").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.transcendPointGain);
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium").src = "";
-        document.getElementById("resetobtainium2").textContent = "";
-        document.getElementById("resetinfo").textContent = "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension) + "/1e100 Coins || TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter) + " seconds.";
-        document.getElementById("resetinfo").style.color = "orchid";
-    }
-    if (i === 3) {
-        let s = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension;
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium").src = "";
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src = "";
-        document.getElementById("resetcurrency2").textContent = "";
-        document.getElementById("resetobtainium2").textContent = "";
-        offering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(2);
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension !== 0) {
-            document.getElementById("resetinfo").style.color = "aquamarine";
-            document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Challenges__WEBPACK_IMPORTED_MODULE_13__.challengeRequirement)(s, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[s])) + " Coins. TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter) + " seconds.";
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension === 0) {
-            document.getElementById("resetinfo").textContent = "You're not in a challenge right now. Get in one before you can leave it, duh!";
-            document.getElementById("resetinfo").style.color = "crimson";
-        }
-    }
-    if (i === 4) {
-        if ((0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src !== "Pictures/Particle.png") {
-            (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src = "Pictures/Particle.png";
-        }
-        offering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(3);
-        document.getElementById("resetcurrency2").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.reincarnationPointGain);
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium").src = "Pictures/Obtainium.png";
-        document.getElementById("resetobtainium2").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.obtainiumGain));
-        document.getElementById("resetinfo").textContent = "Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendShards) + "/1e300 Mythos Shards || TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter) + " seconds.";
-        document.getElementById('resetinfo').style.color = "limegreen";
-    }
-    if (i === 5) {
-        if ((0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src !== "Pictures/Diamond.png") {
-            (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src = "Pictures/Diamond.png";
-        }
-        offering = 0;
-        document.getElementById("resetcurrency2").textContent = "-" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBoostCost);
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium").src = "";
-        document.getElementById("resetobtainium2").textContent = "";
-        document.getElementById("resetinfo").textContent = "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigePoints) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBoostCost) + " Diamonds.";
-        document.getElementById("resetinfo").style.color = "cyan";
-    }
-    if (i === 6) {
-        let s = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation;
-        let goal = "transcendShards";
-        let goaldesc = " Mythos Shards";
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation >= 9) {
-            goal = "coins";
-            goaldesc = " Coins";
-        }
-        offering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(3);
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium").src = "";
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src = "";
-        document.getElementById("resetcurrency2").textContent = "";
-        document.getElementById("resetobtainium2").textContent = "";
-        document.getElementById("resetinfo").style.color = "silver";
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation !== 0) {
-            document.getElementById("resetinfo").style.color = "silver";
-            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[goal]) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Challenges__WEBPACK_IMPORTED_MODULE_13__.challengeRequirement)(s, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[s], s)) + goaldesc + ". TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter) + " Seconds.";
-        }
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation === 0) {
-            document.getElementById("resetinfo").textContent = "You're not in a reincarnation challenge right now. Why would you need to leave it?";
-            document.getElementById("resetinfo").style.color = "crimson";
-        }
-    }
-    if (i === 7) {
-        document.getElementById("resetofferings1").style.display = "none";
-        document.getElementById("resetofferings2").style.display = "none";
-        offering = 0;
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium").src = "";
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src = "";
-        document.getElementById("resetcurrency2").textContent = "";
-        document.getElementById("resetobtainium2").textContent = "";
-        document.getElementById("resetinfo").style.color = "gold";
-        document.getElementById("resetinfo").textContent = "Ascend. 10x1 is required! +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.CalcCorruptionStuff)()[4], 0, true) + " Wow! Cubes for doing it! Time: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCounter, 0, false) + " Seconds.";
-    }
-    if (i === 8) {
-        document.getElementById("resetofferings1").style.display = "none";
-        document.getElementById("resetofferings2").style.display = "none";
-        offering = 0;
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium").src = "";
-        (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1").src = "";
-        document.getElementById("resetcurrency2").textContent = "";
-        document.getElementById("resetobtainium2").textContent = "";
-        document.getElementById("resetinfo").style.color = "gold";
-        document.getElementById("resetinfo").textContent = "Click this if you're in an Ascension Challenge and want to leave. You get it already!";
+    const transcensionChallenge = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension;
+    const reincarnationChallenge = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation;
+    let offering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(input);
+    let offeringImage = (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetofferings1");
+    let offeringText = document.getElementById("resetofferings2");
+    let currencyImage1 = (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1");
+    let resetObtainiumImage = (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium");
+    let resetobtainiumText = document.getElementById("resetobtainium2");
+    let resetInfo = document.getElementById('resetinfo');
+    let resetCurrencyGain = document.getElementById("resetcurrency2");
+    (input == "reincarnation") ?
+        (resetObtainiumImage.src = "Pictures/Obtainium.png", resetobtainiumText.textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.obtainiumGain))) :
+        (resetObtainiumImage.src = "", resetobtainiumText.textContent = "");
+    (input == "ascensionChallenge" || input == "ascension") ?
+        offeringImage.style.display = offeringText.style.display = "none" :
+        offeringImage.style.display = offeringText.style.display = "block";
+    switch (input) {
+        case "prestige":
+            if (currencyImage1.src !== "Pictures/Diamond.png") {
+                currencyImage1.src = "Pictures/Diamond.png";
+            }
+            ;
+            resetCurrencyGain.textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.prestigePointGain);
+            resetInfo.textContent = "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisPrestige) + "/1e16 Coins || TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter) + " seconds.";
+            resetInfo.style.color = "turquoise";
+            break;
+        case "transcension":
+            if (currencyImage1.src !== "Pictures/Mythos.png") {
+                currencyImage1.src = "Pictures/Mythos.png";
+            }
+            ;
+            resetCurrencyGain.textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.transcendPointGain);
+            resetInfo.textContent = "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension) + "/1e100 Coins || TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter) + " seconds.";
+            resetInfo.style.color = "orchid";
+            break;
+        case "reincarnation":
+            if (currencyImage1.src !== "Pictures/Particle.png") {
+                currencyImage1.src = "Pictures/Particle.png";
+            }
+            ;
+            resetCurrencyGain.textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.reincarnationPointGain);
+            resetInfo.textContent = "Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendShards) + "/1e300 Mythos Shards || TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter) + " seconds.";
+            resetInfo.style.color = "limegreen";
+            break;
+        case "acceleratorBoost":
+            if (currencyImage1.src !== "Pictures/Diamond.png") {
+                currencyImage1.src = "Pictures/Diamond.png";
+            }
+            ;
+            resetCurrencyGain.textContent = "-" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBoostCost);
+            resetInfo.textContent = "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigePoints) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBoostCost) + " Diamonds.";
+            resetInfo.style.color = "cyan";
+            break;
+        case "transcensionChallenge":
+            currencyImage1.src = "";
+            resetCurrencyGain.textContent = "";
+            (transcensionChallenge !== 0) ?
+                (resetInfo.style.color = "aquamarine", resetInfo.textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + transcensionChallenge + ". Progress: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Challenges__WEBPACK_IMPORTED_MODULE_13__.challengeRequirement)(transcensionChallenge, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[transcensionChallenge])) + " Coins. TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter) + " seconds.") :
+                (resetInfo.style.color = "crimson", resetInfo.textContent = "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!");
+            break;
+        case "reincarnationChallenge":
+            let goal;
+            let goaldesc;
+            (reincarnationChallenge >= 9) ?
+                (goal = "coins", goaldesc = " Coins") :
+                (goal = "transcendShards", goaldesc = " Mythos Shards");
+            currencyImage1.src = "";
+            resetCurrencyGain.textContent = "";
+            (reincarnationChallenge !== 0) ?
+                (resetInfo.style.color = "silver", resetInfo.textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + reincarnationChallenge + ". Progress: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[goal]) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Challenges__WEBPACK_IMPORTED_MODULE_13__.challengeRequirement)(reincarnationChallenge, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[reincarnationChallenge], reincarnationChallenge)) + goaldesc + ". TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter) + " Seconds.") :
+                (resetInfo.style.color = "crimson", resetInfo.textContent = "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?");
+            break;
+        case "ascensionChallenge":
+            currencyImage1.src = "";
+            resetCurrencyGain.textContent = "";
+            resetInfo.textContent = "Click this if you're in an Ascension Challenge and want to leave. You get it already!";
+            resetInfo.style.color = "gold";
+            break;
+        case "ascension":
+            currencyImage1.src = "";
+            resetCurrencyGain.textContent = "";
+            resetInfo.textContent = "Ascend. 10x1 is required! +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.CalcCorruptionStuff)()[4], 0, true) + " Wow! Cubes for doing it! Time: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCounter, 0, false) + " Seconds.";
+            resetInfo.style.color = "gold";
+            break;
     }
     document.getElementById("resetofferings2").textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(offering);
 };
@@ -10426,15 +10404,15 @@ const updateTesseractAutoBuyAmount = () => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractAutoBuyerAmount = 0;
     }
 };
-const reset = (i, fast = false, from = 'unknown') => {
+const reset = (input, fast = false, from = 'unknown') => {
     let historyEntry = {};
     let historyKind = "prestige";
-    const historyCategory = i > 3.5 ? 'ascend' : 'reset';
+    const historyCategory = (input === 'ascension' || input === 'ascensionChallenge') ? 'ascend' : 'reset';
     let historyUse = from !== "enterChallenge" && from !== "leaveChallenge";
-    historyEntry.offerings = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(i);
+    historyEntry.offerings = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(input);
     historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter;
     historyEntry.diamonds = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.prestigePointGain;
-    (0,_Runes__WEBPACK_IMPORTED_MODULE_2__.resetofferings)(i);
+    (0,_Runes__WEBPACK_IMPORTED_MODULE_2__.resetofferings)(input);
     resetUpgrades(1);
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coins = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("102");
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisPrestige = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("100");
@@ -10475,7 +10453,8 @@ const reset = (i, fast = false, from = 'unknown') => {
     _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.prestigePointGain = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default('0');
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter = 0;
     _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.autoResetTimers.prestige = 0;
-    if (i > 1.5) {
+    if (input === "transcension" || input === "transcensionChallenge" || input == "reincarnation" || input == "reincarnationChallenge"
+        || input === "ascension" || input === "ascensionChallenge") {
         historyKind = "transcend";
         historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter;
         historyEntry.mythos = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.transcendPointGain;
@@ -10547,7 +10526,7 @@ const reset = (i, fast = false, from = 'unknown') => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter = 0;
         _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.autoResetTimers.transcension = 0;
     }
-    if (i > 2.5) {
+    if (input === 'reincarnation' || input === 'reincarnationChallenge' || input === 'ascension' || input === 'ascensionChallenge') {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount > 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[183] < 1) {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_10__.ascensionAchievementCheck)(1);
         }
@@ -10623,7 +10602,7 @@ const reset = (i, fast = false, from = 'unknown') => {
         (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneLevels)();
         (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAnts)();
     }
-    if (i > 3.5) {
+    if (input === 'ascension' || input === 'ascensionChallenge') {
         let metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.CalcCorruptionStuff)();
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_10__.ascensionAchievementCheck)(3, metaData[3]);
         historyKind = "ascend";
@@ -10780,13 +10759,11 @@ const reset = (i, fast = false, from = 'unknown') => {
         }
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions = Array.from(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prototypeCorruptions);
     }
-    if (i > 0.5) {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.prestige = true;
-    }
-    if (i > 1.5) {
+    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.prestige = true;
+    if (input == "transcension" || input == "transcensionChallenge") {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.transcend = true;
     }
-    if (i > 2.5) {
+    if (input == "reincarnation" || input == "reincarnationChallenge") {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.reincarnate = true;
     }
     if (!fast) {
@@ -11030,8 +11007,8 @@ const displayRuneInformation = (i, updatelevelup = true) => {
         document.getElementById("runeDisplayInfo").textContent = `+${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(amountPerOffering)} EXP per offering. ${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(offerings)} Offerings to level up ${s}.`;
     }
 };
-const resetofferings = (i) => {
-    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards += (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(i);
+const resetofferings = (input) => {
+    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards += (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(input);
 };
 const redeemShards = (runeIndexPlusOne, auto = false, cubeUpgraded = 0) => {
     let runeIndex = runeIndexPlusOne - 1;
@@ -12379,7 +12356,7 @@ const boostAccelerator = (automated) => {
                     for (let j = 21; j < 41; j++) {
                         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[j] = 0;
                     }
-                    (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)(1);
+                    (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)("prestige");
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigePoints = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(0);
                 }
             }
@@ -13545,8 +13522,8 @@ const visualUpdateShop = () => {
     document.getElementById("offeringautolevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.offeringAutoLevel + "/100";
     document.getElementById("obtainiumautolevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.obtainiumAutoLevel + "/100";
     document.getElementById("instantchallenge").textContent = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.instantChallengeBought ? "Bought" : "Not Bought";
-    document.getElementById("antspeed").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.antSpeedLevel + "/10";
-    document.getElementById("cashgrab").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.cashGrabLevel + "/10";
+    document.getElementById("antspeed").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.antSpeedLevel + "/100";
+    document.getElementById("cashgrab").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.cashGrabLevel + "/100";
     document.getElementById("shoptalisman").textContent = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.talismanBought ? "Bought" : "Not Bought";
     document.getElementById("challengeUpgradeLevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.challengeExtension + "/5";
     document.getElementById("challenge10TomeLevel").textContent = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades.challenge10Tomes + "/15";
@@ -14071,7 +14048,7 @@ const loadStatisticsCubeMultipliers = () => {
     document.getElementById("sCMT").textContent = `x${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_2__.calculateCubeMultiplier)(), 3)}`;
 };
 const loadStatisticsOfferingMultipliers = () => {
-    const arr = (0,_Calculate__WEBPACK_IMPORTED_MODULE_2__.calculateOfferings)(1, false);
+    const arr = (0,_Calculate__WEBPACK_IMPORTED_MODULE_2__.calculateOfferings)("prestige", false);
     const map = {
         1: { acc: 3, desc: "Alchemy Achievement 5:" },
         2: { acc: 3, desc: "Alchemy Achievement 6:" },
@@ -14102,7 +14079,7 @@ const loadStatisticsOfferingMultipliers = () => {
         statOffi.childNodes[0].textContent = map[i + 1].desc;
         document.getElementById(`sOff${i + 1}`).textContent = `x${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(arr[i], map[i + 1].acc, true)}`;
     }
-    document.getElementById("sOffT").textContent = `x${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_2__.calculateOfferings)(1, true, true), 3)}`;
+    document.getElementById("sOffT").textContent = `x${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_2__.calculateOfferings)("prestige", true, true), 3)}`;
 };
 const c15RewardUpdate = () => {
     let exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10];
@@ -15208,14 +15185,14 @@ const generateEventHandlers = () => {
     document.getElementById('ascTessStats').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleAscStatPerSecond)(2));
     document.getElementById('ascHyperStats').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleAscStatPerSecond)(3));
     document.getElementById('ascPlatonicStats').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleAscStatPerSecond)(4));
-    document.getElementById('prestigebtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)(1));
-    document.getElementById('transcendbtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)(2));
-    document.getElementById('reincarnatebtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)(3));
-    document.getElementById('acceleratorboostbtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)(4));
-    document.getElementById('challengebtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)(5));
-    document.getElementById('reincarnatechallengebtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)(6));
-    document.getElementById('ascendChallengeBtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)(8));
-    document.getElementById('ascendbtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)(7));
+    document.getElementById('prestigebtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)("prestige"));
+    document.getElementById('transcendbtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)("transcension"));
+    document.getElementById('reincarnatebtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)("reincarnation"));
+    document.getElementById('acceleratorboostbtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)("acceleratorBoost"));
+    document.getElementById('challengebtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)("transcensionChallenge"));
+    document.getElementById('reincarnatechallengebtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)("reincarnationChallenge"));
+    document.getElementById('ascendChallengeBtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)("ascensionChallenge"));
+    document.getElementById('ascendbtn').addEventListener('mouseover', () => (0,_Reset__WEBPACK_IMPORTED_MODULE_1__.resetrepeat)("ascension"));
     document.getElementById('prestigebtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('prestige'));
     document.getElementById('transcendbtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('transcend'));
     document.getElementById('reincarnatebtn').addEventListener('click', () => (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.resetCheck)('reincarnate'));
@@ -15442,74 +15419,74 @@ const generateEventHandlers = () => {
     document.getElementById('historyTogglePerSecondButton').addEventListener('click', () => (0,_History__WEBPACK_IMPORTED_MODULE_20__.resetHistoryTogglePerSecond)());
     document.getElementById('resetShopUpgrades').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.resetShopUpgrades)());
     document.getElementById('toggleConfirmShop').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleShopConfirmation)());
-    document.getElementById('offeringPotions').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(1));
-    document.getElementById('offeringpotionowned').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(1));
-    document.getElementById('buyofferingpotion').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(1));
-    document.getElementById('useofferingpotion').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(1));
-    document.getElementById('buyofferingpotion').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(1));
-    document.getElementById('useofferingpotion').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.useConsumable)(1));
-    document.getElementById('obtainiumPotions').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(2));
-    document.getElementById('obtainiumpotionowned').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(2));
-    document.getElementById('buyobtainiumpotion').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(2));
-    document.getElementById('useobtainiumpotion').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(2));
-    document.getElementById('buyobtainiumpotion').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(2));
-    document.getElementById('useobtainiumpotion').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.useConsumable)(2));
-    document.getElementById('OfferingEX').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(3));
-    document.getElementById('OfferingAuto').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(4));
-    document.getElementById('ObtainiumEX').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(5));
-    document.getElementById('ObtainiumAuto').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(6));
-    document.getElementById('InstChallenge').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(7));
-    document.getElementById('AntSpd').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(8));
-    document.getElementById('CashUpgrade').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(9));
-    document.getElementById('CashTalisman').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(10));
-    document.getElementById('SeasonPass').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(13));
-    document.getElementById('ShopChallenge').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(11));
-    document.getElementById('ShopTome').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(12));
-    document.getElementById('CubeQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(14));
-    document.getElementById('TesseractQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(15));
-    document.getElementById('HypercubeQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(16));
-    document.getElementById('offeringtimerlevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(3));
-    document.getElementById('offeringautolevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(4));
-    document.getElementById('obtainiumtimerlevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(5));
-    document.getElementById('obtainiumautolevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(6));
-    document.getElementById('instantchallenge').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(7));
-    document.getElementById('antspeed').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(8));
-    document.getElementById('cashgrab').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(9));
-    document.getElementById('shoptalisman').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(10));
-    document.getElementById('seasonPassLevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(13));
-    document.getElementById('challengeUpgradeLevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(11));
-    document.getElementById('challenge10TomeLevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(12));
-    document.getElementById('cubeToQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(14));
-    document.getElementById('tesseractToQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(15));
-    document.getElementById('hypercubeToQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(16));
-    document.getElementById('offeringtimerbutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(3));
-    document.getElementById('offeringtimerbutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(3));
-    document.getElementById('offeringautobutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(4));
-    document.getElementById('offeringautobutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(4));
-    document.getElementById('obtainiumtimerbutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(5));
-    document.getElementById('obtainiumtimerbutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(5));
-    document.getElementById('obtainiumautobutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(6));
-    document.getElementById('obtainiumautobutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(6));
-    document.getElementById('instantchallengebutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(7));
-    document.getElementById('instantchallengebutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(7));
-    document.getElementById('antspeedbutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(8));
-    document.getElementById('antspeedbutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(8));
-    document.getElementById('cashgrabbutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(9));
-    document.getElementById('cashgrabbutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(9));
-    document.getElementById('shoptalismanbutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(10));
-    document.getElementById('shoptalismanbutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(10));
-    document.getElementById('seasonPassButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(13));
-    document.getElementById('seasonPassButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(13));
-    document.getElementById('challengeUpgradeButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(11));
-    document.getElementById('challengeUpgradeButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(11));
-    document.getElementById('challenge10TomeButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(12));
-    document.getElementById('challenge10TomeButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(12));
-    document.getElementById('cubeToQuarkButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(14));
-    document.getElementById('cubeToQuarkButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(14));
-    document.getElementById('tesseractToQuarkButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(15));
-    document.getElementById('tesseractToQuarkButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(15));
-    document.getElementById('hypercubeToQuarkButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)(16));
-    document.getElementById('hypercubeToQuarkButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)(16));
+    document.getElementById('offeringPotions').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("offeringPotion"));
+    document.getElementById('offeringpotionowned').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("offeringPotion"));
+    document.getElementById('buyofferingpotion').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("offeringPotion"));
+    document.getElementById('useofferingpotion').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("offeringPotion"));
+    document.getElementById('buyofferingpotion').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("offeringPotion"));
+    document.getElementById('useofferingpotion').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.useConsumable)("offeringPotion"));
+    document.getElementById('obtainiumPotions').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("obtainiumPotion"));
+    document.getElementById('obtainiumpotionowned').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("obtainiumPotion"));
+    document.getElementById('buyobtainiumpotion').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("obtainiumPotion"));
+    document.getElementById('useobtainiumpotion').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("obtainiumPotion"));
+    document.getElementById('buyobtainiumpotion').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("obtainiumPotion"));
+    document.getElementById('useobtainiumpotion').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.useConsumable)("obtainiumPotion"));
+    document.getElementById('OfferingEX').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("offeringEX"));
+    document.getElementById('OfferingAuto').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("offeringAuto"));
+    document.getElementById('ObtainiumEX').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("obtainiumEX"));
+    document.getElementById('ObtainiumAuto').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("obtainiumAuto"));
+    document.getElementById('InstChallenge').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("instantChallenge"));
+    document.getElementById('AntSpd').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("antSpeed"));
+    document.getElementById('CashUpgrade').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("cashGrab"));
+    document.getElementById('CashTalisman').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("shopTalisman"));
+    document.getElementById('SeasonPass').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("seasonPass"));
+    document.getElementById('ShopChallenge').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("challengeExtension"));
+    document.getElementById('ShopTome').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("challengeTome"));
+    document.getElementById('CubeQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("cubeToQuark"));
+    document.getElementById('TesseractQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("tesseractToQuark"));
+    document.getElementById('HypercubeQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("hypercubeToQuark"));
+    document.getElementById('offeringtimerlevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("offeringEX"));
+    document.getElementById('offeringautolevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("offeringAuto"));
+    document.getElementById('obtainiumtimerlevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("obtainiumEX"));
+    document.getElementById('obtainiumautolevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("obtainiumAuto"));
+    document.getElementById('instantchallenge').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("instantChallenge"));
+    document.getElementById('antspeed').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("antSpeed"));
+    document.getElementById('cashgrab').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("cashGrab"));
+    document.getElementById('shoptalisman').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("shopTalisman"));
+    document.getElementById('seasonPassLevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("seasonPass"));
+    document.getElementById('challengeUpgradeLevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("challengeExtension"));
+    document.getElementById('challenge10TomeLevel').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("challengeTome"));
+    document.getElementById('cubeToQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("cubeToQuark"));
+    document.getElementById('tesseractToQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("tesseractToQuark"));
+    document.getElementById('hypercubeToQuark').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("hypercubeToQuark"));
+    document.getElementById('offeringtimerbutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("offeringEX"));
+    document.getElementById('offeringtimerbutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("offeringEX"));
+    document.getElementById('offeringautobutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("offeringAuto"));
+    document.getElementById('offeringautobutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("offeringAuto"));
+    document.getElementById('obtainiumtimerbutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("obtainiumEX"));
+    document.getElementById('obtainiumtimerbutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("obtainiumEX"));
+    document.getElementById('obtainiumautobutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("obtainiumAuto"));
+    document.getElementById('obtainiumautobutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("obtainiumAuto"));
+    document.getElementById('instantchallengebutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("instantChallenge"));
+    document.getElementById('instantchallengebutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("instantChallenge"));
+    document.getElementById('antspeedbutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("antSpeed"));
+    document.getElementById('antspeedbutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("antSpeed"));
+    document.getElementById('cashgrabbutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("cashGrab"));
+    document.getElementById('cashgrabbutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("cashGrab"));
+    document.getElementById('shoptalismanbutton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("shopTalisman"));
+    document.getElementById('shoptalismanbutton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("shopTalisman"));
+    document.getElementById('seasonPassButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("seasonPass"));
+    document.getElementById('seasonPassButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("seasonPass"));
+    document.getElementById('challengeUpgradeButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("challengeExtension"));
+    document.getElementById('challengeUpgradeButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("challengeExtension"));
+    document.getElementById('challenge10TomeButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("challengeTome"));
+    document.getElementById('challenge10TomeButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("challengeTome"));
+    document.getElementById('cubeToQuarkButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("cubeToQuark"));
+    document.getElementById('cubeToQuarkButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("cubeToQuark"));
+    document.getElementById('tesseractToQuarkButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("tesseractToQuark"));
+    document.getElementById('tesseractToQuarkButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("tesseractToQuark"));
+    document.getElementById('hypercubeToQuarkButton').addEventListener('mouseover', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.shopDescriptions)("hypercubeToQuark"));
+    document.getElementById('hypercubeToQuarkButton').addEventListener('click', () => (0,_Shop__WEBPACK_IMPORTED_MODULE_21__.buyShopUpgrades)("hypercubeToQuark"));
     document.getElementById('importfile').addEventListener('change', (e) => __awaiter(void 0, void 0, void 0, function* () {
         const { files } = e.target;
         const saveItem = files.item(0);
@@ -16060,196 +16037,196 @@ const cashgrabdesc = "This is a cash grab but it gives a couple cool stats. +1% 
 const antspeeddesc = "Each level gives a 1.125x speed multiplier to all Ant tiers' production! Short and simple.";
 const shoptalismandesc = "Permanently unlock a Shop talisman! [Warning: you can't refund this and this is VERY expensive to level. Be sure you want to buy it!]";
 const challengeExtDesc = "Using some amazing trick, you manage to increase your Reincarnation Challenge cap by 2 for each level! [Cannot be Refunded!]";
-const challenge10TomeDesc = "The extended cut: This fifth forgotten tome gives you an additional -20M exponent reduction on the Challenge 10 requirement per level.";
+const challenge10TomeDesc = "The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level.";
 const seasonPassDesc = "Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +1.5% cubes and tesseracts per level when you ascend!";
-const cubeToQuarkDesc = "Instead of a daily cap of 25 Quarks by opening Wow! Cubes, how about 100 instead? This adds 75 to the daily cap! [Cannot be Refunded!]";
-const tesseractToQuarkDesc = "Instead of a daily cap of 25 Quarks by opening Wow! Tesseracts, how about 100 instead? This adds 75 to the daily cap! [Cannot be Refunded!]";
-const hypercubeToQuarkDesc = "Instead of a daily cap of 25 Quarks by opening Wow! Hypercubes, how about 100 instead? This adds 75 to the daily cap! [Cannot be Refunded!]";
-const shopDescriptions = (i) => {
+const cubeToQuarkDesc = "Instead of a daily cap of 25 Quarks by opening Wow! Cubes, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]";
+const tesseractToQuarkDesc = "Instead of a daily cap of 25 Quarks by opening Wow! Tesseracts, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]";
+const hypercubeToQuarkDesc = "Instead of a daily cap of 25 Quarks by opening Wow! Hypercubes, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]";
+const shopDescriptions = (input) => {
     let rofl = document.getElementById("quarkdescription");
     let lmao = document.getElementById("quarkcost");
     let lol = document.getElementById("quarkeffect");
-    switch (i) {
-        case 1:
+    switch (input) {
+        case "offeringPotion":
             rofl.textContent = offerconsumedesc;
             lmao.textContent = "Cost: " + _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerPotion + " Quarks.";
             lol.textContent = "Gain " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((7200 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringpersecond * (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateTimeAcceleration)()), 0, true) + " Offerings.";
             break;
-        case 2:
+        case "obtainiumPotion":
             rofl.textContent = obtainiumconsumedesc;
             lmao.textContent = "Cost: " + _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumPotion + " Quarks.";
             lol.textContent = "Gain " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((7200 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.maxobtainiumpersecond * (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateTimeAcceleration)()), 0, true) + " Obtainium.";
             break;
-        case 3:
+        case "offeringEX":
             rofl.textContent = offertimerdesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Offering gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(4 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel, 2, true) + "%!";
+            lol.textContent = "CURRENT Effect: You will gain " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(4 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel, 2, true) + "% more Offerings!";
             break;
-        case 4:
+        case "offeringAuto":
             rofl.textContent = offerautodesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel) + " Quarks.";
             lol.textContent = "CURRENT Effect: Per 10 seconds, pour " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.pow(2, 1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel)) + " Offerings. +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel, 2) + "% Offerings.";
             break;
-        case 5:
+        case "obtainiumEX":
             rofl.textContent = obtainiumtimerdesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Obtainium gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(4 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel, 2, true) + "%!";
+            lol.textContent = "CURRENT Effect: You will gain " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(4 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel, 2, true) + "% more Obtainium!";
             break;
-        case 6:
+        case "obtainiumAuto":
             rofl.textContent = obtainiumautodesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Try to upgrade research each reincarnation, and gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel * 2, 2) + "% more Obtainium.";
+            lol.textContent = "CURRENT Effect: Try to upgrade research each reincarnation, and gain " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel * 2, 2) + "% more Obtainium.";
             break;
-        case 7:
+        case "instantChallenge":
             rofl.textContent = instantchallengedesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.instantChallenge) + " Quarks.";
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?";
             break;
-        case 8:
-            rofl.textContent = cashgrabdesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 40 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Obtainium and Offerings increased by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel, 2) + "%.";
-            break;
-        case 9:
+        case "antSpeed":
             rofl.textContent = antspeeddesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel) + " Quarks.";
             lol.textContent = "CURRENT Effect: All Ants' Speed x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.pow(1.125, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel), 2);
             break;
-        case 10:
+        case "cashGrab":
+            rofl.textContent = cashgrabdesc;
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 40 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel) + " Quarks.";
+            lol.textContent = "CURRENT Effect: You will gain " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel, 2) + "% more Obtainium and Offerings!";
+            break;
+        case "shopTalisman":
             rofl.textContent = shoptalismandesc;
             lmao.textContent = "Cost: " + (1500) + " Quarks.";
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?";
             break;
-        case 11:
+        case "seasonPass":
+            rofl.textContent = seasonPassDesc;
+            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel) + " Quarks.";
+            lol.textContent = "CURRENT Effect: Ascensions give " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(3 / 2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel) + "% more Wow! Cubes and Tesseracts.";
+            break;
+        case "challengeExtension":
             rofl.textContent = challengeExtDesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension) + " Quarks.";
             lol.textContent = "CURRENT Effect: Reincarnation Challenges may be completed an additional " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension) + " times.";
             break;
-        case 12:
+        case "challengeTome":
             rofl.textContent = challenge10TomeDesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Challenge 10 Exponent Requirement reduced by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(20 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes) + "M.";
+            lol.textContent = "CURRENT Effect: Challenge 10 Exponent Requirement reduced by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(20 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes) + " Million.";
             break;
-        case 13:
-            rofl.textContent = seasonPassDesc;
-            lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel) + " Quarks.";
-            lol.textContent = "CURRENT Effect: Ascensions give  +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(3 / 2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel) + "% cubes.";
-            break;
-        case 14:
+        case "cubeToQuark":
             rofl.textContent = cubeToQuarkDesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cubeToQuark) + " Quarks.";
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?";
             break;
-        case 15:
+        case "tesseractToQuark":
             rofl.textContent = tesseractToQuarkDesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.tesseractToQuark) + " Quarks.";
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?";
             break;
-        case 16:
+        case "hypercubeToQuark":
             rofl.textContent = hypercubeToQuarkDesc;
             lmao.textContent = "Cost: " + (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.hypercubeToQuark) + " Quarks.";
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?";
             break;
     }
 };
-const buyShopUpgrades = (i) => {
+const buyShopUpgrades = (input) => {
     let p = true;
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopConfirmation) {
         p = confirm("Are you sure of your purchase?");
     }
     if (p) {
-        switch (i) {
-            case 1:
+        switch (input) {
+            case "offeringPotion":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerPotion) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= 100;
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringPotion += 1;
                 }
                 break;
-            case 2:
+            case "obtainiumPotion":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumPotion) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= 100;
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumPotion += 1;
                 }
                 break;
-            case 3:
+            case "offeringEX":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerTimer + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel);
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringTimerLevel += 1;
                 }
                 break;
-            case 4:
+            case "offeringAuto":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.offerAuto + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel);
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel += 1;
                 }
                 break;
-            case 5:
+            case "obtainiumEX":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumTimer + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel);
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumTimerLevel += 1;
                 }
                 break;
-            case 6:
+            case "obtainiumAuto":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.obtainiumAuto + 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel);
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumAutoLevel += 1;
                 }
                 break;
-            case 7:
+            case "instantChallenge":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.instantChallenge && !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.instantChallengeBought) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= 300;
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.instantChallengeBought = true;
                 }
                 break;
-            case 8:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 40 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel < 100) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 40 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel);
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel += 1;
-                }
-                break;
-            case 9:
+            case "antSpeed":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.antSpeed + 25 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel);
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.antSpeedLevel += 1;
                 }
                 break;
-            case 10:
+            case "cashGrab":
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 40 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel < 100) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cashGrab + 40 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cashGrabLevel += 1;
+                }
+                break;
+            case "shopTalisman":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= 1500 && !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.talismanBought) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= 1500;
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.talismanBought = true;
                 }
                 break;
-            case 11:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension < 5) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension);
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension += 1;
-                }
-                break;
-            case 12:
-                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes < 15) {
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes);
-                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes += 1;
-                }
-                break;
-            case 13:
+            case "seasonPass":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel < 100) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.seasonPass + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel);
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.seasonPassLevel += 1;
                 }
                 break;
-            case 14:
+            case "challengeExtension":
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension < 5) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challengeExtension + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challengeExtension += 1;
+                }
+                break;
+            case "challengeTome":
+                if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes < 15) {
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.challenge10Upgrade + 250 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes);
+                    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.challenge10Tomes += 1;
+                }
+                break;
+            case "cubeToQuark":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cubeToQuark) && !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cubeToQuarkBought) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.cubeToQuark);
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.cubeToQuarkBought = true;
                 }
                 break;
-            case 15:
+            case "tesseractToQuark":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.tesseractToQuark) && !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.tesseractToQuarkBought) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.tesseractToQuark);
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.tesseractToQuarkBought = true;
                 }
                 break;
-            case 16:
+            case "hypercubeToQuark":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds >= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.hypercubeToQuark) && !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.hypercubeToQuarkBought) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds -= (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopBaseCosts.hypercubeToQuark);
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.hypercubeToQuarkBought = true;
@@ -16259,19 +16236,19 @@ const buyShopUpgrades = (i) => {
         (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_2__.revealStuff)();
     }
 };
-const useConsumable = (i) => {
+const useConsumable = (input) => {
     const p = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.shopConfirmation
         ? confirm('Would you like to use this potion?')
         : true;
     if (p) {
-        switch (i) {
-            case 1:
+        switch (input) {
+            case "offeringPotion":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringPotion > 0.5) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringPotion -= 1;
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards += Math.floor(7200 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringpersecond * (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateTimeAcceleration)());
                 }
                 break;
-            case 2:
+            case "obtainiumPotion":
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumPotion > 0.5) {
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.obtainiumPotion -= 1;
                     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += Math.floor(7200 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.maxobtainiumpersecond * (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateTimeAcceleration)());

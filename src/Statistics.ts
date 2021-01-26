@@ -74,7 +74,7 @@ export const loadStatisticsCubeMultipliers = () => {
 }
 
 export const loadStatisticsOfferingMultipliers = () => {
-    const arr = calculateOfferings(1, false); 
+    const arr = calculateOfferings("prestige", false); 
     const map: Record<number, { acc: number, desc: string }> = {
         1: {acc: 3, desc: "Alchemy Achievement 5:"},
         2: {acc: 3, desc: "Alchemy Achievement 6:"},
@@ -105,7 +105,7 @@ export const loadStatisticsOfferingMultipliers = () => {
         statOffi.childNodes[0].textContent = map[i + 1].desc;
         document.getElementById(`sOff${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`;
     }
-    document.getElementById("sOffT").textContent = `x${format(calculateOfferings(1, true, true), 3)}`;
+    document.getElementById("sOffT").textContent = `x${format(calculateOfferings("prestige", true, true), 3)}`;
 }
 
 export const c15RewardUpdate = () => {

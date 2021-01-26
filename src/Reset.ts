@@ -14,131 +14,106 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import type { ResetHistoryAscend, Kind } from './History';
 import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
+import { resetNames } from './types/Synergism';
 
 let repeatreset: NodeJS.Timeout;
 
-export const resetrepeat = (i: number) => {
+export const resetrepeat = (input: resetNames) => {
     clearInt(repeatreset);
-    repeatreset = interval(() => resetdetails(i), 50)
+    repeatreset = interval(() => resetdetails(input), 50)
 }
 
-export const resetdetails = (i: number) => {
+export const resetdetails = (input: resetNames) => {
     getElementById<HTMLImageElement>('resetofferings1').src = "Pictures/Offering.png"
 
-    const r = player.currentChallenge.transcension;
+    const transcensionChallenge = player.currentChallenge.transcension;
+    const reincarnationChallenge = player.currentChallenge.reincarnation;
 
-    document.getElementById("resetofferings1").style.display = "block"
-    document.getElementById("resetofferings2").style.display = "block"
-    let offering = 0;
-    if (i === 1) {
-        if (getElementById<HTMLImageElement>("resetcurrency1").src !== "Pictures/Diamond.png") {
-            getElementById<HTMLImageElement>("resetcurrency1").src = "Pictures/Diamond.png"
-        }
-        offering = calculateOfferings(1)
-        document.getElementById("resetcurrency2").textContent = "+" + format(G['prestigePointGain'])
-        getElementById<HTMLImageElement>("resetobtainium").src = ""
-        document.getElementById("resetobtainium2").textContent = ""
-        document.getElementById("resetinfo").textContent = "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: " + format(player.coinsThisPrestige) + "/1e16 Coins || TIME SPENT: " + format(player.prestigecounter) + " seconds."
-        document.getElementById("resetinfo").style.color = "turquoise"
-    }
-    if (i === 2) {
-        if (getElementById<HTMLImageElement>("resetcurrency1").src !== "Pictures/Mythos.png") {
-            getElementById<HTMLImageElement>("resetcurrency1").src = "Pictures/Mythos.png"
-        }
-        offering = calculateOfferings(2)
-        document.getElementById("resetcurrency2").textContent = "+" + format(G['transcendPointGain'])
-        getElementById<HTMLImageElement>("resetobtainium").src = ""
-        document.getElementById("resetobtainium2").textContent = ""
-        document.getElementById("resetinfo").textContent = "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: " + format(player.coinsThisTranscension) + "/1e100 Coins || TIME SPENT: " + format(player.transcendcounter) + " seconds."
-        document.getElementById("resetinfo").style.color = "orchid"
-    }
-    if (i === 3) {
-        let s = player.currentChallenge.transcension;
-        getElementById<HTMLImageElement>("resetobtainium").src = ""
-        getElementById<HTMLImageElement>("resetcurrency1").src = ""
-        document.getElementById("resetcurrency2").textContent = ""
-        document.getElementById("resetobtainium2").textContent = ""
-        offering = calculateOfferings(2)
-        if (player.currentChallenge.transcension !== 0) {
-            document.getElementById("resetinfo").style.color = "aquamarine"
-            document.getElementById("resetinfo").textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + r + ". Progress: " + format(player.coinsThisTranscension) + "/" + format(challengeRequirement(s, player.challengecompletions[s])) + " Coins. TIME SPENT: " + format(player.transcendcounter) + " seconds."
-        }
-        if (player.currentChallenge.transcension === 0) {
-            document.getElementById("resetinfo").textContent = "You're not in a challenge right now. Get in one before you can leave it, duh!"
-            document.getElementById("resetinfo").style.color = "crimson"
-        }
+    let offering = calculateOfferings(input);
+    let offeringImage = getElementById<HTMLImageElement>("resetofferings1");
+    let offeringText = document.getElementById("resetofferings2");
+    let currencyImage1 = getElementById<HTMLImageElement>("resetcurrency1");
+    let resetObtainiumImage = getElementById<HTMLImageElement>("resetobtainium");
+    let resetobtainiumText = document.getElementById("resetobtainium2");
+    let resetInfo = document.getElementById('resetinfo');
+    let resetCurrencyGain = document.getElementById("resetcurrency2");
 
-    }
-    if (i === 4) {
-        if (getElementById<HTMLImageElement>("resetcurrency1").src !== "Pictures/Particle.png") {
-            getElementById<HTMLImageElement>("resetcurrency1").src = "Pictures/Particle.png"
-        }
-        offering = calculateOfferings(3)
-        document.getElementById("resetcurrency2").textContent = "+" + format(G['reincarnationPointGain'])
-        getElementById<HTMLImageElement>("resetobtainium").src = "Pictures/Obtainium.png"
-        document.getElementById("resetobtainium2").textContent = "+" + format(Math.floor(G['obtainiumGain']))
-        document.getElementById("resetinfo").textContent = "Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: " + format(player.transcendShards) + "/1e300 Mythos Shards || TIME SPENT: " + format(player.reincarnationcounter) + " seconds."
-        document.getElementById('resetinfo').style.color = "limegreen"
-    }
-    if (i === 5) {
-        if (getElementById<HTMLImageElement>("resetcurrency1").src !== "Pictures/Diamond.png") {
-            getElementById<HTMLImageElement>("resetcurrency1").src = "Pictures/Diamond.png"
-        }
-        offering = 0
-        document.getElementById("resetcurrency2").textContent = "-" + format(player.acceleratorBoostCost)
-        getElementById<HTMLImageElement>("resetobtainium").src = ""
-        document.getElementById("resetobtainium2").textContent = ""
-        document.getElementById("resetinfo").textContent = "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: " + format(player.prestigePoints) + "/" + format(player.acceleratorBoostCost) + " Diamonds."
-        document.getElementById("resetinfo").style.color = "cyan"
-    }
-    if (i === 6) {
-        let s = player.currentChallenge.reincarnation;
-        let goal = "transcendShards";
-        let goaldesc = " Mythos Shards"
-        if (player.currentChallenge.reincarnation >= 9) {
-            goal = "coins";
-            goaldesc = " Coins"
-        }
-        offering = calculateOfferings(3)
-        getElementById<HTMLImageElement>("resetobtainium").src = ""
-        getElementById<HTMLImageElement>("resetcurrency1").src = ""
-        document.getElementById("resetcurrency2").textContent = ""
-        document.getElementById("resetobtainium2").textContent = ""
-        document.getElementById("resetinfo").style.color = "silver"
-        if (player.currentChallenge.reincarnation !== 0) {
-            document.getElementById("resetinfo").style.color = "silver"
-            document.getElementById("resetinfo").textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + s + ". Progress: " + format(player[goal]) + "/" + format(challengeRequirement(s, player.challengecompletions[s], s)) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."
-        }
-        if (player.currentChallenge.reincarnation === 0) {
-            document.getElementById("resetinfo").textContent = "You're not in a reincarnation challenge right now. Why would you need to leave it?"
-            document.getElementById("resetinfo").style.color = "crimson"
-        }
-    }
-    if (i === 7) {
-        document.getElementById("resetofferings1").style.display = "none"
-        document.getElementById("resetofferings2").style.display = "none"
-        offering = 0
-        getElementById<HTMLImageElement>("resetobtainium").src = ""
-        getElementById<HTMLImageElement>("resetcurrency1").src = ""
-        document.getElementById("resetcurrency2").textContent = ""
-        document.getElementById("resetobtainium2").textContent = ""
-        document.getElementById("resetinfo").style.color = "gold"
-        document.getElementById("resetinfo").textContent = "Ascend. 10x1 is required! +" + format(CalcCorruptionStuff()[4], 0, true) + " Wow! Cubes for doing it! Time: " + format(player.ascensionCounter, 0, false) + " Seconds."
+    (input == "reincarnation") ? 
+        (resetObtainiumImage.src = "Pictures/Obtainium.png", resetobtainiumText.textContent = format(Math.floor(G['obtainiumGain']))):
+        (resetObtainiumImage.src = "", resetobtainiumText.textContent = "");
 
-    }
+    (input == "ascensionChallenge" || input == "ascension")?
+        offeringImage.style.display = offeringText.style.display = "none":
+        offeringImage.style.display = offeringText.style.display = "block";
 
-    if (i === 8) {
-        document.getElementById("resetofferings1").style.display = "none"
-        document.getElementById("resetofferings2").style.display = "none"
-        offering = 0
-        getElementById<HTMLImageElement>("resetobtainium").src = ""
-        getElementById<HTMLImageElement>("resetcurrency1").src = ""
-        document.getElementById("resetcurrency2").textContent = ""
-        document.getElementById("resetobtainium2").textContent = ""
-        document.getElementById("resetinfo").style.color = "gold"
-        document.getElementById("resetinfo").textContent = "Click this if you're in an Ascension Challenge and want to leave. You get it already!"
-    }
+    switch(input){
+        case "prestige":
+            if(currencyImage1.src !== "Pictures/Diamond.png"){
+                currencyImage1.src = "Pictures/Diamond.png"
+            };
+            resetCurrencyGain.textContent = "+" + format(G['prestigePointGain']);
+            resetInfo.textContent = "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: " + format(player.coinsThisPrestige) + "/1e16 Coins || TIME SPENT: " + format(player.prestigecounter) + " seconds.";
+            resetInfo.style.color = "turquoise";
+            break;
+        case "transcension":
+            if(currencyImage1.src !== "Pictures/Mythos.png"){
+                currencyImage1.src = "Pictures/Mythos.png"
+            };
+            resetCurrencyGain.textContent = "+" + format(G['transcendPointGain']);
+            resetInfo.textContent = "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: " + format(player.coinsThisTranscension) + "/1e100 Coins || TIME SPENT: " + format(player.transcendcounter) + " seconds.";
+            resetInfo.style.color = "orchid";
+            break;
+        case "reincarnation":
+            if(currencyImage1.src !== "Pictures/Particle.png"){
+                currencyImage1.src = "Pictures/Particle.png"
+            };
+            resetCurrencyGain.textContent = "+" + format(G['reincarnationPointGain']);
+            resetInfo.textContent = "Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: " + format(player.transcendShards) + "/1e300 Mythos Shards || TIME SPENT: " + format(player.reincarnationcounter) + " seconds.";
+            resetInfo.style.color = "limegreen";
+            break;
+        case "acceleratorBoost":
+            if(currencyImage1.src !== "Pictures/Diamond.png") {
+                currencyImage1.src = "Pictures/Diamond.png"
+            };
+            resetCurrencyGain.textContent = "-" + format(player.acceleratorBoostCost);
+            resetInfo.textContent = "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: " + format(player.prestigePoints) + "/" + format(player.acceleratorBoostCost) + " Diamonds.";
+            resetInfo.style.color = "cyan";
+            break;
+        case "transcensionChallenge":
+            currencyImage1.src = "";
+            resetCurrencyGain.textContent = "";
 
+            (transcensionChallenge !== 0)?
+            (resetInfo.style.color = "aquamarine", resetInfo.textContent = "Are you tired of being in your challenge or stuck? Click to leave challenge " + transcensionChallenge + ". Progress: " + format(player.coinsThisTranscension) + "/" + format(challengeRequirement(transcensionChallenge, player.challengecompletions[transcensionChallenge])) + " Coins. TIME SPENT: " + format(player.transcendcounter) + " seconds."):
+            (resetInfo.style.color = "crimson", resetInfo.textContent = "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!");
+            break;
+        case "reincarnationChallenge":
+            let goal;
+            let goaldesc;
+
+            (reincarnationChallenge >= 9)?
+            (goal = "coins", goaldesc = " Coins"):
+            (goal = "transcendShards", goaldesc = " Mythos Shards");
+            currencyImage1.src = "";
+            resetCurrencyGain.textContent = "";
+
+            (reincarnationChallenge !== 0)?
+            (resetInfo.style.color = "silver", resetInfo.textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + reincarnationChallenge + ". Progress: " + format(player[goal]) + "/" + format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."):
+            (resetInfo.style.color = "crimson", resetInfo.textContent = "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?");
+            break;
+        case "ascensionChallenge":
+            currencyImage1.src = "";
+            resetCurrencyGain.textContent = "";
+            resetInfo.textContent = "Click this if you're in an Ascension Challenge and want to leave. You get it already!";
+            resetInfo.style.color = "gold";
+            break;
+        case "ascension":
+            currencyImage1.src = "";
+            resetCurrencyGain.textContent = "";
+            resetInfo.textContent = "Ascend. 10x1 is required! +" + format(CalcCorruptionStuff()[4], 0, true) + " Wow! Cubes for doing it! Time: " + format(player.ascensionCounter, 0, false) + " Seconds.";
+            resetInfo.style.color = "gold";
+            break;
+    }
     document.getElementById("resetofferings2").textContent = "+" + format(offering)
 }
 
@@ -188,19 +163,19 @@ export const updateTesseractAutoBuyAmount = () => {
     }
 }
 
-export const reset = (i: number, fast = false, from = 'unknown') => {
+export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     let historyEntry: Partial<ResetHistoryAscend> = {};
     let historyKind = "prestige";
-    const historyCategory = i > 3.5 ? 'ascend' : 'reset';
+    const historyCategory = (input === 'ascension' || input === 'ascensionChallenge') ? 'ascend' : 'reset';
     // By default, we don't log history entries when the player is entering or leaving a challenge, but we handle some
     // special cases down below. This keeps the logs clean when someone in lategame runs 30 challenges in a row.
     let historyUse = from !== "enterChallenge" && from !== "leaveChallenge";
 
-    historyEntry.offerings = calculateOfferings(i)
+    historyEntry.offerings = calculateOfferings(input)
     historyEntry.seconds = player.prestigecounter;
     historyEntry.diamonds = G['prestigePointGain'];
 
-    resetofferings(i)
+    resetofferings(input)
     resetUpgrades(1);
     player.coins = new Decimal("102");
     player.coinsThisPrestige = new Decimal("100");
@@ -248,7 +223,8 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
     player.prestigecounter = 0;
     G['autoResetTimers'].prestige = 0;
 
-    if (i > 1.5) {
+    if (input === "transcension" || input === "transcensionChallenge" || input == "reincarnation" || input == "reincarnationChallenge"
+        || input === "ascension" || input === "ascensionChallenge") {
         historyKind = "transcend";
         historyEntry.seconds = player.transcendcounter;
         historyEntry.mythos = G['transcendPointGain'];
@@ -329,7 +305,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
     }
 
 
-    if (i > 2.5) {
+    if (input === 'reincarnation' || input === 'reincarnationChallenge' || input === 'ascension' || input === 'ascensionChallenge') {
         // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
         if (player.ascensionCount > 0 && player.achievements[183] < 1) {
             ascensionAchievementCheck(1);
@@ -426,7 +402,7 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         calculateAnts();
     }
 
-    if (i > 3.5) {
+    if (input === 'ascension' || input === 'ascensionChallenge') {
         let metaData = CalcCorruptionStuff()
         ascensionAchievementCheck(3, metaData[3])
         historyKind = "ascend";
@@ -600,14 +576,13 @@ export const reset = (i: number, fast = false, from = 'unknown') => {
         player.usedCorruptions = Array.from(player.prototypeCorruptions)
     }
 
-
-    if (i > 0.5) {
-        player.unlocks.prestige = true
-    }
-    if (i > 1.5) {
+    //Always unlocks
+    player.unlocks.prestige = true
+    
+    if (input == "transcension" || input == "transcensionChallenge") {
         player.unlocks.transcend = true
     }
-    if (i > 2.5) {
+    if (input == "reincarnation" || input == "reincarnationChallenge") {
         player.unlocks.reincarnate = true
     }
     if (!fast) {

@@ -518,7 +518,7 @@ export const boostAccelerator = (automated?: boolean) => {
                     for (let j = 21; j < 41; j++) {
                         player.upgrades[j] = 0;
                     }
-                    reset(1);
+                    reset("prestige");
                     player.prestigePoints = new Decimal(0);
                 }
             }

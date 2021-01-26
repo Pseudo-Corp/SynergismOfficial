@@ -7,6 +7,7 @@ import { toggleTalismanBuy, updateTalismanInventory } from './Talismans';
 import { reset } from './Reset';
 import { achievementaward } from './Achievements';
 import { redeemShards } from './Runes';
+import { resetNames } from './types/Synergism';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] = 
@@ -231,17 +232,22 @@ export const calculateMaxRunes = (i: number) => {
     return max
 }
 
-export function calculateOfferings(i: number): number;
-export function calculateOfferings(i: number, calcMult: false): number[];
-export function calculateOfferings(i: number, calcMult: false, statistic: boolean): number[];
-export function calculateOfferings(i: number, calcMult: true, statistic: boolean): number;
-export function calculateOfferings(i: number, calcMult = true, statistic = false) {
+export function calculateOfferings(input: resetNames): number;
+export function calculateOfferings(input: resetNames, calcMult: false): number[];
+export function calculateOfferings(input: resetNames, calcMult: false, statistic: boolean): number[];
+export function calculateOfferings(input: resetNames, calcMult: true, statistic: boolean): number;
+export function calculateOfferings(input: resetNames, calcMult = true, statistic = false) {
+
+    if (input == "acceleratorBoost" || input == "ascension" || input == "ascensionChallenge"){
+        return 0;
+    }
+
     let q = 0;
     let a = 0;
     let b = 0;
     let c = 0;
 
-    if (i === 3) {
+    if (input == "reincarnation" || input == "reincarnationChallenge") {
         a += 3
         if (player.achievements[52] > 0.5) {
             a += (25 * Math.min(player.reincarnationcounter / 1800, 1))
@@ -261,7 +267,8 @@ export function calculateOfferings(i: number, calcMult = true, statistic = false
         }
 
     }
-    if (i >= 2) {
+    if (input == "transcension" || input == "transcensionChallenge" || input == "reincarnation" ||
+        input == "reincarnationChallenge") {
         b += 2
         if (player.reincarnationCount > 0) {
             b += 2
@@ -281,7 +288,7 @@ export function calculateOfferings(i: number, calcMult = true, statistic = false
             b *= Math.max(1, player.transcendcounter / 10)
         }
     }
-    if (i >= 1) {
+    // This will always be calculated if '0' is not already returned
         c += 1
         if (player.transcendCount > 0 || player.reincarnationCount > 0) {
             c += 1
@@ -303,7 +310,6 @@ export function calculateOfferings(i: number, calcMult = true, statistic = false
         if (player.prestigeCount >= 5) {
             c *= Math.max(1, player.prestigecounter / 10)
         }
-    }
     q = a + b + c
 
     const arr = [
@@ -345,13 +351,13 @@ export function calculateOfferings(i: number, calcMult = true, statistic = false
     q = Math.floor(q) * 100 / 100
 
     let persecond = 0;
-    if (i === 1) {
+    if (input === "prestige") {
         persecond = q / (1 + player.prestigecounter)
     }
-    if (i === 2) {
+    if (input === "transcension" || input == "transcensionChallenge") {
         persecond = q / (1 + player.transcendcounter)
     }
-    if (i === 3) {
+    if (input === "reincarnation" || input == "reincarnationChallenge") {
         persecond = q / (1 + player.reincarnationcounter)
     }
     if (persecond > player.offeringpersecond) {
@@ -816,7 +822,7 @@ export const calculateOffline = (forceTime = 0) => {
     if (!player.loadedNov13Vers) {
         if (player.challengecompletions[14] > 0 || player.highestchallengecompletions[14] > 0) {
             let ascCount = player.ascensionCount;
-            reset(4);
+            reset("ascensionChallenge");
             player.ascensionCount = (ascCount + 1)
         }
         player.loadedNov13Vers = true
