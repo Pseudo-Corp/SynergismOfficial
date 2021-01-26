@@ -75,7 +75,7 @@ export const calculatetax = () => {
         exponent *= 0.5
     }
     G['maxexponent'] = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1
-    const a2 = Math.min(G['maxexponent'], Math.floor(Decimal.log(G['produceTotal'].add(1).toNumber(), 10)));
+    const a2 = Math.min(G['maxexponent'], Math.floor(Decimal.log(G['produceTotal'].add(1), 10)));
 
     if (player.currentChallenge.ascension === 13 && G['maxexponent'] <= 99999 && player.achievements[249] < 1) {
         achievementaward(249)
