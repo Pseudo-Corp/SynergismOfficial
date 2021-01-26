@@ -441,7 +441,7 @@ const player = {
     sacrificeTimer: 0,
     quarkstimer: 90000,
     antPoints: new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default("1"),
-    antUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    antUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     antSacrificePoints: 0,
     antSacrificeTimer: 900,
     antSacrificeTimerReal: 900,
@@ -15112,6 +15112,9 @@ const checkVariablesOnLoad = (data) => {
     }
     if (data.talismanLevels[0] === null) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanLevels = data.talismanLevels.slice(1);
+    }
+    if (data.antUpgrades[0] === null) {
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades = data.antUpgrades.slice(1);
     }
     if (typeof data.exporttest === 'string') {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.exporttest = !_Synergism__WEBPACK_IMPORTED_MODULE_0__.isTesting;
