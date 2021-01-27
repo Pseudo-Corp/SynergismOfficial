@@ -512,7 +512,7 @@ export const calculateTalismanEffects = () => {
             runesTalisman[runeNumber] += levels;
         });
     });
-    // [, rune1Talisman, rune2Talisman, rune3Talisman, rune4Talisman, rune5Talisman] = runesTalisman;
+    [, G['rune1Talisman'], G['rune2Talisman'], G['rune3Talisman'], G['rune4Talisman'], G['rune5Talisman']] = runesTalisman;
     G['talisman6Power'] = 0;
     G['talisman7Quarks'] = 0;
     if (player.talismanRarity[1-1] === 6) {

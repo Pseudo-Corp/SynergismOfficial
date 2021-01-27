@@ -441,11 +441,11 @@ const player = {
     sacrificeTimer: 0,
     quarkstimer: 90000,
     antPoints: new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default("1"),
-    antUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    antUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     antSacrificePoints: 0,
     antSacrificeTimer: 900,
     antSacrificeTimerReal: 900,
-    talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
+    talismanLevels: [0, 0, 0, 0, 0, 0, 0],
     talismanRarity: [1, 1, 1, 1, 1, 1, 1],
     talismanOne: [null, -1, 1, 1, 1, -1],
     talismanTwo: [null, 1, 1, -1, -1, 1],
@@ -5446,8 +5446,8 @@ const Globals = {
     buildingSubTab: "coin",
     blessingbase: [null, 1 / 500, 1 / 5000, 1 / 2000, 1 / 750, 1 / 200, 1 / 10000, 1 / 5000, 1 / 10, 1 / 10000, 1 / 1000],
     blessingDRPower: [null, 1 / 3, 1 / 3, 2 / 3, 1 / 2, 2 / 3, 2, 1 / 3, 1 / 3, 1 / 16, 1 / 16],
-    giftbase: [null, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000],
-    giftDRPower: [null, 1 / 6, 1 / 6, 1 / 3, 1 / 4, 1 / 3, 1, 1 / 6, 1 / 6, 1 / 32, 1 / 32],
+    giftbase: [1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000],
+    giftDRPower: [1 / 6, 1 / 6, 1 / 3, 1 / 4, 1 / 3, 1, 1 / 6, 1 / 6, 1 / 32, 1 / 32],
     benedictionbase: [null, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000],
     benedictionDRPower: [null, 1 / 12, 1 / 12, 1 / 6, 1 / 8, 1 / 6, 1 / 2, 1 / 12, 1 / 12, 1 / 64, 1 / 64],
     platonicCubeBase: [2 / 4e6, 1.5 / 4e6, 1 / 4e6, 1 / 8e4, 1 / 1e4, 1 / 1e5, 1 / 1e4, 1 / 1e4],
@@ -8072,6 +8072,7 @@ const calculateTalismanEffects = () => {
             runesTalisman[runeNumber] += levels;
         });
     });
+    [, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune1Talisman, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune2Talisman, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune3Talisman, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune4Talisman, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5Talisman] = runesTalisman;
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.talisman6Power = 0;
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.talisman7Quarks = 0;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[1 - 1] === 6) {
@@ -9103,7 +9104,7 @@ const buyTalismanEnhance = (i, auto = false) => {
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1] < 6) {
         let priceMult = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanLevelCostMultiplier[i];
         let array = [_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.commonTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.uncommonTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.rareTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.epicTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.legendaryTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mythicalTalismanEnchanceCost];
-        let index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1];
+        let index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1] - 1;
         let costArray = array[index];
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.commonFragments >= priceMult * costArray[2]) {
             checkSum++;
@@ -11157,14 +11158,14 @@ const openTesseract = (value, max = false) => {
 };
 const calculateTesseractBlessings = () => {
     let tesseractArray = [_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.globalSpeed];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 0; i < 10; i++) {
         let power = 1;
         let mult = 1;
-        if (tesseractArray[i] >= 1000 && i !== 6) {
-            power = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.giftDRPower[i - 1];
+        if (tesseractArray[i] >= 1000 && i !== 5) {
+            power = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.giftDRPower[i];
             mult *= Math.pow(1000, (1 - _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.giftDRPower[i]));
         }
-        _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.tesseractBonusMultiplier[i] = 1 + mult * _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.giftbase[i] * Math.pow(tesseractArray[i - 1], power) * _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.hypercubeBonusMultiplier[i];
+        _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.tesseractBonusMultiplier[i + 1] = 1 + mult * _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.giftbase[i] * Math.pow(tesseractArray[i], power) * _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.hypercubeBonusMultiplier[i + 1];
     }
 };
 

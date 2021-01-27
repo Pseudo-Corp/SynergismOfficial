@@ -453,12 +453,12 @@ export const player: Player = {
     quarkstimer: 90000,
 
     antPoints: new Decimal("1"),
-    antUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    antUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     antSacrificePoints: 0,
     antSacrificeTimer: 900,
     antSacrificeTimerReal: 900,
 
-    talismanLevels: [null, 0, 0, 0, 0, 0, 0, 0],
+    talismanLevels: [0, 0, 0, 0, 0, 0, 0],
     talismanRarity: [1, 1, 1, 1, 1, 1, 1],
     talismanOne: [null, -1, 1, 1, 1, -1],
     talismanTwo: [null, 1, 1, -1, -1, 1],
