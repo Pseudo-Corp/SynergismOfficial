@@ -2467,6 +2467,21 @@ const updateAll = () => {
             }
         }
     }
+    if ((player.researches[190] > 0) && (player.tesseractAutoBuyerToggle == 1)) {
+        const cheapestTesseractBuilding = { cost: 0, intCost: 0, index: 0, intCostArray: [1, 10, 100, 1000, 10000] };
+        for (let i = 0; i < cheapestTesseractBuilding.intCostArray.length; i++) {
+            if ((player.wowTesseracts >= cheapestTesseractBuilding.intCostArray[i] * Math.pow(1 + player['ascendBuilding' + (i + 1)]['owned'], 3) + player.tesseractAutoBuyerAmount) && player.autoTesseracts[i + 1]) {
+                if (((0,_Buy__WEBPACK_IMPORTED_MODULE_20__.getTesseractCost)(cheapestTesseractBuilding.intCostArray[i], i + 1)[1] < cheapestTesseractBuilding.cost) || (cheapestTesseractBuilding.cost == 0)) {
+                    cheapestTesseractBuilding.cost = (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.getTesseractCost)(cheapestTesseractBuilding.intCostArray[i], i + 1)[1];
+                    cheapestTesseractBuilding.intCost = cheapestTesseractBuilding.intCostArray[i];
+                    cheapestTesseractBuilding.index = i + 1;
+                }
+            }
+        }
+        if (cheapestTesseractBuilding.index > 0) {
+            (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyTesseractBuilding)(cheapestTesseractBuilding.intCost, cheapestTesseractBuilding.index);
+        }
+    }
     if (player.upgrades[101] > 0.5) {
         player.fourthGeneratedCoin = player.fourthGeneratedCoin.add((player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.uFifteenMulti).times(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.generatorPower));
     }
@@ -8771,7 +8786,6 @@ const buyTalismanResources = (type, percentage = _Synergism__WEBPACK_IMPORTED_MO
     updateTalismanInventory();
 };
 const showTalismanEffect = (i) => {
-    let ord = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"];
     document.getElementById("talismanlevelup").style.display = "none";
     document.getElementById("talismanEffect").style.display = "block";
     document.getElementById("talismanrespec").style.display = "none";
@@ -8783,16 +8797,6 @@ const showTalismanEffect = (i) => {
     let f = document.getElementById("talismanRune4Effect");
     let g = document.getElementById("talismanRune5Effect");
     let h = document.getElementById("talismanMythicEffect");
-    let index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1];
-    let modifiers = ["+", "+", "+", "+", "+"];
-    let num = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanPositiveModifier[index];
-    let talismanRarityMult = [num, num, num, num, num];
-    for (let j = 0; j < 5; j++) {
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player["talisman" + ord[i]][j] < 0) {
-            modifiers[j] = "-";
-            talismanRarityMult[j] = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanNegativeModifier[index];
-        }
-    }
     switch (i) {
         case 1:
             a.textContent = "=-=-=-= Exemption Talisman Effects =-=-=-=";

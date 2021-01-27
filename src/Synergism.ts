@@ -21,7 +21,7 @@ import { antSacrificePointsToMultiplier, autoBuyAnts, sacrificeAnts, calculateCr
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
 import { reset } from './Reset';
-import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels } from './Buy';
+import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, getTesseractCost } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { checkVariablesOnLoad } from './CheckVariables';
@@ -2761,22 +2761,21 @@ export const updateAll = () => {
     }
 
 //Loops through all buildings which have AutoBuy turned 'on' and purchases the cheapest available building that player can afford
-    // TODO: add a check for cheapest tesseract building
-    /*if ((player.researches[190] > 0) && (player.tesseractAutoBuyerToggle == 1)) {
+    if ((player.researches[190] > 0) && (player.tesseractAutoBuyerToggle == 1)) {
         const cheapestTesseractBuilding = { cost:0, intCost:0, index:0, intCostArray: [1,10,100,1000,10000] };
         for (let i = 0; i < cheapestTesseractBuilding.intCostArray.length; i++){
             if ((player.wowTesseracts >= cheapestTesseractBuilding.intCostArray[i] * Math.pow(1 + player['ascendBuilding' + (i+1)]['owned'], 3) + player.tesseractAutoBuyerAmount) && player.autoTesseracts[i+1]) {
-                if ((getTesseractCost([cheapestTesseractBuilding.intCostArray[i]], [i+1])[1] < cheapestTesseractBuilding.cost) || (cheapestTesseractBuilding.cost == 0)){
-                    cheapestTesseractBuilding.cost = getTesseractCost([cheapestTesseractBuilding.intCostArray[i]], [i+1])[1];
-                    cheapestTesseractBuilding.intCost=cheapestTesseractBuilding.intCostArray[i];
-                    cheapestTesseractBuilding.index=[i+1];
+                if ((getTesseractCost(cheapestTesseractBuilding.intCostArray[i], i+1)[1] < cheapestTesseractBuilding.cost) || (cheapestTesseractBuilding.cost == 0)){
+                    cheapestTesseractBuilding.cost = getTesseractCost(cheapestTesseractBuilding.intCostArray[i], i+1)[1];
+                    cheapestTesseractBuilding.intCost = cheapestTesseractBuilding.intCostArray[i];
+                    cheapestTesseractBuilding.index = i+1;
                 }
             }
         }
         if (cheapestTesseractBuilding.index > 0){
-            buyTesseractBuilding(cheapestTesseractBuilding.intCost, cheapestTesseractBuilding.index);     
+            buyTesseractBuilding(cheapestTesseractBuilding.intCost, cheapestTesseractBuilding.index);
         }
-    }*/
+    }
 
 
 //Generation
