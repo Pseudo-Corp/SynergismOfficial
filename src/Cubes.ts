@@ -58,11 +58,6 @@ const distributions = {
     }
 }
 
-/**
- * This function generates the probability distributions for cube openings
- * @example 
- * console.log(cubeDistributions("cubes"))
- */
 export const cubeDistributions = <T extends keyof typeof distributions>(k: T) => distributions[k];
 
 /**
@@ -70,8 +65,8 @@ export const cubeDistributions = <T extends keyof typeof distributions>(k: T) =>
  * @param value 
  * @param cubeName 
  */
-export const openCubes = (value: number, cubeName: cubeNames) => {
-    return [value, cubeName]
+export const openCubes = (value: number, cubeName: cubeNames, max = false) => {
+    return [value, cubeName, max]
 }
 
 export const openCube = (value: number, max = false) => {
