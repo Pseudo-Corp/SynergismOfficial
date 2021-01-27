@@ -8263,31 +8263,32 @@ const calculateAntSacrificeRewards = () => {
     calculateAntSacrificeELO();
     calculateAntSacrificeMultipliers();
     let rewardsMult = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.timeMultiplier * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.upgradeMultiplier;
-    let rewards = {};
-    rewards.antSacrificePoints = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO * rewardsMult / 85;
-    rewards.offerings = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringpersecond * 0.15 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO * rewardsMult / 180;
-    rewards.obtainium = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.maxobtainiumpersecond * 0.24 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO * rewardsMult / 180;
-    rewards.talismanShards = (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 500) ?
-        Math.max(1, Math.floor(rewardsMult / 210 * Math.pow(1 / 4 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 500)), 2))) :
-        0;
-    rewards.commonFragments = (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 750) ?
-        Math.max(1, Math.floor(rewardsMult / 110 * Math.pow(1 / 9 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 750)), 1.83))) :
-        0;
-    rewards.uncommonFragments = (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 1000) ?
-        Math.max(1, Math.floor(rewardsMult / 170 * Math.pow(1 / 16 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 1000)), 1.66))) :
-        0;
-    rewards.rareFragments = (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 1500) ?
-        Math.max(1, Math.floor(rewardsMult / 200 * Math.pow(1 / 25 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 1500)), 1.50))) :
-        0;
-    rewards.epicFragments = (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 2000) ?
-        Math.max(1, Math.floor(rewardsMult / 200 * Math.pow(1 / 36 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 2000)), 1.33))) :
-        0;
-    rewards.legendaryFragments = (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 3000) ?
-        Math.max(1, Math.floor(rewardsMult / 230 * Math.pow(1 / 49 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 3000)), 1.16))) :
-        0;
-    rewards.mythicalFragments = (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 5000) ?
-        Math.max(1, Math.floor(rewardsMult / 220 * Math.pow(1 / 64 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 4150)), 1))) :
-        0;
+    const rewards = {
+        antSacrificePoints: _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO * rewardsMult / 85,
+        offerings: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringpersecond * 0.15 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO * rewardsMult / 180,
+        obtainium: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.maxobtainiumpersecond * 0.24 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO * rewardsMult / 180,
+        talismanShards: (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 500)
+            ? Math.max(1, Math.floor(rewardsMult / 210 * Math.pow(1 / 4 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 500)), 2)))
+            : 0,
+        commonFragments: (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 750)
+            ? Math.max(1, Math.floor(rewardsMult / 110 * Math.pow(1 / 9 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 750)), 1.83)))
+            : 0,
+        uncommonFragments: (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 1000)
+            ? Math.max(1, Math.floor(rewardsMult / 170 * Math.pow(1 / 16 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 1000)), 1.66)))
+            : 0,
+        rareFragments: (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 1500)
+            ? Math.max(1, Math.floor(rewardsMult / 200 * Math.pow(1 / 25 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 1500)), 1.50)))
+            : 0,
+        epicFragments: (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 2000)
+            ? Math.max(1, Math.floor(rewardsMult / 200 * Math.pow(1 / 36 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 2000)), 1.33)))
+            : 0,
+        legendaryFragments: (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 3000)
+            ? Math.max(1, Math.floor(rewardsMult / 230 * Math.pow(1 / 49 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 3000)), 1.16)))
+            : 0,
+        mythicalFragments: (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO > 5000)
+            ? Math.max(1, Math.floor(rewardsMult / 220 * Math.pow(1 / 64 * (Math.max(0, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO - 4150)), 1)))
+            : 0
+    };
     return rewards;
 };
 const calculateOffline = (forceTime = 0) => {
