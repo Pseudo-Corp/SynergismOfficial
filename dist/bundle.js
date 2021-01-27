@@ -11198,66 +11198,55 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const cubeDistributions = (input) => {
-    let distribution;
-    switch (input) {
-        case "cubes":
-            distribution = {
-                accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
-                multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
-                offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
-                runeExp: { weight: 2, pdf: (x) => 50 < x && x <= 60 },
-                obtainium: { weight: 2, pdf: (x) => 60 < x && x <= 70 },
-                antSpeed: { weight: 2, pdf: (x) => 70 < x && x <= 80 },
-                antSacrifice: { weight: 1, pdf: (x) => 80 < x && x <= 85 },
-                antELO: { weight: 1, pdf: (x) => 85 < x && x <= 90 },
-                talismanBonus: { weight: 1, pdf: (x) => 90 < x && x <= 95 },
-                globalSpeed: { weight: 1, pdf: (x) => 95 < x && x <= 100 }
-            };
-            break;
-        case "tesseracts":
-            distribution = {
-                accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
-                multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
-                offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
-                runeExp: { weight: 2, pdf: (x) => 50 < x && x <= 60 },
-                obtainium: { weight: 2, pdf: (x) => 60 < x && x <= 70 },
-                antSpeed: { weight: 2, pdf: (x) => 70 < x && x <= 80 },
-                antSacrifice: { weight: 1, pdf: (x) => 80 < x && x <= 85 },
-                antELO: { weight: 1, pdf: (x) => 85 < x && x <= 90 },
-                talismanBonus: { weight: 1, pdf: (x) => 90 < x && x <= 95 },
-                globalSpeed: { weight: 1, pdf: (x) => 95 < x && x <= 100 }
-            };
-            break;
-        case "hypercubes":
-            distribution = {
-                accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
-                multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
-                offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
-                runeExp: { weight: 2, pdf: (x) => 50 < x && x <= 60 },
-                obtainium: { weight: 2, pdf: (x) => 60 < x && x <= 70 },
-                antSpeed: { weight: 2, pdf: (x) => 70 < x && x <= 80 },
-                antSacrifice: { weight: 1, pdf: (x) => 80 < x && x <= 85 },
-                antELO: { weight: 1, pdf: (x) => 85 < x && x <= 90 },
-                talismanBonus: { weight: 1, pdf: (x) => 90 < x && x <= 95 },
-                globalSpeed: { weight: 1, pdf: (x) => 95 < x && x <= 100 }
-            };
-            break;
-        case "platonics":
-            distribution = {
-                cubes: { weight: 13200, pdf: (x) => 0 <= x && x <= 33.000 },
-                tesseracts: { weight: 13200, pdf: (x) => 33.000 < x && x <= 66.000 },
-                hypercubes: { weight: 13200, pdf: (x) => 66.000 < x && x <= 99.000 },
-                platonics: { weight: 396, pdf: (x) => 99.000 < x && x <= 99.990 },
-                hypercubeBonus: { weight: 1, pdf: (x) => 99.990 < x && x <= 99.9925 },
-                taxes: { weight: 1, pdf: (x) => 99.9925 < x && x <= 99.995 },
-                scoreBonus: { weight: 1, pdf: (x) => 99.995 < x && x <= 99.9975 },
-                globalSpeed: { weight: 1, pdf: (x) => 99.9975 < x && x <= 100 },
-            };
-            break;
+const distributions = {
+    cubes: {
+        accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
+        multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
+        offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
+        runeExp: { weight: 2, pdf: (x) => 50 < x && x <= 60 },
+        obtainium: { weight: 2, pdf: (x) => 60 < x && x <= 70 },
+        antSpeed: { weight: 2, pdf: (x) => 70 < x && x <= 80 },
+        antSacrifice: { weight: 1, pdf: (x) => 80 < x && x <= 85 },
+        antELO: { weight: 1, pdf: (x) => 85 < x && x <= 90 },
+        talismanBonus: { weight: 1, pdf: (x) => 90 < x && x <= 95 },
+        globalSpeed: { weight: 1, pdf: (x) => 95 < x && x <= 100 }
+    },
+    tesseracts: {
+        accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
+        multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
+        offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
+        runeExp: { weight: 2, pdf: (x) => 50 < x && x <= 60 },
+        obtainium: { weight: 2, pdf: (x) => 60 < x && x <= 70 },
+        antSpeed: { weight: 2, pdf: (x) => 70 < x && x <= 80 },
+        antSacrifice: { weight: 1, pdf: (x) => 80 < x && x <= 85 },
+        antELO: { weight: 1, pdf: (x) => 85 < x && x <= 90 },
+        talismanBonus: { weight: 1, pdf: (x) => 90 < x && x <= 95 },
+        globalSpeed: { weight: 1, pdf: (x) => 95 < x && x <= 100 }
+    },
+    hypercubes: {
+        accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
+        multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
+        offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
+        runeExp: { weight: 2, pdf: (x) => 50 < x && x <= 60 },
+        obtainium: { weight: 2, pdf: (x) => 60 < x && x <= 70 },
+        antSpeed: { weight: 2, pdf: (x) => 70 < x && x <= 80 },
+        antSacrifice: { weight: 1, pdf: (x) => 80 < x && x <= 85 },
+        antELO: { weight: 1, pdf: (x) => 85 < x && x <= 90 },
+        talismanBonus: { weight: 1, pdf: (x) => 90 < x && x <= 95 },
+        globalSpeed: { weight: 1, pdf: (x) => 95 < x && x <= 100 }
+    },
+    platonics: {
+        cubes: { weight: 13200, pdf: (x) => 0 <= x && x <= 33.000 },
+        tesseracts: { weight: 13200, pdf: (x) => 33.000 < x && x <= 66.000 },
+        hypercubes: { weight: 13200, pdf: (x) => 66.000 < x && x <= 99.000 },
+        platonics: { weight: 396, pdf: (x) => 99.000 < x && x <= 99.990 },
+        hypercubeBonus: { weight: 1, pdf: (x) => 99.990 < x && x <= 99.9925 },
+        taxes: { weight: 1, pdf: (x) => 99.9925 < x && x <= 99.995 },
+        scoreBonus: { weight: 1, pdf: (x) => 99.995 < x && x <= 99.9975 },
+        globalSpeed: { weight: 1, pdf: (x) => 99.9975 < x && x <= 100 },
     }
-    return distribution;
 };
+const cubeDistributions = (k) => distributions[k];
 const openCubes = (value, cubeName) => {
     return [value, cubeName];
 };
