@@ -4322,42 +4322,21 @@ margin-left: -13px
 	border: 2px solid orange;
 	
 }
-#programminghelp {
-	position: absolute;
-	text-align: center;
-	width: 1000px;
-	left: 50%;
-	margin-left: -500px;
-	top: 80px;
+
+/* Credits */ 
+
+#creditssubtab {
+	margin-top: 4.5%;
+	margin-left: 14%;
+	margin-right: 14%;
+}
+
+#creditssubtab > * {
 	font-size: 1.2em;
-}
-#artisthelp {
-	position: absolute;
 	text-align: center;
-	width: 1000px;
-	left: 50%;
-	margin-left: -500px;
-	top: 190px;
-	font-size: 1.2em;
+	margin: .4em 0;
 }
-#boosters {
-	position: absolute;
-	text-align: center;
-	width: 1000px;
-	left: 50%;
-	margin-left: -500px;
-	top: 250px;
-	font-size: 1.2em;
-}
-#shameless {
-	position: absolute;
-	text-align: center;
-	width: 1000px;
-	left: 50%;
-	margin-left: -500px;
-	top: 400px;
-	font-size: 1.5em;
-}
+
 #ascension {
 	position: relative;
 	padding: 0;
