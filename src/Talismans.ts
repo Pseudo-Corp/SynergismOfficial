@@ -131,7 +131,6 @@ export const buyTalismanResources = (type: keyof typeof talismanResourceCosts, p
 }
 
 export const showTalismanEffect = (i: number) => {
-    let ord = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"]
     document.getElementById("talismanlevelup").style.display = "none"
     document.getElementById("talismanEffect").style.display = "block"
     document.getElementById("talismanrespec").style.display = "none"
@@ -143,18 +142,6 @@ export const showTalismanEffect = (i: number) => {
     let f = document.getElementById("talismanRune4Effect")
     let g = document.getElementById("talismanRune5Effect")
     let h = document.getElementById("talismanMythicEffect")
-
-    let index = player.talismanRarity[i-1]
-    let modifiers = ["+", "+", "+", "+", "+"]
-    let num = G['talismanPositiveModifier'][index];
-    let talismanRarityMult = [num, num, num, num, num]
-
-    for (let j = 0; j < 5; j++) {
-        if (player["talisman" + ord[i]][j] < 0) {
-            modifiers[j] = "-";
-            talismanRarityMult[j] = G['talismanNegativeModifier'][index]
-        }
-    }
 
     switch (i) {
         case 1:

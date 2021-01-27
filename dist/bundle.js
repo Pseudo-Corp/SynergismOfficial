@@ -8786,7 +8786,6 @@ const buyTalismanResources = (type, percentage = _Synergism__WEBPACK_IMPORTED_MO
     updateTalismanInventory();
 };
 const showTalismanEffect = (i) => {
-    let ord = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"];
     document.getElementById("talismanlevelup").style.display = "none";
     document.getElementById("talismanEffect").style.display = "block";
     document.getElementById("talismanrespec").style.display = "none";
@@ -8798,16 +8797,6 @@ const showTalismanEffect = (i) => {
     let f = document.getElementById("talismanRune4Effect");
     let g = document.getElementById("talismanRune5Effect");
     let h = document.getElementById("talismanMythicEffect");
-    let index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1];
-    let modifiers = ["+", "+", "+", "+", "+"];
-    let num = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanPositiveModifier[index];
-    let talismanRarityMult = [num, num, num, num, num];
-    for (let j = 0; j < 5; j++) {
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player["talisman" + ord[i]][j] < 0) {
-            modifiers[j] = "-";
-            talismanRarityMult[j] = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanNegativeModifier[index];
-        }
-    }
     switch (i) {
         case 1:
             a.textContent = "=-=-=-= Exemption Talisman Effects =-=-=-=";
