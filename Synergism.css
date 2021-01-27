@@ -905,15 +905,6 @@ margin-left: -13px
 	border-top: 2px solid white
 }
 
-
-#settingtitle3 {
-	position: absolute;
-	top: 70px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-
 #submitstats {
 	position: absolute;
 	top: 241px;
@@ -976,90 +967,6 @@ margin-left: -13px
 	width: 100%;
 }
 
-#prestigeCountStatistic {
-	position: absolute;
-	top: 105px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#fastestPrestigeStatistic {
-	position: absolute;
-	top: 125px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#mostOfferingStatistic {
-	position: absolute;
-	top: 145px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#runeSumStatistic {
-	position: absolute;
-	top: 165px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#transcensionCountStatistic {
-	position: absolute;
-	top: 185px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#fastestTranscensionStatistic {
-	position: absolute;
-	top: 205px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#reincarnationCountStatistic {
-	position: absolute;
-	top: 225px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#fastestReincarnationStatistic {
-	position: absolute;
-	top: 245px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#mostObtainiumStatistic {
-	position: absolute;
-	top: 265px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#mostObtainiumPerSecondStatistic {
-	position: absolute;
-	top: 285px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#obtainiumPerSecondStatistic {
-	position: absolute;
-	top: 305px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
-#ascensionCountStatistic {
-	position: absolute;
-	top: 325px;
-	width: 500px;
-	left: 75%;
-	margin-left: -250px;
-}
 #patchnotes {
 	position: absolute;
 	top: 300px;
@@ -4591,6 +4498,7 @@ margin-left: -13px
 	margin-bottom: auto;
 	padding-left: 25px;
 	padding-right: 25px;
+	padding-bottom: 25px;
 }
 .statPortion{
 	width: 380px;

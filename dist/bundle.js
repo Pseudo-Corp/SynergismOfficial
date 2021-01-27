@@ -11177,6 +11177,8 @@ const calculateTesseractBlessings = () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "cubeDistributions": () => /* binding */ cubeDistributions,
+/* harmony export */   "openCubes": () => /* binding */ openCubes,
 /* harmony export */   "openCube": () => /* binding */ openCube,
 /* harmony export */   "cubeUpgradeDesc": () => /* binding */ cubeUpgradeDesc,
 /* harmony export */   "updateCubeUpgradeBG": () => /* binding */ updateCubeUpgradeBG,
@@ -11196,6 +11198,69 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const cubeDistributions = (input) => {
+    let distribution;
+    switch (input) {
+        case "cubes":
+            distribution = {
+                accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
+                multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
+                offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
+                runeExp: { weight: 2, pdf: (x) => 50 < x && x <= 60 },
+                obtainium: { weight: 2, pdf: (x) => 60 < x && x <= 70 },
+                antSpeed: { weight: 2, pdf: (x) => 70 < x && x <= 80 },
+                antSacrifice: { weight: 1, pdf: (x) => 80 < x && x <= 85 },
+                antELO: { weight: 1, pdf: (x) => 85 < x && x <= 90 },
+                talismanBonus: { weight: 1, pdf: (x) => 90 < x && x <= 95 },
+                globalSpeed: { weight: 1, pdf: (x) => 95 < x && x <= 100 }
+            };
+            break;
+        case "tesseracts":
+            distribution = {
+                accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
+                multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
+                offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
+                runeExp: { weight: 2, pdf: (x) => 50 < x && x <= 60 },
+                obtainium: { weight: 2, pdf: (x) => 60 < x && x <= 70 },
+                antSpeed: { weight: 2, pdf: (x) => 70 < x && x <= 80 },
+                antSacrifice: { weight: 1, pdf: (x) => 80 < x && x <= 85 },
+                antELO: { weight: 1, pdf: (x) => 85 < x && x <= 90 },
+                talismanBonus: { weight: 1, pdf: (x) => 90 < x && x <= 95 },
+                globalSpeed: { weight: 1, pdf: (x) => 95 < x && x <= 100 }
+            };
+            break;
+        case "hypercubes":
+            distribution = {
+                accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
+                multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
+                offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
+                runeExp: { weight: 2, pdf: (x) => 50 < x && x <= 60 },
+                obtainium: { weight: 2, pdf: (x) => 60 < x && x <= 70 },
+                antSpeed: { weight: 2, pdf: (x) => 70 < x && x <= 80 },
+                antSacrifice: { weight: 1, pdf: (x) => 80 < x && x <= 85 },
+                antELO: { weight: 1, pdf: (x) => 85 < x && x <= 90 },
+                talismanBonus: { weight: 1, pdf: (x) => 90 < x && x <= 95 },
+                globalSpeed: { weight: 1, pdf: (x) => 95 < x && x <= 100 }
+            };
+            break;
+        case "platonics":
+            distribution = {
+                cubes: { weight: 13200, pdf: (x) => 0 <= x && x <= 33.000 },
+                tesseracts: { weight: 13200, pdf: (x) => 33.000 < x && x <= 66.000 },
+                hypercubes: { weight: 13200, pdf: (x) => 66.000 < x && x <= 99.000 },
+                platonics: { weight: 396, pdf: (x) => 99.000 < x && x <= 99.990 },
+                hypercubeBonus: { weight: 1, pdf: (x) => 99.990 < x && x <= 99.9925 },
+                taxes: { weight: 1, pdf: (x) => 99.9925 < x && x <= 99.995 },
+                scoreBonus: { weight: 1, pdf: (x) => 99.995 < x && x <= 99.9975 },
+                globalSpeed: { weight: 1, pdf: (x) => 99.9975 < x && x <= 100 },
+            };
+            break;
+    }
+    return distribution;
+};
+const openCubes = (value, cubeName) => {
+    return [value, cubeName];
+};
 const openCube = (value, max = false) => {
     let toSpend = max ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.wowCubes : Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.wowCubes, value);
     if (value === 1 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeBlessings.accelerator >= 2e11 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.achievements[246] < 1) {
@@ -13483,18 +13548,18 @@ const visualUpdateCorruptions = () => {
 const visualUpdateSettings = () => {
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab !== "settings")
         return;
-    document.getElementById("prestigeCountStatistic").textContent = "Prestige count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.prestigeCount, 0, true);
-    document.getElementById("transcensionCountStatistic").textContent = "Transcension count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.transcendCount, 0, true);
-    document.getElementById("reincarnationCountStatistic").textContent = "Reincarnation count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.reincarnationCount, 0, true);
-    document.getElementById("fastestPrestigeStatistic").textContent = "Fastest Prestige: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastestprestige) + "ms";
-    document.getElementById("fastestTranscensionStatistic").textContent = "Fastest Transcension: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastesttranscend) + "ms";
-    document.getElementById("fastestReincarnationStatistic").textContent = "Fastest Reincarnation: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastestreincarnate) + "ms";
-    document.getElementById("mostOfferingStatistic").textContent = "Most Offerings saved at once: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxofferings);
-    document.getElementById("mostObtainiumStatistic").textContent = "Most Obtainium saved at once: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxobtainium);
-    document.getElementById("mostObtainiumPerSecondStatistic").textContent = "Best Obtainium/sec: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxobtainiumpersecond, 2, true);
-    document.getElementById("runeSumStatistic").textContent = "Summative Rune Levels: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.runeSum);
-    document.getElementById("obtainiumPerSecondStatistic").textContent = "Current Obtainium/sec " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.obtainiumpersecond, 2, true);
-    document.getElementById("ascensionCountStatistic").textContent = "Ascension Count: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.ascensionCount, 0, true);
+    document.getElementById("prestigeCountStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.prestigeCount, 0, true);
+    document.getElementById("transcensionCountStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.transcendCount, 0, true);
+    document.getElementById("reincarnationCountStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.reincarnationCount, 0, true);
+    document.getElementById("fastestPrestigeStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastestprestige) + "ms";
+    document.getElementById("fastestTranscensionStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastesttranscend) + "ms";
+    document.getElementById("fastestReincarnationStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(1000 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.fastestreincarnate) + "ms";
+    document.getElementById("mostOfferingStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxofferings);
+    document.getElementById("mostObtainiumStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxobtainium);
+    document.getElementById("mostObtainiumPerSecondStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.maxobtainiumpersecond, 2, true);
+    document.getElementById("runeSumStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.runeSum);
+    document.getElementById("obtainiumPerSecondStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.obtainiumpersecond, 2, true);
+    document.getElementById("ascensionCountStatistic").childNodes[1].textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.ascensionCount, 0, true);
     document.getElementById("saveString").textContent =
         `Currently: ${_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.saveString.replace("$VERSION$", "v" + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.version)}`;
     const onExportQuarks = (Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.quarkstimer / 3600) * (1 + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[99] + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[100] + _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talisman7Quarks + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[125] + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[180] + _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[195]));

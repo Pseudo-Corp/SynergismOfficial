@@ -2343,7 +2343,23 @@
         <p id="shameless" style="color: gold">And you, for playing my first ever project, Synergism!</p>
     </div>
     <div class="subtabContent subtabDisplayFlex" id="statisticsSubTab">
+        <div id="miscStats" class="statContainer">
+            <p class="prestigeunlock statPortion" id="settingtitle3" style="color: plum; font-size: 1.2em">Miscellaneous Stats</p>
+            <p class="prestigeunlock statPortion" id="prestigeCountStatistic" style="color: lightblue">Prestige Count: <span id="sMisc1" class="statNumber">0</span></p>
+            <p class="prestigeunlock statPortion" id="fastestPrestigeStatistic" style="color: lightblue">Fastest Prestige <span id="sMisc2" class="statNumber">0</span></p>
+            <p class="prestigeunlock statPortion" id="mostOfferingStatistic" style="color: orangered">Most Offerings Saved at Once: <span id="sMisc3" class="statNumber">0</span></p>
+            <p class="prestigeunlock statPortion" id="runeSumStatistic" style="color: cyan">Summative Rune Levels: <span id="sMisc4" class="statNumber">0</span></p>
+            <p class="transcendunlock statPortion" id="transcensionCountStatistic" style="color: plum">Transcension Count: <span id="sMisc5" class="statNumber">0</span></p>
+            <p class="transcendunlock statPortion" id="fastestTranscensionStatistic" style="color: plum">Fastest Transcension: <span id="sMisc6" class="statNumber">0</span></p>
+            <p class="reincarnationunlock statPortion" id="reincarnationCountStatistic" style="color: limegreen">Reincarnation Count: <span id="sMisc7" class="statNumber">0</span></p>
+            <p class="reincarnationunlock statPortion" id="fastestReincarnationStatistic" style="color: limegreen">Fastest Reincarnation: <span id="sMisc8" class="statNumber">0</span></p>
+            <p class="reincarnationunlock statPortion" id="mostObtainiumStatistic" style="color: pink">Most Obtainium Saved at Once: <span id="sMisc9" class="statNumber">0</span></p>
+            <p class="reincarnationunlock statPortion" id="mostObtainiumPerSecondStatistic" style="color: crimson">Best Obtainium/sec: <span id="sMisc10" class="statNumber">0</span></p>
+            <p class="reincarnationunlock statPortion" id="obtainiumPerSecondStatistic" style="color: crimson;">Currenct Obtainium/sec: <span id="sMisc11" class="statNumber">0</span></p>
+            <p class="ascendunlock statPortion" id="ascensionCountStatistic" style="color: orange">Ascension Count: <span id="sMisc12" class="statNumber">0</span></p>
+        </div>
         <div id="acceleratorStats" class="statContainer">
+            <p id="acceleratorStatTitle" class="statPortion" style="color: goldenrod; font-size: 1.2em">Free Accelerators</p>
             <p id="statA1" class="statPortion">Accelerators from Upgrades/Misc: <span id="sA1" class="statNumber">0</span></p>
             <p id="statA2" class="statPortion">Accelerators from Boosts: <span id="sA2" class="statNumber">0</span></p>
             <p id="statA3" class="statPortion">Accelerators from Speed Rune: <span id="sA3" class="statNumber">0</span></p>
@@ -2358,8 +2374,10 @@
             <p id="statA12" class="statPortion statTotal">TOTAL FREE ACCELERATORS: <span id="sA12" class="statNumber statTotal">0</span></p>
         </div>
         <div id="acceleratorBoostStats">
+            <!-- Currently unused! -->
         </div>
         <div id="multiplierStats" class="statContainer">
+            <p id="multiplierStatTitle" class="statPortion" style="color: cyan; font-size: 1.2em">Free Multipliers</p>
             <p id="statM1" class="statPortion">Multipliers from upgrades/misc<span id="sM1" class="statNumber"></span></p>
             <p id="statM2" class="statPortion">Multipliers from Duplication Rune<span id="sM2" class="statNumber"></span></p>
             <p id="statM3" class="statPortion">Duplication Rune Multiplier<span id="sM3" class="statNumber"></span></p>
@@ -2375,25 +2393,10 @@
             <p id="statM13" class="statPortion statTotal">TOTAL FREE MULTIPLIERS: <span id="sM13" class="statNumber statTotal">0</span></p>
         </div>
         <div id="antStats">
-
-        </div>
-        <div id="miscStats" class="statContainer">
-            <p class="prestigeunlock" id="settingtitle3" style="color: plum">Miscellaneous Stats</p>
-            <p class="prestigeunlock" id="prestigeCountStatistic" style="color: lightblue"></p>
-            <p class="prestigeunlock" id="fastestPrestigeStatistic" style="color: lightblue"></p>
-            <p class="prestigeunlock" id="mostOfferingStatistic" style="color: orangered"></p>
-            <p class="prestigeunlock" id="runeSumStatistic" style="color: cyan"></p>
-            <p class="transcendunlock" id="transcensionCountStatistic" style="color: plum"></p>
-            <p class="transcendunlock" id="fastestTranscensionStatistic" style="color: plum"></p>
-            <p class="reincarnationunlock" id="reincarnationCountStatistic" style="color: limegreen"></p>
-            <p class="reincarnationunlock" id="fastestReincarnationStatistic" style="color: limegreen"></p>
-            <p class="reincarnationunlock" id="mostObtainiumStatistic" style="color: pink"></p>
-            <p class="reincarnationunlock" id="mostObtainiumPerSecondStatistic" style="color: crimson"></p>
-            <p class="reincarnationunlock" id="obtainiumPerSecondStatistic" style="color: crimson;"></p>
-            <p class="ascendunlock" id="ascensionCountStatistic" style="color: orange"></p>
+            <!-- Currently unused! -->
         </div>
         <div id="offeringMultiplierStats" class="statContainer prestigeunlock">
-            <p class='statPortion'>Offering Multipliers</p>
+            <p id="offeringStatTitle" class='statPortion' style="color: orangered; font-size: 1.2em">Offering Multipliers</p>
             <p id="statOff1" class="statPortion">Alchemy Achievement 5:<span id="sOff1" class="statNumber">0</span></p>
             <p id="statOff2" class="statPortion">Alchemy Achievement 6:<span id="sOff2" class="statNumber">0</span></p>
             <p id="statOff3" class="statPortion">Alchemy Achievement 7:<span id="sOff3" class="statNumber">0</span></p>
@@ -2420,7 +2423,7 @@
             <p id="statOffT" class="statPortion statTotal" style='color: gold'>TOTAL OFFERING MULTIPLIER: <span id="sOffT" class="statNumber statTotal">0</span></p>
         </div>
                 <div id="cubeMultiplierStats" class="statContainer ascendunlock">
-            <p class="statPortion">Cube multipliers</p>
+            <p id="cubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Cube multipliers</p>
             <p id="statCM1" class="statPortion">Ascend Time Multi:<span id="sCM1" class="statNumber">0</span></p>
             <p id="statCM2" class="statPortion">Season pass:<span id="sCM2" class="statNumber">0</span></p>
             <p id="statCM3" class="statPortion ">Research 5x19:<span id="sCM3" class="statNumber">0</span></p>

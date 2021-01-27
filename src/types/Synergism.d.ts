@@ -869,3 +869,11 @@ export type resetNames =
     | "reincarnationChallenge" 
     | "ascensionChallenge" 
     | "acceleratorBoost"
+
+// If adding new cube types add them below the last listed type. Thank you
+export type cubeNames =
+    | "cubes"
+    | "tesseracts"
+    | "hypercubes"
+    | "platonics"
+    | "hepteracts"
