@@ -3007,7 +3007,7 @@ window.addEventListener('load', () => {
         document.head.appendChild(script);
     }
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 10:50 UTC-8 20-Jan-2021]. Savefiles cannot be used in live!`);
+    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 8:15PM UTC-8 26-Jan-2021]. Savefiles cannot be used in live!`);
     document.title = 'Synergism v' + player.version;
     const dec = lz_string__WEBPACK_IMPORTED_MODULE_1___default().decompressFromBase64(localStorage.getItem('Synergysave2'));
     const isLZString = dec !== '';
@@ -11247,8 +11247,8 @@ const distributions = {
     }
 };
 const cubeDistributions = (k) => distributions[k];
-const openCubes = (value, cubeName) => {
-    return [value, cubeName];
+const openCubes = (value, cubeName, max = false) => {
+    return [value, cubeName, max];
 };
 const openCube = (value, max = false) => {
     let toSpend = max ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.wowCubes : Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.wowCubes, value);
