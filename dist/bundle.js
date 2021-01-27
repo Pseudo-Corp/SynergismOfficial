@@ -2809,10 +2809,10 @@ document.addEventListener('keydown', (event) => {
                     (0,_Runes__WEBPACK_IMPORTED_MODULE_22__.redeemShards)(1);
                 }
                 if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.runescreen === "blessings") {
-                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)(1, 1);
+                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)('Blessings', 1);
                 }
                 if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.runescreen === "spirits") {
-                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)(2, 1);
+                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)('Spirits', 1);
                 }
             }
             if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.currentTab === "challenges") {
@@ -2831,10 +2831,10 @@ document.addEventListener('keydown', (event) => {
                     (0,_Runes__WEBPACK_IMPORTED_MODULE_22__.redeemShards)(2);
                 }
                 if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.runescreen === "blessings") {
-                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)(1, 2);
+                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)('Blessings', 2);
                 }
                 if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.runescreen === "spirits") {
-                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)(2, 2);
+                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)('Spirits', 2);
                 }
             }
             if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.currentTab === "challenges") {
@@ -2853,10 +2853,10 @@ document.addEventListener('keydown', (event) => {
                     (0,_Runes__WEBPACK_IMPORTED_MODULE_22__.redeemShards)(3);
                 }
                 if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.runescreen === "blessings") {
-                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)(1, 3);
+                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)('Blessings', 3);
                 }
                 if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.runescreen === "spirits") {
-                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)(2, 3);
+                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)('Spirits', 3);
                 }
             }
             if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.currentTab === "challenges") {
@@ -2875,10 +2875,10 @@ document.addEventListener('keydown', (event) => {
                     (0,_Runes__WEBPACK_IMPORTED_MODULE_22__.redeemShards)(4);
                 }
                 if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.runescreen === "blessings") {
-                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)(1, 4);
+                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)('Blessings', 4);
                 }
                 if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.runescreen === "spirits") {
-                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)(2, 4);
+                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)('Spirits', 4);
                 }
             }
             if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.currentTab === "challenges") {
@@ -2897,10 +2897,10 @@ document.addEventListener('keydown', (event) => {
                     (0,_Runes__WEBPACK_IMPORTED_MODULE_22__.redeemShards)(5);
                 }
                 if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.runescreen === "blessings") {
-                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)(1, 5);
+                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)('Blessings', 5);
                 }
                 if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.runescreen === "spirits") {
-                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)(2, 5);
+                    (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.buyRuneBonusLevels)('Spirits', 5);
                 }
             }
             if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.currentTab === "challenges") {
@@ -12544,14 +12544,14 @@ const buyRuneBonusLevels = (type, index) => {
     let baseCost;
     let baseLevels;
     let levelCap;
-    (type === 2) ?
+    (type === 'Spirits') ?
         (baseCost = _Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.spiritBaseCost, baseLevels = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeSpiritLevels[index], levelCap = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeSpiritBuyAmount) :
         (baseCost = _Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.blessingBaseCost, baseLevels = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeBlessingLevels[index], levelCap = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeBlessingBuyAmount);
-    let metadata = (0,_Calculate__WEBPACK_IMPORTED_MODULE_7__.calculateSummationLinear)(baseLevels, baseCost, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards, levelCap);
-    (type === 2) ?
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeSpiritLevels[index] = metadata[0] :
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeBlessingLevels[index] = metadata[0];
-    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards -= metadata[1];
+    const [level, cost] = (0,_Calculate__WEBPACK_IMPORTED_MODULE_7__.calculateSummationLinear)(baseLevels, baseCost, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards, levelCap);
+    (type === 'Blessings') ?
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeSpiritLevels[index] = level :
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeBlessingLevels[index] = level;
+    _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards -= cost;
     if (index === 1) {
         let requirementArray = [0, 1e5, 1e8, 1e11];
         for (let i = 1; i <= 3; i++) {
@@ -12567,13 +12567,13 @@ const buyRuneBonusLevels = (type, index) => {
         }
     }
     (0,_Calculate__WEBPACK_IMPORTED_MODULE_7__.calculateRuneBonuses)();
-    if (type === 1) {
+    if (type === 'Blessings') {
         let blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1];
         let t = (index === 5) ? 1 : 0;
         document.getElementById('runeBlessingPower' + index + 'Value1').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.runeBlessings[index]);
         document.getElementById('runeBlessingPower' + index + 'Value2').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 - t + blessingMultiplierArray[index] * _Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.effectiveRuneBlessingPower[index], 4, true);
     }
-    if (type === 2) {
+    if (type === 'Spirits') {
         let spiritMultiplierArray = [0, 1, 1, 20, 1, 100];
         spiritMultiplierArray[index] *= ((0,_Calculate__WEBPACK_IMPORTED_MODULE_7__.calculateCorruptionPoints)() / 400);
         let t = (index === 3) ? 1 : 0;
@@ -14244,7 +14244,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "corruptionDisplay": () => /* binding */ corruptionDisplay,
 /* harmony export */   "corruptionButtonsAdd": () => /* binding */ corruptionButtonsAdd,
 /* harmony export */   "corruptionLoadoutTableCreate": () => /* binding */ corruptionLoadoutTableCreate,
-/* harmony export */   "corruptionLoadoutTableUpdate": () => /* binding */ corruptionLoadoutTableUpdate
+/* harmony export */   "corruptionLoadoutTableUpdate": () => /* binding */ corruptionLoadoutTableUpdate,
+/* harmony export */   "corruptionCleanseConfirm": () => /* binding */ corruptionCleanseConfirm
 /* harmony export */ });
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
@@ -14457,6 +14458,11 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prototypeCorruptions = Array.from(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.corruptionLoadouts[loadout]);
         corruptionLoadoutTableUpdate();
     }
+};
+const corruptionCleanseConfirm = () => {
+    const corrupt = document.getElementById('corruptionCleanseConfirm');
+    corrupt.style.visibility = 'visible';
+    setTimeout(() => corrupt.style.visibility = 'hidden', 10000);
 };
 
 
@@ -15387,8 +15393,8 @@ const generateEventHandlers = () => {
         document.getElementById(`talismanRespecButton${index + 1}`).addEventListener('click', () => (0,_Talismans__WEBPACK_IMPORTED_MODULE_9__.changeTalismanModifier)(index + 1));
     }
     for (let index = 0; index < 5; index++) {
-        document.getElementById(`runeBlessingPower${index + 1}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyRuneBonusLevels)(1, index + 1));
-        document.getElementById(`runeSpiritPower${index + 1}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyRuneBonusLevels)(2, index + 1));
+        document.getElementById(`runeBlessingPower${index + 1}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyRuneBonusLevels)('Blessings', index + 1));
+        document.getElementById(`runeSpiritPower${index + 1}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyRuneBonusLevels)('Spirits', index + 1));
     }
     document.getElementById('buyRuneBlessingInput').addEventListener('blur', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.updateRuneBlessingBuyAmount)(1));
     document.getElementById('buyRuneSpiritInput').addEventListener('blur', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.updateRuneBlessingBuyAmount)(2));
@@ -15461,6 +15467,7 @@ const generateEventHandlers = () => {
     document.getElementById('corrStatsBtn').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleSubTab)(9, 0));
     document.getElementById('corrLoadoutsBtn').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleSubTab)(9, 1));
     document.getElementById('corruptionDisplays').addEventListener('click', () => (0,_Corruptions__WEBPACK_IMPORTED_MODULE_18__.corruptionDisplay)(10));
+    document.getElementById('corruptionCleanse').addEventListener('click', () => (0,_Corruptions__WEBPACK_IMPORTED_MODULE_18__.corruptionCleanseConfirm)());
     document.getElementById('corruptionCleanseConfirm').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleCorruptionLevel)(10, 999));
     document.getElementById('ascensionAutoEnable').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleAutoAscend)());
     for (let index = 0; index < 5; index++) {

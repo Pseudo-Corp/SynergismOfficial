@@ -3174,10 +3174,10 @@ document.addEventListener('keydown', (event) => {
                     redeemShards(1)
                 }
                 if (G['runescreen'] === "blessings") {
-                    buyRuneBonusLevels(1, 1)
+                    buyRuneBonusLevels('Blessings', 1)
                 }
                 if (G['runescreen'] === "spirits") {
-                    buyRuneBonusLevels(2, 1)
+                    buyRuneBonusLevels('Spirits', 1)
                 }
             }
             if (G['currentTab'] === "challenges") {
@@ -3197,10 +3197,10 @@ document.addEventListener('keydown', (event) => {
                     redeemShards(2)
                 }
                 if (G['runescreen'] === "blessings") {
-                    buyRuneBonusLevels(1, 2)
+                    buyRuneBonusLevels('Blessings', 2)
                 }
                 if (G['runescreen'] === "spirits") {
-                    buyRuneBonusLevels(2, 2)
+                    buyRuneBonusLevels('Spirits', 2)
                 }
             }
             if (G['currentTab'] === "challenges") {
@@ -3219,10 +3219,10 @@ document.addEventListener('keydown', (event) => {
                     redeemShards(3)
                 }
                 if (G['runescreen'] === "blessings") {
-                    buyRuneBonusLevels(1, 3)
+                    buyRuneBonusLevels('Blessings', 3)
                 }
                 if (G['runescreen'] === "spirits") {
-                    buyRuneBonusLevels(2, 3)
+                    buyRuneBonusLevels('Spirits', 3)
                 }
             }
             if (G['currentTab'] === "challenges") {
@@ -3241,10 +3241,10 @@ document.addEventListener('keydown', (event) => {
                     redeemShards(4)
                 }
                 if (G['runescreen'] === "blessings") {
-                    buyRuneBonusLevels(1, 4)
+                    buyRuneBonusLevels('Blessings', 4)
                 }
                 if (G['runescreen'] === "spirits") {
-                    buyRuneBonusLevels(2, 4)
+                    buyRuneBonusLevels('Spirits', 4)
                 }
             }
             if (G['currentTab'] === "challenges") {
@@ -3263,10 +3263,10 @@ document.addEventListener('keydown', (event) => {
                     redeemShards(5)
                 }
                 if (G['runescreen'] === "blessings") {
-                    buyRuneBonusLevels(1, 5)
+                    buyRuneBonusLevels('Blessings', 5)
                 }
                 if (G['runescreen'] === "spirits") {
-                    buyRuneBonusLevels(2, 5)
+                    buyRuneBonusLevels('Spirits', 5)
                 }
             }
             if (G['currentTab'] === "challenges") {

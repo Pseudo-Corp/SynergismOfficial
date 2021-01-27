@@ -666,20 +666,20 @@ export const buyTesseractBuilding = (intCost: number, index: number) => {
     player['ascendBuilding' + index]['cost'] = intCost * Math.pow(1 + player['ascendBuilding' + index]['owned'], 3)
 }
 
-export const buyRuneBonusLevels = (type: number, index: number) => { //type 1 for Blessings, type 2 for Spirits
+export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number) => {
     let baseCost
     let baseLevels
     let levelCap
-    (type === 2) ?
+    (type === 'Spirits') ?
         (baseCost = G['spiritBaseCost'], baseLevels = player.runeSpiritLevels[index], levelCap = player.runeSpiritBuyAmount) :
         (baseCost = G['blessingBaseCost'], baseLevels = player.runeBlessingLevels[index], levelCap = player.runeBlessingBuyAmount);
 
-    let metadata = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap); //metadata[0] is the level, metadata[1] is the cost
-    (type === 2) ?
-        player.runeSpiritLevels[index] = metadata[0] :
-        player.runeBlessingLevels[index] = metadata[0];
+    const [level, cost] = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap);
+    (type === 'Blessings') ?
+        player.runeSpiritLevels[index] = level :
+        player.runeBlessingLevels[index] = level;
 
-    player.runeshards -= metadata[1];
+    player.runeshards -= cost;
 
     if (index === 1) {
         let requirementArray = [0, 1e5, 1e8, 1e11]
@@ -698,13 +698,13 @@ export const buyRuneBonusLevels = (type: number, index: number) => { //type 1 fo
 
     calculateRuneBonuses()
 
-    if (type === 1) {
+    if (type === 'Blessings') {
         let blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
         let t = (index === 5) ? 1 : 0;
         document.getElementById('runeBlessingPower' + index + 'Value1').textContent = format(G['runeBlessings'][index])
         document.getElementById('runeBlessingPower' + index + 'Value2').textContent = format(1 - t + blessingMultiplierArray[index] * G['effectiveRuneBlessingPower'][index], 4, true)
     }
-    if (type === 2) {
+    if (type === 'Spirits') {
         let spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
         spiritMultiplierArray[index] *= (calculateCorruptionPoints() / 400)
         let t = (index === 3) ? 1 : 0;

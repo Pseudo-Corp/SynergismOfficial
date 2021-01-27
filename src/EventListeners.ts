@@ -16,7 +16,7 @@ import { openTesseract } from "./Tesseracts"
 import { openHypercube } from "./Hypercubes"
 import { openPlatonic } from "./PlatonicCubes"
 import { buyPlatonicUpgrades, createPlatonicDescription } from "./Platonic"
-import { corruptionDisplay } from "./Corruptions"
+import { corruptionCleanseConfirm, corruptionDisplay } from "./Corruptions"
 import { exportSynergism, updateSaveString, promocodes, importSynergism, resetGame } from "./ImportExport"
 import { resetHistoryTogglePerSecond } from "./History"
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable } from "./Shop"
@@ -298,8 +298,8 @@ export const generateEventHandlers = () => {
 //Part 3: Blessings and Spirits
     for (let index = 0; index < 5; index++) {
 
-        document.getElementById(`runeBlessingPower${index+1}`).addEventListener('click', () => buyRuneBonusLevels(1, index+1))
-        document.getElementById(`runeSpiritPower${index+1}`).addEventListener('click', () => buyRuneBonusLevels(2, index+1))
+        document.getElementById(`runeBlessingPower${index+1}`).addEventListener('click', () => buyRuneBonusLevels('Blessings', index+1))
+        document.getElementById(`runeSpiritPower${index+1}`).addEventListener('click', () => buyRuneBonusLevels('Spirits', index+1))
 
     }
     document.getElementById('buyRuneBlessingInput').addEventListener('blur', () => updateRuneBlessingBuyAmount(1))
@@ -435,7 +435,7 @@ document.getElementById('corrLoadoutsBtn').addEventListener('click', () => toggl
 
 //Part 1: Displays
 document.getElementById('corruptionDisplays').addEventListener('click', () => corruptionDisplay(10))
-// document.getElementById('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
+document.getElementById('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
 document.getElementById('corruptionCleanseConfirm').addEventListener('click', () => toggleCorruptionLevel(10, 999))
 
 //Extra toggle

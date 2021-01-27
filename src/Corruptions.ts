@@ -215,3 +215,9 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
         corruptionLoadoutTableUpdate()
     }
 }
+
+export const corruptionCleanseConfirm = () => {
+    const corrupt = document.getElementById('corruptionCleanseConfirm');
+    corrupt.style.visibility = 'visible';
+    setTimeout(() => corrupt.style.visibility = 'hidden', 10000);
+}
