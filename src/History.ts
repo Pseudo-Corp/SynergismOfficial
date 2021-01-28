@@ -203,9 +203,9 @@ const resetHistoryAdd = (
 Synergism.on('historyAdd', resetHistoryAdd);
 
 const resetHistoryPushNewRow = (category: Category, data: ResetHistoryAscend | ResetHistoryDate) => {
-    let row = resetHistoryRenderRow(category, data);
-    let table = document.getElementById(resetHistoryTableMapping[category]);
-    let tbody = table.querySelector("tbody");
+    const row = resetHistoryRenderRow(category, data);
+    const table = document.getElementById(resetHistoryTableMapping[category]);
+    const tbody = table.querySelector("tbody");
     tbody.insertBefore(row, tbody.childNodes[0]);
     while (tbody.childNodes.length > player.historyCountMax) {
         tbody.removeChild(tbody.lastChild);
@@ -217,34 +217,34 @@ const resetHistoryRenderRow = (
     data: ResetHistoryAscend | ResetHistoryDate
 ) => {
     let colsUsed = 1;
-    let row = document.createElement("tr");
+    const row = document.createElement("tr");
     let rowContentHtml = "";
 
-    let kindMeta = historyKinds[data.kind];
+    const kindMeta = historyKinds[data.kind];
 
-    let localDate = new Date(data.date).toLocaleString();
+    const localDate = new Date(data.date).toLocaleString();
     rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
 
-    let gains = [];
+    const gains = [];
     for (let gainIdx = 0; gainIdx < historyGainsOrder.length; ++gainIdx) {
-        let showing = historyGainsOrder[gainIdx];
+        const showing = historyGainsOrder[gainIdx];
         if (data.hasOwnProperty(showing)) {
-            let gainInfo = historyGains[showing as keyof typeof historyGains];
+            const gainInfo = historyGains[showing as keyof typeof historyGains];
             if (gainInfo.onlyif && !gainInfo.onlyif(data)) {
                 continue;
             }
-            let formatter = gainInfo.formatter || (() => {});
-            let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}">${formatter(data[showing], data)}`;
+            const formatter = gainInfo.formatter || (() => {});
+            const str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}">${formatter(data[showing], data)}`;
 
             gains.push(str);
         }
     }
 
-    let extra: string[] = [];
+    const extra: string[] = [];
     if (data.kind === "antsacrifice") {
-        let oldMulti = antSacrificePointsToMultiplier(data.antSacrificePointsBefore);
-        let newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter);
-        let diff = newMulti - oldMulti;
+        const oldMulti = antSacrificePointsToMultiplier(data.antSacrificePointsBefore);
+        const newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter);
+        const diff = newMulti - oldMulti;
         extra.push(
             `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
             `<span title="+${formatDecimalString(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalString(data.crumbs))}</span>`,
@@ -255,7 +255,7 @@ const resetHistoryRenderRow = (
             `<img src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`
         );
 
-        let corruptions = resetHistoryFormatCorruptions(data);
+        const corruptions = resetHistoryFormatCorruptions(data);
         if (corruptions !== null) {
             extra.push(corruptions[0]);
             extra.push(corruptions[1]);
@@ -295,7 +295,7 @@ const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HT
 
     if (player.history[categoryToRender].length > 0) {
         for (let i = player.history[categoryToRender].length - 1; i >= 0; --i) {
-            let row = resetHistoryRenderRow(categoryToRender, player.history[categoryToRender][i]);
+            const row = resetHistoryRenderRow(categoryToRender, player.history[categoryToRender][i]);
             tbody.appendChild(row);
         }
     }
@@ -328,7 +328,7 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryAscend | ResetHistoryDa
     let score = "Score: " + format(data.corruptionScore, 0, true);
     let corruptions = "";
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
-        let corruptionIdx = i + 1;
+        const corruptionIdx = i + 1;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
             corruptions += ` <img src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }

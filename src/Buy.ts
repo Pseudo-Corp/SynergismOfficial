@@ -20,31 +20,31 @@ export const getReductionValue = () => {
 const getCostAccelerator = (buyingTo: number) => {
     --buyingTo;
 
-    let originalCost = 500;
+    const originalCost = 500;
     let cost = new Decimal(originalCost);
 
     cost = cost.times(Decimal.pow(4 / G['costDivisor'], buyingTo));
 
     if (buyingTo > (125 + 5 * CalcECC('transcend', player.challengecompletions[4]))) {
-        let num = buyingTo - 125 - 5 * CalcECC('transcend', player.challengecompletions[4]);
-        let factorialBit = new Decimal(num).factorial();
-        let multBit = Decimal.pow(4, num);
+        const num = buyingTo - 125 - 5 * CalcECC('transcend', player.challengecompletions[4]);
+        const factorialBit = new Decimal(num).factorial();
+        const multBit = Decimal.pow(4, num);
         cost = cost.times(multBit.times(factorialBit));
     }
 
     if (buyingTo > (2000 + 5 * CalcECC('transcend', player.challengecompletions[4]))) {
-        let sumNum = buyingTo - 2000 - 5 * CalcECC('transcend', player.challengecompletions[4]);
-        let sumBit = sumNum * (sumNum + 1) / 2
+        const sumNum = buyingTo - 2000 - 5 * CalcECC('transcend', player.challengecompletions[4]);
+        const sumBit = sumNum * (sumNum + 1) / 2
         cost = cost.times(Decimal.pow(2, sumBit));
     }
 
     if (player.currentChallenge.transcension === 4) {
-        let sumBit = buyingTo * (buyingTo + 1) / 2;
+        const sumBit = buyingTo * (buyingTo + 1) / 2;
         cost = cost.times(Decimal.pow(10, sumBit));
     }
 
     if (player.currentChallenge.reincarnation === 8) {
-        let sumBit = buyingTo * (buyingTo + 1) / 2;
+        const sumBit = buyingTo * (buyingTo + 1) / 2;
         cost = cost.times(Decimal.pow(1e50, sumBit));
     }
     return cost;
@@ -116,28 +116,28 @@ export const buyAccelerator = (autobuyer?: boolean) => {
 const getCostMultiplier = (buyingTo: number) => {
     --buyingTo;
 
-    let originalCost = 1e5;
+    const originalCost = 1e5;
     let cost = new Decimal(originalCost);
     cost = cost.times(Decimal.pow(10, buyingTo / G['costDivisor']));
 
     if (buyingTo > (75 + 2 * CalcECC('transcend', player.challengecompletions[4]))) {
-        let num = buyingTo - 75 - 2 * CalcECC('transcend', player.challengecompletions[4]);
-        let factorialBit = new Decimal(num).factorial();
-        let powBit = Decimal.pow(10, num);
+        const num = buyingTo - 75 - 2 * CalcECC('transcend', player.challengecompletions[4]);
+        const factorialBit = new Decimal(num).factorial();
+        const powBit = Decimal.pow(10, num);
         cost = cost.times(factorialBit.times(powBit));
     }
 
     if (buyingTo > (2000 + 2 * CalcECC('transcend', player.challengecompletions[4]))) {
-        let sumNum = buyingTo - 2000 - 2 * CalcECC('transcend', player.challengecompletions[4]);
-        let sumBit = sumNum * (sumNum + 1) / 2;
+        const sumNum = buyingTo - 2000 - 2 * CalcECC('transcend', player.challengecompletions[4]);
+        const sumBit = sumNum * (sumNum + 1) / 2;
         cost = cost.times(Decimal.pow(2, sumBit));
     }
     if (player.currentChallenge.transcension === 4) {
-        let sumBit = buyingTo * (buyingTo + 1) / 2;
+        const sumBit = buyingTo * (buyingTo + 1) / 2;
         cost = cost.times(Decimal.pow(10, sumBit));
     }
     if (player.currentChallenge.reincarnation === 8) {
-        let sumBit = buyingTo * (buyingTo + 1) / 2;
+        const sumBit = buyingTo * (buyingTo + 1) / 2;
         cost = cost.times(Decimal.pow(1e50, sumBit));
     }
     return cost;
@@ -237,9 +237,9 @@ const fact100exponent = Math.log10(9.3326215443944152681699238856267e+157);
 const precision16_loss_addition_of_ones = 188.582;
 const known_log10s = function () {
     // needed logs
-    let needed = [1.03, 1.25];
-    let nums = [1, 2, 3, 4, 5, 6, 10, 15];
-    for (let num of nums) {
+    const needed = [1.03, 1.25];
+    const nums = [1, 2, 3, 4, 5, 6, 10, 15];
+    for (const num of nums) {
         needed.push(100 + (100 * num));
         needed.push(10 + (10 * num));
     }
@@ -251,8 +251,8 @@ const known_log10s = function () {
     }
 
     // constructing all logs
-    let obj: Record<number, number> = {};
-    for (let need of needed) {
+    const obj: Record<number, number> = {};
+    for (const need of needed) {
         if (obj[need] === undefined) {
             obj[need] = Math.log10(need);
         }
@@ -264,7 +264,7 @@ export const getCost = (originalCost: DecimalSource, buyingTo: number, type: str
     // It's 0 indexed by mistake so you have to subtract 1 somewhere.
     --buyingTo;
     // Accounts for the multiplies by 1.25^num buyingTo times
-    let cost = new Decimal(originalCost);
+    const cost = new Decimal(originalCost);
     let mlog10125 = num * buyingTo;
     // Accounts for the add 1s
     if (buyingTo < precision16_loss_addition_of_ones / num) {
@@ -359,7 +359,7 @@ export const buyMax = (pos: string, type: string, num: number, originalCost: Dec
     }
 
     // Start buying at the current amount bought + 1
-    let buyStart = player[pos + 'Owned' + type];
+    const buyStart = player[pos + 'Owned' + type];
     let buyInc = 1;
     let cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
     while (player[tag].gte(cashToBuy)) {
@@ -485,7 +485,7 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
         c += 10
     }
 
-    let toBuy = calculateCrystalBuy(i);
+    const toBuy = calculateCrystalBuy(i);
 
     if (toBuy + c > player.crystalUpgrades[u]) {
         player.crystalUpgrades[u] = 100 / 100 * (toBuy + c)
@@ -524,7 +524,7 @@ export const boostAccelerator = (automated?: boolean) => {
             }
         }
     } else {
-        let buyStart = player.acceleratorBoostBought;
+        const buyStart = player.acceleratorBoostBought;
         let buyInc = 1;
         let cost = getAcceleratorBoostCost(buyStart + buyInc);
         while (player.prestigePoints.gte(cost)) {
@@ -584,10 +584,10 @@ export const boostAccelerator = (automated?: boolean) => {
 const getAcceleratorBoostCost = (level = 1) => {
     // formula starts at 0 but buying starts at 1
     level--;
-    let base = new Decimal(1e3)
-    let eff = 1 + 2 * G['effectiveRuneBlessingPower'][4]
-    let linSum = (n: number) => n * (n + 1) / 2
-    let sqrSum = (n: number) => n * (n + 1) * (2 * n + 1) / 6
+    const base = new Decimal(1e3)
+    const eff = 1 + 2 * G['effectiveRuneBlessingPower'][4]
+    const linSum = (n: number) => n * (n + 1) / 2
+    const sqrSum = (n: number) => n * (n + 1) * (2 * n + 1) / 6
     if (level > 1000 * eff) {
         return base.times(Decimal.pow(10, 10 * level
             + linSum(level) // each level increases the exponent by 1 more each time
@@ -602,7 +602,7 @@ const getParticleCost = (originalCost: DecimalSource, buyTo: number) => {
     originalCost = new Decimal(originalCost)
     let cost = originalCost.times(Decimal.pow(2, buyTo));
 
-    let DR = (player.currentChallenge.ascension !== 15)? 325000: 1000;
+    const DR = (player.currentChallenge.ascension !== 15)? 325000: 1000;
 
     if (buyTo > DR) {
         cost = cost.times(Decimal.pow(1.001, (buyTo - DR) * ((buyTo - DR + 1) / 2)));
@@ -648,18 +648,18 @@ export const buyParticleBuilding = (pos: string, originalCost: DecimalSource, au
 }
 
 export const getTesseractCost = (intCost: number, index: number): [number, number] => {
-    let buyFrom = player['ascendBuilding' + index]['owned']
-    let subCost = intCost * Math.pow(buyFrom * (buyFrom + 1) / 2, 2)
+    const buyFrom = player['ascendBuilding' + index]['owned']
+    const subCost = intCost * Math.pow(buyFrom * (buyFrom + 1) / 2, 2)
 
     let buyTo = Math.floor(-1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((player.wowTesseracts + subCost) / intCost, 1 / 2), 1 / 2))
     buyTo = Math.min(buyTo, player.tesseractbuyamount + player['ascendBuilding' + index]['owned'])
-    let actualCost = intCost * Math.pow(buyTo * (buyTo + 1) / 2, 2) - subCost
+    const actualCost = intCost * Math.pow(buyTo * (buyTo + 1) / 2, 2) - subCost
     return [buyTo, actualCost];
 }
 
 export const buyTesseractBuilding = (intCost: number, index: number) => {
-    let buyTo = getTesseractCost(intCost, index)[0]
-    let actualCost = getTesseractCost(intCost, index)[1]
+    const buyTo = getTesseractCost(intCost, index)[0]
+    const actualCost = getTesseractCost(intCost, index)[1]
 
     player['ascendBuilding' + index]['owned'] = buyTo;
     player.wowTesseracts -= actualCost;
@@ -682,7 +682,7 @@ export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number)
     player.runeshards -= cost;
 
     if (index === 1) {
-        let requirementArray = [0, 1e5, 1e8, 1e11]
+        const requirementArray = [0, 1e5, 1e8, 1e11]
         for (let i = 1; i <= 3; i++) {
             if (player.runeBlessingLevels[1] >= requirementArray[i] && player.achievements[231 + i] < 1) {
                 achievementaward(231 + i)
@@ -699,15 +699,15 @@ export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number)
     calculateRuneBonuses()
 
     if (type === 'Blessings') {
-        let blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
-        let t = (index === 5) ? 1 : 0;
+        const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
+        const t = (index === 5) ? 1 : 0;
         document.getElementById('runeBlessingPower' + index + 'Value1').textContent = format(G['runeBlessings'][index])
         document.getElementById('runeBlessingPower' + index + 'Value2').textContent = format(1 - t + blessingMultiplierArray[index] * G['effectiveRuneBlessingPower'][index], 4, true)
     }
     if (type === 'Spirits') {
-        let spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
+        const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
         spiritMultiplierArray[index] *= (calculateCorruptionPoints() / 400)
-        let t = (index === 3) ? 1 : 0;
+        const t = (index === 3) ? 1 : 0;
         document.getElementById('runeSpiritPower' + index + 'Value1').textContent = format(G['runeSpirits'][index])
         document.getElementById('runeSpiritPower' + index + 'Value2').textContent = format(1 - t + spiritMultiplierArray[index] * G['effectiveRuneSpiritPower'][index], 4, true)
     }

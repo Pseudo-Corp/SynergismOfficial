@@ -44,7 +44,7 @@ export const addTimers = (input: TimerInput, time?: number) => {
             break;
         case "quarks":
             // First get maximum Quark Clock (25h, up to +25 from Research 8x20)
-            let maxQuarkTimer = getMaxQuarkTime()
+            const maxQuarkTimer = getMaxQuarkTime()
             player.quarkstimer += time * timeMultiplier;
             // Checks if this new time is greater than maximum, in which it will default to that time.
             // Otherwise returns itself.
@@ -80,7 +80,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
         case "addObtainium":
             //Update Obtainium Multipliers + Amount to gain
              calculateObtainium();
-             let obtainiumGain = calculateAutomaticObtainium();
+             const obtainiumGain = calculateAutomaticObtainium();
             //Add Obtainium
             player.researchPoints += obtainiumGain * time * timeMultiplier;
             break;
@@ -98,9 +98,9 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             if (player.sacrificeTimer >= 1){
                 // If you bought cube upgrade 2x10 then it sacrifices to all runes equally
                 if(player.cubeUpgrades[20] === 1){
-                    let notMaxed = (5 - checkMaxRunes());
+                    const notMaxed = (5 - checkMaxRunes());
                     if(notMaxed > 0){
-                        let baseAmount = Math.floor(player.runeshards / notMaxed);
+                        const baseAmount = Math.floor(player.runeshards / notMaxed);
                         for (let i = 0; i < 5; i++) {
                             redeemShards(i+1, true, baseAmount);
                         }
@@ -108,12 +108,12 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
                 }
                 // If you did not buy cube upgrade 2x10 it sacrifices to selected rune.
                 else{
-                    let rune = player.autoSacrifice;
+                    const rune = player.autoSacrifice;
                     redeemShards(rune, true, 0);
                 }
                 //Modulo used in event of a large delta time (this could happen for a number of reasons)
                 player.sacrificeTimer %= 1
-            };
+            }
             break;
         case "antSacrifice":
             // Increments real and 'fake' timers. the Real timer is on real life seconds.
@@ -121,13 +121,13 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             player.antSacrificeTimerReal += time
 
             //Equal to real time iff "Real Time" option selected in ants tab.
-            let antSacrificeTimer = (player.autoAntSacrificeMode === 2) ?
+            const antSacrificeTimer = (player.autoAntSacrificeMode === 2) ?
             player.antSacrificeTimerReal : player.antSacrificeTimer;
 
             if (antSacrificeTimer >= player.autoAntSacTimer && player.researches[124] === 1 
                 && player.autoAntSacrifice && player.antPoints.gte("1e40")) {
                 sacrificeAnts(true)
-            };
+            }
             break;
         }
 }

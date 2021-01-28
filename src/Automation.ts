@@ -10,7 +10,7 @@ const buyGenerator = (i: number, state: boolean, auto: boolean) => {
     if (i === 1 && player.prestigePoints.gte(1e12) && player.unlocks.generation === false) {
         player.unlocks.generation = true
     }
-    let q = 100 + i
+    const q = 100 + i
     let type = "transcendPoints"
     if (q <= 110 && q >= 106) {
         type = "coins"
@@ -18,8 +18,8 @@ const buyGenerator = (i: number, state: boolean, auto: boolean) => {
         type = "prestigePoints"
     }
 
-    let cost = Decimal.pow(10, G['upgradeCosts'][q])
-    let achievementCheck = Math.max(player.upgrades[101], player.upgrades[102], player.upgrades[103], player.upgrades[104], player.upgrades[105])
+    const cost = Decimal.pow(10, G['upgradeCosts'][q])
+    const achievementCheck = Math.max(player.upgrades[101], player.upgrades[102], player.upgrades[103], player.upgrades[104], player.upgrades[105])
 
     if (player.upgrades[q] === 0 && player[type].gte(cost)) {
         if (achievementCheck === 0 && q >= 102 && q <= 105) {
@@ -36,7 +36,7 @@ const buyGenerator = (i: number, state: boolean, auto: boolean) => {
 }
 
 export const buyAutobuyers = (i: number, state?: boolean) => {
-    let q = i + 80
+    const q = i + 80
     let type = "";
     if (q <= 87) {
         type = "prestigePoints"

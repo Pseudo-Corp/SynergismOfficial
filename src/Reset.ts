@@ -29,14 +29,14 @@ export const resetdetails = (input: resetNames) => {
     const transcensionChallenge = player.currentChallenge.transcension;
     const reincarnationChallenge = player.currentChallenge.reincarnation;
 
-    let offering = calculateOfferings(input);
-    let offeringImage = getElementById<HTMLImageElement>("resetofferings1");
-    let offeringText = document.getElementById("resetofferings2");
-    let currencyImage1 = getElementById<HTMLImageElement>("resetcurrency1");
-    let resetObtainiumImage = getElementById<HTMLImageElement>("resetobtainium");
-    let resetobtainiumText = document.getElementById("resetobtainium2");
-    let resetInfo = document.getElementById('resetinfo');
-    let resetCurrencyGain = document.getElementById("resetcurrency2");
+    const offering = calculateOfferings(input);
+    const offeringImage = getElementById<HTMLImageElement>("resetofferings1");
+    const offeringText = document.getElementById("resetofferings2");
+    const currencyImage1 = getElementById<HTMLImageElement>("resetcurrency1");
+    const resetObtainiumImage = getElementById<HTMLImageElement>("resetobtainium");
+    const resetobtainiumText = document.getElementById("resetobtainium2");
+    const resetInfo = document.getElementById('resetinfo');
+    const resetCurrencyGain = document.getElementById("resetcurrency2");
 
     (input == "reincarnation") ? 
         (resetObtainiumImage.src = "Pictures/Obtainium.png", resetobtainiumText.textContent = format(Math.floor(G['obtainiumGain']))):
@@ -50,7 +50,7 @@ export const resetdetails = (input: resetNames) => {
         case "prestige":
             if(currencyImage1.src !== "Pictures/Diamond.png"){
                 currencyImage1.src = "Pictures/Diamond.png"
-            };
+            }
             resetCurrencyGain.textContent = "+" + format(G['prestigePointGain']);
             resetInfo.textContent = "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: " + format(player.coinsThisPrestige) + "/1e16 Coins || TIME SPENT: " + format(player.prestigecounter) + " seconds.";
             resetInfo.style.color = "turquoise";
@@ -58,7 +58,7 @@ export const resetdetails = (input: resetNames) => {
         case "transcension":
             if(currencyImage1.src !== "Pictures/Mythos.png"){
                 currencyImage1.src = "Pictures/Mythos.png"
-            };
+            }
             resetCurrencyGain.textContent = "+" + format(G['transcendPointGain']);
             resetInfo.textContent = "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: " + format(player.coinsThisTranscension) + "/1e100 Coins || TIME SPENT: " + format(player.transcendcounter) + " seconds.";
             resetInfo.style.color = "orchid";
@@ -66,7 +66,7 @@ export const resetdetails = (input: resetNames) => {
         case "reincarnation":
             if(currencyImage1.src !== "Pictures/Particle.png"){
                 currencyImage1.src = "Pictures/Particle.png"
-            };
+            }
             resetCurrencyGain.textContent = "+" + format(G['reincarnationPointGain']);
             resetInfo.textContent = "Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: " + format(player.transcendShards) + "/1e300 Mythos Shards || TIME SPENT: " + format(player.reincarnationcounter) + " seconds.";
             resetInfo.style.color = "limegreen";
@@ -74,7 +74,7 @@ export const resetdetails = (input: resetNames) => {
         case "acceleratorBoost":
             if(currencyImage1.src !== "Pictures/Diamond.png") {
                 currencyImage1.src = "Pictures/Diamond.png"
-            };
+            }
             resetCurrencyGain.textContent = "-" + format(player.acceleratorBoostCost);
             resetInfo.textContent = "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: " + format(player.prestigePoints) + "/" + format(player.acceleratorBoostCost) + " Diamonds.";
             resetInfo.style.color = "cyan";
@@ -148,7 +148,7 @@ export const updateAutoReset = (i: number) => {
             player.autoAscendThreshold = 1;
         }
     } else if (i === 5) {
-        let v = parseFloat(getElementById<HTMLInputElement>("autoAntSacrificeAmount").value);
+        const v = parseFloat(getElementById<HTMLInputElement>("autoAntSacrificeAmount").value);
         player.autoAntSacTimer = Math.max(0, v);
     }
 }
@@ -164,7 +164,7 @@ export const updateTesseractAutoBuyAmount = () => {
 }
 
 export const reset = (input: resetNames, fast = false, from = 'unknown') => {
-    let historyEntry: Partial<ResetHistoryAscend> = {};
+    const historyEntry: Partial<ResetHistoryAscend> = {};
     let historyKind = "prestige";
     const historyCategory = (input === 'ascension' || input === 'ascensionChallenge') ? 'ascend' : 'reset';
     // By default, we don't log history entries when the player is entering or leaving a challenge, but we handle some
@@ -330,7 +330,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
         player.researchPoints += Math.floor(G['obtainiumGain']);
 
-        let opscheck = G['obtainiumGain'] / (1 + player.reincarnationcounter)
+        const opscheck = G['obtainiumGain'] / (1 + player.reincarnationcounter)
         if (opscheck > player.obtainiumpersecond) {
             player.obtainiumpersecond = opscheck
         }
@@ -394,7 +394,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         G['autoResetTimers'].reincarnation = 0;
 
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
-            let linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
+            const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
             buyResearch(player.autoResearch, true, linGrowth)
         }
 
@@ -403,7 +403,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
 
     if (input === 'ascension' || input === 'ascensionChallenge') {
-        let metaData = CalcCorruptionStuff()
+        const metaData = CalcCorruptionStuff()
         ascensionAchievementCheck(3, metaData[3])
         historyKind = "ascend";
         // Log history for every ascend with a C10 completion, overriding previous restrictions
@@ -514,7 +514,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.autoResearch = 1;
 
         for (let j = 1; j <= (200); j++) {
-            let k = "res" + j;
+            const k = "res" + j;
             if (player.researches[j] > 0.5 && player.researches[j] < G['researchMaxLevels'][j]) {
                 document.getElementById(k).style.backgroundColor = "purple"
             } else if (player.researches[j] > 0.5 && player.researches[j] >= G['researchMaxLevels'][j]) {
@@ -745,7 +745,7 @@ export const resetAnts = () => {
     player.seventhCostAnts = new Decimal("1e100");
     player.eighthCostAnts = new Decimal("1e300");
 
-    let ant12 = player.antUpgrades[12-1];
+    const ant12 = player.antUpgrades[12-1];
     player.antUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ant12];
     player.antPoints = new Decimal("1");
 

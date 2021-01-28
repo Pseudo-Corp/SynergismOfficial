@@ -6,9 +6,9 @@ import Decimal from 'break_infinity.js';
 import { resetNames } from './types/Synergism';
 
 export const displayRuneInformation = (i: number, updatelevelup = true) => {
-    let m = G['effectiveLevelMult']
-    let SILevelMult = (1 + player.researches[84] / 200 * (1 + 1 * G['effectiveRuneSpiritPower'][5] * calculateCorruptionPoints()/400))
-    let amountPerOffering = calculateRuneExpGiven(i - 1, false, player.runelevels[i - 1]);
+    const m = G['effectiveLevelMult']
+    const SILevelMult = (1 + player.researches[84] / 200 * (1 + 1 * G['effectiveRuneSpiritPower'][5] * calculateCorruptionPoints()/400))
+    const amountPerOffering = calculateRuneExpGiven(i - 1, false, player.runelevels[i - 1]);
 
 
     if (i === 1) {
@@ -42,15 +42,15 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
         document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + format((1 + G['rune5level'] / 200 * m * SILevelMult), 2, true) + ". Ant Speed: x" + format(1 + Math.pow(G['rune5level'] * m * SILevelMult, 2) / 2500) + ". Base Offerings: +" + format((G['rune5level'] * m * SILevelMult * 0.005), 3, true)
     }
     if (updatelevelup) {
-        let arr = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], player.offeringbuyamount);
+        const arr = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], player.offeringbuyamount);
         let offerings = 0;
         let j = 0;
         while (offerings < player.runeshards && j < arr.length) {
             offerings += arr[j]
             j++;
         }
-        let check = player.offeringbuyamount === j && offerings <= player.runeshards
-        let s = player.offeringbuyamount === 1 ? "once" : `${check ? j : Math.max(j - 1, 0)} times`
+        const check = player.offeringbuyamount === j && offerings <= player.runeshards
+        const s = player.offeringbuyamount === 1 ? "once" : `${check ? j : Math.max(j - 1, 0)} times`
         document.getElementById("runeDisplayInfo").textContent = `+${format(amountPerOffering)} EXP per offering. ${format(offerings)} Offerings to level up ${s}.`
     }
 
@@ -63,10 +63,10 @@ export const resetofferings = (input: resetNames) => {
 export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgraded = 0) => {
     // if automated && 2x10 cube upgrade bought, this will be >0.
     // runeIndex, the rune being added to
-    let runeIndex = runeIndexPlusOne - 1;
+    const runeIndex = runeIndexPlusOne - 1;
 
     // Whether or not a rune is unlocked array
-    let unlockedRune = [
+    const unlockedRune = [
         true,
         player.achievements[38] > 0.5,
         player.achievements[44] > 0.5,
@@ -84,19 +84,19 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
     let levelsAdded = 0
     if (player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune[runeIndex]) {
         let all = 0
-        let maxLevel = calculateMaxRunes(runeIndex + 1)
-        let amountArr = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
+        const maxLevel = calculateMaxRunes(runeIndex + 1)
+        const amountArr = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
         let toSpendTotal = Math.min(player.runeshards, amountArr.reduce((x, y) => x + y, 0))
         if (cubeUpgraded > 0) {
             toSpendTotal = Math.min(player.runeshards, cubeUpgraded)
         }
-        let fact = calculateRuneExpGiven(runeIndex, false, player.runelevels[runeIndex], true)
-        let a = player.upgrades[71] / 25
-        let add = fact[0] - a * player.runelevels[runeIndex]
-        let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
+        const fact = calculateRuneExpGiven(runeIndex, false, player.runelevels[runeIndex], true)
+        const a = player.upgrades[71] / 25
+        const add = fact[0] - a * player.runelevels[runeIndex]
+        const mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
         while (toSpendTotal > 0 && levelsAdded < levelsToAdd && player.runelevels[runeIndex] < maxLevel) {
-            let exp = calculateRuneExpToLevel(runeIndex, player.runelevels[runeIndex]) - player.runeexp[runeIndex]
-            let expPerOff = (add + a * player.runelevels[runeIndex]) * mult;
+            const exp = calculateRuneExpToLevel(runeIndex, player.runelevels[runeIndex]) - player.runeexp[runeIndex]
+            const expPerOff = (add + a * player.runelevels[runeIndex]) * mult;
             let toSpend = Math.min(toSpendTotal, Math.ceil(exp / expPerOff))
             if (toSpend === undefined || isNaN(toSpend)) {
                 toSpend = toSpendTotal
@@ -130,18 +130,18 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
 
 export const calculateOfferingsToLevelXTimes = (runeIndex: number, runeLevel: number, levels: number) => {
     let exp = calculateRuneExpToLevel(runeIndex, runeLevel) - player.runeexp[runeIndex]
-    let maxLevel = calculateMaxRunes(runeIndex + 1)
-    let arr = []
+    const maxLevel = calculateMaxRunes(runeIndex + 1)
+    const arr = []
     let sum = 0
-    let off = player.runeshards
+    const off = player.runeshards
     let levelsAdded = 0
-    let fact = calculateRuneExpGiven(runeIndex, false, runeLevel, true);
-    let a = player.upgrades[71] / 25
-    let add = fact[0] - a * runeLevel
-    let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
+    const fact = calculateRuneExpGiven(runeIndex, false, runeLevel, true);
+    const a = player.upgrades[71] / 25
+    const add = fact[0] - a * runeLevel
+    const mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
     while (levelsAdded < levels && runeLevel + levelsAdded < maxLevel && sum < off) {
-        let expPerOff = (add + a * (runeLevel + levelsAdded)) * mult
-        let amount = Math.ceil(exp / expPerOff)
+        const expPerOff = (add + a * (runeLevel + levelsAdded)) * mult
+        const amount = Math.ceil(exp / expPerOff)
         sum += amount
         arr.push(amount)
         levelsAdded += 1

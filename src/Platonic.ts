@@ -185,9 +185,9 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
 
 const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { canBuy: boolean }), boolean> => {
     let checksum = 0
-    let resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'] as const;
-    let resourceNames = ['researchPoints', 'runeshards', 'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowAbyssals']
-    let checks: Record<string, boolean> = {
+    const resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'] as const;
+    const resourceNames = ['researchPoints', 'runeshards', 'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowAbyssals']
+    const checks: Record<string, boolean> = {
         obtainium: false,
         offerings: false,
         cubes: false,
@@ -214,7 +214,7 @@ export const createPlatonicDescription = (index: number) => {
     if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
         maxLevelAppend = " [MAX]"
     }
-    let resourceCheck = checkPlatonicUpgrade(index);
+    const resourceCheck = checkPlatonicUpgrade(index);
     document.getElementById('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index];
     document.getElementById('platonicUpgradeLevel').textContent = "Level: " + format(player.platonicUpgrades[index]) + "/" + format(platUpgradeBaseCosts[index].maxLevel) + maxLevelAppend
     document.getElementById('platonicOfferingCost').textContent = format(player.runeshards) + "/" + format(platUpgradeBaseCosts[index].offerings) + " Offerings"
@@ -268,7 +268,7 @@ export const createPlatonicDescription = (index: number) => {
 }
 
 export const buyPlatonicUpgrades = (index: number) => {
-    let resourceCheck = checkPlatonicUpgrade(index)
+    const resourceCheck = checkPlatonicUpgrade(index)
     if (resourceCheck.canBuy) {
         player.platonicUpgrades[index] += 1
         player.researchPoints -= platUpgradeBaseCosts[index].obtainium

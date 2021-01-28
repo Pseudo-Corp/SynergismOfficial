@@ -602,28 +602,21 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
         }
     }
 
-    //Challenges 1, 2, 3 check for not buying generators and getting X coins
-    if ([1, 2, 3].includes(i)) {
+    // Challenges 1, 2, 3 check for not buying generators and getting X coins
+    // Challenge 5 check for not buying Acc/Acc Boosts and getting 1.00e120,000 coins
+    if ([1, 2, 3, 5].includes(i) && !auto) {
         const [gte, ach] = challengeCompletionsNotAuto[i];
-        if (!auto) {
-            if (player.coinsThisTranscension.gte(gte) && generatorcheck === 0) {
-                achievementaward(ach);
-            }
-        }
-    }
-
-    //Challenge 5 check for not buying Acc/Acc Boosts and getting 1.00e120,000 coins
-    if ([5].includes(i)){
-        const [gte, ach] = challengeCompletionsNotAuto[i];
-        if(!auto) {
+        if (i === 5) {
             if (player.coinsThisTranscension.gte(gte) && player.acceleratorBought === 0 && player.acceleratorBoostBought === 0) {
                 achievementaward(ach)
             }
+        } else if (player.coinsThisTranscension.gte(gte) && generatorcheck === 0) {
+            achievementaward(ach);
         }
     }
 
     if (i >= 11 && i <= 14) {
-        let challengeArray = [0, 1, 2, 3, 5, 10, 20, 30]
+        const challengeArray = [0, 1, 2, 3, 5, 10, 20, 30]
         for (let j = 1; j <= 7; j++) {
             if (player.challengecompletions[i] >= challengeArray[j] && player.achievements[119 + 7 * i + j] < 1) {
                 achievementaward(119 + 7 * i + j)
@@ -687,7 +680,7 @@ export const buildingAchievementCheck = () => {
 
 export const ascensionAchievementCheck = (i: number, score = 0) => {
     if (i === 1) {
-        let ascendCountArray = [0, 1, 2, 10, 100, 1000, 14142, 141421, 1414213]
+        const ascendCountArray = [0, 1, 2, 10, 100, 1000, 14142, 141421, 1414213]
         for (let j = 1; j <= 7; j++) {
             if (player.ascensionCount >= ascendCountArray[j] && player.achievements[182 + j] < 1) {
                 achievementaward(182 + j)
@@ -698,7 +691,7 @@ export const ascensionAchievementCheck = (i: number, score = 0) => {
         }
     }
     if (i === 2) {
-        let constantArray = [0, 3.14, 1e6, 4.32e10, 6.9e21, 1.509e33, 1e66, "1.8e308"]
+        const constantArray = [0, 3.14, 1e6, 4.32e10, 6.9e21, 1.509e33, 1e66, "1.8e308"]
         for (let j = 1; j <= 7; j++) {
             if (player.ascendShards.gte(constantArray[j]) && player.achievements[189 + j] < 1) {
                 achievementaward(189 + j)
@@ -706,7 +699,7 @@ export const ascensionAchievementCheck = (i: number, score = 0) => {
         }
     }
     if (i === 3) {
-        let scoreArray = [0, 1e5, 1e6, 1e7, 1e8, 1e9, 5e9, 2.5e10]
+        const scoreArray = [0, 1e5, 1e6, 1e7, 1e8, 1e9, 5e9, 2.5e10]
         for (let j = 1; j <= 7; j++) {
             if (score >= scoreArray[j] && player.achievements[224 + j] < 1) {
                 achievementaward(224 + j)

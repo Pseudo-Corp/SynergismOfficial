@@ -65,7 +65,7 @@ export const loadStatisticsCubeMultipliers = () => {
         27: {acc: 4, desc: "Challenge 15 Reward:"},
     }
     for (let i = 0; i < arr.length; i++) {
-        let statCMi = document.getElementById(`statCM${i + 1}`);
+        const statCMi = document.getElementById(`statCM${i + 1}`);
         statCMi.childNodes[0].textContent = map[i + 1].desc;
         document.getElementById(`sCM${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`;
     }
@@ -101,7 +101,7 @@ export const loadStatisticsOfferingMultipliers = () => {
         23: {acc: 3, desc: "Challenge 15:"},
     }
     for (let i = 0; i < arr.length; i++) {
-        let statOffi = document.getElementById(`statOff${i + 1}`);
+        const statOffi = document.getElementById(`statOff${i + 1}`);
         statOffi.childNodes[0].textContent = map[i + 1].desc;
         document.getElementById(`sOff${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`;
     }
@@ -109,11 +109,11 @@ export const loadStatisticsOfferingMultipliers = () => {
 }
 
 export const c15RewardUpdate = () => {
-    let exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10]
-    let keys = Object.keys(G['challenge15Rewards'])
-    let e = player.challenge15Exponent
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10]
+    const keys = Object.keys(G['challenge15Rewards'])
+    const e = player.challenge15Exponent
 
-    for(let obj in G['challenge15Rewards']){
+    for(const obj in G['challenge15Rewards']){
         G['challenge15Rewards'][obj] = 1;
     }
 
@@ -216,8 +216,8 @@ export const c15RewardUpdate = () => {
 
 const updateDisplayC15Rewards = () => {
     document.getElementById('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
-    let exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10]
-    let values = Object.values(G['challenge15Rewards'])
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10]
+    const values = Object.values(G['challenge15Rewards'])
     let keepExponent: string | number = 'None'
     for(let i = 0; i < exponentRequirements.length; i++){
         if(keepExponent === 'None' && player.challenge15Exponent < exponentRequirements[i]){

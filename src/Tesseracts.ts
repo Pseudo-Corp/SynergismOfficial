@@ -21,9 +21,9 @@ export const openTesseract = (value: number, max = false) => {
             player.worlds += 1;
         }
     }
-    let toSpendModulo = toSpend % 20
-    let toSpendDiv20 = Math.floor(toSpend / 20)
-    let blessings = {
+    const toSpendModulo = toSpend % 20
+    const toSpendDiv20 = Math.floor(toSpend / 20)
+    const blessings = {
         accelerator:   {weight: 4, pdf: (x: number) => 0 <= x && x <= 20},
         multiplier:    {weight: 4, pdf: (x: number) => 20 < x && x <= 40},
         offering:      {weight: 2, pdf: (x: number) => 40 < x && x <= 50},
@@ -42,21 +42,21 @@ export const openTesseract = (value: number, max = false) => {
     }
     //Then, the remaining tesseract will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
-        let num = 100 * Math.random();
+        const num = 100 * Math.random();
         for (const key in player.tesseractBlessings) {
             if (blessings[key as keyof typeof blessings].pdf(num))
                 player.tesseractBlessings[key as keyof Player['tesseractBlessings']] += 1;
         }
     }
     calculateTesseractBlessings();
-    let extraCubeBlessings = Math.floor(12 * toSpend * player.researches[153])
+    const extraCubeBlessings = Math.floor(12 * toSpend * player.researches[153])
     player.wowCubes += extraCubeBlessings
     openCube(extraCubeBlessings, false)
 }
 
 export const calculateTesseractBlessings = () => {
     // The visual updates are handled in visualUpdateCubes()
-    let tesseractArray = [player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
+    const tesseractArray = [player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
 
     for (let i = 0; i < 10; i++) {
         let power = 1;

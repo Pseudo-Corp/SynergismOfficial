@@ -7,157 +7,157 @@ import { displayRuneInformation } from './Runes';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
 
 export const revealStuff = () => {
-    let example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
+    const example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example.length; i++) {
         player.unlocks.coinone ? example[i].style.display = "block" : example[i].style.display = "none"
     }
 
-    let example2 = document.getElementsByClassName("coinunlock2") as HTMLCollectionOf<HTMLElement>;
+    const example2 = document.getElementsByClassName("coinunlock2") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example2.length; i++) {
         player.unlocks.cointwo ? example2[i].style.display = "block" : example2[i].style.display = "none"
     }
 
-    let example3 = document.getElementsByClassName("coinunlock3") as HTMLCollectionOf<HTMLElement>;
+    const example3 = document.getElementsByClassName("coinunlock3") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example3.length; i++) {
         player.unlocks.cointhree ? example3[i].style.display = "block" : example3[i].style.display = "none"
     }
 
-    let example4 = document.getElementsByClassName("coinunlock4") as HTMLCollectionOf<HTMLElement>;
+    const example4 = document.getElementsByClassName("coinunlock4") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example4.length; i++) {
         player.unlocks.coinfour ? example4[i].style.display = "block" : example4[i].style.display = "none"
     }
 
-    let example5 = document.getElementsByClassName("prestigeunlock") as HTMLCollectionOf<HTMLElement>;
+    const example5 = document.getElementsByClassName("prestigeunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example5.length; i++) {
         player.unlocks.prestige ? example5[i].style.display = "block" : example5[i].style.display = "none"
     }
 
-    let example6 = document.getElementsByClassName("generationunlock") as HTMLCollectionOf<HTMLElement>;
+    const example6 = document.getElementsByClassName("generationunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example6.length; i++) {
         player.unlocks.generation ? example6[i].style.display = "block" : example6[i].style.display = "none"
     }
 
-    let example7 = document.getElementsByClassName("transcendunlock") as HTMLCollectionOf<HTMLElement>;
+    const example7 = document.getElementsByClassName("transcendunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example7.length; i++) {
         player.unlocks.transcend ? example7[i].style.display = "block" : example7[i].style.display = "none"
     }
 
-    let example8 = document.getElementsByClassName("reincarnationunlock") as HTMLCollectionOf<HTMLElement>;
+    const example8 = document.getElementsByClassName("reincarnationunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example8.length; i++) {
         player.unlocks.reincarnate ? example8[i].style.display = "block" : example8[i].style.display = "none"
     }
 
-    let example9 = document.getElementsByClassName("auto") as HTMLCollectionOf<HTMLElement>;
+    const example9 = document.getElementsByClassName("auto") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example9.length; i++) {
         example9[i].style.display = "none"
     }
 
-    let example10 = document.getElementsByClassName("reinrow1") as HTMLCollectionOf<HTMLElement>;
+    const example10 = document.getElementsByClassName("reinrow1") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example10.length; i++) {
         player.researches[47] === 1 ? example10[i].style.display = "block" : example10[i].style.display = "none"
     }
 
-    let example11 = document.getElementsByClassName("reinrow2") as HTMLCollectionOf<HTMLElement>;
+    const example11 = document.getElementsByClassName("reinrow2") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example11.length; i++) {
         player.researches[48] === 1 ? example11[i].style.display = "block" : example11[i].style.display = "none"
     }
 
-    let example12 = document.getElementsByClassName("reinrow3") as HTMLCollectionOf<HTMLElement>;
+    const example12 = document.getElementsByClassName("reinrow3") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example12.length; i++) {
         player.researches[49] === 1 ? example12[i].style.display = "block" : example12[i].style.display = "none"
     }
 
-    let example13 = document.getElementsByClassName("reinrow4") as HTMLCollectionOf<HTMLElement>;
+    const example13 = document.getElementsByClassName("reinrow4") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example13.length; i++) {
         player.researches[50] === 1 ? example13[i].style.display = "block" : example13[i].style.display = "none"
     }
 
-    let example14 = document.getElementsByClassName("chal6") as HTMLCollectionOf<HTMLElement>;
+    const example14 = document.getElementsByClassName("chal6") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example14.length; i++) {
         player.achievements[113] === 1 ? example14[i].style.display = "block" : example14[i].style.display = "none"
     }
 
-    let example15 = document.getElementsByClassName("chal7") as HTMLCollectionOf<HTMLElement>;
+    const example15 = document.getElementsByClassName("chal7") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example15.length; i++) {
         player.achievements[120] === 1 ? example15[i].style.display = "block" : example15[i].style.display = "none"
     }
 
-    let example16 = document.getElementsByClassName("chal7x10") as HTMLCollectionOf<HTMLElement>;
+    const example16 = document.getElementsByClassName("chal7x10") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example16.length; i++) {
         player.achievements[124] === 1 ? example16[i].style.display = "block" : example16[i].style.display = "none"
     }
 
-    let example17 = document.getElementsByClassName("chal8") as HTMLCollectionOf<HTMLElement>;
+    const example17 = document.getElementsByClassName("chal8") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example17.length; i++) {
         player.achievements[127] === 1 ? example17[i].style.display = "block" : example17[i].style.display = "none"
     }
 
-    let example18 = document.getElementsByClassName("chal9") as HTMLCollectionOf<HTMLElement>;
+    const example18 = document.getElementsByClassName("chal9") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example18.length; i++) { 
         player.achievements[134] === 1 ? example18[i].style.display = "block" : example18[i].style.display = "none"
     }
 
-    let example19 = document.getElementsByClassName("chal9x1") as HTMLCollectionOf<HTMLElement>;
+    const example19 = document.getElementsByClassName("chal9x1") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example19.length; i++) {
         player.highestchallengecompletions[9] > 0 ? example19[i].style.display = "block" : example19[i].style.display = "none"
     }
 
-    let example20 = document.getElementsByClassName("chal10") as HTMLCollectionOf<HTMLElement>;
+    const example20 = document.getElementsByClassName("chal10") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example20.length; i++) {
         player.achievements[141] === 1 ? example20[i].style.display = "block" : example20[i].style.display = "none"
     }
 
-    let example21 = document.getElementsByClassName("ascendunlock") as HTMLCollectionOf<HTMLElement>;
+    const example21 = document.getElementsByClassName("ascendunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example21.length; i++) {
         player.ascensionCount > 0 ? example21[i].style.display = "block" : example21[i].style.display = "none"
     }
 
-    let example22 = document.getElementsByClassName("chal11") as HTMLCollectionOf<HTMLElement>;
+    const example22 = document.getElementsByClassName("chal11") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example22.length; i++) {
         player.challengecompletions[11] > 0 ? example22[i].style.display = "block" : example22[i].style.display = "none"
     }
 
-    let example23 = document.getElementsByClassName("chal12") as HTMLCollectionOf<HTMLElement>;
+    const example23 = document.getElementsByClassName("chal12") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example23.length; i++) {
         player.challengecompletions[12] > 0 ? example23[i].style.display = "block" : example23[i].style.display = "none"
     }
 
-    let example24 = document.getElementsByClassName("chal13") as HTMLCollectionOf<HTMLElement>;
+    const example24 = document.getElementsByClassName("chal13") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example24.length; i++) {
         player.challengecompletions[13] > 0 ? example24[i].style.display = "block" : example24[i].style.display = "none"
     }
 
-    let example25 = document.getElementsByClassName("chal14") as HTMLCollectionOf<HTMLElement>;
+    const example25 = document.getElementsByClassName("chal14") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example25.length; i++) {
         player.challengecompletions[14] > 0 ? example25[i].style.display = "block" : example25[i].style.display = "none"
     }
 
-    let example26 = document.getElementsByClassName("ascendunlockib") as HTMLCollectionOf<HTMLElement>;
+    const example26 = document.getElementsByClassName("ascendunlockib") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example26.length; i++) {
         example26[i].style.display = player.ascensionCount > 0 ? "inline-block" : "none"
     }
 
-    let example27 = document.getElementsByClassName("prestigeunlockib") as HTMLCollectionOf<HTMLElement>;
+    const example27 = document.getElementsByClassName("prestigeunlockib") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example27.length; i++) {
         example27[i].style.display = +player.unlocks.prestige > 0 ? "inline-block" : "none"
     }
 
-    let example28 = document.getElementsByClassName("research150") as HTMLCollectionOf<HTMLElement>; 
+    const example28 = document.getElementsByClassName("research150") as HTMLCollectionOf<HTMLElement>; 
     for (let i = 0; i < example28.length; i++) {
         example28[i].style.display = player.researches[150] > 0 ? "block" : "none"
     }
 
-    let example29 = document.getElementsByClassName("cubeUpgrade10") as HTMLCollectionOf<HTMLElement>;
+    const example29 = document.getElementsByClassName("cubeUpgrade10") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example29.length; i++) {
         example29[i].style.display = player.cubeUpgrades[10] > 0 ? "flex" : "none"
     }
 
-    let example30 = document.getElementsByClassName("cubeUpgrade19") as HTMLCollectionOf<HTMLElement>;
+    const example30 = document.getElementsByClassName("cubeUpgrade19") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example30.length; i++) {
         example30[i].style.display = player.cubeUpgrades[19] > 0 ? "block" : "none"
     }
 
-    let example31 = document.getElementsByClassName("sacrificeAnts") as HTMLCollectionOf<HTMLElement>;
+    const example31 = document.getElementsByClassName("sacrificeAnts") as HTMLCollectionOf<HTMLElement>;
     for (const ex of Array.from(example31)) { //Galactic Crumb Achievement 5
         ex.style.display = player.achievements[173] === 1 ? "block" : "none";
     }
@@ -274,8 +274,8 @@ export const revealStuff = () => {
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
     // note to 2019 and 2020 Platonic, you're welcome
-    let e = document.getElementsByClassName("auto") as HTMLCollectionOf<HTMLElement>;
-    let automationUnlocks: Record<number, boolean> = {
+    const e = document.getElementsByClassName("auto") as HTMLCollectionOf<HTMLElement>;
+    const automationUnlocks: Record<number, boolean> = {
         0: player.upgrades[81] === 1,
         1: player.upgrades[82] === 1,
         2: player.upgrades[83] === 1,
@@ -488,14 +488,14 @@ export const buttoncolorchange = () => {
         document.getElementById('ascendChallengeBtn').style.backgroundColor = "purple";
 
     if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "coin") {
-        let a = document.getElementById("buycoin1");
-        let b = document.getElementById("buycoin2");
-        let c = document.getElementById("buycoin3");
-        let d = document.getElementById("buycoin4");
-        let e = document.getElementById("buycoin5");
-        let f = document.getElementById("buyaccelerator");
-        let g = document.getElementById("buymultiplier");
-        let h = document.getElementById("buyacceleratorboost");
+        const a = document.getElementById("buycoin1");
+        const b = document.getElementById("buycoin2");
+        const c = document.getElementById("buycoin3");
+        const d = document.getElementById("buycoin4");
+        const e = document.getElementById("buycoin5");
+        const f = document.getElementById("buyaccelerator");
+        const g = document.getElementById("buymultiplier");
+        const h = document.getElementById("buyacceleratorboost");
         ((!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(player.firstCostCoin)) ?
             a.style.backgroundColor = "#555555" :
             a.style.backgroundColor = "#171717";
@@ -523,16 +523,16 @@ export const buttoncolorchange = () => {
     }
 
     if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "diamond") {
-        let a = document.getElementById("buydiamond1");
-        let b = document.getElementById("buydiamond2");
-        let c = document.getElementById("buydiamond3");
-        let d = document.getElementById("buydiamond4");
-        let e = document.getElementById("buydiamond5");
-        let f = document.getElementById("buycrystalupgrade1");
-        let g = document.getElementById("buycrystalupgrade2");
-        let h = document.getElementById("buycrystalupgrade3");
-        let i = document.getElementById("buycrystalupgrade4");
-        let j = document.getElementById("buycrystalupgrade5");
+        const a = document.getElementById("buydiamond1");
+        const b = document.getElementById("buydiamond2");
+        const c = document.getElementById("buydiamond3");
+        const d = document.getElementById("buydiamond4");
+        const e = document.getElementById("buydiamond5");
+        const f = document.getElementById("buycrystalupgrade1");
+        const g = document.getElementById("buycrystalupgrade2");
+        const h = document.getElementById("buycrystalupgrade3");
+        const i = document.getElementById("buycrystalupgrade4");
+        const j = document.getElementById("buycrystalupgrade5");
         ((!player.toggles[10] || player.achievements[78] === 0) && player.prestigePoints.gte(player.firstCostDiamonds)) ? a.style.backgroundColor = "#555555" : a.style.backgroundColor = "#171717";
         ((!player.toggles[11] || player.achievements[85] === 0) && player.prestigePoints.gte(player.secondCostDiamonds)) ? b.style.backgroundColor = "#555555" : b.style.backgroundColor = "#171717";
         ((!player.toggles[12] || player.achievements[92] === 0) && player.prestigePoints.gte(player.thirdCostDiamonds)) ? c.style.backgroundColor = "#555555" : c.style.backgroundColor = "#171717";
@@ -558,14 +558,14 @@ export const buttoncolorchange = () => {
             }
         }
         if (G['runescreen'] === "talismans") {
-            let a = document.getElementById("buyTalismanItem1");
-            let b = document.getElementById("buyTalismanItem2");
-            let c = document.getElementById("buyTalismanItem3");
-            let d = document.getElementById("buyTalismanItem4");
-            let e = document.getElementById("buyTalismanItem5");
-            let f = document.getElementById("buyTalismanItem6");
-            let g = document.getElementById("buyTalismanItem7");
-            let arr = [a, b, c, d, e, f, g];
+            const a = document.getElementById("buyTalismanItem1");
+            const b = document.getElementById("buyTalismanItem2");
+            const c = document.getElementById("buyTalismanItem3");
+            const d = document.getElementById("buyTalismanItem4");
+            const e = document.getElementById("buyTalismanItem5");
+            const f = document.getElementById("buyTalismanItem6");
+            const g = document.getElementById("buyTalismanItem7");
+            const arr = [a, b, c, d, e, f, g];
             for (let i = 0; i < arr.length; i++) {
                 arr[i].style.backgroundColor = (player.researchPoints > G['talismanResourceObtainiumCosts'][i]
                     && player.runeshards > G['talismanResourceOfferingCosts'][i]) ? "purple" : "#171717"
@@ -620,7 +620,7 @@ export const buttoncolorchange = () => {
                 : document.getElementById("anttier" + i).style.backgroundColor = "#171717";
         }
         for (let i = 1; i <= 12; i++) {
-            if (player.antPoints.gte(Decimal.pow(G['antUpgradeCostIncreases'][i], player.antUpgrades[i-1] * G['extinctionMultiplier'][player.usedCorruptions[10]]).times(G['antUpgradeBaseCost'][i]))) {
+            if (player.antPoints.gte(Decimal.pow(G['antUpgradeCostIncreases'][i-1], player.antUpgrades[i-1] * G['extinctionMultiplier'][player.usedCorruptions[10]]).times(G['antUpgradeBaseCost'][i-1]))) {
                 document.getElementById("antUpgrade" + i).style.backgroundColor = "silver"
             } else {
                 document.getElementById("antUpgrade" + i).style.backgroundColor = "#171717";
@@ -705,8 +705,8 @@ export const updateAchievementBG = () => {
     for (let i = 1; i <= 182; i++) { //Initiates by setting all to default
         document.getElementById("ach" + i).style.backgroundColor = "black"
     }
-    let fixDisplay1 = document.getElementsByClassName('purpleach') as HTMLCollectionOf<HTMLElement>;
-    let fixDisplay2 = document.getElementsByClassName('redach') as HTMLCollectionOf<HTMLElement>;
+    const fixDisplay1 = document.getElementsByClassName('purpleach') as HTMLCollectionOf<HTMLElement>;
+    const fixDisplay2 = document.getElementsByClassName('redach') as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < fixDisplay1.length; i++) {
         fixDisplay1[i].style.backgroundColor = "purple" //Sets the appropriate achs to purple
     }
@@ -722,11 +722,11 @@ export const updateAchievementBG = () => {
 
 export const CSSAscend = () => {
     for (let i = 1; i <= 5; i++) {
-        let a = document.getElementById("ascendText" + i);
-        let b = document.getElementById("ascendText" + (5 + i));
-        let c = document.getElementById("tesseracts" + i);
-        let d = document.getElementById("buyTesseracts" + i);
-        let e = document.getElementById("tesseractAutoToggle" + i);
+        const a = document.getElementById("ascendText" + i);
+        const b = document.getElementById("ascendText" + (5 + i));
+        const c = document.getElementById("tesseracts" + i);
+        const d = document.getElementById("buyTesseracts" + i);
+        const e = document.getElementById("tesseractAutoToggle" + i);
 
         a.style.top = (8 + 35 * i) + "px"
         b.style.top = (8 + 35 * i) + "px"
@@ -740,7 +740,7 @@ export const CSSAscend = () => {
     }
 
     for (let i = 1; i <= 6; i++) {
-        let a = document.getElementById("switchCubeSubTab" + i)
+        const a = document.getElementById("switchCubeSubTab" + i)
         a.style.top = (30 + 35 * i) + "px"
         a.style.left = "5%"
     }
@@ -748,14 +748,14 @@ export const CSSAscend = () => {
 
 export const CSSRuneBlessings = () => {
     for (let i = 1; i <= 5; i++) {
-        let a = document.getElementById('runeBlessingIcon' + i);
-        let b = document.getElementById('runeSpiritIcon' + i);
-        let c = document.getElementById('runeBlessingLevel' + i);
-        let d = document.getElementById('runeSpiritLevel' + i);
-        let e = document.getElementById('runeBlessingPurchase' + i);
-        let f = document.getElementById('runeSpiritPurchase' + i);
-        let g = document.getElementById('runeBlessingPower' + i);
-        let h = document.getElementById('runeSpiritPower' + i);
+        const a = document.getElementById('runeBlessingIcon' + i);
+        const b = document.getElementById('runeSpiritIcon' + i);
+        const c = document.getElementById('runeBlessingLevel' + i);
+        const d = document.getElementById('runeSpiritLevel' + i);
+        const e = document.getElementById('runeBlessingPurchase' + i);
+        const f = document.getElementById('runeSpiritPurchase' + i);
+        const g = document.getElementById('runeBlessingPower' + i);
+        const h = document.getElementById('runeSpiritPower' + i);
 
         a.style.top = b.style.top = (20 + 75 * i) + "px"
         a.style.left = b.style.left = "10%"
@@ -787,9 +787,9 @@ export const showCorruptionStatsLoadouts = () => {
 }
 
 export const updateAscensionStats = () => {
-    let t = player.ascensionCounter;
-    let [cubes, tess, hyper, platonic] = CalcCorruptionStuff().splice(4);
-    let fillers: Record<string, string> = {
+    const t = player.ascensionCounter;
+    const [cubes, tess, hyper, platonic] = CalcCorruptionStuff().splice(4);
+    const fillers: Record<string, string> = {
         "ascLen": formatTimeShort(player.ascensionCounter),
         "ascCubes": format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2, true),
         "ascTess": format(tess * (player.ascStatToggles[2] ? 1 : 1 / t), 3, true),

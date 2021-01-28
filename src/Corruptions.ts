@@ -11,7 +11,7 @@ export const corruptionDisplay = (index: number) => {
         document.getElementById("corruptionSelectedPic").style.visibility = "visible"
     }
     G['corruptionTrigger'] = index
-    let corruptionTexts: Record<number, Record<string, string>> = {
+    const corruptionTexts: Record<number, Record<string, string>> = {
         1: {
             name: "Corruption I: Divisiveness",
             description: "Your multipliers get disintegrated! Is extra devious without also using Maladaption Corruption",
@@ -118,10 +118,10 @@ export const corruptionDisplay = (index: number) => {
 }
 
 export const corruptionButtonsAdd = () => {
-    let rows = document.getElementsByClassName("corruptionStatRow");
+    const rows = document.getElementsByClassName("corruptionStatRow");
     for (let i = 0; i < rows.length; i++) {
-        let row = rows[i];
-        let p = document.createElement("p");
+        const row = rows[i];
+        const p = document.createElement("p");
         p.className = "corrDesc"
         let text = document.createTextNode("Current: ")
         p.appendChild(text)
@@ -168,12 +168,12 @@ export const corruptionButtonsAdd = () => {
 }
 
 export const corruptionLoadoutTableCreate = () => {
-    let corrCount = 9
-    let table = getElementById<HTMLTableElement>("corruptionLoadoutTable")
+    const corrCount = 9
+    const table = getElementById<HTMLTableElement>("corruptionLoadoutTable")
     for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
-        let row = table.insertRow()
+        const row = table.insertRow()
         for (let j = 0; j <= corrCount; j++) {
-            let cell = row.insertCell();
+            const cell = row.insertCell();
             if (j === 0) {
                 cell.textContent = (i === 0) ? "Next:" : `Loadout ${i}:`;
             } else if (j <= corrCount) {
@@ -199,7 +199,7 @@ export const corruptionLoadoutTableCreate = () => {
 }
 
 export const corruptionLoadoutTableUpdate = (updateRow = 0) => {
-    let row = getElementById<HTMLTableElement>("corruptionLoadoutTable").rows[updateRow + 1].cells;
+    const row = getElementById<HTMLTableElement>("corruptionLoadoutTable").rows[updateRow + 1].cells;
     for (let i = 0; i < row.length; i++) {
         if (i === 0 || i > 9) continue;
         row[i].textContent = ((updateRow === 0) ? player.prototypeCorruptions[i] : player.corruptionLoadouts[updateRow][i]).toString();

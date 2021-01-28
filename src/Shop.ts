@@ -36,9 +36,9 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'challengeTome' | 'cubeToQuark' | 'tesseractToQuark' | 'hypercubeToQuark'
 
 export const shopDescriptions = (input: ShopUpgradeNames) => {
-    let rofl = document.getElementById("quarkdescription");
-    let lmao = document.getElementById("quarkcost");
-    let lol = document.getElementById("quarkeffect");
+    const rofl = document.getElementById("quarkdescription");
+    const lmao = document.getElementById("quarkcost");
+    const lol = document.getElementById("quarkeffect");
 
     switch (input) {
         case "offeringPotion":

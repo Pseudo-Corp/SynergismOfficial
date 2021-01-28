@@ -16,8 +16,8 @@ export const visualUpdateBuildings = () => {
     //When you're in Building --> Coin, update these.
     if (G['buildingSubTab'] === "coin") {
         // For the display of Coin Buildings
-        let upper = ['produceFirst', 'produceSecond', 'produceThird', 'produceFourth', 'produceFifth'] as const;
-        let names = [null, 'Workers', 'Investments', 'Printers', 'Coin Mints', 'Alchemies']
+        const upper = ['produceFirst', 'produceSecond', 'produceThird', 'produceFourth', 'produceFifth'] as const;
+        const names = [null, 'Workers', 'Investments', 'Printers', 'Coin Mints', 'Alchemies']
 
         // Placeholder is of form "produce+upper[i]", which feeds info place in the form of window function
         let percentage = new Decimal()
@@ -56,9 +56,9 @@ export const visualUpdateBuildings = () => {
 
     if (G['buildingSubTab'] === "diamond") {
         // For the display of Diamond Buildings
-        let upper = ['produceFirstDiamonds', 'produceSecondDiamonds', 'produceThirdDiamonds', 'produceFourthDiamonds', 'produceFifthDiamonds'] as const;
-        let names = [null, 'Refineries', 'Coal Plants', 'Coal Rigs', 'Pickaxes', 'Pandoras Boxes']
-        let perSecNames = [null, "Crystal/sec", "Ref./sec", "Plants/sec", "Rigs/sec", "Pickaxes/sec"]
+        const upper = ['produceFirstDiamonds', 'produceSecondDiamonds', 'produceThirdDiamonds', 'produceFourthDiamonds', 'produceFifthDiamonds'] as const;
+        const names = [null, 'Refineries', 'Coal Plants', 'Coal Rigs', 'Pickaxes', 'Pandoras Boxes']
+        const perSecNames = [null, "Crystal/sec", "Ref./sec", "Plants/sec", "Rigs/sec", "Pickaxes/sec"]
 
         document.getElementById("prestigeshardinfo").textContent = "You have " + format(player.prestigeShards, 2) + " Crystals, multiplying Coin production by " + format(G['prestigeMultiplier'], 2) + "x."
 
@@ -71,7 +71,7 @@ export const visualUpdateBuildings = () => {
         }
 
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
-            let p = Decimal.pow(10, Decimal.log(G['prestigePointGain'].add(1), 10) - Decimal.log(player.prestigePoints.sub(1), 10))
+            const p = Decimal.pow(10, Decimal.log(G['prestigePointGain'].add(1), 10) - Decimal.log(player.prestigePoints.sub(1), 10))
             document.getElementById("autoprestige").textContent = "Prestige when your Diamonds can increase by a factor " + format(Decimal.pow(10, player.prestigeamount)) + " [Toggle number above]. Current Multiplier: " + format(p) + "."
         }
         if (player.resettoggle1 === 2) {
@@ -81,9 +81,9 @@ export const visualUpdateBuildings = () => {
 
     if (G['buildingSubTab'] === "mythos") {
         // For the display of Mythos Buildings
-        let upper = ['produceFirstMythos', 'produceSecondMythos', 'produceThirdMythos', 'produceFourthMythos', 'produceFifthMythos'] as const;
-        let names = [null, 'Augments', 'Enchantments', 'Wizards', 'Oracles', 'Grandmasters']
-        let perSecNames = [null, "Shards/sec", "Augments/sec", "Enchantments/sec", "Wizards/sec", "Oracles/sec"]
+        const upper = ['produceFirstMythos', 'produceSecondMythos', 'produceThirdMythos', 'produceFourthMythos', 'produceFifthMythos'] as const;
+        const names = [null, 'Augments', 'Enchantments', 'Wizards', 'Oracles', 'Grandmasters']
+        const perSecNames = [null, "Shards/sec", "Augments/sec", "Enchantments/sec", "Wizards/sec", "Oracles/sec"]
 
         document.getElementById("transcendshardinfo").textContent = "You have " + format(player.transcendShards, 2) + " Mythos Shards, providing " + format(G['totalMultiplierBoost'], 0, true) + " Multiplier Power boosts."
 
@@ -106,9 +106,9 @@ export const visualUpdateBuildings = () => {
     if (G['buildingSubTab'] === "particle") {
 
         // For the display of Particle Buildings
-        let upper = ['produceFirstParticles', 'produceSecondParticles', 'produceThirdParticles', 'produceFourthParticles', 'produceFifthParticles'] as const;
-        let names = [null, 'Protons', 'Elements', 'Pulsars', 'Quasars', 'Galactic Nuclei']
-        let perSecNames = [null, "Atoms/sec", "Protons/sec", "Elements/sec", "Pulsars/sec", "Quasars/sec"]
+        const upper = ['produceFirstParticles', 'produceSecondParticles', 'produceThirdParticles', 'produceFourthParticles', 'produceFifthParticles'] as const;
+        const names = [null, 'Protons', 'Elements', 'Pulsars', 'Quasars', 'Galactic Nuclei']
+        const perSecNames = [null, "Atoms/sec", "Protons/sec", "Elements/sec", "Pulsars/sec", "Quasars/sec"]
 
         for (let i = 1; i <= 5; i++) {
             const place = G[upper[i-1]];
@@ -131,8 +131,8 @@ export const visualUpdateBuildings = () => {
     }
 
     if (G['buildingSubTab'] === "tesseract") {
-        let names = [null, 'Dot', 'Vector', 'Three-Space', 'Bent Time', 'Hilbert Space']
-        let perSecNames = [null, '+Constant/sec', 'Dot/sec', 'Vector/sec', 'Three-Space/sec', 'Bent Time/sec']
+        const names = [null, 'Dot', 'Vector', 'Three-Space', 'Bent Time', 'Hilbert Space']
+        const perSecNames = [null, '+Constant/sec', 'Dot/sec', 'Vector/sec', 'Three-Space/sec', 'Bent Time/sec']
         for (let i = 1; i <= 5; i++) {
             document.getElementById("ascendText" + i).textContent = names[i] + ": " + format(player['ascendBuilding' + i]['owned'], 0, true) + " [+" + format(player['ascendBuilding' + i]['generated'], 2) + "]"
             document.getElementById("ascendText" + (5 + i)).textContent = 
@@ -194,7 +194,7 @@ export const visualUpdateRunes = () => {
     }
 
     if (G['runescreen'] === "blessings") {
-        let blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
+        const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
         let t = 0;
         for (let i = 1; i <= 5; i++) {
             document.getElementById('runeBlessingLevel' + i + 'Value').textContent = format(player.runeBlessingLevels[i], 0, true)
@@ -209,8 +209,8 @@ export const visualUpdateRunes = () => {
     }
 
     if (G['runescreen'] === "spirits") {
-        let spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
-        let subtract = [0, 0, 0, 1, 0, 0]
+        const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
+        const subtract = [0, 0, 0, 1, 0, 0]
         for (let i = 1; i <= 5; i++) {
             spiritMultiplierArray[i] *= (calculateCorruptionPoints() / 400)
             document.getElementById('runeSpiritLevel' + i + 'Value').textContent = format(player.runeSpiritLevels[i], 0, true)
@@ -243,8 +243,8 @@ export const visualUpdateAnts = () => {
     if (G['currentTab'] !== "ants")
         return
     document.getElementById("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(G['antOneProduce'], 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + G['bonusant2']) / 5000 * 500 / 499))) + "x Coin Multiplier."
-    let mode = player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
-    let timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
+    const mode = player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
+    const timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
     document.getElementById("autoAntSacrifice").textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer)}`
     if (player.achievements[173] === 1) {
         document.getElementById("antSacrificeTimer").textContent = formatTimeShort(player.antSacrificeTimer);
@@ -257,9 +257,9 @@ export const visualUpdateCubes = () => {
         return
     document.getElementById("cubeToQuarkTimerValue").textContent = format(Math.floor(player.dayTimer / 3600), 0) + " Hours " + format(Math.floor(player.dayTimer / 60 % 60), 0) + " Mins " + format(Math.floor(player.dayTimer % 60), 0) + " Secs "
 
-    let prefixes = ['cube', 'tesseract', 'hypercube'] as const;
-    let power = [4, 3, 2]
-    let multipliers = [10, 10, 5]
+    const prefixes = ['cube', 'tesseract', 'hypercube'] as const;
+    const power = [4, 3, 2]
+    const multipliers = [10, 10, 5]
     for (let i = 0; i <= 2; i++) {
         document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = format(player[prefixes[i] + 'QuarkDaily']) + "/" + format(25 + 75 * (player.shopUpgrades[prefixes[i] + 'ToQuarkBought'] as number));
         document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = format(player[prefixes[i] + 'OpenedDaily'], 0, true);
@@ -273,7 +273,7 @@ export const visualUpdateCubes = () => {
     switch (player.subtabNumber) {
         case 0:
             document.getElementById("cubeQuantity").textContent = format(player.wowCubes, 0, true)
-            let cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
+            const cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
 
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
             for (let i = 1; i <= 10; i++) {
@@ -291,7 +291,7 @@ export const visualUpdateCubes = () => {
             break;
         case 1:
             document.getElementById("tesseractQuantity").textContent = format(player.wowTesseracts, 0, true)
-            let tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
+            const tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
@@ -305,7 +305,7 @@ export const visualUpdateCubes = () => {
             break;
         case 2:
             document.getElementById("hypercubeQuantity").textContent = format(player.wowHypercubes, 0, true)
-            let hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
+            const hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
@@ -319,8 +319,8 @@ export const visualUpdateCubes = () => {
             break;
         case 3:
             document.getElementById("platonicQuantity").textContent = format(player.wowPlatonicCubes, 0, true)
-            let platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
-            let DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4]
+            const platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
+            const DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4]
             accuracy = [5, 5, 5, 5, 2, 3, 3, 2]
             for (let i = 0; i < platonicArray.length; i++) {
                 let augmentAccuracy = 0;
@@ -348,7 +348,7 @@ export const visualUpdateCorruptions = () => {
         return
 
     document.getElementById("autoAscendMetric").textContent = format(player.autoAscendThreshold, 0, true)
-    let metaData = CalcCorruptionStuff();
+    const metaData = CalcCorruptionStuff();
 
     document.getElementById("corruptionBankValue").textContent = format(metaData[0])
     document.getElementById("corruptionScoreValue").textContent = format(metaData[1], 0, true)

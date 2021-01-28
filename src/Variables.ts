@@ -195,7 +195,7 @@ const Globals: GlobalVariables = {
     ordinals: ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"] as const,
     cardinals: ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour", "twentyfive", "twentysix", "twentyseven", "twentyeight", "twentynine", "thirty", "thirtyone", "thirtytwo", "thirtythree", "thirtyfour"],
 
-    challengeBaseRequirements: [null, 10, 20, 60, 100, 200, 125, 500, 10000, 2.5e8, 3.5e9],
+    challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 10000, 2.5e8, 3.5e9],
 
     prestigeamount: 1,
     taxdivisor: new Decimal("1"),
@@ -255,10 +255,10 @@ const Globals: GlobalVariables = {
     antSevenProduce: new Decimal("1"),
     antEightProduce: new Decimal("1"),
 
-    antCostGrowth: [null, 1e41, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32],
+    antCostGrowth: [1e41, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32],
 
-    antUpgradeBaseCost: [null, 100, 100, 1000, 1000, 1e5, 1e6, 1e8, 1e11, 1e15, 1e20, 1e40, 1e100],
-    antUpgradeCostIncreases: [null, 10, 10, 10, 10, 100, 100, 100, 100, 1000, 1000, 1000, 1e100],
+    antUpgradeBaseCost: [100, 100, 1000, 1000, 1e5, 1e6, 1e8, 1e11, 1e15, 1e20, 1e40, 1e100],
+    antUpgradeCostIncreases: [10, 10, 10, 10, 100, 100, 100, 100, 1000, 1000, 1000, 1e100],
 
     bonusant1: 0,
     bonusant2: 0,

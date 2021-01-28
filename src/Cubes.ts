@@ -92,7 +92,7 @@ export const openCube = (value: number, max = false) => {
     toSpend = Math.floor(toSpend)
     let toSpendModulo = toSpend % 20
     let toSpendDiv20 = Math.floor(toSpend / 20)
-    let blessings = {
+    const blessings = {
         accelerator:   {weight: 4, pdf: (x: number) => 0 <= x && x <= 20},
         multiplier:    {weight: 4, pdf: (x: number) => 20 < x && x <= 40},
         offering:      {weight: 2, pdf: (x: number) => 40 < x && x <= 50},
@@ -120,14 +120,14 @@ export const openCube = (value: number, max = false) => {
     toSpendModulo = toSpendModulo % 20;
 
 //If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
-    for (let key of Object.keys(player.cubeBlessings)) {
+    for (const key of Object.keys(player.cubeBlessings)) {
         player.cubeBlessings[key as Bless] += blessings[key as Bless].weight * toSpendDiv20 * (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
     }
 
 //Then, the remaining cubes will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
-        let num = 100 * Math.random();
-        for (let key of Object.keys(player.cubeBlessings)) {
+        const num = 100 * Math.random();
+        for (const key of Object.keys(player.cubeBlessings)) {
             if (blessings[key as Bless].pdf(num))
                 player.cubeBlessings[key as Bless] += (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
         }
@@ -260,16 +260,16 @@ const cubeUpgradeDescriptions = [
 const getCubeCost = (i: number, linGrowth = 0) => {
     let amountToBuy = G['buyMaxCubeUpgrades'] ? 1e5: 1;
     amountToBuy = Math.min(cubeMaxLevel[i-1] - player.cubeUpgrades[i], amountToBuy)
-    let metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i-1], player.wowCubes, linGrowth, amountToBuy)
+    const metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i-1], player.wowCubes, linGrowth, amountToBuy)
     return([metaData[0],metaData[1]]) //metaData[0] is the levelup amount, metaData[1] is the total cube cost
 }
 
 export const cubeUpgradeDesc = (i: number, linGrowth = 0) => {
-    let metaData = getCubeCost(i,linGrowth)
-    let a = document.getElementById("cubeUpgradeName")
-    let b = document.getElementById("cubeUpgradeDescription")
-    let c = document.getElementById("cubeUpgradeCost")
-    let d = document.getElementById("cubeUpgradeLevel")
+    const metaData = getCubeCost(i,linGrowth)
+    const a = document.getElementById("cubeUpgradeName")
+    const b = document.getElementById("cubeUpgradeDescription")
+    const c = document.getElementById("cubeUpgradeCost")
+    const d = document.getElementById("cubeUpgradeLevel")
 
     a.textContent = cubeUpgradeName[i - 1];
     b.textContent = cubeUpgradeDescriptions[i - 1];
@@ -288,7 +288,7 @@ export const cubeUpgradeDesc = (i: number, linGrowth = 0) => {
 }
 
 export const updateCubeUpgradeBG = (i: number) => {
-    let a = document.getElementById("cubeUpg" + i)
+    const a = document.getElementById("cubeUpg" + i)
     if (player.cubeUpgrades[i] > cubeMaxLevel[i-1]) {
         console.log("Refunded " + (player.cubeUpgrades[i] - cubeMaxLevel[i-1]) + " levels of Cube Upgrade " + i + ", adding " + (player.cubeUpgrades[i] - cubeMaxLevel[i-1]) * cubeBaseCost[i-1] + " Wow! Cubes to balance.")
         player.wowCubes += (player.cubeUpgrades[i] - cubeMaxLevel[i-1]) * cubeBaseCost[i-1]
@@ -307,7 +307,7 @@ export const updateCubeUpgradeBG = (i: number) => {
 }
 
 export const buyCubeUpgrades = (i: number, linGrowth = 0) => {
-    let metaData = getCubeCost(i,linGrowth);
+    const metaData = getCubeCost(i,linGrowth);
     if(player.wowCubes >= metaData[1] && player.cubeUpgrades[i] < cubeMaxLevel[i-1]){
         player.wowCubes -= 100 / 100 * metaData[1];
         player.cubeUpgrades[i] = metaData[0];

@@ -233,7 +233,7 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.wowAbyssals = 0;
     }
     if (data.platonicBlessings === undefined) {
-        let ascCount = player.ascensionCount
+        const ascCount = player.ascensionCount
         if (player.currentChallenge.ascension !== 0 && player.currentChallenge.ascension !== 15) {
             resetCheck('ascensionChallenge', false, true);
         }

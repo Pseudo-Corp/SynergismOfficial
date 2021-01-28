@@ -16,9 +16,9 @@ export const openHypercube = (value: number, max = false) => {
             player.worlds += 1;
         }
     }
-    let toSpendModulo = toSpend % 20
-    let toSpendDiv20 = Math.floor(toSpend / 20)
-    let blessings = {
+    const toSpendModulo = toSpend % 20
+    const toSpendDiv20 = Math.floor(toSpend / 20)
+    const blessings = {
         accelerator:   {weight: 4, pdf: (x: number) => 0 <= x && x <= 20},
         multiplier:    {weight: 4, pdf: (x: number) => 20 < x && x <= 40},
         offering:      {weight: 2, pdf: (x: number) => 40 < x && x <= 50},
@@ -37,14 +37,14 @@ export const openHypercube = (value: number, max = false) => {
     }
     //Then, the remaining hypercube will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
-        let num = 100 * Math.random();
+        const num = 100 * Math.random();
         for (const key in player.hypercubeBlessings) {
             if (blessings[key as Bless].pdf(num))
                 player.hypercubeBlessings[key as Bless] += 1;
         }
     }
     calculateHypercubeBlessings();
-    let extraTesseractBlessings = Math.floor(toSpend * 100 * player.researches[183])
+    const extraTesseractBlessings = Math.floor(toSpend * 100 * player.researches[183])
     player.wowTesseracts += extraTesseractBlessings
     openTesseract(extraTesseractBlessings, false)
 }

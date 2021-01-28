@@ -87,7 +87,7 @@ export const calculateAcceleratorMultiplier = () => {
 
 export const calculateRecycleMultiplier = () => {
     // Factors where recycle bonus comes from
-    let recycleFactors = sumContents([
+    const recycleFactors = sumContents([
         0.05 * player.achievements[80],
         0.05 * player.achievements[87],
         0.05 * player.achievements[94],
@@ -110,7 +110,7 @@ export function calculateRuneExpGiven(runeIndex: number, all: boolean, runeLevel
 export function calculateRuneExpGiven(runeIndex: number, all: boolean): number;
 export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel = player.runelevels[runeIndex], returnFactors = false) {
     // recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
-    let recycleMultiplier = calculateRecycleMultiplier();
+    const recycleMultiplier = calculateRecycleMultiplier();
 
     // Rune multiplier that is summed instead of added
     let allRuneExpAdditiveMultiplier: number | null = null;
@@ -141,7 +141,7 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
     }
 
     // Rune multiplier that gets applied to all runes
-    let allRuneExpMultiplier = productContents([
+    const allRuneExpMultiplier = productContents([
         // Research 4x16
         1 + (player.researches[91] / 20),
         // Research 4x17
@@ -161,7 +161,7 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
     ]);
 
     // Rune multiplier that gets applied to specific runes
-    let runeExpMultiplier = [
+    const runeExpMultiplier = [
         productContents([
             1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10)
         ]),
@@ -215,11 +215,11 @@ export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.ru
 export const calculateMaxRunes = (i: number) => {
     let max = 1000;
 
-    let increaseAll = 10 * (2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
+    const increaseAll = 10 * (2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
         + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11])
         + 200 * CalcECC('ascension', player.challengecompletions[14])
         + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50])
-    let increaseMaxLevel = [
+    const increaseMaxLevel = [
         null,
         10 * (player.researches[78] + player.researches[111]) + increaseAll,
         10 * (player.researches[80] + player.researches[112]) + increaseAll,
@@ -582,13 +582,13 @@ export const calculateRuneBonuses = () => {
         } else if (G['runeBlessings'][i] > 1e30) {
             G['effectiveRuneBlessingPower'][i] = Math.pow(10, 5 / 2) * (Math.pow(G['runeBlessings'][i], 1 / 24)) / 75 * G['challenge15Rewards'].blessingBonus
         }
-        ;
+        
         if (G['runeSpirits'][i] <= 1e25) {
             G['effectiveRuneSpiritPower'][i] = (Math.pow(G['runeSpirits'][i], 1 / 8)) / 75 * G['challenge15Rewards'].spiritBonus
         } else if (G['runeSpirits'][i] > 1e25) {
             G['effectiveRuneSpiritPower'][i] = Math.pow(10, 25 / 12) * (Math.pow(G['runeSpirits'][i], 1 / 24)) / 75 * G['challenge15Rewards'].spiritBonus
         }
-        ;
+        
     }
 }
 
@@ -627,7 +627,7 @@ export const calculateAnts = () => {
 export const calculateAntSacrificeELO = () => {
     G['antELO'] = 0;
     G['effectiveELO'] = 0;
-    let antUpgradeSum = sumContents(player.antUpgrades);
+    const antUpgradeSum = sumContents(player.antUpgrades);
     if (player.antPoints.gte("1e40")) {
         G['antELO'] += Decimal.log(player.antPoints, 10);
         G['antELO'] += 1 / 2 * antUpgradeSum;
@@ -729,7 +729,7 @@ interface IAntSacRewards {
 export const calculateAntSacrificeRewards = (): IAntSacRewards => {
     calculateAntSacrificeELO();
     calculateAntSacrificeMultipliers();
-    let rewardsMult = G['timeMultiplier'] * G['upgradeMultiplier'];
+    const rewardsMult = G['timeMultiplier'] * G['upgradeMultiplier'];
     const rewards: IAntSacRewards = {
         antSacrificePoints: G['effectiveELO'] * rewardsMult / 85,
         offerings: player.offeringpersecond * 0.15 * G['effectiveELO'] * rewardsMult / 180,
@@ -764,14 +764,14 @@ export const calculateOffline = (forceTime = 0) => {
     G['timeWarp'] = true;
 
     //Variable Declarations i guess
-    let maximumTimer = 86400 + 7200 * player.researches[31] + 7200 * player.researches[32];
+    const maximumTimer = 86400 + 7200 * player.researches[31] + 7200 * player.researches[32];
     const updatedTime = Date.now();
-    let timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - player.offlinetick) / 1000))
+    const timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - player.offlinetick) / 1000))
     document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " real-life seconds of Offline Progress!";
     let simulatedTicks = (timeAdd > 1000) ? 200 : 1 + Math.floor(timeAdd / 5);
-    let tickValue = (timeAdd > 1000) ? timeAdd / 200 : Math.min(5, timeAdd);
+    const tickValue = (timeAdd > 1000) ? timeAdd / 200 : Math.min(5, timeAdd);
     let timeMultiplier = 1;
-    let maxSimulatedTicks = simulatedTicks;
+    const maxSimulatedTicks = simulatedTicks;
     let progressBarWidth = 0;
     let automaticObtainium = 0;
 
@@ -785,7 +785,7 @@ export const calculateOffline = (forceTime = 0) => {
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
     document.getElementById("offlineprogressbar").style.display = "block";
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
-    let runOffline = interval(runSimulator, 0)
+    const runOffline = interval(runSimulator, 0)
 
     //The cool shit that forces the repetitive loops
     function runSimulator() {
@@ -812,7 +812,7 @@ export const calculateOffline = (forceTime = 0) => {
         if (player.shopUpgrades.offeringAutoLevel > 0 && player.autoSacrificeToggle) {
             player.sacrificeTimer += tickValue;
             if (player.sacrificeTimer >= 1) {
-                let rune = player.autoSacrifice;
+                const rune = player.autoSacrifice;
                 redeemShards(rune, true);
                 player.sacrificeTimer = player.sacrificeTimer % 1;
             }
@@ -834,7 +834,7 @@ export const calculateOffline = (forceTime = 0) => {
     player.offlinetick = updatedTime
     if (!player.loadedNov13Vers) {
         if (player.challengecompletions[14] > 0 || player.highestchallengecompletions[14] > 0) {
-            let ascCount = player.ascensionCount;
+            const ascCount = player.ascensionCount;
             reset("ascensionChallenge");
             player.ascensionCount = (ascCount + 1)
         }
@@ -858,8 +858,8 @@ export const calculateSigmoidExponential = (constant: number, coefficient: numbe
 
 export const calculateCubeBlessings = () => {
     // The visual updates are handled in visualUpdateCubes()
-    let cubeArray = [player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
-    let powerBonus = [player.cubeUpgrades[45] / 100, player.cubeUpgrades[35] / 100, player.cubeUpgrades[24] / 100, player.cubeUpgrades[14] / 100, player.cubeUpgrades[40] / 100, player.cubeUpgrades[22] / 40, player.cubeUpgrades[15] / 100, player.cubeUpgrades[25] / 100, player.cubeUpgrades[44] / 100, player.cubeUpgrades[34] / 100]
+    const cubeArray = [player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
+    const powerBonus = [player.cubeUpgrades[45] / 100, player.cubeUpgrades[35] / 100, player.cubeUpgrades[24] / 100, player.cubeUpgrades[14] / 100, player.cubeUpgrades[40] / 100, player.cubeUpgrades[22] / 40, player.cubeUpgrades[15] / 100, player.cubeUpgrades[25] / 100, player.cubeUpgrades[44] / 100, player.cubeUpgrades[34] / 100]
 
     for (let i = 1; i <= 10; i++) {
         let power = 1;
@@ -882,7 +882,7 @@ export const calculateCubeBlessings = () => {
 
 export function calculateCubeMultiplier(): number;
 export function calculateCubeMultiplier(calcMult: boolean): number[];
-export function calculateCubeMultiplier(calcMult: boolean = true) {
+export function calculateCubeMultiplier(calcMult = true) {
     const arr = [
         Math.pow(Math.min(1, player.ascensionCounter / 10), 2) * (1 + (1 / 4 * player.achievements[204] + 1 / 4 * player.achievements[211] + 1 / 2 * player.achievements[218]) * Math.max(0, player.ascensionCounter / 10 - 1)),
         1 + 3 / 200 * player.shopUpgrades.seasonPassLevel,
@@ -989,11 +989,11 @@ export const calculateSummationNonLinear = (
     diffPerLevel: number, 
     buyAmount: number
 ): [number, number] => {
-    let c = diffPerLevel / 2
+    const c = diffPerLevel / 2
     resourceAvailable = resourceAvailable || 0
-    let alreadySpent = baseCost * (c * Math.pow(baseLevel, 2) + baseLevel * (1 - c))
+    const alreadySpent = baseCost * (c * Math.pow(baseLevel, 2) + baseLevel * (1 - c))
     resourceAvailable += alreadySpent
-    let v = resourceAvailable / baseCost
+    const v = resourceAvailable / baseCost
     let buyToLevel = c > 0
         ? Math.max(0, Math.floor((c - 1) / (2 * c) + Math.pow(Math.pow(1 - c, 2) + 4 * c * v, 1 / 2) / (2 * c)))
         : Math.floor(v);
@@ -1007,23 +1007,23 @@ export const calculateSummationNonLinear = (
 }
 
 export const CalcCorruptionStuff = () => {
-    let corruptionArrayMultiplier = [1, 2, 2.75, 3.5, 4.25, 5, 5.75, 6.5, 7, 7.5, 8, 9, 10]
-    let corruptionLevelSum = sumContents(player.usedCorruptions)
+    const corruptionArrayMultiplier = [1, 2, 2.75, 3.5, 4.25, 5, 5.75, 6.5, 7, 7.5, 8, 9, 10]
+    const corruptionLevelSum = sumContents(player.usedCorruptions)
     let cubeBank = 0;
     let challengeModifier = 1;
     let corruptionMultiplier = 1;
     let bankMultiplier = 1;
     let effectiveScore = 1;
-    let speed = calculateTimeAcceleration()
+    const speed = calculateTimeAcceleration()
     for (let i = 1; i <= 10; i++) {
         challengeModifier = (i >= 6) ? 2 : 1;
         cubeBank += challengeModifier * player.highestchallengecompletions[i]
     }
 
     let baseScore = 0;
-    let challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
-    let challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
-    let challengeScoreArrays3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
+    const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
+    const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
+    const challengeScoreArrays3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
 
     for (let i = 1; i <= 10; i++) {
         baseScore += challengeScoreArrays1[i] * player.highestchallengecompletions[i]
@@ -1132,10 +1132,10 @@ export const dailyResetCheck = () => {
         player.dayCheck = new Date(player.dayCheck);
     }
 
-    let d = new Date()
-    let h = d.getHours()
-    let m = d.getMinutes()
-    let s = d.getSeconds()
+    const d = new Date()
+    const h = d.getHours()
+    const m = d.getMinutes()
+    const s = d.getSeconds()
     player.dayTimer = (60 * 60 * 24) - (60 * 60 * h) - (60 * m) - s;    
 
     if (d.getDate() !== player.dayCheck.getDate() || d.getMonth() !== player.dayCheck.getMonth() || d.getFullYear() !== player.dayCheck.getFullYear()) {

@@ -1,4 +1,4 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[1],{
+(self["webpackChunksynergismofficial"] = self["webpackChunksynergismofficial"] || []).push([[1],{
 
 /***/ 39:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {

@@ -835,11 +835,11 @@ const loadSynergy = () => {
         }
         if (data.loaded10101 === undefined || data.loaded10101 === false) {
             player.loaded10101 = true;
-            let refundThese = [0, 31, 32, 61, 62, 63, 64, 76, 77, 78, 79, 80,
+            const refundThese = [0, 31, 32, 61, 62, 63, 64, 76, 77, 78, 79, 80,
                 81, 98, 104, 105, 106, 107, 108,
                 109, 110, 111, 112, 113, 114, 115, 116,
                 117, 118, 119, 120, 121, 122, 123, 125];
-            let refundReward = [0, 2, 20, 5, 10, 80, 5e3, 1e7, 1e7, 2e7, 3e7, 4e7,
+            const refundReward = [0, 2, 20, 5, 10, 80, 5e3, 1e7, 1e7, 2e7, 3e7, 4e7,
                 2e8, 3e10, 1e11, 1e12, 2e11, 1e12, 2e10,
                 2e11, 1e12, 2e13, 5e13, 1e14, 2e14, 5e14, 1e15,
                 2e15, 1e16, 1e15, 1e16, 1e14, 1e15, 1e15, 1e20];
@@ -1037,7 +1037,7 @@ const loadSynergy = () => {
                 if (k === 3) {
                     d = 'thousand';
                 }
-                let e = q[j] + d;
+                const e = q[j] + d;
                 document.getElementById(e).style.backgroundColor = "#000000";
             }
             let c;
@@ -1092,7 +1092,7 @@ const loadSynergy = () => {
         }
         (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_7__.showCorruptionStatsLoadouts)();
         for (let j = 1; j <= 5; j++) {
-            let ouch = document.getElementById("tesseractAutoToggle" + j);
+            const ouch = document.getElementById("tesseractAutoToggle" + j);
             (player.autoTesseracts[j]) ?
                 (ouch.textContent = "Auto [ON]", ouch.style.border = "2px solid green") :
                 (ouch.textContent = "Auto [OFF]", ouch.style.border = "2px solid red");
@@ -1208,10 +1208,10 @@ const loadSynergy = () => {
     (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_7__.CSSAscend)();
     (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_7__.CSSRuneBlessings)();
     (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_7__.updateAchievementBG)();
-    let d = new Date();
-    let h = d.getHours();
-    let m = d.getMinutes();
-    let s = d.getSeconds();
+    const d = new Date();
+    const h = d.getHours();
+    const m = d.getMinutes();
+    const s = d.getSeconds();
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h));
 };
 const format = (input, accuracy = 0, long = false) => {
@@ -1647,7 +1647,7 @@ const multipliers = () => {
     s = s.times(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.prestigeMultiplier);
     s = s.times(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.reincarnationMultiplier);
     s = s.times(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.antMultiplier);
-    let first6CoinUp = new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.totalCoinOwned + 1).times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.min(1e30, break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(1.008, _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.totalCoinOwned)));
+    const first6CoinUp = new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.totalCoinOwned + 1).times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.min(1e30, break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(1.008, _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.totalCoinOwned)));
     if (player.upgrades[6] > 0.5) {
         s = s.times(first6CoinUp);
     }
@@ -1886,7 +1886,7 @@ const resourceGain = (dt) => {
     multipliers();
     (0,_Tax__WEBPACK_IMPORTED_MODULE_17__.calculatetax)();
     if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.produceTotal.gte(0.001)) {
-        let addcoin = break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.min(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.produceTotal.dividedBy(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.taxdivisor), break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.maxexponent - break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.log(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.taxdivisorcheck, 10)));
+        const addcoin = break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.min(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.produceTotal.dividedBy(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.taxdivisor), break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.maxexponent - break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.log(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.taxdivisorcheck, 10)));
         player.coins = player.coins.add(addcoin.times(dt / 0.025));
         player.coinsThisPrestige = player.coinsThisPrestige.add(addcoin.times(dt / 0.025));
         player.coinsThisTranscension = player.coinsThisTranscension.add(addcoin.times(dt / 0.025));
@@ -1977,27 +1977,27 @@ const resourceGain = (dt) => {
     if (player.ascensionCount > 0) {
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.ascensionAchievementCheck)(2);
     }
-    if (player.researches[71] > 0.5 && player.challengecompletions[1] < (Math.min(player.highestchallengecompletions[1], 25 + 5 * player.researches[66] + 925 * player.researches[105])) && player.coins.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, 1.25 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[1] * Math.pow(1 + player.challengecompletions[1], 2)))) {
+    if (player.researches[71] > 0.5 && player.challengecompletions[1] < (Math.min(player.highestchallengecompletions[1], 25 + 5 * player.researches[66] + 925 * player.researches[105])) && player.coins.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, 1.25 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[0] * Math.pow(1 + player.challengecompletions[1], 2)))) {
         player.challengecompletions[1] += 1;
         (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeDisplay)(1, false);
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.challengeachievementcheck)(1, true);
     }
-    if (player.researches[72] > 0.5 && player.challengecompletions[2] < (Math.min(player.highestchallengecompletions[2], 25 + 5 * player.researches[67] + 925 * player.researches[105])) && player.coins.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, 1.6 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[2] * Math.pow(1 + player.challengecompletions[2], 2)))) {
+    if (player.researches[72] > 0.5 && player.challengecompletions[2] < (Math.min(player.highestchallengecompletions[2], 25 + 5 * player.researches[67] + 925 * player.researches[105])) && player.coins.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, 1.6 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[1] * Math.pow(1 + player.challengecompletions[2], 2)))) {
         player.challengecompletions[2] += 1;
         (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeDisplay)(2, false);
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.challengeachievementcheck)(2, true);
     }
-    if (player.researches[73] > 0.5 && player.challengecompletions[3] < (Math.min(player.highestchallengecompletions[3], 25 + 5 * player.researches[68] + 925 * player.researches[105])) && player.coins.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, 1.7 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[3] * Math.pow(1 + player.challengecompletions[3], 2)))) {
+    if (player.researches[73] > 0.5 && player.challengecompletions[3] < (Math.min(player.highestchallengecompletions[3], 25 + 5 * player.researches[68] + 925 * player.researches[105])) && player.coins.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, 1.7 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[2] * Math.pow(1 + player.challengecompletions[3], 2)))) {
         player.challengecompletions[3] += 1;
         (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeDisplay)(3, false);
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.challengeachievementcheck)(3, true);
     }
-    if (player.researches[74] > 0.5 && player.challengecompletions[4] < (Math.min(player.highestchallengecompletions[4], 25 + 5 * player.researches[69] + 925 * player.researches[105])) && player.coins.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, 1.45 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[4] * Math.pow(1 + player.challengecompletions[4], 2)))) {
+    if (player.researches[74] > 0.5 && player.challengecompletions[4] < (Math.min(player.highestchallengecompletions[4], 25 + 5 * player.researches[69] + 925 * player.researches[105])) && player.coins.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, 1.45 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[3] * Math.pow(1 + player.challengecompletions[4], 2)))) {
         player.challengecompletions[4] += 1;
         (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeDisplay)(4, false);
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.challengeachievementcheck)(4, true);
     }
-    if (player.researches[75] > 0.5 && player.challengecompletions[5] < (Math.min(player.highestchallengecompletions[5], 25 + 5 * player.researches[70] + 925 * player.researches[105])) && player.coins.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, 2 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[5] * Math.pow(1 + player.challengecompletions[5], 2)))) {
+    if (player.researches[75] > 0.5 && player.challengecompletions[5] < (Math.min(player.highestchallengecompletions[5], 25 + 5 * player.researches[70] + 925 * player.researches[105])) && player.coins.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, 2 * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[4] * Math.pow(1 + player.challengecompletions[5], 2)))) {
         player.challengecompletions[5] += 1;
         (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeDisplay)(5, false);
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.challengeachievementcheck)(5, true);
@@ -2039,9 +2039,9 @@ const resourceGain = (dt) => {
     if (player.antPoints.gte("1e2500") && player.achievements[175] === 0) {
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.achievementaward)(175);
     }
-    let chal = player.currentChallenge.transcension;
-    let reinchal = player.currentChallenge.reincarnation;
-    let ascendchal = player.currentChallenge.ascension;
+    const chal = player.currentChallenge.transcension;
+    const reinchal = player.currentChallenge.reincarnation;
+    const ascendchal = player.currentChallenge.ascension;
     if (chal !== 0) {
         if (player.coinsThisTranscension.gte((0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeRequirement)(chal, player.challengecompletions[chal], chal))) {
             resetCheck('challenge', false);
@@ -2139,15 +2139,13 @@ const resetCheck = (i, manual = true, leaving = false) => {
         }
     }
     if (i === 'challenge') {
-        let q = player.currentChallenge.transcension;
-        let x = q + 65;
+        const q = player.currentChallenge.transcension;
+        const x = q + 65;
         if (player.currentChallenge.transcension !== 0) {
-            let reqCheck = (comp) => {
-                return player.coinsThisTranscension.gte((0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeRequirement)(q, comp, q));
-            };
-            let maxCompletions = 25 + 5 * player.researches[x] + 925 * player.researches[105];
+            const reqCheck = (comp) => player.coinsThisTranscension.gte((0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeRequirement)(q, comp, q));
+            const maxCompletions = 25 + 5 * player.researches[x] + 925 * player.researches[105];
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-                let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1;
+                const maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1;
                 let counter = 0;
                 let comp = player.challengecompletions[q];
                 while (counter < maxInc) {
@@ -2157,14 +2155,14 @@ const resetCheck = (i, manual = true, leaving = false) => {
                     counter++;
                 }
                 player.challengecompletions[q] = comp;
-                let y = x - 65;
+                const y = x - 65;
                 (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeDisplay)(y, false);
                 (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_7__.updateChallengeLevel)(y);
             }
             if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                 while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                     player.highestchallengecompletions[q] += 1;
-                    let y = x - 65;
+                    const y = x - 65;
                     (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeDisplay)(y, false);
                     (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_7__.updateChallengeLevel)(y);
                     (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.highestChallengeRewards)(q, player.highestchallengecompletions[q]);
@@ -2195,11 +2193,11 @@ const resetCheck = (i, manual = true, leaving = false) => {
         }
     }
     if (i === "reincarnationchallenge" && player.currentChallenge.reincarnation !== 0) {
-        let q = player.currentChallenge.reincarnation;
+        const q = player.currentChallenge.reincarnation;
         if (player.currentChallenge.transcension !== 0) {
             player.currentChallenge.transcension = 0;
         }
-        let reqCheck = (comp) => {
+        const reqCheck = (comp) => {
             if (q <= 8) {
                 return player.transcendShards.gte((0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeRequirement)(q, comp, q));
             }
@@ -2207,9 +2205,9 @@ const resetCheck = (i, manual = true, leaving = false) => {
                 return player.coins.gte((0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeRequirement)(q, comp, q));
             }
         };
-        let maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
+        const maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-            let maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1;
+            const maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1;
             let counter = 0;
             let comp = player.challengecompletions[q];
             while (counter < maxInc) {
@@ -2265,13 +2263,13 @@ const resetCheck = (i, manual = true, leaving = false) => {
         if (!conf) {
             return;
         }
-        let a = player.currentChallenge.ascension;
-        let r = player.currentChallenge.reincarnation;
-        let t = player.currentChallenge.transcension;
+        const a = player.currentChallenge.ascension;
+        const r = player.currentChallenge.reincarnation;
+        const t = player.currentChallenge.transcension;
         if (player.challengecompletions[10] >= 50 && a === 11 && player.usedCorruptions[7] >= 5 && player.achievements[247] < 1) {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.achievementaward)(247);
         }
-        let maxCompletions = a < 15 ? 30 + 3 * player.platonicUpgrades[5] + 3 * player.platonicUpgrades[10] + 4 * player.platonicUpgrades[15] : 1;
+        const maxCompletions = a < 15 ? 30 + 3 * player.platonicUpgrades[5] + 3 * player.platonicUpgrades[10] + 4 * player.platonicUpgrades[15] : 1;
         if (a !== 0 && a < 15) {
             if (player.challengecompletions[10] >= (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.challengeRequirement)(a, player.challengecompletions[a], a) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
@@ -2310,7 +2308,7 @@ const resetCheck = (i, manual = true, leaving = false) => {
 const resetConfirmation = (i) => {
     if (i === 'prestige') {
         if (player.toggles[28] === true) {
-            let r = confirm("Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]");
+            const r = confirm("Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]");
             if (r === true) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
                 (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("prestige");
@@ -2323,7 +2321,7 @@ const resetConfirmation = (i) => {
     }
     if (i === 'transcend') {
         if (player.toggles[29] === true) {
-            let z = confirm("Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]");
+            const z = confirm("Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]");
             if (z === true) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
                 (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("transcension");
@@ -2337,7 +2335,7 @@ const resetConfirmation = (i) => {
     if (i === 'reincarnate') {
         if (player.currentChallenge.ascension !== 12) {
             if (player.toggles[30] === true) {
-                let z = confirm("Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]");
+                const z = confirm("Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]");
                 if (z === true) {
                     (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
                     (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("reincarnation");
@@ -2350,7 +2348,7 @@ const resetConfirmation = (i) => {
         }
     }
     if (i === 'ascend') {
-        let z = !player.toggles[31] || confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]");
+        const z = !player.toggles[31] || confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]");
         if (z) {
             (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("ascension");
         }
@@ -2593,31 +2591,31 @@ const updateAll = () => {
             }
         }
     }
-    let reductionValue = (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.getReductionValue)();
+    const reductionValue = (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.getReductionValue)();
     if (reductionValue !== _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.prevReductionValue) {
         _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.prevReductionValue = reductionValue;
-        let resources = ["Coin", "Diamonds", "Mythos"];
-        let scalings = [
+        const resources = ["Coin", "Diamonds", "Mythos"];
+        const scalings = [
             (value) => value,
             (value) => value * (value + 1) / 2,
             (value) => value * (value + 1) / 2
         ];
-        let originalCosts = [
+        const originalCosts = [
             [100, 2e3, 4e4, 8e5, 1.6e7],
             [1e2, 1e5, 1e15, 1e40, 1e100],
             [1, 1e2, 1e4, 1e8, 1e16],
         ];
         for (let res = 0; res < resources.length; ++res) {
-            let resource = resources[res];
+            const resource = resources[res];
             for (let ord = 0; ord < 5; ++ord) {
-                let num = _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.ordinals[ord];
+                const num = _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.ordinals[ord];
                 player[num + "Cost" + resource] = (0,_Buy__WEBPACK_IMPORTED_MODULE_20__.getCost)(originalCosts[res][ord], player[num + "Owned" + resource] + 1, resource, scalings[res](ord + 1), reductionValue);
             }
         }
         for (let i = 0; i <= 4; i++) {
-            let particleOriginalCost = [1, 1e2, 1e4, 1e8, 1e16];
-            let array = ['first', 'second', 'third', 'fourth', 'fifth'];
-            let buyTo = player[array[i] + 'OwnedParticles'] + 1;
+            const particleOriginalCost = [1, 1e2, 1e4, 1e8, 1e16];
+            const array = ['first', 'second', 'third', 'fourth', 'fifth'];
+            const buyTo = player[array[i] + 'OwnedParticles'] + 1;
             player[array[i] + 'CostParticles'] = new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(2, buyTo - 1).times(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(1.001, Math.max(0, (buyTo - 325000)) * Math.max(0, (buyTo - 325000) + 1) / 2))).times(particleOriginalCost[i]);
         }
     }
@@ -2639,11 +2637,11 @@ const createTimer = () => {
     lastUpdate = performance.now();
     interval(tick, 5);
 };
-let dt = 5;
-let filterStrength = 20;
+const dt = 5;
+const filterStrength = 20;
 let deltaMean = 0;
 const tick = () => {
-    let now = performance.now();
+    const now = performance.now();
     let delta = now - lastUpdate;
     deltaMean += (delta - deltaMean) / filterStrength;
     let dtEffective;
@@ -2659,7 +2657,7 @@ const tick = () => {
 function tack(dt) {
     if (!_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.timeWarp) {
         (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.dailyResetCheck)();
-        let timeMult = (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateTimeAcceleration)();
+        const timeMult = (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateTimeAcceleration)();
         resourceGain(dt * timeMult);
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("prestige", dt);
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.addTimers)("transcension", dt);
@@ -2677,7 +2675,7 @@ function tack(dt) {
         }
         if (player.autoResearchToggle && player.autoResearch <= (0,_Research__WEBPACK_IMPORTED_MODULE_6__.maxRoombaResearchIndex)(player)) {
             let counter = 0;
-            let maxCount = 1 + player.challengecompletions[14];
+            const maxCount = 1 + player.challengecompletions[14];
             while (counter < maxCount) {
                 if (player.autoResearch > 0) {
                     const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
@@ -2753,7 +2751,7 @@ function tack(dt) {
     }
     if (player.resettoggle1 === 2) {
         _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.prestige += dt;
-        let time = Math.max(0.01, player.prestigeamount);
+        const time = Math.max(0.01, player.prestigeamount);
         if (player.toggles[15] === true && player.achievements[43] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.prestige >= time && player.coinsThisPrestige.gte(1e16)) {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(1);
             (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("prestige", true);
@@ -2767,7 +2765,7 @@ function tack(dt) {
     }
     if (player.resettoggle2 === 2) {
         _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.transcension += dt;
-        let time = Math.max(0.01, player.transcendamount);
+        const time = Math.max(0.01, player.transcendamount);
         if (player.toggles[21] === true && player.upgrades[89] === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.transcension >= time && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(2);
             (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("transcension", true);
@@ -2776,7 +2774,7 @@ function tack(dt) {
     if (player.currentChallenge.ascension !== 12) {
         _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.reincarnation += dt;
         if (player.resettoggle3 === 2) {
-            let time = Math.max(0.01, player.reincarnationamount);
+            const time = Math.max(0.01, player.reincarnationamount);
             if (player.toggles[27] === true && player.researches[46] > 0.5 && player.transcendShards.gte("1e300") && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.autoResetTimers.reincarnation >= time && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_18__.resetachievementcheck)(3);
                 (0,_Reset__WEBPACK_IMPORTED_MODULE_19__.reset)("reincarnation", true);
@@ -2811,7 +2809,7 @@ document.addEventListener('keydown', (event) => {
     if (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.buildingSubTab === "mythos") {
         type = "Mythos";
     }
-    let key = event.key.toUpperCase();
+    const key = event.key.toUpperCase();
     switch (key) {
         case "1":
             pos = 'first';
@@ -5346,7 +5344,7 @@ const Globals = {
     researchfiller2: "Level: ",
     ordinals: ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"],
     cardinals: ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour", "twentyfive", "twentysix", "twentyseven", "twentyeight", "twentynine", "thirty", "thirtyone", "thirtytwo", "thirtythree", "thirtyfour"],
-    challengeBaseRequirements: [null, 10, 20, 60, 100, 200, 125, 500, 10000, 2.5e8, 3.5e9],
+    challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 10000, 2.5e8, 3.5e9],
     prestigeamount: 1,
     taxdivisor: new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default("1"),
     taxdivisorcheck: new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default("1"),
@@ -5395,9 +5393,9 @@ const Globals = {
     antSixProduce: new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default("1"),
     antSevenProduce: new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default("1"),
     antEightProduce: new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default("1"),
-    antCostGrowth: [null, 1e41, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32],
-    antUpgradeBaseCost: [null, 100, 100, 1000, 1000, 1e5, 1e6, 1e8, 1e11, 1e15, 1e20, 1e40, 1e100],
-    antUpgradeCostIncreases: [null, 10, 10, 10, 10, 100, 100, 100, 100, 1000, 1000, 1000, 1e100],
+    antCostGrowth: [1e41, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32],
+    antUpgradeBaseCost: [100, 100, 1000, 1000, 1e5, 1e6, 1e8, 1e11, 1e15, 1e20, 1e40, 1e100],
+    antUpgradeCostIncreases: [10, 10, 10, 10, 100, 100, 100, 100, 1000, 1000, 1000, 1e100],
     bonusant1: 0,
     bonusant2: 0,
     bonusant3: 0,
@@ -5605,19 +5603,19 @@ const challengeDisplay = (i, changefocus) => {
         }
     }
     let descriptor = "";
-    let a = document.getElementById("challengeName");
-    let b = document.getElementById("challengeFlavor");
-    let c = document.getElementById("challengeRestrictions");
-    let d = document.getElementById("challengeGoal");
-    let e = document.getElementById("challengePer1").childNodes[0];
-    let f = document.getElementById("challengePer2").childNodes[0];
-    let g = document.getElementById("challengePer3").childNodes[0];
-    let h = document.getElementById("challengeFirst1");
-    let j = document.getElementById("challengeQuarkBonus");
-    let k = document.getElementById("startChallenge");
-    let l = document.getElementById("challengeCurrent1");
-    let m = document.getElementById("challengeCurrent2");
-    let n = document.getElementById("challengeCurrent3");
+    const a = document.getElementById("challengeName");
+    const b = document.getElementById("challengeFlavor");
+    const c = document.getElementById("challengeRestrictions");
+    const d = document.getElementById("challengeGoal");
+    const e = document.getElementById("challengePer1").childNodes[0];
+    const f = document.getElementById("challengePer2").childNodes[0];
+    const g = document.getElementById("challengePer3").childNodes[0];
+    const h = document.getElementById("challengeFirst1");
+    const j = document.getElementById("challengeQuarkBonus");
+    const k = document.getElementById("startChallenge");
+    const l = document.getElementById("challengeCurrent1");
+    const m = document.getElementById("challengeCurrent2");
+    const n = document.getElementById("challengeCurrent3");
     if (i === 1 && _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengefocus === 1) {
         maxChallenges = 25 + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.researches[66] + 925 * _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.researches[105];
         a.textContent = "No Multipliers Challenge || " + _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.challengecompletions[1] + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_1__.format)(maxChallenges) + " Completions";
@@ -5833,9 +5831,9 @@ const challengeDisplay = (i, changefocus) => {
         m.textContent = "";
         n.textContent = "";
     }
-    let scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
-    let scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
-    let scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
+    const scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
+    const scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
+    const scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
     let scoreDisplay = 0;
     if (i <= 5) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.highestchallengecompletions[i] >= 750) {
@@ -5884,7 +5882,7 @@ const challengeDisplay = (i, changefocus) => {
         document.getElementById('toggleAutoChallengeIgnore').style.border = "2px solid red";
     }
     document.getElementById("toggleAutoChallengeIgnore").textContent = "Automatically Run Chal." + i + " [" + constructor + "]";
-    let ella = document.getElementById("toggleAutoChallengeStart");
+    const ella = document.getElementById("toggleAutoChallengeStart");
     (_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.autoChallengeRunning) ?
         (ella.textContent = "Auto Challenge Sweep [ON]", ella.style.border = "2px solid gold") :
         (ella.textContent = "Auto Challenge Sweep [OFF]", ella.style.border = "2px solid red");
@@ -6170,10 +6168,10 @@ const toggleTabs = (name) => {
     _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber = tabNumberConst[name];
     (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_0__.revealStuff)();
     (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_0__.hideStuff)();
-    let subTabList = subTabsInMainTab(_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber).subTabList;
+    const subTabList = subTabsInMainTab(_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber).subTabList;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber !== -1) {
         for (let i = 0; i < subTabList.length; i++) {
-            let button = document.getElementById(subTabList[i].buttonID);
+            const button = document.getElementById(subTabList[i].buttonID);
             if (button && button.style.backgroundColor === "crimson") {
                 _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.subtabNumber = i;
                 break;
@@ -6185,7 +6183,7 @@ const toggleTabs = (name) => {
         }
     }
     else {
-        let btns = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children;
+        const btns = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children;
         for (let i = 0; i < btns.length; i++) {
             if (btns[i].classList.contains("buttonActive")) {
                 _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.subtabNumber = i;
@@ -6247,7 +6245,7 @@ const toggleChallenges = (i, auto = false) => {
 const toggleBuyAmount = (quantity, type) => {
     _Synergism__WEBPACK_IMPORTED_MODULE_1__.player[type + 'buyamount'] = quantity;
     let a = ['one', 'ten', 'hundred', 'thousand'][quantity.toString().length - 1];
-    let c = type + a;
+    const c = type + a;
     let d = "";
     d = d + c;
     document.getElementById(d).style.backgroundColor = "Green";
@@ -6315,7 +6313,7 @@ const toggleShops = (i) => {
     }
 };
 function tabs(mainTab) {
-    let tabs = {
+    const tabs = {
         "-1": { tabName: "settings", unlocked: true },
         0: { tabName: "shop", unlocked: _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.unlocks.reincarnate },
         1: { tabName: "buildings", unlocked: true },
@@ -6334,7 +6332,7 @@ function tabs(mainTab) {
     return tabs[mainTab];
 }
 const subTabsInMainTab = (mainTab) => {
-    let subTabs = {
+    const subTabs = {
         "-1": {
             tabSwitcher: setActiveSettingScreen,
             subTabList: [
@@ -6394,9 +6392,9 @@ const subTabsInMainTab = (mainTab) => {
 const keyboardTabChange = (dir = 1, main = true) => {
     if (main) {
         _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber += dir;
-        let maxTab = Object.keys(tabs()).reduce((a, b) => Math.max(a, +b), -Infinity);
-        let minTab = Object.keys(tabs()).reduce((a, b) => Math.min(a, +b), Infinity);
-        let handleLoopBack = () => {
+        const maxTab = Object.keys(tabs()).reduce((a, b) => Math.max(a, +b), -Infinity);
+        const minTab = Object.keys(tabs()).reduce((a, b) => Math.min(a, +b), Infinity);
+        const handleLoopBack = () => {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber === maxTab + 1) {
                 _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber = minTab;
             }
@@ -6412,12 +6410,12 @@ const keyboardTabChange = (dir = 1, main = true) => {
         toggleTabs(tabs(_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber).tabName);
     }
     else {
-        let subTabList = subTabsInMainTab(_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber).subTabList;
+        const subTabList = subTabsInMainTab(_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.tabnumber).subTabList;
         if (subTabList.length === 0)
             return;
         _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.subtabNumber += dir;
-        let handleLoopBack = () => {
-            let numSubTabs = subTabList.length;
+        const handleLoopBack = () => {
+            const numSubTabs = subTabList.length;
             _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.subtabNumber = (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.subtabNumber + numSubTabs) % numSubTabs;
         };
         handleLoopBack();
@@ -6431,7 +6429,7 @@ const keyboardTabChange = (dir = 1, main = true) => {
 const toggleSubTab = (mainTab = 1, subTab = 0) => {
     if (tabs(mainTab).unlocked && subTabsInMainTab(mainTab).subTabList.length > 0) {
         if (mainTab === -1) {
-            let btn = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children[subTab];
+            const btn = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children[subTab];
             if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked)
                 subTabsInMainTab(mainTab).tabSwitcher(subTabsInMainTab(mainTab).subTabList[subTab].subTabID, btn);
         }
@@ -6511,7 +6509,7 @@ const toggleResearchBuy = () => {
     }
 };
 const toggleAutoResearch = () => {
-    let el = document.getElementById("toggleautoresearch");
+    const el = document.getElementById("toggleautoresearch");
     if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoResearchToggle) {
         _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoResearchToggle = false;
         el.textContent = "Automatic: OFF";
@@ -6523,7 +6521,7 @@ const toggleAutoResearch = () => {
     }
     if (!_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoResearchToggle) {
         for (let i = 1; i <= (0,_Research__WEBPACK_IMPORTED_MODULE_9__.maxRoombaResearchIndex)(_Synergism__WEBPACK_IMPORTED_MODULE_1__.player); i++) {
-            let l = document.getElementById("res" + i);
+            const l = document.getElementById("res" + i);
             if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.researches[i] === 0) {
                 l.style.backgroundColor = "black";
             }
@@ -6537,13 +6535,13 @@ const toggleAutoResearch = () => {
     }
     if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoResearchToggle && _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.cubeUpgrades[9] === 1) {
         _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoResearch = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.researchOrderByCost[_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.roombaResearchIndex];
-        let doc = document.getElementById("res" + _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoResearch);
+        const doc = document.getElementById("res" + _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoResearch);
         if (doc)
             doc.style.backgroundColor = "orange";
     }
 };
 const toggleAutoSacrifice = (index) => {
-    let el = document.getElementById("toggleautosacrifice");
+    const el = document.getElementById("toggleautosacrifice");
     if (index === 0) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoSacrificeToggle) {
             _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoSacrificeToggle = false;
@@ -6567,7 +6565,7 @@ const toggleAutoSacrifice = (index) => {
 };
 const toggleBuildingScreen = (input) => {
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.buildingSubTab = input;
-    let screen = {
+    const screen = {
         "coin": {
             screen: "coinBuildings",
             button: "switchToCoinBuilding",
@@ -6606,8 +6604,8 @@ const toggleRuneScreen = (index) => {
     const screens = ['runes', 'talismans', 'blessings', 'spirits'];
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.runescreen = screens[index - 1];
     for (let i = 1; i <= 4; i++) {
-        let a = document.getElementById("toggleRuneSubTab" + i);
-        let b = document.getElementById("runeContainer" + i);
+        const a = document.getElementById("toggleRuneSubTab" + i);
+        const b = document.getElementById("runeContainer" + i);
         if (i === index) {
             a.style.border = "2px solid gold";
             a.style.backgroundColor = "crimson";
@@ -6646,17 +6644,17 @@ const toggleautoenhance = () => {
     _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoEnhanceToggle = !_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoEnhanceToggle;
 };
 function setActiveSettingScreen(subtab, clickedButton) {
-    let subtabEl = document.getElementById(subtab);
+    const subtabEl = document.getElementById(subtab);
     if (subtabEl.classList.contains("subtabActive")) {
         return;
     }
-    let switcherEl = clickedButton.parentNode;
+    const switcherEl = clickedButton.parentNode;
     switcherEl.querySelectorAll(".buttonActive").forEach(b => b.classList.remove("buttonActive"));
     clickedButton.classList.add("buttonActive");
     subtabEl.parentNode.querySelectorAll(".subtabActive").forEach(subtab => subtab.classList.remove("subtabActive"));
     subtabEl.classList.add("subtabActive");
     if (subtab === "statisticsSubTab") {
-        let id = (0,_Synergism__WEBPACK_IMPORTED_MODULE_1__.interval)(refreshStats, 1000);
+        const id = (0,_Synergism__WEBPACK_IMPORTED_MODULE_1__.interval)(refreshStats, 1000);
         function refreshStats() {
             if (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.currentTab !== "settings") {
                 (0,_Synergism__WEBPACK_IMPORTED_MODULE_1__.clearInt)(id);
@@ -6687,7 +6685,7 @@ const toggleAntMaxBuy = () => {
 };
 const toggleAntAutoSacrifice = (mode = 0) => {
     if (mode === 0) {
-        let el = document.getElementById("toggleAutoSacrificeAnt");
+        const el = document.getElementById("toggleAutoSacrificeAnt");
         if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoAntSacrifice) {
             _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoAntSacrifice = false;
             el.textContent = "Auto Sacrifice: OFF";
@@ -6698,7 +6696,7 @@ const toggleAntAutoSacrifice = (mode = 0) => {
         }
     }
     else if (mode === 1) {
-        let el = document.getElementById("autoSacrificeAntMode");
+        const el = document.getElementById("autoSacrificeAntMode");
         if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoAntSacrificeMode === 1 || _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoAntSacrificeMode === 0) {
             _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoAntSacrificeMode = 2;
             el.textContent = "Mode: Real time";
@@ -6710,7 +6708,7 @@ const toggleAntAutoSacrifice = (mode = 0) => {
     }
 };
 const toggleMaxBuyCube = () => {
-    let el = document.getElementById("toggleCubeBuy");
+    const el = document.getElementById("toggleCubeBuy");
     if (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.buyMaxCubeUpgrades) {
         _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.buyMaxCubeUpgrades = false;
         el.textContent = "Upgrade: 1 Level wow";
@@ -6721,9 +6719,9 @@ const toggleMaxBuyCube = () => {
     }
 };
 const toggleCubeSubTab = (i) => {
-    let numSubTabs = subTabsInMainTab(8).subTabList.length;
+    const numSubTabs = subTabsInMainTab(8).subTabList.length;
     for (let j = 1; j <= numSubTabs; j++) {
-        let cubeTab = document.getElementById(`cubeTab${j}`);
+        const cubeTab = document.getElementById(`cubeTab${j}`);
         if (cubeTab.style.display === "block" && j !== i) {
             cubeTab.style.display = "none";
         }
@@ -6827,8 +6825,8 @@ const toggleAutoTesseracts = (i) => {
     _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoTesseracts[i] = !_Synergism__WEBPACK_IMPORTED_MODULE_1__.player.autoTesseracts[i];
 };
 const toggleCorruptionLevel = (index, value) => {
-    let current = _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.prototypeCorruptions[index];
-    let maxCorruption = 12;
+    const current = _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.prototypeCorruptions[index];
+    const maxCorruption = 12;
     if (value > 0 && current < maxCorruption && 0 < index && index <= 9) {
         _Synergism__WEBPACK_IMPORTED_MODULE_1__.player.prototypeCorruptions[index] += Math.min(maxCorruption - current, value);
     }
@@ -6901,127 +6899,127 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const revealStuff = () => {
-    let example = document.getElementsByClassName("coinunlock1");
+    const example = document.getElementsByClassName("coinunlock1");
     for (let i = 0; i < example.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.coinone ? example[i].style.display = "block" : example[i].style.display = "none";
     }
-    let example2 = document.getElementsByClassName("coinunlock2");
+    const example2 = document.getElementsByClassName("coinunlock2");
     for (let i = 0; i < example2.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.cointwo ? example2[i].style.display = "block" : example2[i].style.display = "none";
     }
-    let example3 = document.getElementsByClassName("coinunlock3");
+    const example3 = document.getElementsByClassName("coinunlock3");
     for (let i = 0; i < example3.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.cointhree ? example3[i].style.display = "block" : example3[i].style.display = "none";
     }
-    let example4 = document.getElementsByClassName("coinunlock4");
+    const example4 = document.getElementsByClassName("coinunlock4");
     for (let i = 0; i < example4.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.coinfour ? example4[i].style.display = "block" : example4[i].style.display = "none";
     }
-    let example5 = document.getElementsByClassName("prestigeunlock");
+    const example5 = document.getElementsByClassName("prestigeunlock");
     for (let i = 0; i < example5.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.prestige ? example5[i].style.display = "block" : example5[i].style.display = "none";
     }
-    let example6 = document.getElementsByClassName("generationunlock");
+    const example6 = document.getElementsByClassName("generationunlock");
     for (let i = 0; i < example6.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.generation ? example6[i].style.display = "block" : example6[i].style.display = "none";
     }
-    let example7 = document.getElementsByClassName("transcendunlock");
+    const example7 = document.getElementsByClassName("transcendunlock");
     for (let i = 0; i < example7.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.transcend ? example7[i].style.display = "block" : example7[i].style.display = "none";
     }
-    let example8 = document.getElementsByClassName("reincarnationunlock");
+    const example8 = document.getElementsByClassName("reincarnationunlock");
     for (let i = 0; i < example8.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.reincarnate ? example8[i].style.display = "block" : example8[i].style.display = "none";
     }
-    let example9 = document.getElementsByClassName("auto");
+    const example9 = document.getElementsByClassName("auto");
     for (let i = 0; i < example9.length; i++) {
         example9[i].style.display = "none";
     }
-    let example10 = document.getElementsByClassName("reinrow1");
+    const example10 = document.getElementsByClassName("reinrow1");
     for (let i = 0; i < example10.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[47] === 1 ? example10[i].style.display = "block" : example10[i].style.display = "none";
     }
-    let example11 = document.getElementsByClassName("reinrow2");
+    const example11 = document.getElementsByClassName("reinrow2");
     for (let i = 0; i < example11.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[48] === 1 ? example11[i].style.display = "block" : example11[i].style.display = "none";
     }
-    let example12 = document.getElementsByClassName("reinrow3");
+    const example12 = document.getElementsByClassName("reinrow3");
     for (let i = 0; i < example12.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[49] === 1 ? example12[i].style.display = "block" : example12[i].style.display = "none";
     }
-    let example13 = document.getElementsByClassName("reinrow4");
+    const example13 = document.getElementsByClassName("reinrow4");
     for (let i = 0; i < example13.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[50] === 1 ? example13[i].style.display = "block" : example13[i].style.display = "none";
     }
-    let example14 = document.getElementsByClassName("chal6");
+    const example14 = document.getElementsByClassName("chal6");
     for (let i = 0; i < example14.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[113] === 1 ? example14[i].style.display = "block" : example14[i].style.display = "none";
     }
-    let example15 = document.getElementsByClassName("chal7");
+    const example15 = document.getElementsByClassName("chal7");
     for (let i = 0; i < example15.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[120] === 1 ? example15[i].style.display = "block" : example15[i].style.display = "none";
     }
-    let example16 = document.getElementsByClassName("chal7x10");
+    const example16 = document.getElementsByClassName("chal7x10");
     for (let i = 0; i < example16.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[124] === 1 ? example16[i].style.display = "block" : example16[i].style.display = "none";
     }
-    let example17 = document.getElementsByClassName("chal8");
+    const example17 = document.getElementsByClassName("chal8");
     for (let i = 0; i < example17.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[127] === 1 ? example17[i].style.display = "block" : example17[i].style.display = "none";
     }
-    let example18 = document.getElementsByClassName("chal9");
+    const example18 = document.getElementsByClassName("chal9");
     for (let i = 0; i < example18.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[134] === 1 ? example18[i].style.display = "block" : example18[i].style.display = "none";
     }
-    let example19 = document.getElementsByClassName("chal9x1");
+    const example19 = document.getElementsByClassName("chal9x1");
     for (let i = 0; i < example19.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.highestchallengecompletions[9] > 0 ? example19[i].style.display = "block" : example19[i].style.display = "none";
     }
-    let example20 = document.getElementsByClassName("chal10");
+    const example20 = document.getElementsByClassName("chal10");
     for (let i = 0; i < example20.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[141] === 1 ? example20[i].style.display = "block" : example20[i].style.display = "none";
     }
-    let example21 = document.getElementsByClassName("ascendunlock");
+    const example21 = document.getElementsByClassName("ascendunlock");
     for (let i = 0; i < example21.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount > 0 ? example21[i].style.display = "block" : example21[i].style.display = "none";
     }
-    let example22 = document.getElementsByClassName("chal11");
+    const example22 = document.getElementsByClassName("chal11");
     for (let i = 0; i < example22.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[11] > 0 ? example22[i].style.display = "block" : example22[i].style.display = "none";
     }
-    let example23 = document.getElementsByClassName("chal12");
+    const example23 = document.getElementsByClassName("chal12");
     for (let i = 0; i < example23.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[12] > 0 ? example23[i].style.display = "block" : example23[i].style.display = "none";
     }
-    let example24 = document.getElementsByClassName("chal13");
+    const example24 = document.getElementsByClassName("chal13");
     for (let i = 0; i < example24.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[13] > 0 ? example24[i].style.display = "block" : example24[i].style.display = "none";
     }
-    let example25 = document.getElementsByClassName("chal14");
+    const example25 = document.getElementsByClassName("chal14");
     for (let i = 0; i < example25.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[14] > 0 ? example25[i].style.display = "block" : example25[i].style.display = "none";
     }
-    let example26 = document.getElementsByClassName("ascendunlockib");
+    const example26 = document.getElementsByClassName("ascendunlockib");
     for (let i = 0; i < example26.length; i++) {
         example26[i].style.display = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount > 0 ? "inline-block" : "none";
     }
-    let example27 = document.getElementsByClassName("prestigeunlockib");
+    const example27 = document.getElementsByClassName("prestigeunlockib");
     for (let i = 0; i < example27.length; i++) {
         example27[i].style.display = +_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.prestige > 0 ? "inline-block" : "none";
     }
-    let example28 = document.getElementsByClassName("research150");
+    const example28 = document.getElementsByClassName("research150");
     for (let i = 0; i < example28.length; i++) {
         example28[i].style.display = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[150] > 0 ? "block" : "none";
     }
-    let example29 = document.getElementsByClassName("cubeUpgrade10");
+    const example29 = document.getElementsByClassName("cubeUpgrade10");
     for (let i = 0; i < example29.length; i++) {
         example29[i].style.display = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[10] > 0 ? "flex" : "none";
     }
-    let example30 = document.getElementsByClassName("cubeUpgrade19");
+    const example30 = document.getElementsByClassName("cubeUpgrade19");
     for (let i = 0; i < example30.length; i++) {
         example30[i].style.display = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[19] > 0 ? "block" : "none";
     }
-    let example31 = document.getElementsByClassName("sacrificeAnts");
+    const example31 = document.getElementsByClassName("sacrificeAnts");
     for (const ex of Array.from(example31)) {
         ex.style.display = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[173] === 1 ? "block" : "none";
     }
@@ -7111,8 +7109,8 @@ const revealStuff = () => {
     document.getElementById("ascensionStats").style.visibility = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[197] > 0 ? "visible" : "hidden";
     document.getElementById("ascHyperStats").style.display = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[13] > 0 ? "" : "none";
     document.getElementById("ascPlatonicStats").style.display = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[14] > 0 ? "" : "none";
-    let e = document.getElementsByClassName("auto");
-    let automationUnlocks = {
+    const e = document.getElementsByClassName("auto");
+    const automationUnlocks = {
         0: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[81] === 1,
         1: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[82] === 1,
         2: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[83] === 1,
@@ -7305,14 +7303,14 @@ const buttoncolorchange = () => {
         document.getElementById('ascendChallengeBtn').style.backgroundColor = "#171717" :
         document.getElementById('ascendChallengeBtn').style.backgroundColor = "purple";
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "buildings" && _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.buildingSubTab === "coin") {
-        let a = document.getElementById("buycoin1");
-        let b = document.getElementById("buycoin2");
-        let c = document.getElementById("buycoin3");
-        let d = document.getElementById("buycoin4");
-        let e = document.getElementById("buycoin5");
-        let f = document.getElementById("buyaccelerator");
-        let g = document.getElementById("buymultiplier");
-        let h = document.getElementById("buyacceleratorboost");
+        const a = document.getElementById("buycoin1");
+        const b = document.getElementById("buycoin2");
+        const c = document.getElementById("buycoin3");
+        const d = document.getElementById("buycoin4");
+        const e = document.getElementById("buycoin5");
+        const f = document.getElementById("buyaccelerator");
+        const g = document.getElementById("buymultiplier");
+        const h = document.getElementById("buyacceleratorboost");
         ((!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.toggles[1] || _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[81] === 0) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coins.gte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstCostCoin)) ?
             a.style.backgroundColor = "#555555" :
             a.style.backgroundColor = "#171717";
@@ -7339,16 +7337,16 @@ const buttoncolorchange = () => {
             h.style.backgroundColor = "#171717";
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab === "buildings" && _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.buildingSubTab === "diamond") {
-        let a = document.getElementById("buydiamond1");
-        let b = document.getElementById("buydiamond2");
-        let c = document.getElementById("buydiamond3");
-        let d = document.getElementById("buydiamond4");
-        let e = document.getElementById("buydiamond5");
-        let f = document.getElementById("buycrystalupgrade1");
-        let g = document.getElementById("buycrystalupgrade2");
-        let h = document.getElementById("buycrystalupgrade3");
-        let i = document.getElementById("buycrystalupgrade4");
-        let j = document.getElementById("buycrystalupgrade5");
+        const a = document.getElementById("buydiamond1");
+        const b = document.getElementById("buydiamond2");
+        const c = document.getElementById("buydiamond3");
+        const d = document.getElementById("buydiamond4");
+        const e = document.getElementById("buydiamond5");
+        const f = document.getElementById("buycrystalupgrade1");
+        const g = document.getElementById("buycrystalupgrade2");
+        const h = document.getElementById("buycrystalupgrade3");
+        const i = document.getElementById("buycrystalupgrade4");
+        const j = document.getElementById("buycrystalupgrade5");
         ((!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.toggles[10] || _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[78] === 0) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigePoints.gte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstCostDiamonds)) ? a.style.backgroundColor = "#555555" : a.style.backgroundColor = "#171717";
         ((!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.toggles[11] || _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[85] === 0) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigePoints.gte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.secondCostDiamonds)) ? b.style.backgroundColor = "#555555" : b.style.backgroundColor = "#171717";
         ((!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.toggles[12] || _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[92] === 0) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigePoints.gte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.thirdCostDiamonds)) ? c.style.backgroundColor = "#555555" : c.style.backgroundColor = "#171717";
@@ -7372,14 +7370,14 @@ const buttoncolorchange = () => {
             }
         }
         if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.runescreen === "talismans") {
-            let a = document.getElementById("buyTalismanItem1");
-            let b = document.getElementById("buyTalismanItem2");
-            let c = document.getElementById("buyTalismanItem3");
-            let d = document.getElementById("buyTalismanItem4");
-            let e = document.getElementById("buyTalismanItem5");
-            let f = document.getElementById("buyTalismanItem6");
-            let g = document.getElementById("buyTalismanItem7");
-            let arr = [a, b, c, d, e, f, g];
+            const a = document.getElementById("buyTalismanItem1");
+            const b = document.getElementById("buyTalismanItem2");
+            const c = document.getElementById("buyTalismanItem3");
+            const d = document.getElementById("buyTalismanItem4");
+            const e = document.getElementById("buyTalismanItem5");
+            const f = document.getElementById("buyTalismanItem6");
+            const g = document.getElementById("buyTalismanItem7");
+            const arr = [a, b, c, d, e, f, g];
             for (let i = 0; i < arr.length; i++) {
                 arr[i].style.backgroundColor = (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints > _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanResourceObtainiumCosts[i]
                     && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards > _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanResourceOfferingCosts[i]) ? "purple" : "#171717";
@@ -7430,7 +7428,7 @@ const buttoncolorchange = () => {
                 : document.getElementById("anttier" + i).style.backgroundColor = "#171717";
         }
         for (let i = 1; i <= 12; i++) {
-            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.antUpgradeCostIncreases[i], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1] * _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.extinctionMultiplier[_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions[10]]).times(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.antUpgradeBaseCost[i]))) {
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.antUpgradeCostIncreases[i - 1], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1] * _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.extinctionMultiplier[_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions[10]]).times(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.antUpgradeBaseCost[i - 1]))) {
                 document.getElementById("antUpgrade" + i).style.backgroundColor = "silver";
             }
             else {
@@ -7509,8 +7507,8 @@ const updateAchievementBG = () => {
     for (let i = 1; i <= 182; i++) {
         document.getElementById("ach" + i).style.backgroundColor = "black";
     }
-    let fixDisplay1 = document.getElementsByClassName('purpleach');
-    let fixDisplay2 = document.getElementsByClassName('redach');
+    const fixDisplay1 = document.getElementsByClassName('purpleach');
+    const fixDisplay2 = document.getElementsByClassName('redach');
     for (let i = 0; i < fixDisplay1.length; i++) {
         fixDisplay1[i].style.backgroundColor = "purple";
     }
@@ -7525,11 +7523,11 @@ const updateAchievementBG = () => {
 };
 const CSSAscend = () => {
     for (let i = 1; i <= 5; i++) {
-        let a = document.getElementById("ascendText" + i);
-        let b = document.getElementById("ascendText" + (5 + i));
-        let c = document.getElementById("tesseracts" + i);
-        let d = document.getElementById("buyTesseracts" + i);
-        let e = document.getElementById("tesseractAutoToggle" + i);
+        const a = document.getElementById("ascendText" + i);
+        const b = document.getElementById("ascendText" + (5 + i));
+        const c = document.getElementById("tesseracts" + i);
+        const d = document.getElementById("buyTesseracts" + i);
+        const e = document.getElementById("tesseractAutoToggle" + i);
         a.style.top = (8 + 35 * i) + "px";
         b.style.top = (8 + 35 * i) + "px";
         c.style.top = (23 + 35 * i) + "px";
@@ -7540,21 +7538,21 @@ const CSSAscend = () => {
         c.style.left = "10%";
     }
     for (let i = 1; i <= 6; i++) {
-        let a = document.getElementById("switchCubeSubTab" + i);
+        const a = document.getElementById("switchCubeSubTab" + i);
         a.style.top = (30 + 35 * i) + "px";
         a.style.left = "5%";
     }
 };
 const CSSRuneBlessings = () => {
     for (let i = 1; i <= 5; i++) {
-        let a = document.getElementById('runeBlessingIcon' + i);
-        let b = document.getElementById('runeSpiritIcon' + i);
-        let c = document.getElementById('runeBlessingLevel' + i);
-        let d = document.getElementById('runeSpiritLevel' + i);
-        let e = document.getElementById('runeBlessingPurchase' + i);
-        let f = document.getElementById('runeSpiritPurchase' + i);
-        let g = document.getElementById('runeBlessingPower' + i);
-        let h = document.getElementById('runeSpiritPower' + i);
+        const a = document.getElementById('runeBlessingIcon' + i);
+        const b = document.getElementById('runeSpiritIcon' + i);
+        const c = document.getElementById('runeBlessingLevel' + i);
+        const d = document.getElementById('runeSpiritLevel' + i);
+        const e = document.getElementById('runeBlessingPurchase' + i);
+        const f = document.getElementById('runeSpiritPurchase' + i);
+        const g = document.getElementById('runeBlessingPower' + i);
+        const h = document.getElementById('runeSpiritPower' + i);
         a.style.top = b.style.top = (20 + 75 * i) + "px";
         a.style.left = b.style.left = "10%";
         c.style.top = d.style.top = (23 + 75 * i) + "px";
@@ -7580,9 +7578,9 @@ const showCorruptionStatsLoadouts = () => {
     }
 };
 const updateAscensionStats = () => {
-    let t = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCounter;
-    let [cubes, tess, hyper, platonic] = (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.CalcCorruptionStuff)().splice(4);
-    let fillers = {
+    const t = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCounter;
+    const [cubes, tess, hyper, platonic] = (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.CalcCorruptionStuff)().splice(4);
+    const fillers = {
         "ascLen": (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.formatTimeShort)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCounter),
         "ascCubes": (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(cubes * (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascStatToggles[1] ? 1 : 1 / t), 2, true),
         "ascTess": (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(tess * (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascStatToggles[2] ? 1 : 1 / t), 3, true),
@@ -7723,7 +7721,7 @@ const calculateAcceleratorMultiplier = () => {
     }
 };
 const calculateRecycleMultiplier = () => {
-    let recycleFactors = (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.sumContents)([
+    const recycleFactors = (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.sumContents)([
         0.05 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[80],
         0.05 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[87],
         0.05 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[94],
@@ -7739,7 +7737,7 @@ const calculateRecycleMultiplier = () => {
     return 1 / (1 - recycleFactors);
 };
 function calculateRuneExpGiven(runeIndex, all = false, runeLevel = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex], returnFactors = false) {
-    let recycleMultiplier = calculateRecycleMultiplier();
+    const recycleMultiplier = calculateRecycleMultiplier();
     let allRuneExpAdditiveMultiplier = null;
     if (all) {
         allRuneExpAdditiveMultiplier = (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.sumContents)([
@@ -7758,7 +7756,7 @@ function calculateRuneExpGiven(runeIndex, all = false, runeLevel = _Synergism__W
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[71] * runeLevel / 25
         ]);
     }
-    let allRuneExpMultiplier = (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.productContents)([
+    const allRuneExpMultiplier = (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.productContents)([
         1 + (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[91] / 20),
         1 + (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[92] / 20),
         calculateSigmoidExponential(999, 1 / 10000 * Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[8 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.bonusant8, 1.1)),
@@ -7768,7 +7766,7 @@ function calculateRuneExpGiven(runeIndex, all = false, runeLevel = _Synergism__W
         1 + 1 / 10 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.constantUpgrades[8],
         _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.challenge15Rewards.runeExp
     ]);
-    let runeExpMultiplier = [
+    const runeExpMultiplier = [
         (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.productContents)([
             1 + (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[78] / 50), 1 + (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[111] / 100), 1 + ((0,_Challenges__WEBPACK_IMPORTED_MODULE_3__.CalcECC)('reincarnation', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[7]) / 10)
         ]),
@@ -7810,11 +7808,11 @@ const calculateRuneExpToLevel = (runeIndex, runeLevel = _Synergism__WEBPACK_IMPO
 };
 const calculateMaxRunes = (i) => {
     let max = 1000;
-    let increaseAll = 10 * (2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[16] + 2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[37])
+    const increaseAll = 10 * (2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[16] + 2 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[37])
         + 3 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.constantUpgrades[7] + 80 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_3__.CalcECC)('ascension', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[11])
         + 200 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_3__.CalcECC)('ascension', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[14])
         + Math.floor(0.04 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[200] + 0.04 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[50]);
-    let increaseMaxLevel = [
+    const increaseMaxLevel = [
         null,
         10 * (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[78] + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[111]) + increaseAll,
         10 * (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[80] + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[112]) + increaseAll,
@@ -8152,14 +8150,12 @@ const calculateRuneBonuses = () => {
         else if (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.runeBlessings[i] > 1e30) {
             _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveRuneBlessingPower[i] = Math.pow(10, 5 / 2) * (Math.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.runeBlessings[i], 1 / 24)) / 75 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.challenge15Rewards.blessingBonus;
         }
-        ;
         if (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.runeSpirits[i] <= 1e25) {
             _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveRuneSpiritPower[i] = (Math.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.runeSpirits[i], 1 / 8)) / 75 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.challenge15Rewards.spiritBonus;
         }
         else if (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.runeSpirits[i] > 1e25) {
             _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveRuneSpiritPower[i] = Math.pow(10, 25 / 12) * (Math.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.runeSpirits[i], 1 / 24)) / 75 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.challenge15Rewards.spiritBonus;
         }
-        ;
     }
 };
 const calculateAnts = () => {
@@ -8194,7 +8190,7 @@ const calculateAnts = () => {
 const calculateAntSacrificeELO = () => {
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO = 0;
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO = 0;
-    let antUpgradeSum = (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.sumContents)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades);
+    const antUpgradeSum = (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.sumContents)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades);
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte("1e40")) {
         _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO += break_infinity_js__WEBPACK_IMPORTED_MODULE_4__.default.log(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints, 10);
         _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO += 1 / 2 * antUpgradeSum;
@@ -8277,7 +8273,7 @@ const calculateAntSacrificeMultipliers = () => {
 const calculateAntSacrificeRewards = () => {
     calculateAntSacrificeELO();
     calculateAntSacrificeMultipliers();
-    let rewardsMult = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.timeMultiplier * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.upgradeMultiplier;
+    const rewardsMult = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.timeMultiplier * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.upgradeMultiplier;
     const rewards = {
         antSacrificePoints: _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO * rewardsMult / 85,
         offerings: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringpersecond * 0.15 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO * rewardsMult / 180,
@@ -8308,14 +8304,14 @@ const calculateAntSacrificeRewards = () => {
 };
 const calculateOffline = (forceTime = 0) => {
     _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.timeWarp = true;
-    let maximumTimer = 86400 + 7200 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[31] + 7200 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[32];
+    const maximumTimer = 86400 + 7200 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[31] + 7200 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[32];
     const updatedTime = Date.now();
-    let timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offlinetick) / 1000));
+    const timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offlinetick) / 1000));
     document.getElementById("offlineTimer").textContent = "You have " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(timeAdd, 0) + " real-life seconds of Offline Progress!";
     let simulatedTicks = (timeAdd > 1000) ? 200 : 1 + Math.floor(timeAdd / 5);
-    let tickValue = (timeAdd > 1000) ? timeAdd / 200 : Math.min(5, timeAdd);
+    const tickValue = (timeAdd > 1000) ? timeAdd / 200 : Math.min(5, timeAdd);
     let timeMultiplier = 1;
-    let maxSimulatedTicks = simulatedTicks;
+    const maxSimulatedTicks = simulatedTicks;
     let progressBarWidth = 0;
     let automaticObtainium = 0;
     (0,_Talismans__WEBPACK_IMPORTED_MODULE_5__.toggleTalismanBuy)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.buyTalismanShardPercent);
@@ -8327,7 +8323,7 @@ const calculateOffline = (forceTime = 0) => {
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
     document.getElementById("offlineprogressbar").style.display = "block";
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offlinetick = (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offlinetick < 1.5e12) ? (Date.now()) : _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offlinetick;
-    let runOffline = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.interval)(runSimulator, 0);
+    const runOffline = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.interval)(runSimulator, 0);
     function runSimulator() {
         timeMultiplier = calculateTimeAcceleration();
         calculateObtainium();
@@ -8347,7 +8343,7 @@ const calculateOffline = (forceTime = 0) => {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.shopUpgrades.offeringAutoLevel > 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoSacrificeToggle) {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.sacrificeTimer += tickValue;
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.sacrificeTimer >= 1) {
-                let rune = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoSacrifice;
+                const rune = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoSacrifice;
                 (0,_Runes__WEBPACK_IMPORTED_MODULE_8__.redeemShards)(rune, true);
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.sacrificeTimer = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.sacrificeTimer % 1;
             }
@@ -8366,7 +8362,7 @@ const calculateOffline = (forceTime = 0) => {
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offlinetick = updatedTime;
     if (!_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.loadedNov13Vers) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[14] > 0 || _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.highestchallengecompletions[14] > 0) {
-            let ascCount = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount;
+            const ascCount = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount;
             (0,_Reset__WEBPACK_IMPORTED_MODULE_6__.reset)("ascensionChallenge");
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount = (ascCount + 1);
         }
@@ -8385,8 +8381,8 @@ const calculateSigmoidExponential = (constant, coefficient) => {
     return (1 + (constant - 1) * (1 - Math.exp(-coefficient)));
 };
 const calculateCubeBlessings = () => {
-    let cubeArray = [_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.globalSpeed];
-    let powerBonus = [_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[45] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[35] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[24] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[14] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[40] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[22] / 40, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[15] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[25] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[44] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[34] / 100];
+    const cubeArray = [_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeBlessings.globalSpeed];
+    const powerBonus = [_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[45] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[35] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[24] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[14] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[40] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[22] / 40, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[15] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[25] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[44] / 100, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[34] / 100];
     for (let i = 1; i <= 10; i++) {
         let power = 1;
         let mult = 1;
@@ -8490,11 +8486,11 @@ const calculateSummationLinear = (baseLevel, baseCost, resourceAvailable, differ
     return [buyToLevel, realCost];
 };
 const calculateSummationNonLinear = (baseLevel, baseCost, resourceAvailable, diffPerLevel, buyAmount) => {
-    let c = diffPerLevel / 2;
+    const c = diffPerLevel / 2;
     resourceAvailable = resourceAvailable || 0;
-    let alreadySpent = baseCost * (c * Math.pow(baseLevel, 2) + baseLevel * (1 - c));
+    const alreadySpent = baseCost * (c * Math.pow(baseLevel, 2) + baseLevel * (1 - c));
     resourceAvailable += alreadySpent;
-    let v = resourceAvailable / baseCost;
+    const v = resourceAvailable / baseCost;
     let buyToLevel = c > 0
         ? Math.max(0, Math.floor((c - 1) / (2 * c) + Math.pow(Math.pow(1 - c, 2) + 4 * c * v, 1 / 2) / (2 * c)))
         : Math.floor(v);
@@ -8506,22 +8502,22 @@ const calculateSummationNonLinear = (baseLevel, baseCost, resourceAvailable, dif
     return [buyToLevel, totalCost];
 };
 const CalcCorruptionStuff = () => {
-    let corruptionArrayMultiplier = [1, 2, 2.75, 3.5, 4.25, 5, 5.75, 6.5, 7, 7.5, 8, 9, 10];
-    let corruptionLevelSum = (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.sumContents)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions);
+    const corruptionArrayMultiplier = [1, 2, 2.75, 3.5, 4.25, 5, 5.75, 6.5, 7, 7.5, 8, 9, 10];
+    const corruptionLevelSum = (0,_Utility__WEBPACK_IMPORTED_MODULE_1__.sumContents)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions);
     let cubeBank = 0;
     let challengeModifier = 1;
     let corruptionMultiplier = 1;
     let bankMultiplier = 1;
     let effectiveScore = 1;
-    let speed = calculateTimeAcceleration();
+    const speed = calculateTimeAcceleration();
     for (let i = 1; i <= 10; i++) {
         challengeModifier = (i >= 6) ? 2 : 1;
         cubeBank += challengeModifier * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.highestchallengecompletions[i];
     }
     let baseScore = 0;
-    let challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
-    let challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
-    let challengeScoreArrays3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
+    const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
+    const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
+    const challengeScoreArrays3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
     for (let i = 1; i <= 10; i++) {
         baseScore += challengeScoreArrays1[i] * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.highestchallengecompletions[i];
         if (i <= 5 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.highestchallengecompletions[i] >= 75) {
@@ -8621,10 +8617,10 @@ const dailyResetCheck = () => {
     else if (typeof _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.dayCheck === 'string') {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.dayCheck = new Date(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.dayCheck);
     }
-    let d = new Date();
-    let h = d.getHours();
-    let m = d.getMinutes();
-    let s = d.getSeconds();
+    const d = new Date();
+    const h = d.getHours();
+    const m = d.getMinutes();
+    const s = d.getSeconds();
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.dayTimer = (60 * 60 * 24) - (60 * 60 * h) - (60 * m) - s;
     if (d.getDate() !== _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.dayCheck.getDate() || d.getMonth() !== _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.dayCheck.getMonth() || d.getFullYear() !== _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.dayCheck.getFullYear()) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.dayCheck = new Date();
@@ -8715,12 +8711,12 @@ const talismanResourceCosts = {
     },
 };
 const getTalismanResourceInfo = (type, percentage = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.buyTalismanShardPercent) => {
-    let obtainiumCost = talismanResourceCosts[type].obtainium;
-    let offeringCost = talismanResourceCosts[type].offerings;
-    let maxBuyObtainium = Math.max(1, Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints / obtainiumCost));
-    let maxBuyOffering = Math.max(1, Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards / (offeringCost)));
-    let amountToBuy = Math.max(1, Math.floor(percentage / 100 * Math.min(maxBuyObtainium, maxBuyOffering)));
-    let canBuy = (obtainiumCost <= _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints && offeringCost <= _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards) ? true : false;
+    const obtainiumCost = talismanResourceCosts[type].obtainium;
+    const offeringCost = talismanResourceCosts[type].offerings;
+    const maxBuyObtainium = Math.max(1, Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints / obtainiumCost));
+    const maxBuyOffering = Math.max(1, Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards / (offeringCost)));
+    const amountToBuy = Math.max(1, Math.floor(percentage / 100 * Math.min(maxBuyObtainium, maxBuyOffering)));
+    const canBuy = (obtainiumCost <= _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints && offeringCost <= _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards) ? true : false;
     return {
         canBuy: canBuy,
         buyAmount: amountToBuy,
@@ -8729,9 +8725,9 @@ const getTalismanResourceInfo = (type, percentage = _Synergism__WEBPACK_IMPORTED
     };
 };
 const updateTalismanCostDisplay = (type, percentage = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.buyTalismanShardPercent) => {
-    let el = document.getElementById("talismanFragmentCost");
-    let talismanCostInfo = getTalismanResourceInfo(type, percentage);
-    let TalismanName = talismanResourceCosts[type].name;
+    const el = document.getElementById("talismanFragmentCost");
+    const talismanCostInfo = getTalismanResourceInfo(type, percentage);
+    const TalismanName = talismanResourceCosts[type].name;
     el.textContent = "Cost to buy " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(talismanCostInfo.buyAmount) + " " + TalismanName + (talismanCostInfo.buyAmount > 1 ? "s" : "") + ": " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(talismanCostInfo.obtainiumCost) + " Obtainium and " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(talismanCostInfo.offeringCost) + " offerings.";
 };
 const toggleTalismanBuy = (i = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.buyTalismanShardPercent) => {
@@ -8762,7 +8758,7 @@ const updateTalismanInventory = () => {
     document.getElementById("mythicalFragmentInventory").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.mythicalFragments);
 };
 const buyTalismanResources = (type, percentage = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.buyTalismanShardPercent) => {
-    let talismanResourcesData = getTalismanResourceInfo(type, percentage);
+    const talismanResourcesData = getTalismanResourceInfo(type, percentage);
     if (talismanResourcesData.canBuy) {
         if (type === 'shard') {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanShards += talismanResourcesData.buyAmount;
@@ -8789,14 +8785,14 @@ const showTalismanEffect = (i) => {
     document.getElementById("talismanlevelup").style.display = "none";
     document.getElementById("talismanEffect").style.display = "block";
     document.getElementById("talismanrespec").style.display = "none";
-    let a = document.getElementById("talismanSummary");
-    let b = document.getElementById("talismanBonus");
-    let c = document.getElementById("talismanRune1Effect");
-    let d = document.getElementById("talismanRune2Effect");
-    let e = document.getElementById("talismanRune3Effect");
-    let f = document.getElementById("talismanRune4Effect");
-    let g = document.getElementById("talismanRune5Effect");
-    let h = document.getElementById("talismanMythicEffect");
+    const a = document.getElementById("talismanSummary");
+    const b = document.getElementById("talismanBonus");
+    const c = document.getElementById("talismanRune1Effect");
+    const d = document.getElementById("talismanRune2Effect");
+    const e = document.getElementById("talismanRune3Effect");
+    const f = document.getElementById("talismanRune4Effect");
+    const g = document.getElementById("talismanRune5Effect");
+    const h = document.getElementById("talismanMythicEffect");
     switch (i) {
         case 1:
             a.textContent = "=-=-=-= Exemption Talisman Effects =-=-=-=";
@@ -8877,13 +8873,13 @@ const showTalismanPrices = (i) => {
     document.getElementById("talismanEffect").style.display = "none";
     document.getElementById("talismanlevelup").style.display = "block";
     document.getElementById("talismanrespec").style.display = "none";
-    let a = document.getElementById("talismanShardCost");
-    let b = document.getElementById("talismanCommonFragmentCost");
-    let c = document.getElementById("talismanUncommonFragmentCost");
-    let d = document.getElementById("talismanRareFragmentCost");
-    let e = document.getElementById("talismanEpicFragmentCost");
-    let f = document.getElementById("talismanLegendaryFragmentCost");
-    let g = document.getElementById("talismanMythicalFragmentCost");
+    const a = document.getElementById("talismanShardCost");
+    const b = document.getElementById("talismanCommonFragmentCost");
+    const c = document.getElementById("talismanUncommonFragmentCost");
+    const d = document.getElementById("talismanRareFragmentCost");
+    const e = document.getElementById("talismanEpicFragmentCost");
+    const f = document.getElementById("talismanLegendaryFragmentCost");
+    const g = document.getElementById("talismanMythicalFragmentCost");
     document.getElementById("talismanLevelUpSummary").textContent = "-=-=- Resources Required to Level Up -=-=-";
     document.getElementById("talismanLevelUpSummary").style.color = "silver";
     let m = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanLevelCostMultiplier[i];
@@ -8908,19 +8904,19 @@ const showEnhanceTalismanPrices = (i) => {
     document.getElementById("talismanEffect").style.display = "none";
     document.getElementById("talismanlevelup").style.display = "block";
     document.getElementById("talismanrespec").style.display = "none";
-    let a = document.getElementById("talismanShardCost");
-    let b = document.getElementById("talismanCommonFragmentCost");
-    let c = document.getElementById("talismanUncommonFragmentCost");
-    let d = document.getElementById("talismanRareFragmentCost");
-    let e = document.getElementById("talismanEpicFragmentCost");
-    let f = document.getElementById("talismanLegendaryFragmentCost");
-    let g = document.getElementById("talismanMythicalFragmentCost");
+    const a = document.getElementById("talismanShardCost");
+    const b = document.getElementById("talismanCommonFragmentCost");
+    const c = document.getElementById("talismanUncommonFragmentCost");
+    const d = document.getElementById("talismanRareFragmentCost");
+    const e = document.getElementById("talismanEpicFragmentCost");
+    const f = document.getElementById("talismanLegendaryFragmentCost");
+    const g = document.getElementById("talismanMythicalFragmentCost");
     document.getElementById("talismanLevelUpSummary").textContent = "=-=-= Resources Required to ENHANCE =-=-=";
     document.getElementById("talismanLevelUpSummary").style.color = "gold";
-    let array = [_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.commonTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.uncommonTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.rareTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.epicTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.legendaryTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mythicalTalismanEnchanceCost];
-    let index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1];
-    let costArray = array[index - 1];
-    let m = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanLevelCostMultiplier[i];
+    const array = [_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.commonTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.uncommonTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.rareTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.epicTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.legendaryTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mythicalTalismanEnchanceCost];
+    const index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1];
+    const costArray = array[index - 1];
+    const m = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanLevelCostMultiplier[i];
     a.textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(m * costArray[1]);
     b.textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(m * costArray[2]);
     c.textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(m * costArray[3]);
@@ -8931,12 +8927,12 @@ const showEnhanceTalismanPrices = (i) => {
 };
 const showRespecInformation = (i) => {
     _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanRespec = i;
-    let num = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"];
+    const num = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"];
     document.getElementById("talismanEffect").style.display = "none";
     document.getElementById("talismanlevelup").style.display = "none";
     document.getElementById("talismanrespec").style.display = "block";
-    let runeName = ["Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"];
-    let runeModifier = ["Positive", "Positive", "Positive", "Positive"];
+    const runeName = ["Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"];
+    const runeModifier = ["Positive", "Positive", "Positive", "Positive"];
     if (i <= 7) {
         for (let k = 1; k <= 5; k++) {
             _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mirrorTalismanStats[k] = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player["talisman" + num[i - 1]][k];
@@ -8963,8 +8959,8 @@ const showRespecInformation = (i) => {
     document.getElementById("confirmTalismanRespec").style.display = "none";
 };
 const changeTalismanModifier = (i) => {
-    let runeName = [null, "Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"];
-    let el = document.getElementById("talismanRespecButton" + i);
+    const runeName = [null, "Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"];
+    const el = document.getElementById("talismanRespecButton" + i);
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mirrorTalismanStats[i] === 1) {
         _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mirrorTalismanStats[i] = (-1);
         el.textContent = runeName[i] + ": Negative";
@@ -8975,7 +8971,7 @@ const changeTalismanModifier = (i) => {
         el.textContent = runeName[i] + ": Positive";
         el.style.border = "2px solid limegreen";
     }
-    let checkSum = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mirrorTalismanStats.reduce(function (a, b) {
+    const checkSum = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mirrorTalismanStats.reduce(function (a, b) {
         return a + b;
     }, 0);
     if (checkSum === 1) {
@@ -8986,7 +8982,7 @@ const changeTalismanModifier = (i) => {
     }
 };
 const respecTalismanConfirm = (i) => {
-    let num = [null, "One", "Two", "Three", "Four", "Five", "Six", "Seven"];
+    const num = [null, "One", "Two", "Three", "Four", "Five", "Six", "Seven"];
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards >= 100000 && i <= 7) {
         for (let j = 1; j <= 5; j++) {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player["talisman" + num[i]][j] = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mirrorTalismanStats[j];
@@ -9016,9 +9012,9 @@ const respecTalismanCancel = (i) => {
     }
 };
 const updateTalismanAppearance = (i) => {
-    let el = document.getElementById("talisman" + i);
-    let la = document.getElementById("talisman" + i + "level");
-    let rarity = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1];
+    const el = document.getElementById("talisman" + i);
+    const la = document.getElementById("talisman" + i + "level");
+    const rarity = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1];
     if (rarity === 1) {
         el.style.border = "4px solid white";
         la.style.color = "white";
@@ -9107,10 +9103,10 @@ const buyTalismanLevels = (i, auto = false) => {
 const buyTalismanEnhance = (i, auto = false) => {
     let checkSum = 0;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1] < 6) {
-        let priceMult = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanLevelCostMultiplier[i];
-        let array = [_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.commonTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.uncommonTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.rareTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.epicTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.legendaryTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mythicalTalismanEnchanceCost];
-        let index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1] - 1;
-        let costArray = array[index];
+        const priceMult = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.talismanLevelCostMultiplier[i];
+        const array = [_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.commonTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.uncommonTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.rareTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.epicTalismanEnhanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.legendaryTalismanEnchanceCost, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.mythicalTalismanEnchanceCost];
+        const index = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1] - 1;
+        const costArray = array[index];
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.commonFragments >= priceMult * costArray[2]) {
             checkSum++;
         }
@@ -9744,24 +9740,19 @@ const challengeachievementcheck = (i, auto) => {
             achievementaward(ach);
         }
     }
-    if ([1, 2, 3].includes(i)) {
+    if ([1, 2, 3, 5].includes(i) && !auto) {
         const [gte, ach] = challengeCompletionsNotAuto[i];
-        if (!auto) {
-            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte(gte) && generatorcheck === 0) {
-                achievementaward(ach);
-            }
-        }
-    }
-    if ([5].includes(i)) {
-        const [gte, ach] = challengeCompletionsNotAuto[i];
-        if (!auto) {
+        if (i === 5) {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte(gte) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBought === 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBoostBought === 0) {
                 achievementaward(ach);
             }
         }
+        else if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte(gte) && generatorcheck === 0) {
+            achievementaward(ach);
+        }
     }
     if (i >= 11 && i <= 14) {
-        let challengeArray = [0, 1, 2, 3, 5, 10, 20, 30];
+        const challengeArray = [0, 1, 2, 3, 5, 10, 20, 30];
         for (let j = 1; j <= 7; j++) {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[i] >= challengeArray[j] && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[119 + 7 * i + j] < 1) {
                 achievementaward(119 + 7 * i + j);
@@ -9816,7 +9807,7 @@ const buildingAchievementCheck = () => {
 };
 const ascensionAchievementCheck = (i, score = 0) => {
     if (i === 1) {
-        let ascendCountArray = [0, 1, 2, 10, 100, 1000, 14142, 141421, 1414213];
+        const ascendCountArray = [0, 1, 2, 10, 100, 1000, 14142, 141421, 1414213];
         for (let j = 1; j <= 7; j++) {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount >= ascendCountArray[j] && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[182 + j] < 1) {
                 achievementaward(182 + j);
@@ -9827,7 +9818,7 @@ const ascensionAchievementCheck = (i, score = 0) => {
         }
     }
     if (i === 2) {
-        let constantArray = [0, 3.14, 1e6, 4.32e10, 6.9e21, 1.509e33, 1e66, "1.8e308"];
+        const constantArray = [0, 3.14, 1e6, 4.32e10, 6.9e21, 1.509e33, 1e66, "1.8e308"];
         for (let j = 1; j <= 7; j++) {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascendShards.gte(constantArray[j]) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[189 + j] < 1) {
                 achievementaward(189 + j);
@@ -9835,7 +9826,7 @@ const ascensionAchievementCheck = (i, score = 0) => {
         }
     }
     if (i === 3) {
-        let scoreArray = [0, 1e5, 1e6, 1e7, 1e8, 1e9, 5e9, 2.5e10];
+        const scoreArray = [0, 1e5, 1e6, 1e7, 1e8, 1e9, 5e9, 2.5e10];
         for (let j = 1; j <= 7; j++) {
             if (score >= scoreArray[j] && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[224 + j] < 1) {
                 achievementaward(224 + j);
@@ -10280,14 +10271,14 @@ const resetdetails = (input) => {
     (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)('resetofferings1').src = "Pictures/Offering.png";
     const transcensionChallenge = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension;
     const reincarnationChallenge = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation;
-    let offering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(input);
-    let offeringImage = (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetofferings1");
-    let offeringText = document.getElementById("resetofferings2");
-    let currencyImage1 = (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1");
-    let resetObtainiumImage = (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium");
-    let resetobtainiumText = document.getElementById("resetobtainium2");
-    let resetInfo = document.getElementById('resetinfo');
-    let resetCurrencyGain = document.getElementById("resetcurrency2");
+    const offering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(input);
+    const offeringImage = (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetofferings1");
+    const offeringText = document.getElementById("resetofferings2");
+    const currencyImage1 = (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetcurrency1");
+    const resetObtainiumImage = (0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("resetobtainium");
+    const resetobtainiumText = document.getElementById("resetobtainium2");
+    const resetInfo = document.getElementById('resetinfo');
+    const resetCurrencyGain = document.getElementById("resetcurrency2");
     (input == "reincarnation") ?
         (resetObtainiumImage.src = "Pictures/Obtainium.png", resetobtainiumText.textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.obtainiumGain))) :
         (resetObtainiumImage.src = "", resetobtainiumText.textContent = "");
@@ -10299,7 +10290,6 @@ const resetdetails = (input) => {
             if (currencyImage1.src !== "Pictures/Diamond.png") {
                 currencyImage1.src = "Pictures/Diamond.png";
             }
-            ;
             resetCurrencyGain.textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.prestigePointGain);
             resetInfo.textContent = "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisPrestige) + "/1e16 Coins || TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter) + " seconds.";
             resetInfo.style.color = "turquoise";
@@ -10308,7 +10298,6 @@ const resetdetails = (input) => {
             if (currencyImage1.src !== "Pictures/Mythos.png") {
                 currencyImage1.src = "Pictures/Mythos.png";
             }
-            ;
             resetCurrencyGain.textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.transcendPointGain);
             resetInfo.textContent = "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension) + "/1e100 Coins || TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter) + " seconds.";
             resetInfo.style.color = "orchid";
@@ -10317,7 +10306,6 @@ const resetdetails = (input) => {
             if (currencyImage1.src !== "Pictures/Particle.png") {
                 currencyImage1.src = "Pictures/Particle.png";
             }
-            ;
             resetCurrencyGain.textContent = "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.reincarnationPointGain);
             resetInfo.textContent = "Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendShards) + "/1e300 Mythos Shards || TIME SPENT: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter) + " seconds.";
             resetInfo.style.color = "limegreen";
@@ -10326,7 +10314,6 @@ const resetdetails = (input) => {
             if (currencyImage1.src !== "Pictures/Diamond.png") {
                 currencyImage1.src = "Pictures/Diamond.png";
             }
-            ;
             resetCurrencyGain.textContent = "-" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBoostCost);
             resetInfo.textContent = "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigePoints) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBoostCost) + " Diamonds.";
             resetInfo.style.color = "cyan";
@@ -10404,7 +10391,7 @@ const updateAutoReset = (i) => {
         }
     }
     else if (i === 5) {
-        let v = parseFloat((0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("autoAntSacrificeAmount").value);
+        const v = parseFloat((0,_Utility__WEBPACK_IMPORTED_MODULE_9__.getElementById)("autoAntSacrificeAmount").value);
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoAntSacTimer = Math.max(0, v);
     }
 };
@@ -10419,7 +10406,7 @@ const updateTesseractAutoBuyAmount = () => {
     }
 };
 const reset = (input, fast = false, from = 'unknown') => {
-    let historyEntry = {};
+    const historyEntry = {};
     let historyKind = "prestige";
     const historyCategory = (input === 'ascension' || input === 'ascensionChallenge') ? 'ascend' : 'reset';
     let historyUse = from !== "enterChallenge" && from !== "leaveChallenge";
@@ -10555,7 +10542,7 @@ const reset = (input, fast = false, from = 'unknown') => {
             }
         }
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.obtainiumGain);
-        let opscheck = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.obtainiumGain / (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter);
+        const opscheck = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.obtainiumGain / (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter);
         if (opscheck > _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.obtainiumpersecond) {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.obtainiumpersecond = opscheck;
         }
@@ -10610,14 +10597,14 @@ const reset = (input, fast = false, from = 'unknown') => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter = 0;
         _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.autoResetTimers.reincarnation = 0;
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch > 0.5) {
-            let linGrowth = (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch === 200) ? 0.01 : 0;
+            const linGrowth = (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch === 200) ? 0.01 : 0;
             (0,_Research__WEBPACK_IMPORTED_MODULE_11__.buyResearch)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch, true, linGrowth);
         }
         (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneLevels)();
         (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAnts)();
     }
     if (input === 'ascension' || input === 'ascensionChallenge') {
-        let metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.CalcCorruptionStuff)();
+        const metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.CalcCorruptionStuff)();
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_10__.ascensionAchievementCheck)(3, metaData[3]);
         historyKind = "ascend";
         historyUse = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 0;
@@ -10715,7 +10702,7 @@ const reset = (input, fast = false, from = 'unknown') => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.roombaResearchIndex = 0;
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch = 1;
         for (let j = 1; j <= (200); j++) {
-            let k = "res" + j;
+            const k = "res" + j;
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[j] > 0.5 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[j] < _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.researchMaxLevels[j]) {
                 document.getElementById(k).style.backgroundColor = "purple";
             }
@@ -10916,7 +10903,7 @@ const resetAnts = () => {
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.sixthCostAnts = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("1e36");
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.seventhCostAnts = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("1e100");
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.eighthCostAnts = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("1e300");
-    let ant12 = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[12 - 1];
+    const ant12 = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[12 - 1];
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ant12];
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("1");
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension === 12) {
@@ -10975,9 +10962,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const displayRuneInformation = (i, updatelevelup = true) => {
-    let m = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveLevelMult;
-    let SILevelMult = (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[84] / 200 * (1 + 1 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveRuneSpiritPower[5] * (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateCorruptionPoints)() / 400));
-    let amountPerOffering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneExpGiven)(i - 1, false, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[i - 1]);
+    const m = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveLevelMult;
+    const SILevelMult = (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[84] / 200 * (1 + 1 * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveRuneSpiritPower[5] * (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateCorruptionPoints)() / 400));
+    const amountPerOffering = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneExpGiven)(i - 1, false, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[i - 1]);
     if (i === 1) {
         if (updatelevelup) {
             document.getElementById("runeshowlevelup").textContent = "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!";
@@ -11009,15 +10996,15 @@ const displayRuneInformation = (i, updatelevelup = true) => {
         document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((1 + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level / 200 * m * SILevelMult), 2, true) + ". Ant Speed: x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 + Math.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level * m * SILevelMult, 2) / 2500) + ". Base Offerings: +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level * m * SILevelMult * 0.005), 3, true);
     }
     if (updatelevelup) {
-        let arr = calculateOfferingsToLevelXTimes(i - 1, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[i - 1], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringbuyamount);
+        const arr = calculateOfferingsToLevelXTimes(i - 1, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[i - 1], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringbuyamount);
         let offerings = 0;
         let j = 0;
         while (offerings < _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards && j < arr.length) {
             offerings += arr[j];
             j++;
         }
-        let check = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringbuyamount === j && offerings <= _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards;
-        let s = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringbuyamount === 1 ? "once" : `${check ? j : Math.max(j - 1, 0)} times`;
+        const check = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringbuyamount === j && offerings <= _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards;
+        const s = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringbuyamount === 1 ? "once" : `${check ? j : Math.max(j - 1, 0)} times`;
         document.getElementById("runeDisplayInfo").textContent = `+${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(amountPerOffering)} EXP per offering. ${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(offerings)} Offerings to level up ${s}.`;
     }
 };
@@ -11025,8 +11012,8 @@ const resetofferings = (input) => {
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards += (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(input);
 };
 const redeemShards = (runeIndexPlusOne, auto = false, cubeUpgraded = 0) => {
-    let runeIndex = runeIndexPlusOne - 1;
-    let unlockedRune = [
+    const runeIndex = runeIndexPlusOne - 1;
+    const unlockedRune = [
         true,
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[38] > 0.5,
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[44] > 0.5,
@@ -11043,19 +11030,19 @@ const redeemShards = (runeIndexPlusOne, auto = false, cubeUpgraded = 0) => {
     let levelsAdded = 0;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards > 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex] < (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateMaxRunes)(runeIndex + 1) && unlockedRune[runeIndex]) {
         let all = 0;
-        let maxLevel = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateMaxRunes)(runeIndex + 1);
-        let amountArr = calculateOfferingsToLevelXTimes(runeIndex, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex], levelsToAdd);
+        const maxLevel = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateMaxRunes)(runeIndex + 1);
+        const amountArr = calculateOfferingsToLevelXTimes(runeIndex, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex], levelsToAdd);
         let toSpendTotal = Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards, amountArr.reduce((x, y) => x + y, 0));
         if (cubeUpgraded > 0) {
             toSpendTotal = Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards, cubeUpgraded);
         }
-        let fact = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneExpGiven)(runeIndex, false, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex], true);
-        let a = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[71] / 25;
-        let add = fact[0] - a * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex];
-        let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1);
+        const fact = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneExpGiven)(runeIndex, false, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex], true);
+        const a = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[71] / 25;
+        const add = fact[0] - a * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex];
+        const mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1);
         while (toSpendTotal > 0 && levelsAdded < levelsToAdd && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex] < maxLevel) {
-            let exp = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneExpToLevel)(runeIndex, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex]) - _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeexp[runeIndex];
-            let expPerOff = (add + a * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex]) * mult;
+            const exp = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneExpToLevel)(runeIndex, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex]) - _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeexp[runeIndex];
+            const expPerOff = (add + a * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[runeIndex]) * mult;
             let toSpend = Math.min(toSpendTotal, Math.ceil(exp / expPerOff));
             if (toSpend === undefined || isNaN(toSpend)) {
                 toSpend = toSpendTotal;
@@ -11088,18 +11075,18 @@ const redeemShards = (runeIndexPlusOne, auto = false, cubeUpgraded = 0) => {
 };
 const calculateOfferingsToLevelXTimes = (runeIndex, runeLevel, levels) => {
     let exp = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneExpToLevel)(runeIndex, runeLevel) - _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeexp[runeIndex];
-    let maxLevel = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateMaxRunes)(runeIndex + 1);
-    let arr = [];
+    const maxLevel = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateMaxRunes)(runeIndex + 1);
+    const arr = [];
     let sum = 0;
-    let off = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards;
+    const off = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards;
     let levelsAdded = 0;
-    let fact = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneExpGiven)(runeIndex, false, runeLevel, true);
-    let a = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[71] / 25;
-    let add = fact[0] - a * runeLevel;
-    let mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1);
+    const fact = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneExpGiven)(runeIndex, false, runeLevel, true);
+    const a = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[71] / 25;
+    const add = fact[0] - a * runeLevel;
+    const mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1);
     while (levelsAdded < levels && runeLevel + levelsAdded < maxLevel && sum < off) {
-        let expPerOff = (add + a * (runeLevel + levelsAdded)) * mult;
-        let amount = Math.ceil(exp / expPerOff);
+        const expPerOff = (add + a * (runeLevel + levelsAdded)) * mult;
+        const amount = Math.ceil(exp / expPerOff);
         sum += amount;
         arr.push(amount);
         levelsAdded += 1;
@@ -11140,9 +11127,9 @@ const openTesseract = (value, max = false) => {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += 1;
         }
     }
-    let toSpendModulo = toSpend % 20;
-    let toSpendDiv20 = Math.floor(toSpend / 20);
-    let blessings = {
+    const toSpendModulo = toSpend % 20;
+    const toSpendDiv20 = Math.floor(toSpend / 20);
+    const blessings = {
         accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
         multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
         offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
@@ -11158,19 +11145,19 @@ const openTesseract = (value, max = false) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings[key] += blessings[key].weight * toSpendDiv20;
     }
     for (let i = 0; i < toSpendModulo; i++) {
-        let num = 100 * Math.random();
+        const num = 100 * Math.random();
         for (const key in _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings) {
             if (blessings[key].pdf(num))
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings[key] += 1;
         }
     }
     calculateTesseractBlessings();
-    let extraCubeBlessings = Math.floor(12 * toSpend * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[153]);
+    const extraCubeBlessings = Math.floor(12 * toSpend * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[153]);
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowCubes += extraCubeBlessings;
     (0,_Cubes__WEBPACK_IMPORTED_MODULE_2__.openCube)(extraCubeBlessings, false);
 };
 const calculateTesseractBlessings = () => {
-    let tesseractArray = [_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.globalSpeed];
+    const tesseractArray = [_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractBlessings.globalSpeed];
     for (let i = 0; i < 10; i++) {
         let power = 1;
         let mult = 1;
@@ -11282,7 +11269,7 @@ const openCube = (value, max = false) => {
     toSpend = Math.floor(toSpend);
     let toSpendModulo = toSpend % 20;
     let toSpendDiv20 = Math.floor(toSpend / 20);
-    let blessings = {
+    const blessings = {
         accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
         multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
         offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
@@ -11305,12 +11292,12 @@ const openCube = (value, max = false) => {
     }
     toSpendDiv20 += 100 / 100 * Math.floor(toSpendModulo / 20);
     toSpendModulo = toSpendModulo % 20;
-    for (let key of Object.keys(_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeBlessings)) {
+    for (const key of Object.keys(_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeBlessings)) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + Math.floor((0,_Challenges__WEBPACK_IMPORTED_MODULE_2__.CalcECC)('ascension', _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.challengecompletions[12])));
     }
     for (let i = 0; i < toSpendModulo; i++) {
-        let num = 100 * Math.random();
-        for (let key of Object.keys(_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeBlessings)) {
+        const num = 100 * Math.random();
+        for (const key of Object.keys(_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeBlessings)) {
             if (blessings[key].pdf(num))
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeBlessings[key] += (1 + Math.floor((0,_Challenges__WEBPACK_IMPORTED_MODULE_2__.CalcECC)('ascension', _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.challengecompletions[12])));
         }
@@ -11438,15 +11425,15 @@ const cubeUpgradeDescriptions = [
 const getCubeCost = (i, linGrowth = 0) => {
     let amountToBuy = _Variables__WEBPACK_IMPORTED_MODULE_6__.Globals.buyMaxCubeUpgrades ? 1e5 : 1;
     amountToBuy = Math.min(cubeMaxLevel[i - 1] - _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i], amountToBuy);
-    let metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateSummationNonLinear)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i], cubeBaseCost[i - 1], _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.wowCubes, linGrowth, amountToBuy);
+    const metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateSummationNonLinear)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i], cubeBaseCost[i - 1], _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.wowCubes, linGrowth, amountToBuy);
     return ([metaData[0], metaData[1]]);
 };
 const cubeUpgradeDesc = (i, linGrowth = 0) => {
-    let metaData = getCubeCost(i, linGrowth);
-    let a = document.getElementById("cubeUpgradeName");
-    let b = document.getElementById("cubeUpgradeDescription");
-    let c = document.getElementById("cubeUpgradeCost");
-    let d = document.getElementById("cubeUpgradeLevel");
+    const metaData = getCubeCost(i, linGrowth);
+    const a = document.getElementById("cubeUpgradeName");
+    const b = document.getElementById("cubeUpgradeDescription");
+    const c = document.getElementById("cubeUpgradeCost");
+    const d = document.getElementById("cubeUpgradeLevel");
     a.textContent = cubeUpgradeName[i - 1];
     b.textContent = cubeUpgradeDescriptions[i - 1];
     c.textContent = "Cost: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(metaData[1], 0, true) + " Wow! Cubes [+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(metaData[0] - _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i], 0, true) + " Levels]";
@@ -11462,7 +11449,7 @@ const cubeUpgradeDesc = (i, linGrowth = 0) => {
     }
 };
 const updateCubeUpgradeBG = (i) => {
-    let a = document.getElementById("cubeUpg" + i);
+    const a = document.getElementById("cubeUpg" + i);
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i] > cubeMaxLevel[i - 1]) {
         console.log("Refunded " + (_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i] - cubeMaxLevel[i - 1]) + " levels of Cube Upgrade " + i + ", adding " + (_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i] - cubeMaxLevel[i - 1]) * cubeBaseCost[i - 1] + " Wow! Cubes to balance.");
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.wowCubes += (_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i] - cubeMaxLevel[i - 1]) * cubeBaseCost[i - 1];
@@ -11479,7 +11466,7 @@ const updateCubeUpgradeBG = (i) => {
     }
 };
 const buyCubeUpgrades = (i, linGrowth = 0) => {
-    let metaData = getCubeCost(i, linGrowth);
+    const metaData = getCubeCost(i, linGrowth);
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.default.wowCubes >= metaData[1] && _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i] < cubeMaxLevel[i - 1]) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.wowCubes -= 100 / 100 * metaData[1];
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.default.cubeUpgrades[i] = metaData[0];
@@ -12017,26 +12004,26 @@ const getReductionValue = () => {
 };
 const getCostAccelerator = (buyingTo) => {
     --buyingTo;
-    let originalCost = 500;
+    const originalCost = 500;
     let cost = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(originalCost);
     cost = cost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(4 / _Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.costDivisor, buyingTo));
     if (buyingTo > (125 + 5 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]))) {
-        let num = buyingTo - 125 - 5 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]);
-        let factorialBit = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(num).factorial();
-        let multBit = break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(4, num);
+        const num = buyingTo - 125 - 5 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]);
+        const factorialBit = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(num).factorial();
+        const multBit = break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(4, num);
         cost = cost.times(multBit.times(factorialBit));
     }
     if (buyingTo > (2000 + 5 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]))) {
-        let sumNum = buyingTo - 2000 - 5 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]);
-        let sumBit = sumNum * (sumNum + 1) / 2;
+        const sumNum = buyingTo - 2000 - 5 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]);
+        const sumBit = sumNum * (sumNum + 1) / 2;
         cost = cost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(2, sumBit));
     }
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension === 4) {
-        let sumBit = buyingTo * (buyingTo + 1) / 2;
+        const sumBit = buyingTo * (buyingTo + 1) / 2;
         cost = cost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(10, sumBit));
     }
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation === 8) {
-        let sumBit = buyingTo * (buyingTo + 1) / 2;
+        const sumBit = buyingTo * (buyingTo + 1) / 2;
         cost = cost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(1e50, sumBit));
     }
     return cost;
@@ -12099,26 +12086,26 @@ const buyAccelerator = (autobuyer) => {
 };
 const getCostMultiplier = (buyingTo) => {
     --buyingTo;
-    let originalCost = 1e5;
+    const originalCost = 1e5;
     let cost = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(originalCost);
     cost = cost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(10, buyingTo / _Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.costDivisor));
     if (buyingTo > (75 + 2 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]))) {
-        let num = buyingTo - 75 - 2 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]);
-        let factorialBit = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(num).factorial();
-        let powBit = break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(10, num);
+        const num = buyingTo - 75 - 2 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]);
+        const factorialBit = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(num).factorial();
+        const powBit = break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(10, num);
         cost = cost.times(factorialBit.times(powBit));
     }
     if (buyingTo > (2000 + 2 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]))) {
-        let sumNum = buyingTo - 2000 - 2 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]);
-        let sumBit = sumNum * (sumNum + 1) / 2;
+        const sumNum = buyingTo - 2000 - 2 * (0,_Challenges__WEBPACK_IMPORTED_MODULE_1__.CalcECC)('transcend', _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[4]);
+        const sumBit = sumNum * (sumNum + 1) / 2;
         cost = cost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(2, sumBit));
     }
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension === 4) {
-        let sumBit = buyingTo * (buyingTo + 1) / 2;
+        const sumBit = buyingTo * (buyingTo + 1) / 2;
         cost = cost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(10, sumBit));
     }
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation === 8) {
-        let sumBit = buyingTo * (buyingTo + 1) / 2;
+        const sumBit = buyingTo * (buyingTo + 1) / 2;
         cost = cost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(1e50, sumBit));
     }
     return cost;
@@ -12190,9 +12177,9 @@ const factorialByExponent = (fact) => {
 const fact100exponent = Math.log10(9.3326215443944152681699238856267e+157);
 const precision16_loss_addition_of_ones = 188.582;
 const known_log10s = function () {
-    let needed = [1.03, 1.25];
-    let nums = [1, 2, 3, 4, 5, 6, 10, 15];
-    for (let num of nums) {
+    const needed = [1.03, 1.25];
+    const nums = [1, 2, 3, 4, 5, 6, 10, 15];
+    for (const num of nums) {
         needed.push(100 + (100 * num));
         needed.push(10 + (10 * num));
     }
@@ -12200,8 +12187,8 @@ const known_log10s = function () {
     for (let i = 0; i < chalcompletions; ++i) {
         needed.push(1 + (i / 2));
     }
-    let obj = {};
-    for (let need of needed) {
+    const obj = {};
+    for (const need of needed) {
         if (obj[need] === undefined) {
             obj[need] = Math.log10(need);
         }
@@ -12210,7 +12197,7 @@ const known_log10s = function () {
 }();
 const getCost = (originalCost, buyingTo, type, num, r) => {
     --buyingTo;
-    let cost = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(originalCost);
+    const cost = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(originalCost);
     let mlog10125 = num * buyingTo;
     if (buyingTo < precision16_loss_addition_of_ones / num) {
         cost.mantissa += buyingTo / Math.pow(10, cost.exponent);
@@ -12281,7 +12268,7 @@ const buyMax = (pos, type, num, originalCost) => {
             tag = 'coins';
             break;
     }
-    let buyStart = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + 'Owned' + type];
+    const buyStart = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + 'Owned' + type];
     let buyInc = 1;
     let cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
     while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[tag].gte(cashToBuy)) {
@@ -12394,7 +12381,7 @@ const buyCrystalUpgrades = (i, auto = false) => {
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[73] > 0.5 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation !== 0) {
         c += 10;
     }
-    let toBuy = calculateCrystalBuy(i);
+    const toBuy = calculateCrystalBuy(i);
     if (toBuy + c > _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.crystalUpgrades[u]) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.crystalUpgrades[u] = 100 / 100 * (toBuy + c);
         if (toBuy > 0) {
@@ -12431,7 +12418,7 @@ const boostAccelerator = (automated) => {
         }
     }
     else {
-        let buyStart = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBoostBought;
+        const buyStart = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBoostBought;
         let buyInc = 1;
         let cost = getAcceleratorBoostCost(buyStart + buyInc);
         while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigePoints.gte(cost)) {
@@ -12484,10 +12471,10 @@ const boostAccelerator = (automated) => {
 };
 const getAcceleratorBoostCost = (level = 1) => {
     level--;
-    let base = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(1e3);
-    let eff = 1 + 2 * _Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.effectiveRuneBlessingPower[4];
-    let linSum = (n) => n * (n + 1) / 2;
-    let sqrSum = (n) => n * (n + 1) * (2 * n + 1) / 6;
+    const base = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(1e3);
+    const eff = 1 + 2 * _Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.effectiveRuneBlessingPower[4];
+    const linSum = (n) => n * (n + 1) / 2;
+    const sqrSum = (n) => n * (n + 1) * (2 * n + 1) / 6;
     if (level > 1000 * eff) {
         return base.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(10, 10 * level
             + linSum(level)
@@ -12501,7 +12488,7 @@ const getParticleCost = (originalCost, buyTo) => {
     --buyTo;
     originalCost = new break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default(originalCost);
     let cost = originalCost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(2, buyTo));
-    let DR = (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 15) ? 325000 : 1000;
+    const DR = (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 15) ? 325000 : 1000;
     if (buyTo > DR) {
         cost = cost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(1.001, (buyTo - DR) * ((buyTo - DR + 1) / 2)));
     }
@@ -12539,16 +12526,16 @@ const buyParticleBuilding = (pos, originalCost, autobuyer = false) => {
     }
 };
 const getTesseractCost = (intCost, index) => {
-    let buyFrom = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player['ascendBuilding' + index]['owned'];
-    let subCost = intCost * Math.pow(buyFrom * (buyFrom + 1) / 2, 2);
+    const buyFrom = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player['ascendBuilding' + index]['owned'];
+    const subCost = intCost * Math.pow(buyFrom * (buyFrom + 1) / 2, 2);
     let buyTo = Math.floor(-1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowTesseracts + subCost) / intCost, 1 / 2), 1 / 2));
     buyTo = Math.min(buyTo, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractbuyamount + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player['ascendBuilding' + index]['owned']);
-    let actualCost = intCost * Math.pow(buyTo * (buyTo + 1) / 2, 2) - subCost;
+    const actualCost = intCost * Math.pow(buyTo * (buyTo + 1) / 2, 2) - subCost;
     return [buyTo, actualCost];
 };
 const buyTesseractBuilding = (intCost, index) => {
-    let buyTo = getTesseractCost(intCost, index)[0];
-    let actualCost = getTesseractCost(intCost, index)[1];
+    const buyTo = getTesseractCost(intCost, index)[0];
+    const actualCost = getTesseractCost(intCost, index)[1];
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player['ascendBuilding' + index]['owned'] = buyTo;
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowTesseracts -= actualCost;
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player['ascendBuilding' + index]['cost'] = intCost * Math.pow(1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player['ascendBuilding' + index]['owned'], 3);
@@ -12566,7 +12553,7 @@ const buyRuneBonusLevels = (type, index) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeBlessingLevels[index] = level;
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards -= cost;
     if (index === 1) {
-        let requirementArray = [0, 1e5, 1e8, 1e11];
+        const requirementArray = [0, 1e5, 1e8, 1e11];
         for (let i = 1; i <= 3; i++) {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeBlessingLevels[1] >= requirementArray[i] && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[231 + i] < 1) {
                 (0,_Achievements__WEBPACK_IMPORTED_MODULE_3__.achievementaward)(231 + i);
@@ -12581,15 +12568,15 @@ const buyRuneBonusLevels = (type, index) => {
     }
     (0,_Calculate__WEBPACK_IMPORTED_MODULE_7__.calculateRuneBonuses)();
     if (type === 'Blessings') {
-        let blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1];
-        let t = (index === 5) ? 1 : 0;
+        const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1];
+        const t = (index === 5) ? 1 : 0;
         document.getElementById('runeBlessingPower' + index + 'Value1').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.runeBlessings[index]);
         document.getElementById('runeBlessingPower' + index + 'Value2').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 - t + blessingMultiplierArray[index] * _Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.effectiveRuneBlessingPower[index], 4, true);
     }
     if (type === 'Spirits') {
-        let spiritMultiplierArray = [0, 1, 1, 20, 1, 100];
+        const spiritMultiplierArray = [0, 1, 1, 20, 1, 100];
         spiritMultiplierArray[index] *= ((0,_Calculate__WEBPACK_IMPORTED_MODULE_7__.calculateCorruptionPoints)() / 400);
-        let t = (index === 3) ? 1 : 0;
+        const t = (index === 3) ? 1 : 0;
         document.getElementById('runeSpiritPower' + index + 'Value1').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.runeSpirits[index]);
         document.getElementById('runeSpiritPower' + index + 'Value2').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 - t + spiritMultiplierArray[index] * _Variables__WEBPACK_IMPORTED_MODULE_8__.Globals.effectiveRuneSpiritPower[index], 4, true);
     }
@@ -12621,7 +12608,7 @@ const buyGenerator = (i, state) => {
     if (i === 1 && _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.prestigePoints.gte(1e12) && _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.unlocks.generation === false) {
         _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.unlocks.generation = true;
     }
-    let q = 100 + i;
+    const q = 100 + i;
     let type = "transcendPoints";
     if (q <= 110 && q >= 106) {
         type = "coins";
@@ -12629,8 +12616,8 @@ const buyGenerator = (i, state) => {
     else if (q <= 115) {
         type = "prestigePoints";
     }
-    let cost = break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(10, _Variables__WEBPACK_IMPORTED_MODULE_5__.Globals.upgradeCosts[q]);
-    let achievementCheck = Math.max(_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[101], _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[102], _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[103], _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[104], _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[105]);
+    const cost = break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(10, _Variables__WEBPACK_IMPORTED_MODULE_5__.Globals.upgradeCosts[q]);
+    const achievementCheck = Math.max(_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[101], _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[102], _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[103], _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[104], _Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[105]);
     if (_Synergism__WEBPACK_IMPORTED_MODULE_1__.default.upgrades[q] === 0 && _Synergism__WEBPACK_IMPORTED_MODULE_1__.default[type].gte(cost)) {
         if (achievementCheck === 0) {
             if ([102, 103, 104, 105].includes(q)) {
@@ -12674,7 +12661,7 @@ const buyGenerator = (i, state, auto) => {
     if (i === 1 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigePoints.gte(1e12) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.generation === false) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.generation = true;
     }
-    let q = 100 + i;
+    const q = 100 + i;
     let type = "transcendPoints";
     if (q <= 110 && q >= 106) {
         type = "coins";
@@ -12682,8 +12669,8 @@ const buyGenerator = (i, state, auto) => {
     else if (q <= 115) {
         type = "prestigePoints";
     }
-    let cost = break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(10, _Variables__WEBPACK_IMPORTED_MODULE_5__.Globals.upgradeCosts[q]);
-    let achievementCheck = Math.max(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[101], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[102], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[103], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[104], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[105]);
+    const cost = break_infinity_js__WEBPACK_IMPORTED_MODULE_2__.default.pow(10, _Variables__WEBPACK_IMPORTED_MODULE_5__.Globals.upgradeCosts[q]);
+    const achievementCheck = Math.max(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[101], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[102], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[103], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[104], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[105]);
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.upgrades[q] === 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[type].gte(cost)) {
         if (achievementCheck === 0 && q >= 102 && q <= 105) {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_1__.achievementaward)(q - 31);
@@ -12697,7 +12684,7 @@ const buyGenerator = (i, state, auto) => {
     }
 };
 const buyAutobuyers = (i, state) => {
-    let q = i + 80;
+    const q = i + 80;
     let type = "";
     if (q <= 87) {
         type = "prestigePoints";
@@ -12806,12 +12793,12 @@ __webpack_require__.r(__webpack_exports__);
 
 const getResearchCost = (index, buyAmount = 1, linGrowth = 0) => {
     buyAmount = Math.min(_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchMaxLevels[index] - _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[index], buyAmount);
-    let metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSummationNonLinear)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[index], _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchBaseCosts[index], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints, linGrowth, buyAmount);
+    const metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateSummationNonLinear)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[index], _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchBaseCosts[index], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints, linGrowth, buyAmount);
     return [metaData[0], metaData[1]];
 };
 const buyResearch = (index, auto = false, linGrowth = 0) => {
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch > 0 && !auto) {
-        let p = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch;
+        const p = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch;
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[p] === _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchMaxLevels[p]) {
             document.getElementById("res" + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch).style.backgroundColor = "green";
         }
@@ -12826,8 +12813,8 @@ const buyResearch = (index, auto = false, linGrowth = 0) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch = index;
         document.getElementById("res" + index).style.backgroundColor = "orange";
     }
-    let buyamount = (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.maxbuyresearch || auto) ? 1e5 : 1;
-    let metaData = getResearchCost(index, buyamount, linGrowth);
+    const buyamount = (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.maxbuyresearch || auto) ? 1e5 : 1;
+    const metaData = getResearchCost(index, buyamount, linGrowth);
     if ((auto || !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints >= metaData[1]) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints -= metaData[1];
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[index] = metaData[0];
@@ -12865,7 +12852,7 @@ const buyResearch = (index, auto = false, linGrowth = 0) => {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch = _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchOrderByCost[_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.roombaResearchIndex];
         }
         if (isResearchUnlocked(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch)) {
-            let doc = document.getElementById("res" + _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchOrderByCost[_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.roombaResearchIndex]);
+            const doc = document.getElementById("res" + _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchOrderByCost[_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.roombaResearchIndex]);
             if (doc)
                 doc.style.backgroundColor = "orange";
         }
@@ -12874,17 +12861,17 @@ const buyResearch = (index, auto = false, linGrowth = 0) => {
     (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAnts)();
 };
 const maxRoombaResearchIndex = (p = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player) => {
-    let base = p.ascensionCount > 0 ? 140 : 125;
-    let c11 = p.challengecompletions[11] > 0 ? 15 : 0;
-    let c12 = p.challengecompletions[12] > 0 ? 15 : 0;
-    let c13 = p.challengecompletions[13] > 0 ? 15 : 0;
-    let c14 = p.challengecompletions[14] > 0 ? 15 : 0;
+    const base = p.ascensionCount > 0 ? 140 : 125;
+    const c11 = p.challengecompletions[11] > 0 ? 15 : 0;
+    const c12 = p.challengecompletions[12] > 0 ? 15 : 0;
+    const c13 = p.challengecompletions[13] > 0 ? 15 : 0;
+    const c14 = p.challengecompletions[14] > 0 ? 15 : 0;
     return base + c11 + c12 + c13 + c14;
 };
 const isResearchUnlocked = (index) => {
     const cumuSum = (sum => (value) => sum += value)(0);
-    let indices = [3 * 25, 5, 20, 10, 15, 15, 15, 15, 15, 15].map(cumuSum);
-    let chievos = [50, 124, 127, 134, 141, 183, 197, 204, 211, 218];
+    const indices = [3 * 25, 5, 20, 10, 15, 15, 15, 15, 15, 15].map(cumuSum);
+    const chievos = [50, 124, 127, 134, 141, 183, 197, 204, 211, 218];
     for (let i = 0; i < indices.length; i++) {
         if (i === 3 && (index === 121 || index === 124 || index === 150)) {
             return _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[chievos[i]] > 0;
@@ -13099,11 +13086,11 @@ const resdesc = [
     "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.04 Max Rune level, + Floor(level/400) max Talisman Level, +Floor(level/200) free ants."
 ];
 const researchDescriptions = (i, auto = false, linGrowth = 0) => {
-    let buyAmount = (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.maxbuyresearch || auto) ? 100000 : 1;
-    let y = resdesc[i - 1];
+    const buyAmount = (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.maxbuyresearch || auto) ? 100000 : 1;
+    const y = resdesc[i - 1];
     let z = "";
-    let p = "res" + i;
-    let metaData = getResearchCost(i, buyAmount, linGrowth);
+    const p = "res" + i;
+    const metaData = getResearchCost(i, buyAmount, linGrowth);
     z = " Cost: " + ((0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(metaData[1], 0, false)) + " Obtainium [+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(metaData[0] - _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[i], 0, true) + " Levels]";
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[i] === (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchMaxLevels[i])) {
         document.getElementById("researchcost").style.color = "Gold";
@@ -13134,7 +13121,7 @@ const updateResearchBG = (j) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[j] - _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchMaxLevels[j]) * _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchBaseCosts[j];
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[j] = _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchMaxLevels[j];
     }
-    let k = "res" + j;
+    const k = "res" + j;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[j] > 0.5 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[j] < _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchMaxLevels[j]) {
         document.getElementById(k).style.backgroundColor = "purple";
     }
@@ -13173,9 +13160,9 @@ const openHypercube = (value, max = false) => {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.worlds += 1;
         }
     }
-    let toSpendModulo = toSpend % 20;
-    let toSpendDiv20 = Math.floor(toSpend / 20);
-    let blessings = {
+    const toSpendModulo = toSpend % 20;
+    const toSpendDiv20 = Math.floor(toSpend / 20);
+    const blessings = {
         accelerator: { weight: 4, pdf: (x) => 0 <= x && x <= 20 },
         multiplier: { weight: 4, pdf: (x) => 20 < x && x <= 40 },
         offering: { weight: 2, pdf: (x) => 40 < x && x <= 50 },
@@ -13191,14 +13178,14 @@ const openHypercube = (value, max = false) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeBlessings[key] += blessings[key].weight * toSpendDiv20;
     }
     for (let i = 0; i < toSpendModulo; i++) {
-        let num = 100 * Math.random();
+        const num = 100 * Math.random();
         for (const key in _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeBlessings) {
             if (blessings[key].pdf(num))
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.hypercubeBlessings[key] += 1;
         }
     }
     calculateHypercubeBlessings();
-    let extraTesseractBlessings = Math.floor(toSpend * 100 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[183]);
+    const extraTesseractBlessings = Math.floor(toSpend * 100 * _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[183]);
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowTesseracts += extraTesseractBlessings;
     (0,_Tesseracts__WEBPACK_IMPORTED_MODULE_1__.openTesseract)(extraTesseractBlessings, false);
 };
@@ -13259,8 +13246,8 @@ const visualUpdateBuildings = () => {
         return;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.buildingSubTab === "coin") {
-        let upper = ['produceFirst', 'produceSecond', 'produceThird', 'produceFourth', 'produceFifth'];
-        let names = [null, 'Workers', 'Investments', 'Printers', 'Coin Mints', 'Alchemies'];
+        const upper = ['produceFirst', 'produceSecond', 'produceThird', 'produceFourth', 'produceFifth'];
+        const names = [null, 'Workers', 'Investments', 'Printers', 'Coin Mints', 'Alchemies'];
         let percentage = new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default();
         let totalProductionDivisor = new break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.produceTotal);
         if (totalProductionDivisor.equals(0)) {
@@ -13290,9 +13277,9 @@ const visualUpdateBuildings = () => {
             `Due to your excessive wealth, coin production is divided by ${(0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.taxdivisor, 2)} to pay taxes! ${warning}`;
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.buildingSubTab === "diamond") {
-        let upper = ['produceFirstDiamonds', 'produceSecondDiamonds', 'produceThirdDiamonds', 'produceFourthDiamonds', 'produceFifthDiamonds'];
-        let names = [null, 'Refineries', 'Coal Plants', 'Coal Rigs', 'Pickaxes', 'Pandoras Boxes'];
-        let perSecNames = [null, "Crystal/sec", "Ref./sec", "Plants/sec", "Rigs/sec", "Pickaxes/sec"];
+        const upper = ['produceFirstDiamonds', 'produceSecondDiamonds', 'produceThirdDiamonds', 'produceFourthDiamonds', 'produceFifthDiamonds'];
+        const names = [null, 'Refineries', 'Coal Plants', 'Coal Rigs', 'Pickaxes', 'Pandoras Boxes'];
+        const perSecNames = [null, "Crystal/sec", "Ref./sec", "Plants/sec", "Rigs/sec", "Pickaxes/sec"];
         document.getElementById("prestigeshardinfo").textContent = "You have " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.prestigeShards, 2) + " Crystals, multiplying Coin production by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.prestigeMultiplier, 2) + "x.";
         for (let i = 1; i <= 5; i++) {
             const place = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals[upper[i - 1]];
@@ -13301,7 +13288,7 @@ const visualUpdateBuildings = () => {
             document.getElementById("buydiamond" + i).textContent = "Cost: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.ordinals[i - 1] + 'CostDiamonds'], 2) + " Diamonds";
         }
         if (_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.resettoggle1 === 1 || _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.resettoggle1 === 0) {
-            let p = break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.log(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.prestigePointGain.add(1), 10) - break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.log(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.prestigePoints.sub(1), 10));
+            const p = break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.log(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.prestigePointGain.add(1), 10) - break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.log(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.prestigePoints.sub(1), 10));
             document.getElementById("autoprestige").textContent = "Prestige when your Diamonds can increase by a factor " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.prestigeamount)) + " [Toggle number above]. Current Multiplier: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(p) + ".";
         }
         if (_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.resettoggle1 === 2) {
@@ -13309,9 +13296,9 @@ const visualUpdateBuildings = () => {
         }
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.buildingSubTab === "mythos") {
-        let upper = ['produceFirstMythos', 'produceSecondMythos', 'produceThirdMythos', 'produceFourthMythos', 'produceFifthMythos'];
-        let names = [null, 'Augments', 'Enchantments', 'Wizards', 'Oracles', 'Grandmasters'];
-        let perSecNames = [null, "Shards/sec", "Augments/sec", "Enchantments/sec", "Wizards/sec", "Oracles/sec"];
+        const upper = ['produceFirstMythos', 'produceSecondMythos', 'produceThirdMythos', 'produceFourthMythos', 'produceFifthMythos'];
+        const names = [null, 'Augments', 'Enchantments', 'Wizards', 'Oracles', 'Grandmasters'];
+        const perSecNames = [null, "Shards/sec", "Augments/sec", "Enchantments/sec", "Wizards/sec", "Oracles/sec"];
         document.getElementById("transcendshardinfo").textContent = "You have " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.transcendShards, 2) + " Mythos Shards, providing " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.totalMultiplierBoost, 0, true) + " Multiplier Power boosts.";
         for (let i = 1; i <= 5; i++) {
             const place = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals[upper[i - 1]];
@@ -13327,9 +13314,9 @@ const visualUpdateBuildings = () => {
         }
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.buildingSubTab === "particle") {
-        let upper = ['produceFirstParticles', 'produceSecondParticles', 'produceThirdParticles', 'produceFourthParticles', 'produceFifthParticles'];
-        let names = [null, 'Protons', 'Elements', 'Pulsars', 'Quasars', 'Galactic Nuclei'];
-        let perSecNames = [null, "Atoms/sec", "Protons/sec", "Elements/sec", "Pulsars/sec", "Quasars/sec"];
+        const upper = ['produceFirstParticles', 'produceSecondParticles', 'produceThirdParticles', 'produceFourthParticles', 'produceFifthParticles'];
+        const names = [null, 'Protons', 'Elements', 'Pulsars', 'Quasars', 'Galactic Nuclei'];
+        const perSecNames = [null, "Atoms/sec", "Protons/sec", "Elements/sec", "Pulsars/sec", "Quasars/sec"];
         for (let i = 1; i <= 5; i++) {
             const place = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals[upper[i - 1]];
             document.getElementById("reincarnationtext" + (i)).textContent = names[i] + ": " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.ordinals[i - 1] + 'OwnedParticles'], 0, true) + " [+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.ordinals[i - 1] + 'GeneratedParticles'], 2) + "]";
@@ -13347,8 +13334,8 @@ const visualUpdateBuildings = () => {
         }
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.buildingSubTab === "tesseract") {
-        let names = [null, 'Dot', 'Vector', 'Three-Space', 'Bent Time', 'Hilbert Space'];
-        let perSecNames = [null, '+Constant/sec', 'Dot/sec', 'Vector/sec', 'Three-Space/sec', 'Bent Time/sec'];
+        const names = [null, 'Dot', 'Vector', 'Three-Space', 'Bent Time', 'Hilbert Space'];
+        const perSecNames = [null, '+Constant/sec', 'Dot/sec', 'Vector/sec', 'Three-Space/sec', 'Bent Time/sec'];
         for (let i = 1; i <= 5; i++) {
             document.getElementById("ascendText" + i).textContent = names[i] + ": " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player['ascendBuilding' + i]['owned'], 0, true) + " [+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player['ascendBuilding' + i]['generated'], 2) + "]";
             document.getElementById("ascendText" + (5 + i)).textContent =
@@ -13396,7 +13383,7 @@ const visualUpdateRunes = () => {
         }
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.runescreen === "blessings") {
-        let blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1];
+        const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1];
         let t = 0;
         for (let i = 1; i <= 5; i++) {
             document.getElementById('runeBlessingLevel' + i + 'Value').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.runeBlessingLevels[i], 0, true);
@@ -13410,8 +13397,8 @@ const visualUpdateRunes = () => {
         }
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.runescreen === "spirits") {
-        let spiritMultiplierArray = [0, 1, 1, 20, 1, 100];
-        let subtract = [0, 0, 0, 1, 0, 0];
+        const spiritMultiplierArray = [0, 1, 1, 20, 1, 100];
+        const subtract = [0, 0, 0, 1, 0, 0];
         for (let i = 1; i <= 5; i++) {
             spiritMultiplierArray[i] *= ((0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.calculateCorruptionPoints)() / 400);
             document.getElementById('runeSpiritLevel' + i + 'Value').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.runeSpiritLevels[i], 0, true);
@@ -13440,8 +13427,8 @@ const visualUpdateAnts = () => {
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab !== "ants")
         return;
     document.getElementById("crumbcount").textContent = "You have " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.antPoints, 2) + " Galactic Crumbs [" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.antOneProduce, 2) + "/s], providing a " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.max(1, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.antPoints), 100000 + (0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.calculateSigmoidExponential)(49900000, (_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.antUpgrades[2 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.bonusant2) / 5000 * 500 / 499))) + "x Coin Multiplier.";
-    let mode = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
-    let timer = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.autoAntSacrificeMode === 2 ? _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.antSacrificeTimerReal : _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.antSacrificeTimer;
+    const mode = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
+    const timer = _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.autoAntSacrificeMode === 2 ? _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.antSacrificeTimerReal : _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.antSacrificeTimer;
     document.getElementById("autoAntSacrifice").textContent = `Sacrifice when the timer is at least ${_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.autoAntSacTimer} seconds (${mode}), Currently: ${(0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(timer)}`;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[173] === 1) {
         document.getElementById("antSacrificeTimer").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.formatTimeShort)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.antSacrificeTimer);
@@ -13452,9 +13439,9 @@ const visualUpdateCubes = () => {
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab !== "cubes")
         return;
     document.getElementById("cubeToQuarkTimerValue").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.dayTimer / 3600), 0) + " Hours " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.dayTimer / 60 % 60), 0) + " Mins " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.dayTimer % 60), 0) + " Secs ";
-    let prefixes = ['cube', 'tesseract', 'hypercube'];
-    let power = [4, 3, 2];
-    let multipliers = [10, 10, 5];
+    const prefixes = ['cube', 'tesseract', 'hypercube'];
+    const power = [4, 3, 2];
+    const multipliers = [10, 10, 5];
     for (let i = 0; i <= 2; i++) {
         document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'QuarkDaily']) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(25 + 75 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.shopUpgrades[prefixes[i] + 'ToQuarkBought']);
         document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player[prefixes[i] + 'OpenedDaily'], 0, true);
@@ -13464,7 +13451,7 @@ const visualUpdateCubes = () => {
     switch (_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.subtabNumber) {
         case 0:
             document.getElementById("cubeQuantity").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.wowCubes, 0, true);
-            let cubeArray = [null, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.globalSpeed];
+            const cubeArray = [null, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeBlessings.globalSpeed];
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3];
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
@@ -13481,7 +13468,7 @@ const visualUpdateCubes = () => {
             break;
         case 1:
             document.getElementById("tesseractQuantity").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.wowTesseracts, 0, true);
-            let tesseractArray = [null, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.globalSpeed];
+            const tesseractArray = [null, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.tesseractBlessings.globalSpeed];
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
@@ -13495,7 +13482,7 @@ const visualUpdateCubes = () => {
             break;
         case 2:
             document.getElementById("hypercubeQuantity").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.wowHypercubes, 0, true);
-            let hypercubeArray = [null, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.globalSpeed];
+            const hypercubeArray = [null, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.accelerator, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.multiplier, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.offering, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.runeExp, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.obtainium, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.antSpeed, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.antSacrifice, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.antELO, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.talismanBonus, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.hypercubeBlessings.globalSpeed];
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
@@ -13509,8 +13496,8 @@ const visualUpdateCubes = () => {
             break;
         case 3:
             document.getElementById("platonicQuantity").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.wowPlatonicCubes, 0, true);
-            let platonicArray = [_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.cubes, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.tesseracts, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.hypercubes, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.platonics, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.hypercubeBonus, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.taxes, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.scoreBonus, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.globalSpeed];
-            let DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4];
+            const platonicArray = [_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.cubes, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.tesseracts, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.hypercubes, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.platonics, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.hypercubeBonus, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.taxes, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.scoreBonus, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.platonicBlessings.globalSpeed];
+            const DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4];
             accuracy = [5, 5, 5, 5, 2, 3, 3, 2];
             for (let i = 0; i < platonicArray.length; i++) {
                 let augmentAccuracy = 0;
@@ -13535,7 +13522,7 @@ const visualUpdateCorruptions = () => {
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.currentTab !== "traits")
         return;
     document.getElementById("autoAscendMetric").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.autoAscendThreshold, 0, true);
-    let metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.CalcCorruptionStuff)();
+    const metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.CalcCorruptionStuff)();
     document.getElementById("corruptionBankValue").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(metaData[0]);
     document.getElementById("corruptionScoreValue").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(metaData[1], 0, true);
     document.getElementById("corruptionMultiplierValue").textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(metaData[2], 1, true);
@@ -13748,10 +13735,10 @@ const antRepeat = (i) => {
     repeatAnt = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.interval)(() => updateAntDescription(i), 50);
 };
 const updateAntDescription = (i) => {
-    let el = document.getElementById("anttierdescription");
-    let la = document.getElementById("antprice");
-    let ti = document.getElementById("antquantity");
-    let me = document.getElementById("generateant");
+    const el = document.getElementById("anttierdescription");
+    const la = document.getElementById("antprice");
+    const ti = document.getElementById("antquantity");
+    const me = document.getElementById("generateant");
     let priceType = "Galactic Crumbs";
     let tier = "";
     el.textContent = antdesc["antdesc" + i];
@@ -13796,17 +13783,17 @@ const updateAntDescription = (i) => {
 const getAntCost = (originalCost, buyTo, index) => {
     --buyTo;
     const cost = originalCost
-        .times(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antCostGrowth[index], buyTo))
+        .times(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antCostGrowth[index - 1], buyTo))
         .add(1 * buyTo);
     return cost;
 };
 const getAntUpgradeCost = (originalCost, buyTo, index) => {
     --buyTo;
-    const cost = originalCost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeCostIncreases[index], buyTo));
+    const cost = originalCost.times(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeCostIncreases[index - 1], buyTo));
     return cost;
 };
 const buyAntProducers = (pos, type, originalCost, index) => {
-    let sacrificeMult = antSacrificePointsToMultiplier(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints);
+    const sacrificeMult = antSacrificePointsToMultiplier(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints);
     originalCost = new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default(originalCost);
     const tag = index === 1 ? 'reincarnationPoints' : 'antPoints';
     let buyTo = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player[pos + "Owned" + type] + 1;
@@ -13910,7 +13897,7 @@ const antUpgradeDescription = (i) => {
     el.childNodes[0].textContent = content1 + " Level " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1]);
     al.textContent = " [+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1] + c11, bonuslevel)) + "]";
     la.textContent = content2;
-    ti.textContent = "Cost: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeCostIncreases[i], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1] * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.extinctionMultiplier[_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions[10]]).times(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeBaseCost[i])) + " Galactic Crumbs";
+    ti.textContent = "Cost: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeCostIncreases[i - 1], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[i - 1] * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.extinctionMultiplier[_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions[10]]).times(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeBaseCost[i - 1])) + " Galactic Crumbs";
     me.textContent = "CURRENT EFFECT: " + antUpgradeTexts[i - 1]();
 };
 const antSacrificePointsToMultiplier = (points) => {
@@ -13944,7 +13931,7 @@ const showSacrifice = () => {
     }
 };
 const sacrificeAnts = (auto = false) => {
-    let historyEntry = {};
+    const historyEntry = {};
     let p = true;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte("1e40")) {
         if (!auto && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints < 100 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.toggles[32]) {
@@ -13952,7 +13939,7 @@ const sacrificeAnts = (auto = false) => {
         }
         if (p) {
             historyEntry.antSacrificePointsBefore = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints;
-            let sacRewards = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeRewards)();
+            const sacRewards = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeRewards)();
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints += sacRewards.antSacrificePoints;
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards += sacRewards.offerings;
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += sacRewards.obtainium;
@@ -13981,7 +13968,7 @@ const sacrificeAnts = (auto = false) => {
                             unmaxed++;
                     }
                     if (unmaxed > 0) {
-                        let baseAmount = Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards / unmaxed);
+                        const baseAmount = Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards / unmaxed);
                         for (let i = 1; i <= 5; i++) {
                             (0,_Runes__WEBPACK_IMPORTED_MODULE_6__.redeemShards)(i, true, baseAmount);
                         }
@@ -14006,12 +13993,12 @@ const sacrificeAnts = (auto = false) => {
     }
 };
 const autoBuyAnts = () => {
-    const canAffordUpgrade = (x, m) => _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte(getAntUpgradeCost(new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeBaseCost[x]), _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[x - 1] + 1, x).times(m));
+    const canAffordUpgrade = (x, m) => _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte(getAntUpgradeCost(new break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antUpgradeBaseCost[x - 1]), _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antUpgrades[x - 1] + 1, x).times(m));
     const ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
     const cost = ["100", "100", "1000", "1000", "1e5", "1e6", "1e8", "1e11", "1e15", "1e20", "1e40", "1e100"];
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 11) {
         for (let i = 1; i <= ach.length; i++) {
-            let check = i === 12 ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[ach[i - 1]] : _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[ach[i - 1]];
+            const check = i === 12 ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[ach[i - 1]] : _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[ach[i - 1]];
             if (check && canAffordUpgrade(i, 2)) {
                 buyAntUpgrade(cost[i - 1], true, i);
             }
@@ -14020,8 +14007,8 @@ const autoBuyAnts = () => {
     const _ach = [173, 176, 177, 178, 179, 180, 181, 182];
     const _cost = ["1e800", "3", "100", "10000", "1e12", "1e36", "1e100", "1e300"];
     for (let i = 1; i <= _ach.length; i++) {
-        let res = i === 1 ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationPoints : _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints;
-        let m = i === 1 ? 1 : 2;
+        const res = i === 1 ? _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationPoints : _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints;
+        const m = i === 1 ? 1 : 2;
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[_ach[i - 1]] && res.gte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player[_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.ordinals[i - 1] + "CostAnts"].times(m))) {
             buyAntProducers(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.ordinals[i - 1], "Ants", _cost[i - 1], i);
         }
@@ -14109,7 +14096,7 @@ const loadStatisticsCubeMultipliers = () => {
         27: { acc: 4, desc: "Challenge 15 Reward:" },
     };
     for (let i = 0; i < arr.length; i++) {
-        let statCMi = document.getElementById(`statCM${i + 1}`);
+        const statCMi = document.getElementById(`statCM${i + 1}`);
         statCMi.childNodes[0].textContent = map[i + 1].desc;
         document.getElementById(`sCM${i + 1}`).textContent = `x${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(arr[i], map[i + 1].acc, true)}`;
     }
@@ -14143,17 +14130,17 @@ const loadStatisticsOfferingMultipliers = () => {
         23: { acc: 3, desc: "Challenge 15:" },
     };
     for (let i = 0; i < arr.length; i++) {
-        let statOffi = document.getElementById(`statOff${i + 1}`);
+        const statOffi = document.getElementById(`statOff${i + 1}`);
         statOffi.childNodes[0].textContent = map[i + 1].desc;
         document.getElementById(`sOff${i + 1}`).textContent = `x${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(arr[i], map[i + 1].acc, true)}`;
     }
     document.getElementById("sOffT").textContent = `x${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_2__.calculateOfferings)("prestige", true, true), 3)}`;
 };
 const c15RewardUpdate = () => {
-    let exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10];
-    let keys = Object.keys(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.challenge15Rewards);
-    let e = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challenge15Exponent;
-    for (let obj in _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.challenge15Rewards) {
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10];
+    const keys = Object.keys(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.challenge15Rewards);
+    const e = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challenge15Exponent;
+    for (const obj in _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.challenge15Rewards) {
         _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.challenge15Rewards[obj] = 1;
     }
     if (e >= exponentRequirements[0]) {
@@ -14229,8 +14216,8 @@ const c15RewardUpdate = () => {
 };
 const updateDisplayC15Rewards = () => {
     document.getElementById('c15Reward0Num').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challenge15Exponent, 0, true);
-    let exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10];
-    let values = Object.values(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.challenge15Rewards);
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10];
+    const values = Object.values(_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.challenge15Rewards);
     let keepExponent = 'None';
     for (let i = 0; i < exponentRequirements.length; i++) {
         if (keepExponent === 'None' && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challenge15Exponent < exponentRequirements[i]) {
@@ -14276,7 +14263,7 @@ const corruptionDisplay = (index) => {
         document.getElementById("corruptionSelectedPic").style.visibility = "visible";
     }
     _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.corruptionTrigger = index;
-    let corruptionTexts = {
+    const corruptionTexts = {
         1: {
             name: "Corruption I: Divisiveness",
             description: "Your multipliers get disintegrated! Is extra devious without also using Maladaption Corruption",
@@ -14381,10 +14368,10 @@ const corruptionDisplay = (index) => {
     }
 };
 const corruptionButtonsAdd = () => {
-    let rows = document.getElementsByClassName("corruptionStatRow");
+    const rows = document.getElementsByClassName("corruptionStatRow");
     for (let i = 0; i < rows.length; i++) {
-        let row = rows[i];
-        let p = document.createElement("p");
+        const row = rows[i];
+        const p = document.createElement("p");
         p.className = "corrDesc";
         let text = document.createTextNode("Current: ");
         p.appendChild(text);
@@ -14424,12 +14411,12 @@ const corruptionButtonsAdd = () => {
     }
 };
 const corruptionLoadoutTableCreate = () => {
-    let corrCount = 9;
-    let table = (0,_Utility__WEBPACK_IMPORTED_MODULE_3__.getElementById)("corruptionLoadoutTable");
+    const corrCount = 9;
+    const table = (0,_Utility__WEBPACK_IMPORTED_MODULE_3__.getElementById)("corruptionLoadoutTable");
     for (let i = 0; i < Object.keys(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.corruptionLoadouts).length + 1; i++) {
-        let row = table.insertRow();
+        const row = table.insertRow();
         for (let j = 0; j <= corrCount; j++) {
-            let cell = row.insertCell();
+            const cell = row.insertCell();
             if (j === 0) {
                 cell.textContent = (i === 0) ? "Next:" : `Loadout ${i}:`;
             }
@@ -14455,7 +14442,7 @@ const corruptionLoadoutTableCreate = () => {
     }
 };
 const corruptionLoadoutTableUpdate = (updateRow = 0) => {
-    let row = (0,_Utility__WEBPACK_IMPORTED_MODULE_3__.getElementById)("corruptionLoadoutTable").rows[updateRow + 1].cells;
+    const row = (0,_Utility__WEBPACK_IMPORTED_MODULE_3__.getElementById)("corruptionLoadoutTable").rows[updateRow + 1].cells;
     for (let i = 0; i < row.length; i++) {
         if (i === 0 || i > 9)
             continue;
@@ -14628,9 +14615,9 @@ const resetHistoryAdd = (category, kind, data) => {
 };
 _Events__WEBPACK_IMPORTED_MODULE_4__.Synergism.on('historyAdd', resetHistoryAdd);
 const resetHistoryPushNewRow = (category, data) => {
-    let row = resetHistoryRenderRow(category, data);
-    let table = document.getElementById(resetHistoryTableMapping[category]);
-    let tbody = table.querySelector("tbody");
+    const row = resetHistoryRenderRow(category, data);
+    const table = document.getElementById(resetHistoryTableMapping[category]);
+    const tbody = table.querySelector("tbody");
     tbody.insertBefore(row, tbody.childNodes[0]);
     while (tbody.childNodes.length > _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyCountMax) {
         tbody.removeChild(tbody.lastChild);
@@ -14638,34 +14625,34 @@ const resetHistoryPushNewRow = (category, data) => {
 };
 const resetHistoryRenderRow = (_category, data) => {
     let colsUsed = 1;
-    let row = document.createElement("tr");
+    const row = document.createElement("tr");
     let rowContentHtml = "";
-    let kindMeta = historyKinds[data.kind];
-    let localDate = new Date(data.date).toLocaleString();
+    const kindMeta = historyKinds[data.kind];
+    const localDate = new Date(data.date).toLocaleString();
     rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.formatTimeShort)(data.seconds, 60)}</td>`;
-    let gains = [];
+    const gains = [];
     for (let gainIdx = 0; gainIdx < historyGainsOrder.length; ++gainIdx) {
-        let showing = historyGainsOrder[gainIdx];
+        const showing = historyGainsOrder[gainIdx];
         if (data.hasOwnProperty(showing)) {
-            let gainInfo = historyGains[showing];
+            const gainInfo = historyGains[showing];
             if (gainInfo.onlyif && !gainInfo.onlyif(data)) {
                 continue;
             }
-            let formatter = gainInfo.formatter || (() => { });
-            let str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}">${formatter(data[showing], data)}`;
+            const formatter = gainInfo.formatter || (() => { });
+            const str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}">${formatter(data[showing], data)}`;
             gains.push(str);
         }
     }
-    let extra = [];
+    const extra = [];
     if (data.kind === "antsacrifice") {
-        let oldMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_3__.antSacrificePointsToMultiplier)(data.antSacrificePointsBefore);
-        let newMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_3__.antSacrificePointsToMultiplier)(data.antSacrificePointsAfter);
-        let diff = newMulti - oldMulti;
+        const oldMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_3__.antSacrificePointsToMultiplier)(data.antSacrificePointsBefore);
+        const newMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_3__.antSacrificePointsToMultiplier)(data.antSacrificePointsAfter);
+        const diff = newMulti - oldMulti;
         extra.push(`<span title="Ant Multiplier: ${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(oldMulti, 3, false)}--&gt;${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(diff, 3, false)}</span>`, `<span title="+${formatDecimalString(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalString(data.crumbs))}</span>`, `<span title="${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.effectiveELO)}</span>`);
     }
     else if (data.kind === "ascend") {
         extra.push(`<img src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`);
-        let corruptions = resetHistoryFormatCorruptions(data);
+        const corruptions = resetHistoryFormatCorruptions(data);
         if (corruptions !== null) {
             extra.push(corruptions[0]);
             extra.push(corruptions[1]);
@@ -14691,7 +14678,7 @@ const resetHistoryRenderFullTable = (categoryToRender, targetTable) => {
     }
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender].length > 0) {
         for (let i = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender].length - 1; i >= 0; --i) {
-            let row = resetHistoryRenderRow(categoryToRender, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender][i]);
+            const row = resetHistoryRenderRow(categoryToRender, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[categoryToRender][i]);
             tbody.appendChild(row);
         }
     }
@@ -14718,7 +14705,7 @@ const resetHistoryFormatCorruptions = (data) => {
     let score = "Score: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.corruptionScore, 0, true);
     let corruptions = "";
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
-        let corruptionIdx = i + 1;
+        const corruptionIdx = i + 1;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
             corruptions += ` <img src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }
@@ -14752,8 +14739,8 @@ const openPlatonic = (value, max = false) => {
         : Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowPlatonicCubes, value);
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowPlatonicCubes -= toSpend;
     let toSpendModulo = toSpend % 40000;
-    let toSpendDiv40000 = Math.floor(toSpend / 40000);
-    let blessings = {
+    const toSpendDiv40000 = Math.floor(toSpend / 40000);
+    const blessings = {
         cubes: { weight: 13200, pdf: (x) => 0 <= x && x <= 33.000 },
         tesseracts: { weight: 13200, pdf: (x) => 33.000 < x && x <= 66.000 },
         hypercubes: { weight: 13200, pdf: (x) => 66.000 < x && x <= 99.000 },
@@ -14766,22 +14753,22 @@ const openPlatonic = (value, max = false) => {
     for (const key in _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings[key] += blessings[key].weight * toSpendDiv40000;
     }
-    let RNGesus = ['hypercubeBonus', 'taxes', 'scoreBonus', 'globalSpeed'];
+    const RNGesus = ['hypercubeBonus', 'taxes', 'scoreBonus', 'globalSpeed'];
     for (let i = 0; i < RNGesus.length; i++) {
-        let num = Math.random();
+        const num = Math.random();
         if (toSpendModulo / 40000 >= num && toSpendModulo !== 0) {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings[RNGesus[i]] += 1;
             toSpendModulo -= 1;
         }
     }
-    let gainValues = [Math.floor(33 * toSpendModulo / 100), Math.floor(33 * toSpendModulo / 100), Math.floor(33 * toSpendModulo / 100), Math.floor(396 * toSpendModulo / 40000)];
-    let commonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics'];
+    const gainValues = [Math.floor(33 * toSpendModulo / 100), Math.floor(33 * toSpendModulo / 100), Math.floor(33 * toSpendModulo / 100), Math.floor(396 * toSpendModulo / 40000)];
+    const commonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics'];
     for (let i = 0; i < commonDrops.length; i++) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings[commonDrops[i]] += gainValues[i];
         toSpendModulo -= gainValues[i];
     }
     for (let i = 0; i < toSpendModulo; i++) {
-        let num = 100 * Math.random();
+        const num = 100 * Math.random();
         for (const key in _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings) {
             if (blessings[key].pdf(num))
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings[key] += 1;
@@ -14791,8 +14778,8 @@ const openPlatonic = (value, max = false) => {
     _Events__WEBPACK_IMPORTED_MODULE_2__.Synergism.emit('openPlatonic', toSpend);
 };
 const calculatePlatonicBlessings = () => {
-    let platonicArray = [_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.cubes, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.tesseracts, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.hypercubes, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.platonics, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.hypercubeBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.taxes, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.scoreBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.globalSpeed];
-    let DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4];
+    const platonicArray = [_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.cubes, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.tesseracts, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.hypercubes, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.platonics, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.hypercubeBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.taxes, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.scoreBonus, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicBlessings.globalSpeed];
+    const DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4];
     for (let i = 0; i < platonicArray.length; i++) {
         let power = 1;
         let mult = 1;
@@ -15142,7 +15129,7 @@ const checkVariablesOnLoad = (data) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.wowAbyssals = 0;
     }
     if (data.platonicBlessings === undefined) {
-        let ascCount = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount;
+        const ascCount = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount;
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 15) {
             (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.resetCheck)('ascensionChallenge', false, true);
         }
@@ -15254,7 +15241,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 const generateEventHandlers = () => {
-    let ordinals = ['null', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'];
+    const ordinals = ['null', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'];
     document.getElementById('ascCubeStats').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleAscStatPerSecond)(1));
     document.getElementById('ascTessStats').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleAscStatPerSecond)(2));
     document.getElementById('ascHyperStats').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleAscStatPerSecond)(3));
@@ -15286,13 +15273,13 @@ const generateEventHandlers = () => {
     document.getElementById('anttab').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleTabs)('ants'));
     document.getElementById('cubetab').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleTabs)('cubes'));
     document.getElementById('traitstab').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleTabs)('traits'));
-    let buildingTypes = ['Coin', 'Diamond', 'Mythos', 'Particle', 'Tesseract'];
+    const buildingTypes = ['Coin', 'Diamond', 'Mythos', 'Particle', 'Tesseract'];
     for (let index = 0; index < buildingTypes.length; index++) {
         document.getElementById(`switchTo${buildingTypes[index]}Building`).addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleSubTab)(1, index));
     }
-    let buildingTypesAlternate = ['coin', 'crystal', 'mythos', 'particle', 'tesseract', 'offering'];
-    let buildingOrds = ['one', 'ten', 'hundred', 'thousand'];
-    let buildingOrdsToNum = [1, 10, 100, 1000];
+    const buildingTypesAlternate = ['coin', 'crystal', 'mythos', 'particle', 'tesseract', 'offering'];
+    const buildingOrds = ['one', 'ten', 'hundred', 'thousand'];
+    const buildingOrdsToNum = [1, 10, 100, 1000];
     for (let index = 0; index < buildingOrds.length; index++) {
         for (let index2 = 0; index2 < buildingTypesAlternate.length; index2++) {
             document.getElementById(buildingTypesAlternate[index2] + buildingOrds[index]).addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleBuyAmount)(buildingOrdsToNum[index], buildingTypesAlternate[index2]));
@@ -15301,8 +15288,8 @@ const generateEventHandlers = () => {
     document.getElementById('buyaccelerator').addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyAccelerator)());
     document.getElementById('buymultiplier').addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyMultiplier)());
     document.getElementById('buyacceleratorboost').addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.boostAccelerator)());
-    let buildingTypesAlternate2 = ['coin', 'diamond', 'mythos'];
-    let buildingTypesAlternate3 = ['Coin', 'Diamonds', 'Mythos'];
+    const buildingTypesAlternate2 = ['coin', 'diamond', 'mythos'];
+    const buildingTypesAlternate3 = ['Coin', 'Diamonds', 'Mythos'];
     for (let index = 0; index < 3; index++) {
         for (let index2 = 1; index2 <= 5; index2++) {
             document.getElementById(`buy${buildingTypesAlternate2[index]}${index2}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyProducer)(ordinals[index2], buildingTypesAlternate3[index], index === 0 ? index2 : index2 * (index2 + 1) / 2));
@@ -15312,11 +15299,11 @@ const generateEventHandlers = () => {
         document.getElementById(`buycrystalupgrade${index}`).addEventListener('mouseover', () => (0,_Upgrades__WEBPACK_IMPORTED_MODULE_4__.crystalupgradedescriptions)(index));
         document.getElementById(`buycrystalupgrade${index}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyCrystalUpgrades)(index));
     }
-    let particleBuildingCosts = [1, 100, 1e4, 1e8, 1e16];
+    const particleBuildingCosts = [1, 100, 1e4, 1e8, 1e16];
     for (let index = 0; index < 5; index++) {
         document.getElementById(`buyparticles${index + 1}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyParticleBuilding)(ordinals[index + 1], particleBuildingCosts[index]));
     }
-    let tesseractBuildingCosts = [1, 10, 100, 1000, 10000];
+    const tesseractBuildingCosts = [1, 10, 100, 1000, 10000];
     for (let index = 0; index < 5; index++) {
         document.getElementById(`buyTesseracts${index + 1}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyTesseractBuilding)(tesseractBuildingCosts[index], index + 1));
         document.getElementById(`tesseractAutoToggle${index + 1}`).addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleAutoTesseracts)(index + 1));
@@ -15379,14 +15366,14 @@ const generateEventHandlers = () => {
         document.getElementById(`activaterune${index + 1}`).addEventListener('mouseover', () => (0,_Runes__WEBPACK_IMPORTED_MODULE_8__.displayRuneInformation)(index + 1));
         document.getElementById(`activaterune${index + 1}`).addEventListener('click', () => (0,_Runes__WEBPACK_IMPORTED_MODULE_8__.redeemShards)(index + 1));
     }
-    let talismanBuyPercents = [10, 25, 50, 100];
-    let talismanBuyPercentsOrd = ['Ten', 'TwentyFive', 'Fifty', 'Hundred'];
+    const talismanBuyPercents = [10, 25, 50, 100];
+    const talismanBuyPercentsOrd = ['Ten', 'TwentyFive', 'Fifty', 'Hundred'];
     for (let index = 0; index < talismanBuyPercents.length; index++) {
         document.getElementById(`talisman${talismanBuyPercentsOrd[index]}`).addEventListener('click', () => (0,_Talismans__WEBPACK_IMPORTED_MODULE_9__.toggleTalismanBuy)(index));
     }
     document.getElementById('toggleautoenhance').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleautoenhance)());
     document.getElementById('toggleautofortify').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleautofortify)());
-    let talismanItemNames = ['shard', 'commonFragment', 'uncommonFragment', 'rareFragment', 'epicFragment', 'legendaryFragment', 'mythicalFragment'];
+    const talismanItemNames = ['shard', 'commonFragment', 'uncommonFragment', 'rareFragment', 'epicFragment', 'legendaryFragment', 'mythicalFragment'];
     for (let index = 0; index < talismanItemNames.length; index++) {
         document.getElementById(`buyTalismanItem${index + 1}`).addEventListener('mouseover', () => (0,_Talismans__WEBPACK_IMPORTED_MODULE_9__.updateTalismanCostDisplay)(talismanItemNames[index]));
         document.getElementById(`buyTalismanItem${index + 1}`).addEventListener('click', () => (0,_Talismans__WEBPACK_IMPORTED_MODULE_9__.buyTalismanResources)(talismanItemNames[index]));
@@ -15431,13 +15418,13 @@ const generateEventHandlers = () => {
     console.log('Successfully added "Onmouseover" and "Onclick" events to research 200!');
     document.getElementById('toggleresearchbuy').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleResearchBuy)());
     document.getElementById('toggleautoresearch').addEventListener('click', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.toggleAutoResearch)());
-    let antProducerCostVals = ['null', '1e800', '3', '100', '10000', '1e12', '1e36', '1e100', '1e300'];
+    const antProducerCostVals = ['null', '1e800', '3', '100', '10000', '1e12', '1e36', '1e100', '1e300'];
     for (let index = 1; index <= 8; index++) {
         document.getElementById(`anttier${index}`).addEventListener('mouseover', () => (0,_Ants__WEBPACK_IMPORTED_MODULE_12__.updateAntDescription)(index));
         document.getElementById(`anttier${index}`).addEventListener('mouseover', () => (0,_Ants__WEBPACK_IMPORTED_MODULE_12__.antRepeat)(index));
         document.getElementById(`anttier${index}`).addEventListener('click', () => (0,_Ants__WEBPACK_IMPORTED_MODULE_12__.buyAntProducers)(ordinals[index], 'Ants', antProducerCostVals[index], index));
     }
-    let antUpgradeCostVals = ['null', '100', '100', '1000', '1000', '1e5', '1e6', '1e8', '1e11', '1e15', '1e20', '1e40', '1e100'];
+    const antUpgradeCostVals = ['null', '100', '100', '1000', '1000', '1e5', '1e6', '1e8', '1e11', '1e15', '1e20', '1e40', '1e100'];
     for (let index = 1; index <= 12; index++) {
         document.getElementById(`antUpgrade${index}`).addEventListener('mouseover', () => (0,_Ants__WEBPACK_IMPORTED_MODULE_12__.antUpgradeDescription)(index));
         document.getElementById(`antUpgrade${index}`).addEventListener('click', () => (0,_Ants__WEBPACK_IMPORTED_MODULE_12__.buyAntUpgrade)(antUpgradeCostVals[index], false, index));
@@ -15472,7 +15459,7 @@ const generateEventHandlers = () => {
     document.getElementById('open40kPlatonicCube').addEventListener('click', () => (0,_PlatonicCubes__WEBPACK_IMPORTED_MODULE_16__.openPlatonic)(4e4, false));
     document.getElementById('open1mPlatonicCube').addEventListener('click', () => (0,_PlatonicCubes__WEBPACK_IMPORTED_MODULE_16__.openPlatonic)(1e6, false));
     document.getElementById('openMostPlatonicCube').addEventListener('click', () => (0,_PlatonicCubes__WEBPACK_IMPORTED_MODULE_16__.openPlatonic)(1, true));
-    let platonicUpgrades = document.getElementsByClassName('platonicUpgradeImage');
+    const platonicUpgrades = document.getElementsByClassName('platonicUpgradeImage');
     for (let index = 0; index < platonicUpgrades.length; index++) {
         platonicUpgrades[index].addEventListener('mouseover', () => (0,_Platonic__WEBPACK_IMPORTED_MODULE_17__.createPlatonicDescription)(index + 1));
         platonicUpgrades[index].addEventListener('click', () => (0,_Platonic__WEBPACK_IMPORTED_MODULE_17__.buyPlatonicUpgrades)(index + 1));
@@ -15757,9 +15744,9 @@ const platUpgradeBaseCosts = {
 };
 const checkPlatonicUpgrade = (index) => {
     let checksum = 0;
-    let resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'];
-    let resourceNames = ['researchPoints', 'runeshards', 'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowAbyssals'];
-    let checks = {
+    const resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'];
+    const resourceNames = ['researchPoints', 'runeshards', 'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowAbyssals'];
+    const checks = {
         obtainium: false,
         offerings: false,
         cubes: false,
@@ -15785,7 +15772,7 @@ const createPlatonicDescription = (index) => {
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
         maxLevelAppend = " [MAX]";
     }
-    let resourceCheck = checkPlatonicUpgrade(index);
+    const resourceCheck = checkPlatonicUpgrade(index);
     document.getElementById('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index];
     document.getElementById('platonicUpgradeLevel').textContent = "Level: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicUpgrades[index]) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(platUpgradeBaseCosts[index].maxLevel) + maxLevelAppend;
     document.getElementById('platonicOfferingCost').textContent = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(platUpgradeBaseCosts[index].offerings) + " Offerings";
@@ -15829,7 +15816,7 @@ const createPlatonicDescription = (index) => {
     }
 };
 const buyPlatonicUpgrades = (index) => {
-    let resourceCheck = checkPlatonicUpgrade(index);
+    const resourceCheck = checkPlatonicUpgrade(index);
     if (resourceCheck.canBuy) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.platonicUpgrades[index] += 1;
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints -= platUpgradeBaseCosts[index].obtainium;
@@ -16118,9 +16105,9 @@ const cubeToQuarkDesc = "Instead of a daily cap of 25 Quarks by opening Wow! Cub
 const tesseractToQuarkDesc = "Instead of a daily cap of 25 Quarks by opening Wow! Tesseracts, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]";
 const hypercubeToQuarkDesc = "Instead of a daily cap of 25 Quarks by opening Wow! Hypercubes, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]";
 const shopDescriptions = (input) => {
-    let rofl = document.getElementById("quarkdescription");
-    let lmao = document.getElementById("quarkcost");
-    let lol = document.getElementById("quarkeffect");
+    const rofl = document.getElementById("quarkdescription");
+    const lmao = document.getElementById("quarkcost");
+    const lol = document.getElementById("quarkeffect");
     switch (input) {
         case "offeringPotion":
             rofl.textContent = offerconsumedesc;
@@ -16502,7 +16489,7 @@ const addTimers = (input, time) => {
             _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.ascensionCounter += time * timeMultiplier;
             break;
         case "quarks":
-            let maxQuarkTimer = getMaxQuarkTime();
+            const maxQuarkTimer = getMaxQuarkTime();
             _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.quarkstimer += time * timeMultiplier;
             _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.quarkstimer = (_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.quarkstimer > maxQuarkTimer) ? maxQuarkTimer : _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.quarkstimer;
             break;
@@ -16521,7 +16508,7 @@ const automaticTools = (input, time) => {
     switch (input) {
         case "addObtainium":
             (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateObtainium)();
-            let obtainiumGain = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAutomaticObtainium)();
+            const obtainiumGain = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAutomaticObtainium)();
             _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.researchPoints += obtainiumGain * time * timeMultiplier;
             break;
         case "addOfferings":
@@ -16533,32 +16520,30 @@ const automaticTools = (input, time) => {
             _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.sacrificeTimer += time;
             if (_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.sacrificeTimer >= 1) {
                 if (_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.cubeUpgrades[20] === 1) {
-                    let notMaxed = (5 - checkMaxRunes());
+                    const notMaxed = (5 - checkMaxRunes());
                     if (notMaxed > 0) {
-                        let baseAmount = Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.runeshards / notMaxed);
+                        const baseAmount = Math.floor(_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.runeshards / notMaxed);
                         for (let i = 0; i < 5; i++) {
                             (0,_Runes__WEBPACK_IMPORTED_MODULE_2__.redeemShards)(i + 1, true, baseAmount);
                         }
                     }
                 }
                 else {
-                    let rune = _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.autoSacrifice;
+                    const rune = _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.autoSacrifice;
                     (0,_Runes__WEBPACK_IMPORTED_MODULE_2__.redeemShards)(rune, true, 0);
                 }
                 _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.sacrificeTimer %= 1;
             }
-            ;
             break;
         case "antSacrifice":
             _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.antSacrificeTimer += time * timeMultiplier;
             _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.antSacrificeTimerReal += time;
-            let antSacrificeTimer = (_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.autoAntSacrificeMode === 2) ?
+            const antSacrificeTimer = (_Synergism__WEBPACK_IMPORTED_MODULE_3__.default.autoAntSacrificeMode === 2) ?
                 _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.antSacrificeTimerReal : _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.antSacrificeTimer;
             if (antSacrificeTimer >= _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.autoAntSacTimer && _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.researches[124] === 1
                 && _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.autoAntSacrifice && _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.antPoints.gte("1e40")) {
                 (0,_Ants__WEBPACK_IMPORTED_MODULE_0__.sacrificeAnts)(true);
             }
-            ;
             break;
     }
 };
@@ -16660,7 +16645,7 @@ const automaticTools = (input, time) => {
 /******/ 	/* webpack/runtime/load script */
 /******/ 	(() => {
 /******/ 		var inProgress = {};
-/******/ 		// data-webpack is not used as build has no uniqueName
+/******/ 		var dataWebpackPrefix = "synergismofficial:";
 /******/ 		// loadScript function to load a script via script tag
 /******/ 		__webpack_require__.l = (url, done, key, chunkId) => {
 /******/ 			if(inProgress[url]) { inProgress[url].push(done); return; }
@@ -16669,7 +16654,7 @@ const automaticTools = (input, time) => {
 /******/ 				var scripts = document.getElementsByTagName("script");
 /******/ 				for(var i = 0; i < scripts.length; i++) {
 /******/ 					var s = scripts[i];
-/******/ 					if(s.getAttribute("src") == url) { script = s; break; }
+/******/ 					if(s.getAttribute("src") == url || s.getAttribute("data-webpack") == dataWebpackPrefix + key) { script = s; break; }
 /******/ 				}
 /******/ 			}
 /******/ 			if(!script) {
@@ -16681,7 +16666,7 @@ const automaticTools = (input, time) => {
 /******/ 				if (__webpack_require__.nc) {
 /******/ 					script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 				}
-/******/ 		
+/******/ 				script.setAttribute("data-webpack", dataWebpackPrefix + key);
 /******/ 				script.src = url;
 /******/ 			}
 /******/ 			inProgress[url] = [done];
@@ -16823,7 +16808,7 @@ const automaticTools = (input, time) => {
 /******/ 		
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunksynergismofficial"] = self["webpackChunksynergismofficial"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 		

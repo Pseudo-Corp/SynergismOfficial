@@ -49,19 +49,19 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         }
     }
     let descriptor = ""
-    let a = document.getElementById("challengeName");
-    let b = document.getElementById("challengeFlavor");
-    let c = document.getElementById("challengeRestrictions");
-    let d = document.getElementById("challengeGoal");
-    let e = document.getElementById("challengePer1").childNodes[0];
-    let f = document.getElementById("challengePer2").childNodes[0];
-    let g = document.getElementById("challengePer3").childNodes[0];
-    let h = document.getElementById("challengeFirst1");
-    let j = document.getElementById("challengeQuarkBonus");
-    let k = document.getElementById("startChallenge");
-    let l = document.getElementById("challengeCurrent1");
-    let m = document.getElementById("challengeCurrent2");
-    let n = document.getElementById("challengeCurrent3");
+    const a = document.getElementById("challengeName");
+    const b = document.getElementById("challengeFlavor");
+    const c = document.getElementById("challengeRestrictions");
+    const d = document.getElementById("challengeGoal");
+    const e = document.getElementById("challengePer1").childNodes[0];
+    const f = document.getElementById("challengePer2").childNodes[0];
+    const g = document.getElementById("challengePer3").childNodes[0];
+    const h = document.getElementById("challengeFirst1");
+    const j = document.getElementById("challengeQuarkBonus");
+    const k = document.getElementById("startChallenge");
+    const l = document.getElementById("challengeCurrent1");
+    const m = document.getElementById("challengeCurrent2");
+    const n = document.getElementById("challengeCurrent3");
 
 
     if (i === 1 && G['challengefocus'] === 1) {
@@ -279,9 +279,9 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         m.textContent = ""
         n.textContent = ""
     }
-    let scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
-    let scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
-    let scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
+    const scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
+    const scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
+    const scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
     let scoreDisplay = 0;
     if(i <= 5){
         if(player.highestchallengecompletions[i] >= 750){scoreDisplay = scoreArray3[i]}
@@ -321,7 +321,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
     }
     document.getElementById("toggleAutoChallengeIgnore").textContent = "Automatically Run Chal." + i + " [" + constructor + "]"
 
-    let ella = document.getElementById("toggleAutoChallengeStart");
+    const ella = document.getElementById("toggleAutoChallengeStart");
     (player.autoChallengeRunning) ?
         (ella.textContent = "Auto Challenge Sweep [ON]", ella.style.border = "2px solid gold") :
         (ella.textContent = "Auto Challenge Sweep [OFF]", ella.style.border = "2px solid red");

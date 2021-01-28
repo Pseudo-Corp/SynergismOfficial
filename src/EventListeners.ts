@@ -40,7 +40,7 @@ import { Globals as G } from './Variables';
 */
 
 export const generateEventHandlers = () => {
-    let ordinals = ['null','first','second','third','fourth','fifth','sixth','seventh','eighth']
+    const ordinals = ['null','first','second','third','fourth','fifth','sixth','seventh','eighth']
 
 // UPPER UI ELEMENTS
     //Prelude: Cube/Tesseract/Hypercube/Platonic display UIs (Onclicks)
@@ -83,15 +83,15 @@ export const generateEventHandlers = () => {
 
 // BUILDINGS TAB
 //Part 1: Upper portion (Subtab toggle)
-    let buildingTypes = ['Coin','Diamond','Mythos','Particle','Tesseract']
+    const buildingTypes = ['Coin','Diamond','Mythos','Particle','Tesseract']
     for (let index = 0; index < buildingTypes.length; index++) {
         document.getElementById(`switchTo${buildingTypes[index]}Building`).addEventListener('click', () => toggleSubTab(1, index))
     
     }
 //Part 2: Building Amount Toggles
-    let buildingTypesAlternate = ['coin','crystal','mythos','particle','tesseract','offering']
-    let buildingOrds = ['one','ten','hundred','thousand']
-    let buildingOrdsToNum = [1, 10, 100, 1000]
+    const buildingTypesAlternate = ['coin','crystal','mythos','particle','tesseract','offering']
+    const buildingOrds = ['one','ten','hundred','thousand']
+    const buildingOrdsToNum = [1, 10, 100, 1000]
     for (let index = 0; index < buildingOrds.length; index++) {
         for (let index2 = 0; index2 < buildingTypesAlternate.length; index2++) {
             document.getElementById(buildingTypesAlternate[index2]+buildingOrds[index]).addEventListener('click', () => toggleBuyAmount(buildingOrdsToNum[index],buildingTypesAlternate[index2]))
@@ -104,8 +104,8 @@ export const generateEventHandlers = () => {
     document.getElementById('buyacceleratorboost').addEventListener('click', () => boostAccelerator())
 
     // Coin, Diamond and Mythos Buildings
-    let buildingTypesAlternate2 = ['coin', 'diamond', 'mythos']
-    let buildingTypesAlternate3 = ['Coin', 'Diamonds', 'Mythos'] as const; //TODO: A cleaner way to implement this dumb shit
+    const buildingTypesAlternate2 = ['coin', 'diamond', 'mythos']
+    const buildingTypesAlternate3 = ['Coin', 'Diamonds', 'Mythos'] as const; //TODO: A cleaner way to implement this dumb shit
     for (let index = 0; index < 3; index++){
         for (let index2 = 1; index2 <= 5; index2++) {
             document.getElementById(`buy${buildingTypesAlternate2[index]}${index2}`).addEventListener('click', () => 
@@ -122,7 +122,7 @@ export const generateEventHandlers = () => {
     }
     
     // Particle Buildings
-    let particleBuildingCosts = [1, 100, 1e4, 1e8, 1e16]
+    const particleBuildingCosts = [1, 100, 1e4, 1e8, 1e16]
     for (let index = 0; index < 5; index++) {
         
         document.getElementById(`buyparticles${index+1}`).addEventListener('click', () => buyParticleBuilding(ordinals[index+1],particleBuildingCosts[index]))
@@ -130,7 +130,7 @@ export const generateEventHandlers = () => {
     }
 
     // Tesseract Buildings
-    let tesseractBuildingCosts = [1, 10, 100, 1000, 10000]
+    const tesseractBuildingCosts = [1, 10, 100, 1000, 10000]
     for (let index = 0; index < 5; index++) {
         
         document.getElementById(`buyTesseracts${index+1}`).addEventListener('click', () => buyTesseractBuilding(tesseractBuildingCosts[index],index+1))
@@ -253,8 +253,8 @@ export const generateEventHandlers = () => {
     }
 
 // Part 2: Talismans Subtab
-    let talismanBuyPercents = [10, 25, 50, 100]
-    let talismanBuyPercentsOrd = ['Ten', 'TwentyFive', 'Fifty', 'Hundred']
+    const talismanBuyPercents = [10, 25, 50, 100]
+    const talismanBuyPercentsOrd = ['Ten', 'TwentyFive', 'Fifty', 'Hundred']
 
     for (let index = 0; index < talismanBuyPercents.length; index++) {
     
@@ -266,7 +266,7 @@ export const generateEventHandlers = () => {
     document.getElementById('toggleautofortify').addEventListener('click', () => toggleautofortify())
 
     //Talisman Fragments/Shards
-    let talismanItemNames = ['shard','commonFragment','uncommonFragment','rareFragment','epicFragment','legendaryFragment','mythicalFragment'] as const;
+    const talismanItemNames = ['shard','commonFragment','uncommonFragment','rareFragment','epicFragment','legendaryFragment','mythicalFragment'] as const;
     for (let index = 0; index < talismanItemNames.length; index++) {
         
         document.getElementById(`buyTalismanItem${index+1}`).addEventListener('mouseover', () => updateTalismanCostDisplay(talismanItemNames[index]))
@@ -346,7 +346,7 @@ export const generateEventHandlers = () => {
 
 // ANTHILL TAB
 //Part 1: Ant Producers (Tiers 1-8)
-let antProducerCostVals = ['null','1e800','3','100','10000','1e12','1e36','1e100','1e300']
+const antProducerCostVals = ['null','1e800','3','100','10000','1e12','1e36','1e100','1e300']
 for (let index = 1; index <= 8 ; index++) {
 
     //Onmouse Events
@@ -357,7 +357,7 @@ for (let index = 1; index <= 8 ; index++) {
     
 }
 //Part 2: Ant Upgrades (1-12)
-let antUpgradeCostVals = ['null', '100', '100', '1000', '1000', '1e5', '1e6', '1e8', '1e11', '1e15', '1e20', '1e40', '1e100']
+const antUpgradeCostVals = ['null', '100', '100', '1000', '1000', '1e5', '1e6', '1e8', '1e11', '1e15', '1e20', '1e40', '1e100']
 for (let index = 1; index <= 12; index++) {
 
     //Onmouse Event
@@ -420,7 +420,7 @@ for (let index = 1; index <= 12; index++) {
     document.getElementById('openMostPlatonicCube').addEventListener('click', () => openPlatonic(1, true))
 
 //Part 3: Platonic Upgrade Section
-let platonicUpgrades = document.getElementsByClassName('platonicUpgradeImage')
+const platonicUpgrades = document.getElementsByClassName('platonicUpgradeImage')
 for (let index = 0; index < platonicUpgrades.length; index++) {
 
     platonicUpgrades[index].addEventListener('mouseover', () => createPlatonicDescription(index+1))

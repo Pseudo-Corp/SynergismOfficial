@@ -5,7 +5,7 @@ import { Globals as G } from './Variables';
 
 const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, number] => {
     buyAmount = Math.min(G['researchMaxLevels'][index] - player.researches[index], buyAmount)
-    let metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index], player.researchPoints, linGrowth, buyAmount)
+    const metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index], player.researchPoints, linGrowth, buyAmount)
     return [metaData[0], metaData[1]]
 }
 
@@ -18,7 +18,7 @@ const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, 
 export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
     // Handles background color of the currently focused research if auto research is upgrading something else
     if (player.autoResearchToggle && player.autoResearch > 0 && !auto) {
-        let p = player.autoResearch
+        const p = player.autoResearch
         //Is max level, make green
         if (player.researches[p] === G['researchMaxLevels'][p]) {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "green"
@@ -40,8 +40,8 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
     }
 
     // Buys Research. metaData returns amount of levels to buy and cost, array
-    let buyamount = (G['maxbuyresearch'] || auto) ? 1e5 : 1;
-    let metaData = getResearchCost(index, buyamount, linGrowth)
+    const buyamount = (G['maxbuyresearch'] || auto) ? 1e5 : 1;
+    const metaData = getResearchCost(index, buyamount, linGrowth)
 
     if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && player.researchPoints >= metaData[1]) {
         player.researchPoints -= metaData[1]
@@ -90,7 +90,7 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
         }
         // Researches that are unlocked work
         if (isResearchUnlocked(player.autoResearch)) {
-            let doc = document.getElementById("res" + G['researchOrderByCost'][player.roombaResearchIndex])
+            const doc = document.getElementById("res" + G['researchOrderByCost'][player.roombaResearchIndex])
             if (doc)
                 doc.style.backgroundColor = "orange"
         }
@@ -105,19 +105,19 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
  * Calculates the max research index for the research roomba
  */
 export const maxRoombaResearchIndex = (p = player) => {
-    let base = p.ascensionCount > 0 ? 140 : 125; // 125 researches pre-A + 15 from A
-    let c11 = p.challengecompletions[11] > 0 ? 15 : 0;
-    let c12 = p.challengecompletions[12] > 0 ? 15 : 0;
-    let c13 = p.challengecompletions[13] > 0 ? 15 : 0;
-    let c14 = p.challengecompletions[14] > 0 ? 15 : 0;
+    const base = p.ascensionCount > 0 ? 140 : 125; // 125 researches pre-A + 15 from A
+    const c11 = p.challengecompletions[11] > 0 ? 15 : 0;
+    const c12 = p.challengecompletions[12] > 0 ? 15 : 0;
+    const c13 = p.challengecompletions[13] > 0 ? 15 : 0;
+    const c14 = p.challengecompletions[14] > 0 ? 15 : 0;
     return base + c11 + c12 + c13 + c14;
 }
 
 export const isResearchUnlocked = (index: number) => {
     // https://stackoverflow.com/questions/20477177/creating-an-array-of-cumulative-sum-in-javascript
     const cumuSum = (sum => (value: number) => sum += value)(0);
-    let indices = [3 * 25, 5, 20, 10, 15, 15, 15, 15, 15, 15].map(cumuSum);
-    let chievos = [50, 124, 127, 134, 141, 183, 197, 204, 211, 218];
+    const indices = [3 * 25, 5, 20, 10, 15, 15, 15, 15, 15, 15].map(cumuSum);
+    const chievos = [50, 124, 127, 134, 141, 183, 197, 204, 211, 218];
     for (let i = 0; i < indices.length; i++) {
         if (i === 3 && (index === 121 || index === 124 || index === 150)) {
             return player.achievements[chievos[i]] > 0;
@@ -335,11 +335,11 @@ const resdesc = [
 ];
 
 export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => {
-    let buyAmount = (G['maxbuyresearch'] || auto) ? 100000 : 1;
-    let y = resdesc[i-1];
+    const buyAmount = (G['maxbuyresearch'] || auto) ? 100000 : 1;
+    const y = resdesc[i-1];
     let z = ""
-    let p = "res" + i
-    let metaData = getResearchCost(i, buyAmount, linGrowth);
+    const p = "res" + i
+    const metaData = getResearchCost(i, buyAmount, linGrowth);
     z = " Cost: " + (format(metaData[1], 0, false)) + " Obtainium [+" + format(metaData[0] - player.researches[i], 0, true) + " Levels]"
     if (player.researches[i] === (G['researchMaxLevels'][i])) {
         document.getElementById("researchcost").style.color = "Gold"
@@ -375,7 +375,7 @@ export const updateResearchBG = (j: number) => {
         player.researches[j] = G['researchMaxLevels'][j]
     }
 
-    let k = "res" + j
+    const k = "res" + j
     if (player.researches[j] > 0.5 && player.researches[j] < G['researchMaxLevels'][j]) {
         document.getElementById(k).style.backgroundColor = "purple"
     } else if (player.researches[j] > 0.5 && player.researches[j] >= G['researchMaxLevels'][j]) {

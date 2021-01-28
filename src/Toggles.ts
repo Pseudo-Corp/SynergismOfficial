@@ -43,10 +43,10 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
     revealStuff();
     hideStuff();
     
-    let subTabList = subTabsInMainTab(player.tabnumber).subTabList
+    const subTabList = subTabsInMainTab(player.tabnumber).subTabList
     if (player.tabnumber !== -1) {
         for (let i = 0; i < subTabList.length; i++) {
-            let button = document.getElementById(subTabList[i].buttonID)
+            const button = document.getElementById(subTabList[i].buttonID)
             if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
                 player.subtabNumber = i
                 break;
@@ -58,7 +58,7 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
         }
     } else { // handle settings tab
         // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-        let btns = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children
+        const btns = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children
         for (let i = 0; i < btns.length; i++) {
             if (btns[i].classList.contains("buttonActive")) {
                 player.subtabNumber = i
@@ -126,7 +126,7 @@ export const toggleBuyAmount = (quantity: number, type: string) => {
     player[type + 'buyamount'] = quantity
     let a = ['one', 'ten', 'hundred', 'thousand'][quantity.toString().length - 1];
 
-    let c = type + a
+    const c = type + a
     let d = ""
     d = d + c
 
@@ -194,7 +194,7 @@ export const toggleShops = (i: number) => {
 export function tabs(): Tab;
 export function tabs(mainTab: number): TabValue;
 export function tabs(mainTab?: number) {
-    let tabs: Tab = {
+    const tabs: Tab = {
         "-1": {tabName: "settings", unlocked: true},
         0: {tabName: "shop", unlocked: player.unlocks.reincarnate},
         1: {tabName: "buildings", unlocked: true},
@@ -225,7 +225,7 @@ export const subTabsInMainTab = (mainTab: number) => {
      * An array of sub-tab objects with the IDs for the sub-tabs and buttons, and unlock conditions
      * @type {SubTab}
      */
-    let subTabs: SubTab = {
+    const subTabs: SubTab = {
         "-1": {
             tabSwitcher: setActiveSettingScreen,
             subTabList: [
@@ -281,11 +281,11 @@ export const subTabsInMainTab = (mainTab: number) => {
 export const keyboardTabChange = (dir = 1, main = true) => {
     if (main) {
         player.tabnumber += dir
-        let maxTab = Object.keys(tabs()).reduce((a, b) => Math.max(a, +b), -Infinity);
-        let minTab = Object.keys(tabs()).reduce((a, b) => Math.min(a, +b), Infinity);
+        const maxTab = Object.keys(tabs()).reduce((a, b) => Math.max(a, +b), -Infinity);
+        const minTab = Object.keys(tabs()).reduce((a, b) => Math.min(a, +b), Infinity);
         // The loop point is chosen to be before settings so that new tabs can just be added to the end of the list
         // without needing to mess with the settings and shop
-        let handleLoopBack = () => {
+        const handleLoopBack = () => {
             if (player.tabnumber === maxTab + 1) { // went over from the right
                 player.tabnumber = minTab // loop back left
             }
@@ -300,12 +300,12 @@ export const keyboardTabChange = (dir = 1, main = true) => {
         }
         toggleTabs(tabs(player.tabnumber).tabName)
     } else {
-        let subTabList = subTabsInMainTab(player.tabnumber).subTabList
+        const subTabList = subTabsInMainTab(player.tabnumber).subTabList
         if (subTabList.length === 0)
             return
         player.subtabNumber += dir
-        let handleLoopBack = () => {
-            let numSubTabs = subTabList.length
+        const handleLoopBack = () => {
+            const numSubTabs = subTabList.length
             player.subtabNumber = (player.subtabNumber + numSubTabs) % numSubTabs
         }
         handleLoopBack()
@@ -321,7 +321,7 @@ export const toggleSubTab = (mainTab = 1, subTab = 0) => {
     if (tabs(mainTab).unlocked && subTabsInMainTab(mainTab).subTabList.length > 0) {
         if (mainTab === -1) {
             // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-            let btn = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children[subTab]
+            const btn = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children[subTab]
             if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked)
                 subTabsInMainTab(mainTab).tabSwitcher(subTabsInMainTab(mainTab).subTabList[subTab].subTabID, btn)
         } else {
@@ -406,7 +406,7 @@ export const toggleResearchBuy = () => {
 }*/
 
 export const toggleAutoResearch = () => {
-    let el = document.getElementById("toggleautoresearch")
+    const el = document.getElementById("toggleautoresearch")
     if (player.autoResearchToggle) {
         player.autoResearchToggle = false;
         el.textContent = "Automatic: OFF";
@@ -419,7 +419,7 @@ export const toggleAutoResearch = () => {
 
     if (!player.autoResearchToggle) {
         for (let i = 1; i <= maxRoombaResearchIndex(player); i++) {
-            let l = document.getElementById("res" + i)
+            const l = document.getElementById("res" + i)
             if (player.researches[i] === 0) {
                 l.style.backgroundColor = "black"
             }
@@ -434,7 +434,7 @@ export const toggleAutoResearch = () => {
 
     if (player.autoResearchToggle && player.cubeUpgrades[9] === 1) {
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
-        let doc = document.getElementById("res" + player.autoResearch)
+        const doc = document.getElementById("res" + player.autoResearch)
         if (doc)
             doc.style.backgroundColor = "orange"
     }
@@ -443,7 +443,7 @@ export const toggleAutoResearch = () => {
 }
 
 export const toggleAutoSacrifice = (index: number) => {
-    let el = document.getElementById("toggleautosacrifice")
+    const el = document.getElementById("toggleautosacrifice")
     if (index === 0) {
         if (player.autoSacrificeToggle) {
             player.autoSacrificeToggle = false;
@@ -466,7 +466,7 @@ export const toggleAutoSacrifice = (index: number) => {
 
 export const toggleBuildingScreen = (input: string) => {
     G['buildingSubTab'] = input
-    let screen: Record<string, { screen: string, button: string, subtabNumber: number }> = {
+    const screen: Record<string, { screen: string, button: string, subtabNumber: number }> = {
         "coin": {
             screen: "coinBuildings",
             button: "switchToCoinBuilding",
@@ -507,8 +507,8 @@ export const toggleRuneScreen = (index: number) => {
     G['runescreen'] = screens[index - 1];
 
     for (let i = 1; i <= 4; i++) {
-        let a = document.getElementById("toggleRuneSubTab" + i);
-        let b = document.getElementById("runeContainer" + i);
+        const a = document.getElementById("toggleRuneSubTab" + i);
+        const b = document.getElementById("runeContainer" + i);
         if (i === index) {
             a.style.border = "2px solid gold"
             a.style.backgroundColor = "crimson"
@@ -549,12 +549,12 @@ export const toggleautoenhance = () => {
 }
 
 function setActiveSettingScreen(subtab: string, clickedButton: HTMLButtonElement) {
-    let subtabEl = document.getElementById(subtab);
+    const subtabEl = document.getElementById(subtab);
     if (subtabEl.classList.contains("subtabActive")) {
         return;
     }
 
-    let switcherEl = clickedButton.parentNode;
+    const switcherEl = clickedButton.parentNode;
     switcherEl.querySelectorAll(".buttonActive").forEach(b => b.classList.remove("buttonActive"));
     clickedButton.classList.add("buttonActive");
 
@@ -562,7 +562,7 @@ function setActiveSettingScreen(subtab: string, clickedButton: HTMLButtonElement
     subtabEl.classList.add("subtabActive");
 
     if (subtab === "statisticsSubTab") {
-        let id = interval(refreshStats, 1000)
+        const id = interval(refreshStats, 1000)
 
         function refreshStats() {
             if (G['currentTab'] !== "settings") {
@@ -600,7 +600,7 @@ export const toggleAntMaxBuy = () => {
 
 export const toggleAntAutoSacrifice = (mode = 0) => {
     if (mode === 0) {
-        let el = document.getElementById("toggleAutoSacrificeAnt");
+        const el = document.getElementById("toggleAutoSacrificeAnt");
         if (player.autoAntSacrifice) {
             player.autoAntSacrifice = false;
             el.textContent = "Auto Sacrifice: OFF"
@@ -609,7 +609,7 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
             el.textContent = "Auto Sacrifice: ON"
         }
     } else if (mode === 1) {
-        let el = document.getElementById("autoSacrificeAntMode");
+        const el = document.getElementById("autoSacrificeAntMode");
         if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
             player.autoAntSacrificeMode = 2;
             el.textContent = "Mode: Real time";
@@ -621,7 +621,7 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
 }
 
 export const toggleMaxBuyCube = () => {
-    let el = document.getElementById("toggleCubeBuy")
+    const el = document.getElementById("toggleCubeBuy")
     if (G['buyMaxCubeUpgrades']) {
         G['buyMaxCubeUpgrades'] = false;
         el.textContent = "Upgrade: 1 Level wow"
@@ -632,9 +632,9 @@ export const toggleMaxBuyCube = () => {
 }
 
 export const toggleCubeSubTab = (i: number) => {
-    let numSubTabs = subTabsInMainTab(8).subTabList.length
+    const numSubTabs = subTabsInMainTab(8).subTabList.length
     for (let j = 1; j <= numSubTabs; j++) {
-        let cubeTab = document.getElementById(`cubeTab${j}`);
+        const cubeTab = document.getElementById(`cubeTab${j}`);
         if (cubeTab.style.display === "block" && j !== i) {
             cubeTab.style.display = "none"
         }
@@ -748,8 +748,8 @@ export const toggleAutoTesseracts = (i: number) => {
 }
 
 export const toggleCorruptionLevel = (index: number, value: number) => {
-    let current = player.prototypeCorruptions[index]
-    let maxCorruption = 12
+    const current = player.prototypeCorruptions[index]
+    const maxCorruption = 12
     if (value > 0 && current < maxCorruption && 0 < index && index <= 9) {
         player.prototypeCorruptions[index] += Math.min(maxCorruption - current, value)
     }
