@@ -5977,7 +5977,7 @@ const CalcECC = (type, completions) => {
     }
 };
 const challengeRequirement = (challenge, completion, special = 0) => {
-    const base = _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[challenge];
+    const base = _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengeBaseRequirements[challenge - 1];
     if (challenge <= 5) {
         return break_infinity_js__WEBPACK_IMPORTED_MODULE_0__.default.pow(10, base * calculateChallengeRequirementMultiplier("transcend", completion, special));
     }
