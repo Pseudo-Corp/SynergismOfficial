@@ -917,7 +917,6 @@ margin-left: -13px
 /* Settings settings sub tab */
 
 #settingsubtab {
-	display: flex;
 	flex-direction: row;
 	margin-left: 12%;
 	margin-right: 12%;
