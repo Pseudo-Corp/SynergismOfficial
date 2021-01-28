@@ -431,7 +431,7 @@ export const CalcECC = (type: 'transcend' | 'reincarnation' | 'ascension', compl
 }
 
 export const challengeRequirement = (challenge: number, completion: number, special = 0) => {
-    const base = G['challengeBaseRequirements'][challenge];
+    const base = G['challengeBaseRequirements'][challenge-1];
     if (challenge <= 5) {
         return Decimal.pow(10, base * calculateChallengeRequirementMultiplier("transcend", completion, special))
     } else if (challenge <= 10) {
