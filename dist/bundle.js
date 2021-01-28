@@ -3022,7 +3022,7 @@ window.addEventListener('load', () => {
         document.head.appendChild(script);
     }
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 8:15PM UTC-8 26-Jan-2021]. Savefiles cannot be used in live!`);
+    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 4:20PM UTC-8 27-Jan-2021]. Savefiles cannot be used in live!`);
     document.title = 'Synergism v' + player.version;
     const dec = lz_string__WEBPACK_IMPORTED_MODULE_1___default().decompressFromBase64(localStorage.getItem('Synergysave2'));
     const isLZString = dec !== '';
@@ -9744,10 +9744,18 @@ const challengeachievementcheck = (i, auto) => {
             achievementaward(ach);
         }
     }
-    if ([1, 2, 3, 5].includes(i)) {
+    if ([1, 2, 3].includes(i)) {
         const [gte, ach] = challengeCompletionsNotAuto[i];
         if (!auto) {
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte(gte) && generatorcheck === 0) {
+                achievementaward(ach);
+            }
+        }
+    }
+    if ([5].includes(i)) {
+        const [gte, ach] = challengeCompletionsNotAuto[i];
+        if (!auto) {
+            if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension.gte(gte) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBought === 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.acceleratorBoostBought === 0) {
                 achievementaward(ach);
             }
         }

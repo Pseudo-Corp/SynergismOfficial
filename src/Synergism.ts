@@ -3376,7 +3376,7 @@ window.addEventListener('load', () => {
     }
 
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 8:15PM UTC-8 26-Jan-2021]. Savefiles cannot be used in live!`);
+    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 4:20PM UTC-8 27-Jan-2021]. Savefiles cannot be used in live!`);
     document.title = 'Synergism v' + player.version;
 
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));

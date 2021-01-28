@@ -602,11 +602,22 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
         }
     }
 
-    if ([1, 2, 3, 5].includes(i)) {
+    //Challenges 1, 2, 3 check for not buying generators and getting X coins
+    if ([1, 2, 3].includes(i)) {
         const [gte, ach] = challengeCompletionsNotAuto[i];
         if (!auto) {
             if (player.coinsThisTranscension.gte(gte) && generatorcheck === 0) {
                 achievementaward(ach);
+            }
+        }
+    }
+
+    //Challenge 5 check for not buying Acc/Acc Boosts and getting 1.00e120,000 coins
+    if ([5].includes(i)){
+        const [gte, ach] = challengeCompletionsNotAuto[i];
+        if(!auto) {
+            if (player.coinsThisTranscension.gte(gte) && player.acceleratorBought === 0 && player.acceleratorBoostBought === 0) {
+                achievementaward(ach)
             }
         }
     }
