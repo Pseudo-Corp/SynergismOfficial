@@ -3011,7 +3011,9 @@ function tack(dt: number) {
                 while (counter < maxCount) {
                     if (player.autoResearch > 0) {
                         const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
-                        buyResearch(player.autoResearch, true, linGrowth)
+                        if (!buyResearch(player.autoResearch, true, linGrowth)) {
+                            break;
+                        }
                     }
                     else {
                         break;
