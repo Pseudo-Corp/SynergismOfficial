@@ -300,16 +300,6 @@ const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HT
         }
     }
 }
-
-export const resetHistoryClearAll = () => {
-    Object.keys(player.history).forEach(key => {
-        if (Array.isArray(player.history[key])) {
-            delete player.history[key];
-        }
-    });
-    resetHistoryRenderAllTables();
-}
-
 export const resetHistoryRenderAllTables = () => {
     (Object.keys(resetHistoryTableMapping) as Category[]).forEach(
         key => resetHistoryRenderFullTable(key, document.getElementById(resetHistoryTableMapping[key]))
