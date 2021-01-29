@@ -168,12 +168,6 @@ const extractStringExponent = (str: string) => {
     return (m = str.match(/e\+?(.+)/)) !== null ? `e${m[1]}` : str;
 }
 
-/**
- * Add a history entry to the storage.
- * @param {string} category One of "ants", "reset" or "ascend"
- * @param {string} kind One of "antsacrifice", "prestige", "transcend", "reincarnate" or "ascend"
- * @param {object} data Applicable gains and poorly documented extra data
- */
 const resetHistoryAdd = (
     category: Category,
     kind: Kind,
