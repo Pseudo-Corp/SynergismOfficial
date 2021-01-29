@@ -228,12 +228,12 @@ const resetHistoryRenderRow = (
     const gains = [];
     for (let gainIdx = 0; gainIdx < historyGainsOrder.length; ++gainIdx) {
         const showing = historyGainsOrder[gainIdx];
-        if (data.hasOwnProperty(showing)) {
+        if (Object.prototype.hasOwnProperty.call(data, showing)) {
             const gainInfo = historyGains[showing as keyof typeof historyGains];
             if (gainInfo.onlyif && !gainInfo.onlyif(data)) {
                 continue;
             }
-            const formatter = gainInfo.formatter || (() => {});
+            const formatter = gainInfo.formatter || (() => {/* If no formatter is specified, don't display. */});
             const str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}">${formatter(data[showing], data)}`;
 
             gains.push(str);
