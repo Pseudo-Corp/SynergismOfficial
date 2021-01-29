@@ -191,7 +191,7 @@ const resetHistoryAdd = (
 
     // Convert Decimal objects to string representation, so that the data is loaded properly after a refresh
     for (const k in data) {
-        if (isDecimal(data[k])) {
+        if (Object.prototype.hasOwnProperty.call(data, k) && isDecimal(data[k])) {
             data[k] = data[k].toString();
         }
     }
