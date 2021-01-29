@@ -81,17 +81,17 @@ const historyGains: Record<
     },
     particles: {
         img: "Pictures/Particle.png",
-        formatter: (s: DecimalSource) => extractStringExponent(formatDecimalString(s)),
+        formatter: formatDecimalString,
         imgTitle: "Particles"
     },
     diamonds: {
         img: "Pictures/Diamond.png",
-        formatter: (s: DecimalSource) => extractStringExponent(formatDecimalString(s)),
+        formatter: formatDecimalString,
         imgTitle: "Diamonds"
     },
     mythos: {
         img: "Pictures/Mythos.png",
-        formatter: (s: DecimalSource) => extractStringExponent(formatDecimalString(s)),
+        formatter: formatDecimalString,
         imgTitle: "Mythos"
     },
     wowTesseracts: {
