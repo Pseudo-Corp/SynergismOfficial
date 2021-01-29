@@ -922,6 +922,7 @@ margin-left: -13px
 	margin-right: 12%;
 	justify-content: space-around;
 	align-items: flex-start;
+	flex-wrap: wrap;
 }
 
 .confirmationToggles {
@@ -1218,16 +1219,6 @@ margin-left: -13px
     margin: 0 auto;
     text-align: center;
 }
-
-#versionnumber{
-	position: absolute;
-	width: 900px;
-	height: 100px;
-	top: 450px;
-	left: 50%;
-	margin-left: -450px;
-}
-
 
 #statistics {
 	position: relative;
@@ -3413,17 +3404,19 @@ margin-left: -13px
 	position: relative;
 	top: 118px;
 	padding: 0;
-	border: 1px solid green
+	border-top: 1px solid green;
 }
 
 #researchtable {
-	position:absolute;
-	padding: 0;
-	top: 15px;
-	left: 50%;
-	margin-left: -427px;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
 	border-collapse:collapse;
 	font-size: 0;
+}
+
+#researchtable > tbody {
+	margin-top: 15px;
 }
 
 #researchinfo2 {
@@ -3509,8 +3502,6 @@ margin-left: -13px
 }
 
 #shop {
-	position:absolute;
-
 	position: relative;
 	padding: 0;
 	border: 1px solid limegreen;
