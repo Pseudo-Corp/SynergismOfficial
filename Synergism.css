@@ -766,6 +766,7 @@ margin-left: -13px
 #upgradesrow2 {
 	position:relative;
 	top: 118px;
+	/* TODO: replace this in #upgrades when positioning isn't trash */
 	border: 1px solid gold
 }
 
@@ -1226,15 +1227,15 @@ margin-left: -13px
 	padding: 0;
 	top: 118px;
 	color: whitesmoke;
+	border-top: 2px solid white;
 }
 
 #achievements {
 	position: relative;
 	text-align: center;
 	padding: 0;
-	border: 1px solid white
-
 }
+
 #achievementprogress {
 	position: absolute;
 	top: 20px;
@@ -1676,7 +1677,7 @@ margin-left: -13px
 	position: relative;
 	padding: 0;
 	top: 118px;
-	border: 1px solid cyan;
+	border-top: 2px solid cyan;
 }
 
 #runeshards {
@@ -2938,7 +2939,7 @@ margin-left: -13px
 	position: relative;
 	padding: 0;
 	top: 118px;
-	border: 1px solid plum;
+	border-top: 2px solid plum;
 }
 
 #challengeIntroduction {
@@ -3404,7 +3405,7 @@ margin-left: -13px
 	position: relative;
 	top: 118px;
 	padding: 0;
-	border-top: 1px solid green;
+	border-top: 2px solid green;
 }
 
 #researchtable {
@@ -3504,7 +3505,7 @@ margin-left: -13px
 #shop {
 	position: relative;
 	padding: 0;
-	border: 1px solid limegreen;
+	border-top: 2px solid limegreen;
 	top: 118px;
 	text-align: center
 }
@@ -3594,11 +3595,9 @@ margin-left: -13px
 }
 
 #ants {
-	position:absolute;
-
 	position: relative;
 	padding: 0;
-	border: 1px solid brown;
+	border-top: 2px solid brown;
 	top: 118px;
 	text-align: center
 }
@@ -3848,7 +3847,8 @@ margin-left: -13px
 }
 
 #cubes{
-	position:relative;
+	position: relative;
+	border-top: 2px solid purple;
 	top: 118px;
 	padding: 0;
 }
