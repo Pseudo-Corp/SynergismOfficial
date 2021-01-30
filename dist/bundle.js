@@ -7027,17 +7027,17 @@ const revealStuff = () => {
         document.getElementById("transcendautomation").style.display = "block" :
         document.getElementById("transcendautomation").style.display = "none";
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[38] === 1 ?
-        document.getElementById("rune2area").style.display = "block" :
-        document.getElementById("rune2area").style.display = "none";
+        (document.getElementById("rune2area").style.display = "flex", document.getElementById("runeshowpower2").style.display = "flex") :
+        (document.getElementById("rune2area").style.display = "none", document.getElementById("runeshowpower2").style.display = "none");
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[43] === 1 ?
         document.getElementById("prestigeautomation").style.display = "block" :
         document.getElementById("prestigeautomation").style.display = "none";
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[44] === 1 ?
-        document.getElementById("rune3area").style.display = "block" :
-        document.getElementById("rune3area").style.display = "none";
+        (document.getElementById("rune3area").style.display = "flex", document.getElementById("runeshowpower3").style.display = "flex") :
+        (document.getElementById("rune3area").style.display = "none", document.getElementById("runeshowpower3").style.display = "none");
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[102] === 1 ?
-        document.getElementById("rune4area").style.display = "block" :
-        document.getElementById("rune4area").style.display = "none";
+        (document.getElementById("rune4area").style.display = "flex", document.getElementById("runeshowpower4").style.display = "flex") :
+        (document.getElementById("rune4area").style.display = "none", document.getElementById("runeshowpower4").style.display = "none");
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[119] === 1 ?
         document.getElementById("talisman1area").style.display = "block" :
         document.getElementById("talisman1area").style.display = "none";
@@ -7069,8 +7069,8 @@ const revealStuff = () => {
         document.getElementById("reincarnateautomation").style.display = "block" :
         document.getElementById("reincarnateautomation").style.display = "none";
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[82] > 0 ?
-        document.getElementById("rune5area").style.display = "block" :
-        document.getElementById("rune5area").style.display = "none";
+        (document.getElementById("rune5area").style.display = "flex", document.getElementById("runeshowpower5").style.display = "flex") :
+        (document.getElementById("rune5area").style.display = "none", document.getElementById("runeshowpower5").style.display = "none");
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[130] > 0 ?
         document.getElementById("toggleautofortify").style.display = "block" :
         document.getElementById("toggleautofortify").style.display = "none";
@@ -10969,31 +10969,31 @@ const displayRuneInformation = (i, updatelevelup = true) => {
         if (updatelevelup) {
             document.getElementById("runeshowlevelup").textContent = "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!";
         }
-        document.getElementById("runeshowpower1").childNodes[0].textContent = "Speed Rune Bonus: " + "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(Math.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune1level * m / 4, 1.25))) + " Accelerators, +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune1level / 4 * m), 2, true) + "% Accelerators, +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune1level / 20 * m)) + " Accelerator Boosts.";
+        document.getElementById("runeshowpower1").textContent = "Speed Rune Bonus: " + "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(Math.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune1level * m / 4, 1.25))) + " Accelerators, +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune1level / 4 * m), 2, true) + "% Accelerators, +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune1level / 20 * m)) + " Accelerator Boosts.";
     }
     if (i === 2) {
         if (updatelevelup) {
             document.getElementById("runeshowlevelup").textContent = "+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!";
         }
-        document.getElementById("runeshowpower2").childNodes[0].textContent = "Duplication Rune Bonus: " + "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune2level * m / 10) * Math.floor(1 + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune2level * m / 10) / 2) + " Multipliers, +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(m * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune2level / 4, 1, true) + "% Multipliers, -" + (99.9 * (1 - Math.pow(6, -(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune2level * m) / 1000))).toPrecision(4) + "% Tax Growth.";
+        document.getElementById("runeshowpower2").textContent = "Duplication Rune Bonus: " + "+" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune2level * m / 10) * Math.floor(1 + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune2level * m / 10) / 2) + " Multipliers, +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(m * _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune2level / 4, 1, true) + "% Multipliers, -" + (99.9 * (1 - Math.pow(6, -(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune2level * m) / 1000))).toPrecision(4) + "% Tax Growth.";
     }
     if (i === 3) {
         if (updatelevelup) {
             document.getElementById("runeshowlevelup").textContent = "~(1 + (Level/2)^2 * 2^(Level/2) / 256)x Crystal Production. +1 free level for each Crystal upgrade per 16 levels!";
         }
-        document.getElementById("runeshowpower3").childNodes[0].textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune3level * m / 2, 2).times(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(2, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune3level * m / 2 - 8)).add(1), 3) + ", gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune3level / 16 * m)) + " free crystal levels.";
+        document.getElementById("runeshowpower3").textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune3level * m / 2, 2).times(break_infinity_js__WEBPACK_IMPORTED_MODULE_3__.default.pow(2, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune3level * m / 2 - 8)).add(1), 3) + ", gain +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune3level / 16 * m)) + " free crystal levels.";
     }
     if (i === 4) {
         if (updatelevelup) {
             document.getElementById("runeshowlevelup").textContent = "+0.125% building cost growth delay per level, +0.0625% offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/1100) Tax growth multiplier AFTER level 400";
         }
-        document.getElementById("runeshowpower4").childNodes[0].textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune4level / 8 * m).toPrecision(3) + "%. Offering recycle chance: +" + Math.min(25, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune4level / 16) + "%. -" + (99 * (1 - Math.pow(4, Math.min(0, (400 - _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune4level) / 1100)))).toPrecision(4) + "% Tax Growth";
+        document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune4level / 8 * m).toPrecision(3) + "%. Offering recycle chance: +" + Math.min(25, _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune4level / 16) + "%. -" + (99 * (1 - Math.pow(4, Math.min(0, (400 - _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune4level) / 1100)))).toPrecision(4) + "% Tax Growth";
     }
     if (i === 5) {
         if (updatelevelup) {
             document.getElementById("runeshowlevelup").textContent = "~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, +0.005 base offerings for each tier per level";
         }
-        document.getElementById("runeshowpower5").childNodes[0].textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((1 + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level / 200 * m * SILevelMult), 2, true) + ". Ant Speed: x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 + Math.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level * m * SILevelMult, 2) / 2500) + ". Base Offerings: +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level * m * SILevelMult * 0.005), 3, true);
+        document.getElementById("runeshowpower5").textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((1 + _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level / 200 * m * SILevelMult), 2, true) + ". Ant Speed: x" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(1 + Math.pow(_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level * m * SILevelMult, 2) / 2500) + ". Base Offerings: +" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)((_Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.rune5level * m * SILevelMult * 0.005), 3, true);
     }
     if (updatelevelup) {
         const arr = calculateOfferingsToLevelXTimes(i - 1, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runelevels[i - 1], _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offeringbuyamount);
@@ -13366,7 +13366,7 @@ const visualUpdateRunes = () => {
             'rune4Talisman',
             'rune5Talisman'
         ];
-        document.getElementById("runeshards").textContent = "You have " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.runeshards, 0, true) + " Offerings.";
+        document.getElementById("offeringCount").textContent = "You have " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.runeshards, 0, true) + " Offerings.";
         for (let i = 1; i <= 5; i++) {
             const place = _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals[talismans[i - 1]];
             document.getElementById('rune' + i + 'level').childNodes[0].textContent = "Level: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.runelevels[i - 1]) + "/" + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.calculateMaxRunes)(i));
@@ -13374,8 +13374,8 @@ const visualUpdateRunes = () => {
             document.getElementById('bonusrune' + i).textContent = " [Bonus: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)(7 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.constantUpgrades[7] + Math.min(1e7, _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.antUpgrades[9 - 1] + _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.bonusant9) + place) + "]";
             (0,_Runes__WEBPACK_IMPORTED_MODULE_5__.displayRuneInformation)(i, false);
         }
-        document.getElementById("runedetails").textContent = "Gain " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)((1 + Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.highestchallengecompletions[1], 1) + 1 / 25 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.highestchallengecompletions[1] + 0.6 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[22] + 0.3 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[23] + 3 / 25 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.upgrades[66] + 2 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.upgrades[61]) * (0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.calculateRecycleMultiplier)(), 2, true) + "* EXP per offering sacrificed.";
-        document.getElementById("runerecycle").textContent = "You have " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)((5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[80] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[87] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[94] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[101] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[108] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[115] + 7.5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[122] + 7.5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[129] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.upgrades[61] + Math.min(25, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.rune4level / 16) + 0.5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeUpgrades[2]), 2, true) + "% chance of recycling your offerings. This multiplies EXP gain by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.calculateRecycleMultiplier)(), 2, true) + "!";
+        document.getElementById("offeringExperienceValue").textContent = "Gain " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)((1 + Math.min(_Synergism__WEBPACK_IMPORTED_MODULE_2__.player.highestchallengecompletions[1], 1) + 1 / 25 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.highestchallengecompletions[1] + 0.6 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[22] + 0.3 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.researches[23] + 3 / 25 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.upgrades[66] + 2 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.upgrades[61]) * (0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.calculateRecycleMultiplier)(), 2, true) + "* EXP per offering sacrificed.";
+        document.getElementById("offeringRecycleInfo").textContent = "You have " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)((5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[80] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[87] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[94] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[101] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[108] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[115] + 7.5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[122] + 7.5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.achievements[129] + 5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.upgrades[61] + Math.min(25, _Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.rune4level / 16) + 0.5 * _Synergism__WEBPACK_IMPORTED_MODULE_2__.player.cubeUpgrades[2]), 2, true) + "% chance of recycling your offerings. This multiplies EXP gain by " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_2__.format)((0,_Calculate__WEBPACK_IMPORTED_MODULE_4__.calculateRecycleMultiplier)(), 2, true) + "!";
     }
     if (_Variables__WEBPACK_IMPORTED_MODULE_1__.Globals.runescreen === "talismans") {
         for (let i = 1; i <= 7; i++) {

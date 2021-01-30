@@ -999,6 +999,7 @@
 
 
         <div id="runes">
+
             <div id="runesToggle">
                 <button id="toggleautosacrifice" style="border: 2px solid orangered; color: white">Auto Rune: OFF</button>
                 <button id="toggleRuneSubTab1" style="border: 2px solid grey; color: white">Runes</button>
@@ -1006,78 +1007,88 @@
                 <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid grey; color: white">Blessings</button>
                 <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid grey; color: white">[=-Spirits-=]</button>
             </div>
+
             <div id="runeContainer1">
-            <div id="buyamountoffering">
-                <table id="offeringbuyamount">
-                    <tr>
-                    <td><img id="offeringone" src="Pictures/Transparent Pics/OfferingOne.png" style="cursor:pointer; background-color: green;" alt=""></td>
-                    <td><img id="offeringten" src="Pictures/Transparent Pics/OfferingTen.png"  style="cursor:pointer;" alt=""></td>
-                    <td><img id="offeringhundred" src="Pictures/Transparent Pics/OfferingHundred.png"  style="cursor:pointer;" alt=""></td>
-                    <td><img id="offeringthousand" src="Pictures/Transparent Pics/OfferingThousand.png"  style="cursor:pointer;" alt=""></td>
-                    </tr>
-                </table>
-                <p id="toggleofferingbuy">Toggle the number of levels to buy per sacrifice</p>
-            </div>
-            <p id="runeshards">You have 0 Offerings.</p>
-            <div id="rune1area">
-            <p id="speedrune" style="color: cyan">Speed Rune</p>
-            <img id="rune1" src="Pictures/Transparent Pics/SpeedRune.png" alt="">
-            <p id="rune1level">Level: 166/500</p>
-            <p id="bonusrune1" style="color: orange"></p>
-            <p id="rune1exp">Exp: 0/40</p>
-            <button id="activaterune1">SACRIFICE</button>
-            <p id="runeshowpower1">1</p>
+
+                <div id="buyamountoffering">
+                    <table id="offeringbuyamount">
+                        <tr>
+                        <td><img id="offeringone" src="Pictures/Transparent Pics/OfferingOne.png" style="cursor:pointer; background-color: green;" alt=""></td>
+                        <td><img id="offeringten" src="Pictures/Transparent Pics/OfferingTen.png"  style="cursor:pointer;" alt=""></td>
+                        <td><img id="offeringhundred" src="Pictures/Transparent Pics/OfferingHundred.png"  style="cursor:pointer;" alt=""></td>
+                        <td><img id="offeringthousand" src="Pictures/Transparent Pics/OfferingThousand.png"  style="cursor:pointer;" alt=""></td>
+                        </tr>
+                    </table>
+                    <p id="toggleofferingbuy">Toggle the number of levels to buy per sacrifice</p>
+                </div>
+
+                <div id="offeringDetails">
+                    <p id="offeringCount" style="color: yellow; font-size: 1.2em;">You have 0 Offerings.</p>
+                    <p id="offeringExperienceValue" style="color: lightgoldenrodyellow;">Gain 25 rune experience per Offering.</p>
+                    <p id="offeringRecycleInfo" style="color: limegreen;">You have 0.5% chance of recycling your offerings. Recycled offerings are not spent!</p>
+                </div>
+
+                <div id="runeDetails">
+                    <div id="rune1area" class="runeType">
+                        <p id="speedrune" class="runeTypeElement" style="color:orange">Speed Rune</p>
+                        <img id="rune1" class="runeTypeElement" src="Pictures/Transparent Pics/SpeedRune.png" alt="">
+                        <p id="rune1level" class="runeTypeElement">Level: 166/500</p>
+                        <p id="bonusrune1" class="runeTypeElement" style="color: orange"></p>
+                        <p id="rune1exp" class="runeTypeElement">Exp: 0/40</p>
+                        <button id="activaterune1" class="runeTypeElement">SACRIFICE</button>
+                    </div>
+
+                    <div id="rune2area" class="runeType">
+                        <p id="duplicationrune" class="runeTypeElement" style="color: plum">Duplication Rune</p>
+                        <img id="rune2" class="runeTypeElement" src="Pictures/Transparent Pics/DuplicationRune.png" alt="">
+                        <p id="rune2level" class="runeTypeElement">Level: 1/500</p>
+                        <p id="bonusrune2" class="runeTypeElement" style="color: orange"></p>
+                        <p id="rune2exp" class="runeTypeElement">Exp: 0/40</p>
+                        <button id="activaterune2" class="runeTypeElement">SACRIFICE</button>
+                    </div>
+
+                    <div id="rune3area" class="runeType">
+                        <p id="prismrune" class="runeTypeElement" style="color: lightblue">Prism Rune</p>
+                        <img id="rune3" class="runeTypeElement" src="Pictures/Transparent Pics/PrismRune.png" alt="">
+                        <p id="rune3level" class="runeTypeElement">Level: 1/500</p>
+                        <p id="bonusrune3" class="runeTypeElement" style="color: orange"></p>
+                        <p id="rune3exp" class="runeTypeElement">Exp: 0/40</p>
+                        <button id="activaterune3" class="runeTypeElement">SACRIFICE</button>
+                        </div>
+
+                    <div id="rune4area" class="runeType">
+                        <p id="thriftrune" class="runeTypeElement" style="color: lightgreen">Thrift Rune</p>
+                        <img id="rune4" class="runeTypeElement" src="Pictures/Transparent Pics/ThriftRune.png" alt="">
+                        <p id="rune4level" class="runeTypeElement">Level: 1/500</p>
+                        <p id="bonusrune4" class="runeTypeElement" style="color: orange"></p>
+                        <p id="rune4exp" class="runeTypeElement">TNL: 0</p>
+                        <button id="activaterune4" class="runeTypeElement">SACRIFICE</button>
+                    </div>
+
+                    <div id="rune5area" class="runeType">
+                        <p id="intellectrune" class="runeTypeElement" style="color: tomato">Superior Intellect</p>
+                        <img id="rune5" class="runeTypeElement" src="Pictures/Transparent Pics/Rune of Superior Intellect.png" alt="">
+                        <p id="rune5level" class="runeTypeElement">Level: 1/500</p>
+                        <p id="bonusrune5" class="runeTypeElement" style="color: orange"></p>
+                        <p id="rune5exp" class="runeTypeElement">TNL: 0</p>
+                        <button id="activaterune5" class="runeTypeElement">SACRIFICE</button>
+                    </div>
+                </div>
+
+                <div id="runeEffectDisplays">
+                    <p id="runeshowlevelup" style="color: white;">Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!</p>
+                    <p id="runeDisplayInfo" style="color: goldenrod"></p>
+                    <p id="bonussummation" style="color: orangered;">=====RUNE EFFECT SUMMARY=====</p>
+                    <p id="runeshowpower1" style="color: orange"></p>
+                    <p id="runeshowpower2" style="color: plum"></p>
+                    <p id="runeshowpower3" style="color: lightblue"></p>
+                    <p id="runeshowpower4" style="color: lightgreen"></p>
+                    <p id="runeshowpower5" style="color: tomato"></p>
+                    <p class="reincarnationunlock" id="researchrunebonus" style="color: pink">Thanks to researches, your effective levels are increased by 0%</p>
+                    <p id="runehotkeys" style="color: lightgray;">Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!</p>
+                </div>
             </div>
 
-            <div id="rune2area">
-            <p id="duplicationrune" style="color: plum">Duplication Rune</p>
-            <img id="rune2" src="Pictures/Transparent Pics/DuplicationRune.png" alt="">
-            <p id="rune2level">Level: 1/500</p>
-            <p id="bonusrune2" style="color: orange"></p>
-            <p id="rune2exp">Exp: 0/40</p>
-            <button id="activaterune2">SACRIFICE</button>
-            <p id="runeshowpower2">1</p>
-            </div>
-
-            <div id="rune3area">
-            <p id="prismrune" style="color: lightblue">Prism Rune</p>
-            <img id="rune3" src="Pictures/Transparent Pics/PrismRune.png" alt="">
-            <p id="rune3level">Level: 1/500</p>
-            <p id="bonusrune3" style="color: orange"></p>
-            <p id="rune3exp">Exp: 0/40</p>
-            <button id="activaterune3">SACRIFICE</button>
-            <p id="runeshowpower3">1</p>
-            </div>
-
-            <div id="rune4area">
-            <p id="thriftrune" style="color: limegreen">Thrift Rune</p>
-            <img id="rune4" src="Pictures/Transparent Pics/ThriftRune.png" alt="">
-            <p id="rune4level">Level: 1/500</p>
-            <p id="bonusrune4" style="color: orange"></p>
-            <p id="rune4exp">TNL: 0</p>
-            <button id="activaterune4">SACRIFICE</button>
-            <p id="runeshowpower4">1</p>
-            </div>
-
-            <div id="rune5area">
-            <p id="intellectrune" style="color: crimson">Superior Intellect</p>
-            <img id="rune5" src="Pictures/Transparent Pics/Rune of Superior Intellect.png" alt="">
-            <p id="rune5level">Level: 1/500</p>
-            <p id="bonusrune5" style="color: orange"></p>
-            <p id="rune5exp">TNL: 0</p>
-            <button id="activaterune5">SACRIFICE</button>
-            <p id="runeshowpower5">1</p>
-            </div>
-
-            <p id="runedetails">Gain 25 rune experience per Offering.</p>
-            <p id="runerecycle">You have 0.5% chance of recycling your offerings. Recycled offerings are not spent!</p>
-            <p id="runeshowlevelup">Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!</p>
-            <p id="runeDisplayInfo"></p>
-            <p id="bonussummation">=====RUNE EFFECT SUMMARY=====</p>
-
-            <p class="reincarnationunlock" id="researchrunebonus">Thanks to researches, your effective levels are increased by 0%</p>
-            <p id="runehotkeys">Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!</p>
-            </div>
             <div id="runeContainer2" style="display: none;">
                 <div id="buyamounttalisman">
                 <table id="talismanbuyamount">

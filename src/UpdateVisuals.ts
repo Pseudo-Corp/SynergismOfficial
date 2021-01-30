@@ -171,7 +171,7 @@ export const visualUpdateRunes = () => {
             'rune5Talisman'
         ] as const;
 
-        document.getElementById("runeshards").textContent = "You have " + format(player.runeshards, 0, true) + " Offerings."
+        document.getElementById("offeringCount").textContent = "You have " + format(player.runeshards, 0, true) + " Offerings."
 
         for (let i = 1; i <= 5; i++) { //First one updates level, second one updates TNL, third updates orange bonus levels
             const place = G[talismans[i-1]];
@@ -183,8 +183,8 @@ export const visualUpdateRunes = () => {
             displayRuneInformation(i, false)
         }
 
-        document.getElementById("runedetails").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 25 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + "* EXP per offering sacrificed."
-        document.getElementById("runerecycle").textContent = "You have " + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, G['rune4level'] / 16) + 0.5 * player.cubeUpgrades[2]), 2, true) + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(), 2, true) + "!"
+        document.getElementById("offeringExperienceValue").textContent = "Gain " + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 25 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + "* EXP per offering sacrificed."
+        document.getElementById("offeringRecycleInfo").textContent = "You have " + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, G['rune4level'] / 16) + 0.5 * player.cubeUpgrades[2]), 2, true) + "% chance of recycling your offerings. This multiplies EXP gain by " + format(calculateRecycleMultiplier(), 2, true) + "!"
     }
 
     if (G['runescreen'] === "talismans") {

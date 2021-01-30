@@ -1694,441 +1694,63 @@ margin-left: -13px
 	text-align: center;
 }
 
-#runeshards {
-	position: absolute;
-	top: 30px;
-	width: 400px;
-	left: 50%;
-	margin-left: -200px;
-	color: pink;
+#offeringDetails {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	text-align: center;
-	font-size: 1.2em
+	margin-bottom: auto;
 }
 
-#rune1 {
-	position: absolute;
-	padding: 0;
-	top: 145px;
-	left: 20%;
-	margin-left: -33px;
-}
-#rune2{
-	position: absolute;
-	padding: 0;
-	top: 145px;
-	left: 35%;
-	margin-left: -33px;
-}
-#rune3{
-	position: absolute;
-	padding: 0;
-	top: 145px;
-	left: 50%;
-	margin-left: -33px;
-}
-#rune4{
-	position: absolute;
-	padding: 0;
-	top: 145px;
-	left: 65%;
-	margin-left: -33px;
-}
-#rune5{
-	position: absolute;
-	padding: 0;
-	top: 145px;
-	left: 80%;
-	margin-left: -33px;
+#offeringDetails > p {
+	height: auto;
+	margin: auto;
 }
 
-#rune1level {
-	position: absolute;
-	padding: 0;
-	top: 193px;
-	left: 20%;
-	width: 200px;
-	margin-left: -100px;
-	color: plum;
-	text-align: center;
-}
-#bonusrune1{
-	position: absolute;
-	padding: 0;
-	top: 213px;
-	left: 20%;
-	width: 200px;
-	margin-left: -100px;
-	text-align: center;
-}
-#rune2level {
-	position: absolute;
-	padding: 0;
-	top: 193px;
-	left: 35%;
-	width: 200px;
-	margin-left: -100px;
-	color: plum;
-	text-align: center;
-}
-#bonusrune2{
-	position: absolute;
-	padding: 0;
-	top: 213px;
-	left: 35%;
-	width: 200px;
-	margin-left: -100px;
-	text-align: center;
-}
-#rune3level {
-	position: absolute;
-	padding: 0;
-	top: 193px;
-	left: 50%;
-	width: 200px;
-	margin-left: -100px;
-	color: plum;
-	text-align: center;
-}
-#bonusrune3{
-	position: absolute;
-	padding: 0;
-	top: 213px;
-	left: 50%;
-	width: 200px;
-	margin-left: -100px;
-	text-align: center;
-}
-#rune4level {
-	position: absolute;
-	padding: 0;
-	top: 193px;
-	left: 65%;
-	width: 200px;
-	margin-left: -100px;
-	color: plum;
-	text-align: center;
-}
-#bonusrune4{
-	position: absolute;
-	padding: 0;
-	top: 213px;
-	left: 65%;
-	width: 200px;
-	margin-left: -100px;
-	text-align: center;
-}
-#rune5level {
-	position: absolute;
-	padding: 0;
-	top: 193px;
-	left: 80%;
-	width: 200px;
-	margin-left: -100px;
-	color: plum;
-	text-align: center;
-}
-#bonusrune5{
-	position: absolute;
-	padding: 0;
-	top: 213px;
-	left: 80%;
-	width: 200px;
-	margin-left: -100px;
-	text-align: center;
-}
-#rune1exp {
-	position:absolute;
-	padding: 0;
-	top: 232px;
-	left: 20%;
-	width: 200px;
-	margin-left: -100px;
-	color: white;
-	text-align: center;
-}
-#rune2exp {
-	position:absolute;
-	padding: 0;
-	top: 232px;
-	left: 35%;
-	width: 200px;
-	margin-left: -100px;
-	color: white;
-	text-align: center;
-}
-#rune3exp {
-	position:absolute;
-	padding: 0;
-	top: 232px;
-	left: 50%;
-	width: 200px;
-	margin-left: -100px;
-	color: white;
-	text-align: center;
-}
-#rune4exp {
-	position:absolute;
-	padding: 0;
-	top: 232px;
-	left: 65%;
-	width: 200px;
-	margin-left: -100px;
-	color: white;
-	text-align: center;
-}
-#rune5exp {
-	position:absolute;
-	padding: 0;
-	top: 232px;
-	left: 80%;
-	width: 200px;
-	margin-left: -100px;
-	color: white;
-	text-align: center;
+#runeDetails {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-end;
+	height: auto;
+	margin: 10px;
 }
 
-#activaterune1 {
-	position: absolute;
-	padding: 5px;
-	top: 275px;
-	left: 20%;
-	width: 111px;
+.runeType {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.runeType > button {
 	height: 30px;
-	margin-left: -55px;
-	border: 1px solid orangered;
-	color: gold;
+	width: 100px;
 	text-align: center;
-}
-#activaterune2 {
-	position: absolute;
-	padding: 5px;
-	top: 275px;
-	left: 35%;
-	width: 112px;
-	height: 30px;
-	margin-left: -55px;
-	border: 1px solid orangered;
-	color: gold;
-	text-align: center;
-}
-#activaterune3 {
-	position: absolute;
-	padding: 5px;
-	top: 275px;
-	left: 50%;
-	width: 112px;
-	height: 30px;
-	margin-left: -55px;
-	border: 1px solid orangered;
-	color: gold;
-	text-align: center;
-}
-#activaterune4 {
-	position: absolute;
-	padding: 5px;
-	top: 275px;
-	left: 65%;
-	width: 112px;
-	height: 30px;
-	margin-left: -55px;
-	border: 1px solid orangered;
-	color: gold;
-	text-align: center;
-}
-#activaterune5 {
-	position: absolute;
-	padding: 5px;
-	top: 275px;
-	left: 80%;
-	width: 112px;
-	height: 30px;
-	margin-left: -55px;
-	border: 1px solid orangered;
-	color: gold;
-	text-align: center;
+	border: 2px solid gold;
 }
 
-#runedetails {
-	position: absolute;
-	padding: 5px;
-	top: 50px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: white;
+.runeTypeElement {
+	margin: auto;
 	text-align: center;
+	align-items: center;
+	align-content: center;
 }
 
-
-#speedrune {
-	position:absolute;
-	padding: 0;
-	top: 103px;
-	left: 20%;
-	width: 130px;
-	margin-left: -65px;
+#runeEffectDisplays {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	text-align: center;
-}
-#duplicationrune {
-	position:absolute;
-	padding: 0;
-	top: 103px;
-	left: 35%;
-	width: 130px;
-	margin-left: -65px;
-	text-align: center;
-}
-#prismrune {
-	position:absolute;
-	padding: 0;
-	top: 103px;
-	left: 50%;
-	width: 130px;
-	margin-left: -65px;
-	text-align: center;
-}
-#thriftrune {
-	position:absolute;
-	padding: 0;
-	top: 103px;
-	left: 65%;
-	width: 130px;
-	margin-left: -65px;
-	text-align: center;
-}
-#intellectrune {
-	position:absolute;
-	padding: 0;
-	top: 103px;
-	left: 80%;
-	width: 130px;
-	margin-left: -65px;
-	text-align: center;
+	margin-bottom: auto;
 }
 
-#runerecycle {
-	position: absolute;
-	padding: 5px;
-	top: 66px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: orangered;
-	text-align: center;
-}
-#runeshowlevelup {
-	position: absolute;
-	padding: 5px;
-	top: 295px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: white;
-	text-align: center;
-}
-#runeDisplayInfo {
-	position: absolute;
-	padding: 5px;
-	top: 315px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: goldenrod;
-	text-align: center;
-}
-#bonussummation {
-	position: absolute;
-	padding: 5px;
-	top: 335px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: orangered;
-	text-align: center;
+#runeEffectDisplays > p {
+	height: auto;
+	margin: auto;
 }
 
-#runeshowpower1 {
-	position: absolute;
-	padding: 5px;
-	top: 355px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: cyan;
-	text-align: center;
-}
-#runeshowpower2 {
-	position: absolute;
-	padding: 5px;
-	top: 375px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: plum;
-	text-align: center;
-}
-#runeshowpower3 {
-	position: absolute;
-	padding: 5px;
-	top: 395px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: lightblue;
-	text-align: center;
-}
-#runeshowpower4 {
-	position: absolute;
-	padding: 5px;
-	top: 415px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: limegreen;
-	text-align: center;
-}
-#runeshowpower5 {
-	position: absolute;
-	padding: 5px;
-	top: 435px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: crimson;
-	text-align: center;
-}
-#researchrunebonus {
-	position: absolute;
-	padding: 5px;
-	top: 455px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: pink;
-	text-align: center;
-}
-#runehotkeys {
-	position: absolute;
-	padding: 5px;
-	top: 475px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: gray;
-	text-align: center;
-}
 #toggleautofortify {
 	position: absolute;
 	top: 65px;

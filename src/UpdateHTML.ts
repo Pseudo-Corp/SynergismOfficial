@@ -166,21 +166,21 @@ export const revealStuff = () => {
         document.getElementById("transcendautomation").style.display = "block" :
         document.getElementById("transcendautomation").style.display = "none";
 
-    player.achievements[38] === 1 ? //Prestige Diamond Achievement 3
-        document.getElementById("rune2area").style.display = "block" :
-        document.getElementById("rune2area").style.display = "none";
+   player.achievements[38] === 1 ? //Prestige Diamond Achievement 3
+        (document.getElementById("rune2area").style.display = "flex", document.getElementById("runeshowpower2").style.display = "flex") :
+        (document.getElementById("rune2area").style.display = "none", document.getElementById("runeshowpower2").style.display = "none");
 
     player.achievements[43] === 1 ? //Trasncend Mythos Achievement 1
         document.getElementById("prestigeautomation").style.display = "block" :
         document.getElementById("prestigeautomation").style.display = "none";
 
     player.achievements[44] === 1 ? //Transcend Mythos Achievement 2
-        document.getElementById("rune3area").style.display = "block" :
-        document.getElementById("rune3area").style.display = "none";
+    (document.getElementById("rune3area").style.display = "flex", document.getElementById("runeshowpower3").style.display = "flex") :
+    (document.getElementById("rune3area").style.display = "none", document.getElementById("runeshowpower3").style.display = "none");
 
     player.achievements[102] === 1 ? //Cost+ Challenge Achievement 4
-        document.getElementById("rune4area").style.display = "block" :
-        document.getElementById("rune4area").style.display = "none";
+    (document.getElementById("rune4area").style.display = "flex", document.getElementById("runeshowpower4").style.display = "flex") :
+    (document.getElementById("rune4area").style.display = "none", document.getElementById("runeshowpower4").style.display = "none");
 
     player.achievements[119] === 1 ? //Tax+ Challenge Achievement 7
         document.getElementById("talisman1area").style.display = "block" :
@@ -223,8 +223,8 @@ export const revealStuff = () => {
         document.getElementById("reincarnateautomation").style.display = "none";
 
     player.researches[82] > 0 ? //2x17 Research [SI Rune Unlock]
-        document.getElementById("rune5area").style.display = "block" :
-        document.getElementById("rune5area").style.display = "none";
+    (document.getElementById("rune5area").style.display = "flex", document.getElementById("runeshowpower5").style.display = "flex") :
+    (document.getElementById("rune5area").style.display = "none", document.getElementById("runeshowpower5").style.display = "none");
 
     player.researches[130] > 0 ? //6x5 Research [Talisman Auto Fortify]
         document.getElementById("toggleautofortify").style.display = "block" :
