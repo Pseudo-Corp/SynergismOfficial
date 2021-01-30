@@ -1230,12 +1230,6 @@ margin-left: -13px
 	border-top: 2px solid white;
 }
 
-#achievements {
-	position: relative;
-	text-align: center;
-	padding: 0;
-}
-
 #achievementprogress {
 	position: absolute;
 	top: 20px;
@@ -1243,93 +1237,38 @@ margin-left: -13px
 	width: 300px;
 	margin-left: -150px;
 }
+
 #achievementstable {
-	position: absolute;
-	top: 55px;
-	margin-left: -618px;
-	left: 50%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 4%;
 }
 
 #achievementinfo {
-	position: fixed;
-	top: 490px;
-	width: 500px;
-	left: 47.8%;
-	margin-left: -250px;
-	border: 1px solid plum
+	display: flex;
+	flex-direction: column;
+	border-top: 2px solid plum;
+	text-align: center;
+	width: 50%;
+	margin: 0 auto;
+	overflow-wrap: break-word;
 }
 
-#achievementtutorial {
-	position: absolute;
-	top: -10px;
-	width: 500px;
-	left: 50%;
-	margin-left: -250px;
-	color: white;
-}
+/* Removes giant space between paragraphs */
+#achievementinfo > p { margin: 0; }
 
-#achievementdescription {
-	position: absolute;
-	top: 15px;
-	width: 900px;
-	color: white;
-	text-align: left;
-	left: 10px;
-}
+#achievementtutorial { color: white; }
+#achievementdescription { color: gold; }
+#achievementreward { color: limegreen; }
 
-#achievementreward {
-	position: absolute;
-	top: 55px;
-	width: 900px;
-	color: limegreen;
-	text-align: left;
-	left: 10px;
-}
+/* Decrease space between paragraphs */
+#achievementColorInfo { line-height: .5; }
 
-#achievementcolorcode1 {
-	position: absolute;
-	padding: 5px;
-	top: 437px;
-	left: 48%;
-	width: 600px;
-	margin-left: -300px;
-	height: 20px;
-	color: limegreen;
-	text-align: center;
-}
-#achievementcolorcode2 {
-	position: absolute;
-	padding: 5px;
-	top: 457px;
-	left: 48%;
-	width: 600px;
-	margin-left: -300px;
-	height: 20px;
-	color: purple;
-	text-align: center;
-}
-#achievementcolorcode3 {
-	position: absolute;
-	padding: 5px;
-	top: 477px;
-	left: 48%;
-	width: 600px;
-	margin-left: -300px;
-	height: 20px;
-	color: crimson;
-	text-align: center;
-}
-#achievementcolorcode4 {
-	position: absolute;
-	padding: 5px;
-	top: 497px;
-	left: 48%;
-	width: 600px;
-	margin-left: -300px;
-	height: 20px;
-	color: gray;
-	text-align: center;
-}
+#achievementcolorcode1 { color: limegreen; }
+#achievementcolorcode2 { color: purple; }
+#achievementcolorcode3 { color: crimson; }
+#achievementcolorcode4 { color: gray; }
 
 #prestige {
     position: relative;
