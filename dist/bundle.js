@@ -3020,7 +3020,7 @@ window.addEventListener('load', () => {
         document.head.appendChild(script);
     }
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 4:20PM UTC-8 27-Jan-2021]. Savefiles cannot be used in live!`);
+    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 2:40AM UTC-8 30-Jan-2021]. Savefiles cannot be used in live!`);
     document.title = 'Synergism v' + player.version;
     const dec = lz_string__WEBPACK_IMPORTED_MODULE_1___default().decompressFromBase64(localStorage.getItem('Synergysave2'));
     const isLZString = dec !== '';
