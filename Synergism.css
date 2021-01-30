@@ -652,250 +652,76 @@ position: absolute;
 	left:12.5%;
 }
 
-#upgradesrow1 {
+#upgrades {
 	position: relative;
+	text-align: center;
+	padding: 0;
+	top: 118px;
+	color: gold;
+	border-top: 2px solid gold;
 }
 
-#coinupgradetitle{
-position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 10%;
-margin-left: -12.5px
-}
-#cointext {
-position:absolute;
-display: inline-block;
-text-align:center;
-top: 247px;
-width: 150px;
-left: 10%;
-margin-left: -72.5px
+#upgradesGrid {
+	display: flex;
+	flex-direction: column;
+	align-content: flex-start;
 }
 
-#prestigeupgradetitle{
-position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 25%;
-margin-left: -12.5px
+#upgradesGrid > #upgradesTexts > p,
+#upgradesGrid > #upgradesImages > p {
+	width: 16.666666666%;
+	padding: 0;
+	margin: 0;
 }
-#prestigetext {
-	position:absolute;
-	display: inline-block;
-	text-align:center;
-	top: 247px;
-	width: 150px;
-	left: 25%;
-	margin-left: -72.5px
-	}
-#transcendupgradetitle{
-position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 40%;
-margin-left: -12.5px
-}
-#transcendtext {
-	position:absolute;
-	display: inline-block;
-	text-align:center;
-	top: 247px;
-	width: 150px;
-	left: 40%;
-	margin-left: -72.5px
-	}
 
+#upgradesImages {
+	margin-top: 4%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
 
-#reincarnationupgradetitle{
-position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 85%;
-margin-left: -14.5px
+#upgradesTexts {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
 }
-#reincarnationtext {
-	position:absolute;
-	display: inline-block;
-	text-align:center;
-	top: 247px;
-	width: 150px;
-	left: 85%;
-	margin-left: -72.5px
-	}
-#automationtitle {
-	position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 70%;
-margin-left: -13.5px
-}
-#automationtext {
-	position:absolute;
-	display: inline-block;
-	text-align:center;
-	top: 247px;
-	width: 150px;
-	left: 70%;
-	margin-left: -72.5px
-	}
-
-#generatortitle {
-	position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 55%;
-margin-left: -13px
-}
-#generatortext {
-	position:absolute;
-	display: inline-block;
-	text-align:center;
-	top: 247px;
-	width: 150px;
-	left: 55%;
-	margin-left: -72.5px
-	}
 
 #upgradesrow2 {
-	position:relative;
-	top: 118px;
-	/* TODO: replace this in #upgrades when positioning isn't trash */
-	border: 1px solid gold
-}
-
-#coinupgradestable {
-	position: absolute;
-	top: 150px;
-	left: 10%;
-	margin-left: -88px;
-}
-
-#prestigeupgradestable {
-	position: absolute;
-	top: 150px;
-	left: 25%;
-	margin-left: -88px;
-}
-
-#transcendupgradestable {
-	position: absolute;
-	top: 150px;
-	left: 40%;
-	margin-left: -88px;
-}
-
-#reincarnationupgradestable {
-	position: absolute;
-	top: 150px;
-	left: 85%;
-	margin-left: -88px;
-}
-
-#automationtable {
-	position:absolute;
-	top: 150px;
-	left: 70%;
-	margin-left: -88px;
-
-}
-
-#generatortable {
-	position: absolute;
-	top: 150px;
-	left: 55%;
-	margin-left: -88px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-top: 2%;
 }
 
 #shoptogglerow {
-	position:relative;
-	top: 385px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-top: 10px;
 }
 
-#shoptogglecoin {
-	position:absolute;
+#shoptogglerow > button {
 	width: 80px;
-	padding: 0;
 	height: 30px;
-	top: 61.5px;
-	left: 8.4%;
-	margin-left: -16px;
 }
 
-#shoptoggleprestige {
-	position:absolute;
-	width: 80px;
-	padding: 0;
-	height: 30px;
-	top: 61.5px;
-	left: 23.3%;
-	margin-left: -16px;
-}
-
-#shoptoggletranscend {
-	position:absolute;
-	width: 80px;
-	padding: 0;
-	height: 30px;
-	top: 61.5px;
-	left: 38.2%;
-	margin-left: -16px;
-}
-
-#shoptogglegenerator {
-	position:absolute;
-	width: 80px;
-	padding: 0;
-	height: 30px;
-	top: 61.5px;
-	left: 53.1%;
-	margin-left: -16px;
-}
-#particleAutoUpgrade {
-	position:absolute;
-	width: 80px;
-	padding: 0;
-	height: 30px;
-	top: 61.5px;
-	left: 83%;
-	margin-left: -16px;
-}
 #upgradesrow3 {
-	position: relative;
-	top: 220px;
 	text-align: center;
+	margin-top: 7px;
 }
 
-#upgradedescription {
-	position: absolute;
-	text-align: center;
-	top: 251px;
-	width: 1000px;
-	left: 48%;
-	margin-left: -500px;
+#upgradesrow3 > p {
+	padding-top: 0;
+	margin: 0;
 }
 
-#upgradecost {
-	position: absolute;
-	top: 271px;
-	width: 300px;
-	left: 48%;
-	margin-left: -150px;
-}
+#upgradeeffect { color: pink; }
 
-#upgradeeffect {
-	position: absolute;
-	top: 291px;
-	width: 400px;
-	left: 48%;
-	margin-left: -200px;
-	color: pink
+#toggle9 {
+	width: 130px;
+	height: 30px;
+	margin: 25px auto;
 }
 
 #settings {
@@ -1058,15 +884,6 @@ margin-left: -13px
 	top: 371px;
 	left: 51%;
 	margin-left: -16px;
-}
-
-#toggle9 {
-	position:absolute;
-	height: 30px;
-	width: 130px;
-	top: 356px;
-	left: 48%;
-	margin-left: -65px;
 }
 
 #toggle10 {
