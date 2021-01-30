@@ -11,10 +11,14 @@ module.exports = {
         }],
     },
     resolve: {
-        extensions: [ '.ts' ],
+        extensions: [ '.ts', '.js' ],
+        modules: [path.resolve(__dirname, 'test'), 'node_modules']
     },
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
+    },
+    devServer: {
+        port: 3001 // Specify a port number to listen for requests
     },
 };
