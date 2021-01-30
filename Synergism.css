@@ -7,18 +7,10 @@ html {
 
 
 }
-body {background-color: #111111 ;
-	transform: scale(0.9);
-	transform-origin: 0 0;
-	overflow-x: hidden;
-	/*overflow-y: hidden;*/
+body {
+	background-color: #111111 ;
 }
 
-body {
-	color: white;
-	margin: 0;
-	box-sizing: border-box;
-}
 btn {
 	color: #171717
 }
@@ -108,44 +100,40 @@ a {color: white;}
 }
 #preload {
 	position:absolute;
-	z-index: 2
+	top:0;
+	left:0;
+	z-index: 2;
+	width:100vw;
+	height:100vh;
 }
 #offlineTimer{
-	position:absolute;
 	z-index: 5;
 	text-align: left;
-	width: 700px;
-	top: -85px;
-	left: 50%;
-	margin-left: -375px;
+
 	font-family: "system";
 	font-size: 1.4em
 }
-#offlineprogressbar{
+#offlineprogress {
 	position:absolute;
 	z-index: 3;
-	height: 30px;
-	width: 750px;
-	border: 3px solid red;
+	
+	top: 65vh;
+	left: 50vh;
+}
+#offlineprogressbar{
+	width: 40vh;
+	height: 3vh;
 	background-color: #171717;
-	top: 600px;
-	left: 50%;
-	margin-left: -375px;
+	border: 3px solid red;
 }
 #progressbardescription{
-	position:absolute;
-	z-index: 5;
 	text-align: left;
-	width: 700px;
-	top: -55px;
-	left: 50%;
-	margin-left: -375px;
 	font-family: "system";
 	font-size: 1.4em
 }
 #offlineprogressdone{
-	width: 1px;
-	height: 30px;
+	width: 1%;
+	height: 100%;
 	background-color: green;
 	z-index: 4;
 }

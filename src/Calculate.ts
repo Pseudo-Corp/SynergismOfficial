@@ -783,7 +783,7 @@ export const calculateOffline = (forceTime = 0) => {
     player.ascensionCounter += timeAdd
     player.runeshards += timeAdd * (1 / 2 * Math.min(1, player.highestchallengecompletions[2]) + player.cubeUpgrades[2])
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
-    document.getElementById("offlineprogressbar").style.display = "block";
+    document.getElementById("offlineprogress").style.display = "block";
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
     const runOffline = interval(runSimulator, 0)
 
@@ -821,12 +821,13 @@ export const calculateOffline = (forceTime = 0) => {
         updateAll();
         //Misc functions
         simulatedTicks -= 1;
-        progressBarWidth = 750 * (1 - simulatedTicks / maxSimulatedTicks);
-        document.getElementById("offlineprogressdone").style.width = progressBarWidth + "px";
+        progressBarWidth = 100 * (1 - simulatedTicks / maxSimulatedTicks);
+        document.getElementById("offlineprogressdone").style.width = progressBarWidth + "%";
         if (simulatedTicks < 1) {
             clearInt(runOffline);
             G['timeWarp'] = false;
-            document.getElementById("offlineprogressbar").style.display = "none";
+            document.getElementById("offlineprogress").style.display = "none";
+            document.getElementById("game").style.display = "block";
             document.getElementById("preload").style.display = "none";
         }
     }

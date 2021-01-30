@@ -2942,7 +2942,8 @@ export const constantIntervals = (): void => {
 
     if (!G['timeWarp']) {
         document.getElementById("preload").style.display = "none";
-        document.getElementById("offlineprogressbar").style.display = "none"
+        document.getElementById("offlineprogress").style.display = "none"
+        document.getElementById("game").style.display = "block";
     }
 }
 
