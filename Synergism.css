@@ -1680,6 +1680,20 @@ margin-left: -13px
 	border-top: 2px solid cyan;
 }
 
+#runesToggle {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin: 10px;
+}
+
+#runesToggle > button {
+	height: 30px;
+	width: 100px;
+	margin: 0 7px;
+	text-align: center;
+}
+
 #runeshards {
 	position: absolute;
 	top: 30px;
@@ -1689,57 +1703,6 @@ margin-left: -13px
 	color: pink;
 	text-align: center;
 	font-size: 1.2em
-}
-
-#toggleRuneSubTab1{
-	position: absolute;
-	padding: 5px;
-	top: 10px;
-	left: 46%;
-	width: 100px;
-	margin-left: -100px;
-	height: 30px;
-	text-align: center;
-}
-#toggleRuneSubTab2{
-	position: absolute;
-	padding: 5px;
-	top: 10px;
-	left: 54%;
-	width: 100px;
-	margin-left: -100px;
-	height: 30px;
-	text-align: center;
-}
-#toggleRuneSubTab3{
-	position: absolute;
-	padding: 5px;
-	top: 10px;
-	left: 62%;
-	width: 100px;
-	margin-left: -100px;
-	height: 30px;
-	text-align: center;
-}
-#toggleRuneSubTab4{
-	position: absolute;
-	padding: 5px;
-	top: 10px;
-	left: 70%;
-	width: 100px;
-	margin-left: -100px;
-	height: 30px;
-	text-align: center;
-}
-#toggleautosacrifice {
-	position: absolute;
-	padding: 5px;
-	top: 10px;
-	left: 38%;
-	width: 120px;
-	margin-left: -120px;
-	height: 30px;
-	text-align: center;
 }
 
 #rune1 {
