@@ -9,7 +9,7 @@ import { redeemShards } from './Runes';
 import { updateTalismanInventory } from './Talismans';
 import { buyResearch } from './Research';
 import { resetAnts } from './Reset';
-import type { ResetHistoryDate } from './History';
+import type { ResetHistoryEntryAntSacrifice } from './History';
 import { Synergism } from './Events';
 
 const antdesc: Record<string, string> = {
@@ -326,7 +326,6 @@ export const showSacrifice = () => {
 }
 
 export const sacrificeAnts = (auto = false) => {
-    const historyEntry: Partial<ResetHistoryDate> = {};
     let p = true
 
     if (player.antPoints.gte("1e40")) {
@@ -334,21 +333,26 @@ export const sacrificeAnts = (auto = false) => {
             p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?")
         }
         if (p) {
-            historyEntry.antSacrificePointsBefore = player.antSacrificePoints;
+            const antSacrificePointsBefore = player.antSacrificePoints;
 
             const sacRewards = calculateAntSacrificeRewards();
             player.antSacrificePoints += sacRewards.antSacrificePoints;
             player.runeshards += sacRewards.offerings;
             player.researchPoints += sacRewards.obtainium;
 
-            historyEntry.seconds = player.antSacrificeTimer;
-            historyEntry.offerings = sacRewards.offerings;
-            historyEntry.obtainium = sacRewards.obtainium;
-            historyEntry.antSacrificePointsAfter = player.antSacrificePoints;
-            historyEntry.baseELO = G['antELO'];
-            historyEntry.effectiveELO = G['effectiveELO'];
-            historyEntry.crumbs = player.antPoints;
-            historyEntry.crumbsPerSecond = G['antOneProduce'];
+            const historyEntry: ResetHistoryEntryAntSacrifice = {
+                date: Date.now(),
+                seconds: player.antSacrificeTimer,
+                kind: 'antsacrifice',
+                offerings: sacRewards.offerings,
+                obtainium: sacRewards.obtainium,
+                antSacrificePointsBefore: antSacrificePointsBefore,
+                antSacrificePointsAfter: player.antSacrificePoints,
+                baseELO: G['antELO'],
+                effectiveELO: G['effectiveELO'],
+                crumbs: player.antPoints.toString(),
+                crumbsPerSecond: G['antOneProduce'].toString(),
+            };
 
             if (player.challengecompletions[9] > 0) {
                 player.talismanShards += sacRewards.talismanShards;
@@ -391,7 +395,7 @@ export const sacrificeAnts = (auto = false) => {
             }
             calculateAntSacrificeELO();
 
-            Synergism.emit('historyAdd', 'ants', 'antsacrifice', historyEntry as ResetHistoryDate);
+            Synergism.emit('historyAdd', 'ants', historyEntry);
         }
     }
 

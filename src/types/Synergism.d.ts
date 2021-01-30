@@ -1,5 +1,5 @@
 import type Decimal from 'break_infinity.js';
-import { Category, Kind, ResetHistoryAscend, ResetHistoryDate } from '../History';
+import { Category, ResetHistoryEntryUnion } from '../History';
 import { IPlatBaseCost } from '../Platonic';
 
 export interface Player {
@@ -853,7 +853,7 @@ export interface GlobalVariables {
 
 export interface SynergismEvents {
     achievement: [ number ]
-    historyAdd: [ Category, Kind, ResetHistoryAscend | ResetHistoryDate ]
+    historyAdd: [ Category, ResetHistoryEntryUnion ]
     promocode: [ string ]
     boughtPlatonicUpgrade: [ IPlatBaseCost ],
     openPlatonic: [ number ]

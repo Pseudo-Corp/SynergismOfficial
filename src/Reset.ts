@@ -11,7 +11,12 @@ import { getElementById } from './Utility';
 import { ascensionAchievementCheck } from './Achievements';
 import { buyResearch } from './Research';
 import { calculateHypercubeBlessings } from './Hypercubes';
-import type { ResetHistoryAscend, Kind } from './History';
+import type {
+    ResetHistoryEntryPrestige,
+    ResetHistoryEntryTranscend,
+    ResetHistoryEntryReincarnate,
+    ResetHistoryEntryAscend,
+} from './History';
 import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
 import { resetNames } from './types/Synergism';
@@ -163,17 +168,77 @@ export const updateTesseractAutoBuyAmount = () => {
     }
 }
 
-export const reset = (input: resetNames, fast = false, from = 'unknown') => {
-    const historyEntry: Partial<ResetHistoryAscend> = {};
-    let historyKind = "prestige";
-    const historyCategory = (input === 'ascension' || input === 'ascensionChallenge') ? 'ascend' : 'reset';
-    // By default, we don't log history entries when the player is entering or leaving a challenge, but we handle some
-    // special cases down below. This keeps the logs clean when someone in lategame runs 30 challenges in a row.
-    let historyUse = from !== "enterChallenge" && from !== "leaveChallenge";
+const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
+    const offeringsGiven = calculateOfferings(input);
+    const isChallenge = ["enterChallenge", "leaveChallenge"].includes(from);
 
-    historyEntry.offerings = calculateOfferings(input)
-    historyEntry.seconds = player.prestigecounter;
-    historyEntry.diamonds = G['prestigePointGain'];
+    if (input === "prestige") {
+        const historyEntry: ResetHistoryEntryPrestige = {
+            seconds: player.prestigecounter,
+            date: Date.now(),
+            offerings: offeringsGiven,
+            kind: "prestige",
+            diamonds: G['prestigePointGain'].toString(),
+        }
+
+        Synergism.emit('historyAdd', 'reset', historyEntry);
+    } else if (input === "transcension" || input === "transcensionChallenge") {
+        // Heuristics: transcend entries are not added when entering or leaving a challenge,
+        // unless a meaningful gain in particles was made. This prevents spam when using the challenge automator.
+        const historyEntry: ResetHistoryEntryTranscend = {
+            seconds: player.transcendcounter,
+            date: Date.now(),
+            offerings: offeringsGiven,
+            kind: "transcend",
+            mythos: G['transcendPointGain'].toString(),
+        }
+
+        Synergism.emit('historyAdd', 'reset', historyEntry);
+    } else if (input === "reincarnation" || input === "reincarnationChallenge") {
+        // Heuristics: reincarnate entries are not added when entering or leaving a challenge,
+        // unless a meaningful gain in particles was made. This prevents spam when using the challenge automator.
+        if (!isChallenge || G['reincarnationPointGain'].gte(player.reincarnationPoints.div(10))) {
+            const historyEntry: ResetHistoryEntryReincarnate = {
+                seconds: player.reincarnationcounter,
+                date: Date.now(),
+                offerings: offeringsGiven,
+                kind: "reincarnate",
+                particles: G['reincarnationPointGain'].toString(),
+                obtainium: G['obtainiumGain'],
+            }
+
+            Synergism.emit('historyAdd', 'reset', historyEntry);
+        }
+    } else if (input === "ascension" || input === "ascensionChallenge") {
+        // Ascension entries will only be logged if C10 was completed.
+        if (player.challengecompletions[10] > 0) {
+            const corruptionMetaData = CalcCorruptionStuff();
+            const historyEntry: ResetHistoryEntryAscend = {
+                seconds: player.ascensionCounter,
+                date: Date.now(),
+                c10Completions: player.challengecompletions[10],
+                usedCorruptions: player.usedCorruptions.slice(0), // shallow copy,
+                corruptionScore: corruptionMetaData[3],
+                wowCubes: corruptionMetaData[4],
+                wowTesseracts: corruptionMetaData[5],
+                wowHypercubes: corruptionMetaData[6],
+                wowPlatonicCubes: corruptionMetaData[7],
+                kind: "ascend",
+            }
+
+            // If we are _leaving_ an ascension challenge, log that too.
+            if (from !== "enterChallenge" && player.currentChallenge.ascension !== 0) {
+                historyEntry.currentChallenge = player.currentChallenge.ascension;
+            }
+
+            Synergism.emit('historyAdd', 'ascend', historyEntry);
+        }
+    }
+};
+
+export const reset = (input: resetNames, fast = false, from = 'unknown') => {
+    // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
+    resetAddHistoryEntry(input, from);
 
     resetofferings(input)
     resetUpgrades(1);
@@ -225,10 +290,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     if (input === "transcension" || input === "transcensionChallenge" || input == "reincarnation" || input == "reincarnationChallenge"
         || input === "ascension" || input === "ascensionChallenge") {
-        historyKind = "transcend";
-        historyEntry.seconds = player.transcendcounter;
-        historyEntry.mythos = G['transcendPointGain'];
-        delete historyEntry.diamonds;
         resetUpgrades(2);
         player.coinsThisTranscension = new Decimal("100");
         player.firstOwnedDiamonds = 0;
@@ -311,23 +372,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             ascensionAchievementCheck(1);
         }
 
-        historyKind = "reincarnate";
-        historyEntry.obtainium = G['obtainiumGain'];
-        historyEntry.particles = G['reincarnationPointGain'];
-        historyEntry.seconds = player.reincarnationcounter;
-        delete historyEntry.mythos;
-
-        // If we got a significant amount of particles from it, we want to record it even though we're
-        // in (entering) a challenge. We'll arbitrarily set this to 10% of the player's total particles.
-        // This makes it so that when a player constantly starts reincarnation challenges while getting boosts,
-        // the gains in between each challenge start are still recorded, but all of the spam and the challenge
-        // attempts themselves aren't.
-        if (!historyUse) {
-            if (G['reincarnationPointGain'].gte(player.reincarnationPoints.div(10))) {
-                historyUse = true;
-            }
-        }
-
         player.researchPoints += Math.floor(G['obtainiumGain']);
 
         const opscheck = G['obtainiumGain'] / (1 + player.reincarnationcounter)
@@ -405,26 +449,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     if (input === 'ascension' || input === 'ascensionChallenge') {
         const metaData = CalcCorruptionStuff()
         ascensionAchievementCheck(3, metaData[3])
-        historyKind = "ascend";
-        // Log history for every ascend with a C10 completion, overriding previous restrictions
-        historyUse = player.challengecompletions[10] > 0;
-        delete historyEntry.offerings;
-        delete historyEntry.obtainium;
-        delete historyEntry.particles;
-        historyEntry.seconds = player.ascensionCounter;
-        historyEntry.c10Completions = player.challengecompletions[10];
-        // get a copy of the array, not the actual array itself
-        historyEntry.usedCorruptions = player.usedCorruptions.slice(0);
-        historyEntry.corruptionScore = metaData[3];
-        // The value in player.cubesThisAscension isn't updated yet, we need the new value for that, but the current ones
-        // for the others, so we calculate it here
-        historyEntry.wowCubes = metaData[4];
-        historyEntry.wowTesseracts = metaData[5];
-        historyEntry.wowHypercubes = metaData[6];
-        historyEntry.wowPlatonicCubes = metaData[7];
-        if (player.currentChallenge.ascension && from !== "enterChallenge") {
-            historyEntry.currentChallenge = player.currentChallenge.ascension;
-        }
         // reset auto challenges
         player.currentChallenge.transcension = 0;
         player.currentChallenge.reincarnation = 0;
@@ -587,10 +611,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
     if (!fast) {
         revealStuff();
-    }
-
-    if (historyUse) {
-        Synergism.emit('historyAdd', historyCategory, historyKind as Kind, historyEntry as ResetHistoryAscend);
     }
 }
 
