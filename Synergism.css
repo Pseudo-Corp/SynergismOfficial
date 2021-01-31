@@ -695,16 +695,18 @@ position: absolute;
 }
 
 #shoptogglerow {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
 	margin-top: 10px;
+	justify-items: center;
 }
 
 #shoptogglerow > button {
 	width: 80px;
 	height: 30px;
 }
+
+#particleAutoUpgrade { grid-column-start: 6; }
 
 #upgradesrow3 {
 	text-align: center;
