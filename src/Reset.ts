@@ -288,8 +288,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.prestigecounter = 0;
     G['autoResetTimers'].prestige = 0;
 
-    if (input === "transcension" || input === "transcensionChallenge" || input == "reincarnation" || input == "reincarnationChallenge"
-        || input === "ascension" || input === "ascensionChallenge") {
+    const types = ['transcension', 'transcensionChallenge', 'reincarnation', 'reincarnationChallenge', 'ascension', 'ascensionChallenge'];
+    if (types.includes(input)) {
         resetUpgrades(2);
         player.coinsThisTranscension = new Decimal("100");
         player.firstOwnedDiamonds = 0;
