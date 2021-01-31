@@ -2299,25 +2299,25 @@ position: absolute;
 	border-top: 2px solid plum;
 }
 
+#challengesWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 #challengeIntroduction {
-	position: absolute;
 	text-align: center;
-	padding: 0;
-	top: 0;
 	color: white;
-	width: 1000px;
 	font-size: 1.2em;
-	margin-left: -500px;
-	left: 50%;
+	line-height: .4;
+	margin-top: 30px;
 }
+
 #challengeIcons {
-	position: absolute;
 	font-size: 0;
-	padding: 0;
-	top: 50px;
-	margin-left: -510px;
-	left: 50%;
+	align-self: center;
 }
+
 #challengeIcons .challengeLevels {
 	font-size: 12px;
 	text-align: center;
