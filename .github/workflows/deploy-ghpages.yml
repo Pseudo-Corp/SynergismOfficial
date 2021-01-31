@@ -18,13 +18,12 @@ jobs:
       - name: Build
         run: |
           npm install
-          mkdir -p dist
           npm run-script build
       - name: Prepare for deploy
         run: |
           rm -rf targetdir
           mkdir -p targetdir
-          mv Pictures index.html Synergism.css favicon.ico targetdir/
+          mv dist Pictures index.html Synergism.css favicon.ico targetdir/
       - name: Deploy with the $GME emoji for some reason 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
