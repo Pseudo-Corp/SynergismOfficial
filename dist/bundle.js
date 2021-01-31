@@ -2629,7 +2629,8 @@ const constantIntervals = () => {
     interval(_Achievements__WEBPACK_IMPORTED_MODULE_18__.buildingAchievementCheck, 200);
     if (!_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.timeWarp) {
         document.getElementById("preload").style.display = "none";
-        document.getElementById("offlineprogressbar").style.display = "none";
+        document.getElementById("offlineprogress").style.display = "none";
+        document.getElementById("game").style.display = "block";
     }
 };
 let lastUpdate = 0;
@@ -8321,7 +8322,7 @@ const calculateOffline = (forceTime = 0) => {
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCounter += timeAdd;
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards += timeAdd * (1 / 2 * Math.min(1, _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.highestchallengecompletions[2]) + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubeUpgrades[2]);
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
-    document.getElementById("offlineprogressbar").style.display = "block";
+    document.getElementById("offlineprogress").style.display = "block";
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offlinetick = (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offlinetick < 1.5e12) ? (Date.now()) : _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.offlinetick;
     const runOffline = (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.interval)(runSimulator, 0);
     function runSimulator() {
@@ -8350,12 +8351,13 @@ const calculateOffline = (forceTime = 0) => {
         }
         (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.updateAll)();
         simulatedTicks -= 1;
-        progressBarWidth = 750 * (1 - simulatedTicks / maxSimulatedTicks);
-        document.getElementById("offlineprogressdone").style.width = progressBarWidth + "px";
+        progressBarWidth = 100 * (1 - simulatedTicks / maxSimulatedTicks);
+        document.getElementById("offlineprogressdone").style.width = progressBarWidth + "%";
         if (simulatedTicks < 1) {
             (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.clearInt)(runOffline);
             _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.timeWarp = false;
-            document.getElementById("offlineprogressbar").style.display = "none";
+            document.getElementById("offlineprogress").style.display = "none";
+            document.getElementById("game").style.display = "block";
             document.getElementById("preload").style.display = "none";
         }
     }

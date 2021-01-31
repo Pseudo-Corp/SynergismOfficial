@@ -1,0 +1,2 @@
+(self.webpackChunksynergismofficial=self.webpackChunksynergismofficial||[]).push([[838],{838:(e,s,i)=>{"use strict";i.r(s),i.d(s,{main:()=>n});var a=i(504);const n=()=>{Object.defineProperty(window,"resetGame",{value:a._X})}}}]);
+//# sourceMappingURL=838.bundle.js.map
