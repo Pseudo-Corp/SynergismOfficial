@@ -298,8 +298,8 @@ export const generateEventHandlers = () => {
 //Part 3: Blessings and Spirits
     for (let index = 0; index < 5; index++) {
 
-        document.getElementById(`runeBlessingPower${index+1}`).addEventListener('click', () => buyRuneBonusLevels('Blessings', index+1))
-        document.getElementById(`runeSpiritPower${index+1}`).addEventListener('click', () => buyRuneBonusLevels('Spirits', index+1))
+        document.getElementById(`runeBlessingPurchase${index+1}`).addEventListener('click', () => buyRuneBonusLevels('Blessings', index+1))
+        document.getElementById(`runeSpiritPurchase${index+1}`).addEventListener('click', () => buyRuneBonusLevels('Spirits', index+1))
 
     }
     document.getElementById('buyRuneBlessingInput').addEventListener('blur', () => updateRuneBlessingBuyAmount(1))

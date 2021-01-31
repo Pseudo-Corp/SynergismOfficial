@@ -13,9 +13,10 @@ const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, 
  * Buys Research of index.
  * @param index 
  * @param auto 
- * @param linGrowth 
+ * @param linGrowth
+ * @return boolean Whether the player can afford the current research
  */
-export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
+export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean => {
     // Handles background color of the currently focused research if auto research is upgrading something else
     if (player.autoResearchToggle && player.autoResearch > 0 && !auto) {
         const p = player.autoResearch
@@ -42,8 +43,9 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
     // Buys Research. metaData returns amount of levels to buy and cost, array
     const buyamount = (G['maxbuyresearch'] || auto) ? 1e5 : 1;
     const metaData = getResearchCost(index, buyamount, linGrowth)
+    const canAfford = player.researchPoints >= metaData[1];
 
-    if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && player.researchPoints >= metaData[1]) {
+    if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && canAfford) {
         player.researchPoints -= metaData[1]
         player.researches[index] = metaData[0];
 
@@ -68,6 +70,10 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
             player.unlocks.rrow4 = true;
             revealStuff()
         }
+
+        // Some researches update Rune and Ant values, so these recalculations are necessary if we bought research
+        calculateRuneLevels();
+        calculateAnts();
     }
 
     // Updates research background color to green if you purchased to max level
@@ -96,9 +102,7 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0) => {
         }
     }
 
-    // Some researches update Rune and Ant values, so these recalculations are sometimes necessary
-    calculateRuneLevels();
-    calculateAnts();
+    return canAfford;
 }
 
 /**

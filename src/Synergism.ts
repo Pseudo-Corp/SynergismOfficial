@@ -1322,6 +1322,10 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         player.autoSacrifice = Math.min(5, player.autoSacrifice)
 
 
+        if (player.researches[61] === 0) {
+            document.getElementById('automaticobtainium').textContent = "[LOCKED - Buy Research 3x11]"
+        }
+
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "orange"
         }
@@ -3012,7 +3016,9 @@ function tack(dt: number) {
                 while (counter < maxCount) {
                     if (player.autoResearch > 0) {
                         const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
-                        buyResearch(player.autoResearch, true, linGrowth)
+                        if (!buyResearch(player.autoResearch, true, linGrowth)) {
+                            break;
+                        }
                     }
                     else {
                         break;
@@ -3033,51 +3039,43 @@ function tack(dt: number) {
         }
 
         if (player.researches[130] > 0 || player.researches[135] > 0) {
-            if (player.researches[135] > 0 && player.autoEnhanceToggle == true) {
-                if (player.achievements[119] > 0) {
-                    buyTalismanEnhance(1, true)
-                }
-                if (player.achievements[126] > 0) {
-                    buyTalismanEnhance(2, true)
-                }
-                if (player.achievements[133] > 0) {
-                    buyTalismanEnhance(3, true)
-                }
-                if (player.achievements[140] > 0) {
-                    buyTalismanEnhance(4, true)
-                }
-                if (player.achievements[147] > 0) {
-                    buyTalismanEnhance(5, true)
-                }
-                if (player.antUpgrades[12-1] > 0 || player.ascensionCount > 0) {
-                    buyTalismanEnhance(6, true)
-                }
-                if (player.shopUpgrades.talismanBought) {
-                    buyTalismanEnhance(7, true)
+            const talismansUnlocked = [
+                player.achievements[119] > 0,
+                player.achievements[126] > 0,
+                player.achievements[133] > 0,
+                player.achievements[140] > 0,
+                player.achievements[147] > 0,
+                player.antUpgrades[12-1] > 0 || player.ascensionCount > 0,
+                player.shopUpgrades.talismanBought,
+            ];
+            let upgradedTalisman = false;
+
+            // First, we need to enhance all of the talismans. Then, we can fortify all of the talismans.
+            // If we were to do this in one loop, the players resources would be drained on individual expensive levels
+            // of early talismans before buying important enhances for the later ones. This results in drastically
+            // reduced overall gains when talisman resources are scarce.
+            if (player.autoEnhanceToggle) {
+                for (let i = 0; i < talismansUnlocked.length; ++i) {
+                    if (talismansUnlocked[i]) {
+                        // TODO: Remove + 1 here when talismans are fully zero-indexed
+                        upgradedTalisman = buyTalismanEnhance(i + 1, true) || upgradedTalisman;
+                    }
                 }
             }
-            if (player.researches[130] > 0 && player.autoFortifyToggle == true) {
-                if (player.achievements[119] > 0) {
-                    buyTalismanLevels(1, true)
+
+            if (player.autoFortifyToggle) {
+                for (let i = 0; i < talismansUnlocked.length; ++i) {
+                    if (talismansUnlocked[i]) {
+                        // TODO: Remove + 1 here when talismans are fully zero-indexed
+                        upgradedTalisman = buyTalismanLevels(i + 1, true) || upgradedTalisman;
+                    }
                 }
-                if (player.achievements[126] > 0) {
-                    buyTalismanLevels(2, true)
-                }
-                if (player.achievements[133] > 0) {
-                    buyTalismanLevels(3, true)
-                }
-                if (player.achievements[140] > 0) {
-                    buyTalismanLevels(4, true)
-                }
-                if (player.achievements[147] > 0) {
-                    buyTalismanLevels(5, true)
-                }
-                if (player.antUpgrades[12-1] > 0 || player.ascensionCount > 0) {
-                    buyTalismanLevels(6, true)
-                }
-                if (player.shopUpgrades.talismanBought) {
-                    buyTalismanLevels(7, true)
-                }
+            }
+
+            // Recalculate talisman-related upgrades and display on success
+            if (upgradedTalisman) {
+                updateTalismanInventory();
+                calculateRuneLevels();
             }
         }
 
@@ -3376,7 +3374,7 @@ window.addEventListener('load', () => {
     }
 
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 2:40AM UTC-8 30-Jan-2021]. Savefiles cannot be used in live!`);
+    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 6:00PM UTC-8 30-Jan-2021]. Savefiles cannot be used in live!`);
     document.title = 'Synergism v' + player.version;
 
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));

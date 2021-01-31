@@ -263,7 +263,6 @@ a {color: white;}
 
 #researchtab {
 	position:absolute;
-
 	text-align: center;
 	width: 100px;
 	border: 1px solid green;
@@ -640,250 +639,78 @@ position: absolute;
 	left:12.5%;
 }
 
-#upgradesrow1 {
+#upgrades {
 	position: relative;
+	text-align: center;
+	padding: 0;
+	top: 118px;
+	color: gold;
+	border-top: 2px solid gold;
 }
 
-#coinupgradetitle{
-position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 10%;
-margin-left: -12.5px
-}
-#cointext {
-position:absolute;
-display: inline-block;
-text-align:center;
-top: 247px;
-width: 150px;
-left: 10%;
-margin-left: -72.5px
+#upgradesGrid {
+	display: flex;
+	flex-direction: column;
+	align-content: flex-start;
 }
 
-#prestigeupgradetitle{
-position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 25%;
-margin-left: -12.5px
+#upgradesGrid > #upgradesTexts > p,
+#upgradesGrid > #upgradesImages > p {
+	width: 16.666666666%;
+	padding: 0;
+	margin: 0;
 }
-#prestigetext {
-	position:absolute;
-	display: inline-block;
-	text-align:center;
-	top: 247px;
-	width: 150px;
-	left: 25%;
-	margin-left: -72.5px
-	}
-#transcendupgradetitle{
-position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 40%;
-margin-left: -12.5px
-}
-#transcendtext {
-	position:absolute;
-	display: inline-block;
-	text-align:center;
-	top: 247px;
-	width: 150px;
-	left: 40%;
-	margin-left: -72.5px
-	}
 
+#upgradesImages {
+	margin-top: 4%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
 
-#reincarnationupgradetitle{
-position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 85%;
-margin-left: -14.5px
+#upgradesTexts {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
 }
-#reincarnationtext {
-	position:absolute;
-	display: inline-block;
-	text-align:center;
-	top: 247px;
-	width: 150px;
-	left: 85%;
-	margin-left: -72.5px
-	}
-#automationtitle {
-	position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 70%;
-margin-left: -13.5px
-}
-#automationtext {
-	position:absolute;
-	display: inline-block;
-	text-align:center;
-	top: 247px;
-	width: 150px;
-	left: 70%;
-	margin-left: -72.5px
-	}
-
-#generatortitle {
-	position:absolute;
-display: inline-block;
-text-align:center;
-top: 207px;
-left: 55%;
-margin-left: -13px
-}
-#generatortext {
-	position:absolute;
-	display: inline-block;
-	text-align:center;
-	top: 247px;
-	width: 150px;
-	left: 55%;
-	margin-left: -72.5px
-	}
 
 #upgradesrow2 {
-	position:relative;
-	top: 118px;
-	/* TODO: replace this in #upgrades when positioning isn't trash */
-	border: 1px solid gold
-}
-
-#coinupgradestable {
-	position: absolute;
-	top: 150px;
-	left: 10%;
-	margin-left: -88px;
-}
-
-#prestigeupgradestable {
-	position: absolute;
-	top: 150px;
-	left: 25%;
-	margin-left: -88px;
-}
-
-#transcendupgradestable {
-	position: absolute;
-	top: 150px;
-	left: 40%;
-	margin-left: -88px;
-}
-
-#reincarnationupgradestable {
-	position: absolute;
-	top: 150px;
-	left: 85%;
-	margin-left: -88px;
-}
-
-#automationtable {
-	position:absolute;
-	top: 150px;
-	left: 70%;
-	margin-left: -88px;
-
-}
-
-#generatortable {
-	position: absolute;
-	top: 150px;
-	left: 55%;
-	margin-left: -88px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-top: 2%;
 }
 
 #shoptogglerow {
-	position:relative;
-	top: 385px;
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	margin-top: 10px;
+	justify-items: center;
 }
 
-#shoptogglecoin {
-	position:absolute;
+#shoptogglerow > button {
 	width: 80px;
-	padding: 0;
 	height: 30px;
-	top: 61.5px;
-	left: 8.4%;
-	margin-left: -16px;
 }
 
-#shoptoggleprestige {
-	position:absolute;
-	width: 80px;
-	padding: 0;
-	height: 30px;
-	top: 61.5px;
-	left: 23.3%;
-	margin-left: -16px;
-}
+#particleAutoUpgrade { grid-column-start: 6; }
 
-#shoptoggletranscend {
-	position:absolute;
-	width: 80px;
-	padding: 0;
-	height: 30px;
-	top: 61.5px;
-	left: 38.2%;
-	margin-left: -16px;
-}
-
-#shoptogglegenerator {
-	position:absolute;
-	width: 80px;
-	padding: 0;
-	height: 30px;
-	top: 61.5px;
-	left: 53.1%;
-	margin-left: -16px;
-}
-#particleAutoUpgrade {
-	position:absolute;
-	width: 80px;
-	padding: 0;
-	height: 30px;
-	top: 61.5px;
-	left: 83%;
-	margin-left: -16px;
-}
 #upgradesrow3 {
-	position: relative;
-	top: 220px;
 	text-align: center;
+	margin-top: 7px;
 }
 
-#upgradedescription {
-	position: absolute;
-	text-align: center;
-	top: 251px;
-	width: 1000px;
-	left: 48%;
-	margin-left: -500px;
+#upgradesrow3 > p {
+	padding-top: 0;
+	margin: 0;
 }
 
-#upgradecost {
-	position: absolute;
-	top: 271px;
-	width: 300px;
-	left: 48%;
-	margin-left: -150px;
-}
+#upgradeeffect { color: pink; }
 
-#upgradeeffect {
-	position: absolute;
-	top: 291px;
-	width: 400px;
-	left: 48%;
-	margin-left: -200px;
-	color: pink
+#toggle9 {
+	width: 130px;
+	height: 30px;
+	margin: 25px auto;
 }
 
 #settings {
@@ -927,8 +754,23 @@ margin-left: -13px
 	margin: .8em 0;
 }
 
-#exportButtons > * {
-	margin: .15em 0;
+#exportButtons > * { margin: .15em 0; }
+
+#importFileButton {
+	border: 1px solid white;
+	width: 100px;
+	margin: 2px auto;
+}
+
+#savegame, #deleteGame {
+	width: 180px;
+	margin: 2px auto;
+}
+
+#exportgame {
+	width: 150px;
+	height: 40px;
+	margin: 5px auto;
 }
 
 /* Third party URLs (Discord, Patreon, patch notes) */
@@ -1046,15 +888,6 @@ margin-left: -13px
 	top: 371px;
 	left: 51%;
 	margin-left: -16px;
-}
-
-#toggle9 {
-	position:absolute;
-	height: 30px;
-	width: 130px;
-	top: 356px;
-	left: 48%;
-	margin-left: -65px;
 }
 
 #toggle10 {
@@ -2932,78 +2765,37 @@ margin-left: -13px
 	margin-top: 15px;
 }
 
+#researchDetails {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	margin-bottom: auto;
+}
+
+#researchDetails > p {
+	width: 750px;
+	margin: auto;
+}
+
+#researchToggles {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: auto;
+}
+
+#researchToggles > button {
+	width: 175px;
+	height: 30px;
+	margin: 0 7px;
+	text-align: center;
+}
+
 #researchinfo2 {
-	position:absolute;
-	top:280px;
-	width:1000px;
-	height: 42px;
-	left:50%;
-	margin-left: -500px;
-}
-
-#researchcost {
-	position: absolute;
-	position:absolute;
-	top:323px;
-	width:400px;
-	height: 42px;
-	left:50%;
-	margin-left: -200px;
-}
-
-#researchinfo3 {
-	position:absolute;
-	top:346px;
-	width: 200px;
-	left: 50%;
-	margin-left: -100px;
-}
-
-#researchpointinfo {
-	position:absolute;
-	top: 366px;
-	width: 900px;
-	left: 50%;
-	margin-left: -450px;
-}
-#researchhotkeys{
-	position: absolute;
-	padding: 5px;
-	top: 460px;
-	margin-left: 25%;
-	width: 50%;
-	color: plum;
-	text-align: center;
-}
-#automaticobtainium{
-	position: absolute;
-	padding: 5px;
-	top: 385px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	text-align: center;
-}
-#toggleresearchbuy {
-	position: absolute;
-	padding: 5px;
-	top: 440px;
-	left: 40%;
-	width: 200px;
-	margin-left: -100px;
-	height: 30px;
-	text-align: center;
-}
-#toggleautoresearch {
-	position: absolute;
-	padding: 5px;
-	top: 440px;
-	left: 60%;
-	width: 200px;
-	margin-left: -100px;
-	height: 30px;
-	text-align: center;
+	height: 40px;
 }
 
 #retrybutton {

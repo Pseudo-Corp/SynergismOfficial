@@ -405,7 +405,7 @@ export const updateTalismanAppearance = (i: number) => {
     }
 }
 
-export const buyTalismanLevels = (i: number, auto = false) => {
+export const buyTalismanLevels = (i: number, auto = false): boolean => {
     let max = 1;
     if (player.ascensionCount > 0) {
         max = 30
@@ -457,21 +457,22 @@ export const buyTalismanLevels = (i: number, auto = false) => {
             player.mythicalFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i-1] - 150, 3)))
             player.talismanLevels[i-1] += 1;
 
-        }
-
-        if (checkSum !== 7) {
-            break
+        } else {
+            return false;
         }
     }
-    updateTalismanInventory();
+
     if (!auto) {
         showTalismanPrices(i);
+        // When adding game state recalculations, update the talisman autobuyer in tack() as well
+        updateTalismanInventory();
+        calculateRuneLevels();
     }
 
-    calculateRuneLevels();
+    return true;
 }
 
-export const buyTalismanEnhance = (i: number, auto = false) => {
+export const buyTalismanEnhance = (i: number, auto = false): boolean => {
     let checkSum = 0;
     if (player.talismanRarity[i-1] < 6) {
         const priceMult = G['talismanLevelCostMultiplier'][i];
@@ -506,14 +507,18 @@ export const buyTalismanEnhance = (i: number, auto = false) => {
             player.legendaryFragments -= (priceMult * costArray[6])
             player.mythicalFragments -= (priceMult * costArray[7])
             player.talismanRarity[i-1] += 1
-        }
 
-        updateTalismanAppearance(i);
-        updateTalismanInventory();
-        if (!auto) {
-            showEnhanceTalismanPrices(i);
-        }
+            // Appearance always needs updating if bought
+            updateTalismanAppearance(i);
+            if (!auto) {
+                showEnhanceTalismanPrices(i);
+                // When adding game state recalculations, update the talisman autobuyer in tack() as well
+                updateTalismanInventory();
+                calculateRuneLevels();
+            }
 
-        calculateRuneLevels();
+            return true;
+        }
     }
+    return false;
 }

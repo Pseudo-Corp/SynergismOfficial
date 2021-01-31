@@ -2,6 +2,7 @@ import { sacrificeAnts } from "./Ants";
 import { calculateAutomaticObtainium, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration } from "./Calculate"
 import { redeemShards } from "./Runes";
 import player from "./Synergism";
+import { visualUpdateResearch } from "./UpdateVisuals";
 import { Globals as G } from './Variables';
 /**
  * 
@@ -83,6 +84,10 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
              const obtainiumGain = calculateAutomaticObtainium();
             //Add Obtainium
             player.researchPoints += obtainiumGain * time * timeMultiplier;
+            //Update visual displays if appropriate
+            if(G['currentTab'] === "researches"){
+                visualUpdateResearch();
+            };
             break;
         case "addOfferings":
             //This counter can be increased through challenge 3 reward
