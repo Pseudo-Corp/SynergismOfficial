@@ -1,4 +1,4 @@
 node_modules/
 *.js
-!dist/*.js
+dist/
 !.eslintrc.js
