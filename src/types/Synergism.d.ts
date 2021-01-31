@@ -467,7 +467,7 @@ export interface Player {
     corruptionShowStats: boolean,
 
     constantUpgrades: number[]
-    history: Record<string, any>,
+    history: Record<Category, ResetHistoryEntryUnion[]>
     historyCountMax: number
     historyShowPerSecond: boolean,
 
