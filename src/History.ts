@@ -367,7 +367,7 @@ export const resetHistoryTogglePerSecond = () => {
 
 // Helper function to format the corruption display in the ascension table.
 const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string] => {
-    let score = "Score: " + format(data.corruptionScore, 0, true);
+    let score = "Score: " + format(data.corruptionScore, 0, false);
     let corruptions = "";
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
         const corruptionIdx = i + 1;
