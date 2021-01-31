@@ -767,8 +767,23 @@ position: absolute;
 	margin: .8em 0;
 }
 
-#exportButtons > * {
-	margin: .15em 0;
+#exportButtons > * { margin: .15em 0; }
+
+#importFileButton {
+	border: 1px solid white;
+	width: 100px;
+	margin: 2px auto;
+}
+
+#savegame, #deleteGame {
+	width: 180px;
+	margin: 2px auto;
+}
+
+#exportgame {
+	width: 150px;
+	height: 40px;
+	margin: 5px auto;
 }
 
 /* Third party URLs (Discord, Patreon, patch notes) */
