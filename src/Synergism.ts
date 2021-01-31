@@ -1322,6 +1322,10 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         player.autoSacrifice = Math.min(5, player.autoSacrifice)
 
 
+        if (player.researches[61] === 0) {
+            document.getElementById('automaticobtainium').textContent = "[LOCKED - Buy Research 3x11]"
+        }
+
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "orange"
         }
@@ -3369,7 +3373,7 @@ window.addEventListener('load', () => {
     }
 
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 2:40AM UTC-8 30-Jan-2021]. Savefiles cannot be used in live!`);
+    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 6:00PM UTC-8 30-Jan-2021]. Savefiles cannot be used in live!`);
     document.title = 'Synergism v' + player.version;
 
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));

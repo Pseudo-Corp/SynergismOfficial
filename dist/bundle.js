@@ -1190,6 +1190,9 @@ const loadSynergy = () => {
         }
         player.autoResearch = Math.min(200, player.autoResearch);
         player.autoSacrifice = Math.min(5, player.autoSacrifice);
+        if (player.researches[61] === 0) {
+            document.getElementById('automaticobtainium').textContent = "[LOCKED - Buy Research 3x11]";
+        }
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
             document.getElementById("res" + player.autoResearch).style.backgroundColor = "orange";
         }
@@ -2679,7 +2682,9 @@ function tack(dt) {
             while (counter < maxCount) {
                 if (player.autoResearch > 0) {
                     const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
-                    (0,_Research__WEBPACK_IMPORTED_MODULE_6__.buyResearch)(player.autoResearch, true, linGrowth);
+                    if (!(0,_Research__WEBPACK_IMPORTED_MODULE_6__.buyResearch)(player.autoResearch, true, linGrowth)) {
+                        break;
+                    }
                 }
                 else {
                     break;
@@ -2695,51 +2700,33 @@ function tack(dt) {
         (0,_Helper__WEBPACK_IMPORTED_MODULE_28__.automaticTools)("addOfferings", dt * player.cubeUpgrades[2]);
     }
     if (player.researches[130] > 0 || player.researches[135] > 0) {
-        if (player.researches[135] > 0 && player.autoEnhanceToggle == true) {
-            if (player.achievements[119] > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(1, true);
-            }
-            if (player.achievements[126] > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(2, true);
-            }
-            if (player.achievements[133] > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(3, true);
-            }
-            if (player.achievements[140] > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(4, true);
-            }
-            if (player.achievements[147] > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(5, true);
-            }
-            if (player.antUpgrades[12 - 1] > 0 || player.ascensionCount > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(6, true);
-            }
-            if (player.shopUpgrades.talismanBought) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(7, true);
+        const talismansUnlocked = [
+            player.achievements[119] > 0,
+            player.achievements[126] > 0,
+            player.achievements[133] > 0,
+            player.achievements[140] > 0,
+            player.achievements[147] > 0,
+            player.antUpgrades[12 - 1] > 0 || player.ascensionCount > 0,
+            player.shopUpgrades.talismanBought,
+        ];
+        let upgradedTalisman = false;
+        if (player.autoEnhanceToggle) {
+            for (let i = 0; i < talismansUnlocked.length; ++i) {
+                if (talismansUnlocked[i]) {
+                    upgradedTalisman = (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanEnhance)(i + 1, true) || upgradedTalisman;
+                }
             }
         }
-        if (player.researches[130] > 0 && player.autoFortifyToggle == true) {
-            if (player.achievements[119] > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(1, true);
+        if (player.autoFortifyToggle) {
+            for (let i = 0; i < talismansUnlocked.length; ++i) {
+                if (talismansUnlocked[i]) {
+                    upgradedTalisman = (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(i + 1, true) || upgradedTalisman;
+                }
             }
-            if (player.achievements[126] > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(2, true);
-            }
-            if (player.achievements[133] > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(3, true);
-            }
-            if (player.achievements[140] > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(4, true);
-            }
-            if (player.achievements[147] > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(5, true);
-            }
-            if (player.antUpgrades[12 - 1] > 0 || player.ascensionCount > 0) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(6, true);
-            }
-            if (player.shopUpgrades.talismanBought) {
-                (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.buyTalismanLevels)(7, true);
-            }
+        }
+        if (upgradedTalisman) {
+            (0,_Talismans__WEBPACK_IMPORTED_MODULE_11__.updateTalismanInventory)();
+            (0,_Calculate__WEBPACK_IMPORTED_MODULE_10__.calculateRuneLevels)();
         }
     }
     (0,_Challenges__WEBPACK_IMPORTED_MODULE_4__.runChallengeSweep)(dt);
@@ -3020,7 +3007,7 @@ window.addEventListener('load', () => {
         document.head.appendChild(script);
     }
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 2:40AM UTC-8 30-Jan-2021]. Savefiles cannot be used in live!`);
+    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 6:00PM UTC-8 30-Jan-2021]. Savefiles cannot be used in live!`);
     document.title = 'Synergism v' + player.version;
     const dec = lz_string__WEBPACK_IMPORTED_MODULE_1___default().decompressFromBase64(localStorage.getItem('Synergysave2'));
     const isLZString = dec !== '';
@@ -9090,15 +9077,16 @@ const buyTalismanLevels = (i, auto = false) => {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.mythicalFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanLevels[i - 1] - 150, 3)));
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanLevels[i - 1] += 1;
         }
-        if (checkSum !== 7) {
-            break;
+        else {
+            return false;
         }
     }
-    updateTalismanInventory();
     if (!auto) {
         showTalismanPrices(i);
+        updateTalismanInventory();
+        (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateRuneLevels)();
     }
-    (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateRuneLevels)();
+    return true;
 };
 const buyTalismanEnhance = (i, auto = false) => {
     let checkSum = 0;
@@ -9133,14 +9121,16 @@ const buyTalismanEnhance = (i, auto = false) => {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.legendaryFragments -= (priceMult * costArray[6]);
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.mythicalFragments -= (priceMult * costArray[7]);
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanRarity[i - 1] += 1;
+            updateTalismanAppearance(i);
+            if (!auto) {
+                showEnhanceTalismanPrices(i);
+                updateTalismanInventory();
+                (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateRuneLevels)();
+            }
+            return true;
         }
-        updateTalismanAppearance(i);
-        updateTalismanInventory();
-        if (!auto) {
-            showEnhanceTalismanPrices(i);
-        }
-        (0,_Calculate__WEBPACK_IMPORTED_MODULE_3__.calculateRuneLevels)();
     }
+    return false;
 };
 
 
@@ -12815,7 +12805,8 @@ const buyResearch = (index, auto = false, linGrowth = 0) => {
     }
     const buyamount = (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.maxbuyresearch || auto) ? 1e5 : 1;
     const metaData = getResearchCost(index, buyamount, linGrowth);
-    if ((auto || !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints >= metaData[1]) {
+    const canAfford = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints >= metaData[1];
+    if ((auto || !_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && canAfford) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints -= metaData[1];
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[index] = metaData[0];
         _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchfiller2 = "Level: " + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[index] + "/" + (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchMaxLevels[index]);
@@ -12836,6 +12827,8 @@ const buyResearch = (index, auto = false, linGrowth = 0) => {
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.unlocks.rrow4 = true;
             (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_2__.revealStuff)();
         }
+        (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneLevels)();
+        (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAnts)();
     }
     if (index > 0 && isResearchUnlocked(index)) {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researches[index] === (_Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.researchMaxLevels[index])) {
@@ -12857,8 +12850,7 @@ const buyResearch = (index, auto = false, linGrowth = 0) => {
                 doc.style.backgroundColor = "orange";
         }
     }
-    (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateRuneLevels)();
-    (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAnts)();
+    return canAfford;
 };
 const maxRoombaResearchIndex = (p = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player) => {
     const base = p.ascensionCount > 0 ? 140 : 125;
@@ -15393,8 +15385,8 @@ const generateEventHandlers = () => {
         document.getElementById(`talismanRespecButton${index + 1}`).addEventListener('click', () => (0,_Talismans__WEBPACK_IMPORTED_MODULE_9__.changeTalismanModifier)(index + 1));
     }
     for (let index = 0; index < 5; index++) {
-        document.getElementById(`runeBlessingPower${index + 1}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyRuneBonusLevels)('Blessings', index + 1));
-        document.getElementById(`runeSpiritPower${index + 1}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyRuneBonusLevels)('Spirits', index + 1));
+        document.getElementById(`runeBlessingPurchase${index + 1}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyRuneBonusLevels)('Blessings', index + 1));
+        document.getElementById(`runeSpiritPurchase${index + 1}`).addEventListener('click', () => (0,_Buy__WEBPACK_IMPORTED_MODULE_3__.buyRuneBonusLevels)('Spirits', index + 1));
     }
     document.getElementById('buyRuneBlessingInput').addEventListener('blur', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.updateRuneBlessingBuyAmount)(1));
     document.getElementById('buyRuneSpiritInput').addEventListener('blur', () => (0,_Toggles__WEBPACK_IMPORTED_MODULE_0__.updateRuneBlessingBuyAmount)(2));
@@ -16462,7 +16454,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Calculate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
 /* harmony import */ var _Runes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(15);
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
-/* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
+/* harmony import */ var _UpdateVisuals__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(24);
+/* harmony import */ var _Variables__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5);
+
 
 
 
@@ -16510,11 +16504,15 @@ const automaticTools = (input, time) => {
             (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateObtainium)();
             const obtainiumGain = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAutomaticObtainium)();
             _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.researchPoints += obtainiumGain * time * timeMultiplier;
+            if (_Variables__WEBPACK_IMPORTED_MODULE_5__.Globals.currentTab === "researches") {
+                (0,_UpdateVisuals__WEBPACK_IMPORTED_MODULE_4__.visualUpdateResearch)();
+            }
+            ;
             break;
         case "addOfferings":
-            _Variables__WEBPACK_IMPORTED_MODULE_4__.Globals.autoOfferingCounter += time;
-            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.runeshards += Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_4__.Globals.autoOfferingCounter);
-            _Variables__WEBPACK_IMPORTED_MODULE_4__.Globals.autoOfferingCounter %= 1;
+            _Variables__WEBPACK_IMPORTED_MODULE_5__.Globals.autoOfferingCounter += time;
+            _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.runeshards += Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_5__.Globals.autoOfferingCounter);
+            _Variables__WEBPACK_IMPORTED_MODULE_5__.Globals.autoOfferingCounter %= 1;
             break;
         case "runeSacrifice":
             _Synergism__WEBPACK_IMPORTED_MODULE_3__.default.sacrificeTimer += time;

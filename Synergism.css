@@ -275,7 +275,6 @@ a {color: white;}
 
 #researchtab {
 	position:absolute;
-
 	text-align: center;
 	width: 100px;
 	border: 1px solid green;
@@ -2778,78 +2777,37 @@ position: absolute;
 	margin-top: 15px;
 }
 
+#researchDetails {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	margin-bottom: auto;
+}
+
+#researchDetails > p {
+	width: 750px;
+	margin: auto;
+}
+
+#researchToggles {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: auto;
+}
+
+#researchToggles > button {
+	width: 175px;
+	height: 30px;
+	margin: 0 7px;
+	text-align: center;
+}
+
 #researchinfo2 {
-	position:absolute;
-	top:280px;
-	width:1000px;
-	height: 42px;
-	left:50%;
-	margin-left: -500px;
-}
-
-#researchcost {
-	position: absolute;
-	position:absolute;
-	top:323px;
-	width:400px;
-	height: 42px;
-	left:50%;
-	margin-left: -200px;
-}
-
-#researchinfo3 {
-	position:absolute;
-	top:346px;
-	width: 200px;
-	left: 50%;
-	margin-left: -100px;
-}
-
-#researchpointinfo {
-	position:absolute;
-	top: 366px;
-	width: 900px;
-	left: 50%;
-	margin-left: -450px;
-}
-#researchhotkeys{
-	position: absolute;
-	padding: 5px;
-	top: 460px;
-	margin-left: 25%;
-	width: 50%;
-	color: plum;
-	text-align: center;
-}
-#automaticobtainium{
-	position: absolute;
-	padding: 5px;
-	top: 385px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	text-align: center;
-}
-#toggleresearchbuy {
-	position: absolute;
-	padding: 5px;
-	top: 440px;
-	left: 40%;
-	width: 200px;
-	margin-left: -100px;
-	height: 30px;
-	text-align: center;
-}
-#toggleautoresearch {
-	position: absolute;
-	padding: 5px;
-	top: 440px;
-	left: 60%;
-	width: 200px;
-	margin-left: -100px;
-	height: 30px;
-	text-align: center;
+	height: 40px;
 }
 
 #retrybutton {
