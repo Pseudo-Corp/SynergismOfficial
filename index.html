@@ -1311,8 +1311,8 @@
             </div>
         </div>
         <div id="challenges">
-            <p id="challengeIntroduction">Is the base game too easy? Try these situations! [Click the icons to view challenge details!]</p>
-            <div id="challengeSelection">
+            <div id="challengesWrapper"> 
+                <p id="challengeIntroduction">Is the base game too easy? Try these situations! [Click the icons to view challenge details!]</p>
                 <table id="challengeIcons">
                     <tr>
                         <td><img id="challenge1" src="Pictures/Transparent Pics/ChallengeOne.png" style="cursor: pointer; font-size: 0;" alt=""></td>
@@ -1330,59 +1330,58 @@
                         <td><img id="challenge13" class="chal12" src="Pictures/Transparent Pics/ChallengeThirteen.png" style="cursor: pointer; font-size: 0;" alt=""></td>
                         <td><img id="challenge14" class="chal13" src="Pictures/Transparent Pics/ChallengeFourteen.png" style="cursor: pointer; font-size: 0;" alt=""></td>
                         <td><img id="challenge15" class="chal14" src="Pictures/Transparent Pics/ChallengeFifteen.png" style="cursor: pointer; font-size: 0;" alt=""></td>
-                </tr>
-                <tr>
-                    <td ><div class="challengeLevels" class="challengeLevels" id="challenge1level">0 / 25</div></td>
-                    <td ><div class="challengeLevels" id="challenge2level">0 / 25</div></td>
-                    <td ><div class="challengeLevels" id="challenge3level">0 / 25</div></td>
-                    <td ><div class="challengeLevels" id="challenge4level">0 / 25</div></td>
-                    <td ><div class="challengeLevels" id="challenge5level">0 / 25</div></td>
-                    <td ><div class="challengeLevels reincarnationunlock" id="challenge6level">0 / 25</div></td>
-                    <td ><div class="challengeLevels chal6" id="challenge7level">0 / 25</div></td>
-                    <td ><div class="challengeLevels chal7" id="challenge8level">0 / 25</div></td>
-                    <td ><div class="challengeLevels chal8" id="challenge9level">0 / 25</div></td>
-                    <td ><div class="challengeLevels chal9" id="challenge10level">0 / 25</div></td>
-                    <td ><div class="challengeLevels ascendunlock" id="challenge11level">0 / 10</div></td>
-                    <td ><div class="challengeLevels chal11" id="challenge12level">0 / 10</div></td>
-                    <td ><div class="challengeLevels chal12" id="challenge13level">0 / 10</div></td>
-                    <td ><div class="challengeLevels chal13" id="challenge14level">0 / 10</div></td>
-                    <td ><div class="challengeLevels chal14" id="challenge15level">0 / 9001</div></td>
-                </tr>
+                    </tr>
+                    <tr>
+                        <td ><div class="challengeLevels" class="challengeLevels" id="challenge1level">0 / 25</div></td>
+                        <td ><div class="challengeLevels" id="challenge2level">0 / 25</div></td>
+                        <td ><div class="challengeLevels" id="challenge3level">0 / 25</div></td>
+                        <td ><div class="challengeLevels" id="challenge4level">0 / 25</div></td>
+                        <td ><div class="challengeLevels" id="challenge5level">0 / 25</div></td>
+                        <td ><div class="challengeLevels reincarnationunlock" id="challenge6level">0 / 25</div></td>
+                        <td ><div class="challengeLevels chal6" id="challenge7level">0 / 25</div></td>
+                        <td ><div class="challengeLevels chal7" id="challenge8level">0 / 25</div></td>
+                        <td ><div class="challengeLevels chal8" id="challenge9level">0 / 25</div></td>
+                        <td ><div class="challengeLevels chal9" id="challenge10level">0 / 25</div></td>
+                        <td ><div class="challengeLevels ascendunlock" id="challenge11level">0 / 10</div></td>
+                        <td ><div class="challengeLevels chal11" id="challenge12level">0 / 10</div></td>
+                        <td ><div class="challengeLevels chal12" id="challenge13level">0 / 10</div></td>
+                        <td ><div class="challengeLevels chal13" id="challenge14level">0 / 10</div></td>
+                        <td ><div class="challengeLevels chal14" id="challenge15level">0 / 9001</div></td>
+                    </tr>
                 </table>
-            </div>
 
-            <div id="challengeDetails">
-                <div id="oneChallengeDetails" style="display:none">
-                    <p id="challengeName">No Multiplier || Completions: 0/25</p>
-                    <p id="challengeFlavor">Multipliers make the game a little fast, let's take them out!</p>
-                    <p id="challengeRestrictions">Restriction: No Multipliers</p>
-                    <p id="challengeGoal">Gain 1e10 Coins</p>
-                    <p id="challengePerCompletionRewards">Per Completion Bonuses <span id="completionSoftcap" style="color: orchid"></span></p>
-                    <p id="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" style="color:orchid">Current: 0</span></p>
-                    <p id="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" style="color:orchid">Current: 0</span></p>
-                    <p id="challengePer3">--- <span id="challengeCurrent3" style="color:orchid">Current: 0</span></p>
-                    <p id="challengeFirstCompletionRewards">Bonus/Unlock for First Completion</p>
-                    <p id="challengeFirst1">+1 Free Multiplier!</p>
-                    <p id="challengeQuarkBonus">+1 Quarks</p>
-                    <button id="startChallenge">Start Challenge 1</button>
-                    <button id="retryChallenge">Retry Challenges: OFF</button>
-                    <button class="research150" id="toggleAutoChallengeIgnore">---</button>
+                <div id="challengeDetails">
+                    <div id="oneChallengeDetails" style="display:none">
+                        <p id="challengeName">No Multiplier || Completions: 0/25</p>
+                        <p id="challengeFlavor">Multipliers make the game a little fast, let's take them out!</p>
+                        <p id="challengeRestrictions">Restriction: No Multipliers</p>
+                        <p id="challengeGoal">Gain 1e10 Coins</p>
+                        <p id="challengePerCompletionRewards">Per Completion Bonuses <span id="completionSoftcap" style="color: orchid"></span></p>
+                        <p id="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" style="color:orchid">Current: 0</span></p>
+                        <p id="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" style="color:orchid">Current: 0</span></p>
+                        <p id="challengePer3">--- <span id="challengeCurrent3" style="color:orchid">Current: 0</span></p>
+                        <p id="challengeFirstCompletionRewards">Bonus/Unlock for First Completion</p>
+                        <p id="challengeFirst1">+1 Free Multiplier!</p>
+                        <p id="challengeQuarkBonus">+1 Quarks</p>
+                        <button id="startChallenge">Start Challenge 1</button>
+                        <button id="retryChallenge">Retry Challenges: OFF</button>
+                        <button class="research150" id="toggleAutoChallengeIgnore">---</button>
+                    </div>
+                    <button class="research150" id="toggleAutoChallengeStart">Auto Challenge Sweep [ON]</button>
+                    <p class="research150" id="startAutoChallengeTimer">Time for start of sweep: <span id="startTimerValue" style="color: orchid">10s</span></p>
+                    <input type="number" class="research150" id="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10">
+                    <p class="research150" id="exitAutoChallengeTimer">Time before exiting challenge: <span id="exitTimerValue" style="color: orchid">2s</span></p>
+                    <input type="number" class="research150" id="exitAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
+                    <p class="research150" id="enterAutoChallengeTimer">Time before entering challenge: <span id="enterTimerValue" style="color: orchid">2s</span></p>
+                    <input type="number" class="research150" id="enterAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
+                    <p class="research150" id="autoChallengeIncrementer" style='color: orange'>Auto Timer: <span id="autoIncrementerAmount" style="color: orchid">0s</span></p>
                 </div>
-                <button class="research150" id="toggleAutoChallengeStart">Auto Challenge Sweep [ON]</button>
-                <p class="research150" id="startAutoChallengeTimer">Time for start of sweep: <span id="startTimerValue" style="color: orchid">10s</span></p>
-                <input type="number" class="research150" id="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10">
-                <p class="research150" id="exitAutoChallengeTimer">Time before exiting challenge: <span id="exitTimerValue" style="color: orchid">2s</span></p>
-                <input type="number" class="research150" id="exitAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
-                <p class="research150" id="enterAutoChallengeTimer">Time before entering challenge: <span id="enterTimerValue" style="color: orchid">2s</span></p>
-                <input type="number" class="research150" id="enterAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
-                <p class="research150" id="autoChallengeIncrementer" style='color: orange'>Auto Timer: <span id="autoIncrementerAmount" style="color: orchid">0s</span></p>
+
+
+                <p id="challengehotkeys">Press [1], [2], [3], [4], or [5] to enter challenges, starting from the top. Press [E] or [e] to exit your transcension challenge if stuck!</p>
+                <p id="challengewarning">If you are unable to finish the challenge, press the hotkey listed above OR click on the red Challenge "C" button on the reset buttons on top.</p>
+                <p class="reincarnationunlock" id="challengewarningreincarnation">To leave a reincarnation challenge, press the grey Challenge "C" instead!</p>
             </div>
-
-
-            <p id="challengehotkeys">Press [1], [2], [3], [4], or [5] to enter challenges, starting from the top. Press [E] or [e] to exit your transcension challenge if stuck!</p>
-            <p id="challengewarning">If you are unable to finish the challenge, press the hotkey listed above OR click on the red Challenge "C" button on the reset buttons on top.</p>
-            <p class="reincarnationunlock" id="challengewarningreincarnation">To leave a reincarnation challenge, press the grey Challenge "C" instead!</p>
-
         </div>
 
         <div id="research">
