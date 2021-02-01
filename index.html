@@ -1315,9 +1315,9 @@
                 <p id="challengeIntroduction">Is the base game too easy? Try these situations! [Click the icons to view challenge details!]</p>
                 <div id="challengesAutoToggles">
                     <button class="research150" id="toggleAutoChallengeStart">Auto Challenge Sweep [ON]</button>
-                    <button>Alpha</button>
-                    <button>Beta</button>
-                    <button>Gamma</button>
+                    <button id="startChallenge">Start Challenge 1</button>
+                    <button id="retryChallenge">Retry Challenges: OFF</button>
+                    <button id="toggleAutoChallengeIgnore">---</button>
                 </div>
                 <table id="challengeIcons">
                     <tr>
@@ -1357,35 +1357,42 @@
                 </table>
 
                 <div id="challengeDetails">
+                    <div id="challengeTimers"> 
+                        <div id="challengeTimersText"> 
+                            <p class="research150" id="startAutoChallengeTimer">Time for start of sweep: <span id="startTimerValue" style="color: orchid">10s</span></p>
+                            <p class="research150" id="exitAutoChallengeTimer">Time before exiting challenge: <span id="exitTimerValue" style="color: orchid">2s</span></p>
+                            <p class="research150" id="enterAutoChallengeTimer">Time before entering challenge: <span id="enterTimerValue" style="color: orchid">2s</span></p>
+                            <p class="research150" id="autoChallengeIncrementer" style='color: orange'>Auto Timer: <span id="autoIncrementerAmount" style="color: orchid">0s</span></p>
+                        </div>
+                        <div id="challengeTimersInput">
+                            <input type="number" class="research150" id="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10">
+                            <input type="number" class="research150" id="exitAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
+                            <input type="number" class="research150" id="enterAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
+                        </div>
+                    </div>
                     <div id="oneChallengeDetails" style="display:none">
                         <p id="challengeName">No Multiplier || Completions: 0/25</p>
                         <p id="challengeFlavor">Multipliers make the game a little fast, let's take them out!</p>
                         <p id="challengeRestrictions">Restriction: No Multipliers</p>
+                        <br>
                         <p id="challengeGoal">Gain 1e10 Coins</p>
                         <p id="challengePerCompletionRewards">Per Completion Bonuses <span id="completionSoftcap" style="color: orchid"></span></p>
                         <p id="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" style="color:orchid">Current: 0</span></p>
                         <p id="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" style="color:orchid">Current: 0</span></p>
                         <p id="challengePer3">--- <span id="challengeCurrent3" style="color:orchid">Current: 0</span></p>
+                        <br>
                         <p id="challengeFirstCompletionRewards">Bonus/Unlock for First Completion</p>
                         <p id="challengeFirst1">+1 Free Multiplier!</p>
+                        <br>
                         <p id="challengeQuarkBonus">+1 Quarks</p>
-                        <button id="startChallenge">Start Challenge 1</button>
-                        <button id="retryChallenge">Retry Challenges: OFF</button>
-                        <button class="research150" id="toggleAutoChallengeIgnore">---</button>
                     </div>
-                    <p class="research150" id="startAutoChallengeTimer">Time for start of sweep: <span id="startTimerValue" style="color: orchid">10s</span></p>
-                    <input type="number" class="research150" id="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10">
-                    <p class="research150" id="exitAutoChallengeTimer">Time before exiting challenge: <span id="exitTimerValue" style="color: orchid">2s</span></p>
-                    <input type="number" class="research150" id="exitAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
-                    <p class="research150" id="enterAutoChallengeTimer">Time before entering challenge: <span id="enterTimerValue" style="color: orchid">2s</span></p>
-                    <input type="number" class="research150" id="enterAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
-                    <p class="research150" id="autoChallengeIncrementer" style='color: orange'>Auto Timer: <span id="autoIncrementerAmount" style="color: orchid">0s</span></p>
                 </div>
 
-
-                <p id="challengehotkeys">Press [1], [2], [3], [4], or [5] to enter challenges, starting from the top. Press [E] or [e] to exit your transcension challenge if stuck!</p>
-                <p id="challengewarning">If you are unable to finish the challenge, press the hotkey listed above OR click on the red Challenge "C" button on the reset buttons on top.</p>
-                <p class="reincarnationunlock" id="challengewarningreincarnation">To leave a reincarnation challenge, press the grey Challenge "C" instead!</p>
+                <div id="challengeWorthlessTexts">
+                    <p id="challengehotkeys">Press [1], [2], [3], [4], or [5] to enter challenges, starting from the top. Press [E] or [e] to exit your transcension challenge if stuck!</p>
+                    <p id="challengewarning">If you are unable to finish the challenge, press the hotkey listed above OR click on the red Challenge "C" button on the reset buttons on top.</p>
+                    <p class="reincarnationunlock" id="challengewarningreincarnation">To leave a reincarnation challenge, press the grey Challenge "C" instead!</p>
+                </div>
             </div>
         </div>
 

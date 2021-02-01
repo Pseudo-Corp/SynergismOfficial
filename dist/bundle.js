@@ -5551,14 +5551,12 @@ __webpack_require__.r(__webpack_exports__);
 
 const challengeDisplay = (i, changefocus) => {
     changefocus = (changefocus === null || changefocus === undefined) ? true : changefocus;
-    if (changefocus) {
-        _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengefocus = i;
-        document.getElementById("oneChallengeDetails").style.display = "block";
-    }
     let quarksMultiplier = 1;
     if (changefocus) {
         _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.challengefocus = i;
         document.getElementById("oneChallengeDetails").style.display = "block";
+        document.getElementById('startChallenge').style.display = 'block';
+        document.getElementById('retryChallenge').style.display = 'block';
         _Variables__WEBPACK_IMPORTED_MODULE_3__.Globals.triggerChallenge = i;
     }
     let maxChallenges = 0;
