@@ -555,7 +555,7 @@ const player = {
     },
     corruptionShowStats: true,
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    history: {},
+    history: { ants: [], ascend: [], reset: [] },
     historyCountMax: 10,
     historyShowPerSecond: false,
     autoChallengeRunning: false,
@@ -937,7 +937,7 @@ const loadSynergy = () => {
             };
         }
         if (data.history === undefined || player.history === undefined) {
-            player.history = {};
+            player.history = { ants: [], ascend: [], reset: [] };
         }
         if (data.historyShowPerSecond === undefined || player.historyShowPerSecond === undefined) {
             player.historyShowPerSecond = false;
@@ -10393,14 +10393,66 @@ const updateTesseractAutoBuyAmount = () => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.tesseractAutoBuyerAmount = 0;
     }
 };
+const resetAddHistoryEntry = (input, from = 'unknown') => {
+    const offeringsGiven = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(input);
+    const isChallenge = ["enterChallenge", "leaveChallenge"].includes(from);
+    if (input === "prestige") {
+        const historyEntry = {
+            seconds: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter,
+            date: Date.now(),
+            offerings: offeringsGiven,
+            kind: "prestige",
+            diamonds: _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.prestigePointGain.toString(),
+        };
+        _Events__WEBPACK_IMPORTED_MODULE_14__.Synergism.emit('historyAdd', 'reset', historyEntry);
+    }
+    else if (input === "transcension" || input === "transcensionChallenge") {
+        const historyEntry = {
+            seconds: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter,
+            date: Date.now(),
+            offerings: offeringsGiven,
+            kind: "transcend",
+            mythos: _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.transcendPointGain.toString(),
+        };
+        _Events__WEBPACK_IMPORTED_MODULE_14__.Synergism.emit('historyAdd', 'reset', historyEntry);
+    }
+    else if (input === "reincarnation" || input === "reincarnationChallenge") {
+        if (!isChallenge || _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.reincarnationPointGain.gte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationPoints.div(10))) {
+            const historyEntry = {
+                seconds: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter,
+                date: Date.now(),
+                offerings: offeringsGiven,
+                kind: "reincarnate",
+                particles: _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.reincarnationPointGain.toString(),
+                obtainium: _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.obtainiumGain,
+            };
+            _Events__WEBPACK_IMPORTED_MODULE_14__.Synergism.emit('historyAdd', 'reset', historyEntry);
+        }
+    }
+    else if (input === "ascension" || input === "ascensionChallenge") {
+        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 0) {
+            const corruptionMetaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.CalcCorruptionStuff)();
+            const historyEntry = {
+                seconds: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCounter,
+                date: Date.now(),
+                c10Completions: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10],
+                usedCorruptions: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions.slice(0),
+                corruptionScore: corruptionMetaData[3],
+                wowCubes: corruptionMetaData[4],
+                wowTesseracts: corruptionMetaData[5],
+                wowHypercubes: corruptionMetaData[6],
+                wowPlatonicCubes: corruptionMetaData[7],
+                kind: "ascend",
+            };
+            if (from !== "enterChallenge" && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension !== 0) {
+                historyEntry.currentChallenge = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension;
+            }
+            _Events__WEBPACK_IMPORTED_MODULE_14__.Synergism.emit('historyAdd', 'ascend', historyEntry);
+        }
+    }
+};
 const reset = (input, fast = false, from = 'unknown') => {
-    const historyEntry = {};
-    let historyKind = "prestige";
-    const historyCategory = (input === 'ascension' || input === 'ascensionChallenge') ? 'ascend' : 'reset';
-    let historyUse = from !== "enterChallenge" && from !== "leaveChallenge";
-    historyEntry.offerings = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateOfferings)(input);
-    historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter;
-    historyEntry.diamonds = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.prestigePointGain;
+    resetAddHistoryEntry(input, from);
     (0,_Runes__WEBPACK_IMPORTED_MODULE_2__.resetofferings)(input);
     resetUpgrades(1);
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coins = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("102");
@@ -10442,12 +10494,8 @@ const reset = (input, fast = false, from = 'unknown') => {
     _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.prestigePointGain = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default('0');
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.prestigecounter = 0;
     _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.autoResetTimers.prestige = 0;
-    if (input === "transcension" || input === "transcensionChallenge" || input == "reincarnation" || input == "reincarnationChallenge"
-        || input === "ascension" || input === "ascensionChallenge") {
-        historyKind = "transcend";
-        historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.transcendcounter;
-        historyEntry.mythos = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.transcendPointGain;
-        delete historyEntry.diamonds;
+    const types = ['transcension', 'transcensionChallenge', 'reincarnation', 'reincarnationChallenge', 'ascension', 'ascensionChallenge'];
+    if (types.includes(input)) {
         resetUpgrades(2);
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.coinsThisTranscension = new break_infinity_js__WEBPACK_IMPORTED_MODULE_8__.default("100");
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.firstOwnedDiamonds = 0;
@@ -10519,16 +10567,6 @@ const reset = (input, fast = false, from = 'unknown') => {
         if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCount > 0 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[183] < 1) {
             (0,_Achievements__WEBPACK_IMPORTED_MODULE_10__.ascensionAchievementCheck)(1);
         }
-        historyKind = "reincarnate";
-        historyEntry.obtainium = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.obtainiumGain;
-        historyEntry.particles = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.reincarnationPointGain;
-        historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter;
-        delete historyEntry.mythos;
-        if (!historyUse) {
-            if (_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.reincarnationPointGain.gte(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationPoints.div(10))) {
-                historyUse = true;
-            }
-        }
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += Math.floor(_Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.obtainiumGain);
         const opscheck = _Variables__WEBPACK_IMPORTED_MODULE_7__.Globals.obtainiumGain / (1 + _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.reincarnationcounter);
         if (opscheck > _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.obtainiumpersecond) {
@@ -10594,22 +10632,6 @@ const reset = (input, fast = false, from = 'unknown') => {
     if (input === 'ascension' || input === 'ascensionChallenge') {
         const metaData = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.CalcCorruptionStuff)();
         (0,_Achievements__WEBPACK_IMPORTED_MODULE_10__.ascensionAchievementCheck)(3, metaData[3]);
-        historyKind = "ascend";
-        historyUse = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10] > 0;
-        delete historyEntry.offerings;
-        delete historyEntry.obtainium;
-        delete historyEntry.particles;
-        historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.ascensionCounter;
-        historyEntry.c10Completions = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[10];
-        historyEntry.usedCorruptions = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.usedCorruptions.slice(0);
-        historyEntry.corruptionScore = metaData[3];
-        historyEntry.wowCubes = metaData[4];
-        historyEntry.wowTesseracts = metaData[5];
-        historyEntry.wowHypercubes = metaData[6];
-        historyEntry.wowPlatonicCubes = metaData[7];
-        if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension && from !== "enterChallenge") {
-            historyEntry.currentChallenge = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension;
-        }
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.transcension = 0;
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.reincarnation = 0;
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoChallengeIndex = 1;
@@ -10757,9 +10779,6 @@ const reset = (input, fast = false, from = 'unknown') => {
     }
     if (!fast) {
         (0,_UpdateHTML__WEBPACK_IMPORTED_MODULE_5__.revealStuff)();
-    }
-    if (historyUse) {
-        _Events__WEBPACK_IMPORTED_MODULE_14__.Synergism.emit('historyAdd', historyCategory, historyKind, historyEntry);
     }
 };
 const resetUpgrades = (i) => {
@@ -13921,26 +13940,30 @@ const showSacrifice = () => {
     }
 };
 const sacrificeAnts = (auto = false) => {
-    const historyEntry = {};
     let p = true;
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.gte("1e40")) {
         if (!auto && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints < 100 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.toggles[32]) {
             p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?");
         }
         if (p) {
-            historyEntry.antSacrificePointsBefore = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints;
+            const antSacrificePointsBefore = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints;
             const sacRewards = (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeRewards)();
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints += sacRewards.antSacrificePoints;
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.runeshards += sacRewards.offerings;
             _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.researchPoints += sacRewards.obtainium;
-            historyEntry.seconds = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificeTimer;
-            historyEntry.offerings = sacRewards.offerings;
-            historyEntry.obtainium = sacRewards.obtainium;
-            historyEntry.antSacrificePointsAfter = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints;
-            historyEntry.baseELO = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO;
-            historyEntry.effectiveELO = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO;
-            historyEntry.crumbs = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints;
-            historyEntry.crumbsPerSecond = _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antOneProduce;
+            const historyEntry = {
+                date: Date.now(),
+                seconds: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificeTimer,
+                kind: 'antsacrifice',
+                offerings: sacRewards.offerings,
+                obtainium: sacRewards.obtainium,
+                antSacrificePointsBefore: antSacrificePointsBefore,
+                antSacrificePointsAfter: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antSacrificePoints,
+                baseELO: _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antELO,
+                effectiveELO: _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.effectiveELO,
+                crumbs: _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.antPoints.toString(),
+                crumbsPerSecond: _Variables__WEBPACK_IMPORTED_MODULE_2__.Globals.antOneProduce.toString(),
+            };
             if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.challengecompletions[9] > 0) {
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.talismanShards += sacRewards.talismanShards;
                 _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.commonFragments += sacRewards.commonFragments;
@@ -13975,7 +13998,7 @@ const sacrificeAnts = (auto = false) => {
                 (0,_Research__WEBPACK_IMPORTED_MODULE_8__.buyResearch)(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.autoResearch, true, linGrowth);
             }
             (0,_Calculate__WEBPACK_IMPORTED_MODULE_1__.calculateAntSacrificeELO)();
-            _Events__WEBPACK_IMPORTED_MODULE_10__.Synergism.emit('historyAdd', 'ants', 'antsacrifice', historyEntry);
+            _Events__WEBPACK_IMPORTED_MODULE_10__.Synergism.emit('historyAdd', 'ants', historyEntry);
         }
     }
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.mythicalFragments >= 1e11 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.currentChallenge.ascension === 14 && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.achievements[248] < 1) {
@@ -14463,60 +14486,56 @@ const corruptionCleanseConfirm = () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "resetHistoryClearAll": () => /* binding */ resetHistoryClearAll,
 /* harmony export */   "resetHistoryRenderAllTables": () => /* binding */ resetHistoryRenderAllTables,
 /* harmony export */   "resetHistoryTogglePerSecond": () => /* binding */ resetHistoryTogglePerSecond
 /* harmony export */ });
 /* harmony import */ var _Synergism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var break_infinity_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var _Utility__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
-/* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
+/* harmony import */ var _Ants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25);
+/* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
 
 
 
 
-
-const formatPlain = (str) => (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(str);
-const formatDecimalString = (str) => (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(new break_infinity_js__WEBPACK_IMPORTED_MODULE_1__.default(str));
+const formatDecimalSource = (numOrStr) => {
+    return (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(typeof numOrStr === "string" ? new break_infinity_js__WEBPACK_IMPORTED_MODULE_1__.default(numOrStr) : numOrStr);
+};
 const conditionalFormatPerSecond = (numOrStr, data) => {
-    if (typeof (numOrStr) === "number" && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond) {
+    if (typeof numOrStr === "string") {
+        return formatDecimalSource(numOrStr);
+    }
+    if (typeof (numOrStr) === "number" && _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond && data.seconds !== 0) {
         if (numOrStr === 0) {
             return "0.000/s";
         }
-        return (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(numOrStr / ((data.seconds && data.seconds > 0) ? data.seconds : 1), 3, true) + "/s";
+        return (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(numOrStr / data.seconds, 3, numOrStr < 1000) + "/s";
     }
     return (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(numOrStr);
 };
 const historyGains = {
     offerings: {
         img: "Pictures/Offering.png",
-        formatter: formatPlain,
+        formatter: formatDecimalSource,
         imgTitle: "Offerings"
     },
     obtainium: {
         img: "Pictures/Obtainium.png",
-        formatter: formatPlain,
+        formatter: formatDecimalSource,
         imgTitle: "Obtainium"
-    },
-    antMulti: {
-        img: "Pictures/AntSacrifice.png",
-        formatter: formatPlain,
-        imgTitle: "Ant Multiplier gains"
     },
     particles: {
         img: "Pictures/Particle.png",
-        formatter: (s) => extractStringExponent(formatDecimalString(s)),
+        formatter: formatDecimalSource,
         imgTitle: "Particles"
     },
     diamonds: {
         img: "Pictures/Diamond.png",
-        formatter: (s) => extractStringExponent(formatDecimalString(s)),
+        formatter: formatDecimalSource,
         imgTitle: "Diamonds"
     },
     mythos: {
         img: "Pictures/Mythos.png",
-        formatter: (s) => extractStringExponent(formatDecimalString(s)),
+        formatter: formatDecimalSource,
         imgTitle: "Mythos"
     },
     wowTesseracts: {
@@ -14544,7 +14563,6 @@ const historyGains = {
 };
 const historyGainsOrder = [
     "offerings", "obtainium",
-    "antMulti",
     "particles", "diamonds", "mythos",
     "wowCubes", "wowTesseracts", "wowHypercubes", "wowPlatonicCubes",
 ];
@@ -14583,27 +14601,20 @@ const resetHistoryCorruptionTitles = [
     "Financial Recession [Coins]"
 ];
 const extractStringExponent = (str) => {
-    let m = null;
+    let m;
     return (m = str.match(/e\+?(.+)/)) !== null ? `e${m[1]}` : str;
 };
-const resetHistoryAdd = (category, kind, data) => {
-    data.date = Date.now();
-    data.kind = kind;
+const resetHistoryAdd = (category, data) => {
     if (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category] === undefined) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category] = [];
     }
     while (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category].length > (_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyCountMax - 1)) {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category].shift();
     }
-    for (const k in data) {
-        if ((0,_Utility__WEBPACK_IMPORTED_MODULE_2__.isDecimal)(data[k])) {
-            data[k] = data[k].toString();
-        }
-    }
     _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[category].push(data);
     resetHistoryPushNewRow(category, data);
 };
-_Events__WEBPACK_IMPORTED_MODULE_4__.Synergism.on('historyAdd', resetHistoryAdd);
+_Events__WEBPACK_IMPORTED_MODULE_3__.Synergism.on('historyAdd', resetHistoryAdd);
 const resetHistoryPushNewRow = (category, data) => {
     const row = resetHistoryRenderRow(category, data);
     const table = document.getElementById(resetHistoryTableMapping[category]);
@@ -14621,27 +14632,27 @@ const resetHistoryRenderRow = (_category, data) => {
     const localDate = new Date(data.date).toLocaleString();
     rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.formatTimeShort)(data.seconds, 60)}</td>`;
     const gains = [];
-    for (let gainIdx = 0; gainIdx < historyGainsOrder.length; ++gainIdx) {
-        const showing = historyGainsOrder[gainIdx];
-        if (data.hasOwnProperty(showing)) {
-            const gainInfo = historyGains[showing];
+    const dataIntersection = data;
+    historyGainsOrder.forEach((listable) => {
+        if (Object.prototype.hasOwnProperty.call(data, listable)) {
+            const gainInfo = historyGains[listable];
             if (gainInfo.onlyif && !gainInfo.onlyif(data)) {
-                continue;
+                return;
             }
             const formatter = gainInfo.formatter || (() => { });
-            const str = `<img src="${gainInfo.img}" title="${gainInfo.imgTitle || ''}">${formatter(data[showing], data)}`;
+            const str = `<img alt="${gainInfo.imgTitle}" src="${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable], data)}`;
             gains.push(str);
         }
-    }
+    });
     const extra = [];
     if (data.kind === "antsacrifice") {
-        const oldMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_3__.antSacrificePointsToMultiplier)(data.antSacrificePointsBefore);
-        const newMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_3__.antSacrificePointsToMultiplier)(data.antSacrificePointsAfter);
+        const oldMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_2__.antSacrificePointsToMultiplier)(data.antSacrificePointsBefore);
+        const newMulti = (0,_Ants__WEBPACK_IMPORTED_MODULE_2__.antSacrificePointsToMultiplier)(data.antSacrificePointsAfter);
         const diff = newMulti - oldMulti;
-        extra.push(`<span title="Ant Multiplier: ${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(oldMulti, 3, false)}--&gt;${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(diff, 3, false)}</span>`, `<span title="+${formatDecimalString(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalString(data.crumbs))}</span>`, `<span title="${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.effectiveELO)}</span>`);
+        extra.push(`<span title="Ant Multiplier: ${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(oldMulti, 3, false)}--&gt;${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(diff, 3, false)}</span>`, `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`, `<span title="${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${(0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.effectiveELO)}</span>`);
     }
     else if (data.kind === "ascend") {
-        extra.push(`<img src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`);
+        extra.push(`<img alt="C10" src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`);
         const corruptions = resetHistoryFormatCorruptions(data);
         if (corruptions !== null) {
             extra.push(corruptions[0]);
@@ -14673,14 +14684,6 @@ const resetHistoryRenderFullTable = (categoryToRender, targetTable) => {
         }
     }
 };
-const resetHistoryClearAll = () => {
-    Object.keys(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history).forEach(key => {
-        if (Array.isArray(_Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[key])) {
-            delete _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history[key];
-        }
-    });
-    resetHistoryRenderAllTables();
-};
 const resetHistoryRenderAllTables = () => {
     Object.keys(resetHistoryTableMapping).forEach(key => resetHistoryRenderFullTable(key, document.getElementById(resetHistoryTableMapping[key])));
 };
@@ -14692,12 +14695,12 @@ const resetHistoryTogglePerSecond = () => {
     button.style.borderColor = _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.historyShowPerSecond ? "green" : "red";
 };
 const resetHistoryFormatCorruptions = (data) => {
-    let score = "Score: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.corruptionScore, 0, true);
+    let score = "Score: " + (0,_Synergism__WEBPACK_IMPORTED_MODULE_0__.format)(data.corruptionScore, 0, false);
     let corruptions = "";
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
         const corruptionIdx = i + 1;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
-            corruptions += ` <img src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
+            corruptions += ` <img alt="${resetHistoryCorruptionTitles[i]}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }
     }
     if (data.currentChallenge !== undefined) {
@@ -14983,7 +14986,7 @@ const checkVariablesOnLoad = (data) => {
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.roombaResearchIndex = 0;
     }
     if (data.history === undefined) {
-        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history = {};
+        _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.history = { ants: [], ascend: [], reset: [] };
         _Synergism__WEBPACK_IMPORTED_MODULE_0__.player.cubesThisAscension = {
             "challenges": 0,
             "reincarnation": 0,
