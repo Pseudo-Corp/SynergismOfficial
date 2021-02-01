@@ -3042,83 +3042,33 @@ position: absolute;
 	top: 118px;
 	padding: 0;
 }
-.cubeSwitchTabBtn{
-	position: absolute;
+
+/* Wow! Cube sidebar */
+#wowCubeSidebar {
+	display: flex;
+	flex-direction: column;
+	width: 20%;
+	margin-left: 4.5%;
+	margin-top: 4.5%;
 	text-align: center;
+}
+
+#wowCubeSidebarButtons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.cubeSwitchTabBtn {
 	width: 250px;
 	height: 30px;
+	margin: 3px;
 }
-#cubeToQuarkTimer{
-	position: absolute;
-	text-align: center;
-	top: 270px;
-	width: 250px;
-	left: 65px;
-	font-size: 1.2em;
-}
-#cubeQuarksToday{
-	position: absolute;
-	text-align: center;
-	top: 320px;
-	width: 300px;
-	left: 40px;
-}
-#tesseractQuarksToday{
-	position: absolute;
-	text-align: center;
-	top: 390px;
-	width: 300px;
-	left: 40px;
-}
-#hypercubeQuarksToday{
-	position: absolute;
-	text-align: center;
-	top: 460px;
-	width: 300px;
-	left: 40px;
-}
-#cubeQuarksOpenRequirement{
-	position: absolute;
-	text-align: center;
-	top: 340px;
-	width: 340px;
-	left: 20px;
-}
-#tesseractQuarksOpenRequirement{
-	position: absolute;
-	text-align: center;
-	top: 410px;
-	width: 340px;
-	left: 20px;
-}
-#hypercubeQuarksOpenRequirement{
-	position: absolute;
-	text-align: center;
-	top: 480px;
-	width: 340px;
-	left: 20px;
-}
-#cubeQuarksOpenToday{
-	position: absolute;
-	text-align: center;
-	top: 360px;
-	width: 340px;
-	left: 20px;
-}
-#tesseractQuarksOpenToday{
-	position: absolute;
-	text-align: center;
-	top: 430px;
-	width: 340px;
-	left: 20px;
-}
-#hypercubeQuarksOpenToday{
-	position: absolute;
-	text-align: center;
-	top: 500px;
-	width: 340px;
-	left: 20px;
-}
+
+#wowCubeSidebar > p { margin: 0; }
+#cubeToQuarkTimer { font-size: 1.2em; }
+
 .cubePlacement1{
 	position:absolute;
 	text-align: center;
