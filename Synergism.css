@@ -2299,228 +2299,102 @@ position: absolute;
 	border-top: 2px solid plum;
 }
 
+#challengesWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 #challengeIntroduction {
-	position: absolute;
 	text-align: center;
-	padding: 0;
-	top: 0;
 	color: white;
-	width: 1000px;
 	font-size: 1.2em;
-	margin-left: -500px;
-	left: 50%;
+	line-height: .4;
+	margin-top: 30px;
 }
+
+#challengesAutoToggles {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#challengesAutoToggles > button {
+	height: 30px;
+	width: 200px;
+	margin: 7px;
+}
+
+#toggleAutoChallengeStart { border: 2px solid gold; }
+#startChallenge { border: 2px solid red; }
+#retryChallenge { border: 2px solid plum; }
+
+/* Hide the last 3 buttons until the user clicks on a challenge */
+#toggleAutoChallengeIgnore, #startChallenge, #retryChallenge { display: none; }
+
 #challengeIcons {
-	position: absolute;
 	font-size: 0;
-	padding: 0;
-	top: 50px;
-	margin-left: -510px;
-	left: 50%;
+	align-self: center;
+	margin-top: 10px;
 }
+
 #challengeIcons .challengeLevels {
 	font-size: 12px;
 	text-align: center;
 }
 #challengeDetails {
-	position: absolute;
+	display: flex;
+	flex-direction: row;
 	text-align: left;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+#oneChallengeDetails > p { 
+	margin: 0; 
+	margin-left: 30px;
+}
+
+#challengeName { color: white; }
+#challengeFlavor { color:plum; }
+#challengeRestrictions { color:crimson; }
+#challengeGoal { color: gold; }
+#challengePerCompletionRewards { color: white; }
+*[id^="challengePer"] { color: pink; }
+#challengeFirstCompletionRewards { color: white; }
+#challengeFirst1 { color: orange; }
+#challengeQuarkBonus { color: cyan; }
+
+#challengeTimersText > p { margin: 0; }
+
+#challengeTimersInput > input {
+	margin: 4.5px;
+	margin-left: 30px;
+}
+
+#challengeTimers {
+	display: flex;
+	flex-direction: row;
+	text-align: left;
+}
+
+#challengeWorthlessTexts {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	margin-top: 10px;
+}
+
+#challengeWorthlessTexts > p {
+	margin: 0;
 	padding: 0;
-	top: 125px;
-	width: 1000px;
-	margin-left: -500px;
-	left: 50%;
-}
-#startChallenge{
-	position:absolute;
-	border: 2px solid red;
-	height: 30px;
-	width: 200px;
-	top: 20px;
-	left: 16%;
-}
-#retryChallenge{
-	position:absolute;
-	border: 2px solid plum;
-	height: 30px;
-	width: 200px;
-	top: 51px;
-	left: 16%;
-}
-#toggleAutoChallengeIgnore{
-	position: absolute;
-	border: 2px solid green;
-	height: 30px;
-	width: 200px;
-	top: 82px;
-	left: 16%
-}
-#toggleAutoChallengeStart{
-	position: absolute;
-	border: 2px solid gold;
-	height: 30px;
-	width: 200px;
-	top: 120px;
-	left: 16%
-}
-#startAutoChallengeTimer{
-	position: absolute;
-	color: white;
-	height: 30px;
-	width: 300px;
-	top: 152px;
-	left: 0
-}
-#startAutoChallengeTimerInput{
-	position: absolute;
-	top: 174px;
-	width: 50px;
-	left: 30%
-}
-#exitAutoChallengeTimer{
-	position: absolute;
-	color: white;
-	height: 30px;
-	width: 300px;
-	top: 172px;
-	left: 0
-}
-#exitAutoChallengeTimerInput{
-	position: absolute;
-	top: 194px;
-	width: 50px;
-	left: 30%
-}
-#enterAutoChallengeTimer{
-	position: absolute;
-	color: white;
-	height: 30px;
-	width: 300px;
-	top: 192px;
-	left: 0
-}
-#enterAutoChallengeTimerInput{
-	position: absolute;
-	top: 214px;
-	width: 50px;
-	left: 30%
-}
-#autoChallengeIncrementer{
-	position: absolute;
-	top: 234px;
-	font-size: 1.25em;
-}
-#challengeName{
-	position:absolute;
-	color: white;
-	top: 0;
-	left: 38%;
-}
-#challengeFlavor{
-	position:absolute;
-	color:plum;
-	top: 20px;
-	left: 38%;
-}
-#challengeRestrictions{
-	position:absolute;
-	color:crimson;
-	width: 500px;
-	top: 40px;
-	left: 38%;
-
-}
-#challengeGoal{
-	position:absolute;
-	color: gold;
-	top: 100px;
-	left: 38%;
-
-}
-#challengePerCompletionRewards{
-	position:absolute;
-	color: white;
-	top: 120px;
-	left: 38%;
-
-}
-#challengePer1{
-	position:absolute;
-	color: pink;
-	top: 140px;
-	left: 38%;
-
-}
-#challengePer2{
-	position:absolute;
-	color: pink;
-	top: 160px;
-	left: 38%;
-
-}
-#challengePer3{
-	position:absolute;
-	color: pink;
-	top: 180px;
-	left: 38%;
-
-}
-#challengeFirstCompletionRewards{
-	position:absolute;
-	color: white;
-	top: 210px;
-	left: 38%;
-
-}
-#challengeFirst1{
-	position:absolute;
-	color: orange;
-	top: 230px;
-	left: 38%;
-
-}
-#challengeQuarkBonus{
-	position:absolute;
-	color: cyan;
-	top: 260px;
-	left: 38%;
-
-}
-
-
-#challengehotkeys {
-	position: absolute;
 	padding: 5px;
-	top: 405px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
 	height: 20px;
-	color: gray;
-	text-align: center;
 }
-#challengewarning {
-	position: absolute;
-	padding: 5px;
-	top: 425px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: crimson;
-	text-align: center;
-}
-#challengewarningreincarnation {
-	position: absolute;
-	padding: 5px;
-	top: 445px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: limegreen;
-	text-align: center;
-}
+
+#challengehotkeys { color: gray; }
+#challengewarning { color: crimson; }
+#challengewarningreincarnation { color: limegreen; }
 
 #reincarnation {
     position: relative;
