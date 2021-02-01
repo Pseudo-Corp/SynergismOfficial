@@ -2313,9 +2313,24 @@ position: absolute;
 	margin-top: 30px;
 }
 
+#challengesAutoToggles {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#challengesAutoToggles > button {
+	height: 30px;
+	width: 200px;
+	margin: 7px;
+}
+
+#toggleAutoChallengeStart { border: 2px solid gold; }
+
 #challengeIcons {
 	font-size: 0;
 	align-self: center;
+	margin-top: 10px;
 }
 
 #challengeIcons .challengeLevels {
@@ -2355,14 +2370,7 @@ position: absolute;
 	top: 82px;
 	left: 16%
 }
-#toggleAutoChallengeStart{
-	position: absolute;
-	border: 2px solid gold;
-	height: 30px;
-	width: 200px;
-	top: 120px;
-	left: 16%
-}
+
 #startAutoChallengeTimer{
 	position: absolute;
 	color: white;
