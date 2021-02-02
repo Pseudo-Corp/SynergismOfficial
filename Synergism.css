@@ -2342,6 +2342,40 @@ position: absolute;
 	font-size: 12px;
 	text-align: center;
 }
+
+#challengeDetails {
+	display: grid;
+	margin-left: 200px;
+	grid-template-columns: 400px 10px 600px;
+	grid-template-rows: 200px 200px ;
+	grid-template-areas: 
+	"main . sidebar"
+	"main . sidebar";
+}
+
+#challengeTimers {
+	grid-area: main;
+	margin: auto;
+}
+#startChallenge {
+	font-size: 1.1em;
+	width: 300px;
+	height: 75px;
+	border: 6px solid gold;
+	background-color: black;
+	color: white
+}
+#oneChallengeDetails {
+	display: flex;
+	grid-area: sidebar;
+	margin: 0;
+}
+#oneChallengeDetails > p {
+	margin: auto;
+	height: auto;
+}
+
+/*
 #challengeDetails {
 	display: flex;
 	flex-direction: row;
@@ -2354,7 +2388,7 @@ position: absolute;
 	margin: 0; 
 	margin-left: 30px;
 }
-
+*/
 #challengeName { color: white; }
 #challengeFlavor { color:plum; }
 #challengeRestrictions { color:crimson; }
@@ -2365,8 +2399,12 @@ position: absolute;
 #challengeFirst1 { color: orange; }
 #challengeQuarkBonus { color: cyan; }
 
-#challengeTimersText > p { margin: 0; }
-
+#challengeTimersText > p { margin: 0; font-size: 1.2em}
+#challengeTimersText > input {
+	height: 20px;
+	font-size: 1.1em;
+}
+/*
 #challengeTimersInput > input {
 	margin: 4.5px;
 	margin-left: 30px;
@@ -2377,7 +2415,7 @@ position: absolute;
 	flex-direction: row;
 	text-align: left;
 }
-
+*/
 #challengeWorthlessTexts {
 	display: flex;
 	flex-direction: column;
