@@ -17,7 +17,7 @@ module.exports = (env, argv) => ({
         modules: [path.resolve(__dirname, 'test'), 'node_modules']
     },
     output: {
-        filename: 'bundle.[name].js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/dist/'
     },

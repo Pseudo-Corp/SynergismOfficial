@@ -28,7 +28,7 @@ import { checkVariablesOnLoad } from './CheckVariables';
 import { updateCubeUpgradeBG } from './Cubes';
 import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
-import { loadPlugins } from './Plugins/Plugins';
+import * as Plugins from './Plugins/Plugins';
 import { addTimers, automaticTools } from './Helper';
 
 /**
@@ -3131,6 +3131,12 @@ function tack(dt: number) {
         calculateOfferings("reincarnation")
     }
 
+const loadPlugins = async () => {
+    for (const obj of Object.keys(Plugins)) {
+        const plugin = Plugins[obj as keyof typeof Plugins];
+        plugin.main();
+    }
+}
 
 document.addEventListener('keydown', (event) => {
     if (document.activeElement && document.activeElement.localName === 'input') {
