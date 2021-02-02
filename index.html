@@ -10,7 +10,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16">
     <!--<script src="Javascript/i18n.js"></script>-->
     </head>
-<main>
+<body>
 
     <img src="Pictures/Splash/preloader.png" id="preload" alt="" style="width: 100%;">
     <div id="offlineprogressbar">
@@ -18,123 +18,95 @@
         <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
         <div id="offlineprogressdone"></div>
     </div>
-    <div id="ascensionStats">
-    <span id="ascCubeStats">
-        <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
-        <span><span id="ascCubes">x</span> C<span id="unit1">/s</span></span>
-    </span>
-    <span id="ascTessStats">
-        <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
-        <span><span id="ascTess">x</span> T<span id="unit2">/s</span></span>
-    </span>
-    <span id="ascHyperStats">
-        <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
-        <span><span id="ascHyper">x</span> H<span id="unit3">/s</span></span>
-    </span>
-    <span id="ascPlatonicStats">
-        <img src="Pictures/Platonic%20Cube.png" class="corruptionImg" alt="">
-        <span><span id="ascPlatonic">x</span> P<span id="unit4">/s</span></span>
-    </span>
-    <span id="ascTimeTakenStats">
-        <img src="Pictures/questionable.png" class="corruptionImg" alt="">
-        <span id="ascLen">x</span>
-    </span>
-    <span id="ascC10CompletionsStats">
-        <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
-        <span id="ascC10">x</span>
-    </span>
-    <span id="ascTimeFactorStats">
-        <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
-        <span id="ascTimeAccel">x</span>
-    </span>
-    </div>
-<div id="navbar">
-
-    <div id="resourcesrow">
-
-        <table id="resourcestable">
-            <tr>
-                <td style="font-size:0;"><img src="Pictures/Coin.png" title='Coin' style="font-size:0;" alt=""></td>
-                <td width=120px;><p id="coinDisplay" style="color:gold;">1</p></td>
-                <td style="font-size:0;"><img  class="prestigeunlock" src="Pictures/Diamond.png" title='Diamond'  style="font-size:0;" alt=""></td>
-                <td width=120px;><p class="prestigeunlock" id="diamondDisplay" style="color: cyan">1</p></td>
-                <td style="font-size:0;"><img  class="prestigeunlock" src="Pictures/Offering.png" title='Offering'  style="font-size:0;" alt=""></td>
-                <td width=120px;><p class="prestigeunlock" id="offeringDisplay"  style="color:gold;">1</p></td>
-                <td style="font-size:0;"><img class="transcendunlock" src="Pictures/Quark.png" title='Quark' alt=""></td>
-                <td width="120px;"><p class="transcendunlock" id="quarkDisplay" style="color:white">1</p><td>
-
-
-            </tr>
-            <tr>
-                <td style="font-size:0;"> <img class="transcendunlock" src="Pictures/Mythos.png" title='Mythos' style="font-size:0;" alt=""></td>
-                <td> <p class="transcendunlock" id="mythosDisplay" style="color:plum;">1</p></td>
-                <td style="font-size:0;"> <img class="transcendunlock" src="Pictures/MythosShard.png" title='Mythos Shard' style="font-size:0;" alt=""></td>
-                <td> <p class="transcendunlock" id="mythosshardDisplay" style="color:plum;">1</p></td>
-                <td style="font-size:0;"> <img class="reincarnationunlock" src="Pictures/Particle.png" title='Particle'  style="font-size:0;" alt=""></td>
-                <td> <p class="reincarnationunlock" id="particlesDisplay" style="color:limegreen;">1</p></td>
-                <td style="font-size:0;"><img class="reincarnationunlock" src="Pictures/Obtainium.png" title='Obtainium' alt=""></td>
-                <td><p class="reincarnationunlock" id="obtainiumDisplay" style="color:pink">1</p><td>
-
-            </tr>
-        </table>
-
-
-
-    </div>
-    <div id="resetrow">
-
-        <table id="resettable">
-            <tr>
-            <td><img class="coinunlock4" id="prestigebtn" src="Pictures/Transparent Pics/Prestige.png" style="cursor: pointer" alt=""></td>
-            <td><img class="prestigeunlock" id="transcendbtn" src="Pictures/Transparent Pics/Transcend.png" style="cursor:pointer"  alt=""></td>
-            <td><img class="transcendunlock" id="reincarnatebtn" src="Pictures/Transparent Pics/Reincarnate.png" style="cursor:pointer" alt=""></td>
-            <td><img class="transcendunlock" id="acceleratorboostbtn" src="Pictures/Transparent Pics/AcceleratorBoost.png" style="cursor:pointer" alt=""></td>
-            <td><img class="transcendunlock" id="challengebtn" src="Pictures/Transparent Pics/Challenge.png" style="cursor:pointer" alt=""></td>
-            <td><img class="reincarnationunlock" id="reincarnatechallengebtn" src="Pictures/Transparent Pics/ChallengeReincarnation.png" style="cursor:pointer" alt=""></td>
-            <td><img class="ascendunlock" id="ascendChallengeBtn" src="Pictures/Transparent Pics/ChallengeAscension.png" style="cursor: pointer;" alt=""></td>
-            <td><img class="chal10" id="ascendbtn" src="Pictures/questionable.png" style="cursor:pointer" alt=""></td>
-            </tr>
-        </table>
-        <p id="resetinfo" style="color:white"></p>
-        <table id="resetrewards" style="display: block;">
-            <tr>
-            <td>
-        <img id="resetofferings1" src="" style="font-size: 0;" alt="">
-            </td>
-            <td>
-        <p id="resetofferings2" style="color: gold"></p>
-            </td>
-            <td>
-        <img id="resetcurrency1" src="" style="font-size: 0;" alt="">
-            </td>
-            <td>
-        <p id="resetcurrency2" style="color:gold"></p>
-            </td>
-            <td>
-        <img id="resetobtainium" src="" alt="">
-            </td>
-            <td>
-        <p id="resetobtainium2" style="color:pink;"></p>
-            </td>
-        </tr>
-        </table>
-    </div>
-
-    <div id="tabrow">
-
-        <p id="buildingstab" style="color:white; cursor: pointer;">Buildings</p>
-        <p id="upgradestab" style="color:white; cursor: pointer;">Upgrades</p>
-        <p id="settingstab" full="0" style="color:white; cursor: pointer;">Settings</p>
-        <p class="coinunlock4" id="achievementstab" style="color:white; cursor: pointer;">Achievements</p>
-        <p class="prestigeunlock" id="runestab" style="color: white; cursor: pointer;">Runes</p>
-        <p class="transcendunlock" id="challengetab" style="color:white; cursor: pointer;">Challenges</p>
-        <p class="reincarnationunlock" id="researchtab" style="color:white; cursor: pointer;">Research</p>
-        <p class="reincarnationunlock" id="shoptab" style="color: white; cursor: pointer;">Shop</p>
-        <p class="chal8" id="anttab" style="color: white; cursor: pointer;">Anthill</p>
-        <p class="chal10" id="cubetab" style="color: red;cursor: pointer;">WOW! Cubes</p>
-        <p class="chal10" id="traitstab" style="color: red;cursor: pointer;">Corruption</p>
-    </div>
-</div>
+    <header>
+        <div id="ascensionStats">
+            <span id="ascCubeStats">
+                <img src="Pictures/WowCube.png" class="corruptionImg" alt="">
+                <span><span id="ascCubes">x</span> C<span id="unit1">/s</span></span>
+            </span>
+            <span id="ascTessStats">
+                <img src="Pictures/WowTessaract.png" class="corruptionImg" alt="">
+                <span><span id="ascTess">x</span> T<span id="unit2">/s</span></span>
+            </span>
+            <span id="ascHyperStats">
+                <img src="Pictures/WowHypercube.png" class="corruptionImg" alt="">
+                <span><span id="ascHyper">x</span> H<span id="unit3">/s</span></span>
+            </span>
+            <span id="ascPlatonicStats">
+                <img src="Pictures/Platonic%20Cube.png" class="corruptionImg" alt="">
+                <span><span id="ascPlatonic">x</span> P<span id="unit4">/s</span></span>
+            </span>
+            <span id="ascTimeTakenStats">
+                <img src="Pictures/questionable.png" class="corruptionImg" alt="">
+                <span id="ascLen">x</span>
+            </span>
+            <span id="ascC10CompletionsStats">
+                <img src="Pictures/Transparent%20Pics/ChallengeTen.png" class="corruptionImg" alt="">
+                <span id="ascC10">x</span>
+            </span>
+            <span id="ascTimeFactorStats">
+                <img src="Pictures/TimeAccel.png" class="corruptionImg" alt="">
+                <span id="ascTimeAccel">x</span>
+            </span>
+        </div>
+        <img class="img coin" src="Pictures/Coin.png" title='Coin' alt="">
+        <div class="statDisplay" id="coinDisplay">1</div>
+        <img  class="prestigeunlock img diamond" src="Pictures/Diamond.png" title='Diamond'  alt="">
+        <div class="prestigeunlock statDisplay" id="diamondDisplay">1</div>
+        <img  class="prestigeunlock img offering" src="Pictures/Offering.png" title='Offering'  alt="">
+        <div class="prestigeunlock statDisplay" id="offeringDisplay" >1</div>
+        <img class="transcendunlock img quark" src="Pictures/Quark.png" title='Quark' alt="">
+        <div class="transcendunlock statDisplay" id="quarkDisplay">1</div>
+        <img class="transcendunlock img mythos" src="Pictures/Mythos.png" title='Mythos' alt="">
+        <div class="transcendunlock statDisplay" id="mythosDisplay">1</div>
+        <img class="transcendunlock img mythosshard" src="Pictures/MythosShard.png" title='Mythos Shard' alt="">
+        <div class="transcendunlock statDisplay" id="mythosshardDisplay">1</div>
+        <img class="reincarnationunlock img particle" src="Pictures/Particle.png" title='Particle'  alt="">
+        <div class="reincarnationunlock statDisplay" id="particlesDisplay">1</div>
+        <img class="reincarnationunlock img obtanium" src="Pictures/Obtainium.png" title='Obtainium' alt="">
+        <div class="reincarnationunlock statDisplay" id="obtainiumDisplay">1</div>
+        <div id="resetrow">
+        
+            <img class="coinunlock4" id="prestigebtn" src="Pictures/Transparent Pics/Prestige.png" alt="">
+            <img class="prestigeunlock" id="transcendbtn" src="Pictures/Transparent Pics/Transcend.png" alt="">
+            <img class="transcendunlock" id="reincarnatebtn" src="Pictures/Transparent Pics/Reincarnate.png" alt="">
+            <img class="transcendunlock" id="acceleratorboostbtn" src="Pictures/Transparent Pics/AcceleratorBoost.png" alt="">
+            <img class="transcendunlock" id="challengebtn" src="Pictures/Transparent Pics/Challenge.png" alt="">
+            <img class="reincarnationunlock" id="reincarnatechallengebtn" src="Pictures/Transparent Pics/ChallengeReincarnation.png" alt="">
+            <img class="ascendunlock" id="ascendChallengeBtn" src="Pictures/Transparent Pics/ChallengeAscension.png" alt="">
+            <img class="chal10" id="ascendbtn" src="Pictures/questionable.png" alt="">
+            
+            <div id="resetrewards" style="display: block;">
+                <div>
+                    <img id="resetofferings1" src="" style="font-size: 0;" alt="">
+                    <div id="resetofferings2" style="color: gold"></div>
+                    <img id="resetcurrency1" src="" style="font-size: 0;" alt="">
+                    <div id="resetcurrency2" style="color:gold"></div>
+                    <img id="resetobtainium" src="" alt="">
+                    <div id="resetobtainium2" style="color:pink;"></div>
+                </div>
+            </div>
+        </div>
+        <div id="resetinfo" style="color:white"></div>
+        <nav id="navbar">
+        
+            
+            <ul id="tabrow">
+                <li id="buildingstab">Buildings</li>
+                <li id="upgradestab">Upgrades</li>
+                <li class="coinunlock4" id="achievementstab">Achievements</li>
+                <li class="prestigeunlock" id="runestab">Runes</li>
+                <li class="transcendunlock" id="challengetab">Challenges</li>
+                <li class="reincarnationunlock" id="researchtab">Research</li>
+                <li class="chal8" id="anttab">Anthill</li>
+                <li class="chal10" id="cubetab">WOW! Cubes</li>
+                <li class="chal10" id="traitstab">Corruption</li>
+                <li id="settingstab">Settings</li>
+                <li class="reincarnationunlock" id="shoptab">Shop</li>
+            </ul>
+        </nav>
+        
+    </header>
 
 <div id="buildings">
     <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow">Coin Buildings</button>
@@ -2655,5 +2627,5 @@
             });
         }
       </script>
-    </main>
+    </body>
 </html>
