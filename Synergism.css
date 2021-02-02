@@ -2,10 +2,7 @@ html {
 	min-width: 1250px;
 	max-width: 1400px;
 	position: relative;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
-
-
-
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 body {background-color: #111111 ;
 	transform: scale(0.9);
@@ -158,167 +155,102 @@ a {color: white;}
 }
 
 #resetrow {
-	position: relative;
-	left: 700px;
-	top: 28.5px;
-	width: 10%
+	grid-column: buttons / end;
+	grid-row: row1;
+	display: flex;
 }
 
+#resetrow img {
+	margin-left: 3px;
+}
 
-#resettable {
-	position: absolute;
-	font-size: 0;
-}
-#resetrequirements {
-	position: absolute;
-	width: 500px;
-	left: 30%;
-	font-size: 13px;
-	color: white
-}
 #resetinfo {
-	position: absolute;
-	top: 20px;
-	width: 500px;
+	grid-column: buttons;
+	grid-row: row1space / row2;
 	text-align: center;
 	font-size: 15px;
 	font-variant-numeric: tabular-nums;
 }
-#resetrewards {
-	position: absolute;
-	top: -10px;
-	left: 288px;
+#resetrewards > div {
+	display: flex;
+	line-height: 32px;
+}
+
+#resetrewards > div > div {
+	margin-left: 3px;
+}
+
+header nav {
+	grid-column: leftspace / rightspace;
+	grid-row: nav
 }
 
 #tabrow {
-	position:relative;
 	text-align: center;
-	top: 110px;
-	height: 30px;
+	/* height: 30px; */
+	list-style: none;
+	margin:  0;
+	margin-inline: unset;
+	margin-block: unset;
+	padding-inline: unset;
+	display: flex;
+	justify-content: space-between;
+}
+
+nav li {
+    display: inline-block;
+    border: 1px solid;
+    width: 100px;
+    color:white;
+    cursor: pointer;
+    line-height: 21px;
+    height: 21px;
 }
 
 #buildingstab {
-	position:absolute;
-	text-align: center;
-	width: 100px;
-	left: 8%;
-	margin-left: -50px;
-	border: 1px solid gold;
-
+	border-color: gold;
 }
 
-
 #upgradestab {
-	position:absolute;
-
-	text-align: center;
-	width: 100px;
-	left: 16%;
-	margin-left: -50px;
-	border: 1px solid gold;
-	float:left;
-
-
-
+	border-color: gold;
 }
 
 #settingstab {
-	position:absolute;
-
-	text-align: center;
-	width: 100px;
-	left: 80%;
-	margin-left: -50px;
-
-
-	border: 1px solid white;
-
-
+	border-color: white;
 }
 
 #achievementstab {
-	position:absolute;
-
-	text-align: center;
-	width: 100px;
-	left: 24%;
-	margin-left: -50px;
-
-	border: 1px solid white;
-
-
+	border-color: white;
 }
 
-
 #runestab{
-	position:absolute;
-
-	text-align: center;
-	width: 100px;
-	left: 32%;
-	margin-left: -50px;
-
-	border: 1px solid cyan
+	border-color: cyan
 }
 
 #challengetab {
-	position:absolute;
-
-	text-align: center;
-	width: 100px;
-	border: 1px solid plum;
-	left: 40%;
-	margin-left: -50px;
-
-
+	border-color: plum;
 }
 
 #researchtab {
-	position:absolute;
-	text-align: center;
-	width: 100px;
-	border: 1px solid green;
-	left: 48%;
-	margin-left: -50px;
-
+	border-color: green;
 }
 
 #shoptab {
-	position:absolute;
-
-	text-align: center;
-	width: 100px;
-	border: 1px solid white;
-	left: 88%;
-	margin-left: -50px;
+	border-color: white;
 }
 
 #anttab {
-	position: absolute;
-	text-align: center;
-	width: 100px;
-	border: 1px solid maroon;
-	left: 56%;
-	margin-left: -50px;
-
+	border-color: maroon;
 }
 
 #cubetab{
-	position: absolute;
-	text-align: center;
-	width: 100px;
-	border: 1px solid orange;
-	left: 64%;
-	margin-left: -50px;
+	border-color: orange;
+	color: red;
 }
 
 #traitstab{
-	position: absolute;
-	text-align: center;
-	width: 100px;
-	border: 1px solid orange;
-	left: 72%;
-	margin-left: -50px;
+	border-color: orange;
+	color: red;
 }
 
 .buildingTabs {
@@ -331,11 +263,9 @@ a {color: white;}
 
 #buildingrow1 {
 	position:absolute;
-
 	position: relative;
 	padding: 0;
 	border: 1px solid gold;
-	top: 118px;
 }
 #switchToCoinBuilding{
 	position: absolute;
@@ -439,7 +369,6 @@ a {color: white;}
 
 #buildingtext {
 	position: relative;
-	top: 118px;
 	padding: 0;
 }
 
@@ -655,7 +584,6 @@ position: absolute;
 	position: relative;
 	text-align: center;
 	padding: 0;
-	top: 118px;
 	color: gold;
 	border-top: 2px solid gold;
 }
@@ -727,7 +655,6 @@ position: absolute;
 
 #settings {
 	position: relative;
-	top: 118px;
 	padding: 0;
 	text-align: center;
 	border-top: 2px solid white
@@ -1058,7 +985,6 @@ position: absolute;
 	position: relative;
 	text-align: center;
 	padding: 0;
-	top: 118px;
 	color: whitesmoke;
 	border-top: 2px solid white;
 }
@@ -1106,7 +1032,6 @@ position: absolute;
 #prestige {
     position: relative;
     padding: 0;
-    top: 118px;
     border: 1px solid cyan
 }
 #buyamountcrystal {
@@ -1373,7 +1298,6 @@ position: absolute;
 #prestige {
     position: relative;
     padding: 0;
-    top: 118px;
     border: 1px solid cyan
 }
 #crystalupgradestable {
@@ -1448,7 +1372,6 @@ position: absolute;
 #runes {
 	position: relative;
 	padding: 0;
-	top: 118px;
 	border-top: 2px solid cyan;
 }
 
@@ -2066,7 +1989,6 @@ position: absolute;
 #transcension {
 	position: relative;
 	padding: 0;
-	top: 118px;
 	border: 1px solid plum
 }
 
@@ -2295,7 +2217,6 @@ position: absolute;
 #challenges {
 	position: relative;
 	padding: 0;
-	top: 118px;
 	border-top: 2px solid plum;
 }
 
@@ -2437,7 +2358,6 @@ position: absolute;
 #reincarnation {
     position: relative;
     padding: 0;
-    top: 118px;
     border: 1px solid green
 }
 
@@ -2672,7 +2592,6 @@ position: absolute;
 
 #research {
 	position: relative;
-	top: 118px;
 	padding: 0;
 	border-top: 2px solid green;
 }
@@ -2734,8 +2653,7 @@ position: absolute;
 	position: relative;
 	padding: 0;
 	border-top: 2px solid limegreen;
-	top: 118px;
-	text-align: center
+	text-align: center;
 }
 
 #shoptop {
@@ -2826,7 +2744,6 @@ position: absolute;
 	position: relative;
 	padding: 0;
 	border-top: 2px solid brown;
-	top: 118px;
 	text-align: center
 }
 
@@ -3077,7 +2994,6 @@ position: absolute;
 #cubes{
 	position: relative;
 	border-top: 2px solid purple;
-	top: 118px;
 	padding: 0;
 }
 
@@ -3424,7 +3340,6 @@ position: absolute;
 #ascension {
 	position: relative;
 	padding: 0;
-	top: 118px;
 	border: 1px solid orange
 }
 .ascendPics{
@@ -3750,7 +3665,6 @@ position: absolute;
 	align-items: center;
 	justify-content: center;
 	position: relative;
-	top: 118px;
 	width: 100%;
 	min-height: 550px;
     max-height: 600px;
@@ -3907,37 +3821,109 @@ img.small {
 	visibility: hidden;
 }
 
+header {
+	display: grid;
+	grid-template-columns: 5% [leftspace] 1fr repeat(4, [stat-image] 32px [stat] 2fr) [buttons] 8fr [rightspace] 1fr 5%;
+	grid-template-rows: [asc-stats] 40px 10px [row1] 32px [row1space] 23px [row2] 32px [row2space] 7px [nav] 22px;
+}
+header .img.coin {
+	grid-column: stat-image 1;
+	grid-row: row1;
+}
+header .img.diamond {
+	grid-column: stat-image 2;
+	grid-row: row1;
+}
+header .img.offering {
+	grid-column: stat-image 3;
+	grid-row: row1;
+}
+header .img.quark {
+	grid-column: stat-image 4;
+	grid-row: row1;
+}
+header .img.mythos {
+	grid-column: stat-image 1;
+	grid-row: row2;
+}
+header .img.mythosshard {
+	grid-column: stat-image 2;
+	grid-row: row2;
+}
+header .img.particle {
+	grid-column: stat-image 3;
+	grid-row: row2;
+}
+header .img.obtanium {
+	grid-column: stat-image 4;
+	grid-row: row2;
+}
+header #coinDisplay {
+	grid-column: stat 1;
+	grid-row: row1;	
+}
+header #diamondDisplay {
+	grid-column: stat 2;
+	grid-row: row1;	
+}
+header #offeringDisplay {
+	grid-column: stat 3;
+	grid-row: row1;	
+}
+header #quarkDisplay {
+	grid-column: stat 4;
+	grid-row: row1;	
+}
+header #mythosDisplay {
+	grid-column: stat 1;
+	grid-row: row2;	
+}
+header #mythosshardDisplay {
+	grid-column: stat 2;
+	grid-row: row2;	
+}
+header #particlesDisplay {
+	grid-column: stat 3;
+	grid-row: row2;	
+}
+header #obtainiumDisplay {
+	grid-column: stat 4;
+	grid-row: row2;	
+}
+.statDisplay {
+	padding-left: 6px;
+	line-height: 32px;
+}
 #ascensionStats {
+	grid-column: stat-image / end;
+	grid-row: asc-stats;
 	display: flex;
 	flex-flow: row;
 	flex-direction: row;
 	justify-content: center;
-	height: 20px;
 	padding-top: 10px;
-	margin: 0 auto -10px;
-	width: 90%
+	height: 20px;
+	line-height: 20px;
 }
 #ascensionStats > span {
 	display: flex;
+	align-items: center;
 }
-#ascHyperStats, #ascPlatonicStats {
-	width: 10%;
+#ascHyperStats, #ascPlatonicStats, #ascTessStats {
+	width: 10em;
 }
 #ascTimeTakenStats {
-	min-width: 10%;
+	min-width: 8em;
 }
 #ascCubeStats {
-	width: 12.5%;
-}
-#ascTessStats {
-	width: 11%;
+	width: 12em;
 }
 #ascC10CompletionsStats {
-	width: 4%;
+	width: 3.5em;
 }
 #ascensionStats img {
 	position: relative;
-	top: 3px;
+	height: 20px;
 	margin-right: 4px;
 }
 #ascLen {
