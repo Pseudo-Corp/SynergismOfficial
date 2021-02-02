@@ -3861,14 +3861,17 @@ header .img.obtanium {
 header #coinDisplay {
 	grid-column: stat 1;
 	grid-row: row1;	
+	color: gold;
 }
 header #diamondDisplay {
 	grid-column: stat 2;
 	grid-row: row1;	
+	color: cyan;
 }
 header #offeringDisplay {
 	grid-column: stat 3;
 	grid-row: row1;	
+	color: gold;
 }
 header #quarkDisplay {
 	grid-column: stat 4;
@@ -3877,18 +3880,22 @@ header #quarkDisplay {
 header #mythosDisplay {
 	grid-column: stat 1;
 	grid-row: row2;	
+	color: plum;
 }
 header #mythosshardDisplay {
 	grid-column: stat 2;
 	grid-row: row2;	
+	color: plum;
 }
 header #particlesDisplay {
 	grid-column: stat 3;
-	grid-row: row2;	
+	grid-row: row2;
+	color: limegreen;
 }
 header #obtainiumDisplay {
 	grid-column: stat 4;
 	grid-row: row2;	
+	color: pink;
 }
 .statDisplay {
 	padding-left: 6px;
