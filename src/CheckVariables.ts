@@ -88,7 +88,7 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.roombaResearchIndex = 0;
     }
     if (data.history === undefined) {
-        player.history = {};
+        player.history = { ants: [], ascend: [], reset: [] };
         player.cubesThisAscension = {
             "challenges": 0,
             "reincarnation": 0,

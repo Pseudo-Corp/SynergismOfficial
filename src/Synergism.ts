@@ -574,7 +574,7 @@ export const player: Player = {
     corruptionShowStats: true,
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    history: {},
+    history: { ants: [], ascend: [], reset: [] },
     historyCountMax: 10,
     historyShowPerSecond: false,
 
@@ -1019,7 +1019,7 @@ export const loadSynergy = (): void => {
         }
 
         if (data.history === undefined || player.history === undefined) {
-            player.history = {};
+            player.history = { ants: [], ascend: [], reset: [] };
         }
         if (data.historyShowPerSecond === undefined || player.historyShowPerSecond === undefined) {
             player.historyShowPerSecond = false;

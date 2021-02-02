@@ -2263,6 +2263,40 @@ position: absolute;
 	font-size: 12px;
 	text-align: center;
 }
+
+#challengeDetails {
+	display: grid;
+	margin-left: 200px;
+	grid-template-columns: 400px 10px 600px;
+	grid-template-rows: 200px 200px ;
+	grid-template-areas: 
+	"main . sidebar"
+	"main . sidebar";
+}
+
+#challengeTimers {
+	grid-area: main;
+	margin: auto;
+}
+#startChallenge {
+	font-size: 1.1em;
+	width: 300px;
+	height: 75px;
+	border: 6px solid gold;
+	background-color: black;
+	color: white
+}
+#oneChallengeDetails {
+	display: flex;
+	grid-area: sidebar;
+	margin: 0;
+}
+#oneChallengeDetails > p {
+	margin: auto;
+	height: auto;
+}
+
+/*
 #challengeDetails {
 	display: flex;
 	flex-direction: row;
@@ -2275,7 +2309,7 @@ position: absolute;
 	margin: 0; 
 	margin-left: 30px;
 }
-
+*/
 #challengeName { color: white; }
 #challengeFlavor { color:plum; }
 #challengeRestrictions { color:crimson; }
@@ -2286,8 +2320,12 @@ position: absolute;
 #challengeFirst1 { color: orange; }
 #challengeQuarkBonus { color: cyan; }
 
-#challengeTimersText > p { margin: 0; }
-
+#challengeTimersText > p { margin: 0; font-size: 1.2em}
+#challengeTimersText > input {
+	height: 20px;
+	font-size: 1.1em;
+}
+/*
 #challengeTimersInput > input {
 	margin: 4.5px;
 	margin-left: 30px;
@@ -2298,7 +2336,7 @@ position: absolute;
 	flex-direction: row;
 	text-align: left;
 }
-
+*/
 #challengeWorthlessTexts {
 	display: flex;
 	flex-direction: column;
@@ -2958,83 +2996,33 @@ position: absolute;
 	border-top: 2px solid purple;
 	padding: 0;
 }
-.cubeSwitchTabBtn{
-	position: absolute;
+
+/* Wow! Cube sidebar */
+#wowCubeSidebar {
+	display: flex;
+	flex-direction: column;
+	width: 20%;
+	margin-left: 4.5%;
+	margin-top: 4.5%;
 	text-align: center;
+}
+
+#wowCubeSidebarButtons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.cubeSwitchTabBtn {
 	width: 250px;
 	height: 30px;
+	margin: 3px;
 }
-#cubeToQuarkTimer{
-	position: absolute;
-	text-align: center;
-	top: 270px;
-	width: 250px;
-	left: 65px;
-	font-size: 1.2em;
-}
-#cubeQuarksToday{
-	position: absolute;
-	text-align: center;
-	top: 320px;
-	width: 300px;
-	left: 40px;
-}
-#tesseractQuarksToday{
-	position: absolute;
-	text-align: center;
-	top: 390px;
-	width: 300px;
-	left: 40px;
-}
-#hypercubeQuarksToday{
-	position: absolute;
-	text-align: center;
-	top: 460px;
-	width: 300px;
-	left: 40px;
-}
-#cubeQuarksOpenRequirement{
-	position: absolute;
-	text-align: center;
-	top: 340px;
-	width: 340px;
-	left: 20px;
-}
-#tesseractQuarksOpenRequirement{
-	position: absolute;
-	text-align: center;
-	top: 410px;
-	width: 340px;
-	left: 20px;
-}
-#hypercubeQuarksOpenRequirement{
-	position: absolute;
-	text-align: center;
-	top: 480px;
-	width: 340px;
-	left: 20px;
-}
-#cubeQuarksOpenToday{
-	position: absolute;
-	text-align: center;
-	top: 360px;
-	width: 340px;
-	left: 20px;
-}
-#tesseractQuarksOpenToday{
-	position: absolute;
-	text-align: center;
-	top: 430px;
-	width: 340px;
-	left: 20px;
-}
-#hypercubeQuarksOpenToday{
-	position: absolute;
-	text-align: center;
-	top: 500px;
-	width: 340px;
-	left: 20px;
-}
+
+#wowCubeSidebar > p { margin: 0; }
+#cubeToQuarkTimer { font-size: 1.2em; }
+
 .cubePlacement1{
 	position:absolute;
 	text-align: center;
