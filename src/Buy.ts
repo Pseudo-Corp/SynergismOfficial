@@ -675,7 +675,7 @@ export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number)
         (baseCost = G['blessingBaseCost'], baseLevels = player.runeBlessingLevels[index], levelCap = player.runeBlessingBuyAmount);
 
     const [level, cost] = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap);
-    (type === 'Blessings') ?
+    (type === 'Spirits') ?
         player.runeSpiritLevels[index] = level :
         player.runeBlessingLevels[index] = level;
 
