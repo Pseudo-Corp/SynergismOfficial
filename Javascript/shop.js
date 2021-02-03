@@ -40,7 +40,7 @@ function shopDescriptions(i) {
         case 4:
             rofl.textContent = offerautodesc;
             lmao.textContent = "Cost: " + (shopBaseCosts.offerAuto + 25 * player.shopUpgrades.offeringAutoLevel) + " Quarks."
-            lol.textContent = "CURRENT Effect: Per 10 seconds, pour " + format(Math.pow(2, 1 + player.shopUpgrades.offeringAutoLevel)) + " Offerings. +" + format(2 * player.shopUpgrades.offeringAutoLevel, 2) + "% Offerings."
+            lol.textContent = "CURRENT Effect: Per 10 seconds, pour " + format(Math.pow(2, 1 + player.shopUpgrades.offeringAutoLevel)) + " Offerings. Gain +" + format(player.shopUpgrades.offeringAutoLevel * 2, 2) + "% more Offerings."
             break;
         case 5:
             rofl.textContent = obtainiumtimerdesc;
