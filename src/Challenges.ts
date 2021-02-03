@@ -435,7 +435,7 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     } else if (challenge <= 10) {
         let c10Reduction = 0;
         if (challenge === 10) {
-            c10Reduction = (1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185]) + 2e7 * player.shopUpgrades.challenge10Tomes)
+            c10Reduction = (1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185]) + 2e7 * player.shopUpgrades.challengeTome)
         }
         return Decimal.pow(10, (base - c10Reduction) * calculateChallengeRequirementMultiplier('reincarnation', completion, special))
     } else if (challenge <= 14) {
