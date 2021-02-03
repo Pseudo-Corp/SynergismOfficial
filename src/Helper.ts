@@ -87,7 +87,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             //Update visual displays if appropriate
             if(G['currentTab'] === "researches"){
                 visualUpdateResearch();
-            };
+            }
             break;
         case "addOfferings":
             //This counter can be increased through challenge 3 reward

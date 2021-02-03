@@ -76,7 +76,7 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
 
     let levelsToAdd = player.offeringbuyamount
     if (auto) {
-        levelsToAdd = Math.pow(2, player.shopUpgrades.offeringAutoLevel);
+        levelsToAdd = Math.pow(2, player.shopUpgrades.offeringAuto);
     }
     if (auto && cubeUpgraded > 0) {
         levelsToAdd = Math.min(1e4, calculateMaxRunes(runeIndex + 1)) // limit to max 10k levels per call so the execution doesn't take too long if things get stuck

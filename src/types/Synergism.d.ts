@@ -331,23 +331,23 @@ export interface Player {
     loaded10101: boolean,
 
     shopUpgrades: {
-        offeringPotion: number
-        obtainiumPotion: number
-        offeringTimerLevel: number
-        obtainiumTimerLevel: number
-        offeringAutoLevel: number
-        obtainiumAutoLevel: number
-        instantChallengeBought: boolean
-        cashGrabLevel: number
-        antSpeedLevel: number
-        talismanBought: boolean
-        challengeExtension: number
-        challenge10Tomes: number
-        seasonPassLevel: number
-        cubeToQuarkBought: boolean
-        tesseractToQuarkBought: boolean
-        hypercubeToQuarkBought: boolean
-        [key: string]: number | boolean
+        offeringPotion: number,
+        obtainiumPotion: number,
+        offeringEX: number,
+        offeringAuto: number,
+        obtainiumEX: number,
+        obtainiumAuto: number,
+        instantChallenge: number,
+        antSpeed: number,
+        cashGrab: number,
+        shopTalisman: number,
+        seasonPass: number,
+        challengeExtension: number,
+        challengeTome: number,
+        cubeToQuark: number,
+        tesseractToQuark: number,
+        hypercubeToQuark: number,
+        [key: string]: number
     }
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,
@@ -639,24 +639,6 @@ export interface GlobalVariables {
     optimalObtainiumTimer: number
 
     runeSum: number
-
-    shopBaseCosts: {
-        offerPotion: number
-        obtainiumPotion: number
-        offerTimer: number
-        obtainiumTimer: number
-        offerAuto: number
-        obtainiumAuto: number
-        instantChallenge: number
-        cashGrab: number
-        antSpeed: number
-        seasonPass: number
-        challengeExtension: number
-        challenge10Upgrade: number
-        cubeToQuark: number
-        tesseractToQuark: number
-        hypercubeToQuark: number
-    },
 
     shopConfirmation: boolean,
 

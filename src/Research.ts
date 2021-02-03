@@ -35,7 +35,7 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean
     }
 
     // Handles toggling auto research focus, for when cube Upgrade 1x9 is NOT BOUGHT
-    if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAutoLevel >= 1 && player.cubeUpgrades[9] < 1) {
+    if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAuto >= 1 && player.cubeUpgrades[9] < 1) {
         player.autoResearch = index;
         document.getElementById("res" + index).style.backgroundColor = "orange"
     }

@@ -223,24 +223,6 @@ const Globals: GlobalVariables = {
 
     runeSum: 0,
 
-    shopBaseCosts: {
-        offerPotion: 100,
-        obtainiumPotion: 100,
-        offerTimer: 150,
-        obtainiumTimer: 150,
-        offerAuto: 150,
-        obtainiumAuto: 150,
-        instantChallenge: 300,
-        cashGrab: 100,
-        antSpeed: 200,
-        seasonPass: 500,
-        challengeExtension: 500,
-        challenge10Upgrade: 500,
-        cubeToQuark: 2000,
-        tesseractToQuark: 3500,
-        hypercubeToQuark: 5000,
-    },
-
     shopConfirmation: true,
 
     globalAntMult: new Decimal("1"),

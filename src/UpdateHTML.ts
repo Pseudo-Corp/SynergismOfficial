@@ -252,15 +252,15 @@ export const revealStuff = () => {
         document.getElementById("talisman6area").style.display = "block" :
         document.getElementById("talisman6area").style.display = "none";
 
-    player.shopUpgrades.offeringAutoLevel > 0 ? //Auto Offering Shop Purchase
+    player.shopUpgrades.offeringAuto > 0 ? //Auto Offering Shop Purchase
         document.getElementById("toggleautosacrifice").style.display = "block" :
         document.getElementById("toggleautosacrifice").style.display = "none";
 
-    player.shopUpgrades.obtainiumAutoLevel > 0 ? //Auto Research Shop Purchase
+    player.shopUpgrades.obtainiumAuto > 0 ? //Auto Research Shop Purchase
         document.getElementById("toggleautoresearch").style.display = "block" :
         document.getElementById("toggleautoresearch").style.display = "none";
 
-    player.shopUpgrades.talismanBought ? //Plastic Talisman Shop Purchase
+    player.shopUpgrades.shopTalisman > 0 ? //Plastic Talisman Shop Purchase
         document.getElementById("talisman7area").style.display = "block" :
         document.getElementById("talisman7area").style.display = "none";
 

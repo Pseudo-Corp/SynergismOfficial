@@ -10,8 +10,8 @@ export const openHypercube = (value: number, max = false) => {
     player.wowHypercubes -= toSpend
     player.hypercubeOpenedDaily += toSpend
 
-    if (player.hypercubeQuarkDaily < 25 + 75 * +player.shopUpgrades.hypercubeToQuarkBought) {
-        while (player.hypercubeOpenedDaily >= 5 * Math.pow(1 + player.hypercubeQuarkDaily, 2) && player.hypercubeQuarkDaily < 25 + 75 * +player.shopUpgrades.hypercubeToQuarkBought) {
+    if (player.hypercubeQuarkDaily < 25 + 75 * player.shopUpgrades.hypercubeToQuark) {
+        while (player.hypercubeOpenedDaily >= 5 * Math.pow(1 + player.hypercubeQuarkDaily, 2) && player.hypercubeQuarkDaily < 25 + 75 * player.shopUpgrades.hypercubeToQuark) {
             player.hypercubeQuarkDaily += 1;
             player.worlds += 1;
         }

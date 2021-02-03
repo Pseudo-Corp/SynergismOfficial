@@ -413,7 +413,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
         G['reincarnationPointGain'] = new Decimal('0');
 
-        if (player.shopUpgrades.instantChallengeBought && player.currentChallenge.reincarnation === 0) {
+        if (player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.reincarnation === 0) {
             player.challengecompletions[1] = player.highestchallengecompletions[1]
             player.challengecompletions[2] = player.highestchallengecompletions[2]
             player.challengecompletions[3] = player.highestchallengecompletions[3]

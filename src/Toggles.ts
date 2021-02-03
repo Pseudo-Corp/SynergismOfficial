@@ -455,7 +455,7 @@ export const toggleAutoSacrifice = (index: number) => {
             el.textContent = "Auto Runes: ON"
             document.getElementById("toggleautosacrifice").style.border = "2px solid green"
         }
-    } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAutoLevel > 0.5) {
+    } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
         player.autoSacrifice = index;
     }
     for (let i = 1; i <= 5; i++) {

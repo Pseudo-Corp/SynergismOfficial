@@ -155,9 +155,9 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.shopUpgrades.challengeExtension = 0;
         player.shopUpgrades.challenge10Tomes = 0;
         player.shopUpgrades.seasonPassLevel = 0;
-        player.shopUpgrades.cubeToQuarkBought = false;
-        player.shopUpgrades.tesseractToQuarkBought = false;
-        player.shopUpgrades.hypercubeToQuarkBought = false;
+        player.shopUpgrades.cubeToQuarkBought = 0;
+        player.shopUpgrades.tesseractToQuarkBought = 0;
+        player.shopUpgrades.hypercubeToQuarkBought = 0;
     }
     if (data.cubeUpgrades === undefined || data.cubeUpgrades[19] === 0 || player.cubeUpgrades[19] === 0) {
         for (let i = 121; i <= 125; i++) {
@@ -279,5 +279,42 @@ export const checkVariablesOnLoad = (data: Player) => {
     // if this variable = "YES!". Don't ask Platonic why.
     if (typeof data.exporttest === 'string') {
         player.exporttest = !isTesting;
-    } 
+    }
+
+    if (data.shopUpgrades.offeringTimerLevel !== undefined){
+        const booleanToNumber = [0, 0, 0, 0, 0] // Defaults to 0
+            booleanToNumber[0] = data.shopUpgrades.instantChallengeBought ? 1 : 0;
+            booleanToNumber[1] = data.shopUpgrades.talismanBought ? 1 : 0;
+            booleanToNumber[2] = data.shopUpgrades.cubeToQuarkBought ? 1 : 0;
+            booleanToNumber[3] = data.shopUpgrades.tesseractToQuarkBought ? 1 : 0;
+            booleanToNumber[4] = data.shopUpgrades.hypercubeToQuarkBought ? 1 : 0;
+        player.shopUpgrades = {
+        offeringPotion: data.shopUpgrades.offeringPotion,
+        obtainiumPotion: data.shopUpgrades.obtainiumPotion,
+        offeringEX: 0,
+        offeringAuto: 0,
+        obtainiumEX: 0,
+        obtainiumAuto: 0,
+        instantChallenge: booleanToNumber[0],
+        antSpeed: 0,
+        cashGrab: 0,
+        shopTalisman: booleanToNumber[1],
+        seasonPass: 0,
+        challengeExtension: data.shopUpgrades.challengeExtension,
+        challengeTome: data.shopUpgrades.challenge10Tomes,
+        cubeToQuark: booleanToNumber[2],
+        tesseractToQuark: booleanToNumber[3],
+        hypercubeToQuark: booleanToNumber[4],
+        }
+        const initialQuarks = player.worlds;
+        player.worlds += 150 * data.shopUpgrades.offeringTimerLevel + 25/2 * (data.shopUpgrades.offeringTimerLevel - 1) * (data.shopUpgrades.offeringTimerLevel);
+        player.worlds += 150 * data.shopUpgrades.obtainiumTimerLevel + 25/2 * (data.shopUpgrades.obtainiumTimerLevel - 1) * (data.shopUpgrades.obtainiumTimerLevel);
+        player.worlds += 150 * data.shopUpgrades.offeringAutoLevel + 25/2 * (data.shopUpgrades.offeringAutoLevel - 1) * (data.shopUpgrades.offeringAutoLevel);
+        player.worlds += 150 * data.shopUpgrades.obtainiumAutoLevel + 25/2 * (data.shopUpgrades.obtainiumAutoLevel - 1) * (data.shopUpgrades.obtainiumAutoLevel);
+        player.worlds += 100 * data.shopUpgrades.cashGrabLevel + 100/2 * (data.shopUpgrades.cashGrabLevel - 1) * (data.shopUpgrades.cashGrabLevel);
+        player.worlds += 200 * data.shopUpgrades.antSpeedLevel + 80/2 * (data.shopUpgrades.antSpeedLevel - 1) * (data.shopUpgrades.antSpeedLevel);
+        player.worlds += 500 * data.shopUpgrades.seasonPassLevel + 250/2 * (data.shopUpgrades.seasonPassLevel - 1) * (data.shopUpgrades.seasonPassLevel);
+
+        console.log('Because of the v2.5.0 update, you have been refunded ' + format(player.worlds - initialQuarks) + ' Quarks! If this appears wrong let Platonic know :)')
+    }
 }

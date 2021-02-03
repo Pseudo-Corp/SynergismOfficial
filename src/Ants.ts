@@ -365,7 +365,7 @@ export const sacrificeAnts = (auto = false) => {
             }
 
             // Refer to analogous code in Syngergism.js, function tick().
-            if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle) {
+            if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {
                 // Since ants boost rune EXP, we need to auto-spend offerings NOW, before reset, if cube-tier auto-spend is enabled.
                 if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
                     let unmaxed = 0;

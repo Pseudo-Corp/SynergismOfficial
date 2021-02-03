@@ -428,20 +428,20 @@ export const player: Player = {
     shopUpgrades: {
         offeringPotion: 1,
         obtainiumPotion: 1,
-        offeringTimerLevel: 0,
-        obtainiumTimerLevel: 0,
-        offeringAutoLevel: 0,
-        obtainiumAutoLevel: 0,
-        instantChallengeBought: false,
-        cashGrabLevel: 0,
-        antSpeedLevel: 0,
-        talismanBought: false,
+        offeringEX: 0,
+        offeringAuto: 0,
+        obtainiumEX: 0,
+        obtainiumAuto: 0,
+        instantChallenge: 0,
+        antSpeed: 0,
+        cashGrab: 0,
+        shopTalisman: 0,
+        seasonPass: 0,
         challengeExtension: 0,
-        challenge10Tomes: 0,
-        seasonPassLevel: 0,
-        cubeToQuarkBought: false,
-        tesseractToQuarkBought: false,
-        hypercubeToQuarkBought: false
+        challengeTome: 0,
+        cubeToQuark: 0,
+        tesseractToQuark: 0,
+        hypercubeToQuark: 0,
     },
     autoSacrificeToggle: false,
     autoFortifyToggle: false,
@@ -806,7 +806,7 @@ export const loadSynergy = (): void => {
             player.researches[92] = 0;
         }
 
-        if (data.achievements[169] === undefined || player.achievements[169] === undefined || data.shopUpgrades.antSpeedLevel === undefined || player.shopUpgrades.antSpeedLevel === undefined || data.loaded1010 === undefined || data.loaded1010 === false) {
+        if (data.achievements[169] === undefined || player.achievements[169] === undefined || data.shopUpgrades.antSpeed === undefined || player.shopUpgrades.antSpeed === undefined || data.loaded1010 === undefined || data.loaded1010 === false) {
             player.loaded1010 = true;
             player.codes.set(21, false);
 
@@ -864,8 +864,8 @@ export const loadSynergy = (): void => {
             player.upgrades[80] = 0;
 
 
-            player.shopUpgrades.antSpeedLevel = 0;
-            player.shopUpgrades.talismanBought = false;
+            player.shopUpgrades.antSpeed = 0;
+            player.shopUpgrades.shopTalisman = 0;
 
             player.antUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -1437,7 +1437,10 @@ export const format = (input: Decimal | number, accuracy = 0, long = false): str
     } else if (power >= 1e6) {
         // if the power is greater than 1e6 apply notation scientific notation
         // Makes mantissa be rounded down to 2 decimal places
-        const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
+        let mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
+        if (isTesting){
+            mantissaLook = ""
+        }
         // Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234)
         const powerDigits = Math.ceil(Math.log10(power));
         let powerFront = ((powerDigits - 1) % 3) + 1;
@@ -2053,7 +2056,7 @@ export const multipliers = (): void => {
     }
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
     G['globalAntMult'] = G['globalAntMult'].times(1 + player.upgrades[78] * 0.005 * Math.pow(Math.log(player.maxofferings + 1) / Math.log(10), 2))
-    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1.125, player.shopUpgrades.antSpeedLevel));
+    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1.125, player.shopUpgrades.antSpeed));
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1-1] + G['bonusant1']));
     G['globalAntMult'] = G['globalAntMult'].times(antSacrificePointsToMultiplier(player.antSacrificePoints))
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(Math.max(1, player.researchPoints), G['effectiveRuneBlessingPower'][5]))
@@ -2418,7 +2421,7 @@ export const resetCheck = (i: string, manual = true, leaving = false): void => {
 
             const maxCompletions = 25 + 5 * player.researches[x] + 925 * player.researches[105];
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-                const maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
+                const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
                 let counter = 0;
                 let comp = player.challengecompletions[q];
                 while (counter < maxInc) {
@@ -2446,7 +2449,7 @@ export const resetCheck = (i: string, manual = true, leaving = false): void => {
             }
 
             challengeachievementcheck(q);
-            if (!player.shopUpgrades.instantChallengeBought || leaving) {
+            if (player.shopUpgrades.instantChallenge === 0 || leaving) {
                 reset("transcensionChallenge", false, "leaveChallenge");
                 player.transcendCount -= 1;
             }
@@ -2483,7 +2486,7 @@ export const resetCheck = (i: string, manual = true, leaving = false): void => {
         }
         const maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-            const maxInc = player.shopUpgrades.instantChallengeBought && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
+            const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
             let counter = 0;
             let comp = player.challengecompletions[q];
             while (counter < maxInc) {
@@ -2496,7 +2499,7 @@ export const resetCheck = (i: string, manual = true, leaving = false): void => {
             challengeDisplay(q, true);
             updateChallengeLevel(q);
         }
-        if (!player.shopUpgrades.instantChallengeBought || leaving) { // TODO: Implement the upgrade levels here
+        if (player.shopUpgrades.instantChallenge === 0 || leaving) { // TODO: Implement the upgrade levels here
             reset("reincarnationChallenge", false, "leaveChallenge");
             player.reincarnationCount -= 1;
         }
@@ -2514,7 +2517,7 @@ export const resetCheck = (i: string, manual = true, leaving = false): void => {
         if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15]) {
             reset("reincarnationChallenge", false, "leaveChallenge");
             player.currentChallenge.reincarnation = 0;
-            if (player.shopUpgrades.instantChallengeBought) {
+            if (player.shopUpgrades.instantChallenge > 0) {
                 for (let i = 1; i <= 5; i++) {
                     player.challengecompletions[i] = player.highestchallengecompletions[i];
                 }
@@ -2885,8 +2888,8 @@ export const updateAll = (): void => {
     G['effectiveLevelMult'] *= (1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]))
     G['effectiveLevelMult'] *= G['challenge15Rewards'].runeBonus
 
-    G['optimalOfferingTimer'] = 600 + 30 * player.researches[85] + 0.4 * G['rune5level'] + 120 * player.shopUpgrades.offeringTimerLevel;
-    G['optimalObtainiumTimer'] = 3600 + 120 * player.shopUpgrades.obtainiumTimerLevel;
+    G['optimalOfferingTimer'] = 600 + 30 * player.researches[85] + 0.4 * G['rune5level'] + 120 * player.shopUpgrades.offeringEX;
+    G['optimalObtainiumTimer'] = 3600 + 120 * player.shopUpgrades.obtainiumEX;
     autoBuyAnts()
 
     if (player.autoAscend) {
@@ -2995,7 +2998,7 @@ function tack(dt: number) {
         addTimers("quarks", dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
-        if (player.shopUpgrades.offeringAutoLevel > 0.5 && player.autoSacrificeToggle) {
+        if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {
             automaticTools("runeSacrifice", dt)
         }
 
@@ -3045,7 +3048,7 @@ function tack(dt: number) {
                 player.achievements[140] > 0,
                 player.achievements[147] > 0,
                 player.antUpgrades[12-1] > 0 || player.ascensionCount > 0,
-                player.shopUpgrades.talismanBought,
+                player.shopUpgrades.shopTalisman > 0,
             ];
             let upgradedTalisman = false;
 
