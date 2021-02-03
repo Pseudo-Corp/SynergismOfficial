@@ -21,7 +21,7 @@ import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
 import { resetNames } from './types/Synergism';
 
-let repeatreset: NodeJS.Timeout;
+let repeatreset: ReturnType<typeof setTimeout>;
 
 export const resetrepeat = (input: resetNames) => {
     clearInt(repeatreset);

@@ -37,7 +37,7 @@ import { addTimers, automaticTools } from './Helper';
  */
 export const isTesting = true;
 
-export const intervalHold: NodeJS.Timeout[] = [];
+export const intervalHold: ReturnType<typeof setTimeout>[] = [];
 export const interval = new Proxy(setInterval, {
     apply(target, thisArg, args) {
         const set = target.apply(thisArg, args);
