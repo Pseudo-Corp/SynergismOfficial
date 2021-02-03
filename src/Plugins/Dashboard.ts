@@ -200,8 +200,8 @@ button.style.height = '30px';
 button.style.width = '150px';
 button.style.margin = '9px 0';
 
-let dashboardLoopRefFast: NodeJS.Timeout | null = null;
-let dashboardLoopRefSlow: NodeJS.Timeout | null = null;
+let dashboardLoopRefFast: ReturnType<typeof setTimeout> | null = null;
+let dashboardLoopRefSlow: ReturnType<typeof setTimeout> | null = null;
 let activeTab: HTMLElement | null = null;
 let open = false
 

@@ -76,7 +76,7 @@ const antUpgradeTexts = [
     () => "Global timer is sped up by a factor of " + format(calculateSigmoid(2, player.antUpgrades[12-1] + G['bonusant12'], 69), 4)
 ]
 
-let repeatAnt: NodeJS.Timeout = null;
+let repeatAnt: ReturnType<typeof setTimeout> = null;
 
 export const antRepeat = (i: number) => {
     clearInt(repeatAnt);

@@ -37,7 +37,7 @@ import { addTimers, automaticTools } from './Helper';
  */
 export const isTesting = true;
 
-export const intervalHold: NodeJS.Timeout[] = [];
+export const intervalHold: ReturnType<typeof setTimeout>[] = [];
 export const interval = new Proxy(setInterval, {
     apply(target, thisArg, args) {
         const set = target.apply(thisArg, args);
@@ -806,7 +806,7 @@ export const loadSynergy = (): void => {
             player.researches[92] = 0;
         }
 
-        if (data.achievements[169] === undefined || player.achievements[169] === undefined || data.shopUpgrades.antSpeed === undefined || player.shopUpgrades.antSpeed === undefined || data.loaded1010 === undefined || data.loaded1010 === false) {
+        if (data.achievements[169] === undefined || player.achievements[169] === undefined || (data.shopUpgrades.antSpeed === undefined && data.shopUpgrades.antSpeedLevel === undefined) || (player.shopUpgrades.antSpeed === undefined && player.shopUpgrades.antSpeedLevel === undefined) || data.loaded1010 === undefined || data.loaded1010 === false) {
             player.loaded1010 = true;
             player.codes.set(21, false);
 
