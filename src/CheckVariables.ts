@@ -165,14 +165,12 @@ export const checkVariablesOnLoad = (data: Player) => {
             player.upgrades[i] = 0
         }
     }
-    if (data.toggles[1] !== undefined) {
-        for (let i = 0; i < 50; ++i) {
-            if (player.toggles[i] !== undefined) {
-                player.toggles[i + 1] = player.toggles[i];
-                player.toggles[i] = undefined;
-            }
-        }
-    }
+
+    // assign the save's toggles to the player toggles
+    // will overwrite player.toggles keys that exist on both objects,
+    // but new keys will default to the values on the player object
+    Object.assign(player.toggles, data.toggles);
+    
     if (data.ascensionCount === 0) {
         player.toggles[31] = true;
         player.toggles[32] = true;
