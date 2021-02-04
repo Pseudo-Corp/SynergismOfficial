@@ -107,16 +107,19 @@ export const visualUpdateBuildings = () => {
     if (G['buildingSubTab'] === "particle") {
 
         // For the display of Particle Buildings
-        const upper = ['produceFirstParticles', 'produceSecondParticles', 'produceThirdParticles', 'produceFourthParticles', 'produceFifthParticles'] as const;
-        const names = [null, 'Protons', 'Elements', 'Pulsars', 'Quasars', 'Galactic Nuclei']
-        const perSecNames = [null, "Atoms/sec", "Protons/sec", "Elements/sec", "Pulsars/sec", "Quasars/sec"]
+        const upper = ['FirstParticles', 'SecondParticles', 'ThirdParticles', 'FourthParticles', 'FifthParticles'] as const;
+        const names = ['Protons', 'Elements', 'Pulsars', 'Quasars', 'Galactic Nuclei'];
+        const perSecNames = ["Atoms/sec", "Protons/sec", "Elements/sec", "Pulsars/sec", "Quasars/sec"]
 
         for (let i = 1; i <= 5; i++) {
-            const place = G[upper[i-1]];
+            const place = G[`produce${upper[i-1]}` as const];
 
-            document.getElementById("reincarnationtext" + (i)).textContent = names[i] + ": " + format(player[G['ordinals'][i - 1] + 'OwnedParticles'], 0, true) + " [+" + format(player[G['ordinals'][i - 1] + 'GeneratedParticles'], 2) + "]"
-            document.getElementById("reincarnationtext" + (5 + i)).textContent = perSecNames[i] + ": " + format((place).times(40), 2)
-            document.getElementById("buyparticles" + i).textContent = "Cost: " + format(player[G['ordinals'][i - 1] + 'CostParticles'], 2) + " Particles"
+            document.getElementById(`reincarnationtext${i}`).textContent = 
+                `${names[i-1]}: ${format(player[`${G['ordinals'][i - 1]}OwnedParticles`], 0, true)} [+${format(player[`${G['ordinals'][i - 1]}GeneratedParticles`], 2)}]`;
+            document.getElementById(`reincarnationtext${i+5}`).textContent = 
+                `${perSecNames[i-1]}: ${format((place).times(40), 2)}`;
+            document.getElementById(`buyparticles${i}`).textContent = 
+                `Cost: ${format(player[`${G['ordinals'][i - 1]}CostParticles`], 2)} Particles`;
         }
 
         document.getElementById("reincarnationshardinfo").textContent = "You have " + format(player.reincarnationShards, 2) + " Atoms, providing " + G['buildingPower'].toPrecision(4) + " Building Power. Multiplier to Coin Production: " + format(G['reincarnationMultiplier'])
@@ -262,10 +265,10 @@ export const visualUpdateCubes = () => {
     const power = [4, 3, 2]
     const multipliers = [10, 10, 5]
     for (let i = 0; i <= 2; i++) {
-        document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = format(player[prefixes[i] + 'QuarkDaily']) + "/" + format(25 + 75 * (player.shopUpgrades[prefixes[i] + 'ToQuark'] as number));
+        document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = format(player[prefixes[i] + 'QuarkDaily']) + "/" + format(25 + 75 * player.shopUpgrades[`${prefixes[i]}ToQuark` as const]);
         document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = format(player[prefixes[i] + 'OpenedDaily'], 0, true);
         document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = format(Math.max(0, multipliers[i] * Math.pow(
-            Math.min(25 + 75 * +player.shopUpgrades[`${prefixes[i]}ToQuark`], 
+            Math.min(25 + 75 * +player.shopUpgrades[`${prefixes[i]}ToQuark` as const], 
             1 + player[prefixes[i] + 'QuarkDaily']), power[i]) - player[prefixes[i] + 'OpenedDaily']
         ), 0, true);
     }

@@ -347,7 +347,6 @@ export interface Player {
         cubeToQuark: number,
         tesseractToQuark: number,
         hypercubeToQuark: number,
-        [key: string]: number
     }
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,

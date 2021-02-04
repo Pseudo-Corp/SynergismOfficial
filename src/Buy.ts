@@ -610,8 +610,13 @@ const getParticleCost = (originalCost: DecimalSource, buyTo: number) => {
     return (cost)
 }
 
-export const buyParticleBuilding = (pos: string, originalCost: DecimalSource, autobuyer = false) => {
-    let buyTo = player[pos + 'OwnedParticles'] + 1;
+export const buyParticleBuilding = (
+    pos: 'first' | 'second' | 'third' | 'fourth' | 'fifth', 
+    originalCost: DecimalSource, 
+    autobuyer = false
+) => {
+    const key = `${pos}OwnedParticles` as const;
+    let buyTo = player[key] + 1;
     let cashToBuy = getParticleCost(originalCost, buyTo);
     while (player.reincarnationPoints.gte(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
@@ -630,20 +635,20 @@ export const buyParticleBuilding = (pos: string, originalCost: DecimalSource, au
     }
 
     if (!autobuyer) {
-        if (player.particlebuyamount + player[pos + 'OwnedParticles'] < buyTo) {
-            buyTo = player[pos + 'OwnedParticles'] + player.particlebuyamount + 1;
+        if (player.particlebuyamount + player[key] < buyTo) {
+            buyTo = player[key] + player.particlebuyamount + 1;
         }
     }
 
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-    let buyFrom = Math.max(buyTo - 7, player[pos + 'OwnedParticles'] + 1);
+    let buyFrom = Math.max(buyTo - 7, player[key] + 1);
     let thisCost = getParticleCost(originalCost, buyFrom);
     while (buyFrom < buyTo && player.reincarnationPoints.gte(getParticleCost(originalCost, buyFrom))) {
         player.reincarnationPoints = player.reincarnationPoints.sub(thisCost);
-        player[pos + 'OwnedParticles'] = buyFrom;
+        player[key] = buyFrom;
         buyFrom = buyFrom + 1;
         thisCost = getParticleCost(originalCost, buyFrom);
-        player[pos + 'CostParticles'] = thisCost;
+        player[`${pos}CostParticles` as const] = thisCost;
     }
 }
 

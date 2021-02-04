@@ -30,6 +30,7 @@ import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTa
 import { generateEventHandlers } from './EventListeners';
 import * as Plugins from './Plugins/Plugins';
 import { addTimers, automaticTools } from './Helper';
+import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -806,7 +807,15 @@ export const loadSynergy = (): void => {
             player.researches[92] = 0;
         }
 
-        if (data.achievements[169] === undefined || player.achievements[169] === undefined || (data.shopUpgrades.antSpeed === undefined && data.shopUpgrades.antSpeedLevel === undefined) || (player.shopUpgrades.antSpeed === undefined && player.shopUpgrades.antSpeedLevel === undefined) || data.loaded1010 === undefined || data.loaded1010 === false) {
+        const shop = data.shopUpgrades as LegacyShopUpgrades & Player['shopUpgrades'];
+        if (
+            data.achievements[169] === undefined || 
+            player.achievements[169] === undefined || 
+            (shop.antSpeed === undefined && shop.antSpeedLevel === undefined) || 
+            (shop.antSpeed === undefined && typeof shop.antSpeedLevel === 'undefined') || 
+            data.loaded1010 === undefined || 
+            data.loaded1010 === false
+        ) {
             player.loaded1010 = true;
             player.codes.set(21, false);
 
@@ -3149,9 +3158,8 @@ document.addEventListener('keydown', (event) => {
         return;
     }
 
-    let type = ""
-    let pos = ""
-    let num = 0
+    let type = "";
+    let num = 0;
 
     let cost = [null, 1, 100, 1e4, 1e8, 1e16]
     if (G['buildingSubTab'] === "coin") {
@@ -3169,10 +3177,9 @@ document.addEventListener('keydown', (event) => {
     const key = event.key.toUpperCase();
     switch (key) {
         case "1":
-            pos = 'first';
             num = 1;
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding(pos, cost[1]) : buyMax(pos, type, num, cost[1])
+                G['buildingSubTab'] === "particle" ? buyParticleBuilding('first', cost[1]) : buyMax('first', type, num, cost[1])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3192,10 +3199,9 @@ document.addEventListener('keydown', (event) => {
             break;
 
         case "2":
-            pos = 'second';
             G['buildingSubTab'] === "coin" ? num = 2 : num = 3
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding(pos, cost[2]) : buyMax(pos, type, num, cost[2])
+                G['buildingSubTab'] === "particle" ? buyParticleBuilding('second', cost[2]) : buyMax('second', type, num, cost[2])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3214,10 +3220,9 @@ document.addEventListener('keydown', (event) => {
             }
             break;
         case "3":
-            pos = 'third';
             G['buildingSubTab'] === "coin" ? num = 3 : num = 6
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding(pos, cost[3]) : buyMax(pos, type, num, cost[3])
+                G['buildingSubTab'] === "particle" ? buyParticleBuilding('third', cost[3]) : buyMax('third', type, num, cost[3])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3236,10 +3241,9 @@ document.addEventListener('keydown', (event) => {
             }
             break;
         case "4":
-            pos = 'fourth';
             G['buildingSubTab'] === "coin" ? num = 4 : num = 10
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding(pos, cost[4]) : buyMax(pos, type, num, cost[4])
+                G['buildingSubTab'] === "particle" ? buyParticleBuilding('fourth', cost[4]) : buyMax('fourth', type, num, cost[4])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3258,10 +3262,9 @@ document.addEventListener('keydown', (event) => {
             }
             break;
         case "5":
-            pos = 'fifth';
             G['buildingSubTab'] === "coin" ? num = 5 : num = 15
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding(pos, cost[5]) : buyMax(pos, type, num, cost[5])
+                G['buildingSubTab'] === "particle" ? buyParticleBuilding('fifth', cost[5]) : buyMax('fifth', type, num, cost[5])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {

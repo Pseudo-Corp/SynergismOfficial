@@ -4,6 +4,7 @@ import Decimal from 'break_infinity.js';
 import { calculateMaxRunes, calculateTimeAcceleration } from './Calculate';
 import { buyResearch } from './Research';
 import { c15RewardUpdate } from './Statistics';
+import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 export const checkVariablesOnLoad = (data: Player) => {
     if (data.wowCubes === undefined) {
@@ -151,13 +152,13 @@ export const checkVariablesOnLoad = (data: Player) => {
         }
     }
 
-    if (!data.shopUpgrades || data.shopUpgrades.challengeExtension === undefined) {
+    if (data.shopUpgrades?.challengeExtension === undefined) {
         player.shopUpgrades.challengeExtension = 0;
-        player.shopUpgrades.challenge10Tomes = 0;
-        player.shopUpgrades.seasonPassLevel = 0;
-        player.shopUpgrades.cubeToQuarkBought = 0;
-        player.shopUpgrades.tesseractToQuarkBought = 0;
-        player.shopUpgrades.hypercubeToQuarkBought = 0;
+        player.shopUpgrades.challengeTome = 0;
+        player.shopUpgrades.seasonPass = 0;
+        player.shopUpgrades.cubeToQuark = 0;
+        player.shopUpgrades.tesseractToQuark = 0;
+        player.shopUpgrades.hypercubeToQuark = 0;
     }
     if (data.cubeUpgrades === undefined || data.cubeUpgrades[19] === 0 || player.cubeUpgrades[19] === 0) {
         for (let i = 121; i <= 125; i++) {
@@ -281,39 +282,35 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.exporttest = !isTesting;
     }
 
-    if (data.shopUpgrades.offeringTimerLevel !== undefined){
-        const booleanToNumber = [0, 0, 0, 0, 0] // Defaults to 0
-            booleanToNumber[0] = data.shopUpgrades.instantChallengeBought ? 1 : 0;
-            booleanToNumber[1] = data.shopUpgrades.talismanBought ? 1 : 0;
-            booleanToNumber[2] = data.shopUpgrades.cubeToQuarkBought ? 1 : 0;
-            booleanToNumber[3] = data.shopUpgrades.tesseractToQuarkBought ? 1 : 0;
-            booleanToNumber[4] = data.shopUpgrades.hypercubeToQuarkBought ? 1 : 0;
+    const shop = data.shopUpgrades as LegacyShopUpgrades | Player['shopUpgrades'];
+    if ('offeringTimerLevel' in shop && typeof shop.offeringTimerLevel !== 'undefined') {
         player.shopUpgrades = {
-        offeringPotion: data.shopUpgrades.offeringPotion,
-        obtainiumPotion: data.shopUpgrades.obtainiumPotion,
-        offeringEX: 0,
-        offeringAuto: 0,
-        obtainiumEX: 0,
-        obtainiumAuto: 0,
-        instantChallenge: booleanToNumber[0],
-        antSpeed: 0,
-        cashGrab: 0,
-        shopTalisman: booleanToNumber[1],
-        seasonPass: 0,
-        challengeExtension: data.shopUpgrades.challengeExtension,
-        challengeTome: data.shopUpgrades.challenge10Tomes,
-        cubeToQuark: booleanToNumber[2],
-        tesseractToQuark: booleanToNumber[3],
-        hypercubeToQuark: booleanToNumber[4],
+            offeringPotion: shop.offeringPotion,
+            obtainiumPotion: shop.obtainiumPotion,
+            offeringEX: 0,
+            offeringAuto: 0,
+            obtainiumEX: 0,
+            obtainiumAuto: 0,
+            instantChallenge: Number(shop.instantChallengeBought),
+            antSpeed: 0,
+            cashGrab: 0,
+            shopTalisman: Number(shop.talismanBought),
+            seasonPass: 0,
+            challengeExtension: shop.challengeExtension,
+            challengeTome: shop.challenge10Tomes,
+            cubeToQuark: Number(shop.cubeToQuarkBought),
+            tesseractToQuark: Number(shop.tesseractToQuarkBought),
+            hypercubeToQuark: Number(shop.hypercubeToQuarkBought),
         }
         const initialQuarks = player.worlds;
-        player.worlds += 150 * data.shopUpgrades.offeringTimerLevel + 25/2 * (data.shopUpgrades.offeringTimerLevel - 1) * (data.shopUpgrades.offeringTimerLevel);
-        player.worlds += 150 * data.shopUpgrades.obtainiumTimerLevel + 25/2 * (data.shopUpgrades.obtainiumTimerLevel - 1) * (data.shopUpgrades.obtainiumTimerLevel);
-        player.worlds += 150 * data.shopUpgrades.offeringAutoLevel + 25/2 * (data.shopUpgrades.offeringAutoLevel - 1) * (data.shopUpgrades.offeringAutoLevel);
-        player.worlds += 150 * data.shopUpgrades.obtainiumAutoLevel + 25/2 * (data.shopUpgrades.obtainiumAutoLevel - 1) * (data.shopUpgrades.obtainiumAutoLevel);
-        player.worlds += 100 * data.shopUpgrades.cashGrabLevel + 100/2 * (data.shopUpgrades.cashGrabLevel - 1) * (data.shopUpgrades.cashGrabLevel);
-        player.worlds += 200 * data.shopUpgrades.antSpeedLevel + 80/2 * (data.shopUpgrades.antSpeedLevel - 1) * (data.shopUpgrades.antSpeedLevel);
-        player.worlds += 500 * data.shopUpgrades.seasonPassLevel + 250/2 * (data.shopUpgrades.seasonPassLevel - 1) * (data.shopUpgrades.seasonPassLevel);
+
+        player.worlds += 150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * (shop.offeringTimerLevel);
+        player.worlds += 150 * shop.obtainiumTimerLevel + 25/2 * (shop.obtainiumTimerLevel - 1) * (shop.obtainiumTimerLevel);
+        player.worlds += 150 * shop.offeringAutoLevel + 25/2 * (shop.offeringAutoLevel - 1) * (shop.offeringAutoLevel);
+        player.worlds += 150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * (shop.obtainiumAutoLevel);
+        player.worlds += 100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * (shop.cashGrabLevel);
+        player.worlds += 200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * (shop.antSpeedLevel);
+        player.worlds += 500 * shop.seasonPassLevel + 250/2 * (shop.seasonPassLevel - 1) * (shop.seasonPassLevel);
 
         console.log('Because of the v2.5.0 update, you have been refunded ' + format(player.worlds - initialQuarks) + ' Quarks! If this appears wrong let Platonic know :)')
     }

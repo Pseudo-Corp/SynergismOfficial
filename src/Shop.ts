@@ -2,6 +2,7 @@ import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
 import { revealStuff } from './UpdateHTML';
 import { calculateTimeAcceleration } from './Calculate';
+import { Player } from './types/Synergism';
 
 /* === CHANGELOG, 1.21.2021 ===
 1) Offering vals: (level)^2 / 200 ->  level/25
@@ -19,7 +20,7 @@ export interface IShopData {
     description: string
 }
 
-const shopData: Record<string, IShopData> = {
+const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     offeringPotion: {
         price: 100,
         priceIncrease: 0,
@@ -185,7 +186,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = "CURRENT Effect: You will gain " + format(4 * player.shopUpgrades.offeringEX,2,true) + "% more Offerings!"
             break;
         case "offeringAuto":
-            lol.textContent = "CURRENT Effect: Per 10 seconds, pour " + format(Math.pow(2, 1 + player.shopUpgrades.offeringAuto)) + " Offerings. +" + format(2 * player.shopUpgrades.offeringAutoLevel, 2) + "% Offerings."
+            lol.textContent = "CURRENT Effect: Per 10 seconds, pour " + format(Math.pow(2, 1 + player.shopUpgrades.offeringAuto)) + " Offerings. +" + format(2 * player.shopUpgrades.offeringAuto, 2) + "% Offerings."
             break;
         case "obtainiumEX":
             lol.textContent = "CURRENT Effect: You will gain " + format(4 * player.shopUpgrades.obtainiumEX,2,true) + "% more Obtainium!"
@@ -277,11 +278,12 @@ export const resetShopUpgrades = () => {
         player.worlds -= 15;
         let initialQuarks = player.worlds;
         for(let shopItem in shopData){
-            if(shopData[shopItem].refundable){
-                player.worlds += shopData[shopItem].price * player.shopUpgrades[shopItem] +
-                    shopData[shopItem].priceIncrease * (player.shopUpgrades[shopItem]) * (player.shopUpgrades[shopItem]) / 2;
+            const key = shopItem as keyof typeof shopData;
+            if(shopData[key].refundable){
+                player.worlds += shopData[key].price * player.shopUpgrades[key] +
+                                 shopData[key].priceIncrease * (player.shopUpgrades[key]) * (player.shopUpgrades[key]) / 2;
                 console.log("Successfully refunded " + format(player.worlds - initialQuarks) + " Quarks from '" + shopItem + "'. You now have " + format(player.worlds) + " Quarks.");
-                player.shopUpgrades[shopItem] = 0;
+                player.shopUpgrades[key] = 0;
                 initialQuarks = player.worlds;
             }
         }
