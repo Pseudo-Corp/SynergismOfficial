@@ -1408,20 +1408,20 @@ export const format = (input: Decimal | number, accuracy = 0, long = false): str
         // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
         // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13
         let standard = mantissa * Math.pow(10, power);
+        let standardString;
         // Rounds up if the number experiences a rounding error
         if (standard - Math.floor(standard) > 0.9999999) {
             standard = Math.ceil(standard);
         }
         // If the power is less than 1 or format long and less than 3 apply toFixed(accuracy) to get decimal places
         if ((power < 1 || (long && power < 3)) && accuracy > 0) {
-            standard = Number(standard.toFixed(accuracy));
+            standardString = standard.toFixed(accuracy);
         } else {
             // If it doesn't fit those criteria drop the decimal places
             standard = Math.floor(standard);
+            standardString = standard.toString();
         }
 
-        // Turn the number to string
-        const standardString = standard.toString();
         // Split it on the decimal place
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
