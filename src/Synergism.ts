@@ -32,6 +32,8 @@ import * as Plugins from './Plugins/Plugins';
 import { addTimers, automaticTools } from './Helper';
 import { LegacyShopUpgrades } from './types/LegacySynergism';
 
+import './Logger';
+
 /**
  * Whether or not the current version is a testing version or a main version.
  * This should be detected when importing a file.

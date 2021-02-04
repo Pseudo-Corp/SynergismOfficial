@@ -445,10 +445,9 @@ document.getElementById('ascensionAutoEnable').addEventListener('click', () => t
 
 // SETTNGS TAB
 // Part 0: Subtabs
-for (let index = 0; index < 5; index++) {
-    
-    document.getElementById(`switchSettingSubTab${index+1}`).addEventListener('click', () => toggleSubTab(-1, index))
-    
+const settingSubTabs = Array.from<HTMLElement>(document.querySelectorAll('button[id^="switchSettingSubTab"]'));
+for (const subtab of settingSubTabs) {
+    subtab.addEventListener('click', () => toggleSubTab(-1, settingSubTabs.indexOf(subtab)));
 }
 
 // Various functions
