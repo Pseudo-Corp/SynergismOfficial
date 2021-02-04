@@ -4015,3 +4015,13 @@ header #obtainiumDisplay {
 	text-align: left;
 	font-size: 1em;
 }
+
+#testingLogger {
+	text-align: center;
+	flex-direction: column;
+}
+
+#testingLogger > p { margin: 0; }
+#testingLogger > .log { color: green; }
+#testingLogger > .info { color: yellow; }
+#testingLogger > .error { color: red; }
