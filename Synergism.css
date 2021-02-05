@@ -2747,149 +2747,27 @@ position: absolute;
 	text-align: center
 }
 
-#antwelcome {
-	position: absolute;
-	padding: 0;
-	top: 10px;
-	width: 500px;
-	text-align: center;
-	left: 50%;
-	margin-left: -250px;
-	font-size: 1.3em;
-}
-#antdescription {
-	position: absolute;
-	padding: 0;
-	top: 50px;
-	width: 500px;
-	text-align: center;
-	left: 50%;
-	margin-left: -250px;
-}
-#antrow1 {
-	position: absolute;
-	padding: 0;
-	top: 100px;
-	width: 500px;
-	text-align: center;
-	left: 50%;
-	margin-left: -250px;
+#antsWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex-shrink: 0;
 }
 
-#crumbcount {
-	position: absolute;
-	padding: 0;
-	top: 120px;
-	width: 1000px;
-	left: 50%;
-	text-align: center;
-	margin-left: -500px;
-	font-size: 1.2em;
-	height: 5px;
-}
-#antrow2 {
-	position: absolute;
-	padding: 0;
-	top: 150px;
-	width: 750px;
-	text-align: center;
-	left: 50%;
-	margin-left: -375px;
-}
+#antsWelcomeTexts { margin-top: 30px; }
+#antsWelcomeTexts > p { margin: 2px; }
+#antwelcome { font-size: 1.3em; }
 
-#anttierdescription {
-	position: absolute;
-	padding: 0;
-	width: 750px;
-	text-align: center;
-	left: 50%;
-	margin-left: -375px;
-}
-#antprice {
-	position: absolute;
-	padding: 0;
-	top: 20px;
-	width: 750px;
-	text-align: center;
-	left: 50%;
-	margin-left: -375px;
-}
-#antquantity {
-	position: absolute;
-	padding: 0;
-	top: 40px;
-	width: 750px;
-	text-align: center;
-	left: 50%;
-	margin-left: -375px;
-}
-#generateant {
-	position: absolute;
-	padding: 0;
-	top: 60px;
-	width: 750px;
-	text-align: center;
-	left: 50%;
-	margin-left: -375px;
-}
+#antrow1 { margin-top: 12px; }
+#antrow2 { margin-top: 7px; height: 115px; }
+#antrow3 { margin-top: 30px; height: 115px; }
+#antrow4 { margin-top: 10px; }
 
+#antrow2 > p { margin: 0; }
+#crumbcount { font-size: 1.2em; }
 
+#antrow3 > p { margin: 5px }
 
-#antrow3 {
-	position: absolute;
-	padding: 0;
-	top: 260px;
-	width: 1000px;
-	text-align: center;
-	left: 50%;
-	margin-left: -500px;
-}
-#antspecies {
-	position: absolute;
-	padding: 0;
-	top: -5px;
-	width: 1000px;
-	text-align: center;
-	left: 50%;
-	margin-left: -500px;
-}
-#antupgradedescription {
-	position: absolute;
-	padding: 0;
-	top: 25px;
-	width: 1000px;
-	text-align: center;
-	left: 50%;
-	margin-left: -500px;
-}
-#antupgradecost {
-	position: absolute;
-	padding: 0;
-	top: 55px;
-	width: 1000px;
-	text-align: center;
-	left: 50%;
-	margin-left: -500px;
-}
-#antupgradeeffect {
-	position: absolute;
-	padding: 0;
-	top: 85px;
-	width: 1000px;
-	text-align: center;
-	left: 50%;
-	margin-left: -500px;
-}
-
-#antrow4 {
-	position: absolute;
-	padding: 0;
-	top: 410px;
-	width: 1000px;
-	text-align: center;
-	left: 50%;
-	margin-left: -500px;
-}
 #antToggleFeatures{
 	position: absolute;
 	padding: 0;
