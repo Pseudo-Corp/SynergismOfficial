@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js';
 
-export const isDecimal = (o: any): o is Decimal => 
+export const isDecimal = (o: unknown): o is Decimal =>
     o instanceof Decimal ||
     (typeof o === 'object' &&
     o !== null &&
