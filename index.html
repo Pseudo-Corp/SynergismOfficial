@@ -1603,111 +1603,115 @@
         </div>
 
         <div id="ants">
-            <p id="antwelcome" style="color: lightslategrey">The ants welcome you to their home.</p>
-            <p id="antdescription" style="color: plum">Hover over the icons for description. Click icons to buy!</p>
-
-            <div id="antrow1">
-                <img id="anttier1" src="Pictures/Transparent Pics/AntTierOne.png" style="cursor: pointer;" alt="">
-                <img id="anttier2" src="Pictures/Transparent Pics/AntTierTwo.png" style="cursor: pointer;" alt="">
-                <img id="anttier3" src="Pictures/Transparent Pics/AntTierThree.png" style="cursor: pointer;" alt="">
-                <img id="anttier4" src="Pictures/Transparent Pics/AntTierFour.png" style="cursor: pointer;" alt="">
-                <img id="anttier5" src="Pictures/Transparent Pics/AntTierFive.png" style="cursor: pointer;" alt="">
-                <img id="anttier6" src="Pictures/Transparent Pics/AntTierSix.png" style="cursor: pointer;" alt="">
-                <img id="anttier7" src="Pictures/Transparent Pics/AntTierSeven.png" style="cursor: pointer;" alt="">
-                <img id="anttier8" src="Pictures/Transparent Pics/AntTierEight.png" style="cursor: pointer;" alt="">
-            </div>
-
-            <p id="crumbcount" style="color: crimson;">You have 0 Galactic Crumbs.</p>
-            <div id="antrow2" style="color: white">
-                <p id="anttierdescription"></p>
-                <p id="antprice"></p>
-                <p id="antquantity"></p>
-                <p id="generateant"></p>
-            </div>
-
-           <!-- <div id="antdivisor" style="border: 1px solid goldenrod"></div> -->
-
-            <div id="antrow3" style="color:plum">
-                <p id="antspecies" style="font-size: 1.2em; color:royalblue"> <span id="antlevelbonus" style="color: orange"> </span></p>
-                <p id="antupgradedescription"></p>
-                <p id="antupgradecost"></p>
-                <p id="antupgradeeffect"></p>
-            </div>
-
-            <div id="antrow4">
-                <img id="antUpgrade1" src="Pictures/Transparent Pics/AntUpgrade1.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade2" src="Pictures/Transparent Pics/AntUpgrade2.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade3" src="Pictures/Transparent Pics/AntUpgrade3.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade4" src="Pictures/Transparent Pics/AntUpgrade4.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade5" src="Pictures/Transparent Pics/AntUpgrade5.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade6" src="Pictures/Transparent Pics/AntUpgrade6.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade7" src="Pictures/Transparent Pics/AntUpgrade7.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade8" src="Pictures/Transparent Pics/AntUpgrade8.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade9" src="Pictures/Transparent Pics/AntUpgrade9.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade10" src="Pictures/Transparent Pics/AntUpgrade10.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade11" src="Pictures/Transparent Pics/AntUpgrade11.png" style="cursor: pointer;" alt="">
-                <img id="antUpgrade12" src="Pictures/Transparent Pics/AntUpgrade12.png" style="cursor: pointer;" alt="">
-            </div>
-
-            <div id="antToggleFeatures">
-                <button id="toggleAntMax">Buy Max: ON</button>
-                <div id="antSacrificeButtons">
-                    <button id="toggleAutoSacrificeAnt">Auto Sacrifice: OFF</button>
-                    <button id="autoSacrificeAntMode">Mode: In-game time</button>
-                    <input id="autoAntSacrificeAmount" type="number">
-                    <p id="autoAntSacrifice"></p>
+            <div id="antsWrapper"> 
+                <div id="antsWelcomeTexts"> 
+                    <p id="antwelcome" style="color: lightslategrey">The ants welcome you to their home.</p>
+                    <p id="antdescription" style="color: plum">Hover over the icons for description. Click icons to buy!</p>
                 </div>
-            </div>
 
-            <div id="sacrificeAnts" style="display: none">
-            <p id="antSacrificeTimer" style="color: white">Last Sacrifice: 1s ago</p>
-            <img id="antSacrifice" src="Pictures/AntSacrifice.png" style="cursor: pointer;" alt="">
-            </div>
+                <div id="antrow1">
+                    <img id="anttier1" src="Pictures/Transparent Pics/AntTierOne.png" style="cursor: pointer;" alt="">
+                    <img id="anttier2" src="Pictures/Transparent Pics/AntTierTwo.png" style="cursor: pointer;" alt="">
+                    <img id="anttier3" src="Pictures/Transparent Pics/AntTierThree.png" style="cursor: pointer;" alt="">
+                    <img id="anttier4" src="Pictures/Transparent Pics/AntTierFour.png" style="cursor: pointer;" alt="">
+                    <img id="anttier5" src="Pictures/Transparent Pics/AntTierFive.png" style="cursor: pointer;" alt="">
+                    <img id="anttier6" src="Pictures/Transparent Pics/AntTierSix.png" style="cursor: pointer;" alt="">
+                    <img id="anttier7" src="Pictures/Transparent Pics/AntTierSeven.png" style="cursor: pointer;" alt="">
+                    <img id="anttier8" src="Pictures/Transparent Pics/AntTierEight.png" style="cursor: pointer;" alt="">
+                </div>
 
-            <div id="antSacrificeSummary" style="display: none">
-                <p id="antELO" style="color: plum">Your Ant ELO is <span id="ELO" style="color: gold">0 ELO</span> <span id="effectiveELO" style="color: white"> </span></p>
-                <p id="antUpgradeMultiplier" style="color: white">Upgrade Multiplier: <span id="SacrificeUpgradeMultiplier" style="color: gold">0.01x</span></p>
-                <p id="antTimeMultiplier" style="color: white">Time Multiplier: <span id="SacrificeTimeMultiplier" style="color: lightseagreen">0.01x</span></p>
-                <p id="antSacrificeTitle" style="color: crimson">Reset Anthill features for:</p>
-                <p id="antSacrificeMultiplier" style="color: white">Ant Sacrifice Multiplier: 1x --> <span id="SacrificeMultiplier" style="color: limegreen">x2</span></p>
-                <table id="antSacrificeTable">
-                    <tr style="height: 32px;">
-                        <td style="font-size: 0;"><img src="Pictures/Offering.png" alt=""></td>
-                        <td id="antSacrificeOffering" style="color: gold;"></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img src="Pictures/Obtainium.png" alt=""></td>
-                        <td id="antSacrificeObtainium" style="color: pink"></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/TalismanShard.png" alt=""></td>
-                        <td class="chal9x1" id="antSacrificeTalismanShard" style="color: gold"></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/CommonTalisman.png" alt=""></td>
-                        <td class="chal9x1" id="antSacrificeCommonFragment" style="color: white"></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/UncommonTalisman.png" alt=""></td>
-                        <td class="chal9x1" id="antSacrificeUncommonFragment" style="color: limegreen"></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/RareTalisman.png" alt=""></td>
-                        <td class="chal9x1" id="antSacrificeRareFragment" style="color: darkcyan"></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/EpicTalisman.png" alt=""></td>
-                        <td class="chal9x1" id="antSacrificeEpicFragment" style="color: plum"><td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/LegendaryTalisman.png" alt=""></td>
-                        <td class="chal9x1" id="antSacrificeLegendaryFragment" style="color: orange"></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/MythicalTalisman.png" alt=""></td>
-                        <td class="chal9x1" id="antSacrificeMythicalFragment" style="color: crimson"></td>
-                    </tr>
-                </table>
+                <div id="antrow2" style="color: white">
+                    <p id="crumbcount" style="color: crimson;">You have 0 Galactic Crumbs.</p>
+                    <p id="anttierdescription"></p>
+                    <p id="antprice"></p>
+                    <p id="antquantity"></p>
+                    <p id="generateant"></p>
+                </div>
+
+            <!-- <div id="antdivisor" style="border: 1px solid goldenrod"></div> -->
+
+                <div id="antrow3" style="color:plum">
+                    <p id="antspecies" style="font-size: 1.2em; color:royalblue"> <span id="antlevelbonus" style="color: orange"> </span></p>
+                    <p id="antupgradedescription"></p>
+                    <p id="antupgradecost"></p>
+                    <p id="antupgradeeffect"></p>
+                </div>
+
+                <div id="antrow4">
+                    <img id="antUpgrade1" src="Pictures/Transparent Pics/AntUpgrade1.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade2" src="Pictures/Transparent Pics/AntUpgrade2.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade3" src="Pictures/Transparent Pics/AntUpgrade3.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade4" src="Pictures/Transparent Pics/AntUpgrade4.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade5" src="Pictures/Transparent Pics/AntUpgrade5.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade6" src="Pictures/Transparent Pics/AntUpgrade6.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade7" src="Pictures/Transparent Pics/AntUpgrade7.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade8" src="Pictures/Transparent Pics/AntUpgrade8.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade9" src="Pictures/Transparent Pics/AntUpgrade9.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade10" src="Pictures/Transparent Pics/AntUpgrade10.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade11" src="Pictures/Transparent Pics/AntUpgrade11.png" style="cursor: pointer;" alt="">
+                    <img id="antUpgrade12" src="Pictures/Transparent Pics/AntUpgrade12.png" style="cursor: pointer;" alt="">
+                </div>
+
+                <div id="antToggleFeatures">
+                    <button id="toggleAntMax">Buy Max: ON</button>
+                    <div id="antSacrificeButtons">
+                        <button id="toggleAutoSacrificeAnt">Auto Sacrifice: OFF</button>
+                        <button id="autoSacrificeAntMode">Mode: In-game time</button>
+                        <input id="autoAntSacrificeAmount" type="number">
+                        <p id="autoAntSacrifice"></p>
+                    </div>
+                </div>
+
+                <div id="sacrificeAnts" style="display: none">
+                <p id="antSacrificeTimer" style="color: white">Last Sacrifice: 1s ago</p>
+                <img id="antSacrifice" src="Pictures/AntSacrifice.png" style="cursor: pointer;" alt="">
+                </div>
+
+                <div id="antSacrificeSummary" style="display: none">
+                    <p id="antELO" style="color: plum">Your Ant ELO is <span id="ELO" style="color: gold">0 ELO</span> <span id="effectiveELO" style="color: white"> </span></p>
+                    <p id="antUpgradeMultiplier" style="color: white">Upgrade Multiplier: <span id="SacrificeUpgradeMultiplier" style="color: gold">0.01x</span></p>
+                    <p id="antTimeMultiplier" style="color: white">Time Multiplier: <span id="SacrificeTimeMultiplier" style="color: lightseagreen">0.01x</span></p>
+                    <p id="antSacrificeTitle" style="color: crimson">Reset Anthill features for:</p>
+                    <p id="antSacrificeMultiplier" style="color: white">Ant Sacrifice Multiplier: 1x --> <span id="SacrificeMultiplier" style="color: limegreen">x2</span></p>
+                    <table id="antSacrificeTable">
+                        <tr style="height: 32px;">
+                            <td style="font-size: 0;"><img src="Pictures/Offering.png" alt=""></td>
+                            <td id="antSacrificeOffering" style="color: gold;"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;"><img src="Pictures/Obtainium.png" alt=""></td>
+                            <td id="antSacrificeObtainium" style="color: pink"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/TalismanShard.png" alt=""></td>
+                            <td class="chal9x1" id="antSacrificeTalismanShard" style="color: gold"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/CommonTalisman.png" alt=""></td>
+                            <td class="chal9x1" id="antSacrificeCommonFragment" style="color: white"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/UncommonTalisman.png" alt=""></td>
+                            <td class="chal9x1" id="antSacrificeUncommonFragment" style="color: limegreen"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/RareTalisman.png" alt=""></td>
+                            <td class="chal9x1" id="antSacrificeRareFragment" style="color: darkcyan"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/EpicTalisman.png" alt=""></td>
+                            <td class="chal9x1" id="antSacrificeEpicFragment" style="color: plum"><td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/LegendaryTalisman.png" alt=""></td>
+                            <td class="chal9x1" id="antSacrificeLegendaryFragment" style="color: orange"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/MythicalTalisman.png" alt=""></td>
+                            <td class="chal9x1" id="antSacrificeMythicalFragment" style="color: crimson"></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
 
