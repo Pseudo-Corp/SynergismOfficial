@@ -564,9 +564,7 @@ function setActiveSettingScreen(subtab: string, clickedButton: HTMLButtonElement
     subtabEl.classList.add("subtabActive");
 
     if (subtab === "statisticsSubTab") {
-        const id = interval(refreshStats, 1000)
-
-        function refreshStats() {
+        const refreshStats = function() {
             if (G['currentTab'] !== "settings") {
                 clearInt(id);
             }
@@ -578,6 +576,7 @@ function setActiveSettingScreen(subtab: string, clickedButton: HTMLButtonElement
                 clearInt(id);
         }
 
+        const id = interval(refreshStats, 1000)
         refreshStats();
     }
 }
