@@ -93,18 +93,19 @@ export const resetdetails = (input: resetNames) => {
             (resetInfo.style.color = "crimson", resetInfo.textContent = "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!");
             break;
         case "reincarnationChallenge":
-            let goal;
-            let goaldesc;
-
-            (reincarnationChallenge >= 9)?
-            (goal = "coins", goaldesc = " Coins"):
-            (goal = "transcendShards", goaldesc = " Mythos Shards");
             currencyImage1.src = "";
             resetCurrencyGain.textContent = "";
 
-            (reincarnationChallenge !== 0)?
-            (resetInfo.style.color = "silver", resetInfo.textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + reincarnationChallenge + ". Progress: " + format(player[goal]) + "/" + format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds."):
-            (resetInfo.style.color = "crimson", resetInfo.textContent = "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?");
+            if (reincarnationChallenge !== 0) {
+                const goal = reincarnationChallenge >= 9 ? "coins" : "transcendShards";
+                const goaldesc = reincarnationChallenge >= 9 ? " Coins" : " Mythos Shards";
+
+                resetInfo.style.color = "silver";
+                resetInfo.textContent = "Are you done or tired of being in your challenge? Click to leave challenge " + reincarnationChallenge + ". Progress: " + format(player[goal]) + "/" + format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)) + goaldesc + ". TIME SPENT: " + format(player.reincarnationcounter) + " Seconds.";
+            } else {
+                resetInfo.style.color = "crimson";
+                resetInfo.textContent = "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?";
+            }
             break;
         case "ascensionChallenge":
             currencyImage1.src = "";
