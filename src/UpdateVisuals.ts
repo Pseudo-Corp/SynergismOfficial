@@ -275,7 +275,7 @@ export const visualUpdateCubes = () => {
 
     let accuracy;
     switch (player.subtabNumber) {
-        case 0:
+        case 0: {
             document.getElementById("cubeQuantity").textContent = format(player.wowCubes, 0, true)
             const cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
 
@@ -293,7 +293,8 @@ export const visualUpdateCubes = () => {
             }
             document.getElementById("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray), 0, true);
             break;
-        case 1:
+        }
+        case 1: {
             document.getElementById("tesseractQuantity").textContent = format(player.wowTesseracts, 0, true)
             const tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
@@ -307,7 +308,8 @@ export const visualUpdateCubes = () => {
             }
             document.getElementById("tesseractBlessingTotalAmount").textContent = format(sumContents(tesseractArray), 0, true);
             break;
-        case 2:
+        }
+        case 2: {
             document.getElementById("hypercubeQuantity").textContent = format(player.wowHypercubes, 0, true)
             const hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
@@ -321,7 +323,8 @@ export const visualUpdateCubes = () => {
             }
             document.getElementById("hypercubeBlessingTotalAmount").textContent = format(sumContents(hypercubeArray), 0, true);
             break;
-        case 3:
+        }
+        case 3: {
             document.getElementById("platonicQuantity").textContent = format(player.wowPlatonicCubes, 0, true)
             const platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
             const DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4]
@@ -336,6 +339,7 @@ export const visualUpdateCubes = () => {
             }
             document.getElementById("platonicBlessingTotalAmount").textContent = format(sumContents(platonicArray), 0, true);
             break;
+        }
         case 4:
             document.getElementById("cubeAmount2").textContent = `You have ${format(player.wowCubes, 0, true)} Wow! Cubes =)`
             break;
