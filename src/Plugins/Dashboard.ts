@@ -268,7 +268,14 @@ const enable = () => {
     tab.querySelector('.dashboardstatSac').addEventListener('click', () => toggleAntAutoSacrifice(0));
 
     settingsTab.appendChild(tab);
-    button.addEventListener('click', () => (open = !open) ? openDashboard() : exitDashboard());
+    button.addEventListener('click', () => {
+        open = !open;
+        if (open) {
+            openDashboard();
+        } else {
+            exitDashboard();
+        }
+    });
     button.innerText = 'Dashboard';
     settingsTab.firstElementChild.insertAdjacentElement('beforebegin', button)
 }
