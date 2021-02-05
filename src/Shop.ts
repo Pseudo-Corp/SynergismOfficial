@@ -277,7 +277,7 @@ export const resetShopUpgrades = () => {
     if (p) {
         player.worlds -= 15;
         let initialQuarks = player.worlds;
-        for(let shopItem in shopData){
+        for(const shopItem in shopData){
             const key = shopItem as keyof typeof shopData;
             if(shopData[key].refundable){
                 player.worlds += shopData[key].price * player.shopUpgrades[key] +
