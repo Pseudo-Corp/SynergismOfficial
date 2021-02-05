@@ -43,14 +43,15 @@ export const addTimers = (input: TimerInput, time?: number) => {
         case "ascension":
             player.ascensionCounter += time * timeMultiplier;
             break;
-        case "quarks":
+        case "quarks": {
             // First get maximum Quark Clock (25h, up to +25 from Research 8x20)
             const maxQuarkTimer = getMaxQuarkTime()
             player.quarkstimer += time * timeMultiplier;
             // Checks if this new time is greater than maximum, in which it will default to that time.
             // Otherwise returns itself.
-            player.quarkstimer = (player.quarkstimer > maxQuarkTimer)? maxQuarkTimer: player.quarkstimer;
+            player.quarkstimer = (player.quarkstimer > maxQuarkTimer) ? maxQuarkTimer : player.quarkstimer;
             break;
+        }
     }
 }
 
@@ -78,17 +79,18 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
     const timeMultiplier = (input === "runeSacrifice" || input === "addOfferings") ? 1 : calculateTimeAcceleration()
 
     switch(input){
-        case "addObtainium":
+        case "addObtainium": {
             //Update Obtainium Multipliers + Amount to gain
-             calculateObtainium();
-             const obtainiumGain = calculateAutomaticObtainium();
+            calculateObtainium();
+            const obtainiumGain = calculateAutomaticObtainium();
             //Add Obtainium
             player.researchPoints += obtainiumGain * time * timeMultiplier;
             //Update visual displays if appropriate
-            if(G['currentTab'] === "researches"){
+            if (G['currentTab'] === "researches") {
                 visualUpdateResearch();
             }
             break;
+        }
         case "addOfferings":
             //This counter can be increased through challenge 3 reward
             //As well as cube upgrade 1x2 (2).
@@ -120,7 +122,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
                 player.sacrificeTimer %= 1
             }
             break;
-        case "antSacrifice":
+        case "antSacrifice": {
             // Increments real and 'fake' timers. the Real timer is on real life seconds.
             player.antSacrificeTimer += time * timeMultiplier;
             player.antSacrificeTimerReal += time
@@ -135,4 +137,5 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             }
             break;
         }
+    }
 }
