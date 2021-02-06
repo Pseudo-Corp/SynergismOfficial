@@ -814,3 +814,24 @@ export const updateAscensionStats = () => {
         document.getElementById(key).textContent = fillers[key];
     }
 }
+
+const tabColors: { [key: string]: string } = {
+    buildings: 'yellow',
+    upgrades: 'yellow',
+    achievements: 'white',
+    runes: 'cyan',
+    challenges: 'plum',
+    researches: 'green',
+    ants: 'brown',
+    cubes: 'purple',
+    traits: 'orange',
+    settings: 'white',
+    shop: 'limegreen'
+}
+
+export const changeTabColor = () => {
+    const tab = document.getElementById('tabBorder');
+    const color = tabColors[G['currentTab']] ?? 'yellow';
+
+    tab.style.backgroundColor = color;
+}

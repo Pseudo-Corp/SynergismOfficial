@@ -105,9 +105,8 @@
                 <li class="reincarnationunlock" id="shoptab">Shop</li>
             </ul>
         </nav>
-        
     </header>
-
+    <div id="tabBorder"></div>
     <div id="buildings">
         <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow">Coin Buildings</button>
         <button class="buildingTabs prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan">Diamond Buildings</button>
@@ -351,43 +350,58 @@
             </table>
             <p id="toggleparticlebuy">Toggle amount to buy</p>
         </div>
-        <p id="reincarnationshardinfo" style="color:lime; text-align: center">You have 1.39e+100394 Atoms, providing a building power of 3.02.</p>
-        <p id="reincarnationCrystalInfo" style="color: cyan; text-align: center; display: none;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
-        <p id="reincarnationMythosInfo" style="color:plum; text-align: center; display: none;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
-        <div id="reincarnationpics">
-        <img id="particles1" src="Pictures/ParticlesTier1.png" style="border: 1px solid green" alt="">
-        <img id="particles2" src="Pictures/ParticlesTier2.png" style="border: 1px solid green" alt="">
-        <img id="particles3" src="Pictures/ParticlesTier3.png" style="border: 1px solid green" alt="">
-        <img id="particles4" src="Pictures/ParticlesTier4.png" style="border: 1px solid green" alt="">
-        <img id="particles5" src="Pictures/ParticlesTier5.png" style="border: 1px solid green" alt="">
+
+        <div class="buttonRow">
+            <div>
+                <img id="particles1" src="Pictures/ParticlesTier1.png" style="border: 1px solid green" alt="">
+                <p id="reincarnationtext1" class="desc">Protons: 0 [+0]</p>
+                <button id="buyparticles1" class="buy" style="border: 1px solid white; border-radius: 8px;">Cost: 1 Particles</button>
+                <button class="auto" id="toggle22" toggleid="22" style="background-color: #171717;">Auto: Off</button>
+                <p id="reincarnationtext6" class="stats">100 Elements/sec</p>
+            </div>
+            <div>
+                <img id="particles2" class="image" src="Pictures/ParticlesTier2.png" style="border: 1px solid green" alt="">
+                <p id="reincarnationtext2" class="desc">Elements: 0 [+0]</p>
+                <button id="buyparticles2" class="buy" style="border: 1px solid white; border-radius: 8px;">Cost: 100 Particles</button>
+                <button class="auto" id="toggle23" toggleid="23" style="background-color: #171717;">Auto: Off</button>
+                <p id="reincarnationtext7" class="stats">Black Holes: 0 [+0]</p>
+            </div>
+            <div>
+                <img id="particles3" class="image" src="Pictures/ParticlesTier3.png" style="border: 1px solid green" alt="">
+                <p id="reincarnationtext3" class="desc">100 Atoms/sec</p>
+                <button id="buyparticles3" class="buy" style="border: 1px solid white; border-radius: 8px;">Cost: 1e+4 Particles</button>
+                <button class="auto" id="toggle24" toggleid="24" style="background-color: #171717;">Auto: Off</button>
+                <p id="reincarnationtext8" class="stats">100 Pulsars/sec</p>
+            </div>
+            <div>
+                <img id="particles4" class="image" src="Pictures/ParticlesTier4.png" style="border: 1px solid green" alt="">
+                <p id="reincarnationtext4" class="desc">100 Protons/sec</p>
+                <button id="buyparticles4" class="buy" style="border: 1px solid white; border-radius: 8px;">Cost: 1e+8 Particles</button>
+                <button class="auto" id="toggle25" toggleid="25" style="background-color: #171717;">Auto: Off</button>
+                <p id="reincarnationtext9" class="stats">Quasars: 0 [+0]</p>
+            </div>
+            <div>
+                <img id="particles5" class="image" src="Pictures/ParticlesTier5.png" style="border: 1px solid green" alt="">
+                <p id="reincarnationtext5" class="desc">Pulsars: 0 [+0]</p>
+                <button id="buyparticles5" class="buy" style="border: 1px solid white; border-radius: 8px;">Cost: 1e+16 Particles</button>
+                <button class="auto" id="toggle26" toggleid="26" style="background-color: #171717;">Auto: Off</button>
+                <p id="reincarnationtext10" class="stats">100 Black Holes/sec</p>
+            </div>
         </div>
-        <div id="reincarnationinfo">
-        <p id="reincarnationtext1">Protons: 0 [+0]</p>
-        <p id="reincarnationtext2">Elements: 0 [+0]</p>
-        <p id="reincarnationtext5">Pulsars: 0 [+0]</p>
-        <p id="reincarnationtext7">Black Holes: 0 [+0]</p>
-        <p id="reincarnationtext9">Quasars: 0 [+0]</p>
-            <button id="buyparticles1" style="border: 1px solid white; border-radius: 8px;">Cost: 1 Particles</button>
-            <button id="buyparticles2" style="border: 1px solid white; border-radius: 8px;">Cost: 100 Particles</button>
-            <button id="buyparticles3" style="border: 1px solid white; border-radius: 8px;">Cost: 1e+4 Particles</button>
-            <button id="buyparticles4" style="border: 1px solid white; border-radius: 8px;">Cost: 1e+8 Particles</button>
-            <button id="buyparticles5" style="border: 1px solid white; border-radius: 8px;">Cost: 1e+16 Particles</button>
-            <button class="auto" id="toggle22" toggleid="22" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle23" toggleid="23" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle24" toggleid="24" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle25" toggleid="25" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle26" toggleid="26" style="background-color: #171717;">Auto: Off</button>
+
+        <div id="reincarnationTexts"> 
+            <p id="reincarnationshardinfo" style="color:lime; text-align: center">You have 1.39e+100394 Atoms, providing a building power of 3.02.</p>
+            <p id="reincarnationCrystalInfo" style="color: cyan; text-align: center; display: none;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
+            <p id="reincarnationMythosInfo" style="color:plum; text-align: center; display: none;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
             <button class="auto" id="toggle27" toggleid="27" format="Auto Reincarnate [$]" style="background-color: #171717;">Auto: Off</button>
-        <p id="reincarnationtext3">100 Atoms/sec</p>
-        <p id="reincarnationtext4">100 Protons/sec</p>
-        <p id="reincarnationtext6">100 Elements/sec</p>
-        <p id="reincarnationtext8">100 Pulsars/sec</p>
-        <p id="reincarnationtext10">100 Black Holes/sec</p>
         </div>
+
         <div id="reincarnateautomation">
-            <button id="reincarnateautotoggle" style="border:2px solid green; background-color: #171717;"></button>
-        <input class="reincarnationunlock" type="number" id="reincarnationamount" min="1" max="999999999" defaultValue="1">
-        <p class="reincarnationunlock" id="autoreincarnate"></p>
+            <div>
+                <button id="reincarnateautotoggle" style="border:2px solid green; background-color: #171717;"></button>
+                <input class="reincarnationunlock" type="number" id="reincarnationamount" min="1" max="999999999" defaultValue="1">
+                <p class="reincarnationunlock" id="autoreincarnate"></p>
+            </div>
         </div>
         <p id="reincarnatehotkeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
     </div>
@@ -403,37 +417,50 @@
             </table>
             <p id="toggleTesseractBuy">Toggle amount to buy</p>
         </div>
-        <p id="tesseractInfo" style="color:plum; text-align: center">You have 0 Wow! Tesseracts. Gain more through completing Challenge 10 each ascension.</p>
-        <p id="ascendShardInfo" style="color: orange; text-align: center;">You have a mathematical constant of 3. I Wonder what it's for!</p>
-        <div id="ascendPics">
-            <img class="ascendPics" id="tesseracts1" src="Pictures/TesseractTier1.png" alt="">
-            <img class="ascendPics" id="tesseracts2" src="Pictures/TesseractTier2.png" alt="">
-            <img class="ascendPics" id="tesseracts3" src="Pictures/TesseractTier3.png" alt="">
-            <img class="ascendPics" id="tesseracts4" src="Pictures/TesseractTier4.png" alt="">
-            <img class="ascendPics" id="tesseracts5" src="Pictures/TesseractTier5.png" alt="">
+
+        <div class="buttonRow">
+            <div>
+                <img class="image" id="tesseracts1" src="Pictures/TesseractTier1.png" alt="">
+                <p class="desc" id="ascendText1">Dot: 0 [+0]</p>
+                <button class="buy" id="buyTesseracts1" style="border: 1px solid white; border-radius: 8px;">Cost: 1 Tesseracts</button>
+                <button class="auto" id="tesseractAutoToggle1" style="background-color: #171717;">Auto [OFF]</button>
+                <p class="stats" id="ascendText6">+100 Constant/sec</p>
+            </div>
+            <div>
+                <img class="image" id="tesseracts2" src="Pictures/TesseractTier2.png" alt="">
+                <p class="desc" id="ascendText2">Vector: 0 [+0]</p>
+                <button class="buy" id="buyTesseracts2" style="border: 1px solid white; border-radius: 8px;">Cost: 10 Tesseracts</button>
+                <button class="auto" id="tesseractAutoToggle2" style="background-color: #171717;">Auto [OFF]</button>
+                <p class="stats" id="ascendText7">100 Dots/sec</p>
+            </div>
+            <div>
+                <img class="image" id="tesseracts3" src="Pictures/TesseractTier3.png" alt="">
+                <p class="desc" id="ascendText3">Three-Space: 0 [+0]</p>
+                <button class="buy" id="buyTesseracts3" style="border: 1px solid white; border-radius: 8px;">Cost: 100 Tesseracts</button>
+                <button class="auto" id="tesseractAutoToggle3" style="background-color: #171717;">Auto [OFF]</button>
+                <p class="stats" id="ascendText8">100 Vectors/sec</p>
+            </div>
+            <div>
+                <img class="image" id="tesseracts4" src="Pictures/TesseractTier4.png" alt="">
+                <p class="desc" id="ascendText4">Bent Time: 0 [+0]</p>
+                <button class="buy" id="buyTesseracts4" style="border: 1px solid white; border-radius: 8px;">Cost: 1000 Tesseracts</button>
+                <button class="auto" id="tesseractAutoToggle4" style="background-color: #171717;">Auto [OFF]</button>
+                <p class="stats" id="ascendText9">100 Three-Spaces/sec</p>
+            </div>
+            <div>
+                <img class="image" id="tesseracts5" src="Pictures/TesseractTier5.png" alt="">
+                <p class="desc" id="ascendText5">Hilbert Space: 0 [+0]</p>
+                <button class="buy" id="buyTesseracts5" style="border: 1px solid white; border-radius: 8px;">Cost: 10000 Tesseracts</button>
+                <button class="auto" id="tesseractAutoToggle5" style="background-color: #171717;">Auto [OFF]</button>
+                <p class="stats" id="ascendText10">100 Bent Time/sec</p>
+            </div>
         </div>
-        <div id="ascendInfo">
-            <button class="tesseractBuyBtn" id="buyTesseracts1" style="border: 1px solid white; border-radius: 8px;">Cost: 1 Tesseracts</button>
-            <button class="tesseractBuyBtn" id="buyTesseracts2" style="border: 1px solid white; border-radius: 8px;">Cost: 10 Tesseracts</button>
-            <button class="tesseractBuyBtn" id="buyTesseracts3" style="border: 1px solid white; border-radius: 8px;">Cost: 100 Tesseracts</button>
-            <button class="tesseractBuyBtn" id="buyTesseracts4" style="border: 1px solid white; border-radius: 8px;">Cost: 1000 Tesseracts</button>
-            <button class="tesseractBuyBtn" id="buyTesseracts5" style="border: 1px solid white; border-radius: 8px;">Cost: 10000 Tesseracts</button>
-            <button class="ascendAuto" id="tesseractAutoToggle1" style="background-color: #171717;">Auto [OFF]</button>
-            <button class="ascendAuto" id="tesseractAutoToggle2" style="background-color: #171717;">Auto [OFF]</button>
-            <button class="ascendAuto" id="tesseractAutoToggle3" style="background-color: #171717;">Auto [OFF]</button>
-            <button class="ascendAuto" id="tesseractAutoToggle4" style="background-color: #171717;">Auto [OFF]</button>
-            <button class="ascendAuto" id="tesseractAutoToggle5" style="background-color: #171717;">Auto [OFF]</button>
-            <p class="ascendTexts" id="ascendText1">Dot: 0 [+0]</p>
-            <p class="ascendTexts" id="ascendText2">Vector: 0 [+0]</p>
-            <p class="ascendTexts" id="ascendText3">Three-Space: 0 [+0]</p>
-            <p class="ascendTexts" id="ascendText4">Bent Time: 0 [+0]</p>
-            <p class="ascendTexts" id="ascendText5">Hilbert Space: 0 [+0]</p>
-            <p class="ascendTexts" id="ascendText6">+100 Constant/sec</p>
-            <p class="ascendTexts" id="ascendText7">100 Dots/sec</p>
-            <p class="ascendTexts" id="ascendText8">100 Vectors/sec</p>
-            <p class="ascendTexts" id="ascendText9">100 Three-Spaces/sec</p>
-            <p class="ascendTexts" id="ascendText10">100 Bent Time/sec</p>
+
+        <div id="tesseractTexts"> 
+            <p id="tesseractInfo" style="color:plum; text-align: center">You have 0 Wow! Tesseracts. Gain more through completing Challenge 10 each ascension.</p>
+            <p id="ascendShardInfo" style="color: orange; text-align: center;">You have a mathematical constant of 3. I Wonder what it's for!</p>
         </div>
+        
         <div id="ascendConstantUpgrades">
             <table id="constantUpgradeTable">
                 <tr>

@@ -1,4 +1,4 @@
-import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts } from './UpdateHTML';
+import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts, changeTabColor } from './UpdateHTML';
 import { player, interval, clearInt, format, resetCheck } from './Synergism';
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
@@ -317,6 +317,8 @@ export const keyboardTabChange = (dir = 1, main = true) => {
         }
         toggleSubTab(player.tabnumber, player.subtabNumber)
     }
+
+    changeTabColor();
 }
 
 export const toggleSubTab = (mainTab = 1, subTab = 0) => {

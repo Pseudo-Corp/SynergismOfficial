@@ -331,7 +331,6 @@ nav li {
 	text-align: center;
 	padding: 0;
 	color: gold;
-	border-top: 2px solid gold;
 }
 
 #upgradesGrid {
@@ -403,7 +402,6 @@ nav li {
 	position: relative;
 	padding: 0;
 	text-align: center;
-	border-top: 2px solid white
 }
 
 #submitstats {
@@ -559,47 +557,6 @@ nav li {
 	margin: 0 auto;
 }
 
-#toggle22 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 57px;
-	left: 51%;
-	margin-left: -16px;
-}
-#toggle23 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 92px;
-	left: 51%;
-	margin-left: -16px;
-}
-#toggle24 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 127px;
-	left: 51%;
-	margin-left: -16px;
-}
-#toggle25 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 162px;
-	left: 51%;
-	margin-left: -16px;
-}
-#toggle26 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 197px;
-	left: 51%;
-	margin-left: -16px;
-}
-
 .tightText {
     margin: 0 auto;
     text-align: center;
@@ -610,7 +567,6 @@ nav li {
 	text-align: center;
 	padding: 0;
 	color: whitesmoke;
-	border-top: 2px solid white;
 }
 
 #achievementprogress {
@@ -687,14 +643,14 @@ nav li {
 	padding: 0;
 	font-size: 0;
 	left: 80%;
-	top: 20px;
+	top: -8.1%;
 }
 #buyAmountTesseract{	
 	position: absolute;	
 	padding: 0;
 	font-size: 0;
 	left: 80%;	
-	top: 20px;	
+	top: -8.1%;	
 }
 #togglecrystalbuy{
 	color: white;
@@ -786,7 +742,6 @@ nav li {
 #runes {
 	position: relative;
 	padding: 0;
-	border-top: 2px solid cyan;
 }
 
 #runesToggle {
@@ -1441,7 +1396,6 @@ nav li {
 #challenges {
 	position: relative;
 	padding: 0;
-	border-top: 2px solid plum;
 }
 
 #challengesWrapper {
@@ -1581,219 +1535,35 @@ nav li {
 
 #reincarnation {
     position: relative;
-    padding: 0;
-    border: 1px solid green
+	padding: 0;
+	color: limegreen;
 }
 
-#reincarnationshardinfo {
-    position: absolute;
-    padding: 0;
-    top: 240px;
-    width: 1000px;
-    left: 50%;
-    margin-left: -500px;
-}
-#reincarnationCrystalInfo{
-	position: absolute;
-    padding: 0;
-    top: 260px;
-    width: 1000px;
-    left: 50%;
-    margin-left: -500px;
-}
-#reincarnationMythosInfo{
-	position: absolute;
-    padding: 0;
-    top: 280px;
-    width: 1000px;
-    left: 50%;
-    margin-left: -500px;
+#reincarnationTexts {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 20px;
+	text-align: center;
 }
 
-#particles1 {
-    position: absolute;
-    top: 58px;
-    left: 10%;
-    margin-left: -18px;
-}
+#reincarnationTexts > p { margin: 0; }
 
-#particles2 {
-    position: absolute;
-    top: 93px;
-    left: 10%;
-    margin-left: -18px;
+#toggle27 { margin-top: 55px; }
 
-}
+#toggle27, #reincarnationamount, #reincarnateautotoggle { width: 150px; }
 
-#particles3 {
-    position: absolute;
-    top: 128px;
-    left: 10%;
-    margin-left: -18px;
-
-}
-
-#particles4 {
-    position: absolute;
-    top: 163px;
-    left: 10%;
-    margin-left: -18px;
-
-}
-
-#particles5 {
-    position: absolute;
-    top: 198px;
-    left: 10%;
-    margin-left: -18px;
-}
-
-
-#reincarnationtext1 {
-    position: absolute;
-    top: 47px;
-    left: 13%;
-}
-#reincarnationtext6 {
-    position: absolute;
-    top: 47px;
-    left: 56.5%;
-}
-#reincarnationtext2 {
-    position: absolute;
-    top: 82px;
-    left: 13%;
-}
-#reincarnationtext7 {
-    position: absolute;
-    top: 82px;
-    left: 56.5%;
-}
-#reincarnationtext3 {
-    position: absolute;
-    top: 117px;
-    left: 13%;
-}
-#reincarnationtext8 {
-    position: absolute;
-    top: 117px;
-    left: 56.5%;
-}
-#reincarnationtext4 {
-    position: absolute;
-    top: 152px;
-    left: 13%;
-}
-#reincarnationtext9 {
-    position: absolute;
-    top: 152px;
-    left: 56.5%;
-}
-
-#reincarnationtext5 {
-    position: absolute;
-    top: 187px;
-    left: 13%;
-}
-#reincarnationtext10 {
-    position: absolute;
-    top: 187px;
-    left: 56.5%;
-}
-
-#buyparticles1 {
-    position: absolute;
-    width: 150px;
-    height: 30px;
-    top: 73px;
-    left: 37%;
-    margin-top: -15px;
-    border: 1px solid white;
-    border-radius: 8px;
-
-}
-
-#buyparticles2 {
-    position: absolute;
-    width: 150px;
-    height: 30px;
-    top: 108px;
-    left: 37%;
-    margin-top: -15px;
-    border: 1px solid white;
-    border-radius: 8px;
-
-}
-
-#buyparticles3 {
-    position: absolute;
-    width: 150px;
-    height: 30px;
-    top: 143px;
-    left: 37%;
-    margin-top: -15px;
-    border: 1px solid white;
-    border-radius: 8px;
-
-}
-
-#buyparticles4 {
-    position: absolute;
-    width: 150px;
-    height: 30px;
-    top: 178px;
-    left: 37%;
-    margin-top: -15px;
-    border: 1px solid white;
-    border-radius: 8px;
-
-}
-
-#buyparticles5 {
-    position:absolute;
-    width: 150px;
-    height: 30px;
-    top: 213px;
-    left: 37%;
-    margin-top: -15px;
-    border: 1px solid white;
-    border-radius: 8px;
-
-}
-
-#toggle27 {
-	position:absolute;
-	width: 150px;
-	top: 374px;
-	left: 50%;
-	margin-left: -75px;
-}
-#reincarnateautotoggle {
-	position:absolute;
-	width: 150px;
-	top: 394px;
-	left: 50%;
-	margin-left: -75px;
+#reincarnateautomation > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #autoreincarnate {
-	position: absolute;
-	top: 420px;
-	padding: 0;
-	left: 50%;
-	width: 750px;
-	margin-left: -375px;
-	text-align: center;
 	color: white
 }
 
 #reincarnationamount {
-	position: absolute;
-	top: 418px;
-	padding: 0;
-	left: 50%;
-	width: 100px;
-	margin-left: -50px;
 	border: 1px solid green;
 	color: white;
 	background-color: black
@@ -1803,21 +1573,14 @@ nav li {
     color: lime;
 }
 #reincarnatehotkeys{
-	position: absolute;
-	padding: 5px;
-	top: 460px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
 	color: gray;
 	text-align: center;
+	margin: 0;
 }
 
 #research {
 	position: relative;
 	padding: 0;
-	border-top: 2px solid green;
 }
 
 #researchtable {
@@ -1876,7 +1639,6 @@ nav li {
 #shop {
 	position: relative;
 	padding: 0;
-	border-top: 2px solid limegreen;
 	text-align: center;
 }
 
@@ -1967,7 +1729,6 @@ nav li {
 #ants {
 	position: relative;
 	padding: 0;
-	border-top: 2px solid brown;
 	text-align: center
 }
 
@@ -2095,7 +1856,6 @@ nav li {
 
 #cubes{
 	position: relative;
-	border-top: 2px solid purple;
 	padding: 0;
 }
 
@@ -2442,124 +2202,52 @@ nav li {
 #ascension {
 	position: relative;
 	padding: 0;
-	border: 1px solid orange
-}
-.ascendPics{
 	color: orange;
-	border: 1px solid yellow;
-	position: absolute;
-	margin-left: -18px;
-}
-.ascendTexts {
-	color: orange;
-	position: absolute;
-}
-.tesseractBuyBtn {
-	position: absolute;
-	width: 150px;
-	height: 30px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
 }
 
-#tesseractInfo{
-	position: absolute;
-    padding: 0;
-    top: 240px;
-    width: 1000px;
-    left: 50%;
-    margin-left: -500px;
-}
-#ascendShardInfo{
-	position: absolute;
-    padding: 0;
-    top: 260px;
-    width: 1000px;
-    left: 50%;
-    margin-left: -500px;
-}
-#constantUpgradeTable{
-	position: absolute;
-    padding: 0;
-    top: 300px;
-    left: 50%;
-    margin-left: -180px;
-}
-#constUpgradeDescription{
-	position: absolute;
-    padding: 0;
-    top: 325px;
-    width: 1000px;
-	left: 50%;
-	margin-left: -180px;
-}
-#constUpgradeLevel{
-	position: absolute;
-    padding: 0;
-    top: 365px;
-    width: 1000px;
-	left: 50%;
-	margin-left: -180px;
-}
-#constUpgradeCost{
-	position: absolute;
-    padding: 0;
-    top: 345px;
-    width: 1000px;
-	left: 50%;
-	margin-left: -180px;
-}
-#constUpgradeEffect1{
-	position: absolute;
-    padding: 0;
-    top: 385px;
-    width: 1000px;
-	left: 50%;
-	margin-left: -180px;
+#tesseractTexts { margin-top: 20px; }
+
+#tesseractTexts > p {
+	margin: 0;
+	text-align: center;
 }
 
-#tesseractautobuytoggle{
-	position:absolute;
+#ascendConstantUpgrades {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#ascendConstantUpgrades > p {
+	margin: 0;
+	text-align: left;
+	width: 25%;
+}
+
+#ascendautomation {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 10px;
+}
+
+#tesseractautobuytoggle, #tesseractAmount {
 	width: 150px;
-	top: 440px;
-	left: 50%;
-	margin-left: -75px;
 }
 
 #tesseractAmount{
-	position: absolute;
-	top: 465px;
-	padding: 0;
-	left: 50%;
-	width: 100px;
-	margin-left: -50px;
 	border: 1px solid green;
 	color: white;
 	background-color: black
 }
 
 #autotessbuyeramount{
-	position: absolute;
-	padding: 5px;
-	top: 465px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
 	color: white;
-	text-align: center;
+	margin: 0;
 }
 
 #ascendHotKeys{
-	position: absolute;
-	padding: 5px;
-	top: 500px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
+	margin: 0;
 	color: gray;
 	text-align: center;
 }
@@ -2753,13 +2441,6 @@ nav li {
 	background-color: #171717;
 	color: white
 }
-.ascendAuto{
-	position: absolute;
-	height: 30px;
-	width: 80px;
-	border: 2px solid red;
-	left: 49.85%;
-}
 
 #traits {
 	display: flex;
@@ -2770,8 +2451,6 @@ nav li {
 	width: 100%;
 	min-height: 550px;
     max-height: 600px;
-    border-top: 2px solid orange;
-
 }
 #corruptionMain {
 	width: 800px;
@@ -3056,6 +2735,13 @@ header #obtainiumDisplay {
 #ascTimeAccel {
 	color: royalblue;
 }
+
+#tabBorder {
+	height: 2px;
+	position: relative;
+	z-index: 2;
+}
+
 #c15Rewards{
 	position: absolute;
 	top: 65px;

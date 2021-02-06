@@ -21,6 +21,7 @@ import { exportSynergism, updateSaveString, promocodes, importSynergism, resetGa
 import { resetHistoryTogglePerSecond } from "./History"
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable } from "./Shop"
 import { Globals as G } from './Variables';
+import { changeTabColor } from "./UpdateHTML"
 
 /* STYLE GUIDE */
 /* 
@@ -545,6 +546,9 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('tesseractToQuarkButton').addEventListener('click', () => buyShopUpgrades("tesseractToQuark"))
     document.getElementById('hypercubeToQuarkButton').addEventListener('mouseover', () => shopDescriptions("hypercubeToQuark"))
     document.getElementById('hypercubeToQuarkButton').addEventListener('click', () => buyShopUpgrades("hypercubeToQuark"))
+
+    const tabs = document.querySelectorAll<HTMLElement>('#tabrow > li');
+    tabs.forEach(b => b.addEventListener('click', () => changeTabColor()));
 
     // Import button
     document.getElementById('importfile').addEventListener('change', async e => {
