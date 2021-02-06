@@ -564,9 +564,7 @@ function setActiveSettingScreen(subtab: string, clickedButton: HTMLButtonElement
     subtabEl.classList.add("subtabActive");
 
     if (subtab === "statisticsSubTab") {
-        const id = interval(refreshStats, 1000)
-
-        function refreshStats() {
+        const refreshStats = function() {
             if (G['currentTab'] !== "settings") {
                 clearInt(id);
             }
@@ -578,6 +576,7 @@ function setActiveSettingScreen(subtab: string, clickedButton: HTMLButtonElement
                 clearInt(id);
         }
 
+        const id = interval(refreshStats, 1000)
         refreshStats();
     }
 }
@@ -652,21 +651,24 @@ export const toggleCubeSubTab = (i: number) => {
 
 export const updateAutoChallenge = (i: number) => {
     switch (i) {
-        case 1:
+        case 1: {
             const t = parseFloat((document.getElementById('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.start = Math.max(t, 0);
             document.getElementById("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s";
             return;
-        case 2:
+        }
+        case 2: {
             const u = parseFloat((document.getElementById('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.exit = Math.max(u, 0);
             document.getElementById("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s";
             return;
-        case 3:
+        }
+        case 3: {
             const v = parseFloat((document.getElementById('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.enter = Math.max(v, 0);
             document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s";
             return;
+        }
     }
 }
 
@@ -723,16 +725,18 @@ export const toggleAutoAscend = () => {
 
 export const updateRuneBlessingBuyAmount = (i: number) => {
     switch (i) {
-        case 1:
+        case 1: {
             const t = Math.floor(parseFloat((document.getElementById('buyRuneBlessingInput') as HTMLInputElement).value)) || 1;
             player.runeBlessingBuyAmount = Math.max(t, 1);
             document.getElementById('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
             return;
-        case 2:
+        }
+        case 2: {
             const u = Math.floor(parseFloat((document.getElementById('buyRuneSpiritInput') as HTMLInputElement).value)) || 1;
             player.runeSpiritBuyAmount = Math.max(u, 1);
             document.getElementById('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
             return;
+        }
     }
 }
 

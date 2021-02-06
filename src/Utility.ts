@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js';
 
-export const isDecimal = (o: any): o is Decimal => 
+export const isDecimal = (o: unknown): o is Decimal =>
     o instanceof Decimal ||
     (typeof o === 'object' &&
     o !== null &&
@@ -58,8 +58,9 @@ export const getElementById = <T extends HTMLElement>(id: string) => document.ge
 /**
  * Remove leading indents at the beginning of new lines in a template literal. 
  */
-export const stripIndents = (...temp: TemplateStringsArray[] | any[]) => {
-    const [s, ...args] = temp;
+type ValidInterpolatedType = string | number | Date;
+export const stripIndents = (temp: TemplateStringsArray, ...args: ValidInterpolatedType[]) => {
+    const s = temp.raw;
     let f = '';
     for (let i = 0; i < s.length; i++) {
         // rather than using \s+ for all whitespace, we use a normal space
