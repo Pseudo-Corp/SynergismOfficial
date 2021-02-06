@@ -212,45 +212,47 @@
             </table>
             <p id="togglecrystalbuy">Toggle amount to buy</p>
         </div>
-        <p id="prestigeshardinfo" style="color:pink; text-align: center">You have 1.39e+100394 Prestige Shards, providing 1,214,593 multiplier power boosts.</p>
-        <div id="prestigepics">
-        <img id="diamond1" src="Pictures/DiamondTier1.png" style="border: 1px solid cyan" alt="">
-        <img id="diamond2" src="Pictures/DiamondTier2.png" style="border: 1px solid cyan" alt="">
-        <img id="diamond3" src="Pictures/DiamondTier3.png" style="border: 1px solid cyan" alt="">
-        <img id="diamond4" src="Pictures/DiamondTier4.png" style="border: 1px solid cyan" alt="">
-        <img id="diamond5" src="Pictures/DiamondTier5.png" style="border: 1px solid cyan" alt="">
-        </div>
-        <div id="autocrystalbuild">
-            <button class="auto" id="toggle10" toggleid="10" style="background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle11" toggleid="11" style="background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle12" toggleid="12" style="background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle13" toggleid="13" style="background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle14" toggleid="14" style="background-color: #171717;">Auto: On</button>
-            <button class="auto" id="toggle15" toggleid="15" format="Auto Prestige [$]" style="background-color: #171717;">Automatic Prestige & Customization Being Developed!</button>
-            <div id="prestigeautomation">
-            <button id="prestigeautotoggle" style="border:2px solid green; background-color: #171717;"></button>
-                <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1">
-                <p class="transcendunlock" id="autoprestige"></p>
+        
+        <div class="buttonRow">
+            <div>
+                <img id="diamond1" class="image" src="Pictures/DiamondTier1.png" style="border: 1px solid cyan" alt="">
+                <p id="prestigetext1" class="desc">Refineries: 0 [+0]</p>
+                <button id="buydiamond1" class="buy" style="border: 1px solid white; border-radius: 8px;">434342</button>
+                <button class="auto" id="toggle10" toggleid="10" style="background-color: #171717;">Auto: On</button>
+                <p id="prestigetext2" class="stats">100 Shards/sec</p>
+            </div>
+            <div>
+                <img id="diamond2" class="image" src="Pictures/DiamondTier2.png" style="border: 1px solid cyan" alt="">
+                <p id="prestigetext3" class="desc">Coal Plants: 0 [+0]</p>
+                <button id="buydiamond2" class="buy" style="border: 1px solid white; border-radius: 8px;">532523</button>
+                <button class="auto" id="toggle11" toggleid="11" style="background-color: #171717;">Auto: On</button>
+                <p id="prestigetext4" class="stats">100 Augments/sec</p>
+            </div>
+            <div>
+                <img id="diamond3" class="image" src="Pictures/DiamondTier3.png" style="border: 1px solid cyan" alt="">
+                <p id="prestigetext5" class="desc">Coal Rigs: 0 [+0]</p>
+                <button id="buydiamond3" class="buy" style="border: 1px solid white; border-radius: 8px;">5454546</button>
+                <button class="auto" id="toggle12" toggleid="12" style="background-color: #171717;">Auto: On</button>
+                <p id="prestigetext6" class="stats">100 Enhancements/sec</p>
+            </div>
+            <div>
+                <img id="diamond4" class="image" src="Pictures/DiamondTier4.png" style="border: 1px solid cyan" alt="">
+                <p id="prestigetext7" class="desc">Diamond Pickaxes: 0 [+0]</p>
+                <button id="buydiamond4" class="buy" style="border: 1px solid white; border-radius: 8px;">646346</button>
+                <button class="auto" id="toggle13" toggleid="13" style="background-color: #171717;">Auto: On</button>
+                <p id="prestigetext8" class="stats">100 Wizards/sec</p>
+            </div>
+            <div>
+                <img id="diamond5" class="image" src="Pictures/DiamondTier5.png" style="border: 1px solid cyan" alt="">
+                <p id="prestigetext9" class="desc">Pandora's Box: 0 [+0]</p>
+                <button id="buydiamond5" class="buy" style="border: 1px solid white; border-radius: 8px;">3464363</button>
+                <button class="auto" id="toggle14" toggleid="14" style="background-color: #171717;">Auto: On</button>
+                <p id="prestigetext10" class="stats">100 Oracles/sec</p>
             </div>
         </div>
-        <div id="prestigeinfo">
-        <p id="prestigetext1">Refineries: 0 [+0]</p>
-        <p id="prestigetext3">Coal Plants: 0 [+0]</p>
-        <p id="prestigetext5">Coal Rigs: 0 [+0]</p>
-        <p id="prestigetext7">Diamond Pickaxes: 0 [+0]</p>
-        <p id="prestigetext9">Pandora's Box: 0 [+0]</p>
-            <button id="buydiamond1" style="border: 1px solid white; border-radius: 8px;">434342</button>
-            <button id="buydiamond2" style="border: 1px solid white; border-radius: 8px;">532523</button>
-            <button id="buydiamond3" style="border: 1px solid white; border-radius: 8px;">5454546</button>
-            <button id="buydiamond4" style="border: 1px solid white; border-radius: 8px;">646346</button>
-            <button id="buydiamond5" style="border: 1px solid white; border-radius: 8px;">3464363</button>
 
-        <p id="prestigetext2">100 Shards/sec</p>
-        <p id="prestigetext4">100 Augments/sec</p>
-        <p id="prestigetext6">100 Enhancements/sec</p>
-        <p id="prestigetext8">100 Wizards/sec</p>
-        <p id="prestigetext10">100 Oracles/sec</p>
-        </div>
+        <p id="prestigeshardinfo" style="color:pink; text-align: center">You have 1.39e+100394 Prestige Shards, providing 1,214,593 multiplier power boosts.</p>
+
         <div id="crystalupgrades">
             <table id="crystalupgradestable" style="padding: 0; font-size: 0;">
                 <tr>
@@ -263,8 +265,15 @@
                 </tr>
             </table>
             <p id="crystalupgradedescription" style="color: white; text-align: center;">Hover over a crystal upgrade to get information!</p>
-            <p id="crystalupgradeslevel" style="color: white; text-align: center;">Level: ---</p>
             <p id="crystalupgradescost" style="color: white; text-align: center;">Cost: --- crystals</p>
+            <p id="crystalupgradeslevel" style="color: white; text-align: center;">Level: ---</p>
+        </div>
+
+        <div id="autocrystalbuild">
+            <button class="auto" id="toggle15" toggleid="15" format="Auto Prestige [$]" style="background-color: #171717;">Automatic Prestige & Customization Being Developed!</button>
+            <button id="prestigeautotoggle" style="border:2px solid green; background-color: #171717;"></button>
+            <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1">
+            <p class="transcendunlock" id="autoprestige"></p>
             <p id="prestigehotkeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer. Press [6], [7], [8], [9] or [0] to buy the corresponding Crystal upgrade starting on the left.</p>
         </div>
     </div>
@@ -280,46 +289,54 @@
             </table>
             <p id="togglemythosbuy">Toggle amount to buy</p>
         </div>
+        
+        <div class="buttonRow">
+            <div>
+                <img id="mythos1" class="image" src="Pictures/MythosTier1.png" style="border: 1px solid plum" alt="">
+                <p id="transcendtext1" class="desc">Augments: 0 [+0]</p>
+                <button id="buymythos1" class="buy" style="border: 1px solid white; border-radius: 8px;"></button>
+                <button class="auto" id="toggle16" toggleid="16" style="background-color: #171717;">Auto: Off</button>
+                <p id="transcendtext6" class="stats">100 Shards/sec</p>
+            </div>
+            <div>
+                <img id="mythos2" class="image" src="Pictures/MythosTier2.png" style="border: 1px solid plum" alt="">
+                <p id="transcendtext2" class="desc">Enhancements: 0 [+0]</p>
+                <button id="buymythos2" class="buy" style="border: 1px solid white; border-radius: 8px;"></button>
+                <button class="auto" id="toggle17" toggleid="17" style="background-color: #171717;">Auto: Off</button>
+                <p id="transcendtext7" class="stats">100 Augments/sec</p>
+            </div>
+            <div>
+                <img id="mythos3" class="image" src="Pictures/MythosTier3.png" style="border: 1px solid plum" alt="">
+                <p id="transcendtext3" class="desc">Wizards: 0 [+0]</p>
+                <button id="buymythos3" class="buy" style="border: 1px solid white; border-radius: 8px;"></button>
+                <button class="auto" id="toggle18" toggleid="18" style="background-color: #171717;">Auto: Off</button>
+                <p id="transcendtext8" class="stats">100 Enhancements/sec</p>
+            </div>
+            <div>
+                <img id="mythos4" class="image" src="Pictures/MythosTier4.png" style="border: 1px solid plum" alt="">
+                <p id="transcendtext4" class="desc">Oracles: 0 [+0]</p>
+                <button id="buymythos4" class="buy" style="border: 1px solid white; border-radius: 8px;"></button>
+                <button class="auto" id="toggle19" toggleid="19" style="background-color: #171717;">Auto: Off</button>
+                <p id="transcendtext9" class="stats">100 Wizards/sec</p>
+            </div>
+            <div>
+                <img id="mythos5" class="image" src="Pictures/MythosTier5.png" style="border: 1px solid plum" alt="">
+                <p id="transcendtext5" class="desc">Grandmasters: 0 [+0]</p>
+                <button id="buymythos5" class="buy" style="border: 1px solid white; border-radius: 8px;"></button>
+                <button class="auto" id="toggle20" toggleid="20" style="background-color: #171717;">Auto: Off</button>
+                <p id="transcendtext10" class="stats">100 Oracles/sec</p>
+            </div>
+        </div>
+        
         <p id="transcendshardinfo" style="color:pink; text-align: center">You have 1.39e+100394 Transcend Shards, providing 1,214,593 multiplier power boosts.</p>
         <p id="transcendshardbonus" style="color: limegreen; text-align: center;">Each Multiplier Boost increases the base effect of Multipliers by 0.005!</p>
-        <div id="transcendpics">
-        <img id="mythos1" src="Pictures/MythosTier1.png" style="border: 1px solid plum" alt="">
-        <img id="mythos2" src="Pictures/MythosTier2.png" style="border: 1px solid plum" alt="">
-        <img id="mythos3" src="Pictures/MythosTier3.png" style="border: 1px solid plum" alt="">
-        <img id="mythos4" src="Pictures/MythosTier4.png" style="border: 1px solid plum" alt="">
-        <img id="mythos5" src="Pictures/MythosTier5.png" style="border: 1px solid plum" alt="">
-        </div>
-        <div id="transcendauto">
-            <button class="auto" id="toggle16" toggleid="16" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle17" toggleid="17" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle18" toggleid="18" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle19" toggleid="19" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle20" toggleid="20" style="background-color: #171717;">Auto: Off</button>
-            <button class="auto" id="toggle21" toggleid="21" format="Auto Transcend [$]" style="background-color: #171717;">Auto: Off</button>
-        </div>
-        <div id="transcendinfo">
-        <p id="transcendtext1">Augments: 0 [+0]</p>
-        <p id="transcendtext2">Enhancements: 0 [+0]</p>
-        <p id="transcendtext3">Wizards: 0 [+0]</p>
-        <p id="transcendtext4">Oracles: 0 [+0]</p>
-        <p id="transcendtext5">Grandmasters: 0 [+0]</p>
-            <button id="buymythos1" style="border: 1px solid white; border-radius: 8px;"></button>
-            <button id="buymythos2" style="border: 1px solid white; border-radius: 8px;"></button>
-            <button id="buymythos3" style="border: 1px solid white; border-radius: 8px;"></button>
-            <button id="buymythos4" style="border: 1px solid white; border-radius: 8px;"></button>
-            <button id="buymythos5" style="border: 1px solid white; border-radius: 8px;"></button>
 
-        <p id="transcendtext6">100 Shards/sec</p>
-        <p id="transcendtext7">100 Augments/sec</p>
-        <p id="transcendtext8">100 Enhancements/sec</p>
-        <p id="transcendtext9">100 Wizards/sec</p>
-        <p id="transcendtext10">100 Oracles/sec</p>
-        </div>
-        <div id="transcendautomation">
-            <button id="transcendautotoggle" style="border:2px solid green; background-color: #171717;"></button>
+        <button class="auto" id="toggle21" toggleid="21" format="Auto Transcend [$]" style="background-color: #171717;">Auto: Off</button>
+
+        <button id="transcendautotoggle" style="border:2px solid green; background-color: #171717;"></button>
         <input class="transcendunlock" type="number" id="transcendamount" min="1" max="999999999" defaultValue="1">
         <p class="transcendunlock" id="autotranscend"></p>
-        </div>
+
         <p id="transcendhotkeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
     </div>
     <div id="reincarnation" style="display: none;">
