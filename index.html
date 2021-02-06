@@ -108,74 +108,96 @@
         
     </header>
 
-<div id="buildings">
-    <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow">Coin Buildings</button>
-    <button class="buildingTabs prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan">Diamond Buildings</button>
-    <button class="buildingTabs transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum">Mythos Buildings</button>
-    <button class="buildingTabs reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow">Particle Buildings</button>
-    <button class="buildingTabs ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange">Tesseract Buildings</button>
-    <div id="coinBuildings">
-    <div id="buyamountcoin">
-        <table class="coinunlock3" id="coinbuyamount">
-            <tr>
-            <td><img  id="coinone" src="Pictures/Transparent Pics/CoinOne.png" style="cursor:pointer; background-color: green;" alt=""></td>
-            <td><img  id="cointen" src="Pictures/Transparent Pics/CoinTen.png"  style="cursor:pointer;" alt=""></td>
-            <td><img  id="coinhundred" src="Pictures/Transparent Pics/CoinHundred.png"  style="cursor:pointer;" alt=""></td>
-            <td><img  id="cointhousand" src="Pictures/Transparent Pics/CoinThousand.png"  style="cursor:pointer;" alt=""></td>
-            </tr>
-        </table>
-        <p class="coinunlock3" id="togglecoinbuy">Toggle amount to buy</p>
-    </div>
+    <div id="buildings">
+        <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow">Coin Buildings</button>
+        <button class="buildingTabs prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan">Diamond Buildings</button>
+        <button class="buildingTabs transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum">Mythos Buildings</button>
+        <button class="buildingTabs reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow">Particle Buildings</button>
+        <button class="buildingTabs ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange">Tesseract Buildings</button>
+        <div id="coinBuildings">
+        <div id="buyamountcoin">
+            <table class="coinunlock3" id="coinbuyamount">
+                <tr>
+                <td><img  id="coinone" src="Pictures/Transparent Pics/CoinOne.png" style="cursor:pointer; background-color: green;" alt=""></td>
+                <td><img  id="cointen" src="Pictures/Transparent Pics/CoinTen.png"  style="cursor:pointer;" alt=""></td>
+                <td><img  id="coinhundred" src="Pictures/Transparent Pics/CoinHundred.png"  style="cursor:pointer;" alt=""></td>
+                <td><img  id="cointhousand" src="Pictures/Transparent Pics/CoinThousand.png"  style="cursor:pointer;" alt=""></td>
+                </tr>
+            </table>
+            <p class="coinunlock3" id="togglecoinbuy">Toggle amount to buy</p>
+        </div>
 
-    <div id="buildingrow1">
-        <img id="coin1" src="Pictures/Tier1.png" alt="">
-        <img class="coinunlock1" id="coin2" src="Pictures/Tier2.png" alt="">
-        <img class="coinunlock2" id="coin3" src="Pictures/Tier3.png" alt="">
-        <img class="coinunlock3" id="coin4" src="Pictures/Tier4.png" alt="">
-        <img class="coinunlock4" id="coin5" src="Pictures/Tier5.png" alt="">
-        <img class="coinunlock1" id="accelerator" src="Pictures/Accelerator.png" alt="">
-        <img class="coinunlock3" id="multiplier" src="Pictures/Multiplier.png" alt="">
-        <img class="prestigeunlock" id="acceleratorboost" src="Pictures/AcceleratorBoost.png" alt="">
-    </div>
+        <!-- 
+            This is how the reusable resource row structure must be formatted.
+            A main element with a class "buttonRow", then a list of <div>s with 
+            the element children inside.
+        -->
+        <div class="buttonRow">
+            <div>
+                <img class="image" id="coin1" src="Pictures/Tier1.png" alt="">
+                <p class="desc" id="buildtext1" style="color: gold">Workers: 321495 [+1.49e+391945]</p>
+                <button id="buycoin1" class="buy" style="background-color: #070707;">Cost: 100 Coins.</button>
+                <button class="auto" id="toggle1" toggleid="1" style="background-color: #171717;">Auto: On</button>
+                <p class="stats" id="buildtext2" style="color: gold">100 Coins/second [100%]</p>
+            </div>
+            <div>
+                <img class="coinunlock1 image" id="coin2" src="Pictures/Tier2.png" alt="">
+                <p class="coinunlock1 desc" id="buildtext3" style="color: gold">Investments: 0 [+0]</p>
+                <button class="coinunlock1 buy" id="buycoin2" style="background-color: #070707;">Cost: 2e3 Coins.</button>
+                <button class="auto" id="toggle2" toggleid="2" style="background-color: #171717;">Auto: On</button>
+                <p class="coinunlock1 stats" id="buildtext4" style="color: gold">0 Coins/second [0%]</p>
+            </div>
+            <div>
+                <img class="coinunlock2 image" id="coin3" src="Pictures/Tier3.png" alt="">
+                <p class="coinunlock2 desc" id="buildtext5" style="color: gold">Printers: 0 [+0]</p>
+                <button class="coinunlock2 buy" id="buycoin3" style="background-color: #070707;">Cost: 4e4 Coins.</button>
+                <button class="auto" id="toggle3" toggleid="3" style="background-color: #171717;">Auto: On</button>
+                <p class="coinunlock2 stats" id="buildtext6" style="color: gold">0 Coins/second [0%]</p>
+            </div>
+            <div>
+                <img class="coinunlock3 image" id="coin4" src="Pictures/Tier4.png" alt="">
+                <p class="coinunlock3 desc" id="buildtext7" style="color: gold">Coin Mints: 0 [+0]</p>
+                <button class="coinunlock3 buy" id="buycoin4" style="background-color: #070707;">Cost: 8e5 Coins.</button>
+                <button class="auto" id="toggle4" toggleid="4" style="background-color: #171717;">Auto: On</button>
+                <p class="coinunlock3 stats" id="buildtext8" style="color: gold">0 Coins/second [0%]</p>
+            </div>
+            <div>
+                <img class="coinunlock4 image" id="coin5" src="Pictures/Tier5.png" alt="">
+                <p class="coinunlock4 desc" id="buildtext9" style="color: gold">Alchemies: 0 [+0]</p>
+                <button class="coinunlock4 buy" id="buycoin5" style="background-color: #070707;">Cost: 1.6e7 Coins.</button>
+                <button class="auto" id="toggle5" toggleid="5" style="background-color: #171717;">Auto: On</button>
+                <p class="coinunlock4 stats" id="buildtext10" style="color: gold">0 Coins/second [0%]</p>
+            </div>
+        </div>
 
-    <div id="buildingtext">
-        <p id=buildtext1 style="color: gold">Workers: 321495 [+1.49e+391945]</p>
-        <button id="buycoin1" style="background-color: #070707;">Cost: 100 Coins.</button>
-        <p id="buildtext2" style="color: gold">100 Coins/second [100%]</p>
-        <p class="coinunlock1" id="buildtext3" style="color: gold">Investments: 0 [+0]</p>
-        <button class="coinunlock1" id="buycoin2" style="background-color: #070707;">Cost: 2e3 Coins.</button>
-        <p class="coinunlock1" id="buildtext4" style="color: gold">0 Coins/second [0%]</p>
-        <p class="coinunlock2" id="buildtext5" style="color: gold">Printers: 0 [+0]</p>
-        <button class="coinunlock2" id="buycoin3" style="background-color: #070707;">Cost: 4e4 Coins.</button>
-        <p class="coinunlock2" id="buildtext6" style="color: gold">0 Coins/second [0%]</p>
-        <p class="coinunlock3" id="buildtext7" style="color: gold">Coin Mints: 0 [+0]</p>
-        <button class="coinunlock3" id="buycoin4" style="background-color: #070707;">Cost: 8e5 Coins.</button>
-        <p class="coinunlock3" id="buildtext8" style="color: gold">0 Coins/second [0%]</p>
-        <p class="coinunlock4" id="buildtext9" style="color: gold">Alchemies: 0 [+0]</p>
-        <button class="coinunlock4" id="buycoin5" style="background-color: #070707;">Cost: 1.6e7 Coins.</button>
-        <p class="coinunlock4" id="buildtext10" style="color: gold">0 Coins/second [0%]</p>
-        <p class="coinunlock1" id="buildtext11" style="color: yellow">Accelerators: 0 [+0]</p>
-        <button class="coinunlock1" id="buyaccelerator" style="background-color: #070707;">Cost: 500 Coins.</button>
-        <p class="coinunlock1" id="buildtext12" style="color: cyan">Acceleration Factor: 10.0%. Acceleration Multiplier: 1.00x</p>
-        <p class="coinunlock3" id="buildtext13" style="color: yellow">Multipliers: 0 [+0]</p>
-        <button class="coinunlock3" id="buymultiplier" style="background-color: #070707;">Cost: 500 Coins.</button>
-        <p class="coinunlock3" id="buildtext14" style="color: pink">Multiplier Power: 2.000%. Multiplier: 1.00x</p>
-        <p class="prestigeunlock" id="buildtext15" style="color: cyan">Accelerator Boosts: 0 [+0]</p>
-        <button class="prestigeunlock" id="buyacceleratorboost" style="background-color: #070707;">Cost: 500 Coins.</button>
-        <p class="prestigeunlock" id="buildtext16" style="color: crimson">Next one adds 1.00% Acceleration Factor.</p>
+        <div class="buttonRow">
+            <div>
+                <img class="coinunlock1 image" id="accelerator" src="Pictures/Accelerator.png" alt="">
+                <p class="coinunlock1 desc" id="buildtext11" style="color: yellow">Accelerators: 0 [+0]</p>
+                <button class="coinunlock1 buy" id="buyaccelerator" style="background-color: #070707;">Cost: 500 Coins.</button>
+                <button class="auto" id="toggle6" toggleid="6" style="background-color: #171717;">Auto: On</button>
+                <p class="coinunlock1 stats" id="buildtext12" style="color: cyan">Acceleration Factor: 10.0%. Acceleration Multiplier: 1.00x</p>
+            </div>
+            <div>
+                <img class="coinunlock3 image" id="multiplier" src="Pictures/Multiplier.png" alt="">
+                <p class="coinunlock3 desc" id="buildtext13" style="color: yellow">Multipliers: 0 [+0]</p>
+                <button class="coinunlock3 buy" id="buymultiplier" style="background-color: #070707;">Cost: 500 Coins.</button>
+                <button class="auto" id="toggle7" toggleid="7" style="background-color: #171717;">Auto: On</button>
+                <p class="coinunlock3 stats" id="buildtext14" style="color: pink">Multiplier Power: 2.000%. Multiplier: 1.00x</p>
+            </div>
+            <div>
+                <img class="prestigeunlock image" id="acceleratorboost" src="Pictures/AcceleratorBoost.png" alt="">
+                <p class="prestigeunlock desc" id="buildtext15" style="color: cyan">Accelerator Boosts: 0 [+0]</p>
+                <button class="prestigeunlock buy" id="buyacceleratorboost" style="background-color: #070707;">Cost: 500 Coins.</button>
+                <button class="auto" id="toggle8" toggleid="8" style="background-color: #171717;">Auto: On</button>
+                <p class="prestigeunlock stats" id="buildtext16" style="color: crimson">Next one adds 1.00% Acceleration Factor.</p>
+            </div>
+        </div>
 
-        <button class="auto" id="toggle1" toggleid="1" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle2" toggleid="2" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle3" toggleid="3" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle4" toggleid="4" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle5" toggleid="5" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle6" toggleid="6" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle7" toggleid="7" style="background-color: #171717;">Auto: On</button>
-        <button class="auto" id="toggle8" toggleid="8" style="background-color: #171717;">Auto: On</button>
-
-        <p class="prestigeunlock" id="taxinfo" style="color: orange;">Due to your excessive wealth, all coin production is divided by 1.00 to pay taxes!</p>
-        <p class="prestigeunlock" id="buildinghotkeys">Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost. Press [left arrow] or [right arrow] to switch tabs. Enjoy!</p>
-    </div>
+        <div id="buildingtext">
+            <p class="prestigeunlock" id="taxinfo" style="color: orange;">Due to your excessive wealth, all coin production is divided by 1.00 to pay taxes!</p>
+            <p class="prestigeunlock" id="buildinghotkeys">Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost. Press [left arrow] or [right arrow] to switch tabs. Enjoy!</p>
+        </div>
     </div>
     <div id="prestige" style="display: none;">
         <div id="buyamountcrystal">

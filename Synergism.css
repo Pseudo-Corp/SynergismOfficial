@@ -309,265 +309,11 @@ nav li {
 	margin-left: -87px;
 }
 
-#coin1 {
-
-	position: absolute;
-	left: 10%;
-	top: 58px;
-	margin-left: -18px;
-
-}
-
-#coin2 {
-	position: absolute;
-	left: 10%;
-	top: 93px;
-	margin-left: -18px;
-}
-
-#coin3 {
-	position: absolute;
-	left: 10%;
-	top: 128px;
-	margin-left: -18px;
-}
-
-#coin4 {
-	position: absolute;
-	left: 10%;
-	top: 163px;
-	margin-left: -18px;
-}
-
-#coin5 {
-	position: absolute;
-	left: 10%;
-	top: 198px;
-	margin-left: -18px;
-}
-
-#accelerator {
-	position: absolute;
-	left: 10%;
-	top: 303px;
-	margin-left: -18px;
-}
-
-#multiplier {
-	position: absolute;
-	left: 10%;
-	top: 338px;
-	margin-left: -18px;
-}
-
-#acceleratorboost {
-	position: absolute;
-	left: 10%;
-	top: 373px;
-	margin-left: -18px;
-}
-
 #buildingtext {
 	position: relative;
 	padding: 0;
 }
 
-#buildtext1 {
-	position: absolute;
-	top: 45px;
-	left: 13%;
-}
-
-#buildtext2 {
-	position: absolute;
-	top: 45px;
-	left: 56.5%
-}
-#buildtext3 {
-	position: absolute;
-	top: 80px;
-	left: 13%;
-}
-#buildtext4 {
-	position: absolute;
-	top: 80px;
-	left: 56.5%
-}
-#buildtext5 {
-	position: absolute;
-	top: 115px;
-	left: 13%;
-}
-#buildtext6 {
-	position: absolute;
-	top: 115px;
-	left: 56.5%
-}
-#buildtext7 {
-	position: absolute;
-	top: 150px;
-	left: 13%;
-}
-#buildtext8 {
-	position: absolute;
-	top: 150px;
-	left: 56.5%
-}
-#buildtext9 {
-	position: absolute;
-	top: 185px;
-	left: 13%;
-}
-#buildtext10 {
-	position: absolute;
-	top: 185px;
-	left: 56.5%
-}
-#buildtext11 {
-	position: absolute;
-	top: 290px;
-	left: 13%;
-}
-#buildtext12 {
-	position: absolute;
-	top: 290px;
-	left: 56.5%
-}
-#buildtext13 {
-	position: absolute;
-	top: 325px;
-	left: 13%;
-}
-#buildtext14 {
-	position: absolute;
-	top: 325px;
-	left: 56.5%
-}
-#buildtext15 {
-	position: absolute;
-	top: 360px;
-	left: 13%;
-}
-#buildtext16 {
-	position: absolute;
-	top: 360px;
-	left: 56.5%
-}
-
-#buycoin1 {
-	position: absolute;
-	width: 150px;
-	height: 30px;
-	top: 72px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
-
-}
-
-#buycoin2 {
-	position: absolute;
-	width: 150px;
-	height: 30px;
-	top: 107px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
-
-}
-
-#buycoin3 {
-	position: absolute;
-	width: 150px;
-	height: 30px;
-	top: 142px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
-
-}
-
-#buycoin4 {
-	position: absolute;
-	width: 150px;
-	height: 30px;
-	top: 177px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
-
-}
-
-#buycoin5 {
-	position: absolute;
-	width: 150px;
-	height: 30px;
-	top: 212px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
-
-}
-
-#buyaccelerator {
-	position:absolute;
-	width: 150px;
-	height: 30px;
-	top: 317px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid maroon;
-	border-radius: 8px;
-
-}
-
-#buymultiplier {
-	position:absolute;
-	width: 150px;
-	height: 30px;
-	top: 352px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid maroon;
-	border-radius: 8px;
-}
-
-#buyacceleratorboost {
-	position:absolute;
-	width: 150px;
-	height: 30px;
-	top: 387px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid maroon;
-	border-radius: 8px;
-}
-
-#taxinfo {
-	position: absolute;
-	top: 420px;
-	width: 1000px;
-	left: 50%;
-	margin-left: -500px;
-	text-align: center;
-	font-size: 1em;
-}
-#buildinghotkeys{
-position: absolute;
-	padding: 5px;
-	top: 470px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
-	color: lightgray;
-	text-align: center;
-}
 #buildingsTable {
 	position:relative;
 	top:27%;
@@ -749,84 +495,68 @@ position: absolute;
 	height: 40px;
 }
 
-#toggle1 {
-	position:absolute;
-	width: 80px;
-	padding: 0;
-	height: 30px;
-	top: 56px;
-	left: 51%;
-	margin-left: -16px;
+.buttonRow {
+	margin-top: 65px;
+	margin-left: 8.5%;
 }
 
-#toggle2 {
-	position:absolute;
-	text-align:center;
-	width: 80px;
-	height: 30px;
-	top: 91px;
-	left: 51%;
-	margin-left: -16px;
+.buttonRow > div {
+	display: grid;
+	grid-template-columns: [image] 40px [imagedesc] 300px 50px [button] 170px [autobuy] 90px [stats];
+	justify-items: center;
+	text-align: left;
+	height: 35px;
 }
 
-#toggle3 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-
-	top: 126px;
-	left: 51%;
-	margin-left: -16px;
+.buttonRow > div > p {
+	margin-top: .25em;
 }
 
-#toggle4 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-
-	top: 161px;
-	left: 51%;
-	margin-left: -16px;
+.buttonRow > div > .image {
+	grid-column: image 1 / 1;
 }
 
-#toggle5 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-
-	top: 196px;
-	left: 51%;
-	margin-left: -16px;
+.buttonRow > div > .desc {
+	grid-column: imagedesc 1 / 2;
+	text-align: left;
+	width: 100%;
+	margin-left: 40px;
 }
 
-#toggle6 {
-	position:absolute;
-	width: 80px;
+.buttonRow > div > .buy {
+	grid-column: button 1 / 4;
+	width: 150px;
 	height: 30px;
-
-	top: 301px;
-	left: 51%;
-	margin-left: -16px;
+	border-radius: 8px;
+	border: 1px solid white;
 }
 
-#toggle7 {
-	position:absolute;
+.buttonRow > div > .auto {
+	grid-column: autobuy 1 / 5;
 	width: 80px;
 	height: 30px;
-
-	top: 336px;
-	left: 51%;
-	margin-left: -16px;
+	margin-left: 35px;
 }
 
-#toggle8 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
+.buttonRow > div > .stats {
+	grid-column: stats 1 / 6;
+	width: 100%;
+	margin-left: 45px;
+}
 
-	top: 371px;
-	left: 51%;
-	margin-left: -16px;
+#taxinfo {
+	text-align: center;
+	font-size: 1em;
+	margin-top: 30px;
+}
+
+#buildinghotkeys{
+	padding: 5px;
+	height: 20px;
+	color: lightgray;
+	text-align: center;
+	width: 1200px;
+	margin: 0 auto;
 }
 
 #toggle10 {
