@@ -559,112 +559,6 @@ nav li {
 	margin: 0 auto;
 }
 
-#toggle10 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 57px;
-	left: 51%;
-	margin-left: -16px;
-}
-
-
-#toggle11 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 92px;
-	left: 51%;
-	margin-left: -16px;
-}
-
-#toggle12 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 127px;
-	left: 51%;
-	margin-left: -16px;
-}
-
-#toggle13 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-
-	top: 162px;
-	left: 51%;
-	margin-left: -16px;
-}
-
-#toggle14 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-
-	top: 197px;
-	left: 51%;
-	margin-left: -16px;
-}
-
-#toggle15 {
-	position:absolute;
-	width: 150px;
-	top: 404px;
-	left: 50%;
-	margin-left: -75px;
-}
-#prestigeautotoggle {
-	position:absolute;
-	width: 150px;
-	top: 424px;
-	left: 50%;
-	margin-left: -75px;
-}
-
-#toggle16 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 57px;
-	left: 51%;
-	margin-left: -16px;
-}
-
-#toggle17 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 92px;
-	left: 51%;
-	margin-left: -16px;
-}
-
-#toggle18 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 127px;
-	left: 51%;
-	margin-left: -16px;
-}
-
-#toggle19 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 162px;
-	left: 51%;
-	margin-left: -16px;
-}
-#toggle20 {
-	position:absolute;
-	width: 80px;
-	height: 30px;
-	top: 197px;
-	left: 51%;
-	margin-left: -16px;
-}
 #toggle22 {
 	position:absolute;
 	width: 80px;
@@ -759,17 +653,13 @@ nav li {
 #achievementcolorcode3 { color: crimson; }
 #achievementcolorcode4 { color: gray; }
 
-#prestige {
-    position: relative;
-    padding: 0;
-    border: 1px solid cyan
-}
 #buyamountcrystal {
 	position: absolute;
 	padding: 0;
 	font-size: 0;
 	left: 80%;
-	top: 20px;
+	/* Absolute positioning is horrible */
+	top: -8.1%;
 }
 #buyamountoffering {
 	position: absolute;
@@ -790,7 +680,7 @@ nav li {
 	padding: 0;
 	font-size: 0;
 	left: 80%;
-	top: 20px;
+	top: -8.1%;
 }
 #buyamountparticle {
 	position: absolute;
@@ -860,244 +750,38 @@ nav li {
 	top: 30px;	
 	margin-left: -87px;	
 }
-#prestigeshardinfo {
-    position: absolute;
-    padding: 0;
-    top: 220px;
-    width: 700px;
-    left: 50%;
-    margin-left: -350px;
-}
-
-#diamond1 {
-    position: absolute;
-    top: 58px;
-    left: 10%;
-    margin-left: -18px;
-}
-
-#diamond2 {
-    position: absolute;
-    top: 93px;
-	
-    left: 10%;
-    margin-left: -18px;
-
-}
-
-#diamond3 {
-    position: absolute;
-    top: 128px;
-    left: 10%;
-    margin-left: -18px;
-
-}
-
-#diamond4 {
-    position: absolute;
-    top: 163px;
-    left: 10%;
-    margin-left: -18px;
-
-}
-
-#diamond5 {
-    position: absolute;
-    top: 198px;
-    left: 10%;
-    margin-left: -18px;
-}
-
-
-#prestigetext1 {
-    position: absolute;
-    top: 44px;
-    left: 13%;
-}
-#prestigetext2 {
-    position: absolute;
-    top: 44px;
-    left: 56.5%;
-}
-#prestigetext3 {
-    position: absolute;
-    top: 79px;
-    left: 13%;
-}
-#prestigetext4 {
-    position: absolute;
-    top: 79px;
-    left: 56.5%;
-}
-#prestigetext5 {
-    position: absolute;
-    top: 114px;
-    left: 13%;
-}
-#prestigetext6 {
-    position: absolute;
-    top: 114px;
-    left: 56.5%;
-}
-#prestigetext7 {
-    position: absolute;
-    top: 149px;
-    left: 13%;
-}
-#prestigetext8 {
-    position: absolute;
-    top: 149px;
-    left: 56.5%;
-}
-
-#prestigetext9 {
-    position: absolute;
-    top: 184px;
-    left: 13%;
-}
-#prestigetext10 {
-    position: absolute;
-    top: 184px;
-    left: 56.5%;
-}
-
-#buydiamond1 {
-    position: absolute;
-    width: 150px;
-    height: 30px;
-    top: 73px;
-    left: 37%;
-    margin-top: -15px;
-    border: 1px solid white;
-    border-radius: 8px;
-
-}
-
-#buydiamond2 {
-    position: absolute;
-    width: 150px;
-    height: 30px;
-    top: 108px;
-    left: 37%;
-    margin-top: -15px;
-    border: 1px solid white;
-    border-radius: 8px;
-
-}
-
-#buydiamond3 {
-    position: absolute;
-    width: 150px;
-    height: 30px;
-    top: 143px;
-    left: 37%;
-    margin-top: -15px;
-    border: 1px solid white;
-    border-radius: 8px;
-
-}
-
-#buydiamond4 {
-    position: absolute;
-    width: 150px;
-    height: 30px;
-    top: 178px;
-    left: 37%;
-    margin-top: -15px;
-    border: 1px solid white;
-    border-radius: 8px;
-
-}
-
-#buydiamond5 {
-    position:absolute;
-    width: 150px;
-    height: 30px;
-    top: 213px;
-    left: 37%;
-    margin-top: -15px;
-    border: 1px solid white;
-    border-radius: 8px;
-
-}
-
-#prestigeinfo {
-    color: cyan;
-}
 
 #prestige {
     position: relative;
-    padding: 0;
-    border: 1px solid cyan
-}
-#crystalupgradestable {
-	position: absolute;
-	top: 260px;
 	padding: 0;
-	left: 50%;
-	margin-left: -100px;
-}
-#crystalupgradedescription {
-	position: absolute;
-	top: 280px;
-	padding: 0;
-	left: 50%;
-	margin-left: -375px;
-	width: 750px;
-	height: 100px;
-}
-#crystalupgradeslevel {
-	position: absolute;
-	top:320px;
-	padding: 0;
-	left: 50%;
-	margin-left: -120px;
-	width: 240px;
-	height: 30px;
-}
-#crystalupgradescost {
-	position: absolute;
-	top: 300px;
-	padding: 0;
-	left: 50%;
-	margin-left: -120px;
-	width: 240px;
-	height: 30px;
+	color: cyan;
 }
 
+#crystalupgradestable { margin: 0 auto; }
+#prestigeshardinfo, #crystalupgrades > p { margin: 2px; }
+
 #prestigeamount {
-	position: absolute;
-	top: 448px;
-	padding: 0;
-	left: 50%;
-	width: 100px;
-	margin-left: -50px;
 	border: 1px solid cyan;
 	color: white;
 	background-color: black
 }
 
-#autoprestige {
-	position: absolute;
-	top: 450px;
-	padding: 0;
-	left: 50%;
-	width: 750px;
-	margin-left: -375px;
-	text-align: center;
-	color: white
+#autocrystalbuild {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 35px;
 }
+
+#toggle15, #prestigeautotoggle { width: 150px; }
+
 #prestigehotkeys{
-	position: absolute;
-	padding: 5px;
-	top: 490px;
-	left: 50%;
 	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
 	color: gray;
-	text-align: center;
 }
+
+#autocrystalbuild > p { margin: 0; }
+#autoprestige { color: white; }
 
 #runes {
 	position: relative;
@@ -1719,227 +1403,37 @@ nav li {
 #transcension {
 	position: relative;
 	padding: 0;
-	border: 1px solid plum
 }
 
-#transcendshardinfo {
-	position: absolute;
-	padding: 0;
-	top: 220px;
-	width: 700px;
-	left: 50%;
-	margin-left: -350px;
+#transcension > .buttonRow {
+	color: pink;
 }
+
+#transcendshardinfo { margin: 2px; }
 #transcendshardbonus {
-	position: absolute;
-	padding: 0;
-	top: 240px;
-	width: 700px;
-	left: 50%;
-	margin-left: -350px;
-}
-
-#mythos1 {
-	position: absolute;
-	top: 58px;
-	left: 10%;
-	margin-left: -18px;
-}
-
-#mythos2 {
-	position: absolute;
-	top: 93px;
-	left: 10%;
-	margin-left: -18px;
-
-}
-
-#mythos3 {
-	position: absolute;
-	top: 128px;
-	left: 10%;
-	margin-left: -18px;
-
-}
-
-#mythos4 {
-	position: absolute;
-	top: 163px;
-	left: 10%;
-	margin-left: -18px;
-
-}
-
-#mythos5 {
-	position: absolute;
-	top: 198px;
-	left: 10%;
-	margin-left: -18px;
-}
-
-
-#transcendtext1 {
-	position: absolute;
-	top: 43px;
-	left: 13%;
-}
-#transcendtext2 {
-	position: absolute;
-	top: 43px;
-	left: 56.5%;
-}
-#transcendtext3 {
-	position: absolute;
-	top: 78px;
-	left: 13%;
-}
-#transcendtext4 {
-	position: absolute;
-	top: 78px;
-	left: 56.5%;
-}
-#transcendtext5 {
-	position: absolute;
-	top: 113px;
-	left: 13%;
-}
-#transcendtext6 {
-	position: absolute;
-	top: 113px;
-	left: 56.5%;
-}
-#transcendtext7 {
-	position: absolute;
-	top: 148px;
-	left: 13%;
-}
-#transcendtext8 {
-	position: absolute;
-	top: 148px;
-	left: 56.5%;
-}
-
-#transcendtext9 {
-	position: absolute;
-	top: 183px;
-	left: 13%;
-}
-#transcendtext10 {
-	position: absolute;
-	top: 183px;
-	left: 56.5%;
-}
-
-#buymythos1 {
-	position: absolute;
-	width: 150px;
-	height: 30px;
-	top: 73px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
-
-}
-
-#buymythos2 {
-	position: absolute;
-	width: 150px;
-	height: 30px;
-	top: 108px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
-
-}
-
-#buymythos3 {
-	position: absolute;
-	width: 150px;
-	height: 30px;
-	top: 143px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
-
-}
-
-#buymythos4 {
-	position: absolute;
-	width: 150px;
-	height: 30px;
-	top: 178px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
-
-}
-
-#buymythos5 {
-	position:absolute;
-	width: 150px;
-	height: 30px;
-	top: 213px;
-	left: 37%;
-	margin-top: -15px;
-	border: 1px solid white;
-	border-radius: 8px;
-
+	margin-bottom: 100px;
+	margin-top: 2px;
 }
 
 #transcendamount {
-	position: absolute;
-	top: 418px;
-	padding: 0;
-	left: 50%;
-	width: 100px;
-	margin-left: -50px;
 	border: 1px solid plum;
 	color: white;
 	background-color: black
 }
 
 #autotranscend {
-	position: absolute;
-	top: 420px;
-	padding: 0;
-	left: 50%;
-	width: 750px;
-	margin-left: -375px;
 	text-align: center;
 	color: white
 }
 
-#toggle21 {
-	position:absolute;
-	width: 150px;
-	top: 374px;
-	left: 50%;
-	margin-left: -75px;
-}
-#transcendautotoggle {
-	position:absolute;
-	width: 150px;
-	top: 394px;
-	left: 50%;
-	margin-left: -75px;
-}
+#toggle21 { margin-top: 100px; }
 
-#transcendinfo {
-	color: pink;
+#toggle21, #transcendautotoggle, #transcendamount { 
+	width: 150px; 
+	margin: 0 auto; 
 }
 
 #transcendhotkeys{
-	position: absolute;
-	padding: 5px;
-	top: 460px;
-	left: 50%;
-	width: 1200px;
-	margin-left: -600px;
-	height: 20px;
 	color: gray;
 	text-align: center;
 }

@@ -162,17 +162,29 @@ export const revealStuff = () => {
         ex.style.display = player.achievements[173] === 1 ? "block" : "none";
     }
 
-    player.upgrades[89] === 1 ? //Automatic Transcension Upgrade
-        document.getElementById("transcendautomation").style.display = "block" :
-        document.getElementById("transcendautomation").style.display = "none";
+    if (player.upgrades[89] === 1) {
+        document.getElementById('transcendautotoggle').style.display = 'block';
+        document.getElementById('transcendamount').style.display = 'block';
+        document.getElementById('autotranscend').style.display = 'block';
+    } else {
+        document.getElementById('transcendautotoggle').style.display = 'none';
+        document.getElementById('transcendamount').style.display = 'none';
+        document.getElementById('autotranscend').style.display = 'none';
+    }
 
    player.achievements[38] === 1 ? //Prestige Diamond Achievement 3
         (document.getElementById("rune2area").style.display = "flex", document.getElementById("runeshowpower2").style.display = "flex") :
         (document.getElementById("rune2area").style.display = "none", document.getElementById("runeshowpower2").style.display = "none");
 
-    player.achievements[43] === 1 ? //Trasncend Mythos Achievement 1
-        document.getElementById("prestigeautomation").style.display = "block" :
-        document.getElementById("prestigeautomation").style.display = "none";
+    if (player.achievements[43] === 1) { // Trasncend Mythos Achievement 1
+        document.getElementById('prestigeautotoggle').style.display = 'block';
+        document.getElementById('prestigeamount').style.display = 'block';
+        document.getElementById('autoprestige').style.display = 'block';
+    } else {
+        document.getElementById('prestigeautotoggle').style.display = 'none';
+        document.getElementById('prestigeamount').style.display = 'none';
+        document.getElementById('autoprestige').style.display = 'none';
+    }
 
     player.achievements[44] === 1 ? //Transcend Mythos Achievement 2
     (document.getElementById("rune3area").style.display = "flex", document.getElementById("runeshowpower3").style.display = "flex") :
