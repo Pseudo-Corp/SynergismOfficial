@@ -405,11 +405,16 @@ export const updateTalismanAppearance = (i: number) => {
     }
 }
 
+// Attempt to buy a fixed number of levels (number varies based on
+// ascension). Returns true if all levels were bought -- false otherwise
+// (whether due to lack of resources or hitting the level cap).
 export const buyTalismanLevels = (i: number, auto = false): boolean => {
     let max = 1;
     if (player.ascensionCount > 0) {
         max = 30
     }
+    let purchasedMax = true;
+    let hasPurchased = false;
     for (let j = 1; j <= max; j++) {
         let checkSum = 0;
         let priceMult = G['talismanLevelCostMultiplier'][i]
@@ -456,20 +461,21 @@ export const buyTalismanLevels = (i: number, auto = false): boolean => {
             player.legendaryFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i-1] - 150, 3)))
             player.mythicalFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i-1] - 150, 3)))
             player.talismanLevels[i-1] += 1;
-
+            hasPurchased = true;
         } else {
-            return false;
+            purchasedMax = false;
+            break;
         }
     }
 
-    if (!auto) {
+    if (!auto && hasPurchased) {
         showTalismanPrices(i);
         // When adding game state recalculations, update the talisman autobuyer in tack() as well
         updateTalismanInventory();
         calculateRuneLevels();
     }
 
-    return true;
+    return purchasedMax;
 }
 
 export const buyTalismanEnhance = (i: number, auto = false): boolean => {
