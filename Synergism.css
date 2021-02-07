@@ -2252,6 +2252,20 @@ nav li {
 	text-align: center;
 }
 
+#creditList {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(250px, 1fr));
+}
+
+.credit {
+	display: flex;
+	flex-direction: row;
+	margin-top: 2px;
+}
+
+.credit > a {
+	margin-left: 5px;
+}
 
 #statisticsSubTab {
 	max-height: 800px;

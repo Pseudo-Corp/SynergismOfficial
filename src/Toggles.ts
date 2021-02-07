@@ -552,7 +552,7 @@ export const toggleautoenhance = () => {
     player.autoEnhanceToggle = !player.autoEnhanceToggle;
 }
 
-function setActiveSettingScreen(subtab: string, clickedButton: HTMLButtonElement) {
+const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonElement) => {
     const subtabEl = document.getElementById(subtab);
     if (subtabEl.classList.contains("subtabActive")) {
         return;
@@ -580,6 +580,37 @@ function setActiveSettingScreen(subtab: string, clickedButton: HTMLButtonElement
 
         const id = interval(refreshStats, 1000)
         refreshStats();
+    } else if (subtab === 'creditssubtab') {
+        const credits = document.getElementById('creditList');
+
+        if (credits.childElementCount > 0)
+            return;
+
+        try {
+            const r = await fetch('https://api.github.com/repos/pseudo-corp/SynergismOfficial/contributors');
+            const j = await r.json();
+
+            for (const contributor of j) { 
+                const div = document.createElement('div');
+                div.classList.add('credit');
+
+                const img = document.createElement('img');
+                img.src = contributor.avatar_url;
+                img.alt = contributor.login;
+                img.height = img.width = 32;
+
+                const a = document.createElement('a');
+                a.href = contributor.html_url;
+                a.textContent = contributor.login;
+                
+                div.appendChild(img);
+                div.appendChild(a);
+
+                credits.appendChild(div);
+            }
+        } catch (e) {
+            credits.appendChild(document.createTextNode(e.toString()));
+        }
     }
 }
 
