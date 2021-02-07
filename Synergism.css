@@ -105,7 +105,7 @@ a {color: white;}
 }
 #preload {
 	position:absolute;
-	z-index: 2
+	z-index: 2;
 }
 #offlineTimer{
 	position:absolute;
@@ -253,45 +253,20 @@ nav li {
 	color: red;
 }
 
-.buildingTabs {
+.subTabWrapper {
+	display: flex;
+	flex-direction: row;
+	margin-left: 8.75%;
+	margin-top: 10px;
+}
+
+.subTabWrapper > button {
 	height: 30px;
 	width: 150px;
 	text-align: center;
+	margin-right: 17px;
 }
 
-
-
-#buildingrow1 {
-	position:absolute;
-	position: relative;
-	padding: 0;
-	border: 1px solid gold;
-}
-#switchToCoinBuilding{
-	position: absolute;
-	top: 178px;
-	left: 8.75%;
-}
-#switchToDiamondBuilding{
-	position: absolute;
-	top: 178px;
-	left: 20.75%;
-}
-#switchToMythosBuilding{
-	position: absolute;
-	top: 178px;
-	left: 32.75%;
-}
-#switchToParticleBuilding{
-	position: absolute;
-	top: 178px;
-	left: 44.75%;
-}
-#switchToTesseractBuilding{	
-	position: absolute;	
-	top: 178px;	
-	left: 56.75%;	
-}
 #buyamountcoin {
 	position: absolute;
 	padding: 0;
@@ -494,7 +469,7 @@ nav li {
 }
 
 .buttonRow {
-	margin-top: 65px;
+	margin-top: 30px;
 	margin-left: 8.5%;
 }
 
@@ -2310,22 +2285,6 @@ nav li {
 .constUpgrade{
 	cursor: pointer;
 }
-
-.subtabSwitcher {
-	text-align: left;
-	margin: 9px 0;
-}
-
-.subtabSwitcher > button {
-	display: inline-block;
-	overflow: hidden;
-	height: 30px;
-	width: 150px;
-	text-align: center;
-	/* margins carefully chosen to be as close to buildings tab as possible */
-	margin-left: calc(12% - 154px);
-}
-.subtabSwitcher > button:first-child { margin-left: 8.75%; }
 
 .subtabSwitcher > button.buttonActive {
 	background-color: crimson;
