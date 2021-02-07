@@ -108,11 +108,13 @@
     </header>
     <div id="tabBorder"></div>
     <div id="buildings">
-        <button class="buildingTabs" id="switchToCoinBuilding" style="border: 2px solid yellow">Coin Buildings</button>
-        <button class="buildingTabs prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan">Diamond Buildings</button>
-        <button class="buildingTabs transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum">Mythos Buildings</button>
-        <button class="buildingTabs reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow">Particle Buildings</button>
-        <button class="buildingTabs ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange">Tesseract Buildings</button>
+        <div class="subTabWrapper"> 
+            <button id="switchToCoinBuilding" style="border: 2px solid yellow">Coin Buildings</button>
+            <button class="prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan">Diamond Buildings</button>
+            <button class="transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum">Mythos Buildings</button>
+            <button class="reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow">Particle Buildings</button>
+            <button class="ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange">Tesseract Buildings</button>
+        </div>
         <div id="coinBuildings">
         <div id="buyamountcoin">
             <table class="coinunlock3" id="coinbuyamount">
@@ -2345,7 +2347,7 @@
             </div>
         </div>
 <div id="settings">
-    <div class="subtabSwitcher">
+    <div class="subtabSwitcher subTabWrapper">
         <button id="switchSettingSubTab1" style="border: 2px solid white">Settings</button>
         <button id="switchSettingSubTab2" style="border: 2px solid gold">Credits</button>
         <button id="switchSettingSubTab3" style="border: 2px solid orange">Stats for Nerds</button>
