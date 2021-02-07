@@ -406,14 +406,12 @@ export const updateTalismanAppearance = (i: number) => {
 }
 
 // Attempt to buy a fixed number of levels (number varies based on
-// ascension). Returns true if all levels were bought -- false otherwise
-// (whether due to lack of resources or hitting the level cap).
+// ascension). Returns true if any levels were bought, false otherwise.
 export const buyTalismanLevels = (i: number, auto = false): boolean => {
     let max = 1;
     if (player.ascensionCount > 0) {
         max = 30
     }
-    let purchasedMax = true;
     let hasPurchased = false;
     for (let j = 1; j <= max; j++) {
         let checkSum = 0;
@@ -463,7 +461,6 @@ export const buyTalismanLevels = (i: number, auto = false): boolean => {
             player.talismanLevels[i-1] += 1;
             hasPurchased = true;
         } else {
-            purchasedMax = false;
             break;
         }
     }
@@ -475,7 +472,7 @@ export const buyTalismanLevels = (i: number, auto = false): boolean => {
         calculateRuneLevels();
     }
 
-    return purchasedMax;
+    return hasPurchased;
 }
 
 export const buyTalismanEnhance = (i: number, auto = false): boolean => {
