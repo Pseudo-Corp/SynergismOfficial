@@ -459,7 +459,6 @@ export interface Player {
 
     saveString: string
     exporttest: string | boolean
-    kongregatetest: string
 
     dayCheck: Date | null
     dayTimer: number

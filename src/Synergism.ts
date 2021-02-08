@@ -574,7 +574,6 @@ export const player: Player = {
 
     saveString: "Synergism-$VERSION$-$TIME$.txt",
     exporttest: false,
-    kongregatetest: "NO!",
 
     dayCheck: null,
     dayTimer: 0,
