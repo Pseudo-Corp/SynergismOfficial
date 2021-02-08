@@ -322,7 +322,6 @@ export const player: Player = {
     },
     researchPoints: 0,
     obtainiumtimer: 0,
-    obtainiumlocktoggle: false,
     obtainiumpersecond: 0,
     maxobtainiumpersecond: 0,
     maxobtainium: 0,
@@ -374,7 +373,6 @@ export const player: Player = {
     runelevels: [1, 1, 1, 1, 1],
     runeexp: [0, 0, 0, 0, 0,],
     runeshards: 0,
-    offeringlocktoggle: false,
     maxofferings: 0,
     offeringpersecond: 0,
 
@@ -733,8 +731,6 @@ export const loadSynergy = (): void => {
             player.maxobtainium = player.researchPoints;
             player.researchPoints += 51200 * player.researches[50];
             player.researches[50] = 0;
-            player.offeringlocktoggle = false;
-            player.obtainiumlocktoggle = false;
         }
 
         player.maxofferings = player.maxofferings || 0;

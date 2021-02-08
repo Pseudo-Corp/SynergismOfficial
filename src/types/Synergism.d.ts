@@ -233,7 +233,6 @@ export interface Player {
     },
     researchPoints: number
     obtainiumtimer: number
-    obtainiumlocktoggle: boolean,
     obtainiumpersecond: number
     maxobtainiumpersecond: number
     maxobtainium: number
@@ -278,7 +277,6 @@ export interface Player {
     runelevels: number[]
     runeexp: number[]
     runeshards: number
-    offeringlocktoggle: boolean,
     maxofferings: number
     offeringpersecond: number
 
