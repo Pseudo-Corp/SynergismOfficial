@@ -1815,10 +1815,10 @@ nav li {
 #wowCubeSidebar {
 	display: flex;
 	flex-direction: column;
-	width: 20%;
 	margin-left: 4.5%;
-	margin-top: 4.5%;
+	margin-top: 25%;
 	text-align: center;
+	grid-area: sidebar;
 }
 
 #wowCubeSidebarButtons {
@@ -1838,32 +1838,12 @@ nav li {
 #cubeToQuarkTimer { font-size: 1.2em; }
 
 .cubePlacement1{
-	position:absolute;
-	text-align: center;
-	top: 0;
 	font-size: 1.2em;
-	width: 700px;
-	left: 50%;
-	margin-left: -350px;
 }
-.cubePlacement2{
-	position:absolute;
-	text-align: center;
-	top: 30px;
+.cubePlacement2, .cubePlacement3 {
 	font-size: 1.0em;
-	width: 700px;
-	left: 50%;
-	margin-left: -350px;
 }
-.cubePlacement3{
-	position:absolute;
-	text-align: center;
-	top: 50px;
-	font-size: 1.0em;
-	width: 700px;
-	left: 50%;
-	margin-left: -350px;
-}
+
 .cubePlacement4{
 	position: absolute;
 	text-align: center;
@@ -1879,171 +1859,81 @@ nav li {
 	margin-left: -96px;
 }
 .cubeBtn {
-	height: 30px;
-	width: 100px;
-	border: 1px solid gold;
 	color: white;
 	background-color: black;
 }
-#cubeBlessingsTotal{
-	position: absolute;
-	padding: 5px;
-	top: 500px;
-	margin-left: 25%;
-	width: 50%;
-	color: orange;
-	text-align: center;
+
+p[id$="BlessingsTotal"] {
+	padding: 15px;
 }
-#tesseractBlessingsTotal{
-	position: absolute;
-	padding: 5px;
-	top: 500px;
-	margin-left: 25%;
-	width: 50%;
-	color: orchid;
-	text-align: center;
+
+#cubeBlessingsTotal { color: orange; }
+#tesseractBlessingsTotal { color: orchid; }
+#hypercubeBlessingsTotal { color: rgb(255, 0, 76); }
+#platonicBlessingsTotal { color: orange; }
+
+#cubesWrapper {
+	display: grid;
+	grid-template-columns: 4% [sidebar] 20% 4% [tab] 50%;
 }
-#hypercubeBlessingsTotal{
-	position: absolute;
-	padding: 5px;
-	top: 500px;
-	margin-left: 25%;
-	width: 50%;
-	color: rgb(255, 0, 76);
-	text-align: center;
+
+#cubesWrapper > div[id^="cubeTab"] {
+	grid-area: tab;
+	margin-top: 15px;
 }
-#platonicBlessingsTotal{
-	position: absolute;
-	padding: 5px;
-	top: 450px;
-	margin-left: 25%;
-	width: 50%;
-	color:orange;
+
+#cubesWrapper > div[id^="cubeTab"] > p {
 	text-align: center;
+	margin: 2px;
 }
-#open1Cube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: -96px;
+
+.openGrid {
+	display: grid;
+	grid-template-columns: 64px 700px;
+	grid-template-rows: 32px auto;
 }
-#open20Cube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 6px;
+
+.openImage {
+	grid-row: 1/3;
+	grid-column: 1;
 }
-#open1000Cube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 108px;
+
+.inventory {
+	grid-row: 1;
+	grid-column: 2;
+	margin: .5% 10px;
 }
-#openMostCube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 210px;
+
+.openBtn {
+	grid-row: 2;
+	grid-column: 2;
+	margin-left: 10px;
 }
-#open1Tesseract{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: -96px;
+
+.openBtn > button {
+	width: 100px;
+	height: 30px;
+	border: 1px solid gold;
 }
-#open20Tesseract{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 6px;
-}
-#open1000Tesseract{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 108px;
-}
-#open1Hypercube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: -96px;
-}
-#open20Hypercube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 6px;
-}
-#open1000Hypercube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 108px;
-}
-#openMostHypercube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 210px;
-}
-#openMostTesseract{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 210px;
-}
-#open1PlatonicCube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: -96px;
-}
-#open40kPlatonicCube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 6px;
-}
-#open1mPlatonicCube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 108px;
-}
-#openMostPlatonicCube{
-	position: absolute;
-	text-align: center;
-	top: 128px;
-	left: 40%;
-	margin-left: 210px;
-}
+
 .cubeBonus{
-	position:absolute;
-	top: 170px;
-	left: 30%;
-	margin-left: -16px;
+	margin-left: 2.5%;
+	margin-top: 5px;
 }
-.cubeIcon{
-	position:absolute;
-	padding: 0;
+.cubeIcon {
 	border-spacing: 0;
 }
+
+#cubeTab5Wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 85%;
+	margin-top: 15px;
+}
+
+#cubeTab5Wrapper > p { margin: 2px; }
+
 #cube1Bonus{
 	width: 1500px;
 }
@@ -2053,64 +1943,15 @@ nav li {
 #hypercube1Bonus{
 	width: 1500px;
 }
-#cubeAmount2{
-	position:absolute;
-	padding: 0;
-	top: 20px;
-	left: 50%;
-	width: 1000px;
-	margin-left: -500px;
-	text-align: center;
-	color: white;
-}
+
+#cubeAmount2 { color: white; }
 #cubeUpgradeTable {
-	position:absolute;
-	padding: 0;
-	top: 75px;
-	left: 50%;
-	margin-left: -170px;
-	border-collapse:collapse;
+	border-collapse: collapse;
 	font-size: 0;
 }
-#cubeUpgradeName {
-	position:absolute;
-	top:250px;
-	width:600px;
-	height: 42px;
-	left:50%;
-	margin-left: -300px;
-}
 
-#cubeUpgradeDescription {
-	position: absolute;
-	position:absolute;
-	top:273px;
-	width:500px;
-	height: 42px;
-	left:50%;
-	margin-left: -250px;
-}
-
-#cubeUpgradeCost {
-	position:absolute;
-	top:336px;
-	width: 600px;
-	left: 50%;
-	margin-left: -300px;
-}
-#cubeUpgradeLevel {
-	position:absolute;
-	top:359px;
-	width: 200px;
-	left: 50%;
-	margin-left: -100px;
-}
 #toggleCubeBuy {
-	position:absolute;
-	top:414px;
 	width: 200px;
-	left: 50%;
-	margin-left: -100px;
 	height: 30px;
 }
 
