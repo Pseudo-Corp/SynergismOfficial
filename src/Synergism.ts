@@ -2516,7 +2516,10 @@ export const resetCheck = (i: string, manual = true, leaving = false): void => {
             }
         }
         if (r !== 0) {
-            player.currentChallenge.reincarnation = 0;
+            // bandaid
+            if (typeof player.currentChallenge === 'string') {
+                player.currentChallenge = { ...blankSave.currentChallenge };
+            }
         }
         if (t !== 0) {
             player.currentChallenge.transcension = 0;
