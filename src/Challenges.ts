@@ -1,5 +1,5 @@
 import Decimal from "break_infinity.js";
-import player, { format, resetCheck } from "./Synergism";
+import { player, format, resetCheck } from "./Synergism";
 import { toggleAutoChallengeTextColors, toggleChallenges } from "./Toggles";
 import { Globals as G } from './Variables';
 import { calculateRuneLevels } from "./Calculate";
@@ -534,5 +534,3 @@ export const runChallengeSweep = (dt: number) => {
         }
     }
 }
-
-export default {};

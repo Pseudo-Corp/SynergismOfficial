@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js';
 import LZString from 'lz-string';
 
 import { isDecimal, getElementById, sortWithIndeces, sumContents } from './Utility';
-import { Globals as G } from './Variables';
+import { blankGlobals, Globals as G } from './Variables';
 import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep } from './Challenges';
 
 import type { Player } from './types/Synergism';
@@ -621,6 +621,9 @@ export const loadSynergy = (): void => {
             value: player
         });
     }
+
+    Object.assign(G, { ...blankGlobals });
+
     if (data) {
         const hasOwnProperty = {}.hasOwnProperty;
 
@@ -3355,5 +3358,3 @@ window.addEventListener('load', () => {
         changeTabColor();
     }, 0);
 });
-
-export default player;

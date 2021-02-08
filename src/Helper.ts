@@ -1,12 +1,10 @@
 import { sacrificeAnts } from "./Ants";
 import { calculateAutomaticObtainium, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration } from "./Calculate"
 import { redeemShards } from "./Runes";
-import player from "./Synergism";
+import { player } from "./Synergism";
 import { visualUpdateResearch } from "./UpdateVisuals";
 import { Globals as G } from './Variables';
-/**
- * 
- */
+
 export const getMaxQuarkTime = () => {
 
     // The base time is 25 hours

@@ -1,5 +1,5 @@
 import { upgradeupdate } from "./Upgrades"
-import player from "./Synergism"
+import { player } from "./Synergism"
 import Decimal from "break_infinity.js"
 import { achievementaward } from "./Achievements"
 import { revealStuff } from "./UpdateHTML"

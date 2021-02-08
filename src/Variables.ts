@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js';
 import { GlobalVariables } from './types/Synergism';
 
-const Globals: GlobalVariables = {
+export const Globals: GlobalVariables = {
     runediv: [1.5, 2, 3, 5, 8],
     runeexpbase: [1, 4, 9, 16, 1000],
 
@@ -416,5 +416,4 @@ const Globals: GlobalVariables = {
     // talismanResourceOfferingCosts: [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 }
 
-export { Globals };
-export default Globals;
+export const blankGlobals = { ...Globals };

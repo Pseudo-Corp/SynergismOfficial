@@ -1,4 +1,4 @@
-import player, { format } from "./Synergism"
+import { player, format } from "./Synergism"
 import { achievementaward } from "./Achievements"
 import { CalcECC } from "./Challenges"
 import { calculateCubeBlessings, calculateSummationNonLinear } from "./Calculate"
