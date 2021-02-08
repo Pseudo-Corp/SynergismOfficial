@@ -278,7 +278,6 @@ export interface Player {
     fastestprestige: number
     fastesttranscend: number
     fastestreincarnate: number
-    fastestAscend: number
 
     resettoggle1: number
     resettoggle2: number

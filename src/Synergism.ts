@@ -374,7 +374,6 @@ export const player: Player = {
     fastestprestige: 9999999999,
     fastesttranscend: 99999999999,
     fastestreincarnate: 999999999999,
-    fastestAscend: 999999999999,
 
     resettoggle1: 1,
     resettoggle2: 1,
