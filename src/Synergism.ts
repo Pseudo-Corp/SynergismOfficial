@@ -295,11 +295,6 @@ export const player: Player = {
         33: false,
     },
 
-    resourceGenerators: {
-        diamonds: false,
-        mythos: false,
-    },
-
     challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     highestchallengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     challenge15Exponent: 0,

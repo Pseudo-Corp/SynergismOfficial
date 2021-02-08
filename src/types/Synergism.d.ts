@@ -206,11 +206,6 @@ export interface Player {
 
     toggles: Record<number, boolean>
 
-    resourceGenerators: {
-        diamonds: boolean,
-        mythos: boolean,
-    },
-
     challengecompletions: number[]
     highestchallengecompletions: number[]
     challenge15Exponent: number

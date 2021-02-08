@@ -638,7 +638,6 @@ const resetUpgrades = (i: number) => {
         }
         if (player.researches[45] < 0.5) {
             player.upgrades[93] = 0;
-            player.resourceGenerators.diamonds = false;
         }
 
         player.upgrades[116] = 0;
