@@ -206,20 +206,6 @@ export interface Player {
 
     toggles: Record<number, boolean>
 
-    resourceGenerators: {
-        diamonds: boolean,
-        mythos: boolean,
-    },
-
-    keepUpgrades: {
-        coinUpgrades: boolean,
-        prestigeUpgrades: boolean,
-        crystalUpgrades: boolean,
-        transcendUpgrades: boolean,
-        autobuyers: boolean,
-        generators: boolean
-    },
-
     challengecompletions: number[]
     highestchallengecompletions: number[]
     challenge15Exponent: number
@@ -233,7 +219,6 @@ export interface Player {
     },
     researchPoints: number
     obtainiumtimer: number
-    obtainiumlocktoggle: boolean,
     obtainiumpersecond: number
     maxobtainiumpersecond: number
     maxobtainium: number
@@ -278,7 +263,6 @@ export interface Player {
     runelevels: number[]
     runeexp: number[]
     runeshards: number
-    offeringlocktoggle: boolean,
     maxofferings: number
     offeringpersecond: number
 
@@ -294,7 +278,6 @@ export interface Player {
     fastestprestige: number
     fastesttranscend: number
     fastestreincarnate: number
-    fastestAscend: number
 
     resettoggle1: number
     resettoggle2: number
@@ -448,16 +431,6 @@ export interface Player {
     autoAscendMode: string
     autoAscendThreshold: number
     roombaResearchIndex: number
-    cubesThisAscension: {
-        "challenges": number
-        "reincarnation": number
-        "ascension": number
-        "maxCubesPerSec": number
-        "maxAllTime": number
-        "cpsOnC10Comp": number
-        "tesseracts": number
-        "hypercubes": number
-    },
     ascStatToggles: Record<number, boolean>
 
     prototypeCorruptions: number[]
@@ -484,9 +457,7 @@ export interface Player {
     autoTesseracts: boolean[]
 
     saveString: string
-    brokenfile1: boolean
     exporttest: string | boolean
-    kongregatetest: string
 
     dayCheck: Date | null
     dayTimer: number

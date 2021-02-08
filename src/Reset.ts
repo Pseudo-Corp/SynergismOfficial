@@ -1,5 +1,5 @@
 import { player, clearInt, interval, format } from './Synergism';
-import { calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels, calculateAnts, calculateCubeMultiplier, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO } from './Calculate';
+import { calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels, calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO } from './Calculate';
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
@@ -556,12 +556,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         calculateObtainium();
         ascensionAchievementCheck(1);
         
-        player.cubesThisAscension.challenges = 0;
-        player.cubesThisAscension.reincarnation = 0;
-        player.cubesThisAscension.maxCubesPerSec = 0;
-        player.cubesThisAscension.tesseracts = 0;
-        player.cubesThisAscension.hypercubes = 0;
-        player.cubesThisAscension.ascension = 100 / 100 * calculateCubeMultiplier() * 250;
         player.ascensionCounter = 0;
 
         updateTalismanInventory();
@@ -627,8 +621,6 @@ const resetUpgrades = (i: number) => {
             player.upgrades[46] = 0;
         }
 
-        player.keepUpgrades.autobuyers = false;
-
         if (player.researches[41] < 0.5) {
             player.upgrades[88] = 0;
         }
@@ -637,19 +629,15 @@ const resetUpgrades = (i: number) => {
         }
         if (player.researches[42] < 0.5) {
             player.upgrades[90] = 0;
-            player.keepUpgrades.generators = false;
         }
         if (player.researches[43] < 0.5) {
             player.upgrades[91] = 0;
-            player.keepUpgrades.coinUpgrades = false;
         }
         if (player.researches[44] < 0.5) {
             player.upgrades[92] = 0;
-            player.keepUpgrades.prestigeUpgrades = false;
         }
         if (player.researches[45] < 0.5) {
             player.upgrades[93] = 0;
-            player.resourceGenerators.diamonds = false;
         }
 
         player.upgrades[116] = 0;
