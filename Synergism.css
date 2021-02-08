@@ -146,13 +146,6 @@ a {color: white;}
 	background-color: green;
 	z-index: 4;
 }
-#resourcestable {
-	position: absolute;
-	top: 20px;
-	left: 11%;
-	border-collapse: collapse;
-	padding: 0;
-}
 
 #resetrow {
 	grid-column: buttons / end;
@@ -379,15 +372,6 @@ nav li {
 	text-align: center;
 }
 
-#submitstats {
-	position: absolute;
-	top: 241px;
-	width: 225px;
-	height: 30px;
-	left: 25%;
-	margin-left: -112.5px;
-}
-
 /* Settings settings sub tab */
 
 #settingsubtab {
@@ -544,19 +528,10 @@ nav li {
 	color: whitesmoke;
 }
 
-#achievementprogress {
-	position: absolute;
-	top: 20px;
-	left: 46.75%;
-	width: 300px;
-	margin-left: -150px;
-}
-
 #achievementstable {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	margin-top: 4%;
 }
 
 #achievementinfo {
@@ -1603,57 +1578,96 @@ nav li {
 	height: 40px;
 }
 
-#retrybutton {
-	position: absolute;
-	width: 70px;
-	top: 60px;
-	left: 50%;
-	margin-left: -35px;
-}
-
 #shop {
 	position: relative;
 	padding: 0;
 	text-align: center;
 }
 
+#actualWrapper {
+	display: grid;
+	grid-template-columns: 5% [cons] 20% 2% [shop] 60%;
+}
+
+#actualShop {
+	display: grid;
+	grid-template-columns: repeat(8, minmax(70px, 105px));
+	margin-top: 10px;
+	width: calc(105px * 8);
+	border: 3px solid plum;
+	grid-column: shop 2/4;
+	grid-row: 1;
+}
+
+#actualShop > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#actualPotionShop > div > p,
+#actualShop > div > p { margin: 3px; }
+
 #shoptop {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	width: 600px;
-	margin-left: -300px;
 	color: whitesmoke;
-	font-size: 1.2em
+	font-size: 1.2em;
+	margin-top: 15px;
+	margin-bottom: 0;
 }
-#displayquarks {
-	position: absolute;
-	top: 35px;
-	left: 23.25%;
-	width: 600px;
-	margin-left: -268px;
-	color: cyan;
-	text-align: left;
-	font-size: 1.5em;
+
+#actualConsumables {
+	width: calc(130px * 2);
+	grid-column: cons 1/2;
 }
+
+#actualPotionShop {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(70px, 130px));
+	border: 3px solid yellow;
+}
+
+#quarksDisplay {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#quarkamount {
+	font-size: 1.2em;
+	color: aqua;
+	margin-left: 5px;
+}
+
 #consumables {
-	position: absolute;
-	top: 100px;
-	left: 12%;
-	width: 200px;
-	margin-left: -67px;
 	color: orangered;
 	font-size: 1.2em;
+	margin: 0;
 }
-#consumablesimage{
-	position: absolute;
-	top: 145px;
-	left: 12%;
-	width: 200px;
-	margin-left: -100px;
-	color: white;
-	font-size: 1em;
+
+#shopButtons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	float: right;
+	margin-right: 12.5%;
+	margin-top: 3px;
 }
+
+#shopButtons > button {
+	width: 150px;
+	height: 40px;
+	margin-left: 5px;
+}
+
+#shopHovers {
+	margin: 4% auto; 
+	width: 600px;
+}
+
+#shopHovers > p { margin: 0; }
+
 .consumablebutton {
 	width: 128px;
 	height: 40px;
@@ -1662,43 +1676,6 @@ nav li {
 .permshopbutton {
 	width: 100px;
 	height: 40px;
-}
-
-
-
-#shopToggles{
-	position: absolute;
-	top: 335px;
-	left: 75%;
-	margin-left: -169px;
-
-}
-#resetShopUpgrades{
-	height: 30px;
-	width: 200px;
-}
-#toggleConfirmShop{
-	height: 30px;
-	width: 150px;
-}
-
-#permshopimage{
-	position: absolute;
-	top: 50px;
-	left: 47%;
-	width: 400px;
-	margin-left: -270px;
-	color: white;
-	font-size: 1em;
-}
-
-#quarkupgradesinfo {
-	position: absolute;
-	top: 380px;
-	left: 50%;
-	width: 600px;
-	margin-left: -300px;
-	text-align: center;
 }
 
 #ants {

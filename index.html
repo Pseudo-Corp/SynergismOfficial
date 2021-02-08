@@ -746,6 +746,7 @@
 
         <div id="statistics">
             <div id="achievements">
+                <p id="achievementprogress" style="color:white"></p>
                 <table id="achievementstable" style="padding: 0; font-size:0;">
                     <tr>
                         <td><img src="Pictures/Transparent Pics/ach1.png" id="ach1" alt=""></td>
@@ -1022,7 +1023,6 @@
 
                     </table>
             </div>
-            <p id="achievementprogress" style="color:white"></p>
             <div id="achievementinfo">
                 <p id="achievementtutorial">Hover over an achievement to view information.</p>
                 <p id="achievementdescription"></p>
@@ -2578,113 +2578,119 @@
 </div>
 
     <div id="shop">
-        <p id="shoptop">Welcome to the Quark Shop. You can't believe what's in stock!</p>
-        <table id="displayquarks">
-        <tr>
-            <td style="font-size: 0; width: 32px;"><img src="Pictures/Quark.png" alt=""></td>
-            <td><p id="quarkamount">You have 0 Quarks!</p> </td>
-        </tr>
-        </table>
+        <div id="shopWrapper"> 
+            <p id="shoptop">Welcome to the Quark Shop. You can't believe what's in stock!</p>
 
-        <table id="shopToggles">
-        <tr>
-        <td><button id="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button></td>
-        <td><button id="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button></td>
-        </tr>
-        </table>
-        <p id="consumables">Buy Yer' Potions!</p>
-        <table id="consumablesimage" style="border: 3px solid yellow">
-            <tr>
-                <td id="offeringPotions" style="font-size: 0;"><img src="Pictures/offering potion.png" alt=""></td>
-                <td id="obtainiumPotions" style="font-size: 0;"><img src="Pictures/obtainium potion.png" alt=""></td>
-            </tr>
-            <tr>
-                <td id="offeringpotionowned">Own: 2222</td>
-                <td id="obtainiumpotionowned">Own: 0</td>
-            </tr>
-            <tr>
-                <td><button class="consumablebutton" id="buyofferingpotion" style="border: 2px solid white">Buy 1 for 100 Quarks</button></td>
-                <td><button class="consumablebutton" id="buyobtainiumpotion" style="border: 2px solid white">Buy 1 for 100 Quarks</button></td>
-            </tr>
-            <tr>
-                <td><button class="consumablebutton" id="useofferingpotion" style="border: 2px solid orange">USE 1 [+2hr]</button></td>
-                <td><button class="consumablebutton" id="useobtainiumpotion" style="border: 2px solid blue">USE 1 [+2hr]</button></td>
-            </tr>
-        </table>
-        <table id="permshopimage" style="border: 3px solid plum">
-            <tr>
-                <td style="font-size: 0;"><img id="OfferingEX" src="Pictures/Offering Upgrade.png" alt=""></td>
-                <td style="font-size: 0;"><img id="OfferingAuto" src="Pictures/Offering Auto Upgrade.png" alt=""></td>
-                <td style="font-size: 0;"><img id="ObtainiumEX" src="Pictures/Obtainium Upgrade.png" alt=""></td>
-                <td style="font-size: 0;"><img id="ObtainiumAuto" src="Pictures/Obtainium Auto Upgrade.png" alt=""></td>
-                <td style="font-size: 0;"><img id="InstChallenge" src="Pictures/Instant Challenge.png" alt=""></td>
-                <td style="font-size: 0;"><img id="AntSpd" src="Pictures/antspeed.png" alt=""></td>
-                <td style="font-size: 0;"><img id="CashUpgrade" src="Pictures/cashgrab.png" alt=""></td>
-                <td style="font-size: 0;"><img id="CashTalisman" src="Pictures/shoptalisman.png" alt=""></td>
-            </tr>
-            <tr>
-                <td id="offeringtimerlevel">Level: 0/5</td>
-                <td id="offeringautolevel">Level: 0/5</td>
-                <td id="obtainiumtimerlevel">Level: 0/5</td>
-                <td id="obtainiumautolevel">Level: 0/5</td>
-                <td id="instantchallenge">Not Bought</td>
-                <td id="antspeed">Level: 0/3</td>
-                <td id="cashgrab">Level: 0/5</td>
-                <td id="shoptalisman">Not Bought</td>
-            </tr>
-            <tr>
-                <td><button class="permshopbutton" id="offeringtimerbutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button></td>
-                <td><button class="permshopbutton" id="offeringautobutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button></td>
-                <td><button class="permshopbutton" id="obtainiumtimerbutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button></td>
-                <td><button class="permshopbutton" id="obtainiumautobutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button></td>
-                <td><button class="permshopbutton" id="instantchallengebutton" style="border: 2px solid plum">Buy for 300 Quarks</button>
-                <td><button class="permshopbutton" id="antspeedbutton" style="border: 2px solid maroon">Upgrade for 200 Quarks</button></td>
-                <td><button class="permshopbutton" id="cashgrabbutton" style="border: 2px solid limegreen">Upgrade for 100 Quarks</button></td>
-                <td><button class="permshopbutton" id="shoptalismanbutton" style="border: 2px solid chartreuse">Buy for 1,500 Quarks</button></td>
-            </tr>
-            <tr>
-                <td style="font-size: 0;"><img id="SeasonPass" src="Pictures/VIP Pass Upgrade.png" alt=""></td>
-                <td style="font-size: 0;"><img id="ShopChallenge" src="Pictures/Challenge Upgrade.png" alt=""></td>
-                <td style="font-size: 0;"><img id="ShopTome" src="Pictures/Challenge 10 Tome Upgrade.png" alt=""></td>
-                <td style="font-size: 0;"><img id="CubeQuark" src="Pictures/Cube Quark Upgrade.png" alt=""></td>
-                <td style="font-size: 0;"><img id="TesseractQuark" src="Pictures/Tesseract Quark Upgrade.png" alt=""></td>
-                <td style="font-size: 0;"><img id="HypercubeQuark" src="Pictures/Hypercube Quark Upgrade.png" alt=""></td>
-            </tr>
-            <tr>
-                <td id="seasonPassLevel">Level: 0/5</td>
-                <td id="challengeUpgradeLevel">Level: 0/5</td>
-                <td id="challenge10TomeLevel">Level: 0/5</td>
-                <td id="cubeToQuark">Not Bought</td>
-                <td id="tesseractToQuark">Not Bought</td>
-                <td id="hypercubeToQuark">Not Bought</td>
-            </tr>
-            <tr>
-                <td><button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange"></button></td>
-                <td><button class="permshopbutton" id="challengeUpgradeButton" style="border: 2px solid gray"></button></td>
-                <td><button class="permshopbutton" id="challenge10TomeButton" style="border: 2px solid gold"></button></td>
-                <td><button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow"></button></td>
-                <td><button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid"></button></td>
-                <td><button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red"></button></td>
-            </tr>
-        </table>
+            <div id="actualWrapper"> 
+                <div id="actualShop">
+                    <div>
+                        <img id="OfferingEX" src="Pictures/Offering Upgrade.png" alt="">
+                        <p id="offeringtimerlevel">Level: 0/5</p>
+                        <button class="permshopbutton" id="offeringtimerbutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
+                    </div>
+                    <div>
+                        <img id="OfferingAuto" src="Pictures/Offering Auto Upgrade.png" alt="">
+                        <p id="offeringautolevel">Level: 0/5</p>
+                        <button class="permshopbutton" id="offeringautobutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
+                    </div>
+                    <div>
+                        <img id="ObtainiumEX" src="Pictures/Obtainium Upgrade.png" alt="">
+                        <p id="obtainiumtimerlevel">Level: 0/5</p>
+                        <button class="permshopbutton" id="obtainiumtimerbutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
+                    </div>
+                    <div>
+                        <img id="ObtainiumAuto" src="Pictures/Obtainium Auto Upgrade.png" alt="">
+                        <p id="obtainiumautolevel">Level: 0/5</p>
+                        <button class="permshopbutton" id="obtainiumautobutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
+                    </div>
+                    <div>
+                        <img id="InstChallenge" src="Pictures/Instant Challenge.png" alt="">
+                        <p id="instantchallenge">Not Bought</p>
+                        <button class="permshopbutton" id="instantchallengebutton" style="border: 2px solid plum">Buy for 300 Quarks</button>
+                    </div>
+                    <div>
+                        <img id="AntSpd" src="Pictures/antspeed.png" alt="">
+                        <p id="antspeed">Level: 0/3</p>
+                        <button class="permshopbutton" id="antspeedbutton" style="border: 2px solid maroon">Upgrade for 200 Quarks</button>
+                    </div>
+                    <div>
+                        <img id="CashUpgrade" src="Pictures/cashgrab.png" alt="">
+                        <p id="cashgrab">Level: 0/5</p>
+                        <button class="permshopbutton" id="cashgrabbutton" style="border: 2px solid limegreen">Upgrade for 100 Quarks</button>
+                    </div>
+                    <div>
+                        <img id="CashTalisman" src="Pictures/shoptalisman.png" alt="">
+                        <p id="shoptalisman">Not Bought</p>
+                        <button class="permshopbutton" id="shoptalismanbutton" style="border: 2px solid chartreuse">Buy for 1,500 Quarks</button>
+                    </div>
+                    <div>
+                        <img id="SeasonPass" src="Pictures/VIP Pass Upgrade.png" alt="">
+                        <p id="seasonPassLevel">Level: 0/5</p>
+                        <button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange"></button>
+                    </div>
+                    <div>
+                        <img id="ShopChallenge" src="Pictures/Challenge Upgrade.png" alt="">
+                        <p id="challengeUpgradeLevel">Level: 0/5</p>
+                        <button class="permshopbutton" id="challengeUpgradeButton" style="border: 2px solid gray"></button>
+                        
+                    </div>
+                    <div>
+                        <img id="ShopTome" src="Pictures/Challenge 10 Tome Upgrade.png" alt="">
+                        <p id="challenge10TomeLevel">Level: 0/5</p>
+                        <button class="permshopbutton" id="challenge10TomeButton" style="border: 2px solid gold"></button>
+                    </div>
+                    <div>
+                        <img id="CubeQuark" src="Pictures/Cube Quark Upgrade.png" alt="">
+                        <p id="cubeToQuark">Not Bought</p>
+                        <button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow"></button>
+                    </div>
+                    <div>
+                        <img id="TesseractQuark" src="Pictures/Tesseract Quark Upgrade.png" alt="">
+                        <p id="tesseractToQuark">Not Bought</p>
+                        <button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid"></button>
+                    </div>
+                    <div>
+                        <img id="HypercubeQuark" src="Pictures/Hypercube Quark Upgrade.png" alt="">
+                        <p id="hypercubeToQuark">Not Bought</p>
+                        <button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red"></button>
+                    </div>
+                </div>
 
+                <div id="actualConsumables">
+                    <div id="quarksDisplay">
+                        <img src="Pictures/Quark.png" alt="" width="32px" height="32px">
+                        <p id="quarkamount">You have 0 Quarks!</p>
+                    </div>
+                    <p id="consumables">Buy Yer' Potions!</p>
+                    <div id="actualPotionShop">
+                        <div>
+                            <img id="offeringPotions" src="Pictures/offering potion.png" alt="">
+                            <p id="offeringpotionowned">Own: 2222</p>
+                            <button class="consumablebutton" id="buyofferingpotion" style="border: 2px solid white">Buy 1 for 100 Quarks</button>
+                            <button class="consumablebutton" id="useofferingpotion" style="border: 2px solid orange">USE 1 [+2hr]</button>
+                        </div>
+                        <div>
+                            <img id="obtainiumPotions" src="Pictures/obtainium potion.png" alt="">
+                            <p id="obtainiumpotionowned">Own: 0</p>
+                            <button class="consumablebutton" id="buyobtainiumpotion" style="border: 2px solid white">Buy 1 for 100 Quarks</button>
+                            <button class="consumablebutton" id="useobtainiumpotion" style="border: 2px solid blue">USE 1 [+2hr]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <table id="quarkupgradesinfo">
-            <tr>
-                <td style="color: white; font-size: 1.2em;">Hover over each portion of the shop to see what each upgrade does!</td>
-            </tr>
-            <tr>
-                <td id="quarkdescription" style="color:plum"></td>
-            </tr>
-            <tr>
-                <td id="quarkcost" style="color: cyan"></td>
-            </tr>
-            <tr>
-                <td id="quarkeffect" style="color: limegreen"></td>
-            </tr>
-        </table>
+            <div id="shopButtons">
+                <button id="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button>
+                <button id="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
+            </div>
 
-
+            <div id="shopHovers">
+                <p style="color: white; font-size: 1.2em;">Hover over each portion of the shop to see what each upgrade does!</p>
+                <p id="quarkdescription" style="color:plum"></p>
+                <p id="quarkcost" style="color: cyan"></p>
+                <p id="quarkeffect" style="color: limegreen"></p>
+            </div>
+        </div>
     </div>
 
 
