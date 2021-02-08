@@ -211,15 +211,6 @@ export interface Player {
         mythos: boolean,
     },
 
-    keepUpgrades: {
-        coinUpgrades: boolean,
-        prestigeUpgrades: boolean,
-        crystalUpgrades: boolean,
-        transcendUpgrades: boolean,
-        autobuyers: boolean,
-        generators: boolean
-    },
-
     challengecompletions: number[]
     highestchallengecompletions: number[]
     challenge15Exponent: number

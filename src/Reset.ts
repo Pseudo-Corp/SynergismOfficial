@@ -621,8 +621,6 @@ const resetUpgrades = (i: number) => {
             player.upgrades[46] = 0;
         }
 
-        player.keepUpgrades.autobuyers = false;
-
         if (player.researches[41] < 0.5) {
             player.upgrades[88] = 0;
         }
@@ -631,15 +629,12 @@ const resetUpgrades = (i: number) => {
         }
         if (player.researches[42] < 0.5) {
             player.upgrades[90] = 0;
-            player.keepUpgrades.generators = false;
         }
         if (player.researches[43] < 0.5) {
             player.upgrades[91] = 0;
-            player.keepUpgrades.coinUpgrades = false;
         }
         if (player.researches[44] < 0.5) {
             player.upgrades[92] = 0;
-            player.keepUpgrades.prestigeUpgrades = false;
         }
         if (player.researches[45] < 0.5) {
             player.upgrades[93] = 0;

@@ -300,15 +300,6 @@ export const player: Player = {
         mythos: false,
     },
 
-    keepUpgrades: {
-        coinUpgrades: false,
-        prestigeUpgrades: false,
-        crystalUpgrades: false,
-        transcendUpgrades: false,
-        autobuyers: false,
-        generators: false
-    },
-
     challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     highestchallengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     challenge15Exponent: 0,
