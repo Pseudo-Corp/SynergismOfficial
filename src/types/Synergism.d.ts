@@ -458,7 +458,6 @@ export interface Player {
     autoTesseracts: boolean[]
 
     saveString: string
-    brokenfile1: boolean
     exporttest: string | boolean
     kongregatetest: string
 
