@@ -550,16 +550,6 @@ export const player: Player = {
     autoAscendMode: "c10Completions",
     autoAscendThreshold: 1,
     roombaResearchIndex: 0,
-    cubesThisAscension: {
-        "challenges": 0,
-        "reincarnation": 0,
-        "ascension": 0,
-        "maxCubesPerSec": 0,
-        "maxAllTime": 0,
-        "cpsOnC10Comp": 0,
-        "tesseracts": 0,
-        "hypercubes": 0
-    },
     ascStatToggles: { // false here means show per second
         1: false,
         2: false,
@@ -969,14 +959,6 @@ export const loadSynergy = (): void => {
                 talismanBonus: 0,
                 globalSpeed: 0
             }
-            player.cubesThisAscension.challenges = 0;
-            player.cubesThisAscension.reincarnation = 0;
-            player.cubesThisAscension.ascension = 0;
-            player.cubesThisAscension.maxCubesPerSec = 0;
-            player.cubesThisAscension.maxAllTime = 0;
-            player.cubesThisAscension.cpsOnC10Comp = 0;
-            player.cubesThisAscension.tesseracts = 0;
-            player.cubesThisAscension.hypercubes = 0;
         }
         if (data.autoAntSacTimer === undefined) {
             player.autoAntSacTimer = 900;
@@ -1090,14 +1072,6 @@ export const loadSynergy = (): void => {
         getElementById<HTMLInputElement>("saveStringInput").value = player.saveString
 
         player.wowCubes = player.wowCubes || 0;
-        if (!player.cubesThisAscension.maxAllTime) // Initializes the value if it doesn't exist
-            player.cubesThisAscension.maxAllTime = 0
-        if (!player.cubesThisAscension.cpsOnC10Comp)
-            player.cubesThisAscension.cpsOnC10Comp = 0
-        if (!player.cubesThisAscension.tesseracts)
-            player.cubesThisAscension.tesseracts = 0
-        if (!player.cubesThisAscension.hypercubes)
-            player.cubesThisAscension.hypercubes = 0
 
         for (let j = 1; j < 126; j++) {
             upgradeupdate(j);
@@ -1529,21 +1503,6 @@ export const formatTimeShort = (seconds: number, msMaxSeconds?: number): string 
         ((msMaxSeconds && seconds < msMaxSeconds)
             ? "." + (Math.floor((seconds % 1) * 1000).toString().padStart(3, '0'))
             : '') + "s";
-}
-
-export const updateCubesPerSec = (): void => {
-    const c = player.cubesThisAscension.challenges, 
-          r = player.cubesThisAscension.reincarnation,
-          a = player.cubesThisAscension.ascension;
-
-    if (player.challengecompletions[10] > 0) {
-        if (player.challengecompletions[10] === 1) {
-            player.cubesThisAscension.cpsOnC10Comp = (c + r + a) / player.ascensionCounter;
-        }
-
-        player.cubesThisAscension.maxCubesPerSec = Math.max(player.cubesThisAscension.maxCubesPerSec, (c + r + a) / player.ascensionCounter)
-        player.cubesThisAscension.maxAllTime = Math.max(player.cubesThisAscension.maxAllTime, player.cubesThisAscension.maxCubesPerSec)
-    }
 }
 
 export const updateAllTick = (): void => {
@@ -2453,7 +2412,6 @@ export const resetCheck = (i: string, manual = true, leaving = false): void => {
                     challengeDisplay(y, false)
                     updateChallengeLevel(y)
                     highestChallengeRewards(q, player.highestchallengecompletions[q])
-                    updateCubesPerSec()
                     calculateCubeBlessings();
                 }
 
@@ -2519,7 +2477,6 @@ export const resetCheck = (i: string, manual = true, leaving = false): void => {
             while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                 player.highestchallengecompletions[q] += 1;
                 highestChallengeRewards(q, player.highestchallengecompletions[q])
-                updateCubesPerSec()
                 calculateHypercubeBlessings();
                 calculateTesseractBlessings();
                 calculateCubeBlessings();

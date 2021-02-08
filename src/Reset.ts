@@ -1,5 +1,5 @@
 import { player, clearInt, interval, format } from './Synergism';
-import { calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels, calculateAnts, calculateCubeMultiplier, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO } from './Calculate';
+import { calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels, calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO } from './Calculate';
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
@@ -556,12 +556,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         calculateObtainium();
         ascensionAchievementCheck(1);
         
-        player.cubesThisAscension.challenges = 0;
-        player.cubesThisAscension.reincarnation = 0;
-        player.cubesThisAscension.maxCubesPerSec = 0;
-        player.cubesThisAscension.tesseracts = 0;
-        player.cubesThisAscension.hypercubes = 0;
-        player.cubesThisAscension.ascension = 100 / 100 * calculateCubeMultiplier() * 250;
         player.ascensionCounter = 0;
 
         updateTalismanInventory();

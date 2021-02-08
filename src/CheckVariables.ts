@@ -90,16 +90,6 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
     if (data.history === undefined) {
         player.history = { ants: [], ascend: [], reset: [] };
-        player.cubesThisAscension = {
-            "challenges": 0,
-            "reincarnation": 0,
-            "ascension": 0,
-            "maxCubesPerSec": 0,
-            "maxAllTime": 0,
-            "cpsOnC10Comp": 0,
-            "tesseracts": 0,
-            "hypercubes": 0
-        };
         player.historyCountMax = 10;
     }
     if (data.autoChallengeRunning === undefined) {

@@ -448,16 +448,6 @@ export interface Player {
     autoAscendMode: string
     autoAscendThreshold: number
     roombaResearchIndex: number
-    cubesThisAscension: {
-        "challenges": number
-        "reincarnation": number
-        "ascension": number
-        "maxCubesPerSec": number
-        "maxAllTime": number
-        "cpsOnC10Comp": number
-        "tesseracts": number
-        "hypercubes": number
-    },
     ascStatToggles: Record<number, boolean>
 
     prototypeCorruptions: number[]
