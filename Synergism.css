@@ -301,47 +301,36 @@ nav li {
 	color: gold;
 }
 
-#upgradesGrid {
+#upgradesFlex {
+	display: flex;
+	flex-direction: row;
+	width: 90%;
+	margin-left: 3.5%;
+	margin-top: 4%;
+}
+
+#upgradesFlex > div {
 	display: flex;
 	flex-direction: column;
-	align-content: flex-start;
+	width: calc(100% / 6);
+	align-items: center;
 }
 
-#upgradesGrid > #upgradesTexts > p,
-#upgradesGrid > #upgradesImages > p {
-	width: 16.666666666%;
-	padding: 0;
-	margin: 0;
+#upgradesFlex > div > img {
+	width: 32px;
+	height: 32px;
 }
 
-#upgradesImages {
-	margin-top: 4%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
+#upgradesFlex > div > p {
+	margin-top: 5px;
+	margin-bottom: 15%;
 }
 
-#upgradesTexts {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
+#upgradesFlex > div > table {
+	height: 182px;
 }
 
-#upgradesrow2 {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	margin-top: 2%;
-}
-
-#shoptogglerow {
-	display: grid;
-	grid-template-columns: repeat(6, 1fr);
-	margin-top: 10px;
-	justify-items: center;
-}
-
-#shoptogglerow > button {
+#upgradesFlex > div > button {
 	width: 80px;
 	height: 30px;
 }
