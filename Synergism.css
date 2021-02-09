@@ -346,6 +346,10 @@ nav li {
 	height: 30px;
 }
 
+#shoptogglecoin { grid-column-start: 1; }
+#shoptoggleprestige { grid-column-start: 2; }
+#shoptoggletranscend { grid-column-start: 3; }
+#shoptogglegenerator { grid-column-start: 4; }
 #particleAutoUpgrade { grid-column-start: 6; }
 
 #upgradesrow3 {
