@@ -17,6 +17,7 @@ export interface IShopData {
     maxLevel: number
     type: string
     refundable: boolean
+    refundMinimumLevel: number
     description: string
 }
 
@@ -27,6 +28,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 999999,
         type: "consumable",
         refundable: false,
+        refundMinimumLevel: 0,
         description: "Instantly gain 2 real life hours of Offerings, based on your all time best Offerings/sec and speed acceleration!",
     },
     obtainiumPotion: {
@@ -35,6 +37,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 999999,
         type: "consumable",
         refundable: false,
+        refundMinimumLevel: 0,
         description: "Instantly gain 2 real life hours of Obtainium, based on your all time best Obtainium/sec and speed acceleration!",
     },
     offeringEX: {
@@ -43,6 +46,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 100,
         type: "upgrade",
         refundable: true,
+        refundMinimumLevel: 0,
         description: "Gain +4% more offerings from all sources!",
     },
     offeringAuto: {
@@ -51,6 +55,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 100,
         type: "upgrade",
         refundable: true,
+        refundMinimumLevel: 1,
         description: "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) levels worth of offerings are spent. [First Level Cannot be refunded!]",
     },
     obtainiumEX: {
@@ -59,6 +64,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 100,
         type: "upgrade",
         refundable: true,
+        refundMinimumLevel: 0,
         description: "Gain +4% more obtainium from all sources!",
     },
     obtainiumAuto: {
@@ -67,6 +73,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 100,
         type: "upgrade",
         refundable: true,
+        refundMinimumLevel: 1,
         description: "Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every reincarnation, dump all Obtainium into research until maxed. [First Level Cannot be Refunded!]",
     },
     instantChallenge: {
@@ -75,6 +82,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 1,
         type: "upgrade",
         refundable: false,
+        refundMinimumLevel: 0,
         description: "T and R challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Addtionally, instantly gain T challenge completions up to highest completed when exiting R challenges. [Cannot be Refunded!]"
     },
     antSpeed: {
@@ -83,6 +91,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 100,
         type: "upgrade",
         refundable: true,
+        refundMinimumLevel: 0,
         description: "Each level gives a 1.125x speed multiplier to all Ant tiers' production! Short and simple."
     },
     cashGrab: {
@@ -91,6 +100,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 100,
         type: "upgrade",
         refundable: true,
+        refundMinimumLevel: 0,
         description: "This is a cash grab but it gives a couple cool stats. +1% production per level to Offerings and Obtainium.",
     },
     shopTalisman: {
@@ -99,6 +109,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 1,
         type: "upgrade",
         refundable: false,
+        refundMinimumLevel: 0,
         description: "Permanently unlock a Shop talisman! [Warning: you can't refund this and this is VERY expensive to level. Be sure you want to buy it!]",
     },
     seasonPass: {
@@ -107,6 +118,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 100,
         type: "upgrade",
         refundable: true,
+        refundMinimumLevel: 0,
         description: "Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +1.5% cubes and tesseracts per level when you ascend!",
     },
     challengeExtension: {
@@ -115,6 +127,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 5,
         type: "upgrade",
         refundable: false,
+        refundMinimumLevel: 0,
         description: "Using some amazing trick, you manage to increase your Reincarnation Challenge cap by 2 for each level! [Cannot be Refunded!]",
     },
     challengeTome: {
@@ -123,7 +136,8 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 15,
         type: "upgrade",
         refundable: false,
-        description: "The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level.",
+        refundMinimumLevel: 0,
+        description: "The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level. [Cannot be Refunded!]",
     },
     cubeToQuark: {
         price: 2000,
@@ -131,6 +145,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 1,
         type: "upgrade",
         refundable: false,
+        refundMinimumLevel: 0,
         description: "Instead of a daily cap of 25 Quarks by opening Wow! Cubes, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]"
     },
     tesseractToQuark: {
@@ -139,6 +154,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 1,
         type: "upgrade",
         refundable: false,
+        refundMinimumLevel: 0,
         description: "Instead of a daily cap of 25 Quarks by opening Wow! Cubes, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]"
     },
     hypercubeToQuark: {
@@ -147,6 +163,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         maxLevel: 1,
         type: "upgrade",
         refundable: false,
+        refundMinimumLevel: 0,
         description: "Instead of a daily cap of 25 Quarks by opening Wow! Cubes, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]"
     },
 }
@@ -279,11 +296,18 @@ export const resetShopUpgrades = () => {
         let initialQuarks = player.worlds;
         for(const shopItem in shopData){
             const key = shopItem as keyof typeof shopData;
-            if(shopData[key].refundable){
+            if(shopData[key].refundable && player.shopUpgrades[key] > shopData[key].refundMinimumLevel){
+
+                // Determines how many quarks one would not be refunded, based on minimum refund level
+                let doNotRefund = shopData[key].price * shopData[key].refundMinimumLevel +
+                                shopData[key].priceIncrease * (shopData[key].refundMinimumLevel) * (shopData[key].refundMinimumLevel - 1) / 2;
+                
+                //Refunds Quarks based on the shop level and price vals
                 player.worlds += shopData[key].price * player.shopUpgrades[key] +
-                                 shopData[key].priceIncrease * (player.shopUpgrades[key]) * (player.shopUpgrades[key]) / 2;
+                                 shopData[key].priceIncrease * (player.shopUpgrades[key]) * (player.shopUpgrades[key] - 1) / 2
+                                 - doNotRefund;
                 console.log("Successfully refunded " + format(player.worlds - initialQuarks) + " Quarks from '" + shopItem + "'. You now have " + format(player.worlds) + " Quarks.");
-                player.shopUpgrades[key] = 0;
+                player.shopUpgrades[key] = shopData[key].refundMinimumLevel;
                 initialQuarks = player.worlds;
             }
         }
