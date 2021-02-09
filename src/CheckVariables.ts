@@ -278,8 +278,7 @@ export const checkVariablesOnLoad = (data: Player) => {
             offeringEX: 0,
             offeringAuto: 0,
             obtainiumEX: 0,
-            // TODO: ask Plat what the intended behavior is
-            obtainiumAuto: 0, // Number(shop.obtainiumAutoLevel),
+            obtainiumAuto: Number(shop.obtainiumAutoLevel),
             instantChallenge: Number(shop.instantChallengeBought),
             antSpeed: 0,
             cashGrab: 0,
