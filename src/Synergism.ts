@@ -2959,8 +2959,14 @@ function tack(dt: number) {
         if (player.achievements[173] === 1) {
             automaticTools("antSacrifice", dt);
         }
+
+      /*Triggers automatic obtainium gain if research [2x11] is unlocked,
+        Otherwise it just calculates obtainium multiplier values. */
         if (player.researches[61] === 1) {
             automaticTools("addObtainium", dt)
+        }
+        else {
+            calculateObtainium();
         }
 
         //Automatically tries and buys researches lol
@@ -3329,7 +3335,7 @@ window.addEventListener('load', () => {
     }
 
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 6:00PM UTC-8 30-Jan-2021]. Savefiles cannot be used in live!`);
+    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 6:15PM UTC-8 08-Feb-2021]. Savefiles cannot be used in live!`);
     document.title = 'Synergism v' + player.version;
 
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
