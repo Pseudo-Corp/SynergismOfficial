@@ -11,16 +11,18 @@ import { openCube } from '../Cubes';
  *      @see {openCube}
  */
 export const main = () => {
-    Object.defineProperty(window, 'openHypercube', {
-        value: openHypercube
-    });
-    Object.defineProperty(window, 'openPlatonic', {
-        value: openPlatonic
-    });
-    Object.defineProperty(window, 'openTeseract', {
-        value: openTesseract
-    });
-    Object.defineProperty(window, 'openCube', {
-        value: openCube
+    Object.defineProperties(window, {
+        'openHypercube': {
+            value: openHypercube
+        },
+        'openPlatonic': {
+            value: openPlatonic
+        },
+        'openTeseract': {
+            value: openTesseract
+        },
+        'openCube': {
+            value: openCube
+        }
     });
 }
