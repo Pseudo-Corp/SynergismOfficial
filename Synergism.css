@@ -2045,6 +2045,11 @@ p[id$="BlessingsTotal"] {
 	text-align: center;
 }
 
+#creditssubtab > h1 {
+	font-size: 1.5em;
+	text-align: center;
+}
+
 #creditList {
 	display: grid;
 	grid-template-columns: repeat(4, minmax(250px, 1fr));
@@ -2058,6 +2063,12 @@ p[id$="BlessingsTotal"] {
 
 .credit > a {
 	margin-left: 5px;
+}
+
+#artistList {
+	display: grid;
+	grid-template-columns: repeat(4, 160px);
+	justify-content: center;
 }
 
 #statisticsSubTab {
