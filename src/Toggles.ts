@@ -582,12 +582,17 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
         refreshStats();
     } else if (subtab === 'creditssubtab') {
         const credits = document.getElementById('creditList');
+        const artists = document.getElementById('artistList');
 
-        if (credits.childElementCount > 0)
+        if (credits.childElementCount > 0 || artists.childElementCount > 0)
             return;
 
         try {
-            const r = await fetch('https://api.github.com/repos/pseudo-corp/SynergismOfficial/contributors');
+            const r = await fetch('https://api.github.com/repos/pseudo-corp/SynergismOfficial/contributors', {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
             const j = await r.json();
 
             for (const contributor of j) { 
@@ -606,6 +611,26 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
                 div.appendChild(a);
 
                 credits.appendChild(div);
+            }
+        } catch (e) {
+            credits.appendChild(document.createTextNode(e.toString()));
+        }
+
+        try {
+            const r = await fetch('https://api.github.com/gists/01917ff476d25a141c5bad38340cd756', {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            const j = await r.json();
+            const f = JSON.parse(j.files['synergism_artists.json'].content);
+
+            for (const user of f) {
+                const p = document.createElement('p');
+                p.textContent = user;
+
+                artists.appendChild(p);
             }
         } catch (e) {
             credits.appendChild(document.createTextNode(e.toString()));
