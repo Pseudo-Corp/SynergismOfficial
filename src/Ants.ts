@@ -150,8 +150,10 @@ const getAntUpgradeCost = (originalCost: Decimal, buyTo: number, index: number) 
     return cost;
 }
 
+type Pos = 'first' | 'second' | 'third' | 'fourth' | 'fifth' | 'sixth' | 'seventh' | 'eighth'
+
 //Note to self: REWRITE THIS SHIT Kevin :3
-export const buyAntProducers = (pos: string, type: string, originalCost: DecimalSource, index: number) => {
+export const buyAntProducers = (pos: Pos, originalCost: DecimalSource, index: number) => {
     const sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints);
     //This is a fucking cool function. This will buymax ants cus why not
 
@@ -159,8 +161,9 @@ export const buyAntProducers = (pos: string, type: string, originalCost: Decimal
     originalCost = new Decimal(originalCost)
     //Initiate type of resource used
     const tag = index === 1 ? 'reincarnationPoints' : 'antPoints';
+    const key = `${pos}OwnedAnts` as const;
 
-    let buyTo = player[pos + "Owned" + type] + 1;
+    let buyTo = player[key] + 1;
     let cashToBuy = getAntCost(originalCost, buyTo, index);
     while (player[tag].gte(cashToBuy)) {
         // Multiply by 4 until the desired amount. Iterate from there
@@ -177,19 +180,19 @@ export const buyAntProducers = (pos: string, type: string, originalCost: Decimal
     }
 
     if (!player.antMax) {
-        if (1 + player[pos + "Owned" + type] < buyTo) {
-            buyTo = player[pos + "Owned" + type] + 1;
+        if (1 + player[key] < buyTo) {
+            buyTo = player[key] + 1;
         }
     }
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-    let buyFrom = Math.max(buyTo - 7, player[pos + 'Owned' + type] + 1);
+    let buyFrom = Math.max(buyTo - 7, player[key] + 1);
     let thisCost = getAntCost(originalCost, buyFrom, index);
     while (buyFrom <= buyTo && player[tag].gte(getAntCost(originalCost, buyFrom, index))) {
         player[tag] = player[tag].sub(thisCost);
-        player[pos + 'Owned' + type] = buyFrom;
+        player[key] = buyFrom;
         buyFrom = buyFrom + 1;
         thisCost = getAntCost(originalCost, buyFrom, index);
-        player[pos + 'Cost' + type] = thisCost;
+        player[`${pos}CostAnts` as const] = thisCost;
     }
     if (player.reincarnationPoints.lt(0)) {
         player.reincarnationPoints = new Decimal("0")
@@ -423,8 +426,10 @@ export const autoBuyAnts = () => {
         const res = i === 1 ? player.reincarnationPoints : player.antPoints;
         const m = i === 1 ? 1 : 2; // no multiplier on the first ant cost because it costs particles
         if (player.achievements[_ach[i - 1]] && res.gte(player[G['ordinals'][i - 1] + "CostAnts"].times(m))) {
-            buyAntProducers(G['ordinals'][i - 1], "Ants", _cost[i - 1], i);
+            buyAntProducers(
+                G['ordinals'][i - 1] as Parameters<typeof buyAntProducers>[0], 
+                _cost[i - 1], i
+            );
         }
     }
 }
-

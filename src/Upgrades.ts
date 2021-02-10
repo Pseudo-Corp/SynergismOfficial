@@ -332,7 +332,7 @@ export const upgradedescriptions = (i: number) => {
             type = 'reincarnation'
         }
         if (type !== '' && i <= 80 && i >= 1) {
-            buyUpgrades(type, i)
+            buyUpgrades(type as Parameters<typeof buyUpgrades>[0], i)
         }
         if (type !== '' && i <= 100 && i >= 81) {
             buyAutobuyers(i - 80);

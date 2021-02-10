@@ -299,7 +299,7 @@ export const resetShopUpgrades = () => {
             if(shopData[key].refundable && player.shopUpgrades[key] > shopData[key].refundMinimumLevel){
 
                 // Determines how many quarks one would not be refunded, based on minimum refund level
-                let doNotRefund = shopData[key].price * shopData[key].refundMinimumLevel +
+                const doNotRefund = shopData[key].price * shopData[key].refundMinimumLevel +
                                 shopData[key].priceIncrease * (shopData[key].refundMinimumLevel) * (shopData[key].refundMinimumLevel - 1) / 2;
                 
                 //Refunds Quarks based on the shop level and price vals

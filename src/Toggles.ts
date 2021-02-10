@@ -58,7 +58,7 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
         }
     } else { // handle settings tab
         // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-        const btns = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children
+        const btns = document.querySelectorAll('#settings .subtabSwitcher > button');
         for (let i = 0; i < btns.length; i++) {
             if (btns[i].classList.contains("buttonActive")) {
                 player.subtabNumber = i
@@ -122,34 +122,24 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
 }
 
-export const toggleBuyAmount = (quantity: number, type: string) => {
-    player[type + 'buyamount'] = quantity
-    let a = ['one', 'ten', 'hundred', 'thousand'][quantity.toString().length - 1];
+type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract';
 
-    const c = type + a
-    let d = ""
-    d = d + c
+export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) => {
+    player[`${type}buyamount` as const] = quantity;
+    const a = ['one', 'ten', 'hundred', 'thousand'][quantity.toString().length - 1];
 
-    document.getElementById(d).style.backgroundColor = "Green";
+    document.getElementById(`${type}${a}`).style.backgroundColor = "Green";
     if (quantity !== 1) {
-        a = "one"
-        d = type + a
-        document.getElementById(d).style.backgroundColor = "Black"
+        document.getElementById(`${type}one`).style.backgroundColor = "Black"
     }
     if (quantity !== 10) {
-        a = "ten"
-        d = type + a
-        document.getElementById(d).style.backgroundColor = "Black"
+        document.getElementById(`${type}ten`).style.backgroundColor = "Black"
     }
     if (quantity !== 100) {
-        a = "hundred"
-        d = type + a
-        document.getElementById(d).style.backgroundColor = "Black"
+        document.getElementById(`${type}hundred`).style.backgroundColor = "Black"
     }
     if (quantity !== 1000) {
-        a = "thousand"
-        d = type + a
-        document.getElementById(d).style.backgroundColor = "Black"
+        document.getElementById(`${type}thousand`).style.backgroundColor = "Black"
     }
 }
 

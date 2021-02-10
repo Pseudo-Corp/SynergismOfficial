@@ -90,12 +90,17 @@ export const generateEventHandlers = () => {
     
     }
 //Part 2: Building Amount Toggles
-    const buildingTypesAlternate = ['coin','crystal','mythos','particle','tesseract','offering']
+    const buildingTypesAlternate = ['coin','crystal','mythos','particle','tesseract','offering'] as const;
     const buildingOrds = ['one','ten','hundred','thousand']
-    const buildingOrdsToNum = [1, 10, 100, 1000]
+    const buildingOrdsToNum = [1, 10, 100, 1000] as const;
     for (let index = 0; index < buildingOrds.length; index++) {
         for (let index2 = 0; index2 < buildingTypesAlternate.length; index2++) {
-            document.getElementById(buildingTypesAlternate[index2]+buildingOrds[index]).addEventListener('click', () => toggleBuyAmount(buildingOrdsToNum[index],buildingTypesAlternate[index2]))
+            document.getElementById(buildingTypesAlternate[index2]+buildingOrds[index]).addEventListener('click', () => 
+                toggleBuyAmount(
+                    buildingOrdsToNum[index],
+                    buildingTypesAlternate[index2]
+                )
+            );
         }
     }
 //Part 3: Building Purchasers + Upgrades
@@ -181,7 +186,7 @@ export const generateEventHandlers = () => {
 
 // The first 80 upgrades (Coin-Particle upgrade) are annoying since there are four cases based on which resource is needed.
 //Note: this part can almost certainly be improved, this was just the quickest implementation
-    const resourceTypes = ['coin', 'prestige', 'transcend', 'reincarnation'] //Upgrades 1-20 are coin, 21-40 prestige, 41-60 transcend, 61-80 reincarnation
+    const resourceTypes = ['coin', 'prestige', 'transcend', 'reincarnation'] as const; //Upgrades 1-20 are coin, 21-40 prestige, 41-60 transcend, 61-80 reincarnation
     //End of shit portion (This is used in the following for loop though)
     for (let index = 1; index <= 80; index++) {
         const resourceType = resourceTypes[Math.floor((index - 1)/20)];
@@ -356,8 +361,10 @@ for (let index = 1; index <= 8 ; index++) {
     document.getElementById(`anttier${index}`).addEventListener('mouseover', () => updateAntDescription(index))
     document.getElementById(`anttier${index}`).addEventListener('mouseover', () => antRepeat(index))
     //Onclick Events
-    document.getElementById(`anttier${index}`).addEventListener('click', () => buyAntProducers(ordinals[index],'Ants',antProducerCostVals[index],index))
-    
+    document.getElementById(`anttier${index}`).addEventListener('click', () => buyAntProducers(
+        ordinals[index] as Parameters<typeof buyAntProducers>[0],
+        antProducerCostVals[index],index)
+    );
 }
 //Part 2: Ant Upgrades (1-12)
 const antUpgradeCostVals = ['null', '100', '100', '1000', '1000', '1e5', '1e6', '1e8', '1e11', '1e15', '1e20', '1e40', '1e100']

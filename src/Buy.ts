@@ -435,7 +435,9 @@ export const buyProducer = (pos: string, type: keyof typeof buyProducerTypes, nu
     G['ticker'] = 0;
 }
 
-export const buyUpgrades = (type: string, pos: number, state?: boolean) => {
+type Upgrade = 'prestige' | 'transcend' | 'reincarnation' | 'coin';
+
+export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
     let addendum = ""
     if (type === "prestige" || type === "transcend" || type === "reincarnation") {
         addendum = "Point"

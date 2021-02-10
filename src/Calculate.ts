@@ -1125,10 +1125,8 @@ export const CalcCorruptionStuff = () => {
 }
 
 export const dailyResetCheck = () => {
-    if (!player.dayCheck) {
-        player.dayCheck = new Date();
-        console.log('date successfully calibrated!')
-    } else if (typeof player.dayCheck === 'string') {
+    player.dayCheck ||= new Date();
+    if (typeof player.dayCheck === 'string') {
         player.dayCheck = new Date(player.dayCheck);
     }
 
