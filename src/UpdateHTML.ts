@@ -286,50 +286,58 @@ export const revealStuff = () => {
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
     // note to 2019 and 2020 Platonic, you're welcome
-    const e = document.getElementsByClassName("auto") as HTMLCollectionOf<HTMLElement>;
-    const automationUnlocks: Record<number, boolean> = {
-        0: player.upgrades[81] === 1,
-        1: player.upgrades[82] === 1,
-        2: player.upgrades[83] === 1,
-        3: player.upgrades[84] === 1,
-        4: player.upgrades[85] === 1,
-        5: player.upgrades[86] === 1,
-        6: player.upgrades[87] === 1,
-        7: player.upgrades[88] === 1,
-        8: player.achievements[78] === 1,
-        9: player.achievements[85] === 1,
-        10: player.achievements[92] === 1,
-        11: player.achievements[99] === 1,
-        12: player.achievements[106] === 1,
-        13: player.achievements[43] === 1,
-        14: player.upgrades[94] === 1,
-        15: player.upgrades[95] === 1,
-        16: player.upgrades[96] === 1,
-        17: player.upgrades[97] === 1,
-        18: player.upgrades[98] === 1,
-        19: player.upgrades[89] === 1,
-        20: player.cubeUpgrades[7] === 1,
-        21: player.cubeUpgrades[7] === 1,
-        22: player.cubeUpgrades[7] === 1,
-        23: player.cubeUpgrades[7] === 1,
-        24: player.cubeUpgrades[7] === 1,
-        25: player.researches[46] === 1,
-        26: player.upgrades[91] === 1,
-        27: player.upgrades[92] === 1,
-        28: player.upgrades[99] === 1,
-        29: player.upgrades[90] === 1,
-        30: player.unlocks.prestige,
-        31: player.prestigeCount > 0.5 || player.reincarnationCount > 0.5,
-        32: player.transcendCount > 0.5 || player.reincarnationCount > 0.5,
-        33: player.reincarnationCount > 0.5,
-        34: player.ascensionCount > 0,
-        35: player.achievements[173] > 0
+    // note to 2019 and 2020 and 2021 Platonic, please never base anything on the order of elements ever again
+
+    // These are currently listed in the order they were in when this was converted to use element IDs instead of
+    // the ordering of the HTML elements with the class "auto".
+    const automationUnlocks: Record<string, boolean> = {
+        "toggle1": player.upgrades[81] === 1, // Autobuyer - Coin Buildings - Tier 1 (Worker)
+        "toggle2": player.upgrades[82] === 1, // Autobuyer - Coin Buildings - Tier 2 (Investments)
+        "toggle3": player.upgrades[83] === 1, // Autobuyer - Coin Buildings - Tier 3 (Printers)
+        "toggle4": player.upgrades[84] === 1, // Autobuyer - Coin Buildings - Tier 4 (Coin Mints)
+        "toggle5": player.upgrades[85] === 1, // Autobuyer - Coin Buildings - Tier 5 (Alchemies)
+        "toggle6": player.upgrades[86] === 1, // Autobuyer - Coin Buildings - Accelerator
+        "toggle7": player.upgrades[87] === 1, // Autobuyer - Coin Buildings - Multiplier
+        "toggle8": player.upgrades[88] === 1, // Autobuyer - Coin Buildings - Accelerator Boost
+        "toggle10": player.achievements[78] === 1, // Autobuyer - Diamond Buildings - Tier 1 (Refineries)
+        "toggle11": player.achievements[85] === 1, // Autobuyer - Diamond Buildings - Tier 2 (Coal Plants)
+        "toggle12": player.achievements[92] === 1, // Autobuyer - Diamond Buildings - Tier 3 (Coal Rigs)
+        "toggle13": player.achievements[99] === 1, // Autobuyer - Diamond Buildings - Tier 4 (Pickaxes)
+        "toggle14": player.achievements[106] === 1, // Autobuyer - Diamond Buildings - Tier 5 (Pandora's Boxes)
+        "toggle15": player.achievements[43] === 1, // Feature - Diamond Buildings - Auto Prestige
+        "toggle16": player.upgrades[94] === 1, // Autobuyer - Mythos Buildings - Tier 1 (Augments)
+        "toggle17": player.upgrades[95] === 1, // Autobuyer - Mythos Buildings - Tier 2 (Enchantments)
+        "toggle18": player.upgrades[96] === 1, // Autobuyer - Mythos Buildings - Tier 3 (Wizards)
+        "toggle19": player.upgrades[97] === 1, // Autobuyer - Mythos Buildings - Tier 4 (Oracles)
+        "toggle20": player.upgrades[98] === 1, // Autobuyer - Mythos Buildings - Tier 5 (Grandmasters)
+        "toggle21": player.upgrades[89] === 1, // Feature - Mythos Buildings - Auto Transcend
+        "toggle22": player.cubeUpgrades[7] === 1, // Autobuyer - Particle Buildings - Tier 1 (Protons)
+        "toggle23": player.cubeUpgrades[7] === 1, // Autobuyer - Particle Buildings - Tier 2 (Elements)
+        "toggle24": player.cubeUpgrades[7] === 1, // Autobuyer - Particle Buildings - Tier 3 (Pulsars)
+        "toggle25": player.cubeUpgrades[7] === 1, // Autobuyer - Particle Buildings - Tier 4 (Quasars)
+        "toggle26": player.cubeUpgrades[7] === 1, // Autobuyer - Particle Buildings - Tier 5 (Galactic Nuclei)
+        "toggle27": player.researches[46] === 1, // Feature - Particle Buildings - Auto Reincarnate
+        "shoptogglecoin": player.upgrades[91] === 1, // Feature - Upgrades - Auto Buy Coin Upgrades
+        "shoptoggleprestige": player.upgrades[92] === 1, // Feature - Upgrades - Auto Buy Diamond Upgrades
+        "shoptoggletranscend": player.upgrades[99] === 1, // Feature - Upgrades - Auto Buy Mythos Upgrades
+        "shoptogglegenerator": player.upgrades[90] === 1, // Feature - Upgrades - Auto Buy Generator Upgrades
+        "toggle9": player.unlocks.prestige, // Feature - Upgrades - Hover to Buy
+        "toggle28": player.prestigeCount > 0.5 || player.reincarnationCount > 0.5, // Settings - Confirmations - Prestige
+        "toggle29": player.transcendCount > 0.5 || player.reincarnationCount > 0.5,  // Settings - Confirmations - Transcension
+        "toggle30": player.reincarnationCount > 0.5, // Settings - Confirmations - Reincarnation
+        "toggle31": player.ascensionCount > 0, // Settings - Confirmations - Ascension
+        "toggle32": player.achievements[173] > 0, // Settings - Confirmations - Ant Sacrifice
     }
-    for (let i = 0; i < e.length; i++) {
-        if (automationUnlocks[i]) {
-            e[i].style.display = "block";
+
+    Object.keys(automationUnlocks).forEach(key => {
+        const el = document.getElementById(key);
+        if (!el) {
+            console.error(`Automation unlock failed to find element with ID '${key}'.`);
+            return;
         }
-    }
+
+        el.style.display = automationUnlocks[key] ? "block" : "none";
+    });
 }
 
 export const hideStuff = () => {
