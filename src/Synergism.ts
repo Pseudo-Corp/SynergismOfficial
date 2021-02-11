@@ -24,15 +24,15 @@ import { reset } from './Reset';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, getTesseractCost } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
-import { checkVariablesOnLoad } from './CheckVariables';
 import { updateCubeUpgradeBG } from './Cubes';
 import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import * as Plugins from './Plugins/Plugins';
 import { addTimers, automaticTools } from './Helper';
-import { LegacyShopUpgrades } from './types/LegacySynergism';
+//import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import './Logger';
+import { checkVariablesOnLoad } from './CheckVariables';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -711,6 +711,12 @@ export const loadSynergy = (): void => {
             player.loaded10101 = false;
         }
 
+        //Fix dumb shop stuff
+        //First, if shop isn't even defined we just define it as so
+        if(data.shopUpgrades === undefined){
+            player.shopUpgrades = Object.assign({}, blankSave.shopUpgrades);
+        }
+
         if (player.researches[76] === undefined) {
             player.codes.set(13, false);
             player.researches.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -744,7 +750,6 @@ export const loadSynergy = (): void => {
             player.sacrificeTimer = 0;
             player.loaded1009 = true;
             player.codes.set(18, false);
-            player.shopUpgrades = Object.assign({}, blankSave.shopUpgrades);
         }
         if (!data.loaded1009hotfix1) {
             player.loaded1009hotfix1 = true;
@@ -783,12 +788,12 @@ export const loadSynergy = (): void => {
             player.researches[92] = 0;
         }
 
-        const shop = data.shopUpgrades as LegacyShopUpgrades & Player['shopUpgrades'];
+        //const shop = data.shopUpgrades as LegacyShopUpgrades & Player['shopUpgrades'];
         if (
             data.achievements[169] === undefined || 
             player.achievements[169] === undefined || 
-            (shop.antSpeed === undefined && shop.antSpeedLevel === undefined) || 
-            (shop.antSpeed === undefined && typeof shop.antSpeedLevel === 'undefined') || 
+        //    (shop.antSpeed === undefined && shop.antSpeedLevel === undefined) || 
+        //    (shop.antSpeed === undefined && typeof shop.antSpeedLevel === 'undefined') || 
             data.loaded1010 === undefined || 
             data.loaded1010 === false
         ) {
@@ -849,8 +854,8 @@ export const loadSynergy = (): void => {
             player.upgrades[80] = 0;
 
 
-            player.shopUpgrades.antSpeed = 0;
-            player.shopUpgrades.shopTalisman = 0;
+        //    player.shopUpgrades.antSpeed = 0;
+        //    player.shopUpgrades.shopTalisman = 0;
 
             player.antUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 

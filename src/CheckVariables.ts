@@ -1,4 +1,4 @@
-import { player, format, resetCheck, isTesting } from './Synergism';
+import { player, format, resetCheck, isTesting} from './Synergism';
 import { Player } from './types/Synergism';
 import Decimal from 'break_infinity.js';
 import { calculateMaxRunes, calculateTimeAcceleration } from './Calculate';
@@ -270,6 +270,7 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.exporttest = !isTesting;
     }
 
+    
     const shop = data.shopUpgrades as LegacyShopUpgrades | Player['shopUpgrades'];
     if ('offeringTimerLevel' in shop && typeof shop.offeringTimerLevel !== 'undefined') {
         player.shopUpgrades = {
@@ -285,11 +286,19 @@ export const checkVariablesOnLoad = (data: Player) => {
             shopTalisman: Number(shop.talismanBought),
             seasonPass: 0,
             challengeExtension: shop.challengeExtension,
-            challengeTome: shop.challenge10Tomes,
+            challengeTome: 0, // This was shop.challenge10Tomes
             cubeToQuark: Number(shop.cubeToQuarkBought),
             tesseractToQuark: Number(shop.tesseractToQuarkBought),
             hypercubeToQuark: Number(shop.hypercubeToQuarkBought),
         }
+        /* Note to Khafra: This fix is utter crap i'm sorry but it was like 2 in the morning and
+        I was depressed when writing it thanks for your understanding.
+        -platonic */
+        /* Edit at 2 AM: This is actually worse of a fix than I originally considered but right now I'm
+        creatively bankrupt and can't really think straight right now. However maybe my scribblings can
+        help inspire a solution to the shop problem? I don't know but maybe -Plato */
+        // This is supposed to work within the above definition but it defaults to undefined because of type matching.
+        player.shopUpgrades.challengeTome = data.shopUpgrades.challengeTome
         const initialQuarks = player.worlds;
 
         player.worlds += 150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * (shop.offeringTimerLevel);
