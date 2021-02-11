@@ -126,8 +126,9 @@ export const importSynergism = (input: string) => {
         (f.exporttest === "YES!" || f.exporttest === true) ||
         (f.exporttest === false && isTesting)
     ) {
-        intervalHold.forEach(clearInt);
-        intervalHold.length = 0;
+        // tested: this does loop over the items before clearing them (Firefox)
+        intervalHold.forEach(v => clearInt(v));
+        intervalHold.clear();
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
         
         constantIntervals();

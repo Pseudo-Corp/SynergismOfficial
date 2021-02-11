@@ -40,19 +40,21 @@ import './Logger';
  */
 export const isTesting = true;
 
-export const intervalHold: ReturnType<typeof setTimeout>[] = [];
+export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
     apply(target, thisArg, args) {
         const set = target.apply(thisArg, args);
-        intervalHold.push(set);
+        intervalHold.add(set);
         return set;
     }
 });
 
 export const clearInt = new Proxy(clearInterval, {
     apply(target, thisArg, args) {
-        const id = args[0];
-        intervalHold.splice(intervalHold.indexOf(id), 1); // remove from intervalHold array
+        const id = args[0] as ReturnType<typeof setInterval>;
+        if (intervalHold.has(id))
+            intervalHold.delete(id);
+
         return target.apply(thisArg, args);
     }
 });
