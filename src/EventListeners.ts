@@ -266,7 +266,7 @@ export const generateEventHandlers = () => {
 
     for (let index = 0; index < talismanBuyPercents.length; index++) {
     
-        document.getElementById(`talisman${talismanBuyPercentsOrd[index]}`).addEventListener('click', () => toggleTalismanBuy(index))
+        document.getElementById(`talisman${talismanBuyPercentsOrd[index]}`).addEventListener('click', () => toggleTalismanBuy(talismanBuyPercents[index]))
     
     }
 
