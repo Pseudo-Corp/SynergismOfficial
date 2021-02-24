@@ -489,7 +489,7 @@ export const toggleBuildingScreen = (input: string) => {
     }
     for (const key in screen) {
         document.getElementById(screen[key].screen).style.display = "none";
-        document.getElementById(screen[key].button).style.backgroundColor = "#171717";
+        document.getElementById(screen[key].button).style.backgroundColor = "";
     }
     document.getElementById(screen[G['buildingSubTab']].screen).style.display = "block"
     document.getElementById(screen[G['buildingSubTab']].button).style.backgroundColor = "crimson"
@@ -509,7 +509,7 @@ export const toggleRuneScreen = (index: number) => {
             b.style.display = "block";
         } else {
             a.style.border = "2px solid silver"
-            a.style.backgroundColor = "#171717"
+            a.style.backgroundColor = ""
             b.style.display = "none";
         }
     }
