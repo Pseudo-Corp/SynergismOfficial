@@ -1007,21 +1007,6 @@ export const loadSynergy = (): void => {
             player.historyShowPerSecond = false;
             player.historyCountMax = 10;
         }
-        if (player.currentChallenge.transcension === undefined) {
-            player.currentChallenge = {
-                transcension: 0,
-                reincarnation: 0,
-                ascension: 0,
-            }
-            /*let challengeCompletionArray = [0, player.challengecompletions.one, player.challengecompletions.two, player.challengecompletions.three, player.challengecompletions.four, player.challengecompletions.five, player.challengecompletions.six, player.challengecompletions.seven, player.challengecompletions.eight, player.challengecompletions.nine, player.challengecompletions.ten, 0, 0, 0, 0, 0]
-            let highestChallengeCompletionArray = [0, player.highestchallengecompletions.one, player.highestchallengecompletions.two, player.highestchallengecompletions.three, player.highestchallengecompletions.four, player.highestchallengecompletions.five, player.highestchallengecompletions.six, player.highestchallengecompletions.seven, player.highestchallengecompletions.eight, player.highestchallengecompletions.nine, player.highestchallengecompletions.ten, 0, 0, 0, 0, 0]
-            player.challengecompletions = []
-            player.highestchallengecompletions = []
-            for (let i = 0; i <= 15; i++) {
-                player.challengecompletions.push(challengeCompletionArray[i])
-                player.highestchallengecompletions.push(highestChallengeCompletionArray[i])
-            }*/
-        }
 
         if (!Number.isInteger(player.ascendBuilding1.cost)) {
             player.ascendBuilding1.cost = 1;

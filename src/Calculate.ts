@@ -937,7 +937,6 @@ export const calculateTimeAcceleration = () => {
     timeMult *= (1 + 0.10 * (player.talismanRarity[2-1] - 1)) // Chronos Talisman bonus
     timeMult *= G['challenge15Rewards'].globalSpeed // Challenge 15 reward
     timeMult *= G['lazinessMultiplier'][player.usedCorruptions[3]]
-
     if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[15] > 0) {
         timeMult *= 1000
     }

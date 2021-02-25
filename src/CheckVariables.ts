@@ -6,7 +6,28 @@ import { buyResearch } from './Research';
 import { c15RewardUpdate } from './Statistics';
 import { LegacyShopUpgrades } from './types/LegacySynergism';
 
+/**
+ * Given player data, it checks, on load if variables are undefined
+ * or set incorrectly, and corrects it. This should be where all new
+ * variable declarations for `player` should go!
+ * @param data 
+ */
 export const checkVariablesOnLoad = (data: Player) => {
+    if (player.currentChallenge.transcension === undefined) {
+        player.currentChallenge = {
+            transcension: 0,
+            reincarnation: 0,
+            ascension: 0,
+        }
+    }
+    if (!Array.isArray(data.challengecompletions)) {
+        player.challengecompletions = Object.values(data.challengecompletions);
+        player.challengecompletions[0] = 0;
+        player.challengecompletions[11] = 0;
+        player.challengecompletions[12] = 0;
+        player.challengecompletions[13] = 0;
+        player.challengecompletions[14] = 0;
+      }
     if (data.wowCubes === undefined) {
         player.wowCubes = 0;
         player.wowTesseracts = 0;
@@ -223,6 +244,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
     if (data.platonicBlessings === undefined) {
         const ascCount = player.ascensionCount
+        console.log(player.currentChallenge.ascension)
         if (player.currentChallenge.ascension !== 0 && player.currentChallenge.ascension !== 15) {
             resetCheck('ascensionChallenge', false, true);
         }
