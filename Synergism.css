@@ -1,11 +1,9 @@
 html {
 	min-width: 1250px;
-	max-width: 1400px;
 	position: relative;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-body {background-color: #111111 ;
-	transform: scale(0.9);
+body {background-color: #111111;
 	transform-origin: 0 0;
 	overflow-x: hidden;
 	/*overflow-y: hidden;*/
@@ -147,22 +145,37 @@ a {color: white;}
 	z-index: 4;
 }
 
-#resetrow {
-	grid-column: buttons / end;
-	grid-row: row1;
+.resetInformationContainer {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+}
+
+.resetsContainer {
 	display: flex;
 }
 
+.resetbtn {
+	cursor: pointer;
+	margin-right: 5px;
+}
+
+#resetrow {
+	display: flex;
+	margin-left: -2px;
+}
+
 #resetrow img {
+	height: 32px;
+	width: 32px;
 	margin-left: 3px;
 }
 
 #resetinfo {
-	grid-column: buttons;
-	grid-row: row1space / row2;
-	text-align: center;
-	font-size: 15px;
-	font-variant-numeric: tabular-nums;
+    text-align: center;
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
+    width: 600px;
 }
 #resetrewards > div {
 	display: flex;
@@ -173,31 +186,43 @@ a {color: white;}
 	margin-left: 3px;
 }
 
-header nav {
-	grid-column: leftspace / rightspace;
-	grid-row: nav
-}
-
 #tabrow {
 	text-align: center;
-	/* height: 30px; */
+	width: 100%;
 	list-style: none;
 	margin:  0;
 	margin-inline: unset;
 	margin-block: unset;
 	padding-inline: unset;
 	display: flex;
-	justify-content: space-between;
+    justify-content: center;
+}
+
+.navbar {
+    display: flex;
+	justify-content: center;
+    width: 100%;
 }
 
 nav li {
     display: inline-block;
     border: 1px solid;
     width: 100px;
-    color:white;
+	min-width: 100px;
+    color: white;
+	background-color: #171717;
     cursor: pointer;
     line-height: 21px;
     height: 21px;
+	margin-right: 5px;
+	border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: none;
+	transition-duration: 0.15s;
+}
+
+nav li:hover {
+	background-color: #333;
 }
 
 #buildingstab {
@@ -230,6 +255,10 @@ nav li {
 
 #shoptab {
 	border-color: white;
+	background-color: purple;
+}
+#shoptab:hover {
+    background-color: #b300b2;
 }
 
 #anttab {
@@ -249,7 +278,7 @@ nav li {
 .subTabWrapper {
 	display: flex;
 	flex-direction: row;
-	margin-left: 8.75%;
+	justify-content: center;
 	margin-top: 10px;
 }
 
@@ -258,14 +287,17 @@ nav li {
 	width: 150px;
 	text-align: center;
 	margin-right: 17px;
+	transition-duration: 0.15s;
+}
+
+.subTabWrapper > button:hover {
+	background-color: #333;
 }
 
 #buyamountcoin {
 	position: absolute;
-	padding: 0;
-	font-size: 0;
+	top: 0;
 	left: 80%;
-	top: 194.5px;
 }
 #togglecoinbuy{
 	color: white;
@@ -446,16 +478,18 @@ nav li {
 }
 
 .buttonRow {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
 	margin-top: 30px;
 	margin-left: 8.5%;
 }
 
 .buttonRow > div {
-	display: grid;
-	grid-template-columns: [image] 40px [imagedesc] 300px 50px [button] 170px [autobuy] 90px [stats];
-	justify-items: center;
-	text-align: left;
-	height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
 }
 
 .buttonRow > div > p {
@@ -463,35 +497,45 @@ nav li {
 }
 
 .buttonRow > div > .image {
-	grid-column: image 1 / 1;
+    height: 32px;
+    width: 32px;
 }
 
 .buttonRow > div > .desc {
-	grid-column: imagedesc 1 / 2;
-	text-align: left;
-	width: 100%;
-	margin-left: 40px;
+    width: 350px;
+	min-width: 350px;
+    margin-left: 10px;
 }
 
-.buttonRow > div > .buy {
-	grid-column: button 1 / 4;
-	width: 150px;
-	height: 30px;
-	border-radius: 8px;
-	border: 1px solid white;
+.buildingPurchaseBtn {
+    width: 150px;
+	min-width: 150px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid white !important;
+	background-color: #171717;
+	transition-duration: 0.15s;
+	cursor: default;
+}
+
+.buildingPurchaseBtnAvailable {
+	cursor: pointer;
+	background-color: #555555;
+}
+
+.buildingPurchaseBtnAvailable:hover {
+	background-color: #666666;
 }
 
 .buttonRow > div > .auto {
-	grid-column: autobuy 1 / 5;
-	width: 80px;
-	height: 30px;
-	margin-left: 35px;
+    width: 80px;
+    height: 30px;
+    margin-left: 15px;
 }
 
 .buttonRow > div > .stats {
-	grid-column: stats 1 / 6;
-	width: 100%;
-	margin-left: 45px;
+    width: 400px;
+    margin-left: 10px;
 }
 
 #taxinfo {
@@ -554,11 +598,8 @@ nav li {
 
 #buyamountcrystal {
 	position: absolute;
-	padding: 0;
-	font-size: 0;
+	top: 0;
 	left: 80%;
-	/* Absolute positioning is horrible */
-	top: -8.1%;
 }
 #buyamountoffering {
 	position: absolute;
@@ -576,24 +617,18 @@ nav li {
 }
 #buyamountmythos {
 	position: absolute;
-	padding: 0;
-	font-size: 0;
+	top: 0;
 	left: 80%;
-	top: -8.1%;
 }
 #buyamountparticle {
 	position: absolute;
-	padding: 0;
-	font-size: 0;
+	top: 0;
 	left: 80%;
-	top: -8.1%;
 }
 #buyAmountTesseract{	
-	position: absolute;	
-	padding: 0;
-	font-size: 0;
-	left: 80%;	
-	top: -8.1%;	
+	position: absolute;
+	top: 0;
+	left: 80%;
 }
 #togglecrystalbuy{
 	color: white;
@@ -650,6 +685,11 @@ nav li {
 	margin-left: -87px;	
 }
 
+#coinBuildings {
+    position: relative;
+	padding: 0;
+}
+
 #prestige {
     position: relative;
 	padding: 0;
@@ -699,6 +739,11 @@ nav li {
 	width: 100px;
 	margin: 0 7px;
 	text-align: center;
+	transition-duration: 0.15s;
+}
+
+#runesToggle > button:hover {
+	background-color: #333;
 }
 
 #offeringDetails {
@@ -803,11 +848,21 @@ nav li {
 	color: white
 }
 
-.talismanbtn {
+.talismanBtn {
 	height: 30px;
 	width: 108px;
 	text-align: center;
-	color: orange
+	color: orange;
+	background-color: #171717;
+	cursor: default;
+	transition-duration: 0.15s;
+}
+.talisminBtnAvailable {
+	background-color: purple;
+	cursor: pointer;
+}
+.talisminBtnAvailable:hover {
+    background-color: #b300b2;
 }
 #TaxTalisman{
 	position: absolute;
@@ -1799,6 +1854,20 @@ nav li {
 	border-spacing: 0;
 }
 
+.antBtn {
+	background-color: #171717;
+}
+
+.antTierBtnAvailable {
+	cursor: pointer;
+	background-color: white;
+}
+
+.antUpgradeBtnAvailable {
+	cursor: pointer;
+	background-color: silver;
+}
+
 #cubes{
 	position: relative;
 	padding: 0;
@@ -2398,79 +2467,59 @@ img.small {
 }
 
 header {
-	display: grid;
-	grid-template-columns: 5% [leftspace] 1fr repeat(4, [stat-image] 32px [stat] 2fr) [buttons] 8fr [rightspace] 1fr 5%;
-	grid-template-rows: [asc-stats] 40px 10px [row1] 32px [row1space] 23px [row2] 32px [row2space] 7px [nav] 22px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
-header .img.coin {
-	grid-column: stat-image 1;
-	grid-row: row1;
+
+header .img {
+	height: 32px;
+	width: 32px;
 }
-header .img.diamond {
-	grid-column: stat-image 2;
-	grid-row: row1;
+
+.subHeader {
+	display: flex;
 }
-header .img.offering {
-	grid-column: stat-image 3;
-	grid-row: row1;
+
+.currenciesContainer {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
 }
-header .img.quark {
-	grid-column: stat-image 4;
-	grid-row: row1;
+
+.currencyRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	margin-bottom: 15px;
 }
-header .img.mythos {
-	grid-column: stat-image 1;
-	grid-row: row2;
+
+.currencyContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 140px;
 }
-header .img.mythosshard {
-	grid-column: stat-image 2;
-	grid-row: row2;
-}
-header .img.particle {
-	grid-column: stat-image 3;
-	grid-row: row2;
-}
-header .img.obtanium {
-	grid-column: stat-image 4;
-	grid-row: row2;
-}
+
 header #coinDisplay {
-	grid-column: stat 1;
-	grid-row: row1;	
 	color: gold;
 }
 header #diamondDisplay {
-	grid-column: stat 2;
-	grid-row: row1;	
 	color: cyan;
 }
 header #offeringDisplay {
-	grid-column: stat 3;
-	grid-row: row1;	
 	color: gold;
 }
-header #quarkDisplay {
-	grid-column: stat 4;
-	grid-row: row1;	
-}
 header #mythosDisplay {
-	grid-column: stat 1;
-	grid-row: row2;	
 	color: plum;
 }
 header #mythosshardDisplay {
-	grid-column: stat 2;
-	grid-row: row2;	
 	color: plum;
 }
 header #particlesDisplay {
-	grid-column: stat 3;
-	grid-row: row2;
 	color: limegreen;
 }
 header #obtainiumDisplay {
-	grid-column: stat 4;
-	grid-row: row2;	
 	color: pink;
 }
 .statDisplay {
@@ -2485,6 +2534,7 @@ header #obtainiumDisplay {
 	flex-direction: row;
 	justify-content: center;
 	padding-top: 10px;
+	margin-bottom: 15px;
 	height: 20px;
 	line-height: 20px;
 }
