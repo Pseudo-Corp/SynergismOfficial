@@ -29,7 +29,7 @@ export const resetrepeat = (input: resetNames) => {
 }
 
 export const resetdetails = (input: resetNames) => {
-    getElementById<HTMLImageElement>('resetofferings1').src = "Pictures/Offering.png"
+    document.getElementById('resetofferings1').style.display = "block"
 
     const transcensionChallenge = player.currentChallenge.transcension;
     const reincarnationChallenge = player.currentChallenge.reincarnation;
@@ -38,14 +38,14 @@ export const resetdetails = (input: resetNames) => {
     const offeringImage = getElementById<HTMLImageElement>("resetofferings1");
     const offeringText = document.getElementById("resetofferings2");
     const currencyImage1 = getElementById<HTMLImageElement>("resetcurrency1");
-    const resetObtainiumImage = getElementById<HTMLImageElement>("resetobtainium");
-    const resetobtainiumText = document.getElementById("resetobtainium2");
+    const resetObtainiumImage = document.getElementById("resetobtainium");
+    const resetObtainiumText = document.getElementById("resetobtainium2");
     const resetInfo = document.getElementById('resetinfo');
     const resetCurrencyGain = document.getElementById("resetcurrency2");
 
     (input == "reincarnation") ? 
-        (resetObtainiumImage.src = "Pictures/Obtainium.png", resetobtainiumText.textContent = format(Math.floor(G['obtainiumGain']))):
-        (resetObtainiumImage.src = "", resetobtainiumText.textContent = "");
+        (resetObtainiumImage.style.display = "block", resetObtainiumText.textContent = format(Math.floor(G['obtainiumGain']))):
+        (resetObtainiumImage.style.display = "none", resetObtainiumText.textContent = "");
 
     (input == "ascensionChallenge" || input == "ascension")?
         offeringImage.style.display = offeringText.style.display = "none":
@@ -56,6 +56,7 @@ export const resetdetails = (input: resetNames) => {
             if(currencyImage1.src !== "Pictures/Diamond.png"){
                 currencyImage1.src = "Pictures/Diamond.png"
             }
+            currencyImage1.style.display = "block"
             resetCurrencyGain.textContent = "+" + format(G['prestigePointGain']);
             resetInfo.textContent = "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: " + format(player.coinsThisPrestige) + "/1e16 Coins || TIME SPENT: " + format(player.prestigecounter) + " seconds.";
             resetInfo.style.color = "turquoise";
@@ -64,6 +65,7 @@ export const resetdetails = (input: resetNames) => {
             if(currencyImage1.src !== "Pictures/Mythos.png"){
                 currencyImage1.src = "Pictures/Mythos.png"
             }
+            currencyImage1.style.display = "block"
             resetCurrencyGain.textContent = "+" + format(G['transcendPointGain']);
             resetInfo.textContent = "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: " + format(player.coinsThisTranscension) + "/1e100 Coins || TIME SPENT: " + format(player.transcendcounter) + " seconds.";
             resetInfo.style.color = "orchid";
@@ -72,6 +74,7 @@ export const resetdetails = (input: resetNames) => {
             if(currencyImage1.src !== "Pictures/Particle.png"){
                 currencyImage1.src = "Pictures/Particle.png"
             }
+            currencyImage1.style.display = "block"
             resetCurrencyGain.textContent = "+" + format(G['reincarnationPointGain']);
             resetInfo.textContent = "Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: " + format(player.transcendShards) + "/1e300 Mythos Shards || TIME SPENT: " + format(player.reincarnationcounter) + " seconds.";
             resetInfo.style.color = "limegreen";
@@ -80,12 +83,13 @@ export const resetdetails = (input: resetNames) => {
             if(currencyImage1.src !== "Pictures/Diamond.png") {
                 currencyImage1.src = "Pictures/Diamond.png"
             }
+            currencyImage1.style.display = "block"
             resetCurrencyGain.textContent = "-" + format(player.acceleratorBoostCost);
             resetInfo.textContent = "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: " + format(player.prestigePoints) + "/" + format(player.acceleratorBoostCost) + " Diamonds.";
             resetInfo.style.color = "cyan";
             break;
         case "transcensionChallenge":
-            currencyImage1.src = "";
+            currencyImage1.style.display = "none"
             resetCurrencyGain.textContent = "";
 
             (transcensionChallenge !== 0)?
@@ -93,7 +97,7 @@ export const resetdetails = (input: resetNames) => {
             (resetInfo.style.color = "crimson", resetInfo.textContent = "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!");
             break;
         case "reincarnationChallenge":
-            currencyImage1.src = "";
+            currencyImage1.style.display = "none"
             resetCurrencyGain.textContent = "";
 
             if (reincarnationChallenge !== 0) {
@@ -108,13 +112,13 @@ export const resetdetails = (input: resetNames) => {
             }
             break;
         case "ascensionChallenge":
-            currencyImage1.src = "";
+            currencyImage1.style.display = "none"
             resetCurrencyGain.textContent = "";
             resetInfo.textContent = "Click this if you're in an Ascension Challenge and want to leave. You get it already!";
             resetInfo.style.color = "gold";
             break;
         case "ascension":
-            currencyImage1.src = "";
+            currencyImage1.style.display = "none"
             resetCurrencyGain.textContent = "";
             resetInfo.textContent = "Ascend. 10x1 is required! +" + format(CalcCorruptionStuff()[4], 0, true) + " Wow! Cubes for doing it! Time: " + format(player.ascensionCounter, 0, false) + " Seconds.";
             resetInfo.style.color = "gold";
