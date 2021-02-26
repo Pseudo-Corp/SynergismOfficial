@@ -122,9 +122,11 @@ export const resetGame = () => {
 export const importSynergism = (input: string) => {
     const d = LZString.decompressFromBase64(input);
     const f: Player = d ? JSON.parse(d) : JSON.parse(atob(input));
+
     if (
         (f.exporttest === "YES!" || f.exporttest === true) ||
-        (f.exporttest === false && isTesting)
+        (f.exporttest === false && isTesting) ||
+        (f.exporttest === 'NO!' && isTesting)
     ) {
         // tested: this does loop over the items before clearing them (Firefox)
         intervalHold.forEach(v => clearInt(v));
@@ -134,6 +136,8 @@ export const importSynergism = (input: string) => {
         constantIntervals();
         createTimer();
         loadSynergy();
+    } else {
+        alert(`You are attempting to load a testing file in a non-testing version!`);
     }
 }
 

@@ -327,10 +327,10 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.worlds += 150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * (shop.obtainiumAutoLevel);
         player.worlds += 100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * (shop.cashGrabLevel);
         player.worlds += 200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * (shop.antSpeedLevel);
-        player.worlds += shop.seasonPass 
+        player.worlds += typeof shop.seasonPass === 'number' 
             ? 500 * shop.seasonPass + 250/2 * (shop.seasonPass - 1) * shop.seasonPass
             : 500 * shop.seasonPassLevel + 250/2 * (shop.seasonPassLevel - 1) * shop.seasonPassLevel;
-        
+
         console.log('Because of the v2.5.0 update, you have been refunded ' + format(player.worlds - initialQuarks) + ' Quarks! If this appears wrong let Platonic know :)')
     }
 }
