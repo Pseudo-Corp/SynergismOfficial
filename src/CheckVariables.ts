@@ -250,7 +250,6 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
     if (data.platonicBlessings === undefined) {
         const ascCount = player.ascensionCount
-        console.log(player.currentChallenge.ascension)
         if (player.currentChallenge.ascension !== 0 && player.currentChallenge.ascension !== 15) {
             resetCheck('ascensionChallenge', false, true);
         }
@@ -319,14 +318,7 @@ export const checkVariablesOnLoad = (data: Player) => {
             tesseractToQuark: Number(shop.tesseractToQuarkBought),
             hypercubeToQuark: Number(shop.hypercubeToQuarkBought),
         }
-        /* Note to Khafra: This fix is utter crap i'm sorry but it was like 2 in the morning and
-        I was depressed when writing it thanks for your understanding.
-        -platonic */
-        /* Edit at 2 AM: This is actually worse of a fix than I originally considered but right now I'm
-        creatively bankrupt and can't really think straight right now. However maybe my scribblings can
-        help inspire a solution to the shop problem? I don't know but maybe -Plato */
-        // This is supposed to work within the above definition but it defaults to undefined because of type matching.
-        player.shopUpgrades.challengeTome = data.shopUpgrades.challengeTome
+
         const initialQuarks = player.worlds;
 
         player.worlds += 150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * (shop.offeringTimerLevel);
@@ -335,7 +327,7 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.worlds += 150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * (shop.obtainiumAutoLevel);
         player.worlds += 100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * (shop.cashGrabLevel);
         player.worlds += 200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * (shop.antSpeedLevel);
-        player.worlds += 500 * shop.seasonPassLevel + 250/2 * (shop.seasonPassLevel - 1) * (shop.seasonPassLevel);
+        player.worlds += 500 * shop.seasonPass + 250/2 * (shop.seasonPass - 1) * (shop.seasonPass);
 
         console.log('Because of the v2.5.0 update, you have been refunded ' + format(player.worlds - initialQuarks) + ' Quarks! If this appears wrong let Platonic know :)')
     }

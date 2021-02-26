@@ -14,7 +14,7 @@ export interface LegacyShopUpgrades {
     talismanBought: boolean
     challengeExtension: number
     challenge10Tomes: number
-    seasonPassLevel: number
+    seasonPass: number
     cubeToQuarkBought: boolean
     tesseractToQuarkBought: boolean
     hypercubeToQuarkBought: boolean
