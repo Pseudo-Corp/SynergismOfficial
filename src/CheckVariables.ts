@@ -1,10 +1,11 @@
-import { player, format, resetCheck, isTesting} from './Synergism';
+import { player, format, resetCheck, isTesting, blankSave} from './Synergism';
 import { Player } from './types/Synergism';
 import Decimal from 'break_infinity.js';
 import { calculateMaxRunes, calculateTimeAcceleration } from './Calculate';
 import { buyResearch } from './Research';
 import { c15RewardUpdate } from './Statistics';
 import { LegacyShopUpgrades } from './types/LegacySynergism';
+import { padArray } from './Utility';
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -20,14 +21,19 @@ export const checkVariablesOnLoad = (data: Player) => {
             ascension: 0,
         }
     }
+
+    // backwards compatibility for v1.0101 (and possibly older) saves
     if (!Array.isArray(data.challengecompletions)) {
         player.challengecompletions = Object.values(data.challengecompletions);
-        player.challengecompletions[0] = 0;
-        player.challengecompletions[11] = 0;
-        player.challengecompletions[12] = 0;
-        player.challengecompletions[13] = 0;
-        player.challengecompletions[14] = 0;
-      }
+        padArray(player.challengecompletions, 0, blankSave.challengecompletions.length);
+    }
+
+    // backwards compatibility for v1.0101 (and possibly older) saves
+    if (!Array.isArray(data.highestchallengecompletions)) {
+        // if highestchallengecompletions is every added onto, this will need to be padded.
+        player.highestchallengecompletions = Object.values(data.highestchallengecompletions);
+    }
+
     if (data.wowCubes === undefined) {
         player.wowCubes = 0;
         player.wowTesseracts = 0;

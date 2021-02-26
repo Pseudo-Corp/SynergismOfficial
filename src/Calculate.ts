@@ -729,6 +729,7 @@ interface IAntSacRewards {
 export const calculateAntSacrificeRewards = (): IAntSacRewards => {
     calculateAntSacrificeELO();
     calculateAntSacrificeMultipliers();
+
     const rewardsMult = G['timeMultiplier'] * G['upgradeMultiplier'];
     const rewards: IAntSacRewards = {
         antSacrificePoints: G['effectiveELO'] * rewardsMult / 85,

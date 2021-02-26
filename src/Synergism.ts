@@ -1321,7 +1321,7 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
  * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
  */
 export const format = (input: Decimal | number, accuracy = 0, long = false): string => {
-    if (!(input instanceof Decimal) && typeof input !== 'number') {
+    if (!(input instanceof Decimal) && typeof input !== 'number' || isNaN(input as any)) {
         return '0 [und.]';
     }
 
