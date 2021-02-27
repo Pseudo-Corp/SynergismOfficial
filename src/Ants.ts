@@ -4,7 +4,7 @@ import { Globals as G } from './Variables';
 
 import Decimal, { DecimalSource } from 'break_infinity.js';
 import { achievementaward } from './Achievements';
-import { revealStuff } from './UpdateHTML';
+import { Confirm, revealStuff } from './UpdateHTML';
 import { redeemShards } from './Runes';
 import { updateTalismanInventory } from './Talismans';
 import { buyResearch } from './Research';
@@ -328,12 +328,12 @@ export const showSacrifice = () => {
     }
 }
 
-export const sacrificeAnts = (auto = false) => {
+export const sacrificeAnts = async (auto = false) => {
     let p = true
 
     if (player.antPoints.gte("1e40")) {
         if (!auto && player.antSacrificePoints < 100 && player.toggles[32]) {
-            p = confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?")
+            p = await Confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?")
         }
         if (p) {
             const antSacrificePointsBefore = player.antSacrificePoints;

@@ -1,6 +1,6 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
-import { revealStuff } from './UpdateHTML';
+import { Confirm, revealStuff } from './UpdateHTML';
 import { calculateTimeAcceleration } from './Calculate';
 import { Player } from './types/Synergism';
 
@@ -245,10 +245,10 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
 }
 
-export const buyShopUpgrades = (input: ShopUpgradeNames) => {
+export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     let p = true;
     if (G['shopConfirmation']) {
-        p = confirm("Are you sure you'd like to purchase " + input + " for " + format(getShopCosts(input)) + " Quarks? Press 'OK' to finalize purchase.")
+        p = await Confirm("Are you sure you'd like to purchase " + input + " for " + format(getShopCosts(input)) + " Quarks? Press 'OK' to finalize purchase.");
     }
 
     if (p) {
@@ -264,9 +264,9 @@ export const buyShopUpgrades = (input: ShopUpgradeNames) => {
     revealStuff();
 }
 
-export const useConsumable = (input: ShopUpgradeNames) => {    
+export const useConsumable = async (input: ShopUpgradeNames) => {    
     const p = G['shopConfirmation']
-        ? confirm('Would you like to use this potion?')
+        ? await Confirm('Would you like to use this potion?')
         : true;
 
     if (p) {
@@ -286,9 +286,9 @@ export const useConsumable = (input: ShopUpgradeNames) => {
         }
     }
 }
-export const resetShopUpgrades = () => {
+export const resetShopUpgrades = async () => {
     const p = G['shopConfirmation']
-        ? confirm("This will fully refund most of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?")
+        ? await Confirm("This will fully refund most of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?")
         : true;
 
     if (p) {

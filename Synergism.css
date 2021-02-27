@@ -94,6 +94,85 @@ a {color: white;}
 	margin-top: 0;
 	margin-bottom: 0;
 }
+
+#confirmationBox {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 6969;
+	width: 30%;
+	height: 30%;
+	background-color: rgb(20, 20, 20);
+	border-radius: 5px;
+	border: 1px solid gold;
+}
+
+#confirmWrapper, 
+#alertWrapper, 
+#promptWrapper {
+	height: 100%;
+	display: none;
+}
+
+#confirm > p,
+#alert > p,
+#prompt > label { 
+	grid-area: txt; 
+	text-align: center;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+/* Elements relating to the browser popup functions (Alert, Confirm, etc) */
+
+#ok_confirm, #ok_alert, #ok_prompt { grid-area: btn; }
+#cancel_confirm, #cancel_prompt { grid-area: btn2; }
+#prompt_text { grid-area: lbl; }
+
+#confirm > button,
+#alert > button,
+#prompt > button {
+	width: 75%;
+	border: 1px solid gold;
+	margin: 0 auto;
+	height: 50%;
+}
+
+#confirm {
+	height: 100%;
+	display: grid;
+	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-rows: 75% 25%;
+	grid-template-areas: 
+		"txt txt txt txt"
+		". btn btn2 .";
+}
+
+#alert {
+	height: 100%;
+	display: grid;
+	grid-template-columns: 33.33333% 33.33333% 33.33333%;
+	grid-template-rows: 75% 25%;
+	grid-template-areas: 
+		"txt txt txt"
+		". btn .";
+}
+
+#prompt {
+	height: 100%;
+	display: grid;
+	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-rows: 5% 55% 10% 5% 25%;
+	grid-template-areas: 
+		". . . ."
+		"txt txt txt txt"
+		". lbl lbl ."
+		". . . ."
+		". btn btn2 .";
+}
+
 #resourcesrow {
 	position: relative;
 	font-size: 16px;

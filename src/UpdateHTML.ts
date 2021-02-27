@@ -852,3 +852,69 @@ export const changeTabColor = () => {
 
     tab.style.backgroundColor = color;
 }
+
+export const Confirm = (text: string) => {
+    const conf = document.getElementById('confirmationBox');
+    const confWrap = document.getElementById('confirmWrapper');
+    const popup = document.querySelector('#confirm');
+    const ok = popup.querySelector<HTMLElement>('#ok_confirm');
+    const cancel = popup.querySelector<HTMLElement>('#cancel_confirm');
+    
+    conf.style.display = 'block';
+    confWrap.style.display = 'block';
+    popup.querySelector('p').textContent = text;
+
+    return new Promise<boolean>((res) => {
+        ok.onclick = () => res(true);
+        cancel.onclick = () => res(false);
+    })
+    .finally(() => {
+        ok.onclick = null;
+        cancel.onclick = null;
+        conf.style.display = 'none';
+        confWrap.style.display = 'none';
+    });
+}
+
+export const Alert = (text: string) => {
+    const conf = document.getElementById('confirmationBox');
+    const alertWrap = document.getElementById('alertWrapper');
+    const popup = document.querySelector('#alert');
+    const ok = popup.querySelector<HTMLElement>('#ok_alert');
+    
+    conf.style.display = 'block';
+    alertWrap.style.display = 'block';
+    popup.querySelector('p').textContent = text;
+
+    return new Promise<undefined>((res) => {
+        ok.onclick = () => res(undefined);
+    })
+    .finally(() => {
+        ok.onclick = null;
+        conf.style.display = 'none';
+        alertWrap.style.display = 'none';
+    });
+}
+
+export const Prompt = (text: string) => {
+    const conf = document.getElementById('confirmationBox');
+    const confWrap = document.getElementById('promptWrapper');
+    const popup = document.querySelector('#prompt');
+    const ok = popup.querySelector<HTMLElement>('#ok_prompt');
+    const cancel = popup.querySelector<HTMLElement>('#cancel_prompt');
+    
+    conf.style.display = 'block';
+    confWrap.style.display = 'block';
+    popup.querySelector('label').textContent = text;
+
+    return new Promise<string | null>((res) => {
+        ok.onclick = (e) => res((e.target as HTMLButtonElement).parentNode.querySelector('input').value);
+        cancel.onclick = () => res(null);
+    })
+    .finally(() => {
+        ok.onclick = null;
+        cancel.onclick = null;
+        conf.style.display = 'none';
+        confWrap.style.display = 'none';
+    });
+}

@@ -8,7 +8,7 @@ import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewa
 import type { Player } from './types/Synergism';
 import { upgradeupdate, getConstUpgradeMetadata, buyConstantUpgrades } from './Upgrades';
 import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Research';
-import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, CSSRuneBlessings, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor } from './UpdateHTML';
+import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, CSSRuneBlessings, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration } from './Calculate';
@@ -2335,7 +2335,7 @@ export const resetCurrency = (): void => {
     }
 }
 
-export const resetCheck = (i: string, manual = true, leaving = false): void => {
+export const resetCheck = async (i: string, manual = true, leaving = false): Promise<void> => {
     if (i === 'prestige') {
         if (player.coinsThisPrestige.gte(1e16) || G['prestigePointGain'].gte(100)) {
             if (manual) {
@@ -2481,7 +2481,7 @@ export const resetCheck = (i: string, manual = true, leaving = false): void => {
     if (i === "ascensionChallenge" && player.currentChallenge.ascension !== 0) {
         let conf = true
         if (manual) {
-            conf = confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
+            conf = await Confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
         }
         if (!conf) {
             return;
@@ -2535,10 +2535,10 @@ export const resetCheck = (i: string, manual = true, leaving = false): void => {
     }
 }
 
-export const resetConfirmation = (i: string): void => {
+export const resetConfirmation = async (i: string): Promise<void> => {
     if (i === 'prestige') {
         if (player.toggles[28] === true) {
-            const r = confirm("Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
+            const r = await Confirm("Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
             if (r === true) {
                 resetachievementcheck(1);
                 reset("prestige");
@@ -2550,7 +2550,7 @@ export const resetConfirmation = (i: string): void => {
     }
     if (i === 'transcend') {
         if (player.toggles[29] === true) {
-            const z = confirm("Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
+            const z = await Confirm("Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
             if (z === true) {
                 resetachievementcheck(2);
                 reset("transcension");
@@ -2563,7 +2563,7 @@ export const resetConfirmation = (i: string): void => {
     if (i === 'reincarnate') {
         if (player.currentChallenge.ascension !== 12) {
             if (player.toggles[30] === true) {
-                const z = confirm("Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]")
+                const z = await Confirm("Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]")
                 if (z === true) {
                     resetachievementcheck(3);
                     reset("reincarnation");
@@ -2575,7 +2575,8 @@ export const resetConfirmation = (i: string): void => {
         }
     }
     if (i === 'ascend') {
-        const z = !player.toggles[31] || confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]")
+        const z = !player.toggles[31] || 
+                  await Confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]")
         if (z) {
             reset("ascension");
         }
@@ -3318,7 +3319,7 @@ document.addEventListener('keydown', (event) => {
 
 });
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     if (location.href.includes('kong')) {
         // kongregate
         const script = document.createElement('script');
@@ -3336,7 +3337,7 @@ window.addEventListener('load', () => {
     if (isLZString) {
         localStorage.clear();
         localStorage.setItem('Synergysave2', btoa(dec));
-        alert('Transferred save to new format successfully!');
+        await Alert('Transferred save to new format successfully!');
     }
 
     corruptionButtonsAdd();
