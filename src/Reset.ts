@@ -20,6 +20,7 @@ import type {
 import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
 import { resetNames } from './types/Synergism';
+import { updateClassList } from './Utility';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
@@ -539,17 +540,18 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.challengecompletions[7] = player.highestchallengecompletions[7] = player.cubeUpgrades[49]
         player.challengecompletions[8] = player.highestchallengecompletions[8] = player.cubeUpgrades[49]
 
+        document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
         player.roombaResearchIndex = 0;
         player.autoResearch = 1;
 
         for (let j = 1; j <= (200); j++) {
-            const k = "res" + j;
+            const k = `res${j}`;
             if (player.researches[j] > 0.5 && player.researches[j] < G['researchMaxLevels'][j]) {
-                document.getElementById(k).style.backgroundColor = "purple"
+                updateClassList(k, ["researchPurchased"], ["researchAvailable", "researchMaxed", "researchPurchasedAvailable", "researchUnpurchased"])
             } else if (player.researches[j] > 0.5 && player.researches[j] >= G['researchMaxLevels'][j]) {
-                document.getElementById(k).style.backgroundColor = "green"
+                updateClassList(k, ["researchMaxed"], ["researchAvailable", "researchPurchased", "researchPurchasedAvailable", "researchUnpurchased"])
             } else {
-                document.getElementById(k).style.backgroundColor = "black"
+                updateClassList(k, ["researchUnpurchased"], ["researchAvailable", "researchPurchased", "researchPurchasedAvailable", "researchMaxed"])
             }
         }
 

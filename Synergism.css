@@ -566,7 +566,7 @@ nav li:hover {
 
 .buttonRow > div {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 35px;
 }
@@ -610,6 +610,15 @@ nav li:hover {
     width: 80px;
     height: 30px;
     margin-left: 15px;
+}
+
+.autobuyerToggleButton {
+	background-color: #171717;
+	transition: background-color 0.15s;
+}
+
+.autobuyerToggleButton:hover {
+	background-color: #333333;
 }
 
 .buttonRow > div > .stats {
@@ -765,14 +774,19 @@ nav li:hover {
 }
 
 #coinBuildings {
+	display: flex;
     position: relative;
 	padding: 0;
+	flex-direction: column;
+    align-items: center;
 }
 
 #prestige {
     position: relative;
 	padding: 0;
 	color: cyan;
+	flex-direction: column;
+    align-items: center;
 }
 
 #crystalupgradestable { margin: 0 auto; }
@@ -860,6 +874,7 @@ nav li:hover {
 	width: 100px;
 	text-align: center;
 	border: 2px solid gold;
+	cursor: default;
 }
 
 .runeTypeElement {
@@ -867,6 +882,16 @@ nav li:hover {
 	text-align: center;
 	align-items: center;
 	align-content: center;
+}
+
+.runeType > .runeButtonAvailable {
+	background-color: purple;
+	cursor: pointer;
+	transition-duration: 0.15s;
+}
+
+.runeType > .runeButtonAvailable:hover {
+	background-color: #b300b2;
 }
 
 #runeEffectDisplays {
@@ -1435,6 +1460,8 @@ nav li:hover {
 #transcension {
 	position: relative;
 	padding: 0;
+	flex-direction: column;
+    align-items: center;
 }
 
 #transcension > .buttonRow {
@@ -1614,6 +1641,8 @@ nav li:hover {
     position: relative;
 	padding: 0;
 	color: limegreen;
+	flex-direction: column;
+    align-items: center;
 }
 
 #reincarnationTexts {
@@ -1703,6 +1732,36 @@ nav li:hover {
 
 #researchinfo2 {
 	height: 40px;
+}
+
+.researchAvailable {
+	cursor: pointer;
+	transition-duration: 0.15s;
+}
+
+.researchAvailable:hover {
+	background-color: #333333
+}
+
+.researchPurchased {
+	background-color: purple;
+}
+
+.researchPurchasedAvailable {
+	cursor: pointer;
+	transition-duration: 0.15s;
+}
+
+.researchPurchasedAvailable:hover {
+	background-color: #b300b2
+}
+
+.researchMaxed {
+	background-color: green;
+}
+
+.researchRoomba {
+	background-color: orange;
 }
 
 #shop {
@@ -2137,6 +2196,8 @@ p[id$="BlessingsTotal"] {
 	position: relative;
 	padding: 0;
 	color: orange;
+	flex-direction: column;
+    align-items: center;
 }
 
 #tesseractTexts { margin-top: 20px; }
@@ -2150,12 +2211,13 @@ p[id$="BlessingsTotal"] {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 450px;
 }
 
 #ascendConstantUpgrades > p {
 	margin: 0;
 	text-align: left;
-	width: 25%;
+	width: 100%;
 }
 
 #ascendautomation {
@@ -2268,6 +2330,7 @@ p[id$="BlessingsTotal"] {
 }
 .subtabContent.subtabActive.subtabDisplayFlex {
 	display: flex;
+	justify-content: center;
 }
 
 .historySubTab {
@@ -2359,8 +2422,17 @@ p[id$="BlessingsTotal"] {
 	position: absolute;
 	height: 30px;
 	width: 325px;
-	border: 1px solid yellow;
+	border: 1px solid yellow !important;
 	color: gold;
+	transition-duration: 0.15s;
+	cursor: default;
+}
+.runeButtonsAvailable{
+	background-color: #222222;
+	cursor: pointer;
+}
+.runeButtonsAvailable:hover{
+	background-color: #444444;
 }
 .runeInputSettings{
 	top: 45px;

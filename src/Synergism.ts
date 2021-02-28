@@ -1285,9 +1285,6 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
             document.getElementById('automaticobtainium').textContent = "[LOCKED - Buy Research 3x11]"
         }
 
-        if (player.autoResearchToggle && player.autoResearch > 0.5) {
-            document.getElementById("res" + player.autoResearch).style.backgroundColor = "orange"
-        }
         if (player.autoSacrificeToggle && player.autoSacrifice > 0.5) {
             document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "orange"
         }
