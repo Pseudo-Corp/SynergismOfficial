@@ -201,14 +201,18 @@ export const visualUpdateRunes = () => {
         const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
         let t = 0;
         for (let i = 1; i <= 5; i++) {
-            document.getElementById('runeBlessingLevel' + i + 'Value').textContent = format(player.runeBlessingLevels[i], 0, true)
-            document.getElementById('runeBlessingPower' + i + 'Value1').textContent = format(G['runeBlessings'][i])
-            document.getElementById('runeBlessingPurchaseAmount' + i).textContent = format(Math.max(1, calculateSummationLinear(player.runeBlessingLevels[i], G['blessingBaseCost'], player.runeshards, player.runeBlessingBuyAmount)[0] - player.runeBlessingLevels[i]))
-            document.getElementById('runeBlessingPurchaseCost' + i).textContent = format(Math.max(G['blessingBaseCost'] * (1 + player.runeBlessingLevels[i]), calculateSummationLinear(player.runeBlessingLevels[i], G['blessingBaseCost'], player.runeshards, player.runeBlessingBuyAmount)[1]))
+            document.getElementById(`runeBlessingLevel${i}Value`).textContent = format(player.runeBlessingLevels[i], 0, true)
+            document.getElementById(`runeBlessingPower${i}Value1`).textContent = format(G['runeBlessings'][i])
+            const levelsPurchasable = calculateSummationLinear(player.runeBlessingLevels[i], G['blessingBaseCost'], player.runeshards, player.runeBlessingBuyAmount)[0] - player.runeBlessingLevels[i]
+            levelsPurchasable > 0
+                ? document.getElementById(`runeBlessingPurchase${i}`).classList.add("runeButtonsAvailable")
+                : document.getElementById(`runeBlessingPurchase${i}`).classList.remove("runeButtonsAvailable")
+            document.getElementById(`runeBlessingPurchaseAmount${i}`).textContent = format(Math.max(1, levelsPurchasable))
+            document.getElementById(`runeBlessingPurchaseCost${i}`).textContent = format(Math.max(G['blessingBaseCost'] * (1 + player.runeBlessingLevels[i]), calculateSummationLinear(player.runeBlessingLevels[i], G['blessingBaseCost'], player.runeshards, player.runeBlessingBuyAmount)[1]))
             if (i === 5) {
                 t = 1
             }
-            document.getElementById('runeBlessingPower' + i + 'Value2').textContent = format(1 - t + blessingMultiplierArray[i] * G['effectiveRuneBlessingPower'][i], 4, true)
+            document.getElementById(`runeBlessingPower${i}Value2`).textContent = format(1 - t + blessingMultiplierArray[i] * G['effectiveRuneBlessingPower'][i], 4, true)
         }
     }
 
@@ -217,11 +221,15 @@ export const visualUpdateRunes = () => {
         const subtract = [0, 0, 0, 1, 0, 0]
         for (let i = 1; i <= 5; i++) {
             spiritMultiplierArray[i] *= (calculateCorruptionPoints() / 400)
-            document.getElementById('runeSpiritLevel' + i + 'Value').textContent = format(player.runeSpiritLevels[i], 0, true)
-            document.getElementById('runeSpiritPower' + i + 'Value1').textContent = format(G['runeSpirits'][i])
-            document.getElementById('runeSpiritPurchaseAmount' + i).textContent = format(Math.max(1, calculateSummationLinear(player.runeSpiritLevels[i], G['spiritBaseCost'], player.runeshards, player.runeSpiritBuyAmount)[0] - player.runeSpiritLevels[i]))
-            document.getElementById('runeSpiritPurchaseCost' + i).textContent = format(Math.max(G['spiritBaseCost'] * (1 + player.runeSpiritLevels[i]), calculateSummationLinear(player.runeSpiritLevels[i], G['spiritBaseCost'], player.runeshards, player.runeSpiritBuyAmount)[1]))
-            document.getElementById('runeSpiritPower' + i + 'Value2').textContent = format(1 - subtract[i] + spiritMultiplierArray[i] * G['effectiveRuneSpiritPower'][i], 4, true)
+            document.getElementById(`runeSpiritLevel${i}Value`).textContent = format(player.runeSpiritLevels[i], 0, true)
+            document.getElementById(`runeSpiritPower${i}Value1`).textContent = format(G['runeSpirits'][i])
+            const levelsPurchasable = calculateSummationLinear(player.runeSpiritLevels[i], G['spiritBaseCost'], player.runeshards, player.runeSpiritBuyAmount)[0] - player.runeSpiritLevels[i]
+            levelsPurchasable > 0
+                ? document.getElementById(`runeSpiritPurchase${i}`).classList.add("runeButtonsAvailable")
+                : document.getElementById(`runeSpiritPurchase${i}`).classList.remove("runeButtonsAvailable")
+            document.getElementById(`runeSpiritPurchaseAmount${i}`).textContent = format(Math.max(1, levelsPurchasable))
+            document.getElementById(`runeSpiritPurchaseCost${i}`).textContent = format(Math.max(G['spiritBaseCost'] * (1 + player.runeSpiritLevels[i]), calculateSummationLinear(player.runeSpiritLevels[i], G['spiritBaseCost'], player.runeshards, player.runeSpiritBuyAmount)[1]))
+            document.getElementById(`runeSpiritPower${i}Value2`).textContent = format(1 - subtract[i] + spiritMultiplierArray[i] * G['effectiveRuneSpiritPower'][i], 4, true)
         }
     }
 }

@@ -584,7 +584,9 @@ export const buttoncolorchange = () => {
     if (G['currentTab'] === "runes") {
         if (G['runescreen'] === "runes") {
             for (let i = 1; i <= 5; i++) {
-                player.runeshards > 0.5 ? document.getElementById("activaterune" + i).style.backgroundColor = "purple" : document.getElementById("activaterune" + i).style.backgroundColor = "#171717";
+                player.runeshards > 0.5
+                    ? document.getElementById(`activaterune${i}`).classList.add("runeButtonAvailable")
+                    : document.getElementById(`activaterune${i}`).classList.remove("runeButtonAvailable")
             }
         }
         if (G['runescreen'] === "talismans") {
@@ -643,7 +645,7 @@ export const buttoncolorchange = () => {
     }
 
     if (G['currentTab'] === "ants") {
-        (player.reincarnationPoints.gte(player.firstCostAnts)) ? document.getElementById("anttier1").style.backgroundColor = "white" : document.getElementById("anttier1").style.backgroundColor = "#171717";
+        (player.reincarnationPoints.gte(player.firstCostAnts)) ? document.getElementById(`anttier1`).classList.add("antTierBtnAvailable") : document.getElementById(`anttier1`).classList.remove("antTierBtnAvailable");
         for (let i = 2; i <= 8; i++) {
             const costAnts = player[G['ordinals'][i - 1] + 'CostAnts'] as Decimal | number;
             player.antPoints.gte(costAnts)

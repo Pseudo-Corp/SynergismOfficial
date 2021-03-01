@@ -2,6 +2,7 @@ import { player, format } from './Synergism';
 import { calculateSummationNonLinear, calculateRuneLevels, calculateAnts } from './Calculate';
 import { revealStuff } from './UpdateHTML';
 import { Globals as G } from './Variables';
+import { updateClassList } from './Utility';
 
 const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, number] => {
     buyAmount = Math.min(G['researchMaxLevels'][index] - player.researches[index], buyAmount)
@@ -22,22 +23,22 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean
         const p = player.autoResearch
         //Is max level, make green
         if (player.researches[p] === G['researchMaxLevels'][p]) {
-            document.getElementById("res" + player.autoResearch).style.backgroundColor = "green"
+            updateClassList(`res${player.autoResearch}`, ["researchMaxed"], ["researchPurchased", "researchUnpurchased"])
         }
         //Not max level but leveled at least once 
         else if (player.researches[p] >= 1) {
-            document.getElementById("res" + player.autoResearch).style.backgroundColor = "purple"
+            updateClassList(`res${player.autoResearch}`, ["researchPurchased"], ["researchUnpurchased", "researchMaxed"])
         }
         //Not Upgraded
         else {
-            document.getElementById("res" + player.autoResearch).style.backgroundColor = "black"
+            updateClassList(`res${player.autoResearch}`, ["researchUnpurchased"], ["researchPurchased", "researchMaxed"])
         }
     }
 
     // Handles toggling auto research focus, for when cube Upgrade 1x9 is NOT BOUGHT
     if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAuto >= 1 && player.cubeUpgrades[9] < 1) {
         player.autoResearch = index;
-        document.getElementById("res" + index).style.backgroundColor = "orange"
+        document.getElementById(`res${index}`).classList.add("researchRoomba");
     }
 
     // Buys Research. metaData returns amount of levels to buy and cost, array
@@ -76,17 +77,12 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean
         calculateAnts();
     }
 
-    // Updates research background color to green if you purchased to max level
-    if (index > 0 && isResearchUnlocked(index)) {
-        if (player.researches[index] === (G['researchMaxLevels'][index])) {
-            document.getElementById("res" + index).style.backgroundColor = "green"
-        }
-    }
     // Auto Research for cube upgrade 1x9 bought
     if (auto && player.cubeUpgrades[9] === 1) {
         // This overwrites manually selected automatic research (intended)
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
         if (isResearchMaxed(player.autoResearch)) {
+            document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
             player.roombaResearchIndex += 1;
         }
         // This completely skims over researches one has not unlocked as long as you stay in bounds
@@ -97,8 +93,9 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean
         // Researches that are unlocked work
         if (isResearchUnlocked(player.autoResearch)) {
             const doc = document.getElementById("res" + G['researchOrderByCost'][player.roombaResearchIndex])
-            if (doc)
-                doc.style.backgroundColor = "orange"
+            if (doc && player.researches[player.autoResearch] < G['researchMaxLevels'][player.autoResearch]) {
+                doc.classList.add("researchRoomba");
+            }
         }
     }
 
@@ -348,23 +345,21 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     if (player.researches[i] === (G['researchMaxLevels'][i])) {
         document.getElementById("researchcost").style.color = "Gold"
         document.getElementById("researchinfo3").style.color = "plum"
+        updateClassList(p, ["researchMaxed"], ["researchAvailable", "researchPurchased", "researchPurchasedAvailable"])
         z = z + " || MAXED!"
     } else {
         document.getElementById("researchcost").style.color = "limegreen"
         document.getElementById("researchinfo3").style.color = "white"
+        if (player.researches[i] > 0) {
+            updateClassList(p, ["researchPurchased", "researchPurchasedAvailable"], ["researchAvailable", "researchMaxed", "researchUnpurchased"])
+        } else {
+            updateClassList(p, ["researchAvailable"], ["researchPurchased", "researchMaxed", "researchUnpurchased"])
+        }
     }
 
     if (player.researchPoints < G['researchBaseCosts'][i] && player.researches[i] < (G['researchMaxLevels'][i])) {
         document.getElementById("researchcost").style.color = "crimson"
-    }
-
-    if (!auto && !player.autoResearchToggle) {
-        if (player.researches[i] > 0.5 && player.researches[i] < (G['researchMaxLevels'][i])) {
-            document.getElementById(p).style.backgroundColor = "purple"
-        }
-    }
-    if (player.researches[i] > 0.5 && player.researches[i] >= (G['researchMaxLevels'][i])) {
-        document.getElementById(p).style.backgroundColor = "green"
+        updateClassList(p, [], ["researchMaxed", "researchAvailable", "researchPurchasedAvailable"])
     }
 
     document.getElementById("researchinfo2").textContent = y
@@ -379,12 +374,12 @@ export const updateResearchBG = (j: number) => {
         player.researches[j] = G['researchMaxLevels'][j]
     }
 
-    const k = "res" + j
+    const k = `res${j}`
     if (player.researches[j] > 0.5 && player.researches[j] < G['researchMaxLevels'][j]) {
-        document.getElementById(k).style.backgroundColor = "purple"
+        updateClassList(k, ["researchPurchased"], ["researchUnpurchased", "researchMaxed"])
     } else if (player.researches[j] > 0.5 && player.researches[j] >= G['researchMaxLevels'][j]) {
-        document.getElementById(k).style.backgroundColor = "green"
+        updateClassList(k, ["researchMaxed"], ["researchUnpurchased", "researchPurchased"])
     } else {
-        document.getElementById(k).style.backgroundColor = "black"
+        updateClassList(k, ["researchUnpurchased"], ["researchPurchased", "researchMaxed"])
     }
 }

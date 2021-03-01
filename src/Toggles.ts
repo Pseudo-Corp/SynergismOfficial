@@ -7,7 +7,6 @@ import { calculateRuneLevels } from './Calculate';
 import { reset } from './Reset';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
-import { maxRoombaResearchIndex } from './Research';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier } from './Statistics';
 import { corruptionDisplay, corruptionLoadoutTableUpdate } from './Corruptions';
 
@@ -404,35 +403,16 @@ export const toggleAutoResearch = () => {
     if (player.autoResearchToggle) {
         player.autoResearchToggle = false;
         el.textContent = "Automatic: OFF";
+        document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
         player.autoResearch = 0;
     } else {
         player.autoResearchToggle = true;
         el.textContent = "Automatic: ON"
     }
 
-
-    if (!player.autoResearchToggle) {
-        for (let i = 1; i <= maxRoombaResearchIndex(player); i++) {
-            const l = document.getElementById("res" + i)
-            if (player.researches[i] === 0) {
-                l.style.backgroundColor = "black"
-            }
-            if (0 < player.researches[i] && player.researches[i] < G['researchMaxLevels'][i]) {
-                l.style.backgroundColor = "purple"
-            }
-            if (player.researches[i] === G['researchMaxLevels'][i]) {
-                l.style.backgroundColor = "green"
-            }
-        }
-    }
-
     if (player.autoResearchToggle && player.cubeUpgrades[9] === 1) {
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
-        const doc = document.getElementById("res" + player.autoResearch)
-        if (doc)
-            doc.style.backgroundColor = "orange"
     }
-
 
 }
 
@@ -491,7 +471,7 @@ export const toggleBuildingScreen = (input: string) => {
         document.getElementById(screen[key].screen).style.display = "none";
         document.getElementById(screen[key].button).style.backgroundColor = "";
     }
-    document.getElementById(screen[G['buildingSubTab']].screen).style.display = "block"
+    document.getElementById(screen[G['buildingSubTab']].screen).style.display = "flex"
     document.getElementById(screen[G['buildingSubTab']].button).style.backgroundColor = "crimson"
     player.subtabNumber = screen[G['buildingSubTab']].subtabNumber
 }

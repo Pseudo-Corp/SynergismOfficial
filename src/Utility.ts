@@ -83,3 +83,13 @@ export const padArray = <T extends any>(a: T[], b: T, length: number) => {
 
     return a;
 } 
+
+export const updateClassList = (targetElement: string, additions: Array<string>, removals: Array<string>) => {
+    const target = document.getElementById(targetElement);
+    for (const addition of additions) {
+        target.classList.add(addition);
+    }
+    for (const removal of removals) {
+        target.classList.remove(removal);
+    }
+}
