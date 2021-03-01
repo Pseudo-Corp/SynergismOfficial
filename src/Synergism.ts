@@ -3,7 +3,7 @@ import LZString from 'lz-string';
 
 import { isDecimal, getElementById, sortWithIndeces, sumContents } from './Utility';
 import { blankGlobals, Globals as G } from './Variables';
-import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep } from './Challenges';
+import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges } from './Challenges';
 
 import type { Player } from './types/Synergism';
 import { upgradeupdate, getConstUpgradeMetadata, buyConstantUpgrades } from './Upgrades';
@@ -2187,26 +2187,31 @@ export const resourceGain = (dt: number): void => {
         player.challengecompletions[1] += 1;
         challengeDisplay(1, false);
         challengeachievementcheck(1, true)
+        updateChallengeLevel(1)
     }
     if (player.researches[72] > 0.5 && player.challengecompletions[2] < (Math.min(player.highestchallengecompletions[2], 25 + 5 * player.researches[67] + 925 * player.researches[105])) && player.coins.gte(Decimal.pow(10, 1.6 * G['challengeBaseRequirements'][1] * Math.pow(1 + player.challengecompletions[2], 2)))) {
         player.challengecompletions[2] += 1
         challengeDisplay(2, false)
         challengeachievementcheck(2, true)
+        updateChallengeLevel(2)
     }
     if (player.researches[73] > 0.5 && player.challengecompletions[3] < (Math.min(player.highestchallengecompletions[3], 25 + 5 * player.researches[68] + 925 * player.researches[105])) && player.coins.gte(Decimal.pow(10, 1.7 * G['challengeBaseRequirements'][2] * Math.pow(1 + player.challengecompletions[3], 2)))) {
         player.challengecompletions[3] += 1
         challengeDisplay(3, false)
         challengeachievementcheck(3, true)
+        updateChallengeLevel(3)
     }
     if (player.researches[74] > 0.5 && player.challengecompletions[4] < (Math.min(player.highestchallengecompletions[4], 25 + 5 * player.researches[69] + 925 * player.researches[105])) && player.coins.gte(Decimal.pow(10, 1.45 * G['challengeBaseRequirements'][3] * Math.pow(1 + player.challengecompletions[4], 2)))) {
         player.challengecompletions[4] += 1
         challengeDisplay(4, false)
         challengeachievementcheck(4, true)
+        updateChallengeLevel(4)
     }
     if (player.researches[75] > 0.5 && player.challengecompletions[5] < (Math.min(player.highestchallengecompletions[5], 25 + 5 * player.researches[70] + 925 * player.researches[105])) && player.coins.gte(Decimal.pow(10, 2 * G['challengeBaseRequirements'][4] * Math.pow(1 + player.challengecompletions[5], 2)))) {
         player.challengecompletions[5] += 1
         challengeDisplay(5, false)
         challengeachievementcheck(5, true)
+        updateChallengeLevel(5)
     }
 
     if (player.coins.gte(1000) && player.unlocks.coinone === false) {
@@ -2356,11 +2361,10 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
     }
     if (i === 'challenge') {
         const q = player.currentChallenge.transcension;
-        const x = q + 65
+        const maxCompletions = getMaxChallenges(q);
         if (player.currentChallenge.transcension !== 0) {
             const reqCheck = (comp: number) => player.coinsThisTranscension.gte(challengeRequirement(q, comp, q));
 
-            const maxCompletions = 25 + 5 * player.researches[x] + 925 * player.researches[105];
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
                 const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
                 let counter = 0;
@@ -2372,16 +2376,14 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
                     counter++;
                 }
                 player.challengecompletions[q] = comp;
-                const y = x - 65
-                challengeDisplay(y, false)
-                updateChallengeLevel(y)
+                challengeDisplay(q, false)
+                updateChallengeLevel(q)
             }
             if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                 while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                     player.highestchallengecompletions[q] += 1;
-                    const y = x - 65;
-                    challengeDisplay(y, false)
-                    updateChallengeLevel(y)
+                    challengeDisplay(q, false)
+                    updateChallengeLevel(q)
                     highestChallengeRewards(q, player.highestchallengecompletions[q])
                     calculateCubeBlessings();
                 }
@@ -2395,7 +2397,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
             }
 
         }
-        if (!player.retrychallenges || manual || player.challengecompletions[q] >= (25 + 5 * player.researches[x] + 925 * player.researches[105])) {
+        if (!player.retrychallenges || manual || player.challengecompletions[q] >= (maxCompletions)) {
             player.currentChallenge.transcension = 0;
             updateChallengeDisplay();
         }
@@ -2414,6 +2416,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
     }
     if (i === "reincarnationchallenge" && player.currentChallenge.reincarnation !== 0) {
         const q = player.currentChallenge.reincarnation;
+        const maxCompletions = getMaxChallenges(q);
         if (player.currentChallenge.transcension !== 0) {
             player.currentChallenge.transcension = 0
         }
@@ -2424,7 +2427,6 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
                 return player.coins.gte(challengeRequirement(q, comp, q))
             }
         }
-        const maxCompletions = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
             const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
             let counter = 0;
@@ -2491,7 +2493,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
             achievementaward(247)
         }
 
-        const maxCompletions = a < 15 ? 30 + 3 * player.platonicUpgrades[5] + 3 * player.platonicUpgrades[10] + 4 * player.platonicUpgrades[15] : 1;
+        const maxCompletions = getMaxChallenges(a)
         if (a !== 0 && a < 15) {
             if (player.challengecompletions[10] >= challengeRequirement(a, player.challengecompletions[a], a) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;

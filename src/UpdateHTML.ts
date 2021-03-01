@@ -5,6 +5,7 @@ import { CalcCorruptionStuff, calculateTimeAcceleration } from './Calculate';
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
+import { getMaxChallenges } from './Challenges';
 
 export const revealStuff = () => {
     const example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
@@ -692,41 +693,7 @@ export const updateChallengeDisplay = () => {
 
 export const updateChallengeLevel = (k: number) => {
     const el = document.getElementById("challenge" + k + "level");
-    let maxChallenges = 0;
-
-    switch (k) {
-        case 1: 
-            maxChallenges = 25 + 5 * player.researches[66] + 925 * player.researches[105]
-            break;
-        case 2:
-            maxChallenges = 25 + 5 * player.researches[67] + 925 * player.researches[105]
-            break;
-        case 3:
-            maxChallenges = 25 + 5 * player.researches[68] + 925 * player.researches[105]
-            break;
-        case 4:
-            maxChallenges = 25 + 5 * player.researches[69] + 925 * player.researches[105]
-            break;
-        case 5:
-            maxChallenges = 25 + 5 * player.researches[70] + 925 * player.researches[105]
-            break;
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 10:
-            maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
-            break;
-        case 11:
-        case 12:
-        case 13:
-        case 14:
-            maxChallenges = 30 + 3 * player.platonicUpgrades[5] + 3 * player.platonicUpgrades[10] + 4 * player.platonicUpgrades[15]
-            break;
-        case 15:
-            maxChallenges = 9001;
-            break;
-    }
+    let maxChallenges = getMaxChallenges(k);
 
     el.textContent = `${player.challengecompletions[k]} / ${maxChallenges}`;
 }

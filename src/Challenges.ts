@@ -4,6 +4,66 @@ import { toggleAutoChallengeTextColors, toggleChallenges } from "./Toggles";
 import { Globals as G } from './Variables';
 import { calculateRuneLevels } from "./Calculate";
 
+export const getMaxChallenges = (i: number) => {
+    let maxChallenge = 0;
+    //Transcension Challenges
+    if (i <= 5) {
+        //Start with base 25 max completions
+        maxChallenge = 25;
+        //Check Research 5x5 ('Infinite' T. Challenges)
+        if (player.researches[105] > 0) {
+            return 9001
+        }
+        //Max T. Challenge depends on researches 3x16 to 3x20
+        maxChallenge += 5 * player.researches[65 + i]
+        return maxChallenge
+    }
+    //Reincarnation Challenges
+    if (i <= 10 && i > 5) {
+        //Start with base of 25 max completions
+        maxChallenge = 25;
+        //Cube Upgrade 2x9: +2/level
+        maxChallenge += 5 * player.cubeUpgrades[29];
+        //Shop Upgrade "Challenge Extension": +2/level
+        maxChallenge += 2 * player.shopUpgrades.challengeExtension;
+        //Platonic Upgrade 5 (ALPHA): +5
+        if (player.platonicUpgrades[5] > 0) {
+            maxChallenge += 3;
+        }
+        //Platonic Upgrade 10 (BETA): +5
+        if (player.platonicUpgrades[10] > 0) {
+            maxChallenge += 3;
+        }
+        //Platonic Upgrade 15 (OMEGA): +10
+        if (player.platonicUpgrades[15] > 0) {
+            maxChallenge += 4;
+        }
+        return maxChallenge
+    }
+    //Ascension Challenge
+    if (i <= 15 && i > 10) {
+        //Challenge 15 has no formal cap, so return 9001.
+        if (i === 15) {
+            return 9001
+        }
+        //Start with base of 30 max completions
+        maxChallenge = 30;
+        //Platonic Upgrade 5 (ALPHA): +5
+        if (player.platonicUpgrades[5] > 0) {
+            maxChallenge += 3;
+        }
+        //Platonic Upgrade 10 (BETA): +5
+        if (player.platonicUpgrades[10] > 0) {
+            maxChallenge += 3;
+        }
+        //Platonic Upgrade 15 (OMEGA): +10
+        if (player.platonicUpgrades[15] > 0) {
+            maxChallenge += 4;
+        }
+        return maxChallenge
+    }
+}
+
 export const challengeDisplay = (i: number, changefocus?: boolean) => {
     changefocus = (changefocus === null || changefocus === undefined) ? true : changefocus;
     let quarksMultiplier = 1;
@@ -16,7 +76,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         G['triggerChallenge'] = i
     }
 
-    let maxChallenges = 0;
+    let maxChallenges = getMaxChallenges(i);
     if (i <= 5 && changefocus){
         if(player.challengecompletions[i] >= 100){
             document.getElementById('completionSoftcap').textContent = "|| Softcapped past 100! Effective completion count: " + CalcECC('transcend',player.challengecompletions[i])
@@ -28,7 +88,6 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
     
 
     if (i > 5 && i <= 10) {
-        maxChallenges = 25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15];
         quarksMultiplier = 10;
         if(player.challengecompletions[i] >= 25 && changefocus){
             document.getElementById('completionSoftcap').textContent = "|| Softcapped past 25! Effective completion count: " + format(CalcECC('reincarnation',player.challengecompletions[i]),2,true)
@@ -38,7 +97,6 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         }
     }
     if (i > 10) {
-        maxChallenges = 30 + 3 * player.platonicUpgrades[5] + 3 * player.platonicUpgrades[10] + 4 * player.platonicUpgrades[15]
         if(player.challengecompletions[i] >= 10){
             document.getElementById('completionSoftcap').textContent = "|| Softcapped past 10! Effective completion count: " + format(CalcECC('ascension',player.challengecompletions[i]),2,true)
         }
@@ -63,7 +121,6 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
 
 
     if (i === 1 && G['challengefocus'] === 1) {
-        maxChallenges = 25 + 5 * player.researches[66] + 925 * player.researches[105]
         a.textContent = "No Multipliers Challenge || " + player.challengecompletions[1] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Multipliers make the game a little too fast. Let's take them out!"
         c.textContent = "Transcend and reach the goal except Multipliers do nothing but act like Accelerators, which are nerfed by 50%!"
@@ -78,7 +135,6 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         n.textContent = "+" + format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true) + " Rune EXP [Highest Completion]"
     }
     if (i === 2 && G['challengefocus'] === 2) {
-        maxChallenges = 25 + 5 * player.researches[67] + 925 * player.researches[105]
         a.textContent = "No Accelerators Challenge || " + player.challengecompletions[2] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Who needs accelerators? They do basically nothing now."
         c.textContent = "Transcend and reach the goal except Accelerators do nothing! Multipliers are nerfed a bit as well."
@@ -93,7 +149,6 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         n.textContent = "+" + format(0.25 * CalcECC('transcend', player.challengecompletions[2]), 2, true) + "% Accelerator Power"
     }
     if (i === 3 && G['challengefocus'] === 3) {
-        maxChallenges = 25 + 5 * player.researches[68] + 925 * player.researches[105]
         a.textContent = "No Shards Challenge || " + player.challengecompletions[3] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "Alright, now you're thinking, how else can I make the game harder?"
         c.textContent = "Transcend and reach the goal except you do not produce Crystals or Mythos Shards."
@@ -108,7 +163,6 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         n.textContent = "+" + format(0.01 * CalcECC('transcend', player.challengecompletions[3]), 2, true) + " EXP"
     }
     if (i === 4 && G['challengefocus'] === 4) {
-        maxChallenges = 25 + 5 * player.researches[69] + 925 * player.researches[105]
         a.textContent = "Cost+ Challenge || " + player.challengecompletions[4] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You're getting rich now, but inflation hasn't happened yet? I don't think so!"
         c.textContent = "Transcend and reach the goal except Coin/Crystal producers, Accelerators and Multipliers cost more. [Gets harder each time!]"
@@ -123,7 +177,6 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         n.textContent = "Building Cost Delay +" + format(0.5 * CalcECC('transcend', player.challengecompletions[4]), 2, true) + "%"
     }
     if (i === 5 && G['challengefocus'] === 5) {
-        maxChallenges = 25 + 5 * player.researches[70] + 925 * player.researches[105]
         a.textContent = "Reduced Diamonds Challenge || " + player.challengecompletions[5] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You ever wonder how you get so many diamonds?"
         c.textContent = "Transcend and reach the goal except you gain far fewer Diamonds from all sources [Gets harder each time!]"
@@ -264,10 +317,10 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         n.textContent = "+" + format(200 * CalcECC('ascension', player.challengecompletions[14])) + " to Rune Caps"
     }
     if (i === 15 && G['challengefocus'] === 15) {
-        a.textContent = "SADISTIC CHALLENGE II || " + player.challengecompletions[15] + "/9001 Completions"
+        a.textContent = "SADISTIC CHALLENGE II || " + player.challengecompletions[15] + "/" + format(maxChallenges) +  " Completions"
         b.textContent = "The worst sin a man can do is making others suffer."
         c.textContent = "Ascend and reach the goal but you're FULLY corrupt and must stay that way."
-        d.textContent = "Goal: 1e4T Coins, but get bonuses based on your best attempt."
+        d.textContent = "Goal: " + format(challengeRequirement(i, player.challengecompletions[i])) + " Coins, but get bonuses based on your best attempt."
         e.textContent = "You have no idea "
         f.textContent = "what you have just done "
         g.textContent = "the ant god shakes their mighty head "
@@ -368,13 +421,23 @@ const calculateChallengeRequirementMultiplier = (type: string, completions: numb
         1, 
         G['hyperchallengedMultiplier'][player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)
     );
-    
+    if (special === 15) {
+        //Normalize back to 1 if looking at challenge 15 in particular.
+        requirementMultiplier = 1;
+    }
     switch (type) {
         case "transcend":
             (completions >= 75) ?
                 requirementMultiplier *= Math.pow(1 + completions, 12) / Math.pow(75, 8) :
                 requirementMultiplier *= Math.pow(1 + completions, 2);
             requirementMultiplier *= G['challenge15Rewards'].transcendChallengeReduction
+
+            if (completions >= 1000) {
+                requirementMultiplier *= 10 * Math.pow(completions / 1000, 3)
+            }
+            if (completions >= 9000) {
+                requirementMultiplier *= 1337
+            }
             return (requirementMultiplier)
         case "reincarnation":
             if (completions >= 60){
@@ -395,14 +458,18 @@ const calculateChallengeRequirementMultiplier = (type: string, completions: numb
                 requirementMultiplier *= Math.pow(1 + completions, 5) / 625
             }
             if (completions < 25){
-            requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions));
+                requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions));
             }
-            requirementMultiplier *= G['challenge15Rewards'].reincarnationChallengeReduction
             return requirementMultiplier
         case "ascension":
-            (completions >= 10) ?
-                requirementMultiplier *= (2 * (1 + completions) - 10) :
-                requirementMultiplier *= (1 + completions);
+            if (special !== 15) {
+                (completions >= 10) ?
+                    requirementMultiplier *= (2 * (1 + completions) - 10) :
+                    requirementMultiplier *= (1 + completions);
+            }
+            else {
+                requirementMultiplier *= Math.pow(1.10, completions);
+            }
             return (requirementMultiplier)
     }
 }
@@ -415,7 +482,8 @@ export const CalcECC = (type: 'transcend' | 'reincarnation' | 'ascension', compl
     switch (type) {
         case "transcend":
             effective += Math.min(100, completions);
-            effective += 1 / 20 * (Math.max(100, completions) - 100);
+            effective += 1 / 20 * (Math.min(1000, Math.max(100, completions)) - 100);
+            effective += 1 / 100 * (Math.max(1000, completions) - 1000)
             return (effective);
         case "reincarnation":
             effective += Math.min(25, completions);
@@ -441,7 +509,7 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     } else if (challenge <= 14) {
         return calculateChallengeRequirementMultiplier("ascension", completion, special)
     } else if (challenge === 15) {
-        return Decimal.pow(10, 4 * Math.pow(10, 30))
+        return Decimal.pow(10, 4 * Math.pow(10, 16) * calculateChallengeRequirementMultiplier("ascension", completion, special))
     }
 }
 
