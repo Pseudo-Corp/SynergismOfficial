@@ -2800,12 +2800,13 @@ header #obtainiumDisplay {
 	font-size: 1em;
 }
 
-#testingLogger {
+#testingLogger > #console {
 	text-align: center;
 	flex-direction: column;
+	margin-top: 10px;
 }
 
-#testingLogger > p { margin: 0; }
-#testingLogger > .log { color: green; }
-#testingLogger > .info { color: yellow; }
-#testingLogger > .error { color: red; }
+#testingLogger > #console > p { margin: 0; }
+#testingLogger > #console > .log { color: green; }
+#testingLogger > #console > .info { color: yellow; }
+#testingLogger > #console > .error { color: red; }

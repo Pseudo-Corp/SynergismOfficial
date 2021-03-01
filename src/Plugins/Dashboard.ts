@@ -123,24 +123,15 @@ const statValues: Record<number, (el: HTMLElement) => void> = {
 }
 
 const css = `
-    #dashboard {
-        text-align: left;
-    }
+    #dashboard { text-align: left; }
     .db-table {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0;
+        display: grid;
+        grid-template-columns: 10% [a] 40% [b] 40% 10%;
         padding: 0.5em;
     }
-    .db-table-cell {
-        box-sizing: border-box;
-        flex-grow: 1;
-        width: 50%;
-        padding: 0.8em 1.2em;
-        overflow: hidden;
-        list-style: none;
-        border: none;
-    }
+    .db-table-cell:nth-child(odd) { grid-area: a; }
+    .db-table-cell:nth-child(even) { grid-area: b; }
+    .db-table-cell { padding: 0.8em 1.2em; }
     .db-stat-line {
         display: flex;
         justify-content: space-between;
@@ -152,7 +143,7 @@ tab.id = 'dashboardSubTab'
 tab.style.display = 'none'
 tab.innerHTML = `
 <div id="dashboard" class="db-table" style="background-color: #111;">
-    <div class="db-table-cell" style="width: 35%;">
+    <div class="db-table-cell">
     <h3 style="color: plum">Overall progress stats</h3>
     <div class="db-stat-line" style="color: orange">Constant: <span class="dashboardstat"></span></div>
     <div class="db-stat-line" style="color: yellow">Cube tributes: <span class="dashboardstat"></span></div>
@@ -191,14 +182,6 @@ tab.innerHTML = `
 const settingsTab = document.getElementById('settings');
 const button = document.createElement('button');
 button.className = 'ascendunlockib';
-// 'style' property is meant to be readonly
-// this might work due to browser implementation but it is not standard
-// so we set each property separately instead.
-button.style.border = '2px solid orange;';
-button.style.float = 'right';
-button.style.height = '30px';
-button.style.width = '150px';
-button.style.margin = '9px 0';
 
 let dashboardLoopRefFast: ReturnType<typeof setTimeout> | null = null;
 let dashboardLoopRefSlow: ReturnType<typeof setTimeout> | null = null;
@@ -239,9 +222,6 @@ const openDashboard = () => {
     activeTab.style.display = 'none'
     tab.style.display = 'block'
     button.innerText = 'Exit Dashboard'
-    button.style.marginLeft = '100%'
-    const buttons = settingsTab.getElementsByClassName('subtabSwitcher')[0] as HTMLElement;
-    buttons.style.display = 'none'
 }
 
 const exitDashboard = () => {
@@ -249,8 +229,7 @@ const exitDashboard = () => {
     clearInterval(dashboardLoopRefSlow)
     tab.style.display = 'none'
     activeTab.style.display = null
-    button.innerText = 'Dashboard'
-    button.style.marginLeft = null
+    button.textContent = 'Dashboard'
     const buttons = settingsTab.getElementsByClassName('subtabSwitcher')[0] as HTMLElement;
     buttons.style.display = null
 }
@@ -261,6 +240,7 @@ const exitDashboard = () => {
 const enable = () => {
     console.log('hello synergism, dashboard installed in the settings tab');
     GM_addStyle(css);
+    document.querySelector('#settings > .subtabSwitcher').appendChild(button);
 
     tab.querySelector('.dashboardstatResearch').addEventListener('click', () => toggleAutoResearch());
     tab.querySelector('.dashboardstatRunes').addEventListener('click', () => toggleAutoSacrifice(0));
@@ -276,12 +256,7 @@ const enable = () => {
             exitDashboard();
         }
     });
-    button.innerText = 'Dashboard';
-    settingsTab.firstElementChild.insertAdjacentElement('beforebegin', button)
+    button.textContent = 'Dashboard';
 }
 
-export const main = () => {
-    Object.defineProperty(window, 'dashboard', {
-        value: enable
-    });
-}
+export const main = () => enable();

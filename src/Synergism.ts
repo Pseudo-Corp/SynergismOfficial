@@ -3087,8 +3087,8 @@ function tack(dt: number) {
 
 const loadPlugins = async () => {
     for (const obj of Object.keys(Plugins)) {
-        const plugin = Plugins[obj as keyof typeof Plugins];
-        plugin.main();
+        document.getElementById(`pluginSubTab${Object.keys(Plugins).indexOf(obj) + 1}`)
+            .addEventListener('click', () => Plugins[obj as keyof typeof Plugins].main())
     }
 }
 

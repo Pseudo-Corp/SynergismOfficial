@@ -10,7 +10,7 @@ for (const method of patchSettings) {
 }
 
 const addConsoleEntry = (args: string[], method: string) => {
-    const logger = document.getElementById('testingLogger');
+    const logger = document.querySelector('#testingLogger > #console');
 
     if (logger.lastChild?.textContent === args.join(' ')) // duplicate element
         return;
@@ -18,7 +18,6 @@ const addConsoleEntry = (args: string[], method: string) => {
     if (logger.childElementCount > 20)
         logger.removeChild(logger.children[0]);
     
-
     const text = document.createElement('p');
     text.textContent = args.join(' ');
     text.classList.add(method);
