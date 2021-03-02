@@ -204,7 +204,7 @@ export const lookupTableGen = (runeLevel: number) => {
 
 const lookupTableRuneExp: Record<number, number> = Object.assign(
     {}, 
-    ...Array.from({ length: 20000 }, (_, i) => ({ [i]: lookupTableGen(i) }))
+    ...Array.from({ length: 40000 }, (_, i) => ({ [i]: lookupTableGen(i) }))
 );
 
 // Returns the amount of exp required to level a rune
