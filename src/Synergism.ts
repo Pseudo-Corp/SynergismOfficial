@@ -25,7 +25,7 @@ import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgr
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
-import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate } from './Corruptions';
+import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import * as Plugins from './Plugins/Plugins';
 import { addTimers, automaticTools } from './Helper';
@@ -1163,6 +1163,7 @@ if (player.achievements[38] == 1)document.getElementById("runeshowpower2").textC
 if (player.achievements[44] == 1)document.getElementById("runeshowpower3").textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(G['rune3level'] * m, 2).times(Decimal.pow(2, G['rune3level'] * m - 8).add(1))) + ", gain +" + format(Math.floor(G['rune3level']/10 * m)) + " free crystal levels.";
 if (player.achievements[102] == 1)document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (G['rune4level']/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + G['rune4level']/8 + "%."; */
 
+        corruptionStatsUpdate();
         for (let i = 0; i < 4; i++) {
             corruptionLoadoutTableUpdate(i);
         }
