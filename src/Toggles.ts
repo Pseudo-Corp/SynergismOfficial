@@ -486,7 +486,7 @@ export const toggleRuneScreen = (index: number) => {
         if (i === index) {
             a.style.border = "2px solid gold"
             a.style.backgroundColor = "crimson"
-            b.style.display = "block";
+            b.style.display = "flex";
         } else {
             a.style.border = "2px solid silver"
             a.style.backgroundColor = ""

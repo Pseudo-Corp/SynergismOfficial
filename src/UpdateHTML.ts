@@ -196,15 +196,15 @@ export const revealStuff = () => {
     (document.getElementById("rune4area").style.display = "none", document.getElementById("runeshowpower4").style.display = "none");
 
     player.achievements[119] === 1 ? //Tax+ Challenge Achievement 7
-        document.getElementById("talisman1area").style.display = "block" :
+        document.getElementById("talisman1area").style.display = "flex" :
         document.getElementById("talisman1area").style.display = "none";
 
     player.achievements[126] === 1 ? //No MA Challenge Achievement 7
-        document.getElementById("talisman2area").style.display = "block" :
+        document.getElementById("talisman2area").style.display = "flex" :
         document.getElementById("talisman2area").style.display = "none";
 
     player.achievements[133] === 1 ? //Cost++ Challenge Achievement 7
-        document.getElementById("talisman3area").style.display = "block" :
+        document.getElementById("talisman3area").style.display = "flex" :
         document.getElementById("talisman3area").style.display = "none";
 
     player.achievements[134] === 1 ? //No Runes Challenge Achievement 1
@@ -212,11 +212,11 @@ export const revealStuff = () => {
         (document.getElementById("toggleRuneSubTab2").style.display = "none", document.getElementById("toggleRuneSubTab3").style.display = "none");
 
     player.achievements[140] === 1 ? //No Runes Challenge Achievement 7
-        document.getElementById("talisman4area").style.display = "block" :
+        document.getElementById("talisman4area").style.display = "flex" :
         document.getElementById("talisman4area").style.display = "none";
 
     player.achievements[147] === 1 ? //Sadistic Challenge Achievement 7
-        document.getElementById("talisman5area").style.display = "block" :
+        document.getElementById("talisman5area").style.display = "flex" :
         document.getElementById("talisman5area").style.display = "none";
 
     player.achievements[173] === 1 ? //Galactic Crumb Achievement 5
@@ -262,7 +262,7 @@ export const revealStuff = () => {
         document.getElementById("autotessbuyeramount").style.display = "block" :
         document.getElementById("autotessbuyeramount").style.display = "none";
     (player.antUpgrades[12-1] > 0 || player.ascensionCount > 0) ? //Ant Talisman Unlock, Mortuus
-        document.getElementById("talisman6area").style.display = "block" :
+        document.getElementById("talisman6area").style.display = "flex" :
         document.getElementById("talisman6area").style.display = "none";
 
     player.shopUpgrades.offeringAuto > 0 ? //Auto Offering Shop Purchase
@@ -274,7 +274,7 @@ export const revealStuff = () => {
         document.getElementById("toggleautoresearch").style.display = "none";
 
     player.shopUpgrades.shopTalisman > 0 ? //Plastic Talisman Shop Purchase
-        document.getElementById("talisman7area").style.display = "block" :
+        document.getElementById("talisman7area").style.display = "flex" :
         document.getElementById("talisman7area").style.display = "none";
 
     player.cubeUpgrades[8] > 0 ?

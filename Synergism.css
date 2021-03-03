@@ -728,17 +728,22 @@ nav li:hover {
 }
 #buyamountoffering {
 	position: absolute;
-	padding: 0;
-	font-size: 0;
+	font-size: 11px;
+	width: 220px;
 	left: 80%;
-	top: 20px;
+	top: 30px;
+	margin-left: -173px;
+}
+.talismanBuyAmountContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 30%;
 }
 #buyamounttalisman {
-	position: absolute;
-	padding: 0;
-	font-size: 0;
-	left: 80%;
-	top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #buyamountmythos {
 	position: absolute;
@@ -773,14 +778,9 @@ nav li:hover {
 	top: 30px;
 	margin-left: -120px;
 }
-#toggletalismanbuy{
-	color: white;
-	position: absolute;
+#toggletalismanbuy {
 	font-size: 11px;
-	width: 220px;
-	left: 80%;
-	top: 30px;
-	margin-left: -118.5px;
+	margin: -4px 0px 5px;
 }
 #togglemythosbuy{
 	color: white;
@@ -855,6 +855,14 @@ nav li:hover {
 #runes {
 	position: relative;
 	padding: 0;
+}
+
+#runeContainer1 {
+	flex-direction: column;
+}
+
+#runeContainer2 {
+	margin-top: 20px;
 }
 
 #runesToggle {
@@ -944,454 +952,107 @@ nav li:hover {
 	margin: auto;
 }
 
-#toggleautofortify {
-	position: absolute;
-	top: 65px;
-	margin-left: 10px;
+#toggleautofortify, #toggleautoenhance {
 	width: 125px;
 	height: 30px;
-	text-align: center;
+	color: white;
+	border: 2px solid red;
+	transition-duration: 0.15s;
 }
-#toggleautoenhance {
-	position: absolute;
-	top: 100px;
-	margin-left: 10px;
-	width: 125px;
-	height: 30px;
-	text-align: center;
+
+#toggleautofortify:hover, #toggleautoenhance:hover {
+	background-color: #333333;
 }
-#talismancounter {
-	position: absolute;
-	top: 45px;
-	width: 800px;
-	left: 30%;
-	margin-left: -370px;
-	text-align: left;
-	font-size: 0.9em;
-}
-#buyfragments {
-	position: absolute;
-	top: 95px;
-	width: 800px;
-	left: 50%;
-	margin-left: -370px;
-	text-align: left;
-	font-size: 0.9em;
-}
+
 #talismanFragmentCost {
-	position: absolute;
-	top: 390px;
-	width: 250px;
-	left: 10.75%;
-	margin-left: -125px;
+    width: 250px;
 	text-align: center;
 	font-size: 1.1em;
-	color: white
+	margin-right: -30px;
+}
+
+.talismanShardsContainer {
+	display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 30%;
+    margin-top: 25px;
+}
+
+.talismanShardContainer {
+	display: flex;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+.talismanShardIcon {
+	width: 32px;
+}
+
+.talismanShardAmount {
+	min-width: 70px;
+	margin-left: 4px;
+	font-size: 0.9em;
 }
 
 .talismanBtn {
 	height: 30px;
-	width: 108px;
-	text-align: center;
+    width: 80px;
+	min-width: 80px;
 	color: orange;
-	background-color: #171717;
-	cursor: default;
+	cursor: pointer;
 	transition-duration: 0.15s;
 }
+
+.talismanBtn:hover {
+	background-color: #333333;
+}
+
 .talisminBtnAvailable {
 	background-color: purple;
 	cursor: pointer;
 }
+
 .talisminBtnAvailable:hover {
     background-color: #b300b2;
 }
-#TaxTalisman{
-	position: absolute;
-	left: 28%;
-	width: 200px;
-	margin-left: -100px;
-	top: 45px;
-	text-align: center;
+
+.talismansContainer {
+	display: flex;
+	width: 70%;
+    justify-content: space-around;
+    padding: 0 10px;
+}
+
+.talismanContainer {
+	flex-direction: column;
+	width: 11%;
+	min-width: 102px;
+    align-items: center;
+}
+
+.talismanName {
 	font-size: 1.2em;
-}
-#MultiplierAcceleratorTalisman{
-	position: absolute;
-	left: 36%;
-	width: 200px;
-	margin-left: -100px;
-	top: 45px;
 	text-align: center;
-	font-size: 1.2em;
 }
-#CostTalisman{
-	position: absolute;
-	left: 44%;
-	width: 200px;
-	margin-left: -100px;
-	top: 45px;
-	text-align: center;
-	font-size: 1.2em;
-}
-#RunesTalisman{
-	position: absolute;
-	left: 52%;
-	width: 200px;
-	margin-left: -100px;
-	top: 45px;
-	text-align: center;
-	font-size: 1.2em;
-}
-#UnknownTalisman{
-	position: absolute;
-	left: 60%;
-	width: 200px;
-	margin-left: -100px;
-	top: 45px;
-	text-align: center;
-	font-size: 1.2em;
-}
-#AntTalisman{
-	position: absolute;
-	left: 68%;
-	width: 200px;
-	margin-left: -100px;
-	top: 45px;
-	text-align: center;
-	font-size: 1.2em;
-}
-#MoneyTalisman{
-	position: absolute;
-	left: 76%;
-	width: 200px;
-	margin-left: -100px;
-	top: 45px;
-	text-align: center;
-	font-size: 1.2em;
-}
-#talisman1{
-	position: absolute;
-	left: 28%;
+
+.talismanIcon {
 	width: 72px;
-	margin-left: -41px;
-	top: 90px;
-	text-align: center;
+	border: 4px solid white;
+	cursor: pointer;
 }
 
-#talisman1level{
-	position: absolute;
-	left: 28%;
-	width: 128px;
-	margin-left: -66px;
-	top: 155px;
-	text-align: center;
+.talismanLevel {
+    margin-top: 1px;
+    margin-bottom: 3px;
 }
 
-#leveluptalisman1 {
-	position: absolute;
-	height: 30px;
-	left: 28%;
-	width: 80px;
-	margin-left: -41px;
-	top: 195px;
-	text-align: center;
-}
-#enhancetalisman1{
-	position: absolute;
-	height: 30px;
-	left: 28%;
-	width: 80px;
-	margin-left: -41px;
-	top: 225px;
-	text-align: center;
-}
-#respectalisman1{
-	position: absolute;
-	height: 30px;
-	left: 28%;
-	width: 80px;
-	margin-left: -41px;
-	top: 255px;
-	text-align: center;
-}
-
-#talisman2{
-	position: absolute;
-	left: 36%;
-	width: 72px;
-	margin-left: -41px;
-	top: 90px;
-	text-align: center;
-}
-
-#talisman2level{
-	position: absolute;
-	left: 36%;
-	width: 128px;
-	margin-left: -66px;
-	top: 155px;
-	text-align: center;
-}
-
-#leveluptalisman2 {
-	position: absolute;
-	height: 30px;
-	left: 36%;
-	width: 80px;
-	margin-left: -41px;
-	top: 195px;
-	text-align: center;
-}
-#enhancetalisman2{
-	position: absolute;
-	height: 30px;
-	left: 36%;
-	width: 80px;
-	margin-left: -41px;
-	top: 225px;
-	text-align: center;
-}
-#respectalisman2{
-	position: absolute;
-	height: 30px;
-	left: 36%;
-	width: 80px;
-	margin-left: -41px;
-	top: 255px;
-	text-align: center;
-}
-#talisman3{
-	position: absolute;
-	left: 44%;
-	width: 72px;
-	margin-left: -41px;
-	top: 90px;
-	text-align: center;
-}
-
-#talisman3level{
-	position: absolute;
-	left: 44%;
-	width: 128px;
-	margin-left: -66px;
-	top: 155px;
-	text-align: center;
-}
-
-#leveluptalisman3 {
-	position: absolute;
-	height: 30px;
-	left: 44%;
-	width: 80px;
-	margin-left: -41px;
-	top: 195px;
-	text-align: center;
-}
-#enhancetalisman3{
-	position: absolute;
-	height: 30px;
-	left: 44%;
-	width: 80px;
-	margin-left: -41px;
-	top: 225px;
-	text-align: center;
-}
-#respectalisman3{
-	position: absolute;
-	height: 30px;
-	left: 44%;
-	width: 80px;
-	margin-left: -41px;
-	top: 255px;
-	text-align: center;
-}
-#talisman4{
-	position: absolute;
-	left: 52%;
-	width: 72px;
-	margin-left: -41px;
-	top: 90px;
-	text-align: center;
-}
-
-#talisman4level{
-	position: absolute;
-	left: 52%;
-	width: 128px;
-	margin-left: -66px;
-	top: 155px;
-	text-align: center;
-}
-
-#leveluptalisman4 {
-	position: absolute;
-	height: 30px;
-	left: 52%;
-	width: 80px;
-	margin-left: -41px;
-	top: 195px;
-	text-align: center;
-}
-#enhancetalisman4{
-	position: absolute;
-	height: 30px;
-	left: 52%;
-	width: 80px;
-	margin-left: -41px;
-	top: 225px;
-	text-align: center;
-}
-#respectalisman4{
-	position: absolute;
-	height: 30px;
-	left: 52%;
-	width: 80px;
-	margin-left: -41px;
-	top: 255px;
-	text-align: center;
-}
-#talisman5{
-	position: absolute;
-	left: 60%;
-	width: 72px;
-	margin-left: -41px;
-	top: 90px;
-	text-align: center;
-}
-
-#talisman5level{
-	position: absolute;
-	left: 60%;
-	width: 128px;
-	margin-left: -66px;
-	top: 155px;
-	text-align: center;
-}
-
-#leveluptalisman5 {
-	position: absolute;
-	height: 30px;
-	left: 60%;
-	width: 80px;
-	margin-left: -41px;
-	top: 195px;
-	text-align: center;
-}
-#enhancetalisman5{
-	position: absolute;
-	height: 30px;
-	left: 60%;
-	width: 80px;
-	margin-left: -41px;
-	top: 225px;
-	text-align: center;
-}
-#respectalisman5{
-	position: absolute;
-	height: 30px;
-	left: 60%;
-	width: 80px;
-	margin-left: -41px;
-	top: 255px;
-	text-align: center;
-}
-#talisman6{
-	position: absolute;
-	left: 68%;
-	width: 72px;
-	margin-left: -41px;
-	top: 90px;
-	text-align: center;
-}
-
-#talisman6level{
-	position: absolute;
-	left: 68%;
-	width: 128px;
-	margin-left: -66px;
-	top: 155px;
-	text-align: center;
-}
-
-#leveluptalisman6 {
-	position: absolute;
-	height: 30px;
-	left: 68%;
-	width: 80px;
-	margin-left: -41px;
-	top: 195px;
-	text-align: center;
-}
-#enhancetalisman6{
-	position: absolute;
-	height: 30px;
-	left: 68%;
-	width: 80px;
-	margin-left: -41px;
-	top: 225px;
-	text-align: center;
-}
-#respectalisman6{
-	position: absolute;
-	height: 30px;
-	left: 68%;
-	width: 80px;
-	margin-left: -41px;
-	top: 255px;
-	text-align: center;
-}
-#talisman7{
-	position: absolute;
-	left: 76%;
-	width: 72px;
-	margin-left: -41px;
-	top: 90px;
-	text-align: center;
-}
-
-#talisman7level{
-	position: absolute;
-	left: 76%;
-	width: 128px;
-	margin-left: -66px;
-	top: 155px;
-	text-align: center;
-}
-
-#leveluptalisman7 {
-	position: absolute;
-	height: 30px;
-	left: 76%;
-	width: 80px;
-	margin-left: -41px;
-	top: 195px;
-	text-align: center;
-}
-#enhancetalisman7{
-	position: absolute;
-	height: 30px;
-	left: 76%;
-	width: 80px;
-	margin-left: -41px;
-	top: 225px;
-	text-align: center;
-}
-#respectalisman7{
-	position: absolute;
-	height: 30px;
-	left: 76%;
-	width: 80px;
-	margin-left: -41px;
-	top: 255px;
-	text-align: center;
-}
 #respecAllTalismans{
-	position: absolute;
 	height: 30px;
-	left: 28%;
 	width: 80px;
-	margin-left: -41px;
-	top: 355px;
-	text-align: center;
+	color: plum;
+	border: 2px solid white;
+	margin-top: 50px;
 }
 #talismanEffect {
 	position: absolute;
@@ -1461,6 +1122,10 @@ nav li:hover {
 	height: 30px;
 	width: 200px;
 	text-align: center;
+	transition-duration: 0.15s;
+}
+.talismanRespecBtn:hover {
+	background-color: #333333;
 }
 #talismanRespecButton1{
 	position: absolute;

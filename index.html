@@ -1197,118 +1197,119 @@
             </div>
 
             <div id="runeContainer2" style="display: none;">
-                <div id="buyamounttalisman">
-                <table id="talismanbuyamount">
-                    <tr>
-                        <td><img id="talismanTen" src="Pictures/Transparent Pics/TalismanTen.png" style="cursor:pointer; background-color: green;" alt=""></td>
-                        <td><img id="talismanTwentyFive" src="Pictures/Transparent Pics/TalismanTwentyFive.png"  style="cursor:pointer;" alt=""></td>
-                        <td><img id="talismanFifty" src="Pictures/Transparent Pics/TalismanFifty.png"  style="cursor:pointer;" alt=""></td>
-                        <td><img id="talismanHundred" src="Pictures/Transparent Pics/TalismanHundred.png"  style="cursor:pointer;" alt=""></td>
-                    </tr>
-                </table>
-                <button id="toggleautoenhance" style="border: 2px solid red; color: white">Auto Enhance: OFF</button>
-                <button id="toggleautofortify" style="border: 2px solid red; color: white">Auto Enhance: OFF</button>
-                <p id="toggletalismanbuy">Toggle percent resources used</p>
+                <div class="talismanShardsContainer">
+                    <div class="talismanShardContainer">
+                        <img class="talismanShardIcon" src="Pictures/TalismanShard.png" title='Talisman Shard' alt=""></img>
+                        <span class="talismanShardAmount" id="talismanShardInventory" style="color: yellow">0</span>
+                        <button class="talismanBtn" id="buyTalismanItem1" style="border: 2px solid gold">BUY</button>
+                    </div>
+                    <div class="talismanShardContainer">
+                        <img class="talismanShardIcon" src="Pictures/CommonTalisman.png" title='Common Fragment' alt=""></img>
+                        <span class="talismanShardAmount" id="commonFragmentInventory" style="color: white">0</span>
+                        <button class="talismanBtn" id="buyTalismanItem2" style="border:2px solid white">BUY</button>
+                    </div>
+                    <div class="talismanShardContainer">
+                        <img class="talismanShardIcon" src="Pictures/UncommonTalisman.png" title='Uncommon Fragment' alt=""></img>
+                        <span class="talismanShardAmount" id="uncommonFragmentInventory" style="color: limegreen">0</span>
+                        <button class="talismanBtn" id="buyTalismanItem3" style="border:2px solid lime">BUY</button>
+                    </div>
+                    <div class="talismanShardContainer">
+                        <img class="talismanShardIcon" src="Pictures/RareTalisman.png" title='Rare Fragment' alt=""></img>
+                        <span class="talismanShardAmount" id="rareFragmentInventory" style="color: darkcyan">0</span>
+                        <button class="talismanBtn" id="buyTalismanItem4" style="border:2px solid aqua">BUY</button>
+                    </div>
+                    <div class="talismanShardContainer">
+                        <img class="talismanShardIcon" src="Pictures/EpicTalisman.png" title='Epic Fragment' alt=""></img>
+                        <span class="talismanShardAmount" id="epicFragmentInventory" style="color: plum">0</span>
+                        <button class="talismanBtn" id="buyTalismanItem5" style="border:2px solid purple">BUY</button>
+                    </div>
+                    <div class="talismanShardContainer">
+                        <img class="talismanShardIcon" src="Pictures/LegendaryTalisman.png" title='Legendary Fragment' alt=""></img>
+                        <span class="talismanShardAmount" id="legendaryFragmentInventory" style="color: orange">0</span>
+                        <button class="talismanBtn" id="buyTalismanItem6" style="border:2px solid orange">BUY</button>
+                    </div>
+                    <div class="talismanShardContainer">
+                        <img class="talismanShardIcon" src="Pictures/MythicalTalisman.png" title='Mythical Fragment' alt=""></img>
+                        <span class="talismanShardAmount" id="mythicalFragmentInventory" style="color: crimson">0</span>
+                        <button class="talismanBtn" id="buyTalismanItem7" style="border:2px solid red">BUY</button>
+                    </div>
+                    <span id="talismanFragmentCost">Cost for 1: 1e6 Obtainium</span>
                 </div>
-                <table id="talismancounter" style="table-layout: fixed;">
-                    <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/TalismanShard.png" title='Talisman Shard' style="font-size:0;" alt=""></td>
-                        <td style="width: 66px; color: yellow"><p id="talismanShardInventory">0</p></td>
-                        <td><button class="talismanBtn" id="buyTalismanItem1" style="border: 2px solid gold">BUY</button></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/CommonTalisman.png" title='Common Fragment' style="font-size:0;" alt=""></td>
-                        <td style="width: 68px; color: white"><p id="commonFragmentInventory">0</p></td>
-                        <td><button class="talismanBtn" id="buyTalismanItem2" style="border:2px solid white">BUY</button></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/UncommonTalisman.png" title='Uncommon Fragment' style="font-size:0;" alt=""></td>
-                        <td style="width: 68px; color: limegreen"><p id="uncommonFragmentInventory">0</p></td>
-                        <td><button class="talismanBtn" id="buyTalismanItem3" style="border:2px solid lime">BUY</button></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/RareTalisman.png" title='Rare Fragment' style="font-size:0;"  alt=""></td>
-                        <td style="width: 68px; color: darkcyan"><p id="rareFragmentInventory">0</p></td>
-                        <td><button class="talismanBtn" id="buyTalismanItem4" style="border:2px solid aqua">BUY</button></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/EpicTalisman.png" title='Epic Fragment' style="font-size:0;"  alt=""></td>
-                        <td style="width: 68px; color: plum"><p id="epicFragmentInventory">0</p></td>
-                        <td><button class="talismanBtn" id="buyTalismanItem5" style="border:2px solid purple">BUY</button></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/LegendaryTalisman.png" title='Legendary Fragment' style="font-size:0;"  alt=""></td>
-                        <td style="width: 68px; color: orange"><p id="legendaryFragmentInventory">0</p></td>
-                        <td><button class="talismanBtn" id="buyTalismanItem6" style="border:2px solid orange">BUY</button></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0; width: 32px"><img src="Pictures/MythicalTalisman.png" title='Mythical Fragment' style="font-size:0;" alt=""></td>
-                        <td style="width: 68px; color: crimson"><p id="mythicalFragmentInventory">0</p></td>
-                        <td><button class="talismanBtn" id="buyTalismanItem7" style="border:2px solid red">BUY</button></td>
-                    </tr>
-                </table>
-                <table id="buyfragments">
-
-                </table>
-                <p id="talismanFragmentCost">Cost for 1: 1e6 Obtainium</p>
-                <div id="talisman1area">
-                    <p id="TaxTalisman" style="color: limegreen;">Exemption</p>
-                    <img id="talisman1" src="Pictures/taxtalisman.png" style="border: 4px solid white; cursor: pointer;" alt="">
-                    <p id="talisman1level" style="color: white">Level 0/30</p>
-                    <button id="leveluptalisman1" style="color: silver; border: 2px solid white;">FORTIFY</button>
-                    <button id="enhancetalisman1" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                    <button id="respectalisman1" style="color: plum; border: 2px solid white">RESPEC</button>
-                </div>
-                <div id="talisman2area">
-                    <p id="MultiplierAcceleratorTalisman" style="color: cyan">Chronos</p>
-                    <img id="talisman2" src="Pictures/noMA.png" style="border: 4px solid white; cursor: pointer;" alt="">
-                    <p id="talisman2level" style="color: white">Level 0/30</p>
-                    <button id="leveluptalisman2" style="color: silver; border: 2px solid white;">FORTIFY</button>
-                    <button id="enhancetalisman2" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                    <button id="respectalisman2" style="color: plum; border: 2px solid white">RESPEC</button>
-                </div>
-                <div id="talisman3area">
-                    <p id="CostTalisman" style="color: orange">Midas</p>
-                    <img id="talisman3" src="Pictures/CostTalisman.png" style="border: 4px solid white; cursor: pointer;" alt="">
-                    <p id="talisman3level" style="color: white">Level 0/30</p>
-                    <button id="leveluptalisman3" style="color: silver; border: 2px solid white;">FORTIFY</button>
-                    <button id="enhancetalisman3" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                    <button id="respectalisman3" style="color: plum; border: 2px solid white">RESPEC</button>
-                </div>
-                <div id="talisman4area">
-                    <p id="RunesTalisman" style="color: salmon">Metaphysics</p>
-                    <img id="talisman4" src="Pictures/RunesTalisman.png" style="border: 4px solid white; cursor: pointer;" alt="">
-                    <p id="talisman4level" style="color: white">Level 0/30</p>
-                    <button id="leveluptalisman4" style="color: silver; border: 2px solid white;">FORTIFY</button>
-                    <button id="enhancetalisman4" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                    <button id="respectalisman4" style="color: plum; border: 2px solid white">RESPEC</button>
-                </div>
-                <div id="talisman5area">
-                    <p id="UnknownTalisman" style="color: crimson">Polymath</p>
-                    <img id="talisman5" src="Pictures/PolymathTalisman.png" style="border: 4px solid white; cursor: pointer;" alt="">
-                    <p id="talisman5level" style="color: white">Level 0/30</p>
-                    <button id="leveluptalisman5" style="color: silver; border: 2px solid white;">FORTIFY</button>
-                    <button id="enhancetalisman5" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                    <button id="respectalisman5" style="color: plum; border: 2px solid white">RESPEC</button>
-                </div>
-                <div id="talisman6area">
-                    <p id="AntTalisman" style="color: burlywood">Mortuus Est</p>
-                    <img id="talisman6" src="Pictures/AntTalisman.png" style="border: 4px solid white; cursor: pointer;" alt="">
-                    <p id="talisman6level" style="color: white">Level 0/30</p>
-                    <button id="leveluptalisman6" style="color: silver; border: 2px solid white;">FORTIFY</button>
-                    <button id="enhancetalisman6" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                    <button id="respectalisman6" style="color: plum; border: 2px solid white">RESPEC</button>
-                </div>
-                <div id="talisman7area">
-                    <p id="MoneyTalisman" style="color: chartreuse">Plastic</p>
-                    <img id="talisman7" src="Pictures/P2WTalisman.png" style="border: 4px solid white; cursor: pointer;" alt="">
-                    <p id="talisman7level" style="color: white">Level 0/30</p>
-                    <button id="leveluptalisman7" style="color: silver; border: 2px solid white;">FORTIFY</button>
-                    <button id="enhancetalisman7" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                    <button id="respectalisman7" style="color: plum; border: 2px solid white">RESPEC</button>
+                <div class="talismansContainer">
+                    <div class="talismanContainer" id="talisman1area">
+                        <span class="talismanName" style="color: limegreen;">Exemption</span>
+                        <img class="talismanIcon" id="talisman1" src="Pictures/taxtalisman.png" alt="">
+                        <span class="talismanLevel" id="talisman1level" style="color: white">Level 0/30</span>
+                        <button class="talismanBtn" id="leveluptalisman1" style="color: silver; border: 2px solid white;">FORTIFY</button>
+                        <button class="talismanBtn" id="enhancetalisman1" style="color: gold; border: 2px solid orangered">ENHANCE</button>
+                        <button class="talismanBtn" id="respectalisman1" style="color: plum; border: 2px solid white">RESPEC</button>
+                        <button class="talismanBtn" id="respecAllTalismans">RESPEC ALL</button>
+                    </div>
+                    <div class="talismanContainer" id="talisman2area">
+                        <span class="talismanName" style="color: cyan">Chronos</span>
+                        <img class="talismanIcon" id="talisman2" src="Pictures/noMA.png" alt="">
+                        <span class="talismanLevel" id="talisman2level" style="color: white">Level 0/30</span>
+                        <button class="talismanBtn" id="leveluptalisman2" style="color: silver; border: 2px solid white;">FORTIFY</button>
+                        <button class="talismanBtn" id="enhancetalisman2" style="color: gold; border: 2px solid orangered">ENHANCE</button>
+                        <button class="talismanBtn" id="respectalisman2" style="color: plum; border: 2px solid white">RESPEC</button>
+                    </div>
+                    <div class="talismanContainer" id="talisman3area">
+                        <span class="talismanName" style="color: orange">Midas</span>
+                        <img class="talismanIcon" id="talisman3" src="Pictures/CostTalisman.png" alt="">
+                        <span class="talismanLevel" id="talisman3level" style="color: white">Level 0/30</span>
+                        <button class="talismanBtn" id="leveluptalisman3" style="color: silver; border: 2px solid white;">FORTIFY</button>
+                        <button class="talismanBtn" id="enhancetalisman3" style="color: gold; border: 2px solid orangered">ENHANCE</button>
+                        <button class="talismanBtn" id="respectalisman3" style="color: plum; border: 2px solid white">RESPEC</button>
+                    </div>
+                    <div class="talismanContainer" id="talisman4area">
+                        <span class="talismanName" style="color: salmon">Metaphysics</span>
+                        <img class="talismanIcon" id="talisman4" src="Pictures/RunesTalisman.png" alt="">
+                        <span class="talismanLevel" id="talisman4level" style="color: white">Level 0/30</span>
+                        <button class="talismanBtn" id="leveluptalisman4" style="color: silver; border: 2px solid white;">FORTIFY</button>
+                        <button class="talismanBtn" id="enhancetalisman4" style="color: gold; border: 2px solid orangered">ENHANCE</button>
+                        <button class="talismanBtn" id="respectalisman4" style="color: plum; border: 2px solid white">RESPEC</button>
+                    </div>
+                    <div class="talismanContainer" id="talisman5area">
+                        <span class="talismanName" style="color: crimson">Polymath</span>
+                        <img class="talismanIcon" id="talisman5" src="Pictures/PolymathTalisman.png" alt="">
+                        <span class="talismanLevel" id="talisman5level" style="color: white">Level 0/30</span>
+                        <button class="talismanBtn" id="leveluptalisman5" style="color: silver; border: 2px solid white;">FORTIFY</button>
+                        <button class="talismanBtn" id="enhancetalisman5" style="color: gold; border: 2px solid orangered">ENHANCE</button>
+                        <button class="talismanBtn" id="respectalisman5" style="color: plum; border: 2px solid white">RESPEC</button>
+                    </div>
+                    <div class="talismanContainer" id="talisman6area">
+                        <span class="talismanName" style="color: burlywood">Mortuus Est</span>
+                        <img class="talismanIcon" id="talisman6" src="Pictures/AntTalisman.png" alt="">
+                        <span class="talismanLevel" id="talisman6level" style="color: white">Level 0/30</span>
+                        <button class="talismanBtn" id="leveluptalisman6" style="color: silver; border: 2px solid white;">FORTIFY</button>
+                        <button class="talismanBtn" id="enhancetalisman6" style="color: gold; border: 2px solid orangered">ENHANCE</button>
+                        <button class="talismanBtn" id="respectalisman6" style="color: plum; border: 2px solid white">RESPEC</button>
+                    </div>
+                    <div class="talismanContainer" id="talisman7area">
+                        <span class="talismanName" style="color: chartreuse">Plastic</span>
+                        <img class="talismanIcon" id="talisman7" src="Pictures/P2WTalisman.png" alt="">
+                        <span class="talismanLevel" id="talisman7level" style="color: white">Level 0/30</span>
+                        <button class="talismanBtn" id="leveluptalisman7" style="color: silver; border: 2px solid white;">FORTIFY</button>
+                        <button class="talismanBtn" id="enhancetalisman7" style="color: gold; border: 2px solid orangered">ENHANCE</button>
+                        <button class="talismanBtn" id="respectalisman7" style="color: plum; border: 2px solid white">RESPEC</button>
+                    </div>
                 </div>
 
-                <button id="respecAllTalismans" style="color: plum; border: 2px solid white">RESPEC ALL</button>
+                <div class="talismanBuyAmountContainer">
+                    <div id="buyamounttalisman">
+                        <table>
+                            <tr>
+                                <td><img id="talismanTen" src="Pictures/Transparent Pics/TalismanTen.png" style="cursor:pointer; background-color: green;" alt=""></td>
+                                <td><img id="talismanTwentyFive" src="Pictures/Transparent Pics/TalismanTwentyFive.png"  style="cursor:pointer;" alt=""></td>
+                                <td><img id="talismanFifty" src="Pictures/Transparent Pics/TalismanFifty.png"  style="cursor:pointer;" alt=""></td>
+                                <td><img id="talismanHundred" src="Pictures/Transparent Pics/TalismanHundred.png"  style="cursor:pointer;" alt=""></td>
+                            </tr>
+                        </table>
+                        <span id="toggletalismanbuy">Toggle percent resources used</span>
+                        <button id="toggleautoenhance">Auto Enhance: OFF</button>
+                        <button id="toggleautofortify">Auto Enhance: OFF</button>
+                    </div>
+                </div>
 
                 <div id="talismanEffect">
                     <p id="talismanSummary" style="color: silver"></p>
