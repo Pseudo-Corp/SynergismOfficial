@@ -202,13 +202,11 @@ export const lookupTableGen = (runeLevel: number) => {
     return allRuneExpRequiredMultiplier
 }
 
-const lookupTableRuneExp: Record<number, number> = Object.assign(
-    {}, 
-    ...Array.from({ length: 40000 }, (_, i) => ({ [i]: lookupTableGen(i) }))
-);
+let lookupTableRuneExp: number[] | null = null;
 
 // Returns the amount of exp required to level a rune
 export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.runelevels[runeIndex]) => {
+    lookupTableRuneExp ??= Array.from({ length: 40000 }, (_, i) => lookupTableGen(i));
     return lookupTableRuneExp[runeLevel] * G['runeexpbase'][runeIndex];
 }
 

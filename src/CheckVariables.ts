@@ -298,7 +298,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
 
     const shop = data.shopUpgrades as LegacyShopUpgrades | Player['shopUpgrades'];
-    if (shop && 'offeringTimerLevel' in shop && typeof shop.offeringTimerLevel !== 'undefined') {
+    if (shop && 'offeringTimerLevel' in shop) {
         player.shopUpgrades = {
             offeringPotion: shop.offeringPotion,
             obtainiumPotion: shop.obtainiumPotion,

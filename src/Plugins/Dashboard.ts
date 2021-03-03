@@ -74,43 +74,43 @@ const GM_addStyle = (css: string) => {
     document.head.appendChild(style);
 }
 
-const statValues: Record<number, (el: HTMLElement) => void> = {
-    0: el => el.textContent = format(player.ascendShards),
-    1: el => el.textContent = document.getElementById("cubeBlessingTotalAmount").textContent,
-    2: el => el.textContent = document.getElementById("tesseractBlessingTotalAmount").textContent,
-    3: el => el.textContent = document.getElementById("hypercubeBlessingTotalAmount").textContent,
-    4: el => el.textContent = document.getElementById("platonicBlessingTotalAmount").textContent,
-    5: el => el.textContent = player.challengecompletions.slice(11, 15).join(' / '),
-    6: el => el.textContent = format(player.challenge15Exponent, 0),
-    7: el => el.textContent = player.runeBlessingLevels.slice(1, 6).map(x => format(x)).join(' / '),
-    8: el => el.textContent = player.runeSpiritLevels.slice(1, 6).map(x => format(x)).join(' / '),
-    9: el => el.textContent = player.usedCorruptions.slice(1, 10).join(' / '),
-    10: el => el.textContent = player.challengecompletions.slice(1, 6).join(' / '),
-    11: el => el.textContent = player.challengecompletions.slice(6, 11).join(' / '),
-    12: el => el.textContent = player.runelevels.join(' / '),
-    13: el => {
+const statValues: ((el: HTMLElement) => void)[] = [
+    el => el.textContent = format(player.ascendShards),
+    el => el.textContent = document.getElementById("cubeBlessingTotalAmount").textContent,
+    el => el.textContent = document.getElementById("tesseractBlessingTotalAmount").textContent,
+    el => el.textContent = document.getElementById("hypercubeBlessingTotalAmount").textContent,
+    el => el.textContent = document.getElementById("platonicBlessingTotalAmount").textContent,
+    el => el.textContent = player.challengecompletions.slice(11, 15).join(' / '),
+    el => el.textContent = format(player.challenge15Exponent, 0),
+    el => el.textContent = player.runeBlessingLevels.slice(1, 6).map(x => format(x)).join(' / '),
+    el => el.textContent = player.runeSpiritLevels.slice(1, 6).map(x => format(x)).join(' / '),
+    el => el.textContent = player.usedCorruptions.slice(1, 10).join(' / '),
+    el => el.textContent = player.challengecompletions.slice(1, 6).join(' / '),
+    el => el.textContent = player.challengecompletions.slice(6, 11).join(' / '),
+    el => el.textContent = player.runelevels.join(' / '),
+    el => {
         const talismanColors = [ 'white', 'limegreen', 'lightblue', 'plum', 'orange', 'crimson' ];
         el.querySelectorAll('span').forEach((span, i) => {
             span.style.color = talismanColors[player.talismanRarity[i] - 1];
             span.textContent = player.talismanLevels[i] + '';
         });
     },
-    14: el => {
+    el => {
         const roomba = player.autoResearchToggle
         el.style.color = roomba ? 'green' : 'red'
         el.textContent = roomba ? 'ON' : 'OFF'
     },
-    15: el => {
+    el => {
         const autorune = player.autoSacrificeToggle
         el.style.color = autorune ? 'green' : 'red'
         el.textContent = autorune ? 'ON' : 'OFF'
     },
-    16: el => {
+    el => {
         const autoch = player.autoChallengeRunning
         el.style.color = autoch ? 'green' : 'red'
         el.textContent = autoch ? 'ON' : 'OFF'
     },
-    17: el => {
+    el => {
         const autosac = player.autoAntSacrifice
         const realtime = player.autoAntSacrificeMode === 2
         const seconds = player.autoAntSacTimer
@@ -120,7 +120,7 @@ const statValues: Record<number, (el: HTMLElement) => void> = {
         button.style.color = autosac ? 'green' : 'red'
         button.textContent = autosac ? 'ON' : 'OFF'
     }
-}
+]
 
 const css = `
     #dashboard { text-align: left; }
