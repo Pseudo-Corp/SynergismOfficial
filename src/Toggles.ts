@@ -670,7 +670,7 @@ export const toggleCubeSubTab = (i: number) => {
             cubeTab.style.display = "block"
             player.subtabNumber = j - 1
         }
-        document.getElementById("switchCubeSubTab" + j).style.backgroundColor = i === j ? "crimson" : "#171717"
+        document.getElementById("switchCubeSubTab" + j).style.backgroundColor = i === j ? "crimson" : ""
     }
 
     visualUpdateCubes();

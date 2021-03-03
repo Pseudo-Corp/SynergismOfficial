@@ -37,8 +37,9 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean
 
     // Handles toggling auto research focus, for when cube Upgrade 1x9 is NOT BOUGHT
     if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAuto >= 1 && player.cubeUpgrades[9] < 1) {
-        player.autoResearch = index;
+        document.getElementById(`res${player.autoResearch}`).classList.remove("researchRoomba");
         document.getElementById(`res${index}`).classList.add("researchRoomba");
+        player.autoResearch = index;
     }
 
     // Buys Research. metaData returns amount of levels to buy and cost, array
@@ -49,6 +50,9 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean
     if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && canAfford) {
         player.researchPoints -= metaData[1]
         player.researches[index] = metaData[0];
+        if (isResearchMaxed(player.autoResearch)) {
+            document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
+        }
 
         //Updates Progress Description
         G['researchfiller2'] = "Level: " + player.researches[index] + "/" + (G['researchMaxLevels'][index])

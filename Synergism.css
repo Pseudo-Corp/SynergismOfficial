@@ -503,20 +503,37 @@ nav li:hover {
 #exportButtons > * { margin: .15em 0; }
 
 #importFileButton {
-	border: 1px solid white;
-	width: 100px;
-	margin: 2px auto;
+    border: 2px solid white;
+    width: 176px;
+    margin: 2px auto;
+	padding: 0 0 2px;
+    cursor: pointer;
+    transition-duration: 0.15s;
+}
+
+#importFileButton:hover {
+	background-color: #333333;
 }
 
 #savegame, #deleteGame {
 	width: 180px;
 	margin: 2px auto;
+	transition-duration: 0.15s;
+}
+
+#savegame:hover, #deleteGame:hover {
+	background-color: #333333;
 }
 
 #exportgame {
 	width: 150px;
 	height: 40px;
 	margin: 5px auto;
+	transition-duration: 0.15s;
+}
+
+#exportgame:hover {
+	background-color: #333333;
 }
 
 /* Third party URLs (Discord, Patreon, patch notes) */
@@ -537,6 +554,15 @@ nav li:hover {
 	margin-right: 5px;
 }
 
+#promocodes {
+	transition-duration: 0.15s;
+	padding: 5px;
+}
+
+#promocodes:hover {
+	background-color: #333333;
+}
+
 #promocodeinfo {
 	word-break: break-all;
 	width: 75%;
@@ -554,6 +580,10 @@ nav li:hover {
 .auto.square {
 	width: 40px;
 	height: 40px;
+	transition-duration: 0.15s;
+}
+.auto.square:hover {
+	background-color: #333333;
 }
 
 .buttonRow {
@@ -1526,6 +1556,11 @@ nav li:hover {
 	height: 30px;
 	width: 200px;
 	margin: 7px;
+	transition-duration: 0.15s;
+}
+
+#challengesAutoToggles > button:hover {
+	background-color: #333333
 }
 
 #toggleAutoChallengeStart { border: 2px solid gold; }
@@ -1566,7 +1601,11 @@ nav li:hover {
 	height: 75px;
 	border: 6px solid gold;
 	background-color: black;
-	color: white
+	color: white;
+	transition-duration: 0.15s;
+}
+#startChallenge:hover {
+	background-color: #333333;
 }
 #oneChallengeDetails {
 	display: flex;
@@ -1636,6 +1675,17 @@ nav li:hover {
 #challengehotkeys { color: gray; }
 #challengewarning { color: crimson; }
 #challengewarningreincarnation { color: limegreen; }
+
+.challenge {
+	background-color: #171717;
+	transition-duration: 0.15s;
+}
+.challenge:hover {
+	background-color: #333333;
+}
+.challengeActive {
+	background-color: plum;
+}
 
 #reincarnation {
     position: relative;
@@ -1728,6 +1778,11 @@ nav li:hover {
 	height: 30px;
 	margin: 0 7px;
 	text-align: center;
+	transition-duration: 0.15s;
+}
+
+#researchToggles > button:hover {
+	background-color: #333333;
 }
 
 #researchinfo2 {
@@ -1756,12 +1811,12 @@ nav li:hover {
 	background-color: #b300b2
 }
 
-.researchMaxed {
-	background-color: green;
-}
-
 .researchRoomba {
 	background-color: orange;
+}
+
+.researchMaxed {
+	background-color: green;
 }
 
 #shop {
@@ -1901,20 +1956,28 @@ nav li:hover {
 	margin-left: 200px;
 }
 
-#toggleAntMax{
+#toggleAntMax {
 	position: absolute;
 	height: 30px;
 	width: 100px;
 	right: 51%;
 	border: 1px solid gold;
+	transition-duration: 0.15s;
 }
-#toggleAutoSacrificeAnt{
+#toggleAntMax:hover {
+	background-color: #333333;
+}
+#toggleAutoSacrificeAnt {
 	position: absolute;
 	height: 30px;
 	width: 150px;
 	top: 0;
 	left: 51%;
-	border: 1px solid crimson
+	border: 1px solid crimson;
+	transition-duration: 0.15s;
+}
+#toggleAutoSacrificeAnt:hover {
+	background-color: #333333;
 }
 #autoSacrificeAntMode {
 	position: absolute;
@@ -1924,6 +1987,10 @@ nav li:hover {
 	margin-left: 155px;
 	top: 0;
 	border: 1px solid green;
+	transition-duration: 0.15s;
+}
+#autoSacrificeAntMode:hover {
+	background-color: #333333;
 }
 #autoAntSacrificeAmount {
 	position: absolute;
@@ -2032,6 +2099,11 @@ nav li:hover {
 	width: 250px;
 	height: 30px;
 	margin: 3px;
+	transition-duration: 0.15s;
+}
+
+.cubeSwitchTabBtn:hover {
+	background-color: #333333;
 }
 
 #wowCubeSidebar > p { margin: 0; }
@@ -2059,8 +2131,15 @@ nav li:hover {
 	margin-left: -96px;
 }
 .cubeBtn {
+	width: 100px;
+	height: 30px;
 	color: white;
 	background-color: black;
+	border: 1px solid gold;
+	transition-duration: 0.15s;
+}
+.cubeBtn:hover {
+	background-color: #333333;
 }
 
 p[id$="BlessingsTotal"] {
@@ -2108,12 +2187,6 @@ p[id$="BlessingsTotal"] {
 	grid-row: 2;
 	grid-column: 2;
 	margin-left: 10px;
-}
-
-.openBtn > button {
-	width: 100px;
-	height: 30px;
-	border: 1px solid gold;
 }
 
 .cubeBonus{
@@ -2533,18 +2606,17 @@ p[id$="BlessingsTotal"] {
 	padding: 10px;
 	border: 1px solid orange;
 }
-#corrStatsBtn {
+#corrStatsBtn, #corrLoadoutsBtn {
 	width: 120px;
 	height: 25px;
 	border: 2px solid;
+	transition-duration: 0.15s;
+}
+#corrStatsBtn:hover, #corrLoadoutsBtn:hover {
+	background-color: #333333;
 }
 #corrButtonRow {
 	min-width: 300px;
-}
-#corrLoadoutsBtn {
-	width: 120px;
-	height: 25px;
-	border: 2px solid;
 }
 .corruptionStatRow {
 	display: flex;
@@ -2568,18 +2640,22 @@ p[id$="BlessingsTotal"] {
 	height: 30px;
 	margin: 5px;
 	padding: 3px;
+	transition-duration: 0.15s;
+}
+.corrBtn:hover {
+	background-color: #333333;
 }
 .corruptionMax {
-	border: 2px solid green;
+	border: 2px solid green !important;
 }
 .corruptionUp {
-	border: 1px solid green;
+	border: 1px solid green !important;
 }
 .corruptionDown {
-	border: 1px solid red;
+	border: 1px solid red !important;
 }
 .corruptionReset {
-	border: 2px solid red;
+	border: 2px solid red !important;
 }
 
 #corruptionLoadouts {
@@ -2594,20 +2670,27 @@ img.small {
 	height: 32px;
 }
 .corrSave {
-	padding: 3px 4px;
 	border: 1px solid dodgerblue;
 	margin-left: 10px;
+	padding: 3px 4px;
+	transition-duration: 0.15s;
 }
 .corrLoad {
-	padding: 3px 4px;
 	border: 1px solid #5b5ddc;
+	padding: 3px 4px;
+	transition-duration: 0.15s;
+}
+
+.corrSave:hover, .corrLoad:hover {
+	background-color: #333333;
 }
 
 #corruptionCleanse {
 	height: 30px;
 	width: 150px;
 	margin: auto 20px auto;
-	border: 2px solid darkmagenta
+	border: 2px solid darkmagenta;
+	transition-duration: 0.15s;
 }
 #corruptionCleanseConfirm {
 	height: 30px;
@@ -2615,6 +2698,11 @@ img.small {
 	margin: auto;
 	border: 2px solid green;
 	visibility: hidden;
+	transition-duration: 0.15s;
+}
+
+#corruptionCleanse:hover, #corruptionCleanseConfirm:hover {
+	background-color: #333333;
 }
 
 header {

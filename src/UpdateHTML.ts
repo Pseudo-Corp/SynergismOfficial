@@ -663,21 +663,17 @@ export const buttoncolorchange = () => {
 
 export const updateChallengeDisplay = () => {
     //Sets background colors on load/challenge initiation
-    for (let k = 1; k <= 10; k++) {
-        const el = document.getElementById("challenge" + k)
-        el.style.backgroundColor = "#171717"
+    for (let k = 1; k <= 15; k++) {
+        const el = document.getElementById(`challenge${k}`)
+        el.classList.remove("challengeActive")
         if (player.currentChallenge.transcension === k) {
-            el.style.backgroundColor = "plum"
+            el.classList.add("challengeActive")
         }
         if (player.currentChallenge.reincarnation === k) {
-            el.style.backgroundColor = "plum"
+            el.classList.add("challengeActive")
         }
-    }
-    for (let k = 11; k <= 15; k++) {
-        const el = document.getElementById("challenge" + k)
-        el.style.backgroundColor = "#171717"
         if (player.currentChallenge.ascension === k) {
-            el.style.backgroundColor = "plum"
+            el.classList.add("challengeActive")
         }
     }
     //Corrects HTML on retry challenges button
