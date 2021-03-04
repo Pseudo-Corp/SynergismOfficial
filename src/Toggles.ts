@@ -486,7 +486,7 @@ export const toggleRuneScreen = (index: number) => {
         if (i === index) {
             a.style.border = "2px solid gold"
             a.style.backgroundColor = "crimson"
-            b.style.display = "block";
+            b.style.display = "flex";
         } else {
             a.style.border = "2px solid silver"
             a.style.backgroundColor = ""
@@ -670,7 +670,7 @@ export const toggleCubeSubTab = (i: number) => {
             cubeTab.style.display = "block"
             player.subtabNumber = j - 1
         }
-        document.getElementById("switchCubeSubTab" + j).style.backgroundColor = i === j ? "crimson" : "#171717"
+        document.getElementById("switchCubeSubTab" + j).style.backgroundColor = i === j ? "crimson" : ""
     }
 
     visualUpdateCubes();
