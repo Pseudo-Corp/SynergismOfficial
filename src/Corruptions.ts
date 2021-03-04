@@ -208,8 +208,8 @@ export const corruptionLoadoutTableCreate = () => {
 
 export const corruptionLoadoutTableUpdate = (updateRow = 0) => {
     const row = getElementById<HTMLTableElement>("corruptionLoadoutTable").rows[updateRow + 1].cells;
-    for (let i = 0; i < row.length; i++) {
-        if (i === 0 || i > 9) continue;
+    for (let i = 1; i < row.length; i++) {
+        if (i > 9) break;
         row[i].textContent = ((updateRow === 0) ? player.prototypeCorruptions[i] : player.corruptionLoadouts[updateRow][i]).toString();
     }
 }

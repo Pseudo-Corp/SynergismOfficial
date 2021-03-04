@@ -605,6 +605,7 @@ export const saveSynergy = (button?: boolean): void => {
         codes: Array.from(player.codes)
     });
 
+    localStorage.removeItem('Synergysave2');
     localStorage.setItem('Synergysave2', btoa(JSON.stringify(p)));
 
     if (button) {
@@ -3319,13 +3320,14 @@ document.addEventListener('keydown', (event) => {
 
 });
 
+// whether or not this is a fresh load, or the result of an import
+let loaded = false;
+
 window.addEventListener('load', async () => {
-    if (location.href.includes('kong')) {
-        // kongregate
-        const script = document.createElement('script');
-        script.setAttribute('src', 'https://cdn1.kongregate.com/javascripts/kongregate_api.js');
-        document.head.appendChild(script);
-    }
+    for (const timer of intervalHold)
+        clearInt(timer);
+
+    intervalHold.clear();
 
     const ver = document.getElementById('versionnumber');
     ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 6:15PM UTC-8 08-Feb-2021]. Savefiles cannot be used in live!`);
@@ -3343,17 +3345,19 @@ window.addEventListener('load', async () => {
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
 
-    setTimeout(() => {
+    if (!loaded) {
         generateEventHandlers();
-        loadSynergy();
-        saveSynergy();
-        toggleauto();
-        revealStuff();
-        hideStuff();
-        htmlInserts();
-        createTimer();
-        constantIntervals();
         loadPlugins();
-        changeTabColor();
-    }, 0);
+    }
+
+    loadSynergy();
+    saveSynergy();
+    toggleauto();
+    revealStuff();
+    hideStuff();
+    htmlInserts();
+    createTimer();
+    constantIntervals();
+    changeTabColor();
+    loaded = true;
 });

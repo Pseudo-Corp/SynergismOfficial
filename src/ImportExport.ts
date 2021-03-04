@@ -1,4 +1,4 @@
-import { player, saveSynergy, blankSave, clearInt, format, intervalHold, constantIntervals, createTimer, loadSynergy, isTesting } from './Synergism';
+import { player, saveSynergy, blankSave, format, isTesting } from './Synergism';
 import { getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
@@ -130,14 +130,9 @@ export const importSynergism = (input: string) => {
         (f.exporttest === false && isTesting) ||
         (f.exporttest === 'NO!' && isTesting)
     ) {
-        // tested: this does loop over the items before clearing them (Firefox)
-        intervalHold.forEach(v => clearInt(v));
-        intervalHold.clear();
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
         
-        constantIntervals();
-        createTimer();
-        loadSynergy();
+        window.dispatchEvent(new Event('load'));
     } else {
         return Alert(`You are attempting to load a testing file in a non-testing version!`);
     }

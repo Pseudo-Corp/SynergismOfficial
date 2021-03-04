@@ -143,6 +143,7 @@
   "scripts": {
     "build": "npx webpack",
     "start": "npx webpack serve --mode development --hot",
+    "start:prod": "npx webpack serve --mode production --hot",
     "lint": "npx eslint --fix . --ext .ts"
   },
   "repository": {
