@@ -3342,12 +3342,11 @@ window.addEventListener('load', async () => {
         await Alert('Transferred save to new format successfully!');
     }
 
-    corruptionButtonsAdd();
-    corruptionLoadoutTableCreate();
-
     if (!loaded) {
         generateEventHandlers();
         loadPlugins();
+        corruptionButtonsAdd();
+        corruptionLoadoutTableCreate();
     }
 
     loadSynergy();
