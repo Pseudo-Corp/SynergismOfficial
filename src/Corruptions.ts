@@ -60,8 +60,8 @@ export const corruptionDisplay = (index: number) => {
         {
             name: "Corruption VI: Market Deflation",
             description: "Diamond Mine destroyed... no more monopolies!",
-            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[6]) + ". Effect: Diamond gain ^" + format(G['deflationMultiplier'][player.usedCorruptions[6]], 9),
-            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[6]) + ". Effect: Diamond gain ^" + format(G['deflationMultiplier'][player.prototypeCorruptions[6]], 9),
+            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[6]) + ". Effect: Diamond gain ^1/" + format(1 / G['deflationMultiplier'][player.usedCorruptions[6]], 2),
+            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[6]) + ". Effect: Diamond gain ^1/" + format(1 / G['deflationMultiplier'][player.prototypeCorruptions[6]], 2),
             multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[6]], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[6]], 1),
             spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[6],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[6],2),1) + "%", 
             image: "Pictures/Deflation Lvl 7.png"
