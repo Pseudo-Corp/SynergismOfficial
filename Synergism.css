@@ -760,6 +760,17 @@ nav li:hover {
 	top: 0;
 	left: 80%;
 }
+
+.buyAmountBtn {
+	background-color: black;
+	cursor: pointer;
+	transition-duration: 0.15s;
+}
+
+.buyAmountBtn:hover {
+	background-color: #333;
+}
+
 #togglecrystalbuy{
 	color: white;
 	position: absolute;
@@ -842,7 +853,15 @@ nav li:hover {
 	margin-top: 35px;
 }
 
-#toggle15, #prestigeautotoggle { width: 150px; }
+#toggle15, #prestigeautotoggle, #prestigeamount { width: 150px; }
+
+#toggle15, #prestigeautotoggle {
+	transition-duration: 0.15s;
+}
+
+#toggle15:hover, #prestigeautotoggle:hover {
+	background-color: #333333;
+}
 
 #prestigehotkeys{
 	width: 1200px;
@@ -1195,6 +1214,14 @@ nav li:hover {
 	margin: 0 auto; 
 }
 
+#toggle21, #transcendautotoggle {
+	transition-duration: 0.15s;
+}
+
+#toggle21:hover, #transcendautotoggle:hover {
+	background-color: #333333;
+}
+
 #transcendhotkeys{
 	color: gray;
 	text-align: center;
@@ -1363,6 +1390,14 @@ nav li:hover {
 #toggle27 { margin-top: 55px; }
 
 #toggle27, #reincarnationamount, #reincarnateautotoggle { width: 150px; }
+
+#toggle27, #reincarnateautotoggle {
+	transition-duration: 0.15s;
+}
+
+#toggle27:hover, #reincarnateautotoggle:hover {
+	background-color: #333333;
+}
 
 #reincarnateautomation > div {
 	display: flex;
@@ -1977,11 +2012,20 @@ p[id$="BlessingsTotal"] {
 	width: 150px;
 }
 
+#tesseractautobuytoggle {
+	transition-duration: 0.15s;
+}
+
+#tesseractautobuytoggle:hover {
+	background-color: #333333;
+}
+
 #tesseractAmount{
 	border: 1px solid green;
 	color: white;
 	background-color: black
 }
+
 
 #autotessbuyeramount{
 	color: white;
@@ -2131,6 +2175,11 @@ p[id$="BlessingsTotal"] {
 
 #historyTogglePerSecondButton {
 	float: right;
+	transition-duration: 0.15s;
+}
+
+#historyTogglePerSecondButton:hover {
+	background-color: #333333;
 }
 
 .onOffToggle {
@@ -2266,11 +2315,14 @@ p[id$="BlessingsTotal"] {
 #autoAscend {
 	color: white
 }
-#ascensionAutoEnable {
+
+#ascensionAutoEnable, #ascensionAutoToggle {
 	width: 150px;
+	transition-duration: 0.15s;
 }
-#ascensionAutoToggle {
-	width: 150px;
+
+#ascensionAutoEnable:hover, #ascensionAutoToggle:hover {
+	background-color: #333333;
 }
 
 #corruptionStatsLoadouts {

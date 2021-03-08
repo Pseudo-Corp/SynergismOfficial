@@ -1100,7 +1100,7 @@ export const loadSynergy = (): void => {
                     d = 'thousand'
                 }
                 const e = q[j] + d;
-                document.getElementById(e).style.backgroundColor = "#000000"
+                document.getElementById(e).style.backgroundColor = ""
             }
             let c;
             if (player[q[j] + 'buyamount'] === 1) {

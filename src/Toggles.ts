@@ -129,16 +129,16 @@ export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) 
 
     document.getElementById(`${type}${a}`).style.backgroundColor = "Green";
     if (quantity !== 1) {
-        document.getElementById(`${type}one`).style.backgroundColor = "Black"
+        document.getElementById(`${type}one`).style.backgroundColor = ""
     }
     if (quantity !== 10) {
-        document.getElementById(`${type}ten`).style.backgroundColor = "Black"
+        document.getElementById(`${type}ten`).style.backgroundColor = ""
     }
     if (quantity !== 100) {
-        document.getElementById(`${type}hundred`).style.backgroundColor = "Black"
+        document.getElementById(`${type}hundred`).style.backgroundColor = ""
     }
     if (quantity !== 1000) {
-        document.getElementById(`${type}thousand`).style.backgroundColor = "Black"
+        document.getElementById(`${type}thousand`).style.backgroundColor = ""
     }
 }
 
