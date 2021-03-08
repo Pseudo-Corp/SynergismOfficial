@@ -1,11 +1,11 @@
-import { player, saveSynergy, blankSave, format, isTesting } from './Synergism';
+import { player, saveSynergy, blankSave, isTesting } from './Synergism';
 import { getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
 import { Globals as G } from './Variables';
 import { Player } from './types/Synergism';
 import { Synergism } from './Events';
-import { Alert, Prompt } from './UpdateHTML';
+import { Alert, Confirm, Prompt } from './UpdateHTML';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -142,11 +142,11 @@ export const promocodes = async () => {
     const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE).');
     const el = document.getElementById("promocodeinfo");
 
-    if (input === "synergism2020" && !player.codes.get(1)) {
+    if (input === "synergism2021" && !player.codes.get(1)) {
         player.codes.set(1, true);
         player.runeshards += 25;
         player.worlds += 50;
-        el.textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"
+        el.textContent = "Promo Code 'synergism2021' Applied! +25 Offerings, +50 Quarks"
     } else if (input === ":unsmith:" && player.achievements[243] < 1) {
         achievementaward(243);
         el.textContent = "It's Spaghetti Time! [Awarded an achievement!!!]";
@@ -158,37 +158,13 @@ export const promocodes = async () => {
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds += quarks;
         el.textContent = 'Khafra has blessed you with ' + quarks + ' quarks!';
-    } else if(input === 'november13' && !player.codes.get(27)) {
-        player.codes.set(27, true);
-        player.worlds += 300;
-        el.textContent = 'Be careful, on friday the thirteenth! [+300 Quarks]';
     } else if(input === '2million' && !player.codes.get(28)) {
         player.codes.set(28, true);
         player.worlds += 700;
         el.textContent = 'Thank you for 2 million plays on kongregate!';
-    } else if(input === 'version2.1.0' && !player.codes.get(29)) {
-        player.codes.set(29, true);
-        let quarkCounter = 250;
-        if(player.challengecompletions[11] > 0 || player.highestchallengecompletions[11] >0){
-            quarkCounter += 250;
-        }
-        if(player.challengecompletions[12] > 0 || player.highestchallengecompletions[12] >0){
-            quarkCounter += 250;
-        }
-        if(player.challengecompletions[13] > 0 || player.highestchallengecompletions[13] >0){
-            quarkCounter += 500;
-        }
-        if(player.challengecompletions[14] > 0 || player.highestchallengecompletions[14] >0){
-            quarkCounter += 500;
-        }
-        if(player.challengecompletions[13] >= 18 || player.highestchallengecompletions[13] >= 18){
-            quarkCounter += 750;
-        }
-        if(player.challengecompletions[13] >= 22 || player.highestchallengecompletions[13] >= 22){
-            quarkCounter += 1;
-        }
-        player.worlds += quarkCounter
-        el.textContent = 'Welcome to the Abyss! Based on your progress, you gained ' + format(quarkCounter) + " Quarks.";
+    } else if(input === 'v2.5.0' && !player.codes.get(32)) {
+        player.codes.set(32, true);
+        el.textContent = 'You are on v2.5.0! For playing, you get a reward of ... nothing?';
     } else if(input === 'add') {
         if(player.rngCode >= (Date.now() - 3600000)) { // 1 hour
             el.textContent = `You already used this promocode in the last hour!`;
@@ -196,8 +172,7 @@ export const promocodes = async () => {
         }
 
         const amount = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16; // [0, 15]
-        const first = window.crypto.getRandomValues(new Uint8Array(1))[0];
-        const second = window.crypto.getRandomValues(new Uint8Array(1))[0];
+        const [first, second] = window.crypto.getRandomValues(new Uint8Array(2));
         const addPrompt = await Prompt(`What is ${first} + ${second}?`);
 
         if(first + second === +addPrompt) {
@@ -207,14 +182,34 @@ export const promocodes = async () => {
             el.textContent = `You guessed ${addPrompt}, but the answer was ${first + second}. Try again in an hour!`;
         }
         player.rngCode = Date.now();
-    } else if(input === 'holiday' && !player.codes.get(31)){
-        player.codes.set(31, true);
-        let quarkCounter = 2500
-        if(player.platonicUpgrades[5] > 0){quarkCounter += 1}
-        player.worlds += quarkCounter
-        el.textContent = 'Happy holidays from Platonic, to you and yours! A gift of ' + format(quarkCounter) + " Quarks, just for you."
-    }
-    else {
+    } else if (input === 'gamble') {
+        if (typeof player.skillCode === 'number')
+            if ((Date.now() - player.skillCode) / 1000 < 3600)
+                return el.textContent = 'Wait a little bit. We\'ll get back to you when you\'re ready to lose again.';
+
+        const confirmed = await Confirm(`Are you sure? The house always wins!`);
+        if (!confirmed)
+            return el.textContent = 'Scared? You should be!';
+
+        const bet = Number(await Prompt('How many quarks are you putting up?'));
+        if (Number.isNaN(bet) || bet <= 0)
+            return el.textContent = 'Can\'t bet that!';
+
+        if (player.worlds < bet)
+            return el.textContent = 'Can\'t bet what you don\'t have.';
+
+        const dice = window.crypto.getRandomValues(new Uint8Array(1))[0] % 6 + 1; // [1, 6]
+        if (dice === 1 || dice === 6) {
+            const won = bet * .25; // lmao
+            player.worlds += won;
+
+            player.skillCode = Date.now();
+            return el.textContent = `You won. The Syncasino offers you a grand total of 25% of the pot! [+${won} quarks]`;
+        }
+        
+        player.worlds -= bet;
+        el.textContent = `Try again... you can do it! [-${bet} quarks]`;
+    } else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
 

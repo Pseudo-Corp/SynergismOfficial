@@ -471,7 +471,9 @@ export interface Player {
     loadedNov13Vers: boolean
     loadedDec16Vers: boolean
     version: string
+
     rngCode: number
+    skillCode?: number
 
     [key: string]: any
 }
