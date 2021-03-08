@@ -1467,20 +1467,20 @@
                         </div>
                     </div>
                     <div id="oneChallengeDetails" style="display:none">
-                        <p id="challengeName">No Multiplier || Completions: 0/25</p>
-                        <p id="challengeFlavor">Multipliers make the game a little fast, let's take them out!</p>
-                        <p id="challengeRestrictions">Restriction: No Multipliers</p>
+                        <span id="challengeName">No Multiplier || Completions: 0/25</span>
+                        <span id="challengeFlavor">Multipliers make the game a little fast, let's take them out!</span>
+                        <span id="challengeRestrictions">Restriction: No Multipliers</span>
                         <br>
-                        <p id="challengeGoal">Gain 1e10 Coins</p>
-                        <p id="challengePerCompletionRewards">Per Completion Bonuses <span id="completionSoftcap" style="color: orchid"></span></p>
-                        <p id="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" style="color:orchid">Current: 0</span></p>
-                        <p id="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" style="color:orchid">Current: 0</span></p>
-                        <p id="challengePer3">--- <span id="challengeCurrent3" style="color:orchid">Current: 0</span></p>
+                        <span id="challengeGoal">Gain 1e10 Coins</span>
+                        <span id="challengePerCompletionRewards">Per Completion Bonuses <span id="completionSoftcap" style="color: orchid"></span></span>
+                        <span id="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" style="color:orchid">Current: 0</span></span>
+                        <span id="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" style="color:orchid">Current: 0</span></span>
+                        <span id="challengePer3">--- <span id="challengeCurrent3" style="color:orchid">Current: 0</span></span>
                         <br>
-                        <p id="challengeFirstCompletionRewards">Bonus/Unlock for First Completion</p>
-                        <p id="challengeFirst1">+1 Free Multiplier!</p>
+                        <span id="challengeFirstCompletionRewards">Bonus/Unlock for First Completion</span>
+                        <span id="challengeFirst1">+1 Free Multiplier!</span>
                         <br>
-                        <p id="challengeQuarkBonus">+1 Quarks</p>
+                        <span id="challengeQuarkBonus">+1 Quarks</span>
                     </div>
                 </div>
 
@@ -1781,10 +1781,14 @@
                 <div id="antToggleFeatures">
                     <button id="toggleAntMax">Buy Max: ON</button>
                     <div id="antSacrificeButtons">
-                        <button id="toggleAutoSacrificeAnt">Auto Sacrifice: OFF</button>
-                        <button id="autoSacrificeAntMode">Mode: In-game time</button>
-                        <input id="autoAntSacrificeAmount" type="number">
-                        <p id="autoAntSacrifice"></p>
+                        <div class="antSacrificeButtonsContainer">
+                            <button id="toggleAutoSacrificeAnt">Auto Sacrifice: OFF</button>
+                            <div class="antSacrificeSettingsContainer">
+                                <button id="autoSacrificeAntMode">Mode: In-game time</button>
+                                <input id="autoAntSacrificeAmount" type="number">
+                            </div>
+                        </div>
+                        <span id="autoAntSacrifice"></span>
                     </div>
                 </div>
 

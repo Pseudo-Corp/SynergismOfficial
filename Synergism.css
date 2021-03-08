@@ -1029,6 +1029,7 @@ nav li:hover {
 	width: 11%;
 	min-width: 102px;
     align-items: center;
+	white-space: nowrap;
 }
 
 .talismanName {
@@ -1254,18 +1255,13 @@ nav li:hover {
 }
 
 #challengeDetails {
-	display: grid;
-	margin-left: 200px;
-	grid-template-columns: 400px 10px 600px;
-	grid-template-rows: 200px 200px ;
-	grid-template-areas: 
-	"main . sidebar"
-	"main . sidebar";
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
 }
 
 #challengeTimers {
-	grid-area: main;
-	margin: auto;
+	margin-right: 20px;
 }
 #startChallenge {
 	font-size: 1.1em;
@@ -1281,28 +1277,15 @@ nav li:hover {
 }
 #oneChallengeDetails {
 	display: flex;
-	grid-area: sidebar;
-	margin: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+	width: 600px;
 }
 #oneChallengeDetails > p {
 	margin: auto;
 	height: auto;
 }
 
-/*
-#challengeDetails {
-	display: flex;
-	flex-direction: row;
-	text-align: left;
-	justify-content: center;
-	margin-top: 10px;
-}
-
-#oneChallengeDetails > p { 
-	margin: 0; 
-	margin-left: 30px;
-}
-*/
 #challengeName { color: white; }
 #challengeFlavor { color:plum; }
 #challengeRestrictions { color:crimson; }
@@ -1633,21 +1616,25 @@ nav li:hover {
 
 #antrow3 > p { margin: 5px }
 
-#antToggleFeatures{
-	position: absolute;
-	padding: 0;
-	top: 474px;
-	width: 1000px;
-	height: 100px;
-	text-align: center;
-	margin-left: 200px;
+#antToggleFeatures {
+    display: flex;
+    justify-content: center;
+}
+
+#antSacrificeButtons {
+	display: flex;
+	flex-direction: column;
+}
+
+.antSacrificeButtonsContainer {
+	display: flex;
+	justify-content: center;
 }
 
 #toggleAntMax {
-	position: absolute;
 	height: 30px;
 	width: 100px;
-	right: 51%;
+    margin-right: -110px;
 	border: 1px solid gold;
 	transition-duration: 0.15s;
 }
@@ -1655,11 +1642,9 @@ nav li:hover {
 	background-color: #333333;
 }
 #toggleAutoSacrificeAnt {
-	position: absolute;
 	height: 30px;
 	width: 150px;
-	top: 0;
-	left: 51%;
+	margin-right: 10px;
 	border: 1px solid crimson;
 	transition-duration: 0.15s;
 }
@@ -1667,12 +1652,8 @@ nav li:hover {
 	background-color: #333333;
 }
 #autoSacrificeAntMode {
-	position: absolute;
 	height: 20px;
 	width: 150px;
-	left: 51%;
-	margin-left: 155px;
-	top: 0;
 	border: 1px solid green;
 	transition-duration: 0.15s;
 }
@@ -1680,15 +1661,9 @@ nav li:hover {
 	background-color: #333333;
 }
 #autoAntSacrificeAmount {
-	position: absolute;
 	width: 150px;
-	left: 51%;
-	margin-left: 155px;
-	top: 21px;
 }
 #autoAntSacrifice {
-	position: absolute;
-	top: 25px;
 	text-align: center;
 	width: 100%;
 }
@@ -1708,6 +1683,11 @@ nav li:hover {
 	top: 70px;
 	text-align: center;
 	left: 70%;
+}
+
+.antSacrificeSettingsContainer {
+	display: flex;
+	flex-direction: column;
 }
 
 
