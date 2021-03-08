@@ -663,11 +663,11 @@ export const toggleCubeSubTab = (i: number) => {
     const numSubTabs = subTabsInMainTab(8).subTabList.length
     for (let j = 1; j <= numSubTabs; j++) {
         const cubeTab = document.getElementById(`cubeTab${j}`);
-        if (cubeTab.style.display === "block" && j !== i) {
+        if (cubeTab.style.display === "flex" && j !== i) {
             cubeTab.style.display = "none"
         }
         if (cubeTab.style.display === "none" && j === i) {
-            cubeTab.style.display = "block"
+            cubeTab.style.display = "flex"
             player.subtabNumber = j - 1
         }
         document.getElementById("switchCubeSubTab" + j).style.backgroundColor = i === j ? "crimson" : ""

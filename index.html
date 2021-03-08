@@ -1849,7 +1849,7 @@
             <div id="cubesWrapper">
                 <div id="wowCubeSidebar"> 
                     <div id="wowCubeSidebarButtons">
-                        <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;">Cube Tributes</button>
+                        <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold; background-color: crimson;">Cube Tributes</button>
                         <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid purple;">Tesseract Gifts</button>
                         <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;">Hypercube Benedictions</button>
                         <button id="switchCubeSubTab4" class="cubeSwitchTabBtn chal14" style="border: 2px solid orange;">Platonic Statues</button>
@@ -1869,19 +1869,21 @@
                     <p id="hypercubeQuarksOpenRequirement" class="chal13">Open <span id="hypercubeQuarksOpenRequirementValue" style="color: yellow">1</span> hypercubes for next quark.</p>
                     <p id="hypercubeQuarksOpenToday" class="chal13">Hypercubes opened today: <span id="hypercubeQuarksOpenTodayValue" style="color: orchid;">0</span></p>
                 </div>
-                <div id="cubeTab1" style="display: block">
-                    <p id="cubeWelcome" class="cubePlacement1" style="color: orange">You feel a sense of Pride and Accomplishment... and a hunger for power.</p>
-                    <p id="cubeExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.</p>
-                    <p id="cubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</p>
+                <div id="cubeTab1" class="cubeTab" style="display: flex">
+                    <span id="cubeWelcome" class="cubePlacement1" style="color: orange">You feel a sense of Pride and Accomplishment... and a hunger for power.</span>
+                    <span id="cubeExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.</span>
+                    <span id="cubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</span>
                     
                     <div class="openGrid"> 
                         <img class="openImage" src="Pictures/WowCube.png" alt="">
-                        <p class="inventory" style="color: white">You possess <span id="cubeQuantity" style="color: yellow">13</span> Wow! Cubes. Get more from harder Ascensions and other stuff.</p>
-                        <div class="openBtn"> 
-                            <button class="cubeBtn" id="open1Cube">Open x1</button>
-                            <button class="cubeBtn" id="open20Cube">Open x20</button>
-                            <button class="cubeBtn" id="open1000Cube">Open x1,000</button>
-                            <button class="cubeBtn" id="openMostCube">Open All</button>
+                        <div class="openButtons">
+                            <span class="inventory" style="color: white">You possess <span id="cubeQuantity" style="color: yellow">13</span> Wow! Cubes. Get more from harder Ascensions and other stuff.</span>
+                            <div class="openBtn"> 
+                                <button class="cubeBtn" id="open1Cube">Open x1</button>
+                                <button class="cubeBtn" id="open20Cube">Open x20</button>
+                                <button class="cubeBtn" id="open1000Cube">Open x1,000</button>
+                                <button class="cubeBtn" id="openMostCube">Open All</button>
+                            </div>
                         </div>
                     </div>
 
@@ -1951,19 +1953,21 @@
                     </div>
                     <p id="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount">0</span> Cube tributes!</p>
                 </div>
-                <div id="cubeTab2" style="display: none">
-                    <p id="tesseractWelcome" class="cubePlacement1" style="color: orchid">You obtain guidance from beings in another dimension!</p>
-                    <p id="tesseractExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.</p>
-                    <p id="tesseractExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</p>
+                <div id="cubeTab2" class="cubeTab" style="display: none">
+                    <span id="tesseractWelcome" class="cubePlacement1" style="color: orchid">You obtain guidance from beings in another dimension!</span>
+                    <span id="tesseractExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.</span>
+                    <span id="tesseractExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</span>
                     
                     <div class="openGrid"> 
                         <img class="openImage" src="Pictures/WowTessaract.png" alt="">
-                        <p id="tesseractInventory" class="inventory" style="color: orchid">You possess <span id="tesseractQuantity" style="color: yellow">13</span> Wow! TESSERACTS. Get more from harder Ascensions and other stuff.</p>
-                        <div class="openBtn"> 
-                            <button id="open1Tesseract" class="cubeBtn">Open x1</button>
-                            <button id="open20Tesseract" class="cubeBtn">Open x20</button>
-                            <button id="open1000Tesseract" class="cubeBtn">Open x1,000</button>
-                            <button id="openMostTesseract" class="cubeBtn">Open All</button>
+                        <div class="openButtons">
+                            <span id="tesseractInventory" class="inventory" style="color: orchid">You possess <span id="tesseractQuantity" style="color: yellow">13</span> Wow! TESSERACTS. Get more from harder Ascensions and other stuff.</span>
+                            <div class="openBtn"> 
+                                <button id="open1Tesseract" class="cubeBtn">Open x1</button>
+                                <button id="open20Tesseract" class="cubeBtn">Open x20</button>
+                                <button id="open1000Tesseract" class="cubeBtn">Open x1,000</button>
+                                <button id="openMostTesseract" class="cubeBtn">Open All</button>
+                            </div>
                         </div>
                     </div>
 
@@ -2033,19 +2037,21 @@
                     </div>
                     <p id="tesseractBlessingsTotal">You have a total of <span id="tesseractBlessingTotalAmount">0</span> Tesseract gifts!</p>
                 </div>
-                <div id="cubeTab3" style="display: none">
-                    <p id="hypercubeWelcome" class="cubePlacement1" style="color: rgb(255, 0, 76)">I didn't know that Wow! enterprises made 5-Dimensional Objects.</p>
-                    <p id="hypercubeExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Hypercubes, to boost blessings from the previous tier.</p>
-                    <p id="hypercubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</p>
+                <div id="cubeTab3" class="cubeTab" style="display: none">
+                    <span id="hypercubeWelcome" class="cubePlacement1" style="color: rgb(255, 0, 76)">I didn't know that Wow! enterprises made 5-Dimensional Objects.</span>
+                    <span id="hypercubeExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Hypercubes, to boost blessings from the previous tier.</span>
+                    <span id="hypercubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</span>
 
                     <div class="openGrid"> 
                         <img class="openImage" src="Pictures/WowHypercube.png" alt="">
-                        <p id="hypercubeInventory" class="inventory" style="color: rgb(255, 0, 76)">You possess <span id="hypercubeQuantity" style="color: yellow">13</span> Wow! HYPERCUBES. Get more from harder Ascensions and other stuff.</p>
-                        <div class="openBtn"> 
-                            <button id="open1Hypercube" class="cubeBtn">Open x1</button>
-                            <button id="open20Hypercube" class="cubeBtn">Open x20</button>
-                            <button id="open1000Hypercube" class="cubeBtn">Open x1,000</button>
-                            <button id="openMostHypercube" class="cubeBtn">Open All</button>
+                        <div class="openButtons">
+                            <span id="hypercubeInventory" class="inventory" style="color: rgb(255, 0, 76)">You possess <span id="hypercubeQuantity" style="color: yellow">13</span> Wow! HYPERCUBES. Get more from harder Ascensions and other stuff.</span>
+                            <div class="openBtn"> 
+                                <button id="open1Hypercube" class="cubeBtn">Open x1</button>
+                                <button id="open20Hypercube" class="cubeBtn">Open x20</button>
+                                <button id="open1000Hypercube" class="cubeBtn">Open x1,000</button>
+                                <button id="openMostHypercube" class="cubeBtn">Open All</button>
+                            </div>
                         </div>
                     </div>
 
@@ -2115,19 +2121,21 @@
                     </div>
                     <p id="hypercubeBlessingsTotal">You have a total of <span id="hypercubeBlessingTotalAmount">0</span> Hypercube benedictions!</p>
                 </div>
-                <div id="cubeTab4" style="display: none">
-                    <p id="platonicCubeWelcome" class="cubePlacement1" style="color: orangered">This seems very familiar.</p>
-                    <p id="platonicCubeExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Platonic! Cubes, for epic perks!.</p>
-                    <p id="platonicCubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</p>
+                <div id="cubeTab4" class="cubeTab" style="display: none">
+                    <span id="platonicCubeWelcome" class="cubePlacement1" style="color: orangered">This seems very familiar.</span>
+                    <span id="platonicCubeExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Platonic! Cubes, for epic perks!.</span>
+                    <span id="platonicCubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</span>
 
                     <div class="openGrid"> 
                         <img class="openImage" src="Pictures/Platonic Cube.png" alt="">
-                        <p id="platonicCubeInventory" class="inventory" style="color:orange">You possess <span id="platonicQuantity" style="color: yellow">13</span> Platonic! Cubes. Get more from really hard ascensions.</p>
-                        <div class="openBtn"> 
-                            <button id="open1PlatonicCube" class="cubeBtn">Open x1</button>
-                            <button id="open40kPlatonicCube" class="cubeBtn">Open x40,000</button>
-                            <button id="open1mPlatonicCube" class="cubeBtn">Open x1 Million</button>
-                            <button id="openMostPlatonicCube" class="cubeBtn">Open All</button>
+                        <div class="openButtons">
+                            <span id="platonicCubeInventory" class="inventory" style="color:orange">You possess <span id="platonicQuantity" style="color: yellow">13</span> Platonic! Cubes. Get more from really hard ascensions.</span>
+                            <div class="openBtn"> 
+                                <button id="open1PlatonicCube" class="cubeBtn">Open x1</button>
+                                <button id="open40kPlatonicCube" class="cubeBtn">Open x40,000</button>
+                                <button id="open1mPlatonicCube" class="cubeBtn">Open x1 Million</button>
+                                <button id="openMostPlatonicCube" class="cubeBtn">Open All</button>
+                            </div>
                         </div>
                     </div>
 
@@ -2257,7 +2265,7 @@
                         <button id="toggleCubeBuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level wow</button>
                     </div>
                 </div>
-                <div id="cubeTab6" style="display: none">
+                <div id="cubeTab6" class="cubeTab" style="display: none">
                     <div id="c15Rewards" class="challengeContainer" style='border: 3px solid plum'>
                         <p id="c15Reward0" class="challengePortion">Best Challenge 15 Exponent: <span id="c15Reward0Num" class="challengeNumber" style='color: gold; font-size: 1.2em;'></span></p>
                         <p id="c15RewardList" class="challengePortion" style="color: orchid;">Next Reward Unlocks at 0 coins.</p>
@@ -2285,44 +2293,46 @@
                         <p id="c15Reward22" class="challengePortion">22. Spirit Effectiveness: +<span id="c15Reward22Num" class="challengeNumber"></span>%</p>
                         <p id="c15Reward23" class="challengePortion">23. Ascension Score: +<span id="c15Reward23Num" class="challengeNumber"></span>%</p>
                     </div>
-                    <div id="platonicUpgrades">
-                        <table id="platonicUpgradePics" style='border: 3px solid plum'>
-                            <tr>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade1.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade2.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade3.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade4.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade5.png" alt="" class="platonicUpgradeImage"></td>
-                            </tr>
-                            <tr>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade6.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade7.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade8.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade9.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade10.png" alt="" class="platonicUpgradeImage"></td>
-                            </tr>
-                            <tr>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade11.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade12.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade13.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade14.png" alt="" class="platonicUpgradeImage"></td>
-                                <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade15.png" alt="" class="platonicUpgradeImage"></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="platonicUpgradeDescriptions" class="platonicContainer" style="border: 3px solid plum">
-                        <p id="platonicUpgradeDescriptionDivisor" class="platonicPortion">===Upgrade Description===</p>
-                        <p id="platonicUpgradeDescription" class="platonicPortion">Click an icon for info!</p>
-                        <p id="platonicUpgradeLevel" class="platonicPortion">---</p>
-                        <p id="platonicUpgradeCostDivisor" class="platonicPortion">===Upgrade Costs===</p>
-                        <p id="platonicOfferingCost" class="platonicPortion">---</p>
-                        <p id="platonicObtainiumCost" class="platonicPortion">---</p>
-                        <p id="platonicCubeCost" class="platonicPortion">---</p>
-                        <p id="platonicTesseractCost" class="platonicPortion">---</p>
-                        <p id="platonicHypercubeCost" class="platonicPortion">---</p>
-                        <p id="platonicPlatonicCost" class="platonicPortion">---</p>
-                        <p id="platonicHepteractCost" class="platonicPortion">---</p>
-                        <p id="platonicCanBuy" class="platonicPortion">---</p>
+                    <div class="platonicUpgradesContainer">
+                        <div id="platonicUpgrades">
+                            <table id="platonicUpgradePics" style='border: 3px solid plum'>
+                                <tr>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade1.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade2.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade3.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade4.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade5.png" alt="" class="platonicUpgradeImage"></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade6.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade7.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade8.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade9.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade10.png" alt="" class="platonicUpgradeImage"></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade11.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade12.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade13.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade14.png" alt="" class="platonicUpgradeImage"></td>
+                                    <td style="font-size: 0;"><img src="Pictures/PlatonicUpgrade15.png" alt="" class="platonicUpgradeImage"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="platonicUpgradeDescriptions" class="platonicContainer" style="border: 3px solid plum">
+                            <p id="platonicUpgradeDescriptionDivisor" class="platonicPortion">===Upgrade Description===</p>
+                            <p id="platonicUpgradeDescription" class="platonicPortion">Click an icon for info!</p>
+                            <p id="platonicUpgradeLevel" class="platonicPortion">---</p>
+                            <p id="platonicUpgradeCostDivisor" class="platonicPortion">===Upgrade Costs===</p>
+                            <p id="platonicOfferingCost" class="platonicPortion">---</p>
+                            <p id="platonicObtainiumCost" class="platonicPortion">---</p>
+                            <p id="platonicCubeCost" class="platonicPortion">---</p>
+                            <p id="platonicTesseractCost" class="platonicPortion">---</p>
+                            <p id="platonicHypercubeCost" class="platonicPortion">---</p>
+                            <p id="platonicPlatonicCost" class="platonicPortion">---</p>
+                            <p id="platonicHepteractCost" class="platonicPortion">---</p>
+                            <p id="platonicCanBuy" class="platonicPortion">---</p>
+                        </div>
                     </div>
                 </div>
             </div>
