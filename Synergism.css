@@ -760,6 +760,17 @@ nav li:hover {
 	top: 0;
 	left: 80%;
 }
+
+.buyAmountBtn {
+	background-color: black;
+	cursor: pointer;
+	transition-duration: 0.15s;
+}
+
+.buyAmountBtn:hover {
+	background-color: #333;
+}
+
 #togglecrystalbuy{
 	color: white;
 	position: absolute;
@@ -842,7 +853,15 @@ nav li:hover {
 	margin-top: 35px;
 }
 
-#toggle15, #prestigeautotoggle { width: 150px; }
+#toggle15, #prestigeautotoggle, #prestigeamount { width: 150px; }
+
+#toggle15, #prestigeautotoggle {
+	transition-duration: 0.15s;
+}
+
+#toggle15:hover, #prestigeautotoggle:hover {
+	background-color: #333333;
+}
 
 #prestigehotkeys{
 	width: 1200px;
@@ -1029,6 +1048,7 @@ nav li:hover {
 	width: 11%;
 	min-width: 102px;
     align-items: center;
+	white-space: nowrap;
 }
 
 .talismanName {
@@ -1194,6 +1214,14 @@ nav li:hover {
 	margin: 0 auto; 
 }
 
+#toggle21, #transcendautotoggle {
+	transition-duration: 0.15s;
+}
+
+#toggle21:hover, #transcendautotoggle:hover {
+	background-color: #333333;
+}
+
 #transcendhotkeys{
 	color: gray;
 	text-align: center;
@@ -1254,18 +1282,13 @@ nav li:hover {
 }
 
 #challengeDetails {
-	display: grid;
-	margin-left: 200px;
-	grid-template-columns: 400px 10px 600px;
-	grid-template-rows: 200px 200px ;
-	grid-template-areas: 
-	"main . sidebar"
-	"main . sidebar";
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
 }
 
 #challengeTimers {
-	grid-area: main;
-	margin: auto;
+	margin-right: 20px;
 }
 #startChallenge {
 	font-size: 1.1em;
@@ -1281,28 +1304,15 @@ nav li:hover {
 }
 #oneChallengeDetails {
 	display: flex;
-	grid-area: sidebar;
-	margin: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+	width: 600px;
 }
 #oneChallengeDetails > p {
 	margin: auto;
 	height: auto;
 }
 
-/*
-#challengeDetails {
-	display: flex;
-	flex-direction: row;
-	text-align: left;
-	justify-content: center;
-	margin-top: 10px;
-}
-
-#oneChallengeDetails > p { 
-	margin: 0; 
-	margin-left: 30px;
-}
-*/
 #challengeName { color: white; }
 #challengeFlavor { color:plum; }
 #challengeRestrictions { color:crimson; }
@@ -1380,6 +1390,14 @@ nav li:hover {
 #toggle27 { margin-top: 55px; }
 
 #toggle27, #reincarnationamount, #reincarnateautotoggle { width: 150px; }
+
+#toggle27, #reincarnateautotoggle {
+	transition-duration: 0.15s;
+}
+
+#toggle27:hover, #reincarnateautotoggle:hover {
+	background-color: #333333;
+}
 
 #reincarnateautomation > div {
 	display: flex;
@@ -1633,21 +1651,25 @@ nav li:hover {
 
 #antrow3 > p { margin: 5px }
 
-#antToggleFeatures{
-	position: absolute;
-	padding: 0;
-	top: 474px;
-	width: 1000px;
-	height: 100px;
-	text-align: center;
-	margin-left: 200px;
+#antToggleFeatures {
+    display: flex;
+    justify-content: center;
+}
+
+#antSacrificeButtons {
+	display: flex;
+	flex-direction: column;
+}
+
+.antSacrificeButtonsContainer {
+	display: flex;
+	justify-content: center;
 }
 
 #toggleAntMax {
-	position: absolute;
 	height: 30px;
 	width: 100px;
-	right: 51%;
+    margin-right: -110px;
 	border: 1px solid gold;
 	transition-duration: 0.15s;
 }
@@ -1655,11 +1677,9 @@ nav li:hover {
 	background-color: #333333;
 }
 #toggleAutoSacrificeAnt {
-	position: absolute;
 	height: 30px;
 	width: 150px;
-	top: 0;
-	left: 51%;
+	margin-right: 10px;
 	border: 1px solid crimson;
 	transition-duration: 0.15s;
 }
@@ -1667,12 +1687,8 @@ nav li:hover {
 	background-color: #333333;
 }
 #autoSacrificeAntMode {
-	position: absolute;
 	height: 20px;
 	width: 150px;
-	left: 51%;
-	margin-left: 155px;
-	top: 0;
 	border: 1px solid green;
 	transition-duration: 0.15s;
 }
@@ -1680,15 +1696,9 @@ nav li:hover {
 	background-color: #333333;
 }
 #autoAntSacrificeAmount {
-	position: absolute;
 	width: 150px;
-	left: 51%;
-	margin-left: 155px;
-	top: 21px;
 }
 #autoAntSacrifice {
-	position: absolute;
-	top: 25px;
 	text-align: center;
 	width: 100%;
 }
@@ -1708,6 +1718,11 @@ nav li:hover {
 	top: 70px;
 	text-align: center;
 	left: 70%;
+}
+
+.antSacrificeSettingsContainer {
+	display: flex;
+	flex-direction: column;
 }
 
 
@@ -1769,10 +1784,8 @@ nav li:hover {
 #wowCubeSidebar {
 	display: flex;
 	flex-direction: column;
-	margin-left: 4.5%;
-	margin-top: 25%;
+	margin-right: 2%;
 	text-align: center;
-	grid-area: sidebar;
 }
 
 #wowCubeSidebarButtons {
@@ -1839,35 +1852,25 @@ p[id$="BlessingsTotal"] {
 #platonicBlessingsTotal { color: orange; }
 
 #cubesWrapper {
-	display: grid;
-	grid-template-columns: 4% [sidebar] 20% 4% [tab] 50%;
-}
-
-#cubesWrapper > div[id^="cubeTab"] {
-	grid-area: tab;
-	margin-top: 15px;
-}
-
-#cubesWrapper > div[id^="cubeTab"] > p {
-	text-align: center;
-	margin: 2px;
+	display: flex;
+	justify-content: center;
+	margin-top: 40px;
+	margin-left: -185px;
 }
 
 .openGrid {
-	display: grid;
-	grid-template-columns: 64px 700px;
-	grid-template-rows: 32px auto;
+	display: flex;
+	align-self: flex-start;
 }
 
 .openImage {
-	grid-row: 1/3;
-	grid-column: 1;
+	height: 64px;
+	width: 64px;
 }
 
 .inventory {
-	grid-row: 1;
-	grid-column: 2;
-	margin: .5% 10px;
+	white-space: nowrap;
+    margin: 6px 10px;
 }
 
 .openBtn {
@@ -1876,23 +1879,41 @@ p[id$="BlessingsTotal"] {
 	margin-left: 10px;
 }
 
+.openButtons {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .cubeBonus{
-	margin-left: 2.5%;
+	margin-left: -2px;
 	margin-top: 5px;
+	width: 100%;
 }
 .cubeIcon {
 	border-spacing: 0;
+}
+
+.cubeTab {
+	flex-direction: column;
+	align-items: center;
+	width: 700px;
 }
 
 #cubeTab5Wrapper {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 85%;
+	width: 700px;
 	margin-top: 15px;
 }
 
 #cubeTab5Wrapper > p { margin: 2px; }
+
+#cubeTab6 {
+	flex-direction: row;
+    align-items: flex-start;
+}
 
 #cube1Bonus{
 	width: 1500px;
@@ -1991,11 +2012,20 @@ p[id$="BlessingsTotal"] {
 	width: 150px;
 }
 
+#tesseractautobuytoggle {
+	transition-duration: 0.15s;
+}
+
+#tesseractautobuytoggle:hover {
+	background-color: #333333;
+}
+
 #tesseractAmount{
 	border: 1px solid green;
 	color: white;
 	background-color: black
 }
+
 
 #autotessbuyeramount{
 	color: white;
@@ -2145,6 +2175,11 @@ p[id$="BlessingsTotal"] {
 
 #historyTogglePerSecondButton {
 	float: right;
+	transition-duration: 0.15s;
+}
+
+#historyTogglePerSecondButton:hover {
+	background-color: #333333;
 }
 
 .onOffToggle {
@@ -2280,11 +2315,14 @@ p[id$="BlessingsTotal"] {
 #autoAscend {
 	color: white
 }
-#ascensionAutoEnable {
+
+#ascensionAutoEnable, #ascensionAutoToggle {
 	width: 150px;
+	transition-duration: 0.15s;
 }
-#ascensionAutoToggle {
-	width: 150px;
+
+#ascensionAutoEnable:hover, #ascensionAutoToggle:hover {
+	background-color: #333333;
 }
 
 #corruptionStatsLoadouts {
@@ -2514,9 +2552,7 @@ header #obtainiumDisplay {
 }
 
 #c15Rewards{
-	position: absolute;
-	top: 65px;
-	left: 25%
+
 }
 .challengeContainer {
 	width: 410px;
@@ -2544,18 +2580,18 @@ header #obtainiumDisplay {
 	font-size: 1em;
 }
 
-#platonicUpgrades{
-	position: absolute;
-	left: 60%;
-	top: 65px;
+.platonicUpgradesContainer {
+	display: flex;
+	flex-direction: column;
+	margin-left: 50px;
 }
+
+#platonicUpgrades {
+	margin-bottom: 50px;
+}
+
 .platonicUpgradeImage{
 	cursor: pointer;
-}
-#platonicUpgradeDescriptions{
-	position: absolute;
-	left: 60%;
-	top: 210px;
 }
 .platonicContainer {
 	width: 400px;

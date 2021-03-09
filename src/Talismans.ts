@@ -67,10 +67,10 @@ export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCos
 }
 
 export const toggleTalismanBuy = (i = player.buyTalismanShardPercent) => {
-    document.getElementById("talismanTen").style.backgroundColor = "#171717"
-    document.getElementById("talismanTwentyFive").style.backgroundColor = "#171717"
-    document.getElementById("talismanFifty").style.backgroundColor = "#171717"
-    document.getElementById("talismanHundred").style.backgroundColor = "#171717"
+    document.getElementById("talismanTen").style.backgroundColor = ""
+    document.getElementById("talismanTwentyFive").style.backgroundColor = ""
+    document.getElementById("talismanFifty").style.backgroundColor = ""
+    document.getElementById("talismanHundred").style.backgroundColor = ""
     player.buyTalismanShardPercent = i
     let x = "Ten";
     if (i === 25) {
@@ -83,7 +83,7 @@ export const toggleTalismanBuy = (i = player.buyTalismanShardPercent) => {
         x = "Hundred"
     }
 
-    document.getElementById("talisman" + x).style.backgroundColor = "green"
+    document.getElementById(`talisman${x}`).style.backgroundColor = "green"
 }
 
 export const updateTalismanInventory = () => {

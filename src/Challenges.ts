@@ -70,7 +70,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
 
     if (changefocus) {
         G['challengefocus'] = i;
-        document.getElementById("oneChallengeDetails").style.display = "block";
+        document.getElementById("oneChallengeDetails").style.display = "flex";
         document.getElementById('startChallenge').style.display = 'block';
         document.getElementById('retryChallenge').style.display = 'block';
         G['triggerChallenge'] = i
