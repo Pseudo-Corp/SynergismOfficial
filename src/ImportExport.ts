@@ -184,8 +184,14 @@ export const promocodes = async () => {
         }
         player.rngCode = Date.now();
     } else if (input === 'gamble') {
-        if (typeof player.skillCode === 'number')
-            if ((Date.now() - player.skillCode) / 1000 < 3600)
+        if (
+            typeof player.skillCode === 'number' ||
+            typeof localStorage.getItem('saveScumIsCheating') === 'string'
+        )
+            if (
+                (Date.now() - player.skillCode) / 1000 < 3600 ||
+                (Date.now() - Number(localStorage.getItem('saveScumIsCheating'))) / 1000 < 3600
+            )
                 return el.textContent = 'Wait a little bit. We\'ll get back to you when you\'re ready to lose again.';
 
         const confirmed = await Confirm(`Are you sure? The house always wins!`);
@@ -205,6 +211,7 @@ export const promocodes = async () => {
             player.worlds += won;
 
             player.skillCode = Date.now();
+            localStorage.setItem('saveScumIsCheating', Date.now().toString());
             return el.textContent = `You won. The Syncasino offers you a grand total of 25% of the pot! [+${won} quarks]`;
         }
         
