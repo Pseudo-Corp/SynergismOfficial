@@ -2,10 +2,10 @@ import { player, saveSynergy, blankSave, isTesting } from './Synergism';
 import { getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
-import { Globals as G } from './Variables';
 import { Player } from './types/Synergism';
 import { Synergism } from './Events';
 import { Alert, Confirm, Prompt } from './UpdateHTML';
+import { quarkHandler } from './Quark';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -57,9 +57,10 @@ const saveFilename = () => {
 
 export const exportSynergism = async () => {
     player.offlinetick = Date.now();
-    if (player.quarkstimer >= 3600) {
-        player.worlds += (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + G['talisman7Quarks'] + player.researches[125] + player.researches[180] + player.researches[195]));
-        player.quarkstimer = (player.quarkstimer % 3600)
+    const quarkData = quarkHandler();
+    if (quarkData.gain >= 1) {
+        player.worlds += quarkData.gain;
+        player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
     }
     // set attribute to 0, turn tab back to white
     document.getElementById('settingstab').setAttribute('full', '0');

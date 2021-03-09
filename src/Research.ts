@@ -331,7 +331,7 @@ const resdesc = [
     "[8x17] Each purchased level of Mortuus Est also increases Ascension Cube reward by +0.03%",
     "[8x18] +1% Ant Sacrifice Reward per level. Singularity HYPE.",
     "[8x19] Increases both Spirit AND Blessing power by 2% per level.",
-    "[8x20] Gain +1 export Quark per level, and increases the max timer to redeem quarks by 12.5 hours each!",
+    "[8x20] Gain +1 export Quark per level, and increases the max timer to redeem quarks by 5 hours each!",
     "[8x21] +0.3% faster ticks / level, because you just can't wait to become the singularity.",
     "[8x22] +0.6% cubes in Ascension Bank / level. No one knows how. Bank error perhaps.",
     "[8x23] +0.06% tributes from cubes / level!. Wow! Cubes really has a lot of manufacturing errors in your favor.",

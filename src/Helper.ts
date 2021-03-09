@@ -1,22 +1,10 @@
 import { sacrificeAnts } from "./Ants";
 import { calculateAutomaticObtainium, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration } from "./Calculate"
+import { quarkHandler } from "./Quark";
 import { redeemShards } from "./Runes";
 import { player } from "./Synergism";
 import { visualUpdateResearch } from "./UpdateVisuals";
 import { Globals as G } from './Variables';
-
-export const getMaxQuarkTime = () => {
-
-    // The base time is 25 hours
-    let time = 90000;
-
-    // Research 8x20, and adds +12.5 hours per level, with a cap of +25 hours at level 2.
-    time += 45000 * player.researches[195];
-
-    // Returns number.
-    return time
-
-}
 
 type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks';
 
@@ -43,7 +31,7 @@ export const addTimers = (input: TimerInput, time?: number) => {
             break;
         case "quarks": {
             // First get maximum Quark Clock (25h, up to +25 from Research 8x20)
-            const maxQuarkTimer = getMaxQuarkTime()
+            const maxQuarkTimer = quarkHandler().maxTime
             player.quarkstimer += time * timeMultiplier;
             // Checks if this new time is greater than maximum, in which it will default to that time.
             // Otherwise returns itself.

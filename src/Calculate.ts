@@ -8,6 +8,7 @@ import { reset } from './Reset';
 import { achievementaward } from './Achievements';
 import { redeemShards } from './Runes';
 import { resetNames } from './types/Synergism';
+import { quarkHandler } from './Quark';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] = 
@@ -778,7 +779,7 @@ export const calculateOffline = (forceTime = 0) => {
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
     player.quarkstimer += timeAdd
-    player.quarkstimer = Math.min(90000 + 45000 * player.researches[195], player.quarkstimer)
+    player.quarkstimer = Math.min(quarkHandler().capacity, player.quarkstimer)
     player.ascensionCounter += timeAdd
     player.runeshards += timeAdd * (1 / 2 * Math.min(1, player.highestchallengecompletions[2]) + player.cubeUpgrades[2])
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';

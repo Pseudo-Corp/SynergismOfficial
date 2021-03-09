@@ -789,6 +789,7 @@ export interface GlobalVariables {
         cube4: number
         spiritBonus: number
         score: number
+        quarks: number
         [key: string]: number
     },
 

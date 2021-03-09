@@ -212,7 +212,7 @@ export const showTalismanEffect = (i: number) => {
             e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman7Effect'][3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(G['talisman7Effect'][4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(G['talisman7Effect'][5], 2, true)
-            h.textContent = "Mythic Effect: +2 Quarks per Hour on Export!"
+            h.textContent = "Mythic Effect: +20% Quarks per Hour on Export (Additive)!"
             break;
     }
     if (player.talismanRarity[i-1] !== 6) {

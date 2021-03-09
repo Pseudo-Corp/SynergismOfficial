@@ -7,6 +7,7 @@ import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
 import { getShopCosts } from './Shop';
+import { quarkHandler } from './Quark';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== "buildings") {
@@ -398,10 +399,11 @@ export const visualUpdateSettings = () => {
     document.getElementById("saveString").textContent =
         `Currently: ${player.saveString.replace("$VERSION$", "v" + player.version)}`;
 
-    const onExportQuarks = (Math.floor(player.quarkstimer / 3600) * (1 + player.researches[99] + player.researches[100] + G['talisman7Quarks'] + player.researches[125] + player.researches[180] + player.researches[195]));
-    const maxExportQuarks = ((25 * (1 + player.researches[195] / 2)) * (1 + player.researches[99] + player.researches[100] + G['talisman7Quarks'] + player.researches[125] + player.researches[180] + player.researches[195]));
+    const quarkData = quarkHandler();
+    const onExportQuarks = quarkData.gain
+    const maxExportQuarks = quarkData.capacity
 
-    document.getElementById("quarktimerdisplay").textContent = format((3600 - (player.quarkstimer % 3600.00001)), 2) + "s until +" + (1 + player.researches[99] + player.researches[100] + G['talisman7Quarks'] + player.researches[125] + player.researches[180] + player.researches[195]) + " export Quark"
+    document.getElementById("quarktimerdisplay").textContent = format((3600 / quarkData.perHour - (player.quarkstimer % (3600.00001 / quarkData.perHour))), 2) + "s until +1 export Quark"
     document.getElementById("quarktimeramount").textContent = "Quarks on export: "
         + onExportQuarks
         + " [Max "

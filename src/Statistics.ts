@@ -109,7 +109,7 @@ export const loadStatisticsOfferingMultipliers = () => {
 }
 
 export const c15RewardUpdate = () => {
-    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10]
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11]
     const keys = Object.keys(G['challenge15Rewards'])
     const e = player.challenge15Exponent
 
@@ -119,95 +119,99 @@ export const c15RewardUpdate = () => {
 
     if(e >= exponentRequirements[0]){
         //All Cube Types 1 [750]
-        G['challenge15Rewards'][keys[0]] = 1 + 1/50 * Math.log(e/175) / Math.log(2)
+        G['challenge15Rewards'][keys[0]] = 1 + 1 / 50 * Math.log(e / 175) / Math.log(2)
     }
     if(e >= exponentRequirements[1]){
         //Ascension Count [1500]
-        G['challenge15Rewards'][keys[1]] = 1 + 1/20 * Math.log(e/375) / Math.log(2)
+        G['challenge15Rewards'][keys[1]] = 1 + 1 / 20 * Math.log(e / 375) / Math.log(2)
     }
     if(e >= exponentRequirements[2]){
         //Coin Exponent [3000]
-        G['challenge15Rewards'][keys[2]] = 1 + 1/150 * Math.log(e/750)/Math.log(2)
+        G['challenge15Rewards'][keys[2]] = 1 + 1 / 150 * Math.log(e / 750) / Math.log(2)
     }
     if(e >= exponentRequirements[3]){
         //Taxes [5000]
-        G['challenge15Rewards'][keys[3]] = Math.pow(0.98, Math.log(e/1.25e3)/Math.log(2))
+        G['challenge15Rewards'][keys[3]] = Math.pow(0.98, Math.log(e / 1.25e3) / Math.log(2))
     }
     if(e >= exponentRequirements[4]){
         //Obtainium [7500]
-        G['challenge15Rewards'][keys[4]] = 1 + 1/5 * Math.pow(e/7.5e3, 0.75)
+        G['challenge15Rewards'][keys[4]] = 1 + 1 / 5 * Math.pow(e / 7.5e3, 0.75)
     }
     if(e >= exponentRequirements[5]){
         //Offerings [7500]
-        G['challenge15Rewards'][keys[5]] = 1 + 1/5 * Math.pow(e/7.5e3, 0.75)
+        G['challenge15Rewards'][keys[5]] = 1 + 1 / 5 * Math.pow(e / 7.5e3, 0.75)
     }
     if(e >= exponentRequirements[6]){
         //Accelerator Boost (Uncorruptable) [10000]
-        G['challenge15Rewards'][keys[6]] = 1 + 1/20 * Math.log(e/2.5e3) / Math.log(2)
+        G['challenge15Rewards'][keys[6]] = 1 + 1 / 20 * Math.log(e / 2.5e3) / Math.log(2)
     }
     if(e >= exponentRequirements[7]){
         //Multiplier Boost (Uncorruptable) [10000]
-        G['challenge15Rewards'][keys[7]] = 1 + 1/20 * Math.log(e/2.5e3)/Math.log(2)
+        G['challenge15Rewards'][keys[7]] = 1 + 1 / 20 * Math.log(e / 2.5e3) / Math.log(2)
     }
     if(e >= exponentRequirements[8]){
         //Rune EXP [20000]
-        G['challenge15Rewards'][keys[8]] = 1 + Math.pow(e/2e4, 1.5)
+        G['challenge15Rewards'][keys[8]] = 1 + Math.pow(e / 2e4, 1.5)
     }
     if(e >= exponentRequirements[9]){
         //Rune Effectiveness [40000]
-        G['challenge15Rewards'][keys[9]] = 1 + 1/33 * Math.log(e/1e4)/Math.log(2)
+        G['challenge15Rewards'][keys[9]] = 1 + 1 / 33 * Math.log(e / 1e4) / Math.log(2)
     }
     if(e >= exponentRequirements[10]){
         //All Cube Types II [60000]
-        G['challenge15Rewards'][keys[10]] = 1 + 1/100 * Math.log(e/1.5e4)/Math.log(2)
+        G['challenge15Rewards'][keys[10]] = 1 + 1 / 100 * Math.log(e / 1.5e4) / Math.log(2)
     }
     if(e >= exponentRequirements[11]){
         //Chal 1-5 Scaling [100000]
-        G['challenge15Rewards'][keys[11]] = Math.pow(0.98, Math.log(e/2.5e4)/Math.log(2))
+        G['challenge15Rewards'][keys[11]] = Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2))
     }
     if(e >= exponentRequirements[12]){
         //Chal 6-10 Scaling [100000]
-        G['challenge15Rewards'][keys[12]] = Math.pow(0.98, Math.log(e/2.5e4)/Math.log(2))
+        G['challenge15Rewards'][keys[12]] = Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2))
     }
     if(e >= exponentRequirements[13]){
         //Ant Speed [200k]
-        G['challenge15Rewards'][keys[13]] = Math.pow(1 + Math.log(e/2e5)/Math.log(2), 4)
+        G['challenge15Rewards'][keys[13]] = Math.pow(1 + Math.log(e / 2e5) / Math.log(2), 4)
     }
     if(e >= exponentRequirements[14]){
         //Ant Bonus Levels [500k]
-        G['challenge15Rewards'][keys[14]] = 1 + 1/20 * Math.log(e/1.5e5)/Math.log(2)
+        G['challenge15Rewards'][keys[14]] = 1 + 1 / 20 * Math.log(e / 1.5e5) /Math.log(2)
     }
     if(e >= exponentRequirements[15]){
         //All Cube Types III [1m]
-        G['challenge15Rewards'][keys[15]] = 1 + 1/150 * Math.log(e/2.5e5) / Math.log(2)
+        G['challenge15Rewards'][keys[15]] = 1 + 1 / 150 * Math.log(e / 2.5e5) / Math.log(2)
     }
     if(e >= exponentRequirements[16]){
         //Talisman Effectiveness [3m]
-        G['challenge15Rewards'][keys[16]] = 1 + 1/20 * Math.log(e/7.5e5) / Math.log(2)
+        G['challenge15Rewards'][keys[16]] = 1 + 1 / 20 * Math.log(e / 7.5e5) / Math.log(2)
     }
     if(e >= exponentRequirements[17]){
         //Global Speed [10m]
-        G['challenge15Rewards'][keys[17]] = 1 + 1/20 * Math.log(e/2.5e6) / Math.log(2)
+        G['challenge15Rewards'][keys[17]] = 1 + 1 / 20 * Math.log(e / 2.5e6) / Math.log(2)
     }
     if(e >= exponentRequirements[18]){
         //Blessing Effectiveness [30m]
-        G['challenge15Rewards'][keys[18]] = 1 + 1/5 * Math.pow(e/3e7,1/4)
+        G['challenge15Rewards'][keys[18]] = 1 + 1 / 5 * Math.pow(e / 3e7, 1 / 4)
     }
     if(e >= exponentRequirements[19]){
         //Tesseract Building Speed [100m]
-        G['challenge15Rewards'][keys[19]] = 1 + 1/5 * Math.pow(e/1e8,2/3)
+        G['challenge15Rewards'][keys[19]] = 1 + 1 / 5 * Math.pow(e / 1e8, 2 / 3)
     }
     if(e >= exponentRequirements[20]){
         //All Cube Types IV [500m]
-        G['challenge15Rewards'][keys[20]] = 1 + 1/200 * Math.log(e/1.25e8) / Math.log(2)
+        G['challenge15Rewards'][keys[20]] = 1 + 1 / 200 * Math.log(e / 1.25e8) / Math.log(2)
     }
     if(e >= exponentRequirements[21]){
         //Spirit Effectiveness [2b]
-        G['challenge15Rewards'][keys[21]] = 1 + 1/5 * Math.pow(e/2e9,1/4)
+        G['challenge15Rewards'][keys[21]] = 1 + 1 / 5 * Math.pow(e / 2e9, 1 / 4)
     }
     if(e >= exponentRequirements[22]){
         //Ascension Score [10b]
-        G['challenge15Rewards'][keys[22]] = 1 + 1/4 * Math.pow(e/1e10,1/4)
+        G['challenge15Rewards'][keys[22]] = 1 + 1 / 4 * Math.pow(e / 1e10 , 1 / 4)
+    }
+    if(e >= exponentRequirements[23]){
+        //Quark Gain [100b]
+        G['challenge15Rewards'][keys[23]] = 1 + 1 / 100 * Math.log(e * 32 / 1e11) / Math.log(2)
     }
 
 
@@ -216,7 +220,7 @@ export const c15RewardUpdate = () => {
 
 const updateDisplayC15Rewards = () => {
     document.getElementById('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
-    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10]
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11]
     const values = Object.values(G['challenge15Rewards'])
     let keepExponent: string | number = 'None'
     for(let i = 0; i < exponentRequirements.length; i++){
