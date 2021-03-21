@@ -582,7 +582,7 @@ nav li:hover {
 
 .settingpic {
 	flex-grow: unset;
-	margin: 3px;
+    margin: 4px;
 }
 .auto.square {
 	width: 40px;
@@ -876,8 +876,9 @@ nav li:hover {
 	padding: 0;
 }
 
-#runeContainer1 {
+#runeContainer1, #runeContainer3, #runeContainer4 {
 	flex-direction: column;
+	align-items: center;
 }
 
 #runeContainer2 {
@@ -1368,6 +1369,9 @@ nav li:hover {
 .challengeActive {
 	background-color: plum;
 }
+.challengeActive:hover {
+	background-color: #ebc7eb;
+}
 
 #reincarnation {
     position: relative;
@@ -1654,6 +1658,7 @@ nav li:hover {
 #antToggleFeatures {
     display: flex;
     justify-content: center;
+	margin: 5px 0px;
 }
 
 #antSacrificeButtons {
@@ -1667,9 +1672,9 @@ nav li:hover {
 }
 
 #toggleAntMax {
-	height: 30px;
+	height: 35px;
 	width: 100px;
-    margin-right: -110px;
+	margin-right: 10px;
 	border: 1px solid gold;
 	transition-duration: 0.15s;
 }
@@ -1677,7 +1682,7 @@ nav li:hover {
 	background-color: #333333;
 }
 #toggleAutoSacrificeAnt {
-	height: 30px;
+	height: 35px;
 	width: 150px;
 	margin-right: 10px;
 	border: 1px solid crimson;
@@ -2105,7 +2110,25 @@ p[id$="BlessingsTotal"] {
 	color: deepskyblue;
 }
 .constUpgrade{
+	background-color: #171717;
+	transition-duration: 0.2s;
+}
+.constUpgradeAvailable{
+	background-color: green;
 	cursor: pointer;
+}
+.constUpgradeAvailable:hover{
+	background-color: #00b300;
+}
+.constUpgradeSingle{
+	background-color: gold;
+}
+.constUpgradeSingleAvailable{
+	background-color: gold;
+	cursor: pointer;
+}
+.constUpgradeSingleAvailable:hover{
+	background-color: #fff4b3;
 }
 
 .subtabSwitcher > button.buttonActive {
@@ -2207,17 +2230,35 @@ p[id$="BlessingsTotal"] {
 	min-width: 1212px;
 }
 
-.runeIcons{
-	position: absolute;
+.runeBlessingPurchaseSettings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
 }
-.runeTexts{
-	position: absolute;
+
+.runeBlessingRow {
+    display: flex;
+    width: 1200px;
+    align-self: center;
+    align-items: center;
+    white-space: nowrap;
+	margin-bottom: 10px;
 }
-.runeButtons{
-	position: absolute;
+
+.runeIcons {
+	height: 64px;
+	width: 64px;
+	margin-right: 20px;
+}
+.runeTexts {
+	width: 175px;
+}
+.runeButtons {
 	height: 30px;
 	width: 325px;
 	border: 1px solid yellow !important;
+	margin-right: 15px;
 	color: gold;
 	transition-duration: 0.15s;
 	cursor: default;
@@ -2229,25 +2270,17 @@ p[id$="BlessingsTotal"] {
 .runeButtonsAvailable:hover{
 	background-color: #444444;
 }
-.runeInputSettings{
-	top: 45px;
-	left: 40%;
-}
-#buyRuneBlessingInput{
-	position: absolute;
-	top: 64px;
-	left: 35%;
+#buyRuneBlessingInput {
 	width: 60px;
 	border: 2px solid crimson;
+	margin-right: 20px;
 	background-color: #171717;
 	color: white
 }
-#buyRuneSpiritInput{
-	position: absolute;
-	top: 64px;
-	left: 35%;
+#buyRuneSpiritInput {
 	width: 60px;
 	border: 2px solid orange;
+	margin-right: 20px;
 	background-color: #171717;
 	color: white
 }
