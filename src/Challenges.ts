@@ -586,7 +586,8 @@ export const runChallengeSweep = (dt: number) => {
         // This calculates which challenge this algorithm will run first, based on
         // the first challenge which has automation toggled ON
         let startChallenge = 1;
-        for (const item of player.autoChallengeToggles.slice(1,10)) {
+        for (const item of player.autoChallengeToggles.slice(1,11)) { //Why does this slice at (1,11)? because Platonic
+                                                                      //is supremely moronic. -Platonic
             if (!item) startChallenge++;
             else break;
         }
