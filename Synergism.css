@@ -1654,6 +1654,7 @@ nav li:hover {
 #antToggleFeatures {
     display: flex;
     justify-content: center;
+	margin: 5px 0px;
 }
 
 #antSacrificeButtons {
@@ -1667,9 +1668,9 @@ nav li:hover {
 }
 
 #toggleAntMax {
-	height: 30px;
+	height: 35px;
 	width: 100px;
-    margin-right: -110px;
+	margin-right: 10px;
 	border: 1px solid gold;
 	transition-duration: 0.15s;
 }
@@ -1677,7 +1678,7 @@ nav li:hover {
 	background-color: #333333;
 }
 #toggleAutoSacrificeAnt {
-	height: 30px;
+	height: 35px;
 	width: 150px;
 	margin-right: 10px;
 	border: 1px solid crimson;
