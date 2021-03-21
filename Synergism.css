@@ -582,7 +582,7 @@ nav li:hover {
 
 .settingpic {
 	flex-grow: unset;
-	margin: 3px;
+    margin: 4px;
 }
 .auto.square {
 	width: 40px;
