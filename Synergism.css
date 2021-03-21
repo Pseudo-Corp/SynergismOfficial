@@ -1368,6 +1368,9 @@ nav li:hover {
 .challengeActive {
 	background-color: plum;
 }
+.challengeActive:hover {
+	background-color: #ebc7eb;
+}
 
 #reincarnation {
     position: relative;
