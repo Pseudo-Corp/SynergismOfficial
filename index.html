@@ -1358,54 +1358,76 @@
                 </div>
             </div>
             <div id="runeContainer3" style="display: none">
-                <div id="blessingSeparator1"></div>
-                <img class="runeIcons" id="runeBlessingIcon1" src="Pictures/Speed Blessing.png" alt="" loading="lazy">
-                <img class="runeIcons" id="runeBlessingIcon2" src="Pictures/Duplication Blessing.png" alt="" loading="lazy">
-                <img class="runeIcons" id="runeBlessingIcon3" src="Pictures/Prism Blessing.png" alt="" loading="lazy">
-                <img class="runeIcons" id="runeBlessingIcon4" src="Pictures/Thrift Blessing.png" alt="" loading="lazy">
-                <img class="runeIcons" id="runeBlessingIcon5" src="Pictures/SI Blessing.png" alt="" loading="lazy">
-                <p class="runeTexts" id="runeBlessingLevel1" style="color: orchid">Blessing level: <span id="runeBlessingLevel1Value" style="color: white">0</span></p>
-                <p class="runeTexts" id="runeBlessingLevel2" style="color: orchid">Blessing level: <span id="runeBlessingLevel2Value" style="color: white">0</span></p>
-                <p class="runeTexts" id="runeBlessingLevel3" style="color: orchid">Blessing level: <span id="runeBlessingLevel3Value" style="color: white">0</span></p>
-                <p class="runeTexts" id="runeBlessingLevel4" style="color: orchid">Blessing level: <span id="runeBlessingLevel4Value" style="color: white">0</span></p>
-                <p class="runeTexts" id="runeBlessingLevel5" style="color: orchid">Blessing level: <span id="runeBlessingLevel5Value" style="color: white">0</span></p>
-                <button class="runeButtons" id="runeBlessingPurchase1">Increase Level By <span id="runeBlessingPurchaseAmount1" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost1" style="color: orchid">1e7</span> Offerings]</button>
-                <button class="runeButtons" id="runeBlessingPurchase2">Increase Level By <span id="runeBlessingPurchaseAmount2" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost2" style="color: orchid">1e7</span> Offerings]</button>
-                <button class="runeButtons" id="runeBlessingPurchase3">Increase Level By <span id="runeBlessingPurchaseAmount3" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost3" style="color: orchid">1e7</span> Offerings]</button>
-                <button class="runeButtons" id="runeBlessingPurchase4">Increase Level By <span id="runeBlessingPurchaseAmount4" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost4" style="color: orchid">1e7</span> Offerings]</button>
-                <button class="runeButtons" id="runeBlessingPurchase5">Increase Level By <span id="runeBlessingPurchaseAmount5" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost5" style="color: orchid">1e7</span> Offerings]</button>
-                <p class="runeTexts" id="runeBlessingPower1" style="color: white">Blessing Power: <span id="runeBlessingPower1Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower1Value2" style="color: gold">+1.00</span>x Global Speed</p>
-                <p class="runeTexts" id="runeBlessingPower2" style="color: white">Blessing Power: <span id="runeBlessingPower2Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower2Value2" style="color: gold">+1.00</span>x Multiplier Boosts</p>
-                <p class="runeTexts" id="runeBlessingPower3" style="color: white">Blessing Power: <span id="runeBlessingPower3Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower3Value2" style="color: gold">+1.00</span>x Ant Sacrifice Rewards</p>
-                <p class="runeTexts" id="runeBlessingPower4" style="color: white">Blessing Power: <span id="runeBlessingPower4Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower4Value2" style="color: gold">+1.00</span>x Delay for A.Boost Cost</p>
-                <p class="runeTexts" id="runeBlessingPower5" style="color: white">Blessing Power: <span id="runeBlessingPower5Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower5Value2" style="color: gold">+1.00</span> Obtainium --> Ant Mult. Exponent</p>
-                <input type="number" id="buyRuneBlessingInput" min="1" max="999999999" defaultValue="1">
-                <p class="runeTexts runeInputSettings" id="buyRuneBlessingToggle" style="color: yellow">Buy up to <span id="buyRuneBlessingToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</p>
+                <div class="runeBlessingPurchaseSettings">
+                    <input type="number" id="buyRuneBlessingInput" min="1" max="999999999" defaultValue="1">
+                    <span id="buyRuneBlessingToggle" style="color: yellow">Buy up to <span id="buyRuneBlessingToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</span>
+                </div>
+                <div class="runeBlessingRow">
+                    <img class="runeIcons" src="Pictures/Speed Blessing.png" alt="" loading="lazy">
+                    <span class="runeTexts" style="color: orchid">Blessing level: <span id="runeBlessingLevel1Value" style="color: white">0</span></span>
+                    <button class="runeButtons" id="runeBlessingPurchase1">Increase Level By <span id="runeBlessingPurchaseAmount1" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost1" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts" style="color: white">Blessing Power: <span id="runeBlessingPower1Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower1Value2" style="color: gold">+1.00</span>x Global Speed</span>
+                </div>
+                <div class="runeBlessingRow">
+                    <img class="runeIcons" src="Pictures/Duplication Blessing.png" alt="" loading="lazy">
+                    <span class="runeTexts" style="color: orchid">Blessing level: <span id="runeBlessingLevel2Value" style="color: white">0</span></span>
+                    <button class="runeButtons" id="runeBlessingPurchase2">Increase Level By <span id="runeBlessingPurchaseAmount2" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost2" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts" style="color: white">Blessing Power: <span id="runeBlessingPower2Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower2Value2" style="color: gold">+1.00</span>x Multiplier Boosts</span>
+                </div>
+                <div class="runeBlessingRow">
+                    <img class="runeIcons" src="Pictures/Prism Blessing.png" alt="" loading="lazy">
+                    <span class="runeTexts" style="color: orchid">Blessing level: <span id="runeBlessingLevel3Value" style="color: white">0</span></span>
+                    <button class="runeButtons" id="runeBlessingPurchase3">Increase Level By <span id="runeBlessingPurchaseAmount3" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost3" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts" style="color: white">Blessing Power: <span id="runeBlessingPower3Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower3Value2" style="color: gold">+1.00</span>x Ant Sacrifice Rewards</span>
+                </div>
+                <div class="runeBlessingRow">
+                    <img class="runeIcons" src="Pictures/Thrift Blessing.png" alt="" loading="lazy">
+                    <span class="runeTexts" style="color: orchid">Blessing level: <span id="runeBlessingLevel4Value" style="color: white">0</span></span>
+                    <button class="runeButtons" id="runeBlessingPurchase4">Increase Level By <span id="runeBlessingPurchaseAmount4" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost4" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts" style="color: white">Blessing Power: <span id="runeBlessingPower4Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower4Value2" style="color: gold">+1.00</span>x Delay for A.Boost Cost</span>
+                </div>
+                <div class="runeBlessingRow">
+                    <img class="runeIcons" src="Pictures/SI Blessing.png" alt="" loading="lazy">
+                    <span class="runeTexts" style="color: orchid">Blessing level: <span id="runeBlessingLevel5Value" style="color: white">0</span></span>
+                    <button class="runeButtons" id="runeBlessingPurchase5">Increase Level By <span id="runeBlessingPurchaseAmount5" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost5" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts" style="color: white">Blessing Power: <span id="runeBlessingPower5Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower5Value2" style="color: gold">+1.00</span> Obtainium --> Ant Mult. Exponent</span>
+                </div>
             </div>
             <div id="runeContainer4" style="display: none">
-                <div id="spiritSeparator1"></div>
-                <img class="runeIcons" id="runeSpiritIcon1" src="Pictures/Speed Spirit.png" alt="" loading="lazy">
-                <img class="runeIcons" id="runeSpiritIcon2" src="Pictures/Duplication Spirit.png" alt="" loading="lazy">
-                <img class="runeIcons" id="runeSpiritIcon3" src="Pictures/Prism Spirit.png" alt="" loading="lazy">
-                <img class="runeIcons" id="runeSpiritIcon4" src="Pictures/Thrift Spirit.png" alt="" loading="lazy">
-                <img class="runeIcons" id="runeSpiritIcon5" src="Pictures/SI Spirit.png" alt="" loading="lazy">
-                <p class="runeTexts" id="runeSpiritLevel1" style="color: white">Spirit level: <span id="runeSpiritLevel1Value" style="color: orchid">0</span></p>
-                <p class="runeTexts" id="runeSpiritLevel2" style="color: white">Spirit level: <span id="runeSpiritLevel2Value" style="color: orchid">0</span></p>
-                <p class="runeTexts" id="runeSpiritLevel3" style="color: white">Spirit level: <span id="runeSpiritLevel3Value" style="color: orchid">0</span></p>
-                <p class="runeTexts" id="runeSpiritLevel4" style="color: white">Spirit level: <span id="runeSpiritLevel4Value" style="color: orchid">0</span></p>
-                <p class="runeTexts" id="runeSpiritLevel5" style="color: white">Spirit level: <span id="runeSpiritLevel5Value" style="color: orchid">0</span></p>
-                <button class="runeButtons" id="runeSpiritPurchase1">Increase Level By <span id="runeSpiritPurchaseAmount1" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost1" style="color: orchid">1e7</span> Offerings]</button>
-                <button class="runeButtons" id="runeSpiritPurchase2">Increase Level By <span id="runeSpiritPurchaseAmount2" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost2" style="color: orchid">1e7</span> Offerings]</button>
-                <button class="runeButtons" id="runeSpiritPurchase3">Increase Level By <span id="runeSpiritPurchaseAmount3" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost3" style="color: orchid">1e7</span> Offerings]</button>
-                <button class="runeButtons" id="runeSpiritPurchase4">Increase Level By <span id="runeSpiritPurchaseAmount4" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost4" style="color: orchid">1e7</span> Offerings]</button>
-                <button class="runeButtons" id="runeSpiritPurchase5">Increase Level By <span id="runeSpiritPurchaseAmount5" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost5" style="color: orchid">1e7</span> Offerings]</button>
-                <p class="runeTexts" id="runeSpiritPower1" style="color: white">Spirit Power: <span id="runeSpiritPower1Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower1Value2" style="color: gold">+1.00</span>x Global Speed</p>
-                <p class="runeTexts" id="runeSpiritPower2" style="color: white">Spirit Power: <span id="runeSpiritPower2Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower2Value2" style="color: gold">+1.00</span>x Wow! Cubes by Ascension</p>
-                <p class="runeTexts" id="runeSpiritPower3" style="color: white">Spirit Power: <span id="runeSpiritPower3Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower3Value2" style="color: gold">+1.00</span> Additional levels to Crystal caps</p>
-                <p class="runeTexts" id="runeSpiritPower4" style="color: white">Spirit Power: <span id="runeSpiritPower4Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower4Value2" style="color: gold">+1.00</span>x Obtainium</p>
-                <p class="runeTexts" id="runeSpiritPower5" style="color: white">Spirit Power: <span id="runeSpiritPower5Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower5Value2" style="color: gold">+1.00</span>% stronger Research 4x9 effect</p>
-                <input type="number" id="buyRuneSpiritInput" min="1" max="999999999" defaultValue="1">
-                <p class="runeTexts runeInputSettings" id="buyRuneSpiritToggle" style="color: yellow">Buy up to <span id="buyRuneSpiritToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</p>
+                <div class="runeBlessingPurchaseSettings">
+                    <input type="number" id="buyRuneSpiritInput" min="1" max="999999999" defaultValue="1">
+                    <span id="buyRuneSpiritToggle" style="color: yellow">Buy up to <span id="buyRuneSpiritToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</span>
+                </div>
+                <div class="runeBlessingRow">
+                    <img class="runeIcons" src="Pictures/Speed Spirit.png" alt="" loading="lazy">
+                    <span class="runeTexts" style="color: white">Spirit level: <span id="runeSpiritLevel1Value" style="color: orchid">0</span></span>
+                    <button class="runeButtons" id="runeSpiritPurchase1">Increase Level By <span id="runeSpiritPurchaseAmount1" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost1" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts" style="color: white">Spirit Power: <span id="runeSpiritPower1Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower1Value2" style="color: gold">+1.00</span>x Global Speed</span>
+                </div>
+                <div class="runeBlessingRow">
+                    <img class="runeIcons" src="Pictures/Duplication Spirit.png" alt="" loading="lazy">
+                    <span class="runeTexts" style="color: white">Spirit level: <span id="runeSpiritLevel2Value" style="color: orchid">0</span></span>
+                    <button class="runeButtons" id="runeSpiritPurchase2">Increase Level By <span id="runeSpiritPurchaseAmount2" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost2" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts" style="color: white">Spirit Power: <span id="runeSpiritPower2Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower2Value2" style="color: gold">+1.00</span>x Wow! Cubes by Ascension</span>
+                </div>
+                <div class="runeBlessingRow">
+                    <img class="runeIcons" src="Pictures/Prism Spirit.png" alt="" loading="lazy">
+                    <span class="runeTexts" style="color: white">Spirit level: <span id="runeSpiritLevel3Value" style="color: orchid">0</span></span>
+                    <button class="runeButtons" id="runeSpiritPurchase3">Increase Level By <span id="runeSpiritPurchaseAmount3" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost3" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts" style="color: white">Spirit Power: <span id="runeSpiritPower3Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower3Value2" style="color: gold">+1.00</span> Additional levels to Crystal caps</span>
+                </div>
+                <div class="runeBlessingRow">
+                    <img class="runeIcons" src="Pictures/Thrift Spirit.png" alt="" loading="lazy">
+                    <span class="runeTexts" style="color: white">Spirit level: <span id="runeSpiritLevel4Value" style="color: orchid">0</span></span>
+                    <button class="runeButtons" id="runeSpiritPurchase4">Increase Level By <span id="runeSpiritPurchaseAmount4" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost4" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts" style="color: white">Spirit Power: <span id="runeSpiritPower4Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower4Value2" style="color: gold">+1.00</span>x Obtainium</span>
+                </div>
+                <div class="runeBlessingRow">
+                    <img class="runeIcons" src="Pictures/SI Spirit.png" alt="" loading="lazy">
+                    <span class="runeTexts" style="color: white">Spirit level: <span id="runeSpiritLevel5Value" style="color: orchid">0</span></span>
+                    <button class="runeButtons" id="runeSpiritPurchase5">Increase Level By <span id="runeSpiritPurchaseAmount5" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost5" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts" style="color: white">Spirit Power: <span id="runeSpiritPower5Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower5Value2" style="color: gold">+1.00</span>% stronger Research 4x9 effect</span>
+                </div>
             </div>
         </div>
         <div id="challenges">

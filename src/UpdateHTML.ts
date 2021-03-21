@@ -740,32 +740,6 @@ export const CSSAscend = () => {
     }
 }
 
-export const CSSRuneBlessings = () => {
-    for (let i = 1; i <= 5; i++) {
-        const a = document.getElementById('runeBlessingIcon' + i);
-        const b = document.getElementById('runeSpiritIcon' + i);
-        const c = document.getElementById('runeBlessingLevel' + i);
-        const d = document.getElementById('runeSpiritLevel' + i);
-        const e = document.getElementById('runeBlessingPurchase' + i);
-        const f = document.getElementById('runeSpiritPurchase' + i);
-        const g = document.getElementById('runeBlessingPower' + i);
-        const h = document.getElementById('runeSpiritPower' + i);
-
-        a.style.top = b.style.top = (20 + 75 * i) + "px"
-        a.style.left = b.style.left = "10%"
-
-        c.style.top = d.style.top = (23 + 75 * i) + "px"
-        c.style.left = d.style.left = "16%"
-
-        e.style.top = f.style.top = (36 + 75 * i) + "px"
-        e.style.left = f.style.left = "32%"
-
-        g.style.top = h.style.top = (23 + 75 * i) + "px"
-        g.style.left = h.style.left = "59%"
-
-    }
-}
-
 export const showCorruptionStatsLoadouts = () => {
     if (player.corruptionShowStats) {
         document.getElementById("corruptionStats").style.display = "block"
