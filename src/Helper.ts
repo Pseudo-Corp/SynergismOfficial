@@ -27,7 +27,8 @@ export const addTimers = (input: TimerInput, time?: number) => {
             player.reincarnationcounter += time * timeMultiplier;
             break;
         case "ascension":
-            player.ascensionCounter += time * timeMultiplier;
+            const multiplier = 1 + player.shopUpgrades.chronometer / 100
+            player.ascensionCounter += time * timeMultiplier * multiplier;
             break;
         case "quarks": {
             // First get maximum Quark Clock (25h, up to +25 from Research 8x20)

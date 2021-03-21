@@ -41,6 +41,12 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
         }
         document.getElementById("runeshowpower5").textContent = "S. Intellect Rune Bonus: " + "Obtainium gain x" + format((1 + G['rune5level'] / 200 * m * SILevelMult), 2, true) + ". Ant Speed: x" + format(1 + Math.pow(G['rune5level'] * m * SILevelMult, 2) / 2500) + ". Base Offerings: +" + format((G['rune5level'] * m * SILevelMult * 0.005), 3, true)
     }
+    if (i === 6) {
+        if (updatelevelup) {
+            document.getElementById("runeshowlevelup").textContent = "+0.0002% Quarks, +0.0038% all cube types per level! Start with +10% Quarks, +10% all cube types."
+        }
+        document.getElementById("runeshowpower6").textContent = "IA Rune Bonus: " + " Quark Gain +" + format(10 + 10/5000 * player.runelevels[5], 2, true) + "%, Ascensions give +" + format(10 + 190/5000 * player.runelevels[5], 2, true) + "% more of all cube types."
+    }
     if (updatelevelup) {
         const arr = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], player.offeringbuyamount);
         let offerings = 0;
@@ -71,7 +77,9 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
         player.achievements[38] > 0.5,
         player.achievements[44] > 0.5,
         player.achievements[102] > 0.5,
-        player.researches[82] > 0.5
+        player.researches[82] > 0.5,
+        player.shopUpgrades.infiniteAscent,
+        false,
     ];
 
     let levelsToAdd = player.offeringbuyamount

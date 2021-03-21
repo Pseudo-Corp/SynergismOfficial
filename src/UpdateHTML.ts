@@ -281,6 +281,14 @@ export const revealStuff = () => {
         document.getElementById('particleAutoUpgrade').style.display = "block" :
         document.getElementById('particleAutoUpgrade').style.display = "none";
 
+    player.shopUpgrades.infiniteAscent ?
+        (document.getElementById('rune6area').style.display = 'flex', document.getElementById('runeshowpower6').style.display = "flex") :
+        (document.getElementById('rune6area').style.display = 'none', document.getElementById('runeshowpower6').style.display = "none");
+
+    false ? // TODO: When 7th rune is implementable change this with the unlock condition
+        (document.getElementById('rune7area').style.display = 'flex', document.getElementById('runeshowpower7').style.display = "flex") :
+        (document.getElementById('rune7area').style.display = 'none', document.getElementById('runeshowpower7').style.display = "none");
+
     document.getElementById("ascensionStats").style.visibility = player.achievements[197] > 0 ? "visible" : "hidden";
     document.getElementById("ascHyperStats").style.display = player.challengecompletions[13] > 0 ? "" : "none";
     document.getElementById("ascPlatonicStats").style.display = player.challengecompletions[14] > 0 ? "" : "none";
@@ -412,6 +420,8 @@ export const hideStuff = () => {
         displayRuneInformation(3, false)
         displayRuneInformation(4, false)
         displayRuneInformation(5, false)
+        displayRuneInformation(6, false)
+        displayRuneInformation(7, false)
     }
     if (G['currentTab'] === "challenges") {
         document.getElementById("challenges").style.display = "block";
@@ -446,6 +456,9 @@ export const hideStuff = () => {
     }
     if (player.achievements[102] > 0.5) {
         document.getElementById("activaterune4").style.display = "block"
+    }
+    if (player.shopUpgrades.infiniteAscent) {
+        document.getElementById("activaterune6").style.display = "block"
     }
 }
 
@@ -584,7 +597,7 @@ export const buttoncolorchange = () => {
 
     if (G['currentTab'] === "runes") {
         if (G['runescreen'] === "runes") {
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 7; i++) {
                 player.runeshards > 0.5
                     ? document.getElementById(`activaterune${i}`).classList.add("runeButtonAvailable")
                     : document.getElementById(`activaterune${i}`).classList.remove("runeButtonAvailable")

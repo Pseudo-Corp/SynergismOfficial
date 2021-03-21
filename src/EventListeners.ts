@@ -250,7 +250,7 @@ export const generateEventHandlers = () => {
     }
 
 // Part 1: Runes Subtab
-    for (let index = 0; index < 5; index++) {
+    for (let index = 0; index < 7; index++) {
         
         document.getElementById(`rune${index+1}`).addEventListener('mouseover', () => displayRuneInformation(index+1))
         document.getElementById(`rune${index+1}`).addEventListener('click', () => toggleAutoSacrifice(index+1))
@@ -509,6 +509,11 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('CubeQuark').addEventListener('mouseover', () => shopDescriptions("cubeToQuark"))
     document.getElementById('TesseractQuark').addEventListener('mouseover', () => shopDescriptions("tesseractToQuark"))
     document.getElementById('HypercubeQuark').addEventListener('mouseover', () => shopDescriptions("hypercubeToQuark"))
+    document.getElementById('SeasonPass2').addEventListener('mouseover', () => shopDescriptions("seasonPass2"))
+    document.getElementById('SeasonPass3').addEventListener('mouseover', () => shopDescriptions("seasonPass3"))
+    document.getElementById('Chronometer').addEventListener('mouseover', () => shopDescriptions("chronometer"))
+    document.getElementById('InfiniteAscent').addEventListener('mouseover', () => shopDescriptions("infiniteAscent"))
+
 /* Permanent Upgrade Texts */
     document.getElementById('offeringtimerlevel').addEventListener('mouseover', () => shopDescriptions("offeringEX"))
     document.getElementById('offeringautolevel').addEventListener('mouseover', () => shopDescriptions("offeringAuto"))
@@ -524,6 +529,11 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('cubeToQuark').addEventListener('mouseover', () => shopDescriptions("cubeToQuark"))
     document.getElementById('tesseractToQuark').addEventListener('mouseover', () => shopDescriptions("tesseractToQuark"))
     document.getElementById('hypercubeToQuark').addEventListener('mouseover', () => shopDescriptions("hypercubeToQuark"))
+    document.getElementById('seasonPass2Level').addEventListener('mouseover', () => shopDescriptions("seasonPass2"))
+    document.getElementById('seasonPass3Level').addEventListener('mouseover', () => shopDescriptions("seasonPass3"))
+    document.getElementById('chronometerLevel').addEventListener('mouseover', () => shopDescriptions("chronometer"))
+    document.getElementById('infiniteAscentUpgrade').addEventListener('mouseover', () => shopDescriptions("infiniteAscent"))
+
 /* Shop Upgrade Buttons (you can see why I hate this tab) */
     document.getElementById('offeringtimerbutton').addEventListener('mouseover', () => shopDescriptions("offeringEX"))
     document.getElementById('offeringtimerbutton').addEventListener('click', () => buyShopUpgrades("offeringEX"))
@@ -553,6 +563,15 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('tesseractToQuarkButton').addEventListener('click', () => buyShopUpgrades("tesseractToQuark"))
     document.getElementById('hypercubeToQuarkButton').addEventListener('mouseover', () => shopDescriptions("hypercubeToQuark"))
     document.getElementById('hypercubeToQuarkButton').addEventListener('click', () => buyShopUpgrades("hypercubeToQuark"))
+    document.getElementById('seasonPass2Button').addEventListener('mouseover', () => shopDescriptions("seasonPass2"))
+    document.getElementById('seasonPass2Button').addEventListener('click', () => buyShopUpgrades("seasonPass2"))
+    document.getElementById('seasonPass3Button').addEventListener('mouseover', () => shopDescriptions("seasonPass3"))
+    document.getElementById('seasonPass3Button').addEventListener('click', () => buyShopUpgrades("seasonPass3"))
+    document.getElementById('chronometerButton').addEventListener('mouseover', () => shopDescriptions("chronometer"))
+    document.getElementById('chronometerButton').addEventListener('click', () => buyShopUpgrades("chronometer"))
+    document.getElementById('infiniteAscentButton').addEventListener('mouseover', () => shopDescriptions("infiniteAscent"))
+    document.getElementById('infiniteAscentButton').addEventListener('click', () => buyShopUpgrades("infiniteAscent"))
+
 
     const tabs = document.querySelectorAll<HTMLElement>('#tabrow > li');
     tabs.forEach(b => b.addEventListener('click', () => changeTabColor()));

@@ -492,8 +492,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.thirdCostParticles = new Decimal("1e4");
         player.fourthCostParticles = new Decimal("1e8");
         player.fifthCostParticles = new Decimal("1e16");
-        player.runeexp = [0, 0, 0, 0, 0];
-        player.runelevels = [0, 0, 0, 0, 0];
+        player.runeexp = [0, 0, 0, 0, 0, player.runeexp[5], player.runeexp[6]];
+        player.runelevels = [0, 0, 0, 0, 0, player.runelevels[5], player.runelevels[6]];
         player.runeshards = 0;
         player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -532,6 +532,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             player.wowTesseracts += metaData[5];
             player.wowHypercubes += metaData[6];
             player.wowPlatonicCubes += metaData[7];
+            player.wowAbyssals += metaData[8];
         }
 
         for (let j = 1; j <= 10; j++) {

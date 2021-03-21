@@ -312,6 +312,10 @@ export const checkVariablesOnLoad = (data: Player) => {
             cubeToQuark: Number(shop.cubeToQuarkBought),
             tesseractToQuark: Number(shop.tesseractToQuarkBought),
             hypercubeToQuark: Number(shop.hypercubeToQuarkBought),
+            seasonPass2: 0,
+            seasonPass3: 0,
+            chronometer: 0,
+            infiniteAscent: 0,
         }
 
         const initialQuarks = player.worlds;
@@ -327,5 +331,17 @@ export const checkVariablesOnLoad = (data: Player) => {
             : 500 * shop.seasonPassLevel + 250/2 * (shop.seasonPassLevel - 1) * shop.seasonPassLevel;
 
         console.log('Because of the v2.5.0 update, you have been refunded ' + format(player.worlds - initialQuarks) + ' Quarks! If this appears wrong let Platonic know :)')
+    }
+
+    if (player.shopUpgrades.seasonPass2 === undefined) {
+        player.shopUpgrades.seasonPass2 = 0;
+        player.shopUpgrades.seasonPass3 = 0;
+        player.shopUpgrades.chronometer = 0;
+        player.shopUpgrades.infiniteAscent = 0;
+    }
+
+    if (player.runeexp[5] === undefined) {
+        player.runeexp[5] = player.runeexp[6] = 0;
+        player.runelevels[5] = player.runelevels[6] = 0;
     }
 }

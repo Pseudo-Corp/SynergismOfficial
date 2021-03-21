@@ -178,13 +178,13 @@ export const visualUpdateRunes = () => {
 
         document.getElementById("offeringCount").textContent = "You have " + format(player.runeshards, 0, true) + " Offerings."
 
-        for (let i = 1; i <= 5; i++) { //First one updates level, second one updates TNL, third updates orange bonus levels
-            const place = G[talismans[i-1]];
-
+        for (let i = 1; i <= 7; i++) { //First one updates level, second one updates TNL, third updates orange bonus levels
+            let place = G[talismans[i-1]];
+            if (i > 5) place = 0;
             document.getElementById('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i - 1]) + "/" + format(calculateMaxRunes(i))
             document.getElementById('rune' + i + 'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP"
-            document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + G['bonusant9']) + place) + "]"
-
+            if (i <= 5) document.getElementById('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + G['bonusant9']) + place) + "]"
+            else document.getElementById('bonusrune' + i).textContent = "[Bonus: Nope!]"
             displayRuneInformation(i, false)
         }
 
@@ -375,6 +375,7 @@ export const visualUpdateCorruptions = () => {
     document.getElementById("corruptionTesseractsValue").textContent = format(metaData[5])
     document.getElementById("corruptionHypercubesValue").textContent = format(metaData[6])
     document.getElementById("corruptionPlatonicCubesValue").textContent = format(metaData[7])
+    document.getElementById("corruptionHepteractsValue").textContent = format(metaData[8])
     document.getElementById("corruptionAntExponentValue").textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * G['extinctionMultiplier'][player.usedCorruptions[7]], 3)
     document.getElementById("corruptionSpiritBonusValue").textContent = format(calculateCorruptionPoints()/400,2,true)
 }
@@ -438,6 +439,10 @@ export const visualUpdateShop = () => {
     document.getElementById("cubeToQuark").textContent = player.shopUpgrades.cubeToQuark ? "Bought" : "Not Bought"
     document.getElementById("tesseractToQuark").textContent = player.shopUpgrades.tesseractToQuark ? "Bought" : "Not Bought"
     document.getElementById("hypercubeToQuark").textContent = player.shopUpgrades.hypercubeToQuark ? "Bought" : "Not Bought"
+    document.getElementById("seasonPass2Level").textContent = "Level " + player.shopUpgrades.seasonPass2 + "/100"
+    document.getElementById("seasonPass3Level").textContent = "Level " + player.shopUpgrades.seasonPass3 + "/100"
+    document.getElementById("chronometerLevel").textContent = "Level " + player.shopUpgrades.chronometer + "/100"
+    document.getElementById("infiniteAscentUpgrade").textContent = player.shopUpgrades.infiniteAscent ? "Bought" : "Not Bought"
 
     player.shopUpgrades.offeringEX === 100 ?
         document.getElementById("offeringtimerbutton").textContent = "Maxed!" :
@@ -494,4 +499,21 @@ export const visualUpdateShop = () => {
     player.shopUpgrades.hypercubeToQuark > 0 ?
         (document.getElementById("hypercubeToQuarkButton").textContent = "Maxed!") :
         document.getElementById("hypercubeToQuarkButton").textContent = "Buy for " + format(getShopCosts('hypercubeToQuark')) + " Quarks";
+
+    player.shopUpgrades.seasonPass2 === 100 ?
+        document.getElementById("seasonPass2Button").textContent = "Maxed!" :
+        document.getElementById("seasonPass2Button").textContent = "Buy for " + format(getShopCosts('seasonPass2')) + " Quarks";
+
+    player.shopUpgrades.seasonPass3 === 100 ?
+        document.getElementById("seasonPass3Button").textContent = "Maxed!" :
+        document.getElementById("seasonPass3Button").textContent = "Buy for " + format(getShopCosts('seasonPass3')) + " Quarks"
+
+    player.shopUpgrades.chronometer === 100 ?
+        document.getElementById("chronometerButton").textContent = "Maxed!" :
+        document.getElementById("chronometerButton").textContent = "Buy for " + format(getShopCosts('chronometer')) + " Quarks"
+
+    player.shopUpgrades.infiniteAscent ?
+        document.getElementById("infiniteAscentButton").textContent = "Maxed!" :
+        document.getElementById("infiniteAscentButton").textContent = "Buy for " + format(getShopCosts('infiniteAscent')) + " Quarks"
+
 }

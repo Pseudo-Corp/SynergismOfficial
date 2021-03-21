@@ -178,7 +178,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         tesseracts: 1e15,
         hypercubes: 1e14,
         platonics: 1e12,
-        abyssals: 1,
+        abyssals: 1e7 - 1,
         maxLevel: 1
     }
 }
@@ -223,7 +223,7 @@ export const createPlatonicDescription = (index: number) => {
     document.getElementById('platonicTesseractCost').textContent = format(player.wowTesseracts) + "/" + format(platUpgradeBaseCosts[index].tesseracts) + " Wow! Tesseracts"
     document.getElementById('platonicHypercubeCost').textContent = format(player.wowHypercubes) + "/" + format(platUpgradeBaseCosts[index].hypercubes) + " Wow! Hypercubes"
     document.getElementById('platonicPlatonicCost').textContent = format(player.wowPlatonicCubes) + "/" + format(platUpgradeBaseCosts[index].platonics) + " Platonic! Cubes"
-    document.getElementById('platonicHepteractCost').textContent = format(player.wowAbyssals) + "/" + format(platUpgradeBaseCosts[index].abyssals) + " Hepteracts of the Abyss"
+    document.getElementById('platonicHepteractCost').textContent = format(player.wowAbyssals) + "/" + format(platUpgradeBaseCosts[index].abyssals, 0, true) + " Hepteracts of the Abyss"
 
     resourceCheck.offerings ?
         document.getElementById('platonicOfferingCost').style.color = "lime" :

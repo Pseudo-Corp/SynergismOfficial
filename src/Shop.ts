@@ -166,6 +166,42 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundMinimumLevel: 0,
         description: "Instead of a daily cap of 25 Quarks by opening Wow! Cubes, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]"
     },
+    seasonPass2: {
+        price: 2500,
+        priceIncrease: 250,
+        maxLevel: 100,
+        type: "upgrade",
+        refundable: true,
+        refundMinimumLevel: 0,
+        description: "Five times the price gouge, twice the fun! +1% Wow! Hypercubes and Platonic Cubes per level."
+    },
+    seasonPass3: {
+        price: 20000,
+        priceIncrease: 2000,
+        maxLevel: 100,
+        type: "upgrade",
+        refundable: true,
+        refundMinimumLevel: 0,
+        description: "Okay, now this is just rediculous. +1% Wow! Hepteracts and Octeracts per level!"
+    },
+    chronometer: {
+        price: 2000,
+        priceIncrease: 500,
+        maxLevel: 100,
+        type: "upgrade",
+        refundable: true,
+        refundMinimumLevel: 0,
+        description: "You know, those ascensions are kinda slow. Why don't I give you a +1% speedup to the timer per level?"
+    },
+    infiniteAscent: {
+        price: 50000,
+        priceIncrease: 9999999,
+        maxLevel: 1,
+        type: "upgrade",
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: "Okay, for an exhorbinant amount, you can obtain the 6th rune, which gives +20% Quarks and +200% all cube types when maxxed!"
+    }
 }
 
 //Names of shop upgrades || Top row indicates potions, and all other upgrades are labeled in order.
@@ -173,7 +209,8 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
 type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'offeringEX' | 'offeringAuto' | 'obtainiumEX' | 'obtainiumAuto' | 'instantChallenge' |
                         'antSpeed' | 'cashGrab' | 'shopTalisman' | 'seasonPass' | 'challengeExtension' |
-                        'challengeTome' | 'cubeToQuark' | 'tesseractToQuark' | 'hypercubeToQuark'
+                        'challengeTome' | 'cubeToQuark' | 'tesseractToQuark' | 'hypercubeToQuark' |
+                        'seasonPass2' | 'seasonPass3' | 'chronometer' | 'infiniteAscent'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
     if (shopData[input].type === "consumable" || shopData[input].maxLevel === 1){
@@ -240,6 +277,18 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             break;
         case "hypercubeToQuark":
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?"
+            break;
+        case "seasonPass2":
+            lol.textContent = "CURRENT Effect: Ascensions give " + format(player.shopUpgrades.seasonPass2) + "% more Hypercubes and Platonic Cubes."
+            break;
+        case "seasonPass3":
+            lol.textContent = "CURRENT Effect: Ascensions give " + format(player.shopUpgrades.seasonPass3) + "% more Hepteracts and Octarets."
+            break;
+        case "chronometer":
+            lol.textContent = "CURRENT Effect: Ascension timer runs " + format(player.shopUpgrades.chronometer) + "% faster."
+            break;
+        case "infiniteAscent":
+            lol.textContent = "CURRENT Effect: Idk, depends if you bought it or not."
             break;
     }
 

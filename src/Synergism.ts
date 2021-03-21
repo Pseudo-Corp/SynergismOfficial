@@ -358,8 +358,8 @@ export const player: Player = {
     crystalUpgrades: [0, 0, 0, 0, 0, 0, 0, 0],
     crystalUpgradesCost: [7, 15, 20, 40, 100, 200, 500, 1000],
 
-    runelevels: [1, 1, 1, 1, 1],
-    runeexp: [0, 0, 0, 0, 0,],
+    runelevels: [1, 1, 1, 1, 1, 0, 0],
+    runeexp: [0, 0, 0, 0, 0, 0, 0],
     runeshards: 0,
     maxofferings: 0,
     offeringpersecond: 0,
@@ -430,6 +430,10 @@ export const player: Player = {
         cubeToQuark: 0,
         tesseractToQuark: 0,
         hypercubeToQuark: 0,
+        seasonPass2: 0,
+        seasonPass3: 0,
+        chronometer: 0,
+        infiniteAscent: 0,
     },
     autoSacrificeToggle: false,
     autoFortifyToggle: false,
@@ -3326,7 +3330,7 @@ window.addEventListener('load', async () => {
     intervalHold.clear();
 
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 6:15PM UTC-8 08-Feb-2021]. Savefiles cannot be used in live!`);
+    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 6:15PM UTC-8 21-Mar-2021]. Savefiles cannot be used in live!`);
     document.title = 'Synergism v' + player.version;
 
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));

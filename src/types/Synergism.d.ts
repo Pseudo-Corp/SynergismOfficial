@@ -330,6 +330,10 @@ export interface Player {
         cubeToQuark: number,
         tesseractToQuark: number,
         hypercubeToQuark: number,
+        seasonPass2: number,
+        seasonPass3: number,
+        chronometer: number,
+        infiniteAscent: number
     }
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,
@@ -790,6 +794,7 @@ export interface GlobalVariables {
         spiritBonus: number
         score: number
         quarks: number
+        hepteractUnlocked: number
         [key: string]: number
     },
 
