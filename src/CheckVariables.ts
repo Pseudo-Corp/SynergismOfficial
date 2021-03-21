@@ -142,10 +142,6 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.runeSpiritBuyAmount = 0;
     }
 
-    if (player.researches[180] > 1) {
-        player.researches[180] = 1;
-    }
-
     if (data.autoTesseracts === undefined) {
         player.autoTesseracts = [false, false, false, false, false, false]
     }

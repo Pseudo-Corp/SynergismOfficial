@@ -1453,8 +1453,12 @@ export const format = (input: Decimal | number, accuracy = 0, long = false): str
             return `${mantissaLook}e${powerLookF}QaDc`;
         }
         if (power < 1e51) {
-            return `${mantissaLook}e${powerLookF}QaDc`;
+            return `${mantissaLook}e${powerLookF}QiDc`;
         }
+        if (power < 1e54) {
+            return `${mantissaLook}e${powerLookF}AAAA`;
+        }
+        
         // If it doesn't fit a notation then default to mantissa e power
         return `${mantissa}e${power}`;
     } else {
