@@ -22,6 +22,7 @@ import { Synergism } from './Events';
 import { resetNames } from './types/Synergism';
 import { updateClassList } from './Utility';
 import { corruptionStatsUpdate } from './Corruptions';
+import { toggleAutoChallengeModeText } from './Toggles';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
@@ -460,6 +461,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.currentChallenge.transcension = 0;
         player.currentChallenge.reincarnation = 0;
         player.autoChallengeIndex = 1;
+        toggleAutoChallengeModeText("START");
         G['autoChallengeTimerIncrement'] = 0;
         //reset rest
         resetResearches();

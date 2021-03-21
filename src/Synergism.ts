@@ -13,7 +13,7 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
-import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, keyboardTabChange, toggleauto } from './Toggles';
+import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, keyboardTabChange, toggleauto, toggleAutoChallengeModeText } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
@@ -2271,21 +2271,12 @@ export const resourceGain = (dt: number): void => {
         if (player.transcendShards.gte(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
             resetCheck('reincarnationchallenge', false)
             G['autoChallengeTimerIncrement'] = 0;
-            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension)) {
-                player.autoChallengeIndex += 1
-            }
         }
     }
     if (reinchal >= 9) {
         if (player.coins.gte(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
             resetCheck('reincarnationchallenge', false)
             G['autoChallengeTimerIncrement'] = 0;
-            if (player.challengecompletions[reinchal] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension)) {
-                player.autoChallengeIndex += 1
-                if (player.autoChallengeIndex > 10) {
-                    player.autoChallengeIndex = 1
-                }
-            }
         }
     }
     if (ascendchal !== 0 && ascendchal < 15) {
@@ -2404,6 +2395,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
 
         }
         if (!player.retrychallenges || manual || player.challengecompletions[q] >= (maxCompletions)) {
+            toggleAutoChallengeModeText("ENTER");
             player.currentChallenge.transcension = 0;
             updateChallengeDisplay();
         }
@@ -2461,8 +2453,9 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
                 calculateCubeBlessings();
             }
         }
-        if (!player.retrychallenges || manual || player.challengecompletions[q] > 24 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5] + 5 * player.platonicUpgrades[10] + 10 * player.platonicUpgrades[15]) {
+        if (!player.retrychallenges || manual || player.challengecompletions[q] === maxCompletions) {
             reset("reincarnationChallenge", false, "leaveChallenge");
+            toggleAutoChallengeModeText("ENTER");
             player.currentChallenge.reincarnation = 0;
             if (player.shopUpgrades.instantChallenge > 0) {
                 for (let i = 1; i <= 5; i++) {

@@ -1,6 +1,6 @@
 import Decimal from "break_infinity.js";
 import { player, format, resetCheck } from "./Synergism";
-import { toggleAutoChallengeTextColors, toggleChallenges } from "./Toggles";
+import { toggleAutoChallengeRun, toggleAutoChallengeModeText, toggleChallenges } from "./Toggles";
 import { Globals as G } from './Variables';
 import { calculateRuneLevels } from "./Calculate";
 
@@ -416,7 +416,7 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
 }
 
 //Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping
-const calculateChallengeRequirementMultiplier = (type: string, completions: number, special = 0) => {
+export const calculateChallengeRequirementMultiplier = (type: string, completions: number, special = 0) => {
     let requirementMultiplier = Math.max(
         1, 
         G['hyperchallengedMultiplier'][player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)
@@ -513,92 +513,141 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     }
 }
 
+/**
+ * Function that handles the autochallenge feature.
+ * Currently includes ability to enter a challenge, leave a challenge
+ * and start a challenge loop with specified challenges from index 1 to 10.
+ * @param dt 
+ * @returns none
+ */
 export const runChallengeSweep = (dt: number) => {
-    //This auto challenge thing is sure a doozy aint it
+    // Do not run if any of these conditions hold
     if (
-        player.researches[150] > 0 && 
-        player.autoChallengeRunning && 
-        (player.reincarnationPoints.gte('0') || player.currentChallenge.ascension === 12)
-    ) {
+        player.researches[150] === 0 || // Research 6x25 is 0
+        !player.autoChallengeRunning // Auto challenge is toggled off
+    ) { return }
+    
+    // Increment auto challenge timer
         G['autoChallengeTimerIncrement'] += dt
-        if (G['autoChallengeTimerIncrement'] >= player.autoChallengeTimer.exit) {
-            if (player.currentChallenge.transcension !== 0 && player.autoChallengeIndex <= 5) {
-                resetCheck('challenge', undefined, true)
-                G['autoChallengeTimerIncrement'] = 0;
-                player.autoChallengeIndex += 1
-                if (player.autoChallengeTimer.enter >= 1) {
-                    toggleAutoChallengeTextColors(3)
-                }
-            }
-            if (player.currentChallenge.reincarnation !== 0 && player.autoChallengeIndex > 5) {
-                resetCheck('reincarnationchallenge', undefined, true)
-                G['autoChallengeTimerIncrement'] = 0;
-                player.autoChallengeIndex += 1
-                if (player.autoChallengeTimer.enter >= 1) {
-                    toggleAutoChallengeTextColors(3)
-                }
-            }
-            if (player.autoChallengeIndex > 10) {
-                player.autoChallengeIndex = 1
-                if (player.autoChallengeTimer.start >= 1) {
-                    toggleAutoChallengeTextColors(1)
-                }
-            }
+
+    // Determine if you're in a reincarnation or transcension challenge
+    const challengeType = (player.currentChallenge.reincarnation !== 0)? 'reincarnation': 'transcension';
+    
+    // Determine what Action you can take with the current state of the savefile
+    let action = 'none'
+    if (player.currentChallenge.reincarnation !== 0 ||
+        player.currentChallenge.transcension !== 0) {
+            // If you are in a challenge, you'd only want the automation to exit the challenge
+            action = 'exit'
         }
-        if (player.autoChallengeIndex === 1 && G['autoChallengeTimerIncrement'] >= player.autoChallengeTimer.start) {
-            while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
-                player.autoChallengeIndex += (!player.autoChallengeToggles[player.autoChallengeIndex]) ? 1 : 0;
-                if (player.autoChallengeIndex === 10) {
-                    break;
-                }
+    else if (player.autoChallengeIndex === 1) {
+        // If the index is set to 1, then you are at the start of a loop
+        action = 'start'
+    }
+    else {
+        // If neither of the above are true, automation will want to enter a challenge
+        action = 'enter'
+    }
+
+
+    // Action: Exit challenge
+    if (G['autoChallengeTimerIncrement'] >= player.autoChallengeTimer.exit && action === 'exit') {
+        // Increment our challenge index for when we enter (or start) next challenge
+        player.autoChallengeIndex += 1;
+
+        // Reset our autochallenge timer
+        G['autoChallengeTimerIncrement'] = 0;
+
+        // The limit on challenges is 10, so above 10 indicates we are going to reset our loop
+        if (player.autoChallengeIndex > 10) { 
+            player.autoChallengeIndex = 1; 
+            toggleAutoChallengeModeText("START")
+        };
+        
+        // Reset based on challenge type
+        if (challengeType === 'transcension') {
+            resetCheck('challenge', undefined, true);
+        };
+        if (challengeType === 'reincarnation') {
+            resetCheck('reincarnationchallenge', undefined, true);
+        };
+
+        // Sets Mode to "ENTER" as displayed in the challenge tab
+        toggleAutoChallengeModeText("ENTER");
+        return
+    }
+
+    // Action: Start a challenge loop.
+    if (G['autoChallengeTimerIncrement'] >= player.autoChallengeTimer.start && action === 'start') {
+
+        // Reset our autochallenge timer
+        G['autoChallengeTimerIncrement'] = 0;
+
+        // This calculates which challenge this algorithm will run first, based on
+        // the first challenge which has automation toggled ON
+        let startChallenge = 1;
+        for (let index = 1; index <= 10; index++) {
+            if (!player.autoChallengeToggles[index]) {
+                startChallenge += 1;
             }
-            if (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
-                G['autoChallengeTimerIncrement'] = 0;
+            else {
+                break;
+            };
+        };
+    
+        /* If startChallenge equals 11, every challenge is set to not run
+           In this case, we do not need this to run and will terminate
+           Auto challenge.*/
+        if (startChallenge == 11) {
+            toggleAutoChallengeRun();
+            return
+        };
+
+        // Set our index to calculated starting challenge and run the challenge
+        player.autoChallengeIndex = startChallenge;
+        toggleChallenges(player.autoChallengeIndex, true);
+
+        // Sets Mode to "EXIT" as displayed in the challenge tab
+        toggleAutoChallengeModeText("EXIT");
+        return
+    }
+
+    // Action: Enter a challenge (not inside one)
+    if (G['autoChallengeTimerIncrement'] >= player.autoChallengeTimer.enter && action === 'enter') {
+
+        // Reset our autochallenge timer
+        G['autoChallengeTimerIncrement'] = 0;
+
+        /* Calculate the smallest challenge index we want to enter.
+           Our minimum is the current index, but if that challenge is fully completed
+           or toggled off we shouldn't run it, so we increment upwards in these cases. */
+        let startChallenge = player.autoChallengeIndex;
+        console.log('You were on challenge ' + startChallenge)
+        for (let index = startChallenge; index <= 10; index++) {
+            if (!player.autoChallengeToggles[index] || player.challengecompletions[index] === getMaxChallenges(index)) {
+                startChallenge += 1;
             }
-            toggleChallenges(player.autoChallengeIndex, true);
-            if (player.autoChallengeTimer.exit >= 1) {
-                toggleAutoChallengeTextColors(2)
-            }
+            else {
+                break
+            };
+        };
+
+        /* If the above algorithm sets the index above 10, the loop is complete
+           and thus do not need to enter more challenges. This sets our index to 1
+           so in the next iteration it knows we want to start a loop. */
+        if (startChallenge > 10) {
+            console.log('Exhausted all available challenges. Resetting loop...')
+            player.autoChallengeIndex = 1;
+            return
         }
-        if (player.autoChallengeIndex !== 1 && G['autoChallengeTimerIncrement'] >= player.autoChallengeTimer.enter) {
-            if (player.currentChallenge.transcension === 0 && player.autoChallengeIndex <= 5) {
-                while (!player.autoChallengeToggles[player.autoChallengeIndex]) {
-                    player.autoChallengeIndex += 1
-                    if (player.autoChallengeIndex > 10) {
-                        player.autoChallengeIndex = 1;
-                        if (player.autoChallengeTimer.start >= 1) {
-                            toggleAutoChallengeTextColors(1)
-                        }
-                        break;
-                    }
-                }
-                if (player.autoChallengeIndex !== 1) {
-                    toggleChallenges(player.autoChallengeIndex, true);
-                    if (player.autoChallengeTimer.exit >= 1) {
-                        toggleAutoChallengeTextColors(2)
-                    }
-                }
-                G['autoChallengeTimerIncrement'] = 0;
-            }
-            if (player.currentChallenge.reincarnation === 0 && player.autoChallengeIndex > 5) {
-                while (player.challengecompletions[player.autoChallengeIndex] >= (25 + 5 * player.cubeUpgrades[29] + 2 * player.shopUpgrades.challengeExtension + 5 * player.platonicUpgrades[5]) || !player.autoChallengeToggles[player.autoChallengeIndex]) {
-                    player.autoChallengeIndex += 1
-                    if (player.autoChallengeIndex > 10) {
-                        player.autoChallengeIndex = 1;
-                        if (player.autoChallengeTimer.start >= 1) {
-                            toggleAutoChallengeTextColors(1)
-                        }
-                        break;
-                    }
-                }
-                if (player.autoChallengeIndex !== 1) {
-                    toggleChallenges(player.autoChallengeIndex, true);
-                    if (player.autoChallengeTimer.exit >= 1) {
-                        toggleAutoChallengeTextColors(2)
-                    }
-                }
-                G['autoChallengeTimerIncrement'] = 0;
-            }
-        }
+
+        // Sets our index to our calculated starting index and enters that challenge
+        player.autoChallengeIndex = startChallenge;
+        console.log('Started challenge ' + player.autoChallengeIndex)
+        toggleChallenges(player.autoChallengeIndex, true)
+
+        // Sets Mode to "EXIT" as displayed in the challenge tab
+        toggleAutoChallengeModeText("EXIT");
+        return
     }
 }

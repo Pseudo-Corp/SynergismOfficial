@@ -719,22 +719,19 @@ export const toggleAutoChallengeRun = () => {
         el.textContent = "Auto Challenge Sweep [OFF]"
         player.autoChallengeIndex = 1;
         G['autoChallengeTimerIncrement'] = 0;
+        toggleAutoChallengeModeText("OFF")
     } else {
         el.style.border = "2px solid gold"
         el.textContent = "Auto Challenge Sweep [ON]"
+        toggleAutoChallengeModeText("START")
     }
 
     player.autoChallengeRunning = !player.autoChallengeRunning;
 }
 
-export const toggleAutoChallengeTextColors = (i: number) => {
-    const a = document.getElementById("startAutoChallengeTimer");
-    const b = document.getElementById("exitAutoChallengeTimer");
-    const c = document.getElementById("enterAutoChallengeTimer");
-
-    a.style.color = i === 1 ? 'gold' : 'white';
-    b.style.color = i === 2 ? 'gold' : 'white';
-    c.style.color = i === 3 ? 'gold' : 'white';
+export const toggleAutoChallengeModeText = (i: string) => {
+    const a = document.getElementById("autoChallengeType");
+    a.textContent = "MODE: " + i
 }
 
 export const toggleAutoAscend = () => {
