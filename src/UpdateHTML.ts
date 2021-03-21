@@ -634,14 +634,20 @@ export const buttoncolorchange = () => {
                 : document.getElementById(`buyTesseracts${i}`).classList.remove("buildingPurchaseBtnAvailable");
         }
         for (let i = 1; i <= 8; i++) {
-            (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i]))) ?
-                document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "green" :
-                document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "#171717";
+            (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i])))
+                ? document.getElementById(`buyConstantUpgrade${i}`).classList.add("constUpgradeAvailable")
+                : document.getElementById(`buyConstantUpgrade${i}`).classList.remove("constUpgradeAvailable")
         }
         for (let i = 9; i <= 10; i++) {
-            (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i])) || player.constantUpgrades[i] >= 1) ?
-                document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "gold" :
-                document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "#171717";
+            if (player.constantUpgrades[i] >= 1) {
+                document.getElementById(`buyConstantUpgrade${i}`).classList.add("constUpgradeSingle")
+                document.getElementById(`buyConstantUpgrade${i}`).classList.remove("constUpgradeSingleAvailable")
+            } else if (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i]))) {
+                document.getElementById(`buyConstantUpgrade${i}`).classList.add("constUpgradeSingleAvailable")
+            } else {
+                document.getElementById(`buyConstantUpgrade${i}`).classList.remove("constUpgradeSingleAvailable")
+                document.getElementById(`buyConstantUpgrade${i}`).classList.remove("constUpgradeSingle")
+            }
         }
     }
 

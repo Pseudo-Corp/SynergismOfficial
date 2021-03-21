@@ -2110,7 +2110,25 @@ p[id$="BlessingsTotal"] {
 	color: deepskyblue;
 }
 .constUpgrade{
+	background-color: #171717;
+	transition-duration: 0.2s;
+}
+.constUpgradeAvailable{
+	background-color: green;
 	cursor: pointer;
+}
+.constUpgradeAvailable:hover{
+	background-color: #00b300;
+}
+.constUpgradeSingle{
+	background-color: gold;
+}
+.constUpgradeSingleAvailable{
+	background-color: gold;
+	cursor: pointer;
+}
+.constUpgradeSingleAvailable:hover{
+	background-color: #fff4b3;
 }
 
 .subtabSwitcher > button.buttonActive {
