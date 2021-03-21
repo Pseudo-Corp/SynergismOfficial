@@ -634,14 +634,20 @@ export const buttoncolorchange = () => {
                 : document.getElementById(`buyTesseracts${i}`).classList.remove("buildingPurchaseBtnAvailable");
         }
         for (let i = 1; i <= 8; i++) {
-            (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i]))) ?
-                document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "green" :
-                document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "#171717";
+            (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i])))
+                ? document.getElementById(`buyConstantUpgrade${i}`).classList.add("constUpgradeAvailable")
+                : document.getElementById(`buyConstantUpgrade${i}`).classList.remove("constUpgradeAvailable")
         }
         for (let i = 9; i <= 10; i++) {
-            (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i])) || player.constantUpgrades[i] >= 1) ?
-                document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "gold" :
-                document.getElementById('buyConstantUpgrade' + i).style.backgroundColor = "#171717";
+            if (player.constantUpgrades[i] >= 1) {
+                document.getElementById(`buyConstantUpgrade${i}`).classList.add("constUpgradeSingle")
+                document.getElementById(`buyConstantUpgrade${i}`).classList.remove("constUpgradeSingleAvailable")
+            } else if (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i]))) {
+                document.getElementById(`buyConstantUpgrade${i}`).classList.add("constUpgradeSingleAvailable")
+            } else {
+                document.getElementById(`buyConstantUpgrade${i}`).classList.remove("constUpgradeSingleAvailable")
+                document.getElementById(`buyConstantUpgrade${i}`).classList.remove("constUpgradeSingle")
+            }
         }
     }
 
@@ -737,32 +743,6 @@ export const CSSAscend = () => {
         const a = document.getElementById("switchCubeSubTab" + i)
         a.style.top = (30 + 35 * i) + "px"
         a.style.left = "5%"
-    }
-}
-
-export const CSSRuneBlessings = () => {
-    for (let i = 1; i <= 5; i++) {
-        const a = document.getElementById('runeBlessingIcon' + i);
-        const b = document.getElementById('runeSpiritIcon' + i);
-        const c = document.getElementById('runeBlessingLevel' + i);
-        const d = document.getElementById('runeSpiritLevel' + i);
-        const e = document.getElementById('runeBlessingPurchase' + i);
-        const f = document.getElementById('runeSpiritPurchase' + i);
-        const g = document.getElementById('runeBlessingPower' + i);
-        const h = document.getElementById('runeSpiritPower' + i);
-
-        a.style.top = b.style.top = (20 + 75 * i) + "px"
-        a.style.left = b.style.left = "10%"
-
-        c.style.top = d.style.top = (23 + 75 * i) + "px"
-        c.style.left = d.style.left = "16%"
-
-        e.style.top = f.style.top = (36 + 75 * i) + "px"
-        e.style.left = f.style.left = "32%"
-
-        g.style.top = h.style.top = (23 + 75 * i) + "px"
-        g.style.left = h.style.left = "59%"
-
     }
 }
 

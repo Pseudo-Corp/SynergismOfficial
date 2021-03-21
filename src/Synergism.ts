@@ -8,7 +8,7 @@ import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewa
 import type { Player } from './types/Synergism';
 import { upgradeupdate, getConstUpgradeMetadata, buyConstantUpgrades } from './Upgrades';
 import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Research';
-import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, CSSRuneBlessings, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert } from './UpdateHTML';
+import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration } from './Calculate';
@@ -1301,7 +1301,6 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
         c15RewardUpdate();
     }
     CSSAscend();
-    CSSRuneBlessings();
     updateAchievementBG();
 
     const d = new Date()
