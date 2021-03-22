@@ -54,7 +54,7 @@ export const quarkHandler = () : { maxTime: number; perHour: number;
         quarkPerHourMultiplier += (G['challenge15Rewards'].quarks - 1)
     }
     if (player.shopUpgrades.infiniteAscent) {
-        quarkPerHourMultiplier *= (1.1 + 0.1/5000 * player.runelevels[5])
+        quarkPerHourMultiplier *= (1.1 + 0.15 / 75 * player.runelevels[5])
     }
 
     const quarkPerHour = baseQuarkPerHour * quarkPerHourMultiplier

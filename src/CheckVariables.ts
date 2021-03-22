@@ -344,4 +344,7 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.runeexp[5] = player.runeexp[6] = 0;
         player.runelevels[5] = player.runelevels[6] = 0;
     }
+
+    //Set rune 6 level to 0 every load for testing purposes
+    player.runeexp[5] = player.runelevels[5] = 0;
 }

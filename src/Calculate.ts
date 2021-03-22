@@ -192,7 +192,7 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
     return returnFactors ? fact : productContents(fact);
 }
 
-export const lookupTableGen = (runeLevel: number, runeNumber : number) => {
+export const lookupTableGen = (runeLevel: number) => {
     // Rune exp required to level multipliers
     let allRuneExpRequiredMultiplier = productContents([
         Math.pow((runeLevel + 1) / 2, 3),
@@ -203,7 +203,6 @@ export const lookupTableGen = (runeLevel: number, runeNumber : number) => {
         Math.max(1, Math.pow(1.03, (runeLevel - 800) / 4))
     ]);
 
-    if (runeNumber > 5) {allRuneExpRequiredMultiplier = Math.pow(1.013, runeLevel)}
     return allRuneExpRequiredMultiplier
 }
 
@@ -211,8 +210,17 @@ let lookupTableRuneExp: number[] | null = null;
 
 // Returns the amount of exp required to level a rune
 export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.runelevels[runeIndex]) => {
-    lookupTableRuneExp ??= Array.from({ length: 40000 }, (_, i) => lookupTableGen(i, runeIndex + 1));
-    return lookupTableRuneExp[runeLevel] * G['runeexpbase'][runeIndex];
+    lookupTableRuneExp ??= Array.from({ length: 40000 }, (_, i) => lookupTableGen(i));
+
+    // For runes 6 and 7 we will apply a special multiplier
+    let multiplier = lookupTableRuneExp[runeLevel]
+    if (runeIndex === 5) {
+        multiplier = Math.pow(10, runeLevel)
+    }
+    if (runeIndex === 6) {
+        multiplier = Math.pow(1e25, runeLevel)
+    }
+    return multiplier * G['runeexpbase'][runeIndex];
 }
 
 export const calculateMaxRunes = (i: number) => {
@@ -229,7 +237,7 @@ export const calculateMaxRunes = (i: number) => {
         10 * (player.researches[79] + player.researches[113]) + increaseAll,
         10 * (player.researches[77] + player.researches[114]) + increaseAll,
         10 * player.researches[115] + increaseAll,
-        4000,
+        -925,
         -998
     ]
 
@@ -1062,7 +1070,7 @@ export const CalcCorruptionStuff = () => {
     if (effectiveScore > 25e12 && player.platonicUpgrades[15] > 0) {
         cubeGain *= 2.25
     }
-    if (player.shopUpgrades.infiniteAscent) cubeGain *= 1.1 + 1.9 / 5000 * player.runelevels[5]
+    if (player.shopUpgrades.infiniteAscent) cubeGain *= 1 + 1.5 / 75 * player.runelevels[5]
 
     let tesseractGain = 1;
     tesseractGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e5)) / 1e4, .35);
@@ -1088,7 +1096,7 @@ export const CalcCorruptionStuff = () => {
     tesseractGain *= (1 + player.achievements[240] * Math.max(0.1, 1 / 20 * Math.log(speed + 0.01) / Math.log(10)))
     tesseractGain *= (1 + 6 / 100 * player.achievements[250] + 10 / 100 * player.achievements[251])
     tesseractGain *= (1 + 3 / 200 * player.shopUpgrades.seasonPass)
-    if (player.shopUpgrades.infiniteAscent) tesseractGain *= 1.1 + 1.9 / 5000 * player.runelevels[5]
+    if (player.shopUpgrades.infiniteAscent) tesseractGain *= 1 + 1.5 / 75 * player.runelevels[5]
 
     let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
     hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9)) / 1e8, .5);
@@ -1108,7 +1116,7 @@ export const CalcCorruptionStuff = () => {
     hypercubeGain *= (1 + player.achievements[240] * Math.max(0.1, 1 / 20 * Math.log(speed + 0.01) / Math.log(10)))
     hypercubeGain *= (1 + 6 / 100 * player.achievements[250] + 10 / 100 * player.achievements[251])
     hypercubeGain *= (1 + 1 / 100 * player.shopUpgrades.seasonPass2)
-    if (player.shopUpgrades.infiniteAscent) hypercubeGain *= 1.1 + 1.9 / 5000 * player.runelevels[5]
+    if (player.shopUpgrades.infiniteAscent) hypercubeGain *= 1 + 1.5 / 75 * player.runelevels[5]
 
     let platonicGain = (effectiveScore >= 1.337e12) ? 1 : 0;
     platonicGain *= Math.pow(1 + Math.max(0, effectiveScore - 1.337e12) / 1.337e11, .75)
@@ -1130,13 +1138,13 @@ export const CalcCorruptionStuff = () => {
     platonicGain *= (1 + player.achievements[240] * Math.max(0.1, 1 / 20 * Math.log(speed + 0.01) / Math.log(10)))
     platonicGain *= (1 + 6 / 100 * player.achievements[250] + 10 / 100 * player.achievements[251])
     platonicGain *= (1 + 1 / 100 * player.shopUpgrades.seasonPass2)
-    if (player.shopUpgrades.infiniteAscent) platonicGain *= 1.1 + 1.9 / 5000 * player.runelevels[5]
+    if (player.shopUpgrades.infiniteAscent) platonicGain *= 1 + 1.5 / 75 * player.runelevels[5]
 
     let hepteractGain = G['challenge15Rewards']['hepteractUnlocked'] && effectiveScore >= 6.66e16 ? 1 : 0;
     hepteractGain *= (1 + (effectiveScore - 6.66e16) / 1e16)
     hepteractGain *= Math.pow(Math.min(1, player.ascensionCounter / 10), 2) * (1 + (1 / 4 * player.achievements[204] + 1 / 4 * player.achievements[211] + 1 / 2 * player.achievements[218]) * Math.max(0, player.ascensionCounter / 10 - 1))
     hepteractGain *= (1 + 1 / 100 * player.shopUpgrades.seasonPass3)
-    if (player.shopUpgrades.infiniteAscent) hepteractGain *= 1.1 + 1.9 / 5000 * player.runelevels[5]
+    if (player.shopUpgrades.infiniteAscent) hepteractGain *= 1 + 1.5 / 75 * player.runelevels[5]
 
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain)]
 }
