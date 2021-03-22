@@ -816,68 +816,104 @@ export const changeTabColor = () => {
     tab.style.backgroundColor = color;
 }
 
-export const Confirm = (text: string) => {
+export const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
     const conf = document.getElementById('confirmationBox');
     const confWrap = document.getElementById('confirmWrapper');
-    const popup = document.querySelector('#confirm');
+    const popup = document.querySelector<HTMLElement>('#confirm');
     const ok = popup.querySelector<HTMLElement>('#ok_confirm');
     const cancel = popup.querySelector<HTMLElement>('#cancel_confirm');
     
     conf.style.display = 'block';
     confWrap.style.display = 'block';
     popup.querySelector('p').textContent = text;
+    popup.focus();
 
-    return new Promise<boolean>((res) => {
-        ok.onclick = () => res(true);
-        cancel.onclick = () => res(false);
-    })
-    .finally(() => {
-        ok.onclick = null;
-        cancel.onclick = null;
+    const listener = (e: MouseEvent) => {
+        const { id } = e.target as HTMLButtonElement;
+        ok.removeEventListener('click', listener);
+        cancel.removeEventListener('click', listener);
+
         conf.style.display = 'none';
         confWrap.style.display = 'none';
-    });
+
+        if (id === ok.id) cb(true);
+        else cb(false);
+    }
+
+    ok.addEventListener('click', listener);
+    cancel.addEventListener('click', listener);
 }
 
-export const Alert = (text: string) => {
+const AlertCB = (text: string, cb: (value: undefined) => void) => {
     const conf = document.getElementById('confirmationBox');
     const alertWrap = document.getElementById('alertWrapper');
-    const popup = document.querySelector('#alert');
+    const popup = document.querySelector<HTMLElement>('#alert');
     const ok = popup.querySelector<HTMLElement>('#ok_alert');
     
     conf.style.display = 'block';
     alertWrap.style.display = 'block';
     popup.querySelector('p').textContent = text;
+    popup.focus();
 
-    return new Promise<undefined>((res) => {
-        ok.onclick = () => res(undefined);
-    })
-    .finally(() => {
-        ok.onclick = null;
+    const listener = () => {
+        ok.removeEventListener('click', listener);
+        popup.removeEventListener('keyup', kbListener);
+        
         conf.style.display = 'none';
         alertWrap.style.display = 'none';
-    });
-}
+        cb(undefined);
+    }
 
-export const Prompt = (text: string) => {
+    const kbListener = (e: KeyboardEvent) => e.key === 'Enter' && listener();
+
+    ok.addEventListener('click', listener);
+    popup.addEventListener('keyup', kbListener);
+} 
+
+const PromptCB = (text: string, cb: (value: string | null) => void) => {
     const conf = document.getElementById('confirmationBox');
     const confWrap = document.getElementById('promptWrapper');
-    const popup = document.querySelector('#prompt');
+    const popup = document.querySelector<HTMLElement>('#prompt');
     const ok = popup.querySelector<HTMLElement>('#ok_prompt');
     const cancel = popup.querySelector<HTMLElement>('#cancel_prompt');
     
     conf.style.display = 'block';
     confWrap.style.display = 'block';
     popup.querySelector('label').textContent = text;
+    popup.querySelector('input').focus();
 
-    return new Promise<string | null>((res) => {
-        ok.onclick = (e) => res((e.target as HTMLButtonElement).parentNode.querySelector('input').value);
-        cancel.onclick = () => res(null);
-    })
-    .finally(() => {
-        ok.onclick = null;
-        cancel.onclick = null;
+    // kinda disgusting types but whatever
+    const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
+        const targetEl = target as HTMLButtonElement;
+        const input = targetEl.parentNode.querySelector('input').value;
+
+        ok.removeEventListener('click', listener);
+        cancel.removeEventListener('click', listener);
+        popup.querySelector('input').removeEventListener('keyup', kbListener);
+
         conf.style.display = 'none';
         confWrap.style.display = 'none';
-    });
+        
+        if (targetEl.id === ok.id) cb(input);
+        else cb(null); // canceled 
+    }
+
+    const kbListener = (e: KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            return listener({ target: ok })
+        }
+
+        return e.preventDefault();
+    }
+
+    ok.addEventListener('click', listener);
+    cancel.addEventListener('click', listener);
+    popup.querySelector('input').addEventListener('keyup', kbListener);
 }
+
+/*** Promisified version of the AlertCB function. */
+export const Alert = (text: string): Promise<undefined> => new Promise(res => AlertCB(text, res));
+/*** Promisified version of the PromptCB function. */
+export const Prompt = (text: string): Promise<string | null> => new Promise(res => PromptCB(text, res));
+/*** Promisified version of the ConfirmCB function */
+export const Confirm = (text: string): Promise<boolean> => new Promise(res => ConfirmCB(text, res));
