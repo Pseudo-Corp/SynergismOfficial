@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js';
 import { Globals as G } from './Variables';
-import { player, format, formatTimeShort } from './Synergism';
+import { player, format, formatTimeShort, version } from './Synergism';
 import { CalcECC } from './Challenges';
 import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration } from './Calculate';
 import { displayRuneInformation } from './Runes';
@@ -398,7 +398,7 @@ export const visualUpdateSettings = () => {
     document.getElementById("ascensionCountStatistic").childNodes[1].textContent = format(player.ascensionCount, 0, true)
 
     document.getElementById("saveString").textContent =
-        `Currently: ${player.saveString.replace("$VERSION$", "v" + player.version)}`;
+        `Currently: ${player.saveString.replace("$VERSION$", "v" + version)}`;
 
     const quarkData = quarkHandler();
     const onExportQuarks = quarkData.gain

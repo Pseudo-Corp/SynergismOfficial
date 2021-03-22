@@ -39,6 +39,7 @@ import { checkVariablesOnLoad } from './CheckVariables';
  * This should be detected when importing a file.
  */
 export const isTesting = true;
+export const version = '2.5.0~alpha-2';
 
 export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
@@ -591,7 +592,7 @@ export const player: Player = {
     loadedOct4Hotfix: false,
     loadedNov13Vers: true,
     loadedDec16Vers: true,
-    version: '2.5.0~alpha-1',
+    version,
     rngCode: 0
 }
 
@@ -3320,18 +3321,14 @@ document.addEventListener('keydown', (event) => {
 
 });
 
-// whether or not this is a fresh load, or the result of an import
-let loaded = false;
-
-window.addEventListener('load', async () => {
+/**
+ * Reloads shit.
+ */
+export const reloadShit = async () => {
     for (const timer of intervalHold)
         clearInt(timer);
 
     intervalHold.clear();
-
-    const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${player.version} - Seal of the Merchant [Last Update: 6:15PM UTC-8 21-Mar-2021]. Savefiles cannot be used in live!`);
-    document.title = 'Synergism v' + player.version;
 
     const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
     const isLZString = dec !== '';
@@ -3340,13 +3337,6 @@ window.addEventListener('load', async () => {
         localStorage.clear();
         localStorage.setItem('Synergysave2', btoa(dec));
         await Alert('Transferred save to new format successfully!');
-    }
-
-    if (!loaded) {
-        generateEventHandlers();
-        loadPlugins();
-        corruptionButtonsAdd();
-        corruptionLoadoutTableCreate();
     }
 
     loadSynergy();
@@ -3358,5 +3348,17 @@ window.addEventListener('load', async () => {
     createTimer();
     constantIntervals();
     changeTabColor();
-    loaded = true;
+}
+
+window.addEventListener('load', () => {
+    const ver = document.getElementById('versionnumber');
+    ver && (ver.textContent = `You're Testing v${version} - Seal of the Merchant [Last Update: 6:15PM UTC-8 21-Mar-2021]. Savefiles cannot be used in live!`);
+    document.title = `Synergism v${version}`;
+
+    generateEventHandlers();
+    loadPlugins();
+    corruptionButtonsAdd();
+    corruptionLoadoutTableCreate();
+
+    reloadShit();
 });

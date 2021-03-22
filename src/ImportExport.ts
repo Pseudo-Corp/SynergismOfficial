@@ -1,4 +1,4 @@
-import { player, saveSynergy, blankSave, isTesting } from './Synergism';
+import { player, saveSynergy, blankSave, isTesting, reloadShit, version } from './Synergism';
 import { getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
@@ -46,7 +46,7 @@ const saveFilename = () => {
     const s = player.saveString
     const t = s.replace(/\$(.*?)\$/g, (_, b) => {
         switch (b) {
-            case 'VERSION': return `v${player.version}`;
+            case 'VERSION': return `v${version}`;
             case 'TIME': return getRealTime();
             case 'TIME12': return getRealTime(true);
         }
@@ -133,7 +133,7 @@ export const importSynergism = (input: string) => {
     ) {
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
         
-        window.dispatchEvent(new Event('load'));
+        return reloadShit();
     } else {
         return Alert(`You are attempting to load a testing file in a non-testing version!`);
     }
