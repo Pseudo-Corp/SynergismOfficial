@@ -33,6 +33,7 @@ import { addTimers, automaticTools } from './Helper';
 
 import './Logger';
 import { checkVariablesOnLoad } from './CheckVariables';
+import { ChallengeHepteract, ChronosHepteract, HyperrealismHepteract, QuarkHepteract } from './Hepteracts';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -535,6 +536,14 @@ export const player: Player = {
         globalSpeed: 0,
 
     },
+
+    hepteractCrafts: {
+        chronos: ChronosHepteract,
+        hyperrealism: HyperrealismHepteract,
+        quark: QuarkHepteract,
+        challenge: ChallengeHepteract
+    },
+
     ascendShards: new Decimal("0"),
     autoAscend: false,
     autoAscendMode: "c10Completions",

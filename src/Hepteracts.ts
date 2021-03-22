@@ -39,7 +39,7 @@ export class HepteractCraft {
         this.CAP = capacity;
         this.HEPTERACT_CONVERSION = hepteractCost;
         this.OTHER_CONVERSIONS = itemCosts
-        this.UNLOCKED = unlocked; //This would basically always be true if this parameter is provided
+        this.UNLOCKED = unlocked ?? false; //This would basically always be true if this parameter is provided
     }
 
     // Unlock a synthesizer craft
@@ -58,7 +58,7 @@ export class HepteractCraft {
         const hepteractLimit = Math.floor((player.wowAbyssals / this.HEPTERACT_CONVERSION) * 1 / (1 - this.DISCOUNT))
 
         // Create an array of how many we can craft using our conversion limits for additional items
-        let itemLimits: Array<number>
+        let itemLimits: Array<number> = []
         for (const item in this.OTHER_CONVERSIONS) {
             itemLimits.push(Math.floor(player[item] / this.OTHER_CONVERSIONS[item]) * 1 / (1 - this.DISCOUNT))
         }
@@ -67,7 +67,7 @@ export class HepteractCraft {
         const smallestItemLimit = Math.min(...itemLimits)
 
         // Get the smallest of hepteract limit, limit found above and specified input
-        const amountToCraft = Math.min(smallestItemLimit, hepteractLimit, craftAmount)
+        const amountToCraft = Math.min(smallestItemLimit, hepteractLimit, craftAmount, this.CAP - this.BAL)
         this.BAL += amountToCraft
 
         // Subtract spent items from player
@@ -127,3 +127,16 @@ export class HepteractCraft {
     }
     
 }
+
+// Hepteract of Chronos [UNLOCKED]
+export const ChronosHepteract = new HepteractCraft(1000, 1e4, {'researchPoints': 1e100}, true);
+
+// Hepteract of Hyperrealism [UNLOCKED]
+export const HyperrealismHepteract = new HepteractCraft(1000, 1e4, {'wowHypercubes': 1e7}, true);
+
+// Hepteract of Too Many Quarks [UNLOCKED]
+export const QuarkHepteract = new HepteractCraft(1000, 1e4, {'worlds': 100}, true); 
+
+// Hepteract of Challenge [LOCKED]
+export const ChallengeHepteract = new HepteractCraft(1e4, 1e5, {'researchPoints': 1e105, 'offerings': 1e65});
+
