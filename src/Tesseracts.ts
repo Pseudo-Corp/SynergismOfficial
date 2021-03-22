@@ -2,6 +2,24 @@ import { player } from './Synergism';
 import { Player } from './types/Synergism';
 import { Globals as G } from './Variables';
 import { openCube } from './Cubes';
+import { Alert, Prompt } from './UpdateHTML';
+
+/**
+ * Opens a custom number of Tesseracts!!!!!
+ */
+export const openCustomTesseract = async () => {
+    const amount = await Prompt(`How many Tesseracts would you like to open? You have ${player.wowTesseracts.toLocaleString()}!`);
+    const tess = Number(amount);
+
+    if (Number.isNaN(tess) || !Number.isFinite(tess)) // nan + Infinity checks
+        return Alert('Value must be a finite number!');
+    else if (player.wowTesseracts < tess) // not enough tessy to open
+        return Alert('You don\'t have enough Tesseract to open!');
+    else if (tess <= 0) // 0 or less tessy to open
+        return Alert('You can\'t open a negative number of tesseracts.');
+
+    return openTesseract(tess, tess === player.wowTesseracts);
+}
 
 export const openTesseract = (value: number, max = false) => {
     let toSpend = Math.min(player.wowTesseracts, value)

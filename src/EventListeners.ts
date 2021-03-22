@@ -11,10 +11,10 @@ import { toggleTalismanBuy, buyTalismanResources, showTalismanPrices, buyTalisma
 import { challengeDisplay, toggleRetryChallenges } from "./Challenges"
 import { buyResearch, researchDescriptions } from "./Research"
 import { antRepeat, sacrificeAnts, buyAntProducers, updateAntDescription, antUpgradeDescription, buyAntUpgrade } from "./Ants"
-import { buyCubeUpgrades, openCube, cubeUpgradeDesc } from "./Cubes"
-import { openTesseract } from "./Tesseracts"
-import { openHypercube } from "./Hypercubes"
-import { openPlatonic } from "./PlatonicCubes"
+import { buyCubeUpgrades, openCube, cubeUpgradeDesc, openCustomCube } from "./Cubes"
+import { openCustomTesseract, openTesseract } from "./Tesseracts"
+import { openCustomHypercube, openHypercube } from "./Hypercubes"
+import { openCustomPlat, openPlatonic } from "./PlatonicCubes"
 import { buyPlatonicUpgrades, createPlatonicDescription } from "./Platonic"
 import { corruptionCleanseConfirm, corruptionDisplay } from "./Corruptions"
 import { exportSynergism, updateSaveString, promocodes, importSynergism, resetGame } from "./ImportExport"
@@ -412,21 +412,25 @@ for (let index = 1; index <= 12; index++) {
     document.getElementById('open1Cube').addEventListener('click', () => openCube(1, false))
     document.getElementById('open20Cube').addEventListener('click', () => openCube(20, false))
     document.getElementById('open1000Cube').addEventListener('click', () => openCube(1000, false))
+    document.getElementById('openCustomCube').addEventListener('click', openCustomCube);
     document.getElementById('openMostCube').addEventListener('click', () => openCube(1, true))
     //Wow Tesseracts
     document.getElementById('open1Tesseract').addEventListener('click', () => openTesseract(1, false))
     document.getElementById('open20Tesseract').addEventListener('click', () => openTesseract(20, false))
     document.getElementById('open1000Tesseract').addEventListener('click', () => openTesseract(1000, false))
+    document.getElementById('openCustomTesseract').addEventListener('click', openCustomTesseract);
     document.getElementById('openMostTesseract').addEventListener('click', () => openTesseract(1, true))
     //Wow Hypercubes
     document.getElementById('open1Hypercube').addEventListener('click', () => openHypercube(1, false))
     document.getElementById('open20Hypercube').addEventListener('click', () => openHypercube(20, false))
     document.getElementById('open1000Hypercube').addEventListener('click', () => openHypercube(1000, false))
+    document.getElementById('openCustomHypercube').addEventListener('click', openCustomHypercube);
     document.getElementById('openMostHypercube').addEventListener('click', () => openHypercube(1, true))
     //Wow Platonic Cubes
     document.getElementById('open1PlatonicCube').addEventListener('click', () => openPlatonic(1, false))
     document.getElementById('open40kPlatonicCube').addEventListener('click', () => openPlatonic(4e4, false))
     document.getElementById('open1mPlatonicCube').addEventListener('click', () => openPlatonic(1e6, false))
+    document.getElementById('openCustomPlatonicCube').addEventListener('click', openCustomPlat);
     document.getElementById('openMostPlatonicCube').addEventListener('click', () => openPlatonic(1, true))
 
 //Part 3: Platonic Upgrade Section

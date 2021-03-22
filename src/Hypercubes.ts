@@ -1,8 +1,26 @@
 import { player } from './Synergism';
 import { openTesseract } from './Tesseracts';
+import { Prompt, Alert } from './UpdateHTML';
 import { Globals as G } from './Variables';
 
 type Bless = keyof typeof player['hypercubeBlessings'];
+
+/**
+ * Opens a custom number of HypaCubes!!!!!
+ */
+export const openCustomHypercube = async () => {
+    const amount = await Prompt(`How many Hypercubes would you like to open? You have ${player.wowHypercubes.toLocaleString()}!`);
+    const hypercubes = Number(amount);
+
+    if (Number.isNaN(hypercubes) || !Number.isFinite(hypercubes)) // nan + Infinity checks
+        return Alert('Value must be a finite number!');
+    else if (player.wowHypercubes < hypercubes) // not enough tessy to open
+        return Alert('You don\'t have enough Hypercubes to open!');
+    else if (hypercubes <= 0) // 0 or less tessy to open
+        return Alert('You can\'t open a negative number of Hypercubes.');
+
+    return openHypercube(hypercubes, hypercubes === player.wowHypercubes);
+}
 
 export const openHypercube = (value: number, max = false) => {
     const toSpend = max ? player.wowHypercubes : Math.min(player.wowHypercubes, value);

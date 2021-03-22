@@ -1,8 +1,26 @@
 import { player } from './Synergism';
 import { Globals as G } from './Variables';
 import { Synergism } from './Events';
+import { Prompt, Alert } from './UpdateHTML';
 
 type Bless = keyof typeof player['platonicBlessings'];
+
+/**
+ * Opens a custom number of Pseudo cubes!!!!!
+ */
+export const openCustomPlat = async () => {
+    const amount = await Prompt(`How many Plat Cubes would you like to open? You have ${player.wowPlatonicCubes.toLocaleString()}!`);
+    const platcubes = Number(amount);
+
+    if (Number.isNaN(platcubes) || !Number.isFinite(platcubes)) // nan + Infinity checks
+        return Alert('Value must be a finite number!');
+    else if (player.wowPlatonicCubes < platcubes) // not enough pseudos to open
+        return Alert('You don\'t have enough Plat Cubes to open!');
+    else if (platcubes <= 0) // 0 or less pseudos to open
+        return Alert('You can\'t open a negative number of Plat Cubes.');
+
+    return openPlatonic(platcubes, platcubes === player.wowPlatonicCubes);
+}
 
 export const openPlatonic = (value: number, max = false) => {
     const toSpend = max 

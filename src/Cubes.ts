@@ -3,7 +3,7 @@ import { achievementaward } from "./Achievements"
 import { CalcECC } from "./Challenges"
 import { calculateCubeBlessings, calculateSummationNonLinear } from "./Calculate"
 import { upgradeupdate } from "./Upgrades"
-import { revealStuff } from "./UpdateHTML"
+import { Alert, Prompt, revealStuff } from "./UpdateHTML"
 import { Globals as G } from "./Variables"
 import { cubeNames } from "./types/Synergism"
 
@@ -67,6 +67,23 @@ export const cubeDistributions = <T extends keyof typeof distributions>(k: T) =>
  */
 export const openCubes = (value: number, cubeName: cubeNames, max = false) => {
     return [value, cubeName, max]
+}
+
+/**
+ * Opens a custom number of Wowwy Cubes!
+ */
+export const openCustomCube = async () => {
+    const amount = await Prompt(`How many cubes would you like to open? You have ${player.wowCubes.toLocaleString()}!`);
+    const cubes = Number(amount);
+
+    if (Number.isNaN(cubes) || !Number.isFinite(cubes)) // nan + Infinity checks
+        return Alert('Value must be a finite number!');
+    else if (player.wowCubes < cubes) // not enough cubes to open
+        return Alert('You don\'t have enough Wow Cubes to open!');
+    else if (cubes <= 0) // 0 or less cubes to open
+        return Alert('You can\'t open a negative number of cubes.');
+
+    return openCube(cubes, cubes === player.wowCubes);
 }
 
 export const openCube = (value: number, max = false) => {
