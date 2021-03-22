@@ -163,6 +163,11 @@ export const revealStuff = () => {
         ex.style.display = player.achievements[173] === 1 ? "block" : "none";
     }
 
+    const example32 = document.getElementsByClassName("hepteracts") as HTMLCollectionOf<HTMLElement>;
+    for (const ex of Array.from(example32)) { // Ability to use and gain hepteracts //
+        ex.style.display = player.challenge15Exponent >= 1e15 ? "block" : "none";
+    }
+
     if (player.upgrades[89] === 1) {
         document.getElementById('transcendautotoggle').style.display = 'block';
         document.getElementById('transcendamount').style.display = 'block';
