@@ -32,8 +32,10 @@ import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import './Logger';
+import './Database';
 import { checkVariablesOnLoad } from './CheckVariables';
 import { ChallengeHepteract, ChronosHepteract, HyperrealismHepteract, QuarkHepteract } from './Hepteracts';
+import { db } from './Database';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -609,18 +611,12 @@ export const blankSave = Object.assign({}, player, {
     codes: new Map(Array.from({ length: 31 }, (_, i) => [i + 1, false]))
 });
 
-export const saveSynergy = (button?: boolean): void => {
+export const saveSynergy = async (button?: boolean) => {
     player.offlinetick = Date.now();
     player.loaded1009 = true;
     player.loaded1009hotfix1 = true;
 
-    // shallow hold, doesn't modify OG object nor is affected by modifications to OG
-    const p = Object.assign({}, player, { 
-        codes: Array.from(player.codes)
-    });
-
-    localStorage.removeItem('Synergysave2');
-    localStorage.setItem('Synergysave2', btoa(JSON.stringify(p)));
+    await db.insert();
 
     if (button) {
         const el = document.getElementById('saveinfo');
@@ -629,8 +625,8 @@ export const saveSynergy = (button?: boolean): void => {
     }
 }
 
-export const loadSynergy = (): void => {
-    const save = localStorage.getItem("Synergysave2");
+export const loadSynergy = async () => {
+    const { save } = await db.getLatest();
     const data = save ? JSON.parse(atob(save)) : null;
 
     if (isTesting) {
@@ -2897,7 +2893,7 @@ export const updateAll = (): void => {
 }
 
 export const constantIntervals = (): void => {
-    interval(saveSynergy, 5000);
+    interval(saveSynergy, 30000);
     interval(autoUpgrades, 200);
     interval(buttoncolorchange, 200)
     interval(htmlInserts, 16)
@@ -3343,8 +3339,11 @@ export const reloadShit = async () => {
     const isLZString = dec !== '';
 
     if (isLZString) {
-        localStorage.clear();
-        localStorage.setItem('Synergysave2', btoa(dec));
+        await db.insert({
+            name: 'LZString',
+            date: new Date(),
+            save: btoa(dec)
+        })
         await Alert('Transferred save to new format successfully!');
     }
 
@@ -3370,4 +3369,5 @@ window.addEventListener('load', () => {
     corruptionLoadoutTableCreate();
 
     reloadShit();
+    db.migrate();
 });

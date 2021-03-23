@@ -6,6 +6,7 @@ import { Player } from './types/Synergism';
 import { Synergism } from './Events';
 import { Alert, Confirm, Prompt } from './UpdateHTML';
 import { quarkHandler } from './Quark';
+import { db } from './Database';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -68,7 +69,7 @@ export const exportSynergism = async () => {
     saveSynergy();
 
     const toClipboard = getElementById<HTMLInputElement>('saveType').checked;
-    const save = localStorage.getItem('Synergysave2');
+    const { save } = await db.getLatest();
     if ('clipboard' in navigator && toClipboard) {
         await navigator.clipboard.writeText(save)
             .catch(e => console.error(e));
@@ -122,7 +123,7 @@ export const resetGame = async () => {
     importSynergism(btoa(JSON.stringify(hold)));
 }
 
-export const importSynergism = (input: string) => {
+export const importSynergism = async (input: string) => {
     const d = LZString.decompressFromBase64(input);
     const f: Player = d ? JSON.parse(d) : JSON.parse(atob(input));
 
@@ -131,7 +132,11 @@ export const importSynergism = (input: string) => {
         (f.exporttest === false && isTesting) ||
         (f.exporttest === 'NO!' && isTesting)
     ) {
-        localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
+        await db.insert({
+            name: player.saveString,
+            date: new Date(),
+            save: btoa(JSON.stringify(f))
+        });
         
         return reloadShit();
     } else {
