@@ -32,10 +32,8 @@ import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import './Logger';
-import './Database';
 import { checkVariablesOnLoad } from './CheckVariables';
 import { ChallengeHepteract, ChronosHepteract, HyperrealismHepteract, QuarkHepteract } from './Hepteracts';
-import { db } from './Database';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -2899,7 +2897,7 @@ export const updateAll = (): void => {
 }
 
 export const constantIntervals = (): void => {
-    interval(saveSynergy, 30000);
+    interval(saveSynergy, 5000);
     interval(autoUpgrades, 200);
     interval(buttoncolorchange, 200)
     interval(htmlInserts, 16)
@@ -3372,5 +3370,4 @@ window.addEventListener('load', () => {
     corruptionLoadoutTableCreate();
 
     reloadShit();
-    db.migrate();
 });

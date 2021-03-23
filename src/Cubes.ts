@@ -74,6 +74,8 @@ export const openCubes = (value: number, cubeName: cubeNames, max = false) => {
  */
 export const openCustomCube = async () => {
     const amount = await Prompt(`How many cubes would you like to open? You have ${player.wowCubes.toLocaleString()}!`);
+    if (amount === null) // Number(null) is 0. Yeah..
+        return Alert('OK. No cubes opened.');
     const cubes = Number(amount);
 
     if (Number.isNaN(cubes) || !Number.isFinite(cubes)) // nan + Infinity checks

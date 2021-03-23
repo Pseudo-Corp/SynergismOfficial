@@ -9,6 +9,8 @@ import { Alert, Prompt } from './UpdateHTML';
  */
 export const openCustomTesseract = async () => {
     const amount = await Prompt(`How many Tesseracts would you like to open? You have ${player.wowTesseracts.toLocaleString()}!`);
+    if (amount === null)
+        return Alert('OK. No Tesseracts opened.');
     const tess = Number(amount);
 
     if (Number.isNaN(tess) || !Number.isFinite(tess)) // nan + Infinity checks

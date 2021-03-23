@@ -10,6 +10,8 @@ type Bless = keyof typeof player['hypercubeBlessings'];
  */
 export const openCustomHypercube = async () => {
     const amount = await Prompt(`How many Hypercubes would you like to open? You have ${player.wowHypercubes.toLocaleString()}!`);
+    if (amount === null)
+        return Alert('OK. No Hypercubes opened.');
     const hypercubes = Number(amount);
 
     if (Number.isNaN(hypercubes) || !Number.isFinite(hypercubes)) // nan + Infinity checks

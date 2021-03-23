@@ -10,6 +10,8 @@ type Bless = keyof typeof player['platonicBlessings'];
  */
 export const openCustomPlat = async () => {
     const amount = await Prompt(`How many Plat Cubes would you like to open? You have ${player.wowPlatonicCubes.toLocaleString()}!`);
+    if (amount === null)
+        return Alert('OK. No Plats opened.');
     const platcubes = Number(amount);
 
     if (Number.isNaN(platcubes) || !Number.isFinite(platcubes)) // nan + Infinity checks

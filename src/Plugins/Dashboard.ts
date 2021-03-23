@@ -70,6 +70,7 @@ const getCubeTimes = (i = 5, levels = 1) => {
 
 const GM_addStyle = (css: string) => {
     const style = document.createElement('style');
+    style.id = 'syn_dashboard_plugin';
     style.appendChild(document.createTextNode(css));
     document.head.appendChild(style);
 }
@@ -234,10 +235,28 @@ const exitDashboard = () => {
     buttons.style.display = null
 }
 
+const btnListener = () => {
+    open = !open;
+    if (open) {
+        openDashboard();
+    } else {
+        exitDashboard();
+    }
+}
+
 /**
  * Add the elements to the DOM so they are usable.
  */
 const enable = () => {
+    const style = document.head.querySelector('#syn_dashboard_plugin');
+    if (style !== null) { // plugin is already enabled
+        document.head.removeChild(style);
+        document.querySelector('#settings > .subtabSwitcher').removeChild(button);
+        button.removeEventListener('click', btnListener);
+        settingsTab.removeChild(tab);
+        return;
+    }
+
     console.log('hello synergism, dashboard installed in the settings tab');
     GM_addStyle(css);
     document.querySelector('#settings > .subtabSwitcher').appendChild(button);
@@ -248,14 +267,7 @@ const enable = () => {
     tab.querySelector('.dashboardstatSac').addEventListener('click', () => toggleAntAutoSacrifice(0));
 
     settingsTab.appendChild(tab);
-    button.addEventListener('click', () => {
-        open = !open;
-        if (open) {
-            openDashboard();
-        } else {
-            exitDashboard();
-        }
-    });
+    button.addEventListener('click', btnListener);
     button.textContent = 'Dashboard';
 }
 
