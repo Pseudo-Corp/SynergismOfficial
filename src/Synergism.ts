@@ -616,7 +616,13 @@ export const saveSynergy = async (button?: boolean) => {
     player.loaded1009 = true;
     player.loaded1009hotfix1 = true;
 
-    await db.insert();
+    // shallow hold, doesn't modify OG object nor is affected by modifications to OG
+    const p = Object.assign({}, player, { 
+        codes: Array.from(player.codes)
+    });
+
+    localStorage.removeItem('Synergysave2');
+    localStorage.setItem('Synergysave2', btoa(JSON.stringify(p)));
 
     if (button) {
         const el = document.getElementById('saveinfo');
@@ -626,7 +632,7 @@ export const saveSynergy = async (button?: boolean) => {
 }
 
 export const loadSynergy = async () => {
-    const { save } = await db.getLatest();
+    const save = localStorage.getItem("Synergysave2");
     const data = save ? JSON.parse(atob(save)) : null;
 
     if (isTesting) {
@@ -3339,11 +3345,8 @@ export const reloadShit = async () => {
     const isLZString = dec !== '';
 
     if (isLZString) {
-        await db.insert({
-            name: 'LZString',
-            date: new Date(),
-            save: btoa(dec)
-        })
+        localStorage.clear();
+        localStorage.setItem('Synergysave2', btoa(dec));
         await Alert('Transferred save to new format successfully!');
     }
 
