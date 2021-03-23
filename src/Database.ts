@@ -82,7 +82,7 @@ class SynergismDB {
     async getLatest() {
         const count = await this.TABLE.count();
         if (count === 0)
-            return;
+            return {} as Partial<SynSave>;
 
         return this.TABLE
             .limit(1)
