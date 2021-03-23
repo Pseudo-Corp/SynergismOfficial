@@ -74,10 +74,16 @@ class SynergismDB {
     /** Remove all saves */
     async deleteAll() {
         const t = (await this.TABLE.toArray()).map(({ id }) => id);
+        if (t.length === 0)
+            return;
         return this.TABLE.bulkDelete(t);
     }
 
     async getLatest() {
+        const count = await this.TABLE.count();
+        if (count === 0)
+            return;
+
         return this.TABLE
             .limit(1)
             .last();
