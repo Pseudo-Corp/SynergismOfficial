@@ -1,5 +1,15 @@
 import { player } from "./Synergism";
 
+export interface IHepteractCraft {
+    BASE_CAP: number,
+    HEPTERACT_CONVERSION: number,
+    OTHER_CONVERSIONS: {[key:string]:number},
+    UNLOCKED?: boolean,
+    BAL?: number,
+    CAP?: number,
+    DISCOUNT?: number 
+}
+
 export class HepteractCraft {
     /**
      * Craft is unlocked or not (Default is locked)
@@ -13,8 +23,10 @@ export class HepteractCraft {
 
     /**
      * Maximum Inventory (amount) of craft you can hold
+     * base_cap is the smallest capacity for such item.
      */
     CAP = 0;
+    BASE_CAP = 0;
 
     /**
      * Conversion rate of hepteract to synthesized items
@@ -35,11 +47,14 @@ export class HepteractCraft {
      */
     DISCOUNT = 0;
 
-    constructor(capacity: number, hepteractCost: number, itemCosts: {[key: string]:number}, unlocked?: boolean) {
-        this.CAP = capacity;
-        this.HEPTERACT_CONVERSION = hepteractCost;
-        this.OTHER_CONVERSIONS = itemCosts
-        this.UNLOCKED = unlocked ?? false; //This would basically always be true if this parameter is provided
+    constructor(data: IHepteractCraft) {
+        this.BASE_CAP = data.BASE_CAP;
+        this.HEPTERACT_CONVERSION = data.HEPTERACT_CONVERSION;
+        this.OTHER_CONVERSIONS = data.OTHER_CONVERSIONS
+        this.UNLOCKED = data.UNLOCKED ?? false; //This would basically always be true if this parameter is provided
+        this.BAL = data.BAL ?? 0;
+        this.CAP = data.CAP ?? this.BASE_CAP // This sets cap either as previous value or keeps it to default.
+        this.DISCOUNT = data.DISCOUNT ?? 0;
     }
 
     // Unlock a synthesizer craft
@@ -125,18 +140,48 @@ export class HepteractCraft {
     get amount() {
         return this.BAL;
     }
+    get capacity() {
+        return this.CAP
+    }
+    get discount() {
+        return this.DISCOUNT
+    }
     
 }
 
+export const createHepteract = (data: IHepteractCraft) => {
+    return new HepteractCraft(data)
+}
+
+
 // Hepteract of Chronos [UNLOCKED]
-export const ChronosHepteract = new HepteractCraft(1000, 1e4, {'researchPoints': 1e100}, true);
+export const ChronosHepteract = new HepteractCraft({
+    BASE_CAP: 1000,
+    HEPTERACT_CONVERSION: 1e4,
+    OTHER_CONVERSIONS: {'researchPoints': 1e115},
+    UNLOCKED: true
+});
 
 // Hepteract of Hyperrealism [UNLOCKED]
-export const HyperrealismHepteract = new HepteractCraft(1000, 1e4, {'wowHypercubes': 1e7}, true);
+export const HyperrealismHepteract = new HepteractCraft({
+    BASE_CAP: 1000,
+    HEPTERACT_CONVERSION: 1e4,
+    OTHER_CONVERSIONS: {'offerings': 1e65},
+    UNLOCKED: true
+});
 
 // Hepteract of Too Many Quarks [UNLOCKED]
-export const QuarkHepteract = new HepteractCraft(1000, 1e4, {'worlds': 100}, true); 
+export const QuarkHepteract = new HepteractCraft({
+    BASE_CAP: 1000,
+    HEPTERACT_CONVERSION: 1e4,
+    OTHER_CONVERSIONS: {'worlds': 100},
+    UNLOCKED: true
+}); 
 
 // Hepteract of Challenge [LOCKED]
-export const ChallengeHepteract = new HepteractCraft(1e4, 1e5, {'researchPoints': 1e105, 'offerings': 1e65});
+export const ChallengeHepteract = new HepteractCraft({
+    BASE_CAP: 1000,
+    HEPTERACT_CONVERSION: 5e4,
+    OTHER_CONVERSIONS: {'wowPlatonicCubes': 1e11, 'wowCubes': 1e22} 
+});
 
