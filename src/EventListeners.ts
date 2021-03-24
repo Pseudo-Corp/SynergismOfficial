@@ -386,7 +386,7 @@ for (let index = 1; index <= 12; index++) {
 
 // WOW! Cubes Tab
 //Part 0: Subtab UI
-    for (let index = 0; index < 6; index++) {
+    for (let index = 0; index < 7; index++) {
     
         document.getElementById(`switchCubeSubTab${index+1}`).addEventListener('click', () => toggleSubTab(8, index))
         

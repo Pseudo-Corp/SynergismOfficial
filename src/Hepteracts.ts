@@ -184,4 +184,3 @@ export const ChallengeHepteract = new HepteractCraft({
     HEPTERACT_CONVERSION: 5e4,
     OTHER_CONVERSIONS: {'wowPlatonicCubes': 1e11, 'wowCubes': 1e22} 
 });
-

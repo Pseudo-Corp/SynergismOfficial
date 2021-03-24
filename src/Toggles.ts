@@ -257,7 +257,8 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: 3, unlocked: player.achievements[211] > 0, buttonID: "switchCubeSubTab3"},
                 {subTabID: 4, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab4"},
                 {subTabID: 5, unlocked: player.achievements[141] > 0, buttonID: "switchCubeSubTab5"},
-                {subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab6"}]
+                {subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: "switchCubeSubTab6"},
+                {subTabID: 7, unlocked: player.challenge15Exponent >= 1e15, buttonID: "switchCubeSubTab7"}]
         },
         9: {
             tabSwitcher: toggleCorruptionLoadoutsStats,
