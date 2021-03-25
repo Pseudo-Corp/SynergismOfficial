@@ -354,6 +354,9 @@ export const visualUpdateCubes = () => {
             break;
         case 5:
             break;
+        case 6:
+            document.getElementById('hepteractQuantity').textContent = format(player.wowAbyssals, 0, true)
+            break;
         default:
             // console.log(`player.subtabNumber (${player.subtabNumber}) was outside of the allowed range (${subTabsInMainTab(8).subTabList.length}) for the cube tab`);
             break;

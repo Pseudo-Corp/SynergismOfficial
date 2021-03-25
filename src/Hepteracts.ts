@@ -1,4 +1,5 @@
-import { player } from "./Synergism";
+import { format, player } from "./Synergism";
+import { Alert, Confirm, Prompt } from "./UpdateHTML";
 
 export interface IHepteractCraft {
     BASE_CAP: number,
@@ -9,6 +10,8 @@ export interface IHepteractCraft {
     CAP?: number,
     DISCOUNT?: number 
 }
+
+type hepteractTypes = 'chronos' | 'hyperrealism' | 'quark' | 'challenge'
 
 export class HepteractCraft {
     /**
@@ -64,10 +67,22 @@ export class HepteractCraft {
     }
 
     // Add to balance through crafting.
-    craft(craftAmount: number): HepteractCraft {
+    craft = async() : Promise<HepteractCraft> => {
+        //Prompt used here. Thank you Khafra for the already made code! -Platonic
+        const craftingPrompt = await Prompt('How many would you like to craft?');
+        if (craftingPrompt === null) // Number(null) is 0. Yeah..
+            return Alert('Okay, maybe next time.');
+        const craftAmount = Number(craftingPrompt)
+
+        //Check these lol
+        if (Number.isNaN(craftAmount) || !Number.isFinite(craftAmount)) // nan + Infinity checks
+        return Alert('Value must be a finite number!');
+        else if (craftAmount <= 0) // 0 or less selected
+        return Alert('You can\'t craft a nonpositive amount of these fucks, lol!');
+
         // If craft is unlocked, we return object
         if (!this.UNLOCKED) 
-            return this;
+            return Alert('This is not an unlocked craft, thus you cannot craft this item!');
 
         // Calculate the largest craft amount possible, with an upper limit being craftAmount
         const hepteractLimit = Math.floor((player.wowAbyssals / this.HEPTERACT_CONVERSION) * 1 / (1 - this.DISCOUNT))
@@ -90,7 +105,7 @@ export class HepteractCraft {
         for (const item in this.OTHER_CONVERSIONS) {
             player[item] -= amountToCraft * this.OTHER_CONVERSIONS[item]
         }
-        return this;
+        return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' hepteracts. If this is less than your input, you either hit the inventory limit or you had insufficient resources.');
     }
 
     // Reduce balance through spending
@@ -106,18 +121,22 @@ export class HepteractCraft {
     /**
      * Expansion can only happen if your current balance is full.
      */
-    expand(): HepteractCraft {
-        if (!this.UNLOCKED)
+    expand = async(): Promise<HepteractCraft> => {
+        const expandPrompt = await Confirm('This will empty your balance, but double your capacity. Agree to the terms and conditions and stuff?')
+        if (!expandPrompt) {
             return this;
+        }
+        if (!this.UNLOCKED)
+            return Alert('This is not an unlocked craft. Sorry!');
 
         // Below capacity
         if (this.BAL < this.CAP)
-            return this;
+            return Alert('Insufficient inventory to expand. 404 909 error.');
         
         // Empties inventory in exchange for doubling maximum capacity.
         this.BAL = 0
         this.CAP *= 2
-        return this;
+        return Alert('Successfully expanded your inventory. You can now fit ' + format(this.CAP, 0, true) + '.');
     }
 
     // Add some percentage points to your discount
@@ -153,6 +172,43 @@ export const createHepteract = (data: IHepteractCraft) => {
     return new HepteractCraft(data)
 }
 
+export const hepteractDescriptions = (type: hepteractTypes) => {
+    const unlockedText = document.getElementById('hepteractUnlockedText')
+    const effectText = document.getElementById('hepteractEffectText')
+    const currentEffectText = document.getElementById('hepteractCurrentEffectText')
+    const balanceText = document.getElementById('hepteractBalanceText')
+    const costText = document.getElementById('hepteractCostText')
+    switch(type){
+        case 'chronos':
+            unlockedText.textContent = (player.hepteractCrafts.chronos.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
+            effectText.textContent = "This hepteract bends time, in your favor. +0.1% Ascension Speed per Chronos Hepteract."
+            currentEffectText.textContent = "Current Effect: Ascension Speed +" + format(player.hepteractCrafts.chronos.BAL / 10, 2, true) + "%"
+            balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.chronos.BAL, 0, true) + " / " + format(player.hepteractCrafts.chronos.CAP) + " [The bonus caps at 1,000 right now, WIP]"
+            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.chronos.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e115 Obtainium [WIP]"
+            break;
+        case 'hyperrealism':
+            unlockedText.textContent = (player.hepteractCrafts.hyperrealism.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
+            effectText.textContent = "This bad boy can make hypercube gain skyrocket. +0.1% Hypercubes per Hyperreal Hepteract."
+            currentEffectText.textContent = "Current Effect: Hypercubes +" + format(player.hepteractCrafts.hyperrealism.BAL / 10, 2, true) + "%"
+            balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.hyperrealism.BAL, 0, true) + " / " + format(player.hepteractCrafts.hyperrealism.CAP) + " [The bonus caps at 1,000 right now, WIP]"
+            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.hyperrealism.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e65 Offerings."
+            break;
+        case 'quark':
+            unlockedText.textContent = (player.hepteractCrafts.quark.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
+            effectText.textContent = "One pound, two pound fish, fishy grant +0.03% Quarks per Quark Hepteract fish fish."
+            currentEffectText.textContent = "Current Effect: Quarks +" + format(player.hepteractCrafts.quark.BAL * 3 / 100, 2, true) + "%"
+            balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.quark.BAL, 0, true) + " / " + format(player.hepteractCrafts.quark.CAP) + " [The bonus caps at 1,000 right now, WIP]"
+            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.quark.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 100 Quarks."
+            break;
+        case 'challenge':
+            unlockedText.textContent = (player.hepteractCrafts.challenge.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
+            effectText.textContent = "That's preposterous. How are you going to gain +0.03% C15 Exponent per Challenge Hepteract? How!?"
+            currentEffectText.textContent = "Current Effect: C15 Exponent +" + format(player.hepteractCrafts.challenge.BAL * 3 / 100, 2, true) + "%"
+            balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.challenge.BAL, 0, true) + " / " + format(player.hepteractCrafts.challenge.CAP) + " [The bonus caps at 1,000 right now, WIP]"
+            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.challenge.HEPTERACT_CONVERSION, 0, true) + " Hepteracts, 1e11 Platonic Cubes and 1e22 Cubes."
+            break;
+    }
+}
 
 // Hepteract of Chronos [UNLOCKED]
 export const ChronosHepteract = new HepteractCraft({
@@ -166,7 +222,7 @@ export const ChronosHepteract = new HepteractCraft({
 export const HyperrealismHepteract = new HepteractCraft({
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
-    OTHER_CONVERSIONS: {'offerings': 1e65},
+    OTHER_CONVERSIONS: {'runeshards': 1e65},
     UNLOCKED: true
 });
 

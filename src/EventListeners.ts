@@ -1,6 +1,6 @@
 import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation } from "./Toggles"
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from "./Reset"
-import { resetCheck, saveSynergy } from "./Synergism"
+import { player, resetCheck, saveSynergy } from "./Synergism"
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels } from "./Buy"
 import { crystalupgradedescriptions, constantUpgradeDescriptions, buyConstantUpgrades, upgradedescriptions } from "./Upgrades"
 import { buyAutobuyers } from "./Automation"
@@ -22,6 +22,7 @@ import { resetHistoryTogglePerSecond } from "./History"
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable } from "./Shop"
 import { Globals as G } from './Variables';
 import { changeTabColor } from "./UpdateHTML"
+import { hepteractDescriptions } from "./Hepteracts"
 
 /* STYLE GUIDE */
 /* 
@@ -441,6 +442,23 @@ for (let index = 0; index < platonicUpgrades.length; index++) {
     platonicUpgrades[index].addEventListener('click', () => buyPlatonicUpgrades(index+1))
 
 }
+
+//Part 4: Hepteract Subtab
+document.getElementById('chronosHepteract').addEventListener('mouseover', () => hepteractDescriptions('chronos'))
+document.getElementById('hyperrealismHepteract').addEventListener('mouseover', () => hepteractDescriptions('hyperrealism'))
+document.getElementById('quarkHepteract').addEventListener('mouseover', () => hepteractDescriptions('quark'))
+document.getElementById('challengeHepteract').addEventListener('mouseover', () => hepteractDescriptions('challenge'))
+
+document.getElementById('chronosHepteractCraft').addEventListener('click', () => player.hepteractCrafts.chronos.craft())
+document.getElementById('hyperrealismHepteractCraft').addEventListener('click', () => player.hepteractCrafts.hyperrealism.craft())
+document.getElementById('quarkHepteractCraft').addEventListener('click', () => player.hepteractCrafts.quark.craft())
+document.getElementById('challengeHepteractCraft').addEventListener('click', () => player.hepteractCrafts.challenge.craft())
+
+document.getElementById('chronosHepteractCap').addEventListener('click', () => player.hepteractCrafts.chronos.expand())
+document.getElementById('hyperrealismHepteractCap').addEventListener('click', () => player.hepteractCrafts.hyperrealism.expand())
+document.getElementById('quarkHepteractCap').addEventListener('click', () => player.hepteractCrafts.quark.expand())
+document.getElementById('challengeHepteractCap').addEventListener('click', () => player.hepteractCrafts.challenge.expand())
+
 
 // CORRUPTION TAB
 //Part 0: Subtabs

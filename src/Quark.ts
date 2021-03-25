@@ -56,6 +56,7 @@ export const quarkHandler = () : { maxTime: number; perHour: number;
     if (player.shopUpgrades.infiniteAscent) {
         quarkPerHourMultiplier *= (1.1 + 0.15 / 75 * player.runelevels[5])
     }
+        quarkPerHourMultiplier *= (1 + 3/10000 * Math.min(1000, player.hepteractCrafts.quark.BAL))
 
     const quarkPerHour = baseQuarkPerHour * quarkPerHourMultiplier
 

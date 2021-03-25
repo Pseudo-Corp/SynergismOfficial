@@ -1117,6 +1117,7 @@ export const CalcCorruptionStuff = () => {
     hypercubeGain *= (1 + 6 / 100 * player.achievements[250] + 10 / 100 * player.achievements[251])
     hypercubeGain *= (1 + 1 / 100 * player.shopUpgrades.seasonPass2)
     if (player.shopUpgrades.infiniteAscent) hypercubeGain *= 1 + 1.5 / 75 * player.runelevels[5]
+    hypercubeGain *= (1 + 1/1000 * Math.min(1000, player.hepteractCrafts.hyperrealism.BAL))
 
     let platonicGain = (effectiveScore >= 1.337e12) ? 1 : 0;
     platonicGain *= Math.pow(1 + Math.max(0, effectiveScore - 1.337e12) / 1.337e11, .75)

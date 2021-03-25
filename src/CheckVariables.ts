@@ -351,7 +351,7 @@ export const checkVariablesOnLoad = (data: Player) => {
 
     // Lazy solution, fix if better idea comes to mind
     // Fixes hepteract craft object serialization (restores built functions)
-    if (player.hepteractCrafts.challenge.BASE_CAP === undefined) {
+    if (player.hepteractCrafts.challenge.BASE_CAP === undefined || player.hepteractCrafts.chronos.BAL < 1) {
         console.log('Updated hepteract crafts.')
         player.hepteractCrafts = {
             chronos: ChronosHepteract,

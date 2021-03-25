@@ -27,7 +27,8 @@ export const addTimers = (input: TimerInput, time?: number) => {
             player.reincarnationcounter += time * timeMultiplier;
             break;
         case "ascension":
-            const multiplier = 1 + player.shopUpgrades.chronometer / 100
+            let multiplier = 1 + player.shopUpgrades.chronometer / 100
+            multiplier *=  (1 + 1/1000 * Math.min(1000, player.hepteractCrafts.chronos.BAL))
             player.ascensionCounter += time * timeMultiplier * multiplier;
             break;
         case "quarks": {
