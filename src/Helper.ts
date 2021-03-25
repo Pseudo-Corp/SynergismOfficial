@@ -1,5 +1,6 @@
 import { sacrificeAnts } from "./Ants";
 import { calculateAutomaticObtainium, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration } from "./Calculate"
+import { hepteractEffective } from "./Hepteracts";
 import { quarkHandler } from "./Quark";
 import { redeemShards } from "./Runes";
 import { player } from "./Synergism";
@@ -28,7 +29,7 @@ export const addTimers = (input: TimerInput, time?: number) => {
             break;
         case "ascension":
             let multiplier = 1 + player.shopUpgrades.chronometer / 100
-            multiplier *=  (1 + 1/1000 * Math.min(1000, player.hepteractCrafts.chronos.BAL))
+            multiplier *=  (1 + 1/1000 * hepteractEffective('chronos'))
             player.ascensionCounter += time * timeMultiplier * multiplier;
             break;
         case "quarks": {

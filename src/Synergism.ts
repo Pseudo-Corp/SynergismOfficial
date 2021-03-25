@@ -33,7 +33,7 @@ import { addTimers, automaticTools } from './Helper';
 
 import './Logger';
 import { checkVariablesOnLoad } from './CheckVariables';
-import { ChallengeHepteract, ChronosHepteract, HyperrealismHepteract, QuarkHepteract } from './Hepteracts';
+import { ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, QuarkHepteract } from './Hepteracts';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -2516,7 +2516,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
                 player.challengecompletions[a] += 1;
             } else {
                 if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent))) {
-                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10);
+                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * (1 + 3/10000 * hepteractEffective('challenge'));
                     c15RewardUpdate();
                 }
             }

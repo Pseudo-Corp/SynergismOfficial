@@ -1,5 +1,6 @@
 /* Functions which Handle Quark Gains,  */
 
+import { hepteractEffective } from "./Hepteracts"
 import { player } from "./Synergism"
 import { Globals as G } from "./Variables"
 
@@ -56,7 +57,7 @@ export const quarkHandler = () : { maxTime: number; perHour: number;
     if (player.shopUpgrades.infiniteAscent) {
         quarkPerHourMultiplier *= (1.1 + 0.15 / 75 * player.runelevels[5])
     }
-        quarkPerHourMultiplier *= (1 + 3/10000 * Math.min(1000, player.hepteractCrafts.quark.BAL))
+        quarkPerHourMultiplier *= (1 + 3/10000 * hepteractEffective('quark'))
 
     const quarkPerHour = baseQuarkPerHour * quarkPerHourMultiplier
 
