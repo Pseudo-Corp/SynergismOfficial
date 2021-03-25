@@ -2642,6 +2642,43 @@ header #obtainiumDisplay {
 	font-size: 1em;
 }
 
+#hepteractGrid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(70px, 105px));
+	margin-top: 10px;
+	width: calc(105px * 4);
+	border: 3px solid plum;
+	grid-column: shop 2/4;
+	grid-row: 1;
+}
+
+#hepteractGrid > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.hepteractType > button {
+	border: 2px solid pink;
+	width: 56px;
+	height: 30px;
+}
+
+#hepteractCraftTexts {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	margin-bottom: auto;
+}
+
+#hepteractCraftTexts > p {
+	width: 750px;
+	margin: auto;
+}
+
 #testingLogger > #console {
 	text-align: center;
 	flex-direction: column;
