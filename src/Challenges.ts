@@ -28,15 +28,15 @@ export const getMaxChallenges = (i: number) => {
         maxChallenge += 2 * player.shopUpgrades.challengeExtension;
         //Platonic Upgrade 5 (ALPHA): +5
         if (player.platonicUpgrades[5] > 0) {
-            maxChallenge += 3;
+            maxChallenge += 5;
         }
         //Platonic Upgrade 10 (BETA): +5
         if (player.platonicUpgrades[10] > 0) {
-            maxChallenge += 3;
+            maxChallenge += 5;
         }
         //Platonic Upgrade 15 (OMEGA): +10
         if (player.platonicUpgrades[15] > 0) {
-            maxChallenge += 4;
+            maxChallenge += 10;
         }
         return maxChallenge
     }
