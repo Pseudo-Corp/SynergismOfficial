@@ -448,17 +448,29 @@ document.getElementById('chronosHepteract').addEventListener('mouseover', () => 
 document.getElementById('hyperrealismHepteract').addEventListener('mouseover', () => hepteractDescriptions('hyperrealism'))
 document.getElementById('quarkHepteract').addEventListener('mouseover', () => hepteractDescriptions('quark'))
 document.getElementById('challengeHepteract').addEventListener('mouseover', () => hepteractDescriptions('challenge'))
+document.getElementById('abyssHepteract').addEventListener('mouseover', () => hepteractDescriptions('abyss'))
+document.getElementById('acceleratorHepteract').addEventListener('mouseover', () => hepteractDescriptions('accelerator'))
+document.getElementById('acceleratorBoostHepteract').addEventListener('mouseover', () => hepteractDescriptions('acceleratorBoost'))
+document.getElementById('multiplierHepteract').addEventListener('mouseover', () => hepteractDescriptions('multiplier'))
+
 
 document.getElementById('chronosHepteractCraft').addEventListener('click', () => player.hepteractCrafts.chronos.craft())
 document.getElementById('hyperrealismHepteractCraft').addEventListener('click', () => player.hepteractCrafts.hyperrealism.craft())
 document.getElementById('quarkHepteractCraft').addEventListener('click', () => player.hepteractCrafts.quark.craft())
 document.getElementById('challengeHepteractCraft').addEventListener('click', () => player.hepteractCrafts.challenge.craft())
+document.getElementById('abyssHepteractCraft').addEventListener('click', () => player.hepteractCrafts.abyss.craft())
+document.getElementById('acceleratorHepteractCraft').addEventListener('click', () => player.hepteractCrafts.accelerator.craft())
+document.getElementById('acceleratorBoostHepteractCraft').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.craft())
+document.getElementById('multiplierHepteractCraft').addEventListener('click', () => player.hepteractCrafts.multiplier.craft())
 
 document.getElementById('chronosHepteractCap').addEventListener('click', () => player.hepteractCrafts.chronos.expand())
 document.getElementById('hyperrealismHepteractCap').addEventListener('click', () => player.hepteractCrafts.hyperrealism.expand())
 document.getElementById('quarkHepteractCap').addEventListener('click', () => player.hepteractCrafts.quark.expand())
 document.getElementById('challengeHepteractCap').addEventListener('click', () => player.hepteractCrafts.challenge.expand())
-
+document.getElementById('abyssHepteractCap').addEventListener('click', () => player.hepteractCrafts.abyss.expand())
+document.getElementById('acceleratorHepteractCap').addEventListener('click', () => player.hepteractCrafts.accelerator.expand())
+document.getElementById('acceleratorBoostHepteractCap').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.expand())
+document.getElementById('multiplierHepteractCap').addEventListener('click', () => player.hepteractCrafts.multiplier.expand())
 
 // CORRUPTION TAB
 //Part 0: Subtabs

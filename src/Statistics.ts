@@ -109,7 +109,7 @@ export const loadStatisticsOfferingMultipliers = () => {
 }
 
 export const c15RewardUpdate = () => {
-    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 1.5e15]
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 1.5e15, 2e15, 3e15, 5e15, 1e16]
     const keys = Object.keys(G['challenge15Rewards'])
     const e = player.challenge15Exponent
 
@@ -221,6 +221,22 @@ export const c15RewardUpdate = () => {
         //Unlock Challenge hepteract [1.5Qa]
         player.hepteractCrafts.challenge.unlock('the Hepteract of Challenge')
     }
+    if (e >= exponentRequirements[26]) {
+        //Unlock Abyss Hepteract [2Qa]
+        player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
+    }
+    if (e >= exponentRequirements[27]) {
+        //Unlock Abyss Hepteract [3Qa]
+        player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
+    }
+    if (e >= exponentRequirements[28]) {
+        //Unlock Abyss Hepteract [5Qa]
+        player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
+    }
+    if (e >= exponentRequirements[29]) {
+        //Unlock Abyss Hepteract [10Qa]
+        player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
+    }
 
 
     updateDisplayC15Rewards();
@@ -228,7 +244,7 @@ export const c15RewardUpdate = () => {
 
 const updateDisplayC15Rewards = () => {
     document.getElementById('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
-    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 1.5e15]
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 1.5e15, 2e15, 3e15, 5e15, 1e16]
     const values = Object.values(G['challenge15Rewards'])
     let keepExponent: string | number = 'None'
     for(let i = 0; i < exponentRequirements.length; i++){

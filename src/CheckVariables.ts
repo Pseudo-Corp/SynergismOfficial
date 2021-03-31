@@ -6,7 +6,7 @@ import { buyResearch } from './Research';
 import { c15RewardUpdate } from './Statistics';
 import { LegacyShopUpgrades } from './types/LegacySynergism';
 import { padArray } from './Utility';
-import { ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, QuarkHepteract } from './Hepteracts';
+import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -351,13 +351,17 @@ export const checkVariablesOnLoad = (data: Player) => {
 
     // Lazy solution, fix if better idea comes to mind
     // Fixes hepteract craft object serialization (restores built functions)
-    if (player.hepteractCrafts.challenge.BASE_CAP === undefined || player.hepteractCrafts.chronos.BAL < 1) {
+    if (player.hepteractCrafts.abyss === undefined) {
         console.log('Updated hepteract crafts.')
         player.hepteractCrafts = {
             chronos: ChronosHepteract,
             hyperrealism: HyperrealismHepteract,
             quark: QuarkHepteract,
-            challenge: ChallengeHepteract
+            challenge: ChallengeHepteract,
+            abyss: AbyssHepteract,
+            accelerator: AcceleratorHepteract,
+            acceleratorBoost: AcceleratorBoostHepteract,
+            multiplier: MultiplierHepteract
         }
     }
     else {

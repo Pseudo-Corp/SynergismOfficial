@@ -178,7 +178,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         tesseracts: 1e15,
         hypercubes: 1e14,
         platonics: 1e12,
-        abyssals: 1e7 - 1,
+        abyssals: 1,
         maxLevel: 1
     }
 }
@@ -197,12 +197,18 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
         abyssals: false,
         canBuy: false,
     }
-    for (let i = 0; i < resources.length; i++) {
+    for (let i = 0; i < resources.length - 1; i++) {
         if (platUpgradeBaseCosts[index][resources[i]] <= player[resourceNames[i]]) {
             checksum++;
             checks[resources[i]] = true
         }
     }
+
+    if (player.hepteractCrafts.abyss.BAL > 0) {
+        checksum ++
+        checks['abyssals'] = true
+    }
+
     if (checksum === resources.length && player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
         checks.canBuy = true
     }
@@ -223,7 +229,7 @@ export const createPlatonicDescription = (index: number) => {
     document.getElementById('platonicTesseractCost').textContent = format(player.wowTesseracts) + "/" + format(platUpgradeBaseCosts[index].tesseracts) + " Wow! Tesseracts"
     document.getElementById('platonicHypercubeCost').textContent = format(player.wowHypercubes) + "/" + format(platUpgradeBaseCosts[index].hypercubes) + " Wow! Hypercubes"
     document.getElementById('platonicPlatonicCost').textContent = format(player.wowPlatonicCubes) + "/" + format(platUpgradeBaseCosts[index].platonics) + " Platonic! Cubes"
-    document.getElementById('platonicHepteractCost').textContent = format(player.wowAbyssals) + "/" + format(platUpgradeBaseCosts[index].abyssals, 0, true) + " Hepteracts of the Abyss"
+    document.getElementById('platonicHepteractCost').textContent = format(player.hepteractCrafts.abyss.BAL) + "/" + format(platUpgradeBaseCosts[index].abyssals, 0, true) + " Hepteracts of the Abyss"
 
     resourceCheck.offerings ?
         document.getElementById('platonicOfferingCost').style.color = "lime" :
@@ -277,7 +283,7 @@ export const buyPlatonicUpgrades = (index: number) => {
         player.wowTesseracts -= platUpgradeBaseCosts[index].tesseracts
         player.wowHypercubes -= platUpgradeBaseCosts[index].hypercubes
         player.wowPlatonicCubes -= platUpgradeBaseCosts[index].platonics
-        player.wowAbyssals -= platUpgradeBaseCosts[index].abyssals
+        player.hepteractCrafts.abyss.spend(platUpgradeBaseCosts[index].abyssals)
 
         Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index]);
     }

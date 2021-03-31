@@ -33,7 +33,7 @@ import { addTimers, automaticTools } from './Helper';
 
 import './Logger';
 import { checkVariablesOnLoad } from './CheckVariables';
-import { ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, QuarkHepteract } from './Hepteracts';
+import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -541,7 +541,11 @@ export const player: Player = {
         chronos: ChronosHepteract,
         hyperrealism: HyperrealismHepteract,
         quark: QuarkHepteract,
-        challenge: ChallengeHepteract
+        challenge: ChallengeHepteract,
+        abyss: AbyssHepteract,
+        accelerator: AcceleratorHepteract,
+        acceleratorBoost: AcceleratorBoostHepteract,
+        multiplier: MultiplierHepteract
     },
 
     ascendShards: new Decimal("0"),
@@ -1568,6 +1572,7 @@ export const updateAllTick = (): void => {
     a *= G['acceleratorMultiplier']
     a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
     a *= G['challenge15Rewards'].accelerator
+    a *= (1 + 3/10000 * hepteractEffective('accelerator'))
     a = Math.floor(a)
 
     G['freeAccelerator'] = a;
@@ -1744,6 +1749,7 @@ export const updateAllMultiplier = (): void => {
     }
     a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['divisivenessPower'][player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
     a *= G['challenge15Rewards'].multiplier
+    a *= (1 + 3/10000 * hepteractEffective('multiplier'))
     a = Math.floor(a)
     G['freeMultiplier'] = a;
     G['totalMultiplier'] = G['freeMultiplier'] + player.multiplierBought;
@@ -3361,7 +3367,7 @@ export const reloadShit = async () => {
 
 window.addEventListener('load', () => {
     const ver = document.getElementById('versionnumber');
-    ver && (ver.textContent = `You're Testing v${version} - Seal of the Merchant [Last Update: 6:15PM UTC-8 21-Mar-2021]. Savefiles cannot be used in live!`);
+    ver && (ver.textContent = `You're Testing v${version} - Seal of the Merchant [Last Update: 3:25AM UTC-8 31-Mar-2021]. Savefiles cannot be used in live!`);
     document.title = `Synergism v${version}`;
 
     generateEventHandlers();

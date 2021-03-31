@@ -11,7 +11,8 @@ export interface IHepteractCraft {
     DISCOUNT?: number 
 }
 
-type hepteractTypes = 'chronos' | 'hyperrealism' | 'quark' | 'challenge'
+type hepteractTypes = 'chronos' | 'hyperrealism' | 'quark' | 'challenge' |
+                      'abyss' | 'accelerator' | 'acceleratorBoost' | 'multiplier'
 
 export class HepteractCraft {
     /**
@@ -188,6 +189,22 @@ const hepteractEffectiveValues = {
         LIMIT: 1000,
         DR: 0.5
     },
+    'abyss': {
+        LIMIT: 1,
+        DR: 0
+    },
+    'accelerator': {
+        LIMIT: 1000,
+        DR: 0.2
+    },
+    'acceleratorBoost': {
+        LIMIT: 1000,
+        DR: 0.2
+    },
+    'multiplier': {
+        LIMIT: 1000,
+        DR: 0.2
+    }
 }
 
 export const createHepteract = (data: IHepteractCraft) => {
@@ -223,7 +240,7 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
             effectText.textContent = "This bad boy can make hypercube gain skyrocket. +0.1% Hypercubes per Hyperreal Hepteract."
             currentEffectText.textContent = "Current Effect: Hypercubes +" + format(hepteractEffective('hyperrealism') / 10, 2, true) + "%"
             balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.hyperrealism.BAL, 0, true) + " / " + format(player.hepteractCrafts.hyperrealism.CAP)
-            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.hyperrealism.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e65 Offerings."
+            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.hyperrealism.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e80 Offerings."
             break;
         case 'quark':
             unlockedText.textContent = (player.hepteractCrafts.quark.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
@@ -238,6 +255,34 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
             currentEffectText.textContent = "Current Effect: C15 Exponent +" + format(hepteractEffective('challenge') * 3 / 100, 2, true) + "%"
             balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.challenge.BAL, 0, true) + " / " + format(player.hepteractCrafts.challenge.CAP)
             costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.challenge.HEPTERACT_CONVERSION, 0, true) + " Hepteracts, 1e11 Platonic Cubes and 1e22 Cubes."
+            break;
+        case 'abyss':
+            unlockedText.textContent = (player.hepteractCrafts.abyss.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
+            effectText.textContent = "It seems like this holds the power to be at the End of Time. Do you remember why you need this?"
+            currentEffectText.textContent = "<[You will submit to the Omega Entity of Time]>"
+            balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.abyss.BAL, 0, true) + " / " + format(player.hepteractCrafts.abyss.CAP)
+            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.abyss.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 69 Wow! Cubes (lol)"
+            break;
+        case 'accelerator':
+            unlockedText.textContent = (player.hepteractCrafts.accelerator.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
+            effectText.textContent = "Haha, stupid Corruptions. +0.03% Uncorruptable Accelerators per 'Way too many accelerators' Hepteract!"
+            currentEffectText.textContent = "Current Effect: Uncorruptable Accelerators +" + format(hepteractEffective('accelerator') * 3 / 100, 2, true) + "%"
+            balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.accelerator.BAL, 0, true) + " / " + format(player.hepteractCrafts.accelerator.CAP)
+            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.accelerator.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e14 Wow! Tesseracts"
+            break;
+        case 'acceleratorBoost':
+            unlockedText.textContent = (player.hepteractCrafts.acceleratorBoost.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
+            effectText.textContent = "Haha, stupid Corruptions. +0.03% Uncorruptable Accelerator Boosts per 'Way too many accelerator boosts' Hepteract!"
+            currentEffectText.textContent = "Current Effect: Uncorruptable Accelerator Boosts +" + format(hepteractEffective('acceleratorBoost') * 3 / 100, 2, true) + "%"
+            balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.acceleratorBoost.BAL, 0, true) + " / " + format(player.hepteractCrafts.acceleratorBoost.CAP)
+            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.acceleratorBoost.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e10 Hypercubes"
+            break;
+        case 'multiplier':
+            unlockedText.textContent = (player.hepteractCrafts.multiplier.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
+            effectText.textContent = "Haha, stupid Corruptions. +0.03% Uncorruptable Multipliers per 'Way too many multipliers' Hepteract!"
+            currentEffectText.textContent = "Current Effect: Uncorruptable Multipliers +" + format(hepteractEffective('multiplier') * 3 / 100, 2, true) + "%"
+            balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.multiplier.BAL, 0, true) + " / " + format(player.hepteractCrafts.multiplier.CAP)
+            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.multiplier.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e130 Obtainium"
             break;
     }
 }
@@ -254,7 +299,7 @@ export const ChronosHepteract = new HepteractCraft({
 export const HyperrealismHepteract = new HepteractCraft({
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
-    OTHER_CONVERSIONS: {'runeshards': 1e65},
+    OTHER_CONVERSIONS: {'runeshards': 1e80},
     UNLOCKED: true
 });
 
@@ -272,3 +317,31 @@ export const ChallengeHepteract = new HepteractCraft({
     HEPTERACT_CONVERSION: 5e4,
     OTHER_CONVERSIONS: {'wowPlatonicCubes': 1e11, 'wowCubes': 1e22} 
 });
+
+// Hepteract of The Abyssal [LOCKED]
+export const AbyssHepteract = new HepteractCraft({
+    BASE_CAP: 1,
+    HEPTERACT_CONVERSION: 1e8,
+    OTHER_CONVERSIONS: {'wowCubes': 69}
+})
+
+// Hepteract of Too Many Accelerator [LOCKED]
+export const AcceleratorHepteract = new HepteractCraft({
+    BASE_CAP: 1000,
+    HEPTERACT_CONVERSION: 1e5,
+    OTHER_CONVERSIONS: {'wowTesseracts': 1e14}
+})
+
+// Hepteract of Too Many Accelerator Boost [LOCKED]
+export const AcceleratorBoostHepteract = new HepteractCraft({
+    BASE_CAP: 1000,
+    HEPTERACT_CONVERSION: 2e5,
+    OTHER_CONVERSIONS: {'wowHypercubes': 1e10}
+})
+
+// Hepteract of Too Many Multiplier [LOCKED]
+export const MultiplierHepteract = new HepteractCraft({
+    BASE_CAP: 1000,
+    HEPTERACT_CONVERSION: 3e5,
+    OTHER_CONVERSIONS: {'researchPoints': 1e130}
+})

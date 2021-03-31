@@ -57,6 +57,7 @@ export const calculateTotalAcceleratorBoost = () => {
     b *= (1 + 0.2 / 100 * player.researches[187])
     b *= (1 + 0.01 / 100 * player.researches[200])
     b *= (1 + 0.01 / 100 * player.cubeUpgrades[50])
+    b *= (1 + 3/10000 * hepteractEffective('acceleratorBoost'))
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
         b *= 2
     }
