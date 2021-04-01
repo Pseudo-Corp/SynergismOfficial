@@ -8,11 +8,21 @@ file without asking me first. You may edit this file as much as you
 want, though!
 Thank you! */
 
-import Decimal from "break_infinity.js";
+import Decimal, { DecimalSource } from 'break_infinity.js';
 
-export class Currency extends Decimal {
+export abstract class Currency extends Decimal {
+    type: string;
+    constructor(
+        type: string,
+        v?: DecimalSource
+    ) {
+        super(v);
+        this.type = type;
+    }
 
-}
-export class CubeCurrency extends Currency {
+    /** Open a set amount */
+    abstract open(amount: number, max: boolean): Promise<void>;
 
+    /** Open a custom amount */
+    abstract openCustom(): Promise<void>;
 }
