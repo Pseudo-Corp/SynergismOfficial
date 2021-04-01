@@ -725,7 +725,7 @@ export const achievementdescriptions = (i: number) => {
 export const achievementaward = (num: number) => {
     if (player.achievements[num] < 0.5) {
         player.achievementPoints += achievementpointvalues[num]
-        player.worlds += achievementpointvalues[num]
+        player.worlds.add(achievementpointvalues[num]);
         document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + "%]"
         player.achievements[num] = 1;
         revealStuff()

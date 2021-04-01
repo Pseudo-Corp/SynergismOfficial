@@ -75,3 +75,38 @@ export const quarkHandler = () : { maxTime: number; perHour: number;
         gain: quarkGain
     };
 }
+
+export class QuarkHandler {
+    /** Global quark bonus */
+    BONUS = 0;
+    /** Quark amount */
+    QUARKS = 0;
+
+    constructor({ bonus, quarks }: { bonus?: number, quarks: number }) {
+        this.QUARKS = quarks;
+        if (bonus)
+            this.BONUS = bonus;
+    }
+
+    /*** Calculates the number of quarks to give with the current bonus. */
+    applyBonus(amount: number) {
+        return amount * (1 + (this.BONUS / 100));
+    }
+
+    /** Subtracts quarks, as the name suggests. */
+    add(amount: number) {
+        this.QUARKS += this.applyBonus(amount);
+
+        return this;
+    }
+
+    /** Add quarks, as suggested by the function's name. */
+    sub(amount: number) {
+        this.QUARKS -= amount;
+        if (this.QUARKS < 0) this.QUARKS = 0;
+
+        return this;
+    }
+
+    [Symbol.toPrimitive] = (t: string) => t === 'number' ? this.QUARKS : null;
+}

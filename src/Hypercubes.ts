@@ -33,7 +33,7 @@ export const openHypercube = (value: number, max = false) => {
     if (player.hypercubeQuarkDaily < 25 + 75 * player.shopUpgrades.hypercubeToQuark) {
         while (player.hypercubeOpenedDaily >= 5 * Math.pow(1 + player.hypercubeQuarkDaily, 2) && player.hypercubeQuarkDaily < 25 + 75 * player.shopUpgrades.hypercubeToQuark) {
             player.hypercubeQuarkDaily += 1;
-            player.worlds += 1;
+            player.worlds.add(1);
         }
     }
     const toSpendModulo = toSpend % 20

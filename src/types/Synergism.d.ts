@@ -1,9 +1,10 @@
 import type Decimal from 'break_infinity.js';
 import { Category, ResetHistoryEntryUnion } from '../History';
 import { IPlatBaseCost } from '../Platonic';
+import type { QuarkHandler } from '../Quark';
 
 export interface Player {
-    worlds: number
+    worlds: QuarkHandler
     coins: Decimal,
     coinsThisPrestige: Decimal,
     coinsThisTranscension: Decimal,

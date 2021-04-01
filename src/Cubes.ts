@@ -100,7 +100,7 @@ export const openCube = (value: number, max = false) => {
     if(player.cubeQuarkDaily < 25 + 75 * player.shopUpgrades.cubeToQuark) {
         while(player.cubeOpenedDaily >= 10 * Math.pow(1 + player.cubeQuarkDaily, 4) && player.cubeQuarkDaily < 25 + 75 * player.shopUpgrades.cubeToQuark) {
             player.cubeQuarkDaily += 1;
-            player.worlds += 1;
+            player.worlds.add(1);
         }
     }
 

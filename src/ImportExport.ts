@@ -59,7 +59,7 @@ export const exportSynergism = async () => {
     player.offlinetick = Date.now();
     const quarkData = quarkHandler();
     if (quarkData.gain >= 1) {
-        player.worlds += quarkData.gain;
+        player.worlds.add(quarkData.gain);
         player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
     }
     // set attribute to 0, turn tab back to white
@@ -146,7 +146,7 @@ export const promocodes = async () => {
     if (input === "synergism2021" && !player.codes.get(1)) {
         player.codes.set(1, true);
         player.runeshards += 25;
-        player.worlds += 50;
+        player.worlds.add(50);
         el.textContent = "Promo Code 'synergism2021' Applied! +25 Offerings, +50 Quarks"
     } else if (input === ":unsmith:" && player.achievements[243] < 1) {
         achievementaward(243);
@@ -157,11 +157,11 @@ export const promocodes = async () => {
     } else if(input === 'Khafra' && !player.codes.get(26)) {
         player.codes.set(26, true);
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
-        player.worlds += quarks;
+        player.worlds.add(quarks);
         el.textContent = 'Khafra has blessed you with ' + quarks + ' quarks!';
     } else if(input === '2million' && !player.codes.get(28)) {
         player.codes.set(28, true);
-        player.worlds += 700;
+        player.worlds.add(700);
         el.textContent = 'Thank you for 2 million plays on kongregate!';
     } else if(input === 'v2.5.0' && !player.codes.get(32)) {
         player.codes.set(32, true);
@@ -177,7 +177,7 @@ export const promocodes = async () => {
         const addPrompt = await Prompt(`What is ${first} + ${second}?`);
 
         if(first + second === +addPrompt) {
-            player.worlds += amount;
+            player.worlds.add(amount);
             el.textContent = `You were awarded ${amount} quarks! Wait an hour to use this code again!`;
         } else {
             el.textContent = `You guessed ${addPrompt}, but the answer was ${first + second}. Try again in an hour!`;
@@ -202,20 +202,20 @@ export const promocodes = async () => {
         if (Number.isNaN(bet) || bet <= 0)
             return el.textContent = 'Can\'t bet that!';
 
-        if (player.worlds < bet)
+        if (Number(player.worlds) < bet)
             return el.textContent = 'Can\'t bet what you don\'t have.';
 
         const dice = window.crypto.getRandomValues(new Uint8Array(1))[0] % 6 + 1; // [1, 6]
         if (dice === 1 || dice === 6) {
             const won = bet * .25; // lmao
-            player.worlds += won;
+            player.worlds.add(won);
 
             player.skillCode = Date.now();
             localStorage.setItem('saveScumIsCheating', Date.now().toString());
             return el.textContent = `You won. The Syncasino offers you a grand total of 25% of the pot! [+${won} quarks]`;
         }
         
-        player.worlds -= bet;
+        player.worlds.sub(bet);
         el.textContent = `Try again... you can do it! [-${bet} quarks]`;
     } else {
         el.textContent = "Your code is either invalid or already used. Try again!"

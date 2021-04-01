@@ -38,7 +38,7 @@ export const openTesseract = (value: number, max = false) => {
             player.tesseractQuarkDaily < 25 + 75 * player.shopUpgrades.tesseractToQuark
         ) {
             player.tesseractQuarkDaily += 1;
-            player.worlds += 1;
+            player.worlds.add(1);
         }
     }
     const toSpendModulo = toSpend % 20

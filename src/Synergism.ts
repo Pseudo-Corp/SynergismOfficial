@@ -34,6 +34,7 @@ import { addTimers, automaticTools } from './Helper';
 import './Logger';
 import { checkVariablesOnLoad } from './CheckVariables';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
+import { QuarkHandler } from './Quark';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -62,7 +63,7 @@ export const clearInt = new Proxy(clearInterval, {
 });
 
 export const player: Player = {
-    worlds: 0,
+    worlds: new QuarkHandler({ quarks: 0 }),
     coins: new Decimal("1e2"),
     coinsThisPrestige: new Decimal("1e2"),
     coinsThisTranscension: new Decimal("1e2"),
@@ -620,7 +621,8 @@ export const saveSynergy = async (button?: boolean) => {
 
     // shallow hold, doesn't modify OG object nor is affected by modifications to OG
     const p = Object.assign({}, player, { 
-        codes: Array.from(player.codes)
+        codes: Array.from(player.codes),
+        worlds: Number(player.worlds)
     });
 
     localStorage.removeItem('Synergysave2');
@@ -1336,7 +1338,18 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
  * only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
  * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
  */
-export const format = (input: Decimal | number, accuracy = 0, long = false): string => {
+export const format = (
+    input: Decimal | number | { [Symbol.toPrimitive]: unknown }, 
+    accuracy = 0, long = false
+): string => {
+    if (
+        typeof input === 'object' && 
+        input !== null &&
+        Symbol.toPrimitive in input
+    ) {
+        input = Number(input);
+    }
+
     if (!(input instanceof Decimal) && typeof input !== 'number' || isNaN(input as any)) {
         return '0 [und.]';
     }

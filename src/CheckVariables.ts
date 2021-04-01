@@ -7,6 +7,7 @@ import { c15RewardUpdate } from './Statistics';
 import { LegacyShopUpgrades } from './types/LegacySynergism';
 import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
+import { QuarkHandler } from './Quark';
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -15,6 +16,8 @@ import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, Challe
  * @param data 
  */
 export const checkVariablesOnLoad = (data: Player) => {
+    player.worlds = new QuarkHandler({ quarks: Number(data.worlds), bonus: 0 /** <-- TODO */ });
+    
     if (player.currentChallenge.transcension === undefined) {
         player.currentChallenge = {
             transcension: 0,
@@ -209,7 +212,7 @@ export const checkVariablesOnLoad = (data: Player) => {
             buyResearch(200, true, 0.01);
             console.log('Refunded 8x25, and gave you ' + format(player.researches[200]) + ' levels of new cost 8x25. Sorry!')
             player.researchPoints += player.researches[195] * 1e60;
-            player.worlds += 250 * player.researches[195]
+            player.worlds.add(250 * player.researches[195]);
             player.researches[195] = 0;
             console.log('Refunded 8x20 and gave 250 quarks for each level you had prior to loading up the game.')
             player.wowCubes += player.cubeUpgrades[50] * 5e10
@@ -321,17 +324,19 @@ export const checkVariablesOnLoad = (data: Player) => {
 
         const initialQuarks = player.worlds;
 
-        player.worlds += 150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * (shop.offeringTimerLevel);
-        player.worlds += 150 * shop.obtainiumTimerLevel + 25/2 * (shop.obtainiumTimerLevel - 1) * (shop.obtainiumTimerLevel);
-        player.worlds += 150 * shop.offeringAutoLevel + 25/2 * (shop.offeringAutoLevel - 1) * (shop.offeringAutoLevel);
-        player.worlds += 150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * (shop.obtainiumAutoLevel);
-        player.worlds += 100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * (shop.cashGrabLevel);
-        player.worlds += 200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * (shop.antSpeedLevel);
-        player.worlds += typeof shop.seasonPass === 'number' 
-            ? 500 * shop.seasonPass + 250/2 * (shop.seasonPass - 1) * shop.seasonPass
-            : 500 * shop.seasonPassLevel + 250/2 * (shop.seasonPassLevel - 1) * shop.seasonPassLevel;
+        player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel);
+        player.worlds.add(150 * shop.obtainiumTimerLevel + 25/2 * (shop.obtainiumTimerLevel - 1) * shop.obtainiumTimerLevel);
+        player.worlds.add(150 * shop.offeringAutoLevel + 25/2 * (shop.offeringAutoLevel - 1) * shop.offeringAutoLevel);
+        player.worlds.add(150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * shop.obtainiumAutoLevel);
+        player.worlds.add(100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * shop.cashGrabLevel);
+        player.worlds.add(200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * shop.antSpeedLevel);
+        player.worlds.add(
+            typeof shop.seasonPass === 'number' 
+                ? 500 * shop.seasonPass + 250/2 * (shop.seasonPass - 1) * shop.seasonPass
+                : 500 * shop.seasonPassLevel + 250/2 * (shop.seasonPassLevel - 1) * shop.seasonPassLevel
+        );
 
-        console.log('Because of the v2.5.0 update, you have been refunded ' + format(player.worlds - initialQuarks) + ' Quarks! If this appears wrong let Platonic know :)')
+        console.log('Because of the v2.5.0 update, you have been refunded ' + format(+player.worlds - +initialQuarks) + ' Quarks! If this appears wrong let Platonic know :)')
     }
 
     if (player.shopUpgrades.seasonPass2 === undefined) {

@@ -301,8 +301,8 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     }
 
     if (p) {
-        if (player.worlds >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
-            player.worlds -= getShopCosts(input)
+        if (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
+            player.worlds.sub(getShopCosts(input));
             player.shopUpgrades[input] += 1
             console.log("purchase successful for 1 level of '" + input + "'!")
         }
@@ -341,7 +341,7 @@ export const resetShopUpgrades = async () => {
         : true;
 
     if (p) {
-        player.worlds -= 15;
+        player.worlds.sub(15);
         let initialQuarks = player.worlds;
         for(const shopItem in shopData){
             const key = shopItem as keyof typeof shopData;
@@ -352,10 +352,12 @@ export const resetShopUpgrades = async () => {
                                 shopData[key].priceIncrease * (shopData[key].refundMinimumLevel) * (shopData[key].refundMinimumLevel - 1) / 2;
                 
                 //Refunds Quarks based on the shop level and price vals
-                player.worlds += shopData[key].price * player.shopUpgrades[key] +
-                                 shopData[key].priceIncrease * (player.shopUpgrades[key]) * (player.shopUpgrades[key] - 1) / 2
-                                 - doNotRefund;
-                console.log("Successfully refunded " + format(player.worlds - initialQuarks) + " Quarks from '" + shopItem + "'. You now have " + format(player.worlds) + " Quarks.");
+                player.worlds.add(
+                    shopData[key].price * player.shopUpgrades[key] +
+                    shopData[key].priceIncrease * (player.shopUpgrades[key]) * (player.shopUpgrades[key] - 1) / 2
+                    - doNotRefund
+                );
+                console.log("Successfully refunded " + format(+player.worlds - +initialQuarks) + " Quarks from '" + shopItem + "'. You now have " + format(player.worlds) + " Quarks.");
                 player.shopUpgrades[key] = shopData[key].refundMinimumLevel;
                 initialQuarks = player.worlds;
             }
