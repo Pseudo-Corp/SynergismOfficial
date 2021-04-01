@@ -204,7 +204,7 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
         }
     }
 
-    if (player.hepteractCrafts.abyss.BAL > 0) {
+    if (player.hepteractCrafts.abyss.BAL > 0 || platUpgradeBaseCosts[index].abyssals == 0) {
         checksum ++
         checks['abyssals'] = true
     }

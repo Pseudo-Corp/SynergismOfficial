@@ -176,8 +176,8 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Five times the price gouge, twice the fun! +1% Wow! Hypercubes and Platonic Cubes per level."
     },
     seasonPass3: {
-        price: 20000,
-        priceIncrease: 2000,
+        price: 5000,
+        priceIncrease: 500,
         maxLevel: 100,
         type: "upgrade",
         refundable: true,
