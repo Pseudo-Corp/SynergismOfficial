@@ -8,6 +8,11 @@ file without asking me first. You may edit this file as much as you
 want, though!
 Thank you! */
 
-export class CubeCurrency {
-    
+import Decimal from "break_infinity.js";
+
+export class Currency extends Decimal {
+
+}
+export class CubeCurrency extends Currency {
+
 }
