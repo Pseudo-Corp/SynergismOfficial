@@ -13,7 +13,8 @@ import { corruptionDisplay, corruptionLoadoutTableUpdate } from './Corruptions';
 type TabValue = { tabName: keyof typeof tabNumberConst, unlocked: boolean };
 type Tab = Record<number, TabValue>;
 type SubTab = Record<number, { 
-    tabSwitcher?: Function, 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    tabSwitcher?: (...args: any[]) => void, 
     subTabList: { 
         subTabID: string | number | boolean, 
         unlocked: boolean,

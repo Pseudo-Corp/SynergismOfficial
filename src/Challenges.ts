@@ -76,7 +76,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         G['triggerChallenge'] = i
     }
 
-    let maxChallenges = getMaxChallenges(i);
+    const maxChallenges = getMaxChallenges(i);
     if (i <= 5 && changefocus){
         if(player.challengecompletions[i] >= 100){
             document.getElementById('completionSoftcap').textContent = "|| Softcapped past 100! Effective completion count: " + CalcECC('transcend',player.challengecompletions[i])

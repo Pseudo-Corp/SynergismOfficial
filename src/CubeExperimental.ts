@@ -62,4 +62,12 @@ export abstract class Currency extends Decimal {
 
         return this.open(cubesToOpen, cubesToOpen === player[this.type]);
     }
+
+    [Symbol.toPrimitive](h: string) {
+        switch (h) {
+            case 'string': return this.toString();
+            case 'number': return this.toNumber();
+            default: return null;
+        }
+    }
 }

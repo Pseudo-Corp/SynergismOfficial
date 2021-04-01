@@ -1350,7 +1350,7 @@ export const format = (
         input = Number(input);
     }
 
-    if (!(input instanceof Decimal) && typeof input !== 'number' || isNaN(input as any)) {
+    if (!(input instanceof Decimal) && typeof input !== 'number' || isNaN(input as number)) {
         return '0 [und.]';
     }
 
