@@ -3,7 +3,7 @@ import { CalcECC } from './Challenges';
 import Decimal, { DecimalSource } from 'break_infinity.js';
 import { achievementaward } from './Achievements';
 import { smallestInc } from './Utility';
-import { upgradeupdate, crystalupgradedescriptions } from './Upgrades';
+import { upgradeupdate, crystalupgradedescriptions} from './Upgrades';
 import { reset } from './Reset';
 import { calculateSummationLinear, calculateCorruptionPoints, calculateRuneBonuses } from './Calculate';
 import { Globals as G } from './Variables';
@@ -53,6 +53,12 @@ const getCostAccelerator = (buyingTo: number) => {
 export const buyAccelerator = (autobuyer?: boolean) => {
     // Start buying at the current amount bought + 1
     let buyTo = player.acceleratorBought + 1;
+    if (player.acceleratorBought >= 1e15 || player.coins.gte(Decimal.pow(10, 1e30))){
+        player.acceleratorBought = 1e15;
+        player.acceleratorCost = Decimal.pow(10, 1e30);
+        return;
+    }
+
     let cashToBuy = getCostAccelerator(buyTo);
     while (player.coins.gte(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
@@ -146,6 +152,11 @@ const getCostMultiplier = (buyingTo: number) => {
 export const buyMultiplier = (autobuyer?: boolean) => {
     // Start buying at the current amount bought + 1
     let buyTo = player.multiplierBought + 1;
+    if (player.multiplierBought >= 1e15 || player.coins.gte(Decimal.pow(10, 1e30))){
+        player.multiplierBought = 1e15;
+        player.multiplierCost = Decimal.pow(10, 1e30);
+        return;
+    }
     let cashToBuy = getCostMultiplier(buyTo);
     while (player.coins.gte(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
@@ -174,6 +185,10 @@ export const buyMultiplier = (autobuyer?: boolean) => {
     while (buyFrom <= buyTo && player.coins.gte(thisCost)) {
         player.coins = player.coins.sub(thisCost);
         player.multiplierBought = buyFrom;
+        if (buyFrom >= 1e15){
+            player.multiplierBought = 1e15;
+            return;
+        }
         buyFrom = buyFrom + 1;
         thisCost = getCostMultiplier(buyFrom);
         player.multiplierCost = thisCost;
@@ -348,6 +363,8 @@ export const getCost = (originalCost: DecimalSource, buyingTo: number, type: str
 }
 
 export const buyMax = (pos: string, type: string, num: number, originalCost: DecimalSource) => {
+    const BUYMAX = (Math.pow(10, 99) - 1);
+    const COINMAX = 1e99;
     const r = getReductionValue();
 
     let tag = '';
@@ -360,6 +377,17 @@ export const buyMax = (pos: string, type: string, num: number, originalCost: Dec
 
     // Start buying at the current amount bought + 1
     const buyStart = player[pos + 'Owned' + type];
+    // Degenerate Case: return the maximum if applicable
+    if (buyStart >= BUYMAX) {
+        player[pos + 'Owned' + type] = BUYMAX;
+        return;
+    }
+    // Degenerate Case: return maximum if coins is too large
+    if (player[tag].gte(Decimal.pow(10, COINMAX))) {
+        player[pos + 'Owned' + type] = BUYMAX;
+        return;
+    }
+
     let buyInc = 1;
     let cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
     while (player[tag].gte(cashToBuy)) {
