@@ -196,7 +196,7 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
 
 export const lookupTableGen = (runeLevel: number) => {
     // Rune exp required to level multipliers
-    let allRuneExpRequiredMultiplier = productContents([
+    const allRuneExpRequiredMultiplier = productContents([
         Math.pow((runeLevel + 1) / 2, 3),
         ((3.5 * runeLevel) + 100) / 500,
         Math.max(1, (runeLevel - 200) / 9),

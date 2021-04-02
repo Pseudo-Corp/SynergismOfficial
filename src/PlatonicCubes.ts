@@ -77,7 +77,7 @@ export const openPlatonic = (value: number, max = false) => {
 
 export const calculatePlatonicBlessings = () => {
     // The visual updates are handled in visualUpdateCubes()
-    const platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
+    const platonicArray = Object.values(player.platonicBlessings);
     const DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4]
     for (let i = 0; i < platonicArray.length; i++) {
         let power = 1;
