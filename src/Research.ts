@@ -10,100 +10,105 @@ const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, 
     return [metaData[0], metaData[1]]
 }
 
-/**
- * Buys Research of index.
- * @param index 
- * @param auto 
- * @param linGrowth
- * @return boolean Whether the player can afford the current research
- */
-export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean => {
-    // Handles background color of the currently focused research if auto research is upgrading something else
-    if (player.autoResearchToggle && player.autoResearch > 0 && !auto) {
-        const p = player.autoResearch
-        //Is max level, make green
-        if (player.researches[p] === G['researchMaxLevels'][p]) {
-            updateClassList(`res${player.autoResearch}`, ["researchMaxed"], ["researchPurchased", "researchUnpurchased"])
-        }
-        //Not max level but leveled at least once 
-        else if (player.researches[p] >= 1) {
-            updateClassList(`res${player.autoResearch}`, ["researchPurchased"], ["researchUnpurchased", "researchMaxed"])
-        }
-        //Not Upgraded
-        else {
-            updateClassList(`res${player.autoResearch}`, ["researchUnpurchased"], ["researchPurchased", "researchMaxed"])
-        }
-    }
+export const updateAutoResearch = (index: number, auto: boolean) => {
+    /* If Cube Upgrade 9 (1x9) is purchased, then automation behaves differently.
+     You cannot manually put in your research index of interest; instead it does it for you.
+     If not purchased, then clicking on a research icon while auto toggled will update research for you.*/
+    if (player.cubeUpgrades[9] > 0 && auto) {
 
-    // Handles toggling auto research focus, for when cube Upgrade 1x9 is NOT BOUGHT
-    if (!auto && player.autoResearchToggle && player.shopUpgrades.obtainiumAuto >= 1 && player.cubeUpgrades[9] < 1) {
-        document.getElementById(`res${player.autoResearch}`).classList.remove("researchRoomba");
-        document.getElementById(`res${index}`).classList.add("researchRoomba");
-        player.autoResearch = index;
-    }
+        player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex];
 
-    // Buys Research. metaData returns amount of levels to buy and cost, array
-    const buyamount = (G['maxbuyresearch'] || auto) ? 1e5 : 1;
-    const metaData = getResearchCost(index, buyamount, linGrowth)
-    const canAfford = player.researchPoints >= metaData[1];
-
-    if ((auto || !player.autoResearchToggle) && isResearchUnlocked(index) && !isResearchMaxed(index) && canAfford) {
-        player.researchPoints -= metaData[1]
-        player.researches[index] = metaData[0];
+        // Checks if this is maxed. If so we proceed to the next research.
         if (isResearchMaxed(player.autoResearch)) {
             document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
+            player.roombaResearchIndex += 1;
         }
 
-        //Updates Progress Description
-        G['researchfiller2'] = "Level: " + player.researches[index] + "/" + (G['researchMaxLevels'][index])
+        // Checks against researches invalid or not unlocked.
+        while (!isResearchUnlocked(player.autoResearch) && player.autoResearch < 200 && player.autoResearch >= 1) {
+            player.roombaResearchIndex += 1;
+            player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex];
+        }
+
+        // Researches that are unlocked work
+        if (isResearchUnlocked(player.autoResearch)) {
+            const doc = document.getElementById("res" + G['researchOrderByCost'][player.roombaResearchIndex]);
+            if (doc && player.researches[player.autoResearch] < G['researchMaxLevels'][player.autoResearch])
+                doc.classList.add("researchRoomba");
+        }
+
+        return
+    }
+    else if (!auto){
+        /* We remove the old research HTML from the 'roomba' class and make the new index our 'roomba'
+           class. We then update the index and consequently the coloring of the background based
+           on what level (if any) the research has. */
+        document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
+        document.getElementById(`res${index}`).classList.add("researchRoomba");
+        player.autoResearch = index;
+        
+        // Research is maxxed
+        if (player.researches[index] >= G['researchMaxLevels'][index])
+            updateClassList(`res${player.autoResearch}`, ["researchMaxed"], ["researchPurchased", "researchUnpurchased"]);
+        // Research purchased above level 0 but not maxxed
+        else if (player.researches[index] >= 1)
+            updateClassList(`res${player.autoResearch}`, ["researchPurchased"], ["researchUnpurchased", "researchMaxed"]);
+        // Research has not been purchased yet
+        else
+            updateClassList(`res${player.autoResearch}`, ["researchUnpurchased"], ["researchPurchased", "researchMaxed"]);
+        
+        return
+    }
+    else
+        return //There might be code needed here. I don't quite know yet. -Platonic
+}
+
+/**
+ * Attempts to buy the research of the index selected. This is hopefully an improvement over buyResearch. Fuck
+ * @param index 
+ * @param auto 
+ * @param linGrowth 
+ * @returns 
+ */
+export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean => {
+
+    // Get our costs, and determine if anything is purchasable.
+    const buyAmount = (G['maxbuyresearch'] || auto) ? 1e5: 1;
+    const [buyTo, cost] = getResearchCost(index, buyAmount, linGrowth); /* Destructuring FTW! */
+    const canBuy = (player.researchPoints >= cost);
+
+    if (canBuy && isResearchUnlocked(index) && !isResearchMaxed(index)) {
+        player.researches[index] = buyTo;
+        player.researchPoints -= cost;
+        // Quick check after upgrading for max. This is to update any automation regardless of auto state
+        if (isResearchMaxed(index)) 
+            document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
+
+        // Update the progress description
+        G['researchfiller2'] = 'Level: ' + player.researches[index] + "/" + (G['researchMaxLevels'][index]);
         researchDescriptions(index, auto, linGrowth)
 
-        // Particle Upgrade rows. Researches 2x22, 2x23, 2x24, 2x25
-        if (index === 47 && player.unlocks.rrow1 === false) {
-            player.unlocks.rrow1 = true;
-            revealStuff()
-        }
-        if (index === 48 && player.unlocks.rrow2 === false) {
-            player.unlocks.rrow2 = true;
-            revealStuff()
-        }
-        if (index === 49 && player.unlocks.rrow3 === false) {
-            player.unlocks.rrow3 = true;
-            revealStuff()
-        }
-        if (index === 50 && player.unlocks.rrow4 === false) {
-            player.unlocks.rrow4 = true;
-            revealStuff()
-        }
-
-        // Some researches update Rune and Ant values, so these recalculations are necessary if we bought research
+        // Handle special cases: Researches 47-50 (2x21-2x25)
+        // I love the ||= operator -Platonic
+        player.unlocks.rrow1 ||= true;
+        player.unlocks.rrow2 ||= true;
+        player.unlocks.rrow3 ||= true;
+        player.unlocks.rrow4 ||= true;
+        if (index >= 47 && index <= 50)
+            revealStuff();
+        
+        // Update ants and runes.
         calculateRuneLevels();
         calculateAnts();
     }
 
-    // Auto Research for cube upgrade 1x9 bought
-    if (auto && player.cubeUpgrades[9] === 1) {
-        // This overwrites manually selected automatic research (intended)
-        player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
-        if (isResearchMaxed(player.autoResearch)) {
-            document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
-            player.roombaResearchIndex += 1;
-        }
-        // This completely skims over researches one has not unlocked as long as you stay in bounds
-        while (!isResearchUnlocked(player.autoResearch) && player.autoResearch < 200 && player.autoResearch >= 1) {
-            player.roombaResearchIndex += 1;
-            player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
-        }
-        // Researches that are unlocked work
-        if (isResearchUnlocked(player.autoResearch)) {
-            const doc = document.getElementById("res" + G['researchOrderByCost'][player.roombaResearchIndex])
-            if (doc && player.researches[player.autoResearch] < G['researchMaxLevels'][player.autoResearch]) {
-                doc.classList.add("researchRoomba");
-            }
-        }
-    }
+    // Update HTML for auto stuff if auto research is ever toggled.
+    if (player.autoResearchToggle)
+        updateAutoResearch(index, auto);
 
-    return canAfford;
+    // Note to anyone reading this code: I forget why this needs to return a Boolean.
+    // -Platonic
+    return canBuy
 }
 
 /**
