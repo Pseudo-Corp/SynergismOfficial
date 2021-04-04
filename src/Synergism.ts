@@ -46,7 +46,7 @@ export const version = '2.5.0~alpha-2';
 
 export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
-    apply(target, thisArg, args) {
+    apply(target, thisArg, args: Parameters<typeof setInterval>) {
         const set = target.apply(thisArg, args);
         intervalHold.add(set);
         return set;
@@ -54,8 +54,8 @@ export const interval = new Proxy(setInterval, {
 });
 
 export const clearInt = new Proxy(clearInterval, {
-    apply(target, thisArg, args) {
-        const id = args[0] as ReturnType<typeof setInterval>;
+    apply(target, thisArg, args: [ReturnType<typeof setInterval>]) {
+        const id = args[0];
         if (intervalHold.has(id))
             intervalHold.delete(id);
 
@@ -1335,14 +1335,14 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
 
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
- * @param {Decimal | number} input number/Decimal to be formatted
+ * @param input value to format
  * @param accuracy
  * how many decimal points that are to be displayed (Values <10 if !long, <1000 if long).
  * only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
  * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
  */
 export const format = (
-    input: Decimal | number | { [Symbol.toPrimitive]: unknown }, 
+    input: Decimal | number | { [Symbol.toPrimitive]: unknown } | bigint, 
     accuracy = 0, long = false
 ): string => {
     if (
