@@ -11,8 +11,7 @@ import { toggleTalismanBuy, buyTalismanResources, showTalismanPrices, buyTalisma
 import { challengeDisplay, toggleRetryChallenges } from "./Challenges"
 import { buyResearch, researchDescriptions } from "./Research"
 import { antRepeat, sacrificeAnts, buyAntProducers, updateAntDescription, antUpgradeDescription, buyAntUpgrade } from "./Ants"
-import { buyCubeUpgrades, openCube, cubeUpgradeDesc, openCustomCube } from "./Cubes"
-import { openCustomTesseract, openTesseract } from "./Tesseracts"
+import { buyCubeUpgrades, cubeUpgradeDesc } from "./Cubes"
 import { openCustomHypercube, openHypercube } from "./Hypercubes"
 import { openCustomPlat, openPlatonic } from "./PlatonicCubes"
 import { buyPlatonicUpgrades, createPlatonicDescription } from "./Platonic"
@@ -410,17 +409,17 @@ for (let index = 1; index <= 12; index++) {
 
 //Part 2: Cube Opening Buttons
     //Wow Cubes
-    document.getElementById('open1Cube').addEventListener('click', () => openCube(1, false))
-    document.getElementById('open20Cube').addEventListener('click', () => openCube(20, false))
-    document.getElementById('open1000Cube').addEventListener('click', () => openCube(1000, false))
-    document.getElementById('openCustomCube').addEventListener('click', openCustomCube);
-    document.getElementById('openMostCube').addEventListener('click', () => openCube(1, true))
+    document.getElementById('open1Cube').addEventListener('click', () => player.wowCubes.open(1, false))
+    document.getElementById('open20Cube').addEventListener('click', () => player.wowCubes.open(20, false))
+    document.getElementById('open1000Cube').addEventListener('click', () => player.wowCubes.open(1000, false))
+    document.getElementById('openCustomCube').addEventListener('click', () => player.wowCubes.openCustom());
+    document.getElementById('openMostCube').addEventListener('click', () => player.wowCubes.open(1, true))
     //Wow Tesseracts
-    document.getElementById('open1Tesseract').addEventListener('click', () => openTesseract(1, false))
-    document.getElementById('open20Tesseract').addEventListener('click', () => openTesseract(20, false))
-    document.getElementById('open1000Tesseract').addEventListener('click', () => openTesseract(1000, false))
-    document.getElementById('openCustomTesseract').addEventListener('click', openCustomTesseract);
-    document.getElementById('openMostTesseract').addEventListener('click', () => openTesseract(1, true))
+    document.getElementById('open1Tesseract').addEventListener('click', () => player.wowTesseracts.open(1, false))
+    document.getElementById('open20Tesseract').addEventListener('click', () => player.wowTesseracts.open(20, false))
+    document.getElementById('open1000Tesseract').addEventListener('click', () => player.wowTesseracts.open(1000, false))
+    document.getElementById('openCustomTesseract').addEventListener('click', () => player.wowTesseracts.openCustom());
+    document.getElementById('openMostTesseract').addEventListener('click', () => player.wowTesseracts.open(1, true))
     //Wow Hypercubes
     document.getElementById('open1Hypercube').addEventListener('click', () => openHypercube(1, false))
     document.getElementById('open20Hypercube').addEventListener('click', () => openHypercube(20, false))

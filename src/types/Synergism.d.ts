@@ -1,4 +1,5 @@
 import type Decimal from 'break_infinity.js';
+import type { WowCubes, WowTesseracts } from '../CubeExperimental';
 import { Category, ResetHistoryEntryUnion } from '../History';
 import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
@@ -379,8 +380,8 @@ export interface Player {
     ascensionCounter: number
     cubeUpgrades: number[]
     platonicUpgrades: number[]
-    wowCubes: number
-    wowTesseracts: number
+    wowCubes: WowCubes
+    wowTesseracts: WowTesseracts
     wowHypercubes: number
     wowPlatonicCubes: number
     wowAbyssals: number

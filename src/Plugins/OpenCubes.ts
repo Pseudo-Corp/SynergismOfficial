@@ -1,7 +1,6 @@
 import { openHypercube } from '../Hypercubes';
 import { openPlatonic } from '../PlatonicCubes';
-import { openTesseract } from '../Tesseracts';
-import { openCube } from '../Cubes';
+import { player } from '../Synergism';
 
 /**
  * Exposes to the global scope.
@@ -19,10 +18,10 @@ export const main = () => {
             value: openPlatonic
         },
         'openTeseract': {
-            value: openTesseract
+            value: player.wowTesseracts.open
         },
         'openCube': {
-            value: openCube
+            value: player.wowCubes.open
         }
     });
 }

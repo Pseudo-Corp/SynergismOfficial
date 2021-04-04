@@ -8,6 +8,7 @@ import { LegacyShopUpgrades } from './types/LegacySynergism';
 import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { QuarkHandler } from './Quark';
+import { WowCubes, WowTesseracts } from './CubeExperimental';
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -17,6 +18,8 @@ import { QuarkHandler } from './Quark';
  */
 export const checkVariablesOnLoad = (data: Player) => {
     player.worlds = new QuarkHandler({ quarks: Number(data.worlds), bonus: 0 /** <-- TODO */ });
+    player.wowCubes = new WowCubes(Number(data.wowCubes));
+    player.wowTesseracts = new WowTesseracts(Number(data.wowTesseracts));
     
     if (player.currentChallenge.transcension === undefined) {
         player.currentChallenge = {
@@ -39,8 +42,8 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
 
     if (data.wowCubes === undefined) {
-        player.wowCubes = 0;
-        player.wowTesseracts = 0;
+        player.wowCubes = new WowCubes();
+        player.wowTesseracts = new WowTesseracts(0);
         player.wowHypercubes = 0;
         player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
@@ -215,7 +218,7 @@ export const checkVariablesOnLoad = (data: Player) => {
             player.worlds.add(250 * player.researches[195]);
             player.researches[195] = 0;
             console.log('Refunded 8x20 and gave 250 quarks for each level you had prior to loading up the game.')
-            player.wowCubes += player.cubeUpgrades[50] * 5e10
+            player.wowCubes.add(player.cubeUpgrades[50] * 5e10);
             player.cubeUpgrades[50] = 0
             console.log('Refunded w5x10. Enjoy!')
         }

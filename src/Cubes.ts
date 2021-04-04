@@ -1,13 +1,9 @@
 import { player, format } from "./Synergism"
-import { achievementaward } from "./Achievements"
-import { CalcECC } from "./Challenges"
 import { calculateCubeBlessings, calculateSummationNonLinear } from "./Calculate"
 import { upgradeupdate } from "./Upgrades"
-import { Alert, Prompt, revealStuff } from "./UpdateHTML"
+import { revealStuff } from "./UpdateHTML"
 import { Globals as G } from "./Variables"
 import { cubeNames } from "./types/Synergism"
-
-type Bless = keyof typeof player['cubeBlessings'];
 
 const distributions = {
     cubes: {
@@ -67,91 +63,6 @@ export const cubeDistributions = <T extends keyof typeof distributions>(k: T) =>
  */
 export const openCubes = (value: number, cubeName: cubeNames, max = false) => {
     return [value, cubeName, max]
-}
-
-/**
- * Opens a custom number of Wowwy Cubes!
- */
-export const openCustomCube = async () => {
-    const amount = await Prompt(`How many cubes would you like to open? You have ${player.wowCubes.toLocaleString()}!`);
-    if (amount === null) // Number(null) is 0. Yeah..
-        return Alert('OK. No cubes opened.');
-    const cubes = Number(amount);
-
-    if (Number.isNaN(cubes) || !Number.isFinite(cubes)) // nan + Infinity checks
-        return Alert('Value must be a finite number!');
-    else if (player.wowCubes < cubes) // not enough cubes to open
-        return Alert('You don\'t have enough Wow Cubes to open!');
-    else if (cubes <= 0) // 0 or less cubes to open
-        return Alert('You can\'t open a negative number of cubes.');
-
-    return openCube(cubes, cubes === player.wowCubes);
-}
-
-export const openCube = (value: number, max = false) => {
-    let toSpend = max ? player.wowCubes : Math.min(player.wowCubes, value)
-
-    if (value === 1 && player.cubeBlessings.accelerator >= 2e11 && player.achievements[246] < 1) {
-        achievementaward(246)
-    }
-    player.wowCubes -= toSpend
-    player.cubeOpenedDaily += toSpend
-
-    if(player.cubeQuarkDaily < 25 + 75 * player.shopUpgrades.cubeToQuark) {
-        while(player.cubeOpenedDaily >= 10 * Math.pow(1 + player.cubeQuarkDaily, 4) && player.cubeQuarkDaily < 25 + 75 * player.shopUpgrades.cubeToQuark) {
-            player.cubeQuarkDaily += 1;
-            player.worlds.add(1);
-        }
-    }
-
-    toSpend *= (1 + player.researches[138] / 1000)
-    toSpend *= (1 + 0.8 * player.researches[168] / 1000)
-    toSpend *= (1 + 0.6 * player.researches[198] / 1000)
-
-    toSpend = Math.floor(toSpend)
-    let toSpendModulo = toSpend % 20
-    let toSpendDiv20 = Math.floor(toSpend / 20)
-    const blessings = {
-        accelerator:   {weight: 4, pdf: (x: number) => 0 <= x && x <= 20},
-        multiplier:    {weight: 4, pdf: (x: number) => 20 < x && x <= 40},
-        offering:      {weight: 2, pdf: (x: number) => 40 < x && x <= 50},
-        runeExp:       {weight: 2, pdf: (x: number) => 50 < x && x <= 60},
-        obtainium:     {weight: 2, pdf: (x: number) => 60 < x && x <= 70},
-        antSpeed:      {weight: 2, pdf: (x: number) => 70 < x && x <= 80},
-        antSacrifice:  {weight: 1, pdf: (x: number) => 80 < x && x <= 85},
-        antELO:        {weight: 1, pdf: (x: number) => 85 < x && x <= 90},
-        talismanBonus: {weight: 1, pdf: (x: number) => 90 < x && x <= 95},
-        globalSpeed:   {weight: 1, pdf: (x: number) => 95 < x && x <= 100}
-    }
-
-    if (toSpendDiv20 > 0 && player.cubeUpgrades[13] === 1) {
-        toSpendModulo += toSpendDiv20
-    }
-    if (toSpendDiv20 > 0 && player.cubeUpgrades[23] === 1) {
-        toSpendModulo += toSpendDiv20
-    }
-    if (toSpendDiv20 > 0 && player.cubeUpgrades[33] === 1) {
-        toSpendModulo += toSpendDiv20
-    }
-
-
-    toSpendDiv20 += 100 / 100 * Math.floor(toSpendModulo / 20);
-    toSpendModulo = toSpendModulo % 20;
-
-//If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
-    for (const key of Object.keys(player.cubeBlessings)) {
-        player.cubeBlessings[key as Bless] += blessings[key as Bless].weight * toSpendDiv20 * (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
-    }
-
-//Then, the remaining cubes will be opened, simulating the probability [RNG Element]
-    for (let i = 0; i < toSpendModulo; i++) {
-        const num = 100 * Math.random();
-        for (const key of Object.keys(player.cubeBlessings)) {
-            if (blessings[key as Bless].pdf(num))
-                player.cubeBlessings[key as Bless] += (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
-        }
-    }
-    calculateCubeBlessings();
 }
 
 const cubeUpgradeName = [
@@ -279,7 +190,7 @@ const cubeUpgradeDescriptions = [
 const getCubeCost = (i: number, linGrowth = 0) => {
     let amountToBuy = G['buyMaxCubeUpgrades'] ? 1e5: 1;
     amountToBuy = Math.min(cubeMaxLevel[i-1] - player.cubeUpgrades[i], amountToBuy)
-    const metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i-1], player.wowCubes, linGrowth, amountToBuy)
+    const metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i-1], Number(player.wowCubes), linGrowth, amountToBuy)
     return([metaData[0],metaData[1]]) //metaData[0] is the levelup amount, metaData[1] is the total cube cost
 }
 
@@ -297,7 +208,7 @@ export const cubeUpgradeDesc = (i: number, linGrowth = 0) => {
     d.textContent = "Level: " + format(player.cubeUpgrades[i], 0, true) + "/" + format(cubeMaxLevel[i-1], 0, true);
     d.style.color = "white"
 
-    if (player.wowCubes < cubeBaseCost[i-1]) {
+    if (Number(player.wowCubes) < cubeBaseCost[i-1]) {
         c.style.color = "crimson"
     }
     if (player.cubeUpgrades[i] === cubeMaxLevel[i-1]) {
@@ -310,7 +221,7 @@ export const updateCubeUpgradeBG = (i: number) => {
     const a = document.getElementById("cubeUpg" + i)
     if (player.cubeUpgrades[i] > cubeMaxLevel[i-1]) {
         console.log("Refunded " + (player.cubeUpgrades[i] - cubeMaxLevel[i-1]) + " levels of Cube Upgrade " + i + ", adding " + (player.cubeUpgrades[i] - cubeMaxLevel[i-1]) * cubeBaseCost[i-1] + " Wow! Cubes to balance.")
-        player.wowCubes += (player.cubeUpgrades[i] - cubeMaxLevel[i-1]) * cubeBaseCost[i-1]
+        player.wowCubes.add((player.cubeUpgrades[i] - cubeMaxLevel[i-1]) * cubeBaseCost[i-1]);
         player.cubeUpgrades[i] = cubeMaxLevel[i-1]
     }
     if (player.cubeUpgrades[i] === 0) {
@@ -327,8 +238,8 @@ export const updateCubeUpgradeBG = (i: number) => {
 
 export const buyCubeUpgrades = (i: number, linGrowth = 0) => {
     const metaData = getCubeCost(i,linGrowth);
-    if(player.wowCubes >= metaData[1] && player.cubeUpgrades[i] < cubeMaxLevel[i-1]){
-        player.wowCubes -= 100 / 100 * metaData[1];
+    if(Number(player.wowCubes) >= metaData[1] && player.cubeUpgrades[i] < cubeMaxLevel[i-1]){
+        player.wowCubes.sub(100 / 100 * metaData[1]);
         player.cubeUpgrades[i] = metaData[0];
     }
 

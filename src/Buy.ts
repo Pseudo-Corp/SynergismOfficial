@@ -686,7 +686,7 @@ export const getTesseractCost = (intCost: number, index: number): [number, numbe
     const buyFrom = player['ascendBuilding' + index]['owned']
     const subCost = intCost * Math.pow(buyFrom * (buyFrom + 1) / 2, 2)
 
-    let buyTo = Math.floor(-1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((player.wowTesseracts + subCost) / intCost, 1 / 2), 1 / 2))
+    let buyTo = Math.floor(-1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((Number(player.wowTesseracts) + subCost) / intCost, 1 / 2), 1 / 2))
     buyTo = Math.min(buyTo, player.tesseractbuyamount + player['ascendBuilding' + index]['owned'])
     const actualCost = intCost * Math.pow(buyTo * (buyTo + 1) / 2, 2) - subCost
     return [buyTo, actualCost];
@@ -697,7 +697,7 @@ export const buyTesseractBuilding = (intCost: number, index: number) => {
     const actualCost = getTesseractCost(intCost, index)[1]
 
     player['ascendBuilding' + index]['owned'] = buyTo;
-    player.wowTesseracts -= actualCost;
+    player.wowTesseracts.sub(actualCost);
     player['ascendBuilding' + index]['cost'] = intCost * Math.pow(1 + player['ascendBuilding' + index]['owned'], 3)
 }
 

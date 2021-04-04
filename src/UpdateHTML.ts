@@ -648,7 +648,7 @@ export const buttoncolorchange = () => {
     if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "tesseract") {
         for (let i = 1; i <= 5; i++) {
             const ascendBuilding = player['ascendBuilding' + i]['cost'] as number;
-            player.wowTesseracts >= ascendBuilding
+            Number(player.wowTesseracts) >= ascendBuilding
                 ? document.getElementById(`buyTesseracts${i}`).classList.add("buildingPurchaseBtnAvailable")
                 : document.getElementById(`buyTesseracts${i}`).classList.remove("buildingPurchaseBtnAvailable");
         }

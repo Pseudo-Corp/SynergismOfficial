@@ -43,7 +43,7 @@ const getCubeTimes = (i = 5, levels = 1) => {
     const tessRate = tess / time
     const platTimeNeeded = (platCost - player.wowPlatonicCubes - plat) / platRate
     const hyperTimeNeeded = (hyperCost - player.wowHypercubes - hyper) / hyperRate
-    const tessTimeNeeded = (tessCost - player.wowTesseracts - tess) / tessRate
+    const tessTimeNeeded = (tessCost - Number(player.wowTesseracts) - tess) / tessRate
     const Plats = SplitTime(Math.max(0, platTimeNeeded));
     const Hypers = SplitTime(Math.max(0, hyperTimeNeeded));
     const Tess = SplitTime(Math.max(0, tessTimeNeeded));

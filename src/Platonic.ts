@@ -279,8 +279,8 @@ export const buyPlatonicUpgrades = (index: number) => {
         player.platonicUpgrades[index] += 1
         player.researchPoints -= platUpgradeBaseCosts[index].obtainium
         player.runeshards -= platUpgradeBaseCosts[index].offerings
-        player.wowCubes -= platUpgradeBaseCosts[index].cubes
-        player.wowTesseracts -= platUpgradeBaseCosts[index].tesseracts
+        player.wowCubes.sub(platUpgradeBaseCosts[index].cubes);
+        player.wowTesseracts.sub(platUpgradeBaseCosts[index].tesseracts);
         player.wowHypercubes -= platUpgradeBaseCosts[index].hypercubes
         player.wowPlatonicCubes -= platUpgradeBaseCosts[index].platonics
         player.hepteractCrafts.abyss.spend(platUpgradeBaseCosts[index].abyssals)

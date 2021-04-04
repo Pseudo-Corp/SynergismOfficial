@@ -1,5 +1,4 @@
 import { player } from './Synergism';
-import { openTesseract } from './Tesseracts';
 import { Prompt, Alert } from './UpdateHTML';
 import { Globals as G } from './Variables';
 
@@ -65,8 +64,8 @@ export const openHypercube = (value: number, max = false) => {
     }
     calculateHypercubeBlessings();
     const extraTesseractBlessings = Math.floor(toSpend * 100 * player.researches[183])
-    player.wowTesseracts += extraTesseractBlessings
-    openTesseract(extraTesseractBlessings, false)
+    player.wowTesseracts.add(extraTesseractBlessings);
+    player.wowTesseracts.open(extraTesseractBlessings, false);
 }
 
 export const calculateHypercubeBlessings = () => {

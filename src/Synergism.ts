@@ -35,6 +35,7 @@ import './Logger';
 import { checkVariablesOnLoad } from './CheckVariables';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { QuarkHandler } from './Quark';
+import { WowCubes, WowTesseracts } from './CubeExperimental';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -485,8 +486,8 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    wowCubes: 0,
-    wowTesseracts: 0,
+    wowCubes: new WowCubes(0),
+    wowTesseracts: new WowTesseracts(0),
     wowHypercubes: 0,
     wowPlatonicCubes: 0,
     wowAbyssals: 0,
@@ -622,7 +623,9 @@ export const saveSynergy = async (button?: boolean) => {
     // shallow hold, doesn't modify OG object nor is affected by modifications to OG
     const p = Object.assign({}, player, { 
         codes: Array.from(player.codes),
-        worlds: Number(player.worlds)
+        worlds: Number(player.worlds),
+        wowCubes: Number(player.wowCubes),
+        wowTesseracts: Number(player.wowTesseracts)
     });
 
     localStorage.removeItem('Synergysave2');
@@ -954,8 +957,8 @@ export const loadSynergy = async () => {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            player.wowCubes = 0;
-            player.wowTesseracts = 0;
+            player.wowCubes = new WowCubes(0);
+            player.wowTesseracts = new WowTesseracts(0);
             player.wowHypercubes = 0;
             player.cubeBlessings = {
                 accelerator: 0,
@@ -1066,7 +1069,7 @@ export const loadSynergy = async () => {
         }
         getElementById<HTMLInputElement>("saveStringInput").value = player.saveString
 
-        player.wowCubes = player.wowCubes || 0;
+        player.wowCubes = new WowCubes(Number(player.wowCubes) || 0);
 
         for (let j = 1; j < 126; j++) {
             upgradeupdate(j);
@@ -2746,7 +2749,7 @@ export const updateAll = (): void => {
     if ((player.researches[190] > 0) && (player.tesseractAutoBuyerToggle == 1)) {
         const cheapestTesseractBuilding = { cost:0, intCost:0, index:0, intCostArray: [1,10,100,1000,10000] };
         for (let i = 0; i < cheapestTesseractBuilding.intCostArray.length; i++){
-            if ((player.wowTesseracts >= cheapestTesseractBuilding.intCostArray[i] * Math.pow(1 + player['ascendBuilding' + (i+1)]['owned'], 3) + player.tesseractAutoBuyerAmount) && player.autoTesseracts[i+1]) {
+            if ((Number(player.wowTesseracts) >= cheapestTesseractBuilding.intCostArray[i] * Math.pow(1 + player['ascendBuilding' + (i+1)]['owned'], 3) + player.tesseractAutoBuyerAmount) && player.autoTesseracts[i+1]) {
                 if ((getTesseractCost(cheapestTesseractBuilding.intCostArray[i], i+1)[1] < cheapestTesseractBuilding.cost) || (cheapestTesseractBuilding.cost == 0)){
                     cheapestTesseractBuilding.cost = getTesseractCost(cheapestTesseractBuilding.intCostArray[i], i+1)[1];
                     cheapestTesseractBuilding.intCost = cheapestTesseractBuilding.intCostArray[i];
