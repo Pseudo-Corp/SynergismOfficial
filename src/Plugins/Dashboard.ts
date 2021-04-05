@@ -237,9 +237,12 @@ const exitDashboard = () => {
 
 const btnListener = () => {
     open = !open;
+    open ? openDashboard() : exitDashboard();
+}
+
+const subButtons = () => {
     if (open) {
-        openDashboard();
-    } else {
+        open = !open;
         exitDashboard();
     }
 }
@@ -253,6 +256,9 @@ const enable = () => {
         document.head.removeChild(style);
         document.querySelector('#settings > .subtabSwitcher').removeChild(button);
         button.removeEventListener('click', btnListener);
+        document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v => 
+            v.removeEventListener('click', subButtons)
+        );
         settingsTab.removeChild(tab);
         return;
     }
@@ -265,6 +271,10 @@ const enable = () => {
     tab.querySelector('.dashboardstatRunes').addEventListener('click', () => toggleAutoSacrifice(0));
     tab.querySelector('.dashboardstatChallenge').addEventListener('click', () => toggleAutoChallengeRun());
     tab.querySelector('.dashboardstatSac').addEventListener('click', () => toggleAntAutoSacrifice(0));
+
+    document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v => 
+        v.addEventListener('click', subButtons)
+    );
 
     settingsTab.appendChild(tab);
     button.addEventListener('click', btnListener);
