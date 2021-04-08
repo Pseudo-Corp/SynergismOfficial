@@ -105,21 +105,21 @@ abstract class Currency {
     }
 
     /** @description Check how many quarks you should have gained through opening cubes today */
-    checkQuarkGain(base: number, mult: number, cubes: number): Number {
+    checkQuarkGain(base: number, mult: number, cubes: number): number {
         if (cubes < 1) {
             return 0;
         }
-        let multiplier = 1
-        multiplier *= getQuarkMultiplier(); // General quark multiplier from other in-game features
-        multiplier *= mult; // Multiplier from passed parameter
+        // General quark multiplier from other in-game features
+        // Multiplier from passed parameter
+        const multiplier = getQuarkMultiplier() * mult;
         return Math.floor(Math.log10(cubes) * base * multiplier);
     }
 
     /** @description Check how many cubes you need to gain an additional quark from opening */
-    checkCubesToNextQuark(base: number, mult: number, quarks: number, cubes: number): Number {
-        let multiplier = 1
-        multiplier *= getQuarkMultiplier(); // General quark multiplier from other in-game features
-        multiplier *= mult; // Multiplier from passed parameter
+    checkCubesToNextQuark(base: number, mult: number, quarks: number, cubes: number): number {
+        // General quark multiplier from other in-game features
+        // Multiplier from passed parameter
+        const multiplier = getQuarkMultiplier() * mult;
 
         return Math.ceil(Math.pow(10, (quarks + 1) / (multiplier * base)) - cubes)
     }
@@ -142,8 +142,6 @@ abstract class Currency {
         }
     }
 }
-
-Object.defineProperty(window, 'test', { value: Currency });
 
 export class WowCubes extends Currency {
     constructor(amount: number = Number(player.wowCubes)) {
@@ -259,7 +257,7 @@ export class WowHypercubes extends Currency {
         player.hypercubeOpenedDaily += toSpend
 
         const quarkMult = (player.shopUpgrades.hypercubeToQuark) ? 1.5 : 1;
-        const gainQuarks = Number(this.checkQuarkGain(10, quarkMult, player.hypercubeOpenedDaily));
+        const gainQuarks = this.checkQuarkGain(10, quarkMult, player.hypercubeOpenedDaily);
         const actualQuarksGain = Math.max(0, gainQuarks - player.hypercubeQuarkDaily)
         player.hypercubeQuarkDaily += actualQuarksGain
         player.worlds.add(actualQuarksGain);
@@ -299,7 +297,7 @@ export class WowPlatonicCubes extends Currency {
         player.platonicCubeOpenedDaily += toSpend;
 
         const quarkMult = 1.5 // There's no platonic to quark upgrade, default as 1.5
-        const gainQuarks = Number(this.checkQuarkGain(15, quarkMult, player.platonicCubeOpenedDaily));
+        const gainQuarks = this.checkQuarkGain(15, quarkMult, player.platonicCubeOpenedDaily);
         const actualQuarksGain = Math.max(0, gainQuarks - player.platonicCubeQuarkDaily);
         player.platonicCubeQuarkDaily += actualQuarksGain;
         player.worlds.add(actualQuarksGain);
@@ -335,5 +333,5 @@ export class WowPlatonicCubes extends Currency {
             }
         }
         calculatePlatonicBlessings();
-        }
+    }
 }
