@@ -74,7 +74,7 @@ abstract class Currency {
 
     constructor (
         type: keyof Player,
-        v: number = 0
+        v = 0
     ) {
         this.key = type;
         this.value = v;
@@ -144,7 +144,7 @@ abstract class Currency {
 }
 
 export class WowCubes extends Currency {
-    constructor(amount: number = Number(player.wowCubes)) {
+    constructor(amount = Number(player.wowCubes)) {
         super('wowCubes', amount);
     }
 
@@ -206,12 +206,12 @@ export class WowCubes extends Currency {
 }
 
 export class WowTesseracts extends Currency {
-    constructor(amount: number = Number(player.wowTesseracts)) {
+    constructor(amount = Number(player.wowTesseracts)) {
         super('wowTesseracts', amount);
     }
 
     open(value: number, max = false) {
-        let toSpend = max ? Number(this) : Math.min(Number(this), value);
+        const toSpend = max ? Number(this) : Math.min(Number(this), value);
 
         player.wowTesseracts.sub(toSpend);
         player.tesseractOpenedDaily += toSpend
@@ -246,12 +246,12 @@ export class WowTesseracts extends Currency {
 }
 
 export class WowHypercubes extends Currency {
-    constructor(amount: number = Number(player.wowHypercubes)) {
+    constructor(amount = Number(player.wowHypercubes)) {
         super('wowHypercubes', amount);
     }
 
     open(value: number, max = false) {
-        let toSpend = max ? Number(this) : Math.min(Number(this), value);
+        const toSpend = max ? Number(this) : Math.min(Number(this), value);
 
         player.wowHypercubes.sub(toSpend);
         player.hypercubeOpenedDaily += toSpend
@@ -286,12 +286,12 @@ export class WowHypercubes extends Currency {
 }
 
 export class WowPlatonicCubes extends Currency {
-    constructor(amount: number = Number(player.wowPlatonicCubes)) {
+    constructor(amount = Number(player.wowPlatonicCubes)) {
         super('wowPlatonicCubes', amount);
     }
 
     open(value: number, max = false) {
-        let toSpend = max ? Number(this) : Math.min(Number(this), value);
+        const toSpend = max ? Number(this) : Math.min(Number(this), value);
 
         player.wowPlatonicCubes.sub(toSpend);
         player.platonicCubeOpenedDaily += toSpend;
