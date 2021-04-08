@@ -1170,9 +1170,11 @@ export const dailyResetCheck = () => {
         player.cubeQuarkDaily = 0;
         player.tesseractQuarkDaily = 0;
         player.hypercubeQuarkDaily = 0;
+        player.platonicCubeQuarkDaily = 0;
         player.cubeOpenedDaily = 0;
         player.tesseractOpenedDaily = 0;
         player.hypercubeOpenedDaily = 0;
+        player.platonicCubeQuarkDaily = 0;
 
         document.getElementById('cubeQuarksOpenRequirement').style.display = "block"
         if (player.challengecompletions[11] > 0) {
@@ -1180,6 +1182,9 @@ export const dailyResetCheck = () => {
         }
         if (player.challengecompletions[13] > 0) {
             document.getElementById('hypercubeQuarksOpenRequirement').style.display = "block"
+        }
+        if (player.challengecompletions[14] > 0) {
+            document.getElementById('platonicQuarksOpenRequirement').style.display = "block"
         }
     }
 }

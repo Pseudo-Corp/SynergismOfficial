@@ -1,5 +1,3 @@
-import { openHypercube } from '../Hypercubes';
-import { openPlatonic } from '../PlatonicCubes';
 import { player } from '../Synergism';
 
 /**
@@ -12,10 +10,10 @@ import { player } from '../Synergism';
 export const main = () => {
     Object.defineProperties(window, {
         'openHypercube': {
-            value: openHypercube
+            value: player.wowHypercubes.open
         },
         'openPlatonic': {
-            value: openPlatonic
+            value: player.wowTesseracts.open
         },
         'openTeseract': {
             value: player.wowTesseracts.open

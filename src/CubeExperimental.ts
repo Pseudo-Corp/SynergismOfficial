@@ -11,6 +11,9 @@ Thank you! */
 import { achievementaward } from './Achievements';
 import { calculateCubeBlessings } from './Calculate';
 import { CalcECC } from './Challenges';
+import { calculateHypercubeBlessings } from './Hypercubes';
+import { calculatePlatonicBlessings } from './PlatonicCubes';
+import { getQuarkMultiplier } from './Quark';
 import { player } from './Synergism';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { Player } from './types/Synergism';
@@ -33,6 +36,20 @@ const blessings: Record<
     antELO:        {weight: 1, pdf: (x: number) => 85 < x && x <= 90},
     talismanBonus: {weight: 1, pdf: (x: number) => 90 < x && x <= 95},
     globalSpeed:   {weight: 1, pdf: (x: number) => 95 < x && x <= 100}
+}
+
+const platonicBlessings: Record <
+    keyof Player['platonicBlessings'],
+    { weight: number, pdf: (x: number) => boolean }
+> = {
+    cubes:          {weight: 13200, pdf: (x: number) => 0 <= x && x <= 33.000},
+    tesseracts:     {weight: 13200, pdf: (x: number) => 33.000 < x && x <= 66.000},
+    hypercubes:     {weight: 13200, pdf: (x: number) => 66.000 < x && x <= 99.000},
+    platonics:      {weight: 396, pdf: (x: number) => 99.000 < x && x <= 99.990},
+    hypercubeBonus: {weight: 1, pdf: (x: number) => 99.990 < x && x <= 99.9925},
+    taxes:          {weight: 1, pdf: (x: number) => 99.9925 < x && x <= 99.995},
+    scoreBonus:     {weight: 1, pdf: (x: number) => 99.995 < x && x <= 99.9975},
+    globalSpeed:    {weight: 1, pdf: (x: number) => 99.9975 < x && x <= 100},
 }
 
 /**
@@ -87,6 +104,26 @@ abstract class Currency {
         return this.open(cubesToOpen, cubesToOpen === player[this.key].value);
     }
 
+    /** @description Check how many quarks you should have gained through opening cubes today */
+    checkQuarkGain(base: number, mult: number, cubes: number): Number {
+        if (cubes < 1) {
+            return 0;
+        }
+        let multiplier = 1
+        multiplier *= getQuarkMultiplier(); // General quark multiplier from other in-game features
+        multiplier *= mult; // Multiplier from passed parameter
+        return Math.floor(Math.log10(cubes) * base * multiplier);
+    }
+
+    /** @description Check how many cubes you need to gain an additional quark from opening */
+    checkCubesToNextQuark(base: number, mult: number, quarks: number, cubes: number): Number {
+        let multiplier = 1
+        multiplier *= getQuarkMultiplier(); // General quark multiplier from other in-game features
+        multiplier *= mult; // Multiplier from passed parameter
+
+        return Math.ceil(Math.pow(10, (quarks + 1) / (multiplier * base)) - cubes)
+    }
+
     add(amount: number): Currency {
         this.value += amount;
         return this;
@@ -123,12 +160,11 @@ export class WowCubes extends Currency {
         this.sub(toSpend);
         player.cubeOpenedDaily += toSpend
 
-        if(player.cubeQuarkDaily < 25 + 75 * player.shopUpgrades.cubeToQuark) {
-            while(player.cubeOpenedDaily >= 10 * Math.pow(1 + player.cubeQuarkDaily, 4) && player.cubeQuarkDaily < 25 + 75 * player.shopUpgrades.cubeToQuark) {
-                player.cubeQuarkDaily += 1;
-                player.worlds.add(1);
-            }
-        }
+        const quarkMult = (player.shopUpgrades.cubeToQuark) ? 1.5 : 1;
+        const gainQuarks = Number(this.checkQuarkGain(5, quarkMult, player.cubeOpenedDaily));
+        const actualQuarksGain = Math.max(0, gainQuarks - player.cubeQuarkDaily)
+        player.cubeQuarkDaily += actualQuarksGain;
+        player.worlds.add(actualQuarksGain);
 
         toSpend *= (1 + player.researches[138] / 1000)
         toSpend *= (1 + 0.8 * player.researches[168] / 1000)
@@ -182,15 +218,12 @@ export class WowTesseracts extends Currency {
         player.wowTesseracts.sub(toSpend);
         player.tesseractOpenedDaily += toSpend
 
-        if (player.tesseractQuarkDaily < 25 + 75 * player.shopUpgrades.tesseractToQuark) {
-            while (
-                player.tesseractOpenedDaily >= 10 * Math.pow(1 + player.tesseractQuarkDaily, 3) && 
-                player.tesseractQuarkDaily < 25 + 75 * player.shopUpgrades.tesseractToQuark
-            ) {
-                player.tesseractQuarkDaily += 1;
-                player.worlds.add(1);
-            }
-        }
+        const quarkMult = (player.shopUpgrades.tesseractToQuark) ? 1.5 : 1;
+        const gainQuarks = Number(this.checkQuarkGain(7, quarkMult, player.tesseractOpenedDaily));
+        const actualQuarksGain = Math.max(0, gainQuarks - player.tesseractQuarkDaily)
+        player.tesseractQuarkDaily += actualQuarksGain
+        player.worlds.add(actualQuarksGain);
+
         const toSpendModulo = toSpend % 20
         const toSpendDiv20 = Math.floor(toSpend / 20)
 
@@ -212,4 +245,95 @@ export class WowTesseracts extends Currency {
         player.wowCubes.add(extraCubeBlessings);
         player.wowCubes.open(extraCubeBlessings, false)
     }
+}
+
+export class WowHypercubes extends Currency {
+    constructor(amount: number = Number(player.wowHypercubes)) {
+        super('wowHypercubes', amount);
+    }
+
+    open(value: number, max = false) {
+        let toSpend = max ? Number(this) : Math.min(Number(this), value);
+
+        player.wowHypercubes.sub(toSpend);
+        player.hypercubeOpenedDaily += toSpend
+
+        const quarkMult = (player.shopUpgrades.hypercubeToQuark) ? 1.5 : 1;
+        const gainQuarks = Number(this.checkQuarkGain(10, quarkMult, player.hypercubeOpenedDaily));
+        const actualQuarksGain = Math.max(0, gainQuarks - player.hypercubeQuarkDaily)
+        player.hypercubeQuarkDaily += actualQuarksGain
+        player.worlds.add(actualQuarksGain);
+
+        const toSpendModulo = toSpend % 20;
+        const toSpendDiv20 = Math.floor(toSpend/20)
+
+        // If you're opening more than 20 Hypercubes, it will consume all Hypercubes until remainder mod 20, giving expected values.
+        for (const key in player.hypercubeBlessings) {
+            player.hypercubeBlessings[key as keyof Player['hypercubeBlessings']] += blessings[key as keyof typeof blessings].weight * toSpendDiv20;
+        }
+        // Then, the remaining hypercubes will be opened, simulating the probability [RNG Element]
+        for (let i = 0; i < toSpendModulo; i++) {
+            const num = 100 * Math.random();
+            for (const key in player.hypercubeBlessings) {
+                if (blessings[key as keyof typeof blessings].pdf(num))
+                    player.hypercubeBlessings[key as keyof Player['hypercubeBlessings']] += 1;
+            }
+        }
+
+        calculateHypercubeBlessings();
+        const extraTesseractBlessings = Math.floor(12 * toSpend * player.researches[153])
+        player.wowTesseracts.add(extraTesseractBlessings);
+        player.wowTesseracts.open(extraTesseractBlessings, false)
+    }
+}
+
+export class WowPlatonicCubes extends Currency {
+    constructor(amount: number = Number(player.wowPlatonicCubes)) {
+        super('wowPlatonicCubes', amount);
+    }
+
+    open(value: number, max = false) {
+        let toSpend = max ? Number(this) : Math.min(Number(this), value);
+
+        player.wowPlatonicCubes.sub(toSpend);
+        player.platonicCubeOpenedDaily += toSpend;
+
+        const quarkMult = 1.5 // There's no platonic to quark upgrade, default as 1.5
+        const gainQuarks = Number(this.checkQuarkGain(15, quarkMult, player.platonicCubeOpenedDaily));
+        const actualQuarksGain = Math.max(0, gainQuarks - player.platonicCubeQuarkDaily);
+        player.platonicCubeQuarkDaily += actualQuarksGain;
+        player.worlds.add(actualQuarksGain);
+
+        let toSpendModulo = toSpend % 40000;
+        const toSpendDiv40000 = Math.floor(toSpend / 40000);
+
+        //If you're opening more than 40,000 Platonics, it will consume all Platonics until remainder mod 40,000, giving expected values.
+        for (const key in player.platonicBlessings) {
+            player.platonicBlessings[key as keyof Player['platonicBlessings']] += platonicBlessings[key as keyof typeof platonicBlessings].weight * toSpendDiv40000;
+        }
+        //Then, the remaining hypercube will be opened, simulating the probability [RNG Element]
+        const RNGesus = ['hypercubeBonus', 'taxes', 'scoreBonus', 'globalSpeed']
+        for (let i = 0; i < RNGesus.length; i++) {
+            const num = Math.random();
+            if (toSpendModulo / 40000 >= num && toSpendModulo !== 0) {
+                player.platonicBlessings[RNGesus[i] as keyof Player['platonicBlessings']] += 1;
+                toSpendModulo -= 1
+            }
+        }
+        const gainValues = [Math.floor(33 * toSpendModulo / 100), Math.floor(33 * toSpendModulo / 100), Math.floor(33 * toSpendModulo / 100), Math.floor(396 * toSpendModulo / 40000)]
+        const commonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics'] as const;
+        for (let i = 0; i < commonDrops.length; i++) {
+            player.platonicBlessings[commonDrops[i]] += gainValues[i]
+            toSpendModulo -= gainValues[i]
+        }
+
+        for (let i = 0; i < toSpendModulo; i++) {
+            const num = 100 * Math.random();
+            for (const key in player.platonicBlessings) {
+                if (platonicBlessings[key as keyof typeof platonicBlessings].pdf(num))
+                    player.platonicBlessings[key as keyof Player['platonicBlessings']] += 1;
+            }
+        }
+        calculatePlatonicBlessings();
+        }
 }

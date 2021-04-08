@@ -1,5 +1,5 @@
 import type Decimal from 'break_infinity.js';
-import type { WowCubes, WowTesseracts } from '../CubeExperimental';
+import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental';
 import { Category, ResetHistoryEntryUnion } from '../History';
 import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
@@ -382,8 +382,8 @@ export interface Player {
     platonicUpgrades: number[]
     wowCubes: WowCubes
     wowTesseracts: WowTesseracts
-    wowHypercubes: number
-    wowPlatonicCubes: number
+    wowHypercubes: WowHypercubes
+    wowPlatonicCubes: WowPlatonicCubes
     wowAbyssals: number
     cubeBlessings: {
         accelerator: number
@@ -473,6 +473,8 @@ export interface Player {
     tesseractQuarkDaily: number
     hypercubeOpenedDaily: number
     hypercubeQuarkDaily: number
+    platonicCubeOpenedDaily: number
+    platonicCubeQuarkDaily: number
     loadedOct4Hotfix: boolean
     loadedNov13Vers: boolean
     loadedDec16Vers: boolean

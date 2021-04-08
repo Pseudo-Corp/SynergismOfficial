@@ -12,8 +12,6 @@ import { challengeDisplay, toggleRetryChallenges } from "./Challenges"
 import { buyResearch, researchDescriptions } from "./Research"
 import { antRepeat, sacrificeAnts, buyAntProducers, updateAntDescription, antUpgradeDescription, buyAntUpgrade } from "./Ants"
 import { buyCubeUpgrades, cubeUpgradeDesc } from "./Cubes"
-import { openCustomHypercube, openHypercube } from "./Hypercubes"
-import { openCustomPlat, openPlatonic } from "./PlatonicCubes"
 import { buyPlatonicUpgrades, createPlatonicDescription } from "./Platonic"
 import { corruptionCleanseConfirm, corruptionDisplay } from "./Corruptions"
 import { exportSynergism, updateSaveString, promocodes, importSynergism, resetGame } from "./ImportExport"
@@ -421,17 +419,17 @@ for (let index = 1; index <= 12; index++) {
     document.getElementById('openCustomTesseract').addEventListener('click', () => player.wowTesseracts.openCustom());
     document.getElementById('openMostTesseract').addEventListener('click', () => player.wowTesseracts.open(1, true))
     //Wow Hypercubes
-    document.getElementById('open1Hypercube').addEventListener('click', () => openHypercube(1, false))
-    document.getElementById('open20Hypercube').addEventListener('click', () => openHypercube(20, false))
-    document.getElementById('open1000Hypercube').addEventListener('click', () => openHypercube(1000, false))
-    document.getElementById('openCustomHypercube').addEventListener('click', openCustomHypercube);
-    document.getElementById('openMostHypercube').addEventListener('click', () => openHypercube(1, true))
+    document.getElementById('open1Hypercube').addEventListener('click', () => player.wowHypercubes.open(1, false))
+    document.getElementById('open20Hypercube').addEventListener('click', () => player.wowHypercubes.open(20, false))
+    document.getElementById('open1000Hypercube').addEventListener('click', () => player.wowHypercubes.open(1000, false))
+    document.getElementById('openCustomHypercube').addEventListener('click', () => player.wowHypercubes.openCustom());
+    document.getElementById('openMostHypercube').addEventListener('click', () => player.wowHypercubes.open(1, true))
     //Wow Platonic Cubes
-    document.getElementById('open1PlatonicCube').addEventListener('click', () => openPlatonic(1, false))
-    document.getElementById('open40kPlatonicCube').addEventListener('click', () => openPlatonic(4e4, false))
-    document.getElementById('open1mPlatonicCube').addEventListener('click', () => openPlatonic(1e6, false))
-    document.getElementById('openCustomPlatonicCube').addEventListener('click', openCustomPlat);
-    document.getElementById('openMostPlatonicCube').addEventListener('click', () => openPlatonic(1, true))
+    document.getElementById('open1PlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(1, false))
+    document.getElementById('open40kPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(4e4, false))
+    document.getElementById('open1mPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(1e6, false))
+    document.getElementById('openCustomPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.openCustom());
+    document.getElementById('openMostPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(1, true))
 
 //Part 3: Platonic Upgrade Section
 const platonicUpgrades = document.getElementsByClassName('platonicUpgradeImage')

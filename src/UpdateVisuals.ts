@@ -270,18 +270,26 @@ export const visualUpdateCubes = () => {
         return
     document.getElementById("cubeToQuarkTimerValue").textContent = format(Math.floor(player.dayTimer / 3600), 0) + " Hours " + format(Math.floor(player.dayTimer / 60 % 60), 0) + " Mins " + format(Math.floor(player.dayTimer % 60), 0) + " Secs "
 
-    const prefixes = ['cube', 'tesseract', 'hypercube'] as const;
-    const power = [4, 3, 2]
-    const multipliers = [10, 10, 5]
-    for (let i = 0; i <= 2; i++) {
-        document.getElementById(prefixes[i] + 'QuarksTodayValue').textContent = format(player[prefixes[i] + 'QuarkDaily']) + "/" + format(25 + 75 * player.shopUpgrades[`${prefixes[i]}ToQuark` as const]);
-        document.getElementById(prefixes[i] + 'QuarksOpenTodayValue').textContent = format(player[prefixes[i] + 'OpenedDaily'], 0, true);
-        document.getElementById(prefixes[i] + 'QuarksOpenRequirementValue').textContent = format(Math.max(0, multipliers[i] * Math.pow(
-            Math.min(25 + 75 * +player.shopUpgrades[`${prefixes[i]}ToQuark` as const], 
-            1 + player[prefixes[i] + 'QuarkDaily']), power[i]) - player[prefixes[i] + 'OpenedDaily']
-        ), 0, true);
-    }
+    document.getElementById('cubeQuarksTodayValue').textContent = format(player.cubeQuarkDaily);
+    document.getElementById('cubeQuarksOpenTodayValue').textContent = format(player.cubeOpenedDaily);
+    const cubeMult = (player.shopUpgrades.cubeToQuark) ? 1.5 : 1;
+    document.getElementById('cubeQuarksOpenRequirementValue').textContent = format(Number(player.wowCubes.checkCubesToNextQuark(5, cubeMult, player.cubeQuarkDaily, player.cubeOpenedDaily)), 0, true)
 
+    document.getElementById('tesseractQuarksTodayValue').textContent = format(player.tesseractQuarkDaily);
+    document.getElementById('tesseractQuarksOpenTodayValue').textContent = format(player.tesseractOpenedDaily);
+    const tesseractMult = (player.shopUpgrades.tesseractToQuark) ? 1.5 : 1;
+    document.getElementById('tesseractQuarksOpenRequirementValue').textContent = format(Number(player.wowTesseracts.checkCubesToNextQuark(7, tesseractMult, player.tesseractQuarkDaily, player.tesseractOpenedDaily)), 0, true)
+    
+    document.getElementById('hypercubeQuarksTodayValue').textContent = format(player.hypercubeQuarkDaily);
+    document.getElementById('hypercubeQuarksOpenTodayValue').textContent = format(player.hypercubeOpenedDaily);
+    const hypercubeMult = (player.shopUpgrades.hypercubeToQuark) ? 1.5 : 1;
+    document.getElementById('hypercubeQuarksOpenRequirementValue').textContent = format(Number(player.wowHypercubes.checkCubesToNextQuark(10, hypercubeMult, player.hypercubeQuarkDaily, player.hypercubeOpenedDaily)), 0, true)
+
+    document.getElementById('platonicQuarksTodayValue').textContent = format(player.platonicCubeQuarkDaily);
+    document.getElementById('platonicQuarksOpenTodayValue').textContent = format(player.platonicCubeOpenedDaily);
+    const platonicMult = 1.5;
+    document.getElementById('platonicQuarksOpenRequirementValue').textContent = format(Number(player.wowPlatonicCubes.checkCubesToNextQuark(15, platonicMult, player.platonicCubeQuarkDaily, player.platonicCubeOpenedDaily)), 0, true)
+    
     let accuracy;
     switch (player.subtabNumber) {
         case 0: {

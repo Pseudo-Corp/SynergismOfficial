@@ -35,7 +35,7 @@ import './Logger';
 import { checkVariablesOnLoad } from './CheckVariables';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { QuarkHandler } from './Quark';
-import { WowCubes, WowTesseracts } from './CubeExperimental';
+import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -488,8 +488,8 @@ export const player: Player = {
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
     wowTesseracts: new WowTesseracts(0),
-    wowHypercubes: 0,
-    wowPlatonicCubes: 0,
+    wowHypercubes: new WowHypercubes(0),
+    wowPlatonicCubes: new WowPlatonicCubes(0),
     wowAbyssals: 0,
     cubeBlessings: {
         accelerator: 0,
@@ -604,6 +604,8 @@ export const player: Player = {
     tesseractQuarkDaily: 0,
     hypercubeOpenedDaily: 0,
     hypercubeQuarkDaily: 0,
+    platonicCubeOpenedDaily: 0,
+    platonicCubeQuarkDaily: 0,
     loadedOct4Hotfix: false,
     loadedNov13Vers: true,
     loadedDec16Vers: true,
@@ -625,7 +627,9 @@ export const saveSynergy = async (button?: boolean) => {
         codes: Array.from(player.codes),
         worlds: Number(player.worlds),
         wowCubes: Number(player.wowCubes),
-        wowTesseracts: Number(player.wowTesseracts)
+        wowTesseracts: Number(player.wowTesseracts),
+        wowHypercubes: Number(player.wowHypercubes),
+        wowPlatonicCubes: Number(player.wowPlatonicCubes)
     });
 
     localStorage.removeItem('Synergysave2');
@@ -959,7 +963,7 @@ export const loadSynergy = async () => {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             player.wowCubes = new WowCubes(0);
             player.wowTesseracts = new WowTesseracts(0);
-            player.wowHypercubes = 0;
+            player.wowHypercubes = new WowHypercubes(0);
             player.cubeBlessings = {
                 accelerator: 0,
                 multiplier: 0,
@@ -2557,7 +2561,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
 
         if (player.challengecompletions[a] > player.highestchallengecompletions[a]) {
             player.highestchallengecompletions[a] += 1;
-            player.wowHypercubes += 1;
+            player.wowHypercubes.add(1);
         }
 
         if (!player.retrychallenges || manual || player.challengecompletions[a] >= maxCompletions || a === 15) {

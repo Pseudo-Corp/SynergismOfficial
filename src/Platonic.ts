@@ -281,9 +281,9 @@ export const buyPlatonicUpgrades = (index: number) => {
         player.runeshards -= platUpgradeBaseCosts[index].offerings
         player.wowCubes.sub(platUpgradeBaseCosts[index].cubes);
         player.wowTesseracts.sub(platUpgradeBaseCosts[index].tesseracts);
-        player.wowHypercubes -= platUpgradeBaseCosts[index].hypercubes
-        player.wowPlatonicCubes -= platUpgradeBaseCosts[index].platonics
-        player.hepteractCrafts.abyss.spend(platUpgradeBaseCosts[index].abyssals)
+        player.wowHypercubes.sub(platUpgradeBaseCosts[index].hypercubes);
+        player.wowPlatonicCubes.sub(platUpgradeBaseCosts[index].platonics);
+        player.hepteractCrafts.abyss.spend(platUpgradeBaseCosts[index].abyssals);
 
         Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index]);
     }

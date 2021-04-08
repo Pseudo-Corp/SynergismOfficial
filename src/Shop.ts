@@ -146,7 +146,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "Instead of a daily cap of 25 Quarks by opening Wow! Cubes, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]"
+        description: "Are your quark gains from Cubes wimpy? Well, buy this for +50% quarks from opening Wow! Cubes, forever!"
     },
     tesseractToQuark: {
         price: 3500,
@@ -155,7 +155,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "Instead of a daily cap of 25 Quarks by opening Wow! Cubes, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]"
+        description: "Are your quark gains from Tesseracts wimpy? Well, buy this for +50% quarks from opening Wow! Tesseracts, forever!"
     },
     hypercubeToQuark: {
         price: 5000,
@@ -164,7 +164,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "Instead of a daily cap of 25 Quarks by opening Wow! Cubes, how about 100? This adds 75 to the daily cap! [Cannot be Refunded!]"
+        description: "Are your quark gains from Hypercubes wimpy? Well, buy this for +50% quarks from opening Wow! Hypercubes, forever!"
     },
     seasonPass2: {
         price: 2500,

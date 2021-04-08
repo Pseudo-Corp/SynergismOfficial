@@ -530,8 +530,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             player.ascensionCount += ascCount;
             player.wowCubes.add(metaData[4]); //Metadata is defined up in the top of the (i > 3.5) case
             player.wowTesseracts.add(metaData[5]);
-            player.wowHypercubes += metaData[6];
-            player.wowPlatonicCubes += metaData[7];
+            player.wowHypercubes.add(metaData[6]);
+            player.wowPlatonicCubes.add(metaData[7]);
             player.wowAbyssals += metaData[8];
         }
 

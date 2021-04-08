@@ -8,7 +8,7 @@ import { LegacyShopUpgrades } from './types/LegacySynergism';
 import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { QuarkHandler } from './Quark';
-import { WowCubes, WowTesseracts } from './CubeExperimental';
+import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -20,6 +20,8 @@ export const checkVariablesOnLoad = (data: Player) => {
     player.worlds = new QuarkHandler({ quarks: Number(data.worlds), bonus: 0 /** <-- TODO */ });
     player.wowCubes = new WowCubes(Number(data.wowCubes));
     player.wowTesseracts = new WowTesseracts(Number(data.wowTesseracts));
+    player.wowHypercubes = new WowHypercubes(Number(data.wowHypercubes));
+    player.wowPlatonicCubes = new WowPlatonicCubes(Number(data.wowPlatonicCubes));
     
     if (player.currentChallenge.transcension === undefined) {
         player.currentChallenge = {
@@ -44,7 +46,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     if (data.wowCubes === undefined) {
         player.wowCubes = new WowCubes();
         player.wowTesseracts = new WowTesseracts(0);
-        player.wowHypercubes = 0;
+        player.wowHypercubes = new WowHypercubes(0);
         player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
     if (data.shoptoggles.reincarnate === undefined) {
@@ -248,7 +250,7 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.subtabNumber = 0;
     }
     if (data.wowPlatonicCubes === undefined) {
-        player.wowPlatonicCubes = 0;
+        player.wowPlatonicCubes = new WowPlatonicCubes(0);
         player.wowAbyssals = 0;
     }
     if (data.platonicBlessings === undefined) {
@@ -376,5 +378,10 @@ export const checkVariablesOnLoad = (data: Player) => {
         for (const item in player.hepteractCrafts){
             player.hepteractCrafts[item] = createHepteract(player.hepteractCrafts[item])
         }
+    }
+
+    if (data.platonicCubeOpenedDaily === undefined) {
+        player.platonicCubeOpenedDaily = 0;
+        player.platonicCubeQuarkDaily = 0;
     }
 }
