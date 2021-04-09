@@ -1337,6 +1337,13 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
 }
 
+// gets the system number delimiter and decimal values
+const [{ value: group }, { value: dec }] = Intl.NumberFormat()
+    .formatToParts(1000.1)
+    .filter(part => part.type === 'decimal' || part.type === 'group');
+// Number.toLocaleString opts for 2 decimal places
+const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
  * @param input value to format
@@ -1347,7 +1354,8 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
  */
 export const format = (
     input: Decimal | number | { [Symbol.toPrimitive]: unknown } | bigint, 
-    accuracy = 0, long = false
+    accuracy = 0, 
+    long = false
 ): string => {
     if (
         typeof input === 'object' && 
@@ -1412,30 +1420,28 @@ export const format = (
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
         const frontFormatted = typeof BigInt === 'function'
-            ? BigInt(front).toLocaleString() // TODO: use Intl to force en-US
-            : front.replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+            ? BigInt(front).toLocaleString()
+            : front.replace(/(\d)(?=(\d{3})+$)/g, `$1${group}`);
 
         // if the back is undefined that means there are no decimals to display, return just the front
         return !back 
             ? frontFormatted
-            : `${frontFormatted}.${back}`;
+            : `${frontFormatted}${dec}${back}`;
     } else if (power < 1e6) {
         // If the power is less than 1e6 then apply standard scientific notation
         // Makes mantissa be rounded down to 2 decimal places
-        const mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
+        const mantissaLook = (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
         // Makes the power group 3 with commas
         const powerLook = typeof BigInt === 'function'
             ? BigInt(power).toLocaleString()
-            : power.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+            : power.toString().replace(/(\d)(?=(\d{3})+$)/g, `$1${group}`);
         // returns format (1.23e456,789)
         return `${mantissaLook}e${powerLook}`;
     } else if (power >= 1e6) {
         // if the power is greater than 1e6 apply notation scientific notation
         // Makes mantissa be rounded down to 2 decimal places
-        let mantissaLook = (Math.floor(mantissa * 100) / 100).toFixed(2);
-        if (isTesting){
-            mantissaLook = ""
-        }
+        const mantissaLook = isTesting ? '' : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
+        
         // Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234)
         const powerDigits = Math.ceil(Math.log10(power));
         let powerFront = ((powerDigits - 1) % 3) + 1;
@@ -1445,7 +1451,9 @@ export const format = (
             powerFront = 1;
         }
 
-        const powerLookF = powerLook.toFixed(4 - powerFront);
+        const powerLookF = powerLook.toLocaleString(undefined, {
+            minimumFractionDigits: 4 - powerFront, maximumFractionDigits: 4 - powerFront
+        });
         // Return relevant notations alongside the "look" power based on what the power actually is
         if (power < 1e9) {
             return `${mantissaLook}e${powerLookF}M`;
