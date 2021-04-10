@@ -1337,10 +1337,18 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
 }
 
-// gets the system number delimiter and decimal values
-const [{ value: group }, { value: dec }] = Intl.NumberFormat()
+// In some browsers, this will return an empty-1 length array (?), causing a "TypeError: Cannot read property 'value' of undefined"
+// if we destructure it... To reproduce: ` const [ { value } ] = []; `
+// https://discord.com/channels/677271830838640680/730669616870981674/830218436201283584
+const IntlFormatter = Intl.NumberFormat()
     .formatToParts(1000.1)
     .filter(part => part.type === 'decimal' || part.type === 'group');
+
+// gets the system number delimiter and decimal values, defaults to en-US
+const [{ value: group }, { value: dec }] = IntlFormatter?.length !== 2
+    ? [{ value: ',' }, { value: '.' }]
+    : IntlFormatter;
+
 // Number.toLocaleString opts for 2 decimal places
 const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
 
