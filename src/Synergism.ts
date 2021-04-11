@@ -3146,6 +3146,17 @@ const loadPlugins = async () => {
     }
 }
 
+const keysPressed = new Set<string>();
+
+document.addEventListener('keydown', event => {
+    keysPressed.add(event.key);
+    // if (keysPressed.has('Control') && event.key === 'a') {}
+ });
+ 
+ document.addEventListener('keyup', event => {
+    keysPressed.delete(event.key);
+ });
+
 document.addEventListener('keydown', (event) => {
     if (document.activeElement && document.activeElement.localName === 'input') {
         // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
