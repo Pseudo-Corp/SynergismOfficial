@@ -1363,7 +1363,8 @@ const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
 export const format = (
     input: Decimal | number | { [Symbol.toPrimitive]: unknown } | bigint, 
     accuracy = 0, 
-    long = false
+    long = false,
+    truncate = true
 ): string => {
     if (
         typeof input === 'object' && 
@@ -1448,7 +1449,7 @@ export const format = (
     } else if (power >= 1e6) {
         // if the power is greater than 1e6 apply notation scientific notation
         // Makes mantissa be rounded down to 2 decimal places
-        const mantissaLook = isTesting ? '' : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
+        const mantissaLook = isTesting && truncate ? '' : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
         
         // Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234)
         const powerDigits = Math.ceil(Math.log10(power));

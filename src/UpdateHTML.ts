@@ -922,3 +922,45 @@ export const Alert = (text: string): Promise<undefined> => new Promise(res => Al
 export const Prompt = (text: string): Promise<string | null> => new Promise(res => PromptCB(text, res));
 /*** Promisified version of the ConfirmCB function */
 export const Confirm = (text: string): Promise<boolean> => new Promise(res => ConfirmCB(text, res));
+
+/**
+ * Create a popunder under an element.
+ * @example
+ * popunder(document.querySelector('.currencyContainer'), () => player.coins);
+ * @param el Element to create the popunder under
+ * @param v function that returns the value to format
+ */
+const popunder = (
+    el: HTMLElement, 
+    v: () => Parameters<typeof format>[0]
+) => {
+    const id: 'khafraIsAwesome' = 'khafraIsAwesome' as const; // DO NOT CHANGE!
+    el.addEventListener('mouseenter', (ev) => {
+        const isOnPage = document.getElementById(id);
+        if (isOnPage !== null)
+            document.body.removeChild(isOnPage);
+
+        const hover = ev.target as HTMLElement;
+        const popunder = document.createElement('div');
+        popunder.setAttribute('id', id);
+        popunder.textContent =  format(v(), undefined, undefined, false);
+
+        popunder.style.setProperty('position', 'absolute');
+        popunder.style.setProperty('text-align', 'center');
+        popunder.style.setProperty('height', `${hover.offsetHeight}px`);
+        popunder.style.setProperty('width', `${hover.offsetWidth}px`);
+        popunder.style.setProperty('top', `${hover.offsetTop + hover.offsetHeight}px`);
+        popunder.style.setProperty('left', `${hover.offsetLeft}px`);
+        popunder.style.setProperty('background-color', 'red');
+
+        document.body.appendChild(popunder);
+    });
+
+    el.addEventListener('mouseleave', () => {
+        const isOnPage = document.getElementById(id);
+        if (isOnPage !== null)
+            document.body.removeChild(isOnPage);
+    });
+}
+
+Object.defineProperty(window, 'popunder', { value: popunder });
