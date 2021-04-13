@@ -27,7 +27,6 @@ import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
 import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
-import * as Plugins from './Plugins/Plugins';
 import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
 
@@ -3140,11 +3139,14 @@ function tack(dt: number) {
         calculateOfferings("reincarnation")
     }
 
-const loadPlugins = async () => {
-    for (const obj of Object.keys(Plugins)) {
-        document.getElementById(`pluginSubTab${Object.keys(Plugins).indexOf(obj) + 1}`)
-            .addEventListener('click', () => Plugins[obj as keyof typeof Plugins].main())
-    }
+type Plugins = 'Dashboard' | 'OpenCubes';
+
+export const loadPlugins = async (name: Plugins) => {
+    const imp = await import(`./Plugins/${name}`) as typeof import('./Plugins/Dashboard');
+    if (typeof imp?.main !== 'function')
+        return Alert(`Failed to import the ${name} plugin!`);
+
+    imp!.main();
 }
 
 const keysPressed = new Set<string>();
@@ -3421,7 +3423,6 @@ window.addEventListener('load', () => {
     document.title = `Synergism v${version}`;
 
     generateEventHandlers();
-    loadPlugins();
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
 
