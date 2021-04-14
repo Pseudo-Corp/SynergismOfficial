@@ -30,7 +30,6 @@ import { generateEventHandlers } from './EventListeners';
 import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
 
-import './Logger';
 import { checkVariablesOnLoad } from './CheckVariables';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { QuarkHandler } from './Quark';

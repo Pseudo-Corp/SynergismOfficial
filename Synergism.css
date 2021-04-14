@@ -2679,13 +2679,7 @@ header #obtainiumDisplay {
 	margin: auto;
 }
 
-#testingLogger > #console {
-	text-align: center;
+#testingLogger {
+	display: flex;
 	flex-direction: column;
-	margin-top: 10px;
 }
-
-#testingLogger > #console > p { margin: 0; }
-#testingLogger > #console > .log { color: green; }
-#testingLogger > #console > .info { color: yellow; }
-#testingLogger > #console > .error { color: red; }
