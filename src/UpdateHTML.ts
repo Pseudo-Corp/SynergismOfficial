@@ -934,6 +934,7 @@ const popunder = (
     el: HTMLElement, 
     v: () => Parameters<typeof format>[0]
 ) => {
+    console.log('github actions sucks please work');
     const id: 'khafraIsAwesome' = 'khafraIsAwesome' as const; // DO NOT CHANGE!
     el.addEventListener('mouseenter', (ev) => {
         const isOnPage = document.getElementById(id);
