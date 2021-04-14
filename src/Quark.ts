@@ -2,6 +2,7 @@
 
 import { hepteractEffective } from "./Hepteracts"
 import { player } from "./Synergism"
+import { Alert } from "./UpdateHTML";
 import { Globals as G } from "./Variables"
 
 export const getQuarkMultiplier = () => {
@@ -92,6 +93,8 @@ export class QuarkHandler {
         this.QUARKS = quarks;
         if (bonus)
             this.BONUS = bonus;
+        else
+            this.getBonus();
     }
 
     /*** Calculates the number of quarks to give with the current bonus. */
@@ -112,6 +115,30 @@ export class QuarkHandler {
         if (this.QUARKS < 0) this.QUARKS = 0;
 
         return this;
+    }
+
+    async getBonus() {
+        try {
+            const r = await fetch('https://api.github.com/gists/44be6ad2dcf0d44d6a29dffe1d66a84a', {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+            const t = await r.json();
+            const b = Number(t.files['SynergismQuarkBoost.txt'].content);
+
+            if (Number.isNaN(b)) 
+                return Alert('No bonus could be applied, an error occurred. [NaN] :(');
+            else if (!Number.isFinite(b))
+                return Alert('No bonus could be applied, an error occurred. [Infinity] :(');
+            else if (b < 0)
+                return Alert('No bonus could be applied, an error occurred. [Zero] :(');
+
+            console.log(`%c \tBonus of ${b}% quarks has been applied!`, 'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;')
+            this.BONUS = b;
+        } catch (e) {
+            return Alert(`An unexpected error occurred: "${e}"`);
+        }
     }
 
     [Symbol.toPrimitive] = (t: string) => t === 'number' ? this.QUARKS : null;

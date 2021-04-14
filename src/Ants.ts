@@ -267,7 +267,7 @@ export const antUpgradeDescription = (i: number) => {
 
     const content1 = antspecies["antspecies" + i];
     const content2 = antupgdesc["antupgdesc" + i];
-    const bonuslevel = G["bonusant" + i];
+    const bonuslevel = G[`bonusant${i}` as keyof typeof G] as typeof G['bonusant1'];
 
     const c11 = player.currentChallenge.ascension === 11 ? 999 : 0;
 

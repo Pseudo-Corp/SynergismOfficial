@@ -9,6 +9,9 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
     ],
     rules: {
-        '@typescript-eslint/explicit-module-boundary-types': 'off'
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        // for some APIs (namely document.getElementById/querySelector/etc), we can
+        // guarantee an element will be on the page.
+        '@typescript-eslint/no-non-null-assertion': 'off'
     }
 };
