@@ -27,7 +27,6 @@ import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
 import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
-import * as Plugins from './Plugins/Plugins';
 import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
 
@@ -1363,7 +1362,8 @@ const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
 export const format = (
     input: Decimal | number | { [Symbol.toPrimitive]: unknown } | bigint, 
     accuracy = 0, 
-    long = false
+    long = false,
+    truncate = true
 ): string => {
     if (
         typeof input === 'object' && 
@@ -1448,7 +1448,7 @@ export const format = (
     } else if (power >= 1e6) {
         // if the power is greater than 1e6 apply notation scientific notation
         // Makes mantissa be rounded down to 2 decimal places
-        const mantissaLook = isTesting ? '' : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
+        const mantissaLook = isTesting && truncate ? '' : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
         
         // Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234)
         const powerDigits = Math.ceil(Math.log10(power));
@@ -3139,12 +3139,26 @@ function tack(dt: number) {
         calculateOfferings("reincarnation")
     }
 
-const loadPlugins = async () => {
-    for (const obj of Object.keys(Plugins)) {
-        document.getElementById(`pluginSubTab${Object.keys(Plugins).indexOf(obj) + 1}`)
-            .addEventListener('click', () => Plugins[obj as keyof typeof Plugins].main())
-    }
+type Plugins = 'Dashboard' | 'OpenCubes';
+
+export const loadPlugins = async (name: Plugins) => {
+    const imp = await import(`./Plugins/${name}`) as typeof import('./Plugins/Dashboard');
+    if (typeof imp?.main !== 'function')
+        return Alert(`Failed to import the ${name} plugin!`);
+
+    imp!.main();
 }
+
+const keysPressed = new Set<string>();
+
+document.addEventListener('keydown', event => {
+    keysPressed.add(event.key);
+    // if (keysPressed.has('Control') && event.key === 'a') {}
+});
+
+document.addEventListener('keyup', event => {
+    keysPressed.delete(event.key);
+});
 
 document.addEventListener('keydown', (event) => {
     if (document.activeElement && document.activeElement.localName === 'input') {
@@ -3154,28 +3168,26 @@ document.addEventListener('keydown', (event) => {
         return;
     }
 
-    let type = "";
-    let num = 0;
+    const costs = {
+        default: [1, 100, 1e4, 1e8, 1e16],
+        coin: [100, 2000, 4e4, 8e5, 1.6e7],
+        diamond: [100, 1e5, 1e15, 1e40, 1e100]
+    } as const;
 
-    let cost = [null, 1, 100, 1e4, 1e8, 1e16]
-    if (G['buildingSubTab'] === "coin") {
-        cost = [null, 100, 2000, 4e4, 8e5, 1.6e7];
-        type = "Coin"
-    }
-    if (G['buildingSubTab'] === "diamond") {
-        cost = [null, 100, 1e5, 1e15, 1e40, 1e100];
-        type = "Diamonds"
-    }
-    if (G['buildingSubTab'] === "mythos") {
-        type = "Mythos"
-    }
+    const types = {
+        coin: 'Coin',
+        diamond: 'Diamonds',
+        mythos: 'Mythos'
+    } as const;
+
+    const cost = costs[G['buildingSubTab'] as keyof typeof costs] ?? costs.default;
+    const type = types[G['buildingSubTab'] as keyof typeof types] ?? '';
 
     const key = event.key.toUpperCase();
     switch (key) {
         case "1":
-            num = 1;
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding('first', cost[1]) : buyMax('first', type, num, cost[1])
+                G['buildingSubTab'] === "particle" ? buyParticleBuilding('first', cost[0]) : buyMax('first', type, 1, cost[0])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3195,9 +3207,10 @@ document.addEventListener('keydown', (event) => {
             break;
 
         case "2":
-            G['buildingSubTab'] === "coin" ? num = 2 : num = 3
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding('second', cost[2]) : buyMax('second', type, num, cost[2])
+                G['buildingSubTab'] === "particle" 
+                    ? buyParticleBuilding('second', cost[1]) 
+                    : buyMax('second', type, G['buildingSubTab'] === "coin" ? 2 : 3, cost[1])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3216,9 +3229,10 @@ document.addEventListener('keydown', (event) => {
             }
             break;
         case "3":
-            G['buildingSubTab'] === "coin" ? num = 3 : num = 6
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding('third', cost[3]) : buyMax('third', type, num, cost[3])
+                G['buildingSubTab'] === "particle" 
+                    ? buyParticleBuilding('third', cost[2]) 
+                    : buyMax('third', type, G['buildingSubTab'] === "coin" ? 3 : 6, cost[2])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3237,9 +3251,10 @@ document.addEventListener('keydown', (event) => {
             }
             break;
         case "4":
-            G['buildingSubTab'] === "coin" ? num = 4 : num = 10
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding('fourth', cost[4]) : buyMax('fourth', type, num, cost[4])
+                G['buildingSubTab'] === "particle" 
+                    ? buyParticleBuilding('fourth', cost[3]) 
+                    : buyMax('fourth', type, G['buildingSubTab'] === "coin" ? 4 : 10, cost[3])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3258,9 +3273,10 @@ document.addEventListener('keydown', (event) => {
             }
             break;
         case "5":
-            G['buildingSubTab'] === "coin" ? num = 5 : num = 15
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding('fifth', cost[5]) : buyMax('fifth', type, num, cost[5])
+                G['buildingSubTab'] === "particle" 
+                    ? buyParticleBuilding('fifth', cost[4]) 
+                    : buyMax('fifth', type, G['buildingSubTab'] === "coin" ? 5 : 15, cost[4])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3407,7 +3423,6 @@ window.addEventListener('load', () => {
     document.title = `Synergism v${version}`;
 
     generateEventHandlers();
-    loadPlugins();
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
 
