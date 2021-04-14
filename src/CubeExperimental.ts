@@ -67,7 +67,7 @@ const platonicBlessings: Record <
  * 
  * new PlatCubes().openCustom(); 
  */
-abstract class Currency {
+abstract class Cube {
     /** key on the player object */
     private key: keyof Player;
     private value: number;
@@ -124,12 +124,12 @@ abstract class Currency {
         return Math.ceil(Math.pow(10, (quarks + 1) / (multiplier * base)) - cubes)
     }
 
-    add(amount: number): Currency {
+    add(amount: number): Cube {
         this.value += amount;
         return this;
     }
 
-    sub(amount: number): Currency {
+    sub(amount: number): Cube {
         this.value = Math.max(0, this.value - amount);
         return this;
     }
@@ -143,7 +143,7 @@ abstract class Currency {
     }
 }
 
-export class WowCubes extends Currency {
+export class WowCubes extends Cube {
     constructor(amount = Number(player.wowCubes)) {
         super('wowCubes', amount);
     }
@@ -205,7 +205,7 @@ export class WowCubes extends Currency {
     }
 }
 
-export class WowTesseracts extends Currency {
+export class WowTesseracts extends Cube {
     constructor(amount = Number(player.wowTesseracts)) {
         super('wowTesseracts', amount);
     }
@@ -245,7 +245,7 @@ export class WowTesseracts extends Currency {
     }
 }
 
-export class WowHypercubes extends Currency {
+export class WowHypercubes extends Cube {
     constructor(amount = Number(player.wowHypercubes)) {
         super('wowHypercubes', amount);
     }
@@ -279,13 +279,13 @@ export class WowHypercubes extends Currency {
         }
 
         calculateHypercubeBlessings();
-        const extraTesseractBlessings = Math.floor(12 * toSpend * player.researches[153])
+        const extraTesseractBlessings = Math.floor(100 * toSpend * player.researches[153])
         player.wowTesseracts.add(extraTesseractBlessings);
         player.wowTesseracts.open(extraTesseractBlessings, false)
     }
 }
 
-export class WowPlatonicCubes extends Currency {
+export class WowPlatonicCubes extends Cube {
     constructor(amount = Number(player.wowPlatonicCubes)) {
         super('wowPlatonicCubes', amount);
     }
