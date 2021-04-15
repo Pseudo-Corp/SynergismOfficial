@@ -35,7 +35,7 @@ import { hepteractDescriptions } from "./Hepteracts"
     Platonic and/or Khafra have the right to close PRs that do not conform to this style guide
 
     If you are editing this script, please update the below time:
-    Last Edited: January 25 2021  8:10PM UTC-8 
+    Last Edited: April 15, 2021  3:04 AM UTC-8 
 */
 
 export const generateEventHandlers = () => {
@@ -228,8 +228,8 @@ export const generateEventHandlers = () => {
     document.getElementById('particleAutoUpgrade').addEventListener('click', () => toggleShops(5))
 
 // ACHIEVEMENTS TAB
-// Easy. There are 252 achievements, 252 mouseovers.
-    for (let index = 1; index <= 252; index++) {
+// Easy. There are 280 achievements, 280 mouseovers.
+    for (let index = 1; index <= 280; index++) {
     
         //Onmouseover events (Achievement descriptions)
         document.getElementById(`ach${index}`).addEventListener('mouseover', () => achievementdescriptions(index));

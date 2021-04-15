@@ -384,4 +384,8 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.platonicCubeOpenedDaily = 0;
         player.platonicCubeQuarkDaily = 0;
     }
+
+    while (player.achievements[280] === undefined) {
+        player.achievements.push(0)
+    }
 }

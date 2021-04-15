@@ -339,7 +339,7 @@ export const player: Player = {
         rrow3: false,
         rrow4: false
     },
-    achievements: Array(253).fill(0),
+    achievements: Array(281).fill(0),
 
     achievementPoints: 0,
 
