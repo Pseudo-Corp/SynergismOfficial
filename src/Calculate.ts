@@ -1174,7 +1174,7 @@ export const dailyResetCheck = () => {
         player.cubeOpenedDaily = 0;
         player.tesseractOpenedDaily = 0;
         player.hypercubeOpenedDaily = 0;
-        player.platonicCubeQuarkDaily = 0;
+        player.platonicCubeOpenedDaily = 0;
 
         document.getElementById('cubeQuarksOpenRequirement').style.display = "block"
         if (player.challengecompletions[11] > 0) {
