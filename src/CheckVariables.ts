@@ -7,7 +7,6 @@ import { c15RewardUpdate } from './Statistics';
 import { LegacyShopUpgrades } from './types/LegacySynergism';
 import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
-import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 
 /**
@@ -17,12 +16,6 @@ import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './Cube
  * @param data 
  */
 export const checkVariablesOnLoad = (data: Player) => {
-    player.worlds = new QuarkHandler({ quarks: Number(data.worlds), bonus: 0 /** <-- TODO */ });
-    player.wowCubes = new WowCubes(Number(data.wowCubes));
-    player.wowTesseracts = new WowTesseracts(Number(data.wowTesseracts));
-    player.wowHypercubes = new WowHypercubes(Number(data.wowHypercubes));
-    player.wowPlatonicCubes = new WowPlatonicCubes(Number(data.wowPlatonicCubes));
-    
     if (player.currentChallenge.transcension === undefined) {
         player.currentChallenge = {
             transcension: 0,

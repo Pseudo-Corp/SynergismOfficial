@@ -640,6 +640,17 @@ export const saveSynergy = async (button?: boolean) => {
     }
 }
 
+/**
+ * Map of properties on the Player object to adapt
+ */
+const toAdapt = new Map<keyof Player, (data: Player) => unknown>([
+    ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) })],
+    ['wowCubes', data => new WowCubes(Number(data.wowCubes))],
+    ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts))],
+    ['wowHypercubes', data => new WowHypercubes(Number(data.wowHypercubes))],
+    ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes))]
+]);
+
 export const loadSynergy = async () => {
     const save = localStorage.getItem("Synergysave2");
     const data = save ? JSON.parse(atob(save)) : null;
@@ -653,8 +664,6 @@ export const loadSynergy = async () => {
     Object.assign(G, { ...blankGlobals });
 
     if (data) {
-        const hasOwnProperty = {}.hasOwnProperty;
-
         const oldCodesUsed = Array.from(
             { length: 24 }, // old codes only went up to 24
             (_, i) => 'offerpromo' + (i + 1) + 'used'
@@ -672,9 +681,9 @@ export const loadSynergy = async () => {
             });
         }
 
-        Object.keys(data).forEach(function (prop) {
-            if (!hasOwnProperty.call(player, prop)) {
-                return;
+        Object.keys(data).forEach((prop) => {
+            if (toAdapt.has(prop)) {
+                return player[prop] = toAdapt.get(prop)(data);
             }
 
             if (isDecimal(player[prop])) {
@@ -695,6 +704,7 @@ export const loadSynergy = async () => {
 
             return (player[prop] = data[prop]);
         });
+
         if (data.offerpromo24used !== undefined) {
             player.codes.set(25, false)
         }
