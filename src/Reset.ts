@@ -526,6 +526,10 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                 ascCount *= (Math.log(metaData[3]) / Math.log(10) - 1)
             }
             ascCount *= G['challenge15Rewards'].ascensions
+            if (player.achievements[260] > 0)
+                ascCount *= 1.25
+            if (player.achievements[261] > 0)
+                ascCount *= 1.25
             ascCount = Math.floor(ascCount)
             player.ascensionCount += ascCount;
             player.wowCubes.add(metaData[4]); //Metadata is defined up in the top of the (i > 3.5) case

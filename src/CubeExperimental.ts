@@ -333,5 +333,10 @@ export class WowPlatonicCubes extends Cube {
             }
         }
         calculatePlatonicBlessings();
+        if (player.achievements[273] > 0) {
+            const extraHypercubes = Math.floor(toSpend)
+            player.wowHypercubes.add(extraHypercubes);
+            player.wowHypercubes.open(extraHypercubes, false)
+        }
     }
 }

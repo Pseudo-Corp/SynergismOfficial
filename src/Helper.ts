@@ -33,6 +33,12 @@ export const addTimers = (input: TimerInput, time?: number) => {
         case "ascension": {
             let multiplier = 1 + player.shopUpgrades.chronometer / 100
             multiplier *=  (1 + 1/1000 * hepteractEffective('chronos'))
+            if (player.achievements[259] > 0)
+                multiplier *= 1.25
+            if (player.achievements[262] > 0)
+                multiplier *= (1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)))
+            if (player.achievements[263] > 0)
+                multiplier *= (1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)))
             player.ascensionCounter += time * timeMultiplier * multiplier;
             break;
         }

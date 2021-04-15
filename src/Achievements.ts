@@ -1,4 +1,4 @@
-import { player } from './Synergism';
+import { format, player } from './Synergism';
 import { Globals as G } from './Variables';
 import { revealStuff } from './UpdateHTML';
 import { Synergism } from './Events';
@@ -776,9 +776,14 @@ export const achievementdescriptions = (i: number) => {
     const y = adesc[`adesc${i}` as keyof typeof adesc];
     const z = player.achievements[i] > 0.5 ? ' COMPLETED!' : '';
     const k = areward[`areward${i}` as keyof typeof areward] || '';
+    let multiplier = 1
+    if (i >= 183) 
+        multiplier = 5
+    if (i >= 253)
+        multiplier = 40
 
     document.getElementById("achievementdescription").textContent = y + z
-    document.getElementById("achievementreward").textContent = "Reward: " + achievementpointvalues[i] + " AP. " + achievementpointvalues[i] + " Quarks! " + k
+    document.getElementById("achievementreward").textContent = "Reward: " + achievementpointvalues[i] + " AP. " + format(achievementpointvalues[i] * multiplier) + " Quarks! " + k
     if (player.achievements[i] > 0.5) {
         document.getElementById("achievementdescription").style.color = "gold"
     } else {
@@ -787,9 +792,15 @@ export const achievementdescriptions = (i: number) => {
 }
 
 export const achievementaward = (num: number) => {
-    if (player.achievements[num] < 0.5) {
+    if (player.achievements[num] < 1) {
         player.achievementPoints += achievementpointvalues[num]
-        player.worlds.add(achievementpointvalues[num]);
+        let multiplier = 1
+        if (num >= 183)
+            multiplier = 5
+        if (num >= 253)
+            multiplier = 40
+        console.log(multiplier)
+        player.worlds.add(achievementpointvalues[num] * multiplier);
         document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + "%]"
         player.achievements[num] = 1;
         revealStuff()
