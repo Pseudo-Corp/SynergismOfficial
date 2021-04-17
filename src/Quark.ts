@@ -88,9 +88,11 @@ export const quarkHandler = () : { maxTime: number; perHour: number;
 
 export class QuarkHandler {
     /** Global quark bonus */
-    BONUS = 0;
+    private BONUS = 0;
     /** Quark amount */
-    QUARKS = 0;
+    private QUARKS = 0;
+
+    private static interval: ReturnType<typeof setInterval> | null = null;
 
     constructor({ bonus, quarks }: { bonus?: number, quarks: number }) {
         this.QUARKS = quarks;
@@ -98,6 +100,9 @@ export class QuarkHandler {
             this.BONUS = bonus;
         else
             this.getBonus();
+
+        if (QuarkHandler.interval === null) // although the values are cached for 15 mins, refresh every 5
+            QuarkHandler.interval = setInterval(this.getBonus.bind(this), 60 * 1000 * 5);
     }
 
     /*** Calculates the number of quarks to give with the current bonus. */
@@ -121,6 +126,17 @@ export class QuarkHandler {
     }
 
     async getBonus() {
+        if (localStorage.getItem('quarkBonus') !== null) { // is in cache
+            const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus'));
+            if (Date.now() - fetched < 60 * 1000 * 15) { // cache is younger than 15 minutes
+                console.log(
+                    `%c \tBonus of ${bonus}% quarks has been applied! \n\t(Cached at ${fetched})`, 
+                    'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;'
+                );
+                return this.BONUS = bonus;
+            }
+        }
+
         try {
             const r = await fetch('https://api.github.com/gists/44be6ad2dcf0d44d6a29dffe1d66a84a', {
                 headers: {
@@ -137,7 +153,8 @@ export class QuarkHandler {
             else if (b < 0)
                 return Alert('No bonus could be applied, an error occurred. [Zero] :(');
 
-            console.log(`%c \tBonus of ${b}% quarks has been applied!`, 'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;')
+            console.log(`%c \tBonus of ${b}% quarks has been applied!`, 'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;');
+            localStorage.setItem('quarkBonus', JSON.stringify({ bonus: b, fetched: Date.now() }));
             this.BONUS = b;
         } catch (e) {
             return Alert(`An unexpected error occurred: "${e}"`);
