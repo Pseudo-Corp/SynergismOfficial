@@ -2060,14 +2060,14 @@ export const multipliers = (): void => {
         G['mythosupgrade15'] = G['mythosupgrade15'].times(Decimal.pow("1e1000", Math.min(1000, G['buildingPower'] - 1)))
     }
 
-    G['globalAntMult'] = new Decimal(1);
+    //Update 2.5.0: Updated to have a base of 10 instead of 1x
+    G['globalAntMult'] = new Decimal(10);
     G['globalAntMult'] = G['globalAntMult'].times(1 + 1 / 2500 * Math.pow(G['rune5level'] * G['effectiveLevelMult'] * (1 + player.researches[84] / 200 * (1 + 1 * G['effectiveRuneSpiritPower'][5] * calculateCorruptionPoints() / 400)), 2))
     if (player.upgrades[76] === 1) {
         G['globalAntMult'] = G['globalAntMult'].times(5)
     }
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
     G['globalAntMult'] = G['globalAntMult'].times(1 + player.upgrades[78] * 0.005 * Math.pow(Math.log(player.maxofferings + 1) / Math.log(10), 2))
-    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1.125, player.shopUpgrades.antSpeed));
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1-1] + G['bonusant1']));
     G['globalAntMult'] = G['globalAntMult'].times(antSacrificePointsToMultiplier(player.antSacrificePoints))
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(Math.max(1, player.researchPoints), G['effectiveRuneBlessingPower'][5]))
@@ -2108,6 +2108,9 @@ export const multipliers = (): void => {
     G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 1 - 0.9 / 90 * Math.min(99, sumContents(player.usedCorruptions)))
     G['globalAntMult'] = Decimal.pow(G['globalAntMult'], G['extinctionMultiplier'][player.usedCorruptions[7]])
     G['globalAntMult'] = G['globalAntMult'].times(G['challenge15Rewards'].antSpeed)
+    //V2.5.0: Moved ant shop upgrade as 'uncorruptable'
+    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1.125, player.shopUpgrades.antSpeed));
+
 
     if (player.platonicUpgrades[12] > 0) {
         G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1 + 1 / 100 * player.platonicUpgrades[12], sumContents(player.highestchallengecompletions)))

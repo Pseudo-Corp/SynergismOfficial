@@ -294,16 +294,17 @@ export const checkVariablesOnLoad = (data: Player) => {
     if (typeof data.exporttest === 'string') {
         player.exporttest = !isTesting;
     }
-
+    console.log(data.shopUpgrades)
+    console.log(data.worlds)
     const shop = data.shopUpgrades as LegacyShopUpgrades | Player['shopUpgrades'];
     if (shop && 'offeringTimerLevel' in shop) {
         player.shopUpgrades = {
             offeringPotion: shop.offeringPotion,
             obtainiumPotion: shop.obtainiumPotion,
             offeringEX: 0,
-            offeringAuto: 0,
+            offeringAuto: Math.min(1, Number(shop.offeringAutoLevel)),
             obtainiumEX: 0,
-            obtainiumAuto: Number(shop.obtainiumAutoLevel),
+            obtainiumAuto: Math.min(1, Number(shop.obtainiumAutoLevel)), //Number(shop.obtainiumAutoLevel),
             instantChallenge: Number(shop.instantChallengeBought),
             antSpeed: 0,
             cashGrab: 0,
@@ -322,16 +323,18 @@ export const checkVariablesOnLoad = (data: Player) => {
 
         const initialQuarks = player.worlds;
 
-        player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel);
-        player.worlds.add(150 * shop.obtainiumTimerLevel + 25/2 * (shop.obtainiumTimerLevel - 1) * shop.obtainiumTimerLevel);
-        player.worlds.add(150 * shop.offeringAutoLevel + 25/2 * (shop.offeringAutoLevel - 1) * shop.offeringAutoLevel);
-        player.worlds.add(150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * shop.obtainiumAutoLevel);
-        player.worlds.add(100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * shop.cashGrabLevel);
-        player.worlds.add(200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * shop.antSpeedLevel);
+        player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false);
+        player.worlds.add(150 * shop.obtainiumTimerLevel + 25/2 * (shop.obtainiumTimerLevel - 1) * shop.obtainiumTimerLevel, false);
+        player.worlds.add(150 * shop.offeringAutoLevel + 25/2 * (shop.offeringAutoLevel - 1) * shop.offeringAutoLevel - 150 * Math.min(1, shop.offeringAutoLevel), false);
+        player.worlds.add(150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * shop.obtainiumAutoLevel - 150 * Math.min(1, shop.obtainiumAutoLevel), false);
+        player.worlds.add(100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * shop.cashGrabLevel, false);
+        player.worlds.add(200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * shop.antSpeedLevel, false);
+        player.worlds.add(500 * shop.challenge10Tomes + 250/2 * (shop.challenge10Tomes - 1) * (shop.challenge10Tomes), false);
         player.worlds.add(
             typeof shop.seasonPass === 'number' 
                 ? 500 * shop.seasonPass + 250/2 * (shop.seasonPass - 1) * shop.seasonPass
-                : 500 * shop.seasonPassLevel + 250/2 * (shop.seasonPassLevel - 1) * shop.seasonPassLevel
+                : 500 * shop.seasonPassLevel + 250/2 * (shop.seasonPassLevel - 1) * shop.seasonPassLevel,
+            false
         );
 
         console.log('Because of the v2.5.0 update, you have been refunded ' + format(+player.worlds - +initialQuarks) + ' Quarks! If this appears wrong let Platonic know :)')

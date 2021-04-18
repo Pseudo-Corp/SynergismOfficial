@@ -182,7 +182,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: true,
         refundMinimumLevel: 0,
-        description: "Okay, now this is just rediculous. +1% Wow! Hepteracts and Octeracts per level!"
+        description: "Okay, now this is just ridiculous. +1% Wow! Hepteracts and Octeracts per level!"
     },
     chronometer: {
         price: 2000,
@@ -355,7 +355,8 @@ export const resetShopUpgrades = async () => {
                 player.worlds.add(
                     shopData[key].price * player.shopUpgrades[key] +
                     shopData[key].priceIncrease * (player.shopUpgrades[key]) * (player.shopUpgrades[key] - 1) / 2
-                    - doNotRefund
+                    - doNotRefund,
+                    false
                 );
                 console.log("Successfully refunded " + format(+player.worlds - +initialQuarks) + " Quarks from '" + shopItem + "'. You now have " + format(player.worlds) + " Quarks.");
                 player.shopUpgrades[key] = shopData[key].refundMinimumLevel;

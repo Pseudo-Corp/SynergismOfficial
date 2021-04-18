@@ -111,9 +111,11 @@ export class QuarkHandler {
     }
 
     /** Subtracts quarks, as the name suggests. */
-    add(amount: number) {
-        this.QUARKS += this.applyBonus(amount);
-
+    add(amount: number, useBonus = true) {
+        if (useBonus)
+            this.QUARKS += this.applyBonus(amount);
+        else
+            this.QUARKS += amount;
         return this;
     }
 

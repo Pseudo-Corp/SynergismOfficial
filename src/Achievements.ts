@@ -799,7 +799,6 @@ export const achievementaward = (num: number) => {
             multiplier = 5
         if (num >= 253)
             multiplier = 40
-        console.log(multiplier)
         player.worlds.add(achievementpointvalues[num] * multiplier);
         document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + "%]"
         player.achievements[num] = 1;
