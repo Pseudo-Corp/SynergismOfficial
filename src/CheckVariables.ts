@@ -294,8 +294,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     if (typeof data.exporttest === 'string') {
         player.exporttest = !isTesting;
     }
-    console.log(data.shopUpgrades)
-    console.log(data.worlds)
+
     const shop = data.shopUpgrades as LegacyShopUpgrades | Player['shopUpgrades'];
     if (shop && 'offeringTimerLevel' in shop) {
         player.shopUpgrades = {
@@ -321,7 +320,7 @@ export const checkVariablesOnLoad = (data: Player) => {
             infiniteAscent: 0,
         }
 
-        const initialQuarks = player.worlds;
+        const initialQuarks = Number(player.worlds);
 
         player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false);
         player.worlds.add(150 * shop.obtainiumTimerLevel + 25/2 * (shop.obtainiumTimerLevel - 1) * shop.obtainiumTimerLevel, false);
