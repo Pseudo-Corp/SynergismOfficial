@@ -1,2 +1,0 @@
-(self.webpackChunksynergismofficial=self.webpackChunksynergismofficial||[]).push([[302],{302:(e,s,o)=>{"use strict";o.r(s),o.d(s,{main:()=>a});var n=o(915);const a=()=>{Object.defineProperties(window,{openHypercube:{value:n.hM.wowHypercubes.open},openPlatonic:{value:n.hM.wowTesseracts.open},openTeseract:{value:n.hM.wowTesseracts.open},openCube:{value:n.hM.wowCubes.open}})}}}]);
-//# sourceMappingURL=302.bundle.js.map
