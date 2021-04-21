@@ -144,7 +144,7 @@
   },
   "scripts": {
     "build": "npx webpack",
-    "build:esbuild": ".\\node_modules\\.bin\\esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge79\" --outfile=\"./dist/out.js\"",
+    "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge79\" --outfile=\"./dist/out.js\"",
     "start": "npx webpack serve --mode development --hot",
     "start:prod": "npx webpack serve --mode production --hot",
     "lint": "npx eslint --fix . --ext .ts"
