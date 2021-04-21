@@ -31,6 +31,7 @@
     "envinfo": "^7.7.3",
     "errno": "^0.1.8",
     "es-module-lexer": "^0.3.26",
+    "esbuild": "^0.11.12",
     "escalade": "^3.1.1",
     "eslint-scope": "^5.1.1",
     "esrecurse": "^4.3.0",
@@ -143,6 +144,7 @@
   },
   "scripts": {
     "build": "npx webpack",
+    "build:esbuild": ".\\node_modules\\.bin\\esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge79\" --outfile=\"./dist/out.js\"",
     "start": "npx webpack serve --mode development --hot",
     "start:prod": "npx webpack serve --mode production --hot",
     "lint": "npx eslint --fix . --ext .ts"
