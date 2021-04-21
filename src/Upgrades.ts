@@ -415,7 +415,7 @@ const constUpgEffect: Record<number, () => string> = {
     10: () => `Cubes/Tesseracts on Ascension x${format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)}` 
 }
 
-export const returnConstUpgEffect = (i: number) => constUpgEffect[i]?.();
+const returnConstUpgEffect = (i: number) => constUpgEffect[i]?.();
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
     const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G['constUpgradeCosts'][i]) / Math.log(10)));

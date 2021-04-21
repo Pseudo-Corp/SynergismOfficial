@@ -43,8 +43,7 @@ export const getQuarkMultiplier = () => {
     return multiplier
 }
 
-export const quarkHandler = () : { maxTime: number; perHour: number;
-                                    capacity: number; gain: number} => {
+export const quarkHandler = () => {
     let maxTime = 90000 //In Seconds
     if (player.researches[195] > 0) {
         maxTime += 18000 * player.researches[195] // Research 8x20

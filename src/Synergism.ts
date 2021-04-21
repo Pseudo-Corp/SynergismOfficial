@@ -3154,11 +3154,12 @@ function tack(dt: number) {
 type Plugins = 'Dashboard' | 'OpenCubes';
 
 export const loadPlugins = async (name: Plugins) => {
-    const imp = await import(`./Plugins/${name}`) as typeof import('./Plugins/Dashboard');
-    if (typeof imp?.main !== 'function')
-        return Alert(`Failed to import the ${name} plugin!`);
+    return Alert(`Plugin ${name} is currently disabled. Sorry!`);
+    // const imp = await import(`./Plugins/${name}`) as typeof import('./Plugins/Dashboard');
+    // if (typeof imp?.main !== 'function')
+    //    return Alert(`Failed to import the ${name} plugin!`);
 
-    imp!.main();
+    // imp!.main();
 }
 
 const keysPressed = new Set<string>();

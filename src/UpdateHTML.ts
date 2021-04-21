@@ -783,7 +783,7 @@ export const showCorruptionStatsLoadouts = () => {
     }
 }
 
-export const updateAscensionStats = () => {
+const updateAscensionStats = () => {
     const t = player.ascensionCounter;
     const [cubes, tess, hyper, platonic] = CalcCorruptionStuff().splice(4);
     const fillers: Record<string, string> = {
@@ -821,7 +821,7 @@ export const changeTabColor = () => {
     tab.style.backgroundColor = color;
 }
 
-export const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
+const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
     const conf = document.getElementById('confirmationBox');
     const confWrap = document.getElementById('confirmWrapper');
     const popup = document.querySelector<HTMLElement>('#confirm');

@@ -151,17 +151,9 @@ export const visualUpdateBuildings = () => {
     }
 }
 
-export const visualUpdateUpgrades = () => {
-    if (G['currentTab'] !== "upgrades")
-        return
+export const visualUpdateUpgrades = () => {}
 
-}
-
-export const visualUpdateAchievements = () => {
-    if (G['currentTab'] !== "achievements")
-        return
-
-}
+export const visualUpdateAchievements = () => {}
 
 export const visualUpdateRunes = () => {
     if (G['currentTab'] !== "runes")
