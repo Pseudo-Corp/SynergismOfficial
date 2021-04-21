@@ -615,7 +615,7 @@ export const blankSave = Object.assign({}, player, {
     codes: new Map(Array.from({ length: 31 }, (_, i) => [i + 1, false]))
 });
 
-export const saveSynergy = async (button?: boolean) => {
+export const saveSynergy = (button?: boolean) => {
     player.offlinetick = Date.now();
     player.loaded1009 = true;
     player.loaded1009hotfix1 = true;
@@ -651,7 +651,7 @@ const toAdapt = new Map<keyof Player, (data: Player) => unknown>([
     ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes))]
 ]);
 
-export const loadSynergy = async () => {
+const loadSynergy = () => {
     const save = localStorage.getItem("Synergysave2");
     const data = save ? JSON.parse(atob(save)) : null;
 
@@ -3154,7 +3154,7 @@ function tack(dt: number) {
 type Plugins = 'Dashboard' | 'OpenCubes';
 
 export const loadPlugins = async (name: Plugins) => {
-    return Alert(`Plugin ${name} is currently disabled. Sorry!`);
+    return await Alert(`Plugin ${name} is currently disabled. Sorry!`);
     // const imp = await import(`./Plugins/${name}`) as typeof import('./Plugins/Dashboard');
     // if (typeof imp?.main !== 'function')
     //    return Alert(`Failed to import the ${name} plugin!`);

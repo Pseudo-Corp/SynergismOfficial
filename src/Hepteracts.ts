@@ -62,8 +62,8 @@ export class HepteractCraft {
     }
 
     // Unlock a synthesizer craft
-    unlock = async(hepteractName: string) : Promise<HepteractCraft> => {
-        if(this.UNLOCKED === true) {
+    unlock = (hepteractName: string): HepteractCraft | Promise<void> => {
+        if (this.UNLOCKED === true) {
             return this;
         }
         this.UNLOCKED = true;
