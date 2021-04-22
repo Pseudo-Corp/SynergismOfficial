@@ -370,8 +370,9 @@ export const checkVariablesOnLoad = (data: Player) => {
         }
     }
     else {
-        for (const item in player.hepteractCrafts){
-            player.hepteractCrafts[item] = createHepteract(player.hepteractCrafts[item])
+        for (const item in player.hepteractCrafts) {
+            const k = item as keyof Player['hepteractCrafts'];
+            player.hepteractCrafts[k] = createHepteract(player.hepteractCrafts[k]);
         }
     }
 

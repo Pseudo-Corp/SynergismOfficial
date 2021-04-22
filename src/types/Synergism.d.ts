@@ -1,5 +1,6 @@
 import type Decimal from 'break_infinity.js';
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental';
+import { HepteractCraft } from '../Hepteracts';
 import { Category, ResetHistoryEntryUnion } from '../History';
 import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
@@ -482,6 +483,17 @@ export interface Player {
 
     rngCode: number
     skillCode?: number
+
+    hepteractCrafts: {
+        chronos: HepteractCraft,
+        hyperrealism: HepteractCraft,
+        quark: HepteractCraft,
+        challenge: HepteractCraft,
+        abyss: HepteractCraft,
+        accelerator: HepteractCraft,
+        acceleratorBoost: HepteractCraft,
+        multiplier: HepteractCraft
+    }
 
     [key: string]: any
 }
