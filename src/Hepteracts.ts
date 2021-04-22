@@ -1,3 +1,4 @@
+import { Cube } from "./CubeExperimental";
 import { format, player } from "./Synergism";
 import { Alert, Confirm, Prompt } from "./UpdateHTML";
 
@@ -80,9 +81,9 @@ export class HepteractCraft {
 
         //Check these lol
         if (Number.isNaN(craftAmount) || !Number.isFinite(craftAmount)) // nan + Infinity checks
-        return Alert('Value must be a finite number!');
+            return Alert('Value must be a finite number!');
         else if (craftAmount <= 0) // 0 or less selected
-        return Alert('You can\'t craft a nonpositive amount of these fucks, lol!');
+            return Alert('You can\'t craft a nonpositive amount of these fucks, lol!');
 
         // If craft is unlocked, we return object
         if (!this.UNLOCKED) 
@@ -107,7 +108,10 @@ export class HepteractCraft {
         // Subtract spent items from player
         player.wowAbyssals -= amountToCraft * this.HEPTERACT_CONVERSION
         for (const item in this.OTHER_CONVERSIONS) {
-            player[item] -= amountToCraft * this.OTHER_CONVERSIONS[item]
+            if (typeof player[item] === 'number')
+                player[item] -= amountToCraft * this.OTHER_CONVERSIONS[item];
+            else if (Object.prototype.isPrototypeOf.call(Cube, player[item]))
+                (<Cube>player[item]).sub(amountToCraft * this.OTHER_CONVERSIONS[item]);
         }
         return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' hepteracts. If this is less than your input, you either hit the inventory limit or you had insufficient resources.');
     }

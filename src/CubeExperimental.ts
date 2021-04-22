@@ -67,7 +67,7 @@ const platonicBlessings: Record <
  * 
  * new PlatCubes().openCustom(); 
  */
-abstract class Cube {
+export abstract class Cube {
     /** key on the player object */
     private key: keyof Player;
     private value: number;
