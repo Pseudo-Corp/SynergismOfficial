@@ -231,14 +231,14 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
         case 'chronos':
             unlockedText.textContent = (player.hepteractCrafts.chronos.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
             effectText.textContent = "This hepteract bends time, in your favor. +0.06% Ascension Speed per Chronos Hepteract."
-            currentEffectText.textContent = "Current Effect: Ascension Speed +" + format(hepteractEffective('chronos') / 10, 2, true) + "%"
+            currentEffectText.textContent = "Current Effect: Ascension Speed +" + format(hepteractEffective('chronos') * 6 / 100, 2, true) + "%"
             balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.chronos.BAL, 0, true) + " / " + format(player.hepteractCrafts.chronos.CAP)
             costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.chronos.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e115 Obtainium [WIP]"
             break;
         case 'hyperrealism':
             unlockedText.textContent = (player.hepteractCrafts.hyperrealism.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
             effectText.textContent = "This bad boy can make hypercube gain skyrocket. +0.06% Hypercubes per Hyperreal Hepteract."
-            currentEffectText.textContent = "Current Effect: Hypercubes +" + format(hepteractEffective('hyperrealism') / 10, 2, true) + "%"
+            currentEffectText.textContent = "Current Effect: Hypercubes +" + format(hepteractEffective('hyperrealism') * 6 / 100, 2, true) + "%"
             balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.hyperrealism.BAL, 0, true) + " / " + format(player.hepteractCrafts.hyperrealism.CAP)
             costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.hyperrealism.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e80 Offerings."
             break;

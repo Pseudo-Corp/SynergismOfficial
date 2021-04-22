@@ -448,7 +448,7 @@ export const calculateChallengeRequirementMultiplier = (type: string, completion
                 else if (special == 8)
                     requirementMultiplier *= 10
                 else
-                    requirementMultiplier *= 1000
+                    requirementMultiplier *= 4
             }
             if (completions >= 80) {
                 if (special === 6)
@@ -458,7 +458,7 @@ export const calculateChallengeRequirementMultiplier = (type: string, completion
                 else if (special === 8)
                     requirementMultiplier *= 4
                 else
-                    requirementMultiplier *= 2000
+                    requirementMultiplier *= 2
             }
             if (completions >= 70){
                 if(special === 6) /*Multiplier is reduced significantly for challenges requiring mythos shards*/
@@ -468,11 +468,11 @@ export const calculateChallengeRequirementMultiplier = (type: string, completion
                 else if(special === 8)
                     requirementMultiplier *= 2
                 else
-                    requirementMultiplier *= 1000
+                    requirementMultiplier *= 1
             }
             if (completions >= 60){
                 if (special === 9 || special === 10)
-                    requirementMultiplier *= 10
+                    requirementMultiplier *= Math.pow(1000, (completions - 60) / 10)
             }
             if (completions >= 25){
                 requirementMultiplier *= Math.pow(1 + completions, 5) / 625
