@@ -150,8 +150,8 @@ export const corruptionButtonsAdd = () => {
         let btn;
         btn = document.createElement("button");
         btn.className = "corrBtn corruptionMax";
-        btn.textContent = "+12";
-        btn.onclick = () => toggleCorruptionLevel(i + 1, 12);
+        btn.textContent = "+13";
+        btn.onclick = () => toggleCorruptionLevel(i + 1, 13);
         row.appendChild(btn);
 
         btn = document.createElement("button");
@@ -168,8 +168,8 @@ export const corruptionButtonsAdd = () => {
 
         btn = document.createElement("button");
         btn.className = "corrBtn corruptionReset";
-        btn.textContent = "-12";
-        btn.addEventListener('click', () => toggleCorruptionLevel(i + 1, -12));
+        btn.textContent = "-13";
+        btn.addEventListener('click', () => toggleCorruptionLevel(i + 1, -13));
         row.appendChild(btn);
         row.addEventListener('click', () => corruptionDisplay(i + 1));
     }

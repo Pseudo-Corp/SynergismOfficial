@@ -781,7 +781,7 @@ export const toggleAutoTesseracts = (i: number) => {
 
 export const toggleCorruptionLevel = (index: number, value: number) => {
     const current = player.prototypeCorruptions[index]
-    const maxCorruption = 12
+    const maxCorruption = 13
     if (value > 0 && current < maxCorruption && 0 < index && index <= 9) {
         player.prototypeCorruptions[index] += Math.min(maxCorruption - current, value)
     }

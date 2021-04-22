@@ -20,19 +20,19 @@ export const getMaxChallenges = (i: number) => {
     }
     //Reincarnation Challenges
     if (i <= 10 && i > 5) {
-        //Start with base of 25 max completions
-        maxChallenge = 25;
-        //Cube Upgrade 2x9: +2/level
-        maxChallenge += 5 * player.cubeUpgrades[29];
+        //Start with base of 40 max completions
+        maxChallenge = 40;
+        //Cube Upgrade 2x9: +4/level
+        maxChallenge += 4 * player.cubeUpgrades[29];
         //Shop Upgrade "Challenge Extension": +2/level
         maxChallenge += 2 * player.shopUpgrades.challengeExtension;
-        //Platonic Upgrade 5 (ALPHA): +5
+        //Platonic Upgrade 5 (ALPHA): +10
         if (player.platonicUpgrades[5] > 0) {
-            maxChallenge += 5;
+            maxChallenge += 10;
         }
-        //Platonic Upgrade 10 (BETA): +5
+        //Platonic Upgrade 10 (BETA): +10
         if (player.platonicUpgrades[10] > 0) {
-            maxChallenge += 5;
+            maxChallenge += 10;
         }
         //Platonic Upgrade 15 (OMEGA): +10
         if (player.platonicUpgrades[15] > 0) {
@@ -50,15 +50,15 @@ export const getMaxChallenges = (i: number) => {
         maxChallenge = 30;
         //Platonic Upgrade 5 (ALPHA): +5
         if (player.platonicUpgrades[5] > 0) {
-            maxChallenge += 3;
+            maxChallenge += 5;
         }
         //Platonic Upgrade 10 (BETA): +5
         if (player.platonicUpgrades[10] > 0) {
-            maxChallenge += 3;
+            maxChallenge += 5;
         }
         //Platonic Upgrade 15 (OMEGA): +10
         if (player.platonicUpgrades[15] > 0) {
-            maxChallenge += 4;
+            maxChallenge += 10;
         }
         return maxChallenge
     }
@@ -236,7 +236,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         a.textContent = "No Runes Challenge || " + player.challengecompletions[9] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "You'll never complain about Prism being bad again."
         c.textContent = "Reincarnate and reach the goal except runes always have level 1 effects. All coin production is divided by e2,000,000."
-        d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i])) + " Coins in challenge."
+        d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i], 9)) + " Coins in challenge."
         e.textContent = "+1 free Ant level! Current: "
         f.textContent = "+10% Ant speed [Multiplicative!] Current: "
         g.textContent = "SI Rune Exp +20%! Current: "
@@ -250,7 +250,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         a.textContent = "Sadistic Challenge I || " + player.challengecompletions[10] + "/" + format(maxChallenges) + " Completions"
         b.textContent = "I'm sorry for what I've unleashed onto the world."
         c.textContent = "Reincarnate and reach the goal except run the first five challenges AT THE SAME TIME! Coin Production /e12,500,000."
-        d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i])) + " Coins in challenge."
+        d.textContent = "Goal: Gain " + format(challengeRequirement(i, player.challengecompletions[i], 10)) + " Coins in challenge."
         e.textContent = "+100 base ELO for sacrificing ants! Current: "
         f.textContent = "+2% Ant Sacrifice Reward! Current: "
         g.textContent = "Reincarnation Offerings +10%! Current: "
@@ -440,19 +440,39 @@ export const calculateChallengeRequirementMultiplier = (type: string, completion
             }
             return (requirementMultiplier)
         case "reincarnation":
+            if (completions >= 90) {
+                if (special === 6)
+                    requirementMultiplier *= 100
+                else if (special == 7)
+                    requirementMultiplier *= 50
+                else if (special == 8)
+                    requirementMultiplier *= 10
+                else
+                    requirementMultiplier *= 1000
+            }
+            if (completions >= 80) {
+                if (special === 6)
+                    requirementMultiplier *= 50
+                else if (special === 7)
+                    requirementMultiplier *= 20
+                else if (special === 8)
+                    requirementMultiplier *= 4
+                else
+                    requirementMultiplier *= 2000
+            }
+            if (completions >= 70){
+                if(special === 6) /*Multiplier is reduced significantly for challenges requiring mythos shards*/
+                    requirementMultiplier *= 20
+                else if(special === 7)
+                    requirementMultiplier *= 10
+                else if(special === 8)
+                    requirementMultiplier *= 2
+                else
+                    requirementMultiplier *= 1000
+            }
             if (completions >= 60){
-                if(special === 8){ /*Multiplier is reduced significantly for challenges requiring mythos shards*/
-                    requirementMultiplier *= Math.pow(1 + completions,1) / 60
-                }
-                else if(special === 7){
-                    requirementMultiplier *= Math.pow(1 + completions,1) / 30
-                }
-                else if(special === 6){
-                    requirementMultiplier *= Math.pow(1 + completions,2) / 360
-                }
-                else{
-                    requirementMultiplier *= Math.pow(1 + completions, 5) / 7200
-                }
+                if (special === 9 || special === 10)
+                    requirementMultiplier *= 10
             }
             if (completions >= 25){
                 requirementMultiplier *= Math.pow(1 + completions, 5) / 625
@@ -487,7 +507,8 @@ export const CalcECC = (type: 'transcend' | 'reincarnation' | 'ascension', compl
             return (effective);
         case "reincarnation":
             effective += Math.min(25, completions);
-            effective += 1 / 2 * (Math.max(25, completions) - 25);
+            effective += 1 / 2 * (Math.min(75, Math.max(25, completions)) - 25);
+            effective += 1 / 10 * (Math.max(75, completions) - 75)
             return (effective);
         case "ascension":
             effective += Math.min(10, completions);

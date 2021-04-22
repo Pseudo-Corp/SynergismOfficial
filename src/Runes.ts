@@ -43,9 +43,9 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
     }
     if (i === 6) {
         if (updatelevelup) {
-            document.getElementById("runeshowlevelup").textContent = "+0.2% Quarks, +2% all cube types per level! Start with +10% Quarks."
+            document.getElementById("runeshowlevelup").textContent = "+0.2% Quarks, +1% all cube types per level! Start with +10% Quarks."
         }
-        document.getElementById("runeshowpower6").textContent = "IA Rune Bonus: " + " Quark Gain +" + format(10 + 15/75 * player.runelevels[5], 1, true) + "%, Ascensions give +" + format(2 * player.runelevels[5], 0, true) + "% more of all cube types."
+        document.getElementById("runeshowpower6").textContent = "IA Rune Bonus: " + " Quark Gain +" + format(10 + 15/75 * player.runelevels[5], 1, true) + "%, Ascensions give +" + format(1 * player.runelevels[5], 0, true) + "% more of all cube types."
     }
     if (updatelevelup) {
         const arr = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], player.offeringbuyamount);

@@ -102,7 +102,7 @@ const cubeUpgradeDescriptions = [
     "[3x6] Start ascensions with 3 additional rune levels [Does not decrease EXP requirement] per level.",
     "[3x7] Upon an ascension, you will start with 1 of each reincarnation building to speed up Ascensions.",
     "[3x8] Well, I think you got it? Gain +1% of particles on Reincarnation per second.",
-    "[3x9] Add +5 to Reincarnation Challenge cap per level. Completions after 25 scale faster in requirement!",
+    "[3x9] Add +4 to Reincarnation Challenge cap per level. Completions after 25 scale faster in requirement!",
     "[3x10] You now get +25% Cubes and Tesseracts forever!",
     "[4x1] You again? +7% cubes from Ascending per level.",
     "[4x2] Gain +0.1% Rune EXP per second you have spent in an Ascension. This has no cap!",
