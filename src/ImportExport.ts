@@ -183,6 +183,15 @@ export const promocodes = async () => {
             el.textContent = `You guessed ${addPrompt}, but the answer was ${first + second}. Try again in an hour!`;
         }
         player.rngCode = Date.now();
+    } else if (input === 'sub') { 
+        const amount = 1 + window.crypto.getRandomValues(new Uint16Array(1))[0] % 16; // [1, 16]
+        const quarks = Number(player.worlds);
+        await Alert(`Thanks for using the "sub" code! I've taken away ${amount} quarks! :)`);        
+
+        if (quarks < amount) 
+            await Alert(`I gave you ${amount - quarks} quarks so I could take ${amount} away.`);
+
+        player.worlds.sub(quarks < amount ? amount - quarks : amount);
     } else if (input === 'gamble') {
         if (
             typeof player.skillCode === 'number' ||
