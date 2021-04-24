@@ -1518,24 +1518,35 @@ nav li:hover {
 }
 
 #shop {
-	position: relative;
-	padding: 0;
 	text-align: center;
 }
 
+#shopWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 #actualWrapper {
-	display: grid;
-	grid-template-columns: 5% [cons] 20% 2% [shop] 60%;
+	display: flex;
+	width: 100%;
+    justify-content: center;
+}
+
+#actualShopContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #actualShop {
-	display: grid;
-	grid-template-columns: repeat(8, minmax(70px, 105px));
-	margin-top: 10px;
-	width: calc(105px * 8);
-	border: 3px solid plum;
-	grid-column: shop 2/4;
-	grid-row: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-right: 5px;
+    margin-top: 10px;
+    width: calc(105px * 8);
+    border: 3px solid plum;
 }
 
 #actualShop > div {
@@ -1544,6 +1555,7 @@ nav li:hover {
 	align-items: center;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	margin-left: 5px;
 }
 
 #actualPotionShop > div > p,
@@ -1553,18 +1565,21 @@ nav li:hover {
 	color: whitesmoke;
 	font-size: 1.2em;
 	margin-top: 15px;
-	margin-bottom: 0;
 }
 
 #actualConsumables {
-	width: calc(130px * 2);
-	grid-column: cons 1/2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(130px * 2);
+    margin-right: 3%;
 }
 
 #actualPotionShop {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(70px, 130px));
 	border: 3px solid yellow;
+	margin-top: 10px;
 }
 
 #quarksDisplay {
@@ -1582,16 +1597,15 @@ nav li:hover {
 #consumables {
 	color: orangered;
 	font-size: 1.2em;
-	margin: 0;
+	margin-top: 15px;
 }
 
 #shopButtons {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	float: right;
-	margin-right: 12.5%;
-	margin-top: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    float: right;
+    margin-top: 5px;
 }
 
 #shopButtons > button {
@@ -1606,7 +1620,6 @@ nav li:hover {
 }
 
 #shopHovers {
-	margin: 4% auto; 
 	width: 600px;
 }
 
