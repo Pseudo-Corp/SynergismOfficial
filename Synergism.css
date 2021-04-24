@@ -1560,11 +1560,13 @@ nav li:hover {
     margin-bottom: 5px;
     margin-left: 5px;
     width: 100px;
-    white-space: nowrap;
 }
 
 #actualPotionShop > div > p,
-#actualShop > div > p { margin: 3px; }
+#actualShop > div > p {
+	margin: 3px;
+	white-space: nowrap;
+}
 
 #shoptop {
 	color: whitesmoke;
