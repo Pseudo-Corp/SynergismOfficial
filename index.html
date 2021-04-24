@@ -2581,76 +2581,78 @@
         <button id="switchSettingSubTab6" style="border: 2px solid white">Logger</button>
     </div>
     <div class="subtabContent subtabDisplayFlex subtabActive" id="settingsubtab">
-        <div id="confirmationToggleBox">
-            <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
-            <div class="confirmationToggles">
-                <div class="center"></div>
-                <div class="confirmationToggle">
-                    <img class="prestigeunlock settingpic" id="settingpic1" src = "Pictures/Prestige.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle28" toggleid="28" format="[$]" style="border:2px solid green">[ON]</button>
+        <div class="settingSubTabUpper">
+            <div id="confirmationToggleBox">
+                <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
+                <div class="confirmationToggles">
+                    <div class="center"></div>
+                    <div class="confirmationToggle">
+                        <img class="prestigeunlock settingpic" id="settingpic1" src = "Pictures/Prestige.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle28" toggleid="28" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="transcendunlock settingpic" id="settingpic2" src = "Pictures/Transcend.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle29" toggleid="29" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="reincarnationunlock settingpic" id="settingpic3" src = "Pictures/Reincarnate.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle30" toggleid="30" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="ascendunlock settingpic" id="settingpic4" src = "Pictures/questionable.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle31" toggleid="31" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="sacrificeAnts settingpic" id="settingpic5" src = "Pictures/Transparent%20Pics/Research124.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle32" toggleid="32" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="center"></div>
                 </div>
-                <div class="confirmationToggle">
-                    <img class="transcendunlock settingpic" id="settingpic2" src = "Pictures/Transcend.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle29" toggleid="29" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="confirmationToggle">
-                    <img class="reincarnationunlock settingpic" id="settingpic3" src = "Pictures/Reincarnate.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle30" toggleid="30" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="confirmationToggle">
-                    <img class="ascendunlock settingpic" id="settingpic4" src = "Pictures/questionable.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle31" toggleid="31" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="confirmationToggle">
-                    <img class="sacrificeAnts settingpic" id="settingpic5" src = "Pictures/Transparent%20Pics/Research124.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle32" toggleid="32" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="center"></div>
+                <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
+                <button id="promocodes" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
+                <p id="promocodeinfo" style="color: goldenrod"></p>
             </div>
-            <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
-            <button id="promocodes" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
-            <p id="promocodeinfo" style="color: goldenrod"></p>
+            <div id="exportButtons">
+                <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
+                <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
+                <div>
+                    <input type="checkbox" id="saveType" name="saveType">
+                    <label style="display: inline;" for="saveType">Copy to Clipboard</label>
+                </div>
+                <button id="exportgame" style="border:2px solid green">Export the game here</button>
+                <p id="exportinfo" class="tightText" style="color: white"></p>
+                <label title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h">
+                    <input id="saveStringInput">
+                </label>
+                <p id="saveString" class="tightText" title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h"></p>
+                <p id="importgame" class="tightText" style="color: limegreen">Load game below!</p>
+                <label id="importFileButton" for="importfile">Load from file</label>
+                <input type="file" id="importfile" accept=".txt" style="display: none">
+                <button id="savegame" style="border: 2px solid plum">Save the game manually</button>
+                <button id="deleteGame" style="border: 2px solid red">Delete savefile</button>
+                <p id="saveinfo" style="color: limegreen"></p>
+            </div>
+            <div id="thirdParty">
+                <div id="discord">
+                    Click the image below to join the Discord!
+                    <a id="discordhref" href="https://www.discord.gg/ameCknq" target="_blank" rel="noopener noreferrer nofollow">
+                        <img id="discordicon" src="Pictures/icon.gif" title="Click to join the official Discord!" alt="" width="100" height="100" loading="lazy">
+                    </a>
+                </div>
+                <div id="patreon">
+                    [NEW!] Support Development on Patreon!
+                    <a id="patreonhref" href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
+                        <img id="patreonicon" src="Pictures/Patreonlogo.png" title="Click to support development!" alt="" loading="lazy">
+                    </a> 
+                </div>
+                <div id="patchnotes">
+                    <a href="https://docs.google.com/document/d/1johzFBUUBCmbHXWcg8nIbtCqPmoNIl9ePsfWlzPoWuM/edit?usp=sharing" target="_blank" rel="noopener noreferrer nofollow">
+                        <img id="patchnotesicon" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!" alt="" loading="lazy">
+                    </a>
+                </div>
+            </div>
         </div>
-        <div id="exportButtons">
-            <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
-            <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
-            <div>
-                <input type="checkbox" id="saveType" name="saveType">
-                <label style="display: inline;" for="saveType">Copy to Clipboard</label>
-            </div>
-            <button id="exportgame" style="border:2px solid green">Export the game here</button>
-            <p id="exportinfo" class="tightText" style="color: white"></p>
-            <label title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h">
-                <input id="saveStringInput">
-            </label>
-            <p id="saveString" class="tightText" title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h"></p>
-            <p id="importgame" class="tightText" style="color: limegreen">Load game below!</p>
-            <label id="importFileButton" for="importfile">Load from file</label>
-            <input type="file" id="importfile" accept=".txt" style="display: none">
-            <button id="savegame" style="border: 2px solid plum">Save the game manually</button>
-            <button id="deleteGame" style="border: 2px solid red">Delete savefile</button>
-            <p id="saveinfo" style="color: limegreen"></p>
-        </div>
-        <div id="thirdParty">
-            <div id="discord">
-                Click the image below to join the Discord!
-                <a id="discordhref" href="https://www.discord.gg/ameCknq" target="_blank" rel="noopener noreferrer nofollow">
-                    <img id="discordicon" src="Pictures/icon.gif" title="Click to join the official Discord!" alt="" width="100" height="100" loading="lazy">
-                </a>
-            </div>
-            <div id="patreon">
-                [NEW!] Support Development on Patreon!
-                <a id="patreonhref" href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
-                    <img id="patreonicon" src="Pictures/Patreonlogo.png" title="Click to support development!" alt="" loading="lazy">
-                </a> 
-            </div>
-            <div id="patchnotes">
-                <a href="https://docs.google.com/document/d/1johzFBUUBCmbHXWcg8nIbtCqPmoNIl9ePsfWlzPoWuM/edit?usp=sharing" target="_blank" rel="noopener noreferrer nofollow">
-                    <img id="patchnotesicon" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!" alt="" loading="lazy">
-                </a>
-            </div>
-        </div>
-        <p id="versionnumber" style="color: fuchsia">You're playing Synergism</p>
+        <div id="versionnumber">You're playing Synergism</div>
     </div>
     <div class="subtabContent" id="creditssubtab">
         <h1>Coders</h1>

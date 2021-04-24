@@ -486,12 +486,16 @@ nav li:hover {
 /* Settings settings sub tab */
 
 #settingsubtab {
-	flex-direction: row;
+	flex-direction: column;
 	margin-left: 12%;
 	margin-right: 12%;
 	justify-content: space-around;
-	align-items: flex-start;
+	align-items: center;
 	flex-wrap: wrap;
+}
+
+.settingSubTabUpper {
+	display: flex;
 }
 
 .confirmationToggles {
@@ -1976,6 +1980,10 @@ p[id$="BlessingsTotal"] {
 	font-size: 1.2em;
 	text-align: center;
 	margin: .4em 0;
+}
+
+#versionnumber {
+	color: fuchsia
 }
 
 #ascension {
