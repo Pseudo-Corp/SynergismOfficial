@@ -2685,6 +2685,11 @@ header #obtainiumDisplay {
 	border: 2px solid pink;
 	width: 56px;
 	height: 30px;
+	transition-duration: 0.15s;
+}
+
+.hepteractType > button:hover {
+	background-color: #333333;
 }
 
 #hepteractCraftTexts {
