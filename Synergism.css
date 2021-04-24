@@ -1043,6 +1043,7 @@ nav li:hover {
 
 .talismansContainer {
 	display: flex;
+	position: relative;
 	width: 70%;
     justify-content: space-around;
     padding: 0 10px;
@@ -1073,11 +1074,13 @@ nav li:hover {
 }
 
 #respecAllTalismans{
-	height: 30px;
-	width: 80px;
-	color: plum;
-	border: 2px solid white;
-	margin-top: 50px;
+    position: absolute;
+    height: 30px;
+    width: 80px;
+    color: plum;
+    border: 2px solid white;
+    left: 70px;
+    top: 290px;
 }
 #talismanEffect {
 	position: absolute;
