@@ -1550,12 +1550,14 @@ nav li:hover {
 }
 
 #actualShop > div {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    width: 100px;
+    white-space: nowrap;
 }
 
 #actualPotionShop > div > p,
