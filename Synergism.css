@@ -486,12 +486,16 @@ nav li:hover {
 /* Settings settings sub tab */
 
 #settingsubtab {
-	flex-direction: row;
+	flex-direction: column;
 	margin-left: 12%;
 	margin-right: 12%;
 	justify-content: space-around;
-	align-items: flex-start;
+	align-items: center;
 	flex-wrap: wrap;
+}
+
+.settingSubTabUpper {
+	display: flex;
 }
 
 .confirmationToggles {
@@ -1039,6 +1043,7 @@ nav li:hover {
 
 .talismansContainer {
 	display: flex;
+	position: relative;
 	width: 70%;
     justify-content: space-around;
     padding: 0 10px;
@@ -1069,11 +1074,13 @@ nav li:hover {
 }
 
 #respecAllTalismans{
-	height: 30px;
-	width: 80px;
-	color: plum;
-	border: 2px solid white;
-	margin-top: 50px;
+    position: absolute;
+    height: 30px;
+    width: 80px;
+    color: plum;
+    border: 2px solid white;
+    left: 70px;
+    top: 290px;
 }
 #talismanEffect {
 	position: absolute;
@@ -1514,53 +1521,72 @@ nav li:hover {
 }
 
 #shop {
-	position: relative;
-	padding: 0;
 	text-align: center;
 }
 
-#actualWrapper {
-	display: grid;
-	grid-template-columns: 5% [cons] 20% 2% [shop] 60%;
-}
-
-#actualShop {
-	display: grid;
-	grid-template-columns: repeat(8, minmax(70px, 105px));
-	margin-top: 10px;
-	width: calc(105px * 8);
-	border: 3px solid plum;
-	grid-column: shop 2/4;
-	grid-row: 1;
-}
-
-#actualShop > div {
+#shopWrapper {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 5px;
-	margin-bottom: 5px;
+}
+
+#actualWrapper {
+	display: flex;
+	width: 100%;
+    justify-content: center;
+}
+
+#actualShopContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#actualShop {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-right: 5px;
+    margin-top: 10px;
+    width: calc(105px * 8);
+    border: 3px solid plum;
+}
+
+#actualShop > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    width: 100px;
 }
 
 #actualPotionShop > div > p,
-#actualShop > div > p { margin: 3px; }
+#actualShop > div > p {
+	margin: 3px;
+	white-space: nowrap;
+}
 
 #shoptop {
 	color: whitesmoke;
 	font-size: 1.2em;
 	margin-top: 15px;
-	margin-bottom: 0;
 }
 
 #actualConsumables {
-	width: calc(130px * 2);
-	grid-column: cons 1/2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(130px * 2);
+    margin-right: 3%;
 }
 
 #actualPotionShop {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(70px, 130px));
 	border: 3px solid yellow;
+	margin-top: 10px;
 }
 
 #quarksDisplay {
@@ -1578,16 +1604,15 @@ nav li:hover {
 #consumables {
 	color: orangered;
 	font-size: 1.2em;
-	margin: 0;
+	margin-top: 15px;
 }
 
 #shopButtons {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	float: right;
-	margin-right: 12.5%;
-	margin-top: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    float: right;
+    margin-top: 5px;
 }
 
 #shopButtons > button {
@@ -1602,7 +1627,6 @@ nav li:hover {
 }
 
 #shopHovers {
-	margin: 4% auto; 
 	width: 600px;
 }
 
@@ -1976,6 +2000,10 @@ p[id$="BlessingsTotal"] {
 	font-size: 1.2em;
 	text-align: center;
 	margin: .4em 0;
+}
+
+#versionnumber {
+	color: fuchsia
 }
 
 #ascension {
@@ -2664,6 +2692,11 @@ header #obtainiumDisplay {
 	border: 2px solid pink;
 	width: 56px;
 	height: 30px;
+	transition-duration: 0.15s;
+}
+
+.hepteractType > button:hover {
+	background-color: #333333;
 }
 
 #hepteractCraftTexts {

@@ -39,10 +39,11 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
 
         return
     }
-    else if (!auto){
+    else if (!auto && player.cubeUpgrades[9] < 1){
         /* We remove the old research HTML from the 'roomba' class and make the new index our 'roomba'
            class. We then update the index and consequently the coloring of the background based
-           on what level (if any) the research has. */
+           on what level (if any) the research has. This functionality is useless after
+           Cube Upgrade 9 (1x9) has been purchased. */
         document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
         document.getElementById(`res${index}`).classList.add("researchRoomba");
         player.autoResearch = index;

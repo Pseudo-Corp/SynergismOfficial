@@ -1258,6 +1258,7 @@
                     <span id="talismanFragmentCost">Cost for 1: 1e6 Obtainium</span>
                 </div>
                 <div class="talismansContainer">
+                    <button class="talismanBtn" id="respecAllTalismans">RESPEC ALL</button>
                     <div class="talismanContainer" id="talisman1area">
                         <span class="talismanName" style="color: limegreen;">Exemption</span>
                         <img class="talismanIcon" id="talisman1" src="Pictures/taxtalisman.png" alt="" loading="lazy">
@@ -1265,7 +1266,6 @@
                         <button class="talismanBtn" id="leveluptalisman1" style="color: silver; border: 2px solid white;">FORTIFY</button>
                         <button class="talismanBtn" id="enhancetalisman1" style="color: gold; border: 2px solid orangered">ENHANCE</button>
                         <button class="talismanBtn" id="respectalisman1" style="color: plum; border: 2px solid white">RESPEC</button>
-                        <button class="talismanBtn" id="respecAllTalismans">RESPEC ALL</button>
                     </div>
                     <div class="talismanContainer" id="talisman2area">
                         <span class="talismanName" style="color: cyan">Chronos</span>
@@ -2581,76 +2581,78 @@
         <button id="switchSettingSubTab6" style="border: 2px solid white">Logger</button>
     </div>
     <div class="subtabContent subtabDisplayFlex subtabActive" id="settingsubtab">
-        <div id="confirmationToggleBox">
-            <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
-            <div class="confirmationToggles">
-                <div class="center"></div>
-                <div class="confirmationToggle">
-                    <img class="prestigeunlock settingpic" id="settingpic1" src = "Pictures/Prestige.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle28" toggleid="28" format="[$]" style="border:2px solid green">[ON]</button>
+        <div class="settingSubTabUpper">
+            <div id="confirmationToggleBox">
+                <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
+                <div class="confirmationToggles">
+                    <div class="center"></div>
+                    <div class="confirmationToggle">
+                        <img class="prestigeunlock settingpic" id="settingpic1" src = "Pictures/Prestige.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle28" toggleid="28" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="transcendunlock settingpic" id="settingpic2" src = "Pictures/Transcend.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle29" toggleid="29" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="reincarnationunlock settingpic" id="settingpic3" src = "Pictures/Reincarnate.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle30" toggleid="30" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="ascendunlock settingpic" id="settingpic4" src = "Pictures/questionable.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle31" toggleid="31" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="sacrificeAnts settingpic" id="settingpic5" src = "Pictures/Transparent%20Pics/Research124.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle32" toggleid="32" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="center"></div>
                 </div>
-                <div class="confirmationToggle">
-                    <img class="transcendunlock settingpic" id="settingpic2" src = "Pictures/Transcend.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle29" toggleid="29" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="confirmationToggle">
-                    <img class="reincarnationunlock settingpic" id="settingpic3" src = "Pictures/Reincarnate.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle30" toggleid="30" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="confirmationToggle">
-                    <img class="ascendunlock settingpic" id="settingpic4" src = "Pictures/questionable.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle31" toggleid="31" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="confirmationToggle">
-                    <img class="sacrificeAnts settingpic" id="settingpic5" src = "Pictures/Transparent%20Pics/Research124.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle32" toggleid="32" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="center"></div>
+                <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
+                <button id="promocodes" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
+                <p id="promocodeinfo" style="color: goldenrod"></p>
             </div>
-            <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
-            <button id="promocodes" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
-            <p id="promocodeinfo" style="color: goldenrod"></p>
+            <div id="exportButtons">
+                <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
+                <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
+                <div>
+                    <input type="checkbox" id="saveType" name="saveType">
+                    <label style="display: inline;" for="saveType">Copy to Clipboard</label>
+                </div>
+                <button id="exportgame" style="border:2px solid green">Export the game here</button>
+                <p id="exportinfo" class="tightText" style="color: white"></p>
+                <label title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h">
+                    <input id="saveStringInput">
+                </label>
+                <p id="saveString" class="tightText" title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h"></p>
+                <p id="importgame" class="tightText" style="color: limegreen">Load game below!</p>
+                <label id="importFileButton" for="importfile">Load from file</label>
+                <input type="file" id="importfile" accept=".txt" style="display: none">
+                <button id="savegame" style="border: 2px solid plum">Save the game manually</button>
+                <button id="deleteGame" style="border: 2px solid red">Delete savefile</button>
+                <p id="saveinfo" style="color: limegreen"></p>
+            </div>
+            <div id="thirdParty">
+                <div id="discord">
+                    Click the image below to join the Discord!
+                    <a id="discordhref" href="https://www.discord.gg/ameCknq" target="_blank" rel="noopener noreferrer nofollow">
+                        <img id="discordicon" src="Pictures/icon.gif" title="Click to join the official Discord!" alt="" width="100" height="100" loading="lazy">
+                    </a>
+                </div>
+                <div id="patreon">
+                    [NEW!] Support Development on Patreon!
+                    <a id="patreonhref" href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
+                        <img id="patreonicon" src="Pictures/Patreonlogo.png" title="Click to support development!" alt="" loading="lazy">
+                    </a> 
+                </div>
+                <div id="patchnotes">
+                    <a href="https://docs.google.com/document/d/1johzFBUUBCmbHXWcg8nIbtCqPmoNIl9ePsfWlzPoWuM/edit?usp=sharing" target="_blank" rel="noopener noreferrer nofollow">
+                        <img id="patchnotesicon" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!" alt="" loading="lazy">
+                    </a>
+                </div>
+            </div>
         </div>
-        <div id="exportButtons">
-            <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
-            <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
-            <div>
-                <input type="checkbox" id="saveType" name="saveType">
-                <label style="display: inline;" for="saveType">Copy to Clipboard</label>
-            </div>
-            <button id="exportgame" style="border:2px solid green">Export the game here</button>
-            <p id="exportinfo" class="tightText" style="color: white"></p>
-            <label title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h">
-                <input id="saveStringInput">
-            </label>
-            <p id="saveString" class="tightText" title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h"></p>
-            <p id="importgame" class="tightText" style="color: limegreen">Load game below!</p>
-            <label id="importFileButton" for="importfile">Load from file</label>
-            <input type="file" id="importfile" accept=".txt" style="display: none">
-            <button id="savegame" style="border: 2px solid plum">Save the game manually</button>
-            <button id="deleteGame" style="border: 2px solid red">Delete savefile</button>
-            <p id="saveinfo" style="color: limegreen"></p>
-        </div>
-        <div id="thirdParty">
-            <div id="discord">
-                Click the image below to join the Discord!
-                <a id="discordhref" href="https://www.discord.gg/ameCknq" target="_blank" rel="noopener noreferrer nofollow">
-                    <img id="discordicon" src="Pictures/icon.gif" title="Click to join the official Discord!" alt="" width="100" height="100" loading="lazy">
-                </a>
-            </div>
-            <div id="patreon">
-                [NEW!] Support Development on Patreon!
-                <a id="patreonhref" href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
-                    <img id="patreonicon" src="Pictures/Patreonlogo.png" title="Click to support development!" alt="" loading="lazy">
-                </a> 
-            </div>
-            <div id="patchnotes">
-                <a href="https://docs.google.com/document/d/1johzFBUUBCmbHXWcg8nIbtCqPmoNIl9ePsfWlzPoWuM/edit?usp=sharing" target="_blank" rel="noopener noreferrer nofollow">
-                    <img id="patchnotesicon" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!" alt="" loading="lazy">
-                </a>
-            </div>
-        </div>
-        <p id="versionnumber" style="color: fuchsia">You're playing Synergism</p>
+        <div id="versionnumber">You're playing Synergism</div>
     </div>
     <div class="subtabContent" id="creditssubtab">
         <h1>Coders</h1>
@@ -2815,109 +2817,9 @@
 
     <div id="shop">
         <div id="shopWrapper"> 
-            <p id="shoptop">Welcome to the Quark Shop. You can't believe what's in stock!</p>
-
-            <div id="actualWrapper"> 
-                <div id="actualShop">
-                    <div>
-                        <img id="OfferingEX" src="Pictures/Offering Upgrade.png" alt="" loading="lazy">
-                        <p id="offeringtimerlevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="offeringtimerbutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="OfferingAuto" src="Pictures/Offering Auto Upgrade.png" alt="" loading="lazy">
-                        <p id="offeringautolevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="offeringautobutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="ObtainiumEX" src="Pictures/Obtainium Upgrade.png" alt="" loading="lazy">
-                        <p id="obtainiumtimerlevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="obtainiumtimerbutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="ObtainiumAuto" src="Pictures/Obtainium Auto Upgrade.png" alt="" loading="lazy">
-                        <p id="obtainiumautolevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="obtainiumautobutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="InstChallenge" src="Pictures/Instant Challenge.png" alt="" loading="lazy">
-                        <p id="instantchallenge">Not Bought</p>
-                        <button class="permshopbutton" id="instantchallengebutton" style="border: 2px solid plum">Buy for 300 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="AntSpd" src="Pictures/antspeed.png" alt="" loading="lazy">
-                        <p id="antspeed">Level: 0/3</p>
-                        <button class="permshopbutton" id="antspeedbutton" style="border: 2px solid maroon">Upgrade for 200 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="CashUpgrade" src="Pictures/cashgrab.png" alt="" loading="lazy">
-                        <p id="cashgrab">Level: 0/5</p>
-                        <button class="permshopbutton" id="cashgrabbutton" style="border: 2px solid limegreen">Upgrade for 100 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="CashTalisman" src="Pictures/shoptalisman.png" alt="" loading="lazy">
-                        <p id="shoptalisman">Not Bought</p>
-                        <button class="permshopbutton" id="shoptalismanbutton" style="border: 2px solid chartreuse">Buy for 1,500 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="SeasonPass" src="Pictures/VIP Pass Upgrade.png" alt="" loading="lazy">
-                        <p id="seasonPassLevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange"></button>
-                    </div>
-                    <div>
-                        <img id="ShopChallenge" src="Pictures/Challenge Upgrade.png" alt="" loading="lazy">
-                        <p id="challengeUpgradeLevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="challengeUpgradeButton" style="border: 2px solid gray"></button>
-                        
-                    </div>
-                    <div>
-                        <img id="ShopTome" src="Pictures/Challenge 10 Tome Upgrade.png" alt="" loading="lazy">
-                        <p id="challenge10TomeLevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="challenge10TomeButton" style="border: 2px solid gold"></button>
-                    </div>
-                    <div>
-                        <img id="CubeQuark" src="Pictures/Cube Quark Upgrade.png" alt="" loading="lazy">
-                        <p id="cubeToQuark">Not Bought</p>
-                        <button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow"></button>
-                    </div>
-                    <div>
-                        <img id="TesseractQuark" src="Pictures/Tesseract Quark Upgrade.png" alt="" loading="lazy">
-                        <p id="tesseractToQuark">Not Bought</p>
-                        <button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid"></button>
-                    </div>
-                    <div>
-                        <img id="HypercubeQuark" src="Pictures/Hypercube Quark Upgrade.png" alt="" loading="lazy">
-                        <p id="hypercubeToQuark">Not Bought</p>
-                        <button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red"></button>
-                    </div>
-                    <div>
-                        <img id="SeasonPass2" src="Pictures/VIP Pass Upgrade 2.png" alt="" loading="lazy">
-                        <p id="seasonPass2Level">Level: 0/100</p>
-                        <button class="permshopbutton" id="seasonPass2Button" style="border: 2px solid orange"></button>
-                    </div>
-                    <div>
-                        <img id="SeasonPass3" src="Pictures/VIP Pass Upgrade 3.png" alt="" loading="lazy">
-                        <p id="seasonPass3Level">Level: 0/100</p>
-                        <button class="permshopbutton" id="seasonPass3Button" style="border: 2px solid orange"></button>
-                    </div>
-                    <div>
-                        <img id="Chronometer" src="Pictures/Chronometer.png" alt="" loading="lazy">
-                        <p id="chronometerLevel">Level: 0/100</p>
-                        <button class="permshopbutton" id="chronometerButton" style="border: 2px solid red"></button>
-                    </div>
-                    <div>
-                        <img id="InfiniteAscent" src="Pictures/Etherian Staircase.png" alt="" loading="lazy">
-                        <p id="infiniteAscentUpgrade">Not Bought</p>
-                        <button class="permshopbutton" id="infiniteAscentButton" style="border: 2px solid cyan"></button>
-                    </div>
-                </div>
-
+            <div id="actualWrapper">
                 <div id="actualConsumables">
-                    <div id="quarksDisplay">
-                        <img src="Pictures/Quark.png" alt="" width="32px" height="32px" loading="lazy">
-                        <p id="quarkamount">You have 0 Quarks!</p>
-                    </div>
-                    <p id="consumables">Buy Yer' Potions!</p>
+                    <div id="consumables">Buy Yer' Potions!</div>
                     <div id="actualPotionShop">
                         <div>
                             <img id="offeringPotions" src="Pictures/offering potion.png" alt="" loading="lazy">
@@ -2932,19 +2834,117 @@
                             <button class="consumablebutton" id="useobtainiumpotion" style="border: 2px solid blue">USE 1 [+2hr]</button>
                         </div>
                     </div>
+                    <div id="quarksDisplay">
+                        <img src="Pictures/Quark.png" alt="" width="32px" height="32px" loading="lazy">
+                        <p id="quarkamount">You have 0 Quarks!</p>
+                    </div>
                 </div>
-            </div>
-
-            <div id="shopButtons">
-                <button id="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button>
-                <button id="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
-            </div>
-
-            <div id="shopHovers">
-                <p style="color: white; font-size: 1.2em;">Hover over each portion of the shop to see what each upgrade does!</p>
-                <p id="quarkdescription" style="color:plum"></p>
-                <p id="quarkcost" style="color: cyan"></p>
-                <p id="quarkeffect" style="color: limegreen"></p>
+                <div id="actualShopContainer">
+                    <div id="shoptop">Welcome to the Quark Shop. You can't believe what's in stock!</div>
+                    <div id="actualShop">
+                        <div>
+                            <img id="OfferingEX" src="Pictures/Offering Upgrade.png" alt="" loading="lazy">
+                            <p id="offeringtimerlevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="offeringtimerbutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="OfferingAuto" src="Pictures/Offering Auto Upgrade.png" alt="" loading="lazy">
+                            <p id="offeringautolevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="offeringautobutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="ObtainiumEX" src="Pictures/Obtainium Upgrade.png" alt="" loading="lazy">
+                            <p id="obtainiumtimerlevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="obtainiumtimerbutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="ObtainiumAuto" src="Pictures/Obtainium Auto Upgrade.png" alt="" loading="lazy">
+                            <p id="obtainiumautolevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="obtainiumautobutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="InstChallenge" src="Pictures/Instant Challenge.png" alt="" loading="lazy">
+                            <p id="instantchallenge">Not Bought</p>
+                            <button class="permshopbutton" id="instantchallengebutton" style="border: 2px solid plum">Buy for 300 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="AntSpd" src="Pictures/antspeed.png" alt="" loading="lazy">
+                            <p id="antspeed">Level: 0/3</p>
+                            <button class="permshopbutton" id="antspeedbutton" style="border: 2px solid maroon">Upgrade for 200 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="CashUpgrade" src="Pictures/cashgrab.png" alt="" loading="lazy">
+                            <p id="cashgrab">Level: 0/5</p>
+                            <button class="permshopbutton" id="cashgrabbutton" style="border: 2px solid limegreen">Upgrade for 100 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="CashTalisman" src="Pictures/shoptalisman.png" alt="" loading="lazy">
+                            <p id="shoptalisman">Not Bought</p>
+                            <button class="permshopbutton" id="shoptalismanbutton" style="border: 2px solid chartreuse">Buy for 1,500 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="SeasonPass" src="Pictures/VIP Pass Upgrade.png" alt="" loading="lazy">
+                            <p id="seasonPassLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange"></button>
+                        </div>
+                        <div>
+                            <img id="ShopChallenge" src="Pictures/Challenge Upgrade.png" alt="" loading="lazy">
+                            <p id="challengeUpgradeLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="challengeUpgradeButton" style="border: 2px solid gray"></button>
+                            
+                        </div>
+                        <div>
+                            <img id="ShopTome" src="Pictures/Challenge 10 Tome Upgrade.png" alt="" loading="lazy">
+                            <p id="challenge10TomeLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="challenge10TomeButton" style="border: 2px solid gold"></button>
+                        </div>
+                        <div>
+                            <img id="CubeQuark" src="Pictures/Cube Quark Upgrade.png" alt="" loading="lazy">
+                            <p id="cubeToQuark">Not Bought</p>
+                            <button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow"></button>
+                        </div>
+                        <div>
+                            <img id="TesseractQuark" src="Pictures/Tesseract Quark Upgrade.png" alt="" loading="lazy">
+                            <p id="tesseractToQuark">Not Bought</p>
+                            <button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid"></button>
+                        </div>
+                        <div>
+                            <img id="HypercubeQuark" src="Pictures/Hypercube Quark Upgrade.png" alt="" loading="lazy">
+                            <p id="hypercubeToQuark">Not Bought</p>
+                            <button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red"></button>
+                        </div>
+                        <div>
+                            <img id="SeasonPass2" src="Pictures/VIP Pass Upgrade 2.png" alt="" loading="lazy">
+                            <p id="seasonPass2Level">Level: 0/100</p>
+                            <button class="permshopbutton" id="seasonPass2Button" style="border: 2px solid orange"></button>
+                        </div>
+                        <div>
+                            <img id="SeasonPass3" src="Pictures/VIP Pass Upgrade 3.png" alt="" loading="lazy">
+                            <p id="seasonPass3Level">Level: 0/100</p>
+                            <button class="permshopbutton" id="seasonPass3Button" style="border: 2px solid orange"></button>
+                        </div>
+                        <div>
+                            <img id="Chronometer" src="Pictures/Chronometer.png" alt="" loading="lazy">
+                            <p id="chronometerLevel">Level: 0/100</p>
+                            <button class="permshopbutton" id="chronometerButton" style="border: 2px solid red"></button>
+                        </div>
+                        <div>
+                            <img id="InfiniteAscent" src="Pictures/Etherian Staircase.png" alt="" loading="lazy">
+                            <p id="infiniteAscentUpgrade">Not Bought</p>
+                            <button class="permshopbutton" id="infiniteAscentButton" style="border: 2px solid cyan"></button>
+                        </div>
+                    </div>
+                    <div id="shopButtons">
+                        <button id="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button>
+                        <button id="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
+                    </div>
+                    <div id="shopHovers">
+                        <p style="color: white; font-size: 1.2em;">Hover over each portion of the shop to see what each upgrade does!</p>
+                        <p id="quarkdescription" style="color:plum"></p>
+                        <p id="quarkcost" style="color: cyan"></p>
+                        <p id="quarkeffect" style="color: limegreen"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
