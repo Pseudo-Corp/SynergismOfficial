@@ -825,11 +825,13 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
     const conf = document.getElementById('confirmationBox');
     const confWrap = document.getElementById('confirmWrapper');
     const popup = document.querySelector<HTMLElement>('#confirm');
+    const overlay = document.querySelector<HTMLElement>('#transparentBG');
     const ok = popup.querySelector<HTMLElement>('#ok_confirm');
     const cancel = popup.querySelector<HTMLElement>('#cancel_confirm');
     
     conf.style.display = 'block';
     confWrap.style.display = 'block';
+    overlay.style.display = 'block';
     popup.querySelector('p').textContent = text;
     popup.focus();
 
@@ -840,6 +842,7 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
 
         conf.style.display = 'none';
         confWrap.style.display = 'none';
+        overlay.style.display = 'none';
 
         if (id === ok.id) cb(true);
         else cb(false);
@@ -852,11 +855,13 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
 const AlertCB = (text: string, cb: (value: undefined) => void) => {
     const conf = document.getElementById('confirmationBox');
     const alertWrap = document.getElementById('alertWrapper');
+    const overlay = document.querySelector<HTMLElement>('#transparentBG');
     const popup = document.querySelector<HTMLElement>('#alert');
     const ok = popup.querySelector<HTMLElement>('#ok_alert');
     
     conf.style.display = 'block';
     alertWrap.style.display = 'block';
+    overlay.style.display = 'block';
     popup.querySelector('p').textContent = text;
     popup.focus();
 
@@ -866,6 +871,7 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
         
         conf.style.display = 'none';
         alertWrap.style.display = 'none';
+        overlay.style.display = 'none';
         cb(undefined);
     }
 
@@ -878,12 +884,14 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
 const PromptCB = (text: string, cb: (value: string | null) => void) => {
     const conf = document.getElementById('confirmationBox');
     const confWrap = document.getElementById('promptWrapper');
+    const overlay = document.querySelector<HTMLElement>('#transparentBG');
     const popup = document.querySelector<HTMLElement>('#prompt');
     const ok = popup.querySelector<HTMLElement>('#ok_prompt');
     const cancel = popup.querySelector<HTMLElement>('#cancel_prompt');
     
     conf.style.display = 'block';
     confWrap.style.display = 'block';
+    overlay.style.display = 'block';
     popup.querySelector('label').textContent = text;
     popup.querySelector('input').focus();
 
@@ -898,6 +906,7 @@ const PromptCB = (text: string, cb: (value: string | null) => void) => {
 
         conf.style.display = 'none';
         confWrap.style.display = 'none';
+        overlay.style.display = 'none';
         
         if (targetEl.id === ok.id) cb(input);
         else cb(null); // canceled 
@@ -922,6 +931,9 @@ export const Alert = (text: string): Promise<undefined> => new Promise(res => Al
 export const Prompt = (text: string): Promise<string | null> => new Promise(res => PromptCB(text, res));
 /*** Promisified version of the ConfirmCB function */
 export const Confirm = (text: string): Promise<boolean> => new Promise(res => ConfirmCB(text, res));
+
+// @ts-ignore
+window.penis = Confirm;
 
 /**
  * Create a popunder under an element.
