@@ -2912,3 +2912,12 @@ header #obtainiumDisplay {
     display: flex;
     flex-direction: column;
 }
+
+#transparentBG {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 6968;
+    position: absolute;
+    display: none;
+}
