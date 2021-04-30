@@ -932,9 +932,6 @@ export const Prompt = (text: string): Promise<string | null> => new Promise(res 
 /*** Promisified version of the ConfirmCB function */
 export const Confirm = (text: string): Promise<boolean> => new Promise(res => ConfirmCB(text, res));
 
-// @ts-ignore
-window.penis = Confirm;
-
 /**
  * Create a popunder under an element.
  * @example
@@ -942,11 +939,10 @@ window.penis = Confirm;
  * @param el Element to create the popunder under
  * @param v function that returns the value to format
  */
-const popunder = (
+/*const popunder = (
     el: HTMLElement, 
     v: () => Parameters<typeof format>[0]
 ) => {
-    console.log('github actions sucks please work');
     const id: 'khafraIsAwesome' = 'khafraIsAwesome' as const; // DO NOT CHANGE!
     el.addEventListener('mouseenter', (ev) => {
         const isOnPage = document.getElementById(id);
@@ -976,4 +972,4 @@ const popunder = (
     });
 }
 
-Object.defineProperty(window, 'popunder', { value: popunder });
+Object.defineProperty(window, 'popunder', { value: popunder });*/
