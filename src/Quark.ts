@@ -157,8 +157,12 @@ export class QuarkHandler {
             console.log(`%c \tBonus of ${b}% quarks has been applied!`, 'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;');
             localStorage.setItem('quarkBonus', JSON.stringify({ bonus: b, fetched: Date.now() }));
             this.BONUS = b;
-        } catch (e) {
-            return Alert(`An unexpected error occurred: "${e}"`);
+        } catch {
+            console.log(`If you see an error with "fetch" or "network" in it, you can safely ignore it!`);
+            // there are a few examples where this request might fail:
+            //      1. tab is in the background, browser throttles it.
+            //      2. idle too long, network connection is severed
+            // there's nothing we can do if an error occurs so we should ignore it.
         }
     }
 
