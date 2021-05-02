@@ -2921,3 +2921,8 @@ header #obtainiumDisplay {
     position: absolute;
     display: none;
 }
+
+#saveString {
+    max-width: 50vh;
+    word-wrap: break-word;
+}
