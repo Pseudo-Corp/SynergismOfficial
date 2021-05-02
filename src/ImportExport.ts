@@ -38,8 +38,9 @@ const getRealTime = (use12 = false) => {
     return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`;
 }
 
-export const updateSaveString = () => {
-    player.saveString = getElementById<HTMLInputElement>("saveStringInput").value
+export const updateSaveString = (input: HTMLInputElement) => {
+    const value = input.value.slice(0, 100);
+    player.saveString = value;
 }
 
 const saveFilename = () => {

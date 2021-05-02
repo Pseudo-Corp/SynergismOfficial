@@ -491,7 +491,8 @@ for (const subtab of settingSubTabs) {
 
 // Various functions
 /*Export Files*/ document.getElementById('exportgame').addEventListener('click', () => exportSynergism())
-/*Update name of File*/ document.getElementById('saveStringInput').addEventListener('blur', () => updateSaveString())
+/*Update name of File*/ 
+document.getElementById('saveStringInput').addEventListener('blur', e => updateSaveString(<HTMLInputElement>e.target));
 /*Save Game Button*/ document.getElementById('savegame').addEventListener('click', () => saveSynergy(true))
 /*Delete Save Button*/ document.getElementById('deleteGame').addEventListener('click', () => resetGame())
 /*Submit Stats [Note: will eventually become obsolete if kong closes]*/ // document.getElementById('submitstats').addEventListener('click', () => submitStats()) 
