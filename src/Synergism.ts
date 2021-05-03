@@ -1382,9 +1382,18 @@ export const format = (
         input = Number(input);
     }
 
-    if (!(input instanceof Decimal) && typeof input !== 'number' || isNaN(input as number)) {
+    if ( // invalid parameter
+        !(input instanceof Decimal) && 
+        typeof input !== 'number' || 
+        isNaN(input as number)
+    )
         return '0 [und.]';
-    }
+    else if ( // this case handles numbers less than 1e-6 and greater than 0
+        typeof input === 'number' && 
+        input < 1e-6 && // arbitrary number, can be changed
+        input > 0 // don't handle negative numbers, probably could be removed
+    )
+        return input.toExponential(accuracy);
 
     let power;
     let mantissa;
