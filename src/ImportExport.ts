@@ -179,9 +179,9 @@ export const promocodes = async () => {
         const possibleAmount = Math.floor(Math.min(24, (Date.now() - player.rngCode) / hour))
         const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use`);
         const toUse = Number(attemptsUsed);
-        
         if (
             Number.isNaN(toUse) ||
+            !Number.isInteger(toUse) ||
             toUse <= 0
         )
             return Alert(`Hey! That's not a valid number!`);
