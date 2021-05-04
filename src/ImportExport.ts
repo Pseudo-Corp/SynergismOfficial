@@ -141,7 +141,7 @@ export const importSynergism = (input: string) => {
 }
 
 export const promocodes = async () => {
-    const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE).');
+    const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "add" perchance?]');
     const el = document.getElementById("promocodeinfo");
 
     if (input === "synergism2021" && !player.codes.get(1)) {
@@ -168,22 +168,35 @@ export const promocodes = async () => {
         player.codes.set(32, true);
         el.textContent = 'You are on v2.5.0! For playing, you get a reward of ... nothing?';
     } else if(input === 'add') {
-        if(player.rngCode >= (Date.now() - 3600000)) { // 1 hour
-            el.textContent = `You already used this promocode in the last hour!`;
+        const hour = 3600000
+        const timeToNextHour = Math.floor(hour + player.rngCode - Date.now())/1000
+        
+        if(player.rngCode >= (Date.now() - hour)) { // 1 hour
+            el.textContent = `You do not have an 'Add' code attempt! You will gain 1 in ${timeToNextHour} seconds.`;
             return;
         }
 
-        const amount = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16; // [0, 15]
+        const possibleAmount = Math.floor(Math.min(24, (Date.now() - player.rngCode) / hour))
+        const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use`)
+        const realAttemptsUsed = Math.min(possibleAmount, +attemptsUsed)
+        const mult = 8/10 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 320; // [0.8, 1.2], slightly biased in favor of 0.8. =)
+        const quarkBase = quarkHandler().perHour
+        const actualQuarks = Math.floor(quarkBase * mult * realAttemptsUsed)
         const [first, second] = window.crypto.getRandomValues(new Uint8Array(2));
-        const addPrompt = await Prompt(`What is ${first} + ${second}?`);
+        const addPrompt = await Prompt(`For ${actualQuarks} quarks or for nothing: What is ${first} + ${second}?`);
+        
+        //Allows storage of up to 24 Add Codes, lol!
+        player.rngCode = Math.max(Date.now() - (24 - realAttemptsUsed) * hour, player.rngCode + hour * realAttemptsUsed)
+        const remaining = Math.floor((Date.now() - player.rngCode) / hour)
+        const timeToNext = Math.floor((hour - (Date.now() - player.rngCode - hour * remaining)) / 1000)
 
         if(first + second === +addPrompt) {
-            player.worlds.add(amount);
-            el.textContent = `You were awarded ${amount} quarks! Wait an hour to use this code again!`;
+            player.worlds.add(actualQuarks);
+            el.textContent = `You were awarded ${actualQuarks} quarks! You have ${remaining} uses of Add. You will gain 1 in ${timeToNext} seconds.`;
         } else {
-            el.textContent = `You guessed ${addPrompt}, but the answer was ${first + second}. Try again in an hour!`;
+            el.textContent = `You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext} seconds.`;
         }
-        player.rngCode = Date.now();
+
     } else if (input === 'sub') { 
         const amount = 1 + window.crypto.getRandomValues(new Uint16Array(1))[0] % 16; // [1, 16]
         const quarks = Number(player.worlds);
