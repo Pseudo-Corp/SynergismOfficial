@@ -177,8 +177,16 @@ export const promocodes = async () => {
         }
 
         const possibleAmount = Math.floor(Math.min(24, (Date.now() - player.rngCode) / hour))
-        const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use`)
-        const realAttemptsUsed = Math.min(possibleAmount, +attemptsUsed)
+        const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use`);
+        const toUse = Number(attemptsUsed);
+        
+        if (
+            Number.isNaN(toUse) ||
+            toUse <= 0
+        )
+            return Alert(`Hey! That's not a valid number!`);
+
+        const realAttemptsUsed = Math.min(possibleAmount, toUse);
         const mult = 8/10 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 320; // [0.8, 1.2], slightly biased in favor of 0.8. =)
         const quarkBase = quarkHandler().perHour
         const actualQuarks = Math.floor(quarkBase * mult * realAttemptsUsed)
