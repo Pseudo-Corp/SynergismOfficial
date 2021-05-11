@@ -1,15 +1,14 @@
-import { player, format, interval, clearInt, saveSynergy, resourceGain, updateAll } from './Synergism';
-import { sumContents, productContents } from './Utility';
+import { player, interval, clearInt, saveSynergy, resourceGain, updateAll, format } from './Synergism';
+import { sumContents, productContents, getElementById } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
 import Decimal from 'break_infinity.js';
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans';
 import { reset } from './Reset';
 import { achievementaward } from './Achievements';
-import { redeemShards } from './Runes';
 import { resetNames } from './types/Synergism';
-import { quarkHandler } from './Quark';
 import { hepteractEffective } from './Hepteracts';
+import { addTimers, automaticTools } from './Helper';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] = 
@@ -780,69 +779,79 @@ export const calculateOffline = (forceTime = 0) => {
     G['timeWarp'] = true;
 
     //Variable Declarations i guess
-    const maximumTimer = 86400 + 7200 * player.researches[31] + 7200 * player.researches[32];
+    const maximumTimer = 86400 * 3 + 7200 * 2 * player.researches[31] + 7200 * 2 * player.researches[32];
     const updatedTime = Date.now();
     const timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - player.offlinetick) / 1000))
-    document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " real-life seconds of Offline Progress!";
-    let simulatedTicks = (timeAdd > 1000) ? 200 : 1 + Math.floor(timeAdd / 5);
-    const tickValue = (timeAdd > 1000) ? timeAdd / 200 : Math.min(5, timeAdd);
-    let timeMultiplier = 1;
+    document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " seconds of Offline Progress!";
+
+    //May 11, 2021: I've revamped calculations for this significantly.
+    let simulatedTicks = Math.floor(10 * Math.pow(timeAdd, 0.5)) + 1
+    //if (isTesting)
+    //   simulatedTicks = 10000
+    const tickValue = timeAdd / simulatedTicks
     const maxSimulatedTicks = simulatedTicks;
     let progressBarWidth = 0;
-    let automaticObtainium = 0;
 
     //Some one-time tick things that are relatively important
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
-    player.quarkstimer += timeAdd
-    player.quarkstimer = Math.min(quarkHandler().maxTime, player.quarkstimer)
-    player.ascensionCounter += timeAdd
-    player.runeshards += timeAdd * (1 / 2 * Math.min(1, player.highestchallengecompletions[2]) + player.cubeUpgrades[2])
+    addTimers("quarks", timeAdd);
+    document.getElementById('offlineTickCountNumber').textContent = format(maxSimulatedTicks, 0);
+    document.getElementById('offlineTickCountWorth').textContent = format(tickValue, 2, true);
+
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
-    document.getElementById("offlineprogressbar").style.display = "block";
+    document.getElementById("offlineContainer").style.display = "flex";
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
     const runOffline = interval(runSimulator, 0)
 
+    //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
+    const preloadImage = getElementById<HTMLImageElement>("preload"); 
+    preloadImage.src = 'Pictures/Blank Preload.png';
+
     //The cool shit that forces the repetitive loops
     function runSimulator() {
-        timeMultiplier = calculateTimeAcceleration();
+        G['timeMultiplier'] = calculateTimeAcceleration();
         calculateObtainium();
         //Reset Stuff lmao!
-        player.prestigecounter += tickValue * timeMultiplier;
-        player.transcendcounter += tickValue * timeMultiplier;
-        player.reincarnationcounter += tickValue * timeMultiplier;
+        addTimers('prestige', tickValue);
+        addTimers('transcension', tickValue);
+        addTimers('reincarnation', tickValue);
+        addTimers('ascension', tickValue);
+
         //Credit Resources
         resourceGain(tickValue * G['timeMultiplier'])
+
         //Auto Obtainium Stuff
         if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
-            calculateObtainium();
-            automaticObtainium = calculateAutomaticObtainium();
-            player.researchPoints += tickValue * timeMultiplier * automaticObtainium;
+            automaticTools('addObtainium', tickValue);
         }
         //Auto Ant Sacrifice Stuff
         if (player.achievements[173] > 0) {
-            player.antSacrificeTimer += tickValue * timeMultiplier;
-            player.antSacrificeTimerReal += tickValue;
+            automaticTools('antSacrifice', tickValue);
+            /*player.antSacrificeTimer += tickValue * timeMultiplier;
+            player.antSacrificeTimerReal += tickValue;*/
         }
         //Auto Rune Sacrifice Stuff
         if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
-            player.sacrificeTimer += tickValue;
+            automaticTools('runeSacrifice', tickValue);
+            /*player.sacrificeTimer += tickValue;
             if (player.sacrificeTimer >= 1) {
                 const rune = player.autoSacrifice;
                 redeemShards(rune, true);
                 player.sacrificeTimer = player.sacrificeTimer % 1;
-            }
+            }*/
         }
         //Otherwise, Update All every simulated tick
         updateAll();
         //Misc functions
         simulatedTicks -= 1;
+        document.getElementById("offlineTickRemainingNumber").textContent = format(simulatedTicks);
         progressBarWidth = 750 * (1 - simulatedTicks / maxSimulatedTicks);
         document.getElementById("offlineprogressdone").style.width = progressBarWidth + "px";
         if (simulatedTicks < 1) {
             clearInt(runOffline);
             G['timeWarp'] = false;
-            document.getElementById("offlineprogressbar").style.display = "none";
+            document.getElementById("offlineContainer").style.display = "none";
             document.getElementById("preload").style.display = "none";
         }
     }

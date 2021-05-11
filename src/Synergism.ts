@@ -2969,7 +2969,7 @@ export const constantIntervals = (): void => {
 
     if (!G['timeWarp']) {
         document.getElementById("preload").style.display = "none";
-        document.getElementById("offlineprogressbar").style.display = "none"
+        document.getElementById("offlineContainer").style.display = "none"
     }
 }
 

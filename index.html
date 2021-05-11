@@ -35,10 +35,12 @@
         </div>
     </div>
     <img src="Pictures/Splash/preloader.png" id="preload" alt="" style="width: 100%;">
-    <div id="offlineprogressbar">
-        <p id="offlineTimer" style="color: plum"></p>
-        <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
+    <div id="offlineContainer">
+        <p id="offlineTimer" class="offlineText" style="color: plum"></p>
+        <p id="progressbardescription" class="offlineText" style="color: yellow">Loading Offline Progress...</p>
         <div id="offlineprogressdone"></div>
+        <p id="offlineTickCount" class="offlineText">Simulating <span id="offlineTickCountNumber">-</span> Ticks, each worth <span id="offlineTickCountWorth">-</span> seconds in real life!</p>
+        <p id="offlineTickRemaining" class='offlineText'>Ticks Remaining: <span id="offlineTickRemainingNumber">-</span></p>
     </div>
     <header>
         <div id="ascensionStats">
