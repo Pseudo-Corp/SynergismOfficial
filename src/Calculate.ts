@@ -785,7 +785,7 @@ export const calculateOffline = (forceTime = 0) => {
     document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " seconds of Offline Progress!";
 
     //May 11, 2021: I've revamped calculations for this significantly.
-    let simulatedTicks = Math.floor(10 * Math.pow(timeAdd, 0.5)) + 1
+    let simulatedTicks = Math.floor(10 * Math.pow(timeAdd, 0.5) / 20) + 1
     //if (isTesting)
     //   simulatedTicks = 10000
     const tickValue = timeAdd / simulatedTicks
