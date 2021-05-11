@@ -193,54 +193,41 @@ button:focus {
     position: relative;
     font-size: 16px;
     width: 50%;
-    z-index: 1;
 }
 
 #preload {
     position: absolute;
     z-index: 2;
 }
-
-#offlineTimer {
-    position: absolute;
-    z-index: 5;
-    text-align: left;
-    width: 700px;
-    top: -85px;
-    left: 50%;
-    margin-left: -375px;
-    font-family: system, sans-serif;
-    font-size: 1.4em;
+#offlineContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
 }
 
-#offlineprogressbar {
-    position: absolute;
-    z-index: 3;
-    height: 30px;
-    width: 750px;
-    border: 3px solid red;
-    background-color: #171717;
-    top: 600px;
-    left: 50%;
-    margin-left: -375px;
+.offlineText {
+    display: flex;
+    z-index: 5;
+}
+
+#offlineTimer {
+    display: flex;
+    z-index: 5;
 }
 
 #progressbardescription {
-    position: absolute;
+    display: flex;
     z-index: 5;
-    text-align: left;
-    width: 700px;
-    top: -55px;
-    left: 50%;
-    margin-left: -375px;
-    font-family: system, sans-serif;
-    font-size: 1.4em;
 }
 
 #offlineprogressdone {
+    display: flex;
     width: 1px;
     height: 30px;
     background-color: green;
+    border: 2px solid red;
     z-index: 4;
 }
 
@@ -326,11 +313,11 @@ nav li:hover {
 }
 
 #buildingstab {
-    border-color: gold;
+    border-color: orange;
 }
 
 #upgradestab {
-    border-color: gold;
+    border-color: orange;
 }
 
 #settingstab {
@@ -2802,7 +2789,7 @@ header #obtainiumDisplay {
 #tabBorder {
     height: 2px;
     position: relative;
-    z-index: 2;
+    z-index: 0;
 }
 
 .challengeContainer {
