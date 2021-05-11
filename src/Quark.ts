@@ -136,6 +136,8 @@ export class QuarkHandler {
                 );
                 return this.BONUS = bonus;
             }
+        } else if (!navigator.onLine) {
+            return;
         }
 
         try {

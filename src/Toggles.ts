@@ -558,6 +558,8 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
 
         if (credits.childElementCount > 0 || artists.childElementCount > 0)
             return;
+        else if (!navigator.onLine)
+            return;
 
         try {
             const r = await fetch('https://api.github.com/repos/pseudo-corp/SynergismOfficial/contributors', {
