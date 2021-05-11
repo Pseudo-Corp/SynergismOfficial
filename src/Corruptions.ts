@@ -120,8 +120,13 @@ export const corruptionDisplay = (index: number) => {
 
 export const corruptionStatsUpdate = () => {
     for (let i = 1; i <= 9; i++) {
-        document.getElementById(`corrCurrent${i}`).textContent = format(player.usedCorruptions[i])
-        document.getElementById(`corrNext${i}`).textContent = format(player.prototypeCorruptions[i])
+        // https://discord.com/channels/677271830838640680/706329553639047241/841749032841379901
+        const a = document.getElementById(`corrCurrent${i}`);
+        const b = document.getElementById(`corrNext${i}`)
+        if (a) a.textContent = format(player.usedCorruptions[i])
+        else console.log(`Send to Platonic: corrCurrent${i} is null`);
+        if (b) b.textContent = format(player.prototypeCorruptions[i])
+        else console.log(`Send to Platonic: corrNext${i} is null`);
     }
 }
 
