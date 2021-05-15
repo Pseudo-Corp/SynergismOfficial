@@ -226,6 +226,9 @@ export const hepteractEffective = (data: hepteractTypes) => {
 }
 
 export const hepteractDescriptions = (type: hepteractTypes) => {
+    document.getElementById('hepteractUnlockedText').style.display = 'block'
+    document.getElementById('hepteractCurrentEffectText').style.display = 'block'
+    document.getElementById('hepteractBalanceText').style.display = 'block'
     const unlockedText = document.getElementById('hepteractUnlockedText')
     const effectText = document.getElementById('hepteractEffectText')
     const currentEffectText = document.getElementById('hepteractCurrentEffectText')
@@ -289,6 +292,36 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
             costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.multiplier.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e130 Obtainium"
             break;
     }
+}
+
+export const hepteractToQuarkDescription = () => {
+    document.getElementById('hepteractUnlockedText').style.display = 'none'
+    document.getElementById('hepteractCurrentEffectText').style.display = 'none'
+    document.getElementById('hepteractBalanceText').style.display = 'none'
+    document.getElementById('hepteractEffectText').textContent = "For a (high) price, you can synthesize Quarks using only seven dimensional cubes!"
+    document.getElementById('hepteractCostText').textContent = "Cost: 100,000 Hepteracts per quark"
+}
+
+export const tradeHepteractToQuark = async () => {
+    const maxBuy = Math.floor(player.wowAbyssals / 100000)
+    const hepteractInput = await Prompt('How many Quarks would you like to purchase? You can buy up to ' + format(maxBuy, 0, true) +  ' with your hepteracts.')
+    const toUse = Number(hepteractInput);
+    if (
+        Number.isNaN(toUse) ||
+        !Number.isInteger(toUse) ||
+        toUse <= 0
+    )
+        return Alert(`Hey! That's not a valid number!`);
+    
+    const buyAmount = Math.min(maxBuy, toUse, Math.floor(player.wowAbyssals / 100000))
+    const before = +player.worlds
+    player.worlds.add(buyAmount)
+    const after = +player.worlds
+    const bonusQuark = after - before - buyAmount
+    player.wowAbyssals -= 100000 * buyAmount
+
+    return Alert(`You have purchased ` + format(after - before) + ` Quarks [${format(bonusQuark)} from Patreon Bonus]. Enjoy!`)
+
 }
 
 // Hepteract of Chronos [UNLOCKED]

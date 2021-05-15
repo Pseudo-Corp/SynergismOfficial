@@ -19,7 +19,7 @@ import { resetHistoryTogglePerSecond } from "./History"
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable } from "./Shop"
 import { Globals as G } from './Variables';
 import { changeTabColor } from "./UpdateHTML"
-import { hepteractDescriptions } from "./Hepteracts"
+import { hepteractDescriptions, hepteractToQuarkDescription, tradeHepteractToQuark } from "./Hepteracts"
 import { exitOffline, timeWarp } from "./Calculate"
 
 /* STYLE GUIDE */
@@ -473,6 +473,8 @@ document.getElementById('acceleratorHepteractCap').addEventListener('click', () 
 document.getElementById('acceleratorBoostHepteractCap').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.expand())
 document.getElementById('multiplierHepteractCap').addEventListener('click', () => player.hepteractCrafts.multiplier.expand())
 
+document.getElementById('hepteractToQuark').addEventListener('mouseover', () => hepteractToQuarkDescription())
+document.getElementById('hepteractToQuarkTrade').addEventListener('click', () => tradeHepteractToQuark())
 // CORRUPTION TAB
 //Part 0: Subtabs
 document.getElementById('corrStatsBtn').addEventListener('click', () => toggleSubTab(9, 0))

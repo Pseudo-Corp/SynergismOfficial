@@ -10,6 +10,7 @@ import { resetNames } from './types/Synergism';
 import { hepteractEffective } from './Hepteracts';
 import { addTimers, automaticTools } from './Helper';
 import { Alert, Prompt, } from './UpdateHTML';
+import { quarkHandler } from './Quark';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] = 
@@ -809,7 +810,7 @@ export const calculateOffline = (forceTime = 0) => {
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
 
-    addTimers("quarks", timeAdd);
+//    addTimers("quarks", timeAdd);
 
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
     document.getElementById("offlineContainer").style.display = "flex";
@@ -840,6 +841,7 @@ export const calculateOffline = (forceTime = 0) => {
         ants: tickValue * G['timeMultiplier'],
         antsReal: tickValue,
         ascension: player.ascensionCounter, //Calculate this after the fact
+        quarks: quarkHandler().gain //Calculate this after the fact
     };
 
     //The cool shit that forces the repetitive loops [But it's actually just once. Again, fuck you Platonic]
@@ -849,12 +851,17 @@ export const calculateOffline = (forceTime = 0) => {
         addTimers('transcension', tickValue);
         addTimers('reincarnation', tickValue);
         addTimers('ascension', tickValue);
-        
+        addTimers('quarks', tickValue);
+
         player.prestigeCount += resetAdd.prestige;
         player.transcendCount += resetAdd.transcension;
         player.reincarnationCount += resetAdd.reincarnation;
+
         timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
+        timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
+
         document.getElementById('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
+        document.getElementById('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
         //Credit Resources
     //    resourceGain(tickValue * G['timeMultiplier'])
 
