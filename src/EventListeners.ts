@@ -20,6 +20,7 @@ import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable } f
 import { Globals as G } from './Variables';
 import { changeTabColor } from "./UpdateHTML"
 import { hepteractDescriptions } from "./Hepteracts"
+import { exitOffline, timeWarp } from "./Calculate"
 
 /* STYLE GUIDE */
 /* 
@@ -40,7 +41,10 @@ import { hepteractDescriptions } from "./Hepteracts"
 
 export const generateEventHandlers = () => {
     const ordinals = ['null','first','second','third','fourth','fifth','sixth','seventh','eighth']
-
+// Testing - TODO: Remove before updating to live but keep for now
+    document.getElementById('timeWarp').addEventListener('click', () => timeWarp());
+// Offline Button
+    document.getElementById('exitOffline').addEventListener('click', () => exitOffline());
 // UPPER UI ELEMENTS
     //Prelude: Cube/Tesseract/Hypercube/Platonic display UIs (Onclicks)
     document.getElementById('ascCubeStats').addEventListener('click', () => toggleAscStatPerSecond(1))

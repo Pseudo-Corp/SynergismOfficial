@@ -38,9 +38,56 @@
     <div id="offlineContainer">
         <p id="offlineTimer" class="offlineText" style="color: plum"></p>
         <p id="progressbardescription" class="offlineText" style="color: yellow">Loading Offline Progress...</p>
-        <div id="offlineprogressdone"></div>
-        <p id="offlineTickCount" class="offlineText">Simulating <span id="offlineTickCountNumber">-</span> Ticks, each worth <span id="offlineTickCountWorth">-</span> seconds in real life!</p>
-        <p id="offlineTickRemaining" class='offlineText'>Ticks Remaining: <span id="offlineTickRemainingNumber">-</span></p>
+
+        <div class='offlineStats'>
+            <div class="offlineStat" id="offlinePrestigeCountDiv">
+                <img src="/Pictures/Prestige.png" alt='' class='offlineStatIcon'>
+                <span id="offlinePrestigeCount" class='offlineStatElement'>Prestige Count: +<span id="offlinePrestigeCountNumber" style="color: cyan;"></span></p>
+            </div>
+            <div class="offlineStat" id="offlinePrestigeTimerDiv">
+                <img src="Pictures/Prestige.png" alt='' class='offlineStatIcon'>
+                <span id="offlinePrestigeTimer" class='offlineStatElement'>Current Prestige Timer: +<span id="offlinePrestigeTimerNumber" style="color: cyan;"></span> seconds</p>
+            </div>
+            <div class="offlineStat" id="offlineOfferingCountDiv">
+                <img src="Pictures/Offering.png" alt='' class='offlineStatIcon'>
+                <span id="offlineOfferingCount" class='offlineStatElement'>Offerings Generated: <span id="offlineOfferingCountNumber" style="color: orange"></span></p>
+            </div>
+            <div class="offlineStat" id="offlineTranscensionCountDiv">
+                <img src="Pictures/Transcend.png" alt='' class='offlineStatIcon'>
+                <span id="offlineTranscensionCount" class='offlineStatElement'>Transcension Count: +<span id="offlineTranscensionCountNumber" style="color: orchid"></span></p>
+            </div>
+            <div class="offlineStat" id="offlineTranscensionTimerDiv">
+                <img src="Pictures/Transcend.png" alt='' class='offlineStatIcon'>
+                <span id="offlineTranscensionTimer" class='offlineStatElement'>Current Transcension Timer: +<span id="offlineTranscensionTimerNumber" style="color: orchid"></span> seconds</p>
+            </div>
+            <div class='offlineStat' id="offlineReincarnationCountDiv">
+                <img src="Pictures/Reincarnate.png" alt='' class='offlineStatIcon'>
+                <span id="offlineReincarnationCount" class='offlineStatElement'>Reincarnation Count: +<span id="offlineReincarnationCountNumber" style="color: limegreen;"></span></p>
+            </div>
+            <div class='offlineStat' id="offlineReincarnationTimerDiv">
+                <img src="Pictures/Reincarnate.png" alt='' class='offlineStatIcon'>
+                <span id="offlineReincarnationTimer" class='offlineStatElement'>Current Reincarnation Timer: +<span id="offlineReincarnationTimerNumber" style="color: limegreen;"></span> seconds</p>
+            </div>
+            <div class='offlineStat' id="offlineObtainiumCountDiv">
+                <img src="Pictures/Obtainium.png" alt='' class='offlineStatIcon'>
+                <span id="offlineObtainiumCount" class='offlineStatElement'>Obtainium Generated: <span id="offlineObtainiumCountNumber" style="color: pink;"></span></p>
+            </div>
+            <div class='offlineStat' id="offlineAntTimerDiv">
+                <img src="Pictures/crumb.png" alt='' class='offlineStatIcon'>
+                <span id="offlineAntTimer" class='offlineStatElement'>In-Game Ant Sacrifice Timer: +<span id="offlineAntTimerNumber" style="color: red;"></span> seconds</p>
+            </div>
+            <div class='offlineStat' id="offlineRealAntTimerDiv">
+                <img src="Pictures/crumb.png" alt='' class='offlineStatIcon'>
+                <span id="offlineRealAntTimer" class='offlineStatElement'>Real-Life Ant Sacrifice Timer: +<span id="offlineRealAntTimerNumber" style="color: red;"></span> seconds</p>
+            </div>
+            <div class='offlineStat' id="offlineAscensionTimerDiv">
+                <img src="Pictures/questionable.png" alt='' class='offlineStatIcon'>
+                <span id="offlineAscensionTimer" class='offlineStatElement'>Current Ascension Timer: +<span id="offlineAscensionTimerNumber" style="color: gold;"></span> seconds</p>
+            </div>
+        </div>
+        
+        <button id="exitOffline">That's cool. Take me to the game!</button>
+
     </div>
     <header>
         <div id="ascensionStats">
@@ -2841,6 +2888,7 @@
                         <img src="Pictures/Quark.png" alt="" width="32px" height="32px" loading="lazy">
                         <p id="quarkamount">You have 0 Quarks!</p>
                     </div>
+                    <button id="timeWarp">Click here to warp time! [TESTING ONLY]</button>
                 </div>
                 <div id="actualShopContainer">
                     <div id="shoptop">Welcome to the Quark Shop. You can't believe what's in stock!</div>

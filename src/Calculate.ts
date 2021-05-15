@@ -1,4 +1,4 @@
-import { player, interval, clearInt, saveSynergy, resourceGain, updateAll, format } from './Synergism';
+import { player, interval, clearInt, saveSynergy, format } from './Synergism';
 import { sumContents, productContents, getElementById } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
@@ -9,6 +9,7 @@ import { achievementaward } from './Achievements';
 import { resetNames } from './types/Synergism';
 import { hepteractEffective } from './Hepteracts';
 import { addTimers, automaticTools } from './Helper';
+import { Alert, Prompt, } from './UpdateHTML';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] = 
@@ -775,6 +776,20 @@ export const calculateAntSacrificeRewards = (): IAntSacRewards => {
     return rewards;
 }
 
+export const timeWarp = async () => {
+    const time = await Prompt('How far in the future would you like to go into the future? Anything awaits when it is testing season.');
+    const timeUse = Number(time);
+        if (
+            Number.isNaN(timeUse) ||
+            timeUse <= 0
+        )
+            return Alert(`Hey! That's not a valid time!`);
+    
+    document.getElementById('offlineContainer').style.display = 'flex'
+    document.getElementById('preload').style.display = 'block'
+    calculateOffline(timeUse)
+}
+
 export const calculateOffline = (forceTime = 0) => {
     G['timeWarp'] = true;
 
@@ -784,23 +799,21 @@ export const calculateOffline = (forceTime = 0) => {
     const timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - player.offlinetick) / 1000))
     document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " seconds of Offline Progress!";
 
-    //May 11, 2021: I've revamped calculations for this significantly.
-    let simulatedTicks = Math.floor(10 * Math.pow(timeAdd, 0.5) / 20) + 1
+    //May 11, 2021: I've revamped calculations for this significantly. Note to May 11 Platonic: Fuck off -May 15 Platonic
+    let simulatedTicks = 1 //Math.min(2000, Math.floor(10 * Math.pow(timeAdd, 0.5)) + 1)
     //if (isTesting)
     //   simulatedTicks = 10000
-    const tickValue = timeAdd / simulatedTicks
-    const maxSimulatedTicks = simulatedTicks;
-    let progressBarWidth = 0;
+    const tickValue = timeAdd
 
     //Some one-time tick things that are relatively important
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
+
     addTimers("quarks", timeAdd);
-    document.getElementById('offlineTickCountNumber').textContent = format(maxSimulatedTicks, 0);
-    document.getElementById('offlineTickCountWorth').textContent = format(tickValue, 2, true);
 
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
     document.getElementById("offlineContainer").style.display = "flex";
+
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
     const runOffline = interval(runSimulator, 0)
 
@@ -808,18 +821,42 @@ export const calculateOffline = (forceTime = 0) => {
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
     preloadImage.src = 'Pictures/Blank Preload.png';
 
-    //The cool shit that forces the repetitive loops
+    G['timeMultiplier'] = calculateTimeAcceleration();
+    calculateObtainium();
+    const obtainiumGain = calculateAutomaticObtainium();
+
+    const resetAdd = {
+        prestige: tickValue / Math.max(0.01, player.fastestprestige),
+        offering: Math.floor(tickValue),
+        transcension: tickValue / Math.max(0.01, player.fastesttranscend),
+        reincarnation: tickValue / Math.max(0.01, player.fastestreincarnate),
+        obtainium: tickValue * obtainiumGain * G['timeMultiplier'],
+    };
+
+    let timerAdd = {
+        prestige: tickValue * G['timeMultiplier'],
+        transcension: tickValue * G['timeMultiplier'],
+        reincarnation: tickValue * G['timeMultiplier'],
+        ants: tickValue * G['timeMultiplier'],
+        antsReal: tickValue,
+        ascension: player.ascensionCounter, //Calculate this after the fact
+    };
+
+    //The cool shit that forces the repetitive loops [But it's actually just once. Again, fuck you Platonic]
     function runSimulator() {
-        G['timeMultiplier'] = calculateTimeAcceleration();
-        calculateObtainium();
         //Reset Stuff lmao!
         addTimers('prestige', tickValue);
         addTimers('transcension', tickValue);
         addTimers('reincarnation', tickValue);
         addTimers('ascension', tickValue);
-
+        
+        player.prestigeCount += resetAdd.prestige;
+        player.transcendCount += resetAdd.transcension;
+        player.reincarnationCount += resetAdd.reincarnation;
+        timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
+        document.getElementById('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
         //Credit Resources
-        resourceGain(tickValue * G['timeMultiplier'])
+    //    resourceGain(tickValue * G['timeMultiplier'])
 
         //Auto Obtainium Stuff
         if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
@@ -831,6 +868,10 @@ export const calculateOffline = (forceTime = 0) => {
             /*player.antSacrificeTimer += tickValue * timeMultiplier;
             player.antSacrificeTimerReal += tickValue;*/
         }
+
+        //Auto Offerings
+            automaticTools('addOfferings', tickValue);
+
         //Auto Rune Sacrifice Stuff
         if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
             automaticTools('runeSacrifice', tickValue);
@@ -842,19 +883,29 @@ export const calculateOffline = (forceTime = 0) => {
             }*/
         }
         //Otherwise, Update All every simulated tick
-        updateAll();
+    //    updateAll();
         //Misc functions
         simulatedTicks -= 1;
-        document.getElementById("offlineTickRemainingNumber").textContent = format(simulatedTicks);
-        progressBarWidth = 750 * (1 - simulatedTicks / maxSimulatedTicks);
-        document.getElementById("offlineprogressdone").style.width = progressBarWidth + "px";
         if (simulatedTicks < 1) {
             clearInt(runOffline);
             G['timeWarp'] = false;
-            document.getElementById("offlineContainer").style.display = "none";
-            document.getElementById("preload").style.display = "none";
+            Alert('You have gained offline progress. Enjoi! :D')
+            document.getElementById('progressbardescription').textContent = 'You have gained the following from offline progression!'
+//            document.getElementById("offlineContainer").style.display = "none";
+//            document.getElementById("preload").style.display = "none";
         }
     }
+
+    document.getElementById('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
+    document.getElementById('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
+    document.getElementById('offlineOfferingCountNumber').textContent = format(resetAdd.offering, 0, true)
+    document.getElementById('offlineTranscensionCountNumber').textContent = format(resetAdd.transcension, 0, true)
+    document.getElementById('offlineTranscensionTimerNumber').textContent = format(timerAdd.transcension, 2, false)
+    document.getElementById('offlineReincarnationCountNumber').textContent = format(resetAdd.reincarnation, 0, true)
+    document.getElementById('offlineReincarnationTimerNumber').textContent = format(timerAdd.reincarnation, 2, false)
+    document.getElementById('offlineObtainiumCountNumber').textContent = format(resetAdd.obtainium, 0, true)
+    document.getElementById('offlineAntTimerNumber').textContent = format(timerAdd.ants, 2, false)
+    document.getElementById('offlineRealAntTimerNumber').textContent = format(timerAdd.antsReal, 2, true)
 
     player.offlinetick = updatedTime
     if (!player.loadedNov13Vers) {
@@ -865,12 +916,20 @@ export const calculateOffline = (forceTime = 0) => {
         }
         player.loadedNov13Vers = true
     }
+
+//    document.getElementById("offlineContainer").style.display = "none";
+//    document.getElementById("preload").style.display = "none";
     saveSynergy();
     updateTalismanInventory();
     calculateObtainium();
     calculateAnts();
     calculateRuneLevels();
 
+}
+
+export const exitOffline = () => {
+    document.getElementById("offlineContainer").style.display = "none";
+    document.getElementById("preload").style.display = "none";
 }
 
 export const calculateSigmoid = (constant: number, factor: number, divisor: number) => {

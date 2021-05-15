@@ -192,19 +192,42 @@ button:focus {
 #resourcesrow {
     position: relative;
     font-size: 16px;
-    width: 50%;
+    width: 100%;
 }
 
 #preload {
     position: absolute;
     z-index: 2;
 }
+
 #offlineContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 3;
+}
+
+.offlineStats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    z-index: 3;
+    margin-bottom: 2px;
+}
+.offlineStat{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    z-index: 3;
+    margin-bottom: 2px;
+}
+.offlineStatElement{
+    height: 23px;
+    margin-left: 5px;
+    text-align: left;
 }
 
 .offlineText {
@@ -222,13 +245,14 @@ button:focus {
     z-index: 5;
 }
 
-#offlineprogressdone {
-    display: flex;
-    width: 1px;
+#exitOffline {
     height: 30px;
-    background-color: green;
-    border: 2px solid red;
-    z-index: 4;
+    z-index: 3;
+    width: auto;
+    margin-top: 20px;
+    border: 2px solid ivory;
+    background-color: purple;
+    color: white;
 }
 
 .resetInformationContainer {
@@ -1656,6 +1680,13 @@ nav li:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+#timeWarp {
+    width: auto;
+    height: 30px;
+    border: 6px solid black;
+    background-color: purple;
 }
 
 #quarkamount {
