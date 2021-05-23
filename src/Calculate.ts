@@ -1152,7 +1152,7 @@ export const CalcCorruptionStuff = () => {
     if (player.shopUpgrades.infiniteAscent) 
         cubeGain *= 1 + 1/100 * player.runelevels[5]
     if (player.achievements[254] > 0)
-        cubeGain *= (1 + 1/100 * Math.log10(effectiveScore + 1))
+        cubeGain *= (1 + Math.min(1/100 * Math.log10(effectiveScore + 1)))
 
     let tesseractGain = 1;
     tesseractGain *= 2.25
@@ -1181,7 +1181,7 @@ export const CalcCorruptionStuff = () => {
     tesseractGain *= (1 + 3 / 200 * player.shopUpgrades.seasonPass)
     if (player.shopUpgrades.infiniteAscent) tesseractGain *= 1 + 1/100 * player.runelevels[5]
     if (player.achievements[255] > 0)
-        tesseractGain *= (1 + 1/100 * Math.log10(effectiveScore + 1))
+        tesseractGain *= (1 + Math.min(0.15, 1/100 * Math.log10(effectiveScore + 1)))
 
     let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
     hypercubeGain *= Math.pow(1 + Math.max(0, (effectiveScore - 1e9)) / 1e8, .5);
@@ -1206,7 +1206,7 @@ export const CalcCorruptionStuff = () => {
     if (player.achievements[253] > 0)
         hypercubeGain *= 1.1
     if (player.achievements[256] > 0)
-        hypercubeGain *= (1 + 1/100 * Math.log10(effectiveScore + 1))
+        hypercubeGain *= (1 + Math.min(0.15, 1/100 * Math.log10(effectiveScore + 1)))
     if (player.achievements[265] > 0)
         hypercubeGain *= (1 + Math.min(2, player.ascensionCount / 2.5e10))
 
@@ -1232,7 +1232,7 @@ export const CalcCorruptionStuff = () => {
     platonicGain *= (1 + 1 / 100 * player.shopUpgrades.seasonPass2)
     if (player.shopUpgrades.infiniteAscent) platonicGain *= 1 + 1/100 * player.runelevels[5]
     if (player.achievements[257] > 0)
-        platonicGain *= (1 + 1/100 * Math.log10(effectiveScore + 1))
+        platonicGain *= (1 + Math.min(0.15, 1/100 * Math.log10(effectiveScore + 1)))
 
     let hepteractGain = G['challenge15Rewards']['hepteractUnlocked'] && effectiveScore >= 6.66e16 ? 1 : 0;
     hepteractGain *= (G['challenge15Rewards'].cube1 * G['challenge15Rewards'].cube2 * G['challenge15Rewards'].cube3 * G['challenge15Rewards'].cube4)
@@ -1241,11 +1241,13 @@ export const CalcCorruptionStuff = () => {
     hepteractGain *= (1 + 1 / 100 * player.shopUpgrades.seasonPass3)
     if (player.shopUpgrades.infiniteAscent) hepteractGain *= 1 + 1/100 * player.runelevels[5]
     if (player.achievements[258] > 0)
-        hepteractGain *= (1 + 1/100 * Math.log10(effectiveScore + 1))
+        hepteractGain *= (1 + Math.min(0.15, 1/100 * Math.log10(effectiveScore + 1)))
     if (player.achievements[264] > 0)
-        hepteractGain *= (1 + Math.min(2, player.ascensionCount / 1e10))
+        hepteractGain *= (1 + Math.min(0.4, player.ascensionCount / 5e10))
+    if (player.achievements[265] > 0)
+        hepteractGain *= (1 + Math.min(0.2, player.ascensionCount / 2.5e11))
     if (player.achievements[270] > 0)
-        hepteractGain *= (1 + 1/100000 * Decimal.log(player.ascendShards.add(1), 10))
+        hepteractGain *= Math.min(2, (1 + 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
 
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain)]
 }

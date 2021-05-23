@@ -179,7 +179,7 @@ export class HepteractCraft {
 const hepteractEffectiveValues = {
     'chronos': {
         LIMIT: 1000,
-        DR: 0.33,
+        DR: 1/6,
     },
     'hyperrealism': {
         LIMIT: 1000,
