@@ -5,6 +5,7 @@ import { quarkHandler } from "./Quark";
 import { redeemShards } from "./Runes";
 import { player } from "./Synergism";
 import { visualUpdateResearch } from "./UpdateVisuals";
+import { sumContents } from "./Utility";
 import { Globals as G } from './Variables';
 
 type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks';
@@ -39,6 +40,8 @@ export const addTimers = (input: TimerInput, time?: number) => {
                 multiplier *= (1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)))
             if (player.achievements[263] > 0)
                 multiplier *= (1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)))
+            if (player.platonicUpgrades[15] > 0)
+                multiplier *= (1 + 0.002 * sumContents(player.usedCorruptions))
             player.ascensionCounter += time * timeMultiplier * multiplier;
             break;
         }

@@ -1935,6 +1935,9 @@ export const multipliers = (): void => {
     if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[14] > 0) {
         lol = Decimal.pow(lol, 1 + 1 / 20 * player.usedCorruptions[9] * Decimal.log(player.coins.add(1), 10) / (1e7 + Decimal.log(player.coins.add(1), 10)))
     }
+    if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[15] > 0) {
+        lol = Decimal.pow(lol, 1.1)
+    }
     lol = Decimal.pow(lol, G['challenge15Rewards'].coinExponent)
     G['globalCoinMultiplier'] = lol;
     G['globalCoinMultiplier'] = Decimal.pow(G['globalCoinMultiplier'], G['financialcollapsePower'][player.usedCorruptions[9]])
@@ -2145,7 +2148,7 @@ export const multipliers = (): void => {
         G['globalConstantMult'] = G['globalConstantMult'].times(10)
     }
     if (player.platonicUpgrades[15] > 0) {
-        G['globalConstantMult'] = G['globalConstantMult'].times(1e5)
+        G['globalConstantMult'] = G['globalConstantMult'].times(1e66)
     }
 }
 
@@ -2579,8 +2582,8 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
             if (player.coins.gte(challengeRequirement(a, player.challengecompletions[a], a)) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
             } else {
-                if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent))) {
-                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * (1 + 3/10000 * hepteractEffective('challenge'));
+                if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / (1 + 3/10000 * hepteractEffective('challenge')) / (1 + 0.25 * player.platonicUpgrades[15])))) {
+                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * (1 + 3/10000 * hepteractEffective('challenge')) * (1 + 0.25 * player.platonicUpgrades[15]);
                     c15RewardUpdate();
                 }
             }

@@ -1,6 +1,6 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
-import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings } from './Calculate';
+import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier } from './Calculate';
 
 export const loadStatisticsAccelerator = () => {
     document.getElementById("sA1").textContent = "+" + format(G['freeUpgradeAccelerator'], 0, false)
@@ -34,35 +34,42 @@ export const loadStatisticsMultiplier = () => {
 }
 
 export const loadStatisticsCubeMultipliers = () => {
-    const arr = calculateCubeMultiplier(false);
+
+    const arr0 = calculateAllCubeMultiplier().list;
+    const map0: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: "Ascension Time Multiplier:"},
+        2: {acc: 2, desc: "Sun and Moon Achievements:"},
+        3: {acc: 2, desc: "Speed Achievement:"},
+        4: {acc: 2, desc: "Challenge 15 All Cube Bonus:"},
+        5: {acc: 2, desc: "Rune 6 - Infinite Ascent:"},
+        6: {acc: 2, desc: "Platonic Beta:"},
+        7: {acc: 2, desc: "Platonic Omega:"},
+    }
+    for (let i = 0; i < arr0.length; i++) {
+        const statGCMi = document.getElementById(`statGCM${i + 1}`);
+        statGCMi.childNodes[0].textContent = map0[i + 1].desc;
+        document.getElementById(`sGCM${i + 1}`).textContent = `x${format(arr0[i], map0[i + 1].acc, true)}`;
+    }
+
+    document.getElementById("sGCMT").textContent = `x${format(calculateAllCubeMultiplier().mult, 3)}`;
+
+    const arr = calculateCubeMultiplier().list;
     const map: Record<number, { acc: number, desc: string }> = {
-        1: {acc: 4, desc: "Ascension Timer Multiplier"},
-        2: {acc: 2, desc: "Season pass:"},
-        3: {acc: 4, desc: "Research 5x19:"},
-        4: {acc: 4, desc: "Research 5x20:"},
-        5: {acc: 2, desc: "Cube upgrade 1x1:"},
-        6: {acc: 2, desc: "Cube upgrade 2x1:"},
-        7: {acc: 2, desc: "Cube upgrade 3x1:"},
-        8: {acc: 2, desc: "Cube upgrade 4x1:"},
-        9: {acc: 2, desc: "Cube upgrade 5x1:"},
-        10: {acc: 2, desc: "Research 6x12:"},
-        11: {acc: 3, desc: "Research 7x2:"},
-        12: {acc: 3, desc: "Research 7x17:"},
-        13: {acc: 3, desc: "Research 8x7:"},
-        14: {acc: 3, desc: "Research 8x22:"},
-        15: {acc: 3, desc: "Ascension Count Achievement:"},
-        16: {acc: 4, desc: "Bought Mortuus Est ants (R8x17):"},
-        17: {acc: 4, desc: "Duplication Spirit Power:"},
-        18: {acc: 5, desc: "Research 8x25:"},
-        19: {acc: 4, desc: "Constant upgrade 10:"},
-        20: {acc: 2, desc: "Cube upgrade 3x10:"},
-        21: {acc: 2, desc: "Number Achievement 4 Bonus:"},
-        22: {acc: 2, desc: "Number Achievement 6 Bonus:"},
-        23: {acc: 2, desc: "Challenge 11 Ach:"},
-        24: {acc: 4, desc: "ASCENDED Achievement:"},
-        25: {acc: 2, desc: "Sun & Moon Achievements:"},
-        26: {acc: 4, desc: "Cube Shards:"},
-        27: {acc: 4, desc: "Challenge 15 Reward:"},
+        1: {acc: 2, desc: "Ascension Score Multiplier:"},
+        2: {acc: 2, desc: "Global Cube Multiplier:"},
+        3: {acc: 2, desc: "Season Pass 1:"},
+        4: {acc: 2, desc: "Researches (Except 8x25):"},
+        5: {acc: 2, desc: "Research 8x25:"},
+        6: {acc: 2, desc: "Cube Upgrades:"},
+        7: {acc: 2, desc: "Constant Upgrade 10:"},
+        8: {acc: 2, desc: "Achievement 189 Bonus:"},
+        9: {acc: 2, desc: "Achievement 193 Bonus:"},
+        10: {acc: 2, desc: "Achievement 195 Bonus:"},
+        11: {acc: 2, desc: "Achievement 198-201 Bonus:"},
+        12: {acc: 2, desc: "Achievement 254 Bonus:"},
+        13: {acc: 2, desc: "Spirit Power:"},
+        14: {acc: 2, desc: "Platonic Cubes:"},
+        15: {acc: 2, desc: "Platonic 1x1:"},
     }
     for (let i = 0; i < arr.length; i++) {
         const statCMi = document.getElementById(`statCM${i + 1}`);
@@ -70,7 +77,90 @@ export const loadStatisticsCubeMultipliers = () => {
         document.getElementById(`sCM${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`;
     }
     // PLAT
-    document.getElementById("sCMT").textContent = `x${format(calculateCubeMultiplier(), 3)}`;
+    document.getElementById("sCMT").textContent = `x${format(calculateCubeMultiplier().mult, 3)}`;
+
+    const arr2 = calculateTesseractMultiplier().list;
+    const map2: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: "Ascension Score Multiplier:"},
+        2: {acc: 2, desc: "Global Cube Multiplier:"},
+        3: {acc: 2, desc: "Season Pass 1:"},
+        4: {acc: 2, desc: "Constant Upgrade 10:"},
+        5: {acc: 2, desc: "Cube Upgrade 3x10:"},
+        6: {acc: 2, desc: "Cube Upgrade 4x8:"},
+        7: {acc: 2, desc: "Achievement 195 Bonus:"},
+        8: {acc: 2, desc: "Achievement 202 Bonus:"},
+        9: {acc: 2, desc: "Achievement 205-208 Bonus:"},
+        10: {acc: 2, desc: "Achievement 255 Bonus:"},
+        11: {acc: 2, desc: "Platonic Cubes:"},
+        12: {acc: 2, desc: "Platonic 1x2:"},
+    }
+    for (let i = 0; i < arr2.length; i++) {
+        const statTeMi = document.getElementById(`statTeM${i + 1}`);
+        statTeMi.childNodes[0].textContent = map2[i + 1].desc;
+        document.getElementById(`sTeM${i + 1}`).textContent = `x${format(arr2[i], map2[i + 1].acc, true)}`;
+    }
+
+    document.getElementById("sTeMT").textContent = `x${format(calculateTesseractMultiplier().mult, 3)}`;
+
+    const arr3 = calculateHypercubeMultiplier().list;
+    const map3: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: "Ascension Score Multiplier:"},
+        2: {acc: 2, desc: "Global Cube Multiplier:"},
+        3: {acc: 2, desc: "Season Pass 2:"},
+        4: {acc: 2, desc: "Achievement 212-215 Bonus:"},
+        5: {acc: 2, desc: "Achievement 216 Bonus:"},
+        6: {acc: 2, desc: "Achievement 253 Bonus:"},
+        7: {acc: 2, desc: "Achievement 256 Bonus:"},
+        8: {acc: 2, desc: "Achievement 265 Bonus:"},
+        9: {acc: 2, desc: "Platonic Cubes:"},
+        10: {acc: 2, desc: "Platonic 1x3:"},
+        11: {acc: 2, desc: "Hyperreal Hepteract Bonus:"},
+    }
+    for (let i = 0; i < arr3.length; i++) {
+        const statHyMi = document.getElementById(`statHyM${i + 1}`);
+        statHyMi.childNodes[0].textContent = map3[i + 1].desc;
+        document.getElementById(`sHyM${i + 1}`).textContent = `x${format(arr3[i], map3[i + 1].acc, true)}`;
+    }
+
+    document.getElementById("sHyMT").textContent = `x${format(calculateHypercubeMultiplier().mult, 3)}`;
+
+    const arr4 = calculatePlatonicMultiplier().list;
+    const map4: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: "Ascension Score Multiplier:"},
+        2: {acc: 2, desc: "Global Cube Multiplier:"},
+        3: {acc: 2, desc: "Season Pass 2:"},
+        4: {acc: 2, desc: "Achievement 196 Bonus:"},
+        5: {acc: 2, desc: "Achievement 219-222 Bonus:"},
+        6: {acc: 2, desc: "Achievement 223 Bonus:"},
+        7: {acc: 2, desc: "Achievement 257 Bonus:"},
+        8: {acc: 2, desc: "Platonic Cubes:"},
+        9: {acc: 2, desc: "Platonic 1x4:"},
+    }
+    for (let i = 0; i < arr4.length; i++) {
+        const statPlMi = document.getElementById(`statPlM${i + 1}`);
+        statPlMi.childNodes[0].textContent = map4[i + 1].desc;
+        document.getElementById(`sPlM${i + 1}`).textContent = `x${format(arr4[i], map4[i + 1].acc, true)}`;
+    }
+
+    document.getElementById("sPlMT").textContent = `x${format(calculatePlatonicMultiplier().mult, 3)}`;
+
+    const arr5 = calculateHepteractMultiplier().list;
+    const map5: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: "Ascension Score Multiplier:"},
+        2: {acc: 2, desc: "Global Cube Multiplier:"},
+        3: {acc: 2, desc: "Season Pass 3:"},
+        4: {acc: 2, desc: "Achievement 258 Bonus:"},
+        5: {acc: 2, desc: "Achievement 264 Bonus:"},
+        6: {acc: 2, desc: "Achievement 265 Bonus:"},
+        7: {acc: 2, desc: "Achievement 270 Bonus:"},
+    }
+    for (let i = 0; i < arr5.length; i++) {
+        const statHeMi = document.getElementById(`statHeM${i + 1}`);
+        statHeMi.childNodes[0].textContent = map5[i + 1].desc;
+        document.getElementById(`sHeM${i + 1}`).textContent = `x${format(arr5[i], map5[i + 1].acc, true)}`;
+    }
+
+    document.getElementById("sHeMT").textContent = `x${format(calculateHepteractMultiplier().mult, 3)}`;
 }
 
 export const loadStatisticsOfferingMultipliers = () => {
