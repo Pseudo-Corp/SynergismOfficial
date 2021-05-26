@@ -2220,9 +2220,18 @@ p[id$="BlessingsTotal"] {
 }
 
 #statisticsSubTab {
-    max-height: 800px;
-    padding-top: 52px;
-    flex-wrap: wrap;
+    padding-top: 25px;
+    overflow-x: auto;
+    /* don't inherit this property; defaults to center and messes it up */
+    justify-content: initial;
+}
+
+#statisticsSubTab::-webkit-scrollbar {
+    display: none;
+}
+  
+#statisticsSubTab {
+    scrollbar-width: none;
 }
 
 .statContainer {
@@ -2924,7 +2933,6 @@ header #obtainiumDisplay {
 }
 
 #testingLogger {
-    display: flex;
     flex-direction: column;
 }
 
