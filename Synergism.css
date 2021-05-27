@@ -2932,8 +2932,15 @@ header #obtainiumDisplay {
     margin: auto;
 }
 
-#testingLogger {
-    flex-direction: column;
+.hotkeys {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+}
+
+.hotkeyItem {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2px;
 }
 
 #transparentBG {
