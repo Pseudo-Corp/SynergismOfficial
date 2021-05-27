@@ -90,6 +90,7 @@ const makeSlot = (key: string, descr: string) => {
         To enter multiple keys, separate them with a comma.
         `);
 
+        if (typeof newKey !== 'string') return;
         // array of key(s) to set combinations as
         const keys = newKey.split(',').map(k => k.toUpperCase());
         // old hotkey
