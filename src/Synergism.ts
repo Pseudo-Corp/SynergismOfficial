@@ -3165,17 +3165,6 @@ function tack(dt: number) {
         calculateOfferings("reincarnation")
     }
 
-type Plugins = 'Dashboard' | 'OpenCubes';
-
-export const loadPlugins = async (name: Plugins) => {
-    return await Alert(`Plugin ${name} is currently disabled. Sorry!`);
-    // const imp = await import(`./Plugins/${name}`) as typeof import('./Plugins/Dashboard');
-    // if (typeof imp?.main !== 'function')
-    //    return Alert(`Failed to import the ${name} plugin!`);
-
-    // imp!.main();
-}
-
 document.addEventListener('keydown', (event) => {
     if (document.activeElement && document.activeElement.localName === 'input') {
         // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
