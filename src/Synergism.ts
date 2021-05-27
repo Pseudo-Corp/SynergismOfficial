@@ -13,11 +13,11 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
-import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, keyboardTabChange, toggleauto, toggleAutoChallengeModeText } from './Toggles';
+import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
-import { antSacrificePointsToMultiplier, autoBuyAnts, sacrificeAnts, calculateCrumbToCoinExp } from './Ants';
+import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
 import { reset } from './Reset';
@@ -34,6 +34,7 @@ import { checkVariablesOnLoad } from './CheckVariables';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
+import './Hotkeys';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -3175,17 +3176,6 @@ export const loadPlugins = async (name: Plugins) => {
     // imp!.main();
 }
 
-const keysPressed = new Set<string>();
-
-document.addEventListener('keydown', event => {
-    keysPressed.add(event.key);
-    // if (keysPressed.has('Control') && event.key === 'a') {}
-});
-
-document.addEventListener('keyup', event => {
-    keysPressed.delete(event.key);
-});
-
 document.addEventListener('keydown', (event) => {
     if (document.activeElement && document.activeElement.localName === 'input') {
         // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
@@ -3364,51 +3354,6 @@ document.addEventListener('keydown', (event) => {
                 toggleChallenges(10)
                 challengeDisplay(10);
             }
-            break;
-        case "A":
-            buyAccelerator();
-            break;
-        case "B":
-            boostAccelerator();
-            break;
-        case "E":
-            if (player.currentChallenge.reincarnation !== 0) {
-                resetCheck('reincarnationchallenge', undefined, true)
-            }
-            if (player.currentChallenge.transcension !== 0) {
-                resetCheck('challenge', undefined, true)
-            }
-            break;
-        case "M":
-            buyMultiplier();
-            break;
-        case "P":
-            resetCheck('prestige');
-            break;
-        case "R":
-            resetCheck('reincarnate');
-            break;
-        case "S":
-            sacrificeAnts();
-            break;
-        case "T":
-            resetCheck('transcend');
-            break;
-        case "ARROWLEFT":
-            event.preventDefault();
-            keyboardTabChange(-1);
-            break;
-        case "ARROWRIGHT":
-            event.preventDefault();
-            keyboardTabChange(1);
-            break;
-        case "ARROWUP":
-            event.preventDefault();
-            keyboardTabChange(-1, false);
-            break;
-        case "ARROWDOWN":
-            event.preventDefault();
-            keyboardTabChange(1, false);
             break;
     }
 

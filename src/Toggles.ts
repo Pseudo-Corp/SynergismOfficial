@@ -224,7 +224,7 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: "statisticsSubTab", unlocked: true},
                 {subTabID: "resetHistorySubTab", unlocked: player.unlocks.prestige},
                 {subTabID: "ascendHistorySubTab", unlocked: player.ascensionCount > 0},
-                { subTabID: "testingLogger", unlocked: true }
+                { subTabID: "hotkeys", unlocked: true }
             ]
         },
         0: {subTabList: []},

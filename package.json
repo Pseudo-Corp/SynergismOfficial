@@ -20,7 +20,8 @@
   "scripts": {
     "lint": "npx eslint --fix . --ext .ts",
     "csslint": "stylelint Synergism.css --fix",
-    "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge79\" --outfile=\"./dist/out.js\""
+    "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge79\" --outfile=\"./dist/out.js\"",
+    "watch:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge79\" --outfile=\"./dist/out.js\" --watch"
   },
   "repository": {
     "type": "git",
