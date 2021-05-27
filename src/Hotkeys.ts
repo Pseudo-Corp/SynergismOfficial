@@ -54,6 +54,13 @@ export const hotkeys = new Map<string, [string, () => unknown]>([
 const keysPressed = new Set<string>();
 
 document.addEventListener('keydown', event => {
+    if (document.activeElement?.localName === 'input') {
+        // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
+        // finally fixes the bug where hotkeys would be activated when typing in an input field
+        event.stopPropagation();
+        return;
+    }
+
     keysPressed.add(event.key.toUpperCase());
     const all = [...keysPressed].join(',');
     
