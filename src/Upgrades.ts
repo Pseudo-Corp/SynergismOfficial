@@ -402,9 +402,18 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
     if (!fast) revealStuff()
 }
 
+export const ascendBuildingDR = () => {
+    const sum = player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned
+
+    if (sum > 100000)
+        return Math.pow(100000, 0.75) * Math.pow(sum, 0.25)
+    else
+        return sum
+}
+
 const constUpgEffect: Record<number, () => string> = {
     1: () => `Tesseract building production x${format(Decimal.pow(1.05, player.constantUpgrades[1]), 2, true)}`,
-    2: () => `Tesseract building production x${format(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned), 2, true)}`,
+    2: () => `Tesseract building production x${format(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), ascendBuildingDR()), 2, true)}`,
     3: () => `Offering gain x${format(1 + 0.02 * player.constantUpgrades[3], 2, true)}`,
     4: () => `Obtainium gain x${format(1 + 0.04 * player.constantUpgrades[4], 2, true)}`,        
     5: () => `Ant Speed x${format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]), 2, true)}`,
