@@ -1347,10 +1347,14 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
 }
 
+// Bad browsers (like Safari) only recently implemented this.
+// 
+const supportsFormatToParts = typeof Intl?.NumberFormat?.prototype?.formatToParts === 'function';
+
 // In some browsers, this will return an empty-1 length array (?), causing a "TypeError: Cannot read property 'value' of undefined"
 // if we destructure it... To reproduce: ` const [ { value } ] = []; `
 // https://discord.com/channels/677271830838640680/730669616870981674/830218436201283584
-const IntlFormatter = Intl.NumberFormat()
+const IntlFormatter = !supportsFormatToParts ? null : Intl.NumberFormat()
     .formatToParts(1000.1)
     .filter(part => part.type === 'decimal' || part.type === 'group');
 
