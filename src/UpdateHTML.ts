@@ -892,7 +892,7 @@ const PromptCB = (text: string, cb: (value: string | null) => void) => {
     // kinda disgusting types but whatever
     const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
         const targetEl = target as HTMLButtonElement;
-        const input = targetEl.parentNode.querySelector('input').value;
+        const el = targetEl.parentNode.querySelector('input');
 
         ok.removeEventListener('click', listener);
         cancel.removeEventListener('click', listener);
@@ -902,8 +902,10 @@ const PromptCB = (text: string, cb: (value: string | null) => void) => {
         confWrap.style.display = 'none';
         overlay.style.display = 'none';
         
-        if (targetEl.id === ok.id) cb(input);
+        if (targetEl.id === ok.id) cb(el.value);
         else cb(null); // canceled 
+
+        el.value = el.textContent = '';
     }
 
     const kbListener = (e: KeyboardEvent) => {
