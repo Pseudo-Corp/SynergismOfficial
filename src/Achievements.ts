@@ -747,7 +747,7 @@ export const buildingAchievementCheck = () => {
 export const ascensionAchievementCheck = (i: number, score = 0) => {
     if (i === 1) {
         const ascendCountArray = [0, 1, 2, 10, 100, 1000, 14142, 141421, 1414213, //Column 1
-                                  1e7, 3e7, 9e7, 2.7e8, 8.1e8, 2.43e9, 9.999e9] //Column 2
+                                  1e7, 1e8, 2e9, 4e10, 8e11, 1.6e13, 1e14] //Column 2
         for (let j = 1; j <= 7; j++) {
             if (player.ascensionCount >= ascendCountArray[j] && player.achievements[182 + j] < 1) {
                 achievementaward(182 + j)
@@ -762,7 +762,7 @@ export const ascensionAchievementCheck = (i: number, score = 0) => {
     }
     if (i === 2) {
         const constantArray = [0, 3.14, 1e6, 4.32e10, 6.9e21, 1.509e33, 1e66, "1.8e308", //Column 1
-                               "1e1000", "1e2000", "1e4000", "1e10000", "1e20000", "1e40000", "1e100000"] //Column 2
+                               "1e1000", "1e5000", "1e15000", "1e50000", "1e100000", "1e300000", "1e1000000"] //Column 2
         for (let j = 1; j <= 7; j++) {
             if (player.ascendShards.gte(constantArray[j]) && player.achievements[189 + j] < 1) {
                 achievementaward(189 + j)
@@ -774,7 +774,7 @@ export const ascensionAchievementCheck = (i: number, score = 0) => {
     }
     if (i === 3) {
         const scoreArray = [0, 1e5, 1e6, 1e7, 1e8, 1e9, 5e9, 2.5e10, //Column 1
-                            1e12, 1e13, 1e14, 1e15, 1e16, 1e17, 1e18] //Column 2
+                            1e12, 1e14, 1e17, 2e18, 4e19, 1e21, 1e23] //Column 2
         for (let j = 1; j <= 7; j++) {
             if (score >= scoreArray[j] && player.achievements[224 + j] < 1) {
                 achievementaward(224 + j)
