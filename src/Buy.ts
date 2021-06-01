@@ -688,10 +688,10 @@ export const getTesseractCost = (intCost: number, index: number, accelerate = fa
 
     const buyTo = Math.floor(-1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((Number(player.wowTesseracts) + subCost) / intCost, 1 / 2), 1 / 2))
     let actualBuy = Math.min(buyTo, player.tesseractbuyamount + player['ascendBuilding' + index]['owned'])
-    if (accelerate)
-        console.log('why')
+    if (accelerate) {
         actualBuy += 0.01 * (buyTo - actualBuy)
         actualBuy = Math.floor(actualBuy)
+    }
     const actualCost = intCost * Math.pow(actualBuy * (actualBuy + 1) / 2, 2) - subCost
     return [buyTo, actualCost];
 }
