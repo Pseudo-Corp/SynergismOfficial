@@ -408,18 +408,8 @@ export const visualUpdateSettings = () => {
     const maxExportQuarks = quarkData.capacity
 
     document.getElementById("quarktimerdisplay").textContent = format((3600 / quarkData.perHour - (player.quarkstimer % (3600.00001 / quarkData.perHour))), 2) + "s until +1 export Quark"
-    document.getElementById("quarktimeramount").textContent = "Quarks on export: "
-        + onExportQuarks
-        + " [Max "
-        + format(maxExportQuarks)
-        + "]"
-
-    if (onExportQuarks === maxExportQuarks) {
-        const settingsTab = document.getElementById('settingstab');
-        settingsTab.style.backgroundColor = 'orange';
-        settingsTab.style.border = '1px solid gold';
-        settingsTab.setAttribute('full', '1');
-    }
+    document.getElementById("quarktimeramount").textContent = 
+        `Quarks on export: ${onExportQuarks} [Max ${format(maxExportQuarks)}]`;
 }
 
 export const visualUpdateShop = () => {

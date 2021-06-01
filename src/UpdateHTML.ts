@@ -367,13 +367,6 @@ export const hideStuff = () => {
     document.getElementById("upgradestab").style.backgroundColor = ""
     document.getElementById("settings").style.display = "none"
 
-    const settingsTab = document.getElementById("settingstab");
-    if (settingsTab.getAttribute('full') === '0') {
-        settingsTab.style.backgroundColor = ""
-        settingsTab.style.color = "white"
-        settingsTab.style.border = '1px solid white';
-    }
-
     document.getElementById("statistics").style.display = "none"
     document.getElementById("achievementstab").style.backgroundColor = ""
     document.getElementById("achievementstab").style.color = "white"
@@ -391,7 +384,10 @@ export const hideStuff = () => {
     document.getElementById("traitstab").style.backgroundColor = ""
     document.getElementById("cubes").style.display = "none"
     document.getElementById("traits").style.display = "none"
-
+    
+    const tab = document.getElementById('settingstab')!;
+    tab.style.backgroundColor = '';
+    tab.style.border = '1px solid white';
 
     document.getElementById("activaterune2").style.display = "none"
     document.getElementById("activaterune3").style.display = "none"
@@ -408,11 +404,9 @@ export const hideStuff = () => {
     }
     if (G['currentTab'] === "settings") {
         document.getElementById("settings").style.display = "block"
-        if (settingsTab.getAttribute('full') === '0') {
-            settingsTab.style.backgroundColor = "white"
-            settingsTab.style.color = "black"
-            settingsTab.style.border = '1px solid white';
-        }
+        const tab = document.getElementById('settingstab')!;
+        tab.style.backgroundColor = 'orange';
+        tab.style.border = '1px solid gold';
     }
     if (G['currentTab'] === "achievements") {
         document.getElementById("statistics").style.display = "block"

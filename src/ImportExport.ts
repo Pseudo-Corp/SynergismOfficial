@@ -63,8 +63,6 @@ export const exportSynergism = async () => {
         player.worlds.add(quarkData.gain);
         player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
     }
-    // set attribute to 0, turn tab back to white
-    document.getElementById('settingstab').setAttribute('full', '0');
 
     saveSynergy();
 
