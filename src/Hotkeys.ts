@@ -33,7 +33,7 @@ const combineAndClear = (input: string[]) => {
 export const hotkeys = new Map<string, [string, () => unknown]>([
         ['A', ['Buy Accelerators', () => buyAccelerator()]],
         ['B', ['Boost Accelerator', () => boostAccelerator()]],
-        ['E', ['idfk', () => {
+        ['E', ['Exit Challenge', () => {
             if (player.currentChallenge.reincarnation !== 0) {
                 resetCheck('reincarnationchallenge', undefined, true)
             }
@@ -81,6 +81,7 @@ const makeSlot = (key: string, descr: string) => {
     span.textContent = key;
     span.style.padding = '1px 15px';
     span.style.color = 'gold';
+    span.style.cursor = 'pointer'
     span.addEventListener('click', async (e) => {
         const target = e.target as HTMLElement;
         // new value to set key as, unformatted

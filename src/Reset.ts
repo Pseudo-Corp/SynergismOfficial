@@ -527,9 +527,9 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             }
             ascCount *= G['challenge15Rewards'].ascensions
             if (player.achievements[260] > 0)
-                ascCount *= 1.25
+                ascCount *= 1.10
             if (player.achievements[261] > 0)
-                ascCount *= 1.25
+                ascCount *= 1.10
             if (player.platonicUpgrades[15] > 0)
                 ascCount *= 2
             ascCount = Math.floor(ascCount)

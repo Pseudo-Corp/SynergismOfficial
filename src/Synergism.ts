@@ -2133,9 +2133,18 @@ export const multipliers = (): void => {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 1.25)
     }
 
+    function calculateConstOwnedDR(){
+        const sum = player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned;
+
+        if (sum >= 100000)
+            return 20000 * Math.log10(sum)
+        else
+            return sum
+    }
+
     G['globalConstantMult'] = new Decimal("1")
     G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1.05, player.constantUpgrades[1]))
-    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned))
+    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), calculateConstOwnedDR()))
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 2 / 100 * player.researches[139])
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 3 / 100 * player.researches[154])
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 4 / 100 * player.researches[169])

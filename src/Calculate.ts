@@ -218,7 +218,7 @@ export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.ru
     // For runes 6 and 7 we will apply a special multiplier
     let multiplier = lookupTableRuneExp[runeLevel]
     if (runeIndex === 5) {
-        multiplier = Math.pow(10, runeLevel)
+        multiplier = Math.pow(100, runeLevel)
     }
     if (runeIndex === 6) {
         multiplier = Math.pow(1e25, runeLevel)
@@ -1031,7 +1031,7 @@ export const calculateCubeMultiplier = (score = -1) => {
         // Achievement 193 Bonus
         1 + player.achievements[193] * Decimal.log(player.ascendShards.add(1), 10) / 400,
         // Achievement 195 Bonus
-        1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1), 10) / 400,
+        1 + Math.min(250, player.achievements[195] * Decimal.log(player.ascendShards.add(1), 10) / 400),
         // Achievement 198-201 Bonus
         1 + 4 / 100 * (player.achievements[198] + player.achievements[199] + player.achievements[200]) + 3 / 100 * player.achievements[201],
         // Achievement 254 Bonus
@@ -1068,7 +1068,7 @@ export const calculateTesseractMultiplier = (score = -1) => {
         // Cube Upgrade 4x8
         1 + 1 / 200 * player.cubeUpgrades[38] * sumContents(player.usedCorruptions),
         // Achievement 195 Bonus
-        1 + player.achievements[195] * Decimal.log(player.ascendShards.add(1), 10) / 400,
+        1 + Math.min(250, player.achievements[195] * Decimal.log(player.ascendShards.add(1), 10) / 400),
         // Achievement 202 Bonus
         1 + player.achievements[202] * Math.min(2, player.ascensionCount / 5e8),
         // Achievement 205-208 Bonus
@@ -1163,10 +1163,10 @@ export const calculateHepteractMultiplier = (score = -1) => {
         1 + 1 / 100 * player.shopUpgrades.seasonPass3,
         // Achievement 258 Bonus
         1 + Math.min(0.15, 1/100 * Math.log10(score + 1)) * player.achievements[258],
-        // Achievement 264 Bonus
-        1 + Math.min(0.4, player.ascensionCount / 5e10) * player.achievements[264],
-        // Achievement 265 Bonus
-        1 + Math.min(0.2, player.ascensionCount / 2.5e11) * player.achievements[265],
+        // Achievement 264 Bonus [Max: 8T Asc]
+        1 + Math.min(0.4, player.ascensionCount / 2e13) * player.achievements[264],
+        // Achievement 265 Bonus [Max: 160T Asc]
+        1 + Math.min(0.2, player.ascensionCount / 8e14) * player.achievements[265],
         // Achievement 270 Bonus
         Math.min(2, (1 + 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
         // Total Hepteract Multipliers: 7
