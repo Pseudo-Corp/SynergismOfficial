@@ -2804,7 +2804,7 @@ export const updateAll = (): void => {
             }
         }
         if (cheapestTesseractBuilding.index > 0){
-            buyTesseractBuilding(cheapestTesseractBuilding.intCost, cheapestTesseractBuilding.index);
+            buyTesseractBuilding(cheapestTesseractBuilding.intCost, cheapestTesseractBuilding.index, true);
         }
     }
 
