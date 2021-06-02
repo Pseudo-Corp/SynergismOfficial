@@ -1,7 +1,7 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
-import { calculateAnts, calculateRuneLevels } from './Calculate';
+import { calculateAnts, calculateCorruptionPoints, calculateRuneLevels } from './Calculate';
 import { sumContents } from './Utility';
 import { buyUpgrades } from './Buy';
 import { buyGenerator } from './Generators';
@@ -136,28 +136,28 @@ const upgdesc: Record<string, string> = {
     upgdesc125: "Constant Tax divisor is 0.333% stronger per challenge 10 completion. [Divisor^(1 + upgrade)]"
 }
 
-const crystalupgdesc: Record<string, string> = {
-    crystalupgdesc1: "Gain a 5% multiplicative boost to crystals per AP per level.",
-    crystalupgdesc2: "Gain a boost to crystals based on held coins per level.",
-    crystalupgdesc3: "Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: 12%]",
-    crystalupgdesc4: "Improve the multiplier to coin production by .05 exponent per level. [MAX: +10.00]",
-    crystalupgdesc5: "Every challenge completion increases crystal gain by 1% per level.",
-    crystalupgdesc6: "Coming SOON!",
-    crystalupgdesc7: "Coming SOON!",
-    crystalupgdesc8: "Coming SOON!"
+const crystalupgdesc: Record<number, () => string> = {
+    1: () => "Gain a 5% multiplicative boost to crystals per AP per level.",
+    2: () => "Gain a boost to crystals based on held coins per level.",
+    3: () => `Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: ${format(100 * (0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4)), 2, true)}%]`,
+    4: () => `Improve the multiplier to coin production by .05 exponent per level. [MAX: +${format(10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][3])}]`,
+    5: () => `Every challenge completion increases crystal gain by 1% per level.`,
+    6: () => "Coming SOON!",
+    7: () => "Coming SOON!",
+    8: () => "Coming SOON!"
 }
 
-const constantUpgDesc: Record<string, string> = {
-    constantUpgDesc1: "Make all Tesseract buildings 5% more productive per level.",
-    constantUpgDesc2: "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max 10%].",
-    constantUpgDesc3: "Increase offering gain +2% per level.",
-    constantUpgDesc4: "Increase obtainium gain +4% per level.",
-    constantUpgDesc5: "Multiply ant speed by (1 + log10(Constant + 1)/10)^level",
-    constantUpgDesc6: "Add +2 free Ant Levels per level.",
-    constantUpgDesc7: "Provides 7 free rune levels and increases the rune cap by 3 per level.",
-    constantUpgDesc8: "Increase the rune EXP given by offerings by 10% per level [Additive]",
-    constantUpgDesc9: "When bought, rune effectiveness is increased by Log4(Talisman Shards +1) %",
-    constantUpgDesc10: "When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on ascension."
+const constantUpgDesc: Record<number, () => string> = {
+    1: () => `Make all Tesseract buildings ${5 + player.achievements[270]}% more productive per level.`,
+    2: () => `Each Tesseract building bought increases the production of all of them by 0.1% per level [Max ${10 + player.achievements[270]}%].`,
+    3: () => "Increase offering gain +2% per level.",
+    4: () => "Increase obtainium gain +4% per level.",
+    5: () => "Multiply ant speed by (1 + log10(Constant + 1)/10)^level",
+    6: () => "Add +2 free Ant Levels per level.",
+    7: () => "Provides 7 free rune levels and increases the rune cap by 3 per level.",
+    8: () => "Increase the rune EXP given by offerings by 10% per level [Additive]",
+    9: () => "When bought, rune effectiveness is increased by Log4(Talisman Shards +1) %",
+    10:() => "When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on ascension."
 }
 
 const upgradetexts = [
@@ -366,15 +366,16 @@ export const upgradedescriptions = (i: number) => {
     upgradeeffects(i)
 }
 
+const returnCrystalUpgDesc = (i: number) => crystalupgdesc[i]?.()
+
 export const crystalupgradedescriptions = (i: number) => {
-    const w = crystalupgdesc[`crystalupgdesc${i}`];
     const p = player.crystalUpgrades[i - 1];
     const c = 
         (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0 ? 10 : 0) +
         (Math.floor(G['rune3level'] * G['effectiveLevelMult'] /16) * 100 / 100);
     
     const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)))
-    document.getElementById("crystalupgradedescription").textContent = w
+    document.getElementById("crystalupgradedescription").textContent = returnCrystalUpgDesc(i)
     document.getElementById("crystalupgradeslevel").textContent = "Level: " + p;
     document.getElementById("crystalupgradescost").textContent = "Cost: " + format(q) + " crystals"
 }
@@ -406,14 +407,14 @@ export const ascendBuildingDR = () => {
     const sum = player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned
 
     if (sum > 100000)
-        return Math.pow(100000, 0.75) * Math.pow(sum, 0.25)
+        return Math.pow(100000, 0.70) * Math.pow(sum, 0.30)
     else
         return sum
 }
 
 const constUpgEffect: Record<number, () => string> = {
-    1: () => `Tesseract building production x${format(Decimal.pow(1.05, player.constantUpgrades[1]), 2, true)}`,
-    2: () => `Tesseract building production x${format(Decimal.pow(1 + 0.001 * Math.min(100, player.constantUpgrades[2]), ascendBuildingDR()), 2, true)}`,
+    1: () => `Tesseract building production x${format(Decimal.pow(1.05 + 0.01 * player.achievements[270], player.constantUpgrades[1]), 2, true)}`,
+    2: () => `Tesseract building production x${format(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270], player.constantUpgrades[2]), ascendBuildingDR()), 2, true)}`,
     3: () => `Offering gain x${format(1 + 0.02 * player.constantUpgrades[3], 2, true)}`,
     4: () => `Obtainium gain x${format(1 + 0.04 * player.constantUpgrades[4], 2, true)}`,        
     5: () => `Ant Speed x${format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]), 2, true)}`,
@@ -424,6 +425,7 @@ const constUpgEffect: Record<number, () => string> = {
     10: () => `Cubes/Tesseracts on Ascension x${format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)}` 
 }
 
+const returnConstUpgDesc = (i: number) => constantUpgDesc[i]?.();
 const returnConstUpgEffect = (i: number) => constUpgEffect[i]?.();
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
@@ -440,8 +442,7 @@ export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
 
 export const constantUpgradeDescriptions = (i: number) => {
     const [level, cost] = getConstUpgradeMetadata(i)
-    const y = constantUpgDesc[`constantUpgDesc${i}`];
-    document.getElementById("constUpgradeDescription").textContent = y
+    document.getElementById("constUpgradeDescription").textContent = returnConstUpgDesc(i)
     document.getElementById("constUpgradeLevel2").textContent = format(player.constantUpgrades[i])
     document.getElementById("constUpgradeCost2").textContent = format(cost) + " [+" + format(level) + " LVL]"
     document.getElementById("constUpgradeEffect2").textContent = returnConstUpgEffect(i)

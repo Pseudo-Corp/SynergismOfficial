@@ -8,6 +8,7 @@ file without asking me first. You may edit this file as much as you
 want, though!
 Thank you! */
 
+import Decimal from 'break_infinity.js';
 import { achievementaward } from './Achievements';
 import { calculateCubeBlessings } from './Calculate';
 import { CalcECC } from './Challenges';
@@ -333,8 +334,8 @@ export class WowPlatonicCubes extends Cube {
             }
         }
         calculatePlatonicBlessings();
-        if (player.achievements[273] > 0) {
-            const extraHypercubes = Math.floor(toSpend)
+        if (player.achievements[271] > 0) {
+            const extraHypercubes = Math.floor(toSpend * Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5)))
             player.wowHypercubes.add(extraHypercubes);
             player.wowHypercubes.open(extraHypercubes, false)
         }
