@@ -2954,6 +2954,12 @@ header #obtainiumDisplay {
     color: darkorchid;
 }
 
+#actualHotkey {
+    padding: 1px 15px;
+    color: gold;
+    cursor: pointer;
+}
+
 #transparentBG {
     width: 100%;
     height: 100%;
