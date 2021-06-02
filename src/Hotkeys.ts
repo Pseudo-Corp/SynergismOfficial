@@ -5,25 +5,25 @@ import { keyboardTabChange } from './Toggles';
 import { Alert, Prompt } from './UpdateHTML';
 
 export const hotkeys = new Map<string, [string, () => unknown]>([
-        ['A', ['Buy Accelerators', () => buyAccelerator()]],
-        ['B', ['Boost Accelerator', () => boostAccelerator()]],
-        ['E', ['Exit Challenge', () => {
-            if (player.currentChallenge.reincarnation !== 0) {
-                resetCheck('reincarnationchallenge', undefined, true)
-            }
-            if (player.currentChallenge.transcension !== 0) {
-                resetCheck('challenge', undefined, true)
-            }
-        }]],
-        ['M', ['Multipliers', () => buyMultiplier()]],
-        ['P', ['Reset Prestige', () => resetCheck('prestige')]],
-        ['R', ['Reset Reincarnate', () => resetCheck('reincarnate')]],
-        ['S', ['Sacrifice Ants', () => sacrificeAnts()]],
-        ['T', ['Reset Transcend', () => resetCheck('transcend')]],
-        ['ARROWLEFT', ['Back a tab', () => keyboardTabChange(-1)]],
-        ['ARROWRIGHT', ['Next tab', () => keyboardTabChange(1)]],
-        ['ARROWUP', ['Back a subtab', () => keyboardTabChange(-1, false)]],
-        ['ARROWDOWN', ['Next subtab', () => keyboardTabChange(1, false)]]
+    ['A', ['Buy Accelerators', () => buyAccelerator()]],
+    ['B', ['Boost Accelerator', () => boostAccelerator()]],
+    ['E', ['Exit Challenge', () => {
+        if (player.currentChallenge.reincarnation !== 0) {
+            resetCheck('reincarnationchallenge', undefined, true)
+        }
+        if (player.currentChallenge.transcension !== 0) {
+            resetCheck('challenge', undefined, true)
+        }
+    }]],
+    ['M', ['Multipliers', () => buyMultiplier()]],
+    ['P', ['Reset Prestige', () => resetCheck('prestige')]],
+    ['R', ['Reset Reincarnate', () => resetCheck('reincarnate')]],
+    ['S', ['Sacrifice Ants', () => sacrificeAnts()]],
+    ['T', ['Reset Transcend', () => resetCheck('transcend')]],
+    ['ARROWLEFT', ['Back a tab', () => keyboardTabChange(-1)]],
+    ['ARROWRIGHT', ['Next tab', () => keyboardTabChange(1)]],
+    ['ARROWUP', ['Back a subtab', () => keyboardTabChange(-1, false)]],
+    ['ARROWDOWN', ['Next subtab', () => keyboardTabChange(1, false)]]
 ]);
 
 document.addEventListener('keydown', event => {
@@ -80,21 +80,21 @@ const makeSlot = (key: string, descr: string) => {
         }
     });
 
-    const desc = document.createElement('div');
-    desc.textContent = descr;
-
     div.appendChild(span);
-    div.appendChild(desc);
+    div.appendChild(document.createTextNode(descr));
 
     return div;
 }
 
-(() => {
+export const startHotkeys = () => {
     const hotkey = document.querySelector('.hotkeys');
+
+    for (const child of Array.from(hotkey.children)) 
+        hotkey.removeChild(child);
     
     for (const [key, [descr]] of [...hotkeys.entries()]) {
         const div = makeSlot(key, descr);
 
         hotkey.appendChild(div);
     }
-})();
+}
