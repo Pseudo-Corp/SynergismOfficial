@@ -214,7 +214,8 @@ button:focus {
     z-index: 3;
     margin-bottom: 2px;
 }
-.offlineStat{
+
+.offlineStat {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -222,7 +223,8 @@ button:focus {
     z-index: 3;
     margin-bottom: 2px;
 }
-.offlineStatElement{
+
+.offlineStatElement {
     height: 23px;
     margin-left: 10px;
 }
@@ -2223,16 +2225,14 @@ p[id$="BlessingsTotal"] {
 #statisticsSubTab {
     padding-top: 25px;
     overflow-x: auto;
+
     /* don't inherit this property; defaults to center and messes it up */
     justify-content: initial;
+    scrollbar-width: none;
 }
 
 #statisticsSubTab::-webkit-scrollbar {
     display: none;
-}
-  
-#statisticsSubTab {
-    scrollbar-width: none;
 }
 
 .statContainer {

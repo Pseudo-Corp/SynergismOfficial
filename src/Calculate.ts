@@ -834,7 +834,7 @@ export const calculateOffline = (forceTime = 0) => {
         obtainium: tickValue * obtainiumGain * G['timeMultiplier'],
     };
 
-    let timerAdd = {
+    const timerAdd = {
         prestige: tickValue * G['timeMultiplier'],
         transcension: tickValue * G['timeMultiplier'],
         reincarnation: tickValue * G['timeMultiplier'],

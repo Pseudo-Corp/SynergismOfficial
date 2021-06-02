@@ -151,8 +151,10 @@ export const visualUpdateBuildings = () => {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const visualUpdateUpgrades = () => {}
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const visualUpdateAchievements = () => {}
 
 export const visualUpdateRunes = () => {
