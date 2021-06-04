@@ -7,6 +7,7 @@ import { Synergism } from './Events';
 import { Alert, Confirm, Prompt } from './UpdateHTML';
 import { quarkHandler } from './Quark';
 import { shopData } from './Shop';
+import { addTimers } from './Helper';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -206,6 +207,7 @@ export const promocodes = async () => {
         // Calculator Maxed: you don't need to insert anything!
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
+            addTimers('ascension', 60 * player.shopUpgrades.calculator3)
             await Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks} quarks! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
             return
         }
@@ -219,6 +221,7 @@ export const promocodes = async () => {
 
         if(first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
+            addTimers('ascension', 60 * player.shopUpgrades.calculator3)
             await Alert(`You were awarded ${actualQuarks} quarks! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
         } else {
             await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
