@@ -586,6 +586,11 @@ nav li:hover {
     margin: 0.8em 0;
 }
 
+#thirdParty > div > a {
+    /* For whatever reason this fixes the click area for the external links */
+    margin: 0 auto;
+}
+
 /* Confirmation toggle box */
 .confirmationToggle {
     display: flex;
