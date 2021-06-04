@@ -1238,7 +1238,7 @@
                     </div>
 
                     <div id="rune6area" class="runeType">
-                        <p id="infiniteAscent" class="runeTypeElement" style="color: lightgoldenrodyellow">Infinite Ascent</p>
+                        <p id="infiniteAscentRune" class="runeTypeElement" style="color: lightgoldenrodyellow">Infinite Ascent</p>
                         <img id="rune6" class="runeTypeElement" src="Pictures/Etherian Staircase.png" alt="" loading="lazy">
                         <p id="rune6level" class="runeTypeElement">Level: 1/999,999</p>
                         <p id="bonusrune6" class="runeTypeElement" style="color: orange">[Bonus: +0]</p>
@@ -2960,95 +2960,115 @@
                     <div id="shoptop">Welcome to the Quark Shop. You can't believe what's in stock!</div>
                     <div id="actualShop">
                         <div>
-                            <img id="OfferingEX" src="Pictures/Offering Upgrade.png" alt="" loading="lazy">
-                            <p id="offeringtimerlevel">Level: 0/5</p>
-                            <button class="permshopbutton" id="offeringtimerbutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
+                            <img id="offeringEX" src="Pictures/Offering Upgrade.png" alt="" loading="lazy">
+                            <p id="offeringEXLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="offeringEXButton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
                         </div>
                         <div>
-                            <img id="OfferingAuto" src="Pictures/Offering Auto Upgrade.png" alt="" loading="lazy">
-                            <p id="offeringautolevel">Level: 0/5</p>
-                            <button class="permshopbutton" id="offeringautobutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
+                            <img id="offeringAuto" src="Pictures/Offering Auto Upgrade.png" alt="" loading="lazy">
+                            <p id="offeringAutoLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="offeringAutoButton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
                         </div>
                         <div>
-                            <img id="ObtainiumEX" src="Pictures/Obtainium Upgrade.png" alt="" loading="lazy">
-                            <p id="obtainiumtimerlevel">Level: 0/5</p>
-                            <button class="permshopbutton" id="obtainiumtimerbutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
+                            <img id="obtainiumEX" src="Pictures/Obtainium Upgrade.png" alt="" loading="lazy">
+                            <p id="obtainiumEXLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="obtainiumEXButton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
                         </div>
                         <div>
-                            <img id="ObtainiumAuto" src="Pictures/Obtainium Auto Upgrade.png" alt="" loading="lazy">
-                            <p id="obtainiumautolevel">Level: 0/5</p>
-                            <button class="permshopbutton" id="obtainiumautobutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
+                            <img id="obtainiumAuto" src="Pictures/Obtainium Auto Upgrade.png" alt="" loading="lazy">
+                            <p id="obtainiumAutoLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="obtainiumAutoButton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
                         </div>
                         <div>
-                            <img id="InstChallenge" src="Pictures/Instant Challenge.png" alt="" loading="lazy">
-                            <p id="instantchallenge">Not Bought</p>
-                            <button class="permshopbutton" id="instantchallengebutton" style="border: 2px solid plum">Buy for 300 Quarks</button>
+                            <img id="instantChallenge" src="Pictures/Instant Challenge.png" alt="" loading="lazy">
+                            <p id="instantChallengeLevel">Not Bought</p>
+                            <button class="permshopbutton" id="instantChallengeButton" style="border: 2px solid plum">Buy for 300 Quarks</button>
                         </div>
                         <div>
-                            <img id="AntSpd" src="Pictures/antspeed.png" alt="" loading="lazy">
-                            <p id="antspeed">Level: 0/3</p>
-                            <button class="permshopbutton" id="antspeedbutton" style="border: 2px solid maroon">Upgrade for 200 Quarks</button>
+                            <img id="antSpeed" src="Pictures/antspeed.png" alt="" loading="lazy">
+                            <p id="antSpeedLevel">Level: 0/3</p>
+                            <button class="permshopbutton" id="antSpeedButton" style="border: 2px solid maroon">Upgrade for 200 Quarks</button>
                         </div>
                         <div>
-                            <img id="CashUpgrade" src="Pictures/cashgrab.png" alt="" loading="lazy">
-                            <p id="cashgrab">Level: 0/5</p>
-                            <button class="permshopbutton" id="cashgrabbutton" style="border: 2px solid limegreen">Upgrade for 100 Quarks</button>
+                            <img id="cashGrab" src="Pictures/cashgrab.png" alt="" loading="lazy">
+                            <p id="cashGrabLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="cashGrabButton" style="border: 2px solid limegreen">Upgrade for 100 Quarks</button>
                         </div>
                         <div>
-                            <img id="CashTalisman" src="Pictures/shoptalisman.png" alt="" loading="lazy">
-                            <p id="shoptalisman">Not Bought</p>
-                            <button class="permshopbutton" id="shoptalismanbutton" style="border: 2px solid chartreuse">Buy for 1,500 Quarks</button>
+                            <img id="shopTalisman" src="Pictures/shoptalisman.png" alt="" loading="lazy">
+                            <p id="shopTalismanLevel">Not Bought</p>
+                            <button class="permshopbutton" id="shopTalismanButton" style="border: 2px solid chartreuse">Buy for 1,500 Quarks</button>
                         </div>
                         <div>
-                            <img id="SeasonPass" src="Pictures/VIP Pass Upgrade.png" alt="" loading="lazy">
+                            <img id="seasonPass" src="Pictures/VIP Pass Upgrade.png" alt="" loading="lazy">
                             <p id="seasonPassLevel">Level: 0/5</p>
                             <button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange"></button>
                         </div>
                         <div>
-                            <img id="ShopChallenge" src="Pictures/Challenge Upgrade.png" alt="" loading="lazy">
-                            <p id="challengeUpgradeLevel">Level: 0/5</p>
-                            <button class="permshopbutton" id="challengeUpgradeButton" style="border: 2px solid gray"></button>
+                            <img id="challengeExtension" src="Pictures/Challenge Upgrade.png" alt="" loading="lazy">
+                            <p id="challengeExtensionLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="challengeExtensionButton" style="border: 2px solid gray"></button>
                             
                         </div>
                         <div>
-                            <img id="ShopTome" src="Pictures/Challenge 10 Tome Upgrade.png" alt="" loading="lazy">
-                            <p id="challenge10TomeLevel">Level: 0/5</p>
-                            <button class="permshopbutton" id="challenge10TomeButton" style="border: 2px solid gold"></button>
+                            <img id="challengeTome" src="Pictures/Challenge 10 Tome Upgrade.png" alt="" loading="lazy">
+                            <p id="challengeTomeLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="challengeTomeButton" style="border: 2px solid gold"></button>
                         </div>
                         <div>
-                            <img id="CubeQuark" src="Pictures/Cube Quark Upgrade.png" alt="" loading="lazy">
-                            <p id="cubeToQuark">Not Bought</p>
+                            <img id="cubeToQuark" src="Pictures/Cube Quark Upgrade.png" alt="" loading="lazy">
+                            <p id="cubeToQuarkLevel">Not Bought</p>
                             <button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow"></button>
                         </div>
                         <div>
-                            <img id="TesseractQuark" src="Pictures/Tesseract Quark Upgrade.png" alt="" loading="lazy">
-                            <p id="tesseractToQuark">Not Bought</p>
+                            <img id="tesseractToQuark" src="Pictures/Tesseract Quark Upgrade.png" alt="" loading="lazy">
+                            <p id="tesseractToQuarkLevel">Not Bought</p>
                             <button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid"></button>
                         </div>
                         <div>
-                            <img id="HypercubeQuark" src="Pictures/Hypercube Quark Upgrade.png" alt="" loading="lazy">
-                            <p id="hypercubeToQuark">Not Bought</p>
+                            <img id="hypercubeToQuark" src="Pictures/Hypercube Quark Upgrade.png" alt="" loading="lazy">
+                            <p id="hypercubeToQuarkLevel">Not Bought</p>
                             <button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red"></button>
                         </div>
                         <div>
-                            <img id="SeasonPass2" src="Pictures/VIP Pass Upgrade 2.png" alt="" loading="lazy">
+                            <img id="seasonPass2" src="Pictures/VIP Pass Upgrade 2.png" alt="" loading="lazy">
                             <p id="seasonPass2Level">Level: 0/100</p>
                             <button class="permshopbutton" id="seasonPass2Button" style="border: 2px solid orange"></button>
                         </div>
                         <div>
-                            <img id="SeasonPass3" src="Pictures/VIP Pass Upgrade 3.png" alt="" loading="lazy">
+                            <img id="seasonPass3" src="Pictures/VIP Pass Upgrade 3.png" alt="" loading="lazy">
                             <p id="seasonPass3Level">Level: 0/100</p>
                             <button class="permshopbutton" id="seasonPass3Button" style="border: 2px solid orange"></button>
                         </div>
                         <div>
-                            <img id="Chronometer" src="Pictures/Chronometer.png" alt="" loading="lazy">
+                            <img id="chronometer" src="Pictures/Chronometer.png" alt="" loading="lazy">
                             <p id="chronometerLevel">Level: 0/100</p>
                             <button class="permshopbutton" id="chronometerButton" style="border: 2px solid red"></button>
                         </div>
                         <div>
-                            <img id="InfiniteAscent" src="Pictures/Etherian Staircase.png" alt="" loading="lazy">
-                            <p id="infiniteAscentUpgrade">Not Bought</p>
+                            <img id="infiniteAscent" src="Pictures/Etherian Staircase.png" alt="" loading="lazy">
+                            <p id="infiniteAscentLevel">Not Bought</p>
                             <button class="permshopbutton" id="infiniteAscentButton" style="border: 2px solid cyan"></button>
+                        </div>
+                        <div>
+                            <img id="calculator" src="Pictures/Calculator.png" alt="" loading="lazy">
+                            <p id="calculatorLevel">Not Bought</p>
+                            <button class="permshopbutton" id="calculatorButton" style="border: 2px solid purple"></button>
+                        </div>
+                        <div>
+                            <img id="calculator2" src="Pictures/Calculator2.png" alt="" loading="lazy">
+                            <p id="calculator2Level"></p>
+                            <button class="permshopbutton" id="calculator2Button" style="border: 2px solid purple"></button>
+                        </div>
+                        <div>
+                            <img id="calculator3" src="Pictures/Calculator3.png" alt="" loading="lazy">
+                            <p id="calculator3Level"></p>
+                            <button class="permshopbutton" id="calculator3Button" style="border: 2px solid purple;"></button>
+                        </div>
+                        <div>
+                            <img id="constantEX" src="Pictures/ConstantExtension.png" alt="" loading="lazy">
+                            <p id="constantEXLevel"></p>
+                            <button class="permshopbutton" id="constantEXButton" style="border: 2px solid gray;"></button>
                         </div>
                     </div>
                     <div id="shopButtons">
@@ -3058,7 +3078,7 @@
                     <div id="shopHovers">
                         <p style="color: white; font-size: 1.2em;">Hover over each portion of the shop to see what each upgrade does!</p>
                         <p id="quarkdescription" style="color:plum"></p>
-                        <p id="quarkcost" style="color: cyan"></p>
+                        <p id="quarkRefundable" style="color: goldenrod"></p>
                         <p id="quarkeffect" style="color: limegreen"></p>
                     </div>
                 </div>
