@@ -438,6 +438,10 @@ export const player: Player = {
         seasonPass3: 0,
         chronometer: 0,
         infiniteAscent: 0,
+        calculator: 0,
+        calculator2: 0,
+        calculator3: 0,
+        constantEX: 0,
     },
     autoSacrificeToggle: false,
     autoFortifyToggle: false,
@@ -2140,7 +2144,7 @@ export const multipliers = (): void => {
 
     G['globalConstantMult'] = new Decimal("1")
     G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1.05 + 0.01 * player.achievements[270], player.constantUpgrades[1]))
-    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270], player.constantUpgrades[2]), ascendBuildingDR()))
+    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX, player.constantUpgrades[2]), ascendBuildingDR()))
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 2 / 100 * player.researches[139])
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 3 / 100 * player.researches[154])
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 4 / 100 * player.researches[169])

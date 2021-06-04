@@ -21,7 +21,7 @@ export interface IShopData {
     description: string
 }
 
-const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
+export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     offeringPotion: {
         price: 100,
         priceIncrease: 0,
@@ -56,7 +56,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: true,
         refundMinimumLevel: 1,
-        description: "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) levels worth of offerings are spent. [First Level Cannot be refunded!]",
+        description: "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) levels worth of offerings are spent.",
     },
     obtainiumEX: {
         price: 150,
@@ -74,7 +74,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: true,
         refundMinimumLevel: 1,
-        description: "Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every reincarnation, dump all Obtainium into research until maxed. [First Level Cannot be Refunded!]",
+        description: "Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every reincarnation, dump all Obtainium into research until maxed.",
     },
     instantChallenge: {
         price: 300,
@@ -83,7 +83,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "T and R challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Addtionally, instantly gain T challenge completions up to highest completed when exiting R challenges. [Cannot be Refunded!]"
+        description: "T and R challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Addtionally, instantly gain T challenge completions up to highest completed when exiting R challenges."
     },
     antSpeed: {
         price: 200,
@@ -110,7 +110,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "Permanently unlock a Shop talisman! [Warning: you can't refund this and this is VERY expensive to level. Be sure you want to buy it!]",
+        description: "Permanently unlock a Shop talisman!",
     },
     seasonPass: {
         price: 500,
@@ -128,7 +128,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "Using some amazing trick, you manage to increase your Reincarnation Challenge cap by 2 for each level! [Cannot be Refunded!]",
+        description: "Using some amazing trick, you manage to increase your Reincarnation Challenge cap by 2 for each level!",
     },
     challengeTome: {
         price: 500,
@@ -137,7 +137,7 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level. [Cannot be Refunded!]",
+        description: "The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level.",
     },
     cubeToQuark: {
         price: 2000,
@@ -201,6 +201,42 @@ const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: "Okay, for an exhorbinant amount, you can obtain the 6th rune, which gives +20% Quarks and +75% all cube types when maxxed!"
+    },
+    calculator: {
+        price: 10000,
+        priceIncrease: 10000,
+        maxLevel: 5,
+        type: "upgrade",
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: "The PL-AT can do addition in the blink of an eye. Not much else though. +10% Quarks from using code 'add' per level, the first level provides the answer and the final level does it automatically!",
+    },
+    calculator2: {
+        price: 10000,
+        priceIncrease: 5000,
+        maxLevel: 12,
+        type: "upgrade",
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: "The PL-AT X has improved memory capacity, allowing you to store 2 additional uses to code 'add' per level. Final level makes 'add' give 25% more Quarks!"
+    },
+    calculator3: {
+        price: 25000,
+        priceIncrease: 25000,
+        maxLevel: 10,
+        type: "upgrade",
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: `The PL-AT Ω is infused with some Unobtainium, which is epic! But furthermore, it reduces the variance of Quarks by code 'add' by 10% per level, which makes you more likely to get the maximum multiplier. It also has the ability to give +60 seconds to Ascension Timer per level using that code.` 
+    },
+    constantEX: {
+        price: 100000,
+        priceIncrease: 899999,
+        maxLevel: 2,
+        type: "upgrade",
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: `The merchant has one last trick up its sleeve: It can augment your second constant upgrade to be marginally better, but it'll cost an arm and a leg! Instead of the cap being 10% (or 11% with achievements) it will be raised by 1% per level.`
     }
 }
 
@@ -210,7 +246,8 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'offeringEX' | 'offeringAuto' | 'obtainiumEX' | 'obtainiumAuto' | 'instantChallenge' |
                         'antSpeed' | 'cashGrab' | 'shopTalisman' | 'seasonPass' | 'challengeExtension' |
                         'challengeTome' | 'cubeToQuark' | 'tesseractToQuark' | 'hypercubeToQuark' |
-                        'seasonPass2' | 'seasonPass3' | 'chronometer' | 'infiniteAscent'
+                        'seasonPass2' | 'seasonPass3' | 'chronometer' | 'infiniteAscent' | 'calculator' |
+                        'calculator2' | 'calculator3' | 'constantEX'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
     if (shopData[input].type === "consumable" || shopData[input].maxLevel === 1){
@@ -224,11 +261,15 @@ export const getShopCosts = (input: ShopUpgradeNames) => {
 
 export const shopDescriptions = (input: ShopUpgradeNames) => {
     const rofl = document.getElementById("quarkdescription");
-    const lmao = document.getElementById("quarkcost");
     const lol = document.getElementById("quarkeffect");
+    const refundable = document.getElementById('quarkRefundable')
 
     rofl.textContent = shopData[input].description;
-    lmao.textContent = "Cost: " + format(getShopCosts(input)) + " Quarks";
+
+    shopData[input].refundable ?
+        refundable.textContent = 'This item is refundable! Will be set to level ' + shopData[input].refundMinimumLevel + ' when refunded.':
+        refundable.textContent = 'This item CANNOT be refunded! Take caution.'
+
     switch (input) {
         case "offeringPotion":
             lol.textContent = "Gain " + format((7200 * player.offeringpersecond * calculateTimeAcceleration()), 0, true) + " Offerings."
@@ -289,6 +330,18 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             break;
         case "infiniteAscent":
             lol.textContent = "CURRENT Effect: Idk, depends if you bought it or not."
+            break;
+        case "calculator":
+            lol.textContent = "CURRENT Effect: Code 'add' provides " + format(10 * player.shopUpgrades.calculator) + "% more Quarks. AutoAnswer: " + (player.shopUpgrades.calculator > 0) + ", AutoFill: " + (player.shopUpgrades.calculator == 5);
+            break;
+        case "calculator2":
+            lol.textContent = "CURRENT Effect: Code 'add' has " + format(2 * player.shopUpgrades.calculator2) + " more capacity. 'add' uses generate " + format((player.shopUpgrades.calculator2 === shopData['calculator2'].maxLevel) ? 25: 0) + "% more Quarks.";
+            break;
+        case "calculator3":
+            lol.textContent = "CURRENT Effect: Code 'add' variance -" + format(10 * player.shopUpgrades.calculator3) + "%, Each use gives " + format(60 * player.shopUpgrades.calculator3) + " seconds to Ascension Timer.";
+            break;
+        case "constantEX":
+            lol.textContent = "CURRENT Effect: +" + format(0.01 * player.shopUpgrades.constantEX, 2, true) + " effect on Constant Upgrade 2";
             break;
     }
 

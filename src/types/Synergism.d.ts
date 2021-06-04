@@ -336,7 +336,11 @@ export interface Player {
         seasonPass2: number,
         seasonPass3: number,
         chronometer: number,
-        infiniteAscent: number
+        infiniteAscent: number,
+        calculator: number,
+        calculator2: number,
+        calculator3: number,
+        constantEX: number,
     }
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,

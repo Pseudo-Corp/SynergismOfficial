@@ -149,7 +149,7 @@ const crystalupgdesc: Record<number, () => string> = {
 
 const constantUpgDesc: Record<number, () => string> = {
     1: () => `Make all Tesseract buildings ${5 + player.achievements[270]}% more productive per level.`,
-    2: () => `Each Tesseract building bought increases the production of all of them by 0.1% per level [Max ${10 + player.achievements[270]}%].`,
+    2: () => `Each Tesseract building bought increases the production of all of them by 0.1% per level [Max ${10 + player.achievements[270] + player.shopUpgrades.constantEX}%].`,
     3: () => "Increase offering gain +2% per level.",
     4: () => "Increase obtainium gain +4% per level.",
     5: () => "Multiply ant speed by (1 + log10(Constant + 1)/10)^level",
@@ -414,7 +414,7 @@ export const ascendBuildingDR = () => {
 
 const constUpgEffect: Record<number, () => string> = {
     1: () => `Tesseract building production x${format(Decimal.pow(1.05 + 0.01 * player.achievements[270], player.constantUpgrades[1]), 2, true)}`,
-    2: () => `Tesseract building production x${format(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270], player.constantUpgrades[2]), ascendBuildingDR()), 2, true)}`,
+    2: () => `Tesseract building production x${format(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX, player.constantUpgrades[2]), ascendBuildingDR()), 2, true)}`,
     3: () => `Offering gain x${format(1 + 0.02 * player.constantUpgrades[3], 2, true)}`,
     4: () => `Obtainium gain x${format(1 + 0.04 * player.constantUpgrades[4], 2, true)}`,        
     5: () => `Ant Speed x${format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]), 2, true)}`,

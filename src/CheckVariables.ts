@@ -318,6 +318,10 @@ export const checkVariablesOnLoad = (data: Player) => {
             seasonPass3: 0,
             chronometer: 0,
             infiniteAscent: 0,
+            calculator: 0,
+            calculator2: 0,
+            calculator3: 0,
+            constantEX: 0,
         }
 
         const initialQuarks = Number(player.worlds);
@@ -379,6 +383,13 @@ export const checkVariablesOnLoad = (data: Player) => {
     if (data.platonicCubeOpenedDaily === undefined) {
         player.platonicCubeOpenedDaily = 0;
         player.platonicCubeQuarkDaily = 0;
+    }
+
+    if (data.shopUpgrades.calculator === undefined) {
+        player.shopUpgrades.calculator = 0;
+        player.shopUpgrades.calculator2 = 0;
+        player.shopUpgrades.calculator3 = 0;
+        player.shopUpgrades.constantEX = 0;
     }
 
     while (player.achievements[280] === undefined) {

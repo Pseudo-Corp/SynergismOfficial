@@ -875,7 +875,7 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
     popup.addEventListener('keyup', kbListener);
 } 
 
-const PromptCB = (text: string, cb: (value: string | null) => void) => {
+export const PromptCB = (text: string, cb: (value: string | null) => void) => {
     const conf = document.getElementById('confirmationBox');
     const confWrap = document.getElementById('promptWrapper');
     const overlay = document.querySelector<HTMLElement>('#transparentBG');

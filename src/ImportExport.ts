@@ -1,4 +1,4 @@
-import { player, saveSynergy, blankSave, isTesting, reloadShit, version } from './Synergism';
+import { player, saveSynergy, blankSave, isTesting, reloadShit, version, format } from './Synergism';
 import { getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
@@ -6,6 +6,7 @@ import { Player } from './types/Synergism';
 import { Synergism } from './Events';
 import { Alert, Confirm, Prompt } from './UpdateHTML';
 import { quarkHandler } from './Quark';
+import { shopData } from './Shop';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -174,7 +175,7 @@ export const promocodes = async () => {
             return;
         }
 
-        const possibleAmount = Math.floor(Math.min(24, (Date.now() - player.rngCode) / hour))
+        const possibleAmount = Math.floor(Math.min(24 + 2 * player.shopUpgrades.calculator2, (Date.now() - player.rngCode) / hour))
         const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use`);
         const toUse = Number(attemptsUsed);
         if (
@@ -185,22 +186,42 @@ export const promocodes = async () => {
             return Alert(`Hey! That's not a valid number!`);
 
         const realAttemptsUsed = Math.min(possibleAmount, toUse);
-        const mult = 8/10 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 320; // [0.8, 1.2], slightly biased in favor of 0.8. =)
+        let mult = Math.max(0.4 + 0.02 * player.shopUpgrades.calculator3, 2/5 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 640); // [0.4, 0.6], slightly biased in favor of 0.4. =)
+        mult *= 1 + 0.1 * player.shopUpgrades.calculator // Calculator Shop Upgrade (+10% / level)
+        mult *= (player.shopUpgrades.calculator2 === shopData['calculator2'].maxLevel)? 1.25: 1; // Calculator 2 Max Level (+25%)
+
         const quarkBase = quarkHandler().perHour
         const actualQuarks = Math.floor(quarkBase * mult * realAttemptsUsed)
         const [first, second] = window.crypto.getRandomValues(new Uint8Array(2));
-        const addPrompt = await Prompt(`For ${actualQuarks} quarks or for nothing: What is ${first} + ${second}?`);
-        
-        //Allows storage of up to 24 Add Codes, lol!
-        player.rngCode = Math.max(Date.now() - (24 - realAttemptsUsed) * hour, player.rngCode + hour * realAttemptsUsed)
+
+        //Allows storage of up to (24 + 2 * calc2 levels) Add Codes, lol!
+        player.rngCode = Math.max(Date.now() - (24 + 2 * player.shopUpgrades.calculator2 - realAttemptsUsed) * hour, player.rngCode + hour * realAttemptsUsed)
         const remaining = Math.floor((Date.now() - player.rngCode) / hour)
         const timeToNext = Math.floor((hour - (Date.now() - player.rngCode - hour * remaining)) / 1000)
 
+        // Calculator 3: Adds ascension timer.
+        const ascensionTimer = (player.shopUpgrades.calculator3 > 0)?
+        'Thanks to PL-AT Ω you have also gained ' + format(60 * player.shopUpgrades.calculator3) + ' real-life seconds to your Ascension Timer!':
+        '';
+        // Calculator Maxed: you don't need to insert anything!
+        if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
+            player.worlds.add(actualQuarks);
+            await Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks} quarks! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
+            return
+        }
+
+        // If your calculator isn't maxxed but has levels, it will provide the solution.
+        const solution = (player.shopUpgrades.calculator > 0) ?
+        'The answer is ' + (first + second) + ' according to your calculator.': 
+        '';
+
+        const addPrompt = await Prompt(`For ${actualQuarks} quarks or for nothing: What is ${first} + ${second}? ${solution}`);
+
         if(first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
-            el.textContent = `You were awarded ${actualQuarks} quarks! You have ${remaining} uses of Add. You will gain 1 in ${timeToNext} seconds.`;
+            await Alert(`You were awarded ${actualQuarks} quarks! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
         } else {
-            el.textContent = `You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext} seconds.`;
+            await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
         }
 
     } else if (input === 'sub') { 

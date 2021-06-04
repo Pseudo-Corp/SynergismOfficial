@@ -16,11 +16,12 @@ import { buyPlatonicUpgrades, createPlatonicDescription } from "./Platonic"
 import { corruptionCleanseConfirm, corruptionDisplay } from "./Corruptions"
 import { exportSynergism, updateSaveString, promocodes, importSynergism, resetGame } from "./ImportExport"
 import { resetHistoryTogglePerSecond } from "./History"
-import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable } from "./Shop"
+import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData } from "./Shop"
 import { Globals as G } from './Variables';
 import { changeTabColor } from "./UpdateHTML"
 import { hepteractDescriptions, hepteractToQuarkDescription, tradeHepteractToQuark } from "./Hepteracts"
 import { exitOffline, timeWarp } from "./Calculate"
+import { Player } from "./types/Synergism"
 
 /* STYLE GUIDE */
 /* 
@@ -533,83 +534,17 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))
     document.getElementById('useobtainiumpotion').addEventListener('click', () => useConsumable("obtainiumPotion"))
 /* Permanent Upgrade Images */
-    document.getElementById('OfferingEX').addEventListener('mouseover', () => shopDescriptions("offeringEX"))
-    document.getElementById('OfferingAuto').addEventListener('mouseover', () => shopDescriptions("offeringAuto"))
-    document.getElementById('ObtainiumEX').addEventListener('mouseover', () => shopDescriptions("obtainiumEX"))
-    document.getElementById('ObtainiumAuto').addEventListener('mouseover', () => shopDescriptions("obtainiumAuto"))
-    document.getElementById('InstChallenge').addEventListener('mouseover', () => shopDescriptions("instantChallenge"))
-    document.getElementById('AntSpd').addEventListener('mouseover', () => shopDescriptions("antSpeed"))
-    document.getElementById('CashUpgrade').addEventListener('mouseover', () => shopDescriptions("cashGrab"))
-    document.getElementById('CashTalisman').addEventListener('mouseover', () => shopDescriptions("shopTalisman"))
-    document.getElementById('SeasonPass').addEventListener('mouseover', () => shopDescriptions("seasonPass"))
-    document.getElementById('ShopChallenge').addEventListener('mouseover', () => shopDescriptions("challengeExtension"))
-    document.getElementById('ShopTome').addEventListener('mouseover', () => shopDescriptions("challengeTome"))
-    document.getElementById('CubeQuark').addEventListener('mouseover', () => shopDescriptions("cubeToQuark"))
-    document.getElementById('TesseractQuark').addEventListener('mouseover', () => shopDescriptions("tesseractToQuark"))
-    document.getElementById('HypercubeQuark').addEventListener('mouseover', () => shopDescriptions("hypercubeToQuark"))
-    document.getElementById('SeasonPass2').addEventListener('mouseover', () => shopDescriptions("seasonPass2"))
-    document.getElementById('SeasonPass3').addEventListener('mouseover', () => shopDescriptions("seasonPass3"))
-    document.getElementById('Chronometer').addEventListener('mouseover', () => shopDescriptions("chronometer"))
-    document.getElementById('InfiniteAscent').addEventListener('mouseover', () => shopDescriptions("infiniteAscent"))
-
-/* Permanent Upgrade Texts */
-    document.getElementById('offeringtimerlevel').addEventListener('mouseover', () => shopDescriptions("offeringEX"))
-    document.getElementById('offeringautolevel').addEventListener('mouseover', () => shopDescriptions("offeringAuto"))
-    document.getElementById('obtainiumtimerlevel').addEventListener('mouseover', () => shopDescriptions("obtainiumEX"))
-    document.getElementById('obtainiumautolevel').addEventListener('mouseover', () => shopDescriptions("obtainiumAuto"))
-    document.getElementById('instantchallenge').addEventListener('mouseover', () => shopDescriptions("instantChallenge"))
-    document.getElementById('antspeed').addEventListener('mouseover', () => shopDescriptions("antSpeed"))
-    document.getElementById('cashgrab').addEventListener('mouseover', () => shopDescriptions("cashGrab"))
-    document.getElementById('shoptalisman').addEventListener('mouseover', () => shopDescriptions("shopTalisman"))
-    document.getElementById('seasonPassLevel').addEventListener('mouseover', () => shopDescriptions("seasonPass"))
-    document.getElementById('challengeUpgradeLevel').addEventListener('mouseover', () => shopDescriptions("challengeExtension"))
-    document.getElementById('challenge10TomeLevel').addEventListener('mouseover', () => shopDescriptions("challengeTome"))
-    document.getElementById('cubeToQuark').addEventListener('mouseover', () => shopDescriptions("cubeToQuark"))
-    document.getElementById('tesseractToQuark').addEventListener('mouseover', () => shopDescriptions("tesseractToQuark"))
-    document.getElementById('hypercubeToQuark').addEventListener('mouseover', () => shopDescriptions("hypercubeToQuark"))
-    document.getElementById('seasonPass2Level').addEventListener('mouseover', () => shopDescriptions("seasonPass2"))
-    document.getElementById('seasonPass3Level').addEventListener('mouseover', () => shopDescriptions("seasonPass3"))
-    document.getElementById('chronometerLevel').addEventListener('mouseover', () => shopDescriptions("chronometer"))
-    document.getElementById('infiniteAscentUpgrade').addEventListener('mouseover', () => shopDescriptions("infiniteAscent"))
-
-/* Shop Upgrade Buttons (you can see why I hate this tab) */
-    document.getElementById('offeringtimerbutton').addEventListener('mouseover', () => shopDescriptions("offeringEX"))
-    document.getElementById('offeringtimerbutton').addEventListener('click', () => buyShopUpgrades("offeringEX"))
-    document.getElementById('offeringautobutton').addEventListener('mouseover', () => shopDescriptions("offeringAuto"))
-    document.getElementById('offeringautobutton').addEventListener('click', () => buyShopUpgrades("offeringAuto"))
-    document.getElementById('obtainiumtimerbutton').addEventListener('mouseover', () => shopDescriptions("obtainiumEX"))
-    document.getElementById('obtainiumtimerbutton').addEventListener('click', () => buyShopUpgrades("obtainiumEX"))
-    document.getElementById('obtainiumautobutton').addEventListener('mouseover', () => shopDescriptions("obtainiumAuto"))
-    document.getElementById('obtainiumautobutton').addEventListener('click', () => buyShopUpgrades("obtainiumAuto"))
-    document.getElementById('instantchallengebutton').addEventListener('mouseover', () => shopDescriptions("instantChallenge"))
-    document.getElementById('instantchallengebutton').addEventListener('click', () => buyShopUpgrades("instantChallenge"))
-    document.getElementById('antspeedbutton').addEventListener('mouseover', () => shopDescriptions("antSpeed"))
-    document.getElementById('antspeedbutton').addEventListener('click', () => buyShopUpgrades("antSpeed"))
-    document.getElementById('cashgrabbutton').addEventListener('mouseover', () => shopDescriptions("cashGrab"))
-    document.getElementById('cashgrabbutton').addEventListener('click', () => buyShopUpgrades("cashGrab"))
-    document.getElementById('shoptalismanbutton').addEventListener('mouseover', () => shopDescriptions("shopTalisman"))
-    document.getElementById('shoptalismanbutton').addEventListener('click', () => buyShopUpgrades("shopTalisman"))
-    document.getElementById('seasonPassButton').addEventListener('mouseover', () => shopDescriptions("seasonPass"))
-    document.getElementById('seasonPassButton').addEventListener('click', () => buyShopUpgrades("seasonPass"))
-    document.getElementById('challengeUpgradeButton').addEventListener('mouseover', () => shopDescriptions("challengeExtension"))
-    document.getElementById('challengeUpgradeButton').addEventListener('click', () => buyShopUpgrades("challengeExtension"))
-    document.getElementById('challenge10TomeButton').addEventListener('mouseover', () => shopDescriptions("challengeTome"))
-    document.getElementById('challenge10TomeButton').addEventListener('click', () => buyShopUpgrades("challengeTome"))
-    document.getElementById('cubeToQuarkButton').addEventListener('mouseover', () => shopDescriptions("cubeToQuark"))
-    document.getElementById('cubeToQuarkButton').addEventListener('click', () => buyShopUpgrades("cubeToQuark"))
-    document.getElementById('tesseractToQuarkButton').addEventListener('mouseover', () => shopDescriptions("tesseractToQuark"))
-    document.getElementById('tesseractToQuarkButton').addEventListener('click', () => buyShopUpgrades("tesseractToQuark"))
-    document.getElementById('hypercubeToQuarkButton').addEventListener('mouseover', () => shopDescriptions("hypercubeToQuark"))
-    document.getElementById('hypercubeToQuarkButton').addEventListener('click', () => buyShopUpgrades("hypercubeToQuark"))
-    document.getElementById('seasonPass2Button').addEventListener('mouseover', () => shopDescriptions("seasonPass2"))
-    document.getElementById('seasonPass2Button').addEventListener('click', () => buyShopUpgrades("seasonPass2"))
-    document.getElementById('seasonPass3Button').addEventListener('mouseover', () => shopDescriptions("seasonPass3"))
-    document.getElementById('seasonPass3Button').addEventListener('click', () => buyShopUpgrades("seasonPass3"))
-    document.getElementById('chronometerButton').addEventListener('mouseover', () => shopDescriptions("chronometer"))
-    document.getElementById('chronometerButton').addEventListener('click', () => buyShopUpgrades("chronometer"))
-    document.getElementById('infiniteAscentButton').addEventListener('mouseover', () => shopDescriptions("infiniteAscent"))
-    document.getElementById('infiniteAscentButton').addEventListener('click', () => buyShopUpgrades("infiniteAscent"))
-
+    const shopKeys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
+    for (const key of shopKeys) {
+        const shopItem = shopData[key]
+        if (shopItem.type === 'upgrade') {
+            console.log(shopItem.description)
+            document.getElementById(`${key}`).addEventListener('mouseover', () => shopDescriptions(key))
+            document.getElementById(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
+            document.getElementById(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
+            document.getElementById(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
+        }
+    }
 
     const tabs = document.querySelectorAll<HTMLElement>('#tabrow > li');
     tabs.forEach(b => b.addEventListener('click', () => changeTabColor()));
