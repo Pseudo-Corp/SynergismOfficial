@@ -330,6 +330,8 @@ nav li {
     border-top-right-radius: 5px;
     border-bottom: none;
     transition-duration: 0.15s;
+    text-align: center;
+    align-items: center;
 }
 
 nav li:hover {
