@@ -1,4 +1,4 @@
-import { player, interval, clearInt, saveSynergy, format } from './Synergism';
+import { player, interval, clearInt, saveSynergy, format, resourceGain } from './Synergism';
 import { sumContents, productContents, getElementById } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
@@ -862,8 +862,9 @@ export const calculateOffline = (forceTime = 0) => {
 
         document.getElementById('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
         document.getElementById('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
+
         //Credit Resources
-    //    resourceGain(tickValue * G['timeMultiplier'])
+        resourceGain(tickValue * G['timeMultiplier'])
 
         //Auto Obtainium Stuff
         if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
@@ -1132,7 +1133,7 @@ export const calculatePlatonicMultiplier = (score = -1) => {
         // Season Pass 2
         1 + 1 / 100 * player.shopUpgrades.seasonPass2,
         // Achievement 196 Bonus 
-        1 + player.achievements[196] * 1 / 5000 * Decimal.log(player.ascendShards.add(1), 10),
+        1 + Math.min(20, player.achievements[196] * 1 / 5000 * Decimal.log(player.ascendShards.add(1), 10)),
         // Achievement 219-222 Bonus
         1 + 4 / 100 * (player.achievements[219] + player.achievements[220] + player.achievements[221]) + 3 / 100 * player.achievements[222],
         // Achievement 223 Bonus

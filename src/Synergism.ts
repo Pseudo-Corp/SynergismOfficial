@@ -657,7 +657,7 @@ const toAdapt = new Map<keyof Player, (data: Player) => unknown>([
     ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes))]
 ]);
 
-const loadSynergy = () => {
+const loadSynergy = (reset = false) => {
     console.log('loaded attempted')
     const save = localStorage.getItem("Synergysave2");
     const data = save ? JSON.parse(atob(save)) : null;
@@ -1333,7 +1333,11 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
             document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "orange"
         }
 
-        calculateOffline();
+        if (!reset) 
+            calculateOffline();
+        else
+            player.worlds = new QuarkHandler({quarks: 0})
+        
         toggleTalismanBuy(player.buyTalismanShardPercent);
         updateTalismanInventory();
         calculateObtainium();
@@ -2626,7 +2630,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
 export const resetConfirmation = async (i: string): Promise<void> => {
     if (i === 'prestige') {
         if (player.toggles[28] === true) {
-            const r = await Confirm("Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
+            const r = await Confirm(`Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]`)
             if (r === true) {
                 resetachievementcheck(1);
                 reset("prestige");
@@ -3360,7 +3364,7 @@ document.addEventListener('keydown', (event) => {
 /**
  * Reloads shit.
  */
-export const reloadShit = async () => {
+export const reloadShit = async (reset = false) => {
     for (const timer of intervalHold)
         clearInt(timer);
 
@@ -3375,7 +3379,7 @@ export const reloadShit = async () => {
         await Alert('Transferred save to new format successfully!');
     }
 
-    loadSynergy();
+    loadSynergy(reset);
     saveSynergy();
     toggleauto();
     revealStuff();

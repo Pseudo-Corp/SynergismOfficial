@@ -1,6 +1,6 @@
 import { format, player } from './Synergism';
 import { Globals as G } from './Variables';
-import { revealStuff } from './UpdateHTML';
+import { Alert, revealStuff } from './UpdateHTML';
 import { Synergism } from './Events';
 import { sumContents } from './Utility';
 import Decimal from 'break_infinity.js';
@@ -508,6 +508,21 @@ export const areward = (i: number): string => {
     else
         return ''
 }
+
+export const achievementAlerts = async (num: number) => {
+    let text = ''
+    switch(num){
+        case 36:
+            text = 'Congratulations on your first prestige. The first of many. You obtain offerings. You can use them in the new Runes tab! [Unlocked Runes, Achievements, Diamond Buildings and some Upgrades!]'
+            break;
+        case 38:
+            text = 'Hmm, it seems you are getting richer, being able to get 1 Googol diamonds in a single prestige. How about we give you another rune? [Unlocked Duplication rune in Runes tab!]'
+            break;
+    }
+
+    if (text !== '')
+        return Alert(text)
+}
 //${format(Decimal.log(player.ascendShards.add(1), 10) / 1000, 2)} (log(constant)/1000)%!
 
 // TODO: clean this up
@@ -532,7 +547,6 @@ export const resetachievementcheck = (i: number) => {
         }
         if (G['prestigePointGain'].gte(1e100)) {
             achievementaward(38)
-
         }
         if (G['prestigePointGain'].gte("1e1000")) {
             achievementaward(39)
@@ -809,6 +823,7 @@ export const achievementdescriptions = (i: number) => {
 
 export const achievementaward = (num: number) => {
     if (player.achievements[num] < 1) {
+        achievementAlerts(num)
         player.achievementPoints += achievementpointvalues[num]
         let multiplier = 1
         if (num >= 183)

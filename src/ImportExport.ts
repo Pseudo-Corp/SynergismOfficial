@@ -120,10 +120,10 @@ export const resetGame = async () => {
         codes: Array.from(blankSave.codes)
     });
 
-    importSynergism(btoa(JSON.stringify(hold)));
+    importSynergism(btoa(JSON.stringify(hold)), true);
 }
 
-export const importSynergism = (input: string) => {
+export const importSynergism = (input: string, reset = false) => {
     const d = LZString.decompressFromBase64(input);
     const f: Player = d ? JSON.parse(d) : JSON.parse(atob(input));
 
@@ -134,7 +134,7 @@ export const importSynergism = (input: string) => {
     ) {
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
         
-        return reloadShit();
+        return reloadShit(reset);
     } else {
         return Alert(`You are attempting to load a testing file in a non-testing version!`);
     }
@@ -202,12 +202,12 @@ export const promocodes = async () => {
 
         // Calculator 3: Adds ascension timer.
         const ascensionTimer = (player.shopUpgrades.calculator3 > 0)?
-        'Thanks to PL-AT Ω you have also gained ' + format(60 * player.shopUpgrades.calculator3) + ' real-life seconds to your Ascension Timer!':
+        'Thanks to PL-AT Ω you have also gained ' + format(60 * player.shopUpgrades.calculator3 * realAttemptsUsed) + ' real-life seconds to your Ascension Timer!':
         '';
         // Calculator Maxed: you don't need to insert anything!
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
-            addTimers('ascension', 60 * player.shopUpgrades.calculator3)
+            addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed)
             await Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks} quarks! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
             return
         }
