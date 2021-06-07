@@ -407,7 +407,7 @@ export const ascendBuildingDR = () => {
     const sum = player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned + player.ascendBuilding4.owned + player.ascendBuilding5.owned
 
     if (sum > 100000)
-        return Math.pow(100000, 0.70) * Math.pow(sum, 0.30)
+        return Math.pow(100000, 0.5) * Math.pow(sum, 0.5)
     else
         return sum
 }
