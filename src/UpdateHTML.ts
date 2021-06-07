@@ -10,42 +10,42 @@ import { getMaxChallenges } from './Challenges';
 export const revealStuff = () => {
     const example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example.length; i++) {
-        player.unlocks.coinone ? example[i].style.display = "flex" : example[i].style.display = "none"
+        example[i].style.display = player.unlocks.coinone ? 'block' : 'none';
     }
 
     const example2 = document.getElementsByClassName("coinunlock2") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example2.length; i++) {
-        player.unlocks.cointwo ? example2[i].style.display = "flex" : example2[i].style.display = "none"
+        example2[i].style.display = player.unlocks.cointwo ? 'block' : 'none';
     }
 
     const example3 = document.getElementsByClassName("coinunlock3") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example3.length; i++) {
-        player.unlocks.cointhree ? example3[i].style.display = "flex" : example3[i].style.display = "none"
+        example3[i].style.display = player.unlocks.cointhree ? 'block' : 'none';
     }
 
     const example4 = document.getElementsByClassName("coinunlock4") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example4.length; i++) {
-        player.unlocks.coinfour ? example4[i].style.display = "flex" : example4[i].style.display = "none"
+        example4[i].style.display = player.unlocks.coinfour ? 'block' : 'none';
     }
 
     const example5 = document.getElementsByClassName("prestigeunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example5.length; i++) {
-        player.unlocks.prestige ? example5[i].style.display = "flex" : example5[i].style.display = "none"
+        example5[i].style.display = player.unlocks.prestige ? 'block' : 'none';
     }
 
     const example6 = document.getElementsByClassName("generationunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example6.length; i++) {
-        player.unlocks.generation ? example6[i].style.display = "flex" : example6[i].style.display = "none"
+        example6[i].style.display = player.unlocks.generation ? 'block' : 'none';
     }
 
     const example7 = document.getElementsByClassName("transcendunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example7.length; i++) {
-        player.unlocks.transcend ? example7[i].style.display = "flex" : example7[i].style.display = "none"
+        example7[i].style.display = player.unlocks.transcend ? 'block' : 'none';
     }
 
     const example8 = document.getElementsByClassName("reincarnationunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example8.length; i++) {
-        player.unlocks.reincarnate ? example8[i].style.display = "flex" : example8[i].style.display = "none"
+        example8[i].style.display = player.unlocks.reincarnate ? 'block' : 'none';
     }
 
     const example9 = document.getElementsByClassName("auto") as HTMLCollectionOf<HTMLElement>;
@@ -55,82 +55,82 @@ export const revealStuff = () => {
 
     const example10 = document.getElementsByClassName("reinrow1") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example10.length; i++) {
-        player.researches[47] === 1 ? example10[i].style.display = "flex" : example10[i].style.display = "none"
+        player.researches[47] === 1 ? example10[i].style.display = "block" : example10[i].style.display = "none"
     }
 
     const example11 = document.getElementsByClassName("reinrow2") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example11.length; i++) {
-        player.researches[48] === 1 ? example11[i].style.display = "flex" : example11[i].style.display = "none"
+        player.researches[48] === 1 ? example11[i].style.display = "block" : example11[i].style.display = "none"
     }
 
     const example12 = document.getElementsByClassName("reinrow3") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example12.length; i++) {
-        player.researches[49] === 1 ? example12[i].style.display = "flex" : example12[i].style.display = "none"
+        player.researches[49] === 1 ? example12[i].style.display = "block" : example12[i].style.display = "none"
     }
 
     const example13 = document.getElementsByClassName("reinrow4") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example13.length; i++) {
-        player.researches[50] === 1 ? example13[i].style.display = "flex" : example13[i].style.display = "none"
+        player.researches[50] === 1 ? example13[i].style.display = "block" : example13[i].style.display = "none"
     }
 
     const example14 = document.getElementsByClassName("chal6") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example14.length; i++) {
-        player.achievements[113] === 1 ? example14[i].style.display = "flex" : example14[i].style.display = "none"
+        player.achievements[113] === 1 ? example14[i].style.display = "block" : example14[i].style.display = "none"
     }
 
     const example15 = document.getElementsByClassName("chal7") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example15.length; i++) {
-        player.achievements[120] === 1 ? example15[i].style.display = "flex" : example15[i].style.display = "none"
+        player.achievements[120] === 1 ? example15[i].style.display = "block" : example15[i].style.display = "none"
     }
 
     const example16 = document.getElementsByClassName("chal7x10") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example16.length; i++) {
-        player.achievements[124] === 1 ? example16[i].style.display = "flex" : example16[i].style.display = "none"
+        player.achievements[124] === 1 ? example16[i].style.display = "block" : example16[i].style.display = "none"
     }
 
     const example17 = document.getElementsByClassName("chal8") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example17.length; i++) {
-        player.achievements[127] === 1 ? example17[i].style.display = "flex" : example17[i].style.display = "none"
+        player.achievements[127] === 1 ? example17[i].style.display = "block" : example17[i].style.display = "none"
     }
 
     const example18 = document.getElementsByClassName("chal9") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example18.length; i++) { 
-        player.achievements[134] === 1 ? example18[i].style.display = "flex" : example18[i].style.display = "none"
+        player.achievements[134] === 1 ? example18[i].style.display = "block" : example18[i].style.display = "none"
     }
 
     const example19 = document.getElementsByClassName("chal9x1") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example19.length; i++) {
-        player.highestchallengecompletions[9] > 0 ? example19[i].style.display = "flex" : example19[i].style.display = "none"
+        player.highestchallengecompletions[9] > 0 ? example19[i].style.display = "block" : example19[i].style.display = "none"
     }
 
     const example20 = document.getElementsByClassName("chal10") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example20.length; i++) {
-        player.achievements[141] === 1 ? example20[i].style.display = "flex" : example20[i].style.display = "none"
+        player.achievements[141] === 1 ? example20[i].style.display = "block" : example20[i].style.display = "none"
     }
 
     const example21 = document.getElementsByClassName("ascendunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example21.length; i++) {
-        player.ascensionCount > 0 ? example21[i].style.display = "flex" : example21[i].style.display = "none"
+        player.ascensionCount > 0 ? example21[i].style.display = "block" : example21[i].style.display = "none"
     }
 
     const example22 = document.getElementsByClassName("chal11") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example22.length; i++) {
-        player.challengecompletions[11] > 0 ? example22[i].style.display = "flex" : example22[i].style.display = "none"
+        player.challengecompletions[11] > 0 ? example22[i].style.display = "block" : example22[i].style.display = "none"
     }
 
     const example23 = document.getElementsByClassName("chal12") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example23.length; i++) {
-        player.challengecompletions[12] > 0 ? example23[i].style.display = "flex" : example23[i].style.display = "none"
+        player.challengecompletions[12] > 0 ? example23[i].style.display = "block" : example23[i].style.display = "none"
     }
 
     const example24 = document.getElementsByClassName("chal13") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example24.length; i++) {
-        player.challengecompletions[13] > 0 ? example24[i].style.display = "flex" : example24[i].style.display = "none"
+        player.challengecompletions[13] > 0 ? example24[i].style.display = "block" : example24[i].style.display = "none"
     }
 
     const example25 = document.getElementsByClassName("chal14") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example25.length; i++) {
-        player.challengecompletions[14] > 0 ? example25[i].style.display = "flex" : example25[i].style.display = "none"
+        player.challengecompletions[14] > 0 ? example25[i].style.display = "block" : example25[i].style.display = "none"
     }
 
     const example26 = document.getElementsByClassName("ascendunlockib") as HTMLCollectionOf<HTMLElement>;
