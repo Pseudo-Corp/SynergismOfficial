@@ -8,6 +8,7 @@ import { Alert, Confirm, Prompt } from './UpdateHTML';
 import { quarkHandler } from './Quark';
 import { shopData } from './Shop';
 import { addTimers } from './Helper';
+import { toggleSubTab, toggleTabs } from './Toggles';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -119,7 +120,10 @@ export const resetGame = async () => {
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
     });
-
+    //Reset Displays
+    toggleTabs("buildings");
+    toggleSubTab(1, 0);
+    //Import Game
     importSynergism(btoa(JSON.stringify(hold)), true);
 }
 
