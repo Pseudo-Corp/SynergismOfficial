@@ -678,6 +678,8 @@ nav li:hover {
     background-color: #171717;
     transition-duration: 0.15s;
     cursor: default;
+    justify-content: center;
+    align-items: center;
 }
 
 .buildingPurchaseBtnAvailable {
