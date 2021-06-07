@@ -332,6 +332,7 @@ nav li {
     transition-duration: 0.15s;
     text-align: center;
     align-items: center;
+    justify-content: center;
 }
 
 nav li:hover {
@@ -403,6 +404,8 @@ nav li:hover {
     text-align: center;
     margin-right: 17px;
     transition-duration: 0.15s;
+    justify-content: center;
+    align-items: center;
 }
 
 .subTabWrapper > button:hover {
@@ -960,6 +963,8 @@ nav li:hover {
     margin: 0 7px;
     text-align: center;
     transition-duration: 0.15s;
+    justify-content: center;
+    align-items: center;
 }
 
 #runesToggle > button:hover {
@@ -1387,6 +1392,8 @@ nav li:hover {
 #challengeIcons .challengeLevels {
     font-size: 12px;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 #challengeDetails {
