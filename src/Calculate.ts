@@ -988,7 +988,9 @@ export const calculateAllCubeMultiplier = () => {
         1 + player.platonicUpgrades[10],
         // OMEGA: C9 Cube Bonus
         Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9]),
-        // Total Global Cube Multipliers: 7
+        // Powder Bonus [Max: 2x at 10,000 powder]
+        1 + Math.min(1, player.overfluxPowder / 1e4)
+        // Total Global Cube Multipliers: 8
     ]
     return {
         mult: productContents(arr),
@@ -1355,6 +1357,20 @@ export const CalcCorruptionStuff = () => {
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain)]
 }
 
+/**
+ * Calculates the product of all Powder bonuses.
+ * @returns The amount of Powder gained per Expired Orb on day reset
+ */
+export const calculatePowderConversion = () => {
+    const arr = [
+        1/100, // base
+        (1 + player.shopUpgrades.powderEX / 50), // powderEX shop upgrade, 2% per level max 20%
+        (1 + player.achievements[256] / 20), // Achievement 256, 5%
+        (1 + player.achievements[257] / 20), // Achievement 257, 5%
+    ]
+    return productContents(arr)
+}
+
 export const dailyResetCheck = () => {
     player.dayCheck ||= new Date();
     if (typeof player.dayCheck === 'string') {
@@ -1377,7 +1393,10 @@ export const dailyResetCheck = () => {
         player.tesseractOpenedDaily = 0;
         player.hypercubeOpenedDaily = 0;
         player.platonicCubeOpenedDaily = 0;
+        
+        player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion();
         player.overfluxOrbs = 0;
+        player.dailyPowderResetUses = 1;
 
         document.getElementById('cubeQuarksOpenRequirement').style.display = "block"
         if (player.challengecompletions[11] > 0) {
@@ -1387,7 +1406,27 @@ export const dailyResetCheck = () => {
             document.getElementById('hypercubeQuarksOpenRequirement').style.display = "block"
         }
         if (player.challengecompletions[14] > 0) {
-            document.getElementById('platonicQuarksOpenRequirement').style.display = "block"
+            document.getElementById('platonicCubeQuarksOpenRequirement').style.display = "block"
         }
+    }
+}
+
+/**
+ * Resets Cube Counts and stuff. NOTE: It is intentional it does not award powder or expire orbs.
+ */
+export const forcedDailyReset = (testing = false) => {
+    player.dayCheck = new Date();
+    player.cubeQuarkDaily = 0;
+    player.tesseractQuarkDaily = 0;
+    player.hypercubeQuarkDaily = 0;
+    player.platonicCubeQuarkDaily = 0;
+    player.cubeOpenedDaily = 0;
+    player.tesseractOpenedDaily = 0;
+    player.hypercubeOpenedDaily = 0;
+    player.platonicCubeOpenedDaily = 0;
+
+    if (testing) {
+        player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion()
+        player.overfluxOrbs = 0;
     }
 }

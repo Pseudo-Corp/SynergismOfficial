@@ -19,8 +19,8 @@ import { resetHistoryTogglePerSecond } from "./History"
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData } from "./Shop"
 import { Globals as G } from './Variables';
 import { changeTabColor } from "./UpdateHTML"
-import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb } from "./Hepteracts"
-import { exitOffline, timeWarp } from "./Calculate"
+import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp } from "./Hepteracts"
+import { exitOffline, forcedDailyReset, timeWarp } from "./Calculate"
 import { Player } from "./types/Synergism"
 
 /* STYLE GUIDE */
@@ -37,13 +37,14 @@ import { Player } from "./types/Synergism"
     Platonic and/or Khafra have the right to close PRs that do not conform to this style guide
 
     If you are editing this script, please update the below time:
-    Last Edited: April 15, 2021  3:04 AM UTC-8 
+    Last Edited: June 10, 2021 3:04 AM UTC-8 
 */
 
 export const generateEventHandlers = () => {
     const ordinals = ['null','first','second','third','fourth','fifth','sixth','seventh','eighth']
 // Testing - TODO: Remove before updating to live but keep for now
     document.getElementById('timeWarp').addEventListener('click', () => timeWarp());
+    document.getElementById('forceDayReset').addEventListener('click', () => forcedDailyReset());
 // Offline Button
     document.getElementById('exitOffline').addEventListener('click', () => exitOffline());
 // UPPER UI ELEMENTS
@@ -476,6 +477,8 @@ document.getElementById('multiplierHepteractCap').addEventListener('click', () =
 
 document.getElementById('hepteractToQuark').addEventListener('mouseover', () => hepteractToOverfluxOrbDescription())
 document.getElementById('hepteractToQuarkTrade').addEventListener('click', () => tradeHepteractToOverfluxOrb())
+document.getElementById('overfluxPowder').addEventListener('mouseover', () => overfluxPowderDescription())
+document.getElementById('powderDayWarp').addEventListener('click', () => overfluxPowderWarp())
 // CORRUPTION TAB
 //Part 0: Subtabs
 document.getElementById('corrStatsBtn').addEventListener('click', () => toggleSubTab(9, 0))

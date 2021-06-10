@@ -1,4 +1,4 @@
-import { calculateSigmoid } from "./Calculate";
+import { calculatePowderConversion, calculateSigmoid, forcedDailyReset } from "./Calculate";
 import { Cube } from "./CubeExperimental";
 import { format, player } from "./Synergism";
 import { Alert, Confirm, Prompt } from "./UpdateHTML";
@@ -232,6 +232,8 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
     document.getElementById('hepteractUnlockedText').style.display = 'block'
     document.getElementById('hepteractCurrentEffectText').style.display = 'block'
     document.getElementById('hepteractBalanceText').style.display = 'block'
+    document.getElementById('powderDayWarpText').style.display = 'none'
+
     const unlockedText = document.getElementById('hepteractUnlockedText')
     const effectText = document.getElementById('hepteractEffectText')
     const currentEffectText = document.getElementById('hepteractCurrentEffectText')
@@ -297,14 +299,23 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
     }
 }
 
+/**
+ * Generates the description at the bottom of the page for Overflux Orb crafting
+ */
 export const hepteractToOverfluxOrbDescription = () => {
     document.getElementById('hepteractUnlockedText').style.display = 'none'
+    document.getElementById('powderDayWarpText').style.display = 'none'
+
     document.getElementById('hepteractCurrentEffectText').textContent = 'Orb Effect: Opening Cubes gives ' + format(100 *(-1 + calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)), 2, true) + "% more Quarks."
     document.getElementById('hepteractBalanceText').textContent = 'Orbs Purchased Today: ' + format(player.overfluxOrbs, 0, true) + '.'
     document.getElementById('hepteractEffectText').textContent = "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]"
     document.getElementById('hepteractCostText').textContent = "Cost: 250,000 Hepteracts per Overflux Orb"
 }
 
+/**
+ * Trades Hepteracts for Overflux Orbs at 250,000 : 1 ratio. If null or invalid will gracefully terminate.
+ * @returns Alert of either purchase failure or success
+ */
 export const tradeHepteractToOverfluxOrb = async () => {
     const maxBuy = Math.floor(player.wowAbyssals / 250000)
     const hepteractInput = await Prompt('How many Orbs would you like to purchase? You can buy up to ' + format(maxBuy, 0, true) +  ' with your hepteracts.')
@@ -324,6 +335,41 @@ export const tradeHepteractToOverfluxOrb = async () => {
 
     return Alert(`You have purchased ` + format(buyAmount, 0, true) + ` Overflux Orbs [+${format(100 * (afterEffect - beforeEffect), 2, true)}% to effect]. Enjoy!`)
 
+}
+
+/**
+ * Generates the description at the bottom of the page for Overflux Powder Properties
+ */
+export const overfluxPowderDescription = () => {
+    document.getElementById('hepteractUnlockedText').style.display = 'none'
+    document.getElementById('hepteractCurrentEffectText').textContent = 'Powder effect: ALL Cube Gain +' + format(Math.min(100, player.overfluxPowder / 100), 2, true) + '% and Quarks +' + format(Math.min(10, player.overfluxPowder / 1000), 2, true) + '% [Max effect at 10,000 Powder]'
+    document.getElementById('hepteractBalanceText').textContent = 'You have ' + format(player.overfluxPowder, 2, true) + ' lumps of Overflux Powder.'
+    document.getElementById('hepteractEffectText').textContent = `Expired Overflux Orbs become powder at a rate of ${format(1 / calculatePowderConversion(), 1, true)} Orbs per powder lump!`
+    document.getElementById('hepteractCostText').style.display = 'none'
+
+    document.getElementById('powderDayWarpText').style.display = 'block'
+    document.getElementById('powderDayWarpText').textContent = `Day Warps remaining today: ${player.dailyPowderResetUses}`
+}
+
+/**
+ * Attempts to operate a 'Day Reset' which, if successful, resets Daily Cube counters for the player.
+ * Note by Platonic: kinda rushed job but idk if it can be improved.
+ * @returns Alert, either for success or failure of warping
+ */
+export const overfluxPowderWarp = async () => {
+    if (player.overfluxPowder < 25)
+        return Alert('Sorry, but you need 25 powder to operate the warp machine.')
+    if (player.dailyPowderResetUses <= 0)
+        return Alert('Sorry, but this machine is on cooldown.')
+    const c = await Confirm('You stumble upon a mysterious machine. A note attached says that you can reset daily Cube openings for 25 Powder. However it only works once each real life day. You in?')
+    if (!c)
+        return Alert('You walk away from the machine, powder intact.')
+    else {
+        player.overfluxPowder -= 25
+        player.dailyPowderResetUses -= 1;
+        forcedDailyReset();
+        return Alert('Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]')
+    }
 }
 
 // Hepteract of Chronos [UNLOCKED]

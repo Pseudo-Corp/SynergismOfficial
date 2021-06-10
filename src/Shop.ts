@@ -237,6 +237,15 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: `The merchant has one last trick up its sleeve: It can augment your second constant upgrade to be marginally better, but it'll cost an arm and a leg! Instead of the cap being 10% (or 11% with achievements) it will be raised by 1% per level.`
+    },
+    powderEX: {
+        price: 1000,
+        priceIncrease: 1000,
+        maxLevel: 25,
+        type: "upgrade",
+        refundable: true,
+        refundMinimumLevel: 0,
+        description: `Platonic himself gives you 2% better conversion rate on Overflux Orbs to Powder per level. This activates when Orbs expire.`
     }
 }
 
@@ -247,7 +256,7 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'antSpeed' | 'cashGrab' | 'shopTalisman' | 'seasonPass' | 'challengeExtension' |
                         'challengeTome' | 'cubeToQuark' | 'tesseractToQuark' | 'hypercubeToQuark' |
                         'seasonPass2' | 'seasonPass3' | 'chronometer' | 'infiniteAscent' | 'calculator' |
-                        'calculator2' | 'calculator3' | 'constantEX'
+                        'calculator2' | 'calculator3' | 'constantEX' | 'powderEX'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
     if (shopData[input].type === "consumable" || shopData[input].maxLevel === 1){
@@ -343,6 +352,8 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         case "constantEX":
             lol.textContent = "CURRENT Effect: +" + format(0.01 * player.shopUpgrades.constantEX, 2, true) + " effect on Constant Upgrade 2";
             break;
+        case "powderEX":
+            lol.textContent = "CURRENT Effect: +" + format(2 * player.shopUpgrades.powderEX) + "% Overflux Powder gained when Overflux Orbs expire."
     }
 
 }

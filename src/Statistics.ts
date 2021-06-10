@@ -44,6 +44,7 @@ export const loadStatisticsCubeMultipliers = () => {
         5: {acc: 2, desc: "Rune 6 - Infinite Ascent:"},
         6: {acc: 2, desc: "Platonic Beta:"},
         7: {acc: 2, desc: "Platonic Omega:"},
+        8: {acc: 2, desc: "Overflux Powder:"}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = document.getElementById(`statGCM${i + 1}`);

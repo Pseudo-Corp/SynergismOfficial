@@ -341,6 +341,7 @@ export interface Player {
         calculator2: number,
         calculator3: number,
         constantEX: number,
+        powderEX: number,
     }
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,
@@ -498,6 +499,9 @@ export interface Player {
         acceleratorBoost: HepteractCraft,
         multiplier: HepteractCraft
     }
+    overfluxOrbs: number
+    overfluxPowder: number
+    dailyPowderResetUses: number
 
     [key: string]: any
 }

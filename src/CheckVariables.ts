@@ -322,6 +322,7 @@ export const checkVariablesOnLoad = (data: Player) => {
             calculator2: 0,
             calculator3: 0,
             constantEX: 0,
+            powderEX: 0,
         }
 
         const initialQuarks = Number(player.worlds);
@@ -396,4 +397,9 @@ export const checkVariablesOnLoad = (data: Player) => {
     if (data.overfluxOrbs === undefined) {
         player.overflubOrbs = 0;
     } 
+    if (data.overfluxPowder === undefined) {
+        player.overfluxPowder = 0;
+        player.shopUpgrades.powderEX = 0;
+        player.dailyPowderResetUses = 0;
+    }
 }

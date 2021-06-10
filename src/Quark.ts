@@ -38,6 +38,9 @@ export const getQuarkMultiplier = () => {
     if (player.challenge15Exponent >= 1e15) { // Challenge 15: Exceed 1e15 exponent reward
         multiplier *= (1 + 3/10000 * hepteractEffective('quark'));
     }
+    if (player.overfluxPowder > 0) { // Overflux Powder [Max: 10% at 10,000]
+        multiplier *= (1 + Math.min(0.1, (player.overfluxPowder / 1e5)))      
+    }
     if (player.achievements[266] > 0) { // Achievement 266 [Max: 10% at 1Qa Ascensions]
         multiplier *= (1 + Math.min(0.1, (player.ascensionCount) / 1e16))
     }
