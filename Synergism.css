@@ -1689,8 +1689,12 @@ nav li:hover {
 #timeWarp {
     width: auto;
     height: 30px;
-    border: 6px solid black;
-    background-color: purple;
+    border: 6px solid gold;
+}
+#forceDayReset{
+    width: auto;
+    height: 30px;
+    border: 6px solid orange;
 }
 
 #quarkamount {
