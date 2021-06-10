@@ -30,7 +30,11 @@ export const revealStuff = () => {
 
     const example5 = document.getElementsByClassName("prestigeunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example5.length; i++) {
-        example5[i].style.display = player.unlocks.prestige ? 'block' : 'none';
+        const parent = example5[i].parentElement;
+        if (parent.classList.contains('offlineStats'))
+            example5[i].style.display = player.unlocks.prestige ? 'flex' : 'none';
+        else 
+            example5[i].style.display = player.unlocks.prestige ? 'block' : 'none';
     }
 
     const example6 = document.getElementsByClassName("generationunlock") as HTMLCollectionOf<HTMLElement>;
@@ -40,12 +44,20 @@ export const revealStuff = () => {
 
     const example7 = document.getElementsByClassName("transcendunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example7.length; i++) {
-        example7[i].style.display = player.unlocks.transcend ? 'block' : 'none';
+        const parent = example7[i].parentElement;
+        if (parent.classList.contains('offlineStats'))
+            example7[i].style.display = player.unlocks.transcend ? 'flex' : 'none';
+        else 
+            example7[i].style.display = player.unlocks.transcend ? 'block' : 'none';
     }
 
     const example8 = document.getElementsByClassName("reincarnationunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example8.length; i++) {
-        example8[i].style.display = player.unlocks.reincarnate ? 'block' : 'none';
+        const parent = example8[i].parentElement;
+        if (parent.classList.contains('offlineStats'))
+            example8[i].style.display = player.unlocks.reincarnate ? 'flex' : 'none';
+        else 
+            example8[i].style.display = player.unlocks.reincarnate ? 'block' : 'none';
     }
 
     const example9 = document.getElementsByClassName("auto") as HTMLCollectionOf<HTMLElement>;
@@ -90,7 +102,11 @@ export const revealStuff = () => {
 
     const example17 = document.getElementsByClassName("chal8") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example17.length; i++) {
-        player.achievements[127] === 1 ? example17[i].style.display = "block" : example17[i].style.display = "none"
+        const parent = example17[i].parentElement;
+        if (parent.classList.contains('offlineStats'))
+            example17[i].style.display = player.achievements[127] === 1 ? 'flex' : 'none';
+        else 
+            example17[i].style.display = player.achievements[127] === 1 ? 'block' : 'none';
     }
 
     const example18 = document.getElementsByClassName("chal9") as HTMLCollectionOf<HTMLElement>;
@@ -110,7 +126,11 @@ export const revealStuff = () => {
 
     const example21 = document.getElementsByClassName("ascendunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example21.length; i++) {
-        player.ascensionCount > 0 ? example21[i].style.display = "block" : example21[i].style.display = "none"
+        const parent = example21[i].parentElement;
+        if (parent.classList.contains('offlineStats'))
+            example21[i].style.display = player.ascensionCount > 0 ? 'flex' : 'none';
+        else 
+            example21[i].style.display = player.ascensionCount > 0 ? 'block' : 'none';
     }
 
     const example22 = document.getElementsByClassName("chal11") as HTMLCollectionOf<HTMLElement>;
