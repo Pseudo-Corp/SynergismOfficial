@@ -355,9 +355,6 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.runelevels[5] = player.runelevels[6] = 0;
     }
 
-    //Set rune 6 level to 0 every load for testing purposes
-    player.runeexp[5] = player.runelevels[5] = 0;
-
     // Lazy solution, fix if better idea comes to mind
     // Fixes hepteract craft object serialization (restores built functions)
     if (player.hepteractCrafts.abyss === undefined) {
@@ -395,4 +392,8 @@ export const checkVariablesOnLoad = (data: Player) => {
     while (player.achievements[280] === undefined) {
         player.achievements.push(0)
     }
+    
+    if (data.overfluxOrbs === undefined) {
+        player.overflubOrbs = 0;
+    } 
 }

@@ -469,10 +469,10 @@ export const calculateTalismanEffects = () => {
         positiveBonus += 0.02
     }
     positiveBonus += 0.02 * (player.talismanRarity[4-1] - 1)
-    positiveBonus += 1.2 * player.researches[106] / 100
-    positiveBonus += 1.2 * player.researches[107] / 100
-    positiveBonus += 1.2 * player.researches[116] / 200
-    positiveBonus += 1.2 * player.researches[117] / 200
+    positiveBonus += 3 * player.researches[106] / 100
+    positiveBonus += 3 * player.researches[107] / 100
+    positiveBonus += 3 * player.researches[116] / 200
+    positiveBonus += 3 * player.researches[117] / 200
     positiveBonus += (G['cubeBonusMultiplier'][9] - 1)
     positiveBonus += 0.0004 * player.cubeUpgrades[50]
     negativeBonus += 0.06 * player.researches[118]
@@ -1377,6 +1377,7 @@ export const dailyResetCheck = () => {
         player.tesseractOpenedDaily = 0;
         player.hypercubeOpenedDaily = 0;
         player.platonicCubeOpenedDaily = 0;
+        player.overfluxOrbs = 0;
 
         document.getElementById('cubeQuarksOpenRequirement').style.display = "block"
         if (player.challengecompletions[11] > 0) {

@@ -13,7 +13,7 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
-import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText } from './Toggles';
+import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
@@ -31,7 +31,7 @@ import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import { checkVariablesOnLoad } from './CheckVariables';
-import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
+import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import './Hotkeys';
@@ -610,6 +610,7 @@ export const player: Player = {
     hypercubeQuarkDaily: 0,
     platonicCubeOpenedDaily: 0,
     platonicCubeQuarkDaily: 0,
+    overfluxOrbs: 0,
     loadedOct4Hotfix: false,
     loadedNov13Vers: true,
     loadedDec16Vers: true,
@@ -1172,23 +1173,8 @@ const loadSynergy = (reset = false) => {
         G['researchOrderByCost'] = sortWithIndeces(testArray)
         player.roombaResearchIndex = 0;
 
-
-        if (player.shoptoggles.coin === false) {
-            document.getElementById("shoptogglecoin").textContent = "Auto: OFF"
-        }
-        if (player.shoptoggles.prestige === false) {
-            document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"
-        }
-        if (player.shoptoggles.transcend === false) {
-            document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"
-        }
-        if (player.shoptoggles.generators === false) {
-            document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"
-        }
-        if (!player.shoptoggles.reincarnate) {
-            document.getElementById('particleAutoUpgrade').textContent = "Auto: OFF"
-        }
-
+        // June 09, 2021: Updated toggleShops() and removed boilerplate - Platonic
+        toggleShops();
         getChallengeConditions();
         updateChallengeDisplay();
         revealStuff();
@@ -1200,11 +1186,6 @@ const loadSynergy = (reset = false) => {
         getElementById<HTMLInputElement>("exitAutoChallengeTimerInput").value = player.autoChallengeTimer.exit + '';
         document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s"
         getElementById<HTMLInputElement>("enterAutoChallengeTimerInput").value = player.autoChallengeTimer.enter + '';
-
-        /* document.getElementById("runeshowpower1").textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(G['rune1level'] * m)) + " Accelerators, +" + (G['rune1level']/2  * m).toPrecision(2) +"% Accelerators, +" + format(Math.floor(G['rune1level']/10 * m)) + " Accelerator Boosts."
-if (player.achievements[38] == 1)document.getElementById("runeshowpower2").textContent = "Duplication Rune Bonus: " + "+" + Math.floor(G['rune2level'] * m / 10) * Math.floor(10 + G['rune2level'] * m /10) / 2 + " +" + m *G['rune2level']/2 +"% Multipliers, -" + (100 * (1 - Math.pow(10, - G['rune2level']/500))).toPrecision(4)  + "% Tax Growth.";
-if (player.achievements[44] == 1)document.getElementById("runeshowpower3").textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(G['rune3level'] * m, 2).times(Decimal.pow(2, G['rune3level'] * m - 8).add(1))) + ", gain +" + format(Math.floor(G['rune3level']/10 * m)) + " free crystal levels.";
-if (player.achievements[102] == 1)document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (G['rune4level']/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + G['rune4level']/8 + "%."; */
 
         corruptionStatsUpdate();
         for (let i = 0; i < 4; i++) {
@@ -1348,6 +1329,14 @@ if (player.achievements[102] == 1)document.getElementById("runeshowpower4").text
     }
     CSSAscend();
     updateAchievementBG();
+    
+    // Update Hepteracts to player if available.
+    if (data.hepteractCrafts.abyss !== undefined) {
+        for (const item in data.hepteractCrafts) {
+            const k = item as keyof Player['hepteractCrafts'];
+            player.hepteractCrafts[k] = createHepteract(data.hepteractCrafts[k]);
+        }
+    }
 
     const d = new Date()
     const h = d.getHours()

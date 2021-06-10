@@ -260,30 +260,41 @@ export const visualUpdateAnts = () => {
     }
 }
 
+interface cubeNames {
+    cube: number
+    tesseract: number
+    hypercube: number
+    platonicCube: number
+}
+
 export const visualUpdateCubes = () => {
     if (G['currentTab'] !== "cubes")
         return
     document.getElementById("cubeToQuarkTimerValue").textContent = format(Math.floor(player.dayTimer / 3600), 0) + " Hours " + format(Math.floor(player.dayTimer / 60 % 60), 0) + " Mins " + format(Math.floor(player.dayTimer % 60), 0) + " Secs "
 
-    document.getElementById('cubeQuarksTodayValue').textContent = format(player.cubeQuarkDaily);
-    document.getElementById('cubeQuarksOpenTodayValue').textContent = format(player.cubeOpenedDaily);
     const cubeMult = (player.shopUpgrades.cubeToQuark) ? 1.5 : 1;
-    document.getElementById('cubeQuarksOpenRequirementValue').textContent = format(Number(player.wowCubes.checkCubesToNextQuark(5, cubeMult, player.cubeQuarkDaily, player.cubeOpenedDaily)), 0, true)
-
-    document.getElementById('tesseractQuarksTodayValue').textContent = format(player.tesseractQuarkDaily);
-    document.getElementById('tesseractQuarksOpenTodayValue').textContent = format(player.tesseractOpenedDaily);
     const tesseractMult = (player.shopUpgrades.tesseractToQuark) ? 1.5 : 1;
-    document.getElementById('tesseractQuarksOpenRequirementValue').textContent = format(Number(player.wowTesseracts.checkCubesToNextQuark(7, tesseractMult, player.tesseractQuarkDaily, player.tesseractOpenedDaily)), 0, true)
-    
-    document.getElementById('hypercubeQuarksTodayValue').textContent = format(player.hypercubeQuarkDaily);
-    document.getElementById('hypercubeQuarksOpenTodayValue').textContent = format(player.hypercubeOpenedDaily);
     const hypercubeMult = (player.shopUpgrades.hypercubeToQuark) ? 1.5 : 1;
-    document.getElementById('hypercubeQuarksOpenRequirementValue').textContent = format(Number(player.wowHypercubes.checkCubesToNextQuark(10, hypercubeMult, player.hypercubeQuarkDaily, player.hypercubeOpenedDaily)), 0, true)
-
-    document.getElementById('platonicQuarksTodayValue').textContent = format(player.platonicCubeQuarkDaily);
-    document.getElementById('platonicQuarksOpenTodayValue').textContent = format(player.platonicCubeOpenedDaily);
     const platonicMult = 1.5;
-    document.getElementById('platonicQuarksOpenRequirementValue').textContent = format(Number(player.wowPlatonicCubes.checkCubesToNextQuark(15, platonicMult, player.platonicCubeQuarkDaily, player.platonicCubeOpenedDaily)), 0, true)
+
+    const toNextQuark: cubeNames = {
+        cube: Number(player.wowCubes.checkCubesToNextQuark(5, cubeMult, player.cubeQuarkDaily, player.cubeOpenedDaily)),
+        tesseract: Number(player.wowTesseracts.checkCubesToNextQuark(7, tesseractMult, player.tesseractQuarkDaily, player.tesseractOpenedDaily)),
+        hypercube: Number(player.wowHypercubes.checkCubesToNextQuark(10, hypercubeMult, player.hypercubeQuarkDaily, player.hypercubeOpenedDaily)),
+        platonicCube: Number(player.wowPlatonicCubes.checkCubesToNextQuark(15, platonicMult, player.platonicCubeQuarkDaily, player.platonicCubeOpenedDaily)),
+    }
+
+    const names = Object.keys(toNextQuark) as (keyof cubeNames)[]
+    for (const name of names) {
+        document.getElementById(`${name}QuarksTodayValue`).textContent = format(player[`${name}QuarkDaily`]);
+        document.getElementById(`${name}QuarksOpenTodayValue`).textContent = format(player[`${name}OpenedDaily`]);
+        document.getElementById(`${name}QuarksOpenRequirementValue`).textContent = format(Math.max(1, toNextQuark[name]))
+        
+        // Change color of requirement text if 1 or less required :D
+        document.getElementById(`${name}QuarksOpenRequirement`).style.color = (Math.max(1, toNextQuark[name]) === 1)? 'gold': 'white'
+        if (document.getElementById(`${name}QuarksOpenRequirementValue`).style.color !== 'gold')
+            document.getElementById(`${name}QuarksOpenRequirementValue`).style.color === 'gold'
+    }
     
     let accuracy;
     switch (player.subtabNumber) {
@@ -409,10 +420,10 @@ export const visualUpdateSettings = () => {
     const quarkData = quarkHandler();
     const onExportQuarks = quarkData.gain
     const maxExportQuarks = quarkData.capacity
-
-    document.getElementById("quarktimerdisplay").textContent = format((3600 / quarkData.perHour - (player.quarkstimer % (3600.00001 / quarkData.perHour))), 2) + "s until +1 export Quark"
+    const patreonLOL = 1 + player.worlds._BONUS/100
+    document.getElementById("quarktimerdisplay").textContent = format((3600 / (quarkData.perHour) - (player.quarkstimer % (3600.00001 / (quarkData.perHour)))), 2) + "s until +" + format(patreonLOL, 2, true) + " export Quark"
     document.getElementById("quarktimeramount").textContent = 
-        `Quarks on export: ${onExportQuarks} [Max ${format(maxExportQuarks)}]`;
+        `Quarks on export: ${format(Math.floor(onExportQuarks * patreonLOL))} [Max ${format(Math.floor(maxExportQuarks * patreonLOL))}]`;
 }
 
 export const visualUpdateShop = () => {

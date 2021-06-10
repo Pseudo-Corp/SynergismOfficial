@@ -1,3 +1,4 @@
+import { calculateSigmoid } from "./Calculate";
 import { Cube } from "./CubeExperimental";
 import { format, player } from "./Synergism";
 import { Alert, Confirm, Prompt } from "./UpdateHTML";
@@ -112,6 +113,8 @@ export class HepteractCraft {
                 player[item] -= amountToCraft * this.OTHER_CONVERSIONS[item];
             else if (Object.prototype.isPrototypeOf.call(Cube, player[item]))
                 (<Cube>player[item]).sub(amountToCraft * this.OTHER_CONVERSIONS[item]);
+            else if (item == 'worlds')
+                player.worlds.sub(amountToCraft * this.OTHER_CONVERSIONS[item])
         }
         return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' hepteracts. If this is less than your input, you either hit the inventory limit or you had insufficient resources.');
     }
@@ -294,17 +297,17 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
     }
 }
 
-export const hepteractToQuarkDescription = () => {
+export const hepteractToOverfluxOrbDescription = () => {
     document.getElementById('hepteractUnlockedText').style.display = 'none'
-    document.getElementById('hepteractCurrentEffectText').style.display = 'none'
-    document.getElementById('hepteractBalanceText').style.display = 'none'
-    document.getElementById('hepteractEffectText').textContent = "For a (high) price, you can synthesize Quarks using only seven dimensional cubes!"
-    document.getElementById('hepteractCostText').textContent = "Cost: 100,000 Hepteracts per quark"
+    document.getElementById('hepteractCurrentEffectText').textContent = 'Orb Effect: Opening Cubes gives ' + format(100 *(-1 + calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)), 2, true) + "% more Quarks."
+    document.getElementById('hepteractBalanceText').textContent = 'Orbs Purchased Today: ' + format(player.overfluxOrbs, 0, true) + '.'
+    document.getElementById('hepteractEffectText').textContent = "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]"
+    document.getElementById('hepteractCostText').textContent = "Cost: 250,000 Hepteracts per Overflux Orb"
 }
 
-export const tradeHepteractToQuark = async () => {
-    const maxBuy = Math.floor(player.wowAbyssals / 100000)
-    const hepteractInput = await Prompt('How many Quarks would you like to purchase? You can buy up to ' + format(maxBuy, 0, true) +  ' with your hepteracts.')
+export const tradeHepteractToOverfluxOrb = async () => {
+    const maxBuy = Math.floor(player.wowAbyssals / 250000)
+    const hepteractInput = await Prompt('How many Orbs would you like to purchase? You can buy up to ' + format(maxBuy, 0, true) +  ' with your hepteracts.')
     const toUse = Number(hepteractInput);
     if (
         Number.isNaN(toUse) ||
@@ -313,14 +316,13 @@ export const tradeHepteractToQuark = async () => {
     )
         return Alert(`Hey! That's not a valid number!`);
     
-    const buyAmount = Math.min(maxBuy, toUse, Math.floor(player.wowAbyssals / 100000))
-    const before = +player.worlds
-    player.worlds.add(buyAmount)
-    const after = +player.worlds
-    const bonusQuark = after - before - buyAmount
-    player.wowAbyssals -= 100000 * buyAmount
+    const buyAmount = Math.min(maxBuy, toUse)
+    const beforeEffect = calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)
+    player.overfluxOrbs += buyAmount
+    player.wowAbyssals -= 250000 * buyAmount
+    const afterEffect = calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)
 
-    return Alert(`You have purchased ` + format(after - before) + ` Quarks [${format(bonusQuark)} from Patreon Bonus]. Enjoy!`)
+    return Alert(`You have purchased ` + format(buyAmount, 0, true) + ` Overflux Orbs [+${format(100 * (afterEffect - beforeEffect), 2, true)}% to effect]. Enjoy!`)
 
 }
 

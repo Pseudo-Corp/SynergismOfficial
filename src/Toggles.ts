@@ -9,6 +9,7 @@ import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier } from './Statistics';
 import { corruptionDisplay, corruptionLoadoutTableUpdate } from './Corruptions';
+import { Player } from './types/Synergism';
 
 type TabValue = { tabName: keyof typeof tabNumberConst, unlocked: boolean };
 type Tab = Record<number, TabValue>;
@@ -143,41 +144,28 @@ export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) 
     }
 }
 
-export const toggleShops = (i: number) => {
-    if (i === 1 && player.shoptoggles.coin === false) {
-        player.shoptoggles.coin = true;
-        document.getElementById("shoptogglecoin").textContent = "Auto: ON"
-    } else if (i === 1 && player.shoptoggles.coin === true) {
-        player.shoptoggles.coin = false;
-        document.getElementById("shoptogglecoin").textContent = "Auto: OFF"
+type upgradeAutos = "coin" | "prestige" | "transcend" | "generators" | "reincarnate"
+
+/**
+ * Updates Auto Upgrade Border Colors if applicable, or updates the status of an upgrade toggle as optional.
+ * @param toggle Targets a specific upgrade toggle if provided
+ */
+export const toggleShops = (toggle?: upgradeAutos) => {
+    // toggle provided: we do not want to update every button
+    if (toggle) {
+        player.shoptoggles[toggle] = !player.shoptoggles[toggle]
+        document.getElementById(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle] ? 'green' : 'red';
+        document.getElementById(`${toggle}AutoUpgrade`).textContent = 'Auto: ' + (player.shoptoggles[toggle] ? 'ON': 'OFF');
     }
-    if (i === 2 && player.shoptoggles.prestige === false) {
-        player.shoptoggles.prestige = true;
-        document.getElementById("shoptoggleprestige").textContent = "Auto: ON"
-    } else if (i === 2 && player.shoptoggles.prestige === true) {
-        player.shoptoggles.prestige = false;
-        document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"
-    }
-    if (i === 3 && player.shoptoggles.transcend === false) {
-        player.shoptoggles.transcend = true;
-        document.getElementById("shoptoggletranscend").textContent = "Auto: ON"
-    } else if (i === 3 && player.shoptoggles.transcend === true) {
-        player.shoptoggles.transcend = false;
-        document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"
-    }
-    if (i === 4 && player.shoptoggles.generators === false) {
-        player.shoptoggles.generators = true;
-        document.getElementById("shoptogglegenerator").textContent = "Auto: ON"
-    } else if (i === 4 && player.shoptoggles.generators === true) {
-        player.shoptoggles.generators = false;
-        document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"
-    }
-    if (i === 5 && player.shoptoggles.reincarnate === false) {
-        player.shoptoggles.reincarnate = true;
-        document.getElementById("particleAutoUpgrade").textContent = "Auto: ON"
-    } else if (i === 5 && player.shoptoggles.reincarnate === true) {
-        player.shoptoggles.reincarnate = false;
-        document.getElementById("particleAutoUpgrade").textContent = "Auto: OFF"
+    else {
+        const keys = Object.keys(player.shoptoggles) as (keyof Player['shoptoggles'])[]
+        for (const key of keys) {
+            let color = player.shoptoggles[key]? 'green': 'red'
+            let auto = 'Auto: ' + (player.shoptoggles[key] ? 'ON' : 'OFF')
+            console.log(key)
+            document.getElementById(`${key}AutoUpgrade`).style.borderColor = color
+            document.getElementById(`${key}AutoUpgrade`).textContent = auto
+        }
     }
 }
 
@@ -393,12 +381,6 @@ export const toggleResearchBuy = () => {
         document.getElementById("toggleresearchbuy").textContent = "Upgrade: MAX [if possible]"
     }
 }
-
-/*function toggleFocus(i) {
-    if (i==1){document.getElementById("prestigeamount").focus();}
-    if (i==2){document.getElementById("transcendamount").focus();}
-    if (i==3){document.getElementById("reincarnationamount").focus();}
-}*/
 
 export const toggleAutoResearch = () => {
     const el = document.getElementById("toggleautoresearch")

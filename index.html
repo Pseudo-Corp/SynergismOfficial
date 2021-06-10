@@ -656,7 +656,7 @@
                         <td><img class="cubeUpgrade19" src="Pictures/Transparent Pics/ConstantUpgrade1.png" id="upg125" alt="" loading="lazy"></td>
                     </tr>
                 </table>
-                <button class="autobuyerToggleButton" id="shoptogglecoin" style="border:2px solid green">Auto: ON</button>
+                <button class="autobuyerToggleButton upgradeToggle" id="coinAutoUpgrade" style="border:2px solid green">Auto: ON</button>
             </div>
             <div>
                 <img class="prestigeunlock" src="Pictures/Diamond.png" alt="" loading="lazy">
@@ -692,7 +692,7 @@
                     </tr>
 
                 </table>
-                <button class="autobuyerToggleButton" id="shoptoggleprestige" style="border:2px solid green">Auto: ON</button>
+                <button class="autobuyerToggleButton upgradeToggle" id="prestigeAutoUpgrade" style="border:2px solid green">Auto: ON</button>
             </div>
             <div>
                 <img class="transcendunlock" src="Pictures/Mythos.png" alt="" loading="lazy">
@@ -727,7 +727,7 @@
                         <td><img class="reincarnationunlock" src="Pictures/Transparent Pics/Mythos20.png" id="upg60" alt="" loading="lazy"></td>
                     </tr>
                 </table>
-                <button class="autobuyerToggleButton" id="shoptoggletranscend" style="border:2px solid green">Auto: ON</button>
+                <button class="autobuyerToggleButton upgradeToggle" id="transcendAutoUpgrade" style="border:2px solid green">Auto: ON</button>
             </div>
             <div>
                 <img class="prestigeunlock" src="Pictures/Generators.png" alt="" loading="lazy">
@@ -762,7 +762,7 @@
                         <td><img id="upg120" class="transcendunlock" src="Pictures/Transparent Pics/GeneratorTwenty.png" alt="" loading="lazy"></td>
                     </tr>
                 </table>
-                <button class="autobuyerToggleButton" id="shoptogglegenerator" style="border:2px solid green">Auto: ON</button>
+                <button class="autobuyerToggleButton upgradeToggle" id="generatorsAutoUpgrade" style="border:2px solid green">Auto: ON</button>
             </div>
             <div>
                 <img class="prestigeunlock" src="Pictures/Automation.png" alt="" loading="lazy">
@@ -831,7 +831,7 @@
                         <td><img class="reinrow4" src="Pictures/Transparent Pics/Particle20.png" id="upg80" alt="" loading="lazy"></td>
                     </tr>
                 </table>
-                <button class="autobuyerToggleButton" id="particleAutoUpgrade" style="border: 2px solid green">Auto: ON</button>
+                <button class="autobuyerToggleButton upgradeToggle" id="reincarnateAutoUpgrade" style="border: 2px solid green">Auto: ON</button>
             </div>
         </div>
 
@@ -1969,9 +1969,9 @@
                     <p id="hypercubeQuarksOpenRequirement" class="chal13">Open <span id="hypercubeQuarksOpenRequirementValue" style="color: yellow">1</span> hypercubes for next quark.</p>
                     <p id="hypercubeQuarksOpenToday" class="chal13">Hypercubes opened today: <span id="hypercubeQuarksOpenTodayValue" style="color: orchid;">0</span></p>
                     <br>
-                    <p id="platonicQuarksToday" class="chal14">Quarks gained from Platonics: <span id="platonicQuarksTodayValue" style="color: cyan">0</span></p>
-                    <p id="platonicQuarksOpenRequirement" class="chal14">Open <span id="platonicQuarksOpenRequirementValue" style="color: yellow">1</span> platonic cubes for next quark.</p>
-                    <p id="platonicQuarksOpenToday" class="chal14">Platonic Cubes opened today: <span id="platonicQuarksOpenTodayValue" style="color: orchid">0</span></p>
+                    <p id="platonicCubeQuarksToday" class="chal14">Quarks gained from Platonics: <span id="platonicCubeQuarksTodayValue" style="color: cyan">0</span></p>
+                    <p id="platonicCubeQuarksOpenRequirement" class="chal14">Open <span id="platonicCubeQuarksOpenRequirementValue" style="color: yellow">1</span> platonic cubes for next quark.</p>
+                    <p id="platonicCubeQuarksOpenToday" class="chal14">Platonic Cubes opened today: <span id="platonicCubeQuarksOpenTodayValue" style="color: orchid">0</span></p>
                 </div>
                 <div id="cubeTab1" class="cubeTab" style="display: flex">
                     <span id="cubeWelcome" class="cubePlacement1" style="color: orange">You feel a sense of Pride and Accomplishment... and a hunger for power.</span>
@@ -2504,16 +2504,16 @@
                             <button id="multiplierHepteractCap">Expand</button>
                         </div>
                         <div class="hepteractType" id="hepteractToQuark">
-                            <img id="hepteractToQuarkImage" src="Pictures/Quark.png">
-                            <button id="hepteractToQuarkTrade">Trade</button>
+                            <img id="hepteractToQuarkImage" src="Pictures/Overflux.png">
+                            <button id="hepteractToQuarkTrade">Craft</button>
                         </div>
                     </div>
 
                     <div id="hepteractCraftTexts">
                         <p id="hepteractUnlockedText" style="color: white"></p>
                         <p id="hepteractEffectText" style="color:rgb(0, 255, 76)"></p>
-                        <p id="hepteractCurrentEffectText" style="color: yellow"></p>
                         <p id="hepteractBalanceText" style="color: orchid;"></p>
+                        <p id="hepteractCurrentEffectText" style="color: yellow"></p>
                         <p id="hepteractCostText" style="color: white"></p>
                     </div>
 
@@ -2671,8 +2671,8 @@
                 <p id="promocodeinfo" style="color: goldenrod"></p>
             </div>
             <div id="exportButtons">
-                <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
-                <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
+                <p id="quarktimerdisplay" class="tightText" style="color: gold">3600s until +1 export Quark</p>
+                <p id="quarktimeramount" class="tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
                 <div>
                     <input type="checkbox" id="saveType" name="saveType">
                     <label style="display: inline;" for="saveType">Copy to Clipboard</label>

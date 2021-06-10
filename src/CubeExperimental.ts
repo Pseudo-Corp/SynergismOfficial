@@ -14,7 +14,7 @@ import { calculateCubeBlessings } from './Calculate';
 import { CalcECC } from './Challenges';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
-import { getQuarkMultiplier } from './Quark';
+import { getQuarkMultiplier, quarkHandler } from './Quark';
 import { player } from './Synergism';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { Player } from './types/Synergism';
@@ -112,7 +112,7 @@ export abstract class Cube {
         }
         // General quark multiplier from other in-game features
         // Multiplier from passed parameter
-        const multiplier = getQuarkMultiplier() * mult;
+        const multiplier = getQuarkMultiplier() * mult * quarkHandler().cubeMult;
         return Math.floor(Math.log10(cubes) * base * multiplier);
     }
 
@@ -120,7 +120,7 @@ export abstract class Cube {
     checkCubesToNextQuark(base: number, mult: number, quarks: number, cubes: number): number {
         // General quark multiplier from other in-game features
         // Multiplier from passed parameter
-        const multiplier = getQuarkMultiplier() * mult;
+        const multiplier = getQuarkMultiplier() * mult * quarkHandler().cubeMult;
 
         return Math.ceil(Math.pow(10, (quarks + 1) / (multiplier * base)) - cubes)
     }

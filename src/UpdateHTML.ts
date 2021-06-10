@@ -287,8 +287,8 @@ export const revealStuff = () => {
         document.getElementById("talisman7area").style.display = "none";
 
     player.cubeUpgrades[8] > 0 ?
-        document.getElementById('particleAutoUpgrade').style.display = "block" :
-        document.getElementById('particleAutoUpgrade').style.display = "none";
+        document.getElementById('reincarnateAutoUpgrade').style.display = "block" :
+        document.getElementById('reincarnateAutoUpgrade').style.display = "none";
 
     player.shopUpgrades.infiniteAscent ?
         (document.getElementById('rune6area').style.display = 'flex', document.getElementById('runeshowpower6').style.display = "flex") :
@@ -336,10 +336,10 @@ export const revealStuff = () => {
         "toggle25": player.cubeUpgrades[7] === 1, // Autobuyer - Particle Buildings - Tier 4 (Quasars)
         "toggle26": player.cubeUpgrades[7] === 1, // Autobuyer - Particle Buildings - Tier 5 (Galactic Nuclei)
         "toggle27": player.researches[46] === 1, // Feature - Particle Buildings - Auto Reincarnate
-        "shoptogglecoin": player.upgrades[91] === 1, // Feature - Upgrades - Auto Buy Coin Upgrades
-        "shoptoggleprestige": player.upgrades[92] === 1, // Feature - Upgrades - Auto Buy Diamond Upgrades
-        "shoptoggletranscend": player.upgrades[99] === 1, // Feature - Upgrades - Auto Buy Mythos Upgrades
-        "shoptogglegenerator": player.upgrades[90] === 1, // Feature - Upgrades - Auto Buy Generator Upgrades
+        "coinAutoUpgrade": player.upgrades[91] === 1, // Feature - Upgrades - Auto Buy Coin Upgrades
+        "prestigeAutoUpgrade": player.upgrades[92] === 1, // Feature - Upgrades - Auto Buy Diamond Upgrades
+        "transcendAutoUpgrade": player.upgrades[99] === 1, // Feature - Upgrades - Auto Buy Mythos Upgrades
+        "generatorsAutoUpgrade": player.upgrades[90] === 1, // Feature - Upgrades - Auto Buy Generator Upgrades
         "toggle9": player.unlocks.prestige, // Feature - Upgrades - Hover to Buy
         "toggle28": player.prestigeCount > 0.5 || player.reincarnationCount > 0.5, // Settings - Confirmations - Prestige
         "toggle29": player.transcendCount > 0.5 || player.reincarnationCount > 0.5,  // Settings - Confirmations - Transcension

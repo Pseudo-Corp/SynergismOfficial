@@ -19,7 +19,7 @@ import { resetHistoryTogglePerSecond } from "./History"
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData } from "./Shop"
 import { Globals as G } from './Variables';
 import { changeTabColor } from "./UpdateHTML"
-import { hepteractDescriptions, hepteractToQuarkDescription, tradeHepteractToQuark } from "./Hepteracts"
+import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb } from "./Hepteracts"
 import { exitOffline, timeWarp } from "./Calculate"
 import { Player } from "./types/Synergism"
 
@@ -226,11 +226,11 @@ export const generateEventHandlers = () => {
     }
 
 // Next part: Shop-specific toggles
-    document.getElementById('shoptogglecoin').addEventListener('click', () => toggleShops(1))
-    document.getElementById('shoptoggleprestige').addEventListener('click', () => toggleShops(2))
-    document.getElementById('shoptoggletranscend').addEventListener('click', () => toggleShops(3))
-    document.getElementById('shoptogglegenerator').addEventListener('click', () => toggleShops(4))
-    document.getElementById('particleAutoUpgrade').addEventListener('click', () => toggleShops(5))
+    document.getElementById('coinAutoUpgrade').addEventListener('click', () => toggleShops('coin'))
+    document.getElementById('prestigeAutoUpgrade').addEventListener('click', () => toggleShops('prestige'))
+    document.getElementById('transcendAutoUpgrade').addEventListener('click', () => toggleShops('transcend'))
+    document.getElementById('generatorsAutoUpgrade').addEventListener('click', () => toggleShops('generators'))
+    document.getElementById('reincarnateAutoUpgrade').addEventListener('click', () => toggleShops('reincarnate'))
 
 // ACHIEVEMENTS TAB
 // Easy. There are 280 achievements, 280 mouseovers.
@@ -474,8 +474,8 @@ document.getElementById('acceleratorHepteractCap').addEventListener('click', () 
 document.getElementById('acceleratorBoostHepteractCap').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.expand())
 document.getElementById('multiplierHepteractCap').addEventListener('click', () => player.hepteractCrafts.multiplier.expand())
 
-document.getElementById('hepteractToQuark').addEventListener('mouseover', () => hepteractToQuarkDescription())
-document.getElementById('hepteractToQuarkTrade').addEventListener('click', () => tradeHepteractToQuark())
+document.getElementById('hepteractToQuark').addEventListener('mouseover', () => hepteractToOverfluxOrbDescription())
+document.getElementById('hepteractToQuarkTrade').addEventListener('click', () => tradeHepteractToOverfluxOrb())
 // CORRUPTION TAB
 //Part 0: Subtabs
 document.getElementById('corrStatsBtn').addEventListener('click', () => toggleSubTab(9, 0))

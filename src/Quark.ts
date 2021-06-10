@@ -1,5 +1,6 @@
 /* Functions which Handle Quark Gains,  */
 
+import { calculateSigmoid } from "./Calculate";
 import { hepteractEffective } from "./Hepteracts"
 import { player } from "./Synergism"
 import { Alert } from "./UpdateHTML";
@@ -76,12 +77,15 @@ export const quarkHandler = () => {
     //Part 4: Calculate how many quarks are to be gained.
     const quarkGain = Math.floor(player.quarkstimer * quarkPerHour / 3600);
 
+    //Part 5 [June 9, 2021]: Calculate bonus awarded to cube quarks.
+    const cubeMult = calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)
     //Return maxTime, quarkPerHour, capacity and quarkGain as object
     return {
         maxTime: maxTime,
         perHour: quarkPerHour,
         capacity: capacity,
-        gain: quarkGain
+        gain: quarkGain,
+        cubeMult: cubeMult
     };
 }
 
@@ -125,6 +129,10 @@ export class QuarkHandler {
 
         return this;
     }
+
+    public get _BONUS() : number {
+        return this.BONUS
+    }    
 
     async getBonus() {
         if (localStorage.getItem('quarkBonus') !== null) { // is in cache
