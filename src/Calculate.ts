@@ -1,4 +1,4 @@
-import { player, interval, clearInt, saveSynergy, format, resourceGain } from './Synergism';
+import { player, interval, clearInt, saveSynergy, format, createAnts } from './Synergism';
 import { sumContents, productContents, getElementById } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
@@ -798,25 +798,20 @@ export const calculateOffline = (forceTime = 0) => {
     const maximumTimer = 86400 * 3 + 7200 * 2 * player.researches[31] + 7200 * 2 * player.researches[32];
     const updatedTime = Date.now();
     const timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - player.offlinetick) / 1000))
+    let antTicks = 200;
+
     document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " seconds of Offline Progress!";
 
     //May 11, 2021: I've revamped calculations for this significantly. Note to May 11 Platonic: Fuck off -May 15 Platonic
-    let simulatedTicks = 1 //Math.min(2000, Math.floor(10 * Math.pow(timeAdd, 0.5)) + 1)
-    //if (isTesting)
-    //   simulatedTicks = 10000
-    const tickValue = timeAdd
-
     //Some one-time tick things that are relatively important
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
-
-//    addTimers("quarks", timeAdd);
 
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
     document.getElementById("offlineContainer").style.display = "flex";
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
-    const runOffline = interval(runSimulator, 0)
+    const runOffline = interval(antSimulator, 0)
 
     //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
@@ -827,80 +822,64 @@ export const calculateOffline = (forceTime = 0) => {
     const obtainiumGain = calculateAutomaticObtainium();
 
     const resetAdd = {
-        prestige: tickValue / Math.max(0.01, player.fastestprestige),
-        offering: Math.floor(tickValue),
-        transcension: tickValue / Math.max(0.01, player.fastesttranscend),
-        reincarnation: tickValue / Math.max(0.01, player.fastestreincarnate),
-        obtainium: tickValue * obtainiumGain * G['timeMultiplier'],
+        prestige: timeAdd / Math.max(0.01, player.fastestprestige),
+        offering: Math.floor(timeAdd),
+        transcension: timeAdd / Math.max(0.01, player.fastesttranscend),
+        reincarnation: timeAdd / Math.max(0.01, player.fastestreincarnate),
+        obtainium: timeAdd * obtainiumGain * G['timeMultiplier'],
     };
 
     const timerAdd = {
-        prestige: tickValue * G['timeMultiplier'],
-        transcension: tickValue * G['timeMultiplier'],
-        reincarnation: tickValue * G['timeMultiplier'],
-        ants: tickValue * G['timeMultiplier'],
-        antsReal: tickValue,
+        prestige: timeAdd * G['timeMultiplier'],
+        transcension: timeAdd * G['timeMultiplier'],
+        reincarnation: timeAdd * G['timeMultiplier'],
+        ants: timeAdd * G['timeMultiplier'],
+        antsReal: timeAdd,
         ascension: player.ascensionCounter, //Calculate this after the fact
         quarks: quarkHandler().gain //Calculate this after the fact
     };
 
-    //The cool shit that forces the repetitive loops [But it's actually just once. Again, fuck you Platonic]
-    function runSimulator() {
-        //Reset Stuff lmao!
-        addTimers('prestige', tickValue);
-        addTimers('transcension', tickValue);
-        addTimers('reincarnation', tickValue);
-        addTimers('ascension', tickValue);
-        addTimers('quarks', tickValue);
+    //Reset Stuff lmao!
+    addTimers('prestige', timeAdd);
+    addTimers('transcension', timeAdd);
+    addTimers('reincarnation', timeAdd);
+    addTimers('ascension', timeAdd);
+    addTimers('quarks', timeAdd);
 
-        player.prestigeCount += resetAdd.prestige;
-        player.transcendCount += resetAdd.transcension;
-        player.reincarnationCount += resetAdd.reincarnation;
+    player.prestigeCount += resetAdd.prestige;
+    player.transcendCount += resetAdd.transcension;
+    player.reincarnationCount += resetAdd.reincarnation;
 
-        timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
-        timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
+    timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
+    timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
 
-        document.getElementById('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
-        document.getElementById('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
+    document.getElementById('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
+    document.getElementById('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
 
-        //Credit Resources
-        resourceGain(tickValue * G['timeMultiplier'])
+    //Auto Obtainium Stuff
+    if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14)
+        automaticTools('addObtainium', timeAdd);
 
-        //Auto Obtainium Stuff
-        if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
-            automaticTools('addObtainium', tickValue);
-        }
-        //Auto Ant Sacrifice Stuff
-        if (player.achievements[173] > 0) {
-            automaticTools('antSacrifice', tickValue);
-            /*player.antSacrificeTimer += tickValue * timeMultiplier;
-            player.antSacrificeTimerReal += tickValue;*/
-        }
+    //Auto Ant Sacrifice Stuff
+    if (player.achievements[173] > 0)
+        automaticTools('antSacrifice', timeAdd);
 
-        //Auto Offerings
-            automaticTools('addOfferings', tickValue);
+    //Auto Offerings
+    automaticTools('addOfferings', timeAdd);
+    //Auto Rune Sacrifice Stuff
+    if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle)
+        automaticTools('runeSacrifice', timeAdd);
+    
+    document.getElementById('progressbardescription').textContent = 'You have gained the following from offline progression!'
 
-        //Auto Rune Sacrifice Stuff
-        if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
-            automaticTools('runeSacrifice', tickValue);
-            /*player.sacrificeTimer += tickValue;
-            if (player.sacrificeTimer >= 1) {
-                const rune = player.autoSacrifice;
-                redeemShards(rune, true);
-                player.sacrificeTimer = player.sacrificeTimer % 1;
-            }*/
-        }
-        //Otherwise, Update All every simulated tick
-    //    updateAll();
+    //200 simulated ant ticks [June 10, 2021]
+    function antSimulator() {
+        createAnts(timeAdd/200);
+        antTicks -= 1;
         //Misc functions
-        simulatedTicks -= 1;
-        if (simulatedTicks < 1) {
+        if (antTicks < 1) {
             clearInt(runOffline);
             G['timeWarp'] = false;
-            Alert('You have gained offline progress. Enjoi! :D')
-            document.getElementById('progressbardescription').textContent = 'You have gained the following from offline progression!'
-//            document.getElementById("offlineContainer").style.display = "none";
-//            document.getElementById("preload").style.display = "none";
         }
     }
 
@@ -925,8 +904,6 @@ export const calculateOffline = (forceTime = 0) => {
         player.loadedNov13Vers = true
     }
 
-//    document.getElementById("offlineContainer").style.display = "none";
-//    document.getElementById("preload").style.display = "none";
     saveSynergy();
     updateTalismanInventory();
     calculateObtainium();

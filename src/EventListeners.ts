@@ -332,9 +332,9 @@ export const generateEventHandlers = () => {
     // Autochallenge buttons
     document.getElementById('toggleAutoChallengeIgnore').addEventListener('click', () => toggleAutoChallengesIgnore(G['triggerChallenge']))
     document.getElementById('toggleAutoChallengeStart').addEventListener('click', () => toggleAutoChallengeRun())
-    document.getElementById('startAutoChallengeTimerInput').addEventListener('blur', () => updateAutoChallenge(1))
-    document.getElementById('exitAutoChallengeTimerInput').addEventListener('blur', () => updateAutoChallenge(2))
-    document.getElementById('enterAutoChallengeTimerInput').addEventListener('blur', () => updateAutoChallenge(3))
+    document.getElementById('startAutoChallengeTimerInput').addEventListener('input', () => updateAutoChallenge(1))
+    document.getElementById('exitAutoChallengeTimerInput').addEventListener('input', () => updateAutoChallenge(2))
+    document.getElementById('enterAutoChallengeTimerInput').addEventListener('input', () => updateAutoChallenge(3))
 
 // RESEARCH TAB
 //Part 1: Researches
