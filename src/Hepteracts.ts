@@ -305,6 +305,7 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
 export const hepteractToOverfluxOrbDescription = () => {
     document.getElementById('hepteractUnlockedText').style.display = 'none'
     document.getElementById('powderDayWarpText').style.display = 'none'
+    document.getElementById('hepteractCostText').style.display = 'block'
 
     document.getElementById('hepteractCurrentEffectText').textContent = 'Orb Effect: Opening Cubes gives ' + format(100 *(-1 + calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)), 2, true) + "% more Quarks."
     document.getElementById('hepteractBalanceText').textContent = 'Orbs Purchased Today: ' + format(player.overfluxOrbs, 0, true) + '.'
