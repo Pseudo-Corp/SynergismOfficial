@@ -1335,10 +1335,11 @@ const loadSynergy = (reset = false) => {
     
     // Update Hepteracts to player if available.
     // TODO: make it so that it creates a default for any not defined in data but generates the hepteract with data values otherwise
+    const hepteractKeys = Object.keys(player.hepteractCrafts) as (keyof Player['hepteractCrafts'])[]
     if (data.hepteractCrafts !== undefined) {
-        for (const item in data.hepteractCrafts) {
-            const k = item as keyof Player['hepteractCrafts'];
-            player.hepteractCrafts[k] = createHepteract(data.hepteractCrafts[k]);
+        for (const h of hepteractKeys) {
+            if (data.hepteractCrafts[h] !== undefined)
+                player.hepteractCrafts[h] = createHepteract(data.hepteractCrafts[h]);
         }
     }
 

@@ -233,6 +233,7 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
     document.getElementById('hepteractCurrentEffectText').style.display = 'block'
     document.getElementById('hepteractBalanceText').style.display = 'block'
     document.getElementById('powderDayWarpText').style.display = 'none'
+    document.getElementById('hepteractCostText').style.display = 'block'
 
     const unlockedText = document.getElementById('hepteractUnlockedText')
     const effectText = document.getElementById('hepteractEffectText')
