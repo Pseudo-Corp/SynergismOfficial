@@ -307,7 +307,7 @@ const resdesc = [
     "[7x12] More exponentiation! +0.0001% more inceptus power per level!",
     "[7x13] Ant God's wanting blood: +2% Ant Sacrifice rewards / level",
     "[7x14] Spirit power still sucks, so add +8% power per level!",
-    "[7x15] Gain 2x the Spirit buffs in challenges!",
+    "[7x15] Gain 2x the Spirit buffs in ascension challenges!",
     "[7x16] < T I M E >: +0.9% faster ticks / level ",
     "[7x17] Because of sponsorships, Wow! Industries is raising cubes gained in Ascension by 0.8% per level.",
     "[7x18] Gain +0.08% tributes from cubes per level. You know, you should expect it at this point.",
