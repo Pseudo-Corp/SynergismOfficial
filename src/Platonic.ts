@@ -10,12 +10,12 @@ const platonicUpgradeDesc = [
     'Raises corruption 1 and 2 exponent ^(1 + level/30), capacity of ^1 on Mult/Accel.',
     'Raises speed below 1x to the power of ^(1 - level/30).',
     'Divides Hyperchallenged by (1 + 0.4 * level), with a minimum 1x challenge req. multiplier!',
-    'Gain more obtainium with the illiteracy corruption, up until 1e100 obtainium!',
+    'Raise obtanium to the power of (1+(0.09*log10(Obt owned))) and add another x2.5 multiplier (uncorruptable), up until 1e100 obtainium!',
     'C10 Exponent: 1.0375 --> 1.04, Const. tax exponent +0.20 and 10x faster constant production, +5/+3 Challenge caps, 3.5x Obtainium and Offerings, 2x All Cubes. ^1.25 ant exponent in C15!',
-    'With this upgrade, you will gain diamonds equal to particle gain!',
+    'With this upgrade, you will gain diamonds equal to particle gain on reincarnation! Does not work with cube upgrade [3x8]!',
     'Gain (1 + lvl/100)x ant multiplier per challenge completion, ignoring corruptions to ants.',
     'Effect of Drought is raised to the power of 0.5.',
-    'Gain a small coin exponent dependent on your coins, up until 1e4T coins.',
+    'Reduce the effect of Financial Recession in Sadistic Challenge II, multiplying the coin exponent by 1.55.',
     'I suppose that, after all, we all are Everywhere at the End of Time.'
 ];
 
