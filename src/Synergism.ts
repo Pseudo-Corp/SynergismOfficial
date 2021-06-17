@@ -1329,19 +1329,19 @@ const loadSynergy = (reset = false) => {
         calculateRuneLevels();
         resetHistoryRenderAllTables();
         c15RewardUpdate();
+
+        // Update Hepteracts to player if available.
+        // TODO: make it so that it creates a default for any not defined in data but generates the hepteract with data values otherwise
+        const hepteractKeys = Object.keys(player.hepteractCrafts) as (keyof Player['hepteractCrafts'])[]
+        if (data.hepteractCrafts !== undefined) {
+            for (const h of hepteractKeys) {
+                if (data.hepteractCrafts[h] !== undefined)
+                    player.hepteractCrafts[h] = createHepteract(data.hepteractCrafts[h]);
+            }
+        }
     }
     CSSAscend();
     updateAchievementBG();
-    
-    // Update Hepteracts to player if available.
-    // TODO: make it so that it creates a default for any not defined in data but generates the hepteract with data values otherwise
-    const hepteractKeys = Object.keys(player.hepteractCrafts) as (keyof Player['hepteractCrafts'])[]
-    if (data.hepteractCrafts !== undefined) {
-        for (const h of hepteractKeys) {
-            if (data.hepteractCrafts[h] !== undefined)
-                player.hepteractCrafts[h] = createHepteract(data.hepteractCrafts[h]);
-        }
-    }
 
     const d = new Date()
     const h = d.getHours()
