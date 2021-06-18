@@ -1,6 +1,6 @@
 import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation } from "./Toggles"
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from "./Reset"
-import { player, resetCheck, saveSynergy } from "./Synergism"
+import { isTesting, player, resetCheck, saveSynergy } from "./Synergism"
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels } from "./Buy"
 import { crystalupgradedescriptions, constantUpgradeDescriptions, buyConstantUpgrades, upgradedescriptions } from "./Upgrades"
 import { buyAutobuyers } from "./Automation"
@@ -42,9 +42,21 @@ import { Player } from "./types/Synergism"
 
 export const generateEventHandlers = () => {
     const ordinals = ['null','first','second','third','fourth','fifth','sixth','seventh','eighth']
-// Testing - TODO: Remove before updating to live but keep for now
-    document.getElementById('timeWarp').addEventListener('click', () => timeWarp());
-    document.getElementById('forceDayReset').addEventListener('click', () => forcedDailyReset());
+
+    if (isTesting) {
+        const warp = document.createElement('button');
+        const dayReset = document.createElement('button');
+        warp.textContent = 'Click here to warp time! [TESTING ONLY]';
+        warp.setAttribute('style',`width: auto; height: 30px; border: 6px solid gold;`);
+        warp.addEventListener('click', () => timeWarp());
+        dayReset.textContent = 'Click to force a new day! [TESTING ONLY]';
+        dayReset.setAttribute('style',`width: auto; height: 30px; border: 6px solid orange;`);
+        dayReset.addEventListener('click', () => forcedDailyReset());
+
+        const consumables = document.getElementById('actualConsumables');
+        consumables.appendChild(warp);
+        consumables.appendChild(dayReset);
+    }
 // Offline Button
     document.getElementById('exitOffline').addEventListener('click', () => exitOffline());
 // UPPER UI ELEMENTS
