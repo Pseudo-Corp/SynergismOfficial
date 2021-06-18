@@ -3,7 +3,7 @@ import LZString from 'lz-string';
 
 import { isDecimal, getElementById, sortWithIndeces, sumContents } from './Utility';
 import { blankGlobals, Globals as G } from './Variables';
-import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges } from './Challenges';
+import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges, challenge15ScoreMultiplier } from './Challenges';
 
 import type { Player } from './types/Synergism';
 import { upgradeupdate, getConstUpgradeMetadata, buyConstantUpgrades, ascendBuildingDR } from './Upgrades';
@@ -2652,8 +2652,8 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
             if (player.coins.gte(challengeRequirement(a, player.challengecompletions[a], a)) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
             } else {
-                if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / (1 + 5/10000 * hepteractEffective('challenge')) / (1 + 0.25 * player.platonicUpgrades[15])))) {
-                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * (1 + 5/10000 * hepteractEffective('challenge')) * (1 + 0.25 * player.platonicUpgrades[15]);
+                if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
+                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
                     c15RewardUpdate();
                 }
             }

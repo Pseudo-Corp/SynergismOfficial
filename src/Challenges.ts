@@ -3,6 +3,8 @@ import { player, format, resetCheck } from "./Synergism";
 import { toggleAutoChallengeRun, toggleAutoChallengeModeText, toggleChallenges } from "./Toggles";
 import { Globals as G } from './Variables';
 import { calculateRuneLevels } from "./Calculate";
+import { hepteractEffective } from "./Hepteracts";
+import { productContents } from "./Utility";
 
 export const getMaxChallenges = (i: number) => {
     let maxChallenge = 0;
@@ -665,4 +667,12 @@ export const runChallengeSweep = (dt: number) => {
         toggleAutoChallengeModeText("EXIT");
         return
     }
+}
+
+export const challenge15ScoreMultiplier = () => {
+    const arr = [
+        1 + 5/10000 * hepteractEffective('challenge'), // Challenge Hepteract
+        1 + 0.25 * player.platonicUpgrades[15] // Omega Upgrade
+    ]
+    return productContents(arr)
 }
