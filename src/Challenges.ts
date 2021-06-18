@@ -427,10 +427,11 @@ export const calculateChallengeRequirementMultiplier = (type: string, completion
     }
     switch (type) {
         case "transcend":
+            requirementMultiplier *= G['challenge15Rewards'].transcendChallengeReduction;
+            
             (completions >= 75) ?
                 requirementMultiplier *= Math.pow(1 + completions, 12) / Math.pow(75, 8) :
                 requirementMultiplier *= Math.pow(1 + completions, 2);
-            requirementMultiplier *= G['challenge15Rewards'].transcendChallengeReduction
 
             if (completions >= 1000) {
                 requirementMultiplier *= 10 * Math.pow(completions / 1000, 3)
@@ -480,6 +481,7 @@ export const calculateChallengeRequirementMultiplier = (type: string, completion
             if (completions < 25){
                 requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions));
             }
+            requirementMultiplier *= G['challenge15Rewards'].reincarnationChallengeReduction
             return requirementMultiplier
         case "ascension":
             if (special !== 15) {
