@@ -1,4 +1,4 @@
-import { player, interval, clearInt, saveSynergy, format, createAnts } from './Synergism';
+import { player, interval, clearInt, saveSynergy, format, resourceGain } from './Synergism';
 import { sumContents, productContents, getElementById } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
@@ -872,9 +872,9 @@ export const calculateOffline = (forceTime = 0) => {
     
     document.getElementById('progressbardescription').textContent = 'You have gained the following from offline progression!'
 
-    //200 simulated ant ticks [June 10, 2021]
+    //200 simulated all ticks [June 18, 2021]
     function antSimulator() {
-        createAnts(timeAdd/200);
+        resourceGain(timeAdd/200 * G['timeMultiplier']);
         antTicks -= 1;
         //Misc functions
         if (antTicks < 1) {
