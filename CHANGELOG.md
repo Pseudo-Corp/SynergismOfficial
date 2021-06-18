@@ -1,0 +1,46 @@
+# v2.5.0
+- Re-written in TypeScript
+- General code cleanup.
+- Add reassignable hotkeys and ability to use multiple keys per action.
+- Organize the stats tab by making it horizontally scroll.
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/054ff050f2d5fc2711c14c89e035b1aec253c420
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/9875e5a8de3889b7dc0c22753725c5df579ac323
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/a17dcf175b30317fc2089878170f803335b2aef5
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/1f2e71163466111271ec9f5251115ffd27f734d9
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/187da0a375001687c998b4da62ec277489a16bef
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/c63dfa46848e56defda2edb70ea91cd0cb35fcb5
+- Display and format small numbers (0 to 1e-6) with better accuracy.
+- Fix inputting a long savefile name breaking the page layout and making the game unplayable.
+- Add in the `sub` promocode!
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/15d6e0dbee18e1a7a33cb27afa1f430f41293b76
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/8d6d666fdc3f01db2c4548c90def4e30b2989b49
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/a24915ea9f5de8a4001a9d82951da921d47ad402
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/048810cb46bad74b362794b57af270622ec5f1fe
+- Add in an autoupdating quark bonus - for every $10 on [Patreon](https://patreon.com/synergism), the bonus is increased by 1%.
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/b4a14dc11aa336176533b53e996ae3a293539bd6
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/f1871d9c91e3e48e7fa0d54f3de7ac60ce621c45
+- Fix antsac being visible without 5x24
+- Use the system locale for number delimiters and decimals. [9c6e7ef]
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/208dcd340473b9bd73421b9b7c8adde767781926
+- Add sample saves to ensure that future changes and updates will not break backwards compatibility.
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/b483c576cbe312945455b9e53f24a5a505ba037a
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/a12fbbf5ecdb0d10fd6d47fbfde077f0eed01f74
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/e94e5711c698ca92739db80e9d621bd8399e67bc
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/1b16e131458911bf7a740a2f768db99c5f79dc37
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/a8c1f01a26093552d617cdfbb3036a3bee120acf
+- Allow custom amounts of *cubes to be opened - finally.
+- Fix the infamous import bug.
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/4e10a3319d5646d857a02df24fe76681a1e73111
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/4341b15b974b11febb4f489b7760f4823667b368
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/3b4d4be0deb3be0a4a56f8ae6d385e95892d1529
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/dabc1ea6f0f86b6a8fc4ddfa98bfb5882944bb2c
+- Improve loading speeds by lazily loading images.
+- Add in the OP `gamble` promocode. [7bb237f]
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/eb780c4049da60e18ba083f70725723b7b480d3a
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/1d2bbbac0d50bd05da2a0b555c6180b6df71d05a
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/0ae37dd5b0d68cf5f12889e14e9f77137f24ba3e
+- Fix Challenge multiplier row always being 1.250x - 1e1000000
+- Custom browser popup functions (`prompt`, `confirm`, and `alert`).
+- Fix old saves not migrating properly.
+- https://github.com/Pseudo-Corp/SynergismOfficial/commit/3e64372220157e5e23005dde05e6eb6db74821e7
+- General CSS cleanup, largely thanks to omsi6!
