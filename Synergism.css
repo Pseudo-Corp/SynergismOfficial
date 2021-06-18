@@ -2957,6 +2957,10 @@ header #obtainiumDisplay {
     margin-top: 2px;
 }
 
+#hotKeyDesc {
+    margin: 0;
+}
+
 #hotkeyTooltip {
     color: darkorchid;
 }
