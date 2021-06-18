@@ -200,28 +200,34 @@ export const promocodes = async () => {
         const [first, second] = window.crypto.getRandomValues(new Uint8Array(2));
 
         //Allows storage of up to (24 + 2 * calc2 levels) Add Codes, lol!
-        player.rngCode = Math.max(Date.now() - (24 + 2 * player.shopUpgrades.calculator2 - realAttemptsUsed) * hour, player.rngCode + hour * realAttemptsUsed)
-        const remaining = Math.floor((Date.now() - player.rngCode) / hour)
-        const timeToNext = Math.floor((hour - (Date.now() - player.rngCode - hour * remaining)) / 1000)
+        const v = Math.max(Date.now() - (24 + 2 * player.shopUpgrades.calculator2 - realAttemptsUsed) * hour, player.rngCode + hour * realAttemptsUsed);
+        const remaining = Math.floor((Date.now() - v) / hour)
+        const timeToNext = Math.floor((hour - (Date.now() - v - hour * remaining)) / 1000)
 
         // Calculator 3: Adds ascension timer.
-        const ascensionTimer = (player.shopUpgrades.calculator3 > 0)?
-        'Thanks to PL-AT Ω you have also gained ' + format(60 * player.shopUpgrades.calculator3 * realAttemptsUsed) + ' real-life seconds to your Ascension Timer!':
-        '';
+        const ascensionTimer = (player.shopUpgrades.calculator3 > 0)
+            ? 'Thanks to PL-AT Ω you have also gained ' + format(60 * player.shopUpgrades.calculator3 * realAttemptsUsed) + ' real-life seconds to your Ascension Timer!'
+            : '';
+
         // Calculator Maxed: you don't need to insert anything!
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
             addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed)
-            await Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks} quarks! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
-            return
+            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks} quarks! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
         }
 
         // If your calculator isn't maxxed but has levels, it will provide the solution.
-        const solution = (player.shopUpgrades.calculator > 0) ?
-        'The answer is ' + (first + second) + ' according to your calculator.': 
-        '';
+        const solution = (player.shopUpgrades.calculator > 0) 
+            ? 'The answer is ' + (first + second) + ' according to your calculator.'
+            : '';
 
         const addPrompt = await Prompt(`For ${actualQuarks} quarks or for nothing: What is ${first} + ${second}? ${solution}`);
+
+        if (addPrompt === null) {
+            return Alert(`Code was canceled, took no uses away from you!`);
+        } 
+
+        player.rngCode = v;
 
         if(first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
