@@ -1,4 +1,4 @@
-import { player, interval, clearInt, saveSynergy, format, resourceGain } from './Synergism';
+import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll } from './Synergism';
 import { sumContents, productContents, getElementById } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
@@ -875,6 +875,9 @@ export const calculateOffline = (forceTime = 0) => {
     //200 simulated all ticks [June 18, 2021]
     function antSimulator() {
         resourceGain(timeAdd/200 * G['timeMultiplier']);
+        if (antTicks % 5 === 1) // 196, 191, ... , 6, 1 ticks remaining
+            updateAll();
+
         antTicks -= 1;
         //Misc functions
         if (antTicks < 1) {
