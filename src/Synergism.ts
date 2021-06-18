@@ -41,8 +41,8 @@ import { startHotkeys } from './Hotkeys';
  * Whether or not the current version is a testing version or a main version.
  * This should be detected when importing a file.
  */
-export const isTesting = true;
-export const version = '2.5.0-rc.1';
+export const isTesting = false;
+export const version = '2.5.0';
 
 export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
