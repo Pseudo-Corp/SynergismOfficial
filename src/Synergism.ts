@@ -675,6 +675,13 @@ const loadSynergy = (reset = false) => {
     Object.assign(G, { ...blankGlobals });
 
     if (data) {
+        if (
+            (data.exporttest === false || data.exporttest === 'NO!') &&
+            !isTesting
+        ) {
+            return Alert(`You can't load this save anymore!`);
+        }
+
         const oldCodesUsed = Array.from(
             { length: 24 }, // old codes only went up to 24
             (_, i) => 'offerpromo' + (i + 1) + 'used'
