@@ -51,7 +51,7 @@ const makeSlot = (key: string, descr: string) => {
         const target = e.target as HTMLElement;
         // new value to set key as, unformatted
         const newKey = await Prompt(`
-        Enter the new key you want to activate ${target.parentNode.querySelector('div').textContent} with.
+        Enter the new key you want to activate ${target.parentNode.querySelector('p').textContent} with.
 
         MDN has a list of values for "special keys" if you would like to use one:
         https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
@@ -80,8 +80,12 @@ const makeSlot = (key: string, descr: string) => {
         }
     });
 
+    const p = document.createElement('p');
+    p.id = 'hotKeyDesc';
+    p.textContent = descr;
+
     div.appendChild(span);
-    div.appendChild(document.createTextNode(descr));
+    div.appendChild(p);
 
     return div;
 }
