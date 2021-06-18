@@ -325,13 +325,13 @@ const adesc = {
     adesc271: "[271] LARGE BOY: Achieve a constant of 1e100,000.",
     adesc272: "[272] LARGER BOY: Achieve a constant of 1e300,000.",
     adesc273: "[273] LARGEST BOY: Achieve a constant of 1e1,000,000.",
-    adesc274: "[274] Centennial Ascension: [WIP] You may have to ascend with a certain choice of difficulty.",
-    adesc275: "[275] ASCENDEDDDDDD: So many damn ascensions, so little time!.",
-    adesc276: "[276] Two Hepteract, One Abyss: Probably the worst investment you'll ever make.",
-    adesc277: "[277] Surprise Mechanic: Get a shit ton of quarks from the loot- WOW! Industry Content.",
-    adesc278: "[278] Shhhh: Input the answer to this clue in the promotion codes, cAsE-sEnSiTiVe.",
-    adesc279: "[279] Perfect Customer: What's a hundred upgrades towards a merchant? Apparently a lot.",
-    adesc280: "[280] Transcended: Okay, maybe I won't leave this a secret. Get 20,000 summative challenge 1-5 completions!",
+    adesc274: "[274] Triskaidekaphobia [WIP]: Get a huge exponent with some absurd corruption setup.",
+    adesc275: "[275] ASCENDEDDDDDD [WIP]: So many damn ascensions, so little time!.",
+    adesc276: "[276] Two Hepteract, One Abyss [WIP]: Probably the worst investment you'll ever make.",
+    adesc277: "[277] Surprise Mechanic [WIP]: Get !!!!! quarks from the loot- WOW! Industry Content.",
+    adesc278: "[278] Shhhh [WIP]: Input the answer to this clue in the promotion codes, cAsE-sEnSiTiVe.",
+    adesc279: "[279] Perfect Customer [WIP]: What's a hundred upgrades towards a merchant? Apparently a lot.",
+    adesc280: "[280] Transcended [WIP]: Okay, maybe I won't leave this a secret. Get 20,000 summative challenge 1-5 completions!",
 
 }
 
@@ -518,6 +518,8 @@ export const achievementAlerts = async (num: number) => {
         case 38:
             text = 'Hmm, it seems you are getting richer, being able to get 1 Googol diamonds in a single prestige. How about we give you another rune? [Unlocked Duplication rune in Runes tab!]'
             break;
+        case 255:
+            text = 'Wow! You gained 1e17 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 6.66e16 (66.6 Quadrillion) score in an Ascension. Good luck!'
     }
 
     if (text !== '')

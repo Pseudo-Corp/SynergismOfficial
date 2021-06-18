@@ -819,6 +819,9 @@ export interface GlobalVariables {
         score: number
         quarks: number
         hepteractUnlocked: number
+        cube5: number
+        powder: number
+        exponent: number
         [key: string]: number
     },
 

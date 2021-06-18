@@ -400,6 +400,6 @@ export const checkVariablesOnLoad = (data: Player) => {
     if (data.overfluxPowder === undefined) {
         player.overfluxPowder = 0;
         player.shopUpgrades.powderEX = 0;
-        player.dailyPowderResetUses = 0;
+        player.dailyPowderResetUses = 1;
     }
 }

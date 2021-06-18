@@ -320,7 +320,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         a.textContent = "SADISTIC CHALLENGE II || " + player.challengecompletions[15] + "/" + format(maxChallenges) +  " Completions"
         b.textContent = "The worst sin a man can do is making others suffer."
         c.textContent = "Ascend and reach the goal but you're FULLY corrupt and must stay that way."
-        d.textContent = "Goal: " + format(challengeRequirement(i, player.challengecompletions[i])) + " Coins, but get bonuses based on your best attempt."
+        d.textContent = "Goal: " + format(challengeRequirement(i, player.challengecompletions[i], 15)) + " Coins, but get bonuses based on your best attempt."
         e.textContent = "You have no idea "
         f.textContent = "what you have just done "
         g.textContent = "the ant god shakes their mighty head "
@@ -530,7 +530,7 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     } else if (challenge <= 14) {
         return calculateChallengeRequirementMultiplier("ascension", completion, special)
     } else if (challenge === 15) {
-        return Decimal.pow(10, 4 * Math.pow(10, 16) * calculateChallengeRequirementMultiplier("ascension", completion, special))
+        return Decimal.pow(10, 1 * Math.pow(10, 24) * calculateChallengeRequirementMultiplier("ascension", completion, special))
     }
 }
 

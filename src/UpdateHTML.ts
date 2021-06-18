@@ -1,7 +1,7 @@
 import { player, format, formatTimeShort, /*formatTimeShort*/ } from './Synergism';
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
-import { CalcCorruptionStuff, calculateTimeAcceleration } from './Calculate';
+import { CalcCorruptionStuff, calculateTimeAcceleration} from './Calculate';
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
@@ -187,6 +187,9 @@ export const revealStuff = () => {
     for (const ex of Array.from(example32)) { // Ability to use and gain hepteracts //
         ex.style.display = player.challenge15Exponent >= 1e15 ? "block" : "none";
     }
+
+    const hepts = document.getElementById("corruptionHepteracts");
+    hepts.style.display = (player.achievements[255] > 0) ? "block" : "none";
 
     if (player.upgrades[89] === 1) {
         document.getElementById('transcendautotoggle').style.display = 'block';

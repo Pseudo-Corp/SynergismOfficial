@@ -401,6 +401,9 @@ export const Globals: GlobalVariables = {
         score: 1,
         quarks: 1,
         hepteractUnlocked: 0,
+        cube5: 1,
+        powder: 1,
+        exponent: 1,
     },
 
     autoResetTimers: {

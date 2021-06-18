@@ -957,8 +957,8 @@ export const calculateAllCubeMultiplier = () => {
         1 + 6 / 100 * player.achievements[250] + 10 / 100 * player.achievements[251],
         // Speed Achievement
         1 + player.achievements[240] * Math.min(0.5, Math.max(0.1, 1 / 20 * Math.log10(calculateTimeAcceleration() + 0.01))),
-        // Challenge 15: All Cube Gain bonuses 1-4
-        G['challenge15Rewards'].cube1 * G['challenge15Rewards'].cube2 * G['challenge15Rewards'].cube3 * G['challenge15Rewards'].cube4,
+        // Challenge 15: All Cube Gain bonuses 1-5
+        G['challenge15Rewards'].cube1 * G['challenge15Rewards'].cube2 * G['challenge15Rewards'].cube3 * G['challenge15Rewards'].cube4 * G['challenge15Rewards'].cube5,
         // Rune 6: Infinite Ascent
         1 + 1/100 * player.runelevels[5],
         // BETA: 2x Cubes
@@ -1328,7 +1328,7 @@ export const CalcCorruptionStuff = () => {
     platonicGain *= calculatePlatonicMultiplier(effectiveScore).mult;
 
     // Calculation of Hepteracts :)))))
-    let hepteractGain = G['challenge15Rewards']['hepteractUnlocked'] && effectiveScore >= 6.66e16 ? 1 : 0;
+    let hepteractGain = (G['challenge15Rewards']['hepteractUnlocked'] && effectiveScore >= 6.66e16 && player.achievements[255] > 0) ? 1 : 0;
     hepteractGain *= calculateHepteractMultiplier(effectiveScore).mult
     
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain)]
@@ -1341,6 +1341,7 @@ export const CalcCorruptionStuff = () => {
 export const calculatePowderConversion = () => {
     const arr = [
         1/100, // base
+        G['challenge15Rewards'].powder, // Challenge 15: Powder Bonus
         (1 + player.shopUpgrades.powderEX / 50), // powderEX shop upgrade, 2% per level max 20%
         (1 + player.achievements[256] / 20), // Achievement 256, 5%
         (1 + player.achievements[257] / 20), // Achievement 257, 5%

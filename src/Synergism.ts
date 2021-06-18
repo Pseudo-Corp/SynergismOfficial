@@ -2142,7 +2142,7 @@ export const multipliers = (): void => {
 
     G['globalConstantMult'] = new Decimal("1")
     G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1.05 + 0.01 * player.achievements[270], player.constantUpgrades[1]))
-    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX, player.constantUpgrades[2]), ascendBuildingDR()))
+    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX + 1000 * (G['challenge15Rewards'].exponent - 1), player.constantUpgrades[2]), ascendBuildingDR()))
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 2 / 100 * player.researches[139])
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 3 / 100 * player.researches[154])
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 4 / 100 * player.researches[169])
@@ -2655,8 +2655,8 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
             if (player.coins.gte(challengeRequirement(a, player.challengecompletions[a], a)) && player.challengecompletions[a] < maxCompletions) {
                 player.challengecompletions[a] += 1;
             } else {
-                if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / (1 + 3/10000 * hepteractEffective('challenge')) / (1 + 0.25 * player.platonicUpgrades[15])))) {
-                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * (1 + 3/10000 * hepteractEffective('challenge')) * (1 + 0.25 * player.platonicUpgrades[15]);
+                if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / (1 + 5/10000 * hepteractEffective('challenge')) / (1 + 0.25 * player.platonicUpgrades[15])))) {
+                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * (1 + 5/10000 * hepteractEffective('challenge')) * (1 + 0.25 * player.platonicUpgrades[15]);
                     c15RewardUpdate();
                 }
             }

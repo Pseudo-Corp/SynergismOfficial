@@ -1,6 +1,6 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
-import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier } from './Calculate';
+import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid } from './Calculate';
 
 export const loadStatisticsAccelerator = () => {
     document.getElementById("sA1").textContent = "+" + format(G['freeUpgradeAccelerator'], 0, false)
@@ -200,7 +200,7 @@ export const loadStatisticsOfferingMultipliers = () => {
 }
 
 export const c15RewardUpdate = () => {
-    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 1.5e15, 2e15, 3e15, 5e15, 1e16]
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16]
     const keys = Object.keys(G['challenge15Rewards'])
     const e = player.challenge15Exponent
 
@@ -309,23 +309,35 @@ export const c15RewardUpdate = () => {
         G['challenge15Rewards'][keys[24]] = 2
     }
     if (e >= exponentRequirements[25]) {
-        //Unlock Challenge hepteract [1.5Qa]
+        //Unlock Challenge hepteract [2Qa]
         player.hepteractCrafts.challenge.unlock('the Hepteract of Challenge')
     }
     if (e >= exponentRequirements[26]) {
-        //Unlock Abyss Hepteract [2Qa]
-        player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
+        //All Cube Types V [4Qa]
+        G['challenge15Rewards'][keys[25]] = 1 + 1 / 300 * Math.log2(e / (4e15 / 1024))
     }
     if (e >= exponentRequirements[27]) {
-        //Unlock Abyss Hepteract [3Qa]
-        player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
+        //Powder Gain [7Qa]
+        G['challenge15Rewards'][keys[26]] = 1 + 1 / 50 * Math.log2(e / (7e15 / 32))
     }
     if (e >= exponentRequirements[28]) {
-        //Unlock Abyss Hepteract [5Qa]
-        player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
+        //Unlock Abyss Hepteract [10Qa]
+        player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
     }
     if (e >= exponentRequirements[29]) {
-        //Unlock Abyss Hepteract [10Qa]
+        //Constant Upgrade 2 [20Qa]
+        G['challenge15Rewards'][keys[27]] = calculateSigmoid(1.05, e, 1e18);
+    }
+    if (e >= exponentRequirements[30]) {
+        //Unlock ACCELERATOR HEPT [33.33Qa]
+        player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
+    }
+    if (e >= exponentRequirements[31]) {
+        //Unlock ACCELERATOR BOOST HEPT [33.33Qa]
+        player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
+    }
+    if (e >= exponentRequirements[32]) {
+        //Unlock MULTIPLIER Hept [33.33Qa]
         player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
     }
 
@@ -335,20 +347,59 @@ export const c15RewardUpdate = () => {
 
 const updateDisplayC15Rewards = () => {
     document.getElementById('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
-    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 1.5e15, 2e15, 3e15, 5e15, 1e16]
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16]
+    const isNum: Record<number, boolean> = { // Shit solution to a shit problem -Platonic
+        0: true,
+        1: true,
+        2: true,
+        3: true,
+        4: true,
+        5: true,
+        6: true,
+        7: true,
+        8: true,
+        9: true,
+        10: true,
+        11: true,
+        12: true,
+        13: true,
+        14: true,
+        15: true,
+        16: true,
+        17: true,
+        18: true,
+        19: true,
+        20: true,
+        21: true,
+        22: true,
+        23: true,
+        24: false,
+        25: false,
+        26: true,
+        27: true,
+        28: false,
+        29: true,
+        30: false,
+        31: false,
+        32: false
+    }
     const values = Object.values(G['challenge15Rewards'])
     let keepExponent: string | number = 'None'
+    let skip = 0
     for(let i = 0; i < exponentRequirements.length; i++){
         if(keepExponent === 'None' && player.challenge15Exponent < exponentRequirements[i]){
             keepExponent = exponentRequirements[i]
         }
-        if(player.challenge15Exponent >= exponentRequirements[i] && i < 24){
-            document.getElementById('c15Reward'+(i+1)+'Num').textContent = format(100 * values[i] - 100,2,true)
+        if (player.challenge15Exponent >= exponentRequirements[i]) {
+            document.getElementById('c15Reward'+(i+1)+'Num').textContent = (isNum[i]) ?
+            format(100 * values[i - skip] - 100,2,true):
+            'Unlocked!';
+
+            if (!isNum[i] && i !== 24) { // TODO: This sucks -Platonic
+                skip += 1;
+            }
         }
 
-        if(i >= 24 && player.challenge15Exponent >= exponentRequirements[i]) {
-            document.getElementById('c15Reward'+(i+1)+'Num').textContent = 'Unlocked!'
-        }
         document.getElementById('c15Reward'+(i+1)).style.display = (player.challenge15Exponent >= exponentRequirements[i])? 'block': 'none';
         document.getElementById('c15RewardList').textContent = typeof keepExponent  === 'string'
             ? 'You have unlocked all reward types from Challenge 15!'

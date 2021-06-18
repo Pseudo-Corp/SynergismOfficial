@@ -194,7 +194,7 @@ const hepteractEffectiveValues = {
     },
     'challenge': {
         LIMIT: 1000,
-        DR: 0.5
+        DR: 1/6
     },
     'abyss': {
         LIMIT: 1,
@@ -264,8 +264,8 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
             break;
         case 'challenge':
             unlockedText.textContent = (player.hepteractCrafts.challenge.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
-            effectText.textContent = "That's preposterous. How are you going to gain +0.03% C15 Exponent per Challenge Hepteract? How!?"
-            currentEffectText.textContent = "Current Effect: C15 Exponent +" + format(hepteractEffective('challenge') * 3 / 100, 2, true) + "%"
+            effectText.textContent = "That's preposterous. How are you going to gain +0.05% C15 Exponent per Challenge Hepteract? How!?"
+            currentEffectText.textContent = "Current Effect: C15 Exponent +" + format(hepteractEffective('challenge') * 5 / 100, 2, true) + "%"
             balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.challenge.BAL, 0, true) + " / " + format(player.hepteractCrafts.challenge.CAP)
             costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.challenge.HEPTERACT_CONVERSION, 0, true) + " Hepteracts, 1e11 Platonic Cubes and 1e22 Cubes."
             break;
