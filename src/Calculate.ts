@@ -874,6 +874,8 @@ export const calculateOffline = (forceTime = 0) => {
 
     //200 simulated all ticks [June 18, 2021]
     function antSimulator() {
+        G['timeMultiplier'] = calculateTimeAcceleration();
+        calculateObtainium();
         resourceGain(timeAdd/200 * G['timeMultiplier']);
         if (antTicks % 5 === 1) // 196, 191, ... , 6, 1 ticks remaining
             updateAll();
