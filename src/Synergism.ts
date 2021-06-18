@@ -31,7 +31,7 @@ import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import { checkVariablesOnLoad } from './CheckVariables';
-import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
+import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import './Hotkeys';
@@ -1336,16 +1336,6 @@ const loadSynergy = (reset = false) => {
         calculateRuneLevels();
         resetHistoryRenderAllTables();
         c15RewardUpdate();
-
-        // Update Hepteracts to player if available.
-        // TODO: make it so that it creates a default for any not defined in data but generates the hepteract with data values otherwise
-        const hepteractKeys = Object.keys(player.hepteractCrafts) as (keyof Player['hepteractCrafts'])[]
-        if (data.hepteractCrafts !== undefined) {
-            for (const h of hepteractKeys) {
-                if (data.hepteractCrafts[h] !== undefined)
-                    player.hepteractCrafts[h] = createHepteract(data.hepteractCrafts[h]);
-            }
-        }
     }
     CSSAscend();
     updateAchievementBG();

@@ -356,25 +356,26 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.runelevels[5] = player.runelevels[6] = 0;
     }
 
-    // Lazy solution, fix if better idea comes to mind
-    // Fixes hepteract craft object serialization (restores built functions)
-    if (player.hepteractCrafts.abyss === undefined) {
-        console.log('Updated hepteract crafts.')
-        player.hepteractCrafts = {
-            chronos: ChronosHepteract,
-            hyperrealism: HyperrealismHepteract,
-            quark: QuarkHepteract,
-            challenge: ChallengeHepteract,
-            abyss: AbyssHepteract,
-            accelerator: AcceleratorHepteract,
-            acceleratorBoost: AcceleratorBoostHepteract,
-            multiplier: MultiplierHepteract
-        }
+    // resets all hepteract values on the player object
+    player.hepteractCrafts = {
+        chronos: ChronosHepteract,
+        hyperrealism: HyperrealismHepteract,
+        quark: QuarkHepteract,
+        challenge: ChallengeHepteract,
+        abyss: AbyssHepteract,
+        accelerator: AcceleratorHepteract,
+        acceleratorBoost: AcceleratorBoostHepteract,
+        multiplier: MultiplierHepteract
     }
-    else {
-        for (const item in player.hepteractCrafts) {
+
+    // if the player has hepteracts, we need to overwrite the player values
+    // with the ones the save has.
+    if (data.hepteractCrafts !== undefined) {
+        for (const item in blankSave.hepteractCrafts) {
             const k = item as keyof Player['hepteractCrafts'];
-            player.hepteractCrafts[k] = createHepteract(player.hepteractCrafts[k]);
+            // if more crafts are added, some keys might not exist in the save
+            if (data.hepteractCrafts[k])
+                player.hepteractCrafts[k] = createHepteract(data.hepteractCrafts[k]);
         }
     }
 
