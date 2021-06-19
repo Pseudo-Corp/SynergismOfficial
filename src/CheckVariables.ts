@@ -293,6 +293,8 @@ export const checkVariablesOnLoad = (data: Player) => {
     // if this variable = "YES!". Don't ask Platonic why.
     if (typeof data.exporttest === 'string') {
         player.exporttest = !isTesting;
+    } else {
+        player.exporttest = data.exporttest;
     }
 
     const shop = data.shopUpgrades as LegacyShopUpgrades | Player['shopUpgrades'];

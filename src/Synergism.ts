@@ -599,7 +599,7 @@ export const player: Player = {
     autoTesseracts: [false, false, false, false, false, false],
 
     saveString: "Synergism-$VERSION$-$TIME$.txt",
-    exporttest: false,
+    exporttest: !isTesting,
 
     dayCheck: null,
     dayTimer: 0,
