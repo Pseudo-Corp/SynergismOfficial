@@ -562,6 +562,7 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
                 const a = document.createElement('a');
                 a.href = `https://github.com/Pseudo-Corp/SynergismOfficial/commits/ts?author=${contributor.login}`;
                 a.textContent = contributor.login;
+                a.target = "_blank";
                 
                 div.appendChild(img);
                 div.appendChild(a);
