@@ -566,8 +566,10 @@ TODO: Fix this entire tab it's utter shit
 
     // Import button
     document.getElementById('importfile').addEventListener('change', async e => {
-        const { files } = e.target as HTMLInputElement;
-        const save = await files[0].text();
+        const element = e.target as HTMLInputElement;
+        const save = await element.files[0].text();
+
+        element.value = null;
 
         return importSynergism(save);
     });
