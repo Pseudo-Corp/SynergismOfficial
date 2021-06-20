@@ -138,6 +138,7 @@ export class QuarkHandler {
     }    
 
     async getBonus() {
+        const el = document.getElementById('currentBonus');
         if (localStorage.getItem('quarkBonus') !== null) { // is in cache
             const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus'));
             if (Date.now() - fetched < 60 * 1000 * 15) { // cache is younger than 15 minutes
@@ -145,10 +146,11 @@ export class QuarkHandler {
                     `%c \tBonus of ${bonus}% quarks has been applied! \n\t(Cached at ${fetched})`, 
                     'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;'
                 );
+                el.textContent = `Current Bonus: ${bonus}%!`;
                 return this.BONUS = bonus;
             }
         } else if (!navigator.onLine) {
-            return;
+            return el.textContent = `Current Bonus: N/A (offline)%!`;;
         }
 
         try {
@@ -168,6 +170,7 @@ export class QuarkHandler {
                 return Alert('No bonus could be applied, an error occurred. [Zero] :(');
 
             console.log(`%c \tBonus of ${b}% quarks has been applied!`, 'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;');
+            el.textContent = `Current Bonus: ${b}%!`;
             localStorage.setItem('quarkBonus', JSON.stringify({ bonus: b, fetched: Date.now() }));
             this.BONUS = b;
         } catch {

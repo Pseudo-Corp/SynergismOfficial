@@ -2973,3 +2973,9 @@ header #obtainiumDisplay {
     max-width: 50vh;
     word-wrap: break-word;
 }
+
+#currentBonus {
+    color: springgreen;
+    /* Remove padding */
+    margin: 0; 
+}
