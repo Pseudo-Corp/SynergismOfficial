@@ -9,6 +9,8 @@ import { quarkHandler } from './Quark';
 import { shopData } from './Shop';
 import { addTimers } from './Helper';
 import { toggleSubTab, toggleTabs } from './Toggles';
+import { Globals as G } from './Variables';
+import { cubeMaxLevel } from './Cubes';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -170,8 +172,29 @@ export const promocodes = async () => {
         el.textContent = 'Thank you for 2 million plays on kongregate!';
     } else if(input === 'v2.5.0' && !player.codes.get(32)) {
         player.codes.set(32, true);
-        el.textContent = 'You are on v2.5.0! For playing, you get a reward of ... nothing?';
-    } else if(input === 'add') {
+        return Alert('You are on v2.5.0! For playing, you get a reward of ... nothing? Try code "bark" instead.');
+    } else if(input === 'bark' && !player.codes.get(34)) {
+        player.codes.set(34, true);
+        let quarkGain = 250;                                                                                // 250
+        quarkGain += (player.reincarnationCount > 0) ? 250 : 0;                                             // 500
+        quarkGain += (player.highestchallengecompletions[8] > 0 || player.ascensionCount > 0) ? 500 : 0;    // 1000
+        quarkGain += (player.ascensionCount > 0) ? 500 : 0;                                                 // 1500
+        quarkGain += (player.challengecompletions[14] > 0) ? 500 : 0;                                       // 2000
+        quarkGain += (player.researches[200] === G['researchMaxLevels'][200]) ? 500 : 0;                    // 2500
+        quarkGain += (player.cubeUpgrades[50] === cubeMaxLevel[49]) ? 500 : 0;                              // 3000
+        quarkGain += (player.platonicUpgrades[5] > 0) ? 1000 : 0;                                           // 4000
+        quarkGain += (player.platonicUpgrades[10] > 0) ? 1000: 0;                                           // 5000
+        quarkGain += (player.challenge15Exponent > 1e6) ? 1000 : 0;                                         // 6000
+        quarkGain += (player.challenge15Exponent > 1e9) ? 1000 : 0;                                         // 7000
+        quarkGain += (player.challenge15Exponent > 1e12) ? 1000 : 0;                                        // 8000
+        quarkGain += (player.challenge15Exponent > 1e15) ? 1000: 0;                                         // 9000
+        quarkGain += (player.challenge15Exponent > 1e16) ? 1000: 0;                                         // 10000
+        quarkGain += (player.platonicUpgrades[15] > 0) ? 1: 0;                                              // 10001
+
+        const patreonBonus = quarkGain * player.worlds._BONUS / 100
+        player.worlds.add(quarkGain)
+        return Alert(`Thanks so much for playing! Version 2.5.0 is out at last. For your patience, and entering this code, you received ${format(quarkGain + patreonBonus)} Quarks [${format(patreonBonus)} from Patreon Bonus]!`)
+    } else if(input.toLowerCase() === 'add') {
         const hour = 3600000
         const timeToNextHour = Math.floor(hour + player.rngCode - Date.now())/1000
         
@@ -197,6 +220,7 @@ export const promocodes = async () => {
 
         const quarkBase = quarkHandler().perHour
         const actualQuarks = Math.floor(quarkBase * mult * realAttemptsUsed)
+        const patreonBonus = actualQuarks * (player.worlds._BONUS / 100)
         const [first, second] = window.crypto.getRandomValues(new Uint8Array(2));
 
         //Allows storage of up to (24 + 2 * calc2 levels) Add Codes, lol!
@@ -213,7 +237,8 @@ export const promocodes = async () => {
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
             addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed)
-            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks} quarks! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
+            player.rngCode = v;
+            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks + patreonBonus} quarks [${patreonBonus} from Patreon Boost]! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
         }
 
         // If your calculator isn't maxxed but has levels, it will provide the solution.
@@ -221,7 +246,7 @@ export const promocodes = async () => {
             ? 'The answer is ' + (first + second) + ' according to your calculator.'
             : '';
 
-        const addPrompt = await Prompt(`For ${actualQuarks} quarks or for nothing: What is ${first} + ${second}? ${solution}`);
+        const addPrompt = await Prompt(`For ${actualQuarks + patreonBonus} quarks or for nothing: What is ${first} + ${second}? ${solution}`);
 
         if (addPrompt === null) {
             return Alert(`Code was canceled, took no uses away from you!`);
@@ -232,7 +257,7 @@ export const promocodes = async () => {
         if(first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
             addTimers('ascension', 60 * player.shopUpgrades.calculator3)
-            await Alert(`You were awarded ${actualQuarks} quarks! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
+            await Alert(`You were awarded ${actualQuarks + patreonBonus} quarks [${patreonBonus} from Patreon Boost]! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
         } else {
             await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
         }

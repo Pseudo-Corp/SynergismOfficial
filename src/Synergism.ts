@@ -11,7 +11,7 @@ import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Researc
 import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration } from './Calculate';
+import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
 import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
@@ -42,7 +42,7 @@ import { startHotkeys } from './Hotkeys';
  * This should be detected when importing a file.
  */
 export const isTesting = false;
-export const version = '2.5.0';
+export const version = '2.5.1';
 
 export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
@@ -408,7 +408,7 @@ export const player: Player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from({ length: 30 }, (_, i) => [i + 1, false])
+        Array.from({ length: 34 }, (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -622,7 +622,7 @@ export const player: Player = {
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 31 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 34 }, (_, i) => [i + 1, false]))
 });
 
 export const saveSynergy = (button?: boolean) => {
@@ -3079,6 +3079,7 @@ const tick = () => {
 }
 
 function tack(dt: number) {
+    eventCheck();
     if (!G['timeWarp']) {
         dailyResetCheck();
         //Adds Resources (coins, ants, etc)

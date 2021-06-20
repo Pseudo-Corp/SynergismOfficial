@@ -7,7 +7,7 @@ import { calculateRuneLevels } from './Calculate';
 import { reset } from './Reset';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
-import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier } from './Statistics';
+import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
 import { corruptionDisplay, corruptionLoadoutTableUpdate } from './Corruptions';
 import { Player } from './types/Synergism';
 
@@ -528,6 +528,7 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
             loadStatisticsMultiplier();
             loadStatisticsOfferingMultipliers();
             loadStatisticsCubeMultipliers();
+            loadPowderMultiplier();
             if (!subtabEl.classList.contains("subtabActive"))
                 clearInt(id);
         }

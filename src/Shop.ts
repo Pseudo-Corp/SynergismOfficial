@@ -207,8 +207,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         priceIncrease: 10000,
         maxLevel: 5,
         type: "upgrade",
-        refundable: false,
-        refundMinimumLevel: 0,
+        refundable: true,
+        refundMinimumLevel: 1,
         description: "The PL-AT can do addition in the blink of an eye. Not much else though. +10% Quarks from using code 'add' per level, the first level provides the answer and the final level does it automatically!",
     },
     calculator2: {
@@ -216,7 +216,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         priceIncrease: 5000,
         maxLevel: 12,
         type: "upgrade",
-        refundable: false,
+        refundable: true,
         refundMinimumLevel: 0,
         description: "The PL-AT X has improved memory capacity, allowing you to store 2 additional uses to code 'add' per level. Final level makes 'add' give 25% more Quarks!"
     },
@@ -225,7 +225,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         priceIncrease: 25000,
         maxLevel: 10,
         type: "upgrade",
-        refundable: false,
+        refundable: true,
         refundMinimumLevel: 0,
         description: `The PL-AT Ω is infused with some Unobtainium, which is epic! But furthermore, it reduces the variance of Quarks by code 'add' by 10% per level, which makes you more likely to get the maximum multiplier. It also has the ability to give +60 seconds to Ascension Timer per level using that code.` 
     },

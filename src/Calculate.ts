@@ -971,8 +971,10 @@ export const calculateAllCubeMultiplier = () => {
         // OMEGA: C9 Cube Bonus
         Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9]),
         // Powder Bonus [Max: 2x at 10,000 powder]
-        1 + Math.min(1, player.overfluxPowder / 1e4)
-        // Total Global Cube Multipliers: 8
+        1 + Math.min(1, player.overfluxPowder / 1e4),
+        // Event (currently, +13%)
+        1 + 0.13 * +G['isEvent'],
+        // Total Global Cube Multipliers: 9
     ]
     return {
         mult: productContents(arr),
@@ -1350,8 +1352,13 @@ export const calculatePowderConversion = () => {
         (1 + player.shopUpgrades.powderEX / 50), // powderEX shop upgrade, 2% per level max 20%
         (1 + player.achievements[256] / 20), // Achievement 256, 5%
         (1 + player.achievements[257] / 20), // Achievement 257, 5%
+        1 + 0.31 * +G['isEvent'] // Event!
     ]
-    return productContents(arr)
+    
+    return {
+        list: arr,
+        mult: productContents(arr)
+    }
 }
 
 export const dailyResetCheck = () => {
@@ -1377,7 +1384,7 @@ export const dailyResetCheck = () => {
         player.hypercubeOpenedDaily = 0;
         player.platonicCubeOpenedDaily = 0;
         
-        player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion();
+        player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion().mult;
         player.overfluxOrbs = 0;
         player.dailyPowderResetUses = 1;
 
@@ -1409,7 +1416,27 @@ export const forcedDailyReset = (testing = false) => {
     player.platonicCubeOpenedDaily = 0;
 
     if (testing) {
-        player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion()
+        player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion().mult;
         player.overfluxOrbs = 0;
     }
+}
+
+const eventStart = "06/18/2021 17:00:00"
+const eventEnd = "06/27/2021 23:59:59"
+
+export const eventCheck = () => {
+    let start = new Date(eventStart);
+    let end = new Date(eventEnd);
+    let now = new Date();
+
+    if(now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
+        G['isEvent'] = true
+        document.getElementById('eventCurrent').textContent = "ACTIVE UNTIL " + end
+        document.getElementById('eventBuffs').textContent = "Current Buffs: +13 Base Export Quarks per hour, +13% all Cube types, +31% Powder Conversion!"
+    }
+    else{
+        G['isEvent'] = false
+        document.getElementById('eventCurrent').textContent = "INACTIVE"
+        document.getElementById('eventBuffs').textContent = ""
+    };
 }

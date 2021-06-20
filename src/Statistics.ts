@@ -1,6 +1,6 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
-import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid } from './Calculate';
+import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 
 export const loadStatisticsAccelerator = () => {
@@ -45,7 +45,8 @@ export const loadStatisticsCubeMultipliers = () => {
         5: {acc: 2, desc: "Rune 6 - Infinite Ascent:"},
         6: {acc: 2, desc: "Platonic Beta:"},
         7: {acc: 2, desc: "Platonic Omega:"},
-        8: {acc: 2, desc: "Overflux Powder:"}
+        8: {acc: 2, desc: "Overflux Powder:"},
+        9: {acc: 2, desc: "Event [Most Recent: June 20 - June 27]"}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = document.getElementById(`statGCM${i + 1}`);
@@ -198,6 +199,25 @@ export const loadStatisticsOfferingMultipliers = () => {
         document.getElementById(`sOff${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`;
     }
     document.getElementById("sOffT").textContent = `x${format(calculateOfferings("prestige", true, true), 3)}`;
+}
+
+export const loadPowderMultiplier = () => {
+    const arr0 = calculatePowderConversion().list;
+    const map0: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: "Base:"},
+        2: {acc: 2, desc: "Challenge 15 Bonus:"},
+        3: {acc: 2, desc: "Powder EX:"},
+        4: {acc: 2, desc: "Achievement 256:"},
+        5: {acc: 2, desc: "Achievement 257:"},
+        6: {acc: 2, desc: "Event [Most Recent: June 20 - June 27]:"},
+    }
+    for (let i = 0; i < arr0.length; i++) {
+        const statGCMi = document.getElementById(`statPoM${i + 1}`);
+        statGCMi.childNodes[0].textContent = map0[i + 1].desc;
+        document.getElementById(`sPoM${i + 1}`).textContent = `x${format(arr0[i], map0[i + 1].acc, true)}`;
+    }
+
+    document.getElementById("sPoMT").textContent = `x${format(calculatePowderConversion().mult, 3)}`;
 }
 
 export const c15RewardUpdate = () => {

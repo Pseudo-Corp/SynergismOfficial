@@ -346,7 +346,7 @@ export const overfluxPowderDescription = () => {
     document.getElementById('hepteractUnlockedText').style.display = 'none'
     document.getElementById('hepteractCurrentEffectText').textContent = 'Powder effect: ALL Cube Gain +' + format(Math.min(100, player.overfluxPowder / 100), 2, true) + '% and Quarks +' + format(Math.min(10, player.overfluxPowder / 1000), 2, true) + '% [Max effect at 10,000 Powder]'
     document.getElementById('hepteractBalanceText').textContent = 'You have ' + format(player.overfluxPowder, 2, true) + ' lumps of Overflux Powder.'
-    document.getElementById('hepteractEffectText').textContent = `Expired Overflux Orbs become powder at a rate of ${format(1 / calculatePowderConversion(), 1, true)} Orbs per powder lump!`
+    document.getElementById('hepteractEffectText').textContent = `Expired Overflux Orbs become powder at a rate of ${format(1 / calculatePowderConversion().mult, 1, true)} Orbs per powder lump!`
     document.getElementById('hepteractCostText').style.display = 'none'
 
     document.getElementById('powderDayWarpText').style.display = 'block'

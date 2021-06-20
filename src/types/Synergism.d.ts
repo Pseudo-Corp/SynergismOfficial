@@ -834,6 +834,8 @@ export interface GlobalVariables {
 
     timeMultiplier: number
     upgradeMultiplier: number
+
+    isEvent: boolean
 }
 
 export interface SynergismEvents {

@@ -65,7 +65,7 @@ const cubeBaseCost = [
     5e6, 1e7, 1e8, 4e7, 2e7, 4e7, 5e7, 1e8, 5e8, 1e8
 ];
 
-const cubeMaxLevel = [
+export const cubeMaxLevel = [
     3, 10, 5, 1, 1, 1, 1, 1, 1, 1,
     3, 10, 1, 10, 10, 10, 5, 1, 1, 1,
     2, 10, 1, 10, 10, 10, 1, 1, 5, 1,

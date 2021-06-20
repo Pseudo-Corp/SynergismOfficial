@@ -55,6 +55,8 @@ export const quarkHandler = () => {
 
     //Part 2: Calculate quark gain per hour
     let baseQuarkPerHour = 5;
+    if (G['isEvent'])
+        baseQuarkPerHour += 13;
     if (player.researches[99] > 0) {
         baseQuarkPerHour += player.researches[99]; //Caps at 2 not 1
     }
@@ -146,7 +148,7 @@ export class QuarkHandler {
                     `%c \tBonus of ${bonus}% quarks has been applied! \n\t(Cached at ${fetched})`, 
                     'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;'
                 );
-                el.textContent = `Current Bonus: ${bonus}%!`;
+                el.textContent = `Generous patrons give you a bonus of ${bonus}% more quarks!`;
                 return this.BONUS = bonus;
             }
         } else if (!navigator.onLine) {
@@ -170,7 +172,7 @@ export class QuarkHandler {
                 return Alert('No bonus could be applied, an error occurred. [Zero] :(');
 
             console.log(`%c \tBonus of ${b}% quarks has been applied!`, 'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;');
-            el.textContent = `Current Bonus: ${b}%!`;
+            el.textContent = `Generous patrons give you a bonus of ${b}% more quarks!`;
             localStorage.setItem('quarkBonus', JSON.stringify({ bonus: b, fetched: Date.now() }));
             this.BONUS = b;
         } catch {
