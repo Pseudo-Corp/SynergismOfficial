@@ -36,6 +36,7 @@ import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import './Hotkeys';
 import { startHotkeys } from './Hotkeys';
+import {main as loadDashboard} from './Plugins/Dashboard';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -3445,6 +3446,7 @@ export const reloadShit = async (reset = false) => {
     constantIntervals();
     changeTabColor();
     startHotkeys();
+    loadDashboard();
 }
 
 window.addEventListener('load', () => {
