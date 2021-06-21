@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js';
 import LZString from 'lz-string';
 
-import { isDecimal, getElementById, sortWithIndeces, sumContents } from './Utility';
+import { isDecimal, getElementById, sortWithIndices, sumContents } from './Utility';
 import { blankGlobals, Globals as G } from './Variables';
 import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges, challenge15ScoreMultiplier } from './Challenges';
 
@@ -1181,7 +1181,7 @@ const loadSynergy = (reset = false) => {
             testArray.push(G['researchBaseCosts'][i]);
         }
         //Sorts the above array, and returns the index order of sorted array
-        G['researchOrderByCost'] = sortWithIndeces(testArray)
+        G['researchOrderByCost'] = sortWithIndices(testArray)
         player.roombaResearchIndex = 0;
 
         // June 09, 2021: Updated toggleShops() and removed boilerplate - Platonic

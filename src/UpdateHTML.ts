@@ -205,7 +205,7 @@ export const revealStuff = () => {
         (document.getElementById("rune2area").style.display = "flex", document.getElementById("runeshowpower2").style.display = "flex") :
         (document.getElementById("rune2area").style.display = "none", document.getElementById("runeshowpower2").style.display = "none");
 
-    if (player.achievements[43] === 1) { // Trasncend Mythos Achievement 1
+    if (player.achievements[43] === 1) { // Transcend Mythos Achievement 1
         document.getElementById('prestigeautotoggle').style.display = 'block';
         document.getElementById('prestigeamount').style.display = 'block';
         document.getElementById('autoprestige').style.display = 'block';

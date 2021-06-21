@@ -47,15 +47,15 @@ export const addTimers = (input: TimerInput, time?: number) => {
 
 /**
  * checkMaxRunes returns how many unique runes are at the maximum level.
- * Does not take in params, returns a number equal to number of maxxed runes.
+ * Does not take in params, returns a number equal to number of maxed runes.
  */
 export const checkMaxRunes = () => {
-    let maxxed = 0;
+    let maxed = 0;
     for (let i = 1; i <= 5; i++) {
         if (player.runelevels[i - 1] >= calculateMaxRunes(i))
-            maxxed++;
+            maxed++;
     }
-    return maxxed
+    return maxed
 }
 
 type AutoToolInput = 'addObtainium' | 'addOfferings' | 'runeSacrifice' | 'antSacrifice';

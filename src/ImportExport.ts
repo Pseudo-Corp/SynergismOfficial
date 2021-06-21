@@ -241,7 +241,7 @@ export const promocodes = async () => {
             return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks + patreonBonus} quarks [${patreonBonus} from Patreon Boost]! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
         }
 
-        // If your calculator isn't maxxed but has levels, it will provide the solution.
+        // If your calculator isn't maxed but has levels, it will provide the solution.
         const solution = (player.shopUpgrades.calculator > 0) 
             ? 'The answer is ' + (first + second) + ' according to your calculator.'
             : '';
