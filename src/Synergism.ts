@@ -3079,7 +3079,9 @@ const tick = () => {
 }
 
 function tack(dt: number) {
-    eventCheck();
+    if (document.readyState === 'complete')
+        eventCheck();
+        
     if (!G['timeWarp']) {
         dailyResetCheck();
         //Adds Resources (coins, ants, etc)
