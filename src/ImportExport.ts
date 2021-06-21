@@ -191,7 +191,7 @@ export const promocodes = async () => {
         quarkGain += (player.challenge15Exponent > 1e16) ? 1000: 0;                                         // 10000
         quarkGain += (player.platonicUpgrades[15] > 0) ? 1: 0;                                              // 10001
 
-        const patreonBonus = quarkGain * player.worlds._BONUS / 100
+        const patreonBonus = Math.floor(quarkGain * player.worlds._BONUS / 100);
         player.worlds.add(quarkGain)
         return Alert(`Thanks so much for playing! Version 2.5.0 is out at last. For your patience, and entering this code, you received ${format(quarkGain + patreonBonus)} Quarks [${format(patreonBonus)} from Patreon Bonus]!`)
     } else if(input.toLowerCase() === 'add') {
