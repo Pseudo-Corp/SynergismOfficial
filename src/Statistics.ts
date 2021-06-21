@@ -2,6 +2,7 @@ import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
 import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
+import type { GlobalVariables } from './types/Synergism';
 
 export const loadStatisticsAccelerator = () => {
     document.getElementById("sA1").textContent = "+" + format(G['freeUpgradeAccelerator'], 0, false)
@@ -222,11 +223,12 @@ export const loadPowderMultiplier = () => {
 
 export const c15RewardUpdate = () => {
     const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16]
-    const keys = Object.keys(G['challenge15Rewards'])
+    type Key = keyof GlobalVariables['challenge15Rewards'];
+    const keys = Object.keys(G['challenge15Rewards']) as Key[];
     const e = player.challenge15Exponent
 
     for(const obj in G['challenge15Rewards']){
-        G['challenge15Rewards'][obj] = 1;
+        G['challenge15Rewards'][obj as Key] = 1;
     }
 
     if(e >= exponentRequirements[0]){

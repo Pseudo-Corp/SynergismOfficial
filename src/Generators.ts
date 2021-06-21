@@ -10,7 +10,7 @@ export const buyGenerator = (i: number, state?: boolean) => {
         player.unlocks.generation = true
     }
     const q = 100 + i
-    let type = "transcendPoints"
+    let type: "coins" | "prestigePoints" | "transcendPoints" = "transcendPoints"
     if (q <= 110 && q >= 106) {
         type = "coins"
     } else if (q <= 115) {

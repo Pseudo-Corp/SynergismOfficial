@@ -398,7 +398,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
     
     if (data.overfluxOrbs === undefined) {
-        player.overflubOrbs = 0;
+        player.overfluxOrbs = 0;
     } 
     if (data.overfluxPowder === undefined) {
         player.overfluxPowder = 0;

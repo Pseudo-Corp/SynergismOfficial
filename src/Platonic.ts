@@ -186,7 +186,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
 const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { canBuy: boolean }), boolean> => {
     let checksum = 0
     const resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'] as const;
-    const resourceNames = ['researchPoints', 'runeshards', 'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowAbyssals']
+    const resourceNames = ['researchPoints', 'runeshards', 'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowAbyssals'] as const;
     const checks: Record<string, boolean> = {
         obtainium: false,
         offerings: false,

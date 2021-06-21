@@ -11,6 +11,7 @@ import { buyResearch } from './Research';
 import { resetAnts } from './Reset';
 import type { ResetHistoryEntryAntSacrifice } from './History';
 import { Synergism } from './Events';
+import type { FirstToEighth, ZeroToSeven } from './types/Synergism';
 
 const antdesc: Record<string, string> = {
     antdesc1: "Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!",
@@ -90,7 +91,7 @@ export const updateAntDescription = (i: number) => {
     const me = document.getElementById("generateant")
 
     let priceType = "Galactic Crumbs"
-    let tier = ""
+    let tier: FirstToEighth = "first"
     el.textContent = antdesc["antdesc" + i]
 
     switch (i) {
@@ -128,8 +129,8 @@ export const updateAntDescription = (i: number) => {
             me.textContent = "Generates " + format(G['antEightProduce'], 5) + " ALMIGHTIES/sec";
             break;
     }
-    la.textContent = "Cost: " + format(player[tier + "CostAnts"]) + " " + priceType
-    ti.textContent = "Owned: " + format(player[tier + "OwnedAnts"]) + " [+" + format(player[tier + "GeneratedAnts"], 2) + "]"
+    la.textContent = "Cost: " + format(player[`${tier}CostAnts` as const]) + " " + priceType
+    ti.textContent = "Owned: " + format(player[`${tier}OwnedAnts` as const]) + " [+" + format(player[`${tier}GeneratedAnts` as const], 2) + "]"
 }
 
 const getAntCost = (originalCost: Decimal, buyTo: number, index: number) => {
@@ -150,10 +151,8 @@ const getAntUpgradeCost = (originalCost: Decimal, buyTo: number, index: number) 
     return cost;
 }
 
-type Pos = 'first' | 'second' | 'third' | 'fourth' | 'fifth' | 'sixth' | 'seventh' | 'eighth'
-
 //Note to self: REWRITE THIS SHIT Kevin :3
-export const buyAntProducers = (pos: Pos, originalCost: DecimalSource, index: number) => {
+export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource, index: number) => {
     const sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints);
     //This is a fucking cool function. This will buymax ants cus why not
 
@@ -204,7 +203,7 @@ export const buyAntProducers = (pos: Pos, originalCost: DecimalSource, index: nu
 
     const achRequirements = [2, 6, 20, 100, 500, 6666, 77777];
     for (let j = 0; j < achRequirements.length; j++) {
-        if (sacrificeMult > achRequirements[j] && player[G['ordinals'][j + 1] + "OwnedAnts"] > 0 && player.achievements[176 + j] === 0) {
+        if (sacrificeMult > achRequirements[j] && player[`${G['ordinals'][j + 1 as ZeroToSeven]}OwnedAnts` as const] > 0 && player.achievements[176 + j] === 0) {
             achievementaward(176 + j)
         }
     }
@@ -425,7 +424,7 @@ export const autoBuyAnts = () => {
     for (let i = 1; i <= _ach.length; i++) {
         const res = i === 1 ? player.reincarnationPoints : player.antPoints;
         const m = i === 1 ? 1 : 2; // no multiplier on the first ant cost because it costs particles
-        if (player.achievements[_ach[i - 1]] && res.gte(player[G['ordinals'][i - 1] + "CostAnts"].times(m))) {
+        if (player.achievements[_ach[i - 1]] && res.gte(player[`${G['ordinals'][i - 1 as ZeroToSeven]}CostAnts` as const].times(m))) {
             buyAntProducers(
                 G['ordinals'][i - 1] as Parameters<typeof buyAntProducers>[0], 
                 _cost[i - 1], i

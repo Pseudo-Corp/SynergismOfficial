@@ -90,19 +90,21 @@ export abstract class Cube {
 
     /** Open a custom amount of cubes */
     async openCustom() {
-        const amount = await Prompt(`How many cubes would you like to open? You have ${player[this.key].value.toLocaleString()}!`);
+        // TODO: Replace this with `this`?
+        const thisInPlayer = player[this.key] as Cube;
+        const amount = await Prompt(`How many cubes would you like to open? You have ${thisInPlayer.value.toLocaleString()}!`);
         if (amount === null)
             return Alert('OK. No cubes opened.');
         const cubesToOpen = Number(amount);
 
         if (Number.isNaN(cubesToOpen) || !Number.isFinite(cubesToOpen)) // nan + Infinity checks
             return Alert('Value must be a finite number!');
-        else if (player[this.key].value < cubesToOpen) // not enough cubes to open
+        else if (thisInPlayer.value < cubesToOpen) // not enough cubes to open
             return Alert('You don\'t have enough cubes to open!');
         else if (cubesToOpen <= 0) // 0 or less cubes to open
             return Alert('You can\'t open a negative number of cubes.');
 
-        return this.open(cubesToOpen, cubesToOpen === player[this.key].value);
+        return this.open(cubesToOpen, cubesToOpen === thisInPlayer.value);
     }
 
     /** @description Check how many quarks you should have gained through opening cubes today */

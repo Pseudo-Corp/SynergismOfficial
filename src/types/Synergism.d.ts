@@ -502,8 +502,6 @@ export interface Player {
     overfluxOrbs: number
     overfluxPowder: number
     dailyPowderResetUses: number
-
-    [key: string]: any
 }
 
 export interface GlobalVariables {
@@ -608,7 +606,7 @@ export interface GlobalVariables {
     researchfiller1: string
     researchfiller2: string
 
-    ordinals: readonly string[]
+    ordinals: readonly ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", ...string[]]
     cardinals: string[]
 
     challengeBaseRequirements: number[]
@@ -622,7 +620,6 @@ export interface GlobalVariables {
         three: number
         four: number
         five: number
-        [key: string]: number
     },
 
     mythosupgrade13: Decimal
@@ -738,7 +735,7 @@ export interface GlobalVariables {
 
     prevReductionValue: number
 
-    buildingSubTab: string
+    buildingSubTab: BuildingSubtab
     //number000 of each before Diminishing Returns
     blessingbase: number[]
     blessingDRPower: number[]
@@ -822,7 +819,6 @@ export interface GlobalVariables {
         cube5: number
         powder: number
         exponent: number
-        [key: string]: number
     },
 
     autoResetTimers: {
@@ -864,3 +860,20 @@ export type cubeNames =
     | "hypercubes"
     | "platonics"
     | "hepteracts"
+
+export type BuildingSubtab =
+    | "coin"
+    | "diamond"
+    | "mythos"
+    | "particle"
+    | "tesseract"
+
+export type ZeroToFour = 0 | 1 | 2 | 3 | 4;
+
+export type OneToFive = 1 | 2 | 3 | 4 | 5;
+
+export type ZeroToSeven = ZeroToFour | 5 | 6 | 7;
+
+export type FirstToFifth = GlobalVariables["ordinals"][ZeroToFour];
+
+export type FirstToEighth = GlobalVariables["ordinals"][ZeroToSeven];

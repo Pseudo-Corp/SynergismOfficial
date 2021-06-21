@@ -9,7 +9,7 @@ import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
 import { corruptionDisplay, corruptionLoadoutTableUpdate } from './Corruptions';
-import { Player } from './types/Synergism';
+import type { BuildingSubtab, Player } from './types/Synergism';
 
 type TabValue = { tabName: keyof typeof tabNumberConst, unlocked: boolean };
 type Tab = Record<number, TabValue>;
@@ -160,8 +160,8 @@ export const toggleShops = (toggle?: upgradeAutos) => {
     else {
         const keys = Object.keys(player.shoptoggles) as (keyof Player['shoptoggles'])[]
         for (const key of keys) {
-            let color = player.shoptoggles[key]? 'green': 'red'
-            let auto = 'Auto: ' + (player.shoptoggles[key] ? 'ON' : 'OFF')
+            const color = player.shoptoggles[key]? 'green': 'red'
+            const auto = 'Auto: ' + (player.shoptoggles[key] ? 'ON' : 'OFF')
             console.log(key)
             document.getElementById(`${key}AutoUpgrade`).style.borderColor = color
             document.getElementById(`${key}AutoUpgrade`).textContent = auto
@@ -422,7 +422,7 @@ export const toggleAutoSacrifice = (index: number) => {
     calculateRuneLevels();
 }
 
-export const toggleBuildingScreen = (input: string) => {
+export const toggleBuildingScreen = (input: BuildingSubtab) => {
     G['buildingSubTab'] = input
     const screen: Record<string, { screen: string, button: string, subtabNumber: number }> = {
         "coin": {

@@ -152,7 +152,7 @@ export class QuarkHandler {
                 return this.BONUS = bonus;
             }
         } else if (!navigator.onLine) {
-            return el.textContent = `Current Bonus: N/A (offline)%!`;;
+            return el.textContent = `Current Bonus: N/A (offline)%!`;
         }
 
         try {

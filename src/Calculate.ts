@@ -1437,9 +1437,9 @@ const eventStart = "06/18/2021 17:00:00"
 const eventEnd = "06/27/2021 23:59:59"
 
 export const eventCheck = () => {
-    let start = new Date(eventStart);
-    let end = new Date(eventEnd);
-    let now = new Date();
+    const start = new Date(eventStart);
+    const end = new Date(eventEnd);
+    const now = new Date();
 
     if(now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
         G['isEvent'] = true
@@ -1450,5 +1450,5 @@ export const eventCheck = () => {
         G['isEvent'] = false
         document.getElementById('eventCurrent').textContent = "INACTIVE"
         document.getElementById('eventBuffs').textContent = ""
-    };
+    }
 }
