@@ -220,7 +220,7 @@ export const promocodes = async () => {
 
         const quarkBase = quarkHandler().perHour
         const actualQuarks = Math.floor(quarkBase * mult * realAttemptsUsed)
-        const patreonBonus = actualQuarks * (player.worlds._BONUS / 100)
+        const patreonBonus = Math.floor(actualQuarks * (player.worlds._BONUS / 100));
         const [first, second] = window.crypto.getRandomValues(new Uint8Array(2));
 
         //Allows storage of up to (24 + 2 * calc2 levels) Add Codes, lol!
@@ -246,7 +246,7 @@ export const promocodes = async () => {
             ? 'The answer is ' + (first + second) + ' according to your calculator.'
             : '';
 
-        const addPrompt = await Prompt(`For ${actualQuarks + patreonBonus} quarks or for nothing: What is ${first} + ${second}? ${solution}`);
+        const addPrompt = await Prompt(`For ${actualQuarks + patreonBonus} quarks or nothing: What is ${first} + ${second}? ${solution}`);
 
         if (addPrompt === null) {
             return Alert(`Code was canceled, took no uses away from you!`);
