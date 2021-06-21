@@ -1196,6 +1196,18 @@ export const calculateTimeAcceleration = () => {
     return (timeMult)
 }
 
+export const calculateAscensionAcceleration = () => {
+    const arr = [
+        1 + player.shopUpgrades.chronometer / 100,                                                      // Shop Upgrade
+        1 + 0.6/1000 * hepteractEffective('chronos'),                                                   // Hepteract
+        1 + 0.25 * player.achievements[259],                                                            // Achieve 259
+        1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[262],   // Achieve 262
+        1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263],   // Achieve 263
+        1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // PLAT Omega
+    ]
+    return productContents(arr)
+}
+
 export const calculateCorruptionPoints = () => {
     let basePoints = 400;
 

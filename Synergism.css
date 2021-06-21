@@ -2795,8 +2795,16 @@ header #obtainiumDisplay {
     color: lightgoldenrodyellow;
 }
 
+#ascHepteract {
+    color: pink
+}
+
 #ascTimeAccel {
     color: royalblue;
+}
+
+#ascAscensionTimeAccel {
+    color: orange
 }
 
 #tabBorder {

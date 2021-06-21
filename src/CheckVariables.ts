@@ -405,4 +405,8 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.shopUpgrades.powderEX = 0;
         player.dailyPowderResetUses = 1;
     }
+
+    if (data.ascStatToggles[5] === undefined) {
+        player.ascStatToggles[5] = false;
+    }
 }

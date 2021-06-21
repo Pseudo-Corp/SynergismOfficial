@@ -1,7 +1,7 @@
 import { player, format, formatTimeShort, /*formatTimeShort*/ } from './Synergism';
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
-import { CalcCorruptionStuff, calculateTimeAcceleration} from './Calculate';
+import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration} from './Calculate';
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
@@ -785,15 +785,17 @@ export const showCorruptionStatsLoadouts = () => {
 
 const updateAscensionStats = () => {
     const t = player.ascensionCounter;
-    const [cubes, tess, hyper, platonic] = CalcCorruptionStuff().splice(4);
+    const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().splice(4);
     const fillers: Record<string, string> = {
         "ascLen": formatTimeShort(player.ascensionCounter),
         "ascCubes": format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2, true),
         "ascTess": format(tess * (player.ascStatToggles[2] ? 1 : 1 / t), 3, true),
         "ascHyper": format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4, true),
         "ascPlatonic": format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5, true),
+        "ascHepteract": format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3, true),
         "ascC10": player.challengecompletions[10] + '',
-        "ascTimeAccel": `${format(calculateTimeAcceleration(), 3, true)}x`
+        "ascTimeAccel": `${format(calculateTimeAcceleration(), 3, true)}x`,
+        "ascAscensionTimeAccel": `${format(calculateAscensionAcceleration(), 3, true)}x`
     }
     for (const key in fillers) {
         document.getElementById(key).textContent = fillers[key];

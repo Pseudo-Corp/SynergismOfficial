@@ -65,6 +65,7 @@ export const generateEventHandlers = () => {
     document.getElementById('ascTessStats').addEventListener('click', () => toggleAscStatPerSecond(2))
     document.getElementById('ascHyperStats').addEventListener('click', () => toggleAscStatPerSecond(3))
     document.getElementById('ascPlatonicStats').addEventListener('click', () => toggleAscStatPerSecond(4))
+    document.getElementById('ascHepteractStats').addEventListener('click', () => toggleAscStatPerSecond(5))
 //Part 1: Reset Tiers
 //Onmouseover Events
     document.getElementById('prestigebtn').addEventListener('mouseover', () => resetrepeat("prestige"))
