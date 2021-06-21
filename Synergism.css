@@ -2752,39 +2752,17 @@ header #obtainiumDisplay {
 }
 
 #ascensionStats {
-    grid-column: stat-image / end;
-    grid-row: asc-stats;
     display: flex;
-    flex-flow: row;
-    flex-direction: row;
-    justify-content: center;
     padding-top: 10px;
     margin-bottom: 15px;
-    height: 20px;
     line-height: 20px;
+    width: 60%;
+    justify-content: space-evenly;
 }
 
 #ascensionStats > span {
     display: flex;
     align-items: center;
-}
-
-#ascHyperStats,
-#ascPlatonicStats,
-#ascTessStats {
-    width: 10em;
-}
-
-#ascTimeTakenStats {
-    min-width: 8em;
-}
-
-#ascCubeStats {
-    width: 12em;
-}
-
-#ascC10CompletionsStats {
-    width: 3.5em;
 }
 
 #ascensionStats img {
