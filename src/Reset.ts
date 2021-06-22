@@ -532,6 +532,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                 ascCount *= 1.10
             if (player.platonicUpgrades[15] > 0)
                 ascCount *= 2
+            ascCount *= (1 + 0.02 * player.platonicUpgrades[16])
+            ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000))
             ascCount = Math.floor(ascCount)
             player.ascensionCount += ascCount;
             player.wowCubes.add(metaData[4]); //Metadata is defined up in the top of the (i > 3.5) case

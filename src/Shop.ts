@@ -83,7 +83,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "T and R challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Addtionally, instantly gain T challenge completions up to highest completed when exiting R challenges."
+        description: "T and R challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T challenge completions up to highest completed when exiting R challenges."
     },
     antSpeed: {
         price: 200,

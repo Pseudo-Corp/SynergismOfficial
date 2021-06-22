@@ -1302,7 +1302,8 @@ export const calculateAscensionScore = () => {
     baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39] + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]), player.highestchallengecompletions[10]);
     // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
     for (let i = 1; i <= 10; i++) {
-        corruptionMultiplier *= G['corruptionPointMultipliers'][player.usedCorruptions[i]]
+        let exponent = ((i === 1 || i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 0.05 * player.platonicUpgrades[17] : 1;
+        corruptionMultiplier *= Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i]], exponent);
     }
 
     effectiveScore = baseScore * corruptionMultiplier * G['challenge15Rewards'].score * G['platonicBonusMultiplier'][6]
@@ -1364,6 +1365,7 @@ export const calculatePowderConversion = () => {
         (1 + player.shopUpgrades.powderEX / 50), // powderEX shop upgrade, 2% per level max 20%
         (1 + player.achievements[256] / 20), // Achievement 256, 5%
         (1 + player.achievements[257] / 20), // Achievement 257, 5%
+        1 + 0.01 * player.platonicUpgrades[16], // Platonic Upgrade 4x1
         1 + 0.31 * +G['isEvent'] // Event!
     ]
     
@@ -1451,4 +1453,41 @@ export const eventCheck = () => {
         document.getElementById('eventCurrent').textContent = "INACTIVE"
         document.getElementById('eventBuffs').textContent = ""
     };
+}
+
+/**
+ * Method of calculating values in sequence of '+', '-', '*', '/' or '^' without the use of 'eval
+ * probably not going to be used though
+ */
+export const calculateArbitraryExpression = (base: number, arr: [string, number][] , calculate = true) => {
+    // Test Case: expect '25' upon '^', '+', '-', '*', '/' for 1, [['*', 1],['*',2],['+',3],['^',2]]
+    let result = base
+
+    function operate(base: number, arr: [string, number]) {
+        const [op, num] = arr
+        if (op === '+')
+            return base + num;
+        else if (op === '-')
+            return base - num;
+        else if (op === '*')
+            return base * num;
+        else if (op === '/')
+            return base * num;
+        else if (op === '^')
+            return Math.pow(base, num);
+        else {
+            console.log('Not a valid operation! Please use one of "+", "-", "*", "/", or "^"')
+            return null
+        }
+    }
+
+    if (calculate) {
+        for (const object of arr) {
+            if (result != null)
+                result = operate(result, object)
+            else
+                return NaN
+        }
+        return result
+    }
 }

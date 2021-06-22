@@ -591,6 +591,10 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
 
                 artists.appendChild(p);
             }
+            // TODO: Khafra, I need access to the gist to update artists names manually I think -Platonic
+            const p = document.createElement('p')
+            p.textContent = 'CFHM'
+            artists.appendChild(p);
         } catch (e) {
             credits.appendChild(document.createTextNode(e.toString()));
         }
