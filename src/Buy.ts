@@ -693,7 +693,10 @@ export const buyParticleBuilding = (
     }
 }
 
-export const getTesseractCost = (intCost: number, index: OneToFive, accelerate = false): [number, number] => {
+export const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const;
+
+export const getTesseractCost = (index: OneToFive, accelerate = false): [number, number] => {
+    const intCost = tesseractBuildingCosts[index - 1];
     const ascendBuildingIndex = `ascendBuilding${index}` as const;
     const buyFrom = player[ascendBuildingIndex]['owned']
     const subCost = intCost * Math.pow(buyFrom * (buyFrom + 1) / 2, 2)
@@ -708,10 +711,11 @@ export const getTesseractCost = (intCost: number, index: OneToFive, accelerate =
     return [actualBuy, actualCost];
 }
 
-export const buyTesseractBuilding = (intCost: number, index: OneToFive, accelerate = false) => {
+export const buyTesseractBuilding = (index: OneToFive, accelerate = false) => {
+    const intCost = tesseractBuildingCosts[index - 1];
     const ascendBuildingIndex = `ascendBuilding${index}` as const;
     // Destructuring FTW!
-    const [buyTo, actualCost] = getTesseractCost(intCost, index, accelerate)
+    const [buyTo, actualCost] = getTesseractCost(index, accelerate)
 
     player[ascendBuildingIndex]['owned'] = buyTo;
     player.wowTesseracts.sub(actualCost);

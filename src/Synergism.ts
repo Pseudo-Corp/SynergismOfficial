@@ -21,7 +21,7 @@ import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } 
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
 import { reset } from './Reset';
-import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, getTesseractCost } from './Buy';
+import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, getTesseractCost, tesseractBuildingCosts } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
@@ -2867,18 +2867,18 @@ export const updateAll = (): void => {
 
 //Loops through all buildings which have AutoBuy turned 'on' and purchases the cheapest available building that player can afford
     if ((player.researches[190] > 0) && (player.tesseractAutoBuyerToggle == 1)) {
-        const cheapestTesseractBuilding = { cost:0, intCost:0, index:0, intCostArray: [1,10,100,1000,10000] as const };
-        for (let i = 0; i < cheapestTesseractBuilding.intCostArray.length; i++){
-            if ((Number(player.wowTesseracts) >= cheapestTesseractBuilding.intCostArray[i] * Math.pow(1 + player[`ascendBuilding${i+1 as OneToFive}` as const]['owned'], 3) + player.tesseractAutoBuyerAmount) && player.autoTesseracts[i+1]) {
-                if ((getTesseractCost(cheapestTesseractBuilding.intCostArray[i], i+1 as OneToFive)[1] < cheapestTesseractBuilding.cost) || (cheapestTesseractBuilding.cost == 0)){
-                    cheapestTesseractBuilding.cost = getTesseractCost(cheapestTesseractBuilding.intCostArray[i], i+1 as OneToFive)[1];
-                    cheapestTesseractBuilding.intCost = cheapestTesseractBuilding.intCostArray[i];
-                    cheapestTesseractBuilding.index = i+1;
+        const cheapestTesseractBuilding: {cost: number, index: 0|OneToFive} = { cost:0, index:0 };
+        for (let i = 0; i < tesseractBuildingCosts.length; i++){
+            const iPlusOne = i+1 as OneToFive;
+            if ((Number(player.wowTesseracts) >= tesseractBuildingCosts[i] * Math.pow(1 + player[`ascendBuilding${iPlusOne}` as const]['owned'], 3) + player.tesseractAutoBuyerAmount) && player.autoTesseracts[iPlusOne]) {
+                if ((getTesseractCost(iPlusOne)[1] < cheapestTesseractBuilding.cost) || (cheapestTesseractBuilding.cost == 0)){
+                    cheapestTesseractBuilding.cost = getTesseractCost(iPlusOne)[1];
+                    cheapestTesseractBuilding.index = iPlusOne;
                 }
             }
         }
-        if (cheapestTesseractBuilding.index > 0){
-            buyTesseractBuilding(cheapestTesseractBuilding.intCost, cheapestTesseractBuilding.index as OneToFive, true);
+        if (cheapestTesseractBuilding.index !== 0){
+            buyTesseractBuilding(cheapestTesseractBuilding.index, true);
         }
     }
 

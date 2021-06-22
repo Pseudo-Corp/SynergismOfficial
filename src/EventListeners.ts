@@ -155,9 +155,8 @@ export const generateEventHandlers = () => {
     }
 
     // Tesseract Buildings
-    const tesseractBuildingCosts = [1, 10, 100, 1000, 10000]
     for (let index = 0; index < 5; index++) {
-        document.getElementById(`buyTesseracts${index+1}`).addEventListener('click', () => buyTesseractBuilding(tesseractBuildingCosts[index],index+1 as OneToFive))
+        document.getElementById(`buyTesseracts${index+1}`).addEventListener('click', () => buyTesseractBuilding(index+1 as OneToFive))
         document.getElementById(`tesseractAutoToggle${index+1}`).addEventListener('click', () => toggleAutoTesseracts(index+1))
         
     }
