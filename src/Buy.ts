@@ -7,7 +7,7 @@ import { upgradeupdate, crystalupgradedescriptions} from './Upgrades';
 import { reset } from './Reset';
 import { calculateSummationLinear, calculateCorruptionPoints, calculateRuneBonuses } from './Calculate';
 import { Globals as G } from './Variables';
-import type { FirstToFifth, OneToFive } from './types/Synergism';
+import type { FirstToFifth, OneToFive, ZeroToFour } from './types/Synergism';
 
 export const getReductionValue = () => {
     let reduction = 1;
@@ -652,10 +652,12 @@ const getParticleCost = (originalCost: DecimalSource, buyTo: number) => {
 }
 
 export const buyParticleBuilding = (
-    pos: FirstToFifth,
+    index: OneToFive,
     originalCost: DecimalSource, 
     autobuyer = false
 ) => {
+    const zeroIndex = index-1 as ZeroToFour;
+    const pos = G['ordinals'][zeroIndex];
     const key = `${pos}OwnedParticles` as const;
     let buyTo = player[key] + 1;
     let cashToBuy = getParticleCost(originalCost, buyTo);

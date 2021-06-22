@@ -2841,19 +2841,19 @@ export const updateAll = (): void => {
 //Autobuy "Reincarnation" Tab
 
     if (player.toggles[22] === true && player.reincarnationPoints.gte(player.firstCostParticles)) {
-        buyParticleBuilding('first', 1, true)
+        buyParticleBuilding(1, 1, true)
     }
     if (player.toggles[23] === true && player.reincarnationPoints.gte(player.secondCostParticles)) {
-        buyParticleBuilding('second', 1e2, true)
+        buyParticleBuilding(2, 1e2, true)
     }
     if (player.toggles[24] === true && player.reincarnationPoints.gte(player.thirdCostParticles)) {
-        buyParticleBuilding('third', 1e4, true)
+        buyParticleBuilding(3, 1e4, true)
     }
     if (player.toggles[25] === true && player.reincarnationPoints.gte(player.fourthCostParticles)) {
-        buyParticleBuilding('fourth', 1e8, true)
+        buyParticleBuilding(4, 1e8, true)
     }
     if (player.toggles[26] === true && player.reincarnationPoints.gte(player.fifthCostParticles)) {
-        buyParticleBuilding('fifth', 1e16, true)
+        buyParticleBuilding(5, 1e16, true)
     }
 
 //Autobuy "ascension" tab
@@ -3270,7 +3270,7 @@ document.addEventListener('keydown', (event) => {
     switch (key) {
         case "1":
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding('first', cost[0]) : buyMax('first', type as any, 1, cost[0])
+                G['buildingSubTab'] === "particle" ? buyParticleBuilding(1, cost[0]) : buyMax('first', type as any, 1, cost[0])
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3292,7 +3292,7 @@ document.addEventListener('keydown', (event) => {
         case "2":
             if (G['currentTab'] === "buildings") {
                 G['buildingSubTab'] === "particle" 
-                    ? buyParticleBuilding('second', cost[1]) 
+                    ? buyParticleBuilding(2, cost[1]) 
                     : buyMax('second', type as any, G['buildingSubTab'] === "coin" ? 2 : 3, cost[1])
             }
             if (G['currentTab'] === "runes") {
@@ -3314,7 +3314,7 @@ document.addEventListener('keydown', (event) => {
         case "3":
             if (G['currentTab'] === "buildings") {
                 G['buildingSubTab'] === "particle" 
-                    ? buyParticleBuilding('third', cost[2]) 
+                    ? buyParticleBuilding(3, cost[2]) 
                     : buyMax('third', type as any, G['buildingSubTab'] === "coin" ? 3 : 6, cost[2])
             }
             if (G['currentTab'] === "runes") {
@@ -3336,7 +3336,7 @@ document.addEventListener('keydown', (event) => {
         case "4":
             if (G['currentTab'] === "buildings") {
                 G['buildingSubTab'] === "particle" 
-                    ? buyParticleBuilding('fourth', cost[3]) 
+                    ? buyParticleBuilding(4, cost[3]) 
                     : buyMax('fourth', type as any, G['buildingSubTab'] === "coin" ? 4 : 10, cost[3])
             }
             if (G['currentTab'] === "runes") {
@@ -3358,7 +3358,7 @@ document.addEventListener('keydown', (event) => {
         case "5":
             if (G['currentTab'] === "buildings") {
                 G['buildingSubTab'] === "particle" 
-                    ? buyParticleBuilding('fifth', cost[4]) 
+                    ? buyParticleBuilding(5, cost[4]) 
                     : buyMax('fifth', type as any, G['buildingSubTab'] === "coin" ? 5 : 15, cost[4])
             }
             if (G['currentTab'] === "runes") {
