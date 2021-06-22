@@ -2757,19 +2757,19 @@ export const updateAll = (): void => {
 //Autobuy "Building" Tab
 
     if (player.toggles[1] === true && player.upgrades[81] === 1 && player.coins.gte(player.firstCostCoin)) {
-        buyMax(1, 'Coin', 1, 100)
+        buyMax(1, 'Coin')
     }
     if (player.toggles[2] === true && player.upgrades[82] === 1 && player.coins.gte(player.secondCostCoin)) {
-        buyMax(2, 'Coin', 2, 2e3)
+        buyMax(2, 'Coin')
     }
     if (player.toggles[3] === true && player.upgrades[83] === 1 && player.coins.gte(player.thirdCostCoin)) {
-        buyMax(3, 'Coin', 3, 4e4)
+        buyMax(3, 'Coin')
     }
     if (player.toggles[4] === true && player.upgrades[84] === 1 && player.coins.gte(player.fourthCostCoin)) {
-        buyMax(4, 'Coin', 4, 8e5)
+        buyMax(4, 'Coin')
     }
     if (player.toggles[5] === true && player.upgrades[85] === 1 && player.coins.gte(player.fifthCostCoin)) {
-        buyMax(5, 'Coin', 5, 1.6e7)
+        buyMax(5, 'Coin')
     }
     if (player.toggles[6] === true && player.upgrades[86] === 1 && player.coins.gte(player.acceleratorCost)) {
         buyAccelerator(true);
@@ -2784,19 +2784,19 @@ export const updateAll = (): void => {
 //Autobuy "Prestige" Tab
 
     if (player.toggles[10] === true && player.achievements[78] === 1 && player.prestigePoints.gte(player.firstCostDiamonds)) {
-        buyMax(1, 'Diamonds', 1, 1e2)
+        buyMax(1, 'Diamonds')
     }
     if (player.toggles[11] === true && player.achievements[85] === 1 && player.prestigePoints.gte(player.secondCostDiamonds)) {
-        buyMax(2, 'Diamonds', 3, 1e5)
+        buyMax(2, 'Diamonds')
     }
     if (player.toggles[12] === true && player.achievements[92] === 1 && player.prestigePoints.gte(player.thirdCostDiamonds)) {
-        buyMax(3, 'Diamonds', 6, 1e15)
+        buyMax(3, 'Diamonds')
     }
     if (player.toggles[13] === true && player.achievements[99] === 1 && player.prestigePoints.gte(player.fourthCostDiamonds)) {
-        buyMax(4, 'Diamonds', 10, 1e40)
+        buyMax(4, 'Diamonds')
     }
     if (player.toggles[14] === true && player.achievements[106] === 1 && player.prestigePoints.gte(player.fifthCostDiamonds)) {
-        buyMax(5, 'Diamonds', 15, 1e100)
+        buyMax(5, 'Diamonds')
     }
 
     let c = 0;
@@ -2823,19 +2823,19 @@ export const updateAll = (): void => {
 //Autobuy "Transcension" Tab
 
     if (player.toggles[16] === true && player.upgrades[94] === 1 && player.transcendPoints.gte(player.firstCostMythos)) {
-        buyMax(1, 'Mythos', 1, 1)
+        buyMax(1, 'Mythos')
     }
     if (player.toggles[17] === true && player.upgrades[95] === 1 && player.transcendPoints.gte(player.secondCostMythos)) {
-        buyMax(2, 'Mythos', 3, 1e2)
+        buyMax(2, 'Mythos')
     }
     if (player.toggles[18] === true && player.upgrades[96] === 1 && player.transcendPoints.gte(player.thirdCostMythos)) {
-        buyMax(3, 'Mythos', 6, 1e4)
+        buyMax(3, 'Mythos')
     }
     if (player.toggles[19] === true && player.upgrades[97] === 1 && player.transcendPoints.gte(player.fourthCostMythos)) {
-        buyMax(4, 'Mythos', 10, 1e8)
+        buyMax(4, 'Mythos')
     }
     if (player.toggles[20] === true && player.upgrades[98] === 1 && player.transcendPoints.gte(player.fifthCostMythos)) {
-        buyMax(5, 'Mythos', 15, 1e16)
+        buyMax(5, 'Mythos')
     }
 
 //Autobuy "Reincarnation" Tab
@@ -3250,19 +3250,12 @@ document.addEventListener('keydown', (event) => {
         return;
     }
 
-    const costs = {
-        default: [1, 100, 1e4, 1e8, 1e16],
-        coin: [100, 2000, 4e4, 8e5, 1.6e7],
-        diamond: [100, 1e5, 1e15, 1e40, 1e100]
-    } as const;
-
     const types = {
         coin: 'Coin',
         diamond: 'Diamonds',
         mythos: 'Mythos'
     } as const;
 
-    const cost = costs[G['buildingSubTab'] as keyof typeof costs] ?? costs.default;
     const type = types[G['buildingSubTab'] as keyof typeof types] ?? '';
 
     const key = event.key.toUpperCase();
@@ -3270,7 +3263,7 @@ document.addEventListener('keydown', (event) => {
     switch (key) {
         case "1":
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding(1) : buyMax(1, type as any, 1, cost[0])
+                G['buildingSubTab'] === "particle" ? buyParticleBuilding(1) : buyMax(1, type as any)
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3293,7 +3286,7 @@ document.addEventListener('keydown', (event) => {
             if (G['currentTab'] === "buildings") {
                 G['buildingSubTab'] === "particle" 
                     ? buyParticleBuilding(2) 
-                    : buyMax(2, type as any, G['buildingSubTab'] === "coin" ? 2 : 3, cost[1])
+                    : buyMax(2, type as any)
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3315,7 +3308,7 @@ document.addEventListener('keydown', (event) => {
             if (G['currentTab'] === "buildings") {
                 G['buildingSubTab'] === "particle" 
                     ? buyParticleBuilding(3) 
-                    : buyMax(3, type as any, G['buildingSubTab'] === "coin" ? 3 : 6, cost[2])
+                    : buyMax(3, type as any)
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3337,7 +3330,7 @@ document.addEventListener('keydown', (event) => {
             if (G['currentTab'] === "buildings") {
                 G['buildingSubTab'] === "particle" 
                     ? buyParticleBuilding(4) 
-                    : buyMax(4, type as any, G['buildingSubTab'] === "coin" ? 4 : 10, cost[3])
+                    : buyMax(4, type as any)
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
@@ -3359,7 +3352,7 @@ document.addEventListener('keydown', (event) => {
             if (G['currentTab'] === "buildings") {
                 G['buildingSubTab'] === "particle" 
                     ? buyParticleBuilding(5) 
-                    : buyMax(5, type as any, G['buildingSubTab'] === "coin" ? 5 : 15, cost[4])
+                    : buyMax(5, type as any)
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {

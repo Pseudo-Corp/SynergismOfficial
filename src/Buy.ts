@@ -276,6 +276,8 @@ const known_log10s = function () {
     return obj;
 }();
 
+const coinBuildingCosts = [100, 2000, 4e4, 8e5, 1.6e7] as const;
+const diamondBuildingCosts = [100, 1e5, 1e15, 1e40, 1e100] as const;
 const mythosAndParticleBuildingCosts = [1, 1e2, 1e4, 1e8, 1e16] as const;
 
 export const getCost = (originalCost: DecimalSource, buyingTo: number, type: string, num: number, r: number) => {
@@ -365,20 +367,22 @@ export const getCost = (originalCost: DecimalSource, buyingTo: number, type: str
     return cost;
 }
 
-export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes, num: number, originalCost: DecimalSource) => {
+export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) => {
     const zeroIndex = index-1 as ZeroToFour;
     const pos = G['ordinals'][zeroIndex];
+    const num = type === 'Coin' ? index : index * (index + 1) / 2;
+    const originalCostArray = (
+        type === 'Coin'
+            ? coinBuildingCosts
+            : type === 'Diamonds'
+                ? diamondBuildingCosts
+                : mythosAndParticleBuildingCosts);
+    const originalCost = originalCostArray[zeroIndex];
+    
     const BUYMAX = (Math.pow(10, 99) - 1);
     const COINMAX = 1e99;
     const r = getReductionValue();
-
-    let tag: 'prestigePoints' | 'transcendPoints' | 'reincarnationPoints' | 'coins' = 'coins';
-    switch (type) {
-        case 'Diamonds': tag = 'prestigePoints'; break;
-        case 'Mythos': tag = 'transcendPoints'; break;
-        case 'Particles': tag = 'reincarnationPoints'; break;
-        case 'Coin': tag = 'coins'; break;
-    }
+    const tag = buyProducerTypes[type][0];
 
     const posOwnedType = `${pos}Owned${type}` as const;
 
