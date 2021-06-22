@@ -3243,123 +3243,49 @@ document.addEventListener('keydown', (event) => {
     const types = {
         coin: 'Coin',
         diamond: 'Diamonds',
-        mythos: 'Mythos'
+        mythos: 'Mythos',
+        particle: 'Particles',
+        tesseract: 'Tesseracts',
     } as const;
 
-    const type = types[G['buildingSubTab'] as keyof typeof types] ?? '';
+    const type = types[G['buildingSubTab']];
 
     const key = event.key.toUpperCase();
-    // FIXME: The below doesn't work for tesseracts. Remove the type cast in "type as any" for an error.
     switch (key) {
         case "1":
-            if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" ? buyParticleBuilding(1) : buyMax(1, type as any)
-            }
-            if (G['currentTab'] === "runes") {
-                if (G['runescreen'] === "runes") {
-                    redeemShards(1)
-                }
-                if (G['runescreen'] === "blessings") {
-                    buyRuneBonusLevels('Blessings', 1)
-                }
-                if (G['runescreen'] === "spirits") {
-                    buyRuneBonusLevels('Spirits', 1)
-                }
-            }
-            if (G['currentTab'] === "challenges") {
-                toggleChallenges(1)
-                challengeDisplay(1);
-            }
-            break;
-
         case "2":
-            if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" 
-                    ? buyParticleBuilding(2) 
-                    : buyMax(2, type as any)
-            }
-            if (G['currentTab'] === "runes") {
-                if (G['runescreen'] === "runes") {
-                    redeemShards(2)
-                }
-                if (G['runescreen'] === "blessings") {
-                    buyRuneBonusLevels('Blessings', 2)
-                }
-                if (G['runescreen'] === "spirits") {
-                    buyRuneBonusLevels('Spirits', 2)
-                }
-            }
-            if (G['currentTab'] === "challenges") {
-                toggleChallenges(2)
-                challengeDisplay(2);
-            }
-            break;
         case "3":
-            if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" 
-                    ? buyParticleBuilding(3) 
-                    : buyMax(3, type as any)
-            }
-            if (G['currentTab'] === "runes") {
-                if (G['runescreen'] === "runes") {
-                    redeemShards(3)
-                }
-                if (G['runescreen'] === "blessings") {
-                    buyRuneBonusLevels('Blessings', 3)
-                }
-                if (G['runescreen'] === "spirits") {
-                    buyRuneBonusLevels('Spirits', 3)
-                }
-            }
-            if (G['currentTab'] === "challenges") {
-                toggleChallenges(3)
-                challengeDisplay(3);
-            }
-            break;
         case "4":
+        case "5": {
+            const num = Number(key) as OneToFive;
+
             if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" 
-                    ? buyParticleBuilding(4) 
-                    : buyMax(4, type as any)
+                if (type === 'Particles') {
+                    buyParticleBuilding(num);
+                } else if (type === 'Tesseracts') {
+                    buyTesseractBuilding(num);
+                } else {
+                    buyMax(num, type);
+                }
             }
             if (G['currentTab'] === "runes") {
                 if (G['runescreen'] === "runes") {
-                    redeemShards(4)
+                    redeemShards(num)
                 }
                 if (G['runescreen'] === "blessings") {
-                    buyRuneBonusLevels('Blessings', 4)
+                    buyRuneBonusLevels('Blessings', num)
                 }
                 if (G['runescreen'] === "spirits") {
-                    buyRuneBonusLevels('Spirits', 4)
+                    buyRuneBonusLevels('Spirits', num)
                 }
             }
             if (G['currentTab'] === "challenges") {
-                toggleChallenges(4)
-                challengeDisplay(4);
+                toggleChallenges(num)
+                challengeDisplay(num);
             }
             break;
-        case "5":
-            if (G['currentTab'] === "buildings") {
-                G['buildingSubTab'] === "particle" 
-                    ? buyParticleBuilding(5) 
-                    : buyMax(5, type as any)
-            }
-            if (G['currentTab'] === "runes") {
-                if (G['runescreen'] === "runes") {
-                    redeemShards(5)
-                }
-                if (G['runescreen'] === "blessings") {
-                    buyRuneBonusLevels('Blessings', 5)
-                }
-                if (G['runescreen'] === "spirits") {
-                    buyRuneBonusLevels('Spirits', 5)
-                }
-            }
-            if (G['currentTab'] === "challenges") {
-                toggleChallenges(5)
-                challengeDisplay(5);
-            }
-            break;
+        }
+
         case "6":
             if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "diamond") {
                 buyCrystalUpgrades(1)
