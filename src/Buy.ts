@@ -280,7 +280,7 @@ const coinBuildingCosts = [100, 2000, 4e4, 8e5, 1.6e7] as const;
 const diamondBuildingCosts = [100, 1e5, 1e15, 1e40, 1e100] as const;
 const mythosAndParticleBuildingCosts = [1, 1e2, 1e4, 1e8, 1e16] as const;
 
-export const getCost = (originalCost: DecimalSource, buyingTo: number, type: string, num: number, r: number) => {
+const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: keyof typeof buyProducerTypes, num: number, r: number) => {
     // It's 0 indexed by mistake so you have to subtract 1 somewhere.
     --buyingTo;
     // Accounts for the multiplies by 1.25^num buyingTo times
@@ -367,17 +367,27 @@ export const getCost = (originalCost: DecimalSource, buyingTo: number, type: str
     return cost;
 }
 
-export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) => {
-    const zeroIndex = index-1 as ZeroToFour;
-    const pos = G['ordinals'][zeroIndex];
-    const num = type === 'Coin' ? index : index * (index + 1) / 2;
+const getOriginalCostAndNum = (index: OneToFive, type: keyof typeof buyProducerTypes) => {
     const originalCostArray = (
         type === 'Coin'
             ? coinBuildingCosts
             : type === 'Diamonds'
                 ? diamondBuildingCosts
                 : mythosAndParticleBuildingCosts);
-    const originalCost = originalCostArray[zeroIndex];
+    const num = type === 'Coin' ? index : index * (index + 1) / 2;
+    const originalCost = originalCostArray[index - 1 as ZeroToFour];
+    return [originalCost, num] as const;
+}
+
+export const getCost = (index: OneToFive, type: keyof typeof buyProducerTypes, buyingTo: number, r?: number) => {
+    const [originalCost, num] = getOriginalCostAndNum(index, type);
+    return getCostInternal(originalCost, buyingTo, type, num, r ?? getReductionValue());
+}
+
+export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) => {
+    const zeroIndex = index-1 as ZeroToFour;
+    const pos = G['ordinals'][zeroIndex];
+    const [originalCost, num] = getOriginalCostAndNum(index, type);
     
     const BUYMAX = (Math.pow(10, 99) - 1);
     const COINMAX = 1e99;
@@ -400,16 +410,16 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
     }
 
     let buyInc = 1;
-    let cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
+    let cashToBuy = getCostInternal(originalCost, buyStart + buyInc, type, num, r);
     while (player[tag].gte(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
         buyInc = buyInc * 4;
-        cashToBuy = getCost(originalCost, buyStart + buyInc, type, num, r);
+        cashToBuy = getCostInternal(originalCost, buyStart + buyInc, type, num, r);
     }
     let stepdown = Math.floor(buyInc / 8);
     while (stepdown !== 0) {
         // if step down would push it below out of expense range then divide step down by 2
-        if (getCost(originalCost, buyStart + buyInc - stepdown, type, num, r).lte(player[tag])) {
+        if (getCostInternal(originalCost, buyStart + buyInc - stepdown, type, num, r).lte(player[tag])) {
             stepdown = Math.floor(stepdown / 2);
         } else {
             buyInc = buyInc - Math.max(smallestInc(buyInc), stepdown);
@@ -417,12 +427,12 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
     }
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
     let buyFrom = Math.max(buyStart + buyInc - 7, player[posOwnedType] + 1);
-    let thisCost = getCost(originalCost, buyFrom, type, num, r);
+    let thisCost = getCostInternal(originalCost, buyFrom, type, num, r);
     while (buyFrom < buyStart + buyInc && player[tag].gte(thisCost)) {
         player[tag] = player[tag].sub(thisCost);
         player[posOwnedType] = buyFrom;
         buyFrom = buyFrom + smallestInc(buyFrom);
-        thisCost = getCost(originalCost, buyFrom, type, num, r);
+        thisCost = getCostInternal(originalCost, buyFrom, type, num, r);
         player[`${pos}Cost${type}` as const] = thisCost;
     }
 }

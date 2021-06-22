@@ -3010,22 +3010,12 @@ export const updateAll = (): void => {
     if (reductionValue !== G['prevReductionValue']) {
         G['prevReductionValue'] = reductionValue;
         const resources = ["Coin", "Diamonds", "Mythos"] as const;
-        const scalings = [
-            (value: number) => value,
-            (value: number) => value * (value + 1) / 2,
-            (value: number) => value * (value + 1) / 2
-        ];
-        const originalCosts = [
-            [100, 2e3, 4e4, 8e5, 1.6e7],
-            [1e2, 1e5, 1e15, 1e40, 1e100],
-            [1, 1e2, 1e4, 1e8, 1e16],
-        ];
 
         for (let res = 0; res < resources.length; ++res) {
             const resource = resources[res];
             for (let ord = 0; ord < 5; ++ord) {
                 const num = G['ordinals'][ord as ZeroToFour];
-                player[`${num}Cost${resource}` as const] = getCost(originalCosts[res][ord], player[`${num}Owned${resource}` as const] + 1, resource, scalings[res](ord + 1), reductionValue);
+                player[`${num}Cost${resource}` as const] = getCost(ord+1 as OneToFive, resource, player[`${num}Owned${resource}` as const] + 1, reductionValue);
             }
         }
 
