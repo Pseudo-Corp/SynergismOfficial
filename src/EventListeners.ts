@@ -145,11 +145,9 @@ export const generateEventHandlers = () => {
     }
     
     // Particle Buildings
-    const particleBuildingCosts = [1, 100, 1e4, 1e8, 1e16];
     for (let index = 0; index < 5; index++) {
         document.getElementById(`buyparticles${index+1}`).addEventListener('click', () => buyParticleBuilding(
             index+1 as OneToFive,
-            particleBuildingCosts[index]
         ));
     }
 

@@ -276,6 +276,8 @@ const known_log10s = function () {
     return obj;
 }();
 
+const mythosAndParticleBuildingCosts = [1, 1e2, 1e4, 1e8, 1e16] as const;
+
 export const getCost = (originalCost: DecimalSource, buyingTo: number, type: string, num: number, r: number) => {
     // It's 0 indexed by mistake so you have to subtract 1 somewhere.
     --buyingTo;
@@ -653,10 +655,10 @@ const getParticleCost = (originalCost: DecimalSource, buyTo: number) => {
 
 export const buyParticleBuilding = (
     index: OneToFive,
-    originalCost: DecimalSource, 
     autobuyer = false
 ) => {
     const zeroIndex = index-1 as ZeroToFour;
+    const originalCost = mythosAndParticleBuildingCosts[zeroIndex];
     const pos = G['ordinals'][zeroIndex];
     const key = `${pos}OwnedParticles` as const;
     let buyTo = player[key] + 1;
