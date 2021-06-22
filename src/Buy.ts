@@ -365,7 +365,9 @@ export const getCost = (originalCost: DecimalSource, buyingTo: number, type: str
     return cost;
 }
 
-export const buyMax = (pos: FirstToFifth, type: keyof typeof buyProducerTypes, num: number, originalCost: DecimalSource) => {
+export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes, num: number, originalCost: DecimalSource) => {
+    const zeroIndex = index-1 as ZeroToFour;
+    const pos = G['ordinals'][zeroIndex];
     const BUYMAX = (Math.pow(10, 99) - 1);
     const COINMAX = 1e99;
     const r = getReductionValue();
