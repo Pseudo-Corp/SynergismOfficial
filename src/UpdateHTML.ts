@@ -317,10 +317,9 @@ export const revealStuff = () => {
         (document.getElementById('rune6area').style.display = 'flex', document.getElementById('runeshowpower6').style.display = "flex") :
         (document.getElementById('rune6area').style.display = 'none', document.getElementById('runeshowpower6').style.display = "none");
 
-    // false ? // TODO: When 7th rune is implementable change this with the unlock condition
-    //    (document.getElementById('rune7area').style.display = 'flex', document.getElementById('runeshowpower7').style.display = "flex") :
-    document.getElementById('rune7area').style.display = 'none';
-    document.getElementById('runeshowpower7').style.display = 'none';
+    player.platonicUpgrades[20] > 0 ?
+        (document.getElementById('rune7area').style.display = 'flex', document.getElementById('runeshowpower7').style.display = "flex") :
+        (document.getElementById('rune7area').style.display = 'none', document.getElementById('runeshowpower7').style.display = "none") ;
 
     document.getElementById("ascensionStats").style.visibility = player.achievements[197] > 0 ? "visible" : "hidden";
     document.getElementById("ascHyperStats").style.display = player.challengecompletions[13] > 0 ? "" : "none";
