@@ -24,6 +24,9 @@ export const checkVariablesOnLoad = (data: Player) => {
         }
     }
 
+    data.shopUpgrades ??= { ...blankSave.shopUpgrades };
+    data.ascStatToggles ??= { ...blankSave.ascStatToggles };
+
     // backwards compatibility for v1.0101 (and possibly older) saves
     if (!Array.isArray(data.challengecompletions)) {
         player.challengecompletions = Object.values(data.challengecompletions);
