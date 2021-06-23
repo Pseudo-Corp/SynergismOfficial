@@ -6,6 +6,7 @@ import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
 import { getMaxChallenges } from './Challenges';
+import { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 
 export const revealStuff = () => {
     const example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
@@ -632,7 +633,7 @@ export const buttoncolorchange = () => {
     if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "mythos") {
         for (let i = 1; i <= 5; i++) {
             const toggle = player.toggles[i + 15];
-            const mythos = player[`${G['ordinals'][i - 1]}CostMythos`];
+            const mythos = player[`${G['ordinals'][i - 1 as ZeroToFour]}CostMythos` as const];
             (!toggle || !player.upgrades[93 + i]) && player.transcendPoints.gte(mythos) 
                 ? document.getElementById(`buymythos${i}`).classList.add("buildingPurchaseBtnAvailable")
                 : document.getElementById(`buymythos${i}`).classList.remove("buildingPurchaseBtnAvailable");
@@ -641,7 +642,7 @@ export const buttoncolorchange = () => {
 
     if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "particle") {
         for (let i = 1; i <= 5; i++) {
-            const costParticles = player[G['ordinals'][i - 1] + 'CostParticles'] as Decimal;
+            const costParticles = player[`${G['ordinals'][i - 1 as ZeroToFour]}CostParticles` as const];
             player.reincarnationPoints.gte(costParticles) 
                 ? document.getElementById(`buyparticles${i}`).classList.add("buildingPurchaseBtnAvailable")
                 : document.getElementById(`buyparticles${i}`).classList.remove("buildingPurchaseBtnAvailable");
@@ -650,7 +651,7 @@ export const buttoncolorchange = () => {
 
     if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "tesseract") {
         for (let i = 1; i <= 5; i++) {
-            const ascendBuilding = player['ascendBuilding' + i]['cost'] as number;
+            const ascendBuilding = player[`ascendBuilding${i as OneToFive}` as const]['cost'];
             Number(player.wowTesseracts) >= ascendBuilding
                 ? document.getElementById(`buyTesseracts${i}`).classList.add("buildingPurchaseBtnAvailable")
                 : document.getElementById(`buyTesseracts${i}`).classList.remove("buildingPurchaseBtnAvailable");
@@ -676,7 +677,7 @@ export const buttoncolorchange = () => {
     if (G['currentTab'] === "ants") {
         (player.reincarnationPoints.gte(player.firstCostAnts)) ? document.getElementById(`anttier1`).classList.add("antTierBtnAvailable") : document.getElementById(`anttier1`).classList.remove("antTierBtnAvailable");
         for (let i = 2; i <= 8; i++) {
-            const costAnts = player[G['ordinals'][i - 1] + 'CostAnts'] as Decimal | number;
+            const costAnts = player[`${G['ordinals'][(i - 1) as ZeroToSeven]}CostAnts` as const];
             player.antPoints.gte(costAnts)
                 ? document.getElementById(`anttier${i}`).classList.add("antTierBtnAvailable")
                 : document.getElementById(`anttier${i}`).classList.remove("antTierBtnAvailable")

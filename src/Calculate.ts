@@ -1439,9 +1439,9 @@ const eventStart = "06/18/2021 17:00:00"
 const eventEnd = "06/27/2021 23:59:59"
 
 export const eventCheck = () => {
-    let start = new Date(eventStart);
-    let end = new Date(eventEnd);
-    let now = new Date();
+    const start = new Date(eventStart);
+    const end = new Date(eventEnd);
+    const now = new Date();
 
     if(now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
         G['isEvent'] = true
@@ -1452,42 +1452,5 @@ export const eventCheck = () => {
         G['isEvent'] = false
         document.getElementById('eventCurrent').textContent = "INACTIVE"
         document.getElementById('eventBuffs').textContent = ""
-    };
-}
-
-/**
- * Method of calculating values in sequence of '+', '-', '*', '/' or '^' without the use of 'eval
- * probably not going to be used though
- */
-export const calculateArbitraryExpression = (base: number, arr: [string, number][] , calculate = true) => {
-    // Test Case: expect '25' upon '^', '+', '-', '*', '/' for 1, [['*', 1],['*',2],['+',3],['^',2]]
-    let result = base
-
-    function operate(base: number, arr: [string, number]) {
-        const [op, num] = arr
-        if (op === '+')
-            return base + num;
-        else if (op === '-')
-            return base - num;
-        else if (op === '*')
-            return base * num;
-        else if (op === '/')
-            return base * num;
-        else if (op === '^')
-            return Math.pow(base, num);
-        else {
-            console.log('Not a valid operation! Please use one of "+", "-", "*", "/", or "^"')
-            return null
-        }
-    }
-
-    if (calculate) {
-        for (const object of arr) {
-            if (result != null)
-                result = operate(result, object)
-            else
-                return NaN
-        }
-        return result
     }
 }

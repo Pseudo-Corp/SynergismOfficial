@@ -8,7 +8,7 @@ import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
 import { getShopCosts, shopData } from './Shop';
 import { quarkHandler } from './Quark';
-import { Player } from './types/Synergism';
+import type { Player, ZeroToFour } from './types/Synergism';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== "buildings") {
@@ -32,8 +32,10 @@ export const visualUpdateBuildings = () => {
 
         for (let i = 1; i <= 5; i++) {
             const place = G[upper[i - 1]];
-            document.getElementById("buildtext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[G['ordinals'][i - 1] + 'OwnedCoin'], 0, true) + " [+" + format(player[G['ordinals'][i - 1] + 'GeneratedCoin']) + "]"
-            document.getElementById("buycoin" + i).textContent = "Cost: " + format(player[G['ordinals'][i - 1] + 'CostCoin']) + " coins."
+            const ith = G['ordinals'][i - 1 as ZeroToFour];
+
+            document.getElementById("buildtext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[`${ith}OwnedCoin` as const], 0, true) + " [+" + format(player[`${ith}GeneratedCoin` as const]) + "]"
+            document.getElementById("buycoin" + i).textContent = "Cost: " + format(player[`${ith}CostCoin` as const]) + " coins."
             percentage = percentage.fromMantissaExponent(place.mantissa / totalProductionDivisor.mantissa, place.exponent - totalProductionDivisor.exponent).times(100)
             document.getElementById("buildtext" + (2 * i)).textContent = "Coins/Sec: " + format((place.dividedBy(G['taxdivisor'])).times(40), 2) + " [" + format(percentage, 3) + "%]"
         }
@@ -67,10 +69,11 @@ export const visualUpdateBuildings = () => {
 
         for (let i = 1; i <= 5; i++) {
             const place = G[upper[i-1]];
+            const ith = G['ordinals'][i - 1 as ZeroToFour];
 
-            document.getElementById("prestigetext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[G['ordinals'][i - 1] + 'OwnedDiamonds'], 0, true) + " [+" + format(player[G['ordinals'][i - 1] + 'GeneratedDiamonds'], 2) + "]"
+            document.getElementById("prestigetext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[`${ith}OwnedDiamonds` as const], 0, true) + " [+" + format(player[`${ith}GeneratedDiamonds` as const], 2) + "]"
             document.getElementById("prestigetext" + (2 * i)).textContent = perSecNames[i] + ": " + format((place).times(40), 2)
-            document.getElementById("buydiamond" + i).textContent = "Cost: " + format(player[G['ordinals'][i - 1] + 'CostDiamonds'], 2) + " Diamonds"
+            document.getElementById("buydiamond" + i).textContent = "Cost: " + format(player[`${ith}CostDiamonds` as const], 2) + " Diamonds"
         }
 
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
@@ -92,10 +95,11 @@ export const visualUpdateBuildings = () => {
 
         for (let i = 1; i <= 5; i++) {
             const place = G[upper[i-1]];
+            const ith = G['ordinals'][i - 1 as ZeroToFour];
 
-            document.getElementById("transcendtext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[G['ordinals'][i - 1] + 'OwnedMythos'], 0, true) + " [+" + format(player[G['ordinals'][i - 1] + 'GeneratedMythos'], 2) + "]"
+            document.getElementById("transcendtext" + (2 * i - 1)).textContent = names[i] + ": " + format(player[`${ith}OwnedMythos` as const], 0, true) + " [+" + format(player[`${ith}GeneratedMythos` as const], 2) + "]"
             document.getElementById("transcendtext" + (2 * i)).textContent = perSecNames[i] + ": " + format((place).times(40), 2)
-            document.getElementById("buymythos" + i).textContent = "Cost: " + format(player[G['ordinals'][i - 1] + 'CostMythos'], 2) + " Mythos"
+            document.getElementById("buymythos" + i).textContent = "Cost: " + format(player[`${ith}CostMythos` as const], 2) + " Mythos"
         }
 
         if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
@@ -114,14 +118,15 @@ export const visualUpdateBuildings = () => {
         const perSecNames = ["Atoms/sec", "Protons/sec", "Elements/sec", "Pulsars/sec", "Quasars/sec"]
 
         for (let i = 1; i <= 5; i++) {
+            const ith = G['ordinals'][i - 1 as ZeroToFour];
             const place = G[`produce${upper[i-1]}` as const];
 
             document.getElementById(`reincarnationtext${i}`).textContent = 
-                `${names[i-1]}: ${format(player[`${G['ordinals'][i - 1]}OwnedParticles`], 0, true)} [+${format(player[`${G['ordinals'][i - 1]}GeneratedParticles`], 2)}]`;
+                `${names[i-1]}: ${format(player[`${ith}OwnedParticles` as const], 0, true)} [+${format(player[`${ith}GeneratedParticles` as const], 2)}]`;
             document.getElementById(`reincarnationtext${i+5}`).textContent = 
                 `${perSecNames[i-1]}: ${format((place).times(40), 2)}`;
             document.getElementById(`buyparticles${i}`).textContent = 
-                `Cost: ${format(player[`${G['ordinals'][i - 1]}CostParticles`], 2)} Particles`;
+                `Cost: ${format(player[`${ith}CostParticles` as const], 2)} Particles`;
         }
 
         document.getElementById("reincarnationshardinfo").textContent = "You have " + format(player.reincarnationShards, 2) + " Atoms, providing " + G['buildingPower'].toPrecision(4) + " Building Power. Multiplier to Coin Production: " + format(G['reincarnationMultiplier'])
@@ -140,10 +145,11 @@ export const visualUpdateBuildings = () => {
         const names = [null, 'Dot', 'Vector', 'Three-Space', 'Bent Time', 'Hilbert Space']
         const perSecNames = [null, '+Constant/sec', 'Dot/sec', 'Vector/sec', 'Three-Space/sec', 'Bent Time/sec']
         for (let i = 1; i <= 5; i++) {
-            document.getElementById("ascendText" + i).textContent = names[i] + ": " + format(player['ascendBuilding' + i]['owned'], 0, true) + " [+" + format(player['ascendBuilding' + i]['generated'], 2) + "]"
+            const ascendBuildingI = `ascendBuilding${i as 1|2|3|4|5}` as const;
+            document.getElementById("ascendText" + i).textContent = names[i] + ": " + format(player[ascendBuildingI]['owned'], 0, true) + " [+" + format(player[ascendBuildingI]['generated'], 2) + "]"
             document.getElementById("ascendText" + (5 + i)).textContent = 
                 perSecNames[i] + ": " + format(((G['ascendBuildingProduction'] as { [key: string]: Decimal })[G['ordinals'][i - 1]]), 2)
-            document.getElementById("buyTesseracts" + i).textContent = "Cost: " + format(player['ascendBuilding' + i]['cost'], 0) + " Tesseracts"
+            document.getElementById("buyTesseracts" + i).textContent = "Cost: " + format(player[ascendBuildingI]['cost'], 0) + " Tesseracts"
         }
 
         document.getElementById("tesseractInfo").textContent = "You have " + format(player.wowTesseracts) + " Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension."
@@ -286,8 +292,8 @@ export const visualUpdateCubes = () => {
 
     const names = Object.keys(toNextQuark) as (keyof cubeNames)[]
     for (const name of names) {
-        document.getElementById(`${name}QuarksTodayValue`).textContent = format(player[`${name}QuarkDaily`]);
-        document.getElementById(`${name}QuarksOpenTodayValue`).textContent = format(player[`${name}OpenedDaily`]);
+        document.getElementById(`${name}QuarksTodayValue`).textContent = format(player[`${name}QuarkDaily` as const]);
+        document.getElementById(`${name}QuarksOpenTodayValue`).textContent = format(player[`${name}OpenedDaily` as const]);
         document.getElementById(`${name}QuarksOpenRequirementValue`).textContent = format(Math.max(1, toNextQuark[name]))
         
         // Change color of requirement text if 1 or less required :D

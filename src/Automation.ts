@@ -11,7 +11,7 @@ const buyGenerator = (i: number, state: boolean, auto: boolean) => {
         player.unlocks.generation = true
     }
     const q = 100 + i
-    let type = "transcendPoints"
+    let type: "transcendPoints" | "coins" | "prestigePoints" = "transcendPoints"
     if (q <= 110 && q >= 106) {
         type = "coins"
     } else if (q <= 115) {
@@ -37,13 +37,11 @@ const buyGenerator = (i: number, state: boolean, auto: boolean) => {
 
 export const buyAutobuyers = (i: number, state?: boolean) => {
     const q = i + 80
-    let type = "";
+    let type: "prestigePoints" | "transcendPoints" | "reincarnationPoints" = "reincarnationPoints";
     if (q <= 87) {
         type = "prestigePoints"
     } else if (q <= 93) {
         type = "transcendPoints"
-    } else {
-        type = "reincarnationPoints"
     }
 
     const cost = Decimal.pow(10, G['upgradeCosts'][q]);

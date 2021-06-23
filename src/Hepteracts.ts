@@ -1,6 +1,7 @@
 import { calculatePowderConversion, calculateSigmoid, forcedDailyReset } from "./Calculate";
 import { Cube } from "./CubeExperimental";
 import { format, player } from "./Synergism";
+import type { Player } from "./types/Synergism";
 import { Alert, Confirm, Prompt } from "./UpdateHTML";
 
 export interface IHepteractCraft {
@@ -45,7 +46,7 @@ export class HepteractCraft {
      * values being the amount player has.
      */
     OTHER_CONVERSIONS: {
-        [key: string]: number
+        [key in keyof Player]?: number
     }
 
     /**
@@ -96,7 +97,8 @@ export class HepteractCraft {
         // Create an array of how many we can craft using our conversion limits for additional items
         const itemLimits: Array<number> = []
         for (const item in this.OTHER_CONVERSIONS) {
-            itemLimits.push(Math.floor(player[item] / this.OTHER_CONVERSIONS[item]) * 1 / (1 - this.DISCOUNT))
+            // The type of player[item] is number | Decimal | Cube.
+            itemLimits.push(Math.floor((player[item as keyof Player] as number) / this.OTHER_CONVERSIONS[item as keyof Player]) * 1 / (1 - this.DISCOUNT))
         }
 
         // Get the smallest of the array we created
@@ -109,10 +111,10 @@ export class HepteractCraft {
         // Subtract spent items from player
         player.wowAbyssals -= amountToCraft * this.HEPTERACT_CONVERSION
         for (const item in this.OTHER_CONVERSIONS) {
-            if (typeof player[item] === 'number')
-                player[item] -= amountToCraft * this.OTHER_CONVERSIONS[item];
-            else if (Object.prototype.isPrototypeOf.call(Cube, player[item]))
-                (<Cube>player[item]).sub(amountToCraft * this.OTHER_CONVERSIONS[item]);
+            if (typeof player[item as keyof Player] === 'number')
+                (player[item as keyof Player] as number) -= amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player];
+            else if (Object.prototype.isPrototypeOf.call(Cube, player[item as keyof Player]))
+                (player[item as keyof Player] as Cube).sub(amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player]);
             else if (item == 'worlds')
                 player.worlds.sub(amountToCraft * this.OTHER_CONVERSIONS[item])
         }

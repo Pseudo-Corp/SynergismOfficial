@@ -21,7 +21,7 @@ import { Globals as G } from './Variables';
 import { changeTabColor } from "./UpdateHTML"
 import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp } from "./Hepteracts"
 import { exitOffline, forcedDailyReset, timeWarp } from "./Calculate"
-import { Player } from "./types/Synergism"
+import type { OneToFive, Player } from "./types/Synergism"
 
 /* STYLE GUIDE */
 /* 
@@ -41,7 +41,7 @@ import { Player } from "./types/Synergism"
 */
 
 export const generateEventHandlers = () => {
-    const ordinals = ['null','first','second','third','fourth','fifth','sixth','seventh','eighth']
+    const ordinals = ['null','first','second','third','fourth','fifth','sixth','seventh','eighth'] as const
 
     if (isTesting) {
         const warp = document.createElement('button');
@@ -132,7 +132,7 @@ export const generateEventHandlers = () => {
     for (let index = 0; index < 3; index++){
         for (let index2 = 1; index2 <= 5; index2++) {
             document.getElementById(`buy${buildingTypesAlternate2[index]}${index2}`).addEventListener('click', () => 
-                buyProducer(ordinals[index2], buildingTypesAlternate3[index], index === 0 ? index2 : index2 * (index2+1) / 2))                
+                buyProducer(ordinals[index2 as OneToFive], buildingTypesAlternate3[index], index === 0 ? index2 : index2 * (index2+1) / 2))
         }
     }
 
@@ -145,20 +145,15 @@ export const generateEventHandlers = () => {
     }
     
     // Particle Buildings
-    const particleBuildingCosts = [1, 100, 1e4, 1e8, 1e16];
-    const targets = ['first', 'second', 'third', 'fourth', 'fifth'] as const;
     for (let index = 0; index < 5; index++) {
         document.getElementById(`buyparticles${index+1}`).addEventListener('click', () => buyParticleBuilding(
-            targets[index],
-            particleBuildingCosts[index]
+            index+1 as OneToFive,
         ));
     }
 
     // Tesseract Buildings
-    const tesseractBuildingCosts = [1, 10, 100, 1000, 10000]
     for (let index = 0; index < 5; index++) {
-        
-        document.getElementById(`buyTesseracts${index+1}`).addEventListener('click', () => buyTesseractBuilding(tesseractBuildingCosts[index],index+1))
+        document.getElementById(`buyTesseracts${index+1}`).addEventListener('click', () => buyTesseractBuilding(index+1 as OneToFive))
         document.getElementById(`tesseractAutoToggle${index+1}`).addEventListener('click', () => toggleAutoTesseracts(index+1))
         
     }

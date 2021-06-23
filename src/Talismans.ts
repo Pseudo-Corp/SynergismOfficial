@@ -42,6 +42,8 @@ const talismanResourceCosts = {
     },
 }
 
+const num = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"] as const;
+
 const getTalismanResourceInfo = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
     const obtainiumCost = talismanResourceCosts[type].obtainium;
     const offeringCost = talismanResourceCosts[type].offerings;
@@ -103,7 +105,7 @@ export const buyTalismanResources = (type: keyof typeof talismanResourceCosts, p
         if (type === 'shard') {
             player.talismanShards += talismanResourcesData.buyAmount
         } else {
-            player[type + 's'] += talismanResourcesData.buyAmount
+            player[`${type}s` as const] += talismanResourcesData.buyAmount
         }
         if (type === 'mythicalFragment' && player.mythicalFragments >= 1e25 && player.achievements[239] < 1) {
             achievementaward(239)
@@ -284,7 +286,6 @@ export const showEnhanceTalismanPrices = (i: number) => {
 
 export const showRespecInformation = (i: number) => {
     G['talismanRespec'] = i;
-    const num = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"]
     document.getElementById("talismanEffect").style.display = "none"
     document.getElementById("talismanlevelup").style.display = "none"
     document.getElementById("talismanrespec").style.display = "block"
@@ -293,7 +294,7 @@ export const showRespecInformation = (i: number) => {
     const runeModifier = ["Positive", "Positive", "Positive", "Positive"]
     if (i <= 7) {
         for (let k = 1; k <= 5; k++) {
-            G['mirrorTalismanStats'][k] = player["talisman" + num[i-1]][k];
+            G['mirrorTalismanStats'][k] = player[`talisman${num[i-1]}` as const][k];
         }
         document.getElementById("confirmTalismanRespec").textContent = "Confirm [-100,000 Offerings]"
     }
@@ -343,10 +344,9 @@ export const changeTalismanModifier = (i: number) => {
 }
 
 export const respecTalismanConfirm = (i: number) => {
-    const num = [null, "One", "Two", "Three", "Four", "Five", "Six", "Seven"]
     if (player.runeshards >= 100000 && i <= 7) {
         for (let j = 1; j <= 5; j++) {
-            player["talisman" + num[i]][j] = G['mirrorTalismanStats'][j];
+            player[`talisman${num[i-1]}` as const][j] = G['mirrorTalismanStats'][j];
         }
         player.runeshards -= 100000;
         document.getElementById("confirmTalismanRespec").style.display = "none";
@@ -357,7 +357,7 @@ export const respecTalismanConfirm = (i: number) => {
         player.runeshards -= 400000
         for (let j = 1; j <= 7; j++) {
             for (let k = 1; k <= 5; k++) {
-                player["talisman" + num[j]][k] = G['mirrorTalismanStats'][k];
+                player[`talisman${num[j-1]}` as const][k] = G['mirrorTalismanStats'][k];
             }
         }
         document.getElementById("confirmTalismanRespec").style.display = "none";
