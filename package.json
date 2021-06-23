@@ -5,7 +5,7 @@
   "main": "dist/bundle.js",
   "dependencies": {
     "break_infinity.js": "github:Patashu/break_infinity.js",
-    "esbuild": "^0.11.12",
+    "esbuild": "^0.11.23",
     "eventemitter3": "^4.0.7",
     "lz-string": "^1.4.4",
     "pad-end": "^1.0.2"
