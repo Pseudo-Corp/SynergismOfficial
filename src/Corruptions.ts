@@ -11,13 +11,15 @@ export const corruptionDisplay = (index: number) => {
         document.getElementById("corruptionSelectedPic").style.visibility = "visible"
     }
     G['corruptionTrigger'] = index
+    const currentExponent = ((index === 1 || index === 2) && player.usedCorruptions[index] >= 10) ? 1 + 0.05 * player.platonicUpgrades[17] : 1;
+    const protoExponent = ((index === 1 || index === 2) && player.prototypeCorruptions[index] >= 10) ? 1 + 0.05 * player.platonicUpgrades[17] : 1;
     const corruptionTexts: Record<'name' | 'description' | 'current' | 'planned' | 'multiplier' | 'spiritContribution' | 'image', string>[] = [
         {
             name: "Corruption I: Divisiveness",
             description: "Your multipliers get disintegrated! Is extra devious without also using Maladaption Corruption",
             current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[1]) + ". Effect: Free Mult Exponent ^" + format(G['divisivenessPower'][player.usedCorruptions[1]], 3),
             planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[1]) + ". Effect: Free Multiplier Exponent ^" + format(G['divisivenessPower'][player.prototypeCorruptions[1]], 3),
-            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[1]], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[1]], 1),
+            multiplier: "Current Score Multiplier: " + format(Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[1]], currentExponent), 1) + " / Next Ascension Score Multiplier: " + format(Math.pow(G['corruptionPointMultipliers'][player.prototypeCorruptions[1]], protoExponent), 1),
             spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[1],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[1],2),1) + "%", 
             image: "Pictures/Divisiveness Level 7.png"
         },
@@ -26,7 +28,7 @@ export const corruptionDisplay = (index: number) => {
             description: "Insert Cool Text Here. Is extra devious without also using Divisiveness Corruption. Yin/Yang!",
             current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[2]) + ". Effect: Free Accel. Exponent ^" + format(G['maladaptivePower'][player.usedCorruptions[2]], 3),
             planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[2]) + ". Effect: Free Accelerator Exponent ^" + format(G['maladaptivePower'][player.prototypeCorruptions[2]], 3),
-            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[2]], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[2]], 1),
+            multiplier: "Current Score Multiplier: " + format(Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[2]], currentExponent), 1) + " / Next Ascension Score Multiplier: " + format(Math.pow(G['corruptionPointMultipliers'][player.prototypeCorruptions[2]], protoExponent), 1),
             spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[2],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[2],2),1) + "%", 
             image: "Pictures/Maladaption Lvl 7.png"
         },

@@ -83,7 +83,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "T and R challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Addtionally, instantly gain T challenge completions up to highest completed when exiting R challenges."
+        description: "T and R challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T challenge completions up to highest completed when exiting R challenges."
     },
     antSpeed: {
         price: 200,
@@ -200,7 +200,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "Okay, for an exhorbinant amount, you can obtain the 6th rune, which gives +20% Quarks and +75% all cube types when maxxed!"
+        description: "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +20% Quarks and +75% all cube types when maxed!"
     },
     calculator: {
         price: 10000,

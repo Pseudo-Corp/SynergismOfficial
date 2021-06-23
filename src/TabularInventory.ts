@@ -6,7 +6,7 @@
         
     
     The specs of the tabular inventory are as follows 
-        **Object oriented, and preferrably boilerplate minimal
+        **Object oriented, and preferably boilerplate minimal
         -The tabular inventory should display (row * columns) different items at once, which may or may not be empty
         -Instances of 'items' should populate the top leftmost cell, and if the inventory is full trash the item
         -Ability to delete items, while keeping every other item in place.

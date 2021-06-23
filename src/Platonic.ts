@@ -1,5 +1,6 @@
 import { player, format } from './Synergism';
 import { Synergism } from './Events';
+import { Alert, revealStuff } from './UpdateHTML';
 
 const platonicUpgradeDesc = [
     '+0.0075% cubes per corruption level per level!',
@@ -16,7 +17,12 @@ const platonicUpgradeDesc = [
     'Gain (1 + lvl/100)x ant multiplier per challenge completion, ignoring corruptions to ants.',
     'Effect of Drought is raised to the power of 0.5.',
     'Reduce the effect of Financial Recession in challenge 15, multiplying the coin exponent by 1.55.',
-    'I suppose that, after all, we all are Everywhere at the End of Time.'
+    'You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (multiplicative), +20% Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Offerings and Obtainium (Uncorruptable)! Talk about a deep dive.',
+    'Increase powder conversion rate by 1% per level, gain +2% ascension count per level and gain up to 2% more ascension count per level based on powder, up to 10,000. This will also multiply Tesseract Building production by (Powder^(10 * level)).',
+    'The Score Multiplier from Maladaptive and Divisiveness corruption is raised to the power of (1 + level / 20), if they are set at level 10 or higher!',
+    'Raise the base percentage of Constant Upgrade 1 by 0.1% and increase the base percentage cap of Constant Upgrade 2 by 0.3% per level!',
+    'The diminishing return power on Chronos Hepteract changes from 0.166 to (0.166 + 0.0033 * level).',
+    'You know, maybe some things should be left unbought.',
 ];
 
 export interface IPlatBaseCost {
@@ -180,6 +186,56 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         platonics: 1e12,
         abyssals: 1,
         maxLevel: 1
+    },
+    16: {
+        obtainium: 1e140,
+        offerings: 1e110,
+        cubes: 0,
+        tesseracts: 0,
+        hypercubes: 1e16,
+        platonics: 0,
+        abyssals: 1,
+        maxLevel: 25
+    },
+    17: {
+        obtainium: 1e145,
+        offerings: 1e113,
+        cubes: 0,
+        tesseracts: 0,
+        hypercubes: 1e19,
+        platonics: 0,
+        abyssals: 2,
+        maxLevel: 20
+    },
+    18: {
+        obtainium: 1e150,
+        offerings: 1e116,
+        cubes: 0,
+        tesseracts: 0,
+        hypercubes: 1e19,
+        platonics: 0,
+        abyssals: 8,
+        maxLevel: 10,
+    },
+    19: {
+        obtainium: 1e160,
+        offerings: 1e121,
+        cubes: 0,
+        tesseracts: 0,
+        hypercubes: 1e21,
+        platonics: 0,
+        abyssals: 128,
+        maxLevel: 10
+    },
+    20: {
+        obtainium: 1e180,
+        offerings: 1e130,
+        cubes: 1e45,
+        tesseracts: 1e28,
+        hypercubes: 1e25,
+        platonics: 1e25,
+        abyssals: Math.pow(2, 31) - 1,
+        maxLevel: 1
     }
 }
 
@@ -286,6 +342,10 @@ export const buyPlatonicUpgrades = (index: number) => {
         player.hepteractCrafts.abyss.spend(platUpgradeBaseCosts[index].abyssals);
 
         Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index]);
+        if (index === 20) {
+            return Alert('While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the rune of Grandiloquence, for you are a richass.')
+        }
     }
     createPlatonicDescription(index)
+    revealStuff();
 }

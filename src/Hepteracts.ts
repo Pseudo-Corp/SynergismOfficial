@@ -222,9 +222,12 @@ export const createHepteract = (data: IHepteractCraft) => {
 
 export const hepteractEffective = (data: hepteractTypes) => {
     let effectiveValue = Math.min(player.hepteractCrafts[data].BAL, hepteractEffectiveValues[data].LIMIT)
-
+    let exponentBoost = 0;
+    if (data === 'chronos') {
+        exponentBoost += 1/300 * player.platonicUpgrades[19]
+    }
     if (player.hepteractCrafts[data].BAL > hepteractEffectiveValues[data].LIMIT) {
-        effectiveValue *= Math.pow(player.hepteractCrafts[data].BAL / hepteractEffectiveValues[data].LIMIT, hepteractEffectiveValues[data].DR)
+        effectiveValue *= Math.pow(player.hepteractCrafts[data].BAL / hepteractEffectiveValues[data].LIMIT, hepteractEffectiveValues[data].DR + exponentBoost)
     }
 
     return effectiveValue

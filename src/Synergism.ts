@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js';
 import LZString from 'lz-string';
 
-import { isDecimal, getElementById, sortWithIndeces, sumContents } from './Utility';
+import { isDecimal, getElementById, sortWithIndices, sumContents } from './Utility';
 import { blankGlobals, Globals as G } from './Variables';
 import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges, challenge15ScoreMultiplier } from './Challenges';
 
@@ -11,7 +11,7 @@ import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Researc
 import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck } from './Calculate';
+import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck, calculateArbitraryExpression } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
 import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
@@ -42,7 +42,7 @@ import { startHotkeys } from './Hotkeys';
  * This should be detected when importing a file.
  */
 export const isTesting = false;
-export const version = '2.5.1';
+export const version = '2.5.2';
 
 export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
@@ -490,7 +490,7 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
     wowTesseracts: new WowTesseracts(0),
     wowHypercubes: new WowHypercubes(0),
@@ -1184,7 +1184,7 @@ const loadSynergy = (reset = false) => {
             testArray.push(G['researchBaseCosts'][i]);
         }
         //Sorts the above array, and returns the index order of sorted array
-        G['researchOrderByCost'] = sortWithIndeces(testArray)
+        G['researchOrderByCost'] = sortWithIndices(testArray)
         player.roombaResearchIndex = 0;
 
         // June 09, 2021: Updated toggleShops() and removed boilerplate - Platonic
@@ -1349,6 +1349,11 @@ const loadSynergy = (reset = false) => {
     const m = d.getMinutes()
     const s = d.getSeconds()
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
+
+    const aaaa: [string,number][] = [['*',1],['*',2],['+',3],['^',2]]
+    console.log('expression:' + aaaa)
+    console.log('expected: 25. Result: ' +calculateArbitraryExpression(1, aaaa)+ ".")
+
 }
 
 // Bad browsers (like Safari) only recently implemented this.
@@ -2142,8 +2147,8 @@ export const multipliers = (): void => {
     } */
 
     G['globalConstantMult'] = new Decimal("1")
-    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1.05 + 0.01 * player.achievements[270], player.constantUpgrades[1]))
-    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX + 1000 * (G['challenge15Rewards'].exponent - 1), player.constantUpgrades[2]), ascendBuildingDR()))
+    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1.05 + 0.01 * player.achievements[270] + 0.001 * player.platonicUpgrades[18], player.constantUpgrades[1]))
+    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX + 1000 * (G['challenge15Rewards'].exponent - 1) + 3 * player.platonicUpgrades[18], player.constantUpgrades[2]), ascendBuildingDR()))
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 2 / 100 * player.researches[139])
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 3 / 100 * player.researches[154])
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 4 / 100 * player.researches[169])
@@ -2157,8 +2162,9 @@ export const multipliers = (): void => {
         G['globalConstantMult'] = G['globalConstantMult'].times(10)
     }
     if (player.platonicUpgrades[15] > 0) {
-        G['globalConstantMult'] = G['globalConstantMult'].times(1e66)
+        G['globalConstantMult'] = G['globalConstantMult'].times(1e250)
     }
+    G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(player.overfluxPowder + 1, 10 * player.platonicUpgrades[16]))
 }
 
 export const resourceGain = (dt: number): void => {
@@ -3368,7 +3374,7 @@ export const reloadShit = async (reset = false) => {
 window.addEventListener('load', () => {
     const ver = document.getElementById('versionnumber');
     ver && (ver.textContent = 
-        `You're ${isTesting ? 'testing' : 'playing'} v${version} - Seal of the Merchant [Last Update: 8:22PM UTC-8 18-Jun-2021].` + 
+        `You're ${isTesting ? 'testing' : 'playing'} v${version} - Seal of the Merchant [Last Update: 5:00 UTC-8 22-Jun-2021].` + 
         ` ${isTesting ? 'Savefiles cannot be used in live!' : ''}`
     );
     document.title = `Synergism v${version}`;

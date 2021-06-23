@@ -409,4 +409,8 @@ export const checkVariablesOnLoad = (data: Player) => {
     if (data.ascStatToggles[5] === undefined) {
         player.ascStatToggles[5] = false;
     }
+
+    while (player.platonicUpgrades[20] === undefined) {
+        player.platonicUpgrades.push(0)
+    }
 }

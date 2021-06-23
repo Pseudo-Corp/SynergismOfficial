@@ -48,10 +48,10 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
         document.getElementById(`res${index}`).classList.add("researchRoomba");
         player.autoResearch = index;
         
-        // Research is maxxed
+        // Research is maxed
         if (player.researches[index] >= G['researchMaxLevels'][index])
             updateClassList(`res${player.autoResearch}`, ["researchMaxed"], ["researchPurchased", "researchUnpurchased"]);
-        // Research purchased above level 0 but not maxxed
+        // Research purchased above level 0 but not maxed
         else if (player.researches[index] >= 1)
             updateClassList(`res${player.autoResearch}`, ["researchPurchased"], ["researchUnpurchased", "researchMaxed"]);
         // Research has not been purchased yet

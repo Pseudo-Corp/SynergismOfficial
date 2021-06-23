@@ -210,7 +210,8 @@ export const loadPowderMultiplier = () => {
         3: {acc: 2, desc: "Powder EX:"},
         4: {acc: 2, desc: "Achievement 256:"},
         5: {acc: 2, desc: "Achievement 257:"},
-        6: {acc: 2, desc: "Event [Most Recent: June 20 - June 27]:"},
+        6: {acc: 2, desc: "Platonic Upgrade 16 [4x1]"},
+        7: {acc: 2, desc: "Event [Most Recent: June 20 - June 27]:"},
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = document.getElementById(`statPoM${i + 1}`);
