@@ -139,6 +139,7 @@ export const importSynergism = (input: string, reset = false) => {
         (f.exporttest === 'NO!' && isTesting)
     ) {
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
+        localStorage.setItem('saveScumIsCheating', Date.now().toString());
         
         return reloadShit(reset);
     } else {
@@ -298,7 +299,7 @@ export const promocodes = async () => {
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
         const dice = window.crypto.getRandomValues(new Uint8Array(1))[0] % 6 + 1; // [1, 6]
         
-        if (dice === 1 || dice === 6) {
+        if (dice === 1) {
             const won = bet * .25; // lmao
             player.worlds.add(won);
 
