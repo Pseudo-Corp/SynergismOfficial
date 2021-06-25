@@ -270,7 +270,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         e.textContent = "+12 free Ant Levels! Current: "
         f.textContent = "Ant Speed x(1e5)^completions! Current: "
         g.textContent = "+80 to Rune Caps! Current: "
-        h.textContent = "Unlock 15 Researches, and unlock the ability to open Tesseracts!"
+        h.textContent = "Unlock the Corruption feature! Includes 15 Researches, and the ability to open Tesseracts."
         k.textContent = "Start <[(Reduced Ants)]>"
         l.textContent = "+" + format(12 * CalcECC('ascension', player.challengecompletions[11])) + " free ant levels"
         m.textContent = "Ant Speed x" + format(Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])))
