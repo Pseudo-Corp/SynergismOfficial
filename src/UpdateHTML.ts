@@ -959,32 +959,6 @@ export const Confirm = (text: string): Promise<boolean> => new Promise(res => Co
 /*** Promisified version of the NotificationCB function */
 export const Notification = (text: string, time?: number): Promise<void> => new Promise(res => NotificationCB(text, time, res));
 
-// I stole all of this from https://codepen.io/thenutz/pen/VwYeYEE
-// no regrets - Khafra
-const slider = document.querySelector<HTMLElement>('#statisticsSubTab');
-slider.scrollTo(0, 0);
-let isDown = false;
-let startX: number;
-let scrollLeft: number;
-
-slider.addEventListener('mousedown', (e) => {
-    isDown = true;
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-});
-
-slider.addEventListener('mouseleave', () => isDown = false);
-slider.addEventListener('mouseup', () => isDown = false);
-
-slider.addEventListener('mousemove', (e) => {
-    if(!isDown) return;
-    e.preventDefault();
-
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 1.5; 
-    slider.scrollLeft = scrollLeft - walk;
-});
-
 /**
  * Create a popunder under an element.
  * @example
