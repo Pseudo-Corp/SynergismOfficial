@@ -27,7 +27,6 @@ export const displayStats = (btn: HTMLElement) => {
     }
     
     const statsEl = document.getElementById(associated.get(btn.id));
-    console.log(statsEl);
     statsEl.style.display = 'block';
     btn.style.backgroundColor = 'crimson';
 }

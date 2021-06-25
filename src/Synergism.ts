@@ -42,7 +42,7 @@ import { startHotkeys } from './Hotkeys';
  * This should be detected when importing a file.
  */
 export const isTesting = false;
-export const version = '2.5.2';
+export const version = '2.6.0-beta';
 
 export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
