@@ -11,7 +11,11 @@ const associated = new Map<string, string>([
     ['kOfferingMult', 'offeringMultiplierStats'],
     ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
     ['kCubeMult', 'cubeMultiplierStats'],
-    ['kTessMult', 'tesseractMultiplierStats']
+    ['kTessMult', 'tesseractMultiplierStats'],
+    ['kHypercubeMult', 'hypercubeMultiplierStats'],
+    ['kPlatMult', 'platonicMultiplierStats'],
+    ['kHeptMult', 'hepteractMultiplierStats'],
+    ['kOrbPowderMult', 'powderMultiplierStats']
 ]);
 
 export const displayStats = (btn: HTMLElement) => {
