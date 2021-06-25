@@ -322,7 +322,8 @@ export const revealStuff = () => {
         (document.getElementById('rune7area').style.display = 'flex', document.getElementById('runeshowpower7').style.display = "flex") :
         (document.getElementById('rune7area').style.display = 'none', document.getElementById('runeshowpower7').style.display = "none") ;
 
-    document.getElementById("ascensionStats").style.visibility = player.achievements[197] > 0 ? "visible" : "hidden";
+    document.getElementById("ascensionStats").style.visibility = player.achievements[183] > 0 ? "visible" : "hidden";
+    document.getElementById("ascTessStats").style.display = player.challengecompletions[197] > 0 ? "" : "none";
     document.getElementById("ascHyperStats").style.display = player.challengecompletions[13] > 0 ? "" : "none";
     document.getElementById("ascPlatonicStats").style.display = player.challengecompletions[14] > 0 ? "" : "none";
 
