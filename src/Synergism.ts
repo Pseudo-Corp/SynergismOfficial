@@ -1116,10 +1116,6 @@ const loadSynergy = (reset = false) => {
         }
 
         player.subtabNumber = 0;
-        G['runescreen'] = "runes";
-        document.getElementById("toggleRuneSubTab1").style.backgroundColor = 'crimson'
-        document.getElementById("toggleRuneSubTab1").style.border = '2px solid gold'
-
 
         const q = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract'] as const;
         if (player.coinbuyamount !== 1 && player.coinbuyamount !== 10 && player.coinbuyamount !== 100 && player.coinbuyamount !== 1000) {
