@@ -269,8 +269,8 @@ export const revealStuff = () => {
     (document.getElementById("rune5area").style.display = "none", document.getElementById("runeshowpower5").style.display = "none");
 
     player.researches[124] > 0 ? //5x24 Research [AutoSac]
-        (document.getElementById("antSacrificeButtons").style.display = "block", document.getElementById("autoAntSacrifice").style.display) :
-        (document.getElementById("antSacrificeButtons").style.display = "none", document.getElementById("autoAntSacrifice").style.display);
+        (document.getElementById("antSacrificeButtons").style.display = "block", document.getElementById("autoAntSacrifice").style.display = "block") :
+        (document.getElementById("antSacrificeButtons").style.display = "none", document.getElementById("autoAntSacrifice").style.display = "none");
 
     player.researches[130] > 0 ? //6x5 Research [Talisman Auto Fortify]
         document.getElementById("toggleautofortify").style.display = "block" :
