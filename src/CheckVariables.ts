@@ -109,9 +109,10 @@ export const checkVariablesOnLoad = (data: Player) => {
             globalSpeed: 0
         }
     }
+    let blankCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     if (data.prototypeCorruptions === undefined) {
-        player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        player.prototypeCorruptions = blankCorruptions
+        player.usedCorruptions = blankCorruptions
     }
     if (data.constantUpgrades === undefined) {
         player.ascendShards = new Decimal("0")
@@ -151,15 +152,15 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.autoTesseracts = [false, false, false, false, false, false]
     }
 
-    if (player.prototypeCorruptions[0] === null || player.prototypeCorruptions[0] === undefined) {
-        player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    if (player.prototypeCorruptions[0] === null || player.prototypeCorruptions[0] === undefined || player.challengecompletions[11] === 0) {
+        player.usedCorruptions = blankCorruptions
+        player.prototypeCorruptions = blankCorruptions
     }
     if (player.corruptionLoadouts === undefined) {
         player.corruptionLoadouts = {
-            1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            1: blankCorruptions,
+            2: blankCorruptions,
+            3: blankCorruptions
         };
         player.corruptionShowStats = true
     }
