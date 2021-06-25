@@ -101,6 +101,32 @@ button:focus {
     margin-bottom: 0;
 }
 
+#notification {
+    display: none;
+    position: fixed;
+    transform: translate(7.5%, 22.5%);
+    z-index: 6969;
+    width: 15%;
+    height: 12.5%;
+    border-radius: 5px;
+    border: 1px solid gold;
+    background-color: darkcyan;
+}
+
+#notification > p {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+#notifx {
+    position: fixed;
+    top: 1px;
+    right: 1px;
+}
+
 #confirmationBox {
     display: none;
     position: fixed;
@@ -2796,7 +2822,7 @@ header #obtainiumDisplay {
 }
 
 #ascHepteract {
-    color: pink
+    color: pink;
 }
 
 #ascTimeAccel {
@@ -2804,7 +2830,7 @@ header #obtainiumDisplay {
 }
 
 #ascAscensionTimeAccel {
-    color: orange
+    color: orange;
 }
 
 #tabBorder {
@@ -2962,6 +2988,7 @@ header #obtainiumDisplay {
 
 #currentBonus {
     color: springgreen;
+
     /* Remove padding */
-    margin: 0; 
+    margin: 0;
 }
