@@ -262,7 +262,7 @@ const resdesc = [
     "[5x17] Talismans have another +0.015 Rune levels per talisman level per level!",
     "[5x18] For 'neutral' talisman effects, increase by +0.06 per level!",
     "[5x19] Gain +0.25% Wow! Cubes per level upon Ascension.",
-    "[5x20] Gain another +0.25% Wow! per level upon Ascension.",
+    "[5x20] Gain another +0.25% Wow! Cubes per level upon Ascension.",
     "[5x21] Bend time to your will, making all ticks 2% faster each level.",
     "[5x22] Adds +2% ant sacrifice reward per level.",
     "[5x23] Adds +40 base ant ELO per level.",
