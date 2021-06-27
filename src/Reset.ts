@@ -625,6 +625,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
     if (!fast) {
         revealStuff();
+        updateChallengeDisplay();
     }
 }
 
