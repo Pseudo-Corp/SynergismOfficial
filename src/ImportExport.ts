@@ -206,6 +206,9 @@ export const promocodes = async () => {
 
         const possibleAmount = Math.floor(Math.min(24 + 2 * player.shopUpgrades.calculator2, (Date.now() - player.rngCode) / hour))
         const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use`);
+        if (attemptsUsed === null) {
+             return Alert(`Code was canceled, took no uses away from you!`);
+        }
         const toUse = Number(attemptsUsed);
         if (
             Number.isNaN(toUse) ||
