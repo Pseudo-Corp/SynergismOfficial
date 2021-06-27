@@ -1061,7 +1061,7 @@ export const calculateTesseractMultiplier = (score = -1) => {
         // Achievement 205-208 Bonus
         1 + 4 / 100 * (player.achievements[205] + player.achievements[206] + player.achievements[207]) + 3 / 100 * player.achievements[208],
         // Achievement 255 Bonus
-        1 + Math.min(0.15, 1/100 * Math.log10(score + 1)) * player.achievements[255],
+        1 + Math.min(0.15, 0.6/100 * Math.log10(score + 1)) * player.achievements[255],
         // Platonic Cube Bonus
         G['platonicBonusMultiplier'][1],
         // Platonic Upgrade 1x2 
@@ -1091,7 +1091,7 @@ export const calculateHypercubeMultiplier = (score = -1) => {
         // Achievement 253 Bonus
         1 + 1 / 10 * player.achievements[253],
         // Achievement 256 Bonus
-        1 + Math.min(0.15, 1/100 * Math.log10(score + 1)),
+        1 + Math.min(0.15, 0.6/100 * Math.log10(score + 1)),
         // Achievement 265 Bonus
         1 + Math.min(2, player.ascensionCount / 2.5e10) * player.achievements[265],
         // Platonic Cubes Opened Bonus
@@ -1125,7 +1125,7 @@ export const calculatePlatonicMultiplier = (score = -1) => {
         // Achievement 223 Bonus
         1 + player.achievements[223] * Math.min(2, player.ascensionCount / 1.337e9),
         // Achievement 257 Bonus
-        1 + Math.min(0.15, 1/100 * Math.log10(score + 1)) * player.achievements[257],
+        1 + Math.min(0.15, 0.6/100 * Math.log10(score + 1)) * player.achievements[257],
         // Platonic Cube Opening Bonus
         G['platonicBonusMultiplier'][3],
         // Platonic Upgrade 1x4
@@ -1149,7 +1149,7 @@ export const calculateHepteractMultiplier = (score = -1) => {
         // Season Pass 3
         1 + 1 / 100 * player.shopUpgrades.seasonPass3,
         // Achievement 258 Bonus
-        1 + Math.min(0.15, 1/100 * Math.log10(score + 1)) * player.achievements[258],
+        1 + Math.min(0.15, 0.6/100 * Math.log10(score + 1)) * player.achievements[258],
         // Achievement 264 Bonus [Max: 8T Asc]
         1 + Math.min(0.4, player.ascensionCount / 2e13) * player.achievements[264],
         // Achievement 265 Bonus [Max: 160T Asc]
