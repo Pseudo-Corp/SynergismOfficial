@@ -1022,7 +1022,7 @@ export const calculateCubeMultiplier = (score = -1) => {
         // Achievement 198-201 Bonus
         1 + 4 / 100 * (player.achievements[198] + player.achievements[199] + player.achievements[200]) + 3 / 100 * player.achievements[201],
         // Achievement 254 Bonus
-        1 + Math.min(15/100 * Math.log10(score + 1)) * player.achievements[254],
+        1 + (Math.min(15, Math.log10(score + 1) * 0.6)/100) * player.achievements[254],
         // Spirit Power
         1 + calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][2],
         // Platonic Cube Opening Bonus
