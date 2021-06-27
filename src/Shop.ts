@@ -92,7 +92,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: true,
         refundMinimumLevel: 0,
-        description: "Each level gives a 1.125x speed multiplier to all Ant tiers' production! Short and simple."
+        description: "Each level gives a 1.125x speed multiplier to all Ant tiers' production! (Uncorruptable!) Short and simple."
     },
     cashGrab: {
         price: 100,
