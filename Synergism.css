@@ -2248,7 +2248,6 @@ p[id$="BlessingsTotal"] {
 #statisticsSubTab {
     padding-top: 25px;
     overflow-x: auto;
-
     grid-template-columns: repeat(2, minmax(50px, 25%));
     justify-content: center;
 
@@ -2280,7 +2279,6 @@ p[id$="BlessingsTotal"] {
 
 .statContainer {
     width: 400px;
-    display: flex;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: auto;
