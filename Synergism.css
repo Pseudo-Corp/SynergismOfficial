@@ -2796,7 +2796,7 @@ header #obtainiumDisplay {
 }
 
 #ascHepteract {
-    color: pink
+    color: pink;
 }
 
 #ascTimeAccel {
@@ -2804,7 +2804,7 @@ header #obtainiumDisplay {
 }
 
 #ascAscensionTimeAccel {
-    color: orange
+    color: orange;
 }
 
 #tabBorder {
@@ -2962,6 +2962,7 @@ header #obtainiumDisplay {
 
 #currentBonus {
     color: springgreen;
+
     /* Remove padding */
-    margin: 0; 
+    margin: 0;
 }
