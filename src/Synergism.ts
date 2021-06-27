@@ -2871,7 +2871,7 @@ export const updateAll = (): void => {
         const cheapestTesseractBuilding: {cost: number, index: 0|OneToFive} = { cost:0, index:0 };
         for (let i = 0; i < tesseractBuildingCosts.length; i++){
             const iPlusOne = i+1 as OneToFive;
-            if ((Number(player.wowTesseracts) >= tesseractBuildingCosts[i] * (Math.pow(1 + player[`ascendBuilding${iPlusOne}` as const]['owned'], 3) + player.tesseractAutoBuyerAmount)) && player.autoTesseracts[iPlusOne]) {
+            if ((Number(player.wowTesseracts) >= tesseractBuildingCosts[i] * Math.pow(player.tesseractbuyamount + player[`ascendBuilding${iPlusOne}` as const]['owned'], 3) + player.tesseractAutoBuyerAmount) && player.autoTesseracts[iPlusOne]) {
                 if ((getTesseractCost(iPlusOne)[1] < cheapestTesseractBuilding.cost) || (cheapestTesseractBuilding.cost == 0)){
                     cheapestTesseractBuilding.cost = getTesseractCost(iPlusOne)[1];
                     cheapestTesseractBuilding.index = iPlusOne;
