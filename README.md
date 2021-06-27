@@ -1,6 +1,9 @@
 # Synergism - the game
 
-# Contributing
-- To build: `npm i esbuild` and then `npm run build:esbuild`.
+## Contributing
+Before running any of these commands, run `npm install` to install all dependencies.
+
+- To build: `npm run build:esbuild`.
+- To typecheck all TypeScript files: `npm run check:tsc`.
 - To lint: `npm run lint`.
-- To lint CSS: `npm install -g stylelint stylelint-config-standard` and then `npm run csslint`.
+- To lint CSS: `npm run csslint`.
