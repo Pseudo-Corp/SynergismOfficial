@@ -2753,6 +2753,7 @@ header #obtainiumDisplay {
 
 #ascensionStats {
     display: flex;
+    gap: 10px;
     padding-top: 10px;
     margin-bottom: 15px;
     line-height: 20px;
@@ -2762,6 +2763,7 @@ header #obtainiumDisplay {
 
 #ascensionStats > span {
     display: flex;
+    white-space: pre;
     align-items: center;
 }
 
