@@ -192,7 +192,7 @@ const hepteractEffectiveValues = {
     },
     'quark': {
         LIMIT: 1000,
-        DR: 0.2
+        DR: 0.5
     },
     'challenge': {
         LIMIT: 1000,
@@ -262,8 +262,8 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
             break;
         case 'quark':
             unlockedText.textContent = (player.hepteractCrafts.quark.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
-            effectText.textContent = "One pound, two pound fish, fishy grant +0.03% Quarks per Quark Hepteract fish fish."
-            currentEffectText.textContent = "Current Effect: Quarks +" + format(hepteractEffective('quark') * 3 / 100, 2, true) + "%"
+            effectText.textContent = "One pound, two pound fish, fishy grant +0.05% Quarks per Quark Hepteract fish fish."
+            currentEffectText.textContent = "Current Effect: Quarks +" + format(hepteractEffective('quark') * 5 / 100, 2, true) + "%"
             balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.quark.BAL, 0, true) + " / " + format(player.hepteractCrafts.quark.CAP)
             costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.quark.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 100 Quarks."
             break;

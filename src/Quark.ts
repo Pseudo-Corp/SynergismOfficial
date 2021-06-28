@@ -36,7 +36,7 @@ export const getQuarkMultiplier = () => {
         multiplier *= (1.1 + 0.15 / 75 * player.runelevels[5]);
     }
     if (player.challenge15Exponent >= 1e15) { // Challenge 15: Exceed 1e15 exponent reward
-        multiplier *= (1 + 3/10000 * hepteractEffective('quark'));
+        multiplier *= (1 + 5/10000 * hepteractEffective('quark'));
     }
     if (player.overfluxPowder > 0) { // Overflux Powder [Max: 10% at 10,000]
         multiplier *= (1 + Math.min(0.1, (player.overfluxPowder / 1e5)))      
@@ -55,8 +55,6 @@ export const quarkHandler = () => {
 
     //Part 2: Calculate quark gain per hour
     let baseQuarkPerHour = 5;
-    if (G['isEvent'])
-        baseQuarkPerHour += 13;
     if (player.researches[99] > 0) {
         baseQuarkPerHour += player.researches[99]; //Caps at 2 not 1
     }

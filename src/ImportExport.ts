@@ -151,6 +151,9 @@ export const promocodes = async () => {
     const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "add" perchance?]');
     const el = document.getElementById("promocodeinfo");
 
+    if (input === null) {
+        return Alert('Alright, come back soon!')
+    }
     if (input === "synergism2021" && !player.codes.get(1)) {
         player.codes.set(1, true);
         player.runeshards += 25;
@@ -195,6 +198,28 @@ export const promocodes = async () => {
         const patreonBonus = Math.floor(quarkGain * player.worlds._BONUS / 100);
         player.worlds.add(quarkGain)
         return Alert(`Thanks so much for playing! Version 2.5.0 is out at last. For your patience, and entering this code, you received ${format(quarkGain + patreonBonus)} Quarks [${format(patreonBonus)} from Patreon Bonus]!`)
+    } else if (input === 'riprespec' && !player.codes.get(35)) {
+        player.codes.set(35, true);
+        player.rngCode -= 3600 * 1000 * 48;
+        let quarkGain = 250;                                                                                // 250
+        quarkGain += (player.reincarnationCount > 0) ? 250 : 0;                                             // 500
+        quarkGain += (player.highestchallengecompletions[8] > 0 || player.ascensionCount > 0) ? 500 : 0;    // 1000
+        quarkGain += (player.ascensionCount > 0) ? 500 : 0;                                                 // 1500
+        quarkGain += (player.challengecompletions[14] > 0) ? 500 : 0;                                       // 2000
+        quarkGain += (player.researches[200] === G['researchMaxLevels'][200]) ? 500 : 0;                    // 2500
+        quarkGain += (player.cubeUpgrades[50] === cubeMaxLevel[49]) ? 500 : 0;                              // 3000
+        quarkGain += (player.platonicUpgrades[5] > 0) ? 1000 : 0;                                           // 4000
+        quarkGain += (player.platonicUpgrades[10] > 0) ? 1000: 0;                                           // 5000
+        quarkGain += (player.challenge15Exponent > 1e6) ? 1000 : 0;                                         // 6000
+        quarkGain += (player.challenge15Exponent > 1e9) ? 1000 : 0;                                         // 7000
+        quarkGain += (player.challenge15Exponent > 1e12) ? 1000 : 0;                                        // 8000
+        quarkGain += (player.challenge15Exponent > 1e15) ? 1000: 0;                                         // 9000
+        quarkGain += (player.challenge15Exponent > 1e16) ? 1000: 0;                                         // 10000
+        quarkGain += (player.platonicUpgrades[15] > 0) ? 1: 0;                                              // 10001
+
+        const patreonBonus = Math.floor(quarkGain * player.worlds._BONUS / 100);
+        player.worlds.add(quarkGain)
+        return Alert(`V2.5.3! You have regained all of your 'add' code uses and gained ${format(quarkGain + patreonBonus)} Quarks [${format(patreonBonus)} from Patreon Bonus]!`)
     } else if(input.toLowerCase() === 'add') {
         const hour = 3600000
         const timeToNextHour = Math.floor(hour + player.rngCode - Date.now())/1000
@@ -219,9 +244,9 @@ export const promocodes = async () => {
 
         const realAttemptsUsed = Math.min(possibleAmount, toUse);
         let mult = Math.max(0.4 + 0.02 * player.shopUpgrades.calculator3, 2/5 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 640); // [0.4, 0.6], slightly biased in favor of 0.4. =)
-        mult *= 1 + 0.1 * player.shopUpgrades.calculator // Calculator Shop Upgrade (+10% / level)
+        mult *= 1 + 0.14 * player.shopUpgrades.calculator // Calculator Shop Upgrade (+14% / level)
         mult *= (player.shopUpgrades.calculator2 === shopData['calculator2'].maxLevel)? 1.25: 1; // Calculator 2 Max Level (+25%)
-
+        mult *= (1 + +G['isEvent']) // is event? then 2x! [June 28, July 1]
         const quarkBase = quarkHandler().perHour
         const actualQuarks = Math.floor(quarkBase * mult * realAttemptsUsed)
         const patreonBonus = Math.floor(actualQuarks * (player.worlds._BONUS / 100));

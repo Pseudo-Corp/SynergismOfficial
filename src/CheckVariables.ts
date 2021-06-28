@@ -8,6 +8,7 @@ import { LegacyShopUpgrades } from './types/LegacySynergism';
 import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
+import { Alert } from './UpdateHTML';
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -415,5 +416,17 @@ export const checkVariablesOnLoad = (data: Player) => {
 
     while (player.platonicUpgrades[20] === undefined) {
         player.platonicUpgrades.push(0)
+    }
+
+    if (data.loadedV253 === undefined) {
+        player.loadedV253 = true;
+        player.worlds.add(10000 * player.shopUpgrades.calculator + 10000 / 2 * (player.shopUpgrades.calculator - 1) * (player.shopUpgrades.calculator), false);
+        player.worlds.add(10000 * player.shopUpgrades.calculator2 + 5000 / 2 * (player.shopUpgrades.calculator2 - 1) * (player.shopUpgrades.calculator2), false);
+        player.worlds.add(25000 * player.shopUpgrades.calculator3 + 25000 / 2 * (player.shopUpgrades.calculator3 - 1) * (player.shopUpgrades.calculator3), false);
+        player.shopUpgrades.calculator = 0;
+        player.shopUpgrades.calculator2 = 0;
+        player.shopUpgrades.calculator3 = 0;
+        player.wowAbyssals = 1e8 * player.platonicUpgrades[16] // Refund based off of abyss hepteracts spent
+        Alert('June 28, 2021: V2.5.3. You have been refunded quarks from calculators if you purchased them. They are no longer refundable so be wary!')
     }
 }

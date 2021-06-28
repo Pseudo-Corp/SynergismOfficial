@@ -137,7 +137,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level.",
+        description: "The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level. Past 60 completions of challenge 9 or 10, this will also reduce the scaling factor by 1% per level.",
     },
     cubeToQuark: {
         price: 2000,
@@ -203,29 +203,29 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +20% Quarks and +75% all cube types when maxed!"
     },
     calculator: {
-        price: 10000,
-        priceIncrease: 10000,
+        price: 1000,
+        priceIncrease: 500,
         maxLevel: 5,
         type: "upgrade",
-        refundable: true,
+        refundable: false,
         refundMinimumLevel: 1,
-        description: "The PL-AT can do addition in the blink of an eye. Not much else though. +10% Quarks from using code 'add' per level, the first level provides the answer and the final level does it automatically!",
+        description: "The PL-AT can do addition in the blink of an eye. Not much else though. +14% Quarks from using code 'add' per level, the first level provides the answer and the final level does it automatically!",
     },
     calculator2: {
-        price: 10000,
-        priceIncrease: 5000,
+        price: 3000,
+        priceIncrease: 1000,
         maxLevel: 12,
         type: "upgrade",
-        refundable: true,
+        refundable: false,
         refundMinimumLevel: 0,
         description: "The PL-AT X has improved memory capacity, allowing you to store 2 additional uses to code 'add' per level. Final level makes 'add' give 25% more Quarks!"
     },
     calculator3: {
-        price: 25000,
-        priceIncrease: 25000,
+        price: 10000,
+        priceIncrease: 2000,
         maxLevel: 10,
         type: "upgrade",
-        refundable: true,
+        refundable: false,
         refundMinimumLevel: 0,
         description: `The PL-AT Ω is infused with some Unobtainium, which is epic! But furthermore, it reduces the variance of Quarks by code 'add' by 10% per level, which makes you more likely to get the maximum multiplier. It also has the ability to give +60 seconds to Ascension Timer per level using that code.` 
     },
@@ -317,7 +317,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = "CURRENT Effect: Reincarnation Challenges may be completed an additional " + format(2*player.shopUpgrades.challengeExtension) + " times."
             break;
         case "challengeTome":
-            lol.textContent = "CURRENT Effect: Challenge 10 Exponent Requirement reduced by " + format(20*player.shopUpgrades.challengeTome) + " Million."
+            lol.textContent = "CURRENT Effect: Challenge 10 Exponent Requirement reduced by " + format(20*player.shopUpgrades.challengeTome) + " Million. Past 60 completions of C9 or C10 the scaling multiplier is [completions * " + format(1 - player.shopUpgrades.challengeTome / 100, 2, true) + "]"
             break;
         case "cubeToQuark":
             lol.textContent = "CURRENT Effect: Even in a premium shop it's kinda obvious, right?"
@@ -341,7 +341,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = "CURRENT Effect: Idk, depends if you bought it or not."
             break;
         case "calculator":
-            lol.textContent = "CURRENT Effect: Code 'add' provides " + format(10 * player.shopUpgrades.calculator) + "% more Quarks. AutoAnswer: " + (player.shopUpgrades.calculator > 0) + ", AutoFill: " + (player.shopUpgrades.calculator == 5);
+            lol.textContent = "CURRENT Effect: Code 'add' provides " + format(14 * player.shopUpgrades.calculator) + "% more Quarks. AutoAnswer: " + (player.shopUpgrades.calculator > 0) + ", AutoFill: " + (player.shopUpgrades.calculator == 5);
             break;
         case "calculator2":
             lol.textContent = "CURRENT Effect: Code 'add' has " + format(2 * player.shopUpgrades.calculator2) + " more capacity. 'add' uses generate " + format((player.shopUpgrades.calculator2 === shopData['calculator2'].maxLevel) ? 25: 0) + "% more Quarks.";

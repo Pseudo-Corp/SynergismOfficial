@@ -972,8 +972,8 @@ export const calculateAllCubeMultiplier = () => {
         Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9]),
         // Powder Bonus [Max: 2x at 10,000 powder]
         1 + Math.min(1, player.overfluxPowder / 1e4),
-        // Event (currently, +13%)
-        1 + 0.13 * +G['isEvent'],
+        // Event (currently, +20.21%)
+        1 + 0.2021 * +G['isEvent'],
         // Total Global Cube Multipliers: 9
     ]
     return {
@@ -1366,7 +1366,7 @@ export const calculatePowderConversion = () => {
         (1 + player.achievements[256] / 20), // Achievement 256, 5%
         (1 + player.achievements[257] / 20), // Achievement 257, 5%
         1 + 0.01 * player.platonicUpgrades[16], // Platonic Upgrade 4x1
-        1 + 0.31 * +G['isEvent'] // Event!
+        1 // Event!
     ]
     
     return {
@@ -1435,8 +1435,8 @@ export const forcedDailyReset = (testing = false) => {
     }
 }
 
-const eventStart = "06/18/2021 17:00:00"
-const eventEnd = "06/27/2021 23:59:59"
+const eventStart = "06/26/2021 00:00:00"
+const eventEnd = "07/01/2021 23:59:59"
 
 export const eventCheck = () => {
     const start = new Date(eventStart);
@@ -1446,7 +1446,7 @@ export const eventCheck = () => {
     if(now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
         G['isEvent'] = true
         document.getElementById('eventCurrent').textContent = "ACTIVE UNTIL " + end
-        document.getElementById('eventBuffs').textContent = "Current Buffs: +13 Base Export Quarks per hour, +13% all Cube types, +31% Powder Conversion!"
+        document.getElementById('eventBuffs').textContent = "Current Buffs: +100% Quarks from code 'Add', +20.21% All Cube Types"
     }
     else{
         G['isEvent'] = false

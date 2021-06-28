@@ -443,6 +443,9 @@ export const calculateChallengeRequirementMultiplier = (type: string, completion
             }
             return (requirementMultiplier)
         case "reincarnation":
+            if (completions >= 100 && (special === 9 || special === 10)) {
+                requirementMultiplier *= Math.pow(1.05, (completions - 100) * (1 + (completions - 100) / 20))
+            }
             if (completions >= 90) {
                 if (special === 6)
                     requirementMultiplier *= 100
@@ -475,7 +478,7 @@ export const calculateChallengeRequirementMultiplier = (type: string, completion
             }
             if (completions >= 60){
                 if (special === 9 || special === 10)
-                    requirementMultiplier *= Math.pow(1000, (completions - 60) / 10)
+                    requirementMultiplier *= Math.pow(1000, (completions - 60) * (1 - 0.01 * player.shopUpgrades.challengeTome) / 10)
             }
             if (completions >= 25){
                 requirementMultiplier *= Math.pow(1 + completions, 5) / 625
