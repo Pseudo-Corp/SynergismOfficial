@@ -42,7 +42,7 @@ import { startHotkeys } from './Hotkeys';
  * This should be detected when importing a file.
  */
 export const isTesting = false;
-export const version = '2.5.2';
+export const version = '2.5.3';
 
 export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
@@ -408,7 +408,7 @@ export const player: Player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from({ length: 34 }, (_, i) => [i + 1, false])
+        Array.from({ length: 35 }, (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -618,12 +618,13 @@ export const player: Player = {
     loadedOct4Hotfix: false,
     loadedNov13Vers: true,
     loadedDec16Vers: true,
+    loadedV253: true,
     version,
     rngCode: 0
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 34 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 35 }, (_, i) => [i + 1, false]))
 });
 
 export const saveSynergy = (button?: boolean) => {
@@ -3363,7 +3364,7 @@ export const reloadShit = async (reset = false) => {
 window.addEventListener('load', () => {
     const ver = document.getElementById('versionnumber');
     ver && (ver.textContent = 
-        `You're ${isTesting ? 'testing' : 'playing'} v${version} - Seal of the Merchant [Last Update: 5:00 UTC-8 22-Jun-2021].` + 
+        `You're ${isTesting ? 'testing' : 'playing'} v${version} - Seal of the Merchant [Last Update: 04:00 UTC-8 28-Jun-2021].` + 
         ` ${isTesting ? 'Savefiles cannot be used in live!' : ''}`
     );
     document.title = `Synergism v${version}`;
