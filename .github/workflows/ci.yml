@@ -37,6 +37,9 @@ jobs:
       - name: Install
         run: |
           npm install
+      - name: Check
+        run: |
+          npm run check:tsc
       - name: Run linter
         run: |
           npm run lint
