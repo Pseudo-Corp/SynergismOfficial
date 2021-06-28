@@ -715,31 +715,45 @@ export const buyParticleBuilding = (
 
 export const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const;
 
-export const getTesseractCost = (index: OneToFive, accelerate = false): [number, number] => {
-    const intCost = tesseractBuildingCosts[index - 1];
-    const ascendBuildingIndex = `ascendBuilding${index}` as const;
-    const buyFrom = player[ascendBuildingIndex]['owned']
-    const subCost = intCost * Math.pow(buyFrom * (buyFrom + 1) / 2, 2)
+// The nth tesseract building of tier i costs
+//   tesseractBuildingCosts[i-1] * n^3.
+// so the first n tesseract buildings of tier i costs
+//   cost(n) = tesseractBuildingCosts[i-1] * (n * (n+1) / 2)^2
+// in total. Use cost(owned+buyAmount) - cost(owned) to figure the cost of 
 
-    const buyTo = Math.floor(-1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((Number(player.wowTesseracts) + subCost) / intCost, 1 / 2), 1 / 2))
-    let actualBuy = Math.min(buyTo, player.tesseractbuyamount + player[ascendBuildingIndex]['owned'])
-    if (accelerate) {
-        actualBuy += 0.05 * (buyTo - actualBuy)
-        actualBuy = Math.floor(actualBuy)
+/**
+ * @param index Which tesseract building to get the cost of.
+ * @param amount The amount to buy. Defaults to tesseract buy amount.
+ * @param checkCanAfford Whether to limit the purchase amount to the number of buildings the player can afford.
+ * @returns A pair of [number of buildings after purchase, cost of purchase].
+ */
+export const getTesseractCost = (index: OneToFive, amount?: number, checkCanAfford = true): [number, number] => {
+    amount ??= player.tesseractbuyamount;
+    const intCost = tesseractBuildingCosts[index - 1];
+    const buyFrom = player[`ascendBuilding${index}` as const]['owned'];
+    const subCost = intCost * Math.pow(buyFrom * (buyFrom + 1) / 2, 2);
+
+    let actualBuy: number;
+    if (checkCanAfford) {
+        const buyTo = Math.floor(-1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((Number(player.wowTesseracts) + subCost) / intCost, 1 / 2), 1 / 2));
+        actualBuy = Math.min(buyTo, buyFrom + amount);
+    } else {
+        actualBuy = buyFrom + amount;
     }
-    const actualCost = intCost * Math.pow(actualBuy * (actualBuy + 1) / 2, 2) - subCost
+    const actualCost = intCost * Math.pow(actualBuy * (actualBuy + 1) / 2, 2) - subCost;
     return [actualBuy, actualCost];
 }
 
-export const buyTesseractBuilding = (index: OneToFive, accelerate = false) => {
+export const buyTesseractBuilding = (index: OneToFive, amount?: number) => {
+    amount ??= player.tesseractbuyamount;
     const intCost = tesseractBuildingCosts[index - 1];
     const ascendBuildingIndex = `ascendBuilding${index}` as const;
     // Destructuring FTW!
-    const [buyTo, actualCost] = getTesseractCost(index, accelerate)
+    const [buyTo, actualCost] = getTesseractCost(index, amount);
 
     player[ascendBuildingIndex]['owned'] = buyTo;
     player.wowTesseracts.sub(actualCost);
-    player[ascendBuildingIndex]['cost'] = intCost * Math.pow(1 + player[ascendBuildingIndex]['owned'], 3)
+    player[ascendBuildingIndex]['cost'] = intCost * Math.pow(1 + buyTo, 3)
 }
 
 export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number) => {
