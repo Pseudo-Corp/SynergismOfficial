@@ -426,7 +426,7 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.shopUpgrades.calculator = 0;
         player.shopUpgrades.calculator2 = 0;
         player.shopUpgrades.calculator3 = 0;
-        player.wowAbyssals = 1e8 * player.platonicUpgrades[16] // Refund based off of abyss hepteracts spent
+        player.wowAbyssals += 1e8 * player.platonicUpgrades[16] // Refund based off of abyss hepteracts spent
         Alert('June 28, 2021: V2.5.3. You have been refunded quarks from calculators if you purchased them. They are no longer refundable so be wary!')
     }
 }
