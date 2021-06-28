@@ -3,7 +3,7 @@ import { calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calcul
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { revealStuff } from './UpdateHTML';
+import { revealStuff, updateChallengeDisplay } from './UpdateHTML';
 import { upgradeupdate } from './Upgrades';
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
