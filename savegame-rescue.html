@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16">
+
+    <link rel="stylesheet" href="Synergism.css">
+    <title>Synergism</title>
+</head>
+<body>
+    <div id="savegame" style="width:100%; ">
+        Savegame not loaded
+    </div>
+
+    <script type='text/javascript'>
+        window.addEventListener('load', function () {
+            const save = localStorage.getItem("Synergysave2");
+            if (save != null) {
+                document.getElementById("savegame").textContent = save;
+            }
+        });
+    </script>
+</body>
+</html>
