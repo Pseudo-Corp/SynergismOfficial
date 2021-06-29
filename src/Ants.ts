@@ -42,7 +42,7 @@ const antspecies: Record<string, string> = {
 const antupgdesc: Record<string, string> = {
     antupgdesc1: "Promotes romance and unity within the colony. [+12% Ant Speed / level]",
     antupgdesc2: "Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]",
-    antupgdesc3: "Swarms the Taxman into submission [Up to -99% taxes!]",
+    antupgdesc3: "Swarms the Taxman into submission [Up to -99.5% taxes!]",
     antupgdesc4: "Scares you into running faster [up to x20]",
     antupgdesc5: "Imitates your body through magic shape-shifting powers [up to x40]",
     antupgdesc6: "Tries to please Ant God... but fails [Additional Offerings!]",
