@@ -83,20 +83,20 @@ export const toggleChallenges = (i: number, auto = false) => {
     if (player.currentChallenge.transcension === 0 && (i <= 5)) {
         if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
             player.currentChallenge.transcension = i;
-            reset("transcensionChallenge", false, "enterChallenge");
+            reset("transcensionChallenge", auto, "enterChallenge");
             player.transcendCount -= 1;
         }
     }
     if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)){
         if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
             player.currentChallenge.reincarnation = i;
-            reset("reincarnationChallenge", false, "enterChallenge");
+            reset("reincarnationChallenge", auto, "enterChallenge");
             player.reincarnationCount -= 1;
         }
     }
     if (player.challengecompletions[10] > 0) {
         if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
-            reset("ascensionChallenge", false, "enterChallenge");
+            reset("ascensionChallenge", auto, "enterChallenge");
             player.currentChallenge.ascension = i;
 
             if (player.currentChallenge.ascension === 12) {
