@@ -2875,7 +2875,7 @@ export const updateAll = (): void => {
         for (let i = 5; i >= 1; i--) {
             const buyFrom = ownedBuildings[i-1];
             const buyTo = buyToBuildings[i-1];
-            if (buyFrom !== null && buyTo !== null) {
+            if (buyFrom !== null && buyTo !== null && buyTo !== buyFrom) {
                 buyTesseractBuilding(i as OneToFive, buyTo - buyFrom);
             }
         }
