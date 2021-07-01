@@ -54,9 +54,9 @@ export const quarkHandler = () => {
     let baseQuarkPerHour = 5;
 
     const quarkResearches = [99, 100, 125, 180, 195]
-    for (const el in quarkResearches)
+    for (const el of quarkResearches) {
         baseQuarkPerHour += player.researches[el]
-
+    }
     const quarkMultiplier = getQuarkMultiplier();
     const quarkPerHour = baseQuarkPerHour * quarkMultiplier
 
