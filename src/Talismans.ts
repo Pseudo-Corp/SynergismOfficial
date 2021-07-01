@@ -208,13 +208,13 @@ export const showTalismanEffect = (i: number) => {
             break;
         case 7:
             a.textContent = "=-=-=-= Plastic Talisman Effects =-=-=-=";
-            b.textContent = "Gain 1x normal production"
+            b.textContent = "Gain 1x normal production (Joke)!"
             c.textContent = "Bonus Speed Rune Levels: " + format(G['talisman7Effect'][1], 2, true)
             d.textContent = "Bonus Duplication Rune Levels: " + format(G['talisman7Effect'][2], 2, true)
             e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman7Effect'][3], 2, true)
             f.textContent = "Bonus Thrift Rune Levels: " + format(G['talisman7Effect'][4], 2, true)
             g.textContent = "Bonus SI Rune Levels: " + format(G['talisman7Effect'][5], 2, true)
-            h.textContent = "Mythic Effect: +20% Quarks per Hour on Export (Additive)!"
+            h.textContent = "Mythic Effect: Gain 1x your normal quark values (Joke)!"
             break;
     }
     if (player.talismanRarity[i-1] !== 6) {

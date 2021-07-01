@@ -42,7 +42,7 @@ import { startHotkeys } from './Hotkeys';
  * This should be detected when importing a file.
  */
 export const isTesting = false;
-export const version = '2.5.3';
+export const version = '2.5.4';
 
 export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
@@ -173,7 +173,7 @@ export const player: Player = {
 
     firstOwnedAnts: 0,
     firstGeneratedAnts: new Decimal("0"),
-    firstCostAnts: new Decimal("1e800"),
+    firstCostAnts: new Decimal("1e700"),
     firstProduceAnts: .0001,
 
     secondOwnedAnts: 0,
@@ -1630,6 +1630,7 @@ export const updateAllTick = (): void => {
     calculateAcceleratorMultiplier();
     a *= G['acceleratorMultiplier']
     a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
+    a += 2000 * hepteractEffective('accelerator');
     a *= G['challenge15Rewards'].accelerator
     a *= (1 + 3/10000 * hepteractEffective('accelerator'))
     a = Math.floor(a)
@@ -1807,6 +1808,7 @@ export const updateAllMultiplier = (): void => {
         a *= 1.25
     }
     a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['divisivenessPower'][player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
+    a += 1000 * hepteractEffective('multiplier')
     a *= G['challenge15Rewards'].multiplier
     a *= (1 + 3/10000 * hepteractEffective('multiplier'))
     a = Math.floor(a)
@@ -3364,7 +3366,7 @@ export const reloadShit = async (reset = false) => {
 window.addEventListener('load', () => {
     const ver = document.getElementById('versionnumber');
     ver && (ver.textContent = 
-        `You're ${isTesting ? 'testing' : 'playing'} v${version} - Seal of the Merchant [Last Update: 04:00 UTC-8 28-Jun-2021].` + 
+        `You're ${isTesting ? 'testing' : 'playing'} v${version} - Seal of the Merchant [Last Update: 02:30 UTC-8 1-Jul-2021].` + 
         ` ${isTesting ? 'Savefiles cannot be used in live!' : ''}`
     );
     document.title = `Synergism v${version}`;

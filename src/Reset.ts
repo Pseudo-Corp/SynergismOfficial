@@ -765,7 +765,7 @@ export const resetAnts = () => {
     player.seventhGeneratedAnts = new Decimal("0");
     player.eighthGeneratedAnts = new Decimal("0");
 
-    player.firstCostAnts = new Decimal("1e800");
+    player.firstCostAnts = new Decimal("1e700");
     player.secondCostAnts = new Decimal("3");
     player.thirdCostAnts = new Decimal("100");
     player.fourthCostAnts = new Decimal("1e4");

@@ -223,7 +223,7 @@ export const loadPowderMultiplier = () => {
 }
 
 export const c15RewardUpdate = () => {
-    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16]
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
     type Key = keyof GlobalVariables['challenge15Rewards'];
     const keys = Object.keys(G['challenge15Rewards']) as Key[];
     const e = player.challenge15Exponent
@@ -231,6 +231,7 @@ export const c15RewardUpdate = () => {
     for(const obj in G['challenge15Rewards']){
         G['challenge15Rewards'][obj as Key] = 1;
     }
+    G['challenge15Rewards'].freeOrbs = 0;
 
     if(e >= exponentRequirements[0]){
         //All Cube Types 1 [750]
@@ -364,6 +365,14 @@ export const c15RewardUpdate = () => {
         //Unlock MULTIPLIER Hept [33.33Qa]
         player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
     }
+    if (e >= exponentRequirements[33]) {
+        // FREE Daily Orbs
+        G['challenge15Rewards'].freeOrbs = Math.floor(25 * Math.pow(e / 2e17, 0.25))
+    }
+    if (e >= exponentRequirements[34]) {
+        // Ascension Speed
+        G['challenge15Rewards'].ascensionSpeed = 1 + 5/100 + 2 * Math.log2(e / 1.5e18) / 100
+    }
 
 
     updateDisplayC15Rewards();
@@ -372,7 +381,7 @@ export const c15RewardUpdate = () => {
 const updateDisplayC15Rewards = () => {
     document.getElementById('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
     document.getElementById('c15RequiredExponentNum').textContent = format(player.challenge15Exponent / challenge15ScoreMultiplier(),0,true)
-    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16]
+    const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
     const isNum: Record<number, boolean> = { // Shit solution to a shit problem -Platonic
         0: true,
         1: true,
@@ -406,7 +415,9 @@ const updateDisplayC15Rewards = () => {
         29: true,
         30: false,
         31: false,
-        32: false
+        32: false,
+        33: true,
+        34: true
     }
     const values = Object.values(G['challenge15Rewards'])
     let keepExponent: string | number = 'None'
@@ -422,6 +433,10 @@ const updateDisplayC15Rewards = () => {
 
             if (!isNum[i] && i !== 24) { // TODO: This sucks -Platonic
                 skip += 1;
+            }
+
+            if (i === 33) {
+                document.getElementById('c15Reward34Num').textContent = format(values[i - skip], 0, true)
             }
         }
 

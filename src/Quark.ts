@@ -1,6 +1,6 @@
 /* Functions which Handle Quark Gains,  */
 
-import { calculateSigmoid } from "./Calculate";
+import { calculateCubeQuarkMultiplier} from "./Calculate";
 import { hepteractEffective } from "./Hepteracts"
 import { player } from "./Synergism"
 import { Alert } from "./UpdateHTML";
@@ -16,9 +16,6 @@ export const getQuarkMultiplier = () => {
     }
     if (player.achievements[251] > 0) { // Max Wow! Cube Upgrade 5x10
         multiplier += 0.10;
-    }
-    if (player.talismanRarity[7] > 5) { // Shop Talisman has Mythical Rarity
-        multiplier += 0.20;
     }
     if (player.platonicUpgrades[5] > 0) { // Platonic ALPHA upgrade
         multiplier += 0.10;
@@ -55,21 +52,10 @@ export const quarkHandler = () => {
 
     //Part 2: Calculate quark gain per hour
     let baseQuarkPerHour = 5;
-    if (player.researches[99] > 0) {
-        baseQuarkPerHour += player.researches[99]; //Caps at 2 not 1
-    }
-    if (player.researches[100] > 0) {
-        baseQuarkPerHour += 1;
-    }
-    if (player.researches[125] > 0) {
-        baseQuarkPerHour += 1;
-    }
-    if (player.researches[180] > 0) {
-        baseQuarkPerHour += 1;
-    }
-    if (player.researches[195] > 0) {
-        baseQuarkPerHour += player.researches[195] //Caps at 2 not 1
-    }
+
+    const quarkResearches = [99, 100, 125, 180, 195]
+    for (const el in quarkResearches)
+        baseQuarkPerHour += player.researches[el]
 
     const quarkMultiplier = getQuarkMultiplier();
     const quarkPerHour = baseQuarkPerHour * quarkMultiplier
@@ -81,7 +67,7 @@ export const quarkHandler = () => {
     const quarkGain = Math.floor(player.quarkstimer * quarkPerHour / 3600);
 
     //Part 5 [June 9, 2021]: Calculate bonus awarded to cube quarks.
-    const cubeMult = calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)
+    const cubeMult = calculateCubeQuarkMultiplier();
     //Return maxTime, quarkPerHour, capacity and quarkGain as object
     return {
         maxTime: maxTime,

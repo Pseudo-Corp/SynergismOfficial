@@ -1,4 +1,4 @@
-import { calculatePowderConversion, calculateSigmoid, forcedDailyReset } from "./Calculate";
+import { calculateCubeQuarkMultiplier, calculatePowderConversion, forcedDailyReset } from "./Calculate";
 import { Cube } from "./CubeExperimental";
 import { format, player } from "./Synergism";
 import type { Player } from "./types/Synergism";
@@ -283,22 +283,22 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
             break;
         case 'accelerator':
             unlockedText.textContent = (player.hepteractCrafts.accelerator.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
-            effectText.textContent = "Haha, stupid Corruptions. +0.03% Uncorruptable Accelerators per 'Way too many accelerators' Hepteract!"
-            currentEffectText.textContent = "Current Effect: Uncorruptable Accelerators +" + format(hepteractEffective('accelerator') * 3 / 100, 2, true) + "%"
+            effectText.textContent = "Haha, stupid Corruptions. +2,000 +0.03% Uncorruptable Accelerators per 'Way too many accelerators' Hepteract!"
+            currentEffectText.textContent = "Current Effect: Uncorruptable Accelerators +"+ format(2000 * hepteractEffective('accelerator'), 2, true) +" +" + format(hepteractEffective('accelerator') * 3 / 100, 2, true) + "%"
             balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.accelerator.BAL, 0, true) + " / " + format(player.hepteractCrafts.accelerator.CAP)
             costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.accelerator.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e14 Wow! Tesseracts"
             break;
         case 'acceleratorBoost':
             unlockedText.textContent = (player.hepteractCrafts.acceleratorBoost.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
-            effectText.textContent = "Haha, stupid Corruptions. +0.03% Uncorruptable Accelerator Boosts per 'Way too many accelerator boosts' Hepteract!"
-            currentEffectText.textContent = "Current Effect: Uncorruptable Accelerator Boosts +" + format(hepteractEffective('acceleratorBoost') * 3 / 100, 2, true) + "%"
+            effectText.textContent = "Haha, stupid Corruptions. +0.1% Accelerator Boosts per 'Way too many accelerator boosts' Hepteract!"
+            currentEffectText.textContent = "Current Effect: Accelerator Boosts +" +format(hepteractEffective('acceleratorBoost') / 10, 2, true) + "%"
             balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.acceleratorBoost.BAL, 0, true) + " / " + format(player.hepteractCrafts.acceleratorBoost.CAP)
             costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.acceleratorBoost.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e10 Hypercubes"
             break;
         case 'multiplier':
             unlockedText.textContent = (player.hepteractCrafts.multiplier.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
-            effectText.textContent = "Haha, stupid Corruptions. +0.03% Uncorruptable Multipliers per 'Way too many multipliers' Hepteract!"
-            currentEffectText.textContent = "Current Effect: Uncorruptable Multipliers +" + format(hepteractEffective('multiplier') * 3 / 100, 2, true) + "%"
+            effectText.textContent = "Haha, stupid Corruptions. +1,000 +0.03% Uncorruptable Multipliers per 'Way too many multipliers' Hepteract!"
+            currentEffectText.textContent = "Current Effect: Uncorruptable Multipliers +" + format(1000 * hepteractEffective('multiplier'), 2, true) +" +" + format(hepteractEffective('multiplier') * 3 / 100, 2, true) + "%"
             balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.multiplier.BAL, 0, true) + " / " + format(player.hepteractCrafts.multiplier.CAP)
             costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.multiplier.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e130 Obtainium"
             break;
@@ -313,7 +313,7 @@ export const hepteractToOverfluxOrbDescription = () => {
     document.getElementById('powderDayWarpText').style.display = 'none'
     document.getElementById('hepteractCostText').style.display = 'block'
 
-    document.getElementById('hepteractCurrentEffectText').textContent = 'Orb Effect: Opening Cubes gives ' + format(100 *(-1 + calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)), 2, true) + "% more Quarks."
+    document.getElementById('hepteractCurrentEffectText').textContent = 'Orb Effect: Opening Cubes gives ' + format(100 *(-1 + calculateCubeQuarkMultiplier()), 2, true) + "% more Quarks."
     document.getElementById('hepteractBalanceText').textContent = 'Orbs Purchased Today: ' + format(player.overfluxOrbs, 0, true) + '.'
     document.getElementById('hepteractEffectText').textContent = "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]"
     document.getElementById('hepteractCostText').textContent = "Cost: 250,000 Hepteracts per Overflux Orb"
@@ -335,10 +335,10 @@ export const tradeHepteractToOverfluxOrb = async () => {
         return Alert(`Hey! That's not a valid number!`);
     
     const buyAmount = Math.min(maxBuy, toUse)
-    const beforeEffect = calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)
+    const beforeEffect = calculateCubeQuarkMultiplier();
     player.overfluxOrbs += buyAmount
     player.wowAbyssals -= 250000 * buyAmount
-    const afterEffect = calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)
+    const afterEffect = calculateCubeQuarkMultiplier();
 
     return Alert(`You have purchased ` + format(buyAmount, 0, true) + ` Overflux Orbs [+${format(100 * (afterEffect - beforeEffect), 2, true)}% to effect]. Enjoy!`)
 
