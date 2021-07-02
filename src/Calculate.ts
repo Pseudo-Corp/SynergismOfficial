@@ -970,8 +970,8 @@ export const calculateAllCubeMultiplier = () => {
         1 + player.platonicUpgrades[10],
         // OMEGA: C9 Cube Bonus
         Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9]),
-        // Powder Bonus [Max: 2x at 10,000 powder]
-        1 + Math.min(1, player.overfluxPowder / 1e4),
+        // Powder Bonus
+        calculateCubeMultFromPowder(),
         // Event (currently, +20.21%)
         1 + 0.2021 * +G['isEvent'],
         // Total Global Cube Multipliers: 9
@@ -1381,6 +1381,14 @@ export const calculateCubeQuarkMultiplier = () => {
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 160) +
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640) -
            2;
+}
+
+export const calculateCubeMultFromPowder = () => {
+    return (player.overfluxPowder > 10000) ? (1 + 1/16 * Math.pow(Math.log10(player.overfluxPowder), 2)) : (1 + 1/10000 * player.overfluxPowder)
+}
+
+export const calculateQuarkMultFromPowder = () => {
+    return (player.overfluxPowder > 10000) ? (1 + 1/40 * Math.log10(player.overfluxPowder)) : (1 + 1/100000 * player.overfluxPowder);
 }
 
 export const dailyResetCheck = () => {

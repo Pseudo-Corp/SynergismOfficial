@@ -420,7 +420,7 @@ export const autoBuyAnts = () => {
     }
 
     const _ach = [173, 176, 177, 178, 179, 180, 181, 182];
-    const _cost = ["1e800", "3", "100", "10000", "1e12", "1e36", "1e100", "1e300"];
+    const _cost = ["1e700", "3", "100", "10000", "1e12", "1e36", "1e100", "1e300"];
     for (let i = 1; i <= _ach.length; i++) {
         const res = i === 1 ? player.reincarnationPoints : player.antPoints;
         const m = i === 1 ? 1 : 2; // no multiplier on the first ant cost because it costs particles

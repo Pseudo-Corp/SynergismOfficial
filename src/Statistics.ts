@@ -367,7 +367,7 @@ export const c15RewardUpdate = () => {
     }
     if (e >= exponentRequirements[33]) {
         // FREE Daily Orbs
-        G['challenge15Rewards'].freeOrbs = Math.floor(25 * Math.pow(e / 2e17, 0.25))
+        G['challenge15Rewards'].freeOrbs = Math.floor(200 * Math.pow(e / 2e17, 0.5))
     }
     if (e >= exponentRequirements[34]) {
         // Ascension Speed

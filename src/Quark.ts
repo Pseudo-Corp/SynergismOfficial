@@ -1,6 +1,6 @@
 /* Functions which Handle Quark Gains,  */
 
-import { calculateCubeQuarkMultiplier} from "./Calculate";
+import { calculateCubeQuarkMultiplier, calculateQuarkMultFromPowder} from "./Calculate";
 import { hepteractEffective } from "./Hepteracts"
 import { player } from "./Synergism"
 import { Alert } from "./UpdateHTML";
@@ -36,7 +36,7 @@ export const getQuarkMultiplier = () => {
         multiplier *= (1 + 5/10000 * hepteractEffective('quark'));
     }
     if (player.overfluxPowder > 0) { // Overflux Powder [Max: 10% at 10,000]
-        multiplier *= (1 + Math.min(0.1, (player.overfluxPowder / 1e5)))      
+        multiplier *= calculateQuarkMultFromPowder();      
     }
     if (player.achievements[266] > 0) { // Achievement 266 [Max: 10% at 1Qa Ascensions]
         multiplier *= (1 + Math.min(0.1, (player.ascensionCount) / 1e16))

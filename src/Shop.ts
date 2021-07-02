@@ -240,10 +240,10 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     },
     powderEX: {
         price: 1000,
-        priceIncrease: 1000,
-        maxLevel: 25,
+        priceIncrease: 750,
+        maxLevel: 50,
         type: "upgrade",
-        refundable: true,
+        refundable: false,
         refundMinimumLevel: 0,
         description: `Platonic himself gives you 2% better conversion rate on Overflux Orbs to Powder per level. This activates when Orbs expire.`
     }

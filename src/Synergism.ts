@@ -42,7 +42,7 @@ import { startHotkeys } from './Hotkeys';
  * This should be detected when importing a file.
  */
 export const isTesting = false;
-export const version = '2.5.4';
+export const version = '2.5.5';
 
 export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
@@ -619,6 +619,7 @@ export const player: Player = {
     loadedNov13Vers: true,
     loadedDec16Vers: true,
     loadedV253: true,
+    loadedV255: true,
     version,
     rngCode: 0
 }
@@ -859,7 +860,7 @@ const loadSynergy = (reset = false) => {
 
             player.firstOwnedAnts = 0;
             player.firstGeneratedAnts = new Decimal("0");
-            player.firstCostAnts = new Decimal("1e800");
+            player.firstCostAnts = new Decimal("1e700");
             player.firstProduceAnts = .0001;
 
             player.secondOwnedAnts = 0;
@@ -975,7 +976,7 @@ const loadSynergy = (reset = false) => {
         }
 
         if (player.firstOwnedAnts < 1 && player.firstCostAnts.gte("1e1200")) {
-            player.firstCostAnts = new Decimal("1e800");
+            player.firstCostAnts = new Decimal("1e700");
             player.firstOwnedAnts = 0;
         }
 
@@ -3366,7 +3367,7 @@ export const reloadShit = async (reset = false) => {
 window.addEventListener('load', () => {
     const ver = document.getElementById('versionnumber');
     ver && (ver.textContent = 
-        `You're ${isTesting ? 'testing' : 'playing'} v${version} - Seal of the Merchant [Last Update: 02:30 UTC-8 1-Jul-2021].` + 
+        `You're ${isTesting ? 'testing' : 'playing'} v${version} - Seal of the Merchant [Last Update: 8:10 UTC-8 2-Jul-2021].` + 
         ` ${isTesting ? 'Savefiles cannot be used in live!' : ''}`
     );
     document.title = `Synergism v${version}`;
