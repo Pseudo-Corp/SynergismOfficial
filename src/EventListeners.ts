@@ -366,7 +366,7 @@ export const generateEventHandlers = () => {
 
 // ANTHILL TAB
 //Part 1: Ant Producers (Tiers 1-8)
-const antProducerCostVals = ['null','1e800','3','100','10000','1e12','1e36','1e100','1e300']
+const antProducerCostVals = ['null','1e700','3','100','10000','1e12','1e36','1e100','1e300']
 for (let index = 1; index <= 8 ; index++) {
 
     //Onmouse Events
