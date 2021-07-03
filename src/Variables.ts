@@ -404,6 +404,8 @@ export const Globals: GlobalVariables = {
         cube5: 1,
         powder: 1,
         exponent: 1,
+        freeOrbs: 0,
+        ascensionSpeed: 1,
     },
 
     autoResetTimers: {

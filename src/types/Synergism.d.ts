@@ -820,6 +820,8 @@ export interface GlobalVariables {
         cube5: number
         powder: number
         exponent: number
+        freeOrbs: number
+        ascensionSpeed: number
     },
 
     autoResetTimers: {

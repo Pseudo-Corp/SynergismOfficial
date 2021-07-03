@@ -58,7 +58,7 @@ export const calculateTotalAcceleratorBoost = () => {
     b *= (1 + 0.2 / 100 * player.researches[187])
     b *= (1 + 0.01 / 100 * player.researches[200])
     b *= (1 + 0.01 / 100 * player.cubeUpgrades[50])
-    b *= (1 + 3/10000 * hepteractEffective('acceleratorBoost'))
+    b *= (1 + 1/1000 * hepteractEffective('acceleratorBoost'))
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {
         b *= 2
     }
@@ -1204,6 +1204,7 @@ export const calculateAscensionAcceleration = () => {
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[262],   // Achieve 262
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263],   // Achieve 263
         1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // PLAT Omega
+        G['challenge15Rewards'].ascensionSpeed,                                                         // C15
     ]
     return productContents(arr)
 }
@@ -1375,6 +1376,13 @@ export const calculatePowderConversion = () => {
     }
 }
 
+export const calculateCubeQuarkMultiplier = () => {
+    return calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40) +
+           calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 160) +
+           calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640) -
+           2;
+}
+
 export const dailyResetCheck = () => {
     player.dayCheck ||= new Date();
     if (typeof player.dayCheck === 'string') {
@@ -1399,7 +1407,7 @@ export const dailyResetCheck = () => {
         player.platonicCubeOpenedDaily = 0;
         
         player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion().mult;
-        player.overfluxOrbs = 0;
+        player.overfluxOrbs = G['challenge15Rewards'].freeOrbs
         player.dailyPowderResetUses = 1;
 
         document.getElementById('cubeQuarksOpenRequirement').style.display = "block"
