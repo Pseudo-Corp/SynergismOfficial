@@ -1,4 +1,5 @@
-import { calculateCubeQuarkMultiplier, calculatePowderConversion, forcedDailyReset } from "./Calculate";
+import Decimal from "break_infinity.js";
+import { calculateCubeMultFromPowder, calculateCubeQuarkMultiplier, calculatePowderConversion, calculateQuarkMultFromPowder, forcedDailyReset } from "./Calculate";
 import { Cube } from "./CubeExperimental";
 import { format, player } from "./Synergism";
 import type { Player } from "./types/Synergism";
@@ -348,8 +349,11 @@ export const tradeHepteractToOverfluxOrb = async () => {
  * Generates the description at the bottom of the page for Overflux Powder Properties
  */
 export const overfluxPowderDescription = () => {
+    let powderEffectText = "ALL Cube Gain +" + format(100 * (calculateCubeMultFromPowder() - 1), 2, true) + "% [Multiplicative], +" + format(100 * (calculateQuarkMultFromPowder() - 1), 3, true) + "% Quarks [Multiplicative]"
+    if (player.platonicUpgrades[16] > 0)
+        powderEffectText += ", Ascension Count +" + format(2 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 1e5), 2, true) + "%, " + "Tesseract Building Production x" + format(Decimal.pow(player.overfluxPowder + 1, 10 * player.platonicUpgrades[16])) + " [From Platonic Upgrade 4x1]" 
     document.getElementById('hepteractUnlockedText').style.display = 'none'
-    document.getElementById('hepteractCurrentEffectText').textContent = 'Powder effect: ALL Cube Gain +' + format(Math.min(100, player.overfluxPowder / 100), 2, true) + '% and Quarks +' + format(Math.min(10, player.overfluxPowder / 1000), 2, true) + '% [Max effect at 10,000 Powder]'
+    document.getElementById('hepteractCurrentEffectText').textContent = "Powder effect: " + powderEffectText
     document.getElementById('hepteractBalanceText').textContent = 'You have ' + format(player.overfluxPowder, 2, true) + ' lumps of Overflux Powder.'
     document.getElementById('hepteractEffectText').textContent = `Expired Overflux Orbs become powder at a rate of ${format(1 / calculatePowderConversion().mult, 1, true)} Orbs per powder lump!`
     document.getElementById('hepteractCostText').style.display = 'none'

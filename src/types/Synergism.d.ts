@@ -485,6 +485,7 @@ export interface Player {
     loadedNov13Vers: boolean
     loadedDec16Vers: boolean
     loadedV253: boolean
+    loadedV255: boolean
     version: string
 
     rngCode: number
