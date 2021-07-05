@@ -56,7 +56,7 @@ export const resetdetails = (input: resetNames) => {
 
     switch(input){
         case "prestige":
-            if(currencyImage1.src !== "Pictures/Diamond.png"){
+            if (!currencyImage1.src.endsWith("Pictures/Diamond.png")) {
                 currencyImage1.src = "Pictures/Diamond.png"
             }
             currencyImage1.style.display = "block"
@@ -65,7 +65,7 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = "turquoise";
             break;
         case "transcension":
-            if(currencyImage1.src !== "Pictures/Mythos.png"){
+            if (!currencyImage1.src.endsWith("Pictures/Mythos.png")) {
                 currencyImage1.src = "Pictures/Mythos.png"
             }
             currencyImage1.style.display = "block"
@@ -74,7 +74,7 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = "orchid";
             break;
         case "reincarnation":
-            if(currencyImage1.src !== "Pictures/Particle.png"){
+            if (!currencyImage1.src.endsWith("Pictures/Particle.png")) {
                 currencyImage1.src = "Pictures/Particle.png"
             }
             currencyImage1.style.display = "block"
@@ -83,7 +83,7 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = "limegreen";
             break;
         case "acceleratorBoost":
-            if(currencyImage1.src !== "Pictures/Diamond.png") {
+            if (!currencyImage1.src.endsWith("Pictures/Diamond.png")) {
                 currencyImage1.src = "Pictures/Diamond.png"
             }
             currencyImage1.style.display = "block"
