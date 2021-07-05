@@ -36,6 +36,7 @@ import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import './Hotkeys';
 import { startHotkeys } from './Hotkeys';
+import { updatePlatonicUpgradeBG } from './Platonic';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -1118,6 +1119,9 @@ const loadSynergy = (reset = false) => {
         }
         for (let j = 1; j <= 50; j++) {
             updateCubeUpgradeBG(j);
+        }
+        for (let j = 1; j <= 20; j++) {
+            updatePlatonicUpgradeBG(j);
         }
 
         const q = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract'] as const;
