@@ -28,6 +28,15 @@ export const checkVariablesOnLoad = (data: Player) => {
     data.shopUpgrades ??= { ...blankSave.shopUpgrades };
     data.ascStatToggles ??= { ...blankSave.ascStatToggles };
 
+    if (typeof data.promoCodeTiming === 'object') {
+        for (const key of Object.keys(data.promoCodeTiming)) {
+            const k = key as keyof typeof data.promoCodeTiming;
+            player.promoCodeTiming[k] = data.promoCodeTiming[k];
+        }
+    } else {
+        player.promoCodeTiming.time = Date.now() - (60 * 1000 * 15);
+    }
+
     // backwards compatibility for v1.0101 (and possibly older) saves
     if (!Array.isArray(data.challengecompletions)) {
         player.challengecompletions = Object.values(data.challengecompletions);

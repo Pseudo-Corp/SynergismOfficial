@@ -337,6 +337,31 @@ export const promocodes = async () => {
         
         player.worlds.sub(bet);
         el.textContent = `Try again... you can do it! [-${bet} quarks]`;
+    } if (input === 'time') {
+        if ((Date.now() - player.promoCodeTiming.time) / 1000 < 3600) {
+            return Confirm(`
+            If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
+            
+            Otherwise, you must wait an hour between each use.
+            `);
+        }
+
+        const random = Math.random() * 15000; // random time within 15 seconds
+        const start = Date.now();
+        await Confirm(
+            `Click the button within the next 15 seconds to test your luck!` + 
+            ` If you click within 500 ms of a randomly generated time, you will win a prize!`
+        );
+        
+        const diff = Math.abs(Date.now() - (start + random));
+        player.promoCodeTiming.time = Date.now();
+
+        if (diff <= 500) {
+            player.worlds.add(500);
+            return Confirm(`You clicked at the right time! [+500 Quarkies]`);
+        } else {
+            return Confirm(`You didn't guess within the correct times, try again soon!`);
+        }
     } else {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }

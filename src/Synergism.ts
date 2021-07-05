@@ -621,7 +621,10 @@ export const player: Player = {
     loadedV253: true,
     loadedV255: true,
     version,
-    rngCode: 0
+    rngCode: 0,
+    promoCodeTiming: {
+        time: 0
+    }
 }
 
 export const blankSave = Object.assign({}, player, {

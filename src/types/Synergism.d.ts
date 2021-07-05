@@ -490,6 +490,9 @@ export interface Player {
 
     rngCode: number
     skillCode?: number
+    promoCodeTiming: {
+        time: number
+    }
 
     hepteractCrafts: {
         chronos: HepteractCraft,
