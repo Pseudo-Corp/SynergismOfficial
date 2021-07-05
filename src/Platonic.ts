@@ -330,16 +330,16 @@ export const createPlatonicDescription = (index: number) => {
 }
 
 export const updatePlatonicUpgradeBG = (i: number) => {
-    const a = document.getElementById("platUpg" + i)
+    const a = document.getElementById(`platUpg${i}`)
 
     const maxLevel = platUpgradeBaseCosts[i].maxLevel
     if (player.platonicUpgrades[i] === 0) {
         a.style.backgroundColor = "black"
     }
-    if (player.platonicUpgrades[i] > 0 && player.platonicUpgrades[i] < maxLevel) {
+    else if (player.platonicUpgrades[i] > 0 && player.platonicUpgrades[i] < maxLevel) {
         a.style.backgroundColor = "purple"
     }
-    if (player.platonicUpgrades[i] === maxLevel) {
+    else if (player.platonicUpgrades[i] === maxLevel) {
         a.style.backgroundColor = "green"
     }
 

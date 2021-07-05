@@ -1120,7 +1120,8 @@ const loadSynergy = (reset = false) => {
         for (let j = 1; j <= 50; j++) {
             updateCubeUpgradeBG(j);
         }
-        for (let j = 1; j <= 20; j++) {
+        const platUpg = document.querySelectorAll('img[id^="platUpg"]');
+        for (let j = 1; j <= platUpg.length; j++) {
             updatePlatonicUpgradeBG(j);
         }
 
