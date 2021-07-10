@@ -1,4 +1,5 @@
-import { player, saveSynergy, blankSave, isTesting, reloadShit, version, format } from './Synergism';
+import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
+import { testing, version } from './Config';
 import { getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
@@ -135,8 +136,8 @@ export const importSynergism = (input: string, reset = false) => {
 
     if (
         (f.exporttest === "YES!" || f.exporttest === true) ||
-        (f.exporttest === false && isTesting) ||
-        (f.exporttest === 'NO!' && isTesting)
+        (f.exporttest === false && testing) ||
+        (f.exporttest === 'NO!' && testing)
     ) {
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
