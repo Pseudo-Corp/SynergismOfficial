@@ -329,6 +329,22 @@ export const createPlatonicDescription = (index: number) => {
     }
 }
 
+export const updatePlatonicUpgradeBG = (i: number) => {
+    const a = document.getElementById(`platUpg${i}`)
+
+    const maxLevel = platUpgradeBaseCosts[i].maxLevel
+    if (player.platonicUpgrades[i] === 0) {
+        a.style.backgroundColor = "black"
+    }
+    else if (player.platonicUpgrades[i] > 0 && player.platonicUpgrades[i] < maxLevel) {
+        a.style.backgroundColor = "purple"
+    }
+    else if (player.platonicUpgrades[i] === maxLevel) {
+        a.style.backgroundColor = "green"
+    }
+
+}
+
 export const buyPlatonicUpgrades = (index: number) => {
     const resourceCheck = checkPlatonicUpgrade(index)
     if (resourceCheck.canBuy) {
@@ -347,5 +363,6 @@ export const buyPlatonicUpgrades = (index: number) => {
         }
     }
     createPlatonicDescription(index)
+    updatePlatonicUpgradeBG(index)
     revealStuff();
 }
