@@ -656,16 +656,7 @@ export const calculateAntSacrificeELO = () => {
         G['antELO'] += 4 * player.seventhOwnedAnts
         G['antELO'] += 8 * player.eighthOwnedAnts
         G['antELO'] += 666 * player.researches[178]
-
-        if (player.achievements[180] === 1) {
-            G['antELO'] *= 1.01
-        }
-        if (player.achievements[181] === 1) {
-            G['antELO'] *= 1.03 / 1.01
-        }
-        if (player.achievements[182] === 1) {
-            G['antELO'] *= 1.06 / 1.03
-        }
+		G['antELO'] *= (1 + 0.01 * player.achievements[180] + 0.02 * player.achievements[181] + 0.03 * player.achievements[182])
         G['antELO'] *= (1 + player.researches[110] / 100)
         G['antELO'] *= (1 + 2.5 * player.researches[148] / 100)
 

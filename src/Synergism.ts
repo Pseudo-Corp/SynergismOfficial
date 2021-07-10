@@ -1789,7 +1789,7 @@ export const updateAllMultiplier = (): void => {
     a *= (1 + player.achievements[58] / 100)
     a *= (1 + player.achievements[59] / 100)
     a *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
-	a *= (1 + 1.03 * player.upgrades[34] + 1.02 * player.upgrades[35])
+	a *= (1 + 0.03 * player.upgrades[34] + 0.02 * player.upgrades[35])
     a *= (1 + 1 / 5 * player.researches[2] * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14])))
     a *= (1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15])
     a *= (1 + G['rune2level'] / 400 * G['effectiveLevelMult'])
