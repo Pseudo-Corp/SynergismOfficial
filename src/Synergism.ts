@@ -1405,7 +1405,7 @@ export const format = (
         return '0 [und.]';
     else if ( // this case handles numbers less than 1e-6 and greater than 0
         typeof input === 'number' && 
-        input < 1e-6 && // arbitrary number, can be changed
+        input < 1e-3 && // arbitrary number, can be changed
         input > 0 // don't handle negative numbers, probably could be removed
     )
         return input.toExponential(accuracy);
