@@ -1,4 +1,5 @@
-import { player, format, resetCheck, isTesting, blankSave} from './Synergism';
+import { player, format, resetCheck, blankSave} from './Synergism';
+import { testing } from './Config';
 import { Player } from './types/Synergism';
 import Decimal from 'break_infinity.js';
 import { calculateMaxRunes, calculateTimeAcceleration } from './Calculate';
@@ -305,7 +306,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     // in old versions of the game (pre 2.5.0), the import function will only work
     // if this variable = "YES!". Don't ask Platonic why.
     if (typeof data.exporttest === 'string') {
-        player.exporttest = !isTesting;
+        player.exporttest = !testing;
     } else {
         player.exporttest = data.exporttest;
     }

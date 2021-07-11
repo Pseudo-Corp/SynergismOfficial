@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js';
 import { Globals as G } from './Variables';
-import { player, format, formatTimeShort, version } from './Synergism';
+import { player, format, formatTimeShort } from './Synergism';
+import { version } from './Config';
 import { CalcECC } from './Challenges';
 import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration } from './Calculate';
 import { displayRuneInformation } from './Runes';
