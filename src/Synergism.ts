@@ -37,13 +37,14 @@ import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './Cube
 import './Hotkeys';
 import { startHotkeys } from './Hotkeys';
 import { updatePlatonicUpgradeBG } from './Platonic';
+import { testing, version, lastUpdated } from './Config';
 
 /**
  * Whether or not the current version is a testing version or a main version.
  * This should be detected when importing a file.
  */
-export const isTesting = false;
-export const version = '2.5.5';
+//export const isTesting = false;
+//export const version = '2.5.5';
 
 export const intervalHold = new Set<ReturnType<typeof setInterval>>();
 export const interval = new Proxy(setInterval, {
@@ -601,7 +602,7 @@ export const player: Player = {
     autoTesseracts: [false, false, false, false, false, false],
 
     saveString: "Synergism-$VERSION$-$TIME$.txt",
-    exporttest: !isTesting,
+    exporttest: !testing,
 
     dayCheck: null,
     dayTimer: 0,
@@ -673,7 +674,7 @@ const loadSynergy = (reset = false) => {
     const save = localStorage.getItem("Synergysave2");
     const data = save ? JSON.parse(atob(save)) : null;
 
-    if (isTesting) {
+    if (testing) {
         Object.defineProperty(window, 'player', {
             value: player
         });
@@ -684,7 +685,7 @@ const loadSynergy = (reset = false) => {
     if (data) {
         if (
             (data.exporttest === false || data.exporttest === 'NO!') &&
-            !isTesting
+            !testing
         ) {
             return Alert(`You can't load this save anymore!`);
         }
@@ -1480,7 +1481,7 @@ export const format = (
     } else if (power >= 1e6) {
         // if the power is greater than 1e6 apply notation scientific notation
         // Makes mantissa be rounded down to 2 decimal places
-        const mantissaLook = isTesting && truncate ? '' : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
+        const mantissaLook = testing && truncate ? '' : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
         
         // Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234)
         const powerDigits = Math.ceil(Math.log10(power));
@@ -3379,8 +3380,9 @@ export const reloadShit = async (reset = false) => {
 window.addEventListener('load', () => {
     const ver = document.getElementById('versionnumber');
     ver && (ver.textContent = 
-        `You're ${isTesting ? 'testing' : 'playing'} v${version} - Seal of the Merchant [Last Update: 8:10 UTC-8 2-Jul-2021].` + 
-        ` ${isTesting ? 'Savefiles cannot be used in live!' : ''}`
+        `You're ${testing ? 'testing' : 'playing'} v${version} - Seal of the Merchant` +
+        ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` + 
+        ` ${testing ? 'Savefiles cannot be used in live!' : ''}`
     );
     document.title = `Synergism v${version}`;
 

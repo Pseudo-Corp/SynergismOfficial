@@ -1,6 +1,6 @@
 import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation } from "./Toggles"
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from "./Reset"
-import { isTesting, player, resetCheck, saveSynergy } from "./Synergism"
+import { player, resetCheck, saveSynergy } from "./Synergism"
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels } from "./Buy"
 import { crystalupgradedescriptions, constantUpgradeDescriptions, buyConstantUpgrades, upgradedescriptions } from "./Upgrades"
 import { buyAutobuyers } from "./Automation"
@@ -22,6 +22,7 @@ import { changeTabColor } from "./UpdateHTML"
 import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp } from "./Hepteracts"
 import { exitOffline, forcedDailyReset, timeWarp } from "./Calculate"
 import type { OneToFive, Player } from "./types/Synergism"
+import { testing } from './Config';
 
 /* STYLE GUIDE */
 /* 
@@ -43,7 +44,7 @@ import type { OneToFive, Player } from "./types/Synergism"
 export const generateEventHandlers = () => {
     const ordinals = ['null','first','second','third','fourth','fifth','sixth','seventh','eighth'] as const
 
-    if (isTesting) {
+    if (testing) {
         const warp = document.createElement('button');
         const dayReset = document.createElement('button');
         warp.textContent = 'Click here to warp time! [TESTING ONLY]';
