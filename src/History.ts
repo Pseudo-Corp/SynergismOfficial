@@ -52,6 +52,7 @@ export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
     wowTesseracts: number
     wowHypercubes: number
     wowPlatonicCubes: number
+    wowHepteracts: number
     currentChallenge?: number
     kind: 'ascend'
 }
@@ -92,7 +93,8 @@ export type ResetHistoryGainType = keyof Pick<ResetHistoryEntryIntersect,
     | "wowCubes"
     | "wowTesseracts"
     | "wowHypercubes"
-    | "wowPlatonicCubes">
+    | "wowPlatonicCubes"
+    | "wowHepteracts">
 
 // A formatter that allows formatting a string. The string should be in a form parsable by break_infinity.js.
 const formatDecimalSource = (numOrStr: DecimalSource) => {
@@ -174,13 +176,19 @@ const historyGains: Record<
         imgTitle: "Platonic Cubes",
         onlyif: () => player.challengecompletions[14] > 0,
     },
+    wowHepteracts: {
+        img: "Pictures/Hepteract.png",
+        formatter: conditionalFormatPerSecond,
+        imgTitle: "Hepteracts",
+        onlyif: () => player.achievements[255] > 0,
+    },
 };
 
 // Order in which to display the above
 const historyGainsOrder: ResetHistoryGainType[] = [
     "offerings", "obtainium",
     "particles", "diamonds", "mythos",
-    "wowCubes", "wowTesseracts", "wowHypercubes", "wowPlatonicCubes",
+    "wowCubes", "wowTesseracts", "wowHypercubes", "wowPlatonicCubes", "wowHepteracts"
 ];
 
 // The various kinds and their associated images.
@@ -322,7 +330,7 @@ const resetHistoryRenderRow = (
     rowContentHtml += gains.reduce((acc, value) => {
         return `${acc}<td class="history-gain">${value}</td>`;
     }, "");
-    rowContentHtml += `<td class="history-filler" colspan="${6 - colsUsed}"></td>`;
+    rowContentHtml += `<td class="history-filler" colspan="${7 - colsUsed}"></td>`;
 
     // Render the other stuff
     rowContentHtml += extra.reduce((acc, value) => {

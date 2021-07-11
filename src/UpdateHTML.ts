@@ -325,6 +325,7 @@ export const revealStuff = () => {
     document.getElementById("ascensionStats").style.visibility = player.achievements[197] > 0 ? "visible" : "hidden";
     document.getElementById("ascHyperStats").style.display = player.challengecompletions[13] > 0 ? "" : "none";
     document.getElementById("ascPlatonicStats").style.display = player.challengecompletions[14] > 0 ? "" : "none";
+    document.getElementById("ascHepteractStats").style.display = player.achievements[255] > 0 ? "" : "none";
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
     // note to 2019 and 2020 Platonic, you're welcome
@@ -788,14 +789,14 @@ const updateAscensionStats = () => {
     const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().splice(4);
     const fillers: Record<string, string> = {
         "ascLen": formatTimeShort(player.ascensionCounter),
-        "ascCubes": format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2, true),
-        "ascTess": format(tess * (player.ascStatToggles[2] ? 1 : 1 / t), 3, true),
-        "ascHyper": format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4, true),
-        "ascPlatonic": format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5, true),
-        "ascHepteract": format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3, true),
+        "ascCubes": format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),
+        "ascTess": format(tess * (player.ascStatToggles[2] ? 1 : 1 / t), 3),
+        "ascHyper": format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4),
+        "ascPlatonic": format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
+        "ascHepteract": format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
         "ascC10": player.challengecompletions[10] + '',
-        "ascTimeAccel": `${format(calculateTimeAcceleration(), 3, true)}x`,
-        "ascAscensionTimeAccel": `${format(calculateAscensionAcceleration(), 3, true)}x`
+        "ascTimeAccel": `${format(calculateTimeAcceleration(), 3)}x`,
+        "ascAscensionTimeAccel": `${format(calculateAscensionAcceleration(), 3)}x`
     }
     for (const key in fillers) {
         document.getElementById(key).textContent = fillers[key];
