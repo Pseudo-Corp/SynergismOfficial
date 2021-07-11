@@ -231,6 +231,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
                 wowTesseracts: corruptionMetaData[5],
                 wowHypercubes: corruptionMetaData[6],
                 wowPlatonicCubes: corruptionMetaData[7],
+                wowHepteracts: corruptionMetaData[8],
                 kind: "ascend",
             }
 
