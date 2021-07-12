@@ -848,8 +848,7 @@ export const calculateOffline = (forceTime = 0) => {
     timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
     timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
     
-    let runOffline: ReturnType<typeof setTimeout>;
-    runOffline = interval(() => resourceSimulator(), 0);
+    const runOffline = interval(() => resourceSimulator(), 0);
     //200 simulated all ticks [July 12, 2021]
     const resourceSimulator = () => {
         G['timeMultiplier'] = calculateTimeAcceleration();
