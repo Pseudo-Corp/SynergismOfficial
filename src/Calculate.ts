@@ -848,9 +848,8 @@ export const calculateOffline = (forceTime = 0) => {
     timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
     timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
     
-    const runOffline = interval(() => resourceSimulator(), 0);
     //200 simulated all ticks [July 12, 2021]
-    const resourceSimulator = () => {
+    const runOffline = interval(() => {
         G['timeMultiplier'] = calculateTimeAcceleration();
         calculateObtainium();
 
@@ -884,7 +883,7 @@ export const calculateOffline = (forceTime = 0) => {
             clearInt(runOffline);
             G['timeWarp'] = false;
         }
-    }
+    }, 0);
 
     document.getElementById('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
     document.getElementById('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
