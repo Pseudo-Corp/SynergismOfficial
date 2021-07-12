@@ -669,7 +669,7 @@ const toAdapt = new Map<keyof Player, (data: Player) => unknown>([
     ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes))]
 ]);
 
-const loadSynergy = (reset = false) => {
+const loadSynergy = () => {
     console.log('loaded attempted')
     const save = localStorage.getItem("Synergysave2");
     const data = save ? JSON.parse(atob(save)) : null;
@@ -1333,11 +1333,6 @@ const loadSynergy = (reset = false) => {
             document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "orange"
         }
 
-        if (!reset) 
-            calculateOffline();
-        else
-            player.worlds = new QuarkHandler({quarks: 0})
-        
         toggleTalismanBuy(player.buyTalismanShardPercent);
         updateTalismanInventory();
         calculateObtainium();
@@ -3365,7 +3360,11 @@ export const reloadShit = async (reset = false) => {
         await Alert('Transferred save to new format successfully!');
     }
 
-    loadSynergy(reset);
+    loadSynergy();
+    if (!reset) 
+            calculateOffline();
+    else
+        player.worlds = new QuarkHandler({quarks: 0})
     saveSynergy();
     toggleauto();
     revealStuff();

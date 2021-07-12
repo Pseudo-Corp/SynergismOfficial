@@ -798,7 +798,8 @@ export const calculateOffline = (forceTime = 0) => {
     const maximumTimer = 86400 * 3 + 7200 * 2 * player.researches[31] + 7200 * 2 * player.researches[32];
     const updatedTime = Date.now();
     const timeAdd = Math.min(maximumTimer, Math.max(forceTime, (updatedTime - player.offlinetick) / 1000))
-    let antTicks = 200;
+    const timeTick = timeAdd/200;
+    let resourceTicks = 200;
 
     document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " seconds of Offline Progress!";
 
@@ -811,7 +812,7 @@ export const calculateOffline = (forceTime = 0) => {
     document.getElementById("offlineContainer").style.display = "flex";
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
-    const runOffline = interval(antSimulator, 0)
+    const runOffline = interval(resourceSimulator, 0)
 
     //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
@@ -839,50 +840,48 @@ export const calculateOffline = (forceTime = 0) => {
         quarks: quarkHandler().gain //Calculate this after the fact
     };
 
-    //Reset Stuff lmao!
-    addTimers('prestige', timeAdd);
-    addTimers('transcension', timeAdd);
-    addTimers('reincarnation', timeAdd);
     addTimers('ascension', timeAdd);
     addTimers('quarks', timeAdd);
 
     player.prestigeCount += resetAdd.prestige;
     player.transcendCount += resetAdd.transcension;
     player.reincarnationCount += resetAdd.reincarnation;
-
+    
     timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
     timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
 
-    document.getElementById('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
-    document.getElementById('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
-
-    //Auto Obtainium Stuff
-    if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14)
-        automaticTools('addObtainium', timeAdd);
-
-    //Auto Ant Sacrifice Stuff
-    if (player.achievements[173] > 0)
-        automaticTools('antSacrifice', timeAdd);
-
-    //Auto Offerings
-    automaticTools('addOfferings', timeAdd);
-    //Auto Rune Sacrifice Stuff
-    if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle)
-        automaticTools('runeSacrifice', timeAdd);
-    
-    document.getElementById('progressbardescription').textContent = 'You have gained the following from offline progression!'
-
     //200 simulated all ticks [June 18, 2021]
-    function antSimulator() {
+    function resourceSimulator() {
         G['timeMultiplier'] = calculateTimeAcceleration();
         calculateObtainium();
-        resourceGain(timeAdd/200 * G['timeMultiplier']);
-        if (antTicks % 5 === 1) // 196, 191, ... , 6, 1 ticks remaining
+
+        //Reset Stuff lmao!
+        addTimers('prestige', timeTick);
+        addTimers('transcension', timeTick);
+        addTimers('reincarnation', timeTick);
+
+        resourceGain(timeTick * G['timeMultiplier']);
+
+        //Auto Obtainium Stuff
+         if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14)
+          automaticTools('addObtainium', timeTick);
+
+        //Auto Ant Sacrifice Stuff
+        if (player.achievements[173] > 0)
+            automaticTools('antSacrifice', timeTick);
+
+        //Auto Offerings
+        automaticTools('addOfferings', timeTick);
+        //Auto Rune Sacrifice Stuff
+        if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle)
+            automaticTools('runeSacrifice', timeTick);
+        
+        if (resourceTicks % 5 === 1) // 196, 191, ... , 6, 1 ticks remaining
             updateAll();
 
-        antTicks -= 1;
+        resourceTicks -= 1;
         //Misc functions
-        if (antTicks < 1) {
+        if (resourceTicks < 1) {
             clearInt(runOffline);
             G['timeWarp'] = false;
         }
@@ -898,6 +897,10 @@ export const calculateOffline = (forceTime = 0) => {
     document.getElementById('offlineObtainiumCountNumber').textContent = format(resetAdd.obtainium, 0, true)
     document.getElementById('offlineAntTimerNumber').textContent = format(timerAdd.ants, 2, false)
     document.getElementById('offlineRealAntTimerNumber').textContent = format(timerAdd.antsReal, 2, true)
+    document.getElementById('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
+    document.getElementById('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
+
+    document.getElementById('progressbardescription').textContent = 'You have gained the following from offline progression!'
 
     player.offlinetick = updatedTime
     if (!player.loadedNov13Vers) {
