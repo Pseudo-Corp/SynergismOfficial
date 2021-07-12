@@ -811,8 +811,7 @@ export const calculateOffline = (forceTime = 0) => {
     document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
     document.getElementById("offlineContainer").style.display = "flex";
 
-    player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
-    const runOffline = interval(resourceSimulator, 0)
+    player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
     //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
@@ -846,12 +845,13 @@ export const calculateOffline = (forceTime = 0) => {
     player.prestigeCount += resetAdd.prestige;
     player.transcendCount += resetAdd.transcension;
     player.reincarnationCount += resetAdd.reincarnation;
-    
     timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
     timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
-
-    //200 simulated all ticks [June 18, 2021]
-    function resourceSimulator() {
+    
+    let runOffline: ReturnType<typeof setTimeout>;
+    runOffline = interval(() => resourceSimulator(), 0);
+    //200 simulated all ticks [July 12, 2021]
+    const resourceSimulator = () => {
         G['timeMultiplier'] = calculateTimeAcceleration();
         calculateObtainium();
 
