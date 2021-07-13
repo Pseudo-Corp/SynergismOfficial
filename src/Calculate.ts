@@ -916,8 +916,11 @@ export const calculateOffline = (forceTime = 0) => {
     calculateAnts();
     calculateRuneLevels();
 
-    document.getElementById("exitOffline").focus();  //Allow user to hit space/enter to proceed
-
+    const el = <HTMLButtonElement>document.getElementById("exitOffline")
+    if (el) {  //if the button is present
+        el.focus(); //Allow user to hit space/enter to proceed
+    }
+    
 }
 
 export const exitOffline = () => {

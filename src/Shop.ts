@@ -361,81 +361,66 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 //strentax 07/21 Add function to convert code-name display to end-user friendly display of shop upgrades
 export const friendlyShopName = (input: ShopUpgradeNames) => {
 
-    switch (input) {
-        case "offeringPotion":
-            return "an offering potion"
-        case "obtainiumPotion":
-            return "an obtainium potion"
-        case "offeringEX":
-            return "Offering EX"
-        case "offeringAuto":
-            return "Offering Auto"
-        case "obtainiumEX":
-            return "Obtainium EX"
-        case "obtainiumAuto":
-            return "Obtainium Auto"
-        case "instantChallenge":
-            return "Instant Challenge Completions"
-        case "antSpeed":
-            return "Ant Speed"
-        case "cashGrab":
-            return "Cash Grab"
-        case "shopTalisman":
-            return "the Plastic talisman"
-        case "seasonPass":
-            return "a Season Pass"
-        case "challengeExtension":
-            return "a Reincarnation Challenge cap increase"
-        case "challengeTome":
-            return "a Challenge 10 requirement reduction"
-        case "cubeToQuark":
-            return "a 50% improvement to quark gain from Cube opening"
-        case "tesseractToQuark":
-            return "a 50% improvement to quark gain from Tesseract opening"
-        case "hypercubeToQuark":
-            return "a 50% improvement to quark gain from Hypercube opening"
-        case "seasonPass2":
-            return "a Season Pass 2"
-        case "seasonPass3":
-            return "a Season Pass 3"
-        case "chronometer":
-            return "a 1% ascension speedup"
-        case "infiniteAscent":
-            return "the Infinite Ascent rune"
-        case "calculator":
-            return "a PL-AT calculator"
-        case "calculator2":
-            return "a PL-AT X calculator"
-        case "calculator3":
-            return "a PL-AT Ω calculator" 
-        case "constantEX":
-            return "Constant EX"
-        case "powderEX":
-            return "Powder EX"
+    const names: Record<ShopUpgradeNames, string> = {
+        offeringPotion: 'an offering potion',
+        obtainiumPotion: 'an obtainium potion',
+        offeringEX: 'Offering EX',
+        offeringAuto: 'Offering Auto',
+        obtainiumEX: 'Obtainium EX',
+        obtainiumAuto: 'Obtainium Auto',
+        instantChallenge: 'Instant Challenge Completions',
+        antSpeed: "Ant Speed",
+        cashGrab: 'Cash Grab',
+        shopTalisman: "the Plastic talisman",
+        seasonPass: 'a Season Pass',
+        challengeExtension: 'a Reincarnation Challenge cap increase',
+        challengeTome: 'a Challenge 10 requirement reduction',
+        cubeToQuark: 'a 50% improvement to quark gain from Cube opening',
+        tesseractToQuark: 'a 50% improvement to quark gain from Tesseract opening',
+        hypercubeToQuark: 'a 50% improvement to quark gain from Hypercube opening',
+        seasonPass2: 'a Season Pass 2',
+        seasonPass3: 'a Season Pass 3',
+        chronometer: 'a 1% ascension speedup',
+        infiniteAscent: 'the Infinite Ascent rune',
+        calculator: 'a PL-AT calculator',
+        calculator2: 'a PL-AT X calculator',
+        calculator3: 'a PL-AT Ω calculator',
+        constantEX: 'Constant EX',
+        powderEX: 'Powder EX'
     }
+
+    return names[input];
 
 }
 
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     let p = true;
-    //shopData[input].refundable
-    let noRefunds = "";
-    if (!shopData[input].refundable) {
-        noRefunds = " REMINDER: No refunds!"
-    }
+    let maxLevel = (player.shopUpgrades[input] == shopData[input].maxLevel)
+    let canAfford = (Number(player.worlds) >= getShopCosts(input))
 
     if (G['shopConfirmation']) {
-        p = await Confirm("Are you sure you'd like to purchase " + friendlyShopName(input) + " for " + format(getShopCosts(input)) + " Quarks? Press 'OK' to finalize purchase." + noRefunds);
+        if (maxLevel) {
+            await Alert("You can't purchase " + friendlyShopName(input) + " because you already have the max level!")
+        }
+        else if (!canAfford) {
+            await Alert("You can't purchase " + friendlyShopName(input) + " because you don't have enough Quarks!")
+        }
+        else {
+            let noRefunds = "";
+            if (!shopData[input].refundable) {
+                noRefunds = " REMINDER: No refunds!"
+            }
+            p = await Confirm("Are you sure you'd like to purchase " + friendlyShopName(input) + " for " + format(getShopCosts(input)) + " Quarks? Press 'OK' to finalize purchase." + noRefunds);
+        }
     }
 
     if (p) {
-        if (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
+        if (canAfford && !maxLevel) {
             player.worlds.sub(getShopCosts(input));
             player.shopUpgrades[input] += 1
             console.log("purchase successful for 1 level of '" + input + "'!")
         }
-        else{
-            await Alert("Your attempt to purchase " + friendlyShopName(input) + " failed! Do you have enough quarks???")
+        else {
             console.log("purchase attempted for 1 level of '" + input + "' but failed!")    
         }
     }
