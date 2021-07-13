@@ -10,13 +10,13 @@
   },
   "devDependencies": {
     "@types/lz-string": "^1.3.34",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "esbuild": "^0.12.9",
-    "eslint": "^7.24.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "esbuild": "^0.12.15",
+    "eslint": "^7.30.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.5"
   },
   "scripts": {
     "lint": "npx eslint --fix . --ext .ts",
