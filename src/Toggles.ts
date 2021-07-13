@@ -606,6 +606,15 @@ export const toggleShopConfirmation = () => {
     G['shopConfirmation'] = !G['shopConfirmation'];
 }
 
+export const toggleBuyMaxShop = () => {
+    const el = document.getElementById("toggleBuyMaxShop")
+    el.textContent = G['shopBuyMax']
+        ? "Buy Max: OFF"
+        : "Buy Max: ON";
+
+    G['shopBuyMax'] = !G['shopBuyMax'];
+}
+
 export const toggleAntMaxBuy = () => {
     const el = document.getElementById("toggleAntMax");
     el.textContent = player.antMax 

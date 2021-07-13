@@ -365,13 +365,21 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     }
 
     if (p) {
-        if (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
-            player.worlds.sub(getShopCosts(input));
-            player.shopUpgrades[input] += 1
-            console.log("purchase successful for 1 level of '" + input + "'!")
-        }
-        else{
-            console.log("purchase attempted for 1 level of '" + input + "' but failed!")    
+        if (G['shopBuyMax']) {
+            while (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
+                player.worlds.sub(getShopCosts(input));
+                player.shopUpgrades[input] += 1
+                console.log("purchase successful for 1 level of '" + input + "'!")
+            }
+        } else {
+            if (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
+                player.worlds.sub(getShopCosts(input));
+                player.shopUpgrades[input] += 1
+                console.log("purchase successful for 1 level of '" + input + "'!")
+            }
+            else{
+                console.log("purchase attempted for 1 level of '" + input + "' but failed!")
+            }
         }
     }
     revealStuff();
