@@ -358,10 +358,74 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
 }
 
+//strentax 07/21 Add function to convert code-name display to end-user friendly display of shop upgrades
+export const friendlyShopName = (input: ShopUpgradeNames) => {
+
+    switch (input) {
+        case "offeringPotion":
+            return "an offering potion"
+        case "obtainiumPotion":
+            return "an obtanium potion"
+        case "offeringEX":
+            return "Offering EX"
+        case "offeringAuto":
+            return "Offering Auto"
+        case "obtainiumEX":
+            return "Obtainium EX"
+        case "obtainiumAuto":
+            return "Obtanium Auto"
+        case "instantChallenge":
+            return "Instant Challenge Completions"
+        case "antSpeed":
+            return "Ant Speed"
+        case "cashGrab":
+            return "Cash Grab"
+        case "shopTalisman":
+            return "the Plastic talisman"
+        case "seasonPass":
+            return "a Season Pass"
+        case "challengeExtension":
+            return "a Reincarnation Challenge cap increase"
+        case "challengeTome":
+            return "a Challenge 10 requirement reduction"
+        case "cubeToQuark":
+            return "a 50% improvement to quark gain from Cube opening"
+        case "tesseractToQuark":
+            return "a 50% improvement to quark gain from Tesseract opening"
+        case "hypercubeToQuark":
+            return "a 50% improvement to quark gain from Hypercube opening"
+        case "seasonPass2":
+            return "a Season Pass 2"
+        case "seasonPass3":
+            return "a Season Pass 3"
+        case "chronometer":
+            return "a 1% ascension speedup"
+        case "infiniteAscent":
+            return "the Infinite Ascent rune"
+        case "calculator":
+            return "a PL-AT calculator"
+        case "calculator2":
+            return "a PL-AT X calculator"
+        case "calculator3":
+            return "a PL-AT Ω calculator" 
+        case "constantEX":
+            return "constant EX"
+        case "powderEX":
+            return "powder EX"
+    }
+
+}
+
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     let p = true;
+    //shopData[input].refundable
+    let noRefunds = "";
+    if (!shopData[input].refundable) {
+        noRefunds = " REMINDER: No refunds!"
+    }
+
     if (G['shopConfirmation']) {
-        p = await Confirm("Are you sure you'd like to purchase " + input + " for " + format(getShopCosts(input)) + " Quarks? Press 'OK' to finalize purchase.");
+        p = await Confirm("Are you sure you'd like to purchase " + friendlyShopName(input) + " for " + format(getShopCosts(input)) + " Quarks? Press 'OK' to finalize purchase." + noRefunds);
     }
 
     if (p) {
