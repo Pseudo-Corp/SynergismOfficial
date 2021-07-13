@@ -1,6 +1,6 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
-import { Confirm, revealStuff } from './UpdateHTML';
+import { Alert, Confirm, revealStuff } from './UpdateHTML';
 import { calculateTimeAcceleration } from './Calculate';
 import { Player } from './types/Synergism';
 
@@ -365,7 +365,7 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         case "offeringPotion":
             return "an offering potion"
         case "obtainiumPotion":
-            return "an obtanium potion"
+            return "an obtainium potion"
         case "offeringEX":
             return "Offering EX"
         case "offeringAuto":
@@ -373,7 +373,7 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         case "obtainiumEX":
             return "Obtainium EX"
         case "obtainiumAuto":
-            return "Obtanium Auto"
+            return "Obtainium Auto"
         case "instantChallenge":
             return "Instant Challenge Completions"
         case "antSpeed":
@@ -409,9 +409,9 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         case "calculator3":
             return "a PL-AT Ω calculator" 
         case "constantEX":
-            return "constant EX"
+            return "Constant EX"
         case "powderEX":
-            return "powder EX"
+            return "Powder EX"
     }
 
 }
@@ -435,6 +435,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
             console.log("purchase successful for 1 level of '" + input + "'!")
         }
         else{
+            await Alert("Your attempt to purchase " + friendlyShopName(input) + " failed! Do you have enough quarks???")
             console.log("purchase attempted for 1 level of '" + input + "' but failed!")    
         }
     }

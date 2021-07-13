@@ -838,21 +838,35 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
     popup.querySelector('p').textContent = text;
     popup.focus();
 
-    const listener = (e: MouseEvent) => {
-        const { id } = e.target as HTMLButtonElement;
+    // IF you clean up the typing here also clean up PromptCB
+    const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
+        const targetEl = target as HTMLButtonElement;
         ok.removeEventListener('click', listener);
         cancel.removeEventListener('click', listener);
+        popup.removeEventListener('keyup', kbListener);
 
         conf.style.display = 'none';
         confWrap.style.display = 'none';
         overlay.style.display = 'none';
 
-        if (id === ok.id) cb(true);
+        if (targetEl === ok) cb(true);
         else cb(false);
+    }
+
+    const kbListener = (e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            return listener({ target: ok })
+        }
+        if (e.key === 'Escape') {
+            return listener({ target: cancel })
+        }
+
+        return e.preventDefault();
     }
 
     ok.addEventListener('click', listener);
     cancel.addEventListener('click', listener);
+    popup.addEventListener('keyup', kbListener);
 }
 
 const AlertCB = (text: string, cb: (value: undefined) => void) => {
