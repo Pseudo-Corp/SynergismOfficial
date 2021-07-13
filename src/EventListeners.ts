@@ -529,7 +529,7 @@ TODO: Fix this entire tab it's utter shit
 // Part 1: The Settings
 /*Respec The Upgrades*/ document.getElementById('resetShopUpgrades').addEventListener('click', () => resetShopUpgrades())
 /*Toggle Shop Confirmations*/ document.getElementById('toggleConfirmShop').addEventListener('click', () => toggleShopConfirmation())
-    /*Toggle Shop Confirmations*/ document.getElementById('toggleBuyMaxShop').addEventListener('click', () => toggleBuyMaxShop())
+/*Toggle Shop Buy Max*/ document.getElementById('toggleBuyMaxShop').addEventListener('click', () => toggleBuyMaxShop())
 
 // Part 2: Potions
 /*Offering Potion*/
