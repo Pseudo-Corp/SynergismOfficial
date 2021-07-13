@@ -86,7 +86,7 @@ export class HepteractCraft {
         if (Number.isNaN(craftAmount) || !Number.isFinite(craftAmount)) // nan + Infinity checks
             return Alert('Value must be a finite number!');
         else if (craftAmount <= 0) // 0 or less selected
-            return Alert('You can\'t craft a nonpositive amount of these fucks, lol!');
+            return Alert('You can\'t craft a nonpositive amount of these, you monster!');
 
         // If craft is unlocked, we return object
         if (!this.UNLOCKED) 
