@@ -93,3 +93,12 @@ export const updateClassList = (targetElement: string, additions: Array<string>,
         target.classList.remove(removal);
     }
 }
+
+export const btoa = (s: string) => {
+    try {
+        return window.btoa(s);
+    } catch { 
+        // e.code = 5
+        return null;
+    }
+}

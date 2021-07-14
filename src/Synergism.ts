@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js';
 import LZString from 'lz-string';
 
-import { isDecimal, getElementById, sortWithIndices, sumContents } from './Utility';
+import { isDecimal, getElementById, sortWithIndices, sumContents, btoa } from './Utility';
 import { blankGlobals, Globals as G } from './Variables';
 import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges, challenge15ScoreMultiplier } from './Challenges';
 
@@ -649,7 +649,10 @@ export const saveSynergy = (button?: boolean) => {
     });
 
     localStorage.removeItem('Synergysave2');
-    localStorage.setItem('Synergysave2', btoa(JSON.stringify(p)));
+    const save = btoa(JSON.stringify(p));
+    if (save !== null) {
+        localStorage.setItem('Synergysave2', save);
+    }
 
     if (button) {
         const el = document.getElementById('saveinfo');
