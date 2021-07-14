@@ -2,6 +2,7 @@ import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
 import { toggleCorruptionLevel } from './Toggles';
 import { getElementById } from './Utility';
+import { Alert, Prompt } from "./UpdateHTML";
 
 export const corruptionDisplay = (index: number) => {
     if (document.getElementById("corruptionDetails").style.visibility !== "visible") {
@@ -185,18 +186,21 @@ export const corruptionButtonsAdd = () => {
 export const corruptionLoadoutTableCreate = () => {
     const corrCount = 9
     const table = getElementById<HTMLTableElement>("corruptionLoadoutTable")
+
     for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
         const row = table.insertRow()
         for (let j = 0; j <= corrCount; j++) {
             const cell = row.insertCell();
             if (j === 0) {
-                cell.textContent = (i === 0) ? "Next:" : `Loadout ${i}:`;
+                if (i === 0) cell.textContent = 'Next:'
+                // Other loadout names are updated after player load in Synergism.ts > loadSynergy
             } else if (j <= corrCount) {
                 cell.textContent = ((i === 0) ? player.prototypeCorruptions[j] : player.corruptionLoadouts[i][j]).toString();
                 cell.style.textAlign = "center"
             }
         }
         if (i === 0) continue;
+
         let cell = row.insertCell();
         let btn = document.createElement("button");
         btn.className = "corrSave"
@@ -230,6 +234,36 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
         corruptionLoadoutTableUpdate()
         corruptionStatsUpdate();
     }
+}
+
+async function corruptionLoadoutGetNewName(loadout = 1) {
+    const maxChars = 9
+    let renamePrompt = await Prompt('What would you like to name Loadout ' + loadout + '? Names cannot be longer than ' + maxChars + ' characters. Nothing crazy!');
+    renamePrompt = String(renamePrompt)
+    let regex = /^[\x00-\xFF]*$/
+
+    if (!renamePrompt)
+        return Alert('Okay, maybe next time.');
+    else if (renamePrompt.length > maxChars)
+        return Alert('The name you provided is too long! Try again.')
+    else if (!renamePrompt.match(regex))
+        return Alert("The Loadout Renamer didn't like a character in your name! Try something else.")
+    else {
+        player.corruptionLoadoutNames[loadout] = renamePrompt
+        updateCorruptionLoadoutNames();
+    }
+}
+
+export const updateCorruptionLoadoutNames = () => {
+    const rows = getElementById<HTMLTableElement>("corruptionLoadoutTable").rows
+    for (let i = 1; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
+        let cells = rows[i + 1].cells
+        if (!cells[0].innerHTML) {  //first time setup
+            cells[0].onclick = () => corruptionLoadoutGetNewName(i);
+            cells[0].className = 'corrLoadoutName'
+        }
+        cells[0].innerHTML = player.corruptionLoadoutNames[i] + ':'
+    }    
 }
 
 export const corruptionCleanseConfirm = () => {

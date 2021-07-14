@@ -448,6 +448,7 @@ export interface Player {
     prototypeCorruptions: number[]
     usedCorruptions: number[]
     corruptionLoadouts: Record<number, number[]>
+    corruptionLoadoutNames: Record<number, string>
     corruptionShowStats: boolean,
 
     constantUpgrades: number[]
