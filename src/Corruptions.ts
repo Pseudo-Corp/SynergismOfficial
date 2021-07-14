@@ -199,21 +199,33 @@ export const corruptionLoadoutTableCreate = () => {
                 cell.style.textAlign = "center"
             }
         }
-        if (i === 0) continue;
+        if (i === 0) {
+            let cell = row.insertCell();
+            //empty
 
-        let cell = row.insertCell();
-        let btn = document.createElement("button");
-        btn.className = "corrSave"
-        btn.textContent = "Save"
-        btn.onclick = () => corruptionLoadoutSaveLoad(true, i);
-        cell.appendChild(btn);
+            cell = row.insertCell();
+            let btn = document.createElement("button");
+            btn.className = "corrLoad"
+            btn.textContent = "Zero"
+            btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
+            cell.appendChild(btn);
+            cell.title = "Reset corruptions to zero on your next ascension"
+        }
+        else {
+            let cell = row.insertCell();
+            let btn = document.createElement("button");
+            btn.className = "corrSave"
+            btn.textContent = "Save"
+            btn.onclick = () => corruptionLoadoutSaveLoad(true, i);
+            cell.appendChild(btn);
 
-        cell = row.insertCell();
-        btn = document.createElement("button");
-        btn.className = "corrLoad"
-        btn.textContent = "Load"
-        btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
-        cell.appendChild(btn);
+            cell = row.insertCell();
+            btn = document.createElement("button");
+            btn.className = "corrLoad"
+            btn.textContent = "Load"
+            btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
+            cell.appendChild(btn);
+        }
     }
 }
 
@@ -230,7 +242,12 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
         player.corruptionLoadouts[loadout] = Array.from(player.prototypeCorruptions)
         corruptionLoadoutTableUpdate(loadout)
     } else {
-        player.prototypeCorruptions = Array.from(player.corruptionLoadouts[loadout])
+        if (loadout === 0) {
+            player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+        else {
+            player.prototypeCorruptions = Array.from(player.corruptionLoadouts[loadout])
+        }
         corruptionLoadoutTableUpdate()
         corruptionStatsUpdate();
     }
