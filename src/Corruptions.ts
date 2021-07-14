@@ -261,7 +261,7 @@ async function corruptionLoadoutGetNewName(loadout = 0) {
 
 export const updateCorruptionLoadoutNames = () => {
     const rows = getElementById<HTMLTableElement>("corruptionLoadoutTable").rows
-    for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
+    for (let i = 0; i < Object.keys(player.corruptionLoadouts).length; i++) {
         const cells = rows[i + 2].cells  //start changes on 2nd row
         if (cells[0].textContent.length === 0) {  //first time setup
             cells[0].addEventListener('click', () => corruptionLoadoutGetNewName(i)); //get name function handles -1 for array
