@@ -264,7 +264,7 @@ export const updateCorruptionLoadoutNames = () => {
     for (let i = 1; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
         const cells = rows[i + 1].cells
         if (cells[0].textContent.length === 0) {  //first time setup
-            cells[0].addEventListener('click', () => corruptionLoadoutGetNewName(i - 1));
+            cells[0].addEventListener('click', () => corruptionLoadoutGetNewName(i)); //get name function handles -1 for array
             cells[0].classList.add('corrLoadoutName');
         }
         cells[0].textContent = `${player.corruptionLoadoutNames[i - 1]}:`;
