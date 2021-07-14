@@ -578,12 +578,12 @@ export const player: Player = {
         3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     },
-    corruptionLoadoutNames: {
-        1: "Loadout 1",
-        2: "Loadout 2",
-        3: "Loadout 3",
-        4: "Loadout 4",
-    },
+    corruptionLoadoutNames: [
+        "Loadout 1",
+        "Loadout 2",
+        "Loadout 3",
+        "Loadout 4",
+    ],
     corruptionShowStats: true,
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

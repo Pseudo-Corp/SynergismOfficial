@@ -238,16 +238,21 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
 
 async function corruptionLoadoutGetNewName(loadout = 1) {
     const maxChars = 9
-    let renamePrompt = await Prompt('What would you like to name Loadout ' + loadout + '? Names cannot be longer than ' + maxChars + ' characters. Nothing crazy!');
-    renamePrompt = String(renamePrompt)
-    let regex = /^[\x00-\xFF]*$/
-
-    if (!renamePrompt)
+    const regex = /^[\x00-\xFF]*$/
+    const renamePrompt = await Prompt(
+        `What would you like to name Loadout ${loadout}? ` +
+        `Names cannot be longer than ${maxChars} characters. Nothing crazy!`
+    );
+   
+    if (!renamePrompt) {
         return Alert('Okay, maybe next time.');
-    else if (renamePrompt.length > maxChars)
+    }
+    else if (renamePrompt.length > maxChars) {
         return Alert('The name you provided is too long! Try again.')
-    else if (!renamePrompt.match(regex))
+    }
+    else if (!regex.test(renamePrompt)) {
         return Alert("The Loadout Renamer didn't like a character in your name! Try something else.")
+    }
     else {
         player.corruptionLoadoutNames[loadout] = renamePrompt
         updateCorruptionLoadoutNames();
@@ -257,12 +262,12 @@ async function corruptionLoadoutGetNewName(loadout = 1) {
 export const updateCorruptionLoadoutNames = () => {
     const rows = getElementById<HTMLTableElement>("corruptionLoadoutTable").rows
     for (let i = 1; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
-        let cells = rows[i + 1].cells
-        if (!cells[0].innerHTML) {  //first time setup
-            cells[0].onclick = () => corruptionLoadoutGetNewName(i);
-            cells[0].className = 'corrLoadoutName'
+        const cells = rows[i + 1].cells
+        if (cells[0].textContent.length === 0) {  //first time setup
+            cells[0].addEventListener('click', () => corruptionLoadoutGetNewName(i));
+            cells[0].classList.add('corrLoadoutName');
         }
-        cells[0].innerHTML = player.corruptionLoadoutNames[i] + ':'
+        cells[0].textContent = `${player.corruptionLoadoutNames[i]}:`;
     }    
 }
 

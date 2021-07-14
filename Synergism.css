@@ -2512,11 +2512,6 @@ p[id$="BlessingsTotal"] {
     color: red;
 }
 
-.corrLoadoutName:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
 #corruptionDescription {
     color: darkviolet;
 }
@@ -2604,6 +2599,15 @@ p[id$="BlessingsTotal"] {
     min-width: 150px;
     margin: auto;
     text-align: center;
+}
+
+.corrLoadoutName:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.corrLoadoutNameCol {
+    width: 17%;
 }
 
 .corrBtn {
