@@ -236,11 +236,11 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
     }
 }
 
-async function corruptionLoadoutGetNewName(loadout = 1) {
+async function corruptionLoadoutGetNewName(loadout = 0) {
     const maxChars = 9
     const regex = /^[\x00-\xFF]*$/
     const renamePrompt = await Prompt(
-        `What would you like to name Loadout ${loadout - 1}? ` +
+        `What would you like to name Loadout ${loadout + 1}? ` +
         `Names cannot be longer than ${maxChars} characters. Nothing crazy!`
     );
    
@@ -254,20 +254,20 @@ async function corruptionLoadoutGetNewName(loadout = 1) {
         return Alert("The Loadout Renamer didn't like a character in your name! Try something else.")
     }
     else {
-        player.corruptionLoadoutNames[loadout - 1] = renamePrompt
+        player.corruptionLoadoutNames[loadout] = renamePrompt
         updateCorruptionLoadoutNames();
     }
 }
 
 export const updateCorruptionLoadoutNames = () => {
     const rows = getElementById<HTMLTableElement>("corruptionLoadoutTable").rows
-    for (let i = 1; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
-        const cells = rows[i + 1].cells
+    for (let i = 0; i < Object.keys(player.corruptionLoadouts).length; i++) {
+        const cells = rows[i + 2].cells  //start changes on 2nd row
         if (cells[0].textContent.length === 0) {  //first time setup
             cells[0].addEventListener('click', () => corruptionLoadoutGetNewName(i)); //get name function handles -1 for array
             cells[0].classList.add('corrLoadoutName');
         }
-        cells[0].textContent = `${player.corruptionLoadoutNames[i - 1]}:`;
+        cells[0].textContent = `${player.corruptionLoadoutNames[i]}:`;
     }    
 }
 
