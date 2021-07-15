@@ -101,6 +101,32 @@ button:focus {
     margin-bottom: 0;
 }
 
+#notification {
+    display: none;
+    position: fixed;
+    transform: translate(7.5%, 22.5%);
+    z-index: 6969;
+    width: 15%;
+    height: 12.5%;
+    border-radius: 5px;
+    border: 1px solid gold;
+    background-color: darkcyan;
+}
+
+#notification > p {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+#notifx {
+    position: fixed;
+    top: 1px;
+    right: 1px;
+}
+
 #confirmationBox {
     display: none;
     position: fixed;
@@ -2222,9 +2248,10 @@ p[id$="BlessingsTotal"] {
 #statisticsSubTab {
     padding-top: 25px;
     overflow-x: auto;
+    grid-template-columns: repeat(2, minmax(50px, 25%));
+    justify-content: center;
 
     /* don't inherit this property; defaults to center and messes it up */
-    justify-content: initial;
     scrollbar-width: none;
 }
 
@@ -2232,15 +2259,37 @@ p[id$="BlessingsTotal"] {
     display: none;
 }
 
+#statsForNerds {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(50px, 33.33%));
+    grid-template-rows: repeat(9, 12.5%);
+    height: 300px;
+}
+
+#statsForNerds > button {
+    width: 150px;
+    height: 30px;
+    margin: 3px;
+    transition-duration: 0.15s;
+}
+
+#statsForNerds > button:hover {
+    background-color: #333;
+}
+
 .statContainer {
     width: 400px;
-    display: flex;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: auto;
     padding-left: 25px;
     padding-right: 25px;
     padding-bottom: 25px;
+    display: none;
+}
+
+#miscStats {
+    display: block;
 }
 
 .statPortion {
@@ -2315,6 +2364,10 @@ p[id$="BlessingsTotal"] {
 .subtabContent.subtabActive.subtabDisplayFlex {
     display: flex;
     justify-content: center;
+}
+
+.subtabContent.subtabActive.subtabDisplayGrid {
+    display: grid;
 }
 
 .historySubTab {
