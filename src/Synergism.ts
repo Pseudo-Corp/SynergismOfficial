@@ -1447,8 +1447,8 @@ export const format = (
             standard = Math.ceil(standard);
         }
         // If the power is less than 1 or format long and less than 3 apply toFixed(accuracy) to get decimal places
-        if ((power < 1 || (long && power < 3)) && accuracy > 0) {
-            standardString = standard.toFixed(accuracy);
+        if ((power < 2 || (long && power < 3)) && accuracy > 0) {
+            standardString = standard.toFixed(power === 2 && accuracy > 2 ? 2 : accuracy);
         } else {
             // If it doesn't fit those criteria drop the decimal places
             standard = Math.floor(standard);
