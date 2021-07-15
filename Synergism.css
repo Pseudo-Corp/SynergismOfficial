@@ -2007,6 +2007,7 @@ p[id$="BlessingsTotal"] {
 .openGrid {
     display: flex;
     align-self: flex-start;
+    margin-top: 10px;
 }
 
 .openImage {
@@ -2045,6 +2046,7 @@ p[id$="BlessingsTotal"] {
     flex-direction: column;
     align-items: center;
     width: 700px;
+    margin-left: 20px;
 }
 
 #cubeTab5Wrapper {
@@ -2878,30 +2880,46 @@ header #obtainiumDisplay {
 
 #hepteractGrid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(70px, 105px));
+    grid-template-columns: repeat(4, 180px);
     margin-top: 10px;
-    width: calc(105px * 4);
+    padding: 8px 8px;
+    width: calc(180px * 4 + 45);
+    /*width: 694px;*/
     border: 3px solid plum;
     grid-column: shop 2/4;
     grid-row: 1;
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
 }
 
 #hepteractGrid > div {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
     align-items: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    /*margin: 5px 6px 5px 3px;*/
 }
 
-.hepteractType > button {
+.hepteractGridOrb {
+    
+}
+
+.heptTypeImage {
+    grid-row: 1 / span 2;
+}
+
+.heptGridInventory {
+    grid-column: 1 / span 3;
+    text-align: left;
+}
+
+.hepteractType button {
     border: 2px solid pink;
     width: 56px;
-    height: 30px;
+    height: 25px;
     transition-duration: 0.15s;
 }
 
-.hepteractType > button:hover {
+.hepteractType button:hover {
     background-color: #333;
 }
 

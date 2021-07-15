@@ -2309,7 +2309,7 @@
                     </div>
                     <p id="platonicBlessingsTotal">You have a total of <span id="platonicBlessingTotalAmount">0</span> Platonic Cubes opened!</p>
                 </div>
-                <div id="cubeTab5" style="display: none">
+                <div id="cubeTab5" class="cubeTab" style="display: none">
                     <div id="cubeTab5Wrapper"> 
                         <p id="cubeAmount2">You have 0 Wow! Cubes</p>
                         <table id="cubeUpgradeTable">
@@ -2485,52 +2485,80 @@
 
                     <div id="hepteractGrid">
                         <div class="hepteractType" id="chronosHepteract">
-                            <img id="chronosHepteractImage" src="Pictures/ChronosHepteract.png">
+                            <img id="chronosHepteractImage" class="heptTypeImage" src="Pictures/ChronosHepteract.png">
                             <button id="chronosHepteractCraft">Craft</button>
+                            <button id="chronosHepteractCraftMax">Max</button>
                             <button id="chronosHepteractCap">Expand</button>
+                            <span class="heptGridInventory">Inventory:</span>
+                            <span class="heptGridInventory">4,096,000 / 4.09e6 </span><!--<p id="chronosHepteractBalance"></p></td></tr>-->
                         </div>
                         <div class="hepteractType" id="hyperrealismHepteract">
-                            <img id="hyperrealismHepteractImage" src="Pictures/HyperrealismHepteract.png">
+                            <img id="hyperrealismHepteractImage" class="heptTypeImage" src="Pictures/HyperrealismHepteract.png">
                             <button id="hyperrealismHepteractCraft">Craft</button>
+                            <button id="hyperrealismHepteractCraftMax">Max</button>
                             <button id="hyperrealismHepteractCap">Expand</button>
+                            <span class="heptGridInventory">Inventory:</span>
+                            <span class="heptGridInventory">4,096,000 / 4.09e6 </span><!--<p id="chronosHepteractBalance"></p></td></tr>-->
                         </div>
                         <div class="hepteractType" id="quarkHepteract">
-                            <img id="quarkHepteractImage" src="Pictures/QuarkHepteract.png">
+                            <img id="quarkHepteractImage" class="heptTypeImage" src="Pictures/QuarkHepteract.png">
                             <button id="quarkHepteractCraft">Craft</button>
+                            <button id="quarkHepteractCraftMax">Max</button>
                             <button id="quarkHepteractCap">Expand</button>
+                            <span class="heptGridInventory">Inventory:</span>
+                            <span class="heptGridInventory">1000 / 1000 </span>
                         </div>
                         <div class="hepteractType" id="challengeHepteract">
-                            <img id="challengeHepteractImage" src="Pictures/ChallengeHepteract.png">
+                            <img id="challengeHepteractImage" class="heptTypeImage" src="Pictures/ChallengeHepteract.png">
                             <button id="challengeHepteractCraft">Craft</button>
+                            <button id="challengeHepteractCraftMax">Max</button>
                             <button id="challengeHepteractCap">Expand</button>
+                            <span class="heptGridInventory">Inventory:</span>
+                            <span class="heptGridInventory">64,000 / 64,000 </span>
                         </div>
                         <div class="hepteractType" id="abyssHepteract">
-                            <img id="abyssHepteractImage" src="Pictures/AbyssHepteract.png">
+                            <img id="abyssHepteractImage" class="heptTypeImage" src="Pictures/AbyssHepteract.png">
                             <button id="abyssHepteractCraft">Craft</button>
+                            <button id="abyssHepteractCraftMax">Max</button>
                             <button id="abyssHepteractCap">Expand</button>
+                            <span class="heptGridInventory">Inventory:</span>
+                            <span class="heptGridInventory">8 / 8 </span>
                         </div>
                         <div class="hepteractType" id="acceleratorHepteract">
-                            <img id="acceleratorHepteractImage" src="Pictures/AcceleratorHepteract.png">
+                            <img id="acceleratorHepteractImage" class="heptTypeImage" src="Pictures/AcceleratorHepteract.png">
                             <button id="acceleratorHepteractCraft">Craft</button>
+                            <button id="acceleratorHepteractCraftMax">Max</button>
                             <button id="acceleratorHepteractCap">Expand</button>
+                            <span class="heptGridInventory">Inventory:</span>
+                            <span class="heptGridInventory">1000 / 1000 </span>
                         </div>
                         <div class="hepteractType" id="acceleratorBoostHepteract">
-                            <img id="acceleratorBoostHepteractImage" src="Pictures/AcceleratorBoostHepteract.png">
+                            <img id="acceleratorBoostHepteractImage" class="heptTypeImage" src="Pictures/AcceleratorBoostHepteract.png">
                             <button id="acceleratorBoostHepteractCraft">Craft</button>
+                            <button id="acceleratorBoostHepteractCraftMax">Max</button>
                             <button id="acceleratorBoostHepteractCap">Expand</button>
+                            <span class="heptGridInventory">Inventory:</span>
+                            <span class="heptGridInventory">1000 / 1000 </span>
                         </div>
                         <div class="hepteractType" id="multiplierHepteract">
-                            <img id="multiplierHepteractImage" src="Pictures/MultiplierHepteract.png">
+                            <img id="multiplierHepteractImage" class="heptTypeImage" src="Pictures/MultiplierHepteract.png">
                             <button id="multiplierHepteractCraft">Craft</button>
+                            <button id="multiplierHepteractCraftMax">Max</button>
                             <button id="multiplierHepteractCap">Expand</button>
+                            <span class="heptGridInventory">Inventory:</span>
+                            <span class="heptGridInventory">1000 / 1000 </span>
                         </div>
                         <div class="hepteractType" id="hepteractToQuark">
-                            <img id="hepteractToQuarkImage" src="Pictures/Overflux.png">
+                            <img id="hepteractToQuarkImage" class="heptTypeImage" src="Pictures/Overflux.png">
                             <button id="hepteractToQuarkTrade">Craft</button>
+                            <span class="heptGridInventory">Inventory:</span>
+                            <span class="heptGridInventory">82,082 </span>
                         </div>
                         <div class="hepteractType" id="overfluxPowder">
-                            <img id="overfluxPowderImage" src="Pictures/Overflux Powder.png">
+                            <img id="overfluxPowderImage" class="heptTypeImage" src="Pictures/Overflux Powder.png">
                             <button id="powderDayWarp">Warp</button>
+                            <span class="heptGridInventory">Inventory:</span>
+                            <span class="heptGridInventory">10,100 </span>
                         </div>
                     </div>
 
