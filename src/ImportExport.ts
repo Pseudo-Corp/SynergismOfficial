@@ -12,6 +12,7 @@ import { addTimers } from './Helper';
 import { toggleSubTab, toggleTabs } from './Toggles';
 import { Globals as G } from './Variables';
 import { cubeMaxLevel } from './Cubes';
+import { btoa } from './Utility';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -131,6 +132,10 @@ export const resetGame = async () => {
 }
 
 export const importSynergism = (input: string, reset = false) => {
+    if (typeof input !== 'string') {
+        return Alert('Invalid character, could not save! 😕');
+    }
+
     const d = LZString.decompressFromBase64(input);
     const f: Player = d ? JSON.parse(d) : JSON.parse(atob(input));
 

@@ -15,9 +15,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-      - name: Build
+      - name: Install deps
         run: |
           npm install
+      - name: Lint
+        run: |
+          npm run lint
+          npm run csslint
+      - name: Build
+        run: |
           npm run-script set-updated-date
           npm run-script build:esbuild
       - name: Prepare for deploy

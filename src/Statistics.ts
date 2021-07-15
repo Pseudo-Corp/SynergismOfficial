@@ -4,6 +4,33 @@ import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOffering
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 
+const associated = new Map<string, string>([
+    ['kMisc', 'miscStats'],
+    ['kFreeAccel', 'acceleratorStats'],
+    ['kFreeMult', 'multiplierStats'],
+    ['kOfferingMult', 'offeringMultiplierStats'],
+    ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
+    ['kCubeMult', 'cubeMultiplierStats'],
+    ['kTessMult', 'tesseractMultiplierStats'],
+    ['kHypercubeMult', 'hypercubeMultiplierStats'],
+    ['kPlatMult', 'platonicMultiplierStats'],
+    ['kHeptMult', 'hepteractMultiplierStats'],
+    ['kOrbPowderMult', 'powderMultiplierStats']
+]);
+
+export const displayStats = (btn: HTMLElement) => {
+    for (const e of Array.from(btn.parentElement.children) as HTMLElement[]) {
+        if (e.id !== btn.id) {
+            e.style.backgroundColor = '';
+            document.getElementById(associated.get(e.id)).style.display = 'none';
+        }
+    }
+    
+    const statsEl = document.getElementById(associated.get(btn.id));
+    statsEl.style.display = 'block';
+    btn.style.backgroundColor = 'crimson';
+}
+
 export const loadStatisticsAccelerator = () => {
     document.getElementById("sA1").textContent = "+" + format(G['freeUpgradeAccelerator'], 0, false)
     document.getElementById("sA2").textContent = "+" + format(G['totalAcceleratorBoost'] * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20] + G['cubeBonusMultiplier'][1]), 0, false)

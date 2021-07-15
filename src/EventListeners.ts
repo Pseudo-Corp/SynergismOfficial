@@ -22,6 +22,7 @@ import { changeTabColor } from "./UpdateHTML"
 import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp } from "./Hepteracts"
 import { exitOffline, forcedDailyReset, timeWarp } from "./Calculate"
 import type { OneToFive, Player } from "./types/Synergism"
+import { displayStats } from "./Statistics"
 import { testing } from './Config';
 
 /* STYLE GUIDE */
@@ -506,6 +507,11 @@ document.getElementById('ascensionAutoEnable').addEventListener('click', () => t
 const settingSubTabs = Array.from<HTMLElement>(document.querySelectorAll('button[id^="switchSettingSubTab"]'));
 for (const subtab of settingSubTabs) {
     subtab.addEventListener('click', () => toggleSubTab(-1, settingSubTabs.indexOf(subtab)));
+}
+
+const t = Array.from(document.querySelectorAll<HTMLElement>('#statsForNerds > button'));
+for (const s of t) {
+    s.addEventListener('click', (e) => displayStats(e.target as HTMLElement));
 }
 
 // Various functions

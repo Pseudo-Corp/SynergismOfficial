@@ -930,38 +930,35 @@ export const PromptCB = (text: string, cb: (value: string | null) => void) => {
     popup.querySelector('input').addEventListener('keyup', kbListener);
 }
 
+const NotificationCB = (text: string, time = 30000, cb: () => void) => {
+    const notification = document.getElementById('notification');
+    const textNode = document.querySelector<HTMLElement>('#notification > p');
+    const x = document.getElementById('notifx');
+
+    textNode.textContent = text;
+    notification.style.display = 'block';
+
+    const close = () => {
+        textNode.textContent = '';
+        notification.style.display = 'none';
+
+        x.removeEventListener('click', close);
+        cb();
+    }
+
+    x.addEventListener('click', close);
+    // automatically close out after <time> ms
+    setTimeout(close, time);
+}
+
 /*** Promisified version of the AlertCB function. */
 export const Alert = (text: string): Promise<undefined> => new Promise(res => AlertCB(text, res));
 /*** Promisified version of the PromptCB function. */
 export const Prompt = (text: string): Promise<string | null> => new Promise(res => PromptCB(text, res));
 /*** Promisified version of the ConfirmCB function */
 export const Confirm = (text: string): Promise<boolean> => new Promise(res => ConfirmCB(text, res));
-
-// I stole all of this from https://codepen.io/thenutz/pen/VwYeYEE
-// no regrets - Khafra
-const slider = document.querySelector<HTMLElement>('#statisticsSubTab');
-slider.scrollTo(0, 0);
-let isDown = false;
-let startX: number;
-let scrollLeft: number;
-
-slider.addEventListener('mousedown', (e) => {
-    isDown = true;
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-});
-
-slider.addEventListener('mouseleave', () => isDown = false);
-slider.addEventListener('mouseup', () => isDown = false);
-
-slider.addEventListener('mousemove', (e) => {
-    if(!isDown) return;
-    e.preventDefault();
-
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 1.5; 
-    slider.scrollLeft = scrollLeft - walk;
-});
+/*** Promisified version of the NotificationCB function */
+export const Notification = (text: string, time?: number): Promise<void> => new Promise(res => NotificationCB(text, time, res));
 
 /**
  * Create a popunder under an element.
