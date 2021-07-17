@@ -3260,7 +3260,7 @@ document.addEventListener('keydown', (event) => {
 
     const type = types[G['buildingSubTab']];
 
-    const key = event.key.toUpperCase();
+    const key = event.code.replace(/\D/g, '').toUpperCase();
     switch (key) {
         case "1":
         case "2":
