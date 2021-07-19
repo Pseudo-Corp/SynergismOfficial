@@ -1285,8 +1285,7 @@ const loadSynergy = () => {
         }
         if (player.autoResearchMode === 'cheapest') {
             document.getElementById("toggleautoresearchmode").textContent = "Automatic mode: Cheapest"
-        }
-        if (player.autoResearchMode === 'manual') {
+        } else if (player.autoResearchMode === 'manual') {
             document.getElementById("toggleautoresearchmode").textContent = "Automatic mode: Manual"
         }
         if (player.autoSacrificeToggle == true) {
