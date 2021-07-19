@@ -450,6 +450,7 @@ export const player: Player = {
     autoFortifyToggle: false,
     autoEnhanceToggle: false,
     autoResearchToggle: false,
+    autoResearchMode: 'manual',
     autoResearch: 0,
     autoSacrifice: 0,
     sacrificeTimer: 0,
