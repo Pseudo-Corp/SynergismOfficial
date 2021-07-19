@@ -402,12 +402,12 @@ export const toggleAutoResearch = () => {
 
 export const toggleAutoResearchMode = () => {
     const el = document.getElementById("toggleautoresearchmode")
-    if (player.autoResearchMode === 'manual') {
-        player.autoResearchMode = 'cheapest';
-        el.textContent = "Automatic mode: Cheapest";
-    } else {
+    if (player.autoResearchMode === 'cheapest') {
         player.autoResearchMode = 'manual';
         el.textContent = "Automatic mode: Manual";
+    } else {
+        player.autoResearchMode = 'cheapest';
+        el.textContent = "Automatic mode: Cheapest";
     }
     document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
 

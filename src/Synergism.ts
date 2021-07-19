@@ -811,7 +811,7 @@ const loadSynergy = () => {
             player.fifthCostParticles = new Decimal("1e16");
             player.autoSacrificeToggle = false;
             player.autoResearchToggle = false;
-            player.autoResearchMode = 'cheapest';
+            player.autoResearchMode = 'manual';
             player.autoResearch = 0;
             player.autoSacrifice = 0;
             player.sacrificeTimer = 0;
