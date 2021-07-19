@@ -811,6 +811,7 @@ const loadSynergy = () => {
             player.fifthCostParticles = new Decimal("1e16");
             player.autoSacrificeToggle = false;
             player.autoResearchToggle = false;
+            player.autoResearchMode = 'cheapest';
             player.autoResearch = 0;
             player.autoSacrifice = 0;
             player.sacrificeTimer = 0;
@@ -1280,6 +1281,12 @@ const loadSynergy = () => {
         }
         if (!player.autoResearchToggle) {
             document.getElementById("toggleautoresearch").textContent = "Automatic: OFF"
+        }
+        if (player.autoResearchMode === 'cheapest') {
+            document.getElementById("toggleautoresearchmode").textContent = "Automatic mode: Cheapest"
+        }
+        if (player.autoResearchMode === 'manual') {
+            document.getElementById("toggleautoresearchmode").textContent = "Automatic mode: Manual"
         }
         if (player.autoSacrificeToggle == true) {
             document.getElementById("toggleautosacrifice").textContent = "Auto Rune: ON"
