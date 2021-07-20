@@ -333,6 +333,10 @@ export const generateEventHandlers = () => {
     for (let index = 0; index < 15; index++) {
     
         document.getElementById(`challenge${index+1}`).addEventListener('click', () => challengeDisplay(index+1))
+        document.getElementById(`challenge${index+1}`).addEventListener('dblclick', () => {
+            challengeDisplay(index+1);
+            toggleChallenges(G['triggerChallenge'], false)
+        });
     
     }
 //Part 2: QoL Buttons
