@@ -306,12 +306,12 @@ export const promocodes = async () => {
             typeof player.skillCode === 'number' ||
             typeof localStorage.getItem('saveScumIsCheating') === 'string'
         ) {
-            if (
-                (Date.now() - player.skillCode) / 1000 < 3600 ||
-                (Date.now() - Number(localStorage.getItem('saveScumIsCheating'))) / 1000 < 3600
-            ) {
-                return el.textContent = 'Wait a little bit. We\'ll get back to you when you\'re ready to lose again.';
-            }
+            //if (
+            //    (Date.now() - player.skillCode) / 1000 < 3600 ||
+            //    (Date.now() - Number(localStorage.getItem('saveScumIsCheating'))) / 1000 < 3600
+            //) {
+            //    return el.textContent = 'Wait a little bit. We\'ll get back to you when you\'re ready to lose again.';
+            //}
         }
 
         const confirmed = await Confirm(`Are you sure? The house always wins!`);
@@ -326,7 +326,7 @@ export const promocodes = async () => {
             return el.textContent = 'Can\'t bet what you don\'t have.';
 
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
-        const dice = window.crypto.getRandomValues(new Uint8Array(1))[0] % 6 + 1; // [1, 6]
+        const dice = 1 //window.crypto.getRandomValues(new Uint8Array(1))[0] % 6 + 1; // [1, 6]
         
         if (dice === 1) {
             const won = bet * .25; // lmao
