@@ -35,13 +35,13 @@ document.addEventListener('keydown', event => {
     }
 
     let keyPrefix = '';
-    if(event.ctrlKey) {
+    if (event.ctrlKey) {
         keyPrefix += 'CTRL+';
     }
-    if(event.shiftKey) {
+    if (event.shiftKey) {
         keyPrefix += 'SHIFT+';
     }
-    if(event.altKey) {
+    if (event.altKey) {
         keyPrefix += 'ALT+';
     }
     const key = keyPrefix + event.key.toUpperCase();
