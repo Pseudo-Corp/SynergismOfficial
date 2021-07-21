@@ -395,8 +395,8 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
 
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     let p = true;
-    let maxLevel = (player.shopUpgrades[input] == shopData[input].maxLevel)
-    let canAfford = (Number(player.worlds) >= getShopCosts(input))
+    const maxLevel = player.shopUpgrades[input] === shopData[input].maxLevel;
+    const canAfford = Number(player.worlds) >= getShopCosts(input);
 
     if (G['shopConfirmation']) {
         if (maxLevel) {

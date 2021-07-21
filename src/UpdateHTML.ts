@@ -856,8 +856,7 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
     const kbListener = (e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
             return listener({ target: ok })
-        }
-        if (e.key === 'Escape') {
+        } else if (e.key === 'Escape') {
             return listener({ target: cancel })
         }
 
@@ -934,8 +933,7 @@ export const PromptCB = (text: string, cb: (value: string | null) => void) => {
     const kbListener = (e: KeyboardEvent) => {
         if (e.key === 'Enter') {
             return listener({ target: ok })
-        }
-        if (e.key === 'Escape') {
+        } else if (e.key === 'Escape') {
             return listener({ target: cancel })
         }
 
