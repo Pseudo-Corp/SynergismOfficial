@@ -4,8 +4,6 @@ import { revealStuff } from './UpdateHTML';
 import { Globals as G } from './Variables';
 import { updateClassList } from './Utility';
 
-export type AutoResearchMode = 'manual' | 'cheapest';
-
 const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, number] => {
     buyAmount = Math.min(G['researchMaxLevels'][index] - player.researches[index], buyAmount)
     const metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index], player.researchPoints, linGrowth, buyAmount)

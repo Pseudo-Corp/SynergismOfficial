@@ -4,7 +4,6 @@ import { HepteractCraft } from '../Hepteracts';
 import { Category, ResetHistoryEntryUnion } from '../History';
 import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
-import { AutoResearchMode } from '../Research';
 
 export interface Player {
     worlds: QuarkHandler
@@ -348,7 +347,7 @@ export interface Player {
     autoFortifyToggle: boolean,
     autoEnhanceToggle: boolean,
     autoResearchToggle: boolean,
-    autoResearchMode: AutoResearchMode,
+    autoResearchMode: 'cheapest' | 'manual'
     autoResearch: number
     autoSacrifice: number
     sacrificeTimer: number
