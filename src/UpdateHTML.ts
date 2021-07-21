@@ -306,7 +306,7 @@ export const revealStuff = () => {
         document.getElementById("toggleautoresearch").style.display = "block" :
         document.getElementById("toggleautoresearch").style.display = "none";
 
-    document.getElementById("toggleautoresearchmode").style.display = player.shopUpgrades.obtainiumAuto > 0 && player.cubeUpgrades[9] > 0 ? //Auto Research Shop Purchase Mode
+    document.getElementById("toggleautoresearchmode").style.display = player.shopUpgrades.obtainiumAuto > 0 && player.cubeUpgrades[9] > 0 //Auto Research Shop Purchase Mode
         ? 'block'
         : 'none';
 
