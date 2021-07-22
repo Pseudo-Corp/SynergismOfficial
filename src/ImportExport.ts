@@ -12,6 +12,7 @@ import { addTimers } from './Helper';
 import { toggleSubTab, toggleTabs } from './Toggles';
 import { Globals as G } from './Variables';
 import { cubeMaxLevel } from './Cubes';
+import { btoa } from './Utility';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -131,6 +132,10 @@ export const resetGame = async () => {
 }
 
 export const importSynergism = (input: string, reset = false) => {
+    if (typeof input !== 'string') {
+        return Alert('Invalid character, could not save! 😕');
+    }
+
     const d = LZString.decompressFromBase64(input);
     const f: Player = d ? JSON.parse(d) : JSON.parse(atob(input));
 
@@ -321,8 +326,9 @@ export const promocodes = async () => {
         const bet = Number(await Prompt('How many quarks are you putting up?'));
         if (Number.isNaN(bet) || bet <= 0)
             return el.textContent = 'Can\'t bet that!';
-
-        if (Number(player.worlds) < bet)
+        else if (bet > 1e4)
+            return el.textContent = `Due to cheaters, you can only bet 10k max.`;
+        else if (Number(player.worlds) < bet)
             return el.textContent = 'Can\'t bet what you don\'t have.';
 
         localStorage.setItem('saveScumIsCheating', Date.now().toString());

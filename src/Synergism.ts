@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js';
 import LZString from 'lz-string';
 
-import { isDecimal, getElementById, sortWithIndices, sumContents } from './Utility';
+import { isDecimal, getElementById, sortWithIndices, sumContents, btoa } from './Utility';
 import { blankGlobals, Globals as G } from './Variables';
 import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges, challenge15ScoreMultiplier } from './Challenges';
 
@@ -25,7 +25,7 @@ import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgr
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
-import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate } from './Corruptions';
+import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate, updateCorruptionLoadoutNames } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
@@ -572,11 +572,18 @@ export const player: Player = {
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    corruptionLoadouts: {
+    corruptionLoadouts: {  //If you add loadouts don't forget to add loadout names!
         1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     },
+    corruptionLoadoutNames: [
+        "Loadout 1",
+        "Loadout 2",
+        "Loadout 3",
+        "Loadout 4",
+    ],
     corruptionShowStats: true,
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -649,7 +656,10 @@ export const saveSynergy = (button?: boolean) => {
     });
 
     localStorage.removeItem('Synergysave2');
-    localStorage.setItem('Synergysave2', btoa(JSON.stringify(p)));
+    const save = btoa(JSON.stringify(p));
+    if (save !== null) {
+        localStorage.setItem('Synergysave2', save);
+    }
 
     if (button) {
         const el = document.getElementById('saveinfo');
@@ -1211,6 +1221,7 @@ const loadSynergy = () => {
             corruptionLoadoutTableUpdate(i);
         }
         showCorruptionStatsLoadouts()
+        updateCorruptionLoadoutNames()
 
         for (let j = 1; j <= 5; j++) {
             const ouch = document.getElementById("tesseractAutoToggle" + j);
@@ -1444,8 +1455,8 @@ export const format = (
             standard = Math.ceil(standard);
         }
         // If the power is less than 1 or format long and less than 3 apply toFixed(accuracy) to get decimal places
-        if ((power < 1 || (long && power < 3)) && accuracy > 0) {
-            standardString = standard.toFixed(accuracy);
+        if ((power < 2 || (long && power < 3)) && accuracy > 0) {
+            standardString = standard.toFixed(power === 2 && accuracy > 2 ? 2 : accuracy);
         } else {
             // If it doesn't fit those criteria drop the decimal places
             standard = Math.floor(standard);
@@ -3257,7 +3268,7 @@ document.addEventListener('keydown', (event) => {
 
     const type = types[G['buildingSubTab']];
 
-    const key = event.key.toUpperCase();
+    const key = event.code.replace(/^(Digit|Numpad)/, '').toUpperCase();
     switch (key) {
         case "1":
         case "2":
@@ -3362,7 +3373,7 @@ export const reloadShit = async (reset = false) => {
 
     loadSynergy();
     if (!reset) 
-            calculateOffline();
+        calculateOffline();
     else
         player.worlds = new QuarkHandler({quarks: 0})
     saveSynergy();

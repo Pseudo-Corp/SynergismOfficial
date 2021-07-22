@@ -80,14 +80,14 @@ export const toggleSettings = (i: number) => {
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
-    if (player.currentChallenge.transcension === 0 && (i <= 5)) {
+    if ((i <= 5)) {
         if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
             player.currentChallenge.transcension = i;
             reset("transcensionChallenge", false, "enterChallenge");
             player.transcendCount -= 1;
         }
     }
-    if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) && (i >= 6 && i < 11)){
+    if ((i >= 6 && i < 11)){
         if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
             player.currentChallenge.reincarnation = i;
             reset("reincarnationChallenge", false, "enterChallenge");
@@ -604,6 +604,15 @@ export const toggleShopConfirmation = () => {
         : "Shop Confirmations: ON";
 
     G['shopConfirmation'] = !G['shopConfirmation'];
+}
+
+export const toggleBuyMaxShop = () => {
+    const el = document.getElementById("toggleBuyMaxShop")
+    el.textContent = G['shopBuyMax']
+        ? "Buy Max: OFF"
+        : "Buy Max: ON";
+
+    G['shopBuyMax'] = !G['shopBuyMax'];
 }
 
 export const toggleAntMaxBuy = () => {
