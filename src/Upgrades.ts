@@ -307,6 +307,15 @@ export const upgradedescriptions = (i: number) => {
     const el = document.getElementById("upgradedescription");
     el.textContent = y + z;
     el.style.color = player.upgrades[i] > 0.5 ? 'gold' : 'white';
+    
+    
+    //to disassociate the descriptions with the previously hovered upgrade (might not be needed, IDK)
+    if ("of" in el.dataset) {
+        document.getElementById(el.dataset.of).removeAttribute('aria-describedby');
+    }
+    el.dataset.of = "upg" + number;
+    //this will associate the descriptions with the hovered upgrade
+    document.getElementById(el.dataset.of).setAttribute('aria-describedby', "upgradedescription upgradecost upgradeeffect");
 
     if (player.toggles[9] === true) {
         let type = ''

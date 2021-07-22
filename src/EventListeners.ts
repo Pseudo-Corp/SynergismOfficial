@@ -71,13 +71,21 @@ export const generateEventHandlers = () => {
 //Part 1: Reset Tiers
 //Onmouseover Events
     document.getElementById('prestigebtn').addEventListener('mouseover', () => resetrepeat("prestige"))
+    document.getElementById('prestigebtn').addEventListener('focus', () => resetrepeat("prestige"))
     document.getElementById('transcendbtn').addEventListener('mouseover', () => resetrepeat("transcension"))
+    document.getElementById('transcendbtn').addEventListener('focus', () => resetrepeat("transcension"))
     document.getElementById('reincarnatebtn').addEventListener('mouseover', () => resetrepeat("reincarnation"))
+    document.getElementById('reincarnatebtn').addEventListener('focus', () => resetrepeat("reincarnation"))
     document.getElementById('acceleratorboostbtn').addEventListener('mouseover', () => resetrepeat("acceleratorBoost"))
+    document.getElementById('acceleratorboostbtn').addEventListener('focus', () => resetrepeat("acceleratorBoost"))
     document.getElementById('challengebtn').addEventListener('mouseover', () => resetrepeat("transcensionChallenge"))
+    document.getElementById('challengebtn').addEventListener('focus', () => resetrepeat("transcensionChallenge"))
     document.getElementById('reincarnatechallengebtn').addEventListener('mouseover', () => resetrepeat("reincarnationChallenge"))
+    document.getElementById('reincarnatechallengebtn').addEventListener('focus', () => resetrepeat("reincarnationChallenge"))
     document.getElementById('ascendChallengeBtn').addEventListener('mouseover', () => resetrepeat("ascensionChallenge"))
+    document.getElementById('ascendChallengeBtn').addEventListener('focus', () => resetrepeat("ascensionChallenge"))
     document.getElementById('ascendbtn').addEventListener('mouseover', () => resetrepeat("ascension"))
+    document.getElementById('ascendbtn').addEventListener('focus', () => resetrepeat("ascension"))
 //Onclick Events (this is particularly bad)
     document.getElementById('prestigebtn').addEventListener('click', () => resetCheck('prestige'))
     document.getElementById('transcendbtn').addEventListener('click', () => resetCheck('transcend'))
@@ -142,7 +150,14 @@ export const generateEventHandlers = () => {
     for (let index = 1; index <= 5; index++) {
         
         document.getElementById(`buycrystalupgrade${index}`).addEventListener('mouseover', () => crystalupgradedescriptions(index))
+        document.getElementById(`buycrystalupgrade${index}`).addEventListener('focus', () => crystalupgradedescriptions(index))
         document.getElementById(`buycrystalupgrade${index}`).addEventListener('click', () => buyCrystalUpgrades(index))
+        document.getElementById(`buycrystalupgrade${index}`).addEventListener('keypress', function(e){
+            if (e.key === "Enter"){
+                buyCrystalUpgrades(index);
+            }
+        })
+        
         
     }
     
@@ -194,6 +209,7 @@ export const generateEventHandlers = () => {
 
         //Onmouseover events ()
         document.getElementById(`upg${index}`).addEventListener('mouseover', () => upgradedescriptions(index));
+        document.getElementById(`upg${index}`).addEventListener('focus', () => upgradedescriptions(index));
 
         console.log('Successfully added "Onmouseover" event to upgrades 1-120!')
     }
@@ -207,8 +223,13 @@ export const generateEventHandlers = () => {
 
         //Onclick events (Regular upgrades 1-80)
         document.getElementById(`upg${index}`).addEventListener('click', () => buyUpgrades(resourceType,index));
-
+        document.getElementById(`upg${index}`).addEventListener('keypress', function(e){
+            if (e.key === "Enter"){
+                buyUpgrades(resourceType,index);
+            }
+        })
         console.log('Successfully added "Onmouseover" event to upgrades 1-120!')
+
     }
 
 // Autobuyer (20 count, ID 81-100) and Generator (20 count, ID 101-120) Upgrades have a unique onclick
@@ -216,6 +237,11 @@ export const generateEventHandlers = () => {
 
         //Onclick events (Autobuyer upgrades)
         document.getElementById(`upg${index + 80}`).addEventListener('click', () => buyAutobuyers(index));
+        document.getElementById(`upg${index + 80}`).addEventListener('keypress', function(e){
+            if (e.key === "Enter"){
+                buyAutobuyers(index);
+            }
+        })
         console.log('Successfully added "Onclick" event to Autobuyer upgrade!')
     
     }
@@ -223,6 +249,11 @@ export const generateEventHandlers = () => {
 
         //Onclick events (Generator Upgrades)
         document.getElementById(`upg${index + 100}`).addEventListener('click', () => buyGenerator(index));
+        document.getElementById(`upg${index + 100}`).addEventListener('keypress', function(e){
+            if (e.key === "Enter"){
+                buyGenerator(index);
+            }
+        })
         console.log('Successfully added "Onclick" event to Generator upgrade!')
     
     }
@@ -232,6 +263,11 @@ export const generateEventHandlers = () => {
 
         //Onclick events (Upgrade 121-125)
         document.getElementById(`upg${index + 120}`).addEventListener('click', () => buyUpgrades('coin',index));
+        document.getElementById(`upg${index + 120}`).addEventListener('keypress', function(e){
+            if (e.key === "Enter"){
+                buyUpgrades(index);
+            }
+        })
         console.log('Successfully added "Onclick" event to Generator upgrade!')
     
     }
@@ -249,6 +285,7 @@ export const generateEventHandlers = () => {
     
         //Onmouseover events (Achievement descriptions)
         document.getElementById(`ach${index}`).addEventListener('mouseover', () => achievementdescriptions(index));
+        document.getElementById(`buycrystalupgrade${index}`).addEventListener('focus', () => achievementdescriptions(index));
     
     }
 
