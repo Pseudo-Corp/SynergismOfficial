@@ -643,6 +643,7 @@ export interface GlobalVariables {
     runeSum: number
 
     shopConfirmation: boolean,
+    shopBuyMax: boolean,
 
     globalAntMult: Decimal
     antMultiplier: Decimal
