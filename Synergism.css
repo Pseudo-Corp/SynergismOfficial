@@ -2655,6 +2655,15 @@ p[id$="BlessingsTotal"] {
     text-align: center;
 }
 
+.corrLoadoutName:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.corrLoadoutNameCol {
+    width: 17%;
+}
+
 .corrBtn {
     width: 30px;
     height: 30px;
@@ -2699,15 +2708,18 @@ img.small {
 
 .corrSave {
     border: 1px solid dodgerblue;
-    margin-left: 10px;
-    padding: 3px 4px;
+    padding: 2px 5px;
     transition-duration: 0.15s;
+    width: 100%;
+    margin-bottom: 1px;
 }
 
 .corrLoad {
     border: 1px solid #5b5ddc;
-    padding: 3px 4px;
+    padding: 2px 5px;
     transition-duration: 0.15s;
+    width: 100%;
+    margin-bottom: 1px;
 }
 
 .corrSave:hover,
