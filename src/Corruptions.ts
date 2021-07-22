@@ -2,6 +2,7 @@ import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
 import { toggleCorruptionLevel } from './Toggles';
 import { getElementById } from './Utility';
+import { Alert, Prompt } from "./UpdateHTML";
 
 export const corruptionDisplay = (index: number) => {
     if (document.getElementById("corruptionDetails").style.visibility !== "visible") {
@@ -185,31 +186,46 @@ export const corruptionButtonsAdd = () => {
 export const corruptionLoadoutTableCreate = () => {
     const corrCount = 9
     const table = getElementById<HTMLTableElement>("corruptionLoadoutTable")
+
     for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
         const row = table.insertRow()
         for (let j = 0; j <= corrCount; j++) {
             const cell = row.insertCell();
             if (j === 0) {
-                cell.textContent = (i === 0) ? "Next:" : `Loadout ${i}:`;
+                if (i === 0) cell.textContent = 'Next:'
+                // Other loadout names are updated after player load in Synergism.ts > loadSynergy
             } else if (j <= corrCount) {
                 cell.textContent = ((i === 0) ? player.prototypeCorruptions[j] : player.corruptionLoadouts[i][j]).toString();
                 cell.style.textAlign = "center"
             }
         }
-        if (i === 0) continue;
-        let cell = row.insertCell();
-        let btn = document.createElement("button");
-        btn.className = "corrSave"
-        btn.textContent = "Save"
-        btn.onclick = () => corruptionLoadoutSaveLoad(true, i);
-        cell.appendChild(btn);
+        if (i === 0) {
+            let cell = row.insertCell();
+            //empty
 
-        cell = row.insertCell();
-        btn = document.createElement("button");
-        btn.className = "corrLoad"
-        btn.textContent = "Load"
-        btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
-        cell.appendChild(btn);
+            cell = row.insertCell();
+            let btn = document.createElement("button");
+            btn.className = "corrLoad"
+            btn.textContent = "Zero"
+            btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
+            cell.appendChild(btn);
+            cell.title = "Reset corruptions to zero on your next ascension"
+        }
+        else {
+            let cell = row.insertCell();
+            let btn = document.createElement("button");
+            btn.className = "corrSave"
+            btn.textContent = "Save"
+            btn.onclick = () => corruptionLoadoutSaveLoad(true, i);
+            cell.appendChild(btn);
+
+            cell = row.insertCell();
+            btn = document.createElement("button");
+            btn.className = "corrLoad"
+            btn.textContent = "Load"
+            btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
+            cell.appendChild(btn);
+        }
     }
 }
 
@@ -226,10 +242,51 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
         player.corruptionLoadouts[loadout] = Array.from(player.prototypeCorruptions)
         corruptionLoadoutTableUpdate(loadout)
     } else {
-        player.prototypeCorruptions = Array.from(player.corruptionLoadouts[loadout])
+        if (loadout === 0) {
+            player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+        else {
+            player.prototypeCorruptions = Array.from(player.corruptionLoadouts[loadout])
+        }
         corruptionLoadoutTableUpdate()
         corruptionStatsUpdate();
     }
+}
+
+async function corruptionLoadoutGetNewName(loadout = 0) {
+    const maxChars = 9
+    // eslint-disable-next-line
+    const regex = /^[\x00-\xFF]*$/
+    const renamePrompt = await Prompt(
+        `What would you like to name Loadout ${loadout + 1}? ` +
+        `Names cannot be longer than ${maxChars} characters. Nothing crazy!`
+    );
+   
+    if (!renamePrompt) {
+        return Alert('Okay, maybe next time.');
+    }
+    else if (renamePrompt.length > maxChars) {
+        return Alert('The name you provided is too long! Try again.')
+    }
+    else if (!regex.test(renamePrompt)) {
+        return Alert("The Loadout Renamer didn't like a character in your name! Try something else.")
+    }
+    else {
+        player.corruptionLoadoutNames[loadout] = renamePrompt
+        updateCorruptionLoadoutNames();
+    }
+}
+
+export const updateCorruptionLoadoutNames = () => {
+    const rows = getElementById<HTMLTableElement>("corruptionLoadoutTable").rows
+    for (let i = 0; i < Object.keys(player.corruptionLoadouts).length; i++) {
+        const cells = rows[i + 2].cells  //start changes on 2nd row
+        if (cells[0].textContent.length === 0) {  //first time setup
+            cells[0].addEventListener('click', () => corruptionLoadoutGetNewName(i)); //get name function handles -1 for array
+            cells[0].classList.add('corrLoadoutName');
+        }
+        cells[0].textContent = `${player.corruptionLoadoutNames[i]}:`;
+    }    
 }
 
 export const corruptionCleanseConfirm = () => {

@@ -25,7 +25,7 @@ import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgr
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
-import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate } from './Corruptions';
+import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate, updateCorruptionLoadoutNames } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
@@ -572,11 +572,18 @@ export const player: Player = {
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    corruptionLoadouts: {
+    corruptionLoadouts: {  //If you add loadouts don't forget to add loadout names!
         1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     },
+    corruptionLoadoutNames: [
+        "Loadout 1",
+        "Loadout 2",
+        "Loadout 3",
+        "Loadout 4",
+    ],
     corruptionShowStats: true,
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -1214,6 +1221,7 @@ const loadSynergy = () => {
             corruptionLoadoutTableUpdate(i);
         }
         showCorruptionStatsLoadouts()
+        updateCorruptionLoadoutNames()
 
         for (let j = 1; j <= 5; j++) {
             const ouch = document.getElementById("tesseractAutoToggle" + j);
@@ -3365,7 +3373,7 @@ export const reloadShit = async (reset = false) => {
 
     loadSynergy();
     if (!reset) 
-            calculateOffline();
+        calculateOffline();
     else
         player.worlds = new QuarkHandler({quarks: 0})
     saveSynergy();
