@@ -377,7 +377,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
         player.worlds.add(totalCost);
         player.shopUpgrades[input] -= upgradeCounter;
 
-        p = await Confirm(`Are you sure you'd like to purchase ${upgradeCounter}*${input} for ${format(totalCost)} Quarks? Press 'OK' to finalize purchase.`);
+        p = await Confirm(`Are you sure you'd like to purchase ${upgradeCounter} x ${input} for ${format(totalCost)} Quarks?`);
         if (p) {
             // if the player confirms the purchase, reapply the simulation
             player.worlds.sub(totalCost);
