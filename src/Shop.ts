@@ -360,21 +360,28 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     let p = true;
-    if (G['shopConfirmation']) {
-        p = await Confirm("Are you sure you'd like to purchase " + input + " for " + format(getShopCosts(input)) + " Quarks? Press 'OK' to finalize purchase.");
-    }
+    let upgradeCounter = 0;
+    let totalCost = 0;
 
-    if (p) {
-        if (G['shopBuyMax']) {
-            while (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
-                player.worlds.sub(getShopCosts(input));
-                player.shopUpgrades[input] += 1
-            }
-        } else {
-            if (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
-                player.worlds.sub(getShopCosts(input));
-                player.shopUpgrades[input] += 1
-            }
+    // simulate the total upgrade cost by iterating over the upgrade levels until we run out of quarks
+    do {
+        const cost = getShopCosts(input);
+        totalCost += cost;
+        player.worlds.sub(cost);
+        upgradeCounter++;
+        player.shopUpgrades[input]++;
+    } while(G['shopBuyMax'] && Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel);
+
+    if (G['shopConfirmation']) {
+        // revert the simulation by adding back the quarks and removing the shopUpgrades
+        player.worlds.add(totalCost);
+        player.shopUpgrades[input] -= upgradeCounter;
+
+        p = await Confirm(`Are you sure you'd like to purchase ${upgradeCounter}*${input} for ${format(totalCost)} Quarks? Press 'OK' to finalize purchase.`);
+        if (p) {
+            // if the player confirms the purchase, reapply the simulation
+            player.worlds.sub(totalCost);
+            player.shopUpgrades[input] += upgradeCounter;
         }
     }
     revealStuff();
