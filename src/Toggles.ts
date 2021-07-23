@@ -4,7 +4,7 @@ import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { visualUpdateCubes } from './UpdateVisuals';
 import { calculateRuneLevels } from './Calculate';
-import { reset } from './Reset';
+import { reset, resetrepeat } from './Reset';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
@@ -86,6 +86,9 @@ export const toggleChallenges = (i: number, auto = false) => {
             reset("transcensionChallenge", false, "enterChallenge");
             player.transcendCount -= 1;
         }
+        if (!player.currentChallenge.reincarnation) {
+            resetrepeat('transcensionChallenge');
+        }
     }
     if ((i >= 6 && i < 11)){
         if(player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
@@ -93,6 +96,7 @@ export const toggleChallenges = (i: number, auto = false) => {
             reset("reincarnationChallenge", false, "enterChallenge");
             player.reincarnationCount -= 1;
         }
+        resetrepeat('reincarnationChallenge');
     }
     if (player.challengecompletions[10] > 0) {
         if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {

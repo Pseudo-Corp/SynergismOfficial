@@ -78,6 +78,17 @@ export const generateEventHandlers = () => {
     document.getElementById('reincarnatechallengebtn').addEventListener('mouseover', () => resetrepeat("reincarnationChallenge"))
     document.getElementById('ascendChallengeBtn').addEventListener('mouseover', () => resetrepeat("ascensionChallenge"))
     document.getElementById('ascendbtn').addEventListener('mouseover', () => resetrepeat("ascension"))
+
+    for (const resetButton of Array.from(document.querySelectorAll('.resetbtn'))) {
+        resetButton.addEventListener('mouseout', () => {
+            if (player.currentChallenge.reincarnation) {
+                resetrepeat('reincarnationChallenge');
+            } else if (player.currentChallenge.transcension) {
+                resetrepeat('transcensionChallenge');
+            }
+        });
+    }
+
 //Onclick Events (this is particularly bad)
     document.getElementById('prestigebtn').addEventListener('click', () => resetCheck('prestige'))
     document.getElementById('transcendbtn').addEventListener('click', () => resetCheck('transcend'))

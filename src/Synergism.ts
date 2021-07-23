@@ -20,7 +20,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { reset } from './Reset';
+import { reset, resetrepeat } from './Reset';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, TesseractBuildings, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
@@ -1354,6 +1354,11 @@ const loadSynergy = () => {
     }
     CSSAscend();
     updateAchievementBG();
+    if (player.currentChallenge.reincarnation) {
+        resetrepeat('reincarnationChallenge');
+    } else if (player.currentChallenge.transcension) {
+        resetrepeat('transcensionChallenge');
+    }
 
     const d = new Date()
     const h = d.getHours()
