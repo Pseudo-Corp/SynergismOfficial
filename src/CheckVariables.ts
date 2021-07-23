@@ -166,13 +166,15 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
+
     if (player.corruptionLoadouts === undefined) {
-        player.corruptionLoadouts = {
-            1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        };
+        player.corruptionLoadouts = { ...blankSave.corruptionLoadouts };
         player.corruptionShowStats = true
+    } else if (Object.keys(player.corruptionLoadouts).length !== Object.keys(blankSave.corruptionLoadouts).length) {
+        for (const key of Object.keys(blankSave.corruptionLoadouts)) {
+            if (player.corruptionLoadouts[Number(key)]) continue;
+            player.corruptionLoadouts[Number(key)] = blankSave.corruptionLoadouts[Number(key)];
+        }
     }
 
     for (let i = 0; i <= 4; i++) {
