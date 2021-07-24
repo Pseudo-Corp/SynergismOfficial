@@ -787,7 +787,7 @@ export const timeWarp = async () => {
             return Alert(`Hey! That's not a valid time!`);
     
     document.getElementById('offlineContainer').style.display = 'flex'
-    document.getElementById('preload').style.display = 'block'
+    document.getElementById('preloadContainer').style.display = 'flex'
     calculateOffline(timeUse)
 }
 
@@ -808,14 +808,17 @@ export const calculateOffline = (forceTime = 0) => {
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
 
-    document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
+    document.getElementById('preloadContainer').style.display = (forceTime > 0) ? 'none' : 'flex';
     document.getElementById("offlineContainer").style.display = "flex";
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
     //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
-    preloadImage.src = 'Pictures/Blank Preload.png';
+    preloadImage.style.display = 'none';
+
+    const preloadContainer = getElementById("preloadContainer");
+    preloadContainer.style.backgroundColor = 'black';
 
     G['timeMultiplier'] = calculateTimeAcceleration();
     calculateObtainium();
@@ -919,8 +922,9 @@ export const calculateOffline = (forceTime = 0) => {
 }
 
 export const exitOffline = () => {
+    document.body.classList.remove('loading');
     document.getElementById("offlineContainer").style.display = "none";
-    document.getElementById("preload").style.display = "none";
+    document.getElementById("preloadContainer").style.display = "none";
 }
 
 export const calculateSigmoid = (constant: number, factor: number, divisor: number) => {
