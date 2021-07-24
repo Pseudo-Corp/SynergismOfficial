@@ -86,7 +86,7 @@ export const toggleChallenges = (i: number, auto = false) => {
             reset("transcensionChallenge", false, "enterChallenge");
             player.transcendCount -= 1;
         }
-        if (!player.currentChallenge.reincarnation) {
+        if (!player.currentChallenge.reincarnation && !document.querySelector('.resetbtn.hover')) {
             resetrepeat('transcensionChallenge');
         }
     }
@@ -96,7 +96,9 @@ export const toggleChallenges = (i: number, auto = false) => {
             reset("reincarnationChallenge", false, "enterChallenge");
             player.reincarnationCount -= 1;
         }
-        resetrepeat('reincarnationChallenge');
+        if (!document.querySelector('.resetbtn.hover')) {
+            resetrepeat('reincarnationChallenge');
+        }
     }
     if (player.challengecompletions[10] > 0) {
         if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
