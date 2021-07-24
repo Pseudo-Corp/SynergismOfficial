@@ -612,6 +612,14 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             }
         }
         player.usedCorruptions = Array.from(player.prototypeCorruptions)
+        if (player.currentChallenge.ascension === 15) {
+             player.usedCorruptions[0] = 0;
+             player.prototypeCorruptions[0] = 0;
+             for (let i = 1; i <= 9; i++) {
+                 player.usedCorruptions[i] = 11;
+             }
+        }
+
         corruptionStatsUpdate();
     }
 
