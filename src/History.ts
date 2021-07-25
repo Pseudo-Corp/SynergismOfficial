@@ -2,6 +2,7 @@ import { player, format, formatTimeShort } from './Synergism';
 import Decimal, { DecimalSource } from 'break_infinity.js';
 import { antSacrificePointsToMultiplier } from './Ants';
 import { Synergism } from './Events';
+import { copyToClipboard } from './Utility';
 
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend';
@@ -339,6 +340,19 @@ const resetHistoryRenderRow = (
     rowContentHtml += `<td class="history-filler" colspan="${4 - extra.length}"></td>`;
 
     row.innerHTML = rowContentHtml;
+    if (data.kind === "ascend") {
+        const loadoutButton = row.querySelector('button[data-loadout]');
+        if (loadoutButton) {
+            loadoutButton.addEventListener('click', async () => {
+                const loadout = loadoutButton.getAttribute('data-loadout');
+                await copyToClipboard(loadout);
+
+                loadoutButton.textContent = 'Copied!';
+                setTimeout(() => loadoutButton.textContent = 'Copy', 10000);
+            });
+        }
+    }
+
     return row;
 }
 
@@ -384,7 +398,9 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
             corruptions += ` <img alt="${resetHistoryCorruptionTitles[i]}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }
+
     }
+    corruptions += ` <button data-loadout="${data.usedCorruptions.join(',')}">Copy</button>`
     if (data.currentChallenge !== undefined) {
         score += ` / C${data.currentChallenge}`;
     }

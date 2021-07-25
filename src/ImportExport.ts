@@ -1,6 +1,6 @@
 import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
 import { testing, version } from './Config';
-import { getElementById } from './Utility';
+import { copyToClipboard, getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
 import { Player } from './types/Synergism';
@@ -75,25 +75,8 @@ export const exportSynergism = async () => {
 
     const toClipboard = getElementById<HTMLInputElement>('saveType').checked;
     const save = localStorage.getItem('Synergysave2');
-    if ('clipboard' in navigator && toClipboard) {
-        await navigator.clipboard.writeText(save)
-            .catch(e => console.error(e));
-    } else if (toClipboard) {
-        // Old browsers (legacy Edge, Safari 13.0)
-        const textArea = document.createElement('textarea');
-        textArea.value = save;
-        textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
-
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        try {
-            document.execCommand('copy');
-        } catch (_) {
-            console.error("Failed to copy savegame to clipboard.");
-        }
-
-        document.body.removeChild(textArea);
+    if (toClipboard) {
+        await copyToClipboard(save);
     } else {
         const a = document.createElement('a');
         a.setAttribute('href', 'data:text/plain;charset=utf-8,' + save);
