@@ -102,3 +102,27 @@ export const btoa = (s: string) => {
         return null;
     }
 }
+
+export const copyToClipboard = async (text: string) => {
+    if ('clipboard' in navigator) {
+        await navigator.clipboard.writeText(text)
+            .catch(e => console.error(e));
+
+        return;
+    }
+    // Old browsers (legacy Edge, Safari 13.0)
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        document.execCommand('copy');
+    } catch (_) {
+        console.error("Failed to copy savegame to clipboard.");
+    }
+
+    document.body.removeChild(textArea);
+};

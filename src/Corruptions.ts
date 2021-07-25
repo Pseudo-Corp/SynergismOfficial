@@ -201,10 +201,15 @@ export const corruptionLoadoutTableCreate = () => {
         }
         if (i === 0) {
             let cell = row.insertCell();
-            //empty
+            let btn = document.createElement("button");
+            btn.className = "corrSave"
+            btn.textContent = "Import"
+            btn.onclick = () => corruptionLoadoutImportPrompt();
+            cell.appendChild(btn);
+            cell.title = "Import a loadout configuration string to be used on your next ascension"
 
             cell = row.insertCell();
-            let btn = document.createElement("button");
+            btn = document.createElement("button");
             btn.className = "corrLoad"
             btn.textContent = "Zero"
             btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
@@ -252,6 +257,27 @@ const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
         corruptionStatsUpdate();
     }
 }
+
+const corruptionLoadoutImportPrompt = async () => {
+    const importPrompt = await Prompt(
+        [
+            'Please enter comma-separated corruption values. Current loadout:',
+            player.prototypeCorruptions.join(','),
+        ].join('\n')
+    );
+
+    if (!importPrompt) {
+        return Alert('Okay, maybe next time.');
+    }
+    const importLoadout = importPrompt.split(',').map(Number);
+    if (importLoadout.length !== 13) {
+        return Alert('Invalid format! Corruption loadouts should be 13 comma-separated numbers.');
+    }
+
+    player.prototypeCorruptions = importLoadout;
+    corruptionLoadoutTableUpdate();
+    corruptionStatsUpdate();
+};
 
 async function corruptionLoadoutGetNewName(loadout = 0) {
     const maxChars = 9

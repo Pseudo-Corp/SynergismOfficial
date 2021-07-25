@@ -2,6 +2,7 @@ import { player, format, formatTimeShort } from './Synergism';
 import Decimal, { DecimalSource } from 'break_infinity.js';
 import { antSacrificePointsToMultiplier } from './Ants';
 import { Synergism } from './Events';
+import { copyToClipboard } from './Utility';
 
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend';
@@ -314,8 +315,7 @@ const resetHistoryRenderRow = (
 
         const corruptions = resetHistoryFormatCorruptions(data);
         if (corruptions !== null) {
-            extra.push(corruptions[0]);
-            extra.push(corruptions[1]);
+            extra.push(...corruptions);
         }
     }
 
@@ -339,6 +339,19 @@ const resetHistoryRenderRow = (
     rowContentHtml += `<td class="history-filler" colspan="${4 - extra.length}"></td>`;
 
     row.innerHTML = rowContentHtml;
+    if (data.kind === "ascend") {
+        const loadoutButton = row.querySelector('button[data-loadout]');
+        if (loadoutButton) {
+            loadoutButton.addEventListener('click', async () => {
+                const loadout = loadoutButton.getAttribute('data-loadout');
+                await copyToClipboard(loadout);
+
+                loadoutButton.textContent = 'Copied!';
+                setTimeout(() => loadoutButton.textContent = 'Copy layout', 10000);
+            });
+        }
+    }
+
     return row;
 }
 
@@ -376,7 +389,7 @@ export const resetHistoryTogglePerSecond = () => {
 }
 
 // Helper function to format the corruption display in the ascension table.
-const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string] => {
+const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string, string] => {
     let score = "Score: " + format(data.corruptionScore, 0, false);
     let corruptions = "";
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
@@ -384,10 +397,12 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
             corruptions += ` <img alt="${resetHistoryCorruptionTitles[i]}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }
+
     }
     if (data.currentChallenge !== undefined) {
         score += ` / C${data.currentChallenge}`;
     }
+    const exportCorruptionButton = `<button data-loadout="${data.usedCorruptions.join(',')}">Copy layout</button>`;
 
-    return [score, corruptions];
+    return [score, corruptions, exportCorruptionButton];
 }

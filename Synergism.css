@@ -2462,6 +2462,18 @@ p[id$="BlessingsTotal"] {
     min-width: 1212px;
 }
 
+#historyAscendTable button {
+    font-size: 14px;
+    padding: 3px 4px;
+    border: 1px solid pink;
+    margin: 0 5px;
+    line-height: 18px;
+}
+
+#historyAscendTable button:hover {
+    background-color: #444;
+}
+
 .runeBlessingPurchaseSettings {
     display: flex;
     justify-content: center;
