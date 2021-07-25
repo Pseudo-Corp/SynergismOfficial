@@ -253,16 +253,20 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
         abyssals: false,
         canBuy: false,
     }
-    for (let i = 0; i < resources.length - 1; i++) {
-        if (platUpgradeBaseCosts[index][resources[i]] <= player[resourceNames[i]]) {
+
+    //Let's do a proper loop over everything here instead of the appended extra check for Abyssals - more future-for Octeracts
+		
+	let res_owned=0;
+    for (let i = 0; i < resources.length; i++) {
+				if (resourceNames[i] === "wowAbyssals") {
+				    res_owned=player.hepteractCrafts.abyss.BAL
+				} else {
+						res_owned=player[resourceNames[i]]
+				}
+        if (platUpgradeBaseCosts[index][resources[i]] <= res_owned) {
             checksum++;
             checks[resources[i]] = true
         }
-    }
-
-    if (player.hepteractCrafts.abyss.BAL > 0 || platUpgradeBaseCosts[index].abyssals == 0) {
-        checksum ++
-        checks['abyssals'] = true
     }
 
     if (checksum === resources.length && player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
