@@ -256,7 +256,7 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
 
     //Let's do a proper loop over everything here instead of the appended extra check for Abyssals - more future-for Octeracts
 		
-	let res_owned=0;
+    let res_owned=0;
     for (let i = 0; i < resources.length; i++) {
 				if (resourceNames[i] === "wowAbyssals") {
 				    res_owned=player.hepteractCrafts.abyss.BAL
