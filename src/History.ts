@@ -315,8 +315,7 @@ const resetHistoryRenderRow = (
 
         const corruptions = resetHistoryFormatCorruptions(data);
         if (corruptions !== null) {
-            extra.push(corruptions[0]);
-            extra.push(corruptions[1]);
+            extra.push(...corruptions);
         }
     }
 
@@ -390,7 +389,7 @@ export const resetHistoryTogglePerSecond = () => {
 }
 
 // Helper function to format the corruption display in the ascension table.
-const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string] => {
+const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string, string] => {
     let score = "Score: " + format(data.corruptionScore, 0, false);
     let corruptions = "";
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
@@ -400,10 +399,10 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
         }
 
     }
-    corruptions += ` <button data-loadout="${data.usedCorruptions.join(',')}">Copy</button>`
     if (data.currentChallenge !== undefined) {
         score += ` / C${data.currentChallenge}`;
     }
+    const exportCorruptionButton = `<button data-loadout="${data.usedCorruptions.join(',')}">Copy layout</button>`;
 
-    return [score, corruptions];
+    return [score, corruptions, exportCorruptionButton];
 }
