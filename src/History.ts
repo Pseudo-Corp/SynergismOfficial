@@ -347,7 +347,7 @@ const resetHistoryRenderRow = (
                 await copyToClipboard(loadout);
 
                 loadoutButton.textContent = 'Copied!';
-                setTimeout(() => loadoutButton.textContent = 'Copy', 10000);
+                setTimeout(() => loadoutButton.textContent = 'Copy layout', 10000);
             });
         }
     }
