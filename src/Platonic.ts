@@ -254,17 +254,16 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
         canBuy: false,
     }
 
-    let res_owned=0;
-    for (let i = 0; i < resources.length; i++) {
-	if (resourceNames[i] === "wowAbyssals") {
-		res_owned=player.hepteractCrafts.abyss.BAL
-	} else {
-		res_owned=player[resourceNames[i]]
-	}
-        if (platUpgradeBaseCosts[index][resources[i]] <= res_owned) {
+    for (let i = 0; i < resources.length-1; i++) {
+        if (platUpgradeBaseCosts[index][resources[i]] <= player[resourceNames[i]]) {
             checksum++;
             checks[resources[i]] = true
         }
+    }
+
+    if (player.hepteractCrafts.abyss.BAL >= platUpgradeBaseCosts[index][resources[resources.length-1]] || platUpgradeBaseCosts[index].abyssals == 0) {
+        checksum ++
+        checks['abyssals'] = true
     }
 
     if (checksum === resources.length && player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
