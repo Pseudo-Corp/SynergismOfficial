@@ -3,13 +3,14 @@ import { Globals as G } from './Variables';
 import { player, format, formatTimeShort } from './Synergism';
 import { version } from './Config';
 import { CalcECC } from './Challenges';
-import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration } from './Calculate';
+import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calculateCubeQuarkMultiplier } from './Calculate';
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
 import { getShopCosts, shopData } from './Shop';
 import { quarkHandler } from './Quark';
 import type { Player, ZeroToFour } from './types/Synergism';
+import { hepteractTypeList } from './Hepteracts';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== "buildings") {
@@ -377,11 +378,46 @@ export const visualUpdateCubes = () => {
             break;
         case 6:
             document.getElementById('hepteractQuantity').textContent = format(player.wowAbyssals, 0, true)
+            //Update the grid
+            //
+            hepteractTypeList.forEach((type: hepteractTypes) => {
+                UpdateHeptGridValues(type);
+            });
+
+            //orbs
+            document.getElementById('heptGridOrbBalance').textContent = format(player.overfluxOrbs)
+            document.getElementById('heptGridOrbEffect').textContent = format(100 * (-1 + calculateCubeQuarkMultiplier()), 2, true) + '%'
+
+            //powder
+            document.getElementById('heptGridPowderBalance').textContent = format(player.overfluxPowder)
+            document.getElementById('heptGridPowderWarps').textContent = format(player.dailyPowderResetUses)
+
             break;
         default:
             // console.log(`player.subtabNumber (${player.subtabNumber}) was outside of the allowed range (${subTabsInMainTab(8).subTabList.length}) for the cube tab`);
             break;
     }
+}
+
+const UpdateHeptGridValues = (type: hepteractTypes) => {
+    const text = type + 'ProgressBarText'
+    const bar = type + 'ProgressBar'
+    const textEl = document.getElementById(text)
+    const barEl = document.getElementById(bar)
+    const balance = player.hepteractCrafts[type].BAL
+    const cap = player.hepteractCrafts[type].CAP
+    const barWidth = Math.round((balance / cap) * 100)
+    let barColor = "";
+    if (barWidth < 34) {
+        barColor = "red";
+    } else if (barWidth >= 34 && barWidth < 68) {
+        barColor = "#cca300";
+    } else {
+        barColor = "green";
+    }
+    textEl.textContent = format(balance) + " / " + format(cap)
+    barEl.style.width = barWidth + '%'
+    barEl.style.backgroundColor = barColor
 }
 
 export const visualUpdateCorruptions = () => {

@@ -475,6 +475,15 @@ document.getElementById('acceleratorHepteractCraft').addEventListener('click', (
 document.getElementById('acceleratorBoostHepteractCraft').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.craft())
 document.getElementById('multiplierHepteractCraft').addEventListener('click', () => player.hepteractCrafts.multiplier.craft())
 
+document.getElementById('chronosHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.chronos.craft(true))
+document.getElementById('hyperrealismHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.hyperrealism.craft(true))
+document.getElementById('quarkHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.quark.craft(true))
+document.getElementById('challengeHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.challenge.craft(true))
+document.getElementById('abyssHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.abyss.craft(true))
+document.getElementById('acceleratorHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.accelerator.craft(true))
+document.getElementById('acceleratorBoostHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.craft(true))
+document.getElementById('multiplierHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.multiplier.craft(true))
+
 document.getElementById('chronosHepteractCap').addEventListener('click', () => player.hepteractCrafts.chronos.expand())
 document.getElementById('hyperrealismHepteractCap').addEventListener('click', () => player.hepteractCrafts.hyperrealism.expand())
 document.getElementById('quarkHepteractCap').addEventListener('click', () => player.hepteractCrafts.quark.expand())

@@ -15,8 +15,9 @@ export interface IHepteractCraft {
     DISCOUNT?: number 
 }
 
-type hepteractTypes = 'chronos' | 'hyperrealism' | 'quark' | 'challenge' |
-                      'abyss' | 'accelerator' | 'acceleratorBoost' | 'multiplier'
+export const hepteractTypeList = ['chronos', 'hyperrealism', 'quark', 'challenge',
+    'abyss', 'accelerator', 'acceleratorBoost', 'multiplier' ]  //This allows looping over the types.. and therefore bracket notation is usable
+export type hepteractTypes = typeof hepteractTypeList[number]
 
 export class HepteractCraft {
     /**
@@ -75,12 +76,20 @@ export class HepteractCraft {
     }
 
     // Add to balance through crafting.
-    craft = async() : Promise<HepteractCraft> => {
+    craft = async (max: Boolean = false): Promise<HepteractCraft> => {
+        let craftAmount = null;
         //Prompt used here. Thank you Khafra for the already made code! -Platonic
-        const craftingPrompt = await Prompt('How many would you like to craft?');
-        if (craftingPrompt === null) // Number(null) is 0. Yeah..
-            return Alert('Okay, maybe next time.');
-        const craftAmount = Number(craftingPrompt)
+        if (!max) {
+            const craftingPrompt = await Prompt('How many would you like to craft?');
+            if (craftingPrompt === null) // Number(null) is 0. Yeah..
+                return Alert('Okay, maybe next time.');
+            craftAmount = Number(craftingPrompt)
+        } else {
+            const craftYesPlz = await Confirm('This will attempt to buy as many as possible. Are you sure?')
+            if (!craftYesPlz) 
+                return Alert('Okay, maybe next time.');
+            craftAmount = this.CAP
+        }
 
         //Check these lol
         if (Number.isNaN(craftAmount) || !Number.isFinite(craftAmount)) // nan + Infinity checks

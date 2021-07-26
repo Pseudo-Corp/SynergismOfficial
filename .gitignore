@@ -3,3 +3,8 @@ node_modules/
 !update-last-updated.js
 dist
 !.eslintrc.js
+.vs/SynergismOfficial/v16/.suo
+.vs/SynergismOfficial/config/applicationhost.config
+.vs/slnx.sqlite
+.vs/ProjectSettings.json
+.vs/VSWorkspaceState.json
