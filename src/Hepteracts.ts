@@ -15,9 +15,10 @@ export interface IHepteractCraft {
     DISCOUNT?: number 
 }
 
+export type hepteractTypes = 'chronos' | 'hyperrealism' | 'quark' | 'challenge' |
+    'abyss' | 'accelerator' | 'acceleratorBoost' | 'multiplier'
 export const hepteractTypeList = ['chronos', 'hyperrealism', 'quark', 'challenge',
-    'abyss', 'accelerator', 'acceleratorBoost', 'multiplier' ]  //This allows looping over the types.. and therefore bracket notation is usable
-export type hepteractTypes = typeof hepteractTypeList[number]
+    'abyss', 'accelerator', 'acceleratorBoost', 'multiplier' ]  //give me your forEach magic
 
 export class HepteractCraft {
     /**

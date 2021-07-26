@@ -502,8 +502,7 @@ export interface Player {
         abyss: HepteractCraft,
         accelerator: HepteractCraft,
         acceleratorBoost: HepteractCraft,
-        multiplier: HepteractCraft,
-        [key: string]: HepteractCraft   //This allows bracket notation, aka player.hepteractCrafts[type]
+        multiplier: HepteractCraft
     }
     overfluxOrbs: number
     overfluxPowder: number

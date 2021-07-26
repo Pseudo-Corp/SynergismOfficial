@@ -378,10 +378,10 @@ export const visualUpdateCubes = () => {
             break;
         case 6:
             document.getElementById('hepteractQuantity').textContent = format(player.wowAbyssals, 0, true)
+
             //Update the grid
-            //
-            hepteractTypeList.forEach((type: hepteractTypes) => {
-                UpdateHeptGridValues(type);
+            hepteractTypeList.forEach((type: string) => {
+                UpdateHeptGridValues(<hepteractTypes>type);
             });
 
             //orbs
@@ -407,6 +407,7 @@ const UpdateHeptGridValues = (type: hepteractTypes) => {
     const balance = player.hepteractCrafts[type].BAL
     const cap = player.hepteractCrafts[type].CAP
     const barWidth = Math.round((balance / cap) * 100)
+
     let barColor = "";
     if (barWidth < 34) {
         barColor = "red";
@@ -415,6 +416,7 @@ const UpdateHeptGridValues = (type: hepteractTypes) => {
     } else {
         barColor = "green";
     }
+
     textEl.textContent = format(balance) + " / " + format(cap)
     barEl.style.width = barWidth + '%'
     barEl.style.backgroundColor = barColor
