@@ -76,7 +76,7 @@ export class HepteractCraft {
     }
 
     // Add to balance through crafting.
-    craft = async (max: Boolean = false): Promise<HepteractCraft> => {
+    craft = async (max = false): Promise<HepteractCraft> => {
         let craftAmount = null;
         //Prompt used here. Thank you Khafra for the already made code! -Platonic
         if (!max) {

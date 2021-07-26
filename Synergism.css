@@ -2883,7 +2883,7 @@ header #obtainiumDisplay {
     grid-template-columns: repeat(4, 180px);
     margin-top: 10px;
     padding: 8px 8px;
-    width: calc(180px * 4 + 45);
+    width: calc(180px * 4 + 45px);
     border: 3px solid plum;
     grid-column: shop 2/4;
     grid-row: 1;
@@ -2898,17 +2898,20 @@ header #obtainiumDisplay {
     align-items: center;
 }
 
-#hepteractToQuark, #overfluxPowder {
+#hepteractToQuark,
+#overfluxPowder {
     display: grid;
     grid-template-columns: 12px 32px 31px 90px 15px;
     grid-template-rows: 32px 15px 15px 15px;
 }
 
-#hepteractToQuarkImage, #overfluxPowderImage {
+#hepteractToQuarkImage,
+#overfluxPowderImage {
     grid-column: 2;
 }
 
-#hepteractToQuarkTrade, #powderDayWarp {
+#hepteractToQuarkTrade,
+#powderDayWarp {
     grid-column: 4;
 }
 
@@ -2921,7 +2924,8 @@ header #obtainiumDisplay {
     display: block;
 }
 
-.heptGridInventoryLabel, .heptGridInventoryValue {
+.heptGridInventoryLabel,
+.heptGridInventoryValue {
     display: inline-block;
     float: left;
 }
@@ -2945,7 +2949,7 @@ header #obtainiumDisplay {
     height: 15px;
     position: relative;
     background: #555;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 2px;
     grid-column: 1 / span 3;
     text-align: center;
@@ -2957,15 +2961,13 @@ header #obtainiumDisplay {
 }
 
 .progressBar {
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    background-color: rgb(135,10,89);
-    background-image: linear-gradient( center bottom, rgb(43,194,83) 37%, rgb(84,240,84) 69% );
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
     overflow: hidden;
     left: 0;
-    top: 0px;
+    top: 0;
     position: absolute;
     z-index: 1;
 }
