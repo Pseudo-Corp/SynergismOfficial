@@ -1356,6 +1356,33 @@ export const CalcCorruptionStuff = () => {
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain)]
 }
 
+export const calcAscensionCount = () => {
+    let ascCount = 1;
+
+    if (player.challengecompletions[10] > 0) {
+        const {effectiveScore} = calculateAscensionScore();
+
+        if (player.ascensionCounter >= 10) {
+            if (player.achievements[188] > 0) {
+                ascCount += 99;
+            }
+
+            ascCount *= 1 + (player.ascensionCounter / 10 - 1) * 0.2
+                * (player.achievements[189] + player.achievements[202] + player.achievements[209] + player.achievements[216] + player.achievements[223]);
+        }
+
+        ascCount *= player.achievements[187] && Math.floor(effectiveScore) > 1e8 ? (Math.log(Math.floor(effectiveScore)) / Math.log(10) - 1) : 1;
+        ascCount *= G['challenge15Rewards'].ascensions;
+        ascCount *= (player.achievements[260] > 0 ? 1.1 : 1);
+        ascCount *= (player.achievements[261] > 0 ? 1.1 : 1);
+        ascCount *= (player.platonicUpgrades[15] > 0 ? 2 : 1);
+        ascCount *= (1 + 0.02 * player.platonicUpgrades[16]);
+        ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000));
+    }
+
+    return Math.floor(ascCount);
+};
+
 /**
  * Calculates the product of all Powder bonuses.
  * @returns The amount of Powder gained per Expired Orb on day reset

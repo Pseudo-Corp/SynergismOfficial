@@ -1,5 +1,9 @@
 import { player, clearInt, interval, format } from './Synergism';
-import { calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels, calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO } from './Calculate';
+import {
+    calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
+    calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
+    calcAscensionCount
+} from './Calculate';
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
@@ -516,27 +520,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             player.firstOwnedAnts += 1
         }
         if (player.challengecompletions[10] > 0) {
-            let ascCount = 1
-            if (player.ascensionCounter >= 10) {
-                if (player.achievements[188] > 0) {
-                    ascCount += 99
-                }
-                ascCount *= 1 + (player.ascensionCounter / 10 - 1 ) * 0.2 * (player.achievements[189] + player.achievements[202] + player.achievements[209] + player.achievements[216] + player.achievements[223])
-            }
-            if (player.achievements[187] > 0 && metaData[3] > 1e8) {
-                ascCount *= (Math.log(metaData[3]) / Math.log(10) - 1)
-            }
-            ascCount *= G['challenge15Rewards'].ascensions
-            if (player.achievements[260] > 0)
-                ascCount *= 1.10
-            if (player.achievements[261] > 0)
-                ascCount *= 1.10
-            if (player.platonicUpgrades[15] > 0)
-                ascCount *= 2
-            ascCount *= (1 + 0.02 * player.platonicUpgrades[16])
-            ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000))
-            ascCount = Math.floor(ascCount)
-            player.ascensionCount += ascCount;
+            player.ascensionCount += calcAscensionCount();
             player.wowCubes.add(metaData[4]); //Metadata is defined up in the top of the (i > 3.5) case
             player.wowTesseracts.add(metaData[5]);
             player.wowHypercubes.add(metaData[6]);
