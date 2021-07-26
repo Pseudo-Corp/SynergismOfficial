@@ -472,6 +472,8 @@ nav li:hover {
     text-align: center;
     padding: 0;
     color: gold;
+    margin: 0 auto;
+    max-width: 1500px;
 }
 
 #upgradesFlex {
@@ -2227,6 +2229,8 @@ p[id$="BlessingsTotal"] {
 #creditList {
     display: grid;
     grid-template-columns: repeat(4, minmax(250px, 1fr));
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .credit {
