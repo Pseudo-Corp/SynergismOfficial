@@ -380,8 +380,8 @@ export const visualUpdateCubes = () => {
             document.getElementById('hepteractQuantity').textContent = format(player.wowAbyssals, 0, true)
 
             //Update the grid
-            hepteractTypeList.forEach((type: string) => {
-                UpdateHeptGridValues(<hepteractTypes>type);
+            hepteractTypeList.forEach((type) => {
+                UpdateHeptGridValues(type);
             });
 
             //orbs

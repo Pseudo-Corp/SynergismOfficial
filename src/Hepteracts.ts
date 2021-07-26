@@ -15,10 +15,10 @@ export interface IHepteractCraft {
     DISCOUNT?: number 
 }
 
-export type hepteractTypes = 'chronos' | 'hyperrealism' | 'quark' | 'challenge' |
-    'abyss' | 'accelerator' | 'acceleratorBoost' | 'multiplier'
 export const hepteractTypeList = ['chronos', 'hyperrealism', 'quark', 'challenge',
-    'abyss', 'accelerator', 'acceleratorBoost', 'multiplier' ]  //give me your forEach magic
+    'abyss', 'accelerator', 'acceleratorBoost', 'multiplier'] as const;
+
+export type hepteractTypes = typeof hepteractTypeList[number];
 
 export class HepteractCraft {
     /**
