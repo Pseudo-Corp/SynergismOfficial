@@ -2897,12 +2897,11 @@ header #obtainiumDisplay {
     grid-template-columns: repeat(3, 60px);
     grid-template-rows: repeat(3, 28px);
     align-items: center;
-    /*margin: 5px 6px 5px 3px;*/
 }
 
 #hepteractGrid button {
     border: 2px solid pink;
-    width: 100%;/*56px;*/
+    width: 100%;
     height: 25px;
     transition-duration: 0.15s;
 }
@@ -2972,17 +2971,6 @@ header #obtainiumDisplay {
 .heptGridInventoryValue {
     float: right;
 }
-
-/*.hepteractType button {
-    border: 2px solid pink;
-    width: 56px;
-    height: 25px;
-    transition-duration: 0.15s;
-}
-
-.hepteractType button:hover {
-    background-color: #333;
-}*/
 
 #hepteractCraftTexts {
     display: flex;
