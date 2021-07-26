@@ -10,7 +10,7 @@ import { sumContents } from './Utility';
 import { getShopCosts, shopData } from './Shop';
 import { quarkHandler } from './Quark';
 import type { Player, ZeroToFour } from './types/Synergism';
-import { hepteractTypeList } from './Hepteracts';
+import { hepteractTypeList, hepteractTypes } from './Hepteracts';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== "buildings") {

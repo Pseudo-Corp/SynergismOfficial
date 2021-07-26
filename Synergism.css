@@ -2878,13 +2878,12 @@ header #obtainiumDisplay {
     font-size: 1em;
 }
 
-#hepteractGrid {
+.hepteractGrid {
     display: grid;
     grid-template-columns: repeat(4, 180px);
     margin-top: 10px;
     padding: 8px 8px;
     width: calc(180px * 4 + 45);
-    /*width: 694px;*/
     border: 3px solid plum;
     grid-column: shop 2/4;
     grid-row: 1;
@@ -2892,28 +2891,54 @@ header #obtainiumDisplay {
     grid-row-gap: 30px;
 }
 
-#hepteractGrid > div {
+.hepteractGrid > div {
     display: grid;
     grid-template-columns: repeat(3, 60px);
     grid-template-rows: repeat(3, 28px);
     align-items: center;
 }
 
-#hepteractGrid button {
+#hepteractToQuark, #overfluxPowder {
+    display: grid;
+    grid-template-columns: 12px 32px 31px 90px 15px;
+    grid-template-rows: 32px 15px 15px 15px;
+}
+
+#hepteractToQuarkImage, #overfluxPowderImage {
+    grid-column: 2;
+}
+
+#hepteractToQuarkTrade, #powderDayWarp {
+    grid-column: 4;
+}
+
+.heptTypeImage {
+    grid-row: 1 / span 2;
+}
+
+.heptGridInventory {
+    grid-column: 2 / span 3;
+    display: block;
+}
+
+.heptGridInventoryLabel, .heptGridInventoryValue {
+    display: inline-block;
+    float: left;
+}
+
+.heptGridInventoryValue {
+    float: right;
+}
+
+.hepteractGrid button {
     border: 2px solid pink;
     width: 100%;
     height: 25px;
     transition-duration: 0.15s;
 }
 
-#hepteractGrid button:hover {
+.hepteractGrid button:hover {
     background-color: #333;
-}
-
-.orbOrPowderGrid {
-    display: inline-grid;
-    grid-template-columns: 32px 60px;
-    grid-template-rows: 32px 15px 15px;
 }
 
 .meter {
@@ -2952,24 +2977,6 @@ header #obtainiumDisplay {
     transform: translateX(-50%);
     top: -2px;
     width: 100%;
-}
-
-.heptTypeImage {
-    grid-row: 1 / span 2;
-}
-
-.heptGridInventory {
-    grid-column: 1 / span 3;
-    display: block;
-}
-
-.heptGridInventoryLabel, .heptGridInventoryValue {
-    display: inline-block;
-    float: left;
-}
-
-.heptGridInventoryValue {
-    float: right;
 }
 
 #hepteractCraftTexts {
