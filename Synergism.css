@@ -801,8 +801,8 @@ nav li:hover {
     position: absolute;
     font-size: 11px;
     width: 220px;
-    left: 80%;
-    top: 30px;
+    left: 85%;
+    top: 32px;
     margin-left: -173px;
 }
 
@@ -861,10 +861,10 @@ nav li:hover {
     color: white;
     position: absolute;
     font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -120px;
+    width: 250px;
+    left: 85%;
+    top: 25px;
+    margin-left: -183px;
 }
 
 #toggletalismanbuy {
@@ -908,6 +908,8 @@ nav li:hover {
     padding: 0;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 #prestige {
@@ -916,6 +918,8 @@ nav li:hover {
     color: cyan;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 #crystalupgradestable { margin: 0 auto; }
@@ -1303,6 +1307,8 @@ nav li:hover {
     padding: 0;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 #transcension > .buttonRow {
@@ -1503,6 +1509,8 @@ nav li:hover {
     color: limegreen;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 #reincarnationTexts {
@@ -1775,6 +1783,8 @@ nav li:hover {
     position: relative;
     padding: 0;
     text-align: center;
+    max-width: 1500px;
+    margin: 0 auto;
 }
 
 #antsWrapper {
@@ -2162,6 +2172,8 @@ p[id$="BlessingsTotal"] {
     color: orange;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 #tesseractTexts { margin-top: 20px; }
