@@ -97,7 +97,7 @@ const statValues: ((el: HTMLElement) => void)[] = [
         });
     },
     el => {
-        const roomba = player.autoResearchToggle
+        const roomba = player.autoResearchToggle && player.autoResearchMode === 'cheapest'
         el.style.color = roomba ? 'green' : 'red'
         el.textContent = roomba ? 'ON' : 'OFF'
     },

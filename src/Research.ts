@@ -12,9 +12,8 @@ const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, 
 
 export const updateAutoResearch = (index: number, auto: boolean) => {
     /* If Cube Upgrade 9 (1x9) is purchased, then automation behaves differently.
-     You cannot manually put in your research index of interest; instead it does it for you.
      If not purchased, then clicking on a research icon while auto toggled will update research for you.*/
-    if (player.cubeUpgrades[9] > 0 && auto) {
+    if (player.cubeUpgrades[9] > 0 && auto && player.autoResearchMode === 'cheapest') {
 
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex];
 
@@ -39,7 +38,7 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
 
         return
     }
-    else if (!auto && player.cubeUpgrades[9] < 1){
+    else if (!auto && (player.cubeUpgrades[9] < 1 || player.autoResearchMode === 'manual')){
         /* We remove the old research HTML from the 'roomba' class and make the new index our 'roomba'
            class. We then update the index and consequently the coloring of the background based
            on what level (if any) the research has. This functionality is useless after

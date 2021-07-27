@@ -398,10 +398,26 @@ export const toggleAutoResearch = () => {
         el.textContent = "Automatic: ON"
     }
 
-    if (player.autoResearchToggle && player.cubeUpgrades[9] === 1) {
+    if (player.autoResearchToggle && player.cubeUpgrades[9] === 1 && player.autoResearchMode === 'cheapest') {
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
     }
 
+}
+
+export const toggleAutoResearchMode = () => {
+    const el = document.getElementById("toggleautoresearchmode")
+    if (player.autoResearchMode === 'cheapest') {
+        player.autoResearchMode = 'manual';
+        el.textContent = "Automatic mode: Manual";
+    } else {
+        player.autoResearchMode = 'cheapest';
+        el.textContent = "Automatic mode: Cheapest";
+    }
+    document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
+
+    if (player.autoResearchToggle && player.cubeUpgrades[9] === 1 && player.autoResearchMode === 'cheapest') {
+        player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
+    }
 }
 
 export const toggleAutoSacrifice = (index: number) => {
