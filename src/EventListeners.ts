@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation } from "./Toggles"
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleBuyMaxShop } from "./Toggles"
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from "./Reset"
 import { player, resetCheck, saveSynergy } from "./Synergism"
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels } from "./Buy"
@@ -78,6 +78,17 @@ export const generateEventHandlers = () => {
     document.getElementById('reincarnatechallengebtn').addEventListener('mouseover', () => resetrepeat("reincarnationChallenge"))
     document.getElementById('ascendChallengeBtn').addEventListener('mouseover', () => resetrepeat("ascensionChallenge"))
     document.getElementById('ascendbtn').addEventListener('mouseover', () => resetrepeat("ascension"))
+
+    for (const resetButton of Array.from(document.querySelectorAll('.resetbtn'))) {
+        resetButton.addEventListener('mouseout', () => {
+            if (player.currentChallenge.reincarnation) {
+                resetrepeat('reincarnationChallenge');
+            } else if (player.currentChallenge.transcension) {
+                resetrepeat('transcensionChallenge');
+            }
+        });
+    }
+
 //Onclick Events (this is particularly bad)
     document.getElementById('prestigebtn').addEventListener('click', () => resetCheck('prestige'))
     document.getElementById('transcendbtn').addEventListener('click', () => resetCheck('transcend'))
@@ -333,6 +344,10 @@ export const generateEventHandlers = () => {
     for (let index = 0; index < 15; index++) {
     
         document.getElementById(`challenge${index+1}`).addEventListener('click', () => challengeDisplay(index+1))
+        document.getElementById(`challenge${index+1}`).addEventListener('dblclick', () => {
+            challengeDisplay(index+1);
+            toggleChallenges(G['triggerChallenge'], false)
+        });
     
     }
 //Part 2: QoL Buttons
@@ -535,6 +550,7 @@ TODO: Fix this entire tab it's utter shit
 // Part 1: The Settings
 /*Respec The Upgrades*/ document.getElementById('resetShopUpgrades').addEventListener('click', () => resetShopUpgrades())
 /*Toggle Shop Confirmations*/ document.getElementById('toggleConfirmShop').addEventListener('click', () => toggleShopConfirmation())
+/*Toggle Shop Buy Max*/ document.getElementById('toggleBuyMaxShop').addEventListener('click', () => toggleBuyMaxShop())
 
 // Part 2: Potions
 /*Offering Potion*/

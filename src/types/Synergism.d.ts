@@ -448,6 +448,7 @@ export interface Player {
     prototypeCorruptions: number[]
     usedCorruptions: number[]
     corruptionLoadouts: Record<number, number[]>
+    corruptionLoadoutNames: string[]
     corruptionShowStats: boolean,
 
     constantUpgrades: number[]
@@ -643,6 +644,7 @@ export interface GlobalVariables {
     runeSum: number
 
     shopConfirmation: boolean,
+    shopBuyMax: boolean,
 
     globalAntMult: Decimal
     antMultiplier: Decimal

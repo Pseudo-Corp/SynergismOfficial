@@ -2592,7 +2592,7 @@
                 <div id="corruptionLoadouts" style="display: none">
                     <table id="corruptionLoadoutTable">
                         <tr>
-                            <th></th>
+                            <th class="corrLoadoutNameCol"></th>
                             <th>
                                 <img src="Pictures/Divisiveness Level 7.png" class="corruptionImg small" alt="" loading="lazy">
                             </th>
@@ -2753,7 +2753,7 @@
         <h1>Artists</h1>
         <div id="artistList"></div>
     </div>
-    <div class="subtabContent subtabDisplayGrid" id="statisticsSubTab">
+    <div class="subtabContent subtabDisplayFlex" id="statisticsSubTab">
         <div id="statsForNerds">
             <button class="statsNerds" id="kMisc" style="border: 2px solid gold; background-color: crimson;">Miscellaneous Stats</button>
             <button class="statsNerds" id="kFreeAccel" style="border: 2px solid yellow">Free Accelerators</button>
@@ -3135,6 +3135,7 @@
                     <div id="shopButtons">
                         <button id="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button>
                         <button id="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
+                        <button id="toggleBuyMaxShop" style="border: 2px solid white">Buy Max: OFF</button>
                     </div>
                     <div id="shopHovers">
                         <p style="color: white; font-size: 1.2em;">Hover over each portion of the shop to see what each upgrade does!</p>
