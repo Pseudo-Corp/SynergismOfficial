@@ -544,7 +544,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             player.wowAbyssals += metaData[8];
         }
 
-        for (let j = 1; j <= 10; j++) {
+        for (let j = 0; j <= 10; j++) {
             player.challengecompletions[j] = 0;
             player.highestchallengecompletions[j] = 0;
         }
