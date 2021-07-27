@@ -639,7 +639,6 @@ nav li:hover {
 }
 
 #promocodeinfo {
-    word-break: break-all;
     width: 75%;
     margin: 0 auto;
 }
