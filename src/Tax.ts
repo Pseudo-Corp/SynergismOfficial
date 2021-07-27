@@ -46,9 +46,10 @@ export const calculatetax = () => {
         e = 0.000005
     }
     //im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
+    // player.challengecompletions[0] a result of old saves carrying over c1 challenge completions, and future proofs c13 from any old storages.
     if (player.currentChallenge.ascension === 13) {
         e *= 700 * (1 + 1 / 6 * player.challengecompletions[13])
-        e *= Math.pow(1.05, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15] - 3 * player.cubeUpgrades[49]))
+        e *= Math.pow(1.05, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[0] - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15] - 3 * player.cubeUpgrades[49]))
     }
     if (player.challengecompletions[6] > 0) {
         f /= 1.075
