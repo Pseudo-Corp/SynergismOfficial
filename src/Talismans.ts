@@ -3,6 +3,7 @@ import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
 import { calculateRuneLevels } from './Calculate';
 import { achievementaward } from './Achievements';
+import { Alert } from './UpdateHTML';
 
 const talismanResourceCosts = {
     shard: {
@@ -135,7 +136,6 @@ export const buyTalismanResources = (type: keyof typeof talismanResourceCosts, p
 export const showTalismanEffect = (i: number) => {
     document.getElementById("talismanlevelup").style.display = "none"
     document.getElementById("talismanEffect").style.display = "block"
-    document.getElementById("talismanrespec").style.display = "none"
     const a = document.getElementById("talismanSummary")
     const b = document.getElementById("talismanBonus")
     const c = document.getElementById("talismanRune1Effect")
@@ -225,7 +225,6 @@ export const showTalismanEffect = (i: number) => {
 export const showTalismanPrices = (i: number) => {
     document.getElementById("talismanEffect").style.display = "none"
     document.getElementById("talismanlevelup").style.display = "block"
-    document.getElementById("talismanrespec").style.display = "none"
     const a = document.getElementById("talismanShardCost")
     const b = document.getElementById("talismanCommonFragmentCost")
     const c = document.getElementById("talismanUncommonFragmentCost")
@@ -259,7 +258,6 @@ export const showTalismanPrices = (i: number) => {
 export const showEnhanceTalismanPrices = (i: number) => {
     document.getElementById("talismanEffect").style.display = "none"
     document.getElementById("talismanlevelup").style.display = "block"
-    document.getElementById("talismanrespec").style.display = "none"
     const a = document.getElementById("talismanShardCost")
     const b = document.getElementById("talismanCommonFragmentCost")
     const c = document.getElementById("talismanUncommonFragmentCost")
@@ -284,26 +282,18 @@ export const showEnhanceTalismanPrices = (i: number) => {
     g.textContent = format(m * costArray[7]);
 }
 
-export const showRespecInformation = (i: number) => {
-    G['talismanRespec'] = i;
-    document.getElementById("talismanEffect").style.display = "none"
-    document.getElementById("talismanlevelup").style.display = "none"
+export const showRespecInformation = () => {
     document.getElementById("talismanrespec").style.display = "block"
 
     const runeName = ["Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"]
     const runeModifier = ["Positive", "Positive", "Positive", "Positive"]
-    if (i <= 7) {
+
+    for (let i = 1; i <= 7; i++) {
         for (let k = 1; k <= 5; k++) {
-            G['mirrorTalismanStats'][k] = player[`talisman${num[i-1]}` as const][k];
-        }
-        document.getElementById("confirmTalismanRespec").textContent = "Confirm [-100,000 Offerings]"
+            G['mirrorTalismanStats'][k] = player[`talisman${num[i - 1]}` as const][k];
+        }        
     }
-    if (i === 8) {
-        for (let k = 1; k <= 5; k++) {
-            G['mirrorTalismanStats'][k] = 1;
-        }
-        document.getElementById("confirmTalismanRespec").textContent = "Confirm ALL [-400,000 Offerings]"
-    }
+
     for (let j = 1; j <= 5; j++) {
         if (G['mirrorTalismanStats'][j] === 1) {
             document.getElementById("talismanRespecButton" + j).style.border = "2px solid limegreen";
@@ -315,10 +305,13 @@ export const showRespecInformation = (i: number) => {
         document.getElementById("talismanRespecButton" + j).textContent = runeName[j-1] + ": " + runeModifier[j-1]
     }
 
+    const confirmBtnText = (player.achievements[197] > 0.5) ? "Confirm" : "Confirm [-400,000 Offerings]"
+    document.getElementById("confirmTalismanRespec").textContent = confirmBtnText
     document.getElementById("confirmTalismanRespec").style.display = "none"
 }
 
 export const changeTalismanModifier = (i: number) => {
+    document.getElementById("cancelTalismanRespec").style.display = "block"; 
     const runeName = [null, "Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"];
     const el = document.getElementById("talismanRespecButton" + i);
     if (G['mirrorTalismanStats'][i] === 1) {
@@ -343,35 +336,27 @@ export const changeTalismanModifier = (i: number) => {
 
 }
 
-export const respecTalismanConfirm = (i: number) => {
-    if (player.runeshards >= 100000 && i <= 7) {
-        for (let j = 1; j <= 5; j++) {
-            player[`talisman${num[i-1]}` as const][j] = G['mirrorTalismanStats'][j];
-        }
-        player.runeshards -= 100000;
-        document.getElementById("confirmTalismanRespec").style.display = "none";
-        document.getElementById("talismanrespec").style.display = "none";
-        document.getElementById("talismanEffect").style.display = "block";
-        showTalismanEffect(i);
-    } else if (player.runeshards >= 400000 && i === 8) {
-        player.runeshards -= 400000
+export const respecTalismanConfirm = () => {
+    if ((player.runeshards >= 400000) || (player.achievements[197] > 0.5)) {
+        const offCost = (player.achievements[197] > 0.5) ? 0 : 400000
+        player.runeshards -= offCost
         for (let j = 1; j <= 7; j++) {
             for (let k = 1; k <= 5; k++) {
-                player[`talisman${num[j-1]}` as const][k] = G['mirrorTalismanStats'][k];
+                player[`talisman${num[j - 1]}` as const][k] = G['mirrorTalismanStats'][k];
             }
         }
         document.getElementById("confirmTalismanRespec").style.display = "none";
+        document.getElementById("cancelTalismanRespec").style.display = "none";
+    } else {
+        Alert("Hey! You don't have enough offerings!")
     }
 
     calculateRuneLevels();
 }
 
-export const respecTalismanCancel = (i: number) => {
-    document.getElementById("talismanrespec").style.display = "none"
-    if (i <= 7) {
-        document.getElementById("talismanEffect").style.display = "block";
-        showTalismanEffect(i);
-    }
+export const respecTalismanCancel = () => {
+    showRespecInformation();
+    document.getElementById("cancelTalismanRespec").style.display = "none"
 }
 
 export const updateTalismanAppearance = (i: number) => {

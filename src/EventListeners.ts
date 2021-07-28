@@ -314,13 +314,11 @@ export const generateEventHandlers = () => {
         document.getElementById(`leveluptalisman${index+1}`).addEventListener('click', () => buyTalismanLevels(index+1))
         document.getElementById(`enhancetalisman${index+1}`).addEventListener('mouseover', () => showEnhanceTalismanPrices(index+1))
         document.getElementById(`enhancetalisman${index+1}`).addEventListener('click', () => buyTalismanEnhance(index+1))
-        document.getElementById(`respectalisman${index+1}`).addEventListener('click', () => showRespecInformation(index+1))
 
     }
 
-    document.getElementById('respecAllTalismans').addEventListener('click', () => showRespecInformation(8))
-    document.getElementById('confirmTalismanRespec').addEventListener('click', () => respecTalismanConfirm(G['talismanRespec']))
-    document.getElementById('cancelTalismanRespec').addEventListener('click', () => respecTalismanCancel(G['talismanRespec']))
+    document.getElementById('confirmTalismanRespec').addEventListener('click', () => respecTalismanConfirm())
+    document.getElementById('cancelTalismanRespec').addEventListener('click', () => respecTalismanCancel())
 
     for (let index = 0; index < 5; index++) {
         

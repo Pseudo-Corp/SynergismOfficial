@@ -1326,14 +1326,12 @@
                     <span id="talismanFragmentCost">Cost for 1: 1e6 Obtainium</span>
                 </div>
                 <div class="talismansContainer">
-                    <button class="talismanBtn" id="respecAllTalismans">RESPEC ALL</button>
                     <div class="talismanContainer" id="talisman1area">
                         <span class="talismanName" style="color: limegreen;">Exemption</span>
                         <img class="talismanIcon" id="talisman1" src="Pictures/taxtalisman.png" alt="" loading="lazy">
                         <span class="talismanLevel" id="talisman1level" style="color: white">Level 0/30</span>
                         <button class="talismanBtn" id="leveluptalisman1" style="color: silver; border: 2px solid white;">FORTIFY</button>
                         <button class="talismanBtn" id="enhancetalisman1" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                        <button class="talismanBtn" id="respectalisman1" style="color: plum; border: 2px solid white">RESPEC</button>
                     </div>
                     <div class="talismanContainer" id="talisman2area">
                         <span class="talismanName" style="color: cyan">Chronos</span>
@@ -1341,7 +1339,6 @@
                         <span class="talismanLevel" id="talisman2level" style="color: white">Level 0/30</span>
                         <button class="talismanBtn" id="leveluptalisman2" style="color: silver; border: 2px solid white;">FORTIFY</button>
                         <button class="talismanBtn" id="enhancetalisman2" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                        <button class="talismanBtn" id="respectalisman2" style="color: plum; border: 2px solid white">RESPEC</button>
                     </div>
                     <div class="talismanContainer" id="talisman3area">
                         <span class="talismanName" style="color: orange">Midas</span>
@@ -1349,7 +1346,6 @@
                         <span class="talismanLevel" id="talisman3level" style="color: white">Level 0/30</span>
                         <button class="talismanBtn" id="leveluptalisman3" style="color: silver; border: 2px solid white;">FORTIFY</button>
                         <button class="talismanBtn" id="enhancetalisman3" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                        <button class="talismanBtn" id="respectalisman3" style="color: plum; border: 2px solid white">RESPEC</button>
                     </div>
                     <div class="talismanContainer" id="talisman4area">
                         <span class="talismanName" style="color: salmon">Metaphysics</span>
@@ -1357,7 +1353,6 @@
                         <span class="talismanLevel" id="talisman4level" style="color: white">Level 0/30</span>
                         <button class="talismanBtn" id="leveluptalisman4" style="color: silver; border: 2px solid white;">FORTIFY</button>
                         <button class="talismanBtn" id="enhancetalisman4" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                        <button class="talismanBtn" id="respectalisman4" style="color: plum; border: 2px solid white">RESPEC</button>
                     </div>
                     <div class="talismanContainer" id="talisman5area">
                         <span class="talismanName" style="color: crimson">Polymath</span>
@@ -1365,7 +1360,6 @@
                         <span class="talismanLevel" id="talisman5level" style="color: white">Level 0/30</span>
                         <button class="talismanBtn" id="leveluptalisman5" style="color: silver; border: 2px solid white;">FORTIFY</button>
                         <button class="talismanBtn" id="enhancetalisman5" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                        <button class="talismanBtn" id="respectalisman5" style="color: plum; border: 2px solid white">RESPEC</button>
                     </div>
                     <div class="talismanContainer" id="talisman6area">
                         <span class="talismanName" style="color: burlywood">Mortuus Est</span>
@@ -1373,7 +1367,6 @@
                         <span class="talismanLevel" id="talisman6level" style="color: white">Level 0/30</span>
                         <button class="talismanBtn" id="leveluptalisman6" style="color: silver; border: 2px solid white;">FORTIFY</button>
                         <button class="talismanBtn" id="enhancetalisman6" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                        <button class="talismanBtn" id="respectalisman6" style="color: plum; border: 2px solid white">RESPEC</button>
                     </div>
                     <div class="talismanContainer" id="talisman7area">
                         <span class="talismanName" style="color: chartreuse">Plastic</span>
@@ -1381,7 +1374,6 @@
                         <span class="talismanLevel" id="talisman7level" style="color: white">Level 0/30</span>
                         <button class="talismanBtn" id="leveluptalisman7" style="color: silver; border: 2px solid white;">FORTIFY</button>
                         <button class="talismanBtn" id="enhancetalisman7" style="color: gold; border: 2px solid orangered">ENHANCE</button>
-                        <button class="talismanBtn" id="respectalisman7" style="color: plum; border: 2px solid white">RESPEC</button>
                     </div>
                 </div>
 
@@ -1396,8 +1388,8 @@
                             </tr>
                         </table>
                         <span id="toggletalismanbuy">Toggle percent resources used</span>
+                        <button id="toggleautofortify">Auto Fortify: OFF</button>
                         <button id="toggleautoenhance">Auto Enhance: OFF</button>
-                        <button id="toggleautofortify">Auto Enhance: OFF</button>
                     </div>
                 </div>
 
@@ -1436,15 +1428,15 @@
                     </table>
                 </div>
 
-                <div id="talismanrespec" style="display: none">
+                <div id="talismanrespec">
                     <p id="talismanRespecSummary" style="color: orchid">+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+</p>
                     <button class="talismanRespecBtn" id="talismanRespecButton1">Speed Rune: POSITIVE</button>
                     <button class="talismanRespecBtn" id="talismanRespecButton2">Duplication Rune: POSITIVE</button>
                     <button class="talismanRespecBtn" id="talismanRespecButton3">Prism Rune: POSITIVE</button>
                     <button class="talismanRespecBtn" id="talismanRespecButton4">Thrift Rune: POSITIVE</button>
                     <button class="talismanRespecBtn" id="talismanRespecButton5">SI Rune: POSITIVE</button>
-                    <button class="talismanRespecBtn" id="confirmTalismanRespec" style="border: 2px solid plum">Confirm for 100,000 Offerings.</button>
-                    <button class="talismanRespecBtn" id="cancelTalismanRespec" style="border: 2px solid red">Cancel respec changes</button>
+                    <button class="talismanRespecBtn" id="confirmTalismanRespec">Confirm for 100,000 Offerings.</button>
+                    <button class="talismanRespecBtn" id="cancelTalismanRespec">Cancel respec changes</button>
                 </div>
             </div>
             <div id="runeContainer3" style="display: none">

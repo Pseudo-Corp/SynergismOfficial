@@ -1165,15 +1165,15 @@ nav li:hover {
     color: plum;
     border: 2px solid white;
     left: 70px;
-    top: 290px;
+    top: 490px;
 }
 
 #talismanEffect {
     position: absolute;
-    left: 50%;
+    left: 40%;
     width: 600px;
     margin-left: -300px;
-    top: 290px;
+    top: 260px;
     text-align: center;
 }
 
@@ -1221,10 +1221,10 @@ nav li:hover {
 
 #talismanlevelup {
     position: absolute;
-    left: 50%;
+    left: 40%;
     width: 600px;
     margin-left: -200px;
-    top: 330px;
+    top: 300px;
     text-align: center;
 }
 
@@ -1236,10 +1236,10 @@ nav li:hover {
 
 #talismanrespec {
     position: absolute;
-    left: 50%;
+    left: 69%;
     width: 600px;
     margin-left: -300px;
-    top: 290px;
+    top: 260px;
     text-align: center;
 }
 
@@ -1286,14 +1286,18 @@ nav li:hover {
 
 #confirmTalismanRespec {
     position: absolute;
-    top: 112px;
-    left: 430px;
+    top: 247px;
+    left: 200px;
+    border: 2px solid gold;
+    display: none;
 }
 
 #cancelTalismanRespec {
     position: absolute;
-    top: 143px;
-    left: 430px;
+    top: 215px;
+    left: 200px;
+    border: 2px solid red;
+    display: none;
 }
 
 #transcension {

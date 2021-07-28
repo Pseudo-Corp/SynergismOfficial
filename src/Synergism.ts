@@ -12,7 +12,7 @@ import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAs
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck } from './Calculate';
-import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
+import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels, showRespecInformation } from './Talismans';
 import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
@@ -1238,7 +1238,8 @@ const loadSynergy = () => {
         document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + "%";
 
         document.getElementById("talismanlevelup").style.display = "none"
-        document.getElementById("talismanrespec").style.display = "none"
+        showRespecInformation();
+
         calculatePlatonicBlessings();
         calculateHypercubeBlessings();
         calculateTesseractBlessings();
