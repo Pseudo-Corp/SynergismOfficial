@@ -514,6 +514,7 @@ export interface Player {
 export interface GlobalVariables {
     runediv: number[]
     runeexpbase: number[]
+    runeMaxLvl: number
     upgradeCosts: number[]
 
     // Mega list of Variables to be used elsewhere
