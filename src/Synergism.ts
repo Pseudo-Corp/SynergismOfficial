@@ -1564,19 +1564,11 @@ export const format = (
 }
 
 export const formatTimeShort = (seconds: number, msMaxSeconds?: number): string => {
-    return ((seconds >= 86400)
-        ? format(Math.floor(seconds / 86400)) + "d"
-        : '') +
-        ((seconds >= 3600)
-            ? format(Math.floor(seconds / 3600) % 24) + "h"
-            : '') +
-        ((seconds >= 60)
-            ? format(Math.floor(seconds / 60) % 60) + "m"
-            : '') +
-        format(Math.floor(seconds) % 60) +
-        ((msMaxSeconds && seconds < msMaxSeconds)
-            ? "." + (Math.floor((seconds % 1) * 1000).toString().padStart(3, '0'))
-            : '') + "s";
+    return ((seconds >= 86400) ? format(Math.floor(seconds / 86400)) + "d" : '') +
+        ((seconds >= 3600) ? format(Math.floor(seconds / 3600) % 24) + "h" : '') +
+        ((seconds >= 60)   ? format(Math.floor(seconds / 60) % 60) + "m"   : '') +
+        ((seconds >= 8640000) ? '' : format(Math.floor(seconds) % 60) + ((msMaxSeconds && seconds < msMaxSeconds)  //Don't show seconds when you're over 100 days, like honestly
+            ? "." + (Math.floor((seconds % 1) * 1000).toString().padStart(3, '0')) : '') + "s");
 }
 
 export const updateAllTick = (): void => {

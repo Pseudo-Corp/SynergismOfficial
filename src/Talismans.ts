@@ -268,7 +268,7 @@ export const showEnhanceTalismanPrices = (i: number) => {
     const f = document.getElementById("talismanLegendaryFragmentCost")
     const g = document.getElementById("talismanMythicalFragmentCost")
 
-    document.getElementById("talismanLevelUpSummary").textContent = "=-=-= Resources Required to ENHANCE =-=-="
+    document.getElementById("talismanLevelUpSummary").textContent = "-=-=- Resources Required to ENHANCE -=-=-"
     document.getElementById("talismanLevelUpSummary").style.color = "gold"
 
     const array = [G['commonTalismanEnhanceCost'], G['uncommonTalismanEnchanceCost'], G['rareTalismanEnchanceCost'], G['epicTalismanEnhanceCost'], G['legendaryTalismanEnchanceCost'], G['mythicalTalismanEnchanceCost']]

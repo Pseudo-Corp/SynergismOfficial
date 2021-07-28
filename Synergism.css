@@ -285,6 +285,7 @@ button:focus {
     display: flex;
     flex-direction: column;
     width: 50%;
+    min-width: 625px;
 }
 
 .resetsContainer {
@@ -308,10 +309,9 @@ button:focus {
 }
 
 #resetinfo {
-    text-align: center;
+    text-align: left; /*Keeps text from bouncing around*/
     font-size: 15px;
     font-variant-numeric: tabular-nums;
-    width: 600px;
 }
 
 #resetrewards > div {
@@ -555,6 +555,9 @@ nav li:hover {
     display: flex;
 }
 
+    margin-left: 25px;
+}
+
 .confirmationToggles {
     display: flex;
     flex-direction: row;
@@ -565,7 +568,8 @@ nav li:hover {
 #exportButtons {
     display: flex;
     flex-direction: column;
-    margin: 0.8em 0;
+    margin: 0.8em 0 0.8em 50px;
+    min-width: 300px;
 }
 
 #exportButtons > * { margin: 0.15em 0; }
@@ -810,6 +814,7 @@ nav li:hover {
     flex-direction: column;
     align-items: flex-start;
     width: 30%;
+    margin-top: 23px;
 }
 
 #buyamounttalisman {
@@ -1089,8 +1094,8 @@ nav li:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    width: 30%;
-    margin-top: 25px;
+    width: 33%;
+    margin-top: 23px;
 }
 
 .talismanShardContainer {
@@ -1229,7 +1234,7 @@ nav li:hover {
     left: 50%;
     width: 600px;
     margin-left: -200px;
-    top: 330px;
+    top: 327px;
     text-align: center;
 }
 
@@ -2466,6 +2471,7 @@ p[id$="BlessingsTotal"] {
 
 #historyAscendTable {
     min-width: 1180px;
+    white-space: nowrap;
 }
 
 .historyTableWrap {
@@ -2777,12 +2783,15 @@ header .img {
 
 .subHeader {
     display: flex;
+    max-width: 1250px;
 }
 
 .currenciesContainer {
     display: flex;
     flex-direction: column;
     width: 50%;
+    align-items: flex-start;
+    min-width: 625px;
 }
 
 .currencyRow {
@@ -2796,7 +2805,7 @@ header .img {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 140px;
+    min-width: 146px;
 }
 
 header #coinDisplay {
@@ -2880,6 +2889,10 @@ header #obtainiumDisplay {
 
 #ascHepteract {
     color: pink;
+}
+
+#ascTimeTakenStats {
+    min-width: 125px; /*prevent bouncing around*/
 }
 
 #ascTimeAccel {
