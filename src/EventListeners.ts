@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleBuyMaxShop } from "./Toggles"
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop } from "./Toggles"
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from "./Reset"
 import { player, resetCheck, saveSynergy } from "./Synergism"
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels } from "./Buy"
@@ -380,6 +380,7 @@ export const generateEventHandlers = () => {
 //Part 2: QoL buttons
     document.getElementById('toggleresearchbuy').addEventListener('click', () => toggleResearchBuy())
     document.getElementById('toggleautoresearch').addEventListener('click', () => toggleAutoResearch())
+    document.getElementById('toggleautoresearchmode').addEventListener('click', () => toggleAutoResearchMode())
 
 // ANTHILL TAB
 //Part 1: Ant Producers (Tiers 1-8)
@@ -559,6 +560,7 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('buyofferingpotion').addEventListener('mouseover', () => shopDescriptions("offeringPotion"))
     document.getElementById('useofferingpotion').addEventListener('mouseover', () => shopDescriptions("offeringPotion"))
     document.getElementById('buyofferingpotion').addEventListener('click', () => buyShopUpgrades("offeringPotion"))
+    document.getElementById('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
     document.getElementById('useofferingpotion').addEventListener('click', () => useConsumable("offeringPotion"))
 /*Obtainium Potion*/
     document.getElementById('obtainiumPotions').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
@@ -566,6 +568,7 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('buyobtainiumpotion').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
     document.getElementById('useobtainiumpotion').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
     document.getElementById('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))
+    document.getElementById('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
     document.getElementById('useobtainiumpotion').addEventListener('click', () => useConsumable("obtainiumPotion"))
 /* Permanent Upgrade Images */
     const shopKeys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
@@ -576,6 +579,7 @@ TODO: Fix this entire tab it's utter shit
             document.getElementById(`${key}`).addEventListener('mouseover', () => shopDescriptions(key))
             document.getElementById(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
             document.getElementById(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
+            document.getElementById(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
             document.getElementById(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
         }
     }

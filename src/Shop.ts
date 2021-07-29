@@ -1,6 +1,6 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
-import { Confirm, revealStuff } from './UpdateHTML';
+import { Alert, Confirm, revealStuff } from './UpdateHTML';
 import { calculateTimeAcceleration } from './Calculate';
 import { Player } from './types/Synergism';
 
@@ -358,8 +358,45 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
 }
 
+//strentax 07/21 Add function to convert code-name display to end-user friendly display of shop upgrades
+export const friendlyShopName = (input: ShopUpgradeNames) => {
+
+    const names: Record<ShopUpgradeNames, string> = {
+        offeringPotion: 'an offering potion',
+        obtainiumPotion: 'an obtainium potion',
+        offeringEX: 'Offering EX',
+        offeringAuto: 'Offering Auto',
+        obtainiumEX: 'Obtainium EX',
+        obtainiumAuto: 'Obtainium Auto',
+        instantChallenge: 'Instant Challenge Completions',
+        antSpeed: "Ant Speed",
+        cashGrab: 'Cash Grab',
+        shopTalisman: "the Plastic talisman",
+        seasonPass: 'a Season Pass',
+        challengeExtension: 'a Reincarnation Challenge cap increase',
+        challengeTome: 'a Challenge 10 requirement reduction',
+        cubeToQuark: 'a 50% improvement to quark gain from Cube opening',
+        tesseractToQuark: 'a 50% improvement to quark gain from Tesseract opening',
+        hypercubeToQuark: 'a 50% improvement to quark gain from Hypercube opening',
+        seasonPass2: 'a Season Pass 2',
+        seasonPass3: 'a Season Pass 3',
+        chronometer: 'a 1% ascension speedup',
+        infiniteAscent: 'the Infinite Ascent rune',
+        calculator: 'a PL-AT calculator',
+        calculator2: 'a PL-AT X calculator',
+        calculator3: 'a PL-AT Ω calculator',
+        constantEX: 'Constant EX',
+        powderEX: 'Powder EX'
+    }
+
+    return names[input];
+
+}
+
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     let p = true;
+    const maxLevel = player.shopUpgrades[input] === shopData[input].maxLevel;
+    const canAfford = Number(player.worlds) >= getShopCosts(input);
     let upgradeCounter = 0;
     let totalCost = 0;
 
@@ -374,14 +411,25 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
 
     if (G['shopConfirmation']) {
         // revert the simulation by adding back the quarks and removing the shopUpgrades
-        player.worlds.add(totalCost);
+        player.worlds.add(totalCost, false); //Do NOT remove the second argument. Otherwise causes an infinite quark dupe
         player.shopUpgrades[input] -= upgradeCounter;
-
-        p = await Confirm(`Are you sure you'd like to purchase ${upgradeCounter} x ${input} for ${format(totalCost)} Quarks?`);
-        if (p) {
-            // if the player confirms the purchase, reapply the simulation
-            player.worlds.sub(totalCost);
-            player.shopUpgrades[input] += upgradeCounter;
+        if (maxLevel) {
+            await Alert("You can't purchase " + friendlyShopName(input) + " because you already have the max level!")
+        }
+        else if (!canAfford) {
+            await Alert("You can't purchase " + friendlyShopName(input) + " because you don't have enough Quarks!")
+        }
+        else {
+          let noRefunds = "";
+          if (!shopData[input].refundable) {
+              noRefunds = " REMINDER: No refunds!"
+          }
+          p = await Confirm(`Are you sure you'd like to purchase ${upgradeCounter} x ${friendlyShopName(input)} for ${format(totalCost)} Quarks? Press 'OK' to finalize purchase. ${noRefunds}`);
+          if (p) {
+              // if the player confirms the purchase, reapply the simulation
+              player.worlds.sub(totalCost);
+              player.shopUpgrades[input] += upgradeCounter;
+          }
         }
     }
     revealStuff();
