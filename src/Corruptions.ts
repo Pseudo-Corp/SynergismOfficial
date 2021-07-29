@@ -12,8 +12,8 @@ export const corruptionDisplay = (index: number) => {
         document.getElementById("corruptionSelectedPic").style.visibility = "visible"
     }
     G['corruptionTrigger'] = index
-    const currentExponent = ((index === 1 || index === 2) && player.usedCorruptions[i] >= 10 && player.platonicUpgrades[17] > 0) ? 1.75 + 0.02 * player.platonicUpgrades[17] : 1;
-    const protoExponent = ((index === 1 || index === 2) && player.prototypeCorruptions[i] >= 10 && player.platonicUpgrades[17] > 0) ? 1.75 + 0.02 * player.platonicUpgrades[17] : 1;
+    const currentExponent = ((index === 1 || index === 2) && player.usedCorruptions[i] >= 10) ? 1 + 0.75 * Math.min(1, player.platonicUpgrades[17]) + 0.0175 * player.platonicUpgrades[17] : 1;
+    const protoExponent = ((index === 1 || index === 2) && player.prototypeCorruptions[i] >= 10) ? 1 + 0.75 * Math.min(1, player.platonicUpgrades[17]) + 0.0175 * player.platonicUpgrades[17] : 1;
     const corruptionTexts: Record<'name' | 'description' | 'current' | 'planned' | 'multiplier' | 'spiritContribution' | 'image', string>[] = [
         {
             name: "Corruption I: Divisiveness",
