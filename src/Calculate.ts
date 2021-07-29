@@ -240,12 +240,16 @@ export const calculateMaxRunes = (i: number) => {
         10 * (player.researches[79] + player.researches[113]) + increaseAll,
         10 * (player.researches[77] + player.researches[114]) + increaseAll,
         10 * player.researches[115] + increaseAll,
-        -925,
+        -901,
         -998
     ]
 
     max += increaseMaxLevel[i]
     return max
+}
+
+export const calculateEffectiveIALevel = () => {
+    return player.runelevels[5] + Math.max(0, player.runelevels[5] - 74) + Math.max(0, player.runelevels[5] - 98)
 }
 
 export function calculateOfferings(input: resetNames): number;
@@ -971,7 +975,7 @@ export const calculateAllCubeMultiplier = () => {
         // Challenge 15: All Cube Gain bonuses 1-5
         G['challenge15Rewards'].cube1 * G['challenge15Rewards'].cube2 * G['challenge15Rewards'].cube3 * G['challenge15Rewards'].cube4 * G['challenge15Rewards'].cube5,
         // Rune 6: Infinite Ascent
-        1 + 1/100 * player.runelevels[5],
+        1 + 1/100 * calculateEffectiveIALevel(),
         // BETA: 2x Cubes
         1 + player.platonicUpgrades[10],
         // OMEGA: C9 Cube Bonus
@@ -1206,7 +1210,6 @@ export const calculateAscensionAcceleration = () => {
     const arr = [
         1 + player.shopUpgrades.chronometer / 100,                                                      // Shop Upgrade
         1 + 0.6/1000 * hepteractEffective('chronos'),                                                   // Hepteract
-        1 + 0.25 * player.achievements[259],                                                            // Achieve 259
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[262],   // Achieve 262
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263],   // Achieve 263
         1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // PLAT Omega
@@ -1309,14 +1312,15 @@ export const calculateAscensionScore = () => {
     baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39] + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]), player.highestchallengecompletions[10]);
     // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
     for (let i = 1; i <= 10; i++) {
-        const exponent = ((i === 1 || i === 2) && player.usedCorruptions[i] >= 10 && player.platonicUpgrades[17] > 0) ? 1.75 + 0.02 * player.platonicUpgrades[17] : 1;
+        const exponent = ((i === 1 || i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 0.75 * Math.min(1, player.platonicUpgrades[17]) + 0.0175 * player.platonicUpgrades[17] : 1;
         corruptionMultiplier *= Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i]], exponent);
     }
 
     effectiveScore = baseScore * corruptionMultiplier * G['challenge15Rewards'].score * G['platonicBonusMultiplier'][6]
     if (player.achievements[267] > 0)
         effectiveScore *= (1 + Math.min(1, 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
-
+    if (effectiveScore > 1e23)
+        effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
     return {baseScore: baseScore,
             corruptionMultiplier: corruptionMultiplier,
             effectiveScore: effectiveScore}

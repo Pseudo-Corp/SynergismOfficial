@@ -351,6 +351,8 @@ export const c15RewardUpdate = () => {
     if(e >= exponentRequirements[22]){
         //Ascension Score [10b]
         G['challenge15Rewards'][keys[22]] = 1 + 1 / 4 * Math.pow(e / 1e10 , 1 / 4)
+        if (e >= 1e20)
+            G['challenge15Rewards'][keys[22]] = 1 + 1 / 4 * Math.pow(e / 1e10, 1 / 8) * Math.pow(1e10, 1 / 8)
     }
     if(e >= exponentRequirements[23]){
         //Quark Gain [100b]
