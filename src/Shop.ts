@@ -200,7 +200,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +20% Quarks and +75% all cube types when maxed!"
+        description: "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +35% Quarks and +125% all cube types when maxed!"
     },
     calculator: {
         price: 1000,

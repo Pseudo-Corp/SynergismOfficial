@@ -490,7 +490,7 @@ export const areward = (i: number): string => {
         256: `Hypercube Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!`,
         257: `Platonic Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!`,
         258: `Hepteract Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]`,
-        259: "Ascensions are 25% faster, forever!",
+        259: "Corruption score is increased by 1% for every expansion of Abyss Hepteract! [WIP]",
         260: "You will gain 10% more ascension count, forever!",
         261: "You will gain 10% more ascension count, forever!",
         262: `Ascensions are ${format(Math.min(10, Math.log10(player.ascensionCount+1)), 2)}% faster! Max: +10%`,

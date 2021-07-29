@@ -1,6 +1,6 @@
 /* Functions which Handle Quark Gains,  */
 
-import { calculateCubeQuarkMultiplier, calculateQuarkMultFromPowder} from "./Calculate";
+import { calculateCubeQuarkMultiplier, calculateEffectiveIALevel, calculateQuarkMultFromPowder} from "./Calculate";
 import { hepteractEffective } from "./Hepteracts"
 import { player } from "./Synergism"
 import { Alert } from "./UpdateHTML";
@@ -30,7 +30,7 @@ export const getQuarkMultiplier = () => {
         multiplier += (G['challenge15Rewards'].quarks - 1);
     }
     if (player.shopUpgrades.infiniteAscent) { // Purchased Infinite Ascent Rune
-        multiplier *= (1.1 + 0.15 / 75 * player.runelevels[5]);
+        multiplier *= (1.1 + 0.15 / 75 * calculateEffectiveIALevel());
     }
     if (player.challenge15Exponent >= 1e15) { // Challenge 15: Exceed 1e15 exponent reward
         multiplier *= (1 + 5/10000 * hepteractEffective('quark'));
