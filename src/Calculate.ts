@@ -1469,12 +1469,11 @@ export const eventCheck = () => {
     const end = new Date(eventEnd);
     const now = new Date();
 
-    if(now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
+    if(!G['isEvent'] && now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
         G['isEvent'] = true
         document.getElementById('eventCurrent').textContent = "ACTIVE UNTIL " + end
         document.getElementById('eventBuffs').textContent = "Current Buffs: +100% Quarks from code 'Add', +20.21% All Cube Types"
-    }
-    else{
+    } else if (G['isEvent']) {
         G['isEvent'] = false
         document.getElementById('eventCurrent').textContent = "INACTIVE"
         document.getElementById('eventBuffs').textContent = ""
