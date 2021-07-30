@@ -7,6 +7,7 @@ import { displayRuneInformation } from './Runes';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
 import { getMaxChallenges } from './Challenges';
 import { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const revealStuff = () => {
     const example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
@@ -493,14 +494,14 @@ const visualTab: Record<string, () => void> = {
 
 export const htmlInserts = () => {
     // ALWAYS Update these, for they are the most important resources
-    document.getElementById("coinDisplay").textContent = format(player.coins)
-    document.getElementById("offeringDisplay").textContent = format(player.runeshards)
-    document.getElementById("diamondDisplay").textContent = format(player.prestigePoints)
-    document.getElementById("mythosDisplay").textContent = format(player.transcendPoints)
-    document.getElementById("mythosshardDisplay").textContent = format(player.transcendShards)
-    document.getElementById("particlesDisplay").textContent = format(player.reincarnationPoints)
-    document.getElementById("quarkDisplay").textContent = format(player.worlds)
-    document.getElementById("obtainiumDisplay").textContent = format(player.researchPoints)
+    DOMCacheGetOrSet('coinDisplay').textContent = format(player.coins)
+    DOMCacheGetOrSet('offeringDisplay').textContent = format(player.runeshards)
+    DOMCacheGetOrSet('diamondDisplay').textContent = format(player.prestigePoints)
+    DOMCacheGetOrSet('mythosDisplay').textContent = format(player.transcendPoints)
+    DOMCacheGetOrSet('mythosshardDisplay').textContent = format(player.transcendShards)
+    DOMCacheGetOrSet('particlesDisplay').textContent = format(player.reincarnationPoints)
+    DOMCacheGetOrSet('quarkDisplay').textContent = format(player.worlds)
+    DOMCacheGetOrSet('obtainiumDisplay').textContent = format(player.researchPoints)
 
     updateAscensionStats()
 
