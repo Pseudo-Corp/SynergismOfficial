@@ -10,6 +10,7 @@ import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
 import { corruptionDisplay, corruptionLoadoutTableUpdate } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 type TabValue = { tabName: keyof typeof tabNumberConst, unlocked: boolean };
 type Tab = Record<number, TabValue>;
@@ -47,7 +48,7 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
     const subTabList = subTabsInMainTab(player.tabnumber).subTabList
     if (player.tabnumber !== -1) {
         for (let i = 0; i < subTabList.length; i++) {
-            const button = document.getElementById(subTabList[i].buttonID)
+            const button = DOMCacheGetOrSet(subTabList[i].buttonID)
             if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
                 player.subtabNumber = i
                 break;
@@ -135,18 +136,18 @@ export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) 
     player[`${type}buyamount` as const] = quantity;
     const a = ['one', 'ten', 'hundred', 'thousand'][quantity.toString().length - 1];
 
-    document.getElementById(`${type}${a}`).style.backgroundColor = "Green";
+    DOMCacheGetOrSet(`${type}${a}`).style.backgroundColor = "Green";
     if (quantity !== 1) {
-        document.getElementById(`${type}one`).style.backgroundColor = ""
+        DOMCacheGetOrSet(`${type}one`).style.backgroundColor = ""
     }
     if (quantity !== 10) {
-        document.getElementById(`${type}ten`).style.backgroundColor = ""
+        DOMCacheGetOrSet(`${type}ten`).style.backgroundColor = ""
     }
     if (quantity !== 100) {
-        document.getElementById(`${type}hundred`).style.backgroundColor = ""
+        DOMCacheGetOrSet(`${type}hundred`).style.backgroundColor = ""
     }
     if (quantity !== 1000) {
-        document.getElementById(`${type}thousand`).style.backgroundColor = ""
+        DOMCacheGetOrSet(`${type}thousand`).style.backgroundColor = ""
     }
 }
 
@@ -160,8 +161,8 @@ export const toggleShops = (toggle?: upgradeAutos) => {
     // toggle provided: we do not want to update every button
     if (toggle) {
         player.shoptoggles[toggle] = !player.shoptoggles[toggle]
-        document.getElementById(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle] ? 'green' : 'red';
-        document.getElementById(`${toggle}AutoUpgrade`).textContent = 'Auto: ' + (player.shoptoggles[toggle] ? 'ON': 'OFF');
+        DOMCacheGetOrSet(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle] ? 'green' : 'red';
+        DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = 'Auto: ' + (player.shoptoggles[toggle] ? 'ON': 'OFF');
     }
     else {
         const keys = Object.keys(player.shoptoggles) as (keyof Player['shoptoggles'])[]
@@ -169,8 +170,8 @@ export const toggleShops = (toggle?: upgradeAutos) => {
             const color = player.shoptoggles[key]? 'green': 'red'
             const auto = 'Auto: ' + (player.shoptoggles[key] ? 'ON' : 'OFF')
             console.log(key)
-            document.getElementById(`${key}AutoUpgrade`).style.borderColor = color
-            document.getElementById(`${key}AutoUpgrade`).textContent = auto
+            DOMCacheGetOrSet(`${key}AutoUpgrade`).style.borderColor = color
+            DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = auto
         }
     }
 }
@@ -310,7 +311,7 @@ export const toggleSubTab = (mainTab = 1, subTab = 0) => {
     if (tabs(mainTab).unlocked && subTabsInMainTab(mainTab).subTabList.length > 0) {
         if (mainTab === -1) {
             // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-            const btn = document.getElementById("settings").getElementsByClassName("subtabSwitcher")[0].children[subTab]
+            const btn = DOMCacheGetOrSet("settings").getElementsByClassName("subtabSwitcher")[0].children[subTab]
             if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked)
                 subTabsInMainTab(mainTab).tabSwitcher(subTabsInMainTab(mainTab).subTabList[subTab].subTabID, btn)
         } else {
@@ -324,26 +325,26 @@ export const toggleautoreset = (i: number) => {
     if (i === 1) {
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
             player.resettoggle1 = 2;
-            document.getElementById("prestigeautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet("prestigeautotoggle").textContent = "Mode: TIME"
         } else {
             player.resettoggle1 = 1;
-            document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet("prestigeautotoggle").textContent = "Mode: AMOUNT"
         }
     } else if (i === 2) {
         if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
             player.resettoggle2 = 2;
-            document.getElementById("transcendautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet("transcendautotoggle").textContent = "Mode: TIME"
         } else {
             player.resettoggle2 = 1;
-            document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet("transcendautotoggle").textContent = "Mode: AMOUNT"
         }
     } else if (i === 3) {
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
             player.resettoggle3 = 2;
-            document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet("reincarnateautotoggle").textContent = "Mode: TIME"
         } else {
             player.resettoggle3 = 1;
-            document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet("reincarnateautotoggle").textContent = "Mode: AMOUNT"
         }
     } else if (i === 4) {
         // To be ascend toggle
@@ -353,13 +354,13 @@ export const toggleautoreset = (i: number) => {
 export const toggleautobuytesseract = () => {
     if (player.tesseractAutoBuyerToggle === 1 || player.tesseractAutoBuyerToggle === 0) {
         player.tesseractAutoBuyerToggle = 2;
-        document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: OFF"
-        document.getElementById("tesseractautobuytoggle").style.border = "2px solid red"
+        DOMCacheGetOrSet("tesseractautobuytoggle").textContent = "Auto Buy: OFF"
+        DOMCacheGetOrSet("tesseractautobuytoggle").style.border = "2px solid red"
         
     } else {
         player.tesseractAutoBuyerToggle = 1;
-        document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: ON"
-        document.getElementById("tesseractautobuytoggle").style.border = "2px solid green"
+        DOMCacheGetOrSet("tesseractautobuytoggle").textContent = "Auto Buy: ON"
+        DOMCacheGetOrSet("tesseractautobuytoggle").style.border = "2px solid green"
     }
 }
 
@@ -381,19 +382,19 @@ export const toggleauto = () => {
 export const toggleResearchBuy = () => {
     if (G['maxbuyresearch']) {
         G['maxbuyresearch'] = false;
-        document.getElementById("toggleresearchbuy").textContent = "Upgrade: 1 Level"
+        DOMCacheGetOrSet("toggleresearchbuy").textContent = "Upgrade: 1 Level"
     } else {
         G['maxbuyresearch'] = true;
-        document.getElementById("toggleresearchbuy").textContent = "Upgrade: MAX [if possible]"
+        DOMCacheGetOrSet("toggleresearchbuy").textContent = "Upgrade: MAX [if possible]"
     }
 }
 
 export const toggleAutoResearch = () => {
-    const el = document.getElementById("toggleautoresearch")
+    const el = DOMCacheGetOrSet("toggleautoresearch")
     if (player.autoResearchToggle) {
         player.autoResearchToggle = false;
         el.textContent = "Automatic: OFF";
-        document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
+        DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
         player.autoResearch = 0;
     } else {
         player.autoResearchToggle = true;
@@ -407,7 +408,7 @@ export const toggleAutoResearch = () => {
 }
 
 export const toggleAutoResearchMode = () => {
-    const el = document.getElementById("toggleautoresearchmode")
+    const el = DOMCacheGetOrSet("toggleautoresearchmode")
     if (player.autoResearchMode === 'cheapest') {
         player.autoResearchMode = 'manual';
         el.textContent = "Automatic mode: Manual";
@@ -415,7 +416,7 @@ export const toggleAutoResearchMode = () => {
         player.autoResearchMode = 'cheapest';
         el.textContent = "Automatic mode: Cheapest";
     }
-    document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
+    DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
 
     if (player.autoResearchToggle && player.cubeUpgrades[9] === 1 && player.autoResearchMode === 'cheapest') {
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
@@ -423,23 +424,23 @@ export const toggleAutoResearchMode = () => {
 }
 
 export const toggleAutoSacrifice = (index: number) => {
-    const el = document.getElementById("toggleautosacrifice")
+    const el = DOMCacheGetOrSet("toggleautosacrifice")
     if (index === 0) {
         if (player.autoSacrificeToggle) {
             player.autoSacrificeToggle = false;
             el.textContent = "Auto Runes: OFF";
-            document.getElementById("toggleautosacrifice").style.border = "2px solid red"
+            DOMCacheGetOrSet("toggleautosacrifice").style.border = "2px solid red"
             player.autoSacrifice = 0;
         } else {
             player.autoSacrificeToggle = true;
             el.textContent = "Auto Runes: ON"
-            document.getElementById("toggleautosacrifice").style.border = "2px solid green"
+            DOMCacheGetOrSet("toggleautosacrifice").style.border = "2px solid green"
         }
     } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
         player.autoSacrifice = index;
     }
     for (let i = 1; i <= 5; i++) {
-        document.getElementById("rune" + i).style.backgroundColor = player.autoSacrifice === i ? "orange" : "#171717";
+        DOMCacheGetOrSet("rune" + i).style.backgroundColor = player.autoSacrifice === i ? "orange" : "#171717";
     }
     calculateRuneLevels();
 }
@@ -474,11 +475,11 @@ export const toggleBuildingScreen = (input: BuildingSubtab) => {
         }
     }
     for (const key in screen) {
-        document.getElementById(screen[key].screen).style.display = "none";
-        document.getElementById(screen[key].button).style.backgroundColor = "";
+        DOMCacheGetOrSet(screen[key].screen).style.display = "none";
+        DOMCacheGetOrSet(screen[key].button).style.backgroundColor = "";
     }
-    document.getElementById(screen[G['buildingSubTab']].screen).style.display = "flex"
-    document.getElementById(screen[G['buildingSubTab']].button).style.backgroundColor = "crimson"
+    DOMCacheGetOrSet(screen[G['buildingSubTab']].screen).style.display = "flex"
+    DOMCacheGetOrSet(screen[G['buildingSubTab']].button).style.backgroundColor = "crimson"
     player.subtabNumber = screen[G['buildingSubTab']].subtabNumber
 }
 
@@ -487,8 +488,8 @@ export const toggleRuneScreen = (index: number) => {
     G['runescreen'] = screens[index - 1];
 
     for (let i = 1; i <= 4; i++) {
-        const a = document.getElementById("toggleRuneSubTab" + i);
-        const b = document.getElementById("runeContainer" + i);
+        const a = DOMCacheGetOrSet("toggleRuneSubTab" + i);
+        const b = DOMCacheGetOrSet("runeContainer" + i);
         if (i === index) {
             a.style.border = "2px solid gold"
             a.style.backgroundColor = "crimson"
@@ -503,7 +504,7 @@ export const toggleRuneScreen = (index: number) => {
 }
 
 export const toggleautofortify = () => {
-    const el = document.getElementById("toggleautofortify");
+    const el = DOMCacheGetOrSet("toggleautofortify");
     if (player.autoFortifyToggle === false && player.researches[130] == 1) {
         el.textContent = "Auto Fortify: ON"
         el.style.border = "2px solid green"        
@@ -516,7 +517,7 @@ export const toggleautofortify = () => {
 }
 
 export const toggleautoenhance = () => {
-    const el = document.getElementById("toggleautoenhance");
+    const el = DOMCacheGetOrSet("toggleautoenhance");
     if (player.autoEnhanceToggle === false && player.researches[135] == 1) {
         el.textContent = "Auto Enhance: ON"
         el.style.border = "2px solid green"        
@@ -529,7 +530,7 @@ export const toggleautoenhance = () => {
 }
 
 const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonElement) => {
-    const subtabEl = document.getElementById(subtab);
+    const subtabEl = DOMCacheGetOrSet(subtab);
     if (subtabEl.classList.contains("subtabActive")) {
         return;
     }
@@ -558,8 +559,8 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
         const id = interval(refreshStats, 1000)
         refreshStats();
     } else if (subtab === 'creditssubtab') {
-        const credits = document.getElementById('creditList');
-        const artists = document.getElementById('artistList');
+        const credits = DOMCacheGetOrSet('creditList');
+        const artists = DOMCacheGetOrSet('artistList');
 
         if (credits.childElementCount > 0 || artists.childElementCount > 0)
             return;
@@ -620,7 +621,7 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
 }
 
 export const toggleShopConfirmation = () => {
-    const el = document.getElementById("toggleConfirmShop")
+    const el = DOMCacheGetOrSet("toggleConfirmShop")
     el.textContent = G['shopConfirmation']
         ? "Shop Confirmations: OFF"
         : "Shop Confirmations: ON";
@@ -629,7 +630,7 @@ export const toggleShopConfirmation = () => {
 }
 
 export const toggleBuyMaxShop = () => {
-    const el = document.getElementById("toggleBuyMaxShop")
+    const el = DOMCacheGetOrSet("toggleBuyMaxShop")
     el.textContent = G['shopBuyMax']
         ? "Buy Max: OFF"
         : "Buy Max: ON";
@@ -638,7 +639,7 @@ export const toggleBuyMaxShop = () => {
 }
 
 export const toggleAntMaxBuy = () => {
-    const el = document.getElementById("toggleAntMax");
+    const el = DOMCacheGetOrSet("toggleAntMax");
     el.textContent = player.antMax 
         ? "Buy Max: OFF"
         : "Buy Max: ON";
@@ -648,7 +649,7 @@ export const toggleAntMaxBuy = () => {
 
 export const toggleAntAutoSacrifice = (mode = 0) => {
     if (mode === 0) {
-        const el = document.getElementById("toggleAutoSacrificeAnt");
+        const el = DOMCacheGetOrSet("toggleAutoSacrificeAnt");
         if (player.autoAntSacrifice) {
             player.autoAntSacrifice = false;
             el.textContent = "Auto Sacrifice: OFF"
@@ -657,7 +658,7 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
             el.textContent = "Auto Sacrifice: ON"
         }
     } else if (mode === 1) {
-        const el = document.getElementById("autoSacrificeAntMode");
+        const el = DOMCacheGetOrSet("autoSacrificeAntMode");
         if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
             player.autoAntSacrificeMode = 2;
             el.textContent = "Mode: Real time";
@@ -669,7 +670,7 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
 }
 
 export const toggleMaxBuyCube = () => {
-    const el = document.getElementById("toggleCubeBuy")
+    const el = DOMCacheGetOrSet("toggleCubeBuy")
     if (G['buyMaxCubeUpgrades']) {
         G['buyMaxCubeUpgrades'] = false;
         el.textContent = "Upgrade: 1 Level wow"
@@ -682,7 +683,7 @@ export const toggleMaxBuyCube = () => {
 export const toggleCubeSubTab = (i: number) => {
     const numSubTabs = subTabsInMainTab(8).subTabList.length
     for (let j = 1; j <= numSubTabs; j++) {
-        const cubeTab = document.getElementById(`cubeTab${j}`);
+        const cubeTab = DOMCacheGetOrSet(`cubeTab${j}`);
         if (cubeTab.style.display === "flex" && j !== i) {
             cubeTab.style.display = "none"
         }
@@ -690,7 +691,7 @@ export const toggleCubeSubTab = (i: number) => {
             cubeTab.style.display = "flex"
             player.subtabNumber = j - 1
         }
-        document.getElementById("switchCubeSubTab" + j).style.backgroundColor = i === j ? "crimson" : ""
+        DOMCacheGetOrSet("switchCubeSubTab" + j).style.backgroundColor = i === j ? "crimson" : ""
     }
 
     visualUpdateCubes();
@@ -699,28 +700,28 @@ export const toggleCubeSubTab = (i: number) => {
 export const updateAutoChallenge = (i: number) => {
     switch (i) {
         case 1: {
-            const t = parseFloat((document.getElementById('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
+            const t = parseFloat((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.start = Math.max(t, 0);
-            document.getElementById("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s";
+            DOMCacheGetOrSet("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s";
             return;
         }
         case 2: {
-            const u = parseFloat((document.getElementById('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
+            const u = parseFloat((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.exit = Math.max(u, 0);
-            document.getElementById("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s";
+            DOMCacheGetOrSet("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s";
             return;
         }
         case 3: {
-            const v = parseFloat((document.getElementById('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
+            const v = parseFloat((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.enter = Math.max(v, 0);
-            document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s";
+            DOMCacheGetOrSet("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s";
             return;
         }
     }
 }
 
 export const toggleAutoChallengesIgnore = (i: number) => {
-    const el = document.getElementById("toggleAutoChallengeIgnore");
+    const el = DOMCacheGetOrSet("toggleAutoChallengeIgnore");
     if (player.autoChallengeToggles[i]) {
         el.style.border = "2px solid red";
         el.textContent = "Automatically Run Chal." + i + " [OFF]"
@@ -733,7 +734,7 @@ export const toggleAutoChallengesIgnore = (i: number) => {
 }
 
 export const toggleAutoChallengeRun = () => {
-    const el = document.getElementById('toggleAutoChallengeStart');
+    const el = DOMCacheGetOrSet('toggleAutoChallengeStart');
     if (player.autoChallengeRunning) {
         el.style.border = "2px solid red"
         el.textContent = "Auto Challenge Sweep [OFF]"
@@ -750,12 +751,12 @@ export const toggleAutoChallengeRun = () => {
 }
 
 export const toggleAutoChallengeModeText = (i: string) => {
-    const a = document.getElementById("autoChallengeType");
+    const a = DOMCacheGetOrSet("autoChallengeType");
     a.textContent = "MODE: " + i
 }
 
 export const toggleAutoAscend = () => {
-    const a = document.getElementById("ascensionAutoEnable");
+    const a = DOMCacheGetOrSet("ascensionAutoEnable");
     if (player.autoAscend) {
         a.style.border = "2px solid red"
         a.textContent = "Auto Ascend [OFF]";
@@ -770,22 +771,22 @@ export const toggleAutoAscend = () => {
 export const updateRuneBlessingBuyAmount = (i: number) => {
     switch (i) {
         case 1: {
-            const t = Math.floor(parseFloat((document.getElementById('buyRuneBlessingInput') as HTMLInputElement).value)) || 1;
+            const t = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value)) || 1;
             player.runeBlessingBuyAmount = Math.max(t, 1);
-            document.getElementById('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
+            DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
             return;
         }
         case 2: {
-            const u = Math.floor(parseFloat((document.getElementById('buyRuneSpiritInput') as HTMLInputElement).value)) || 1;
+            const u = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value)) || 1;
             player.runeSpiritBuyAmount = Math.max(u, 1);
-            document.getElementById('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
+            DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
             return;
         }
     }
 }
 
 export const toggleAutoTesseracts = (i: number) => {
-    const el = document.getElementById('tesseractAutoToggle' + i);
+    const el = DOMCacheGetOrSet('tesseractAutoToggle' + i);
     if (player.autoTesseracts[i]) {
         el.textContent = "Auto [OFF]"
         el.style.border = "2px solid red";
@@ -816,7 +817,7 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
         }
         
         corruptionDisplay(G['corruptionTrigger'])
-        document.getElementById("corruptionCleanseConfirm").style.visibility = "hidden";
+        DOMCacheGetOrSet("corruptionCleanseConfirm").style.visibility = "hidden";
 
         if (player.currentChallenge.ascension === 15) {
             resetCheck('ascensionChallenge', false, true)
@@ -832,7 +833,7 @@ export const toggleCorruptionLoadoutsStats = (stats: boolean) => {
 }
 
 export const toggleAscStatPerSecond = (id: number) => {
-    const el = document.getElementById(`unit${id}`);
+    const el = DOMCacheGetOrSet(`unit${id}`);
     if (!el) {
         console.log(id, 'platonic needs to fix');
         return;

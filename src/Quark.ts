@@ -5,6 +5,7 @@ import { hepteractEffective } from "./Hepteracts"
 import { player } from "./Synergism"
 import { Alert } from "./UpdateHTML";
 import { Globals as G } from "./Variables"
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const getQuarkMultiplier = () => {
     let multiplier = 1;
@@ -124,7 +125,7 @@ export class QuarkHandler {
     }    
 
     async getBonus() {
-        const el = document.getElementById('currentBonus');
+        const el = DOMCacheGetOrSet('currentBonus');
         if (localStorage.getItem('quarkBonus') !== null) { // is in cache
             const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus'));
             if (Date.now() - fetched < 60 * 1000 * 15) { // cache is younger than 15 minutes

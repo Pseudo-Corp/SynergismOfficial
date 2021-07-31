@@ -1,6 +1,7 @@
 import { player, format } from './Synergism';
 import { Synergism } from './Events';
 import { Alert, revealStuff } from './UpdateHTML';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const platonicUpgradeDesc = [
     '+0.0075% cubes per corruption level per level!',
@@ -292,60 +293,60 @@ export const createPlatonicDescription = (index: number) => {
         priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
     }
 
-    document.getElementById('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index-1];
-    document.getElementById('platonicUpgradeLevel').textContent = "Level: " + format(player.platonicUpgrades[index]) + "/" + format(platUpgradeBaseCosts[index].maxLevel) + maxLevelAppend
-    document.getElementById('platonicOfferingCost').textContent = format(player.runeshards) + "/" + format(platUpgradeBaseCosts[index].offerings * priceMultiplier) + " Offerings"
-    document.getElementById('platonicObtainiumCost').textContent = format(player.researchPoints) + "/" + format(platUpgradeBaseCosts[index].obtainium * priceMultiplier) + " Obtainium"
-    document.getElementById('platonicCubeCost').textContent = format(player.wowCubes) + "/" + format(platUpgradeBaseCosts[index].cubes * priceMultiplier) + " Wow! Cubes"
-    document.getElementById('platonicTesseractCost').textContent = format(player.wowTesseracts) + "/" + format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier) + " Wow! Tesseracts"
-    document.getElementById('platonicHypercubeCost').textContent = format(player.wowHypercubes) + "/" + format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier) + " Wow! Hypercubes"
-    document.getElementById('platonicPlatonicCost').textContent = format(player.wowPlatonicCubes) + "/" + format(platUpgradeBaseCosts[index].platonics * priceMultiplier) + " Platonic! Cubes"
-    document.getElementById('platonicHepteractCost').textContent = format(player.hepteractCrafts.abyss.BAL) + "/" + format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true) + " Hepteracts of the Abyss"
+    DOMCacheGetOrSet('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index-1];
+    DOMCacheGetOrSet('platonicUpgradeLevel').textContent = "Level: " + format(player.platonicUpgrades[index]) + "/" + format(platUpgradeBaseCosts[index].maxLevel) + maxLevelAppend
+    DOMCacheGetOrSet('platonicOfferingCost').textContent = format(player.runeshards) + "/" + format(platUpgradeBaseCosts[index].offerings * priceMultiplier) + " Offerings"
+    DOMCacheGetOrSet('platonicObtainiumCost').textContent = format(player.researchPoints) + "/" + format(platUpgradeBaseCosts[index].obtainium * priceMultiplier) + " Obtainium"
+    DOMCacheGetOrSet('platonicCubeCost').textContent = format(player.wowCubes) + "/" + format(platUpgradeBaseCosts[index].cubes * priceMultiplier) + " Wow! Cubes"
+    DOMCacheGetOrSet('platonicTesseractCost').textContent = format(player.wowTesseracts) + "/" + format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier) + " Wow! Tesseracts"
+    DOMCacheGetOrSet('platonicHypercubeCost').textContent = format(player.wowHypercubes) + "/" + format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier) + " Wow! Hypercubes"
+    DOMCacheGetOrSet('platonicPlatonicCost').textContent = format(player.wowPlatonicCubes) + "/" + format(platUpgradeBaseCosts[index].platonics * priceMultiplier) + " Platonic! Cubes"
+    DOMCacheGetOrSet('platonicHepteractCost').textContent = format(player.hepteractCrafts.abyss.BAL) + "/" + format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true) + " Hepteracts of the Abyss"
 
     resourceCheck.offerings ?
-        document.getElementById('platonicOfferingCost').style.color = "lime" :
-        document.getElementById('platonicOfferingCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicOfferingCost').style.color = "lime" :
+        DOMCacheGetOrSet('platonicOfferingCost').style.color = "crimson";
 
     resourceCheck.obtainium ?
-        document.getElementById('platonicObtainiumCost').style.color = "lime" :
-        document.getElementById('platonicObtainiumCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicObtainiumCost').style.color = "lime" :
+        DOMCacheGetOrSet('platonicObtainiumCost').style.color = "crimson";
 
     resourceCheck.cubes ?
-        document.getElementById('platonicCubeCost').style.color = "lime" :
-        document.getElementById('platonicCubeCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicCubeCost').style.color = "lime" :
+        DOMCacheGetOrSet('platonicCubeCost').style.color = "crimson";
 
     resourceCheck.tesseracts ?
-        document.getElementById('platonicTesseractCost').style.color = "lime" :
-        document.getElementById('platonicTesseractCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicTesseractCost').style.color = "lime" :
+        DOMCacheGetOrSet('platonicTesseractCost').style.color = "crimson";
 
     resourceCheck.hypercubes ?
-        document.getElementById('platonicHypercubeCost').style.color = "lime" :
-        document.getElementById('platonicHypercubeCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicHypercubeCost').style.color = "lime" :
+        DOMCacheGetOrSet('platonicHypercubeCost').style.color = "crimson";
 
     resourceCheck.platonics ?
-        document.getElementById('platonicPlatonicCost').style.color = "lime" :
-        document.getElementById('platonicPlatonicCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicPlatonicCost').style.color = "lime" :
+        DOMCacheGetOrSet('platonicPlatonicCost').style.color = "crimson";
 
     resourceCheck.abyssals ?
-        document.getElementById('platonicHepteractCost').style.color = "lime" :
-        document.getElementById('platonicHepteractCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicHepteractCost').style.color = "lime" :
+        DOMCacheGetOrSet('platonicHepteractCost').style.color = "crimson";
 
     if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
-        document.getElementById('platonicUpgradeLevel').style.color = 'cyan'
+        DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'cyan'
         resourceCheck.canBuy ?
-            (document.getElementById('platonicCanBuy').style.color = "gold", document.getElementById('platonicCanBuy').textContent = "===Affordable! Click to buy!===") :
-            (document.getElementById('platonicCanBuy').style.color = "crimson", document.getElementById('platonicCanBuy').textContent = "===You cannot afford this!===");
+            (DOMCacheGetOrSet('platonicCanBuy').style.color = "gold", DOMCacheGetOrSet('platonicCanBuy').textContent = "===Affordable! Click to buy!===") :
+            (DOMCacheGetOrSet('platonicCanBuy').style.color = "crimson", DOMCacheGetOrSet('platonicCanBuy').textContent = "===You cannot afford this!===");
     }
 
     if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
-        document.getElementById('platonicUpgradeLevel').style.color = 'gold'
-        document.getElementById('platonicCanBuy').style.color = "orchid"
-        document.getElementById('platonicCanBuy').textContent = "===Maxed==="
+        DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'gold'
+        DOMCacheGetOrSet('platonicCanBuy').style.color = "orchid"
+        DOMCacheGetOrSet('platonicCanBuy').textContent = "===Maxed==="
     }
 }
 
 export const updatePlatonicUpgradeBG = (i: number) => {
-    const a = document.getElementById(`platUpg${i}`)
+    const a = DOMCacheGetOrSet(`platUpg${i}`)
 
     const maxLevel = platUpgradeBaseCosts[i].maxLevel
     if (player.platonicUpgrades[i] === 0) {

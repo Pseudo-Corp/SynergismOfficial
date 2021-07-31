@@ -3,6 +3,7 @@ import { Globals as G } from './Variables';
 import { Alert, Confirm, revealStuff } from './UpdateHTML';
 import { calculateTimeAcceleration } from './Calculate';
 import { Player } from './types/Synergism';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 /* === CHANGELOG, 1.21.2021 ===
 1) Offering vals: (level)^2 / 200 ->  level/25
@@ -269,9 +270,9 @@ export const getShopCosts = (input: ShopUpgradeNames) => {
 }
 
 export const shopDescriptions = (input: ShopUpgradeNames) => {
-    const rofl = document.getElementById("quarkdescription");
-    const lol = document.getElementById("quarkeffect");
-    const refundable = document.getElementById('quarkRefundable')
+    const rofl = DOMCacheGetOrSet("quarkdescription");
+    const lol = DOMCacheGetOrSet("quarkeffect");
+    const refundable = DOMCacheGetOrSet('quarkRefundable')
 
     rofl.textContent = shopData[input].description;
 

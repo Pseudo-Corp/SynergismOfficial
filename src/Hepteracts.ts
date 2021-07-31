@@ -4,6 +4,7 @@ import { Cube } from "./CubeExperimental";
 import { format, player } from "./Synergism";
 import type { Player } from "./types/Synergism";
 import { Alert, Confirm, Prompt } from "./UpdateHTML";
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export interface IHepteractCraft {
     BASE_CAP: number,
@@ -235,17 +236,17 @@ export const hepteractEffective = (data: hepteractTypes) => {
 }
 
 export const hepteractDescriptions = (type: hepteractTypes) => {
-    document.getElementById('hepteractUnlockedText').style.display = 'block'
-    document.getElementById('hepteractCurrentEffectText').style.display = 'block'
-    document.getElementById('hepteractBalanceText').style.display = 'block'
-    document.getElementById('powderDayWarpText').style.display = 'none'
-    document.getElementById('hepteractCostText').style.display = 'block'
+    DOMCacheGetOrSet('hepteractUnlockedText').style.display = 'block'
+    DOMCacheGetOrSet('hepteractCurrentEffectText').style.display = 'block'
+    DOMCacheGetOrSet('hepteractBalanceText').style.display = 'block'
+    DOMCacheGetOrSet('powderDayWarpText').style.display = 'none'
+    DOMCacheGetOrSet('hepteractCostText').style.display = 'block'
 
-    const unlockedText = document.getElementById('hepteractUnlockedText')
-    const effectText = document.getElementById('hepteractEffectText')
-    const currentEffectText = document.getElementById('hepteractCurrentEffectText')
-    const balanceText = document.getElementById('hepteractBalanceText')
-    const costText = document.getElementById('hepteractCostText')
+    const unlockedText = DOMCacheGetOrSet('hepteractUnlockedText')
+    const effectText = DOMCacheGetOrSet('hepteractEffectText')
+    const currentEffectText = DOMCacheGetOrSet('hepteractCurrentEffectText')
+    const balanceText = DOMCacheGetOrSet('hepteractBalanceText')
+    const costText = DOMCacheGetOrSet('hepteractCostText')
     switch(type){
         case 'chronos':
             unlockedText.textContent = (player.hepteractCrafts.chronos.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
@@ -310,14 +311,14 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
  * Generates the description at the bottom of the page for Overflux Orb crafting
  */
 export const hepteractToOverfluxOrbDescription = () => {
-    document.getElementById('hepteractUnlockedText').style.display = 'none'
-    document.getElementById('powderDayWarpText').style.display = 'none'
-    document.getElementById('hepteractCostText').style.display = 'block'
+    DOMCacheGetOrSet('hepteractUnlockedText').style.display = 'none'
+    DOMCacheGetOrSet('powderDayWarpText').style.display = 'none'
+    DOMCacheGetOrSet('hepteractCostText').style.display = 'block'
 
-    document.getElementById('hepteractCurrentEffectText').textContent = 'Orb Effect: Opening Cubes gives ' + format(100 *(-1 + calculateCubeQuarkMultiplier()), 2, true) + "% more Quarks."
-    document.getElementById('hepteractBalanceText').textContent = 'Orbs Purchased Today: ' + format(player.overfluxOrbs, 0, true) + '.'
-    document.getElementById('hepteractEffectText').textContent = "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]"
-    document.getElementById('hepteractCostText').textContent = "Cost: 250,000 Hepteracts per Overflux Orb"
+    DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = 'Orb Effect: Opening Cubes gives ' + format(100 *(-1 + calculateCubeQuarkMultiplier()), 2, true) + "% more Quarks."
+    DOMCacheGetOrSet('hepteractBalanceText').textContent = 'Orbs Purchased Today: ' + format(player.overfluxOrbs, 0, true) + '.'
+    DOMCacheGetOrSet('hepteractEffectText').textContent = "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]"
+    DOMCacheGetOrSet('hepteractCostText').textContent = "Cost: 250,000 Hepteracts per Overflux Orb"
 }
 
 /**
@@ -352,14 +353,14 @@ export const overfluxPowderDescription = () => {
     let powderEffectText = "ALL Cube Gain +" + format(100 * (calculateCubeMultFromPowder() - 1), 2, true) + "% [Multiplicative], +" + format(100 * (calculateQuarkMultFromPowder() - 1), 3, true) + "% Quarks [Multiplicative]"
     if (player.platonicUpgrades[16] > 0)
         powderEffectText += ", Ascension Count +" + format(2 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 1e5), 2, true) + "%, " + "Tesseract Building Production x" + format(Decimal.pow(player.overfluxPowder + 1, 10 * player.platonicUpgrades[16])) + " [From Platonic Upgrade 4x1]" 
-    document.getElementById('hepteractUnlockedText').style.display = 'none'
-    document.getElementById('hepteractCurrentEffectText').textContent = "Powder effect: " + powderEffectText
-    document.getElementById('hepteractBalanceText').textContent = 'You have ' + format(player.overfluxPowder, 2, true) + ' lumps of Overflux Powder.'
-    document.getElementById('hepteractEffectText').textContent = `Expired Overflux Orbs become powder at a rate of ${format(1 / calculatePowderConversion().mult, 1, true)} Orbs per powder lump!`
-    document.getElementById('hepteractCostText').style.display = 'none'
+    DOMCacheGetOrSet('hepteractUnlockedText').style.display = 'none'
+    DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = "Powder effect: " + powderEffectText
+    DOMCacheGetOrSet('hepteractBalanceText').textContent = 'You have ' + format(player.overfluxPowder, 2, true) + ' lumps of Overflux Powder.'
+    DOMCacheGetOrSet('hepteractEffectText').textContent = `Expired Overflux Orbs become powder at a rate of ${format(1 / calculatePowderConversion().mult, 1, true)} Orbs per powder lump!`
+    DOMCacheGetOrSet('hepteractCostText').style.display = 'none'
 
-    document.getElementById('powderDayWarpText').style.display = 'block'
-    document.getElementById('powderDayWarpText').textContent = `Day Warps remaining today: ${player.dailyPowderResetUses}`
+    DOMCacheGetOrSet('powderDayWarpText').style.display = 'block'
+    DOMCacheGetOrSet('powderDayWarpText').textContent = `Day Warps remaining today: ${player.dailyPowderResetUses}`
 }
 
 /**

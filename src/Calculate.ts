@@ -11,6 +11,7 @@ import { hepteractEffective } from './Hepteracts';
 import { addTimers, automaticTools } from './Helper';
 import { Alert, Prompt, } from './UpdateHTML';
 import { quarkHandler } from './Quark';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] = 
@@ -790,8 +791,8 @@ export const timeWarp = async () => {
         )
             return Alert(`Hey! That's not a valid time!`);
     
-    document.getElementById('offlineContainer').style.display = 'flex'
-    document.getElementById('preload').style.display = 'block'
+    DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
+    DOMCacheGetOrSet('preload').style.display = 'block'
     calculateOffline(timeUse)
 }
 
@@ -805,15 +806,15 @@ export const calculateOffline = (forceTime = 0) => {
     const timeTick = timeAdd/200;
     let resourceTicks = 200;
 
-    document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " seconds of Offline Progress!";
+    DOMCacheGetOrSet("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " seconds of Offline Progress!";
 
     //May 11, 2021: I've revamped calculations for this significantly. Note to May 11 Platonic: Fuck off -May 15 Platonic
     //Some one-time tick things that are relatively important
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
 
-    document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
-    document.getElementById("offlineContainer").style.display = "flex";
+    DOMCacheGetOrSet('preload').style.display = (forceTime > 0) ? 'none' : 'block';
+    DOMCacheGetOrSet("offlineContainer").style.display = "flex";
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
@@ -889,20 +890,20 @@ export const calculateOffline = (forceTime = 0) => {
         }
     }, 0);
 
-    document.getElementById('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
-    document.getElementById('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
-    document.getElementById('offlineOfferingCountNumber').textContent = format(resetAdd.offering, 0, true)
-    document.getElementById('offlineTranscensionCountNumber').textContent = format(resetAdd.transcension, 0, true)
-    document.getElementById('offlineTranscensionTimerNumber').textContent = format(timerAdd.transcension, 2, false)
-    document.getElementById('offlineReincarnationCountNumber').textContent = format(resetAdd.reincarnation, 0, true)
-    document.getElementById('offlineReincarnationTimerNumber').textContent = format(timerAdd.reincarnation, 2, false)
-    document.getElementById('offlineObtainiumCountNumber').textContent = format(resetAdd.obtainium, 0, true)
-    document.getElementById('offlineAntTimerNumber').textContent = format(timerAdd.ants, 2, false)
-    document.getElementById('offlineRealAntTimerNumber').textContent = format(timerAdd.antsReal, 2, true)
-    document.getElementById('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
-    document.getElementById('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
+    DOMCacheGetOrSet('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
+    DOMCacheGetOrSet('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
+    DOMCacheGetOrSet('offlineOfferingCountNumber').textContent = format(resetAdd.offering, 0, true)
+    DOMCacheGetOrSet('offlineTranscensionCountNumber').textContent = format(resetAdd.transcension, 0, true)
+    DOMCacheGetOrSet('offlineTranscensionTimerNumber').textContent = format(timerAdd.transcension, 2, false)
+    DOMCacheGetOrSet('offlineReincarnationCountNumber').textContent = format(resetAdd.reincarnation, 0, true)
+    DOMCacheGetOrSet('offlineReincarnationTimerNumber').textContent = format(timerAdd.reincarnation, 2, false)
+    DOMCacheGetOrSet('offlineObtainiumCountNumber').textContent = format(resetAdd.obtainium, 0, true)
+    DOMCacheGetOrSet('offlineAntTimerNumber').textContent = format(timerAdd.ants, 2, false)
+    DOMCacheGetOrSet('offlineRealAntTimerNumber').textContent = format(timerAdd.antsReal, 2, true)
+    DOMCacheGetOrSet('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
+    DOMCacheGetOrSet('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
 
-    document.getElementById('progressbardescription').textContent = 'You have gained the following from offline progression!'
+    DOMCacheGetOrSet('progressbardescription').textContent = 'You have gained the following from offline progression!'
 
     player.offlinetick = updatedTime
     if (!player.loadedNov13Vers) {
@@ -920,7 +921,7 @@ export const calculateOffline = (forceTime = 0) => {
     calculateAnts();
     calculateRuneLevels();
 
-    const el = <HTMLButtonElement>document.getElementById("exitOffline")
+    const el = <HTMLButtonElement>DOMCacheGetOrSet("exitOffline")
     if (el) {  //if the button is present
         el.focus(); //Allow user to hit space/enter to proceed
     }
@@ -928,8 +929,8 @@ export const calculateOffline = (forceTime = 0) => {
 }
 
 export const exitOffline = () => {
-    document.getElementById("offlineContainer").style.display = "none";
-    document.getElementById("preload").style.display = "none";
+    DOMCacheGetOrSet("offlineContainer").style.display = "none";
+    DOMCacheGetOrSet("preload").style.display = "none";
 }
 
 export const calculateSigmoid = (constant: number, factor: number, divisor: number) => {
@@ -1428,15 +1429,15 @@ export const dailyResetCheck = () => {
         player.overfluxOrbs = G['challenge15Rewards'].freeOrbs
         player.dailyPowderResetUses = 1;
 
-        document.getElementById('cubeQuarksOpenRequirement').style.display = "block"
+        DOMCacheGetOrSet('cubeQuarksOpenRequirement').style.display = "block"
         if (player.challengecompletions[11] > 0) {
-            document.getElementById('tesseractQuarksOpenRequirement').style.display = "block"
+            DOMCacheGetOrSet('tesseractQuarksOpenRequirement').style.display = "block"
         }
         if (player.challengecompletions[13] > 0) {
-            document.getElementById('hypercubeQuarksOpenRequirement').style.display = "block"
+            DOMCacheGetOrSet('hypercubeQuarksOpenRequirement').style.display = "block"
         }
         if (player.challengecompletions[14] > 0) {
-            document.getElementById('platonicCubeQuarksOpenRequirement').style.display = "block"
+            DOMCacheGetOrSet('platonicCubeQuarksOpenRequirement').style.display = "block"
         }
     }
 }
@@ -1471,11 +1472,11 @@ export const eventCheck = () => {
 
     if(!G['isEvent'] && now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
         G['isEvent'] = true
-        document.getElementById('eventCurrent').textContent = "ACTIVE UNTIL " + end
-        document.getElementById('eventBuffs').textContent = "Current Buffs: +100% Quarks from code 'Add', +20.21% All Cube Types"
+        DOMCacheGetOrSet('eventCurrent').textContent = "ACTIVE UNTIL " + end
+        DOMCacheGetOrSet('eventBuffs').textContent = "Current Buffs: +100% Quarks from code 'Add', +20.21% All Cube Types"
     } else if (G['isEvent']) {
         G['isEvent'] = false
-        document.getElementById('eventCurrent').textContent = "INACTIVE"
-        document.getElementById('eventBuffs').textContent = ""
+        DOMCacheGetOrSet('eventCurrent').textContent = "INACTIVE"
+        DOMCacheGetOrSet('eventBuffs').textContent = ""
     }
 }
