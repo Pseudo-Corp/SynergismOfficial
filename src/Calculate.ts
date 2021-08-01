@@ -1470,11 +1470,11 @@ export const eventCheck = () => {
     const end = new Date(eventEnd);
     const now = new Date();
 
-    if(!G['isEvent'] && now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
+    if(now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
         G['isEvent'] = true
         DOMCacheGetOrSet('eventCurrent').textContent = "ACTIVE UNTIL " + end
         DOMCacheGetOrSet('eventBuffs').textContent = "Current Buffs: +100% Quarks from code 'Add', +20.21% All Cube Types"
-    } else if (G['isEvent']) {
+    } else {
         G['isEvent'] = false
         DOMCacheGetOrSet('eventCurrent').textContent = "INACTIVE"
         DOMCacheGetOrSet('eventBuffs').textContent = ""
