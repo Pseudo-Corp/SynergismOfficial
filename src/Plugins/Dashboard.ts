@@ -1,3 +1,4 @@
+import { DOMCacheGetOrSet } from '../Cache/DOM';
 import { CalcCorruptionStuff } from '../Calculate';
 import { platUpgradeBaseCosts } from '../Platonic';
 import { player, format } from '../Synergism';
@@ -77,10 +78,10 @@ const GM_addStyle = (css: string) => {
 
 const statValues: ((el: HTMLElement) => void)[] = [
     el => el.textContent = format(player.ascendShards),
-    el => el.textContent = document.getElementById("cubeBlessingTotalAmount").textContent,
-    el => el.textContent = document.getElementById("tesseractBlessingTotalAmount").textContent,
-    el => el.textContent = document.getElementById("hypercubeBlessingTotalAmount").textContent,
-    el => el.textContent = document.getElementById("platonicBlessingTotalAmount").textContent,
+    el => el.textContent = DOMCacheGetOrSet("cubeBlessingTotalAmount").textContent,
+    el => el.textContent = DOMCacheGetOrSet("tesseractBlessingTotalAmount").textContent,
+    el => el.textContent = DOMCacheGetOrSet("hypercubeBlessingTotalAmount").textContent,
+    el => el.textContent = DOMCacheGetOrSet("platonicBlessingTotalAmount").textContent,
     el => el.textContent = player.challengecompletions.slice(11, 15).join(' / '),
     el => el.textContent = format(player.challenge15Exponent, 0),
     el => el.textContent = player.runeBlessingLevels.slice(1, 6).map(x => format(x)).join(' / '),
@@ -97,7 +98,7 @@ const statValues: ((el: HTMLElement) => void)[] = [
         });
     },
     el => {
-        const roomba = player.autoResearchToggle
+        const roomba = player.autoResearchToggle && player.autoResearchMode === 'cheapest'
         el.style.color = roomba ? 'green' : 'red'
         el.textContent = roomba ? 'ON' : 'OFF'
     },
@@ -180,7 +181,7 @@ tab.innerHTML = `
 </div>
 `;
 
-const settingsTab = document.getElementById('settings');
+const settingsTab = DOMCacheGetOrSet('settings');
 const button = document.createElement('button');
 button.className = 'ascendunlockib';
 

@@ -7,6 +7,7 @@ import { buyUpgrades } from './Buy';
 import { buyGenerator } from './Generators';
 import { buyAutobuyers } from './Automation';
 import { revealStuff } from './UpdateHTML';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const upgdesc: Record<string, string> = {
     upgdesc1: "Increase production of Workers per producer bought.", //Coin Upgrades 1-20
@@ -297,14 +298,14 @@ const upgradetexts = [
 ]
 
 export const upgradeeffects = (i: number) => {
-    document.getElementById("upgradeeffect").textContent = "Effect: " + upgradetexts[i - 1]();
+    DOMCacheGetOrSet("upgradeeffect").textContent = "Effect: " + upgradetexts[i - 1]();
 }
 
 export const upgradedescriptions = (i: number) => {
     const y = upgdesc[`upgdesc${i}`];
     const z = player.upgrades[i] > 0.5 ? ' BOUGHT!' : '';
 
-    const el = document.getElementById("upgradedescription");
+    const el = DOMCacheGetOrSet("upgradedescription");
     el.textContent = y + z;
     el.style.color = player.upgrades[i] > 0.5 ? 'gold' : 'white';
 
@@ -361,8 +362,8 @@ export const upgradedescriptions = (i: number) => {
         color = "limegreen"
     }
 
-    document.getElementById("upgradecost").textContent = "Cost: " + format(Decimal.pow(10, G['upgradeCosts'][i])) + " " + currency
-    document.getElementById("upgradecost").style.color = color
+    DOMCacheGetOrSet("upgradecost").textContent = "Cost: " + format(Decimal.pow(10, G['upgradeCosts'][i])) + " " + currency
+    DOMCacheGetOrSet("upgradecost").style.color = color
     upgradeeffects(i)
 }
 
@@ -375,14 +376,14 @@ export const crystalupgradedescriptions = (i: number) => {
         (Math.floor(G['rune3level'] * G['effectiveLevelMult'] /16) * 100 / 100);
     
     const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)))
-    document.getElementById("crystalupgradedescription").textContent = returnCrystalUpgDesc(i)
-    document.getElementById("crystalupgradeslevel").textContent = "Level: " + p;
-    document.getElementById("crystalupgradescost").textContent = "Cost: " + format(q) + " crystals"
+    DOMCacheGetOrSet("crystalupgradedescription").textContent = returnCrystalUpgDesc(i)
+    DOMCacheGetOrSet("crystalupgradeslevel").textContent = "Level: " + p;
+    DOMCacheGetOrSet("crystalupgradescost").textContent = "Cost: " + format(q) + " crystals"
 }
 
 
 export const upgradeupdate = (num: number, fast?: boolean) => {
-    const el = document.getElementById(`upg${num}`);
+    const el = DOMCacheGetOrSet(`upg${num}`);
     if (player.upgrades[num] > 0.5 && ((num <= 60 || num > 80) && (num <= 93 || num > 100))) {
         el.style.backgroundColor = "green"
     } else if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100) || (num > 120))) {
@@ -393,8 +394,8 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
     const c = player.upgrades[num] > 0.5 ? ' BOUGHT!' : '';
     if (player.upgrades[num] > 0.5) {
         if (!fast) {
-            document.getElementById("upgradedescription").textContent = b + c
-            document.getElementById("upgradedescription").style.color = "gold"
+            DOMCacheGetOrSet("upgradedescription").textContent = b + c
+            DOMCacheGetOrSet("upgradedescription").style.color = "gold"
         }
     } else {
         el.style.backgroundColor = "Black"
@@ -442,10 +443,10 @@ export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
 
 export const constantUpgradeDescriptions = (i: number) => {
     const [level, cost] = getConstUpgradeMetadata(i)
-    document.getElementById("constUpgradeDescription").textContent = returnConstUpgDesc(i)
-    document.getElementById("constUpgradeLevel2").textContent = format(player.constantUpgrades[i])
-    document.getElementById("constUpgradeCost2").textContent = format(cost) + " [+" + format(level) + " LVL]"
-    document.getElementById("constUpgradeEffect2").textContent = returnConstUpgEffect(i)
+    DOMCacheGetOrSet("constUpgradeDescription").textContent = returnConstUpgDesc(i)
+    DOMCacheGetOrSet("constUpgradeLevel2").textContent = format(player.constantUpgrades[i])
+    DOMCacheGetOrSet("constUpgradeCost2").textContent = format(cost) + " [+" + format(level) + " LVL]"
+    DOMCacheGetOrSet("constUpgradeEffect2").textContent = returnConstUpgEffect(i)
 }
 
 export const buyConstantUpgrades = (i: number, fast = false) => {
