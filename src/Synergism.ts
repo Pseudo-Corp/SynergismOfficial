@@ -1220,7 +1220,7 @@ const loadSynergy = () => {
         getElementById<HTMLInputElement>("enterAutoChallengeTimerInput").value = player.autoChallengeTimer.enter + '';
 
         corruptionStatsUpdate();
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
             corruptionLoadoutTableUpdate(i);
         }
         showCorruptionStatsLoadouts()
