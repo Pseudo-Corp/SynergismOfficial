@@ -38,6 +38,7 @@ import './Hotkeys';
 import { startHotkeys } from './Hotkeys';
 import { updatePlatonicUpgradeBG } from './Platonic';
 import { testing, version, lastUpdated } from './Config';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -663,7 +664,7 @@ export const saveSynergy = (button?: boolean) => {
     }
 
     if (button) {
-        const el = document.getElementById('saveinfo');
+        const el = DOMCacheGetOrSet('saveinfo');
         el.textContent = 'Game saved successfully!';
         setTimeout(() => el.textContent = '', 4000);
     }
@@ -1173,7 +1174,7 @@ const loadSynergy = () => {
                     d = 'thousand'
                 }
                 const e = q[j] + d;
-                document.getElementById(e).style.backgroundColor = ""
+                DOMCacheGetOrSet(e).style.backgroundColor = ""
             }
             let c;
             const curBuyAmount = player[`${q[j]}buyamount` as const];
@@ -1191,7 +1192,7 @@ const loadSynergy = () => {
             }
 
             const b = q[j] + c;
-            document.getElementById(b).style.backgroundColor = "green"
+            DOMCacheGetOrSet(b).style.backgroundColor = "green"
 
         }
 
@@ -1211,11 +1212,11 @@ const loadSynergy = () => {
         revealStuff();
         toggleauto();
 
-        document.getElementById("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s"
+        DOMCacheGetOrSet("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s"
         getElementById<HTMLInputElement>("startAutoChallengeTimerInput").value = player.autoChallengeTimer.start + '';
-        document.getElementById("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s"
+        DOMCacheGetOrSet("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s"
         getElementById<HTMLInputElement>("exitAutoChallengeTimerInput").value = player.autoChallengeTimer.exit + '';
-        document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s"
+        DOMCacheGetOrSet("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s"
         getElementById<HTMLInputElement>("enterAutoChallengeTimerInput").value = player.autoChallengeTimer.enter + '';
 
         corruptionStatsUpdate();
@@ -1226,19 +1227,19 @@ const loadSynergy = () => {
         updateCorruptionLoadoutNames()
 
         for (let j = 1; j <= 5; j++) {
-            const ouch = document.getElementById("tesseractAutoToggle" + j);
+            const ouch = DOMCacheGetOrSet("tesseractAutoToggle" + j);
             (player.autoTesseracts[j]) ?
                 (ouch.textContent = "Auto [ON]", ouch.style.border = "2px solid green") :
                 (ouch.textContent = "Auto [OFF]", ouch.style.border = "2px solid red");
         }
 
-        document.getElementById("buyRuneBlessingToggleValue").textContent = format(player.runeBlessingBuyAmount, 0, true);
-        document.getElementById("buyRuneSpiritToggleValue").textContent = format(player.runeSpiritBuyAmount, 0, true);
+        DOMCacheGetOrSet("buyRuneBlessingToggleValue").textContent = format(player.runeBlessingBuyAmount, 0, true);
+        DOMCacheGetOrSet("buyRuneSpiritToggleValue").textContent = format(player.runeSpiritBuyAmount, 0, true);
 
-        document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + "%";
+        DOMCacheGetOrSet("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + "%";
 
-        document.getElementById("talismanlevelup").style.display = "none"
-        document.getElementById("talismanrespec").style.display = "none"
+        DOMCacheGetOrSet("talismanlevelup").style.display = "none"
+        DOMCacheGetOrSet("talismanrespec").style.display = "none"
         calculatePlatonicBlessings();
         calculateHypercubeBlessings();
         calculateTesseractBlessings();
@@ -1257,72 +1258,72 @@ const loadSynergy = () => {
 
 
         if (player.resettoggle1 === 1) {
-            document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet("prestigeautotoggle").textContent = "Mode: AMOUNT"
         }
         if (player.resettoggle2 === 1) {
-            document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet("transcendautotoggle").textContent = "Mode: AMOUNT"
         }
         if (player.resettoggle3 === 1) {
-            document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet("reincarnateautotoggle").textContent = "Mode: AMOUNT"
         }
 
         if (player.resettoggle1 === 2) {
-            document.getElementById("prestigeautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet("prestigeautotoggle").textContent = "Mode: TIME"
         }
         if (player.resettoggle2 === 2) {
-            document.getElementById("transcendautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet("transcendautotoggle").textContent = "Mode: TIME"
         }
         if (player.resettoggle3 === 2) {
-            document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet("reincarnateautotoggle").textContent = "Mode: TIME"
         }
 
         if (player.tesseractAutoBuyerToggle === 1) {
-            document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: ON"
-            document.getElementById("tesseractautobuytoggle").style.border = "2px solid green"
+            DOMCacheGetOrSet("tesseractautobuytoggle").textContent = "Auto Buy: ON"
+            DOMCacheGetOrSet("tesseractautobuytoggle").style.border = "2px solid green"
         }
         if (player.tesseractAutoBuyerToggle === 2) {
-            document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: OFF"
-            document.getElementById("tesseractautobuytoggle").style.border = "2px solid red"
+            DOMCacheGetOrSet("tesseractautobuytoggle").textContent = "Auto Buy: OFF"
+            DOMCacheGetOrSet("tesseractautobuytoggle").style.border = "2px solid red"
         }
 
         if (player.autoResearchToggle) {
-            document.getElementById("toggleautoresearch").textContent = "Automatic: ON"
+            DOMCacheGetOrSet("toggleautoresearch").textContent = "Automatic: ON"
         }
         if (!player.autoResearchToggle) {
-            document.getElementById("toggleautoresearch").textContent = "Automatic: OFF"
+            DOMCacheGetOrSet("toggleautoresearch").textContent = "Automatic: OFF"
         }
         if (player.autoResearchMode === 'cheapest') {
-            document.getElementById("toggleautoresearchmode").textContent = "Automatic mode: Cheapest"
+            DOMCacheGetOrSet("toggleautoresearchmode").textContent = "Automatic mode: Cheapest"
         } else if (player.autoResearchMode === 'manual') {
-            document.getElementById("toggleautoresearchmode").textContent = "Automatic mode: Manual"
+            DOMCacheGetOrSet("toggleautoresearchmode").textContent = "Automatic mode: Manual"
         }
         if (player.autoSacrificeToggle == true) {
-            document.getElementById("toggleautosacrifice").textContent = "Auto Rune: ON"
-            document.getElementById("toggleautosacrifice").style.border = "2px solid green"
+            DOMCacheGetOrSet("toggleautosacrifice").textContent = "Auto Rune: ON"
+            DOMCacheGetOrSet("toggleautosacrifice").style.border = "2px solid green"
         }
         if (player.autoSacrificeToggle == false) {
-            document.getElementById("toggleautosacrifice").textContent = "Auto Rune: OFF"
-            document.getElementById("toggleautosacrifice").style.border = "2px solid red"
+            DOMCacheGetOrSet("toggleautosacrifice").textContent = "Auto Rune: OFF"
+            DOMCacheGetOrSet("toggleautosacrifice").style.border = "2px solid red"
         }
         if (player.autoFortifyToggle == true) {
-            document.getElementById("toggleautofortify").textContent = "Auto Fortify: ON"
-            document.getElementById("toggleautofortify").style.border = "2px solid green"
+            DOMCacheGetOrSet("toggleautofortify").textContent = "Auto Fortify: ON"
+            DOMCacheGetOrSet("toggleautofortify").style.border = "2px solid green"
         }
         if (player.autoFortifyToggle == false) {
-            document.getElementById("toggleautofortify").textContent = "Auto Fortify: OFF"
-            document.getElementById("toggleautofortify").style.border = "2px solid red"
+            DOMCacheGetOrSet("toggleautofortify").textContent = "Auto Fortify: OFF"
+            DOMCacheGetOrSet("toggleautofortify").style.border = "2px solid red"
         }
         if (player.autoEnhanceToggle == true) {
-            document.getElementById("toggleautoenhance").textContent = "Auto Enhance: ON"
-            document.getElementById("toggleautoenhance").style.border = "2px solid green"
+            DOMCacheGetOrSet("toggleautoenhance").textContent = "Auto Enhance: ON"
+            DOMCacheGetOrSet("toggleautoenhance").style.border = "2px solid green"
         }
         if (player.autoEnhanceToggle == false) {
-            document.getElementById("toggleautoenhance").textContent = "Auto Enhance: OFF"
-            document.getElementById("toggleautoenhance").style.border = "2px solid red"
+            DOMCacheGetOrSet("toggleautoenhance").textContent = "Auto Enhance: OFF"
+            DOMCacheGetOrSet("toggleautoenhance").style.border = "2px solid red"
         }
         if (!player.autoAscend) {
-            document.getElementById("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
-            document.getElementById("ascensionAutoEnable").style.border = "2px solid red"
+            DOMCacheGetOrSet("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
+            DOMCacheGetOrSet("ascensionAutoEnable").style.border = "2px solid red"
         }
 
         for (let i = 1; i <= 2; i++) {
@@ -1331,12 +1332,12 @@ const loadSynergy = () => {
             toggleAntAutoSacrifice(1);
         }
 
-        document.getElementById("historyTogglePerSecondButton").textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
-        document.getElementById("historyTogglePerSecondButton").style.borderColor = (player.historyShowPerSecond ? "green" : "red");
+        DOMCacheGetOrSet("historyTogglePerSecondButton").textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
+        DOMCacheGetOrSet("historyTogglePerSecondButton").style.borderColor = (player.historyShowPerSecond ? "green" : "red");
 
         if (!player.autoAscend) {
-            document.getElementById("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
-            document.getElementById("ascensionAutoEnable").style.border = "2px solid red"
+            DOMCacheGetOrSet("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
+            DOMCacheGetOrSet("ascensionAutoEnable").style.border = "2px solid red"
         }
 
         player.autoResearch = Math.min(200, player.autoResearch)
@@ -1344,11 +1345,11 @@ const loadSynergy = () => {
 
 
         if (player.researches[61] === 0) {
-            document.getElementById('automaticobtainium').textContent = "[LOCKED - Buy Research 3x11]"
+            DOMCacheGetOrSet('automaticobtainium').textContent = "[LOCKED - Buy Research 3x11]"
         }
 
         if (player.autoSacrificeToggle && player.autoSacrifice > 0.5) {
-            document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "orange"
+            DOMCacheGetOrSet("rune" + player.autoSacrifice).style.backgroundColor = "orange"
         }
 
         toggleTalismanBuy(player.buyTalismanShardPercent);
@@ -3067,8 +3068,8 @@ export const constantIntervals = (): void => {
     interval(buildingAchievementCheck, 200)
 
     if (!G['timeWarp']) {
-        document.getElementById("preload").style.display = "none";
-        document.getElementById("offlineContainer").style.display = "none"
+        DOMCacheGetOrSet("preload").style.display = "none";
+        DOMCacheGetOrSet("offlineContainer").style.display = "none"
     }
 }
 
@@ -3103,10 +3104,7 @@ const tick = () => {
     }
 }
 
-function tack(dt: number) {
-    if (document.readyState === 'complete')
-        eventCheck();
-        
+function tack(dt: number) {        
     if (!G['timeWarp']) {
         dailyResetCheck();
         //Adds Resources (coins, ants, etc)
@@ -3397,10 +3395,13 @@ export const reloadShit = async (reset = false) => {
     constantIntervals();
     changeTabColor();
     startHotkeys();
+
+    eventCheck();
+    interval(() => eventCheck(), 15000);
 }
 
 window.addEventListener('load', () => {
-    const ver = document.getElementById('versionnumber');
+    const ver = DOMCacheGetOrSet('versionnumber');
     ver && (ver.textContent = 
         `You're ${testing ? 'testing' : 'playing'} v${version} - Seal of the Merchant` +
         ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` + 

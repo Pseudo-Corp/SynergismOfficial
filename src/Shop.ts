@@ -3,6 +3,7 @@ import { Globals as G } from './Variables';
 import { Alert, Confirm, revealStuff } from './UpdateHTML';
 import { calculateTimeAcceleration } from './Calculate';
 import { Player } from './types/Synergism';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 /* === CHANGELOG, 1.21.2021 ===
 1) Offering vals: (level)^2 / 200 ->  level/25
@@ -200,7 +201,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: "upgrade",
         refundable: false,
         refundMinimumLevel: 0,
-        description: "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +20% Quarks and +75% all cube types when maxed!"
+        description: "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +35% Quarks and +125% all cube types when maxed!"
     },
     calculator: {
         price: 1000,
@@ -269,9 +270,9 @@ export const getShopCosts = (input: ShopUpgradeNames) => {
 }
 
 export const shopDescriptions = (input: ShopUpgradeNames) => {
-    const rofl = document.getElementById("quarkdescription");
-    const lol = document.getElementById("quarkeffect");
-    const refundable = document.getElementById('quarkRefundable')
+    const rofl = DOMCacheGetOrSet("quarkdescription");
+    const lol = DOMCacheGetOrSet("quarkeffect");
+    const refundable = DOMCacheGetOrSet('quarkRefundable')
 
     rofl.textContent = shopData[input].description;
 
