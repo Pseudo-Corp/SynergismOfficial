@@ -347,6 +347,7 @@ export interface Player {
     autoFortifyToggle: boolean,
     autoEnhanceToggle: boolean,
     autoResearchToggle: boolean,
+    autoResearchMode: 'cheapest' | 'manual'
     autoResearch: number
     autoSacrifice: number
     sacrificeTimer: number
@@ -448,6 +449,7 @@ export interface Player {
     prototypeCorruptions: number[]
     usedCorruptions: number[]
     corruptionLoadouts: Record<number, number[]>
+    corruptionLoadoutNames: string[]
     corruptionShowStats: boolean,
 
     constantUpgrades: number[]
@@ -643,6 +645,7 @@ export interface GlobalVariables {
     runeSum: number
 
     shopConfirmation: boolean,
+    shopBuyMax: boolean,
 
     globalAntMult: Decimal
     antMultiplier: Decimal

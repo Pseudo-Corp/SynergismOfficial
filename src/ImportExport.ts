@@ -12,6 +12,8 @@ import { addTimers } from './Helper';
 import { toggleSubTab, toggleTabs } from './Toggles';
 import { Globals as G } from './Variables';
 import { cubeMaxLevel } from './Cubes';
+import { btoa } from './Utility';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -106,7 +108,7 @@ export const exportSynergism = async () => {
         document.body.removeChild(a);
     }
 
-    document.getElementById("exportinfo").textContent = toClipboard
+    DOMCacheGetOrSet("exportinfo").textContent = toClipboard
         ? 'Copied save to your clipboard!'
         : 'Savefile copied to file!';
 }
@@ -131,6 +133,10 @@ export const resetGame = async () => {
 }
 
 export const importSynergism = (input: string, reset = false) => {
+    if (typeof input !== 'string') {
+        return Alert('Invalid character, could not save! 😕');
+    }
+
     const d = LZString.decompressFromBase64(input);
     const f: Player = d ? JSON.parse(d) : JSON.parse(atob(input));
 
@@ -150,7 +156,7 @@ export const importSynergism = (input: string, reset = false) => {
 
 export const promocodes = async () => {
     const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "add" perchance?]');
-    const el = document.getElementById("promocodeinfo");
+    const el = DOMCacheGetOrSet("promocodeinfo");
 
     if (input === null) {
         return Alert('Alright, come back soon!')
@@ -321,8 +327,9 @@ export const promocodes = async () => {
         const bet = Number(await Prompt('How many quarks are you putting up?'));
         if (Number.isNaN(bet) || bet <= 0)
             return el.textContent = 'Can\'t bet that!';
-
-        if (Number(player.worlds) < bet)
+        else if (bet > 1e4)
+            return el.textContent = `Due to cheaters, you can only bet 10k max.`;
+        else if (Number(player.worlds) < bet)
             return el.textContent = 'Can\'t bet what you don\'t have.';
 
         localStorage.setItem('saveScumIsCheating', Date.now().toString());

@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation } from "./Toggles"
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop } from "./Toggles"
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from "./Reset"
 import { player, resetCheck, saveSynergy } from "./Synergism"
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels } from "./Buy"
@@ -22,6 +22,7 @@ import { changeTabColor } from "./UpdateHTML"
 import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp } from "./Hepteracts"
 import { exitOffline, forcedDailyReset, timeWarp } from "./Calculate"
 import type { OneToFive, Player } from "./types/Synergism"
+import { displayStats } from "./Statistics"
 import { testing } from './Config';
 
 /* STYLE GUIDE */
@@ -77,6 +78,23 @@ export const generateEventHandlers = () => {
     document.getElementById('reincarnatechallengebtn').addEventListener('mouseover', () => resetrepeat("reincarnationChallenge"))
     document.getElementById('ascendChallengeBtn').addEventListener('mouseover', () => resetrepeat("ascensionChallenge"))
     document.getElementById('ascendbtn').addEventListener('mouseover', () => resetrepeat("ascension"))
+
+    for (const resetButton of Array.from(document.querySelectorAll('.resetbtn'))) {
+        resetButton.addEventListener('mouseover', () => {
+            resetButton.classList.add('hover');
+        });
+
+        resetButton.addEventListener('mouseout', () => {
+            resetButton.classList.remove('hover');
+
+            if (player.currentChallenge.reincarnation) {
+                resetrepeat('reincarnationChallenge');
+            } else if (player.currentChallenge.transcension) {
+                resetrepeat('transcensionChallenge');
+            }
+        });
+    }
+
 //Onclick Events (this is particularly bad)
     document.getElementById('prestigebtn').addEventListener('click', () => resetCheck('prestige'))
     document.getElementById('transcendbtn').addEventListener('click', () => resetCheck('transcend'))
@@ -332,6 +350,10 @@ export const generateEventHandlers = () => {
     for (let index = 0; index < 15; index++) {
     
         document.getElementById(`challenge${index+1}`).addEventListener('click', () => challengeDisplay(index+1))
+        document.getElementById(`challenge${index+1}`).addEventListener('dblclick', () => {
+            challengeDisplay(index+1);
+            toggleChallenges(G['triggerChallenge'], false)
+        });
     
     }
 //Part 2: QoL Buttons
@@ -364,6 +386,7 @@ export const generateEventHandlers = () => {
 //Part 2: QoL buttons
     document.getElementById('toggleresearchbuy').addEventListener('click', () => toggleResearchBuy())
     document.getElementById('toggleautoresearch').addEventListener('click', () => toggleAutoResearch())
+    document.getElementById('toggleautoresearchmode').addEventListener('click', () => toggleAutoResearchMode())
 
 // ANTHILL TAB
 //Part 1: Ant Producers (Tiers 1-8)
@@ -517,6 +540,11 @@ for (const subtab of settingSubTabs) {
     subtab.addEventListener('click', () => toggleSubTab(-1, settingSubTabs.indexOf(subtab)));
 }
 
+const t = Array.from(document.querySelectorAll<HTMLElement>('#statsForNerds > button'));
+for (const s of t) {
+    s.addEventListener('click', (e) => displayStats(e.target as HTMLElement));
+}
+
 // Various functions
 /*Export Files*/ document.getElementById('exportgame').addEventListener('click', () => exportSynergism())
 /*Update name of File*/ 
@@ -538,6 +566,7 @@ TODO: Fix this entire tab it's utter shit
 // Part 1: The Settings
 /*Respec The Upgrades*/ document.getElementById('resetShopUpgrades').addEventListener('click', () => resetShopUpgrades())
 /*Toggle Shop Confirmations*/ document.getElementById('toggleConfirmShop').addEventListener('click', () => toggleShopConfirmation())
+/*Toggle Shop Buy Max*/ document.getElementById('toggleBuyMaxShop').addEventListener('click', () => toggleBuyMaxShop())
 
 // Part 2: Potions
 /*Offering Potion*/
@@ -546,6 +575,7 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('buyofferingpotion').addEventListener('mouseover', () => shopDescriptions("offeringPotion"))
     document.getElementById('useofferingpotion').addEventListener('mouseover', () => shopDescriptions("offeringPotion"))
     document.getElementById('buyofferingpotion').addEventListener('click', () => buyShopUpgrades("offeringPotion"))
+    document.getElementById('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
     document.getElementById('useofferingpotion').addEventListener('click', () => useConsumable("offeringPotion"))
 /*Obtainium Potion*/
     document.getElementById('obtainiumPotions').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
@@ -553,6 +583,7 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('buyobtainiumpotion').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
     document.getElementById('useobtainiumpotion').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
     document.getElementById('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))
+    document.getElementById('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
     document.getElementById('useobtainiumpotion').addEventListener('click', () => useConsumable("obtainiumPotion"))
 /* Permanent Upgrade Images */
     const shopKeys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
@@ -563,6 +594,7 @@ TODO: Fix this entire tab it's utter shit
             document.getElementById(`${key}`).addEventListener('mouseover', () => shopDescriptions(key))
             document.getElementById(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
             document.getElementById(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
+            document.getElementById(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
             document.getElementById(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
         }
     }

@@ -11,6 +11,12 @@
 </head>
 <body>
     <div id="transparentBG"></div>
+    <div id="notification">
+        <div id="notifx">
+            <img src="Pictures/X.png" height="16px" width="16px" />
+        </div>
+        <p></p>
+    </div>
     <div id="confirmationBox">
         <div id="confirmWrapper"> 
             <div id="confirm" tabindex="-1">
@@ -1604,6 +1610,7 @@
             <div id="researchToggles">
                 <button id="toggleresearchbuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level</button>
                 <button id="toggleautoresearch" style="text-align: center;color: white; border: 2px solid blue">Automatic: OFF</button>
+                <button id="toggleautoresearchmode" style="text-align: center;color: white; border: 2px solid red">Automatic mode: Manual</button>
             </div>
 
             <table id = "researchtable">
@@ -2474,7 +2481,7 @@
                 </div>
                 <div id="cubeTab7" class="cubeTab" style="display: none">
                     <span id="hepteractWelcome" class="cubePlacement1" style="color: pink">How did I get here?</span>
-                    <span id="hepteractExpository1" class="cubePlacement2" style="color: white">Oh well, no time to waste. This is your lab. Make cool shit with your Hepteracts!</span>
+                    <span id="hepteractExpository1" class="cubePlacement2" style="color: white">Oh well, no time to waste. This is your lab. Make cool stuff with your Hepteracts!</span>
                     <span id="hepteractExpository2" class="cubePlacement3" style="color: orchid;">Hepteracts do not provide passive bonuses. They must be made useful through crafting.</span>
                     <div class="openGrid"> 
                         <img class="openImage" src="Pictures/Hepteract.png" alt="" loading="lazy">
@@ -2645,7 +2652,7 @@
                 <div id="corruptionLoadouts" style="display: none">
                     <table id="corruptionLoadoutTable">
                         <tr>
-                            <th></th>
+                            <th class="corrLoadoutNameCol"></th>
                             <th>
                                 <img src="Pictures/Divisiveness Level 7.png" class="corruptionImg small" alt="" loading="lazy">
                             </th>
@@ -2807,6 +2814,19 @@
         <div id="artistList"></div>
     </div>
     <div class="subtabContent subtabDisplayFlex" id="statisticsSubTab">
+        <div id="statsForNerds">
+            <button class="statsNerds" id="kMisc" style="border: 2px solid gold; background-color: crimson;">Miscellaneous Stats</button>
+            <button class="statsNerds" id="kFreeAccel" style="border: 2px solid yellow">Free Accelerators</button>
+            <button class="statsNerds" id="kFreeMult" style="border: 2px solid lawngreen">Free Multipliers</button>
+            <button class="statsNerds" id="kOfferingMult" style="border: 2px solid palegreen">Offering Multipliers</button>
+            <button class="statsNerds" id="kGlobalCubeMult" style="border: 2px solid khaki">Global Cube Multipliers</button>
+            <button class="statsNerds" id="kCubeMult" style="border: 2px solid darkgoldenrod">Cube Multipliers</button>
+            <button class="statsNerds" id="kTessMult" style="border: 2px solid honeydew">Tesseract Multipliers</button>
+            <button class="statsNerds" id="kHypercubeMult" style="border: 2px solid blueviolet">Hypercube Multipliers</button>
+            <button class="statsNerds" id="kPlatMult" style="border: 2px solid slateblue">Platonic Multipliers</button>
+            <button class="statsNerds" id="kHeptMult" style="border: 2px solid rosybrown">Hepteract Multipliers</button>
+            <button class="statsNerds" id="kOrbPowderMult" style="border: 2px solid orchid">Orb to Powder Multipliers</button>
+        </div>
         <div id="miscStats" class="statContainer">
             <p class="prestigeunlock statPortion" id="settingtitle3" style="color: plum; font-size: 1.2em">Miscellaneous Stats</p>
             <p class="prestigeunlock statPortion" id="prestigeCountStatistic" style="color: lightblue">Prestige Count: <span id="sMisc1" class="statNumber">0</span></p>
@@ -2837,9 +2857,6 @@
             <p id="statA11" class="statPortion">Corruption Exponent: <span id="sA11" class="statNumber">0</span></p>
             <p id="statA12" class="statPortion statTotal">TOTAL FREE ACCELERATORS: <span id="sA12" class="statNumber statTotal">0</span></p>
         </div>
-        <div id="acceleratorBoostStats">
-            <!-- Currently unused! -->
-        </div>
         <div id="multiplierStats" class="statContainer">
             <p id="multiplierStatTitle" class="statPortion" style="color: cyan; font-size: 1.2em">Free Multipliers</p>
             <p id="statM1" class="statPortion">Multipliers from upgrades/misc<span id="sM1" class="statNumber"></span></p>
@@ -2856,10 +2873,7 @@
             <p id="statM12" class="statPortion">Corruption Exponent<span id="sM12" class="statNumber"></span></p>
             <p id="statM13" class="statPortion statTotal">TOTAL FREE MULTIPLIERS: <span id="sM13" class="statNumber statTotal">0</span></p>
         </div>
-        <div id="antStats">
-            <!-- Currently unused! -->
-        </div>
-        <div id="offeringMultiplierStats" class="statContainer prestigeunlock">
+        <div id="offeringMultiplierStats" class="statContainer">
             <p id="offeringStatTitle" class='statPortion' style="color: orangered; font-size: 1.2em">Offering Multipliers</p>
             <p id="statOff1" class="statPortion">Alchemy Achievement 5:<span id="sOff1" class="statNumber">0</span></p>
             <p id="statOff2" class="statPortion">Alchemy Achievement 6:<span id="sOff2" class="statNumber">0</span></p>
@@ -2886,8 +2900,8 @@
             <p id="statOff23" class="statPortion chal14">Challenge 15:<span id="sOff23" class="statNumber">0</span></p>
             <p id="statOffT" class="statPortion statTotal" style='color: gold'>TOTAL OFFERING MULTIPLIER: <span id="sOffT" class="statNumber statTotal">0</span></p>
         </div>
-        <div id="globalCubeMultiplierStats" class="statContainer ascendunlock">
-            <p id="globalCubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Global Cube multipliers</p>
+        <div id="globalCubeMultiplierStats" class="statContainer">
+            <p id="globalCubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Global Cube Multipliers</p>
             <p id="statGCM1" class="statPortion">Ascend Time Multi:<span id="sGCM1" class="statNumber">0</span></p>
             <p id="statGCM2" class="statPortion">Season pass:<span id="sGCM2" class="statNumber">0</span></p>
             <p id="statGCM3" class="statPortion ">Research 5x19:<span id="sGCM3" class="statNumber">0</span></p>
@@ -2900,8 +2914,8 @@
             <p id="statGCMT" class="statPortion statTotal" style="color: orange">TOTAL GLOBAL CUBE MULTIPLIER: <span
                 id="sGCMT" class="statNumber statTotal">0</span></p>
         </div>
-        <div id="cubeMultiplierStats" class="statContainer ascendunlock">
-            <p id="cubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Cube multipliers</p>
+        <div id="cubeMultiplierStats" class="statContainer">
+            <p id="cubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Cube Multipliers</p>
             <p id="statCM1" class="statPortion">Ascend Time Multi:<span id="sCM1" class="statNumber">0</span></p>
             <p id="statCM2" class="statPortion">Season pass:<span id="sCM2" class="statNumber">0</span></p>
             <p id="statCM3" class="statPortion ">Research 5x19:<span id="sCM3" class="statNumber">0</span></p>
@@ -2920,8 +2934,8 @@
             <p id="statCMT" class="statPortion statTotal" style="color: orange">TOTAL CUBE MULTIPLIER: <span
                     id="sCMT" class="statNumber statTotal">0</span></p>
         </div>
-        <div id="tesseractMultiplierStats" class="statContainer chal11">
-            <p id="tesseractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Tesseract multipliers</p>
+        <div id="tesseractMultiplierStats" class="statContainer">
+            <p id="tesseractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Tesseract Multipliers</p>
             <p id="statTeM1" class="statPortion">Ascend Time Multi:<span id="sTeM1" class="statNumber">0</span></p>
             <p id="statTeM2" class="statPortion">Season pass:<span id="sTeM2" class="statNumber">0</span></p>
             <p id="statTeM3" class="statPortion ">Research 5x19:<span id="sTeM3" class="statNumber">0</span></p>
@@ -2937,8 +2951,8 @@
             <p id="statTeMT" class="statPortion statTotal" style="color: orange">TOTAL TESSERACT MULTIPLIER: <span
                     id="sTeMT" class="statNumber statTotal">0</span></p>
         </div>
-        <div id="hypercubeMultiplierStats" class="statContainer chal13">
-            <p id="hypercubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Hypercube multipliers</p>
+        <div id="hypercubeMultiplierStats" class="statContainer">
+            <p id="hypercubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Hypercube Multipliers</p>
             <p id="statHyM1" class="statPortion">Ascend Time Multi:<span id="sHyM1" class="statNumber">0</span></p>
             <p id="statHyM2" class="statPortion">Season pass:<span id="sHyM2" class="statNumber">0</span></p>
             <p id="statHyM3" class="statPortion ">Research 5x19:<span id="sHyM3" class="statNumber">0</span></p>
@@ -2954,8 +2968,8 @@
                     id="sHyMT" class="statNumber statTotal">0</span></p>
         </div>
 
-        <div id="platonicMultiplierStats" class="statContainer chal14">
-            <p id="platonicStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Platonic multipliers</p>
+        <div id="platonicMultiplierStats" class="statContainer">
+            <p id="platonicStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Platonic Multipliers</p>
             <p id="statPlM1" class="statPortion">Ascend Time Multi:<span id="sPlM1" class="statNumber">0</span></p>
             <p id="statPlM2" class="statPortion">Season pass:<span id="sPlM2" class="statNumber">0</span></p>
             <p id="statPlM3" class="statPortion ">Research 5x19:<span id="sPlM3" class="statNumber">0</span></p>
@@ -2969,8 +2983,8 @@
                     id="sPlMT" class="statNumber statTotal">0</span></p>
         </div>
 
-        <div id="hepteractMultiplierStats" class="statContainer hepteracts">
-            <p id="hepteractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Hepteract multipliers</p>
+        <div id="hepteractMultiplierStats" class="statContainer">
+            <p id="hepteractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Hepteract Multipliers</p>
             <p id="statHeM1" class="statPortion">Ascend Time Multi:<span id="sHeM1" class="statNumber">0</span></p>
             <p id="statHeM2" class="statPortion">Season pass:<span id="sHeM2" class="statNumber">0</span></p>
             <p id="statHeM3" class="statPortion ">Research 5x19:<span id="sHeM3" class="statNumber">0</span></p>
@@ -2982,8 +2996,8 @@
                     id="sHeMT" class="statNumber statTotal">0</span></p>
         </div>
 
-        <div id="powderMultiplierStats" class="statContainer hepteracts">
-            <p id="powderStatTitle" class="statPortion" style="color: magenta; font-size: 1.2em;">Orb to Powder multipliers</p>
+        <div id="powderMultiplierStats" class="statContainer">
+            <p id="powderStatTitle" class="statPortion" style="color: magenta; font-size: 1.2em;">Orb to Powder Multipliers</p>
             <p id="statPoM1" class="statPortion">Ascend Time Multi:<span id="sPoM1" class="statNumber">0</span></p>
             <p id="statPoM2" class="statPortion">Season pass:<span id="sPoM2" class="statNumber">0</span></p>
             <p id="statPoM3" class="statPortion ">Research 5x19:<span id="sPoM3" class="statNumber">0</span></p>
@@ -3181,6 +3195,7 @@
                     <div id="shopButtons">
                         <button id="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button>
                         <button id="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
+                        <button id="toggleBuyMaxShop" style="border: 2px solid white">Buy Max: OFF</button>
                     </div>
                     <div id="shopHovers">
                         <p style="color: white; font-size: 1.2em;">Hover over each portion of the shop to see what each upgrade does!</p>

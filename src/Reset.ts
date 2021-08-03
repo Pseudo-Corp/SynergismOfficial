@@ -23,6 +23,7 @@ import { resetNames } from './types/Synergism';
 import { updateClassList } from './Utility';
 import { corruptionStatsUpdate } from './Corruptions';
 import { toggleAutoChallengeModeText } from './Toggles';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
@@ -32,19 +33,19 @@ export const resetrepeat = (input: resetNames) => {
 }
 
 export const resetdetails = (input: resetNames) => {
-    document.getElementById('resetofferings1').style.display = "block"
+    DOMCacheGetOrSet('resetofferings1').style.display = "block"
 
     const transcensionChallenge = player.currentChallenge.transcension;
     const reincarnationChallenge = player.currentChallenge.reincarnation;
 
     const offering = calculateOfferings(input);
-    const offeringImage = getElementById<HTMLImageElement>("resetofferings1");
-    const offeringText = document.getElementById("resetofferings2");
-    const currencyImage1 = getElementById<HTMLImageElement>("resetcurrency1");
-    const resetObtainiumImage = document.getElementById("resetobtainium");
-    const resetObtainiumText = document.getElementById("resetobtainium2");
-    const resetInfo = document.getElementById('resetinfo');
-    const resetCurrencyGain = document.getElementById("resetcurrency2");
+    const offeringImage = getElementById<HTMLImageElement>('resetofferings1');
+    const offeringText = DOMCacheGetOrSet('resetofferings2');
+    const currencyImage1 = getElementById<HTMLImageElement>('resetcurrency1');
+    const resetObtainiumImage = DOMCacheGetOrSet('resetobtainium');
+    const resetObtainiumText = DOMCacheGetOrSet('resetobtainium2');
+    const resetInfo = DOMCacheGetOrSet('resetinfo');
+    const resetCurrencyGain = DOMCacheGetOrSet('resetcurrency2');
 
     (input == "reincarnation") ? 
         (resetObtainiumImage.style.display = "block", resetObtainiumText.textContent = format(Math.floor(G['obtainiumGain']))):
@@ -127,7 +128,7 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = "gold";
             break;
     }
-    document.getElementById("resetofferings2").textContent = "+" + format(offering)
+    DOMCacheGetOrSet('resetofferings2').textContent = "+" + format(offering)
 }
 
 export const updateAutoReset = (i: number) => {
@@ -553,7 +554,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.challengecompletions[7] = player.highestchallengecompletions[7] = player.cubeUpgrades[49]
         player.challengecompletions[8] = player.highestchallengecompletions[8] = player.cubeUpgrades[49]
 
-        document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
+        DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
         player.roombaResearchIndex = 0;
         player.autoResearch = 1;
 
@@ -604,11 +605,11 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         }
 
         for (let j = 61; j <= 80; j++) {
-            document.getElementById("upg" + j).style.backgroundColor = "black"
+            DOMCacheGetOrSet("upg" + j).style.backgroundColor = "black"
         }
         for (let j = 94; j <= 100; j++) {
             if (player.upgrades[j] === 0) {
-                document.getElementById("upg" + j).style.backgroundColor = "black"
+                DOMCacheGetOrSet("upg" + j).style.backgroundColor = "black"
             }
         }
         player.usedCorruptions = Array.from(player.prototypeCorruptions)

@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js';
 import LZString from 'lz-string';
 
-import { isDecimal, getElementById, sortWithIndices, sumContents } from './Utility';
+import { isDecimal, getElementById, sortWithIndices, sumContents, btoa } from './Utility';
 import { blankGlobals, Globals as G } from './Variables';
 import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges, challenge15ScoreMultiplier } from './Challenges';
 
@@ -20,12 +20,12 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { reset } from './Reset';
+import { reset, resetrepeat } from './Reset';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, TesseractBuildings, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
-import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate } from './Corruptions';
+import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate, updateCorruptionLoadoutNames } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
@@ -38,6 +38,7 @@ import './Hotkeys';
 import { startHotkeys } from './Hotkeys';
 import { updatePlatonicUpgradeBG } from './Platonic';
 import { testing, version, lastUpdated } from './Config';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -450,6 +451,7 @@ export const player: Player = {
     autoFortifyToggle: false,
     autoEnhanceToggle: false,
     autoResearchToggle: false,
+    autoResearchMode: 'manual',
     autoResearch: 0,
     autoSacrifice: 0,
     sacrificeTimer: 0,
@@ -572,11 +574,18 @@ export const player: Player = {
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    corruptionLoadouts: {
+    corruptionLoadouts: {  //If you add loadouts don't forget to add loadout names!
         1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     },
+    corruptionLoadoutNames: [
+        "Loadout 1",
+        "Loadout 2",
+        "Loadout 3",
+        "Loadout 4",
+    ],
     corruptionShowStats: true,
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -649,10 +658,13 @@ export const saveSynergy = (button?: boolean) => {
     });
 
     localStorage.removeItem('Synergysave2');
-    localStorage.setItem('Synergysave2', btoa(JSON.stringify(p)));
+    const save = btoa(JSON.stringify(p));
+    if (save !== null) {
+        localStorage.setItem('Synergysave2', save);
+    }
 
     if (button) {
-        const el = document.getElementById('saveinfo');
+        const el = DOMCacheGetOrSet('saveinfo');
         el.textContent = 'Game saved successfully!';
         setTimeout(() => el.textContent = '', 4000);
     }
@@ -808,6 +820,7 @@ const loadSynergy = () => {
             player.fifthCostParticles = new Decimal("1e16");
             player.autoSacrificeToggle = false;
             player.autoResearchToggle = false;
+            player.autoResearchMode = 'manual';
             player.autoResearch = 0;
             player.autoSacrifice = 0;
             player.sacrificeTimer = 0;
@@ -1161,7 +1174,7 @@ const loadSynergy = () => {
                     d = 'thousand'
                 }
                 const e = q[j] + d;
-                document.getElementById(e).style.backgroundColor = ""
+                DOMCacheGetOrSet(e).style.backgroundColor = ""
             }
             let c;
             const curBuyAmount = player[`${q[j]}buyamount` as const];
@@ -1179,7 +1192,7 @@ const loadSynergy = () => {
             }
 
             const b = q[j] + c;
-            document.getElementById(b).style.backgroundColor = "green"
+            DOMCacheGetOrSet(b).style.backgroundColor = "green"
 
         }
 
@@ -1199,11 +1212,11 @@ const loadSynergy = () => {
         revealStuff();
         toggleauto();
 
-        document.getElementById("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s"
+        DOMCacheGetOrSet("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s"
         getElementById<HTMLInputElement>("startAutoChallengeTimerInput").value = player.autoChallengeTimer.start + '';
-        document.getElementById("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s"
+        DOMCacheGetOrSet("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s"
         getElementById<HTMLInputElement>("exitAutoChallengeTimerInput").value = player.autoChallengeTimer.exit + '';
-        document.getElementById("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s"
+        DOMCacheGetOrSet("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s"
         getElementById<HTMLInputElement>("enterAutoChallengeTimerInput").value = player.autoChallengeTimer.enter + '';
 
         corruptionStatsUpdate();
@@ -1211,21 +1224,22 @@ const loadSynergy = () => {
             corruptionLoadoutTableUpdate(i);
         }
         showCorruptionStatsLoadouts()
+        updateCorruptionLoadoutNames()
 
         for (let j = 1; j <= 5; j++) {
-            const ouch = document.getElementById("tesseractAutoToggle" + j);
+            const ouch = DOMCacheGetOrSet("tesseractAutoToggle" + j);
             (player.autoTesseracts[j]) ?
                 (ouch.textContent = "Auto [ON]", ouch.style.border = "2px solid green") :
                 (ouch.textContent = "Auto [OFF]", ouch.style.border = "2px solid red");
         }
 
-        document.getElementById("buyRuneBlessingToggleValue").textContent = format(player.runeBlessingBuyAmount, 0, true);
-        document.getElementById("buyRuneSpiritToggleValue").textContent = format(player.runeSpiritBuyAmount, 0, true);
+        DOMCacheGetOrSet("buyRuneBlessingToggleValue").textContent = format(player.runeBlessingBuyAmount, 0, true);
+        DOMCacheGetOrSet("buyRuneSpiritToggleValue").textContent = format(player.runeSpiritBuyAmount, 0, true);
 
-        document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + "%";
+        DOMCacheGetOrSet("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + "%";
 
-        document.getElementById("talismanlevelup").style.display = "none"
-        document.getElementById("talismanrespec").style.display = "none"
+        DOMCacheGetOrSet("talismanlevelup").style.display = "none"
+        DOMCacheGetOrSet("talismanrespec").style.display = "none"
         calculatePlatonicBlessings();
         calculateHypercubeBlessings();
         calculateTesseractBlessings();
@@ -1244,67 +1258,72 @@ const loadSynergy = () => {
 
 
         if (player.resettoggle1 === 1) {
-            document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet("prestigeautotoggle").textContent = "Mode: AMOUNT"
         }
         if (player.resettoggle2 === 1) {
-            document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet("transcendautotoggle").textContent = "Mode: AMOUNT"
         }
         if (player.resettoggle3 === 1) {
-            document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet("reincarnateautotoggle").textContent = "Mode: AMOUNT"
         }
 
         if (player.resettoggle1 === 2) {
-            document.getElementById("prestigeautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet("prestigeautotoggle").textContent = "Mode: TIME"
         }
         if (player.resettoggle2 === 2) {
-            document.getElementById("transcendautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet("transcendautotoggle").textContent = "Mode: TIME"
         }
         if (player.resettoggle3 === 2) {
-            document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet("reincarnateautotoggle").textContent = "Mode: TIME"
         }
 
         if (player.tesseractAutoBuyerToggle === 1) {
-            document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: ON"
-            document.getElementById("tesseractautobuytoggle").style.border = "2px solid green"
+            DOMCacheGetOrSet("tesseractautobuytoggle").textContent = "Auto Buy: ON"
+            DOMCacheGetOrSet("tesseractautobuytoggle").style.border = "2px solid green"
         }
         if (player.tesseractAutoBuyerToggle === 2) {
-            document.getElementById("tesseractautobuytoggle").textContent = "Auto Buy: OFF"
-            document.getElementById("tesseractautobuytoggle").style.border = "2px solid red"
+            DOMCacheGetOrSet("tesseractautobuytoggle").textContent = "Auto Buy: OFF"
+            DOMCacheGetOrSet("tesseractautobuytoggle").style.border = "2px solid red"
         }
 
         if (player.autoResearchToggle) {
-            document.getElementById("toggleautoresearch").textContent = "Automatic: ON"
+            DOMCacheGetOrSet("toggleautoresearch").textContent = "Automatic: ON"
         }
         if (!player.autoResearchToggle) {
-            document.getElementById("toggleautoresearch").textContent = "Automatic: OFF"
+            DOMCacheGetOrSet("toggleautoresearch").textContent = "Automatic: OFF"
+        }
+        if (player.autoResearchMode === 'cheapest') {
+            DOMCacheGetOrSet("toggleautoresearchmode").textContent = "Automatic mode: Cheapest"
+        } else if (player.autoResearchMode === 'manual') {
+            DOMCacheGetOrSet("toggleautoresearchmode").textContent = "Automatic mode: Manual"
         }
         if (player.autoSacrificeToggle == true) {
-            document.getElementById("toggleautosacrifice").textContent = "Auto Rune: ON"
-            document.getElementById("toggleautosacrifice").style.border = "2px solid green"
+            DOMCacheGetOrSet("toggleautosacrifice").textContent = "Auto Rune: ON"
+            DOMCacheGetOrSet("toggleautosacrifice").style.border = "2px solid green"
         }
         if (player.autoSacrificeToggle == false) {
-            document.getElementById("toggleautosacrifice").textContent = "Auto Rune: OFF"
-            document.getElementById("toggleautosacrifice").style.border = "2px solid red"
+            DOMCacheGetOrSet("toggleautosacrifice").textContent = "Auto Rune: OFF"
+            DOMCacheGetOrSet("toggleautosacrifice").style.border = "2px solid red"
         }
         if (player.autoFortifyToggle == true) {
-            document.getElementById("toggleautofortify").textContent = "Auto Fortify: ON"
-            document.getElementById("toggleautofortify").style.border = "2px solid green"
+            DOMCacheGetOrSet("toggleautofortify").textContent = "Auto Fortify: ON"
+            DOMCacheGetOrSet("toggleautofortify").style.border = "2px solid green"
         }
         if (player.autoFortifyToggle == false) {
-            document.getElementById("toggleautofortify").textContent = "Auto Fortify: OFF"
-            document.getElementById("toggleautofortify").style.border = "2px solid red"
+            DOMCacheGetOrSet("toggleautofortify").textContent = "Auto Fortify: OFF"
+            DOMCacheGetOrSet("toggleautofortify").style.border = "2px solid red"
         }
         if (player.autoEnhanceToggle == true) {
-            document.getElementById("toggleautoenhance").textContent = "Auto Enhance: ON"
-            document.getElementById("toggleautoenhance").style.border = "2px solid green"
+            DOMCacheGetOrSet("toggleautoenhance").textContent = "Auto Enhance: ON"
+            DOMCacheGetOrSet("toggleautoenhance").style.border = "2px solid green"
         }
         if (player.autoEnhanceToggle == false) {
-            document.getElementById("toggleautoenhance").textContent = "Auto Enhance: OFF"
-            document.getElementById("toggleautoenhance").style.border = "2px solid red"
+            DOMCacheGetOrSet("toggleautoenhance").textContent = "Auto Enhance: OFF"
+            DOMCacheGetOrSet("toggleautoenhance").style.border = "2px solid red"
         }
         if (!player.autoAscend) {
-            document.getElementById("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
-            document.getElementById("ascensionAutoEnable").style.border = "2px solid red"
+            DOMCacheGetOrSet("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
+            DOMCacheGetOrSet("ascensionAutoEnable").style.border = "2px solid red"
         }
 
         for (let i = 1; i <= 2; i++) {
@@ -1313,12 +1332,12 @@ const loadSynergy = () => {
             toggleAntAutoSacrifice(1);
         }
 
-        document.getElementById("historyTogglePerSecondButton").textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
-        document.getElementById("historyTogglePerSecondButton").style.borderColor = (player.historyShowPerSecond ? "green" : "red");
+        DOMCacheGetOrSet("historyTogglePerSecondButton").textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
+        DOMCacheGetOrSet("historyTogglePerSecondButton").style.borderColor = (player.historyShowPerSecond ? "green" : "red");
 
         if (!player.autoAscend) {
-            document.getElementById("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
-            document.getElementById("ascensionAutoEnable").style.border = "2px solid red"
+            DOMCacheGetOrSet("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
+            DOMCacheGetOrSet("ascensionAutoEnable").style.border = "2px solid red"
         }
 
         player.autoResearch = Math.min(200, player.autoResearch)
@@ -1326,11 +1345,11 @@ const loadSynergy = () => {
 
 
         if (player.researches[61] === 0) {
-            document.getElementById('automaticobtainium').textContent = "[LOCKED - Buy Research 3x11]"
+            DOMCacheGetOrSet('automaticobtainium').textContent = "[LOCKED - Buy Research 3x11]"
         }
 
         if (player.autoSacrificeToggle && player.autoSacrifice > 0.5) {
-            document.getElementById("rune" + player.autoSacrifice).style.backgroundColor = "orange"
+            DOMCacheGetOrSet("rune" + player.autoSacrifice).style.backgroundColor = "orange"
         }
 
         toggleTalismanBuy(player.buyTalismanShardPercent);
@@ -1343,6 +1362,11 @@ const loadSynergy = () => {
     }
     CSSAscend();
     updateAchievementBG();
+    if (player.currentChallenge.reincarnation) {
+        resetrepeat('reincarnationChallenge');
+    } else if (player.currentChallenge.transcension) {
+        resetrepeat('transcensionChallenge');
+    }
 
     const d = new Date()
     const h = d.getHours()
@@ -1444,8 +1468,8 @@ export const format = (
             standard = Math.ceil(standard);
         }
         // If the power is less than 1 or format long and less than 3 apply toFixed(accuracy) to get decimal places
-        if ((power < 1 || (long && power < 3)) && accuracy > 0) {
-            standardString = standard.toFixed(accuracy);
+        if ((power < 2 || (long && power < 3)) && accuracy > 0) {
+            standardString = standard.toFixed(power === 2 && accuracy > 2 ? 2 : accuracy);
         } else {
             // If it doesn't fit those criteria drop the decimal places
             standard = Math.floor(standard);
@@ -3044,8 +3068,8 @@ export const constantIntervals = (): void => {
     interval(buildingAchievementCheck, 200)
 
     if (!G['timeWarp']) {
-        document.getElementById("preload").style.display = "none";
-        document.getElementById("offlineContainer").style.display = "none"
+        DOMCacheGetOrSet("preload").style.display = "none";
+        DOMCacheGetOrSet("offlineContainer").style.display = "none"
     }
 }
 
@@ -3080,10 +3104,7 @@ const tick = () => {
     }
 }
 
-function tack(dt: number) {
-    if (document.readyState === 'complete')
-        eventCheck();
-        
+function tack(dt: number) {        
     if (!G['timeWarp']) {
         dailyResetCheck();
         //Adds Resources (coins, ants, etc)
@@ -3257,7 +3278,7 @@ document.addEventListener('keydown', (event) => {
 
     const type = types[G['buildingSubTab']];
 
-    const key = event.key.toUpperCase();
+    const key = event.code.replace(/^(Digit|Numpad)/, '').toUpperCase();
     switch (key) {
         case "1":
         case "2":
@@ -3362,7 +3383,7 @@ export const reloadShit = async (reset = false) => {
 
     loadSynergy();
     if (!reset) 
-            calculateOffline();
+        calculateOffline();
     else
         player.worlds = new QuarkHandler({quarks: 0})
     saveSynergy();
@@ -3374,10 +3395,13 @@ export const reloadShit = async (reset = false) => {
     constantIntervals();
     changeTabColor();
     startHotkeys();
+
+    eventCheck();
+    interval(() => eventCheck(), 15000);
 }
 
 window.addEventListener('load', () => {
-    const ver = document.getElementById('versionnumber');
+    const ver = DOMCacheGetOrSet('versionnumber');
     ver && (ver.textContent = 
         `You're ${testing ? 'testing' : 'playing'} v${version} - Seal of the Merchant` +
         ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` + 

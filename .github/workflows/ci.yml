@@ -1,0 +1,46 @@
+name: ci
+
+on:
+  push:
+    paths-ignore:
+      - 'Pictures/**'
+      - '*.md'
+      - '*.html'
+      - '*.json'
+  pull_request:
+    paths-ignore:
+      - 'Pictures/**'
+      - '*.md'
+      - '*.html'
+      - '*.json'
+
+env:
+  CI: true
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install
+        run: |
+          npm install
+      - name: Check
+        run: |
+          npm run check:tsc
+      - name: Run linter
+        run: |
+          npm run lint
+          npm run csslint

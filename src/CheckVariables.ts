@@ -166,13 +166,15 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
+
     if (player.corruptionLoadouts === undefined) {
-        player.corruptionLoadouts = {
-            1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        };
+        player.corruptionLoadouts = { ...blankSave.corruptionLoadouts };
         player.corruptionShowStats = true
+    } else if (Object.keys(player.corruptionLoadouts).length !== Object.keys(blankSave.corruptionLoadouts).length) {
+        for (const key of Object.keys(blankSave.corruptionLoadouts)) {
+            if (player.corruptionLoadouts[Number(key)]) continue;
+            player.corruptionLoadouts[Number(key)] = blankSave.corruptionLoadouts[Number(key)];
+        }
     }
 
     for (let i = 0; i <= 4; i++) {
@@ -447,5 +449,9 @@ export const checkVariablesOnLoad = (data: Player) => {
         Alert('July 2, 2021: V2.5.5. You have been refunded quarks from Powder EX upgrade, if you purchased levels. Your T1 ants were also reset and base cost set to 1e700 particles. Powder EX is no longer refundable, though, so be careful!')
         player.firstCostAnts = new Decimal('1e700')
         player.firstOwnedAnts = 0;
+    }
+
+    if (data.autoResearchMode === undefined) {
+        player.autoResearchMode = 'manual';
     }
 }
