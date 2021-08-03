@@ -80,7 +80,13 @@ export const generateEventHandlers = () => {
     document.getElementById('ascendbtn').addEventListener('mouseover', () => resetrepeat("ascension"))
 
     for (const resetButton of Array.from(document.querySelectorAll('.resetbtn'))) {
+        resetButton.addEventListener('mouseover', () => {
+            resetButton.classList.add('hover');
+        });
+
         resetButton.addEventListener('mouseout', () => {
+            resetButton.classList.remove('hover');
+
             if (player.currentChallenge.reincarnation) {
                 resetrepeat('reincarnationChallenge');
             } else if (player.currentChallenge.transcension) {

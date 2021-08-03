@@ -13,6 +13,7 @@ import { toggleSubTab, toggleTabs } from './Toggles';
 import { Globals as G } from './Variables';
 import { cubeMaxLevel } from './Cubes';
 import { btoa } from './Utility';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -107,7 +108,7 @@ export const exportSynergism = async () => {
         document.body.removeChild(a);
     }
 
-    document.getElementById("exportinfo").textContent = toClipboard
+    DOMCacheGetOrSet("exportinfo").textContent = toClipboard
         ? 'Copied save to your clipboard!'
         : 'Savefile copied to file!';
 }
@@ -155,7 +156,7 @@ export const importSynergism = (input: string, reset = false) => {
 
 export const promocodes = async () => {
     const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "add" perchance?]');
-    const el = document.getElementById("promocodeinfo");
+    const el = DOMCacheGetOrSet("promocodeinfo");
 
     if (input === null) {
         return Alert('Alright, come back soon!')
