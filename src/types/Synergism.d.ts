@@ -347,6 +347,7 @@ export interface Player {
     autoFortifyToggle: boolean,
     autoEnhanceToggle: boolean,
     autoResearchToggle: boolean,
+    autoResearchMode: 'cheapest' | 'manual'
     autoResearch: number
     autoSacrifice: number
     sacrificeTimer: number

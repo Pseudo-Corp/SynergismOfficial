@@ -450,4 +450,8 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.firstCostAnts = new Decimal('1e700')
         player.firstOwnedAnts = 0;
     }
+
+    if (data.autoResearchMode === undefined) {
+        player.autoResearchMode = 'manual';
+    }
 }
