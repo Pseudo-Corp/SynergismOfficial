@@ -169,7 +169,6 @@ export const toggleShops = (toggle?: upgradeAutos) => {
         for (const key of keys) {
             const color = player.shoptoggles[key]? 'green': 'red'
             const auto = 'Auto: ' + (player.shoptoggles[key] ? 'ON' : 'OFF')
-            console.log(key)
             DOMCacheGetOrSet(`${key}AutoUpgrade`).style.borderColor = color
             DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = auto
         }
