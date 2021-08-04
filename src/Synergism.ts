@@ -67,7 +67,7 @@ export const clearInt = new Proxy(clearInterval, {
 });
 
 export const player: Player = {
-    worlds: new QuarkHandler({ quarks: 0 }),
+    worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),
     coins: new Decimal("1e2"),
     coinsThisPrestige: new Decimal("1e2"),
     coinsThisTranscension: new Decimal("1e2"),
@@ -3385,7 +3385,7 @@ export const reloadShit = async (reset = false) => {
     if (!reset) 
         calculateOffline();
     else
-        player.worlds = new QuarkHandler({quarks: 0})
+        player.worlds = new QuarkHandler({ quarks: 0, bonus: 0 });
     saveSynergy();
     toggleauto();
     revealStuff();

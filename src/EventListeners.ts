@@ -208,11 +208,8 @@ export const generateEventHandlers = () => {
 // UPGRADES TAB
 // For all upgrades in the Upgrades Tab (125) count, we have the same mouseover event. So we'll work on those first.
     for (let index = 1; index <= 125; index++) {
-
         //Onmouseover events ()
         document.getElementById(`upg${index}`).addEventListener('mouseover', () => upgradedescriptions(index));
-
-        console.log('Successfully added "Onmouseover" event to upgrades 1-120!')
     }
 
 // The first 80 upgrades (Coin-Particle upgrade) are annoying since there are four cases based on which resource is needed.
@@ -224,33 +221,23 @@ export const generateEventHandlers = () => {
 
         //Onclick events (Regular upgrades 1-80)
         document.getElementById(`upg${index}`).addEventListener('click', () => buyUpgrades(resourceType,index));
-
-        console.log('Successfully added "Onmouseover" event to upgrades 1-120!')
     }
 
 // Autobuyer (20 count, ID 81-100) and Generator (20 count, ID 101-120) Upgrades have a unique onclick
     for (let index = 1; index <= 20; index++) {
 
         //Onclick events (Autobuyer upgrades)
-        document.getElementById(`upg${index + 80}`).addEventListener('click', () => buyAutobuyers(index));
-        console.log('Successfully added "Onclick" event to Autobuyer upgrade!')
-    
+        document.getElementById(`upg${index + 80}`).addEventListener('click', () => buyAutobuyers(index));    
     }
     for (let index = 1; index <= 20; index++) {
-
         //Onclick events (Generator Upgrades)
-        document.getElementById(`upg${index + 100}`).addEventListener('click', () => buyGenerator(index));
-        console.log('Successfully added "Onclick" event to Generator upgrade!')
-    
+        document.getElementById(`upg${index + 100}`).addEventListener('click', () => buyGenerator(index));    
     }
 
 // Upgrades 121-125 are upgrades similar to the first 80.
     for (let index = 1; index <= 5; index++) {
-
         //Onclick events (Upgrade 121-125)
-        document.getElementById(`upg${index + 120}`).addEventListener('click', () => buyUpgrades('coin',index));
-        console.log('Successfully added "Onclick" event to Generator upgrade!')
-    
+        document.getElementById(`upg${index + 120}`).addEventListener('click', () => buyUpgrades('coin',index));    
     }
 
 // Next part: Shop-specific toggles
@@ -375,13 +362,10 @@ export const generateEventHandlers = () => {
         //Eliminates listeners on index.html 1404-1617
         document.getElementById(`res${index}`).addEventListener('click', () => buyResearch(index));
         document.getElementById(`res${index}`).addEventListener('mouseover', () => researchDescriptions(index));    
-
-        console.log('Successfully added "Onmouseover" and "Onclick" events to researches 1-199!')
     }
     //Research 200 is special, uses more params
     document.getElementById(`res200`).addEventListener('click', () => buyResearch(200, false, 0.01));
     document.getElementById(`res200`).addEventListener('mouseover', () => researchDescriptions(200, false, 0.01));
-    console.log('Successfully added "Onmouseover" and "Onclick" events to research 200!')
 
 //Part 2: QoL buttons
     document.getElementById('toggleresearchbuy').addEventListener('click', () => toggleResearchBuy())
@@ -581,7 +565,6 @@ TODO: Fix this entire tab it's utter shit
     for (const key of shopKeys) {
         const shopItem = shopData[key]
         if (shopItem.type === 'upgrade') {
-            console.log(shopItem.description)
             document.getElementById(`${key}`).addEventListener('mouseover', () => shopDescriptions(key))
             document.getElementById(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
             document.getElementById(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
