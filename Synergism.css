@@ -2454,7 +2454,7 @@ p[id$="BlessingsTotal"] {
 }
 
 .historyTableWrap {
-    max-height: 450px;
+    max-height: 650px;
     overflow-y: auto;
 }
 
