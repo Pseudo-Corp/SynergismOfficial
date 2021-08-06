@@ -29,8 +29,9 @@ jobs:
       - name: Create .zip File
         uses: papeloto/action-zip@v1
         with:
-          files: dist/ Pictures index.html Synergism.css favicon.ico
+          files: dist/ Pictures/ index.html Synergism.css favicon.ico
           dest: Kong.zip
+          recursive: false
       - name: Create release
         uses: marvinpinto/action-automatic-releases@latest
         with:
