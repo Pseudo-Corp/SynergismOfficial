@@ -791,8 +791,8 @@ export const timeWarp = async () => {
         )
             return Alert(`Hey! That's not a valid time!`);
     
-    document.getElementById('offlineContainer').style.display = 'flex'
-    document.getElementById('preloadContainer').style.display = 'flex'
+    DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
+    DOMCacheGetOrSet('preloadContainer').style.display = 'flex'
     calculateOffline(timeUse)
 }
 
@@ -813,8 +813,8 @@ export const calculateOffline = (forceTime = 0) => {
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
   
-    document.getElementById('preloadContainer').style.display = (forceTime > 0) ? 'none' : 'flex';
-    document.getElementById("offlineContainer").style.display = "flex";
+    DOMCacheGetOrSet('preloadContainer').style.display = (forceTime > 0) ? 'none' : 'flex';
+    DOMCacheGetOrSet("offlineContainer").style.display = "flex";
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
@@ -933,8 +933,8 @@ export const calculateOffline = (forceTime = 0) => {
 
 export const exitOffline = () => {
     document.body.classList.remove('loading');
-    document.getElementById("offlineContainer").style.display = "none";
-    document.getElementById("preloadContainer").style.display = "none";
+    DOMCacheGetOrSet("offlineContainer").style.display = "none";
+    DOMCacheGetOrSet("preloadContainer").style.display = "none";
 }
 
 export const calculateSigmoid = (constant: number, factor: number, divisor: number) => {

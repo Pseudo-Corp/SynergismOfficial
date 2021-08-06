@@ -147,6 +147,7 @@ export const importSynergism = (input: string, reset = false) => {
     ) {
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
+        document.body.classList.add('loading');
         
         return reloadShit(reset);
     } else {
