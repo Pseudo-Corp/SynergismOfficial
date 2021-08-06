@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleBuyMaxShop } from "./Toggles"
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop } from "./Toggles"
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from "./Reset"
 import { player, resetCheck, saveSynergy } from "./Synergism"
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels } from "./Buy"
@@ -80,7 +80,13 @@ export const generateEventHandlers = () => {
     document.getElementById('ascendbtn').addEventListener('mouseover', () => resetrepeat("ascension"))
 
     for (const resetButton of Array.from(document.querySelectorAll('.resetbtn'))) {
+        resetButton.addEventListener('mouseover', () => {
+            resetButton.classList.add('hover');
+        });
+
         resetButton.addEventListener('mouseout', () => {
+            resetButton.classList.remove('hover');
+
             if (player.currentChallenge.reincarnation) {
                 resetrepeat('reincarnationChallenge');
             } else if (player.currentChallenge.transcension) {
@@ -202,11 +208,8 @@ export const generateEventHandlers = () => {
 // UPGRADES TAB
 // For all upgrades in the Upgrades Tab (125) count, we have the same mouseover event. So we'll work on those first.
     for (let index = 1; index <= 125; index++) {
-
         //Onmouseover events ()
         document.getElementById(`upg${index}`).addEventListener('mouseover', () => upgradedescriptions(index));
-
-        console.log('Successfully added "Onmouseover" event to upgrades 1-120!')
     }
 
 // The first 80 upgrades (Coin-Particle upgrade) are annoying since there are four cases based on which resource is needed.
@@ -218,33 +221,23 @@ export const generateEventHandlers = () => {
 
         //Onclick events (Regular upgrades 1-80)
         document.getElementById(`upg${index}`).addEventListener('click', () => buyUpgrades(resourceType,index));
-
-        console.log('Successfully added "Onmouseover" event to upgrades 1-120!')
     }
 
 // Autobuyer (20 count, ID 81-100) and Generator (20 count, ID 101-120) Upgrades have a unique onclick
     for (let index = 1; index <= 20; index++) {
 
         //Onclick events (Autobuyer upgrades)
-        document.getElementById(`upg${index + 80}`).addEventListener('click', () => buyAutobuyers(index));
-        console.log('Successfully added "Onclick" event to Autobuyer upgrade!')
-    
+        document.getElementById(`upg${index + 80}`).addEventListener('click', () => buyAutobuyers(index));    
     }
     for (let index = 1; index <= 20; index++) {
-
         //Onclick events (Generator Upgrades)
-        document.getElementById(`upg${index + 100}`).addEventListener('click', () => buyGenerator(index));
-        console.log('Successfully added "Onclick" event to Generator upgrade!')
-    
+        document.getElementById(`upg${index + 100}`).addEventListener('click', () => buyGenerator(index));    
     }
 
 // Upgrades 121-125 are upgrades similar to the first 80.
     for (let index = 1; index <= 5; index++) {
-
         //Onclick events (Upgrade 121-125)
-        document.getElementById(`upg${index + 120}`).addEventListener('click', () => buyUpgrades('coin',index));
-        console.log('Successfully added "Onclick" event to Generator upgrade!')
-    
+        document.getElementById(`upg${index + 120}`).addEventListener('click', () => buyUpgrades('coin',index));    
     }
 
 // Next part: Shop-specific toggles
@@ -369,17 +362,15 @@ export const generateEventHandlers = () => {
         //Eliminates listeners on index.html 1404-1617
         document.getElementById(`res${index}`).addEventListener('click', () => buyResearch(index));
         document.getElementById(`res${index}`).addEventListener('mouseover', () => researchDescriptions(index));    
-
-        console.log('Successfully added "Onmouseover" and "Onclick" events to researches 1-199!')
     }
     //Research 200 is special, uses more params
     document.getElementById(`res200`).addEventListener('click', () => buyResearch(200, false, 0.01));
     document.getElementById(`res200`).addEventListener('mouseover', () => researchDescriptions(200, false, 0.01));
-    console.log('Successfully added "Onmouseover" and "Onclick" events to research 200!')
 
 //Part 2: QoL buttons
     document.getElementById('toggleresearchbuy').addEventListener('click', () => toggleResearchBuy())
     document.getElementById('toggleautoresearch').addEventListener('click', () => toggleAutoResearch())
+    document.getElementById('toggleautoresearchmode').addEventListener('click', () => toggleAutoResearchMode())
 
 // ANTHILL TAB
 //Part 1: Ant Producers (Tiers 1-8)
@@ -559,6 +550,7 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('buyofferingpotion').addEventListener('mouseover', () => shopDescriptions("offeringPotion"))
     document.getElementById('useofferingpotion').addEventListener('mouseover', () => shopDescriptions("offeringPotion"))
     document.getElementById('buyofferingpotion').addEventListener('click', () => buyShopUpgrades("offeringPotion"))
+    document.getElementById('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
     document.getElementById('useofferingpotion').addEventListener('click', () => useConsumable("offeringPotion"))
 /*Obtainium Potion*/
     document.getElementById('obtainiumPotions').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
@@ -566,16 +558,17 @@ TODO: Fix this entire tab it's utter shit
     document.getElementById('buyobtainiumpotion').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
     document.getElementById('useobtainiumpotion').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
     document.getElementById('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))
+    document.getElementById('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
     document.getElementById('useobtainiumpotion').addEventListener('click', () => useConsumable("obtainiumPotion"))
 /* Permanent Upgrade Images */
     const shopKeys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
     for (const key of shopKeys) {
         const shopItem = shopData[key]
         if (shopItem.type === 'upgrade') {
-            console.log(shopItem.description)
             document.getElementById(`${key}`).addEventListener('mouseover', () => shopDescriptions(key))
             document.getElementById(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
             document.getElementById(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
+            document.getElementById(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
             document.getElementById(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
         }
     }

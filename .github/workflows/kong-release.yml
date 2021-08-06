@@ -1,0 +1,43 @@
+name: Create a release for Kongregate
+on:
+  push:
+    branches: master
+    
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false 
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install deps
+        run: |
+          npm install
+      - name: Build
+        run: |
+          node ./scripts/update-last-updated.js
+          node ./scripts/transform.js
+          npm run-script build:esbuild
+      - name: Remove old .zip
+        run: |
+          rm -rf Kong.zip
+      - name: Create .zip File
+        uses: papeloto/action-zip@v1
+        with:
+          files: dist/ Pictures/ index.html Synergism.css favicon.ico
+          dest: Kong.zip
+          recursive: false
+      - name: Create release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: latest
+          prerelease: true
+          title: Kongregate Build
+          files: |
+            Kong.zip

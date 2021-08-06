@@ -5,6 +5,7 @@ import { Synergism } from './Events';
 import { sumContents } from './Utility';
 import Decimal from 'break_infinity.js';
 import { CalcCorruptionStuff, calculateTimeAcceleration } from './Calculate';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const achievementpointvalues = [0, 
     1, 2, 4, 6, 8, 9, 10,
@@ -490,7 +491,7 @@ export const areward = (i: number): string => {
         256: `Hypercube Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!`,
         257: `Platonic Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!`,
         258: `Hepteract Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]`,
-        259: "Ascensions are 25% faster, forever!",
+        259: "Corruption score is increased by 1% for every expansion of Abyss Hepteract! [WIP]",
         260: "You will gain 10% more ascension count, forever!",
         261: "You will gain 10% more ascension count, forever!",
         262: `Ascensions are ${format(Math.min(10, Math.log10(player.ascensionCount+1)), 2)}% faster! Max: +10%`,
@@ -814,12 +815,12 @@ export const achievementdescriptions = (i: number) => {
     if (i >= 253)
         multiplier = 40
 
-    document.getElementById("achievementdescription").textContent = y + z
-    document.getElementById("achievementreward").textContent = "Reward: " + achievementpointvalues[i] + " AP. " + format(achievementpointvalues[i] * multiplier) + " Quarks! " + k
+    DOMCacheGetOrSet("achievementdescription").textContent = y + z
+    DOMCacheGetOrSet("achievementreward").textContent = "Reward: " + achievementpointvalues[i] + " AP. " + format(achievementpointvalues[i] * multiplier) + " Quarks! " + k
     if (player.achievements[i] > 0.5) {
-        document.getElementById("achievementdescription").style.color = "gold"
+        DOMCacheGetOrSet("achievementdescription").style.color = "gold"
     } else {
-        document.getElementById("achievementdescription").style.color = "white"
+        DOMCacheGetOrSet("achievementdescription").style.color = "white"
     }
 }
 
@@ -833,11 +834,11 @@ export const achievementaward = (num: number) => {
         if (num >= 253)
             multiplier = 40
         player.worlds.add(achievementpointvalues[num] * multiplier);
-        document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + "%]"
+        DOMCacheGetOrSet("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + "%]"
         player.achievements[num] = 1;
         revealStuff()
     }
-    document.getElementById(`ach${num}`).style.backgroundColor = "Green";
+    DOMCacheGetOrSet(`ach${num}`).style.backgroundColor = "Green";
     Synergism.emit('achievement', num);
 }
 
