@@ -16,10 +16,6 @@ body {
     /* overflow-y: hidden; */
 }
 
-body.loading {
-    overflow-y: hidden;
-}
-
 a {
     color: white;
     text-decoration: none;
@@ -226,19 +222,9 @@ button:focus {
     width: 100%;
 }
 
-#preloadContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-
 #preload {
-    flex: 1;
+    position: absolute;
+    z-index: 2;
 }
 
 #offlineContainer {
@@ -247,7 +233,6 @@ button:focus {
     justify-content: center;
     align-items: center;
     z-index: 3;
-    height: 100vh;
 }
 
 .offlineStats {
