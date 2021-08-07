@@ -115,7 +115,7 @@ export class HepteractCraft {
         for (const item in this.OTHER_CONVERSIONS) {
             if (typeof player[item as keyof Player] === 'number')
                 (player[item as keyof Player] as number) -= amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player];
-            else if (Object.prototype.isPrototypeOf.call(Cube, player[item as keyof Player]))
+            else if (player[item as keyof Player] instanceof Cube)
                 (player[item as keyof Player] as Cube).sub(amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player]);
             else if (item == 'worlds')
                 player.worlds.sub(amountToCraft * this.OTHER_CONVERSIONS[item])
