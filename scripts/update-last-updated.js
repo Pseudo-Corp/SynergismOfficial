@@ -7,7 +7,7 @@ console.log('\x1b[33m%s\x1b[0m', `Updating last updated config date to ${UTC}`);
 
 try {
     console.log('\x1b[33m%s\x1b[0m', 'Reading file & updating ##LAST_UPDATED##')
-    let config = readFileSync(`${__dirname}/src/Config.ts`, 'utf-8');
+    let config = readFileSync(`${__dirname}/../src/Config.ts`, 'utf-8');
 
     if (!/'##LAST_UPDATED##'/g.test(config)) {
         throw new Error('File does not contain the \'##LAST_UPDATED##\' placeholder');
@@ -20,7 +20,7 @@ try {
     }
 
     console.log('\x1b[33m%s\x1b[0m', 'writing file back to source')
-    writeFileSync(`${__dirname}/src/Config.ts`, config);
+    writeFileSync(`${__dirname}/../src/Config.ts`, config);
     console.log('\x1b[32m%s\x1b[0m', 'Date updated');
 } catch (e) {
     console.error(e);

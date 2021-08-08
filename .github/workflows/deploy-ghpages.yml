@@ -24,7 +24,7 @@ jobs:
           npm run csslint
       - name: Build
         run: |
-          npm run-script set-updated-date
+          node ./scripts/update-last-updated.js
           npm run-script build:esbuild
       - name: Prepare for deploy
         run: |

@@ -11,7 +11,7 @@ import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Researc
 import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck } from './Calculate';
+import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck, exitOffline } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
 import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
@@ -67,7 +67,7 @@ export const clearInt = new Proxy(clearInterval, {
 });
 
 export const player: Player = {
-    worlds: new QuarkHandler({ quarks: 0 }),
+    worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),
     coins: new Decimal("1e2"),
     coinsThisPrestige: new Decimal("1e2"),
     coinsThisTranscension: new Decimal("1e2"),
@@ -3068,8 +3068,7 @@ export const constantIntervals = (): void => {
     interval(buildingAchievementCheck, 200)
 
     if (!G['timeWarp']) {
-        DOMCacheGetOrSet("preload").style.display = "none";
-        DOMCacheGetOrSet("offlineContainer").style.display = "none"
+        exitOffline();
     }
 }
 
@@ -3385,7 +3384,7 @@ export const reloadShit = async (reset = false) => {
     if (!reset) 
         calculateOffline();
     else
-        player.worlds = new QuarkHandler({quarks: 0})
+        player.worlds = new QuarkHandler({ quarks: 0, bonus: 0 });
     saveSynergy();
     toggleauto();
     revealStuff();

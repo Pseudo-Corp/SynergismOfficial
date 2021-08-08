@@ -7,6 +7,35 @@ import { Alert } from "./UpdateHTML";
 import { Globals as G } from "./Variables"
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
+const getBonus = async (): Promise<null | number> => {
+    if (navigator.onLine === false) return null;
+
+    try {
+        const r = await fetch('https://api.github.com/gists/44be6ad2dcf0d44d6a29dffe1d66a84a', {
+            headers: {
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        
+        const t = await r.json();
+        const b = Number(t.files['SynergismQuarkBoost.txt'].content);
+
+        return b;
+    } catch (e) {
+        console.log(`GitHub Gist: ${e.message}`);
+    }
+
+    try {
+        const r = await fetch('https://synergism-quarks.khafra.workers.dev/');
+        const j = await r.json() as { bonus: number };
+
+        return j.bonus;
+    } catch (e) {
+        console.log(`workers.dev: ${e.message}`);
+        return null;
+    }
+}
+
 export const getQuarkMultiplier = () => {
     let multiplier = 1;
     if (player.achievementPoints > 0) { // Achievement Points
@@ -81,7 +110,7 @@ export const quarkHandler = () => {
 
 export class QuarkHandler {
     /** Global quark bonus */
-    private BONUS = 0;
+    public BONUS = 0;
     /** Quark amount */
     private QUARKS = 0;
 
@@ -89,10 +118,11 @@ export class QuarkHandler {
 
     constructor({ bonus, quarks }: { bonus?: number, quarks: number }) {
         this.QUARKS = quarks;
-        if (bonus)
+        if (bonus) {
             this.BONUS = bonus;
-        else
-            this.getBonus();
+        } else {
+            void this.getBonus();
+        }
 
         if (QuarkHandler.interval === null) // although the values are cached for 15 mins, refresh every 5
             QuarkHandler.interval = setInterval(this.getBonus.bind(this), 60 * 1000 * 5);
@@ -105,10 +135,7 @@ export class QuarkHandler {
 
     /** Subtracts quarks, as the name suggests. */
     add(amount: number, useBonus = true) {
-        if (useBonus)
-            this.QUARKS += this.applyBonus(amount);
-        else
-            this.QUARKS += amount;
+        this.QUARKS += useBonus ? this.applyBonus(amount) : amount;
         return this;
     }
 
@@ -119,10 +146,6 @@ export class QuarkHandler {
 
         return this;
     }
-
-    public get _BONUS() : number {
-        return this.BONUS
-    }    
 
     async getBonus() {
         const el = DOMCacheGetOrSet('currentBonus');
@@ -140,33 +163,19 @@ export class QuarkHandler {
             return el.textContent = `Current Bonus: N/A (offline)%!`;
         }
 
-        try {
-            const r = await fetch('https://api.github.com/gists/44be6ad2dcf0d44d6a29dffe1d66a84a', {
-                headers: {
-                    'Accept': 'application/vnd.github.v3+json'
-                }
-            });
-            const t = await r.json();
-            const b = Number(t.files['SynergismQuarkBoost.txt'].content);
+        const b = await getBonus();
 
-            if (Number.isNaN(b)) 
-                return Alert('No bonus could be applied, an error occurred. [NaN] :(');
-            else if (!Number.isFinite(b))
-                return Alert('No bonus could be applied, an error occurred. [Infinity] :(');
-            else if (b < 0)
-                return Alert('No bonus could be applied, an error occurred. [Zero] :(');
+        if (Number.isNaN(b) || typeof b !== 'number') 
+            return Alert('No bonus could be applied, an error occurred. [NaN] :(');
+        else if (!Number.isFinite(b))
+            return Alert('No bonus could be applied, an error occurred. [Infinity] :(');
+        else if (b < 0)
+            return Alert('No bonus could be applied, an error occurred. [Zero] :(');
 
-            console.log(`%c \tBonus of ${b}% quarks has been applied!`, 'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;');
-            el.textContent = `Generous patrons give you a bonus of ${b}% more quarks!`;
-            localStorage.setItem('quarkBonus', JSON.stringify({ bonus: b, fetched: Date.now() }));
-            this.BONUS = b;
-        } catch {
-            console.log(`If you see an error with "fetch" or "network" in it, you can safely ignore it!`);
-            // there are a few examples where this request might fail:
-            //      1. tab is in the background, browser throttles it.
-            //      2. idle too long, network connection is severed
-            // there's nothing we can do if an error occurs so we should ignore it.
-        }
+        console.log(`%c \tBonus of ${b}% quarks has been applied!`, 'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;');
+        el.textContent = `Generous patrons give you a bonus of ${b}% more quarks!`;
+        localStorage.setItem('quarkBonus', JSON.stringify({ bonus: b, fetched: Date.now() }));
+        this.BONUS = b;
     }
 
     [Symbol.toPrimitive] = (t: string) => t === 'number' ? this.QUARKS : null;
