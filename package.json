@@ -1,10 +1,10 @@
 {
   "name": "synergismofficial",
-  "version": "2.5.6",
+  "version": "2.5.7",
   "description": "",
   "main": "dist/bundle.js",
   "dependencies": {
-    "break_infinity.js": "github:Patashu/break_infinity.js",
+    "break_infinity.js": "^1.2.0",
     "eventemitter3": "^4.0.7",
     "lz-string": "^1.4.4"
   },
