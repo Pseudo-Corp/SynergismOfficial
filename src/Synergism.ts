@@ -590,7 +590,6 @@ export const player: Player = {
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     history: { ants: [], ascend: [], reset: [] },
-    historyCountMax: 20,
     historyShowPerSecond: false,
 
     autoChallengeRunning: false,
@@ -723,11 +722,6 @@ const loadSynergy = () => {
             const prop = stringProp as keyof Player;
             if (toAdapt.has(prop)) {
                 return ((player[prop] as unknown) = toAdapt.get(prop)(data));
-            }
-
-            if (prop === "historyCountMax") {
-                //use new default history count max instead of one loaded from the save
-                return;
             }
             if (isDecimal(player[prop])) {
                 return ((player[prop] as Decimal) = new Decimal(data[prop]));
@@ -1085,7 +1079,6 @@ const loadSynergy = () => {
         }
         if (data.historyShowPerSecond === undefined || player.historyShowPerSecond === undefined) {
             player.historyShowPerSecond = false;
-            player.historyCountMax = 20;
         }
 
         if (!Number.isInteger(player.ascendBuilding1.cost)) {
