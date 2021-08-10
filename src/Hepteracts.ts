@@ -97,7 +97,7 @@ export class HepteractCraft {
         const hepteractLimit = Math.floor((player.wowAbyssals / this.HEPTERACT_CONVERSION) * 1 / (1 - this.DISCOUNT))
 
         // Create an array of how many we can craft using our conversion limits for additional items
-        const itemLimits: Array<number> = []
+        const itemLimits: number[] = []
         for (const item in this.OTHER_CONVERSIONS) {
             // The type of player[item] is number | Decimal | Cube.
             itemLimits.push(Math.floor((player[item as keyof Player] as number) / this.OTHER_CONVERSIONS[item as keyof Player]) * 1 / (1 - this.DISCOUNT))

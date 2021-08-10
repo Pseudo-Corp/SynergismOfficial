@@ -9,10 +9,10 @@ export const hotkeys = new Map<string, [string, () => unknown]>([
     ['B', ['Boost Accelerator', () => boostAccelerator()]],
     ['E', ['Exit Challenge', () => {
         if (player.currentChallenge.reincarnation !== 0) {
-            resetCheck('reincarnationchallenge', undefined, true)
+            void resetCheck('reincarnationchallenge', undefined, true)
         }
         if (player.currentChallenge.transcension !== 0) {
-            resetCheck('challenge', undefined, true)
+            void resetCheck('challenge', undefined, true)
         }
     }]],
     ['M', ['Multipliers', () => buyMultiplier()]],

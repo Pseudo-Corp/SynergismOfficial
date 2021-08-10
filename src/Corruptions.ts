@@ -205,7 +205,7 @@ export const corruptionLoadoutTableCreate = () => {
             //empty
 
             cell = row.insertCell();
-            let btn = document.createElement("button");
+            const btn = document.createElement("button");
             btn.className = "corrLoad"
             btn.textContent = "Zero"
             btn.onclick = () => corruptionLoadoutSaveLoad(false, i);

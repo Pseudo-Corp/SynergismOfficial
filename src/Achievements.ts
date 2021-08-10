@@ -828,7 +828,7 @@ export const achievementaward = (num: number) => {
     if (player.achievements[num] < 1) {
         void Notification(`You unlocked an achievement: ${adesc[`adesc${num}` as keyof typeof adesc]}`);
 
-        achievementAlerts(num)
+        void achievementAlerts(num)
         player.achievementPoints += achievementpointvalues[num]
         let multiplier = 1
         if (num >= 183)

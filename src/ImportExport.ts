@@ -36,11 +36,12 @@ const format12 = new Intl.DateTimeFormat("EN-GB", {
 
 const getRealTime = (use12 = false) => {
     const format = use12 ? format12 : format24;
-    const dateParts = Object.assign({}, ...format
+    const datePartsArr = format
         .formatToParts(new Date())
         .filter((x) => x.type !== "literal")
-        .map(p => ({ [p.type]: p.value }))
-    );
+        .map(p => ({ [p.type]: p.value }));
+
+    const dateParts = Object.assign({}, ...datePartsArr) as Record<string, string>;
         
     const period = use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : '';
     return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`;
@@ -124,12 +125,12 @@ export const resetGame = async () => {
 
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
-    });
+    }) as Player;
     //Reset Displays
     toggleTabs("buildings");
     toggleSubTab(1, 0);
     //Import Game
-    importSynergism(btoa(JSON.stringify(hold)), true);
+    void importSynergism(btoa(JSON.stringify(hold)), true);
 }
 
 export const importSynergism = (input: string, reset = false) => {
@@ -138,7 +139,7 @@ export const importSynergism = (input: string, reset = false) => {
     }
 
     const d = LZString.decompressFromBase64(input);
-    const f: Player = d ? JSON.parse(d) : JSON.parse(atob(input));
+    const f = d ? JSON.parse(d) as Player : JSON.parse(atob(input)) as Player;
 
     if (
         (f.exporttest === "YES!" || f.exporttest === true) ||

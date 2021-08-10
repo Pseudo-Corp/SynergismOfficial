@@ -528,6 +528,28 @@ export const toggleautoenhance = () => {
     player.autoEnhanceToggle = !player.autoEnhanceToggle;
 }
 
+interface ChadContributor {
+    login: string
+    id: number
+    node_id: string
+    avatar_url: string
+    gravatar_id: string
+    url: string
+    html_url: string
+    followers_url: string
+    following_url: string
+    gists_url: string
+    starred_url: string
+    subscriptions_url: string
+    organizations_url: string
+    repos_url: string
+    events_url: string
+    received_events_url: string
+    type: string
+    site_admin: boolean
+    contributions: number
+}
+
 const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonElement) => {
     const subtabEl = DOMCacheGetOrSet(subtab);
     if (subtabEl.classList.contains("subtabActive")) {
@@ -572,7 +594,7 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
                     'Accept': 'application/vnd.github.v3+json'
                 }
             });
-            const j = await r.json();
+            const j = await r.json() as ChadContributor[];
 
             for (const contributor of j) { 
                 const div = document.createElement('div');
@@ -594,7 +616,8 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
                 credits.appendChild(div);
             }
         } catch (e) {
-            credits.appendChild(document.createTextNode(e.toString()));
+            const err = e as Error;
+            credits.appendChild(document.createTextNode(err.toString()));
         }
 
         try {
@@ -604,8 +627,8 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
                 }
             });
 
-            const j = await r.json();
-            const f = JSON.parse(j.files['synergism_artists.json'].content);
+            const j = await r.json() as { files: Record<string, { content: string }> };
+            const f = JSON.parse(j.files['synergism_artists.json'].content) as string[];
 
             for (const user of f) {
                 const p = document.createElement('p');
@@ -614,7 +637,8 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
                 artists.appendChild(p);
             }
         } catch (e) {
-            credits.appendChild(document.createTextNode(e.toString()));
+            const err = e as Error;
+            credits.appendChild(document.createTextNode(err.toString()));
         }
     }
 }
@@ -819,7 +843,7 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
         DOMCacheGetOrSet("corruptionCleanseConfirm").style.visibility = "hidden";
 
         if (player.currentChallenge.ascension === 15) {
-            resetCheck('ascensionChallenge', false, true)
+            void resetCheck('ascensionChallenge', false, true)
         }
     }
     corruptionDisplay(index)

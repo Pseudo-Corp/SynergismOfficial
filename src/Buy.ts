@@ -243,7 +243,7 @@ const factorialByExponent = (fact: number) => {
     return ((Math.log10(fact * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6)))) - exponentFactorialPartExtra) * fact) + ((mantissaFactorialPartExtra - Math.log10(fact)) / 2);
 }
 
-const fact100exponent = Math.log10(9.3326215443944152681699238856267e+157);
+const fact100exponent = Math.log10(9.332621544394e+157);
 
 // system of equations
 // 16 digits of precision

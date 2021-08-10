@@ -365,7 +365,7 @@ export const c15RewardUpdate = () => {
     }
     if (e >= exponentRequirements[25]) {
         //Unlock Challenge hepteract [2Qa]
-        player.hepteractCrafts.challenge.unlock('the Hepteract of Challenge')
+        void player.hepteractCrafts.challenge.unlock('the Hepteract of Challenge')
     }
     if (e >= exponentRequirements[26]) {
         //All Cube Types V [4Qa]
@@ -377,7 +377,7 @@ export const c15RewardUpdate = () => {
     }
     if (e >= exponentRequirements[28]) {
         //Unlock Abyss Hepteract [10Qa]
-        player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
+        void player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
     }
     if (e >= exponentRequirements[29]) {
         //Constant Upgrade 2 [20Qa]
@@ -385,15 +385,15 @@ export const c15RewardUpdate = () => {
     }
     if (e >= exponentRequirements[30]) {
         //Unlock ACCELERATOR HEPT [33.33Qa]
-        player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
+        void player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
     }
     if (e >= exponentRequirements[31]) {
         //Unlock ACCELERATOR BOOST HEPT [33.33Qa]
-        player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
+        void player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
     }
     if (e >= exponentRequirements[32]) {
         //Unlock MULTIPLIER Hept [33.33Qa]
-        player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
+        void player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
     }
     if (e >= exponentRequirements[33]) {
         // FREE Daily Orbs
