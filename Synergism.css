@@ -111,24 +111,26 @@ button:focus {
     transform: translate(7.5%, 22.5%);
     z-index: 6969;
     width: 15%;
-    height: 12.5%;
+    min-height: 150px;
+    overflow: hidden;
     border-radius: 5px;
     border: 1px solid gold;
-    background-color: darkcyan;
+    background-color: #111;
 }
 
 #notification > p {
     position: fixed;
     top: 50%;
     left: 50%;
+    width: 90%;
     transform: translate(-50%, -50%);
     margin: 0;
 }
 
 #notifx {
     position: fixed;
-    top: 1px;
-    right: 1px;
+    top: 5px;
+    right: 5px;
 }
 
 #confirmationBox {

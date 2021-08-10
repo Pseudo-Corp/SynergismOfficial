@@ -1,6 +1,6 @@
 import { format, player } from './Synergism';
 import { Globals as G } from './Variables';
-import { Alert, revealStuff } from './UpdateHTML';
+import { Alert, Notification, revealStuff } from './UpdateHTML';
 import { Synergism } from './Events';
 import { sumContents } from './Utility';
 import Decimal from 'break_infinity.js';
@@ -826,6 +826,8 @@ export const achievementdescriptions = (i: number) => {
 
 export const achievementaward = (num: number) => {
     if (player.achievements[num] < 1) {
+        void Notification(`You unlocked an achievement: ${adesc[`adesc${num}` as keyof typeof adesc]}`);
+
         achievementAlerts(num)
         player.achievementPoints += achievementpointvalues[num]
         let multiplier = 1
@@ -838,6 +840,7 @@ export const achievementaward = (num: number) => {
         player.achievements[num] = 1;
         revealStuff()
     }
+    
     DOMCacheGetOrSet(`ach${num}`).style.backgroundColor = "Green";
     Synergism.emit('achievement', num);
 }
