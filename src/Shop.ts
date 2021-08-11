@@ -399,7 +399,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const maxLevel = player.shopUpgrades[input] === shopData[input].maxLevel;
     const canAfford = Number(player.worlds) >= getShopCosts(input);
 
-    if (G['shopConfirmation']) {
+    if (G['shopConfirmation'] || !shopData[input].refundable) {
         if (maxLevel) {
             await Alert("You can't purchase " + friendlyShopName(input) + " because you already have the max level!")
         }
