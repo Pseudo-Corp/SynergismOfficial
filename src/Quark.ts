@@ -9,6 +9,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const getBonus = async (): Promise<null | number> => {
     if (navigator.onLine === false) return null;
+    if (document.hidden === true) return null;
 
     try {
         const r = await fetch('https://api.github.com/gists/44be6ad2dcf0d44d6a29dffe1d66a84a', {
@@ -160,7 +161,9 @@ export class QuarkHandler {
                 return this.BONUS = bonus;
             }
         } else if (!navigator.onLine) {
-            return el.textContent = `Current Bonus: N/A (offline)%!`;
+            return el.textContent = `Current Bonus: N/A% (offline)!`;
+        } else if (document.hidden) {
+            return el.textContent = `Current Bonus: N/A% (unfocused)!`;
         }
 
         const b = await getBonus();

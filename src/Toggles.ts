@@ -583,10 +583,11 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
         const credits = DOMCacheGetOrSet('creditList');
         const artists = DOMCacheGetOrSet('artistList');
 
-        if (credits.childElementCount > 0 || artists.childElementCount > 0)
+        if (credits.childElementCount > 0 || artists.childElementCount > 0) {
             return;
-        else if (!navigator.onLine)
+        } else if (!navigator.onLine || document.hidden) {
             return;
+        }
 
         try {
             const r = await fetch('https://api.github.com/repos/pseudo-corp/SynergismOfficial/contributors', {
