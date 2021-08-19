@@ -33,7 +33,7 @@ const getBonus = async (): Promise<null | number> => {
         return j.bonus;
     } catch (e) {
         console.log(`workers.dev: ${(<Error>e).message}`);
-        return null;
+        return undefined;
     }
 }
 
@@ -168,7 +168,9 @@ export class QuarkHandler {
 
         const b = await getBonus();
 
-        if (Number.isNaN(b) || typeof b !== 'number') 
+        if (b === null) {
+            return;
+        } else if (Number.isNaN(b) || typeof b !== 'number') 
             return Alert('No bonus could be applied, an error occurred. [NaN] :(');
         else if (!Number.isFinite(b))
             return Alert('No bonus could be applied, an error occurred. [Infinity] :(');
