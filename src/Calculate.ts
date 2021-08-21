@@ -1170,7 +1170,7 @@ export const calculateHepteractMultiplier = (score = -1) => {
         // Achievement 265 Bonus [Max: 160T Asc]
         1 + Math.min(0.2, player.ascensionCount / 8e14) * player.achievements[265],
         // Achievement 270 Bonus
-        Math.min(2, (1 + 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
+        Math.min(2, (1 + 1/1_000_000 * Decimal.log(player.ascendShards.add(1), 10) * player.achievements[270]))
         // Total Hepteract Multipliers: 7
     ]
 
