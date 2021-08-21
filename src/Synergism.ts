@@ -1815,12 +1815,7 @@ export const updateAllMultiplier = (): void => {
     a *= (1 + player.achievements[58] / 100)
     a *= (1 + player.achievements[59] / 100)
     a *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
-    if (player.upgrades[34] > 0.5) {
-        a *= 1.03 * 100 / 100
-    }
-    if (player.upgrades[35] > 0.5) {
-        a *= 1.05 / 1.03 * 100 / 100
-    }
+	a *= (1 + 0.03 * player.upgrades[34] + 0.02 * player.upgrades[35])
     a *= (1 + 1 / 5 * player.researches[2] * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14])))
     a *= (1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15])
     a *= (1 + G['rune2level'] / 400 * G['effectiveLevelMult'])
@@ -2040,7 +2035,7 @@ export const multipliers = (): void => {
     if (player.achievements[37] > 0.5 && player.prestigePoints.gte(10)) {
         G['globalCrystalMultiplier'] = G['globalCrystalMultiplier'].times(Decimal.log(player.prestigePoints.add(1), 10))
     }
-    if (player.achievements[43] > 0.5) {
+    if (player.achievements[44] > 0.5) {
         G['globalCrystalMultiplier'] = G['globalCrystalMultiplier']
             .times(Decimal.pow(G['rune3level'] / 2 * G['effectiveLevelMult'], 2)
             .times(Decimal.pow(2, G['rune3level'] * G['effectiveLevelMult'] / 2 - 8))
@@ -2199,12 +2194,12 @@ export const resourceGain = (dt: number): void => {
     multipliers();
     calculatetax();
     if (G['produceTotal'].gte(0.001)) {
-        const addcoin = Decimal.min(G['produceTotal'].dividedBy(G['taxdivisor']), Decimal.pow(10, G['maxexponent'] - Decimal.log(G['taxdivisorcheck'], 10)))
-        player.coins = player.coins.add(addcoin.times(dt / 0.025));
-        player.coinsThisPrestige = player.coinsThisPrestige.add(addcoin.times(dt / 0.025));
-        player.coinsThisTranscension = player.coinsThisTranscension.add(addcoin.times(dt / 0.025));
-        player.coinsThisReincarnation = player.coinsThisReincarnation.add(addcoin.times(dt / 0.025));
-        player.coinsTotal = player.coinsTotal.add(addcoin.times(dt / 0.025))
+        const addcoin = (Decimal.min(G['produceTotal'].dividedBy(G['taxdivisor']), Decimal.pow(10, G['maxexponent'] - Decimal.log(G['taxdivisorcheck'], 10)))).times(dt / 0.025)
+        player.coins = player.coins.add(addcoin);
+        player.coinsThisPrestige = player.coinsThisPrestige.add(addcoin);
+        player.coinsThisTranscension = player.coinsThisTranscension.add(addcoin);
+        player.coinsThisReincarnation = player.coinsThisReincarnation.add(addcoin);
+        player.coinsTotal = player.coinsTotal.add(addcoin)
     }
 
     resetCurrency();

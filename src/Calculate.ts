@@ -123,7 +123,7 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
         allRuneExpAdditiveMultiplier = sumContents([
             //Challenge 3 completions
             1 / 100 * player.highestchallengecompletions[3],
-            //Reincarnation 3x1
+            //Reincarnation 2x1
             1 * player.upgrades[66]
         ]);
     } else {
@@ -230,7 +230,7 @@ export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.ru
 export const calculateMaxRunes = (i: number) => {
     let max = 1000;
 
-    const increaseAll = 10 * (2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
+    const increaseAll = 20 * (player.cubeUpgrades[16] + player.cubeUpgrades[37])
         + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11])
         + 200 * CalcECC('ascension', player.challengecompletions[14])
         + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50])
@@ -661,16 +661,7 @@ export const calculateAntSacrificeELO = () => {
         G['antELO'] += 4 * player.seventhOwnedAnts
         G['antELO'] += 8 * player.eighthOwnedAnts
         G['antELO'] += 666 * player.researches[178]
-
-        if (player.achievements[180] === 1) {
-            G['antELO'] *= 1.01
-        }
-        if (player.achievements[181] === 1) {
-            G['antELO'] *= 1.03 / 1.01
-        }
-        if (player.achievements[182] === 1) {
-            G['antELO'] *= 1.06 / 1.03
-        }
+		G['antELO'] *= (1 + 0.01 * player.achievements[180] + 0.02 * player.achievements[181] + 0.03 * player.achievements[182])
         G['antELO'] *= (1 + player.researches[110] / 100)
         G['antELO'] *= (1 + 2.5 * player.researches[148] / 100)
 
