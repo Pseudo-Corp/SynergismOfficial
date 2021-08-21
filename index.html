@@ -2318,7 +2318,7 @@
                     </div>
                     <p id="platonicBlessingsTotal">You have a total of <span id="platonicBlessingTotalAmount">0</span> Platonic Cubes opened!</p>
                 </div>
-                <div id="cubeTab5" style="display: none">
+                <div id="cubeTab5" class="cubeTab" style="display: none">
                     <div id="cubeTab5Wrapper"> 
                         <p id="cubeAmount2">You have 0 Wow! Cubes</p>
                         <table id="cubeUpgradeTable">
@@ -2492,54 +2492,113 @@
                         </div>
                     </div>
 
-                    <div id="hepteractGrid">
+                    <div id="heptGrid" class="hepteractGrid">
                         <div class="hepteractType" id="chronosHepteract">
-                            <img id="chronosHepteractImage" src="Pictures/ChronosHepteract.png">
+                            <img id="chronosHepteractImage" class="heptTypeImage" src="Pictures/ChronosHepteract.png">
                             <button id="chronosHepteractCraft">Craft</button>
-                            <button id="chronosHepteractCap">Expand</button>
+                            <button id="chronosHepteractCraftMax">Max</button>
+                            <button id="chronosHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="chronosProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="chronosProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="hyperrealismHepteract">
-                            <img id="hyperrealismHepteractImage" src="Pictures/HyperrealismHepteract.png">
+                            <img id="hyperrealismHepteractImage" class="heptTypeImage" src="Pictures/HyperrealismHepteract.png">
                             <button id="hyperrealismHepteractCraft">Craft</button>
-                            <button id="hyperrealismHepteractCap">Expand</button>
+                            <button id="hyperrealismHepteractCraftMax">Max</button>
+                            <button id="hyperrealismHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="hyperrealismProgressBarText">/</span>
+                                <span class="progressBar" id="hyperrealismProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="quarkHepteract">
-                            <img id="quarkHepteractImage" src="Pictures/QuarkHepteract.png">
+                            <img id="quarkHepteractImage" class="heptTypeImage" src="Pictures/QuarkHepteract.png">
                             <button id="quarkHepteractCraft">Craft</button>
-                            <button id="quarkHepteractCap">Expand</button>
+                            <button id="quarkHepteractCraftMax">Max</button>
+                            <button id="quarkHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="quarkProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="quarkProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="challengeHepteract">
-                            <img id="challengeHepteractImage" src="Pictures/ChallengeHepteract.png">
+                            <img id="challengeHepteractImage" class="heptTypeImage" src="Pictures/ChallengeHepteract.png">
                             <button id="challengeHepteractCraft">Craft</button>
-                            <button id="challengeHepteractCap">Expand</button>
+                            <button id="challengeHepteractCraftMax">Max</button>
+                            <button id="challengeHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="challengeProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="challengeProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="abyssHepteract">
-                            <img id="abyssHepteractImage" src="Pictures/AbyssHepteract.png">
+                            <img id="abyssHepteractImage" class="heptTypeImage" src="Pictures/AbyssHepteract.png">
                             <button id="abyssHepteractCraft">Craft</button>
-                            <button id="abyssHepteractCap">Expand</button>
+                            <button id="abyssHepteractCraftMax">Max</button>
+                            <button id="abyssHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="abyssProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="abyssProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="acceleratorHepteract">
-                            <img id="acceleratorHepteractImage" src="Pictures/AcceleratorHepteract.png">
+                            <img id="acceleratorHepteractImage" class="heptTypeImage" src="Pictures/AcceleratorHepteract.png">
                             <button id="acceleratorHepteractCraft">Craft</button>
-                            <button id="acceleratorHepteractCap">Expand</button>
+                            <button id="acceleratorHepteractCraftMax">Max</button>
+                            <button id="acceleratorHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="acceleratorProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="acceleratorProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="acceleratorBoostHepteract">
-                            <img id="acceleratorBoostHepteractImage" src="Pictures/AcceleratorBoostHepteract.png">
+                            <img id="acceleratorBoostHepteractImage" class="heptTypeImage" src="Pictures/AcceleratorBoostHepteract.png">
                             <button id="acceleratorBoostHepteractCraft">Craft</button>
-                            <button id="acceleratorBoostHepteractCap">Expand</button>
+                            <button id="acceleratorBoostHepteractCraftMax">Max</button>
+                            <button id="acceleratorBoostHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="acceleratorBoostProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="acceleratorBoostProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="multiplierHepteract">
-                            <img id="multiplierHepteractImage" src="Pictures/MultiplierHepteract.png">
+                            <img id="multiplierHepteractImage" class="heptTypeImage" src="Pictures/MultiplierHepteract.png">
                             <button id="multiplierHepteractCraft">Craft</button>
-                            <button id="multiplierHepteractCap">Expand</button>
+                            <button id="multiplierHepteractCraftMax">Max</button>
+                            <button id="multiplierHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="multiplierProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="multiplierProgressBar"></span>
+                            </div>
                         </div>
-                        <div class="hepteractType" id="hepteractToQuark">
+                        <div><!--Blank Grid Tile--></div>
+                        <div id="hepteractToQuark">
                             <img id="hepteractToQuarkImage" src="Pictures/Overflux.png">
                             <button id="hepteractToQuarkTrade">Craft</button>
+                            <span style="grid-column: 1 / span 5;"></span> <!--Empty line-->
+                            <span class="heptGridInventory" style="align-self: end;">
+                                <span class="heptGridInventoryLabel" style="color:orchid;">Orbs:</span>
+                                <span class="heptGridInventoryValue" style="color:orchid;" id="heptGridOrbBalance">0</span>
+                            </span>
+                            <span class="heptGridInventory" style="align-self: start;">
+                                <span class="heptGridInventoryLabel" style="color:yellow;">Effect:</span>
+                                <span class="heptGridInventoryValue" style="color:yellow;" id="heptGridOrbEffect">0%</span>
+                            </span>
                         </div>
-                        <div class="hepteractType" id="overfluxPowder">
+                        <div id="overfluxPowder">
                             <img id="overfluxPowderImage" src="Pictures/Overflux Powder.png">
                             <button id="powderDayWarp">Warp</button>
+                            <span style="grid-column: 1 / span 5;"></span> <!--Empty line-->
+                            <span class="heptGridInventory" style="align-self: end;">
+                                <span class="heptGridInventoryLabel" style="color:orchid;">Powder:</span>
+                                <span class="heptGridInventoryValue" style="color:orchid;" id="heptGridPowderBalance">0</span>
+                            </span>
+                            <span class="heptGridInventory" style="align-self: start;">
+                                <span class="heptGridInventoryLabel" style="color:orange;">Warps:</span>
+                                <span class="heptGridInventoryValue" style="color:orange;" id="heptGridPowderWarps">1</span>
+                            </span>
                         </div>
                     </div>
 

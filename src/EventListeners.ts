@@ -483,6 +483,15 @@ DOMCacheGetOrSet('acceleratorHepteractCraft').addEventListener('click', () => pl
 DOMCacheGetOrSet('acceleratorBoostHepteractCraft').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.craft())
 DOMCacheGetOrSet('multiplierHepteractCraft').addEventListener('click', () => player.hepteractCrafts.multiplier.craft())
 
+DOMCacheGetOrSet('chronosHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.chronos.craft(true))
+DOMCacheGetOrSet('hyperrealismHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.hyperrealism.craft(true))
+DOMCacheGetOrSet('quarkHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.quark.craft(true))
+DOMCacheGetOrSet('challengeHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.challenge.craft(true))
+DOMCacheGetOrSet('abyssHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.abyss.craft(true))
+DOMCacheGetOrSet('acceleratorHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.accelerator.craft(true))
+DOMCacheGetOrSet('acceleratorBoostHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.craft(true))
+DOMCacheGetOrSet('multiplierHepteractCraftMax').addEventListener('click', () => player.hepteractCrafts.multiplier.craft(true))
+
 DOMCacheGetOrSet('chronosHepteractCap').addEventListener('click', () => player.hepteractCrafts.chronos.expand())
 DOMCacheGetOrSet('hyperrealismHepteractCap').addEventListener('click', () => player.hepteractCrafts.hyperrealism.expand())
 DOMCacheGetOrSet('quarkHepteractCap').addEventListener('click', () => player.hepteractCrafts.quark.expand())
@@ -496,6 +505,7 @@ DOMCacheGetOrSet('hepteractToQuark').addEventListener('mouseover', () => heptera
 DOMCacheGetOrSet('hepteractToQuarkTrade').addEventListener('click', () => tradeHepteractToOverfluxOrb())
 DOMCacheGetOrSet('overfluxPowder').addEventListener('mouseover', () => overfluxPowderDescription())
 DOMCacheGetOrSet('powderDayWarp').addEventListener('click', () => overfluxPowderWarp())
+
 // CORRUPTION TAB
 //Part 0: Subtabs
 DOMCacheGetOrSet('corrStatsBtn').addEventListener('click', () => toggleSubTab(9, 0))
