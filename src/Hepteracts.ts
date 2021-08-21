@@ -16,8 +16,10 @@ export interface IHepteractCraft {
     DISCOUNT?: number 
 }
 
-type hepteractTypes = 'chronos' | 'hyperrealism' | 'quark' | 'challenge' |
-                      'abyss' | 'accelerator' | 'acceleratorBoost' | 'multiplier'
+export const hepteractTypeList = ['chronos', 'hyperrealism', 'quark', 'challenge',
+    'abyss', 'accelerator', 'acceleratorBoost', 'multiplier'] as const;
+
+export type hepteractTypes = typeof hepteractTypeList[number];
 
 export class HepteractCraft {
     /**
@@ -76,12 +78,20 @@ export class HepteractCraft {
     }
 
     // Add to balance through crafting.
-    craft = async() : Promise<HepteractCraft> => {
+    craft = async (max = false): Promise<HepteractCraft> => {
+        let craftAmount = null;
         //Prompt used here. Thank you Khafra for the already made code! -Platonic
-        const craftingPrompt = await Prompt('How many would you like to craft?');
-        if (craftingPrompt === null) // Number(null) is 0. Yeah..
-            return Alert('Okay, maybe next time.');
-        const craftAmount = Number(craftingPrompt)
+        if (!max) {
+            const craftingPrompt = await Prompt('How many would you like to craft?');
+            if (craftingPrompt === null) // Number(null) is 0. Yeah..
+                return Alert('Okay, maybe next time.');
+            craftAmount = Number(craftingPrompt)
+        } else {
+            const craftYesPlz = await Confirm('This will attempt to buy as many as possible. Are you sure?')
+            if (!craftYesPlz) 
+                return Alert('Okay, maybe next time.');
+            craftAmount = this.CAP
+        }
 
         //Check these lol
         if (Number.isNaN(craftAmount) || !Number.isFinite(craftAmount)) // nan + Infinity checks
@@ -97,7 +107,7 @@ export class HepteractCraft {
         const hepteractLimit = Math.floor((player.wowAbyssals / this.HEPTERACT_CONVERSION) * 1 / (1 - this.DISCOUNT))
 
         // Create an array of how many we can craft using our conversion limits for additional items
-        const itemLimits: Array<number> = []
+        const itemLimits: number[] = []
         for (const item in this.OTHER_CONVERSIONS) {
             // The type of player[item] is number | Decimal | Cube.
             itemLimits.push(Math.floor((player[item as keyof Player] as number) / this.OTHER_CONVERSIONS[item as keyof Player]) * 1 / (1 - this.DISCOUNT))
@@ -115,7 +125,7 @@ export class HepteractCraft {
         for (const item in this.OTHER_CONVERSIONS) {
             if (typeof player[item as keyof Player] === 'number')
                 (player[item as keyof Player] as number) -= amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player];
-            else if (Object.prototype.isPrototypeOf.call(Cube, player[item as keyof Player]))
+            else if (player[item as keyof Player] instanceof Cube)
                 (player[item as keyof Player] as Cube).sub(amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player]);
             else if (item == 'worlds')
                 player.worlds.sub(amountToCraft * this.OTHER_CONVERSIONS[item])
@@ -252,7 +262,7 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
             unlockedText.textContent = (player.hepteractCrafts.chronos.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
             effectText.textContent = "This hepteract bends time, in your favor. +0.06% Ascension Speed per Chronos Hepteract."
             currentEffectText.textContent = "Current Effect: Ascension Speed +" + format(hepteractEffective('chronos') * 6 / 100, 2, true) + "%"
-            balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.chronos.BAL, 0, true) + " / " + format(player.hepteractCrafts.chronos.CAP)
+            balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.chronos.BAL) + " / " + format(player.hepteractCrafts.chronos.CAP)
             costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.chronos.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e115 Obtainium [WIP]"
             break;
         case 'hyperrealism':

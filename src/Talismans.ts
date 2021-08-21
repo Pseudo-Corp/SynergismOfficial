@@ -179,7 +179,7 @@ export const showTalismanEffect = (i: number) => {
             break;
         case 4:
             a.textContent = "=-=-=-= Metaphysics Talisman Effects =-=-=-=";
-            b.textContent = "Talismans' Bonus Rune Levels +" + format(0.05 * (player.talismanRarity[4-1] - 1), 2) + " per level"
+            b.textContent = "Talismans' Bonus Rune Levels +" + format(0.02 * (player.talismanRarity[4-1] - 1), 2) + " per level"
             c.textContent = "Bonus Speed Rune Levels: " + format(G['talisman4Effect'][1], 2, true)
             d.textContent = "Bonus Duplication Rune Levels: " + format(G['talisman4Effect'][2], 2, true)
             e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman4Effect'][3], 2, true)

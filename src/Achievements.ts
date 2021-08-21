@@ -1,6 +1,6 @@
 import { format, player } from './Synergism';
 import { Globals as G } from './Variables';
-import { Alert, revealStuff } from './UpdateHTML';
+import { Alert, Notification, revealStuff } from './UpdateHTML';
 import { Synergism } from './Events';
 import { sumContents } from './Utility';
 import Decimal from 'break_infinity.js';
@@ -434,8 +434,8 @@ export const areward = (i: number): string => {
         132: "Permanently gain +25% more sacrifice reward!",
         133: "+15% obtainium. Obtain the gift of Midas himself.",
         134: "Unlock 10 newer incredibly expensive yet good researches. Unlock <<Talismans>> in the Runes Tab!",
-        135: "Talisman positive bonuses are now +0.05 stronger per level.",
-        136: "Talisman positive bonuses are now +0.05 even stronger per level.",
+        135: "Talisman positive bonuses are now +0.02 stronger per level.",
+        136: "Talisman positive bonuses are now +0.02 even stronger per level.",
         137: "Permanently gain +25% more sacrifice reward!",
         140: "+17% obtainium. Lazy joke about not leaking talismans here [You get a new one]",
         141: "Unlock a new reset tier!",
@@ -826,7 +826,9 @@ export const achievementdescriptions = (i: number) => {
 
 export const achievementaward = (num: number) => {
     if (player.achievements[num] < 1) {
-        achievementAlerts(num)
+        void Notification(`You unlocked an achievement: ${adesc[`adesc${num}` as keyof typeof adesc]}`);
+
+        void achievementAlerts(num)
         player.achievementPoints += achievementpointvalues[num]
         let multiplier = 1
         if (num >= 183)
@@ -838,6 +840,7 @@ export const achievementaward = (num: number) => {
         player.achievements[num] = 1;
         revealStuff()
     }
+    
     DOMCacheGetOrSet(`ach${num}`).style.backgroundColor = "Green";
     Synergism.emit('achievement', num);
 }

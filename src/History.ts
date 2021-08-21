@@ -236,7 +236,7 @@ const resetHistoryCorruptionTitles = [
 // A formatting aid that removes the mantissa from a formatted string. Converts "2.5e1000" to "e1000".
 const extractStringExponent = (str: string) => {
     let m: RegExpMatchArray | null;
-    return (m = str.match(/e\+?(.+)/)) !== null ? `e${m[1]}` : str;
+    return (m = /e\+?(.+)/.exec(str)) !== null ? `e${m[1]}` : str;
 }
 
 // Add an entry to the history. This can be called via the event system.
