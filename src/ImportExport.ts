@@ -239,9 +239,9 @@ export const promocodes = async () => {
         }
 
         const possibleAmount = Math.floor(Math.min(24 + 2 * player.shopUpgrades.calculator2, (Date.now() - player.rngCode) / hour))
-        const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use`);
+        const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use?`);
         if (attemptsUsed === null) {
-             return Alert(`Code was canceled, took no uses away from you!`);
+             return Alert(`No worries, you didn't lose any of your uses! Come back later!`);
         }
         const toUse = Number(attemptsUsed);
         if (
@@ -276,7 +276,8 @@ export const promocodes = async () => {
             player.worlds.add(actualQuarks);
             addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed)
             player.rngCode = v;
-            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks + patreonBonus} quarks [${patreonBonus} from Patreon Boost]! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
+            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks + patreonBonus} quarks ` +
+                `[${ patreonBonus } from Patreon Boost]! ${ ascensionTimer } You have ${ remaining } uses of Add.You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         }
 
         // If your calculator isn't maxed but has levels, it will provide the solution.
@@ -287,7 +288,7 @@ export const promocodes = async () => {
         const addPrompt = await Prompt(`For ${actualQuarks + patreonBonus} quarks or nothing: What is ${first} + ${second}? ${solution}`);
 
         if (addPrompt === null) {
-            return Alert(`Code was canceled, took no uses away from you!`);
+            return Alert(`No worries, you didn't lose any of your uses! Come back later!`);
         } 
 
         player.rngCode = v;
@@ -295,7 +296,8 @@ export const promocodes = async () => {
         if(first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
             addTimers('ascension', 60 * player.shopUpgrades.calculator3)
-            await Alert(`You were awarded ${actualQuarks + patreonBonus} quarks [${patreonBonus} from Patreon Boost]! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
+            await Alert(`You were awarded ${actualQuarks + patreonBonus} quarks [${patreonBonus} from Patreon Boost]! ${ascensionTimer} You have ${remaining} uses of Add. ` +
+                `You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         } else {
             await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
         }
