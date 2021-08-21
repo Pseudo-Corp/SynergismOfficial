@@ -2050,6 +2050,7 @@ p[id$="BlessingsTotal"] {
 .openGrid {
     display: flex;
     align-self: flex-start;
+    margin-top: 10px;
 }
 
 .openImage {
@@ -2088,6 +2089,7 @@ p[id$="BlessingsTotal"] {
     flex-direction: column;
     align-items: center;
     width: 700px;
+    margin-left: 20px;
 }
 
 #cubeTab5Wrapper {
@@ -2959,33 +2961,107 @@ header #obtainiumDisplay {
     font-size: 1em;
 }
 
-#hepteractGrid {
+.hepteractGrid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(70px, 105px));
+    grid-template-columns: repeat(4, 180px);
     margin-top: 10px;
-    width: calc(105px * 4);
+    padding: 8px 8px;
+    width: calc(180px * 4 + 45px);
     border: 3px solid plum;
     grid-column: shop 2/4;
     grid-row: 1;
+    grid-column-gap: 15px;
+    grid-row-gap: 30px;
 }
 
-#hepteractGrid > div {
-    display: flex;
-    flex-direction: column;
+.hepteractGrid > div {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 28px);
     align-items: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
-.hepteractType > button {
+#hepteractToQuark,
+#overfluxPowder {
+    display: grid;
+    grid-template-columns: 12px 32px 31px 90px 15px;
+    grid-template-rows: 32px 15px 15px 15px;
+}
+
+#hepteractToQuarkImage,
+#overfluxPowderImage {
+    grid-column: 2;
+}
+
+#hepteractToQuarkTrade,
+#powderDayWarp {
+    grid-column: 4;
+}
+
+.heptTypeImage {
+    grid-row: 1 / span 2;
+}
+
+.heptGridInventory {
+    grid-column: 2 / span 3;
+    display: block;
+}
+
+.heptGridInventoryLabel,
+.heptGridInventoryValue {
+    display: inline-block;
+    float: left;
+}
+
+.heptGridInventoryValue {
+    float: right;
+}
+
+.hepteractGrid button {
     border: 2px solid pink;
-    width: 56px;
-    height: 30px;
+    width: 100%;
+    height: 25px;
     transition-duration: 0.15s;
 }
 
-.hepteractType > button:hover {
+.hepteractGrid button:hover {
     background-color: #333;
+}
+
+.meter {
+    height: 15px;
+    position: relative;
+    background: #555;
+    border-radius: 5px;
+    padding: 2px;
+    grid-column: 1 / span 3;
+    text-align: center;
+}
+
+.meter > span {
+    display: block;
+    height: 100%;
+}
+
+.progressBar {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.progressText {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -2px;
+    width: 100%;
 }
 
 #hepteractCraftTexts {
