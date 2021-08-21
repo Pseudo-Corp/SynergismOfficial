@@ -551,7 +551,7 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('buyofferingpotion').addEventListener('mouseover', () => shopDescriptions("offeringPotion"))
     DOMCacheGetOrSet('useofferingpotion').addEventListener('mouseover', () => shopDescriptions("offeringPotion"))
     DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyShopUpgrades("offeringPotion"))
-    DOMCacheGetOrSet('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
+    //DOMCacheGetOrSet('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
     DOMCacheGetOrSet('useofferingpotion').addEventListener('click', () => useConsumable("offeringPotion"))
 /*Obtainium Potion*/
     DOMCacheGetOrSet('obtainiumPotions').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
@@ -559,7 +559,7 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
     DOMCacheGetOrSet('useobtainiumpotion').addEventListener('mouseover', () => shopDescriptions("obtainiumPotion"))
     DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))
-    DOMCacheGetOrSet('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
+    //DOMCacheGetOrSet('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
     DOMCacheGetOrSet('useobtainiumpotion').addEventListener('click', () => useConsumable("obtainiumPotion"))
 /* Permanent Upgrade Images */
     const shopKeys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
@@ -569,7 +569,7 @@ TODO: Fix this entire tab it's utter shit
             DOMCacheGetOrSet(`${key}`).addEventListener('mouseover', () => shopDescriptions(key))
             DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
             DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
-            DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
+            //DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
             DOMCacheGetOrSet(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
         }
     }
