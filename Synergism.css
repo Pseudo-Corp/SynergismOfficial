@@ -3009,7 +3009,6 @@ header #obtainiumDisplay {
 
 .heptGridInventoryLabel,
 .heptGridInventoryValue {
-    display: inline-block;
     float: left;
 }
 
