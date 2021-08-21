@@ -302,6 +302,7 @@ button:focus {
     display: flex;
     flex-direction: column;
     width: 50%;
+    min-width: 625px;
 }
 
 .resetsContainer {
@@ -325,10 +326,9 @@ button:focus {
 }
 
 #resetinfo {
-    text-align: center;
+    text-align: left; /* Keeps text from bouncing around */
     font-size: 15px;
     font-variant-numeric: tabular-nums;
-    width: 600px;
 }
 
 #resetrewards > div {
@@ -489,6 +489,8 @@ nav li:hover {
     text-align: center;
     padding: 0;
     color: gold;
+    margin: 0 auto;
+    max-width: 1500px;
 }
 
 #upgradesFlex {
@@ -568,6 +570,7 @@ nav li:hover {
 
 .settingSubTabUpper {
     display: flex;
+    margin-left: 25px;
 }
 
 .confirmationToggles {
@@ -580,7 +583,8 @@ nav li:hover {
 #exportButtons {
     display: flex;
     flex-direction: column;
-    margin: 0.8em 0;
+    margin: 0.8em 0 0.8em 50px;
+    min-width: 300px;
 }
 
 #exportButtons > * { margin: 0.15em 0; }
@@ -654,7 +658,6 @@ nav li:hover {
 }
 
 #promocodeinfo {
-    word-break: break-all;
     width: 75%;
     margin: 0 auto;
 }
@@ -816,8 +819,8 @@ nav li:hover {
     position: absolute;
     font-size: 11px;
     width: 220px;
-    left: 80%;
-    top: 30px;
+    left: 86%;
+    top: 32px;
     margin-left: -173px;
 }
 
@@ -826,6 +829,7 @@ nav li:hover {
     flex-direction: column;
     align-items: flex-start;
     width: 30%;
+    margin-top: 23px;
 }
 
 #buyamounttalisman {
@@ -876,10 +880,10 @@ nav li:hover {
     color: white;
     position: absolute;
     font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -120px;
+    width: 250px;
+    left: 85%;
+    top: 25px;
+    margin-left: -183px;
 }
 
 #toggletalismanbuy {
@@ -923,6 +927,8 @@ nav li:hover {
     padding: 0;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 #prestige {
@@ -931,6 +937,8 @@ nav li:hover {
     color: cyan;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 #crystalupgradestable { margin: 0 auto; }
@@ -1101,8 +1109,8 @@ nav li:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    width: 30%;
-    margin-top: 25px;
+    width: 33%;
+    margin-top: 23px;
 }
 
 .talismanShardContainer {
@@ -1241,7 +1249,7 @@ nav li:hover {
     left: 50%;
     width: 600px;
     margin-left: -200px;
-    top: 330px;
+    top: 327px;
     text-align: center;
 }
 
@@ -1318,6 +1326,8 @@ nav li:hover {
     padding: 0;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 #transcension > .buttonRow {
@@ -1518,6 +1528,8 @@ nav li:hover {
     color: limegreen;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 #reincarnationTexts {
@@ -1790,6 +1802,8 @@ nav li:hover {
     position: relative;
     padding: 0;
     text-align: center;
+    max-width: 1500px;
+    margin: 0 auto;
 }
 
 #antsWrapper {
@@ -2179,6 +2193,8 @@ p[id$="BlessingsTotal"] {
     color: orange;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 #tesseractTexts { margin-top: 20px; }
@@ -2246,6 +2262,8 @@ p[id$="BlessingsTotal"] {
 #creditList {
     display: grid;
     grid-template-columns: repeat(4, minmax(250px, 1fr));
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .credit {
@@ -2470,6 +2488,7 @@ p[id$="BlessingsTotal"] {
 
 #historyAscendTable {
     min-width: 1180px;
+    white-space: nowrap;
 }
 
 .historyTableWrap {
@@ -2781,12 +2800,15 @@ header .img {
 
 .subHeader {
     display: flex;
+    max-width: 1250px;
 }
 
 .currenciesContainer {
     display: flex;
     flex-direction: column;
     width: 50%;
+    align-items: flex-start;
+    min-width: 625px;
 }
 
 .currencyRow {
@@ -2800,7 +2822,7 @@ header .img {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 140px;
+    min-width: 146px;
 }
 
 header #coinDisplay {
@@ -2884,6 +2906,10 @@ header #obtainiumDisplay {
 
 #ascHepteract {
     color: pink;
+}
+
+#ascTimeTakenStats {
+    min-width: 125px; /* prevent bouncing around */
 }
 
 #ascTimeAccel {
