@@ -2704,7 +2704,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
     if (i === 'singularity') {
         if (player.runelevels[6] === 0) {
-            void Alert("Hmph. Please return with an Antiquity. Thank you. -Ant God")
+            return Alert("Hmph. Please return with an Antiquity. Thank you. -Ant God")
         }
         await Alert("You have reached the end of the game, on singularity #" +format(player.singularityCount)+". Platonic and the Ant God are proud of you.")
         await Alert("You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.")
@@ -2720,11 +2720,11 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         if (c2)
             c3 = await Confirm("Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.")
         if (c3) {
-            singularity();
-            void Alert("Welcome to Singularity #" + format(player.singularityCount) + ". You're back to familiar territory, but something doesn't seem right.")
+            void singularity();
+            return Alert("Welcome to Singularity #" + format(player.singularityCount) + ". You're back to familiar territory, but something doesn't seem right.")
         }
         if (!c1 || !c2 || !c3)
-            void Alert("If you decide to change your mind, let me know. -Ant God")
+            return Alert("If you decide to change your mind, let me know. -Ant God")
     }
 }
 

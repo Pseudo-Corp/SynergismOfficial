@@ -677,7 +677,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 export const singularity = async () => {
     player.singularityCount += 1;
     player.goldenQuarks += player.quarksThisSingularity / 1e5;
-    resetShopUpgrades(true);
+    void resetShopUpgrades(true);
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
     }) as Player;
