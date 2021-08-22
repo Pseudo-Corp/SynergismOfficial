@@ -245,7 +245,7 @@ export const calculateMaxRunes = (i: number) => {
         -998
     ]
 
-    max += increaseMaxLevel[i]
+    max = (increaseMaxLevel[i] > G['runeMaxLvl'] ? G['runeMaxLvl'] : max + increaseMaxLevel[i])
     return max
 }
 
