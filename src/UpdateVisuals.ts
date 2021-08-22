@@ -3,7 +3,7 @@ import { Globals as G } from './Variables';
 import { player, format, formatTimeShort } from './Synergism';
 import { version } from './Config';
 import { CalcECC } from './Challenges';
-import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calculateCubeQuarkMultiplier } from './Calculate';
+import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier } from './Calculate';
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
@@ -428,18 +428,24 @@ export const visualUpdateCorruptions = () => {
 
     DOMCacheGetOrSet("autoAscendMetric").textContent = format(player.autoAscendThreshold, 0, true)
     const metaData = CalcCorruptionStuff();
+    const ascCount = calcAscensionCount();
 
-    DOMCacheGetOrSet("corruptionBankValue").textContent = format(metaData[0])
-    DOMCacheGetOrSet("corruptionScoreValue").textContent = format(metaData[1], 0, true)
-    DOMCacheGetOrSet("corruptionMultiplierValue").textContent = format(metaData[2], 1, true)
-    DOMCacheGetOrSet("corruptionTotalScore").textContent = format(metaData[3], 0, true)
-    DOMCacheGetOrSet("corruptionCubesValue").textContent = format(metaData[4], 0, true)
-    DOMCacheGetOrSet("corruptionTesseractsValue").textContent = format(metaData[5])
-    DOMCacheGetOrSet("corruptionHypercubesValue").textContent = format(metaData[6])
-    DOMCacheGetOrSet("corruptionPlatonicCubesValue").textContent = format(metaData[7])
-    DOMCacheGetOrSet("corruptionHepteractsValue").textContent = format(metaData[8])
-    DOMCacheGetOrSet("corruptionAntExponentValue").textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * G['extinctionMultiplier'][player.usedCorruptions[7]], 3)
-    DOMCacheGetOrSet("corruptionSpiritBonusValue").textContent = format(calculateCorruptionPoints()/400,2,true)
+    DOMCacheGetOrSet("corruptionBankValue").textContent = format(metaData[0]);
+    DOMCacheGetOrSet("corruptionScoreValue").textContent = format(metaData[1], 0, true);
+    DOMCacheGetOrSet("corruptionMultiplierValue").textContent = format(metaData[2], 1, true);
+    DOMCacheGetOrSet("corruptionTotalScore").textContent = format(metaData[3], 0, true);
+    DOMCacheGetOrSet("corruptionCubesValue").textContent = format(metaData[4], 0, true);
+    DOMCacheGetOrSet("corruptionTesseractsValue").textContent = format(metaData[5]);
+    DOMCacheGetOrSet("corruptionHypercubesValue").textContent = format(metaData[6]);
+    DOMCacheGetOrSet("corruptionPlatonicCubesValue").textContent = format(metaData[7]);
+    DOMCacheGetOrSet("corruptionHepteractsValue").textContent = format(ascCount);
+    DOMCacheGetOrSet("corruptionAntExponentValue").textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * G['extinctionMultiplier'][player.usedCorruptions[7]], 3);
+    DOMCacheGetOrSet("corruptionSpiritBonusValue").textContent = format(calculateCorruptionPoints()/400,2,true);
+    DOMCacheGetOrSet("corruptionAscensionCount").style.display = ascCount > 1 ? 'block' : 'none';
+
+    if (ascCount > 1) {
+        DOMCacheGetOrSet("corruptionAscensionCountValue").textContent = format(calcAscensionCount());
+    }
 }
 
 export const visualUpdateSettings = () => {
