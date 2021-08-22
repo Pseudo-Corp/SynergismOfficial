@@ -3,6 +3,7 @@ import Decimal, { DecimalSource } from 'break_infinity.js';
 import { antSacrificePointsToMultiplier } from './Ants';
 import { Synergism } from './Events';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { Globals as G } from './Variables';
 
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend';
@@ -245,7 +246,7 @@ const resetHistoryAdd = (category: Category, data: ResetHistoryEntryUnion) => {
         player.history[category] = [];
     }
 
-    while (player.history[category].length > (player.historyCountMax - 1)) {
+    while (player.history[category].length > (G['historyCountMax'] - 1)) {
         player.history[category].shift();
     }
 
@@ -261,7 +262,7 @@ const resetHistoryPushNewRow = (category: Category, data: ResetHistoryEntryUnion
     const table = DOMCacheGetOrSet(resetHistoryTableMapping[category]);
     const tbody = table.querySelector("tbody");
     tbody.insertBefore(row, tbody.childNodes[0]);
-    while (tbody.childNodes.length > player.historyCountMax) {
+    while (tbody.childNodes.length > G['historyCountMax']) {
         tbody.removeChild(tbody.lastChild);
     }
 }

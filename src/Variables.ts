@@ -418,6 +418,8 @@ export const Globals: GlobalVariables = {
 
     timeMultiplier: 1,
     upgradeMultiplier: 1,
+
+    historyCountMax: 20,
     
     isEvent: false,
 

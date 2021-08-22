@@ -133,7 +133,6 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
     if (data.history === undefined) {
         player.history = { ants: [], ascend: [], reset: [] };
-        player.historyCountMax = 10;
     }
     if (data.autoChallengeRunning === undefined) {
         player.autoChallengeRunning = false

@@ -590,7 +590,6 @@ export const player: Player = {
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     history: { ants: [], ascend: [], reset: [] },
-    historyCountMax: 10,
     historyShowPerSecond: false,
 
     autoChallengeRunning: false,
@@ -724,7 +723,6 @@ const loadSynergy = () => {
             if (toAdapt.has(prop)) {
                 return ((player[prop] as unknown) = toAdapt.get(prop)(data));
             }
-
             if (isDecimal(player[prop])) {
                 return ((player[prop] as Decimal) = new Decimal(data[prop] as DecimalSource));
             } else if (prop === 'codes') {
@@ -1082,7 +1080,6 @@ const loadSynergy = () => {
         }
         if (data.historyShowPerSecond === undefined || player.historyShowPerSecond === undefined) {
             player.historyShowPerSecond = false;
-            player.historyCountMax = 10;
         }
 
         if (!Number.isInteger(player.ascendBuilding1.cost)) {

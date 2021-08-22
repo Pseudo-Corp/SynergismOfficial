@@ -454,7 +454,6 @@ export interface Player {
 
     constantUpgrades: number[]
     history: Record<Category, ResetHistoryEntryUnion[]>
-    historyCountMax: number
     historyShowPerSecond: boolean,
 
     autoChallengeRunning: boolean,
@@ -840,6 +839,8 @@ export interface GlobalVariables {
 
     timeMultiplier: number
     upgradeMultiplier: number
+
+    historyCountMax: number
 
     isEvent: boolean
 }
