@@ -72,6 +72,9 @@ export const getQuarkMultiplier = () => {
     if (player.achievements[266] > 0) { // Achievement 266 [Max: 10% at 1Qa Ascensions]
         multiplier *= (1 + Math.min(0.1, (player.ascensionCount) / 1e16))
     }
+    if (player.singularityCount > 0) { // Singularity Modifier
+        multiplier *= (1 + player.singularityCount / 10)
+    }
     return multiplier
 }
 
@@ -137,6 +140,7 @@ export class QuarkHandler {
     /** Subtracts quarks, as the name suggests. */
     add(amount: number, useBonus = true) {
         this.QUARKS += useBonus ? this.applyBonus(amount) : amount;
+        player.quarksThisSingularity += useBonus ? this.applyBonus(amount) : amount;
         return this;
     }
 

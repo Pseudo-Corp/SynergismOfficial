@@ -79,6 +79,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('reincarnatechallengebtn').addEventListener('mouseover', () => resetrepeat("reincarnationChallenge"))
     DOMCacheGetOrSet('ascendChallengeBtn').addEventListener('mouseover', () => resetrepeat("ascensionChallenge"))
     DOMCacheGetOrSet('ascendbtn').addEventListener('mouseover', () => resetrepeat("ascension"))
+    DOMCacheGetOrSet('singularitybtn').addEventListener('mouseover', () => resetrepeat("singularity"))
 
     for (const resetButton of Array.from(document.querySelectorAll('.resetbtn'))) {
         resetButton.addEventListener('mouseover', () => {
@@ -98,13 +99,14 @@ export const generateEventHandlers = () => {
 
 //Onclick Events (this is particularly bad)
     DOMCacheGetOrSet('prestigebtn').addEventListener('click', () => resetCheck('prestige'))
-    DOMCacheGetOrSet('transcendbtn').addEventListener('click', () => resetCheck('transcend'))
-    DOMCacheGetOrSet('reincarnatebtn').addEventListener('click', () => resetCheck('reincarnate'))
+    DOMCacheGetOrSet('transcendbtn').addEventListener('click', () => resetCheck('transcension'))
+    DOMCacheGetOrSet('reincarnatebtn').addEventListener('click', () => resetCheck('reincarnation'))
     DOMCacheGetOrSet('acceleratorboostbtn').addEventListener('click', () => boostAccelerator())
-    DOMCacheGetOrSet('challengebtn').addEventListener('click', () => resetCheck('challenge',undefined,true))
-    DOMCacheGetOrSet('reincarnatechallengebtn').addEventListener('click', () => resetCheck('reincarnationchallenge',undefined,true))
+    DOMCacheGetOrSet('challengebtn').addEventListener('click', () => resetCheck('transcensionChallenge',undefined,true))
+    DOMCacheGetOrSet('reincarnatechallengebtn').addEventListener('click', () => resetCheck('reincarnationChallenge',undefined,true))
     DOMCacheGetOrSet('ascendChallengeBtn').addEventListener('click', () => resetCheck('ascensionChallenge')) 
-    DOMCacheGetOrSet('ascendbtn').addEventListener('click', () => resetCheck('ascend'))
+    DOMCacheGetOrSet('ascendbtn').addEventListener('click', () => resetCheck('ascension'))
+    DOMCacheGetOrSet('singularitybtn').addEventListener('click', () => resetCheck('singularity'))
 //Part 2: Tabs (sucks)
 //Onmouseover Events
     DOMCacheGetOrSet('buildingstab').addEventListener('click', () => toggleTabs('buildings'))
@@ -118,6 +120,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('anttab').addEventListener('click', () => toggleTabs('ants'))
     DOMCacheGetOrSet('cubetab').addEventListener('click', () => toggleTabs('cubes'))
     DOMCacheGetOrSet('traitstab').addEventListener('click', () => toggleTabs('traits'))
+    DOMCacheGetOrSet('singularitytab').addEventListener('click', () => toggleTabs('singularity'))
 
 // BUILDINGS TAB
 //Part 1: Upper portion (Subtab toggle)

@@ -242,7 +242,7 @@ export const calculateMaxRunes = (i: number) => {
         10 * (player.researches[77] + player.researches[114]) + increaseAll,
         10 * player.researches[115] + increaseAll,
         -901,
-        -998
+        -999
     ]
 
     max = (increaseMaxLevel[i] > G['runeMaxLvl'] ? G['runeMaxLvl'] : max + increaseMaxLevel[i])
@@ -980,7 +980,9 @@ export const calculateAllCubeMultiplier = () => {
         calculateCubeMultFromPowder(),
         // Event (currently, +20.21%)
         1 + 0.2021 * +G['isEvent'],
-        // Total Global Cube Multipliers: 9
+        // Singularity Factor
+        1 / (1 + 1/16 * Math.pow(player.singularityCount, 2))
+        // Total Global Cube Multipliers: 10
     ]
     return {
         mult: productContents(arr),
@@ -1192,6 +1194,7 @@ export const calculateTimeAcceleration = () => {
     if (timeMult < 1) {
         timeMult = Math.pow(timeMult, 1 - player.platonicUpgrades[7] / 30)
     }
+    timeMult /= (1 + player.singularityCount)
     timeMult *= G['platonicBonusMultiplier'][7]
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
@@ -1317,6 +1320,8 @@ export const calculateAscensionScore = () => {
         effectiveScore *= (1 + Math.min(1, 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
     if (effectiveScore > 1e23)
         effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
+    if (player.achievements[259] > 0)
+        effectiveScore *= Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP))
     return {baseScore: baseScore,
             corruptionMultiplier: corruptionMultiplier,
             effectiveScore: effectiveScore}
@@ -1383,6 +1388,7 @@ export const calcAscensionCount = () => {
         ascCount *= (player.platonicUpgrades[15] > 0 ? 2 : 1);
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16]);
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000));
+        ascCount *= (1 + 1/8 * player.singularityCount)
     }
 
     return Math.floor(ascCount);

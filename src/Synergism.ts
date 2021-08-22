@@ -5,7 +5,7 @@ import { isDecimal, getElementById, sortWithIndices, sumContents, btoa } from '.
 import { blankGlobals, Globals as G } from './Variables';
 import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges, challenge15ScoreMultiplier } from './Challenges';
 
-import type { OneToFive, Player, ZeroToFour } from './types/Synergism';
+import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism';
 import { upgradeupdate, getConstUpgradeMetadata, buyConstantUpgrades, ascendBuildingDR } from './Upgrades';
 import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Research';
 import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert } from './UpdateHTML';
@@ -20,7 +20,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { reset, resetrepeat } from './Reset';
+import { reset, resetrepeat, singularity } from './Reset';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, TesseractBuildings, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
@@ -634,7 +634,10 @@ export const player: Player = {
     rngCode: 0,
     promoCodeTiming: {
         time: 0
-    }
+    },
+    singularityCount: 0,
+    goldenQuarks: 0,
+    quarksThisSingularity: 0,
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -2348,19 +2351,19 @@ export const resourceGain = (dt: number): void => {
     const ascendchal = player.currentChallenge.ascension;
     if (chal !== 0) {
         if (player.coinsThisTranscension.gte(challengeRequirement(chal, player.challengecompletions[chal], chal))) { 
-            void resetCheck('challenge', false);
+            void resetCheck('transcensionChallenge', false);
             G['autoChallengeTimerIncrement'] = 0;
         }
     }
     if (reinchal < 9 && reinchal !== 0) {
         if (player.transcendShards.gte(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
-            void resetCheck('reincarnationchallenge', false)
+            void resetCheck("reincarnationChallenge", false)
             G['autoChallengeTimerIncrement'] = 0;
         }
     }
     if (reinchal >= 9) {
         if (player.coins.gte(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
-            void resetCheck('reincarnationchallenge', false)
+            void resetCheck("reincarnationChallenge", false)
             G['autoChallengeTimerIncrement'] = 0;
         }
     }
@@ -2501,7 +2504,7 @@ export const resetCurrency = (): void => {
     }
 }
 
-export const resetCheck = async (i: string, manual = true, leaving = false): Promise<void> => {
+export const resetCheck = async (i: resetNames, manual = true, leaving = false): Promise<void> => {
     if (i === 'prestige') {
         if (player.coinsThisPrestige.gte(1e16) || G['prestigePointGain'].gte(100)) {
             if (manual) {
@@ -2512,7 +2515,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
             }
         }
     }
-    if (i === 'transcend') {
+    if (i === 'transcension') {
         if ((player.coinsThisTranscension.gte(1e100) || G['transcendPointGain'].gte(0.5)) && player.currentChallenge.transcension === 0) {
             if (manual) {
                 void resetConfirmation('transcend');
@@ -2523,7 +2526,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
             }
         }
     }
-    if (i === 'challenge') {
+    if (i === 'transcensionChallenge') {
         const q = player.currentChallenge.transcension;
         const maxCompletions = getMaxChallenges(q);
         if (player.currentChallenge.transcension !== 0) {
@@ -2568,7 +2571,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
         }
     }
 
-    if (i === "reincarnate") {
+    if (i === 'reincarnation') {
         if (G['reincarnationPointGain'].gt(0.5) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
             if (manual) {
                 void resetConfirmation('reincarnate');
@@ -2579,7 +2582,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
             }
         }
     }
-    if (i === "reincarnationchallenge" && player.currentChallenge.reincarnation !== 0) {
+    if (i === 'reincarnationChallenge' && player.currentChallenge.reincarnation !== 0) {
         const q = player.currentChallenge.reincarnation;
         const maxCompletions = getMaxChallenges(q);
         if (player.currentChallenge.transcension !== 0) {
@@ -2635,7 +2638,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
         }
     }
 
-    if (i === "ascend") {
+    if (i === 'ascension') {
         if (player.challengecompletions[10] > 0) {
             if (manual) {
                 void resetConfirmation('ascend');
@@ -2643,7 +2646,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
         }
     }
 
-    if (i === "ascensionChallenge" && player.currentChallenge.ascension !== 0) {
+    if (i === 'ascensionChallenge' && player.currentChallenge.ascension !== 0) {
         let conf = true
         if (manual) {
             conf = await Confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
@@ -2697,6 +2700,31 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
         }
         updateChallengeDisplay();
         challengeachievementcheck(a, true)
+    }
+
+    if (i === 'singularity') {
+        if (player.runelevels[6] === 0) {
+            return Alert("Hmph. Please return with an Antiquity. Thank you. -Ant God")
+        }
+        await Alert("You have reached the end of the game, on singularity #" +format(player.singularityCount)+". Platonic and the Ant God are proud of you.")
+        await Alert("You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.")
+        await Alert("You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.")
+        await Alert("Start anew, and enter singularity #"+ format(player.singularityCount + 1)+". Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain 1 Golden Quark per 100,000 earned in this universe.")
+        await Alert("However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts, Achievements will be wiped clean.")
+        let c1 = false
+        let c2 = false
+        let c3 = false
+        c1 = await Confirm("So, what do you say? Do you wish to enter the singularity?")
+        if (c1)
+            c2 = await Confirm("Are you sure you wish to enter the Singularity?")
+        if (c2)
+            c3 = await Confirm("Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.")
+        if (c3) {
+            singularity();
+            return Alert("Welcome to Singularity #" + format(player.singularityCount) + ". You're back to familiar territory, but something doesn't seem right.")
+        }
+        if (!c1 || !c2 || !c3)
+            return Alert("If you decide to change your mind, let me know. -Ant God")
     }
 }
 

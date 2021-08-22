@@ -35,7 +35,8 @@ const tabNumberConst = {
     "researches": 6,
     "ants": 7,
     "cubes": 8,
-    "traits": 9
+    "traits": 9,
+    "singularity": 10
 } as const;
 
 export const toggleTabs = (name: keyof typeof tabNumberConst) => {
@@ -261,6 +262,7 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: true, unlocked: player.achievements[141] > 0, buttonID: "corrStatsBtn"},
                 {subTabID: false, unlocked: player.achievements[141] > 0, buttonID: "corrLoadoutsBtn"}]
         },
+        10: {subTabList: []}
     }
     return subTabs[mainTab];
 }

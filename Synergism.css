@@ -414,6 +414,13 @@ nav li:hover {
     background-color: purple;
 }
 
+#singularitytab {
+    border-color: lightgoldenrodyellow;
+    background-color: black;
+    color: red
+    
+}
+
 #shoptab:hover {
     background-color: #b300b2;
 }

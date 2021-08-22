@@ -130,7 +130,7 @@ const cubeUpgradeDescriptions = [
 const getCubeCost = (i: number, linGrowth = 0) => {
     let amountToBuy = G['buyMaxCubeUpgrades'] ? 1e5: 1;
     amountToBuy = Math.min(cubeMaxLevel[i-1] - player.cubeUpgrades[i], amountToBuy)
-    const metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i-1], Number(player.wowCubes), linGrowth, amountToBuy)
+    const metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i-1] * (1 + player.singularityCount), Number(player.wowCubes), linGrowth, amountToBuy)
     return([metaData[0],metaData[1]]) //metaData[0] is the levelup amount, metaData[1] is the total cube cost
 }
 

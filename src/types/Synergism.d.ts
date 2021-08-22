@@ -508,6 +508,10 @@ export interface Player {
     overfluxOrbs: number
     overfluxPowder: number
     dailyPowderResetUses: number
+
+    singularityCount: number
+    goldenQuarks: number
+    quarksThisSingularity: number
 }
 
 export interface GlobalVariables {
@@ -860,6 +864,7 @@ export type resetNames =
     | "transcension" 
     | "reincarnation" 
     | "ascension" 
+    | "singularity"
     | "transcensionChallenge" 
     | "reincarnationChallenge" 
     | "ascensionChallenge" 

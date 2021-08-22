@@ -454,12 +454,16 @@ export const useConsumable = async (input: ShopUpgradeNames) => {
         }
     }
 }
-export const resetShopUpgrades = async () => {
-    const p = G['shopConfirmation']
-        ? await Confirm("This will fully refund most of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?")
-        : true;
+export const resetShopUpgrades = async (ignoreBoolean = false) => {
+    let p = false
+    if (!ignoreBoolean) {
+        p = G['shopConfirmation']
+            ? await Confirm("This will fully refund most of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?")
+            : true;
+    }
 
-    if (p) {
+    if (p || ignoreBoolean) {
+        const singularityQuarks = player.quarksThisSingularity;
         player.worlds.sub(15);
         let initialQuarks = player.worlds;
         for(const shopItem in shopData){
@@ -482,10 +486,18 @@ export const resetShopUpgrades = async () => {
                 initialQuarks = player.worlds;
             }
         }
+        player.quarksThisSingularity = singularityQuarks;
     }
     /*if (p && player.worlds >= 15) {
         player.worlds -= 15;
         Object.keys(shopData).forEach(function)
         revealStuff();
     }*/
+}
+
+export const getQuarkInvestment = (upgrade: ShopUpgradeNames) => {
+    const val = shopData[upgrade].price * player.shopUpgrades[upgrade] + 
+                shopData[upgrade].priceIncrease * (player.shopUpgrades[upgrade] - 1) * (player.shopUpgrades[upgrade]) / 2
+    console.log("gained from " + upgrade + ":" + format(val, 0, true))
+    return val
 }

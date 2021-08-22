@@ -9,22 +9,22 @@ export const hotkeys = new Map<string, [string, () => unknown]>([
     ['B', ['Boost Accelerator', () => boostAccelerator()]],
     ['E', ['Exit Challenge', () => {
         if (player.currentChallenge.reincarnation !== 0) {
-            void resetCheck('reincarnationchallenge', undefined, true)
+            void resetCheck('reincarnationChallenge', undefined, true)
         }
         if (player.currentChallenge.transcension !== 0) {
-            void resetCheck('challenge', undefined, true)
+            void resetCheck('transcensionChallenge', undefined, true)
         }
     }]],
     ['M', ['Multipliers', () => buyMultiplier()]],
     ['P', ['Reset Prestige', () => resetCheck('prestige')]],
-    ['R', ['Reset Reincarnate', () => resetCheck('reincarnate')]],
+    ['R', ['Reset Reincarnate', () => resetCheck('reincarnation')]],
     ['S', ['Sacrifice Ants', () => sacrificeAnts()]],
-    ['T', ['Reset Transcend', () => resetCheck('transcend')]],
+    ['T', ['Reset Transcend', () => resetCheck('transcension')]],
     ['ARROWLEFT', ['Back a tab', () => keyboardTabChange(-1)]],
     ['ARROWRIGHT', ['Next tab', () => keyboardTabChange(1)]],
     ['ARROWUP', ['Back a subtab', () => keyboardTabChange(-1, false)]],
     ['ARROWDOWN', ['Next subtab', () => keyboardTabChange(1, false)]],
-    ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascend')]],
+    ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension')]],
 ]);
 
 document.addEventListener('keydown', event => {

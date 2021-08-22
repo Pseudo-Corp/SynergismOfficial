@@ -10,6 +10,7 @@ import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { Alert } from './UpdateHTML';
+import { getQuarkInvestment } from './Shop';
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -452,5 +453,17 @@ export const checkVariablesOnLoad = (data: Player) => {
 
     if (data.autoResearchMode === undefined) {
         player.autoResearchMode = 'manual';
+    }
+
+    if (data.singularityCount === undefined) {
+        player.singularityCount = 0;
+        player.goldenQuarks = 0;
+
+        player.quarksThisSingularity = 0
+        player.quarksThisSingularity += +player.worlds
+        const keys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
+        for (const key of keys) {
+            player.quarksThisSingularity += getQuarkInvestment(key)
+        }
     }
 }

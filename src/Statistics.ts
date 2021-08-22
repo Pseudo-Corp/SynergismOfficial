@@ -75,7 +75,8 @@ export const loadStatisticsCubeMultipliers = () => {
         6: {acc: 2, desc: "Platonic Beta:"},
         7: {acc: 2, desc: "Platonic Omega:"},
         8: {acc: 2, desc: "Overflux Powder:"},
-        9: {acc: 2, desc: "Event [Most Recent: June 28 - July 01]"}
+        9: {acc: 2, desc: "Event [Most Recent: June 28 - July 01]"},
+        10: {acc: 2, desc: "Singularity Factor:"}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
