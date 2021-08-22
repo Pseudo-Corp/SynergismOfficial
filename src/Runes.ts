@@ -51,7 +51,7 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
 
     if (i === 7) {
         if (updatelevelup) {
-            DOMCacheGetOrSet("runeshowlevelup").textContent = "I wonder what happens if you feed it 1e275 Rune EXP."
+            DOMCacheGetOrSet("runeshowlevelup").textContent = "I wonder what happens if you feed it " + format(1e256 * (1 + player.singularityCount)) + " Rune EXP."
         }
         DOMCacheGetOrSet("runeshowpower7").textContent = "You cannot grasp the true form of Ant God's treasure."
     }

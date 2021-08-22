@@ -222,7 +222,7 @@ export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.ru
         multiplier = Math.pow(100, runeLevel)
     }
     if (runeIndex === 6) {
-        multiplier = Math.pow(1e25, runeLevel)
+        multiplier = Math.pow(1e25, runeLevel) * (player.singularityCount + 1)
     }
     return multiplier * G['runeexpbase'][runeIndex];
 }
