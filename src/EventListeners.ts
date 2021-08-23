@@ -306,7 +306,7 @@ export const generateEventHandlers = () => {
 
     for (let index = 0; index < 7; index++) {
         
-        DOMCacheGetOrSet(`talisman${index+1}`).addEventListener('click', () => showTalismanEffect(index+1))
+        DOMCacheGetOrSet(`talisman${index+1}`).addEventListener('mouseover', () => showTalismanEffect(index+1))
         DOMCacheGetOrSet(`leveluptalisman${index+1}`).addEventListener('mouseover', () => showTalismanPrices(index+1))
         DOMCacheGetOrSet(`leveluptalisman${index+1}`).addEventListener('click', () => buyTalismanLevels(index+1))
         DOMCacheGetOrSet(`enhancetalisman${index+1}`).addEventListener('mouseover', () => showEnhanceTalismanPrices(index+1))

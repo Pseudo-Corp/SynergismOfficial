@@ -1066,6 +1066,7 @@ nav li:hover {
     text-align: center;
     align-items: center;
     align-content: center;
+    white-space: nowrap;
 }
 
 .runeType > .runeButtonAvailable {
@@ -1116,8 +1117,9 @@ nav li:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    width: 33%;
+    width: 30%;
     margin-top: 23px;
+    margin-right: 50px;
 }
 
 .talismanShardContainer {
