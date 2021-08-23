@@ -350,7 +350,7 @@ export const respecTalismanConfirm = () => {
         DOMCacheGetOrSet("confirmTalismanRespec").style.display = "none";
         DOMCacheGetOrSet("cancelTalismanRespec").style.display = "none";
     } else {
-        Alert("Hey! You don't have enough offerings!")
+        return Alert("Hey! You don't have enough offerings!")
     }
 
     calculateRuneLevels();

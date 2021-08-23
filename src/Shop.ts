@@ -457,14 +457,23 @@ export const useConsumable = async (input: ShopUpgradeNames) => {
 export const resetShopUpgrades = async (ignoreBoolean = false) => {
     let p = false
     if (!ignoreBoolean) {
+        const string = (player.achievements[197] < 0.5)
+            ? "This will reset and refund all refundable upgrades for an upfront cost of 15 Quarks. Would you like to do this?"
+            : "This will reset and refund all refundable upgrades. Would you like to do this?"
         p = G['shopConfirmation']
-            ? await Confirm("This will fully refund most of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?")
+            ? await Confirm(string)
             : true;
     }
 
     if (p || ignoreBoolean) {
         const singularityQuarks = player.quarksThisSingularity;
-        player.worlds.sub(15);
+        if (player.achievements[197] < 0.5) {
+            if (Number(player.worlds) < 15) {
+                return Alert("Hey! You can't afford this! Come back when you have the Quarks, you dank pauper.")
+            } else {
+                player.worlds.sub(15);
+            }
+        }
         let initialQuarks = player.worlds;
         for(const shopItem in shopData){
             const key = shopItem as keyof typeof shopData;

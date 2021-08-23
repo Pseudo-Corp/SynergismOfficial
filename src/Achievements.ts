@@ -458,7 +458,7 @@ export const areward = (i: number): string => {
         193: `Gain ${format(Decimal.log(player.ascendShards.add(1), 10) / 4, 2)}% more Cubes on ascension!`,
         195: `Gain ${format(Math.min(25000, Decimal.log(player.ascendShards.add(1), 10) / 4, 2))}% more Cubes and Tesseracts on ascension! Multiplicative with the other Ach. bonus [MAX: 25,000% at e100,000 Const]`,
         196: `Gain ${format(Math.min(2000, Decimal.log(player.ascendShards.add(1), 10) / 50, 2))}% more Platonic Cubes on ascension! [MAX: 2,000% at e100,000 Const]`,
-        197: "You will unlock a stat tracker for ascensions, and talisman respec offering cost is removed!",
+        197: "You will unlock a stat tracker for ascensions, and shop/talisman respec costs are removed!",
         198: "Gain +4% Cubes on ascension!",
         199: "Gain +4% Cubes on ascension!",
         200: "Gain +4% Cubs on ascension! Did I spell that wrong? You bet I did.",
