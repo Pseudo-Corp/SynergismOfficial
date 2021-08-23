@@ -595,10 +595,10 @@ export const runChallengeSweep = (dt: number) => {
         
         // Reset based on challenge type
         if (challengeType === 'transcension') {
-            resetCheck('challenge', undefined, true);
+            void resetCheck('transcensionChallenge', undefined, true);
         }
         if (challengeType === 'reincarnation') {
-            resetCheck('reincarnationchallenge', undefined, true);
+            void resetCheck('reincarnationChallenge', undefined, true);
         }
 
         // Sets Mode to "ENTER" as displayed in the challenge tab

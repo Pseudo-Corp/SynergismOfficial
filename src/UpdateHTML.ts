@@ -327,7 +327,15 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('rune7area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower7').style.display = "flex") :
         (DOMCacheGetOrSet('rune7area').style.display = 'none', DOMCacheGetOrSet('runeshowpower7').style.display = "none") ;
 
-    DOMCacheGetOrSet("ascensionStats").style.visibility = player.achievements[197] > 0 ? "visible" : "hidden";
+    player.singularityCount > 0 ?
+        (DOMCacheGetOrSet('singularitytab').style.display = 'block'):
+        (DOMCacheGetOrSet('singularitytab').style.display = 'none');
+        
+    (player.runelevels[6] > 0 || player.singularityCount > 0) ?
+        (DOMCacheGetOrSet('singularitybtn').style.display = 'block') :
+        (DOMCacheGetOrSet('singularitybtn').style.display = 'none');
+
+    DOMCacheGetOrSet("ascensionStats").style.visibility = (player.achievements[197] > 0 || player.singularityCount > 0) ? "visible" : "hidden";
     DOMCacheGetOrSet("ascHyperStats").style.display = player.challengecompletions[13] > 0 ? "" : "none";
     DOMCacheGetOrSet("ascPlatonicStats").style.display = player.challengecompletions[14] > 0 ? "" : "none";
     DOMCacheGetOrSet("ascHepteractStats").style.display = player.achievements[255] > 0 ? "" : "none";
@@ -413,6 +421,8 @@ export const hideStuff = () => {
     DOMCacheGetOrSet("traitstab").style.backgroundColor = ""
     DOMCacheGetOrSet("cubes").style.display = "none"
     DOMCacheGetOrSet("traits").style.display = "none"
+    DOMCacheGetOrSet("singularity").style.display = 'none'
+    DOMCacheGetOrSet("singularitytab").style.backgroundColor = "black"
     
     const tab = DOMCacheGetOrSet('settingstab')!;
     tab.style.backgroundColor = '';
@@ -475,6 +485,11 @@ export const hideStuff = () => {
     if (G['currentTab'] === "traits") {
         DOMCacheGetOrSet("traits").style.display = "flex";
         DOMCacheGetOrSet("traitstab").style.backgroundColor = "white";
+    }
+
+    if (G['currentTab'] === "singularity") {
+        DOMCacheGetOrSet('singularity').style.display = "block";
+        DOMCacheGetOrSet("singularitytab").style.backgroundColor = "lightgoldenrodyellow"
     }
 }
 

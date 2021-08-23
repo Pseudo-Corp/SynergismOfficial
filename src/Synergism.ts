@@ -1,17 +1,17 @@
-import Decimal from 'break_infinity.js';
+import Decimal, { DecimalSource } from 'break_infinity.js';
 import LZString from 'lz-string';
 
 import { isDecimal, getElementById, sortWithIndices, sumContents, btoa } from './Utility';
 import { blankGlobals, Globals as G } from './Variables';
 import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges, challenge15ScoreMultiplier } from './Challenges';
 
-import type { OneToFive, Player, ZeroToFour } from './types/Synergism';
+import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism';
 import { upgradeupdate, getConstUpgradeMetadata, buyConstantUpgrades, ascendBuildingDR } from './Upgrades';
 import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Research';
 import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck } from './Calculate';
+import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck, exitOffline } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels, showRespecInformation } from './Talismans';
 import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
@@ -20,7 +20,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { reset, resetrepeat } from './Reset';
+import { reset, resetrepeat, singularity } from './Reset';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, TesseractBuildings, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
@@ -67,7 +67,7 @@ export const clearInt = new Proxy(clearInterval, {
 });
 
 export const player: Player = {
-    worlds: new QuarkHandler({ quarks: 0 }),
+    worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),
     coins: new Decimal("1e2"),
     coinsThisPrestige: new Decimal("1e2"),
     coinsThisTranscension: new Decimal("1e2"),
@@ -254,7 +254,7 @@ export const player: Player = {
     acceleratorBoostBought: 0,
     acceleratorBoostCost: new Decimal("1e3"),
 
-    upgrades: Array(141).fill(0),
+    upgrades: Array(141).fill(0) as number[],
 
     prestigeCount: 0,
     transcendCount: 0,
@@ -344,7 +344,7 @@ export const player: Player = {
         rrow3: false,
         rrow4: false
     },
-    achievements: Array(281).fill(0),
+    achievements: Array(281).fill(0) as number[],
 
     achievementPoints: 0,
 
@@ -590,7 +590,6 @@ export const player: Player = {
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     history: { ants: [], ascend: [], reset: [] },
-    historyCountMax: 10,
     historyShowPerSecond: false,
 
     autoChallengeRunning: false,
@@ -635,7 +634,10 @@ export const player: Player = {
     rngCode: 0,
     promoCodeTiming: {
         time: 0
-    }
+    },
+    singularityCount: 0,
+    goldenQuarks: 0,
+    quarksThisSingularity: 0,
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -684,7 +686,7 @@ const toAdapt = new Map<keyof Player, (data: Player) => unknown>([
 const loadSynergy = () => {
     console.log('loaded attempted')
     const save = localStorage.getItem("Synergysave2");
-    const data = save ? JSON.parse(atob(save)) : null;
+    const data = save ? JSON.parse(atob(save)) as Player & Record<string, unknown> : null;
 
     if (testing) {
         Object.defineProperty(window, 'player', {
@@ -724,20 +726,20 @@ const loadSynergy = () => {
             if (toAdapt.has(prop)) {
                 return ((player[prop] as unknown) = toAdapt.get(prop)(data));
             }
-
             if (isDecimal(player[prop])) {
-                return ((player[prop] as Decimal) = new Decimal(data[prop]));
+                return ((player[prop] as Decimal) = new Decimal(data[prop] as DecimalSource));
             } else if (prop === 'codes') {
                 return (player.codes = new Map(data[prop]));
             } else if (oldCodesUsed.includes(prop)) {
                 return;
             } else if (Array.isArray(data[prop])) {
+                const arr = data[prop] as unknown[];
                 // in old savefiles, some arrays may be 1-based instead of 0-based (newer)
                 // so if the lengths of the savefile key is greater than that of the player obj
                 // it means a key was removed; likely a 1-based index where array[0] was null
                 // so we can get rid of it entirely.
-                if ((player[prop] as unknown[]).length < data[prop].length) {
-                    return (player[prop] as unknown[]) = data[prop].slice(data[prop].length - (player[prop] as unknown[]).length);
+                if ((player[prop] as unknown[]).length < arr.length) {
+                    return (player[prop] as unknown[]) = arr.slice(arr.length - (player[prop] as unknown[]).length);
                 }
             }
 
@@ -1081,7 +1083,6 @@ const loadSynergy = () => {
         }
         if (data.historyShowPerSecond === undefined || player.historyShowPerSecond === undefined) {
             player.historyShowPerSecond = false;
-            player.historyCountMax = 10;
         }
 
         if (!Number.isInteger(player.ascendBuilding1.cost)) {
@@ -1220,7 +1221,7 @@ const loadSynergy = () => {
         getElementById<HTMLInputElement>("enterAutoChallengeTimerInput").value = player.autoChallengeTimer.enter + '';
 
         corruptionStatsUpdate();
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
             corruptionLoadoutTableUpdate(i);
         }
         showCorruptionStatsLoadouts()
@@ -1378,7 +1379,7 @@ const loadSynergy = () => {
 
 // Bad browsers (like Safari) only recently implemented this.
 // 
-const supportsFormatToParts = typeof Intl?.NumberFormat?.prototype?.formatToParts === 'function';
+const supportsFormatToParts = typeof (Intl?.NumberFormat?.prototype as Intl.NumberFormat)?.formatToParts === 'function';
 
 // In some browsers, this will return an empty-1 length array (?), causing a "TypeError: Cannot read property 'value' of undefined"
 // if we destructure it... To reproduce: ` const [ { value } ] = []; `
@@ -1573,19 +1574,11 @@ export const format = (
 }
 
 export const formatTimeShort = (seconds: number, msMaxSeconds?: number): string => {
-    return ((seconds >= 86400)
-        ? format(Math.floor(seconds / 86400)) + "d"
-        : '') +
-        ((seconds >= 3600)
-            ? format(Math.floor(seconds / 3600) % 24) + "h"
-            : '') +
-        ((seconds >= 60)
-            ? format(Math.floor(seconds / 60) % 60) + "m"
-            : '') +
-        format(Math.floor(seconds) % 60) +
-        ((msMaxSeconds && seconds < msMaxSeconds)
-            ? "." + (Math.floor((seconds % 1) * 1000).toString().padStart(3, '0'))
-            : '') + "s";
+    return ((seconds >= 86400) ? format(Math.floor(seconds / 86400)) + "d" : '') +
+        ((seconds >= 3600) ? format(Math.floor(seconds / 3600) % 24) + "h" : '') +
+        ((seconds >= 60)   ? format(Math.floor(seconds / 60) % 60) + "m"   : '') +
+        ((seconds >= 8640000) ? '' : format(Math.floor(seconds) % 60) + ((msMaxSeconds && seconds < msMaxSeconds)  //Don't show seconds when you're over 100 days, like honestly
+            ? "." + (Math.floor((seconds % 1) * 1000).toString().padStart(3, '0')) : '') + "s");
 }
 
 export const updateAllTick = (): void => {
@@ -1815,12 +1808,7 @@ export const updateAllMultiplier = (): void => {
     a *= (1 + player.achievements[58] / 100)
     a *= (1 + player.achievements[59] / 100)
     a *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
-    if (player.upgrades[34] > 0.5) {
-        a *= 1.03 * 100 / 100
-    }
-    if (player.upgrades[35] > 0.5) {
-        a *= 1.05 / 1.03 * 100 / 100
-    }
+	a *= (1 + 0.03 * player.upgrades[34] + 0.02 * player.upgrades[35])
     a *= (1 + 1 / 5 * player.researches[2] * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14])))
     a *= (1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15])
     a *= (1 + G['rune2level'] / 400 * G['effectiveLevelMult'])
@@ -2040,7 +2028,7 @@ export const multipliers = (): void => {
     if (player.achievements[37] > 0.5 && player.prestigePoints.gte(10)) {
         G['globalCrystalMultiplier'] = G['globalCrystalMultiplier'].times(Decimal.log(player.prestigePoints.add(1), 10))
     }
-    if (player.achievements[43] > 0.5) {
+    if (player.achievements[44] > 0.5) {
         G['globalCrystalMultiplier'] = G['globalCrystalMultiplier']
             .times(Decimal.pow(G['rune3level'] / 2 * G['effectiveLevelMult'], 2)
             .times(Decimal.pow(2, G['rune3level'] * G['effectiveLevelMult'] / 2 - 8))
@@ -2199,12 +2187,12 @@ export const resourceGain = (dt: number): void => {
     multipliers();
     calculatetax();
     if (G['produceTotal'].gte(0.001)) {
-        const addcoin = Decimal.min(G['produceTotal'].dividedBy(G['taxdivisor']), Decimal.pow(10, G['maxexponent'] - Decimal.log(G['taxdivisorcheck'], 10)))
-        player.coins = player.coins.add(addcoin.times(dt / 0.025));
-        player.coinsThisPrestige = player.coinsThisPrestige.add(addcoin.times(dt / 0.025));
-        player.coinsThisTranscension = player.coinsThisTranscension.add(addcoin.times(dt / 0.025));
-        player.coinsThisReincarnation = player.coinsThisReincarnation.add(addcoin.times(dt / 0.025));
-        player.coinsTotal = player.coinsTotal.add(addcoin.times(dt / 0.025))
+        const addcoin = (Decimal.min(G['produceTotal'].dividedBy(G['taxdivisor']), Decimal.pow(10, G['maxexponent'] - Decimal.log(G['taxdivisorcheck'], 10)))).times(dt / 0.025)
+        player.coins = player.coins.add(addcoin);
+        player.coinsThisPrestige = player.coinsThisPrestige.add(addcoin);
+        player.coinsThisTranscension = player.coinsThisTranscension.add(addcoin);
+        player.coinsThisReincarnation = player.coinsThisReincarnation.add(addcoin);
+        player.coinsTotal = player.coinsTotal.add(addcoin)
     }
 
     resetCurrency();
@@ -2364,31 +2352,31 @@ export const resourceGain = (dt: number): void => {
     const ascendchal = player.currentChallenge.ascension;
     if (chal !== 0) {
         if (player.coinsThisTranscension.gte(challengeRequirement(chal, player.challengecompletions[chal], chal))) { 
-            resetCheck('challenge', false);
+            void resetCheck('transcensionChallenge', false);
             G['autoChallengeTimerIncrement'] = 0;
         }
     }
     if (reinchal < 9 && reinchal !== 0) {
         if (player.transcendShards.gte(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
-            resetCheck('reincarnationchallenge', false)
+            void resetCheck("reincarnationChallenge", false)
             G['autoChallengeTimerIncrement'] = 0;
         }
     }
     if (reinchal >= 9) {
         if (player.coins.gte(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
-            resetCheck('reincarnationchallenge', false)
+            void resetCheck("reincarnationChallenge", false)
             G['autoChallengeTimerIncrement'] = 0;
         }
     }
     if (ascendchal !== 0 && ascendchal < 15) {
         if (player.challengecompletions[10] >= challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal)) {
-            resetCheck('ascensionChallenge', false)
+            void resetCheck('ascensionChallenge', false)
             challengeachievementcheck(ascendchal, true)
         }
     }
     if (ascendchal === 15) {
         if (player.coins.gte(challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal))) {
-            resetCheck('ascensionChallenge', false)
+            void resetCheck('ascensionChallenge', false)
         }
     }
 }
@@ -2517,21 +2505,21 @@ export const resetCurrency = (): void => {
     }
 }
 
-export const resetCheck = async (i: string, manual = true, leaving = false): Promise<void> => {
+export const resetCheck = async (i: resetNames, manual = true, leaving = false): Promise<void> => {
     if (i === 'prestige') {
         if (player.coinsThisPrestige.gte(1e16) || G['prestigePointGain'].gte(100)) {
             if (manual) {
-                resetConfirmation('prestige');
+                void resetConfirmation('prestige');
             } else {
                 resetachievementcheck(1);
                 reset("prestige");
             }
         }
     }
-    if (i === 'transcend') {
+    if (i === 'transcension') {
         if ((player.coinsThisTranscension.gte(1e100) || G['transcendPointGain'].gte(0.5)) && player.currentChallenge.transcension === 0) {
             if (manual) {
-                resetConfirmation('transcend');
+                void resetConfirmation('transcend');
             }
             if (!manual) {
                 resetachievementcheck(2);
@@ -2539,7 +2527,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
             }
         }
     }
-    if (i === 'challenge') {
+    if (i === 'transcensionChallenge') {
         const q = player.currentChallenge.transcension;
         const maxCompletions = getMaxChallenges(q);
         if (player.currentChallenge.transcension !== 0) {
@@ -2584,10 +2572,10 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
         }
     }
 
-    if (i === "reincarnate") {
+    if (i === 'reincarnation') {
         if (G['reincarnationPointGain'].gt(0.5) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
             if (manual) {
-                resetConfirmation('reincarnate');
+                void resetConfirmation('reincarnate');
             }
             if (!manual) {
                 resetachievementcheck(3);
@@ -2595,7 +2583,7 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
             }
         }
     }
-    if (i === "reincarnationchallenge" && player.currentChallenge.reincarnation !== 0) {
+    if (i === 'reincarnationChallenge' && player.currentChallenge.reincarnation !== 0) {
         const q = player.currentChallenge.reincarnation;
         const maxCompletions = getMaxChallenges(q);
         if (player.currentChallenge.transcension !== 0) {
@@ -2651,15 +2639,15 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
         }
     }
 
-    if (i === "ascend") {
+    if (i === 'ascension') {
         if (player.challengecompletions[10] > 0) {
             if (manual) {
-                resetConfirmation('ascend');
+                void resetConfirmation('ascend');
             }
         }
     }
 
-    if (i === "ascensionChallenge" && player.currentChallenge.ascension !== 0) {
+    if (i === 'ascensionChallenge' && player.currentChallenge.ascension !== 0) {
         let conf = true
         if (manual) {
             conf = await Confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
@@ -2713,6 +2701,31 @@ export const resetCheck = async (i: string, manual = true, leaving = false): Pro
         }
         updateChallengeDisplay();
         challengeachievementcheck(a, true)
+    }
+
+    if (i === 'singularity') {
+        if (player.runelevels[6] === 0) {
+            return Alert("Hmph. Please return with an Antiquity. Thank you. -Ant God")
+        }
+        await Alert("You have reached the end of the game, on singularity #" +format(player.singularityCount)+". Platonic and the Ant God are proud of you.")
+        await Alert("You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.")
+        await Alert("You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.")
+        await Alert("Start anew, and enter singularity #"+ format(player.singularityCount + 1)+". Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain 1 Golden Quark per 100,000 earned in this universe.")
+        await Alert("However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts, Achievements will be wiped clean.")
+        let c1 = false
+        let c2 = false
+        let c3 = false
+        c1 = await Confirm("So, what do you say? Do you wish to enter the singularity?")
+        if (c1)
+            c2 = await Confirm("Are you sure you wish to enter the Singularity?")
+        if (c2)
+            c3 = await Confirm("Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.")
+        if (c3) {
+            void singularity();
+            return Alert("Welcome to Singularity #" + format(player.singularityCount) + ". You're back to familiar territory, but something doesn't seem right.")
+        }
+        if (!c1 || !c2 || !c3)
+            return Alert("If you decide to change your mind, let me know. -Ant God")
     }
 }
 
@@ -3069,8 +3082,7 @@ export const constantIntervals = (): void => {
     interval(buildingAchievementCheck, 200)
 
     if (!G['timeWarp']) {
-        DOMCacheGetOrSet("preload").style.display = "none";
-        DOMCacheGetOrSet("offlineContainer").style.display = "none"
+        exitOffline();
     }
 }
 
@@ -3382,11 +3394,11 @@ export const reloadShit = async (reset = false) => {
         await Alert('Transferred save to new format successfully!');
     }
 
-    loadSynergy();
+    void loadSynergy();
     if (!reset) 
         calculateOffline();
     else
-        player.worlds = new QuarkHandler({quarks: 0})
+        player.worlds = new QuarkHandler({ quarks: 0, bonus: 0 });
     saveSynergy();
     toggleauto();
     revealStuff();
@@ -3399,6 +3411,11 @@ export const reloadShit = async (reset = false) => {
 
     eventCheck();
     interval(() => eventCheck(), 15000);
+
+    if (localStorage.getItem('pleaseStar') === null) {
+        void Alert(`Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial`);
+        localStorage.setItem('pleaseStar', '');
+    }
 }
 
 window.addEventListener('load', () => {
@@ -3414,5 +3431,5 @@ window.addEventListener('load', () => {
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
 
-    reloadShit();
+    void reloadShit();
 });

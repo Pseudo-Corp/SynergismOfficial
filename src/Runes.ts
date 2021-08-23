@@ -48,6 +48,14 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
         }
         DOMCacheGetOrSet("runeshowpower6").textContent = "IA Rune Bonus: " + " Quark Gain +" + format(10 + 15/75 * calculateEffectiveIALevel(), 1, true) + "%, Ascensions give +" + format(1 * calculateEffectiveIALevel(), 0, true) + "% more of all cube types."
     }
+
+    if (i === 7) {
+        if (updatelevelup) {
+            DOMCacheGetOrSet("runeshowlevelup").textContent = "I wonder what happens if you feed it " + format(1e256 * (1 + player.singularityCount)) + " Rune EXP."
+        }
+        DOMCacheGetOrSet("runeshowpower7").textContent = "You cannot grasp the true form of Ant God's treasure."
+    }
+
     if (updatelevelup) {
         const arr = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], player.offeringbuyamount);
         let offerings = 0;
@@ -80,7 +88,7 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
         player.achievements[102] > 0.5,
         player.researches[82] > 0.5,
         player.shopUpgrades.infiniteAscent,
-        false,
+        player.platonicUpgrades[20] > 0,
     ];
 
     let levelsToAdd = player.offeringbuyamount
