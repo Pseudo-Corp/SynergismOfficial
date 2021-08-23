@@ -85,7 +85,7 @@ export const padArray = <T extends unknown>(a: T[], b: T, length: number) => {
     return a;
 } 
 
-export const updateClassList = (targetElement: string, additions: Array<string>, removals: Array<string>) => {
+export const updateClassList = (targetElement: string, additions: string[], removals: string[]) => {
     const target = DOMCacheGetOrSet(targetElement);
     for (const addition of additions) {
         target.classList.add(addition);

@@ -7,7 +7,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, number] => {
     buyAmount = Math.min(G['researchMaxLevels'][index] - player.researches[index], buyAmount)
-    const metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index], player.researchPoints, linGrowth, buyAmount)
+    const metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index] * (1 + player.singularityCount), player.researchPoints, linGrowth, buyAmount)
     return [metaData[0], metaData[1]]
 }
 

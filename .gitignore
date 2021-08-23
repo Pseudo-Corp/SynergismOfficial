@@ -1,5 +1,5 @@
 node_modules/
 *.js
-!update-last-updated.js
+!scripts/*.js
 dist
 !.eslintrc.js

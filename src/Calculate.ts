@@ -123,7 +123,7 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
         allRuneExpAdditiveMultiplier = sumContents([
             //Challenge 3 completions
             1 / 100 * player.highestchallengecompletions[3],
-            //Reincarnation 3x1
+            //Reincarnation 2x1
             1 * player.upgrades[66]
         ]);
     } else {
@@ -222,7 +222,7 @@ export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.ru
         multiplier = Math.pow(100, runeLevel)
     }
     if (runeIndex === 6) {
-        multiplier = Math.pow(1e25, runeLevel)
+        multiplier = Math.pow(1e25, runeLevel) * (player.singularityCount + 1)
     }
     return multiplier * G['runeexpbase'][runeIndex];
 }
@@ -230,7 +230,7 @@ export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.ru
 export const calculateMaxRunes = (i: number) => {
     let max = 1000;
 
-    const increaseAll = 10 * (2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
+    const increaseAll = 20 * (player.cubeUpgrades[16] + player.cubeUpgrades[37])
         + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11])
         + 200 * CalcECC('ascension', player.challengecompletions[14])
         + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50])
@@ -242,10 +242,10 @@ export const calculateMaxRunes = (i: number) => {
         10 * (player.researches[77] + player.researches[114]) + increaseAll,
         10 * player.researches[115] + increaseAll,
         -901,
-        -998
+        -999
     ]
 
-    max += increaseMaxLevel[i]
+    max = (increaseMaxLevel[i] > G['runeMaxLvl'] ? G['runeMaxLvl'] : max + increaseMaxLevel[i])
     return max
 }
 
@@ -661,16 +661,7 @@ export const calculateAntSacrificeELO = () => {
         G['antELO'] += 4 * player.seventhOwnedAnts
         G['antELO'] += 8 * player.eighthOwnedAnts
         G['antELO'] += 666 * player.researches[178]
-
-        if (player.achievements[180] === 1) {
-            G['antELO'] *= 1.01
-        }
-        if (player.achievements[181] === 1) {
-            G['antELO'] *= 1.03 / 1.01
-        }
-        if (player.achievements[182] === 1) {
-            G['antELO'] *= 1.06 / 1.03
-        }
+		G['antELO'] *= (1 + 0.01 * player.achievements[180] + 0.02 * player.achievements[181] + 0.03 * player.achievements[182])
         G['antELO'] *= (1 + player.researches[110] / 100)
         G['antELO'] *= (1 + 2.5 * player.researches[148] / 100)
 
@@ -792,7 +783,7 @@ export const timeWarp = async () => {
             return Alert(`Hey! That's not a valid time!`);
     
     DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
-    DOMCacheGetOrSet('preload').style.display = 'block'
+    DOMCacheGetOrSet('preloadContainer').style.display = 'flex'
     calculateOffline(timeUse)
 }
 
@@ -812,15 +803,18 @@ export const calculateOffline = (forceTime = 0) => {
     //Some one-time tick things that are relatively important
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
-
-    DOMCacheGetOrSet('preload').style.display = (forceTime > 0) ? 'none' : 'block';
+  
+    DOMCacheGetOrSet('preloadContainer').style.display = (forceTime > 0) ? 'none' : 'flex';
     DOMCacheGetOrSet("offlineContainer").style.display = "flex";
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
     //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
-    preloadImage.src = 'Pictures/Blank Preload.png';
+    preloadImage.style.display = 'none';
+
+    const preloadContainer = getElementById("preloadContainer");
+    preloadContainer.style.backgroundColor = 'black';
 
     G['timeMultiplier'] = calculateTimeAcceleration();
     calculateObtainium();
@@ -929,8 +923,9 @@ export const calculateOffline = (forceTime = 0) => {
 }
 
 export const exitOffline = () => {
+    document.body.classList.remove('loading');
     DOMCacheGetOrSet("offlineContainer").style.display = "none";
-    DOMCacheGetOrSet("preload").style.display = "none";
+    DOMCacheGetOrSet("preloadContainer").style.display = "none";
 }
 
 export const calculateSigmoid = (constant: number, factor: number, divisor: number) => {
@@ -985,7 +980,9 @@ export const calculateAllCubeMultiplier = () => {
         calculateCubeMultFromPowder(),
         // Event (currently, +20.21%)
         1 + 0.2021 * +G['isEvent'],
-        // Total Global Cube Multipliers: 9
+        // Singularity Factor
+        1 / (1 + 1/16 * Math.pow(player.singularityCount, 2))
+        // Total Global Cube Multipliers: 10
     ]
     return {
         mult: productContents(arr),
@@ -1166,7 +1163,7 @@ export const calculateHepteractMultiplier = (score = -1) => {
         // Achievement 265 Bonus [Max: 160T Asc]
         1 + Math.min(0.2, player.ascensionCount / 8e14) * player.achievements[265],
         // Achievement 270 Bonus
-        Math.min(2, (1 + 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
+        Math.min(2, (1 + 1/1_000_000 * Decimal.log(player.ascendShards.add(1), 10) * player.achievements[270]))
         // Total Hepteract Multipliers: 7
     ]
 
@@ -1197,6 +1194,7 @@ export const calculateTimeAcceleration = () => {
     if (timeMult < 1) {
         timeMult = Math.pow(timeMult, 1 - player.platonicUpgrades[7] / 30)
     }
+    timeMult /= (1 + player.singularityCount)
     timeMult *= G['platonicBonusMultiplier'][7]
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
@@ -1322,6 +1320,8 @@ export const calculateAscensionScore = () => {
         effectiveScore *= (1 + Math.min(1, 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
     if (effectiveScore > 1e23)
         effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
+    if (player.achievements[259] > 0)
+        effectiveScore *= Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP))
     return {baseScore: baseScore,
             corruptionMultiplier: corruptionMultiplier,
             effectiveScore: effectiveScore}
@@ -1365,6 +1365,34 @@ export const CalcCorruptionStuff = () => {
     
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain)]
 }
+
+export const calcAscensionCount = () => {
+    let ascCount = 1;
+
+    if (player.challengecompletions[10] > 0) {
+        const {effectiveScore} = calculateAscensionScore();
+
+        if (player.ascensionCounter >= 10) {
+            if (player.achievements[188] > 0) {
+                ascCount += 99;
+            }
+
+            ascCount *= 1 + (player.ascensionCounter / 10 - 1) * 0.2
+                * (player.achievements[189] + player.achievements[202] + player.achievements[209] + player.achievements[216] + player.achievements[223]);
+        }
+
+        ascCount *= player.achievements[187] && Math.floor(effectiveScore) > 1e8 ? (Math.log(Math.floor(effectiveScore)) / Math.log(10) - 1) : 1;
+        ascCount *= G['challenge15Rewards'].ascensions;
+        ascCount *= (player.achievements[260] > 0 ? 1.1 : 1);
+        ascCount *= (player.achievements[261] > 0 ? 1.1 : 1);
+        ascCount *= (player.platonicUpgrades[15] > 0 ? 2 : 1);
+        ascCount *= (1 + 0.02 * player.platonicUpgrades[16]);
+        ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000));
+        ascCount *= (1 + 1/8 * player.singularityCount)
+    }
+
+    return Math.floor(ascCount);
+};
 
 /**
  * Calculates the product of all Powder bonuses.
