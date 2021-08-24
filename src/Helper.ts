@@ -123,7 +123,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
 
             if (antSacrificeTimer >= player.autoAntSacTimer && player.researches[124] === 1 
                 && player.autoAntSacrifice && player.antPoints.gte("1e40")) {
-                sacrificeAnts(true)
+                void sacrificeAnts(true)
             }
             break;
         }

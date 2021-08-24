@@ -3,6 +3,7 @@ import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
 import { calculateRuneLevels } from './Calculate';
 import { achievementaward } from './Achievements';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const talismanResourceCosts = {
     shard: {
@@ -61,7 +62,7 @@ const getTalismanResourceInfo = (type: keyof typeof talismanResourceCosts, perce
 };
 
 export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
-    const el = document.getElementById("talismanFragmentCost");
+    const el = DOMCacheGetOrSet("talismanFragmentCost");
     const talismanCostInfo = getTalismanResourceInfo(type, percentage);
     const TalismanName = talismanResourceCosts[type].name;
 
@@ -69,10 +70,10 @@ export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCos
 }
 
 export const toggleTalismanBuy = (i = player.buyTalismanShardPercent) => {
-    document.getElementById("talismanTen").style.backgroundColor = ""
-    document.getElementById("talismanTwentyFive").style.backgroundColor = ""
-    document.getElementById("talismanFifty").style.backgroundColor = ""
-    document.getElementById("talismanHundred").style.backgroundColor = ""
+    DOMCacheGetOrSet("talismanTen").style.backgroundColor = ""
+    DOMCacheGetOrSet("talismanTwentyFive").style.backgroundColor = ""
+    DOMCacheGetOrSet("talismanFifty").style.backgroundColor = ""
+    DOMCacheGetOrSet("talismanHundred").style.backgroundColor = ""
     player.buyTalismanShardPercent = i
     let x = "Ten";
     if (i === 25) {
@@ -85,17 +86,17 @@ export const toggleTalismanBuy = (i = player.buyTalismanShardPercent) => {
         x = "Hundred"
     }
 
-    document.getElementById(`talisman${x}`).style.backgroundColor = "green"
+    DOMCacheGetOrSet(`talisman${x}`).style.backgroundColor = "green"
 }
 
 export const updateTalismanInventory = () => {
-    document.getElementById("talismanShardInventory").textContent = format(player.talismanShards);
-    document.getElementById("commonFragmentInventory").textContent = format(player.commonFragments);
-    document.getElementById("uncommonFragmentInventory").textContent = format(player.uncommonFragments);
-    document.getElementById("rareFragmentInventory").textContent = format(player.rareFragments);
-    document.getElementById("epicFragmentInventory").textContent = format(player.epicFragments);
-    document.getElementById("legendaryFragmentInventory").textContent = format(player.legendaryFragments);
-    document.getElementById("mythicalFragmentInventory").textContent = format(player.mythicalFragments);
+    DOMCacheGetOrSet("talismanShardInventory").textContent = format(player.talismanShards);
+    DOMCacheGetOrSet("commonFragmentInventory").textContent = format(player.commonFragments);
+    DOMCacheGetOrSet("uncommonFragmentInventory").textContent = format(player.uncommonFragments);
+    DOMCacheGetOrSet("rareFragmentInventory").textContent = format(player.rareFragments);
+    DOMCacheGetOrSet("epicFragmentInventory").textContent = format(player.epicFragments);
+    DOMCacheGetOrSet("legendaryFragmentInventory").textContent = format(player.legendaryFragments);
+    DOMCacheGetOrSet("mythicalFragmentInventory").textContent = format(player.mythicalFragments);
 }
 
 export const buyTalismanResources = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
@@ -133,17 +134,17 @@ export const buyTalismanResources = (type: keyof typeof talismanResourceCosts, p
 }
 
 export const showTalismanEffect = (i: number) => {
-    document.getElementById("talismanlevelup").style.display = "none"
-    document.getElementById("talismanEffect").style.display = "block"
-    document.getElementById("talismanrespec").style.display = "none"
-    const a = document.getElementById("talismanSummary")
-    const b = document.getElementById("talismanBonus")
-    const c = document.getElementById("talismanRune1Effect")
-    const d = document.getElementById("talismanRune2Effect")
-    const e = document.getElementById("talismanRune3Effect")
-    const f = document.getElementById("talismanRune4Effect")
-    const g = document.getElementById("talismanRune5Effect")
-    const h = document.getElementById("talismanMythicEffect")
+    DOMCacheGetOrSet("talismanlevelup").style.display = "none"
+    DOMCacheGetOrSet("talismanEffect").style.display = "block"
+    DOMCacheGetOrSet("talismanrespec").style.display = "none"
+    const a = DOMCacheGetOrSet("talismanSummary")
+    const b = DOMCacheGetOrSet("talismanBonus")
+    const c = DOMCacheGetOrSet("talismanRune1Effect")
+    const d = DOMCacheGetOrSet("talismanRune2Effect")
+    const e = DOMCacheGetOrSet("talismanRune3Effect")
+    const f = DOMCacheGetOrSet("talismanRune4Effect")
+    const g = DOMCacheGetOrSet("talismanRune5Effect")
+    const h = DOMCacheGetOrSet("talismanMythicEffect")
 
     switch (i) {
         case 1:
@@ -178,7 +179,7 @@ export const showTalismanEffect = (i: number) => {
             break;
         case 4:
             a.textContent = "=-=-=-= Metaphysics Talisman Effects =-=-=-=";
-            b.textContent = "Talismans' Bonus Rune Levels +" + format(0.05 * (player.talismanRarity[4-1] - 1), 2) + " per level"
+            b.textContent = "Talismans' Bonus Rune Levels +" + format(0.02 * (player.talismanRarity[4-1] - 1), 2) + " per level"
             c.textContent = "Bonus Speed Rune Levels: " + format(G['talisman4Effect'][1], 2, true)
             d.textContent = "Bonus Duplication Rune Levels: " + format(G['talisman4Effect'][2], 2, true)
             e.textContent = "Bonus Prism Rune Levels: " + format(G['talisman4Effect'][3], 2, true)
@@ -223,19 +224,19 @@ export const showTalismanEffect = (i: number) => {
 }
 
 export const showTalismanPrices = (i: number) => {
-    document.getElementById("talismanEffect").style.display = "none"
-    document.getElementById("talismanlevelup").style.display = "block"
-    document.getElementById("talismanrespec").style.display = "none"
-    const a = document.getElementById("talismanShardCost")
-    const b = document.getElementById("talismanCommonFragmentCost")
-    const c = document.getElementById("talismanUncommonFragmentCost")
-    const d = document.getElementById("talismanRareFragmentCost")
-    const e = document.getElementById("talismanEpicFragmentCost")
-    const f = document.getElementById("talismanLegendaryFragmentCost")
-    const g = document.getElementById("talismanMythicalFragmentCost")
+    DOMCacheGetOrSet("talismanEffect").style.display = "none"
+    DOMCacheGetOrSet("talismanlevelup").style.display = "block"
+    DOMCacheGetOrSet("talismanrespec").style.display = "none"
+    const a = DOMCacheGetOrSet("talismanShardCost")
+    const b = DOMCacheGetOrSet("talismanCommonFragmentCost")
+    const c = DOMCacheGetOrSet("talismanUncommonFragmentCost")
+    const d = DOMCacheGetOrSet("talismanRareFragmentCost")
+    const e = DOMCacheGetOrSet("talismanEpicFragmentCost")
+    const f = DOMCacheGetOrSet("talismanLegendaryFragmentCost")
+    const g = DOMCacheGetOrSet("talismanMythicalFragmentCost")
 
-    document.getElementById("talismanLevelUpSummary").textContent = "-=-=- Resources Required to Level Up -=-=-"
-    document.getElementById("talismanLevelUpSummary").style.color = "silver"
+    DOMCacheGetOrSet("talismanLevelUpSummary").textContent = "-=-=- Resources Required to Level Up -=-=-"
+    DOMCacheGetOrSet("talismanLevelUpSummary").style.color = "silver"
 
     let m = G['talismanLevelCostMultiplier'][i]
     if (player.talismanLevels[i-1] >= 120) {
@@ -257,19 +258,19 @@ export const showTalismanPrices = (i: number) => {
 }
 
 export const showEnhanceTalismanPrices = (i: number) => {
-    document.getElementById("talismanEffect").style.display = "none"
-    document.getElementById("talismanlevelup").style.display = "block"
-    document.getElementById("talismanrespec").style.display = "none"
-    const a = document.getElementById("talismanShardCost")
-    const b = document.getElementById("talismanCommonFragmentCost")
-    const c = document.getElementById("talismanUncommonFragmentCost")
-    const d = document.getElementById("talismanRareFragmentCost")
-    const e = document.getElementById("talismanEpicFragmentCost")
-    const f = document.getElementById("talismanLegendaryFragmentCost")
-    const g = document.getElementById("talismanMythicalFragmentCost")
+    DOMCacheGetOrSet("talismanEffect").style.display = "none"
+    DOMCacheGetOrSet("talismanlevelup").style.display = "block"
+    DOMCacheGetOrSet("talismanrespec").style.display = "none"
+    const a = DOMCacheGetOrSet("talismanShardCost")
+    const b = DOMCacheGetOrSet("talismanCommonFragmentCost")
+    const c = DOMCacheGetOrSet("talismanUncommonFragmentCost")
+    const d = DOMCacheGetOrSet("talismanRareFragmentCost")
+    const e = DOMCacheGetOrSet("talismanEpicFragmentCost")
+    const f = DOMCacheGetOrSet("talismanLegendaryFragmentCost")
+    const g = DOMCacheGetOrSet("talismanMythicalFragmentCost")
 
-    document.getElementById("talismanLevelUpSummary").textContent = "=-=-= Resources Required to ENHANCE =-=-="
-    document.getElementById("talismanLevelUpSummary").style.color = "gold"
+    DOMCacheGetOrSet("talismanLevelUpSummary").textContent = "=-=-= Resources Required to ENHANCE =-=-="
+    DOMCacheGetOrSet("talismanLevelUpSummary").style.color = "gold"
 
     const array = [G['commonTalismanEnhanceCost'], G['uncommonTalismanEnchanceCost'], G['rareTalismanEnchanceCost'], G['epicTalismanEnhanceCost'], G['legendaryTalismanEnchanceCost'], G['mythicalTalismanEnchanceCost']]
     const index = player.talismanRarity[i-1];
@@ -286,9 +287,9 @@ export const showEnhanceTalismanPrices = (i: number) => {
 
 export const showRespecInformation = (i: number) => {
     G['talismanRespec'] = i;
-    document.getElementById("talismanEffect").style.display = "none"
-    document.getElementById("talismanlevelup").style.display = "none"
-    document.getElementById("talismanrespec").style.display = "block"
+    DOMCacheGetOrSet("talismanEffect").style.display = "none"
+    DOMCacheGetOrSet("talismanlevelup").style.display = "none"
+    DOMCacheGetOrSet("talismanrespec").style.display = "block"
 
     const runeName = ["Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"]
     const runeModifier = ["Positive", "Positive", "Positive", "Positive"]
@@ -296,31 +297,31 @@ export const showRespecInformation = (i: number) => {
         for (let k = 1; k <= 5; k++) {
             G['mirrorTalismanStats'][k] = player[`talisman${num[i-1]}` as const][k];
         }
-        document.getElementById("confirmTalismanRespec").textContent = "Confirm [-100,000 Offerings]"
+        DOMCacheGetOrSet("confirmTalismanRespec").textContent = "Confirm [-100,000 Offerings]"
     }
     if (i === 8) {
         for (let k = 1; k <= 5; k++) {
             G['mirrorTalismanStats'][k] = 1;
         }
-        document.getElementById("confirmTalismanRespec").textContent = "Confirm ALL [-400,000 Offerings]"
+        DOMCacheGetOrSet("confirmTalismanRespec").textContent = "Confirm ALL [-400,000 Offerings]"
     }
     for (let j = 1; j <= 5; j++) {
         if (G['mirrorTalismanStats'][j] === 1) {
-            document.getElementById("talismanRespecButton" + j).style.border = "2px solid limegreen";
+            DOMCacheGetOrSet("talismanRespecButton" + j).style.border = "2px solid limegreen";
             runeModifier[j-1] = "Positive"
         } else if (G['mirrorTalismanStats'][j] === -1) {
-            document.getElementById("talismanRespecButton" + j).style.border = "2px solid crimson";
+            DOMCacheGetOrSet("talismanRespecButton" + j).style.border = "2px solid crimson";
             runeModifier[j-1] = "Negative"
         }
-        document.getElementById("talismanRespecButton" + j).textContent = runeName[j-1] + ": " + runeModifier[j-1]
+        DOMCacheGetOrSet("talismanRespecButton" + j).textContent = runeName[j-1] + ": " + runeModifier[j-1]
     }
 
-    document.getElementById("confirmTalismanRespec").style.display = "none"
+    DOMCacheGetOrSet("confirmTalismanRespec").style.display = "none"
 }
 
 export const changeTalismanModifier = (i: number) => {
     const runeName = [null, "Speed Rune", "Duplication Rune", "Prism Rune", "Thrift Rune", "SI Rune"];
-    const el = document.getElementById("talismanRespecButton" + i);
+    const el = DOMCacheGetOrSet("talismanRespecButton" + i);
     if (G['mirrorTalismanStats'][i] === 1) {
         G['mirrorTalismanStats'][i] = (-1);
         el.textContent = runeName[i] + ": Negative";
@@ -336,9 +337,9 @@ export const changeTalismanModifier = (i: number) => {
     }, 0);
 
     if (checkSum === 1) {
-        document.getElementById("confirmTalismanRespec").style.display = "block";
+        DOMCacheGetOrSet("confirmTalismanRespec").style.display = "block";
     } else {
-        document.getElementById("confirmTalismanRespec").style.display = "none";
+        DOMCacheGetOrSet("confirmTalismanRespec").style.display = "none";
     }
 
 }
@@ -349,9 +350,9 @@ export const respecTalismanConfirm = (i: number) => {
             player[`talisman${num[i-1]}` as const][j] = G['mirrorTalismanStats'][j];
         }
         player.runeshards -= 100000;
-        document.getElementById("confirmTalismanRespec").style.display = "none";
-        document.getElementById("talismanrespec").style.display = "none";
-        document.getElementById("talismanEffect").style.display = "block";
+        DOMCacheGetOrSet("confirmTalismanRespec").style.display = "none";
+        DOMCacheGetOrSet("talismanrespec").style.display = "none";
+        DOMCacheGetOrSet("talismanEffect").style.display = "block";
         showTalismanEffect(i);
     } else if (player.runeshards >= 400000 && i === 8) {
         player.runeshards -= 400000
@@ -360,23 +361,23 @@ export const respecTalismanConfirm = (i: number) => {
                 player[`talisman${num[j-1]}` as const][k] = G['mirrorTalismanStats'][k];
             }
         }
-        document.getElementById("confirmTalismanRespec").style.display = "none";
+        DOMCacheGetOrSet("confirmTalismanRespec").style.display = "none";
     }
 
     calculateRuneLevels();
 }
 
 export const respecTalismanCancel = (i: number) => {
-    document.getElementById("talismanrespec").style.display = "none"
+    DOMCacheGetOrSet("talismanrespec").style.display = "none"
     if (i <= 7) {
-        document.getElementById("talismanEffect").style.display = "block";
+        DOMCacheGetOrSet("talismanEffect").style.display = "block";
         showTalismanEffect(i);
     }
 }
 
 export const updateTalismanAppearance = (i: number) => {
-    const el = document.getElementById("talisman" + i)
-    const la = document.getElementById("talisman" + i + "level")
+    const el = DOMCacheGetOrSet("talisman" + i)
+    const la = DOMCacheGetOrSet("talisman" + i + "level")
 
     const rarity = player.talismanRarity[i-1];
     if (rarity === 1) {

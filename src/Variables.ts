@@ -3,7 +3,8 @@ import { GlobalVariables } from './types/Synergism';
 
 export const Globals: GlobalVariables = {
     runediv: [1.5, 2, 3, 5, 8, 1, 1],
-    runeexpbase: [1, 4, 9, 16, 1000, 1e75, 1e200],
+    runeexpbase: [1, 4, 9, 16, 1000, 1e75, 1e256],
+    runeMaxLvl: 40000,
 
     // this shows the logarithm of costs. ex: upgrade one will cost 1e+6 coins, upgrade 2 1e+7, etc.
     upgradeCosts: [0, 6, 7, 8, 10, 12, 20, 25, 30, 35, 45, 55, 75, 110, 150, 200, 250, 500, 750, 1000, 1500,
@@ -418,6 +419,8 @@ export const Globals: GlobalVariables = {
 
     timeMultiplier: 1,
     upgradeMultiplier: 1,
+
+    historyCountMax: 20,
     
     isEvent: false,
 

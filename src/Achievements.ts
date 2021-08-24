@@ -1,10 +1,11 @@
 import { format, player } from './Synergism';
 import { Globals as G } from './Variables';
-import { Alert, revealStuff } from './UpdateHTML';
+import { Alert, Notification, revealStuff } from './UpdateHTML';
 import { Synergism } from './Events';
 import { sumContents } from './Utility';
 import Decimal from 'break_infinity.js';
 import { CalcCorruptionStuff, calculateTimeAcceleration } from './Calculate';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const achievementpointvalues = [0, 
     1, 2, 4, 6, 8, 9, 10,
@@ -433,8 +434,8 @@ export const areward = (i: number): string => {
         132: "Permanently gain +25% more sacrifice reward!",
         133: "+15% obtainium. Obtain the gift of Midas himself.",
         134: "Unlock 10 newer incredibly expensive yet good researches. Unlock <<Talismans>> in the Runes Tab!",
-        135: "Talisman positive bonuses are now +0.05 stronger per level.",
-        136: "Talisman positive bonuses are now +0.05 even stronger per level.",
+        135: "Talisman positive bonuses are now +0.02 stronger per level.",
+        136: "Talisman positive bonuses are now +0.02 even stronger per level.",
         137: "Permanently gain +25% more sacrifice reward!",
         140: "+17% obtainium. Lazy joke about not leaking talismans here [You get a new one]",
         141: "Unlock a new reset tier!",
@@ -455,8 +456,8 @@ export const areward = (i: number): string => {
         188: `Gain +100 ascension count for all ascensions longer than 10 seconds. Also: Obtainium +${format(Math.min(100, player.ascensionCount / 50000), 2)}% [Max: 100% at 5M Ascensions]`,
         189: `Gain 20% of excess time after 10 seconds each Ascension as a linear multiplier to ascension count. Also: Cubes +${format(Math.min(200, player.ascensionCount / 2.5e6), 2)}% [Max: 200% at 500M Ascensions]`,
         193: `Gain ${format(Decimal.log(player.ascendShards.add(1), 10) / 4, 2)}% more Cubes on ascension!`,
-        195: `Gain ${format(Math.min(25000, Decimal.log(player.ascendShards.add(1), 10) / 4, 2))}% more Cubes and Tesseracts on ascension! Multiplicative with the other Ach. bonus [MAX: 25,000% at e100,000 Const]`,
-        196: `Gain ${format(Math.min(2000, Decimal.log(player.ascendShards.add(1), 10) / 50, 2))}% more Platonic Cubes on ascension! [MAX: 2,000% at e100,000 Const]`,
+        195: `Gain ${format(Math.min(25000, Decimal.log(player.ascendShards.add(1), 10) / 4), 2)}% more Cubes and Tesseracts on ascension! Multiplicative with the other Ach. bonus [MAX: 25,000% at e100,000 Const]`,
+        196: `Gain ${format(Math.min(2000, Decimal.log(player.ascendShards.add(1), 10) / 50), 2)}% more Platonic Cubes on ascension! [MAX: 2,000% at e100,000 Const]`,
         197: "You will unlock a stat tracker for ascensions.",
         198: "Gain +4% Cubes on ascension!",
         199: "Gain +4% Cubes on ascension!",
@@ -490,7 +491,7 @@ export const areward = (i: number): string => {
         256: `Hypercube Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!`,
         257: `Platonic Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!`,
         258: `Hepteract Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]`,
-        259: "Ascensions are 25% faster, forever!",
+        259: "Corruption score is increased by 1% for every expansion of Abyss Hepteract!",
         260: "You will gain 10% more ascension count, forever!",
         261: "You will gain 10% more ascension count, forever!",
         262: `Ascensions are ${format(Math.min(10, Math.log10(player.ascensionCount+1)), 2)}% faster! Max: +10%`,
@@ -499,7 +500,7 @@ export const areward = (i: number): string => {
         265: `Hepteracts +${format(Math.min(20, player.ascensionCount / 8e12), 2)}% [Max: 20% at 160T Ascensions]!`,
         266: `Quarks +${format(Math.min(10, player.ascensionCount / 1e14), 2)}% [Max: 10% at 1Qa Ascensions]!`,
         267: `Ascension Score is boosted by ${format(Math.min(100, Decimal.log(player.ascendShards.add(1), 10) / 1000), 2)}% [Max: 100% at 1e100,000 Const]`,
-        270: `Hepteract Gain is boosted by ${format(Decimal.log(player.ascendShards.add(1), 10) / 10000, 2)}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).`,
+        270: `Hepteract Gain is boosted by ${format(Math.min(100, Decimal.log(player.ascendShards.add(1), 10) / 10000), 2)}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).`,
         271: `When you open a Platonic Cube, gain ${format(Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5)), 2, true)} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]`
     }
 
@@ -814,18 +815,20 @@ export const achievementdescriptions = (i: number) => {
     if (i >= 253)
         multiplier = 40
 
-    document.getElementById("achievementdescription").textContent = y + z
-    document.getElementById("achievementreward").textContent = "Reward: " + achievementpointvalues[i] + " AP. " + format(achievementpointvalues[i] * multiplier) + " Quarks! " + k
+    DOMCacheGetOrSet("achievementdescription").textContent = y + z
+    DOMCacheGetOrSet("achievementreward").textContent = "Reward: " + achievementpointvalues[i] + " AP. " + format(achievementpointvalues[i] * multiplier) + " Quarks! " + k
     if (player.achievements[i] > 0.5) {
-        document.getElementById("achievementdescription").style.color = "gold"
+        DOMCacheGetOrSet("achievementdescription").style.color = "gold"
     } else {
-        document.getElementById("achievementdescription").style.color = "white"
+        DOMCacheGetOrSet("achievementdescription").style.color = "white"
     }
 }
 
 export const achievementaward = (num: number) => {
     if (player.achievements[num] < 1) {
-        achievementAlerts(num)
+        void Notification(`You unlocked an achievement: ${adesc[`adesc${num}` as keyof typeof adesc]}`);
+
+        void achievementAlerts(num)
         player.achievementPoints += achievementpointvalues[num]
         let multiplier = 1
         if (num >= 183)
@@ -833,11 +836,12 @@ export const achievementaward = (num: number) => {
         if (num >= 253)
             multiplier = 40
         player.worlds.add(achievementpointvalues[num] * multiplier);
-        document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + "%]"
+        DOMCacheGetOrSet("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + "%]"
         player.achievements[num] = 1;
         revealStuff()
     }
-    document.getElementById(`ach${num}`).style.backgroundColor = "Green";
+    
+    DOMCacheGetOrSet(`ach${num}`).style.backgroundColor = "Green";
     Synergism.emit('achievement', num);
 }
 

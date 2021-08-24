@@ -5,6 +5,7 @@ import { Globals as G } from './Variables';
 import { calculateRuneLevels } from "./Calculate";
 import { hepteractEffective } from "./Hepteracts";
 import { productContents } from "./Utility";
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const getMaxChallenges = (i: number) => {
     let maxChallenge = 0;
@@ -72,19 +73,19 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
 
     if (changefocus) {
         G['challengefocus'] = i;
-        document.getElementById("oneChallengeDetails").style.display = "flex";
-        document.getElementById('startChallenge').style.display = 'block';
-        document.getElementById('retryChallenge').style.display = 'block';
+        DOMCacheGetOrSet("oneChallengeDetails").style.display = "flex";
+        DOMCacheGetOrSet('startChallenge').style.display = 'block';
+        DOMCacheGetOrSet('retryChallenge').style.display = 'block';
         G['triggerChallenge'] = i
     }
 
     const maxChallenges = getMaxChallenges(i);
     if (i <= 5 && changefocus){
         if(player.challengecompletions[i] >= 100){
-            document.getElementById('completionSoftcap').textContent = "|| Softcapped past 100! Effective completion count: " + CalcECC('transcend',player.challengecompletions[i])
+            DOMCacheGetOrSet('completionSoftcap').textContent = "|| Softcapped past 100! Effective completion count: " + CalcECC('transcend',player.challengecompletions[i])
         }
         else{
-            document.getElementById('completionSoftcap').textContent = ""
+            DOMCacheGetOrSet('completionSoftcap').textContent = ""
         }
     }
     
@@ -92,34 +93,34 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
     if (i > 5 && i <= 10) {
         quarksMultiplier = 10;
         if(player.challengecompletions[i] >= 25 && changefocus){
-            document.getElementById('completionSoftcap').textContent = "|| Softcapped past 25! Effective completion count: " + format(CalcECC('reincarnation',player.challengecompletions[i]),2,true)
+            DOMCacheGetOrSet('completionSoftcap').textContent = "|| Softcapped past 25! Effective completion count: " + format(CalcECC('reincarnation',player.challengecompletions[i]),2,true)
         }
         else{
-            document.getElementById('completionSoftcap').textContent = ""    
+            DOMCacheGetOrSet('completionSoftcap').textContent = ""    
         }
     }
     if (i > 10) {
         if(player.challengecompletions[i] >= 10){
-            document.getElementById('completionSoftcap').textContent = "|| Softcapped past 10! Effective completion count: " + format(CalcECC('ascension',player.challengecompletions[i]),2,true)
+            DOMCacheGetOrSet('completionSoftcap').textContent = "|| Softcapped past 10! Effective completion count: " + format(CalcECC('ascension',player.challengecompletions[i]),2,true)
         }
         else{
-            document.getElementById('completionSoftcap').textContent = ""
+            DOMCacheGetOrSet('completionSoftcap').textContent = ""
         }
     }
     let descriptor = ""
-    const a = document.getElementById("challengeName");
-    const b = document.getElementById("challengeFlavor");
-    const c = document.getElementById("challengeRestrictions");
-    const d = document.getElementById("challengeGoal");
-    const e = document.getElementById("challengePer1").childNodes[0];
-    const f = document.getElementById("challengePer2").childNodes[0];
-    const g = document.getElementById("challengePer3").childNodes[0];
-    const h = document.getElementById("challengeFirst1");
-    const j = document.getElementById("challengeQuarkBonus");
-    const k = document.getElementById("startChallenge");
-    const l = document.getElementById("challengeCurrent1");
-    const m = document.getElementById("challengeCurrent2");
-    const n = document.getElementById("challengeCurrent3");
+    const a = DOMCacheGetOrSet("challengeName");
+    const b = DOMCacheGetOrSet("challengeFlavor");
+    const c = DOMCacheGetOrSet("challengeRestrictions");
+    const d = DOMCacheGetOrSet("challengeGoal");
+    const e = DOMCacheGetOrSet("challengePer1").childNodes[0];
+    const f = DOMCacheGetOrSet("challengePer2").childNodes[0];
+    const g = DOMCacheGetOrSet("challengePer3").childNodes[0];
+    const h = DOMCacheGetOrSet("challengeFirst1");
+    const j = DOMCacheGetOrSet("challengeQuarkBonus");
+    const k = DOMCacheGetOrSet("startChallenge");
+    const l = DOMCacheGetOrSet("challengeCurrent1");
+    const m = DOMCacheGetOrSet("challengeCurrent2");
+    const n = DOMCacheGetOrSet("challengeCurrent3");
 
 
     if (i === 1 && G['challengefocus'] === 1) {
@@ -364,17 +365,17 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
     }
 
     (i <= 10 && player.researches[150] > 0) ?
-        (document.getElementById("toggleAutoChallengeIgnore").style.display = "block", document.getElementById('toggleAutoChallengeIgnore').style.border = "2px solid green") :
-        document.getElementById("toggleAutoChallengeIgnore").style.display = "none";
+        (DOMCacheGetOrSet("toggleAutoChallengeIgnore").style.display = "block", DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.border = "2px solid green") :
+        DOMCacheGetOrSet("toggleAutoChallengeIgnore").style.display = "none";
 
     let constructor = "ON"
     if (!player.autoChallengeToggles[i]) {
         constructor = "OFF";
-        document.getElementById('toggleAutoChallengeIgnore').style.border = "2px solid red"
+        DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.border = "2px solid red"
     }
-    document.getElementById("toggleAutoChallengeIgnore").textContent = "Automatically Run Chal." + i + " [" + constructor + "]"
+    DOMCacheGetOrSet("toggleAutoChallengeIgnore").textContent = "Automatically Run Chal." + i + " [" + constructor + "]"
 
-    const ella = document.getElementById("toggleAutoChallengeStart");
+    const ella = DOMCacheGetOrSet("toggleAutoChallengeStart");
     (player.autoChallengeRunning) ?
         (ella.textContent = "Auto Challenge Sweep [ON]", ella.style.border = "2px solid gold") :
         (ella.textContent = "Auto Challenge Sweep [OFF]", ella.style.border = "2px solid red");
@@ -400,7 +401,7 @@ export const getChallengeConditions = (i?: number) => {
 }
 
 export const toggleRetryChallenges = () => {
-    document.getElementById("retryChallenge").textContent = player.retrychallenges
+    DOMCacheGetOrSet("retryChallenge").textContent = player.retrychallenges
         ? "Retry Challenges: OFF"
         : "Retry Challenges: ON";
 
@@ -594,10 +595,10 @@ export const runChallengeSweep = (dt: number) => {
         
         // Reset based on challenge type
         if (challengeType === 'transcension') {
-            resetCheck('challenge', undefined, true);
+            void resetCheck('transcensionChallenge', undefined, true);
         }
         if (challengeType === 'reincarnation') {
-            resetCheck('reincarnationchallenge', undefined, true);
+            void resetCheck('reincarnationChallenge', undefined, true);
         }
 
         // Sets Mode to "ENTER" as displayed in the challenge tab

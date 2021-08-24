@@ -3,6 +3,7 @@ import { Globals as G } from './Variables';
 import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const associated = new Map<string, string>([
     ['kMisc', 'miscStats'],
@@ -22,44 +23,44 @@ export const displayStats = (btn: HTMLElement) => {
     for (const e of Array.from(btn.parentElement.children) as HTMLElement[]) {
         if (e.id !== btn.id) {
             e.style.backgroundColor = '';
-            document.getElementById(associated.get(e.id)).style.display = 'none';
+            DOMCacheGetOrSet(associated.get(e.id)).style.display = 'none';
         }
     }
     
-    const statsEl = document.getElementById(associated.get(btn.id));
+    const statsEl = DOMCacheGetOrSet(associated.get(btn.id));
     statsEl.style.display = 'block';
     btn.style.backgroundColor = 'crimson';
 }
 
 export const loadStatisticsAccelerator = () => {
-    document.getElementById("sA1").textContent = "+" + format(G['freeUpgradeAccelerator'], 0, false)
-    document.getElementById("sA2").textContent = "+" + format(G['totalAcceleratorBoost'] * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20] + G['cubeBonusMultiplier'][1]), 0, false)
-    document.getElementById("sA3").textContent = "+" + format(Math.floor(Math.pow(G['rune1level'] * G['effectiveLevelMult'] / 10, 1.1)), 0, true)
-    document.getElementById("sA4").textContent = "x" + format(1 + G['rune1level'] * 1 / 200 * G['effectiveLevelMult'], 3, true)
-    document.getElementById("sA5").textContent = "x" + format(Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]), 3, true)
-    document.getElementById("sA6").textContent = "x" + format(Math.pow(1.01, player.achievements[60] + player.achievements[61] + player.achievements[62]), 3, true)
-    document.getElementById("sA7").textContent = "x" + format(1 + 1 / 5 * player.researches[1], 3, true)
-    document.getElementById("sA8").textContent = "x" + format(1 + 1 / 20 * player.researches[6] + 1 / 25 * player.researches[7] + 1 / 40 * player.researches[8] + 3 / 200 * player.researches[9] + 1 / 200 * player.researches[10], 3, true)
-    document.getElementById("sA9").textContent = "x" + format(1 + 1 / 20 * player.researches[86], 3, true)
-    document.getElementById("sA10").textContent = "x" + format(((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5 ? 1.25 : 1), 3, true)
-    document.getElementById("sA11").textContent = "^" + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))), 3, true)
-    document.getElementById("sA12").textContent = format(G['freeAccelerator'], 0, true)
+    DOMCacheGetOrSet("sA1").textContent = "+" + format(G['freeUpgradeAccelerator'], 0, false)
+    DOMCacheGetOrSet("sA2").textContent = "+" + format(G['totalAcceleratorBoost'] * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20] + G['cubeBonusMultiplier'][1]), 0, false)
+    DOMCacheGetOrSet("sA3").textContent = "+" + format(Math.floor(Math.pow(G['rune1level'] * G['effectiveLevelMult'] / 10, 1.1)), 0, true)
+    DOMCacheGetOrSet("sA4").textContent = "x" + format(1 + G['rune1level'] * 1 / 200 * G['effectiveLevelMult'], 3, true)
+    DOMCacheGetOrSet("sA5").textContent = "x" + format(Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]), 3, true)
+    DOMCacheGetOrSet("sA6").textContent = "x" + format(Math.pow(1.01, player.achievements[60] + player.achievements[61] + player.achievements[62]), 3, true)
+    DOMCacheGetOrSet("sA7").textContent = "x" + format(1 + 1 / 5 * player.researches[1], 3, true)
+    DOMCacheGetOrSet("sA8").textContent = "x" + format(1 + 1 / 20 * player.researches[6] + 1 / 25 * player.researches[7] + 1 / 40 * player.researches[8] + 3 / 200 * player.researches[9] + 1 / 200 * player.researches[10], 3, true)
+    DOMCacheGetOrSet("sA9").textContent = "x" + format(1 + 1 / 20 * player.researches[86], 3, true)
+    DOMCacheGetOrSet("sA10").textContent = "x" + format(((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5 ? 1.25 : 1), 3, true)
+    DOMCacheGetOrSet("sA11").textContent = "^" + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))), 3, true)
+    DOMCacheGetOrSet("sA12").textContent = format(G['freeAccelerator'], 0, true)
 }
 
 export const loadStatisticsMultiplier = () => {
-    document.getElementById("sM1").textContent = "+" + format(G['freeUpgradeMultiplier'], 0, true)
-    document.getElementById("sM2").textContent = "+" + format(Math.floor(Math.floor(G['rune2level'] / 10 * G['effectiveLevelMult']) * Math.floor(10 + G['rune2level'] / 10 * G['effectiveLevelMult']) / 2) * 100 / 100, 0, true)
-    document.getElementById("sM3").textContent = "x" + format(1 + G['rune2level'] / 200 * G['effectiveLevelMult'], 3, true)
-    document.getElementById("sM4").textContent = "x" + format(Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]) * (1 + player.upgrades[34] * 3 / 100) * (1 + player.upgrades[34] * (2 / 103)), 3, true)
-    document.getElementById("sM5").textContent = "x" + format(Math.pow(1.01, player.achievements[57] + player.achievements[58] + player.achievements[59]), 3, true)
-    document.getElementById("sM6").textContent = "x" + format(1 + 1 / 5 * player.researches[2], 3, true)
-    document.getElementById("sM7").textContent = "x" + format(1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15], 3, true)
-    document.getElementById("sM8").textContent = "x" + format(1 + 1 / 20 * player.researches[87], 3, true)
-    document.getElementById("sM9").textContent = "x" + format(calculateSigmoidExponential(40, (player.antUpgrades[5-1] + G['bonusant5']) / 1000 * 40 / 39),2,true)
-    document.getElementById("sM10").textContent = "x" + format(G['cubeBonusMultiplier'][2], 3, true)
-    document.getElementById("sM11").textContent = "x" + format(((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5 ? 1.25 : 1), 3, true)
-    document.getElementById("sM12").textContent = "^" + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['divisivenessPower'][player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))), 3, true)
-    document.getElementById("sM13").textContent = format(G['freeMultiplier'], 3, true)
+    DOMCacheGetOrSet("sM1").textContent = "+" + format(G['freeUpgradeMultiplier'], 0, true)
+    DOMCacheGetOrSet("sM2").textContent = "+" + format(Math.floor(Math.floor(G['rune2level'] / 10 * G['effectiveLevelMult']) * Math.floor(10 + G['rune2level'] / 10 * G['effectiveLevelMult']) / 2) * 100 / 100, 0, true)
+    DOMCacheGetOrSet("sM3").textContent = "x" + format(1 + G['rune2level'] / 200 * G['effectiveLevelMult'], 3, true)
+    DOMCacheGetOrSet("sM4").textContent = "x" + format(Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]) * (1 + player.upgrades[34] * 3 / 100) * (1 + player.upgrades[34] * (2 / 103)), 3, true)
+    DOMCacheGetOrSet("sM5").textContent = "x" + format(Math.pow(1.01, player.achievements[57] + player.achievements[58] + player.achievements[59]), 3, true)
+    DOMCacheGetOrSet("sM6").textContent = "x" + format(1 + 1 / 5 * player.researches[2], 3, true)
+    DOMCacheGetOrSet("sM7").textContent = "x" + format(1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15], 3, true)
+    DOMCacheGetOrSet("sM8").textContent = "x" + format(1 + 1 / 20 * player.researches[87], 3, true)
+    DOMCacheGetOrSet("sM9").textContent = "x" + format(calculateSigmoidExponential(40, (player.antUpgrades[5-1] + G['bonusant5']) / 1000 * 40 / 39),2,true)
+    DOMCacheGetOrSet("sM10").textContent = "x" + format(G['cubeBonusMultiplier'][2], 3, true)
+    DOMCacheGetOrSet("sM11").textContent = "x" + format(((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5 ? 1.25 : 1), 3, true)
+    DOMCacheGetOrSet("sM12").textContent = "^" + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['divisivenessPower'][player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))), 3, true)
+    DOMCacheGetOrSet("sM13").textContent = format(G['freeMultiplier'], 3, true)
 }
 
 export const loadStatisticsCubeMultipliers = () => {
@@ -74,15 +75,16 @@ export const loadStatisticsCubeMultipliers = () => {
         6: {acc: 2, desc: "Platonic Beta:"},
         7: {acc: 2, desc: "Platonic Omega:"},
         8: {acc: 2, desc: "Overflux Powder:"},
-        9: {acc: 2, desc: "Event [Most Recent: June 28 - July 01]"}
+        9: {acc: 2, desc: "Event [Most Recent: June 28 - July 01]"},
+        10: {acc: 2, desc: "Singularity Factor:"}
     }
     for (let i = 0; i < arr0.length; i++) {
-        const statGCMi = document.getElementById(`statGCM${i + 1}`);
+        const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
         statGCMi.childNodes[0].textContent = map0[i + 1].desc;
-        document.getElementById(`sGCM${i + 1}`).textContent = `x${format(arr0[i], map0[i + 1].acc, true)}`;
+        DOMCacheGetOrSet(`sGCM${i + 1}`).textContent = `x${format(arr0[i], map0[i + 1].acc, true)}`;
     }
 
-    document.getElementById("sGCMT").textContent = `x${format(calculateAllCubeMultiplier().mult, 3)}`;
+    DOMCacheGetOrSet("sGCMT").textContent = `x${format(calculateAllCubeMultiplier().mult, 3)}`;
 
     const arr = calculateCubeMultiplier().list;
     const map: Record<number, { acc: number, desc: string }> = {
@@ -103,12 +105,12 @@ export const loadStatisticsCubeMultipliers = () => {
         15: {acc: 2, desc: "Platonic 1x1:"},
     }
     for (let i = 0; i < arr.length; i++) {
-        const statCMi = document.getElementById(`statCM${i + 1}`);
+        const statCMi = DOMCacheGetOrSet(`statCM${i + 1}`);
         statCMi.childNodes[0].textContent = map[i + 1].desc;
-        document.getElementById(`sCM${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`;
+        DOMCacheGetOrSet(`sCM${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`;
     }
     // PLAT
-    document.getElementById("sCMT").textContent = `x${format(calculateCubeMultiplier().mult, 3)}`;
+    DOMCacheGetOrSet("sCMT").textContent = `x${format(calculateCubeMultiplier().mult, 3)}`;
 
     const arr2 = calculateTesseractMultiplier().list;
     const map2: Record<number, { acc: number, desc: string }> = {
@@ -126,12 +128,12 @@ export const loadStatisticsCubeMultipliers = () => {
         12: {acc: 2, desc: "Platonic 1x2:"},
     }
     for (let i = 0; i < arr2.length; i++) {
-        const statTeMi = document.getElementById(`statTeM${i + 1}`);
+        const statTeMi = DOMCacheGetOrSet(`statTeM${i + 1}`);
         statTeMi.childNodes[0].textContent = map2[i + 1].desc;
-        document.getElementById(`sTeM${i + 1}`).textContent = `x${format(arr2[i], map2[i + 1].acc, true)}`;
+        DOMCacheGetOrSet(`sTeM${i + 1}`).textContent = `x${format(arr2[i], map2[i + 1].acc, true)}`;
     }
 
-    document.getElementById("sTeMT").textContent = `x${format(calculateTesseractMultiplier().mult, 3)}`;
+    DOMCacheGetOrSet("sTeMT").textContent = `x${format(calculateTesseractMultiplier().mult, 3)}`;
 
     const arr3 = calculateHypercubeMultiplier().list;
     const map3: Record<number, { acc: number, desc: string }> = {
@@ -148,12 +150,12 @@ export const loadStatisticsCubeMultipliers = () => {
         11: {acc: 2, desc: "Hyperreal Hepteract Bonus:"},
     }
     for (let i = 0; i < arr3.length; i++) {
-        const statHyMi = document.getElementById(`statHyM${i + 1}`);
+        const statHyMi = DOMCacheGetOrSet(`statHyM${i + 1}`);
         statHyMi.childNodes[0].textContent = map3[i + 1].desc;
-        document.getElementById(`sHyM${i + 1}`).textContent = `x${format(arr3[i], map3[i + 1].acc, true)}`;
+        DOMCacheGetOrSet(`sHyM${i + 1}`).textContent = `x${format(arr3[i], map3[i + 1].acc, true)}`;
     }
 
-    document.getElementById("sHyMT").textContent = `x${format(calculateHypercubeMultiplier().mult, 3)}`;
+    DOMCacheGetOrSet("sHyMT").textContent = `x${format(calculateHypercubeMultiplier().mult, 3)}`;
 
     const arr4 = calculatePlatonicMultiplier().list;
     const map4: Record<number, { acc: number, desc: string }> = {
@@ -168,12 +170,12 @@ export const loadStatisticsCubeMultipliers = () => {
         9: {acc: 2, desc: "Platonic 1x4:"},
     }
     for (let i = 0; i < arr4.length; i++) {
-        const statPlMi = document.getElementById(`statPlM${i + 1}`);
+        const statPlMi = DOMCacheGetOrSet(`statPlM${i + 1}`);
         statPlMi.childNodes[0].textContent = map4[i + 1].desc;
-        document.getElementById(`sPlM${i + 1}`).textContent = `x${format(arr4[i], map4[i + 1].acc, true)}`;
+        DOMCacheGetOrSet(`sPlM${i + 1}`).textContent = `x${format(arr4[i], map4[i + 1].acc, true)}`;
     }
 
-    document.getElementById("sPlMT").textContent = `x${format(calculatePlatonicMultiplier().mult, 3)}`;
+    DOMCacheGetOrSet("sPlMT").textContent = `x${format(calculatePlatonicMultiplier().mult, 3)}`;
 
     const arr5 = calculateHepteractMultiplier().list;
     const map5: Record<number, { acc: number, desc: string }> = {
@@ -186,12 +188,12 @@ export const loadStatisticsCubeMultipliers = () => {
         7: {acc: 2, desc: "Achievement 270 Bonus:"},
     }
     for (let i = 0; i < arr5.length; i++) {
-        const statHeMi = document.getElementById(`statHeM${i + 1}`);
+        const statHeMi = DOMCacheGetOrSet(`statHeM${i + 1}`);
         statHeMi.childNodes[0].textContent = map5[i + 1].desc;
-        document.getElementById(`sHeM${i + 1}`).textContent = `x${format(arr5[i], map5[i + 1].acc, true)}`;
+        DOMCacheGetOrSet(`sHeM${i + 1}`).textContent = `x${format(arr5[i], map5[i + 1].acc, true)}`;
     }
 
-    document.getElementById("sHeMT").textContent = `x${format(calculateHepteractMultiplier().mult, 3)}`;
+    DOMCacheGetOrSet("sHeMT").textContent = `x${format(calculateHepteractMultiplier().mult, 3)}`;
 }
 
 export const loadStatisticsOfferingMultipliers = () => {
@@ -222,11 +224,11 @@ export const loadStatisticsOfferingMultipliers = () => {
         23: {acc: 3, desc: "Challenge 15:"},
     }
     for (let i = 0; i < arr.length; i++) {
-        const statOffi = document.getElementById(`statOff${i + 1}`);
+        const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`);
         statOffi.childNodes[0].textContent = map[i + 1].desc;
-        document.getElementById(`sOff${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`;
+        DOMCacheGetOrSet(`sOff${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`;
     }
-    document.getElementById("sOffT").textContent = `x${format(calculateOfferings("prestige", true, true), 3)}`;
+    DOMCacheGetOrSet("sOffT").textContent = `x${format(calculateOfferings("prestige", true, true), 3)}`;
 }
 
 export const loadPowderMultiplier = () => {
@@ -241,12 +243,12 @@ export const loadPowderMultiplier = () => {
         7: {acc: 2, desc: "Event [Most Recent: June 20 - June 27]:"},
     }
     for (let i = 0; i < arr0.length; i++) {
-        const statGCMi = document.getElementById(`statPoM${i + 1}`);
+        const statGCMi = DOMCacheGetOrSet(`statPoM${i + 1}`);
         statGCMi.childNodes[0].textContent = map0[i + 1].desc;
-        document.getElementById(`sPoM${i + 1}`).textContent = `x${format(arr0[i], map0[i + 1].acc, true)}`;
+        DOMCacheGetOrSet(`sPoM${i + 1}`).textContent = `x${format(arr0[i], map0[i + 1].acc, true)}`;
     }
 
-    document.getElementById("sPoMT").textContent = `x${format(calculatePowderConversion().mult, 3)}`;
+    DOMCacheGetOrSet("sPoMT").textContent = `x${format(calculatePowderConversion().mult, 3)}`;
 }
 
 export const c15RewardUpdate = () => {
@@ -351,6 +353,8 @@ export const c15RewardUpdate = () => {
     if(e >= exponentRequirements[22]){
         //Ascension Score [10b]
         G['challenge15Rewards'][keys[22]] = 1 + 1 / 4 * Math.pow(e / 1e10 , 1 / 4)
+        if (e >= 1e20)
+            G['challenge15Rewards'][keys[22]] = 1 + 1 / 4 * Math.pow(e / 1e10, 1 / 8) * Math.pow(1e10, 1 / 8)
     }
     if(e >= exponentRequirements[23]){
         //Quark Gain [100b]
@@ -362,7 +366,7 @@ export const c15RewardUpdate = () => {
     }
     if (e >= exponentRequirements[25]) {
         //Unlock Challenge hepteract [2Qa]
-        player.hepteractCrafts.challenge.unlock('the Hepteract of Challenge')
+        void player.hepteractCrafts.challenge.unlock('the Hepteract of Challenge')
     }
     if (e >= exponentRequirements[26]) {
         //All Cube Types V [4Qa]
@@ -374,7 +378,7 @@ export const c15RewardUpdate = () => {
     }
     if (e >= exponentRequirements[28]) {
         //Unlock Abyss Hepteract [10Qa]
-        player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
+        void player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
     }
     if (e >= exponentRequirements[29]) {
         //Constant Upgrade 2 [20Qa]
@@ -382,15 +386,15 @@ export const c15RewardUpdate = () => {
     }
     if (e >= exponentRequirements[30]) {
         //Unlock ACCELERATOR HEPT [33.33Qa]
-        player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
+        void player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
     }
     if (e >= exponentRequirements[31]) {
         //Unlock ACCELERATOR BOOST HEPT [33.33Qa]
-        player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
+        void player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
     }
     if (e >= exponentRequirements[32]) {
         //Unlock MULTIPLIER Hept [33.33Qa]
-        player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
+        void player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
     }
     if (e >= exponentRequirements[33]) {
         // FREE Daily Orbs
@@ -406,8 +410,8 @@ export const c15RewardUpdate = () => {
 }
 
 const updateDisplayC15Rewards = () => {
-    document.getElementById('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
-    document.getElementById('c15RequiredExponentNum').textContent = format(player.challenge15Exponent / challenge15ScoreMultiplier(),0,true)
+    DOMCacheGetOrSet('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
+    DOMCacheGetOrSet('c15RequiredExponentNum').textContent = format(player.challenge15Exponent / challenge15ScoreMultiplier(),0,true)
     const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
     const isNum: Record<number, boolean> = { // Shit solution to a shit problem -Platonic
         0: true,
@@ -454,7 +458,7 @@ const updateDisplayC15Rewards = () => {
             keepExponent = exponentRequirements[i]
         }
         if (player.challenge15Exponent >= exponentRequirements[i]) {
-            document.getElementById('c15Reward'+(i+1)+'Num').textContent = (isNum[i]) ?
+            DOMCacheGetOrSet('c15Reward'+(i+1)+'Num').textContent = (isNum[i]) ?
             format(100 * values[i - skip] - 100,2,true):
             'Unlocked!';
 
@@ -463,12 +467,12 @@ const updateDisplayC15Rewards = () => {
             }
 
             if (i === 33) {
-                document.getElementById('c15Reward34Num').textContent = format(values[i - skip], 0, true)
+                DOMCacheGetOrSet('c15Reward34Num').textContent = format(values[i - skip], 0, true)
             }
         }
 
-        document.getElementById('c15Reward'+(i+1)).style.display = (player.challenge15Exponent >= exponentRequirements[i])? 'block': 'none';
-        document.getElementById('c15RewardList').textContent = typeof keepExponent  === 'string'
+        DOMCacheGetOrSet('c15Reward'+(i+1)).style.display = (player.challenge15Exponent >= exponentRequirements[i])? 'block': 'none';
+        DOMCacheGetOrSet('c15RewardList').textContent = typeof keepExponent  === 'string'
             ? 'You have unlocked all reward types from Challenge 15!'
             : 'Next reward type requires ' + format(keepExponent,0,true) + ' exponent.' 
     }

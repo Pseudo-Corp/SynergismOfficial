@@ -8,6 +8,7 @@ import { reset } from './Reset';
 import { calculateSummationLinear, calculateCorruptionPoints, calculateRuneBonuses } from './Calculate';
 import { Globals as G } from './Variables';
 import type { FirstToFifth, OneToFive, ZeroToFour } from './types/Synergism';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const getReductionValue = () => {
     let reduction = 1;
@@ -242,7 +243,7 @@ const factorialByExponent = (fact: number) => {
     return ((Math.log10(fact * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6)))) - exponentFactorialPartExtra) * fact) + ((mantissaFactorialPartExtra - Math.log10(fact)) / 2);
 }
 
-const fact100exponent = Math.log10(9.3326215443944152681699238856267e+157);
+const fact100exponent = Math.log10(9.332621544394e+157);
 
 // system of equations
 // 16 digits of precision
@@ -964,14 +965,14 @@ export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number)
     if (type === 'Blessings') {
         const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
         const t = (index === 5) ? 1 : 0;
-        document.getElementById('runeBlessingPower' + index + 'Value1').textContent = format(G['runeBlessings'][index])
-        document.getElementById('runeBlessingPower' + index + 'Value2').textContent = format(1 - t + blessingMultiplierArray[index] * G['effectiveRuneBlessingPower'][index], 4, true)
+        DOMCacheGetOrSet('runeBlessingPower' + index + 'Value1').textContent = format(G['runeBlessings'][index])
+        DOMCacheGetOrSet('runeBlessingPower' + index + 'Value2').textContent = format(1 - t + blessingMultiplierArray[index] * G['effectiveRuneBlessingPower'][index], 4, true)
     }
     if (type === 'Spirits') {
         const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
         spiritMultiplierArray[index] *= (calculateCorruptionPoints() / 400)
         const t = (index === 3) ? 1 : 0;
-        document.getElementById('runeSpiritPower' + index + 'Value1').textContent = format(G['runeSpirits'][index])
-        document.getElementById('runeSpiritPower' + index + 'Value2').textContent = format(1 - t + spiritMultiplierArray[index] * G['effectiveRuneSpiritPower'][index], 4, true)
+        DOMCacheGetOrSet('runeSpiritPower' + index + 'Value1').textContent = format(G['runeSpirits'][index])
+        DOMCacheGetOrSet('runeSpiritPower' + index + 'Value2').textContent = format(1 - t + spiritMultiplierArray[index] * G['effectiveRuneSpiritPower'][index], 4, true)
     }
 }

@@ -2,6 +2,8 @@ import { player, format, formatTimeShort } from './Synergism';
 import Decimal, { DecimalSource } from 'break_infinity.js';
 import { antSacrificePointsToMultiplier } from './Ants';
 import { Synergism } from './Events';
+import { DOMCacheGetOrSet } from './Cache/DOM';
+import { Globals as G } from './Variables';
 
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend';
@@ -235,7 +237,7 @@ const resetHistoryCorruptionTitles = [
 // A formatting aid that removes the mantissa from a formatted string. Converts "2.5e1000" to "e1000".
 const extractStringExponent = (str: string) => {
     let m: RegExpMatchArray | null;
-    return (m = str.match(/e\+?(.+)/)) !== null ? `e${m[1]}` : str;
+    return (m = /e\+?(.+)/.exec(str)) !== null ? `e${m[1]}` : str;
 }
 
 // Add an entry to the history. This can be called via the event system.
@@ -244,7 +246,7 @@ const resetHistoryAdd = (category: Category, data: ResetHistoryEntryUnion) => {
         player.history[category] = [];
     }
 
-    while (player.history[category].length > (player.historyCountMax - 1)) {
+    while (player.history[category].length > (G['historyCountMax'] - 1)) {
         player.history[category].shift();
     }
 
@@ -257,10 +259,10 @@ Synergism.on('historyAdd', resetHistoryAdd);
 // Add a row to the table, shifting out old ones as required.
 const resetHistoryPushNewRow = (category: Category, data: ResetHistoryEntryUnion) => {
     const row = resetHistoryRenderRow(category, data);
-    const table = document.getElementById(resetHistoryTableMapping[category]);
+    const table = DOMCacheGetOrSet(resetHistoryTableMapping[category]);
     const tbody = table.querySelector("tbody");
     tbody.insertBefore(row, tbody.childNodes[0]);
-    while (tbody.childNodes.length > player.historyCountMax) {
+    while (tbody.childNodes.length > G['historyCountMax']) {
         tbody.removeChild(tbody.lastChild);
     }
 }
@@ -362,7 +364,7 @@ const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HT
 // Render every category into their associated table.
 export const resetHistoryRenderAllTables = () => {
     (Object.keys(resetHistoryTableMapping) as Category[]).forEach(
-        key => resetHistoryRenderFullTable(key, document.getElementById(resetHistoryTableMapping[key]))
+        key => resetHistoryRenderFullTable(key, DOMCacheGetOrSet(resetHistoryTableMapping[key]))
     );
 }
 
@@ -370,7 +372,7 @@ export const resetHistoryRenderAllTables = () => {
 export const resetHistoryTogglePerSecond = () => {
     player.historyShowPerSecond = !player.historyShowPerSecond;
     resetHistoryRenderAllTables();
-    const button = document.getElementById("historyTogglePerSecondButton");
+    const button = DOMCacheGetOrSet("historyTogglePerSecondButton");
     button.textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
     button.style.borderColor = player.historyShowPerSecond ? "green" : "red";
 }

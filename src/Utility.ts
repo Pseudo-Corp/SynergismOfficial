@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const isDecimal = (o: unknown): o is Decimal =>
     o instanceof Decimal ||
@@ -50,10 +51,10 @@ export const sortWithIndices = (toSort: number[]) => {
 }
 
 /**
- * Identical to @see {Document.getElementById} but casts the type.
+ * Identical to @see {DOMCacheGetOrSet} but casts the type.
  * @param id {string}
  */
-export const getElementById = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+export const getElementById = <T extends HTMLElement>(id: string) => DOMCacheGetOrSet(id) as T;
 
 /**
  * Remove leading indents at the beginning of new lines in a template literal. 
@@ -84,8 +85,8 @@ export const padArray = <T extends unknown>(a: T[], b: T, length: number) => {
     return a;
 } 
 
-export const updateClassList = (targetElement: string, additions: Array<string>, removals: Array<string>) => {
-    const target = document.getElementById(targetElement);
+export const updateClassList = (targetElement: string, additions: string[], removals: string[]) => {
+    const target = DOMCacheGetOrSet(targetElement);
     for (const addition of additions) {
         target.classList.add(addition);
     }

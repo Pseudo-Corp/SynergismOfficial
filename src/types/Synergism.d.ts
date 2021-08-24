@@ -347,6 +347,7 @@ export interface Player {
     autoFortifyToggle: boolean,
     autoEnhanceToggle: boolean,
     autoResearchToggle: boolean,
+    autoResearchMode: 'cheapest' | 'manual'
     autoResearch: number
     autoSacrifice: number
     sacrificeTimer: number
@@ -453,7 +454,6 @@ export interface Player {
 
     constantUpgrades: number[]
     history: Record<Category, ResetHistoryEntryUnion[]>
-    historyCountMax: number
     historyShowPerSecond: boolean,
 
     autoChallengeRunning: boolean,
@@ -508,11 +508,16 @@ export interface Player {
     overfluxOrbs: number
     overfluxPowder: number
     dailyPowderResetUses: number
+
+    singularityCount: number
+    goldenQuarks: number
+    quarksThisSingularity: number
 }
 
 export interface GlobalVariables {
     runediv: number[]
     runeexpbase: number[]
+    runeMaxLvl: number
     upgradeCosts: number[]
 
     // Mega list of Variables to be used elsewhere
@@ -840,6 +845,8 @@ export interface GlobalVariables {
     timeMultiplier: number
     upgradeMultiplier: number
 
+    historyCountMax: number
+
     isEvent: boolean
 }
 
@@ -857,6 +864,7 @@ export type resetNames =
     | "transcension" 
     | "reincarnation" 
     | "ascension" 
+    | "singularity"
     | "transcensionChallenge" 
     | "reincarnationChallenge" 
     | "ascensionChallenge" 

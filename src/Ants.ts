@@ -12,6 +12,7 @@ import { resetAnts } from './Reset';
 import type { ResetHistoryEntryAntSacrifice } from './History';
 import { Synergism } from './Events';
 import type { FirstToEighth, ZeroToSeven } from './types/Synergism';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const antdesc: Record<string, string> = {
     antdesc1: "Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!",
@@ -85,10 +86,10 @@ export const antRepeat = (i: number) => {
 }
 
 export const updateAntDescription = (i: number) => {
-    const el = document.getElementById("anttierdescription")
-    const la = document.getElementById("antprice")
-    const ti = document.getElementById("antquantity")
-    const me = document.getElementById("generateant")
+    const el = DOMCacheGetOrSet("anttierdescription")
+    const la = DOMCacheGetOrSet("antprice")
+    const ti = DOMCacheGetOrSet("antquantity")
+    const me = DOMCacheGetOrSet("generateant")
 
     let priceType = "Galactic Crumbs"
     let tier: FirstToEighth = "first"
@@ -258,11 +259,11 @@ export const buyAntUpgrade = (originalCost: DecimalSource, auto: boolean, index:
 }
 
 export const antUpgradeDescription = (i: number) => {
-    const el = document.getElementById("antspecies")
-    const al = document.getElementById("antlevelbonus");
-    const la = document.getElementById("antupgradedescription")
-    const ti = document.getElementById("antupgradecost")
-    const me = document.getElementById("antupgradeeffect")
+    const el = DOMCacheGetOrSet("antspecies")
+    const al = DOMCacheGetOrSet("antlevelbonus");
+    const la = DOMCacheGetOrSet("antupgradedescription")
+    const ti = DOMCacheGetOrSet("antupgradecost")
+    const me = DOMCacheGetOrSet("antupgradeeffect")
 
     const content1 = antspecies["antspecies" + i];
     const content2 = antupgdesc["antupgdesc" + i];
@@ -303,27 +304,27 @@ export const antSacrificePointsToMultiplier = (points: number) => {
 
 export const showSacrifice = () => {
     const sacRewards = calculateAntSacrificeRewards();
-    document.getElementById("antSacrificeSummary").style.display = "block"
+    DOMCacheGetOrSet("antSacrificeSummary").style.display = "block"
 
-    document.getElementById("antELO").childNodes[0].textContent = "Your Ant ELO is "
-    document.getElementById("ELO").textContent = format(G['antELO'], 2,)
-    document.getElementById("effectiveELO").textContent = "[" + format(G['effectiveELO'], 2, false) + " effective]"
+    DOMCacheGetOrSet("antELO").childNodes[0].textContent = "Your Ant ELO is "
+    DOMCacheGetOrSet("ELO").textContent = format(G['antELO'], 2,)
+    DOMCacheGetOrSet("effectiveELO").textContent = "[" + format(G['effectiveELO'], 2, false) + " effective]"
 
-    document.getElementById("antSacrificeMultiplier").childNodes[0].textContent = "Ant Multiplier x" + format(antSacrificePointsToMultiplier(player.antSacrificePoints), 3, false) + " --> "
-    document.getElementById("SacrificeMultiplier").textContent = "x" + format(antSacrificePointsToMultiplier(player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false)
+    DOMCacheGetOrSet("antSacrificeMultiplier").childNodes[0].textContent = "Ant Multiplier x" + format(antSacrificePointsToMultiplier(player.antSacrificePoints), 3, false) + " --> "
+    DOMCacheGetOrSet("SacrificeMultiplier").textContent = "x" + format(antSacrificePointsToMultiplier(player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false)
 
-    document.getElementById("SacrificeUpgradeMultiplier").textContent = format(G['upgradeMultiplier'], 3, true) + "x"
-    document.getElementById("SacrificeTimeMultiplier").textContent = format(G['timeMultiplier'], 3, true) + "x"
-    document.getElementById("antSacrificeOffering").textContent = "+" + format(sacRewards.offerings)
-    document.getElementById("antSacrificeObtainium").textContent = "+" + format(sacRewards.obtainium)
+    DOMCacheGetOrSet("SacrificeUpgradeMultiplier").textContent = format(G['upgradeMultiplier'], 3, true) + "x"
+    DOMCacheGetOrSet("SacrificeTimeMultiplier").textContent = format(G['timeMultiplier'], 3, true) + "x"
+    DOMCacheGetOrSet("antSacrificeOffering").textContent = "+" + format(sacRewards.offerings)
+    DOMCacheGetOrSet("antSacrificeObtainium").textContent = "+" + format(sacRewards.obtainium)
     if (player.challengecompletions[9] > 0) {
-        document.getElementById("antSacrificeTalismanShard").textContent = "+" + format(sacRewards.talismanShards) + " [>500 ELO]"
-        document.getElementById("antSacrificeCommonFragment").textContent = "+" + format(sacRewards.commonFragments) + " [>750 ELO]"
-        document.getElementById("antSacrificeUncommonFragment").textContent = "+" + format(sacRewards.uncommonFragments) + " [>1,000 ELO]"
-        document.getElementById("antSacrificeRareFragment").textContent = "+" + format(sacRewards.rareFragments) + " [>1,500 ELO]"
-        document.getElementById("antSacrificeEpicFragment").textContent = "+" + format(sacRewards.epicFragments) + " [>2,000 ELO]"
-        document.getElementById("antSacrificeLegendaryFragment").textContent = "+" + format(sacRewards.legendaryFragments) + " [>3,000 ELO]"
-        document.getElementById("antSacrificeMythicalFragment").textContent = "+" + format(sacRewards.mythicalFragments) + " [>5,000 ELO]"
+        DOMCacheGetOrSet("antSacrificeTalismanShard").textContent = "+" + format(sacRewards.talismanShards) + " [>500 ELO]"
+        DOMCacheGetOrSet("antSacrificeCommonFragment").textContent = "+" + format(sacRewards.commonFragments) + " [>750 ELO]"
+        DOMCacheGetOrSet("antSacrificeUncommonFragment").textContent = "+" + format(sacRewards.uncommonFragments) + " [>1,000 ELO]"
+        DOMCacheGetOrSet("antSacrificeRareFragment").textContent = "+" + format(sacRewards.rareFragments) + " [>1,500 ELO]"
+        DOMCacheGetOrSet("antSacrificeEpicFragment").textContent = "+" + format(sacRewards.epicFragments) + " [>2,000 ELO]"
+        DOMCacheGetOrSet("antSacrificeLegendaryFragment").textContent = "+" + format(sacRewards.legendaryFragments) + " [>3,000 ELO]"
+        DOMCacheGetOrSet("antSacrificeMythicalFragment").textContent = "+" + format(sacRewards.mythicalFragments) + " [>5,000 ELO]"
     }
 }
 

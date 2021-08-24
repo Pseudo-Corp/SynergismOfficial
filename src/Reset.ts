@@ -1,5 +1,9 @@
-import { player, clearInt, interval, format } from './Synergism';
-import { calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels, calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO } from './Calculate';
+import { player, clearInt, interval, format, blankSave } from './Synergism';
+import {
+    calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
+    calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
+    calcAscensionCount
+} from './Calculate';
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
@@ -19,10 +23,15 @@ import type {
 } from './History';
 import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
-import { resetNames } from './types/Synergism';
+import { Player, resetNames } from './types/Synergism';
 import { updateClassList } from './Utility';
 import { corruptionStatsUpdate } from './Corruptions';
-import { toggleAutoChallengeModeText } from './Toggles';
+import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles';
+import { DOMCacheGetOrSet } from './Cache/DOM';
+import { WowCubes } from './CubeExperimental';
+import { importSynergism } from './ImportExport';
+import { resetShopUpgrades } from './Shop';
+import { QuarkHandler } from './Quark';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
@@ -32,25 +41,25 @@ export const resetrepeat = (input: resetNames) => {
 }
 
 export const resetdetails = (input: resetNames) => {
-    document.getElementById('resetofferings1').style.display = "block"
+    DOMCacheGetOrSet('resetofferings1').style.display = "block"
 
     const transcensionChallenge = player.currentChallenge.transcension;
     const reincarnationChallenge = player.currentChallenge.reincarnation;
 
     const offering = calculateOfferings(input);
-    const offeringImage = getElementById<HTMLImageElement>("resetofferings1");
-    const offeringText = document.getElementById("resetofferings2");
-    const currencyImage1 = getElementById<HTMLImageElement>("resetcurrency1");
-    const resetObtainiumImage = document.getElementById("resetobtainium");
-    const resetObtainiumText = document.getElementById("resetobtainium2");
-    const resetInfo = document.getElementById('resetinfo');
-    const resetCurrencyGain = document.getElementById("resetcurrency2");
+    const offeringImage = getElementById<HTMLImageElement>('resetofferings1');
+    const offeringText = DOMCacheGetOrSet('resetofferings2');
+    const currencyImage1 = getElementById<HTMLImageElement>('resetcurrency1');
+    const resetObtainiumImage = DOMCacheGetOrSet('resetobtainium');
+    const resetObtainiumText = DOMCacheGetOrSet('resetobtainium2');
+    const resetInfo = DOMCacheGetOrSet('resetinfo');
+    const resetCurrencyGain = DOMCacheGetOrSet('resetcurrency2');
 
     (input == "reincarnation") ? 
         (resetObtainiumImage.style.display = "block", resetObtainiumText.textContent = format(Math.floor(G['obtainiumGain']))):
         (resetObtainiumImage.style.display = "none", resetObtainiumText.textContent = "");
 
-    (input == "ascensionChallenge" || input == "ascension")?
+    (input == "ascensionChallenge" || input == "ascension" || input == "singularity")?
         offeringImage.style.display = offeringText.style.display = "none":
         offeringImage.style.display = offeringText.style.display = "block";
 
@@ -126,8 +135,13 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.textContent = "Ascend. 10x1 is required! +" + format(CalcCorruptionStuff()[4], 0, true) + " Wow! Cubes for doing it! Time: " + format(player.ascensionCounter, 0, false) + " Seconds.";
             resetInfo.style.color = "gold";
             break;
+        case "singularity":
+            currencyImage1.style.display = "none"
+            resetCurrencyGain.textContent = "";
+            resetInfo.textContent = "Are you willing to give up your laurels for a greater challenge? The Ant God bribes you with Golden Quarks."
+            resetInfo.style.color = "lightgoldenrodyellow"
     }
-    document.getElementById("resetofferings2").textContent = "+" + format(offering)
+    DOMCacheGetOrSet('resetofferings2').textContent = "+" + format(offering)
 }
 
 export const updateAutoReset = (i: number) => {
@@ -375,7 +389,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
 
 
-    if (input === 'reincarnation' || input === 'reincarnationChallenge' || input === 'ascension' || input === 'ascensionChallenge') {
+    if (input === 'reincarnation' || input === 'reincarnationChallenge' || input === 'ascension' || input === 'ascensionChallenge' || input == 'singularity') {
         // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
         if (player.ascensionCount > 0 && player.achievements[183] < 1) {
             ascensionAchievementCheck(1);
@@ -455,7 +469,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         calculateAnts();
     }
 
-    if (input === 'ascension' || input === 'ascensionChallenge') {
+    if (input === 'ascension' || input === 'ascensionChallenge' || input === 'singularity') {
         const metaData = CalcCorruptionStuff()
         ascensionAchievementCheck(3, metaData[3])
         // reset auto challenges
@@ -516,27 +530,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             player.firstOwnedAnts += 1
         }
         if (player.challengecompletions[10] > 0) {
-            let ascCount = 1
-            if (player.ascensionCounter >= 10) {
-                if (player.achievements[188] > 0) {
-                    ascCount += 99
-                }
-                ascCount *= 1 + (player.ascensionCounter / 10 - 1 ) * 0.2 * (player.achievements[189] + player.achievements[202] + player.achievements[209] + player.achievements[216] + player.achievements[223])
-            }
-            if (player.achievements[187] > 0 && metaData[3] > 1e8) {
-                ascCount *= (Math.log(metaData[3]) / Math.log(10) - 1)
-            }
-            ascCount *= G['challenge15Rewards'].ascensions
-            if (player.achievements[260] > 0)
-                ascCount *= 1.10
-            if (player.achievements[261] > 0)
-                ascCount *= 1.10
-            if (player.platonicUpgrades[15] > 0)
-                ascCount *= 2
-            ascCount *= (1 + 0.02 * player.platonicUpgrades[16])
-            ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000))
-            ascCount = Math.floor(ascCount)
-            player.ascensionCount += ascCount;
+            player.ascensionCount += calcAscensionCount();
             player.wowCubes.add(metaData[4]); //Metadata is defined up in the top of the (i > 3.5) case
             player.wowTesseracts.add(metaData[5]);
             player.wowHypercubes.add(metaData[6]);
@@ -553,7 +547,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.challengecompletions[7] = player.highestchallengecompletions[7] = player.cubeUpgrades[49]
         player.challengecompletions[8] = player.highestchallengecompletions[8] = player.cubeUpgrades[49]
 
-        document.getElementById(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
+        DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
         player.roombaResearchIndex = 0;
         player.autoResearch = 1;
 
@@ -604,14 +598,23 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         }
 
         for (let j = 61; j <= 80; j++) {
-            document.getElementById("upg" + j).style.backgroundColor = "black"
+            DOMCacheGetOrSet("upg" + j).style.backgroundColor = "black"
         }
         for (let j = 94; j <= 100; j++) {
             if (player.upgrades[j] === 0) {
-                document.getElementById("upg" + j).style.backgroundColor = "black"
+                DOMCacheGetOrSet("upg" + j).style.backgroundColor = "black"
             }
         }
         player.usedCorruptions = Array.from(player.prototypeCorruptions)
+        //fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
+        if (player.currentChallenge.ascension === 15 && input === 'ascension') {
+           player.usedCorruptions[0] = 0;
+           player.prototypeCorruptions[0] = 0;
+           for (let i = 1; i <= 9; i++) {
+             player.usedCorruptions[i] = 11;
+           }
+        }
+
         corruptionStatsUpdate();
     }
 
@@ -624,10 +627,71 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     if (input == "reincarnation" || input == "reincarnationChallenge") {
         player.unlocks.reincarnate = true
     }
+
+    if (input === "singularity") {
+        player.unlocks.coinone = false
+        player.unlocks.cointwo = false
+        player.unlocks.cointhree = false
+        player.unlocks.coinfour = false
+        player.unlocks.generation = false
+        player.unlocks.prestige = false
+        player.unlocks.transcend = false
+        player.unlocks.reincarnate = false
+        player.unlocks.rrow1 = false
+        player.unlocks.rrow2 = false
+        player.unlocks.rrow3 = false
+        player.unlocks.rrow4 = false
+
+        player.ascendBuilding1.owned = 0
+        player.ascendBuilding2.generated = new Decimal('0')
+        player.ascendBuilding2.owned = 0
+        player.ascendBuilding2.generated = new Decimal('0')
+        player.ascendBuilding3.owned = 0
+        player.ascendBuilding3.generated = new Decimal('0')
+        player.ascendBuilding4.owned = 0
+        player.ascendBuilding4.generated = new Decimal('0')
+        player.ascendBuilding5.owned = 0
+        player.ascendBuilding5.generated = new Decimal('0')
+        
+        player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        
+        player.wowCubes = new WowCubes(0)
+        player.wowTesseracts = new WowCubes(0)
+        player.wowHypercubes = new WowCubes(0)
+        player.wowTesseracts = new WowCubes(0)
+        player.wowAbyssals = 0;
+
+        for (let index = 1; index <= 50; index++) {
+            player.cubeUpgrades[index] = 0;
+        }
+
+        player
+    }
+
     if (!fast) {
         revealStuff();
         updateChallengeDisplay();
     }
+}
+
+export const singularity = async () => {
+    player.singularityCount += 1;
+    player.goldenQuarks += player.quarksThisSingularity / 1e5;
+    void resetShopUpgrades(true);
+    const hold = Object.assign({}, blankSave, {
+        codes: Array.from(blankSave.codes)
+    }) as Player;
+    //Reset Displays
+    toggleTabs("buildings");
+    toggleSubTab(1, 0);
+
+    hold.singularityCount = player.singularityCount;
+    hold.goldenQuarks = player.goldenQuarks;
+    hold.shopUpgrades = player.shopUpgrades;
+    hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
+    hold.hepteractCrafts.quark = player.hepteractCrafts.quark
+    //Import Game
+    void importSynergism(btoa(JSON.stringify(hold)), true);
 }
 
 const resetUpgrades = (i: number) => {

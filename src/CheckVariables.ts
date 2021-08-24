@@ -10,6 +10,7 @@ import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { Alert } from './UpdateHTML';
+import { getQuarkInvestment } from './Shop';
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -133,7 +134,6 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
     if (data.history === undefined) {
         player.history = { ants: [], ascend: [], reset: [] };
-        player.historyCountMax = 10;
     }
     if (data.autoChallengeRunning === undefined) {
         player.autoChallengeRunning = false
@@ -265,10 +265,10 @@ export const checkVariablesOnLoad = (data: Player) => {
     if (data.platonicBlessings === undefined) {
         const ascCount = player.ascensionCount
         if (player.currentChallenge.ascension !== 0 && player.currentChallenge.ascension !== 15) {
-            resetCheck('ascensionChallenge', false, true);
+            void resetCheck('ascensionChallenge', false, true);
         }
         if (player.currentChallenge.ascension === 15) {
-            resetCheck('ascensionChallenge', false, true);
+            void resetCheck('ascensionChallenge', false, true);
             player.challenge15Exponent = 0;
             c15RewardUpdate();
         }
@@ -296,7 +296,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
     if (data.loadedDec16Vers === false || data.loadedDec16Vers === undefined){
         if (player.currentChallenge.ascension === 15) {
-            resetCheck('ascensionChallenge', false, true);
+            void resetCheck('ascensionChallenge', false, true);
             player.challenge15Exponent = 0;
             c15RewardUpdate();
         }
@@ -439,15 +439,31 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.shopUpgrades.calculator2 = 0;
         player.shopUpgrades.calculator3 = 0;
         player.wowAbyssals += 1e8 * player.platonicUpgrades[16] // Refund based off of abyss hepteracts spent
-        Alert('June 28, 2021: V2.5.3. You have been refunded quarks from calculators if you purchased them. They are no longer refundable so be wary!')
+        void Alert('June 28, 2021: V2.5.3. You have been refunded quarks from calculators if you purchased them. They are no longer refundable so be wary!')
     }
 
     if (data.loadedV255 === undefined) {
         player.loadedV255 = true;
         player.worlds.add(1000 * player.shopUpgrades.powderEX + 1000 / 2 * (player.shopUpgrades.powderEX - 1) * (player.shopUpgrades.powderEX), false);
         player.shopUpgrades.powderEX = 0;
-        Alert('July 2, 2021: V2.5.5. You have been refunded quarks from Powder EX upgrade, if you purchased levels. Your T1 ants were also reset and base cost set to 1e700 particles. Powder EX is no longer refundable, though, so be careful!')
+        void Alert('July 2, 2021: V2.5.5. You have been refunded quarks from Powder EX upgrade, if you purchased levels. Your T1 ants were also reset and base cost set to 1e700 particles. Powder EX is no longer refundable, though, so be careful!')
         player.firstCostAnts = new Decimal('1e700')
         player.firstOwnedAnts = 0;
+    }
+
+    if (data.autoResearchMode === undefined) {
+        player.autoResearchMode = 'manual';
+    }
+
+    if (data.singularityCount === undefined) {
+        player.singularityCount = 0;
+        player.goldenQuarks = 0;
+
+        player.quarksThisSingularity = 0
+        player.quarksThisSingularity += +player.worlds
+        const keys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
+        for (const key of keys) {
+            player.quarksThisSingularity += getQuarkInvestment(key)
+        }
     }
 }

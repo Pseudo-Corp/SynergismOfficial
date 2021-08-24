@@ -3,13 +3,14 @@ import { Globals as G } from './Variables';
 import { toggleCorruptionLevel } from './Toggles';
 import { getElementById } from './Utility';
 import { Alert, Prompt } from "./UpdateHTML";
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const corruptionDisplay = (index: number) => {
-    if (document.getElementById("corruptionDetails").style.visibility !== "visible") {
-        document.getElementById("corruptionDetails").style.visibility = "visible"
+    if (DOMCacheGetOrSet("corruptionDetails").style.visibility !== "visible") {
+        DOMCacheGetOrSet("corruptionDetails").style.visibility = "visible"
     }
-    if (document.getElementById("corruptionSelectedPic").style.visibility !== "visible") {
-        document.getElementById("corruptionSelectedPic").style.visibility = "visible"
+    if (DOMCacheGetOrSet("corruptionSelectedPic").style.visibility !== "visible") {
+        DOMCacheGetOrSet("corruptionSelectedPic").style.visibility = "visible"
     }
     G['corruptionTrigger'] = index
     const currentExponent = ((index === 1 || index === 2) && player.usedCorruptions[index] >= 10) ? 1 + 0.02 * player.platonicUpgrades[17] + 0.75 * Math.min(1, player.platonicUpgrades[17]) : 1;
@@ -107,25 +108,25 @@ export const corruptionDisplay = (index: number) => {
         }
     ];
     const text = corruptionTexts[index-1];
-    document.getElementById("corruptionName").textContent = text.name
-    document.getElementById("corruptionDescription").textContent = text.description
-    document.getElementById("corruptionLevelCurrent").textContent = text.current
-    document.getElementById("corruptionLevelPlanned").textContent = text.planned
-    document.getElementById("corruptionMultiplierContribution").textContent = text.multiplier
-    document.getElementById("corruptionSpiritContribution").textContent = text.spiritContribution
-    document.getElementById("corruptionSelectedPic").setAttribute("src", text.image)
+    DOMCacheGetOrSet("corruptionName").textContent = text.name
+    DOMCacheGetOrSet("corruptionDescription").textContent = text.description
+    DOMCacheGetOrSet("corruptionLevelCurrent").textContent = text.current
+    DOMCacheGetOrSet("corruptionLevelPlanned").textContent = text.planned
+    DOMCacheGetOrSet("corruptionMultiplierContribution").textContent = text.multiplier
+    DOMCacheGetOrSet("corruptionSpiritContribution").textContent = text.spiritContribution
+    DOMCacheGetOrSet("corruptionSelectedPic").setAttribute("src", text.image)
 
     if (index < 10) {
-        document.getElementById(`corrCurrent${index}`).textContent = format(player.usedCorruptions[index])
-        document.getElementById(`corrNext${index}`).textContent = format(player.prototypeCorruptions[index])
+        DOMCacheGetOrSet(`corrCurrent${index}`).textContent = format(player.usedCorruptions[index])
+        DOMCacheGetOrSet(`corrNext${index}`).textContent = format(player.prototypeCorruptions[index])
     }
 }
 
 export const corruptionStatsUpdate = () => {
     for (let i = 1; i <= 9; i++) {
         // https://discord.com/channels/677271830838640680/706329553639047241/841749032841379901
-        const a = document.getElementById(`corrCurrent${i}`);
-        const b = document.getElementById(`corrNext${i}`)
+        const a = DOMCacheGetOrSet(`corrCurrent${i}`);
+        const b = DOMCacheGetOrSet(`corrNext${i}`)
         if (a) a.textContent = format(player.usedCorruptions[i])
         else console.log(`Send to Platonic: corrCurrent${i} is null`);
         if (b) b.textContent = format(player.prototypeCorruptions[i])
@@ -204,7 +205,7 @@ export const corruptionLoadoutTableCreate = () => {
             //empty
 
             cell = row.insertCell();
-            let btn = document.createElement("button");
+            const btn = document.createElement("button");
             btn.className = "corrLoad"
             btn.textContent = "Zero"
             btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
@@ -290,7 +291,7 @@ export const updateCorruptionLoadoutNames = () => {
 }
 
 export const corruptionCleanseConfirm = () => {
-    const corrupt = document.getElementById('corruptionCleanseConfirm');
+    const corrupt = DOMCacheGetOrSet('corruptionCleanseConfirm');
     corrupt.style.visibility = 'visible';
     setTimeout(() => corrupt.style.visibility = 'hidden', 10000);
 }

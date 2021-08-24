@@ -11,8 +11,8 @@ import { shopData } from './Shop';
 import { addTimers } from './Helper';
 import { toggleSubTab, toggleTabs } from './Toggles';
 import { Globals as G } from './Variables';
-import { cubeMaxLevel } from './Cubes';
 import { btoa } from './Utility';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -35,11 +35,12 @@ const format12 = new Intl.DateTimeFormat("EN-GB", {
 
 const getRealTime = (use12 = false) => {
     const format = use12 ? format12 : format24;
-    const dateParts = Object.assign({}, ...format
+    const datePartsArr = format
         .formatToParts(new Date())
         .filter((x) => x.type !== "literal")
-        .map(p => ({ [p.type]: p.value }))
-    );
+        .map(p => ({ [p.type]: p.value }));
+
+    const dateParts = Object.assign({}, ...datePartsArr) as Record<string, string>;
         
     const period = use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : '';
     return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`;
@@ -107,7 +108,7 @@ export const exportSynergism = async () => {
         document.body.removeChild(a);
     }
 
-    document.getElementById("exportinfo").textContent = toClipboard
+    DOMCacheGetOrSet("exportinfo").textContent = toClipboard
         ? 'Copied save to your clipboard!'
         : 'Savefile copied to file!';
 }
@@ -123,12 +124,12 @@ export const resetGame = async () => {
 
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
-    });
+    }) as Player;
     //Reset Displays
     toggleTabs("buildings");
     toggleSubTab(1, 0);
     //Import Game
-    importSynergism(btoa(JSON.stringify(hold)), true);
+    void importSynergism(btoa(JSON.stringify(hold)), true);
 }
 
 export const importSynergism = (input: string, reset = false) => {
@@ -137,7 +138,7 @@ export const importSynergism = (input: string, reset = false) => {
     }
 
     const d = LZString.decompressFromBase64(input);
-    const f: Player = d ? JSON.parse(d) : JSON.parse(atob(input));
+    const f = d ? JSON.parse(d) as Player : JSON.parse(atob(input)) as Player;
 
     if (
         (f.exporttest === "YES!" || f.exporttest === true) ||
@@ -146,6 +147,7 @@ export const importSynergism = (input: string, reset = false) => {
     ) {
         localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
+        document.body.classList.add('loading');
         
         return reloadShit(reset);
     } else {
@@ -155,7 +157,7 @@ export const importSynergism = (input: string, reset = false) => {
 
 export const promocodes = async () => {
     const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "add" perchance?]');
-    const el = document.getElementById("promocodeinfo");
+    const el = DOMCacheGetOrSet("promocodeinfo");
 
     if (input === null) {
         return Alert('Alright, come back soon!')
@@ -176,57 +178,7 @@ export const promocodes = async () => {
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds.add(quarks);
         el.textContent = 'Khafra has blessed you with ' + quarks + ' quarks!';
-    } else if(input === '2million' && !player.codes.get(28)) {
-        player.codes.set(28, true);
-        player.worlds.add(700);
-        el.textContent = 'Thank you for 2 million plays on kongregate!';
-    } else if(input === 'v2.5.0' && !player.codes.get(32)) {
-        player.codes.set(32, true);
-        return Alert('You are on v2.5.0! For playing, you get a reward of ... nothing? Try code "bark" instead.');
-    } else if(input === 'bark' && !player.codes.get(34)) {
-        player.codes.set(34, true);
-        let quarkGain = 250;                                                                                // 250
-        quarkGain += (player.reincarnationCount > 0) ? 250 : 0;                                             // 500
-        quarkGain += (player.highestchallengecompletions[8] > 0 || player.ascensionCount > 0) ? 500 : 0;    // 1000
-        quarkGain += (player.ascensionCount > 0) ? 500 : 0;                                                 // 1500
-        quarkGain += (player.challengecompletions[14] > 0) ? 500 : 0;                                       // 2000
-        quarkGain += (player.researches[200] === G['researchMaxLevels'][200]) ? 500 : 0;                    // 2500
-        quarkGain += (player.cubeUpgrades[50] === cubeMaxLevel[49]) ? 500 : 0;                              // 3000
-        quarkGain += (player.platonicUpgrades[5] > 0) ? 1000 : 0;                                           // 4000
-        quarkGain += (player.platonicUpgrades[10] > 0) ? 1000: 0;                                           // 5000
-        quarkGain += (player.challenge15Exponent > 1e6) ? 1000 : 0;                                         // 6000
-        quarkGain += (player.challenge15Exponent > 1e9) ? 1000 : 0;                                         // 7000
-        quarkGain += (player.challenge15Exponent > 1e12) ? 1000 : 0;                                        // 8000
-        quarkGain += (player.challenge15Exponent > 1e15) ? 1000: 0;                                         // 9000
-        quarkGain += (player.challenge15Exponent > 1e16) ? 1000: 0;                                         // 10000
-        quarkGain += (player.platonicUpgrades[15] > 0) ? 1: 0;                                              // 10001
-
-        const patreonBonus = Math.floor(quarkGain * player.worlds._BONUS / 100);
-        player.worlds.add(quarkGain)
-        return Alert(`Thanks so much for playing! Version 2.5.0 is out at last. For your patience, and entering this code, you received ${format(quarkGain + patreonBonus)} Quarks [${format(patreonBonus)} from Patreon Bonus]!`)
-    } else if (input === 'riprespec' && !player.codes.get(35)) {
-        player.codes.set(35, true);
-        player.rngCode -= 3600 * 1000 * 48;
-        let quarkGain = 250;                                                                                // 250
-        quarkGain += (player.reincarnationCount > 0) ? 250 : 0;                                             // 500
-        quarkGain += (player.highestchallengecompletions[8] > 0 || player.ascensionCount > 0) ? 500 : 0;    // 1000
-        quarkGain += (player.ascensionCount > 0) ? 500 : 0;                                                 // 1500
-        quarkGain += (player.challengecompletions[14] > 0) ? 500 : 0;                                       // 2000
-        quarkGain += (player.researches[200] === G['researchMaxLevels'][200]) ? 500 : 0;                    // 2500
-        quarkGain += (player.cubeUpgrades[50] === cubeMaxLevel[49]) ? 500 : 0;                              // 3000
-        quarkGain += (player.platonicUpgrades[5] > 0) ? 1000 : 0;                                           // 4000
-        quarkGain += (player.platonicUpgrades[10] > 0) ? 1000: 0;                                           // 5000
-        quarkGain += (player.challenge15Exponent > 1e6) ? 1000 : 0;                                         // 6000
-        quarkGain += (player.challenge15Exponent > 1e9) ? 1000 : 0;                                         // 7000
-        quarkGain += (player.challenge15Exponent > 1e12) ? 1000 : 0;                                        // 8000
-        quarkGain += (player.challenge15Exponent > 1e15) ? 1000: 0;                                         // 9000
-        quarkGain += (player.challenge15Exponent > 1e16) ? 1000: 0;                                         // 10000
-        quarkGain += (player.platonicUpgrades[15] > 0) ? 1: 0;                                              // 10001
-
-        const patreonBonus = Math.floor(quarkGain * player.worlds._BONUS / 100);
-        player.worlds.add(quarkGain)
-        return Alert(`V2.5.3! You have regained all of your 'add' code uses and gained ${format(quarkGain + patreonBonus)} Quarks [${format(patreonBonus)} from Patreon Bonus]!`)
-    } else if(input.toLowerCase() === 'add') {
+    }  else if(input.toLowerCase() === 'add') {
         const hour = 3600000
         const timeToNextHour = Math.floor(hour + player.rngCode - Date.now())/1000
         
@@ -236,9 +188,9 @@ export const promocodes = async () => {
         }
 
         const possibleAmount = Math.floor(Math.min(24 + 2 * player.shopUpgrades.calculator2, (Date.now() - player.rngCode) / hour))
-        const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use`);
+        const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use?`);
         if (attemptsUsed === null) {
-             return Alert(`Code was canceled, took no uses away from you!`);
+             return Alert(`No worries, you didn't lose any of your uses! Come back later!`);
         }
         const toUse = Number(attemptsUsed);
         if (
@@ -255,7 +207,7 @@ export const promocodes = async () => {
         mult *= (1 + +G['isEvent']) // is event? then 2x! [June 28, July 1]
         const quarkBase = quarkHandler().perHour
         const actualQuarks = Math.floor(quarkBase * mult * realAttemptsUsed)
-        const patreonBonus = Math.floor(actualQuarks * (player.worlds._BONUS / 100));
+        const patreonBonus = Math.floor(actualQuarks * (player.worlds.BONUS / 100));
         const [first, second] = window.crypto.getRandomValues(new Uint8Array(2));
 
         //Allows storage of up to (24 + 2 * calc2 levels) Add Codes, lol!
@@ -273,7 +225,8 @@ export const promocodes = async () => {
             player.worlds.add(actualQuarks);
             addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed)
             player.rngCode = v;
-            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks + patreonBonus} quarks [${patreonBonus} from Patreon Boost]! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
+            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks + patreonBonus} quarks ` +
+                `[${ patreonBonus } from Patreon Boost]! ${ ascensionTimer } You have ${ remaining } uses of Add.You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         }
 
         // If your calculator isn't maxed but has levels, it will provide the solution.
@@ -284,7 +237,7 @@ export const promocodes = async () => {
         const addPrompt = await Prompt(`For ${actualQuarks + patreonBonus} quarks or nothing: What is ${first} + ${second}? ${solution}`);
 
         if (addPrompt === null) {
-            return Alert(`Code was canceled, took no uses away from you!`);
+            return Alert(`No worries, you didn't lose any of your uses! Come back later!`);
         } 
 
         player.rngCode = v;
@@ -292,7 +245,8 @@ export const promocodes = async () => {
         if(first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
             addTimers('ascension', 60 * player.shopUpgrades.calculator3)
-            await Alert(`You were awarded ${actualQuarks + patreonBonus} quarks [${patreonBonus} from Patreon Boost]! ${ascensionTimer} You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
+            await Alert(`You were awarded ${actualQuarks + patreonBonus} quarks [${patreonBonus} from Patreon Boost]! ${ascensionTimer} You have ${remaining} uses of Add. ` +
+                `You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         } else {
             await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
         }

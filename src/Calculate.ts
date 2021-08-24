@@ -11,6 +11,7 @@ import { hepteractEffective } from './Hepteracts';
 import { addTimers, automaticTools } from './Helper';
 import { Alert, Prompt, } from './UpdateHTML';
 import { quarkHandler } from './Quark';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] = 
@@ -122,7 +123,7 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
         allRuneExpAdditiveMultiplier = sumContents([
             //Challenge 3 completions
             1 / 100 * player.highestchallengecompletions[3],
-            //Reincarnation 3x1
+            //Reincarnation 2x1
             1 * player.upgrades[66]
         ]);
     } else {
@@ -221,7 +222,7 @@ export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.ru
         multiplier = Math.pow(100, runeLevel)
     }
     if (runeIndex === 6) {
-        multiplier = Math.pow(1e25, runeLevel)
+        multiplier = Math.pow(1e25, runeLevel) * (player.singularityCount + 1)
     }
     return multiplier * G['runeexpbase'][runeIndex];
 }
@@ -229,7 +230,7 @@ export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.ru
 export const calculateMaxRunes = (i: number) => {
     let max = 1000;
 
-    const increaseAll = 10 * (2 * player.cubeUpgrades[16] + 2 * player.cubeUpgrades[37])
+    const increaseAll = 20 * (player.cubeUpgrades[16] + player.cubeUpgrades[37])
         + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', player.challengecompletions[11])
         + 200 * CalcECC('ascension', player.challengecompletions[14])
         + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50])
@@ -240,12 +241,16 @@ export const calculateMaxRunes = (i: number) => {
         10 * (player.researches[79] + player.researches[113]) + increaseAll,
         10 * (player.researches[77] + player.researches[114]) + increaseAll,
         10 * player.researches[115] + increaseAll,
-        -925,
-        -998
+        -901,
+        -999
     ]
 
-    max += increaseMaxLevel[i]
+    max = (increaseMaxLevel[i] > G['runeMaxLvl'] ? G['runeMaxLvl'] : max + increaseMaxLevel[i])
     return max
+}
+
+export const calculateEffectiveIALevel = () => {
+    return player.runelevels[5] + Math.max(0, player.runelevels[5] - 74) + Math.max(0, player.runelevels[5] - 98)
 }
 
 export function calculateOfferings(input: resetNames): number;
@@ -656,16 +661,7 @@ export const calculateAntSacrificeELO = () => {
         G['antELO'] += 4 * player.seventhOwnedAnts
         G['antELO'] += 8 * player.eighthOwnedAnts
         G['antELO'] += 666 * player.researches[178]
-
-        if (player.achievements[180] === 1) {
-            G['antELO'] *= 1.01
-        }
-        if (player.achievements[181] === 1) {
-            G['antELO'] *= 1.03 / 1.01
-        }
-        if (player.achievements[182] === 1) {
-            G['antELO'] *= 1.06 / 1.03
-        }
+		G['antELO'] *= (1 + 0.01 * player.achievements[180] + 0.02 * player.achievements[181] + 0.03 * player.achievements[182])
         G['antELO'] *= (1 + player.researches[110] / 100)
         G['antELO'] *= (1 + 2.5 * player.researches[148] / 100)
 
@@ -786,8 +782,8 @@ export const timeWarp = async () => {
         )
             return Alert(`Hey! That's not a valid time!`);
     
-    document.getElementById('offlineContainer').style.display = 'flex'
-    document.getElementById('preload').style.display = 'block'
+    DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
+    DOMCacheGetOrSet('preloadContainer').style.display = 'flex'
     calculateOffline(timeUse)
 }
 
@@ -801,21 +797,24 @@ export const calculateOffline = (forceTime = 0) => {
     const timeTick = timeAdd/200;
     let resourceTicks = 200;
 
-    document.getElementById("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " seconds of Offline Progress!";
+    DOMCacheGetOrSet("offlineTimer").textContent = "You have " + format(timeAdd, 0) + " seconds of Offline Progress!";
 
     //May 11, 2021: I've revamped calculations for this significantly. Note to May 11 Platonic: Fuck off -May 15 Platonic
     //Some one-time tick things that are relatively important
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
-
-    document.getElementById('preload').style.display = (forceTime > 0) ? 'none' : 'block';
-    document.getElementById("offlineContainer").style.display = "flex";
+  
+    DOMCacheGetOrSet('preloadContainer').style.display = (forceTime > 0) ? 'none' : 'flex';
+    DOMCacheGetOrSet("offlineContainer").style.display = "flex";
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
     //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
-    preloadImage.src = 'Pictures/Blank Preload.png';
+    preloadImage.style.display = 'none';
+
+    const preloadContainer = getElementById("preloadContainer");
+    preloadContainer.style.backgroundColor = 'black';
 
     G['timeMultiplier'] = calculateTimeAcceleration();
     calculateObtainium();
@@ -885,20 +884,20 @@ export const calculateOffline = (forceTime = 0) => {
         }
     }, 0);
 
-    document.getElementById('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
-    document.getElementById('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
-    document.getElementById('offlineOfferingCountNumber').textContent = format(resetAdd.offering, 0, true)
-    document.getElementById('offlineTranscensionCountNumber').textContent = format(resetAdd.transcension, 0, true)
-    document.getElementById('offlineTranscensionTimerNumber').textContent = format(timerAdd.transcension, 2, false)
-    document.getElementById('offlineReincarnationCountNumber').textContent = format(resetAdd.reincarnation, 0, true)
-    document.getElementById('offlineReincarnationTimerNumber').textContent = format(timerAdd.reincarnation, 2, false)
-    document.getElementById('offlineObtainiumCountNumber').textContent = format(resetAdd.obtainium, 0, true)
-    document.getElementById('offlineAntTimerNumber').textContent = format(timerAdd.ants, 2, false)
-    document.getElementById('offlineRealAntTimerNumber').textContent = format(timerAdd.antsReal, 2, true)
-    document.getElementById('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
-    document.getElementById('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
+    DOMCacheGetOrSet('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
+    DOMCacheGetOrSet('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
+    DOMCacheGetOrSet('offlineOfferingCountNumber').textContent = format(resetAdd.offering, 0, true)
+    DOMCacheGetOrSet('offlineTranscensionCountNumber').textContent = format(resetAdd.transcension, 0, true)
+    DOMCacheGetOrSet('offlineTranscensionTimerNumber').textContent = format(timerAdd.transcension, 2, false)
+    DOMCacheGetOrSet('offlineReincarnationCountNumber').textContent = format(resetAdd.reincarnation, 0, true)
+    DOMCacheGetOrSet('offlineReincarnationTimerNumber').textContent = format(timerAdd.reincarnation, 2, false)
+    DOMCacheGetOrSet('offlineObtainiumCountNumber').textContent = format(resetAdd.obtainium, 0, true)
+    DOMCacheGetOrSet('offlineAntTimerNumber').textContent = format(timerAdd.ants, 2, false)
+    DOMCacheGetOrSet('offlineRealAntTimerNumber').textContent = format(timerAdd.antsReal, 2, true)
+    DOMCacheGetOrSet('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
+    DOMCacheGetOrSet('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
 
-    document.getElementById('progressbardescription').textContent = 'You have gained the following from offline progression!'
+    DOMCacheGetOrSet('progressbardescription').textContent = 'You have gained the following from offline progression!'
 
     player.offlinetick = updatedTime
     if (!player.loadedNov13Vers) {
@@ -916,11 +915,17 @@ export const calculateOffline = (forceTime = 0) => {
     calculateAnts();
     calculateRuneLevels();
 
+    const el = <HTMLButtonElement>DOMCacheGetOrSet("exitOffline")
+    if (el) {  //if the button is present
+        el.focus(); //Allow user to hit space/enter to proceed
+    }
+    
 }
 
 export const exitOffline = () => {
-    document.getElementById("offlineContainer").style.display = "none";
-    document.getElementById("preload").style.display = "none";
+    document.body.classList.remove('loading');
+    DOMCacheGetOrSet("offlineContainer").style.display = "none";
+    DOMCacheGetOrSet("preloadContainer").style.display = "none";
 }
 
 export const calculateSigmoid = (constant: number, factor: number, divisor: number) => {
@@ -966,7 +971,7 @@ export const calculateAllCubeMultiplier = () => {
         // Challenge 15: All Cube Gain bonuses 1-5
         G['challenge15Rewards'].cube1 * G['challenge15Rewards'].cube2 * G['challenge15Rewards'].cube3 * G['challenge15Rewards'].cube4 * G['challenge15Rewards'].cube5,
         // Rune 6: Infinite Ascent
-        1 + 1/100 * player.runelevels[5],
+        1 + 1/100 * calculateEffectiveIALevel(),
         // BETA: 2x Cubes
         1 + player.platonicUpgrades[10],
         // OMEGA: C9 Cube Bonus
@@ -975,7 +980,9 @@ export const calculateAllCubeMultiplier = () => {
         calculateCubeMultFromPowder(),
         // Event (currently, +20.21%)
         1 + 0.2021 * +G['isEvent'],
-        // Total Global Cube Multipliers: 9
+        // Singularity Factor
+        1 / (1 + 1/16 * Math.pow(player.singularityCount, 2))
+        // Total Global Cube Multipliers: 10
     ]
     return {
         mult: productContents(arr),
@@ -1156,7 +1163,7 @@ export const calculateHepteractMultiplier = (score = -1) => {
         // Achievement 265 Bonus [Max: 160T Asc]
         1 + Math.min(0.2, player.ascensionCount / 8e14) * player.achievements[265],
         // Achievement 270 Bonus
-        Math.min(2, (1 + 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
+        Math.min(2, (1 + 1/1_000_000 * Decimal.log(player.ascendShards.add(1), 10) * player.achievements[270]))
         // Total Hepteract Multipliers: 7
     ]
 
@@ -1187,6 +1194,7 @@ export const calculateTimeAcceleration = () => {
     if (timeMult < 1) {
         timeMult = Math.pow(timeMult, 1 - player.platonicUpgrades[7] / 30)
     }
+    timeMult /= (1 + player.singularityCount)
     timeMult *= G['platonicBonusMultiplier'][7]
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
@@ -1201,7 +1209,6 @@ export const calculateAscensionAcceleration = () => {
     const arr = [
         1 + player.shopUpgrades.chronometer / 100,                                                      // Shop Upgrade
         1 + 0.6/1000 * hepteractEffective('chronos'),                                                   // Hepteract
-        1 + 0.25 * player.achievements[259],                                                            // Achieve 259
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[262],   // Achieve 262
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263],   // Achieve 263
         1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // PLAT Omega
@@ -1304,14 +1311,17 @@ export const calculateAscensionScore = () => {
     baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39] + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]), player.highestchallengecompletions[10]);
     // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
     for (let i = 1; i <= 10; i++) {
-        const exponent = ((i === 1 || i === 2) && player.usedCorruptions[i] >= 10) ? 1.75 + 0.0175 * player.platonicUpgrades[17] : 1;
+        const exponent = ((i === 1 || i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 0.75 * Math.min(1, player.platonicUpgrades[17]) + 0.0175 * player.platonicUpgrades[17] : 1;
         corruptionMultiplier *= Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i]], exponent);
     }
 
     effectiveScore = baseScore * corruptionMultiplier * G['challenge15Rewards'].score * G['platonicBonusMultiplier'][6]
     if (player.achievements[267] > 0)
         effectiveScore *= (1 + Math.min(1, 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
-
+    if (effectiveScore > 1e23)
+        effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
+    if (player.achievements[259] > 0)
+        effectiveScore *= Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP))
     return {baseScore: baseScore,
             corruptionMultiplier: corruptionMultiplier,
             effectiveScore: effectiveScore}
@@ -1355,6 +1365,34 @@ export const CalcCorruptionStuff = () => {
     
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain)]
 }
+
+export const calcAscensionCount = () => {
+    let ascCount = 1;
+
+    if (player.challengecompletions[10] > 0) {
+        const {effectiveScore} = calculateAscensionScore();
+
+        if (player.ascensionCounter >= 10) {
+            if (player.achievements[188] > 0) {
+                ascCount += 99;
+            }
+
+            ascCount *= 1 + (player.ascensionCounter / 10 - 1) * 0.2
+                * (player.achievements[189] + player.achievements[202] + player.achievements[209] + player.achievements[216] + player.achievements[223]);
+        }
+
+        ascCount *= player.achievements[187] && Math.floor(effectiveScore) > 1e8 ? (Math.log(Math.floor(effectiveScore)) / Math.log(10) - 1) : 1;
+        ascCount *= G['challenge15Rewards'].ascensions;
+        ascCount *= (player.achievements[260] > 0 ? 1.1 : 1);
+        ascCount *= (player.achievements[261] > 0 ? 1.1 : 1);
+        ascCount *= (player.platonicUpgrades[15] > 0 ? 2 : 1);
+        ascCount *= (1 + 0.02 * player.platonicUpgrades[16]);
+        ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000));
+        ascCount *= (1 + 1/8 * player.singularityCount)
+    }
+
+    return Math.floor(ascCount);
+};
 
 /**
  * Calculates the product of all Powder bonuses.
@@ -1419,15 +1457,15 @@ export const dailyResetCheck = () => {
         player.overfluxOrbs = G['challenge15Rewards'].freeOrbs
         player.dailyPowderResetUses = 1;
 
-        document.getElementById('cubeQuarksOpenRequirement').style.display = "block"
+        DOMCacheGetOrSet('cubeQuarksOpenRequirement').style.display = "block"
         if (player.challengecompletions[11] > 0) {
-            document.getElementById('tesseractQuarksOpenRequirement').style.display = "block"
+            DOMCacheGetOrSet('tesseractQuarksOpenRequirement').style.display = "block"
         }
         if (player.challengecompletions[13] > 0) {
-            document.getElementById('hypercubeQuarksOpenRequirement').style.display = "block"
+            DOMCacheGetOrSet('hypercubeQuarksOpenRequirement').style.display = "block"
         }
         if (player.challengecompletions[14] > 0) {
-            document.getElementById('platonicCubeQuarksOpenRequirement').style.display = "block"
+            DOMCacheGetOrSet('platonicCubeQuarksOpenRequirement').style.display = "block"
         }
     }
 }
@@ -1462,12 +1500,11 @@ export const eventCheck = () => {
 
     if(now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
         G['isEvent'] = true
-        document.getElementById('eventCurrent').textContent = "ACTIVE UNTIL " + end
-        document.getElementById('eventBuffs').textContent = "Current Buffs: +100% Quarks from code 'Add', +20.21% All Cube Types"
-    }
-    else{
+        DOMCacheGetOrSet('eventCurrent').textContent = "ACTIVE UNTIL " + end
+        DOMCacheGetOrSet('eventBuffs').textContent = "Current Buffs: +100% Quarks from code 'Add', +20.21% All Cube Types"
+    } else {
         G['isEvent'] = false
-        document.getElementById('eventCurrent').textContent = "INACTIVE"
-        document.getElementById('eventBuffs').textContent = ""
+        DOMCacheGetOrSet('eventCurrent').textContent = "INACTIVE"
+        DOMCacheGetOrSet('eventBuffs').textContent = ""
     }
 }

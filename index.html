@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="Synergism.css">
     <script src="./dist/out.js" defer></script>
 </head>
-<body>
+<body class="loading">
     <div id="transparentBG"></div>
     <div id="notification">
         <div id="notifx">
@@ -40,7 +40,9 @@
             </div>
         </div>
     </div>
-    <img src="Pictures/Splash/base.png" id="preload" alt="" style="width: 100%;">
+    <div id="preloadContainer">
+        <img src="Pictures/Splash/base.png" id="preload" alt="" style="width: 100%;">
+    </div>
     <div id="offlineContainer">
         <p id="offlineTimer" class="offlineText" style="color: plum"></p>
         <p id="progressbardescription" class="offlineText" style="color: yellow">Loading Offline Progress...</p>
@@ -48,47 +50,47 @@
         <div class='offlineStats'>
             <div class="offlineStat prestigeunlock" id="offlinePrestigeCountDiv">
                 <img src="Pictures/Prestige.png" alt='' class='offlineStatIcon'>
-                <span id="offlinePrestigeCount" class='offlineStatElement'>Prestige Count: +<span id="offlinePrestigeCountNumber" style="color: cyan;"></span></p>
+                <span id="offlinePrestigeCount" class='offlineStatElement'>Prestige Count: +<span id="offlinePrestigeCountNumber" style="color: cyan;"></span></span>
             </div>
             <div class="offlineStat" id="offlinePrestigeTimerDiv">
                 <img src="Pictures/Prestige.png" alt='' class='offlineStatIcon'>
-                <span id="offlinePrestigeTimer" class='offlineStatElement'>Current Prestige Timer: +<span id="offlinePrestigeTimerNumber" style="color: cyan;"></span> seconds</p>
+                <span id="offlinePrestigeTimer" class='offlineStatElement'>Current Prestige Timer: +<span id="offlinePrestigeTimerNumber" style="color: cyan;"></span> seconds</span>
             </div>
             <div class="offlineStat prestigeunlock" id="offlineOfferingCountDiv">
                 <img src="Pictures/Offering.png" alt='' class='offlineStatIcon'>
-                <span id="offlineOfferingCount" class='offlineStatElement'>Offerings Generated: <span id="offlineOfferingCountNumber" style="color: orange"></span></p>
+                <span id="offlineOfferingCount" class='offlineStatElement'>Offerings Generated: <span id="offlineOfferingCountNumber" style="color: orange"></span></span>
             </div>
             <div class="offlineStat transcendunlock" id="offlineTranscensionCountDiv">
                 <img src="Pictures/Transcend.png" alt='' class='offlineStatIcon'>
-                <span id="offlineTranscensionCount" class='offlineStatElement'>Transcension Count: +<span id="offlineTranscensionCountNumber" style="color: orchid"></span></p>
+                <span id="offlineTranscensionCount" class='offlineStatElement'>Transcension Count: +<span id="offlineTranscensionCountNumber" style="color: orchid"></span></span>
             </div>
             <div class="offlineStat transcendunlock" id="offlineTranscensionTimerDiv">
                 <img src="Pictures/Transcend.png" alt='' class='offlineStatIcon'>
-                <span id="offlineTranscensionTimer" class='offlineStatElement'>Current Transcension Timer: +<span id="offlineTranscensionTimerNumber" style="color: orchid"></span> seconds</p>
+                <span id="offlineTranscensionTimer" class='offlineStatElement'>Current Transcension Timer: +<span id="offlineTranscensionTimerNumber" style="color: orchid"></span> seconds</span>
             </div>
             <div class='offlineStat reincarnationunlock' id="offlineReincarnationCountDiv">
                 <img src="Pictures/Reincarnate.png" alt='' class='offlineStatIcon'>
-                <span id="offlineReincarnationCount" class='offlineStatElement'>Reincarnation Count: +<span id="offlineReincarnationCountNumber" style="color: limegreen;"></span></p>
+                <span id="offlineReincarnationCount" class='offlineStatElement'>Reincarnation Count: +<span id="offlineReincarnationCountNumber" style="color: limegreen;"></span></span>
             </div>
             <div class='offlineStat reincarnationunlock' id="offlineReincarnationTimerDiv">
                 <img src="Pictures/Reincarnate.png" alt='' class='offlineStatIcon'>
-                <span id="offlineReincarnationTimer" class='offlineStatElement'>Current Reincarnation Timer: +<span id="offlineReincarnationTimerNumber" style="color: limegreen;"></span> seconds</p>
+                <span id="offlineReincarnationTimer" class='offlineStatElement'>Current Reincarnation Timer: +<span id="offlineReincarnationTimerNumber" style="color: limegreen;"></span> seconds</span>
             </div>
             <div class='offlineStat reincarnationunlock' id="offlineObtainiumCountDiv">
                 <img src="Pictures/Obtainium.png" alt='' class='offlineStatIcon'>
-                <span id="offlineObtainiumCount" class='offlineStatElement'>Obtainium Generated: <span id="offlineObtainiumCountNumber" style="color: pink;"></span></p>
+                <span id="offlineObtainiumCount" class='offlineStatElement'>Obtainium Generated: <span id="offlineObtainiumCountNumber" style="color: pink;"></span></span>
             </div>
             <div class='offlineStat chal8' id="offlineAntTimerDiv">
                 <img src="Pictures/crumb.png" alt='' class='offlineStatIcon'>
-                <span id="offlineAntTimer" class='offlineStatElement'>In-Game Ant Sacrifice Timer: +<span id="offlineAntTimerNumber" style="color: red;"></span> seconds</p>
+                <span id="offlineAntTimer" class='offlineStatElement'>In-Game Ant Sacrifice Timer: +<span id="offlineAntTimerNumber" style="color: red;"></span> seconds</span>
             </div>
             <div class='offlineStat chal8' id="offlineRealAntTimerDiv">
                 <img src="Pictures/crumb.png" alt='' class='offlineStatIcon'>
-                <span id="offlineRealAntTimer" class='offlineStatElement'>Real-Life Ant Sacrifice Timer: +<span id="offlineRealAntTimerNumber" style="color: red;"></span> seconds</p>
+                <span id="offlineRealAntTimer" class='offlineStatElement'>Real-Life Ant Sacrifice Timer: +<span id="offlineRealAntTimerNumber" style="color: red;"></span> seconds</span>
             </div>
             <div class='offlineStat ascendunlock' id="offlineAscensionTimerDiv">
                 <img src="Pictures/questionable.png" alt='' class='offlineStatIcon'>
-                <span id="offlineAscensionTimer" class='offlineStatElement'>Current Ascension Timer: +<span id="offlineAscensionTimerNumber" style="color: gold;"></span> seconds</p>
+                <span id="offlineAscensionTimer" class='offlineStatElement'>Current Ascension Timer: +<span id="offlineAscensionTimerNumber" style="color: gold;"></span> seconds</span>
             </div>
             <div class='offlineStat' id="offlineQuarkCountDiv">
                 <img src="Pictures/Quark.png" alt='' class='offlineStatIcon'>
@@ -96,7 +98,7 @@
             </div>
         </div>
         
-        <button id="exitOffline">That's cool. Take me to the game!</button>
+        <button id="exitOffline" class="subtabContent">That's cool. Take me to the game!</button>
 
     </div>
     <header>
@@ -187,6 +189,7 @@
                     <img class="resetbtn reincarnationunlock" id="reincarnatechallengebtn" src="Pictures/Transparent Pics/ChallengeReincarnation.png" alt="" loading="lazy">
                     <img class="resetbtn ascendunlock" id="ascendChallengeBtn" src="Pictures/Transparent Pics/ChallengeAscension.png" alt="" loading="lazy">
                     <img class="resetbtn chal10" id="ascendbtn" src="Pictures/questionable.png" alt="" loading="lazy">
+                    <img class="resetbtn singularity" id="singularitybtn" src="Pictures/Singularity.png" alt="Enter the Singularity!" loading="lazy">
                     <div id="resetrow">
                         <div id="resetrewards" style="display: block;">
                             <div>
@@ -218,6 +221,7 @@
                 <li class="chal10" id="traitstab">Corruption</li>
                 <li id="settingstab">Settings</li>
                 <li class="reincarnationunlock" id="shoptab">Shop</li>
+                <li class="singularity" id="singularitytab">Singularity</li>
             </ul>
         </nav>
     </header>
@@ -1261,7 +1265,7 @@
                     </div>
 
                     <div id="rune7area" class="runeType">
-                        <p id="grandiloquence" class="runeTypeElement" style="color: orchid">Grandiloquence</p>
+                        <p id="grandiloquence" class="runeTypeElement" style="color: orchid">Antiquities of Ant God</p>
                         <img id="rune7" class="runeTypeElement" src="Pictures/Transparent Pics/Grandiloquence.png" alt="" loading="lazy">
                         <p id="rune7level" class="runeTypeElement">Level: 1/2</p>
                         <p id="bonusrune7" class="runeTypeElement" style="color: orange">[Ultimate Level]</p>
@@ -1289,37 +1293,37 @@
             <div id="runeContainer2" style="display: none;">
                 <div class="talismanShardsContainer">
                     <div class="talismanShardContainer">
-                        <img class="talismanShardIcon" src="Pictures/TalismanShard.png" title='Talisman Shard' alt="" loading="lazy"></img>
+                        <img class="talismanShardIcon" src="Pictures/TalismanShard.png" title='Talisman Shard' alt="" loading="lazy">
                         <span class="talismanShardAmount" id="talismanShardInventory" style="color: yellow">0</span>
                         <button class="talismanBtn" id="buyTalismanItem1" style="border: 2px solid gold">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
-                        <img class="talismanShardIcon" src="Pictures/CommonTalisman.png" title='Common Fragment' alt="" loading="lazy"></img>
+                        <img class="talismanShardIcon" src="Pictures/CommonTalisman.png" title='Common Fragment' alt="" loading="lazy">
                         <span class="talismanShardAmount" id="commonFragmentInventory" style="color: white">0</span>
                         <button class="talismanBtn" id="buyTalismanItem2" style="border:2px solid white">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
-                        <img class="talismanShardIcon" src="Pictures/UncommonTalisman.png" title='Uncommon Fragment' alt="" loading="lazy"></img>
+                        <img class="talismanShardIcon" src="Pictures/UncommonTalisman.png" title='Uncommon Fragment' alt="" loading="lazy">
                         <span class="talismanShardAmount" id="uncommonFragmentInventory" style="color: limegreen">0</span>
                         <button class="talismanBtn" id="buyTalismanItem3" style="border:2px solid lime">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
-                        <img class="talismanShardIcon" src="Pictures/RareTalisman.png" title='Rare Fragment' alt="" loading="lazy"></img>
+                        <img class="talismanShardIcon" src="Pictures/RareTalisman.png" title='Rare Fragment' alt="" loading="lazy">
                         <span class="talismanShardAmount" id="rareFragmentInventory" style="color: darkcyan">0</span>
                         <button class="talismanBtn" id="buyTalismanItem4" style="border:2px solid aqua">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
-                        <img class="talismanShardIcon" src="Pictures/EpicTalisman.png" title='Epic Fragment' alt="" loading="lazy"></img>
+                        <img class="talismanShardIcon" src="Pictures/EpicTalisman.png" title='Epic Fragment' alt="" loading="lazy">
                         <span class="talismanShardAmount" id="epicFragmentInventory" style="color: plum">0</span>
                         <button class="talismanBtn" id="buyTalismanItem5" style="border:2px solid purple">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
-                        <img class="talismanShardIcon" src="Pictures/LegendaryTalisman.png" title='Legendary Fragment' alt="" loading="lazy"></img>
+                        <img class="talismanShardIcon" src="Pictures/LegendaryTalisman.png" title='Legendary Fragment' alt="" loading="lazy">
                         <span class="talismanShardAmount" id="legendaryFragmentInventory" style="color: orange">0</span>
                         <button class="talismanBtn" id="buyTalismanItem6" style="border:2px solid orange">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
-                        <img class="talismanShardIcon" src="Pictures/MythicalTalisman.png" title='Mythical Fragment' alt="" loading="lazy"></img>
+                        <img class="talismanShardIcon" src="Pictures/MythicalTalisman.png" title='Mythical Fragment' alt="" loading="lazy">
                         <span class="talismanShardAmount" id="mythicalFragmentInventory" style="color: crimson">0</span>
                         <button class="talismanBtn" id="buyTalismanItem7" style="border:2px solid red">BUY</button>
                     </div>
@@ -1547,7 +1551,7 @@
                         <td><img id="challenge15" class="challenge chal14" src="Pictures/Transparent Pics/ChallengeFifteen.png" style="cursor: pointer; font-size: 0;" alt="" loading="lazy"></td>
                     </tr>
                     <tr>
-                        <td ><div class="challengeLevels" class="challengeLevels" id="challenge1level">0 / 25</div></td>
+                        <td ><div class="challengeLevels" id="challenge1level">0 / 25</div></td>
                         <td ><div class="challengeLevels" id="challenge2level">0 / 25</div></td>
                         <td ><div class="challengeLevels" id="challenge3level">0 / 25</div></td>
                         <td ><div class="challengeLevels" id="challenge4level">0 / 25</div></td>
@@ -1610,6 +1614,7 @@
             <div id="researchToggles">
                 <button id="toggleresearchbuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level</button>
                 <button id="toggleautoresearch" style="text-align: center;color: white; border: 2px solid blue">Automatic: OFF</button>
+                <button id="toggleautoresearchmode" style="text-align: center;color: white; border: 2px solid red">Automatic mode: Manual</button>
             </div>
 
             <table id = "researchtable">
@@ -2315,7 +2320,7 @@
                     </div>
                     <p id="platonicBlessingsTotal">You have a total of <span id="platonicBlessingTotalAmount">0</span> Platonic Cubes opened!</p>
                 </div>
-                <div id="cubeTab5" style="display: none">
+                <div id="cubeTab5" class="cubeTab" style="display: none">
                     <div id="cubeTab5Wrapper"> 
                         <p id="cubeAmount2">You have 0 Wow! Cubes</p>
                         <table id="cubeUpgradeTable">
@@ -2480,7 +2485,7 @@
                 </div>
                 <div id="cubeTab7" class="cubeTab" style="display: none">
                     <span id="hepteractWelcome" class="cubePlacement1" style="color: pink">How did I get here?</span>
-                    <span id="hepteractExpository1" class="cubePlacement2" style="color: white">Oh well, no time to waste. This is your lab. Make cool shit with your Hepteracts!</span>
+                    <span id="hepteractExpository1" class="cubePlacement2" style="color: white">Oh well, no time to waste. This is your lab. Make cool stuff with your Hepteracts!</span>
                     <span id="hepteractExpository2" class="cubePlacement3" style="color: orchid;">Hepteracts do not provide passive bonuses. They must be made useful through crafting.</span>
                     <div class="openGrid"> 
                         <img class="openImage" src="Pictures/Hepteract.png" alt="" loading="lazy">
@@ -2489,54 +2494,113 @@
                         </div>
                     </div>
 
-                    <div id="hepteractGrid">
+                    <div id="heptGrid" class="hepteractGrid">
                         <div class="hepteractType" id="chronosHepteract">
-                            <img id="chronosHepteractImage" src="Pictures/ChronosHepteract.png">
+                            <img id="chronosHepteractImage" class="heptTypeImage" src="Pictures/ChronosHepteract.png">
                             <button id="chronosHepteractCraft">Craft</button>
-                            <button id="chronosHepteractCap">Expand</button>
+                            <button id="chronosHepteractCraftMax">Max</button>
+                            <button id="chronosHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="chronosProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="chronosProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="hyperrealismHepteract">
-                            <img id="hyperrealismHepteractImage" src="Pictures/HyperrealismHepteract.png">
+                            <img id="hyperrealismHepteractImage" class="heptTypeImage" src="Pictures/HyperrealismHepteract.png">
                             <button id="hyperrealismHepteractCraft">Craft</button>
-                            <button id="hyperrealismHepteractCap">Expand</button>
+                            <button id="hyperrealismHepteractCraftMax">Max</button>
+                            <button id="hyperrealismHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="hyperrealismProgressBarText">/</span>
+                                <span class="progressBar" id="hyperrealismProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="quarkHepteract">
-                            <img id="quarkHepteractImage" src="Pictures/QuarkHepteract.png">
+                            <img id="quarkHepteractImage" class="heptTypeImage" src="Pictures/QuarkHepteract.png">
                             <button id="quarkHepteractCraft">Craft</button>
-                            <button id="quarkHepteractCap">Expand</button>
+                            <button id="quarkHepteractCraftMax">Max</button>
+                            <button id="quarkHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="quarkProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="quarkProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="challengeHepteract">
-                            <img id="challengeHepteractImage" src="Pictures/ChallengeHepteract.png">
+                            <img id="challengeHepteractImage" class="heptTypeImage" src="Pictures/ChallengeHepteract.png">
                             <button id="challengeHepteractCraft">Craft</button>
-                            <button id="challengeHepteractCap">Expand</button>
+                            <button id="challengeHepteractCraftMax">Max</button>
+                            <button id="challengeHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="challengeProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="challengeProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="abyssHepteract">
-                            <img id="abyssHepteractImage" src="Pictures/AbyssHepteract.png">
+                            <img id="abyssHepteractImage" class="heptTypeImage" src="Pictures/AbyssHepteract.png">
                             <button id="abyssHepteractCraft">Craft</button>
-                            <button id="abyssHepteractCap">Expand</button>
+                            <button id="abyssHepteractCraftMax">Max</button>
+                            <button id="abyssHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="abyssProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="abyssProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="acceleratorHepteract">
-                            <img id="acceleratorHepteractImage" src="Pictures/AcceleratorHepteract.png">
+                            <img id="acceleratorHepteractImage" class="heptTypeImage" src="Pictures/AcceleratorHepteract.png">
                             <button id="acceleratorHepteractCraft">Craft</button>
-                            <button id="acceleratorHepteractCap">Expand</button>
+                            <button id="acceleratorHepteractCraftMax">Max</button>
+                            <button id="acceleratorHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="acceleratorProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="acceleratorProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="acceleratorBoostHepteract">
-                            <img id="acceleratorBoostHepteractImage" src="Pictures/AcceleratorBoostHepteract.png">
+                            <img id="acceleratorBoostHepteractImage" class="heptTypeImage" src="Pictures/AcceleratorBoostHepteract.png">
                             <button id="acceleratorBoostHepteractCraft">Craft</button>
-                            <button id="acceleratorBoostHepteractCap">Expand</button>
+                            <button id="acceleratorBoostHepteractCraftMax">Max</button>
+                            <button id="acceleratorBoostHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="acceleratorBoostProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="acceleratorBoostProgressBar"></span>
+                            </div>
                         </div>
                         <div class="hepteractType" id="multiplierHepteract">
-                            <img id="multiplierHepteractImage" src="Pictures/MultiplierHepteract.png">
+                            <img id="multiplierHepteractImage" class="heptTypeImage" src="Pictures/MultiplierHepteract.png">
                             <button id="multiplierHepteractCraft">Craft</button>
-                            <button id="multiplierHepteractCap">Expand</button>
+                            <button id="multiplierHepteractCraftMax">Max</button>
+                            <button id="multiplierHepteractCap" style="grid-column: 2 / span 2; width: 100%">Expand</button>
+                            <div class="meter">
+                                <span class="progressText" id="multiplierProgressBarText">/</span>
+                                <span style="width: 25%" class="progressBar" id="multiplierProgressBar"></span>
+                            </div>
                         </div>
-                        <div class="hepteractType" id="hepteractToQuark">
+                        <div><!--Blank Grid Tile--></div>
+                        <div id="hepteractToQuark">
                             <img id="hepteractToQuarkImage" src="Pictures/Overflux.png">
                             <button id="hepteractToQuarkTrade">Craft</button>
+                            <span style="grid-column: 1 / span 5;"></span> <!--Empty line-->
+                            <span class="heptGridInventory" style="align-self: end;">
+                                <span class="heptGridInventoryLabel" style="color:orchid;">Orbs:</span>
+                                <span class="heptGridInventoryValue" style="color:orchid;" id="heptGridOrbBalance">0</span>
+                            </span>
+                            <span class="heptGridInventory" style="align-self: start;">
+                                <span class="heptGridInventoryLabel" style="color:yellow;">Effect:</span>
+                                <span class="heptGridInventoryValue" style="color:yellow;" id="heptGridOrbEffect">0%</span>
+                            </span>
                         </div>
-                        <div class="hepteractType" id="overfluxPowder">
+                        <div id="overfluxPowder">
                             <img id="overfluxPowderImage" src="Pictures/Overflux Powder.png">
                             <button id="powderDayWarp">Warp</button>
+                            <span style="grid-column: 1 / span 5;"></span> <!--Empty line-->
+                            <span class="heptGridInventory" style="align-self: end;">
+                                <span class="heptGridInventoryLabel" style="color:orchid;">Powder:</span>
+                                <span class="heptGridInventoryValue" style="color:orchid;" id="heptGridPowderBalance">0</span>
+                            </span>
+                            <span class="heptGridInventory" style="align-self: start;">
+                                <span class="heptGridInventoryLabel" style="color:orange;">Warps:</span>
+                                <span class="heptGridInventoryValue" style="color:orange;" id="heptGridPowderWarps">1</span>
+                            </span>
                         </div>
                     </div>
 
@@ -2648,6 +2712,7 @@
                 <p id="corruptionSpiritBonus" class="chal12 tightText" style="color: gold">However, it also multiplies Rune Spirit Effects by <span id="corruptionSpiritBonusValue" style="color: wheat; font-size: 1.2em;">1.000</span>!</p>
                 <p id="corruptionBank" class="tightText">You have <span id="corruptionBankValue" style="color: crimson">1</span> Wow! Cubes in the Ascension bank. Gain more by finishing challenges! Ascend to redeem them.</p>
                 <p id="corruptionScore" class="tightText">Your Ascension Score is <span id="corruptionScoreValue" style="color: goldenrod">1</span> (base) * <span id="corruptionMultiplierValue" style="color: crimson">4</span> (Corruption mult) = <span id="corruptionTotalScore" style="color: darkorchid">4</span></p>
+                <p id="corruptionAscensionCount" class="tightText">If you ascend now, <span id="corruptionAscensionCountValue" style="color: darkorange; font-size: 1.2em">0</span> will be added to your ascension count.</p>
                 <p id="corruptionCubes" class="tightText">If you ascend now, you will gain <span id="corruptionCubesValue" style="color: yellow; font-size: 1.2em">32</span> Wow! Cubes.</p>
                 <p id="corruptionTesseracts" class="tightText">If you ascend now, you will gain <span id="corruptionTesseractsValue" style="color: darkviolet; font-size: 1.2em">32</span> Wow! Tesseracts. [<span style="color: orchid">Get more if Score >100,000</span>]</p>
                 <p id="corruptionHypercubes" class="chal13 tightText">If you ascend now, you will gain <span id="corruptionHypercubesValue" style="color: crimson; font-size: 1.2em">32</span> Wow! Hypercubes. [<span style="color: red">Req Score: >1,000,000,000</span>]</p>
@@ -2851,6 +2916,7 @@
             <p id="statGCM7" class="statPortion">Cube upgrade 1x1:<span id="sGCM7" class="statNumber">0</span></p>
             <p id="statGCM8" class="statPortion">Cube upgrade 1x1:<span id="sGCM8" class="statNumber">0</span></p>
             <p id="statGCM9" class="statPortion">Event:<span id="sGCM9" class="statNumber">0</span></p>
+            <p id="statGCM10" class="statPortion">Singularity:<span id="sGCM10" class="statNumber">0</span></p>
             <p id="statGCMT" class="statPortion statTotal" style="color: orange">TOTAL GLOBAL CUBE MULTIPLIER: <span
                 id="sGCMT" class="statNumber statTotal">0</span></p>
         </div>
@@ -3146,6 +3212,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="singularity">
+        <p id="singularityIntroduction"> NOTE: WIP. This will be expanded on soon. </p>
     </div>
     </body>
 </html>

@@ -1,10 +1,10 @@
 {
   "name": "synergismofficial",
-  "version": "2.5.6",
+  "version": "2.5.7",
   "description": "",
   "main": "dist/bundle.js",
   "dependencies": {
-    "break_infinity.js": "github:Patashu/break_infinity.js",
+    "break_infinity.js": "^1.2.0",
     "eventemitter3": "^4.0.7",
     "lz-string": "^1.4.4"
   },
@@ -24,8 +24,7 @@
     "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\"",
     "watch:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\" --watch",
     "check:tsc": "npx -p typescript tsc",
-    "watch:tsc": "npx -p typescript tsc --watch",
-    "set-updated-date": "node update-last-updated.js"
+    "watch:tsc": "npx -p typescript tsc --watch"
   },
   "repository": {
     "type": "git",
