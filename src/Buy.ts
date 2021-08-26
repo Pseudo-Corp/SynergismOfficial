@@ -584,6 +584,11 @@ export const boostAccelerator = (automated?: boolean) => {
             }
         }
     } else {
+        if (player.acceleratorBoostBought >= 1e15 || player.prestigePoints.gte(Decimal.pow(10, 1e30))){
+            player.acceleratorBoostBought = 1e15;
+            player.acceleratorBoostCost = Decimal.pow(10, 1e30);
+            return;
+        }
         const buyStart = player.acceleratorBoostBought;
         let buyInc = 1;
         let cost = getAcceleratorBoostCost(buyStart + buyInc);
