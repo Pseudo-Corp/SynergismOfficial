@@ -612,6 +612,9 @@ export const boostAccelerator = (automated?: boolean) => {
 
             player.transcendnoaccelerator = false;
             player.reincarnatenoaccelerator = false;
+            if (player.acceleratorBoostBought === buyFrom) {
+                break;
+            }
         }
     }
 
