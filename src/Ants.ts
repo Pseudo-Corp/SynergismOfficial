@@ -86,6 +86,8 @@ export const antRepeat = (i: number) => {
 }
 
 export const updateAntDescription = (i: number) => {
+    if (G['currentTab'] !== "ants")
+        return
     const el = DOMCacheGetOrSet("anttierdescription")
     const la = DOMCacheGetOrSet("antprice")
     const ti = DOMCacheGetOrSet("antquantity")
