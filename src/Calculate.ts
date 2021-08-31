@@ -1315,13 +1315,15 @@ export const calculateAscensionScore = () => {
         corruptionMultiplier *= Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i]], exponent);
     }
 
-    effectiveScore = baseScore * corruptionMultiplier * G['challenge15Rewards'].score * G['platonicBonusMultiplier'][6]
+    effectiveScore = baseScore * corruptionMultiplier * G['challenge15Rewards'].score * G['platonicBonusMultiplier'][6];
+
     if (player.achievements[267] > 0)
-        effectiveScore *= (1 + Math.min(1, 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
+        effectiveScore *= (1 + Math.min(1, 1/100000 * Decimal.log(player.ascendShards.add(1), 10)));
     if (effectiveScore > 1e23)
-        effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
+        effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5);
     if (player.achievements[259] > 0)
-        effectiveScore *= Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP))
+        effectiveScore *= Math.max(1, Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP)));
+
     return {baseScore: baseScore,
             corruptionMultiplier: corruptionMultiplier,
             effectiveScore: effectiveScore}
