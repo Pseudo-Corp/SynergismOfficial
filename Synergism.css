@@ -105,10 +105,26 @@ button:focus {
     margin-bottom: 0;
 }
 
+@keyframes slide-in {
+    from {
+        transform: translate(-100%, 22.5%);
+    }
+
+    to {
+        transform: translate(7.5%, 22.5%);
+    }
+}
+
+@keyframes slide-out {
+    to {
+        transform: translate(-100%, 22.5%);
+    }
+}
+
 #notification {
-    display: none;
     position: fixed;
-    transform: translate(7.5%, 22.5%);
+    display: none;
+    transform: translateY(22.5%);
     z-index: 6969;
     width: 15%;
     min-height: 150px;
@@ -116,6 +132,16 @@ button:focus {
     border-radius: 5px;
     border: 1px solid gold;
     background-color: #111;
+}
+
+.slide-in {
+    animation: slide-in 1000ms;
+    animation-fill-mode: forwards;
+}
+
+.slide-out {
+    animation: slide-out 1000ms;
+    animation-fill-mode: forwards;
 }
 
 #notification > p {
