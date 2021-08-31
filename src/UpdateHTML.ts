@@ -972,10 +972,13 @@ const NotificationCB = (text: string, time = 30000, cb: () => void) => {
 
     textNode.textContent = text;
     notification.style.display = 'block';
+    notification.classList.remove('slide-out');
+    notification.classList.add('slide-in');
 
     const close = () => {
-        textNode.textContent = '';
-        notification.style.display = 'none';
+        setTimeout(() => textNode.textContent = '', 1000);
+        notification.classList.add('slide-out');
+        notification.classList.remove('slide-in');
 
         x.removeEventListener('click', close);
         cb();
