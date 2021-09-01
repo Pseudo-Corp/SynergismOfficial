@@ -745,8 +745,8 @@ export const calculateAntSacrificeRewards = (): IAntSacRewards => {
     const rewardsMult = G['timeMultiplier'] * G['upgradeMultiplier'];
     const rewards: IAntSacRewards = {
         antSacrificePoints: G['effectiveELO'] * rewardsMult / 85,
-        offerings: player.offeringpersecond * 0.15 * G['effectiveELO'] * rewardsMult / 180,
-        obtainium: player.maxobtainiumpersecond * 0.24 * G['effectiveELO'] * rewardsMult / 180,
+        offerings: Math.min(1e300, player.offeringpersecond * 0.15 * G['effectiveELO'] * rewardsMult / 180),
+        obtainium: Math.min(1e300, player.maxobtainiumpersecond * 0.24 * G['effectiveELO'] * rewardsMult / 180),
         talismanShards: (G['antELO'] > 500) 
             ? Math.max(1, Math.floor(rewardsMult / 210 * Math.pow(1 / 4 * (Math.max(0, G['effectiveELO'] - 500)), 2))) 
             : 0,
