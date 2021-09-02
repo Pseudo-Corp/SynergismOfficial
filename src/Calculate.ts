@@ -1099,7 +1099,7 @@ export const calculateHypercubeMultiplier = (score = -1) => {
         // Achievement 253 Bonus
         1 + 1 / 10 * player.achievements[253],
         // Achievement 256 Bonus
-        1 + Math.min(0.15, 0.6/100 * Math.log10(score + 1)),
+        1 + Math.min(0.15, 0.6/100 * Math.log10(score + 1)) * player.achievements[256],
         // Achievement 265 Bonus
         1 + Math.min(2, player.ascensionCount / 2.5e10) * player.achievements[265],
         // Platonic Cubes Opened Bonus
