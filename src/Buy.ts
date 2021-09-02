@@ -950,6 +950,10 @@ export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number)
 
     player.runeshards -= cost;
 
+    if (player.runeshards < 0) {
+        player.runeshards = 0;
+    }
+
     if (index === 1) {
         const requirementArray = [0, 1e5, 1e8, 1e11]
         for (let i = 1; i <= 3; i++) {
