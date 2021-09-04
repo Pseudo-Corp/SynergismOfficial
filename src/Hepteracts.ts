@@ -121,10 +121,19 @@ export class HepteractCraft {
         this.BAL += amountToCraft
 
         // Subtract spent items from player
-        player.wowAbyssals -= amountToCraft * this.HEPTERACT_CONVERSION
+        player.wowAbyssals -= amountToCraft * this.HEPTERACT_CONVERSION;
+
+        if (player.wowAbyssals < 0) {
+            player.wowAbyssals = 0;
+        }
+
         for (const item in this.OTHER_CONVERSIONS) {
             if (typeof player[item as keyof Player] === 'number')
                 (player[item as keyof Player] as number) -= amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player];
+
+                if ((player[item as keyof Player] as number) < 0) {
+                    (player[item as keyof Player] as number) = 0;
+                }
             else if (player[item as keyof Player] instanceof Cube)
                 (player[item as keyof Player] as Cube).sub(amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player]);
             else if (item == 'worlds')
