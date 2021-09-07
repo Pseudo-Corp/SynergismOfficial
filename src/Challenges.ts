@@ -322,7 +322,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
     if (i === 15 && G['challengefocus'] === 15) {
         a.textContent = "SADISTIC CHALLENGE II || " + player.challengecompletions[15] + "/" + format(maxChallenges) +  " Completions"
         b.textContent = "The worst sin a man can do is making others suffer."
-        c.textContent = "Ascend and reach the goal but you're FULLY corrupt and must stay that way."
+        c.textContent = "Ascend and reach the goal but you're stuck in all corruptions level 11 and must stay that way."
         d.textContent = "Goal: " + format(challengeRequirement(i, player.challengecompletions[i], 15)) + " Coins, but get bonuses based on your best attempt."
         e.textContent = "You have no idea "
         f.textContent = "what you have just done "
