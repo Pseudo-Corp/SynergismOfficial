@@ -139,7 +139,7 @@ export class HepteractCraft {
             else if (item == 'worlds')
                 player.worlds.sub(amountToCraft * this.OTHER_CONVERSIONS[item])
         }
-        return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' hepteracts. If this is less than your input, you either hit the inventory limit or you had insufficient resources.');
+        return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' hepteracts.' + (max ? '' : ' If this is less than your input, you either hit the inventory limit or you had insufficient resources.'));
     }
 
     // Reduce balance through spending
@@ -272,7 +272,7 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
             effectText.textContent = "This hepteract bends time, in your favor. +0.06% Ascension Speed per Chronos Hepteract."
             currentEffectText.textContent = "Current Effect: Ascension Speed +" + format(hepteractEffective('chronos') * 6 / 100, 2, true) + "%"
             balanceText.textContent = "Inventory: " + format(player.hepteractCrafts.chronos.BAL) + " / " + format(player.hepteractCrafts.chronos.CAP)
-            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.chronos.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e115 Obtainium [WIP]"
+            costText.textContent = "One of these will cost you " + format(player.hepteractCrafts.chronos.HEPTERACT_CONVERSION, 0, true) + " Hepteracts and 1e115 Obtainium"
             break;
         case 'hyperrealism':
             unlockedText.textContent = (player.hepteractCrafts.hyperrealism.UNLOCKED) ? "< UNLOCKED >": "< LOCKED >"
