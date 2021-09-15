@@ -3037,7 +3037,7 @@ export const updateAll = (): void => {
 
     if (player.autoAscend) {
         if (player.autoAscendMode === "c10Completions" && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
-            reset("ascension", true)
+            reset("ascension", false)
         }
     }
     let metaData = null;
