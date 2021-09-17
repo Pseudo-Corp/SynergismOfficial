@@ -813,9 +813,6 @@ export const calculateOffline = (forceTime = 0) => {
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
     preloadImage.style.display = 'none';
 
-    const preloadContainer = getElementById("preloadContainer");
-    preloadContainer.style.backgroundColor = 'black';
-
     G['timeMultiplier'] = calculateTimeAcceleration();
     calculateObtainium();
     const obtainiumGain = calculateAutomaticObtainium();
