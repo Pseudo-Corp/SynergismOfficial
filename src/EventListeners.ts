@@ -25,6 +25,7 @@ import type { OneToFive, Player } from "./types/Synergism"
 import { displayStats } from "./Statistics"
 import { testing } from './Config';
 import { DOMCacheGetOrSet } from "./Cache/DOM"
+import { toggleTheme } from "./Themes"
 
 /* STYLE GUIDE */
 /* 
@@ -613,4 +614,6 @@ TODO: Fix this entire tab it's utter shit
 
         return importSynergism(save);
     });
+
+    DOMCacheGetOrSet('theme').addEventListener('click', toggleTheme);
 }

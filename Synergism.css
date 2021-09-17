@@ -6,18 +6,23 @@ html {
 }
 
 body {
-    background-color: #111;
     transform-origin: 0 0;
     overflow-x: hidden;
     color: white;
     margin: 0;
     box-sizing: border-box;
-
-    /* overflow-y: hidden; */
 }
 
 body.loading {
     overflow-y: hidden;
+}
+
+body.dark {
+    background-color: #111;
+}
+
+body.light {
+    background-color: gray;
 }
 
 a {
@@ -109,6 +114,7 @@ button:focus {
     from {
         transform: translate(-100%, 22.5%);
     }
+
     to {
         transform: translate(7.5%, 22.5%);
     }
@@ -135,7 +141,7 @@ button:focus {
 
 .slide-in {
     animation: slide-in 1000ms;
-    animation-fill-mode: forwards
+    animation-fill-mode: forwards;
 }
 
 .slide-out {
@@ -351,7 +357,7 @@ button:focus {
 }
 
 #resetinfo {
-    text-align: left; /*Keeps text from bouncing around*/
+    text-align: left; /* Keeps text from bouncing around */
     font-size: 15px;
     font-variant-numeric: tabular-nums;
 }
@@ -442,8 +448,7 @@ nav li:hover {
 #singularitytab {
     border-color: lightgoldenrodyellow;
     background-color: black;
-    color: red
-    
+    color: red;
 }
 
 #shoptab:hover {
@@ -680,9 +685,12 @@ nav li:hover {
     margin-right: 5px;
 }
 
-#promocodes {
+#promocodes,
+#theme {
     transition-duration: 0.15s;
     padding: 5px;
+    min-width: 65%;
+    margin-bottom: 3px;
 }
 
 #promocodes:hover {
@@ -2941,7 +2949,7 @@ header #obtainiumDisplay {
 }
 
 #ascTimeTakenStats {
-    min-width: 125px; /*prevent bouncing around*/
+    min-width: 125px; /* prevent bouncing around */
 }
 
 #ascTimeAccel {
