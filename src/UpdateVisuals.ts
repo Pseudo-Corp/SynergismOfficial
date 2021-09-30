@@ -185,8 +185,8 @@ export const visualUpdateRunes = () => {
         for (let i = 1; i <= 7; i++) { //First one updates level, second one updates TNL, third updates orange bonus levels
             let place = G[talismans[i-1]];
             if (i > 5) place = 0;
-            let runeLevel = player.runelevels[i - 1]
-            let maxLevel = calculateMaxRunes(i)
+            const runeLevel = player.runelevels[i - 1]
+            const maxLevel = calculateMaxRunes(i)
             DOMCacheGetOrSet('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(runeLevel) + "/" + format(maxLevel)
             DOMCacheGetOrSet('rune' + i + 'exp').textContent = (runeLevel < maxLevel ? "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP" : "Max level!")
             if (i <= 5) DOMCacheGetOrSet('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + G['bonusant9']) + place) + "]"

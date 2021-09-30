@@ -723,10 +723,11 @@ const loadSynergy = () => {
 
         Object.keys(data).forEach((stringProp) => {
             const prop = stringProp as keyof Player;
-            if (toAdapt.has(prop)) {
+            if (!(prop in player)) {
+                return;
+            } else if (toAdapt.has(prop)) {
                 return ((player[prop] as unknown) = toAdapt.get(prop)(data));
-            }
-            if (isDecimal(player[prop])) {
+            } else if (isDecimal(player[prop])) {
                 return ((player[prop] as Decimal) = new Decimal(data[prop] as DecimalSource));
             } else if (prop === 'codes') {
                 return (player.codes = new Map(data[prop]));
