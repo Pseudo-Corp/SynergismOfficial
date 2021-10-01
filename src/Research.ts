@@ -367,7 +367,7 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
         }
     }
 
-    if (player.researchPoints < G['researchBaseCosts'][i] && player.researches[i] < (G['researchMaxLevels'][i])) {
+    if (player.researchPoints < metaData[1] && player.researches[i] < (G['researchMaxLevels'][i])) {
         DOMCacheGetOrSet("researchcost").style.color = "crimson"
         updateClassList(p, [], ["researchMaxed", "researchAvailable", "researchPurchasedAvailable"])
     }
@@ -380,7 +380,7 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
 export const updateResearchBG = (j: number) => {
 
     if (player.researches[j] > G['researchMaxLevels'][j]) {
-        player.researchPoints += (player.researches[j] - G['researchMaxLevels'][j]) * G['researchBaseCosts'][j]
+        player.researchPoints += (player.researches[j] - G['researchMaxLevels'][j]) * G['researchBaseCosts'][j] * (1 + player.singularityCount)
         player.researches[j] = G['researchMaxLevels'][j]
     }
 
