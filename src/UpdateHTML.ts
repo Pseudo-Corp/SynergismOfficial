@@ -8,6 +8,7 @@ import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, 
 import { getMaxChallenges } from './Challenges';
 import { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { updateSingularityStats } from './singularity';
 
 export const revealStuff = () => {
     const example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
@@ -490,6 +491,7 @@ export const hideStuff = () => {
     if (G['currentTab'] === "singularity") {
         DOMCacheGetOrSet('singularity').style.display = "block";
         DOMCacheGetOrSet("singularitytab").style.backgroundColor = "lightgoldenrodyellow"
+        updateSingularityStats();
     }
 }
 

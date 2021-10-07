@@ -262,7 +262,8 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: true, unlocked: player.achievements[141] > 0, buttonID: "corrStatsBtn"},
                 {subTabID: false, unlocked: player.achievements[141] > 0, buttonID: "corrLoadoutsBtn"}]
         },
-        10: {subTabList: []}
+        10: {
+            subTabList: []}
     }
     return subTabs[mainTab];
 }

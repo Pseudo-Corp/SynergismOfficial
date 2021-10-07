@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { format } from './Synergism';
 
 export const isDecimal = (o: unknown): o is Decimal =>
     o instanceof Decimal ||
@@ -102,4 +103,23 @@ export const btoa = (s: string) => {
         // e.code = 5
         return null;
     }
+}
+
+/**
+ * 
+ * Creates a string of the ordinal representation of an integer.
+ * @param int An integer, which can be negative or positive.
+ * @returns A string which follows the conventions of ordinal numbers
+ *          in standard English
+ */
+export const toOrdinal = (int: number):string => {
+    let suffix = 'th'
+    if (int % 10 === 1) 
+        suffix = (int % 100 === 11)? 'th': 'st'
+    if (int % 10 === 2)
+        suffix = (int % 100 === 12)? 'th': 'nd'
+    if (int % 10 === 3)
+        suffix = (int % 100 === 13)? 'th': 'rd'
+
+    return format(int,0,true)+suffix
 }
