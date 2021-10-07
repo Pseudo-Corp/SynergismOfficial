@@ -1711,6 +1711,7 @@ nav li:hover {
 
 #shop {
     text-align: center;
+    position: relative;
 }
 
 #shopWrapper {
@@ -3191,4 +3192,31 @@ header #obtainiumDisplay {
 
     /* Remove padding */
     margin: 0;
+}
+
+#singularity {
+    position: relative;
+    padding: 0;
+    text-align: center;
+}
+
+#singularityUpgradeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#actualSingularityUpgradeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-right: 5px;
+    margin-top: 5px;
+    width: calc(105px * 8);
+    border: 3px solid plum;
+}
+
+.singularityUpgradeFiller {
+    display: flex;
+    width: 105px;
 }
