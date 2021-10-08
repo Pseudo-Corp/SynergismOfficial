@@ -2918,6 +2918,8 @@
             <p id="statGCM8" class="statPortion">Cube upgrade 1x1:<span id="sGCM8" class="statNumber">0</span></p>
             <p id="statGCM9" class="statPortion">Event:<span id="sGCM9" class="statNumber">0</span></p>
             <p id="statGCM10" class="statPortion">Singularity:<span id="sGCM10" class="statNumber">0</span></p>
+            <p id="statGCM11" class="statPortion">-<span id="sGCM11" class="statNumber">-</span></p>
+            <p id="statGCM12" class="statPortion">-<span id="sGCM12" class="statNumber">-</span></p>
             <p id="statGCMT" class="statPortion statTotal" style="color: orange">TOTAL GLOBAL CUBE MULTIPLIER: <span
                 id="sGCMT" class="statNumber statTotal">0</span></p>
         </div>
@@ -3127,16 +3129,40 @@
                             <p id="seasonPassLevel">Level: 0/5</p>
                             <button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange"></button>
                         </div>
+                        <div class='chal14'>
+                            <img id="seasonPass2" src="Pictures/VIP Pass Upgrade 2.png" alt="" loading="lazy">
+                            <p id="seasonPass2Level">Level: 0/100</p>
+                            <button class="permshopbutton" id="seasonPass2Button" style="border: 2px solid orange"></button>
+                        </div>
+                        <div class='chal14'>
+                            <img id="seasonPass3" src="Pictures/VIP Pass Upgrade 3.png" alt="" loading="lazy">
+                            <p id="seasonPass3Level">Level: 0/100</p>
+                            <button class="permshopbutton" id="seasonPass3Button" style="border: 2px solid orange"></button>
+                        </div>
+                        <div class='hepteracts'>
+                            <img id="seasonPassY" src="Pictures/VIP Pass Upgrade Y.png" alt="" loading="lazy">
+                            <p id="seasonPassYLevel"></p>
+                            <button class="permshopbutton" id="seasonPassYButton" style="border: 2px solid red"></button>
+                        </div>
+                        <div class='singularity'>
+                            <img id="seasonPassZ" src="Pictures/VIP Pass Upgrade Z.png" alt="" loading="lazy">
+                            <p id="seasonPassZLevel"></p>
+                            <button class="permshopbutton" id="seasonPassZButton" style="border: 2px solid cyan"></button>
+                        </div>
                         <div class='ascendunlock'>
                             <img id="challengeExtension" src="Pictures/Challenge Upgrade.png" alt="" loading="lazy">
                             <p id="challengeExtensionLevel">Level: 0/5</p>
-                            <button class="permshopbutton" id="challengeExtensionButton" style="border: 2px solid gray"></button>
-                            
+                            <button class="permshopbutton" id="challengeExtensionButton" style="border: 2px solid gray"></button> 
                         </div>
                         <div class='ascendunlock'>
                             <img id="challengeTome" src="Pictures/Challenge 10 Tome Upgrade.png" alt="" loading="lazy">
                             <p id="challengeTomeLevel">Level: 0/5</p>
                             <button class="permshopbutton" id="challengeTomeButton" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="singularity">
+                            <img id="challengeTome2" src="Pictures/Challenge 10 Tome Upgrade 2.png" alt="" loading="lazy">
+                            <p id="challengeTome2Level"></p>
+                            <button class="permshopbutton" id="challengeTome2Button" style="border: 2px solid red"></button>
                         </div>
                         <div class='ascendunlock'>
                             <img id="cubeToQuark" src="Pictures/Cube Quark Upgrade.png" alt="" loading="lazy">
@@ -3153,20 +3179,20 @@
                             <p id="hypercubeToQuarkLevel">Not Bought</p>
                             <button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red"></button>
                         </div>
-                        <div class='chal14'>
-                            <img id="seasonPass2" src="Pictures/VIP Pass Upgrade 2.png" alt="" loading="lazy">
-                            <p id="seasonPass2Level">Level: 0/100</p>
-                            <button class="permshopbutton" id="seasonPass2Button" style="border: 2px solid orange"></button>
-                        </div>
-                        <div class='chal14'>
-                            <img id="seasonPass3" src="Pictures/VIP Pass Upgrade 3.png" alt="" loading="lazy">
-                            <p id="seasonPass3Level">Level: 0/100</p>
-                            <button class="permshopbutton" id="seasonPass3Button" style="border: 2px solid orange"></button>
-                        </div>
                         <div class='chal12'>
                             <img id="chronometer" src="Pictures/Chronometer.png" alt="" loading="lazy">
                             <p id="chronometerLevel">Level: 0/100</p>
                             <button class="permshopbutton" id="chronometerButton" style="border: 2px solid red"></button>
+                        </div>
+                        <div class='hepteracts'>
+                            <img id="chronometer2" src="Pictures/Chronometer2.png" alt="" loading="lazy">
+                            <p id="chronometer2Level"></p>
+                            <button class="permshopbutton" id="chronometer2Button" style="border: 2px solid red"></button>
+                        </div>
+                        <div class="singularity">
+                            <img id="chronometer3" src="Pictures/Chronometer3.png" alt="" loading="lazy">
+                            <p id="chronometer3Level"></p>
+                            <button class="permshopbutton" id="chronometer3Button" style="border: 2px solid goldenrod"></button>
                         </div>
                         <div class='chal14'>
                             <img id="infiniteAscent" src="Pictures/Etherian Staircase.png" alt="" loading="lazy">
@@ -3217,7 +3243,7 @@
     <div id="singularity">
         <p id="singularityIntroduction"> NOTE: WIP. This will be expanded on soon. </p>
         <div id="singularityEffects" class="singularityContainer">
-            <p id="sigularityEffectCount" class="singularityContent">You are in the <span id="singularityCount"></span> singularity.</p>
+            <p id="sigularityEffectCount" class="singularityContent">You are in the <span id="singularityCount"></span> singularity, and have <span id="goldenQuarks" style="color: lightgoldenrodyellow"></span> Golden Quarks.</p>
             <p id="sigularityEffectSpeed" class="singularityContent">Global Speed is divided by <span id="singularitySpeedDivisor"></span>.</p>
             <p id="sigularityEffectCubes" class="singularityContent">Cube Gain is divided by <span id="singularityCubeDivisor"></span>.</p>
             <p id="sigularityEffectResearches" class="singularityContent">Research Costs are multiplied by <span id="singularityResearchMultiplier"></span>.</p>
