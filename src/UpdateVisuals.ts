@@ -7,7 +7,7 @@ import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
-import { getShopCosts, shopData } from './Shop';
+import { getShopCosts, shopData, shopUpgradeTypes } from './Shop';
 import { quarkHandler } from './Quark';
 import type { Player, ZeroToFour } from './types/Synergism';
 import { hepteractTypeList, hepteractTypes } from './Hepteracts';
@@ -497,7 +497,7 @@ export const visualUpdateShop = () => {
         const shopItem = shopData[key]
         
         // Ignore all consumables, to be handled above, since they're different.
-        if (shopItem.type === 'upgrade') {
+        if (shopItem.type === shopUpgradeTypes.UPGRADE) {
             // Case: If max level is 1, then it can be considered a boolean "bought" or "not bought" item
             if (shopItem.maxLevel === 1) {
                 player.shopUpgrades[key] === shopItem.maxLevel ?

@@ -978,8 +978,12 @@ export const calculateAllCubeMultiplier = () => {
         // Event (currently, +20.21%)
         1 + 0.2021 * +G['isEvent'],
         // Singularity Factor
-        1 / (1 + 1/16 * Math.pow(player.singularityCount, 2))
-        // Total Global Cube Multipliers: 10
+        1 / (1 + 1/16 * Math.pow(player.singularityCount, 2)),
+        // Wow Pass Y
+        1 + 0.5 * player.shopUpgrades.seasonPassY / 100,
+        // Wow Pass Z
+        1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
+        // Total Global Cube Multipliers: 12
     ]
     return {
         mult: productContents(arr),
@@ -1205,6 +1209,8 @@ export const calculateTimeAcceleration = () => {
 export const calculateAscensionAcceleration = () => {
     const arr = [
         1 + player.shopUpgrades.chronometer / 100,                                                      // Shop Upgrade
+        1 + 0.5 * player.shopUpgrades.chronometer2 / 100,                                               // Shop Upgrade 2
+        1 + 1.5 * player.shopUpgrades.chronometer3 / 100,                                               // Shop Upgrade 3
         1 + 0.6/1000 * hepteractEffective('chronos'),                                                   // Hepteract
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[262],   // Achieve 262
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263],   // Achieve 263

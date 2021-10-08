@@ -9,6 +9,7 @@ import { toOrdinal } from "./Utility"
  */
 export const updateSingularityStats = ():void => {
     DOMCacheGetOrSet('singularityCount').textContent = toOrdinal(player.singularityCount)
+    DOMCacheGetOrSet('goldenQuarks').textContent = format(player.goldenQuarks, 0, true)
     DOMCacheGetOrSet('singularitySpeedDivisor').textContent = format(player.singularityCount + 1, 2, true)
     DOMCacheGetOrSet('singularityCubeDivisor').textContent = format(1 + 1/16 * Math.pow(player.singularityCount, 2), 2, true)
     DOMCacheGetOrSet('singularityResearchMultiplier').textContent = format(player.singularityCount + 1, 2, true)

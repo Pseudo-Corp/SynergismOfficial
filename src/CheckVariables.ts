@@ -10,7 +10,7 @@ import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { Alert } from './UpdateHTML';
-import { getQuarkInvestment } from './Shop';
+import { getQuarkInvestment, shopData} from './Shop';
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -341,6 +341,11 @@ export const checkVariablesOnLoad = (data: Player) => {
             calculator3: 0,
             constantEX: 0,
             powderEX: 0,
+            chronometer2: 0,
+            chronometer3: 0,
+            seasonPassY: 0,
+            seasonPassZ: 0,
+            challengeTome2: 0,
         }
 
         const initialQuarks = Number(player.worlds);
@@ -464,6 +469,17 @@ export const checkVariablesOnLoad = (data: Player) => {
         const keys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
         for (const key of keys) {
             player.quarksThisSingularity += getQuarkInvestment(key)
+        }
+    }
+
+    // Update (read: check) for undefined shop upgrades. Also checks above max level.
+    const shopKeys = Object.keys(blankSave['shopUpgrades']) as (keyof Player['shopUpgrades'])[];
+    for (const shopUpgrade of shopKeys) {
+        if (player.shopUpgrades[shopUpgrade] === undefined) {
+            player.shopUpgrades[shopUpgrade] = 0;
+        }
+        if (player.shopUpgrades[shopUpgrade] > shopData[shopUpgrade].maxLevel) {
+            player.shopUpgrades[shopUpgrade] = shopData[shopUpgrade].maxLevel
         }
     }
 }

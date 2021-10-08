@@ -479,7 +479,7 @@ export const calculateChallengeRequirementMultiplier = (type: string, completion
             }
             if (completions >= 60){
                 if (special === 9 || special === 10)
-                    requirementMultiplier *= Math.pow(1000, (completions - 60) * (1 - 0.01 * player.shopUpgrades.challengeTome) / 10)
+                    requirementMultiplier *= Math.pow(1000, (completions - 60) * (1 - 0.01 * player.shopUpgrades.challengeTome - 0.01 * player.shopUpgrades.challengeTome2) / 10)
             }
             if (completions >= 25){
                 requirementMultiplier *= Math.pow(1 + completions, 5) / 625
@@ -532,7 +532,7 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     } else if (challenge <= 10) {
         let c10Reduction = 0;
         if (challenge === 10) {
-            c10Reduction = (1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185]) + 2e7 * player.shopUpgrades.challengeTome)
+            c10Reduction = (1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185]) + 2e7 * (player.shopUpgrades.challengeTome + player.shopUpgrades.challengeTome2))
         }
         return Decimal.pow(10, (base - c10Reduction) * calculateChallengeRequirementMultiplier('reincarnation', completion, special))
     } else if (challenge <= 14) {

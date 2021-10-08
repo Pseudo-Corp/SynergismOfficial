@@ -674,9 +674,22 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
 }
 
+/**
+ * 
+ * Calculate the number of Golden Quarks earned in current singularity
+ */
+export const calculateGoldenQuarkGain = ():number => {
+    const base = 5 * player.singularityCount;
+    const gainFromQuarks = player.quarksThisSingularity / 1e5;
+    const c15Multiplier = 1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2
+    const patreonMultiplier = 1 + player.worlds.BONUS/100;
+
+    return (base + gainFromQuarks) * c15Multiplier * patreonMultiplier
+}
+
 export const singularity = async () => {
+    player.goldenQuarks += calculateGoldenQuarkGain();
     player.singularityCount += 1;
-    player.goldenQuarks += player.quarksThisSingularity / 1e5;
     void resetShopUpgrades(true);
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)

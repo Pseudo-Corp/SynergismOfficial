@@ -191,6 +191,10 @@ export const revealStuff = () => {
         ex.style.display = player.challenge15Exponent >= 1e15 ? "block" : "none";
     }
 
+    const singularityHTMLs = document.getElementsByClassName("singularity") as HTMLCollectionOf<HTMLElement>;
+    for (const HTML of Array.from(singularityHTMLs)) { // Ability to view singularity features.
+        HTML.style.display = player.singularityCount > 0 ? "block" : "none";
+    }
     const hepts = DOMCacheGetOrSet("corruptionHepteracts");
     hepts.style.display = (player.achievements[255] > 0) ? "block" : "none";
 
