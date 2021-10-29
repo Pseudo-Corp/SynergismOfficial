@@ -1401,6 +1401,23 @@ const [{ value: group }, { value: dec }] = IntlFormatter?.length !== 2
 // Number.toLocaleString opts for 2 decimal places
 const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
 
+const padEvery = (str: string, places = 3) => {
+    let step = 1, newStr = '';
+    for (let i = str.length - 1; i >= 0; i--) {
+        // pad every [places] places if we aren't at the beginning of the string
+        if (step++ === places && i !== 0) {
+            step = 1;
+            newStr = group + str[i] + newStr;
+        } else {
+            newStr = str[i] + newStr;
+        }
+    }
+
+    // see https://www.npmjs.com/package/flatstr
+    (newStr as unknown as number) | 0;
+    return newStr;
+}
+
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
  * @param input value to format
@@ -1410,7 +1427,7 @@ const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
  * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
  */
 export const format = (
-    input: Decimal | number | { [Symbol.toPrimitive]: unknown } | bigint, 
+    input: Decimal | number | { [Symbol.toPrimitive]: unknown }, 
     accuracy = 0, 
     long = false,
     truncate = true
@@ -1486,9 +1503,7 @@ export const format = (
         // Split it on the decimal place
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
-        const frontFormatted = typeof BigInt === 'function'
-            ? BigInt(front).toLocaleString()
-            : front.replace(/(\d)(?=(\d{3})+$)/g, `$1${group}`);
+        const frontFormatted = padEvery(front);
 
         // if the back is undefined that means there are no decimals to display, return just the front
         return !back 
@@ -1499,9 +1514,7 @@ export const format = (
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
         // Makes the power group 3 with commas
-        const powerLook = typeof BigInt === 'function'
-            ? BigInt(power).toLocaleString()
-            : power.toString().replace(/(\d)(?=(\d{3})+$)/g, `$1${group}`);
+        const powerLook = padEvery(power.toString());
         // returns format (1.23e456,789)
         return `${mantissaLook}e${powerLook}`;
     } else if (power >= 1e6) {
