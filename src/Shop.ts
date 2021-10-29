@@ -9,9 +9,10 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
  * Standardization of metadata contained for each shop upgrade.
  */
 export enum shopUpgradeTypes {
-    CONSUMABLE,
-    UPGRADE
+    CONSUMABLE = 'consume',
+    UPGRADE = 'upgrade'
 }
+
 export interface IShopData {
     price: number
     priceIncrease: number
