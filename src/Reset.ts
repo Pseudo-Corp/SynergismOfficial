@@ -704,7 +704,7 @@ export const singularity = async () => {
     hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark
     //Import Game
-    void importSynergism(btoa(JSON.stringify(hold)), true);
+    await importSynergism(btoa(JSON.stringify(hold)), true);
 }
 
 const resetUpgrades = (i: number) => {

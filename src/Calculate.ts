@@ -784,10 +784,10 @@ export const timeWarp = async () => {
     
     DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
     DOMCacheGetOrSet('preloadContainer').style.display = 'flex'
-    calculateOffline(timeUse)
+    await calculateOffline(timeUse)
 }
 
-export const calculateOffline = (forceTime = 0) => {
+export const calculateOffline = async (forceTime = 0) => {
     G['timeWarp'] = true;
 
     //Variable Declarations i guess
@@ -906,7 +906,7 @@ export const calculateOffline = (forceTime = 0) => {
         player.loadedNov13Vers = true
     }
 
-    saveSynergy();
+    await saveSynergy();
     updateTalismanInventory();
     calculateObtainium();
     calculateAnts();
