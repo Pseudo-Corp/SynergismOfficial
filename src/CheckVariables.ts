@@ -356,7 +356,10 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.worlds.add(150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * shop.obtainiumAutoLevel - 150 * Math.min(1, shop.obtainiumAutoLevel), false);
         player.worlds.add(100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * shop.cashGrabLevel, false);
         player.worlds.add(200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * shop.antSpeedLevel, false);
-        player.worlds.add(500 * shop.challenge10Tomes + 250/2 * (shop.challenge10Tomes - 1) * (shop.challenge10Tomes), false);
+
+        const tomes = shop.challenge10Tomes ?? shop.challengeTome;
+        player.worlds.add(500 * tomes + 250/2 * (tomes - 1) * (tomes), false);
+
         player.worlds.add(
             typeof shop.seasonPass === 'number' 
                 ? 500 * shop.seasonPass + 250/2 * (shop.seasonPass - 1) * shop.seasonPass
