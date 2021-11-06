@@ -79,7 +79,7 @@ export const stripIndents = (temp: TemplateStringsArray, ...args: ValidInterpola
  * @param b item to pad to array
  * @param length Length to pad array to
  */
-export const padArray = <T extends unknown>(a: T[], b: T, length: number) => {
+export const padArray = <T>(a: T[], b: T, length: number) => {
     for (let i = 0; i < length; i++)
         if (!(i in a)) a[i] = b;
 
