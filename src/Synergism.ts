@@ -3112,7 +3112,7 @@ export const constantIntervals = (): void => {
     interval(saveSynergy, 5000);
     interval(autoUpgrades, 200);
     interval(buttoncolorchange, 200)
-    interval(htmlInserts, 16)
+    interval(htmlInserts, 64)
     interval(updateAll, 100)
     interval(buildingAchievementCheck, 200)
 
@@ -3125,7 +3125,7 @@ let lastUpdate = 0;
 
 export const createTimer = (): void => {
     lastUpdate = performance.now();
-    interval(tick, 5);
+    interval(() => tick(), 5);
 }
 
 const dt = 5;
@@ -3152,9 +3152,8 @@ const tick = () => {
     }
 }
 
-function tack(dt: number) {        
+function tack(dt: number) {
     if (!G['timeWarp']) {
-        dailyResetCheck();
         //Adds Resources (coins, ants, etc)
         const timeMult = calculateTimeAcceleration();
         resourceGain(dt * timeMult)
@@ -3444,6 +3443,10 @@ export const reloadShit = async (reset = false) => {
     hideStuff();
     htmlInserts();
     createTimer();
+
+    dailyResetCheck();
+    interval(() => dailyResetCheck(), 30_000);
+
     constantIntervals();
     changeTabColor();
     startHotkeys();
@@ -3470,6 +3473,7 @@ window.addEventListener('load', () => {
     generateEventHandlers();
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
+
 
     void reloadShit();
 });

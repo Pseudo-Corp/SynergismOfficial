@@ -563,7 +563,7 @@ export const resetShopUpgrades = async (ignoreBoolean = false) => {
 }
 
 export const getQuarkInvestment = (upgrade: ShopUpgradeNames) => {
-    if (!shopData[upgrade]) return 0;
+    if (!shopData[upgrade] || !player.shopUpgrades[upgrade]) return 0;
 
     const val = shopData[upgrade].price * player.shopUpgrades[upgrade] + 
                 shopData[upgrade].priceIncrease * (player.shopUpgrades[upgrade] - 1) * (player.shopUpgrades[upgrade]) / 2
