@@ -60,9 +60,14 @@ const makeSlot = (key: string, descr: string) => {
     span.textContent = key;
     span.addEventListener('click', async (e) => {
         const target = e.target as HTMLElement;
+        const oldKey = target.textContent.toUpperCase();
+        const name = 
+            hotkeys.get(oldKey)?.[0] ?? 
+            target.nextSibling.textContent;
+
         // new value to set key as, unformatted
         const newKey = await Prompt(`
-        Enter the new key you want to activate ${target.parentNode.querySelector('p').textContent} with.
+        Enter the new key you want to activate ${name} with.
 
         MDN has a list of values for "special keys" if you would like to use one:
         https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
@@ -72,8 +77,6 @@ const makeSlot = (key: string, descr: string) => {
 
         if (typeof newKey !== 'string') return;
 
-        // old hotkey
-        const oldKey = target.textContent.toUpperCase();
         const toSet = newKey.toUpperCase();
 
         if (newKey.length === 0)
