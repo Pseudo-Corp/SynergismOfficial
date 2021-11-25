@@ -7,7 +7,7 @@ import Decimal from 'break_infinity.js';
 import { CalcCorruptionStuff, calculateTimeAcceleration } from './Calculate';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
-const achievementpointvalues = [0, 
+export const achievementpointvalues = [0, 
     1, 2, 4, 6, 8, 9, 10,
     1, 2, 4, 6, 8, 9, 10,
     1, 2, 4, 6, 8, 9, 10,
