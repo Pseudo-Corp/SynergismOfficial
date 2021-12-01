@@ -591,6 +591,11 @@ TODO: Fix this entire tab it's utter shit
         }
     }
 
+// SINGULARITY TAB
+    DOMCacheGetOrSet('singularityCurrency1').addEventListener('mouseover', () => player.singularityUpgrades.goldenQuarks1.updateUpgradeHTML())
+    DOMCacheGetOrSet('singularityCurrency1').addEventListener('click', () => player.singularityUpgrades.goldenQuarks1.buyLevel())
+
+
     const tabs = document.querySelectorAll<HTMLElement>('#tabrow > li');
     tabs.forEach(b => b.addEventListener('click', () => changeTabColor()));
 

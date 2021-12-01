@@ -40,6 +40,7 @@ import { updatePlatonicUpgradeBG } from './Platonic';
 import { testing, version, lastUpdated } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
+import { singularityData, SingularityUpgrade } from './singularity';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -644,6 +645,18 @@ export const player: Player = {
     singularityCount: 0,
     goldenQuarks: 0,
     quarksThisSingularity: 0,
+
+    singularityUpgrades: {
+        goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
+        goldenQuarks2: new SingularityUpgrade(singularityData['goldenQuarks2']),
+        goldenQuarks3: new SingularityUpgrade(singularityData['goldenQuarks3']),
+        starterPack: new SingularityUpgrade(singularityData['starterPack']),
+        wowPass: new SingularityUpgrade(singularityData['wowPass']),
+        cookies: new SingularityUpgrade(singularityData['cookies']),
+        ascensions: new SingularityUpgrade(singularityData['ascensions']),
+        corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
+        corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
+    }
 }
 
 export const blankSave = Object.assign({}, player, {

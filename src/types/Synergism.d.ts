@@ -4,6 +4,7 @@ import { HepteractCraft } from '../Hepteracts';
 import { Category, ResetHistoryEntryUnion } from '../History';
 import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
+import { SingularityUpgrade } from '../singularity';
 
 export interface Player {
     worlds: QuarkHandler
@@ -517,6 +518,18 @@ export interface Player {
     singularityCount: number
     goldenQuarks: number
     quarksThisSingularity: number
+
+    singularityUpgrades: {
+        goldenQuarks1: SingularityUpgrade
+        goldenQuarks2: SingularityUpgrade
+        goldenQuarks3: SingularityUpgrade
+        starterPack: SingularityUpgrade
+        wowPass: SingularityUpgrade
+        cookies: SingularityUpgrade
+        ascensions: SingularityUpgrade
+        corruptionFourteen: SingularityUpgrade
+        corruptionFifteen: SingularityUpgrade
+    }
 }
 
 export interface GlobalVariables {
