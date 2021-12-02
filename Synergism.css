@@ -3230,3 +3230,7 @@ header #obtainiumDisplay {
     display: flex;
     width: 105px;
 }
+
+#testingMultiline {
+    white-space: pre-line;
+}

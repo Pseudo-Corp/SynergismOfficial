@@ -37,13 +37,13 @@ export class SingularityUpgrade {
     // Field Initialization
     private readonly name: string;
     private readonly description: string;
-    public level:number = 0;
+    public level = 0;
     private readonly maxLevel: number; //-1 = infinitely levelable
     private readonly costPerLevel: number; 
-    public toggleBuy:number = 1; //-1 = buy MAX (or 1000 in case of infinity levels!)
-    public goldenQuarksInvested:number = 0;
+    public toggleBuy = 1; //-1 = buy MAX (or 1000 in case of infinity levels!)
+    public goldenQuarksInvested = 0;
 
-    public constructor(data: ISingularityData){
+    public constructor(data: ISingularityData) {
         this.name = data.name;
         this.description = data.description;
         this.level = data.level ?? this.level;
@@ -57,28 +57,28 @@ export class SingularityUpgrade {
      * Given an upgrade, give a concise information regarding its data.
      * @returns A string that details the name, description, level statistic, and next level cost.
      */
-    toString():string {
-        let maxLevel = `/${this.maxLevel}`
-        if (this.maxLevel === -1)
-            maxLevel = ""
-
+    toString() {
         const costNextLevel = this.getCostTNL();
-        return `${this.name}\n
-                ${this.description}\n
-                Level ${this.level}${maxLevel}\n
-                Cost for next level: ${format(costNextLevel)} Golden Quarks.\n
+        const maxLevel = this.maxLevel === -1
+            ? ''
+            : `/${this.maxLevel}`;
+
+        return `${this.name}\r\n
+                ${this.description}\r\n
+                Level ${this.level}${maxLevel}\r\n
+                Cost for next level: ${format(costNextLevel)} Golden Quarks.\r\n
                 Spent Quarks: ${this.goldenQuarksInvested}`
     }
 
-    public updateUpgradeHTML():void {
-        DOMCacheGetOrSet('testingMultiline').innerHTML = this.toString()
+    public updateUpgradeHTML() {
+        DOMCacheGetOrSet('testingMultiline').textContent = this.toString()
     }
 
     /**
      * Retrieves the cost for upgrading the singularity upgrade once. Return 0 if maxed.
      * @returns A number representing how many Golden Quarks a player must have to upgrade once.
      */
-    private getCostTNL():number {
+    private getCostTNL() {
         return (this.maxLevel === this.level) ? 0: this.costPerLevel * (1 + this.level);
     }
 
@@ -87,61 +87,63 @@ export class SingularityUpgrade {
      * @returns An alert indicating cannot afford, already maxxed or purchased with how many
      *          levels purchased
      */
-    public async buyLevel(): Promise<void> {
-        let maxPurchasable = Math.min(this.toggleBuy, this.maxLevel - this.level);
-        if (this.maxLevel === -1)
-            maxPurchasable = (this.toggleBuy === -1) ?
-                             1000:
-                             this.toggleBuy;
-
+    public async buyLevel() {
         let purchased = 0;
+        let maxPurchasable = this.maxLevel === -1
+            ? this.toggleBuy === -1
+                ? 1000
+                : this.toggleBuy
+            : Math.min(this.toggleBuy, this.maxLevel - this.level);
+
         if (maxPurchasable === 0)
             return Alert("hey! You have already maxxed this upgrade. :D")
 
-        let cost:number
         while (maxPurchasable > 1) {
-            cost = this.getCostTNL();            
+            const cost = this.getCostTNL();
             if (player.goldenQuarks < cost) {
                 break;
-            }
-
-            else {
+            } else {
                 player.goldenQuarks -= cost;
                 this.goldenQuarksInvested += cost;
                 this.level += 1;
                 purchased += 1;
                 maxPurchasable -= 1;                
             }
-        } 
+        }
         
-        return (purchased === 0)? 
-                Alert(`You cannot afford this upgrade. Sorry!`):
-                Alert(`You have purchased ${format(purchased)} levels of the ${this.name} upgrade.`);
+        const m = purchased === 0
+            ? `You cannot afford this upgrade. Sorry!`
+            : `You have purchased ${format(purchased)} levels of the ${this.name} upgrade.`;
+
+        return Alert(m);
     }
 
-    public async changeToggle():Promise<void> {
+    public async changeToggle() {
 
         // Is null unless given an explicit number
-        let newToggle = null
-        newToggle = await Prompt(`Set maximum purchase amount per click for the ${this.name} upgrade. \n
-                                  type -1 to set to MAX by default.`)
+        const newToggle = await Prompt(`
+        Set maximum purchase amount per click for the ${this.name} upgrade.
+
+        type -1 to set to MAX by default.
+        `);
+        const newToggleAmount = Number(newToggle);
 
         if (newToggle === null)
             return Alert(`Toggle kept at ${format(this.toggleBuy)}.`)
 
-        newToggle = Number(newToggle)
-
         if (!Number.isInteger(newToggle))
             return Alert("Toggle value must be a whole number!");
-        if (newToggle < -1)
+        if (newToggleAmount < -1)
             return Alert("The only valid negative number for toggle is -1.");
-        if (newToggle === 0)
+        if (newToggleAmount === 0)
             return Alert("You cannot set the toggle to 0.");
 
-        this.toggleBuy = newToggle;
-        return (newToggle === -1)?
-                Alert("Your toggle is now set to MAX"):
-                Alert(`Your toggle is now set to ${this.toggleBuy}`);        
+        this.toggleBuy = newToggleAmount;
+        const m = newToggleAmount === -1
+            ? `Your toggle is now set to MAX`
+            : `Your toggle is now set to ${format(this.toggleBuy)}`;
+            
+        return Alert(m);
     }
 }
 
