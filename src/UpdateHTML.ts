@@ -529,6 +529,7 @@ export const htmlInserts = () => {
     visualTab[G['currentTab']]?.();
 }
 
+// TODO(not @KhafraDev): cache the elements and stop getting them every time?
 export const buttoncolorchange = () => {
     (player.toggles[15] && player.achievements[43] === 1) ?
         DOMCacheGetOrSet('prestigebtn').style.backgroundColor = "green" :
@@ -812,7 +813,7 @@ export const showCorruptionStatsLoadouts = () => {
 
 const updateAscensionStats = () => {
     const t = player.ascensionCounter;
-    const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().splice(4);
+    const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().slice(4);
     const fillers: Record<string, string> = {
         "ascLen": formatTimeShort(player.ascensionCounter),
         "ascCubes": format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),

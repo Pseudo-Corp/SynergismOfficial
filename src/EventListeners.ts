@@ -5,7 +5,7 @@ import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrysta
 import { crystalupgradedescriptions, constantUpgradeDescriptions, buyConstantUpgrades, upgradedescriptions } from "./Upgrades"
 import { buyAutobuyers } from "./Automation"
 import { buyGenerator } from "./Generators"
-import { achievementdescriptions } from "./Achievements"
+import { achievementdescriptions, achievementpointvalues } from "./Achievements"
 import { displayRuneInformation, redeemShards } from "./Runes"
 import { toggleTalismanBuy, buyTalismanResources, showTalismanPrices, buyTalismanLevels, buyTalismanEnhance, showRespecInformation, respecTalismanConfirm, respecTalismanCancel, changeTalismanModifier, updateTalismanCostDisplay, showTalismanEffect, showEnhanceTalismanPrices } from "./Talismans"
 import { challengeDisplay, toggleRetryChallenges } from "./Challenges"
@@ -17,7 +17,7 @@ import { corruptionCleanseConfirm, corruptionDisplay } from "./Corruptions"
 import { exportSynergism, updateSaveString, promocodes, importSynergism, resetGame } from "./ImportExport"
 import { resetHistoryTogglePerSecond } from "./History"
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData, shopUpgradeTypes } from "./Shop"
-import { Globals as G } from './Variables';
+import { Globals as G, Upgrade } from './Variables';
 import { changeTabColor } from "./UpdateHTML"
 import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp } from "./Hepteracts"
 import { exitOffline, forcedDailyReset, timeWarp } from "./Calculate"
@@ -219,18 +219,21 @@ export const generateEventHandlers = () => {
 
 // The first 80 upgrades (Coin-Particle upgrade) are annoying since there are four cases based on which resource is needed.
 //Note: this part can almost certainly be improved, this was just the quickest implementation
-    const resourceTypes = ['coin', 'prestige', 'transcend', 'reincarnation'] as const; //Upgrades 1-20 are coin, 21-40 prestige, 41-60 transcend, 61-80 reincarnation
     //End of shit portion (This is used in the following for loop though)
-    for (let index = 1; index <= 80; index++) {
-        const resourceType = resourceTypes[Math.floor((index - 1)/20)];
-
+    for (let index = 1; index <= 20; index++) {
         //Onclick events (Regular upgrades 1-80)
-        DOMCacheGetOrSet(`upg${index}`).addEventListener('click', () => buyUpgrades(resourceType,index));
+        // Regular Upgrades 1-20
+        DOMCacheGetOrSet(`upg${index}`).addEventListener('click', () => buyUpgrades(Upgrade.coin,index));
+        // Regular Upgrades 21-40
+        DOMCacheGetOrSet(`upg${20+index}`).addEventListener('click', () => buyUpgrades(Upgrade.prestige,index));
+        // Regular Upgrades 41-60
+        DOMCacheGetOrSet(`upg${40+index}`).addEventListener('click', () => buyUpgrades(Upgrade.transcend,index));
+        // Regular Upgrades 61-80
+        DOMCacheGetOrSet(`upg${60+index}`).addEventListener('click', () => buyUpgrades(Upgrade.reincarnation,index));
     }
 
 // Autobuyer (20 count, ID 81-100) and Generator (20 count, ID 101-120) Upgrades have a unique onclick
     for (let index = 1; index <= 20; index++) {
-
         //Onclick events (Autobuyer upgrades)
         DOMCacheGetOrSet(`upg${index + 80}`).addEventListener('click', () => buyAutobuyers(index));    
     }
@@ -242,7 +245,7 @@ export const generateEventHandlers = () => {
 // Upgrades 121-125 are upgrades similar to the first 80.
     for (let index = 1; index <= 5; index++) {
         //Onclick events (Upgrade 121-125)
-        DOMCacheGetOrSet(`upg${index + 120}`).addEventListener('click', () => buyUpgrades('coin',index));    
+        DOMCacheGetOrSet(`upg${index + 120}`).addEventListener('click', () => buyUpgrades(Upgrade.coin,index));    
     }
 
 // Next part: Shop-specific toggles
@@ -253,8 +256,8 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('reincarnateAutoUpgrade').addEventListener('click', () => toggleShops('reincarnate'))
 
 // ACHIEVEMENTS TAB
-// Easy. There are 280 achievements, 280 mouseovers.
-    for (let index = 1; index <= 280; index++) {
+    // TODO: Remove 1 indexing
+    for (let index = 1; index <= achievementpointvalues.length - 1 ; index++) {
     
         //Onmouseover events (Achievement descriptions)
         DOMCacheGetOrSet(`ach${index}`).addEventListener('mouseover', () => achievementdescriptions(index));
@@ -418,12 +421,13 @@ for (let index = 1; index <= 12; index++) {
     }
 
 //Part 1: Cube Upgrades
-    // #1-49
-    for (let index = 0; index < 49; index++) {
+    // #1-70, skip 50
+    for (let index = 0; index < 70; index++) {
     
-        DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('mouseover', () => cubeUpgradeDesc(index+1))
-        DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('click', () => buyCubeUpgrades(index+1))
-    
+        if (index !== 49) {
+            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('mouseover', () => cubeUpgradeDesc(index+1))
+            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('click', () => buyCubeUpgrades(index+1))
+        }
     }
     // Cube Upgrade #50
     DOMCacheGetOrSet('cubeUpg50').addEventListener('mouseover', () => cubeUpgradeDesc(50,0.01))
@@ -587,6 +591,14 @@ TODO: Fix this entire tab it's utter shit
             DOMCacheGetOrSet(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
         }
     }
+
+// SINGULARITY TAB
+    const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
+    for (const key of singularityUpgrades) {
+        DOMCacheGetOrSet(`${key}`).addEventListener('mouseover', () => player.singularityUpgrades[`${key}`].updateUpgradeHTML())
+        DOMCacheGetOrSet(`${key}`).addEventListener('click', () => player.singularityUpgrades[`${key}`].buyLevel())
+    }
+
 
     const tabs = document.querySelectorAll<HTMLElement>('#tabrow > li');
     tabs.forEach(b => b.addEventListener('click', () => changeTabColor()));

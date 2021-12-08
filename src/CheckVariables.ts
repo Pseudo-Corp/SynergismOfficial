@@ -11,6 +11,7 @@ import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, Challe
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { Alert } from './UpdateHTML';
 import { getQuarkInvestment, shopData} from './Shop';
+import { ISingularityData, singularityData, SingularityUpgrade } from './singularity';
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -356,7 +357,10 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.worlds.add(150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * shop.obtainiumAutoLevel - 150 * Math.min(1, shop.obtainiumAutoLevel), false);
         player.worlds.add(100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * shop.cashGrabLevel, false);
         player.worlds.add(200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * shop.antSpeedLevel, false);
-        player.worlds.add(500 * shop.challenge10Tomes + 250/2 * (shop.challenge10Tomes - 1) * (shop.challenge10Tomes), false);
+
+        const tomes = shop.challenge10Tomes ?? shop.challengeTome;
+        player.worlds.add(500 * tomes + 250/2 * (tomes - 1) * (tomes), false);
+
         player.worlds.add(
             typeof shop.seasonPass === 'number' 
                 ? 500 * shop.seasonPass + 250/2 * (shop.seasonPass - 1) * shop.seasonPass
@@ -481,5 +485,41 @@ export const checkVariablesOnLoad = (data: Player) => {
         if (player.shopUpgrades[shopUpgrade] > shopData[shopUpgrade].maxLevel) {
             player.shopUpgrades[shopUpgrade] = shopData[shopUpgrade].maxLevel
         }
+    }
+
+    player.singularityUpgrades = {
+        goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
+        goldenQuarks2: new SingularityUpgrade(singularityData['goldenQuarks2']),
+        goldenQuarks3: new SingularityUpgrade(singularityData['goldenQuarks3']),
+        starterPack: new SingularityUpgrade(singularityData['starterPack']),
+        wowPass: new SingularityUpgrade(singularityData['wowPass']),
+        cookies: new SingularityUpgrade(singularityData['cookies']),
+        ascensions: new SingularityUpgrade(singularityData['ascensions']),
+        corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
+        corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
+    }
+
+    if (data.singularityUpgrades !== undefined) {
+        for (const item in blankSave.singularityUpgrades) {
+            const k = item as keyof Player['singularityUpgrades'];
+            // if more crafts are added, some keys might not exist in the save
+            let updatedData:ISingularityData
+            if (data.singularityUpgrades[k])
+                updatedData = {
+                    name: singularityData[k].name,
+                    description: singularityData[k].description,
+                    maxLevel: singularityData[k].maxLevel,
+                    costPerLevel: singularityData[k].costPerLevel,
+
+                    level: data.singularityUpgrades[k].level,
+                    goldenQuarksInvested: data.singularityUpgrades[k].goldenQuarksInvested,
+                    toggleBuy: data.singularityUpgrades[k].toggleBuy
+                }
+                player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
+        }
+    }
+
+    while (player.cubeUpgrades.length < 71) {
+        player.cubeUpgrades.push(0);
     }
 }

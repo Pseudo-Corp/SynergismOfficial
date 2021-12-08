@@ -1,6 +1,13 @@
 import Decimal from 'break_infinity.js';
 import { GlobalVariables } from './types/Synergism';
 
+export enum Upgrade {
+     coin = 'coins',
+     prestige = 'prestigePoints',
+     transcend = 'transcendPoints',
+     reincarnation = 'reincarnationPoints',
+}
+
 export const Globals: GlobalVariables = {
     runediv: [1.5, 2, 3, 5, 8, 1, 1],
     runeexpbase: [1, 4, 9, 16, 1000, 1e75, 1e256],

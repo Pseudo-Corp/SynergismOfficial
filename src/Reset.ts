@@ -684,7 +684,10 @@ export const calculateGoldenQuarkGain = ():number => {
     const c15Multiplier = 1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2
     const patreonMultiplier = 1 + player.worlds.BONUS/100;
 
-    return (base + gainFromQuarks) * c15Multiplier * patreonMultiplier
+    const singularityUpgrades = (1 + player.singularityUpgrades.goldenQuarks1.level / 20) *
+                                (1 + player.singularityUpgrades.goldenQuarks2.level / 50)
+
+    return (base + gainFromQuarks) * c15Multiplier * patreonMultiplier * singularityUpgrades
 }
 
 export const singularity = async () => {
@@ -703,8 +706,9 @@ export const singularity = async () => {
     hold.shopUpgrades = player.shopUpgrades;
     hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark
+    hold.singularityUpgrades = player.singularityUpgrades
     //Import Game
-    void importSynergism(btoa(JSON.stringify(hold)), true);
+    await importSynergism(btoa(JSON.stringify(hold)), true);
 }
 
 const resetUpgrades = (i: number) => {

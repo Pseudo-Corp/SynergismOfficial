@@ -13,6 +13,7 @@ import { toggleSubTab, toggleTabs } from './Toggles';
 import { Globals as G } from './Variables';
 import { btoa } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import localforage from 'localforage';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -72,10 +73,13 @@ export const exportSynergism = async () => {
         player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
     }
 
-    saveSynergy();
+    await saveSynergy();
 
     const toClipboard = getElementById<HTMLInputElement>('saveType').checked;
-    const save = localStorage.getItem('Synergysave2');
+    const save = 
+        await localforage.getItem<string>('Synergysave2') ?? 
+        await Promise.resolve(localStorage.getItem('Synergysave2'));
+
     if ('clipboard' in navigator && toClipboard) {
         await navigator.clipboard.writeText(save)
             .catch(e => console.error(e));
@@ -129,10 +133,10 @@ export const resetGame = async () => {
     toggleTabs("buildings");
     toggleSubTab(1, 0);
     //Import Game
-    void importSynergism(btoa(JSON.stringify(hold)), true);
+    await importSynergism(btoa(JSON.stringify(hold)), true);
 }
 
-export const importSynergism = (input: string, reset = false) => {
+export const importSynergism = async (input: string, reset = false) => {
     if (typeof input !== 'string') {
         return Alert('Invalid character, could not save! 😕');
     }
@@ -145,7 +149,13 @@ export const importSynergism = (input: string, reset = false) => {
         (f.exporttest === false && testing) ||
         (f.exporttest === 'NO!' && testing)
     ) {
-        localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
+        const item = btoa(JSON.stringify(f));
+        try {
+            await localforage.setItem('Synergysave2', item);
+        } catch (e: unknown) {
+            console.log(e);
+            await Promise.resolve(localStorage.setItem('Synergysave2', item));
+        }
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
         document.body.classList.add('loading');
         
@@ -327,7 +337,7 @@ export const promocodes = async () => {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
 
-    saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
+    await saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
     Synergism.emit('promocode', input);
 
     setTimeout(function () {

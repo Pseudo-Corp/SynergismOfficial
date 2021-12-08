@@ -39,6 +39,8 @@ import { startHotkeys } from './Hotkeys';
 import { updatePlatonicUpgradeBG } from './Platonic';
 import { testing, version, lastUpdated } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import localforage from 'localforage';
+import { singularityData, SingularityUpgrade } from './singularity';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -498,6 +500,8 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
@@ -643,13 +647,25 @@ export const player: Player = {
     singularityCount: 0,
     goldenQuarks: 0,
     quarksThisSingularity: 0,
+
+    singularityUpgrades: {
+        goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
+        goldenQuarks2: new SingularityUpgrade(singularityData['goldenQuarks2']),
+        goldenQuarks3: new SingularityUpgrade(singularityData['goldenQuarks3']),
+        starterPack: new SingularityUpgrade(singularityData['starterPack']),
+        wowPass: new SingularityUpgrade(singularityData['wowPass']),
+        cookies: new SingularityUpgrade(singularityData['cookies']),
+        ascensions: new SingularityUpgrade(singularityData['ascensions']),
+        corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
+        corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
+    }
 }
 
 export const blankSave = Object.assign({}, player, {
     codes: new Map(Array.from({ length: 35 }, (_, i) => [i + 1, false]))
 });
 
-export const saveSynergy = (button?: boolean) => {
+export const saveSynergy = async (button?: boolean) => {
     player.offlinetick = Date.now();
     player.loaded1009 = true;
     player.loaded1009hotfix1 = true;
@@ -664,10 +680,20 @@ export const saveSynergy = (button?: boolean) => {
         wowPlatonicCubes: Number(player.wowPlatonicCubes)
     });
 
-    localStorage.removeItem('Synergysave2');
+    try {
+        await localforage.removeItem('Synergysave2');
+    } catch (e: unknown) {
+        console.log(e);
+        await Promise.resolve(localStorage.removeItem('Synergysave2'));
+    }
+
     const save = btoa(JSON.stringify(p));
     if (save !== null) {
-        localStorage.setItem('Synergysave2', save);
+        try {
+            await localforage.setItem('Synergysave2', save);
+        } catch (e: unknown) {
+            await Promise.resolve(localStorage.setItem('Synergysave2', save));
+        }
     }
 
     if (button) {
@@ -688,9 +714,12 @@ const toAdapt = new Map<keyof Player, (data: Player) => unknown>([
     ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes))]
 ]);
 
-const loadSynergy = () => {
-    console.log('loaded attempted')
-    const save = localStorage.getItem("Synergysave2");
+const loadSynergy = async () => {
+    console.log('loaded attempted');
+    const save =
+        await localforage.getItem<string>('Synergysave2') ??
+        await Promise.resolve(localStorage.getItem('Synergysave2'));
+
     const data = save ? JSON.parse(atob(save)) as Player & Record<string, unknown> : null;
 
     if (testing) {
@@ -3098,7 +3127,7 @@ export const constantIntervals = (): void => {
     interval(saveSynergy, 5000);
     interval(autoUpgrades, 200);
     interval(buttoncolorchange, 200)
-    interval(htmlInserts, 16)
+    interval(htmlInserts, 64)
     interval(updateAll, 100)
     interval(buildingAchievementCheck, 200)
 
@@ -3111,7 +3140,7 @@ let lastUpdate = 0;
 
 export const createTimer = (): void => {
     lastUpdate = performance.now();
-    interval(tick, 5);
+    interval(() => tick(), 5);
 }
 
 const dt = 5;
@@ -3138,9 +3167,8 @@ const tick = () => {
     }
 }
 
-function tack(dt: number) {        
+function tack(dt: number) {
     if (!G['timeWarp']) {
-        dailyResetCheck();
         //Adds Resources (coins, ants, etc)
         const timeMult = calculateTimeAcceleration();
         resourceGain(dt * timeMult)
@@ -3406,7 +3434,11 @@ export const reloadShit = async (reset = false) => {
 
     intervalHold.clear();
 
-    const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
+    const save = 
+        await localforage.getItem<string>('Synergysave2') ??
+        await Promise.resolve(localStorage.getItem('Synergysave2'));
+
+    const dec = LZString.decompressFromBase64(save);
     const isLZString = dec !== '';
 
     if (isLZString) {
@@ -3415,17 +3447,21 @@ export const reloadShit = async (reset = false) => {
         await Alert('Transferred save to new format successfully!');
     }
 
-    void loadSynergy();
+    await loadSynergy();
     if (!reset) 
-        calculateOffline();
+        await calculateOffline();
     else
         player.worlds = new QuarkHandler({ quarks: 0, bonus: 0 });
-    saveSynergy();
+    await saveSynergy();
     toggleauto();
     revealStuff();
     hideStuff();
     htmlInserts();
     createTimer();
+
+    dailyResetCheck();
+    interval(() => dailyResetCheck(), 30_000);
+
     constantIntervals();
     changeTabColor();
     startHotkeys();
@@ -3452,6 +3488,7 @@ window.addEventListener('load', () => {
     generateEventHandlers();
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
+
 
     void reloadShit();
 });

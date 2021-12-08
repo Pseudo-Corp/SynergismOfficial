@@ -6,7 +6,7 @@ import { smallestInc } from './Utility';
 import { upgradeupdate, crystalupgradedescriptions} from './Upgrades';
 import { reset } from './Reset';
 import { calculateSummationLinear, calculateCorruptionPoints, calculateRuneBonuses } from './Calculate';
-import { Globals as G } from './Variables';
+import { Globals as G, Upgrade } from './Variables';
 import type { FirstToFifth, OneToFive, ZeroToFour } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -489,34 +489,25 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
     G['ticker'] = 0;
 }
 
-type Upgrade = 'prestige' | 'transcend' | 'reincarnation' | 'coin';
-
-const upgradeToCurrency = (type: Upgrade) => {
-    if (type === 'coin') {
-        return 'coins' as const;
-    }
-    return `${type}Points` as const;
-}
-
 export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
-    const currency = upgradeToCurrency(type);
+    const currency = type;
     if (player[currency].gte(Decimal.pow(10, G['upgradeCosts'][pos])) && player.upgrades[pos] === 0) {
         player[currency] = player[currency].sub(Decimal.pow(10, G['upgradeCosts'][pos]))
         player.upgrades[pos] = 1;
         upgradeupdate(pos, state)
     }
 
-    if (type === "transcend") {
+    if (type === Upgrade.transcend) {
         player.reincarnatenocoinprestigeortranscendupgrades = false;
         player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
     }
-    if (type === "prestige") {
+    if (type === Upgrade.prestige) {
         player.transcendnocoinorprestigeupgrades = false;
         player.reincarnatenocoinorprestigeupgrades = false;
         player.reincarnatenocoinprestigeortranscendupgrades = false;
         player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
     }
-    if (type === "coin") {
+    if (type === Upgrade.coin) {
         player.prestigenocoinupgrades = false;
         player.transcendnocoinupgrades = false;
         player.transcendnocoinorprestigeupgrades = false;
