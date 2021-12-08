@@ -175,7 +175,7 @@ export class QuarkHandler {
         if (b === null) {
             return;
         } else if (Number.isNaN(b) || typeof b !== 'number') 
-            return Alert('No bonus could be applied, an error occurred. [NaN] :(');
+            return Alert(`No bonus could be applied, a network error occurred! [Invalid Bonus] :(`);
         else if (!Number.isFinite(b))
             return Alert('No bonus could be applied, an error occurred. [Infinity] :(');
         else if (b < 0)
