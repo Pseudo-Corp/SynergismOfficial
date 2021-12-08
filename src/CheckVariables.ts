@@ -518,4 +518,8 @@ export const checkVariablesOnLoad = (data: Player) => {
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
         }
     }
+
+    while (player.cubeUpgrades.length < 71) {
+        player.cubeUpgrades.push(0);
+    }
 }

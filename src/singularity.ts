@@ -10,12 +10,18 @@ import { toOrdinal } from "./Utility"
  * 
  */
 export const updateSingularityStats = ():void => {
-    DOMCacheGetOrSet('singularityCount').textContent = toOrdinal(player.singularityCount)
+    const str = `You are in the ${toOrdinal(player.singularityCount)} singularity, and have ${format(player.goldenQuarks,0,true)} golden quarks.
+                 Global Speed is divided by ${format(player.singularityCount + 1, 0, true)}.
+                 Cube Gain is divided by ${format(1 + 1/16 * Math.pow(player.singularityCount, 2), 2, true)}.
+                 Research Costs are multiplied by ${format(player.singularityCount + 1, 0, true)}.
+                 Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(1 + 0.2 * player.singularityCount, 2, true)}.`
+    DOMCacheGetOrSet('singularityMultiline').textContent = str;
+    /*DOMCacheGetOrSet('singularityCount').textContent = toOrdinal(player.singularityCount)
     DOMCacheGetOrSet('goldenQuarks').textContent = format(player.goldenQuarks, 0, true)
     DOMCacheGetOrSet('singularitySpeedDivisor').textContent = format(player.singularityCount + 1, 2, true)
     DOMCacheGetOrSet('singularityCubeDivisor').textContent = format(1 + 1/16 * Math.pow(player.singularityCount, 2), 2, true)
     DOMCacheGetOrSet('singularityResearchMultiplier').textContent = format(player.singularityCount + 1, 2, true)
-    DOMCacheGetOrSet('singularityCubeUpgradeMultiplier').textContent = format(player.singularityCount + 1, 2, true)
+    DOMCacheGetOrSet('singularityCubeUpgradeMultiplier').textContent = format(player.singularityCount + 1, 2, true)*/
 }
 
 export interface ISingularityData {
@@ -63,11 +69,11 @@ export class SingularityUpgrade {
             ? ''
             : `/${this.maxLevel}`;
 
-        return `${this.name}\r\n
-                ${this.description}\r\n
-                Level ${this.level}${maxLevel}\r\n
-                Cost for next level: ${format(costNextLevel)} Golden Quarks.\r\n
-                Spent Quarks: ${this.goldenQuarksInvested}`
+        return `${this.name}
+                ${this.description}
+                Level ${this.level}${maxLevel}
+                Cost for next level: ${format(costNextLevel)} Golden Quarks.
+                Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
     }
 
     public updateUpgradeHTML() {
@@ -89,16 +95,17 @@ export class SingularityUpgrade {
      */
     public async buyLevel() {
         let purchased = 0;
-        let maxPurchasable = this.maxLevel === -1
-            ? this.toggleBuy === -1
+        let maxPurchasable = (this.maxLevel === -1)
+            ? ((this.toggleBuy === -1)
                 ? 1000
-                : this.toggleBuy
+                : this.toggleBuy)
             : Math.min(this.toggleBuy, this.maxLevel - this.level);
 
         if (maxPurchasable === 0)
             return Alert("hey! You have already maxxed this upgrade. :D")
 
-        while (maxPurchasable > 1) {
+        while (maxPurchasable > 0) {
+            console.log('teehee')
             const cost = this.getCostTNL();
             if (player.goldenQuarks < cost) {
                 break;
@@ -111,11 +118,11 @@ export class SingularityUpgrade {
             }
         }
         
-        const m = purchased === 0
-            ? `You cannot afford this upgrade. Sorry!`
-            : `You have purchased ${format(purchased)} levels of the ${this.name} upgrade.`;
+        if (purchased === 0)
+            return Alert(`You cannot afford this upgrade. Sorry!`)
 
-        return Alert(m);
+        this.updateUpgradeHTML();
+        DOMCacheGetOrSet("goldenQuarks").textContent = format(player.goldenQuarks)
     }
 
     public async changeToggle() {
@@ -150,56 +157,56 @@ export class SingularityUpgrade {
 export const singularityData: Record<keyof Player['singularityUpgrades'], ISingularityData> = {
     goldenQuarks1: {
         name: "Golden Quarks I",
-        description: "Testing for now.",
-        maxLevel: -1,
-        costPerLevel: 200,
+        description: "In the future, you will gain 5% more Golden Quarks on singularities!",
+        maxLevel: 10,
+        costPerLevel: 12,
     },
     goldenQuarks2: {
         name: "Golden Quarks II",
-        description: "Testing for now.",
-        maxLevel: -1,
-        costPerLevel: 200,
+        description: "If you buy this, you will gain 2% more Golden Quarks on singularities. Stacks with the first upgrade.",
+        maxLevel: 25,
+        costPerLevel: 60,
     },
     goldenQuarks3: {
         name: "Golden Quarks III",
-        description: "Testing for now.",
-        maxLevel: -1,
-        costPerLevel: 200,
+        description: "If you buy this, you will gain 1 Golden Quark per hour from Exports.",
+        maxLevel: 1,
+        costPerLevel: 1000,
     },
     starterPack: {
         name: "Starter Pack",
-        description: "Testing for now.",
-        maxLevel: -1,
-        costPerLevel: 200,
+        description: "Buy this! Buy This! Cube gain is permanently multiplied by 6, and gain 10x the Obtainium and Offerings from all sources, post-corruption.",
+        maxLevel: 1,
+        costPerLevel: 10,
     },
     wowPass: {
         name: "Wow Pass Unlock",
-        description: "Testing for now.",
-        maxLevel: -1,
-        costPerLevel: 200,
+        description: "This upgrade will convince the seal merchant to sell you more Wow Passes, which even persist on Singularity!.",
+        maxLevel: 1,
+        costPerLevel: 500,
     },
     cookies: {
         name: "Assorted Cookies",
-        description: "Testing for now.",
-        maxLevel: -1,
-        costPerLevel: 200,
+        description: "Each level unlocks five new upgrades in the Cube Upgrades subtab. Come eat some freshly baked cookies!",
+        maxLevel: 4,
+        costPerLevel: 100,
     },
     ascensions: {
         name: "Improved Ascension Gain",
-        description: "Tesitng For Now.",
+        description: "Buying this, you will gain +2% Ascension Count forever, per level! Every 20 levels grants an additional, multiplicative +1% Ascension Count.",
         maxLevel: -1,
-        costPerLevel: 200,
+        costPerLevel: 5,
     },
     corruptionFourteen: {
         name: "Level Fourteen Corruptions",
-        description: "Testing for Now.",
-        maxLevel: -1,
-        costPerLevel: 200,
+        description: "Buy this to unlock level fourteen corruptions :).",
+        maxLevel: 1,
+        costPerLevel: 1000,
     },
     corruptionFifteen: {
         name: "Level Fifteen Corruptions",
-        description: "Testing for Now",
-        maxLevel: -1,
-        costPerLevel: 200,
+        description: "Buy this to unlock level fifteen corruptions :)",
+        maxLevel: 1,
+        costPerLevel: 40000,
     },
 }

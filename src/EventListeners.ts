@@ -421,12 +421,13 @@ for (let index = 1; index <= 12; index++) {
     }
 
 //Part 1: Cube Upgrades
-    // #1-49
-    for (let index = 0; index < 49; index++) {
+    // #1-70, skip 50
+    for (let index = 0; index < 70; index++) {
     
-        DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('mouseover', () => cubeUpgradeDesc(index+1))
-        DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('click', () => buyCubeUpgrades(index+1))
-    
+        if (index !== 49) {
+            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('mouseover', () => cubeUpgradeDesc(index+1))
+            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('click', () => buyCubeUpgrades(index+1))
+        }
     }
     // Cube Upgrade #50
     DOMCacheGetOrSet('cubeUpg50').addEventListener('mouseover', () => cubeUpgradeDesc(50,0.01))
@@ -592,8 +593,11 @@ TODO: Fix this entire tab it's utter shit
     }
 
 // SINGULARITY TAB
-    DOMCacheGetOrSet('singularityCurrency1').addEventListener('mouseover', () => player.singularityUpgrades.goldenQuarks1.updateUpgradeHTML())
-    DOMCacheGetOrSet('singularityCurrency1').addEventListener('click', () => player.singularityUpgrades.goldenQuarks1.buyLevel())
+    const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
+    for (const key of singularityUpgrades) {
+        DOMCacheGetOrSet(`${key}`).addEventListener('mouseover', () => player.singularityUpgrades[`${key}`].updateUpgradeHTML())
+        DOMCacheGetOrSet(`${key}`).addEventListener('click', () => player.singularityUpgrades[`${key}`].buyLevel())
+    }
 
 
     const tabs = document.querySelectorAll<HTMLElement>('#tabrow > li');

@@ -4,6 +4,7 @@ import { upgradeupdate } from "./Upgrades"
 import { revealStuff } from "./UpdateHTML"
 import { Globals as G } from "./Variables"
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { updateResearchBG } from "./Research"
 
 const cubeUpgradeName = [
     "Wow! I want more Cubes.",
@@ -55,15 +56,49 @@ const cubeUpgradeName = [
     "Wow! I want even MORE obtainium!",
     "Wow! I want to start ascension with an ant.",
     "Wow! I want to start ascension with a challenge 6-8 completion.",
-    "Wow! I want to be enlightened by the power of a thousand suns."
+    "Wow! I want to be enlightened by the power of a thousand suns.",
+    "Wow! A pile of Chocolate Chip Cookies.",
+    "Wow! A pile of Sugar Cookies.",
+    "Wow! A pile of Butter Cookies.",
+    "Wow! A pile of Vanilla Wafers.",
+    "Wow! A pile of White Chocolate Cookies.",
+    "Wow! A bag of Snickerdoodles.",
+    "Wow! A bag of Macarons.",
+    "Wow! A bag of Gingerbread Cookies.",
+    "Wow! A bag of Lemon Cookies.",
+    "Wow! A bag of Ginger Snaps.",
+    "Wow! A tin of Whoopie Pies.",
+    "Wow! A tin of Toffee Bars.",
+    "Wow! A tin of Brownie Cookies.",
+    "Wow! A tin of Fortune Cookies.",
+    "Wow! A tin of Biscotti.",
+    "Wow! A box of Mother's Favorite Cookies.",
+    "Wow! A box of Metaphysical Brownies.",
+    "Wow! A box of Not Cookies.",
+    "Wow! A box of Cookies Beyond This World.",
+    "Wow! A box of Perfect Cookies."
 ]
+
+const cubeAutomationIndices = [4, 5, 6, 7, 8, 9, 10, // row 1 
+                           20,                   // row 2
+                           26, 27,               // row 3
+                           48, 49]               // row 5
+
+const researchAutomationIndices = [41, 42, 43, 44, 45, 46, 47, 48, 49, 50, // row 2
+                                   61, 71, 72, 73, 74, 75, // row 3
+                                   124,                    // row 5
+                                   130, 135, 145, 150,     // row 6
+                                   175,                    // row 7
+                                   190]                    // row 8
 
 const cubeBaseCost = [
     200, 200, 200, 500, 500, 500, 500, 500, 2000, 40000,
     5000, 1000, 10000, 20000, 40000, 10000, 4000, 1e4, 50000, 12500,
     5e4, 3e4, 3e4, 4e4, 2e5, 4e5, 1e5, 177777, 1e5, 1e6,
     5e5, 3e5, 2e6, 4e6, 2e6, 4e6, 1e6, 2e7, 5e7, 1e7,
-    5e6, 1e7, 1e8, 4e7, 2e7, 4e7, 5e7, 1e8, 5e8, 1e8
+    5e6, 1e7, 1e8, 4e7, 2e7, 4e7, 5e7, 1e8, 5e8, 1e8,
+    1, 1e4, 1e8, 1e12, 1e16, 10, 1e5, 1e9, 1e13, 1e17,
+    1e2, 1e6, 1e10, 1e14, 1e18, 1e20, 1e30, 1e40, 1e50, 1e60
 ];
 
 export const cubeMaxLevel = [
@@ -71,7 +106,9 @@ export const cubeMaxLevel = [
     3, 10, 1, 10, 10, 10, 5, 1, 1, 1,
     2, 10, 1, 10, 10, 10, 1, 1, 5, 1,
     2, 1, 1, 10, 10, 10, 10, 1, 1, 10,
-    2, 10, 10, 10, 10, 20, 20, 1, 1, 100000
+    2, 10, 10, 10, 10, 20, 20, 1, 1, 100000,
+    1, 10, 10, 10, 10, 5, 1, 1, 10, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 ];
 
 const cubeUpgradeDescriptions = [
@@ -124,13 +161,34 @@ const cubeUpgradeDescriptions = [
     "[5x7] Gain +10% more obtainium per level!",
     "[5x8] When you ascend, start with 1 worker ant (this is a lot better than it sounds!)",
     "[5x9] When you ascend, gain 1 of each challenge 6-8 completion.",
-    "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.04 Max Rune Levels, +1 Effective ELO, +0.0004 Talisman bonuses per level, 0.00066% Tax reduction per level."
+    "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.04 Max Rune Levels, +1 Effective ELO, +0.0004 Talisman bonuses per level, 0.00066% Tax reduction per level.",
+    "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the cube tab, and researches as well.",
+    "[Cx2] These sugar cookies sure boost your blood sugar. Gain +3% global speed per level.",
+    "[Cx3] What a hearty snack. +1.5% Quarks per purchased Cookie upgrade.",
+    "[Cx4] Pretty dry, but they suffice. Increase offering gain by 5% per level.",
+    "[Cx5] An inventive take on the original chip cookie. Increase obtainium gain by 5% per level.",
+    "[Cx6] These are a little more exotic. Gain +1 more raw score from Challenge 1 completions per level.",
+    "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1.",
+    "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by 1.25.",
+    "[Cx9] Quite sour for a cookie. But it increases your ascension speed by 2% per level, so who is to complain?",
+    "[Cx10] Wow! Bakery had extra ginger from their christmas sale. If there is an event, Export Quarks are doubled!",
+    "[Cx11] Edible but prone to mistakes. Triples the time window for time-based code minigames.",
+    "[Cx12] Platonic loves toffee. Triple Obtainium and Offering gain in Challenge 15.",
+    "[Cx13] Brownie Cookies, the best of both worlds. Increase Cube Gain by 1% based on owned Hepteracts (+1% per OOM).",
+    "[Cx14] Some say the ant god itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.",
+    "[Cx15] That's amore, but is quite a crumbful! Increase ant production per ant base by 0.001.",
+    "[Cx16] You just wish you could have one more cookie baked by her. Gain 2x all cubes until you purchase OMEGA.",
+    "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
+    "[Cx18] What the heck! These aren't even cookies. +1% Quarks per purchased Cookie upgrade.",
+    "[Cx19] Cookies that you'll never remember again. +25% Golden Quarks this singularity, +0.5% per time this upgrade has been purchased.",
+    "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +7.77% more cubes for every Level 15 Corruption."
 ]
 
 const getCubeCost = (i: number, linGrowth = 0) => {
     let amountToBuy = G['buyMaxCubeUpgrades'] ? 1e5: 1;
     amountToBuy = Math.min(cubeMaxLevel[i-1] - player.cubeUpgrades[i], amountToBuy)
-    const metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i-1] * (1 + player.singularityCount), Number(player.wowCubes), linGrowth, amountToBuy)
+    const singularityMultiplier = (i < 50) ? (1 + player.singularityCount): 1;
+    const metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i-1] * singularityMultiplier, Number(player.wowCubes), linGrowth, amountToBuy)
     return([metaData[0],metaData[1]]) //metaData[0] is the levelup amount, metaData[1] is the total cube cost
 }
 
@@ -176,6 +234,20 @@ export const updateCubeUpgradeBG = (i: number) => {
 
 }
 
+function awardAutosCookieUpgrade() {
+    for (const i of cubeAutomationIndices) {
+        player.cubeUpgrades[i] = cubeMaxLevel[i-1]; // one vs zero indexing! :(
+        updateCubeUpgradeBG(i);
+    }
+
+    calculateCubeBlessings();
+
+    for (const i of researchAutomationIndices) {
+        player.researches[i] = G['researchMaxLevels'][i];
+        updateResearchBG(i);
+    }
+}
+
 export const buyCubeUpgrades = (i: number, linGrowth = 0) => {
     const metaData = getCubeCost(i,linGrowth);
     if(Number(player.wowCubes) >= metaData[1] && player.cubeUpgrades[i] < cubeMaxLevel[i-1]){
@@ -196,6 +268,10 @@ export const buyCubeUpgrades = (i: number, linGrowth = 0) => {
     if(i === 6 && player.cubeUpgrades[6] > 0){
         player.upgrades[100] = 1
         upgradeupdate(100, true)
+    }
+
+    if(i === 51 && player.cubeUpgrades[51] > 0) {
+        awardAutosCookieUpgrade();
     }
 
     cubeUpgradeDesc(i, linGrowth);
