@@ -26,7 +26,7 @@ import { Synergism } from './Events';
 import { Player, resetNames } from './types/Synergism';
 import { updateClassList } from './Utility';
 import { corruptionStatsUpdate } from './Corruptions';
-import { toggleAutoChallengeModeText, toggleCubeSubTab, toggleRuneScreen, toggleSettings, toggleSubTab, toggleTabs } from './Toggles';
+import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { WowCubes } from './CubeExperimental';
 import { importSynergism } from './ImportExport';
