@@ -26,7 +26,7 @@ import { Synergism } from './Events';
 import { Player, resetNames } from './types/Synergism';
 import { updateClassList } from './Utility';
 import { corruptionStatsUpdate } from './Corruptions';
-import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles';
+import { toggleAutoChallengeModeText, toggleCubeSubTab, toggleRuneScreen, toggleSettings, toggleSubTab, toggleTabs } from './Toggles';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { WowCubes } from './CubeExperimental';
 import { importSynergism } from './ImportExport';
@@ -700,6 +700,10 @@ export const singularity = async () => {
     //Reset Displays
     toggleTabs("buildings");
     toggleSubTab(1, 0);
+    toggleSubTab(4, 0); // Set 'runes' subtab back to 'runes' tab
+    toggleSubTab(8, 0); // Set 'cube tribues' subtab back to 'cubes' tab
+    toggleSubTab(9, 0); // set 'corruption main'
+    toggleSubTab(-1, 0); // set 'statistics main'
 
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;
