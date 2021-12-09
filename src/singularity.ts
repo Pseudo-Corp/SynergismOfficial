@@ -16,12 +16,6 @@ export const updateSingularityStats = ():void => {
                  Research Costs are multiplied by ${format(player.singularityCount + 1, 0, true)}.
                  Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(1 + 0.2 * player.singularityCount, 2, true)}.`
     DOMCacheGetOrSet('singularityMultiline').textContent = str;
-    /*DOMCacheGetOrSet('singularityCount').textContent = toOrdinal(player.singularityCount)
-    DOMCacheGetOrSet('goldenQuarks').textContent = format(player.goldenQuarks, 0, true)
-    DOMCacheGetOrSet('singularitySpeedDivisor').textContent = format(player.singularityCount + 1, 2, true)
-    DOMCacheGetOrSet('singularityCubeDivisor').textContent = format(1 + 1/16 * Math.pow(player.singularityCount, 2), 2, true)
-    DOMCacheGetOrSet('singularityResearchMultiplier').textContent = format(player.singularityCount + 1, 2, true)
-    DOMCacheGetOrSet('singularityCubeUpgradeMultiplier').textContent = format(player.singularityCount + 1, 2, true)*/
 }
 
 export interface ISingularityData {
@@ -122,6 +116,7 @@ export class SingularityUpgrade {
             return Alert(`You cannot afford this upgrade. Sorry!`)
 
         this.updateUpgradeHTML();
+        updateSingularityStats();
         DOMCacheGetOrSet("goldenQuarks").textContent = format(player.goldenQuarks)
     }
 
@@ -168,43 +163,43 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         costPerLevel: 60,
     },
     goldenQuarks3: {
-        name: "Golden Quarks III",
+        name: "Golden Quarks III (WIP)",
         description: "If you buy this, you will gain 1 Golden Quark per hour from Exports.",
         maxLevel: 1,
         costPerLevel: 1000,
     },
     starterPack: {
-        name: "Starter Pack",
+        name: "Starter Pack (WIP)",
         description: "Buy this! Buy This! Cube gain is permanently multiplied by 6, and gain 10x the Obtainium and Offerings from all sources, post-corruption.",
         maxLevel: 1,
         costPerLevel: 10,
     },
     wowPass: {
-        name: "Wow Pass Unlock",
+        name: "Wow Pass Unlock (WIP)",
         description: "This upgrade will convince the seal merchant to sell you more Wow Passes, which even persist on Singularity!.",
         maxLevel: 1,
         costPerLevel: 500,
     },
     cookies: {
-        name: "Assorted Cookies",
+        name: "Assorted Cookies (WIP)",
         description: "Each level unlocks five new upgrades in the Cube Upgrades subtab. Come eat some freshly baked cookies!",
         maxLevel: 4,
         costPerLevel: 100,
     },
     ascensions: {
-        name: "Improved Ascension Gain",
+        name: "Improved Ascension Gain (WIP)",
         description: "Buying this, you will gain +2% Ascension Count forever, per level! Every 20 levels grants an additional, multiplicative +1% Ascension Count.",
         maxLevel: -1,
         costPerLevel: 5,
     },
     corruptionFourteen: {
-        name: "Level Fourteen Corruptions",
+        name: "Level Fourteen Corruptions (WIP)",
         description: "Buy this to unlock level fourteen corruptions :).",
         maxLevel: 1,
         costPerLevel: 1000,
     },
     corruptionFifteen: {
-        name: "Level Fifteen Corruptions",
+        name: "Level Fifteen Corruptions (WIP)",
         description: "Buy this to unlock level fifteen corruptions :)",
         maxLevel: 1,
         costPerLevel: 40000,
