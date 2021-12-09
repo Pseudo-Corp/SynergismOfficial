@@ -357,6 +357,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         1 + 2.5 * player.platonicUpgrades[10], // Platonic BETA
         1 + 5 * player.platonicUpgrades[15], // Platonic OMEGA
         G['challenge15Rewards'].offering, // C15 Reward
+        1 + player.cubeUpgrades[54] / 100 // Cube upgrade 6x4 (Cx4) 
     ];
 
     if (calcMult) {
@@ -450,6 +451,7 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + 2.5 * player.platonicUpgrades[10])
     G['obtainiumGain'] *= (1 + 5 * player.platonicUpgrades[15])
     G['obtainiumGain'] *= G['challenge15Rewards'].obtainium
+    G['obtainiumGain'] *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
     }
@@ -1188,6 +1190,7 @@ export const calculateTimeAcceleration = () => {
     timeMult *= calculateSigmoid(2, player.antUpgrades[12-1] + G['bonusant12'], 69) // ant 12
     timeMult *= (1 + 0.10 * (player.talismanRarity[2-1] - 1)) // Chronos Talisman bonus
     timeMult *= G['challenge15Rewards'].globalSpeed // Challenge 15 reward
+    timeMult *= 1 + 0.01 * player.cubeUpgrades[52] // cube upgrade 6x2 (Cx2)
     timeMult *= G['lazinessMultiplier'][player.usedCorruptions[3]]
     if (timeMult > 100) {
         timeMult = 10 * Math.sqrt(timeMult)

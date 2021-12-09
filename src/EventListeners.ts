@@ -225,11 +225,11 @@ export const generateEventHandlers = () => {
         // Regular Upgrades 1-20
         DOMCacheGetOrSet(`upg${index}`).addEventListener('click', () => buyUpgrades(Upgrade.coin,index));
         // Regular Upgrades 21-40
-        DOMCacheGetOrSet(`upg${20+index}`).addEventListener('click', () => buyUpgrades(Upgrade.prestige,index));
+        DOMCacheGetOrSet(`upg${20+index}`).addEventListener('click', () => buyUpgrades(Upgrade.prestige,index+20));
         // Regular Upgrades 41-60
-        DOMCacheGetOrSet(`upg${40+index}`).addEventListener('click', () => buyUpgrades(Upgrade.transcend,index));
+        DOMCacheGetOrSet(`upg${40+index}`).addEventListener('click', () => buyUpgrades(Upgrade.transcend,index+40));
         // Regular Upgrades 61-80
-        DOMCacheGetOrSet(`upg${60+index}`).addEventListener('click', () => buyUpgrades(Upgrade.reincarnation,index));
+        DOMCacheGetOrSet(`upg${60+index}`).addEventListener('click', () => buyUpgrades(Upgrade.reincarnation,index+60));
     }
 
 // Autobuyer (20 count, ID 81-100) and Generator (20 count, ID 101-120) Upgrades have a unique onclick
@@ -424,14 +424,21 @@ for (let index = 1; index <= 12; index++) {
     // #1-70, skip 50
     for (let index = 0; index < 70; index++) {
     
-        if (index !== 49) {
+        if (index < 49) {
             DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('mouseover', () => cubeUpgradeDesc(index+1))
             DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('click', () => buyCubeUpgrades(index+1))
         }
+
+        if (index == 49) {
+            DOMCacheGetOrSet('cubeUpg50').addEventListener('mouseover', () => cubeUpgradeDesc(50,0.01))
+            DOMCacheGetOrSet('cubeUpg50').addEventListener('click', () => buyCubeUpgrades(50,0.01))
+        }
+
+        if (index > 49) {
+            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('mouseover', () => cubeUpgradeDesc(index+1, 1))
+            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('click', () => buyCubeUpgrades(index+1, 1))
+        }
     }
-    // Cube Upgrade #50
-    DOMCacheGetOrSet('cubeUpg50').addEventListener('mouseover', () => cubeUpgradeDesc(50,0.01))
-    DOMCacheGetOrSet('cubeUpg50').addEventListener('click', () => buyCubeUpgrades(50,0.01))
 
     // Toggle
     DOMCacheGetOrSet('toggleCubeBuy').addEventListener('click', () => toggleMaxBuyCube())

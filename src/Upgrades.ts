@@ -1,5 +1,5 @@
 import { player, format } from './Synergism';
-import { Globals as G } from './Variables';
+import { Globals as G, Upgrade } from './Variables';
 import Decimal from 'break_infinity.js';
 import { calculateAnts, calculateCorruptionPoints, calculateRuneLevels } from './Calculate';
 import { sumContents } from './Utility';
@@ -209,7 +209,7 @@ const upgradetexts = [
     () => "+" + format(Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)))) + " Accelerators!",
     () => "It's kinda self-evident, ain't it?",
     () => "Mythos-tier producers production x" + format(Math.pow(1.05, player.achievementPoints) * (player.achievementPoints + 1), 2),
-    () => "Multiply coin production by a factor of " + format(Math.pow((G['totalMultiplier'] * G['totalAccelerator'] / 1000 + 1), 8)) + "!",
+    () => "Multiply coin production by a factor of " + format(Math.pow((Math.min(1e25, G['totalMultiplier'] * G['totalAccelerator']) / 1000 + 1), 8)) + "!",
     () => "+" + format(Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10)))) + " Multipliers through magic!",
     () => "It's quite obvious what the benefit is, but you must be in a challenge for it to be in use!",
     () => "Mythos-tier producers production x" + format(Math.pow(G['totalAcceleratorBoost'], 2), 2) + "!",
@@ -310,32 +310,32 @@ export const upgradedescriptions = (i: number) => {
     el.style.color = player.upgrades[i] > 0.5 ? 'gold' : 'white';
 
     if (player.toggles[9] === true) {
-        let type = ''
+        let type: Upgrade
         if (i <= 20 && i >= 1) {
-            type = 'coin'
+            type = Upgrade.coin
         }
         if (i <= 40 && i >= 21) {
-            type = 'prestige'
+            type = Upgrade.prestige
         }
         if (i <= 60 && i >= 41) {
-            type = 'transcend'
+            type = Upgrade.transcend
         }
         if (i <= 80 && i >= 61) {
-            type = 'reincarnation'
+            type = Upgrade.reincarnation
         }
         if (i <= 87 && i >= 81) {
-            type = 'prestige'
+            type = Upgrade.prestige
         }
         if (i <= 93 && i >= 88) {
-            type = 'transcend'
+            type = Upgrade.transcend
         }
         if (i <= 100 && i >= 94) {
-            type = 'reincarnation'
+            type = Upgrade.reincarnation
         }
-        if (type !== '' && i <= 80 && i >= 1) {
-            buyUpgrades(type as Parameters<typeof buyUpgrades>[0], i)
+        if (type && i <= 80 && i >= 1) {
+            buyUpgrades(type, i)
         }
-        if (type !== '' && i <= 100 && i >= 81) {
+        if (type && i <= 100 && i >= 81) {
             buyAutobuyers(i - 80);
         }
         if (i <= 120 && i >= 101) {
