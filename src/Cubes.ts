@@ -107,8 +107,8 @@ export const cubeMaxLevel = [
     2, 10, 1, 10, 10, 10, 1, 1, 5, 1,
     2, 1, 1, 10, 10, 10, 10, 1, 1, 10,
     2, 10, 10, 10, 10, 20, 20, 1, 1, 100000,
-    1, 10, 10, 10, 10, 5, 1, 1, 10, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+    1, 900, 100, 900, 900, 20, 1, 1, 400, 1,
+    1, 1, 1, 1, 1, 1, 1, 999999, 1, 1000
 ];
 
 const cubeUpgradeDescriptions = [
@@ -163,15 +163,15 @@ const cubeUpgradeDescriptions = [
     "[5x9] When you ascend, gain 1 of each challenge 6-8 completion.",
     "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.04 Max Rune Levels, +1 Effective ELO, +0.0004 Talisman bonuses per level, 0.00066% Tax reduction per level.",
     "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the cube tab, and researches as well.",
-    "[Cx2] These sugar cookies sure boost your blood sugar. Gain +3% global speed per level.",
-    "[Cx3] What a hearty snack. +1.5% Quarks per purchased Cookie upgrade.",
-    "[Cx4] Pretty dry, but they suffice. Increase offering gain by 5% per level.",
-    "[Cx5] An inventive take on the original chip cookie. Increase obtainium gain by 5% per level.",
+    "[Cx2] These sugar cookies sure boost your blood sugar. Gain +1% global speed per level.",
+    "[Cx3] What a hearty snack. Gain +0.1% Quarks per level.",
+    "[Cx4] Pretty dry, but they suffice. Increase offering gain by 1% per level.",
+    "[Cx5] An inventive take on the original chip cookie. Increase obtainium gain by 1% per level.",
     "[Cx6] These are a little more exotic. Gain +1 more raw score from Challenge 1 completions per level.",
     "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1.",
     "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by 1.25.",
-    "[Cx9] Quite sour for a cookie. But it increases your ascension speed by 2% per level, so who is to complain?",
-    "[Cx10] Wow! Bakery had extra ginger from their christmas sale. If there is an event, Export Quarks are doubled!",
+    "[Cx9] Quite sour for a cookie. But it increases your ascension speed by 0.25% per level, so who is to complain?",
+    "[Cx10] Wow! Bakery had extra ginger from their christmas sale. If there is an event, Export Quarks are multiplied by 1.15!",
     "[Cx11] Edible but prone to mistakes. Triples the time window for time-based code minigames.",
     "[Cx12] Platonic loves toffee. Triple Obtainium and Offering gain in Challenge 15.",
     "[Cx13] Brownie Cookies, the best of both worlds. Increase Cube Gain by 1% based on owned Hepteracts (+1% per OOM).",
@@ -179,15 +179,15 @@ const cubeUpgradeDescriptions = [
     "[Cx15] That's amore, but is quite a crumbful! Increase ant production per ant base by 0.001.",
     "[Cx16] You just wish you could have one more cookie baked by her. Gain 2x all cubes until you purchase OMEGA.",
     "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
-    "[Cx18] What the heck! These aren't even cookies. +1% Quarks per purchased Cookie upgrade.",
+    "[Cx18] What the heck! These aren't even cookies. +1% Quarks per 50,000 levels purchased of this upgrade. +50% at level 999,999!",
     "[Cx19] Cookies that you'll never remember again. +25% Golden Quarks this singularity, +0.5% per time this upgrade has been purchased.",
-    "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +7.77% more cubes for every Level 15 Corruption."
+    "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +4% more cubes on ascension if you have challenge 10 completions capped."
 ]
 
 const getCubeCost = (i: number, linGrowth = 0) => {
     let amountToBuy = G['buyMaxCubeUpgrades'] ? 1e5: 1;
     amountToBuy = Math.min(cubeMaxLevel[i-1] - player.cubeUpgrades[i], amountToBuy)
-    const singularityMultiplier = (i < 50) ? (1 + player.singularityCount): 1;
+    const singularityMultiplier = (i <= 50) ? (1 + player.singularityCount): 1;
     const metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i-1] * singularityMultiplier, Number(player.wowCubes), linGrowth, amountToBuy)
     return([metaData[0],metaData[1]]) //metaData[0] is the levelup amount, metaData[1] is the total cube cost
 }

@@ -75,6 +75,9 @@ export const getQuarkMultiplier = () => {
     if (player.singularityCount > 0) { // Singularity Modifier
         multiplier *= (1 + player.singularityCount / 10)
     }
+    if (player.cubeUpgrades[53] > 0) { // Cube Upgrade 6x3 (Cx3)
+        multiplier *= (1 + 0.10 * player.cubeUpgrades[53] / 100)
+    }
     return multiplier
 }
 

@@ -224,6 +224,7 @@ export const loadStatisticsOfferingMultipliers = () => {
         21: {acc: 3, desc: "Platonic BETA:"},
         22: {acc: 3, desc: "Platonic OMEGA:"},
         23: {acc: 3, desc: "Challenge 15:"},
+        24: {acc: 3, desc: "Cube Upgrade Cx4"}
     }
     for (let i = 0; i < arr.length; i++) {
         const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`);
