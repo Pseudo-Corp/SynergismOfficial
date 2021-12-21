@@ -1,7 +1,7 @@
 import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll } from './Synergism';
 import { sumContents, productContents, getElementById } from './Utility';
 import { Globals as G } from './Variables';
-import { CalcECC } from './Challenges';
+import { CalcECC, getMaxChallenges } from './Challenges';
 import Decimal from 'break_infinity.js';
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans';
 import { reset } from './Reset';
@@ -371,6 +371,9 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     }
 
     q = Math.floor(q) * 100 / 100
+    if (player.currentChallenge.ascension === 15) {
+        q *= (1 + 2 * player.cubeUpgrades[62]);
+    }
 
     let persecond = 0;
     if (input === "prestige") {
@@ -454,6 +457,7 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
+        G['obtainiumGain'] *= (1 + 2 * player.cubeUpgrades[62])
     }
     if (player.currentChallenge.ascension === 14) {
         G['obtainiumGain'] = 0
@@ -978,13 +982,17 @@ export const calculateAllCubeMultiplier = () => {
         // Powder Bonus
         calculateCubeMultFromPowder(),
         // Event (currently, +20.21%)
-        1 + 0.2021 * +G['isEvent'],
+        (1 + 0.2021 * +G['isEvent']) * (1 + 0.25 * +G['isEvent'] * player.cubeUpgrades[58]),
         // Singularity Factor
         1 / (1 + 1/16 * Math.pow(player.singularityCount, 2)),
         // Wow Pass Y
         1 + 0.5 * player.shopUpgrades.seasonPassY / 100,
         // Wow Pass Z
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
+        // Cookie Upgrade 16
+        1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15]),
+        // Cookie Upgrade 20
+        1 + 0.04 * player.cubeUpgrades[60] * Math.floor(player.challengecompletions[10] / getMaxChallenges(10)),
         // Total Global Cube Multipliers: 12
     ]
     return {
@@ -1040,6 +1048,8 @@ export const calculateCubeMultiplier = (score = -1) => {
         G['platonicBonusMultiplier'][0],
         // Platonic 1x1
         1 + 0.000075 * sumContents(player.usedCorruptions) * player.platonicUpgrades[1],
+        // Cube Upgrade 63 (Cx13)
+        1 + Math.pow(1.03, Math.log10(player.wowAbyssals + 1)) * player.cubeUpgrades[63] - player.cubeUpgrades[63],
         // Total Multipliers to cubes: 15
     ];
 
@@ -1255,7 +1265,7 @@ export const calculateSummationNonLinear = (
     resourceAvailable: number, 
     diffPerLevel: number, 
     buyAmount: number
-): [number, number] => {
+): {levelCanBuy: number, cost: number} => {
     const c = diffPerLevel / 2
     resourceAvailable = resourceAvailable || 0
     const alreadySpent = baseCost * (c * Math.pow(baseLevel, 2) + baseLevel * (1 - c))
@@ -1270,7 +1280,85 @@ export const calculateSummationNonLinear = (
     if (buyToLevel == baseLevel) {
         totalCost = baseCost * (1 + 2 * c * baseLevel)
     }
-    return [buyToLevel, totalCost]
+    return {
+        levelCanBuy: buyToLevel,
+        cost: totalCost
+    }
+}
+
+/**
+ * 
+ * @param n A nonnegative integer
+ * @returns The sum of the first n positive cubes, 0 if n = 0, or -1 otherwise.
+ */
+export const calculateSummationCubic = (n: number) => {
+
+    if (n < 0)
+        return -1
+    if (!Number.isInteger(n))
+        return -1
+
+    return Math.pow(n * (n+1) / 2, 2)
+}
+
+/**
+ * Solves a*n^2 + b*n + c = 0 for real solutions.
+ * @param a Coefficient of n^2. Must be nonzero!
+ * @param b Coefficient of n.
+ * @param c Coefficient of constant term
+ * @param positive Boolean which if true makes solution use positive discriminant.
+ * @returns Positive root of the quadratic, if it exists, and positive is true, otherwise false
+ */
+export const solveQuadratic = (a: number, b: number, c:number, positive:boolean) => {
+    if (a < 0)
+        throw new Error('This is not a quadratic equation!')
+    const determinant = Math.pow(b, 2) - 4 * a * c
+    if (determinant < 0)
+        throw new Error('Determinant was negative!')
+
+    if (determinant === 0)
+        return -b / (2 * a)
+    const numeratorPos = -b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)
+    const numeratorNeg = -b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)
+
+    if (positive)
+        return numeratorPos / (2 * a)
+    else
+        return numeratorNeg / (2 * a)
+}
+
+/**
+ * 
+ * @param initialLevel 
+ * @param base 
+ * @param amountToSpend 
+ */
+export const calculateCubicSumData = (initialLevel: number, baseCost: number, 
+                                      amountToSpend: number, maxLevel: number) => {
+    if (initialLevel >= maxLevel) {
+        return { levelCanBuy: maxLevel, 
+                 cost: 0 }
+    }
+    const alreadySpent = baseCost * calculateSummationCubic(initialLevel);
+    const totalToSpend = alreadySpent + amountToSpend
+
+    // Solves (n(n+1)/2)^2 * baseCost = totalToSpend
+    /* Create a det = Sqrt(totalToSpend / baseCost)
+    *  Simplification gives n * (n+1) = 2 * det
+    *  We can rewrite as n^2 + n - 2 * det = 0 and solve for n.
+    */
+    if (totalToSpend < 0)
+        throw new Error("You cannot spend a negative amount!")
+
+    const determinantRoot = Math.pow(totalToSpend / baseCost, 0.5) // Assume nonnegative!
+    const solution = solveQuadratic(1, 1, -2 * determinantRoot, true)
+    
+    const levelToBuy = Math.min(maxLevel, Math.floor(solution))
+    const realCost = (levelToBuy === initialLevel)? baseCost * Math.pow(initialLevel + 1, 3) :
+                       baseCost * calculateSummationCubic(levelToBuy) - alreadySpent;
+    
+    return {levelCanBuy: levelToBuy,
+            cost: realCost}
 }
 
 // IDEA: Rework this shit to be friendly for Stats for Nerds
@@ -1289,6 +1377,10 @@ export const calculateAscensionScore = () => {
     const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
     const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
     const challengeScoreArrays3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
+
+    challengeScoreArrays1[1] += player.cubeUpgrades[56]
+    challengeScoreArrays1[2] += player.cubeUpgrades[56]
+    challengeScoreArrays1[3] += player.cubeUpgrades[56]
 
     // Iterate challenges 1 through 10 and award base score according to the array values
     // Transcend Challenge: First Threshold at 75 completions, second at 750
@@ -1502,6 +1594,8 @@ export const forcedDailyReset = (testing = false) => {
 const eventStart = "06/26/2021 00:00:00"
 const eventEnd = "07/01/2021 23:59:59"
 
+// current event: NONE
+
 export const eventCheck = () => {
     const start = new Date(eventStart);
     const end = new Date(eventEnd);
@@ -1516,4 +1610,5 @@ export const eventCheck = () => {
         DOMCacheGetOrSet('eventCurrent').textContent = "INACTIVE"
         DOMCacheGetOrSet('eventBuffs').textContent = ""
     }
+
 }

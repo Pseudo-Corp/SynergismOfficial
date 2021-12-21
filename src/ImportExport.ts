@@ -321,13 +321,13 @@ export const promocodes = async () => {
         const start = Date.now();
         await Confirm(
             `Click the button within the next 15 seconds to test your luck!` + 
-            ` If you click within 500 ms of a randomly generated time, you will win a prize!`
+            ` If you click within ${format(500 + 5 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!`
         );
         
         const diff = Math.abs(Date.now() - (start + random));
         player.promoCodeTiming.time = Date.now();
 
-        if (diff <= 500) {
+        if (diff <= (500 + 5 * player.cubeUpgrades[61])) {
             player.worlds.add(500);
             return Confirm(`You clicked at the right time! [+500 Quarkies]`);
         } else {

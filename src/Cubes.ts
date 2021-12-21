@@ -1,10 +1,15 @@
 import { player, format } from "./Synergism"
-import { calculateCubeBlessings, calculateSummationNonLinear } from "./Calculate"
+import { calculateCubeBlessings, calculateCubicSumData, calculateSummationNonLinear } from "./Calculate"
 import { upgradeupdate } from "./Upgrades"
 import { revealStuff } from "./UpdateHTML"
 import { Globals as G } from "./Variables"
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { updateResearchBG } from "./Research"
+
+export interface IMultiBuy {
+    levelCanBuy: number
+    cost: number
+}
 
 const cubeUpgradeName = [
     "Wow! I want more Cubes.",
@@ -108,7 +113,7 @@ export const cubeMaxLevel = [
     2, 1, 1, 10, 10, 10, 10, 1, 1, 10,
     2, 10, 10, 10, 10, 20, 20, 1, 1, 100000,
     1, 900, 100, 900, 900, 20, 1, 1, 400, 1,
-    1, 1, 1, 1, 1, 1, 1, 999999, 1, 1000
+    900, 1, 1, 1, 1, 1, 1, 1000, 1, 975
 ];
 
 const cubeUpgradeDescriptions = [
@@ -171,64 +176,92 @@ const cubeUpgradeDescriptions = [
     "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1.",
     "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by 1.25.",
     "[Cx9] Quite sour for a cookie. But it increases your ascension speed by 0.25% per level, so who is to complain?",
-    "[Cx10] Wow! Bakery had extra ginger from their christmas sale. If there is an event, Export Quarks are multiplied by 1.15!",
-    "[Cx11] Edible but prone to mistakes. Triples the time window for time-based code minigames.",
+    "[Cx10] Wow! Bakery had extra ginger from their christmas sale. If there is an event, Quarks are multiplied by 1.15!",
+    "[Cx11] Edible but prone to mistakes. Adds five whole milliseconds to the tolerance of code 'time'.",
     "[Cx12] Platonic loves toffee. Triple Obtainium and Offering gain in Challenge 15.",
-    "[Cx13] Brownie Cookies, the best of both worlds. Increase Cube Gain by 1% based on owned Hepteracts (+1% per OOM).",
+    "[Cx13] Brownie Cookies, the best of both worlds. Increase Regular Cube Gain by 1% based on owned Hepteracts (+3% per OOM).",
     "[Cx14] Some say the ant god itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.",
-    "[Cx15] That's amore, but is quite a crumbful! Increase ant production per ant base by 0.001.",
+    "[Cx15] That's amore, but is quite a crumbful! Increase ant efficiency by 0.4%. (Roughly every 200 ants purchased doubles crumb production!)",
     "[Cx16] You just wish you could have one more cookie baked by her. Gain 2x all cubes until you purchase OMEGA.",
     "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
-    "[Cx18] What the heck! These aren't even cookies. +1% Quarks per 50,000 levels purchased of this upgrade. +50% at level 999,999!",
-    "[Cx19] Cookies that you'll never remember again. +25% Golden Quarks this singularity, +0.5% per time this upgrade has been purchased.",
+    "[Cx18] What the heck! These aren't even cookies. +0.02% Quarks per level purchased of this upgrade. +30% more at level 1,000!",
+    "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this singularity.",
     "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +4% more cubes on ascension if you have challenge 10 completions capped."
 ]
 
-const getCubeCost = (i: number, linGrowth = 0) => {
+const getCubeCost = (i: number, linGrowth = 0, cubic = false): IMultiBuy => {
+    const maxLevel = getCubeMax(i)
     let amountToBuy = G['buyMaxCubeUpgrades'] ? 1e5: 1;
-    amountToBuy = Math.min(cubeMaxLevel[i-1] - player.cubeUpgrades[i], amountToBuy)
+    amountToBuy = Math.min(maxLevel - player.cubeUpgrades[i], amountToBuy)
     const singularityMultiplier = (i <= 50) ? (1 + player.singularityCount): 1;
-    const metaData = calculateSummationNonLinear(player.cubeUpgrades[i], cubeBaseCost[i-1] * singularityMultiplier, Number(player.wowCubes), linGrowth, amountToBuy)
-    return([metaData[0],metaData[1]]) //metaData[0] is the levelup amount, metaData[1] is the total cube cost
+
+    let metaData:IMultiBuy
+
+    if (cubic) {
+        // TODO: Fix this inconsistency later.
+        amountToBuy = G['buyMaxCubeUpgrades'] ? maxLevel: Math.min(maxLevel, player.cubeUpgrades[i] + 1)
+        metaData = calculateCubicSumData(player.cubeUpgrades[i], cubeBaseCost[i-1],
+                                         Number(player.wowCubes), amountToBuy)
+    }
+    else
+        metaData = calculateSummationNonLinear(player.cubeUpgrades[i],
+                                              cubeBaseCost[i-1] * singularityMultiplier,
+                                               Number(player.wowCubes), linGrowth, amountToBuy)
+
+    return metaData
 }
 
-export const cubeUpgradeDesc = (i: number, linGrowth = 0) => {
-    const metaData = getCubeCost(i,linGrowth)
+const getCubeMax = (i: number) => {
+    let baseValue = cubeMaxLevel[i-1];
+
+    if (player.cubeUpgrades[57] > 0 && i < 50 && i % 10 === 1) {
+        baseValue += 1;
+    }
+
+    return baseValue
+}
+
+export const cubeUpgradeDesc = (i: number, linGrowth = 0, cubic = false) => {
+    const metaData = getCubeCost(i, linGrowth, cubic)
     const a = DOMCacheGetOrSet("cubeUpgradeName")
     const b = DOMCacheGetOrSet("cubeUpgradeDescription")
     const c = DOMCacheGetOrSet("cubeUpgradeCost")
     const d = DOMCacheGetOrSet("cubeUpgradeLevel")
+    const maxLevel = getCubeMax(i);
 
     a.textContent = cubeUpgradeName[i - 1];
     b.textContent = cubeUpgradeDescriptions[i - 1];
-    c.textContent = "Cost: " + format(metaData[1], 0, true) + " Wow! Cubes [+" + format(metaData[0]-player.cubeUpgrades[i],0,true) + " Levels]";
+    c.textContent = "Cost: " + format(metaData.cost, 0, true) + " Wow! Cubes [+" + format(metaData.levelCanBuy-player.cubeUpgrades[i],0,true) + " Levels]";
     c.style.color = "green"
-    d.textContent = "Level: " + format(player.cubeUpgrades[i], 0, true) + "/" + format(cubeMaxLevel[i-1], 0, true);
+    d.textContent = "Level: " + format(player.cubeUpgrades[i], 0, true) + "/" + format(maxLevel, 0, true);
     d.style.color = "white"
 
-    if (Number(player.wowCubes) < cubeBaseCost[i-1]) {
+    // This conditional is true only in the case where you can buy zero levels.
+    if (Number(player.wowCubes) < metaData.cost) {
         c.style.color = "crimson"
     }
-    if (player.cubeUpgrades[i] === cubeMaxLevel[i-1]) {
-        c.style.color = "gold";
+    if (player.cubeUpgrades[i] === maxLevel) {
+        c.style.color = "gold"
+        c.textContent = "Cost: 0 Wow! Cubes. This upgrade is maxxed! wow"
         d.style.color = "plum"
     }
 }
 
 export const updateCubeUpgradeBG = (i: number) => {
     const a = DOMCacheGetOrSet("cubeUpg" + i)
-    if (player.cubeUpgrades[i] > cubeMaxLevel[i-1]) {
+    const maxCubeLevel = getCubeMax(i);
+    if (player.cubeUpgrades[i] > maxCubeLevel) {
         console.log("Refunded " + (player.cubeUpgrades[i] - cubeMaxLevel[i-1]) + " levels of Cube Upgrade " + i + ", adding " + (player.cubeUpgrades[i] - cubeMaxLevel[i-1]) * cubeBaseCost[i-1] + " Wow! Cubes to balance.")
-        player.wowCubes.add((player.cubeUpgrades[i] - cubeMaxLevel[i-1]) * cubeBaseCost[i-1]);
-        player.cubeUpgrades[i] = cubeMaxLevel[i-1]
+        player.wowCubes.add((player.cubeUpgrades[i] - maxCubeLevel) * cubeBaseCost[i-1]);
+        player.cubeUpgrades[i] = maxCubeLevel;
     }
     if (player.cubeUpgrades[i] === 0) {
         a.style.backgroundColor = "black"
     }
-    if (player.cubeUpgrades[i] > 0 && player.cubeUpgrades[i] < cubeMaxLevel[i-1]) {
+    if (player.cubeUpgrades[i] > 0 && player.cubeUpgrades[i] < maxCubeLevel) {
         a.style.backgroundColor = "purple"
     }
-    if (player.cubeUpgrades[i] === cubeMaxLevel[i-1]) {
+    if (player.cubeUpgrades[i] === maxCubeLevel) {
         a.style.backgroundColor = "green"
     }
 
@@ -236,7 +269,8 @@ export const updateCubeUpgradeBG = (i: number) => {
 
 function awardAutosCookieUpgrade() {
     for (const i of cubeAutomationIndices) {
-        player.cubeUpgrades[i] = cubeMaxLevel[i-1]; // one vs zero indexing! :(
+        let maxLevel = getCubeMax(i)
+        player.cubeUpgrades[i] = maxLevel;
         updateCubeUpgradeBG(i);
     }
 
@@ -248,11 +282,12 @@ function awardAutosCookieUpgrade() {
     }
 }
 
-export const buyCubeUpgrades = (i: number, linGrowth = 0) => {
-    const metaData = getCubeCost(i,linGrowth);
-    if(Number(player.wowCubes) >= metaData[1] && player.cubeUpgrades[i] < cubeMaxLevel[i-1]){
-        player.wowCubes.sub(100 / 100 * metaData[1]);
-        player.cubeUpgrades[i] = metaData[0];
+export const buyCubeUpgrades = (i: number, linGrowth = 0, cubic = false) => {
+    const metaData = getCubeCost(i,linGrowth, cubic);
+    const maxLevel = getCubeMax(i)
+    if(Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[i] < maxLevel){
+        player.wowCubes.sub(100 / 100 * metaData.cost);
+        player.cubeUpgrades[i] = metaData.levelCanBuy;
     }
 
     if(i === 4 && player.cubeUpgrades[4] > 0){
@@ -274,7 +309,7 @@ export const buyCubeUpgrades = (i: number, linGrowth = 0) => {
         awardAutosCookieUpgrade();
     }
 
-    cubeUpgradeDesc(i, linGrowth);
+    cubeUpgradeDesc(i, linGrowth, cubic);
     updateCubeUpgradeBG(i);
     revealStuff();
     calculateCubeBlessings();

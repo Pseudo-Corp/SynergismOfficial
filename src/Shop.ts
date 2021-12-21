@@ -307,6 +307,7 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'calculator2' | 'calculator3' | 'constantEX' | 'powderEX'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
+
     if (shopData[input].type === shopUpgradeTypes.CONSUMABLE || shopData[input].maxLevel === 1){
         return shopData[input].price
     }

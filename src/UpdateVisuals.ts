@@ -3,7 +3,7 @@ import { Globals as G } from './Variables';
 import { player, format, formatTimeShort } from './Synergism';
 import { version } from './Config';
 import { CalcECC } from './Challenges';
-import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier } from './Calculate';
+import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear } from './Calculate';
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
@@ -12,6 +12,8 @@ import { quarkHandler } from './Quark';
 import type { Player, ZeroToFour } from './types/Synergism';
 import { hepteractTypeList, hepteractTypes } from './Hepteracts';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { IMultiBuy } from './Cubes';
+import { calculateMaxTalismanLevel } from './Talismans';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== "buildings") {
@@ -203,8 +205,9 @@ export const visualUpdateRunes = () => {
     }
 
     if (G['runescreen'] === "talismans") {
-        for (let i = 1; i <= 7; i++) {
-            DOMCacheGetOrSet('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i-1] + "/" + (30 * player.talismanRarity[i-1] + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 400))
+        for (let i = 0; i < 7; i++) {
+            let maxTalismanLevel = calculateMaxTalismanLevel(i);
+            DOMCacheGetOrSet('talisman' + (i+1) + 'level').textContent = "Level " + format(player.talismanLevels[i], 0, true) + "/" + format(maxTalismanLevel, 0, true)
         }
     }
 
@@ -507,10 +510,22 @@ export const visualUpdateShop = () => {
             // Case: max level greater than 1, treat it as a fraction out of max level
             else
                 DOMCacheGetOrSet(`${key}Level`).textContent = "Level " + format(player.shopUpgrades[key]) + "/" + format(shopItem.maxLevel);
-            // Handles Button - max level needs no price indicator, otherwise it's necessary    
-            player.shopUpgrades[key] === shopItem.maxLevel ?
-                DOMCacheGetOrSet(`${key}Button`).textContent = "Maxed!": 
-                DOMCacheGetOrSet(`${key}Button`).textContent = "Upgrade for " + format(getShopCosts(key)) + " Quarks";
+            // Handles Button - max level needs no price indicator, otherwise it's necessary
+
+            let buyAmount = G['shopBuyMax']? Math.max(shopData[key].maxLevel - player.shopUpgrades[key], 1): 1;
+            let metaData:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[key], shopData[key].price, +player.worlds, shopData[key].priceIncrease / shopData[key].price, buyAmount)
+            
+            if (!G['shopBuyMax']) {
+                player.shopUpgrades[key] === shopItem.maxLevel ?
+                    DOMCacheGetOrSet(`${key}Button`).textContent = "Maxed!": 
+                    DOMCacheGetOrSet(`${key}Button`).textContent = "Upgrade for " + format(getShopCosts(key)) + " Quarks";
+            }
+            
+            else {
+                player.shopUpgrades[key] === shopItem.maxLevel ?
+                    DOMCacheGetOrSet(`${key}Button`).textContent = "Maxed!": 
+                    DOMCacheGetOrSet(`${key}Button`).textContent = "Upgrade +"+format(metaData.levelCanBuy - player.shopUpgrades[key],0,true)+ " for " + format(metaData.cost,0,true) + " Quarks";
+            }
         }
     }
 }

@@ -1171,7 +1171,7 @@ const loadSynergy = async () => {
         for (let j = 1; j <= (200); j++) {
             updateResearchBG(j);
         }
-        for (let j = 1; j <= 50; j++) {
+        for (let j = 1; j < player.cubeUpgrades.length; j++) {
             updateCubeUpgradeBG(j);
         }
         const platUpg = document.querySelectorAll('img[id^="platUpg"]');
@@ -2442,7 +2442,7 @@ export const updateAntMultipliers = (): void => {
     if (player.upgrades[76] === 1) {
         G['globalAntMult'] = G['globalAntMult'].times(5)
     }
-    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
+    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000 + player.cubeUpgrades[65] / 250, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
     G['globalAntMult'] = G['globalAntMult'].times(1 + player.upgrades[78] * 0.005 * Math.pow(Math.log(player.maxofferings + 1) / Math.log(10), 2))
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1-1] + G['bonusant1']));
     G['globalAntMult'] = G['globalAntMult'].times(antSacrificePointsToMultiplier(player.antSacrificePoints))

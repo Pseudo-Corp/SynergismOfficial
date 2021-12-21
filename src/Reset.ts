@@ -687,7 +687,9 @@ export const calculateGoldenQuarkGain = ():number => {
     const singularityUpgrades = (1 + player.singularityUpgrades.goldenQuarks1.level / 20) *
                                 (1 + player.singularityUpgrades.goldenQuarks2.level / 50)
 
-    return (base + gainFromQuarks) * c15Multiplier * patreonMultiplier * singularityUpgrades
+    const cookieUpgradeMultiplier = 1 + 0.12 * player.cubeUpgrades[69];
+
+    return (base + gainFromQuarks) * c15Multiplier * patreonMultiplier * singularityUpgrades * cookieUpgradeMultiplier;
 }
 
 export const singularity = async () => {
