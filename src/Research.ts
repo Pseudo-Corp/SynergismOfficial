@@ -4,11 +4,12 @@ import { revealStuff } from './UpdateHTML';
 import { Globals as G } from './Variables';
 import { updateClassList } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { IMultiBuy } from './Cubes';
 
-const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, number] => {
+const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): IMultiBuy => {
     buyAmount = Math.min(G['researchMaxLevels'][index] - player.researches[index], buyAmount)
     const metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index] * (1 + player.singularityCount), player.researchPoints, linGrowth, buyAmount)
-    return [metaData[0], metaData[1]]
+    return metaData
 }
 
 export const updateAutoResearch = (index: number, auto: boolean) => {
@@ -75,12 +76,12 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean
 
     // Get our costs, and determine if anything is purchasable.
     const buyAmount = (G['maxbuyresearch'] || auto) ? 1e5: 1;
-    const [buyTo, cost] = getResearchCost(index, buyAmount, linGrowth); /* Destructuring FTW! */
-    const canBuy = (player.researchPoints >= cost);
+    const metaData = getResearchCost(index, buyAmount, linGrowth); /* Destructuring FTW! */
+    const canBuy = (player.researchPoints >= metaData.cost);
 
     if (canBuy && isResearchUnlocked(index) && !isResearchMaxed(index)) {
-        player.researches[index] = buyTo;
-        player.researchPoints -= cost;
+        player.researches[index] = metaData.levelCanBuy;
+        player.researchPoints -= metaData.cost;
         // Quick check after upgrading for max. This is to update any automation regardless of auto state
         if (isResearchMaxed(index)) 
             DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
@@ -351,7 +352,7 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     let z = ""
     const p = "res" + i
     const metaData = getResearchCost(i, buyAmount, linGrowth);
-    z = " Cost: " + (format(metaData[1], 0, false)) + " Obtainium [+" + format(metaData[0] - player.researches[i], 0, true) + " Levels]"
+    z = " Cost: " + (format(metaData.cost, 0, false)) + " Obtainium [+" + format(metaData.levelCanBuy - player.researches[i], 0, true) + " Levels]"
     if (player.researches[i] === (G['researchMaxLevels'][i])) {
         DOMCacheGetOrSet("researchcost").style.color = "Gold"
         DOMCacheGetOrSet("researchinfo3").style.color = "plum"
@@ -367,7 +368,7 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
         }
     }
 
-    if (player.researchPoints < G['researchBaseCosts'][i] && player.researches[i] < (G['researchMaxLevels'][i])) {
+    if (player.researchPoints < metaData.cost && player.researches[i] < (G['researchMaxLevels'][i])) {
         DOMCacheGetOrSet("researchcost").style.color = "crimson"
         updateClassList(p, [], ["researchMaxed", "researchAvailable", "researchPurchasedAvailable"])
     }

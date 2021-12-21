@@ -310,16 +310,16 @@ export const generateEventHandlers = () => {
 
     for (let index = 0; index < 7; index++) {
         
-        DOMCacheGetOrSet(`talisman${index+1}`).addEventListener('click', () => showTalismanEffect(index+1))
-        DOMCacheGetOrSet(`leveluptalisman${index+1}`).addEventListener('mouseover', () => showTalismanPrices(index+1))
-        DOMCacheGetOrSet(`leveluptalisman${index+1}`).addEventListener('click', () => buyTalismanLevels(index+1))
-        DOMCacheGetOrSet(`enhancetalisman${index+1}`).addEventListener('mouseover', () => showEnhanceTalismanPrices(index+1))
-        DOMCacheGetOrSet(`enhancetalisman${index+1}`).addEventListener('click', () => buyTalismanEnhance(index+1))
-        DOMCacheGetOrSet(`respectalisman${index+1}`).addEventListener('click', () => showRespecInformation(index+1))
+        DOMCacheGetOrSet(`talisman${index+1}`).addEventListener('click', () => showTalismanEffect(index))
+        DOMCacheGetOrSet(`leveluptalisman${index+1}`).addEventListener('mouseover', () => showTalismanPrices(index))
+        DOMCacheGetOrSet(`leveluptalisman${index+1}`).addEventListener('click', () => buyTalismanLevels(index))
+        DOMCacheGetOrSet(`enhancetalisman${index+1}`).addEventListener('mouseover', () => showEnhanceTalismanPrices(index))
+        DOMCacheGetOrSet(`enhancetalisman${index+1}`).addEventListener('click', () => buyTalismanEnhance(index))
+        DOMCacheGetOrSet(`respectalisman${index+1}`).addEventListener('click', () => showRespecInformation(index))
 
     }
 
-    DOMCacheGetOrSet('respecAllTalismans').addEventListener('click', () => showRespecInformation(8))
+    DOMCacheGetOrSet('respecAllTalismans').addEventListener('click', () => showRespecInformation(7))
     DOMCacheGetOrSet('confirmTalismanRespec').addEventListener('click', () => respecTalismanConfirm(G['talismanRespec']))
     DOMCacheGetOrSet('cancelTalismanRespec').addEventListener('click', () => respecTalismanCancel(G['talismanRespec']))
 
@@ -435,8 +435,8 @@ for (let index = 1; index <= 12; index++) {
         }
 
         if (index > 49) {
-            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('mouseover', () => cubeUpgradeDesc(index+1, 1))
-            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('click', () => buyCubeUpgrades(index+1, 1))
+            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('mouseover', () => cubeUpgradeDesc(index+1, 0, true))
+            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('click', () => buyCubeUpgrades(index+1, 0, true))
         }
     }
 

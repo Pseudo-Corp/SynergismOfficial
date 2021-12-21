@@ -79,6 +79,8 @@ export const loadStatisticsCubeMultipliers = () => {
         10: {acc: 2, desc: "Singularity Factor:"},
         11: {acc: 2, desc: "Wow Pass Y"},
         12: {acc: 2, desc: "Wow Pass Z"},
+        13: {acc: 2, desc: "Cookie Upgrade 16"},
+        14: {acc: 2, desc: "Cookie Upgrade 20"}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
@@ -105,6 +107,7 @@ export const loadStatisticsCubeMultipliers = () => {
         13: {acc: 2, desc: "Spirit Power:"},
         14: {acc: 2, desc: "Platonic Cubes:"},
         15: {acc: 2, desc: "Platonic 1x1:"},
+        16: {acc: 2, desc: "Cookie Upgrade 13:"}
     }
     for (let i = 0; i < arr.length; i++) {
         const statCMi = DOMCacheGetOrSet(`statCM${i + 1}`);

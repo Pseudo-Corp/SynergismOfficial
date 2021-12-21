@@ -294,7 +294,7 @@ export const Globals: GlobalVariables = {
     talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
 
 
-    talismanLevelCostMultiplier: [null, 1, 4, 1e4, 1e8, 1e13, 10, 100],
+    talismanLevelCostMultiplier: [1, 4, 1e4, 1e8, 1e13, 10, 100],
 
     talismanPositiveModifier: [null, 0.75, 1.5, 2.25, 3, 3.75, 4.5],
     talismanNegativeModifier: [null, 0, 0, 0, 0, 0, 0],
