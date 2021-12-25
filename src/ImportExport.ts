@@ -10,7 +10,6 @@ import { quarkHandler } from './Quark';
 import { shopData } from './Shop';
 import { addTimers } from './Helper';
 import { toggleSubTab, toggleTabs } from './Toggles';
-import { Globals as G } from './Variables';
 import { btoa } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -204,7 +203,6 @@ export const promocodes = async () => {
         let mult = Math.max(0.4 + 0.02 * player.shopUpgrades.calculator3, 2/5 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 640); // [0.4, 0.6], slightly biased in favor of 0.4. =)
         mult *= 1 + 0.14 * player.shopUpgrades.calculator // Calculator Shop Upgrade (+14% / level)
         mult *= (player.shopUpgrades.calculator2 === shopData['calculator2'].maxLevel)? 1.25: 1; // Calculator 2 Max Level (+25%)
-        mult *= (1 + +G['isEvent']) // is event? then 2x! [June 28, July 1]
         const quarkBase = quarkHandler().perHour
         const actualQuarks = Math.floor(quarkBase * mult * realAttemptsUsed)
         const patreonBonus = Math.floor(actualQuarks * (player.worlds.BONUS / 100));

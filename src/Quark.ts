@@ -75,6 +75,9 @@ export const getQuarkMultiplier = () => {
     if (player.singularityCount > 0) { // Singularity Modifier
         multiplier *= (1 + player.singularityCount / 10)
     }
+    if (G['isEvent']) {
+        multiplier *= 2; // dec 23 to jan 3
+    }
     return multiplier
 }
 
