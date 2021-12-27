@@ -526,4 +526,8 @@ export const checkVariablesOnLoad = (data: Player) => {
     while (player.cubeUpgrades.length < 71) {
         player.cubeUpgrades.push(0);
     }
+    
+    if (data.dailyCodeUsed === undefined) {
+        player.dailyCodeUsed = false;
+    }
 }
