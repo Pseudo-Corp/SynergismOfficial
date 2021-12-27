@@ -482,4 +482,8 @@ export const checkVariablesOnLoad = (data: Player) => {
             player.shopUpgrades[shopUpgrade] = shopData[shopUpgrade].maxLevel
         }
     }
+
+    if (data.dailyCodeUsed === undefined) {
+        player.dailyCodeUsed = false;
+    }
 }

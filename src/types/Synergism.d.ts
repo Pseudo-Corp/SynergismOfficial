@@ -517,6 +517,7 @@ export interface Player {
     singularityCount: number
     goldenQuarks: number
     quarksThisSingularity: number
+    dailyCodeUsed: boolean
 }
 
 export interface GlobalVariables {

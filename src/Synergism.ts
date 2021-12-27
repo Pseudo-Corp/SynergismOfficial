@@ -411,7 +411,7 @@ export const player: Player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from({ length: 35 }, (_, i) => [i + 1, false])
+        Array.from({ length: 36 }, (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -643,10 +643,11 @@ export const player: Player = {
     singularityCount: 0,
     goldenQuarks: 0,
     quarksThisSingularity: 0,
+    dailyCodeUsed: false,
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 35 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 36 }, (_, i) => [i + 1, false]))
 });
 
 export const saveSynergy = (button?: boolean) => {
