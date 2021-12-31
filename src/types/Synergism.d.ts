@@ -533,6 +533,15 @@ export interface Player {
         ascensions: SingularityUpgrade
         corruptionFourteen: SingularityUpgrade
         corruptionFifteen: SingularityUpgrade
+        singOfferings1: SingularityUpgrade
+        singOfferings2: SingularityUpgrade
+        singOfferings3: SingularityUpgrade
+        singObtainium1: SingularityUpgrade
+        singObtainium2: SingularityUpgrade
+        singObtainium3: SingularityUpgrade
+        singCubes1: SingularityUpgrade
+        singCubes2: SingularityUpgrade
+        singCubes3: SingularityUpgrade
     }
     dailyCodeUsed: boolean
 }

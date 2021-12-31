@@ -358,6 +358,9 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         1 + 5 * player.platonicUpgrades[15], // Platonic OMEGA
         G['challenge15Rewards'].offering, // C15 Reward
         1 + 5 * player.singularityUpgrades.starterPack.level, // Starter Pack Upgrade
+        1 + 0.02 * player.singularityUpgrades.singOfferings1.level, // Offering Charge GQ Upgrade
+        1 + 0.08 * player.singularityUpgrades.singOfferings2.level, // Offering Storm GQ Upgrade
+        1 + 0.04 * player.singularityUpgrades.singOfferings3.level, // Offering Tempest GQ Upgrade
         1 + player.cubeUpgrades[54] / 100 // Cube upgrade 6x4 (Cx4) 
     ];
 
@@ -456,6 +459,9 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + 5 * player.platonicUpgrades[15])
     G['obtainiumGain'] *= G['challenge15Rewards'].obtainium
     G['obtainiumGain'] *= 1 + 5 * player.singularityUpgrades.starterPack.level
+    G['obtainiumGain'] *= 1 + 0.02 * player.singularityUpgrades.singObtainium1.level
+    G['obtainiumGain'] *= 1 + 0.08 * player.singularityUpgrades.singObtainium2.level
+    G['obtainiumGain'] *= 1 + 0.04 * player.singularityUpgrades.singObtainium3.level
     G['obtainiumGain'] *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
@@ -991,13 +997,19 @@ export const calculateAllCubeMultiplier = () => {
         1 + 0.5 * player.shopUpgrades.seasonPassY / 100,
         // BUY THIS! Golden Quark Upgrade
         1 + 4 * player.singularityUpgrades.starterPack.level,
+        // Cube Flame [GQ]
+        1 + 0.02 * player.singularityUpgrades.singCubes1.level,
+        // Cube Blaze [GQ]
+        1 + 0.08 * player.singularityUpgrades.singCubes2.level,
+        // Cube Inferno [GQ]
+        1 + 0.04 * player.singularityUpgrades.singCubes3.level,
         // Wow Pass Z
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
         // Cookie Upgrade 16
         1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15]),
         // Cookie Upgrade 20
         1 + 0.04 * player.cubeUpgrades[60] * Math.floor(player.challengecompletions[10] / getMaxChallenges(10)),
-        // Total Global Cube Multipliers: 15
+        // Total Global Cube Multipliers: 18
     ]
     return {
         mult: productContents(arr),

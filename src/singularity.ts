@@ -163,7 +163,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         costPerLevel: 60,
     },
     goldenQuarks3: {
-        name: "Golden Quarks III (WIP)",
+        name: "Golden Quarks III",
         description: "If you buy this, you will gain 1 Golden Quark per hour from Exports.",
         maxLevel: 1,
         costPerLevel: 1000,
@@ -221,5 +221,59 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         description: "Buy this to unlock level fifteen corruptions :)",
         maxLevel: 1,
         costPerLevel: 40000,
+    },
+    singOfferings1: {
+        name: "Offering Charge",
+        description: "Upgrade this to get +2% offerings per level, forever!",
+        maxLevel: -1,
+        costPerLevel: 1
+    },
+    singOfferings2: {
+        name: "Offering Storm",
+        description: "Apparently, you can use this bar to attract more offerings. +8% per level, to be precise.",
+        maxLevel: 25,
+        costPerLevel: 25
+    },
+    singOfferings3: {
+        name: "Offering Tempest",
+        description: "This bar is so prestine, it'll make anyone submit their offerings. +4% per level, to be precise.",
+        maxLevel: 40,
+        costPerLevel: 500
+    },
+    singObtainium1: {
+        name: "Obtainium Wave",
+        description: "Upgrade this to get +2% obtainium per level, forever!",
+        maxLevel: -1,
+        costPerLevel: 1
+    },
+    singObtainium2: {
+        name: "Obtainium Flood",
+        description: "Holy crap, water bending! +8% gained obtainium per level.",
+        maxLevel: 25,
+        costPerLevel: 25
+    },
+    singObtainium3: {
+        name: "Obtainium Tsunami",
+        description: "A rising tide lifts all boats. +4% gained obtainium per level.",
+        maxLevel: 40,
+        costPerLevel: 500
+    },
+    singCubes1: {
+        name: "Cube Flame",
+        description: "Upgrade this to get +2% Cubes per level, forever!",
+        maxLevel: -1,
+        costPerLevel: 1
+    },
+    singCubes2: {
+        name: "Cube Blaze",
+        description: "Burn some more Golden Quarks! +8% gained Cubes per level.",
+        maxLevel: 25,
+        costPerLevel: 25
+    },
+    singCubes3: {
+        name: "Cube Inferno",
+        description: "Even Dante is impressed. +4% gained Cubes per level.",
+        maxLevel: 40,
+        costPerLevel: 500
     },
 }

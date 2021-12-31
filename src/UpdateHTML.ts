@@ -215,6 +215,10 @@ export const revealStuff = () => {
         HTML.style.display = player.singularityUpgrades.cookies4.level > 0 ? "block" : "none";
     }
 
+    const goldenQuarks3 = document.getElementsByClassName("goldenQuark3Upg") as HTMLCollectionOf<HTMLElement>;
+    for (const HTML of Array.from(goldenQuarks3)) {
+        HTML.style.display = player.singularityUpgrades.goldenQuarks3.level > 0 ? "block" : "none";
+    }
     if (player.upgrades[89] === 1) {
         DOMCacheGetOrSet('transcendautotoggle').style.display = 'block';
         DOMCacheGetOrSet('transcendamount').style.display = 'block';
