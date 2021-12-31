@@ -198,6 +198,23 @@ export const revealStuff = () => {
     const hepts = DOMCacheGetOrSet("corruptionHepteracts");
     hepts.style.display = (player.achievements[255] > 0) ? "block" : "none";
 
+    const cookies1 = document.getElementsByClassName("assortedCookies1") as HTMLCollectionOf<HTMLElement>;
+    const cookies2 = document.getElementsByClassName("assortedCookies2") as HTMLCollectionOf<HTMLElement>;
+    const cookies3 = document.getElementsByClassName("assortedCookies3") as HTMLCollectionOf<HTMLElement>;
+    const cookies4 = document.getElementsByClassName("assortedCookies4") as HTMLCollectionOf<HTMLElement>;
+    for (const HTML of Array.from(cookies1)) {
+        HTML.style.display = player.singularityUpgrades.cookies.level > 0 ? "block" : "none";
+    }
+    for (const HTML of Array.from(cookies2)) {
+        HTML.style.display = player.singularityUpgrades.cookies2.level > 0 ? "block" : "none";
+    }
+    for (const HTML of Array.from(cookies3)) {
+        HTML.style.display = player.singularityUpgrades.cookies3.level > 0 ? "block" : "none";
+    }
+    for (const HTML of Array.from(cookies4)) {
+        HTML.style.display = player.singularityUpgrades.cookies4.level > 0 ? "block" : "none";
+    }
+
     if (player.upgrades[89] === 1) {
         DOMCacheGetOrSet('transcendautotoggle').style.display = 'block';
         DOMCacheGetOrSet('transcendamount').style.display = 'block';

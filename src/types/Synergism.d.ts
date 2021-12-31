@@ -527,6 +527,9 @@ export interface Player {
         starterPack: SingularityUpgrade
         wowPass: SingularityUpgrade
         cookies: SingularityUpgrade
+        cookies2: SingularityUpgrade
+        cookies3: SingularityUpgrade
+        cookies4: SingularityUpgrade
         ascensions: SingularityUpgrade
         corruptionFourteen: SingularityUpgrade
         corruptionFifteen: SingularityUpgrade

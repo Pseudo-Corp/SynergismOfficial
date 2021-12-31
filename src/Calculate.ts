@@ -357,6 +357,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         1 + 2.5 * player.platonicUpgrades[10], // Platonic BETA
         1 + 5 * player.platonicUpgrades[15], // Platonic OMEGA
         G['challenge15Rewards'].offering, // C15 Reward
+        1 + 5 * player.singularityUpgrades.starterPack.level, // Starter Pack Upgrade
         1 + player.cubeUpgrades[54] / 100 // Cube upgrade 6x4 (Cx4) 
     ];
 
@@ -454,6 +455,7 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + 2.5 * player.platonicUpgrades[10])
     G['obtainiumGain'] *= (1 + 5 * player.platonicUpgrades[15])
     G['obtainiumGain'] *= G['challenge15Rewards'].obtainium
+    G['obtainiumGain'] *= 1 + 5 * player.singularityUpgrades.starterPack.level
     G['obtainiumGain'] *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
@@ -987,13 +989,15 @@ export const calculateAllCubeMultiplier = () => {
         1 / (1 + 1/16 * Math.pow(player.singularityCount, 2)),
         // Wow Pass Y
         1 + 0.5 * player.shopUpgrades.seasonPassY / 100,
+        // BUY THIS! Golden Quark Upgrade
+        1 + 4 * player.singularityUpgrades.starterPack.level,
         // Wow Pass Z
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
         // Cookie Upgrade 16
         1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15]),
         // Cookie Upgrade 20
         1 + 0.04 * player.cubeUpgrades[60] * Math.floor(player.challengecompletions[10] / getMaxChallenges(10)),
-        // Total Global Cube Multipliers: 12
+        // Total Global Cube Multipliers: 15
     ]
     return {
         mult: productContents(arr),
@@ -1231,6 +1235,7 @@ export const calculateAscensionAcceleration = () => {
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263],   // Achieve 263
         1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // PLAT Omega
         G['challenge15Rewards'].ascensionSpeed,                                                         // C15
+        1 + 1/400 * player.cubeUpgrades[59]                                                             // Cookie Upgrade 9
     ]
     return productContents(arr)
 }
