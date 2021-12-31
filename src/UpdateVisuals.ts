@@ -484,6 +484,11 @@ export const visualUpdateSettings = () => {
     DOMCacheGetOrSet("quarktimerdisplay").textContent = format((3600 / (quarkData.perHour) - (player.quarkstimer % (3600.00001 / (quarkData.perHour)))), 2) + "s until +" + format(patreonLOL, 2, true) + " export Quark"
     DOMCacheGetOrSet("quarktimeramount").textContent = 
         `Quarks on export: ${format(Math.floor(onExportQuarks * patreonLOL))} [Max ${format(Math.floor(maxExportQuarks * patreonLOL))}]`;
+
+    DOMCacheGetOrSet("goldenQuarkTimerDisplay").textContent = format(3600 - (player.quarkstimer % 3600.00001)) + "s until +" + format(patreonLOL, 2, true) + " export Golden Quark"
+    DOMCacheGetOrSet("goldenQuarkTimerAmount").textContent = 
+        `Golden Quarks on export: ${format(Math.floor(player.quarkstimer / 3600))} [Max ${format(Math.floor(quarkData.maxTime / 3600))}]`
+
 }
 
 export const visualUpdateShop = () => {

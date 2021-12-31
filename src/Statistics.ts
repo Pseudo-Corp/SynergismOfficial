@@ -79,9 +79,12 @@ export const loadStatisticsCubeMultipliers = () => {
         10: {acc: 2, desc: "Singularity Factor:"},
         11: {acc: 2, desc: "Wow Pass Y"},
         12: {acc: 2, desc: "Starter Pack:"},
-        13: {acc: 2, desc: "Wow Pass Z"},
-        14: {acc: 2, desc: "Cookie Upgrade 16"},
-        15: {acc: 2, desc: "Cookie Upgrade 20"}
+        13: {acc: 2, desc: "Cube Flame [GQ]:"},
+        14: {acc: 2, desc: "Cube Blaze [GQ]:"},
+        15: {acc: 2, desc: "Cube Inferno [GQ]:"},
+        16: {acc: 2, desc: "Wow Pass Z"},
+        17: {acc: 2, desc: "Cookie Upgrade 16"},
+        18: {acc: 2, desc: "Cookie Upgrade 20"}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
@@ -229,7 +232,10 @@ export const loadStatisticsOfferingMultipliers = () => {
         22: {acc: 3, desc: "Platonic OMEGA:"},
         23: {acc: 3, desc: "Challenge 15:"},
         24: {acc: 3, desc: "Starter Pack:"},
-        25: {acc: 3, desc: "Cube Upgrade Cx4"}
+        25: {acc: 3, desc: "Offering Charge [GQ]:"},
+        26: {acc: 3, desc: "Offering Storm [GQ]:"},
+        27: {acc: 3, desc: "Offering Tempest [GQ]:"},
+        28: {acc: 3, desc: "Cube Upgrade Cx4"}
     }
     for (let i = 0; i < arr.length; i++) {
         const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`);

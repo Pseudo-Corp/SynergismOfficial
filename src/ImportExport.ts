@@ -68,11 +68,13 @@ const saveFilename = () => {
 export const exportSynergism = async () => {
     player.offlinetick = Date.now();
     const quarkData = quarkHandler();
+    if (player.singularityUpgrades.goldenQuarks3.level > 0) {
+        player.goldenQuarks += Math.floor(player.quarkstimer / 3600) * (1 + player.worlds.BONUS / 100);
+    }
     if (quarkData.gain >= 1) {
         player.worlds.add(quarkData.gain);
         player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
     }
-
     await saveSynergy();
 
     const toClipboard = getElementById<HTMLInputElement>('saveType').checked;
