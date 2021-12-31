@@ -13,6 +13,7 @@ import { toggleSubTab, toggleTabs } from './Toggles';
 import { btoa } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
+import { Globals as G } from './Variables';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
