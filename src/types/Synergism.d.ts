@@ -534,6 +534,7 @@ export interface Player {
         corruptionFourteen: SingularityUpgrade
         corruptionFifteen: SingularityUpgrade
     }
+    dailyCodeUsed: boolean
 }
 
 export interface GlobalVariables {

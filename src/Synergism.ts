@@ -413,7 +413,7 @@ export const player: Player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from({ length: 35 }, (_, i) => [i + 1, false])
+        Array.from({ length: 36 }, (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -661,11 +661,12 @@ export const player: Player = {
         ascensions: new SingularityUpgrade(singularityData['ascensions']),
         corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
         corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
-    }
+    },
+    dailyCodeUsed: false,
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 35 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 36 }, (_, i) => [i + 1, false]))
 });
 
 export const saveSynergy = async (button?: boolean) => {
