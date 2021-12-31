@@ -655,6 +655,9 @@ export const player: Player = {
         starterPack: new SingularityUpgrade(singularityData['starterPack']),
         wowPass: new SingularityUpgrade(singularityData['wowPass']),
         cookies: new SingularityUpgrade(singularityData['cookies']),
+        cookies2: new SingularityUpgrade(singularityData['cookies2']),
+        cookies3: new SingularityUpgrade(singularityData['cookies3']),
+        cookies4: new SingularityUpgrade(singularityData['cookies4']),
         ascensions: new SingularityUpgrade(singularityData['ascensions']),
         corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
         corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
@@ -1284,13 +1287,13 @@ const loadSynergy = async () => {
         calculateHypercubeBlessings();
         calculateTesseractBlessings();
         calculateCubeBlessings();
+        updateTalismanAppearance(0);
         updateTalismanAppearance(1);
         updateTalismanAppearance(2);
         updateTalismanAppearance(3);
         updateTalismanAppearance(4);
         updateTalismanAppearance(5);
         updateTalismanAppearance(6);
-        updateTalismanAppearance(7);
         for (const id in player.ascStatToggles) {
             toggleAscStatPerSecond(+id); // toggle each stat twice to make sure the displays are correct and match what they used to be
             toggleAscStatPerSecond(+id);
@@ -3251,8 +3254,7 @@ function tack(dt: number) {
             if (player.autoEnhanceToggle) {
                 for (let i = 0; i < talismansUnlocked.length; ++i) {
                     if (talismansUnlocked[i]) {
-                        // TODO: Remove + 1 here when talismans are fully zero-indexed
-                        upgradedTalisman = buyTalismanEnhance(i + 1, true) || upgradedTalisman;
+                        upgradedTalisman = buyTalismanEnhance(i, true) || upgradedTalisman;
                     }
                 }
             }
@@ -3260,8 +3262,7 @@ function tack(dt: number) {
             if (player.autoFortifyToggle) {
                 for (let i = 0; i < talismansUnlocked.length; ++i) {
                     if (talismansUnlocked[i]) {
-                        // TODO: Remove + 1 here when talismans are fully zero-indexed
-                        upgradedTalisman = buyTalismanLevels(i + 1, true) || upgradedTalisman;
+                        upgradedTalisman = buyTalismanLevels(i, true) || upgradedTalisman;
                     }
                 }
             }

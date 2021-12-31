@@ -572,13 +572,13 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.ascensionCounter = 0;
 
         updateTalismanInventory();
+        updateTalismanAppearance(0);
         updateTalismanAppearance(1);
         updateTalismanAppearance(2);
         updateTalismanAppearance(3);
         updateTalismanAppearance(4);
         updateTalismanAppearance(5);
         updateTalismanAppearance(6);
-        updateTalismanAppearance(7);
         calculateCubeBlessings();
         calculateTesseractBlessings();
         calculateHypercubeBlessings();

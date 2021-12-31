@@ -494,6 +494,9 @@ export const checkVariablesOnLoad = (data: Player) => {
         starterPack: new SingularityUpgrade(singularityData['starterPack']),
         wowPass: new SingularityUpgrade(singularityData['wowPass']),
         cookies: new SingularityUpgrade(singularityData['cookies']),
+        cookies2: new SingularityUpgrade(singularityData['cookies2']),
+        cookies3: new SingularityUpgrade(singularityData['cookies3']),
+        cookies4: new SingularityUpgrade(singularityData['cookies4']),
         ascensions: new SingularityUpgrade(singularityData['ascensions']),
         corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
         corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
@@ -504,7 +507,7 @@ export const checkVariablesOnLoad = (data: Player) => {
             const k = item as keyof Player['singularityUpgrades'];
             // if more crafts are added, some keys might not exist in the save
             let updatedData:ISingularityData
-            if (data.singularityUpgrades[k])
+            if (data.singularityUpgrades[k]) {
                 updatedData = {
                     name: singularityData[k].name,
                     description: singularityData[k].description,
@@ -516,6 +519,7 @@ export const checkVariablesOnLoad = (data: Player) => {
                     toggleBuy: data.singularityUpgrades[k].toggleBuy
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
+            }
         }
     }
 
