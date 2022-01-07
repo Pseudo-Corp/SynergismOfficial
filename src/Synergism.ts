@@ -702,11 +702,7 @@ export const saveSynergy = async (button?: boolean) => {
 
     const save = btoa(JSON.stringify(p));
     if (save !== null) {
-        try {
-            await localforage.setItem('Synergysave2', save);
-        } catch (e: unknown) {
-            await Promise.resolve(localStorage.setItem('Synergysave2', save));
-        }
+        await localforage.setItem('Synergysave2', save);
     }
 
     if (button) {
@@ -3458,7 +3454,7 @@ export const reloadShit = async (reset = false) => {
 
     if (isLZString) {
         localStorage.clear();
-        localStorage.setItem('Synergysave2', btoa(dec));
+        await localforage.setItem('Synergysave2', btoa(dec));
         await Alert('Transferred save to new format successfully!');
     }
 

@@ -152,12 +152,8 @@ export const importSynergism = async (input: string, reset = false) => {
         (f.exporttest === 'NO!' && testing)
     ) {
         const item = btoa(JSON.stringify(f));
-        try {
-            await localforage.setItem('Synergysave2', item);
-        } catch (e: unknown) {
-            console.log(e);
-            await Promise.resolve(localStorage.setItem('Synergysave2', item));
-        }
+        await localforage.setItem('Synergysave2', item);
+
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
         document.body.classList.add('loading');
         
