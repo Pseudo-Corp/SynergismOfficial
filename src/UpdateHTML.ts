@@ -521,19 +521,20 @@ export const hideStuff = () => {
     }
 }
 
-const visualTab: Record<string, () => void> = {
+const visualTab: Record<typeof G['currentTab'], () => void> = {
     buildings: visualUpdateBuildings,
     upgrades: visualUpdateUpgrades,
     achievements: visualUpdateAchievements,
     runes: visualUpdateRunes,
     challenges: visualUpdateChallenges,
-    research: visualUpdateResearch,
+    researches: visualUpdateResearch,
     settings: visualUpdateSettings,
     shop: visualUpdateShop,
     ants: visualUpdateAnts,
     cubes: visualUpdateCubes,
-    traits: visualUpdateCorruptions
-}
+    traits: visualUpdateCorruptions,
+    singularity: () => {}
+};
 
 export const htmlInserts = () => {
     // ALWAYS Update these, for they are the most important resources

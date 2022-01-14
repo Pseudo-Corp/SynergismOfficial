@@ -644,7 +644,19 @@ export interface GlobalVariables {
     uFourteenMulti: Decimal
     uFifteenMulti: Decimal
     tuSevenMulti: number
-    currentTab: string
+    currentTab: 
+        | 'buildings'
+        | 'upgrades'
+        | 'achievements'
+        | 'challenges'
+        | 'runes'
+        | 'researches'
+        | 'settings'
+        | 'shop'
+        | 'ants'
+        | 'cubes'
+        | 'traits'
+        | 'singularity',
 
     researchfiller1: string
     researchfiller2: string
