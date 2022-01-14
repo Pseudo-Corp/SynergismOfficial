@@ -59,6 +59,7 @@ const saveFilename = () => {
             case 'VERSION': return `v${version}`;
             case 'TIME': return getRealTime();
             case 'TIME12': return getRealTime(true);
+            default: return 'IDFK Lol';
         }
     });
 
@@ -83,12 +84,12 @@ export const exportSynergism = async () => {
         await Promise.resolve(localStorage.getItem('Synergysave2'));
 
     if ('clipboard' in navigator && toClipboard) {
-        await navigator.clipboard.writeText(save)
+        await navigator.clipboard.writeText(`${save}`)
             .catch(e => console.error(e));
     } else if (toClipboard) {
         // Old browsers (legacy Edge, Safari 13.0)
         const textArea = document.createElement('textarea');
-        textArea.value = save;
+        textArea.value = `${save}`;
         textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
 
         document.body.appendChild(textArea);
@@ -124,7 +125,7 @@ export const resetGame = async () => {
     const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
 
     const result = await Prompt(`Answer the question to confirm you'd like to reset: what is ${a}+${b}? (Hint: ${a+b})`)
-    if (+result !== a + b) {
+    if (Number(result) !== a + b) {
         return Alert(`Answer was wrong, not resetting!`);
     }
 
@@ -135,7 +136,7 @@ export const resetGame = async () => {
     toggleTabs("buildings");
     toggleSubTab(1, 0);
     //Import Game
-    await importSynergism(btoa(JSON.stringify(hold)), true);
+    await importSynergism(btoa(JSON.stringify(hold))!, true);
 }
 
 export const importSynergism = async (input: string, reset = false) => {
@@ -292,7 +293,7 @@ export const promocodes = async () => {
             typeof localStorage.getItem('saveScumIsCheating') === 'string'
         ) {
             if (
-                (Date.now() - player.skillCode) / 1000 < 3600 ||
+                (Date.now() - player.skillCode!) / 1000 < 3600 ||
                 (Date.now() - Number(localStorage.getItem('saveScumIsCheating'))) / 1000 < 3600
             ) {
                 return el.textContent = 'Wait a little bit. We\'ll get back to you when you\'re ready to lose again.';

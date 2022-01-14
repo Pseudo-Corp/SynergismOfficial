@@ -1,3 +1,5 @@
+import type { Player } from './Synergism';
+
 /**
  * Shop before v2.5.0
  */
@@ -24,3 +26,5 @@ export interface LegacyShopUpgrades {
     tesseractToQuarkBought: boolean
     hypercubeToQuarkBought: boolean
 }
+
+export type PlayerSave = { [P in keyof Player]?: Player[P] | null; } & Record<string, unknown>;

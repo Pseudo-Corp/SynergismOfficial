@@ -127,7 +127,7 @@ const historyGains: Record<
     {
         img: string
         imgTitle: string
-        formatter: (str: DecimalSource, data: ResetHistoryEntryUnion) => string,
+        formatter?: (str: DecimalSource, data: ResetHistoryEntryUnion) => string,
         onlyif?: (data: ResetHistoryEntryUnion) => boolean
     }
 > = {
@@ -242,7 +242,7 @@ const extractStringExponent = (str: string) => {
 
 // Add an entry to the history. This can be called via the event system.
 const resetHistoryAdd = (category: Category, data: ResetHistoryEntryUnion) => {
-    if (player.history[category] === undefined) {
+    if (typeof player.history[category] === 'undefined') {
         player.history[category] = [];
     }
 
@@ -260,10 +260,10 @@ Synergism.on('historyAdd', resetHistoryAdd);
 const resetHistoryPushNewRow = (category: Category, data: ResetHistoryEntryUnion) => {
     const row = resetHistoryRenderRow(category, data);
     const table = DOMCacheGetOrSet(resetHistoryTableMapping[category]);
-    const tbody = table.querySelector("tbody");
+    const tbody = table.querySelector("tbody")!;
     tbody.insertBefore(row, tbody.childNodes[0]);
     while (tbody.childNodes.length > G['historyCountMax']) {
-        tbody.removeChild(tbody.lastChild);
+        tbody.removeChild(tbody.lastChild!);
     }
 }
 
@@ -291,7 +291,7 @@ const resetHistoryRenderRow = (
                 return;
             }
             const formatter = gainInfo.formatter || (() => {/* If no formatter is specified, don't display. */});
-            const str = `<img alt="${gainInfo.imgTitle}" src="${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable], data)}`;
+            const str = `<img alt="${gainInfo.imgTitle}" src="${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable]!, data)}`;
 
             gains.push(str);
         }
@@ -315,10 +315,9 @@ const resetHistoryRenderRow = (
         );
 
         const corruptions = resetHistoryFormatCorruptions(data);
-        if (corruptions !== null) {
-            extra.push(corruptions[0]);
-            extra.push(corruptions[1]);
-        }
+        
+        extra.push(corruptions[0]);
+        extra.push(corruptions[1]);
     }
 
     // This rendering is done this way so that all rows should have the same number of columns, which makes rows
@@ -346,12 +345,8 @@ const resetHistoryRenderRow = (
 
 // Render a category into a given table.
 const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HTMLElement) => {
-    const tbody = targetTable.querySelector("tbody");
+    const tbody = targetTable.querySelector("tbody")!;
     tbody.innerHTML = "";
-
-    if (!player.history[categoryToRender]) {
-        return;
-    }
 
     if (player.history[categoryToRender].length > 0) {
         for (let i = player.history[categoryToRender].length - 1; i >= 0; --i) {

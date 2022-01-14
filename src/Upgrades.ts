@@ -310,7 +310,7 @@ export const upgradedescriptions = (i: number) => {
     el.style.color = player.upgrades[i] > 0.5 ? 'gold' : 'white';
 
     if (player.toggles[9] === true) {
-        let type: Upgrade
+        let type: Upgrade | undefined
         if (i <= 20 && i >= 1) {
             type = Upgrade.coin
         }
@@ -367,7 +367,7 @@ export const upgradedescriptions = (i: number) => {
     upgradeeffects(i)
 }
 
-const returnCrystalUpgDesc = (i: number) => crystalupgdesc[i]?.()
+const returnCrystalUpgDesc = (i: number) => crystalupgdesc[i]()
 
 export const crystalupgradedescriptions = (i: number) => {
     const p = player.crystalUpgrades[i - 1];
@@ -426,19 +426,19 @@ const constUpgEffect: Record<number, () => string> = {
     10: () => `Cubes/Tesseracts on Ascension x${format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)}` 
 }
 
-const returnConstUpgDesc = (i: number) => constantUpgDesc[i]?.();
-const returnConstUpgEffect = (i: number) => constUpgEffect[i]?.();
+const returnConstUpgDesc = (i: number) => constantUpgDesc[i]();
+const returnConstUpgEffect = (i: number) => constUpgEffect[i]();
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
-    const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G['constUpgradeCosts'][i]) / Math.log(10)));
+    const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G['constUpgradeCosts'][i]!) / Math.log(10)));
     let cost = new Decimal("1");
-    if (toBuy > player.constantUpgrades[i]) {
-        cost = Decimal.pow(10, toBuy - 1).times(G['constUpgradeCosts'][i])
+    if (toBuy > player.constantUpgrades[i]!) {
+        cost = Decimal.pow(10, toBuy - 1).times(G['constUpgradeCosts'][i]!)
     } else {
-        cost = Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i])
+        cost = Decimal.pow(10, player.constantUpgrades[i]!).times(G['constUpgradeCosts'][i]!)
     }
 
-    return [Math.max(1, toBuy - player.constantUpgrades[i]), cost]
+    return [Math.max(1, toBuy - player.constantUpgrades[i]!), cost]
 }
 
 export const constantUpgradeDescriptions = (i: number) => {
@@ -452,7 +452,7 @@ export const constantUpgradeDescriptions = (i: number) => {
 export const buyConstantUpgrades = (i: number, fast = false) => {
     const [level, cost] = getConstUpgradeMetadata(i)
     if (player.ascendShards.gte(cost)) {
-        player.constantUpgrades[i] += level;
+        player.constantUpgrades[i]! += level;
         if (player.researches[175] === 0) {
             player.ascendShards = player.ascendShards.sub(cost);
         }

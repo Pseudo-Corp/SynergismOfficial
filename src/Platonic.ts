@@ -261,7 +261,7 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
     }
     let priceMultiplier = 1;
     if (platUpgradeBaseCosts[index].priceMult) {
-        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
+        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
     }
     for (let i = 0; i < resources.length - 1; i++) {
         if (Math.floor(platUpgradeBaseCosts[index][resources[i]] * priceMultiplier) <= player[resourceNames[i]]) {
@@ -290,7 +290,7 @@ export const createPlatonicDescription = (index: number) => {
 
     let priceMultiplier = 1;
     if (platUpgradeBaseCosts[index].priceMult) {
-        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
+        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
     }
 
     DOMCacheGetOrSet('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index-1];
@@ -365,7 +365,7 @@ export const buyPlatonicUpgrades = (index: number) => {
     const resourceCheck = checkPlatonicUpgrade(index)
     let priceMultiplier = 1;
     if (platUpgradeBaseCosts[index].priceMult) {
-        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
+        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
     }
     if (resourceCheck.canBuy) {
         player.platonicUpgrades[index] += 1

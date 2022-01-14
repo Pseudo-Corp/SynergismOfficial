@@ -1,14 +1,21 @@
 module.exports = {
     root: true,
     parser: '@typescript-eslint/parser',
-    plugins: [
-        '@typescript-eslint',
+    ignorePatterns: [
+        '**/*.d.ts'
     ],
     parserOptions: {
-        project: './tsconfig.json',
+        project: [
+            './tsconfig.json',
+            './packages/*/tsconfig.json',
+            './packages/tsconfig.base.json'
+        ],
         ecmaVersion: 99,
         sourceType: 'module'
     },
+    plugins: [
+        '@typescript-eslint',
+    ],
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
@@ -20,7 +27,7 @@ module.exports = {
 
         'no-empty': 'off',
         'no-loss-of-precision': 'error',
-        'no-promise-executor-return': 'off',
+        'no-promise-executor-return': 'error',
         'no-unreachable-loop': 'error',
         'no-unsafe-optional-chaining': 'error',
         'no-useless-backreference': 'error',
@@ -36,7 +43,7 @@ module.exports = {
         '@typescript-eslint/no-for-in-array': 'error',
         '@typescript-eslint/no-inferrable-types': 'error',
         '@typescript-eslint/no-misused-new': 'error',
-        // '@typescript-eslint/no-misused-promises': 'error',
+        '@typescript-eslint/no-misused-promises': 'error',
         '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
         // '@typescript-eslint/no-non-null-assertion': 'error',
         '@typescript-eslint/no-this-alias': 'error',
@@ -47,6 +54,7 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'error',
         '@typescript-eslint/prefer-as-const': 'error',
         '@typescript-eslint/prefer-namespace-keyword': 'error',
-        '@typescript-eslint/prefer-regexp-exec': 'error'
+        '@typescript-eslint/prefer-regexp-exec': 'error',
+        '@typescript-eslint/no-unnecessary-condition': 'error'
     }
 };

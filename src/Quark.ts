@@ -33,7 +33,7 @@ const getBonus = async (): Promise<null | number> => {
         return j.bonus;
     } catch (e) {
         console.log(`workers.dev: ${(<Error>e).message}`);
-        return undefined;
+        return null;
     }
 }
 
@@ -158,7 +158,7 @@ export class QuarkHandler {
     async getBonus() {
         const el = DOMCacheGetOrSet('currentBonus');
         if (localStorage.getItem('quarkBonus') !== null) { // is in cache
-            const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus')) as { bonus: number, fetched: number };
+            const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus')!) as { bonus: number, fetched: number };
             if (Date.now() - fetched < 60 * 1000 * 15) { // cache is younger than 15 minutes
                 console.log(
                     `%c \tBonus of ${bonus}% quarks has been applied! \n\t(Cached at ${fetched})`, 

@@ -44,6 +44,8 @@ import { toggleTheme } from "./Themes"
     Last Edited: June 10, 2021 3:04 AM UTC-8 
 */
 
+/* eslint-disable @typescript-eslint/no-misused-promises */
+
 export const generateEventHandlers = () => {
     const ordinals = ['null','first','second','third','fourth','fifth','sixth','seventh','eighth'] as const
 
@@ -613,7 +615,7 @@ TODO: Fix this entire tab it's utter shit
     // Import button
     DOMCacheGetOrSet('importfile').addEventListener('change', async e => {
         const element = e.target as HTMLInputElement;
-        const file = element.files[0];
+        const file = element.files![0];
         let save = '';
         // https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
         // not available in (bad) browsers like Safari 11
@@ -623,13 +625,13 @@ TODO: Fix this entire tab it's utter shit
             const reader = new FileReader();
             reader.readAsText(file);
             const text = await new Promise<string>(res => {
-                reader.addEventListener('load', () => res(reader.result.toString()));
+                reader.addEventListener('load', () => res(reader.result!.toString()));
             });
             
             save = text;
         }
 
-        element.value = null;
+        element.value = '';
 
         return importSynergism(save);
     });

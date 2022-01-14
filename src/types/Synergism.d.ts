@@ -392,7 +392,7 @@ export interface Player {
 
     ascensionCount: number
     ascensionCounter: number
-    cubeUpgrades: number[]
+    cubeUpgrades: [null, ...number[]]
     platonicUpgrades: number[]
     wowCubes: WowCubes
     wowTesseracts: WowTesseracts
@@ -459,7 +459,7 @@ export interface Player {
     corruptionLoadoutNames: string[]
     corruptionShowStats: boolean,
 
-    constantUpgrades: number[]
+    constantUpgrades: [null, ...number[]]
     history: Record<Category, ResetHistoryEntryUnion[]>
     historyShowPerSecond: boolean,
 
@@ -725,13 +725,13 @@ export interface GlobalVariables {
     rune5Talisman: number
 
 
-    talisman1Effect: number[]
-    talisman2Effect: number[]
-    talisman3Effect: number[]
-    talisman4Effect: number[]
-    talisman5Effect: number[]
-    talisman6Effect: number[]
-    talisman7Effect: number[]
+    talisman1Effect: [null, ...number[]]
+    talisman2Effect: [null, ...number[]]
+    talisman3Effect: [null, ...number[]]
+    talisman4Effect: [null, ...number[]]
+    talisman5Effect: [null, ...number[]]
+    talisman6Effect: [null, ...number[]]
+    talisman7Effect: [null, ...number[]]
 
     talisman6Power: number
     talisman7Quarks: number
@@ -744,21 +744,21 @@ export interface GlobalVariables {
 
     talismanLevelCostMultiplier: number[]
 
-    talismanPositiveModifier: number[]
-    talismanNegativeModifier: number[]
+    talismanPositiveModifier: [null, ...number[]]
+    talismanNegativeModifier: [null, ...number[]]
 
-    commonTalismanEnhanceCost: number[]
-    uncommonTalismanEnchanceCost: number[]
-    rareTalismanEnchanceCost: number[]
-    epicTalismanEnhanceCost: number[]
-    legendaryTalismanEnchanceCost: number[]
-    mythicalTalismanEnchanceCost: number[]
+    commonTalismanEnhanceCost: [null, ...number[]]
+    uncommonTalismanEnchanceCost: [null, ...number[]]
+    rareTalismanEnchanceCost: [null, ...number[]]
+    epicTalismanEnhanceCost: [null, ...number[]]
+    legendaryTalismanEnchanceCost: [null, ...number[]]
+    mythicalTalismanEnchanceCost: [null, ...number[]]
 
     talismanRespec: number
 
     obtainiumGain: number
 
-    mirrorTalismanStats: number[]
+    mirrorTalismanStats: [null, ...number[]]
     antELO: number
     effectiveELO: number
 
@@ -781,19 +781,19 @@ export interface GlobalVariables {
 
     buildingSubTab: BuildingSubtab
     //number000 of each before Diminishing Returns
-    blessingbase: number[]
-    blessingDRPower: number[]
+    blessingbase: [null, ...number[]]
+    blessingDRPower: [null, ...number[]]
     giftbase: number[]
     giftDRPower: number[]
-    benedictionbase: number[]
-    benedictionDRPower: number[]
+    benedictionbase: [null, ...number[]]
+    benedictionDRPower: [null, ...number[]]
     //10 Million of each before Diminishing returns on first number 200k for second, and 10k for the last few
     platonicCubeBase: number[]
     platonicDRPower: number[]
 
-    cubeBonusMultiplier: number[]
-    tesseractBonusMultiplier: number[]
-    hypercubeBonusMultiplier: number[]
+    cubeBonusMultiplier: [null, ...number[]]
+    tesseractBonusMultiplier: [null, ...number[]]
+    hypercubeBonusMultiplier: [null, ...number[]]
     platonicBonusMultiplier: number[]
 
     buyMaxCubeUpgrades: boolean,
@@ -826,7 +826,7 @@ export interface GlobalVariables {
     acceleratorMultiplier: number
     multiplierMultiplier: number
 
-    constUpgradeCosts: number[]
+    constUpgradeCosts: [null, ...number[]]
 
     globalConstantMult: Decimal
     autoTalismanTimer: number

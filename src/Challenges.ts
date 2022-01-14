@@ -65,10 +65,11 @@ export const getMaxChallenges = (i: number) => {
         }
         return maxChallenge
     }
+
+    return maxChallenge;
 }
 
-export const challengeDisplay = (i: number, changefocus?: boolean) => {
-    changefocus = (changefocus === null || changefocus === undefined) ? true : changefocus;
+export const challengeDisplay = (i: number, changefocus = true) => {
     let quarksMultiplier = 1;
 
     if (changefocus) {
@@ -391,11 +392,13 @@ export const getChallengeConditions = (i?: number) => {
         player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
     }
     G['prestigePointGain'] = new Decimal('0')
-    if (i >= 6){
-        G['transcendPointGain'] = new Decimal('0')
-    }
-    if (i >= 11){
-        G['reincarnationPointGain'] = new Decimal('0')
+    if (typeof i === 'number') {
+        if (i >= 6){
+            G['transcendPointGain'] = new Decimal('0')
+        }
+        if (i >= 11){
+            G['reincarnationPointGain'] = new Decimal('0')
+        }
     }
     calculateRuneLevels();
 }
@@ -419,7 +422,11 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
 }
 
 //Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping
-export const calculateChallengeRequirementMultiplier = (type: string, completions: number, special = 0) => {
+export const calculateChallengeRequirementMultiplier = (
+    type: 'transcend' | 'reincarnation' | 'ascension',
+    completions: number, 
+    special = 0
+) => {
     let requirementMultiplier = Math.max(
         1, 
         G['hyperchallengedMultiplier'][player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)
@@ -539,6 +546,8 @@ export const challengeRequirement = (challenge: number, completion: number, spec
         return calculateChallengeRequirementMultiplier("ascension", completion, special)
     } else if (challenge === 15) {
         return Decimal.pow(10, 1 * Math.pow(10, 24) * calculateChallengeRequirementMultiplier("ascension", completion, special))
+    } else {
+        return 0;
     }
 }
 

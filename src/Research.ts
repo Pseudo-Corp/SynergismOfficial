@@ -34,7 +34,7 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
         // Researches that are unlocked work
         if (isResearchUnlocked(player.autoResearch)) {
             const doc = DOMCacheGetOrSet("res" + G['researchOrderByCost'][player.roombaResearchIndex]);
-            if (doc && player.researches[player.autoResearch] < G['researchMaxLevels'][player.autoResearch])
+            if (doc instanceof HTMLElement && player.researches[player.autoResearch] < G['researchMaxLevels'][player.autoResearch])
                 doc.classList.add("researchRoomba");
         }
 

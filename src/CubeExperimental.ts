@@ -114,7 +114,7 @@ export abstract class Cube {
         }
         // General quark multiplier from other in-game features
         // Multiplier from passed parameter
-        let multiplier = getQuarkMultiplier() * mult * quarkHandler().cubeMult;
+        const multiplier = getQuarkMultiplier() * mult * quarkHandler().cubeMult;
 
         return Math.floor(Math.log10(cubes) * base * multiplier);
     }
@@ -215,7 +215,7 @@ export class WowTesseracts extends Cube {
     }
 
     open(value: number, max = false) {
-        let toSpend = max ? Number(this) : Math.min(Number(this), value);
+        const toSpend = max ? Number(this) : Math.min(Number(this), value);
 
         player.wowTesseracts.sub(toSpend);
         player.tesseractOpenedDaily += toSpend
