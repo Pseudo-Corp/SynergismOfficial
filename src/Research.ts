@@ -22,7 +22,10 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
         // Checks if this is maxed. If so we proceed to the next research.
         if (isResearchMaxed(player.autoResearch)) {
             DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
-            player.roombaResearchIndex += 1;
+            player.roombaResearchIndex = Math.min(
+                G['researchOrderByCost'].length - 1,
+                player.roombaResearchIndex + 1
+            );
         }
 
         // Checks against researches invalid or not unlocked.
@@ -33,8 +36,9 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
 
         // Researches that are unlocked work
         if (isResearchUnlocked(player.autoResearch)) {
-            const doc = DOMCacheGetOrSet("res" + G['researchOrderByCost'][player.roombaResearchIndex]);
-            if (doc instanceof HTMLElement && player.researches[player.autoResearch] < G['researchMaxLevels'][player.autoResearch])
+            const idx = Math.max(G['researchOrderByCost'][player.roombaResearchIndex], 1);
+            const doc = DOMCacheGetOrSet("res" + idx);
+            if (player.researches[player.autoResearch] < G['researchMaxLevels'][player.autoResearch])
                 doc.classList.add("researchRoomba");
         }
 
