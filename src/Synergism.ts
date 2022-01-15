@@ -3454,18 +3454,19 @@ export const reloadShit = async (reset = false) => {
         await localforage.getItem<string>('Synergysave2') ??
         await Promise.resolve(localStorage.getItem('Synergysave2'));
 
-    if (!save) return void Alert(`Could not load your save.`);
+    if (save) {
+        const dec = LZString.decompressFromBase64(save);
+        const isLZString = dec !== '';
 
-    const dec = LZString.decompressFromBase64(save);
-    const isLZString = dec !== '';
+        if (isLZString) {
+            localStorage.clear();
+            await localforage.setItem('Synergysave2', btoa(dec!));
+            await Alert('Transferred save to new format successfully!');
+        }
 
-    if (isLZString) {
-        localStorage.clear();
-        await localforage.setItem('Synergysave2', btoa(dec!));
-        await Alert('Transferred save to new format successfully!');
+        await loadSynergy();
     }
 
-    await loadSynergy();
     if (!reset) 
         await calculateOffline();
     else
