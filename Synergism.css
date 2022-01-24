@@ -2780,7 +2780,7 @@ p[id$="BlessingsTotal"] {
 
 .corruptionReset {
     border: 2px solid red !important;
-    width: 50px
+    width: 50px;
 }
 
 #corruptionLoadouts {
