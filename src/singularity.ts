@@ -116,7 +116,6 @@ export class SingularityUpgrade {
 
         this.updateUpgradeHTML();
         updateSingularityStats();
-        DOMCacheGetOrSet("goldenQuarks").textContent = format(player.goldenQuarks)
     }
 
     public async changeToggle() {
