@@ -3501,9 +3501,10 @@ window.addEventListener('load', () => {
     document.title = `Synergism v${version}`;
 
     generateEventHandlers();
-    corruptionButtonsAdd();
-    corruptionLoadoutTableCreate();
 
 
     void reloadShit();
+
+    corruptionButtonsAdd();
+    corruptionLoadoutTableCreate();
 });

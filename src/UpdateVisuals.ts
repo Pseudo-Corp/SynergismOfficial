@@ -206,7 +206,7 @@ export const visualUpdateRunes = () => {
 
     if (G['runescreen'] === "talismans") {
         for (let i = 0; i < 7; i++) {
-            let maxTalismanLevel = calculateMaxTalismanLevel(i);
+            const maxTalismanLevel = calculateMaxTalismanLevel(i);
             DOMCacheGetOrSet('talisman' + (i+1) + 'level').textContent = "Level " + format(player.talismanLevels[i], 0, true) + "/" + format(maxTalismanLevel, 0, true)
         }
     }
@@ -517,8 +517,8 @@ export const visualUpdateShop = () => {
                 DOMCacheGetOrSet(`${key}Level`).textContent = "Level " + format(player.shopUpgrades[key]) + "/" + format(shopItem.maxLevel);
             // Handles Button - max level needs no price indicator, otherwise it's necessary
 
-            let buyAmount = G['shopBuyMax']? Math.max(shopData[key].maxLevel - player.shopUpgrades[key], 1): 1;
-            let metaData:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[key], shopData[key].price, +player.worlds, shopData[key].priceIncrease / shopData[key].price, buyAmount)
+            const buyAmount = G['shopBuyMax']? Math.max(shopData[key].maxLevel - player.shopUpgrades[key], 1): 1;
+            const metaData:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[key], shopData[key].price, +player.worlds, shopData[key].priceIncrease / shopData[key].price, buyAmount)
             
             if (!G['shopBuyMax']) {
                 player.shopUpgrades[key] === shopItem.maxLevel ?

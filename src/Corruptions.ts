@@ -6,6 +6,28 @@ import { Alert, Prompt } from "./UpdateHTML";
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
 //
+
+export const maxCorruptionLevel = () => {
+    let max = 0
+    
+    if (player.challengecompletions[11] > 0)
+        max += 5
+    if (player.challengecompletions[12] > 0)
+        max += 2
+    if (player.challengecompletions[13] > 0)
+        max += 2
+    if (player.challengecompletions[14] > 0)
+        max += 2
+    if (player.platonicUpgrades[5] > 0)
+        max += 1
+    if (player.platonicUpgrades[10] > 0)
+        max += 1
+    if (player.singularityUpgrades.corruptionFourteen.level > 0)
+        max += 1
+    
+    return max
+}
+
 export const corruptionDisplay = (index: number) => {
     console.log(`corr: ${index}`)
     if (DOMCacheGetOrSet("corruptionDetails").style.visibility !== "visible") {
@@ -17,77 +39,78 @@ export const corruptionDisplay = (index: number) => {
     G['corruptionTrigger'] = index
     const currentExponent = ((index === 2) && player.usedCorruptions[index] >= 10) ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17]) : 1;
     const protoExponent = ((index === 2) && player.prototypeCorruptions[index] >= 10) ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17]) : 1;
+    const [bonusLevel, bonusText] = (player.singularityUpgrades.corruptionFifteen.level > 0) ? [1, " [+1]"] : [0, ""];
     const corruptionTexts: Record<'name' | 'description' | 'current' | 'planned' | 'multiplier' | 'spiritContribution' | 'image', string>[] = [
         {
             name: "Corruption I: Viscosity",
             description: "You feel lethargic across the universe...",
-            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[2]) + ". Effect: Free Accel. Exponent ^" + format(G['maladaptivePower'][player.usedCorruptions[2]], 3),
-            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[2]) + ". Effect: Free Accelerator Exponent ^" + format(G['maladaptivePower'][player.prototypeCorruptions[2]], 3),
-            multiplier: "Current Score Multiplier: " + format(Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[2]], currentExponent), 1) + " / Next Ascension Score Multiplier: " + format(Math.pow(G['corruptionPointMultipliers'][player.prototypeCorruptions[2]], protoExponent), 1),
-            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[2],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[2],2),1) + "%", 
+            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[2]) + bonusText + ". Effect: Free Accel. and Multipliers Exponent ^" + format(G['maladaptivePower'][player.usedCorruptions[2]], 3),
+            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[2]) + bonusText + ". Effect: Free Accelerator and Multipliers Exponent ^" + format(G['maladaptivePower'][player.prototypeCorruptions[2]], 3),
+            multiplier: "Current Score Multiplier: " + format(Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[2] + bonusLevel], currentExponent), 1) + " / Next Ascension Score Multiplier: " + format(Math.pow(G['corruptionPointMultipliers'][player.prototypeCorruptions[2] + bonusLevel], protoExponent), 1),
+            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[2] + bonusLevel,2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[2] + bonusLevel,2),1) + "%", 
             image: "Pictures/Maladaption Lvl 7.png"
         },
         {
             name: "Corruption II: Spacial Dilation",
             description: "Way to go, Albert.",
-            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[3]) + ". Effect: Time Speed is divided by " + format(1 / G['lazinessMultiplier'][player.usedCorruptions[3]], 5),
-            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[3]) + ". Effect: Time is divided by " + format(1 / G['lazinessMultiplier'][player.prototypeCorruptions[3]], 5),
-            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[3]], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[3]], 1),
-            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[3],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[3],2),1) + "%", 
+            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[3]) + bonusText + ". Effect: Time Speed is divided by " + format(1 / G['lazinessMultiplier'][player.usedCorruptions[3]], 5),
+            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[3]) + bonusText + ". Effect: Time is divided by " + format(1 / G['lazinessMultiplier'][player.prototypeCorruptions[3]], 5),
+            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[3] + bonusLevel], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[3] + bonusLevel], 1),
+            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[3] + bonusLevel,2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[3] + bonusLevel,2),1) + "%", 
             image: "Pictures/Laziness Lvl 7.png"
         },
         {
             name: "Corruption III: Hyperchallenged",
             description: "What's in a challenge?",
-            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[4]) + ". Effect: Challenge Exponent Reqs.  x" + format(G['hyperchallengedMultiplier'][player.usedCorruptions[4]], 3),
-            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[4]) + ". Effect: Challenge Exponent Reqs.  x" + format(G['hyperchallengedMultiplier'][player.prototypeCorruptions[4]], 3),
-            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[4]], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[4]], 1),
-            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[4],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[4],2),1) + "%", 
+            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[4]) + bonusText + ". Effect: Challenge Exponent Reqs.  x" + format(G['hyperchallengedMultiplier'][player.usedCorruptions[4]], 3),
+            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[4]) + bonusText + ". Effect: Challenge Exponent Reqs.  x" + format(G['hyperchallengedMultiplier'][player.prototypeCorruptions[4]], 3),
+            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[4] + bonusLevel], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[4] + bonusLevel], 1),
+            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[4] + bonusLevel,2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[4] + bonusLevel,2),1) + "%", 
             image: "Pictures/Hyperchallenged Lvl 7.png"
         },
         {
             name: "Corruption IV: Scientific Illiteracy",
             description: "Maybe Albert wouldn't have theorized Dilation after all.",
-            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[5]) + ". Effect: Obtainium gain ^" + format(G['illiteracyPower'][player.usedCorruptions[5]], 3),
-            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[5]) + ". Effect: Obtainium gain ^" + format(G['illiteracyPower'][player.prototypeCorruptions[5]], 3),
-            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[5]], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[5]], 1),
-            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[5],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[5],2),1) + "%", 
+            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[5]) + bonusText + ". Effect: Obtainium gain ^" + format(G['illiteracyPower'][player.usedCorruptions[5]], 3),
+            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[5]) + bonusText + ". Effect: Obtainium gain ^" + format(G['illiteracyPower'][player.prototypeCorruptions[5]], 3),
+            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[5] + bonusLevel], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[5] + bonusLevel], 1),
+            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[5] + bonusLevel,2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[5] + bonusLevel,2),1) + "%", 
             image: "Pictures/Scientific Illiteracy Lvl 7.png"
         },
         {
             name: "Corruption V: Market Deflation",
             description: "Diamond Mine destroyed... no more monopolies!",
-            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[6]) + ". Effect: Diamond gain ^1/" + format(1 / G['deflationMultiplier'][player.usedCorruptions[6]], 2),
-            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[6]) + ". Effect: Diamond gain ^1/" + format(1 / G['deflationMultiplier'][player.prototypeCorruptions[6]], 2),
-            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[6]], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[6]], 1),
-            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[6],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[6],2),1) + "%", 
+            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[6]) + bonusText + ". Effect: Diamond gain ^1/" + format(1 / G['deflationMultiplier'][player.usedCorruptions[6]], 2),
+            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[6]) + bonusText + ". Effect: Diamond gain ^1/" + format(1 / G['deflationMultiplier'][player.prototypeCorruptions[6]], 2),
+            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[6] + bonusLevel], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[6] + bonusLevel], 1),
+            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[6] + bonusLevel,2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[6] + bonusLevel,2),1) + "%", 
             image: "Pictures/Deflation Lvl 7.png"
         },
         {
             name: "Corruption VI: Extinction",
             description: "It killed the dinosaurs too, ya dingus.",
-            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[7]) + ". Effect: Ant Production ^" + format(G['extinctionMultiplier'][player.usedCorruptions[7]], 3),
-            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[7]) + ". Effect: Ant Production ^" + format(G['extinctionMultiplier'][player.prototypeCorruptions[7]], 3),
-            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[7]], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[7]], 1),
-            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[7],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[7],2),1) + "%", 
+            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[7]) + bonusText + ". Effect: Ant Production ^" + format(G['extinctionMultiplier'][player.usedCorruptions[7]], 3),
+            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[7]) + bonusText + ". Effect: Ant Production ^" + format(G['extinctionMultiplier'][player.prototypeCorruptions[7]], 3),
+            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[7] + bonusLevel], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[7] + bonusLevel], 1),
+            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[7] + bonusLevel,2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[7] + bonusLevel,2),1) + "%", 
             image: "Pictures/Extinction Lvl 7.png"
         },
         {
             name: "Corruption VII: Drought",
             description: "More like California, am I right?",
-            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[8]) + ". Effect: Offering EXP divided by " + format(G['droughtMultiplier'][player.usedCorruptions[8]], 3),
-            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[8]) + ". Effect: Offering EXP divided by " + format(G['droughtMultiplier'][player.prototypeCorruptions[8]], 3),
-            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[8]], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[8]], 1),
-            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[8],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[8],2),1) + "%", 
+            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[8]) + bonusText + ". Effect: Offering EXP divided by " + format(G['droughtMultiplier'][player.usedCorruptions[8]], 3),
+            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[8]) + bonusText + ". Effect: Offering EXP divided by " + format(G['droughtMultiplier'][player.prototypeCorruptions[8]], 3),
+            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[8] + bonusLevel], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[8] + bonusLevel], 1),
+            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[8] + bonusLevel,2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[8] + bonusLevel,2),1) + "%", 
             image: "Pictures/Drought Lvl 7.png"
         },
         {
             name: "Corruption VIII: Financial Recession",
             description: "2008.exe has stopped working.",
-            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[9]) + ". Effect: Coin Gain ^" + format(G['financialcollapsePower'][player.usedCorruptions[9]], 3),
-            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[9]) + ". Effect: Coin Gain ^" + format(G['financialcollapsePower'][player.prototypeCorruptions[9]], 3),
-            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[9]], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[9]], 1),
-            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[9],2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[9],2),1) + "%", 
+            current: "On this Ascension, this corruption is level " + format(player.usedCorruptions[9]) + bonusText + ". Effect: Coin Gain ^" + format(G['financialcollapsePower'][player.usedCorruptions[9]], 3),
+            planned: "On next Ascension, this corruption will be level " + format(player.prototypeCorruptions[9]) + bonusText + ". Effect: Coin Gain ^" + format(G['financialcollapsePower'][player.prototypeCorruptions[9]], 3),
+            multiplier: "Current Score Multiplier: " + format(G['corruptionPointMultipliers'][player.usedCorruptions[9] + bonusLevel], 1) + " / Next Ascension Score Multiplier: " + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[9] + bonusLevel], 1),
+            spiritContribution: "This Ascension gives Rune Spirit Effect +" + format(4 * Math.pow(player.usedCorruptions[9] + bonusLevel,2),1) + "% / Next Ascension Rune Spirit Effect +" + format(4 * Math.pow(player.prototypeCorruptions[9] + bonusLevel,2),1) + "%", 
             image: "Pictures/Financial Collapse Lvl 7.png"
         },
         {
@@ -137,7 +160,7 @@ export const corruptionButtonsAdd = () => {
         p.appendChild(text)
         let span = document.createElement("span");
         span.id = `corrCurrent${i+2}`;
-        span.textContent = player.usedCorruptions[i + 2] + '';
+        span.textContent = `${player.usedCorruptions[i+2]}`;
         p.appendChild(span);
 
         text = document.createTextNode(" / Next: ");
@@ -145,7 +168,7 @@ export const corruptionButtonsAdd = () => {
 
         span = document.createElement("span");
         span.id = `corrNext${i+2}`;
-        span.textContent = player.prototypeCorruptions[i + 2] + '';
+        span.textContent = `${player.prototypeCorruptions[i+2]}`;
         p.appendChild(span);
         row.appendChild(p);
 

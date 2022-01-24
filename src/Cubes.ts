@@ -269,7 +269,7 @@ export const updateCubeUpgradeBG = (i: number) => {
 
 function awardAutosCookieUpgrade() {
     for (const i of cubeAutomationIndices) {
-        let maxLevel = getCubeMax(i)
+        const maxLevel = getCubeMax(i)
         player.cubeUpgrades[i] = maxLevel;
         updateCubeUpgradeBG(i);
     }
