@@ -15,13 +15,14 @@
     "@typescript-eslint/parser": "^5.3.0",
     "esbuild": "^0.13.12",
     "eslint": "^8.1.0",
+    "husky": "^7.0.4",
     "stylelint": "^14.0.1",
     "stylelint-config-standard": "^23.0.0",
     "typescript": "^4.4.4"
   },
   "scripts": {
-    "lint": "npx eslint --fix . --ext .ts",
-    "csslint": "npx stylelint Synergism.css --fix",
+    "lint": "npx eslint . --ext .ts",
+    "csslint": "npx stylelint Synergism.css",
     "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\"",
     "watch:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\" --watch",
     "check:tsc": "npx -p typescript tsc",
