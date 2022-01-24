@@ -1426,8 +1426,8 @@ export const calculateAscensionScore = () => {
     // Max: 1.0425
     baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39] + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]), player.highestchallengecompletions[10]);
     // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
-    for (let i = 1; i <= 10; i++) {
-        const exponent = ((i === 1 || i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 0.75 * Math.min(1, player.platonicUpgrades[17]) + 0.0175 * player.platonicUpgrades[17] : 1;
+    for (let i = 2; i < 10; i++) {
+        const exponent = ((i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 2 * Math.min(1, player.platonicUpgrades[17]) + 0.04 * player.platonicUpgrades[17] : 1;
         corruptionMultiplier *= Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i]], exponent);
     }
 

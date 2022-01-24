@@ -1717,7 +1717,7 @@ export const updateAllTick = (): void => {
     
     calculateAcceleratorMultiplier();
     a *= G['acceleratorMultiplier']
-    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
+    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]]))
     a += 2000 * hepteractEffective('accelerator');
     a *= G['challenge15Rewards'].accelerator
     a *= (1 + 3/10000 * hepteractEffective('accelerator'))
@@ -1890,7 +1890,7 @@ export const updateAllMultiplier = (): void => {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
-    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['divisivenessPower'][player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))))
+    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]]))
     a += 1000 * hepteractEffective('multiplier')
     a *= G['challenge15Rewards'].multiplier
     a *= (1 + 3/10000 * hepteractEffective('multiplier'))

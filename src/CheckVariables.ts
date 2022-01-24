@@ -541,4 +541,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.dailyCodeUsed === undefined) {
         player.dailyCodeUsed = false;
     }
+
+    if (player.usedCorruptions[1] > 0 || player.prototypeCorruptions[1] > 0) {
+        player.usedCorruptions[1] = 0;
+        player.prototypeCorruptions[1] = 0;
+    }
 }
