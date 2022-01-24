@@ -1253,9 +1253,10 @@ export const calculateAscensionAcceleration = () => {
 
 export const calculateCorruptionPoints = () => {
     let basePoints = 400;
+    const bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0;
 
     for (let i = 1; i <= 9; i++) {
-        basePoints += 16 * Math.pow(player.usedCorruptions[i], 2)
+        basePoints += 16 * Math.pow(player.usedCorruptions[i] + bonusLevel, 2)
     }
 
     return (basePoints)
@@ -1390,6 +1391,7 @@ export const calculateAscensionScore = () => {
     let corruptionMultiplier = 1;
     let effectiveScore = 0;
 
+    const bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0;
     // Init Arrays with challenge values :)
     const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
     const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
@@ -1428,7 +1430,7 @@ export const calculateAscensionScore = () => {
     // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
     for (let i = 2; i < 10; i++) {
         const exponent = ((i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 2 * Math.min(1, player.platonicUpgrades[17]) + 0.04 * player.platonicUpgrades[17] : 1;
-        corruptionMultiplier *= Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i]], exponent);
+        corruptionMultiplier *= Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i] + bonusLevel], exponent);
     }
 
     effectiveScore = baseScore * corruptionMultiplier * G['challenge15Rewards'].score * G['platonicBonusMultiplier'][6];

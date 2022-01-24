@@ -187,15 +187,6 @@ export const promocodes = async () => {
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds.add(quarks);
         el.textContent = 'Khafra has blessed you with ' + quarks + ' quarks!';
-    } else if(input === 'getout2021' && !player.codes.get(36)) {
-        player.codes.set(36, true);
-        const rewards = dailyCodeReward();
-        const quarkMultiplier = 20 + 30 * player.singularityCount
-        player.worlds.add(quarkMultiplier * rewards.quarks)
-        player.goldenQuarks += 40 * rewards.goldenQuarks
-
-        const goldenQuarksText = (rewards.goldenQuarks > 0) ? `and ${format(40 * rewards.goldenQuarks, 0, true)} Golden Quarks` : '';
-        return Alert(`Here's to a better 2022! You have gained ${format(quarkMultiplier * rewards.quarks, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
     } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
         player.dailyCodeUsed = true;
         const rewards = dailyCodeReward();

@@ -8,7 +8,7 @@ import { reset, resetrepeat } from './Reset';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
-import { corruptionDisplay, corruptionLoadoutTableUpdate } from './Corruptions';
+import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -831,7 +831,7 @@ export const toggleAutoTesseracts = (i: number) => {
 
 export const toggleCorruptionLevel = (index: number, value: number) => {
     const current = player.prototypeCorruptions[index]
-    const maxCorruption = 13 + player.singularityUpgrades.corruptionFourteen.level;
+    const maxCorruption = maxCorruptionLevel();
     if (value > 0 && current < maxCorruption && 0 < index && index <= 9) {
         player.prototypeCorruptions[index] += Math.min(maxCorruption - current, value)
     }
