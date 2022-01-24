@@ -78,6 +78,12 @@ export const getQuarkMultiplier = () => {
     if (G['isEvent']) {
         multiplier *= 2; // dec 23 to jan 3
     }
+    if (player.cubeUpgrades[53] > 0) { // Cube Upgrade 6x3 (Cx3)
+        multiplier *= (1 + 0.10 * player.cubeUpgrades[53] / 100)
+    }
+    if (player.cubeUpgrades[68] > 0) { // Cube Upgrade 7x8
+        multiplier *= (1 + 2/10000 * player.cubeUpgrades[68] + 0.3 * (Math.floor(player.cubeUpgrades[68] / 1000)))
+    }
     return multiplier
 }
 
