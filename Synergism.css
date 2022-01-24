@@ -2724,6 +2724,10 @@ p[id$="BlessingsTotal"] {
     min-width: 300px;
 }
 
+.corruptionContainer {
+    display: flex;
+}
+
 .corruptionStatRow {
     display: flex;
     flex-flow: row;
