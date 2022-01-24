@@ -279,7 +279,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
 }
 
 export const getGoldenQuarkCost = () => {
-    let baseCost = 100000
+    const baseCost = 100000
 
     let costReduction = 0
     costReduction += 2 * Math.min(player.achievementPoints, 5000)
@@ -320,14 +320,14 @@ export async function buyGoldenQuarks() {
         return Alert('Sorry. I only sell whole Golden Quarks. None of that fractional transaction!')
 
     if (buyAmount === -1) {
-        let cost = maxBuy * goldenQuarkCost.cost
+        const cost = maxBuy * goldenQuarkCost.cost
         player.worlds.sub(cost)
         player.goldenQuarks += maxBuy
         return Alert(`Transaction of ${format(maxBuy)} golden quarks successful! [-${format(cost,0,true)} Quarks]`)
     }
 
     else {
-        let cost = buyAmount * goldenQuarkCost.cost
+        const cost = buyAmount * goldenQuarkCost.cost
         player.worlds.sub(cost)
         player.goldenQuarks += buyAmount
         return Alert(`Transaction of ${format(buyAmount)} golden quarks successful! [-${format(cost, 0, true)} Quarks]`)
