@@ -547,6 +547,9 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     } else if (challenge === 15) {
         return Decimal.pow(10, 1 * Math.pow(10, 33) * calculateChallengeRequirementMultiplier("ascension", completion, special))
     }
+    else {
+        return 0
+    }
 }
 
 /**
