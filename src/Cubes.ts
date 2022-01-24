@@ -112,7 +112,7 @@ export const cubeMaxLevel = [
     2, 10, 1, 10, 10, 10, 1, 1, 5, 1,
     2, 1, 1, 10, 10, 10, 10, 1, 1, 10,
     2, 10, 10, 10, 10, 20, 20, 1, 1, 100000,
-    1, 900, 100, 900, 900, 20, 1, 1, 400, 1,
+    1, 900, 100, 900, 900, 20, 1, 1, 400, 10000,
     900, 1, 1, 1, 1, 1, 1, 1000, 1, 975
 ];
 
@@ -176,7 +176,7 @@ const cubeUpgradeDescriptions = [
     "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1.",
     "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by 1.25.",
     "[Cx9] Quite sour for a cookie. But it increases your ascension speed by 0.25% per level, so who is to complain?",
-    "[Cx10] Wow! Bakery had extra ginger from their christmas sale. If there is an event, Quarks are multiplied by 1.15!",
+    "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the cost of buying Golden Quarks by 1 Quark per level.",
     "[Cx11] Edible but prone to mistakes. Adds five whole milliseconds to the tolerance of code 'time'.",
     "[Cx12] Platonic loves toffee. Triple Obtainium and Offering gain in Challenge 15.",
     "[Cx13] Brownie Cookies, the best of both worlds. Increase Regular Cube Gain by 1% based on owned Hepteracts (+3% per OOM).",

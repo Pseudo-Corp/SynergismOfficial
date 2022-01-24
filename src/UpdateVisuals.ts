@@ -14,6 +14,7 @@ import { hepteractTypeList, hepteractTypes } from './Hepteracts';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { IMultiBuy } from './Cubes';
 import { calculateMaxTalismanLevel } from './Talismans';
+import { getGoldenQuarkCost } from './singularity';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== "buildings") {
@@ -533,4 +534,7 @@ export const visualUpdateShop = () => {
             }
         }
     }
+
+    DOMCacheGetOrSet("buySingularityQuarksAmount").textContent = `Owned: ${format(player.goldenQuarks)}`
+    DOMCacheGetOrSet("buySingularityQuarksButton").textContent = `Buy! ${format(getGoldenQuarkCost().cost)} Quarks Each`
 }

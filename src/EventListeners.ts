@@ -26,6 +26,7 @@ import { displayStats } from "./Statistics"
 import { testing } from './Config';
 import { DOMCacheGetOrSet } from "./Cache/DOM"
 import { toggleTheme } from "./Themes"
+import { buyGoldenQuarks } from "./singularity"
 
 /* STYLE GUIDE */
 /* 
@@ -598,7 +599,7 @@ TODO: Fix this entire tab it's utter shit
             DOMCacheGetOrSet(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
         }
     }
-
+    DOMCacheGetOrSet('buySingularityQuarksButton').addEventListener('click', () => buyGoldenQuarks());
 // SINGULARITY TAB
     const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
     for (const key of singularityUpgrades) {

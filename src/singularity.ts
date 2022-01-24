@@ -152,20 +152,20 @@ export class SingularityUpgrade {
 export const singularityData: Record<keyof Player['singularityUpgrades'], ISingularityData> = {
     goldenQuarks1: {
         name: "Golden Quarks I",
-        description: "In the future, you will gain 5% more Golden Quarks on singularities!",
+        description: "In the future, you will gain 5% more Golden Quarks on singularities! This also reduces the cost to buy Golden Quarks in the shop by 500 per level.",
         maxLevel: 10,
         costPerLevel: 12,
     },
     goldenQuarks2: {
         name: "Golden Quarks II",
-        description: "If you buy this, you will gain 2% more Golden Quarks on singularities. Stacks with the first upgrade.",
+        description: "If you buy this, you will gain 2% more Golden Quarks on singularities. This also reduces the cost to buy Golden Quarks in the shop by 200 per level. Stacks with the first upgrade.",
         maxLevel: 25,
         costPerLevel: 60,
     },
     goldenQuarks3: {
         name: "Golden Quarks III",
-        description: "If you buy this, you will gain 1 Golden Quark per hour from Exports.",
-        maxLevel: 1,
+        description: "If you buy this, you will gain 1 Golden Quark per hour from Exports. Also reduces the cost to buy Golden Quarks in the shop by 1,000 per level.",
+        maxLevel: 5,
         costPerLevel: 1000,
     },
     starterPack: {
@@ -276,4 +276,63 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         maxLevel: 40,
         costPerLevel: 500
     },
+}
+
+export const getGoldenQuarkCost = () => {
+    let baseCost = 100000
+
+    let costReduction = 0
+    costReduction += 2 * Math.min(player.achievementPoints, 5000)
+    costReduction += 1 * Math.max(0, player.achievementPoints - 5000)
+    costReduction += player.cubeUpgrades[60]
+    costReduction += 500 * player.singularityUpgrades.goldenQuarks1.level
+    costReduction += 200 * player.singularityUpgrades.goldenQuarks2.level
+    costReduction += 1000 * player.singularityUpgrades.goldenQuarks3.level
+    
+
+    return {
+        cost: baseCost - costReduction,
+        costReduction: costReduction
+    }
+
+}
+
+export async function buyGoldenQuarks() {
+    const goldenQuarkCost = getGoldenQuarkCost()
+    const maxBuy = Math.floor(+player.worlds / goldenQuarkCost.cost)
+    let buyAmount = null
+
+    if (maxBuy === 0)
+        return Alert("Sorry, I can't give credit. Come back when you're a little... mmm... richer!")
+    const buyPrompt = await Prompt(`You can buy golden quarks here for ${format(goldenQuarkCost.cost)} Quarks (Discounted by ${format(goldenQuarkCost.costReduction)})! You can buy up to ${format(maxBuy)}. How many do you want? Type -1 to buy max!`)
+    if (buyPrompt === null) // Number(null) is 0. Yeah..
+        return Alert('Okay, maybe next time.');
+
+    buyAmount = Number(buyPrompt)
+    //Check these lol
+    if (Number.isNaN(buyAmount) || !Number.isFinite(buyAmount)) // nan + Infinity checks
+        return Alert('Value must be a finite number!');
+    else if (buyAmount <= 0 && buyAmount != -1) // 0 or less selected
+        return Alert('You can\'t craft a nonpositive amount of these, you monster!');
+    else if (buyAmount > maxBuy)
+        return Alert('Sorry, I cannnot sell you this many golden quarks! Try buying fewer of them or typing -1 to buy max!')
+    else if (Math.floor(buyAmount) !== buyAmount) // non integer
+        return Alert('Sorry. I only sell whole Golden Quarks. None of that fractional transaction!')
+
+    if (buyAmount === -1) {
+        let cost = maxBuy * goldenQuarkCost.cost
+        player.worlds.sub(cost)
+        player.goldenQuarks += maxBuy
+        return Alert(`Transaction of ${format(maxBuy)} golden quarks successful! [-${format(cost,0,true)} Quarks]`)
+    }
+
+    else {
+        let cost = buyAmount * goldenQuarkCost.cost
+        player.worlds.sub(cost)
+        player.goldenQuarks += buyAmount
+        return Alert(`Transaction of ${format(buyAmount)} golden quarks successful! [-${format(cost, 0, true)} Quarks]`)
+    }
+    
+
+    
 }
