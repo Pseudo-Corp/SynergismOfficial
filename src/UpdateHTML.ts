@@ -9,6 +9,7 @@ import { getMaxChallenges } from './Challenges';
 import { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { updateSingularityStats } from './singularity';
+import { revealCorruptions } from './Corruptions';
 
 export const revealStuff = () => {
     const example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
@@ -421,6 +422,8 @@ export const revealStuff = () => {
 
         el.style.display = automationUnlocks[key] ? "block" : "none";
     });
+
+    revealCorruptions();
 }
 
 export const hideStuff = () => {
