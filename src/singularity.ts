@@ -211,14 +211,14 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         costPerLevel: 5,
     },
     corruptionFourteen: {
-        name: "Level Fourteen Corruptions (WIP)",
+        name: "Level Fourteen Corruptions",
         description: "Buy this to unlock level fourteen corruptions :).",
         maxLevel: 1,
         costPerLevel: 1000,
     },
     corruptionFifteen: {
         name: "Level Fifteen Corruptions (WIP)",
-        description: "Buy this to unlock level fifteen corruptions :)",
+        description: "This doesn't *really* raise the corruption limit. Rather, it adds one FREE level to corruption multipliers, no matter what (can exceed cap). :)",
         maxLevel: 1,
         costPerLevel: 40000,
     },

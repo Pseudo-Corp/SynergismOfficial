@@ -606,6 +606,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             }
         }
         player.usedCorruptions = Array.from(player.prototypeCorruptions)
+        player.usedCorruptions[1] = 0;
+        player.prototypeCorruptions[1] = 0;
         //fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
         if (player.currentChallenge.ascension === 15 && input === 'ascension') {
            player.usedCorruptions[0] = 0;
