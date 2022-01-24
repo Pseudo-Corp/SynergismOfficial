@@ -839,7 +839,7 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
         for (let i = 0; i <= 9; i++) {
             player.usedCorruptions[i] = 0;
             player.prototypeCorruptions[i] = 0;
-            if (i > 0)
+            if (i > 1)
                 corruptionDisplay(i)
         }
         
