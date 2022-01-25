@@ -827,6 +827,7 @@ export const calculateOffline = async (forceTime = 0) => {
     //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
     preloadImage.style.display = 'none';
+    exitOffline();
 
     G['timeMultiplier'] = calculateTimeAcceleration();
     calculateObtainium();
