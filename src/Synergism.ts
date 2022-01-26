@@ -1519,6 +1519,10 @@ export const format = (
         // returns format (1.23e456,789)
         return `${mantissaLook}e${powerLook}`;
     } else if (power >= 1e6) {
+        if (!Number.isFinite(power)) {
+            return 'Infinity';
+        }
+
         // if the power is greater than 1e6 apply notation scientific notation
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = testing && truncate ? '' : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
