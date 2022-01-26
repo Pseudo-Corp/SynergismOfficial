@@ -192,11 +192,11 @@ export const visualUpdateRunes = () => {
             const maxLevel = calculateMaxRunes(i)
             DOMCacheGetOrSet('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(runeLevel) + "/" + format(maxLevel)
             DOMCacheGetOrSet('rune' + i + 'exp').textContent = (runeLevel < maxLevel ? "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP" : "Max level!")
-            if (i <= 5) DOMCacheGetOrSet('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + G['bonusant9']) + place) + "]"
+            if (i <= 5) DOMCacheGetOrSet('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[8]! + G['bonusant9']) + place) + "]"
             else DOMCacheGetOrSet('bonusrune' + i).textContent = "[Bonus: Nope!]"
             DOMCacheGetOrSet('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i - 1]) + "/" + format(calculateMaxRunes(i))
             DOMCacheGetOrSet('rune' + i + 'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP"
-            if (i <= 5) DOMCacheGetOrSet('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + G['bonusant9']) + place) + "]"
+            if (i <= 5) DOMCacheGetOrSet('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[8]! + G['bonusant9']) + place) + "]"
             else DOMCacheGetOrSet('bonusrune' + i).textContent = "[Bonus: Nope!]"
             displayRuneInformation(i, false)
         }
@@ -269,7 +269,7 @@ export const visualUpdateResearch = () => {
 export const visualUpdateAnts = () => {
     if (G['currentTab'] !== "ants")
         return
-    DOMCacheGetOrSet("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(G['antOneProduce'], 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + G['bonusant2']) / 5000 * 500 / 499))) + "x Coin Multiplier."
+    DOMCacheGetOrSet("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(G['antOneProduce'], 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[1]! + G['bonusant2']) / 5000 * 500 / 499))) + "x Coin Multiplier."
     const mode = player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
     const timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
     DOMCacheGetOrSet("autoAntSacrifice").textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer)}`
@@ -324,16 +324,16 @@ export const visualUpdateCubes = () => {
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
-                if (cubeArray[i] >= 1000 && i !== 6) {
+                if (cubeArray[i]! >= 1000 && i !== 6) {
                     augmentAccuracy += 2;
                 }
                 DOMCacheGetOrSet(`cubeBlessing${i}Amount`).textContent = `x${format(cubeArray[i], 0, true)}`
-                DOMCacheGetOrSet(`cubeBlessing${i}Effect`).textContent = `+${format(100 * (G['cubeBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                DOMCacheGetOrSet(`cubeBlessing${i}Effect`).textContent = `+${format(100 * (G['cubeBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)}%`
                 if (i === 1 || i === 8 || i === 9) {
-                    DOMCacheGetOrSet(`cubeBlessing${i}Effect`).textContent = `+${format(G['cubeBonusMultiplier'][i] - 1, accuracy[i] + augmentAccuracy, true)}`
+                    DOMCacheGetOrSet(`cubeBlessing${i}Effect`).textContent = `+${format(G['cubeBonusMultiplier'][i] - 1, accuracy[i]! + augmentAccuracy, true)}`
                 }
             }
-            DOMCacheGetOrSet("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray), 0, true);
+            DOMCacheGetOrSet("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray.slice(1) as number[]), 0, true);
             break;
         }
         case 1: {
@@ -342,13 +342,13 @@ export const visualUpdateCubes = () => {
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
-                if (tesseractArray[i] >= 1000 && i !== 6) {
+                if (tesseractArray[i]! >= 1000 && i !== 6) {
                     augmentAccuracy += 2;
                 }
                 DOMCacheGetOrSet(`tesseractBlessing${i}Amount`).textContent = `x${format(tesseractArray[i], 0, true)}`
-                DOMCacheGetOrSet(`tesseractBlessing${i}Effect`).textContent = `+${format(100 * (G['tesseractBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                DOMCacheGetOrSet(`tesseractBlessing${i}Effect`).textContent = `+${format(100 * (G['tesseractBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)}%`
             }
-            DOMCacheGetOrSet("tesseractBlessingTotalAmount").textContent = format(sumContents(tesseractArray), 0, true);
+            DOMCacheGetOrSet("tesseractBlessingTotalAmount").textContent = format(sumContents(tesseractArray.slice(1) as number[]), 0, true);
             break;
         }
         case 2: {
@@ -357,13 +357,13 @@ export const visualUpdateCubes = () => {
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
-                if (hypercubeArray[i] >= 1000) {
+                if (hypercubeArray[i]! >= 1000) {
                     augmentAccuracy += 2;
                 }
                 DOMCacheGetOrSet(`hypercubeBlessing${i}Amount`).textContent = `x${format(hypercubeArray[i], 0, true)}`
-                DOMCacheGetOrSet(`hypercubeBlessing${i}Effect`).textContent = `+${format(100 * (G['hypercubeBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                DOMCacheGetOrSet(`hypercubeBlessing${i}Effect`).textContent = `+${format(100 * (G['hypercubeBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)}%`
             }
-            DOMCacheGetOrSet("hypercubeBlessingTotalAmount").textContent = format(sumContents(hypercubeArray), 0, true);
+            DOMCacheGetOrSet("hypercubeBlessingTotalAmount").textContent = format(sumContents(hypercubeArray.slice(1) as number[]), 0, true);
             break;
         }
         case 3: {
@@ -412,8 +412,8 @@ export const visualUpdateCubes = () => {
 const UpdateHeptGridValues = (type: hepteractTypes) => {
     const text = type + 'ProgressBarText'
     const bar = type + 'ProgressBar'
-    const textEl = document.getElementById(text)
-    const barEl = document.getElementById(bar)
+    const textEl = document.getElementById(text)!
+    const barEl = document.getElementById(bar)!
     const balance = player.hepteractCrafts[type].BAL
     const cap = player.hepteractCrafts[type].CAP
     const barWidth = Math.round((balance / cap) * 100)

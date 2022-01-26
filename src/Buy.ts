@@ -15,7 +15,7 @@ export const getReductionValue = () => {
     reduction += (G['rune4level'] * G['effectiveLevelMult']) / 160;
     reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
     reduction += CalcECC('transcend', player.challengecompletions[4]) / 200;
-    reduction += Math.min(99999.9, (3 * (player.antUpgrades[7-1] + G['bonusant7'])) / 100);
+    reduction += Math.min(99999.9, (3 * (player.antUpgrades[7-1]! + G['bonusant7'])) / 100);
     return reduction;
 }
 
@@ -270,7 +270,7 @@ const known_log10s = function () {
     // constructing all logs
     const obj: Record<number, number> = {};
     for (const need of needed) {
-        if (obj[need] === undefined) {
+        if (typeof obj[need] === 'undefined') {
             obj[need] = Math.log10(need);
         }
     }
@@ -452,7 +452,7 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
     r += (G['rune4level'] * G['effectiveLevelMult']) / 160;
     r += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
     r += CalcECC('transcend', player.challengecompletions[4]) / 200
-    r += (3 * (G['bonusant7'] + player.antUpgrades[7-1])) / 100;
+    r += (3 * (G['bonusant7'] + player.antUpgrades[7-1]!)) / 100;
 
     const posCostType = `${pos}Cost${type}` as const;
     const posOwnedType = `${pos}Owned${type}` as const;

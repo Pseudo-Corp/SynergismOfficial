@@ -49,14 +49,18 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
     const subTabList = subTabsInMainTab(player.tabnumber).subTabList
     if (player.tabnumber !== -1) {
         for (let i = 0; i < subTabList.length; i++) {
-            const button = DOMCacheGetOrSet(subTabList[i].buttonID)
-            if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
-                player.subtabNumber = i
-                break;
-            }
-            if (player.tabnumber === 9 && button.style.borderColor === "dodgerblue") { // handle corruption tab
-                player.subtabNumber = i
-                break;
+            const id = subTabList[i].buttonID;
+            if (id) {
+                const button = DOMCacheGetOrSet(id)
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
+                    player.subtabNumber = i
+                    break;
+                }
+                if (player.tabnumber === 9 && button.style.borderColor === "dodgerblue") { // handle corruption tab
+                    player.subtabNumber = i
+                    break;
+                }
             }
         }
     } else { // handle settings tab
@@ -265,7 +269,7 @@ export const subTabsInMainTab = (mainTab: number) => {
         10: {
             subTabList: []}
     }
-    return subTabs[mainTab];
+    return subTabs[mainTab]!;
 }
 
 export const keyboardTabChange = (dir = 1, main = true) => {
@@ -315,10 +319,10 @@ export const toggleSubTab = (mainTab = 1, subTab = 0) => {
             // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
             const btn = DOMCacheGetOrSet("settings").getElementsByClassName("subtabSwitcher")[0].children[subTab]
             if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked)
-                subTabsInMainTab(mainTab).tabSwitcher(subTabsInMainTab(mainTab).subTabList[subTab].subTabID, btn)
+                subTabsInMainTab(mainTab).tabSwitcher?.(subTabsInMainTab(mainTab).subTabList[subTab].subTabID, btn)
         } else {
             if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked)
-                subTabsInMainTab(mainTab).tabSwitcher(subTabsInMainTab(mainTab).subTabList[subTab].subTabID)
+                subTabsInMainTab(mainTab).tabSwitcher?.(subTabsInMainTab(mainTab).subTabList[subTab].subTabID)
         }
     }
 }
@@ -371,7 +375,7 @@ export const toggleauto = () => {
     for (const auto of Array.from(autos)) {
         const format = auto.getAttribute("format") || 'Auto [$]';
         const toggleId = auto.getAttribute("toggleId");
-        if (toggleId === undefined || toggleId === null) {
+        if (toggleId === null) {
             continue;
         }
 
@@ -559,11 +563,11 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
         return;
     }
 
-    const switcherEl = clickedButton.parentNode;
+    const switcherEl = clickedButton.parentNode!;
     switcherEl.querySelectorAll(".buttonActive").forEach(b => b.classList.remove("buttonActive"));
     clickedButton.classList.add("buttonActive");
 
-    subtabEl.parentNode.querySelectorAll(".subtabActive").forEach(subtab => subtab.classList.remove("subtabActive"));
+    subtabEl.parentNode!.querySelectorAll(".subtabActive").forEach(subtab => subtab.classList.remove("subtabActive"));
     subtabEl.classList.add("subtabActive");
 
     if (subtab === "statisticsSubTab") {
@@ -861,6 +865,7 @@ export const toggleCorruptionLoadoutsStats = (stats: boolean) => {
 
 export const toggleAscStatPerSecond = (id: number) => {
     const el = DOMCacheGetOrSet(`unit${id}`);
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!el) {
         console.log(id, 'platonic needs to fix');
         return;

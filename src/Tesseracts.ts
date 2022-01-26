@@ -13,6 +13,6 @@ export const calculateTesseractBlessings = () => {
             mult *= Math.pow(1000, (1 - G['giftDRPower'][i]));
         }
 
-        G['tesseractBonusMultiplier'][i+1] = 1 + mult * G['giftbase'][i] * Math.pow(tesseractArray[i], power) * G['hypercubeBonusMultiplier'][i+1];
+        G['tesseractBonusMultiplier'][i+1] = 1 + mult * G['giftbase'][i] * Math.pow(tesseractArray[i], power) * G['hypercubeBonusMultiplier'][i+1]!;
     }
 }

@@ -23,7 +23,7 @@ export class TabularInventory {
     // Potential Idea: dynamic inventory size based on row, column var defined ?
     rows = 3;
     columns = 10;
-    items: [TabularItem];
+    items: TabularItem[] = [];
     lowestPopulated = -1;
 
     constructor(preset?: [TabularItem]){

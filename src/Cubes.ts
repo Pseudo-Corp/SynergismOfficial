@@ -192,19 +192,20 @@ const cubeUpgradeDescriptions = [
 const getCubeCost = (i: number, linGrowth = 0, cubic = false): IMultiBuy => {
     const maxLevel = getCubeMax(i)
     let amountToBuy = G['buyMaxCubeUpgrades'] ? 1e5: 1;
-    amountToBuy = Math.min(maxLevel - player.cubeUpgrades[i], amountToBuy)
+    const cubeUpgrade = player.cubeUpgrades[i]!;
+    amountToBuy = Math.min(maxLevel - cubeUpgrade, amountToBuy)
     const singularityMultiplier = (i <= 50) ? (1 + player.singularityCount): 1;
 
     let metaData:IMultiBuy
 
     if (cubic) {
         // TODO: Fix this inconsistency later.
-        amountToBuy = G['buyMaxCubeUpgrades'] ? maxLevel: Math.min(maxLevel, player.cubeUpgrades[i] + 1)
-        metaData = calculateCubicSumData(player.cubeUpgrades[i], cubeBaseCost[i-1],
+        amountToBuy = G['buyMaxCubeUpgrades'] ? maxLevel: Math.min(maxLevel, cubeUpgrade + 1)
+        metaData = calculateCubicSumData(cubeUpgrade, cubeBaseCost[i-1],
                                          Number(player.wowCubes), amountToBuy)
     }
     else
-        metaData = calculateSummationNonLinear(player.cubeUpgrades[i],
+        metaData = calculateSummationNonLinear(cubeUpgrade,
                                               cubeBaseCost[i-1] * singularityMultiplier,
                                                Number(player.wowCubes), linGrowth, amountToBuy)
 
@@ -231,7 +232,7 @@ export const cubeUpgradeDesc = (i: number, linGrowth = 0, cubic = false) => {
 
     a.textContent = cubeUpgradeName[i - 1];
     b.textContent = cubeUpgradeDescriptions[i - 1];
-    c.textContent = "Cost: " + format(metaData.cost, 0, true) + " Wow! Cubes [+" + format(metaData.levelCanBuy-player.cubeUpgrades[i],0,true) + " Levels]";
+    c.textContent = "Cost: " + format(metaData.cost, 0, true) + " Wow! Cubes [+" + format(metaData.levelCanBuy-player.cubeUpgrades[i]!,0,true) + " Levels]";
     c.style.color = "green"
     d.textContent = "Level: " + format(player.cubeUpgrades[i], 0, true) + "/" + format(maxLevel, 0, true);
     d.style.color = "white"
@@ -250,15 +251,16 @@ export const cubeUpgradeDesc = (i: number, linGrowth = 0, cubic = false) => {
 export const updateCubeUpgradeBG = (i: number) => {
     const a = DOMCacheGetOrSet("cubeUpg" + i)
     const maxCubeLevel = getCubeMax(i);
-    if (player.cubeUpgrades[i] > maxCubeLevel) {
-        console.log("Refunded " + (player.cubeUpgrades[i] - cubeMaxLevel[i-1]) + " levels of Cube Upgrade " + i + ", adding " + (player.cubeUpgrades[i] - cubeMaxLevel[i-1]) * cubeBaseCost[i-1] + " Wow! Cubes to balance.")
-        player.wowCubes.add((player.cubeUpgrades[i] - maxCubeLevel) * cubeBaseCost[i-1]);
+    const cubeUpgrade = player.cubeUpgrades[i]!;
+    if (cubeUpgrade > maxCubeLevel) {
+        console.log("Refunded " + (cubeUpgrade - cubeMaxLevel[i-1]) + " levels of Cube Upgrade " + i + ", adding " + (cubeUpgrade - cubeMaxLevel[i-1]) * cubeBaseCost[i-1] + " Wow! Cubes to balance.")
+        player.wowCubes.add((cubeUpgrade - maxCubeLevel) * cubeBaseCost[i-1]);
         player.cubeUpgrades[i] = maxCubeLevel;
     }
     if (player.cubeUpgrades[i] === 0) {
         a.style.backgroundColor = "black"
     }
-    if (player.cubeUpgrades[i] > 0 && player.cubeUpgrades[i] < maxCubeLevel) {
+    if (cubeUpgrade > 0 && cubeUpgrade < maxCubeLevel) {
         a.style.backgroundColor = "purple"
     }
     if (player.cubeUpgrades[i] === maxCubeLevel) {
@@ -285,7 +287,7 @@ function awardAutosCookieUpgrade() {
 export const buyCubeUpgrades = (i: number, linGrowth = 0, cubic = false) => {
     const metaData = getCubeCost(i,linGrowth, cubic);
     const maxLevel = getCubeMax(i)
-    if(Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[i] < maxLevel){
+    if(Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[i]! < maxLevel){
         player.wowCubes.sub(100 / 100 * metaData.cost);
         player.cubeUpgrades[i] = metaData.levelCanBuy;
     }

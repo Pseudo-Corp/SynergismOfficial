@@ -20,14 +20,14 @@ const associated = new Map<string, string>([
 ]);
 
 export const displayStats = (btn: HTMLElement) => {
-    for (const e of Array.from(btn.parentElement.children) as HTMLElement[]) {
+    for (const e of Array.from(btn.parentElement!.children) as HTMLElement[]) {
         if (e.id !== btn.id) {
             e.style.backgroundColor = '';
-            DOMCacheGetOrSet(associated.get(e.id)).style.display = 'none';
+            DOMCacheGetOrSet(associated.get(e.id)!).style.display = 'none';
         }
     }
     
-    const statsEl = DOMCacheGetOrSet(associated.get(btn.id));
+    const statsEl = DOMCacheGetOrSet(associated.get(btn.id)!);
     statsEl.style.display = 'block';
     btn.style.backgroundColor = 'crimson';
 }
@@ -56,7 +56,7 @@ export const loadStatisticsMultiplier = () => {
     DOMCacheGetOrSet("sM6").textContent = "x" + format(1 + 1 / 5 * player.researches[2], 3, true)
     DOMCacheGetOrSet("sM7").textContent = "x" + format(1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15], 3, true)
     DOMCacheGetOrSet("sM8").textContent = "x" + format(1 + 1 / 20 * player.researches[87], 3, true)
-    DOMCacheGetOrSet("sM9").textContent = "x" + format(calculateSigmoidExponential(40, (player.antUpgrades[5-1] + G['bonusant5']) / 1000 * 40 / 39),2,true)
+    DOMCacheGetOrSet("sM9").textContent = "x" + format(calculateSigmoidExponential(40, (player.antUpgrades[4]! + G['bonusant5']) / 1000 * 40 / 39),2,true)
     DOMCacheGetOrSet("sM10").textContent = "x" + format(G['cubeBonusMultiplier'][2], 3, true)
     DOMCacheGetOrSet("sM11").textContent = "x" + format(((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5 ? 1.25 : 1), 3, true)
     DOMCacheGetOrSet("sM12").textContent = "^" + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]]), 3, true)

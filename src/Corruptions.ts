@@ -143,10 +143,8 @@ export const corruptionStatsUpdate = () => {
         // https://discord.com/channels/677271830838640680/706329553639047241/841749032841379901
         const a = DOMCacheGetOrSet(`corrCurrent${i}`);
         const b = DOMCacheGetOrSet(`corrNext${i}`)
-        if (a) a.textContent = format(player.usedCorruptions[i])
-        else console.log(`Send to Platonic: corrCurrent${i} is null`);
-        if (b) b.textContent = format(player.prototypeCorruptions[i])
-        else console.log(`Send to Platonic: corrNext${i} is null`);
+        a.textContent = format(player.usedCorruptions[i])
+        b.textContent = format(player.prototypeCorruptions[i])
     }
 }
 
@@ -300,8 +298,9 @@ export const updateCorruptionLoadoutNames = () => {
     const rows = getElementById<HTMLTableElement>("corruptionLoadoutTable").rows
     for (let i = 0; i < Object.keys(player.corruptionLoadouts).length; i++) {
         const cells = rows[i + 2].cells  //start changes on 2nd row
-        if (cells[0].textContent.length === 0) {  //first time setup
-            cells[0].addEventListener('click', () => corruptionLoadoutGetNewName(i)); //get name function handles -1 for array
+        if (cells[0].textContent!.length === 0) {  //first time setup
+
+            cells[0].addEventListener('click', () => void corruptionLoadoutGetNewName(i)); //get name function handles -1 for array
             cells[0].classList.add('corrLoadoutName');
         }
         cells[0].textContent = `${player.corruptionLoadoutNames[i]}:`;

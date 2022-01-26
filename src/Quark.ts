@@ -33,7 +33,7 @@ const getBonus = async (): Promise<null | number> => {
         return j.bonus;
     } catch (e) {
         console.log(`workers.dev: ${(<Error>e).message}`);
-        return undefined;
+        return null;
     }
 }
 
@@ -74,6 +74,9 @@ export const getQuarkMultiplier = () => {
     }
     if (player.singularityCount > 0) { // Singularity Modifier
         multiplier *= (1 + player.singularityCount / 10)
+    }
+    if (G['isEvent']) {
+        multiplier *= 2; // dec 23 to jan 3
     }
     if (player.cubeUpgrades[53] > 0) { // Cube Upgrade 6x3 (Cx3)
         multiplier *= (1 + 0.10 * player.cubeUpgrades[53] / 100)
@@ -161,7 +164,7 @@ export class QuarkHandler {
     async getBonus() {
         const el = DOMCacheGetOrSet('currentBonus');
         if (localStorage.getItem('quarkBonus') !== null) { // is in cache
-            const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus')) as { bonus: number, fetched: number };
+            const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus')!) as { bonus: number, fetched: number };
             if (Date.now() - fetched < 60 * 1000 * 15) { // cache is younger than 15 minutes
                 console.log(
                     `%c \tBonus of ${bonus}% quarks has been applied! \n\t(Cached at ${fetched})`, 

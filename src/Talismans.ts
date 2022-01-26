@@ -344,9 +344,7 @@ export const changeTalismanModifier = (i: number) => {
         el.style.border = "2px solid limegreen";
     }
 
-    const checkSum = G['mirrorTalismanStats'].reduce(function (a, b) {
-        return a + b;
-    }, 0);
+    const checkSum = G['mirrorTalismanStats'].reduce((a, b) => a! + b!, 0);
 
     if (checkSum === 1) {
         DOMCacheGetOrSet("confirmTalismanRespec").style.display = "block";

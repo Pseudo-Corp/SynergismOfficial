@@ -99,7 +99,6 @@ export class SingularityUpgrade {
             return Alert("hey! You have already maxxed this upgrade. :D")
 
         while (maxPurchasable > 0) {
-            console.log('teehee')
             const cost = this.getCostTNL();
             if (player.goldenQuarks < cost) {
                 break;
@@ -117,7 +116,6 @@ export class SingularityUpgrade {
 
         this.updateUpgradeHTML();
         updateSingularityStats();
-        DOMCacheGetOrSet("goldenQuarks").textContent = format(player.goldenQuarks)
     }
 
     public async changeToggle() {

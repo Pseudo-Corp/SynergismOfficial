@@ -41,6 +41,7 @@ import { testing, version, lastUpdated } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { singularityData, SingularityUpgrade } from './singularity';
+import { PlayerSave } from './types/LegacySynergism';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -702,11 +703,7 @@ export const saveSynergy = async (button?: boolean) => {
 
     const save = btoa(JSON.stringify(p));
     if (save !== null) {
-        try {
-            await localforage.setItem('Synergysave2', save);
-        } catch (e: unknown) {
-            await Promise.resolve(localStorage.setItem('Synergysave2', save));
-        }
+        await localforage.setItem('Synergysave2', save);
     }
 
     if (button) {
@@ -719,7 +716,7 @@ export const saveSynergy = async (button?: boolean) => {
 /**
  * Map of properties on the Player object to adapt
  */
-const toAdapt = new Map<keyof Player, (data: Player) => unknown>([
+const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
     ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) })],
     ['wowCubes', data => new WowCubes(Number(data.wowCubes))],
     ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts))],
@@ -733,7 +730,7 @@ const loadSynergy = async () => {
         await localforage.getItem<string>('Synergysave2') ??
         await Promise.resolve(localStorage.getItem('Synergysave2'));
 
-    const data = save ? JSON.parse(atob(save)) as Player & Record<string, unknown> : null;
+    const data = save ? JSON.parse(atob(save)) as PlayerSave & Record<string, unknown> : null;
 
     if (testing) {
         Object.defineProperty(window, 'player', {
@@ -773,11 +770,14 @@ const loadSynergy = async () => {
             if (!(prop in player)) {
                 return;
             } else if (toAdapt.has(prop)) {
-                return ((player[prop] as unknown) = toAdapt.get(prop)(data));
+                return ((player[prop] as unknown) = toAdapt.get(prop)!(data));
             } else if (isDecimal(player[prop])) {
                 return ((player[prop] as Decimal) = new Decimal(data[prop] as DecimalSource));
             } else if (prop === 'codes') {
-                return (player.codes = new Map(data[prop]));
+                const codes = data[prop];
+                if (codes != null) {
+                    return (player.codes = new Map(codes));
+                }
             } else if (oldCodesUsed.includes(prop)) {
                 return;
             } else if (Array.isArray(data[prop])) {
@@ -842,7 +842,7 @@ const loadSynergy = async () => {
             player.shopUpgrades = Object.assign({}, blankSave.shopUpgrades);
         }
 
-        if (player.researches[76] === undefined) {
+        if (typeof player.researches[76] === 'undefined') {
             player.codes.set(13, false);
             player.researches.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
             player.achievements.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -857,7 +857,7 @@ const loadSynergy = async () => {
         player.runeshards = player.runeshards || 0;
         player.researchPoints = player.researchPoints || 0;
 
-        if (!data.loaded1009 || data.loaded1009hotfix1 === null || data.shopUpgrades.offeringPotion === undefined) {
+        if (!data.loaded1009 || data.loaded1009hotfix1 === null || data.shopUpgrades?.offeringPotion === undefined) {
             player.firstOwnedParticles = 0;
             player.secondOwnedParticles = 0;
             player.thirdOwnedParticles = 0;
@@ -916,8 +916,8 @@ const loadSynergy = async () => {
 
         //const shop = data.shopUpgrades as LegacyShopUpgrades & Player['shopUpgrades'];
         if (
-            data.achievements[169] === undefined || 
-            player.achievements[169] === undefined || 
+            data.achievements?.[169] === undefined || 
+            typeof player.achievements[169] === 'undefined' || 
         //    (shop.antSpeed === undefined && shop.antSpeedLevel === undefined) || 
         //    (shop.antSpeed === undefined && typeof shop.antSpeedLevel === 'undefined') || 
             data.loaded1010 === undefined || 
@@ -1051,7 +1051,7 @@ const loadSynergy = async () => {
         checkVariablesOnLoad(data)
         if (data.ascensionCount === undefined || player.ascensionCount === 0) {
             player.ascensionCount = 0;
-            if (player.ascensionCounter === undefined || (player.ascensionCounter === 0 && player.prestigeCount > 0)) {
+            if (player.ascensionCounter === 0 && player.prestigeCount > 0) {
                 player.ascensionCounter = 86400 * 90;
             }
             /*player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1130,10 +1130,10 @@ const loadSynergy = async () => {
             }
         }
 
-        if (data.history === undefined || player.history === undefined) {
+        if (data.history === undefined) {
             player.history = { ants: [], ascend: [], reset: [] };
         }
-        if (data.historyShowPerSecond === undefined || player.historyShowPerSecond === undefined) {
+        if (data.historyShowPerSecond === undefined) {
             player.historyShowPerSecond = false;
         }
 
@@ -1151,7 +1151,7 @@ const loadSynergy = async () => {
         }
 
         if (!player.dayCheck) {
-            player.dayCheck = new Date(player.dayCheck)
+            player.dayCheck = new Date()
         }
 
         for (let i = 1; i <= 5; i++) {
@@ -1159,18 +1159,18 @@ const loadSynergy = async () => {
             player[ascendBuildingI].generated = new Decimal(player[ascendBuildingI].generated)
         }
 
-        while (player.achievements[252] === undefined) {
+        while (typeof player.achievements[252] === 'undefined') {
             player.achievements.push(0)
         }
-        while (player.researches[200] === undefined) {
+        while (typeof player.researches[200] === 'undefined') {
             player.researches.push(0)
         }
-        while (player.upgrades[140] === undefined) {
+        while (typeof player.upgrades[140] === 'undefined') {
             player.upgrades.push(0)
         }
 
 
-        if (player.saveString === undefined || player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
+        if (player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
             player.saveString = "Synergism-$VERSION$-$TIME$.txt"
         }
         getElementById<HTMLInputElement>("saveStringInput").value = player.saveString
@@ -1347,7 +1347,7 @@ const loadSynergy = async () => {
         }
         if (player.autoResearchMode === 'cheapest') {
             DOMCacheGetOrSet("toggleautoresearchmode").textContent = "Automatic mode: Cheapest"
-        } else if (player.autoResearchMode === 'manual') {
+        } else {
             DOMCacheGetOrSet("toggleautoresearchmode").textContent = "Automatic mode: Manual"
         }
         if (player.autoSacrificeToggle == true) {
@@ -1430,7 +1430,7 @@ const loadSynergy = async () => {
 
 // Bad browsers (like Safari) only recently implemented this.
 // 
-const supportsFormatToParts = typeof (Intl?.NumberFormat?.prototype as Intl.NumberFormat)?.formatToParts === 'function';
+const supportsFormatToParts = typeof (Intl.NumberFormat.prototype as Intl.NumberFormat).formatToParts === 'function';
 
 // In some browsers, this will return an empty-1 length array (?), causing a "TypeError: Cannot read property 'value' of undefined"
 // if we destructure it... To reproduce: ` const [ { value } ] = []; `
@@ -1473,14 +1473,15 @@ const padEvery = (str: string, places = 3) => {
  * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
  */
 export const format = (
-    input: Decimal | number | { [Symbol.toPrimitive]: unknown }, 
+    input: Decimal | number | { [Symbol.toPrimitive]: unknown } | null | undefined, 
     accuracy = 0, 
     long = false,
     truncate = true
 ): string => {
+    if (input == null) return `0 [NaN]`;
+
     if (
         typeof input === 'object' && 
-        input !== null &&
         Symbol.toPrimitive in input
     ) {
         input = Number(input);
@@ -1499,8 +1500,8 @@ export const format = (
     )
         return input.toExponential(accuracy);
 
-    let power;
-    let mantissa;
+    let power!: number;
+    let mantissa!: number;
     if (isDecimal(input)) {
         // Gets power and mantissa if input is of type decimal
         power = input.e;
@@ -1884,7 +1885,7 @@ export const updateAllMultiplier = (): void => {
     a *= (1 + 0.2 / 100 * player.researches[188])
     a *= (1 + 0.01 / 100 * player.researches[200])
     a *= (1 + 0.01 / 100 * player.cubeUpgrades[50])
-    a *= calculateSigmoidExponential(40, (player.antUpgrades[5-1] + G['bonusant5']) / 1000 * 40 / 39)
+    a *= calculateSigmoidExponential(40, (Number(player.antUpgrades[4]) + G['bonusant5']) / 1000 * 40 / 39)
     a *= G['cubeBonusMultiplier'][2]
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
@@ -2457,7 +2458,7 @@ export const updateAntMultipliers = (): void => {
     }
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1 + player.upgrades[77] / 250 + player.researches[96] / 5000 + player.cubeUpgrades[65] / 250, player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts))
     G['globalAntMult'] = G['globalAntMult'].times(1 + player.upgrades[78] * 0.005 * Math.pow(Math.log(player.maxofferings + 1) / Math.log(10), 2))
-    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1-1] + G['bonusant1']));
+    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[0]! + G['bonusant1']));
     G['globalAntMult'] = G['globalAntMult'].times(antSacrificePointsToMultiplier(player.antSacrificePoints))
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(Math.max(1, player.researchPoints), G['effectiveRuneBlessingPower'][5]))
     G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1 + G['runeSum'] / 100, G['talisman6Power']))
@@ -2791,7 +2792,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             void singularity();
             return Alert("Welcome to Singularity #" + format(player.singularityCount) + ". You're back to familiar territory, but something doesn't seem right.")
         }
-        if (!c1 || !c2 || !c3)
+        if (!c1 || !c2)
             return Alert("If you decide to change your mind, let me know. -Ant God")
     }
 }
@@ -2967,7 +2968,7 @@ export const updateAll = (): void => {
 //Autobuy "ascension" tab
     if (player.researches[175] > 0) {
         for (let i = 1; i <= 10; i++) {
-            if (player.ascendShards.gte(getConstUpgradeMetadata(i).pop())) {
+            if (player.ascendShards.gte(getConstUpgradeMetadata(i).pop()!)) {
                 buyConstantUpgrades(i, true);
             }
         }
@@ -3252,7 +3253,7 @@ function tack(dt: number) {
                 player.achievements[133] > 0,
                 player.achievements[140] > 0,
                 player.achievements[147] > 0,
-                player.antUpgrades[12-1] > 0 || player.ascensionCount > 0,
+                player.antUpgrades[11]! > 0 || player.ascensionCount > 0,
                 player.shopUpgrades.shopTalisman > 0,
             ];
             let upgradedTalisman = false;
@@ -3453,16 +3454,19 @@ export const reloadShit = async (reset = false) => {
         await localforage.getItem<string>('Synergysave2') ??
         await Promise.resolve(localStorage.getItem('Synergysave2'));
 
-    const dec = LZString.decompressFromBase64(save);
-    const isLZString = dec !== '';
+    if (save) {
+        const dec = LZString.decompressFromBase64(save);
+        const isLZString = dec !== '';
 
-    if (isLZString) {
-        localStorage.clear();
-        localStorage.setItem('Synergysave2', btoa(dec));
-        await Alert('Transferred save to new format successfully!');
+        if (isLZString) {
+            localStorage.clear();
+            await localforage.setItem('Synergysave2', btoa(dec!));
+            await Alert('Transferred save to new format successfully!');
+        }
+
+        await loadSynergy();
     }
 
-    await loadSynergy();
     if (!reset) 
         await calculateOffline();
     else
@@ -3493,11 +3497,12 @@ export const reloadShit = async (reset = false) => {
 
 window.addEventListener('load', () => {
     const ver = DOMCacheGetOrSet('versionnumber');
-    ver && (ver.textContent = 
-        `You're ${testing ? 'testing' : 'playing'} v${version} - Seal of the Merchant` +
-        ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` + 
-        ` ${testing ? 'Savefiles cannot be used in live!' : ''}`
-    );
+    if (ver instanceof HTMLElement) {
+        ver.textContent = 
+            `You're ${testing ? 'testing' : 'playing'} v${version} - Seal of the Merchant` +
+            ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` + 
+            ` ${testing ? 'Savefiles cannot be used in live!' : ''}`;
+    }
     document.title = `Synergism v${version}`;
 
     generateEventHandlers();

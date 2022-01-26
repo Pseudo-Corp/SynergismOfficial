@@ -16,10 +16,10 @@ export const calculateHypercubeBlessings = () => {
         let power = 1;
         let mult = 1;
         if (obj >= 1000) {
-            power = G['benedictionDRPower'][idx];
-            mult *= Math.pow(1000, (1 - G['benedictionDRPower'][idx]));
+            power = G['benedictionDRPower'][idx]!;
+            mult *= Math.pow(1000, (1 - G['benedictionDRPower'][idx]!));
         }
 
-        G['hypercubeBonusMultiplier'][idx] = 1 + mult * G['benedictionbase'][idx] * Math.pow(obj, power) * G['platonicBonusMultiplier'][4];
+        G['hypercubeBonusMultiplier'][idx] = 1 + mult * G['benedictionbase'][idx]! * Math.pow(obj, power) * G['platonicBonusMultiplier'][4];
     }
 }

@@ -34,7 +34,7 @@ export const revealStuff = () => {
 
     const example5 = document.getElementsByClassName("prestigeunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example5.length; i++) {
-        const parent = example5[i].parentElement;
+        const parent = example5[i].parentElement!;
         if (parent.classList.contains('offlineStats'))
             example5[i].style.display = player.unlocks.prestige ? 'flex' : 'none';
         else 
@@ -48,7 +48,7 @@ export const revealStuff = () => {
 
     const example7 = document.getElementsByClassName("transcendunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example7.length; i++) {
-        const parent = example7[i].parentElement;
+        const parent = example7[i].parentElement!;
         if (parent.classList.contains('offlineStats'))
             example7[i].style.display = player.unlocks.transcend ? 'flex' : 'none';
         else 
@@ -57,7 +57,7 @@ export const revealStuff = () => {
 
     const example8 = document.getElementsByClassName("reincarnationunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example8.length; i++) {
-        const parent = example8[i].parentElement;
+        const parent = example8[i].parentElement!;
         if (parent.classList.contains('offlineStats'))
             example8[i].style.display = player.unlocks.reincarnate ? 'flex' : 'none';
         else 
@@ -106,7 +106,7 @@ export const revealStuff = () => {
 
     const example17 = document.getElementsByClassName("chal8") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example17.length; i++) {
-        const parent = example17[i].parentElement;
+        const parent = example17[i].parentElement!;
         if (parent.classList.contains('offlineStats'))
             example17[i].style.display = player.achievements[127] === 1 ? 'flex' : 'none';
         else 
@@ -130,7 +130,7 @@ export const revealStuff = () => {
 
     const example21 = document.getElementsByClassName("ascendunlock") as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example21.length; i++) {
-        const parent = example21[i].parentElement;
+        const parent = example21[i].parentElement!;
         if (parent.classList.contains('offlineStats'))
             example21[i].style.display = player.ascensionCount > 0 ? 'flex' : 'none';
         else 
@@ -322,7 +322,7 @@ export const revealStuff = () => {
     player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
         DOMCacheGetOrSet("autotessbuyeramount").style.display = "block" :
         DOMCacheGetOrSet("autotessbuyeramount").style.display = "none";
-    (player.antUpgrades[12-1] > 0 || player.ascensionCount > 0) ? //Ant Talisman Unlock, Mortuus
+    (player.antUpgrades[11]! > 0 || player.ascensionCount > 0) ? //Ant Talisman Unlock, Mortuus
         DOMCacheGetOrSet("talisman6area").style.display = "flex" :
         DOMCacheGetOrSet("talisman6area").style.display = "none";
 
@@ -414,6 +414,7 @@ export const revealStuff = () => {
 
     Object.keys(automationUnlocks).forEach(key => {
         const el = DOMCacheGetOrSet(key);
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!el) {
             console.error(`Automation unlock failed to find element with ID '${key}'.`);
             return;
@@ -523,19 +524,20 @@ export const hideStuff = () => {
     }
 }
 
-const visualTab: Record<string, () => void> = {
+const visualTab: Record<typeof G['currentTab'], () => void> = {
     buildings: visualUpdateBuildings,
     upgrades: visualUpdateUpgrades,
     achievements: visualUpdateAchievements,
     runes: visualUpdateRunes,
     challenges: visualUpdateChallenges,
-    research: visualUpdateResearch,
+    researches: visualUpdateResearch,
     settings: visualUpdateSettings,
     shop: visualUpdateShop,
     ants: visualUpdateAnts,
     cubes: visualUpdateCubes,
-    traits: visualUpdateCorruptions
-}
+    traits: visualUpdateCorruptions,
+    singularity: () => {}
+};
 
 export const htmlInserts = () => {
     // ALWAYS Update these, for they are the most important resources
@@ -550,7 +552,7 @@ export const htmlInserts = () => {
 
     updateAscensionStats()
 
-    visualTab[G['currentTab']]?.();
+    visualTab[G['currentTab']]();
 }
 
 // TODO(not @KhafraDev): cache the elements and stop getting them every time?
@@ -709,15 +711,15 @@ export const buttoncolorchange = () => {
                 : DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove("buildingPurchaseBtnAvailable");
         }
         for (let i = 1; i <= 8; i++) {
-            (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i])))
+            (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G['constUpgradeCosts'][i]!)))
                 ? DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add("constUpgradeAvailable")
                 : DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove("constUpgradeAvailable")
         }
         for (let i = 9; i <= 10; i++) {
-            if (player.constantUpgrades[i] >= 1) {
+            if (player.constantUpgrades[i]! >= 1) {
                 DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add("constUpgradeSingle")
                 DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove("constUpgradeSingleAvailable")
-            } else if (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]).times(G['constUpgradeCosts'][i]))) {
+            } else if (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G['constUpgradeCosts'][i]!))) {
                 DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add("constUpgradeSingleAvailable")
             } else {
                 DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove("constUpgradeSingleAvailable")
@@ -735,7 +737,7 @@ export const buttoncolorchange = () => {
                 : DOMCacheGetOrSet(`anttier${i}`).classList.remove("antTierBtnAvailable")
         }
         for (let i = 1; i <= 12; i++) {
-            player.antPoints.gte(Decimal.pow(G['antUpgradeCostIncreases'][i-1], player.antUpgrades[i-1] * G['extinctionMultiplier'][player.usedCorruptions[10]]).times(G['antUpgradeBaseCost'][i-1]))
+            player.antPoints.gte(Decimal.pow(G['antUpgradeCostIncreases'][i-1], player.antUpgrades[i-1]! * G['extinctionMultiplier'][player.usedCorruptions[10]]).times(G['antUpgradeBaseCost'][i-1]))
                 ? DOMCacheGetOrSet(`antUpgrade${i}`).classList.add("antUpgradeBtnAvailable")
                 : DOMCacheGetOrSet(`antUpgrade${i}`).classList.remove("antUpgradeBtnAvailable")
         }
@@ -789,7 +791,7 @@ export const updateAchievementBG = () => {
         fixDisplay2[i].style.backgroundColor = "maroon" //Sets the appropriate achs to maroon (red)
     }
     for (let i = 1; i < player.achievements.length; i++) {
-        if (player.achievements[i] > 0.5 && player.achievements[i] !== undefined) {
+        if (player.achievements[i] > 0.5) {
             achievementaward(i) //This sets all completed ach to green
         }
     }
@@ -870,7 +872,9 @@ const tabColors: { [key: string]: string } = {
 
 export const changeTabColor = () => {
     const tab = DOMCacheGetOrSet('tabBorder');
-    const color = tabColors[G['currentTab']] ?? 'yellow';
+    const color = G['currentTab'] in tabColors
+        ? tabColors[G['currentTab']]
+        : 'yellow';
 
     tab.style.backgroundColor = color;
 }
@@ -878,15 +882,15 @@ export const changeTabColor = () => {
 const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
     const conf = DOMCacheGetOrSet('confirmationBox');
     const confWrap = DOMCacheGetOrSet('confirmWrapper');
-    const popup = document.querySelector<HTMLElement>('#confirm');
-    const overlay = document.querySelector<HTMLElement>('#transparentBG');
-    const ok = popup.querySelector<HTMLElement>('#ok_confirm');
-    const cancel = popup.querySelector<HTMLElement>('#cancel_confirm');
+    const popup = document.querySelector<HTMLElement>('#confirm')!;
+    const overlay = document.querySelector<HTMLElement>('#transparentBG')!;
+    const ok = popup.querySelector<HTMLElement>('#ok_confirm')!;
+    const cancel = popup.querySelector<HTMLElement>('#cancel_confirm')!;
     
     conf.style.display = 'block';
     confWrap.style.display = 'block';
     overlay.style.display = 'block';
-    popup.querySelector('p').textContent = text;
+    popup.querySelector('p')!.textContent = text;
     popup.focus();
 
     // IF you clean up the typing here also clean up PromptCB
@@ -922,14 +926,14 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
 const AlertCB = (text: string, cb: (value: undefined) => void) => {
     const conf = DOMCacheGetOrSet('confirmationBox');
     const alertWrap = DOMCacheGetOrSet('alertWrapper');
-    const overlay = document.querySelector<HTMLElement>('#transparentBG');
-    const popup = document.querySelector<HTMLElement>('#alert');
-    const ok = popup.querySelector<HTMLElement>('#ok_alert');
+    const overlay = document.querySelector<HTMLElement>('#transparentBG')!;
+    const popup = document.querySelector<HTMLElement>('#alert')!;
+    const ok = popup.querySelector<HTMLElement>('#ok_alert')!;
     
     conf.style.display = 'block';
     alertWrap.style.display = 'block';
     overlay.style.display = 'block';
-    popup.querySelector('p').textContent = text;
+    popup.querySelector('p')!.textContent = text;
     popup.focus();
 
     const listener = () => {
@@ -951,25 +955,25 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
 export const PromptCB = (text: string, cb: (value: string | null) => void) => {
     const conf = DOMCacheGetOrSet('confirmationBox');
     const confWrap = DOMCacheGetOrSet('promptWrapper');
-    const overlay = document.querySelector<HTMLElement>('#transparentBG');
-    const popup = document.querySelector<HTMLElement>('#prompt');
-    const ok = popup.querySelector<HTMLElement>('#ok_prompt');
-    const cancel = popup.querySelector<HTMLElement>('#cancel_prompt');
+    const overlay = document.querySelector<HTMLElement>('#transparentBG')!;
+    const popup = document.querySelector<HTMLElement>('#prompt')!;
+    const ok = popup.querySelector<HTMLElement>('#ok_prompt')!;
+    const cancel = popup.querySelector<HTMLElement>('#cancel_prompt')!;
     
     conf.style.display = 'block';
     confWrap.style.display = 'block';
     overlay.style.display = 'block';
-    popup.querySelector('label').textContent = text;
-    popup.querySelector('input').focus();
+    popup.querySelector('label')!.textContent = text;
+    popup.querySelector('input')!.focus();
 
     // kinda disgusting types but whatever
     const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
         const targetEl = target as HTMLButtonElement;
-        const el = targetEl.parentNode.querySelector('input');
+        const el = targetEl.parentNode!.querySelector('input')!;
 
         ok.removeEventListener('click', listener);
         cancel.removeEventListener('click', listener);
-        popup.querySelector('input').removeEventListener('keyup', kbListener);
+        popup.querySelector('input')!.removeEventListener('keyup', kbListener);
 
         conf.style.display = 'none';
         confWrap.style.display = 'none';
@@ -993,12 +997,12 @@ export const PromptCB = (text: string, cb: (value: string | null) => void) => {
 
     ok.addEventListener('click', listener);
     cancel.addEventListener('click', listener);
-    popup.querySelector('input').addEventListener('keyup', kbListener);
+    popup.querySelector('input')!.addEventListener('keyup', kbListener);
 }
 
 const NotificationCB = (text: string, time = 30000, cb: () => void) => {
     const notification = DOMCacheGetOrSet('notification');
-    const textNode = document.querySelector<HTMLElement>('#notification > p');
+    const textNode = document.querySelector<HTMLElement>('#notification > p')!;
     const x = DOMCacheGetOrSet('notifx');
 
     textNode.textContent = text;
@@ -1021,12 +1025,16 @@ const NotificationCB = (text: string, time = 30000, cb: () => void) => {
 }
 
 /*** Promisified version of the AlertCB function. */
+// eslint-disable-next-line no-promise-executor-return
 export const Alert = (text: string): Promise<undefined> => new Promise(res => AlertCB(text, res));
 /*** Promisified version of the PromptCB function. */
+// eslint-disable-next-line no-promise-executor-return
 export const Prompt = (text: string): Promise<string | null> => new Promise(res => PromptCB(text, res));
 /*** Promisified version of the ConfirmCB function */
+// eslint-disable-next-line no-promise-executor-return
 export const Confirm = (text: string): Promise<boolean> => new Promise(res => ConfirmCB(text, res));
 /*** Promisified version of the NotificationCB function */
+// eslint-disable-next-line no-promise-executor-return
 export const Notification = (text: string, time?: number): Promise<void> => new Promise(res => NotificationCB(text, time, res));
 
 /**
