@@ -804,8 +804,7 @@ export const calculateOffline = (forceTime = 0) => {
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
   
-    DOMCacheGetOrSet('preloadContainer').style.display = (forceTime > 0) ? 'none' : 'flex';
-    DOMCacheGetOrSet("offlineContainer").style.display = "flex";
+    document.body.classList.add('loading');
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
@@ -916,7 +915,6 @@ export const calculateOffline = (forceTime = 0) => {
     if (el) {  //if the button is present
         el.focus(); //Allow user to hit space/enter to proceed
     }
-    
 }
 
 export const exitOffline = () => {
