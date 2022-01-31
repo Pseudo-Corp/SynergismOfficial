@@ -3340,7 +3340,7 @@ function tack(dt: number) {
             }
         }
         calculateOfferings("reincarnation")
-    }
+}
 
 document.addEventListener('keydown', (event) => {
     if (document.activeElement && document.activeElement.localName === 'input') {
@@ -3511,9 +3511,17 @@ window.addEventListener('load', () => {
 
     generateEventHandlers();
 
-
     void reloadShit();
 
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
 });
+
+window.addEventListener('unload', () => {
+    // This fixes a bug in Chrome (who would have guessed?) that
+    // wouldn't properly load elements if the user scrolled down
+    // and reloaded a page. Why is this a bug, Chrome? Why would
+    // a page that is reloaded be affected by what the user did
+    // beforehand? How does anyone use this buggy browser???????
+    window.scrollTo(0, 0);
+})

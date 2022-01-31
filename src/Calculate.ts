@@ -818,16 +818,14 @@ export const calculateOffline = async (forceTime = 0) => {
     //Some one-time tick things that are relatively important
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
-  
-    DOMCacheGetOrSet('preloadContainer').style.display = (forceTime > 0) ? 'none' : 'flex';
-    DOMCacheGetOrSet("offlineContainer").style.display = "flex";
+
+    document.body.classList.add('loading');
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
     //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
     preloadImage.style.display = 'none';
-    exitOffline();
 
     G['timeMultiplier'] = calculateTimeAcceleration();
     calculateObtainium();
@@ -930,7 +928,6 @@ export const calculateOffline = async (forceTime = 0) => {
 
     const el = <HTMLButtonElement>DOMCacheGetOrSet("exitOffline")
     el.focus();
-    
 }
 
 export const exitOffline = () => {
