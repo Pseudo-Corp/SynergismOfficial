@@ -3471,10 +3471,13 @@ export const reloadShit = async (reset = false) => {
         await loadSynergy();
     }
 
-    if (!reset) 
+    if (!reset) {
         await calculateOffline();
-    else
+        document.body.classList.remove('loading');
+    } else {
         player.worlds = new QuarkHandler({ quarks: 0, bonus: 0 });
+    }
+
     await saveSynergy();
     toggleauto();
     revealStuff();
@@ -3500,6 +3503,7 @@ export const reloadShit = async (reset = false) => {
 }
 
 window.addEventListener('load', () => {
+    document.body.classList.add('loading');
     const ver = DOMCacheGetOrSet('versionnumber');
     if (ver instanceof HTMLElement) {
         ver.textContent = 
@@ -3511,7 +3515,7 @@ window.addEventListener('load', () => {
 
     generateEventHandlers();
 
-    void reloadShit();
+    void reloadShit(true);
 
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();

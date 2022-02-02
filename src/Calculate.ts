@@ -819,8 +819,6 @@ export const calculateOffline = async (forceTime = 0) => {
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
 
-    document.body.classList.add('loading');
-
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
     //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
