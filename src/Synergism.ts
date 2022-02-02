@@ -3473,7 +3473,6 @@ export const reloadShit = async (reset = false) => {
 
     if (!reset) {
         await calculateOffline();
-        document.body.classList.remove('loading');
     } else {
         player.worlds = new QuarkHandler({ quarks: 0, bonus: 0 });
     }
@@ -3515,7 +3514,7 @@ window.addEventListener('load', () => {
 
     generateEventHandlers();
 
-    void reloadShit(true);
+    void reloadShit();
 
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();

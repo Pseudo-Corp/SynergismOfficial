@@ -139,7 +139,7 @@ export const resetGame = async () => {
     await importSynergism(btoa(JSON.stringify(hold))!, true);
 }
 
-export const importSynergism = async (input: string, reset = false) => {
+export const importSynergism = async (input: string, reset = true) => {
     if (typeof input !== 'string') {
         return Alert('Invalid character, could not save! 😕');
     }
