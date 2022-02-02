@@ -803,8 +803,6 @@ export const calculateOffline = (forceTime = 0) => {
     //Some one-time tick things that are relatively important
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
-  
-    document.body.classList.add('loading');
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
