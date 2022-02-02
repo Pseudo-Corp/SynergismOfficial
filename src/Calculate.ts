@@ -878,6 +878,9 @@ export const calculateOffline = (forceTime = 0) => {
         }
     }, 0);
 
+    DOMCacheGetOrSet('offlineContainer').style.display = 'flex';
+    document.body.classList.add('loading');
+
     DOMCacheGetOrSet('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
     DOMCacheGetOrSet('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
     DOMCacheGetOrSet('offlineOfferingCountNumber').textContent = format(resetAdd.offering, 0, true)

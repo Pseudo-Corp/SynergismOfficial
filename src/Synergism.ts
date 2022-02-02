@@ -3404,6 +3404,7 @@ document.addEventListener('keydown', (event) => {
 
 /**
  * Reloads shit.
+ * @param reset if this param is passed, offline progression will not be calculated.
  */
 export const reloadShit = async (reset = false) => {
     for (const timer of intervalHold)
@@ -3425,7 +3426,7 @@ export const reloadShit = async (reset = false) => {
     if (!reset) {
         calculateOffline();
     } else {
-        player.worlds = new QuarkHandler({ bonus: 0, quarks: Number(player.worlds) });
+        player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 });
     }
 
     saveSynergy();
@@ -3449,7 +3450,6 @@ export const reloadShit = async (reset = false) => {
 }
 
 window.addEventListener('load', () => {
-    document.body.classList.add('loading');
     const ver = DOMCacheGetOrSet('versionnumber');
     ver && (ver.textContent = 
         `You're ${testing ? 'testing' : 'playing'} v${version} - Seal of the Merchant` +
