@@ -139,7 +139,7 @@ export const resetGame = async () => {
     await importSynergism(btoa(JSON.stringify(hold))!, true);
 }
 
-export const importSynergism = async (input: string, reset = true) => {
+export const importSynergism = async (input: string, reset = false) => {
     if (typeof input !== 'string') {
         return Alert('Invalid character, could not save! 😕');
     }
@@ -156,7 +156,6 @@ export const importSynergism = async (input: string, reset = true) => {
         await localforage.setItem('Synergysave2', item);
 
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
-        document.body.classList.add('loading');
         
         return reloadShit(reset);
     } else {
