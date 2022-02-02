@@ -3473,6 +3473,8 @@ export const reloadShit = async (reset = false) => {
 
     if (!reset) {
         await calculateOffline();
+    } else {
+        player.worlds = new QuarkHandler({ bonus: 0, quarks: Number(player.worlds) });
     }
 
     await saveSynergy();
