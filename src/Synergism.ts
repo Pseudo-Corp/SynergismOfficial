@@ -3500,6 +3500,27 @@ export const reloadShit = async (reset = false) => {
         void Alert(`Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial`);
         localStorage.setItem('pleaseStar', '');
     }
+
+    // All versions of Chrome and Firefox supported by the game have this API,
+    // but not all versions of Edge and Safari do.
+    if (
+        /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+        typeof navigator.storage?.persist === 'function' &&
+        typeof navigator.storage?.persisted === 'function'
+        /* eslint-enable @typescript-eslint/no-unnecessary-condition */
+    ) {
+        const persistent = await navigator.storage.persisted();
+
+        if (!persistent) {
+            const isPersistentNow = await navigator.storage.persist();
+
+            if (isPersistentNow) {
+                void Alert(`Data on this page is now persistent! If you do not know what this means, you can safely ignore it.`);
+            }
+        } else {
+            console.log(`Storage is persistent! (persistent = ${persistent})`);
+        }
+    }
 }
 
 window.addEventListener('load', () => {
