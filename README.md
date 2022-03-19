@@ -1,4 +1,4 @@
-# Synergism - the game
+# Luluism - the game
 
 ## Contributing
 Before running any of these commands, run `npm install` to install all dependencies.
