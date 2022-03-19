@@ -27,7 +27,7 @@ jobs:
         run: |
           rm -rf Kong.zip
       - name: Create .zip File
-        uses: papeloto/action-zip@v1
+        uses: vimtor/action-zip@v1
         with:
           files: dist/ Pictures/ index.html Synergism.css favicon.ico
           dest: Kong.zip

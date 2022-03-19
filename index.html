@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="Synergism.css">
     <script src="./dist/out.js" defer></script>
 </head>
-<body class="loading">
+<body class="dark loading">
     <div id="transparentBG"></div>
     <div id="notification">
         <div id="notifx">
@@ -1158,7 +1158,7 @@
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach385.png" id="ach252" alt="" loading="lazy"></td>
                         <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach392.png" id="ach259" alt="" loading="lazy"></td>
                         <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach399.png" id="ach266" alt="" loading="lazy"></td>
-                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach406.png" id="ach273" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach406.png" id="ach273" alt="" loading="lazy"></td>
                         <td><img class="chal14" src="Pictures/Transparent Pics/ach413.png" id="ach280" alt="" loading="lazy"></td>
                     </tr>
 
@@ -2766,6 +2766,7 @@
                 <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
                 <button id="promocodes" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
                 <p id="promocodeinfo" style="color: goldenrod"></p>
+                <button id="theme" style="border: 2px solid white">Light Mode</button>
             </div>
             <div id="exportButtons">
                 <p id="quarktimerdisplay" class="tightText" style="color: gold">3600s until +1 export Quark</p>
@@ -2811,6 +2812,7 @@
         <div id="versionnumber">You're playing Synergism</div>
         <div id="event" style="color: orchid">Event Status: <span id="eventCurrent" style="color:orangered"></span></div>
         <div id="eventBuffs" style="color: lime;">Buffs: </div>
+        <a href="https://www.youtube.com/watch?v=aAkMkVFwAoo" target="_blank" id="happyHolidays" style="color: greenyellow"></a>
     </div>
     <div class="subtabContent" id="creditssubtab">
         <h1>Coders</h1>
@@ -2917,6 +2919,8 @@
             <p id="statGCM8" class="statPortion">Cube upgrade 1x1:<span id="sGCM8" class="statNumber">0</span></p>
             <p id="statGCM9" class="statPortion">Event:<span id="sGCM9" class="statNumber">0</span></p>
             <p id="statGCM10" class="statPortion">Singularity:<span id="sGCM10" class="statNumber">0</span></p>
+            <p id="statGCM11" class="statPortion">-<span id="sGCM11" class="statNumber">-</span></p>
+            <p id="statGCM12" class="statPortion">-<span id="sGCM12" class="statNumber">-</span></p>
             <p id="statGCMT" class="statPortion statTotal" style="color: orange">TOTAL GLOBAL CUBE MULTIPLIER: <span
                 id="sGCMT" class="statNumber statTotal">0</span></p>
         </div>
@@ -3126,16 +3130,40 @@
                             <p id="seasonPassLevel">Level: 0/5</p>
                             <button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange"></button>
                         </div>
+                        <div class='chal14'>
+                            <img id="seasonPass2" src="Pictures/VIP Pass Upgrade 2.png" alt="" loading="lazy">
+                            <p id="seasonPass2Level">Level: 0/100</p>
+                            <button class="permshopbutton" id="seasonPass2Button" style="border: 2px solid orange"></button>
+                        </div>
+                        <div class='chal14'>
+                            <img id="seasonPass3" src="Pictures/VIP Pass Upgrade 3.png" alt="" loading="lazy">
+                            <p id="seasonPass3Level">Level: 0/100</p>
+                            <button class="permshopbutton" id="seasonPass3Button" style="border: 2px solid orange"></button>
+                        </div>
+                        <div class='hepteracts'>
+                            <img id="seasonPassY" src="Pictures/VIP Pass Upgrade Y.png" alt="" loading="lazy">
+                            <p id="seasonPassYLevel"></p>
+                            <button class="permshopbutton" id="seasonPassYButton" style="border: 2px solid red"></button>
+                        </div>
+                        <div class='singularity'>
+                            <img id="seasonPassZ" src="Pictures/VIP Pass Upgrade Z.png" alt="" loading="lazy">
+                            <p id="seasonPassZLevel"></p>
+                            <button class="permshopbutton" id="seasonPassZButton" style="border: 2px solid cyan"></button>
+                        </div>
                         <div class='ascendunlock'>
                             <img id="challengeExtension" src="Pictures/Challenge Upgrade.png" alt="" loading="lazy">
                             <p id="challengeExtensionLevel">Level: 0/5</p>
-                            <button class="permshopbutton" id="challengeExtensionButton" style="border: 2px solid gray"></button>
-                            
+                            <button class="permshopbutton" id="challengeExtensionButton" style="border: 2px solid gray"></button> 
                         </div>
                         <div class='ascendunlock'>
                             <img id="challengeTome" src="Pictures/Challenge 10 Tome Upgrade.png" alt="" loading="lazy">
                             <p id="challengeTomeLevel">Level: 0/5</p>
                             <button class="permshopbutton" id="challengeTomeButton" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="singularity">
+                            <img id="challengeTome2" src="Pictures/Challenge 10 Tome Upgrade 2.png" alt="" loading="lazy">
+                            <p id="challengeTome2Level"></p>
+                            <button class="permshopbutton" id="challengeTome2Button" style="border: 2px solid red"></button>
                         </div>
                         <div class='ascendunlock'>
                             <img id="cubeToQuark" src="Pictures/Cube Quark Upgrade.png" alt="" loading="lazy">
@@ -3152,20 +3180,20 @@
                             <p id="hypercubeToQuarkLevel">Not Bought</p>
                             <button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red"></button>
                         </div>
-                        <div class='chal14'>
-                            <img id="seasonPass2" src="Pictures/VIP Pass Upgrade 2.png" alt="" loading="lazy">
-                            <p id="seasonPass2Level">Level: 0/100</p>
-                            <button class="permshopbutton" id="seasonPass2Button" style="border: 2px solid orange"></button>
-                        </div>
-                        <div class='chal14'>
-                            <img id="seasonPass3" src="Pictures/VIP Pass Upgrade 3.png" alt="" loading="lazy">
-                            <p id="seasonPass3Level">Level: 0/100</p>
-                            <button class="permshopbutton" id="seasonPass3Button" style="border: 2px solid orange"></button>
-                        </div>
                         <div class='chal12'>
                             <img id="chronometer" src="Pictures/Chronometer.png" alt="" loading="lazy">
                             <p id="chronometerLevel">Level: 0/100</p>
                             <button class="permshopbutton" id="chronometerButton" style="border: 2px solid red"></button>
+                        </div>
+                        <div class='hepteracts'>
+                            <img id="chronometer2" src="Pictures/Chronometer2.png" alt="" loading="lazy">
+                            <p id="chronometer2Level"></p>
+                            <button class="permshopbutton" id="chronometer2Button" style="border: 2px solid red"></button>
+                        </div>
+                        <div class="singularity">
+                            <img id="chronometer3" src="Pictures/Chronometer3.png" alt="" loading="lazy">
+                            <p id="chronometer3Level"></p>
+                            <button class="permshopbutton" id="chronometer3Button" style="border: 2px solid goldenrod"></button>
                         </div>
                         <div class='chal14'>
                             <img id="infiniteAscent" src="Pictures/Etherian Staircase.png" alt="" loading="lazy">
@@ -3215,6 +3243,62 @@
     </div>
     <div id="singularity">
         <p id="singularityIntroduction"> NOTE: WIP. This will be expanded on soon. </p>
+        <div id="singularityEffects" class="singularityContainer">
+            <p id="sigularityEffectCount" class="singularityContent">You are in the <span id="singularityCount"></span> singularity, and have <span id="goldenQuarks" style="color: lightgoldenrodyellow"></span> Golden Quarks.</p>
+            <p id="sigularityEffectSpeed" class="singularityContent">Global Speed is divided by <span id="singularitySpeedDivisor"></span>.</p>
+            <p id="sigularityEffectCubes" class="singularityContent">Cube Gain is divided by <span id="singularityCubeDivisor"></span>.</p>
+            <p id="sigularityEffectResearches" class="singularityContent">Research Costs are multiplied by <span id="singularityResearchMultiplier"></span>.</p>
+            <p id="sigularityEffectCubeUpgrades" class="singularityContent">Cube Upgrade costs are multiplied by <span id="singularityCubeUpgradeMultiplier"></span>.</p>
+        </div>
+        <div id="singularityUpgradeContainer">
+            <div id="actualSingularityUpgradeContainer">
+                <div>
+                    <img id="singularityCurrency1" src="Pictures/SingularityCurrency1.png">
+                    <p id="singularityCurrency1Level">Level: 0/10</p>
+                    <p class="singularityUpgradeFiller"></p>
+                </div>
+                <div>
+                    <img id="singularityCurrency2" src="Pictures/SingularityCurrency2.png">
+                    <p id="singularityCurrency2Level">Level: 0/10</p>
+                    <p class="singularityUpgradeFiller"></p>
+                </div>
+                <div>
+                    <img id="singularityCurrency3" src="Pictures/SingularityCurrency3.png">
+                    <p id="singularityCurrency3Level">Level: 0/10</p>
+                    <p class="singularityUpgradeFiller"></p>
+                </div>
+                <div>
+                    <img id="singularityStarterPack" src="Pictures/Singularity Starter Pack.png">
+                    <p id="singularityStarterPackLevel">Not Bought</p>
+                    <p class="singularityUpgradeFiller"></p>
+                </div>
+                <div>
+                    <img id="singularityWowPass" src="Pictures/Singularity Wow Pass.png">
+                    <p id="singularityWowPassLevel">Not Bought</p>
+                    <p class="singularityUpgradeFiller"></p>
+                </div>
+                <div>
+                    <img id="singularityCookies" src="Pictures/SingularityCookies.png">
+                    <p id="singularityCookiesLevel">Level: 0/5</p>
+                    <p class="singularityUpgradeFiller"></p>
+                </div>
+                <div>
+                    <img id="singularityAscensions" src="Pictures/Singularity Ascensions.png">
+                    <p id="singularityAscensionsLevel">Level: 0</p>
+                    <p class="singularityUpgradeFiller"></p>
+                </div>
+                <div>
+                    <img id="singularityCorruption14" src="Pictures/Singularity Corruption 14.png">
+                    <p id="singularityCorruption14Level">Not Bought</p>
+                    <p class="singularityUpgradeFiller"></p>
+                </div>
+                <div>
+                    <img id="singularityCorruption15" src="Pictures/Singularity Corruption 15.png">
+                    <p id="singularityCorruption15Level">Not Bought</p>
+                    <p class="singularityUpgradeFiller"></p>
+                </div>
+            </div>
+        </div>
     </div>
     </body>
 </html>

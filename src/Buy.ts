@@ -584,6 +584,11 @@ export const boostAccelerator = (automated?: boolean) => {
             }
         }
     } else {
+        if (player.acceleratorBoostBought >= 1e15 || player.prestigePoints.gte(Decimal.pow(10, 1e30))){
+            player.acceleratorBoostBought = 1e15;
+            player.acceleratorBoostCost = Decimal.pow(10, 1e30);
+            return;
+        }
         const buyStart = player.acceleratorBoostBought;
         let buyInc = 1;
         let cost = getAcceleratorBoostCost(buyStart + buyInc);
@@ -944,6 +949,10 @@ export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number)
         player.runeBlessingLevels[index] = level;
 
     player.runeshards -= cost;
+
+    if (player.runeshards < 0) {
+        player.runeshards = 0;
+    }
 
     if (index === 1) {
         const requirementArray = [0, 1e5, 1e8, 1e11]

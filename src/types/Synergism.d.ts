@@ -342,6 +342,11 @@ export interface Player {
         calculator3: number,
         constantEX: number,
         powderEX: number,
+        chronometer2: number,
+        chronometer3: number,
+        seasonPassY: number,
+        seasonPassZ: number,
+        challengeTome2: number,
     }
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,
@@ -512,6 +517,7 @@ export interface Player {
     singularityCount: number
     goldenQuarks: number
     quarksThisSingularity: number
+    dailyCodeUsed: boolean
 }
 
 export interface GlobalVariables {

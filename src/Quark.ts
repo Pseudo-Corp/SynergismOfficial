@@ -75,6 +75,9 @@ export const getQuarkMultiplier = () => {
     if (player.singularityCount > 0) { // Singularity Modifier
         multiplier *= (1 + player.singularityCount / 10)
     }
+    if (G['isEvent']) {
+        multiplier *= 2; // dec 23 to jan 3
+    }
     return multiplier
 }
 
@@ -161,7 +164,7 @@ export class QuarkHandler {
                     `%c \tBonus of ${bonus}% quarks has been applied! \n\t(Cached at ${fetched})`, 
                     'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;'
                 );
-                el.textContent = `Generous patrons give you a bonus of ${bonus}% more quarks!`;
+                el.textContent = `Generous patrons give you a bonus of ${bonus}% more quarks!`
                 return this.BONUS = bonus;
             }
         } else if (!navigator.onLine) {

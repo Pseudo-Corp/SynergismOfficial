@@ -16,7 +16,7 @@ import { buyPlatonicUpgrades, createPlatonicDescription } from "./Platonic"
 import { corruptionCleanseConfirm, corruptionDisplay } from "./Corruptions"
 import { exportSynergism, updateSaveString, promocodes, importSynergism, resetGame } from "./ImportExport"
 import { resetHistoryTogglePerSecond } from "./History"
-import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData } from "./Shop"
+import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData, shopUpgradeTypes } from "./Shop"
 import { Globals as G } from './Variables';
 import { changeTabColor } from "./UpdateHTML"
 import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp } from "./Hepteracts"
@@ -25,6 +25,7 @@ import type { OneToFive, Player } from "./types/Synergism"
 import { displayStats } from "./Statistics"
 import { testing } from './Config';
 import { DOMCacheGetOrSet } from "./Cache/DOM"
+import { toggleTheme } from "./Themes"
 
 /* STYLE GUIDE */
 /* 
@@ -578,7 +579,7 @@ TODO: Fix this entire tab it's utter shit
     const shopKeys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
     for (const key of shopKeys) {
         const shopItem = shopData[key]
-        if (shopItem.type === 'upgrade') {
+        if (shopItem.type === shopUpgradeTypes.UPGRADE) {
             DOMCacheGetOrSet(`${key}`).addEventListener('mouseover', () => shopDescriptions(key))
             DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
             DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
@@ -613,4 +614,6 @@ TODO: Fix this entire tab it's utter shit
 
         return importSynergism(save);
     });
+
+    DOMCacheGetOrSet('theme').addEventListener('click', toggleTheme);
 }

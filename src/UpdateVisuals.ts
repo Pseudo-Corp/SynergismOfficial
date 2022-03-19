@@ -7,7 +7,7 @@ import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
-import { getShopCosts, shopData } from './Shop';
+import { getShopCosts, shopData, shopUpgradeTypes } from './Shop';
 import { quarkHandler } from './Quark';
 import type { Player, ZeroToFour } from './types/Synergism';
 import { hepteractTypeList, hepteractTypes } from './Hepteracts';
@@ -185,8 +185,8 @@ export const visualUpdateRunes = () => {
         for (let i = 1; i <= 7; i++) { //First one updates level, second one updates TNL, third updates orange bonus levels
             let place = G[talismans[i-1]];
             if (i > 5) place = 0;
-            let runeLevel = player.runelevels[i - 1]
-            let maxLevel = calculateMaxRunes(i)
+            const runeLevel = player.runelevels[i - 1]
+            const maxLevel = calculateMaxRunes(i)
             DOMCacheGetOrSet('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(runeLevel) + "/" + format(maxLevel)
             DOMCacheGetOrSet('rune' + i + 'exp').textContent = (runeLevel < maxLevel ? "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP" : "Max level!")
             if (i <= 5) DOMCacheGetOrSet('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + G['bonusant9']) + place) + "]"
@@ -497,7 +497,7 @@ export const visualUpdateShop = () => {
         const shopItem = shopData[key]
         
         // Ignore all consumables, to be handled above, since they're different.
-        if (shopItem.type === 'upgrade') {
+        if (shopItem.type === shopUpgradeTypes.UPGRADE) {
             // Case: If max level is 1, then it can be considered a boolean "bought" or "not bought" item
             if (shopItem.maxLevel === 1) {
                 player.shopUpgrades[key] === shopItem.maxLevel ?

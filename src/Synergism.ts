@@ -20,7 +20,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { reset, resetrepeat, singularity } from './Reset';
+import { calculateGoldenQuarkGain, reset, resetrepeat, singularity } from './Reset';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, TesseractBuildings, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
@@ -411,7 +411,7 @@ export const player: Player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from({ length: 35 }, (_, i) => [i + 1, false])
+        Array.from({ length: 36 }, (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -446,6 +446,11 @@ export const player: Player = {
         calculator3: 0,
         constantEX: 0,
         powderEX: 0,
+        chronometer2: 0,
+        chronometer3: 0,
+        seasonPassY: 0,
+        seasonPassZ: 0,
+        challengeTome2: 0,
     },
     autoSacrificeToggle: false,
     autoFortifyToggle: false,
@@ -638,10 +643,11 @@ export const player: Player = {
     singularityCount: 0,
     goldenQuarks: 0,
     quarksThisSingularity: 0,
+    dailyCodeUsed: false,
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 35 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 36 }, (_, i) => [i + 1, false]))
 });
 
 export const saveSynergy = (button?: boolean) => {
@@ -723,10 +729,11 @@ const loadSynergy = () => {
 
         Object.keys(data).forEach((stringProp) => {
             const prop = stringProp as keyof Player;
-            if (toAdapt.has(prop)) {
+            if (!(prop in player)) {
+                return;
+            } else if (toAdapt.has(prop)) {
                 return ((player[prop] as unknown) = toAdapt.get(prop)(data));
-            }
-            if (isDecimal(player[prop])) {
+            } else if (isDecimal(player[prop])) {
                 return ((player[prop] as Decimal) = new Decimal(data[prop] as DecimalSource));
             } else if (prop === 'codes') {
                 return (player.codes = new Map(data[prop]));
@@ -1395,6 +1402,23 @@ const [{ value: group }, { value: dec }] = IntlFormatter?.length !== 2
 // Number.toLocaleString opts for 2 decimal places
 const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
 
+const padEvery = (str: string, places = 3) => {
+    let step = 1, newStr = '';
+    for (let i = str.length - 1; i >= 0; i--) {
+        // pad every [places] places if we aren't at the beginning of the string
+        if (step++ === places && i !== 0) {
+            step = 1;
+            newStr = group + str[i] + newStr;
+        } else {
+            newStr = str[i] + newStr;
+        }
+    }
+
+    // see https://www.npmjs.com/package/flatstr
+    (newStr as unknown as number) | 0;
+    return newStr;
+}
+
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
  * @param input value to format
@@ -1404,7 +1428,7 @@ const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
  * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
  */
 export const format = (
-    input: Decimal | number | { [Symbol.toPrimitive]: unknown } | bigint, 
+    input: Decimal | number | { [Symbol.toPrimitive]: unknown }, 
     accuracy = 0, 
     long = false,
     truncate = true
@@ -1480,9 +1504,7 @@ export const format = (
         // Split it on the decimal place
         const [front, back] = standardString.split('.');
         // Apply a number group 3 comma regex to the front
-        const frontFormatted = typeof BigInt === 'function'
-            ? BigInt(front).toLocaleString()
-            : front.replace(/(\d)(?=(\d{3})+$)/g, `$1${group}`);
+        const frontFormatted = padEvery(front);
 
         // if the back is undefined that means there are no decimals to display, return just the front
         return !back 
@@ -1493,12 +1515,14 @@ export const format = (
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
         // Makes the power group 3 with commas
-        const powerLook = typeof BigInt === 'function'
-            ? BigInt(power).toLocaleString()
-            : power.toString().replace(/(\d)(?=(\d{3})+$)/g, `$1${group}`);
+        const powerLook = padEvery(power.toString());
         // returns format (1.23e456,789)
         return `${mantissaLook}e${powerLook}`;
     } else if (power >= 1e6) {
+        if (!Number.isFinite(power)) {
+            return 'Infinity';
+        }
+
         // if the power is greater than 1e6 apply notation scientific notation
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = testing && truncate ? '' : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
@@ -1919,6 +1943,9 @@ export const multipliers = (): void => {
     // PLAT - check
     const first6CoinUp = new Decimal(G['totalCoinOwned'] + 1).times(Decimal.min(1e30, Decimal.pow(1.008, G['totalCoinOwned'])));
 
+    if (player.singularityCount > 0) {
+        s = s.times(Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.singularityCount + 1, 2))
+    }
     if (player.upgrades[6] > 0.5) {
         s = s.times(first6CoinUp);
     }
@@ -2709,7 +2736,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         await Alert("You have reached the end of the game, on singularity #" +format(player.singularityCount)+". Platonic and the Ant God are proud of you.")
         await Alert("You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.")
         await Alert("You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.")
-        await Alert("Start anew, and enter singularity #"+ format(player.singularityCount + 1)+". Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain 1 Golden Quark per 100,000 earned in this universe.")
+        await Alert(`Start anew, and enter singularity #${format(player.singularityCount + 1)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} golden quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
         await Alert("However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts, Achievements will be wiped clean.")
         let c1 = false
         let c2 = false
@@ -3377,6 +3404,7 @@ document.addEventListener('keydown', (event) => {
 
 /**
  * Reloads shit.
+ * @param reset if this param is passed, offline progression will not be calculated.
  */
 export const reloadShit = async (reset = false) => {
     for (const timer of intervalHold)
@@ -3394,10 +3422,13 @@ export const reloadShit = async (reset = false) => {
     }
 
     void loadSynergy();
-    if (!reset) 
+
+    if (!reset) {
         calculateOffline();
-    else
-        player.worlds = new QuarkHandler({ quarks: 0, bonus: 0 });
+    } else {
+        player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 });
+    }
+
     saveSynergy();
     toggleauto();
     revealStuff();
@@ -3432,4 +3463,13 @@ window.addEventListener('load', () => {
     corruptionLoadoutTableCreate();
 
     void reloadShit();
+});
+
+window.addEventListener('unload', () => {
+    // This fixes a bug in Chrome (who would have guessed?) that
+    // wouldn't properly load elements if the user scrolled down
+    // and reloaded a page. Why is this a bug, Chrome? Why would
+    // a page that is reloaded be affected by what the user did
+    // beforehand? How does anyone use this buggy browser???????
+    window.scrollTo(0, 0);
 });

@@ -8,6 +8,7 @@ import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, 
 import { getMaxChallenges } from './Challenges';
 import { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { updateSingularityStats } from './singularity';
 
 export const revealStuff = () => {
     const example = document.getElementsByClassName("coinunlock1") as HTMLCollectionOf<HTMLElement>;
@@ -190,6 +191,10 @@ export const revealStuff = () => {
         ex.style.display = player.challenge15Exponent >= 1e15 ? "block" : "none";
     }
 
+    const singularityHTMLs = document.getElementsByClassName("singularity") as HTMLCollectionOf<HTMLElement>;
+    for (const HTML of Array.from(singularityHTMLs)) { // Ability to view singularity features.
+        HTML.style.display = player.singularityCount > 0 ? "block" : "none";
+    }
     const hepts = DOMCacheGetOrSet("corruptionHepteracts");
     hepts.style.display = (player.achievements[255] > 0) ? "block" : "none";
 
@@ -490,6 +495,7 @@ export const hideStuff = () => {
     if (G['currentTab'] === "singularity") {
         DOMCacheGetOrSet('singularity').style.display = "block";
         DOMCacheGetOrSet("singularitytab").style.backgroundColor = "lightgoldenrodyellow"
+        updateSingularityStats();
     }
 }
 
@@ -972,10 +978,13 @@ const NotificationCB = (text: string, time = 30000, cb: () => void) => {
 
     textNode.textContent = text;
     notification.style.display = 'block';
+    notification.classList.remove('slide-out');
+    notification.classList.add('slide-in');
 
     const close = () => {
-        textNode.textContent = '';
-        notification.style.display = 'none';
+        setTimeout(() => textNode.textContent = '', 1000);
+        notification.classList.add('slide-out');
+        notification.classList.remove('slide-in');
 
         x.removeEventListener('click', close);
         cb();

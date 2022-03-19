@@ -803,18 +803,12 @@ export const calculateOffline = (forceTime = 0) => {
     //Some one-time tick things that are relatively important
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
-  
-    DOMCacheGetOrSet('preloadContainer').style.display = (forceTime > 0) ? 'none' : 'flex';
-    DOMCacheGetOrSet("offlineContainer").style.display = "flex";
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;    
 
     //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
     const preloadImage = getElementById<HTMLImageElement>("preload"); 
     preloadImage.style.display = 'none';
-
-    const preloadContainer = getElementById("preloadContainer");
-    preloadContainer.style.backgroundColor = 'black';
 
     G['timeMultiplier'] = calculateTimeAcceleration();
     calculateObtainium();
@@ -884,6 +878,9 @@ export const calculateOffline = (forceTime = 0) => {
         }
     }, 0);
 
+    DOMCacheGetOrSet('offlineContainer').style.display = 'flex';
+    document.body.classList.add('loading');
+
     DOMCacheGetOrSet('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
     DOMCacheGetOrSet('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
     DOMCacheGetOrSet('offlineOfferingCountNumber').textContent = format(resetAdd.offering, 0, true)
@@ -919,7 +916,6 @@ export const calculateOffline = (forceTime = 0) => {
     if (el) {  //if the button is present
         el.focus(); //Allow user to hit space/enter to proceed
     }
-    
 }
 
 export const exitOffline = () => {
@@ -979,10 +975,14 @@ export const calculateAllCubeMultiplier = () => {
         // Powder Bonus
         calculateCubeMultFromPowder(),
         // Event (currently, +20.21%)
-        1 + 0.2021 * +G['isEvent'],
+        1 + 1 * +G['isEvent'],
         // Singularity Factor
-        1 / (1 + 1/16 * Math.pow(player.singularityCount, 2))
-        // Total Global Cube Multipliers: 10
+        1 / (1 + 1/16 * Math.pow(player.singularityCount, 2)),
+        // Wow Pass Y
+        1 + 0.5 * player.shopUpgrades.seasonPassY / 100,
+        // Wow Pass Z
+        1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
+        // Total Global Cube Multipliers: 12
     ]
     return {
         mult: productContents(arr),
@@ -1099,7 +1099,7 @@ export const calculateHypercubeMultiplier = (score = -1) => {
         // Achievement 253 Bonus
         1 + 1 / 10 * player.achievements[253],
         // Achievement 256 Bonus
-        1 + Math.min(0.15, 0.6/100 * Math.log10(score + 1)),
+        1 + Math.min(0.15, 0.6/100 * Math.log10(score + 1)) * player.achievements[256],
         // Achievement 265 Bonus
         1 + Math.min(2, player.ascensionCount / 2.5e10) * player.achievements[265],
         // Platonic Cubes Opened Bonus
@@ -1196,6 +1196,7 @@ export const calculateTimeAcceleration = () => {
     }
     timeMult /= (1 + player.singularityCount)
     timeMult *= G['platonicBonusMultiplier'][7]
+    timeMult *= (1 + 2 * +G['isEvent'])
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
     }
@@ -1208,6 +1209,8 @@ export const calculateTimeAcceleration = () => {
 export const calculateAscensionAcceleration = () => {
     const arr = [
         1 + player.shopUpgrades.chronometer / 100,                                                      // Shop Upgrade
+        1 + 0.5 * player.shopUpgrades.chronometer2 / 100,                                               // Shop Upgrade 2
+        1 + 1.5 * player.shopUpgrades.chronometer3 / 100,                                               // Shop Upgrade 3
         1 + 0.6/1000 * hepteractEffective('chronos'),                                                   // Hepteract
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[262],   // Achieve 262
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263],   // Achieve 263
@@ -1315,13 +1318,15 @@ export const calculateAscensionScore = () => {
         corruptionMultiplier *= Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i]], exponent);
     }
 
-    effectiveScore = baseScore * corruptionMultiplier * G['challenge15Rewards'].score * G['platonicBonusMultiplier'][6]
+    effectiveScore = baseScore * corruptionMultiplier * G['challenge15Rewards'].score * G['platonicBonusMultiplier'][6];
+
     if (player.achievements[267] > 0)
-        effectiveScore *= (1 + Math.min(1, 1/100000 * Decimal.log(player.ascendShards.add(1), 10)))
+        effectiveScore *= (1 + Math.min(1, 1/100000 * Decimal.log(player.ascendShards.add(1), 10)));
     if (effectiveScore > 1e23)
-        effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
+        effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5);
     if (player.achievements[259] > 0)
-        effectiveScore *= Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP))
+        effectiveScore *= Math.max(1, Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP)));
+
     return {baseScore: baseScore,
             corruptionMultiplier: corruptionMultiplier,
             effectiveScore: effectiveScore}
@@ -1406,7 +1411,7 @@ export const calculatePowderConversion = () => {
         (1 + player.achievements[256] / 20), // Achievement 256, 5%
         (1 + player.achievements[257] / 20), // Achievement 257, 5%
         1 + 0.01 * player.platonicUpgrades[16], // Platonic Upgrade 4x1
-        1 // Event!
+        1 + .1337 * +G['isEvent'] // Event!
     ]
     
     return {
@@ -1456,6 +1461,7 @@ export const dailyResetCheck = () => {
         player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion().mult;
         player.overfluxOrbs = G['challenge15Rewards'].freeOrbs
         player.dailyPowderResetUses = 1;
+        player.dailyCodeUsed = false;
 
         DOMCacheGetOrSet('cubeQuarksOpenRequirement').style.display = "block"
         if (player.challengecompletions[11] > 0) {
@@ -1490,8 +1496,8 @@ export const forcedDailyReset = (testing = false) => {
     }
 }
 
-const eventStart = "06/26/2021 00:00:00"
-const eventEnd = "07/01/2021 23:59:59"
+const eventStart = "12/23/2021 00:00:00"
+const eventEnd = "01/03/2022 23:59:59"
 
 export const eventCheck = () => {
     const start = new Date(eventStart);
@@ -1501,10 +1507,12 @@ export const eventCheck = () => {
     if(now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
         G['isEvent'] = true
         DOMCacheGetOrSet('eventCurrent').textContent = "ACTIVE UNTIL " + end
-        DOMCacheGetOrSet('eventBuffs').textContent = "Current Buffs: +100% Quarks from code 'Add', +20.21% All Cube Types"
+        DOMCacheGetOrSet('eventBuffs').textContent = "Current Buffs: +100% Quarks from all sources, +100% All Cube Types, +13.37% Powder Conversion, +200% Time Acceleration!"
+        DOMCacheGetOrSet('happyHolidays').innerHTML = `&#128151 Happy Holidays! &#128151;`
     } else {
         G['isEvent'] = false
         DOMCacheGetOrSet('eventCurrent').textContent = "INACTIVE"
         DOMCacheGetOrSet('eventBuffs').textContent = ""
+        DOMCacheGetOrSet('happyHolidays').innerHTML = ""
     }
 }

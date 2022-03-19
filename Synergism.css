@@ -6,18 +6,23 @@ html {
 }
 
 body {
-    background-color: #111;
     transform-origin: 0 0;
     overflow-x: hidden;
     color: white;
     margin: 0;
     box-sizing: border-box;
-
-    /* overflow-y: hidden; */
 }
 
 body.loading {
     overflow-y: hidden;
+}
+
+body.dark {
+    background-color: #111;
+}
+
+body.light {
+    background-color: gray;
 }
 
 a {
@@ -105,10 +110,26 @@ button:focus {
     margin-bottom: 0;
 }
 
+@keyframes slide-in {
+    from {
+        transform: translate(-100%, 22.5%);
+    }
+
+    to {
+        transform: translate(7.5%, 22.5%);
+    }
+}
+
+@keyframes slide-out {
+    to {
+        transform: translate(-100%, 22.5%);
+    }
+}
+
 #notification {
-    display: none;
     position: fixed;
-    transform: translate(7.5%, 22.5%);
+    display: none;
+    transform: translateY(22.5%);
     z-index: 6969;
     width: 15%;
     min-height: 150px;
@@ -116,6 +137,16 @@ button:focus {
     border-radius: 5px;
     border: 1px solid gold;
     background-color: #111;
+}
+
+.slide-in {
+    animation: slide-in 1000ms;
+    animation-fill-mode: forwards;
+}
+
+.slide-out {
+    animation: slide-out 1000ms;
+    animation-fill-mode: forwards;
 }
 
 #notification > p {
@@ -234,7 +265,8 @@ button:focus {
     top: 0;
     left: 0;
     z-index: 2;
-    height: 100vh;
+    height: 200vh;
+    min-height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -249,7 +281,8 @@ button:focus {
     flex-direction: column;
     align-items: center;
     z-index: 3;
-    height: 100vh;
+    height: 200vh;
+    min-height: 100vh;
 }
 
 .offlineStats {
@@ -326,7 +359,7 @@ button:focus {
 }
 
 #resetinfo {
-    text-align: left; /*Keeps text from bouncing around*/
+    text-align: left; /* Keeps text from bouncing around */
     font-size: 15px;
     font-variant-numeric: tabular-nums;
 }
@@ -417,8 +450,7 @@ nav li:hover {
 #singularitytab {
     border-color: lightgoldenrodyellow;
     background-color: black;
-    color: red
-    
+    color: red;
 }
 
 #shoptab:hover {
@@ -655,9 +687,12 @@ nav li:hover {
     margin-right: 5px;
 }
 
-#promocodes {
+#promocodes,
+#theme {
     transition-duration: 0.15s;
     padding: 5px;
+    min-width: 65%;
+    margin-bottom: 3px;
 }
 
 #promocodes:hover {
@@ -1678,6 +1713,7 @@ nav li:hover {
 
 #shop {
     text-align: center;
+    position: relative
 }
 
 #shopWrapper {
@@ -2916,7 +2952,7 @@ header #obtainiumDisplay {
 }
 
 #ascTimeTakenStats {
-    min-width: 125px; /*prevent bouncing around*/
+    min-width: 125px; /* prevent bouncing around */
 }
 
 #ascTimeAccel {
@@ -3158,4 +3194,31 @@ header #obtainiumDisplay {
 
     /* Remove padding */
     margin: 0;
+}
+
+#singularity {
+    position: relative;
+    padding: 0;
+    text-align: center;
+}
+
+#singularityUpgradeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#actualSingularityUpgradeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-right: 5px;
+    margin-top: 5px;
+    width: calc(105px * 8);
+    border: 3px solid plum;
+}
+
+.singularityUpgradeFiller {
+    display: flex;
+    width: 105px;
 }
