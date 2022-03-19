@@ -44,10 +44,15 @@ export const calculatetax = () => {
     if (player.currentChallenge.ascension === 15) {
         exp = 0.000005;
     }
+  
     //im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
+    // player.challengecompletions[0] a result of old saves carrying over c1 challenge completions, and future proofs c13 from any old storages. || Luciscout (lulu♥)
+    
     if (player.currentChallenge.ascension === 13) {
-        exp *= 700 * (1 + 1 / 6 * player.challengecompletions[13]);
-        exp *= Math.pow(1.05, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15] - 3 * player.cubeUpgrades[49]));
+
+        exp *= 700 * (1 + 1 / 6 * player.challengecompletions[13])
+        exp *= Math.pow(1.05, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[0] - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15] - 3 * player.cubeUpgrades[49]));
+
     }
     if (player.challengecompletions[6] > 0) {
         exp /= 1.075;
@@ -89,6 +94,7 @@ export const calculatetax = () => {
 
     compareC = Decimal.pow(G['maxexponent'], 2).div(550);
 
-    G['taxdivisor'] = Decimal.pow(1.01, Decimal.mul(compareB, exponent));
-    G['taxdivisorcheck'] = Decimal.pow(1.01, Decimal.mul(compareC, exponent));
+    G['taxdivisor'] = Decimal.pow(1.01, (c) * (exponent));
+    G['taxdivisorcheck'] = Decimal.pow(1.01, (compareC) * (exponent));
+
 }
