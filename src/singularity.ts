@@ -11,10 +11,15 @@ import { toOrdinal } from "./Utility"
  */
 export const updateSingularityStats = ():void => {
     const str = `You are in the ${toOrdinal(player.singularityCount)} singularity, and have ${format(player.goldenQuarks,0,true)} golden quarks.
-                 Global Speed is divided by ${format(player.singularityCount + 1, 0, true)}.
-                 Cube Gain is divided by ${format(1 + 1/16 * Math.pow(player.singularityCount, 2), 2, true)}.
-                 Research Costs are multiplied by ${format(player.singularityCount + 1, 0, true)}.
-                 Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(1 + 0.2 * player.singularityCount, 2, true)}.`
+                 Global Speed is divided by ${format(calculateSingularityDebuff("Global Speed"), 2, true)}.
+                 Ascension Speed is divided by ${format(calculateSingularityDebuff("Ascension Speed"), 2, true)}
+                 Offering Gain is divided by ${format(calculateSingularityDebuff("Offering"), 2, true)}
+                 Obtainium Gain is divided by ${format(calculateSingularityDebuff("Obtainium"), 2, true)}
+                 Cube Gain is divided by ${format(calculateSingularityDebuff("Cubes"), 2, true)}.
+                 Research Costs are multiplied by ${format(calculateSingularityDebuff("Researches"), 2, true)}.
+                 Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(calculateSingularityDebuff("Cube Upgrades"), 2, true)}.
+                 Antiquities of Ant God is ${(player.runelevels[6] > 0) ? "" : "NOT"} purchased. Penalties are ${(player.runelevels[6] > 0) ? "" : "NOT"} dispelled!`
+                 
     DOMCacheGetOrSet('singularityMultiline').textContent = str;
 }
 
@@ -333,4 +338,38 @@ export async function buyGoldenQuarks() {
     
 
     
+}
+
+export type SingularityDebuffs = "Offering" | "Obtainium" | "Global Speed" | "Researches" | "Ascension Speed" | "Cubes" | "Cube Upgrades"
+
+export const calculateSingularityDebuff = (debuff: SingularityDebuffs) => {
+    if (player.singularityCount === 0) {return 1}
+    if (player.runelevels[6] > 0) {return 1}
+
+    let effectiveSingularities = player.singularityCount;
+    if (player.singularityCount > 10)
+        effectiveSingularities *= Math.min(2, player.singularityCount / 10)
+    if (player.singularityCount > 25)
+        effectiveSingularities *= Math.min(2, player.singularityCount / 25)
+    if (player.singularityCount > 50)
+        effectiveSingularities *= Math.min(2, player.singularityCount / 50)
+    if (player.singularityCount > 100)
+        effectiveSingularities *= player.singularityCount / 100
+    if (player.singularityCount > 250)
+        effectiveSingularities *= player.singularityCount / 250
+
+    if (debuff === "Offering")
+        return Math.sqrt(effectiveSingularities + 1)
+    else if (debuff === "Global Speed")
+        return 1 + Math.sqrt(effectiveSingularities) / 4
+    else if (debuff === "Obtainium")
+        return Math.sqrt(effectiveSingularities + 1)
+    else if (debuff === "Researches")
+        return 1 + Math.sqrt(effectiveSingularities) / 2
+    else if (debuff === "Ascension Speed")
+        return 1 + Math.sqrt(effectiveSingularities) / 5
+    else if (debuff === "Cubes")
+        return 1 + Math.sqrt(effectiveSingularities) / 4
+    else // Cube upgrades
+        return Math.cbrt(effectiveSingularities + 1)
 }

@@ -12,6 +12,7 @@ import { addTimers, automaticTools } from './Helper';
 import { Alert, Prompt, } from './UpdateHTML';
 import { quarkHandler } from './Quark';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { calculateSingularityDebuff } from './singularity';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] = 
@@ -374,6 +375,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         return productContents(arr)
     }
 
+    q /= calculateSingularityDebuff("Offering");
     q = Math.floor(q) * 100 / 100
     if (player.currentChallenge.ascension === 15) {
         q *= (1 + 2 * player.cubeUpgrades[62]);
@@ -470,6 +472,9 @@ export const calculateObtainium = () => {
     if (player.currentChallenge.ascension === 14) {
         G['obtainiumGain'] = 0
     }
+
+    G['obtainiumGain'] = Math.min(1e300, G['obtainiumGain']);
+    G['obtainiumGain'] /= calculateSingularityDebuff("Obtainium");
     player.obtainiumpersecond = G['obtainiumGain'] / (0.1 + player.reincarnationcounter)
     player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond);
 }
@@ -992,7 +997,7 @@ export const calculateAllCubeMultiplier = () => {
         // Event (currently, +20.21%)
         1 + 1 * +G['isEvent'],
         // Singularity Factor
-        1 / (1 + 1/16 * Math.pow(player.singularityCount, 2)),
+        1 / calculateSingularityDebuff("Cubes"),
         // Wow Pass Y
         1 + 0.5 * player.shopUpgrades.seasonPassY / 100,
         // BUY THIS! Golden Quark Upgrade
@@ -1040,12 +1045,9 @@ export const calculateCubeMultiplier = (score = -1) => {
         // Research 8x25
         1 + 0.004 / 100 * player.researches[200],
         // Cube Upgrades
-        (1 + 14 * player.cubeUpgrades[1] / 100) * // 1x1
-        (1 + 7 * player.cubeUpgrades[11] / 100) * // 2x1
-        (1 + 7 * player.cubeUpgrades[21] / 100) * // 3x1
-        (1 + 0.25 * player.cubeUpgrades[30]) *    // 3x10
-        (1 + 7 * player.cubeUpgrades[31] / 100) * // 4x1
-        (1 + 7 * player.cubeUpgrades[41] / 100), // 5x1
+        (1 + player.cubeUpgrades[1] / 6) * // 1x1
+        (1 + player.cubeUpgrades[11] / 11) * // 2x1
+        (1 + 0.25 * player.cubeUpgrades[30]),    // 3x10
         // Constant Upgrade 10
         1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]),
         // Achievement 189 Bonus
@@ -1150,7 +1152,7 @@ export const calculatePlatonicMultiplier = (score = -1) => {
     
     const arr = [
         // Ascension Score Multiplier
-        Math.pow(1 + Math.max(0, score - 1.337e12) / 1.337e11, .75),
+        Math.pow(1 + Math.max(0, score - 2.666e12) / 2.666e11, .75),
         // Global Multipliers
         calculateAllCubeMultiplier().mult,
         // Season Pass 2
@@ -1180,7 +1182,7 @@ export const calculateHepteractMultiplier = (score = -1) => {
     
     const arr = [
         // Ascension Score Multiplier
-        Math.pow(1 + Math.max(0, score - 6.66e16) / 3.33e16, 0.85),
+        Math.pow(1 + Math.max(0, score - 1.666e16) / 3.33e16, 0.85),
         // Global Multiplier
         calculateAllCubeMultiplier().mult,
         // Season Pass 3
@@ -1224,7 +1226,7 @@ export const calculateTimeAcceleration = () => {
     if (timeMult < 1) {
         timeMult = Math.pow(timeMult, 1 - player.platonicUpgrades[7] / 30)
     }
-    timeMult /= (1 + player.singularityCount)
+    timeMult /= calculateSingularityDebuff("Global Speed");
     timeMult *= G['platonicBonusMultiplier'][7]
     timeMult *= (1 + 2 * +G['isEvent'])
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
@@ -1249,7 +1251,7 @@ export const calculateAscensionAcceleration = () => {
         G['challenge15Rewards'].ascensionSpeed,                                                         // C15
         1 + 1/400 * player.cubeUpgrades[59]                                                             // Cookie Upgrade 9
     ]
-    return productContents(arr)
+    return productContents(arr) / calculateSingularityDebuff("Ascension Speed")
 }
 
 export const calculateCorruptionPoints = () => {
@@ -1387,6 +1389,25 @@ export const calculateCubicSumData = (initialLevel: number, baseCost: number,
     own function (specifically: calc of effective score and other global multipliers) to make it easy.
 */
 
+export const computeAscensionScoreBonusMultiplier = () => {
+    let multiplier = 1;
+    multiplier *= G['challenge15Rewards'].score
+    multiplier *= G['platonicBonusMultiplier'][6]
+    
+    if (player.cubeUpgrades[21] > 0)
+        multiplier *= (1 + 0.05 * player.cubeUpgrades[21]);
+    if (player.cubeUpgrades[31] > 0)
+        multiplier *= (1 + 0.05 * player.cubeUpgrades[31])
+    if (player.cubeUpgrades[41] > 0)
+        multiplier *= (1 + 0.05 * player.cubeUpgrades[41])
+    if (player.achievements[267] > 0)
+        multiplier *= (1 + Math.min(1, 1/100000 * Decimal.log(player.ascendShards.add(1), 10)));
+    if (player.achievements[259] > 0)
+        multiplier *= Math.max(1, Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP)));
+
+    return multiplier
+}
+
 export const calculateAscensionScore = () => {
     let baseScore = 0;
     let corruptionMultiplier = 1;
@@ -1434,17 +1455,15 @@ export const calculateAscensionScore = () => {
         corruptionMultiplier *= Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i] + bonusLevel], exponent);
     }
 
-    effectiveScore = baseScore * corruptionMultiplier * G['challenge15Rewards'].score * G['platonicBonusMultiplier'][6];
+    const bonusMultiplier = computeAscensionScoreBonusMultiplier();
 
-    if (player.achievements[267] > 0)
-        effectiveScore *= (1 + Math.min(1, 1/100000 * Decimal.log(player.ascendShards.add(1), 10)));
+    effectiveScore = baseScore * corruptionMultiplier * bonusMultiplier
     if (effectiveScore > 1e23)
         effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5);
-    if (player.achievements[259] > 0)
-        effectiveScore *= Math.max(1, Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP)));
 
     return {baseScore: baseScore,
             corruptionMultiplier: corruptionMultiplier,
+            bonusMultiplier: bonusMultiplier,
             effectiveScore: effectiveScore}
 }
 
@@ -1455,6 +1474,7 @@ export const CalcCorruptionStuff = () => {
 
     const baseScore = scores.baseScore;
     const corruptionMultiplier = scores.corruptionMultiplier;
+    const bonusMultiplier = scores.bonusMultiplier;
     const effectiveScore = scores.effectiveScore;
 
     for (let i = 1; i <= 10; i++) {
@@ -1477,14 +1497,14 @@ export const CalcCorruptionStuff = () => {
     hypercubeGain *= calculateHypercubeMultiplier(effectiveScore).mult;
     
     // Calculation of Platonic Cubes :))))
-    let platonicGain = (effectiveScore >= 1.337e12) ? 1 : 0;
+    let platonicGain = (effectiveScore >= 2.666e12) ? 1 : 0;
     platonicGain *= calculatePlatonicMultiplier(effectiveScore).mult;
 
     // Calculation of Hepteracts :)))))
-    let hepteractGain = (G['challenge15Rewards']['hepteractUnlocked'] && effectiveScore >= 6.66e16 && player.achievements[255] > 0) ? 1 : 0;
+    let hepteractGain = (G['challenge15Rewards']['hepteractUnlocked'] && effectiveScore >= 1.666e17 && player.achievements[255] > 0) ? 1 : 0;
     hepteractGain *= calculateHepteractMultiplier(effectiveScore).mult
     
-    return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.floor(tesseractGain), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain)]
+    return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.max(player.singularityCount, Math.floor(tesseractGain)), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain), (bonusMultiplier)]
 }
 
 export const calcAscensionCount = () => {
