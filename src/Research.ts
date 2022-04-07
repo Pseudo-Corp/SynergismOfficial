@@ -5,10 +5,11 @@ import { Globals as G } from './Variables';
 import { updateClassList } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { IMultiBuy } from './Cubes';
+import { calculateSingularityDebuff } from './singularity';
 
 const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): IMultiBuy => {
     buyAmount = Math.min(G['researchMaxLevels'][index] - player.researches[index], buyAmount)
-    const metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index] * (1 + player.singularityCount), player.researchPoints, linGrowth, buyAmount)
+    const metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index] * calculateSingularityDebuff("Researches"), player.researchPoints, linGrowth, buyAmount)
     return metaData
 }
 

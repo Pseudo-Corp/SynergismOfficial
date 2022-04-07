@@ -443,6 +443,7 @@ export const visualUpdateCorruptions = () => {
     DOMCacheGetOrSet("corruptionBankValue").textContent = format(metaData[0]);
     DOMCacheGetOrSet("corruptionScoreValue").textContent = format(metaData[1], 0, true);
     DOMCacheGetOrSet("corruptionMultiplierValue").textContent = format(metaData[2], 1, true);
+    DOMCacheGetOrSet("corruptionBonusMultiplierValue").textContent = format(metaData[9], 2, true);
     DOMCacheGetOrSet("corruptionTotalScore").textContent = format(metaData[3], 0, true);
     DOMCacheGetOrSet("corruptionCubesValue").textContent = format(metaData[4], 0, true);
     DOMCacheGetOrSet("corruptionTesseractsValue").textContent = format(metaData[5]);
