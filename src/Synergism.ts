@@ -3527,7 +3527,7 @@ window.addEventListener('load', () => {
     const ver = DOMCacheGetOrSet('versionnumber');
     if (ver instanceof HTMLElement) {
         ver.textContent = 
-            `You're ${testing ? 'testing' : 'playing'} v${version} - Seal of the Merchant` +
+            `You're ${testing ? 'testing' : 'playing'} v${version} - The Reality Update pt.1` +
             ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` + 
             ` ${testing ? 'Savefiles cannot be used in live!' : ''}`;
     }

@@ -1,6 +1,6 @@
 {
   "name": "synergismofficial",
-  "version": "2.5.7",
+  "version": "2.9.0",
   "description": "",
   "main": "dist/bundle.js",
   "dependencies": {
