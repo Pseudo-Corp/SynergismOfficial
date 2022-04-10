@@ -1010,8 +1010,8 @@ export const calculateAllCubeMultiplier = () => {
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
         // Cookie Upgrade 16
         1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15]),
-        // Cookie Upgrade 20
-        1 + 0.04 * player.cubeUpgrades[60] * Math.floor(player.challengecompletions[10] / getMaxChallenges(10)),
+        // Cookie Upgrade 20 (now actually works)
+        1 + 0.04 * player.cubeUpgrades[70] * Math.floor(player.challengecompletions[10] / getMaxChallenges(10)),
         // Total Global Cube Multipliers: 18
     ]
     return {

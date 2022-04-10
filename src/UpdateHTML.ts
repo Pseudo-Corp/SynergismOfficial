@@ -357,7 +357,10 @@ export const revealStuff = () => {
     player.singularityCount > 0 ?
         (DOMCacheGetOrSet('singularitytab').style.display = 'block'):
         (DOMCacheGetOrSet('singularitytab').style.display = 'none');
-        
+    
+    if (player.singularityCount > 0)
+        (DOMCacheGetOrSet('shoptab').style.display = 'block');
+
     (player.runelevels[6] > 0 || player.singularityCount > 0) ?
         (DOMCacheGetOrSet('singularitybtn').style.display = 'block') :
         (DOMCacheGetOrSet('singularitybtn').style.display = 'none');
