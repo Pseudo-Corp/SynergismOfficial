@@ -65,10 +65,11 @@ export const getMaxChallenges = (i: number) => {
         }
         return maxChallenge
     }
+
+    return maxChallenge;
 }
 
-export const challengeDisplay = (i: number, changefocus?: boolean) => {
-    changefocus = (changefocus === null || changefocus === undefined) ? true : changefocus;
+export const challengeDisplay = (i: number, changefocus = true) => {
     let quarksMultiplier = 1;
 
     if (changefocus) {
@@ -271,7 +272,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         e.textContent = "+12 free Ant Levels! Current: "
         f.textContent = "Ant Speed x(1e5)^completions! Current: "
         g.textContent = "+80 to Rune Caps! Current: "
-        h.textContent = "Unlock 15 Researches, and unlock the ability to open Tesseracts!"
+        h.textContent = "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to toggle Corruptions ;)"
         k.textContent = "Start <[(Reduced Ants)]>"
         l.textContent = "+" + format(12 * CalcECC('ascension', player.challengecompletions[11])) + " free ant levels"
         m.textContent = "Ant Speed x" + format(Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])))
@@ -285,7 +286,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         e.textContent = "+50% Obtainium! Current: "
         f.textContent = "+12% Offerings! Current: "
         g.textContent = "+1 Cube Tribute per opening! Current: "
-        h.textContent = "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab."
+        h.textContent = "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Increase Corruption Cap by 2 levels. Finally, unlock two new corruptions! ;)"
         k.textContent = "Start <[(No Reincarnation)]>"
         l.textContent = "+" + format(50 * CalcECC('ascension', player.challengecompletions[12])) + "% Obtainium"
         m.textContent = "+" + format(12 * CalcECC('ascension', player.challengecompletions[12])) + "% Offerings"
@@ -299,7 +300,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         e.textContent = "Taxes -3.33%! Multiplicative! Current: "
         f.textContent = "+6 maximum to Talisman Level Cap! Current: "
         g.textContent = "+3% Spirit Power effectiveness! Current: "
-        h.textContent = "Unlock 15 Researches, and unlock the power of the Hypercube!"
+        h.textContent = "Unlock 15 Researches, and unlock the power of the Hypercube! Increase Corruption Cap by 2 levels, to 9! Finally, unlock two new corruptions! ;)"
         k.textContent = "Start <[(Tax+++)]>"
         l.textContent = "-" + format(100 - 100 * Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13])),3,true) + "% Corruption Tax"
         m.textContent = "+" + format(6 * CalcECC('ascension', player.challengecompletions[13])) + " Talisman Level Cap"
@@ -313,7 +314,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         e.textContent = "+50% stronger effect on researches 1x1 through 1x5. Current: "
         f.textContent = "+1 research purchased per roomba tick! Current: "
         g.textContent = "+200 to Rune Caps! Current: "
-        h.textContent = "Unlock 15 Researches, and a way to coalesce your power into the Singularity."
+        h.textContent = "Unlock 15 Researches, and a way to coalesce your power into the Singularity. Increase Corruption Cap by 2 levels, to 11! Finally, unlock two new corruptions! ;)"
         k.textContent = "Start <[(No Research)]>"
         l.textContent = "+" + format(50 * CalcECC('ascension', player.challengecompletions[14])) + "% Power"
         m.textContent = "+" + format(1 * player.challengecompletions[14]) + " per Tick"
@@ -327,7 +328,7 @@ export const challengeDisplay = (i: number, changefocus?: boolean) => {
         e.textContent = "You have no idea "
         f.textContent = "what you have just done "
         g.textContent = "the ant god shakes their mighty head "
-        h.textContent = "Enter the singularity."
+        h.textContent = "Who knows. Platonic sure doesn't."
         k.textContent = "Start <[(Sadistic Challenge II)]>"
         l.textContent = ""
         m.textContent = ""
@@ -391,11 +392,13 @@ export const getChallengeConditions = (i?: number) => {
         player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
     }
     G['prestigePointGain'] = new Decimal('0')
-    if (i >= 6){
-        G['transcendPointGain'] = new Decimal('0')
-    }
-    if (i >= 11){
-        G['reincarnationPointGain'] = new Decimal('0')
+    if (typeof i === 'number') {
+        if (i >= 6){
+            G['transcendPointGain'] = new Decimal('0')
+        }
+        if (i >= 11){
+            G['reincarnationPointGain'] = new Decimal('0')
+        }
     }
     calculateRuneLevels();
 }
@@ -419,7 +422,11 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
 }
 
 //Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping
-export const calculateChallengeRequirementMultiplier = (type: string, completions: number, special = 0) => {
+export const calculateChallengeRequirementMultiplier = (
+    type: 'transcend' | 'reincarnation' | 'ascension',
+    completions: number, 
+    special = 0
+) => {
     let requirementMultiplier = Math.max(
         1, 
         G['hyperchallengedMultiplier'][player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)
@@ -538,7 +545,10 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     } else if (challenge <= 14) {
         return calculateChallengeRequirementMultiplier("ascension", completion, special)
     } else if (challenge === 15) {
-        return Decimal.pow(10, 1 * Math.pow(10, 24) * calculateChallengeRequirementMultiplier("ascension", completion, special))
+        return Decimal.pow(10, 1 * Math.pow(10, 33) * calculateChallengeRequirementMultiplier("ascension", completion, special))
+    }
+    else {
+        return 0
     }
 }
 

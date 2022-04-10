@@ -20,7 +20,7 @@ const platonicUpgradeDesc = [
     'Reduce the effect of Financial Recession in challenge 15, multiplying the coin exponent by 1.55.',
     'You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (multiplicative), +20% Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Offerings and Obtainium (Uncorruptable)! Talk about a deep dive.',
     'Increase powder conversion rate by 1% per level, gain +2% ascension count per level and gain up to 2% more ascension count per level based on powder, up to 100,000. This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.',
-    'If Divisiveness or Maladaptive is set to level 10 or higher, score multiplier is raised by an exponent. That exponent is 1.75 + 0.02 per level of this upgrade.',
+    'If Viscous Corruption is set to level 10 or higher, score multiplier is raised by an exponent. That exponent is 3 + 0.04 per level of this upgrade.',
     'Raise the base percentage of Constant Upgrade 1 by 0.1% and increase the base percentage cap of Constant Upgrade 2 by 0.3% per level!',
     'The diminishing return power on Chronos Hepteract changes from 0.166 to (0.166 + 0.00133 * level) [Max of 0.2333].',
     'You know, maybe some things should be left unbought.',
@@ -261,7 +261,7 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
     }
     let priceMultiplier = 1;
     if (platUpgradeBaseCosts[index].priceMult) {
-        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
+        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
     }
     for (let i = 0; i < resources.length - 1; i++) {
         if (Math.floor(platUpgradeBaseCosts[index][resources[i]] * priceMultiplier) <= player[resourceNames[i]]) {
@@ -290,7 +290,7 @@ export const createPlatonicDescription = (index: number) => {
 
     let priceMultiplier = 1;
     if (platUpgradeBaseCosts[index].priceMult) {
-        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
+        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
     }
 
     DOMCacheGetOrSet('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index-1];
@@ -365,7 +365,7 @@ export const buyPlatonicUpgrades = (index: number) => {
     const resourceCheck = checkPlatonicUpgrade(index)
     let priceMultiplier = 1;
     if (platUpgradeBaseCosts[index].priceMult) {
-        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
+        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
     }
     if (resourceCheck.canBuy) {
         player.platonicUpgrades[index] += 1

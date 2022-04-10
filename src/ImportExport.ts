@@ -12,7 +12,8 @@ import { addTimers } from './Helper';
 import { toggleSubTab, toggleTabs } from './Toggles';
 import { btoa } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-import { Globals as G} from './Variables'
+import localforage from 'localforage';
+import { Globals as G } from './Variables';
 
 const format24 = new Intl.DateTimeFormat("EN-GB", {
     year: "numeric",
@@ -58,6 +59,7 @@ const saveFilename = () => {
             case 'VERSION': return `v${version}`;
             case 'TIME': return getRealTime();
             case 'TIME12': return getRealTime(true);
+            default: return 'IDFK Lol';
         }
     });
 
@@ -67,22 +69,27 @@ const saveFilename = () => {
 export const exportSynergism = async () => {
     player.offlinetick = Date.now();
     const quarkData = quarkHandler();
+    if (player.singularityUpgrades.goldenQuarks3.level > 0) {
+        player.goldenQuarks += Math.floor(player.quarkstimer / 3600) * (1 + player.worlds.BONUS / 100);
+    }
     if (quarkData.gain >= 1) {
         player.worlds.add(quarkData.gain);
         player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
     }
-
-    saveSynergy();
+    await saveSynergy();
 
     const toClipboard = getElementById<HTMLInputElement>('saveType').checked;
-    const save = localStorage.getItem('Synergysave2');
+    const save = 
+        await localforage.getItem<string>('Synergysave2') ?? 
+        await Promise.resolve(localStorage.getItem('Synergysave2'));
+
     if ('clipboard' in navigator && toClipboard) {
-        await navigator.clipboard.writeText(save)
+        await navigator.clipboard.writeText(`${save}`)
             .catch(e => console.error(e));
     } else if (toClipboard) {
         // Old browsers (legacy Edge, Safari 13.0)
         const textArea = document.createElement('textarea');
-        textArea.value = save;
+        textArea.value = `${save}`;
         textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
 
         document.body.appendChild(textArea);
@@ -118,7 +125,7 @@ export const resetGame = async () => {
     const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
 
     const result = await Prompt(`Answer the question to confirm you'd like to reset: what is ${a}+${b}? (Hint: ${a+b})`)
-    if (+result !== a + b) {
+    if (Number(result) !== a + b) {
         return Alert(`Answer was wrong, not resetting!`);
     }
 
@@ -129,10 +136,10 @@ export const resetGame = async () => {
     toggleTabs("buildings");
     toggleSubTab(1, 0);
     //Import Game
-    void importSynergism(btoa(JSON.stringify(hold)), true);
+    await importSynergism(btoa(JSON.stringify(hold))!, true);
 }
 
-export const importSynergism = (input: string, reset = false) => {
+export const importSynergism = async (input: string, reset = false) => {
     if (typeof input !== 'string') {
         return Alert('Invalid character, could not save! 😕');
     }
@@ -145,7 +152,9 @@ export const importSynergism = (input: string, reset = false) => {
         (f.exporttest === false && testing) ||
         (f.exporttest === 'NO!' && testing)
     ) {
-        localStorage.setItem('Synergysave2', btoa(JSON.stringify(f)));
+        const item = btoa(JSON.stringify(f));
+        await localforage.setItem('Synergysave2', item);
+
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
         
         return reloadShit(reset);
@@ -177,15 +186,6 @@ export const promocodes = async () => {
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds.add(quarks);
         el.textContent = 'Khafra has blessed you with ' + quarks + ' quarks!';
-    } else if(input === 'getout2021' && !player.codes.get(36)) {
-        player.codes.set(36, true);
-        const rewards = dailyCodeReward();
-        const quarkMultiplier = 20 + 30 * player.singularityCount
-        player.worlds.add(quarkMultiplier * rewards.quarks)
-        player.goldenQuarks += 40 * rewards.goldenQuarks
-
-        const goldenQuarksText = (rewards.goldenQuarks > 0) ? `and ${format(40 * rewards.goldenQuarks, 0, true)} Golden Quarks` : '';
-        return Alert(`Here's to a better 2022! You have gained ${format(quarkMultiplier * rewards.quarks, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
     } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
         player.dailyCodeUsed = true;
         const rewards = dailyCodeReward();
@@ -283,7 +283,7 @@ export const promocodes = async () => {
             typeof localStorage.getItem('saveScumIsCheating') === 'string'
         ) {
             if (
-                (Date.now() - player.skillCode) / 1000 < 3600 ||
+                (Date.now() - player.skillCode!) / 1000 < 3600 ||
                 (Date.now() - Number(localStorage.getItem('saveScumIsCheating'))) / 1000 < 3600
             ) {
                 return el.textContent = 'Wait a little bit. We\'ll get back to you when you\'re ready to lose again.';
@@ -328,13 +328,13 @@ export const promocodes = async () => {
         const start = Date.now();
         await Confirm(
             `Click the button within the next 15 seconds to test your luck!` + 
-            ` If you click within 500 ms of a randomly generated time, you will win a prize!`
+            ` If you click within ${format(500 + 5 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!`
         );
         
         const diff = Math.abs(Date.now() - (start + random));
         player.promoCodeTiming.time = Date.now();
 
-        if (diff <= 500) {
+        if (diff <= (500 + 5 * player.cubeUpgrades[61])) {
             player.worlds.add(500);
             return Confirm(`You clicked at the right time! [+500 Quarkies]`);
         } else {
@@ -344,7 +344,7 @@ export const promocodes = async () => {
         el.textContent = "Your code is either invalid or already used. Try again!"
     }
 
-    saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
+    await saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
     Synergism.emit('promocode', input);
 
     setTimeout(function () {

@@ -6,7 +6,7 @@ import { smallestInc } from './Utility';
 import { upgradeupdate, crystalupgradedescriptions} from './Upgrades';
 import { reset } from './Reset';
 import { calculateSummationLinear, calculateCorruptionPoints, calculateRuneBonuses } from './Calculate';
-import { Globals as G } from './Variables';
+import { Globals as G, Upgrade } from './Variables';
 import type { FirstToFifth, OneToFive, ZeroToFour } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -15,7 +15,7 @@ export const getReductionValue = () => {
     reduction += (G['rune4level'] * G['effectiveLevelMult']) / 160;
     reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
     reduction += CalcECC('transcend', player.challengecompletions[4]) / 200;
-    reduction += Math.min(99999.9, (3 * (player.antUpgrades[7-1] + G['bonusant7'])) / 100);
+    reduction += Math.min(99999.9, (3 * (player.antUpgrades[7-1]! + G['bonusant7'])) / 100);
     return reduction;
 }
 
@@ -270,7 +270,7 @@ const known_log10s = function () {
     // constructing all logs
     const obj: Record<number, number> = {};
     for (const need of needed) {
-        if (obj[need] === undefined) {
+        if (typeof obj[need] === 'undefined') {
             obj[need] = Math.log10(need);
         }
     }
@@ -452,7 +452,7 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
     r += (G['rune4level'] * G['effectiveLevelMult']) / 160;
     r += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
     r += CalcECC('transcend', player.challengecompletions[4]) / 200
-    r += (3 * (G['bonusant7'] + player.antUpgrades[7-1])) / 100;
+    r += (3 * (G['bonusant7'] + player.antUpgrades[7-1]!)) / 100;
 
     const posCostType = `${pos}Cost${type}` as const;
     const posOwnedType = `${pos}Owned${type}` as const;
@@ -489,34 +489,25 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
     G['ticker'] = 0;
 }
 
-type Upgrade = 'prestige' | 'transcend' | 'reincarnation' | 'coin';
-
-const upgradeToCurrency = (type: Upgrade) => {
-    if (type === 'coin') {
-        return 'coins' as const;
-    }
-    return `${type}Points` as const;
-}
-
 export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
-    const currency = upgradeToCurrency(type);
+    const currency = type;
     if (player[currency].gte(Decimal.pow(10, G['upgradeCosts'][pos])) && player.upgrades[pos] === 0) {
         player[currency] = player[currency].sub(Decimal.pow(10, G['upgradeCosts'][pos]))
         player.upgrades[pos] = 1;
         upgradeupdate(pos, state)
     }
 
-    if (type === "transcend") {
+    if (type === Upgrade.transcend) {
         player.reincarnatenocoinprestigeortranscendupgrades = false;
         player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
     }
-    if (type === "prestige") {
+    if (type === Upgrade.prestige) {
         player.transcendnocoinorprestigeupgrades = false;
         player.reincarnatenocoinorprestigeupgrades = false;
         player.reincarnatenocoinprestigeortranscendupgrades = false;
         player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
     }
-    if (type === "coin") {
+    if (type === Upgrade.coin) {
         player.prestigenocoinupgrades = false;
         player.transcendnocoinupgrades = false;
         player.transcendnocoinorprestigeupgrades = false;

@@ -115,6 +115,7 @@ export abstract class Cube {
         // General quark multiplier from other in-game features
         // Multiplier from passed parameter
         const multiplier = getQuarkMultiplier() * mult * quarkHandler().cubeMult;
+
         return Math.floor(Math.log10(cubes) * base * multiplier);
     }
 
@@ -311,6 +312,9 @@ export class WowPlatonicCubes extends Cube {
         //If you're opening more than 40,000 Platonics, it will consume all Platonics until remainder mod 40,000, giving expected values.
         for (const key in player.platonicBlessings) {
             player.platonicBlessings[key as keyof Player['platonicBlessings']] += platonicBlessings[key as keyof typeof platonicBlessings].weight * toSpendDiv40000;
+            if (platonicBlessings[key as keyof typeof platonicBlessings].weight === 1 && player.cubeUpgrades[64] > 0) {
+                player.platonicBlessings[key as keyof Player['platonicBlessings']] += toSpendDiv40000 // Doubled!
+            }
         }
         //Then, the remaining hypercube will be opened, simulating the probability [RNG Element]
         const RNGesus = ['hypercubeBonus', 'taxes', 'scoreBonus', 'globalSpeed']

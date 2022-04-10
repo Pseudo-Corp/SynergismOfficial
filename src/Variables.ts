@@ -1,6 +1,13 @@
 import Decimal from 'break_infinity.js';
 import { GlobalVariables } from './types/Synergism';
 
+export enum Upgrade {
+     coin = 'coins',
+     prestige = 'prestigePoints',
+     transcend = 'transcendPoints',
+     reincarnation = 'reincarnationPoints',
+}
+
 export const Globals: GlobalVariables = {
     runediv: [1.5, 2, 3, 5, 8, 1, 1],
     runeexpbase: [1, 4, 9, 16, 1000, 1e75, 1e256],
@@ -287,7 +294,7 @@ export const Globals: GlobalVariables = {
     talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
 
 
-    talismanLevelCostMultiplier: [null, 1, 4, 1e4, 1e8, 1e13, 10, 100],
+    talismanLevelCostMultiplier: [1, 4, 1e4, 1e8, 1e13, 10, 100],
 
     talismanPositiveModifier: [null, 0.75, 1.5, 2.25, 3, 3.75, 4.5],
     talismanNegativeModifier: [null, 0, 0, 0, 0, 0, 0],
@@ -345,17 +352,17 @@ export const Globals: GlobalVariables = {
     autoOfferingCounter: 0,
     researchOrderByCost: [],
 
-    divisivenessPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05],
-    maladaptivePower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05],
-    lazinessMultiplier: [1, 1 / 3, 1 / 10, 1 / 40, 1 / 200, 1 / 1e5, 1 / 1e7, 1 / 1e10, 1/1e13, 1/1e16, 1/1e20, 1/1e25, 1/1e35, 1/1e50],
-    hyperchallengedMultiplier: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600],
-    illiteracyPower: [1, 0.8, 0.7, 0.6, 0.5, 0.3, 0.2, 0.15, 0.10, 0.06, 0.04, 0.02, 0.01, 0.005],
-    deflationMultiplier: [1, 0.3, 0.1, 0.03, 0.01, 1/1e6, 1/1e8, 1/1e10, 1/1e12, 1/1e15, 1/1e18, 1/1e25, 1/1e35, 1/1e50],
-    extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0],
-    droughtMultiplier: [1, 5, 25, 200, 1e4, 1e7, 1e11, 1e16, 1e22, 1e30, 1e40, 1e55, 1e80, 1e120],
-    financialcollapsePower: [1, 0.9, 0.7, 0.6, 0.5, 0.37, 0.30, 0.23, 0.18, 0.15, 0.12, 0.09, 0.03, 0.01],
+    divisivenessPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0],
+    maladaptivePower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0],
+    lazinessMultiplier: [1, 1 / 3, 1 / 10, 1 / 40, 1 / 200, 1 / 1e5, 1 / 1e7, 1 / 1e10, 1/1e13, 1/1e16, 1/1e20, 1/1e25, 1/1e35, 1/1e50, 1/1e66],
+    hyperchallengedMultiplier: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600, 7777],
+    illiteracyPower: [1, 0.8, 0.7, 0.6, 0.5, 0.3, 0.2, 0.15, 0.10, 0.06, 0.04, 0.02, 0.01, 0.005, 0],
+    deflationMultiplier: [1, 0.3, 0.1, 0.03, 0.01, 1/1e6, 1/1e8, 1/1e10, 1/1e12, 1/1e15, 1/1e18, 1/1e25, 1/1e35, 1/1e50, 1/1e77],
+    extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, -0.05],
+    droughtMultiplier: [1, 5, 25, 200, 1e4, 1e7, 1e11, 1e16, 1e22, 1e30, 1e40, 1e55, 1e80, 1e120, 1e177],
+    financialcollapsePower: [1, 0.9, 0.7, 0.6, 0.5, 0.37, 0.30, 0.23, 0.18, 0.15, 0.12, 0.09, 0.03, 0.01, 0.007],
 
-    corruptionPointMultipliers: [1, 2, 2.75, 3.5, 4.25, 5, 5.75, 6.5, 7, 7.5, 8, 9, 10, 11],
+    corruptionPointMultipliers: [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20],
     ascendBuildingProduction: {
         first: new Decimal('0'),
         second: new Decimal('0'),

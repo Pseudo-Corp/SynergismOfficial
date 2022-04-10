@@ -1,26 +1,28 @@
 {
   "name": "synergismofficial",
-  "version": "2.5.7",
+  "version": "2.9.0",
   "description": "",
   "main": "dist/bundle.js",
   "dependencies": {
-    "break_infinity.js": "^1.2.0",
+    "break_infinity.js": "^1.3.0",
     "eventemitter3": "^4.0.7",
+    "localforage": "^1.10.0",
     "lz-string": "^1.4.4"
   },
   "devDependencies": {
     "@types/lz-string": "^1.3.34",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "esbuild": "^0.12.9",
-    "eslint": "^7.24.0",
-    "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^22.0.0",
-    "typescript": "^4.2.4"
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "esbuild": "^0.13.12",
+    "eslint": "^8.1.0",
+    "husky": "^7.0.4",
+    "stylelint": "^14.0.1",
+    "stylelint-config-standard": "^23.0.0",
+    "typescript": "^4.4.4"
   },
   "scripts": {
-    "lint": "npx eslint --fix . --ext .ts",
-    "csslint": "npx stylelint Synergism.css --fix",
+    "lint": "npx eslint . --ext .ts",
+    "csslint": "npx stylelint Synergism.css",
     "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\"",
     "watch:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\" --watch",
     "check:tsc": "npx -p typescript tsc",

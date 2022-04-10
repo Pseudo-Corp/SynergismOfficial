@@ -2,6 +2,10 @@
     "extends": "stylelint-config-standard",
     "rules": {
         "no-descending-specificity": null,
+        "selector-id-pattern": null,
+        "selector-class-pattern": null,
+        "declaration-block-no-shorthand-property-overrides": null,
+        "declaration-block-no-redundant-longhand-properties": null,
         "indentation": 4
     }
 }

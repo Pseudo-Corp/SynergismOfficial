@@ -78,7 +78,7 @@ export class HepteractCraft {
     }
 
     // Add to balance through crafting.
-    craft = async (max = false): Promise<HepteractCraft> => {
+    craft = async (max = false): Promise<HepteractCraft | void> => {
         let craftAmount = null;
         //Prompt used here. Thank you Khafra for the already made code! -Platonic
         if (!max) {
@@ -110,7 +110,7 @@ export class HepteractCraft {
         const itemLimits: number[] = []
         for (const item in this.OTHER_CONVERSIONS) {
             // The type of player[item] is number | Decimal | Cube.
-            itemLimits.push(Math.floor((player[item as keyof Player] as number) / this.OTHER_CONVERSIONS[item as keyof Player]) * 1 / (1 - this.DISCOUNT))
+            itemLimits.push(Math.floor((player[item as keyof Player] as number) / this.OTHER_CONVERSIONS[item as keyof Player]!) * 1 / (1 - this.DISCOUNT))
         }
 
         // Get the smallest of the array we created
@@ -129,15 +129,15 @@ export class HepteractCraft {
 
         for (const item in this.OTHER_CONVERSIONS) {
             if (typeof player[item as keyof Player] === 'number')
-                (player[item as keyof Player] as number) -= amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player];
+                (player[item as keyof Player] as number) -= amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player]!;
 
                 if ((player[item as keyof Player] as number) < 0) {
                     (player[item as keyof Player] as number) = 0;
                 }
             else if (player[item as keyof Player] instanceof Cube)
-                (player[item as keyof Player] as Cube).sub(amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player]);
+                (player[item as keyof Player] as Cube).sub(amountToCraft * this.OTHER_CONVERSIONS[item as keyof Player]!);
             else if (item == 'worlds')
-                player.worlds.sub(amountToCraft * this.OTHER_CONVERSIONS[item])
+                player.worlds.sub(amountToCraft * this.OTHER_CONVERSIONS[item]!)
         }
         return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' hepteracts.' + (max ? '' : ' If this is less than your input, you either hit the inventory limit or you had insufficient resources.'));
     }
@@ -155,7 +155,7 @@ export class HepteractCraft {
     /**
      * Expansion can only happen if your current balance is full.
      */
-    expand = async(): Promise<HepteractCraft> => {
+    expand = async(): Promise<HepteractCraft | void> => {
         const expandPrompt = await Confirm('This will empty your balance, but double your capacity. Agree to the terms and conditions and stuff?')
         if (!expandPrompt) {
             return this;

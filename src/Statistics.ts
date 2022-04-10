@@ -20,14 +20,14 @@ const associated = new Map<string, string>([
 ]);
 
 export const displayStats = (btn: HTMLElement) => {
-    for (const e of Array.from(btn.parentElement.children) as HTMLElement[]) {
+    for (const e of Array.from(btn.parentElement!.children) as HTMLElement[]) {
         if (e.id !== btn.id) {
             e.style.backgroundColor = '';
-            DOMCacheGetOrSet(associated.get(e.id)).style.display = 'none';
+            DOMCacheGetOrSet(associated.get(e.id)!).style.display = 'none';
         }
     }
     
-    const statsEl = DOMCacheGetOrSet(associated.get(btn.id));
+    const statsEl = DOMCacheGetOrSet(associated.get(btn.id)!);
     statsEl.style.display = 'block';
     btn.style.backgroundColor = 'crimson';
 }
@@ -43,7 +43,7 @@ export const loadStatisticsAccelerator = () => {
     DOMCacheGetOrSet("sA8").textContent = "x" + format(1 + 1 / 20 * player.researches[6] + 1 / 25 * player.researches[7] + 1 / 40 * player.researches[8] + 3 / 200 * player.researches[9] + 1 / 200 * player.researches[10], 3, true)
     DOMCacheGetOrSet("sA9").textContent = "x" + format(1 + 1 / 20 * player.researches[86], 3, true)
     DOMCacheGetOrSet("sA10").textContent = "x" + format(((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5 ? 1.25 : 1), 3, true)
-    DOMCacheGetOrSet("sA11").textContent = "^" + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))), 3, true)
+    DOMCacheGetOrSet("sA11").textContent = "^" + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]]), 3, true)
     DOMCacheGetOrSet("sA12").textContent = format(G['freeAccelerator'], 0, true)
 }
 
@@ -56,10 +56,10 @@ export const loadStatisticsMultiplier = () => {
     DOMCacheGetOrSet("sM6").textContent = "x" + format(1 + 1 / 5 * player.researches[2], 3, true)
     DOMCacheGetOrSet("sM7").textContent = "x" + format(1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15], 3, true)
     DOMCacheGetOrSet("sM8").textContent = "x" + format(1 + 1 / 20 * player.researches[87], 3, true)
-    DOMCacheGetOrSet("sM9").textContent = "x" + format(calculateSigmoidExponential(40, (player.antUpgrades[5-1] + G['bonusant5']) / 1000 * 40 / 39),2,true)
+    DOMCacheGetOrSet("sM9").textContent = "x" + format(calculateSigmoidExponential(40, (player.antUpgrades[4]! + G['bonusant5']) / 1000 * 40 / 39),2,true)
     DOMCacheGetOrSet("sM10").textContent = "x" + format(G['cubeBonusMultiplier'][2], 3, true)
     DOMCacheGetOrSet("sM11").textContent = "x" + format(((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5 ? 1.25 : 1), 3, true)
-    DOMCacheGetOrSet("sM12").textContent = "^" + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['divisivenessPower'][player.usedCorruptions[1]] / (1 + Math.abs(player.usedCorruptions[1] - player.usedCorruptions[2]))), 3, true)
+    DOMCacheGetOrSet("sM12").textContent = "^" + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]]), 3, true)
     DOMCacheGetOrSet("sM13").textContent = format(G['freeMultiplier'], 3, true)
 }
 
@@ -78,7 +78,13 @@ export const loadStatisticsCubeMultipliers = () => {
         9: {acc: 2, desc: "Event [Most Recent: June 28 - July 01]"},
         10: {acc: 2, desc: "Singularity Factor:"},
         11: {acc: 2, desc: "Wow Pass Y"},
-        12: {acc: 2, desc: "Wow Pass Z"},
+        12: {acc: 2, desc: "Starter Pack:"},
+        13: {acc: 2, desc: "Cube Flame [GQ]:"},
+        14: {acc: 2, desc: "Cube Blaze [GQ]:"},
+        15: {acc: 2, desc: "Cube Inferno [GQ]:"},
+        16: {acc: 2, desc: "Wow Pass Z"},
+        17: {acc: 2, desc: "Cookie Upgrade 16"},
+        18: {acc: 2, desc: "Cookie Upgrade 20"}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
@@ -105,6 +111,7 @@ export const loadStatisticsCubeMultipliers = () => {
         13: {acc: 2, desc: "Spirit Power:"},
         14: {acc: 2, desc: "Platonic Cubes:"},
         15: {acc: 2, desc: "Platonic 1x1:"},
+        16: {acc: 2, desc: "Cookie Upgrade 13:"}
     }
     for (let i = 0; i < arr.length; i++) {
         const statCMi = DOMCacheGetOrSet(`statCM${i + 1}`);
@@ -224,6 +231,11 @@ export const loadStatisticsOfferingMultipliers = () => {
         21: {acc: 3, desc: "Platonic BETA:"},
         22: {acc: 3, desc: "Platonic OMEGA:"},
         23: {acc: 3, desc: "Challenge 15:"},
+        24: {acc: 3, desc: "Starter Pack:"},
+        25: {acc: 3, desc: "Offering Charge [GQ]:"},
+        26: {acc: 3, desc: "Offering Storm [GQ]:"},
+        27: {acc: 3, desc: "Offering Tempest [GQ]:"},
+        28: {acc: 3, desc: "Cube Upgrade Cx4"}
     }
     for (let i = 0; i < arr.length; i++) {
         const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`);

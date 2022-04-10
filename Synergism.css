@@ -1,7 +1,17 @@
 html {
     min-width: 1250px;
     position: relative;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Open Sans",
+        "Helvetica Neue",
+        sans-serif;
     scrollbar-width: none;
 }
 
@@ -48,7 +58,7 @@ select,
 textarea {
     font-size: 12px;
     padding: 0.05em;
-    margin: 0 0 0 0;
+    margin: 0;
     box-sizing: border-box;
     border: 0 solid #ccc;
 }
@@ -174,7 +184,7 @@ button:focus {
     z-index: 6969;
     width: 30%;
     height: 30%;
-    background-color: rgb(20, 20, 20);
+    background-color: rgb(20 20 20);
     border-radius: 5px;
     border: 1px solid gold;
 }
@@ -234,7 +244,7 @@ button:focus {
 #alert {
     height: 100%;
     display: grid;
-    grid-template-columns: 33.33333% 33.33333% 33.33333%;
+    grid-template-columns: 33.3333% 33.3333% 33.3333%;
     grid-template-rows: 75% 25%;
     grid-template-areas:
         "txt txt txt"
@@ -1713,7 +1723,7 @@ nav li:hover {
 
 #shop {
     text-align: center;
-    position: relative
+    position: relative;
 }
 
 #shopWrapper {
@@ -2094,7 +2104,7 @@ p[id$="BlessingsTotal"] {
 
 #cubeBlessingsTotal { color: orange; }
 #tesseractBlessingsTotal { color: orchid; }
-#hypercubeBlessingsTotal { color: rgb(255, 0, 76); }
+#hypercubeBlessingsTotal { color: rgb(255 0 76); }
 #platonicBlessingsTotal { color: orange; }
 
 #cubesWrapper {
@@ -2456,7 +2466,7 @@ p[id$="BlessingsTotal"] {
 }
 
 .historySubTab p {
-    margin: 8px 0 12px 0;
+    margin: 8px 0 12px;
 }
 
 .historySubTab table {
@@ -2716,6 +2726,10 @@ p[id$="BlessingsTotal"] {
     min-width: 300px;
 }
 
+.corruptionContainer {
+    display: flex;
+}
+
 .corruptionStatRow {
     display: flex;
     flex-flow: row;
@@ -2759,6 +2773,7 @@ p[id$="BlessingsTotal"] {
 
 .corruptionMax {
     border: 2px solid green !important;
+    width: 50px;
 }
 
 .corruptionUp {
@@ -2771,6 +2786,7 @@ p[id$="BlessingsTotal"] {
 
 .corruptionReset {
     border: 2px solid red !important;
+    width: 50px;
 }
 
 #corruptionLoadouts {
@@ -2811,7 +2827,7 @@ img.small {
 #corruptionCleanse {
     height: 30px;
     width: 150px;
-    margin: auto 20px auto;
+    margin: auto 20px;
     border: 2px solid darkmagenta;
     transition-duration: 0.15s;
 }
@@ -3034,7 +3050,7 @@ header #obtainiumDisplay {
     display: grid;
     grid-template-columns: repeat(4, 180px);
     margin-top: 10px;
-    padding: 8px 8px;
+    padding: 8px;
     width: calc(180px * 4 + 45px);
     border: 3px solid plum;
     grid-column: shop 2/4;
@@ -3178,7 +3194,7 @@ header #obtainiumDisplay {
 #transparentBG {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(0 0 0 / 50%);
     z-index: 6968;
     position: absolute;
     display: none;
@@ -3221,4 +3237,12 @@ header #obtainiumDisplay {
 .singularityUpgradeFiller {
     display: flex;
     width: 105px;
+}
+
+#singularityMultiline {
+    white-space: pre-line;
+}
+
+#testingMultiline {
+    white-space: pre-line;
 }

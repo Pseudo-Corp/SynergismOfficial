@@ -8,7 +8,7 @@ import { reset, resetrepeat } from './Reset';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
-import { corruptionDisplay, corruptionLoadoutTableUpdate } from './Corruptions';
+import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -49,14 +49,18 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
     const subTabList = subTabsInMainTab(player.tabnumber).subTabList
     if (player.tabnumber !== -1) {
         for (let i = 0; i < subTabList.length; i++) {
-            const button = DOMCacheGetOrSet(subTabList[i].buttonID)
-            if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
-                player.subtabNumber = i
-                break;
-            }
-            if (player.tabnumber === 9 && button.style.borderColor === "dodgerblue") { // handle corruption tab
-                player.subtabNumber = i
-                break;
+            const id = subTabList[i].buttonID;
+            if (id) {
+                const button = DOMCacheGetOrSet(id)
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                if (button && button.style.backgroundColor === "crimson") { // handles every tab except settings and corruptions
+                    player.subtabNumber = i
+                    break;
+                }
+                if (player.tabnumber === 9 && button.style.borderColor === "dodgerblue") { // handle corruption tab
+                    player.subtabNumber = i
+                    break;
+                }
             }
         }
     } else { // handle settings tab
@@ -181,7 +185,7 @@ export function tabs(mainTab: number): TabValue;
 export function tabs(mainTab?: number) {
     const tabs: Tab = {
         "-1": {tabName: "settings", unlocked: true},
-        0: {tabName: "shop", unlocked: player.unlocks.reincarnate},
+        0: {tabName: "shop", unlocked: player.unlocks.reincarnate || player.singularityCount > 0},
         1: {tabName: "buildings", unlocked: true},
         2: {tabName: "upgrades", unlocked: true},
         3: {tabName: "achievements", unlocked: player.unlocks.coinfour},
@@ -190,7 +194,8 @@ export function tabs(mainTab?: number) {
         6: {tabName: "researches", unlocked: player.unlocks.reincarnate},
         7: {tabName: "ants", unlocked: player.achievements[127] > 0},
         8: {tabName: "cubes", unlocked: player.achievements[141] > 0},
-        9: {tabName: "traits", unlocked: player.achievements[141] > 0}
+        9: {tabName: "traits", unlocked: player.challengecompletions[11] > 0},
+        10: {tabName: "singularity", unlocked: player.singularityCount > 0}
     }
 
     if (typeof mainTab === 'undefined') {
@@ -265,7 +270,7 @@ export const subTabsInMainTab = (mainTab: number) => {
         10: {
             subTabList: []}
     }
-    return subTabs[mainTab];
+    return subTabs[mainTab]!;
 }
 
 export const keyboardTabChange = (dir = 1, main = true) => {
@@ -315,10 +320,10 @@ export const toggleSubTab = (mainTab = 1, subTab = 0) => {
             // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
             const btn = DOMCacheGetOrSet("settings").getElementsByClassName("subtabSwitcher")[0].children[subTab]
             if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked)
-                subTabsInMainTab(mainTab).tabSwitcher(subTabsInMainTab(mainTab).subTabList[subTab].subTabID, btn)
+                subTabsInMainTab(mainTab).tabSwitcher?.(subTabsInMainTab(mainTab).subTabList[subTab].subTabID, btn)
         } else {
             if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked)
-                subTabsInMainTab(mainTab).tabSwitcher(subTabsInMainTab(mainTab).subTabList[subTab].subTabID)
+                subTabsInMainTab(mainTab).tabSwitcher?.(subTabsInMainTab(mainTab).subTabList[subTab].subTabID)
         }
     }
 }
@@ -371,7 +376,7 @@ export const toggleauto = () => {
     for (const auto of Array.from(autos)) {
         const format = auto.getAttribute("format") || 'Auto [$]';
         const toggleId = auto.getAttribute("toggleId");
-        if (toggleId === undefined || toggleId === null) {
+        if (toggleId === null) {
             continue;
         }
 
@@ -559,11 +564,11 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
         return;
     }
 
-    const switcherEl = clickedButton.parentNode;
+    const switcherEl = clickedButton.parentNode!;
     switcherEl.querySelectorAll(".buttonActive").forEach(b => b.classList.remove("buttonActive"));
     clickedButton.classList.add("buttonActive");
 
-    subtabEl.parentNode.querySelectorAll(".subtabActive").forEach(subtab => subtab.classList.remove("subtabActive"));
+    subtabEl.parentNode!.querySelectorAll(".subtabActive").forEach(subtab => subtab.classList.remove("subtabActive"));
     subtabEl.classList.add("subtabActive");
 
     if (subtab === "statisticsSubTab") {
@@ -827,7 +832,7 @@ export const toggleAutoTesseracts = (i: number) => {
 
 export const toggleCorruptionLevel = (index: number, value: number) => {
     const current = player.prototypeCorruptions[index]
-    const maxCorruption = 13
+    const maxCorruption = maxCorruptionLevel();
     if (value > 0 && current < maxCorruption && 0 < index && index <= 9) {
         player.prototypeCorruptions[index] += Math.min(maxCorruption - current, value)
     }
@@ -839,7 +844,7 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
         for (let i = 0; i <= 9; i++) {
             player.usedCorruptions[i] = 0;
             player.prototypeCorruptions[i] = 0;
-            if (i > 0)
+            if (i > 1)
                 corruptionDisplay(i)
         }
         
@@ -861,6 +866,7 @@ export const toggleCorruptionLoadoutsStats = (stats: boolean) => {
 
 export const toggleAscStatPerSecond = (id: number) => {
     const el = DOMCacheGetOrSet(`unit${id}`);
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!el) {
         console.log(id, 'platonic needs to fix');
         return;

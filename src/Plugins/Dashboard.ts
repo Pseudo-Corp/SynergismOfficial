@@ -193,7 +193,7 @@ let open = false
 const renderDashboardSlow = () => {
     const upgrade = Number(getElementById<HTMLInputElement>('db-plat-number').value)
     const levels = Number(getElementById<HTMLInputElement>('db-plat-amount').value)
-    tab.querySelector('#cubeTimes').textContent = getCubeTimes(upgrade, levels);
+    tab.querySelector('#cubeTimes')!.textContent = getCubeTimes(upgrade, levels);
 }
 
 const renderDashboardFast = () => {
@@ -227,13 +227,13 @@ const openDashboard = () => {
 }
 
 const exitDashboard = () => {
-    clearInterval(dashboardLoopRefFast)
-    clearInterval(dashboardLoopRefSlow)
+    clearInterval(dashboardLoopRefFast!)
+    clearInterval(dashboardLoopRefSlow!)
     tab.style.display = 'none'
-    activeTab.style.display = null
+    activeTab!.style.display = ''
     button.textContent = 'Dashboard'
     const buttons = settingsTab.getElementsByClassName('subtabSwitcher')[0] as HTMLElement;
-    buttons.style.display = null
+    buttons.style.display = ''
 }
 
 const btnListener = () => {
@@ -255,7 +255,7 @@ const enable = () => {
     const style = document.head.querySelector('#syn_dashboard_plugin');
     if (style !== null) { // plugin is already enabled
         document.head.removeChild(style);
-        document.querySelector('#settings > .subtabSwitcher').removeChild(button);
+        document.querySelector('#settings > .subtabSwitcher')!.removeChild(button);
         button.removeEventListener('click', btnListener);
         document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v => 
             v.removeEventListener('click', subButtons)
@@ -266,12 +266,12 @@ const enable = () => {
 
     console.log('hello synergism, dashboard installed in the settings tab');
     GM_addStyle(css);
-    document.querySelector('#settings > .subtabSwitcher').appendChild(button);
+    document.querySelector('#settings > .subtabSwitcher')!.appendChild(button);
 
-    tab.querySelector('.dashboardstatResearch').addEventListener('click', () => toggleAutoResearch());
-    tab.querySelector('.dashboardstatRunes').addEventListener('click', () => toggleAutoSacrifice(0));
-    tab.querySelector('.dashboardstatChallenge').addEventListener('click', () => toggleAutoChallengeRun());
-    tab.querySelector('.dashboardstatSac').addEventListener('click', () => toggleAntAutoSacrifice(0));
+    tab.querySelector('.dashboardstatResearch')!.addEventListener('click', () => toggleAutoResearch());
+    tab.querySelector('.dashboardstatRunes')!.addEventListener('click', () => toggleAutoSacrifice(0));
+    tab.querySelector('.dashboardstatChallenge')!.addEventListener('click', () => toggleAutoChallengeRun());
+    tab.querySelector('.dashboardstatSac')!.addEventListener('click', () => toggleAntAutoSacrifice(0));
 
     document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v => 
         v.addEventListener('click', subButtons)

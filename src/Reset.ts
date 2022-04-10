@@ -572,13 +572,13 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.ascensionCounter = 0;
 
         updateTalismanInventory();
+        updateTalismanAppearance(0);
         updateTalismanAppearance(1);
         updateTalismanAppearance(2);
         updateTalismanAppearance(3);
         updateTalismanAppearance(4);
         updateTalismanAppearance(5);
         updateTalismanAppearance(6);
-        updateTalismanAppearance(7);
         calculateCubeBlessings();
         calculateTesseractBlessings();
         calculateHypercubeBlessings();
@@ -606,6 +606,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             }
         }
         player.usedCorruptions = Array.from(player.prototypeCorruptions)
+        player.usedCorruptions[1] = 0;
+        player.prototypeCorruptions[1] = 0;
         //fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
         if (player.currentChallenge.ascension === 15 && input === 'ascension') {
            player.usedCorruptions[0] = 0;
@@ -684,7 +686,12 @@ export const calculateGoldenQuarkGain = ():number => {
     const c15Multiplier = 1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2
     const patreonMultiplier = 1 + player.worlds.BONUS/100;
 
-    return (base + gainFromQuarks) * c15Multiplier * patreonMultiplier
+    const singularityUpgrades = (1 + player.singularityUpgrades.goldenQuarks1.level / 20) *
+                                (1 + player.singularityUpgrades.goldenQuarks2.level / 50)
+
+    const cookieUpgradeMultiplier = 1 + 0.12 * player.cubeUpgrades[69];
+
+    return (base + gainFromQuarks) * c15Multiplier * patreonMultiplier * singularityUpgrades * cookieUpgradeMultiplier;
 }
 
 export const singularity = async () => {
@@ -697,14 +704,19 @@ export const singularity = async () => {
     //Reset Displays
     toggleTabs("buildings");
     toggleSubTab(1, 0);
+    toggleSubTab(4, 0); // Set 'runes' subtab back to 'runes' tab
+    toggleSubTab(8, 0); // Set 'cube tribues' subtab back to 'cubes' tab
+    toggleSubTab(9, 0); // set 'corruption main'
+    toggleSubTab(-1, 0); // set 'statistics main'
 
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;
     hold.shopUpgrades = player.shopUpgrades;
     hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark
+    hold.singularityUpgrades = player.singularityUpgrades
     //Import Game
-    void importSynergism(btoa(JSON.stringify(hold)), true);
+    await importSynergism(btoa(JSON.stringify(hold)), true);
 }
 
 const resetUpgrades = (i: number) => {

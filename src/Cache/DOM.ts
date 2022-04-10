@@ -8,6 +8,11 @@ export const DOMCacheGetOrSet = (id: string) => {
     if (cachedEl) return cachedEl;
 
     const el = document.getElementById(id);
+    
+    if (!el) {
+        throw new TypeError(`Element with id "${id}" was not found on page?`);
+    }
+
     DOMCache.set(id, el);
     return el;
 }

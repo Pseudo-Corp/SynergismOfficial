@@ -3,7 +3,7 @@ import { Globals as G } from './Variables';
 import { player, format, formatTimeShort } from './Synergism';
 import { version } from './Config';
 import { CalcECC } from './Challenges';
-import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier } from './Calculate';
+import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear } from './Calculate';
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
@@ -12,6 +12,9 @@ import { quarkHandler } from './Quark';
 import type { Player, ZeroToFour } from './types/Synergism';
 import { hepteractTypeList, hepteractTypes } from './Hepteracts';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { IMultiBuy } from './Cubes';
+import { calculateMaxTalismanLevel } from './Talismans';
+import { getGoldenQuarkCost } from './singularity';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== "buildings") {
@@ -189,11 +192,11 @@ export const visualUpdateRunes = () => {
             const maxLevel = calculateMaxRunes(i)
             DOMCacheGetOrSet('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(runeLevel) + "/" + format(maxLevel)
             DOMCacheGetOrSet('rune' + i + 'exp').textContent = (runeLevel < maxLevel ? "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP" : "Max level!")
-            if (i <= 5) DOMCacheGetOrSet('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + G['bonusant9']) + place) + "]"
+            if (i <= 5) DOMCacheGetOrSet('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[8]! + G['bonusant9']) + place) + "]"
             else DOMCacheGetOrSet('bonusrune' + i).textContent = "[Bonus: Nope!]"
             DOMCacheGetOrSet('rune' + i + 'level').childNodes[0].textContent = "Level: " + format(player.runelevels[i - 1]) + "/" + format(calculateMaxRunes(i))
             DOMCacheGetOrSet('rune' + i + 'exp').textContent = "+1 in " + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + " EXP"
-            if (i <= 5) DOMCacheGetOrSet('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[9-1] + G['bonusant9']) + place) + "]"
+            if (i <= 5) DOMCacheGetOrSet('bonusrune' + i).textContent = " [Bonus: " + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[8]! + G['bonusant9']) + place) + "]"
             else DOMCacheGetOrSet('bonusrune' + i).textContent = "[Bonus: Nope!]"
             displayRuneInformation(i, false)
         }
@@ -203,8 +206,9 @@ export const visualUpdateRunes = () => {
     }
 
     if (G['runescreen'] === "talismans") {
-        for (let i = 1; i <= 7; i++) {
-            DOMCacheGetOrSet('talisman' + i + 'level').textContent = "Level " + player.talismanLevels[i-1] + "/" + (30 * player.talismanRarity[i-1] + 6 * CalcECC('ascension', player.challengecompletions[13]) + Math.floor(player.researches[200] / 400))
+        for (let i = 0; i < 7; i++) {
+            const maxTalismanLevel = calculateMaxTalismanLevel(i);
+            DOMCacheGetOrSet('talisman' + (i+1) + 'level').textContent = "Level " + format(player.talismanLevels[i], 0, true) + "/" + format(maxTalismanLevel, 0, true)
         }
     }
 
@@ -265,7 +269,7 @@ export const visualUpdateResearch = () => {
 export const visualUpdateAnts = () => {
     if (G['currentTab'] !== "ants")
         return
-    DOMCacheGetOrSet("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(G['antOneProduce'], 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1] + G['bonusant2']) / 5000 * 500 / 499))) + "x Coin Multiplier."
+    DOMCacheGetOrSet("crumbcount").textContent = "You have " + format(player.antPoints, 2) + " Galactic Crumbs [" + format(G['antOneProduce'], 2) + "/s], providing a " + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[1]! + G['bonusant2']) / 5000 * 500 / 499))) + "x Coin Multiplier."
     const mode = player.autoAntSacrificeMode === 2 ? "Real-time" : "In-game time";
     const timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
     DOMCacheGetOrSet("autoAntSacrifice").textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer)}`
@@ -320,16 +324,16 @@ export const visualUpdateCubes = () => {
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
-                if (cubeArray[i] >= 1000 && i !== 6) {
+                if (cubeArray[i]! >= 1000 && i !== 6) {
                     augmentAccuracy += 2;
                 }
                 DOMCacheGetOrSet(`cubeBlessing${i}Amount`).textContent = `x${format(cubeArray[i], 0, true)}`
-                DOMCacheGetOrSet(`cubeBlessing${i}Effect`).textContent = `+${format(100 * (G['cubeBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                DOMCacheGetOrSet(`cubeBlessing${i}Effect`).textContent = `+${format(100 * (G['cubeBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)}%`
                 if (i === 1 || i === 8 || i === 9) {
-                    DOMCacheGetOrSet(`cubeBlessing${i}Effect`).textContent = `+${format(G['cubeBonusMultiplier'][i] - 1, accuracy[i] + augmentAccuracy, true)}`
+                    DOMCacheGetOrSet(`cubeBlessing${i}Effect`).textContent = `+${format(G['cubeBonusMultiplier'][i] - 1, accuracy[i]! + augmentAccuracy, true)}`
                 }
             }
-            DOMCacheGetOrSet("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray), 0, true);
+            DOMCacheGetOrSet("cubeBlessingTotalAmount").textContent = format(sumContents(cubeArray.slice(1) as number[]), 0, true);
             break;
         }
         case 1: {
@@ -338,13 +342,13 @@ export const visualUpdateCubes = () => {
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
-                if (tesseractArray[i] >= 1000 && i !== 6) {
+                if (tesseractArray[i]! >= 1000 && i !== 6) {
                     augmentAccuracy += 2;
                 }
                 DOMCacheGetOrSet(`tesseractBlessing${i}Amount`).textContent = `x${format(tesseractArray[i], 0, true)}`
-                DOMCacheGetOrSet(`tesseractBlessing${i}Effect`).textContent = `+${format(100 * (G['tesseractBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                DOMCacheGetOrSet(`tesseractBlessing${i}Effect`).textContent = `+${format(100 * (G['tesseractBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)}%`
             }
-            DOMCacheGetOrSet("tesseractBlessingTotalAmount").textContent = format(sumContents(tesseractArray), 0, true);
+            DOMCacheGetOrSet("tesseractBlessingTotalAmount").textContent = format(sumContents(tesseractArray.slice(1) as number[]), 0, true);
             break;
         }
         case 2: {
@@ -353,13 +357,13 @@ export const visualUpdateCubes = () => {
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
             for (let i = 1; i <= 10; i++) {
                 let augmentAccuracy = 0;
-                if (hypercubeArray[i] >= 1000) {
+                if (hypercubeArray[i]! >= 1000) {
                     augmentAccuracy += 2;
                 }
                 DOMCacheGetOrSet(`hypercubeBlessing${i}Amount`).textContent = `x${format(hypercubeArray[i], 0, true)}`
-                DOMCacheGetOrSet(`hypercubeBlessing${i}Effect`).textContent = `+${format(100 * (G['hypercubeBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                DOMCacheGetOrSet(`hypercubeBlessing${i}Effect`).textContent = `+${format(100 * (G['hypercubeBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)}%`
             }
-            DOMCacheGetOrSet("hypercubeBlessingTotalAmount").textContent = format(sumContents(hypercubeArray), 0, true);
+            DOMCacheGetOrSet("hypercubeBlessingTotalAmount").textContent = format(sumContents(hypercubeArray.slice(1) as number[]), 0, true);
             break;
         }
         case 3: {
@@ -408,8 +412,8 @@ export const visualUpdateCubes = () => {
 const UpdateHeptGridValues = (type: hepteractTypes) => {
     const text = type + 'ProgressBarText'
     const bar = type + 'ProgressBar'
-    const textEl = document.getElementById(text)
-    const barEl = document.getElementById(bar)
+    const textEl = document.getElementById(text)!
+    const barEl = document.getElementById(bar)!
     const balance = player.hepteractCrafts[type].BAL
     const cap = player.hepteractCrafts[type].CAP
     const barWidth = Math.round((balance / cap) * 100)
@@ -439,6 +443,7 @@ export const visualUpdateCorruptions = () => {
     DOMCacheGetOrSet("corruptionBankValue").textContent = format(metaData[0]);
     DOMCacheGetOrSet("corruptionScoreValue").textContent = format(metaData[1], 0, true);
     DOMCacheGetOrSet("corruptionMultiplierValue").textContent = format(metaData[2], 1, true);
+    DOMCacheGetOrSet("corruptionBonusMultiplierValue").textContent = format(metaData[9], 2, true);
     DOMCacheGetOrSet("corruptionTotalScore").textContent = format(metaData[3], 0, true);
     DOMCacheGetOrSet("corruptionCubesValue").textContent = format(metaData[4], 0, true);
     DOMCacheGetOrSet("corruptionTesseractsValue").textContent = format(metaData[5]);
@@ -481,6 +486,11 @@ export const visualUpdateSettings = () => {
     DOMCacheGetOrSet("quarktimerdisplay").textContent = format((3600 / (quarkData.perHour) - (player.quarkstimer % (3600.00001 / (quarkData.perHour)))), 2) + "s until +" + format(patreonLOL, 2, true) + " export Quark"
     DOMCacheGetOrSet("quarktimeramount").textContent = 
         `Quarks on export: ${format(Math.floor(onExportQuarks * patreonLOL))} [Max ${format(Math.floor(maxExportQuarks * patreonLOL))}]`;
+
+    DOMCacheGetOrSet("goldenQuarkTimerDisplay").textContent = format(3600 - (player.quarkstimer % 3600.00001)) + "s until +" + format(patreonLOL, 2, true) + " export Golden Quark"
+    DOMCacheGetOrSet("goldenQuarkTimerAmount").textContent = 
+        `Golden Quarks on export: ${format(Math.floor(player.quarkstimer / 3600))} [Max ${format(Math.floor(quarkData.maxTime / 3600))}]`
+
 }
 
 export const visualUpdateShop = () => {
@@ -507,10 +517,25 @@ export const visualUpdateShop = () => {
             // Case: max level greater than 1, treat it as a fraction out of max level
             else
                 DOMCacheGetOrSet(`${key}Level`).textContent = "Level " + format(player.shopUpgrades[key]) + "/" + format(shopItem.maxLevel);
-            // Handles Button - max level needs no price indicator, otherwise it's necessary    
-            player.shopUpgrades[key] === shopItem.maxLevel ?
-                DOMCacheGetOrSet(`${key}Button`).textContent = "Maxed!": 
-                DOMCacheGetOrSet(`${key}Button`).textContent = "Upgrade for " + format(getShopCosts(key)) + " Quarks";
+            // Handles Button - max level needs no price indicator, otherwise it's necessary
+
+            const buyAmount = G['shopBuyMax']? Math.max(shopData[key].maxLevel - player.shopUpgrades[key], 1): 1;
+            const metaData:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[key], shopData[key].price, +player.worlds, shopData[key].priceIncrease / shopData[key].price, buyAmount)
+            
+            if (!G['shopBuyMax']) {
+                player.shopUpgrades[key] === shopItem.maxLevel ?
+                    DOMCacheGetOrSet(`${key}Button`).textContent = "Maxed!": 
+                    DOMCacheGetOrSet(`${key}Button`).textContent = "Upgrade for " + format(getShopCosts(key)) + " Quarks";
+            }
+            
+            else {
+                player.shopUpgrades[key] === shopItem.maxLevel ?
+                    DOMCacheGetOrSet(`${key}Button`).textContent = "Maxed!": 
+                    DOMCacheGetOrSet(`${key}Button`).textContent = "Upgrade +"+format(metaData.levelCanBuy - player.shopUpgrades[key],0,true)+ " for " + format(metaData.cost,0,true) + " Quarks";
+            }
         }
     }
+
+    DOMCacheGetOrSet("buySingularityQuarksAmount").textContent = `Owned: ${format(player.goldenQuarks)}`
+    DOMCacheGetOrSet("buySingularityQuarksButton").textContent = `Buy! ${format(getGoldenQuarkCost().cost)} Quarks Each`
 }
