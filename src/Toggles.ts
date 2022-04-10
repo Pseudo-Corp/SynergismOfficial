@@ -185,7 +185,7 @@ export function tabs(mainTab: number): TabValue;
 export function tabs(mainTab?: number) {
     const tabs: Tab = {
         "-1": {tabName: "settings", unlocked: true},
-        0: {tabName: "shop", unlocked: player.unlocks.reincarnate},
+        0: {tabName: "shop", unlocked: player.unlocks.reincarnate || player.singularityCount > 0},
         1: {tabName: "buildings", unlocked: true},
         2: {tabName: "upgrades", unlocked: true},
         3: {tabName: "achievements", unlocked: player.unlocks.coinfour},
@@ -194,7 +194,8 @@ export function tabs(mainTab?: number) {
         6: {tabName: "researches", unlocked: player.unlocks.reincarnate},
         7: {tabName: "ants", unlocked: player.achievements[127] > 0},
         8: {tabName: "cubes", unlocked: player.achievements[141] > 0},
-        9: {tabName: "traits", unlocked: player.achievements[141] > 0}
+        9: {tabName: "traits", unlocked: player.challengecompletions[11] > 0},
+        10: {tabName: "singularity", unlocked: player.singularityCount > 0}
     }
 
     if (typeof mainTab === 'undefined') {
