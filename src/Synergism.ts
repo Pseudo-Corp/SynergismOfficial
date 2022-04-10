@@ -3548,4 +3548,4 @@ window.addEventListener('unload', () => {
     // a page that is reloaded be affected by what the user did
     // beforehand? How does anyone use this buggy browser???????
     window.scrollTo(0, 0);
-})
+});
