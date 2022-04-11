@@ -2615,14 +2615,13 @@ p[id$="BlessingsTotal"] {
 }
 
 #traits {
-    display: flex;
-    flex-flow: row;
-    align-items: center;
     justify-content: center;
-    position: relative;
     width: 100%;
     min-height: 550px;
     max-height: 600px;
+
+    /* Hopefully prevent some elements from overlapping with the tab buttons */
+    margin-top: 10px;
 }
 
 #corruptionMain {
