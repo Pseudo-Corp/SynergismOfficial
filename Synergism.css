@@ -2619,6 +2619,7 @@ p[id$="BlessingsTotal"] {
     width: 100%;
     min-height: 550px;
     max-height: 600px;
+
     /* Hopefully prevent some elements from overlapping with the tab buttons */
     margin-top: 10px;
 }
