@@ -358,6 +358,7 @@ export interface Player {
     autoSacrifice: number
     sacrificeTimer: number
     quarkstimer: number
+    goldenQuarksTimer: number
 
     antPoints: Decimal,
     antUpgrades: (null | number)[]
@@ -543,6 +544,7 @@ export interface Player {
         singCubes3: SingularityUpgrade
     }
     dailyCodeUsed: boolean
+
 }
 
 export interface GlobalVariables {

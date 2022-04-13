@@ -70,7 +70,8 @@ export const exportSynergism = async () => {
     player.offlinetick = Date.now();
     const quarkData = quarkHandler();
     if (player.singularityUpgrades.goldenQuarks3.level > 0) {
-        player.goldenQuarks += Math.floor(player.quarkstimer / 3600) * (1 + player.worlds.BONUS / 100);
+        player.goldenQuarks += Math.floor(player.quarkstimer / 3600) * (1 + player.worlds.BONUS / 100) * player.singularityUpgrades.goldenQuarks3.level;
+        player.goldenQuarksTimer = (player.goldenQuarksTimer % (3600 / Math.max(0.001, player.singularityUpgrades.goldenQuarks3.level)))
     }
     if (quarkData.gain >= 1) {
         player.worlds.add(quarkData.gain);
@@ -169,6 +170,13 @@ export const promocodes = async () => {
 
     if (input === null) {
         return Alert('Alright, come back soon!')
+    }
+    if (input === "quack" && !player.codes.get(37)) {
+        player.codes.set(37, true);
+        player.quarkstimer = quarkHandler().maxTime;
+        player.goldenQuarksTimer = 90000;
+        addTimers("ascension", 12000 * 1000)
+        return Alert("Quacks like a dog. Your quark timer(s) have been replenished and you have been given 5 real life hours of ascension progress!")
     }
     if (input === "synergism2021" && !player.codes.get(1)) {
         player.codes.set(1, true);

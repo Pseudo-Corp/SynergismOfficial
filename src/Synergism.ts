@@ -464,6 +464,7 @@ export const player: Player = {
     autoSacrifice: 0,
     sacrificeTimer: 0,
     quarkstimer: 90000,
+    goldenQuarksTimer: 90000,
 
     antPoints: new Decimal("1"),
     antUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -676,7 +677,7 @@ export const player: Player = {
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 36 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 37 }, (_, i) => [i + 1, false]))
 });
 
 export const saveSynergy = async (button?: boolean) => {
@@ -3200,6 +3201,7 @@ function tack(dt: number) {
         addTimers("reincarnation", dt)
         addTimers("ascension", dt)
         addTimers("quarks", dt)
+        addTimers("goldenQuarks", dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
         if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {

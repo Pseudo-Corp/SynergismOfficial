@@ -6,7 +6,7 @@ import { player } from "./Synergism";
 import { visualUpdateResearch } from "./UpdateVisuals";
 import { Globals as G } from './Variables';
 
-type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks';
+type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks' | 'goldenQuarks';
 
 /**
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
@@ -14,7 +14,7 @@ type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 
  * @param time 
  */
 export const addTimers = (input: TimerInput, time = 0) => {
-    const timeMultiplier = (input === "ascension" || input === "quarks") ? 1 : calculateTimeAcceleration();
+    const timeMultiplier = (input === "ascension" || input === "quarks" || input === "goldenQuarks") ? 1 : calculateTimeAcceleration();
 
     switch(input){
         case "prestige": {
@@ -40,6 +40,16 @@ export const addTimers = (input: TimerInput, time = 0) => {
             // Checks if this new time is greater than maximum, in which it will default to that time.
             // Otherwise returns itself.
             player.quarkstimer = (player.quarkstimer > maxQuarkTimer) ? maxQuarkTimer : player.quarkstimer;
+            break;
+        }
+        case "goldenQuarks": {
+            if (player.singularityUpgrades.goldenQuarks3.level === 0)
+                return
+
+            else {
+                player.goldenQuarksTimer += time * timeMultiplier;
+                player.goldenQuarksTimer = (player.goldenQuarksTimer > 90000) ? 90000 : player.goldenQuarksTimer;
+            }
             break;
         }
     }

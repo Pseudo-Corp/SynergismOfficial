@@ -546,4 +546,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.usedCorruptions[1] = 0;
         player.prototypeCorruptions[1] = 0;
     }
+
+    if (data.goldenQuarksTimer === undefined || player.goldenQuarksTimer === undefined) {
+        player.goldenQuarksTimer = 90000;
+    }
 }
