@@ -175,7 +175,7 @@ export const promocodes = async () => {
         player.codes.set(37, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 90000;
-        addTimers("ascension", 12000 * 1000)
+        addTimers("ascension", 18000)
         return Alert("Quacks like a dog. Your quark timer(s) have been replenished and you have been given 5 real life hours of ascension progress!")
     }
     if (input === "synergism2021" && !player.codes.get(1)) {
