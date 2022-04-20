@@ -1133,7 +1133,17 @@ const loadSynergy = async () => {
 
         if (data.history === undefined) {
             player.history = { ants: [], ascend: [], reset: [] };
+        } else {
+            // See: https://discord.com/channels/677271830838640680/964168000360038481/964168002071330879
+            const keys = Object.keys(blankSave.history) as (keyof typeof blankSave['history'])[];
+
+            for (const historyKey of keys) {
+                if (historyKey in player.history === false) {
+                    player.history[historyKey] = [];
+                }
+            }
         }
+
         if (data.historyShowPerSecond === undefined) {
             player.historyShowPerSecond = false;
         }
