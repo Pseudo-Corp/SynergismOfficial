@@ -81,16 +81,21 @@ export const exportSynergism = async () => {
 
     const toClipboard = getElementById<HTMLInputElement>('saveType').checked;
     const save = 
-        await localforage.getItem<string>('Synergysave2') ?? 
-        await Promise.resolve(localStorage.getItem('Synergysave2'));
+        await localforage.getItem<Blob>('Synergysave2') ?? 
+        localStorage.getItem('Synergysave2');
+    const saveString = typeof save === 'string' ? save : await save?.text();
+
+    if (saveString === undefined) {
+        return Alert('How?');
+    }
 
     if ('clipboard' in navigator && toClipboard) {
-        await navigator.clipboard.writeText(`${save}`)
+        await navigator.clipboard.writeText(saveString)
             .catch(e => console.error(e));
     } else if (toClipboard) {
         // Old browsers (legacy Edge, Safari 13.0)
         const textArea = document.createElement('textarea');
-        textArea.value = `${save}`;
+        textArea.value = saveString;
         textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
 
         document.body.appendChild(textArea);
@@ -153,8 +158,14 @@ export const importSynergism = async (input: string, reset = false) => {
         (f.exporttest === false && testing) ||
         (f.exporttest === 'NO!' && testing)
     ) {
-        const item = btoa(JSON.stringify(f));
-        await localforage.setItem('Synergysave2', item);
+        const saveString = btoa(JSON.stringify(f));
+        
+        if (saveString === null) {
+            return Alert('Unable to import this file!');
+        }
+
+        const item = new Blob([saveString], { type: 'text/plain' });
+        await localforage.setItem<Blob>('Synergysave2', item);
 
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
         

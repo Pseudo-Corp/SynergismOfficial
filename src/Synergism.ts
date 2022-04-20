@@ -695,16 +695,11 @@ export const saveSynergy = async (button?: boolean) => {
         wowPlatonicCubes: Number(player.wowPlatonicCubes)
     });
 
-    try {
-        await localforage.removeItem('Synergysave2');
-    } catch (e: unknown) {
-        console.log(e);
-        await Promise.resolve(localStorage.removeItem('Synergysave2'));
-    }
-
     const save = btoa(JSON.stringify(p));
     if (save !== null) {
-        await localforage.setItem('Synergysave2', save);
+        const saveBlob = new Blob([save], { type: 'text/plain' });
+        await localforage.setItem<Blob>('Synergysave2', saveBlob);
+        console.log('Saved the game ', Date.now());
     }
 
     if (button) {
@@ -728,10 +723,13 @@ const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
 const loadSynergy = async () => {
     console.log('loaded attempted');
     const save =
-        await localforage.getItem<string>('Synergysave2') ??
-        await Promise.resolve(localStorage.getItem('Synergysave2'));
+        await localforage.getItem<Blob>('Synergysave2') ??
+        localStorage.getItem('Synergysave2');
 
-    const data = save ? JSON.parse(atob(save)) as PlayerSave & Record<string, unknown> : null;
+    const saveString = typeof save === 'string' ? save : await save?.text();
+    const data = saveString
+        ? JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>
+        : null;
 
     if (testing) {
         Object.defineProperty(window, 'player', {
@@ -3468,16 +3466,29 @@ export const reloadShit = async (reset = false) => {
     intervalHold.clear();
 
     const save = 
-        await localforage.getItem<string>('Synergysave2') ??
-        await Promise.resolve(localStorage.getItem('Synergysave2'));
+        await localforage.getItem<Blob>('Synergysave2') ??
+        localStorage.getItem('Synergysave2');
 
-    if (save) {
-        const dec = LZString.decompressFromBase64(save);
+    const saveObject = typeof save === 'string' ? save : await save?.text();
+
+    if (saveObject) {
+        const dec = LZString.decompressFromBase64(saveObject);
         const isLZString = dec !== '';
 
         if (isLZString) {
+            if (!dec) {
+                return Alert('Unable to load the save.');
+            }
+
+            const saveString = btoa(dec);
+
+            if (saveString === null) {
+                return Alert('Unable to load the save.');
+            }
+
             localStorage.clear();
-            await localforage.setItem('Synergysave2', btoa(dec!));
+            const blob = new Blob([saveString], { type: 'text/plain' });
+            await localforage.setItem<Blob>('Synergysave2', blob);
             await Alert('Transferred save to new format successfully!');
         }
 
