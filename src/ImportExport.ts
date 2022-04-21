@@ -110,7 +110,7 @@ export const exportSynergism = async () => {
         document.body.removeChild(textArea);
     } else {
         const a = document.createElement('a');
-        a.setAttribute('href', 'data:text/plain;charset=utf-8,' + save);
+        a.setAttribute('href', 'data:text/plain;charset=utf-8,' + saveString);
         a.setAttribute('download', saveFilename());
         a.setAttribute('id', 'downloadSave');
         // "Starting in Firefox 75, the click() function works even when the element is not attached to a DOM tree."
