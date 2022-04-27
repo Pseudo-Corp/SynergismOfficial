@@ -1065,6 +1065,7 @@ const loadSynergy = async () => {
             player.wowCubes = new WowCubes(0);
             player.wowTesseracts = new WowTesseracts(0);
             player.wowHypercubes = new WowHypercubes(0);
+            player.wowPlatonicCubes = new WowPlatonicCubes(0);
             player.cubeBlessings = {
                 accelerator: 0,
                 multiplier: 0,
