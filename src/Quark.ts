@@ -9,7 +9,16 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const getBonus = async (): Promise<null | number> => {
     if (navigator.onLine === false) return null;
-    if (document.hidden === true) return null;
+    if (document.visibilityState === 'hidden') return null;
+
+    try {
+        const r = await fetch('https://synergism-quarks.khafra.workers.dev/');
+        const j = await r.json() as { bonus: number };
+
+        return j.bonus;
+    } catch (e) {
+        console.log(`workers.dev: ${(<Error>e).message}`);
+    }
 
     try {
         const r = await fetch('https://api.github.com/gists/44be6ad2dcf0d44d6a29dffe1d66a84a', {
@@ -26,15 +35,7 @@ const getBonus = async (): Promise<null | number> => {
         console.log(`GitHub Gist: ${(<Error>e).message}`);
     }
 
-    try {
-        const r = await fetch('https://synergism-quarks.khafra.workers.dev/');
-        const j = await r.json() as { bonus: number };
-
-        return j.bonus;
-    } catch (e) {
-        console.log(`workers.dev: ${(<Error>e).message}`);
-        return null;
-    }
+    return null;
 }
 
 export const getQuarkMultiplier = () => {
