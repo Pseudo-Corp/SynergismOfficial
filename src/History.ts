@@ -242,10 +242,6 @@ const extractStringExponent = (str: string) => {
 
 // Add an entry to the history. This can be called via the event system.
 const resetHistoryAdd = (category: Category, data: ResetHistoryEntryUnion) => {
-    if (typeof player.history[category] === 'undefined') {
-        player.history[category] = [];
-    }
-
     while (player.history[category].length > (G['historyCountMax'] - 1)) {
         player.history[category].shift();
     }

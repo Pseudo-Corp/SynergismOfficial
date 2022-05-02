@@ -695,16 +695,11 @@ export const saveSynergy = async (button?: boolean) => {
         wowPlatonicCubes: Number(player.wowPlatonicCubes)
     });
 
-    try {
-        await localforage.removeItem('Synergysave2');
-    } catch (e: unknown) {
-        console.log(e);
-        await Promise.resolve(localStorage.removeItem('Synergysave2'));
-    }
-
     const save = btoa(JSON.stringify(p));
     if (save !== null) {
-        await localforage.setItem('Synergysave2', save);
+        const saveBlob = new Blob([save], { type: 'text/plain' });
+        await localforage.setItem<Blob>('Synergysave2', saveBlob);
+        console.log('Saved the game ', Date.now());
     }
 
     if (button) {
@@ -728,10 +723,13 @@ const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
 const loadSynergy = async () => {
     console.log('loaded attempted');
     const save =
-        await localforage.getItem<string>('Synergysave2') ??
-        await Promise.resolve(localStorage.getItem('Synergysave2'));
+        await localforage.getItem<Blob>('Synergysave2') ??
+        localStorage.getItem('Synergysave2');
 
-    const data = save ? JSON.parse(atob(save)) as PlayerSave & Record<string, unknown> : null;
+    const saveString = typeof save === 'string' ? save : await save?.text();
+    const data = saveString
+        ? JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>
+        : null;
 
     if (testing) {
         Object.defineProperty(window, 'player', {
@@ -1067,6 +1065,7 @@ const loadSynergy = async () => {
             player.wowCubes = new WowCubes(0);
             player.wowTesseracts = new WowTesseracts(0);
             player.wowHypercubes = new WowHypercubes(0);
+            player.wowPlatonicCubes = new WowPlatonicCubes(0);
             player.cubeBlessings = {
                 accelerator: 0,
                 multiplier: 0,
@@ -1133,7 +1132,17 @@ const loadSynergy = async () => {
 
         if (data.history === undefined) {
             player.history = { ants: [], ascend: [], reset: [] };
+        } else {
+            // See: https://discord.com/channels/677271830838640680/964168000360038481/964168002071330879
+            const keys = Object.keys(blankSave.history) as (keyof typeof blankSave['history'])[];
+
+            for (const historyKey of keys) {
+                if (historyKey in player.history === false) {
+                    player.history[historyKey] = [];
+                }
+            }
         }
+
         if (data.historyShowPerSecond === undefined) {
             player.historyShowPerSecond = false;
         }
@@ -2794,7 +2803,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         await Alert("You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.")
         await Alert("You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.")
         await Alert(`Start anew, and enter singularity #${format(player.singularityCount + 1)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} golden quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
-        await Alert("However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts, Achievements will be wiped clean.")
+        await Alert("However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.")
         let c1 = false
         let c2 = false
         let c3 = false
@@ -3468,16 +3477,29 @@ export const reloadShit = async (reset = false) => {
     intervalHold.clear();
 
     const save = 
-        await localforage.getItem<string>('Synergysave2') ??
-        await Promise.resolve(localStorage.getItem('Synergysave2'));
+        await localforage.getItem<Blob>('Synergysave2') ??
+        localStorage.getItem('Synergysave2');
 
-    if (save) {
-        const dec = LZString.decompressFromBase64(save);
+    const saveObject = typeof save === 'string' ? save : await save?.text();
+
+    if (saveObject) {
+        const dec = LZString.decompressFromBase64(saveObject);
         const isLZString = dec !== '';
 
         if (isLZString) {
+            if (!dec) {
+                return Alert('Unable to load the save.');
+            }
+
+            const saveString = btoa(dec);
+
+            if (saveString === null) {
+                return Alert('Unable to load the save.');
+            }
+
             localStorage.clear();
-            await localforage.setItem('Synergysave2', btoa(dec!));
+            const blob = new Blob([saveString], { type: 'text/plain' });
+            await localforage.setItem<Blob>('Synergysave2', blob);
             await Alert('Transferred save to new format successfully!');
         }
 
