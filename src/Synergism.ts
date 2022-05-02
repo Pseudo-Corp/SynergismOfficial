@@ -20,7 +20,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { calculateGoldenQuarkGain, reset, resetrepeat, singularity } from './Reset';
+import { calculateGoldenQuarkGain, reset, resetrepeat, singularity, updateSingularityAchievements } from './Reset';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, TesseractBuildings, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
@@ -414,7 +414,7 @@ export const player: Player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from({ length: 36 }, (_, i) => [i + 1, false])
+        Array.from({ length: 39 }, (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -677,7 +677,7 @@ export const player: Player = {
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 37 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 39 }, (_, i) => [i + 1, false]))
 });
 
 export const saveSynergy = async (button?: boolean) => {
@@ -1413,6 +1413,7 @@ const loadSynergy = async () => {
         calculateRuneLevels();
         resetHistoryRenderAllTables();
         c15RewardUpdate();
+        updateSingularityAchievements();
     }
     CSSAscend();
     updateAchievementBG();
@@ -2457,6 +2458,8 @@ export const resourceGain = (dt: number): void => {
 export const updateAntMultipliers = (): void => {
     //Update 2.5.0: Updated to have a base of 10 instead of 1x
     G['globalAntMult'] = new Decimal(10);
+    //Update 2.9.0: Updated to give a 5x multiplier no matter what
+    G['globalAntMult'] = G['globalAntMult'].times(5);
     G['globalAntMult'] = G['globalAntMult'].times(1 + 1 / 2500 * Math.pow(G['rune5level'] * G['effectiveLevelMult'] * (1 + player.researches[84] / 200 * (1 + 1 * G['effectiveRuneSpiritPower'][5] * calculateCorruptionPoints() / 400)), 2))
     if (player.upgrades[76] === 1) {
         G['globalAntMult'] = G['globalAntMult'].times(5)
@@ -2512,6 +2515,13 @@ export const updateAntMultipliers = (): void => {
     }
     if (player.currentChallenge.ascension === 15 && player.platonicUpgrades[10] > 0) {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 1.25)
+    }
+    if (player.achievements[274] > 0) {
+        G['globalAntMult'] = G['globalAntMult'].times(4.44)
+    }
+
+    if (player.usedCorruptions[7] === 14) {
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
     }
 }
 

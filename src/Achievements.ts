@@ -47,7 +47,7 @@ export const achievementpointvalues = [0,
     50, 75, 75, 75, 100, 100, 150,
     50, 75, 75, 75, 100, 100, 150,
     50, 75, 75, 75, 100, 100, 150,
-    50, 50, 50, 75, 75, 75, 250
+    10, 10, 20, 20, 30, 40, 50
 ];
 
 export const totalachievementpoints = achievementpointvalues.reduce((a, b) => a + b, 0);
@@ -326,13 +326,13 @@ const adesc = {
     adesc271: "[271] LARGE BOY: Achieve a constant of 1e100,000.",
     adesc272: "[272] LARGER BOY: Achieve a constant of 1e300,000.",
     adesc273: "[273] LARGEST BOY: Achieve a constant of 1e1,000,000.",
-    adesc274: "[274] Triskaidekaphobia [WIP]: Get a huge exponent with some absurd corruption setup.",
-    adesc275: "[275] ASCENDEDDDDDD [WIP]: So many damn ascensions, so little time!.",
-    adesc276: "[276] Two Hepteract, One Abyss [WIP]: Probably the worst investment you'll ever make.",
-    adesc277: "[277] Surprise Mechanic [WIP]: Get !!!!! quarks from the loot- WOW! Industry Content.",
-    adesc278: "[278] Shhhh [WIP]: Input the answer to this clue in the promotion codes, cAsE-sEnSiTiVe.",
-    adesc279: "[279] Perfect Customer [WIP]: What's a hundred upgrades towards a merchant? Apparently a lot.",
-    adesc280: "[280] Transcended [WIP]: Okay, maybe I won't leave this a secret. Get 20,000 summative challenge 1-5 completions!",
+    adesc274: "[274] Power Creep: Singularity 1 time.",
+    adesc275: "[275] Have you enough cubes?: Singularity 2 times.",
+    adesc276: "[276] Singularity: Singularity 3 times.",
+    adesc277: "[277] SingularRity: Singularity 4 times.",
+    adesc278: "[278] SiINguLaRrRity: Singularity 5 times.",
+    adesc279: "[279] SiIINGuLArRrIiTyY: Singularity 7 times.",
+    adesc280: "[280] Inception: Singularity 10 times.",
 
 }
 
@@ -501,7 +501,14 @@ export const areward = (i: number): string => {
         266: `Quarks +${format(Math.min(10, player.ascensionCount / 1e14), 2)}% [Max: 10% at 1Qa Ascensions]!`,
         267: `Ascension Score is boosted by ${format(Math.min(100, Decimal.log(player.ascendShards.add(1), 10) / 1000), 2)}% [Max: 100% at 1e100,000 Const]`,
         270: `Hepteract Gain is boosted by ${format(Math.min(100, Decimal.log(player.ascendShards.add(1), 10) / 10000), 2)}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).`,
-        271: `When you open a Platonic Cube, gain ${format(Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5)), 2, true)} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]`
+        271: `When you open a Platonic Cube, gain ${format(Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5)), 2, true)} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]`,
+        274: `Ant Speed is permanently multiplied by 4.44!`,
+        275: `You immediately start Singularities with 1 transcension and 1001 mythos!`,
+        276: `You immediately start Singularities with 1 reincarnation, and 10 particles!`,
+        277: `You immediately start Singularities with 500 obtainium!`,
+        278: `Gain 5% more Quarks, permanently!`,
+        279: `You immediately start Singularities with a Challenge 7 completion and 1e100 particles.`,
+        280: `You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 ant.`,
     }
 
     if(i in descs)

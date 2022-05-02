@@ -550,4 +550,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.goldenQuarksTimer === undefined || player.goldenQuarksTimer === undefined) {
         player.goldenQuarksTimer = 90000;
     }
+
+    if (player.singularityUpgrades.cookies3.goldenQuarksInvested === 5000 || player.singularityUpgrades.cookies4.goldenQuarksInvested === 50000) {
+        player.singularityUpgrades.cookies3.refund();
+        player.singularityUpgrades.cookies4.refund();
+    }
 }
