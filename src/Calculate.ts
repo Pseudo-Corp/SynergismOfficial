@@ -475,6 +475,7 @@ export const calculateObtainium = () => {
 
     G['obtainiumGain'] = Math.min(1e300, G['obtainiumGain']);
     G['obtainiumGain'] /= calculateSingularityDebuff("Obtainium");
+    G['obtainiumGain'] = Math.max(1 + player.singularityCount, G['obtainiumGain']);
     player.obtainiumpersecond = G['obtainiumGain'] / (0.1 + player.reincarnationcounter)
     player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond);
 }
@@ -992,8 +993,8 @@ export const calculateAllCubeMultiplier = () => {
         Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9]),
         // Powder Bonus
         calculateCubeMultFromPowder(),
-        // Event (currently, +20.21%)
-        1 + 1 * +G['isEvent'],
+        // Event (currently, +0%)
+        1,
         // Singularity Factor
         1 / calculateSingularityDebuff("Cubes"),
         // Wow Pass Y
@@ -1630,8 +1631,8 @@ export const forcedDailyReset = (testing = false) => {
     }
 }
 
-const eventStart = "12/23/2021 00:00:00"
-const eventEnd = "01/03/2022 23:59:59"
+const eventStart = "05/01/2022 00:00:00"
+const eventEnd = "05/07/2022 23:59:59"
 
 // current event: NONE
 
@@ -1643,8 +1644,8 @@ export const eventCheck = () => {
     if(now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
         G['isEvent'] = true
         DOMCacheGetOrSet('eventCurrent').textContent = "ACTIVE UNTIL " + end
-        DOMCacheGetOrSet('eventBuffs').textContent = "Current Buffs: +100% Quarks from all sources, +100% All Cube Types, +13.37% Powder Conversion, +200% Time Acceleration!"
-        DOMCacheGetOrSet('happyHolidays').innerHTML = `&#128151 Happy Holidays! &#128151;`
+        DOMCacheGetOrSet('eventBuffs').textContent = "Current Buffs: +200% Quarks from all sources, +13.37% Powder Conversion, +200% Time Acceleration!"
+        DOMCacheGetOrSet('happyHolidays').innerHTML = `&#128151 Happy Two Year Anniversary! &#128151;`
     } else {
         G['isEvent'] = false
         DOMCacheGetOrSet('eventCurrent').textContent = "INACTIVE"

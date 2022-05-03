@@ -9,7 +9,7 @@ const platonicUpgradeDesc = [
     '+0.045% hypercubes per corruption level per level!',
     'Gain +2% Platonic Cubes per level! It is that simple.',
     'C10 Exponent: 1.035 --> 1.0375, Constant tax exponent +0.10, 2x faster constant production, +10/+5 Challenge caps, 2x Obtainium/Offerings, ^1.10 coin gain in C15!',
-    'Raises corruption 1 exponent ^(1 + level/30), capacity of ^1 on Viscosity.',
+    'Multiplies Viscocity exponent by (1 + level/30), capacity of ^1 on Mult/Accel.',
     'Raises speed below 1x to the power of ^(1 - level/30).',
     'Divides Hyperchallenged by (1 + 0.4 * level), with a minimum 1x challenge req. multiplier!',
     'Raise Obtainium to the power of (1+(0.09*log10(Obt owned))) and add another x2.5 multiplier (uncorruptable), up until 1e100 Obtainium!',

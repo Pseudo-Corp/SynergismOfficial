@@ -196,6 +196,11 @@ export const revealStuff = () => {
     for (const HTML of Array.from(singularityHTMLs)) { // Ability to view singularity features.
         HTML.style.display = player.singularityCount > 0 ? "block" : "none";
     }
+
+    const singularityShopItems = document.getElementsByClassName("singularityShopUnlock") as HTMLCollectionOf<HTMLElement>;
+    for (const item of Array.from(singularityShopItems)) { // Ability to buy upgrade tier 1s
+        item.style.display = player.singularityUpgrades.wowPass.level > 0 ? "block" : "none";
+    }
     const hepts = DOMCacheGetOrSet("corruptionHepteracts");
     hepts.style.display = (player.achievements[255] > 0) ? "block" : "none";
 
@@ -364,6 +369,8 @@ export const revealStuff = () => {
     (player.runelevels[6] > 0 || player.singularityCount > 0) ?
         (DOMCacheGetOrSet('singularitybtn').style.display = 'block') :
         (DOMCacheGetOrSet('singularitybtn').style.display = 'none');
+
+        
 
     DOMCacheGetOrSet("ascensionStats").style.visibility = (player.achievements[197] > 0 || player.singularityCount > 0) ? "visible" : "hidden";
     DOMCacheGetOrSet("ascHyperStats").style.display = player.challengecompletions[13] > 0 ? "" : "none";

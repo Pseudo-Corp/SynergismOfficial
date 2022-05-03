@@ -182,12 +182,14 @@ export const promocodes = async () => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === "quack" && !player.codes.get(37)) {
-        player.codes.set(37, true);
+    if (input === "2e0" && !player.codes.get(39) && G['isEvent']) {
+        player.codes.set(39, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 90000;
-        addTimers("ascension", 18000)
-        return Alert("Quacks like a dog. Your quark timer(s) have been replenished and you have been given 5 real life hours of ascension progress!")
+        addTimers("ascension", 24 * 3600);
+        if (player.singularityCount > 0) 
+            player.goldenQuarks += 500
+        return Alert("Happy two year!!!! Your quark timer(s) have been replenished and you have been given 24 real life hours of ascension progress!")
     }
     if (input === "synergism2021" && !player.codes.get(1)) {
         player.codes.set(1, true);

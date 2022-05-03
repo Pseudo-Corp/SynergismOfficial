@@ -13,6 +13,8 @@ export enum shopUpgradeTypes {
     UPGRADE = 'upgrade'
 }
 
+type shopResetTier = "Reincarnation" | "Ascension" | "Singularity"
+
 export interface IShopData {
     price: number
     priceIncrease: number
@@ -21,6 +23,7 @@ export interface IShopData {
     refundable: boolean
     refundMinimumLevel: number
     description: string
+    tier: shopResetTier
 }
 
 export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
@@ -32,8 +35,10 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: "Instantly gain 2 real life hours of Offerings, based on your all time best Offerings/sec and speed acceleration!",
+        tier: "Reincarnation"
     },
     obtainiumPotion: {
+        tier: "Reincarnation",
         price: 100,
         priceIncrease: 0,
         maxLevel: 999999,
@@ -43,6 +48,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Instantly gain 2 real life hours of Obtainium, based on your all time best Obtainium/sec and speed acceleration!",
     },
     offeringEX: {
+        tier: "Reincarnation",
         price: 150,
         priceIncrease: 10,
         maxLevel: 100,
@@ -52,6 +58,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Gain +4% more offerings from all sources!",
     },
     offeringAuto: {
+        tier: "Reincarnation",
         price: 150,
         priceIncrease: 10,
         maxLevel: 100,
@@ -61,6 +68,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) levels worth of offerings are spent.",
     },
     obtainiumEX: {
+        tier: "Reincarnation",
         price: 150,
         priceIncrease: 10,
         maxLevel: 100,
@@ -70,6 +78,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Gain +4% more obtainium from all sources!",
     },
     obtainiumAuto: {
+        tier: "Reincarnation",
         price: 150,
         priceIncrease: 10,
         maxLevel: 100,
@@ -79,6 +88,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every reincarnation, dump all Obtainium into research until maxed.",
     },
     instantChallenge: {
+        tier: "Reincarnation",
         price: 300,
         priceIncrease: 99999,
         maxLevel: 1,
@@ -88,6 +98,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "T and R challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T challenge completions up to highest completed when exiting R challenges."
     },
     antSpeed: {
+        tier: "Reincarnation",
         price: 200,
         priceIncrease: 25,
         maxLevel: 100,
@@ -97,6 +108,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Each level gives a 1.125x speed multiplier to all Ant tiers' production! (Uncorruptable!) Short and simple."
     },
     cashGrab: {
+        tier: "Reincarnation",
         price: 100,
         priceIncrease: 40,
         maxLevel: 100,
@@ -106,6 +118,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "This is a cash grab but it gives a couple cool stats. +1% production per level to Offerings and Obtainium.",
     },
     shopTalisman: {
+        tier: "Reincarnation",
         price: 1500,
         priceIncrease: 99999,
         maxLevel: 1,
@@ -115,6 +128,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Permanently unlock a Shop talisman!",
     },
     seasonPass: {
+        tier: "Ascension",
         price: 500,
         priceIncrease: 75,
         maxLevel: 100,
@@ -124,6 +138,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +1.5% cubes and tesseracts per level when you ascend!",
     },
     challengeExtension: {
+        tier: "Ascension",
         price: 500,
         priceIncrease: 250,
         maxLevel: 5,
@@ -133,6 +148,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Using some amazing trick, you manage to increase your Reincarnation Challenge cap by 2 for each level!",
     },
     challengeTome: {
+        tier: "Ascension",
         price: 500,
         priceIncrease: 250,
         maxLevel: 15,
@@ -142,6 +158,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level. Past 60 completions of challenge 9 or 10, this will also reduce the scaling factor by 1% per level.",
     },
     cubeToQuark: {
+        tier: "Ascension",
         price: 2000,
         priceIncrease: 99999,
         maxLevel: 1,
@@ -151,6 +168,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Are your quark gains from Cubes wimpy? Well, buy this for +50% quarks from opening Wow! Cubes, forever!"
     },
     tesseractToQuark: {
+        tier: "Ascension",
         price: 3500,
         priceIncrease: 99999,
         maxLevel: 1,
@@ -160,6 +178,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Are your quark gains from Tesseracts wimpy? Well, buy this for +50% quarks from opening Wow! Tesseracts, forever!"
     },
     hypercubeToQuark: {
+        tier: "Ascension",
         price: 5000,
         priceIncrease: 99999,
         maxLevel: 1,
@@ -169,6 +188,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Are your quark gains from Hypercubes wimpy? Well, buy this for +50% quarks from opening Wow! Hypercubes, forever!"
     },
     seasonPass2: {
+        tier: "Ascension",
         price: 2500,
         priceIncrease: 250,
         maxLevel: 100,
@@ -178,6 +198,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Five times the price gouge, twice the fun! +1% Wow! Hypercubes and Platonic Cubes per level."
     },
     seasonPass3: {
+        tier: "Ascension",
         price: 5000,
         priceIncrease: 500,
         maxLevel: 100,
@@ -187,6 +208,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Okay, now this is just ridiculous. +1% Wow! Hepteracts and Octeracts per level!"
     },
     chronometer: {
+        tier: "Ascension",
         price: 2000,
         priceIncrease: 500,
         maxLevel: 100,
@@ -196,6 +218,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "You know, those ascensions are kinda slow. Why don't I give you a +1% speedup to the timer per level?"
     },
     infiniteAscent: {
+        tier: "Ascension",
         price: 50000,
         priceIncrease: 9999999,
         maxLevel: 1,
@@ -205,6 +228,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +35% Quarks and +125% all cube types when maxed!"
     },
     calculator: {
+        tier: "Ascension",
         price: 1000,
         priceIncrease: 500,
         maxLevel: 5,
@@ -214,6 +238,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "The PL-AT can do addition in the blink of an eye. Not much else though. +14% Quarks from using code 'add' per level, the first level provides the answer and the final level does it automatically!",
     },
     calculator2: {
+        tier: "Ascension",
         price: 3000,
         priceIncrease: 1000,
         maxLevel: 12,
@@ -223,6 +248,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: "The PL-AT X has improved memory capacity, allowing you to store 2 additional uses to code 'add' per level. Final level makes 'add' give 25% more Quarks!"
     },
     calculator3: {
+        tier: "Ascension",
         price: 10000,
         priceIncrease: 2000,
         maxLevel: 10,
@@ -232,6 +258,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: `The PL-AT Ω is infused with some Unobtainium, which is epic! But furthermore, it reduces the variance of Quarks by code 'add' by 10% per level, which makes you more likely to get the maximum multiplier. It also has the ability to give +60 seconds to Ascension Timer per level using that code.` 
     },
     constantEX: {
+        tier: "Ascension",
         price: 100000,
         priceIncrease: 899999,
         maxLevel: 2,
@@ -241,6 +268,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: `The merchant has one last trick up its sleeve: It can augment your second constant upgrade to be marginally better, but it'll cost an arm and a leg! Instead of the cap being 10% (or 11% with achievements) it will be raised by 1% per level.`
     },
     powderEX: {
+        tier: "Ascension",
         price: 1000,
         priceIncrease: 750,
         maxLevel: 50,
@@ -250,6 +278,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: `Platonic himself gives you 2% better conversion rate on Overflux Orbs to Powder per level. This activates when Orbs expire.`
     },
     chronometer2: {
+        tier: "Ascension",
         price: 5000,
         priceIncrease: 1500,
         maxLevel: 100,
@@ -259,6 +288,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: `Okay, fine. Here's another +0.5% Ascension Speed per level, stacks multiplicatively with the first upgrade!`
     },
     chronometer3: {
+        tier: "Singularity",
         price: 250,
         priceIncrease: 250,
         maxLevel: 999,
@@ -268,6 +298,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: `OKAY. FINE. Here's yet ANOTHER +1% Ascension Speed per level, stacking multiplicatively like always.`
     },
     seasonPassY: {
+        tier: "Ascension",
         price: 10000,
         priceIncrease: 1500,
         maxLevel: 100,
@@ -277,6 +308,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: `This is even more insane than the last one, but you'll buy it anyway. +0.5% ALL Cubes per level.`
     },
     seasonPassZ: {
+        tier: "Singularity",
         price: 250,
         priceIncrease: 250,
         maxLevel: 999,
@@ -286,6 +318,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: `This one is arguably very good. Gain +1% ALL Cubes per level, per singularity!`
     },
     challengeTome2: {
+        tier: "Singularity",
         price: 1000000,
         priceIncrease: 1000000,
         maxLevel: 5,
@@ -538,6 +571,9 @@ export const resetShopUpgrades = async (ignoreBoolean = false) => {
             const key = shopItem as keyof typeof shopData;
             if(shopData[key].refundable && player.shopUpgrades[key] > shopData[key].refundMinimumLevel){
 
+                if (shopData[key].tier === "Reincarnation" && player.singularityCount >= 20) {
+                    continue;
+                }
                 // Determines how many quarks one would not be refunded, based on minimum refund level
                 const doNotRefund = shopData[key].price * shopData[key].refundMinimumLevel +
                                 shopData[key].priceIncrease * (shopData[key].refundMinimumLevel) * (shopData[key].refundMinimumLevel - 1) / 2;

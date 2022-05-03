@@ -9,7 +9,16 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const getBonus = async (): Promise<null | number> => {
     if (navigator.onLine === false) return null;
-    if (document.hidden === true) return null;
+    if (document.visibilityState === 'hidden') return null;
+
+    try {
+        const r = await fetch('https://synergism-quarks.khafra.workers.dev/');
+        const j = await r.json() as { bonus: number };
+
+        return j.bonus;
+    } catch (e) {
+        console.log(`workers.dev: ${(<Error>e).message}`);
+    }
 
     try {
         const r = await fetch('https://api.github.com/gists/44be6ad2dcf0d44d6a29dffe1d66a84a', {
@@ -26,15 +35,7 @@ const getBonus = async (): Promise<null | number> => {
         console.log(`GitHub Gist: ${(<Error>e).message}`);
     }
 
-    try {
-        const r = await fetch('https://synergism-quarks.khafra.workers.dev/');
-        const j = await r.json() as { bonus: number };
-
-        return j.bonus;
-    } catch (e) {
-        console.log(`workers.dev: ${(<Error>e).message}`);
-        return null;
-    }
+    return null;
 }
 
 export const getQuarkMultiplier = () => {
@@ -76,13 +77,19 @@ export const getQuarkMultiplier = () => {
         multiplier *= (1 + player.singularityCount / 10)
     }
     if (G['isEvent']) {
-        multiplier *= 2; // dec 23 to jan 3
+        multiplier *= 3; // May01-May07
     }
     if (player.cubeUpgrades[53] > 0) { // Cube Upgrade 6x3 (Cx3)
         multiplier *= (1 + 0.10 * player.cubeUpgrades[53] / 100)
     }
     if (player.cubeUpgrades[68] > 0) { // Cube Upgrade 7x8
         multiplier *= (1 + 2/10000 * player.cubeUpgrades[68] + 0.3 * (Math.floor(player.cubeUpgrades[68] / 1000)))
+    }
+    if (player.singularityCount >= 5) { // Singularity Milestone (5 sing)
+        multiplier *= 1.05
+    }  
+    if (player.singularityCount >= 20) { // Singularity Milestone (20 sing)
+        multiplier *= 1.05
     }
     return multiplier
 }

@@ -150,6 +150,12 @@ export class SingularityUpgrade {
             
         return Alert(m);
     }
+   
+    public refund() {
+        player.goldenQuarks += this.goldenQuarksInvested;
+        this.level = 0;
+        this.goldenQuarksInvested = 0;
+    }
 }
 
 export const singularityData: Record<keyof Player['singularityUpgrades'], ISingularityData> = {
@@ -178,7 +184,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         costPerLevel: 10,
     },
     wowPass: {
-        name: "Wow Pass Unlock (WIP)",
+        name: "Wow Pass Unlock",
         description: "This upgrade will convince the seal merchant to sell you more Wow Passes, which even persist on Singularity!.",
         maxLevel: 1,
         costPerLevel: 500,
@@ -199,13 +205,13 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: "Cookie Recipes III",
         description: "Your Bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
         maxLevel: 1,
-        costPerLevel: 5000,
+        costPerLevel: 24999,
     },
     cookies4: {
         name: "Cookie Recipes IV",
         description: "This is a small price to pay for Salvation.",
         maxLevel: 1,
-        costPerLevel: 50000,
+        costPerLevel: 199999,
     },
     ascensions: {
         name: "Improved Ascension Gain",
@@ -347,16 +353,23 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs) => {
     if (player.runelevels[6] > 0) {return 1}
 
     let effectiveSingularities = player.singularityCount;
-    if (player.singularityCount > 10)
-        effectiveSingularities *= Math.min(2, player.singularityCount / 10)
-    if (player.singularityCount > 25)
-        effectiveSingularities *= Math.min(2, player.singularityCount / 25)
-    if (player.singularityCount > 50)
-        effectiveSingularities *= Math.min(2, player.singularityCount / 50)
+    effectiveSingularities *= Math.min(4.75, 0.75 * player.singularityCount / 10 + 1)
+    if (player.singularityCount > 10) {
+        effectiveSingularities *= 1.5
+        effectiveSingularities *= Math.min(4, 1.25 * player.singularityCount / 10 - 0.25)
+    }
+    if (player.singularityCount > 25) {
+        effectiveSingularities *= 2
+        effectiveSingularities *= Math.min(4, 1.5 * player.singularityCount / 25 - 0.5)
+    }
+    if (player.singularityCount > 50) {
+        effectiveSingularities *= 4
+        effectiveSingularities *= Math.min(4, 2 * player.singularityCount / 50 - 1)
+    }
     if (player.singularityCount > 100)
-        effectiveSingularities *= player.singularityCount / 100
+        effectiveSingularities *= player.singularityCount / 25
     if (player.singularityCount > 250)
-        effectiveSingularities *= player.singularityCount / 250
+        effectiveSingularities *= player.singularityCount / 62.5
 
     if (debuff === "Offering")
         return Math.sqrt(effectiveSingularities + 1)
