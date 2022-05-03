@@ -469,13 +469,12 @@ export const calculateObtainium = () => {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 2 * player.cubeUpgrades[62])
     }
-    if (player.currentChallenge.ascension === 14) {
-        G['obtainiumGain'] = 0
-    }
-
     G['obtainiumGain'] = Math.min(1e300, G['obtainiumGain']);
     G['obtainiumGain'] /= calculateSingularityDebuff("Obtainium");
     G['obtainiumGain'] = Math.max(1 + player.singularityCount, G['obtainiumGain']);
+    if (player.currentChallenge.ascension === 14) {
+        G['obtainiumGain'] = 0
+    }
     player.obtainiumpersecond = G['obtainiumGain'] / (0.1 + player.reincarnationcounter)
     player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond);
 }
