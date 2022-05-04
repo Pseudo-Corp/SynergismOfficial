@@ -356,8 +356,9 @@ export const promocodes = async () => {
         player.promoCodeTiming.time = Date.now();
 
         if (diff <= (500 + 5 * player.cubeUpgrades[61])) {
-            player.worlds.add(500);
-            return Confirm(`You clicked at the right time! [+500 Quarkies]`);
+            const reward = Math.floor(500 * (1 + 11 * player.cubeUpgrades[61] / 100));
+            player.worlds.add(reward);
+            return Confirm(`You clicked at the right time! [+${format(reward)} Quarkies]`);
         } else {
             return Confirm(`You didn't guess within the correct times, try again soon!`);
         }

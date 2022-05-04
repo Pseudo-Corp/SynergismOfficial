@@ -672,6 +672,8 @@ export const player: Player = {
         singCubes1: new SingularityUpgrade(singularityData['singCubes1']),
         singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
         singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
+        octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic'])
     },
     dailyCodeUsed: false,
 }

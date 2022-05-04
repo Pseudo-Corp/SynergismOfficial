@@ -378,7 +378,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     q /= calculateSingularityDebuff("Offering");
     q = Math.floor(q) * 100 / 100
     if (player.currentChallenge.ascension === 15) {
-        q *= (1 + 2 * player.cubeUpgrades[62]);
+        q *= (1 + 7 * player.cubeUpgrades[62]);
     }
 
     let persecond = 0;
@@ -467,7 +467,7 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
-        G['obtainiumGain'] *= (1 + 2 * player.cubeUpgrades[62])
+        G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
     }
     G['obtainiumGain'] = Math.min(1e300, G['obtainiumGain']);
     G['obtainiumGain'] /= calculateSingularityDebuff("Obtainium");

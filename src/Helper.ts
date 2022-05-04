@@ -80,6 +80,9 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
 
     switch(input){
         case "addObtainium": {
+            // If in challenge 14, abort and do not award obtainium
+            if (player.currentChallenge.ascension === 14)
+                break;
             //Update Obtainium Multipliers + Amount to gain
             calculateObtainium();
             const obtainiumGain = calculateAutomaticObtainium();

@@ -619,6 +619,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         }
 
         corruptionStatsUpdate();
+        updateSingularityMilestoneAwards(false);
     }
 
     //Always unlocks
@@ -723,7 +724,7 @@ export const updateSingularityAchievements = (): void => {
     }
 }
 
-export const updateSingularityMilestoneAwards = (): void => {
+export const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     // 1 transcension, 1001 mythos
     if (player.achievements[275] > 0) {
         player.prestigeCount = 1;
@@ -777,7 +778,7 @@ export const updateSingularityMilestoneAwards = (): void => {
         player.highestchallengecompletions[6] = 1;
         achievementaward(113);
     }
-    if (player.achievements[278] > 0) {
+    if (player.achievements[278] > 0 && singularityReset) {
         player.shopUpgrades.offeringAuto = 10
         player.shopUpgrades.offeringEX = 10
         player.shopUpgrades.obtainiumAuto = 10

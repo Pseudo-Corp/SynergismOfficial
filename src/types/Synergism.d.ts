@@ -542,6 +542,8 @@ export interface Player {
         singCubes1: SingularityUpgrade
         singCubes2: SingularityUpgrade
         singCubes3: SingularityUpgrade
+        octeractUnlock: SingularityUpgrade
+        offeringAutomatic: SingularityUpgrade
     }
     dailyCodeUsed: boolean
 

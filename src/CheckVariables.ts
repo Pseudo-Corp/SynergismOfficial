@@ -511,6 +511,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singCubes1: new SingularityUpgrade(singularityData['singCubes1']),
         singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
         singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
+        octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic'])
     }
 
     if (data.singularityUpgrades != null) {
@@ -527,7 +529,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
                     level: data.singularityUpgrades[k].level,
                     goldenQuarksInvested: data.singularityUpgrades[k].goldenQuarksInvested,
-                    toggleBuy: data.singularityUpgrades[k].toggleBuy
+                    toggleBuy: data.singularityUpgrades[k].toggleBuy,
+                    minimumSingularity: singularityData[k].minimumSingularity,
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
             }

@@ -31,6 +31,7 @@ export interface ISingularityData {
     costPerLevel: number
     toggleBuy?: number
     goldenQuarksInvested?: number
+    minimumSingularity?: number
 }
 
 /**
@@ -47,8 +48,10 @@ export class SingularityUpgrade {
     private readonly costPerLevel: number; 
     public toggleBuy = 1; //-1 = buy MAX (or 1000 in case of infinity levels!)
     public goldenQuarksInvested = 0;
+    private readonly minimumSingularity: number;
 
     public constructor(data: ISingularityData) {
+        console.log(data.name)
         this.name = data.name;
         this.description = data.description;
         this.level = data.level ?? this.level;
@@ -56,6 +59,8 @@ export class SingularityUpgrade {
         this.costPerLevel = data.costPerLevel;
         this.toggleBuy = data.toggleBuy ?? 1;
         this.goldenQuarksInvested = data.goldenQuarksInvested ?? 0;
+        console.log(data.minimumSingularity)
+        this.minimumSingularity = data.minimumSingularity ?? 0;
     }
 
     /**
@@ -68,8 +73,13 @@ export class SingularityUpgrade {
             ? ''
             : `/${this.maxLevel}`;
 
+        const minimumSingularity = this.minimumSingularity > 0
+            ? `Minimum Singularity: ${this.minimumSingularity}`
+            : `No minimal singularity to purchase required`
+
         return `${this.name}
                 ${this.description}
+                ${minimumSingularity}
                 Level ${this.level}${maxLevel}
                 Cost for next level: ${format(costNextLevel)} Golden Quarks.
                 Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
@@ -103,6 +113,8 @@ export class SingularityUpgrade {
         if (maxPurchasable === 0)
             return Alert("hey! You have already maxxed this upgrade. :D")
 
+        if (player.singularityCount < this.minimumSingularity)
+            return Alert("you're not powerful enough to purchase this yet.")
         while (maxPurchasable > 0) {
             const cost = this.getCostTNL();
             if (player.goldenQuarks < cost) {
@@ -285,6 +297,20 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         maxLevel: 40,
         costPerLevel: 500
     },
+    octeractUnlock: {
+        name: "Octeracts ;) (WIP)",
+        description: "Hey!!! What are you trying to do?!?",
+        maxLevel: 1,
+        costPerLevel: 8888,
+        minimumSingularity: 10,
+    },
+    offeringAutomatic: {
+        name: "Offering Lootzifer (WIP)",
+        description: "Black Magic. Don't make deals with the devil. Each second, you get +2% of offering gain automatically per level. Also +10% Offerings!",
+        maxLevel: 50,
+        costPerLevel: 2000,
+        minimumSingularity: 6,
+    }
 }
 
 export const getGoldenQuarkCost = () => {

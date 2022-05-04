@@ -114,7 +114,7 @@ export const cubeMaxLevel = [
     5, 1, 1, 10, 10, 10, 10, 1, 1, 10,
     5, 10, 10, 10, 10, 20, 20, 1, 1, 100000,
     1, 900, 100, 900, 900, 20, 1, 1, 400, 10000,
-    900, 1, 1, 1, 1, 1, 1, 1000, 1, 975
+    900, 1, 1, 1, 1, 1, 1, 1000, 1, 100000
 ];
 
 const cubeUpgradeDescriptions = [
@@ -178,8 +178,8 @@ const cubeUpgradeDescriptions = [
     "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by 1.25.",
     "[Cx9] Quite sour for a cookie. But it increases your ascension speed by 0.25% per level, so who is to complain?",
     "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the cost of buying Golden Quarks by 1 Quark per level.",
-    "[Cx11] Edible but prone to mistakes. Adds five whole milliseconds to the tolerance of code 'time'.",
-    "[Cx12] Platonic loves toffee. Triple Obtainium and Offering gain in Challenge 15.",
+    "[Cx11] Edible but prone to mistakes. Adds five whole milliseconds to the tolerance of code 'time', and increases reward by +11% per level.",
+    "[Cx12] Platonic loves toffee. Octuple Obtainium and Offering gain in Challenge 15.",
     "[Cx13] Brownie Cookies, the best of both worlds. Increase Regular Cube Gain by 1% based on owned Hepteracts (+3% per OOM).",
     "[Cx14] Some say the ant god itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.",
     "[Cx15] That's amore, but is quite a crumbful! Increase ant efficiency by 0.4%. (Roughly every 200 ants purchased doubles crumb production!)",
@@ -187,7 +187,7 @@ const cubeUpgradeDescriptions = [
     "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
     "[Cx18] What the heck! These aren't even cookies. +0.02% Quarks per level purchased of this upgrade. +30% more at level 1,000!",
     "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this singularity.",
-    "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +4% more cubes on ascension if you have challenge 10 completions capped."
+    "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts on ascension if you have challenge 10 completions capped."
 ]
 
 const getCubeCost = (i: number, linGrowth = 0, cubic = false): IMultiBuy => {
