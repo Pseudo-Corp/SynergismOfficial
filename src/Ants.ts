@@ -2,7 +2,8 @@ import { player, format, clearInt, interval } from './Synergism';
 import { calculateSigmoidExponential, calculateSigmoid, calculateAnts, calculateRuneLevels, calculateMaxRunes, calculateAntSacrificeELO, calculateAntSacrificeRewards } from './Calculate';
 import { Globals as G } from './Variables';
 
-import Decimal, { DecimalSource } from 'break_infinity.js';
+import type { DecimalSource } from 'break_infinity.js';
+import Decimal from 'break_infinity.js';
 import { achievementaward } from './Achievements';
 import { Confirm, revealStuff } from './UpdateHTML';
 import { redeemShards } from './Runes';
@@ -15,67 +16,67 @@ import type { FirstToEighth, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const antdesc: Record<string, string> = {
-    antdesc1: "Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!",
-    antdesc2: "Gain a breeder ant that produces worker ants automatically!",
-    antdesc3: "Gain a meta-breeder ant that produces breeder ants automatically!",
-    antdesc4: "Gain a mega-breeder ant that produces meta-breeder ants automatically!",
-    antdesc5: "Gain a Queen ant that produces mega-breeder ants automatically!",
-    antdesc6: "Gain a Lord Royal ant that produces Queen ants automatically!",
-    antdesc7: "Gain an ALMIGHTY ANT that produces Lord Royal ants automatically!",
-    antdesc8: "Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!"
+    antdesc1: 'Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!',
+    antdesc2: 'Gain a breeder ant that produces worker ants automatically!',
+    antdesc3: 'Gain a meta-breeder ant that produces breeder ants automatically!',
+    antdesc4: 'Gain a mega-breeder ant that produces meta-breeder ants automatically!',
+    antdesc5: 'Gain a Queen ant that produces mega-breeder ants automatically!',
+    antdesc6: 'Gain a Lord Royal ant that produces Queen ants automatically!',
+    antdesc7: 'Gain an ALMIGHTY ANT that produces Lord Royal ants automatically!',
+    antdesc8: 'Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!'
 }
 
 const antspecies: Record<string, string> = {
-    antspecies1: "Inceptus Formicidae",
-    antspecies2: "Fortunae Formicidae",
-    antspecies3: "Tributum Formicidae",
-    antspecies4: "Celeritas Formicidae",
-    antspecies5: "Multa Formicidae",
-    antspecies6: "Sacrificium Formicidae",
-    antspecies7: "Hic Formicidae",
-    antspecies8: "Experientia Formicidae",
-    antspecies9: "Praemoenio Formicidae",
-    antspecies10: "Scientia Formicidae",
-    antspecies11: "Phylacterium Formicidae",
-    antspecies12: "Mortuus Est Formicidae"
+    antspecies1: 'Inceptus Formicidae',
+    antspecies2: 'Fortunae Formicidae',
+    antspecies3: 'Tributum Formicidae',
+    antspecies4: 'Celeritas Formicidae',
+    antspecies5: 'Multa Formicidae',
+    antspecies6: 'Sacrificium Formicidae',
+    antspecies7: 'Hic Formicidae',
+    antspecies8: 'Experientia Formicidae',
+    antspecies9: 'Praemoenio Formicidae',
+    antspecies10: 'Scientia Formicidae',
+    antspecies11: 'Phylacterium Formicidae',
+    antspecies12: 'Mortuus Est Formicidae'
 }
 
 const antupgdesc: Record<string, string> = {
-    antupgdesc1: "Promotes romance and unity within the colony. [+12% Ant Speed / level]",
-    antupgdesc2: "Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]",
-    antupgdesc3: "Swarms the Taxman into submission [Up to -99.5% taxes!]",
-    antupgdesc4: "Scares you into running faster [up to x20]",
-    antupgdesc5: "Imitates your body through magic shape-shifting powers [up to x40]",
-    antupgdesc6: "Tries to please Ant God... but fails [Additional Offerings!]",
-    antupgdesc7: "Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]",
-    antupgdesc8: "Knows how to salt and pepper food [Up to 1,000x Rune EXP!]",
-    antupgdesc9: "Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 10 Million]",
-    antupgdesc10: "Has big brain energy [Additional Obtainium!]",
-    antupgdesc11: "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]",
-    antupgdesc12: "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
+    antupgdesc1: 'Promotes romance and unity within the colony. [+12% Ant Speed / level]',
+    antupgdesc2: 'Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]',
+    antupgdesc3: 'Swarms the Taxman into submission [Up to -99.5% taxes!]',
+    antupgdesc4: 'Scares you into running faster [up to x20]',
+    antupgdesc5: 'Imitates your body through magic shape-shifting powers [up to x40]',
+    antupgdesc6: 'Tries to please Ant God... but fails [Additional Offerings!]',
+    antupgdesc7: 'Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]',
+    antupgdesc8: 'Knows how to salt and pepper food [Up to 1,000x Rune EXP!]',
+    antupgdesc9: 'Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 10 Million]',
+    antupgdesc10: 'Has big brain energy [Additional Obtainium!]',
+    antupgdesc11: 'A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]',
+    antupgdesc12: 'Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]'
 }
 
 export const calculateCrumbToCoinExp = () => {
     const exponent = player.currentChallenge.ascension !== 15
         ? 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1]! + G['bonusant2']) / 5000 * 500 / 499)
         : 1/10000 * (100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2-1]! + G['bonusant2']) / 5000 * 500 / 499));
-    
+
     return exponent
 }
 
 const antUpgradeTexts = [
-    () => "ALL Ants work at " + format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1-1]! + G['bonusant1']), 2) + "x speed.",
-    () => "Crumb --> Coin exponent is ^" + format(calculateCrumbToCoinExp()),
-    () => "Tax growth is multiplied by " + format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3-1]! + G['bonusant3']), 4),
-    () => "Accelerator Boosts +" + format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4-1]! + G['bonusant4']) / 1000 * 20 / 19) - 1), 3) + "%",
-    () => "Multipliers +" + format(100 * (calculateSigmoidExponential(40, (player.antUpgrades[5-1]! + G['bonusant5']) / 1000 * 40 / 39) - 1), 3) + "%",
-    () => "Offerings x" + format(1 + Math.pow((player.antUpgrades[6-1]! + G['bonusant6']), 0.66), 4),
-    () => "Building Costs scale " + format(Math.min(9999999,3 * player.antUpgrades[7-1]! + 3 * G['bonusant7']),0,true) + "% slower!",
-    () => "Rune EXP is multiplied by " + format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8-1]! + G['bonusant8'], 1.1)), 3) + "!",
-    () => "Each rune has +" + format(1 * Math.min(1e7, (player.antUpgrades[9-1]! + G['bonusant9'])),0,true) + " effective levels.",
-    () => "Obtainium x" + format(1 + 2 * Math.pow((player.antUpgrades[10-1]! + G['bonusant10']) / 50, 0.75), 4),
-    () => "Sacrificing is " + format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11-1]! + G['bonusant11']) / 125)), 4) + "x as effective",
-    () => "Global timer is sped up by a factor of " + format(calculateSigmoid(2, player.antUpgrades[12-1]! + G['bonusant12'], 69), 4)
+    () => 'ALL Ants work at ' + format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1-1]! + G['bonusant1']), 2) + 'x speed.',
+    () => 'Crumb --> Coin exponent is ^' + format(calculateCrumbToCoinExp()),
+    () => 'Tax growth is multiplied by ' + format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3-1]! + G['bonusant3']), 4),
+    () => 'Accelerator Boosts +' + format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4-1]! + G['bonusant4']) / 1000 * 20 / 19) - 1), 3) + '%',
+    () => 'Multipliers +' + format(100 * (calculateSigmoidExponential(40, (player.antUpgrades[5-1]! + G['bonusant5']) / 1000 * 40 / 39) - 1), 3) + '%',
+    () => 'Offerings x' + format(1 + Math.pow((player.antUpgrades[6-1]! + G['bonusant6']), 0.66), 4),
+    () => 'Building Costs scale ' + format(Math.min(9999999,3 * player.antUpgrades[7-1]! + 3 * G['bonusant7']),0,true) + '% slower!',
+    () => 'Rune EXP is multiplied by ' + format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8-1]! + G['bonusant8'], 1.1)), 3) + '!',
+    () => 'Each rune has +' + format(1 * Math.min(1e7, (player.antUpgrades[9-1]! + G['bonusant9'])),0,true) + ' effective levels.',
+    () => 'Obtainium x' + format(1 + 2 * Math.pow((player.antUpgrades[10-1]! + G['bonusant10']) / 50, 0.75), 4),
+    () => 'Sacrificing is ' + format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11-1]! + G['bonusant11']) / 125)), 4) + 'x as effective',
+    () => 'Global timer is sped up by a factor of ' + format(calculateSigmoid(2, player.antUpgrades[12-1]! + G['bonusant12'], 69), 4)
 ]
 
 let repeatAnt: ReturnType<typeof setTimeout> | null = null;
@@ -86,54 +87,55 @@ export const antRepeat = (i: number) => {
 }
 
 export const updateAntDescription = (i: number) => {
-    if (G['currentTab'] !== "ants")
+    if (G['currentTab'] !== 'ants') {
         return
-    const el = DOMCacheGetOrSet("anttierdescription")
-    const la = DOMCacheGetOrSet("antprice")
-    const ti = DOMCacheGetOrSet("antquantity")
-    const me = DOMCacheGetOrSet("generateant")
+    }
+    const el = DOMCacheGetOrSet('anttierdescription')
+    const la = DOMCacheGetOrSet('antprice')
+    const ti = DOMCacheGetOrSet('antquantity')
+    const me = DOMCacheGetOrSet('generateant')
 
-    let priceType = "Galactic Crumbs"
-    let tier: FirstToEighth = "first"
-    el.textContent = antdesc["antdesc" + i]
+    let priceType = 'Galactic Crumbs'
+    let tier: FirstToEighth = 'first'
+    el.textContent = antdesc['antdesc' + i]
 
     switch (i) {
         case 1:
-            priceType = "Particles";
-            tier = "first";
-            me.textContent = "Generates " + format(G['antOneProduce'], 5) + " Crumbs/sec";
+            priceType = 'Particles';
+            tier = 'first';
+            me.textContent = 'Generates ' + format(G['antOneProduce'], 5) + ' Crumbs/sec';
             break;
         case 2:
-            tier = "second";
-            me.textContent = "Generates " + format(G['antTwoProduce'], 5) + " Workers/sec";
+            tier = 'second';
+            me.textContent = 'Generates ' + format(G['antTwoProduce'], 5) + ' Workers/sec';
             break;
         case 3:
-            tier = "third";
-            me.textContent = "Generates " + format(G['antThreeProduce'], 5) + " Breeders/sec";
+            tier = 'third';
+            me.textContent = 'Generates ' + format(G['antThreeProduce'], 5) + ' Breeders/sec';
             break;
         case 4:
-            tier = "fourth";
-            me.textContent = "Generates " + format(G['antFourProduce'], 5) + " MetaBreeders/sec";
+            tier = 'fourth';
+            me.textContent = 'Generates ' + format(G['antFourProduce'], 5) + ' MetaBreeders/sec';
             break;
         case 5:
-            tier = "fifth";
-            me.textContent = "Generates " + format(G['antFiveProduce'], 5) + " MegaBreeders/sec";
+            tier = 'fifth';
+            me.textContent = 'Generates ' + format(G['antFiveProduce'], 5) + ' MegaBreeders/sec';
             break;
         case 6:
-            tier = "sixth";
-            me.textContent = "Generates " + format(G['antSixProduce'], 5) + " Queens/sec";
+            tier = 'sixth';
+            me.textContent = 'Generates ' + format(G['antSixProduce'], 5) + ' Queens/sec';
             break;
         case 7:
-            tier = "seventh";
-            me.textContent = "Generates " + format(G['antSevenProduce'], 5) + " Royals/sec";
+            tier = 'seventh';
+            me.textContent = 'Generates ' + format(G['antSevenProduce'], 5) + ' Royals/sec';
             break;
         case 8:
-            tier = "eighth";
-            me.textContent = "Generates " + format(G['antEightProduce'], 5) + " ALMIGHTIES/sec";
+            tier = 'eighth';
+            me.textContent = 'Generates ' + format(G['antEightProduce'], 5) + ' ALMIGHTIES/sec';
             break;
     }
-    la.textContent = "Cost: " + format(player[`${tier}CostAnts` as const]) + " " + priceType
-    ti.textContent = "Owned: " + format(player[`${tier}OwnedAnts` as const]) + " [+" + format(player[`${tier}GeneratedAnts` as const], 2) + "]"
+    la.textContent = 'Cost: ' + format(player[`${tier}CostAnts` as const]) + ' ' + priceType
+    ti.textContent = 'Owned: ' + format(player[`${tier}OwnedAnts` as const]) + ' [+' + format(player[`${tier}GeneratedAnts` as const], 2) + ']'
 }
 
 const getAntCost = (originalCost: Decimal, buyTo: number, index: number) => {
@@ -197,10 +199,10 @@ export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource,
         player[`${pos}CostAnts` as const] = thisCost;
     }
     if (player.reincarnationPoints.lt(0)) {
-        player.reincarnationPoints = new Decimal("0")
+        player.reincarnationPoints = new Decimal('0')
     }
     if (player.antPoints.lt(0)) {
-        player.antPoints = new Decimal("0")
+        player.antPoints = new Decimal('0')
     }
     calculateAntSacrificeELO();
 
@@ -211,7 +213,7 @@ export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource,
         }
     }
 
-    if(player.firstOwnedAnts > 6.9e7){
+    if (player.firstOwnedAnts > 6.9e7){
         player.firstOwnedAnts = 6.9e7
     }
 }
@@ -261,23 +263,23 @@ export const buyAntUpgrade = (originalCost: DecimalSource, auto: boolean, index:
 }
 
 export const antUpgradeDescription = (i: number) => {
-    const el = DOMCacheGetOrSet("antspecies")
-    const al = DOMCacheGetOrSet("antlevelbonus");
-    const la = DOMCacheGetOrSet("antupgradedescription")
-    const ti = DOMCacheGetOrSet("antupgradecost")
-    const me = DOMCacheGetOrSet("antupgradeeffect")
+    const el = DOMCacheGetOrSet('antspecies')
+    const al = DOMCacheGetOrSet('antlevelbonus');
+    const la = DOMCacheGetOrSet('antupgradedescription')
+    const ti = DOMCacheGetOrSet('antupgradecost')
+    const me = DOMCacheGetOrSet('antupgradeeffect')
 
-    const content1 = antspecies["antspecies" + i];
-    const content2 = antupgdesc["antupgdesc" + i];
+    const content1 = antspecies['antspecies' + i];
+    const content2 = antupgdesc['antupgdesc' + i];
     const bonuslevel = G[`bonusant${i}` as keyof typeof G] as typeof G['bonusant1'];
 
     const c11 = player.currentChallenge.ascension === 11 ? 999 : 0;
 
-    el.childNodes[0].textContent = content1 + " Level " + format(player.antUpgrades[i-1])
-    al.textContent = " [+" + format(Math.min(player.antUpgrades[i-1]! + c11, bonuslevel)) + "]"
+    el.childNodes[0].textContent = content1 + ' Level ' + format(player.antUpgrades[i-1])
+    al.textContent = ' [+' + format(Math.min(player.antUpgrades[i-1]! + c11, bonuslevel)) + ']'
     la.textContent = content2
-    ti.textContent = "Cost: " + format(Decimal.pow(G['antUpgradeCostIncreases'][i-1], player.antUpgrades[i-1]! * G['extinctionMultiplier'][player.usedCorruptions[10]]).times(G['antUpgradeBaseCost'][i-1])) + " Galactic Crumbs"
-    me.textContent = "CURRENT EFFECT: " + antUpgradeTexts[i - 1]()
+    ti.textContent = 'Cost: ' + format(Decimal.pow(G['antUpgradeCostIncreases'][i-1], player.antUpgrades[i-1]! * G['extinctionMultiplier'][player.usedCorruptions[10]]).times(G['antUpgradeBaseCost'][i-1])) + ' Galactic Crumbs'
+    me.textContent = 'CURRENT EFFECT: ' + antUpgradeTexts[i - 1]()
 }
 
 //function buyAntUpgrade(i,auto) {
@@ -306,36 +308,36 @@ export const antSacrificePointsToMultiplier = (points: number) => {
 
 export const showSacrifice = () => {
     const sacRewards = calculateAntSacrificeRewards();
-    DOMCacheGetOrSet("antSacrificeSummary").style.display = "block"
+    DOMCacheGetOrSet('antSacrificeSummary').style.display = 'block'
 
-    DOMCacheGetOrSet("antELO").childNodes[0].textContent = "Your Ant ELO is "
-    DOMCacheGetOrSet("ELO").textContent = format(G['antELO'], 2,)
-    DOMCacheGetOrSet("effectiveELO").textContent = "[" + format(G['effectiveELO'], 2, false) + " effective]"
+    DOMCacheGetOrSet('antELO').childNodes[0].textContent = 'Your Ant ELO is '
+    DOMCacheGetOrSet('ELO').textContent = format(G['antELO'], 2)
+    DOMCacheGetOrSet('effectiveELO').textContent = '[' + format(G['effectiveELO'], 2, false) + ' effective]'
 
-    DOMCacheGetOrSet("antSacrificeMultiplier").childNodes[0].textContent = "Ant Multiplier x" + format(antSacrificePointsToMultiplier(player.antSacrificePoints), 3, false) + " --> "
-    DOMCacheGetOrSet("SacrificeMultiplier").textContent = "x" + format(antSacrificePointsToMultiplier(player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false)
+    DOMCacheGetOrSet('antSacrificeMultiplier').childNodes[0].textContent = 'Ant Multiplier x' + format(antSacrificePointsToMultiplier(player.antSacrificePoints), 3, false) + ' --> '
+    DOMCacheGetOrSet('SacrificeMultiplier').textContent = 'x' + format(antSacrificePointsToMultiplier(player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false)
 
-    DOMCacheGetOrSet("SacrificeUpgradeMultiplier").textContent = format(G['upgradeMultiplier'], 3, true) + "x"
-    DOMCacheGetOrSet("SacrificeTimeMultiplier").textContent = format(G['timeMultiplier'], 3, true) + "x"
-    DOMCacheGetOrSet("antSacrificeOffering").textContent = "+" + format(sacRewards.offerings)
-    DOMCacheGetOrSet("antSacrificeObtainium").textContent = "+" + format(sacRewards.obtainium)
+    DOMCacheGetOrSet('SacrificeUpgradeMultiplier').textContent = format(G['upgradeMultiplier'], 3, true) + 'x'
+    DOMCacheGetOrSet('SacrificeTimeMultiplier').textContent = format(G['timeMultiplier'], 3, true) + 'x'
+    DOMCacheGetOrSet('antSacrificeOffering').textContent = '+' + format(sacRewards.offerings)
+    DOMCacheGetOrSet('antSacrificeObtainium').textContent = '+' + format(sacRewards.obtainium)
     if (player.challengecompletions[9] > 0) {
-        DOMCacheGetOrSet("antSacrificeTalismanShard").textContent = "+" + format(sacRewards.talismanShards) + " [>500 ELO]"
-        DOMCacheGetOrSet("antSacrificeCommonFragment").textContent = "+" + format(sacRewards.commonFragments) + " [>750 ELO]"
-        DOMCacheGetOrSet("antSacrificeUncommonFragment").textContent = "+" + format(sacRewards.uncommonFragments) + " [>1,000 ELO]"
-        DOMCacheGetOrSet("antSacrificeRareFragment").textContent = "+" + format(sacRewards.rareFragments) + " [>1,500 ELO]"
-        DOMCacheGetOrSet("antSacrificeEpicFragment").textContent = "+" + format(sacRewards.epicFragments) + " [>2,000 ELO]"
-        DOMCacheGetOrSet("antSacrificeLegendaryFragment").textContent = "+" + format(sacRewards.legendaryFragments) + " [>3,000 ELO]"
-        DOMCacheGetOrSet("antSacrificeMythicalFragment").textContent = "+" + format(sacRewards.mythicalFragments) + " [>5,000 ELO]"
+        DOMCacheGetOrSet('antSacrificeTalismanShard').textContent = '+' + format(sacRewards.talismanShards) + ' [>500 ELO]'
+        DOMCacheGetOrSet('antSacrificeCommonFragment').textContent = '+' + format(sacRewards.commonFragments) + ' [>750 ELO]'
+        DOMCacheGetOrSet('antSacrificeUncommonFragment').textContent = '+' + format(sacRewards.uncommonFragments) + ' [>1,000 ELO]'
+        DOMCacheGetOrSet('antSacrificeRareFragment').textContent = '+' + format(sacRewards.rareFragments) + ' [>1,500 ELO]'
+        DOMCacheGetOrSet('antSacrificeEpicFragment').textContent = '+' + format(sacRewards.epicFragments) + ' [>2,000 ELO]'
+        DOMCacheGetOrSet('antSacrificeLegendaryFragment').textContent = '+' + format(sacRewards.legendaryFragments) + ' [>3,000 ELO]'
+        DOMCacheGetOrSet('antSacrificeMythicalFragment').textContent = '+' + format(sacRewards.mythicalFragments) + ' [>5,000 ELO]'
     }
 }
 
 export const sacrificeAnts = async (auto = false) => {
     let p = true
 
-    if (player.antPoints.gte("1e40")) {
+    if (player.antPoints.gte('1e40')) {
         if (!auto && player.antSacrificePoints < 100 && player.toggles[32]) {
-            p = await Confirm("This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?")
+            p = await Confirm('This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?')
         }
         if (p) {
             const antSacrificePointsBefore = player.antSacrificePoints;
@@ -356,7 +358,7 @@ export const sacrificeAnts = async (auto = false) => {
                 baseELO: G['antELO'],
                 effectiveELO: G['effectiveELO'],
                 crumbs: player.antPoints.toString(),
-                crumbsPerSecond: G['antOneProduce'].toString(),
+                crumbsPerSecond: G['antOneProduce'].toString()
             };
 
             if (player.challengecompletions[9] > 0) {
@@ -375,8 +377,9 @@ export const sacrificeAnts = async (auto = false) => {
                 if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
                     let unmaxed = 0;
                     for (let i = 1; i <= 5; i++) {
-                        if (player.runelevels[i - 1] < calculateMaxRunes(i))
+                        if (player.runelevels[i - 1] < calculateMaxRunes(i)) {
                             unmaxed++;
+                        }
                     }
                     if (unmaxed > 0) {
                         const baseAmount = Math.floor(player.runeshards / unmaxed);
@@ -412,7 +415,7 @@ export const sacrificeAnts = async (auto = false) => {
 export const autoBuyAnts = () => {
     const canAffordUpgrade = (x: number, m: DecimalSource) => player.antPoints.gte(getAntUpgradeCost(new Decimal(G['antUpgradeBaseCost'][x-1]), player.antUpgrades[x-1]! + 1, x).times(m))
     const ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145];
-    const cost = ["100", "100", "1000", "1000", "1e5", "1e6", "1e8", "1e11", "1e15", "1e20", "1e40", "1e100"];
+    const cost = ['100', '100', '1000', '1000', '1e5', '1e6', '1e8', '1e11', '1e15', '1e20', '1e40', '1e100'];
     if (player.currentChallenge.ascension !== 11) {
         for (let i = 1; i <= ach.length; i++) {
             const check = i === 12 ? player.researches[ach[i - 1]] : player.achievements[ach[i - 1]];
@@ -423,13 +426,13 @@ export const autoBuyAnts = () => {
     }
 
     const _ach = [173, 176, 177, 178, 179, 180, 181, 182];
-    const _cost = ["1e700", "3", "100", "10000", "1e12", "1e36", "1e100", "1e300"];
+    const _cost = ['1e700', '3', '100', '10000', '1e12', '1e36', '1e100', '1e300'];
     for (let i = 1; i <= _ach.length; i++) {
         const res = i === 1 ? player.reincarnationPoints : player.antPoints;
         const m = i === 1 ? 1 : 2; // no multiplier on the first ant cost because it costs particles
         if (player.achievements[_ach[i - 1]] && res.gte(player[`${G['ordinals'][i - 1 as ZeroToSeven]}CostAnts` as const].times(m))) {
             buyAntProducers(
-                G['ordinals'][i - 1] as Parameters<typeof buyAntProducers>[0], 
+                G['ordinals'][i - 1] as Parameters<typeof buyAntProducers>[0],
                 _cost[i - 1], i
             );
         }

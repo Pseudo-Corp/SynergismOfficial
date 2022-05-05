@@ -1,5 +1,5 @@
 import Decimal from 'break_infinity.js';
-import { GlobalVariables } from './types/Synergism';
+import type { GlobalVariables } from './types/Synergism';
 
 export enum Upgrade {
      coin = 'coins',
@@ -197,17 +197,17 @@ export const Globals: GlobalVariables = {
     tuSevenMulti: 1,
     currentTab: 'buildings',
 
-    researchfiller1: "Hover over the grid to get details about researches!",
-    researchfiller2: "Level: ",
+    researchfiller1: 'Hover over the grid to get details about researches!',
+    researchfiller2: 'Level: ',
 
-    ordinals: ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"] as const,
-    cardinals: ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour", "twentyfive", "twentysix", "twentyseven", "twentyeight", "twentynine", "thirty", "thirtyone", "thirtytwo", "thirtythree", "thirtyfour"],
+    ordinals: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth'] as const,
+    cardinals: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'twentyone', 'twentytwo', 'twentythree', 'twentyfour', 'twentyfive', 'twentysix', 'twentyseven', 'twentyeight', 'twentynine', 'thirty', 'thirtyone', 'thirtytwo', 'thirtythree', 'thirtyfour'],
 
     challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 7500, 2.0e8, 3.5e9],
 
     prestigeamount: 1,
-    taxdivisor: new Decimal("1"),
-    taxdivisorcheck: new Decimal("1"),
+    taxdivisor: new Decimal('1'),
+    taxdivisorcheck: new Decimal('1'),
     runemultiplierincrease: {
         one: 1,
         two: 1,
@@ -216,9 +216,9 @@ export const Globals: GlobalVariables = {
         five: 1
     },
 
-    mythosupgrade13: new Decimal("1"),
-    mythosupgrade14: new Decimal("1"),
-    mythosupgrade15: new Decimal("1"),
+    mythosupgrade13: new Decimal('1'),
+    mythosupgrade14: new Decimal('1'),
+    mythosupgrade15: new Decimal('1'),
     challengefocus: 0,
 
     maxexponent: 10000,
@@ -234,17 +234,17 @@ export const Globals: GlobalVariables = {
     shopConfirmation: true,
     shopBuyMax: false,
 
-    globalAntMult: new Decimal("1"),
-    antMultiplier: new Decimal("1"),
+    globalAntMult: new Decimal('1'),
+    antMultiplier: new Decimal('1'),
 
-    antOneProduce: new Decimal("1"),
-    antTwoProduce: new Decimal("1"),
-    antThreeProduce: new Decimal("1"),
-    antFourProduce: new Decimal("1"),
-    antFiveProduce: new Decimal("1"),
-    antSixProduce: new Decimal("1"),
-    antSevenProduce: new Decimal("1"),
-    antEightProduce: new Decimal("1"),
+    antOneProduce: new Decimal('1'),
+    antTwoProduce: new Decimal('1'),
+    antThreeProduce: new Decimal('1'),
+    antFourProduce: new Decimal('1'),
+    antFiveProduce: new Decimal('1'),
+    antSixProduce: new Decimal('1'),
+    antSevenProduce: new Decimal('1'),
+    antEightProduce: new Decimal('1'),
 
     antCostGrowth: [1e41, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32],
 
@@ -287,8 +287,8 @@ export const Globals: GlobalVariables = {
     talisman6Power: 0,
     talisman7Quarks: 0,
 
-    runescreen: "runes",
-    settingscreen: "settings",
+    runescreen: 'runes',
+    settingscreen: 'settings',
 
     talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
     talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
@@ -331,7 +331,7 @@ export const Globals: GlobalVariables = {
 
     prevReductionValue: -1,
 
-    buildingSubTab: "coin",
+    buildingSubTab: 'coin',
     //1,000 of each before Diminishing Returns
     blessingbase: [null, 1 / 500, 1 / 5000, 1 / 2000, 1 / 750, 1 / 200, 1 / 10000, 1 / 5000, 1 / 10, 1 / 10000, 1 / 1000],
     blessingDRPower: [null, 1 / 3, 1 / 3, 2 / 3, 1 / 2, 2 / 3, 2, 1 / 3, 1 / 3, 1 / 16, 1 / 16],
@@ -368,7 +368,7 @@ export const Globals: GlobalVariables = {
         second: new Decimal('0'),
         third: new Decimal('0'),
         fourth: new Decimal('0'),
-        fifth: new Decimal('0'),
+        fifth: new Decimal('0')
     },
     freeUpgradeAccelerator: 0,
     freeUpgradeMultiplier: 0,
@@ -378,7 +378,7 @@ export const Globals: GlobalVariables = {
 
     constUpgradeCosts: [null, 1, 13, 17, 237, 316, 4216, 5623, 74989, 1e10, 1e24],
 
-    globalConstantMult: new Decimal("1"),
+    globalConstantMult: new Decimal('1'),
     autoTalismanTimer: 0,
 
     autoChallengeTimerIncrement: 0,
@@ -414,7 +414,7 @@ export const Globals: GlobalVariables = {
         powder: 1,
         exponent: 1,
         freeOrbs: 0,
-        ascensionSpeed: 1,
+        ascensionSpeed: 1
     },
 
     autoResetTimers: {
@@ -428,8 +428,8 @@ export const Globals: GlobalVariables = {
     upgradeMultiplier: 1,
 
     historyCountMax: 20,
-    
-    isEvent: false,
+
+    isEvent: false
 
     // talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
     // talismanResourceOfferingCosts: [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
