@@ -25,7 +25,7 @@ export const smallestInc = (x = 0): number => {
     }
 }
 
-/** 
+/**
  * Returns the sum of all contents in an array
  * @param array {(number|string)[]}
  * @returns {number}
@@ -38,7 +38,7 @@ export const sumContents = (array: number[]): number => {
     return array.reduce((a, b) => a + b, 0);
 }
 
-/** 
+/**
  * Returns the product of all contents in an array
  * @param array {number[]}
  * @returns {number}
@@ -58,7 +58,7 @@ export const sortWithIndices = (toSort: number[]) => {
 export const getElementById = <T extends HTMLElement>(id: string) => DOMCacheGetOrSet(id) as T;
 
 /**
- * Remove leading indents at the beginning of new lines in a template literal. 
+ * Remove leading indents at the beginning of new lines in a template literal.
  */
 type ValidInterpolatedType = string | number | Date;
 export const stripIndents = (temp: TemplateStringsArray, ...args: ValidInterpolatedType[]) => {
@@ -80,11 +80,14 @@ export const stripIndents = (temp: TemplateStringsArray, ...args: ValidInterpola
  * @param length Length to pad array to
  */
 export const padArray = <T>(a: T[], b: T, length: number) => {
-    for (let i = 0; i < length; i++)
-        if (!(i in a)) a[i] = b;
+    for (let i = 0; i < length; i++) {
+        if (!(i in a)) {
+            a[i] = b;
+        }
+    }
 
     return a;
-} 
+}
 
 export const updateClassList = (targetElement: string, additions: string[], removals: string[]) => {
     const target = DOMCacheGetOrSet(targetElement);
@@ -99,14 +102,14 @@ export const updateClassList = (targetElement: string, additions: string[], remo
 export const btoa = (s: string) => {
     try {
         return window.btoa(s);
-    } catch { 
+    } catch {
         // e.code = 5
         return null;
     }
 }
 
 /**
- * 
+ *
  * Creates a string of the ordinal representation of an integer.
  * @param int An integer, which can be negative or positive.
  * @returns A string which follows the conventions of ordinal numbers
@@ -114,12 +117,15 @@ export const btoa = (s: string) => {
  */
 export const toOrdinal = (int: number):string => {
     let suffix = 'th'
-    if (int % 10 === 1) 
+    if (int % 10 === 1) {
         suffix = (int % 100 === 11)? 'th': 'st'
-    if (int % 10 === 2)
+    }
+    if (int % 10 === 2) {
         suffix = (int % 100 === 12)? 'th': 'nd'
-    if (int % 10 === 3)
+    }
+    if (int % 10 === 3) {
         suffix = (int % 100 === 13)? 'th': 'rd'
+    }
 
     return format(int,0,true)+suffix
 }

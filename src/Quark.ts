@@ -1,15 +1,19 @@
 /* Functions which Handle Quark Gains,  */
 
-import { calculateCubeQuarkMultiplier, calculateEffectiveIALevel, calculateQuarkMultFromPowder} from "./Calculate";
-import { hepteractEffective } from "./Hepteracts"
-import { player } from "./Synergism"
-import { Alert } from "./UpdateHTML";
-import { Globals as G } from "./Variables"
+import { calculateCubeQuarkMultiplier, calculateEffectiveIALevel, calculateQuarkMultFromPowder} from './Calculate';
+import { hepteractEffective } from './Hepteracts'
+import { player } from './Synergism'
+import { Alert } from './UpdateHTML';
+import { Globals as G } from './Variables'
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const getBonus = async (): Promise<null | number> => {
-    if (navigator.onLine === false) return null;
-    if (document.visibilityState === 'hidden') return null;
+    if (navigator.onLine === false) {
+        return null;
+    }
+    if (document.visibilityState === 'hidden') {
+        return null;
+    }
 
     try {
         const r = await fetch('https://synergism-quarks.khafra.workers.dev/');
@@ -17,7 +21,8 @@ const getBonus = async (): Promise<null | number> => {
 
         return j.bonus;
     } catch (e) {
-        console.log(`workers.dev: ${(<Error>e).message}`);
+        // eslint-disable-next-line no-console
+        console.log(`workers.dev: ${(e as Error).message}`);
     }
 
     try {
@@ -26,13 +31,14 @@ const getBonus = async (): Promise<null | number> => {
                 'Accept': 'application/vnd.github.v3+json'
             }
         });
-        
+
         const t = await r.json() as { files: Record<string, { content: string }> };
         const b = Number(t.files['SynergismQuarkBoost.txt'].content);
 
         return b;
     } catch (e) {
-        console.log(`GitHub Gist: ${(<Error>e).message}`);
+        // eslint-disable-next-line no-console
+        console.log(`GitHub Gist: ${(e as Error).message}`);
     }
 
     return null;
@@ -68,7 +74,7 @@ export const getQuarkMultiplier = () => {
         multiplier *= (1 + 5/10000 * hepteractEffective('quark'));
     }
     if (player.overfluxPowder > 0) { // Overflux Powder [Max: 10% at 10,000]
-        multiplier *= calculateQuarkMultFromPowder();      
+        multiplier *= calculateQuarkMultFromPowder();
     }
     if (player.achievements[266] > 0) { // Achievement 266 [Max: 10% at 1Qa Ascensions]
         multiplier *= (1 + Math.min(0.1, (player.ascensionCount) / 1e16))
@@ -87,7 +93,7 @@ export const getQuarkMultiplier = () => {
     }
     if (player.singularityCount >= 5) { // Singularity Milestone (5 sing)
         multiplier *= 1.05
-    }  
+    }
     if (player.singularityCount >= 20) { // Singularity Milestone (20 sing)
         multiplier *= 1.05
     }
@@ -144,8 +150,10 @@ export class QuarkHandler {
             void this.getBonus();
         }
 
-        if (QuarkHandler.interval === null) // although the values are cached for 15 mins, refresh every 5
+        if (QuarkHandler.interval === null) {
+            // although the values are cached for 15 mins, refresh every 5
             QuarkHandler.interval = setInterval(this.getBonus.bind(this), 60 * 1000 * 5);
+        }
     }
 
     /*** Calculates the number of quarks to give with the current bonus. */
@@ -163,7 +171,9 @@ export class QuarkHandler {
     /** Add quarks, as suggested by the function's name. */
     sub(amount: number) {
         this.QUARKS -= amount;
-        if (this.QUARKS < 0) this.QUARKS = 0;
+        if (this.QUARKS < 0) {
+            this.QUARKS = 0;
+        }
 
         return this;
     }
@@ -173,31 +183,27 @@ export class QuarkHandler {
         if (localStorage.getItem('quarkBonus') !== null) { // is in cache
             const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus')!) as { bonus: number, fetched: number };
             if (Date.now() - fetched < 60 * 1000 * 15) { // cache is younger than 15 minutes
-                console.log(
-                    `%c \tBonus of ${bonus}% quarks has been applied! \n\t(Cached at ${fetched})`, 
-                    'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;'
-                );
                 el.textContent = `Generous patrons give you a bonus of ${bonus}% more quarks!`
                 return this.BONUS = bonus;
             }
         } else if (!navigator.onLine) {
-            return el.textContent = `Current Bonus: N/A% (offline)!`;
+            return el.textContent = 'Current Bonus: N/A% (offline)!';
         } else if (document.hidden) {
-            return el.textContent = `Current Bonus: N/A% (unfocused)!`;
+            return el.textContent = 'Current Bonus: N/A% (unfocused)!';
         }
 
         const b = await getBonus();
 
         if (b === null) {
             return;
-        } else if (Number.isNaN(b) || typeof b !== 'number') 
-            return Alert(`No bonus could be applied, a network error occurred! [Invalid Bonus] :(`);
-        else if (!Number.isFinite(b))
+        } else if (Number.isNaN(b) || typeof b !== 'number') {
+            return Alert('No bonus could be applied, a network error occurred! [Invalid Bonus] :(');
+        } else if (!Number.isFinite(b)) {
             return Alert('No bonus could be applied, an error occurred. [Infinity] :(');
-        else if (b < 0)
+        } else if (b < 0) {
             return Alert('No bonus could be applied, an error occurred. [Zero] :(');
+        }
 
-        console.log(`%c \tBonus of ${b}% quarks has been applied!`, 'color:gold; font-size:60px; font-weight:bold; font-family:helvetica;');
         el.textContent = `Generous patrons give you a bonus of ${b}% more quarks!`;
         localStorage.setItem('quarkBonus', JSON.stringify({ bonus: b, fetched: Date.now() }));
         this.BONUS = b;

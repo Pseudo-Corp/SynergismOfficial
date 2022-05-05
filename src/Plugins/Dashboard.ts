@@ -19,8 +19,8 @@ import { Globals as G } from '../Variables';
 
 /**
  * TODO: Fix NaNs and Infinity
- * An infinite value can be passed into numberOfHours, but forcing it to be finite doesn't seem like 
- * a valid solution. 
+ * An infinite value can be passed into numberOfHours, but forcing it to be finite doesn't seem like
+ * a valid solution.
  */
 const SplitTime = (numberOfHours: number) => {
     const Days = Math.floor(numberOfHours / 24);
@@ -67,7 +67,7 @@ const getCubeTimes = (i = 5, levels = 1) => {
         Hypers: ${(hyperRate * (totalTimeNeeded - hyperTimeNeeded)).toPrecision(4)}
         Tesseracts: ${(tessRate * (totalTimeNeeded - tessTimeNeeded)).toPrecision(4)}
     `;
-}  
+}
 
 const GM_addStyle = (css: string) => {
     const style = document.createElement('style');
@@ -78,10 +78,10 @@ const GM_addStyle = (css: string) => {
 
 const statValues: ((el: HTMLElement) => void)[] = [
     el => el.textContent = format(player.ascendShards),
-    el => el.textContent = DOMCacheGetOrSet("cubeBlessingTotalAmount").textContent,
-    el => el.textContent = DOMCacheGetOrSet("tesseractBlessingTotalAmount").textContent,
-    el => el.textContent = DOMCacheGetOrSet("hypercubeBlessingTotalAmount").textContent,
-    el => el.textContent = DOMCacheGetOrSet("platonicBlessingTotalAmount").textContent,
+    el => el.textContent = DOMCacheGetOrSet('cubeBlessingTotalAmount').textContent,
+    el => el.textContent = DOMCacheGetOrSet('tesseractBlessingTotalAmount').textContent,
+    el => el.textContent = DOMCacheGetOrSet('hypercubeBlessingTotalAmount').textContent,
+    el => el.textContent = DOMCacheGetOrSet('platonicBlessingTotalAmount').textContent,
     el => el.textContent = player.challengecompletions.slice(11, 15).join(' / '),
     el => el.textContent = format(player.challenge15Exponent, 0),
     el => el.textContent = player.runeBlessingLevels.slice(1, 6).map(x => format(x)).join(' / '),
@@ -91,7 +91,7 @@ const statValues: ((el: HTMLElement) => void)[] = [
     el => el.textContent = player.challengecompletions.slice(6, 11).join(' / '),
     el => el.textContent = player.runelevels.join(' / '),
     el => {
-        const talismanColors = [ 'white', 'limegreen', 'lightblue', 'plum', 'orange', 'crimson' ];
+        const talismanColors = ['white', 'limegreen', 'lightblue', 'plum', 'orange', 'crimson'];
         el.querySelectorAll('span').forEach((span, i) => {
             span.style.color = talismanColors[player.talismanRarity[i] - 1];
             span.textContent = player.talismanLevels[i] + '';
@@ -257,14 +257,13 @@ const enable = () => {
         document.head.removeChild(style);
         document.querySelector('#settings > .subtabSwitcher')!.removeChild(button);
         button.removeEventListener('click', btnListener);
-        document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v => 
+        document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v =>
             v.removeEventListener('click', subButtons)
         );
         settingsTab.removeChild(tab);
         return;
     }
 
-    console.log('hello synergism, dashboard installed in the settings tab');
     GM_addStyle(css);
     document.querySelector('#settings > .subtabSwitcher')!.appendChild(button);
 
@@ -273,7 +272,7 @@ const enable = () => {
     tab.querySelector('.dashboardstatChallenge')!.addEventListener('click', () => toggleAutoChallengeRun());
     tab.querySelector('.dashboardstatSac')!.addEventListener('click', () => toggleAntAutoSacrifice(0));
 
-    document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v => 
+    document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v =>
         v.addEventListener('click', subButtons)
     );
 

@@ -1,8 +1,8 @@
-import { upgradeupdate } from "./Upgrades"
-import { player } from "./Synergism"
-import Decimal from "break_infinity.js"
-import { achievementaward } from "./Achievements"
-import { revealStuff } from "./UpdateHTML"
+import { upgradeupdate } from './Upgrades'
+import { player } from './Synergism'
+import Decimal from 'break_infinity.js'
+import { achievementaward } from './Achievements'
+import { revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables';
 
 export const buyGenerator = (i: number, state?: boolean) => {
@@ -10,11 +10,11 @@ export const buyGenerator = (i: number, state?: boolean) => {
         player.unlocks.generation = true
     }
     const q = 100 + i
-    let type: "coins" | "prestigePoints" | "transcendPoints" = "transcendPoints"
+    let type: 'coins' | 'prestigePoints' | 'transcendPoints' = 'transcendPoints'
     if (q <= 110 && q >= 106) {
-        type = "coins"
+        type = 'coins'
     } else if (q <= 115) {
-        type = "prestigePoints"
+        type = 'prestigePoints'
     }
 
     const cost = Decimal.pow(10, G['upgradeCosts'][q])
@@ -23,7 +23,7 @@ export const buyGenerator = (i: number, state?: boolean) => {
     if (player.upgrades[q] === 0 && player[type].gte(cost)) {
 
         if (achievementCheck === 0) {
-            if([102, 103, 104, 105].includes(q)) {
+            if ([102, 103, 104, 105].includes(q)) {
                 achievementaward(q - 31);
             }
         }

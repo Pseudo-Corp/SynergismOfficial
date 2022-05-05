@@ -17,40 +17,40 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { getQuarkMultiplier, quarkHandler } from './Quark';
 import { player } from './Synergism';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { Player } from './types/Synergism';
+import type { Player } from './types/Synergism';
 import { Prompt, Alert } from './UpdateHTML';
 // import { Prompt, Alert } from './UpdateHTML';
 
 /* Constants */
 
 const blessings: Record<
-    keyof Player['cubeBlessings'], 
+    keyof Player['cubeBlessings'],
     { weight: number, pdf: (x: number) => boolean }
 > = {
-    accelerator:   {weight: 4, pdf: (x: number) => 0 <= x && x <= 20},
-    multiplier:    {weight: 4, pdf: (x: number) => 20 < x && x <= 40},
-    offering:      {weight: 2, pdf: (x: number) => 40 < x && x <= 50},
-    runeExp:       {weight: 2, pdf: (x: number) => 50 < x && x <= 60},
-    obtainium:     {weight: 2, pdf: (x: number) => 60 < x && x <= 70},
-    antSpeed:      {weight: 2, pdf: (x: number) => 70 < x && x <= 80},
-    antSacrifice:  {weight: 1, pdf: (x: number) => 80 < x && x <= 85},
-    antELO:        {weight: 1, pdf: (x: number) => 85 < x && x <= 90},
+    accelerator: {weight: 4, pdf: (x: number) => 0 <= x && x <= 20},
+    multiplier: {weight: 4, pdf: (x: number) => 20 < x && x <= 40},
+    offering: {weight: 2, pdf: (x: number) => 40 < x && x <= 50},
+    runeExp: {weight: 2, pdf: (x: number) => 50 < x && x <= 60},
+    obtainium: {weight: 2, pdf: (x: number) => 60 < x && x <= 70},
+    antSpeed: {weight: 2, pdf: (x: number) => 70 < x && x <= 80},
+    antSacrifice: {weight: 1, pdf: (x: number) => 80 < x && x <= 85},
+    antELO: {weight: 1, pdf: (x: number) => 85 < x && x <= 90},
     talismanBonus: {weight: 1, pdf: (x: number) => 90 < x && x <= 95},
-    globalSpeed:   {weight: 1, pdf: (x: number) => 95 < x && x <= 100}
+    globalSpeed: {weight: 1, pdf: (x: number) => 95 < x && x <= 100}
 }
 
 const platonicBlessings: Record <
     keyof Player['platonicBlessings'],
     { weight: number, pdf: (x: number) => boolean }
 > = {
-    cubes:          {weight: 13200, pdf: (x: number) => 0 <= x && x <= 33.000},
-    tesseracts:     {weight: 13200, pdf: (x: number) => 33.000 < x && x <= 66.000},
-    hypercubes:     {weight: 13200, pdf: (x: number) => 66.000 < x && x <= 99.000},
-    platonics:      {weight: 396, pdf: (x: number) => 99.000 < x && x <= 99.990},
+    cubes: {weight: 13200, pdf: (x: number) => 0 <= x && x <= 33.000},
+    tesseracts: {weight: 13200, pdf: (x: number) => 33.000 < x && x <= 66.000},
+    hypercubes: {weight: 13200, pdf: (x: number) => 66.000 < x && x <= 99.000},
+    platonics: {weight: 396, pdf: (x: number) => 99.000 < x && x <= 99.990},
     hypercubeBonus: {weight: 1, pdf: (x: number) => 99.990 < x && x <= 99.9925},
-    taxes:          {weight: 1, pdf: (x: number) => 99.9925 < x && x <= 99.995},
-    scoreBonus:     {weight: 1, pdf: (x: number) => 99.995 < x && x <= 99.9975},
-    globalSpeed:    {weight: 1, pdf: (x: number) => 99.9975 < x && x <= 100},
+    taxes: {weight: 1, pdf: (x: number) => 99.9925 < x && x <= 99.995},
+    scoreBonus: {weight: 1, pdf: (x: number) => 99.995 < x && x <= 99.9975},
+    globalSpeed: {weight: 1, pdf: (x: number) => 99.9975 < x && x <= 100}
 }
 
 /**
@@ -65,8 +65,8 @@ const platonicBlessings: Record <
  *       // implement open logic here
  *   }
  * }
- * 
- * new PlatCubes().openCustom(); 
+ *
+ * new PlatCubes().openCustom();
  */
 export abstract class Cube {
     /** key on the player object */
@@ -93,16 +93,18 @@ export abstract class Cube {
         // TODO: Replace this with `this`?
         const thisInPlayer = player[this.key] as Cube;
         const amount = await Prompt(`How many cubes would you like to open? You have ${thisInPlayer.value.toLocaleString()}!`);
-        if (amount === null)
+        if (amount === null) {
             return Alert('OK. No cubes opened.');
+        }
         const cubesToOpen = Number(amount);
 
-        if (Number.isNaN(cubesToOpen) || !Number.isFinite(cubesToOpen)) // nan + Infinity checks
+        if (Number.isNaN(cubesToOpen) || !Number.isFinite(cubesToOpen)) {
             return Alert('Value must be a finite number!');
-        else if (thisInPlayer.value < cubesToOpen) // not enough cubes to open
+        } else if (thisInPlayer.value < cubesToOpen) {
             return Alert('You don\'t have enough cubes to open!');
-        else if (cubesToOpen <= 0) // 0 or less cubes to open
+        } else if (cubesToOpen <= 0) {
             return Alert('You can\'t open a negative number of cubes.');
+        }
 
         return this.open(cubesToOpen, cubesToOpen === thisInPlayer.value);
     }
@@ -175,7 +177,7 @@ export class WowCubes extends Cube {
         toSpend = Math.floor(toSpend)
         let toSpendModulo = toSpend % 20
         let toSpendDiv20 = Math.floor(toSpend / 20)
-        
+
         if (toSpendDiv20 > 0 && player.cubeUpgrades[13] === 1) {
             toSpendModulo += toSpendDiv20
         }
@@ -200,8 +202,9 @@ export class WowCubes extends Cube {
         for (let i = 0; i < toSpendModulo; i++) {
             const num = 100 * Math.random();
             for (const key of keys) {
-                if (blessings[key].pdf(num))
+                if (blessings[key].pdf(num)) {
                     player.cubeBlessings[key] += (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])));
+                }
             }
         }
 
@@ -237,8 +240,9 @@ export class WowTesseracts extends Cube {
         for (let i = 0; i < toSpendModulo; i++) {
             const num = 100 * Math.random();
             for (const key in player.tesseractBlessings) {
-                if (blessings[key as keyof typeof blessings].pdf(num))
+                if (blessings[key as keyof typeof blessings].pdf(num)) {
                     player.tesseractBlessings[key as keyof Player['tesseractBlessings']] += 1;
+                }
             }
         }
 
@@ -277,8 +281,9 @@ export class WowHypercubes extends Cube {
         for (let i = 0; i < toSpendModulo; i++) {
             const num = 100 * Math.random();
             for (const key in player.hypercubeBlessings) {
-                if (blessings[key as keyof typeof blessings].pdf(num))
+                if (blessings[key as keyof typeof blessings].pdf(num)) {
                     player.hypercubeBlessings[key as keyof Player['hypercubeBlessings']] += 1;
+                }
             }
         }
 
@@ -335,8 +340,9 @@ export class WowPlatonicCubes extends Cube {
         for (let i = 0; i < toSpendModulo; i++) {
             const num = 100 * Math.random();
             for (const key in player.platonicBlessings) {
-                if (platonicBlessings[key as keyof typeof platonicBlessings].pdf(num))
+                if (platonicBlessings[key as keyof typeof platonicBlessings].pdf(num)) {
                     player.platonicBlessings[key as keyof Player['platonicBlessings']] += 1;
+                }
             }
         }
         calculatePlatonicBlessings();
