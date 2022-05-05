@@ -16,7 +16,7 @@ interface TabValue { tabName: keyof typeof tabNumberConst, unlocked: boolean }
 type Tab = Record<number, TabValue>;
 type SubTab = Record<number, {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    tabSwitcher?: (...args: any[]) => void
+    tabSwitcher?: ((...args: any[]) => unknown) | ((...args: any[]) => Promise<unknown>)
     subTabList: {
         subTabID: string | number | boolean
         unlocked: boolean
