@@ -774,6 +774,9 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     if (player.achievements[277] > 0) {
         player.researchPoints = Math.floor(500 * calculateSingularityDebuff("Offering") * calculateSingularityDebuff("Researches"))
         player.reincarnationPoints = new Decimal("1e16")
+        if (player.currentChallenge.ascension === 12) {
+            player.reincarnationPoints = new Decimal("0"); 
+        }
         player.challengecompletions[6] = 1;
         player.highestchallengecompletions[6] = 1;
         achievementaward(113);
@@ -791,6 +794,9 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.highestchallengecompletions[7] = 1;
         achievementaward(120);
         player.reincarnationPoints = new Decimal("1e100");
+         if (player.currentChallenge.ascension === 12) {
+            player.reincarnationPoints = new Decimal("0"); 
+        }
     }
     if (player.achievements[280] > 0) {
         achievementaward(127);
