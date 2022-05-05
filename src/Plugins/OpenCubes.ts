@@ -2,9 +2,9 @@ import { player } from '../Synergism';
 
 /**
  * Exposes to the global scope.
- *      @see {openHypercube} 
+ *      @see {openHypercube}
  *      @see {openPlatonic}
- *      @see {openTesseract} 
+ *      @see {openTesseract}
  *      @see {openCube}
  */
 export const main = () => {

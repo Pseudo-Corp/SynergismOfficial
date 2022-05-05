@@ -3,9 +3,9 @@
         I'm experimenting with a form of 'inventory' system that may or may
         not be needed in singularity update. I might even need it in this update
         though unlikely.
-        
-    
-    The specs of the tabular inventory are as follows 
+
+
+    The specs of the tabular inventory are as follows
         **Object oriented, and preferably boilerplate minimal
         -The tabular inventory should display (row * columns) different items at once, which may or may not be empty
         -Instances of 'items' should populate the top leftmost cell, and if the inventory is full trash the item
@@ -14,7 +14,7 @@
             items to the top left*/
 
 // Current ideas:
-//  For implementing items, it should be a separate class that is accepted by TabularInventory funcs 
+//  For implementing items, it should be a separate class that is accepted by TabularInventory funcs
 //  We can actually make population an O(n) worst case task through ordering the inventory and tracking the lowest
 //      unpopulated cell
 
@@ -33,15 +33,17 @@ export class TabularInventory {
             for (let i = 0; i < Math.min(this.rows * this.columns, preset.length); i++) {
                 start += 1;
                 this.items[i] = preset[i];
-                if (preset[i] == NullItem && this.lowestPopulated === -1)
+                if (preset[i] == NullItem && this.lowestPopulated === -1) {
                     this.lowestPopulated = i;
+                }
             }
         }
         // If preset is shorter than rows * columns then you want to populate the rest with empty
         // I'm making this design ahead of time in case the inventory size changes.
         for (let i = start; i < this.rows * this.columns; i++) {
-            if (this.lowestPopulated === -1)
+            if (this.lowestPopulated === -1) {
                 this.lowestPopulated = start;
+            }
             this.items[i] = NullItem;
         }
     }
@@ -58,11 +60,12 @@ export class TabularInventory {
      * The next available space for later.
      */
     populate = (item: TabularItem) => {
-        if (this.lowestPopulated < this.rows * this.columns)
+        if (this.lowestPopulated < this.rows * this.columns) {
             this.items[this.lowestPopulated] = item;
-        
+        }
+
         let updatedPopulated = false;
-        
+
         //We want to find the next lowest item that can be populated later.
         //(Note: this may be able to be made into O(1) though I'm insure -Platonic)
         for (let i = this.lowestPopulated + 1; i < this.rows * this.columns; i++) {
@@ -73,8 +76,9 @@ export class TabularInventory {
             }
         }
 
-        if (!updatedPopulated)
+        if (!updatedPopulated) {
             this.lowestPopulated = this.rows * this.columns
+        }
     }
 
 }

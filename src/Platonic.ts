@@ -23,7 +23,7 @@ const platonicUpgradeDesc = [
     'If Viscous Corruption is set to level 10 or higher, score multiplier is raised by an exponent. That exponent is 3 + 0.04 per level of this upgrade.',
     'Raise the base percentage of Constant Upgrade 1 by 0.1% and increase the base percentage cap of Constant Upgrade 2 by 0.3% per level!',
     'The diminishing return power on Chronos Hepteract changes from 0.166 to (0.166 + 0.00133 * level) [Max of 0.2333].',
-    'You know, maybe some things should be left unbought.',
+    'You know, maybe some things should be left unbought.'
 ];
 
 export interface IPlatBaseCost {
@@ -47,7 +47,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e5,
         platonics: 1e4,
         abyssals: 0,
-        maxLevel: 100,
+        maxLevel: 100
     },
     2: {
         obtainium: 3e70,
@@ -57,7 +57,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e5,
         platonics: 1e4,
         abyssals: 0,
-        maxLevel: 100,
+        maxLevel: 100
     },
     3: {
         obtainium: 1e71,
@@ -67,7 +67,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e7,
         platonics: 1e4,
         abyssals: 0,
-        maxLevel: 100,
+        maxLevel: 100
     },
     4: {
         obtainium: 4e71,
@@ -77,7 +77,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e6,
         platonics: 1e6,
         abyssals: 0,
-        maxLevel: 100,
+        maxLevel: 100
     },
     5: {
         obtainium: 1e80,
@@ -87,7 +87,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e8,
         platonics: 1e7,
         abyssals: 0,
-        maxLevel: 1,
+        maxLevel: 1
     },
     6: {
         obtainium: 1e82,
@@ -97,7 +97,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e8,
         platonics: 1e7,
         abyssals: 0,
-        maxLevel: 10,
+        maxLevel: 10
     },
     7: {
         obtainium: 1e84,
@@ -107,7 +107,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 2e8,
         platonics: 1.5e7,
         abyssals: 0,
-        maxLevel: 15,
+        maxLevel: 15
     },
     8: {
         obtainium: 1e87,
@@ -117,7 +117,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 4e8,
         platonics: 3e7,
         abyssals: 0,
-        maxLevel: 5,
+        maxLevel: 5
     },
     9: {
         obtainium: 1e90,
@@ -127,7 +127,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e9,
         platonics: 5e7,
         abyssals: 0,
-        maxLevel: 1,
+        maxLevel: 1
     },
     10: {
         obtainium: 1e93,
@@ -137,7 +137,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e11,
         platonics: 1e9,
         abyssals: 0,
-        maxLevel: 1,
+        maxLevel: 1
     },
     11: {
         obtainium: 2e96,
@@ -147,7 +147,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 2e10,
         platonics: 2e8,
         abyssals: 0,
-        maxLevel: 1,
+        maxLevel: 1
     },
     12: {
         obtainium: 1e100,
@@ -157,7 +157,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e11,
         platonics: 1e9,
         abyssals: 0,
-        maxLevel: 10,
+        maxLevel: 10
     },
     13: {
         obtainium: 2e104,
@@ -198,7 +198,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         platonics: 0,
         abyssals: 0,
         maxLevel: 100,
-        priceMult: 10,
+        priceMult: 10
     },
     17: {
         obtainium: 1e145,
@@ -209,7 +209,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         platonics: 0,
         abyssals: 2,
         maxLevel: 20,
-        priceMult: 10,
+        priceMult: 10
     },
     18: {
         obtainium: 1e150,
@@ -220,7 +220,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         platonics: 0,
         abyssals: 8,
         maxLevel: 40,
-        priceMult: 500,
+        priceMult: 500
     },
     19: {
         obtainium: 1e160,
@@ -257,7 +257,7 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
         hypercubes: false,
         platonics: false,
         abyssals: false,
-        canBuy: false,
+        canBuy: false
     }
     let priceMultiplier = 1;
     if (platUpgradeBaseCosts[index].priceMult) {
@@ -282,9 +282,9 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
 }
 
 export const createPlatonicDescription = (index: number) => {
-    let maxLevelAppend = "";
+    let maxLevelAppend = '';
     if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
-        maxLevelAppend = " [MAX]"
+        maxLevelAppend = ' [MAX]'
     }
     const resourceCheck = checkPlatonicUpgrade(index);
 
@@ -294,54 +294,54 @@ export const createPlatonicDescription = (index: number) => {
     }
 
     DOMCacheGetOrSet('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index-1];
-    DOMCacheGetOrSet('platonicUpgradeLevel').textContent = "Level: " + format(player.platonicUpgrades[index]) + "/" + format(platUpgradeBaseCosts[index].maxLevel) + maxLevelAppend
-    DOMCacheGetOrSet('platonicOfferingCost').textContent = format(player.runeshards) + "/" + format(platUpgradeBaseCosts[index].offerings * priceMultiplier) + " Offerings"
-    DOMCacheGetOrSet('platonicObtainiumCost').textContent = format(player.researchPoints) + "/" + format(platUpgradeBaseCosts[index].obtainium * priceMultiplier) + " Obtainium"
-    DOMCacheGetOrSet('platonicCubeCost').textContent = format(player.wowCubes) + "/" + format(platUpgradeBaseCosts[index].cubes * priceMultiplier) + " Wow! Cubes"
-    DOMCacheGetOrSet('platonicTesseractCost').textContent = format(player.wowTesseracts) + "/" + format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier) + " Wow! Tesseracts"
-    DOMCacheGetOrSet('platonicHypercubeCost').textContent = format(player.wowHypercubes) + "/" + format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier) + " Wow! Hypercubes"
-    DOMCacheGetOrSet('platonicPlatonicCost').textContent = format(player.wowPlatonicCubes) + "/" + format(platUpgradeBaseCosts[index].platonics * priceMultiplier) + " Platonic! Cubes"
-    DOMCacheGetOrSet('platonicHepteractCost').textContent = format(player.hepteractCrafts.abyss.BAL) + "/" + format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true) + " Hepteracts of the Abyss"
+    DOMCacheGetOrSet('platonicUpgradeLevel').textContent = 'Level: ' + format(player.platonicUpgrades[index]) + '/' + format(platUpgradeBaseCosts[index].maxLevel) + maxLevelAppend
+    DOMCacheGetOrSet('platonicOfferingCost').textContent = format(player.runeshards) + '/' + format(platUpgradeBaseCosts[index].offerings * priceMultiplier) + ' Offerings'
+    DOMCacheGetOrSet('platonicObtainiumCost').textContent = format(player.researchPoints) + '/' + format(platUpgradeBaseCosts[index].obtainium * priceMultiplier) + ' Obtainium'
+    DOMCacheGetOrSet('platonicCubeCost').textContent = format(player.wowCubes) + '/' + format(platUpgradeBaseCosts[index].cubes * priceMultiplier) + ' Wow! Cubes'
+    DOMCacheGetOrSet('platonicTesseractCost').textContent = format(player.wowTesseracts) + '/' + format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier) + ' Wow! Tesseracts'
+    DOMCacheGetOrSet('platonicHypercubeCost').textContent = format(player.wowHypercubes) + '/' + format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier) + ' Wow! Hypercubes'
+    DOMCacheGetOrSet('platonicPlatonicCost').textContent = format(player.wowPlatonicCubes) + '/' + format(platUpgradeBaseCosts[index].platonics * priceMultiplier) + ' Platonic! Cubes'
+    DOMCacheGetOrSet('platonicHepteractCost').textContent = format(player.hepteractCrafts.abyss.BAL) + '/' + format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true) + ' Hepteracts of the Abyss'
 
     resourceCheck.offerings ?
-        DOMCacheGetOrSet('platonicOfferingCost').style.color = "lime" :
-        DOMCacheGetOrSet('platonicOfferingCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicOfferingCost').style.color = 'lime' :
+        DOMCacheGetOrSet('platonicOfferingCost').style.color = 'crimson';
 
     resourceCheck.obtainium ?
-        DOMCacheGetOrSet('platonicObtainiumCost').style.color = "lime" :
-        DOMCacheGetOrSet('platonicObtainiumCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'lime' :
+        DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'crimson';
 
     resourceCheck.cubes ?
-        DOMCacheGetOrSet('platonicCubeCost').style.color = "lime" :
-        DOMCacheGetOrSet('platonicCubeCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicCubeCost').style.color = 'lime' :
+        DOMCacheGetOrSet('platonicCubeCost').style.color = 'crimson';
 
     resourceCheck.tesseracts ?
-        DOMCacheGetOrSet('platonicTesseractCost').style.color = "lime" :
-        DOMCacheGetOrSet('platonicTesseractCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicTesseractCost').style.color = 'lime' :
+        DOMCacheGetOrSet('platonicTesseractCost').style.color = 'crimson';
 
     resourceCheck.hypercubes ?
-        DOMCacheGetOrSet('platonicHypercubeCost').style.color = "lime" :
-        DOMCacheGetOrSet('platonicHypercubeCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'lime' :
+        DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'crimson';
 
     resourceCheck.platonics ?
-        DOMCacheGetOrSet('platonicPlatonicCost').style.color = "lime" :
-        DOMCacheGetOrSet('platonicPlatonicCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'lime' :
+        DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'crimson';
 
     resourceCheck.abyssals ?
-        DOMCacheGetOrSet('platonicHepteractCost').style.color = "lime" :
-        DOMCacheGetOrSet('platonicHepteractCost').style.color = "crimson";
+        DOMCacheGetOrSet('platonicHepteractCost').style.color = 'lime' :
+        DOMCacheGetOrSet('platonicHepteractCost').style.color = 'crimson';
 
     if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
         DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'cyan'
         resourceCheck.canBuy ?
-            (DOMCacheGetOrSet('platonicCanBuy').style.color = "gold", DOMCacheGetOrSet('platonicCanBuy').textContent = "===Affordable! Click to buy!===") :
-            (DOMCacheGetOrSet('platonicCanBuy').style.color = "crimson", DOMCacheGetOrSet('platonicCanBuy').textContent = "===You cannot afford this!===");
+            (DOMCacheGetOrSet('platonicCanBuy').style.color = 'gold', DOMCacheGetOrSet('platonicCanBuy').textContent = '===Affordable! Click to buy!===') :
+            (DOMCacheGetOrSet('platonicCanBuy').style.color = 'crimson', DOMCacheGetOrSet('platonicCanBuy').textContent = '===You cannot afford this!===');
     }
 
     if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
         DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'gold'
-        DOMCacheGetOrSet('platonicCanBuy').style.color = "orchid"
-        DOMCacheGetOrSet('platonicCanBuy').textContent = "===Maxed==="
+        DOMCacheGetOrSet('platonicCanBuy').style.color = 'orchid'
+        DOMCacheGetOrSet('platonicCanBuy').textContent = '===Maxed==='
     }
 }
 
@@ -350,13 +350,11 @@ export const updatePlatonicUpgradeBG = (i: number) => {
 
     const maxLevel = platUpgradeBaseCosts[i].maxLevel
     if (player.platonicUpgrades[i] === 0) {
-        a.style.backgroundColor = "black"
-    }
-    else if (player.platonicUpgrades[i] > 0 && player.platonicUpgrades[i] < maxLevel) {
-        a.style.backgroundColor = "purple"
-    }
-    else if (player.platonicUpgrades[i] === maxLevel) {
-        a.style.backgroundColor = "green"
+        a.style.backgroundColor = 'black'
+    } else if (player.platonicUpgrades[i] > 0 && player.platonicUpgrades[i] < maxLevel) {
+        a.style.backgroundColor = 'purple'
+    } else if (player.platonicUpgrades[i] === maxLevel) {
+        a.style.backgroundColor = 'green'
     }
 
 }
@@ -371,7 +369,7 @@ export const buyPlatonicUpgrades = (index: number) => {
         player.platonicUpgrades[index] += 1
         player.researchPoints -= Math.floor(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
         player.runeshards -= Math.floor(platUpgradeBaseCosts[index].offerings * priceMultiplier)
-        player.wowCubes.sub(Math.floor(platUpgradeBaseCosts[index].cubes * priceMultiplier)); 
+        player.wowCubes.sub(Math.floor(platUpgradeBaseCosts[index].cubes * priceMultiplier));
         player.wowTesseracts.sub(Math.floor(platUpgradeBaseCosts[index].tesseracts * priceMultiplier));
         player.wowHypercubes.sub(Math.floor(platUpgradeBaseCosts[index].hypercubes * priceMultiplier));
         player.wowPlatonicCubes.sub(Math.floor(platUpgradeBaseCosts[index].platonics * priceMultiplier));
