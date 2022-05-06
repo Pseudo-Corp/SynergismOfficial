@@ -263,7 +263,7 @@ export const corruptionLoadoutTableUpdate = (updateRow = 0) => {
     }
 }
 
-const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
+export const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
     if (save) {
         player.corruptionLoadouts[loadout] = Array.from(player.prototypeCorruptions)
         corruptionLoadoutTableUpdate(loadout)
