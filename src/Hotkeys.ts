@@ -1,12 +1,25 @@
 import { sacrificeAnts } from './Ants';
 import { buyAccelerator, boostAccelerator, buyMultiplier } from './Buy';
 import { player, resetCheck } from './Synergism';
-import { keyboardTabChange } from './Toggles';
+import { keyboardTabChange, toggleAutoChallengeRun } from './Toggles';
 import { Alert, Prompt } from './UpdateHTML';
 
 export const hotkeys = new Map<string, [string,() => unknown]>([
     ['A', ['Buy Accelerators', () => buyAccelerator()]],
     ['B', ['Boost Accelerator', () => boostAccelerator()]],
+    ['C', ['Auto Challenge', () => {
+        if (player.researches[150] > 0) {
+            toggleAutoChallengeRun()
+            if (!player.autoChallengeRunning) {
+                if (player.currentChallenge.reincarnation !== 0) {
+                    void resetCheck('reincarnationChallenge', undefined, true)
+                }
+                if (player.currentChallenge.transcension !== 0) {
+                    void resetCheck('transcensionChallenge', undefined, true)
+                }
+            }
+        }
+    }]],
     ['E', ['Exit Challenge', () => {
         if (player.currentChallenge.reincarnation !== 0) {
             void resetCheck('reincarnationChallenge', undefined, true)
