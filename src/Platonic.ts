@@ -13,7 +13,7 @@ const platonicUpgradeDesc = [
     'Raises speed below 1x to the power of ^(1 - level/30).',
     'Divides Hyperchallenged by (1 + 0.4 * level), with a minimum 1x challenge req. multiplier!',
     'Raise Obtainium to the power of (1+(0.09*log10(Obt owned))) and add another x2.5 multiplier (uncorruptable), up until 1e100 Obtainium!',
-    'C10 Exponent: 1.0375 --> 1.04, Const. tax exponent +0.20 and 10x faster constant production, +10/+5 Challenge caps, 3.5x Obtainium and Offerings, 2x All Cubes. ^1.25 ant exponent in C15, and finally +1 Corruption Caps again!,
+    'C10 Exponent: 1.0375 --> 1.04, Const. tax exponent +0.20 and 10x faster constant production, +10/+5 Challenge caps, 3.5x Obtainium and Offerings, 2x All Cubes. ^1.25 ant exponent in C15, and finally +1 Corruption Caps again!',
     'With this upgrade, you will gain diamonds equal to particle gain on reincarnation while using Market Deflation 11 or higher! Does not work with cube upgrade [3x8]!',
     'Gain (1 + lvl/100)x ant multiplier per challenge completion, ignoring corruptions to ants.',
     'Effect of Drought is raised to the power of 0.5.',
