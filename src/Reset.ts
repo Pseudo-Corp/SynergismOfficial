@@ -828,7 +828,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
 export const singularity = async () => {
     player.goldenQuarks += calculateGoldenQuarkGain();
     player.singularityCount += 1;
-    void resetShopUpgrades(true);
+    await resetShopUpgrades(true);
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
     }) as Player;
