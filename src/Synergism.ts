@@ -2826,7 +2826,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             c3 = await Confirm('Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.')
         }
         if (c3) {
-            player.runelevels[6] = 0;
             await singularity();
             return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
         }

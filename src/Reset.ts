@@ -7,7 +7,7 @@ import {
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { revealStuff, updateChallengeDisplay } from './UpdateHTML';
+import { Alert, revealStuff, updateChallengeDisplay } from './UpdateHTML';
 import { upgradeupdate } from './Upgrades';
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
@@ -826,6 +826,12 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
 }
 
 export const singularity = async (): Promise<void> => {
+    if (player.runelevels[6] === 0) {
+        return Alert('You nearly triggered a double singularity bug! Oh no! Luckily, our staff prevented this from happening.');
+    }
+
+    // reset the rune instantly to hopefully prevent a double singularity
+    player.runelevels[6] = 0;
     player.goldenQuarks += calculateGoldenQuarkGain();
     player.singularityCount += 1;
     await resetShopUpgrades(true);
