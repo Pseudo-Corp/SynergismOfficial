@@ -826,10 +826,6 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
 }
 
 export const singularity = async (): Promise<void> => {
-    if (player.runelevels[6] === 0) {
-        return
-    }
-
     player.goldenQuarks += calculateGoldenQuarkGain();
     player.singularityCount += 1;
     await resetShopUpgrades(true);
