@@ -323,7 +323,7 @@ const resdesc = [
     '[7x18] Gain +0.08% tributes from cubes per level. You know, you should expect it at this point.',
     '[7x19] +4% faster Tesseract Buildings / level. It\'s GROWING.',
     '[7x20] Tome 3 of 4: How to totally ROCK challenge 10. e100m divisor!',
-    '[7x21] You should know how this goes. +0.4% Accelerator Boosts / level',
+    '[7x21] You should know how this goes. +0.4% Accelerators / level',
     '[7x22] Accelerator Boosts += 0.004 * Accelerator Boosts',
     '[7x23] A lot of a small +0.4% Multipliers per level',
     '[7x24] Epic Fragments boost Blessing power by 10% * Log10(Epic Shards + 1)',
