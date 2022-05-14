@@ -973,7 +973,7 @@ export const calculateCubeBlessings = () => {
             mult = 1;
         }
 
-        G['cubeBonusMultiplier'][i] = 1 + mult * G['blessingbase'][i]! * Math.pow(cubeArray[i-1], power * (1 + powerBonus[i-1])) * G['tesseractBonusMultiplier'][i]!;
+        G['cubeBonusMultiplier'][i] = Math.min(1e300, 1 + mult * G['blessingbase'][i]! * Math.pow(cubeArray[i-1], power * (1 + powerBonus[i-1])) * G['tesseractBonusMultiplier'][i]!);
     }
     calculateRuneLevels();
     calculateAntSacrificeELO();
