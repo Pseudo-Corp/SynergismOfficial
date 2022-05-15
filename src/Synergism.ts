@@ -1,4 +1,5 @@
-import Decimal, { DecimalSource } from 'break_infinity.js';
+import type { DecimalSource } from 'break_infinity.js';
+import Decimal from 'break_infinity.js';
 import LZString from 'lz-string';
 
 import { isDecimal, getElementById, sortWithIndices, sumContents, btoa } from './Utility';
@@ -21,7 +22,8 @@ import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } 
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
 import { calculateGoldenQuarkGain, reset, resetrepeat, singularity, updateSingularityAchievements } from './Reset';
-import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, TesseractBuildings, calculateTessBuildingsInBudget } from './Buy';
+import type { TesseractBuildings} from './Buy';
+import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
@@ -41,7 +43,7 @@ import { testing, version, lastUpdated } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { singularityData, SingularityUpgrade } from './singularity';
-import { PlayerSave } from './types/LegacySynergism';
+import type { PlayerSave } from './types/LegacySynergism';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -62,8 +64,9 @@ export const interval = new Proxy(setInterval, {
 export const clearInt = new Proxy(clearInterval, {
     apply(target, thisArg, args: [ReturnType<typeof setInterval>]) {
         const id = args[0];
-        if (intervalHold.has(id))
+        if (intervalHold.has(id)) {
             intervalHold.delete(id);
+        }
 
         return target.apply(thisArg, args);
     }
@@ -71,191 +74,191 @@ export const clearInt = new Proxy(clearInterval, {
 
 export const player: Player = {
     worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),
-    coins: new Decimal("1e2"),
-    coinsThisPrestige: new Decimal("1e2"),
-    coinsThisTranscension: new Decimal("1e2"),
-    coinsThisReincarnation: new Decimal("1e2"),
-    coinsTotal: new Decimal("100"),
+    coins: new Decimal('1e2'),
+    coinsThisPrestige: new Decimal('1e2'),
+    coinsThisTranscension: new Decimal('1e2'),
+    coinsThisReincarnation: new Decimal('1e2'),
+    coinsTotal: new Decimal('100'),
 
     firstOwnedCoin: 0,
-    firstGeneratedCoin: new Decimal("0"),
-    firstCostCoin: new Decimal("100"),
+    firstGeneratedCoin: new Decimal('0'),
+    firstCostCoin: new Decimal('100'),
     firstProduceCoin: 0.25,
 
     secondOwnedCoin: 0,
-    secondGeneratedCoin: new Decimal("0"),
-    secondCostCoin: new Decimal("2e3"),
+    secondGeneratedCoin: new Decimal('0'),
+    secondCostCoin: new Decimal('2e3'),
     secondProduceCoin: 2.5,
 
     thirdOwnedCoin: 0,
-    thirdGeneratedCoin: new Decimal("0"),
-    thirdCostCoin: new Decimal("4e4"),
+    thirdGeneratedCoin: new Decimal('0'),
+    thirdCostCoin: new Decimal('4e4'),
     thirdProduceCoin: 25,
 
     fourthOwnedCoin: 0,
-    fourthGeneratedCoin: new Decimal("0"),
-    fourthCostCoin: new Decimal("8e5"),
+    fourthGeneratedCoin: new Decimal('0'),
+    fourthCostCoin: new Decimal('8e5'),
     fourthProduceCoin: 250,
 
     fifthOwnedCoin: 0,
-    fifthGeneratedCoin: new Decimal("0"),
-    fifthCostCoin: new Decimal("16e6"),
+    fifthGeneratedCoin: new Decimal('0'),
+    fifthCostCoin: new Decimal('16e6'),
     fifthProduceCoin: 2500,
 
     firstOwnedDiamonds: 0,
-    firstGeneratedDiamonds: new Decimal("0"),
-    firstCostDiamonds: new Decimal("100"),
+    firstGeneratedDiamonds: new Decimal('0'),
+    firstCostDiamonds: new Decimal('100'),
     firstProduceDiamonds: 0.05,
 
     secondOwnedDiamonds: 0,
-    secondGeneratedDiamonds: new Decimal("0"),
-    secondCostDiamonds: new Decimal("1e5"),
+    secondGeneratedDiamonds: new Decimal('0'),
+    secondCostDiamonds: new Decimal('1e5'),
     secondProduceDiamonds: 0.0005,
 
     thirdOwnedDiamonds: 0,
-    thirdGeneratedDiamonds: new Decimal("0"),
-    thirdCostDiamonds: new Decimal("1e15"),
+    thirdGeneratedDiamonds: new Decimal('0'),
+    thirdCostDiamonds: new Decimal('1e15'),
     thirdProduceDiamonds: 0.00005,
 
     fourthOwnedDiamonds: 0,
-    fourthGeneratedDiamonds: new Decimal("0"),
-    fourthCostDiamonds: new Decimal("1e40"),
+    fourthGeneratedDiamonds: new Decimal('0'),
+    fourthCostDiamonds: new Decimal('1e40'),
     fourthProduceDiamonds: 0.000005,
 
     fifthOwnedDiamonds: 0,
-    fifthGeneratedDiamonds: new Decimal("0"),
-    fifthCostDiamonds: new Decimal("1e100"),
+    fifthGeneratedDiamonds: new Decimal('0'),
+    fifthCostDiamonds: new Decimal('1e100'),
     fifthProduceDiamonds: 0.000005,
 
     firstOwnedMythos: 0,
-    firstGeneratedMythos: new Decimal("0"),
-    firstCostMythos: new Decimal("1"),
+    firstGeneratedMythos: new Decimal('0'),
+    firstCostMythos: new Decimal('1'),
     firstProduceMythos: 1,
 
     secondOwnedMythos: 0,
-    secondGeneratedMythos: new Decimal("0"),
-    secondCostMythos: new Decimal("100"),
+    secondGeneratedMythos: new Decimal('0'),
+    secondCostMythos: new Decimal('100'),
     secondProduceMythos: 0.01,
 
     thirdOwnedMythos: 0,
-    thirdGeneratedMythos: new Decimal("0"),
-    thirdCostMythos: new Decimal("1e4"),
+    thirdGeneratedMythos: new Decimal('0'),
+    thirdCostMythos: new Decimal('1e4'),
     thirdProduceMythos: 0.001,
 
     fourthOwnedMythos: 0,
-    fourthGeneratedMythos: new Decimal("0"),
-    fourthCostMythos: new Decimal("1e8"),
+    fourthGeneratedMythos: new Decimal('0'),
+    fourthCostMythos: new Decimal('1e8'),
     fourthProduceMythos: 0.0002,
 
     fifthOwnedMythos: 0,
-    fifthGeneratedMythos: new Decimal("0"),
-    fifthCostMythos: new Decimal("1e16"),
+    fifthGeneratedMythos: new Decimal('0'),
+    fifthCostMythos: new Decimal('1e16'),
     fifthProduceMythos: 0.00004,
 
     firstOwnedParticles: 0,
-    firstGeneratedParticles: new Decimal("0"),
-    firstCostParticles: new Decimal("1"),
+    firstGeneratedParticles: new Decimal('0'),
+    firstCostParticles: new Decimal('1'),
     firstProduceParticles: .25,
 
     secondOwnedParticles: 0,
-    secondGeneratedParticles: new Decimal("0"),
-    secondCostParticles: new Decimal("100"),
+    secondGeneratedParticles: new Decimal('0'),
+    secondCostParticles: new Decimal('100'),
     secondProduceParticles: .20,
 
     thirdOwnedParticles: 0,
-    thirdGeneratedParticles: new Decimal("0"),
-    thirdCostParticles: new Decimal("1e4"),
+    thirdGeneratedParticles: new Decimal('0'),
+    thirdCostParticles: new Decimal('1e4'),
     thirdProduceParticles: .15,
 
     fourthOwnedParticles: 0,
-    fourthGeneratedParticles: new Decimal("0"),
-    fourthCostParticles: new Decimal("1e8"),
+    fourthGeneratedParticles: new Decimal('0'),
+    fourthCostParticles: new Decimal('1e8'),
     fourthProduceParticles: .10,
 
     fifthOwnedParticles: 0,
-    fifthGeneratedParticles: new Decimal("0"),
-    fifthCostParticles: new Decimal("1e16"),
+    fifthGeneratedParticles: new Decimal('0'),
+    fifthCostParticles: new Decimal('1e16'),
     fifthProduceParticles: .5,
 
     firstOwnedAnts: 0,
-    firstGeneratedAnts: new Decimal("0"),
-    firstCostAnts: new Decimal("1e700"),
+    firstGeneratedAnts: new Decimal('0'),
+    firstCostAnts: new Decimal('1e700'),
     firstProduceAnts: .0001,
 
     secondOwnedAnts: 0,
-    secondGeneratedAnts: new Decimal("0"),
-    secondCostAnts: new Decimal("3"),
+    secondGeneratedAnts: new Decimal('0'),
+    secondCostAnts: new Decimal('3'),
     secondProduceAnts: .00005,
 
     thirdOwnedAnts: 0,
-    thirdGeneratedAnts: new Decimal("0"),
-    thirdCostAnts: new Decimal("100"),
+    thirdGeneratedAnts: new Decimal('0'),
+    thirdCostAnts: new Decimal('100'),
     thirdProduceAnts: .00002,
 
     fourthOwnedAnts: 0,
-    fourthGeneratedAnts: new Decimal("0"),
-    fourthCostAnts: new Decimal("1e4"),
+    fourthGeneratedAnts: new Decimal('0'),
+    fourthCostAnts: new Decimal('1e4'),
     fourthProduceAnts: .00001,
 
     fifthOwnedAnts: 0,
-    fifthGeneratedAnts: new Decimal("0"),
-    fifthCostAnts: new Decimal("1e12"),
+    fifthGeneratedAnts: new Decimal('0'),
+    fifthCostAnts: new Decimal('1e12'),
     fifthProduceAnts: .000005,
 
     sixthOwnedAnts: 0,
-    sixthGeneratedAnts: new Decimal("0"),
-    sixthCostAnts: new Decimal("1e36"),
+    sixthGeneratedAnts: new Decimal('0'),
+    sixthCostAnts: new Decimal('1e36'),
     sixthProduceAnts: .000002,
 
     seventhOwnedAnts: 0,
-    seventhGeneratedAnts: new Decimal("0"),
-    seventhCostAnts: new Decimal("1e100"),
+    seventhGeneratedAnts: new Decimal('0'),
+    seventhCostAnts: new Decimal('1e100'),
     seventhProduceAnts: .000001,
 
     eighthOwnedAnts: 0,
-    eighthGeneratedAnts: new Decimal("0"),
-    eighthCostAnts: new Decimal("1e300"),
+    eighthGeneratedAnts: new Decimal('0'),
+    eighthCostAnts: new Decimal('1e300'),
     eighthProduceAnts: .00000001,
 
     ascendBuilding1: {
         cost: 1,
         owned: 0,
-        generated: new Decimal("0"),
+        generated: new Decimal('0'),
         multiplier: 0.01
     },
     ascendBuilding2: {
         cost: 10,
         owned: 0,
-        generated: new Decimal("0"),
+        generated: new Decimal('0'),
         multiplier: 0.01
     },
     ascendBuilding3: {
         cost: 100,
         owned: 0,
-        generated: new Decimal("0"),
+        generated: new Decimal('0'),
         multiplier: 0.01
     },
     ascendBuilding4: {
         cost: 1000,
         owned: 0,
-        generated: new Decimal("0"),
+        generated: new Decimal('0'),
         multiplier: 0.01
     },
     ascendBuilding5: {
         cost: 10000,
         owned: 0,
-        generated: new Decimal("0"),
+        generated: new Decimal('0'),
         multiplier: 0.01
     },
 
-    multiplierCost: new Decimal("1e5"),
+    multiplierCost: new Decimal('1e5'),
     multiplierBought: 0,
 
-    acceleratorCost: new Decimal("500"),
+    acceleratorCost: new Decimal('500'),
     acceleratorBought: 0,
 
     acceleratorBoostBought: 0,
-    acceleratorBoostCost: new Decimal("1e3"),
+    acceleratorBoostCost: new Decimal('1e3'),
 
     upgrades: Array(141).fill(0) as number[],
 
@@ -263,13 +266,13 @@ export const player: Player = {
     transcendCount: 0,
     reincarnationCount: 0,
 
-    prestigePoints: new Decimal("0"),
-    transcendPoints: new Decimal("0"),
-    reincarnationPoints: new Decimal("0"),
+    prestigePoints: new Decimal('0'),
+    transcendPoints: new Decimal('0'),
+    reincarnationPoints: new Decimal('0'),
 
-    prestigeShards: new Decimal("0"),
-    transcendShards: new Decimal("0"),
-    reincarnationShards: new Decimal("0"),
+    prestigeShards: new Decimal('0'),
+    transcendShards: new Decimal('0'),
+    reincarnationShards: new Decimal('0'),
 
     toggles: {
         1: false,
@@ -304,7 +307,7 @@ export const player: Player = {
         30: true,
         31: true,
         32: true,
-        33: false,
+        33: false
     },
 
     challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -316,7 +319,7 @@ export const player: Player = {
     currentChallenge: {
         transcension: 0,
         reincarnation: 0,
-        ascension: 0,
+        ascension: 0
     },
     researchPoints: 0,
     obtainiumtimer: 0,
@@ -407,7 +410,7 @@ export const player: Player = {
         prestige: true,
         transcend: true,
         generators: true,
-        reincarnate: true,
+        reincarnate: true
     },
     tabnumber: 1,
     subtabNumber: 0,
@@ -453,7 +456,7 @@ export const player: Player = {
         chronometer3: 0,
         seasonPassY: 0,
         seasonPassZ: 0,
-        challengeTome2: 0,
+        challengeTome2: 0
     },
     autoSacrificeToggle: false,
     autoFortifyToggle: false,
@@ -466,7 +469,7 @@ export const player: Player = {
     quarkstimer: 90000,
     goldenQuarksTimer: 90000,
 
-    antPoints: new Decimal("1"),
+    antPoints: new Decimal('1'),
     antUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     antSacrificePoints: 0,
     antSacrificeTimer: 900,
@@ -555,7 +558,7 @@ export const player: Player = {
         hypercubeBonus: 0,
         taxes: 0,
         scoreBonus: 0,
-        globalSpeed: 0,
+        globalSpeed: 0
 
     },
 
@@ -570,9 +573,9 @@ export const player: Player = {
         multiplier: MultiplierHepteract
     },
 
-    ascendShards: new Decimal("0"),
+    ascendShards: new Decimal('0'),
     autoAscend: false,
-    autoAscendMode: "c10Completions",
+    autoAscendMode: 'c10Completions',
     autoAscendThreshold: 1,
     roombaResearchIndex: 0,
     ascStatToggles: { // false here means show per second
@@ -580,7 +583,7 @@ export const player: Player = {
         2: false,
         3: false,
         4: false,
-        5: false,
+        5: false
     },
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -589,13 +592,13 @@ export const player: Player = {
         1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
     corruptionLoadoutNames: [
-        "Loadout 1",
-        "Loadout 2",
-        "Loadout 3",
-        "Loadout 4",
+        'Loadout 1',
+        'Loadout 2',
+        'Loadout 3',
+        'Loadout 4'
     ],
     corruptionShowStats: true,
 
@@ -620,7 +623,7 @@ export const player: Player = {
 
     autoTesseracts: [false, false, false, false, false, false],
 
-    saveString: "Synergism-$VERSION$-$TIME$.txt",
+    saveString: 'Synergism-$VERSION$-$TIME$.txt',
     exporttest: !testing,
 
     dayCheck: null,
@@ -680,7 +683,7 @@ export const player: Player = {
         masterPack: new SingularityUpgrade(singularityData['masterPack']),
         divinePack: new SingularityUpgrade(singularityData['divinePack']),
     },
-    dailyCodeUsed: false,
+    dailyCodeUsed: false
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -693,7 +696,7 @@ export const saveSynergy = async (button?: boolean) => {
     player.loaded1009hotfix1 = true;
 
     // shallow hold, doesn't modify OG object nor is affected by modifications to OG
-    const p = Object.assign({}, player, { 
+    const p = Object.assign({}, player, {
         codes: Array.from(player.codes),
         worlds: Number(player.worlds),
         wowCubes: Number(player.wowCubes),
@@ -706,7 +709,6 @@ export const saveSynergy = async (button?: boolean) => {
     if (save !== null) {
         const saveBlob = new Blob([save], { type: 'text/plain' });
         await localforage.setItem<Blob>('Synergysave2', saveBlob);
-        console.log('Saved the game ', Date.now());
     }
 
     if (button) {
@@ -719,7 +721,7 @@ export const saveSynergy = async (button?: boolean) => {
 /**
  * Map of properties on the Player object to adapt
  */
-const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
+const toAdapt = new Map<keyof Player,(data: PlayerSave) => unknown>([
     ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) })],
     ['wowCubes', data => new WowCubes(Number(data.wowCubes))],
     ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts))],
@@ -728,7 +730,6 @@ const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
 ]);
 
 const loadSynergy = async () => {
-    console.log('loaded attempted');
     const save =
         await localforage.getItem<Blob>('Synergysave2') ??
         localStorage.getItem('Synergysave2');
@@ -751,7 +752,7 @@ const loadSynergy = async () => {
             (data.exporttest === false || data.exporttest === 'NO!') &&
             !testing
         ) {
-            return Alert(`You can't load this save anymore!`);
+            return Alert('You can\'t load this save anymore!');
         }
 
         const oldCodesUsed = Array.from(
@@ -822,7 +823,7 @@ const loadSynergy = async () => {
             }
         }
 
-        if(!('rngCode' in data)) {
+        if (!('rngCode' in data)) {
             player.rngCode = 0;
         }
 
@@ -844,7 +845,7 @@ const loadSynergy = async () => {
 
         //Fix dumb shop stuff
         //First, if shop isn't even defined we just define it as so
-        if(data.shopUpgrades === undefined){
+        if (data.shopUpgrades === undefined){
             player.shopUpgrades = Object.assign({}, blankSave.shopUpgrades);
         }
 
@@ -869,11 +870,11 @@ const loadSynergy = async () => {
             player.thirdOwnedParticles = 0;
             player.fourthOwnedParticles = 0;
             player.fifthOwnedParticles = 0;
-            player.firstCostParticles = new Decimal("1");
-            player.secondCostParticles = new Decimal("1e2");
-            player.thirdCostParticles = new Decimal("1e4");
-            player.fourthCostParticles = new Decimal("1e8");
-            player.fifthCostParticles = new Decimal("1e16");
+            player.firstCostParticles = new Decimal('1');
+            player.secondCostParticles = new Decimal('1e2');
+            player.thirdCostParticles = new Decimal('1e4');
+            player.fourthCostParticles = new Decimal('1e8');
+            player.fifthCostParticles = new Decimal('1e16');
             player.autoSacrificeToggle = false;
             player.autoResearchToggle = false;
             player.autoResearchMode = 'manual';
@@ -891,11 +892,11 @@ const loadSynergy = async () => {
             player.thirdOwnedParticles = 0;
             player.fourthOwnedParticles = 0;
             player.fifthOwnedParticles = 0;
-            player.firstCostParticles = new Decimal("1");
-            player.secondCostParticles = new Decimal("1e2");
-            player.thirdCostParticles = new Decimal("1e4");
-            player.fourthCostParticles = new Decimal("1e8");
-            player.fifthCostParticles = new Decimal("1e16");
+            player.firstCostParticles = new Decimal('1');
+            player.secondCostParticles = new Decimal('1e2');
+            player.thirdCostParticles = new Decimal('1e4');
+            player.fourthCostParticles = new Decimal('1e8');
+            player.fifthCostParticles = new Decimal('1e16');
         }
         if (data.loaded10091 === undefined || !data.loaded10091 || player.researches[86] > 100 || player.researches[87] > 100 || player.researches[88] > 100 || player.researches[89] > 100 || player.researches[90] > 10) {
             player.loaded10091 = true;
@@ -922,58 +923,58 @@ const loadSynergy = async () => {
 
         //const shop = data.shopUpgrades as LegacyShopUpgrades & Player['shopUpgrades'];
         if (
-            data.achievements?.[169] === undefined || 
-            typeof player.achievements[169] === 'undefined' || 
-        //    (shop.antSpeed === undefined && shop.antSpeedLevel === undefined) || 
-        //    (shop.antSpeed === undefined && typeof shop.antSpeedLevel === 'undefined') || 
-            data.loaded1010 === undefined || 
+            data.achievements?.[169] === undefined ||
+            typeof player.achievements[169] === 'undefined' ||
+            //    (shop.antSpeed === undefined && shop.antSpeedLevel === undefined) ||
+            //    (shop.antSpeed === undefined && typeof shop.antSpeedLevel === 'undefined') ||
+            data.loaded1010 === undefined ||
             data.loaded1010 === false
         ) {
             player.loaded1010 = true;
             player.codes.set(21, false);
 
             player.firstOwnedAnts = 0;
-            player.firstGeneratedAnts = new Decimal("0");
-            player.firstCostAnts = new Decimal("1e700");
+            player.firstGeneratedAnts = new Decimal('0');
+            player.firstCostAnts = new Decimal('1e700');
             player.firstProduceAnts = .0001;
 
             player.secondOwnedAnts = 0;
-            player.secondGeneratedAnts = new Decimal("0");
-            player.secondCostAnts = new Decimal("3");
+            player.secondGeneratedAnts = new Decimal('0');
+            player.secondCostAnts = new Decimal('3');
             player.secondProduceAnts = .00005;
 
             player.thirdOwnedAnts = 0;
-            player.thirdGeneratedAnts = new Decimal("0");
-            player.thirdCostAnts = new Decimal("100");
+            player.thirdGeneratedAnts = new Decimal('0');
+            player.thirdCostAnts = new Decimal('100');
             player.thirdProduceAnts = .00002;
 
             player.fourthOwnedAnts = 0;
-            player.fourthGeneratedAnts = new Decimal("0");
-            player.fourthCostAnts = new Decimal("1e4");
+            player.fourthGeneratedAnts = new Decimal('0');
+            player.fourthCostAnts = new Decimal('1e4');
             player.fourthProduceAnts = .00001;
 
             player.fifthOwnedAnts = 0;
-            player.fifthGeneratedAnts = new Decimal("0");
-            player.fifthCostAnts = new Decimal("1e12");
+            player.fifthGeneratedAnts = new Decimal('0');
+            player.fifthCostAnts = new Decimal('1e12');
             player.fifthProduceAnts = .000005;
 
             player.sixthOwnedAnts = 0;
-            player.sixthGeneratedAnts = new Decimal("0");
-            player.sixthCostAnts = new Decimal("1e36");
+            player.sixthGeneratedAnts = new Decimal('0');
+            player.sixthCostAnts = new Decimal('1e36');
             player.sixthProduceAnts = .000002;
 
             player.seventhOwnedAnts = 0;
-            player.seventhGeneratedAnts = new Decimal("0");
-            player.seventhCostAnts = new Decimal("1e100");
+            player.seventhGeneratedAnts = new Decimal('0');
+            player.seventhCostAnts = new Decimal('1e100');
             player.seventhProduceAnts = .000001;
 
             player.eighthOwnedAnts = 0;
-            player.eighthGeneratedAnts = new Decimal("0");
-            player.eighthCostAnts = new Decimal("1e300");
+            player.eighthGeneratedAnts = new Decimal('0');
+            player.eighthCostAnts = new Decimal('1e300');
             player.eighthProduceAnts = .00000001;
 
             player.achievements.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            player.antPoints = new Decimal("1");
+            player.antPoints = new Decimal('1');
 
             player.upgrades[38] = 0;
             player.upgrades[39] = 0;
@@ -986,8 +987,8 @@ const loadSynergy = async () => {
             player.upgrades[80] = 0;
 
 
-        //    player.shopUpgrades.antSpeed = 0;
-        //    player.shopUpgrades.shopTalisman = 0;
+            //    player.shopUpgrades.antSpeed = 0;
+            //    player.shopUpgrades.shopTalisman = 0;
 
             player.antUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -1049,8 +1050,8 @@ const loadSynergy = async () => {
             player.antMax = false;
         }
 
-        if (player.firstOwnedAnts < 1 && player.firstCostAnts.gte("1e1200")) {
-            player.firstCostAnts = new Decimal("1e700");
+        if (player.firstOwnedAnts < 1 && player.firstCostAnts.gte('1e1200')) {
+            player.firstCostAnts = new Decimal('1e700');
             player.firstOwnedAnts = 0;
         }
 
@@ -1187,10 +1188,10 @@ const loadSynergy = async () => {
         }
 
 
-        if (player.saveString === "" || player.saveString === "Synergism-v1011Test.txt") {
-            player.saveString = "Synergism-$VERSION$-$TIME$.txt"
+        if (player.saveString === '' || player.saveString === 'Synergism-v1011Test.txt') {
+            player.saveString = 'Synergism-$VERSION$-$TIME$.txt'
         }
-        getElementById<HTMLInputElement>("saveStringInput").value = player.saveString
+        getElementById<HTMLInputElement>('saveStringInput').value = player.saveString
 
         player.wowCubes = new WowCubes(Number(player.wowCubes) || 0);
 
@@ -1244,7 +1245,7 @@ const loadSynergy = async () => {
                     d = 'thousand'
                 }
                 const e = q[j] + d;
-                DOMCacheGetOrSet(e).style.backgroundColor = ""
+                DOMCacheGetOrSet(e).style.backgroundColor = ''
             }
             let c;
             const curBuyAmount = player[`${q[j]}buyamount` as const];
@@ -1262,7 +1263,7 @@ const loadSynergy = async () => {
             }
 
             const b = q[j] + c;
-            DOMCacheGetOrSet(b).style.backgroundColor = "green"
+            DOMCacheGetOrSet(b).style.backgroundColor = 'green'
 
         }
 
@@ -1282,12 +1283,12 @@ const loadSynergy = async () => {
         revealStuff();
         toggleauto();
 
-        DOMCacheGetOrSet("startTimerValue").textContent = format(player.autoChallengeTimer.start, 2, true) + "s"
-        getElementById<HTMLInputElement>("startAutoChallengeTimerInput").value = player.autoChallengeTimer.start + '';
-        DOMCacheGetOrSet("exitTimerValue").textContent = format(player.autoChallengeTimer.exit, 2, true) + "s"
-        getElementById<HTMLInputElement>("exitAutoChallengeTimerInput").value = player.autoChallengeTimer.exit + '';
-        DOMCacheGetOrSet("enterTimerValue").textContent = format(player.autoChallengeTimer.enter, 2, true) + "s"
-        getElementById<HTMLInputElement>("enterAutoChallengeTimerInput").value = player.autoChallengeTimer.enter + '';
+        DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's'
+        getElementById<HTMLInputElement>('startAutoChallengeTimerInput').value = player.autoChallengeTimer.start + '';
+        DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's'
+        getElementById<HTMLInputElement>('exitAutoChallengeTimerInput').value = player.autoChallengeTimer.exit + '';
+        DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's'
+        getElementById<HTMLInputElement>('enterAutoChallengeTimerInput').value = player.autoChallengeTimer.enter + '';
 
         corruptionStatsUpdate();
         for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
@@ -1297,19 +1298,19 @@ const loadSynergy = async () => {
         updateCorruptionLoadoutNames()
 
         for (let j = 1; j <= 5; j++) {
-            const ouch = DOMCacheGetOrSet("tesseractAutoToggle" + j);
+            const ouch = DOMCacheGetOrSet('tesseractAutoToggle' + j);
             (player.autoTesseracts[j]) ?
-                (ouch.textContent = "Auto [ON]", ouch.style.border = "2px solid green") :
-                (ouch.textContent = "Auto [OFF]", ouch.style.border = "2px solid red");
+                (ouch.textContent = 'Auto [ON]', ouch.style.border = '2px solid green') :
+                (ouch.textContent = 'Auto [OFF]', ouch.style.border = '2px solid red');
         }
 
-        DOMCacheGetOrSet("buyRuneBlessingToggleValue").textContent = format(player.runeBlessingBuyAmount, 0, true);
-        DOMCacheGetOrSet("buyRuneSpiritToggleValue").textContent = format(player.runeSpiritBuyAmount, 0, true);
+        DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
+        DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
 
-        DOMCacheGetOrSet("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + "%";
+        DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + '%';
 
-        DOMCacheGetOrSet("talismanlevelup").style.display = "none"
-        DOMCacheGetOrSet("talismanrespec").style.display = "none"
+        DOMCacheGetOrSet('talismanlevelup').style.display = 'none'
+        DOMCacheGetOrSet('talismanrespec').style.display = 'none'
         calculatePlatonicBlessings();
         calculateHypercubeBlessings();
         calculateTesseractBlessings();
@@ -1328,72 +1329,72 @@ const loadSynergy = async () => {
 
 
         if (player.resettoggle1 === 1) {
-            DOMCacheGetOrSet("prestigeautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
         }
         if (player.resettoggle2 === 1) {
-            DOMCacheGetOrSet("transcendautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet('transcendautotoggle').textContent = 'Mode: AMOUNT'
         }
         if (player.resettoggle3 === 1) {
-            DOMCacheGetOrSet("reincarnateautotoggle").textContent = "Mode: AMOUNT"
+            DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
         }
 
         if (player.resettoggle1 === 2) {
-            DOMCacheGetOrSet("prestigeautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: TIME'
         }
         if (player.resettoggle2 === 2) {
-            DOMCacheGetOrSet("transcendautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet('transcendautotoggle').textContent = 'Mode: TIME'
         }
         if (player.resettoggle3 === 2) {
-            DOMCacheGetOrSet("reincarnateautotoggle").textContent = "Mode: TIME"
+            DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: TIME'
         }
 
         if (player.tesseractAutoBuyerToggle === 1) {
-            DOMCacheGetOrSet("tesseractautobuytoggle").textContent = "Auto Buy: ON"
-            DOMCacheGetOrSet("tesseractautobuytoggle").style.border = "2px solid green"
+            DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: ON'
+            DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid green'
         }
         if (player.tesseractAutoBuyerToggle === 2) {
-            DOMCacheGetOrSet("tesseractautobuytoggle").textContent = "Auto Buy: OFF"
-            DOMCacheGetOrSet("tesseractautobuytoggle").style.border = "2px solid red"
+            DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: OFF'
+            DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
         }
 
         if (player.autoResearchToggle) {
-            DOMCacheGetOrSet("toggleautoresearch").textContent = "Automatic: ON"
+            DOMCacheGetOrSet('toggleautoresearch').textContent = 'Automatic: ON'
         }
         if (!player.autoResearchToggle) {
-            DOMCacheGetOrSet("toggleautoresearch").textContent = "Automatic: OFF"
+            DOMCacheGetOrSet('toggleautoresearch').textContent = 'Automatic: OFF'
         }
         if (player.autoResearchMode === 'cheapest') {
-            DOMCacheGetOrSet("toggleautoresearchmode").textContent = "Automatic mode: Cheapest"
+            DOMCacheGetOrSet('toggleautoresearchmode').textContent = 'Automatic mode: Cheapest'
         } else {
-            DOMCacheGetOrSet("toggleautoresearchmode").textContent = "Automatic mode: Manual"
+            DOMCacheGetOrSet('toggleautoresearchmode').textContent = 'Automatic mode: Manual'
         }
         if (player.autoSacrificeToggle == true) {
-            DOMCacheGetOrSet("toggleautosacrifice").textContent = "Auto Rune: ON"
-            DOMCacheGetOrSet("toggleautosacrifice").style.border = "2px solid green"
+            DOMCacheGetOrSet('toggleautosacrifice').textContent = 'Auto Rune: ON'
+            DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid green'
         }
         if (player.autoSacrificeToggle == false) {
-            DOMCacheGetOrSet("toggleautosacrifice").textContent = "Auto Rune: OFF"
-            DOMCacheGetOrSet("toggleautosacrifice").style.border = "2px solid red"
+            DOMCacheGetOrSet('toggleautosacrifice').textContent = 'Auto Rune: OFF'
+            DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid red'
         }
         if (player.autoFortifyToggle == true) {
-            DOMCacheGetOrSet("toggleautofortify").textContent = "Auto Fortify: ON"
-            DOMCacheGetOrSet("toggleautofortify").style.border = "2px solid green"
+            DOMCacheGetOrSet('toggleautofortify').textContent = 'Auto Fortify: ON'
+            DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid green'
         }
         if (player.autoFortifyToggle == false) {
-            DOMCacheGetOrSet("toggleautofortify").textContent = "Auto Fortify: OFF"
-            DOMCacheGetOrSet("toggleautofortify").style.border = "2px solid red"
+            DOMCacheGetOrSet('toggleautofortify').textContent = 'Auto Fortify: OFF'
+            DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid red'
         }
         if (player.autoEnhanceToggle == true) {
-            DOMCacheGetOrSet("toggleautoenhance").textContent = "Auto Enhance: ON"
-            DOMCacheGetOrSet("toggleautoenhance").style.border = "2px solid green"
+            DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: ON'
+            DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid green'
         }
         if (player.autoEnhanceToggle == false) {
-            DOMCacheGetOrSet("toggleautoenhance").textContent = "Auto Enhance: OFF"
-            DOMCacheGetOrSet("toggleautoenhance").style.border = "2px solid red"
+            DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: OFF'
+            DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid red'
         }
         if (!player.autoAscend) {
-            DOMCacheGetOrSet("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
-            DOMCacheGetOrSet("ascensionAutoEnable").style.border = "2px solid red"
+            DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [OFF]';
+            DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
 
         for (let i = 1; i <= 2; i++) {
@@ -1402,12 +1403,12 @@ const loadSynergy = async () => {
             toggleAntAutoSacrifice(1);
         }
 
-        DOMCacheGetOrSet("historyTogglePerSecondButton").textContent = "Per second: " + (player.historyShowPerSecond ? "ON" : "OFF");
-        DOMCacheGetOrSet("historyTogglePerSecondButton").style.borderColor = (player.historyShowPerSecond ? "green" : "red");
+        DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = 'Per second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF');
+        DOMCacheGetOrSet('historyTogglePerSecondButton').style.borderColor = (player.historyShowPerSecond ? 'green' : 'red');
 
         if (!player.autoAscend) {
-            DOMCacheGetOrSet("ascensionAutoEnable").textContent = "Auto Ascend [OFF]";
-            DOMCacheGetOrSet("ascensionAutoEnable").style.border = "2px solid red"
+            DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [OFF]';
+            DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
 
         player.autoResearch = Math.min(200, player.autoResearch)
@@ -1415,11 +1416,11 @@ const loadSynergy = async () => {
 
 
         if (player.researches[61] === 0) {
-            DOMCacheGetOrSet('automaticobtainium').textContent = "[LOCKED - Buy Research 3x11]"
+            DOMCacheGetOrSet('automaticobtainium').textContent = '[LOCKED - Buy Research 3x11]'
         }
 
         if (player.autoSacrificeToggle && player.autoSacrifice > 0.5) {
-            DOMCacheGetOrSet("rune" + player.autoSacrifice).style.backgroundColor = "orange"
+            DOMCacheGetOrSet('rune' + player.autoSacrifice).style.backgroundColor = 'orange'
         }
 
         toggleTalismanBuy(player.buyTalismanShardPercent);
@@ -1447,7 +1448,7 @@ const loadSynergy = async () => {
 }
 
 // Bad browsers (like Safari) only recently implemented this.
-// 
+//
 const supportsFormatToParts = typeof (Intl.NumberFormat.prototype as Intl.NumberFormat).formatToParts === 'function';
 
 // In some browsers, this will return an empty-1 length array (?), causing a "TypeError: Cannot read property 'value' of undefined"
@@ -1491,32 +1492,35 @@ const padEvery = (str: string, places = 3) => {
  * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
  */
 export const format = (
-    input: Decimal | number | { [Symbol.toPrimitive]: unknown } | null | undefined, 
-    accuracy = 0, 
+    input: Decimal | number | { [Symbol.toPrimitive]: unknown } | null | undefined,
+    accuracy = 0,
     long = false,
     truncate = true
 ): string => {
-    if (input == null) return `0 [NaN]`;
+    if (input == null) {
+        return '0 [NaN]';
+    }
 
     if (
-        typeof input === 'object' && 
+        typeof input === 'object' &&
         Symbol.toPrimitive in input
     ) {
         input = Number(input);
     }
 
     if ( // invalid parameter
-        !(input instanceof Decimal) && 
-        typeof input !== 'number' || 
+        !(input instanceof Decimal) &&
+        typeof input !== 'number' ||
         isNaN(input as number)
-    )
+    ) {
         return '0 [und.]';
-    else if ( // this case handles numbers less than 1e-6 and greater than 0
-        typeof input === 'number' && 
+    } else if ( // this case handles numbers less than 1e-6 and greater than 0
+        typeof input === 'number' &&
         input < 1e-3 && // arbitrary number, can be changed
         input > 0 // don't handle negative numbers, probably could be removed
-    )
+    ) {
         return input.toExponential(accuracy);
+    }
 
     let power!: number;
     let mantissa!: number;
@@ -1571,7 +1575,7 @@ export const format = (
         const frontFormatted = padEvery(front);
 
         // if the back is undefined that means there are no decimals to display, return just the front
-        return !back 
+        return !back
             ? frontFormatted
             : `${frontFormatted}${dec}${back}`;
     } else if (power < 1e6) {
@@ -1586,11 +1590,11 @@ export const format = (
         if (!Number.isFinite(power)) {
             return 'Infinity';
         }
-        
+
         // if the power is greater than 1e6 apply notation scientific notation
         // Makes mantissa be rounded down to 2 decimal places
         const mantissaLook = testing && truncate ? '' : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts);
-        
+
         // Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234)
         const powerDigits = Math.ceil(Math.log10(power));
         let powerFront = ((powerDigits - 1) % 3) + 1;
@@ -1661,25 +1665,25 @@ export const format = (
         if (power >= 1e60) {
             return `INFINITE`
         }
-        
+
         // If it doesn't fit a notation then default to mantissa e power
         return `${mantissa}e${power}`;
     } else {
-        return `0 [und.]`;
+        return '0 [und.]';
     }
 }
 
 export const formatTimeShort = (seconds: number, msMaxSeconds?: number): string => {
-    return ((seconds >= 86400) ? format(Math.floor(seconds / 86400)) + "d" : '') +
-        ((seconds >= 3600) ? format(Math.floor(seconds / 3600) % 24) + "h" : '') +
-        ((seconds >= 60)   ? format(Math.floor(seconds / 60) % 60) + "m"   : '') +
+    return ((seconds >= 86400) ? format(Math.floor(seconds / 86400)) + 'd' : '') +
+        ((seconds >= 3600) ? format(Math.floor(seconds / 3600) % 24) + 'h' : '') +
+        ((seconds >= 60)   ? format(Math.floor(seconds / 60) % 60) + 'm'   : '') +
         ((seconds >= 8640000) ? '' : format(Math.floor(seconds) % 60) + ((msMaxSeconds && seconds < msMaxSeconds)  //Don't show seconds when you're over 100 days, like honestly
-            ? "." + (Math.floor((seconds % 1) * 1000).toString().padStart(3, '0')) : '') + "s");
+            ? '.' + (Math.floor((seconds % 1) * 1000).toString().padStart(3, '0')) : '') + 's');
 }
 
 export const updateAllTick = (): void => {
     let a = 0;
-    
+
     G['totalAccelerator'] = player.acceleratorBought;
     G['costDivisor'] = 1;
 
@@ -1745,7 +1749,7 @@ export const updateAllTick = (): void => {
         a += Math.floor(Math.pow(G['rune1level'] * G['effectiveLevelMult'] / 4, 1.25));
         a *= (1 + G['rune1level'] * 1 / 400 * G['effectiveLevelMult']);
     }
-    
+
     calculateAcceleratorMultiplier();
     a *= G['acceleratorMultiplier']
     a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]]))
@@ -1765,9 +1769,9 @@ export const updateAllTick = (): void => {
     }
 
     G['acceleratorPower'] = Math.pow(
-        1.1 + G['tuSevenMulti'] * 
-        (G['totalAcceleratorBoost'] / 100) 
-        * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20), 
+        1.1 + G['tuSevenMulti'] *
+        (G['totalAcceleratorBoost'] / 100)
+        * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20),
         1 + 0.04 * CalcECC('reincarnation', player.challengecompletions[7])
     );
     G['acceleratorPower'] += 1 / 200 * Math.floor(CalcECC('transcend', player.challengecompletions[2]) / 2) * 100 / 100
@@ -1788,12 +1792,12 @@ export const updateAllTick = (): void => {
             G['acceleratorPower'] = 1;
         }
         if (player.currentChallenge.transcension === 3) {
-            G['acceleratorPower'] = 
-                1.05 + 
-                2 * G['tuSevenMulti'] * 
-                (G['totalAcceleratorBoost'] / 300) * 
+            G['acceleratorPower'] =
+                1.05 +
+                2 * G['tuSevenMulti'] *
+                (G['totalAcceleratorBoost'] / 300) *
                 (1 + CalcECC('transcend', player.challengecompletions[2]) / 20
-            );
+                );
         }
     }
     if (player.currentChallenge.reincarnation === 7) {
@@ -1895,7 +1899,7 @@ export const updateAllMultiplier = (): void => {
 
     if (player.achievements[38] > 0.5) {
         a += Math.floor(Math.floor(
-            G['rune2level'] / 10 * G['effectiveLevelMult']) * 
+            G['rune2level'] / 10 * G['effectiveLevelMult']) *
             Math.floor(1 + G['rune2level'] / 10 * G['effectiveLevelMult']) / 2
         ) * 100 / 100;
     }
@@ -1904,7 +1908,7 @@ export const updateAllMultiplier = (): void => {
     a *= (1 + player.achievements[58] / 100)
     a *= (1 + player.achievements[59] / 100)
     a *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
-	a *= (1 + 0.03 * player.upgrades[34] + 0.02 * player.upgrades[35])
+    a *= (1 + 0.03 * player.upgrades[34] + 0.02 * player.upgrades[35])
     a *= (1 + 1 / 5 * player.researches[2] * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14])))
     a *= (1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15])
     a *= (1 + G['rune2level'] / 400 * G['effectiveLevelMult'])
@@ -1992,15 +1996,15 @@ export const multipliers = (): void => {
         c7 = 0
     }
 
-    G['buildingPower'] = 
+    G['buildingPower'] =
         1 + (1 - Math.pow(2, -1 / 160)) * c7 * Decimal.log(
-            player.reincarnationShards.add(1), 10) * 
-            (1 + 1 / 20 * player.researches[36] + 
-            1 / 40 * player.researches[37] + 1 / 40 * 
-            player.researches[38]) + 
-            (c7 + 0.2) * 0.25 / 1.2 * 
+            player.reincarnationShards.add(1), 10) *
+            (1 + 1 / 20 * player.researches[36] +
+            1 / 40 * player.researches[37] + 1 / 40 *
+            player.researches[38]) +
+            (c7 + 0.2) * 0.25 / 1.2 *
             CalcECC('reincarnation', player.challengecompletions[8]
-        );
+            );
 
     G['buildingPower'] = Math.pow(G['buildingPower'], 1 + player.cubeUpgrades[12] * 0.09)
     G['buildingPower'] = Math.pow(G['buildingPower'], 1 + player.cubeUpgrades[36] * 0.05)
@@ -2042,13 +2046,13 @@ export const multipliers = (): void => {
         s = s.dividedBy(1e250)
     }
     if (player.currentChallenge.reincarnation === 7) {
-        s = s.dividedBy("1e1250")
+        s = s.dividedBy('1e1250')
     }
     if (player.currentChallenge.reincarnation === 9) {
-        s = s.dividedBy("1e2000000")
+        s = s.dividedBy('1e2000000')
     }
     if (player.currentChallenge.reincarnation === 10) {
-        s = s.dividedBy("1e12500000")
+        s = s.dividedBy('1e12500000')
     }
     c = Decimal.pow(s, 1 + 0.001 * player.researches[17]);
     let lol = Decimal.pow(c, 1 + 0.025 * player.upgrades[123])
@@ -2073,7 +2077,7 @@ export const multipliers = (): void => {
         G['coinOneMulti'] = G['coinOneMulti'].times(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)));
     }
     if (player.upgrades[56] > 0.5) {
-        G['coinOneMulti'] = G['coinOneMulti'].times("1e5000")
+        G['coinOneMulti'] = G['coinOneMulti'].times('1e5000')
     }
 
     G['coinTwoMulti'] = new Decimal(1);
@@ -2087,7 +2091,7 @@ export const multipliers = (): void => {
         G['coinTwoMulti'] = G['coinTwoMulti'].times(Decimal.min(1e200, player.transcendPoints.times(1e30).add(1)));
     }
     if (player.upgrades[57] > 0.5) {
-        G['coinTwoMulti'] = G['coinTwoMulti'].times("1e7500")
+        G['coinTwoMulti'] = G['coinTwoMulti'].times('1e7500')
     }
 
     G['coinThreeMulti'] = new Decimal(1);
@@ -2098,7 +2102,7 @@ export const multipliers = (): void => {
         G['coinThreeMulti'] = G['coinThreeMulti'].times(Decimal.min(1e125, player.transcendShards.add(1)));
     }
     if (player.upgrades[58] > 0.5) {
-        G['coinThreeMulti'] = G['coinThreeMulti'].times("1e15000")
+        G['coinThreeMulti'] = G['coinThreeMulti'].times('1e15000')
     }
 
     G['coinFourMulti'] = new Decimal(1);
@@ -2109,7 +2113,7 @@ export const multipliers = (): void => {
         G['coinFourMulti'] = G['coinFourMulti'].times(1e100);
     }
     if (player.upgrades[59] > 0.5) {
-        G['coinFourMulti'] = G['coinFourMulti'].times("1e25000")
+        G['coinFourMulti'] = G['coinFourMulti'].times('1e25000')
     }
 
     G['coinFiveMulti'] = new Decimal(1);
@@ -2117,7 +2121,7 @@ export const multipliers = (): void => {
         G['coinFiveMulti'] = G['coinFiveMulti'].times(first6CoinUp);
     }
     if (player.upgrades[60] > 0.5) {
-        G['coinFiveMulti'] = G['coinFiveMulti'].times("1e35000")
+        G['coinFiveMulti'] = G['coinFiveMulti'].times('1e35000')
     }
 
     G['globalCrystalMultiplier'] = new Decimal(1)
@@ -2130,14 +2134,14 @@ export const multipliers = (): void => {
     if (player.achievements[44] > 0.5) {
         G['globalCrystalMultiplier'] = G['globalCrystalMultiplier']
             .times(Decimal.pow(G['rune3level'] / 2 * G['effectiveLevelMult'], 2)
-            .times(Decimal.pow(2, G['rune3level'] * G['effectiveLevelMult'] / 2 - 8))
-            .add(1));
+                .times(Decimal.pow(2, G['rune3level'] * G['effectiveLevelMult'] / 2 - 8))
+                .add(1));
     }
     if (player.upgrades[36] > 0.5) {
-        G['globalCrystalMultiplier'] = G['globalCrystalMultiplier'].times(Decimal.min("1e5000", Decimal.pow(player.prestigePoints, 1 / 500)))
+        G['globalCrystalMultiplier'] = G['globalCrystalMultiplier'].times(Decimal.min('1e5000', Decimal.pow(player.prestigePoints, 1 / 500)))
     }
     if (player.upgrades[63] > 0.5) {
-        G['globalCrystalMultiplier'] = G['globalCrystalMultiplier'].times(Decimal.min("1e6000", Decimal.pow(player.reincarnationPoints.add(1), 6)))
+        G['globalCrystalMultiplier'] = G['globalCrystalMultiplier'].times(Decimal.min('1e6000', Decimal.pow(player.reincarnationPoints.add(1), 6)))
     }
     if (player.researches[39] > 0.5) {
         G['globalCrystalMultiplier'] = G['globalCrystalMultiplier'].times(Decimal.pow(G['reincarnationMultiplier'], 1 / 50))
@@ -2187,16 +2191,16 @@ export const multipliers = (): void => {
     G['mythosupgrade14'] = new Decimal(1);
     G['mythosupgrade15'] = new Decimal(1);
     if (player.upgrades[53] === 1) {
-        G['mythosupgrade13'] = G['mythosupgrade13'].times(Decimal.min("1e1250", Decimal.pow(G['acceleratorEffect'], 1 / 125)))
+        G['mythosupgrade13'] = G['mythosupgrade13'].times(Decimal.min('1e1250', Decimal.pow(G['acceleratorEffect'], 1 / 125)))
     }
     if (player.upgrades[54] === 1) {
-        G['mythosupgrade14'] = G['mythosupgrade14'].times(Decimal.min("1e2000", Decimal.pow(G['multiplierEffect'], 1 / 180)))
+        G['mythosupgrade14'] = G['mythosupgrade14'].times(Decimal.min('1e2000', Decimal.pow(G['multiplierEffect'], 1 / 180)))
     }
     if (player.upgrades[55] === 1) {
-        G['mythosupgrade15'] = G['mythosupgrade15'].times(Decimal.pow("1e1000", Math.min(1000, G['buildingPower'] - 1)))
+        G['mythosupgrade15'] = G['mythosupgrade15'].times(Decimal.pow('1e1000', Math.min(1000, G['buildingPower'] - 1)))
     }
 
-/*    //Update 2.5.0: Updated to have a base of 10 instead of 1x
+    /*    //Update 2.5.0: Updated to have a base of 10 instead of 1x
     G['globalAntMult'] = new Decimal(10);
     G['globalAntMult'] = G['globalAntMult'].times(1 + 1 / 2500 * Math.pow(G['rune5level'] * G['effectiveLevelMult'] * (1 + player.researches[84] / 200 * (1 + 1 * G['effectiveRuneSpiritPower'][5] * calculateCorruptionPoints() / 400)), 2))
     if (player.upgrades[76] === 1) {
@@ -2255,7 +2259,7 @@ export const multipliers = (): void => {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 1.25)
     } */
 
-    G['globalConstantMult'] = new Decimal("1")
+    G['globalConstantMult'] = new Decimal('1')
     G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1.05 + 0.01 * player.achievements[270] + 0.001 * player.platonicUpgrades[18], player.constantUpgrades[1]))
     G['globalConstantMult'] = G['globalConstantMult'].times(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX + 1000 * (G['challenge15Rewards'].exponent - 1) + 3 * player.platonicUpgrades[18], player.constantUpgrades[2]), ascendBuildingDR()))
     G['globalConstantMult'] = G['globalConstantMult'].times(1 + 2 / 100 * player.researches[139])
@@ -2320,19 +2324,24 @@ export const resourceGain = (dt: number): void => {
         player.prestigeShards = player.prestigeShards.add(G['produceDiamonds'].times(dt / 0.025))
     }
 
-    G['produceFifthMythos'] = player.fifthGeneratedMythos.add(player.fifthOwnedMythos).times(player.fifthProduceMythos).times(G['globalMythosMultiplier']).times(G['grandmasterMultiplier']).times(G['mythosupgrade15'])
+    G['produceFifthMythos'] = player.fifthGeneratedMythos.add(player.fifthOwnedMythos).times(player.fifthProduceMythos).times(G['globalMythosMultiplier'])
+        .times(G['grandmasterMultiplier'])
+        .times(G['mythosupgrade15'])
     G['produceFourthMythos'] = player.fourthGeneratedMythos.add(player.fourthOwnedMythos).times(player.fourthProduceMythos).times(G['globalMythosMultiplier'])
-    G['produceThirdMythos'] = player.thirdGeneratedMythos.add(player.thirdOwnedMythos).times(player.thirdProduceMythos).times(G['globalMythosMultiplier']).times(G['mythosupgrade14'])
+    G['produceThirdMythos'] = player.thirdGeneratedMythos.add(player.thirdOwnedMythos).times(player.thirdProduceMythos).times(G['globalMythosMultiplier'])
+        .times(G['mythosupgrade14'])
     G['produceSecondMythos'] = player.secondGeneratedMythos.add(player.secondOwnedMythos).times(player.secondProduceMythos).times(G['globalMythosMultiplier'])
-    G['produceFirstMythos'] = player.firstGeneratedMythos.add(player.firstOwnedMythos).times(player.firstProduceMythos).times(G['globalMythosMultiplier']).times(G['mythosupgrade13'])
+    G['produceFirstMythos'] = player.firstGeneratedMythos.add(player.firstOwnedMythos).times(player.firstProduceMythos).times(G['globalMythosMultiplier'])
+        .times(G['mythosupgrade13'])
     player.fourthGeneratedMythos = player.fourthGeneratedMythos.add(G['produceFifthMythos'].times(dt / 0.025));
     player.thirdGeneratedMythos = player.thirdGeneratedMythos.add(G['produceFourthMythos'].times(dt / 0.025));
     player.secondGeneratedMythos = player.secondGeneratedMythos.add(G['produceThirdMythos'].times(dt / 0.025));
     player.firstGeneratedMythos = player.firstGeneratedMythos.add(G['produceSecondMythos'].times(dt / 0.025));
 
 
-    G['produceMythos'] = new Decimal("0");
-    G['produceMythos'] = (player.firstGeneratedMythos.add(player.firstOwnedMythos)).times(player.firstProduceMythos).times(G['globalMythosMultiplier']).times(G['mythosupgrade13']);
+    G['produceMythos'] = new Decimal('0');
+    G['produceMythos'] = (player.firstGeneratedMythos.add(player.firstOwnedMythos)).times(player.firstProduceMythos).times(G['globalMythosMultiplier'])
+        .times(G['mythosupgrade13']);
     G['producePerSecondMythos'] = G['produceMythos'].times(40);
 
     let pm = new Decimal('1');
@@ -2349,7 +2358,7 @@ export const resourceGain = (dt: number): void => {
     player.secondGeneratedParticles = player.secondGeneratedParticles.add(G['produceThirdParticles'].times(dt / 0.025));
     player.firstGeneratedParticles = player.firstGeneratedParticles.add(G['produceSecondParticles'].times(dt / 0.025));
 
-    G['produceParticles'] = new Decimal("0");
+    G['produceParticles'] = new Decimal('0');
     G['produceParticles'] = (player.firstGeneratedParticles.add(player.firstOwnedParticles)).times(player.firstProduceParticles).times(pm);
     G['producePerSecondParticles'] = G['produceParticles'].times(40);
 
@@ -2439,10 +2448,10 @@ export const resourceGain = (dt: number): void => {
     if (player.antPoints.gte(1e40) && player.achievements[173] === 0) {
         achievementaward(173)
     }
-    if (player.antPoints.gte("1e500") && player.achievements[174] === 0) {
+    if (player.antPoints.gte('1e500') && player.achievements[174] === 0) {
         achievementaward(174)
     }
-    if (player.antPoints.gte("1e2500") && player.achievements[175] === 0) {
+    if (player.antPoints.gte('1e2500') && player.achievements[175] === 0) {
         achievementaward(175)
     }
 
@@ -2450,20 +2459,20 @@ export const resourceGain = (dt: number): void => {
     const reinchal = player.currentChallenge.reincarnation;
     const ascendchal = player.currentChallenge.ascension;
     if (chal !== 0) {
-        if (player.coinsThisTranscension.gte(challengeRequirement(chal, player.challengecompletions[chal], chal))) { 
+        if (player.coinsThisTranscension.gte(challengeRequirement(chal, player.challengecompletions[chal], chal))) {
             void resetCheck('transcensionChallenge', false);
             G['autoChallengeTimerIncrement'] = 0;
         }
     }
     if (reinchal < 9 && reinchal !== 0) {
         if (player.transcendShards.gte(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
-            void resetCheck("reincarnationChallenge", false)
+            void resetCheck('reincarnationChallenge', false)
             G['autoChallengeTimerIncrement'] = 0;
         }
     }
     if (reinchal >= 9) {
         if (player.coins.gte(challengeRequirement(reinchal, player.challengecompletions[reinchal], reinchal))) {
-            void resetCheck("reincarnationChallenge", false)
+            void resetCheck('reincarnationChallenge', false)
             G['autoChallengeTimerIncrement'] = 0;
         }
     }
@@ -2609,7 +2618,7 @@ export const resetCurrency = (): void => {
         G['reincarnationPointGain'] = G['reincarnationPointGain'].times(5)
     }
     if (player.currentChallenge.ascension === 12) {
-        G['reincarnationPointGain'] = new Decimal("0")
+        G['reincarnationPointGain'] = new Decimal('0')
     }
 }
 
@@ -2620,7 +2629,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 void resetConfirmation('prestige');
             } else {
                 resetachievementcheck(1);
-                reset("prestige");
+                reset('prestige');
             }
         }
     }
@@ -2631,7 +2640,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
             if (!manual) {
                 resetachievementcheck(2);
-                reset("transcension");
+                reset('transcension');
             }
         }
     }
@@ -2668,13 +2677,13 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
             challengeachievementcheck(q);
             if (player.shopUpgrades.instantChallenge === 0 || leaving) {
-                reset("transcensionChallenge", false, "leaveChallenge");
+                reset('transcensionChallenge', false, 'leaveChallenge');
                 player.transcendCount -= 1;
             }
 
         }
         if (!player.retrychallenges || manual || player.challengecompletions[q] >= (maxCompletions)) {
-            toggleAutoChallengeModeText("ENTER");
+            toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.transcension = 0;
             updateChallengeDisplay();
         }
@@ -2687,7 +2696,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
             if (!manual) {
                 resetachievementcheck(3);
-                reset("reincarnation");
+                reset('reincarnation');
             }
         }
     }
@@ -2719,7 +2728,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             updateChallengeLevel(q);
         }
         if (player.shopUpgrades.instantChallenge === 0 || leaving) { // TODO: Implement the upgrade levels here
-            reset("reincarnationChallenge", false, "leaveChallenge");
+            reset('reincarnationChallenge', false, 'leaveChallenge');
             player.reincarnationCount -= 1;
         }
         challengeachievementcheck(q);
@@ -2733,8 +2742,8 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
         }
         if (!player.retrychallenges || manual || player.challengecompletions[q] === maxCompletions) {
-            reset("reincarnationChallenge", false, "leaveChallenge");
-            toggleAutoChallengeModeText("ENTER");
+            reset('reincarnationChallenge', false, 'leaveChallenge');
+            toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.reincarnation = 0;
             if (player.shopUpgrades.instantChallenge > 0) {
                 for (let i = 1; i <= 5; i++) {
@@ -2797,7 +2806,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.currentChallenge.transcension = 0;
         }
         challengeDisplay(a, true)
-        reset("ascensionChallenge")
+        reset('ascensionChallenge')
 
         if (player.challengecompletions[a] > player.highestchallengecompletions[a]) {
             player.highestchallengecompletions[a] += 1;
@@ -2813,74 +2822,77 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
     if (i === 'singularity') {
         if (player.runelevels[6] === 0) {
-            return Alert("Hmph. Please return with an Antiquity. Thank you. -Ant God")
+            return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
         }
-        await Alert("You have reached the end of the game, on singularity #" +format(player.singularityCount)+". Platonic and the Ant God are proud of you.")
-        await Alert("You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.")
-        await Alert("You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.")
+        await Alert('You have reached the end of the game, on singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
+        await Alert('You may choose to sit on your laurels, and consider the game \'beaten\', or you may do something more interesting.')
+        await Alert('You\'re too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.')
         await Alert(`Start anew, and enter singularity #${format(player.singularityCount + 1)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} golden quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
-        await Alert("However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.")
+        await Alert('However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.')
         let c1 = false
         let c2 = false
         let c3 = false
-        c1 = await Confirm("So, what do you say? Do you wish to enter the singularity?")
-        if (c1)
-            c2 = await Confirm("Are you sure you wish to enter the Singularity?")
-        if (c2)
-            c3 = await Confirm("Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.")
-        if (c3) {
-            void singularity();
-            return Alert("Welcome to Singularity #" + format(player.singularityCount) + ". You're back to familiar territory, but something doesn't seem right.")
+        c1 = await Confirm('So, what do you say? Do you wish to enter the singularity?')
+        if (c1) {
+            c2 = await Confirm('Are you sure you wish to enter the Singularity?')
         }
-        if (!c1 || !c2)
-            return Alert("If you decide to change your mind, let me know. -Ant God")
+        if (c2) {
+            c3 = await Confirm('Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.')
+        }
+        if (c3) {
+            await singularity();
+            return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
+        }
+        if (!c1 || !c2) {
+            return Alert('If you decide to change your mind, let me know. -Ant God')
+        }
     }
 }
 
 export const resetConfirmation = async (i: string): Promise<void> => {
     if (i === 'prestige') {
         if (player.toggles[28] === true) {
-            const r = await Confirm(`Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]`)
+            const r = await Confirm('Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]')
             if (r === true) {
                 resetachievementcheck(1);
-                reset("prestige");
+                reset('prestige');
             }
         } else {
             resetachievementcheck(1);
-            reset("prestige");
+            reset('prestige');
         }
     }
     if (i === 'transcend') {
         if (player.toggles[29] === true) {
-            const z = await Confirm("Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
+            const z = await Confirm('Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]')
             if (z === true) {
                 resetachievementcheck(2);
-                reset("transcension");
+                reset('transcension');
             }
         } else {
             resetachievementcheck(2);
-            reset("transcension");
+            reset('transcension');
         }
     }
     if (i === 'reincarnate') {
         if (player.currentChallenge.ascension !== 12) {
             if (player.toggles[30] === true) {
-                const z = await Confirm("Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]")
+                const z = await Confirm('Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]')
                 if (z === true) {
                     resetachievementcheck(3);
-                    reset("reincarnation");
+                    reset('reincarnation');
                 }
             } else {
                 resetachievementcheck(3);
-                reset("reincarnation");
+                reset('reincarnation');
             }
         }
     }
     if (i === 'ascend') {
-        const z = !player.toggles[31] || 
-                  await Confirm("Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]")
+        const z = !player.toggles[31] ||
+                  await Confirm('Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]')
         if (z) {
-            reset("ascension");
+            reset('ascension');
         }
     }
 }
@@ -2903,7 +2915,7 @@ export const updateAll = (): void => {
         achievementaward(251)
     }
 
-//Autobuy "Building" Tab
+    //Autobuy "Building" Tab
 
     if (player.toggles[1] === true && player.upgrades[81] === 1 && player.coins.gte(player.firstCostCoin)) {
         buyMax(1, 'Coin')
@@ -2930,7 +2942,7 @@ export const updateAll = (): void => {
         boostAccelerator(true);
     }
 
-//Autobuy "Prestige" Tab
+    //Autobuy "Prestige" Tab
 
     if (player.toggles[10] === true && player.achievements[78] === 1 && player.prestigePoints.gte(player.firstCostDiamonds)) {
         buyMax(1, 'Diamonds')
@@ -2969,7 +2981,7 @@ export const updateAll = (): void => {
         buyCrystalUpgrades(5, true)
     }
 
-//Autobuy "Transcension" Tab
+    //Autobuy "Transcension" Tab
 
     if (player.toggles[16] === true && player.upgrades[94] === 1 && player.transcendPoints.gte(player.firstCostMythos)) {
         buyMax(1, 'Mythos')
@@ -2987,7 +2999,7 @@ export const updateAll = (): void => {
         buyMax(5, 'Mythos')
     }
 
-//Autobuy "Reincarnation" Tab
+    //Autobuy "Reincarnation" Tab
 
     if (player.toggles[22] === true && player.reincarnationPoints.gte(player.firstCostParticles)) {
         buyParticleBuilding(1, true)
@@ -3005,7 +3017,7 @@ export const updateAll = (): void => {
         buyParticleBuilding(5, true)
     }
 
-//Autobuy "ascension" tab
+    //Autobuy "ascension" tab
     if (player.researches[175] > 0) {
         for (let i = 1; i <= 10; i++) {
             if (player.ascendShards.gte(getConstUpgradeMetadata(i).pop()!)) {
@@ -3014,7 +3026,7 @@ export const updateAll = (): void => {
         }
     }
 
-//Autobuy tesseract buildings
+    //Autobuy tesseract buildings
     if ((player.researches[190] > 0) && (player.tesseractAutoBuyerToggle == 1)) {
         const ownedBuildings: TesseractBuildings = [null, null, null, null, null];
         for (let i = 1; i <= 5; i++) {
@@ -3036,7 +3048,7 @@ export const updateAll = (): void => {
     }
 
 
-//Generation
+    //Generation
 
 
     if (player.upgrades[101] > 0.5) {
@@ -3145,8 +3157,8 @@ export const updateAll = (): void => {
     autoBuyAnts()
 
     if (player.autoAscend) {
-        if (player.autoAscendMode === "c10Completions" && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
-            reset("ascension", true)
+        if (player.autoAscendMode === 'c10Completions' && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
+            reset('ascension', true)
         }
     }
     let metaData = null;
@@ -3162,7 +3174,7 @@ export const updateAll = (): void => {
     const reductionValue = getReductionValue();
     if (reductionValue !== G['prevReductionValue']) {
         G['prevReductionValue'] = reductionValue;
-        const resources = ["Coin", "Diamonds", "Mythos"] as const;
+        const resources = ['Coin', 'Diamonds', 'Mythos'] as const;
 
         for (let res = 0; res < resources.length; ++res) {
             const resource = resources[res];
@@ -3231,152 +3243,150 @@ function tack(dt: number) {
         const timeMult = calculateTimeAcceleration();
         resourceGain(dt * timeMult)
         //Adds time (in milliseconds) to all reset functions, and quarks timer.
-        addTimers("prestige", dt)
-        addTimers("transcension", dt)
-        addTimers("reincarnation", dt)
-        addTimers("ascension", dt)
-        addTimers("quarks", dt)
-        addTimers("goldenQuarks", dt)
+        addTimers('prestige', dt)
+        addTimers('transcension', dt)
+        addTimers('reincarnation', dt)
+        addTimers('ascension', dt)
+        addTimers('quarks', dt)
+        addTimers('goldenQuarks', dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
         if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {
-            automaticTools("runeSacrifice", dt)
+            automaticTools('runeSacrifice', dt)
         }
 
         //Triggers automatic ant sacrifice (adds milliseonds to payload timers)
         if (player.achievements[173] === 1) {
-            automaticTools("antSacrifice", dt);
+            automaticTools('antSacrifice', dt);
         }
 
-      /*Triggers automatic obtainium gain if research [2x11] is unlocked,
+        /*Triggers automatic obtainium gain if research [2x11] is unlocked,
         Otherwise it just calculates obtainium multiplier values. */
         if (player.researches[61] === 1) {
-            automaticTools("addObtainium", dt)
-        }
-        else {
+            automaticTools('addObtainium', dt)
+        } else {
             calculateObtainium();
         }
 
         //Automatically tries and buys researches lol
         if (player.autoResearchToggle && player.autoResearch <= maxRoombaResearchIndex(player)) {
-                // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
-                let counter = 0;
-                const maxCount = 1 + player.challengecompletions[14];
-                while (counter < maxCount) {
-                    if (player.autoResearch > 0) {
-                        const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
-                        if (!buyResearch(player.autoResearch, true, linGrowth)) {
-                            break;
-                        }
-                    }
-                    else {
+            // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
+            let counter = 0;
+            const maxCount = 1 + player.challengecompletions[14];
+            while (counter < maxCount) {
+                if (player.autoResearch > 0) {
+                    const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
+                    if (!buyResearch(player.autoResearch, true, linGrowth)) {
                         break;
                     }
-                    counter++;
+                } else {
+                    break;
                 }
+                counter++;
             }
         }
+    }
 
-        // Adds an offering every 2 seconds
-        if (player.highestchallengecompletions[3] > 0) {
-            automaticTools("addOfferings", dt/2)
-        }
+    // Adds an offering every 2 seconds
+    if (player.highestchallengecompletions[3] > 0) {
+        automaticTools('addOfferings', dt/2)
+    }
 
-        // Adds an offering every 1/(cube upgrade 1x2) seconds. It shares a timer with the one above.
-        if (player.cubeUpgrades[2] > 0) {
-            automaticTools("addOfferings", dt * player.cubeUpgrades[2])
-        }
+    // Adds an offering every 1/(cube upgrade 1x2) seconds. It shares a timer with the one above.
+    if (player.cubeUpgrades[2] > 0) {
+        automaticTools('addOfferings', dt * player.cubeUpgrades[2])
+    }
 
-        if (player.researches[130] > 0 || player.researches[135] > 0) {
-            const talismansUnlocked = [
-                player.achievements[119] > 0,
-                player.achievements[126] > 0,
-                player.achievements[133] > 0,
-                player.achievements[140] > 0,
-                player.achievements[147] > 0,
+    if (player.researches[130] > 0 || player.researches[135] > 0) {
+        const talismansUnlocked = [
+            player.achievements[119] > 0,
+            player.achievements[126] > 0,
+            player.achievements[133] > 0,
+            player.achievements[140] > 0,
+            player.achievements[147] > 0,
                 player.antUpgrades[11]! > 0 || player.ascensionCount > 0,
-                player.shopUpgrades.shopTalisman > 0,
-            ];
-            let upgradedTalisman = false;
+                player.shopUpgrades.shopTalisman > 0
+        ];
+        let upgradedTalisman = false;
 
-            // First, we need to enhance all of the talismans. Then, we can fortify all of the talismans.
-            // If we were to do this in one loop, the players resources would be drained on individual expensive levels
-            // of early talismans before buying important enhances for the later ones. This results in drastically
-            // reduced overall gains when talisman resources are scarce.
-            if (player.autoEnhanceToggle) {
-                for (let i = 0; i < talismansUnlocked.length; ++i) {
-                    if (talismansUnlocked[i]) {
-                        upgradedTalisman = buyTalismanEnhance(i, true) || upgradedTalisman;
-                    }
-                }
-            }
-
-            if (player.autoFortifyToggle) {
-                for (let i = 0; i < talismansUnlocked.length; ++i) {
-                    if (talismansUnlocked[i]) {
-                        upgradedTalisman = buyTalismanLevels(i, true) || upgradedTalisman;
-                    }
-                }
-            }
-
-            // Recalculate talisman-related upgrades and display on success
-            if (upgradedTalisman) {
-                updateTalismanInventory();
-                calculateRuneLevels();
-            }
-        }
-
-        runChallengeSweep(dt);
-
-        //Check for automatic resets
-        //Auto Prestige. === 1 indicates amount, === 2 indicates time.
-        if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
-            if (player.toggles[15] === true && player.achievements[43] === 1 && G['prestigePointGain'].gte(player.prestigePoints.times(Decimal.pow(10, player.prestigeamount))) && player.coinsThisPrestige.gte(1e16)) {
-                resetachievementcheck(1);
-                reset("prestige", true)
-            }
-        }
-        if (player.resettoggle1 === 2) {
-            G['autoResetTimers'].prestige += dt;
-            const time = Math.max(0.01, player.prestigeamount);
-            if (player.toggles[15] === true && player.achievements[43] === 1 && G['autoResetTimers'].prestige >= time && player.coinsThisPrestige.gte(1e16)) {
-                resetachievementcheck(1);
-                reset("prestige", true);
-            }
-        }
-
-        if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
-            if (player.toggles[21] === true && player.upgrades[89] === 1 && G['transcendPointGain'].gte(player.transcendPoints.times(Decimal.pow(10, player.transcendamount))) && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
-                resetachievementcheck(2);
-                reset("transcension", true);
-            }
-        }
-        if (player.resettoggle2 === 2) {
-            G['autoResetTimers'].transcension += dt
-            const time = Math.max(0.01, player.transcendamount);
-            if (player.toggles[21] === true && player.upgrades[89] === 1 && G['autoResetTimers'].transcension >= time && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
-                resetachievementcheck(2);
-                reset("transcension", true);
-            }
-        }
-
-        if (player.currentChallenge.ascension !== 12) {
-            G['autoResetTimers'].reincarnation += dt;
-            if (player.resettoggle3 === 2) {
-                const time = Math.max(0.01, player.reincarnationamount);
-                if (player.toggles[27] === true && player.researches[46] > 0.5 && player.transcendShards.gte("1e300") && G['autoResetTimers'].reincarnation >= time && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
-                    resetachievementcheck(3);
-                    reset("reincarnation", true);
-                }
-            }
-            if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
-                if (player.toggles[27] === true && player.researches[46] > 0.5 && G['reincarnationPointGain'].gte(player.reincarnationPoints.times(Decimal.pow(10, player.reincarnationamount))) && player.transcendShards.gte(1e300) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
-                    resetachievementcheck(3);
-                    reset("reincarnation", true)
+        // First, we need to enhance all of the talismans. Then, we can fortify all of the talismans.
+        // If we were to do this in one loop, the players resources would be drained on individual expensive levels
+        // of early talismans before buying important enhances for the later ones. This results in drastically
+        // reduced overall gains when talisman resources are scarce.
+        if (player.autoEnhanceToggle) {
+            for (let i = 0; i < talismansUnlocked.length; ++i) {
+                if (talismansUnlocked[i]) {
+                    upgradedTalisman = buyTalismanEnhance(i, true) || upgradedTalisman;
                 }
             }
         }
-        calculateOfferings("reincarnation")
+
+        if (player.autoFortifyToggle) {
+            for (let i = 0; i < talismansUnlocked.length; ++i) {
+                if (talismansUnlocked[i]) {
+                    upgradedTalisman = buyTalismanLevels(i, true) || upgradedTalisman;
+                }
+            }
+        }
+
+        // Recalculate talisman-related upgrades and display on success
+        if (upgradedTalisman) {
+            updateTalismanInventory();
+            calculateRuneLevels();
+        }
+    }
+
+    runChallengeSweep(dt);
+
+    //Check for automatic resets
+    //Auto Prestige. === 1 indicates amount, === 2 indicates time.
+    if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
+        if (player.toggles[15] === true && player.achievements[43] === 1 && G['prestigePointGain'].gte(player.prestigePoints.times(Decimal.pow(10, player.prestigeamount))) && player.coinsThisPrestige.gte(1e16)) {
+            resetachievementcheck(1);
+            reset('prestige', true)
+        }
+    }
+    if (player.resettoggle1 === 2) {
+        G['autoResetTimers'].prestige += dt;
+        const time = Math.max(0.01, player.prestigeamount);
+        if (player.toggles[15] === true && player.achievements[43] === 1 && G['autoResetTimers'].prestige >= time && player.coinsThisPrestige.gte(1e16)) {
+            resetachievementcheck(1);
+            reset('prestige', true);
+        }
+    }
+
+    if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
+        if (player.toggles[21] === true && player.upgrades[89] === 1 && G['transcendPointGain'].gte(player.transcendPoints.times(Decimal.pow(10, player.transcendamount))) && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
+            resetachievementcheck(2);
+            reset('transcension', true);
+        }
+    }
+    if (player.resettoggle2 === 2) {
+        G['autoResetTimers'].transcension += dt
+        const time = Math.max(0.01, player.transcendamount);
+        if (player.toggles[21] === true && player.upgrades[89] === 1 && G['autoResetTimers'].transcension >= time && player.coinsThisTranscension.gte(1e100) && player.currentChallenge.transcension === 0) {
+            resetachievementcheck(2);
+            reset('transcension', true);
+        }
+    }
+
+    if (player.currentChallenge.ascension !== 12) {
+        G['autoResetTimers'].reincarnation += dt;
+        if (player.resettoggle3 === 2) {
+            const time = Math.max(0.01, player.reincarnationamount);
+            if (player.toggles[27] === true && player.researches[46] > 0.5 && player.transcendShards.gte('1e300') && G['autoResetTimers'].reincarnation >= time && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
+                resetachievementcheck(3);
+                reset('reincarnation', true);
+            }
+        }
+        if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
+            if (player.toggles[27] === true && player.researches[46] > 0.5 && G['reincarnationPointGain'].gte(player.reincarnationPoints.times(Decimal.pow(10, player.reincarnationamount))) && player.transcendShards.gte(1e300) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
+                resetachievementcheck(3);
+                reset('reincarnation', true)
+            }
+        }
+    }
+    calculateOfferings('reincarnation')
 }
 
 document.addEventListener('keydown', (event) => {
@@ -3392,21 +3402,21 @@ document.addEventListener('keydown', (event) => {
         diamond: 'Diamonds',
         mythos: 'Mythos',
         particle: 'Particles',
-        tesseract: 'Tesseracts',
+        tesseract: 'Tesseracts'
     } as const;
 
     const type = types[G['buildingSubTab']];
 
     const key = event.code.replace(/^(Digit|Numpad)/, '').toUpperCase();
     switch (key) {
-        case "1":
-        case "2":
-        case "3":
-        case "4":
-        case "5": {
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5': {
             const num = Number(key) as OneToFive;
 
-            if (G['currentTab'] === "buildings") {
+            if (G['currentTab'] === 'buildings') {
                 if (type === 'Particles') {
                     buyParticleBuilding(num);
                 } else if (type === 'Tesseracts') {
@@ -3415,65 +3425,65 @@ document.addEventListener('keydown', (event) => {
                     buyMax(num, type);
                 }
             }
-            if (G['currentTab'] === "runes") {
-                if (G['runescreen'] === "runes") {
+            if (G['currentTab'] === 'runes') {
+                if (G['runescreen'] === 'runes') {
                     redeemShards(num)
                 }
-                if (G['runescreen'] === "blessings") {
+                if (G['runescreen'] === 'blessings') {
                     buyRuneBonusLevels('Blessings', num)
                 }
-                if (G['runescreen'] === "spirits") {
+                if (G['runescreen'] === 'spirits') {
                     buyRuneBonusLevels('Spirits', num)
                 }
             }
-            if (G['currentTab'] === "challenges") {
+            if (G['currentTab'] === 'challenges') {
                 toggleChallenges(num)
                 challengeDisplay(num);
             }
             break;
         }
 
-        case "6":
-            if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "diamond") {
+        case '6':
+            if (G['currentTab'] === 'buildings' && G['buildingSubTab'] === 'diamond') {
                 buyCrystalUpgrades(1)
             }
-            if (G['currentTab'] === "challenges" && player.reincarnationCount > 0) {
+            if (G['currentTab'] === 'challenges' && player.reincarnationCount > 0) {
                 toggleChallenges(6)
                 challengeDisplay(6);
             }
             break;
-        case "7":
-            if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "diamond") {
+        case '7':
+            if (G['currentTab'] === 'buildings' && G['buildingSubTab'] === 'diamond') {
                 buyCrystalUpgrades(2)
             }
-            if (G['currentTab'] === "challenges" && player.achievements[113] === 1) {
+            if (G['currentTab'] === 'challenges' && player.achievements[113] === 1) {
                 toggleChallenges(7)
                 challengeDisplay(7);
             }
             break;
-        case "8":
-            if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "diamond") {
+        case '8':
+            if (G['currentTab'] === 'buildings' && G['buildingSubTab'] === 'diamond') {
                 buyCrystalUpgrades(3)
             }
-            if (G['currentTab'] === "challenges" && player.achievements[120] === 1) {
+            if (G['currentTab'] === 'challenges' && player.achievements[120] === 1) {
                 toggleChallenges(8)
                 challengeDisplay(8);
             }
             break;
-        case "9":
-            if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "diamond") {
+        case '9':
+            if (G['currentTab'] === 'buildings' && G['buildingSubTab'] === 'diamond') {
                 buyCrystalUpgrades(4)
             }
-            if (G['currentTab'] === "challenges" && player.achievements[127] === 1) {
+            if (G['currentTab'] === 'challenges' && player.achievements[127] === 1) {
                 toggleChallenges(9)
                 challengeDisplay(9);
             }
             break;
-        case "0":
-            if (G['currentTab'] === "buildings" && G['buildingSubTab'] === "diamond") {
+        case '0':
+            if (G['currentTab'] === 'buildings' && G['buildingSubTab'] === 'diamond') {
                 buyCrystalUpgrades(5)
             }
-            if (G['currentTab'] === "challenges" && player.achievements[134] === 1) {
+            if (G['currentTab'] === 'challenges' && player.achievements[134] === 1) {
                 toggleChallenges(10)
                 challengeDisplay(10);
             }
@@ -3484,15 +3494,16 @@ document.addEventListener('keydown', (event) => {
 
 /**
  * Reloads shit.
- * @param reset if this param is passed, offline progression will not be calculated. 
+ * @param reset if this param is passed, offline progression will not be calculated.
  */
 export const reloadShit = async (reset = false) => {
-    for (const timer of intervalHold)
+    for (const timer of intervalHold) {
         clearInt(timer);
+    }
 
     intervalHold.clear();
 
-    const save = 
+    const save =
         await localforage.getItem<Blob>('Synergysave2') ??
         localStorage.getItem('Synergysave2');
 
@@ -3547,7 +3558,7 @@ export const reloadShit = async (reset = false) => {
     setTimeout(() => DOMCacheGetOrSet('exitOffline').classList.remove('subtabContent'), 2000);
 
     if (localStorage.getItem('pleaseStar') === null) {
-        void Alert(`Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial`);
+        void Alert('Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial');
         localStorage.setItem('pleaseStar', '');
     }
 
@@ -3565,9 +3576,10 @@ export const reloadShit = async (reset = false) => {
             const isPersistentNow = await navigator.storage.persist();
 
             if (isPersistentNow) {
-                void Alert(`Data on this page is now persistent! If you do not know what this means, you can safely ignore it.`);
+                void Alert('Data on this page is now persistent! If you do not know what this means, you can safely ignore it.');
             }
         } else {
+            // eslint-disable-next-line no-console
             console.log(`Storage is persistent! (persistent = ${persistent})`);
         }
     }
@@ -3576,9 +3588,9 @@ export const reloadShit = async (reset = false) => {
 window.addEventListener('load', () => {
     const ver = DOMCacheGetOrSet('versionnumber');
     if (ver instanceof HTMLElement) {
-        ver.textContent = 
+        ver.textContent =
             `You're ${testing ? 'testing' : 'playing'} v${version} - The Reality Update pt.1` +
-            ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` + 
+            ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` +
             ` ${testing ? 'Savefiles cannot be used in live!' : ''}`;
     }
     document.title = `Synergism v${version}`;
