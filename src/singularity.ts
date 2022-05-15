@@ -314,43 +314,43 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         description: 'Black Magic. Don\'t make deals with the devil. Each second, you get +2% of offering gain automatically per level. Also +10% Offerings!',
         maxLevel: 50,
         costPerLevel: 2000,
-        minimumSingularity: 6,
+        minimumSingularity: 6
     },
     intermediatePack: {
-        name: "Intermediate Pack",
-        description: "Double Global Speed, Multiply Ascension speed by 1.5, and gain +2% Quarks forever. Yum... 2% Quark Milk.",
+        name: 'Intermediate Pack',
+        description: 'Double Global Speed, Multiply Ascension speed by 1.5, and gain +2% Quarks forever. Yum... 2% Quark Milk.',
         maxLevel: 1,
         costPerLevel: 1,
-        minimumSingularity: 4,
+        minimumSingularity: 4
     },
     advancedPack: {
-        name: "Advanced Pack",
-        description: "Now we're cooking with kerosene! Gain +4% Quarks stack with intermediate, +0.33 to all corruption score multipliers, regardless of level!",
+        name: 'Advanced Pack',
+        description: 'Now we\'re cooking with kerosene! Gain +4% Quarks stack with intermediate, +0.33 to all corruption score multipliers, regardless of level!',
         maxLevel: 1,
         costPerLevel: 200,
-        minimumSingularity: 9,
+        minimumSingularity: 9
     },
     expertPack: {
-        name: "Expert Pack",
-        description: "That's a handful! Gain +6% Quarks stack with advanced, 1.5x Ascension Score, Code 'add' gives 1.2x Ascension Timer.",
+        name: 'Expert Pack',
+        description: 'That\'s a handful! Gain +6% Quarks stack with advanced, 1.5x Ascension Score, Code \'add\' gives 1.2x Ascension Timer.',
         maxLevel: 1,
         costPerLevel: 800,
-        minimumSingularity: 16,
+        minimumSingularity: 16
     },
     masterPack: {
-        name: "Master Pack",
-        description: "A tad insane. Gain +8% Quarks stack with expert, for every level 14 corruption, ascension score is multiplied by 1.1.",
+        name: 'Master Pack',
+        description: 'A tad insane. Gain +8% Quarks stack with expert, for every level 14 corruption, ascension score is multiplied by 1.1.',
         maxLevel: 1,
         costPerLevel: 3200,
-        minimumSingularity: 25,
+        minimumSingularity: 25
     },
     divinePack: {
-        name: "Divine Pack",
-        description: "OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14. Also unlock Platonic Upgrade autobuyers!",
+        name: 'Divine Pack',
+        description: 'OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14. Also unlock Platonic Upgrade autobuyers!',
         maxLevel: 1,
         costPerLevel: 12800,
-        minimumSingularity: 36,
-    },
+        minimumSingularity: 36
+    }
 }
 
 export const getGoldenQuarkCost = (): {

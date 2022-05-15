@@ -1,10 +1,10 @@
 /* Functions which Handle Quark Gains,  */
 
-import { calculateCubeQuarkMultiplier, calculateEffectiveIALevel, calculateQuarkMultFromPowder} from "./Calculate";
-import { hepteractEffective } from "./Hepteracts"
-import { format, player } from "./Synergism"
-import { Alert } from "./UpdateHTML";
-import { Globals as G } from "./Variables"
+import { calculateCubeQuarkMultiplier, calculateEffectiveIALevel, calculateQuarkMultFromPowder} from './Calculate';
+import { hepteractEffective } from './Hepteracts'
+import { format, player } from './Synergism'
+import { Alert } from './UpdateHTML';
+import { Globals as G } from './Variables'
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const getBonus = async (): Promise<null | number> => {
@@ -97,7 +97,7 @@ export const getQuarkMultiplier = () => {
     if (player.singularityCount >= 20) { // Singularity Milestone (20 sing)
         multiplier *= 1.05
     }
-        multiplier *= (1 + 0.02 * player.singularityUpgrades.intermediatePack.level +           // 1.02
+    multiplier *= (1 + 0.02 * player.singularityUpgrades.intermediatePack.level +           // 1.02
                            0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
                            0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
                            0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20

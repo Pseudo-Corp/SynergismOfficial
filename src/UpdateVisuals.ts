@@ -499,8 +499,8 @@ export const visualUpdateSettings = () => {
     const onExportQuarks = quarkData.gain
     const maxExportQuarks = quarkData.capacity
     const patreonLOL = 1 + player.worlds.BONUS / 100
-    DOMCacheGetOrSet("quarktimerdisplay").textContent = format((3600 / (quarkData.perHour) - (player.quarkstimer % (3600.00001 / (quarkData.perHour)))), 2) + "s until +" + player.worlds.toString(1) + " export Quark"
-    DOMCacheGetOrSet("quarktimeramount").textContent = 
+    DOMCacheGetOrSet('quarktimerdisplay').textContent = format((3600 / (quarkData.perHour) - (player.quarkstimer % (3600.00001 / (quarkData.perHour)))), 2) + 's until +' + player.worlds.toString(1) + ' export Quark'
+    DOMCacheGetOrSet('quarktimeramount').textContent =
         `Quarks on export: ${player.worlds.toString(onExportQuarks)} [Max ${player.worlds.toString(maxExportQuarks)}]`;
 
     DOMCacheGetOrSet('goldenQuarkTimerDisplay').textContent = format(3600 / Math.max(1, player.singularityUpgrades.goldenQuarks3.level) - (player.goldenQuarksTimer % (3600.00001 / Math.max(1,player.singularityUpgrades.goldenQuarks3.level)))) + 's until +' + format(patreonLOL, 2, true) + ' export Golden Quark'

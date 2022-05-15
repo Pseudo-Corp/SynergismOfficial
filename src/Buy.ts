@@ -390,7 +390,7 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
     const zeroIndex = index-1 as ZeroToFour;
     const pos = G['ordinals'][zeroIndex];
     const [originalCost, num] = getOriginalCostAndNum(index, type);
-    
+
     const BUYMAX = (Math.pow(10, 15) - 1);
     const COINMAX = 1e15;
     const r = getReductionValue();
