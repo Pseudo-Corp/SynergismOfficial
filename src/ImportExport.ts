@@ -206,16 +206,20 @@ export const promocodes = async () => {
         player.codes.set(26, true);
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds.add(quarks);
-        el.textContent = 'Khafra has blessed you with ' + quarks + ' quarks!';
+        el.textContent = 'Khafra has blessed you with ' + player.worlds.applyBonus(quarks) + ' quarks!';
     } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
         player.dailyCodeUsed = true;
         const rewards = dailyCodeReward();
-        const quarkMultiplier = 1 + 3 * Math.min(33, player.singularityCount)
-        player.worlds.add(rewards.quarks * quarkMultiplier)
+        const quarkMultiplier = 1 + Math.min(49, player.singularityCount)
+
+        let actualQuarkAward = player.worlds.applyBonus(rewards.quarks * quarkMultiplier);
+        if (actualQuarkAward > 1e5)
+            actualQuarkAward = Math.pow(1e5, 0.75) * Math.pow(actualQuarkAward, 0.25)
+        player.worlds.add(actualQuarkAward, false)
         player.goldenQuarks += rewards.goldenQuarks
 
         const goldenQuarksText = (rewards.goldenQuarks > 0) ? `and ${format(rewards.goldenQuarks, 0, true)} Golden Quarks` : '';
-        return Alert(`Thank you for playing today! You have gained ${format(rewards.quarks * quarkMultiplier, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
+        return Alert(`Thank you for playing today! You have gained ${format(actualQuarkAward, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
     }
      else if(input.toLowerCase() === 'add') {
         const hour = 3600000
@@ -245,7 +249,6 @@ export const promocodes = async () => {
         mult *= (player.shopUpgrades.calculator2 === shopData['calculator2'].maxLevel)? 1.25: 1; // Calculator 2 Max Level (+25%)
         const quarkBase = quarkHandler().perHour
         const actualQuarks = Math.floor(quarkBase * mult * realAttemptsUsed)
-        const patreonBonus = Math.floor(actualQuarks * (player.worlds.BONUS / 100));
         const [first, second] = window.crypto.getRandomValues(new Uint8Array(2));
 
         //Allows storage of up to (24 + 2 * calc2 levels) Add Codes, lol!
@@ -261,10 +264,11 @@ export const promocodes = async () => {
         // Calculator Maxed: you don't need to insert anything!
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
-            addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed)
+            let ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
+            addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult)
             player.rngCode = v;
-            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${actualQuarks + patreonBonus} quarks ` +
-                `[${ patreonBonus } from Patreon Boost]! ${ ascensionTimer } You have ${ remaining } uses of Add.You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
+                `${ ascensionTimer } You have ${ remaining } uses of Add.You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         }
 
         // If your calculator isn't maxed but has levels, it will provide the solution.
@@ -272,7 +276,7 @@ export const promocodes = async () => {
             ? 'The answer is ' + (first + second) + ' according to your calculator.'
             : '';
 
-        const addPrompt = await Prompt(`For ${actualQuarks + patreonBonus} quarks or nothing: What is ${first} + ${second}? ${solution}`);
+        const addPrompt = await Prompt(`For ${player.worlds.toString(actualQuarks)} quarks or nothing: What is ${first} + ${second}? ${solution}`);
 
         if (addPrompt === null) {
             return Alert(`No worries, you didn't lose any of your uses! Come back later!`);
@@ -283,7 +287,7 @@ export const promocodes = async () => {
         if(first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
             addTimers('ascension', 60 * player.shopUpgrades.calculator3)
-            await Alert(`You were awarded ${actualQuarks + patreonBonus} quarks [${patreonBonus} from Patreon Boost]! ${ascensionTimer} You have ${remaining} uses of Add. ` +
+            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} quarks! ${ascensionTimer} You have ${remaining} uses of Add. ` +
                 `You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         } else {
             await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
@@ -328,7 +332,7 @@ export const promocodes = async () => {
         
         if (dice === 1) {
             const won = bet * .25; // lmao
-            player.worlds.add(won);
+            player.worlds.add(won, false);
 
             player.skillCode = Date.now();
             return el.textContent = `You won. The Syncasino offers you a grand total of 25% of the pot! [+${won} quarks]`;
@@ -356,9 +360,14 @@ export const promocodes = async () => {
         player.promoCodeTiming.time = Date.now();
 
         if (diff <= (500 + 5 * player.cubeUpgrades[61])) {
-            const reward = Math.floor(500 * (1 + 11 * player.cubeUpgrades[61] / 100));
-            player.worlds.add(reward);
-            return Confirm(`You clicked at the right time! [+${format(reward)} Quarkies]`);
+            const reward = Math.floor(500 * (1 + player.cubeUpgrades[61] / 100));
+            let actualQuarkAward = player.worlds.applyBonus(reward)
+
+            if (actualQuarkAward > 66666)
+                actualQuarkAward = Math.pow(actualQuarkAward, 0.4) * Math.pow(66666, 0.6)
+
+            player.worlds.add(actualQuarkAward, false);
+            return Confirm(`You clicked at the right time! [+${format(actualQuarkAward, 0, true)} Quarkies]`);
         } else {
             return Confirm(`You didn't guess within the correct times, try again soon!`);
         }

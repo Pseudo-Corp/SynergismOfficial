@@ -483,6 +483,8 @@ export const calculateAutomaticObtainium = () => {
     return 0.05 * (10 * player.researches[61] + 2 * player.researches[62]) * player.maxobtainiumpersecond * (1 + 4 * player.cubeUpgrades[3] / 5);
 }
 
+
+// TODO: REFACTOR THIS - May 15, 2022.
 export const calculateTalismanEffects = () => {
     let positiveBonus = 0;
     let negativeBonus = 0;
@@ -501,49 +503,68 @@ export const calculateTalismanEffects = () => {
     positiveBonus += 0.0004 * player.cubeUpgrades[50]
     negativeBonus += 0.06 * player.researches[118]
     negativeBonus += 0.0004 * player.cubeUpgrades[50]
-    for (let i = 1; i <= 5; i++) {
-        if (player.talismanOne[i] === (1)) {
+
+    if (player.singularityCount >= 7) { 
+        positiveBonus += negativeBonus;
+        negativeBonus = positiveBonus
+    }
+
+    if (player.singularityCount < 7) {
+        for (let i = 1; i <= 5; i++) {
+            if (player.talismanOne[i] === (1)) {
+                G['talisman1Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[1-1]]! + positiveBonus) * player.talismanLevels[1-1] * G['challenge15Rewards'].talismanBonus
+            } else {
+                G['talisman1Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[1-1]]! - negativeBonus) * player.talismanLevels[1-1] * (-1) * G['challenge15Rewards'].talismanBonus
+            }
+
+            if (player.talismanTwo[i] === (1)) {
+                G['talisman2Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[2-1]]! + positiveBonus) * player.talismanLevels[2-1] * G['challenge15Rewards'].talismanBonus
+            } else {
+                G['talisman2Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[2-1]]! - negativeBonus) * player.talismanLevels[2-1] * (-1) * G['challenge15Rewards'].talismanBonus
+            }
+
+            if (player.talismanThree[i] === (1)) {
+                G['talisman3Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[3-1]]! + positiveBonus) * player.talismanLevels[3-1] * G['challenge15Rewards'].talismanBonus
+            } else {
+                G['talisman3Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[3-1]]! - negativeBonus) * player.talismanLevels[3-1] * (-1) * G['challenge15Rewards'].talismanBonus
+            }
+
+            if (player.talismanFour[i] === (1)) {
+                G['talisman4Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[4-1]]! + positiveBonus) * player.talismanLevels[4-1] * G['challenge15Rewards'].talismanBonus
+            } else {
+                G['talisman4Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[4-1]]! - negativeBonus) * player.talismanLevels[4-1] * (-1) * G['challenge15Rewards'].talismanBonus
+            }
+
+            if (player.talismanFive[i] === (1)) {
+                G['talisman5Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[5-1]]! + positiveBonus) * player.talismanLevels[5-1] * G['challenge15Rewards'].talismanBonus
+            } else {
+                G['talisman5Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[5-1]]! - negativeBonus) * player.talismanLevels[5-1] * (-1) * G['challenge15Rewards'].talismanBonus
+            }
+
+            if (player.talismanSix[i] === (1)) {
+                G['talisman6Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[6-1]]! + positiveBonus) * player.talismanLevels[6-1] * G['challenge15Rewards'].talismanBonus
+            } else {
+                G['talisman6Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[6-1]]! - negativeBonus) * player.talismanLevels[6-1] * (-1) * G['challenge15Rewards'].talismanBonus
+            }
+
+            if (player.talismanSeven[i] === (1)) {
+                G['talisman7Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[7-1]]! + positiveBonus) * player.talismanLevels[7-1] * G['challenge15Rewards'].talismanBonus
+            } else {
+                G['talisman7Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[7-1]]! - negativeBonus) * player.talismanLevels[7-1] * (-1) * G['challenge15Rewards'].talismanBonus
+            }
+
+        }
+    }
+    else {
+        for (let i = 1; i <= 5; i ++) {
             G['talisman1Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[1-1]]! + positiveBonus) * player.talismanLevels[1-1] * G['challenge15Rewards'].talismanBonus
-        } else {
-            G['talisman1Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[1-1]]! - negativeBonus) * player.talismanLevels[1-1] * (-1) * G['challenge15Rewards'].talismanBonus
-        }
-
-        if (player.talismanTwo[i] === (1)) {
             G['talisman2Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[2-1]]! + positiveBonus) * player.talismanLevels[2-1] * G['challenge15Rewards'].talismanBonus
-        } else {
-            G['talisman2Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[2-1]]! - negativeBonus) * player.talismanLevels[2-1] * (-1) * G['challenge15Rewards'].talismanBonus
-        }
-
-        if (player.talismanThree[i] === (1)) {
             G['talisman3Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[3-1]]! + positiveBonus) * player.talismanLevels[3-1] * G['challenge15Rewards'].talismanBonus
-        } else {
-            G['talisman3Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[3-1]]! - negativeBonus) * player.talismanLevels[3-1] * (-1) * G['challenge15Rewards'].talismanBonus
-        }
-
-        if (player.talismanFour[i] === (1)) {
             G['talisman4Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[4-1]]! + positiveBonus) * player.talismanLevels[4-1] * G['challenge15Rewards'].talismanBonus
-        } else {
-            G['talisman4Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[4-1]]! - negativeBonus) * player.talismanLevels[4-1] * (-1) * G['challenge15Rewards'].talismanBonus
-        }
-
-        if (player.talismanFive[i] === (1)) {
             G['talisman5Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[5-1]]! + positiveBonus) * player.talismanLevels[5-1] * G['challenge15Rewards'].talismanBonus
-        } else {
-            G['talisman5Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[5-1]]! - negativeBonus) * player.talismanLevels[5-1] * (-1) * G['challenge15Rewards'].talismanBonus
-        }
-
-        if (player.talismanSix[i] === (1)) {
             G['talisman6Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[6-1]]! + positiveBonus) * player.talismanLevels[6-1] * G['challenge15Rewards'].talismanBonus
-        } else {
-            G['talisman6Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[6-1]]! - negativeBonus) * player.talismanLevels[6-1] * (-1) * G['challenge15Rewards'].talismanBonus
-        }
-
-        if (player.talismanSeven[i] === (1)) {
             G['talisman7Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[7-1]]! + positiveBonus) * player.talismanLevels[7-1] * G['challenge15Rewards'].talismanBonus
-        } else {
-            G['talisman7Effect'][i] = (G['talismanNegativeModifier'][player.talismanRarity[7-1]]! - negativeBonus) * player.talismanLevels[7-1] * (-1) * G['challenge15Rewards'].talismanBonus
         }
-
     }
     const talismansEffects = [G['talisman1Effect'], G['talisman2Effect'], G['talisman3Effect'], G['talisman4Effect'], G['talisman5Effect'], G['talisman6Effect'], G['talisman7Effect']];
     const runesTalisman = [0, 0, 0, 0, 0, 0];
@@ -1227,6 +1248,8 @@ export const calculateTimeAcceleration = () => {
     timeMult /= calculateSingularityDebuff("Global Speed");
     timeMult *= G['platonicBonusMultiplier'][7]
     timeMult *= (1 + 2 * +G['isEvent'])
+    timeMult *= 1 + player.singularityUpgrades.intermediatePack.level
+
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
     }
@@ -1247,7 +1270,8 @@ export const calculateAscensionAcceleration = () => {
         1 + Math.min(0.10, 1/100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263],   // Achieve 263
         1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // PLAT Omega
         G['challenge15Rewards'].ascensionSpeed,                                                         // C15
-        1 + 1/400 * player.cubeUpgrades[59]                                                             // Cookie Upgrade 9
+        1 + 1/400 * player.cubeUpgrades[59],                                                            // Cookie Upgrade 9
+        1 + 0.5 * player.singularityUpgrades.intermediatePack.level                                     // Intermediate Pack, Sing Shop
     ]
     return productContents(arr) / calculateSingularityDebuff("Ascension Speed")
 }
@@ -1448,9 +1472,13 @@ export const calculateAscensionScore = () => {
     // Max: 1.0425
     baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39] + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]), player.highestchallengecompletions[10]);
     // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
+    const bonusVal = (player.singularityUpgrades.advancedPack.level > 0) ? 0.33: 0;
     for (let i = 2; i < 10; i++) {
         const exponent = ((i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 2 * Math.min(1, player.platonicUpgrades[17]) + 0.04 * player.platonicUpgrades[17] : 1;
-        corruptionMultiplier *= Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i] + bonusLevel], exponent);
+        corruptionMultiplier *= (Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i] + bonusLevel], exponent) + bonusVal);
+
+        if (player.usedCorruptions[i] >= 14 && player.singularityUpgrades.masterPack.level > 0)
+            corruptionMultiplier *= 1.1
     }
 
     const bonusMultiplier = computeAscensionScoreBonusMultiplier();
@@ -1458,6 +1486,8 @@ export const calculateAscensionScore = () => {
     effectiveScore = baseScore * corruptionMultiplier * bonusMultiplier
     if (effectiveScore > 1e23)
         effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5);
+
+    (player.singularityUpgrades.expertPack.level > 0) ? (effectiveScore *= 1.5) : effectiveScore *= 1;
 
     return {baseScore: baseScore,
             corruptionMultiplier: corruptionMultiplier,
@@ -1557,8 +1587,17 @@ export const calculatePowderConversion = () => {
 export const calculateCubeQuarkMultiplier = () => {
     return calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40) +
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 160) +
-           calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640) -
-           2;
+           calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640) +
+           calculateSigmoid(1.15, +(player.singularityCount > 1) * Math.pow(player.overfluxOrbs, 0.45), 2560) +
+           calculateSigmoid(1.15, +(player.singularityCount > 2) * Math.pow(player.overfluxOrbs, 0.4), 10000) +
+           calculateSigmoid(1.25, +(player.singularityCount > 5) * Math.pow(player.overfluxOrbs, 0.35), 40000) + 
+           calculateSigmoid(1.25, +(player.singularityCount > 10) * Math.pow(player.overfluxOrbs, 0.32), 160000) +
+           calculateSigmoid(1.35, +(player.singularityCount > 15) * Math.pow(player.overfluxOrbs, 0.27), 640000) +
+           calculateSigmoid(1.45, +(player.singularityCount > 20) * Math.pow(player.overfluxOrbs, 0.24), 2e6) +
+           calculateSigmoid(1.55, +(player.singularityCount > 25) * Math.pow(player.overfluxOrbs, 0.21), 1e7) +
+           calculateSigmoid(1.85, +(player.singularityCount > 30) * Math.pow(player.overfluxOrbs, 0.18), 4e7) +
+           calculateSigmoid(3, +(player.singularityCount > 35) * Math.pow(player.overfluxOrbs, 0.15), 1e8) -
+           11;
 }
 
 export const calculateCubeMultFromPowder = () => {

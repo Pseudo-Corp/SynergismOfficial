@@ -673,7 +673,12 @@ export const player: Player = {
         singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
         singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
         octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
-        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic'])
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
+        intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
+        advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
+        expertPack: new SingularityUpgrade(singularityData['expertPack']),
+        masterPack: new SingularityUpgrade(singularityData['masterPack']),
+        divinePack: new SingularityUpgrade(singularityData['divinePack']),
     },
     dailyCodeUsed: false,
 }
@@ -1645,7 +1650,16 @@ export const format = (
             return `${mantissaLook}e${powerLookF}QiDc`;
         }
         if (power < 1e54) {
-            return `${mantissaLook}e${powerLookF}AAAA`;
+            return `${mantissaLook}e${powerLookF}SxDc`;
+        }
+        if (power < 1e57) {
+            return `${mantissaLook}e${powerLookF}SpDc`;
+        }
+        if (power < 1e60) {
+            return `${mantissaLook}e${powerLookF}OcDC`;
+        }
+        if (power >= 1e60) {
+            return `INFINITE`
         }
         
         // If it doesn't fit a notation then default to mantissa e power

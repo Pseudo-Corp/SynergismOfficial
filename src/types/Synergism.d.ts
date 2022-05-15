@@ -544,6 +544,11 @@ export interface Player {
         singCubes3: SingularityUpgrade
         octeractUnlock: SingularityUpgrade
         offeringAutomatic: SingularityUpgrade
+        intermediatePack: SingularityUpgrade
+        advancedPack: SingularityUpgrade
+        expertPack: SingularityUpgrade
+        masterPack: SingularityUpgrade
+        divinePack: SingularityUpgrade
     }
     dailyCodeUsed: boolean
 

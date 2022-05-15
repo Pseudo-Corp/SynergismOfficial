@@ -362,25 +362,35 @@ export const updatePlatonicUpgradeBG = (i: number) => {
 }
 
 export const buyPlatonicUpgrades = (index: number) => {
-    const resourceCheck = checkPlatonicUpgrade(index)
-    let priceMultiplier = 1;
-    if (platUpgradeBaseCosts[index].priceMult) {
-        priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
-    }
-    if (resourceCheck.canBuy) {
-        player.platonicUpgrades[index] += 1
-        player.researchPoints -= Math.floor(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
-        player.runeshards -= Math.floor(platUpgradeBaseCosts[index].offerings * priceMultiplier)
-        player.wowCubes.sub(Math.floor(platUpgradeBaseCosts[index].cubes * priceMultiplier)); 
-        player.wowTesseracts.sub(Math.floor(platUpgradeBaseCosts[index].tesseracts * priceMultiplier));
-        player.wowHypercubes.sub(Math.floor(platUpgradeBaseCosts[index].hypercubes * priceMultiplier));
-        player.wowPlatonicCubes.sub(Math.floor(platUpgradeBaseCosts[index].platonics * priceMultiplier));
-        player.hepteractCrafts.abyss.spend(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier));
-
-        Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index]);
-        if (index === 20) {
-            return Alert('While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the rune of Grandiloquence, for you are a richass.')
+    
+    while (true) {
+        const resourceCheck = checkPlatonicUpgrade(index)
+        let priceMultiplier = 1;
+        if (platUpgradeBaseCosts[index].priceMult) {
+            priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
         }
+        
+        if (resourceCheck.canBuy) {
+            player.platonicUpgrades[index] += 1
+            player.researchPoints -= Math.floor(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
+            player.runeshards -= Math.floor(platUpgradeBaseCosts[index].offerings * priceMultiplier)
+            player.wowCubes.sub(Math.floor(platUpgradeBaseCosts[index].cubes * priceMultiplier)); 
+            player.wowTesseracts.sub(Math.floor(platUpgradeBaseCosts[index].tesseracts * priceMultiplier));
+            player.wowHypercubes.sub(Math.floor(platUpgradeBaseCosts[index].hypercubes * priceMultiplier));
+            player.wowPlatonicCubes.sub(Math.floor(platUpgradeBaseCosts[index].platonics * priceMultiplier));
+            player.hepteractCrafts.abyss.spend(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier));
+
+            Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index]);
+            if (index === 20) {
+                return Alert('While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the rune of Grandiloquence, for you are a richass.')
+            }
+        }
+        else {
+            break;
+        }
+
+        if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel || player.singularityCount === 0)
+            break
     }
     createPlatonicDescription(index)
     updatePlatonicUpgradeBG(index)

@@ -502,12 +502,12 @@ export const areward = (i: number): string => {
         267: `Ascension Score is boosted by ${format(Math.min(100, Decimal.log(player.ascendShards.add(1), 10) / 1000), 2)}% [Max: 100% at 1e100,000 Const]`,
         270: `Hepteract Gain is boosted by ${format(Math.min(100, Decimal.log(player.ascendShards.add(1), 10) / 10000), 2)}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).`,
         271: `When you open a Platonic Cube, gain ${format(Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5)), 2, true)} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]`,
-        274: `Ant Speed is permanently multiplied by 4.44!`,
+        274: `Ant Speed is permanently multiplied by 4.44! Platonic Upgrades now BuyMax whenever affordable!`,
         275: `You immediately start Singularities with 1 transcension and 1001 mythos!`,
         276: `You immediately start Singularities with 1 reincarnation, and 10 particles!`,
         277: `You immediately start Singularities with 500 obtainium!`,
         278: `Gain 5% more Quarks, permanently!`,
-        279: `You immediately start Singularities with a Challenge 7 completion and 1e100 particles.`,
+        279: `You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!`,
         280: `You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 ant.`,
     }
 

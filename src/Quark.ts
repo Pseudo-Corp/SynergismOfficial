@@ -2,7 +2,7 @@
 
 import { calculateCubeQuarkMultiplier, calculateEffectiveIALevel, calculateQuarkMultFromPowder} from "./Calculate";
 import { hepteractEffective } from "./Hepteracts"
-import { player } from "./Synergism"
+import { format, player } from "./Synergism"
 import { Alert } from "./UpdateHTML";
 import { Globals as G } from "./Variables"
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -91,6 +91,11 @@ export const getQuarkMultiplier = () => {
     if (player.singularityCount >= 20) { // Singularity Milestone (20 sing)
         multiplier *= 1.05
     }
+        multiplier *= (1 + 0.02 * player.singularityUpgrades.intermediatePack.level +           // 1.02
+                           0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
+                           0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
+                           0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
+                           0.10 * player.singularityUpgrades.expertPack.level)                  // 1.30
     return multiplier
 }
 
@@ -107,8 +112,8 @@ export const quarkHandler = () => {
     for (const el of quarkResearches) {
         baseQuarkPerHour += player.researches[el]
     }
-    const quarkMultiplier = getQuarkMultiplier();
-    const quarkPerHour = baseQuarkPerHour * quarkMultiplier
+
+    const quarkPerHour = baseQuarkPerHour
 
     //Part 3: Calculates capacity of quarks on export
     const capacity = Math.floor(quarkPerHour * maxTime / 3600)
@@ -150,7 +155,8 @@ export class QuarkHandler {
 
     /*** Calculates the number of quarks to give with the current bonus. */
     applyBonus(amount: number) {
-        return amount * (1 + (this.BONUS / 100));
+        const nonPatreon = getQuarkMultiplier();
+        return amount * (1 + (this.BONUS / 100)) * nonPatreon;
     }
 
     /** Subtracts quarks, as the name suggests. */
@@ -201,6 +207,10 @@ export class QuarkHandler {
         el.textContent = `Generous patrons give you a bonus of ${b}% more quarks!`;
         localStorage.setItem('quarkBonus', JSON.stringify({ bonus: b, fetched: Date.now() }));
         this.BONUS = b;
+    }
+
+    public toString(val: number): string {
+        return format(Math.floor(this.applyBonus(val)), 0, true)
     }
 
     [Symbol.toPrimitive] = (t: string) => t === 'number' ? this.QUARKS : null;
