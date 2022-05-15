@@ -1613,15 +1613,15 @@ export const calculateCubeQuarkMultiplier = () => {
     return calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40) +
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 160) +
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640) +
-           calculateSigmoid(1.15, +(player.singularityCount > 1) * Math.pow(player.overfluxOrbs, 0.45), 2560) +
-           calculateSigmoid(1.15, +(player.singularityCount > 2) * Math.pow(player.overfluxOrbs, 0.4), 10000) +
-           calculateSigmoid(1.25, +(player.singularityCount > 5) * Math.pow(player.overfluxOrbs, 0.35), 40000) +
-           calculateSigmoid(1.25, +(player.singularityCount > 10) * Math.pow(player.overfluxOrbs, 0.32), 160000) +
-           calculateSigmoid(1.35, +(player.singularityCount > 15) * Math.pow(player.overfluxOrbs, 0.27), 640000) +
-           calculateSigmoid(1.45, +(player.singularityCount > 20) * Math.pow(player.overfluxOrbs, 0.24), 2e6) +
-           calculateSigmoid(1.55, +(player.singularityCount > 25) * Math.pow(player.overfluxOrbs, 0.21), 1e7) +
-           calculateSigmoid(1.85, +(player.singularityCount > 30) * Math.pow(player.overfluxOrbs, 0.18), 4e7) +
-           calculateSigmoid(3, +(player.singularityCount > 35) * Math.pow(player.overfluxOrbs, 0.15), 1e8) -
+           calculateSigmoid(1.15, +(player.singularityCount >= 1) * Math.pow(player.overfluxOrbs, 0.45), 2560) +
+           calculateSigmoid(1.15, +(player.singularityCount >= 2) * Math.pow(player.overfluxOrbs, 0.4), 10000) +
+           calculateSigmoid(1.25, +(player.singularityCount >= 5) * Math.pow(player.overfluxOrbs, 0.35), 40000) +
+           calculateSigmoid(1.25, +(player.singularityCount >= 10) * Math.pow(player.overfluxOrbs, 0.32), 160000) +
+           calculateSigmoid(1.35, +(player.singularityCount >= 15) * Math.pow(player.overfluxOrbs, 0.27), 640000) +
+           calculateSigmoid(1.45, +(player.singularityCount >= 20) * Math.pow(player.overfluxOrbs, 0.24), 2e6) +
+           calculateSigmoid(1.55, +(player.singularityCount >= 25) * Math.pow(player.overfluxOrbs, 0.21), 1e7) +
+           calculateSigmoid(1.85, +(player.singularityCount >= 30) * Math.pow(player.overfluxOrbs, 0.18), 4e7) +
+           calculateSigmoid(3, +(player.singularityCount >= 35) * Math.pow(player.overfluxOrbs, 0.15), 1e8) -
            11;
 }
 
