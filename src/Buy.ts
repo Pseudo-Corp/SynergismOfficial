@@ -392,7 +392,7 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
     const [originalCost, num] = getOriginalCostAndNum(index, type);
     
     const BUYMAX = (Math.pow(10, 15) - 1);
-    const COINMAX = 1e15;
+    const COINMAX = 1e99;
     const r = getReductionValue();
     const tag = buyProducerTypes[type][0];
 
