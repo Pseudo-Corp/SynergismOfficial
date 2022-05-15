@@ -514,7 +514,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
         expertPack: new SingularityUpgrade(singularityData['expertPack']),
         masterPack: new SingularityUpgrade(singularityData['masterPack']),
-        divinePack: new SingularityUpgrade(singularityData['divinePack']),
+        divinePack: new SingularityUpgrade(singularityData['divinePack'])
     }
 
     if (data.singularityUpgrades != null) {

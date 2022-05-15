@@ -214,15 +214,15 @@ export const promocodes = async () => {
         const quarkMultiplier = 1 + Math.min(49, player.singularityCount)
 
         let actualQuarkAward = player.worlds.applyBonus(rewards.quarks * quarkMultiplier);
-        if (actualQuarkAward > 1e5)
+        if (actualQuarkAward > 1e5) {
             actualQuarkAward = Math.pow(1e5, 0.75) * Math.pow(actualQuarkAward, 0.25)
+        }
         player.worlds.add(actualQuarkAward, false)
         player.goldenQuarks += rewards.goldenQuarks
 
         const goldenQuarksText = (rewards.goldenQuarks > 0) ? `and ${format(rewards.goldenQuarks, 0, true)} Golden Quarks` : '';
         return Alert(`Thank you for playing today! You have gained ${format(actualQuarkAward, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
-    }
-     else if(input.toLowerCase() === 'add') {
+    } else if (input.toLowerCase() === 'add') {
         const hour = 3600000
         const timeToNextHour = Math.floor(hour + player.rngCode - Date.now())/1000
 
@@ -266,7 +266,7 @@ export const promocodes = async () => {
         // Calculator Maxed: you don't need to insert anything!
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
-            let ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
+            const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
             addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult)
             player.rngCode = v;
             return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
@@ -368,8 +368,9 @@ export const promocodes = async () => {
             const reward = Math.floor(500 * (1 + player.cubeUpgrades[61] / 100));
             let actualQuarkAward = player.worlds.applyBonus(reward)
 
-            if (actualQuarkAward > 66666)
+            if (actualQuarkAward > 66666) {
                 actualQuarkAward = Math.pow(actualQuarkAward, 0.4) * Math.pow(66666, 0.6)
+            }
 
             player.worlds.add(actualQuarkAward, false);
             return Confirm(`You clicked at the right time! [+${format(actualQuarkAward, 0, true)} Quarkies]`);

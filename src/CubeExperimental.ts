@@ -75,7 +75,7 @@ export abstract class Cube {
 
     constructor (
         type: keyof Player,
-        v = 0,
+        v = 0
     ) {
         this.key = type;
         this.value = v;

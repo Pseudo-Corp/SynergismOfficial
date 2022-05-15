@@ -504,7 +504,7 @@ export const calculateTalismanEffects = () => {
     negativeBonus += 0.06 * player.researches[118]
     negativeBonus += 0.0004 * player.cubeUpgrades[50]
 
-    if (player.singularityCount >= 7) { 
+    if (player.singularityCount >= 7) {
         positiveBonus += negativeBonus;
         negativeBonus = positiveBonus
     }
@@ -554,8 +554,7 @@ export const calculateTalismanEffects = () => {
             }
 
         }
-    }
-    else {
+    } else {
         for (let i = 1; i <= 5; i ++) {
             G['talisman1Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[1-1]]! + positiveBonus) * player.talismanLevels[1-1] * G['challenge15Rewards'].talismanBonus
             G['talisman2Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[2-1]]! + positiveBonus) * player.talismanLevels[2-1] * G['challenge15Rewards'].talismanBonus
@@ -1500,8 +1499,9 @@ export const calculateAscensionScore = () => {
         const exponent = ((i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 2 * Math.min(1, player.platonicUpgrades[17]) + 0.04 * player.platonicUpgrades[17] : 1;
         corruptionMultiplier *= (Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i] + bonusLevel], exponent) + bonusVal);
 
-        if (player.usedCorruptions[i] >= 14 && player.singularityUpgrades.masterPack.level > 0)
+        if (player.usedCorruptions[i] >= 14 && player.singularityUpgrades.masterPack.level > 0) {
             corruptionMultiplier *= 1.1
+        }
     }
 
     const bonusMultiplier = computeAscensionScoreBonusMultiplier();
@@ -1615,7 +1615,7 @@ export const calculateCubeQuarkMultiplier = () => {
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640) +
            calculateSigmoid(1.15, +(player.singularityCount > 1) * Math.pow(player.overfluxOrbs, 0.45), 2560) +
            calculateSigmoid(1.15, +(player.singularityCount > 2) * Math.pow(player.overfluxOrbs, 0.4), 10000) +
-           calculateSigmoid(1.25, +(player.singularityCount > 5) * Math.pow(player.overfluxOrbs, 0.35), 40000) + 
+           calculateSigmoid(1.25, +(player.singularityCount > 5) * Math.pow(player.overfluxOrbs, 0.35), 40000) +
            calculateSigmoid(1.25, +(player.singularityCount > 10) * Math.pow(player.overfluxOrbs, 0.32), 160000) +
            calculateSigmoid(1.35, +(player.singularityCount > 15) * Math.pow(player.overfluxOrbs, 0.27), 640000) +
            calculateSigmoid(1.45, +(player.singularityCount > 20) * Math.pow(player.overfluxOrbs, 0.24), 2e6) +

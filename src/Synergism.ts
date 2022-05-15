@@ -681,7 +681,7 @@ export const player: Player = {
         advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
         expertPack: new SingularityUpgrade(singularityData['expertPack']),
         masterPack: new SingularityUpgrade(singularityData['masterPack']),
-        divinePack: new SingularityUpgrade(singularityData['divinePack']),
+        divinePack: new SingularityUpgrade(singularityData['divinePack'])
     },
     dailyCodeUsed: false
 }
@@ -1663,7 +1663,7 @@ export const format = (
             return `${mantissaLook}e${powerLookF}OcDC`;
         }
         if (power >= 1e60) {
-            return `INFINITE`
+            return 'INFINITE'
         }
 
         // If it doesn't fit a notation then default to mantissa e power
