@@ -396,7 +396,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: 'One would be advised not to touch this. +0.05% Octeracts per level, whatever those are...'
-    },
+    }
 }
 
 //Names of shop upgrades || Top row indicates potions, and all other upgrades are labeled in order.
@@ -528,19 +528,19 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         case 'cubeToQuarkAll':
             lol.textContent = `CURRENT Effect: Opening any cube gives +${format(0.2 * player.shopUpgrades.cubeToQuarkAll, 2)}% quarks!`;
             break;
-        case `chronometerZ`:
+        case 'chronometerZ':
             lol.textContent = `CURRENT Effect: Ascension Speed +${format(0.01 * player.singularityCount * player.shopUpgrades.chronometerZ, 2)}%!`;
             break;
-        case `offeringEX2`:
+        case 'offeringEX2':
             lol.textContent = `CURRENT Effect: Offerings +${format(0.01 * player.singularityCount * player.shopUpgrades.offeringEX2, 2)}%!`;
             break;
-        case `obtainiumEX2`:
+        case 'obtainiumEX2':
             lol.textContent = `CURRENT Effect: Obtainium +${format(0.01 * player.singularityCount * player.shopUpgrades.obtainiumEX2, 2)}%!`;
             break;
-        case `powderAuto`:
+        case 'powderAuto':
             lol.textContent = `CURRENT Effect: Every ${format(100 / (Math.max(1, player.shopUpgrades.powderAuto) * calculatePowderConversion().mult), 0, true)} purchased orbs grants 1 powder.`
             break;
-        case `seasonPassLost`:
+        case 'seasonPassLost':
             lol.textContent = `CURRENT Effect: +${format(0.05 * player.shopUpgrades.seasonPassLost, 2)}% of those Eight-Dimensional Thingies.`
     }
 
@@ -580,13 +580,13 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         seasonPassY: 'a Season Pass Y',
         seasonPassZ: 'a Permanent Season Pass Z',
         challengeTome2: 'a Permanent Challenge 10 requirement reduction',
-        cubeToQuarkAll: `an overpriced improvement to your quark gain`,
-        cashGrab2: `an overpriced cash grab`,
-        chronometerZ: `an overpriced chronometer`,
-        obtainiumEX2: `an overpriced obtainium extender`,
-        offeringEX2: `an overpriced offering extender`,
-        powderAuto: `an overpriced powder automation`,
-        seasonPassLost: `an overpriced, mysterious relic of the hyperreals`
+        cubeToQuarkAll: 'an overpriced improvement to your quark gain',
+        cashGrab2: 'an overpriced cash grab',
+        chronometerZ: 'an overpriced chronometer',
+        obtainiumEX2: 'an overpriced obtainium extender',
+        offeringEX2: 'an overpriced offering extender',
+        powderAuto: 'an overpriced powder automation',
+        seasonPassLost: 'an overpriced, mysterious relic of the hyperreals'
     }
 
     return names[input];

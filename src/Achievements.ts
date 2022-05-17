@@ -815,15 +815,18 @@ export const ascensionAchievementCheck = (i: number, score = 0) => {
 
 export const getAchievementQuarks = (i: number) => {
     let multiplier = 1
-    if (i >= 183)
+    if (i >= 183) {
         multiplier = 5
-    if (i >= 253)
+    }
+    if (i >= 253) {
         multiplier = 40
+    }
 
     const globalQuarkMultiplier = player.worlds.applyBonus(1)
     let actualMultiplier = multiplier * globalQuarkMultiplier;
-    if (actualMultiplier > 100)
+    if (actualMultiplier > 100) {
         actualMultiplier = Math.pow(100, 0.6) * Math.pow(actualMultiplier, 0.4)
+    }
 
     return Math.floor(achievementpointvalues[i] * actualMultiplier)
 }
@@ -832,7 +835,7 @@ export const achievementdescriptions = (i: number) => {
     const y = adesc[`adesc${i}` as keyof typeof adesc];
     const z = player.achievements[i] > 0.5 ? ' COMPLETED!' : '';
     const k = areward(i)
-   
+
     DOMCacheGetOrSet('achievementdescription').textContent = y + z
     DOMCacheGetOrSet('achievementreward').textContent = 'Reward: ' + achievementpointvalues[i] + ' AP. ' + format(getAchievementQuarks(i), 0, true) + ' Quarks! ' + k
     if (player.achievements[i] > 0.5) {

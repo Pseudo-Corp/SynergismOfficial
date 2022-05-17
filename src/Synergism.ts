@@ -463,7 +463,7 @@ export const player: Player = {
         offeringEX2: 0,
         obtainiumEX2: 0,
         seasonPassLost: 0,
-        powderAuto: 0,
+        powderAuto: 0
     },
     autoSacrificeToggle: false,
     autoFortifyToggle: false,
