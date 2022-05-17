@@ -380,6 +380,8 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     if (player.currentChallenge.ascension === 15) {
         q *= (1 + 7 * player.cubeUpgrades[62]);
     }
+    q *= (1 + 1/200 * player.shopUpgrades.cashGrab2);
+    q *= (1 + 1/10000 * player.shopUpgrades.offeringEX2 * player.singularityCount);
 
     let persecond = 0;
     if (input === 'prestige') {
@@ -465,6 +467,8 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= 1 + 0.08 * player.singularityUpgrades.singObtainium2.level
     G['obtainiumGain'] *= 1 + 0.04 * player.singularityUpgrades.singObtainium3.level
     G['obtainiumGain'] *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
+    G['obtainiumGain'] *= (1 + 1/200 * player.shopUpgrades.cashGrab2)
+    G['obtainiumGain'] *= (1 + 1/10000 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
@@ -1281,7 +1285,8 @@ export const calculateAscensionAcceleration = () => {
         1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // PLAT Omega
         G['challenge15Rewards'].ascensionSpeed,                                                         // C15
         1 + 1/400 * player.cubeUpgrades[59],                                                            // Cookie Upgrade 9
-        1 + 0.5 * player.singularityUpgrades.intermediatePack.level                                     // Intermediate Pack, Sing Shop
+        1 + 0.5 * player.singularityUpgrades.intermediatePack.level,                                    // Intermediate Pack, Sing Shop
+        1 + 1/10000 * player.singularityCount * player.shopUpgrades.chronometerZ                        // Chronometer Z
     ]
     return productContents(arr) / calculateSingularityDebuff('Ascension Speed')
 }
@@ -1610,7 +1615,7 @@ export const calculatePowderConversion = () => {
 }
 
 export const calculateCubeQuarkMultiplier = () => {
-    return calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40) +
+    return (calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40) +
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 160) +
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640) +
            calculateSigmoid(1.15, +(player.singularityCount >= 1) * Math.pow(player.overfluxOrbs, 0.45), 2560) +
@@ -1622,7 +1627,7 @@ export const calculateCubeQuarkMultiplier = () => {
            calculateSigmoid(1.55, +(player.singularityCount >= 25) * Math.pow(player.overfluxOrbs, 0.21), 1e7) +
            calculateSigmoid(1.85, +(player.singularityCount >= 30) * Math.pow(player.overfluxOrbs, 0.18), 4e7) +
            calculateSigmoid(3, +(player.singularityCount >= 35) * Math.pow(player.overfluxOrbs, 0.15), 1e8) -
-           11;
+           11) * (1 + 1/500 * player.shopUpgrades.cubeToQuarkAll);
 }
 
 export const calculateCubeMultFromPowder = () => {

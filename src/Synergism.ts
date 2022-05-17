@@ -456,7 +456,14 @@ export const player: Player = {
         chronometer3: 0,
         seasonPassY: 0,
         seasonPassZ: 0,
-        challengeTome2: 0
+        challengeTome2: 0,
+        cashGrab2: 0,
+        chronometerZ: 0,
+        cubeToQuarkAll: 0,
+        offeringEX2: 0,
+        obtainiumEX2: 0,
+        seasonPassLost: 0,
+        powderAuto: 0,
     },
     autoSacrificeToggle: false,
     autoFortifyToggle: false,
@@ -681,7 +688,8 @@ export const player: Player = {
         advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
         expertPack: new SingularityUpgrade(singularityData['expertPack']),
         masterPack: new SingularityUpgrade(singularityData['masterPack']),
-        divinePack: new SingularityUpgrade(singularityData['divinePack'])
+        divinePack: new SingularityUpgrade(singularityData['divinePack']),
+        wowPass2: new SingularityUpgrade(singularityData['wowPass2'])
     },
     dailyCodeUsed: false
 }

@@ -348,6 +348,13 @@ export interface Player {
         seasonPassY: number,
         seasonPassZ: number,
         challengeTome2: number,
+        cubeToQuarkAll: number,
+        cashGrab2: number,
+        seasonPassLost: number,
+        chronometerZ: number,
+        powderAuto: number,
+        offeringEX2: number,
+        obtainiumEX2: number
     }
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,
@@ -549,6 +556,7 @@ export interface Player {
         expertPack: SingularityUpgrade
         masterPack: SingularityUpgrade
         divinePack: SingularityUpgrade
+        wowPass2: SingularityUpgrade
     }
     dailyCodeUsed: boolean
 

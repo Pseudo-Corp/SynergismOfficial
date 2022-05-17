@@ -371,7 +371,11 @@ export const tradeHepteractToOverfluxOrb = async () => {
     player.wowAbyssals -= 250000 * buyAmount
     const afterEffect = calculateCubeQuarkMultiplier();
 
-    return Alert('You have purchased ' + format(buyAmount, 0, true) + ` Overflux Orbs [+${format(100 * (afterEffect - beforeEffect), 2, true)}% to effect]. Enjoy!`)
+    const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion().mult * buyAmount / 100
+    player.overfluxPowder += powderGain
+
+    const powderText = (powderGain > 0) ? `You have also gained ${format(powderGain, 2, true)} powder immediately, thanks to your shop upgrades.` : ``
+    return Alert('You have purchased ' + format(buyAmount, 0, true) + ` Overflux Orbs [+${format(100 * (afterEffect - beforeEffect), 2, true)}% to effect]. ${powderText} Enjoy!`)
 
 }
 

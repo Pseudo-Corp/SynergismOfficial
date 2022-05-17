@@ -350,6 +350,13 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         maxLevel: 1,
         costPerLevel: 12800,
         minimumSingularity: 36
+    },
+    wowPass2: {
+        name: 'Shop Liquidation Sale',
+        description: 'The Seal Merchant needs to get rid of some exotic goods. Only for a steep price. I do not think that is how sales work.',
+        maxLevel: 1,
+        costPerLevel: 49999,
+        minimumSingularity: 11
     }
 }
 
@@ -434,12 +441,12 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs) => {
         effectiveSingularities *= Math.min(4, 1.25 * player.singularityCount / 10 - 0.25)
     }
     if (player.singularityCount > 25) {
-        effectiveSingularities *= 2
-        effectiveSingularities *= Math.min(4, 1.5 * player.singularityCount / 25 - 0.5)
+        effectiveSingularities *= 2.5
+        effectiveSingularities *= Math.min(6, 1.5 * player.singularityCount / 25 - 0.5)
     }
     if (player.singularityCount > 50) {
-        effectiveSingularities *= 4
-        effectiveSingularities *= Math.min(4, 2 * player.singularityCount / 50 - 1)
+        effectiveSingularities *= 6
+        effectiveSingularities *= Math.min(8, 2 * player.singularityCount / 50 - 1)
     }
     if (player.singularityCount > 100) {
         effectiveSingularities *= player.singularityCount / 25

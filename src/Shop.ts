@@ -1,7 +1,7 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
 import { Alert, Confirm, revealStuff } from './UpdateHTML';
-import { calculateTimeAcceleration } from './Calculate';
+import { calculatePowderConversion, calculateTimeAcceleration } from './Calculate';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -13,7 +13,7 @@ export enum shopUpgradeTypes {
     UPGRADE = 'upgrade'
 }
 
-type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity'
+type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2'
 
 export interface IShopData {
     price: number
@@ -326,7 +326,77 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: 'You find the final pages of the lost tome. It functionally acts the same as the rest of the pages, but you can have up to five more!'
-    }
+    },
+    cubeToQuarkAll: {
+        tier: 'SingularityVol2',
+        price: 2222222,
+        priceIncrease: 0,
+        maxLevel: 100,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'First up on the menu, why not gain +0.2% Quarks from cube opening per level?'
+    },
+    cashGrab2: {
+        tier: 'SingularityVol2',
+        price: 5000,
+        priceIncrease: 5000,
+        maxLevel: 999,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'This isn\'t even as good as the original. +0.5% Offerings and Obtainium per level.'
+    },
+    chronometerZ: {
+        tier: 'SingularityVol2',
+        price: 12500,
+        priceIncrease: 12500,
+        maxLevel: 999,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain +0.01% Ascension Speed per level per singularity. It needs a lot of fuel to power up.'
+    },
+    offeringEX2: {
+        tier: 'SingularityVol2',
+        price: 10000,
+        priceIncrease: 10000,
+        maxLevel: 999,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain +0.01% Offerings per level per singularity. Putting the Singularity Debuff industry out of business.'
+    },
+    obtainiumEX2: {
+        tier: 'SingularityVol2',
+        price: 10000,
+        priceIncrease: 10000,
+        maxLevel: 999,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain +0.01% Obtainium per level per singularity!!!'
+    },
+    powderAuto: {
+        tier: 'SingularityVol2',
+        price: 5e6,
+        priceIncrease: 0,
+        maxLevel: 100,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Your grandparents had to wait a full day for powder, but not you! Per level gain +1% of orbs to powder based on the conversion rate.'
+    },
+    seasonPassLost: {
+        tier: 'SingularityVol2',
+        price: 1000000,
+        priceIncrease: 25000,
+        maxLevel: 999,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'One would be advised not to touch this. +0.05% Octeracts per level, whatever those are...'
+    },
 }
 
 //Names of shop upgrades || Top row indicates potions, and all other upgrades are labeled in order.
@@ -337,7 +407,8 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'challengeTome' | 'challengeTome2' | 'cubeToQuark' | 'tesseractToQuark' | 'hypercubeToQuark' |
                         'seasonPass2' | 'seasonPass3' | 'seasonPassY' | 'seasonPassZ' | 'chronometer' |
                         'chronometer2'| 'chronometer3'| 'infiniteAscent' | 'calculator' |
-                        'calculator2' | 'calculator3' | 'constantEX' | 'powderEX'
+                        'calculator2' | 'calculator3' | 'constantEX' | 'powderEX' | 'cashGrab2' | 'cubeToQuarkAll' |
+                        'seasonPassLost' | 'chronometerZ' | 'powderAuto' | 'offeringEX2' | 'obtainiumEX2'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -450,6 +521,27 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             break;
         case 'challengeTome2':
             lol.textContent = `CURRENT Effect: Challenge 10 Exponent Requirement reduced by ${20 * player.shopUpgrades.challengeTome2} Million. Past 60 completions of C9 or C10 the scaling multiplier is [completions * ${format(1 - (player.shopUpgrades.challengeTome + player.shopUpgrades.challengeTome2) / 100, 2, true)}]`
+            break;
+        case 'cashGrab2':
+            lol.textContent = `CURRENT Effect: Offering, Obtainium +${format(0.5 * player.shopUpgrades.cashGrab2, 1)}%!`;
+            break;
+        case 'cubeToQuarkAll':
+            lol.textContent = `CURRENT Effect: Opening any cube gives +${format(0.2 * player.shopUpgrades.cubeToQuarkAll, 2)}% quarks!`;
+            break;
+        case `chronometerZ`:
+            lol.textContent = `CURRENT Effect: Ascension Speed +${format(0.01 * player.singularityCount * player.shopUpgrades.chronometerZ, 2)}%!`;
+            break;
+        case `offeringEX2`:
+            lol.textContent = `CURRENT Effect: Offerings +${format(0.01 * player.singularityCount * player.shopUpgrades.offeringEX2, 2)}%!`;
+            break;
+        case `obtainiumEX2`:
+            lol.textContent = `CURRENT Effect: Obtainium +${format(0.01 * player.singularityCount * player.shopUpgrades.obtainiumEX2, 2)}%!`;
+            break;
+        case `powderAuto`:
+            lol.textContent = `CURRENT Effect: Every ${format(100 / (Math.max(1, player.shopUpgrades.powderAuto) * calculatePowderConversion().mult), 0, true)} purchased orbs grants 1 powder.`
+            break;
+        case `seasonPassLost`:
+            lol.textContent = `CURRENT Effect: +${format(0.05 * player.shopUpgrades.seasonPassLost, 2)}% of those Eight-Dimensional Thingies.`
     }
 
 }
@@ -487,7 +579,14 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         chronometer3: 'a permanent 1.5% ascension speedup',
         seasonPassY: 'a Season Pass Y',
         seasonPassZ: 'a Permanent Season Pass Z',
-        challengeTome2: 'a Permanent Challenge 10 requirement reduction'
+        challengeTome2: 'a Permanent Challenge 10 requirement reduction',
+        cubeToQuarkAll: `an overpriced improvement to your quark gain`,
+        cashGrab2: `an overpriced cash grab`,
+        chronometerZ: `an overpriced chronometer`,
+        obtainiumEX2: `an overpriced obtainium extender`,
+        offeringEX2: `an overpriced offering extender`,
+        powderAuto: `an overpriced powder automation`,
+        seasonPassLost: `an overpriced, mysterious relic of the hyperreals`
     }
 
     return names[input];

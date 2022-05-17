@@ -813,21 +813,28 @@ export const ascensionAchievementCheck = (i: number, score = 0) => {
     }
 }
 
+export const getAchievementQuarks = (i: number) => {
+    let multiplier = 1
+    if (i >= 183)
+        multiplier = 5
+    if (i >= 253)
+        multiplier = 40
+
+    const globalQuarkMultiplier = player.worlds.applyBonus(1)
+    let actualMultiplier = multiplier * globalQuarkMultiplier;
+    if (actualMultiplier > 100)
+        actualMultiplier = Math.pow(100, 0.6) * Math.pow(actualMultiplier, 0.4)
+
+    return Math.floor(achievementpointvalues[i] * actualMultiplier)
+}
+
 export const achievementdescriptions = (i: number) => {
     const y = adesc[`adesc${i}` as keyof typeof adesc];
     const z = player.achievements[i] > 0.5 ? ' COMPLETED!' : '';
     const k = areward(i)
-    //const k = areward[`areward${i}` as keyof typeof areward] || '';
-    let multiplier = 1
-    if (i >= 183) {
-        multiplier = 5
-    }
-    if (i >= 253) {
-        multiplier = 40
-    }
-
+   
     DOMCacheGetOrSet('achievementdescription').textContent = y + z
-    DOMCacheGetOrSet('achievementreward').textContent = 'Reward: ' + achievementpointvalues[i] + ' AP. ' + format(achievementpointvalues[i] * multiplier) + ' Quarks! ' + k
+    DOMCacheGetOrSet('achievementreward').textContent = 'Reward: ' + achievementpointvalues[i] + ' AP. ' + format(getAchievementQuarks(i), 0, true) + ' Quarks! ' + k
     if (player.achievements[i] > 0.5) {
         DOMCacheGetOrSet('achievementdescription').style.color = 'gold'
     } else {
@@ -841,14 +848,7 @@ export const achievementaward = (num: number) => {
 
         void achievementAlerts(num)
         player.achievementPoints += achievementpointvalues[num]
-        let multiplier = 1
-        if (num >= 183) {
-            multiplier = 5
-        }
-        if (num >= 253) {
-            multiplier = 40
-        }
-        player.worlds.add(achievementpointvalues[num] * multiplier);
+        player.worlds.add(getAchievementQuarks(num), false)
         DOMCacheGetOrSet('achievementprogress').textContent = 'Achievement Points: ' + player.achievementPoints + '/' + totalachievementpoints + ' [' + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + '%]'
         player.achievements[num] = 1;
         revealStuff()
