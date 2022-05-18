@@ -9,7 +9,7 @@ import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewa
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism';
 import { upgradeupdate, getConstUpgradeMetadata, buyConstantUpgrades, ascendBuildingDR } from './Upgrades';
 import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Research';
-import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert } from './UpdateHTML';
+import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert, Notification } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck, exitOffline } from './Calculate';
@@ -27,7 +27,7 @@ import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgr
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
-import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate, updateCorruptionLoadoutNames } from './Corruptions';
+import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate, updateCorruptionLoadoutNames, corruptionLoadoutSaveLoad } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import { addTimers, automaticTools } from './Helper';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
@@ -3416,6 +3416,24 @@ document.addEventListener('keydown', (event) => {
     const type = types[G['buildingSubTab']];
 
     const key = event.code.replace(/^(Digit|Numpad)/, '').toUpperCase();
+
+    if (event.shiftKey) {
+        let num = Number(key) - 1;
+        if (key ==='BACKQUOTE') {
+            num = -1;
+        }
+        if (player.challengecompletions[11] > 0 && !isNaN(num)) {
+            if (num >= 0 && num < player.corruptionLoadoutNames.length) {
+                void Notification(`${player.corruptionLoadoutNames[num]} (${num + 1}) used activation. This will take effect on the next ascension.`, 5000);
+                corruptionLoadoutSaveLoad(false, num + 1);
+            } else {
+                void Notification('All next Corruption Stats are now Zero. This will take effect on the next ascension.', 5000);
+                corruptionLoadoutSaveLoad(false, 0);
+            }
+        }
+        return;
+    }
+
     switch (key) {
         case '1':
         case '2':
