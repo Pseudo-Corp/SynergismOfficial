@@ -75,16 +75,16 @@ export class SingularityUpgrade {
             ? `Minimum Singularity: ${this.minimumSingularity}`
             : 'No minimal singularity to purchase required'
 
-        return `${this.name}
-                ${this.description}
-                ${minimumSingularity}
-                Level ${this.level}${maxLevel}
-                Cost for next level: ${format(costNextLevel)} Golden Quarks.
-                Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
+        return `<span style="color: goldenrod">${this.name}</span>
+                <span style="color: #00b300">${this.description}</span>
+                <span style="color:darkred;">${minimumSingularity}</span>
+                Level ${this.level}${maxLevel}</span>
+                <span style="color: rebeccapurple">Cost for next level: ${format(costNextLevel)} Golden Quarks.</span>
+                <span style="color: #5b5ddc">Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}</span>`
     }
 
     public updateUpgradeHTML(): void {
-        DOMCacheGetOrSet('testingMultiline').textContent = this.toString()
+        DOMCacheGetOrSet('testingMultiline').innerHTML = this.toString()
     }
 
     /**
