@@ -21,7 +21,7 @@ export const updateSingularityStats = (): void => {
                  Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(calculateSingularityDebuff('Cube Upgrades'), 2, true)}.
                  <br><span style='color: ${color}'>Antiquities of Ant God is ${(player.runelevels[6] > 0) ? '' : 'NOT'} purchased. Penalties are ${(player.runelevels[6] > 0) ? '' : 'NOT'} dispelled!</span>`
 
-    DOMCacheGetOrSet('singularityMultiline').innerHTML = str;
+    DOMCacheGetOrSet('singularityMultiline').append(str);
 }
 
 export interface ISingularityData {
