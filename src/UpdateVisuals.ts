@@ -503,9 +503,9 @@ export const visualUpdateSettings = () => {
     DOMCacheGetOrSet('quarktimeramount').textContent =
         `Quarks on export: ${player.worlds.toString(onExportQuarks)} [Max ${player.worlds.toString(maxExportQuarks)}]`;
 
-    DOMCacheGetOrSet('goldenQuarkTimerDisplay').textContent = format(3600 / Math.max(1, player.singularityUpgrades.goldenQuarks3.level) - (player.goldenQuarksTimer % (3600.00001 / Math.max(1,player.singularityUpgrades.goldenQuarks3.level)))) + 's until +' + format(patreonLOL, 2, true) + ' export Golden Quark'
+    DOMCacheGetOrSet('goldenQuarkTimerDisplay').textContent = format(3600 / Math.max(1, +player.singularityUpgrades.goldenQuarks3.getEffect().bonus) - (player.goldenQuarksTimer % (3600.00001 / Math.max(1,+player.singularityUpgrades.goldenQuarks3.getEffect().bonus)))) + 's until +' + format(patreonLOL, 2, true) + ' export Golden Quark'
     DOMCacheGetOrSet('goldenQuarkTimerAmount').textContent =
-        `Golden Quarks on export: ${format(Math.floor(player.goldenQuarksTimer * player.singularityUpgrades.goldenQuarks3.level/ 3600) * patreonLOL, 2)} [Max ${format(Math.floor(25 * player.singularityUpgrades.goldenQuarks3.level * patreonLOL))}]`
+        `Golden Quarks on export: ${format(Math.floor(player.goldenQuarksTimer * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus/ 3600) * patreonLOL, 2)} [Max ${format(Math.floor(168 * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus * patreonLOL))}]`
 
 }
 

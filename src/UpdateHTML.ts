@@ -204,12 +204,12 @@ export const revealStuff = () => {
 
     const singularityShopItems = document.getElementsByClassName('singularityShopUnlock') as HTMLCollectionOf<HTMLElement>;
     for (const item of Array.from(singularityShopItems)) { // Ability to buy upgrade tier 1s
-        item.style.display = player.singularityUpgrades.wowPass.level > 0 ? 'block' : 'none';
+        item.style.display = player.singularityUpgrades.wowPass.getEffect().bonus ? 'block' : 'none';
     }
 
     const singularityShopItems2 = document.getElementsByClassName('singularityShopUnlock2') as HTMLCollectionOf<HTMLElement>;
     for (const item of Array.from(singularityShopItems2)) { // Ability to buy upgrade tier 2s
-        item.style.display = player.singularityUpgrades.wowPass2.level > 0 ? 'block' : 'none';
+        item.style.display = player.singularityUpgrades.wowPass2.getEffect().bonus > 0 ? 'block' : 'none';
     }
 
     const hepts = DOMCacheGetOrSet('corruptionHepteracts');
@@ -220,21 +220,21 @@ export const revealStuff = () => {
     const cookies3 = document.getElementsByClassName('assortedCookies3') as HTMLCollectionOf<HTMLElement>;
     const cookies4 = document.getElementsByClassName('assortedCookies4') as HTMLCollectionOf<HTMLElement>;
     for (const HTML of Array.from(cookies1)) {
-        HTML.style.display = player.singularityUpgrades.cookies.level > 0 ? 'block' : 'none';
+        HTML.style.display = player.singularityUpgrades.cookies.getEffect().bonus ? 'block' : 'none';
     }
     for (const HTML of Array.from(cookies2)) {
-        HTML.style.display = player.singularityUpgrades.cookies2.level > 0 ? 'block' : 'none';
+        HTML.style.display = player.singularityUpgrades.cookies2.getEffect().bonus ? 'block' : 'none';
     }
     for (const HTML of Array.from(cookies3)) {
-        HTML.style.display = player.singularityUpgrades.cookies3.level > 0 ? 'block' : 'none';
+        HTML.style.display = player.singularityUpgrades.cookies3.getEffect().bonus ? 'block' : 'none';
     }
     for (const HTML of Array.from(cookies4)) {
-        HTML.style.display = player.singularityUpgrades.cookies4.level > 0 ? 'block' : 'none';
+        HTML.style.display = player.singularityUpgrades.cookies4.getEffect().bonus ? 'block' : 'none';
     }
 
     const goldenQuarks3 = document.getElementsByClassName('goldenQuark3Upg') as HTMLCollectionOf<HTMLElement>;
     for (const HTML of Array.from(goldenQuarks3)) {
-        HTML.style.display = player.singularityUpgrades.goldenQuarks3.level > 0 ? 'block' : 'none';
+        HTML.style.display = player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0 ? 'block' : 'none';
     }
     if (player.upgrades[89] === 1) {
         DOMCacheGetOrSet('transcendautotoggle').style.display = 'block';

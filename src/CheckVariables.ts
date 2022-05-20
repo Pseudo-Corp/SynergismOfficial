@@ -540,7 +540,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     level: data.singularityUpgrades[k].level,
                     goldenQuarksInvested: data.singularityUpgrades[k].goldenQuarksInvested,
                     toggleBuy: data.singularityUpgrades[k].toggleBuy,
-                    minimumSingularity: singularityData[k].minimumSingularity
+                    minimumSingularity: singularityData[k].minimumSingularity,
+                    effect: singularityData[k].effect
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
             }

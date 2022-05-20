@@ -358,10 +358,10 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         1 + 2.5 * player.platonicUpgrades[10], // Platonic BETA
         1 + 5 * player.platonicUpgrades[15], // Platonic OMEGA
         G['challenge15Rewards'].offering, // C15 Reward
-        1 + 5 * player.singularityUpgrades.starterPack.level, // Starter Pack Upgrade
-        1 + 0.02 * player.singularityUpgrades.singOfferings1.level, // Offering Charge GQ Upgrade
-        1 + 0.08 * player.singularityUpgrades.singOfferings2.level, // Offering Storm GQ Upgrade
-        1 + 0.04 * player.singularityUpgrades.singOfferings3.level, // Offering Tempest GQ Upgrade
+        1 + 5 * +player.singularityUpgrades.starterPack.getEffect().bonus, // Starter Pack Upgrade
+        +player.singularityUpgrades.singOfferings1.getEffect().bonus, // Offering Charge GQ Upgrade
+        +player.singularityUpgrades.singOfferings2.getEffect().bonus, // Offering Storm GQ Upgrade
+        +player.singularityUpgrades.singOfferings3.getEffect().bonus, // Offering Tempest GQ Upgrade
         1 + player.cubeUpgrades[54] / 100 // Cube upgrade 6x4 (Cx4)
     ];
 
@@ -462,10 +462,10 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + 2.5 * player.platonicUpgrades[10])
     G['obtainiumGain'] *= (1 + 5 * player.platonicUpgrades[15])
     G['obtainiumGain'] *= G['challenge15Rewards'].obtainium
-    G['obtainiumGain'] *= 1 + 5 * player.singularityUpgrades.starterPack.level
-    G['obtainiumGain'] *= 1 + 0.02 * player.singularityUpgrades.singObtainium1.level
-    G['obtainiumGain'] *= 1 + 0.08 * player.singularityUpgrades.singObtainium2.level
-    G['obtainiumGain'] *= 1 + 0.04 * player.singularityUpgrades.singObtainium3.level
+    G['obtainiumGain'] *= 1 + 5 * +player.singularityUpgrades.starterPack.getEffect().bonus
+    G['obtainiumGain'] *= +player.singularityUpgrades.singObtainium1.getEffect().bonus
+    G['obtainiumGain'] *= +player.singularityUpgrades.singObtainium2.getEffect().bonus
+    G['obtainiumGain'] *= +player.singularityUpgrades.singObtainium3.getEffect().bonus
     G['obtainiumGain'] *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
     G['obtainiumGain'] *= (1 + 1/200 * player.shopUpgrades.cashGrab2)
     G['obtainiumGain'] *= (1 + 1/10000 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
@@ -1462,7 +1462,7 @@ export const calculateAscensionScore = () => {
     let corruptionMultiplier = 1;
     let effectiveScore = 0;
 
-    const bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0;
+    const bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect().bonus > 0 ? 1 : 0;
     // Init Arrays with challenge values :)
     const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
     const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
@@ -1499,7 +1499,7 @@ export const calculateAscensionScore = () => {
     // Max: 1.0425
     baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39] + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]), player.highestchallengecompletions[10]);
     // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
-    const bonusVal = (player.singularityUpgrades.advancedPack.level > 0) ? 0.33: 0;
+    const bonusVal = player.singularityUpgrades.advancedPack.getEffect().bonus ? 0.33: 0;
     for (let i = 2; i < 10; i++) {
         const exponent = ((i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 2 * Math.min(1, player.platonicUpgrades[17]) + 0.04 * player.platonicUpgrades[17] : 1;
         corruptionMultiplier *= (Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i] + bonusLevel], exponent) + bonusVal);
@@ -1516,7 +1516,7 @@ export const calculateAscensionScore = () => {
         effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5);
     }
 
-    (player.singularityUpgrades.expertPack.level > 0) ? (effectiveScore *= 1.5) : effectiveScore *= 1;
+    player.singularityUpgrades.expertPack.getEffect().bonus ? effectiveScore *= 1.5 : effectiveScore *= 1;
 
     return {baseScore: baseScore,
         corruptionMultiplier: corruptionMultiplier,
@@ -1588,6 +1588,7 @@ export const calcAscensionCount = () => {
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16]);
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000));
         ascCount *= (1 + 1/8 * player.singularityCount)
+        ascCount *= +player.singularityUpgrades.ascensions.getEffect().bonus
     }
 
     return Math.floor(ascCount);
