@@ -76,7 +76,7 @@ export class SingularityUpgrade {
         const maxLevel = this.maxLevel === -1
             ? ''
             : `/${this.maxLevel}`;
-        const color = this.maxLevel === this.level?'plum':'white'
+        const color = this.maxLevel === this.level ? 'plum' : 'white';
 
         const minimumSingularity = this.minimumSingularity > 0
             ? `Minimum Singularity: ${this.minimumSingularity}`
