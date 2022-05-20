@@ -28,7 +28,7 @@ export const maxCorruptionLevel = () => {
     if (player.platonicUpgrades[10] > 0) {
         max += 1
     }
-    if (player.singularityUpgrades.corruptionFourteen.level > 0) {
+    if (player.singularityUpgrades.corruptionFourteen.getEffect().bonus) {
         max += 1
     }
 

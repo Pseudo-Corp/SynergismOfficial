@@ -683,17 +683,18 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
  * Calculate the number of Golden Quarks earned in current singularity
  */
 export const calculateGoldenQuarkGain = ():number => {
-    const base = 5 * player.singularityCount;
+    const base = 2 * player.singularityCount + 10
+    const bonus = (player.singularityCount < 10) ? (100 - 10 * player.singularityCount) : 0;
     const gainFromQuarks = player.quarksThisSingularity / 1e5;
     const c15Multiplier = 1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2
     const patreonMultiplier = 1 + player.worlds.BONUS/100;
 
-    const singularityUpgrades = (1 + player.singularityUpgrades.goldenQuarks1.level / 20) *
-                                (1 + player.singularityUpgrades.goldenQuarks2.level / 50)
+    const singularityUpgrades = (+player.singularityUpgrades.goldenQuarks1.getEffect().bonus) *
+                                (+player.singularityUpgrades.goldenQuarks2.getEffect().bonus)
 
     const cookieUpgradeMultiplier = 1 + 0.12 * player.cubeUpgrades[69];
 
-    return (base + gainFromQuarks) * c15Multiplier * patreonMultiplier * singularityUpgrades * cookieUpgradeMultiplier;
+    return (base + gainFromQuarks) * c15Multiplier * patreonMultiplier * singularityUpgrades * cookieUpgradeMultiplier + bonus;
 }
 
 /**
@@ -852,7 +853,29 @@ export const singularity = async (): Promise<void> => {
     hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark
     hold.singularityUpgrades = player.singularityUpgrades
-
+    hold.autoChallengeToggles = player.autoChallengeToggles
+    hold.autoChallengeTimer = player.autoChallengeTimer
+    hold.saveString = player.saveString
+    hold.corruptionLoadouts = player.corruptionLoadouts
+    hold.corruptionLoadoutNames = player.corruptionLoadoutNames
+    hold.corruptionShowStats = player.corruptionShowStats
+    hold.toggles = player.toggles
+    hold.retrychallenges = player.retrychallenges
+    hold.resettoggle1 = player.resettoggle1
+    hold.resettoggle2 = player.resettoggle2
+    hold.resettoggle3 = player.resettoggle3
+    hold.coinbuyamount = player.coinbuyamount
+    hold.crystalbuyamount = player.crystalbuyamount
+    hold.mythosbuyamount = player.mythosbuyamount
+    hold.particlebuyamount = player.particlebuyamount
+    hold.offeringbuyamount = player.offeringbuyamount
+    hold.tesseractbuyamount = player.tesseractbuyamount
+    hold.shoptoggles = player.shoptoggles
+    hold.autoSacrificeToggle = player.autoSacrificeToggle
+    hold.autoFortifyToggle = player.autoFortifyToggle
+    hold.autoEnhanceToggle = player.autoEnhanceToggle
+    hold.autoResearchToggle = player.autoResearchToggle
+    hold.autoResearchMode = player.autoResearchMode
     //Import Game
     await importSynergism(btoa(JSON.stringify(hold)), true);
 

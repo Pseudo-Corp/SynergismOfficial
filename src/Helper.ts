@@ -47,7 +47,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
                 return
             } else {
                 player.goldenQuarksTimer += time * timeMultiplier;
-                player.goldenQuarksTimer = (player.goldenQuarksTimer > 90000) ? 90000 : player.goldenQuarksTimer;
+                player.goldenQuarksTimer = (player.goldenQuarksTimer > 3600 * 168) ? 3600 * 168 : player.goldenQuarksTimer;
             }
             break;
         }
