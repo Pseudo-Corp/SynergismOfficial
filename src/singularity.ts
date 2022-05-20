@@ -32,7 +32,7 @@ export interface ISingularityData {
     toggleBuy?: number
     goldenQuarksInvested?: number
     minimumSingularity?: number
-    effect? (n: number): {bonus: number | boolean, desc: string} 
+    effect? (n: number): {bonus: number | boolean, desc: string}
 }
 
 /**
@@ -61,7 +61,9 @@ export class SingularityUpgrade {
         this.toggleBuy = data.toggleBuy ?? 1;
         this.goldenQuarksInvested = data.goldenQuarksInvested ?? 0;
         this.minimumSingularity = data.minimumSingularity ?? 0;
-        this.effect = data.effect ?? function (n:number) {return {bonus: n, desc: `WIP not implemented`}}
+        this.effect = data.effect ?? function (n:number) {
+            return {bonus: n, desc: 'WIP not implemented'}
+        }
     }
 
     /**
@@ -228,7 +230,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} unlocked a 5x multiplier to cubes and 6x multiplier to obtainium and offerings.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} unlocked a 5x multiplier to cubes and 6x multiplier to obtainium and offerings.`
             }
         }
     },
@@ -240,7 +242,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} unlocked the shop bonanza.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} unlocked the shop bonanza.`
             }
         }
     },
@@ -252,7 +254,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} unlocked volume 1 of the recipe book.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} unlocked volume 1 of the recipe book.`
             }
         }
     },
@@ -264,7 +266,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} unlocked volume 2 of the recipe book.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} unlocked volume 2 of the recipe book.`
             }
         }
     },
@@ -276,7 +278,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} appeased the union of Bakers.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} appeased the union of Bakers.`
             }
         }
     },
@@ -288,7 +290,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} paid your price for salvation.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} paid your price for salvation.`
             }
         }
     },
@@ -312,7 +314,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} gained the ability to use level 14 corruptions ${(n > 0)? ":)": ":("}.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} gained the ability to use level 14 corruptions ${(n > 0)? ':)': ':('}.`
             }
         }
     },
@@ -324,7 +326,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} gained a free corruption level ${(n > 0)? ":)": ":("}.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} gained a free corruption level ${(n > 0)? ':)': ':('}.`
             }
         }
     },
@@ -446,7 +448,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} bought into the octeract hype.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} bought into the octeract hype.`
             }
         }
     },
@@ -459,7 +461,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} made a deal with the devil Lootzifer.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} made a deal with the devil Lootzifer.`
             }
         }
     },
@@ -472,7 +474,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} upgraded your package to intermediate.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} upgraded your package to intermediate.`
             }
         }
     },
@@ -485,7 +487,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} bought our advanced package.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} bought our advanced package.`
             }
         }
     },
@@ -498,7 +500,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} switched to the expert provider.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} switched to the expert provider.`
             }
         }
     },
@@ -511,7 +513,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} mastered your inner chakras.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} mastered your inner chakras.`
             }
         }
     },
@@ -524,7 +526,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} found the reason for existence ${(n > 0) ? "" : " just yet"}.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} found the reason for existence ${(n > 0) ? '' : ' just yet'}.`
             }
         }
     },
@@ -537,7 +539,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? "have": "have not"} triggered the liquidation event!`
+                desc: `You ${(n > 0) ? 'have': 'have not'} triggered the liquidation event!`
             }
         }
     }
