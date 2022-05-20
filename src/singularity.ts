@@ -10,7 +10,7 @@ import { toOrdinal } from './Utility'
  *
  */
 export const updateSingularityStats = (): void => {
-    const color = player.runelevels[6]>0?'green':'red'
+    const color = player.runelevels[6] > 0 ? 'green' : 'red';
     const str = `You are in the <span style="color: gold">${toOrdinal(player.singularityCount)} singularity</span>, and have<span style="color: gold"> ${format(player.goldenQuarks,0,true)} golden quarks.</span>
                  <br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
                  Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed'), 2, true)}
@@ -76,7 +76,7 @@ export class SingularityUpgrade {
         const maxLevel = this.maxLevel === -1
             ? ''
             : `/${this.maxLevel}`;
-        const color = this.maxLevel === this.level?'plum':'white'
+        const color = this.maxLevel === this.level ? 'plum' : 'white';
 
         const minimumSingularity = this.minimumSingularity > 0
             ? `Minimum Singularity: ${this.minimumSingularity}`
