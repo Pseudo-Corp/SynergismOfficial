@@ -3227,7 +3227,8 @@ header #obtainiumDisplay {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-top: 10px;
     margin-top: 5px;
     width: calc(105px * 5);
     border: 3px solid plum;
@@ -3235,11 +3236,6 @@ header #obtainiumDisplay {
 
 .singularityUpgrade {
     margin: 2px;
-}
-
-.singularityUpgradeFiller {
-    display: flex;
-    width: 105px;
 }
 
 #singularityMultiline {
