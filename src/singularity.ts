@@ -91,7 +91,7 @@ export class SingularityUpgrade {
     }
 
     public updateUpgradeHTML(): void {
-        DOMCacheGetOrSet('testingMultiline').innerHTML = this.toString()
+        DOMCacheGetOrSet('testingMultiline').textContent = this.toString()
     }
 
     /**
