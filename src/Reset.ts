@@ -25,7 +25,7 @@ import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
 import type { Player, resetNames } from './types/Synergism';
 import { updateClassList } from './Utility';
-import { corruptionStatsUpdate } from './Corruptions';
+import { corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions';
 import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { WowCubes } from './CubeExperimental';
@@ -606,7 +606,9 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                 DOMCacheGetOrSet('upg' + j).style.backgroundColor = 'black'
             }
         }
-        player.usedCorruptions = Array.from(player.prototypeCorruptions)
+        
+        let maxLevel = maxCorruptionLevel();
+        player.usedCorruptions = Array.from(player.prototypeCorruptions, x => Math.min(maxLevel, x))
         player.usedCorruptions[1] = 0;
         player.prototypeCorruptions[1] = 0;
         //fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
