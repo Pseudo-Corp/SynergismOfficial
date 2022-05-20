@@ -606,8 +606,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                 DOMCacheGetOrSet('upg' + j).style.backgroundColor = 'black'
             }
         }
-        
-        let maxLevel = maxCorruptionLevel();
+
+        const maxLevel = maxCorruptionLevel();
         player.usedCorruptions = Array.from(player.prototypeCorruptions, x => Math.min(maxLevel, x))
         player.usedCorruptions[1] = 0;
         player.prototypeCorruptions[1] = 0;
