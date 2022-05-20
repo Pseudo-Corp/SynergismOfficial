@@ -71,6 +71,7 @@ export class SingularityUpgrade {
         const maxLevel = this.maxLevel === -1
             ? ''
             : `/${this.maxLevel}`;
+        const color = this.maxLevel === this.level?'plum':'white'
 
         const minimumSingularity = this.minimumSingularity > 0
             ? `Minimum Singularity: ${this.minimumSingularity}`
@@ -79,7 +80,7 @@ export class SingularityUpgrade {
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color:crimson;">${minimumSingularity}</span>
-                Level ${this.level}${maxLevel}
+                <span style="color: ${color}"> Level ${this.level}${maxLevel} </span>
                 Cost for next level: ${format(costNextLevel)} Golden Quarks.
                 Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
     }
