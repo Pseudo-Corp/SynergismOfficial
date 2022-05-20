@@ -11,7 +11,7 @@ import { toOrdinal } from './Utility'
  */
 export const updateSingularityStats = (): void => {
     const color = player.runelevels[6]>0?'green':'red'
-    const str = `You are in the ${toOrdinal(player.singularityCount)} singularity, and have<span style="color: gold"> ${format(player.goldenQuarks,0,true)} golden quarks.</span>
+    const str = `You are in the <span style="color: gold">${toOrdinal(player.singularityCount)} singularity</span>, and have<span style="color: gold"> ${format(player.goldenQuarks,0,true)} golden quarks.</span>
                  <br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
                  Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed'), 2, true)}
                  Offering Gain is divided by ${format(calculateSingularityDebuff('Offering'), 2, true)}
@@ -76,9 +76,9 @@ export class SingularityUpgrade {
             ? `Minimum Singularity: ${this.minimumSingularity}`
             : 'No minimal singularity to purchase required'
 
-        return `<span style="color: goldenrod">${this.name}</span>
-                <span style="color: #00b300">${this.description}</span>
-                <span style="color:red;">${minimumSingularity}</span>
+        return `<span style="color: gold">${this.name}</span>
+                <span style="color: lightblue">${this.description}</span>
+                <span style="color:crimson;">${minimumSingularity}</span>
                 Level ${this.level}${maxLevel}
                 Cost for next level: ${format(costNextLevel)} Golden Quarks.
                 Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
