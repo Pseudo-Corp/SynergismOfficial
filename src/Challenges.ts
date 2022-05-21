@@ -683,7 +683,7 @@ export const runChallengeSweep = (dt: number) => {
         /* If the above algorithm sets the index above 10, the loop is complete
            and thus do not need to enter more challenges. This sets our index to 1
            so in the next iteration it knows we want to start a loop. */
-        if (startChallenge == 11) {
+        if (startChallenge === 11) {
             startChallenge = 1;
             for (let index = startChallenge; index <= 10; index++) {
                 if (!player.autoChallengeToggles[index] ||
