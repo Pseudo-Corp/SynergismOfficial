@@ -814,6 +814,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.challengecompletions[9] = 1;
         player.highestchallengecompletions[9] = 1;
         achievementaward(134);
+        player.eighthOwnedAnts = 1;
         player.shopUpgrades.offeringAuto = shopData.offeringAuto.maxLevel
         player.shopUpgrades.offeringEX = shopData.offeringEX.maxLevel
         player.shopUpgrades.obtainiumAuto = shopData.obtainiumAuto.maxLevel
