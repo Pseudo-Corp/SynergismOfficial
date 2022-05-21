@@ -693,7 +693,7 @@ export const runChallengeSweep = (dt: number) => {
                     break;
                 }
             }
-            if (startChallenge == 11) {
+            if (startChallenge === 11) {
                 toggleAutoChallengeModeText('OFF');
                 toggleAutoChallengeRun();
                 return
