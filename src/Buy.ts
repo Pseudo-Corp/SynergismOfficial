@@ -391,7 +391,7 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
     const pos = G['ordinals'][zeroIndex];
     const [originalCost, num] = getOriginalCostAndNum(index, type);
 
-    const BUYMAX = (Math.pow(10, 15) - 1);
+    const BUYMAX = Math.pow(10, 15) - 1;
     const COINMAX = 1e99;
     const r = getReductionValue();
     const tag = buyProducerTypes[type][0];
@@ -427,6 +427,16 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
             buyInc = buyInc - Math.max(smallestInc(buyInc), stepdown);
         }
     }
+
+    // Resolves the infamous autobuyer bug, for large values. This prevents the notion of even being able
+    // to go above the BUYMAX. Future instances will also not check more than the first few lines
+    // meaning that the code below this cannot run if this ever runs.
+    if (buyStart + buyInc >= BUYMAX) {
+        player[posOwnedType] = BUYMAX
+        player[`${pos}Cost${type}` as const] = getCostInternal(originalCost, BUYMAX, type, num, r)
+        return
+    }
+
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
     let buyFrom = Math.max(buyStart + buyInc - 7, player[posOwnedType] + 1);
     let thisCost = getCostInternal(originalCost, buyFrom, type, num, r);
