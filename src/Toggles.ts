@@ -114,6 +114,11 @@ export const toggleChallenges = (i: number, auto = false) => {
             if (player.currentChallenge.ascension === 12) {
                 player.antPoints = new Decimal('8')
             }
+
+            if (player.currentChallenge.ascension === 14) {
+                player.researchPoints = 0;
+            }
+
             if (player.currentChallenge.ascension === 15) {
                 player.usedCorruptions[0] = 0;
                 player.prototypeCorruptions[0] = 0;

@@ -345,7 +345,10 @@ export const sacrificeAnts = async (auto = false) => {
             const sacRewards = calculateAntSacrificeRewards();
             player.antSacrificePoints += sacRewards.antSacrificePoints;
             player.runeshards += sacRewards.offerings;
-            player.researchPoints += sacRewards.obtainium;
+
+            if (player.currentChallenge.ascension !== 14) {
+                player.researchPoints += sacRewards.obtainium;
+            }
 
             const historyEntry: ResetHistoryEntryAntSacrifice = {
                 date: Date.now(),
