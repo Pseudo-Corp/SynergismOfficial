@@ -10,17 +10,18 @@ import { toOrdinal } from './Utility'
  *
  */
 export const updateSingularityStats = (): void => {
-    const str = `You are in the ${toOrdinal(player.singularityCount)} singularity, and have ${format(player.goldenQuarks,0,true)} golden quarks.
-                 Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
+    const color = player.runelevels[6] > 0 ? 'green' : 'red';
+    const str = `You are in the <span style="color: gold">${toOrdinal(player.singularityCount)} singularity</span>, and have<span style="color: gold"> ${format(player.goldenQuarks,0,true)} golden quarks.</span>
+                 <br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
                  Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed'), 2, true)}
                  Offering Gain is divided by ${format(calculateSingularityDebuff('Offering'), 2, true)}
                  Obtainium Gain is divided by ${format(calculateSingularityDebuff('Obtainium'), 2, true)}
                  Cube Gain is divided by ${format(calculateSingularityDebuff('Cubes'), 2, true)}.
                  Research Costs are multiplied by ${format(calculateSingularityDebuff('Researches'), 2, true)}.
                  Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(calculateSingularityDebuff('Cube Upgrades'), 2, true)}.
-                 Antiquities of Ant God is ${(player.runelevels[6] > 0) ? '' : 'NOT'} purchased. Penalties are ${(player.runelevels[6] > 0) ? '' : 'NOT'} dispelled!`
+                 <br><span style='color: ${color}'>Antiquities of Ant God is ${(player.runelevels[6] > 0) ? '' : 'NOT'} purchased. Penalties are ${(player.runelevels[6] > 0) ? '' : 'NOT'} dispelled!</span>`
 
-    DOMCacheGetOrSet('singularityMultiline').textContent = str;
+    DOMCacheGetOrSet('singularityMultiline').innerHTML = str;
 }
 
 export interface ISingularityData {
@@ -75,22 +76,23 @@ export class SingularityUpgrade {
         const maxLevel = this.maxLevel === -1
             ? ''
             : `/${this.maxLevel}`;
+        const color = this.maxLevel === this.level ? 'plum' : 'white';
 
         const minimumSingularity = this.minimumSingularity > 0
             ? `Minimum Singularity: ${this.minimumSingularity}`
             : 'No minimal singularity to purchase required'
 
-        return `${this.name}
-                ${this.description}
-                ${minimumSingularity}
-                Level ${this.level}${maxLevel}
-                Bonus: ${this.getEffect().desc}
+        return `<span style="color: gold">${this.name}</span>
+                <span style="color: lightblue">${this.description}</span>
+                <span style="color:crimson;">${minimumSingularity}</span>
+                <span style="color: ${color}"> Level ${this.level}${maxLevel} </span>
+                <span style="color: gold">${this.getEffect().desc}</span>
                 Cost for next level: ${format(costNextLevel)} Golden Quarks.
                 Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
     }
 
     public updateUpgradeHTML(): void {
-        DOMCacheGetOrSet('testingMultiline').textContent = this.toString()
+        DOMCacheGetOrSet('testingMultiline').innerHTML = this.toString()
     }
 
     /**

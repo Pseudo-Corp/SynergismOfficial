@@ -3226,16 +3226,16 @@ header #obtainiumDisplay {
 #actualSingularityUpgradeContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    padding-right: 5px;
+    justify-content: center;
+    padding-bottom: 5px;
+    padding-top: 10px;
     margin-top: 5px;
-    width: calc(105px * 8);
+    width: calc(105px * 5);
     border: 3px solid plum;
 }
 
-.singularityUpgradeFiller {
-    display: flex;
-    width: 105px;
+.singularityUpgrade {
+    margin: 2px;
 }
 
 #singularityMultiline {
