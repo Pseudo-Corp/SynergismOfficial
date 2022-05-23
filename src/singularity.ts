@@ -86,6 +86,7 @@ export class SingularityUpgrade {
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color:crimson;">${minimumSingularity}</span>
                 <span style="color: ${color}"> Level ${this.level}${maxLevel} </span>
+                <span style="color: gold">${this.getEffect().desc}</span>
                 Cost for next level: ${format(costNextLevel)} Golden Quarks.
                 Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
     }
