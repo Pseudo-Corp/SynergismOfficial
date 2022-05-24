@@ -53,7 +53,7 @@ export const calculatetax = () => {
     //im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
     if (player.currentChallenge.ascension === 13) {
         exp *= 700 * (1 + 1 / 6 * player.challengecompletions[13]);
-        exp *= Math.pow(1.05, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15] - 3 * player.cubeUpgrades[49]));
+        exp *= Math.pow(1.05, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15] - 3 * player.cubeUpgrades[49] - ((player.singularityCount >= 15)?4:0) - ((player.singularityCount >= 20)?1:0)));
     }
     if (player.challengecompletions[6] > 0) {
         exp /= 1.075;

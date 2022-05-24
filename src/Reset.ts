@@ -816,6 +816,8 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.challengecompletions[9] = 1;
         player.highestchallengecompletions[9] = 1;
         achievementaward(134);
+        player.antPoints = new Decimal('1e100');
+        player.antUpgrades[11] = 1;
         player.shopUpgrades.offeringAuto = shopData.offeringAuto.maxLevel
         player.shopUpgrades.offeringEX = shopData.offeringEX.maxLevel
         player.shopUpgrades.obtainiumAuto = shopData.obtainiumAuto.maxLevel
@@ -824,8 +826,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.shopUpgrades.cashGrab = shopData.cashGrab.maxLevel
     }
     if (player.singularityCount >= 25) {
-        player.antPoints = new Decimal('1e100')
-        player.antUpgrades[11] = 1;
+        player.eighthOwnedAnts = 1;
     }
     revealStuff();
 }
