@@ -3,3 +3,4 @@ node_modules/
 !scripts/*.js
 dist
 !.eslintrc.js
+.idea

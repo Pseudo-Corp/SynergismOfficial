@@ -10,12 +10,18 @@ export const calculatetax = () => {
     let exp = 1;
     let compareB = new Decimal(0);
     let compareC = new Decimal(0);
-    G['produceFirst'] = (player.firstGeneratedCoin.add(player.firstOwnedCoin)).times(G['globalCoinMultiplier']).times(G['coinOneMulti']).times(player.firstProduceCoin);
-    G['produceSecond'] = (player.secondGeneratedCoin.add(player.secondOwnedCoin)).times(G['globalCoinMultiplier']).times(G['coinTwoMulti']).times(player.secondProduceCoin);
-    G['produceThird'] = (player.thirdGeneratedCoin.add(player.thirdOwnedCoin)).times(G['globalCoinMultiplier']).times(G['coinThreeMulti']).times(player.thirdProduceCoin);
-    G['produceFourth'] = (player.fourthGeneratedCoin.add(player.fourthOwnedCoin)).times(G['globalCoinMultiplier']).times(G['coinFourMulti']).times(player.fourthProduceCoin);
-    G['produceFifth'] = (player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(G['globalCoinMultiplier']).times(G['coinFiveMulti']).times(player.fifthProduceCoin);
-    G['produceTotal'] = G['produceFirst'].add(G['produceSecond']).add(G['produceThird']).add(G['produceFourth']).add(G['produceFifth']);
+    G['produceFirst'] = (player.firstGeneratedCoin.add(player.firstOwnedCoin)).times(G['globalCoinMultiplier']).times(G['coinOneMulti'])
+        .times(player.firstProduceCoin);
+    G['produceSecond'] = (player.secondGeneratedCoin.add(player.secondOwnedCoin)).times(G['globalCoinMultiplier']).times(G['coinTwoMulti'])
+        .times(player.secondProduceCoin);
+    G['produceThird'] = (player.thirdGeneratedCoin.add(player.thirdOwnedCoin)).times(G['globalCoinMultiplier']).times(G['coinThreeMulti'])
+        .times(player.thirdProduceCoin);
+    G['produceFourth'] = (player.fourthGeneratedCoin.add(player.fourthOwnedCoin)).times(G['globalCoinMultiplier']).times(G['coinFourMulti'])
+        .times(player.fourthProduceCoin);
+    G['produceFifth'] = (player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(G['globalCoinMultiplier']).times(G['coinFiveMulti'])
+        .times(player.fifthProduceCoin);
+    G['produceTotal'] = G['produceFirst'].add(G['produceSecond']).add(G['produceThird']).add(G['produceFourth'])
+        .add(G['produceFifth']);
 
     if (G['produceFirst'].lte(.0001)) {
         G['produceFirst'] = new Decimal(0);
@@ -61,7 +67,7 @@ export const calculatetax = () => {
     exponent *= (0.01 + .99 * (Math.pow(4, Math.min(0, (400 - G['rune4level']) / 1100))));
     exponent *= (1 - 0.04 * player.achievements[82] - 0.04 * player.achievements[89] - 0.04 * player.achievements[96] - 0.04 * player.achievements[103] - 0.04 * player.achievements[110] - 0.0566 * player.achievements[117] - 0.0566 * player.achievements[124] - 0.0566 * player.achievements[131]);
     exponent *= Math.pow(0.9925, player.achievements[118] * (player.challengecompletions[6] + player.challengecompletions[7] + player.challengecompletions[8] + player.challengecompletions[9] + player.challengecompletions[10]));
-    exponent *= (0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3-1] + G['bonusant3']));
+    exponent *= (0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[2]! + G['bonusant3']));
     exponent *= 1 / Math.pow((1 + Decimal.log(player.ascendShards.add(1), 10)), 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + (G['platonicBonusMultiplier'][5]-1));
     exponent *= (1 - 0.10 * (player.talismanRarity[1-1] - 1));
     exponent *= Math.pow(0.98, 3 / 5 * Math.log(1 + player.rareFragments) / Math.log(10) * player.researches[159]);

@@ -1,36 +1,40 @@
-import { player, format, resetCheck, blankSave} from './Synergism';
+import { player, resetCheck, blankSave} from './Synergism';
 import { testing } from './Config';
-import { Player } from './types/Synergism';
+import type { Player } from './types/Synergism';
 import Decimal from 'break_infinity.js';
 import { calculateMaxRunes, calculateTimeAcceleration } from './Calculate';
 import { buyResearch } from './Research';
 import { c15RewardUpdate } from './Statistics';
-import { LegacyShopUpgrades } from './types/LegacySynergism';
+import type { LegacyShopUpgrades, PlayerSave } from './types/LegacySynergism';
 import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { Alert } from './UpdateHTML';
 import { getQuarkInvestment, shopData} from './Shop';
+import type { ISingularityData} from './singularity';
+import { singularityData, SingularityUpgrade } from './singularity';
+
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
 /**
  * Given player data, it checks, on load if variables are undefined
  * or set incorrectly, and corrects it. This should be where all new
  * variable declarations for `player` should go!
- * @param data 
+ * @param data
  */
-export const checkVariablesOnLoad = (data: Player) => {
-    if (player.currentChallenge.transcension === undefined) {
+export const checkVariablesOnLoad = (data: PlayerSave) => {
+    if (data.currentChallenge?.transcension === undefined) {
         player.currentChallenge = {
             transcension: 0,
             reincarnation: 0,
-            ascension: 0,
+            ascension: 0
         }
     }
 
     data.shopUpgrades ??= { ...blankSave.shopUpgrades };
     data.ascStatToggles ??= { ...blankSave.ascStatToggles };
 
-    if (typeof data.promoCodeTiming === 'object') {
+    if (typeof data.promoCodeTiming === 'object' && data.promoCodeTiming != null) {
         for (const key of Object.keys(data.promoCodeTiming)) {
             const k = key as keyof typeof data.promoCodeTiming;
             player.promoCodeTiming[k] = data.promoCodeTiming[k];
@@ -40,7 +44,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
 
     // backwards compatibility for v1.0101 (and possibly older) saves
-    if (!Array.isArray(data.challengecompletions)) {
+    if (!Array.isArray(data.challengecompletions) && data.challengecompletions != null) {
         player.challengecompletions = Object.values(data.challengecompletions);
         padArray(player.challengecompletions, 0, blankSave.challengecompletions.length);
     }
@@ -48,7 +52,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     // backwards compatibility for v1.0101 (and possibly older) saves
     if (!Array.isArray(data.highestchallengecompletions)) {
         // if highestchallengecompletions is every added onto, this will need to be padded.
-        player.highestchallengecompletions = Object.values(data.highestchallengecompletions);
+        player.highestchallengecompletions = Object.values(data.highestchallengecompletions as unknown as object) as number[];
     }
 
     if (data.wowCubes === undefined) {
@@ -57,38 +61,38 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.wowHypercubes = new WowHypercubes(0);
         player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
-    if (data.shoptoggles.reincarnate === undefined) {
+    if (data.shoptoggles?.reincarnate === undefined) {
         player.shoptoggles.reincarnate = true
     }
     if (data.ascendBuilding1 === undefined) {
         player.ascendBuilding1 = {
             cost: 1,
             owned: 0,
-            generated: new Decimal("0"),
+            generated: new Decimal('0'),
             multiplier: 0.01
         }
         player.ascendBuilding2 = {
             cost: 10,
             owned: 0,
-            generated: new Decimal("0"),
+            generated: new Decimal('0'),
             multiplier: 0.01
         }
         player.ascendBuilding3 = {
             cost: 100,
             owned: 0,
-            generated: new Decimal("0"),
+            generated: new Decimal('0'),
             multiplier: 0.01
         }
         player.ascendBuilding4 = {
             cost: 1000,
             owned: 0,
-            generated: new Decimal("0"),
+            generated: new Decimal('0'),
             multiplier: 0.01
         }
         player.ascendBuilding5 = {
             cost: 10000,
             owned: 0,
-            generated: new Decimal("0"),
+            generated: new Decimal('0'),
             multiplier: 0.01
         }
     }
@@ -126,7 +130,7 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
     if (data.constantUpgrades === undefined) {
-        player.ascendShards = new Decimal("0")
+        player.ascendShards = new Decimal('0')
         player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
     if (data.roombaResearchIndex === undefined) {
@@ -148,7 +152,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     }
     if (data.autoAscend === undefined) {
         player.autoAscend = false;
-        player.autoAscendMode = "c10Completions";
+        player.autoAscendMode = 'c10Completions';
         player.autoAscendThreshold = 1;
     }
     if (data.runeBlessingLevels === undefined) {
@@ -172,7 +176,9 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.corruptionShowStats = true
     } else if (Object.keys(player.corruptionLoadouts).length !== Object.keys(blankSave.corruptionLoadouts).length) {
         for (const key of Object.keys(blankSave.corruptionLoadouts)) {
-            if (player.corruptionLoadouts[Number(key)]) continue;
+            if (player.corruptionLoadouts[Number(key)]) {
+                continue;
+            }
             player.corruptionLoadouts[Number(key)] = blankSave.corruptionLoadouts[Number(key)];
         }
     }
@@ -183,7 +189,7 @@ export const checkVariablesOnLoad = (data: Player) => {
         }
     }
 
-    if (data.shopUpgrades?.challengeExtension === undefined) {
+    if (data.shopUpgrades.challengeExtension === undefined) {
         player.shopUpgrades.challengeExtension = 0;
         player.shopUpgrades.challengeTome = 0;
         player.shopUpgrades.seasonPass = 0;
@@ -191,7 +197,7 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.shopUpgrades.tesseractToQuark = 0;
         player.shopUpgrades.hypercubeToQuark = 0;
     }
-    if (data.cubeUpgrades === undefined || data.cubeUpgrades[19] === 0 || player.cubeUpgrades[19] === 0) {
+    if (data.cubeUpgrades == null || data.cubeUpgrades[19] === 0 || player.cubeUpgrades[19] === 0) {
         for (let i = 121; i <= 125; i++) {
             player.upgrades[i] = 0
         }
@@ -201,7 +207,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     // will overwrite player.toggles keys that exist on both objects,
     // but new keys will default to the values on the player object
     Object.assign(player.toggles, data.toggles);
-    
+
     if (data.ascensionCount === 0) {
         player.toggles[31] = true;
         player.toggles[32] = true;
@@ -217,6 +223,39 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.tesseractOpenedDaily = 0;
         player.hypercubeOpenedDaily = 0;
     }
+
+    player.singularityUpgrades = {
+        goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
+        goldenQuarks2: new SingularityUpgrade(singularityData['goldenQuarks2']),
+        goldenQuarks3: new SingularityUpgrade(singularityData['goldenQuarks3']),
+        starterPack: new SingularityUpgrade(singularityData['starterPack']),
+        wowPass: new SingularityUpgrade(singularityData['wowPass']),
+        cookies: new SingularityUpgrade(singularityData['cookies']),
+        cookies2: new SingularityUpgrade(singularityData['cookies2']),
+        cookies3: new SingularityUpgrade(singularityData['cookies3']),
+        cookies4: new SingularityUpgrade(singularityData['cookies4']),
+        ascensions: new SingularityUpgrade(singularityData['ascensions']),
+        corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
+        corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
+        singOfferings1: new SingularityUpgrade(singularityData['singOfferings1']),
+        singOfferings2: new SingularityUpgrade(singularityData['singOfferings2']),
+        singOfferings3: new SingularityUpgrade(singularityData['singOfferings3']),
+        singObtainium1: new SingularityUpgrade(singularityData['singObtainium1']),
+        singObtainium2: new SingularityUpgrade(singularityData['singObtainium2']),
+        singObtainium3: new SingularityUpgrade(singularityData['singObtainium3']),
+        singCubes1: new SingularityUpgrade(singularityData['singCubes1']),
+        singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
+        singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
+        octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
+        intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
+        advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
+        expertPack: new SingularityUpgrade(singularityData['expertPack']),
+        masterPack: new SingularityUpgrade(singularityData['masterPack']),
+        divinePack: new SingularityUpgrade(singularityData['divinePack']),
+        wowPass2: new SingularityUpgrade(singularityData['wowPass2'])
+    }
+
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
         player.loadedOct4Hotfix = true;
         // Only process refund if the save's researches array is already updated to v2
@@ -224,14 +263,11 @@ export const checkVariablesOnLoad = (data: Player) => {
             player.researchPoints += player.researches[200] * 1e56;
             player.researches[200] = 0;
             buyResearch(200, true, 0.01);
-            console.log('Refunded 8x25, and gave you ' + format(player.researches[200]) + ' levels of new cost 8x25. Sorry!')
             player.researchPoints += player.researches[195] * 1e60;
             player.worlds.add(250 * player.researches[195]);
             player.researches[195] = 0;
-            console.log('Refunded 8x20 and gave 250 quarks for each level you had prior to loading up the game.')
             player.wowCubes.add(player.cubeUpgrades[50] * 5e10);
             player.cubeUpgrades[50] = 0
-            console.log('Refunded w5x10. Enjoy!')
         }
     }
 
@@ -283,13 +319,13 @@ export const checkVariablesOnLoad = (data: Player) => {
             hypercubeBonus: 0,
             taxes: 0,
             scoreBonus: 0,
-            globalSpeed: 0,
+            globalSpeed: 0
         }
         player.platonicUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         player.challenge15Exponent = 0
         player.loadedNov13Vers = false;
     }
-    if (player.researches.includes(null)) { // Makes sure any nulls in the research array are fixed
+    if (player.researches.some(k => typeof k !== 'number')) {
         for (let i = 0; i < 200; i++) {
             player.researches[i + 1] = player.researches[i + 1] || 0;
         }
@@ -310,7 +346,7 @@ export const checkVariablesOnLoad = (data: Player) => {
     if (typeof data.exporttest === 'string') {
         player.exporttest = !testing;
     } else {
-        player.exporttest = data.exporttest;
+        player.exporttest = !!data.exporttest;
     }
 
     const shop = data.shopUpgrades as LegacyShopUpgrades | Player['shopUpgrades'];
@@ -346,9 +382,14 @@ export const checkVariablesOnLoad = (data: Player) => {
             seasonPassY: 0,
             seasonPassZ: 0,
             challengeTome2: 0,
+            cashGrab2: 0,
+            cubeToQuarkAll: 0,
+            obtainiumEX2: 0,
+            offeringEX2: 0,
+            powderAuto: 0,
+            chronometerZ: 0,
+            seasonPassLost: 0
         }
-
-        const initialQuarks = Number(player.worlds);
 
         player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false);
         player.worlds.add(150 * shop.obtainiumTimerLevel + 25/2 * (shop.obtainiumTimerLevel - 1) * shop.obtainiumTimerLevel, false);
@@ -356,15 +397,16 @@ export const checkVariablesOnLoad = (data: Player) => {
         player.worlds.add(150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * shop.obtainiumAutoLevel - 150 * Math.min(1, shop.obtainiumAutoLevel), false);
         player.worlds.add(100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * shop.cashGrabLevel, false);
         player.worlds.add(200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * shop.antSpeedLevel, false);
-        player.worlds.add(500 * shop.challenge10Tomes + 250/2 * (shop.challenge10Tomes - 1) * (shop.challenge10Tomes), false);
+
+        const tomes = shop.challenge10Tomes ?? shop.challengeTome;
+        player.worlds.add(500 * tomes + 250/2 * (tomes - 1) * (tomes), false);
+
         player.worlds.add(
-            typeof shop.seasonPass === 'number' 
+            typeof shop.seasonPass === 'number'
                 ? 500 * shop.seasonPass + 250/2 * (shop.seasonPass - 1) * shop.seasonPass
                 : 500 * shop.seasonPassLevel + 250/2 * (shop.seasonPassLevel - 1) * shop.seasonPassLevel,
             false
         );
-
-        console.log('Because of the v2.5.0 update, you have been refunded ' + format(+player.worlds - +initialQuarks) + ' Quarks! If this appears wrong let Platonic know :)')
     }
 
     if (player.shopUpgrades.seasonPass2 === undefined) {
@@ -393,12 +435,13 @@ export const checkVariablesOnLoad = (data: Player) => {
 
     // if the player has hepteracts, we need to overwrite the player values
     // with the ones the save has.
-    if (data.hepteractCrafts !== undefined) {
+    if (data.hepteractCrafts != null) {
         for (const item in blankSave.hepteractCrafts) {
             const k = item as keyof Player['hepteractCrafts'];
             // if more crafts are added, some keys might not exist in the save
-            if (data.hepteractCrafts[k])
+            if (data.hepteractCrafts[k]) {
                 player.hepteractCrafts[k] = createHepteract(data.hepteractCrafts[k]);
+            }
         }
     }
 
@@ -417,10 +460,10 @@ export const checkVariablesOnLoad = (data: Player) => {
     while (player.achievements[280] === undefined) {
         player.achievements.push(0)
     }
-    
+
     if (data.overfluxOrbs === undefined) {
         player.overfluxOrbs = 0;
-    } 
+    }
     if (data.overfluxPowder === undefined) {
         player.overfluxPowder = 0;
         player.shopUpgrades.powderEX = 0;
@@ -483,7 +526,48 @@ export const checkVariablesOnLoad = (data: Player) => {
         }
     }
 
+    if (data.singularityUpgrades != null) {
+        for (const item in blankSave.singularityUpgrades) {
+            const k = item as keyof Player['singularityUpgrades'];
+            // if more crafts are added, some keys might not exist in the save
+            let updatedData:ISingularityData
+            if (data.singularityUpgrades[k]) {
+                updatedData = {
+                    name: singularityData[k].name,
+                    description: singularityData[k].description,
+                    maxLevel: singularityData[k].maxLevel,
+                    costPerLevel: singularityData[k].costPerLevel,
+
+                    level: data.singularityUpgrades[k].level,
+                    goldenQuarksInvested: data.singularityUpgrades[k].goldenQuarksInvested,
+                    toggleBuy: data.singularityUpgrades[k].toggleBuy,
+                    minimumSingularity: singularityData[k].minimumSingularity,
+                    effect: singularityData[k].effect
+                }
+                player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
+            }
+        }
+    }
+
+    while (player.cubeUpgrades.length < 71) {
+        player.cubeUpgrades.push(0);
+    }
+
     if (data.dailyCodeUsed === undefined) {
         player.dailyCodeUsed = false;
+    }
+
+    if (player.usedCorruptions[1] > 0 || player.prototypeCorruptions[1] > 0) {
+        player.usedCorruptions[1] = 0;
+        player.prototypeCorruptions[1] = 0;
+    }
+
+    if (data.goldenQuarksTimer === undefined || player.goldenQuarksTimer === undefined) {
+        player.goldenQuarksTimer = 90000;
+    }
+
+    if (player.singularityUpgrades.cookies3.goldenQuarksInvested === 5000 || player.singularityUpgrades.cookies4.goldenQuarksInvested === 50000) {
+        player.singularityUpgrades.cookies3.refund();
+        player.singularityUpgrades.cookies4.refund();
     }
 }

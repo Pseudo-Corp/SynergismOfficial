@@ -4,11 +4,13 @@ import { revealStuff } from './UpdateHTML';
 import { Globals as G } from './Variables';
 import { updateClassList } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import type { IMultiBuy } from './Cubes';
+import { calculateSingularityDebuff } from './singularity';
 
-const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): [number, number] => {
+const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): IMultiBuy => {
     buyAmount = Math.min(G['researchMaxLevels'][index] - player.researches[index], buyAmount)
-    const metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index] * (1 + player.singularityCount), player.researchPoints, linGrowth, buyAmount)
-    return [metaData[0], metaData[1]]
+    const metaData = calculateSummationNonLinear(player.researches[index], G['researchBaseCosts'][index] * calculateSingularityDebuff('Researches'), player.researchPoints, linGrowth, buyAmount)
+    return metaData
 }
 
 export const updateAutoResearch = (index: number, auto: boolean) => {
@@ -20,8 +22,11 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
 
         // Checks if this is maxed. If so we proceed to the next research.
         if (isResearchMaxed(player.autoResearch)) {
-            DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
-            player.roombaResearchIndex += 1;
+            DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
+            player.roombaResearchIndex = Math.min(
+                G['researchOrderByCost'].length - 1,
+                player.roombaResearchIndex + 1
+            );
         }
 
         // Checks against researches invalid or not unlocked.
@@ -32,61 +37,64 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
 
         // Researches that are unlocked work
         if (isResearchUnlocked(player.autoResearch)) {
-            const doc = DOMCacheGetOrSet("res" + G['researchOrderByCost'][player.roombaResearchIndex]);
-            if (doc && player.researches[player.autoResearch] < G['researchMaxLevels'][player.autoResearch])
-                doc.classList.add("researchRoomba");
+            const idx = Math.max(G['researchOrderByCost'][player.roombaResearchIndex], 1);
+            const doc = DOMCacheGetOrSet('res' + idx);
+            if (player.researches[player.autoResearch] < G['researchMaxLevels'][player.autoResearch]) {
+                doc.classList.add('researchRoomba');
+            }
         }
 
         return
-    }
-    else if (!auto && (player.cubeUpgrades[9] < 1 || player.autoResearchMode === 'manual')){
+    } else if (!auto && (player.cubeUpgrades[9] < 1 || player.autoResearchMode === 'manual')){
         /* We remove the old research HTML from the 'roomba' class and make the new index our 'roomba'
            class. We then update the index and consequently the coloring of the background based
            on what level (if any) the research has. This functionality is useless after
            Cube Upgrade 9 (1x9) has been purchased. */
-        DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
-        DOMCacheGetOrSet(`res${index}`).classList.add("researchRoomba");
+        DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
+        DOMCacheGetOrSet(`res${index}`).classList.add('researchRoomba');
         player.autoResearch = index;
-        
+
         // Research is maxed
-        if (player.researches[index] >= G['researchMaxLevels'][index])
-            updateClassList(`res${player.autoResearch}`, ["researchMaxed"], ["researchPurchased", "researchUnpurchased"]);
-        // Research purchased above level 0 but not maxed
-        else if (player.researches[index] >= 1)
-            updateClassList(`res${player.autoResearch}`, ["researchPurchased"], ["researchUnpurchased", "researchMaxed"]);
-        // Research has not been purchased yet
-        else
-            updateClassList(`res${player.autoResearch}`, ["researchUnpurchased"], ["researchPurchased", "researchMaxed"]);
-        
+        if (player.researches[index] >= G['researchMaxLevels'][index]) {
+            updateClassList(`res${player.autoResearch}`, ['researchMaxed'], ['researchPurchased', 'researchUnpurchased']);
+        } else if (player.researches[index] >= 1) {
+            // Research purchased above level 0 but not maxed
+            updateClassList(`res${player.autoResearch}`, ['researchPurchased'], ['researchUnpurchased', 'researchMaxed']);
+        } else {
+            // Research has not been purchased yet
+            updateClassList(`res${player.autoResearch}`, ['researchUnpurchased'], ['researchPurchased', 'researchMaxed']);
+        }
+
         return
-    }
-    else
-        return //There might be code needed here. I don't quite know yet. -Platonic
+    } else {
+        return
+    } //There might be code needed here. I don't quite know yet. -Platonic
 }
 
 /**
  * Attempts to buy the research of the index selected. This is hopefully an improvement over buyResearch. Fuck
- * @param index 
- * @param auto 
- * @param linGrowth 
- * @returns 
+ * @param index
+ * @param auto
+ * @param linGrowth
+ * @returns
  */
 export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean => {
 
     // Get our costs, and determine if anything is purchasable.
     const buyAmount = (G['maxbuyresearch'] || auto) ? 1e5: 1;
-    const [buyTo, cost] = getResearchCost(index, buyAmount, linGrowth); /* Destructuring FTW! */
-    const canBuy = (player.researchPoints >= cost);
+    const metaData = getResearchCost(index, buyAmount, linGrowth); /* Destructuring FTW! */
+    const canBuy = (player.researchPoints >= metaData.cost);
 
     if (canBuy && isResearchUnlocked(index) && !isResearchMaxed(index)) {
-        player.researches[index] = buyTo;
-        player.researchPoints -= cost;
+        player.researches[index] = metaData.levelCanBuy;
+        player.researchPoints -= metaData.cost;
         // Quick check after upgrading for max. This is to update any automation regardless of auto state
-        if (isResearchMaxed(index)) 
-            DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove("researchRoomba");
+        if (isResearchMaxed(index)) {
+            DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
+        }
 
         // Update the progress description
-        G['researchfiller2'] = 'Level: ' + player.researches[index] + "/" + (G['researchMaxLevels'][index]);
+        G['researchfiller2'] = 'Level: ' + player.researches[index] + '/' + (G['researchMaxLevels'][index]);
         researchDescriptions(index, auto, linGrowth)
 
         // Handle special cases: Researches 47-50 (2x21-2x25)
@@ -95,17 +103,19 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean
         player.unlocks.rrow2 ||= true;
         player.unlocks.rrow3 ||= true;
         player.unlocks.rrow4 ||= true;
-        if (index >= 47 && index <= 50)
+        if (index >= 47 && index <= 50) {
             revealStuff();
-        
+        }
+
         // Update ants and runes.
         calculateRuneLevels();
         calculateAnts();
     }
 
     // Update HTML for auto stuff if auto research is ever toggled.
-    if (player.autoResearchToggle)
+    if (player.autoResearchToggle) {
         updateAutoResearch(index, auto);
+    }
 
     // Note to anyone reading this code: I forget why this needs to return a Boolean.
     // -Platonic
@@ -348,33 +358,33 @@ const resdesc = [
 export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => {
     const buyAmount = (G['maxbuyresearch'] || auto) ? 100000 : 1;
     const y = resdesc[i-1];
-    let z = ""
-    const p = "res" + i
+    let z = ''
+    const p = 'res' + i
     const metaData = getResearchCost(i, buyAmount, linGrowth);
-    z = " Cost: " + (format(metaData[1], 0, false)) + " Obtainium [+" + format(metaData[0] - player.researches[i], 0, true) + " Levels]"
+    z = ' Cost: ' + (format(metaData.cost, 0, false)) + ' Obtainium [+' + format(metaData.levelCanBuy - player.researches[i], 0, true) + ' Levels]'
     if (player.researches[i] === (G['researchMaxLevels'][i])) {
-        DOMCacheGetOrSet("researchcost").style.color = "Gold"
-        DOMCacheGetOrSet("researchinfo3").style.color = "plum"
-        updateClassList(p, ["researchMaxed"], ["researchAvailable", "researchPurchased", "researchPurchasedAvailable"])
-        z = z + " || MAXED!"
+        DOMCacheGetOrSet('researchcost').style.color = 'Gold'
+        DOMCacheGetOrSet('researchinfo3').style.color = 'plum'
+        updateClassList(p, ['researchMaxed'], ['researchAvailable', 'researchPurchased', 'researchPurchasedAvailable'])
+        z = z + ' || MAXED!'
     } else {
-        DOMCacheGetOrSet("researchcost").style.color = "limegreen"
-        DOMCacheGetOrSet("researchinfo3").style.color = "white"
+        DOMCacheGetOrSet('researchcost').style.color = 'limegreen'
+        DOMCacheGetOrSet('researchinfo3').style.color = 'white'
         if (player.researches[i] > 0) {
-            updateClassList(p, ["researchPurchased", "researchPurchasedAvailable"], ["researchAvailable", "researchMaxed", "researchUnpurchased"])
+            updateClassList(p, ['researchPurchased', 'researchPurchasedAvailable'], ['researchAvailable', 'researchMaxed', 'researchUnpurchased'])
         } else {
-            updateClassList(p, ["researchAvailable"], ["researchPurchased", "researchMaxed", "researchUnpurchased"])
+            updateClassList(p, ['researchAvailable'], ['researchPurchased', 'researchMaxed', 'researchUnpurchased'])
         }
     }
 
-    if (player.researchPoints < G['researchBaseCosts'][i] && player.researches[i] < (G['researchMaxLevels'][i])) {
-        DOMCacheGetOrSet("researchcost").style.color = "crimson"
-        updateClassList(p, [], ["researchMaxed", "researchAvailable", "researchPurchasedAvailable"])
+    if (player.researchPoints < metaData.cost && player.researches[i] < (G['researchMaxLevels'][i])) {
+        DOMCacheGetOrSet('researchcost').style.color = 'crimson'
+        updateClassList(p, [], ['researchMaxed', 'researchAvailable', 'researchPurchasedAvailable'])
     }
 
-    DOMCacheGetOrSet("researchinfo2").textContent = y
-    DOMCacheGetOrSet("researchcost").textContent = z
-    DOMCacheGetOrSet("researchinfo3").textContent = "Level " + player.researches[i] + "/" + (G['researchMaxLevels'][i])
+    DOMCacheGetOrSet('researchinfo2').textContent = y
+    DOMCacheGetOrSet('researchcost').textContent = z
+    DOMCacheGetOrSet('researchinfo3').textContent = 'Level ' + player.researches[i] + '/' + (G['researchMaxLevels'][i])
 }
 
 export const updateResearchBG = (j: number) => {
@@ -386,10 +396,10 @@ export const updateResearchBG = (j: number) => {
 
     const k = `res${j}`
     if (player.researches[j] > 0.5 && player.researches[j] < G['researchMaxLevels'][j]) {
-        updateClassList(k, ["researchPurchased"], ["researchUnpurchased", "researchMaxed"])
+        updateClassList(k, ['researchPurchased'], ['researchUnpurchased', 'researchMaxed'])
     } else if (player.researches[j] > 0.5 && player.researches[j] >= G['researchMaxLevels'][j]) {
-        updateClassList(k, ["researchMaxed"], ["researchUnpurchased", "researchPurchased"])
+        updateClassList(k, ['researchMaxed'], ['researchUnpurchased', 'researchPurchased'])
     } else {
-        updateClassList(k, ["researchUnpurchased"], ["researchPurchased", "researchMaxed"])
+        updateClassList(k, ['researchUnpurchased'], ['researchPurchased', 'researchMaxed'])
     }
 }

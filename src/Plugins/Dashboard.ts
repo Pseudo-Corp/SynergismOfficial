@@ -19,8 +19,8 @@ import { Globals as G } from '../Variables';
 
 /**
  * TODO: Fix NaNs and Infinity
- * An infinite value can be passed into numberOfHours, but forcing it to be finite doesn't seem like 
- * a valid solution. 
+ * An infinite value can be passed into numberOfHours, but forcing it to be finite doesn't seem like
+ * a valid solution.
  */
 const SplitTime = (numberOfHours: number) => {
     const Days = Math.floor(numberOfHours / 24);
@@ -67,7 +67,7 @@ const getCubeTimes = (i = 5, levels = 1) => {
         Hypers: ${(hyperRate * (totalTimeNeeded - hyperTimeNeeded)).toPrecision(4)}
         Tesseracts: ${(tessRate * (totalTimeNeeded - tessTimeNeeded)).toPrecision(4)}
     `;
-}  
+}
 
 const GM_addStyle = (css: string) => {
     const style = document.createElement('style');
@@ -78,10 +78,10 @@ const GM_addStyle = (css: string) => {
 
 const statValues: ((el: HTMLElement) => void)[] = [
     el => el.textContent = format(player.ascendShards),
-    el => el.textContent = DOMCacheGetOrSet("cubeBlessingTotalAmount").textContent,
-    el => el.textContent = DOMCacheGetOrSet("tesseractBlessingTotalAmount").textContent,
-    el => el.textContent = DOMCacheGetOrSet("hypercubeBlessingTotalAmount").textContent,
-    el => el.textContent = DOMCacheGetOrSet("platonicBlessingTotalAmount").textContent,
+    el => el.textContent = DOMCacheGetOrSet('cubeBlessingTotalAmount').textContent,
+    el => el.textContent = DOMCacheGetOrSet('tesseractBlessingTotalAmount').textContent,
+    el => el.textContent = DOMCacheGetOrSet('hypercubeBlessingTotalAmount').textContent,
+    el => el.textContent = DOMCacheGetOrSet('platonicBlessingTotalAmount').textContent,
     el => el.textContent = player.challengecompletions.slice(11, 15).join(' / '),
     el => el.textContent = format(player.challenge15Exponent, 0),
     el => el.textContent = player.runeBlessingLevels.slice(1, 6).map(x => format(x)).join(' / '),
@@ -91,7 +91,7 @@ const statValues: ((el: HTMLElement) => void)[] = [
     el => el.textContent = player.challengecompletions.slice(6, 11).join(' / '),
     el => el.textContent = player.runelevels.join(' / '),
     el => {
-        const talismanColors = [ 'white', 'limegreen', 'lightblue', 'plum', 'orange', 'crimson' ];
+        const talismanColors = ['white', 'limegreen', 'lightblue', 'plum', 'orange', 'crimson'];
         el.querySelectorAll('span').forEach((span, i) => {
             span.style.color = talismanColors[player.talismanRarity[i] - 1];
             span.textContent = player.talismanLevels[i] + '';
@@ -193,7 +193,7 @@ let open = false
 const renderDashboardSlow = () => {
     const upgrade = Number(getElementById<HTMLInputElement>('db-plat-number').value)
     const levels = Number(getElementById<HTMLInputElement>('db-plat-amount').value)
-    tab.querySelector('#cubeTimes').textContent = getCubeTimes(upgrade, levels);
+    tab.querySelector('#cubeTimes')!.textContent = getCubeTimes(upgrade, levels);
 }
 
 const renderDashboardFast = () => {
@@ -227,13 +227,13 @@ const openDashboard = () => {
 }
 
 const exitDashboard = () => {
-    clearInterval(dashboardLoopRefFast)
-    clearInterval(dashboardLoopRefSlow)
+    clearInterval(dashboardLoopRefFast!)
+    clearInterval(dashboardLoopRefSlow!)
     tab.style.display = 'none'
-    activeTab.style.display = null
+    activeTab!.style.display = ''
     button.textContent = 'Dashboard'
     const buttons = settingsTab.getElementsByClassName('subtabSwitcher')[0] as HTMLElement;
-    buttons.style.display = null
+    buttons.style.display = ''
 }
 
 const btnListener = () => {
@@ -255,25 +255,24 @@ const enable = () => {
     const style = document.head.querySelector('#syn_dashboard_plugin');
     if (style !== null) { // plugin is already enabled
         document.head.removeChild(style);
-        document.querySelector('#settings > .subtabSwitcher').removeChild(button);
+        document.querySelector('#settings > .subtabSwitcher')!.removeChild(button);
         button.removeEventListener('click', btnListener);
-        document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v => 
+        document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v =>
             v.removeEventListener('click', subButtons)
         );
         settingsTab.removeChild(tab);
         return;
     }
 
-    console.log('hello synergism, dashboard installed in the settings tab');
     GM_addStyle(css);
-    document.querySelector('#settings > .subtabSwitcher').appendChild(button);
+    document.querySelector('#settings > .subtabSwitcher')!.appendChild(button);
 
-    tab.querySelector('.dashboardstatResearch').addEventListener('click', () => toggleAutoResearch());
-    tab.querySelector('.dashboardstatRunes').addEventListener('click', () => toggleAutoSacrifice(0));
-    tab.querySelector('.dashboardstatChallenge').addEventListener('click', () => toggleAutoChallengeRun());
-    tab.querySelector('.dashboardstatSac').addEventListener('click', () => toggleAntAutoSacrifice(0));
+    tab.querySelector('.dashboardstatResearch')!.addEventListener('click', () => toggleAutoResearch());
+    tab.querySelector('.dashboardstatRunes')!.addEventListener('click', () => toggleAutoSacrifice(0));
+    tab.querySelector('.dashboardstatChallenge')!.addEventListener('click', () => toggleAutoChallengeRun());
+    tab.querySelector('.dashboardstatSac')!.addEventListener('click', () => toggleAntAutoSacrifice(0));
 
-    document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v => 
+    document.querySelectorAll<HTMLElement>('[id^="switchSettingSubTab"]').forEach(v =>
         v.addEventListener('click', subButtons)
     );
 

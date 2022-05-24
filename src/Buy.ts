@@ -1,12 +1,13 @@
 import { player, updateAllTick, updateAllMultiplier, format } from './Synergism';
 import { CalcECC } from './Challenges';
-import Decimal, { DecimalSource } from 'break_infinity.js';
+import type { DecimalSource } from 'break_infinity.js';
+import Decimal from 'break_infinity.js';
 import { achievementaward } from './Achievements';
 import { smallestInc } from './Utility';
 import { upgradeupdate, crystalupgradedescriptions} from './Upgrades';
 import { reset } from './Reset';
 import { calculateSummationLinear, calculateCorruptionPoints, calculateRuneBonuses } from './Calculate';
-import { Globals as G } from './Variables';
+import { Globals as G, Upgrade } from './Variables';
 import type { FirstToFifth, OneToFive, ZeroToFour } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -15,7 +16,7 @@ export const getReductionValue = () => {
     reduction += (G['rune4level'] * G['effectiveLevelMult']) / 160;
     reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
     reduction += CalcECC('transcend', player.challengecompletions[4]) / 200;
-    reduction += Math.min(99999.9, (3 * (player.antUpgrades[7-1] + G['bonusant7'])) / 100);
+    reduction += Math.min(99999.9, (3 * (player.antUpgrades[7-1]! + G['bonusant7'])) / 100);
     return reduction;
 }
 
@@ -78,7 +79,7 @@ export const buyAccelerator = (autobuyer?: boolean) => {
         }
     }
 
-    if (!autobuyer && (player.coinbuyamount as number | string) !== "max") {
+    if (!autobuyer && (player.coinbuyamount as number | string) !== 'max') {
         if (player.acceleratorBought + player.coinbuyamount < buyTo) {
             buyTo = player.acceleratorBought + player.coinbuyamount;
         }
@@ -176,7 +177,7 @@ export const buyMultiplier = (autobuyer?: boolean) => {
         }
     }
 
-    if (!autobuyer && (player.coinbuyamount as number | string) !== "max") {
+    if (!autobuyer && (player.coinbuyamount as number | string) !== 'max') {
         if (player.multiplierBought + player.coinbuyamount < buyTo) {
             buyTo = player.multiplierBought + player.coinbuyamount;
         }
@@ -270,7 +271,7 @@ const known_log10s = function () {
     // constructing all logs
     const obj: Record<number, number> = {};
     for (const need of needed) {
-        if (obj[need] === undefined) {
+        if (typeof obj[need] === 'undefined') {
             obj[need] = Math.log10(need);
         }
     }
@@ -333,7 +334,7 @@ const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: ke
     // Applies the factorials from earlier without computing them 5 times
     cost.exponent += factorialByExponent(buyingTo) * fastFactMultBuyTo;
     let fastFactMultBuyTo100 = 0;
-    if ((player.currentChallenge.transcension === 4) && (type === "Coin" || type === "Diamonds")) {
+    if ((player.currentChallenge.transcension === 4) && (type === 'Coin' || type === 'Diamonds')) {
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
         ++fastFactMultBuyTo100;
@@ -342,7 +343,7 @@ const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: ke
             mlog10125 += (buyingTo * (buyingTo + 1) / 2);
         }
     }
-    if ((player.currentChallenge.reincarnation === 10) && (type === "Coin" || type === "Diamonds")) {
+    if ((player.currentChallenge.reincarnation === 10) && (type === 'Coin' || type === 'Diamonds')) {
         // you would not fucking believe how long it took me to figure this out
         // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
         ++fastFactMultBuyTo100;
@@ -357,7 +358,7 @@ const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: ke
     // log10(1.25)
     cost.exponent += known_log10s[1.25] * mlog10125;
     fr = Math.floor(r * 1000 * player.challengecompletions[8]);
-    if (player.currentChallenge.reincarnation === 8 && (type === "Coin" || type === "Diamonds" || type === "Mythos") && buyingTo >= (1000 * player.challengecompletions[8] * r)) {
+    if (player.currentChallenge.reincarnation === 8 && (type === 'Coin' || type === 'Diamonds' || type === 'Mythos') && buyingTo >= (1000 * player.challengecompletions[8] * r)) {
         cost.exponent += ((known_log10s[2] * ((buyingTo - fr + 1) / 2)) - known_log10s[1 + (player.challengecompletions[8] / 2)]) * (buyingTo - fr);
     }
 
@@ -389,8 +390,8 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
     const zeroIndex = index-1 as ZeroToFour;
     const pos = G['ordinals'][zeroIndex];
     const [originalCost, num] = getOriginalCostAndNum(index, type);
-    
-    const BUYMAX = (Math.pow(10, 99) - 1);
+
+    const BUYMAX = Math.pow(10, 15) - 1;
     const COINMAX = 1e99;
     const r = getReductionValue();
     const tag = buyProducerTypes[type][0];
@@ -426,6 +427,16 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
             buyInc = buyInc - Math.max(smallestInc(buyInc), stepdown);
         }
     }
+
+    // Resolves the infamous autobuyer bug, for large values. This prevents the notion of even being able
+    // to go above the BUYMAX. Future instances will also not check more than the first few lines
+    // meaning that the code below this cannot run if this ever runs.
+    if (buyStart + buyInc >= BUYMAX) {
+        player[posOwnedType] = BUYMAX
+        player[`${pos}Cost${type}` as const] = getCostInternal(originalCost, BUYMAX, type, num, r)
+        return
+    }
+
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
     let buyFrom = Math.max(buyStart + buyInc - 7, player[posOwnedType] + 1);
     let thisCost = getCostInternal(originalCost, buyFrom, type, num, r);
@@ -452,12 +463,12 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
     r += (G['rune4level'] * G['effectiveLevelMult']) / 160;
     r += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
     r += CalcECC('transcend', player.challengecompletions[4]) / 200
-    r += (3 * (G['bonusant7'] + player.antUpgrades[7-1])) / 100;
+    r += (3 * (G['bonusant7'] + player.antUpgrades[7-1]!)) / 100;
 
     const posCostType = `${pos}Cost${type}` as const;
     const posOwnedType = `${pos}Owned${type}` as const;
 
-    
+
     while (player[tag].gte(player[posCostType]) && G['ticker'] < buythisamount) {
         player[tag] = player[tag].sub(player[posCostType]);
         player[posOwnedType] += 1;
@@ -475,13 +486,13 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
         if (player[posOwnedType] >= (250000 * r)) {
             player[posCostType] = player[posCostType].times(Decimal.pow(1.03, player[posOwnedType] - 250000 * r))
         }
-        if (player.currentChallenge.transcension === 4 && (type === "Coin" || type === "Diamonds")) {
+        if (player.currentChallenge.transcension === 4 && (type === 'Coin' || type === 'Diamonds')) {
             player[posCostType] = player[posCostType].times(Math.pow(100 * player[posOwnedType] + 10000, 1.25 + 1 / 4 * player.challengecompletions[4]));
             if (player[posOwnedType] >= 1000 - (10 * player.challengecompletions[4])) {
                 player[posCostType] = player[posCostType].times(Decimal.pow(1.25, player[posOwnedType]));
             }
         }
-        if (player.currentChallenge.reincarnation === 8 && (type === "Coin" || type === "Diamonds" || type === "Mythos") && player[posOwnedType] >= (1000 * player.challengecompletions[8] * r)) {
+        if (player.currentChallenge.reincarnation === 8 && (type === 'Coin' || type === 'Diamonds' || type === 'Mythos') && player[posOwnedType] >= (1000 * player.challengecompletions[8] * r)) {
             player[posCostType] = player[posCostType].times(Decimal.pow(2, (player[posOwnedType] - (1000 * player.challengecompletions[8] * r)) / (1 + (player.challengecompletions[8] / 2))));
         }
         G['ticker'] += 1;
@@ -489,34 +500,25 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
     G['ticker'] = 0;
 }
 
-type Upgrade = 'prestige' | 'transcend' | 'reincarnation' | 'coin';
-
-const upgradeToCurrency = (type: Upgrade) => {
-    if (type === 'coin') {
-        return 'coins' as const;
-    }
-    return `${type}Points` as const;
-}
-
 export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
-    const currency = upgradeToCurrency(type);
+    const currency = type;
     if (player[currency].gte(Decimal.pow(10, G['upgradeCosts'][pos])) && player.upgrades[pos] === 0) {
         player[currency] = player[currency].sub(Decimal.pow(10, G['upgradeCosts'][pos]))
         player.upgrades[pos] = 1;
         upgradeupdate(pos, state)
     }
 
-    if (type === "transcend") {
+    if (type === Upgrade.transcend) {
         player.reincarnatenocoinprestigeortranscendupgrades = false;
         player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
     }
-    if (type === "prestige") {
+    if (type === Upgrade.prestige) {
         player.transcendnocoinorprestigeupgrades = false;
         player.reincarnatenocoinorprestigeupgrades = false;
         player.reincarnatenocoinprestigeortranscendupgrades = false;
         player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
     }
-    if (type === "coin") {
+    if (type === Upgrade.coin) {
         player.prestigenocoinupgrades = false;
         player.transcendnocoinupgrades = false;
         player.transcendnocoinorprestigeupgrades = false;
@@ -578,7 +580,7 @@ export const boostAccelerator = (automated?: boolean) => {
                     for (let j = 21; j < 41; j++) {
                         player.upgrades[j] = 0;
                     }
-                    reset("prestige");
+                    reset('prestige');
                     player.prestigePoints = new Decimal(0);
                 }
             }
@@ -763,10 +765,10 @@ const buyTessBuildingsToCheapestPrice = (ownedBuildings: TesseractBuildings, che
 /**
  * Calculate the result of repeatedly buying the cheapest tesseract building,
  * given an initial list of owned buildings and a budget.
- * 
+ *
  * This function is pure and does not rely on any global state other than
  * constants for ease of testing.
- * 
+ *
  * For tests:
  * calculateInBudget([0, 0, 0, 0, 0], 100) = [3, 1, 0, 0, 0]
  * calculateInBudget([null, 0, 0, 0, 0], 100) = [null, 2, 0, 0, 0]
@@ -774,10 +776,10 @@ const buyTessBuildingsToCheapestPrice = (ownedBuildings: TesseractBuildings, che
  * calculateInBudget([3, 1, 0, 0, 0], 64+80) = [4, 2, 0, 0, 0]
  * calculateInBudget([9, 100, 100, 0, 100], 1000) = [9, 100, 100, 1, 100]
  * calculateInBudget([9, 100, 100, 0, 100], 2000) = [10, 100, 100, 1, 100]
- * 
+ *
  * and calculateInBudget([0, 0, 0, 0, 0], 1e46) should run in less than a
  * second.
- * 
+ *
  * @param ownedBuildings The amount of buildings owned, or null if the building
  * should not be bought.
  * @param budget The number of tesseracts to spend.
@@ -824,7 +826,7 @@ export const calculateTessBuildingsInBudget = (ownedBuildings: TesseractBuilding
     // we want to find the maximum value of cheapestPrice such that
     // f(cheapestPrice) <= budget.
     // In this case, f(x) = buyTessBuildingsToCheapestPrice(ownedBuildings, x)[0].
-    
+
     // f(minCurrentPrice) = 0 < budget. We also know that we can definitely buy
     // at least one thing.
     let lo = minCurrentPrice;
@@ -889,9 +891,6 @@ export const calculateTessBuildingsInBudget = (ownedBuildings: TesseractBuilding
             // ever happen.
             buildings[minimum.index]!++;
             currentPrices[minimum.index] = tesseractBuildingCosts[minimum.index] * Math.pow(buildings[minimum.index]!+1, 3);
-            if (iteration === 5) {
-                console.warn(`Error in calculateInBudget(${JSON.stringify(ownedBuildings)}, ${JSON.stringify(budget)}). Copy this message and report this to a developer.`);
-            }
         } else {
             // Can't afford cheapest any more - break.
             break;
