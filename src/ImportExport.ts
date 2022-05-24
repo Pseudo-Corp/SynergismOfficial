@@ -1,6 +1,6 @@
 import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
 import { testing, version } from './Config';
-import { getElementById } from './Utility';
+import { getElementById, productContents, sumContents } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
 import type { Player } from './types/Synergism';
@@ -14,6 +14,7 @@ import { btoa } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { Globals as G } from './Variables';
+import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -377,6 +378,25 @@ export const promocodes = async () => {
         } else {
             return Confirm('You didn\'t guess within the correct times, try again soon!');
         }
+    } else if (input === 'spoiler') {
+        const SCOREREQ = 1e31
+        const currentScore = calculateAscensionScore().effectiveScore
+
+        const baseMultiplier = (currentScore >= SCOREREQ) ? Math.cbrt(currentScore / SCOREREQ) : Math.pow(currentScore / SCOREREQ, 2);
+        const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
+
+        const valueMultipliers = [
+            1 + player.shopUpgrades.seasonPass3 / 100,
+            1 + player.shopUpgrades.seasonPassY / 200,
+            1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
+            1 + player.shopUpgrades.seasonPassLost / 200,
+            1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
+            1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus
+        ]
+
+        const ascensionSpeed = calculateAscensionAcceleration()
+        const perSecond = 1/(24 * 3600 * 365) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
+        return Alert(`You will gain an octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
     } else {
         el.textContent = 'Your code is either invalid or already used. Try again!'
     }
