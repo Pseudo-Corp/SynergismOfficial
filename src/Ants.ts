@@ -83,7 +83,9 @@ let repeatAnt: ReturnType<typeof setTimeout> | null = null;
 
 export const antRepeat = (i: number) => {
     clearInt(repeatAnt!);
-    repeatAnt = interval(() => updateAntDescription(i), 50);
+    queueMicrotask(() => {
+        repeatAnt = interval(() => updateAntDescription(i), 50);
+    })
 }
 
 export const updateAntDescription = (i: number) => {

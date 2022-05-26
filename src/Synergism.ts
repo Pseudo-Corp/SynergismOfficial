@@ -3529,6 +3529,12 @@ export const reloadShit = async (reset = false) => {
 
     intervalHold.clear();
 
+    // Wait a tick to continue. This is a (likely futile) attempt to see if this solves save corrupting.
+    // This ensures all queued tasks are executed before continuing on.
+    await new Promise((res) => {
+        setTimeout(res, 0);
+    });
+
     const save =
         await localforage.getItem<Blob>('Synergysave2') ??
         localStorage.getItem('Synergysave2');

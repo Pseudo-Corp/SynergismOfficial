@@ -38,7 +38,9 @@ let repeatreset: ReturnType<typeof setTimeout>;
 
 export const resetrepeat = (input: resetNames) => {
     clearInt(repeatreset);
-    repeatreset = interval(() => resetdetails(input), 50)
+    queueMicrotask(() => {
+        repeatreset = interval(() => resetdetails(input), 50)
+    })
 }
 
 export const resetdetails = (input: resetNames) => {
