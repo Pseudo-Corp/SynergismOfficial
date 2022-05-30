@@ -79,13 +79,11 @@ const antUpgradeTexts = [
     () => 'Global timer is sped up by a factor of ' + format(calculateSigmoid(2, player.antUpgrades[12-1]! + G['bonusant12'], 69), 4)
 ]
 
-let repeatAnt: ReturnType<typeof setTimeout> | null = null;
+let repeatAnt: ReturnType<typeof setTimeout>;
 
 export const antRepeat = (i: number) => {
-    clearInt(repeatAnt!);
-    queueMicrotask(() => {
-        repeatAnt = interval(() => updateAntDescription(i), 50);
-    })
+    clearInt(repeatAnt);
+    repeatAnt = interval(() => updateAntDescription(i), 50);
 }
 
 export const updateAntDescription = (i: number) => {
