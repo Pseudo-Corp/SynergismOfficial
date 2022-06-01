@@ -748,8 +748,10 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         achievementaward(43); // 1 transcension
     }
     if (player.achievements[276] > 0) {
-        player.reincarnationCount = 1;
-        player.reincarnationPoints = new Decimal('10');
+        if (player.currentChallenge.ascension !== 12) {
+            player.reincarnationCount = 1;
+            player.reincarnationPoints = new Decimal('10');
+        }
         player.unlocks.reincarnate = true;
         player.unlocks.rrow1 = true;
         player.researches[47] = 1;
@@ -778,7 +780,9 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         if (player.currentChallenge.ascension !== 14) {
             player.researchPoints = Math.floor(500 * calculateSingularityDebuff('Offering') * calculateSingularityDebuff('Researches'))
         }
-        player.reincarnationPoints = new Decimal('1e16')
+        if (player.currentChallenge.ascension !== 12) {
+            player.reincarnationPoints = new Decimal('1e16')
+        }
         player.challengecompletions[6] = 1;
         player.highestchallengecompletions[6] = 1;
         achievementaward(113);
@@ -795,7 +799,9 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.challengecompletions[7] = 1;
         player.highestchallengecompletions[7] = 1;
         achievementaward(120);
-        player.reincarnationPoints = new Decimal('1e100');
+        if (player.currentChallenge.ascension !== 12) {
+            player.reincarnationPoints = new Decimal('1e100');
+        }
     }
     if (player.achievements[280] > 0) {
         achievementaward(127);
@@ -809,7 +815,9 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     if (player.singularityCount >= 15) {
         player.challengecompletions[8] = 5;
         player.highestchallengecompletions[8] = 5;
-        player.reincarnationPoints = new Decimal('2.22e2222')
+        if (player.currentChallenge.ascension !== 12) {
+            player.reincarnationPoints = new Decimal('2.22e2222')
+        }
         player.fifthOwnedAnts = 1;
     }
     if (player.singularityCount >= 20) {
