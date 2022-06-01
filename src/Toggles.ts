@@ -108,8 +108,8 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
     if (player.challengecompletions[10] > 0) {
         if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
-            reset('ascensionChallenge', false, 'enterChallenge');
             player.currentChallenge.ascension = i;
+            reset('ascensionChallenge', false, 'enterChallenge');
 
             if (player.currentChallenge.ascension === 12) {
                 player.antPoints = new Decimal('8')
