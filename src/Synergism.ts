@@ -1670,12 +1670,9 @@ export const format = (
         if (power < 1e60) {
             return `${mantissaLook}e${powerLookF}OcDC`;
         }
-        if (power >= 1e60) {
-            return 'INFINITE'
-        }
 
         // If it doesn't fit a notation then default to mantissa e power
-        return `${mantissa}e${power}`;
+        return `e${power.toExponential(2)}`;
     } else {
         return '0 [und.]';
     }
@@ -1764,7 +1761,7 @@ export const updateAllTick = (): void => {
     a += 2000 * hepteractEffective('accelerator');
     a *= G['challenge15Rewards'].accelerator
     a *= (1 + 3/10000 * hepteractEffective('accelerator'))
-    a = Math.floor(a)
+    a = Math.floor(Math.min(1e100, a))
 
     G['freeAccelerator'] = a;
     G['totalAccelerator'] += G['freeAccelerator'];
@@ -1903,7 +1900,7 @@ export const updateAllMultiplier = (): void => {
         (G['rune1level'] + G['rune2level'] + G['rune3level'] + G['rune4level'] + G['rune5level']) / 8
     );
 
-    G['freeUpgradeMultiplier'] = a
+    G['freeUpgradeMultiplier'] = Math.min(1e100, a)
 
     if (player.achievements[38] > 0.5) {
         a += Math.floor(Math.floor(
@@ -1937,7 +1934,7 @@ export const updateAllMultiplier = (): void => {
     a += 1000 * hepteractEffective('multiplier')
     a *= G['challenge15Rewards'].multiplier
     a *= (1 + 3/10000 * hepteractEffective('multiplier'))
-    a = Math.floor(a)
+    a = Math.floor(Math.min(1e100, a))
     G['freeMultiplier'] = a;
     G['totalMultiplier'] = G['freeMultiplier'] + player.multiplierBought;
 
@@ -3146,6 +3143,19 @@ export const updateAll = (): void => {
     }
     if (player.researchPoints > player.maxobtainium) {
         player.maxobtainium = player.researchPoints;
+    }
+
+    if (isNaN(player.runeshards)) {
+        player.runeshards = 0;
+    }
+    if (player.runeshards > 1e300) {
+        player.runeshards = 1e300;
+    }
+    if (isNaN(player.researchPoints)) {
+        player.researchPoints = 0;
+    }
+    if (player.researchPoints > 1e300) {
+        player.researchPoints = 1e300;
     }
 
     G['effectiveLevelMult'] = 1;
