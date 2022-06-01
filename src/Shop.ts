@@ -355,7 +355,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Gain +0.01% Ascension Speed per level per singularity. It needs a lot of fuel to power up.'
+        description: 'Gain +0.1% Ascension Speed per level per singularity. It needs a lot of fuel to power up.'
     },
     offeringEX2: {
         tier: 'SingularityVol2',
@@ -365,7 +365,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Gain +0.01% Offerings per level per singularity. Putting the Singularity Debuff industry out of business.'
+        description: 'Gain +1% Offerings per level per singularity. Putting the Singularity Debuff industry out of business.'
     },
     obtainiumEX2: {
         tier: 'SingularityVol2',
@@ -375,7 +375,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Gain +0.01% Obtainium per level per singularity!!!'
+        description: 'Gain +1% Obtainium per level per singularity!!!'
     },
     powderAuto: {
         tier: 'SingularityVol2',
@@ -529,13 +529,13 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = `CURRENT Effect: Opening any cube gives +${format(0.2 * player.shopUpgrades.cubeToQuarkAll, 2)}% quarks!`;
             break;
         case 'chronometerZ':
-            lol.textContent = `CURRENT Effect: Ascension Speed +${format(0.01 * player.singularityCount * player.shopUpgrades.chronometerZ, 2)}%!`;
+            lol.textContent = `CURRENT Effect: Ascension Speed +${format(0.1 * player.singularityCount * player.shopUpgrades.chronometerZ, 2)}%!`;
             break;
         case 'offeringEX2':
-            lol.textContent = `CURRENT Effect: Offerings +${format(0.01 * player.singularityCount * player.shopUpgrades.offeringEX2, 2)}%!`;
+            lol.textContent = `CURRENT Effect: Offerings +${format(1 * player.singularityCount * player.shopUpgrades.offeringEX2, 2)}%!`;
             break;
         case 'obtainiumEX2':
-            lol.textContent = `CURRENT Effect: Obtainium +${format(0.01 * player.singularityCount * player.shopUpgrades.obtainiumEX2, 2)}%!`;
+            lol.textContent = `CURRENT Effect: Obtainium +${format(1 * player.singularityCount * player.shopUpgrades.obtainiumEX2, 2)}%!`;
             break;
         case 'powderAuto':
             lol.textContent = `CURRENT Effect: Every ${format(100 / (Math.max(1, player.shopUpgrades.powderAuto) * calculatePowderConversion().mult), 0, true)} purchased orbs grants 1 powder.`

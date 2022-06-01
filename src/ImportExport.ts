@@ -347,30 +347,33 @@ export const promocodes = async () => {
         player.worlds.sub(bet);
         el.textContent = `Try again... you can do it! [-${bet} quarks]`;
     } else if (input === 'time') {
-        if ((Date.now() - player.promoCodeTiming.time) / 1000 < 3600) {
+        if ((Date.now() - player.promoCodeTiming.time) / 1000 < 1800) {
             return Confirm(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
             
-            Otherwise, you must wait an hour between each use.
+            Regardless, you must wait at least 15 minutes between each use.
             `);
         }
+
+        const rewardMult = Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600))
 
         const random = Math.random() * 15000; // random time within 15 seconds
         const start = Date.now();
         await Confirm(
             'Click the button within the next 15 seconds to test your luck!' +
-            ` If you click within ${format(500 + 5 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!`
+            ` If you click within ${format(2500 + 50 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!` +
+            ` This particular instance has a ${format(rewardMult, 2, true)}x multiplier due to elapsed time between uses.`
         );
 
         const diff = Math.abs(Date.now() - (start + random));
         player.promoCodeTiming.time = Date.now();
 
-        if (diff <= (500 + 5 * player.cubeUpgrades[61])) {
-            const reward = Math.floor(500 * (1 + player.cubeUpgrades[61] / 100));
+        if (diff <= (2500 + 50 * player.cubeUpgrades[61])) {
+            const reward = Math.floor(500 * (1 + player.cubeUpgrades[61] / 20));
             let actualQuarkAward = player.worlds.applyBonus(reward)
 
             if (actualQuarkAward > 66666) {
-                actualQuarkAward = Math.pow(actualQuarkAward, 0.4) * Math.pow(66666, 0.6)
+                actualQuarkAward = rewardMult * Math.pow(actualQuarkAward, 0.4) * Math.pow(66666, 0.6)
             }
 
             player.worlds.add(actualQuarkAward, false);

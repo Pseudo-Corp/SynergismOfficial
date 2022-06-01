@@ -381,7 +381,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         q *= (1 + 7 * player.cubeUpgrades[62]);
     }
     q *= (1 + 1/200 * player.shopUpgrades.cashGrab2);
-    q *= (1 + 1/10000 * player.shopUpgrades.offeringEX2 * player.singularityCount);
+    q *= (1 + 1/100 * player.shopUpgrades.offeringEX2 * player.singularityCount);
 
     let persecond = 0;
     if (input === 'prestige') {
@@ -468,7 +468,7 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= +player.singularityUpgrades.singObtainium3.getEffect().bonus
     G['obtainiumGain'] *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
     G['obtainiumGain'] *= (1 + 1/200 * player.shopUpgrades.cashGrab2)
-    G['obtainiumGain'] *= (1 + 1/10000 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
+    G['obtainiumGain'] *= (1 + 1/100 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
@@ -1286,7 +1286,7 @@ export const calculateAscensionAcceleration = () => {
         G['challenge15Rewards'].ascensionSpeed,                                                         // C15
         1 + 1/400 * player.cubeUpgrades[59],                                                            // Cookie Upgrade 9
         1 + 0.5 * player.singularityUpgrades.intermediatePack.level,                                    // Intermediate Pack, Sing Shop
-        1 + 1/10000 * player.singularityCount * player.shopUpgrades.chronometerZ                        // Chronometer Z
+        1 + 1/1000 * player.singularityCount * player.shopUpgrades.chronometerZ                        // Chronometer Z
     ]
     return productContents(arr) / calculateSingularityDebuff('Ascension Speed')
 }

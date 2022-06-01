@@ -13,7 +13,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const getReductionValue = () => {
     let reduction = 1;
-    reduction += (G['rune4level'] * G['effectiveLevelMult']) / 160;
+    reduction += Math.min(1e15, (G['rune4level'] * G['effectiveLevelMult']) / 160);
     reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
     reduction += CalcECC('transcend', player.challengecompletions[4]) / 200;
     reduction += Math.min(99999.9, (3 * (player.antUpgrades[7-1]! + G['bonusant7'])) / 100);
@@ -400,9 +400,17 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
 
     // Start buying at the current amount bought + 1
     const buyStart = player[posOwnedType];
-    // Degenerate Case: return the maximum if applicable
+
+    // If at least 1e15, we will use a different formulae
     if (buyStart >= BUYMAX) {
-        player[posOwnedType] = BUYMAX;
+        const diminishingExponent = 1/8
+
+        const log10Resource = Decimal.log10(player[tag])
+        const log10QuadrillionCost = Decimal.log10(getCostInternal(originalCost, BUYMAX, type, num, r))
+
+        const buyable = Math.floor(Math.pow(10,15) * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+
+        player[posOwnedType] = buyable;
         return;
     }
     // Degenerate Case: return maximum if coins is too large
