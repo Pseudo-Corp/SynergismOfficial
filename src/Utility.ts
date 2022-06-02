@@ -16,12 +16,14 @@ export const isDecimal = (o: unknown): o is Decimal =>
  * guaranteed to affect the numbers value
  * @param x
  * @returns {number} 1 if x < 2^53 and 2^ceil(log2(x)-53) otherwise
+ * Since ceil(log2(x)-53) was 53 until 2^53+23, I changed it to floor(log2(x)-52)
+ * This is incremented to 53 at 2^53-21 and is probably guaranteed thereafter. from by httpsnet
  */
 export const smallestInc = (x = 0): number => {
     if (x <= Number.MAX_SAFE_INTEGER) {
         return 1;
     } else {
-        return 2**Math.ceil(Math.log2(x)-53)
+        return 2 ** Math.floor(Math.log2(x) - 52)
     }
 }
 
