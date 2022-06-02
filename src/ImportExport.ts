@@ -347,7 +347,7 @@ export const promocodes = async () => {
         player.worlds.sub(bet);
         el.textContent = `Try again... you can do it! [-${bet} quarks]`;
     } else if (input === 'time') {
-        if ((Date.now() - player.promoCodeTiming.time) / 1000 < 1800) {
+        if ((Date.now() - player.promoCodeTiming.time) / 1000 < 900) {
             return Confirm(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
             
@@ -369,15 +369,15 @@ export const promocodes = async () => {
         player.promoCodeTiming.time = Date.now();
 
         if (diff <= (2500 + 50 * player.cubeUpgrades[61])) {
-            const reward = Math.floor(500 * (1 + player.cubeUpgrades[61] / 20));
+            const reward = Math.floor(Math.min(500, (125 + 25 * player.singularityCount)) * (1 + player.cubeUpgrades[61] / 20));
             let actualQuarkAward = player.worlds.applyBonus(reward)
 
             if (actualQuarkAward > 66666) {
-                actualQuarkAward = rewardMult * Math.pow(actualQuarkAward, 0.4) * Math.pow(66666, 0.6)
+                actualQuarkAward = Math.pow(actualQuarkAward, 0.4) * Math.pow(66666, 0.6)
             }
 
-            player.worlds.add(actualQuarkAward, false);
-            return Confirm(`You clicked at the right time! [+${format(actualQuarkAward, 0, true)} Quarkies]`);
+            player.worlds.add(actualQuarkAward * rewardMult, false);
+            return Confirm(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
         } else {
             return Confirm('You didn\'t guess within the correct times, try again soon!');
         }
