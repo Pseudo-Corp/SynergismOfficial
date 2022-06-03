@@ -126,7 +126,7 @@ export class HepteractCraft {
         }
 
         //Check these lol
-        if (isNaN(craftAmount) || !isFinite(craftAmount)) { // nan + Infinity checks
+        if (isNaN(craftAmount) || !isFinite(craftAmount) || !Number.isInteger(craftAmount)) { // nan + Infinity checks
             return Alert('Value must be a finite number!');
         } else if (craftAmount <= 0) { // 0 or less selected
             return Alert('You can\'t craft a nonpositive amount of these, you monster!');
