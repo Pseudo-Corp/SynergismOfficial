@@ -379,14 +379,16 @@ export const hepteractToOverfluxOrbDescription = () => {
  */
 export const tradeHepteractToOverfluxOrb = async () => {
     const maxBuy = Math.floor(player.wowAbyssals / 250000);
-    const hepteractInput = await Prompt('How many Orbs would you like to purchase?\n You can buy up to ' + format(maxBuy, 0, true) +  ' with your hepteracts.');
-    const toUse = Number(hepteractInput);
-    if (toUse === null) {
+    const hepteractInput = await Prompt(`How many Orbs would you like to purchase?\n You can buy up to ${format(maxBuy, 0, true)} with your hepteracts.`);
+    if (hepteractInput === null) {
         return Alert('Okay, maybe next time.');
     }
+
+    const toUse = Number(hepteractInput);
     if (
         isNaN(toUse) ||
         !isFinite(toUse) ||
+        !Number.isInteger(toUse) ||
         toUse <= 0
     ) {
         return Alert('Hey! That\'s not a valid number!');
