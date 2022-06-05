@@ -87,7 +87,7 @@ export class HepteractCraft {
         }
 
         if (this.CAP - this.BAL <= 0) {
-            return Alert('You are craft up to upper limit. It does not work until expand.');
+            return Alert(`You have reached the current capacity of ${format(this.CAP,0,true)}. Please expand to craft more.`);
         }
 
         if (isNaN(player.wowAbyssals) || !isFinite(player.wowAbyssals) || player.wowAbyssals < 0) {
@@ -111,7 +111,7 @@ export class HepteractCraft {
 
         // Return if the material is not a calculable number
         if (isNaN(amountToCraft) || !isFinite(amountToCraft)) {
-            return Alert('Sorry, Execution failed because the material could not be calculated.');
+            return Alert('Execustion failed: material could not be calculated.');
         }
 
         //Prompt used here. Thank you Khafra for the already made code! -Platonic
@@ -136,7 +136,7 @@ export class HepteractCraft {
         amountToCraft = Math.min(smallestItemLimit, hepteractLimit, craftAmount, this.CAP - this.BAL);
 
         if (max) {
-            const craftYesPlz = await Confirm(`This will attempt to buy as many as possible. \nYou can buy up to ${format(amountToCraft, 0, true)} (${(Math.floor(amountToCraft / this.CAP * 10000) / 100)}%) amount. Are you sure?`);
+            const craftYesPlz = await Confirm(`This will attempt to craft as many as possible. \nYou can craft up to ${format(amountToCraft, 0, true)} (${(Math.floor(amountToCraft / this.CAP * 10000) / 100)}%). Are you sure?`);
             if (!craftYesPlz) {
                 return Alert('Okay, maybe next time.');
             }
@@ -194,7 +194,7 @@ export class HepteractCraft {
             return Alert('Insufficient inventory to expand.');
         }
 
-        const expandPrompt = await Confirm(`This will empty your balance, but ${format(this.CAP)} to from ${format(this.CAP * expandMultiplier)} your capacity. Agree to the terms and conditions and stuff?`)
+        const expandPrompt = await Confirm(`This will empty your balance, but capacity will increase from ${format(this.CAP)} to ${format(this.CAP * expandMultiplier)} [Expansion Multiplier: ${format(expandMultiplier, 2, true)}]. Agree to the terms and conditions and stuff?`)
         if (!expandPrompt) {
             return this;
         }
