@@ -92,18 +92,33 @@ export abstract class Cube {
     async openCustom() {
         // TODO: Replace this with `this`?
         const thisInPlayer = player[this.key] as Cube;
-        const amount = await Prompt(`How many cubes would you like to open? You have ${thisInPlayer.value.toLocaleString()}!`);
+        const amount = await Prompt(
+            `How many cubes would you like to open? You have ${thisInPlayer.value.toLocaleString()}! ` +
+            'You can input a percentage of cubes to open, for example: "50%" or "100%".'
+        );
+
         if (amount === null) {
             return Alert('OK. No cubes opened.');
         }
-        const cubesToOpen = Number(amount);
 
-        if (Number.isNaN(cubesToOpen) || !Number.isFinite(cubesToOpen)) {
-            return Alert('Value must be a finite number!');
+        const isPercentage = amount.endsWith('%');
+        const cubesToOpen = isPercentage ? Number(amount.slice(0, -1)) : Number(amount);
+
+        if (Number.isNaN(cubesToOpen) || !Number.isFinite(cubesToOpen) || !Number.isInteger(cubesToOpen)) {
+            return Alert('Value must be a finite, non-decimal number!');
         } else if (thisInPlayer.value < cubesToOpen) {
             return Alert('You don\'t have enough cubes to open!');
         } else if (cubesToOpen <= 0) {
-            return Alert('You can\'t open a negative number of cubes.');
+            return Alert(`You can't open a negative ${isPercentage ? 'percent' : 'number'} of cubes.`);
+        } else if (isPercentage && cubesToOpen > 100) {
+            return Alert(`You can't open ${cubesToOpen}% of your cubes...`);
+        }
+
+        if (isPercentage) {
+            return this.open(
+                thisInPlayer.value * (cubesToOpen / 100),
+                cubesToOpen === 100
+            );
         }
 
         return this.open(cubesToOpen, cubesToOpen === thisInPlayer.value);
