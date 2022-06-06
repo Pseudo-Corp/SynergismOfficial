@@ -608,7 +608,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         }
 
         const maxLevel = maxCorruptionLevel();
-        player.usedCorruptions.map((curr:number, index:number) => {
+        player.usedCorruptions = player.usedCorruptions.map((curr:number, index:number) => {
             if (index >= 2 && index <= 9) {
                 return Math.min(maxLevel * (player.challengecompletions[corrChallengeMinimum(index)] > 0 ? 1: 0), curr)
             }
