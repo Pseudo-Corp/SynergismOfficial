@@ -13,6 +13,7 @@ import { Alert } from './UpdateHTML';
 import { getQuarkInvestment, shopData} from './Shop';
 import type { ISingularityData} from './singularity';
 import { singularityData, SingularityUpgrade } from './singularity';
+import { Globals as G } from './Variables';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -440,8 +441,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             const k = item as keyof Player['hepteractCrafts'];
             // if more crafts are added, some keys might not exist in the save
             if (data.hepteractCrafts[k]) {
-                player.hepteractCrafts[k] = createHepteract(data.hepteractCrafts[k]);
+                player.hepteractCrafts[k] = createHepteract({...player.hepteractCrafts[k], ...data.hepteractCrafts[k]});
             }
+
+            G['autoHepteractCount'] += +player.hepteractCrafts[k].AUTO
         }
     }
 
@@ -545,6 +548,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     effect: singularityData[k].effect
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
+
+                if (player.singularityUpgrades[k].minimumSingularity > player.singularityCount) {
+                    player.singularityUpgrades[k].refund()
+                }
             }
         }
     }
@@ -569,5 +576,17 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (player.singularityUpgrades.cookies3.goldenQuarksInvested === 5000 || player.singularityUpgrades.cookies4.goldenQuarksInvested === 50000) {
         player.singularityUpgrades.cookies3.refund();
         player.singularityUpgrades.cookies4.refund();
+    }
+
+    if (player.singularityUpgrades.cookies4.goldenQuarksInvested === 199999) {
+        player.singularityUpgrades.cookies4.refund();
+    }
+
+    if (player.singularityUpgrades.octeractUnlock.goldenQuarksInvested === 8888) {
+        player.singularityUpgrades.octeractUnlock.refund();
+    }
+
+    if (data.hepteractAutoCraftPercentage === undefined) {
+        player.hepteractAutoCraftPercentage = 50;
     }
 }

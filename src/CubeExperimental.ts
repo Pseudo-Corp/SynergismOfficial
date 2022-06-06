@@ -15,7 +15,7 @@ import { CalcECC } from './Challenges';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { quarkHandler } from './Quark';
-import { player } from './Synergism';
+import { format, player } from './Synergism';
 import { calculateTesseractBlessings } from './Tesseracts';
 import type { Player } from './types/Synergism';
 import { Prompt, Alert } from './UpdateHTML';
@@ -93,7 +93,7 @@ export abstract class Cube {
         // TODO: Replace this with `this`?
         const thisInPlayer = player[this.key] as Cube;
         const amount = await Prompt(
-            `How many cubes would you like to open? You have ${thisInPlayer.value.toLocaleString()}! ` +
+            `How many cubes would you like to open? You have ${format(thisInPlayer, 0, true)}! ` +
             'You can input a percentage of cubes to open, for example: "50%" or "100%".'
         );
 

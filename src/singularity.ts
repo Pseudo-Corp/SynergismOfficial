@@ -50,7 +50,7 @@ export class SingularityUpgrade {
     private readonly costPerLevel: number;
     public toggleBuy = 1; //-1 = buy MAX (or 1000 in case of infinity levels!)
     public goldenQuarksInvested = 0;
-    private readonly minimumSingularity: number;
+    public minimumSingularity: number;
     private readonly effect: (n: number) => {bonus: number | boolean, desc: string}
 
     public constructor(data: ISingularityData) {
@@ -100,7 +100,9 @@ export class SingularityUpgrade {
      * @returns A number representing how many Golden Quarks a player must have to upgrade once.
      */
     private getCostTNL(): number {
-        return (this.maxLevel === this.level) ? 0: this.costPerLevel * (1 + this.level);
+        let costMultiplier = (this.maxLevel === -1 && this.level >= 100) ? this.level / 50 : 1;
+        costMultiplier = (this.maxLevel === -1 && this.level >= 400) ? this.level / 100 : 1;
+        return (this.maxLevel === this.level) ? 0: Math.ceil(this.costPerLevel * (1 + this.level) * costMultiplier);
     }
 
     /**
@@ -215,7 +217,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     goldenQuarks3: {
         name: 'Golden Quarks III',
         description: 'If you buy this, you will gain 1 Golden Quark per hour from Exports. Also reduces the cost to buy Golden Quarks in the shop by 1,000 per level.',
-        maxLevel: 5,
+        maxLevel: 15,
         costPerLevel: 1000,
         effect: (n: number) => {
             return {
@@ -288,7 +290,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'Cookie Recipes IV',
         description: 'This is a small price to pay for Salvation.',
         maxLevel: 1,
-        costPerLevel: 199999,
+        costPerLevel: 499999,
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
@@ -445,8 +447,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'Octeracts ;) (WIP)',
         description: 'Hey!!! What are you trying to do?!?',
         maxLevel: 1,
-        costPerLevel: 8888,
-        minimumSingularity: 10,
+        costPerLevel: 44444,
+        minimumSingularity: 36,
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
@@ -521,7 +523,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     divinePack: {
         name: 'Divine Pack',
-        description: 'OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14. Also unlock Platonic Upgrade autobuyers!',
+        description: 'OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14.',
         maxLevel: 1,
         costPerLevel: 12800,
         minimumSingularity: 36,

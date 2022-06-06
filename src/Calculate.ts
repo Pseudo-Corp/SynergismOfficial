@@ -1,7 +1,7 @@
 import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll } from './Synergism';
 import { sumContents, productContents, getElementById } from './Utility';
 import { Globals as G } from './Variables';
-import { CalcECC, getMaxChallenges } from './Challenges';
+import { CalcECC } from './Challenges';
 import Decimal from 'break_infinity.js';
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans';
 import { reset } from './Reset';
@@ -880,6 +880,7 @@ export const calculateOffline = async (forceTime = 0) => {
 
     addTimers('ascension', timeAdd);
     addTimers('quarks', timeAdd);
+    addTimers('goldenQuarks', timeAdd);
 
     player.prestigeCount += resetAdd.prestige;
     player.transcendCount += resetAdd.transcension;
@@ -1041,8 +1042,8 @@ export const calculateAllCubeMultiplier = () => {
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
         // Cookie Upgrade 16
         1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15]),
-        // Cookie Upgrade 20 (now actually works)
-        1 + 0.04 * player.cubeUpgrades[70] * Math.floor(player.challengecompletions[10] / getMaxChallenges(10))
+        // Cookie Upgrade 8 (now actually works)
+        1 + 0.25 * +G['isEvent'] * player.cubeUpgrades[58]
         // Total Global Cube Multipliers: 18
     ]
     return {
@@ -1701,8 +1702,8 @@ export const forcedDailyReset = (testing = false) => {
     }
 }
 
-const eventStart = '05/01/2022 00:00:00'
-const eventEnd = '05/07/2022 23:59:59'
+const eventStart = '06/05/2022 00:00:00'
+const eventEnd = '06/12/2022 23:59:59'
 
 // current event: NONE
 
@@ -1714,8 +1715,8 @@ export const eventCheck = () => {
     if (now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
         G['isEvent'] = true
         DOMCacheGetOrSet('eventCurrent').textContent = 'ACTIVE UNTIL ' + end
-        DOMCacheGetOrSet('eventBuffs').textContent = 'Current Buffs: +200% Quarks from all sources, +13.37% Powder Conversion, +200% Time Acceleration!'
-        DOMCacheGetOrSet('happyHolidays').innerHTML = '&#128151 Happy Two Year Anniversary! &#128151;'
+        DOMCacheGetOrSet('eventBuffs').textContent = 'Current Buffs: +125% Quarks from all sources, +13.37% Powder Conversion, +200% Time Acceleration!'
+        DOMCacheGetOrSet('happyHolidays').innerHTML = '&#128151 2.9.7 Event! &#128151;'
     } else {
         G['isEvent'] = false
         DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE'

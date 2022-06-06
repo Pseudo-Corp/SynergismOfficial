@@ -71,8 +71,8 @@ export const exportSynergism = async () => {
     player.offlinetick = Date.now();
     const quarkData = quarkHandler();
     if (player.singularityUpgrades.goldenQuarks3.level > 0) {
-        player.goldenQuarks += Math.floor(player.quarkstimer / 3600) * (1 + player.worlds.BONUS / 100) * player.singularityUpgrades.goldenQuarks3.level;
-        player.goldenQuarksTimer = (player.goldenQuarksTimer % (3600 / Math.max(0.001, player.singularityUpgrades.goldenQuarks3.level)))
+        player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / player.singularityUpgrades.goldenQuarks3.level)) * (1 + player.worlds.BONUS / 100);
+        player.goldenQuarksTimer = player.goldenQuarksTimer % (3600 / player.singularityUpgrades.goldenQuarks3.level)
     }
     if (quarkData.gain >= 1) {
         player.worlds.add(quarkData.gain);
@@ -183,15 +183,20 @@ export const promocodes = async () => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === '2e0' && !player.codes.get(39) && G['isEvent']) {
-        player.codes.set(39, true);
+    if (input === '2.9.7' && !player.codes.get(40) && G['isEvent']) {
+        player.codes.set(40, true);
         player.quarkstimer = quarkHandler().maxTime;
-        player.goldenQuarksTimer = 90000;
-        addTimers('ascension', 24 * 3600);
+        player.goldenQuarksTimer = 3600 * 168;
+        addTimers('ascension', 4 * 3600);
+
         if (player.singularityCount > 0) {
-            player.goldenQuarks += 500
+            player.singularityUpgrades.singCubes1.level += 5;
+            player.singularityUpgrades.singOfferings1.level += 5;
+            player.singularityUpgrades.singObtainium1.level += 5;
+            player.singularityUpgrades.ascensions.level += 5;
         }
-        return Alert('Happy two year!!!! Your quark timer(s) have been replenished and you have been given 24 real life hours of ascension progress!')
+
+        return Alert(`Happy update!!!! Your quark timer(s) have been replenished and you have been given 4 real life hours of ascension progress! ${(player.singularityCount > 0) ? 'You were also given 5 of each uncapped resource singularity upgrade!' : ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
         player.codes.set(1, true);
@@ -361,19 +366,19 @@ export const promocodes = async () => {
         const start = Date.now();
         await Confirm(
             'Click the button within the next 15 seconds to test your luck!' +
-            ` If you click within ${format(2500 + 50 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!` +
+            ` If you click within ${format(2500 + 125 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!` +
             ` This particular instance has a ${format(rewardMult, 2, true)}x multiplier due to elapsed time between uses.`
         );
 
         const diff = Math.abs(Date.now() - (start + random));
         player.promoCodeTiming.time = Date.now();
 
-        if (diff <= (2500 + 50 * player.cubeUpgrades[61])) {
-            const reward = Math.floor(Math.min(500, (125 + 25 * player.singularityCount)) * (1 + player.cubeUpgrades[61] / 20));
+        if (diff <= (2500 + 125 * player.cubeUpgrades[61])) {
+            const reward = Math.floor(Math.min(1000, (125 + 25 * player.singularityCount)) * (1 + player.cubeUpgrades[61] / 50));
             let actualQuarkAward = player.worlds.applyBonus(reward)
 
             if (actualQuarkAward > 66666) {
-                actualQuarkAward = Math.pow(actualQuarkAward, 0.4) * Math.pow(66666, 0.6)
+                actualQuarkAward = Math.pow(actualQuarkAward, 0.35) * Math.pow(66666, 0.65)
             }
 
             player.worlds.add(actualQuarkAward * rewardMult, false);
@@ -382,7 +387,7 @@ export const promocodes = async () => {
             return Confirm('You didn\'t guess within the correct times, try again soon!');
         }
     } else if (input === 'spoiler') {
-        const SCOREREQ = 1e31
+        const SCOREREQ = 1e32
         const currentScore = calculateAscensionScore().effectiveScore
 
         const baseMultiplier = (currentScore >= SCOREREQ) ? Math.cbrt(currentScore / SCOREREQ) : Math.pow(currentScore / SCOREREQ, 2);
@@ -394,7 +399,10 @@ export const promocodes = async () => {
             1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
             1 + player.shopUpgrades.seasonPassLost / 200,
             1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
-            1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus
+            1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
+            +player.singularityUpgrades.singCubes1.getEffect().bonus,
+            +player.singularityUpgrades.singCubes2.getEffect().bonus,
+            +player.singularityUpgrades.singCubes3.getEffect().bonus
         ]
 
         const ascensionSpeed = calculateAscensionAcceleration()

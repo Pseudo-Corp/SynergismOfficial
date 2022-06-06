@@ -350,3 +350,26 @@ export const revealCorruptions = () => {
         }
     }
 }
+
+export function corrChallengeMinimum(index: number): number {
+    switch (index) {
+        case 2:
+            return 11
+        case 3:
+            return 14
+        case 4:
+            return 14
+        case 5:
+            return 13
+        case 6:
+            return 12
+        case 7:
+            return 12
+        case 8:
+            return 11
+        case 9:
+            return 13
+        default:
+            return 0
+    }
+}

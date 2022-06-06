@@ -4,6 +4,7 @@ import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOffering
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import Decimal from 'break_infinity.js';
 
 const associated = new Map<string, string>([
     ['kMisc', 'miscStats'],
@@ -84,7 +85,7 @@ export const loadStatisticsCubeMultipliers = () => {
         15: {acc: 2, desc: 'Cube Inferno [GQ]:'},
         16: {acc: 2, desc: 'Wow Pass Z'},
         17: {acc: 2, desc: 'Cookie Upgrade 16'},
-        18: {acc: 2, desc: 'Cookie Upgrade 20'}
+        18: {acc: 2, desc: 'Cookie Upgrade 8'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
@@ -254,7 +255,7 @@ export const loadPowderMultiplier = () => {
         4: {acc: 2, desc: 'Achievement 256:'},
         5: {acc: 2, desc: 'Achievement 257:'},
         6: {acc: 2, desc: 'Platonic Upgrade 16 [4x1]'},
-        7: {acc: 2, desc: 'Event [Most Recent: June 20 - June 27]:'}
+        7: {acc: 2, desc: 'Event [Most Recent: June 6 - June 13 2022]:'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statPoM${i + 1}`);
@@ -426,7 +427,7 @@ export const c15RewardUpdate = () => {
 
 const updateDisplayC15Rewards = () => {
     DOMCacheGetOrSet('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
-    DOMCacheGetOrSet('c15RequiredExponentNum').textContent = format(player.challenge15Exponent / challenge15ScoreMultiplier(),0,true)
+    DOMCacheGetOrSet('c15RequiredExponentNum').textContent = format(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),0,true)
     const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
     const isNum: Record<number, boolean> = { // Shit solution to a shit problem -Platonic
         0: true,

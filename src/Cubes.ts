@@ -178,7 +178,7 @@ const cubeUpgradeDescriptions = [
     '[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by 1.25.',
     '[Cx9] Quite sour for a cookie. But it increases your ascension speed by 0.25% per level, so who is to complain?',
     '[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the cost of buying Golden Quarks by 1 Quark per level.',
-    '[Cx11] Edible but prone to mistakes. Adds fifty whole milliseconds to the tolerance of code \'time\', and increases reward by +5% per level.',
+    '[Cx11] Edible but prone to mistakes. Adds 125 whole milliseconds to the tolerance of code \'time\', and increases reward by +2% per level.',
     '[Cx12] Platonic loves toffee. Octuple Obtainium and Offering gain in Challenge 15.',
     '[Cx13] Brownie Cookies, the best of both worlds. Increase Regular Cube Gain by 1% based on owned Hepteracts (+3% per OOM).',
     '[Cx14] Some say the ant god itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.',

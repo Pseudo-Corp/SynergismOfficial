@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop } from './Toggles'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHepteractAutoPercentage } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels } from './Buy'
@@ -519,10 +519,21 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('acceleratorBoostHepteractCap').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.expand())
     DOMCacheGetOrSet('multiplierHepteractCap').addEventListener('click', () => player.hepteractCrafts.multiplier.expand())
 
+    DOMCacheGetOrSet('chronosHepteractAuto').addEventListener('click', () => player.hepteractCrafts.chronos.toggleAutomatic())
+    DOMCacheGetOrSet('hyperrealismHepteractAuto').addEventListener('click', () => player.hepteractCrafts.hyperrealism.toggleAutomatic())
+    DOMCacheGetOrSet('quarkHepteractAuto').addEventListener('click', () => player.hepteractCrafts.quark.toggleAutomatic())
+    DOMCacheGetOrSet('challengeHepteractAuto').addEventListener('click', () => player.hepteractCrafts.challenge.toggleAutomatic())
+    DOMCacheGetOrSet('abyssHepteractAuto').addEventListener('click', () => player.hepteractCrafts.abyss.toggleAutomatic())
+    DOMCacheGetOrSet('acceleratorHepteractAuto').addEventListener('click', () => player.hepteractCrafts.accelerator.toggleAutomatic())
+    DOMCacheGetOrSet('acceleratorBoostHepteractAuto').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.toggleAutomatic())
+    DOMCacheGetOrSet('multiplierHepteractAuto').addEventListener('click', () => player.hepteractCrafts.multiplier.toggleAutomatic())
+
     DOMCacheGetOrSet('hepteractToQuark').addEventListener('mouseover', () => hepteractToOverfluxOrbDescription())
     DOMCacheGetOrSet('hepteractToQuarkTrade').addEventListener('click', () => tradeHepteractToOverfluxOrb())
     DOMCacheGetOrSet('overfluxPowder').addEventListener('mouseover', () => overfluxPowderDescription())
     DOMCacheGetOrSet('powderDayWarp').addEventListener('click', () => overfluxPowderWarp())
+
+    DOMCacheGetOrSet('hepteractAutoPercentageButton').addEventListener('click', () => toggleHepteractAutoPercentage())
 
     // CORRUPTION TAB
     //Part 0: Subtabs

@@ -559,6 +559,7 @@ export interface Player {
         wowPass2: SingularityUpgrade
     }
     dailyCodeUsed: boolean
+    hepteractAutoCraftPercentage: number
 
 }
 
@@ -908,6 +909,8 @@ export interface GlobalVariables {
     historyCountMax: number
 
     isEvent: boolean
+
+    autoHepteractCount: number
 }
 
 export interface SynergismEvents {

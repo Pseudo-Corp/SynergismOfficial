@@ -691,11 +691,12 @@ export const player: Player = {
         divinePack: new SingularityUpgrade(singularityData['divinePack']),
         wowPass2: new SingularityUpgrade(singularityData['wowPass2'])
     },
-    dailyCodeUsed: false
+    dailyCodeUsed: false,
+    hepteractAutoCraftPercentage: 50
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 39 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 40 }, (_, i) => [i + 1, false]))
 });
 
 export const saveSynergy = async (button?: boolean) => {
@@ -1430,6 +1431,8 @@ const loadSynergy = async () => {
         if (player.autoSacrificeToggle && player.autoSacrifice > 0.5) {
             DOMCacheGetOrSet('rune' + player.autoSacrifice).style.backgroundColor = 'orange'
         }
+
+        DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
 
         toggleTalismanBuy(player.buyTalismanShardPercent);
         updateTalismanInventory();

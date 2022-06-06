@@ -25,7 +25,7 @@ import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
 import type { Player, resetNames } from './types/Synergism';
 import { updateClassList } from './Utility';
-import { corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions';
+import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions';
 import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { WowCubes } from './CubeExperimental';
@@ -608,7 +608,12 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         }
 
         const maxLevel = maxCorruptionLevel();
-        player.usedCorruptions = Array.from(player.prototypeCorruptions, x => Math.min(maxLevel, x))
+        player.usedCorruptions.map((curr:number, index:number) => {
+            if (index >= 2 && index <= 9) {
+                return Math.min(maxLevel * (player.challengecompletions[corrChallengeMinimum(index)] > 0 ? 1: 0), curr)
+            }
+            return curr
+        })
         player.usedCorruptions[1] = 0;
         player.prototypeCorruptions[1] = 0;
         //fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
@@ -622,6 +627,19 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
         corruptionStatsUpdate();
         updateSingularityMilestoneAwards(false);
+    }
+
+    if (input === 'ascension' || input === 'ascensionChallenge') {
+        if (G['autoHepteractCount'] > 0) {
+            const heptAutoSpend = Math.floor((player.wowAbyssals / G['autoHepteractCount']) * (player.hepteractAutoCraftPercentage / 100))
+
+            for (const craft in player.hepteractCrafts) {
+                const k = craft as keyof Player['hepteractCrafts'];
+                if (player.hepteractCrafts[k].AUTO) {
+                    player.hepteractCrafts[k].autoCraft(heptAutoSpend)
+                }
+            }
+        }
     }
 
     //Always unlocks
@@ -893,6 +911,7 @@ export const singularity = async (): Promise<void> => {
     await importSynergism(btoa(JSON.stringify(hold)), true);
 
     player.codes.set(39, true);
+    player.codes.set(40, true);
     updateSingularityMilestoneAwards();
 }
 

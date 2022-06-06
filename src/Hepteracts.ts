@@ -5,11 +5,14 @@ import { format, player } from './Synergism';
 import type { Player } from './types/Synergism';
 import { Alert, Confirm, Prompt } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { Globals as G } from './Variables';
 
 export interface IHepteractCraft {
     BASE_CAP: number
     HEPTERACT_CONVERSION: number
     OTHER_CONVERSIONS: {[key:string]:number}
+    HTML_STRING: string
+    AUTO?: boolean
     UNLOCKED?: boolean
     BAL?: number
     CAP?: number
@@ -45,6 +48,11 @@ export class HepteractCraft {
     HEPTERACT_CONVERSION = 0;
 
     /**
+     * Automatic crafting toggle. If on, allows crafting to be done automatically upon ascension.
+     */
+    AUTO = false;
+
+    /**
      * Conversion rate of additional items
      * This is in the form of keys being player variables,
      * values being the amount player has.
@@ -58,14 +66,23 @@ export class HepteractCraft {
      */
     DISCOUNT = 0;
 
+    /**
+     * String Prefix used for HTML DOM manipulation
+     */
+    HTML_STRING: string
+
     constructor(data: IHepteractCraft) {
         this.BASE_CAP = data.BASE_CAP;
         this.HEPTERACT_CONVERSION = data.HEPTERACT_CONVERSION;
         this.OTHER_CONVERSIONS = data.OTHER_CONVERSIONS
+        this.HTML_STRING = data.HTML_STRING
         this.UNLOCKED = data.UNLOCKED ?? false; //This would basically always be true if this parameter is provided
         this.BAL = data.BAL ?? 0;
         this.CAP = data.CAP ?? this.BASE_CAP // This sets cap either as previous value or keeps it to default.
         this.DISCOUNT = data.DISCOUNT ?? 0;
+        this.AUTO = data.AUTO ?? false;
+
+        void this.toggleAutomatic(this.AUTO)
     }
 
     // Unlock a synthesizer craft
@@ -220,6 +237,76 @@ export class HepteractCraft {
 
         this.DISCOUNT += amount;
         return this;
+    }
+
+    toggleAutomatic(bool?: boolean): Promise<void> | HepteractCraft {
+
+        if (!this.UNLOCKED && bool === undefined) {
+            return Alert('You do not have this as an unlocked craft. Automation is therefore not possible.')
+        }
+        const HTML = DOMCacheGetOrSet(`${this.HTML_STRING}HepteractAuto`)
+
+        this.AUTO = bool ?? !this.AUTO
+
+        HTML.textContent = `Auto ${this.AUTO ? 'ON' : 'OFF'}`
+        HTML.style.border = `2px solid ${this.AUTO ? 'green' : 'red'}`
+
+        if (bool === undefined) {
+            G['autoHepteractCount'] += (this.AUTO ? 1 : -1)
+        }
+        // Math.pow(-1, bool) also works here, but c'mon. - Platonic
+
+        return this
+    }
+
+    autoCraft(heptAmount: number): HepteractCraft {
+        const expandMultiplier = 2;
+
+        // Calculate the largest craft amount possible, with an upper limit being craftAmount
+        const hepteractLimitCraft = Math.floor((heptAmount / this.HEPTERACT_CONVERSION) * 1 / (1 - this.DISCOUNT));
+
+        // Create an array of how many we can craft using our conversion limits for additional items
+        const itemLimits: number[] = [];
+        for (const item in this.OTHER_CONVERSIONS) {
+            // When Auto is turned on, only Quarks and hepteracts are consumed.
+            if (item == 'worlds') {
+                itemLimits.push(Math.floor((player[item as keyof Player] as number) / this.OTHER_CONVERSIONS[item as keyof Player]!) * 1 / (1 - this.DISCOUNT))
+            }
+        }
+
+        // Get the smallest of the array we created [If Empty, this will be infinite]
+        const smallestItemLimit = Math.min(...itemLimits);
+
+        let amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft);
+        let amountCrafted = 0
+        if (amountToCraft >= this.CAP - this.BAL) {
+            this.BAL = this.CAP
+            amountToCraft -= (this.CAP - this.BAL)
+            amountCrafted += (this.CAP - this.BAL)
+        }
+
+        while (amountToCraft >= this.CAP) {
+            amountToCraft -= this.CAP
+            amountCrafted += this.CAP
+            this.BAL = this.CAP
+            this.CAP *= expandMultiplier
+        }
+
+        amountCrafted += Math.min(this.CAP - this.BAL, amountToCraft)
+        this.BAL = Math.min(this.CAP, this.BAL + amountToCraft)
+
+        for (const item in this.OTHER_CONVERSIONS) {
+            if (item == 'worlds') {
+                player.worlds.sub(amountCrafted * this.OTHER_CONVERSIONS[item]!);
+            }
+        }
+
+        player.wowAbyssals -= amountCrafted * this.HEPTERACT_CONVERSION;
+        if (player.wowAbyssals < 0) {
+            player.wowAbyssals = 0;
+        }
+
+        return this
     }
 
     // Get balance of item
@@ -458,6 +545,7 @@ export const ChronosHepteract = new HepteractCraft({
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: {'researchPoints': 1e115},
+    HTML_STRING: 'chronos',
     UNLOCKED: true
 });
 
@@ -466,6 +554,7 @@ export const HyperrealismHepteract = new HepteractCraft({
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: {'runeshards': 1e80},
+    HTML_STRING: 'hyperrealism',
     UNLOCKED: true
 });
 
@@ -474,6 +563,7 @@ export const QuarkHepteract = new HepteractCraft({
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: {'worlds': 100},
+    HTML_STRING: 'quark',
     UNLOCKED: true
 });
 
@@ -481,33 +571,38 @@ export const QuarkHepteract = new HepteractCraft({
 export const ChallengeHepteract = new HepteractCraft({
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 5e4,
-    OTHER_CONVERSIONS: {'wowPlatonicCubes': 1e11, 'wowCubes': 1e22}
+    OTHER_CONVERSIONS: {'wowPlatonicCubes': 1e11, 'wowCubes': 1e22},
+    HTML_STRING: 'challenge'
 });
 
 // Hepteract of The Abyssal [LOCKED]
 export const AbyssHepteract = new HepteractCraft({
     BASE_CAP: 1,
     HEPTERACT_CONVERSION: 1e8,
-    OTHER_CONVERSIONS: {'wowCubes': 69}
+    OTHER_CONVERSIONS: {'wowCubes': 69},
+    HTML_STRING: 'abyss'
 })
 
 // Hepteract of Too Many Accelerator [LOCKED]
 export const AcceleratorHepteract = new HepteractCraft({
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e5,
-    OTHER_CONVERSIONS: {'wowTesseracts': 1e14}
+    OTHER_CONVERSIONS: {'wowTesseracts': 1e14},
+    HTML_STRING: 'accelerator'
 })
 
 // Hepteract of Too Many Accelerator Boost [LOCKED]
 export const AcceleratorBoostHepteract = new HepteractCraft({
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 2e5,
-    OTHER_CONVERSIONS: {'wowHypercubes': 1e10}
+    OTHER_CONVERSIONS: {'wowHypercubes': 1e10},
+    HTML_STRING: 'acceleratorBoost'
 })
 
 // Hepteract of Too Many Multiplier [LOCKED]
 export const MultiplierHepteract = new HepteractCraft({
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 3e5,
-    OTHER_CONVERSIONS: {'researchPoints': 1e130}
+    OTHER_CONVERSIONS: {'researchPoints': 1e130},
+    HTML_STRING: 'multiplier'
 })
