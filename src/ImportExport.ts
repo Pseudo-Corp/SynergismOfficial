@@ -177,7 +177,7 @@ export const importSynergism = async (input: string, reset = false) => {
 }
 
 export const promocodes = async () => {
-    const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "add" perchance?]');
+    const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "add" or "daily" or "time" perchance?]');
     const el = DOMCacheGetOrSet('promocodeinfo');
 
     if (input === null) {
@@ -190,10 +190,10 @@ export const promocodes = async () => {
         addTimers('ascension', 4 * 3600);
 
         if (player.singularityCount > 0) {
-            player.singularityUpgrades.singCubes1.level += 5;
-            player.singularityUpgrades.singOfferings1.level += 5;
-            player.singularityUpgrades.singObtainium1.level += 5;
-            player.singularityUpgrades.ascensions.level += 5;
+            player.singularityUpgrades.singCubes1.freeLevels += 5;
+            player.singularityUpgrades.singOfferings1.freeLevels += 5;
+            player.singularityUpgrades.singObtainium1.freeLevels += 5;
+            player.singularityUpgrades.ascensions.freeLevels += 5;
         }
 
         return Alert(`Happy update!!!! Your quark timer(s) have been replenished and you have been given 4 real life hours of ascension progress! ${(player.singularityCount > 0) ? 'You were also given 5 of each uncapped resource singularity upgrade!' : ''}`)
@@ -227,6 +227,46 @@ export const promocodes = async () => {
         player.goldenQuarks += rewards.goldenQuarks
 
         const goldenQuarksText = (rewards.goldenQuarks > 0) ? `and ${format(rewards.goldenQuarks, 0, true)} Golden Quarks` : '';
+
+        if (player.singularityCount > 0) {
+            const upgradeDistribution: Record<
+            Extract<keyof Player['singularityUpgrades'],
+            'goldenQuarks1' | 'singCubes1' | 'singCubes2' | 'singCubes3' |
+            'singOfferings1' | 'singOfferings2' | 'singOfferings3' |
+            'singObtainium1' | 'singObtainium2' | 'singObtainium3' | 'ascensions'>,
+            {value: number, pdf: (x: number) => boolean}> = {
+                goldenQuarks1: {value: 0.2, pdf: (x: number) => 0 <= x && x <= 4},
+                singCubes3: {value: 0.25, pdf: (x: number) => 4 < x && x <= 6},
+                singObtainium3: {value: 0.25, pdf: (x: number) => 6 < x && x <= 8},
+                singOfferings3: {value: 0.25, pdf: (x: number) => 8 < x && x <= 10},
+                singCubes2: {value: 0.5, pdf: (x: number) => 10 < x && x <= 40},
+                singObtainium2: {value: 0.5, pdf: (x: number) => 40 < x && x <= 70},
+                singOfferings2: {value: 0.5, pdf: (x: number) => 70 < x && x <= 100},
+                singCubes1: {value: 1, pdf: (x: number) => 100 < x && x <= 325},
+                singObtainium1: {value: 1, pdf: (x: number) => 325 < x && x <= 550},
+                singOfferings1: {value: 1, pdf: (x: number) => 550 < x && x <= 775},
+                ascensions: {value: 1, pdf: (x: number) => 775 < x && x <= 1000}
+            }
+            const rolls = Math.floor(3 * Math.sqrt(player.singularityCount))
+            const keys = Object.keys(player.singularityUpgrades) as (Extract<keyof Player['singularityUpgrades'],
+            'goldenQuarks1' | 'singCubes1' | 'singCubes2' | 'singCubes3' |
+            'singOfferings1' | 'singOfferings2' | 'singOfferings3' |
+            'singObtainium1' | 'singObtainium2' | 'singObtainium3' | 'ascensions'>)[]
+
+            for (let i = 0; i < rolls; i++) {
+                const num = 1000 * Math.random();
+                for (const key of keys) {
+                    // eslint-disable-next-line
+                    if (upgradeDistribution[key] === undefined) {
+                        continue
+                    } // TODO: Figure out this bug. Eslint believes this conditional is unnecessary, but
+                    // this code straight up doesn't work unless the conditional above is added.
+                    if (upgradeDistribution[key].pdf(num)) {
+                        player.singularityUpgrades[key].freeLevels += upgradeDistribution[key].value
+                    }
+                }
+            }
+        }
         return Alert(`Thank you for playing today! You have gained ${format(actualQuarkAward, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
     } else if (input.toLowerCase() === 'add') {
         const hour = 3600000

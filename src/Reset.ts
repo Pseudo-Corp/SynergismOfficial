@@ -907,6 +907,7 @@ export const singularity = async (): Promise<void> => {
     hold.autoEnhanceToggle = player.autoEnhanceToggle
     hold.autoResearchToggle = player.autoResearchToggle
     hold.autoResearchMode = player.autoResearchMode
+    hold.dailyCodeUsed = player.dailyCodeUsed
     //Import Game
     await importSynergism(btoa(JSON.stringify(hold)), true);
 

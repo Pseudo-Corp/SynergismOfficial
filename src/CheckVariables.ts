@@ -545,7 +545,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     goldenQuarksInvested: data.singularityUpgrades[k].goldenQuarksInvested,
                     toggleBuy: data.singularityUpgrades[k].toggleBuy,
                     minimumSingularity: singularityData[k].minimumSingularity,
-                    effect: singularityData[k].effect
+                    effect: singularityData[k].effect,
+                    freeLevels: data.singularityUpgrades[k].freeLevels
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
 
@@ -588,5 +589,23 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.hepteractAutoCraftPercentage === undefined) {
         player.hepteractAutoCraftPercentage = 50;
+    }
+
+    if (data.loadedV297Hotfix1 === undefined) {
+        player.loadedV297Hotfix1 = true;
+
+        player.singularityUpgrades.singCubes1.refund();
+        player.singularityUpgrades.singObtainium1.refund();
+        player.singularityUpgrades.singOfferings1.refund();
+        player.singularityUpgrades.ascensions.refund();
+
+        if (player.codes.get(40) && player.singularityCount > 0) {
+            player.singularityUpgrades.singCubes1.freeLevels += 5;
+            player.singularityUpgrades.singOfferings1.freeLevels += 5;
+            player.singularityUpgrades.singObtainium1.freeLevels += 5;
+            player.singularityUpgrades.ascensions.freeLevels += 5;
+        }
+
+        void Alert(`You have loaded into the version 2.9.7 hotfix 1! ${player.singularityCount > 0 ? 'Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience.' : ''}`)
     }
 }

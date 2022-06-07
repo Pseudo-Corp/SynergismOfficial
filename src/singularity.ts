@@ -34,6 +34,7 @@ export interface ISingularityData {
     goldenQuarksInvested?: number
     minimumSingularity?: number
     effect? (n: number): {bonus: number | boolean, desc: string}
+    freeLevels?: number
 }
 
 /**
@@ -46,6 +47,7 @@ export class SingularityUpgrade {
     private readonly name: string;
     private readonly description: string;
     public level = 0;
+    public freeLevels = 0;
     private readonly maxLevel: number; //-1 = infinitely levelable
     private readonly costPerLevel: number;
     public toggleBuy = 1; //-1 = buy MAX (or 1000 in case of infinity levels!)
@@ -62,6 +64,7 @@ export class SingularityUpgrade {
         this.toggleBuy = data.toggleBuy ?? 1;
         this.goldenQuarksInvested = data.goldenQuarksInvested ?? 0;
         this.minimumSingularity = data.minimumSingularity ?? 0;
+        this.freeLevels = data.freeLevels ?? 0;
         this.effect = data.effect ?? function (n:number) {
             return {bonus: n, desc: 'WIP not implemented'}
         }
@@ -85,7 +88,7 @@ export class SingularityUpgrade {
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color:crimson;">${minimumSingularity}</span>
-                <span style="color: ${color}"> Level ${this.level}${maxLevel} </span>
+                <span style="color: ${color}"> Level ${this.level}${maxLevel} <span style="color: orange"> [+${format(this.freeLevels, 0, true)}] </span> </span>
                 <span style="color: gold">${this.getEffect().desc}</span>
                 Cost for next level: ${format(costNextLevel)} Golden Quarks.
                 Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
@@ -101,7 +104,7 @@ export class SingularityUpgrade {
      */
     private getCostTNL(): number {
         let costMultiplier = (this.maxLevel === -1 && this.level >= 100) ? this.level / 50 : 1;
-        costMultiplier = (this.maxLevel === -1 && this.level >= 400) ? this.level / 100 : 1;
+        costMultiplier *= (this.maxLevel === -1 && this.level >= 400) ? this.level / 100 : 1;
         return (this.maxLevel === this.level) ? 0: Math.ceil(this.costPerLevel * (1 + this.level) * costMultiplier);
     }
 
@@ -185,7 +188,7 @@ export class SingularityUpgrade {
     }
 
     public getEffect(): {bonus: number | boolean, desc: string} {
-        return this.effect(this.level)
+        return this.effect(this.level + this.freeLevels)
     }
 }
 

@@ -651,6 +651,7 @@ export const player: Player = {
     loadedDec16Vers: true,
     loadedV253: true,
     loadedV255: true,
+    loadedV297Hotfix1: true,
     version,
     rngCode: 0,
     promoCodeTiming: {
