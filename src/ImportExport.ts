@@ -248,19 +248,13 @@ export const promocodes = async () => {
                 ascensions: {value: 1, pdf: (x: number) => 775 < x && x <= 1000}
             }
             const rolls = Math.floor(3 * Math.sqrt(player.singularityCount))
-            const keys = Object.keys(player.singularityUpgrades) as (Extract<keyof Player['singularityUpgrades'],
-            'goldenQuarks1' | 'singCubes1' | 'singCubes2' | 'singCubes3' |
-            'singOfferings1' | 'singOfferings2' | 'singOfferings3' |
-            'singObtainium1' | 'singObtainium2' | 'singObtainium3' | 'ascensions'>)[]
+            const keys = Object
+                .keys(player.singularityUpgrades)
+                .filter(key => key in upgradeDistribution) as (keyof typeof upgradeDistribution)[];
 
             for (let i = 0; i < rolls; i++) {
                 const num = 1000 * Math.random();
                 for (const key of keys) {
-                    // eslint-disable-next-line
-                    if (upgradeDistribution[key] === undefined) {
-                        continue
-                    } // TODO: Figure out this bug. Eslint believes this conditional is unnecessary, but
-                    // this code straight up doesn't work unless the conditional above is added.
                     if (upgradeDistribution[key].pdf(num)) {
                         player.singularityUpgrades[key].freeLevels += upgradeDistribution[key].value
                     }
