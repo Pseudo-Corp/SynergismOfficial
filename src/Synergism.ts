@@ -1321,6 +1321,10 @@ const loadSynergy = async () => {
 
         DOMCacheGetOrSet('talismanlevelup').style.display = 'none'
         DOMCacheGetOrSet('talismanrespec').style.display = 'none'
+
+        // This must be initialized at the beginning of the calculation
+        c15RewardUpdate();
+
         calculatePlatonicBlessings();
         calculateHypercubeBlessings();
         calculateTesseractBlessings();
@@ -1441,7 +1445,6 @@ const loadSynergy = async () => {
         calculateAnts();
         calculateRuneLevels();
         resetHistoryRenderAllTables();
-        c15RewardUpdate();
         updateSingularityAchievements();
     }
     CSSAscend();
@@ -1979,7 +1982,12 @@ export const updateAllMultiplier = (): void => {
         G['multiplierPower'] = 1;
     }
     if (player.currentChallenge.reincarnation === 10) {
-        G['multiplierPower'] = 1;
+        if (player.platonicUpgrades[20] > 0) {
+            // Not 1 because coins could not be produced completely
+            G['multiplierPower'] = 2;
+        } else {
+            G['multiplierPower'] = 1;
+        }
     }
 
     G['multiplierEffect'] = Decimal.pow(G['multiplierPower'], G['totalMultiplier']);
