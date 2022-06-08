@@ -244,7 +244,7 @@ export const cubeUpgradeDesc = (i: number, linGrowth = 0, cubic = false) => {
     }
     if (player.cubeUpgrades[i] === maxLevel) {
         c.style.color = 'gold'
-        c.textContent = 'Cost: 0 Wow! Cubes. This upgrade is maxxed! wow'
+        c.textContent = 'Cost: 0 Wow! Cubes. This upgrade is maxed! wow'
         d.style.color = 'plum'
     }
 }
