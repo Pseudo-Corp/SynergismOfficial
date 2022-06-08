@@ -358,7 +358,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         1 + 2.5 * player.platonicUpgrades[10], // Platonic BETA
         1 + 5 * player.platonicUpgrades[15], // Platonic OMEGA
         G['challenge15Rewards'].offering, // C15 Reward
-        1 + 5 * +player.singularityUpgrades.starterPack.getEffect().bonus, // Starter Pack Upgrade
+        1 + 5 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0), // Starter Pack Upgrade
         +player.singularityUpgrades.singOfferings1.getEffect().bonus, // Offering Charge GQ Upgrade
         +player.singularityUpgrades.singOfferings2.getEffect().bonus, // Offering Storm GQ Upgrade
         +player.singularityUpgrades.singOfferings3.getEffect().bonus, // Offering Tempest GQ Upgrade
@@ -462,7 +462,7 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + 2.5 * player.platonicUpgrades[10])
     G['obtainiumGain'] *= (1 + 5 * player.platonicUpgrades[15])
     G['obtainiumGain'] *= G['challenge15Rewards'].obtainium
-    G['obtainiumGain'] *= 1 + 5 * +player.singularityUpgrades.starterPack.getEffect().bonus
+    G['obtainiumGain'] *= 1 + 5 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0)
     G['obtainiumGain'] *= +player.singularityUpgrades.singObtainium1.getEffect().bonus
     G['obtainiumGain'] *= +player.singularityUpgrades.singObtainium2.getEffect().bonus
     G['obtainiumGain'] *= +player.singularityUpgrades.singObtainium3.getEffect().bonus
@@ -1031,13 +1031,13 @@ export const calculateAllCubeMultiplier = () => {
         // Wow Pass Y
         1 + 0.5 * player.shopUpgrades.seasonPassY / 100,
         // BUY THIS! Golden Quark Upgrade
-        1 + 4 * player.singularityUpgrades.starterPack.level,
+        1 + 4 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0),
         // Cube Flame [GQ]
-        1 + 0.02 * player.singularityUpgrades.singCubes1.level,
+        +player.singularityUpgrades.singCubes1.getEffect().bonus,
         // Cube Blaze [GQ]
-        1 + 0.08 * player.singularityUpgrades.singCubes2.level,
+        +player.singularityUpgrades.singCubes2.getEffect().bonus,
         // Cube Inferno [GQ]
-        1 + 0.04 * player.singularityUpgrades.singCubes3.level,
+        +player.singularityUpgrades.singCubes3.getEffect().bonus,
         // Wow Pass Z
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
         // Cookie Upgrade 16
@@ -1264,7 +1264,7 @@ export const calculateTimeAcceleration = () => {
     timeMult /= calculateSingularityDebuff('Global Speed');
     timeMult *= G['platonicBonusMultiplier'][7]
     timeMult *= (1 + 2 * +G['isEvent'])
-    timeMult *= 1 + player.singularityUpgrades.intermediatePack.level
+    timeMult *= 1 + (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0)
 
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
@@ -1287,15 +1287,15 @@ export const calculateAscensionAcceleration = () => {
         1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // PLAT Omega
         G['challenge15Rewards'].ascensionSpeed,                                                         // C15
         1 + 1/400 * player.cubeUpgrades[59],                                                            // Cookie Upgrade 9
-        1 + 0.5 * player.singularityUpgrades.intermediatePack.level,                                    // Intermediate Pack, Sing Shop
-        1 + 1/1000 * player.singularityCount * player.shopUpgrades.chronometerZ                        // Chronometer Z
+        1 + 0.5 * (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0),              // Intermediate Pack, Sing Shop
+        1 + 1/1000 * player.singularityCount * player.shopUpgrades.chronometerZ                         // Chronometer Z
     ]
     return productContents(arr) / calculateSingularityDebuff('Ascension Speed')
 }
 
 export const calculateCorruptionPoints = () => {
     let basePoints = 400;
-    const bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0;
+    const bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect().bonus ? 1 : 0;
 
     for (let i = 1; i <= 9; i++) {
         basePoints += 16 * Math.pow(player.usedCorruptions[i] + bonusLevel, 2)
@@ -1464,7 +1464,7 @@ export const calculateAscensionScore = () => {
     let corruptionMultiplier = 1;
     let effectiveScore = 0;
 
-    const bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect().bonus > 0 ? 1 : 0;
+    const bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect().bonus ? 1 : 0;
     // Init Arrays with challenge values :)
     const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
     const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
@@ -1506,7 +1506,7 @@ export const calculateAscensionScore = () => {
         const exponent = ((i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 2 * Math.min(1, player.platonicUpgrades[17]) + 0.04 * player.platonicUpgrades[17] : 1;
         corruptionMultiplier *= (Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i] + bonusLevel], exponent) + bonusVal);
 
-        if (player.usedCorruptions[i] >= 14 && player.singularityUpgrades.masterPack.level > 0) {
+        if (player.usedCorruptions[i] >= 14 && player.singularityUpgrades.masterPack.getEffect().bonus) {
             corruptionMultiplier *= 1.1
         }
     }
