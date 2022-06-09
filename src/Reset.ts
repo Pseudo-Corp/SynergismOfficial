@@ -26,7 +26,7 @@ import { Synergism } from './Events';
 import type { Player, resetNames } from './types/Synergism';
 import { updateClassList } from './Utility';
 import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions';
-import { toggleAutoChallengeModeText } from './Toggles';
+import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { WowCubes } from './CubeExperimental';
 import { importSynergism } from './ImportExport';
@@ -870,6 +870,13 @@ export const singularity = async (): Promise<void> => {
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
     }) as Player;
+    //Reset Displays
+    toggleTabs('buildings');
+    toggleSubTab(1, 0);
+    toggleSubTab(4, 0); // Set 'runes' subtab back to 'runes' tab
+    toggleSubTab(8, 0); // Set 'cube tribues' subtab back to 'cubes' tab
+    toggleSubTab(9, 0); // set 'corruption main'
+    toggleSubTab(-1, 0); // set 'statistics main'
 
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;
@@ -903,7 +910,7 @@ export const singularity = async (): Promise<void> => {
     hold.dailyCodeUsed = player.dailyCodeUsed
     hold.runeBlessingBuyAmount = player.runeBlessingBuyAmount
     hold.runeSpiritBuyAmount = player.runeSpiritBuyAmount
-    hold.prestigeamount= player.prestigeamount
+    hold.prestigeamount = player.prestigeamount
     hold.transcendamount = player.transcendamount
     hold.reincarnationamount = player.reincarnationamount
     hold.talismanOne = player.talismanOne
