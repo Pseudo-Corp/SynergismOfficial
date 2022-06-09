@@ -1097,7 +1097,7 @@ const loadSynergy = async () => {
                 globalSpeed: 0
             }
         }
-        if (data.autoAntSacTimer === undefined) {
+        if (data.autoAntSacTimer == null) {
             player.autoAntSacTimer = 900;
         }
         if (data.autoAntSacrificeMode === undefined) {
