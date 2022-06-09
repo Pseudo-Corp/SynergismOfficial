@@ -908,6 +908,26 @@ export const singularity = async (): Promise<void> => {
     hold.autoResearchToggle = player.autoResearchToggle
     hold.autoResearchMode = player.autoResearchMode
     hold.dailyCodeUsed = player.dailyCodeUsed
+    hold.runeBlessingBuyAmount = player.runeBlessingBuyAmount
+    hold.runeSpiritBuyAmount = player.runeSpiritBuyAmount
+    hold.prestigeamount = player.prestigeamount
+    hold.transcendamount = player.transcendamount
+    hold.reincarnationamount = player.reincarnationamount
+    hold.talismanOne = player.talismanOne
+    hold.talismanTwo = player.talismanTwo
+    hold.talismanThree = player.talismanThree
+    hold.talismanFour = player.talismanFour
+    hold.talismanFive = player.talismanFive
+    hold.talismanSix = player.talismanSix
+    hold.talismanSeven = player.talismanSeven
+    hold.antMax = player.antMax
+    hold.autoAntSacrifice = player.autoAntSacrifice
+    hold.autoAntSacrificeMode = player.autoAntSacrificeMode
+    hold.autoAntSacTimer = player.autoAntSacTimer
+    hold.autoResearch = 0
+    hold.autoTesseracts = player.autoTesseracts
+    hold.tesseractAutoBuyerToggle = player.tesseractAutoBuyerToggle
+    hold.historyShowPerSecond = player.historyShowPerSecond
     //Import Game
     await importSynergism(btoa(JSON.stringify(hold)), true);
 

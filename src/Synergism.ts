@@ -9,12 +9,12 @@ import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewa
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism';
 import { upgradeupdate, getConstUpgradeMetadata, buyConstantUpgrades, ascendBuildingDR } from './Upgrades';
 import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Research';
-import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, hideStuff, changeTabColor, Confirm, Alert, Notification } from './UpdateHTML';
+import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, changeTabColor, Confirm, Alert, Notification } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck, exitOffline } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
-import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops } from './Toggles';
+import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
@@ -1293,6 +1293,17 @@ const loadSynergy = async () => {
         revealStuff();
         toggleauto();
 
+        // Challenge summary should be displayed
+        if (player.currentChallenge.transcension > 0) {
+            challengeDisplay(player.currentChallenge.transcension);
+        } else if (player.currentChallenge.reincarnation > 0) {
+            challengeDisplay(player.currentChallenge.reincarnation);
+        } else if (player.currentChallenge.ascension > 0) {
+            challengeDisplay(player.currentChallenge.ascension);
+        } else {
+            challengeDisplay(1);
+        }
+
         DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's'
         getElementById<HTMLInputElement>('startAutoChallengeTimerInput').value = player.autoChallengeTimer.start + '';
         DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's'
@@ -1321,6 +1332,10 @@ const loadSynergy = async () => {
 
         DOMCacheGetOrSet('talismanlevelup').style.display = 'none'
         DOMCacheGetOrSet('talismanrespec').style.display = 'none'
+
+        // This must be initialized at the beginning of the calculation
+        c15RewardUpdate();
+
         calculatePlatonicBlessings();
         calculateHypercubeBlessings();
         calculateTesseractBlessings();
@@ -1337,6 +1352,14 @@ const loadSynergy = async () => {
             toggleAscStatPerSecond(+id);
         }
 
+        getElementById<HTMLInputElement>('ascensionAmount').value = player.autoAscendThreshold.toString();
+        getElementById<HTMLInputElement>('autoAntSacrificeAmount').value = player.autoAntSacTimer.toString();
+        getElementById<HTMLInputElement>('buyRuneBlessingInput').value = player.runeBlessingBuyAmount.toString();
+        getElementById<HTMLInputElement>('buyRuneSpiritInput').value = player.runeSpiritBuyAmount.toString();
+        getElementById<HTMLInputElement>('prestigeamount').value = player.prestigeamount.toString();
+        getElementById<HTMLInputElement>('transcendamount').value = player.transcendamount.toString();
+        getElementById<HTMLInputElement>('reincarnationamount').value = player.reincarnationamount.toString();
+        getElementById<HTMLInputElement>('tesseractAmount').value = player.tesseractAutoBuyerAmount.toString();
 
         if (player.resettoggle1 === 1) {
             DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
@@ -1407,6 +1430,28 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
 
+        // Settings that are not saved in the data will be restored to their defaults by import or singularity
+        if (G['maxbuyresearch']) {
+            DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
+        } else {
+            DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
+        }
+        if (G['shopConfirmation']) {
+            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: ON'
+        } else {
+            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
+        }
+        if (G['shopBuyMax']) {
+            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: ON'
+        } else {
+            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: OFF'
+        }
+        if (G['buyMaxCubeUpgrades']) {
+            DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: MAX [if possible wow]'
+        } else {
+            DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: 1 Level wow'
+        }
+
         for (let i = 1; i <= 2; i++) {
             toggleAntMaxBuy();
             toggleAntAutoSacrifice(0);
@@ -1441,7 +1486,6 @@ const loadSynergy = async () => {
         calculateAnts();
         calculateRuneLevels();
         resetHistoryRenderAllTables();
-        c15RewardUpdate();
         updateSingularityAchievements();
     }
     CSSAscend();
@@ -1979,7 +2023,12 @@ export const updateAllMultiplier = (): void => {
         G['multiplierPower'] = 1;
     }
     if (player.currentChallenge.reincarnation === 10) {
-        G['multiplierPower'] = 1;
+        if (player.platonicUpgrades[20] > 0) {
+            // Not 1 because coins could not be produced completely
+            G['multiplierPower'] = 2;
+        } else {
+            G['multiplierPower'] = 1;
+        }
     }
 
     G['multiplierEffect'] = Decimal.pow(G['multiplierPower'], G['totalMultiplier']);
@@ -3587,10 +3636,16 @@ export const reloadShit = async (reset = false) => {
 
     await saveSynergy();
     toggleauto();
-    revealStuff();
-    hideStuff();
     htmlInserts();
     createTimer();
+
+    //Reset Displays
+    toggleTabs('buildings');
+    toggleSubTab(1, 0);
+    toggleSubTab(4, 0); // Set 'runes' subtab back to 'runes' tab
+    toggleSubTab(8, 0); // Set 'cube tribues' subtab back to 'cubes' tab
+    toggleSubTab(9, 0); // set 'corruption main'
+    toggleSubTab(-1, 0); // set 'statistics main'
 
     dailyResetCheck();
     interval(() => dailyResetCheck(), 30_000);
