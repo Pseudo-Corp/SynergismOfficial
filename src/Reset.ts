@@ -903,7 +903,7 @@ export const singularity = async (): Promise<void> => {
     hold.dailyCodeUsed = player.dailyCodeUsed
     hold.runeBlessingBuyAmount = player.runeBlessingBuyAmount
     hold.runeSpiritBuyAmount = player.runeSpiritBuyAmount
-    hold.transcendamount = player.prestigeamount
+    hold.prestigeamount= player.prestigeamount
     hold.transcendamount = player.transcendamount
     hold.reincarnationamount = player.reincarnationamount
     hold.talismanOne = player.talismanOne
