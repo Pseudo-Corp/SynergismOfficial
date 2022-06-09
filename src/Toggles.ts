@@ -8,7 +8,7 @@ import { reset, resetrepeat } from './Reset';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
-import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
+import { corruptionDisplay, corruptionLoadoutTableUpdate, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -125,6 +125,7 @@ export const toggleChallenges = (i: number, auto = false) => {
                 for (let i = 2; i <= 9; i++) {
                     player.usedCorruptions[i] = 11;
                 }
+                corruptionStatsUpdate();
             }
         }
     }
