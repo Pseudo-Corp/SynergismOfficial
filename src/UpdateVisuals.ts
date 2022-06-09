@@ -455,6 +455,17 @@ export const visualUpdateCorruptions = () => {
     const metaData = CalcCorruptionStuff();
     const ascCount = calcAscensionCount();
 
+    let chalMult = 1;
+    if (player.currentChallenge.ascension === 12) {
+        chalMult = 0.5;
+    } else if (player.currentChallenge.ascension === 13) {
+        chalMult = 0.23;
+    } else if (player.currentChallenge.ascension === 14) {
+        chalMult = 0.2;
+    } else if (player.currentChallenge.ascension === 15) {
+        chalMult = 0.0833;
+    }
+
     DOMCacheGetOrSet('corruptionBankValue').textContent = format(metaData[0]);
     DOMCacheGetOrSet('corruptionScoreValue').textContent = format(metaData[1], 0, true);
     DOMCacheGetOrSet('corruptionMultiplierValue').textContent = format(metaData[2], 1, true);
@@ -465,7 +476,7 @@ export const visualUpdateCorruptions = () => {
     DOMCacheGetOrSet('corruptionHypercubesValue').textContent = format(metaData[6]);
     DOMCacheGetOrSet('corruptionPlatonicCubesValue').textContent = format(metaData[7]);
     DOMCacheGetOrSet('corruptionHepteractsValue').textContent = format(metaData[8]);
-    DOMCacheGetOrSet('corruptionAntExponentValue').textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * G['extinctionMultiplier'][player.usedCorruptions[7]], 3);
+    DOMCacheGetOrSet('corruptionAntExponentValue').textContent = format((1 - 0.9 / 90 * Math.min(99, sumContents(player.usedCorruptions))) * chalMult * G['extinctionMultiplier'][player.usedCorruptions[7]], 3);
     DOMCacheGetOrSet('corruptionSpiritBonusValue').textContent = format(calculateCorruptionPoints()/400,2,true);
     DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'block' : 'none';
 
