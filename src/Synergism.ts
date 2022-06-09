@@ -2594,6 +2594,9 @@ export const updateAntMultipliers = (): void => {
     if (player.currentChallenge.ascension === 14) {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.2)
     }
+    if (player.currentChallenge.ascension === 15) {
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.0833)
+    }
 
     G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 1 - 0.9 / 90 * Math.min(99, sumContents(player.usedCorruptions)))
     G['globalAntMult'] = Decimal.pow(G['globalAntMult'], G['extinctionMultiplier'][player.usedCorruptions[7]])
