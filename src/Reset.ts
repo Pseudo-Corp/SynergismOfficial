@@ -146,49 +146,28 @@ export const resetdetails = (input: resetNames) => {
 }
 
 export const updateAutoReset = (i: number) => {
+    let value = null;
     if (i === 1) {
-        const t = +getElementById<HTMLInputElement>('prestigeamount').value;
-        if (t >= 0) {
-            player.prestigeamount = t;
-        } else {
-            player.prestigeamount = 0;
-        }
+        value = parseFloat((DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value) || 0;
+        player.prestigeamount = Math.max(value, 0);
     } else if (i === 2) {
-        const u = +getElementById<HTMLInputElement>('transcendamount').value;
-        if (u >= 0) {
-            player.transcendamount = u;
-        } else {
-            player.transcendamount = 0;
-        }
+        value = parseFloat((DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value) || 0;
+        player.transcendamount = Math.max(value, 0);
     } else if (i === 3) {
-        const v = +getElementById<HTMLInputElement>('reincarnationamount').value
-        if (v >= 0) {
-            player.reincarnationamount = v;
-        } else {
-            player.reincarnationamount = 0;
-        }
+        value = parseFloat((DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value) || 0;
+        player.reincarnationamount = Math.max(value, 0);
     } else if (i === 4) {
-        let v = parseFloat(getElementById<HTMLInputElement>('ascensionAmount').value);
-        v = Math.floor(v)
-        if (v >= 1) {
-            player.autoAscendThreshold = v
-        } else {
-            player.autoAscendThreshold = 1;
-        }
+        value = Math.floor(parseFloat((DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value)) || 1;
+        player.autoAscendThreshold = Math.max(value, 1);
     } else if (i === 5) {
-        const v = parseFloat(getElementById<HTMLInputElement>('autoAntSacrificeAmount').value);
-        player.autoAntSacTimer = Math.max(0, v);
+        value = parseFloat((DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value) || 0;
+        player.autoAntSacTimer = Math.max(value, 0);
     }
 }
 
 export const updateTesseractAutoBuyAmount = () => {
-    let v = parseFloat(getElementById<HTMLInputElement>('tesseractAmount').value);
-    v = Math.floor(v)
-    if (v >= 0) {
-        player.tesseractAutoBuyerAmount = v
-    } else {
-        player.tesseractAutoBuyerAmount = 0;
-    }
+    const value = Math.floor(parseFloat((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value)) || 0;
+    player.tesseractAutoBuyerAmount = Math.max(value, 0);
 }
 
 const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
