@@ -1305,11 +1305,11 @@ const loadSynergy = async () => {
         }
 
         DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's'
-        getElementById<HTMLInputElement>('startAutoChallengeTimerInput').value = '' + (player.autoChallengeTimer.start || blankSave.autoChallengeTimer.start);
+        getElementById<HTMLInputElement>('startAutoChallengeTimerInput').value = player.autoChallengeTimer.start + '';
         DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's'
-        getElementById<HTMLInputElement>('exitAutoChallengeTimerInput').value = '' + (player.autoChallengeTimer.exit || blankSave.autoChallengeTimer.exit);
+        getElementById<HTMLInputElement>('exitAutoChallengeTimerInput').value = player.autoChallengeTimer.exit + '';
         DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's'
-        getElementById<HTMLInputElement>('enterAutoChallengeTimerInput').value = '' + (player.autoChallengeTimer.enter || blankSave.autoChallengeTimer.enter);
+        getElementById<HTMLInputElement>('enterAutoChallengeTimerInput').value = player.autoChallengeTimer.enter + '';
 
         corruptionStatsUpdate();
         for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
@@ -1351,15 +1351,6 @@ const loadSynergy = async () => {
             toggleAscStatPerSecond(+id); // toggle each stat twice to make sure the displays are correct and match what they used to be
             toggleAscStatPerSecond(+id);
         }
-
-        getElementById<HTMLInputElement>('ascensionAmount').value = '' + (player.autoAscendThreshold || blankSave.autoAscendThreshold);
-        getElementById<HTMLInputElement>('autoAntSacrificeAmount').value = '' + (player.autoAntSacTimer || blankSave.autoAntSacTimer);
-        getElementById<HTMLInputElement>('buyRuneBlessingInput').value = '' + (player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount);
-        getElementById<HTMLInputElement>('buyRuneSpiritInput').value = '' + (player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount);
-        getElementById<HTMLInputElement>('prestigeamount').value = '' + (player.prestigeamount || blankSave.prestigeamount);
-        getElementById<HTMLInputElement>('transcendamount').value = '' + (player.transcendamount || blankSave.transcendamount);
-        getElementById<HTMLInputElement>('reincarnationamount').value = '' + (player.reincarnationamount || blankSave.reincarnationamount);
-        getElementById<HTMLInputElement>('tesseractAmount').value = '' + (player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount);
 
         if (player.resettoggle1 === 1) {
             DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
