@@ -732,11 +732,11 @@ export const saveSynergy = async (button?: boolean) => {
  * Map of properties on the Player object to adapt
  */
 const toAdapt = new Map<keyof Player,(data: PlayerSave) => unknown>([
-    ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) })],
-    ['wowCubes', data => new WowCubes(Number(data.wowCubes))],
-    ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts))],
-    ['wowHypercubes', data => new WowHypercubes(Number(data.wowHypercubes))],
-    ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes))]
+    ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) || 0 })],
+    ['wowCubes', data => new WowCubes(Number(data.wowCubes) || 0)],
+    ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts) || 0)],
+    ['wowHypercubes', data => new WowHypercubes(Number(data.wowHypercubes) || 0)],
+    ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes) || 0)]
 ]);
 
 const loadSynergy = async () => {
@@ -1104,12 +1104,6 @@ const loadSynergy = async () => {
             player.autoAntSacrificeMode = 0;
         }
 
-        if (player.cubeUpgrades[7] === 0 && player.toggles[22]) {
-            for (let i = 22; i <= 26; i++) {
-                player.toggles[i] = false
-            }
-        }
-
         if (player.transcendCount < 0) {
             player.transcendCount = 0
         }
@@ -1352,14 +1346,15 @@ const loadSynergy = async () => {
             toggleAscStatPerSecond(+id);
         }
 
-        getElementById<HTMLInputElement>('ascensionAmount').value = '' + (player.autoAscendThreshold || blankSave.autoAscendThreshold);
-        getElementById<HTMLInputElement>('autoAntSacrificeAmount').value = '' + (player.autoAntSacTimer || blankSave.autoAntSacTimer);
-        getElementById<HTMLInputElement>('buyRuneBlessingInput').value = '' + (player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount);
-        getElementById<HTMLInputElement>('buyRuneSpiritInput').value = '' + (player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount);
-        getElementById<HTMLInputElement>('prestigeamount').value = '' + (player.prestigeamount || blankSave.prestigeamount);
-        getElementById<HTMLInputElement>('transcendamount').value = '' + (player.transcendamount || blankSave.transcendamount);
-        getElementById<HTMLInputElement>('reincarnationamount').value = '' + (player.reincarnationamount || blankSave.reincarnationamount);
-        getElementById<HTMLInputElement>('tesseractAmount').value = '' + (player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount);
+        const omit = /e\+/;
+        getElementById<HTMLInputElement>('ascensionAmount').value = ('' + (player.autoAscendThreshold || blankSave.autoAscendThreshold)).replace(omit, 'e');
+        getElementById<HTMLInputElement>('autoAntSacrificeAmount').value = ('' + (player.autoAntSacTimer || blankSave.autoAntSacTimer)).replace(omit, 'e');
+        getElementById<HTMLInputElement>('buyRuneBlessingInput').value = ('' + (player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount)).replace(omit, 'e');
+        getElementById<HTMLInputElement>('buyRuneSpiritInput').value = ('' + (player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount)).replace(omit, 'e');
+        getElementById<HTMLInputElement>('prestigeamount').value = ('' + (player.prestigeamount || blankSave.prestigeamount)).replace(omit, 'e');
+        getElementById<HTMLInputElement>('transcendamount').value = ('' + (player.transcendamount || blankSave.transcendamount)).replace(omit, 'e');
+        getElementById<HTMLInputElement>('reincarnationamount').value = ('' + (player.reincarnationamount || blankSave.reincarnationamount)).replace(omit, 'e');
+        getElementById<HTMLInputElement>('tesseractAmount').value = ('' + (player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount)).replace(omit, 'e');
 
         if (player.resettoggle1 === 1) {
             DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
@@ -2089,7 +2084,7 @@ export const multipliers = (): void => {
     }
     if (player.upgrades[20] > 0.5) {
         // PLAT - check
-        s = s.times(Math.pow(G['totalCoinOwned'] / 4 + 1, 10));
+        s = s.times(Decimal.pow(G['totalCoinOwned'] / 4 + 1, 10));
     }
     if (player.upgrades[41] > 0.5) {
         s = s.times(Decimal.min(1e30, Decimal.pow(player.transcendPoints.add(1), 1 / 2)));
@@ -2561,8 +2556,8 @@ export const updateAntMultipliers = (): void => {
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[0]! + G['bonusant1']));
     G['globalAntMult'] = G['globalAntMult'].times(antSacrificePointsToMultiplier(player.antSacrificePoints))
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(Math.max(1, player.researchPoints), G['effectiveRuneBlessingPower'][5]))
-    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1 + G['runeSum'] / 100, G['talisman6Power']))
-    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])))
+    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1 + G['runeSum'] / 100, G['talisman6Power']))
+    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])))
     G['globalAntMult'] = G['globalAntMult'].times(G['cubeBonusMultiplier'][6])
     if (player.achievements[169] === 1) {
         G['globalAntMult'] = G['globalAntMult'].times(Decimal.log(player.antPoints.add(10), 10))
@@ -2599,7 +2594,7 @@ export const updateAntMultipliers = (): void => {
     G['globalAntMult'] = Decimal.pow(G['globalAntMult'], G['extinctionMultiplier'][player.usedCorruptions[7]])
     G['globalAntMult'] = G['globalAntMult'].times(G['challenge15Rewards'].antSpeed)
     //V2.5.0: Moved ant shop upgrade as 'uncorruptable'
-    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1.125, player.shopUpgrades.antSpeed));
+    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.125, player.shopUpgrades.antSpeed));
 
 
     if (player.platonicUpgrades[12] > 0) {
@@ -2612,7 +2607,7 @@ export const updateAntMultipliers = (): void => {
         G['globalAntMult'] = G['globalAntMult'].times(4.44)
     }
 
-    if (player.usedCorruptions[7] === 14) {
+    if (player.usedCorruptions[7] >= 14) {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
     }
 }
@@ -2709,7 +2704,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             const reqCheck = (comp: number) => player.coinsThisTranscension.gte(challengeRequirement(q, comp, q));
 
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-                const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
+                const maxInc = player.currentChallenge.ascension !== 13 ? player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) : 1; // TODO: Implement the shop upgrade levels here
                 let counter = 0;
                 let comp = player.challengecompletions[q];
                 while (counter < maxInc) {
@@ -2719,18 +2714,15 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                     counter++;
                 }
                 player.challengecompletions[q] = comp;
-                challengeDisplay(q, false)
-                updateChallengeLevel(q)
             }
             if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                 while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                     player.highestchallengecompletions[q] += 1;
-                    challengeDisplay(q, false)
-                    updateChallengeLevel(q)
                     highestChallengeRewards(q, player.highestchallengecompletions[q])
-                    calculateCubeBlessings();
                 }
-
+                calculateCubeBlessings();
+                challengeDisplay(q, false);
+                updateChallengeLevel(q);
             }
 
             challengeachievementcheck(q);
@@ -2740,7 +2732,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
 
         }
-        if (!player.retrychallenges || manual || player.challengecompletions[q] >= (maxCompletions)) {
+        if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.transcension = 0;
             updateChallengeDisplay();
@@ -2772,7 +2764,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
         }
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-            const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
+            const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 + player.singularityCount : 1; // TODO: Implement the shop upgrade levels here
             let counter = 0;
             let comp = player.challengecompletions[q];
             while (counter < maxInc) {
@@ -2782,8 +2774,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 counter++;
             }
             player.challengecompletions[q] = comp;
-            challengeDisplay(q, true);
-            updateChallengeLevel(q);
         }
         if (player.shopUpgrades.instantChallenge === 0 || leaving) { // TODO: Implement the upgrade levels here
             reset('reincarnationChallenge', false, 'leaveChallenge');
@@ -2794,12 +2784,14 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                 player.highestchallengecompletions[q] += 1;
                 highestChallengeRewards(q, player.highestchallengecompletions[q])
-                calculateHypercubeBlessings();
-                calculateTesseractBlessings();
-                calculateCubeBlessings();
             }
+            challengeDisplay(q, true);
+            updateChallengeLevel(q);
+            calculateHypercubeBlessings();
+            calculateTesseractBlessings();
+            calculateCubeBlessings();
         }
-        if (!player.retrychallenges || manual || player.challengecompletions[q] === maxCompletions) {
+        if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             reset('reincarnationChallenge', false, 'leaveChallenge');
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.reincarnation = 0;
@@ -3059,19 +3051,19 @@ export const updateAll = (): void => {
 
     //Autobuy "Reincarnation" Tab
 
-    if (player.toggles[22] === true && player.reincarnationPoints.gte(player.firstCostParticles)) {
+    if (player.toggles[22] === true && player.cubeUpgrades[7] === 1 && player.reincarnationPoints.gte(player.firstCostParticles)) {
         buyParticleBuilding(1, true)
     }
-    if (player.toggles[23] === true && player.reincarnationPoints.gte(player.secondCostParticles)) {
+    if (player.toggles[23] === true && player.cubeUpgrades[7] === 1 && player.reincarnationPoints.gte(player.secondCostParticles)) {
         buyParticleBuilding(2, true)
     }
-    if (player.toggles[24] === true && player.reincarnationPoints.gte(player.thirdCostParticles)) {
+    if (player.toggles[24] === true && player.cubeUpgrades[7] === 1 && player.reincarnationPoints.gte(player.thirdCostParticles)) {
         buyParticleBuilding(3, true)
     }
-    if (player.toggles[25] === true && player.reincarnationPoints.gte(player.fourthCostParticles)) {
+    if (player.toggles[25] === true && player.cubeUpgrades[7] === 1 && player.reincarnationPoints.gte(player.fourthCostParticles)) {
         buyParticleBuilding(4, true)
     }
-    if (player.toggles[26] === true && player.reincarnationPoints.gte(player.fifthCostParticles)) {
+    if (player.toggles[26] === true && player.cubeUpgrades[7] === 1 && player.reincarnationPoints.gte(player.fifthCostParticles)) {
         buyParticleBuilding(5, true)
     }
 
@@ -3340,7 +3332,7 @@ function tack(dt: number) {
         }
 
         //Automatically tries and buys researches lol
-        if (player.autoResearchToggle && player.autoResearch <= maxRoombaResearchIndex(player)) {
+        if (player.autoResearchToggle && player.autoResearch > 0 && player.autoResearch <= maxRoombaResearchIndex(player)) {
             // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
             let counter = 0;
             const maxCount = 1 + player.challengecompletions[14];
