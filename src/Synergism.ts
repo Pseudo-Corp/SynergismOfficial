@@ -2713,6 +2713,8 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                     }
                     counter++;
                 }
+                challengeDisplay(q, false)
+                updateChallengeLevel(q)
                 player.challengecompletions[q] = comp;
             }
             if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
@@ -2721,8 +2723,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                     highestChallengeRewards(q, player.highestchallengecompletions[q])
                 }
                 calculateCubeBlessings();
-                challengeDisplay(q, false);
-                updateChallengeLevel(q);
             }
 
             challengeachievementcheck(q);
@@ -2773,6 +2773,8 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 }
                 counter++;
             }
+            challengeDisplay(q, true);
+            updateChallengeLevel(q);
             player.challengecompletions[q] = comp;
         }
         if (player.shopUpgrades.instantChallenge === 0 || leaving) { // TODO: Implement the upgrade levels here
@@ -2785,8 +2787,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 player.highestchallengecompletions[q] += 1;
                 highestChallengeRewards(q, player.highestchallengecompletions[q])
             }
-            challengeDisplay(q, true);
-            updateChallengeLevel(q);
             calculateHypercubeBlessings();
             calculateTesseractBlessings();
             calculateCubeBlessings();
