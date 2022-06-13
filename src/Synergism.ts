@@ -2,7 +2,7 @@ import type { DecimalSource } from 'break_infinity.js';
 import Decimal from 'break_infinity.js';
 import LZString from 'lz-string';
 
-import { isDecimal, getElementById, sortWithIndices, sumContents, btoa } from './Utility';
+import { isDecimal, sortWithIndices, sumContents, btoa } from './Utility';
 import { blankGlobals, Globals as G } from './Variables';
 import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges, challenge15ScoreMultiplier } from './Challenges';
 
@@ -14,14 +14,14 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck, exitOffline } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
-import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab } from './Toggles';
+import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { calculateGoldenQuarkGain, reset, resetrepeat, singularity, updateSingularityAchievements } from './Reset';
+import { calculateGoldenQuarkGain, reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset';
 import type { TesseractBuildings} from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
@@ -1195,7 +1195,7 @@ const loadSynergy = async () => {
         if (player.saveString === '' || player.saveString === 'Synergism-v1011Test.txt') {
             player.saveString = 'Synergism-$VERSION$-$TIME$.txt'
         }
-        getElementById<HTMLInputElement>('saveStringInput').value = player.saveString
+        (DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString;
 
         player.wowCubes = new WowCubes(Number(player.wowCubes) || 0);
 
@@ -1298,13 +1298,6 @@ const loadSynergy = async () => {
             challengeDisplay(1);
         }
 
-        DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's'
-        getElementById<HTMLInputElement>('startAutoChallengeTimerInput').value = '' + (player.autoChallengeTimer.start || blankSave.autoChallengeTimer.start);
-        DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's'
-        getElementById<HTMLInputElement>('exitAutoChallengeTimerInput').value = '' + (player.autoChallengeTimer.exit || blankSave.autoChallengeTimer.exit);
-        DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's'
-        getElementById<HTMLInputElement>('enterAutoChallengeTimerInput').value = '' + (player.autoChallengeTimer.enter || blankSave.autoChallengeTimer.enter);
-
         corruptionStatsUpdate();
         for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
             corruptionLoadoutTableUpdate(i);
@@ -1318,9 +1311,6 @@ const loadSynergy = async () => {
                 (ouch.textContent = 'Auto [ON]', ouch.style.border = '2px solid green') :
                 (ouch.textContent = 'Auto [OFF]', ouch.style.border = '2px solid red');
         }
-
-        DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
-        DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
 
         DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + '%';
 
@@ -1348,15 +1338,80 @@ const loadSynergy = async () => {
             toggleAscStatPerSecond(+id);
         }
 
+        // Strictly check the input and data with values other than numbers
         const omit = /e\+/;
-        getElementById<HTMLInputElement>('ascensionAmount').value = ('' + (player.autoAscendThreshold || blankSave.autoAscendThreshold)).replace(omit, 'e');
-        getElementById<HTMLInputElement>('autoAntSacrificeAmount').value = ('' + (player.autoAntSacTimer || blankSave.autoAntSacTimer)).replace(omit, 'e');
-        getElementById<HTMLInputElement>('buyRuneBlessingInput').value = ('' + (player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount)).replace(omit, 'e');
-        getElementById<HTMLInputElement>('buyRuneSpiritInput').value = ('' + (player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount)).replace(omit, 'e');
-        getElementById<HTMLInputElement>('prestigeamount').value = ('' + (player.prestigeamount || blankSave.prestigeamount)).replace(omit, 'e');
-        getElementById<HTMLInputElement>('transcendamount').value = ('' + (player.transcendamount || blankSave.transcendamount)).replace(omit, 'e');
-        getElementById<HTMLInputElement>('reincarnationamount').value = ('' + (player.reincarnationamount || blankSave.reincarnationamount)).replace(omit, 'e');
-        getElementById<HTMLInputElement>('tesseractAmount').value = ('' + (player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount)).replace(omit, 'e');
+        let inputd = player.autoChallengeTimer.start;
+        let inpute = Number((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.start || blankSave.autoChallengeTimer.start)).replace(omit, 'e');
+            updateAutoChallenge(1);
+        }
+        DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's'
+        inputd = player.autoChallengeTimer.exit;
+        inpute = Number((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.exit || blankSave.autoChallengeTimer.exit)).replace(omit, 'e');
+            updateAutoChallenge(2);
+        }
+        DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's'
+        inputd = player.autoChallengeTimer.enter;
+        inpute = Number((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.enter || blankSave.autoChallengeTimer.enter)).replace(omit, 'e');
+            updateAutoChallenge(3);
+        }
+        DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's'
+
+        inputd = player.prestigeamount;
+        inpute = Number((DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value = ('' + (player.prestigeamount || blankSave.prestigeamount)).replace(omit, 'e');
+            updateAutoReset(1);
+        }
+        inputd = player.transcendamount;
+        inpute = Number((DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value = ('' + (player.transcendamount || blankSave.transcendamount)).replace(omit, 'e');
+            updateAutoReset(2);
+        }
+        inputd = player.reincarnationamount;
+        inpute = Number((DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value = ('' + (player.reincarnationamount || blankSave.reincarnationamount)).replace(omit, 'e');
+            updateAutoReset(3);
+        }
+        inputd = player.autoAscendThreshold;
+        inpute = Number((DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value = ('' + (player.autoAscendThreshold || blankSave.autoAscendThreshold)).replace(omit, 'e');
+            updateAutoReset(4);
+        }
+        inputd = player.autoAntSacTimer;
+        inpute = Number((DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value = ('' + (player.autoAntSacTimer || blankSave.autoAntSacTimer)).replace(omit, 'e');
+            updateAutoReset(5);
+        }
+        inputd = player.tesseractAutoBuyerAmount;
+        inpute = Number((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value = ('' + (player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount)).replace(omit, 'e');
+            updateTesseractAutoBuyAmount();
+        }
+        inputd = player.runeBlessingBuyAmount;
+        inpute = Number((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value = ('' + (player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount)).replace(omit, 'e');
+            updateRuneBlessingBuyAmount(1);
+        }
+        DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
+        inputd = player.runeSpiritBuyAmount;
+        inpute = Number((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value = ('' + (player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount)).replace(omit, 'e');
+            updateRuneBlessingBuyAmount(2);
+        }
+        DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
 
         if (player.resettoggle1 === 1) {
             DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
