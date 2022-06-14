@@ -650,7 +650,7 @@ export const useConsumable = async (input: ShopUpgradeNames) => {
             const multiplier = Math.pow(toUse, 2)
             if (toUse > 0) {
                 player.shopUpgrades.obtainiumPotion -= toUse;
-                player.researchPoints += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
+                player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
                 player.researchPoints = Math.min(1e300, player.researchPoints)
             }
         }
