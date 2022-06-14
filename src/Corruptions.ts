@@ -296,6 +296,9 @@ async function corruptionLoadoutGetNewName(loadout = 0) {
     } else {
         player.corruptionLoadoutNames[loadout] = renamePrompt
         updateCorruptionLoadoutNames();
+        if (renamePrompt === 'crazy') {
+            return Alert('Ant God approves of your joke!')
+        }
     }
 }
 

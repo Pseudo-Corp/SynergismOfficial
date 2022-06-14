@@ -88,9 +88,9 @@ export class SingularityUpgrade {
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color:crimson;">${minimumSingularity}</span>
-                <span style="color: ${color}"> Level ${this.level}${maxLevel} <span style="color: orange"> [+${format(this.freeLevels, 0, true)}] </span> </span>
+                <span style="color: ${color}"> Level ${this.level}${maxLevel} <span style="color: orange"> [+${format(this.freeLevels, 1, true)}] </span> </span>
                 <span style="color: gold">${this.getEffect().desc}</span>
-                Cost for next level: ${format(costNextLevel)} Golden Quarks.
+                Cost for next level: ${format(costNextLevel,0,true)} Golden Quarks.
                 Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
     }
 
@@ -547,6 +547,97 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have': 'have not'} triggered the liquidation event!`
+            }
+        }
+    },
+    potionBuff: {
+        name: 'Potion Decanter of Enlightenment',
+        description: 'Purported to actually be the fountain of youth, use up to 100 potions at once and multiply gain by the square of the amount used.',
+        maxLevel: 1,
+        costPerLevel: 999,
+        minimumSingularity: 4,
+        effect: (n: number) => {
+            return {
+                bonus: (n > 0),
+                desc: `You ${(n > 0) ? 'have': 'have not'} purchased this decanter!`
+            }
+        }
+    },
+    singChallengeExtension: {
+        name: 'Bigger Challenge Caps',
+        description: 'Need more challenges? Well, add 2 more reincarnation challenges and 1 ascension challenge to the cap, per level.',
+        maxLevel: 4,
+        costPerLevel: 999,
+        minimumSingularity: 11,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `You feel motivated enough to complete ${2 * n} more reincarnation challenges, and ${n} more ascension challenges.`
+            }
+        }
+    },
+    singChallengeExtension2: {
+        name: 'Biggerer Challenge Caps',
+        description: 'Need even more challenges? Well, add 2 more reincarnation challenges and 1 ascension challenge to the cap, per level.',
+        maxLevel: 3,
+        costPerLevel: 29999,
+        minimumSingularity: 26,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `You feel motivated enough to complete ${2 * n} more reincarnation challenges, and ${n} more ascension challenges.`
+            }
+        }
+    },
+    singChallengeExtension3: {
+        name: 'biggererEST Challenge Caps',
+        description: 'Need even MORE challenges? Well, add 2 more reincarnation challenges and 1 ascension challenge to the cap, per level. Does it not seem excessive?',
+        maxLevel: 3,
+        costPerLevel: 749999,
+        minimumSingularity: 51,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `You feel motivated enough to complete ${2 * n} more reincarnation challenges, and ${n} more ascension challenges.`
+            }
+        }
+    },
+    singQuarkHepteract: {
+        name: 'I wish my Quark Hepteract was marginally better.',
+        description: 'Wrong game, oops. Anyway, would you like a very slightly better DR exponent on Quark Hepteract?',
+        maxLevel: 1,
+        costPerLevel: 14999,
+        minimumSingularity: 5,
+        effect: (n: number) => {
+            return {
+                bonus: n/100,
+                desc: `The DR exponent is now ${format(n/100, 2, true)} larger!`
+            }
+        }
+    },
+    singQuarkHepteract2: {
+        name: 'I wish my Quark Hepteract was marginally better II.',
+        description: 'Still not the right game. Same as the previous upgrade.',
+        maxLevel: 1,
+        costPerLevel: 449999,
+        minimumSingularity: 30,
+        effect: (n: number) => {
+            return {
+                bonus: n/100,
+                desc: `The DR exponent is now ${format(n/100, 2, true)} larger!`
+            }
+        }
+    },
+    singQuarkHepteract3: {
+        name: 'I wish my Quark Hepteract was marginally better III.',
+        description: 'I AM NOT THE GODMOTHER YOU ARE LOOKING FOR, DYLAN!',
+        maxLevel: 1,
+        costPerLevel: 13370000,
+        minimumSingularity: 61,
+        effect: (n: number) => {
+            return {
+                bonus: n/100,
+                desc: `The DR exponent is now ${format(n/100, 2, true)} larger!`
             }
         }
     }

@@ -791,6 +791,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.shopUpgrades.obtainiumEX = 10
         player.shopUpgrades.antSpeed = 10
         player.shopUpgrades.cashGrab = 10
+        player.cubeUpgrades[7] = 1;
     }
     if (player.achievements[279] > 0) {
         player.challengecompletions[7] = 1;

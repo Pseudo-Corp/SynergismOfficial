@@ -41,6 +41,10 @@ export const getMaxChallenges = (i: number) => {
         if (player.platonicUpgrades[15] > 0) {
             maxChallenge += 30;
         }
+
+        maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension.getEffect().bonus
+        maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension2.getEffect().bonus
+        maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension3.getEffect().bonus
         return maxChallenge
     }
     //Ascension Challenge
@@ -63,6 +67,10 @@ export const getMaxChallenges = (i: number) => {
         if (player.platonicUpgrades[15] > 0) {
             maxChallenge += 20;
         }
+
+        maxChallenge += +player.singularityUpgrades.singChallengeExtension.getEffect().bonus
+        maxChallenge += +player.singularityUpgrades.singChallengeExtension2.getEffect().bonus
+        maxChallenge += +player.singularityUpgrades.singChallengeExtension3.getEffect().bonus
         return maxChallenge
     }
 
@@ -436,8 +444,8 @@ export const calculateChallengeRequirementMultiplier = (
         1,
         G['hyperchallengedMultiplier'][player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)
     );
-    if (special === 15) {
-        //Normalize back to 1 if looking at challenge 15 in particular.
+    if (type === 'ascension') {
+        //Normalize back to 1 if looking at ascension challenges in particular.
         requirementMultiplier = 1;
     }
     switch (type) {
