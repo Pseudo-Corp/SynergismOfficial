@@ -690,7 +690,14 @@ export const player: Player = {
         expertPack: new SingularityUpgrade(singularityData['expertPack']),
         masterPack: new SingularityUpgrade(singularityData['masterPack']),
         divinePack: new SingularityUpgrade(singularityData['divinePack']),
-        wowPass2: new SingularityUpgrade(singularityData['wowPass2'])
+        wowPass2: new SingularityUpgrade(singularityData['wowPass2']),
+        potionBuff: new SingularityUpgrade(singularityData['potionBuff']),
+        singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension']),
+        singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2']),
+        singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
+        singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
+        singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
+        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3'])
     },
     dailyCodeUsed: false,
     hepteractAutoCraftPercentage: 50

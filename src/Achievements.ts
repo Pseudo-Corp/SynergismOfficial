@@ -506,7 +506,7 @@ export const areward = (i: number): string => {
         275: 'You immediately start Singularities with 1 transcension and 1001 mythos!',
         276: 'You immediately start Singularities with 1 reincarnation, and 10 particles!',
         277: 'You immediately start Singularities with 500 obtainium!',
-        278: 'Gain 5% more Quarks, permanently!',
+        278: 'Gain 5% more Quarks, permanently! Automation regarding Particle Buildings are immediately available.',
         279: 'You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!',
         280: 'You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 ant.'
     }

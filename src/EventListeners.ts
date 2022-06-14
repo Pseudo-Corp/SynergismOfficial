@@ -616,8 +616,8 @@ TODO: Fix this entire tab it's utter shit
     // SINGULARITY TAB
     const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
     for (const key of singularityUpgrades) {
-        DOMCacheGetOrSet(`${key}`).addEventListener('mouseover', () => player.singularityUpgrades[`${key}`].updateUpgradeHTML())
-        DOMCacheGetOrSet(`${key}`).addEventListener('click', () => player.singularityUpgrades[`${key}`].buyLevel())
+        DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
+        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityUpgrades[`${String(key)}`].buyLevel())
     }
 
 

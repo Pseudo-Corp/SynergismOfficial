@@ -230,10 +230,9 @@ export const promocodes = async () => {
 
         if (player.singularityCount > 0) {
             const upgradeDistribution: Record<
-            Extract<keyof Player['singularityUpgrades'],
             'goldenQuarks1' | 'singCubes1' | 'singCubes2' | 'singCubes3' |
             'singOfferings1' | 'singOfferings2' | 'singOfferings3' |
-            'singObtainium1' | 'singObtainium2' | 'singObtainium3' | 'ascensions'>,
+            'singObtainium1' | 'singObtainium2' | 'singObtainium3' | 'ascensions',
             {value: number, pdf: (x: number) => boolean}> = {
                 goldenQuarks1: {value: 0.2, pdf: (x: number) => 0 <= x && x <= 4},
                 singCubes3: {value: 0.25, pdf: (x: number) => 4 < x && x <= 6},

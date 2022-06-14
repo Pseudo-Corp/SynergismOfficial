@@ -367,6 +367,11 @@ export const hepteractEffective = (data: hepteractTypes) => {
     if (data === 'chronos') {
         exponentBoost += 1/750 * player.platonicUpgrades[19]
     }
+    if (data === 'quark') {
+        exponentBoost += +player.singularityUpgrades.singQuarkHepteract.getEffect().bonus
+        exponentBoost += +player.singularityUpgrades.singQuarkHepteract2.getEffect().bonus
+        exponentBoost += +player.singularityUpgrades.singQuarkHepteract3.getEffect().bonus
+    }
     if (player.hepteractCrafts[data].BAL > hepteractEffectiveValues[data].LIMIT) {
         effectiveValue *= Math.pow(player.hepteractCrafts[data].BAL / hepteractEffectiveValues[data].LIMIT, hepteractEffectiveValues[data].DR + exponentBoost)
     }

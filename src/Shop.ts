@@ -631,23 +631,28 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
 
 export const useConsumable = async (input: ShopUpgradeNames) => {
     const p = G['shopConfirmation']
-        ? await Confirm('Would you like to use this potion?')
+        ? await Confirm('Would you like to use some of this potion?')
         : true;
 
+
     if (p) {
-        switch (input) {
-            case 'offeringPotion':
-                if (player.shopUpgrades.offeringPotion > 0.5) {
-                    player.shopUpgrades.offeringPotion -= 1;
-                    player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration());
-                }
-                break;
-            case 'obtainiumPotion':
-                if (player.shopUpgrades.obtainiumPotion > 0.5) {
-                    player.shopUpgrades.obtainiumPotion -= 1;
-                    player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration());
-                }
-                break;
+        const maximalUse = (player.singularityUpgrades.potionBuff.getEffect().bonus) ? 100 : 1
+        if (input === 'offeringPotion') {
+            const toUse = Math.min(maximalUse, player.shopUpgrades.offeringPotion)
+            const multiplier = Math.pow(toUse, 2)
+            if (toUse > 0) {
+                player.shopUpgrades.offeringPotion -= toUse;
+                player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
+                player.runeshards = Math.min(1e300, player.runeshards)
+            }
+        } else if (input === 'obtainiumPotion') {
+            const toUse = Math.min(maximalUse, player.shopUpgrades.obtainiumPotion)
+            const multiplier = Math.pow(toUse, 2)
+            if (toUse > 0) {
+                player.shopUpgrades.obtainiumPotion -= toUse;
+                player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
+                player.researchPoints = Math.min(1e300, player.researchPoints)
+            }
         }
     }
 }

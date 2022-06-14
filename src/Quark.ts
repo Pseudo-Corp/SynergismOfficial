@@ -89,7 +89,7 @@ export const getQuarkMultiplier = () => {
         multiplier *= (1 + 0.10 * player.cubeUpgrades[53] / 100)
     }
     if (player.cubeUpgrades[68] > 0) { // Cube Upgrade 7x8
-        multiplier *= (1 + 2/10000 * player.cubeUpgrades[68] + 0.3 * (Math.floor(player.cubeUpgrades[68] / 1000)))
+        multiplier *= (1 + 1/10000 * player.cubeUpgrades[68] + 0.05 * (Math.floor(player.cubeUpgrades[68] / 1000)))
     }
     if (player.singularityCount >= 5) { // Singularity Milestone (5 sing)
         multiplier *= 1.05

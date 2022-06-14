@@ -185,7 +185,7 @@ const cubeUpgradeDescriptions = [
     '[Cx15] That\'s amore, but is quite a crumbful! Increase ant efficiency by 0.4%. (Roughly every 200 ants purchased doubles crumb production!)',
     '[Cx16] You just wish you could have one more cookie baked by her. Gain 2x all cubes until you purchase OMEGA.',
     '[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.',
-    '[Cx18] What the heck! These aren\'t even cookies. +0.02% Quarks per level purchased of this upgrade. +30% more at level 1,000!',
+    '[Cx18] What the heck! These aren\'t even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!',
     '[Cx19] Cookies that you\'ll never remember again. +12% Golden Quarks this singularity.',
     '[Cx20] The pinnacle of baking. Nothing you\'ll eat will taste better than this. Gain +0.01% more Octeracts on ascension if every corruption is set to level 14.'
 ]
