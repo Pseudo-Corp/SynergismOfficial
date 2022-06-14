@@ -16,7 +16,7 @@ const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): IMultiBuy
 export const updateAutoResearch = (index: number, auto: boolean) => {
     /* If Cube Upgrade 9 (1x9) is purchased, then automation behaves differently.
      If not purchased, then clicking on a research icon while auto toggled will update research for you.*/
-    if (player.cubeUpgrades[9] > 0 && auto && player.autoResearchMode === 'cheapest') {
+    if (autoResearchEnabled() && auto && player.autoResearchMode === 'cheapest') {
 
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex];
 
@@ -45,7 +45,7 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
         }
 
         return
-    } else if (!auto && (player.cubeUpgrades[9] < 1 || player.autoResearchMode === 'manual')){
+    } else if (!auto && (!autoResearchEnabled() || player.autoResearchMode === 'manual')){
         /* We remove the old research HTML from the 'roomba' class and make the new index our 'roomba'
            class. We then update the index and consequently the coloring of the background based
            on what level (if any) the research has. This functionality is useless after
@@ -71,6 +71,13 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
     } //There might be code needed here. I don't quite know yet. -Platonic
 }
 
+/**
+ * Should the user have access to autoResearch
+ * @returns boolean
+ */
+export const autoResearchEnabled = (): boolean => {
+    return (player.cubeUpgrades[9] === 1 || player.singularityCount > 10);
+}
 /**
  * Attempts to buy the research of the index selected. This is hopefully an improvement over buyResearch. Fuck
  * @param index

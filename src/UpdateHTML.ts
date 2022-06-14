@@ -4,6 +4,7 @@ import Decimal from 'break_infinity.js';
 import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration} from './Calculate';
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
+import { autoResearchEnabled } from './Research';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
 import { getMaxChallenges } from './Challenges';
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
@@ -350,7 +351,7 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'block' :
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'none';
 
-    DOMCacheGetOrSet('toggleautoresearchmode').style.display = player.shopUpgrades.obtainiumAuto > 0 && player.cubeUpgrades[9] > 0 //Auto Research Shop Purchase Mode
+    DOMCacheGetOrSet('toggleautoresearchmode').style.display = player.shopUpgrades.obtainiumAuto > 0 && autoResearchEnabled() //Auto Research Shop Purchase Mode
         ? 'block'
         : 'none';
 
