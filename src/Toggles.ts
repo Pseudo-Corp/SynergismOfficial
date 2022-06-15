@@ -5,6 +5,7 @@ import Decimal from 'break_infinity.js';
 import { visualUpdateCubes } from './UpdateVisuals';
 import { calculateRuneLevels } from './Calculate';
 import { reset, resetrepeat } from './Reset';
+import { autoResearchEnabled } from './Research';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
@@ -415,7 +416,7 @@ export const toggleAutoResearch = () => {
         el.textContent = 'Automatic: ON'
     }
 
-    if (player.autoResearchToggle && player.cubeUpgrades[9] === 1 && player.autoResearchMode === 'cheapest') {
+    if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
     }
 
@@ -432,7 +433,7 @@ export const toggleAutoResearchMode = () => {
     }
     DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
 
-    if (player.autoResearchToggle && player.cubeUpgrades[9] === 1 && player.autoResearchMode === 'cheapest') {
+    if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
     }
 }

@@ -30,6 +30,7 @@ import { updateCubeUpgradeBG } from './Cubes';
 import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate, updateCorruptionLoadoutNames, corruptionLoadoutSaveLoad } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import { addTimers, automaticTools } from './Helper';
+import { autoResearchEnabled } from './Research';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import { checkVariablesOnLoad } from './CheckVariables';
@@ -3344,6 +3345,11 @@ function tack(dt: number) {
             automaticTools('addObtainium', dt)
         } else {
             calculateObtainium();
+        }
+
+        //If auto research is enabled and runing; Make sure there is something to try to research if possible
+        if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest'){
+            player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex];
         }
 
         //Automatically tries and buys researches lol
