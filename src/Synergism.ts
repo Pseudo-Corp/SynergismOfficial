@@ -2,7 +2,7 @@ import type { DecimalSource } from 'break_infinity.js';
 import Decimal from 'break_infinity.js';
 import LZString from 'lz-string';
 
-import { isDecimal, getElementById, sortWithIndices, sumContents, btoa } from './Utility';
+import { isDecimal, sortWithIndices, sumContents, btoa } from './Utility';
 import { blankGlobals, Globals as G } from './Variables';
 import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewards, challengeRequirement, runChallengeSweep, getMaxChallenges, challenge15ScoreMultiplier } from './Challenges';
 
@@ -14,14 +14,14 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck, exitOffline } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
-import { toggleAscStatPerSecond, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab } from './Toggles';
+import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { calculateGoldenQuarkGain, reset, resetrepeat, singularity, updateSingularityAchievements } from './Reset';
+import { calculateGoldenQuarkGain, reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset';
 import type { TesseractBuildings} from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
@@ -740,11 +740,11 @@ export const saveSynergy = async (button?: boolean) => {
  * Map of properties on the Player object to adapt
  */
 const toAdapt = new Map<keyof Player,(data: PlayerSave) => unknown>([
-    ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) })],
-    ['wowCubes', data => new WowCubes(Number(data.wowCubes))],
-    ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts))],
-    ['wowHypercubes', data => new WowHypercubes(Number(data.wowHypercubes))],
-    ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes))]
+    ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) || 0 })],
+    ['wowCubes', data => new WowCubes(Number(data.wowCubes) || 0)],
+    ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts) || 0)],
+    ['wowHypercubes', data => new WowHypercubes(Number(data.wowHypercubes) || 0)],
+    ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes) || 0)]
 ]);
 
 const loadSynergy = async () => {
@@ -1112,12 +1112,6 @@ const loadSynergy = async () => {
             player.autoAntSacrificeMode = 0;
         }
 
-        if (player.cubeUpgrades[7] === 0 && player.toggles[22]) {
-            for (let i = 22; i <= 26; i++) {
-                player.toggles[i] = false
-            }
-        }
-
         if (player.transcendCount < 0) {
             player.transcendCount = 0
         }
@@ -1209,7 +1203,7 @@ const loadSynergy = async () => {
         if (player.saveString === '' || player.saveString === 'Synergism-v1011Test.txt') {
             player.saveString = 'Synergism-$VERSION$-$TIME$.txt'
         }
-        getElementById<HTMLInputElement>('saveStringInput').value = player.saveString
+        (DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString;
 
         player.wowCubes = new WowCubes(Number(player.wowCubes) || 0);
 
@@ -1312,13 +1306,6 @@ const loadSynergy = async () => {
             challengeDisplay(1);
         }
 
-        DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's'
-        getElementById<HTMLInputElement>('startAutoChallengeTimerInput').value = '' + (player.autoChallengeTimer.start || blankSave.autoChallengeTimer.start);
-        DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's'
-        getElementById<HTMLInputElement>('exitAutoChallengeTimerInput').value = '' + (player.autoChallengeTimer.exit || blankSave.autoChallengeTimer.exit);
-        DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's'
-        getElementById<HTMLInputElement>('enterAutoChallengeTimerInput').value = '' + (player.autoChallengeTimer.enter || blankSave.autoChallengeTimer.enter);
-
         corruptionStatsUpdate();
         for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
             corruptionLoadoutTableUpdate(i);
@@ -1333,13 +1320,12 @@ const loadSynergy = async () => {
                 (ouch.textContent = 'Auto [OFF]', ouch.style.border = '2px solid red');
         }
 
-        DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
-        DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
-
         DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + '%';
 
         DOMCacheGetOrSet('talismanlevelup').style.display = 'none'
         DOMCacheGetOrSet('talismanrespec').style.display = 'none'
+
+        DOMCacheGetOrSet('antSacrificeSummary').style.display = 'none'
 
         // This must be initialized at the beginning of the calculation
         c15RewardUpdate();
@@ -1360,14 +1346,80 @@ const loadSynergy = async () => {
             toggleAscStatPerSecond(+id);
         }
 
-        getElementById<HTMLInputElement>('ascensionAmount').value = '' + (player.autoAscendThreshold || blankSave.autoAscendThreshold);
-        getElementById<HTMLInputElement>('autoAntSacrificeAmount').value = '' + (player.autoAntSacTimer || blankSave.autoAntSacTimer);
-        getElementById<HTMLInputElement>('buyRuneBlessingInput').value = '' + (player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount);
-        getElementById<HTMLInputElement>('buyRuneSpiritInput').value = '' + (player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount);
-        getElementById<HTMLInputElement>('prestigeamount').value = '' + (player.prestigeamount || blankSave.prestigeamount);
-        getElementById<HTMLInputElement>('transcendamount').value = '' + (player.transcendamount || blankSave.transcendamount);
-        getElementById<HTMLInputElement>('reincarnationamount').value = '' + (player.reincarnationamount || blankSave.reincarnationamount);
-        getElementById<HTMLInputElement>('tesseractAmount').value = '' + (player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount);
+        // Strictly check the input and data with values other than numbers
+        const omit = /e\+/;
+        let inputd = player.autoChallengeTimer.start;
+        let inpute = Number((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.start || blankSave.autoChallengeTimer.start)).replace(omit, 'e');
+            updateAutoChallenge(1);
+        }
+        DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's'
+        inputd = player.autoChallengeTimer.exit;
+        inpute = Number((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.exit || blankSave.autoChallengeTimer.exit)).replace(omit, 'e');
+            updateAutoChallenge(2);
+        }
+        DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's'
+        inputd = player.autoChallengeTimer.enter;
+        inpute = Number((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.enter || blankSave.autoChallengeTimer.enter)).replace(omit, 'e');
+            updateAutoChallenge(3);
+        }
+        DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's'
+
+        inputd = player.prestigeamount;
+        inpute = Number((DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value = ('' + (player.prestigeamount || blankSave.prestigeamount)).replace(omit, 'e');
+            updateAutoReset(1);
+        }
+        inputd = player.transcendamount;
+        inpute = Number((DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value = ('' + (player.transcendamount || blankSave.transcendamount)).replace(omit, 'e');
+            updateAutoReset(2);
+        }
+        inputd = player.reincarnationamount;
+        inpute = Number((DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value = ('' + (player.reincarnationamount || blankSave.reincarnationamount)).replace(omit, 'e');
+            updateAutoReset(3);
+        }
+        inputd = player.autoAscendThreshold;
+        inpute = Number((DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value = ('' + (player.autoAscendThreshold || blankSave.autoAscendThreshold)).replace(omit, 'e');
+            updateAutoReset(4);
+        }
+        inputd = player.autoAntSacTimer;
+        inpute = Number((DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value = ('' + (player.autoAntSacTimer || blankSave.autoAntSacTimer)).replace(omit, 'e');
+            updateAutoReset(5);
+        }
+        inputd = player.tesseractAutoBuyerAmount;
+        inpute = Number((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value = ('' + (player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount)).replace(omit, 'e');
+            updateTesseractAutoBuyAmount();
+        }
+        inputd = player.runeBlessingBuyAmount;
+        inpute = Number((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value = ('' + (player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount)).replace(omit, 'e');
+            updateRuneBlessingBuyAmount(1);
+        }
+        DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
+        inputd = player.runeSpiritBuyAmount;
+        inpute = Number((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value = ('' + (player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount)).replace(omit, 'e');
+            updateRuneBlessingBuyAmount(2);
+        }
+        DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
 
         if (player.resettoggle1 === 1) {
             DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
@@ -1567,7 +1619,7 @@ export const format = (
     truncate = true
 ): string => {
     if (input == null) {
-        return '0 [NaN]';
+        return '0 [null]';
     }
 
     if (
@@ -1582,7 +1634,7 @@ export const format = (
         typeof input !== 'number' ||
         isNaN(input as number)
     ) {
-        return '0 [und.]';
+        return isNaN(input as number) ? '0 [NaN]' : '0 [und.]';
     } else if ( // this case handles numbers less than 1e-6 and greater than 0
         typeof input === 'number' &&
         input < 1e-3 && // arbitrary number, can be changed
@@ -1986,7 +2038,7 @@ export const updateAllMultiplier = (): void => {
     a *= (1 + 0.2 / 100 * player.researches[188])
     a *= (1 + 0.01 / 100 * player.researches[200])
     a *= (1 + 0.01 / 100 * player.cubeUpgrades[50])
-    a *= calculateSigmoidExponential(40, (Number(player.antUpgrades[4]) + G['bonusant5']) / 1000 * 40 / 39)
+    a *= calculateSigmoidExponential(40, (player.antUpgrades[4]! + G['bonusant5']) / 1000 * 40 / 39)
     a *= G['cubeBonusMultiplier'][2]
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
@@ -2102,7 +2154,7 @@ export const multipliers = (): void => {
     }
     if (player.upgrades[20] > 0.5) {
         // PLAT - check
-        s = s.times(Math.pow(G['totalCoinOwned'] / 4 + 1, 10));
+        s = s.times(Decimal.pow(G['totalCoinOwned'] / 4 + 1, 10));
     }
     if (player.upgrades[41] > 0.5) {
         s = s.times(Decimal.min(1e30, Decimal.pow(player.transcendPoints.add(1), 1 / 2)));
@@ -2574,8 +2626,8 @@ export const updateAntMultipliers = (): void => {
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[0]! + G['bonusant1']));
     G['globalAntMult'] = G['globalAntMult'].times(antSacrificePointsToMultiplier(player.antSacrificePoints))
     G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(Math.max(1, player.researchPoints), G['effectiveRuneBlessingPower'][5]))
-    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1 + G['runeSum'] / 100, G['talisman6Power']))
-    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])))
+    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1 + G['runeSum'] / 100, G['talisman6Power']))
+    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])))
     G['globalAntMult'] = G['globalAntMult'].times(G['cubeBonusMultiplier'][6])
     if (player.achievements[169] === 1) {
         G['globalAntMult'] = G['globalAntMult'].times(Decimal.log(player.antPoints.add(10), 10))
@@ -2612,7 +2664,7 @@ export const updateAntMultipliers = (): void => {
     G['globalAntMult'] = Decimal.pow(G['globalAntMult'], G['extinctionMultiplier'][player.usedCorruptions[7]])
     G['globalAntMult'] = G['globalAntMult'].times(G['challenge15Rewards'].antSpeed)
     //V2.5.0: Moved ant shop upgrade as 'uncorruptable'
-    G['globalAntMult'] = G['globalAntMult'].times(Math.pow(1.125, player.shopUpgrades.antSpeed));
+    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.125, player.shopUpgrades.antSpeed));
 
 
     if (player.platonicUpgrades[12] > 0) {
@@ -2625,7 +2677,7 @@ export const updateAntMultipliers = (): void => {
         G['globalAntMult'] = G['globalAntMult'].times(4.44)
     }
 
-    if (player.usedCorruptions[7] === 14) {
+    if (player.usedCorruptions[7] >= 14) {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
     }
 }
@@ -2722,7 +2774,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             const reqCheck = (comp: number) => player.coinsThisTranscension.gte(challengeRequirement(q, comp, q));
 
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-                const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
+                const maxInc = player.currentChallenge.ascension !== 13 ? player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) : 1; // TODO: Implement the shop upgrade levels here
                 let counter = 0;
                 let comp = player.challengecompletions[q];
                 while (counter < maxInc) {
@@ -2738,12 +2790,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                 while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                     player.highestchallengecompletions[q] += 1;
-                    challengeDisplay(q, false)
-                    updateChallengeLevel(q)
                     highestChallengeRewards(q, player.highestchallengecompletions[q])
-                    calculateCubeBlessings();
                 }
-
+                calculateCubeBlessings();
             }
 
             challengeachievementcheck(q);
@@ -2753,7 +2802,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
 
         }
-        if (!player.retrychallenges || manual || player.challengecompletions[q] >= (maxCompletions)) {
+        if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.transcension = 0;
             updateChallengeDisplay();
@@ -2785,7 +2834,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
         }
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-            const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 : 1; // TODO: Implement the shop upgrade levels here
+            const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 + player.singularityCount : 1; // TODO: Implement the shop upgrade levels here
             let counter = 0;
             let comp = player.challengecompletions[q];
             while (counter < maxInc) {
@@ -2807,12 +2856,12 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
                 player.highestchallengecompletions[q] += 1;
                 highestChallengeRewards(q, player.highestchallengecompletions[q])
-                calculateHypercubeBlessings();
-                calculateTesseractBlessings();
-                calculateCubeBlessings();
             }
+            calculateHypercubeBlessings();
+            calculateTesseractBlessings();
+            calculateCubeBlessings();
         }
-        if (!player.retrychallenges || manual || player.challengecompletions[q] === maxCompletions) {
+        if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             reset('reincarnationChallenge', false, 'leaveChallenge');
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.reincarnation = 0;
@@ -3072,19 +3121,19 @@ export const updateAll = (): void => {
 
     //Autobuy "Reincarnation" Tab
 
-    if (player.toggles[22] === true && player.reincarnationPoints.gte(player.firstCostParticles)) {
+    if (player.toggles[22] === true && player.cubeUpgrades[7] === 1 && player.reincarnationPoints.gte(player.firstCostParticles)) {
         buyParticleBuilding(1, true)
     }
-    if (player.toggles[23] === true && player.reincarnationPoints.gte(player.secondCostParticles)) {
+    if (player.toggles[23] === true && player.cubeUpgrades[7] === 1 && player.reincarnationPoints.gte(player.secondCostParticles)) {
         buyParticleBuilding(2, true)
     }
-    if (player.toggles[24] === true && player.reincarnationPoints.gte(player.thirdCostParticles)) {
+    if (player.toggles[24] === true && player.cubeUpgrades[7] === 1 && player.reincarnationPoints.gte(player.thirdCostParticles)) {
         buyParticleBuilding(3, true)
     }
-    if (player.toggles[25] === true && player.reincarnationPoints.gte(player.fourthCostParticles)) {
+    if (player.toggles[25] === true && player.cubeUpgrades[7] === 1 && player.reincarnationPoints.gte(player.fourthCostParticles)) {
         buyParticleBuilding(4, true)
     }
-    if (player.toggles[26] === true && player.reincarnationPoints.gte(player.fifthCostParticles)) {
+    if (player.toggles[26] === true && player.cubeUpgrades[7] === 1 && player.reincarnationPoints.gte(player.fifthCostParticles)) {
         buyParticleBuilding(5, true)
     }
 
@@ -3353,7 +3402,7 @@ function tack(dt: number) {
         }
 
         //Automatically tries and buys researches lol
-        if (player.autoResearchToggle && player.autoResearch <= maxRoombaResearchIndex(player)) {
+        if (player.autoResearchToggle && player.autoResearch > 0 && player.autoResearch <= maxRoombaResearchIndex(player)) {
             // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
             let counter = 0;
             const maxCount = 1 + player.challengecompletions[14];
