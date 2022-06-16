@@ -1474,6 +1474,11 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
 
+        //If auto research is enabled and runing; Make sure there is something to try to research if possible
+        if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest'){
+            player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex];
+        }
+
         player.autoResearch = Math.min(200, player.autoResearch)
         player.autoSacrifice = Math.min(5, player.autoSacrifice)
 
@@ -3345,11 +3350,6 @@ function tack(dt: number) {
             automaticTools('addObtainium', dt)
         } else {
             calculateObtainium();
-        }
-
-        //If auto research is enabled and runing; Make sure there is something to try to research if possible
-        if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest'){
-            player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex];
         }
 
         //Automatically tries and buys researches lol
