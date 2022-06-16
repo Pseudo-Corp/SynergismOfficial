@@ -139,7 +139,7 @@ export const resetdetails = (input: resetNames) => {
         case 'singularity':
             currencyImage1.style.display = 'none'
             resetCurrencyGain.textContent = '';
-            resetInfo.textContent = 'Are you willing to give up your laurels for a greater challenge? The Ant God bribes you with Golden Quarks.'
+            resetInfo.textContent = 'Are you willing to give up your laurels for a greater challenge? The Ant God bribes you with ' + format(calculateGoldenQuarkGain(), 2, true) + ' Golden Quarks.'
             resetInfo.style.color = 'lightgoldenrodyellow'
     }
     DOMCacheGetOrSet('resetofferings2').textContent = '+' + format(offering)
