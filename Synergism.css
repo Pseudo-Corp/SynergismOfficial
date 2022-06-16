@@ -697,15 +697,14 @@ nav li:hover {
     margin-right: 5px;
 }
 
-#promocodes,
-#theme {
+.promocodeButton {
     transition-duration: 0.15s;
     padding: 5px;
     min-width: 65%;
     margin-bottom: 3px;
 }
 
-#promocodes:hover {
+.promocodeButton:hover {
     background-color: #333;
 }
 

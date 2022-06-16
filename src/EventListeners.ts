@@ -14,7 +14,7 @@ import { antRepeat, sacrificeAnts, buyAntProducers, updateAntDescription, antUpg
 import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
-import { exportSynergism, updateSaveString, promocodes, importSynergism, resetGame } from './ImportExport'
+import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, importSynergism, resetGame } from './ImportExport'
 import { resetHistoryTogglePerSecond } from './History'
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData, shopUpgradeTypes } from './Shop'
 import { Globals as G, Upgrade } from './Variables';
@@ -567,7 +567,10 @@ export const generateEventHandlers = () => {
     /*Save Game Button*/ DOMCacheGetOrSet('savegame').addEventListener('click', () => saveSynergy(true))
     /*Delete Save Button*/ DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
     /*Submit Stats [Note: will eventually become obsolete if kong closes]*/ // DOMCacheGetOrSet('submitstats').addEventListener('click', () => submitStats())
-    /*Promotion Codes*/ DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodes())
+    /*Promotion Codes*/ DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
+    /*Special action add*/ DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
+    /*Special action daily*/ DOMCacheGetOrSet('dailyCode').addEventListener('click', () => promocodes('daily'))
+    /*Special action time*/ DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
     /*Toggle Ascension Per-Second Setting*/ DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
 
     // SHOP TAB
