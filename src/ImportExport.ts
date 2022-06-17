@@ -419,8 +419,8 @@ export const promocodes = async (input: string | null) => {
         player.worlds.sub(bet);
         el.textContent = `Try again... you can do it! [-${bet} quarks]`;
     } else if (input === 'time') {
-        const availableUses: number = timeCodeAvailableUses();
-        if (availableUses == 0) {
+        const availableUses = timeCodeAvailableUses();
+        if (availableUses === 0) {
             return Confirm(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
             
