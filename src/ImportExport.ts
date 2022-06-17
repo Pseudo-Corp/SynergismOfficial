@@ -35,6 +35,8 @@ const format12 = new Intl.DateTimeFormat('EN-GB', {
     second: '2-digit'
 })
 
+const hour = 3600000;
+
 const getRealTime = (use12 = false) => {
     const format = use12 ? format12 : format24;
     const datePartsArr = format
@@ -176,6 +178,37 @@ export const importSynergism = async (input: string, reset = false) => {
     }
 }
 
+export const promocodesInfo = async (input:string) => {
+    const textElement = DOMCacheGetOrSet('promocodeinfo');
+    let textMessage: string = '\'' + input +'\': ';
+    let availableUses: number = 0;
+    switch (input) {
+        case 'daily':
+            textMessage += (player.dailyCodeUsed ? '0' : '1') + ' use left. Next: end of the day.'; 
+            break;
+        case 'add':
+            availableUses = addCodeAvailableUses();
+            textMessage += availableUses + ' use' + (availableUses > 1 ? 's' : '') + ' left.';
+            if (availableUses == 0) {
+                textMessage += ' Next: in ' + addCodeTimeToNextUse() + ' seconds.';
+            }
+            break;
+        case 'time':
+            availableUses = timeCodeAvailableUses();
+            textMessage += availableUses + ' use left.';
+            if (availableUses == 0) {
+                textMessage += ' Next: in ' + timeCodeTimeToNextUse() + ' seconds.';
+            }
+            break;
+        default:
+            textMessage = '';
+    }
+
+    textElement.textContent = textMessage;
+}
+
+
+
 export const promocodesPrompt = async () => {
     const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "Khafra" perchance?]');
     promocodes(input);
@@ -266,16 +299,15 @@ export const promocodes = async (input: string | null) => {
         }
         return Alert(`Thank you for playing today! You have gained ${format(actualQuarkAward, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
     } else if (input.toLowerCase() === 'add') {
-        const hour = 3600000
-        const timeToNextHour = Math.floor(hour + player.rngCode - Date.now())/1000
+        const availableUses: number = addCodeAvailableUses();
+        const timeToNextUse: number = addCodeTimeToNextUse();
 
-        if (player.rngCode >= (Date.now() - hour)) { // 1 hour
-            el.textContent = `You do not have an 'Add' code attempt! You will gain 1 in ${timeToNextHour} seconds.`;
+        if (availableUses < 1) {
+            el.textContent = `You do not have an 'Add' code attempt! You will gain 1 in ${timeToNextUse} seconds.`;
             return;
         }
 
-        const possibleAmount = Math.floor(Math.min(24 + 2 * player.shopUpgrades.calculator2, (Date.now() - player.rngCode) / hour))
-        const attemptsUsed = await Prompt(`You can use up to ${possibleAmount} attempts at once. How many would you like to use?`);
+        const attemptsUsed = await Prompt(`You can use up to ${availableUses} attempts at once. How many would you like to use?`);
         if (attemptsUsed === null) {
             return Alert('No worries, you didn\'t lose any of your uses! Come back later!');
         }
@@ -288,7 +320,7 @@ export const promocodes = async (input: string | null) => {
             return Alert('Hey! That\'s not a valid number!');
         }
 
-        const realAttemptsUsed = Math.min(possibleAmount, toUse);
+        const realAttemptsUsed = Math.min(availableUses, toUse);
         let mult = Math.max(0.4 + 0.02 * player.shopUpgrades.calculator3, 2/5 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 640); // [0.4, 0.6], slightly biased in favor of 0.4. =)
         mult *= 1 + 0.14 * player.shopUpgrades.calculator // Calculator Shop Upgrade (+14% / level)
         mult *= (player.shopUpgrades.calculator2 === shopData['calculator2'].maxLevel)? 1.25: 1; // Calculator 2 Max Level (+25%)
@@ -389,7 +421,8 @@ export const promocodes = async (input: string | null) => {
         player.worlds.sub(bet);
         el.textContent = `Try again... you can do it! [-${bet} quarks]`;
     } else if (input === 'time') {
-        if ((Date.now() - player.promoCodeTiming.time) / 1000 < 900) {
+        let availableUses: number = timeCodeAvailableUses();
+        if (availableUses == 0) {
             return Confirm(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
             
@@ -455,6 +488,22 @@ export const promocodes = async (input: string | null) => {
     setTimeout(function () {
         el.textContent = ''
     }, 15000);
+}
+
+function addCodeAvailableUses(): number {
+    return Math.floor(Math.min(24 + 2 * player.shopUpgrades.calculator2, (Date.now() - player.rngCode) / hour));
+}
+
+function addCodeTimeToNextUse(): number {
+    return Math.floor(hour + player.rngCode - Date.now())/1000;
+}
+
+function timeCodeAvailableUses(): number {
+    return ((Date.now() - player.promoCodeTiming.time) / 1000 < 900) ? 0 : 1;
+}
+
+function timeCodeTimeToNextUse(): number {
+    return 900 - ((Date.now() - player.promoCodeTiming.time) / 1000);
 }
 
 function dailyCodeReward() {
