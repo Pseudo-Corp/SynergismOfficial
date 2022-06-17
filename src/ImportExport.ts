@@ -181,10 +181,10 @@ export const importSynergism = async (input: string, reset = false) => {
 export const promocodesInfo = async (input:string) => {
     const textElement = DOMCacheGetOrSet('promocodeinfo');
     let textMessage: string = '\'' + input +'\': ';
-    let availableUses: number = 0;
+    let availableUses = 0;
     switch (input) {
         case 'daily':
-            textMessage += (player.dailyCodeUsed ? '0' : '1') + ' use left. Next: end of the day.'; 
+            textMessage += (player.dailyCodeUsed ? '0' : '1') + ' use left. Next: end of the day.';
             break;
         case 'add':
             availableUses = addCodeAvailableUses();
@@ -421,7 +421,7 @@ export const promocodes = async (input: string | null) => {
         player.worlds.sub(bet);
         el.textContent = `Try again... you can do it! [-${bet} quarks]`;
     } else if (input === 'time') {
-        let availableUses: number = timeCodeAvailableUses();
+        const availableUses: number = timeCodeAvailableUses();
         if (availableUses == 0) {
             return Confirm(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
