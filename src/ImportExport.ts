@@ -184,19 +184,19 @@ export const promocodesInfo = async (input: string) => {
     let availableUses = 0;
     switch (input) {
         case 'daily':
-            textMessage += (player.dailyCodeUsed ? '0' : '1') + ' use left. Next: end of the day.';
+            textMessage += (player.dailyCodeUsed ? '0 uses' : '1 use') + ' left. Next: end of the day.';
             break;
         case 'add':
             availableUses = addCodeAvailableUses();
-            textMessage += availableUses + ' use' + (availableUses > 1 ? 's' : '') + ' left.';
-            if (availableUses == 0) {
+            textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
+            if (availableUses === 0) {
                 textMessage += ' Next: in ' + addCodeTimeToNextUse() + ' seconds.';
             }
             break;
         case 'time':
             availableUses = timeCodeAvailableUses();
-            textMessage += availableUses + ' use left.';
-            if (availableUses == 0) {
+            textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
+            if (availableUses === 0) {
                 textMessage += ' Next: in ' + timeCodeTimeToNextUse() + ' seconds.';
             }
             break;
