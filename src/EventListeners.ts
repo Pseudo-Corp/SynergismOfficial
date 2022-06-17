@@ -7,7 +7,7 @@ import { buyAutobuyers } from './Automation'
 import { buyGenerator } from './Generators'
 import { achievementdescriptions, achievementpointvalues } from './Achievements'
 import { displayRuneInformation, redeemShards } from './Runes'
-import { toggleTalismanBuy, buyTalismanResources, showTalismanPrices, buyTalismanLevels, buyTalismanEnhance, showRespecInformation, respecTalismanConfirm, respecTalismanCancel, changeTalismanModifier, updateTalismanCostDisplay, showTalismanEffect, showEnhanceTalismanPrices } from './Talismans'
+import { toggleTalismanBuy, buyTalismanResources, buyAllTalismanResources, showTalismanPrices, buyTalismanLevels, buyTalismanEnhance, showRespecInformation, respecTalismanConfirm, respecTalismanCancel, changeTalismanModifier, updateTalismanCostDisplay, showTalismanEffect, showEnhanceTalismanPrices } from './Talismans'
 import { challengeDisplay, toggleRetryChallenges } from './Challenges'
 import { buyResearch, researchDescriptions } from './Research'
 import { antRepeat, sacrificeAnts, buyAntProducers, updateAntDescription, antUpgradeDescription, buyAntUpgrade } from './Ants'
@@ -310,6 +310,10 @@ export const generateEventHandlers = () => {
         DOMCacheGetOrSet(`buyTalismanItem${index+1}`).addEventListener('click', () => buyTalismanResources(talismanItemNames[index]))
 
     }
+
+    DOMCacheGetOrSet('buyTalismanAll').addEventListener('mouseover', () => updateTalismanCostDisplay(null))
+    DOMCacheGetOrSet('buyTalismanAll').addEventListener('click', () => buyAllTalismanResources())
+
 
     for (let index = 0; index < 7; index++) {
 
