@@ -75,8 +75,7 @@ const getTalismanResourceInfo = (type: keyof typeof talismanResourceCosts, perce
 
 export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCosts | null, percentage = player.buyTalismanShardPercent) => {
     const el = DOMCacheGetOrSet('talismanFragmentCost');
-    if (type)
-    {
+    if (type) {
         const talismanCostInfo = getTalismanResourceInfo(type, percentage);
         const TalismanName = talismanResourceCosts[type].name;
 

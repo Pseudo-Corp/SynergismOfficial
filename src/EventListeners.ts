@@ -311,8 +311,8 @@ export const generateEventHandlers = () => {
 
     }
 
-    DOMCacheGetOrSet(`buyTalismanAll`).addEventListener('mouseover', () => updateTalismanCostDisplay(null))
-    DOMCacheGetOrSet(`buyTalismanAll`).addEventListener('click', () => buyAllTalismanResources())
+    DOMCacheGetOrSet('buyTalismanAll').addEventListener('mouseover', () => updateTalismanCostDisplay(null))
+    DOMCacheGetOrSet('buyTalismanAll').addEventListener('click', () => buyAllTalismanResources())
 
 
     for (let index = 0; index < 7; index++) {
