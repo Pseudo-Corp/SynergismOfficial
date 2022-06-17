@@ -943,24 +943,39 @@ export const buyTesseractBuilding = (index: OneToFive, amount = player.tesseract
 }
 
 export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number) => {
-    let baseCost
-    let baseLevels
-    let levelCap
-    (type === 'Spirits') ?
-        (baseCost = G['spiritBaseCost'], baseLevels = player.runeSpiritLevels[index], levelCap = player.runeSpiritBuyAmount) :
-        (baseCost = G['blessingBaseCost'], baseLevels = player.runeBlessingLevels[index], levelCap = player.runeBlessingBuyAmount);
+    const unlocked = type === 'Spirits' ? player.challengecompletions[12] > 0 : player.achievements[134] === 1;
+    if (unlocked && isFinite(player.runeshards) && player.runeshards > 0) {
+        let baseCost;
+        let baseLevels;
+        let levelCap;
+        if (type === 'Spirits') {
+            baseCost = G['spiritBaseCost'];
+            baseLevels = player.runeSpiritLevels[index];
+            levelCap = player.runeSpiritBuyAmount;
+        } else {
+            baseCost = G['blessingBaseCost'];
+            baseLevels = player.runeBlessingLevels[index];
+            levelCap = player.runeBlessingBuyAmount;
+        }
 
-    const [level, cost] = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap);
-    (type === 'Spirits') ?
-        player.runeSpiritLevels[index] = level :
-        player.runeBlessingLevels[index] = level;
+        const [level, cost] = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap);
+        if (type === 'Spirits') {
+            player.runeSpiritLevels[index] = level;
+        } else {
+            player.runeBlessingLevels[index] = level;
+        }
 
-    player.runeshards -= cost;
+        player.runeshards -= cost;
 
-    if (player.runeshards < 0) {
-        player.runeshards = 0;
+        if (player.runeshards < 0) {
+            player.runeshards = 0;
+        }
+
+        updateRuneBlessing(type, index);
     }
+}
 
+export const updateRuneBlessing = (type: 'Blessings' | 'Spirits', index: number) => {
     if (index === 1) {
         const requirementArray = [0, 1e5, 1e8, 1e11]
         for (let i = 1; i <= 3; i++) {
@@ -990,5 +1005,43 @@ export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number)
         const t = (index === 3) ? 1 : 0;
         DOMCacheGetOrSet('runeSpiritPower' + index + 'Value1').textContent = format(G['runeSpirits'][index])
         DOMCacheGetOrSet('runeSpiritPower' + index + 'Value2').textContent = format(1 - t + spiritMultiplierArray[index] * G['effectiveRuneSpiritPower'][index], 4, true)
+    }
+}
+
+export const buyAllBlessings = (type: 'Blessings' | 'Spirits', percentage = 100, auto = false) => {
+    const unlocked = type === 'Spirits' ? player.challengecompletions[12] > 0 : player.achievements[134] === 1;
+    if (unlocked) {
+        const runeshards = Math.floor(player.runeshards / 100 * percentage / 5);
+        for (let index = 1; index < 6; index++) {
+            if (isFinite(player.runeshards) && player.runeshards > 0) {
+                let baseCost;
+                let baseLevels;
+                const levelCap = 1e300;
+                if (type === 'Spirits') {
+                    baseCost = G['spiritBaseCost'];
+                    baseLevels = player.runeSpiritLevels[index];
+                } else {
+                    baseCost = G['blessingBaseCost'];
+                    baseLevels = player.runeBlessingLevels[index];
+                }
+
+                const [level, cost] = calculateSummationLinear(baseLevels, baseCost, runeshards, levelCap);
+                if (level > baseLevels && (!auto || (level - baseLevels) * 10000 > baseLevels)) {
+                    if (type === 'Spirits') {
+                        player.runeSpiritLevels[index] = level;
+                    } else {
+                        player.runeBlessingLevels[index] = level;
+                    }
+
+                    player.runeshards -= cost;
+
+                    if (player.runeshards < 0) {
+                        player.runeshards = 0;
+                    }
+
+                    updateRuneBlessing(type, index);
+                }
+            }
+        }
     }
 }
