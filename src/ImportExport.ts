@@ -178,9 +178,9 @@ export const importSynergism = async (input: string, reset = false) => {
     }
 }
 
-export const promocodesInfo = async (input:string) => {
+export const promocodesInfo = async (input: string) => {
     const textElement = DOMCacheGetOrSet('promocodeinfo');
-    let textMessage: string = '\'' + input +'\': ';
+    let textMessage = `'${input}': `;
     let availableUses = 0;
     switch (input) {
         case 'daily':
@@ -206,8 +206,6 @@ export const promocodesInfo = async (input:string) => {
 
     textElement.textContent = textMessage;
 }
-
-
 
 export const promocodesPrompt = async () => {
     const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "Khafra" perchance?]');
@@ -299,8 +297,8 @@ export const promocodes = async (input: string | null) => {
         }
         return Alert(`Thank you for playing today! You have gained ${format(actualQuarkAward, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
     } else if (input.toLowerCase() === 'add') {
-        const availableUses: number = addCodeAvailableUses();
-        const timeToNextUse: number = addCodeTimeToNextUse();
+        const availableUses = addCodeAvailableUses();
+        const timeToNextUse = addCodeTimeToNextUse();
 
         if (availableUses < 1) {
             el.textContent = `You do not have an 'Add' code attempt! You will gain 1 in ${timeToNextUse} seconds.`;
