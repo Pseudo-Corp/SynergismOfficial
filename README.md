@@ -1,9 +1,11 @@
 # Synergism - the game
 
 ## Contributing
-Before running any of these commands, run `npm install` to install all dependencies.
+Before running any of these commands, run `make install` to install all dependencies.
 
-- To build: `npm run build:esbuild`.
-- To typecheck all TypeScript files: `npm run check:tsc`.
-- To lint: `npm run lint`.
-- To lint CSS: `npm run csslint`.
+- To build: `make build`.
+- To typecheck all TypeScript files: `make check`.
+- To lint: `make lintcode`.
+- To lint CSS: `make lintcss`.
+- To lint all: `make lintall`.
+- To get a list of commands available: `make help` or just `make`.
