@@ -214,6 +214,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.toggles[32] = true;
     }
 
+    if (data.singularityCount === 0) {
+        player.toggles[33] = true;
+    }
+
     if (data.dayCheck === undefined) {
         player.dayCheck = null;
         player.dayTimer = 0;
