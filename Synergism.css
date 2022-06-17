@@ -2598,7 +2598,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #buyRuneBlessingInput {
-    width: 60px;
+    width: 100px;
     border: 2px solid crimson;
     margin-right: 20px;
     background-color: #171717;
@@ -2606,7 +2606,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #buyRuneSpiritInput {
-    width: 60px;
+    width: 100px;
     border: 2px solid orange;
     margin-right: 20px;
     background-color: #171717;
