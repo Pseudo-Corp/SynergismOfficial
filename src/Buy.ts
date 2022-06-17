@@ -944,19 +944,26 @@ export const buyTesseractBuilding = (index: OneToFive, amount = player.tesseract
 
 export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number) => {
     const unlocked = type === 'Spirits' ? player.challengecompletions[12] > 0 : player.achievements[134] === 1;
-
     if (unlocked && isFinite(player.runeshards) && player.runeshards > 0) {
-        let baseCost
-        let baseLevels
-        let levelCap
-        (type === 'Spirits') ?
-            (baseCost = G['spiritBaseCost'], baseLevels = player.runeSpiritLevels[index], levelCap = player.runeSpiritBuyAmount) :
-            (baseCost = G['blessingBaseCost'], baseLevels = player.runeBlessingLevels[index], levelCap = player.runeBlessingBuyAmount);
+        let baseCost;
+        let baseLevels;
+        let levelCap;
+        if (type === 'Spirits') {
+            baseCost = G['spiritBaseCost'];
+            baseLevels = player.runeSpiritLevels[index];
+            levelCap = player.runeSpiritBuyAmount;
+        } else {
+            baseCost = G['blessingBaseCost'];
+            baseLevels = player.runeBlessingLevels[index];
+            levelCap = player.runeBlessingBuyAmount;
+        }
 
         const [level, cost] = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap);
-        (type === 'Spirits') ?
-            player.runeSpiritLevels[index] = level :
+        if (type === 'Spirits') {
+            player.runeSpiritLevels[index] = level;
+        } else {
             player.runeBlessingLevels[index] = level;
+        }
 
         player.runeshards -= cost;
 
@@ -1007,12 +1014,21 @@ export const buyAllBlessings = (type: 'Blessings' | 'Spirits', percentage = 100,
         const runeshards = Math.floor(player.runeshards / 100 * percentage / 5);
         for (let index = 1; index < 6; index++) {
             if (isFinite(player.runeshards) && player.runeshards > 0) {
-                const baseCost = type === 'Spirits' ? G['spiritBaseCost'] : G['blessingBaseCost'];
-                const baseLevels = type === 'Spirits' ? player.runeSpiritLevels[index] : player.runeBlessingLevels[index];
-                const [level, cost] = calculateSummationLinear(baseLevels, baseCost, runeshards, 1e300);
+                let baseCost;
+                let baseLevels;
+                const levelCap = 1e300;
+                if (type === 'Spirits') {
+                    baseCost = G['spiritBaseCost'];
+                    baseLevels = player.runeSpiritLevels[index];
+                } else {
+                    baseCost = G['blessingBaseCost'];
+                    baseLevels = player.runeBlessingLevels[index];
+                }
+
+                const [level, cost] = calculateSummationLinear(baseLevels, baseCost, runeshards, levelCap);
                 if (level > baseLevels && (!auto || (level - baseLevels) * 10000) > baseLevels) {
                     if (type === 'Spirits') {
-                        player.runeSpiritLevels[index] = level
+                        player.runeSpiritLevels[index] = level;
                     } else {
                         player.runeBlessingLevels[index] = level;
                     }
