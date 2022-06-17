@@ -118,11 +118,9 @@ export const updateTalismanInventory = () => {
 }
 
 export const buyAllTalismanResources = () => {
-    const talismanItemNames = ['shard','commonFragment','uncommonFragment','rareFragment','epicFragment','legendaryFragment','mythicalFragment'] as const;
+    const talismanItemNames = ['shard', 'commonFragment', 'uncommonFragment', 'rareFragment', 'epicFragment', 'legendaryFragment', 'mythicalFragment'] as const;
     for (let index = 0; index < talismanItemNames.length; index++) {
-
         buyTalismanResources(talismanItemNames[index]);
-
     }
 }
 
