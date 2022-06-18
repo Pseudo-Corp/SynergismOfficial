@@ -214,7 +214,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.toggles[32] = true;
     }
 
-    if (data.toggles[33] === undefined) {
+    if (!data.toggles || data.toggles[33] === undefined) {
         player.toggles[33] = true;
     }
 
