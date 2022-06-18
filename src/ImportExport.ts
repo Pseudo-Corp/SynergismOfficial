@@ -1,4 +1,4 @@
-import { player, saveSynergy, blankSave, reloadShit, format, formatTimeShort } from './Synergism';
+import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
 import { testing, version } from './Config';
 import { getElementById, productContents, sumContents } from './Utility';
 import LZString from 'lz-string';
@@ -190,14 +190,14 @@ export const promocodesInfo = async (input: string) => {
             availableUses = addCodeAvailableUses();
             textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
             if (availableUses === 0) {
-                textMessage += ' Next: in ' + addCodeTimeToNextUse() + ' seconds.';
+                textMessage += ' Next: in ' + format(addCodeTimeToNextUse(), 2, true) + ' seconds.';
             }
             break;
         case 'time':
             availableUses = timeCodeAvailableUses();
-            textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
+            textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left. reward x' + format(timeCodeRewardMult(), 2, true) + '.';
             if (availableUses === 0) {
-                textMessage += ' Next: in ' + timeCodeTimeToNextUse() + ' seconds.';
+                textMessage += ' Next: in ' + format(timeCodeTimeToNextUse(), 2, true) + ' seconds.';
             }
             break;
         default:
@@ -304,7 +304,7 @@ export const promocodes = async (input: string | null) => {
         const timeToNextUse = addCodeTimeToNextUse();
 
         if (availableUses < 1) {
-            el.textContent = `You do not have an 'Add' code attempt! You will gain 1 in ${timeToNextUse} seconds.`;
+            el.textContent = `You do not have an 'Add' code attempt! You will gain 1 in ${format(timeToNextUse, 2, true)} seconds.`;
             return;
         }
 
@@ -342,7 +342,7 @@ export const promocodes = async (input: string | null) => {
         // Calculator Maxed: you don't need to insert anything!
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
-            const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
+            const ascMult = player.singularityUpgrades.expertPack.getEffect().bonus ? 1.2 : 1;
             addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult)
             player.rngCode = v;
             return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
@@ -424,22 +424,25 @@ export const promocodes = async (input: string | null) => {
     } else if (input === 'time') {
         const availableUses = timeCodeAvailableUses();
         if (availableUses === 0) {
-            return Confirm(`
+            return Alert(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
             
             Regardless, you must wait at least 15 minutes between each use.
             `);
         }
 
-        const rewardMult = Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600))
+        const rewardMult = timeCodeRewardMult();
 
         const random = Math.random() * 15000; // random time within 15 seconds
         const start = Date.now();
-        await Confirm(
+        const confirmed = await Confirm(
             'Click the button within the next 15 seconds to test your luck!' +
             ` If you click within ${format(2500 + 125 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!` +
             ` This particular instance has a ${format(rewardMult, 2, true)}x multiplier due to elapsed time between uses.`
         );
+        if (!confirmed) {
+            return el.textContent = 'Scared? You should be!';
+        }
 
         const diff = Math.abs(Date.now() - (start + random));
         player.promoCodeTiming.time = Date.now();
@@ -453,9 +456,9 @@ export const promocodes = async (input: string | null) => {
             }
 
             player.worlds.add(actualQuarkAward * rewardMult, false);
-            return Confirm(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
+            return Alert(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
         } else {
-            return Confirm('You didn\'t guess within the correct times, try again soon!');
+            return Alert('You didn\'t guess within the correct times, try again soon!');
         }
     } else if (input === 'spoiler') {
         const SCOREREQ = 1e32
@@ -478,14 +481,7 @@ export const promocodes = async (input: string | null) => {
 
         const ascensionSpeed = calculateAscensionAcceleration()
         const perSecond = 1/(24 * 3600 * 365) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
-        const perSecondText = perSecond >= 1 ? `${format(perSecond, 2, true)} per second` : `every ${format(1 / perSecond, 2, true)} seconds`
-        return Alert(`You will gain an octeract (when they come out) ${perSecondText}, assuming you have them unlocked!`)
-    } else if (input === 'date') {
-        // Why was this code born? added v2.9.8 is https://discord.com/channels/677271830838640680/896134295524085761/987429826950467614
-        const ascensionSeconds = player.ascensionCounter / calculateAscensionAcceleration();
-        const nowDate = new Date();
-        const lastDate = new Date(Date.now() - ascensionSeconds * 1000);
-        return Alert(`hello. The current date is ${nowDate.getHours()}:${nowDate.getMinutes()} UTC ${nowDate.getDate()}-${nowDate.toLocaleString('en-us', {month: 'short'})}-${nowDate.getFullYear()}.\n I guess it's been ${formatTimeShort(ascensionSeconds)} [${lastDate.getHours()}:${lastDate.getMinutes()} UTC ${lastDate.getDate()}-${lastDate.toLocaleString('en-us', {month: 'short'})}-${lastDate.getFullYear()}] since you last ascended!`);
+        return Alert(`You will gain an octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
     } else {
         el.textContent = 'Your code is either invalid or already used. Try again!'
     }
@@ -512,6 +508,10 @@ function timeCodeAvailableUses(): number {
 
 function timeCodeTimeToNextUse(): number {
     return 900 - ((Date.now() - player.promoCodeTiming.time) / 1000);
+}
+
+function timeCodeRewardMult(): number {
+    return Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600));
 }
 
 function dailyCodeReward() {
