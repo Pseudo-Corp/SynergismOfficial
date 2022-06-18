@@ -1,4 +1,4 @@
-import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
+import { player, saveSynergy, blankSave, reloadShit, format, formatTimeShort } from './Synergism';
 import { testing, version } from './Config';
 import { getElementById, productContents, sumContents } from './Utility';
 import LZString from 'lz-string';
@@ -218,6 +218,9 @@ export const promocodes = async (input: string | null) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
+    // Allow uppercase letters
+    input = input.toLowerCase();
+
     if (input === '2.9.7' && !player.codes.get(40) && G['isEvent']) {
         player.codes.set(40, true);
         player.quarkstimer = quarkHandler().maxTime;
@@ -244,11 +247,11 @@ export const promocodes = async (input: string | null) => {
     } else if (input === ':antismith:' && player.achievements[244] < 1) {
         achievementaward(244);
         el.textContent = 'Hey, isn\'t this just a reference to Antimatter Dimensions? Shh. [Awarded an achievement!!!]';
-    } else if (input === 'Khafra' && !player.codes.get(26)) {
+    } else if (input === 'khafra' && !player.codes.get(26)) {
         player.codes.set(26, true);
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds.add(quarks);
-        el.textContent = 'Khafra has blessed you with ' + player.worlds.applyBonus(quarks) + ' quarks!';
+        el.textContent = 'Khafra has blessed you with ' + format(player.worlds.applyBonus(quarks), 0, true) + ' quarks!';
     } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
         player.dailyCodeUsed = true;
         const rewards = dailyCodeReward();
@@ -296,7 +299,7 @@ export const promocodes = async (input: string | null) => {
             }
         }
         return Alert(`Thank you for playing today! You have gained ${format(actualQuarkAward, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
-    } else if (input.toLowerCase() === 'add') {
+    } else if (input === 'add') {
         const availableUses = addCodeAvailableUses();
         const timeToNextUse = addCodeTimeToNextUse();
 
@@ -475,7 +478,14 @@ export const promocodes = async (input: string | null) => {
 
         const ascensionSpeed = calculateAscensionAcceleration()
         const perSecond = 1/(24 * 3600 * 365) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
-        return Alert(`You will gain an octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
+        const perSecondText = perSecond >= 1 ? `${format(perSecond, 2, true)} per second` : `every ${format(1 / perSecond, 2, true)} seconds`
+        return Alert(`You will gain an octeract (when they come out) ${perSecondText}, assuming you have them unlocked!`)
+    } else if (input === 'date') {
+        // Why was this code born? added v2.9.8 is https://discord.com/channels/677271830838640680/896134295524085761/987429826950467614
+        const ascensionSeconds = player.ascensionCounter / calculateAscensionAcceleration();
+        const nowDate = new Date();
+        const lastDate = new Date(Date.now() - ascensionSeconds * 1000);
+        return Alert(`hello. The current date is ${nowDate.getHours()}:${nowDate.getMinutes()} UTC ${nowDate.getDate()}-${nowDate.toLocaleString('en-us', {month: 'short'})}-${nowDate.getFullYear()}.\n I guess it's been ${formatTimeShort(ascensionSeconds)} [${lastDate.getHours()}:${lastDate.getMinutes()} UTC ${lastDate.getDate()}-${lastDate.toLocaleString('en-us', {month: 'short'})}-${lastDate.getFullYear()}] since you last ascended!`);
     } else {
         el.textContent = 'Your code is either invalid or already used. Try again!'
     }
