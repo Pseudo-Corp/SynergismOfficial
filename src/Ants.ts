@@ -208,12 +208,11 @@ export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource,
     }
     calculateAntSacrificeELO();
 
-    if (player.achievements[182] === 0) {
-        const achRequirements = [2, 6, 20, 100, 500, 6666, 77777];
-        for (let j = 0; j < achRequirements.length; j++) {
-            if (sacrificeMult > achRequirements[j] && player[`${G['ordinals'][j + 1 as ZeroToSeven]}OwnedAnts` as const] > 0 && player.achievements[176 + j] === 0) {
-                achievementaward(176 + j)
-            }
+    // Check if we award Achievement 176-182: Ant autobuy
+    const achRequirements = [2, 6, 20, 100, 500, 6666, 77777];
+    for (let j = 0; j < achRequirements.length; j++) {
+        if (player.achievements[176 + j] === 0 && sacrificeMult > achRequirements[j] && player[`${G['ordinals'][j + 1 as ZeroToSeven]}OwnedAnts` as const] > 0) {
+            achievementaward(176 + j)
         }
     }
 
