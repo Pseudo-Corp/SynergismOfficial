@@ -190,14 +190,16 @@ export const promocodesInfo = async (input: string) => {
             availableUses = addCodeAvailableUses();
             textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
             if (availableUses === 0) {
-                textMessage += ' Next: in ' + format(addCodeTimeToNextUse(), 2, true) + ' seconds.';
+                textMessage += ' Next: in ' + format(addCodeTimeToNextUse(), 0, true) + ' seconds.';
             }
             break;
         case 'time':
             availableUses = timeCodeAvailableUses();
-            textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left. reward x' + format(timeCodeRewardMult(), 2, true) + '.';
+            textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
             if (availableUses === 0) {
-                textMessage += ' Next: in ' + format(timeCodeTimeToNextUse(), 2, true) + ' seconds.';
+                textMessage += ' Next: in ' + format(timeCodeTimeToNextUse(), 0, true) + ' seconds.';
+            } else {
+                textMessage += ' Reward x' + format(timeCodeRewardMult(), 2, true);
             }
             break;
         default:
@@ -430,15 +432,14 @@ export const promocodes = async (input: string | null) => {
             Regardless, you must wait at least 15 minutes between each use.
             `);
         }
-
         const rewardMult = timeCodeRewardMult();
 
         const random = Math.random() * 15000; // random time within 15 seconds
         const start = Date.now();
         const confirmed = await Confirm(
-            'Click the button within the next 15 seconds to test your luck!' +
+            'Click the OK button within the next 15 seconds to test your luck!' +
             ` If you click within ${format(2500 + 125 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!` +
-            ` This particular instance has a ${format(rewardMult, 2, true)}x multiplier due to elapsed time between uses.`
+            ` This particular instance has a x${format(rewardMult, 2, true)} multiplier due to elapsed time between uses.`
         );
         if (!confirmed) {
             return el.textContent = 'Scared? You should be!';
@@ -456,9 +457,9 @@ export const promocodes = async (input: string | null) => {
             }
 
             player.worlds.add(actualQuarkAward * rewardMult, false);
-            return Alert(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
+            return Confirm(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
         } else {
-            return Alert('You didn\'t guess within the correct times, try again soon!');
+            return Confirm('You didn\'t guess within the correct times, try again later!');
         }
     } else if (input === 'spoiler') {
         const SCOREREQ = 1e32
