@@ -426,7 +426,7 @@ export const promocodes = async (input: string | null) => {
     } else if (input === 'time') {
         const availableUses = timeCodeAvailableUses();
         if (availableUses === 0) {
-            return Alert(`
+            return Confirm(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
             
             Regardless, you must wait at least 15 minutes between each use.
