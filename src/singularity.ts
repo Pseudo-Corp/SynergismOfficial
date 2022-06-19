@@ -303,7 +303,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     ascensions: {
         name: 'Improved Ascension Gain',
-        description: 'Buying this, you will gain +2% Ascension Count forever, per level! Every 20 levels grants an additional, multiplicative +1% Ascension Count.',
+        description: 'Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.',
         maxLevel: -1,
         costPerLevel: 5,
         effect: (n: number) => {
