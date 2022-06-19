@@ -375,6 +375,11 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('singularitytab').style.display = 'block'):
         (DOMCacheGetOrSet('singularitytab').style.display = 'none');
 
+    // Singularity confirmation toggle pic
+    player.singularityCount > 0 && player.ascensionCount > 0 ?
+        (DOMCacheGetOrSet('settingpic6').style.display = 'block'):
+        (DOMCacheGetOrSet('settingpic6').style.display = 'none');
+
     if (player.singularityCount > 0) {
         (DOMCacheGetOrSet('shoptab').style.display = 'block');
     }
@@ -432,7 +437,8 @@ export const revealStuff = () => {
         'toggle29': player.transcendCount > 0.5 || player.reincarnationCount > 0.5,  // Settings - Confirmations - Transcension
         'toggle30': player.reincarnationCount > 0.5, // Settings - Confirmations - Reincarnation
         'toggle31': player.ascensionCount > 0, // Settings - Confirmations - Ascension
-        'toggle32': player.achievements[173] > 0 // Settings - Confirmations - Ant Sacrifice
+        'toggle32': player.achievements[173] > 0, // Settings - Confirmations - Ant Sacrifice
+        'toggle33': player.singularityCount > 0 && player.ascensionCount > 0 // Settings - Confirmations - Singularity
     }
 
     Object.keys(automationUnlocks).forEach(key => {
