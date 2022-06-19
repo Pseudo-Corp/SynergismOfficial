@@ -579,6 +579,8 @@ export const htmlInserts = () => {
     DOMCacheGetOrSet('particlesDisplay').textContent = format(player.reincarnationPoints)
     DOMCacheGetOrSet('quarkDisplay').textContent = format(player.worlds)
     DOMCacheGetOrSet('obtainiumDisplay').textContent = format(player.researchPoints)
+    DOMCacheGetOrSet('goldenQuarkDisplay').textContent = format(player.goldenQuarks)
+    DOMCacheGetOrSet('singularityDisplay').textContent = format(player.singularityCount)
 
     updateAscensionStats()
 

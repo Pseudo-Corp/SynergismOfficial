@@ -633,7 +633,10 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityUpgrades[`${String(key)}`].buyLevel())
     }
-
+    //Toggle subtabs of Singularity tab
+    for (let index = 0; index < 3; index++) {
+        DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => toggleSubTab(10, index))
+    }
 
     const tabs = document.querySelectorAll<HTMLElement>('#tabrow > li');
     tabs.forEach(b => b.addEventListener('click', () => changeTabColor()));

@@ -2857,13 +2857,13 @@ header .img {
 
 .subHeader {
     display: flex;
-    max-width: 1250px;
+    width: 88%;
 }
 
 .currenciesContainer {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 55%;
     align-items: flex-start;
     min-width: 625px;
 }
@@ -3214,6 +3214,25 @@ header #obtainiumDisplay {
     position: relative;
     padding: 0;
     text-align: center;
+}
+
+#singularityTabsToggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px;
+}
+
+#singularityTabsToggle > button {
+    height: 30px;
+    width: 100px;
+    margin: 0 7px;
+    text-align: center;
+    transition-duration: 0.15s;
+}
+
+#singularityTabsToggle > button:hover {
+    background-color: #333;
 }
 
 #singularityUpgradeContainer {

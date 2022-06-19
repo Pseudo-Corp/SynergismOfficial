@@ -11,8 +11,7 @@ import { toOrdinal } from './Utility'
  */
 export const updateSingularityStats = (): void => {
     const color = player.runelevels[6] > 0 ? 'green' : 'red';
-    const str = `You are in the <span style="color: gold">${toOrdinal(player.singularityCount)} singularity</span>, and have<span style="color: gold"> ${format(player.goldenQuarks,0,true)} golden quarks.</span>
-                 <br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
+    const str = `Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
                  Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed'), 2, true)}
                  Offering Gain is divided by ${format(calculateSingularityDebuff('Offering'), 2, true)}
                  Obtainium Gain is divided by ${format(calculateSingularityDebuff('Obtainium'), 2, true)}
@@ -709,33 +708,33 @@ export async function buyGoldenQuarks(): Promise<void> {
 
 export type SingularityDebuffs = 'Offering' | 'Obtainium' | 'Global Speed' | 'Researches' | 'Ascension Speed' | 'Cubes' | 'Cube Upgrades'
 
-export const calculateSingularityDebuff = (debuff: SingularityDebuffs) => {
-    if (player.singularityCount === 0) {
+export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singularityCount: number=player.singularityCount) => {
+    if (singularityCount === 0) {
         return 1
     }
     if (player.runelevels[6] > 0) {
         return 1
     }
 
-    let effectiveSingularities = player.singularityCount;
-    effectiveSingularities *= Math.min(4.75, 0.75 * player.singularityCount / 10 + 1)
-    if (player.singularityCount > 10) {
+    let effectiveSingularities = singularityCount;
+    effectiveSingularities *= Math.min(4.75, 0.75 * singularityCount / 10 + 1)
+    if (singularityCount > 10) {
         effectiveSingularities *= 1.5
-        effectiveSingularities *= Math.min(4, 1.25 * player.singularityCount / 10 - 0.25)
+        effectiveSingularities *= Math.min(4, 1.25 * singularityCount / 10 - 0.25)
     }
-    if (player.singularityCount > 25) {
+    if (singularityCount > 25) {
         effectiveSingularities *= 2.5
-        effectiveSingularities *= Math.min(6, 1.5 * player.singularityCount / 25 - 0.5)
+        effectiveSingularities *= Math.min(6, 1.5 * singularityCount / 25 - 0.5)
     }
-    if (player.singularityCount > 50) {
+    if (singularityCount > 50) {
         effectiveSingularities *= 6
-        effectiveSingularities *= Math.min(8, 2 * player.singularityCount / 50 - 1)
+        effectiveSingularities *= Math.min(8, 2 * singularityCount / 50 - 1)
     }
-    if (player.singularityCount > 100) {
-        effectiveSingularities *= player.singularityCount / 25
+    if (singularityCount > 100) {
+        effectiveSingularities *= singularityCount / 25
     }
-    if (player.singularityCount > 250) {
-        effectiveSingularities *= player.singularityCount / 62.5
+    if (singularityCount > 250) {
+        effectiveSingularities *= singularityCount / 62.5
     }
 
     if (debuff === 'Offering') {

@@ -632,7 +632,7 @@ export interface GlobalVariables {
     uFourteenMulti: Decimal
     uFifteenMulti: Decimal
     tuSevenMulti: number
-    currentTab: 
+    currentTab:
         | 'buildings'
         | 'upgrades'
         | 'achievements'
@@ -738,6 +738,7 @@ export interface GlobalVariables {
 
     runescreen: string
     settingscreen: string
+    singularityscreen: string
 
     talismanResourceObtainiumCosts: number[]
     talismanResourceOfferingCosts: number[]
@@ -893,15 +894,15 @@ export interface SynergismEvents {
 }
 
 // If changing these, make reset tiers on top, then challenge types, then specific actions
-export type resetNames = 
-    | "prestige" 
-    | "transcension" 
-    | "reincarnation" 
-    | "ascension" 
+export type resetNames =
+    | "prestige"
+    | "transcension"
+    | "reincarnation"
+    | "ascension"
     | "singularity"
-    | "transcensionChallenge" 
-    | "reincarnationChallenge" 
-    | "ascensionChallenge" 
+    | "transcensionChallenge"
+    | "reincarnationChallenge"
+    | "ascensionChallenge"
     | "acceleratorBoost"
 
 // If adding new cube types add them below the last listed type. Thank you
