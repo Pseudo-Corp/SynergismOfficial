@@ -47,6 +47,9 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
     revealStuff();
     hideStuff();
 
+    const el = document.activeElement as HTMLElement;
+    el.blur();
+
     const subTabList = subTabsInMainTab(player.tabnumber).subTabList
     if (player.tabnumber !== -1) {
         for (let i = 0; i < subTabList.length; i++) {
@@ -321,16 +324,22 @@ export const keyboardTabChange = (dir = 1, main = true) => {
 }
 
 export const toggleSubTab = (mainTab = 1, subTab = 0) => {
-    if (tabs(mainTab).unlocked && subTabsInMainTab(mainTab).subTabList.length > 0) {
+    const subTabs = subTabsInMainTab(mainTab)
+    if (tabs(mainTab).unlocked && subTabs.subTabList.length > 0) {
+
+        const el = document.activeElement as HTMLElement;
+        el.blur();
+
+        const subTabList = subTabs.subTabList[subTab];
         if (mainTab === -1) {
             // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
             const btn = DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[subTab]
-            if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked) {
-                subTabsInMainTab(mainTab).tabSwitcher?.(subTabsInMainTab(mainTab).subTabList[subTab].subTabID, btn)
+            if (subTabList.unlocked) {
+                subTabs.tabSwitcher?.(subTabList.subTabID, btn)
             }
         } else {
-            if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked) {
-                subTabsInMainTab(mainTab).tabSwitcher?.(subTabsInMainTab(mainTab).subTabList[subTab].subTabID)
+            if (subTabList.unlocked) {
+                subTabs.tabSwitcher?.(subTabList.subTabID)
             }
         }
     }
@@ -520,7 +529,7 @@ export const toggleRuneScreen = (index: number) => {
 
 export const toggleautofortify = () => {
     const el = DOMCacheGetOrSet('toggleautofortify');
-    if (player.autoFortifyToggle === false && player.researches[130] == 1) {
+    if (player.autoFortifyToggle) {
         el.textContent = 'Auto Fortify: ON'
         el.style.border = '2px solid green'
     } else {
@@ -533,7 +542,7 @@ export const toggleautofortify = () => {
 
 export const toggleautoenhance = () => {
     const el = DOMCacheGetOrSet('toggleautoenhance');
-    if (player.autoEnhanceToggle === false && player.researches[135] == 1) {
+    if (player.autoEnhanceToggle) {
         el.textContent = 'Auto Enhance: ON'
         el.style.border = '2px solid green'
     } else {

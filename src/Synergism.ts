@@ -1481,7 +1481,7 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: OFF'
             DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid red'
         }
-        if (player.autoAscend === true) {
+        if (player.autoAscend) {
             DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [ON]';
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid green'
         } else {
@@ -1490,12 +1490,12 @@ const loadSynergy = async () => {
         }
 
         // Settings that are not saved in the data will be restored to their defaults by import or singularity
-        if (G['maxbuyresearch'] === true) {
+        if (G['maxbuyresearch']) {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
         } else {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
         }
-        if (G['shopConfirmation'] === true) {
+        if (G['shopConfirmation']) {
             DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: ON'
         } else {
             DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
