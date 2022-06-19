@@ -530,11 +530,11 @@ export const toggleRuneScreen = (index: number) => {
 export const toggleautofortify = () => {
     const el = DOMCacheGetOrSet('toggleautofortify');
     if (player.autoFortifyToggle) {
-        el.textContent = 'Auto Fortify: ON'
-        el.style.border = '2px solid green'
-    } else {
         el.textContent = 'Auto Fortify: OFF'
         el.style.border = '2px solid red'
+    } else {
+        el.textContent = 'Auto Fortify: ON'
+        el.style.border = '2px solid green'
     }
 
     player.autoFortifyToggle = !player.autoFortifyToggle;
@@ -543,11 +543,11 @@ export const toggleautofortify = () => {
 export const toggleautoenhance = () => {
     const el = DOMCacheGetOrSet('toggleautoenhance');
     if (player.autoEnhanceToggle) {
-        el.textContent = 'Auto Enhance: ON'
-        el.style.border = '2px solid green'
-    } else {
         el.textContent = 'Auto Enhance: OFF'
         el.style.border = '2px solid red'
+    } else {
+        el.textContent = 'Auto Enhance: ON'
+        el.style.border = '2px solid green'
     }
 
     player.autoEnhanceToggle = !player.autoEnhanceToggle;
