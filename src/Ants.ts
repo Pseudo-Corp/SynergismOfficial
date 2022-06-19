@@ -214,7 +214,7 @@ export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource,
         if (player.achievements[176 + j] === 0 && sacrificeMult > achRequirements[j] && player[`${G['ordinals'][j + 1 as ZeroToSeven]}OwnedAnts` as const] > 0) {
             achievementaward(176 + j)
         }
-    }    
+    }
 
     if (player.firstOwnedAnts > 6.9e7){
         player.firstOwnedAnts = 6.9e7
