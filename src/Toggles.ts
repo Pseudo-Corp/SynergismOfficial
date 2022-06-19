@@ -1,15 +1,14 @@
-import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts, changeTabColor, Prompt, Alert } from './UpdateHTML';
+import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts, changeTabColor, Confirm } from './UpdateHTML';
 import { player, interval, clearInt, format, resetCheck } from './Synergism';
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { visualUpdateCubes } from './UpdateVisuals';
 import { calculateRuneLevels } from './Calculate';
 import { reset, resetrepeat } from './Reset';
-import { autoResearchEnabled } from './Research';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
-import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
+import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel, corruptionStatsUpdate } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -47,23 +46,26 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
     revealStuff();
     hideStuff();
 
-    const el = document.activeElement as HTMLElement;
-    el.blur();
+    const el = document.activeElement as HTMLElement | null;
+    if (el !== null) {
+        el.blur();
+    }
 
     const subTabList = subTabsInMainTab(player.tabnumber).subTabList
     if (player.tabnumber !== -1) {
         for (let i = 0; i < subTabList.length; i++) {
             const id = subTabList[i].buttonID;
             if (id) {
-                const button = DOMCacheGetOrSet(id)
-                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                if (button && button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions
-                    player.subtabNumber = i
-                    break;
-                }
-                if (player.tabnumber === 9 && button.style.borderColor === 'dodgerblue') { // handle corruption tab
-                    player.subtabNumber = i
-                    break;
+                const button = DOMCacheGetOrSet(id) as HTMLElement | null;
+                if (button !== null) {
+                    if (button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions
+                        player.subtabNumber = i
+                        break;
+                    }
+                    if (player.tabnumber === 9 && button.style.borderColor === 'dodgerblue') { // handle corruption tab
+                        player.subtabNumber = i
+                        break;
+                    }
                 }
             }
         }
@@ -90,30 +92,37 @@ export const toggleSettings = (i: number) => {
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
-    if ((i <= 5)) {
-        if (player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
+    let change = false;
+    if ((i <= 5) && player.currentChallenge.transcension !== i) {
+        if (player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2) {
             player.currentChallenge.transcension = i;
             reset('transcensionChallenge', false, 'enterChallenge');
             player.transcendCount -= 1;
+            change = true;
         }
         if (!player.currentChallenge.reincarnation && !document.querySelector('.resetbtn.hover')) {
             resetrepeat('transcensionChallenge');
         }
     }
-    if ((i >= 6 && i < 11)){
-        if (player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2){
+    if ((i >= 6 && i < 11) && player.currentChallenge.reincarnation !== i){
+        if (player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2) {
             player.currentChallenge.reincarnation = i;
             reset('reincarnationChallenge', false, 'enterChallenge');
             player.reincarnationCount -= 1;
+            change = true;
         }
         if (!document.querySelector('.resetbtn.hover')) {
             resetrepeat('reincarnationChallenge');
         }
     }
     if (player.challengecompletions[10] > 0) {
-        if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
-            player.currentChallenge.ascension = i;
+        if (((player.currentChallenge.transcension === 0 && player.currentChallenge.ascension !== i && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) || player.singularityCount > 0) && (i >= 11)) {
+            player.currentChallenge.transcension = 0;
+            player.currentChallenge.reincarnation = 0;
+
             reset('ascensionChallenge', false, 'enterChallenge');
+            player.currentChallenge.ascension = i;
+            change = true;
 
             if (player.currentChallenge.ascension === 12) {
                 player.antPoints = new Decimal('8')
@@ -132,36 +141,36 @@ export const toggleChallenges = (i: number, auto = false) => {
             }
         }
     }
-    updateChallengeDisplay();
-    getChallengeConditions(i);
+    if (change) {
+        updateChallengeDisplay();
+        getChallengeConditions(i);
+        corruptionStatsUpdate();
 
-    if (!auto && player.autoChallengeRunning) {
-        toggleAutoChallengeRun();
-    }
+        if (!auto && player.autoChallengeRunning) {
+            toggleAutoChallengeRun();
+        }
 
-    if (player.currentChallenge.transcension !== 0 && player.currentChallenge.reincarnation !== 0 && player.currentChallenge.ascension !== 0 && player.achievements[238] < 1) {
-        achievementaward(238)
+        // v3.0.0 A5
+        if (player.challenge15Exponent >= 1e15 && player.achievements[238] < 1) {
+            achievementaward(238)
+        }
     }
 }
 
-type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract';
+type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'tesseract' | 'offering' | 'singupgrade';
 
-export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) => {
+export const toggleBuyAmount = (quantity: number, type: ToggleBuy) => {
     player[`${type}buyamount` as const] = quantity;
-    const a = ['one', 'ten', 'hundred', 'thousand'][quantity.toString().length - 1];
+    const buildingOrdsToNum = [1, 10, 100, 1000, 1000000];
+    const buildingOrdsToStr = ['one', 'ten', 'hundred', 'thousand', 'million'] as const;
 
-    DOMCacheGetOrSet(`${type}${a}`).style.backgroundColor = 'Green';
-    if (quantity !== 1) {
-        DOMCacheGetOrSet(`${type}one`).style.backgroundColor = ''
+    if (buildingOrdsToNum.includes(quantity)) {
+        DOMCacheGetOrSet(`${type}${buildingOrdsToStr[buildingOrdsToNum.indexOf(quantity)]}`).style.backgroundColor = 'Green';
     }
-    if (quantity !== 10) {
-        DOMCacheGetOrSet(`${type}ten`).style.backgroundColor = ''
-    }
-    if (quantity !== 100) {
-        DOMCacheGetOrSet(`${type}hundred`).style.backgroundColor = ''
-    }
-    if (quantity !== 1000) {
-        DOMCacheGetOrSet(`${type}thousand`).style.backgroundColor = ''
+    for (let j = 0; j < buildingOrdsToNum.length; j++) {
+        if (quantity !== buildingOrdsToNum[j]) {
+            DOMCacheGetOrSet(`${type}${buildingOrdsToStr[j]}`).style.backgroundColor = ''
+        }
     }
 }
 
@@ -267,7 +276,7 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: 4, unlocked: player.achievements[218] > 0, buttonID: 'switchCubeSubTab4'},
                 {subTabID: 5, unlocked: player.achievements[141] > 0, buttonID: 'switchCubeSubTab5'},
                 {subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: 'switchCubeSubTab6'},
-                {subTabID: 7, unlocked: player.challenge15Exponent >= 1e15, buttonID: 'switchCubeSubTab7'}]
+                {subTabID: 7, unlocked: player.achievements[238] > 0, buttonID: 'switchCubeSubTab7'}]
         },
         9: {
             tabSwitcher: toggleCorruptionLoadoutsStats,
@@ -327,8 +336,10 @@ export const toggleSubTab = (mainTab = 1, subTab = 0) => {
     const subTabs = subTabsInMainTab(mainTab)
     if (tabs(mainTab).unlocked && subTabs.subTabList.length > 0) {
 
-        const el = document.activeElement as HTMLElement;
-        el.blur();
+        const el = document.activeElement as HTMLElement | null;
+        if (el !== null) {
+            el.blur();
+        }
 
         const subTabList = subTabs.subTabList[subTab];
         if (mainTab === -1) {
@@ -371,7 +382,7 @@ export const toggleautoreset = (i: number) => {
             DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
         }
     } else if (i === 4) {
-        // To be ascend toggle
+        player.autoAscendMode = 'c10Completions';
     }
 }
 
@@ -404,17 +415,17 @@ export const toggleauto = () => {
 }
 
 export const toggleResearchBuy = () => {
-    if (G['maxbuyresearch']) {
-        G['maxbuyresearch'] = false;
+    if (player.maxbuyresearch) {
+        player.maxbuyresearch = false;
         DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
     } else {
-        G['maxbuyresearch'] = true;
+        player.maxbuyresearch = true;
         DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
     }
 }
 
 export const toggleAutoResearch = () => {
-    const el = DOMCacheGetOrSet('toggleautoresearch')
+    const el = DOMCacheGetOrSet('toggleautoresearch');
     if (player.autoResearchToggle) {
         player.autoResearchToggle = false;
         el.textContent = 'Automatic: OFF';
@@ -422,17 +433,17 @@ export const toggleAutoResearch = () => {
         player.autoResearch = 0;
     } else {
         player.autoResearchToggle = true;
-        el.textContent = 'Automatic: ON'
+        el.textContent = 'Automatic: ON';
     }
 
-    if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
+    if (player.autoResearchToggle && player.cubeUpgrades[9] === 1 && player.autoResearchMode === 'cheapest') {
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
     }
 
 }
 
 export const toggleAutoResearchMode = () => {
-    const el = DOMCacheGetOrSet('toggleautoresearchmode')
+    const el = DOMCacheGetOrSet('toggleautoresearchmode');
     if (player.autoResearchMode === 'cheapest') {
         player.autoResearchMode = 'manual';
         el.textContent = 'Automatic mode: Manual';
@@ -442,8 +453,8 @@ export const toggleAutoResearchMode = () => {
     }
     DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
 
-    if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
-        player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
+    if (player.autoResearchToggle && player.cubeUpgrades[9] === 1 && player.autoResearchMode === 'cheapest') {
+        player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex];
     }
 }
 
@@ -529,28 +540,28 @@ export const toggleRuneScreen = (index: number) => {
 
 export const toggleautofortify = () => {
     const el = DOMCacheGetOrSet('toggleautofortify');
-    if (player.autoFortifyToggle) {
-        el.textContent = 'Auto Fortify: OFF'
-        el.style.border = '2px solid red'
-    } else {
+    if (player.autoFortifyToggle === false && player.researches[130] == 1) {
         el.textContent = 'Auto Fortify: ON'
         el.style.border = '2px solid green'
+        player.autoFortifyToggle = true;
+    } else {
+        el.textContent = 'Auto Fortify: OFF'
+        el.style.border = '2px solid red'
+        player.autoFortifyToggle = false;
     }
-
-    player.autoFortifyToggle = !player.autoFortifyToggle;
 }
 
 export const toggleautoenhance = () => {
     const el = DOMCacheGetOrSet('toggleautoenhance');
-    if (player.autoEnhanceToggle) {
-        el.textContent = 'Auto Enhance: OFF'
-        el.style.border = '2px solid red'
-    } else {
+    if (player.autoEnhanceToggle === false && player.researches[135] == 1) {
         el.textContent = 'Auto Enhance: ON'
         el.style.border = '2px solid green'
+        player.autoEnhanceToggle = true;
+    } else {
+        el.textContent = 'Auto Enhance: OFF'
+        el.style.border = '2px solid red'
+        player.autoEnhanceToggle = true;
     }
-
-    player.autoEnhanceToggle = !player.autoEnhanceToggle;
 }
 
 interface ChadContributor {
@@ -672,20 +683,20 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
 
 export const toggleShopConfirmation = () => {
     const el = DOMCacheGetOrSet('toggleConfirmShop')
-    el.textContent = G['shopConfirmation']
+    el.textContent = player.shopConfirmation
         ? 'Shop Confirmations: OFF'
         : 'Shop Confirmations: ON';
 
-    G['shopConfirmation'] = !G['shopConfirmation'];
+    player.shopConfirmation = !player.shopConfirmation;
 }
 
 export const toggleBuyMaxShop = () => {
     const el = DOMCacheGetOrSet('toggleBuyMaxShop')
-    el.textContent = G['shopBuyMax']
+    el.textContent = player.shopBuyMax
         ? 'Buy Max: OFF'
         : 'Buy Max: ON';
 
-    G['shopBuyMax'] = !G['shopBuyMax'];
+    player.shopBuyMax = !player.shopBuyMax;
 }
 
 export const toggleAntMaxBuy = () => {
@@ -720,14 +731,58 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
 }
 
 export const toggleMaxBuyCube = () => {
-    const el = DOMCacheGetOrSet('toggleCubeBuy')
-    if (G['buyMaxCubeUpgrades']) {
-        G['buyMaxCubeUpgrades'] = false;
-        el.textContent = 'Upgrade: 1 Level wow'
+    player.buyMaxCubeUpgrades = !player.buyMaxCubeUpgrades;
+    DOMCacheGetOrSet('toggleCubeBuy').textContent ? 'Upgrade: MAX [if possible wow]' : 'Upgrade: 1 Level wow';
+}
+
+export const toggleAutoBuyCube = () => {
+    const el = DOMCacheGetOrSet('toggleCubeAutoBuy');
+    player.buyAutoCubeUpgrades = !player.buyAutoCubeUpgrades;
+    el.textContent = player.buyAutoCubeUpgrades ? 'Automatic: ON' : 'Automatic: OFF';
+    el.style.border = player.buyAutoCubeUpgrades ? '2px solid green' : '2px solid red';
+}
+
+export const toggleAutoOpenCubes = () => {
+    const el = DOMCacheGetOrSet('toggleAutoOpenCubes');
+    player.autoOpenCubes = !player.autoOpenCubes;
+    el.textContent = player.autoOpenCubes ? 'Auto Open Cubes: ON' : 'Auto Open Cubes: Off';
+    el.style.border = player.autoOpenCubes ? '2px solid green' : '2px solid red';
+}
+
+export const toggleTesseractBAB = () => {
+    const el = DOMCacheGetOrSet('toggleTesseractBAB');
+    player.tesseractAutoBuyer = !player.tesseractAutoBuyer;
+    el.textContent = player.tesseractAutoBuyer ? 'Tesseract Buildings Auto Buy: ON' : 'Tesseract Buildings Auto Buy: Off';
+    el.style.border = player.tesseractAutoBuyer ? '2px solid green' : '2px solid red';
+}
+
+export const toggleAutoBuyPlatonic = () => {
+    const el = DOMCacheGetOrSet('togglePlatonicAutoBuy');
+    player.autoBuyPlatonic = !player.autoBuyPlatonic;
+    el.textContent = player.autoBuyPlatonic ? 'Automatic: ON' : 'Automatic: OFF';
+    el.style.border = player.autoBuyPlatonic ? '2px solid green' : '2px solid red';
+}
+
+export const toggleAutoBuyHepteract = () => {
+    const el = DOMCacheGetOrSet('toggleHepteractAutoBuy');
+    player.autoHepteractUpgrades = !player.autoHepteractUpgrades;
+    el.textContent = player.autoHepteractUpgrades ? 'Automatic: ON' : 'Automatic: OFF';
+    el.style.border = player.autoHepteractUpgrades ? '2px solid green' : '2px solid red';
+}
+
+export const toggleAutoSingularity = async () => {
+    if (!player.autoSingularity) {
+        const p = await Confirm('Warning!!! \nWith this setting enabled, Singularity will run without your confirmation if Singularity is possible for each ascension!');
+        if (!p) {
+            return;
+        }
+        player.autoSingularity = true;
     } else {
-        G['buyMaxCubeUpgrades'] = true;
-        el.textContent = 'Upgrade: MAX [if possible wow]'
+        player.autoSingularity = false;
     }
+    const el = DOMCacheGetOrSet('toggleAutoSingularity');
+    el.textContent = player.autoSingularity ? 'Auto Singularity: ON' : 'Auto Singularity: Off';
+    el.style.border = player.autoSingularity ? '2px solid green' : '2px solid red';
 }
 
 export const toggleCubeSubTab = (i: number) => {
@@ -792,6 +847,8 @@ export const toggleAutoChallengeRun = () => {
         G['autoChallengeTimerIncrement'] = 0;
         toggleAutoChallengeModeText('OFF')
     } else {
+        player.autoChallengeIndex = Math.max(1, Math.max(player.currentChallenge.transcension, player.currentChallenge.reincarnation));
+        G['autoChallengeTimerIncrement'] = 0;
         el.style.border = '2px solid gold'
         el.textContent = 'Auto Challenge Sweep [ON]'
         toggleAutoChallengeModeText('START')
@@ -821,14 +878,20 @@ export const toggleAutoAscend = () => {
 export const updateRuneBlessingBuyAmount = (i: number) => {
     switch (i) {
         case 1: {
-            const t = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value)) || 1;
-            player.runeBlessingBuyAmount = Math.max(t, 1);
+            let t = Number((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value) || 1;
+            if (isNaN(t) || !isFinite(t)) {
+                t = 1;
+            }
+            player.runeBlessingBuyAmount = Math.floor(Math.max(t, 1));
             DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
             return;
         }
         case 2: {
-            const u = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value)) || 1;
-            player.runeSpiritBuyAmount = Math.max(u, 1);
+            let u = Number((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value) || 1;
+            if (isNaN(u) || !isFinite(u)) {
+                u = 1;
+            }
+            player.runeSpiritBuyAmount = Math.floor(Math.max(u, 1));
             DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
             return;
         }
@@ -884,9 +947,8 @@ export const toggleCorruptionLoadoutsStats = (stats: boolean) => {
 }
 
 export const toggleAscStatPerSecond = (id: number) => {
-    const el = DOMCacheGetOrSet(`unit${id}`);
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (!el) {
+    const el = DOMCacheGetOrSet(`unit${id}`) as HTMLElement | null;
+    if (el === null) {
         // eslint-disable-next-line no-console
         console.log(id, 'platonic needs to fix');
         return;
@@ -896,30 +958,39 @@ export const toggleAscStatPerSecond = (id: number) => {
     player.ascStatToggles[id] = !player.ascStatToggles[id];
 }
 
-export const toggleHepteractAutoPercentage = async(): Promise<void> => {
-    const amount = await Prompt(
-        'Enter a number from 0 to 100 (integer only!) to set autocraft percentage. ' +
-        'Every ascension, that percentage of your hepteracts are used to craft equally split ' +
-        'between every hepteract with AUTO ON. Auto crafting also does not consume other resources! ' +
-        '[Except Quarks, of course...]'
-    );
+export const updateToggles = (updates = true) => {
+    if (updates) {
 
-    if (amount === null) {
-        return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`);
+        const el = DOMCacheGetOrSet('toggleAutoSingularity');
+        el.textContent = player.autoSingularity ? 'Auto Singularity: ON' : 'Auto Singularity: Off';
+        el.style.border = player.autoSingularity ? '2px solid green' : '2px solid red';
+
+        toggleauto();
+
+        for (let i = 1; i <= 2; i++) {
+            toggleautoreset(1);
+            toggleautoreset(2);
+            toggleautoreset(3);
+            toggleautobuytesseract();
+            toggleResearchBuy();
+            toggleAutoResearch();
+            toggleAutoResearchMode();
+            toggleAutoSacrifice(0);
+            toggleautofortify();
+            toggleautoenhance();
+            toggleShopConfirmation();
+            toggleBuyMaxShop();
+            toggleAntMaxBuy();
+            toggleAntAutoSacrifice(0);
+            toggleAntAutoSacrifice(1);
+            toggleMaxBuyCube();
+            toggleAutoBuyCube();
+            toggleAutoOpenCubes();
+            toggleTesseractBAB();
+            toggleAutoBuyPlatonic();
+            toggleAutoBuyHepteract();
+            toggleAutoChallengeRun();
+            toggleAutoAscend();
+        }
     }
-
-    const isPercentage = amount.endsWith('%');
-    const rawPercentage = isPercentage ? Number(amount.slice(0, -1)) : Number(amount);
-
-    if (Number.isNaN(rawPercentage) || !Number.isFinite(rawPercentage) || !Number.isInteger(rawPercentage)) {
-        return Alert('Value must be a finite, non-decimal number!');
-    } else if (rawPercentage < 0 || rawPercentage > 100) {
-        return Alert('Value must be a number between 0 and 100, inclusive!');
-    } else if (rawPercentage === player.hepteractAutoCraftPercentage) {
-        return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`)
-    }
-
-    player.hepteractAutoCraftPercentage = rawPercentage
-    DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
-    return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
 }
