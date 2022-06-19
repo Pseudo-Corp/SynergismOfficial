@@ -243,7 +243,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     wowPass: {
         name: 'Shop Bonanza',
-        description: 'This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!.',
+        description: 'This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!',
         maxLevel: 1,
         costPerLevel: 500,
         effect: (n: number) => {
@@ -267,7 +267,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     cookies2: {
         name: 'Cookie Recipes II',
-        description: 'Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related cube upgrades..',
+        description: 'Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related cube upgrades.',
         maxLevel: 1,
         costPerLevel: 500,
         effect: (n: number) => {
@@ -315,7 +315,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     corruptionFourteen: {
         name: 'Level Fourteen Corruptions',
-        description: 'Buy this to unlock level fourteen corruptions :).',
+        description: 'Buy this to unlock level fourteen corruptions. :)',
         maxLevel: 1,
         costPerLevel: 1000,
         effect: (n: number) => {
