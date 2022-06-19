@@ -439,7 +439,7 @@ export const promocodes = async (input: string | null) => {
         const confirmed = await Confirm(
             'Click the OK button within the next 15 seconds to test your luck!' +
             ` If you click within ${format(2500 + 125 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!` +
-            ` This particular instance has a x${format(rewardMult, 2, true)} multiplier due to elapsed time between uses.`
+            ` This particular instance has a ${format(rewardMult, 2, true)}x multiplier due to elapsed time between uses.`
         );
         if (!confirmed) {
             return el.textContent = 'Scared? You should be!';
