@@ -2,11 +2,12 @@ import { player, format, formatTimeShort /*formatTimeShort*/ } from './Synergism
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration} from './Calculate';
-import { achievementUpdate, totalachievementpoints } from './Achievements';
+import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
+import { autoResearchEnabled } from './Research';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
 import { getMaxChallenges } from './Challenges';
-import type { OneToFive, ZeroToFour, ZeroToSeven, Player } from './types/Synergism';
+import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { updateSingularityStats } from './singularity';
 import { revealCorruptions } from './Corruptions';
@@ -179,7 +180,7 @@ export const revealStuff = () => {
 
     const example29 = document.getElementsByClassName('cubeUpgrade10') as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example29.length; i++) {
-        example29[i].style.display = player.cubeUpgrades[10] > 0 ? '' : 'none'
+        example29[i].style.display = player.cubeUpgrades[10] > 0 ? 'flex' : 'none'
     }
 
     const example30 = document.getElementsByClassName('cubeUpgrade19') as HTMLCollectionOf<HTMLElement>;
@@ -194,7 +195,7 @@ export const revealStuff = () => {
 
     const example32 = document.getElementsByClassName('hepteracts') as HTMLCollectionOf<HTMLElement>;
     for (const ex of Array.from(example32)) { // Ability to use and gain hepteracts //
-        ex.style.display = player.achievements[238] > 0 ? 'block' : 'none';
+        ex.style.display = player.challenge15Exponent >= 1e15 ? 'block' : 'none';
     }
 
     const singularityHTMLs = document.getElementsByClassName('singularity') as HTMLCollectionOf<HTMLElement>;
@@ -214,17 +215,6 @@ export const revealStuff = () => {
 
     const hepts = DOMCacheGetOrSet('corruptionHepteracts');
     hepts.style.display = (player.achievements[255] > 0) ? 'block' : 'none';
-
-    const hepteractCrafts = Object.keys(player.hepteractCrafts) as (keyof Player['hepteractCrafts'])[];
-    for (const key of hepteractCrafts) {
-        DOMCacheGetOrSet(`${key}HepteractImage`).style.backgroundColor = player.hepteractCrafts[key].UNLOCKED ? 'black' : 'maroon';
-    }
-
-    const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
-    for (const key of singularityUpgrades) {
-        const parentNode = DOMCacheGetOrSet(`${key}`).parentNode! as HTMLElement;
-        parentNode.style.display = player.singularityUpgrades[`${key}`].getUnlocked(player.singularityCount * 2 + player.singsing * 100, player.singsing * 2) ? 'block' : 'none';
-    }
 
     const cookies1 = document.getElementsByClassName('assortedCookies1') as HTMLCollectionOf<HTMLElement>;
     const cookies2 = document.getElementsByClassName('assortedCookies2') as HTMLCollectionOf<HTMLElement>;
@@ -361,7 +351,7 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'block' :
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'none';
 
-    DOMCacheGetOrSet('toggleautoresearchmode').style.display = player.shopUpgrades.obtainiumAuto > 0 && player.cubeUpgrades[9] > 0 //Auto Research Shop Purchase Mode
+    DOMCacheGetOrSet('toggleautoresearchmode').style.display = player.shopUpgrades.obtainiumAuto > 0 && autoResearchEnabled() //Auto Research Shop Purchase Mode
         ? 'block'
         : 'none';
 
@@ -373,7 +363,7 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = 'block' :
         DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = 'none';
 
-    player.challengecompletions[14] > 0 && player.shopUpgrades.infiniteAscent ?
+    player.shopUpgrades.infiniteAscent ?
         (DOMCacheGetOrSet('rune6area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower6').style.display = 'flex') :
         (DOMCacheGetOrSet('rune6area').style.display = 'none', DOMCacheGetOrSet('runeshowpower6').style.display = 'none');
 
@@ -399,16 +389,6 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('ascHyperStats').style.display = player.challengecompletions[13] > 0 ? '' : 'none';
     DOMCacheGetOrSet('ascPlatonicStats').style.display = player.challengecompletions[14] > 0 ? '' : 'none';
     DOMCacheGetOrSet('ascHepteractStats').style.display = player.achievements[255] > 0 ? '' : 'none';
-
-    DOMCacheGetOrSet('toggleCubeAutoBuy').style.display = player.achievements[197] > 0 && player.singularityCount > 0 ? '' : 'none';
-    DOMCacheGetOrSet('toggleAutoOpenCubes').style.display = player.achievements[218] > 0 && player.singularityCount > 0 ? '' : 'none';
-    DOMCacheGetOrSet('toggleTesseractBAB').style.display = player.achievements[218] > 0 && player.singularityCount > 0 ? '' : 'none';
-    DOMCacheGetOrSet('togglePlatonicAutoBuy').style.display = player.singularityUpgrades.singAutomation.level >= 200 && player.singularityCount > 0 ? '' : 'none';
-    DOMCacheGetOrSet('toggleHepteractAutoBuy').style.display = player.singularityUpgrades.singAutomation.level >= 1000 && player.singularityCount > 0 ? '' : 'none';
-    DOMCacheGetOrSet('toggleAutoSingularity').style.display = player.singularityCount >= 100 || player.singsing > 0 ? '' : 'none';
-
-    DOMCacheGetOrSet('openAllCubes').style.display = player.singularityUpgrades.singAutomation.level >= 2000 && player.singularityCount > 0 ? '' : 'none';
-    DOMCacheGetOrSet('buyTesseractBuildings').style.display = player.singularityUpgrades.singAutomation.level >= 3000 && player.singularityCount > 0 ? '' : 'none';
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
     // note to 2019 and 2020 Platonic, you're welcome
@@ -818,11 +798,8 @@ export const updateChallengeDisplay = () => {
 export const updateChallengeLevel = (k: number) => {
     const el = DOMCacheGetOrSet('challenge' + k + 'level');
     const maxChallenges = getMaxChallenges(k);
-    if (maxChallenges >= 10000) {
-        el.textContent = `${player.challengecompletions[k]}`;
-    } else {
-        el.textContent = `${player.challengecompletions[k]} / ${maxChallenges}`;
-    }
+
+    el.textContent = `${player.challengecompletions[k]} / ${maxChallenges}`;
 }
 
 export const updateAchievementBG = () => {
@@ -840,7 +817,7 @@ export const updateAchievementBG = () => {
     }
     for (let i = 1; i < player.achievements.length; i++) {
         if (player.achievements[i] > 0.5) {
-            achievementUpdate(i) //This sets all completed ach to green
+            achievementaward(i) //This sets all completed ach to green
         }
     }
 }
@@ -932,13 +909,14 @@ export const changeTabColor = () => {
 
 const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
     const conf = DOMCacheGetOrSet('confirmationBox');
+    const confWrap = DOMCacheGetOrSet('confirmWrapper');
     const popup = document.querySelector<HTMLElement>('#confirm')!;
     const overlay = document.querySelector<HTMLElement>('#transparentBG')!;
     const ok = popup.querySelector<HTMLElement>('#ok_confirm')!;
     const cancel = popup.querySelector<HTMLElement>('#cancel_confirm')!;
 
-    conf.style.display = 'flex';
-    popup.style.display = 'flex';
+    conf.style.display = 'block';
+    confWrap.style.display = 'block';
     overlay.style.display = 'block';
     popup.querySelector('p')!.textContent = text;
     popup.focus();
@@ -951,7 +929,7 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
         popup.removeEventListener('keyup', kbListener);
 
         conf.style.display = 'none';
-        popup.style.display = 'none';
+        confWrap.style.display = 'none';
         overlay.style.display = 'none';
 
         if (targetEl === ok) {
@@ -978,12 +956,13 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
 
 const AlertCB = (text: string, cb: (value: undefined) => void) => {
     const conf = DOMCacheGetOrSet('confirmationBox');
+    const alertWrap = DOMCacheGetOrSet('alertWrapper');
     const overlay = document.querySelector<HTMLElement>('#transparentBG')!;
     const popup = document.querySelector<HTMLElement>('#alert')!;
     const ok = popup.querySelector<HTMLElement>('#ok_alert')!;
 
-    conf.style.display = 'flex';
-    popup.style.display = 'flex';
+    conf.style.display = 'block';
+    alertWrap.style.display = 'block';
     overlay.style.display = 'block';
     popup.querySelector('p')!.textContent = text;
     popup.focus();
@@ -993,7 +972,7 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
         popup.removeEventListener('keyup', kbListener);
 
         conf.style.display = 'none';
-        popup.style.display = 'none';
+        alertWrap.style.display = 'none';
         overlay.style.display = 'none';
         cb(undefined);
     }
@@ -1004,40 +983,40 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
     popup.addEventListener('keyup', kbListener);
 }
 
-export const PromptCB = (text: string, value2: string, cb: (value: string | null) => void) => {
+export const PromptCB = (text: string, cb: (value: string | null) => void) => {
     const conf = DOMCacheGetOrSet('confirmationBox');
+    const confWrap = DOMCacheGetOrSet('promptWrapper');
     const overlay = document.querySelector<HTMLElement>('#transparentBG')!;
     const popup = document.querySelector<HTMLElement>('#prompt')!;
     const ok = popup.querySelector<HTMLElement>('#ok_prompt')!;
     const cancel = popup.querySelector<HTMLElement>('#cancel_prompt')!;
-    const input = popup.querySelector<HTMLElement>('input')! as HTMLInputElement;
 
-    conf.style.display = 'flex';
-    popup.style.display = 'flex';
+    conf.style.display = 'block';
+    confWrap.style.display = 'block';
     overlay.style.display = 'block';
-    popup.querySelector('p')!.textContent = text;
-    input.focus();
-    input.value =  value2;
-    setTimeout(() => input.value = value2, 10); // Delete hotkey input
+    popup.querySelector('label')!.textContent = text;
+    popup.querySelector('input')!.focus();
 
     // kinda disgusting types but whatever
     const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
         const targetEl = target as HTMLButtonElement;
+        const el = targetEl.parentNode!.querySelector('input')!;
 
         ok.removeEventListener('click', listener);
         cancel.removeEventListener('click', listener);
-        input.removeEventListener('keyup', kbListener);
+        popup.querySelector('input')!.removeEventListener('keyup', kbListener);
 
         conf.style.display = 'none';
-        popup.style.display = 'none';
+        confWrap.style.display = 'none';
         overlay.style.display = 'none';
 
         if (targetEl.id === ok.id) {
-            cb(input.value);
+            cb(el.value);
         } else {
             cb(null);
         } // canceled
-        input.value = '';
+
+        el.value = el.textContent = '';
     }
 
     const kbListener = (e: KeyboardEvent) => {
@@ -1101,7 +1080,7 @@ const NotificationCB = (text: string, time = 30000, cb: () => void) => {
 export const Alert = (text: string): Promise<undefined> => new Promise(res => AlertCB(text, res));
 /*** Promisified version of the PromptCB function. */
 // eslint-disable-next-line no-promise-executor-return
-export const Prompt = (text: string, value = ''): Promise<string | null> => new Promise(res => PromptCB(text, value, res));
+export const Prompt = (text: string): Promise<string | null> => new Promise(res => PromptCB(text, res));
 /*** Promisified version of the ConfirmCB function */
 // eslint-disable-next-line no-promise-executor-return
 export const Confirm = (text: string): Promise<boolean> => new Promise(res => ConfirmCB(text, res));
