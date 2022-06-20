@@ -552,14 +552,14 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     potionBuff: {
         name: 'Potion Decanter of Enlightenment',
-        description: 'Purported to actually be the fountain of youth, use up to 100 potions at once and multiply gain by the square of the amount used.',
-        maxLevel: 1,
+        description: 'Purported to actually be the fountain of youth, this item powers up potions considerably!',
+        maxLevel: 10,
         costPerLevel: 999,
         minimumSingularity: 4,
         effect: (n: number) => {
             return {
-                bonus: (n > 0),
-                desc: `You ${(n > 0) ? 'have': 'have not'} purchased this decanter!`
+                bonus: Math.max(1, 10 * Math.pow(n, 2)),
+                desc: `Potions currently give ${Math.max(1, 10 * Math.pow(n, 2))}x items!`
             }
         }
     },
