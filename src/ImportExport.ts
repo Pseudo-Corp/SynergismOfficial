@@ -62,6 +62,7 @@ const saveFilename = () => {
             case 'VERSION': return `v${version}`;
             case 'TIME': return getRealTime();
             case 'TIME12': return getRealTime(true);
+            case 'SING': return ('Singularity ' + player.singularityCount);
             default: return 'IDFK Lol';
         }
     });
