@@ -1,5 +1,4 @@
 import { player, format } from './Synergism';
-import { Globals as G } from './Variables';
 import { Alert, Confirm, revealStuff } from './UpdateHTML';
 import { calculatePowderConversion, calculateTimeAcceleration } from './Calculate';
 import type { Player } from './types/Synergism';
