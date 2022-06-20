@@ -375,7 +375,12 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('singularitytab').style.display = 'block'):
         (DOMCacheGetOrSet('singularitytab').style.display = 'none');
 
-    if (player.unlocks.reincarnate || player.singularityCount > 0) {
+    // Singularity confirmation toggle pic
+    player.singularityCount > 0 && player.ascensionCount > 0 ?
+        (DOMCacheGetOrSet('settingpic6').style.display = 'block'):
+        (DOMCacheGetOrSet('settingpic6').style.display = 'none');
+
+    if (player.singularityCount > 0) {
         (DOMCacheGetOrSet('shoptab').style.display = 'block');
     }
 
