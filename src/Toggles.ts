@@ -663,20 +663,20 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
 
 export const toggleShopConfirmation = () => {
     const el = DOMCacheGetOrSet('toggleConfirmShop')
-    el.textContent = G['shopConfirmation']
+    el.textContent = player.shopConfirmationToggle
         ? 'Shop Confirmations: OFF'
         : 'Shop Confirmations: ON';
 
-    G['shopConfirmation'] = !G['shopConfirmation'];
+    player.shopConfirmationToggle = !player.shopConfirmationToggle;
 }
 
 export const toggleBuyMaxShop = () => {
     const el = DOMCacheGetOrSet('toggleBuyMaxShop')
-    el.textContent = G['shopBuyMax']
+    el.textContent = player.shopBuyMaxToggle
         ? 'Buy Max: OFF'
         : 'Buy Max: ON';
 
-    G['shopBuyMax'] = !G['shopBuyMax'];
+    player.shopBuyMaxToggle = !player.shopBuyMaxToggle;
 }
 
 export const toggleAntMaxBuy = () => {

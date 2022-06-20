@@ -536,10 +536,10 @@ export const visualUpdateShop = () => {
             }
             // Handles Button - max level needs no price indicator, otherwise it's necessary
 
-            const buyAmount = G['shopBuyMax']? Math.max(shopData[key].maxLevel - player.shopUpgrades[key], 1): 1;
+            const buyAmount = player.shopBuyMaxToggle? Math.max(shopData[key].maxLevel - player.shopUpgrades[key], 1): 1;
             const metaData:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[key], shopData[key].price, +player.worlds, shopData[key].priceIncrease / shopData[key].price, buyAmount)
 
-            if (!G['shopBuyMax']) {
+            if (!player.shopBuyMaxToggle) {
                 player.shopUpgrades[key] === shopItem.maxLevel ?
                     DOMCacheGetOrSet(`${key}Button`).textContent = 'Maxed!':
                     DOMCacheGetOrSet(`${key}Button`).textContent = 'Upgrade for ' + format(getShopCosts(key)) + ' Quarks';
