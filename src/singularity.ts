@@ -590,7 +590,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         }
     },
     singChallengeExtension3: {
-        name: 'biggererEST Challenge Caps',
+        name: 'BiggererEST Challenge Caps',
         description: 'Need even MORE challenges? Well, add 2 more reincarnation challenges and 1 ascension challenge to the cap, per level. Does it not seem excessive?',
         maxLevel: 3,
         costPerLevel: 749999,
