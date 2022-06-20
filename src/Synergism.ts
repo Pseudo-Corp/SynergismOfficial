@@ -308,7 +308,7 @@ export const player: Player = {
         30: true,
         31: true,
         32: true,
-        33: false
+        33: true
     },
 
     challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -1087,7 +1087,9 @@ const loadSynergy = async () => {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];*/
 
-            player.cubeUpgrades = [...blankSave.cubeUpgrades]
+            if (player.singularityCount === 0) {
+                player.cubeUpgrades = [...blankSave.cubeUpgrades]
+            }
             player.wowCubes = new WowCubes(0);
             player.wowTesseracts = new WowTesseracts(0);
             player.wowHypercubes = new WowHypercubes(0);
@@ -1452,8 +1454,7 @@ const loadSynergy = async () => {
 
         if (player.autoResearchToggle) {
             DOMCacheGetOrSet('toggleautoresearch').textContent = 'Automatic: ON'
-        }
-        if (!player.autoResearchToggle) {
+        } else {
             DOMCacheGetOrSet('toggleautoresearch').textContent = 'Automatic: OFF'
         }
         if (player.autoResearchMode === 'cheapest') {
@@ -1461,31 +1462,31 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleautoresearchmode').textContent = 'Automatic mode: Manual'
         }
-        if (player.autoSacrificeToggle == true) {
+        if (player.autoSacrificeToggle) {
             DOMCacheGetOrSet('toggleautosacrifice').textContent = 'Auto Rune: ON'
             DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid green'
-        }
-        if (player.autoSacrificeToggle == false) {
+        } else {
             DOMCacheGetOrSet('toggleautosacrifice').textContent = 'Auto Rune: OFF'
             DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid red'
         }
-        if (player.autoFortifyToggle == true) {
+        if (player.autoFortifyToggle) {
             DOMCacheGetOrSet('toggleautofortify').textContent = 'Auto Fortify: ON'
             DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid green'
-        }
-        if (player.autoFortifyToggle == false) {
+        } else {
             DOMCacheGetOrSet('toggleautofortify').textContent = 'Auto Fortify: OFF'
             DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid red'
         }
-        if (player.autoEnhanceToggle == true) {
+        if (player.autoEnhanceToggle) {
             DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: ON'
             DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid green'
-        }
-        if (player.autoEnhanceToggle == false) {
+        } else {
             DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: OFF'
             DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid red'
         }
-        if (!player.autoAscend) {
+        if (player.autoAscend) {
+            DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [ON]';
+            DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid green'
+        } else {
             DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [OFF]';
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
@@ -1520,11 +1521,6 @@ const loadSynergy = async () => {
 
         DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = 'Per second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF');
         DOMCacheGetOrSet('historyTogglePerSecondButton').style.borderColor = (player.historyShowPerSecond ? 'green' : 'red');
-
-        if (!player.autoAscend) {
-            DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [OFF]';
-            DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
-        }
 
         //If auto research is enabled and runing; Make sure there is something to try to research if possible
         if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest'){
@@ -3293,7 +3289,7 @@ export const updateAll = (): void => {
     G['optimalObtainiumTimer'] = 3600 + 120 * player.shopUpgrades.obtainiumEX;
     autoBuyAnts()
 
-    if (player.autoAscend) {
+    if (player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0) {
         if (player.autoAscendMode === 'c10Completions' && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
             reset('ascension', true)
         }
@@ -3406,7 +3402,7 @@ function tack(dt: number) {
         }
 
         //Automatically tries and buys researches lol
-        if (player.autoResearchToggle && player.autoResearch > 0 && player.autoResearch <= maxRoombaResearchIndex(player)) {
+        if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearch > 0 && player.autoResearch <= maxRoombaResearchIndex(player)) {
             // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
             let counter = 0;
             const maxCount = 1 + player.challengecompletions[14];
@@ -3450,7 +3446,7 @@ function tack(dt: number) {
         // If we were to do this in one loop, the players resources would be drained on individual expensive levels
         // of early talismans before buying important enhances for the later ones. This results in drastically
         // reduced overall gains when talisman resources are scarce.
-        if (player.autoEnhanceToggle) {
+        if (player.autoEnhanceToggle && player.researches[135] > 0) {
             for (let i = 0; i < talismansUnlocked.length; ++i) {
                 if (talismansUnlocked[i]) {
                     upgradedTalisman = buyTalismanEnhance(i, true) || upgradedTalisman;
@@ -3458,7 +3454,7 @@ function tack(dt: number) {
             }
         }
 
-        if (player.autoFortifyToggle) {
+        if (player.autoFortifyToggle && player.researches[130] > 0) {
             for (let i = 0; i < talismansUnlocked.length; ++i) {
                 if (talismansUnlocked[i]) {
                     upgradedTalisman = buyTalismanLevels(i, true) || upgradedTalisman;
