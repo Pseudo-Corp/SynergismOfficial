@@ -2944,27 +2944,31 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         if (player.runelevels[6] === 0) {
             return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
         }
-        await Alert('You have reached the end of the game, on singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
-        await Alert('You may choose to sit on your laurels, and consider the game \'beaten\', or you may do something more interesting.')
-        await Alert('You\'re too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.')
-        await Alert(`Start anew, and enter singularity #${format(player.singularityCount + 1)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} golden quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
-        await Alert('However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.')
-        let c1 = false
-        let c2 = false
-        let c3 = false
-        c1 = await Confirm('So, what do you say? Do you wish to enter the singularity?')
-        if (c1) {
-            c2 = await Confirm('Are you sure you wish to enter the Singularity?')
+
+        let confirmed = false;
+        if (!player.toggles[33]) {
+            confirmed = await Confirm(`Do you wish to start singularity #${format(player.singularityCount + 1)}? Your next universe is harder but gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
+        } else {
+            await Alert('You have reached the end of the game, on singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
+            await Alert('You may choose to sit on your laurels, and consider the game \'beaten\', or you may do something more interesting.')
+            await Alert('You\'re too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.')
+            await Alert(`Start anew, and enter singularity #${format(player.singularityCount + 1)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} golden quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
+            await Alert('However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.')
+
+            confirmed = await Confirm('So, what do you say? Do you wish to enter the singularity?')
+            if (confirmed) {
+                confirmed = await Confirm('Are you sure you wish to enter the Singularity?')
+            }
+            if (confirmed) {
+                confirmed = await Confirm('Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.')
+            }
         }
-        if (c2) {
-            c3 = await Confirm('Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.')
-        }
-        if (c3) {
+
+        if (!confirmed) {
+            return Alert('If you decide to change your mind, let me know. -Ant God')
+        } else {
             await singularity();
             return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
-        }
-        if (!c1 || !c2) {
-            return Alert('If you decide to change your mind, let me know. -Ant God')
         }
     }
 }
