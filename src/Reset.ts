@@ -13,7 +13,7 @@ import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { getElementById } from './Utility';
 import { achievementaward, ascensionAchievementCheck } from './Achievements';
-import { buyResearch } from './Research';
+import { buyResearch, updateResearchBG } from './Research';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import type {
     ResetHistoryEntryPrestige,
@@ -33,7 +33,6 @@ import { importSynergism } from './ImportExport';
 import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
 import { calculateSingularityDebuff } from './singularity';
-import { buyResearch, updateResearchBG } from './Research';
 import { updateCubeUpgradeBG } from './Cubes';
 
 let repeatreset: ReturnType<typeof setTimeout>;
@@ -842,7 +841,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     }
 
     for (let j = 1; j < player.cubeUpgrades.length; j++) {
-        if (player.cubeUpgrades[j] > 0) {
+        if (player.cubeUpgrades[j] !== null && player.cubeUpgrades[j] > 0) {
             updateCubeUpgradeBG(j);
         }
     }

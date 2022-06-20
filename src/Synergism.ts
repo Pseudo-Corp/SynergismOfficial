@@ -1087,7 +1087,7 @@ const loadSynergy = async () => {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];*/
 
-            if (data.ascensionCount === undefined || player.singularityCount === 0) {
+            if (player.singularityCount === 0) {
                 player.cubeUpgrades = [...blankSave.cubeUpgrades]
             }
             player.wowCubes = new WowCubes(0);
