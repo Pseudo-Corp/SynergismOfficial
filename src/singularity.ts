@@ -243,7 +243,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     wowPass: {
         name: 'Shop Bonanza',
-        description: 'This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!.',
+        description: 'This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!',
         maxLevel: 1,
         costPerLevel: 500,
         effect: (n: number) => {
@@ -267,7 +267,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     cookies2: {
         name: 'Cookie Recipes II',
-        description: 'Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related cube upgrades..',
+        description: 'Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related cube upgrades.',
         maxLevel: 1,
         costPerLevel: 500,
         effect: (n: number) => {
@@ -303,7 +303,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     ascensions: {
         name: 'Improved Ascension Gain',
-        description: 'Buying this, you will gain +2% Ascension Count forever, per level! Every 20 levels grants an additional, multiplicative +1% Ascension Count.',
+        description: 'Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.',
         maxLevel: -1,
         costPerLevel: 5,
         effect: (n: number) => {
@@ -315,13 +315,13 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     corruptionFourteen: {
         name: 'Level Fourteen Corruptions',
-        description: 'Buy this to unlock level fourteen corruptions :).',
+        description: 'Buy this to unlock level fourteen corruptions. :)',
         maxLevel: 1,
         costPerLevel: 1000,
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? 'have': 'have not'} gained the ability to use level 14 corruptions ${(n > 0)? ':)': ':('}.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} gained the ability to use level 14 corruptions. ${(n > 0)? ':)': ':('}`
             }
         }
     },
@@ -333,7 +333,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? 'have': 'have not'} gained a free corruption level ${(n > 0)? ':)': ':('}.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} gained a free corruption level. ${(n > 0)? ':)': ':('}`
             }
         }
     },
@@ -552,14 +552,14 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     potionBuff: {
         name: 'Potion Decanter of Enlightenment',
-        description: 'Purported to actually be the fountain of youth, use up to 100 potions at once and multiply gain by the square of the amount used.',
-        maxLevel: 1,
+        description: 'Purported to actually be the fountain of youth, this item powers up potions considerably!',
+        maxLevel: 10,
         costPerLevel: 999,
         minimumSingularity: 4,
         effect: (n: number) => {
             return {
-                bonus: (n > 0),
-                desc: `You ${(n > 0) ? 'have': 'have not'} purchased this decanter!`
+                bonus: Math.max(1, 10 * Math.pow(n, 2)),
+                desc: `Potions currently give ${Math.max(1, 10 * Math.pow(n, 2))}x items!`
             }
         }
     },
