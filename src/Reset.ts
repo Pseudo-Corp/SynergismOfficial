@@ -840,12 +840,10 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.eighthOwnedAnts = 1;
     }
 
-    for (let j = 1; j < player.cubeUpgrades.length; j++) {
-        if (player.cubeUpgrades[j] !== null && player.cubeUpgrades[j] > 0) {
-            updateCubeUpgradeBG(j);
-        }
-    }
     resetUpgrades(3);
+    for (let j = 1; j < player.cubeUpgrades.length; j++) {
+        updateCubeUpgradeBG(j);
+    }
     for (let j = 1; j < player.researches.length; j++) {
         if (player.researches[j] > 0) {
             updateResearchBG(j);
