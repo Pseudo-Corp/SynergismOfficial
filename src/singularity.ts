@@ -80,14 +80,14 @@ export class SingularityUpgrade {
             ? ''
             : `/${this.maxLevel}`;
         const color = this.maxLevel === this.level ? 'plum' : 'white';
-
+        const minReqColor = player.singularityCount < this.minimumSingularity ? 'crimson' : 'green';
         const minimumSingularity = this.minimumSingularity > 0
             ? `Minimum Singularity: ${this.minimumSingularity}`
             : 'No minimal singularity to purchase required'
 
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
-                <span style="color:crimson;">${minimumSingularity}</span>
+                <span style="color: ${minReqColor}">${minimumSingularity}</span>
                 <span style="color: ${color}"> Level ${this.level}${maxLevel} <span style="color: orange"> [+${format(this.freeLevels, 1, true)}] </span> </span>
                 <span style="color: gold">${this.getEffect().desc}</span>
                 Cost for next level: ${format(costNextLevel,0,true)} Golden Quarks.
