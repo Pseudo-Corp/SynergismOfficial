@@ -73,12 +73,18 @@ const getTalismanResourceInfo = (type: keyof typeof talismanResourceCosts, perce
     };
 };
 
-export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
+export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCosts | null, percentage = player.buyTalismanShardPercent) => {
     const el = DOMCacheGetOrSet('talismanFragmentCost');
-    const talismanCostInfo = getTalismanResourceInfo(type, percentage);
-    const TalismanName = talismanResourceCosts[type].name;
+    if (type) {
+        const talismanCostInfo = getTalismanResourceInfo(type, percentage);
+        const TalismanName = talismanResourceCosts[type].name;
 
-    el.textContent = 'Cost to buy ' + format(talismanCostInfo.buyAmount) + ' ' + TalismanName + (talismanCostInfo.buyAmount>1?'s':'') + ': ' + format(talismanCostInfo.obtainiumCost) + ' Obtainium and ' + format(talismanCostInfo.offeringCost) + ' offerings.'
+        el.textContent = 'Cost to buy ' + format(talismanCostInfo.buyAmount) + ' ' + TalismanName + (talismanCostInfo.buyAmount>1?'s':'') + ': ';
+        el.textContent += format(talismanCostInfo.obtainiumCost) + ' Obtainium and ' + format(talismanCostInfo.offeringCost) + ' offerings.';
+    } else {
+        // Buy All
+        el.textContent = 'Click to buy every type of Talisman Shards and Fragments, if affordable';
+    }
 }
 
 export const toggleTalismanBuy = (i = player.buyTalismanShardPercent) => {
@@ -109,6 +115,13 @@ export const updateTalismanInventory = () => {
     DOMCacheGetOrSet('epicFragmentInventory').textContent = format(player.epicFragments);
     DOMCacheGetOrSet('legendaryFragmentInventory').textContent = format(player.legendaryFragments);
     DOMCacheGetOrSet('mythicalFragmentInventory').textContent = format(player.mythicalFragments);
+}
+
+export const buyAllTalismanResources = () => {
+    const talismanItemNames = ['shard', 'commonFragment', 'uncommonFragment', 'rareFragment', 'epicFragment', 'legendaryFragment', 'mythicalFragment'] as const;
+    for (let index = 0; index < talismanItemNames.length; index++) {
+        buyTalismanResources(talismanItemNames[index]);
+    }
 }
 
 export const buyTalismanResources = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
@@ -422,6 +435,9 @@ export const buyTalismanLevels = (i: number, auto = false): boolean => {
     let max = 1;
     if (player.ascensionCount > 0) {
         max = 30
+    }
+    if (player.singularityCount > 0) {
+        max = 180
     }
     let hasPurchased = false;
     for (let j = 1; j <= max; j++) {

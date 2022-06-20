@@ -4,6 +4,7 @@ import Decimal from 'break_infinity.js';
 import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration} from './Calculate';
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
+import { autoResearchEnabled } from './Research';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
 import { getMaxChallenges } from './Challenges';
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
@@ -204,12 +205,12 @@ export const revealStuff = () => {
 
     const singularityShopItems = document.getElementsByClassName('singularityShopUnlock') as HTMLCollectionOf<HTMLElement>;
     for (const item of Array.from(singularityShopItems)) { // Ability to buy upgrade tier 1s
-        item.style.display = player.singularityUpgrades.wowPass.level > 0 ? 'block' : 'none';
+        item.style.display = player.singularityUpgrades.wowPass.getEffect().bonus ? 'block' : 'none';
     }
 
     const singularityShopItems2 = document.getElementsByClassName('singularityShopUnlock2') as HTMLCollectionOf<HTMLElement>;
     for (const item of Array.from(singularityShopItems2)) { // Ability to buy upgrade tier 2s
-        item.style.display = player.singularityUpgrades.wowPass2.level > 0 ? 'block' : 'none';
+        item.style.display = player.singularityUpgrades.wowPass2.getEffect().bonus > 0 ? 'block' : 'none';
     }
 
     const hepts = DOMCacheGetOrSet('corruptionHepteracts');
@@ -220,21 +221,21 @@ export const revealStuff = () => {
     const cookies3 = document.getElementsByClassName('assortedCookies3') as HTMLCollectionOf<HTMLElement>;
     const cookies4 = document.getElementsByClassName('assortedCookies4') as HTMLCollectionOf<HTMLElement>;
     for (const HTML of Array.from(cookies1)) {
-        HTML.style.display = player.singularityUpgrades.cookies.level > 0 ? 'block' : 'none';
+        HTML.style.display = player.singularityUpgrades.cookies.getEffect().bonus ? 'block' : 'none';
     }
     for (const HTML of Array.from(cookies2)) {
-        HTML.style.display = player.singularityUpgrades.cookies2.level > 0 ? 'block' : 'none';
+        HTML.style.display = player.singularityUpgrades.cookies2.getEffect().bonus ? 'block' : 'none';
     }
     for (const HTML of Array.from(cookies3)) {
-        HTML.style.display = player.singularityUpgrades.cookies3.level > 0 ? 'block' : 'none';
+        HTML.style.display = player.singularityUpgrades.cookies3.getEffect().bonus ? 'block' : 'none';
     }
     for (const HTML of Array.from(cookies4)) {
-        HTML.style.display = player.singularityUpgrades.cookies4.level > 0 ? 'block' : 'none';
+        HTML.style.display = player.singularityUpgrades.cookies4.getEffect().bonus ? 'block' : 'none';
     }
 
     const goldenQuarks3 = document.getElementsByClassName('goldenQuark3Upg') as HTMLCollectionOf<HTMLElement>;
     for (const HTML of Array.from(goldenQuarks3)) {
-        HTML.style.display = player.singularityUpgrades.goldenQuarks3.level > 0 ? 'block' : 'none';
+        HTML.style.display = player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0 ? 'block' : 'none';
     }
     if (player.upgrades[89] === 1) {
         DOMCacheGetOrSet('transcendautotoggle').style.display = 'block';
@@ -350,7 +351,7 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'block' :
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'none';
 
-    DOMCacheGetOrSet('toggleautoresearchmode').style.display = player.shopUpgrades.obtainiumAuto > 0 && player.cubeUpgrades[9] > 0 //Auto Research Shop Purchase Mode
+    DOMCacheGetOrSet('toggleautoresearchmode').style.display = player.shopUpgrades.obtainiumAuto > 0 && autoResearchEnabled() //Auto Research Shop Purchase Mode
         ? 'block'
         : 'none';
 
@@ -373,6 +374,11 @@ export const revealStuff = () => {
     player.singularityCount > 0 ?
         (DOMCacheGetOrSet('singularitytab').style.display = 'block'):
         (DOMCacheGetOrSet('singularitytab').style.display = 'none');
+
+    // Singularity confirmation toggle pic
+    player.singularityCount > 0 && player.ascensionCount > 0 ?
+        (DOMCacheGetOrSet('settingpic6').style.display = 'block'):
+        (DOMCacheGetOrSet('settingpic6').style.display = 'none');
 
     if (player.singularityCount > 0) {
         (DOMCacheGetOrSet('shoptab').style.display = 'block');
@@ -431,7 +437,8 @@ export const revealStuff = () => {
         'toggle29': player.transcendCount > 0.5 || player.reincarnationCount > 0.5,  // Settings - Confirmations - Transcension
         'toggle30': player.reincarnationCount > 0.5, // Settings - Confirmations - Reincarnation
         'toggle31': player.ascensionCount > 0, // Settings - Confirmations - Ascension
-        'toggle32': player.achievements[173] > 0 // Settings - Confirmations - Ant Sacrifice
+        'toggle32': player.achievements[173] > 0, // Settings - Confirmations - Ant Sacrifice
+        'toggle33': player.singularityCount > 0 && player.ascensionCount > 0 // Settings - Confirmations - Singularity
     }
 
     Object.keys(automationUnlocks).forEach(key => {

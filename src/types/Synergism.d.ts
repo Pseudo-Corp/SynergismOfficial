@@ -501,6 +501,7 @@ export interface Player {
     loadedDec16Vers: boolean
     loadedV253: boolean
     loadedV255: boolean
+    loadedV297Hotfix1: boolean
     version: string
 
     rngCode: number
@@ -527,38 +528,9 @@ export interface Player {
     goldenQuarks: number
     quarksThisSingularity: number
 
-    singularityUpgrades: {
-        goldenQuarks1: SingularityUpgrade
-        goldenQuarks2: SingularityUpgrade
-        goldenQuarks3: SingularityUpgrade
-        starterPack: SingularityUpgrade
-        wowPass: SingularityUpgrade
-        cookies: SingularityUpgrade
-        cookies2: SingularityUpgrade
-        cookies3: SingularityUpgrade
-        cookies4: SingularityUpgrade
-        ascensions: SingularityUpgrade
-        corruptionFourteen: SingularityUpgrade
-        corruptionFifteen: SingularityUpgrade
-        singOfferings1: SingularityUpgrade
-        singOfferings2: SingularityUpgrade
-        singOfferings3: SingularityUpgrade
-        singObtainium1: SingularityUpgrade
-        singObtainium2: SingularityUpgrade
-        singObtainium3: SingularityUpgrade
-        singCubes1: SingularityUpgrade
-        singCubes2: SingularityUpgrade
-        singCubes3: SingularityUpgrade
-        octeractUnlock: SingularityUpgrade
-        offeringAutomatic: SingularityUpgrade
-        intermediatePack: SingularityUpgrade
-        advancedPack: SingularityUpgrade
-        expertPack: SingularityUpgrade
-        masterPack: SingularityUpgrade
-        divinePack: SingularityUpgrade
-        wowPass2: SingularityUpgrade
-    }
+    singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
     dailyCodeUsed: boolean
+    hepteractAutoCraftPercentage: number
 
 }
 
@@ -908,6 +880,8 @@ export interface GlobalVariables {
     historyCountMax: number
 
     isEvent: boolean
+
+    autoHepteractCount: number
 }
 
 export interface SynergismEvents {

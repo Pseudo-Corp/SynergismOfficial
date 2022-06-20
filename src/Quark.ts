@@ -83,13 +83,13 @@ export const getQuarkMultiplier = () => {
         multiplier *= (1 + player.singularityCount / 10)
     }
     if (G['isEvent']) {
-        multiplier *= 3; // May01-May07
+        multiplier *= 2.25; // Jun06-Jun13
     }
     if (player.cubeUpgrades[53] > 0) { // Cube Upgrade 6x3 (Cx3)
         multiplier *= (1 + 0.10 * player.cubeUpgrades[53] / 100)
     }
     if (player.cubeUpgrades[68] > 0) { // Cube Upgrade 7x8
-        multiplier *= (1 + 2/10000 * player.cubeUpgrades[68] + 0.3 * (Math.floor(player.cubeUpgrades[68] / 1000)))
+        multiplier *= (1 + 1/10000 * player.cubeUpgrades[68] + 0.05 * (Math.floor(player.cubeUpgrades[68] / 1000)))
     }
     if (player.singularityCount >= 5) { // Singularity Milestone (5 sing)
         multiplier *= 1.05

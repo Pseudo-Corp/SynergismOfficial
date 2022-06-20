@@ -28,7 +28,7 @@ export const maxCorruptionLevel = () => {
     if (player.platonicUpgrades[10] > 0) {
         max += 1
     }
-    if (player.singularityUpgrades.corruptionFourteen.level > 0) {
+    if (player.singularityUpgrades.corruptionFourteen.getEffect().bonus) {
         max += 1
     }
 
@@ -296,6 +296,9 @@ async function corruptionLoadoutGetNewName(loadout = 0) {
     } else {
         player.corruptionLoadoutNames[loadout] = renamePrompt
         updateCorruptionLoadoutNames();
+        if (renamePrompt === 'crazy') {
+            return Alert('Ant God approves of your joke!')
+        }
     }
 }
 
@@ -348,5 +351,28 @@ export const revealCorruptions = () => {
         for (let i = 0; i < c14Unlocks.length; i++) {
             c14Unlocks[i].style.display = 'flex'
         }
+    }
+}
+
+export function corrChallengeMinimum(index: number): number {
+    switch (index) {
+        case 2:
+            return 11
+        case 3:
+            return 14
+        case 4:
+            return 14
+        case 5:
+            return 13
+        case 6:
+            return 12
+        case 7:
+            return 12
+        case 8:
+            return 11
+        case 9:
+            return 13
+        default:
+            return 0
     }
 }

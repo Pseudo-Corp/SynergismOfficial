@@ -295,7 +295,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'OKAY. FINE. Here\'s yet ANOTHER +1% Ascension Speed per level, stacking multiplicatively like always.'
+        description: 'OKAY. FINE. Here\'s yet ANOTHER +1.5% Ascension Speed per level, stacking multiplicatively like always.'
     },
     seasonPassY: {
         tier: 'Ascension',
@@ -355,7 +355,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Gain +0.01% Ascension Speed per level per singularity. It needs a lot of fuel to power up.'
+        description: 'Gain +0.1% Ascension Speed per level per singularity. It needs a lot of fuel to power up.'
     },
     offeringEX2: {
         tier: 'SingularityVol2',
@@ -365,7 +365,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Gain +0.01% Offerings per level per singularity. Putting the Singularity Debuff industry out of business.'
+        description: 'Gain +1% Offerings per level per singularity. Putting the Singularity Debuff industry out of business.'
     },
     obtainiumEX2: {
         tier: 'SingularityVol2',
@@ -375,7 +375,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Gain +0.01% Obtainium per level per singularity!!!'
+        description: 'Gain +1% Obtainium per level per singularity!!!'
     },
     powderAuto: {
         tier: 'SingularityVol2',
@@ -433,10 +433,10 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
     switch (input) {
         case 'offeringPotion':
-            lol.textContent = 'Gain ' + format((7200 * player.offeringpersecond * calculateTimeAcceleration()), 0, true) + ' Offerings.'
+            lol.textContent = 'Gain ' + format((7200 * player.offeringpersecond * calculateTimeAcceleration() * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Offerings.'
             break;
         case 'obtainiumPotion':
-            lol.textContent = 'Gain ' + format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration()), 0, true) + ' Obtainium.';
+            lol.textContent = 'Gain ' + format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Obtainium.';
             break;
         case 'offeringEX':
             lol.textContent = 'CURRENT Effect: You will gain ' + format(4 * player.shopUpgrades.offeringEX,2,true) + '% more Offerings!'
@@ -529,13 +529,13 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = `CURRENT Effect: Opening any cube gives +${format(0.2 * player.shopUpgrades.cubeToQuarkAll, 2)}% quarks!`;
             break;
         case 'chronometerZ':
-            lol.textContent = `CURRENT Effect: Ascension Speed +${format(0.01 * player.singularityCount * player.shopUpgrades.chronometerZ, 2)}%!`;
+            lol.textContent = `CURRENT Effect: Ascension Speed +${format(0.1 * player.singularityCount * player.shopUpgrades.chronometerZ, 2)}%!`;
             break;
         case 'offeringEX2':
-            lol.textContent = `CURRENT Effect: Offerings +${format(0.01 * player.singularityCount * player.shopUpgrades.offeringEX2, 2)}%!`;
+            lol.textContent = `CURRENT Effect: Offerings +${format(1 * player.singularityCount * player.shopUpgrades.offeringEX2, 2)}%!`;
             break;
         case 'obtainiumEX2':
-            lol.textContent = `CURRENT Effect: Obtainium +${format(0.01 * player.singularityCount * player.shopUpgrades.obtainiumEX2, 2)}%!`;
+            lol.textContent = `CURRENT Effect: Obtainium +${format(1 * player.singularityCount * player.shopUpgrades.obtainiumEX2, 2)}%!`;
             break;
         case 'powderAuto':
             lol.textContent = `CURRENT Effect: Every ${format(100 / (Math.max(1, player.shopUpgrades.powderAuto) * calculatePowderConversion().mult), 0, true)} purchased orbs grants 1 powder.`
@@ -631,23 +631,24 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
 
 export const useConsumable = async (input: ShopUpgradeNames) => {
     const p = G['shopConfirmation']
-        ? await Confirm('Would you like to use this potion?')
+        ? await Confirm('Would you like to use some of this potion?')
         : true;
 
+
     if (p) {
-        switch (input) {
-            case 'offeringPotion':
-                if (player.shopUpgrades.offeringPotion > 0.5) {
-                    player.shopUpgrades.offeringPotion -= 1;
-                    player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration());
-                }
-                break;
-            case 'obtainiumPotion':
-                if (player.shopUpgrades.obtainiumPotion > 0.5) {
-                    player.shopUpgrades.obtainiumPotion -= 1;
-                    player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration());
-                }
-                break;
+        const multiplier = +player.singularityUpgrades.potionBuff.getEffect().bonus;
+        if (input === 'offeringPotion') {
+            if (player.shopUpgrades.offeringPotion > 0) {
+                player.shopUpgrades.offeringPotion -= 1;
+                player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
+                player.runeshards = Math.min(1e300, player.runeshards)
+            }
+        } else if (input === 'obtainiumPotion') {
+            if (player.shopUpgrades.obtainiumPotion > 0) {
+                player.shopUpgrades.obtainiumPotion -= 1;
+                player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
+                player.researchPoints = Math.min(1e300, player.researchPoints)
+            }
         }
     }
 }

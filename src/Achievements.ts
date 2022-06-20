@@ -506,7 +506,7 @@ export const areward = (i: number): string => {
         275: 'You immediately start Singularities with 1 transcension and 1001 mythos!',
         276: 'You immediately start Singularities with 1 reincarnation, and 10 particles!',
         277: 'You immediately start Singularities with 500 obtainium!',
-        278: 'Gain 5% more Quarks, permanently!',
+        278: 'Gain 5% more Quarks, permanently! Automation regarding Particle Buildings are immediately available.',
         279: 'You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!',
         280: 'You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 ant.'
     }
@@ -528,10 +528,10 @@ export const achievementAlerts = async (num: number) => {
             text = 'Hmm, it seems you are getting richer, being able to get 1 Googol diamonds in a single prestige. How about we give you another rune? [Unlocked Duplication rune in Runes tab!]'
             break;
         case 255:
-            text = 'Wow! You gained 1e17 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 6.66e16 (66.6 Quadrillion) score in an Ascension. Good luck!'
+            text = 'Wow! You gained 1e17 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!'
     }
 
-    if (text !== '') {
+    if (text !== '' && player.singularityCount === 0) {
         return Alert(text)
     }
 }

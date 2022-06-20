@@ -1,10 +1,11 @@
-import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts, changeTabColor } from './UpdateHTML';
+import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts, changeTabColor, Prompt, Alert } from './UpdateHTML';
 import { player, interval, clearInt, format, resetCheck } from './Synergism';
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { visualUpdateCubes } from './UpdateVisuals';
 import { calculateRuneLevels } from './Calculate';
 import { reset, resetrepeat } from './Reset';
+import { autoResearchEnabled } from './Research';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
@@ -108,12 +109,17 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
     if (player.challengecompletions[10] > 0) {
         if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
-            reset('ascensionChallenge', false, 'enterChallenge');
             player.currentChallenge.ascension = i;
+            reset('ascensionChallenge', false, 'enterChallenge');
 
             if (player.currentChallenge.ascension === 12) {
                 player.antPoints = new Decimal('8')
             }
+
+            if (player.currentChallenge.ascension === 14) {
+                player.researchPoints = 0;
+            }
+
             if (player.currentChallenge.ascension === 15) {
                 player.usedCorruptions[0] = 0;
                 player.prototypeCorruptions[0] = 0;
@@ -410,7 +416,7 @@ export const toggleAutoResearch = () => {
         el.textContent = 'Automatic: ON'
     }
 
-    if (player.autoResearchToggle && player.cubeUpgrades[9] === 1 && player.autoResearchMode === 'cheapest') {
+    if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
     }
 
@@ -427,7 +433,7 @@ export const toggleAutoResearchMode = () => {
     }
     DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
 
-    if (player.autoResearchToggle && player.cubeUpgrades[9] === 1 && player.autoResearchMode === 'cheapest') {
+    if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
         player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
     }
 }
@@ -879,4 +885,32 @@ export const toggleAscStatPerSecond = (id: number) => {
 
     el.textContent = player.ascStatToggles[id] ? '/s' : '';
     player.ascStatToggles[id] = !player.ascStatToggles[id];
+}
+
+export const toggleHepteractAutoPercentage = async(): Promise<void> => {
+    const amount = await Prompt(
+        'Enter a number from 0 to 100 (integer only!) to set autocraft percentage. ' +
+        'Every ascension, that percentage of your hepteracts are used to craft equally split ' +
+        'between every hepteract with AUTO ON. Auto crafting also does not consume other resources! ' +
+        '[Except Quarks, of course...]'
+    );
+
+    if (amount === null) {
+        return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`);
+    }
+
+    const isPercentage = amount.endsWith('%');
+    const rawPercentage = isPercentage ? Number(amount.slice(0, -1)) : Number(amount);
+
+    if (Number.isNaN(rawPercentage) || !Number.isFinite(rawPercentage) || !Number.isInteger(rawPercentage)) {
+        return Alert('Value must be a finite, non-decimal number!');
+    } else if (rawPercentage < 0 || rawPercentage > 100) {
+        return Alert('Value must be a number between 0 and 100, inclusive!');
+    } else if (rawPercentage === player.hepteractAutoCraftPercentage) {
+        return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`)
+    }
+
+    player.hepteractAutoCraftPercentage = rawPercentage
+    DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
+    return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
 }

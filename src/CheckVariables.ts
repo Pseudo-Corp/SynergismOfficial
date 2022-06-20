@@ -13,6 +13,7 @@ import { Alert } from './UpdateHTML';
 import { getQuarkInvestment, shopData} from './Shop';
 import type { ISingularityData} from './singularity';
 import { singularityData, SingularityUpgrade } from './singularity';
+import { Globals as G } from './Variables';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -213,6 +214,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.toggles[32] = true;
     }
 
+    if (!data.toggles || data.toggles[33] === undefined) {
+        player.toggles[33] = true;
+    }
+
     if (data.dayCheck === undefined) {
         player.dayCheck = null;
         player.dayTimer = 0;
@@ -223,6 +228,46 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.tesseractOpenedDaily = 0;
         player.hypercubeOpenedDaily = 0;
     }
+
+    player.singularityUpgrades = {
+        goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
+        goldenQuarks2: new SingularityUpgrade(singularityData['goldenQuarks2']),
+        goldenQuarks3: new SingularityUpgrade(singularityData['goldenQuarks3']),
+        starterPack: new SingularityUpgrade(singularityData['starterPack']),
+        wowPass: new SingularityUpgrade(singularityData['wowPass']),
+        cookies: new SingularityUpgrade(singularityData['cookies']),
+        cookies2: new SingularityUpgrade(singularityData['cookies2']),
+        cookies3: new SingularityUpgrade(singularityData['cookies3']),
+        cookies4: new SingularityUpgrade(singularityData['cookies4']),
+        ascensions: new SingularityUpgrade(singularityData['ascensions']),
+        corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
+        corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
+        singOfferings1: new SingularityUpgrade(singularityData['singOfferings1']),
+        singOfferings2: new SingularityUpgrade(singularityData['singOfferings2']),
+        singOfferings3: new SingularityUpgrade(singularityData['singOfferings3']),
+        singObtainium1: new SingularityUpgrade(singularityData['singObtainium1']),
+        singObtainium2: new SingularityUpgrade(singularityData['singObtainium2']),
+        singObtainium3: new SingularityUpgrade(singularityData['singObtainium3']),
+        singCubes1: new SingularityUpgrade(singularityData['singCubes1']),
+        singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
+        singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
+        octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
+        intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
+        advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
+        expertPack: new SingularityUpgrade(singularityData['expertPack']),
+        masterPack: new SingularityUpgrade(singularityData['masterPack']),
+        divinePack: new SingularityUpgrade(singularityData['divinePack']),
+        wowPass2: new SingularityUpgrade(singularityData['wowPass2']),
+        potionBuff: new SingularityUpgrade(singularityData['potionBuff']),
+        singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension']),
+        singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2']),
+        singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
+        singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
+        singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
+        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3'])
+    }
+
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
         player.loadedOct4Hotfix = true;
         // Only process refund if the save's researches array is already updated to v2
@@ -407,8 +452,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             const k = item as keyof Player['hepteractCrafts'];
             // if more crafts are added, some keys might not exist in the save
             if (data.hepteractCrafts[k]) {
-                player.hepteractCrafts[k] = createHepteract(data.hepteractCrafts[k]);
+                player.hepteractCrafts[k] = createHepteract({...player.hepteractCrafts[k], ...data.hepteractCrafts[k]});
             }
+
+            G['autoHepteractCount'] += +player.hepteractCrafts[k].AUTO
         }
     }
 
@@ -493,38 +540,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
     }
 
-    player.singularityUpgrades = {
-        goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
-        goldenQuarks2: new SingularityUpgrade(singularityData['goldenQuarks2']),
-        goldenQuarks3: new SingularityUpgrade(singularityData['goldenQuarks3']),
-        starterPack: new SingularityUpgrade(singularityData['starterPack']),
-        wowPass: new SingularityUpgrade(singularityData['wowPass']),
-        cookies: new SingularityUpgrade(singularityData['cookies']),
-        cookies2: new SingularityUpgrade(singularityData['cookies2']),
-        cookies3: new SingularityUpgrade(singularityData['cookies3']),
-        cookies4: new SingularityUpgrade(singularityData['cookies4']),
-        ascensions: new SingularityUpgrade(singularityData['ascensions']),
-        corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
-        corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
-        singOfferings1: new SingularityUpgrade(singularityData['singOfferings1']),
-        singOfferings2: new SingularityUpgrade(singularityData['singOfferings2']),
-        singOfferings3: new SingularityUpgrade(singularityData['singOfferings3']),
-        singObtainium1: new SingularityUpgrade(singularityData['singObtainium1']),
-        singObtainium2: new SingularityUpgrade(singularityData['singObtainium2']),
-        singObtainium3: new SingularityUpgrade(singularityData['singObtainium3']),
-        singCubes1: new SingularityUpgrade(singularityData['singCubes1']),
-        singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
-        singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
-        octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
-        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
-        intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
-        advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
-        expertPack: new SingularityUpgrade(singularityData['expertPack']),
-        masterPack: new SingularityUpgrade(singularityData['masterPack']),
-        divinePack: new SingularityUpgrade(singularityData['divinePack']),
-        wowPass2: new SingularityUpgrade(singularityData['wowPass2'])
-    }
-
     if (data.singularityUpgrades != null) {
         for (const item in blankSave.singularityUpgrades) {
             const k = item as keyof Player['singularityUpgrades'];
@@ -540,9 +555,15 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     level: data.singularityUpgrades[k].level,
                     goldenQuarksInvested: data.singularityUpgrades[k].goldenQuarksInvested,
                     toggleBuy: data.singularityUpgrades[k].toggleBuy,
-                    minimumSingularity: singularityData[k].minimumSingularity
+                    minimumSingularity: singularityData[k].minimumSingularity,
+                    effect: singularityData[k].effect,
+                    freeLevels: data.singularityUpgrades[k].freeLevels
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
+
+                if (player.singularityUpgrades[k].minimumSingularity > player.singularityCount) {
+                    player.singularityUpgrades[k].refund()
+                }
             }
         }
     }
@@ -567,5 +588,35 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (player.singularityUpgrades.cookies3.goldenQuarksInvested === 5000 || player.singularityUpgrades.cookies4.goldenQuarksInvested === 50000) {
         player.singularityUpgrades.cookies3.refund();
         player.singularityUpgrades.cookies4.refund();
+    }
+
+    if (player.singularityUpgrades.cookies4.goldenQuarksInvested === 199999) {
+        player.singularityUpgrades.cookies4.refund();
+    }
+
+    if (player.singularityUpgrades.octeractUnlock.goldenQuarksInvested === 8888) {
+        player.singularityUpgrades.octeractUnlock.refund();
+    }
+
+    if (data.hepteractAutoCraftPercentage === undefined) {
+        player.hepteractAutoCraftPercentage = 50;
+    }
+
+    if (data.loadedV297Hotfix1 === undefined) {
+        player.loadedV297Hotfix1 = true;
+
+        player.singularityUpgrades.singCubes1.refund();
+        player.singularityUpgrades.singObtainium1.refund();
+        player.singularityUpgrades.singOfferings1.refund();
+        player.singularityUpgrades.ascensions.refund();
+
+        if (player.codes.get(40) && player.singularityCount > 0) {
+            player.singularityUpgrades.singCubes1.freeLevels += 5;
+            player.singularityUpgrades.singOfferings1.freeLevels += 5;
+            player.singularityUpgrades.singObtainium1.freeLevels += 5;
+            player.singularityUpgrades.ascensions.freeLevels += 5;
+        }
+
+        void Alert(`You have loaded into the version 2.9.7 hotfix 1! ${player.singularityCount > 0 ? 'Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience.' : ''}`)
     }
 }

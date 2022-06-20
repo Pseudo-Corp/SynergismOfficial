@@ -13,7 +13,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const getReductionValue = () => {
     let reduction = 1;
-    reduction += (G['rune4level'] * G['effectiveLevelMult']) / 160;
+    reduction += Math.min(1e15, (G['rune4level'] * G['effectiveLevelMult']) / 160);
     reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200;
     reduction += CalcECC('transcend', player.challengecompletions[4]) / 200;
     reduction += Math.min(99999.9, (3 * (player.antUpgrades[7-1]! + G['bonusant7'])) / 100);
@@ -391,7 +391,7 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
     const pos = G['ordinals'][zeroIndex];
     const [originalCost, num] = getOriginalCostAndNum(index, type);
 
-    const BUYMAX = (Math.pow(10, 15) - 1);
+    const BUYMAX = Math.pow(10, 15) - 1;
     const COINMAX = 1e99;
     const r = getReductionValue();
     const tag = buyProducerTypes[type][0];
@@ -400,9 +400,17 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
 
     // Start buying at the current amount bought + 1
     const buyStart = player[posOwnedType];
-    // Degenerate Case: return the maximum if applicable
+
+    // If at least 1e15, we will use a different formulae
     if (buyStart >= BUYMAX) {
-        player[posOwnedType] = BUYMAX;
+        const diminishingExponent = 1/8
+
+        const log10Resource = Decimal.log10(player[tag])
+        const log10QuadrillionCost = Decimal.log10(getCostInternal(originalCost, BUYMAX, type, num, r))
+
+        const buyable = Math.floor(Math.pow(10,15) * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+
+        player[posOwnedType] = buyable;
         return;
     }
     // Degenerate Case: return maximum if coins is too large
@@ -427,6 +435,16 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
             buyInc = buyInc - Math.max(smallestInc(buyInc), stepdown);
         }
     }
+
+    // Resolves the infamous autobuyer bug, for large values. This prevents the notion of even being able
+    // to go above the BUYMAX. Future instances will also not check more than the first few lines
+    // meaning that the code below this cannot run if this ever runs.
+    if (buyStart + buyInc >= BUYMAX) {
+        player[posOwnedType] = BUYMAX
+        player[`${pos}Cost${type}` as const] = getCostInternal(originalCost, BUYMAX, type, num, r)
+        return
+    }
+
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
     let buyFrom = Math.max(buyStart + buyInc - 7, player[posOwnedType] + 1);
     let thisCost = getCostInternal(originalCost, buyFrom, type, num, r);
@@ -925,24 +943,39 @@ export const buyTesseractBuilding = (index: OneToFive, amount = player.tesseract
 }
 
 export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number) => {
-    let baseCost
-    let baseLevels
-    let levelCap
-    (type === 'Spirits') ?
-        (baseCost = G['spiritBaseCost'], baseLevels = player.runeSpiritLevels[index], levelCap = player.runeSpiritBuyAmount) :
-        (baseCost = G['blessingBaseCost'], baseLevels = player.runeBlessingLevels[index], levelCap = player.runeBlessingBuyAmount);
+    const unlocked = type === 'Spirits' ? player.challengecompletions[12] > 0 : player.achievements[134] === 1;
+    if (unlocked && isFinite(player.runeshards) && player.runeshards > 0) {
+        let baseCost;
+        let baseLevels;
+        let levelCap;
+        if (type === 'Spirits') {
+            baseCost = G['spiritBaseCost'];
+            baseLevels = player.runeSpiritLevels[index];
+            levelCap = player.runeSpiritBuyAmount;
+        } else {
+            baseCost = G['blessingBaseCost'];
+            baseLevels = player.runeBlessingLevels[index];
+            levelCap = player.runeBlessingBuyAmount;
+        }
 
-    const [level, cost] = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap);
-    (type === 'Spirits') ?
-        player.runeSpiritLevels[index] = level :
-        player.runeBlessingLevels[index] = level;
+        const [level, cost] = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap);
+        if (type === 'Spirits') {
+            player.runeSpiritLevels[index] = level;
+        } else {
+            player.runeBlessingLevels[index] = level;
+        }
 
-    player.runeshards -= cost;
+        player.runeshards -= cost;
 
-    if (player.runeshards < 0) {
-        player.runeshards = 0;
+        if (player.runeshards < 0) {
+            player.runeshards = 0;
+        }
+
+        updateRuneBlessing(type, index);
     }
+}
 
+export const updateRuneBlessing = (type: 'Blessings' | 'Spirits', index: number) => {
     if (index === 1) {
         const requirementArray = [0, 1e5, 1e8, 1e11]
         for (let i = 1; i <= 3; i++) {
@@ -972,5 +1005,43 @@ export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number)
         const t = (index === 3) ? 1 : 0;
         DOMCacheGetOrSet('runeSpiritPower' + index + 'Value1').textContent = format(G['runeSpirits'][index])
         DOMCacheGetOrSet('runeSpiritPower' + index + 'Value2').textContent = format(1 - t + spiritMultiplierArray[index] * G['effectiveRuneSpiritPower'][index], 4, true)
+    }
+}
+
+export const buyAllBlessings = (type: 'Blessings' | 'Spirits', percentage = 100, auto = false) => {
+    const unlocked = type === 'Spirits' ? player.challengecompletions[12] > 0 : player.achievements[134] === 1;
+    if (unlocked) {
+        const runeshards = Math.floor(player.runeshards / 100 * percentage / 5);
+        for (let index = 1; index < 6; index++) {
+            if (isFinite(player.runeshards) && player.runeshards > 0) {
+                let baseCost;
+                let baseLevels;
+                const levelCap = 1e300;
+                if (type === 'Spirits') {
+                    baseCost = G['spiritBaseCost'];
+                    baseLevels = player.runeSpiritLevels[index];
+                } else {
+                    baseCost = G['blessingBaseCost'];
+                    baseLevels = player.runeBlessingLevels[index];
+                }
+
+                const [level, cost] = calculateSummationLinear(baseLevels, baseCost, runeshards, levelCap);
+                if (level > baseLevels && (!auto || (level - baseLevels) * 10000 > baseLevels)) {
+                    if (type === 'Spirits') {
+                        player.runeSpiritLevels[index] = level;
+                    } else {
+                        player.runeBlessingLevels[index] = level;
+                    }
+
+                    player.runeshards -= cost;
+
+                    if (player.runeshards < 0) {
+                        player.runeshards = 0;
+                    }
+
+                    updateRuneBlessing(type, index);
+                }
+            }
+        }
     }
 }

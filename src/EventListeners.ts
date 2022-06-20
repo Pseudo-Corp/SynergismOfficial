@@ -1,20 +1,20 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop } from './Toggles'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHepteractAutoPercentage } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
-import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels } from './Buy'
+import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels, buyAllBlessings } from './Buy'
 import { crystalupgradedescriptions, constantUpgradeDescriptions, buyConstantUpgrades, upgradedescriptions } from './Upgrades'
 import { buyAutobuyers } from './Automation'
 import { buyGenerator } from './Generators'
 import { achievementdescriptions, achievementpointvalues } from './Achievements'
 import { displayRuneInformation, redeemShards } from './Runes'
-import { toggleTalismanBuy, buyTalismanResources, showTalismanPrices, buyTalismanLevels, buyTalismanEnhance, showRespecInformation, respecTalismanConfirm, respecTalismanCancel, changeTalismanModifier, updateTalismanCostDisplay, showTalismanEffect, showEnhanceTalismanPrices } from './Talismans'
+import { toggleTalismanBuy, buyTalismanResources, buyAllTalismanResources, showTalismanPrices, buyTalismanLevels, buyTalismanEnhance, showRespecInformation, respecTalismanConfirm, respecTalismanCancel, changeTalismanModifier, updateTalismanCostDisplay, showTalismanEffect, showEnhanceTalismanPrices } from './Talismans'
 import { challengeDisplay, toggleRetryChallenges } from './Challenges'
 import { buyResearch, researchDescriptions } from './Research'
 import { antRepeat, sacrificeAnts, buyAntProducers, updateAntDescription, antUpgradeDescription, buyAntUpgrade } from './Ants'
 import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
-import { exportSynergism, updateSaveString, promocodes, importSynergism, resetGame } from './ImportExport'
+import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, promocodesInfo, importSynergism, resetGame } from './ImportExport'
 import { resetHistoryTogglePerSecond } from './History'
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData, shopUpgradeTypes } from './Shop'
 import { Globals as G, Upgrade } from './Variables';
@@ -194,8 +194,8 @@ export const generateEventHandlers = () => {
     }
 
     //Part 4: Toggles
-    // I'm just addressing all global toggles here
-    for (let index = 0; index < 32; index++) {
+    // I'm just addressing all global toggles here: toggle1 up to toggle33
+    for (let index = 0; index < 33; index++) {
         DOMCacheGetOrSet(`toggle${index+1}`).addEventListener('click', () => toggleSettings(index))
     }
     // Toggles auto reset type (between TIME and AMOUNT)
@@ -311,6 +311,10 @@ export const generateEventHandlers = () => {
 
     }
 
+    DOMCacheGetOrSet('buyTalismanAll').addEventListener('mouseover', () => updateTalismanCostDisplay(null))
+    DOMCacheGetOrSet('buyTalismanAll').addEventListener('click', () => buyAllTalismanResources())
+
+
     for (let index = 0; index < 7; index++) {
 
         DOMCacheGetOrSet(`talisman${index+1}`).addEventListener('click', () => showTalismanEffect(index))
@@ -341,6 +345,9 @@ export const generateEventHandlers = () => {
     }
     DOMCacheGetOrSet('buyRuneBlessingInput').addEventListener('blur', () => updateRuneBlessingBuyAmount(1))
     DOMCacheGetOrSet('buyRuneSpiritInput').addEventListener('blur', () => updateRuneBlessingBuyAmount(2))
+
+    DOMCacheGetOrSet('buyAllBlessings').addEventListener('click', () => buyAllBlessings('Blessings'))
+    DOMCacheGetOrSet('buyAllSpirits').addEventListener('click', () => buyAllBlessings('Spirits'))
 
     // CHALLENGES TAB
     //Part 1: Challenges
@@ -519,10 +526,21 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('acceleratorBoostHepteractCap').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.expand())
     DOMCacheGetOrSet('multiplierHepteractCap').addEventListener('click', () => player.hepteractCrafts.multiplier.expand())
 
+    DOMCacheGetOrSet('chronosHepteractAuto').addEventListener('click', () => player.hepteractCrafts.chronos.toggleAutomatic())
+    DOMCacheGetOrSet('hyperrealismHepteractAuto').addEventListener('click', () => player.hepteractCrafts.hyperrealism.toggleAutomatic())
+    DOMCacheGetOrSet('quarkHepteractAuto').addEventListener('click', () => player.hepteractCrafts.quark.toggleAutomatic())
+    DOMCacheGetOrSet('challengeHepteractAuto').addEventListener('click', () => player.hepteractCrafts.challenge.toggleAutomatic())
+    DOMCacheGetOrSet('abyssHepteractAuto').addEventListener('click', () => player.hepteractCrafts.abyss.toggleAutomatic())
+    DOMCacheGetOrSet('acceleratorHepteractAuto').addEventListener('click', () => player.hepteractCrafts.accelerator.toggleAutomatic())
+    DOMCacheGetOrSet('acceleratorBoostHepteractAuto').addEventListener('click', () => player.hepteractCrafts.acceleratorBoost.toggleAutomatic())
+    DOMCacheGetOrSet('multiplierHepteractAuto').addEventListener('click', () => player.hepteractCrafts.multiplier.toggleAutomatic())
+
     DOMCacheGetOrSet('hepteractToQuark').addEventListener('mouseover', () => hepteractToOverfluxOrbDescription())
     DOMCacheGetOrSet('hepteractToQuarkTrade').addEventListener('click', () => tradeHepteractToOverfluxOrb())
     DOMCacheGetOrSet('overfluxPowder').addEventListener('mouseover', () => overfluxPowderDescription())
     DOMCacheGetOrSet('powderDayWarp').addEventListener('click', () => overfluxPowderWarp())
+
+    DOMCacheGetOrSet('hepteractAutoPercentageButton').addEventListener('click', () => toggleHepteractAutoPercentage())
 
     // CORRUPTION TAB
     //Part 0: Subtabs
@@ -556,7 +574,14 @@ export const generateEventHandlers = () => {
     /*Save Game Button*/ DOMCacheGetOrSet('savegame').addEventListener('click', () => saveSynergy(true))
     /*Delete Save Button*/ DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
     /*Submit Stats [Note: will eventually become obsolete if kong closes]*/ // DOMCacheGetOrSet('submitstats').addEventListener('click', () => submitStats())
-    /*Promotion Codes*/ DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodes())
+    /*Promotion Codes*/ DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
+    DOMCacheGetOrSet('promocodes').addEventListener('mouseover', () => promocodesInfo(''))
+    /*Special action add*/ DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
+    DOMCacheGetOrSet('addCode').addEventListener('mouseover', () => promocodesInfo('add'))
+    /*Special action daily*/ DOMCacheGetOrSet('dailyCode').addEventListener('click', () => promocodes('daily'))
+    DOMCacheGetOrSet('dailyCode').addEventListener('mouseover', () => promocodesInfo('daily'))
+    /*Special action time*/ DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
+    DOMCacheGetOrSet('timeCode').addEventListener('mouseover', () => promocodesInfo('time'))
     /*Toggle Ascension Per-Second Setting*/ DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
 
     // SHOP TAB
@@ -605,8 +630,8 @@ TODO: Fix this entire tab it's utter shit
     // SINGULARITY TAB
     const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
     for (const key of singularityUpgrades) {
-        DOMCacheGetOrSet(`${key}`).addEventListener('mouseover', () => player.singularityUpgrades[`${key}`].updateUpgradeHTML())
-        DOMCacheGetOrSet(`${key}`).addEventListener('click', () => player.singularityUpgrades[`${key}`].buyLevel())
+        DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
+        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityUpgrades[`${String(key)}`].buyLevel())
     }
 
 
