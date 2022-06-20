@@ -615,6 +615,13 @@ export const buttoncolorchange = () => {
         DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = '#171717' :
         DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = 'purple';
 
+    (player.autoAscend && player.cubeUpgrades[10] > 0.5) ?
+        DOMCacheGetOrSet('ascendbtn').style.backgroundColor = 'green' :
+        DOMCacheGetOrSet('ascendbtn').style.backgroundColor = '#171717';
+
+    (player.singularityCount > 0.5)
+    DOMCacheGetOrSet('singularitybtn').style.backgroundColor = '#171717';
+
     if (G['currentTab'] === 'buildings' && G['buildingSubTab'] === 'coin') {
         const a = DOMCacheGetOrSet('buycoin1');
         const b = DOMCacheGetOrSet('buycoin2');
