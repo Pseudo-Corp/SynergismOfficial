@@ -33,6 +33,8 @@ import { importSynergism } from './ImportExport';
 import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
 import { calculateSingularityDebuff } from './singularity';
+import { buyResearch, updateResearchBG } from './Research';
+import { updateCubeUpgradeBG } from './Cubes';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
@@ -810,6 +812,9 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
             achievementaward(176 + i)
         }
     }
+    if (player.singularityCount > 10) { // Must be the same as autoResearchEnabled()
+        player.cubeUpgrades[9] = 1;
+    }
     if (player.singularityCount >= 15) {
         player.challengecompletions[8] = 5;
         player.highestchallengecompletions[8] = 5;
@@ -817,6 +822,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
             player.reincarnationPoints = new Decimal('2.22e2222')
         }
         player.fifthOwnedAnts = 1;
+        player.cubeUpgrades[20] = 1;
     }
     if (player.singularityCount >= 20) {
         player.challengecompletions[9] = 1;
@@ -833,6 +839,18 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     }
     if (player.singularityCount >= 25) {
         player.eighthOwnedAnts = 1;
+    }
+
+    for (let j = 1; j < player.cubeUpgrades.length; j++) {
+        if (player.cubeUpgrades[j] > 0) {
+            updateCubeUpgradeBG(j);
+        }
+    }
+    resetUpgrades(3);
+    for (let j = 1; j < player.researches.length; j++) {
+        if (player.researches[j] > 0) {
+            updateResearchBG(j);
+        }
     }
     revealStuff();
 }

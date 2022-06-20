@@ -308,7 +308,7 @@ export const player: Player = {
         30: true,
         31: true,
         32: true,
-        33: false
+        33: true
     },
 
     challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -1087,7 +1087,9 @@ const loadSynergy = async () => {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];*/
 
-            player.cubeUpgrades = [...blankSave.cubeUpgrades]
+            if (data.ascensionCount === undefined || player.singularityCount === 0) {
+                player.cubeUpgrades = [...blankSave.cubeUpgrades]
+            }
             player.wowCubes = new WowCubes(0);
             player.wowTesseracts = new WowTesseracts(0);
             player.wowHypercubes = new WowHypercubes(0);
@@ -3287,7 +3289,7 @@ export const updateAll = (): void => {
     G['optimalObtainiumTimer'] = 3600 + 120 * player.shopUpgrades.obtainiumEX;
     autoBuyAnts()
 
-    if (player.autoAscend) {
+    if (player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0) {
         if (player.autoAscendMode === 'c10Completions' && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
             reset('ascension', true)
         }
