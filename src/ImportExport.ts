@@ -475,7 +475,13 @@ export const promocodes = async (input: string | null) => {
 
         const ascensionSpeed = calculateAscensionAcceleration()
         const perSecond = 1/(24 * 3600 * 365) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
-        return Alert(`You will gain an octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
+        if (perSecond > 1) {
+            return Alert(`You will gain ${format (perSecond, 2, true)} octeracts (when they come out) every second, assuming you have them unlocked!`)
+        }
+        else {
+            return Alert(`You will gain an octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
+        }
+        
     } else {
         el.textContent = 'Your code is either invalid or already used. Try again!'
     }
