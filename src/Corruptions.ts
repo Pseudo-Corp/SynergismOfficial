@@ -257,7 +257,7 @@ const loadoutTemplate = (player: Player) => {
                 <button data-i="${i}" class="corrSave">Save</button>
               </td>
               <td>
-                <button data-i="${i}" class="corrLoad" title="Press SHIFT + ${i + 1} to load corruption">Load</button>
+                <button data-i="${i}" class="corrLoad">Load</button>
               </td>
               <td>
                 <button data-i="${i}" class="corrRemove">-</button>
