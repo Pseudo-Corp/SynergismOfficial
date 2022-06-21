@@ -2791,6 +2791,9 @@ p[id$="BlessingsTotal"] {
     height: 410px;
     padding-top: 15px;
     box-sizing: border-box;
+    overflow-y: scroll;
+    padding-left: 20px;
+    padding-right: 20px; /* scroll bar */
 }
 
 #corruptionDisplays {
@@ -2823,6 +2826,9 @@ img.small {
     margin-bottom: 1px;
 }
 
+.corrNew,
+.corrRemove,
+.corrZero,
 .corrLoad {
     border: 1px solid #5b5ddc;
     padding: 2px 5px;
@@ -2831,6 +2837,9 @@ img.small {
     margin-bottom: 1px;
 }
 
+.corrNew,
+.corrRemove,
+.corrZero,
 .corrSave:hover,
 .corrLoad:hover {
     background-color: #333;
