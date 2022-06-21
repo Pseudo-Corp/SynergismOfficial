@@ -1214,7 +1214,9 @@ const loadSynergy = async () => {
 
 
         if (player.saveString === '' || player.saveString === 'Synergism-v1011Test.txt') {
-            player.saveString = 'Synergism-$VERSION$-$TIME$.txt'
+            player.singularityCount === 0 ?
+                player.saveString = 'Synergism-$VERSION$-$TIME$.txt':
+                player.saveString = 'Synergism-$VERSION$-$TIME$-$SING$.txt'
         }
         (DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString;
 
