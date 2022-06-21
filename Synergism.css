@@ -2804,6 +2804,7 @@ p[id$="BlessingsTotal"] {
 #corruptionLoadoutTable {
     border-collapse: separate;
     border-spacing: 0 12.5px;
+    width: 100%;
 }
 
 #corrPicRow {
