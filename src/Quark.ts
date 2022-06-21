@@ -1,5 +1,4 @@
 /* Functions which Handle Quark Gains,  */
-
 import { calculateCubeQuarkMultiplier, calculateEffectiveIALevel, calculateQuarkMultFromPowder} from './Calculate';
 import { hepteractEffective } from './Hepteracts'
 import { format, player } from './Synergism'
@@ -43,7 +42,14 @@ const getBonus = async (): Promise<null | number> => {
 
     return null;
 }
-
+export const listQuarkMultiplier = () => {
+    const arr = [
+        1
+    ]
+    return {
+        list: arr
+    }
+}
 export const getQuarkMultiplier = () => {
     let multiplier = 1;
     if (player.achievementPoints > 0) { // Achievement Points

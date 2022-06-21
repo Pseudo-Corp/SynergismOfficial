@@ -2366,7 +2366,6 @@ p[id$="BlessingsTotal"] {
 #statsForNerds > button:hover {
     background-color: #333;
 }
-
 .statContainer {
     width: 400px;
     flex-direction: column;
@@ -2381,7 +2380,6 @@ p[id$="BlessingsTotal"] {
 #miscStats {
     display: block;
 }
-
 .statPortion {
     width: 380px;
     height: auto;
