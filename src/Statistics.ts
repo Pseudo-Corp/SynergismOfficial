@@ -1,6 +1,5 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
-import {getQuarkMultiplier} from './Quark';
 import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
@@ -12,7 +11,6 @@ const associated = new Map<string, string>([
     ['kFreeAccel', 'acceleratorStats'],
     ['kFreeMult', 'multiplierStats'],
     ['kOfferingMult', 'offeringMultiplierStats'],
-    ['kQuarkMult', 'quarkStats'],
     ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
     ['kCubeMult', 'cubeMultiplierStats'],
     ['kTessMult', 'tesseractMultiplierStats'],
@@ -65,12 +63,7 @@ export const loadStatisticsMultiplier = () => {
     DOMCacheGetOrSet('sM12').textContent = '^' + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]]), 3, true)
     DOMCacheGetOrSet('sM13').textContent = format(G['freeMultiplier'], 3, true)
 }
-export const loadQuarkMultiplier = () => {
-DOMCacheGetOrSet('sGQM1').textContent = 'x' + format(1, 3)
-DOMCacheGetOrSet('sGQM2').textContent = '+' + format(player.achievementPoints / 25000, 3)
-DOMCacheGetOrSet('sGQM2').textContent = '+' + format(1 + player.achievements[250], 3)
-DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(getQuarkMultiplier(), 3)
-} 
+
 export const loadStatisticsCubeMultipliers = () => {
 
     const arr0 = calculateAllCubeMultiplier().list;
