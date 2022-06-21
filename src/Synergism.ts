@@ -596,17 +596,25 @@ export const player: Player = {
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    corruptionLoadouts: {  //If you add loadouts don't forget to add loadout names!
+       corruptionLoadouts: {  //If you add loadouts don't forget to add loadout names!
         1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        5: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        6: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        7: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        8: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
     corruptionLoadoutNames: [
         'Loadout 1',
         'Loadout 2',
         'Loadout 3',
-        'Loadout 4'
+        'Loadout 4',
+        'Loadout 5',
+        'Loadout 6',
+        'Loadout 7',
+        'Loadout 8',
     ],
     corruptionShowStats: true,
 
