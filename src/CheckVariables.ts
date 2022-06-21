@@ -220,13 +220,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     // but new keys will default to the values on the player object
     Object.assign(player.toggles, data.toggles);
 
-    if (data.ascensionCount === 0) {
-        player.toggles[31] = true;
-        player.toggles[32] = true;
-    }
-
-    if (!data.toggles || data.toggles[33] === undefined) {
-        player.toggles[33] = true;
+    for (const key in blankSave.toggles) {
+        if (player.toggles[key] === undefined) {
+            player.toggles[key] = blankSave.toggles[key];
+        }
     }
 
     if (data.dayCheck === undefined) {
