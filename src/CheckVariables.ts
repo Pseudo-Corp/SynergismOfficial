@@ -175,13 +175,24 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (player.corruptionLoadouts === undefined) {
         player.corruptionLoadouts = { ...blankSave.corruptionLoadouts };
         player.corruptionShowStats = true
-    } else if (Object.keys(player.corruptionLoadouts).length !== Object.keys(blankSave.corruptionLoadouts).length) {
-        for (const key of Object.keys(blankSave.corruptionLoadouts)) {
-            if (player.corruptionLoadouts[Number(key)]) {
-                continue;
-            }
-            player.corruptionLoadouts[Number(key)] = blankSave.corruptionLoadouts[Number(key)];
+    }
+
+    const corruptionLoadouts = Object.keys(
+        blankSave.corruptionLoadouts
+    ) as (`${keyof Player['corruptionLoadouts']}`)[]
+
+    for (const key of corruptionLoadouts.map(k => Number(k))) {
+        if (player.corruptionLoadouts[key] !== undefined) {
+            continue
         }
+
+        player.corruptionLoadouts[key] = blankSave.corruptionLoadouts[key]
+    }
+
+    if (player.corruptionLoadoutNames.length < blankSave.corruptionLoadoutNames.length) {
+        const diff = blankSave.corruptionLoadoutNames.slice(player.corruptionLoadoutNames.length)
+
+        player.corruptionLoadoutNames.push(...diff)
     }
 
     for (let i = 0; i <= 4; i++) {
