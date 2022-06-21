@@ -10,6 +10,16 @@ export const toggleTheme = () => {
     if (current === 'dark') {
         document.body.classList.remove('dark');
         document.body.classList.add('light');
+        DOMCacheGetOrSet('singularitybtn').style.backgroundColor = '#171717';
+        DOMCacheGetOrSet('rune6').style.backgroundColor = '#171717';
+        DOMCacheGetOrSet('rune7').style.backgroundColor = '#171717';
+        DOMCacheGetOrSet('mini10').style.backgroundColor = '#171717';
+        //It will remove Orange BG for next 5 runes
+        DOMCacheGetOrSet('rune1').style.backgroundColor = '#171717';
+        DOMCacheGetOrSet('rune2').style.backgroundColor = '#171717';
+        DOMCacheGetOrSet('rune3').style.backgroundColor = '#171717';
+        DOMCacheGetOrSet('rune4').style.backgroundColor = '#171717';
+        DOMCacheGetOrSet('rune5').style.backgroundColor = '#171717';
 
         themeButton.textContent = 'Dark Mode';
     } else {
