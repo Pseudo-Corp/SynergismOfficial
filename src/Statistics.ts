@@ -1,6 +1,8 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
-import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion } from './Calculate';
+import { getQuarkMultiplier} from './Quark';
+import { hepteractEffective } from './Hepteracts'
+import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -12,6 +14,7 @@ const associated = new Map<string, string>([
     ['kFreeMult', 'multiplierStats'],
     ['kOfferingMult', 'offeringMultiplierStats'],
     ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
+    ['kQuarkMult', 'globalQuarkMultiplierStats'],
     ['kCubeMult', 'cubeMultiplierStats'],
     ['kTessMult', 'tesseractMultiplierStats'],
     ['kHypercubeMult', 'hypercubeMultiplierStats'],
@@ -63,7 +66,33 @@ export const loadStatisticsMultiplier = () => {
     DOMCacheGetOrSet('sM12').textContent = '^' + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]]), 3, true)
     DOMCacheGetOrSet('sM13').textContent = format(G['freeMultiplier'], 3, true)
 }
-
+export const loadQuarkMultiplier = () => {
+    DOMCacheGetOrSet('sGQM1').textContent = 'x' + format(1, 3, true) //Base
+    DOMCacheGetOrSet('sGQM2').textContent = '+' + format(player.achievementPoints / 25000, 3, true) //AP
+    DOMCacheGetOrSet('sGQM3').textContent = '+' + format(player.achievements[250] > 0 ? 0.10 : 0, 3, true) //Max r8x25
+    DOMCacheGetOrSet('sGQM4').textContent = '+' + format(player.achievements[251] > 0 ? 0.10 : 0, 3, true) //Max w5x10
+    DOMCacheGetOrSet('sGQM5').textContent = '+' + format(player.platonicUpgrades[5] > 0 ? 0.10 : 0, 3, true) //ALPHA
+    DOMCacheGetOrSet('sGQM6').textContent = '+' + format(player.platonicUpgrades[10] > 0 ? 0.15 : 0, 3, true) //BETA
+    DOMCacheGetOrSet('sGQM7').textContent = '+' + format(player.platonicUpgrades[15] > 0 ? 0.20 : 0, 3, true) //OMEGA
+    DOMCacheGetOrSet('sGQM8').textContent = '+' + format(G.challenge15Rewards['quarks']-1, 3, true) //Challenge 15 Reward
+    DOMCacheGetOrSet('sGQM9').textContent = 'x' + format(player.worlds.applyBonus(1 / getQuarkMultiplier()), 3, true) //Patreon Bonus
+    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 2.25 : 1), 3, true) //Event
+    DOMCacheGetOrSet('sGQM11').textContent = 'x' + format(1.1 + 0.15 / 75 * calculateEffectiveIALevel(), 3, true) //IA Rune
+    DOMCacheGetOrSet('sGQM12').textContent = 'x' + format(player.challenge15Exponent >= 1e15 ? 1 + 5/10000 * hepteractEffective('quark') : 1, 3, true) //Quark Hepteract
+    DOMCacheGetOrSet('sGQM13').textContent = 'x' + format(calculateQuarkMultFromPowder(), 3, true) //Powder
+    DOMCacheGetOrSet('sGQM14').textContent = 'x' + format(1 + player.achievements[266] * Math.min(0.1, (player.ascensionCount) / 1e16), 3, true) // Achievement 266 [Max: 10% at 1Qa Ascensions]
+    DOMCacheGetOrSet('sGQM15').textContent = 'x' + format(1 + player.singularityCount / 10, 3, true) //Singularity
+    DOMCacheGetOrSet('sGQM16').textContent = 'x' + format(player.singularityCount >= 5 ? 1.05 : 1, 3, true) // Singularity Milestone at 5
+    DOMCacheGetOrSet('sGQM17').textContent = 'x' + format(player.singularityCount >= 20 ? 1.05 : 1, 3, true) //Singularity Milestone at 20
+    DOMCacheGetOrSet('sGQM18').textContent = 'x' + format(1 + 0.10 * player.cubeUpgrades[53] / 100, 3, true) // Cube Upgrade 6x3 (Cx3)
+    DOMCacheGetOrSet('sGQM19').textContent = 'x' + format(1 + 1/10000 * player.cubeUpgrades[68] + 0.05 * (Math.floor(player.cubeUpgrades[68] / 1000)), 3, true)
+    DOMCacheGetOrSet('sGQM20').textContent = 'x' + format(1 + 0.02 * player.singularityUpgrades.intermediatePack.level +           // 1.02
+                                                            0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
+                                                            0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
+                                                            0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
+                                                            0.10 * player.singularityUpgrades.expertPack.level, 3, true)
+    DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
+}
 export const loadStatisticsCubeMultipliers = () => {
 
     const arr0 = calculateAllCubeMultiplier().list;

@@ -175,13 +175,24 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (player.corruptionLoadouts === undefined) {
         player.corruptionLoadouts = { ...blankSave.corruptionLoadouts };
         player.corruptionShowStats = true
-    } else if (Object.keys(player.corruptionLoadouts).length !== Object.keys(blankSave.corruptionLoadouts).length) {
-        for (const key of Object.keys(blankSave.corruptionLoadouts)) {
-            if (player.corruptionLoadouts[Number(key)]) {
-                continue;
-            }
-            player.corruptionLoadouts[Number(key)] = blankSave.corruptionLoadouts[Number(key)];
+    }
+
+    const corruptionLoadouts = Object.keys(
+        blankSave.corruptionLoadouts
+    ) as (`${keyof Player['corruptionLoadouts']}`)[]
+
+    for (const key of corruptionLoadouts.map(k => Number(k))) {
+        if (player.corruptionLoadouts[key] !== undefined) {
+            continue
         }
+
+        player.corruptionLoadouts[key] = blankSave.corruptionLoadouts[key]
+    }
+
+    if (player.corruptionLoadoutNames.length < blankSave.corruptionLoadoutNames.length) {
+        const diff = blankSave.corruptionLoadoutNames.slice(player.corruptionLoadoutNames.length)
+
+        player.corruptionLoadoutNames.push(...diff)
     }
 
     for (let i = 0; i <= 4; i++) {
@@ -209,13 +220,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     // but new keys will default to the values on the player object
     Object.assign(player.toggles, data.toggles);
 
-    if (data.ascensionCount === 0) {
-        player.toggles[31] = true;
-        player.toggles[32] = true;
-    }
-
-    if (!data.toggles || data.toggles[33] === undefined) {
-        player.toggles[33] = true;
+    for (const key in blankSave.toggles) {
+        if (player.toggles[key] === undefined) {
+            player.toggles[key] = blankSave.toggles[key];
+        }
     }
 
     if (data.dayCheck === undefined) {
@@ -618,5 +626,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
 
         void Alert(`You have loaded into the version 2.9.7 hotfix 1! ${player.singularityCount > 0 ? 'Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience.' : ''}`)
+    }
+
+    if (data.shopBuyMaxToggle === undefined) {
+        player.shopBuyMaxToggle = false;
+        player.shopConfirmationToggle = true;
     }
 }

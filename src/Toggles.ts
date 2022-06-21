@@ -8,7 +8,7 @@ import { reset, resetrepeat } from './Reset';
 import { autoResearchEnabled } from './Research';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
-import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
+import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier, loadQuarkMultiplier } from './Statistics';
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -47,20 +47,26 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
     revealStuff();
     hideStuff();
 
+    const el = document.activeElement as HTMLElement | null;
+    if (el !== null) {
+        el.blur();
+    }
+
     const subTabList = subTabsInMainTab(player.tabnumber).subTabList
     if (player.tabnumber !== -1) {
         for (let i = 0; i < subTabList.length; i++) {
             const id = subTabList[i].buttonID;
             if (id) {
-                const button = DOMCacheGetOrSet(id)
-                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                if (button && button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions
-                    player.subtabNumber = i
-                    break;
-                }
-                if (player.tabnumber === 9 && button.style.borderColor === 'dodgerblue') { // handle corruption tab
-                    player.subtabNumber = i
-                    break;
+                const button = DOMCacheGetOrSet(id) as HTMLElement | null;
+                if (button !== null) {
+                    if (button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions
+                        player.subtabNumber = i
+                        break;
+                    }
+                    if (player.tabnumber === 9 && button.style.borderColor === 'dodgerblue') { // handle corruption tab
+                        player.subtabNumber = i
+                        break;
+                    }
                 }
             }
         }
@@ -321,16 +327,24 @@ export const keyboardTabChange = (dir = 1, main = true) => {
 }
 
 export const toggleSubTab = (mainTab = 1, subTab = 0) => {
-    if (tabs(mainTab).unlocked && subTabsInMainTab(mainTab).subTabList.length > 0) {
+    const subTabs = subTabsInMainTab(mainTab)
+    if (tabs(mainTab).unlocked && subTabs.subTabList.length > 0) {
+
+        const el = document.activeElement as HTMLElement | null;
+        if (el !== null) {
+            el.blur();
+        }
+
+        const subTabList = subTabs.subTabList[subTab];
         if (mainTab === -1) {
             // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
             const btn = DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[subTab]
-            if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked) {
-                subTabsInMainTab(mainTab).tabSwitcher?.(subTabsInMainTab(mainTab).subTabList[subTab].subTabID, btn)
+            if (subTabList.unlocked) {
+                subTabs.tabSwitcher?.(subTabList.subTabID, btn)
             }
         } else {
-            if (subTabsInMainTab(mainTab).subTabList[subTab].unlocked) {
-                subTabsInMainTab(mainTab).tabSwitcher?.(subTabsInMainTab(mainTab).subTabList[subTab].subTabID)
+            if (subTabList.unlocked) {
+                subTabs.tabSwitcher?.(subTabList.subTabID)
             }
         }
     }
@@ -520,12 +534,12 @@ export const toggleRuneScreen = (index: number) => {
 
 export const toggleautofortify = () => {
     const el = DOMCacheGetOrSet('toggleautofortify');
-    if (player.autoFortifyToggle === false && player.researches[130] == 1) {
-        el.textContent = 'Auto Fortify: ON'
-        el.style.border = '2px solid green'
-    } else {
+    if (player.autoFortifyToggle) {
         el.textContent = 'Auto Fortify: OFF'
         el.style.border = '2px solid red'
+    } else {
+        el.textContent = 'Auto Fortify: ON'
+        el.style.border = '2px solid green'
     }
 
     player.autoFortifyToggle = !player.autoFortifyToggle;
@@ -533,12 +547,12 @@ export const toggleautofortify = () => {
 
 export const toggleautoenhance = () => {
     const el = DOMCacheGetOrSet('toggleautoenhance');
-    if (player.autoEnhanceToggle === false && player.researches[135] == 1) {
-        el.textContent = 'Auto Enhance: ON'
-        el.style.border = '2px solid green'
-    } else {
+    if (player.autoEnhanceToggle) {
         el.textContent = 'Auto Enhance: OFF'
         el.style.border = '2px solid red'
+    } else {
+        el.textContent = 'Auto Enhance: ON'
+        el.style.border = '2px solid green'
     }
 
     player.autoEnhanceToggle = !player.autoEnhanceToggle;
@@ -589,6 +603,7 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
             loadStatisticsOfferingMultipliers();
             loadStatisticsCubeMultipliers();
             loadPowderMultiplier();
+            loadQuarkMultiplier();
             if (!subtabEl.classList.contains('subtabActive')) {
                 clearInt(id);
             }
@@ -663,20 +678,20 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
 
 export const toggleShopConfirmation = () => {
     const el = DOMCacheGetOrSet('toggleConfirmShop')
-    el.textContent = G['shopConfirmation']
+    el.textContent = player.shopConfirmationToggle
         ? 'Shop Confirmations: OFF'
         : 'Shop Confirmations: ON';
 
-    G['shopConfirmation'] = !G['shopConfirmation'];
+    player.shopConfirmationToggle = !player.shopConfirmationToggle;
 }
 
 export const toggleBuyMaxShop = () => {
     const el = DOMCacheGetOrSet('toggleBuyMaxShop')
-    el.textContent = G['shopBuyMax']
+    el.textContent = player.shopBuyMaxToggle
         ? 'Buy Max: OFF'
         : 'Buy Max: ON';
 
-    G['shopBuyMax'] = !G['shopBuyMax'];
+    player.shopBuyMaxToggle = !player.shopBuyMaxToggle;
 }
 
 export const toggleAntMaxBuy = () => {
@@ -875,9 +890,8 @@ export const toggleCorruptionLoadoutsStats = (stats: boolean) => {
 }
 
 export const toggleAscStatPerSecond = (id: number) => {
-    const el = DOMCacheGetOrSet(`unit${id}`);
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (!el) {
+    const el = DOMCacheGetOrSet(`unit${id}`) as HTMLElement | null;
+    if (el === null) {
         // eslint-disable-next-line no-console
         console.log(id, 'platonic needs to fix');
         return;
