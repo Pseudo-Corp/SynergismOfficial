@@ -198,6 +198,8 @@ export const promocodesInfo = async (input: string) => {
             textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
             if (availableUses === 0) {
                 textMessage += ' Next: in ' + timeCodeTimeToNextUse() + ' seconds.';
+            } else {
+                textMessage += ' Multiplier: ' + format(timeCodeRewardMultiplier(), 2, true) + 'x';
             }
             break;
         default:
@@ -423,36 +425,38 @@ export const promocodes = async (input: string | null) => {
         if (availableUses === 0) {
             return Confirm(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
-            
+
             Regardless, you must wait at least 15 minutes between each use.
             `);
         }
 
-        const rewardMult = Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600))
+        const rewardMult = timeCodeRewardMultiplier();
 
         const random = Math.random() * 15000; // random time within 15 seconds
         const start = Date.now();
-        await Confirm(
+        const playerConfirmed = await Confirm(
             'Click the button within the next 15 seconds to test your luck!' +
             ` If you click within ${format(2500 + 125 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!` +
             ` This particular instance has a ${format(rewardMult, 2, true)}x multiplier due to elapsed time between uses.`
         );
 
-        const diff = Math.abs(Date.now() - (start + random));
-        player.promoCodeTiming.time = Date.now();
+        if (playerConfirmed) {
+            const diff = Math.abs(Date.now() - (start + random));
+            player.promoCodeTiming.time = Date.now();
 
-        if (diff <= (2500 + 125 * player.cubeUpgrades[61])) {
-            const reward = Math.floor(Math.min(1000, (125 + 25 * player.singularityCount)) * (1 + player.cubeUpgrades[61] / 50));
-            let actualQuarkAward = player.worlds.applyBonus(reward)
+            if (diff <= (2500 + 125 * player.cubeUpgrades[61])) {
+                const reward = Math.floor(Math.min(1000, (125 + 25 * player.singularityCount)) * (1 + player.cubeUpgrades[61] / 50));
+                let actualQuarkAward = player.worlds.applyBonus(reward)
 
-            if (actualQuarkAward > 66666) {
-                actualQuarkAward = Math.pow(actualQuarkAward, 0.35) * Math.pow(66666, 0.65)
+                if (actualQuarkAward > 66666) {
+                    actualQuarkAward = Math.pow(actualQuarkAward, 0.35) * Math.pow(66666, 0.65)
+                }
+
+                player.worlds.add(actualQuarkAward * rewardMult, false);
+                return Confirm(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
+            } else {
+                return Confirm('You didn\'t guess the right time, try again soon!');
             }
-
-            player.worlds.add(actualQuarkAward * rewardMult, false);
-            return Confirm(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
-        } else {
-            return Confirm('You didn\'t guess within the correct times, try again soon!');
         }
     } else if (input === 'spoiler') {
         const SCOREREQ = 1e32
@@ -502,6 +506,10 @@ function timeCodeAvailableUses(): number {
 
 function timeCodeTimeToNextUse(): number {
     return 900 - ((Date.now() - player.promoCodeTiming.time) / 1000);
+}
+
+function timeCodeRewardMultiplier(): number {
+    return Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600));
 }
 
 function dailyCodeReward() {
