@@ -295,8 +295,8 @@ export const corruptionLoadoutTableCreate = () => {
                 ...player.corruptionLoadoutNames,
                 `Loadout ${length + 1}`
             ];
-            player.corruptionLoadouts[length + 1] = player.prototypeCorruptions;
-            corruptionLoadoutTableUpdate()
+            player.corruptionLoadouts[length + 1] = Array.from(player.prototypeCorruptions);
+            corruptionLoadoutTableUpdate();
         }
     })
     wrapper.innerHTML = loadoutTemplate(player);
