@@ -619,4 +619,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
         void Alert(`You have loaded into the version 2.9.7 hotfix 1! ${player.singularityCount > 0 ? 'Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience.' : ''}`)
     }
+
+    if (data.shopBuyMaxToggle === undefined) {
+        player.shopBuyMaxToggle = false;
+        player.shopConfirmationToggle = true;
+    }
 }
