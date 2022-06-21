@@ -8,7 +8,7 @@ import { reset, resetrepeat } from './Reset';
 import { autoResearchEnabled } from './Research';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
-import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier } from './Statistics';
+import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier, loadQuarkMultiplier } from './Statistics';
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -603,6 +603,7 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
             loadStatisticsOfferingMultipliers();
             loadStatisticsCubeMultipliers();
             loadPowderMultiplier();
+            loadQuarkMultiplier();
             if (!subtabEl.classList.contains('subtabActive')) {
                 clearInt(id);
             }
