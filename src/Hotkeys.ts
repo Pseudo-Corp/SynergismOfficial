@@ -1,31 +1,20 @@
 import { sacrificeAnts } from './Ants';
 import { buyAccelerator, boostAccelerator, buyMultiplier } from './Buy';
 import { player, resetCheck } from './Synergism';
-import { keyboardTabChange, toggleAutoChallengeRun } from './Toggles';
+import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles';
 import { Alert, Prompt } from './UpdateHTML';
 
 export const hotkeys = new Map<string, [string,() => unknown]>([
     ['A', ['Buy Accelerators', () => buyAccelerator()]],
     ['B', ['Boost Accelerator', () => boostAccelerator()]],
     ['C', ['Auto Challenge', () => {
-        if (player.researches[150] > 0) {
-            toggleAutoChallengeRun()
-            if (!player.autoChallengeRunning) {
-                if (player.currentChallenge.reincarnation !== 0) {
-                    void resetCheck('reincarnationChallenge', undefined, true)
-                }
-                if (player.currentChallenge.transcension !== 0) {
-                    void resetCheck('transcensionChallenge', undefined, true)
-                }
-            }
-        }
+        toggleChallengeSweep()
     }]],
-    ['E', ['Exit Challenge', () => {
-        if (player.currentChallenge.reincarnation !== 0) {
-            void resetCheck('reincarnationChallenge', undefined, true)
-        }
-        if (player.currentChallenge.transcension !== 0) {
-            void resetCheck('transcensionChallenge', undefined, true)
+    ['E', ['Exit T / R Challenge', () => {
+        if (player.autoChallengeRunning) {
+            toggleChallengeSweep()
+        } else {
+            exitTranscendAndPrestigeChallenge()
         }
     }]],
     ['M', ['Multipliers', () => buyMultiplier()]],
@@ -37,8 +26,36 @@ export const hotkeys = new Map<string, [string,() => unknown]>([
     ['ARROWRIGHT', ['Next tab', () => keyboardTabChange(1)]],
     ['ARROWUP', ['Back a subtab', () => keyboardTabChange(-1, false)]],
     ['ARROWDOWN', ['Next subtab', () => keyboardTabChange(1, false)]],
-    ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension')]]
+    ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension')]],
+    ['SHIFT+E', ['Exit Asc. Challenge', () => {
+        if (player.currentChallenge.ascension !== 0) {
+            void resetCheck('ascensionChallenge', false, true)
+        }
+        if (player.autoChallengeRunning) {
+            toggleChallengeSweep()
+        }
+    }]],
+    ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999)]],
+    ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity')]]
 ]);
+
+function toggleChallengeSweep(): void {
+    if (player.researches[150] > 0) {
+        toggleAutoChallengeRun()
+        if (!player.autoChallengeRunning) {
+            exitTranscendAndPrestigeChallenge()
+        }
+    }
+}
+
+function exitTranscendAndPrestigeChallenge() {
+    if (player.currentChallenge.reincarnation !== 0) {
+        void resetCheck('reincarnationChallenge', undefined, true)
+    }
+    if (player.currentChallenge.transcension !== 0) {
+        void resetCheck('transcensionChallenge', undefined, true)
+    }
+}
 
 document.addEventListener('keydown', event => {
     if (document.activeElement?.localName === 'input') {
