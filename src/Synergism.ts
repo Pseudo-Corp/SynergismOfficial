@@ -466,6 +466,9 @@ export const player: Player = {
         seasonPassLost: 0,
         powderAuto: 0
     },
+    shopBuyMaxToggle: false,
+    shopConfirmationToggle: true,
+
     autoSacrificeToggle: false,
     autoFortifyToggle: false,
     autoEnhanceToggle: false,
@@ -1489,22 +1492,22 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [OFF]';
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
+        if (player.shopConfirmationToggle) {
+            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: ON'
+        } else {
+            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
+        }
+        if (player.shopBuyMaxToggle) {
+            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: ON'
+        } else {
+            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: OFF'
+        }
 
         // Settings that are not saved in the data will be restored to their defaults by import or singularity
         if (G['maxbuyresearch']) {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
         } else {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
-        }
-        if (G['shopConfirmation']) {
-            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: ON'
-        } else {
-            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
-        }
-        if (G['shopBuyMax']) {
-            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: ON'
-        } else {
-            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: OFF'
         }
         if (G['buyMaxCubeUpgrades']) {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: MAX [if possible wow]'

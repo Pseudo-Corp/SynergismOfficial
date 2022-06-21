@@ -231,9 +231,6 @@ export const Globals: GlobalVariables = {
 
     runeSum: 0,
 
-    shopConfirmation: true,
-    shopBuyMax: false,
-
     globalAntMult: new Decimal('1'),
     antMultiplier: new Decimal('1'),
 

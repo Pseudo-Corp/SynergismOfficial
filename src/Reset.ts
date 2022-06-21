@@ -908,6 +908,9 @@ export const singularity = async (): Promise<void> => {
     hold.autoTesseracts = player.autoTesseracts
     hold.tesseractAutoBuyerToggle = player.tesseractAutoBuyerToggle
     hold.historyShowPerSecond = player.historyShowPerSecond
+    hold.shopBuyMaxToggle = player.shopBuyMaxToggle
+    hold.shopConfirmationToggle = player.shopConfirmationToggle
+
     //Import Game
     await importSynergism(btoa(JSON.stringify(hold)), true);
 
