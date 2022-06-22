@@ -27,6 +27,7 @@ import { testing } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { toggleTheme } from './Themes'
 import { buyGoldenQuarks } from './singularity'
+import { displayHelp } from './HelpSettings'
 
 /* STYLE GUIDE */
 /*
@@ -566,7 +567,11 @@ export const generateEventHandlers = () => {
     for (const s of t) {
         s.addEventListener('click', (e) => displayStats(e.target as HTMLElement));
     }
-
+    //ArvingoMaster- Event Handlers to make help zone work
+    const b = Array.from(document.querySelectorAll<HTMLElement>('#helpbuttons > button'));
+    for (const a of b) {
+        a.addEventListener('click', (e) => displayHelp(e.target as HTMLElement));
+    }
     // Various functions
     /*Export Files*/ DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
     /*Update name of File*/
