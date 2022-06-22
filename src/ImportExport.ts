@@ -37,7 +37,7 @@ const format12 = new Intl.DateTimeFormat('EN-GB', {
 
 const hour = 3600000;
 
-const getRealTime = (use12 = false) => {
+const getRealTime = (type = 'default', use12 = false) => {
     const format = use12 ? format12 : format24;
     const datePartsArr = format
         .formatToParts(new Date())
@@ -47,7 +47,20 @@ const getRealTime = (use12 = false) => {
     const dateParts = Object.assign({}, ...datePartsArr) as Record<string, string>;
 
     const period = use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : '';
-    return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`;
+    const weekday = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    switch (type) {
+        case 'default': return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`;
+        case 'short': return `${dateParts.year}${dateParts.month}${dateParts.day}${dateParts.hour}${dateParts.minute}${dateParts.second}`;
+        case 'year': return `${dateParts.year}`;
+        case 'month': return `${dateParts.month}`;
+        case 'day': return `${dateParts.day}`;
+        case 'hour': return `${dateParts.hour}`;
+        case 'minute': return `${dateParts.minute}`;
+        case 'second': return `${dateParts.second}`;
+        case 'period': return `${dateParts.dayPeriod.toUpperCase()}`;
+        case 'weekday': return `${weekday[new Date().getUTCDay()]}`;
+        default: return type;
+    }
 }
 
 export const updateSaveString = (input: HTMLInputElement) => {
@@ -55,14 +68,43 @@ export const updateSaveString = (input: HTMLInputElement) => {
     player.saveString = value;
 }
 
+export const getVer = () => /[\d?=.]+/.exec(version)?.[0] ?? version
+
 const saveFilename = () => {
     const s = player.saveString
     const t = s.replace(/\$(.*?)\$/g, (_, b) => {
         switch (b) {
             case 'VERSION': return `v${version}`;
             case 'TIME': return getRealTime();
-            case 'TIME12': return getRealTime(true);
-            default: return 'IDFK Lol';
+            case 'TIME12': return getRealTime(undefined, true);
+            case 'SING': return ('Singularity ' + player.singularityCount);
+            case 'SINGS': return ('' + player.singularityCount);
+            case 'VER': return getVer();
+            case 'TIMES': return getRealTime('short');
+            case 'YEAR': return getRealTime('year');
+            case 'Y': return getRealTime('year');
+            case 'MONTH': return getRealTime('month');
+            case 'M': return getRealTime('month');
+            case 'DAY': return getRealTime('day');
+            case 'D': return getRealTime('day');
+            case 'HOUR': return getRealTime('hour');
+            case 'H': return getRealTime('hour');
+            case 'H12': return getRealTime('hour', true);
+            case 'MINUTE': return getRealTime('minute');
+            case 'MI': return getRealTime('minute');
+            case 'SECOND': return getRealTime('second');
+            case 'S': return getRealTime('second');
+            case 'PERIOD': return getRealTime('period', true);
+            case 'P': return getRealTime('period', true);
+            case 'WEEKDAY': return getRealTime('weekday');
+            case 'W': return getRealTime('weekday');
+            case 'DATE': return '' + Date.now();
+            case 'DATES': return '' + Math.floor(Date.now() / 1000);
+            case 'QUARK': return '' + Math.floor(Number(player.worlds));
+            case 'QUARKS': return format(Number(player.worlds));
+            case 'GQ': return '' + Math.floor(player.goldenQuarks);
+            case 'GQS': return format(player.goldenQuarks);
+            default: return `${b}`;
         }
     });
 
@@ -198,6 +240,8 @@ export const promocodesInfo = async (input: string) => {
             textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
             if (availableUses === 0) {
                 textMessage += ' Next: in ' + timeCodeTimeToNextUse() + ' seconds.';
+            } else {
+                textMessage += ' Multiplier: ' + format(timeCodeRewardMultiplier(), 2, true) + 'x';
             }
             break;
         default:
@@ -423,36 +467,38 @@ export const promocodes = async (input: string | null) => {
         if (availableUses === 0) {
             return Confirm(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
-            
+
             Regardless, you must wait at least 15 minutes between each use.
             `);
         }
 
-        const rewardMult = Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600))
+        const rewardMult = timeCodeRewardMultiplier();
 
         const random = Math.random() * 15000; // random time within 15 seconds
         const start = Date.now();
-        await Confirm(
+        const playerConfirmed = await Confirm(
             'Click the button within the next 15 seconds to test your luck!' +
             ` If you click within ${format(2500 + 125 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!` +
             ` This particular instance has a ${format(rewardMult, 2, true)}x multiplier due to elapsed time between uses.`
         );
 
-        const diff = Math.abs(Date.now() - (start + random));
-        player.promoCodeTiming.time = Date.now();
+        if (playerConfirmed) {
+            const diff = Math.abs(Date.now() - (start + random));
+            player.promoCodeTiming.time = Date.now();
 
-        if (diff <= (2500 + 125 * player.cubeUpgrades[61])) {
-            const reward = Math.floor(Math.min(1000, (125 + 25 * player.singularityCount)) * (1 + player.cubeUpgrades[61] / 50));
-            let actualQuarkAward = player.worlds.applyBonus(reward)
+            if (diff <= (2500 + 125 * player.cubeUpgrades[61])) {
+                const reward = Math.floor(Math.min(1000, (125 + 25 * player.singularityCount)) * (1 + player.cubeUpgrades[61] / 50));
+                let actualQuarkAward = player.worlds.applyBonus(reward)
 
-            if (actualQuarkAward > 66666) {
-                actualQuarkAward = Math.pow(actualQuarkAward, 0.35) * Math.pow(66666, 0.65)
+                if (actualQuarkAward > 66666) {
+                    actualQuarkAward = Math.pow(actualQuarkAward, 0.35) * Math.pow(66666, 0.65)
+                }
+
+                player.worlds.add(actualQuarkAward * rewardMult, false);
+                return Confirm(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
+            } else {
+                return Confirm('You didn\'t guess the right time, try again soon!');
             }
-
-            player.worlds.add(actualQuarkAward * rewardMult, false);
-            return Confirm(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
-        } else {
-            return Confirm('You didn\'t guess within the correct times, try again soon!');
         }
     } else if (input === 'spoiler') {
         const SCOREREQ = 1e32
@@ -474,8 +520,13 @@ export const promocodes = async (input: string | null) => {
         ]
 
         const ascensionSpeed = calculateAscensionAcceleration()
-        const perSecond = 1/(24 * 3600 * 365) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
-        return Alert(`You will gain an octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
+        const perSecond = 1/(24 * 3600 * 365 * 1e9) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
+        if (perSecond > 1) {
+            return Alert(`You will gain ${format(perSecond, 2, true)} octeracts (when they come out) every second, assuming you have them unlocked!`)
+        } else {
+            return Alert(`You will gain an octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
+        }
+
     } else {
         el.textContent = 'Your code is either invalid or already used. Try again!'
     }
@@ -502,6 +553,10 @@ function timeCodeAvailableUses(): number {
 
 function timeCodeTimeToNextUse(): number {
     return 900 - ((Date.now() - player.promoCodeTiming.time) / 1000);
+}
+
+function timeCodeRewardMultiplier(): number {
+    return Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600));
 }
 
 function dailyCodeReward() {

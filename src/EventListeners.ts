@@ -575,7 +575,6 @@ export const generateEventHandlers = () => {
     /*Delete Save Button*/ DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
     /*Submit Stats [Note: will eventually become obsolete if kong closes]*/ // DOMCacheGetOrSet('submitstats').addEventListener('click', () => submitStats())
     /*Promotion Codes*/ DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
-    DOMCacheGetOrSet('promocodes').addEventListener('mouseover', () => promocodesInfo(''))
     /*Special action add*/ DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
     DOMCacheGetOrSet('addCode').addEventListener('mouseover', () => promocodesInfo('add'))
     /*Special action daily*/ DOMCacheGetOrSet('dailyCode').addEventListener('click', () => promocodes('daily'))

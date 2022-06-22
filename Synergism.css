@@ -2789,8 +2789,22 @@ p[id$="BlessingsTotal"] {
 
 #corruptionLoadouts {
     height: 410px;
-    padding-top: 30px;
+    padding-top: 15px;
     box-sizing: border-box;
+}
+
+#corruptionDisplays {
+    margin-top: 5%;
+}
+
+.corrLoadoutName {
+    white-space: nowrap;
+}
+
+#corruptionLoadoutTable {
+    border-collapse: separate;
+    border-spacing: 0 12.5px;
+    width: 100%;
 }
 
 #corrPicRow {

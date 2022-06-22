@@ -1,5 +1,4 @@
 import { player, format } from './Synergism';
-import { Globals as G } from './Variables';
 import { Alert, Confirm, revealStuff } from './UpdateHTML';
 import { calculatePowderConversion, calculateTimeAcceleration } from './Calculate';
 import type { Player } from './types/Synergism';
@@ -295,7 +294,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'OKAY. FINE. Here\'s yet ANOTHER +1% Ascension Speed per level, stacking multiplicatively like always.'
+        description: 'OKAY. FINE. Here\'s yet ANOTHER +1.5% Ascension Speed per level, stacking multiplicatively like always.'
     },
     seasonPassY: {
         tier: 'Ascension',
@@ -433,10 +432,10 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
     switch (input) {
         case 'offeringPotion':
-            lol.textContent = 'Gain ' + format((7200 * player.offeringpersecond * calculateTimeAcceleration()), 0, true) + ' Offerings.'
+            lol.textContent = 'Gain ' + format((7200 * player.offeringpersecond * calculateTimeAcceleration() * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Offerings.'
             break;
         case 'obtainiumPotion':
-            lol.textContent = 'Gain ' + format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration()), 0, true) + ' Obtainium.';
+            lol.textContent = 'Gain ' + format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Obtainium.';
             break;
         case 'offeringEX':
             lol.textContent = 'CURRENT Effect: You will gain ' + format(4 * player.shopUpgrades.offeringEX,2,true) + '% more Offerings!'
@@ -598,7 +597,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const maxLevel = player.shopUpgrades[input] === shopData[input].maxLevel;
     const canAfford = Number(player.worlds) >= getShopCosts(input);
 
-    if (G['shopConfirmation'] || !shopData[input].refundable) {
+    if (player.shopConfirmationToggle || !shopData[input].refundable) {
         if (maxLevel) {
             await Alert('You can\'t purchase ' + friendlyShopName(input) + ' because you already have the max level!')
         } else if (!canAfford) {
@@ -613,7 +612,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     }
 
     if (p) {
-        if (G['shopBuyMax']) {
+        if (player.shopBuyMaxToggle) {
             //Can't use canAfford and maxLevel here because player's quarks change and shop levels change during loop
             while (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
                 player.worlds.sub(getShopCosts(input));
@@ -630,26 +629,21 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
 }
 
 export const useConsumable = async (input: ShopUpgradeNames) => {
-    const p = G['shopConfirmation']
+    const p = player.shopConfirmationToggle
         ? await Confirm('Would you like to use some of this potion?')
         : true;
 
-
     if (p) {
-        const maximalUse = (player.singularityUpgrades.potionBuff.getEffect().bonus) ? 100 : 1
+        const multiplier = +player.singularityUpgrades.potionBuff.getEffect().bonus;
         if (input === 'offeringPotion') {
-            const toUse = Math.min(maximalUse, player.shopUpgrades.offeringPotion)
-            const multiplier = Math.pow(toUse, 2)
-            if (toUse > 0) {
-                player.shopUpgrades.offeringPotion -= toUse;
+            if (player.shopUpgrades.offeringPotion > 0) {
+                player.shopUpgrades.offeringPotion -= 1;
                 player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
                 player.runeshards = Math.min(1e300, player.runeshards)
             }
         } else if (input === 'obtainiumPotion') {
-            const toUse = Math.min(maximalUse, player.shopUpgrades.obtainiumPotion)
-            const multiplier = Math.pow(toUse, 2)
-            if (toUse > 0) {
-                player.shopUpgrades.obtainiumPotion -= toUse;
+            if (player.shopUpgrades.obtainiumPotion > 0) {
+                player.shopUpgrades.obtainiumPotion -= 1;
                 player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
                 player.researchPoints = Math.min(1e300, player.researchPoints)
             }
@@ -659,7 +653,7 @@ export const useConsumable = async (input: ShopUpgradeNames) => {
 export const resetShopUpgrades = async (ignoreBoolean = false) => {
     let p = false
     if (!ignoreBoolean) {
-        p = G['shopConfirmation']
+        p = player.shopConfirmationToggle
             ? await Confirm('This will fully refund most of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?')
             : true;
     }

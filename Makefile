@@ -7,6 +7,9 @@ help:		## Show help
 install: 		## Install necessary dependencies
 	npm install
 
+watch: 		## Watches for file changes and update the page automatically, similar to running `npm run build:esbuild` every time
+	npm run watch:esbuild
+
 build: 		## Builds the project
 	npm run build:esbuild
 

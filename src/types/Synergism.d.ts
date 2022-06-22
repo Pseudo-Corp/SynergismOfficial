@@ -355,7 +355,10 @@ export interface Player {
         powderAuto: number,
         offeringEX2: number,
         obtainiumEX2: number
-    }
+    },
+    shopConfirmationToggle: boolean,
+    shopBuyMaxToggle: boolean,
+
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,
     autoEnhanceToggle: boolean,
@@ -679,9 +682,6 @@ export interface GlobalVariables {
     optimalObtainiumTimer: number
 
     runeSum: number
-
-    shopConfirmation: boolean,
-    shopBuyMax: boolean,
 
     globalAntMult: Decimal
     antMultiplier: Decimal
