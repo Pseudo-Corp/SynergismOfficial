@@ -37,7 +37,7 @@ const format12 = new Intl.DateTimeFormat('EN-GB', {
 
 const hour = 3600000;
 
-const getRealTime = (use12 = false) => {
+const getRealTime = (type = 'default', use12 = false) => {
     const format = use12 ? format12 : format24;
     const datePartsArr = format
         .formatToParts(new Date())
@@ -47,12 +47,34 @@ const getRealTime = (use12 = false) => {
     const dateParts = Object.assign({}, ...datePartsArr) as Record<string, string>;
 
     const period = use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : '';
-    return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`;
+    const weekday = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    switch (type) {
+        case 'default': return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`;
+        case 'short': return `${dateParts.year}${dateParts.month}${dateParts.day}${dateParts.hour}${dateParts.minute}${dateParts.second}`;
+        case 'year': return `${dateParts.year}`;
+        case 'month': return `${dateParts.month}`;
+        case 'day': return `${dateParts.day}`;
+        case 'hour': return `${dateParts.hour}`;
+        case 'minute': return `${dateParts.minute}`;
+        case 'second': return `${dateParts.second}`;
+        case 'period': return `${dateParts.dayPeriod.toUpperCase()}`;
+        case 'weekday': return `${weekday[new Date().getUTCDay()]}`;
+        default: return 'IDFK Lol';
+    }
 }
 
 export const updateSaveString = (input: HTMLInputElement) => {
     const value = input.value.slice(0, 100);
     player.saveString = value;
+}
+
+export const getVer = () => {
+    let t = version;
+    const e = /[\d?=.]+/.exec(version) as RegExpMatchArray | null;
+    if (e !== null) {
+        t = e[0];
+    }
+    return t;
 }
 
 const saveFilename = () => {
@@ -61,8 +83,34 @@ const saveFilename = () => {
         switch (b) {
             case 'VERSION': return `v${version}`;
             case 'TIME': return getRealTime();
-            case 'TIME12': return getRealTime(true);
+            case 'TIME12': return getRealTime(undefined, true);
             case 'SING': return ('Singularity ' + player.singularityCount);
+            case 'SINGS': return ('' + player.singularityCount);
+            case 'VER': return getVer();
+            case 'TIMES': return getRealTime('short');
+            case 'YEAR': return getRealTime('year');
+            case 'Y': return getRealTime('year');
+            case 'MONTH': return getRealTime('month');
+            case 'M': return getRealTime('month');
+            case 'DAY': return getRealTime('day');
+            case 'D': return getRealTime('day');
+            case 'HOUR': return getRealTime('hour');
+            case 'H': return getRealTime('hour');
+            case 'H12': return getRealTime('hour', true);
+            case 'MINUTE': return getRealTime('minute');
+            case 'MI': return getRealTime('minute');
+            case 'SECOND': return getRealTime('second');
+            case 'S': return getRealTime('second');
+            case 'PERIOD': return getRealTime('period', true);
+            case 'P': return getRealTime('period', true);
+            case 'WEEKDAY': return getRealTime('weekday');
+            case 'W': return getRealTime('weekday');
+            case 'DATE': return '' + Date.now();
+            case 'DATES': return '' + Math.floor(Date.now() / 1000);
+            case 'QUARK': return '' + Math.floor(Number(player.worlds));
+            case 'QUARKS': return format(Number(player.worlds));
+            case 'GQ': return '' + Math.floor(player.goldenQuarks);
+            case 'GQS': return format(player.goldenQuarks);
             default: return 'IDFK Lol';
         }
     });
