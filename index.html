@@ -2821,10 +2821,30 @@
                 </div>
                 <button id="exportgame" alt="exportgame" label="exportgame" style="border:2px solid green">Export the game here</button>
                 <p id="exportinfo" alt="exportinfo" label="exportinfo" class="tightText" style="color: white"></p>
-                <label title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h">
+                <label title="Use $VERSION$ for full version, $VER$ for version number, 
+$TIME$ for 24h time, $TIME12$ for 12h, 
+$YEAR$ or $Y$ for year, $MONTH$ or $M$ for month, 
+$DAY$ or $D$ for year, $HOUR$ or $H$ for hour, 
+$MINUTE$ or $MI$ for minute, $SECOND$ or $S$ for second, 
+$PERIOD$ or $P$ for period, $WEEKDAY$ or $W$ for weekday, 
+$DATE$ for date, $DATES$ for date seconds, 
+$TIMES$ for 24h time short, 
+$SING$ for singularity, $SINGS$ for singularity number, 
+$QUARK$ for quarks, $QUARKS$ for format quarks, 
+$GQ$ for golden quarks, $GQS$ for format golden quarks">
                     <input id="saveStringInput" alt="saveStringInput" label="saveStringInput">
                 </label>
-                <p id="saveString" alt="saveString" label="saveString" class="tightText" title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h"></p>
+                <p id="saveString" alt="saveString" label="saveString" class="tightText" title="Use $VERSION$ for full version, $VER$ for version number, 
+$TIME$ for 24h time, $TIME12$ for 12h, 
+$YEAR$ or $Y$ for year, $MONTH$ or $M$ for month, 
+$DAY$ or $D$ for year, $HOUR$ or $H$ for hour, 
+$MINUTE$ or $MI$ for minute, $SECOND$ or $S$ for second, 
+$PERIOD$ or $P$ for period, $WEEKDAY$ or $W$ for weekday, 
+$DATE$ for date, $DATES$ for date seconds, 
+$TIMES$ for 24h time short, 
+$SING$ for singularity, $SINGS$ for singularity number, 
+$QUARK$ for quarks, $QUARKS$ for format quarks, 
+$GQ$ for golden quarks, $GQS$ for format golden quarks"></p>
                 <p id="importgame" alt="importgame" label="importgame" class="tightText" style="color: limegreen">Load game below!</p>
                 <label id="importFileButton" alt="importFileButton" label="importFileButton" for="importfile">Load from file</label>
                 <input type="file" id="importfile" alt="importfile" label="importfile" accept=".txt" style="display: none">
@@ -3136,6 +3156,7 @@
 
         </div>
         <span id="hotkeyTooltip" alt="hotkeyTooltip" label="hotkeyTooltip">Why don't you try clicking on one of the item's <span style="color:gold;">gold</span> text above to get started? You can always cancel!</span>
+        <span style="color: lightblue;">Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!</span>
     </div>
 </div>
 
