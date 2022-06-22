@@ -1,5 +1,4 @@
 import { player, format } from './Synergism';
-import { Globals as G } from './Variables';
 import { Alert, Confirm, revealStuff } from './UpdateHTML';
 import { calculatePowderConversion, calculateTimeAcceleration } from './Calculate';
 import type { Player } from './types/Synergism';
@@ -598,7 +597,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const maxLevel = player.shopUpgrades[input] === shopData[input].maxLevel;
     const canAfford = Number(player.worlds) >= getShopCosts(input);
 
-    if (G['shopConfirmation'] || !shopData[input].refundable) {
+    if (player.shopConfirmationToggle || !shopData[input].refundable) {
         if (maxLevel) {
             await Alert('You can\'t purchase ' + friendlyShopName(input) + ' because you already have the max level!')
         } else if (!canAfford) {
@@ -613,7 +612,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     }
 
     if (p) {
-        if (G['shopBuyMax']) {
+        if (player.shopBuyMaxToggle) {
             //Can't use canAfford and maxLevel here because player's quarks change and shop levels change during loop
             while (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
                 player.worlds.sub(getShopCosts(input));
@@ -630,10 +629,9 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
 }
 
 export const useConsumable = async (input: ShopUpgradeNames) => {
-    const p = G['shopConfirmation']
+    const p = player.shopConfirmationToggle
         ? await Confirm('Would you like to use some of this potion?')
         : true;
-
 
     if (p) {
         const multiplier = +player.singularityUpgrades.potionBuff.getEffect().bonus;
@@ -655,7 +653,7 @@ export const useConsumable = async (input: ShopUpgradeNames) => {
 export const resetShopUpgrades = async (ignoreBoolean = false) => {
     let p = false
     if (!ignoreBoolean) {
-        p = G['shopConfirmation']
+        p = player.shopConfirmationToggle
             ? await Confirm('This will fully refund most of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?')
             : true;
     }
