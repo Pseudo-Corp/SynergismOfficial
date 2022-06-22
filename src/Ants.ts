@@ -23,7 +23,7 @@ const antdesc: Record<string, string> = {
     antdesc4: 'Gain a Mega-breeder Ant that produces Meta-breeder Ants automatically!',
     antdesc5: 'Gain a Queen Ant that produces Mega-breeder Ants automatically!',
     antdesc6: 'Gain a Lord Royal Ant that produces Queen Ants automatically!',
-    antdesc7: 'Gain an ALMIGHTY ANT that produces Lord Royal ants automatically!',
+    antdesc7: 'Gain an ALMIGHTY ANT that produces Lord Royal Ants automatically!',
     antdesc8: 'Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!'
 }
 

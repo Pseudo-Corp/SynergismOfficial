@@ -292,7 +292,7 @@ const adesc = {
     adesc237: '[237] Spirit III: Level your Speed Spirit to 1 Trillion.',
     adesc238: '[238] Three-folded: [Hint: you may want to look into the inception]',
     adesc239: '[239] Seeing red: [Hint: you may need a lot of red items]',
-    adesc240: '[240] ASCENDED: [Hint: you may need a LOT of ascensions OR an particularly amazing Ascension]',
+    adesc240: '[240] ASCENDED: [Hint: you may need a LOT of Ascensions OR an particularly amazing Ascension]',
     adesc241: '[241] Aesop: [Hint: you gotta be pretty dang slow]',
     adesc242: '[242] Aesop\'s Revenge: [Hint: you gotta be pretty dang fast]',
     adesc243: '[243] Unsmith: [Hint: unsmith emoji :unsmith: can be a pretty good input]',

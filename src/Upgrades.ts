@@ -70,7 +70,7 @@ const upgdesc: Record<string, string> = {
     upgdesc58: 'Printer production is multiplied by 1e+15000.',
     upgdesc59: 'Coin Mint production is multiplied by 1e+25000.',
     upgdesc60: 'Alchemies production is multiplied by 1e+35000.', //Reincarnation Upgrades 61-100
-    upgdesc61: 'Welcome to reincarnation! +5% Offering Recycle, +2 EXP/Offering!',
+    upgdesc61: 'Welcome to Reincarnation! +5% Offering Recycle, +2 EXP/Offering!',
     upgdesc62: 'Completing Challenges, automatically or manually, increase Offerings gained in Reincarnation. Bonus subject to time multiplier!',
     upgdesc63: 'Crystal Production is multiplied based on Particles to the sixth power [Caps at 1e6000x].',
     upgdesc64: 'Mythos Shard Production is multiplied by your Particles squared.',
@@ -89,7 +89,7 @@ const upgdesc: Record<string, string> = {
     upgdesc77: 'This is Synergism, right? Let\'s make each purchased Ant make all Ants 0.4% faster.',
     upgdesc78: 'Gain an Ant speed multiplier equivalent to (1 + 0.005 * (log10(MAX Offerings + 1))^2).',
     upgdesc79: 'The Ant God will accept an arbitrary number of Particles in order to give you 10% more from sacrifices.',
-    upgdesc80: 'The Ant God will accept a larger arbitrary number of Particles to give you more ant ELO.',
+    upgdesc80: 'The Ant God will accept a larger arbitrary number of Particles to give you more Ant ELO.',
     upgdesc81: 'Automatically buy Workers if affordable.', //Automation Upgrades 81-100
     upgdesc82: 'Automatically buy Investments if affordable.',
     upgdesc83: 'Automatically buy Printers if affordable.',
