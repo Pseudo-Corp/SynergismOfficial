@@ -847,7 +847,9 @@ export const achievementdescriptions = (i: number) => {
 
 export const achievementaward = (num: number) => {
     if (player.achievements[num] < 1) {
-        void Notification(`You unlocked an achievement: ${adesc[`adesc${num}` as keyof typeof adesc]}`);
+        if (player.toggles[34]) {
+            void Notification(`You unlocked an achievement: ${adesc[`adesc${num}` as keyof typeof adesc]}`);
+        }
 
         void achievementAlerts(num)
         player.achievementPoints += achievementpointvalues[num]

@@ -194,8 +194,8 @@ export const generateEventHandlers = () => {
     }
 
     //Part 4: Toggles
-    // I'm just addressing all global toggles here: toggle1 up to toggle33
-    for (let index = 0; index < 33; index++) {
+    // I'm just addressing all global toggles here: toggle1 up to toggle34
+    for (let index = 0; index < 34; index++) {
         DOMCacheGetOrSet(`toggle${index+1}`).addEventListener('click', () => toggleSettings(index))
     }
     // Toggles auto reset type (between TIME and AMOUNT)
