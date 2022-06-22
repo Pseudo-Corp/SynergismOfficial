@@ -332,7 +332,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         d.textContent = 'Goal: ' + format(challengeRequirement(i, player.challengecompletions[i], 15)) + ' Coins, but get bonuses based on your best attempt.'
         e.textContent = 'You have no idea '
         f.textContent = 'what you have just done '
-        g.textContent = 'the ant god shakes their mighty head '
+        g.textContent = 'the Ant God shakes their mighty head '
         h.textContent = 'Who knows. Platonic sure doesn\'t.'
         k.textContent = 'Start <[(Sadistic Challenge II)]>'
         l.textContent = ''

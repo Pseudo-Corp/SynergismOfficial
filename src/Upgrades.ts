@@ -47,7 +47,7 @@ const upgdesc: Record<string, string> = {
     upgdesc35: 'Gain 2% more free Multipliers.',
     upgdesc36: 'Multiply crystal production by Diamonds, maximum 1e5000x.',
     upgdesc37: 'Multiply mythos shard production by the squared logarithm of Diamonds.',
-    upgdesc38: 'Gain +15% more offerings thanks to generous Discord Server Boosters!',
+    upgdesc38: 'Gain +15% more Offerings thanks to generous Discord Server Boosters!',
     upgdesc39: 'Gain +50% more Ant Speed thanks to generous Discord Server Boosters!',
     upgdesc40: 'Gain +25% more Ant Sacrifice rewards thanks to generous Discord Server Boosters!',
     upgdesc41: 'Multiply production based on unspent Mythos.',
@@ -80,14 +80,14 @@ const upgdesc: Record<string, string> = {
     upgdesc68: 'Gain a free multiplier for every 1e1000x increase in tax.',
     upgdesc69: 'Gain more Obtainium based on your particle gain. [Works with automation at a reduced rate!]',
     upgdesc70: 'Time seems to go +0.333*log10(MAX obtainium +1)% faster when you buy this.',
-    upgdesc71: 'Runes will gain (Rune Level/25) additional EXP per offering used.',
+    upgdesc71: 'Runes will gain (Rune Level/25) additional EXP per Offering used.',
     upgdesc72: 'Obtainium gain from Reincarnations is multiplied (1 + 2C) where C is #Reincarnation Challenges completed, up to 50x!',
     upgdesc73: 'Gain +100% free accelerator boosts and +10 free Crystal Upgrade levels, but only in Reincarnation Challenges.',
-    upgdesc74: 'Obtainium gain is increased based on highest ever unspent offerings. [Max: 100,000 unspent]',
+    upgdesc74: 'Obtainium gain is increased based on highest ever unspent Offerings. [Max: 100,000 unspent]',
     upgdesc75: 'Offering gain is increased based on highest ever unspent obtainium [Max: 30,000,000 obtainium]',
     upgdesc76: 'Ant generation kinda slow? I agree! Make all ant tiers 5x faster!',
     upgdesc77: 'This is Synergism, right? Let\'s make each purchased ant make all ants 0.4% faster.',
-    upgdesc78: 'Gain an ant speed multiplier equivalent to (1 + 0.005 * (log10(MAX offerings + 1))^2).',
+    upgdesc78: 'Gain an Ant speed multiplier equivalent to (1 + 0.005 * (log10(MAX Offerings + 1))^2).',
     upgdesc79: 'The Ant God will accept an arbitrary number of Particles in order to give you 10% more from sacrifices.',
     upgdesc80: 'The Ant God will accept a larger arbitrary number of Particles to give you more ant ELO.',
     upgdesc81: 'Automatically buy Workers if affordable.', //Automation Upgrades 81-100
@@ -138,11 +138,11 @@ const upgdesc: Record<string, string> = {
 }
 
 const crystalupgdesc: Record<number, () => string> = {
-    1: () => 'Gain a 5% multiplicative boost to crystals per AP per level.',
-    2: () => 'Gain a boost to crystals based on held coins per level.',
+    1: () => 'Gain a 5% multiplicative boost to Crystals per AP per level.',
+    2: () => 'Gain a boost to Crystals based on held coins per level.',
     3: () => `Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: ${format(100 * (0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4)), 2, true)}%]`,
     4: () => `Improve the multiplier to coin production by .05 exponent per level. [MAX: +${format(10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][3])}]`,
-    5: () => 'Every challenge completion increases crystal gain by 1% per level.',
+    5: () => 'Every Challenge completion increases Crystal gain by 1% per level.',
     6: () => 'Coming SOON!',
     7: () => 'Coming SOON!',
     8: () => 'Coming SOON!'
@@ -151,14 +151,14 @@ const crystalupgdesc: Record<number, () => string> = {
 const constantUpgDesc: Record<number, () => string> = {
     1: () => `Make all Tesseract buildings ${format(5 + player.achievements[270] + 0.1 * player.platonicUpgrades[18], 1, true)}% more productive per level.`,
     2: () => `Each Tesseract building bought increases the production of all of them by 0.1% per level [Max ${format(10 + player.achievements[270] + player.shopUpgrades.constantEX + 100 * (G['challenge15Rewards'].exponent - 1) + 0.3 * player.platonicUpgrades[18], 2, true)}%].`,
-    3: () => 'Increase offering gain +2% per level.',
-    4: () => 'Increase obtainium gain +4% per level.',
-    5: () => 'Multiply ant speed by (1 + log10(Constant + 1)/10)^level',
+    3: () => 'Increase Offering gain +2% per level.',
+    4: () => 'Increase Obtainium gain +4% per level.',
+    5: () => 'Multiply Ant speed by (1 + log10(Constant + 1)/10)^level',
     6: () => 'Add +2 free Ant Levels per level.',
     7: () => 'Provides 7 free rune levels and increases the rune cap by 3 per level.',
-    8: () => 'Increase the rune EXP given by offerings by 10% per level [Additive]',
+    8: () => 'Increase the rune EXP given by Offerings by 10% per level [Additive]',
     9: () => 'When bought, rune effectiveness is increased by Log4(Talisman Shards +1) %',
-    10: () => 'When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on ascension.'
+    10: () => 'When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on Ascension.'
 }
 
 const upgradetexts = [
@@ -223,7 +223,7 @@ const upgradetexts = [
     () => 'Look above!',
     () => 'Look above!',
     () => '+5% Offering Recycle/+2EXP per Offerings. Duh!',
-    () => 'Base offering amount for Reincarnations +' + Math.floor(1 / 5 * (sumContents(player.challengecompletions))) + '. Challenge yourself!',
+    () => 'Base Offering amount for Reincarnations +' + Math.floor(1 / 5 * (sumContents(player.challengecompletions))) + '. Challenge yourself!',
     () => 'All crystal production x' + format(Decimal.min('1e6000', Decimal.pow(player.reincarnationPoints.add(1), 6))),
     () => 'All mythos shard production x' + format(Decimal.pow(player.reincarnationPoints.add(1), 2)),
     () => '5x Particle gain from Reincarnations. Duh!',
