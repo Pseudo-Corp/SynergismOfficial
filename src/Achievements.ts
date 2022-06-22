@@ -398,7 +398,7 @@ export const areward = (i: number): string => {
         79: 'Automatically buy the first Crystal upgrade if you can afford it!',
         80: 'Start Transcensions/Challenges with Multiplier Autobuyer unlocked. +5% Offering recycle.',
         82: 'Delay tax growth by 4%.',
-        84: '+1% obtainium (stacks additively with other achievement rewards)',
+        84: '+1% Obtainium (stacks additively with other achievement rewards)',
         85: 'Start Transcensions/Challenges with 1 Coal Plant and automatically buy Coal Plants.',
         86: 'Automatically buy the second Crystal upgrade if you can afford it!',
         87: 'Start Transcensions/Challenges with Accelerator Autobuyer unlocked. +5% Offering recycle.',
@@ -456,8 +456,8 @@ export const areward = (i: number): string => {
         188: `Gain +100 Ascension count for all Ascensions longer than 10 seconds. Also: Obtainium +${format(Math.min(100, player.ascensionCount / 50000), 2)}% [Max: 100% at 5M Ascensions]`,
         189: `Gain 20% of Excess time after 10 seconds each Ascension as a linear multiplier to Ascension count. Also: Cubes +${format(Math.min(200, player.ascensionCount / 2.5e6), 2)}% [Max: 200% at 500M Ascensions]`,
         193: `Gain ${format(Decimal.log(player.ascendShards.add(1), 10) / 4, 2)}% more Cubes on Ascension!`,
-        195: `Gain ${format(Math.min(25000, Decimal.log(player.ascendShards.add(1), 10) / 4), 2)}% more Cubes and Tesseracts on ascension! Multiplicative with the other Ach. bonus [MAX: 25,000% at e100,000 Const]`,
-        196: `Gain ${format(Math.min(2000, Decimal.log(player.ascendShards.add(1), 10) / 50), 2)}% more Platonic Cubes on ascension! [MAX: 2,000% at e100,000 Const]`,
+        195: `Gain ${format(Math.min(25000, Decimal.log(player.ascendShards.add(1), 10) / 4), 2)}% more Cubes and Tesseracts on Ascension! Multiplicative with the other Ach. bonus [MAX: 25,000% at e100,000 Const]`,
+        196: `Gain ${format(Math.min(2000, Decimal.log(player.ascendShards.add(1), 10) / 50), 2)}% more Platonic Cubes on Ascension! [MAX: 2,000% at e100,000 Const]`,
         197: 'You will unlock a stat tracker for Ascensions.',
         198: 'Gain +4% Cubes on Ascension!',
         199: 'Gain +4% Cubes on Ascension!',
@@ -469,7 +469,7 @@ export const areward = (i: number): string => {
         206: 'Gain +4% Tesseracts on Ascension!',
         207: 'Gain +4% Tesseracts on Ascension!',
         208: 'Gain +3% Tesseracts on Ascension!',
-        209: 'Gain 20% of excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count.',
+        209: 'Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count.',
         211: 'You will gain 25% MORE Excess time (Total: 50%) after 10 seconds each Ascension as a linear multiplier to rewards.',
         212: 'Gain +4% Hypercubes on Ascension!',
         213: 'Gain +4% Hypercubes on Ascension!',
@@ -508,7 +508,7 @@ export const areward = (i: number): string => {
         277: 'You immediately start Singularities with 500 Obtainium!',
         278: 'Gain 5% more Quarks, permanently! Automation regarding Particle Buildings are immediately available.',
         279: 'You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!',
-        280: 'You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 ant.'
+        280: 'You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 Ant.'
     }
 
     if (i in descs) {

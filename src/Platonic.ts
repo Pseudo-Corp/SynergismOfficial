@@ -15,7 +15,7 @@ const platonicUpgradeDesc = [
     'Raise Obtainium to the power of (1+(0.09*log10(Obtainium owned))) and add another x2.5 multiplier (Uncorruptable), up until 1e100 Obtainium!',
     'C10 Exponent: 1.0375 --> 1.04, Constant tax exponent +0.20, 10x faster Constant production, +15% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 3.5x Obtainium and Offerings, 2x All Cubes, ^1.25 ant exponent in C15, +1 Corruption Cap Level again!',
     'With this upgrade, you will gain diamonds equal to particle gain on Reincarnation while using Market Deflation 11 or higher! Does not work with Cube upgrade [3x8]!',
-    'Gain (1 + lvl/100)x ant multiplier per Challenge completion, ignoring corruptions to ants.',
+    'Gain (1 + lvl/100)x Ant multiplier per Challenge completion, ignoring corruptions to Ants.',
     'Effect of Drought is raised to the power of 0.5.',
     'Reduce the effect of Financial Recession in Challenge 15, multiplying the coin exponent by 1.55.',
     'You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), +20% Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Offerings and Obtainium (Uncorruptable)! Talk about a deep dive.',
