@@ -355,7 +355,10 @@ export interface Player {
         powderAuto: number,
         offeringEX2: number,
         obtainiumEX2: number
-    }
+    },
+    shopConfirmationToggle: boolean,
+    shopBuyMaxToggle: boolean,
+
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,
     autoEnhanceToggle: boolean,
@@ -632,7 +635,7 @@ export interface GlobalVariables {
     uFourteenMulti: Decimal
     uFifteenMulti: Decimal
     tuSevenMulti: number
-    currentTab: 
+    currentTab:
         | 'buildings'
         | 'upgrades'
         | 'achievements'
@@ -679,9 +682,6 @@ export interface GlobalVariables {
     optimalObtainiumTimer: number
 
     runeSum: number
-
-    shopConfirmation: boolean,
-    shopBuyMax: boolean,
 
     globalAntMult: Decimal
     antMultiplier: Decimal
@@ -893,15 +893,15 @@ export interface SynergismEvents {
 }
 
 // If changing these, make reset tiers on top, then challenge types, then specific actions
-export type resetNames = 
-    | "prestige" 
-    | "transcension" 
-    | "reincarnation" 
-    | "ascension" 
+export type resetNames =
+    | "prestige"
+    | "transcension"
+    | "reincarnation"
+    | "ascension"
     | "singularity"
-    | "transcensionChallenge" 
-    | "reincarnationChallenge" 
-    | "ascensionChallenge" 
+    | "transcensionChallenge"
+    | "reincarnationChallenge"
+    | "ascensionChallenge"
     | "acceleratorBoost"
 
 // If adding new cube types add them below the last listed type. Thank you

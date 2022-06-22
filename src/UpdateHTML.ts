@@ -442,9 +442,8 @@ export const revealStuff = () => {
     }
 
     Object.keys(automationUnlocks).forEach(key => {
-        const el = DOMCacheGetOrSet(key);
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (!el) {
+        const el = DOMCacheGetOrSet(key) as HTMLElement | null;
+        if (el === null) {
             // eslint-disable-next-line no-console
             console.error(`Automation unlock failed to find element with ID '${key}'.`);
             return;
@@ -486,7 +485,7 @@ export const hideStuff = () => {
 
     const tab = DOMCacheGetOrSet('settingstab')!;
     tab.style.backgroundColor = '';
-    tab.style.border = '1px solid white';
+    tab.style.borderColor = 'white';
 
     if (G['currentTab'] === 'buildings') {
         DOMCacheGetOrSet('buildingstab').style.backgroundColor = 'orange';
@@ -501,13 +500,13 @@ export const hideStuff = () => {
         DOMCacheGetOrSet('settings').style.display = 'block'
         const tab = DOMCacheGetOrSet('settingstab')!;
         tab.style.backgroundColor = 'orange';
-        tab.style.border = '1px solid gold';
+        tab.style.borderColor = 'gold';
     }
     if (G['currentTab'] === 'achievements') {
         DOMCacheGetOrSet('statistics').style.display = 'block'
         DOMCacheGetOrSet('achievementstab').style.backgroundColor = 'white'
         DOMCacheGetOrSet('achievementstab').style.color = 'black'
-        DOMCacheGetOrSet('achievementprogress').textContent = 'Achievement Points: ' + player.achievementPoints + '/' + totalachievementpoints + ' [' + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + '%]'
+        DOMCacheGetOrSet('achievementprogress').textContent = 'Achievement Points: ' + format(player.achievementPoints, 0, true) + '/' + format(totalachievementpoints, 0, true) + ' [' + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + '%]'
     }
     if (G['currentTab'] === 'runes') {
         DOMCacheGetOrSet('runes').style.display = 'block'
@@ -571,14 +570,16 @@ const visualTab: Record<typeof G['currentTab'], () => void> = {
 
 export const htmlInserts = () => {
     // ALWAYS Update these, for they are the most important resources
-    DOMCacheGetOrSet('coinDisplay').textContent = format(player.coins)
-    DOMCacheGetOrSet('offeringDisplay').textContent = format(player.runeshards)
-    DOMCacheGetOrSet('diamondDisplay').textContent = format(player.prestigePoints)
-    DOMCacheGetOrSet('mythosDisplay').textContent = format(player.transcendPoints)
-    DOMCacheGetOrSet('mythosshardDisplay').textContent = format(player.transcendShards)
-    DOMCacheGetOrSet('particlesDisplay').textContent = format(player.reincarnationPoints)
-    DOMCacheGetOrSet('quarkDisplay').textContent = format(player.worlds)
-    DOMCacheGetOrSet('obtainiumDisplay').textContent = format(player.researchPoints)
+
+    const playerRequirements = ['coins', 'runeshards', 'prestigePoints', 'transcendPoints', 'transcendShards', 'reincarnationPoints', 'worlds', 'researchPoints'] as const;
+    const domRequirements = ['coinDisplay', 'offeringDisplay', 'diamondDisplay', 'mythosDisplay', 'mythosshardDisplay', 'particlesDisplay', 'quarkDisplay', 'obtainiumDisplay'] as const;
+    for (let i = 0; i < playerRequirements.length; i++) {
+        const text = format(player[`${playerRequirements[i]}` as const]);
+        const dom = DOMCacheGetOrSet(`${domRequirements[i]}` as const);
+        if (dom.textContent !== text) {
+            dom.textContent = text;
+        }
+    }
 
     updateAscensionStats()
 
@@ -614,6 +615,10 @@ export const buttoncolorchange = () => {
     (player.currentChallenge.ascension === 0) ?
         DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = '#171717' :
         DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = 'purple';
+
+    (player.autoAscend && player.cubeUpgrades[10] > 0.5) ?
+        DOMCacheGetOrSet('ascendbtn').style.backgroundColor = 'green' :
+        DOMCacheGetOrSet('ascendbtn').style.backgroundColor = '#171717';
 
     if (G['currentTab'] === 'buildings' && G['buildingSubTab'] === 'coin') {
         const a = DOMCacheGetOrSet('buycoin1');
@@ -877,12 +882,15 @@ const updateAscensionStats = () => {
         'ascHyper': format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4),
         'ascPlatonic': format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
         'ascHepteract': format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
-        'ascC10': player.challengecompletions[10] + '',
+        'ascC10': `${format(player.challengecompletions[10])}`,
         'ascTimeAccel': `${format(calculateTimeAcceleration(), 3)}x`,
         'ascAscensionTimeAccel': `${format(calculateAscensionAcceleration(), 3)}x`
     }
     for (const key in fillers) {
-        DOMCacheGetOrSet(key).textContent = fillers[key];
+        const dom = DOMCacheGetOrSet(key);
+        if (dom.textContent !== fillers[key]) {
+            dom.textContent = fillers[key];
+        }
     }
 }
 
@@ -1036,6 +1044,9 @@ export const PromptCB = (text: string, cb: (value: string | null) => void) => {
     popup.querySelector('input')!.addEventListener('keyup', kbListener);
 }
 
+let closeNotification: ReturnType<typeof setTimeout>;
+let closedNotification: ReturnType<typeof setTimeout>;
+
 const NotificationCB = (text: string, time = 30000, cb: () => void) => {
     const notification = DOMCacheGetOrSet('notification');
     const textNode = document.querySelector<HTMLElement>('#notification > p')!;
@@ -1046,18 +1057,32 @@ const NotificationCB = (text: string, time = 30000, cb: () => void) => {
     notification.classList.remove('slide-out');
     notification.classList.add('slide-in');
 
+    const closed = () => {
+        notification.style.display = 'none';
+        textNode.textContent = '';
+        closedNotification = 0;
+    }
+
     const close = () => {
-        setTimeout(() => textNode.textContent = '', 1000);
         notification.classList.add('slide-out');
         notification.classList.remove('slide-in');
 
+        closeNotification = 0;
         x.removeEventListener('click', close);
+        closedNotification = setTimeout(closed, 1000);
         cb();
     }
 
     x.addEventListener('click', close);
+    // Reset the close timer if reopened before closed
+    if (closeNotification > 0) {
+        clearTimeout(closeNotification);
+    }
+    if (closedNotification > 0) {
+        clearTimeout(closedNotification);
+    }
     // automatically close out after <time> ms
-    setTimeout(close, time);
+    closeNotification = setTimeout(close, time);
 }
 
 /*** Promisified version of the AlertCB function. */
