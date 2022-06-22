@@ -339,7 +339,7 @@ export const promocodes = async (input: string | null) => {
 
             rewardMessage = 'Feeling especially generous, the Ant God has also given you free levels of the following Singularity upgrades:'
             // The same upgrade can be drawn several times, so we save the sum of the levels gained, to display them only once at the end
-            let freeLevels: Record<string, number> = {}
+            const freeLevels: Record<string, number> = {}
             for (let i = 0; i < rolls; i++) {
                 const num = 1000 * Math.random();
                 for (const key of keys) {
@@ -576,7 +576,7 @@ function timeCodeRewardMultiplier(): number {
 }
 
 function dailyCodeFormatFreeLevelMessage(upgradeKey: string, freeLevelAmount: number): string {
-    let upgradeNiceName = singularityData[upgradeKey].name;
+    const upgradeNiceName = singularityData[upgradeKey].name;
     return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
 }
 
