@@ -68,14 +68,7 @@ export const updateSaveString = (input: HTMLInputElement) => {
     player.saveString = value;
 }
 
-export const getVer = () => {
-    let t = version;
-    const e = /[\d?=.]+/.exec(version) as RegExpMatchArray | null;
-    if (e !== null) {
-        t = e[0];
-    }
-    return t;
-}
+export const getVer = () => /[\d?=.]+/.exec(version)?.[0] ?? version
 
 const saveFilename = () => {
     const s = player.saveString
