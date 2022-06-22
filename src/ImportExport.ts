@@ -104,7 +104,7 @@ const saveFilename = () => {
             case 'QUARKS': return format(Number(player.worlds));
             case 'GQ': return '' + Math.floor(player.goldenQuarks);
             case 'GQS': return format(player.goldenQuarks);
-            default: return b;
+            default: return `${b}`;
         }
     });
 
