@@ -479,7 +479,7 @@ export const promocodes = async (input: string | null) => {
         ]
 
         const ascensionSpeed = calculateAscensionAcceleration()
-        const perSecond = 1/(24 * 3600 * 365) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
+        const perSecond = 1/(24 * 3600 * 365 * 1e9) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
         if (perSecond > 1) {
             return Alert(`You will gain ${format(perSecond, 2, true)} octeracts (when they come out) every second, assuming you have them unlocked!`)
         } else {
