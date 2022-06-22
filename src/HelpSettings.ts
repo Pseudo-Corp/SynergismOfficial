@@ -18,7 +18,7 @@ const associated = new Map<string, string>([
 ]);
 export const displayHelp = (btn: HTMLElement) => {
     for (const e of Array.from(btn.parentElement!.children) as HTMLElement[]) {
-            e.style.backgroundColor = (e.id !== btn.id ? '' : 'crimson');
+        e.style.backgroundColor = (e.id !== btn.id ? '' : 'crimson');
     }
     DOMCacheGetOrSet('helpText').textContent = String(associated.get(btn.id))
 }
