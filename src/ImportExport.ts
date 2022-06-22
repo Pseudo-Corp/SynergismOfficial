@@ -59,7 +59,7 @@ const getRealTime = (type = 'default', use12 = false) => {
         case 'second': return `${dateParts.second}`;
         case 'period': return `${dateParts.dayPeriod.toUpperCase()}`;
         case 'weekday': return `${weekday[new Date().getUTCDay()]}`;
-        default: return 'IDFK Lol';
+        default: return type;
     }
 }
 
