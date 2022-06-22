@@ -15,6 +15,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { Globals as G } from './Variables';
 import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
+import { singularityData } from './singularity';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -295,6 +296,8 @@ export const promocodes = async (input: string | null) => {
         el.textContent = 'Khafra has blessed you with ' + player.worlds.applyBonus(quarks) + ' quarks!';
     } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
         player.dailyCodeUsed = true;
+        let rewardMessage = 'Thank you for playing today!\nThe Ant God rewards you with this gift:';
+
         const rewards = dailyCodeReward();
         const quarkMultiplier = 1 + Math.min(49, player.singularityCount)
 
@@ -305,7 +308,11 @@ export const promocodes = async (input: string | null) => {
         player.worlds.add(actualQuarkAward, false)
         player.goldenQuarks += rewards.goldenQuarks
 
-        const goldenQuarksText = (rewards.goldenQuarks > 0) ? `and ${format(rewards.goldenQuarks, 0, true)} Golden Quarks` : '';
+        rewardMessage += `\n${format(actualQuarkAward, 0, true)} Quarks`
+        if (rewards.goldenQuarks > 0) {
+            rewardMessage += `\n${format(rewards.goldenQuarks, 0, true)} Golden Quarks`
+        }
+        await Alert(rewardMessage);
 
         if (player.singularityCount > 0) {
             const upgradeDistribution: Record<
@@ -330,16 +337,25 @@ export const promocodes = async (input: string | null) => {
                 .keys(player.singularityUpgrades)
                 .filter(key => key in upgradeDistribution) as (keyof typeof upgradeDistribution)[];
 
+            rewardMessage = 'Feeling especially generous, the Ant God has also given you free levels of the following Singularity upgrades:'
+            // The same upgrade can be drawn several times, so we save the sum of the levels gained, to display them only once at the end
+            const freeLevels: Record<string, number> = {}
             for (let i = 0; i < rolls; i++) {
                 const num = 1000 * Math.random();
                 for (const key of keys) {
                     if (upgradeDistribution[key].pdf(num)) {
                         player.singularityUpgrades[key].freeLevels += upgradeDistribution[key].value
+                        freeLevels[key] ? freeLevels[key] += upgradeDistribution[key].value : freeLevels[key] = upgradeDistribution[key].value
                     }
                 }
             }
+
+            for (const key of Object.keys(freeLevels)) {
+                rewardMessage += dailyCodeFormatFreeLevelMessage(key, freeLevels[key])
+            }
+            await Alert(rewardMessage);
         }
-        return Alert(`Thank you for playing today! You have gained ${format(actualQuarkAward, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
+        return;
     } else if (input.toLowerCase() === 'add') {
         const availableUses = addCodeAvailableUses();
         const timeToNextUse = addCodeTimeToNextUse();
@@ -557,6 +573,11 @@ function timeCodeTimeToNextUse(): number {
 
 function timeCodeRewardMultiplier(): number {
     return Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600));
+}
+
+function dailyCodeFormatFreeLevelMessage(upgradeKey: string, freeLevelAmount: number): string {
+    const upgradeNiceName = singularityData[upgradeKey].name;
+    return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
 }
 
 function dailyCodeReward() {
