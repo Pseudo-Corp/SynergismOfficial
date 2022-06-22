@@ -1787,7 +1787,7 @@ nav li:hover {
     margin-top: 10px;
 }
 
-#quarksDisplay {
+#quarksDisplay, #goldenQuarksDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1796,6 +1796,12 @@ nav li:hover {
 #quarkamount {
     font-size: 1.2em;
     color: aqua;
+    margin-left: 5px;
+}
+
+#goldenQuarkamount {
+    font-size: 1.2em;
+    color: gold;
     margin-left: 5px;
 }
 
@@ -2871,7 +2877,7 @@ header .img {
 
 .subHeader {
     display: flex;
-    width: 88%;
+    width: 80%;
 }
 
 .currenciesContainer {
@@ -2989,6 +2995,10 @@ header #obtainiumDisplay {
 
 #ascAscensionTimeAccel {
     color: orange;
+}
+
+#ascSingularityCount {
+    color: gold;
 }
 
 #tabBorder {
