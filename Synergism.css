@@ -2362,6 +2362,7 @@ p[id$="BlessingsTotal"] {
     margin: 3px;
     transition-duration: 0.15s;
 }
+
 #helpbuttons {
     display: grid;
     padding-top: 30px;
@@ -2372,12 +2373,14 @@ p[id$="BlessingsTotal"] {
     width: 500px;
     float: left;
 }
+
 #helpbuttons > button {
     width: 150px;
     height: 30px;
     margin: 3px;
     transition-duration: 0.15s;
 }
+
 .helpText {
     padding-top: 30px;
     max-width: 800px;
@@ -2385,9 +2388,11 @@ p[id$="BlessingsTotal"] {
     padding: 50px;
     padding-bottom: 300px;
 }
+
 #helpbuttons > button:hover {
-    background-color: #333
+    background-color: #333;
 }
+
 #statsForNerds > button:hover {
     background-color: #333;
 }
