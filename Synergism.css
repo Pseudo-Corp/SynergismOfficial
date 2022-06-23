@@ -2384,9 +2384,10 @@ p[id$="BlessingsTotal"] {
 .helpText {
     padding-top: 30px;
     max-width: 800px;
-    border: 2px solid whitesmoke;
+    border: 2px solid white;
     padding: 50px;
-    padding-bottom: 300px;
+    padding-bottom: 10px;
+    white-space: pre-wrap
 }
 
 #helpbuttons > button:hover {
