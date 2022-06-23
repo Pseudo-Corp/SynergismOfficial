@@ -3280,10 +3280,14 @@ header #obtainiumDisplay {
     margin: 2px;
 }
 
-#singularityMultiline {
+#singularityPenaltiesMultiline, #singularityPerksMultiline {
     white-space: pre-line;
 }
 
 #testingMultiline {
     white-space: pre-line;
+}
+
+.newPerk {
+    color: gold;
 }
