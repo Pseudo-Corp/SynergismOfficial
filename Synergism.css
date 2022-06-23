@@ -845,6 +845,29 @@ nav li:hover {
     overflow-wrap: break-word;
 }
 
+.NotificationToggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.achNotification {
+    flex-grow: unset;
+    padding-left: 4px;
+}
+
+.nonSquare {
+    width: 38px;
+    height: 20px;
+    transition-duration: 0.15s;
+    margin-left: 5px;
+    padding-right: 2px;
+}
+
+.nonSquare:hover {
+    background-color: #333;
+}
+
 /* Removes giant space between paragraphs */
 #achievementinfo > p { margin: 0; }
 
