@@ -727,7 +727,7 @@ export const updateSingularityAchievements = (): void => {
 
 export const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     // 1 transcension, 1001 mythos
-    if (player.achievements[275] > 0) {
+    if (player.achievements[275] > 0) { // Singularity 2
         player.prestigeCount = 1;
         player.transcendCount = 1;
         player.transcendPoints = new Decimal('1001');
@@ -745,7 +745,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         achievementaward(36); // 1 prestige
         achievementaward(43); // 1 transcension
     }
-    if (player.achievements[276] > 0) {
+    if (player.achievements[276] > 0) { // Singularity 3
         if (player.currentChallenge.ascension !== 12) {
             player.reincarnationCount = 1;
             player.reincarnationPoints = new Decimal('10');
@@ -774,7 +774,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         achievementaward(87)
 
     }
-    if (player.achievements[277] > 0) {
+    if (player.achievements[277] > 0) { // Singularity 4
         if (player.currentChallenge.ascension !== 14) {
             player.researchPoints = Math.floor(500 * calculateSingularityDebuff('Offering') * calculateSingularityDebuff('Researches'))
         }
@@ -785,7 +785,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.highestchallengecompletions[6] = 1;
         achievementaward(113);
     }
-    if (player.achievements[278] > 0 && singularityReset) {
+    if (player.achievements[278] > 0 && singularityReset) { // Singularity 5
         player.shopUpgrades.offeringAuto = 10
         player.shopUpgrades.offeringEX = 10
         player.shopUpgrades.obtainiumAuto = 10
@@ -794,7 +794,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.shopUpgrades.cashGrab = 10
         player.cubeUpgrades[7] = 1;
     }
-    if (player.achievements[279] > 0) {
+    if (player.achievements[279] > 0) { // Singularity 7
         player.challengecompletions[7] = 1;
         player.highestchallengecompletions[7] = 1;
         achievementaward(120);
@@ -802,10 +802,14 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
             player.reincarnationPoints = new Decimal('1e100');
         }
     }
-    if (player.achievements[280] > 0) {
+    if (player.achievements[280] > 0) { // Singularity 10
         achievementaward(127);
         player.challengecompletions[8] = 1;
         player.highestchallengecompletions[8] = 1;
+        player.cubeUpgrades[8] = 1;
+        player.cubeUpgrades[4] = 1; // Adding these ones,
+        player.cubeUpgrades[5] = 1; // so they wont reset
+        player.cubeUpgrades[6] = 1; // on first Ascension
         player.firstOwnedAnts = 1;
         for (let i = 0; i < 7; i++) {
             achievementaward(176 + i)

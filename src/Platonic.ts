@@ -378,7 +378,7 @@ export const buyPlatonicUpgrades = (index: number) => {
             player.hepteractCrafts.abyss.spend(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier));
 
             Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index]);
-            if (index === 20) {
+            if (index === 20 && player.singularityCount === 0) {
                 return Alert('While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the rune of Grandiloquence, for you are a richass.')
             }
         } else {

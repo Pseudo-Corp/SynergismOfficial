@@ -2897,7 +2897,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
     if (i === 'ascensionChallenge' && player.currentChallenge.ascension !== 0) {
         let conf = true
         if (manual) {
-            conf = await Confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
+            if (player.challengecompletions[11] === 0 || player.toggles[31]) {
+                conf = await Confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
+            }
         }
         if (!conf) {
             return;
