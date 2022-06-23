@@ -1787,7 +1787,8 @@ nav li:hover {
     margin-top: 10px;
 }
 
-#quarksDisplay, #goldenQuarksDisplay {
+#quarksDisplay,
+#goldenQuarksDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -3280,7 +3281,8 @@ header #obtainiumDisplay {
     margin: 2px;
 }
 
-#singularityPenaltiesMultiline, #singularityPerksMultiline {
+#singularityPenaltiesMultiline,
+#singularityPerksMultiline {
     white-space: pre-line;
 }
 
