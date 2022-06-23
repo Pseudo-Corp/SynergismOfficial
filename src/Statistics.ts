@@ -238,11 +238,15 @@ export const loadStatisticsCubeMultipliers = () => {
     const arr6 = calculateOcteractMultiplier().list;
     const map6: Record<number, { acc: number, desc: string }> = {
         1: {acc: 2, desc: 'Ascension Score Multiplier:'},
-        2: {acc: 2, desc: 'Global Cube Multiplier:'},
-        3: {acc: 2, desc: 'Season Pass 3:'},
-        4: {acc: 2, desc: 'Season Pass Lost:'},
-        5: {acc: 2, desc: 'Cookie Upgrade 20:'},
-        6: {acc: 2, desc: 'Divine Pack:'}
+        2: {acc: 2, desc: 'Season Pass 3:'},
+        3: {acc: 2, desc: 'Season Pass Y:'},
+        4: {acc: 2, desc: 'Season Pass Z:'},
+        5: {acc: 2, desc: 'Season Pass Lost:'},
+        6: {acc: 2, desc: 'Cookie Upgrade 20:'},
+        7: {acc: 2, desc: 'Divine Pack:'},
+        8: {acc: 2, desc: 'Cube Flame:'},
+        9: {acc: 2, desc: 'Cube Blaze:'},
+        10: {acc: 2, desc: 'Cube Inferno:'}
     }
     for (let i = 0; i < arr6.length; i++) {
         const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`);
