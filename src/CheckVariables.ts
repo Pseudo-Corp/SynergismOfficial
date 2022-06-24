@@ -177,22 +177,16 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.corruptionShowStats = true
     }
 
-    const corruptionLoadouts = Object.keys(
-        blankSave.corruptionLoadouts
-    ) as (`${keyof Player['corruptionLoadouts']}`)[]
-
-    for (const key of corruptionLoadouts.map(k => Number(k))) {
-        if (player.corruptionLoadouts[key] !== undefined) {
-            continue
-        }
-
-        player.corruptionLoadouts[key] = blankSave.corruptionLoadouts[key]
-    }
-
-    if (player.corruptionLoadoutNames.length < blankSave.corruptionLoadoutNames.length) {
-        const diff = blankSave.corruptionLoadoutNames.slice(player.corruptionLoadoutNames.length)
-
-        player.corruptionLoadoutNames.push(...diff)
+    const loadouts = Object.keys(player.corruptionLoadouts).map(k => Number(k))
+    // if current `corruptionLoadoutNames` differ from `corruptionLoadouts`
+    // we consider current `corruptionLoadouts` as source of truth and
+    // generate the name for the missing ones.
+    if (loadouts.length !== player.corruptionLoadoutNames.length) {
+        const currentNames = player.corruptionLoadoutNames;
+        player.corruptionLoadoutNames = loadouts
+            .map(loadout => currentNames[loadout - 1] === undefined
+                ? `Loadout ${loadout}`
+                : currentNames[loadout - 1])
     }
 
     for (let i = 0; i <= 4; i++) {

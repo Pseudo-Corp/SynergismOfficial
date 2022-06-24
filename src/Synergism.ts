@@ -27,7 +27,7 @@ import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgr
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
-import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate, updateCorruptionLoadoutNames, corruptionLoadoutSaveLoad } from './Corruptions';
+import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate, corruptionLoadoutSaveLoad } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import { addTimers, automaticTools } from './Helper';
 import { autoResearchEnabled } from './Research';
@@ -818,6 +818,10 @@ const loadSynergy = async () => {
             } else if (oldCodesUsed.includes(prop)) {
                 return;
             } else if (Array.isArray(data[prop])) {
+                if (prop === 'corruptionLoadoutNames') {
+                    player.corruptionLoadoutNames = data.corruptionLoadoutNames ?? [];
+                    return;
+                }
                 const arr = data[prop] as unknown[];
                 // in old savefiles, some arrays may be 1-based instead of 0-based (newer)
                 // so if the lengths of the savefile key is greater than that of the player obj
@@ -1323,11 +1327,8 @@ const loadSynergy = async () => {
         }
 
         corruptionStatsUpdate();
-        for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
-            corruptionLoadoutTableUpdate(i);
-        }
+        corruptionLoadoutTableUpdate();
         showCorruptionStatsLoadouts()
-        updateCorruptionLoadoutNames()
 
         for (let j = 1; j <= 5; j++) {
             const ouch = DOMCacheGetOrSet('tesseractAutoToggle' + j);

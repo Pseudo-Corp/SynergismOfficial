@@ -1,11 +1,9 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
 import { toggleCorruptionLevel } from './Toggles';
-import { getElementById } from './Utility';
 import { Alert, Prompt } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-
-//
+import type { Player } from './types/Synergism';
 
 export const maxCorruptionLevel = () => {
     let max = 0
@@ -204,69 +202,114 @@ export const corruptionButtonsAdd = () => {
     }
 }
 
-export const corruptionLoadoutTableCreate = () => {
-    const corrCount = 8
-    const table = getElementById<HTMLTableElement>('corruptionLoadoutTable')
+const loadoutTemplate = (player: Player) => {
+    const loadouts = Object.values(player.corruptionLoadouts)
+        .map((corruptions, i) => ({
+            corruptions,
+            name: player.corruptionLoadoutNames[i]
+        }))
 
-    for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
-        const row = table.insertRow()
-        for (let j = 0; j <= corrCount; j++) {
-            const cell = row.insertCell();
-            cell.className = `test${j}`
-            if (j === 0) {
-                if (i === 0) {
-                    cell.textContent = 'Next:'
-                }
-                // Other loadout names are updated after player load in Synergism.ts > loadSynergy
-            } else if (j <= corrCount) {
-                // start two-indexed (WTF!)
-                cell.textContent = ((i === 0) ? player.prototypeCorruptions[j+1] : player.corruptionLoadouts[i][j+1]).toString();
-                cell.style.textAlign = 'center'
-            }
-        }
-        if (i === 0) {
-            let cell = row.insertCell();
-            //empty
-
-            cell = row.insertCell();
-            const btn = document.createElement('button');
-            btn.className = 'corrLoad'
-            btn.textContent = 'Zero'
-            btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
-            cell.appendChild(btn);
-            cell.title = 'Reset corruptions to zero on your next ascension'
-        } else {
-            let cell = row.insertCell();
-            let btn = document.createElement('button');
-            btn.className = 'corrSave'
-            btn.textContent = 'Save'
-            btn.onclick = () => corruptionLoadoutSaveLoad(true, i);
-            cell.appendChild(btn);
-
-            cell = row.insertCell();
-            btn = document.createElement('button');
-            btn.className = 'corrLoad'
-            btn.textContent = 'Load'
-            btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
-            cell.appendChild(btn);
-        }
-    }
+    return `
+      <table id="corruptionLoadoutTable" alt="corruptionLoadoutTable" label="corruptionLoadoutTable">
+          <tr>
+              <th class="corrLoadoutNameCol"></th>
+              <th>
+                  <img src="Pictures/Maladaption Lvl 7.png" class="corruptionImg small" loading="lazy">
+              </th>
+              <th>
+                  <img src="Pictures/Laziness Lvl 7.png" class="corruptionImg small" loading="lazy">
+              </th>
+              <th>
+                  <img src="Pictures/Hyperchallenged Lvl 7.png" class="corruptionImg small" loading="lazy">
+              </th>
+              <th>
+                  <img src="Pictures/Scientific Illiteracy Lvl 7.png" class="corruptionImg small" loading="lazy">
+              </th>
+              <th>
+                  <img src="Pictures/Deflation Lvl 7.png" class="corruptionImg small" loading="lazy">
+              </th>
+              <th>
+                  <img src="Pictures/Extinction Lvl 7.png" class="corruptionImg small" loading="lazy">
+              </th>
+              <th>
+                  <img src="Pictures/Drought Lvl 7.png" class="corruptionImg small" loading="lazy">
+              </th>
+              <th>
+                  <img src="Pictures/Financial Collapse Lvl 7.png" class="corruptionImg small" loading="lazy">
+              </th>
+          </tr>
+          <tr>
+            <td>Next:</td>
+            ${player.prototypeCorruptions.slice(2, 10).map(c => `<td style="text-align: center">${c}</td>`).join('\n')}
+            <td></td>
+            <td title="Reset corruptions to zero on your next ascension">
+              <button class="corrZero">Zero</button>
+            </td>
+            <td>
+              <button class="corrNew">+</button>
+            </td>
+          </tr>
+          ${loadouts.map((loadout, i) => `
+            <tr>
+              <td class="corrLoadoutName" data-i="${i}">${loadout.name}</td>
+              ${loadout.corruptions.slice(2, 10).map(c => `<td style="text-align: center">${c}</td>`).join('\n')}
+              <td>
+                <button data-i="${i}" class="corrSave">Save</button>
+              </td>
+              <td>
+                <button data-i="${i}" class="corrLoad">Load</button>
+              </td>
+              <td>
+                <button data-i="${i}" class="corrRemove">-</button>
+              </td>
+            </tr>
+          `).join('\n')}
+      </table>
+    `
 }
 
-export const corruptionLoadoutTableUpdate = (updateRow = 0) => {
-    const row = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows[updateRow + 1].cells;
-    for (let i = 1; i < row.length; i++) {
-        if (i > 8) {
-            break;
+export const corruptionLoadoutTableCreate = () => {
+    const wrapper = DOMCacheGetOrSet('corruptionLoadouts')
+    wrapper.addEventListener('click', (e) => {
+        const el = e.target as Element
+        if (el.className === 'corrZero') {
+            corruptionLoadoutSaveLoad(false, 0)
+        } else if (el.className === 'corrLoad') {
+            corruptionLoadoutSaveLoad(false, Number(el.getAttribute('data-i')) + 1)
+        } else if (el.className === 'corrSave') {
+            corruptionLoadoutSaveLoad(true, Number(el.getAttribute('data-i')) + 1)
+        } else if (el.className === 'corrLoadoutName') {
+            void corruptionLoadoutGetNewName( Number(el.getAttribute('data-i')))
+        } else if (el.className === 'corrRemove') {
+            const index = Number(el.getAttribute('data-i'))
+            player.corruptionLoadoutNames = player.corruptionLoadoutNames.filter((_, i) => i !== index)
+            const newCorruptions = Object.values(player.corruptionLoadouts).filter((_, i) => i !== index)
+            player.corruptionLoadouts = newCorruptions.reduce((acc, corr, index) => ({
+                ...acc,
+                [index + 1]: corr
+            }), {})
+            corruptionLoadoutTableUpdate()
+        } else if (el.className === 'corrNew') {
+            const length = player.corruptionLoadoutNames.length;
+            player.corruptionLoadoutNames = [
+                ...player.corruptionLoadoutNames,
+                `Loadout ${length + 1}`
+            ];
+            player.corruptionLoadouts[length + 1] = Array.from(player.prototypeCorruptions);
+            corruptionLoadoutTableUpdate();
         }
-        row[i].textContent = ((updateRow === 0) ? player.prototypeCorruptions[i+1] : player.corruptionLoadouts[updateRow][i+1]).toString();
-    }
+    })
+    wrapper.innerHTML = loadoutTemplate(player);
+}
+
+export const corruptionLoadoutTableUpdate = () => {
+    DOMCacheGetOrSet('corruptionLoadouts').innerHTML = loadoutTemplate(player);
 }
 
 export const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
     if (save) {
         player.corruptionLoadouts[loadout] = Array.from(player.prototypeCorruptions)
-        corruptionLoadoutTableUpdate(loadout)
+        corruptionLoadoutTableUpdate()
     } else {
         if (loadout === 0) {
             player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -278,12 +321,12 @@ export const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
     }
 }
 
-async function corruptionLoadoutGetNewName(loadout = 0) {
+async function corruptionLoadoutGetNewName(loadoutIndex = 0) {
     const maxChars = 9
     // eslint-disable-next-line
     const regex = /^[\x00-\xFF]*$/
     const renamePrompt = await Prompt(
-        `What would you like to name Loadout ${loadout + 1}? ` +
+        `What would you like to name Loadout ${loadoutIndex + 1}? ` +
         `Names cannot be longer than ${maxChars} characters. Nothing crazy!`
     );
 
@@ -294,24 +337,11 @@ async function corruptionLoadoutGetNewName(loadout = 0) {
     } else if (!regex.test(renamePrompt)) {
         return Alert('The Loadout Renamer didn\'t like a character in your name! Try something else.')
     } else {
-        player.corruptionLoadoutNames[loadout] = renamePrompt
-        updateCorruptionLoadoutNames();
+        player.corruptionLoadoutNames[loadoutIndex] = renamePrompt
+        corruptionLoadoutTableUpdate();
         if (renamePrompt === 'crazy') {
             return Alert('Ant God approves of your joke!')
         }
-    }
-}
-
-export const updateCorruptionLoadoutNames = () => {
-    const rows = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows
-    for (let i = 0; i < Object.keys(player.corruptionLoadouts).length; i++) {
-        const cells = rows[i + 2].cells  //start changes on 2nd row
-        if (cells[0].textContent!.length === 0) {  //first time setup
-
-            cells[0].addEventListener('click', () => void corruptionLoadoutGetNewName(i)); //get name function handles -1 for array
-            cells[0].classList.add('corrLoadoutName');
-        }
-        cells[0].textContent = `${player.corruptionLoadoutNames[i]}:`;
     }
 }
 
