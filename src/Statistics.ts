@@ -2,7 +2,7 @@ import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
 import { getQuarkMultiplier} from './Quark';
 import { hepteractEffective } from './Hepteracts'
-import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder } from './Calculate';
+import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -20,7 +20,8 @@ const associated = new Map<string, string>([
     ['kHypercubeMult', 'hypercubeMultiplierStats'],
     ['kPlatMult', 'platonicMultiplierStats'],
     ['kHeptMult', 'hepteractMultiplierStats'],
-    ['kOrbPowderMult', 'powderMultiplierStats']
+    ['kOrbPowderMult', 'powderMultiplierStats'],
+    ['kOctMult', 'octeractMultiplierStats']
 ]);
 
 export const displayStats = (btn: HTMLElement) => {
@@ -233,6 +234,27 @@ export const loadStatisticsCubeMultipliers = () => {
     }
 
     DOMCacheGetOrSet('sHeMT').textContent = `x${format(calculateHepteractMultiplier().mult, 3)}`;
+
+    const arr6 = calculateOcteractMultiplier().list;
+    const map6: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: 'Ascension Score Multiplier:'},
+        2: {acc: 2, desc: 'Season Pass 3:'},
+        3: {acc: 2, desc: 'Season Pass Y:'},
+        4: {acc: 2, desc: 'Season Pass Z:'},
+        5: {acc: 2, desc: 'Season Pass Lost:'},
+        6: {acc: 2, desc: 'Cookie Upgrade 20:'},
+        7: {acc: 2, desc: 'Divine Pack:'},
+        8: {acc: 2, desc: 'Cube Flame:'},
+        9: {acc: 2, desc: 'Cube Blaze:'},
+        10: {acc: 2, desc: 'Cube Inferno:'}
+    }
+    for (let i = 0; i < arr6.length; i++) {
+        const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`);
+        statOcMi.childNodes[0].textContent = map6[i + 1].desc;
+        DOMCacheGetOrSet(`sOcM${i + 1}`).textContent = `x${format(arr6[i], map6[i + 1].acc, true)}`;
+    }
+
+    DOMCacheGetOrSet('sOcMT').textContent = `x${format(calculateOcteractMultiplier().mult, 3)}`;
 }
 
 export const loadStatisticsOfferingMultipliers = () => {

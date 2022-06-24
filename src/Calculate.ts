@@ -1236,6 +1236,39 @@ export const calculateHepteractMultiplier = (score = -1) => {
     return {list: arr,
         mult: productContents(arr)}
 }
+export const calculateOcteractMultiplier = (score = -1) => {
+    if (score < 0) {
+        score = calculateAscensionScore().effectiveScore;
+    }
+    const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
+    const arr = [
+        // ascension score multiplier
+        (score >= 1e32) ? Math.cbrt(score / 1e32) : Math.pow(score / 1e32, 2),
+        // season pass 3
+        1 + player.shopUpgrades.seasonPass3 / 100,
+        // season pass Y
+        1 + player.shopUpgrades.seasonPassY / 200,
+        // season pass Z
+        1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
+        // season pass lost
+        1 + player.shopUpgrades.seasonPassLost / 200,
+        // cube upgrade 70
+        1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
+        // divine pack
+        1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
+        // cube flame
+        +player.singularityUpgrades.singCubes1.getEffect().bonus,
+        // cube blaze
+        +player.singularityUpgrades.singCubes2.getEffect().bonus,
+        // cube inferno
+        +player.singularityUpgrades.singCubes3.getEffect().bonus
+        // Total Octeract Multipliers: 11
+    ]
+
+    return {
+        list: arr,
+        mult: productContents(arr)}
+}
 
 export const calculateTimeAcceleration = () => {
     let timeMult = 1;
