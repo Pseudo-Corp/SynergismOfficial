@@ -85,10 +85,13 @@ export class SingularityUpgrade {
             ? `Minimum Singularity: ${this.minimumSingularity}`
             : 'No minimal Singularity to purchase required'
 
+        const freeLevelInfo = this.freeLevels > 0 ?
+            `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
+
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color: ${minReqColor}">${minimumSingularity}</span>
-                <span style="color: ${color}"> Level ${this.level}${maxLevel} <span style="color: orange"> [+${format(this.freeLevels, 1, true)}] </span> </span>
+                <span style="color: ${color}"> Level ${this.level}${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
                 Cost for next level: ${format(costNextLevel,0,true)} Golden Quarks.
                 Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
