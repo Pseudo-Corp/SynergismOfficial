@@ -72,7 +72,7 @@ export const resetdetails = (input: resetNames) => {
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['prestigePointGain']);
-            resetInfo.textContent = 'Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few offerings. Required: ' + format(player.coinsThisPrestige) + '/1e16 Coins || TIME SPENT: ' + format(player.prestigecounter) + ' seconds.';
+            resetInfo.textContent = 'Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: ' + format(player.coinsThisPrestige) + '/1e16 Coins || TIME SPENT: ' + format(player.prestigecounter) + ' Seconds.';
             resetInfo.style.color = 'turquoise';
             break;
         case 'transcension':
@@ -81,7 +81,7 @@ export const resetdetails = (input: resetNames) => {
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['transcendPointGain']);
-            resetInfo.textContent = 'Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: ' + format(player.coinsThisTranscension) + '/1e100 Coins || TIME SPENT: ' + format(player.transcendcounter) + ' seconds.';
+            resetInfo.textContent = 'Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: ' + format(player.coinsThisTranscension) + '/1e100 Coins || TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.';
             resetInfo.style.color = 'orchid';
             break;
         case 'reincarnation':
@@ -90,7 +90,7 @@ export const resetdetails = (input: resetNames) => {
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['reincarnationPointGain']);
-            resetInfo.textContent = 'Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: ' + format(player.transcendShards) + '/1e300 Mythos Shards || TIME SPENT: ' + format(player.reincarnationcounter) + ' seconds.';
+            resetInfo.textContent = 'Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: ' + format(player.transcendShards) + '/1e300 Mythos Shards || TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
             resetInfo.style.color = 'limegreen';
             break;
         case 'acceleratorBoost':
@@ -107,7 +107,7 @@ export const resetdetails = (input: resetNames) => {
             resetCurrencyGain.textContent = '';
 
             (transcensionChallenge !== 0)?
-                (resetInfo.style.color = 'aquamarine', resetInfo.textContent = 'Are you tired of being in your challenge or stuck? Click to leave challenge ' + transcensionChallenge + '. Progress: ' + format(player.coinsThisTranscension) + '/' + format(challengeRequirement(transcensionChallenge, player.challengecompletions[transcensionChallenge])) + ' Coins. TIME SPENT: ' + format(player.transcendcounter) + ' seconds.'):
+                (resetInfo.style.color = 'aquamarine', resetInfo.textContent = 'Are you tired of being in your Challenge or stuck? Click to leave Challenge ' + transcensionChallenge + '. Progress: ' + format(player.coinsThisTranscension) + '/' + format(challengeRequirement(transcensionChallenge, player.challengecompletions[transcensionChallenge])) + ' Coins. TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.'):
                 (resetInfo.style.color = 'crimson', resetInfo.textContent = 'You\'re not in a Transcension Challenge right now. Get in one before you can leave it, duh!');
             break;
         case 'reincarnationChallenge':
@@ -119,7 +119,7 @@ export const resetdetails = (input: resetNames) => {
                 const goaldesc = reincarnationChallenge >= 9 ? ' Coins' : ' Mythos Shards';
 
                 resetInfo.style.color = 'silver';
-                resetInfo.textContent = 'Are you done or tired of being in your challenge? Click to leave challenge ' + reincarnationChallenge + '. Progress: ' + format(player[goal]) + '/' + format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)) + goaldesc + '. TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
+                resetInfo.textContent = 'Are you done or tired of being in your Challenge? Click to leave Challenge ' + reincarnationChallenge + '. Progress: ' + format(player[goal]) + '/' + format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)) + goaldesc + '. TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
             } else {
                 resetInfo.style.color = 'crimson';
                 resetInfo.textContent = 'You\'re not in a Reincarnation Challenge right now. How could you leave what you are not in?';
@@ -134,13 +134,13 @@ export const resetdetails = (input: resetNames) => {
         case 'ascension':
             currencyImage1.style.display = 'none'
             resetCurrencyGain.textContent = '';
-            resetInfo.textContent = 'Ascend. 10x1 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds.';
+            resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds.';
             resetInfo.style.color = 'gold';
             break;
         case 'singularity':
             currencyImage1.style.display = 'none'
             resetCurrencyGain.textContent = '';
-            resetInfo.textContent = 'Are you willing to give up your laurels for a greater challenge? The Ant God bribes you with ' + format(calculateGoldenQuarkGain(), 2, true) + ' Golden Quarks.'
+            resetInfo.textContent = 'Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with ' + format(calculateGoldenQuarkGain(), 2, true) + ' Golden Quarks.'
             resetInfo.style.color = 'lightgoldenrodyellow'
     }
     DOMCacheGetOrSet('resetofferings2').textContent = '+' + format(offering)
