@@ -857,11 +857,11 @@ nav li:hover {
 }
 
 .nonSquare {
-    width: 38px;
+    width: 39px;
     height: 20px;
     transition-duration: 0.15s;
     margin-left: 5px;
-    padding-right: 2px;
+    padding-right: 1px;
 }
 
 .nonSquare:hover {

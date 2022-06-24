@@ -369,13 +369,13 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         j.style.color = 'cyan'
     }
     if (player.challengecompletions[i] >= player.highestchallengecompletions[i] && player.highestchallengecompletions[i] < maxChallenges && changefocus && player.ascensionCount < 1) {
-        j.textContent = 'Gain ' + Math.floor(quarksMultiplier * player.highestchallengecompletions[i] / 10 + 1 + player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41]) + ' ' + descriptor + ' for completing this challenge [First Time Bonus]!'
+        j.textContent = 'Gain ' + Math.floor(quarksMultiplier * player.highestchallengecompletions[i] / 10 + 1 + player.cubeUpgrades[1] + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41]) + ' ' + descriptor + ' for completing this Challenge [First Time Bonus]!'
     }
     if (player.challengecompletions[i] >= player.highestchallengecompletions[i] && player.highestchallengecompletions[i] < maxChallenges && changefocus && player.ascensionCount >= 1){
-        j.textContent = 'Completing the challenge adds ' + ((i > 5) ? 2 : 1) + ' to Ascension Bank and increase base Score by ' + scoreDisplay + '.'
+        j.textContent = 'Completing the Challenge adds ' + ((i > 5) ? 2 : 1) + ' to Ascension Bank and increase base Score by ' + scoreDisplay + '.'
     }
     if (player.challengecompletions[i] >= player.highestchallengecompletions[i] && player.highestchallengecompletions[i] < 10 && i > 10) {
-        j.textContent = 'Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)'
+        j.textContent = 'Gain 1 Wow! HYPERCUBE for completing this Challenge (First Time Bonus)'
     }
 
     (i <= 10 && player.researches[150] > 0) ?

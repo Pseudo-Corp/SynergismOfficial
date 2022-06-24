@@ -348,7 +348,7 @@ export const areward = (i: number): string => {
         4: 'Start Transcensions/Challenges with Worker Autobuyer unlocked.',
         5: 'Gain +1 Accelerator per 500 Workers owned.',
         6: 'Gain +1 Multiplier per 1,000 Workers owned.',
-        7: 'Gain +1 Accelerator Boost per 2,000 workers owned.',
+        7: 'Gain +1 Accelerator Boost per 2,000 Workers owned.',
         10: 'Gain +.10% to Accelerator Power.',
         11: 'Start Transcensions/Challenges with Investment Autobuyer unlocked.',
         12: 'Gain +1 Accelerator per 500 Investments owned.',

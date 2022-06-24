@@ -91,7 +91,7 @@ export class HepteractCraft {
             return this;
         }
         this.UNLOCKED = true;
-        return Alert('Congratulations. You have unlocked the ability to craft ' + hepteractName + ' in the hepteract forge!');
+        return Alert('Congratulations. You have unlocked the ability to craft ' + hepteractName + ' in the Hepteract forge!');
     }
 
     // Add to balance through crafting.
@@ -182,7 +182,7 @@ export class HepteractCraft {
             }
         }
 
-        return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' hepteracts.' + (max ? '' : ' If this is less than your input, you either hit the inventory limit or you had insufficient resources.'));
+        return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' Hepteracts.' + (max ? '' : ' If this is less than your input, you either hit the inventory limit or you had insufficient resources.'));
     }
 
     // Reduce balance through spending
@@ -471,7 +471,7 @@ export const hepteractToOverfluxOrbDescription = () => {
  */
 export const tradeHepteractToOverfluxOrb = async () => {
     const maxBuy = Math.floor(player.wowAbyssals / 250000);
-    const hepteractInput = await Prompt(`How many Orbs would you like to purchase?\n You can buy up to ${format(maxBuy, 0, true)} with your hepteracts.`);
+    const hepteractInput = await Prompt(`How many Orbs would you like to purchase?\n You can buy up to ${format(maxBuy, 0, true)} with your Hepteracts.`);
     if (hepteractInput === null) {
         return Alert('Okay, maybe next time.');
     }
@@ -499,7 +499,7 @@ export const tradeHepteractToOverfluxOrb = async () => {
     const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion().mult * buyAmount / 100;
     player.overfluxPowder += powderGain;
 
-    const powderText = (powderGain > 0) ? `You have also gained ${format(powderGain, 2, true)} powder immediately, thanks to your shop upgrades.` : '';
+    const powderText = (powderGain > 0) ? `You have also gained ${format(powderGain, 2, true)} Powder immediately, thanks to your shop upgrades.` : '';
     return Alert('You have purchased ' + format(buyAmount, 0, true) + ` Overflux Orbs [+${format(100 * (afterEffect - beforeEffect), 2, true)}% to effect]. ${powderText} Enjoy!`);
 
 }
@@ -541,7 +541,7 @@ export const overfluxPowderWarp = async () => {
         player.overfluxPowder -= 25
         player.dailyPowderResetUses -= 1;
         forcedDailyReset();
-        return Alert('Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]')
+        return Alert('Upon using the machine, your Cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]')
     }
 }
 

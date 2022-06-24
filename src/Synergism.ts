@@ -1533,7 +1533,7 @@ const loadSynergy = async () => {
             toggleAntAutoSacrifice(1);
         }
 
-        DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = 'Per second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF');
+        DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = 'Per Second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF');
         DOMCacheGetOrSet('historyTogglePerSecondButton').style.borderColor = (player.historyShowPerSecond ? 'green' : 'red');
 
         //If auto research is enabled and runing; Make sure there is something to try to research if possible
@@ -2959,7 +2959,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
         let confirmed = false;
         if (!player.toggles[33] && player.singularityCount > 0) {
-            confirmed = await Confirm(`Do you wish to start singularity #${format(player.singularityCount + 1)}? Your next universe is harder but gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
+            confirmed = await Confirm(`Do you wish to start Singularity #${format(player.singularityCount + 1)}? Your next universe is harder but gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
         } else {
             await Alert('You have reached the end of the game, on Singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
             await Alert('You may choose to sit on your laurels, and consider the game \'beaten\', or you may do something more interesting.')

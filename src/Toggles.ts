@@ -717,10 +717,10 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
         const el = DOMCacheGetOrSet('autoSacrificeAntMode');
         if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
             player.autoAntSacrificeMode = 2;
-            el.textContent = 'Mode: Real time';
+            el.textContent = 'Mode: Real Time';
         } else {
             player.autoAntSacrificeMode = 1;
-            el.textContent = 'Mode: In-game time';
+            el.textContent = 'Mode: In-game Time';
         }
     }
 }
@@ -729,10 +729,10 @@ export const toggleMaxBuyCube = () => {
     const el = DOMCacheGetOrSet('toggleCubeBuy')
     if (G['buyMaxCubeUpgrades']) {
         G['buyMaxCubeUpgrades'] = false;
-        el.textContent = 'Upgrade: 1 Level wow'
+        el.textContent = 'Upgrade: 1 Level Wow!'
     } else {
         G['buyMaxCubeUpgrades'] = true;
-        el.textContent = 'Upgrade: MAX [if possible wow]'
+        el.textContent = 'Upgrade: MAX [If possible Wow!]'
     }
 }
 
@@ -903,9 +903,9 @@ export const toggleAscStatPerSecond = (id: number) => {
 
 export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     const amount = await Prompt(
-        'Enter a number from 0 to 100 (integer only!) to set autocraft percentage. ' +
-        'Every ascension, that percentage of your hepteracts are used to craft equally split ' +
-        'between every hepteract with AUTO ON. Auto crafting also does not consume other resources! ' +
+        'Enter a number from 0 to 100 (Integer only!) to set autocraft percentage. ' +
+        'Every Ascension, that percentage of your hepteracts are used to craft equally split ' +
+        'between every Hepteract with AUTO ON. Auto crafting also does not consume other resources! ' +
         '[Except Quarks, of course...]'
     );
 
