@@ -395,6 +395,7 @@ export const player: Player = {
     resettoggle1: 1,
     resettoggle2: 1,
     resettoggle3: 1,
+    resettoggle4: 1,
 
     tesseractAutoBuyerToggle: 0,
     tesseractAutoBuyerAmount: 0,
@@ -1143,6 +1144,7 @@ const loadSynergy = async () => {
             player.resettoggle1 = 1;
             player.resettoggle2 = 1;
             player.resettoggle3 = 1;
+            player.resettoggle4 = 1;
         }
         if (player.tesseractAutoBuyerToggle === 0) {
             player.tesseractAutoBuyerToggle = 1;
@@ -1446,6 +1448,9 @@ const loadSynergy = async () => {
         if (player.resettoggle3 === 1) {
             DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
         }
+        if (player.resettoggle4 === 1) {
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: AMOUNT'
+        }
 
         if (player.resettoggle1 === 2) {
             DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: TIME'
@@ -1455,6 +1460,9 @@ const loadSynergy = async () => {
         }
         if (player.resettoggle3 === 2) {
             DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: TIME'
+        }
+        if (player.resettoggle4 === 2) {
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: PERCENTAGE'
         }
 
         if (player.tesseractAutoBuyerToggle === 1) {
@@ -3162,8 +3170,8 @@ export const updateAll = (): void => {
         }
     }
 
-    //Autobuy tesseract buildings
-    if ((player.researches[190] > 0) && (player.tesseractAutoBuyerToggle == 1)) {
+    //Autobuy tesseract buildings (Mode: AMOUNT)
+    if (player.researches[190] > 0 && player.tesseractAutoBuyerToggle === 1 && player.resettoggle4 < 2) {
         const ownedBuildings: TesseractBuildings = [null, null, null, null, null];
         for (let i = 1; i <= 5; i++) {
             if (player.autoTesseracts[i]) {
@@ -3183,10 +3191,7 @@ export const updateAll = (): void => {
         }
     }
 
-
     //Generation
-
-
     if (player.upgrades[101] > 0.5) {
         player.fourthGeneratedCoin = player.fourthGeneratedCoin.add((player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(G['uFifteenMulti']).times(G['generatorPower']));
     }

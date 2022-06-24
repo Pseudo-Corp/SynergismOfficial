@@ -2300,15 +2300,18 @@ p[id$="BlessingsTotal"] {
 }
 
 #tesseractautobuytoggle,
+#tesseractautobuymode,
 #tesseractAmount {
     width: 150px;
 }
 
-#tesseractautobuytoggle {
+#tesseractautobuytoggle,
+#tesseractautobuymode {
     transition-duration: 0.15s;
 }
 
-#tesseractautobuytoggle:hover {
+#tesseractautobuytoggle:hover,
+#tesseractautobuymode:hover {
     background-color: #333;
 }
 

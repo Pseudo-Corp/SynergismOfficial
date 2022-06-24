@@ -23,7 +23,7 @@ import type {
 } from './History';
 import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
-import type { Player, resetNames } from './types/Synergism';
+import type { Player, resetNames, OneToFive } from './types/Synergism';
 import { updateClassList } from './Utility';
 import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions';
 import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles';
@@ -34,6 +34,8 @@ import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
 import { calculateSingularityDebuff } from './singularity';
 import { updateCubeUpgradeBG } from './Cubes';
+import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
+import type { TesseractBuildings } from './Buy';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
@@ -167,7 +169,10 @@ export const updateAutoReset = (i: number) => {
 }
 
 export const updateTesseractAutoBuyAmount = () => {
-    const value = Math.floor(parseFloat((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value)) || 0;
+    let value = Math.floor(parseFloat((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value)) || 0;
+    if (player.resettoggle4 === 2) { // Auto mode: PERCENTAGE
+        value = Math.min(value, 100);
+    }
     player.tesseractAutoBuyerAmount = Math.max(value, 0);
 }
 
@@ -620,6 +625,28 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                 }
             }
         }
+
+        //Autobuy tesseract buildings (Mode: PERCENTAGE)
+        if (player.researches[190] > 0 && player.tesseractAutoBuyerToggle === 1 && player.resettoggle4 === 2) {
+            const ownedBuildings: TesseractBuildings = [null, null, null, null, null];
+            for (let i = 1; i <= 5; i++) {
+                if (player.autoTesseracts[i]) {
+                    ownedBuildings[i-1] = player[`ascendBuilding${i as OneToFive}` as const]['owned'];
+                }
+            }
+            const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount);
+            const budget = Number(player.wowTesseracts) * percentageToSpend / 100;
+            const buyToBuildings = calculateTessBuildingsInBudget(ownedBuildings, budget);
+            // Prioritise buying buildings from highest tier to lowest,
+            // in case there are any off-by-ones or floating point errors.
+            for (let i = 5; i >= 1; i--) {
+                const buyFrom = ownedBuildings[i-1];
+                const buyTo = buyToBuildings[i-1];
+                if (buyFrom !== null && buyTo !== null && buyTo !== buyFrom) {
+                    buyTesseractBuilding(i as OneToFive, buyTo - buyFrom);
+                }
+            }
+        }
     }
 
     //Always unlocks
@@ -894,6 +921,7 @@ export const singularity = async (): Promise<void> => {
     hold.resettoggle1 = player.resettoggle1
     hold.resettoggle2 = player.resettoggle2
     hold.resettoggle3 = player.resettoggle3
+    hold.resettoggle4 = player.resettoggle4
     hold.coinbuyamount = player.coinbuyamount
     hold.crystalbuyamount = player.crystalbuyamount
     hold.mythosbuyamount = player.mythosbuyamount

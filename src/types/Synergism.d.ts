@@ -286,6 +286,7 @@ export interface Player {
     resettoggle1: number
     resettoggle2: number
     resettoggle3: number
+    resettoggle4: number
 
     tesseractAutoBuyerToggle: number
     tesseractAutoBuyerAmount: number

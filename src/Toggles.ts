@@ -376,7 +376,13 @@ export const toggleautoreset = (i: number) => {
             DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
         }
     } else if (i === 4) {
-        // To be ascend toggle
+        if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
+            player.resettoggle4 = 2;
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: PERCENTAGE'
+        } else {
+            player.resettoggle4 = 1;
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: AMOUNT'
+        }
     }
 }
 
