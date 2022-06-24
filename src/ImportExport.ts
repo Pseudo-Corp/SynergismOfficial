@@ -276,7 +276,7 @@ export const promocodes = async (input: string | null) => {
             player.singularityUpgrades.ascensions.freeLevels += 5;
         }
 
-        return Alert(`Happy update!!!! Your quark timer(s) have been replenished and you have been given 4 real life hours of ascension progress! ${(player.singularityCount > 0) ? 'You were also given 5 of each uncapped resource singularity upgrade!' : ''}`)
+        return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! ${(player.singularityCount > 0) ? 'You were also given 5 of each uncapped resource Singularity upgrade!' : ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
         player.codes.set(1, true);
@@ -293,7 +293,7 @@ export const promocodes = async (input: string | null) => {
         player.codes.set(26, true);
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds.add(quarks);
-        el.textContent = 'Khafra has blessed you with ' + player.worlds.applyBonus(quarks) + ' quarks!';
+        el.textContent = 'Khafra has blessed you with ' + player.worlds.applyBonus(quarks) + ' Quarks!';
     } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
         player.dailyCodeUsed = true;
         let rewardMessage = 'Thank you for playing today!\nThe Ant God rewards you with this gift:';
@@ -403,7 +403,7 @@ export const promocodes = async (input: string | null) => {
             addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult)
             player.rngCode = v;
             return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
-                `${ ascensionTimer } You have ${ remaining } uses of Add.You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+                `${ ascensionTimer } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         }
 
         // If your calculator isn't maxed but has levels, it will provide the solution.
@@ -411,7 +411,7 @@ export const promocodes = async (input: string | null) => {
             ? 'The answer is ' + (first + second) + ' according to your calculator.'
             : '';
 
-        const addPrompt = await Prompt(`For ${player.worlds.toString(actualQuarks)} quarks or nothing: What is ${first} + ${second}? ${solution}`);
+        const addPrompt = await Prompt(`For ${player.worlds.toString(actualQuarks)} Quarks or nothing: What is ${first} + ${second}? ${solution}`);
 
         if (addPrompt === null) {
             return Alert('No worries, you didn\'t lose any of your uses! Come back later!');
@@ -422,7 +422,7 @@ export const promocodes = async (input: string | null) => {
         if (first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
             addTimers('ascension', 60 * player.shopUpgrades.calculator3)
-            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} quarks! ${ascensionTimer} You have ${remaining} uses of Add. ` +
+            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} Quarks! ${ascensionTimer} You have ${remaining} uses of Add. ` +
                 `You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         } else {
             await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
@@ -431,10 +431,10 @@ export const promocodes = async (input: string | null) => {
     } else if (input === 'sub') {
         const amount = 1 + window.crypto.getRandomValues(new Uint16Array(1))[0] % 16; // [1, 16]
         const quarks = Number(player.worlds);
-        await Alert(`Thanks for using the "sub" code! I've taken away ${amount} quarks! :)`);
+        await Alert(`Thanks for using the "sub" code! I've taken away ${amount} Quarks! :)`);
 
         if (quarks < amount) {
-            await Alert(`I gave you ${amount - quarks} quarks so I could take ${amount} away.`);
+            await Alert(`I gave you ${amount - quarks} Quarks so I could take ${amount} away.`);
         }
 
         player.worlds.sub(quarks < amount ? amount - quarks : amount);
@@ -456,7 +456,7 @@ export const promocodes = async (input: string | null) => {
             return el.textContent = 'Scared? You should be!';
         }
 
-        const bet = Number(await Prompt('How many quarks are you putting up?'));
+        const bet = Number(await Prompt('How many Quarks are you putting up?'));
         if (Number.isNaN(bet) || bet <= 0) {
             return el.textContent = 'Can\'t bet that!';
         } else if (bet > 1e4) {
@@ -473,7 +473,7 @@ export const promocodes = async (input: string | null) => {
             player.worlds.add(won, false);
 
             player.skillCode = Date.now();
-            return el.textContent = `You won. The Syncasino offers you a grand total of 25% of the pot! [+${won} quarks]`;
+            return el.textContent = `You won. The Syncasino offers you a grand total of 25% of the pot! [+${won} Quarks]`;
         }
 
         player.worlds.sub(bet);
@@ -538,9 +538,9 @@ export const promocodes = async (input: string | null) => {
         const ascensionSpeed = calculateAscensionAcceleration()
         const perSecond = 1/(24 * 3600 * 365 * 1e9) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
         if (perSecond > 1) {
-            return Alert(`You will gain ${format(perSecond, 2, true)} octeracts (when they come out) every second, assuming you have them unlocked!`)
+            return Alert(`You will gain ${format(perSecond, 2, true)} Octeracts (when they come out) every second, assuming you have them unlocked!`)
         } else {
-            return Alert(`You will gain an octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
+            return Alert(`You will gain an Octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
         }
 
     } else {

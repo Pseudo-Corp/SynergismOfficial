@@ -189,7 +189,7 @@ export class QuarkHandler {
         if (localStorage.getItem('quarkBonus') !== null) { // is in cache
             const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus')!) as { bonus: number, fetched: number };
             if (Date.now() - fetched < 60 * 1000 * 15) { // cache is younger than 15 minutes
-                el.textContent = `Generous patrons give you a bonus of ${bonus}% more quarks!`
+                el.textContent = `Generous patrons give you a bonus of ${bonus}% more Quarks!`
                 return this.BONUS = bonus;
             }
         } else if (!navigator.onLine) {
@@ -210,7 +210,7 @@ export class QuarkHandler {
             return Alert('No bonus could be applied, an error occurred. [Zero] :(');
         }
 
-        el.textContent = `Generous patrons give you a bonus of ${b}% more quarks!`;
+        el.textContent = `Generous patrons give you a bonus of ${b}% more Quarks!`;
         localStorage.setItem('quarkBonus', JSON.stringify({ bonus: b, fetched: Date.now() }));
         this.BONUS = b;
     }

@@ -224,8 +224,8 @@ const resetHistoryCorruptionImages = [
 ];
 
 const resetHistoryCorruptionTitles = [
-    'Divisiveness [Multipliers]',
-    'Maladaption [Accelerators]',
+    'Divisiveness',
+    'Viscosity [Accelerators and Multipliers]',
     'Spacial Dilation [Time]',
     'Hyperchallenged [Challenge Requirements]',
     'Scientific Illiteracy [Obtainium]',
