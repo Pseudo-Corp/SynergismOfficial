@@ -2958,7 +2958,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         let confirmed = false;
-        if (!player.toggles[33]) {
+        if (!player.toggles[33] && player.singularityCount > 0) {
             confirmed = await Confirm(`Do you wish to start singularity #${format(player.singularityCount + 1)}? Your next universe is harder but gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
         } else {
             await Alert('You have reached the end of the game, on singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
