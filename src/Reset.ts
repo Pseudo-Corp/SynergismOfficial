@@ -605,7 +605,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         if (player.currentChallenge.ascension === 15 && input === 'ascension') {
             player.usedCorruptions[0] = 0;
             player.prototypeCorruptions[0] = 0;
-            for (let i = 1; i <= 9; i++) {
+            for (let i = 2; i <= 9; i++) {
                 player.usedCorruptions[i] = 11;
             }
         }

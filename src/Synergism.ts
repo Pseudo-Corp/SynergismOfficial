@@ -2618,11 +2618,6 @@ export const resourceGain = (dt: number): void => {
             challengeachievementcheck(ascendchal, true)
         }
     }
-    if (ascendchal === 15) {
-        if (player.coins.gte(challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal))) {
-            void resetCheck('ascensionChallenge', false)
-        }
-    }
 }
 
 export const updateAntMultipliers = (): void => {
@@ -2673,7 +2668,12 @@ export const updateAntMultipliers = (): void => {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.2)
     }
 
-    G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 1 - 0.9 / 90 * Math.min(99, sumContents(player.usedCorruptions)))
+    if (player.currentChallenge.ascension !== 15) {
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 1 - 0.9 / 90 * Math.min(99, sumContents(player.usedCorruptions)))
+    } else { // C15 used to have 9 corruptions set to 11, which above would provide a power of 0.01. Now it's hardcoded this way.
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.01)
+    }
+
     G['globalAntMult'] = Decimal.pow(G['globalAntMult'], G['extinctionMultiplier'][player.usedCorruptions[7]])
     G['globalAntMult'] = G['globalAntMult'].times(G['challenge15Rewards'].antSpeed)
     //V2.5.0: Moved ant shop upgrade as 'uncorruptable'
@@ -2921,16 +2921,14 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 player.challengecompletions[a] += 1;
             }
         }
+
         if (a === 15) {
-            if (player.coins.gte(challengeRequirement(a, player.challengecompletions[a], a)) && player.challengecompletions[a] < maxCompletions) {
-                player.challengecompletions[a] += 1;
-            } else {
-                if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
-                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
-                    c15RewardUpdate();
-                }
+            if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
+                player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
+                c15RewardUpdate();
             }
         }
+
         if (r !== 0) {
             // bandaid
             if (typeof player.currentChallenge === 'string') {

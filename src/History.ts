@@ -212,19 +212,17 @@ const resetHistoryTableMapping: Record<Category, string> = {
 
 // Images associated with the various corruptions.
 const resetHistoryCorruptionImages = [
-    'Pictures/Divisiveness Level 7.png',
-    'Pictures/Maladaption Lvl 7.png',
-    'Pictures/Laziness Lvl 7.png',
-    'Pictures/Hyperchallenged Lvl 7.png',
-    'Pictures/Scientific Illiteracy Lvl 7.png',
-    'Pictures/Deflation Lvl 7.png',
-    'Pictures/Extinction Lvl 7.png',
-    'Pictures/Drought Lvl 7.png',
-    'Pictures/Financial Collapse Lvl 7.png'
+    'Pictures/Viscocity.png',
+    'Pictures/Spatial Dilation.png',
+    'Pictures/Hyperchallenged.png',
+    'Pictures/Scientific Illiteracy.png',
+    'Pictures/Deflation.png',
+    'Pictures/Extinction.png',
+    'Pictures/Drought.png',
+    'Pictures/Financial Collapse.png'
 ];
 
 const resetHistoryCorruptionTitles = [
-    'Divisiveness',
     'Viscosity [Accelerators and Multipliers]',
     'Spacial Dilation [Time]',
     'Hyperchallenged [Challenge Requirements]',
@@ -374,7 +372,7 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
     let score = 'Score: ' + format(data.corruptionScore, 0, false);
     let corruptions = '';
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
-        const corruptionIdx = i + 1;
+        const corruptionIdx = i+2;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
             corruptions += ` <img alt="${resetHistoryCorruptionTitles[i]}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }
