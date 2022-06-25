@@ -388,7 +388,10 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('singularitybtn').style.display = 'block') :
         (DOMCacheGetOrSet('singularitybtn').style.display = 'none');
 
-
+    const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>;
+    for (const item of Array.from(octeractUnlocks)) { // Stuff that you need octeracts to access
+        item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none';
+    }
 
     DOMCacheGetOrSet('ascensionStats').style.visibility = (player.achievements[197] > 0 || player.singularityCount > 0) ? 'visible' : 'hidden';
     DOMCacheGetOrSet('ascHyperStats').style.display = player.challengecompletions[13] > 0 ? '' : 'none';
