@@ -624,8 +624,9 @@
         </div>
         <div id="ascendautomation" alt="ascendautomation" label="ascendautomation">
             <button id="tesseractautobuytoggle" alt="tesseractautobuytoggle" label="tesseractautobuytoggle" style="border:2px solid red;">Auto Buy: OFF</button>
-        <input class="tesseractautobuyamount" type="number" id="tesseractAmount" alt="tesseractAmount" label="tesseractAmount" min="1" max="999999999" defaultValue="1">
-        <p class="tesseractautobuyamount" id="autotessbuyeramount" alt="autotessbuyeramount" label="autotessbuyeramount"></p>
+            <button id="tesseractautobuymode" alt="tesseractautobuymode" label="tesseractautobuymode" style="border:2px solid green;">Mode: AMOUNT</button>
+            <input class="tesseractautobuyamount" type="number" id="tesseractAmount" alt="tesseractAmount" label="tesseractAmount" min="1" max="999999999" defaultValue="1">
+            <p class="tesseractautobuyamount" id="autotessbuyeramount" alt="autotessbuyeramount" label="autotessbuyeramount"></p>
         </div>
         <p id="ascendHotKeys" alt="ascendHotKeys" label="ascendHotKeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
     </div>
@@ -2825,29 +2826,29 @@
                 </div>
                 <button id="exportgame" alt="exportgame" label="exportgame" style="border:2px solid green">Export the game here</button>
                 <p id="exportinfo" alt="exportinfo" label="exportinfo" class="tightText" style="color: white"></p>
-                <label title="Use $VERSION$ for full version, $VER$ for version number, 
-$TIME$ for 24h time, $TIME12$ for 12h, 
-$YEAR$ or $Y$ for year, $MONTH$ or $M$ for month, 
-$DAY$ or $D$ for year, $HOUR$ or $H$ for hour, 
-$MINUTE$ or $MI$ for minute, $SECOND$ or $S$ for second, 
-$PERIOD$ or $P$ for period, $WEEKDAY$ or $W$ for weekday, 
-$DATE$ for date, $DATES$ for date seconds, 
-$TIMES$ for 24h time short, 
-$SING$ for singularity, $SINGS$ for singularity number, 
-$QUARK$ for quarks, $QUARKS$ for format quarks, 
+                <label title="Use $VERSION$ for full version, $VER$ for version number,
+$TIME$ for 24h time, $TIME12$ for 12h,
+$YEAR$ or $Y$ for year, $MONTH$ or $M$ for month,
+$DAY$ or $D$ for year, $HOUR$ or $H$ for hour,
+$MINUTE$ or $MI$ for minute, $SECOND$ or $S$ for second,
+$PERIOD$ or $P$ for period, $WEEKDAY$ or $W$ for weekday,
+$DATE$ for date, $DATES$ for date seconds,
+$TIMES$ for 24h time short,
+$SING$ for singularity, $SINGS$ for singularity number,
+$QUARK$ for quarks, $QUARKS$ for format quarks,
 $GQ$ for golden quarks, $GQS$ for format golden quarks">
                     <input id="saveStringInput" alt="saveStringInput" label="saveStringInput">
                 </label>
-                <p id="saveString" alt="saveString" label="saveString" class="tightText" title="Use $VERSION$ for full version, $VER$ for version number, 
-$TIME$ for 24h time, $TIME12$ for 12h, 
-$YEAR$ or $Y$ for year, $MONTH$ or $M$ for month, 
-$DAY$ or $D$ for year, $HOUR$ or $H$ for hour, 
-$MINUTE$ or $MI$ for minute, $SECOND$ or $S$ for second, 
-$PERIOD$ or $P$ for period, $WEEKDAY$ or $W$ for weekday, 
-$DATE$ for date, $DATES$ for date seconds, 
-$TIMES$ for 24h time short, 
-$SING$ for singularity, $SINGS$ for singularity number, 
-$QUARK$ for quarks, $QUARKS$ for format quarks, 
+                <p id="saveString" alt="saveString" label="saveString" class="tightText" title="Use $VERSION$ for full version, $VER$ for version number,
+$TIME$ for 24h time, $TIME12$ for 12h,
+$YEAR$ or $Y$ for year, $MONTH$ or $M$ for month,
+$DAY$ or $D$ for year, $HOUR$ or $H$ for hour,
+$MINUTE$ or $MI$ for minute, $SECOND$ or $S$ for second,
+$PERIOD$ or $P$ for period, $WEEKDAY$ or $W$ for weekday,
+$DATE$ for date, $DATES$ for date seconds,
+$TIMES$ for 24h time short,
+$SING$ for singularity, $SINGS$ for singularity number,
+$QUARK$ for quarks, $QUARKS$ for format quarks,
 $GQ$ for golden quarks, $GQS$ for format golden quarks"></p>
                 <p id="importgame" alt="importgame" label="importgame" class="tightText" style="color: limegreen">Load game below!</p>
                 <label id="importFileButton" alt="importFileButton" label="importFileButton" for="importfile">Load from file</label>
