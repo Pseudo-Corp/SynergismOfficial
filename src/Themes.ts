@@ -13,7 +13,6 @@ export const toggleTheme = () => {
         DOMCacheGetOrSet('singularitybtn').style.backgroundColor = '#171717';
         DOMCacheGetOrSet('rune6').style.backgroundColor = '#171717';
         DOMCacheGetOrSet('rune7').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('mini10').style.backgroundColor = '#171717';
         //It will remove Orange BG for next 5 runes
         DOMCacheGetOrSet('rune1').style.backgroundColor = '#171717';
         DOMCacheGetOrSet('rune2').style.backgroundColor = '#171717';
