@@ -12,7 +12,7 @@ import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Researc
 import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, changeTabColor, Confirm, Alert, Notification } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck, exitOffline } from './Calculate';
+import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
 import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
@@ -21,7 +21,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { calculateGoldenQuarkGain, reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset';
+import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset';
 import type { TesseractBuildings} from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
@@ -45,6 +45,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { singularityData, SingularityUpgrade } from './singularity';
 import type { PlayerSave } from './types/LegacySynergism';
+import { eventCheck } from './Event';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -1197,8 +1198,26 @@ const loadSynergy = async () => {
         }
 
         if (!player.dayCheck) {
-            player.dayCheck = new Date()
+            player.dayCheck = new Date();
         }
+        if (typeof player.dayCheck === 'string') {
+            player.dayCheck = new Date(player.dayCheck);
+            if (isNaN(player.dayCheck.getTime())) {
+                player.dayCheck = new Date();
+            }
+        }
+        // Measures for people who play the past
+        let updatedLast = lastUpdated;
+        if (!isNaN(updatedLast.getTime())) {
+            updatedLast = new Date(updatedLast.getFullYear(), updatedLast.getMonth(), updatedLast.getDate() - 1);
+            if (player.dayCheck.getTime() < updatedLast.getTime()) {
+                player.dayCheck = updatedLast;
+            }
+        } else if (player.dayCheck.getTime() < 1654009200000) {
+            player.dayCheck = new Date('06/01/2022 00:00:00');
+        }
+        // Calculate daily
+        player.dayCheck = new Date(player.dayCheck.getFullYear(), player.dayCheck.getMonth(), player.dayCheck.getDate());
 
         for (let i = 1; i <= 5; i++) {
             const ascendBuildingI = `ascendBuilding${i as OneToFive}` as const;
@@ -3364,6 +3383,8 @@ const dt = 5;
 const filterStrength = 20;
 let deltaMean = 0;
 
+export const loadingDate = new Date();
+
 const tick = () => {
     const now = performance.now();
     let delta = now - lastUpdate;
@@ -3723,16 +3744,18 @@ export const reloadShit = async (reset = false) => {
     toggleSubTab(9, 0); // set 'corruption main'
     toggleSubTab(-1, 0); // set 'statistics main'
 
-    dailyResetCheck();
-    interval(() => dailyResetCheck(), 30_000);
+    interval(() => dailyResetCheck(), 30000);
 
     constantIntervals();
     changeTabColor();
     startHotkeys();
 
-    eventCheck();
     interval(() => eventCheck(), 15000);
-    setTimeout(() => DOMCacheGetOrSet('exitOffline').classList.remove('subtabContent'), 2000);
+    setTimeout(() => {
+        dailyResetCheck();
+        eventCheck();
+        DOMCacheGetOrSet('exitOffline').classList.remove('subtabContent');
+    }, 1000);
 
     if (localStorage.getItem('pleaseStar') === null) {
         void Alert('Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial');
@@ -3765,9 +3788,10 @@ export const reloadShit = async (reset = false) => {
 window.addEventListener('load', () => {
     const ver = DOMCacheGetOrSet('versionnumber');
     if (ver instanceof HTMLElement) {
+        const textUpdate = !isNaN(lastUpdated.getTime()) ? ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` : '';
         ver.textContent =
             `You're ${testing ? 'testing' : 'playing'} v${version} - The Reality Update pt.1` +
-            ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` +
+            textUpdate +
             ` ${testing ? 'Savefiles cannot be used in live!' : ''}`;
     }
     document.title = `Synergism v${version}`;

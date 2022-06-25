@@ -2,8 +2,7 @@ import { player, clearInt, interval, format, blankSave } from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
-    calcAscensionCount
-} from './Calculate';
+    calcAscensionCount, calculateGoldenQuarkGain} from './Calculate';
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
@@ -707,25 +706,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
 /**
  *
- * Calculate the number of Golden Quarks earned in current singularity
- */
-export const calculateGoldenQuarkGain = ():number => {
-    const base = 2 * player.singularityCount + 10
-    const bonus = (player.singularityCount < 10) ? (100 - 10 * player.singularityCount) : 0;
-    const gainFromQuarks = player.quarksThisSingularity / 1e5;
-    const c15Multiplier = 1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2
-    const patreonMultiplier = 1 + player.worlds.BONUS/100;
-
-    const singularityUpgrades = (+player.singularityUpgrades.goldenQuarks1.getEffect().bonus) *
-                                (+player.singularityUpgrades.goldenQuarks2.getEffect().bonus)
-
-    const cookieUpgradeMultiplier = 1 + 0.12 * player.cubeUpgrades[69];
-
-    return (base + gainFromQuarks) * c15Multiplier * patreonMultiplier * singularityUpgrades * cookieUpgradeMultiplier + bonus;
-}
-
-/**
- *
  * Computes which achievements in 274-280 are achievable given current singularity number
  */
 export const updateSingularityAchievements = (): void => {
@@ -951,10 +931,16 @@ export const singularity = async (): Promise<void> => {
     hold.autoAntSacrifice = player.autoAntSacrifice
     hold.autoAntSacrificeMode = player.autoAntSacrificeMode
     hold.autoAntSacTimer = player.autoAntSacTimer
+    hold.autoAscend = player.autoAscend
+    hold.autoAscendMode = player.autoAscendMode
+    hold.autoAscendThreshold = player.autoAscendThreshold
     hold.autoResearch = 0
     hold.autoTesseracts = player.autoTesseracts
     hold.tesseractAutoBuyerToggle = player.tesseractAutoBuyerToggle
+    hold.tesseractAutoBuyerAmount = player.tesseractAutoBuyerAmount
     hold.historyShowPerSecond = player.historyShowPerSecond
+    hold.dayTimer = player.dayTimer
+    hold.dayCheck = player.dayCheck
     hold.shopBuyMaxToggle = player.shopBuyMaxToggle
     hold.shopConfirmationToggle = player.shopConfirmationToggle
 
