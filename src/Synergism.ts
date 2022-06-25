@@ -2106,12 +2106,7 @@ export const updateAllMultiplier = (): void => {
         G['multiplierPower'] = 1;
     }
     if (player.currentChallenge.reincarnation === 10) {
-        if (player.platonicUpgrades[20] > 0) {
-            // Not 1 because coins could not be produced completely
-            G['multiplierPower'] = 2;
-        } else {
-            G['multiplierPower'] = 1;
-        }
+        G['multiplierPower'] = 1;
     }
 
     G['multiplierEffect'] = Decimal.pow(G['multiplierPower'], G['totalMultiplier']);
