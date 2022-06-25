@@ -1236,13 +1236,11 @@ const loadSynergy = async () => {
 
 
         if (player.saveString === '' || player.saveString === 'Synergism-v1011Test.txt') {
-            player.singularityCount === 0 ?
-                player.saveString = 'Synergism-$VERSION$-$TIME$.txt':
-                player.saveString = 'Synergism-$VERSION$-$TIME$-$SING$.txt'
+            player.saveString = player.singularityCount === 0 ?
+                'Synergism-$VERSION$-$TIME$.txt' :
+                'Synergism-$VERSION$-$TIME$-$SING$.txt'
         }
         (DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString;
-
-        player.wowCubes = new WowCubes(Number(player.wowCubes) || 0);
 
         for (let j = 1; j < 126; j++) {
             upgradeupdate(j);
