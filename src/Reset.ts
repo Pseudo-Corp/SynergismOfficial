@@ -1134,8 +1134,8 @@ const resetResearches = () => {
     for (const item of destroy) {
         player.researches[item] = 0;
     }
-    if (player.singularityCount<1)
-    {
+
+    if (player.singularityCount < 1) {
         for (const item of destroy2) {
             player.researches[item] = 0;
         }
