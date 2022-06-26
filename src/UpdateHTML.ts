@@ -862,13 +862,13 @@ export const CSSAscend = () => {
 
 export const showCorruptionStatsLoadouts = () => {
     if (player.corruptionShowStats) {
-        DOMCacheGetOrSet('corruptionStats').style.display = 'block'
+        DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
         DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
         DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'dodgerblue'
         DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'white'
     } else {
         DOMCacheGetOrSet('corruptionStats').style.display = 'none'
-        DOMCacheGetOrSet('corruptionLoadouts').style.display = 'block'
+        DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
         DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'white'
         DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'dodgerblue'
     }
@@ -931,7 +931,7 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
     confWrap.style.display = 'block';
     overlay.style.display = 'block';
     popup.querySelector('p')!.textContent = text;
-    popup.focus();
+    ok.focus();
 
     // IF you clean up the typing here also clean up PromptCB
     const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
@@ -977,7 +977,7 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
     alertWrap.style.display = 'block';
     overlay.style.display = 'block';
     popup.querySelector('p')!.textContent = text;
-    popup.focus();
+    ok.focus();
 
     const listener = () => {
         ok.removeEventListener('click', listener);
