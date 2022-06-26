@@ -850,6 +850,11 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     if (player.singularityCount >= 25) {
         player.eighthOwnedAnts = 1;
     }
+    if (player.singularityCount >= 30) {
+        player.researches[130] = 1;
+        player.researches[135] = 1;
+        player.researches[145] = 1;
+    }
 
     resetUpgrades(3);
     for (let j = 1; j < player.cubeUpgrades.length; j++) {
