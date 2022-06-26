@@ -135,13 +135,13 @@ export const resetdetails = (input: resetNames) => {
         case 'ascension':
             currencyImage1.style.display = 'none'
             resetCurrencyGain.textContent = '';
-            resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds.';
+            resetInfo.innerHTML = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds.<br>(Real-time ' + format(player.ascensionCounterReal, 0, false) + ' Seconds)';
             resetInfo.style.color = 'gold';
             break;
         case 'singularity':
             currencyImage1.style.display = 'none'
             resetCurrencyGain.textContent = '';
-            resetInfo.textContent = 'Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with ' + format(calculateGoldenQuarkGain(), 2, true) + ' Golden Quarks.'
+            resetInfo.innerHTML = 'Are you willing to give up your laurels for a greater Challenge?<br>The Ant God bribes you with ' + format(calculateGoldenQuarkGain(), 2, true) + ' Golden Quarks.'
             resetInfo.style.color = 'lightgoldenrodyellow'
     }
     DOMCacheGetOrSet('resetofferings2').textContent = '+' + format(offering)
@@ -555,6 +555,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         ascensionAchievementCheck(1);
 
         player.ascensionCounter = 0;
+        player.ascensionCounterReal = 0;
 
         updateTalismanInventory();
         updateTalismanAppearance(0);

@@ -403,6 +403,7 @@ export interface Player {
 
     ascensionCount: number
     ascensionCounter: number
+    ascensionCounterReal: number
     cubeUpgrades: [null, ...number[]]
     platonicUpgrades: number[]
     wowCubes: WowCubes
