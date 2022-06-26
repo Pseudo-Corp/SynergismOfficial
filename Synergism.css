@@ -143,7 +143,7 @@ button:focus {
     transform: translateY(10%);
     z-index: 6969;
     width: 15%;
-    min-width: 200px;
+    min-width: 260px;
     min-height: 120px;
     overflow: hidden;
     border-radius: 5px;
@@ -334,7 +334,6 @@ button:focus {
 }
 
 .offlineStatElement {
-    height: 23px;
     margin-left: 10px;
 }
 
@@ -530,17 +529,14 @@ nav li:hover {
 #buyamountcoin {
     position: absolute;
     top: 0;
-    left: 80%;
+    left: calc(50% + 420px);
 }
 
 #togglecoinbuy {
     color: white;
-    position: absolute;
     font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
+    text-align: center;
+    margin: 0;
 }
 
 #buildingtext {
@@ -656,7 +652,7 @@ nav li:hover {
 #exportButtons {
     display: flex;
     flex-direction: column;
-    margin: 0.8em 0 0.8em 0.8em;
+    margin: 0.8em;
     min-width: 300px;
 }
 
@@ -724,16 +720,20 @@ nav li:hover {
 .confirmationToggle {
     display: flex;
     flex-direction: column;
-    width: 40px;
+    width: 32px;
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.confirmationToggle > button {
+    font-size: 0.7em;
 }
 
 .promocodeButton {
     transition-duration: 0.15s;
     padding: 5px;
-    min-width: 65%;
-    margin-bottom: 3px;
+    width: 180px;
+    margin: 0 auto 3px;
 }
 
 .promocodeButton:hover {
@@ -751,12 +751,12 @@ nav li:hover {
 
 .settingpic {
     flex-grow: unset;
-    margin: 4px;
 }
 
 .auto.square {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
+    margin-top: 4px;
     transition-duration: 0.15s;
 }
 
@@ -890,10 +890,11 @@ nav li:hover {
 }
 
 .nonSquare {
-    width: 39px;
+    width: 38px;
     height: 20px;
     transition-duration: 0.15s;
     margin-left: 5px;
+    padding-right: 2px;
 }
 
 .nonSquare:hover {
@@ -918,16 +919,17 @@ nav li:hover {
 #buyamountcrystal {
     position: absolute;
     top: 0;
-    left: 80%;
+    left: calc(50% + 420px);
 }
 
 #buyamountoffering {
     position: absolute;
-    font-size: 11px;
-    width: 220px;
-    left: 86%;
+    width: 300px;
+    left: calc(50% + 250px);
     top: 32px;
-    margin-left: -173px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .talismanBuyAmountContainer {
@@ -947,19 +949,19 @@ nav li:hover {
 #buyamountmythos {
     position: absolute;
     top: 0;
-    left: 80%;
+    left: calc(50% + 420px);
 }
 
 #buyamountparticle {
     position: absolute;
     top: 0;
-    left: 80%;
+    left: calc(50% + 420px);
 }
 
 #buyAmountTesseract {
     position: absolute;
     top: 0;
-    left: 80%;
+    left: calc(50% + 420px);
 }
 
 .buyAmountBtn {
@@ -974,57 +976,40 @@ nav li:hover {
 
 #togglecrystalbuy {
     color: white;
-    position: absolute;
     font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
+    text-align: center;
+    margin: 0;
 }
 
 #toggleofferingbuy {
     color: white;
-    position: absolute;
     font-size: 11px;
-    width: 250px;
-    left: 85%;
-    top: 25px;
-    margin-left: -183px;
+    margin: 0;
 }
 
 #toggletalismanbuy {
     font-size: 11px;
-    margin: -4px 0 5px;
 }
 
 #togglemythosbuy {
     color: white;
-    position: absolute;
     font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
+    text-align: center;
+    margin: 0;
 }
 
 #toggleparticlebuy {
     color: white;
-    position: absolute;
     font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
+    text-align: center;
+    margin: 0;
 }
 
 #toggleTesseractBuy {
     color: white;
-    position: absolute;
     font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
+    text-align: center;
+    margin: 0;
 }
 
 #coinBuildings {
@@ -1169,8 +1154,8 @@ nav li:hover {
     transition-duration: 0.15s;
 }
 
-.runeTypeElement:hover {
-    background-color: #222;
+img.runeTypeElement:hover {
+    background-color: #222 !important;
 }
 
 .runeType > .runeButtonAvailable {
@@ -1581,6 +1566,14 @@ nav li:hover {
     height: auto;
 }
 
+#startAutoChallengeTimerInput,
+#exitAutoChallengeTimerInput,
+#enterAutoChallengeTimerInput {
+    border: 2px solid orchid;
+    color: white;
+    background-color: #171717;
+}
+
 #challengeName { color: white; }
 #challengeFlavor { color: plum; }
 #challengeRestrictions { color: crimson; }
@@ -1610,9 +1603,6 @@ nav li:hover {
 
 #challengeWorthlessTexts > p {
     margin: 0;
-    padding: 0;
-    padding: 5px;
-    height: 20px;
 }
 
 #challengehotkeys { color: gray; }
@@ -2042,10 +2032,14 @@ nav li:hover {
     position: absolute;
     padding: 0;
     width: 300px;
-    top: 15px;
+    top: 30px;
     text-align: center;
     left: 75%;
     white-space: nowrap;
+}
+
+#antSacrificeSummary > p {
+    margin: 0;
 }
 
 #antELO {
@@ -2074,11 +2068,12 @@ nav li:hover {
 
 #antSacrificeTable {
     position: absolute;
-    top: 122px;
+    top: 110px;
     left: 80px;
     padding: 0;
     border-spacing: 0;
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
 }
 
 .antBtn {
@@ -2209,11 +2204,6 @@ p[id$="BlessingsTotal"] {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.heptNotification {
-    height: 20px;
-    width: 20px;
 }
 
 .cubeBonus {
@@ -2371,7 +2361,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #tesseractAmount {
-    border: 1px solid green;
+    border: 1px solid orange;
     color: white;
     background-color: #171717;
 }
@@ -2665,7 +2655,7 @@ p[id$="BlessingsTotal"] {
 }
 
 .runeTexts {
-    width: 175px;
+    width: 200px;
 }
 
 .runeButtons {
@@ -2690,7 +2680,7 @@ p[id$="BlessingsTotal"] {
 #buyRuneBlessingInput {
     width: 100px;
     height: 20px;
-    border: 2px solid crimson;
+    border: 2px solid white;
     margin-right: 20px;
     background-color: #171717;
     color: white;
@@ -2700,7 +2690,7 @@ p[id$="BlessingsTotal"] {
 #buyRuneSpiritInput {
     width: 100px;
     height: 20px;
-    border: 2px solid orange;
+    border: 2px solid orchid;
     margin-right: 20px;
     background-color: #171717;
     color: white;
@@ -2976,6 +2966,7 @@ header .img {
     width: 50%;
     align-items: flex-start;
     min-width: 625px;
+    font-variant-numeric: tabular-nums;
 }
 
 .currencyRow {
@@ -3033,6 +3024,7 @@ header #obtainiumDisplay {
     line-height: 20px;
     width: 60%;
     justify-content: space-evenly;
+    font-variant-numeric: tabular-nums;
 }
 
 #ascensionStats > span {
@@ -3076,7 +3068,7 @@ header #obtainiumDisplay {
 }
 
 #ascTimeTakenStats {
-    min-width: 140px; /* prevent bouncing around */
+    min-width: 150px; /* prevent bouncing around */
 }
 
 #ascTimeAccel {
@@ -3109,6 +3101,10 @@ header #obtainiumDisplay {
     margin: auto;
     color: white;
     text-align: left;
+    font-size: 0.9em;
+}
+
+.challengePortion.challengeInfo {
     font-size: 1em;
 }
 
@@ -3137,18 +3133,17 @@ header #obtainiumDisplay {
 
 .platonicContainer {
     width: 400px;
+    min-height: 250px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: auto;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
 }
 
 .platonicPortion {
     width: 380px;
-    height: auto;
-    margin: auto;
+    margin: 0;
     color: white;
     text-align: left;
     font-size: 1em;
@@ -3158,13 +3153,14 @@ header #obtainiumDisplay {
     display: grid;
     grid-template-columns: repeat(4, 180px);
     margin-top: 10px;
-    padding: 8px;
+    padding: 10px;
     width: calc(180px * 4 + 45px);
     border: 3px solid plum;
     grid-column: shop 2/4;
     grid-row: 1;
     grid-column-gap: 15px;
-    grid-row-gap: 30px;
+    grid-row-gap: 20px;
+    align-self: flex-start;
 }
 
 .hepteractGrid > div {
@@ -3252,7 +3248,7 @@ header #obtainiumDisplay {
     z-index: 2;
     left: 50%;
     transform: translateX(-50%);
-    top: -2px;
+    top: 0;
     width: 100%;
 }
 
