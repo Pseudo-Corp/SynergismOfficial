@@ -334,6 +334,7 @@ button:focus {
 }
 
 .offlineStatElement {
+    height: 23px;
     margin-left: 10px;
 }
 
@@ -652,7 +653,7 @@ nav li:hover {
 #exportButtons {
     display: flex;
     flex-direction: column;
-    margin: 0.8em;
+    margin: 0.8em 0 0.8em 0.8em;
     min-width: 300px;
 }
 
@@ -732,8 +733,8 @@ nav li:hover {
 .promocodeButton {
     transition-duration: 0.15s;
     padding: 5px;
-    width: 180px;
-    margin: 0 auto 3px;
+    min-width: 65%;
+    margin-bottom: 3px;
 }
 
 .promocodeButton:hover {
@@ -1151,11 +1152,14 @@ nav li:hover {
     text-align: center;
     align-items: center;
     align-content: center;
+}
+
+.runeTypeElement {
     transition-duration: 0.15s;
 }
 
 img.runeTypeElement:hover {
-    background-color: #222 !important;
+    background-color: #222 !important
 }
 
 .runeType > .runeButtonAvailable {
@@ -1566,10 +1570,8 @@ img.runeTypeElement:hover {
     height: auto;
 }
 
-#startAutoChallengeTimerInput,
-#exitAutoChallengeTimerInput,
-#enterAutoChallengeTimerInput {
-    border: 2px solid orchid;
+#startAutoChallengeTimerInput, #exitAutoChallengeTimerInput, #enterAutoChallengeTimerInput {
+    border: 2px solid red;
     color: white;
     background-color: #171717;
 }
@@ -2361,7 +2363,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #tesseractAmount {
-    border: 1px solid orange;
+    border: 1px solid green;
     color: white;
     background-color: #171717;
 }
@@ -2680,7 +2682,7 @@ p[id$="BlessingsTotal"] {
 #buyRuneBlessingInput {
     width: 100px;
     height: 20px;
-    border: 2px solid white;
+    border: 2px solid crimson;
     margin-right: 20px;
     background-color: #171717;
     color: white;
@@ -2690,7 +2692,7 @@ p[id$="BlessingsTotal"] {
 #buyRuneSpiritInput {
     width: 100px;
     height: 20px;
-    border: 2px solid orchid;
+    border: 2px solid orange;
     margin-right: 20px;
     background-color: #171717;
     color: white;
@@ -3248,7 +3250,7 @@ header #obtainiumDisplay {
     z-index: 2;
     left: 50%;
     transform: translateX(-50%);
-    top: 0;
+    top: 0px;
     width: 100%;
 }
 
