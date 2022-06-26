@@ -61,6 +61,7 @@ textarea {
     margin: 0;
     box-sizing: border-box;
     border: 0 solid #ccc;
+    outline: none;
 }
 
 input:disabled {
@@ -122,27 +123,28 @@ button:focus {
 
 @keyframes slide-in {
     from {
-        transform: translate(-100%, 22.5%);
+        transform: translate(-100%, 10%);
     }
 
     to {
-        transform: translate(7.5%, 22.5%);
+        transform: translate(5%, 10%);
     }
 }
 
 @keyframes slide-out {
     to {
-        transform: translate(-100%, 22.5%);
+        transform: translate(-100%, 10%);
     }
 }
 
 #notification {
     position: fixed;
     display: none;
-    transform: translateY(22.5%);
+    transform: translateY(10%);
     z-index: 6969;
     width: 15%;
-    min-height: 150px;
+    min-width: 200px;
+    min-height: 120px;
     overflow: hidden;
     border-radius: 5px;
     border: 1px solid gold;
@@ -167,6 +169,8 @@ button:focus {
     transform: translate(-50%, -50%);
     margin: 0;
     text-align: center;
+    overflow-x: auto;
+    white-space: pre-line;
 }
 
 #notifx {
@@ -184,9 +188,14 @@ button:focus {
     z-index: 6969;
     width: 30%;
     height: 30%;
+    min-width: min(400px, 100%);
+    min-height: min(200px, 100%);
+    max-width: 100%;
+    max-height: 100%;
     background-color: rgb(20 20 20);
     border-radius: 5px;
     border: 1px solid gold;
+    box-sizing: border-box;
 }
 
 #confirmWrapper,
@@ -203,6 +212,7 @@ button:focus {
     text-align: center;
     margin-left: 15px;
     margin-right: 15px;
+    white-space: pre-line;
 }
 
 /* Elements relating to the browser popup functions (Alert, Confirm, etc) */
@@ -271,28 +281,40 @@ button:focus {
 }
 
 #preloadContainer {
+    display: flex;
+    background: rgb(20 20 20);
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 2;
-    height: 200vh;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
     min-height: 100vh;
-    width: 100%;
-    display: flex;
     align-items: center;
+    flex-direction: column;
 }
 
 #preload {
     flex: 1;
+    width: 100vw;
+    height: 100vh;
+    min-width: 1084px;
+    min-height: 610px;
 }
 
 #offlineContainer {
-    display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 3;
-    height: 200vh;
-    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 50vw;
+    z-index: 6969;
+    transform: translate(-50%, 0%);
+    background-color: rgb(20 20 20);
+    border-radius: 5px;
+    border: 1px solid gold;
+    padding: 15px;
+    margin-top: 15px;
 }
 
 .offlineStats {
@@ -332,13 +354,18 @@ button:focus {
 }
 
 #exitOffline {
+    width: 250px;
     height: 30px;
     z-index: 3;
-    width: auto;
     margin-top: 20px;
     border: 2px solid ivory;
     background-color: purple;
     color: white;
+    transition-duration: 0.15s;
+}
+
+#exitOffline:hover {
+    background-color: #b300b2;
 }
 
 .resetInformationContainer {
@@ -409,8 +436,8 @@ nav li {
     color: white;
     background-color: #171717;
     cursor: pointer;
-    line-height: 21px;
-    height: 21px;
+    line-height: 22px;
+    height: 22px;
     margin-right: 5px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -546,8 +573,8 @@ nav li:hover {
     display: flex;
     flex-direction: row;
     width: 90%;
-    margin-left: 3.5%;
-    margin-top: 4%;
+    margin-left: 3%;
+    margin-top: 3%;
 }
 
 #upgradesFlex > div {
@@ -610,8 +637,6 @@ nav li:hover {
 
 #settingsubtab {
     flex-direction: column;
-    margin-left: 12%;
-    margin-right: 12%;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
@@ -619,7 +644,6 @@ nav li:hover {
 
 .settingSubTabUpper {
     display: flex;
-    margin-left: 25px;
 }
 
 .confirmationToggles {
@@ -632,11 +656,19 @@ nav li:hover {
 #exportButtons {
     display: flex;
     flex-direction: column;
-    margin: 0.8em 0 0.8em 50px;
+    margin: 0.8em 0 0.8em 0.8em;
     min-width: 300px;
 }
 
 #exportButtons > * { margin: 0.15em 0; }
+
+#saveStringInput {
+    width: 176px;
+    padding: 1px;
+    border: 1px solid white;
+    color: white;
+    background-color: #171717;
+}
 
 #importFileButton {
     border: 2px solid white;
@@ -813,7 +845,7 @@ nav li:hover {
     height: 20px;
     color: lightgray;
     text-align: center;
-    width: 1200px;
+    width: 1000px;
     margin: 0 auto;
 }
 
@@ -833,6 +865,7 @@ nav li:hover {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    border-collapse: collapse;
 }
 
 #achievementinfo {
@@ -1023,7 +1056,7 @@ nav li:hover {
 #prestigeamount {
     border: 1px solid cyan;
     color: white;
-    background-color: black;
+    background-color: #171717;
 }
 
 #autocrystalbuild {
@@ -1048,7 +1081,8 @@ nav li:hover {
 }
 
 #prestigehotkeys {
-    width: 1200px;
+    width: 1000px;
+    text-align: center;
     color: gray;
 }
 
@@ -1133,6 +1167,11 @@ nav li:hover {
     text-align: center;
     align-items: center;
     align-content: center;
+    transition-duration: 0.15s;
+}
+
+.runeTypeElement:hover {
+    background-color: #222;
 }
 
 .runeType > .runeButtonAvailable {
@@ -1247,7 +1286,7 @@ nav li:hover {
 }
 
 .talismanIcon {
-    width: 72px;
+    width: 64px;
     border: 4px solid white;
     cursor: pointer;
 }
@@ -1404,11 +1443,13 @@ nav li:hover {
     margin: 0 auto;
 }
 
+#transcension > p { margin: 0; }
+
 #transcension > .buttonRow {
     color: pink;
 }
 
-#transcendshardinfo { margin: 2px; }
+#transcension > #transcendshardinfo { margin-top: 20px; }
 
 #transcendshardbonus {
     margin-bottom: 100px;
@@ -1418,7 +1459,7 @@ nav li:hover {
 #transcendamount {
     border: 1px solid plum;
     color: white;
-    background-color: black;
+    background-color: #171717;
 }
 
 #autotranscend {
@@ -1426,14 +1467,14 @@ nav li:hover {
     color: white;
 }
 
-#toggle21 { margin-top: 100px; }
-
 #toggle21,
 #transcendautotoggle,
 #transcendamount {
     width: 150px;
     margin: 0 auto;
 }
+
+#toggle21 { margin-top: 100px; }
 
 #toggle21,
 #transcendautotoggle {
@@ -1616,7 +1657,7 @@ nav li:hover {
 
 #reincarnationTexts > p { margin: 0; }
 
-#toggle27 { margin-top: 55px; }
+#toggle27 { margin-top: 80px; }
 
 #toggle27,
 #reincarnationamount,
@@ -1639,13 +1680,14 @@ nav li:hover {
 }
 
 #autoreincarnate {
+    margin: 0;
     color: white;
 }
 
 #reincarnationamount {
     border: 1px solid green;
     color: white;
-    background-color: black;
+    background-color: #171717;
 }
 
 #reincarnationinfo {
@@ -1886,29 +1928,30 @@ nav li:hover {
     flex-direction: column;
     justify-content: center;
     flex-shrink: 0;
+    margin-right: 50px;
 }
 
-#antsWelcomeTexts { margin-top: 30px; }
+#antsWelcomeTexts { margin-top: 20px; }
 #antsWelcomeTexts > p { margin: 2px; }
 #antwelcome { font-size: 1.3em; }
 
-#antrow1 { margin-top: 12px; }
+#antrow1 { margin-top: 15px; }
 
 #antrow2 {
-    margin-top: 7px;
+    margin-top: 10px;
     height: 115px;
 }
 
 #antrow3 {
     margin-top: 30px;
-    height: 115px;
+    height: 100px;
 }
 #antrow4 { margin-top: 10px; }
 
-#antrow2 > p { margin: 0; }
+#antrow2 > p { margin: 0.05em 0; }
 #crumbcount { font-size: 1.2em; }
 
-#antrow3 > p { margin: 5px; }
+#antrow3 > p { margin: 0.05em 0; }
 
 #antToggleFeatures {
     display: flex;
@@ -1963,6 +2006,9 @@ nav li:hover {
 
 #autoAntSacrificeAmount {
     width: 150px;
+    color: white;
+    background-color: #171717;
+    border: 1px solid green;
 }
 
 #autoAntSacrifice {
@@ -1973,19 +2019,19 @@ nav li:hover {
 #antSacrificeTimer {
     position: absolute;
     padding: 0;
-    width: 300px;
-    margin-left: -118px;
+    width: 200px;
+    margin: 0 0 0 -68px;
     top: 30px;
     text-align: center;
-    left: 70%;
+    left: 68%;
 }
 
 #antSacrifice {
     position: absolute;
     padding: 0;
-    top: 70px;
+    top: 55px;
     text-align: center;
-    left: 70%;
+    left: 68%;
 }
 
 .antSacrificeSettingsContainer {
@@ -1997,9 +2043,10 @@ nav li:hover {
     position: absolute;
     padding: 0;
     width: 300px;
-    top: 30px;
+    top: 15px;
     text-align: center;
-    left: 77%;
+    left: 75%;
+    white-space: nowrap;
 }
 
 #antELO {
@@ -2029,9 +2076,10 @@ nav li:hover {
 #antSacrificeTable {
     position: absolute;
     top: 122px;
-    left: 100px;
+    left: 80px;
     padding: 0;
     border-spacing: 0;
+    white-space: nowrap;
 }
 
 .antBtn {
@@ -2132,7 +2180,7 @@ p[id$="BlessingsTotal"] {
 #cubesWrapper {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 30px;
     margin-left: -185px;
 }
 
@@ -2218,6 +2266,11 @@ p[id$="BlessingsTotal"] {
 #toggleCubeBuy {
     width: 200px;
     height: 30px;
+    transition-duration: 0.15s;
+}
+
+#toggleCubeBuy:hover {
+    background-color: #333;
 }
 
 .gridImg {
@@ -2247,9 +2300,7 @@ p[id$="BlessingsTotal"] {
 /* Credits */
 
 #creditssubtab {
-    margin-top: 4.5%;
-    margin-left: 14%;
-    margin-right: 14%;
+    margin-top: 20px;
 }
 
 #creditssubtab > * {
@@ -2318,7 +2369,7 @@ p[id$="BlessingsTotal"] {
 #tesseractAmount {
     border: 1px solid green;
     color: white;
-    background-color: black;
+    background-color: #171717;
 }
 
 #autotessbuyeramount {
@@ -2356,8 +2407,12 @@ p[id$="BlessingsTotal"] {
 
 #artistList {
     display: grid;
-    grid-template-columns: repeat(4, 160px);
+    grid-template-columns: repeat(5, 160px);
     justify-content: center;
+}
+
+#artistList > p {
+    margin: 0.4em 0;
 }
 
 #statisticsSubTab {
@@ -2473,6 +2528,11 @@ p[id$="BlessingsTotal"] {
     display: none;
 }
 
+#exitOffline.subtabContent {
+    display: block;
+    visibility: hidden;
+}
+
 .subtabContent.subtabActive {
     display: block;
 }
@@ -2557,7 +2617,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #historyResetTable {
-    min-width: 540px;
+    min-width: 400px;
 }
 
 #historyAntsTable {
@@ -2625,18 +2685,22 @@ p[id$="BlessingsTotal"] {
 
 #buyRuneBlessingInput {
     width: 100px;
+    height: 20px;
     border: 2px solid crimson;
     margin-right: 20px;
     background-color: #171717;
     color: white;
+    font-size: 1.1em;
 }
 
 #buyRuneSpiritInput {
     width: 100px;
+    height: 20px;
     border: 2px solid orange;
     margin-right: 20px;
     background-color: #171717;
     color: white;
+    font-size: 1.1em;
 }
 
 #traits {
@@ -2653,7 +2717,7 @@ p[id$="BlessingsTotal"] {
     width: 800px;
     margin: 10px;
     padding: 10px;
-    margin-top: 60px;
+    justify-content: start;
 }
 
 #corruptionIntroduction {
@@ -2666,7 +2730,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #corruptionSelected {
-    height: 70px;
+    height: 64px;
     margin-top: 15px;
 }
 
@@ -2707,8 +2771,8 @@ p[id$="BlessingsTotal"] {
 #ascensionAmount {
     width: 150px;
     border: 1px solid orange;
-    color: gold;
-    background-color: black;
+    color: white;
+    background-color: #171717;
 }
 
 #autoAscend {
@@ -2727,7 +2791,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #corruptionStatsLoadouts {
-    width: 500px;
+    width: 450px;
     margin: 10px;
     padding: 10px;
     border: 1px solid orange;
@@ -2735,8 +2799,8 @@ p[id$="BlessingsTotal"] {
 
 #corrStatsBtn,
 #corrLoadoutsBtn {
-    width: 120px;
-    height: 25px;
+    width: 140px;
+    height: 30px;
     border: 2px solid;
     transition-duration: 0.15s;
 }
@@ -2747,28 +2811,29 @@ p[id$="BlessingsTotal"] {
 }
 
 #corrButtonRow {
-    min-width: 300px;
+    min-width: 360px;
 }
 
 .corruptionContainer {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 10px;
+    height: 400px;
 }
 
 .corruptionStatRow {
     display: flex;
     flex-flow: row;
     height: 40px;
-    margin: 5px 0;
-    padding-left: 10px;
+    margin: 0 auto;
 }
 
 .corruptionImg {
-    height: 100%;
     object-fit: contain;
 }
 
 .corrDesc {
-    height: 30px;
     min-width: 150px;
     margin: auto;
     text-align: center;
@@ -2814,8 +2879,9 @@ p[id$="BlessingsTotal"] {
 }
 
 #corruptionLoadouts {
-    height: 410px;
-    padding-top: 15px;
+    margin-top: 10px;
+    height: 400px;
+    padding-left: 10px;
     box-sizing: border-box;
 }
 
@@ -2829,7 +2895,7 @@ p[id$="BlessingsTotal"] {
 
 #corruptionLoadoutTable {
     border-collapse: separate;
-    border-spacing: 0 12.5px;
+    border-spacing: 0 10px;
     width: 100%;
 }
 
@@ -3006,7 +3072,7 @@ header #obtainiumDisplay {
 }
 
 #ascTimeTakenStats {
-    min-width: 125px; /* prevent bouncing around */
+    min-width: 140px; /* prevent bouncing around */
 }
 
 #ascTimeAccel {
@@ -3206,7 +3272,7 @@ header #obtainiumDisplay {
 .hotkeys {
     display: grid;
     grid-template-columns: repeat(4, minmax(250px, 1fr));
-    margin: 10px auto;
+    margin: 20px auto;
 }
 
 .hotkeyItem {
@@ -3230,16 +3296,16 @@ header #obtainiumDisplay {
 }
 
 #transparentBG {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: rgb(0 0 0 / 50%);
     z-index: 6968;
-    position: absolute;
+    position: fixed;
     display: none;
 }
 
 #saveString {
-    max-width: 50vh;
+    max-width: 50vw;
     word-wrap: break-word;
 }
 

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="Synergism.css">
     <script src="./dist/out.js" defer></script>
 </head>
-<body class="dark loading">
+<body class="dark">
     <div id="transparentBG" alt="transparentBG" label="transparentBG"></div>
     <div id="notification" alt="notification" label="notification">
         <div id="notifx" alt="notifx" label="notifx">
@@ -20,14 +20,14 @@
     <div id="confirmationBox" alt="confirmationBox" label="confirmationBox">
         <div id="confirmWrapper" alt="confirmWrapper" label="confirmWrapper">
             <div id="confirm" alt="confirm" label="confirm" tabindex="-1">
-                <p style="white-space: pre-line;"></p>
+                <p></p>
                 <button id="ok_confirm" alt="ok_confirm" label="ok_confirm">OK</button>
                 <button id="cancel_confirm" alt="cancel_confirm" label="cancel_confirm">Cancel</button>
             </div>
         </div>
         <div id="alertWrapper" alt="alertWrapper" label="alertWrapper">
             <div id="alert" alt="alert" label="alert" tabindex="-1">
-                <p style="white-space: pre-line;"></p>
+                <p></p>
                 <button id="ok_alert" alt="ok_alert" label="ok_alert">OK</button>
             </div>
         </div>
@@ -43,7 +43,7 @@
     <div id="preloadContainer" alt="preloadContainer" label="preloadContainer">
         <img src="Pictures/Splash/base.png" id="preload" alt="preload" label="preload" style="width: 100%;">
     </div>
-    <div id="offlineContainer" alt="offlineContainer" label="offlineContainer">
+    <div id="offlineContainer" alt="offlineContainer" label="offlineContainer" style="display: none;">
         <p id="offlineTimer" alt="offlineTimer" label="offlineTimer" class="offlineText" style="color: plum"></p>
         <p id="progressbardescription" alt="progressbardescription" label="progressbardescription" class="offlineText" style="color: yellow">Loading Offline Progress...</p>
 
@@ -632,7 +632,7 @@
     </div>
 </div>
 
-    <div id="upgrades" alt="upgrades" label="upgrades">
+    <div id="upgrades" alt="upgrades" label="upgrades" style="display: none;">
         <div id="upgradesFlex" alt="upgradesFlex" label="upgradesFlex">
             <div>
                 <img src="Pictures/Coin.png" loading="lazy">
@@ -863,7 +863,7 @@
     </div>
 
 
-        <div id="statistics" alt="statistics" label="statistics">
+        <div id="statistics" alt="statistics" label="statistics" style="display: none;">
             <div id="achievements" alt="achievements" label="achievements">
                 <div class="NotificationToggle">
                     <p id="achievementprogress" alt="achievementprogress" label="achievementprogress" style="color:white"></p>
@@ -1184,7 +1184,7 @@
 
 
 
-        <div id="runes" alt="runes" label="runes">
+        <div id="runes" alt="runes" label="runes" style="display: none;">
 
             <div id="runesToggle" alt="runesToggle" label="runesToggle">
                 <button id="toggleautosacrifice" alt="toggleautosacrifice" label="toggleautosacrifice" style="border: 2px solid orangered; color: white">Auto Rune: OFF</button>
@@ -1534,7 +1534,7 @@
                 </div>
             </div>
         </div>
-        <div id="challenges" alt="challenges" label="challenges">
+        <div id="challenges" alt="challenges" label="challenges" style="display: none;">
             <div id="challengesWrapper" alt="challengesWrapper" label="challengesWrapper">
                 <p id="challengeIntroduction" alt="challengeIntroduction" label="challengeIntroduction">Is the base game too easy? Try these situations! [Click the icons to view challenge details!]</p>
                 <div id="challengesAutoToggles" alt="challengesAutoToggles" label="challengesAutoToggles">
@@ -1619,7 +1619,7 @@
             </div>
         </div>
 
-        <div id="research" alt="research" label="research">
+        <div id="research" alt="research" label="research" style="display: none;">
 
             <div id="researchToggles" alt="researchToggles" label="researchToggles">
                 <button id="toggleresearchbuy" alt="toggleresearchbuy" label="toggleresearchbuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level</button>
@@ -1856,7 +1856,7 @@
             </div>
         </div>
 
-        <div id="ants" alt="ants" label="ants">
+        <div id="ants" alt="ants" label="ants" style="display: none;">
             <div id="antsWrapper" alt="antsWrapper" label="antsWrapper">
                 <div id="antsWelcomeTexts" alt="antsWelcomeTexts" label="antsWelcomeTexts">
                     <p id="antwelcome" alt="antwelcome" label="antwelcome" style="color: lightslategrey">The ants welcome you to their home.</p>
@@ -1973,7 +1973,7 @@
             </div>
         </div>
 
-        <div id="cubes" alt="cubes" label="cubes">
+        <div id="cubes" alt="cubes" label="cubes" style="display: none;">
             <div id="cubesWrapper" alt="cubesWrapper" label="cubesWrapper">
                 <div id="wowCubeSidebar" alt="wowCubeSidebar" label="wowCubeSidebar">
                     <div id="wowCubeSidebarButtons" alt="wowCubeSidebarButtons" label="wowCubeSidebarButtons">
@@ -2661,8 +2661,8 @@
             </div>
         </div>
 
-        <div id="traits" alt="traits" label="traits">
-            <div id="corruptionStatsLoadouts" alt="corruptionStatsLoadouts" label="corruptionStatsLoadouts" class="vAlign">
+        <div id="traits" alt="traits" label="traits" style="display: none;">
+            <div id="corruptionStatsLoadouts" alt="corruptionStatsLoadouts" label="corruptionStatsLoadouts" class="flex column">
                 <span id="corrButtonRow" alt="corrButtonRow" label="corrButtonRow" class="flex row center">
                     <button id="corrStatsBtn" alt="corrStatsBtn" label="corrStatsBtn" class="hCenter tight">Corruption Stats</button>
                     <button id="corrLoadoutsBtn" alt="corrLoadoutsBtn" label="corrLoadoutsBtn" class="hCenter tight">Corruption Loadouts</button>
@@ -2732,7 +2732,7 @@
                     <button id="corruptionCleanseConfirm" alt="corruptionCleanseConfirm" label="corruptionCleanseConfirm">Confirm</button>
                 </div>
             </div>
-            <div id="corruptionMain" alt="corruptionMain" label="corruptionMain" class="vAlign">
+            <div id="corruptionMain" alt="corruptionMain" label="corruptionMain" class="flex column">
                 <div id="corruptionIntroduction" alt="corruptionIntroduction" label="corruptionIntroduction" class="tightText">The most rewarding ventures are those few would dare to embark.</div>
                 <div id="corruptionInfo1" alt="corruptionInfo1" label="corruptionInfo1" class="tightText">Select the trait levels you wish to run with. Choose wisely! <span style="color: red">Don't bite off more than you can chew...</span></div>
                 <div id="corruptionSelected" alt="corruptionSelected" label="corruptionSelected" class="hCenter">
@@ -2758,13 +2758,13 @@
                 <p id="corruptionHepteracts" alt="corruptionHepteracts" label="corruptionHepteracts" class="chal15 tightText">If you Ascend now, you will gain <span id="corruptionHepteractsValue" alt="corruptionHepteractsValue" label="corruptionHepteractsValue" style="color: pink; font-size: 1.2em">0</span> HEPTERACTS. [<span style="color: pink">Req Score: >1.666e17</span>]</p>
                 <div id="ascensionAutomation" alt="ascensionAutomation" label="ascensionAutomation" class="cubeUpgrade10 vAlign">
                     <input id="ascensionAmount" alt="ascensionAmount" label="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1">
-                    <p id="autoAscend" alt="autoAscend" label="autoAscend" class="ascendunlock tightText">Ascend when you've completed Sadistic Challenge I a total of <span id="autoAscendMetric" alt="autoAscendMetric" label="autoAscendMetric" style="color: orchid">1</span> times.</p>
+                    <p id="autoAscend" alt="autoAscend" label="autoAscend" class="ascendunlock tightText">Ascend when you've completed Sadistic Challenge I a total of <span id="autoAscendMetric" alt="autoAscendMetric" label="autoAscendMetric" style="color: orange">1</span> times.</p>
                     <button id="ascensionAutoEnable" alt="ascensionAutoEnable" label="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green">Auto Ascend [ON]</button>
                     <button id="ascensionAutoToggle" alt="ascensionAutoToggle" label="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;">Mode: C10 Completions</button>
                 </div>
             </div>
         </div>
-<div id="settings" alt="settings" label="settings">
+<div id="settings" alt="settings" label="settings" style="display: none;">
     <div class="subtabSwitcher subTabWrapper">
         <button id="switchSettingSubTab1" alt="switchSettingSubTab1" label="switchSettingSubTab1" class="buttonActive" style="border: 2px solid white">Settings</button>
         <button id="switchSettingSubTab2" alt="switchSettingSubTab2" label="switchSettingSubTab2" style="border: 2px solid gold">Credits</button>
@@ -3184,7 +3184,7 @@ $GQ$ for golden quarks, $GQS$ for format golden quarks"></p>
     </div>
 </div>
 
-    <div id="shop" alt="shop" label="shop">
+    <div id="shop" alt="shop" label="shop" style="display: none;">
         <div id="shopWrapper" alt="shopWrapper" label="shopWrapper">
             <div id="actualWrapper" alt="actualWrapper" label="actualWrapper">
                 <div id="actualConsumables" alt="actualConsumables" label="actualConsumables">
@@ -3407,7 +3407,7 @@ $GQ$ for golden quarks, $GQS$ for format golden quarks"></p>
             </div>
         </div>
     </div>
-    <div id="singularity" alt="singularity" label="singularity">
+    <div id="singularity" alt="singularity" label="singularity" style="display: none;">
         <div id="singularityEffects" alt="singularityEffects" label="singularityEffects" class="singularityContainer">
             <p id="singularityMultiline" alt="singularityMultiline" label="singularityMultiline"></p>
         </div>
