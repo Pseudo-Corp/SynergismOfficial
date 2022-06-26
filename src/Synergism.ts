@@ -3752,7 +3752,9 @@ export const reloadShit = async (reset = false) => {
     setTimeout(() => {
         dailyResetCheck();
         eventCheck();
-        DOMCacheGetOrSet('exitOffline').classList.remove('subtabContent');
+        const el = DOMCacheGetOrSet('exitOffline')
+        el.classList.remove('subtabContent');
+        el.focus();
     }, 1000);
 
     if (localStorage.getItem('pleaseStar') === null) {

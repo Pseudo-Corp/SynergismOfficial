@@ -832,8 +832,6 @@ export const timeWarp = async () => {
         return Alert('Hey! That\'s not a valid time!');
     }
 
-    DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
-    DOMCacheGetOrSet('preloadContainer').style.display = 'flex'
     await calculateOffline(timeUse)
 }
 
@@ -854,11 +852,9 @@ export const calculateOffline = async (forceTime = 0) => {
     toggleTalismanBuy(player.buyTalismanShardPercent);
     updateTalismanInventory();
 
-    player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
+    const offlineDialog = player.offlinetick > 0;
 
-    //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
-    const preloadImage = getElementById<HTMLImageElement>('preload');
-    preloadImage.style.display = 'none';
+    player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
 
     G['timeMultiplier'] = calculateTimeAcceleration();
     calculateObtainium();
@@ -934,9 +930,6 @@ export const calculateOffline = async (forceTime = 0) => {
         }
     }, 0);
 
-    DOMCacheGetOrSet('offlineContainer').style.display = 'flex';
-    document.body.classList.add('loading');
-
     DOMCacheGetOrSet('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
     DOMCacheGetOrSet('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
     DOMCacheGetOrSet('offlineOfferingCountNumber').textContent = format(resetAdd.offering, 0, true)
@@ -951,6 +944,14 @@ export const calculateOffline = async (forceTime = 0) => {
     DOMCacheGetOrSet('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
 
     DOMCacheGetOrSet('progressbardescription').textContent = 'You have gained the following from offline progression!'
+
+    // allow aesthetic offline counter
+    if (offlineDialog) {
+        DOMCacheGetOrSet('exitOffline').classList.add('subtabContent');
+        DOMCacheGetOrSet('offlineContainer').style.display = 'flex';
+        DOMCacheGetOrSet('transparentBG').style.display = 'block';
+    }
+    DOMCacheGetOrSet('preloadContainer').style.display = 'none';
 
     player.offlinetick = updatedTime
     if (!player.loadedNov13Vers) {
@@ -973,7 +974,7 @@ export const calculateOffline = async (forceTime = 0) => {
 }
 
 export const exitOffline = () => {
-    document.body.classList.remove('loading');
+    DOMCacheGetOrSet('transparentBG').style.display = 'none'
     DOMCacheGetOrSet('offlineContainer').style.display = 'none';
     DOMCacheGetOrSet('preloadContainer').style.display = 'none';
 }
