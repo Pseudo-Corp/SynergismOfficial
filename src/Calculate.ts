@@ -1,5 +1,5 @@
 import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll, loadingDate } from './Synergism';
-import { sumContents, productContents, getElementById } from './Utility';
+import { sumContents, productContents } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
 import Decimal from 'break_infinity.js';
