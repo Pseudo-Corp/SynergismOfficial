@@ -14,7 +14,7 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
-import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
+import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
@@ -521,6 +521,7 @@ export const player: Player = {
     ascensionCount: 0,
     ascensionCounter: 0,
     ascensionCounterReal: 0,
+    ascensionCounterRealReal: 0,
     cubeUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1583,6 +1584,11 @@ const loadSynergy = async () => {
             toggleAntMaxBuy();
             toggleAntAutoSacrifice(0);
             toggleAntAutoSacrifice(1);
+        }
+
+        for (let i = 1; i <= 2; i++) {
+            toggleAutoAscend(0);
+            toggleAutoAscend(1);
         }
 
         DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = 'Per second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF');
@@ -3352,8 +3358,11 @@ export const updateAll = (): void => {
     G['optimalObtainiumTimer'] = 3600 + 120 * player.shopUpgrades.obtainiumEX;
     autoBuyAnts()
 
-    if (player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0) {
+    if (player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 && !player.currentChallenge.ascension) {
         if (player.autoAscendMode === 'c10Completions' && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
+            reset('ascension', true)
+        }
+        if (player.autoAscendMode === 'realAscensionTime' && player.challengecompletions[10] >= 1 && player.ascensionCounterRealReal >= Math.max(1, player.autoAscendThreshold)) {
             reset('ascension', true)
         }
     }

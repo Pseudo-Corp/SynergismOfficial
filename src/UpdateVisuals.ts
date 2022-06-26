@@ -461,6 +461,10 @@ export const visualUpdateCorruptions = () => {
     const metaData = CalcCorruptionStuff();
     const ascCount = calcAscensionCount();
 
+    const mode = player.autoAscendMode === 'c10Completions' ? 'you\'ve completed Sadistic Challenge I a total of' : 'the timer is at least';
+    const mode2 = player.autoAscendMode === 'c10Completions' ? 'times' : 'seconds (Real-time)';
+    const count = player.autoAscendMode === 'c10Completions' ? player.challengecompletions[10] : format(player.ascensionCounterRealReal, 0);
+    DOMCacheGetOrSet('autoAscend').textContent = `Ascend when ${mode} ${player.autoAscendThreshold} ${mode2}, Currently: ${count}.`
     DOMCacheGetOrSet('corruptionBankValue').textContent = format(metaData[0]);
     DOMCacheGetOrSet('corruptionScoreValue').textContent = format(metaData[1], 0, true);
     DOMCacheGetOrSet('corruptionMultiplierValue').textContent = format(metaData[2], 1, true);

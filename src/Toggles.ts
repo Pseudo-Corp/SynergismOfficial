@@ -887,17 +887,28 @@ export const toggleAutoChallengeModeText = (i: string) => {
     a.textContent = 'MODE: ' + i
 }
 
-export const toggleAutoAscend = () => {
-    const a = DOMCacheGetOrSet('ascensionAutoEnable');
-    if (player.autoAscend) {
-        a.style.border = '2px solid red'
-        a.textContent = 'Auto Ascend [OFF]';
-    } else {
-        a.style.border = '2px solid green'
-        a.textContent = 'Auto Ascend [ON]';
-    }
+export const toggleAutoAscend = (mode = 0) => {
+    if (mode === 0) {
+        const a = DOMCacheGetOrSet('ascensionAutoEnable');
+        if (player.autoAscend) {
+            a.style.border = '2px solid red'
+            a.textContent = 'Auto Ascend [OFF]'
+        } else {
+            a.style.border = '2px solid green'
+            a.textContent = 'Auto Ascend [ON]'
+        }
 
-    player.autoAscend = !player.autoAscend;
+        player.autoAscend = !player.autoAscend;
+    } else if (mode === 1 && player.singularityCount >= 25) {
+        const a = DOMCacheGetOrSet('ascensionAutoToggle');
+        if (player.autoAscendMode === 'c10Completions') {
+            player.autoAscendMode = 'realAscensionTime'
+            a.textContent = 'Mode: Real time'
+        } else {
+            player.autoAscendMode = 'c10Completions'
+            a.textContent = 'Mode: C10 Completions'
+        }
+    }
 }
 
 export const updateRuneBlessingBuyAmount = (i: number) => {
