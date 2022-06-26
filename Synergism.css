@@ -857,11 +857,10 @@ nav li:hover {
 }
 
 .nonSquare {
-    width: 38px;
+    width: 39px;
     height: 20px;
     transition-duration: 0.15s;
     margin-left: 5px;
-    padding-right: 2px;
 }
 
 .nonSquare:hover {
@@ -2162,6 +2161,11 @@ p[id$="BlessingsTotal"] {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.heptNotification {
+    height: 20px;
+    width: 20px;
 }
 
 .cubeBonus {

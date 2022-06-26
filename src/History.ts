@@ -197,9 +197,9 @@ const historyGainsOrder: ResetHistoryGainType[] = [
 // The various kinds and their associated images.
 const historyKinds: Record<Kind, { img: string }> = {
     'antsacrifice': {img: 'Pictures/AntSacrifice.png'},
-    'prestige': {img: 'Pictures/Transparent Pics/Prestige.png'},
-    'transcend': {img: 'Pictures/Transparent Pics/Transcend.png'},
-    'reincarnate': {img: 'Pictures/Transparent Pics/Reincarnate.png'},
+    'prestige': {img: 'Pictures/Prestige.png'},
+    'transcend': {img: 'Pictures/Transcend.png'},
+    'reincarnate': {img: 'Pictures/Reincarnate.png'},
     'ascend': {img: 'Pictures/questionable.png'}
 };
 
@@ -302,11 +302,11 @@ const resetHistoryRenderRow = (
         extra.push(
             `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
             `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
-            `<span title="${format(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
+            `<span title="${format(data.baseELO)} base"><img src="Pictures/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
         );
     } else if (data.kind === 'ascend') {
         extra.push(
-            `<img alt="C10" src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`
+            `<img alt="C10" src="Pictures/Challenge10.png" title="Challenge 10 completions">${data.c10Completions}`
         );
 
         const corruptions = resetHistoryFormatCorruptions(data);

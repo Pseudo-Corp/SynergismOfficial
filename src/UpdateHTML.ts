@@ -439,7 +439,8 @@ export const revealStuff = () => {
         'toggle31': player.ascensionCount > 0, // Settings - Confirmations - Ascension and Asc. Challenge
         'toggle32': player.achievements[173] > 0, // Settings - Confirmations - Ant Sacrifice
         'toggle33': player.singularityCount > 0 && player.ascensionCount > 0, // Settings - Confirmations - Singularity
-        'toggle34': player.unlocks.coinfour // Achievements - Notifications
+        'toggle34': player.unlocks.coinfour, // Achievements - Notifications
+        'toggle35': player.challenge15Exponent >= 1e15 && player.singularityCount > 0 // Hepteracts - Notifications
     }
 
     Object.keys(automationUnlocks).forEach(key => {
