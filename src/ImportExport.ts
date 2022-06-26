@@ -16,6 +16,7 @@ import localforage from 'localforage';
 import { Globals as G } from './Variables';
 import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
 import { singularityData } from './singularity';
+import { getEvent } from './Event';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -263,7 +264,7 @@ export const promocodes = async (input: string | null) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === '2.9.7' && !player.codes.get(40) && G['isEvent']) {
+    if (input === '2.9.7' && !player.codes.get(40) && G['isEvent'] && getEvent().name === '&#128151 2.9.7 Event! &#128151;') {
         player.codes.set(40, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 3600 * 168;

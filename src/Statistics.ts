@@ -1,8 +1,7 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
-import { getQuarkMultiplier} from './Quark';
 import { hepteractEffective } from './Hepteracts'
-import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier } from './Calculate';
+import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -76,8 +75,8 @@ export const loadQuarkMultiplier = () => {
     DOMCacheGetOrSet('sGQM6').textContent = '+' + format(player.platonicUpgrades[10] > 0 ? 0.15 : 0, 3, true) //BETA
     DOMCacheGetOrSet('sGQM7').textContent = '+' + format(player.platonicUpgrades[15] > 0 ? 0.20 : 0, 3, true) //OMEGA
     DOMCacheGetOrSet('sGQM8').textContent = '+' + format(G.challenge15Rewards['quarks']-1, 3, true) //Challenge 15 Reward
-    DOMCacheGetOrSet('sGQM9').textContent = 'x' + format(player.worlds.applyBonus(1 / getQuarkMultiplier()), 3, true) //Patreon Bonus
-    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 2.25 : 1), 3, true) //Event
+    DOMCacheGetOrSet('sGQM9').textContent = 'x' + format(player.worlds.applyBonus(1 / calculateQuarkMultiplier()), 3, true) //Patreon Bonus
+    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 1 + calculateEventBuff('Quarks') : 1), 3, true) //Event
     DOMCacheGetOrSet('sGQM11').textContent = 'x' + format(1.1 + 0.15 / 75 * calculateEffectiveIALevel(), 3, true) //IA Rune
     DOMCacheGetOrSet('sGQM12').textContent = 'x' + format(player.challenge15Exponent >= 1e15 ? 1 + 5/10000 * hepteractEffective('quark') : 1, 3, true) //Quark Hepteract
     DOMCacheGetOrSet('sGQM13').textContent = 'x' + format(calculateQuarkMultFromPowder(), 3, true) //Powder
@@ -106,16 +105,16 @@ export const loadStatisticsCubeMultipliers = () => {
         6: {acc: 2, desc: 'Platonic Beta:'},
         7: {acc: 2, desc: 'Platonic Omega:'},
         8: {acc: 2, desc: 'Overflux Powder:'},
-        9: {acc: 2, desc: 'Event [Most Recent: June 28 - July 01]'},
+        9: {acc: 2, desc: 'Event:'},
         10: {acc: 2, desc: 'Singularity Factor:'},
         11: {acc: 2, desc: 'Wow Pass Y'},
         12: {acc: 2, desc: 'Starter Pack:'},
         13: {acc: 2, desc: 'Cube Flame [GQ]:'},
         14: {acc: 2, desc: 'Cube Blaze [GQ]:'},
         15: {acc: 2, desc: 'Cube Inferno [GQ]:'},
-        16: {acc: 2, desc: 'Wow Pass Z'},
-        17: {acc: 2, desc: 'Cookie Upgrade 16'},
-        18: {acc: 2, desc: 'Cookie Upgrade 8'}
+        16: {acc: 2, desc: 'Wow Pass Z:'},
+        17: {acc: 2, desc: 'Cookie Upgrade 16:'},
+        18: {acc: 2, desc: 'Cookie Upgrade 8:'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
@@ -287,7 +286,8 @@ export const loadStatisticsOfferingMultipliers = () => {
         25: {acc: 3, desc: 'Offering Charge [GQ]:'},
         26: {acc: 3, desc: 'Offering Storm [GQ]:'},
         27: {acc: 3, desc: 'Offering Tempest [GQ]:'},
-        28: {acc: 3, desc: 'Cube Upgrade Cx4'}
+        28: {acc: 3, desc: 'Cube Upgrade Cx4:'},
+        29: {acc: 3, desc: 'Event:'}
     }
     for (let i = 0; i < arr.length; i++) {
         const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`);
@@ -305,8 +305,8 @@ export const loadPowderMultiplier = () => {
         3: {acc: 2, desc: 'Powder EX:'},
         4: {acc: 2, desc: 'Achievement 256:'},
         5: {acc: 2, desc: 'Achievement 257:'},
-        6: {acc: 2, desc: 'Platonic Upgrade 16 [4x1]'},
-        7: {acc: 2, desc: 'Event [Most Recent: June 6 - June 13 2022]:'}
+        6: {acc: 2, desc: 'Platonic Upgrade 16 [4x1]:'},
+        7: {acc: 2, desc: 'Event:'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statPoM${i + 1}`);

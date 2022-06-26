@@ -1,10 +1,8 @@
 /* Functions which Handle Quark Gains,  */
 
-import { calculateCubeQuarkMultiplier, calculateEffectiveIALevel, calculateQuarkMultFromPowder} from './Calculate';
-import { hepteractEffective } from './Hepteracts'
+import { calculateCubeQuarkMultiplier, calculateQuarkMultiplier} from './Calculate';
 import { format, player } from './Synergism'
 import { Alert } from './UpdateHTML';
-import { Globals as G } from './Variables'
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
 const getBonus = async (): Promise<null | number> => {
@@ -42,67 +40,6 @@ const getBonus = async (): Promise<null | number> => {
     }
 
     return null;
-}
-
-export const getQuarkMultiplier = () => {
-    let multiplier = 1;
-    if (player.achievementPoints > 0) { // Achievement Points
-        multiplier += player.achievementPoints / 25000; // Cap of +0.20 at 5,000 Pts
-    }
-    if (player.achievements[250] > 0) { // Max research 8x25
-        multiplier += 0.10;
-    }
-    if (player.achievements[251] > 0) { // Max Wow! Cube Upgrade 5x10
-        multiplier += 0.10;
-    }
-    if (player.platonicUpgrades[5] > 0) { // Platonic ALPHA upgrade
-        multiplier += 0.10;
-    }
-    if (player.platonicUpgrades[10] > 0) { // Platonic BETA Upgrade
-        multiplier += 0.15;
-    }
-    if (player.platonicUpgrades[15] > 0) { // Platonic OMEGA upgrade
-        multiplier += 0.20;
-    }
-    if (player.challenge15Exponent >= 1e11) { // Challenge 15: Exceed 1e11 exponent reward
-        multiplier += (G['challenge15Rewards'].quarks - 1);
-    }
-    if (player.shopUpgrades.infiniteAscent) { // Purchased Infinite Ascent Rune
-        multiplier *= (1.1 + 0.15 / 75 * calculateEffectiveIALevel());
-    }
-    if (player.challenge15Exponent >= 1e15) { // Challenge 15: Exceed 1e15 exponent reward
-        multiplier *= (1 + 5/10000 * hepteractEffective('quark'));
-    }
-    if (player.overfluxPowder > 0) { // Overflux Powder [Max: 10% at 10,000]
-        multiplier *= calculateQuarkMultFromPowder();
-    }
-    if (player.achievements[266] > 0) { // Achievement 266 [Max: 10% at 1Qa Ascensions]
-        multiplier *= (1 + Math.min(0.1, (player.ascensionCount) / 1e16))
-    }
-    if (player.singularityCount > 0) { // Singularity Modifier
-        multiplier *= (1 + player.singularityCount / 10)
-    }
-    if (G['isEvent']) {
-        multiplier *= 2.25; // Jun06-Jun13
-    }
-    if (player.cubeUpgrades[53] > 0) { // Cube Upgrade 6x3 (Cx3)
-        multiplier *= (1 + 0.10 * player.cubeUpgrades[53] / 100)
-    }
-    if (player.cubeUpgrades[68] > 0) { // Cube Upgrade 7x8
-        multiplier *= (1 + 1/10000 * player.cubeUpgrades[68] + 0.05 * (Math.floor(player.cubeUpgrades[68] / 1000)))
-    }
-    if (player.singularityCount >= 5) { // Singularity Milestone (5 sing)
-        multiplier *= 1.05
-    }
-    if (player.singularityCount >= 20) { // Singularity Milestone (20 sing)
-        multiplier *= 1.05
-    }
-    multiplier *= (1 + 0.02 * player.singularityUpgrades.intermediatePack.level +           // 1.02
-                           0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
-                           0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
-                           0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
-                           0.10 * player.singularityUpgrades.expertPack.level)                  // 1.30
-    return multiplier
 }
 
 export const quarkHandler = () => {
@@ -163,7 +100,7 @@ export class QuarkHandler {
 
     /*** Calculates the number of quarks to give with the current bonus. */
     applyBonus(amount: number) {
-        const nonPatreon = getQuarkMultiplier();
+        const nonPatreon = calculateQuarkMultiplier();
         return amount * (1 + (this.BONUS / 100)) * nonPatreon;
     }
 
