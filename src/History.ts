@@ -197,9 +197,9 @@ const historyGainsOrder: ResetHistoryGainType[] = [
 // The various kinds and their associated images.
 const historyKinds: Record<Kind, { img: string }> = {
     'antsacrifice': {img: 'Pictures/AntSacrifice.png'},
-    'prestige': {img: 'Pictures/Transparent Pics/Prestige.png'},
-    'transcend': {img: 'Pictures/Transparent Pics/Transcend.png'},
-    'reincarnate': {img: 'Pictures/Transparent Pics/Reincarnate.png'},
+    'prestige': {img: 'Pictures/Prestige.png'},
+    'transcend': {img: 'Pictures/Transcend.png'},
+    'reincarnate': {img: 'Pictures/Reincarnate.png'},
     'ascend': {img: 'Pictures/questionable.png'}
 };
 
@@ -212,20 +212,18 @@ const resetHistoryTableMapping: Record<Category, string> = {
 
 // Images associated with the various corruptions.
 const resetHistoryCorruptionImages = [
-    'Pictures/Divisiveness Level 7.png',
-    'Pictures/Maladaption Lvl 7.png',
-    'Pictures/Laziness Lvl 7.png',
-    'Pictures/Hyperchallenged Lvl 7.png',
-    'Pictures/Scientific Illiteracy Lvl 7.png',
-    'Pictures/Deflation Lvl 7.png',
-    'Pictures/Extinction Lvl 7.png',
-    'Pictures/Drought Lvl 7.png',
-    'Pictures/Financial Collapse Lvl 7.png'
+    'Pictures/Viscocity.png',
+    'Pictures/Spatial Dilation.png',
+    'Pictures/Hyperchallenged.png',
+    'Pictures/Scientific Illiteracy.png',
+    'Pictures/Deflation.png',
+    'Pictures/Extinction.png',
+    'Pictures/Drought.png',
+    'Pictures/Financial Collapse.png'
 ];
 
 const resetHistoryCorruptionTitles = [
-    'Divisiveness [Multipliers]',
-    'Maladaption [Accelerators]',
+    'Viscosity [Accelerators and Multipliers]',
     'Spacial Dilation [Time]',
     'Hyperchallenged [Challenge Requirements]',
     'Scientific Illiteracy [Obtainium]',
@@ -304,11 +302,11 @@ const resetHistoryRenderRow = (
         extra.push(
             `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
             `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
-            `<span title="${format(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
+            `<span title="${format(data.baseELO)} base"><img src="Pictures/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
         );
     } else if (data.kind === 'ascend') {
         extra.push(
-            `<img alt="C10" src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`
+            `<img alt="C10" src="Pictures/Challenge10.png" title="Challenge 10 completions">${data.c10Completions}`
         );
 
         const corruptions = resetHistoryFormatCorruptions(data);
@@ -374,7 +372,7 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
     let score = 'Score: ' + format(data.corruptionScore, 0, false);
     let corruptions = '';
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
-        const corruptionIdx = i + 1;
+        const corruptionIdx = i+2;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
             corruptions += ` <img alt="${resetHistoryCorruptionTitles[i]}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }

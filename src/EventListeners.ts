@@ -194,15 +194,15 @@ export const generateEventHandlers = () => {
     }
 
     //Part 4: Toggles
-    // I'm just addressing all global toggles here: toggle1 up to toggle33
-    for (let index = 0; index < 33; index++) {
+    // I'm just addressing all global toggles here: toggle1 up to toggle35
+    for (let index = 0; index < 35; index++) {
         DOMCacheGetOrSet(`toggle${index+1}`).addEventListener('click', () => toggleSettings(index))
     }
-    // Toggles auto reset type (between TIME and AMOUNT)
+    // Toggles auto reset type (between TIME and AMOUNT for 3 first Tiers, and between PERCENTAGE and AMOUNT for Tesseracts)
     DOMCacheGetOrSet('prestigeautotoggle').addEventListener('click', () => toggleautoreset(1))
     DOMCacheGetOrSet('transcendautotoggle').addEventListener('click', () => toggleautoreset(2))
     DOMCacheGetOrSet('reincarnateautotoggle').addEventListener('click', () => toggleautoreset(3))
-    DOMCacheGetOrSet('ascensionAutoToggle').addEventListener('click', () => toggleautoreset(4))
+    DOMCacheGetOrSet('tesseractautobuymode').addEventListener('click', () => toggleautoreset(4))
     // Toggles auto reset amount required to trigger
     DOMCacheGetOrSet('prestigeamount').addEventListener('blur', () => updateAutoReset(1))
     DOMCacheGetOrSet('transcendamount').addEventListener('blur', () => updateAutoReset(2))

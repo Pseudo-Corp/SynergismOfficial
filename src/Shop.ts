@@ -54,7 +54,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
-        description: 'Gain +4% more offerings from all sources!'
+        description: 'Gain +4% more Offerings from all sources!'
     },
     offeringAuto: {
         tier: 'Reincarnation',
@@ -64,7 +64,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 1,
-        description: 'Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) levels worth of offerings are spent.'
+        description: 'Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) levels worth of Offerings are spent.'
     },
     obtainiumEX: {
         tier: 'Reincarnation',
@@ -74,7 +74,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
-        description: 'Gain +4% more obtainium from all sources!'
+        description: 'Gain +4% more Obtainium from all sources!'
     },
     obtainiumAuto: {
         tier: 'Reincarnation',
@@ -84,7 +84,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 1,
-        description: 'Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every reincarnation, dump all Obtainium into research until maxed.'
+        description: 'Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every Reincarnation, dump all Obtainium into research until maxed.'
     },
     instantChallenge: {
         tier: 'Reincarnation',
@@ -94,7 +94,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'T and R challenges don\'t cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T challenge completions up to highest completed when exiting R challenges.'
+        description: 'T and R Challenges don\'t cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T Challenge completions up to highest completed when exiting R Challenges.'
     },
     antSpeed: {
         tier: 'Reincarnation',
@@ -134,7 +134,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
-        description: 'Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +1.5% cubes and tesseracts per level when you ascend!'
+        description: 'Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +1.5% Cubes and Tesseracts per level when you Ascend!'
     },
     challengeExtension: {
         tier: 'Ascension',
@@ -154,7 +154,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level. Past 60 completions of challenge 9 or 10, this will also reduce the scaling factor by 1% per level.'
+        description: 'The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level. Past 60 completions of Challenge 9 or 10, this will also reduce the scaling factor by 1% per level.'
     },
     cubeToQuark: {
         tier: 'Ascension',
@@ -164,7 +164,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Are your quark gains from Cubes wimpy? Well, buy this for +50% quarks from opening Wow! Cubes, forever!'
+        description: 'Are your Quark gains from Cubes wimpy? Well, buy this for +50% Quarks from opening Wow! Cubes, forever!'
     },
     tesseractToQuark: {
         tier: 'Ascension',
@@ -174,7 +174,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Are your quark gains from Tesseracts wimpy? Well, buy this for +50% quarks from opening Wow! Tesseracts, forever!'
+        description: 'Are your Quark gains from Tesseracts wimpy? Well, buy this for +50% Quarks from opening Wow! Tesseracts, forever!'
     },
     hypercubeToQuark: {
         tier: 'Ascension',
@@ -184,7 +184,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Are your quark gains from Hypercubes wimpy? Well, buy this for +50% quarks from opening Wow! Hypercubes, forever!'
+        description: 'Are your Quark gains from Hypercubes wimpy? Well, buy this for +50% Quarks from opening Wow! Hypercubes, forever!'
     },
     seasonPass2: {
         tier: 'Ascension',
@@ -214,7 +214,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
-        description: 'You know, those ascensions are kinda slow. Why don\'t I give you a +1% speedup to the timer per level?'
+        description: 'You know, those Ascensions are kinda slow. Why don\'t I give you a +1% speedup to the timer per level?'
     },
     infiniteAscent: {
         tier: 'Ascension',
@@ -224,7 +224,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +35% Quarks and +125% all cube types when maxed!'
+        description: 'Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +35% Quarks and +125% all Cube types when maxed!'
     },
     calculator: {
         tier: 'Ascension',
@@ -314,7 +314,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'This one is arguably very good. Gain +1% ALL Cubes per level, per singularity!'
+        description: 'This one is arguably very good. Gain +1% ALL Cubes per level, per Singularity!'
     },
     challengeTome2: {
         tier: 'Singularity',
@@ -334,7 +334,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'First up on the menu, why not gain +0.2% Quarks from cube opening per level?'
+        description: 'First up on the menu, why not gain +0.2% Quarks from Cube opening per level?'
     },
     cashGrab2: {
         tier: 'SingularityVol2',
@@ -354,7 +354,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Gain +0.1% Ascension Speed per level per singularity. It needs a lot of fuel to power up.'
+        description: 'Gain +0.1% Ascension Speed per level per Singularity. It needs a lot of fuel to power up.'
     },
     offeringEX2: {
         tier: 'SingularityVol2',
@@ -364,7 +364,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Gain +1% Offerings per level per singularity. Putting the Singularity Debuff industry out of business.'
+        description: 'Gain +1% Offerings per level per Singularity. Putting the Singularity Debuff industry out of business.'
     },
     obtainiumEX2: {
         tier: 'SingularityVol2',
@@ -374,7 +374,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'Gain +1% Obtainium per level per singularity!!!'
+        description: 'Gain +1% Obtainium per level per Singularity!!!'
     },
     powderAuto: {
         tier: 'SingularityVol2',
@@ -507,16 +507,16 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = 'CURRENT Effect: +' + format(2 * player.shopUpgrades.powderEX) + '% Overflux Powder gained when Overflux Orbs expire.'
             break;
         case 'chronometer2':
-            lol.textContent = `CURRENT Effect: +${format(0.5 * player.shopUpgrades.chronometer2, 1)}% faster ascensions!`
+            lol.textContent = `CURRENT Effect: +${format(0.5 * player.shopUpgrades.chronometer2, 1)}% faster Ascensions!`
             break;
         case 'chronometer3':
-            lol.textContent = `CURRENT Effect: +${format(1.5 * player.shopUpgrades.chronometer3, 1)}% faster ascensions! FOREVER!`
+            lol.textContent = `CURRENT Effect: +${format(1.5 * player.shopUpgrades.chronometer3, 1)}% faster Ascensions! FOREVER!`
             break;
         case 'seasonPassY':
-            lol.textContent = `CURRENT Effect: +${format(0.5 * player.shopUpgrades.seasonPassY, 1)}% more cubes on ascension.`
+            lol.textContent = `CURRENT Effect: +${format(0.5 * player.shopUpgrades.seasonPassY, 1)}% more Cubes on Ascension.`
             break;
         case 'seasonPassZ':
-            lol.textContent = `CURRENT Effect: +${format(1 * player.shopUpgrades.seasonPassZ * player.singularityCount, 0, true)}% more cubes on ascension.`
+            lol.textContent = `CURRENT Effect: +${format(1 * player.shopUpgrades.seasonPassZ * player.singularityCount, 0, true)}% more Cubes on Ascension.`
             break;
         case 'challengeTome2':
             lol.textContent = `CURRENT Effect: Challenge 10 Exponent Requirement reduced by ${20 * player.shopUpgrades.challengeTome2} Million. Past 60 completions of C9 or C10 the scaling multiplier is [completions * ${format(1 - (player.shopUpgrades.challengeTome + player.shopUpgrades.challengeTome2) / 100, 2, true)}]`
@@ -525,7 +525,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = `CURRENT Effect: Offering, Obtainium +${format(0.5 * player.shopUpgrades.cashGrab2, 1)}%!`;
             break;
         case 'cubeToQuarkAll':
-            lol.textContent = `CURRENT Effect: Opening any cube gives +${format(0.2 * player.shopUpgrades.cubeToQuarkAll, 2)}% quarks!`;
+            lol.textContent = `CURRENT Effect: Opening any cube gives +${format(0.2 * player.shopUpgrades.cubeToQuarkAll, 2)}% Quarks!`;
             break;
         case 'chronometerZ':
             lol.textContent = `CURRENT Effect: Ascension Speed +${format(0.1 * player.singularityCount * player.shopUpgrades.chronometerZ, 2)}%!`;

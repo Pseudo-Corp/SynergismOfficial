@@ -845,6 +845,28 @@ nav li:hover {
     overflow-wrap: break-word;
 }
 
+.NotificationToggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.achNotification {
+    flex-grow: unset;
+    padding-left: 4px;
+}
+
+.nonSquare {
+    width: 39px;
+    height: 20px;
+    transition-duration: 0.15s;
+    margin-left: 5px;
+}
+
+.nonSquare:hover {
+    background-color: #333;
+}
+
 /* Removes giant space between paragraphs */
 #achievementinfo > p { margin: 0; }
 
@@ -2148,6 +2170,11 @@ p[id$="BlessingsTotal"] {
     justify-content: center;
 }
 
+.heptNotification {
+    height: 20px;
+    width: 20px;
+}
+
 .cubeBonus {
     margin-left: -2px;
     margin-top: 5px;
@@ -2284,15 +2311,18 @@ p[id$="BlessingsTotal"] {
 }
 
 #tesseractautobuytoggle,
+#tesseractautobuymode,
 #tesseractAmount {
     width: 150px;
 }
 
-#tesseractautobuytoggle {
+#tesseractautobuytoggle,
+#tesseractautobuymode {
     transition-duration: 0.15s;
 }
 
-#tesseractautobuytoggle:hover {
+#tesseractautobuytoggle:hover,
+#tesseractautobuymode:hover {
     background-color: #333;
 }
 

@@ -7,7 +7,7 @@ import { toOrdinal } from './Utility'
 export const updateSingularityPenalties = (): void => {
     const color = player.runelevels[6] > 0 ? 'green' : 'red';
     const str = getSingularityOridnalText(player.singularityCount) +
-                `<br/>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
+                `<br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
                  Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed'), 2, true)}
                  Offering Gain is divided by ${format(calculateSingularityDebuff('Offering'), 2, true)}
                  Obtainium Gain is divided by ${format(calculateSingularityDebuff('Obtainium'), 2, true)}
@@ -82,12 +82,15 @@ export class SingularityUpgrade {
         const minReqColor = player.singularityCount < this.minimumSingularity ? 'crimson' : 'green';
         const minimumSingularity = this.minimumSingularity > 0
             ? `Minimum Singularity: ${this.minimumSingularity}`
-            : 'No minimal singularity to purchase required'
+            : 'No minimal Singularity to purchase required'
+
+        const freeLevelInfo = this.freeLevels > 0 ?
+            `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
 
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color: ${minReqColor}">${minimumSingularity}</span>
-                <span style="color: ${color}"> Level ${this.level}${maxLevel} <span style="color: orange"> [+${format(this.freeLevels, 1, true)}] </span> </span>
+                <span style="color: ${color}"> Level ${this.level}${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
                 Cost for next level: ${format(costNextLevel,0,true)} Golden Quarks.
                 Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
@@ -195,25 +198,25 @@ export class SingularityUpgrade {
 export const singularityData: Record<keyof Player['singularityUpgrades'], ISingularityData> = {
     goldenQuarks1: {
         name: 'Golden Quarks I',
-        description: 'In the future, you will gain 5% more Golden Quarks on singularities! This also reduces the cost to buy Golden Quarks in the shop by 500 per level.',
+        description: 'In the future, you will gain 5% more Golden Quarks on Singularities! This also reduces the cost to buy Golden Quarks in the shop by 500 per level.',
         maxLevel: 10,
         costPerLevel: 12,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.05 * n,
-                desc: `Permanently gain ${format(5 * n, 0, true)}% more Golden Quarks on singularities.`
+                desc: `Permanently gain ${format(5 * n, 0, true)}% more Golden Quarks on Singularities.`
             }
         }
     },
     goldenQuarks2: {
         name: 'Golden Quarks II',
-        description: 'If you buy this, you will gain 2% more Golden Quarks on singularities. This also reduces the cost to buy Golden Quarks in the shop by 200 per level. Stacks with the first upgrade.',
+        description: 'If you buy this, you will gain 2% more Golden Quarks on Singularities. This also reduces the cost to buy Golden Quarks in the shop by 200 per level. Stacks with the first upgrade.',
         maxLevel: 25,
         costPerLevel: 60,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.02 * n,
-                desc: `Permanently gain ${format(2 * n, 0, true)}% more Golden Quarks on singularities.`
+                desc: `Permanently gain ${format(2 * n, 0, true)}% more Golden Quarks on Singularities.`
             }
         }
     },
@@ -237,7 +240,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? 'have': 'have not'} unlocked a 5x multiplier to cubes and 6x multiplier to obtainium and offerings.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings.`
             }
         }
     },
@@ -249,13 +252,13 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? 'have': 'have not'} unlocked the shop bonanza.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} unlocked the Shop Bonanza.`
             }
         }
     },
     cookies: {
         name: 'Cookie Recipes I',
-        description: 'For just a few golden quarks, re-open Wow! Bakery, adding five cookie-related cube upgrades.',
+        description: 'For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.',
         maxLevel: 1,
         costPerLevel: 100,
         effect: (n: number) => {
@@ -267,7 +270,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     cookies2: {
         name: 'Cookie Recipes II',
-        description: 'Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related cube upgrades.',
+        description: 'Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related Cube upgrades.',
         maxLevel: 1,
         costPerLevel: 500,
         effect: (n: number) => {
@@ -339,7 +342,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singOfferings1: {
         name: 'Offering Charge',
-        description: 'Upgrade this to get +2% offerings per level, forever!',
+        description: 'Upgrade this to get +2% Offerings per level, forever!',
         maxLevel: -1,
         costPerLevel: 1,
         effect: (n: number) => {
@@ -352,7 +355,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singOfferings2: {
         name: 'Offering Storm',
-        description: 'Apparently, you can use this bar to attract more offerings. +8% per level, to be precise.',
+        description: 'Apparently, you can use this bar to attract more Offerings. +8% per level, to be precise.',
         maxLevel: 25,
         costPerLevel: 25,
         effect: (n: number) => {
@@ -364,7 +367,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singOfferings3: {
         name: 'Offering Tempest',
-        description: 'This bar is so prestine, it\'ll make anyone submit their offerings. +4% per level, to be precise.',
+        description: 'This bar is so prestine, it\'ll make anyone submit their Offerings. +4% per level, to be precise.',
         maxLevel: 40,
         costPerLevel: 500,
         effect: (n: number) => {
@@ -376,7 +379,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singObtainium1: {
         name: 'Obtainium Wave',
-        description: 'Upgrade this to get +2% obtainium per level, forever!',
+        description: 'Upgrade this to get +2% Obtainium per level, forever!',
         maxLevel: -1,
         costPerLevel: 1,
         effect: (n: number) => {
@@ -388,7 +391,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singObtainium2: {
         name: 'Obtainium Flood',
-        description: 'Holy crap, water bending! +8% gained obtainium per level.',
+        description: 'Holy crap, water bending! +8% gained Obtainium per level.',
         maxLevel: 25,
         costPerLevel: 25,
         effect: (n: number) => {
@@ -400,7 +403,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singObtainium3: {
         name: 'Obtainium Tsunami',
-        description: 'A rising tide lifts all boats. +4% gained obtainium per level.',
+        description: 'A rising tide lifts all boats. +4% gained Obtainium per level.',
         maxLevel: 40,
         costPerLevel: 500,
         effect: (n: number) => {
@@ -455,13 +458,13 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? 'have': 'have not'} bought into the octeract hype.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} bought into the Octeract hype.`
             }
         }
     },
     offeringAutomatic: {
         name: 'Offering Lootzifer (WIP)',
-        description: 'Black Magic. Don\'t make deals with the devil. Each second, you get +2% of offering gain automatically per level. Also +10% Offerings!',
+        description: 'Black Magic. Don\'t make deals with the devil. Each second, you get +2% of Offering gain automatically per level. Also +10% Offerings!',
         maxLevel: 50,
         costPerLevel: 2000,
         minimumSingularity: 6,
@@ -513,7 +516,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     masterPack: {
         name: 'Master Pack',
-        description: 'A tad insane. Gain +8% Quarks stack with expert, for every level 14 corruption, ascension score is multiplied by 1.1.',
+        description: 'A tad insane. Gain +8% Quarks stack with expert, for every level 14 corruption, Ascension score is multiplied by 1.1.',
         maxLevel: 1,
         costPerLevel: 3200,
         minimumSingularity: 25,
@@ -546,7 +549,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? 'have': 'have not'} triggered the liquidation event!`
+                desc: `You ${(n > 0) ? 'have': 'have not'} triggered the Liquidation event!`
             }
         }
     },
@@ -565,40 +568,40 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singChallengeExtension: {
         name: 'Bigger Challenge Caps',
-        description: 'Need more challenges? Well, add 2 more reincarnation challenges and 1 ascension challenge to the cap, per level.',
+        description: 'Need more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.',
         maxLevel: 4,
         costPerLevel: 999,
         minimumSingularity: 11,
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: `You feel motivated enough to complete ${2 * n} more reincarnation challenges, and ${n} more ascension challenges.`
+                desc: `You feel motivated enough to complete ${2 * n} more Reincarnation Challenges, and ${n} more Ascension Challenges.`
             }
         }
     },
     singChallengeExtension2: {
         name: 'Biggerer Challenge Caps',
-        description: 'Need even more challenges? Well, add 2 more reincarnation challenges and 1 ascension challenge to the cap, per level.',
+        description: 'Need even more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.',
         maxLevel: 3,
         costPerLevel: 29999,
         minimumSingularity: 26,
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: `You feel motivated enough to complete ${2 * n} more reincarnation challenges, and ${n} more ascension challenges.`
+                desc: `You feel motivated enough to complete ${2 * n} more Reincarnation Challenges, and ${n} more Ascension Challenges.`
             }
         }
     },
     singChallengeExtension3: {
         name: 'BiggererEST Challenge Caps',
-        description: 'Need even MORE challenges? Well, add 2 more reincarnation challenges and 1 ascension challenge to the cap, per level. Does it not seem excessive?',
+        description: 'Need even MORE Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level. Does it not seem excessive?',
         maxLevel: 3,
         costPerLevel: 749999,
         minimumSingularity: 51,
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: `You feel motivated enough to complete ${2 * n} more reincarnation challenges, and ${n} more ascension challenges.`
+                desc: `You feel motivated enough to complete ${2 * n} more Reincarnation Challenges, and ${n} more Ascension Challenges.`
             }
         }
     },
@@ -890,7 +893,7 @@ export async function buyGoldenQuarks(): Promise<void> {
     if (maxBuy === 0) {
         return Alert('Sorry, I can\'t give credit. Come back when you\'re a little... mmm... richer!')
     }
-    const buyPrompt = await Prompt(`You can buy golden quarks here for ${format(goldenQuarkCost.cost)} Quarks (Discounted by ${format(goldenQuarkCost.costReduction)})! You can buy up to ${format(maxBuy)}. How many do you want? Type -1 to buy max!`)
+    const buyPrompt = await Prompt(`You can buy Golden Quarks here for ${format(goldenQuarkCost.cost)} Quarks (Discounted by ${format(goldenQuarkCost.costReduction)})! You can buy up to ${format(maxBuy)}. How many do you want? Type -1 to buy max!`)
     if (buyPrompt === null) {
         // Number(null) is 0. Yeah..
         return Alert('Okay, maybe next time.');
@@ -905,7 +908,7 @@ export async function buyGoldenQuarks(): Promise<void> {
         // 0 or less selected
         return Alert('You can\'t craft a nonpositive amount of these, you monster!');
     } else if (buyAmount > maxBuy) {
-        return Alert('Sorry, I cannnot sell you this many golden quarks! Try buying fewer of them or typing -1 to buy max!')
+        return Alert('Sorry, I cannnot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!')
     } else if (Math.floor(buyAmount) !== buyAmount) {
         // non integer
         return Alert('Sorry. I only sell whole Golden Quarks. None of that fractional transaction!')
@@ -915,12 +918,12 @@ export async function buyGoldenQuarks(): Promise<void> {
         const cost = maxBuy * goldenQuarkCost.cost
         player.worlds.sub(cost)
         player.goldenQuarks += maxBuy
-        return Alert(`Transaction of ${format(maxBuy)} golden quarks successful! [-${format(cost,0,true)} Quarks]`)
+        return Alert(`Transaction of ${format(maxBuy)} Golden Quarks successful! [-${format(cost,0,true)} Quarks]`)
     } else {
         const cost = buyAmount * goldenQuarkCost.cost
         player.worlds.sub(cost)
         player.goldenQuarks += buyAmount
-        return Alert(`Transaction of ${format(buyAmount)} golden quarks successful! [-${format(cost, 0, true)} Quarks]`)
+        return Alert(`Transaction of ${format(buyAmount)} Golden Quarks successful! [-${format(cost, 0, true)} Quarks]`)
     }
 }
 

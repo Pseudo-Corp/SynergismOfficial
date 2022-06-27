@@ -1,4 +1,4 @@
-import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll } from './Synergism';
+import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll, loadingDate } from './Synergism';
 import { sumContents, productContents, getElementById } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
@@ -13,6 +13,7 @@ import { Alert, Prompt } from './UpdateHTML';
 import { quarkHandler } from './Quark';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
+import { calculateEventSourceBuff } from './Event';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
@@ -158,30 +159,30 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
         G['cubeBonusMultiplier'][4],
         // Cube Upgrade Bonus
         (1 + player.ascensionCounter / 1000 * player.cubeUpgrades[32]),
-        // Corruption Divisor
-        1 / Math.pow(G['droughtMultiplier'][player.usedCorruptions[8]], 1 - 1 / 2 * player.platonicUpgrades[13]),
         // Constant Upgrade Multiplier
         1 + 1 / 10 * player.constantUpgrades[8],
         // Challenge 15 reward multiplier
         G['challenge15Rewards'].runeExp
     ]);
+        // Corruption Divisor
+    const droughEffect = 1 / Math.pow(G['droughtMultiplier'][player.usedCorruptions[8]], 1 - 1 / 2 * player.platonicUpgrades[13]);
 
     // Rune multiplier that gets applied to specific runes
     const runeExpMultiplier = [
         productContents([
-            1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10)
+            1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10), droughEffect
         ]),
         productContents([
-            1 + (player.researches[80] / 50), 1 + (player.researches[112] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10)
+            1 + (player.researches[80] / 50), 1 + (player.researches[112] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10), droughEffect
         ]),
         productContents([
-            1 + (player.researches[79] / 50), 1 + (player.researches[113] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[8]) / 5)
+            1 + (player.researches[79] / 50), 1 + (player.researches[113] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[8]) / 5), droughEffect
         ]),
         productContents([
-            1 + (player.researches[77] / 50), 1 + (player.researches[114] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[6]) / 10)
+            1 + (player.researches[77] / 50), 1 + (player.researches[114] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[6]) / 10), droughEffect
         ]),
         productContents([
-            1 + (player.researches[83] / 20), 1 + (player.researches[115] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[9]) / 5)
+            1 + (player.researches[83] / 20), 1 + (player.researches[115] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[9]) / 5), droughEffect
         ]),
         productContents([1]),
         productContents([1])
@@ -362,7 +363,8 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         +player.singularityUpgrades.singOfferings1.getEffect().bonus, // Offering Charge GQ Upgrade
         +player.singularityUpgrades.singOfferings2.getEffect().bonus, // Offering Storm GQ Upgrade
         +player.singularityUpgrades.singOfferings3.getEffect().bonus, // Offering Tempest GQ Upgrade
-        1 + player.cubeUpgrades[54] / 100 // Cube upgrade 6x4 (Cx4)
+        1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
+        1 + calculateEventBuff('Offering') // Event
     ];
 
     if (calcMult) {
@@ -469,6 +471,7 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
     G['obtainiumGain'] *= (1 + 1/200 * player.shopUpgrades.cashGrab2)
     G['obtainiumGain'] *= (1 + 1/100 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
+    G['obtainiumGain'] *= 1 + calculateEventBuff('Obtainium');
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
@@ -767,6 +770,7 @@ const calculateAntSacrificeMultipliers = () => {
     G['upgradeMultiplier'] *= (1 + 1 / 10 * player.upgrades[79]);
     G['upgradeMultiplier'] *= (1 + 0.09 * player.upgrades[40]);
     G['upgradeMultiplier'] *= G['cubeBonusMultiplier'][7];
+    G['upgradeMultiplier'] *= (1 + calculateEventBuff('Ant Sacrifice'));
 }
 
 interface IAntSacRewards {
@@ -1024,8 +1028,8 @@ export const calculateAllCubeMultiplier = () => {
         Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9]),
         // Powder Bonus
         calculateCubeMultFromPowder(),
-        // Event (currently, +0%)
-        1,
+        // Event
+        1 + calculateEventBuff('Cubes'),
         // Singularity Factor
         1 / calculateSingularityDebuff('Cubes'),
         // Wow Pass Y
@@ -1229,11 +1233,44 @@ export const calculateHepteractMultiplier = (score = -1) => {
         // Achievement 265 Bonus [Max: 160T Asc]
         1 + Math.min(0.2, player.ascensionCount / 8e14) * player.achievements[265],
         // Achievement 270 Bonus
-        Math.min(2, (1 + 1/1_000_000 * Decimal.log(player.ascendShards.add(1), 10) * player.achievements[270]))
+        Math.min(2, (1 + 1/1000000 * Decimal.log(player.ascendShards.add(1), 10) * player.achievements[270]))
         // Total Hepteract Multipliers: 7
     ]
 
     return {list: arr,
+        mult: productContents(arr)}
+}
+export const calculateOcteractMultiplier = (score = -1) => {
+    if (score < 0) {
+        score = calculateAscensionScore().effectiveScore;
+    }
+    const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
+    const arr = [
+        // ascension score multiplier
+        (score >= 1e32) ? Math.cbrt(score / 1e32) : Math.pow(score / 1e32, 2),
+        // season pass 3
+        1 + player.shopUpgrades.seasonPass3 / 100,
+        // season pass Y
+        1 + player.shopUpgrades.seasonPassY / 200,
+        // season pass Z
+        1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
+        // season pass lost
+        1 + player.shopUpgrades.seasonPassLost / 200,
+        // cube upgrade 70
+        1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
+        // divine pack
+        1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
+        // cube flame
+        +player.singularityUpgrades.singCubes1.getEffect().bonus,
+        // cube blaze
+        +player.singularityUpgrades.singCubes2.getEffect().bonus,
+        // cube inferno
+        +player.singularityUpgrades.singCubes3.getEffect().bonus
+        // Total Octeract Multipliers: 11
+    ]
+
+    return {
+        list: arr,
         mult: productContents(arr)}
 }
 
@@ -1263,7 +1300,7 @@ export const calculateTimeAcceleration = () => {
     }
     timeMult /= calculateSingularityDebuff('Global Speed');
     timeMult *= G['platonicBonusMultiplier'][7]
-    timeMult *= (1 + 2 * +G['isEvent'])
+    timeMult *= 1 + calculateEventBuff('Global Speed');
     timeMult *= 1 + (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0)
 
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
@@ -1288,9 +1325,92 @@ export const calculateAscensionAcceleration = () => {
         G['challenge15Rewards'].ascensionSpeed,                                                         // C15
         1 + 1/400 * player.cubeUpgrades[59],                                                            // Cookie Upgrade 9
         1 + 0.5 * (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0),              // Intermediate Pack, Sing Shop
-        1 + 1/1000 * player.singularityCount * player.shopUpgrades.chronometerZ                         // Chronometer Z
+        1 + 1/1000 * player.singularityCount * player.shopUpgrades.chronometerZ,                        // Chronometer Z
+        1 + calculateEventBuff('Ascension Speed')                                                       // Event
     ]
     return productContents(arr) / calculateSingularityDebuff('Ascension Speed')
+}
+
+export const calculateQuarkMultiplier = () => {
+    let multiplier = 1;
+    if (player.achievementPoints > 0) { // Achievement Points
+        multiplier += player.achievementPoints / 25000; // Cap of +0.20 at 5,000 Pts
+    }
+    if (player.achievements[250] > 0) { // Max research 8x25
+        multiplier += 0.10;
+    }
+    if (player.achievements[251] > 0) { // Max Wow! Cube Upgrade 5x10
+        multiplier += 0.10;
+    }
+    if (player.platonicUpgrades[5] > 0) { // Platonic ALPHA upgrade
+        multiplier += 0.10;
+    }
+    if (player.platonicUpgrades[10] > 0) { // Platonic BETA Upgrade
+        multiplier += 0.15;
+    }
+    if (player.platonicUpgrades[15] > 0) { // Platonic OMEGA upgrade
+        multiplier += 0.20;
+    }
+    if (player.challenge15Exponent >= 1e11) { // Challenge 15: Exceed 1e11 exponent reward
+        multiplier += (G['challenge15Rewards'].quarks - 1);
+    }
+    if (player.shopUpgrades.infiniteAscent) { // Purchased Infinite Ascent Rune
+        multiplier *= (1.1 + 0.15 / 75 * calculateEffectiveIALevel());
+    }
+    if (player.challenge15Exponent >= 1e15) { // Challenge 15: Exceed 1e15 exponent reward
+        multiplier *= (1 + 5/10000 * hepteractEffective('quark'));
+    }
+    if (player.overfluxPowder > 0) { // Overflux Powder [Max: 10% at 10,000]
+        multiplier *= calculateQuarkMultFromPowder();
+    }
+    if (player.achievements[266] > 0) { // Achievement 266 [Max: 10% at 1Qa Ascensions]
+        multiplier *= (1 + Math.min(0.1, (player.ascensionCount) / 1e16))
+    }
+    if (player.singularityCount > 0) { // Singularity Modifier
+        multiplier *= (1 + player.singularityCount / 10)
+    }
+    if (G['isEvent']) {
+        multiplier *= 1 + calculateEventBuff('Quarks');
+    }
+    if (player.cubeUpgrades[53] > 0) { // Cube Upgrade 6x3 (Cx3)
+        multiplier *= (1 + 0.10 * player.cubeUpgrades[53] / 100)
+    }
+    if (player.cubeUpgrades[68] > 0) { // Cube Upgrade 7x8
+        multiplier *= (1 + 1/10000 * player.cubeUpgrades[68] + 0.05 * (Math.floor(player.cubeUpgrades[68] / 1000)))
+    }
+    if (player.singularityCount >= 5) { // Singularity Milestone (5 sing)
+        multiplier *= 1.05
+    }
+    if (player.singularityCount >= 20) { // Singularity Milestone (20 sing)
+        multiplier *= 1.05
+    }
+    multiplier *= (1 + 0.02 * player.singularityUpgrades.intermediatePack.level +               // 1.02
+                           0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
+                           0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
+                           0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
+                           0.10 * player.singularityUpgrades.expertPack.level)                  // 1.30
+    return multiplier
+}
+
+/**
+ *
+ * Calculate the number of Golden Quarks earned in current singularity
+ */
+export const calculateGoldenQuarkGain = ():number => {
+    const base = 2 * player.singularityCount + 10
+    const bonus = (player.singularityCount < 10) ? (100 - 10 * player.singularityCount) : 0;
+    const gainFromQuarks = player.quarksThisSingularity / 1e5;
+
+    const allGoldenQuarkMultiplier = productContents([
+        1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2,
+        1 + player.worlds.BONUS / 100,
+        (+player.singularityUpgrades.goldenQuarks1.getEffect().bonus) *
+        (+player.singularityUpgrades.goldenQuarks2.getEffect().bonus),
+        1 + 0.12 * player.cubeUpgrades[69],
+        1 + calculateEventBuff('Golden Quarks')
+    ]);
+
+    return (base + gainFromQuarks) * allGoldenQuarkMultiplier + bonus;
 }
 
 export const calculateCorruptionPoints = () => {
@@ -1455,6 +1575,9 @@ export const computeAscensionScoreBonusMultiplier = () => {
     if (player.achievements[259] > 0) {
         multiplier *= Math.max(1, Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP)));
     }
+    if (G['isEvent']) {
+        multiplier *= 1 + calculateEventBuff('Ascension Score');
+    }
 
     return multiplier
 }
@@ -1608,7 +1731,7 @@ export const calculatePowderConversion = () => {
         (1 + player.achievements[256] / 20), // Achievement 256, 5%
         (1 + player.achievements[257] / 20), // Achievement 257, 5%
         1 + 0.01 * player.platonicUpgrades[16], // Platonic Upgrade 4x1
-        1 + .1337 * +G['isEvent'] // Event!
+        1 + calculateEventBuff('Powder Conversion') // Event
     ]
 
     return {
@@ -1642,30 +1765,22 @@ export const calculateQuarkMultFromPowder = () => {
 }
 
 export const dailyResetCheck = () => {
-    player.dayCheck ||= new Date();
-    if (typeof player.dayCheck === 'string') {
-        player.dayCheck = new Date(player.dayCheck);
+    if (!player.dayCheck) {
+        return;
     }
-
-    const d = new Date()
-    const h = d.getHours()
-    const m = d.getMinutes()
-    const s = d.getSeconds()
+    const now = new Date(loadingDate.getTime() + performance.now());
+    const day = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const h = now.getHours()
+    const m = now.getMinutes()
+    const s = now.getSeconds()
     player.dayTimer = (60 * 60 * 24) - (60 * 60 * h) - (60 * m) - s;
 
-    if (d.getDate() !== player.dayCheck.getDate() || d.getMonth() !== player.dayCheck.getMonth() || d.getFullYear() !== player.dayCheck.getFullYear()) {
-        player.dayCheck = new Date();
-        player.cubeQuarkDaily = 0;
-        player.tesseractQuarkDaily = 0;
-        player.hypercubeQuarkDaily = 0;
-        player.platonicCubeQuarkDaily = 0;
-        player.cubeOpenedDaily = 0;
-        player.tesseractOpenedDaily = 0;
-        player.hypercubeOpenedDaily = 0;
-        player.platonicCubeOpenedDaily = 0;
+    // Daily is not reset even if it is set to a past time.
+    // If the daily is not reset, the data may have been set to a future time.
+    if (day.getTime() - 3600000 > player.dayCheck.getTime()) {
+        player.dayCheck = day;
 
-        player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion().mult;
-        player.overfluxOrbs = G['challenge15Rewards'].freeOrbs
+        forcedDailyReset(true);
         player.dailyPowderResetUses = 1;
         player.dailyCodeUsed = false;
 
@@ -1685,8 +1800,7 @@ export const dailyResetCheck = () => {
 /**
  * Resets Cube Counts and stuff. NOTE: It is intentional it does not award powder or expire orbs.
  */
-export const forcedDailyReset = (testing = false) => {
-    player.dayCheck = new Date();
+export const forcedDailyReset = (rewards = false) => {
     player.cubeQuarkDaily = 0;
     player.tesseractQuarkDaily = 0;
     player.hypercubeQuarkDaily = 0;
@@ -1696,32 +1810,15 @@ export const forcedDailyReset = (testing = false) => {
     player.hypercubeOpenedDaily = 0;
     player.platonicCubeOpenedDaily = 0;
 
-    if (testing) {
+    if (rewards) {
         player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion().mult;
-        player.overfluxOrbs = 0;
+        player.overfluxOrbs = G['challenge15Rewards'].freeOrbs;
     }
 }
 
-const eventStart = '06/05/2022 00:00:00'
-const eventEnd = '06/12/2022 23:59:59'
-
-// current event: NONE
-
-export const eventCheck = () => {
-    const start = new Date(eventStart);
-    const end = new Date(eventEnd);
-    const now = new Date();
-
-    if (now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
-        G['isEvent'] = true
-        DOMCacheGetOrSet('eventCurrent').textContent = 'ACTIVE UNTIL ' + end
-        DOMCacheGetOrSet('eventBuffs').textContent = 'Current Buffs: +125% Quarks from all sources, +13.37% Powder Conversion, +200% Time Acceleration!'
-        DOMCacheGetOrSet('happyHolidays').innerHTML = '&#128151 2.9.7 Event! &#128151;'
-    } else {
-        G['isEvent'] = false
-        DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE'
-        DOMCacheGetOrSet('eventBuffs').textContent = ''
-        DOMCacheGetOrSet('happyHolidays').innerHTML = ''
+export const calculateEventBuff = (buff: string) => {
+    if (!G['isEvent']) {
+        return 0;
     }
-
+    return calculateEventSourceBuff(buff);
 }

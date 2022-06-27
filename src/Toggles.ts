@@ -381,7 +381,13 @@ export const toggleautoreset = (i: number) => {
             DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
         }
     } else if (i === 4) {
-        // To be ascend toggle
+        if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
+            player.resettoggle4 = 2;
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: PERCENTAGE'
+        } else {
+            player.resettoggle4 = 1;
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: AMOUNT'
+        }
     }
 }
 
@@ -933,7 +939,11 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     );
 
     if (amount === null) {
-        return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`);
+        if (player.toggles[35]) {
+            return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`);
+        } else {
+            return
+        }
     }
 
     const isPercentage = amount.endsWith('%');
@@ -943,11 +953,13 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
         return Alert('Value must be a finite, non-decimal number!');
     } else if (rawPercentage < 0 || rawPercentage > 100) {
         return Alert('Value must be a number between 0 and 100, inclusive!');
-    } else if (rawPercentage === player.hepteractAutoCraftPercentage) {
+    } else if (rawPercentage === player.hepteractAutoCraftPercentage && player.toggles[35]) {
         return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`)
     }
 
     player.hepteractAutoCraftPercentage = rawPercentage
     DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
-    return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
+    if (player.toggles[35]) {
+        return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
+    }
 }

@@ -160,7 +160,13 @@ export const visualUpdateBuildings = () => {
 
         DOMCacheGetOrSet('tesseractInfo').textContent = 'You have ' + format(player.wowTesseracts) + ' Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension.'
         DOMCacheGetOrSet('ascendShardInfo').textContent = 'You have a mathematical constant of ' + format(player.ascendShards, 2) + '. Taxes are divided by ' + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + (G['platonicBonusMultiplier'][5] - 1)), 4, true) + '.'
-        DOMCacheGetOrSet('autotessbuyeramount').textContent = 'Auto buyer will save at least ' + format(player.tesseractAutoBuyerAmount) + ' tesseracts. [Enter number above].'
+
+        if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
+            DOMCacheGetOrSet('autotessbuyeramount').textContent = 'Auto buyer will save at least ' + format(player.tesseractAutoBuyerAmount) + ' tesseracts. [Enter number above].'
+        }
+        if (player.resettoggle4 === 2) {
+            DOMCacheGetOrSet('autotessbuyeramount').textContent = 'On Ascension, Auto buyer will save at least ' + format(Math.min(100, player.tesseractAutoBuyerAmount)) + '% of your current amount of tesseracts. [Enter number above].'
+        }
     }
 }
 
@@ -210,8 +216,8 @@ export const visualUpdateRunes = () => {
             displayRuneInformation(i, false)
         }
 
-        DOMCacheGetOrSet('offeringExperienceValue').textContent = 'Gain ' + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 25 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + '* EXP per offering sacrificed.'
-        DOMCacheGetOrSet('offeringRecycleInfo').textContent = 'You have ' + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, G['rune4level'] / 16) + 0.5 * player.cubeUpgrades[2]), 2, true) + '% chance of recycling your offerings. This multiplies EXP gain by ' + format(calculateRecycleMultiplier(), 2, true) + '!'
+        DOMCacheGetOrSet('offeringExperienceValue').textContent = 'Gain ' + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 25 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + '* EXP per Offering sacrificed.'
+        DOMCacheGetOrSet('offeringRecycleInfo').textContent = 'You have ' + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, G['rune4level'] / 16) + 0.5 * player.cubeUpgrades[2]), 2, true) + '% chance of recycling your Offerings. This multiplies EXP gain by ' + format(calculateRecycleMultiplier(), 2, true) + '!'
     }
 
     if (G['runescreen'] === 'talismans') {
@@ -491,6 +497,7 @@ export const visualUpdateSettings = () => {
     DOMCacheGetOrSet('runeSumStatistic').childNodes[1].textContent = format(G['runeSum'])
     DOMCacheGetOrSet('obtainiumPerSecondStatistic').childNodes[1].textContent = format(player.obtainiumpersecond, 2, true)
     DOMCacheGetOrSet('ascensionCountStatistic').childNodes[1].textContent = format(player.ascensionCount, 0, true)
+    DOMCacheGetOrSet('totalQuarkCountStatistic').childNodes[1].textContent = format(player.quarksThisSingularity, 0, true)
 
     DOMCacheGetOrSet('saveString').textContent =
         `Currently: ${player.saveString.replace('$VERSION$', 'v' + version)}`;

@@ -12,7 +12,7 @@ import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Researc
 import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, changeTabColor, Confirm, Alert, Notification } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
-import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, eventCheck, exitOffline } from './Calculate';
+import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
 import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
@@ -21,7 +21,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { calculateGoldenQuarkGain, reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset';
+import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset';
 import type { TesseractBuildings} from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
@@ -45,6 +45,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { singularityData, SingularityUpgrade } from './singularity';
 import type { PlayerSave } from './types/LegacySynergism';
+import { eventCheck } from './Event';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -308,7 +309,9 @@ export const player: Player = {
         30: true,
         31: true,
         32: true,
-        33: true
+        33: true,
+        34: true,
+        35: true
     },
 
     challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -394,6 +397,7 @@ export const player: Player = {
     resettoggle1: 1,
     resettoggle2: 1,
     resettoggle3: 1,
+    resettoggle4: 1,
 
     tesseractAutoBuyerToggle: 0,
     tesseractAutoBuyerAmount: 0,
@@ -1142,6 +1146,7 @@ const loadSynergy = async () => {
             player.resettoggle1 = 1;
             player.resettoggle2 = 1;
             player.resettoggle3 = 1;
+            player.resettoggle4 = 1;
         }
         if (player.tesseractAutoBuyerToggle === 0) {
             player.tesseractAutoBuyerToggle = 1;
@@ -1194,8 +1199,26 @@ const loadSynergy = async () => {
         }
 
         if (!player.dayCheck) {
-            player.dayCheck = new Date()
+            player.dayCheck = new Date();
         }
+        if (typeof player.dayCheck === 'string') {
+            player.dayCheck = new Date(player.dayCheck);
+            if (isNaN(player.dayCheck.getTime())) {
+                player.dayCheck = new Date();
+            }
+        }
+        // Measures for people who play the past
+        let updatedLast = lastUpdated;
+        if (!isNaN(updatedLast.getTime())) {
+            updatedLast = new Date(updatedLast.getFullYear(), updatedLast.getMonth(), updatedLast.getDate() - 1);
+            if (player.dayCheck.getTime() < updatedLast.getTime()) {
+                player.dayCheck = updatedLast;
+            }
+        } else if (player.dayCheck.getTime() < 1654009200000) {
+            player.dayCheck = new Date('06/01/2022 00:00:00');
+        }
+        // Calculate daily
+        player.dayCheck = new Date(player.dayCheck.getFullYear(), player.dayCheck.getMonth(), player.dayCheck.getDate());
 
         for (let i = 1; i <= 5; i++) {
             const ascendBuildingI = `ascendBuilding${i as OneToFive}` as const;
@@ -1214,13 +1237,11 @@ const loadSynergy = async () => {
 
 
         if (player.saveString === '' || player.saveString === 'Synergism-v1011Test.txt') {
-            player.singularityCount === 0 ?
-                player.saveString = 'Synergism-$VERSION$-$TIME$.txt':
-                player.saveString = 'Synergism-$VERSION$-$TIME$-$SING$.txt'
+            player.saveString = player.singularityCount === 0 ?
+                'Synergism-$VERSION$-$TIME$.txt' :
+                'Synergism-$VERSION$-$TIME$-$SING$.txt'
         }
         (DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString;
-
-        player.wowCubes = new WowCubes(Number(player.wowCubes) || 0);
 
         for (let j = 1; j < 126; j++) {
             upgradeupdate(j);
@@ -1445,6 +1466,9 @@ const loadSynergy = async () => {
         if (player.resettoggle3 === 1) {
             DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
         }
+        if (player.resettoggle4 === 1) {
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: AMOUNT'
+        }
 
         if (player.resettoggle1 === 2) {
             DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: TIME'
@@ -1454,6 +1478,9 @@ const loadSynergy = async () => {
         }
         if (player.resettoggle3 === 2) {
             DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: TIME'
+        }
+        if (player.resettoggle4 === 2) {
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: PERCENTAGE'
         }
 
         if (player.tesseractAutoBuyerToggle === 1) {
@@ -2097,12 +2124,7 @@ export const updateAllMultiplier = (): void => {
         G['multiplierPower'] = 1;
     }
     if (player.currentChallenge.reincarnation === 10) {
-        if (player.platonicUpgrades[20] > 0) {
-            // Not 1 because coins could not be produced completely
-            G['multiplierPower'] = 2;
-        } else {
-            G['multiplierPower'] = 1;
-        }
+        G['multiplierPower'] = 1;
     }
 
     G['multiplierEffect'] = Decimal.pow(G['multiplierPower'], G['totalMultiplier']);
@@ -2614,11 +2636,6 @@ export const resourceGain = (dt: number): void => {
             challengeachievementcheck(ascendchal, true)
         }
     }
-    if (ascendchal === 15) {
-        if (player.coins.gte(challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal))) {
-            void resetCheck('ascensionChallenge', false)
-        }
-    }
 }
 
 export const updateAntMultipliers = (): void => {
@@ -2669,7 +2686,12 @@ export const updateAntMultipliers = (): void => {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.2)
     }
 
-    G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 1 - 0.9 / 90 * Math.min(99, sumContents(player.usedCorruptions)))
+    if (player.currentChallenge.ascension !== 15) {
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 1 - 0.9 / 90 * Math.min(99, sumContents(player.usedCorruptions)))
+    } else { // C15 used to have 9 corruptions set to 11, which above would provide a power of 0.01. Now it's hardcoded this way.
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.01)
+    }
+
     G['globalAntMult'] = Decimal.pow(G['globalAntMult'], G['extinctionMultiplier'][player.usedCorruptions[7]])
     G['globalAntMult'] = G['globalAntMult'].times(G['challenge15Rewards'].antSpeed)
     //V2.5.0: Moved ant shop upgrade as 'uncorruptable'
@@ -2896,7 +2918,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
     if (i === 'ascensionChallenge' && player.currentChallenge.ascension !== 0) {
         let conf = true
         if (manual) {
-            conf = await Confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
+            if (player.challengecompletions[11] === 0 || player.toggles[31]) {
+                conf = await Confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
+            }
         }
         if (!conf) {
             return;
@@ -2915,16 +2939,14 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 player.challengecompletions[a] += 1;
             }
         }
+
         if (a === 15) {
-            if (player.coins.gte(challengeRequirement(a, player.challengecompletions[a], a)) && player.challengecompletions[a] < maxCompletions) {
-                player.challengecompletions[a] += 1;
-            } else {
-                if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
-                    player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
-                    c15RewardUpdate();
-                }
+            if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
+                player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
+                c15RewardUpdate();
             }
         }
+
         if (r !== 0) {
             // bandaid
             if (typeof player.currentChallenge === 'string') {
@@ -2955,16 +2977,16 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         let confirmed = false;
-        if (!player.toggles[33]) {
+        if (!player.toggles[33] && player.singularityCount > 0) {
             confirmed = await Confirm(`Do you wish to start singularity #${format(player.singularityCount + 1)}? Your next universe is harder but gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
         } else {
-            await Alert('You have reached the end of the game, on singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
+            await Alert('You have reached the end of the game, on Singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
             await Alert('You may choose to sit on your laurels, and consider the game \'beaten\', or you may do something more interesting.')
             await Alert('You\'re too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.')
-            await Alert(`Start anew, and enter singularity #${format(player.singularityCount + 1)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} golden quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
+            await Alert(`Start anew, and enter Singularity #${format(player.singularityCount + 1)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
             await Alert('However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.')
 
-            confirmed = await Confirm('So, what do you say? Do you wish to enter the singularity?')
+            confirmed = await Confirm('So, what do you say? Do you wish to enter the Singularity?')
             if (confirmed) {
                 confirmed = await Confirm('Are you sure you wish to enter the Singularity?')
             }
@@ -2985,7 +3007,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 export const resetConfirmation = async (i: string): Promise<void> => {
     if (i === 'prestige') {
         if (player.toggles[28] === true) {
-            const r = await Confirm('Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]')
+            const r = await Confirm('Prestige will reset coin upgrades, coin producers AND crystals. The first Prestige unlocks new features. Would you like to Prestige? [Toggle this message in settings.]')
             if (r === true) {
                 resetachievementcheck(1);
                 reset('prestige');
@@ -2997,7 +3019,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     }
     if (i === 'transcend') {
         if (player.toggles[29] === true) {
-            const z = await Confirm('Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]')
+            const z = await Confirm('Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]')
             if (z === true) {
                 resetachievementcheck(2);
                 reset('transcension');
@@ -3010,7 +3032,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     if (i === 'reincarnate') {
         if (player.currentChallenge.ascension !== 12) {
             if (player.toggles[30] === true) {
-                const z = await Confirm('Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]')
+                const z = await Confirm('Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]')
                 if (z === true) {
                     resetachievementcheck(3);
                     reset('reincarnation');
@@ -3023,7 +3045,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     }
     if (i === 'ascend') {
         const z = !player.toggles[31] ||
-                  await Confirm('Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue? [It is strongly advised you get R5x24 first.]')
+                  await Confirm('Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue?')
         if (z) {
             reset('ascension');
         }
@@ -3159,8 +3181,8 @@ export const updateAll = (): void => {
         }
     }
 
-    //Autobuy tesseract buildings
-    if ((player.researches[190] > 0) && (player.tesseractAutoBuyerToggle == 1)) {
+    //Autobuy tesseract buildings (Mode: AMOUNT)
+    if (player.researches[190] > 0 && player.tesseractAutoBuyerToggle === 1 && player.resettoggle4 < 2) {
         const ownedBuildings: TesseractBuildings = [null, null, null, null, null];
         for (let i = 1; i <= 5; i++) {
             if (player.autoTesseracts[i]) {
@@ -3180,10 +3202,7 @@ export const updateAll = (): void => {
         }
     }
 
-
     //Generation
-
-
     if (player.upgrades[101] > 0.5) {
         player.fourthGeneratedCoin = player.fourthGeneratedCoin.add((player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(G['uFifteenMulti']).times(G['generatorPower']));
     }
@@ -3362,6 +3381,8 @@ export const createTimer = (): void => {
 const dt = 5;
 const filterStrength = 20;
 let deltaMean = 0;
+
+export const loadingDate = new Date();
 
 const tick = () => {
     const now = performance.now();
@@ -3722,16 +3743,18 @@ export const reloadShit = async (reset = false) => {
     toggleSubTab(9, 0); // set 'corruption main'
     toggleSubTab(-1, 0); // set 'statistics main'
 
-    dailyResetCheck();
-    interval(() => dailyResetCheck(), 30_000);
+    interval(() => dailyResetCheck(), 30000);
 
     constantIntervals();
     changeTabColor();
     startHotkeys();
 
-    eventCheck();
     interval(() => eventCheck(), 15000);
-    setTimeout(() => DOMCacheGetOrSet('exitOffline').classList.remove('subtabContent'), 2000);
+    setTimeout(() => {
+        dailyResetCheck();
+        eventCheck();
+        DOMCacheGetOrSet('exitOffline').classList.remove('subtabContent');
+    }, 1000);
 
     if (localStorage.getItem('pleaseStar') === null) {
         void Alert('Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial');
@@ -3764,9 +3787,10 @@ export const reloadShit = async (reset = false) => {
 window.addEventListener('load', () => {
     const ver = DOMCacheGetOrSet('versionnumber');
     if (ver instanceof HTMLElement) {
+        const textUpdate = !isNaN(lastUpdated.getTime()) ? ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` : '';
         ver.textContent =
             `You're ${testing ? 'testing' : 'playing'} v${version} - The Reality Update pt.1` +
-            ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` +
+            textUpdate +
             ` ${testing ? 'Savefiles cannot be used in live!' : ''}`;
     }
     document.title = `Synergism v${version}`;
