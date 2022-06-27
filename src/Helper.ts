@@ -131,7 +131,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
 
                 // If you bought cube upgrade 2x10 then it sacrifices to all runes equally
                 if (player.cubeUpgrades[20] === 1){
-                    const maxi = player.singularityCount >= 30 ? 6 : 5;
+                    const maxi = player.singularityCount >= 50 ? 7 : (player.singularityCount >= 30 ? 6 : 5);
                     const notMaxed = (maxi - checkMaxRunes(maxi));
                     if (notMaxed > 0){
                         const baseAmount = Math.floor(player.runeshards / notMaxed / 2);
