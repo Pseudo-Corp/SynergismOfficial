@@ -380,6 +380,11 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('settingpic6').style.display = 'block'):
         (DOMCacheGetOrSet('settingpic6').style.display = 'none');
 
+    // Hepteract Confirmations toggle
+    player.singularityCount > 0 && player.challenge15Exponent >= 1e15 ?
+        (DOMCacheGetOrSet('heptnotificationpic').style.display = 'block'):
+        (DOMCacheGetOrSet('heptnotificationpic').style.display = 'none');
+
     if (player.singularityCount > 0) {
         (DOMCacheGetOrSet('shoptab').style.display = 'block');
     }
