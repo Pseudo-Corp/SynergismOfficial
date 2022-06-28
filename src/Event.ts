@@ -264,8 +264,7 @@ export const eventCheck = () => {
     } else {
         G['isEvent'] = false;
         DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE';
-        /*eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' :
-            `You have set a date operation that is a prohibited act. To receive events and daily rewards, you need to proceed to ${player.dayCheck} or import normal save data.`; */
+        eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' : ''
         eventBuffs.style.color = 'red';
         happyHolidays.innerHTML = '';
         happyHolidays.href = '';

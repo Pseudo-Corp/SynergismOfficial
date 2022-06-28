@@ -957,6 +957,7 @@ export const singularity = async (): Promise<void> => {
 
     player.codes.set(39, true);
     player.codes.set(40, true);
+    player.codes.set(41, true);
     updateSingularityMilestoneAwards();
 }
 
