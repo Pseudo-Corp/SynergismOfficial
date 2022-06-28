@@ -3583,10 +3583,10 @@ document.addEventListener('keydown', (event) => {
         }
         if (player.challengecompletions[11] > 0 && !isNaN(num)) {
             if (num >= 0 && num < player.corruptionLoadoutNames.length) {
-                void Notification(`${player.corruptionLoadoutNames[num]} (${num + 1}) used activation. This will take effect on the next ascension.`, 5000);
+                void Notification(`Corruption Loadout ${num + 1} "${player.corruptionLoadoutNames[num]}" has been applied. This will take effect on the next ascension.`, 5000);
                 corruptionLoadoutSaveLoad(false, num + 1);
             } else {
-                void Notification('All next Corruption Stats are now Zero. This will take effect on the next ascension.', 5000);
+                void Notification('All Corruptions have been set to Zero. This will take effect on the next ascension.', 5000);
                 corruptionLoadoutSaveLoad(false, 0);
             }
         }
