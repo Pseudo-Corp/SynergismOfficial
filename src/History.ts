@@ -262,6 +262,13 @@ const resetHistoryPushNewRow = (category: Category, data: ResetHistoryEntryUnion
     while (tbody.childNodes.length > G['historyCountMax']) {
         tbody.removeChild(tbody.lastChild!);
     }
+
+    if (category === 'ascend') {
+        const loadCorruptionsButtons = Array.from(row.querySelectorAll<HTMLElement>('.ascendHistoryLoadCorruptions'));
+        for (const btn of loadCorruptionsButtons) {
+            btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton((e.target as HTMLElement)));
+        }
+    }
 }
 
 // Render a table row.
