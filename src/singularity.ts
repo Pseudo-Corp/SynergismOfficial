@@ -787,7 +787,7 @@ export const updateSingularityPerks = (): void => {
     const singularityCount = player.singularityCount;
     const str = getSingularityOridnalText(singularityCount) +
                 `<br/><br/>Here is the list of Perks you have acquired to compensate the Penalties
-                (Perks in <span class="newPerk">gold text</span> were added or improved in this singularity)<br/>`
+                (Hover for more details. Perks in <span class="newPerk">gold text</span> were added or improved in this singularity)<br/>`
                 + getAvailablePerksDescription(singularityCount)
 
     DOMCacheGetOrSet('singularityPerksMultiline').innerHTML = str;
