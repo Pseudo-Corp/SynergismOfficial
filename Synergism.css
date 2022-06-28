@@ -2908,13 +2908,13 @@ header .img {
 
 .subHeader {
     display: flex;
-    width: 80%;
+    max-width: 1250px
 }
 
 .currenciesContainer {
     display: flex;
     flex-direction: column;
-    width: 55%;
+    width: 50%;
     align-items: flex-start;
     min-width: 625px;
 }
