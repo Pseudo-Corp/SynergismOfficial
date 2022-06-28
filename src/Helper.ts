@@ -44,7 +44,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
             break;
         }
         case 'goldenQuarks': {
-            if (player.singularityUpgrades.goldenQuarks3.level === 0) {
+            if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus === 0) {
                 return
             } else {
                 player.goldenQuarksTimer += time * timeMultiplier;
