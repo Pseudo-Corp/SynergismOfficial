@@ -2908,7 +2908,7 @@ header .img {
 
 .subHeader {
     display: flex;
-    max-width: 1250px
+    max-width: 1250px;
 }
 
 .currenciesContainer {
