@@ -234,14 +234,14 @@ export const promocodesInfo = async (input: string) => {
             availableUses = addCodeAvailableUses();
             textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
             if (availableUses === 0) {
-                textMessage += ' Next: in ' + addCodeTimeToNextUse() + ' seconds.';
+                textMessage += ' Next: in ' + format(addCodeTimeToNextUse(), 0) + ' seconds.';
             }
             break;
         case 'time':
             availableUses = timeCodeAvailableUses();
             textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
             if (availableUses === 0) {
-                textMessage += ' Next: in ' + timeCodeTimeToNextUse() + ' seconds.';
+                textMessage += ' Next: in ' + format(timeCodeTimeToNextUse(), 0) + ' seconds.';
             } else {
                 textMessage += ' Multiplier: ' + format(timeCodeRewardMultiplier(), 2, true) + 'x';
             }
@@ -359,7 +359,7 @@ export const promocodes = async (input: string | null) => {
         return;
     } else if (input.toLowerCase() === 'add') {
         const availableUses = addCodeAvailableUses();
-        const timeToNextUse = addCodeTimeToNextUse();
+        const timeToNextUse = format(addCodeTimeToNextUse(), 0);
 
         if (availableUses < 1) {
             el.textContent = `You do not have an 'Add' code attempt! You will gain 1 in ${timeToNextUse} seconds.`;
