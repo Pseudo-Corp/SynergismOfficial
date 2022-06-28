@@ -91,7 +91,11 @@ export class HepteractCraft {
             return this;
         }
         this.UNLOCKED = true;
-        return Alert('Congratulations. You have unlocked the ability to craft ' + hepteractName + ' in the hepteract forge!');
+        if (player.singularityCount < 5) {
+            return Alert('Congratulations. You have unlocked the ability to craft ' + hepteractName + ' in the hepteract forge!');
+        } else {
+            return this
+        }
     }
 
     // Add to balance through crafting.
