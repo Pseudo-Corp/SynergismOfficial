@@ -116,9 +116,9 @@ const saveFilename = () => {
 export const exportSynergism = async () => {
     player.offlinetick = Date.now();
     const quarkData = quarkHandler();
-    if (player.singularityUpgrades.goldenQuarks3.level > 0) {
-        player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / player.singularityUpgrades.goldenQuarks3.level)) * (1 + player.worlds.BONUS / 100);
-        player.goldenQuarksTimer = player.goldenQuarksTimer % (3600 / player.singularityUpgrades.goldenQuarks3.level)
+    if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
+        player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)) * (1 + player.worlds.BONUS / 100);
+        player.goldenQuarksTimer = player.goldenQuarksTimer % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
     }
     if (quarkData.gain >= 1) {
         player.worlds.add(quarkData.gain);
@@ -264,20 +264,17 @@ export const promocodes = async (input: string | null) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === '2.9.7' && !player.codes.get(40) && G['isEvent'] && getEvent().name === '&#128151 2.9.7 Event! &#128151;') {
-        player.codes.set(40, true);
+    if (input === '2.9.9' && !player.codes.get(41) && G['isEvent'] && getEvent().name === '&#128151 Community Event! &#128151 [Musical Link Here!]') {
+        player.codes.set(41, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 3600 * 168;
         addTimers('ascension', 4 * 3600);
 
         if (player.singularityCount > 0) {
-            player.singularityUpgrades.singCubes1.freeLevels += 5;
-            player.singularityUpgrades.singOfferings1.freeLevels += 5;
-            player.singularityUpgrades.singObtainium1.freeLevels += 5;
-            player.singularityUpgrades.ascensions.freeLevels += 5;
+            player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
         }
 
-        return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! ${(player.singularityCount > 0) ? 'You were also given 5 of each uncapped resource Singularity upgrade!' : ''}`)
+        return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! ${(player.singularityCount > 0) ? 'You were also given a free level of GQ3!' : ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
         player.codes.set(1, true);
