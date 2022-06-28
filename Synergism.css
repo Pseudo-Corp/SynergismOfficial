@@ -1809,7 +1809,8 @@ nav li:hover {
     margin-top: 10px;
 }
 
-#quarksDisplay {
+#quarksDisplay,
+#goldenQuarksDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1818,6 +1819,12 @@ nav li:hover {
 #quarkamount {
     font-size: 1.2em;
     color: aqua;
+    margin-left: 5px;
+}
+
+#goldenQuarkamount {
+    font-size: 1.2em;
+    color: gold;
     margin-left: 5px;
 }
 
@@ -2901,13 +2908,13 @@ header .img {
 
 .subHeader {
     display: flex;
-    max-width: 1250px;
+    width: 80%;
 }
 
 .currenciesContainer {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 55%;
     align-items: flex-start;
     min-width: 625px;
 }
@@ -3019,6 +3026,10 @@ header #obtainiumDisplay {
 
 #ascAscensionTimeAccel {
     color: orange;
+}
+
+#ascSingularityCount {
+    color: gold;
 }
 
 #tabBorder {
@@ -3260,6 +3271,25 @@ header #obtainiumDisplay {
     text-align: center;
 }
 
+#singularityTabsToggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px;
+}
+
+#singularityTabsToggle > button {
+    height: 30px;
+    width: 100px;
+    margin: 0 7px;
+    text-align: center;
+    transition-duration: 0.15s;
+}
+
+#singularityTabsToggle > button:hover {
+    background-color: #333;
+}
+
 #singularityUpgradeContainer {
     display: flex;
     flex-direction: column;
@@ -3281,10 +3311,15 @@ header #obtainiumDisplay {
     margin: 2px;
 }
 
-#singularityMultiline {
+#singularityPenaltiesMultiline,
+#singularityPerksMultiline {
     white-space: pre-line;
 }
 
 #testingMultiline {
     white-space: pre-line;
+}
+
+.newPerk {
+    color: gold;
 }

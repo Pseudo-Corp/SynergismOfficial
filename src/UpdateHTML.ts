@@ -5,11 +5,11 @@ import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAccel
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { autoResearchEnabled } from './Research';
-import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
+import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateSingularity, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
 import { getMaxChallenges } from './Challenges';
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-import { updateSingularityStats } from './singularity';
+import { updateSingularityPenalties, updateSingularityPerks } from './singularity';
 import { revealCorruptions } from './Corruptions';
 
 export const revealStuff = () => {
@@ -551,7 +551,8 @@ export const hideStuff = () => {
     if (G['currentTab'] === 'singularity') {
         DOMCacheGetOrSet('singularity').style.display = 'block';
         DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'lightgoldenrodyellow'
-        updateSingularityStats();
+        updateSingularityPenalties();
+        updateSingularityPerks();
     }
 }
 
@@ -567,12 +568,11 @@ const visualTab: Record<typeof G['currentTab'], () => void> = {
     ants: visualUpdateAnts,
     cubes: visualUpdateCubes,
     traits: visualUpdateCorruptions,
-    singularity: () => {}
+    singularity: visualUpdateSingularity
 };
 
 export const htmlInserts = () => {
     // ALWAYS Update these, for they are the most important resources
-
     const playerRequirements = ['coins', 'runeshards', 'prestigePoints', 'transcendPoints', 'transcendShards', 'reincarnationPoints', 'worlds', 'researchPoints'] as const;
     const domRequirements = ['coinDisplay', 'offeringDisplay', 'diamondDisplay', 'mythosDisplay', 'mythosshardDisplay', 'particlesDisplay', 'quarkDisplay', 'obtainiumDisplay'] as const;
     for (let i = 0; i < playerRequirements.length; i++) {
@@ -886,7 +886,8 @@ const updateAscensionStats = () => {
         'ascHepteract': format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
         'ascC10': `${format(player.challengecompletions[10])}`,
         'ascTimeAccel': `${format(calculateTimeAcceleration(), 3)}x`,
-        'ascAscensionTimeAccel': `${format(calculateAscensionAcceleration(), 3)}x`
+        'ascAscensionTimeAccel': `${format(calculateAscensionAcceleration(), 3)}x`,
+        'ascSingularityCount': format(player.singularityCount)
     }
     for (const key in fillers) {
         const dom = DOMCacheGetOrSet(key);
