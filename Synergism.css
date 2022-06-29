@@ -31,8 +31,12 @@ body.dark {
     background-color: #111;
 }
 
+body.lightDark {
+    background-color: #1c1b22;
+}
+
 body.light {
-    background-color: gray;
+    background-color: #4c495a;
 }
 
 a {
