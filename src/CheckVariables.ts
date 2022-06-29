@@ -402,6 +402,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             seasonPassY: 0,
             seasonPassZ: 0,
             challengeTome2: 0,
+            instantChallenge2: Number(shop.instantChallenge2Bought),
             cashGrab2: 0,
             cubeToQuarkAll: 0,
             obtainiumEX2: 0,

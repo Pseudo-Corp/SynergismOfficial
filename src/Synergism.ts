@@ -462,6 +462,7 @@ export const player: Player = {
         seasonPassY: 0,
         seasonPassZ: 0,
         challengeTome2: 0,
+        instantChallenge2: 0,
         cashGrab2: 0,
         chronometerZ: 0,
         cubeToQuarkAll: 0,
@@ -2805,7 +2806,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             const reqCheck = (comp: number) => player.coinsThisTranscension.gte(challengeRequirement(q, comp, q));
 
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-                const maxInc = player.currentChallenge.ascension !== 13 ? player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) : 1; // TODO: Implement the shop upgrade levels here
+                const maxInc = player.shopUpgrades.instantChallenge2 > 0 && player.currentChallenge.ascension !== 13 ?
+                    player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) :
+                    (player.currentChallenge.ascension !== 13 && player.shopUpgrades.instantChallenge > 0 ? 10 : 1); // TODO: Implement the shop upgrade levels here
                 let counter = 0;
                 let comp = player.challengecompletions[q];
                 while (counter < maxInc) {
@@ -2865,7 +2868,8 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
         }
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-            const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 + player.singularityCount : 1; // TODO: Implement the shop upgrade levels here
+            const maxInc = player.shopUpgrades.instantChallenge2 > 0 ? player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) :
+                (player.currentChallenge.ascension !== 13 && player.shopUpgrades.instantChallenge > 0 ? 10 : 1); // TODO: Implement the shop upgrade levels here
             let counter = 0;
             let comp = player.challengecompletions[q];
             while (counter < maxInc) {
@@ -2957,7 +2961,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.currentChallenge.transcension = 0;
         }
         challengeDisplay(a, true)
-        reset('ascensionChallenge')
+        if (player.shopUpgrades.instantChallenge2 === 0 || manual) {
+            reset('ascensionChallenge')
+        }
 
         if (player.challengecompletions[a] > player.highestchallengecompletions[a]) {
             player.highestchallengecompletions[a] += 1;

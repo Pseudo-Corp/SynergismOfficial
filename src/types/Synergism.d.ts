@@ -349,6 +349,7 @@ export interface Player {
         seasonPassY: number,
         seasonPassZ: number,
         challengeTome2: number,
+        instantChallenge2: number,
         cubeToQuarkAll: number,
         cashGrab2: number,
         seasonPassLost: number,

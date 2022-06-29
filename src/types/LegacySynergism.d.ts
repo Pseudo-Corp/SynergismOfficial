@@ -11,6 +11,7 @@ export interface LegacyShopUpgrades {
     offeringAutoLevel: number
     obtainiumAutoLevel: number
     instantChallengeBought: boolean
+    instantChallenge2Bought: boolean
     cashGrabLevel: number
     antSpeedLevel: number
     talismanBought: boolean
