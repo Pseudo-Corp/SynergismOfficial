@@ -2,6 +2,8 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
+import type { IUpgradeData } from './UpgradeClass';
+import { DynamicUpgrade } from './UpgradeClass'
 import { toOrdinal } from './Utility'
 
 /**
@@ -11,8 +13,8 @@ import { toOrdinal } from './Utility'
  */
 export const updateSingularityStats = (): void => {
     const color = player.runelevels[6] > 0 ? 'green' : 'red';
-    const platonic = (player.singularityCount > 36) ? `Platonic Upgrade costs are multiplied by ${format(calculateSingularityDebuff('Platonic Costs'), 2, true)}.` : ``
-    const hepteract = (player.singularityCount > 50) ? `Hepteract Forge costs are multiplied by ${format(calculateSingularityDebuff('Hepteract Costs'), 2, true)}.` : ``
+    const platonic = (player.singularityCount > 36) ? `Platonic Upgrade costs are multiplied by ${format(calculateSingularityDebuff('Platonic Costs'), 2, true)}.` : ''
+    const hepteract = (player.singularityCount > 50) ? `Hepteract Forge costs are multiplied by ${format(calculateSingularityDebuff('Hepteract Costs'), 2, true)}.` : ''
     const str = `You are in the <span style="color: gold">${toOrdinal(player.singularityCount)} singularity</span>, and have<span style="color: gold"> ${format(player.goldenQuarks,0,true)} golden quarks.</span>
                  <br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
                  Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed'), 2, true)}
@@ -28,50 +30,25 @@ export const updateSingularityStats = (): void => {
     DOMCacheGetOrSet('singularityMultiline').innerHTML = str;
 }
 
-export interface ISingularityData {
-    name: string
-    description: string
-    level?: number
-    maxLevel: number
-    costPerLevel: number
-    toggleBuy?: number
+export interface ISingularityData extends IUpgradeData {
     goldenQuarksInvested?: number
     minimumSingularity?: number
-    effect? (n: number): {bonus: number | boolean, desc: string}
-    freeLevels?: number
 }
 
 /**
  * Singularity Upgrades are bought in the singularity tab, and all have their own
  * name, description, level and maxlevel, plus a feature to toggle buy on each.
  */
-export class SingularityUpgrade {
+export class SingularityUpgrade extends DynamicUpgrade  {
 
     // Field Initialization
-    private readonly name: string;
-    private readonly description: string;
-    public level = 0;
-    public freeLevels = 0;
-    private readonly maxLevel: number; //-1 = infinitely levelable
-    private readonly costPerLevel: number;
-    public toggleBuy = 1; //-1 = buy MAX (or 1000 in case of infinity levels!)
     public goldenQuarksInvested = 0;
     public minimumSingularity: number;
-    private readonly effect: (n: number) => {bonus: number | boolean, desc: string}
 
     public constructor(data: ISingularityData) {
-        this.name = data.name;
-        this.description = data.description;
-        this.level = data.level ?? this.level;
-        this.maxLevel = data.maxLevel;
-        this.costPerLevel = data.costPerLevel;
-        this.toggleBuy = data.toggleBuy ?? 1;
+        super(data)
         this.goldenQuarksInvested = data.goldenQuarksInvested ?? 0;
         this.minimumSingularity = data.minimumSingularity ?? 0;
-        this.freeLevels = data.freeLevels ?? 0;
-        this.effect = data.effect ?? function (n:number) {
-            return {bonus: n, desc: 'WIP not implemented'}
-        }
     }
 
     /**
@@ -106,7 +83,7 @@ export class SingularityUpgrade {
      * Retrieves the cost for upgrading the singularity upgrade once. Return 0 if maxed.
      * @returns A number representing how many Golden Quarks a player must have to upgrade once.
      */
-    private getCostTNL(): number {
+    getCostTNL(): number {
         let costMultiplier = (this.maxLevel === -1 && this.level >= 100) ? this.level / 50 : 1;
         costMultiplier *= (this.maxLevel === -1 && this.level >= 400) ? this.level / 100 : 1;
         return (this.maxLevel === this.level) ? 0: Math.ceil(this.costPerLevel * (1 + this.level) * costMultiplier);
