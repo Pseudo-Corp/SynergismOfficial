@@ -626,7 +626,7 @@ export const player: Player = {
     corruptionShowStats: true,
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    history: { ants: [], ascend: [], reset: [] },
+    history: { ants: [], ascend: [], reset: [], singularity: []},
     historyShowPerSecond: false,
 
     autoChallengeRunning: false,
@@ -1169,7 +1169,7 @@ const loadSynergy = async () => {
         }
 
         if (data.history === undefined) {
-            player.history = { ants: [], ascend: [], reset: [] };
+            player.history = { ants: [], ascend: [], reset: [], singularity: [] };
         } else {
             // See: https://discord.com/channels/677271830838640680/964168000360038481/964168002071330879
             const keys = Object.keys(blankSave.history) as (keyof typeof blankSave['history'])[];

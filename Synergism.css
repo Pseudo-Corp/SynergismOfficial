@@ -2552,6 +2552,10 @@ p[id$="BlessingsTotal"] {
     margin: 0 auto;
 }
 
+#historySingularity {
+    margin: 0 auto;
+}
+
 #historyTogglePerSecondButton {
     float: right;
     transition-duration: 0.15s;
@@ -2580,12 +2584,21 @@ p[id$="BlessingsTotal"] {
     white-space: nowrap;
 }
 
+#historySingularityTable {
+    min-width: 1180px;
+    white-space: nowrap;
+}
+
 .historyTableWrap {
     max-height: 650px;
     overflow-y: auto;
 }
 
 #historyAscend .historyTableWrap {
+    min-width: 1212px;
+}
+
+#historySingularity .historyTableWrap {
     min-width: 1212px;
 }
 
