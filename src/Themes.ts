@@ -4,7 +4,9 @@ export const toggleTheme = () => {
     const themeButton = DOMCacheGetOrSet('theme');
     const current = themeButton.textContent;
     if (current === 'Dark Mode') { //Switches to 'Darker Mode'
-        //As of now it removes from runes Orange BG, and removes .hover on buttons
+        //As of now it removes from runes Orange BG
+        //To change BG color add new class in Synergism.css (Line 30+); .remove old class and .add your new class
+        //If you are changing color of any button, then add !important in .hover for that button
         document.body.classList.remove('dark');
         document.body.classList.add('darker');
         DOMCacheGetOrSet('singularitybtn').style.backgroundColor = '#171717';
@@ -41,18 +43,6 @@ export const toggleTheme = () => {
     if (current === 'Darker Mode') { //Switches to 'Lighter Dark Mode'
         document.body.classList.remove('darker');
         document.body.classList.add('lightDark');
-        DOMCacheGetOrSet('singularitybtn').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune6').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune7').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune1').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune2').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune3').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune4').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune5').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('exportgame').style.backgroundColor = '#060606'
-        DOMCacheGetOrSet('importFileButton').style.backgroundColor = '#060606'
-        DOMCacheGetOrSet('savegame').style.backgroundColor = '#0c0c0f'
-        DOMCacheGetOrSet('deleteGame').style.backgroundColor = '#0c0c0f'
         DOMCacheGetOrSet('c15Rewards').style.backgroundColor = '#141319'
         DOMCacheGetOrSet('c15Rewards').style.borderColor = '#dda0dd'
         DOMCacheGetOrSet('platonicUpgradeDescriptions').style.backgroundColor = '#141319'
@@ -76,18 +66,6 @@ export const toggleTheme = () => {
     if (current === 'Lighter Dark Mode') { //Switches to 'Light Mode'
         document.body.classList.remove('lightDark');
         document.body.classList.add('light');
-        DOMCacheGetOrSet('singularitybtn').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune6').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune7').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune1').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune2').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune3').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune4').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('rune5').style.backgroundColor = '#171717';
-        DOMCacheGetOrSet('exportgame').style.backgroundColor = '#060606'
-        DOMCacheGetOrSet('importFileButton').style.backgroundColor = '#060606'
-        DOMCacheGetOrSet('savegame').style.backgroundColor = '#0c0c0f'
-        DOMCacheGetOrSet('deleteGame').style.backgroundColor = '#0c0c0f'
         DOMCacheGetOrSet('achievementcolorcode2').style.color = '#ff01f3'
         DOMCacheGetOrSet('corruptionDescription').style.color = '#ff01f3'
         DOMCacheGetOrSet('corruptionTesseractsValue').style.color = '#ff01f3'
@@ -113,35 +91,35 @@ export const toggleTheme = () => {
 
         themeButton.textContent = 'Light Mode';
     }
-    // You can add new Theme here, right before 'Dark Mode'; Dont forget to change current === 'Light Mode'
+    // You can add new Theme here, right before 'Dark Mode'; Dont forget to change 'current' and .remove if using new class
     if (current === 'Light Mode') { //Switches to 'Dark Mode'
         document.body.classList.remove('light');
         document.body.classList.add('dark');
-        DOMCacheGetOrSet('exportgame').style.backgroundColor = '#111'
-        DOMCacheGetOrSet('importFileButton').style.backgroundColor = '#111'
-        DOMCacheGetOrSet('savegame').style.backgroundColor = '#111'
-        DOMCacheGetOrSet('deleteGame').style.backgroundColor = '#111'
+        DOMCacheGetOrSet('exportgame').style.backgroundColor = '#171717'
+        DOMCacheGetOrSet('importFileButton').style.backgroundColor = '#00000000'
+        DOMCacheGetOrSet('savegame').style.backgroundColor = '#171717'
+        DOMCacheGetOrSet('deleteGame').style.backgroundColor = '#171717'
         DOMCacheGetOrSet('achievementcolorcode2').style.color = '#800080'
         DOMCacheGetOrSet('corruptionDescription').style.color = '#9400d3'
         DOMCacheGetOrSet('corruptionTesseractsValue').style.color = '#9400d3'
         DOMCacheGetOrSet('corruptionTotalScore').style.color = '#9932cc'
         DOMCacheGetOrSet('corruptionAntExponentValue').style.color = '#9932cc'
         DOMCacheGetOrSet('corruptionIntroduction').style.color = '#9932cc'
-        DOMCacheGetOrSet('c15Rewards').style.backgroundColor = '#111'
+        DOMCacheGetOrSet('c15Rewards').style.backgroundColor = '#00000000'
         DOMCacheGetOrSet('c15Rewards').style.borderColor = '#dda0dd'
-        DOMCacheGetOrSet('platonicUpgradeDescriptions').style.backgroundColor = '#111'
+        DOMCacheGetOrSet('platonicUpgradeDescriptions').style.backgroundColor = '#00000000'
         DOMCacheGetOrSet('platonicUpgradeDescriptions').style.borderColor = '#dda0dd'
-        DOMCacheGetOrSet('platonicUpgradePics').style.backgroundColor = '#111'
+        DOMCacheGetOrSet('platonicUpgradePics').style.backgroundColor = '#00000000'
         DOMCacheGetOrSet('platonicUpgradePics').style.borderColor = '#dda0dd'
-        DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '#111'
+        DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '#00000000'
         DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#ffff00'
-        DOMCacheGetOrSet('actualShop').style.backgroundColor = '#111'
+        DOMCacheGetOrSet('actualShop').style.backgroundColor = '#00000000'
         DOMCacheGetOrSet('actualShop').style.borderColor = '#dda0dd'
-        DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = '#111'
+        DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = '#00000000'
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#ffa500'
-        DOMCacheGetOrSet('heptGrid').style.backgroundColor = '#111'
+        DOMCacheGetOrSet('heptGrid').style.backgroundColor = '#00000000'
         DOMCacheGetOrSet('heptGrid').style.borderColor = '#dda0dd'
-        DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.backgroundColor = '#111'
+        DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.backgroundColor = '#00000000'
         DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.borderColor = '#dda0dd'
 
         themeButton.textContent = 'Dark Mode';

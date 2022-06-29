@@ -656,7 +656,7 @@ nav li:hover {
 }
 
 #importFileButton:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 #savegame,
@@ -668,7 +668,7 @@ nav li:hover {
 
 #savegame:hover,
 #deleteGame:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 #exportgame {
@@ -679,7 +679,7 @@ nav li:hover {
 }
 
 #exportgame:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 /* Third party URLs (Discord, Patreon, patch notes) */
