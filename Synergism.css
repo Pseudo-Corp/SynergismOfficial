@@ -2120,6 +2120,30 @@ nav li:hover {
     background-color: #333;
 }
 
+.autoOpensBtn {
+    position: absolute;
+    margin-left: 4px;
+}
+
+.autoOpens {
+    width: 100px;
+    height: 30px;
+    background-color: black;
+    transition-duration: 0.15s;
+}
+
+.autoOpens:hover {
+    background-color: #333;
+}
+
+.autoOpensInput {
+    display: flex;
+    width: 100px;
+    height: 18px;
+    color: white;
+    background-color: black;
+}
+
 p[id$="BlessingsTotal"] {
     padding: 15px;
 }

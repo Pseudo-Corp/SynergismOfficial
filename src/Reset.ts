@@ -175,6 +175,23 @@ export const updateTesseractAutoBuyAmount = () => {
     player.tesseractAutoBuyerAmount = Math.max(value, 0);
 }
 
+export const updateAutoCubesOpens = (i: number) => {
+    let value = null
+    if (i === 1) {
+        value = Number((DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value) || 0;
+        player.openCubes = Math.max(Math.min(value, 100), 0);
+    } else if (i === 2) {
+        value = Number((DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value) || 0;
+        player.openTesseracts = Math.max(Math.min(value, 100), 0);
+    } else if (i === 3) {
+        value = Number((DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value) || 0;
+        player.openHypercubes = Math.max(Math.min(value, 100), 0);
+    } else if (i === 4) {
+        value = Number((DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value) || 0;
+        player.openPlatonicsCubes = Math.max(Math.min(value, 100), 0);
+    }
+}
+
 const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
     const offeringsGiven = calculateOfferings(input);
     const isChallenge = ['enterChallenge', 'leaveChallenge'].includes(from);
@@ -647,6 +664,22 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                 }
             }
         }
+
+        //Auto open Cubes. If to remove !=0, game will lag if it will be set 0
+        if (player.autoopenCubes && player.openCubes != 0 && player.cubeUpgrades[51] > 0) {
+            player.wowCubes.open(Number(player.wowCubes) * player.openCubes / 100, false)
+        }
+        if (player.autoopenTesseracts && player.openTesseracts != 0) {
+            if (player.tesseractAutoBuyerToggle != 1 || player.resettoggle4 === 2) {
+                player.wowTesseracts.open(Number(player.wowTesseracts) * player.openTesseracts / 100, false)
+            }
+        }
+        if (player.autoopenHypercubes && player.openHypercubes != 0) {
+            player.wowHypercubes.open(Number(player.wowHypercubes) * player.openHypercubes / 100, false)
+        }
+        if (player.autoopenPlatonicsCubes && player.openPlatonicsCubes != 0) {
+            player.wowPlatonicCubes.open(Number(player.wowPlatonicCubes) * player.openPlatonicsCubes / 100, false)
+        }
     }
 
     //Always unlocks
@@ -944,6 +977,14 @@ export const singularity = async (): Promise<void> => {
     hold.autoTesseracts = player.autoTesseracts
     hold.tesseractAutoBuyerToggle = player.tesseractAutoBuyerToggle
     hold.tesseractAutoBuyerAmount = player.tesseractAutoBuyerAmount
+    hold.autoopenCubes = player.autoopenCubes
+    hold.openCubes = player.openCubes
+    hold.autoopenTesseracts = player.autoopenTesseracts
+    hold.openTesseracts = player.openTesseracts
+    hold.autoopenHypercubes = player.autoopenHypercubes
+    hold.openHypercubes = player.openHypercubes
+    hold.autoopenPlatonicsCubes = player.autoopenPlatonicsCubes
+    hold.openPlatonicsCubes = player.openPlatonicsCubes
     hold.historyShowPerSecond = player.historyShowPerSecond
     hold.exporttest = player.exporttest
     hold.dayTimer = player.dayTimer

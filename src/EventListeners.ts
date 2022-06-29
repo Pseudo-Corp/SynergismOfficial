@@ -1,5 +1,5 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHepteractAutoPercentage } from './Toggles'
-import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHepteractAutoPercentage } from './Toggles'
+import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels, buyAllBlessings } from './Buy'
 import { crystalupgradedescriptions, constantUpgradeDescriptions, buyConstantUpgrades, upgradedescriptions } from './Upgrades'
@@ -212,6 +212,16 @@ export const generateEventHandlers = () => {
     // Tesseract-specific of the above. I don't know why I didn't standardize names here.
     DOMCacheGetOrSet('tesseractautobuytoggle').addEventListener('click', () => toggleautobuytesseract())
     DOMCacheGetOrSet('tesseractAmount').addEventListener('blur', () => updateTesseractAutoBuyAmount())
+    // Auto Opening of Cubes
+    DOMCacheGetOrSet('cubeOpensInput').addEventListener('blur', () => updateAutoCubesOpens(1))
+    DOMCacheGetOrSet('tesseractsOpensInput').addEventListener('blur', () => updateAutoCubesOpens(2))
+    DOMCacheGetOrSet('hypercubesOpensInput').addEventListener('blur', () => updateAutoCubesOpens(3))
+    DOMCacheGetOrSet('platonicCubeOpensInput').addEventListener('blur', () => updateAutoCubesOpens(4))
+    DOMCacheGetOrSet('openCubes').addEventListener('click', () => toggleautoopensCubes(1))
+    DOMCacheGetOrSet('openTesseracts').addEventListener('click', () => toggleautoopensCubes(2))
+    DOMCacheGetOrSet('openHypercubes').addEventListener('click', () => toggleautoopensCubes(3))
+    DOMCacheGetOrSet('openPlatonicCube').addEventListener('click', () => toggleautoopensCubes(4))
+
 
     // UPGRADES TAB
     // For all upgrades in the Upgrades Tab (125) count, we have the same mouseover event. So we'll work on those first.
@@ -425,9 +435,7 @@ export const generateEventHandlers = () => {
     // WOW! Cubes Tab
     //Part 0: Subtab UI
     for (let index = 0; index < 7; index++) {
-
         DOMCacheGetOrSet(`switchCubeSubTab${index+1}`).addEventListener('click', () => toggleSubTab(8, index))
-
     }
 
     //Part 1: Cube Upgrades

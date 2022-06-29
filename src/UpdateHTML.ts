@@ -375,6 +375,27 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('singularitytab').style.display = 'block'):
         (DOMCacheGetOrSet('singularitytab').style.display = 'none');
 
+    // Auto Open Cubes toggle
+    if (player.singularityCount >= 35) {
+        (DOMCacheGetOrSet('openCubes').style.display = 'block');
+        (DOMCacheGetOrSet('cubeOpensInput').style.display = 'block');
+        (DOMCacheGetOrSet('openTesseracts').style.display = 'block');
+        (DOMCacheGetOrSet('tesseractsOpensInput').style.display = 'block');
+        (DOMCacheGetOrSet('openHypercubes').style.display = 'block');
+        (DOMCacheGetOrSet('hypercubesOpensInput').style.display = 'block');
+        (DOMCacheGetOrSet('openPlatonicCube').style.display = 'block');
+        (DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'block');
+    } else {
+        (DOMCacheGetOrSet('openCubes').style.display = 'none');
+        (DOMCacheGetOrSet('cubeOpensInput').style.display = 'none');
+        (DOMCacheGetOrSet('openTesseracts').style.display = 'none');
+        (DOMCacheGetOrSet('tesseractsOpensInput').style.display = 'none');
+        (DOMCacheGetOrSet('openHypercubes').style.display = 'none');
+        (DOMCacheGetOrSet('hypercubesOpensInput').style.display = 'none');
+        (DOMCacheGetOrSet('openPlatonicCube').style.display = 'none');
+        (DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'none');
+    }
+
     // Singularity confirmation toggle pic
     player.singularityCount > 0 && player.ascensionCount > 0 ?
         (DOMCacheGetOrSet('settingpic6').style.display = 'block'):
@@ -387,8 +408,6 @@ export const revealStuff = () => {
     (player.runelevels[6] > 0 || player.singularityCount > 0) ?
         (DOMCacheGetOrSet('singularitybtn').style.display = 'block') :
         (DOMCacheGetOrSet('singularitybtn').style.display = 'none');
-
-
 
     DOMCacheGetOrSet('ascensionStats').style.visibility = (player.achievements[197] > 0 || player.singularityCount > 0) ? 'visible' : 'hidden';
     DOMCacheGetOrSet('ascHyperStats').style.display = player.challengecompletions[13] > 0 ? '' : 'none';
