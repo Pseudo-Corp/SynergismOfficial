@@ -525,6 +525,7 @@ export const player: Player = {
     wowHypercubes: new WowHypercubes(0),
     wowPlatonicCubes: new WowPlatonicCubes(0),
     wowAbyssals: 0,
+    wowOcteracts: 0,
     cubeBlessings: {
         accelerator: 0,
         multiplier: 0,
