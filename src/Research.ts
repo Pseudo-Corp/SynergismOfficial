@@ -30,7 +30,7 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
         }
 
         // Checks against researches invalid or not unlocked.
-        while (!isResearchUnlocked(player.autoResearch) && player.autoResearch < 200 && player.autoResearch >= 1) {
+        while (!isResearchUnlocked(player.autoResearch) && player.autoResearch < 200 && player.autoResearch >= 76) {
             player.roombaResearchIndex += 1;
             player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex];
         }

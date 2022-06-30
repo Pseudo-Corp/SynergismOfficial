@@ -1,4 +1,4 @@
-import { player, loadingDate } from './Synergism'
+import { player, getTimePinnedToLoadDate } from './Synergism'
 import { Globals as G } from './Variables';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -52,18 +52,23 @@ const events: Record<string, HolidayData> = {
     },
     // Last active event
     last: {
-        name: '&#128151 2.9.7 Event! &#128151;',
-        color: 'greenyellow',
+        name: '&#128151 Community Event! &#128151 [Musical Link Here!]',
+        color: 'Orange',
         url: 'https://www.youtube.com/watch?v=znxoba0k000',
         everyYear: false,
-        start: '06/05/2022 00:00:00',
-        end: '06/12/2022 23:59:59',
+        start: '06/27/2022 00:00:00',
+        end: '07/03/2022 23:59:59',
         notice: 3,
         event: true,
         buffs: {
-            quark: 1.25,
-            powderConversion: 0.1337,
-            globalSpeed: 2
+            quark: 0.4,
+            powderConversion: 0.4,
+            globalSpeed: 1.75,
+            ascensionSpeed: 0.75,
+            ascensionScore: 0.1,
+            antSacrifice: 0.75,
+            offering: 1.5,
+            obtainium: 1.5
         }
     }
     // Event example
@@ -178,47 +183,49 @@ export const eventCheck = () => {
     if (!player.dayCheck) {
         return;
     }
-    const now = new Date(loadingDate.getTime() + performance.now());
+    const now = new Date(getTimePinnedToLoadDate());
     let start: Date;
     let end: Date;
 
     // Disable the event if there is any fraud, such as setting a device clock in the past
+    /* TODO: Figure out why some people get tagged for cheating even when they are playing legitimately
+             I have temporarily disabled the checks. */
     nowEvent = events.default;
-    if (now.getTime() >= player.dayCheck.getTime() && now.getTime() > loadingDate.getTime()) {
-        // Update currently valid events
-        for (const e in events) {
-            const event = events[e];
-            if (event.name !== 'default' && event.event === true) {
+    //if (now.getTime() >= player.dayCheck.getTime()) {
+    // Update currently valid events
+    for (const e in events) {
+        const event = events[e];
+        if (event.name !== 'default' && event.event === true) {
+            start = new Date(event.start);
+            end = new Date(event.end);
+            if (event.everyYear === true) {
+                const nowFullYear = now.getFullYear();
                 start = new Date(event.start);
                 end = new Date(event.end);
-                if (event.everyYear === true) {
-                    const nowFullYear = now.getFullYear();
-                    start = new Date(event.start);
-                    end = new Date(event.end);
-                    start.setFullYear(nowFullYear);
-                    end.setFullYear(nowFullYear);
-                    if (start.getTime() > end.getTime()) {
-                        end.setFullYear(nowFullYear + 1);
-                    }
-                    if (now.getTime() >= start.getTime() - 31536000000 && now.getTime() <= end.getTime() - 31536000000) {
-                        start.setFullYear(start.getFullYear() - 1);
-                        end.setFullYear(end.getFullYear() - 1);
-                    }
-                    if (now.getTime() >= end.getTime() + 86400000) {
-                        continue;
-                    }
-                } else if (now.getTime() >= end.getTime() + 86400000) {
+                start.setFullYear(nowFullYear);
+                end.setFullYear(nowFullYear);
+                if (start.getTime() > end.getTime()) {
+                    end.setFullYear(nowFullYear + 1);
+                }
+                if (now.getTime() >= start.getTime() - 31536000000 && now.getTime() <= end.getTime() - 31536000000) {
+                    start.setFullYear(start.getFullYear() - 1);
+                    end.setFullYear(end.getFullYear() - 1);
+                }
+                if (now.getTime() >= end.getTime() + 86400000) {
                     continue;
                 }
-                if (now.getTime() >= start.getTime() - event.notice * 86400000 && now.getTime() <= end.getTime()) {
-                    nowEvent = event;
-                    if (now.getTime() >= start.getTime() && now.getTime() <= end.getTime()) {
-                        break;
-                    }
+            } else if (now.getTime() >= end.getTime() + 86400000) {
+                continue;
+            }
+            if (now.getTime() >= start.getTime() - event.notice * 86400000 && now.getTime() <= end.getTime()) {
+                nowEvent = event;
+                if (now.getTime() >= start.getTime() && now.getTime() <= end.getTime()) {
+                    break;
                 }
             }
         }
     }
+    //}
     const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement;
     const eventBuffs = DOMCacheGetOrSet('eventBuffs');
     if (nowEvent.event === true) {
@@ -257,8 +264,7 @@ export const eventCheck = () => {
     } else {
         G['isEvent'] = false;
         DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE';
-        eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' :
-            `You have set a date operation that is a prohibited act. To receive events and daily rewards, you need to proceed to ${player.dayCheck} or import normal save data.`;
+        eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' : ''
         eventBuffs.style.color = 'red';
         happyHolidays.innerHTML = '';
         happyHolidays.href = '';

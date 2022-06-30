@@ -279,7 +279,12 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: false, unlocked: player.achievements[141] > 0, buttonID: 'corrLoadoutsBtn'}]
         },
         10: {
-            subTabList: []}
+            tabSwitcher: toggleSingularityScreen,
+            subTabList: [
+                {subTabID: 1, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab1'},
+                {subTabID: 2, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab2'},
+                {subTabID: 3, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab3'}]
+        }
     }
     return subTabs[mainTab]!;
 }
@@ -562,6 +567,24 @@ export const toggleautoenhance = () => {
     }
 
     player.autoEnhanceToggle = !player.autoEnhanceToggle;
+}
+
+export const toggleSingularityScreen = (index: number) => {
+    const screens = ['shop', 'penalties', 'perks'];
+    G['singularityscreen'] = screens[index - 1];
+
+    for (let i = 1; i <= 3; i++) {
+        const a = DOMCacheGetOrSet('toggleSingularitySubTab' + i);
+        const b = DOMCacheGetOrSet('singularityContainer' + i);
+        if (i === index) {
+            a.style.backgroundColor = 'crimson'
+            b.style.display = 'block';
+        } else {
+            a.style.backgroundColor = ''
+            b.style.display = 'none';
+        }
+    }
+    player.subtabNumber = index - 1
 }
 
 interface ChadContributor {

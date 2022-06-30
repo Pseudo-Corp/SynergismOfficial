@@ -532,6 +532,13 @@ export const visualUpdateSettings = () => {
 
 }
 
+export const visualUpdateSingularity = () => {
+    if (G['currentTab'] !== 'singularity') {
+        return
+    }
+    DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks) + ' Golden Quarks!'
+}
+
 export const visualUpdateShop = () => {
     if (G['currentTab'] !== 'shop') {
         return

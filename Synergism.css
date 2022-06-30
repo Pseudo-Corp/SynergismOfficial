@@ -31,8 +31,16 @@ body.dark {
     background-color: #111;
 }
 
+body.darker {
+    background-color: #0c0c0f;
+}
+
+body.lightDark {
+    background-color: #1c1b22;
+}
+
 body.light {
-    background-color: gray;
+    background-color: #4c495a;
 }
 
 a {
@@ -649,7 +657,7 @@ nav li:hover {
 }
 
 #importFileButton:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 #savegame,
@@ -661,7 +669,7 @@ nav li:hover {
 
 #savegame:hover,
 #deleteGame:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 #exportgame {
@@ -672,7 +680,7 @@ nav li:hover {
 }
 
 #exportgame:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 /* Third party URLs (Discord, Patreon, patch notes) */
@@ -1810,7 +1818,8 @@ nav li:hover {
     margin-top: 10px;
 }
 
-#quarksDisplay {
+#quarksDisplay,
+#goldenQuarksDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1819,6 +1828,12 @@ nav li:hover {
 #quarkamount {
     font-size: 1.2em;
     color: aqua;
+    margin-left: 5px;
+}
+
+#goldenQuarkamount {
+    font-size: 1.2em;
+    color: gold;
     margin-left: 5px;
 }
 
@@ -3046,6 +3061,14 @@ header #obtainiumDisplay {
     color: orange;
 }
 
+#ascSingularityCount {
+    color: gold;
+}
+
+#ascSingLen {
+    color: gold;
+}
+
 #tabBorder {
     height: 2px;
     position: relative;
@@ -3285,6 +3308,25 @@ header #obtainiumDisplay {
     text-align: center;
 }
 
+#singularityTabsToggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px;
+}
+
+#singularityTabsToggle > button {
+    height: 30px;
+    width: 100px;
+    margin: 0 7px;
+    text-align: center;
+    transition-duration: 0.15s;
+}
+
+#singularityTabsToggle > button:hover {
+    background-color: #333;
+}
+
 #singularityUpgradeContainer {
     display: flex;
     flex-direction: column;
@@ -3306,10 +3348,15 @@ header #obtainiumDisplay {
     margin: 2px;
 }
 
-#singularityMultiline {
+#singularityPenaltiesMultiline,
+#singularityPerksMultiline {
     white-space: pre-line;
 }
 
 #testingMultiline {
     white-space: pre-line;
+}
+
+.newPerk {
+    color: gold;
 }

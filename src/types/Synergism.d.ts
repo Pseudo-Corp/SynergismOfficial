@@ -538,6 +538,7 @@ export interface Player {
     dailyPowderResetUses: number
 
     singularityCount: number
+    singularityCounter: number
     goldenQuarks: number
     quarksThisSingularity: number
 
@@ -748,6 +749,7 @@ export interface GlobalVariables {
 
     runescreen: string
     settingscreen: string
+    singularityscreen: string
 
     talismanResourceObtainiumCosts: number[]
     talismanResourceOfferingCosts: number[]
