@@ -1,4 +1,4 @@
-import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll, loadingDate } from './Synergism';
+import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll, getTimePinnedToLoadDate } from './Synergism';
 import { sumContents, productContents, getElementById } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
@@ -1768,7 +1768,7 @@ export const dailyResetCheck = () => {
     if (!player.dayCheck) {
         return;
     }
-    const now = new Date(loadingDate.getTime() + performance.now());
+    const now = new Date(getTimePinnedToLoadDate());
     const day = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const h = now.getHours()
     const m = now.getMinutes()
