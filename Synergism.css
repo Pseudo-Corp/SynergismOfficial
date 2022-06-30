@@ -43,6 +43,10 @@ body.light {
     background-color: #4c495a;
 }
 
+body.Dracula {
+    background-color: #131319;
+}
+
 a {
     color: white;
     text-decoration: none;
@@ -505,7 +509,7 @@ nav li:hover {
 }
 
 .subTabWrapper > button:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 #buyamountcoin {
@@ -713,7 +717,7 @@ nav li:hover {
 }
 
 .promocodeButton:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 #promocodeinfo {
@@ -2485,7 +2489,7 @@ p[id$="BlessingsTotal"] {
 }
 
 .subtabSwitcher > button.buttonActive {
-    background-color: crimson;
+    background-color: crimson !important;
 }
 
 .subtabContent {
