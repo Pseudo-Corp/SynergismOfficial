@@ -17,13 +17,13 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import { smallestInc } from './Utility';
 
 const antdesc: Record<string, string> = {
-    antdesc1: 'Gain a worker ant for your everyday life. Gathers Galactic Crumbs. Essential!',
-    antdesc2: 'Gain a breeder ant that produces worker ants automatically!',
-    antdesc3: 'Gain a meta-breeder ant that produces breeder ants automatically!',
-    antdesc4: 'Gain a mega-breeder ant that produces meta-breeder ants automatically!',
-    antdesc5: 'Gain a Queen ant that produces mega-breeder ants automatically!',
-    antdesc6: 'Gain a Lord Royal ant that produces Queen ants automatically!',
-    antdesc7: 'Gain an ALMIGHTY ANT that produces Lord Royal ants automatically!',
+    antdesc1: 'Gain a Worker Ant for your everyday life. Gathers Galactic Crumbs. Essential!',
+    antdesc2: 'Gain a Breeder Ant that produces Worker Ants automatically!',
+    antdesc3: 'Gain a Meta-breeder Ant that produces Breeder Ants automatically!',
+    antdesc4: 'Gain a Mega-breeder Ant that produces Meta-breeder Ants automatically!',
+    antdesc5: 'Gain a Queen Ant that produces Mega-breeder Ants automatically!',
+    antdesc6: 'Gain a Lord Royal Ant that produces Queen Ants automatically!',
+    antdesc7: 'Gain an ALMIGHTY ANT that produces Lord Royal Ants automatically!',
     antdesc8: 'Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!'
 }
 

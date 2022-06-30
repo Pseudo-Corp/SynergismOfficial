@@ -80,7 +80,7 @@ export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCos
         const TalismanName = talismanResourceCosts[type].name;
 
         el.textContent = 'Cost to buy ' + format(talismanCostInfo.buyAmount) + ' ' + TalismanName + (talismanCostInfo.buyAmount>1?'s':'') + ': ';
-        el.textContent += format(talismanCostInfo.obtainiumCost) + ' Obtainium and ' + format(talismanCostInfo.offeringCost) + ' offerings.';
+        el.textContent += format(talismanCostInfo.obtainiumCost) + ' Obtainium and ' + format(talismanCostInfo.offeringCost) + ' Offerings.';
     } else {
         // Buy All
         el.textContent = 'Click to buy every type of Talisman Shards and Fragments, if affordable';

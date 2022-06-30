@@ -51,7 +51,7 @@ export const getMaxChallenges = (i: number) => {
     if (i <= 15 && i > 10) {
         //Challenge 15 has no formal cap, so return 9001.
         if (i === 15) {
-            return 9001
+            return 0
         }
         //Start with base of 30 max completions
         maxChallenge = 30;
@@ -327,13 +327,13 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     }
     if (i === 15 && G['challengefocus'] === 15) {
         a.textContent = 'SADISTIC CHALLENGE II || ' + player.challengecompletions[15] + '/' + format(maxChallenges) +  ' Completions'
-        b.textContent = 'The worst sin a man can do is making others suffer.'
-        c.textContent = 'Ascend and reach the goal but you\'re stuck in all corruptions level 11 and must stay that way.'
-        d.textContent = 'Goal: ' + format(challengeRequirement(i, player.challengecompletions[i], 15)) + ' Coins, but get bonuses based on your best attempt.'
-        e.textContent = 'You have no idea '
-        f.textContent = 'what you have just done '
-        g.textContent = 'the ant god shakes their mighty head '
-        h.textContent = 'Who knows. Platonic sure doesn\'t.'
+        b.textContent = 'The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.'
+        c.textContent = 'Ascend and reach the goal but you\'re stuck in all corruptions at level 11, and Ant production ^0.01.'
+        d.textContent = 'You will find no goal in sight, but get bonuses based on your best attempt.'
+        e.textContent = 'Folly of mankind: '
+        f.textContent = 'to believe they can defeat '
+        g.textContent = 'what Ant God labored '
+        h.textContent = 'You would break the universe if you could!'
         k.textContent = 'Start <[(Sadistic Challenge II)]>'
         l.textContent = ''
         m.textContent = ''

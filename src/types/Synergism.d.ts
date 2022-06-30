@@ -286,6 +286,7 @@ export interface Player {
     resettoggle1: number
     resettoggle2: number
     resettoggle3: number
+    resettoggle4: number
 
     tesseractAutoBuyerToggle: number
     tesseractAutoBuyerAmount: number
@@ -409,7 +410,6 @@ export interface Player {
     wowHypercubes: WowHypercubes
     wowPlatonicCubes: WowPlatonicCubes
     wowAbyssals: number
-    wowOcteracts: number
     cubeBlessings: {
         accelerator: number
         multiplier: number
@@ -529,6 +529,7 @@ export interface Player {
     dailyPowderResetUses: number
 
     singularityCount: number
+    singularityCounter: number
     goldenQuarks: number
     quarksThisSingularity: number
 
@@ -739,6 +740,7 @@ export interface GlobalVariables {
 
     runescreen: string
     settingscreen: string
+    singularityscreen: string
 
     talismanResourceObtainiumCosts: number[]
     talismanResourceOfferingCosts: number[]

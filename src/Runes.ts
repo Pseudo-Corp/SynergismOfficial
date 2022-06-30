@@ -32,19 +32,19 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
     }
     if (i === 4) {
         if (updatelevelup) {
-            DOMCacheGetOrSet('runeshowlevelup').textContent = '+0.125% building cost growth delay per level, +0.0625% offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/1100) Tax growth multiplier AFTER level 400'
+            DOMCacheGetOrSet('runeshowlevelup').textContent = '+0.125% building cost growth delay per level, +0.0625% Offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/1100) Tax growth multiplier AFTER level 400'
         }
         DOMCacheGetOrSet('runeshowpower4').textContent = 'Thrift Rune Bonus: ' + 'Delay all producer cost increases by ' + (G['rune4level'] / 8 * m).toPrecision(3) + '%. Offering recycle chance: +' + Math.min(25, G['rune4level'] / 16) + '%. -' + (99 * (1 - Math.pow(4, Math.min(0, (400 - G['rune4level']) / 1100)))).toPrecision(4) + '% Tax Growth'
     }
     if (i === 5) {
         if (updatelevelup) {
-            DOMCacheGetOrSet('runeshowlevelup').textContent = '~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, +0.005 base offerings for each tier per level'
+            DOMCacheGetOrSet('runeshowlevelup').textContent = '~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, +0.005 base Offerings for each tier per level'
         }
         DOMCacheGetOrSet('runeshowpower5').textContent = 'S. Intellect Rune Bonus: ' + 'Obtainium gain x' + format((1 + G['rune5level'] / 200 * m * SILevelMult), 2, true) + '. Ant Speed: x' + format(1 + Math.pow(G['rune5level'] * m * SILevelMult, 2) / 2500) + '. Base Offerings: +' + format((G['rune5level'] * m * SILevelMult * 0.005), 3, true)
     }
     if (i === 6) {
         if (updatelevelup) {
-            DOMCacheGetOrSet('runeshowlevelup').textContent = '+0.2% Quarks, +1% all cube types per level! Start with +10% Quarks.'
+            DOMCacheGetOrSet('runeshowlevelup').textContent = '+0.2% Quarks, +1% all Cube types per level! Start with +10% Quarks.'
         }
         DOMCacheGetOrSet('runeshowpower6').textContent = 'IA Rune Bonus: ' + ' Quark Gain +' + format(10 + 15/75 * calculateEffectiveIALevel(), 1, true) + '%, Ascensions give +' + format(1 * calculateEffectiveIALevel(), 0, true) + '% more of all cube types.'
     }
