@@ -632,4 +632,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.shopBuyMaxToggle = false;
         player.shopConfirmationToggle = true;
     }
+
+    if (data.wowOcteracts === undefined) {
+        player.wowOcteracts = 0;
+    }
 }
