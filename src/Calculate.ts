@@ -886,7 +886,6 @@ export const calculateOffline = async (forceTime = 0) => {
     addTimers('quarks', timeAdd);
     addTimers('goldenQuarks', timeAdd);
     addTimers('singularity', timeAdd);
-    
 
     player.prestigeCount += resetAdd.prestige;
     player.transcendCount += resetAdd.transcension;
