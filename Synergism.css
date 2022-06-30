@@ -31,8 +31,16 @@ body.dark {
     background-color: #111;
 }
 
+body.darker {
+    background-color: #0c0c0f;
+}
+
+body.lightDark {
+    background-color: #1c1b22;
+}
+
 body.light {
-    background-color: gray;
+    background-color: #4c495a;
 }
 
 a {
@@ -648,7 +656,7 @@ nav li:hover {
 }
 
 #importFileButton:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 #savegame,
@@ -660,7 +668,7 @@ nav li:hover {
 
 #savegame:hover,
 #deleteGame:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 #exportgame {
@@ -671,7 +679,7 @@ nav li:hover {
 }
 
 #exportgame:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 /* Third party URLs (Discord, Patreon, patch notes) */
