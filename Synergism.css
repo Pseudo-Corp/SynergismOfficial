@@ -3032,6 +3032,10 @@ header #obtainiumDisplay {
     color: gold;
 }
 
+#ascSingLen {
+    color: gold;
+}
+
 #tabBorder {
     height: 2px;
     position: relative;

@@ -674,6 +674,7 @@ export const player: Player = {
         time: 0
     },
     singularityCount: 0,
+    singularityCounter: 0,
     goldenQuarks: 0,
     quarksThisSingularity: 0,
 
