@@ -3390,7 +3390,7 @@ const loadingBasePerfTick = performance.now();
 // The returned time is pinned to when the page itself was loaded to remain
 // resilient against changed system clocks
 export const getTimePinnedToLoadDate = () => {
-  return loadingDate.getTime() + (performance.now() - loadingBasePerfTick);
+    return loadingDate.getTime() + (performance.now() - loadingBasePerfTick);
 }
 
 const tick = () => {
