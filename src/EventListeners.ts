@@ -424,7 +424,7 @@ export const generateEventHandlers = () => {
 
     // WOW! Cubes Tab
     //Part 0: Subtab UI
-    for (let index = 0; index < 8; index++) {
+    for (let index = 0; index < 7; index++) {
 
         DOMCacheGetOrSet(`switchCubeSubTab${index+1}`).addEventListener('click', () => toggleSubTab(8, index))
 
