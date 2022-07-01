@@ -27,7 +27,14 @@ export const hotkeys = new Map<string, [string,() => unknown]>([
     ['ARROWUP', ['Back a subtab', () => keyboardTabChange(-1, false)]],
     ['ARROWDOWN', ['Next subtab', () => keyboardTabChange(1, false)]],
     ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension')]],
-    ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge')]], // Its already checks if inside Asc. Challenge
+    ['SHIFT+E', ['Exit Asc. Challenge', () => {
+        if (player.currentChallenge.ascension !== 0) {
+            void resetCheck('ascensionChallenge', false, true)
+        }
+        if (player.autoChallengeRunning) {
+            toggleChallengeSweep()
+        }
+    }]],
     ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999)]],
     ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity')]]
 ]);

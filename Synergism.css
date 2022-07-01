@@ -31,16 +31,8 @@ body.dark {
     background-color: #111;
 }
 
-body.darker {
-    background-color: #0c0c0f;
-}
-
-body.lightDark {
-    background-color: #1c1b22;
-}
-
 body.light {
-    background-color: #4c495a;
+    background-color: gray;
 }
 
 a {
@@ -656,7 +648,7 @@ nav li:hover {
 }
 
 #importFileButton:hover {
-    background-color: #333 !important;
+    background-color: #333;
 }
 
 #savegame,
@@ -668,7 +660,7 @@ nav li:hover {
 
 #savegame:hover,
 #deleteGame:hover {
-    background-color: #333 !important;
+    background-color: #333;
 }
 
 #exportgame {
@@ -679,7 +671,7 @@ nav li:hover {
 }
 
 #exportgame:hover {
-    background-color: #333 !important;
+    background-color: #333;
 }
 
 /* Third party URLs (Discord, Patreon, patch notes) */
@@ -851,28 +843,6 @@ nav li:hover {
     width: 50%;
     margin: 0 auto;
     overflow-wrap: break-word;
-}
-
-.NotificationToggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.achNotification {
-    flex-grow: unset;
-    padding-left: 4px;
-}
-
-.nonSquare {
-    width: 39px;
-    height: 20px;
-    transition-duration: 0.15s;
-    margin-left: 5px;
-}
-
-.nonSquare:hover {
-    background-color: #333;
 }
 
 /* Removes giant space between paragraphs */
@@ -1817,8 +1787,7 @@ nav li:hover {
     margin-top: 10px;
 }
 
-#quarksDisplay,
-#goldenQuarksDisplay {
+#quarksDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1827,12 +1796,6 @@ nav li:hover {
 #quarkamount {
     font-size: 1.2em;
     color: aqua;
-    margin-left: 5px;
-}
-
-#goldenQuarkamount {
-    font-size: 1.2em;
-    color: gold;
     margin-left: 5px;
 }
 
@@ -2178,11 +2141,6 @@ p[id$="BlessingsTotal"] {
     justify-content: center;
 }
 
-.heptNotification {
-    height: 20px;
-    width: 20px;
-}
-
 .cubeBonus {
     margin-left: -2px;
     margin-top: 5px;
@@ -2319,18 +2277,15 @@ p[id$="BlessingsTotal"] {
 }
 
 #tesseractautobuytoggle,
-#tesseractautobuymode,
 #tesseractAmount {
     width: 150px;
 }
 
-#tesseractautobuytoggle,
-#tesseractautobuymode {
+#tesseractautobuytoggle {
     transition-duration: 0.15s;
 }
 
-#tesseractautobuytoggle:hover,
-#tesseractautobuymode:hover {
+#tesseractautobuytoggle:hover {
     background-color: #333;
 }
 
@@ -3036,14 +2991,6 @@ header #obtainiumDisplay {
     color: orange;
 }
 
-#ascSingularityCount {
-    color: gold;
-}
-
-#ascSingLen {
-    color: gold;
-}
-
 #tabBorder {
     height: 2px;
     position: relative;
@@ -3283,25 +3230,6 @@ header #obtainiumDisplay {
     text-align: center;
 }
 
-#singularityTabsToggle {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 10px;
-}
-
-#singularityTabsToggle > button {
-    height: 30px;
-    width: 100px;
-    margin: 0 7px;
-    text-align: center;
-    transition-duration: 0.15s;
-}
-
-#singularityTabsToggle > button:hover {
-    background-color: #333;
-}
-
 #singularityUpgradeContainer {
     display: flex;
     flex-direction: column;
@@ -3323,15 +3251,10 @@ header #obtainiumDisplay {
     margin: 2px;
 }
 
-#singularityPenaltiesMultiline,
-#singularityPerksMultiline {
+#singularityMultiline {
     white-space: pre-line;
 }
 
 #testingMultiline {
     white-space: pre-line;
-}
-
-.newPerk {
-    color: gold;
 }

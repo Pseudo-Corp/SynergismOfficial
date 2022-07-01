@@ -194,15 +194,15 @@ export const generateEventHandlers = () => {
     }
 
     //Part 4: Toggles
-    // I'm just addressing all global toggles here: toggle1 up to toggle35
-    for (let index = 0; index < 35; index++) {
+    // I'm just addressing all global toggles here: toggle1 up to toggle33
+    for (let index = 0; index < 33; index++) {
         DOMCacheGetOrSet(`toggle${index+1}`).addEventListener('click', () => toggleSettings(index))
     }
-    // Toggles auto reset type (between TIME and AMOUNT for 3 first Tiers, and between PERCENTAGE and AMOUNT for Tesseracts)
+    // Toggles auto reset type (between TIME and AMOUNT)
     DOMCacheGetOrSet('prestigeautotoggle').addEventListener('click', () => toggleautoreset(1))
     DOMCacheGetOrSet('transcendautotoggle').addEventListener('click', () => toggleautoreset(2))
     DOMCacheGetOrSet('reincarnateautotoggle').addEventListener('click', () => toggleautoreset(3))
-    DOMCacheGetOrSet('tesseractautobuymode').addEventListener('click', () => toggleautoreset(4))
+    DOMCacheGetOrSet('ascensionAutoToggle').addEventListener('click', () => toggleautoreset(4))
     // Toggles auto reset amount required to trigger
     DOMCacheGetOrSet('prestigeamount').addEventListener('blur', () => updateAutoReset(1))
     DOMCacheGetOrSet('transcendamount').addEventListener('blur', () => updateAutoReset(2))
@@ -424,7 +424,7 @@ export const generateEventHandlers = () => {
 
     // WOW! Cubes Tab
     //Part 0: Subtab UI
-    for (let index = 0; index < 7; index++) {
+    for (let index = 0; index < 8; index++) {
 
         DOMCacheGetOrSet(`switchCubeSubTab${index+1}`).addEventListener('click', () => toggleSubTab(8, index))
 
@@ -456,26 +456,26 @@ export const generateEventHandlers = () => {
     //Part 2: Cube Opening Buttons
     //Wow Cubes
     DOMCacheGetOrSet('open1Cube').addEventListener('click', () => player.wowCubes.open(1, false))
-    DOMCacheGetOrSet('open20Cube').addEventListener('click', () => player.wowCubes.open(Number(player.wowCubes) / 10, false))
-    DOMCacheGetOrSet('open1000Cube').addEventListener('click', () => player.wowCubes.open(Number(player.wowCubes) / 2, false))
+    DOMCacheGetOrSet('open20Cube').addEventListener('click', () => player.wowCubes.open(20, false))
+    DOMCacheGetOrSet('open1000Cube').addEventListener('click', () => player.wowCubes.open(1000, false))
     DOMCacheGetOrSet('openCustomCube').addEventListener('click', () => player.wowCubes.openCustom());
     DOMCacheGetOrSet('openMostCube').addEventListener('click', () => player.wowCubes.open(1, true))
     //Wow Tesseracts
     DOMCacheGetOrSet('open1Tesseract').addEventListener('click', () => player.wowTesseracts.open(1, false))
-    DOMCacheGetOrSet('open20Tesseract').addEventListener('click', () => player.wowTesseracts.open(Number(player.wowTesseracts) / 10, false))
-    DOMCacheGetOrSet('open1000Tesseract').addEventListener('click', () => player.wowTesseracts.open(Number(player.wowTesseracts) / 2, false))
+    DOMCacheGetOrSet('open20Tesseract').addEventListener('click', () => player.wowTesseracts.open(20, false))
+    DOMCacheGetOrSet('open1000Tesseract').addEventListener('click', () => player.wowTesseracts.open(1000, false))
     DOMCacheGetOrSet('openCustomTesseract').addEventListener('click', () => player.wowTesseracts.openCustom());
     DOMCacheGetOrSet('openMostTesseract').addEventListener('click', () => player.wowTesseracts.open(1, true))
     //Wow Hypercubes
     DOMCacheGetOrSet('open1Hypercube').addEventListener('click', () => player.wowHypercubes.open(1, false))
-    DOMCacheGetOrSet('open20Hypercube').addEventListener('click', () => player.wowHypercubes.open(Number(player.wowHypercubes) / 10, false))
-    DOMCacheGetOrSet('open1000Hypercube').addEventListener('click', () => player.wowHypercubes.open(Number(player.wowHypercubes) / 2, false))
+    DOMCacheGetOrSet('open20Hypercube').addEventListener('click', () => player.wowHypercubes.open(20, false))
+    DOMCacheGetOrSet('open1000Hypercube').addEventListener('click', () => player.wowHypercubes.open(1000, false))
     DOMCacheGetOrSet('openCustomHypercube').addEventListener('click', () => player.wowHypercubes.openCustom());
     DOMCacheGetOrSet('openMostHypercube').addEventListener('click', () => player.wowHypercubes.open(1, true))
     //Wow Platonic Cubes
     DOMCacheGetOrSet('open1PlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(1, false))
-    DOMCacheGetOrSet('open40kPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(Number(player.wowPlatonicCubes) / 10, false))
-    DOMCacheGetOrSet('open1mPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(Number(player.wowPlatonicCubes) / 2, false))
+    DOMCacheGetOrSet('open40kPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(4e4, false))
+    DOMCacheGetOrSet('open1mPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(1e6, false))
     DOMCacheGetOrSet('openCustomPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.openCustom());
     DOMCacheGetOrSet('openMostPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(1, true))
 
@@ -632,10 +632,7 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityUpgrades[`${String(key)}`].buyLevel())
     }
-    //Toggle subtabs of Singularity tab
-    for (let index = 0; index < 3; index++) {
-        DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => toggleSubTab(10, index))
-    }
+
 
     const tabs = document.querySelectorAll<HTMLElement>('#tabrow > li');
     tabs.forEach(b => b.addEventListener('click', () => changeTabColor()));

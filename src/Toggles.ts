@@ -270,7 +270,8 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: 4, unlocked: player.achievements[218] > 0, buttonID: 'switchCubeSubTab4'},
                 {subTabID: 5, unlocked: player.achievements[141] > 0, buttonID: 'switchCubeSubTab5'},
                 {subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: 'switchCubeSubTab6'},
-                {subTabID: 7, unlocked: player.challenge15Exponent >= 1e15, buttonID: 'switchCubeSubTab7'}]
+                {subTabID: 7, unlocked: player.challenge15Exponent >= 1e15, buttonID: 'switchCubeSubTab7'},
+                {subTabID: 8, unlocked: Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus), buttonID: 'switchCubeSubTab8'}]
         },
         9: {
             tabSwitcher: toggleCorruptionLoadoutsStats,
@@ -279,12 +280,7 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: false, unlocked: player.achievements[141] > 0, buttonID: 'corrLoadoutsBtn'}]
         },
         10: {
-            tabSwitcher: toggleSingularityScreen,
-            subTabList: [
-                {subTabID: 1, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab1'},
-                {subTabID: 2, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab2'},
-                {subTabID: 3, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab3'}]
-        }
+            subTabList: []}
     }
     return subTabs[mainTab]!;
 }
@@ -381,13 +377,7 @@ export const toggleautoreset = (i: number) => {
             DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
         }
     } else if (i === 4) {
-        if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
-            player.resettoggle4 = 2;
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: PERCENTAGE'
-        } else {
-            player.resettoggle4 = 1;
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: AMOUNT'
-        }
+        // To be ascend toggle
     }
 }
 
@@ -567,24 +557,6 @@ export const toggleautoenhance = () => {
     }
 
     player.autoEnhanceToggle = !player.autoEnhanceToggle;
-}
-
-export const toggleSingularityScreen = (index: number) => {
-    const screens = ['shop', 'penalties', 'perks'];
-    G['singularityscreen'] = screens[index - 1];
-
-    for (let i = 1; i <= 3; i++) {
-        const a = DOMCacheGetOrSet('toggleSingularitySubTab' + i);
-        const b = DOMCacheGetOrSet('singularityContainer' + i);
-        if (i === index) {
-            a.style.backgroundColor = 'crimson'
-            b.style.display = 'block';
-        } else {
-            a.style.backgroundColor = ''
-            b.style.display = 'none';
-        }
-    }
-    player.subtabNumber = index - 1
 }
 
 interface ChadContributor {
@@ -939,11 +911,7 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     );
 
     if (amount === null) {
-        if (player.toggles[35]) {
-            return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`);
-        } else {
-            return
-        }
+        return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`);
     }
 
     const isPercentage = amount.endsWith('%');
@@ -953,13 +921,11 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
         return Alert('Value must be a finite, non-decimal number!');
     } else if (rawPercentage < 0 || rawPercentage > 100) {
         return Alert('Value must be a number between 0 and 100, inclusive!');
-    } else if (rawPercentage === player.hepteractAutoCraftPercentage && player.toggles[35]) {
+    } else if (rawPercentage === player.hepteractAutoCraftPercentage) {
         return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`)
     }
 
     player.hepteractAutoCraftPercentage = rawPercentage
     DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
-    if (player.toggles[35]) {
-        return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
-    }
+    return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
 }

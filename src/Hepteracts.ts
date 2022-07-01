@@ -91,11 +91,7 @@ export class HepteractCraft {
             return this;
         }
         this.UNLOCKED = true;
-        if (player.singularityCount < 5) {
-            return Alert('Congratulations. You have unlocked the ability to craft ' + hepteractName + ' in the hepteract forge!');
-        } else {
-            return this
-        }
+        return Alert('Congratulations. You have unlocked the ability to craft ' + hepteractName + ' in the hepteract forge!');
     }
 
     // Add to balance through crafting.
@@ -108,9 +104,7 @@ export class HepteractCraft {
         }
 
         if (this.CAP - this.BAL <= 0) {
-            if (player.toggles[35]) {
-                return Alert(`You have reached the current capacity of ${format(this.CAP,0,true)}. Please expand to craft more.`);
-            }
+            return Alert(`You have reached the current capacity of ${format(this.CAP,0,true)}. Please expand to craft more.`);
         }
 
         if (isNaN(player.wowAbyssals) || !isFinite(player.wowAbyssals) || player.wowAbyssals < 0) {
@@ -141,11 +135,7 @@ export class HepteractCraft {
         if (!max) {
             const craftingPrompt = await Prompt(`How many would you like to craft? \nYou can buy up to ${format(amountToCraft, 0, true)} (${(Math.floor(amountToCraft / this.CAP * 10000) / 100)}%) amount.`);
             if (craftingPrompt === null) { // Number(null) is 0. Yeah..
-                if (player.toggles[35]) {
-                    return Alert('Okay, maybe next time.');
-                } else {
-                    return //If no return, then it will just give another message
-                }
+                return Alert('Okay, maybe next time.');
             }
             craftAmount = Number(craftingPrompt);
         } else {
@@ -162,7 +152,7 @@ export class HepteractCraft {
         // Get the smallest of hepteract limit, limit found above and specified input
         amountToCraft = Math.min(smallestItemLimit, hepteractLimit, craftAmount, this.CAP - this.BAL);
 
-        if (max && player.toggles[35]) {
+        if (max) {
             const craftYesPlz = await Confirm(`This will attempt to craft as many as possible. \nYou can craft up to ${format(amountToCraft, 0, true)} (${(Math.floor(amountToCraft / this.CAP * 10000) / 100)}%). Are you sure?`);
             if (!craftYesPlz) {
                 return Alert('Okay, maybe next time.');
@@ -192,9 +182,7 @@ export class HepteractCraft {
             }
         }
 
-        if (player.toggles[35]) {
-            return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' hepteracts.' + (max ? '' : ' If this is less than your input, you either hit the inventory limit or you had insufficient resources.'));
-        }
+        return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' hepteracts.' + (max ? '' : ' If this is less than your input, you either hit the inventory limit or you had insufficient resources.'));
     }
 
     // Reduce balance through spending
@@ -220,11 +208,7 @@ export class HepteractCraft {
 
         // Below capacity
         if (this.BAL < this.CAP) {
-            if (player.toggles[35]) {
-                return Alert('Insufficient inventory to expand.');
-            } else {
-                return
-            }
+            return Alert('Insufficient inventory to expand.');
         }
 
         const expandPrompt = await Confirm(`This will empty your balance, but capacity will increase from ${format(this.CAP)} to ${format(this.CAP * expandMultiplier)} [Expansion Multiplier: ${format(expandMultiplier, 2, true)}]. Agree to the terms and conditions and stuff?`)
@@ -236,9 +220,7 @@ export class HepteractCraft {
         this.BAL = 0;
         this.CAP = Math.min(1e300, this.CAP * expandMultiplier);
 
-        if (player.toggles[35]) {
-            return Alert(`Successfully expanded your inventory. You can now fit ${format(this.CAP, 0, true)}.`);
-        }
+        return Alert(`Successfully expanded your inventory. You can now fit ${format(this.CAP, 0, true)}.`);
     }
 
     // Add some percentage points to your discount
@@ -491,11 +473,7 @@ export const tradeHepteractToOverfluxOrb = async () => {
     const maxBuy = Math.floor(player.wowAbyssals / 250000);
     const hepteractInput = await Prompt(`How many Orbs would you like to purchase?\n You can buy up to ${format(maxBuy, 0, true)} with your hepteracts.`);
     if (hepteractInput === null) {
-        if (player.toggles[35]) {
-            return Alert('Okay, maybe next time.');
-        } else {
-            return
-        }
+        return Alert('Okay, maybe next time.');
     }
 
     const toUse = Number(hepteractInput);
@@ -522,9 +500,8 @@ export const tradeHepteractToOverfluxOrb = async () => {
     player.overfluxPowder += powderGain;
 
     const powderText = (powderGain > 0) ? `You have also gained ${format(powderGain, 2, true)} powder immediately, thanks to your shop upgrades.` : '';
-    if (player.toggles[35]) {
-        return Alert('You have purchased ' + format(buyAmount, 0, true) + ` Overflux Orbs [+${format(100 * (afterEffect - beforeEffect), 2, true)}% to effect]. ${powderText} Enjoy!`);
-    }
+    return Alert('You have purchased ' + format(buyAmount, 0, true) + ` Overflux Orbs [+${format(100 * (afterEffect - beforeEffect), 2, true)}% to effect]. ${powderText} Enjoy!`);
+
 }
 
 /**
@@ -559,16 +536,12 @@ export const overfluxPowderWarp = async () => {
     }
     const c = await Confirm('You stumble upon a mysterious machine. A note attached says that you can reset daily Cube openings for 25 Powder. However it only works once each real life day. You in?')
     if (!c) {
-        if (player.toggles[35]) {
-            return Alert('You walk away from the machine, powder intact.')
-        }
+        return Alert('You walk away from the machine, powder intact.')
     } else {
         player.overfluxPowder -= 25
         player.dailyPowderResetUses -= 1;
         forcedDailyReset();
-        if (player.toggles[35]) {
-            return Alert('Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]')
-        }
+        return Alert('Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]')
     }
 }
 

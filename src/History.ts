@@ -5,8 +5,6 @@ import { antSacrificePointsToMultiplier } from './Ants';
 import { Synergism } from './Events';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { Globals as G } from './Variables';
-import { applyCorruptions } from './Corruptions';
-import { Notification } from './UpdateHTML';
 
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend';
@@ -199,9 +197,9 @@ const historyGainsOrder: ResetHistoryGainType[] = [
 // The various kinds and their associated images.
 const historyKinds: Record<Kind, { img: string }> = {
     'antsacrifice': {img: 'Pictures/AntSacrifice.png'},
-    'prestige': {img: 'Pictures/Prestige.png'},
-    'transcend': {img: 'Pictures/Transcend.png'},
-    'reincarnate': {img: 'Pictures/Reincarnate.png'},
+    'prestige': {img: 'Pictures/Transparent Pics/Prestige.png'},
+    'transcend': {img: 'Pictures/Transparent Pics/Transcend.png'},
+    'reincarnate': {img: 'Pictures/Transparent Pics/Reincarnate.png'},
     'ascend': {img: 'Pictures/questionable.png'}
 };
 
@@ -214,18 +212,20 @@ const resetHistoryTableMapping: Record<Category, string> = {
 
 // Images associated with the various corruptions.
 const resetHistoryCorruptionImages = [
-    'Pictures/Viscocity.png',
-    'Pictures/Spatial Dilation.png',
-    'Pictures/Hyperchallenged.png',
-    'Pictures/Scientific Illiteracy.png',
-    'Pictures/Deflation.png',
-    'Pictures/Extinction.png',
-    'Pictures/Drought.png',
-    'Pictures/Financial Collapse.png'
+    'Pictures/Divisiveness Level 7.png',
+    'Pictures/Maladaption Lvl 7.png',
+    'Pictures/Laziness Lvl 7.png',
+    'Pictures/Hyperchallenged Lvl 7.png',
+    'Pictures/Scientific Illiteracy Lvl 7.png',
+    'Pictures/Deflation Lvl 7.png',
+    'Pictures/Extinction Lvl 7.png',
+    'Pictures/Drought Lvl 7.png',
+    'Pictures/Financial Collapse Lvl 7.png'
 ];
 
 const resetHistoryCorruptionTitles = [
-    'Viscosity [Accelerators and Multipliers]',
+    'Divisiveness [Multipliers]',
+    'Maladaption [Accelerators]',
     'Spacial Dilation [Time]',
     'Hyperchallenged [Challenge Requirements]',
     'Scientific Illiteracy [Obtainium]',
@@ -261,13 +261,6 @@ const resetHistoryPushNewRow = (category: Category, data: ResetHistoryEntryUnion
     tbody.insertBefore(row, tbody.childNodes[0]);
     while (tbody.childNodes.length > G['historyCountMax']) {
         tbody.removeChild(tbody.lastChild!);
-    }
-
-    if (category === 'ascend') {
-        const loadCorruptionsButtons = Array.from(row.querySelectorAll<HTMLElement>('.ascendHistoryLoadCorruptions'));
-        for (const btn of loadCorruptionsButtons) {
-            btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton((e.target as HTMLElement)));
-        }
     }
 }
 
@@ -310,19 +303,18 @@ const resetHistoryRenderRow = (
         const diff = newMulti - oldMulti;
         extra.push(
             `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
-            `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/crumb.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
-            `<span title="${format(data.baseELO)} base"><img src="Pictures/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
+            `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
+            `<span title="${format(data.baseELO)} base"><img src="Pictures/Transparent Pics/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
         );
     } else if (data.kind === 'ascend') {
         extra.push(
-            `<img alt="C10" src="Pictures/Challenge10.png" title="Challenge 10 completions">${data.c10Completions}`
+            `<img alt="C10" src="Pictures/Transparent Pics/ChallengeTen.png" title="Challenge 10 completions">${data.c10Completions}`
         );
 
         const corruptions = resetHistoryFormatCorruptions(data);
 
         extra.push(corruptions[0]);
         extra.push(corruptions[1]);
-        extra.push(corruptions[2]);
     }
 
     // This rendering is done this way so that all rows should have the same number of columns, which makes rows
@@ -359,21 +351,6 @@ const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HT
             tbody.appendChild(row);
         }
     }
-
-    if (categoryToRender === 'ascend') {
-        const loadCorruptionsButtons = Array.from(document.querySelectorAll<HTMLElement>('.ascendHistoryLoadCorruptions'));
-        for (const btn of loadCorruptionsButtons) {
-            btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton((e.target as HTMLElement)));
-        }
-    }
-}
-
-function clickHandlerForLoadCorruptionsButton(btn: HTMLElement) {
-    const corruptions = btn.getAttribute('data-corr');
-    if (corruptions) {
-        applyCorruptions(corruptions);
-        void Notification('Corruption Loadout from previous run has been applied. This will take effect on the next ascension.', 5000);
-    }
 }
 
 // Render every category into their associated table.
@@ -393,22 +370,18 @@ export const resetHistoryTogglePerSecond = () => {
 }
 
 // Helper function to format the corruption display in the ascension table.
-const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string, string] => {
+const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string] => {
     let score = 'Score: ' + format(data.corruptionScore, 0, false);
     let corruptions = '';
-    let loadout = '';
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
-        const corruptionIdx = i+2;
+        const corruptionIdx = i + 1;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
             corruptions += ` <img alt="${resetHistoryCorruptionTitles[i]}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         }
-    }
-    if (corruptions) {
-        loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr="${data.usedCorruptions.join('/')}">Load</button>`;
     }
     if (data.currentChallenge !== undefined) {
         score += ` / C${data.currentChallenge}`;
     }
 
-    return [score, corruptions, loadout];
+    return [score, corruptions];
 }

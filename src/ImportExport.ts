@@ -15,8 +15,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { Globals as G } from './Variables';
 import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
-import { singularityData } from './singularity';
-import { getEvent } from './Event';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -39,7 +37,7 @@ const format12 = new Intl.DateTimeFormat('EN-GB', {
 
 const hour = 3600000;
 
-const getRealTime = (type = 'default', use12 = false) => {
+const getRealTime = (use12 = false) => {
     const format = use12 ? format12 : format24;
     const datePartsArr = format
         .formatToParts(new Date())
@@ -49,20 +47,7 @@ const getRealTime = (type = 'default', use12 = false) => {
     const dateParts = Object.assign({}, ...datePartsArr) as Record<string, string>;
 
     const period = use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : '';
-    const weekday = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-    switch (type) {
-        case 'default': return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`;
-        case 'short': return `${dateParts.year}${dateParts.month}${dateParts.day}${dateParts.hour}${dateParts.minute}${dateParts.second}`;
-        case 'year': return `${dateParts.year}`;
-        case 'month': return `${dateParts.month}`;
-        case 'day': return `${dateParts.day}`;
-        case 'hour': return `${dateParts.hour}`;
-        case 'minute': return `${dateParts.minute}`;
-        case 'second': return `${dateParts.second}`;
-        case 'period': return `${dateParts.dayPeriod.toUpperCase()}`;
-        case 'weekday': return `${weekday[new Date().getUTCDay()]}`;
-        default: return type;
-    }
+    return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`;
 }
 
 export const updateSaveString = (input: HTMLInputElement) => {
@@ -70,43 +55,15 @@ export const updateSaveString = (input: HTMLInputElement) => {
     player.saveString = value;
 }
 
-export const getVer = () => /[\d?=.]+/.exec(version)?.[0] ?? version
-
 const saveFilename = () => {
     const s = player.saveString
     const t = s.replace(/\$(.*?)\$/g, (_, b) => {
         switch (b) {
             case 'VERSION': return `v${version}`;
             case 'TIME': return getRealTime();
-            case 'TIME12': return getRealTime(undefined, true);
+            case 'TIME12': return getRealTime(true);
             case 'SING': return ('Singularity ' + player.singularityCount);
-            case 'SINGS': return ('' + player.singularityCount);
-            case 'VER': return getVer();
-            case 'TIMES': return getRealTime('short');
-            case 'YEAR': return getRealTime('year');
-            case 'Y': return getRealTime('year');
-            case 'MONTH': return getRealTime('month');
-            case 'M': return getRealTime('month');
-            case 'DAY': return getRealTime('day');
-            case 'D': return getRealTime('day');
-            case 'HOUR': return getRealTime('hour');
-            case 'H': return getRealTime('hour');
-            case 'H12': return getRealTime('hour', true);
-            case 'MINUTE': return getRealTime('minute');
-            case 'MI': return getRealTime('minute');
-            case 'SECOND': return getRealTime('second');
-            case 'S': return getRealTime('second');
-            case 'PERIOD': return getRealTime('period', true);
-            case 'P': return getRealTime('period', true);
-            case 'WEEKDAY': return getRealTime('weekday');
-            case 'W': return getRealTime('weekday');
-            case 'DATE': return '' + Date.now();
-            case 'DATES': return '' + Math.floor(Date.now() / 1000);
-            case 'QUARK': return '' + Math.floor(Number(player.worlds));
-            case 'QUARKS': return format(Number(player.worlds));
-            case 'GQ': return '' + Math.floor(player.goldenQuarks);
-            case 'GQS': return format(player.goldenQuarks);
-            default: return `${b}`;
+            default: return 'IDFK Lol';
         }
     });
 
@@ -116,9 +73,9 @@ const saveFilename = () => {
 export const exportSynergism = async () => {
     player.offlinetick = Date.now();
     const quarkData = quarkHandler();
-    if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
-        player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)) * (1 + player.worlds.BONUS / 100);
-        player.goldenQuarksTimer = player.goldenQuarksTimer % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
+    if (player.singularityUpgrades.goldenQuarks3.level > 0) {
+        player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / player.singularityUpgrades.goldenQuarks3.level)) * (1 + player.worlds.BONUS / 100);
+        player.goldenQuarksTimer = player.goldenQuarksTimer % (3600 / player.singularityUpgrades.goldenQuarks3.level)
     }
     if (quarkData.gain >= 1) {
         player.worlds.add(quarkData.gain);
@@ -234,14 +191,14 @@ export const promocodesInfo = async (input: string) => {
             availableUses = addCodeAvailableUses();
             textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
             if (availableUses === 0) {
-                textMessage += ' Next: in ' + format(addCodeTimeToNextUse(), 0) + ' seconds.';
+                textMessage += ' Next: in ' + addCodeTimeToNextUse() + ' seconds.';
             }
             break;
         case 'time':
             availableUses = timeCodeAvailableUses();
             textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
             if (availableUses === 0) {
-                textMessage += ' Next: in ' + format(timeCodeTimeToNextUse(), 0) + ' seconds.';
+                textMessage += ' Next: in ' + timeCodeTimeToNextUse() + ' seconds.';
             } else {
                 textMessage += ' Multiplier: ' + format(timeCodeRewardMultiplier(), 2, true) + 'x';
             }
@@ -264,17 +221,20 @@ export const promocodes = async (input: string | null) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === '2.9.9' && !player.codes.get(41) && G['isEvent'] && getEvent().name === '&#128151 Community Event! &#128151 [Musical Link Here!]') {
-        player.codes.set(41, true);
+    if (input === '2.9.7' && !player.codes.get(40) && G['isEvent']) {
+        player.codes.set(40, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 3600 * 168;
         addTimers('ascension', 4 * 3600);
 
         if (player.singularityCount > 0) {
-            player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
+            player.singularityUpgrades.singCubes1.freeLevels += 5;
+            player.singularityUpgrades.singOfferings1.freeLevels += 5;
+            player.singularityUpgrades.singObtainium1.freeLevels += 5;
+            player.singularityUpgrades.ascensions.freeLevels += 5;
         }
 
-        return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! ${(player.singularityCount > 0) ? 'You were also given a free level of GQ3!' : ''}`)
+        return Alert(`Happy update!!!! Your quark timer(s) have been replenished and you have been given 4 real life hours of ascension progress! ${(player.singularityCount > 0) ? 'You were also given 5 of each uncapped resource singularity upgrade!' : ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
         player.codes.set(1, true);
@@ -291,11 +251,9 @@ export const promocodes = async (input: string | null) => {
         player.codes.set(26, true);
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds.add(quarks);
-        el.textContent = 'Khafra has blessed you with ' + player.worlds.applyBonus(quarks) + ' Quarks!';
+        el.textContent = 'Khafra has blessed you with ' + player.worlds.applyBonus(quarks) + ' quarks!';
     } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
         player.dailyCodeUsed = true;
-        let rewardMessage = 'Thank you for playing today!\nThe Ant God rewards you with this gift:';
-
         const rewards = dailyCodeReward();
         const quarkMultiplier = 1 + Math.min(49, player.singularityCount)
 
@@ -306,11 +264,7 @@ export const promocodes = async (input: string | null) => {
         player.worlds.add(actualQuarkAward, false)
         player.goldenQuarks += rewards.goldenQuarks
 
-        rewardMessage += `\n${format(actualQuarkAward, 0, true)} Quarks`
-        if (rewards.goldenQuarks > 0) {
-            rewardMessage += `\n${format(rewards.goldenQuarks, 0, true)} Golden Quarks`
-        }
-        await Alert(rewardMessage);
+        const goldenQuarksText = (rewards.goldenQuarks > 0) ? `and ${format(rewards.goldenQuarks, 0, true)} Golden Quarks` : '';
 
         if (player.singularityCount > 0) {
             const upgradeDistribution: Record<
@@ -335,28 +289,19 @@ export const promocodes = async (input: string | null) => {
                 .keys(player.singularityUpgrades)
                 .filter(key => key in upgradeDistribution) as (keyof typeof upgradeDistribution)[];
 
-            rewardMessage = 'Feeling especially generous, the Ant God has also given you free levels of the following Singularity upgrades:'
-            // The same upgrade can be drawn several times, so we save the sum of the levels gained, to display them only once at the end
-            const freeLevels: Record<string, number> = {}
             for (let i = 0; i < rolls; i++) {
                 const num = 1000 * Math.random();
                 for (const key of keys) {
                     if (upgradeDistribution[key].pdf(num)) {
                         player.singularityUpgrades[key].freeLevels += upgradeDistribution[key].value
-                        freeLevels[key] ? freeLevels[key] += upgradeDistribution[key].value : freeLevels[key] = upgradeDistribution[key].value
                     }
                 }
             }
-
-            for (const key of Object.keys(freeLevels)) {
-                rewardMessage += dailyCodeFormatFreeLevelMessage(key, freeLevels[key])
-            }
-            await Alert(rewardMessage);
         }
-        return;
+        return Alert(`Thank you for playing today! You have gained ${format(actualQuarkAward, 0, true)} Quarks ${goldenQuarksText} based on your progress!`)
     } else if (input.toLowerCase() === 'add') {
         const availableUses = addCodeAvailableUses();
-        const timeToNextUse = format(addCodeTimeToNextUse(), 0);
+        const timeToNextUse = addCodeTimeToNextUse();
 
         if (availableUses < 1) {
             el.textContent = `You do not have an 'Add' code attempt! You will gain 1 in ${timeToNextUse} seconds.`;
@@ -401,7 +346,7 @@ export const promocodes = async (input: string | null) => {
             addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult)
             player.rngCode = v;
             return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
-                `${ ascensionTimer } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+                `${ ascensionTimer } You have ${ remaining } uses of Add.You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         }
 
         // If your calculator isn't maxed but has levels, it will provide the solution.
@@ -409,7 +354,7 @@ export const promocodes = async (input: string | null) => {
             ? 'The answer is ' + (first + second) + ' according to your calculator.'
             : '';
 
-        const addPrompt = await Prompt(`For ${player.worlds.toString(actualQuarks)} Quarks or nothing: What is ${first} + ${second}? ${solution}`);
+        const addPrompt = await Prompt(`For ${player.worlds.toString(actualQuarks)} quarks or nothing: What is ${first} + ${second}? ${solution}`);
 
         if (addPrompt === null) {
             return Alert('No worries, you didn\'t lose any of your uses! Come back later!');
@@ -420,7 +365,7 @@ export const promocodes = async (input: string | null) => {
         if (first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
             addTimers('ascension', 60 * player.shopUpgrades.calculator3)
-            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} Quarks! ${ascensionTimer} You have ${remaining} uses of Add. ` +
+            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} quarks! ${ascensionTimer} You have ${remaining} uses of Add. ` +
                 `You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         } else {
             await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
@@ -429,10 +374,10 @@ export const promocodes = async (input: string | null) => {
     } else if (input === 'sub') {
         const amount = 1 + window.crypto.getRandomValues(new Uint16Array(1))[0] % 16; // [1, 16]
         const quarks = Number(player.worlds);
-        await Alert(`Thanks for using the "sub" code! I've taken away ${amount} Quarks! :)`);
+        await Alert(`Thanks for using the "sub" code! I've taken away ${amount} quarks! :)`);
 
         if (quarks < amount) {
-            await Alert(`I gave you ${amount - quarks} Quarks so I could take ${amount} away.`);
+            await Alert(`I gave you ${amount - quarks} quarks so I could take ${amount} away.`);
         }
 
         player.worlds.sub(quarks < amount ? amount - quarks : amount);
@@ -454,7 +399,7 @@ export const promocodes = async (input: string | null) => {
             return el.textContent = 'Scared? You should be!';
         }
 
-        const bet = Number(await Prompt('How many Quarks are you putting up?'));
+        const bet = Number(await Prompt('How many quarks are you putting up?'));
         if (Number.isNaN(bet) || bet <= 0) {
             return el.textContent = 'Can\'t bet that!';
         } else if (bet > 1e4) {
@@ -471,7 +416,7 @@ export const promocodes = async (input: string | null) => {
             player.worlds.add(won, false);
 
             player.skillCode = Date.now();
-            return el.textContent = `You won. The Syncasino offers you a grand total of 25% of the pot! [+${won} Quarks]`;
+            return el.textContent = `You won. The Syncasino offers you a grand total of 25% of the pot! [+${won} quarks]`;
         }
 
         player.worlds.sub(bet);
@@ -536,9 +481,9 @@ export const promocodes = async (input: string | null) => {
         const ascensionSpeed = calculateAscensionAcceleration()
         const perSecond = 1/(24 * 3600 * 365 * 1e9) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
         if (perSecond > 1) {
-            return Alert(`You will gain ${format(perSecond, 2, true)} Octeracts (when they come out) every second, assuming you have them unlocked!`)
+            return Alert(`You will gain ${format(perSecond, 2, true)} octeracts (when they come out) every second, assuming you have them unlocked!`)
         } else {
-            return Alert(`You will gain an Octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
+            return Alert(`You will gain an octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
         }
 
     } else {
@@ -571,11 +516,6 @@ function timeCodeTimeToNextUse(): number {
 
 function timeCodeRewardMultiplier(): number {
     return Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600));
-}
-
-function dailyCodeFormatFreeLevelMessage(upgradeKey: string, freeLevelAmount: number): string {
-    const upgradeNiceName = singularityData[upgradeKey].name;
-    return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
 }
 
 function dailyCodeReward() {
