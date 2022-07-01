@@ -1,4 +1,6 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import type { IUpgradeData } from './DynamicUpgrade';
+import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
@@ -27,50 +29,25 @@ function getSingularityOridnalText(singularityCount: number): string {
     return 'You are in the <span style="color: gold">' + toOrdinal(singularityCount) + ' singularity</span>';
 }
 
-export interface ISingularityData {
-    name: string
-    description: string
-    level?: number
-    maxLevel: number
-    costPerLevel: number
-    toggleBuy?: number
+export interface ISingularityData extends IUpgradeData {
     goldenQuarksInvested?: number
     minimumSingularity?: number
-    effect? (n: number): {bonus: number | boolean, desc: string}
-    freeLevels?: number
 }
 
 /**
  * Singularity Upgrades are bought in the Shop of the singularity tab, and all have their own
  * name, description, level and maxlevel, plus a feature to toggle buy on each.
  */
-export class SingularityUpgrade {
+export class SingularityUpgrade extends DynamicUpgrade {
 
     // Field Initialization
-    private readonly name: string;
-    private readonly description: string;
-    public level = 0;
-    public freeLevels = 0;
-    private readonly maxLevel: number; //-1 = infinitely levelable
-    private readonly costPerLevel: number;
-    public toggleBuy = 1; //-1 = buy MAX (or 1000 in case of infinity levels!)
     public goldenQuarksInvested = 0;
     public minimumSingularity: number;
-    private readonly effect: (n: number) => {bonus: number | boolean, desc: string}
 
     public constructor(data: ISingularityData) {
-        this.name = data.name;
-        this.description = data.description;
-        this.level = data.level ?? this.level;
-        this.maxLevel = data.maxLevel;
-        this.costPerLevel = data.costPerLevel;
-        this.toggleBuy = data.toggleBuy ?? 1;
+        super(data)
         this.goldenQuarksInvested = data.goldenQuarksInvested ?? 0;
         this.minimumSingularity = data.minimumSingularity ?? 0;
-        this.freeLevels = data.freeLevels ?? 0;
-        this.effect = data.effect ?? function (n:number) {
-            return {bonus: n, desc: 'WIP not implemented'}
-        }
     }
 
     /**
@@ -108,7 +85,7 @@ export class SingularityUpgrade {
      * Retrieves the cost for upgrading the singularity upgrade once. Return 0 if maxed.
      * @returns A number representing how many Golden Quarks a player must have to upgrade once.
      */
-    private getCostTNL(): number {
+    getCostTNL(): number {
         let costMultiplier = (this.maxLevel === -1 && this.level >= 100) ? this.level / 50 : 1;
         costMultiplier *= (this.maxLevel === -1 && this.level >= 400) ? this.level / 100 : 1;
         return (this.maxLevel === this.level) ? 0: Math.ceil(this.costPerLevel * (1 + this.level) * costMultiplier);
@@ -156,46 +133,10 @@ export class SingularityUpgrade {
         updateSingularityPerks();
     }
 
-    public async changeToggle(): Promise<void> {
-
-        // Is null unless given an explicit number
-        const newToggle = await Prompt(`
-        Set maximum purchase amount per click for the ${this.name} upgrade.
-
-        type -1 to set to MAX by default.
-        `);
-        const newToggleAmount = Number(newToggle);
-
-        if (newToggle === null) {
-            return Alert(`Toggle kept at ${format(this.toggleBuy)}.`)
-        }
-
-        if (!Number.isInteger(newToggle)) {
-            return Alert('Toggle value must be a whole number!');
-        }
-        if (newToggleAmount < -1) {
-            return Alert('The only valid negative number for toggle is -1.');
-        }
-        if (newToggleAmount === 0) {
-            return Alert('You cannot set the toggle to 0.');
-        }
-
-        this.toggleBuy = newToggleAmount;
-        const m = newToggleAmount === -1
-            ? 'Your toggle is now set to MAX'
-            : `Your toggle is now set to ${format(this.toggleBuy)}`;
-
-        return Alert(m);
-    }
-
     public refund(): void {
         player.goldenQuarks += this.goldenQuarksInvested;
         this.level = 0;
         this.goldenQuarksInvested = 0;
-    }
-
-    public getEffect(): {bonus: number | boolean, desc: string} {
-        return this.effect(this.level + this.freeLevels)
     }
 }
 
