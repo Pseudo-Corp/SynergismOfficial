@@ -20,7 +20,7 @@ export const updateSingularityPenalties = (): void => {
 }
 
 function getSingularityOridnalText(singularityCount: number): string {
-    return 'You are in the <span style="color: gold">' + toOrdinal(singularityCount) + ' singularity</span>';
+    return 'You are in the <span style="color: gold">' + toOrdinal(singularityCount) + ' Singularity</span>';
 }
 
 export interface ISingularityData {
@@ -680,13 +680,47 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Super Start',
-        levels: [2, 3, 4, 7],
+        name: 'Golden coins',
+        levels: [1],
+        description: () => {
+            return 'Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity.'
+        }
+    },
+    {
+        name: 'Generous Orbs',
+        levels: [1, 2, 5, 10, 15, 20, 25, 30, 35],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[3]) {
+            if (n >= levels[8]) {
+                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 700%'
+            } else if (n >= levels[7]) {
+                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 500%'
+            } else if (n >= levels[6]) {
+                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 415%'
+            } else if (n >= levels[5]) {
+                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 360%'
+            } else if (n >= levels[4]) {
+                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 315%'
+            } else if (n >= levels[3]) {
+                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 280%'
+            } else if (n >= levels[2]) {
+                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 255%'
+            } else if (n >= levels[1]) {
+                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 230%'
+            } else {
+                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 215%'
+            }
+        }
+    },
+    {
+        name: 'Super Start',
+        levels: [2, 3, 4, 7, 15],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[4]) {
+                return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 2.22e2222 Particles and 500 Obtainium'
+            } else if (n >= levels[3]) {
                 return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e100 Particles and 500 Obtainium'
             } else if (n >= levels[2]) {
-                return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 10 Particles and 500 Obtainium'
+                return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e16 Particles and 500 Obtainium'
             } else if (n >= levels[1]) {
                 return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos and 10 Particles'
             } else {
@@ -787,7 +821,7 @@ export const updateSingularityPerks = (): void => {
     const singularityCount = player.singularityCount;
     const str = getSingularityOridnalText(singularityCount) +
                 `<br/><br/>Here is the list of Perks you have acquired to compensate the Penalties
-                (Hover for more details. Perks in <span class="newPerk">gold text</span> were added or improved in this singularity)<br/>`
+                (Hover for more details. Perks in <span class="newPerk">gold text</span> were added or improved in this Singularity)<br/>`
                 + getAvailablePerksDescription(singularityCount)
 
     DOMCacheGetOrSet('singularityPerksMultiline').innerHTML = str;
@@ -851,7 +885,7 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
         perksText += '<br/>' + formatPerkDescription(availablePerk, singularityCount);
     }
     if (singularityCountForNextPerk) {
-        perksText += '<br/><br/>You will unlock a whole new Perk in singularity ' + singularityCountForNextPerk;
+        perksText += '<br/><br/>You will unlock a whole new Perk in Singularity ' + singularityCountForNextPerk;
     }
     return perksText;
 }
