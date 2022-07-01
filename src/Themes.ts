@@ -64,7 +64,6 @@ export const toggleTheme = () => {
         DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.backgroundColor = '#141319'
         DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.borderColor = '#dda0dd'
 
-
         themeButton.textContent = 'Lighter Dark Mode';
     }
     if (current === 'Lighter Dark Mode') { //Switches to 'Light Mode'
@@ -102,12 +101,12 @@ export const toggleTheme = () => {
         //I will rework most of it way later, if more buttons to change colors
         document.body.classList.remove('light');
         document.body.classList.add('Dracula');
-        DOMCacheGetOrSet('switchSettingSubTab1').style.backgroundColor = '#300c27'
-        DOMCacheGetOrSet('switchSettingSubTab2').style.backgroundColor = '#300c27'
-        DOMCacheGetOrSet('switchSettingSubTab3').style.backgroundColor = '#300c27'
-        DOMCacheGetOrSet('switchSettingSubTab4').style.backgroundColor = '#300c27'
-        DOMCacheGetOrSet('switchSettingSubTab5').style.backgroundColor = '#300c27'
-        DOMCacheGetOrSet('switchSettingSubTab6').style.backgroundColor = '#300c27'
+        //DOMCacheGetOrSet('switchSettingSubTab1').style.backgroundColor = '#300c27'
+        //DOMCacheGetOrSet('switchSettingSubTab2').style.backgroundColor = '#300c27'
+        //DOMCacheGetOrSet('switchSettingSubTab3').style.backgroundColor = '#300c27'
+        //DOMCacheGetOrSet('switchSettingSubTab4').style.backgroundColor = '#300c27'
+        //DOMCacheGetOrSet('switchSettingSubTab5').style.backgroundColor = '#300c27'
+        //DOMCacheGetOrSet('switchSettingSubTab6').style.backgroundColor = '#300c27'
         DOMCacheGetOrSet('dailyCode').style.backgroundColor = '#300c27'
         DOMCacheGetOrSet('addCode').style.backgroundColor = '#300c27'
         DOMCacheGetOrSet('timeCode').style.backgroundColor = '#300c27'
@@ -121,19 +120,19 @@ export const toggleTheme = () => {
         DOMCacheGetOrSet('savegame').style.backgroundColor = '#300c27'
         DOMCacheGetOrSet('deleteGame').style.backgroundColor = '#300c27'
         DOMCacheGetOrSet('c15Rewards').style.backgroundColor = '#2e001b'
-        DOMCacheGetOrSet('c15Rewards').style.borderColor = '#1b7a91'
+        DOMCacheGetOrSet('c15Rewards').style.borderColor = '#186e83'
         DOMCacheGetOrSet('platonicUpgradeDescriptions').style.backgroundColor = '#2e001b'
-        DOMCacheGetOrSet('platonicUpgradeDescriptions').style.borderColor = '#1b7a91'
+        DOMCacheGetOrSet('platonicUpgradeDescriptions').style.borderColor = '#186e83'
         DOMCacheGetOrSet('platonicUpgradePics').style.backgroundColor = '#720505'
         DOMCacheGetOrSet('platonicUpgradePics').style.borderColor = '#410303'
         DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '#01192c'
         DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#04D481'
         DOMCacheGetOrSet('actualShop').style.backgroundColor = '#11111b'
-        DOMCacheGetOrSet('actualShop').style.borderColor = '#a07806'
+        DOMCacheGetOrSet('actualShop').style.borderColor = '#038ba8'
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = '#0a0a11'
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#04D481'
         DOMCacheGetOrSet('heptGrid').style.backgroundColor = '#11111b'
-        DOMCacheGetOrSet('heptGrid').style.borderColor = '#a07806'
+        DOMCacheGetOrSet('heptGrid').style.borderColor = '#9B7306'
         DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.backgroundColor = '#000000'
         DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.borderColor = '#B341E0'
 
@@ -143,12 +142,12 @@ export const toggleTheme = () => {
     if (current === 'Dracula Mode') { //Switches to 'Dark Mode'
         document.body.classList.remove('Dracula');
         document.body.classList.add('dark');
-        DOMCacheGetOrSet('switchSettingSubTab1').style.backgroundColor = '#171717'
-        DOMCacheGetOrSet('switchSettingSubTab2').style.backgroundColor = '#171717'
-        DOMCacheGetOrSet('switchSettingSubTab3').style.backgroundColor = '#171717'
-        DOMCacheGetOrSet('switchSettingSubTab4').style.backgroundColor = '#171717'
-        DOMCacheGetOrSet('switchSettingSubTab5').style.backgroundColor = '#171717'
-        DOMCacheGetOrSet('switchSettingSubTab6').style.backgroundColor = '#171717'
+        //DOMCacheGetOrSet('switchSettingSubTab1').style.backgroundColor = '#171717'
+        //DOMCacheGetOrSet('switchSettingSubTab2').style.backgroundColor = '#171717'
+        //DOMCacheGetOrSet('switchSettingSubTab3').style.backgroundColor = '#171717'
+        //DOMCacheGetOrSet('switchSettingSubTab4').style.backgroundColor = '#171717'
+        //DOMCacheGetOrSet('switchSettingSubTab5').style.backgroundColor = '#171717'
+        //DOMCacheGetOrSet('switchSettingSubTab6').style.backgroundColor = '#171717'
         DOMCacheGetOrSet('dailyCode').style.backgroundColor = '#171717'
         DOMCacheGetOrSet('addCode').style.backgroundColor = '#171717'
         DOMCacheGetOrSet('timeCode').style.backgroundColor = '#171717'

@@ -509,7 +509,7 @@ nav li:hover {
 }
 
 .subTabWrapper > button:hover {
-    background-color: #333 !important;
+    background-color: #333;
 }
 
 #buyamountcoin {
@@ -2489,7 +2489,7 @@ p[id$="BlessingsTotal"] {
 }
 
 .subtabSwitcher > button.buttonActive {
-    background-color: crimson !important;
+    background-color: crimson;
 }
 
 .subtabContent {
