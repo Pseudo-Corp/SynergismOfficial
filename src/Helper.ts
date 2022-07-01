@@ -3,11 +3,12 @@ import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateM
 import { quarkHandler } from './Quark';
 import { redeemShards } from './Runes';
 import { player } from './Synergism';
-import { visualUpdateResearch } from './UpdateVisuals';
+import { visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals';
 import { Globals as G } from './Variables';
 import { buyAllBlessings } from './Buy';
+import { octeractGainPerSecond } from './Octeracts';
 
-type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks' | 'goldenQuarks';
+type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks' | 'goldenQuarks' | 'octeracts';
 
 /**
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
@@ -15,7 +16,7 @@ type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 
  * @param time
  */
 export const addTimers = (input: TimerInput, time = 0) => {
-    const timeMultiplier = (input === 'ascension' || input === 'quarks' || input === 'goldenQuarks') ? 1 : calculateTimeAcceleration();
+    const timeMultiplier = (input === 'ascension' || input === 'quarks' || input === 'goldenQuarks' || input === 'octeracts') ? 1 : calculateTimeAcceleration();
 
     switch (input){
         case 'prestige': {
@@ -52,6 +53,20 @@ export const addTimers = (input: TimerInput, time = 0) => {
                 player.goldenQuarksTimer = (player.goldenQuarksTimer > 3600 * 168) ? 3600 * 168 : player.goldenQuarksTimer;
             }
             break;
+        }
+        case 'octeracts': {
+            if (!player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
+                return
+            } else {
+                player.octeractTimer += time * timeMultiplier
+            }
+            if (player.octeractTimer >= 1) {
+                const amountOfGiveaways = player.octeractTimer - (player.octeractTimer % 1)
+                player.octeractTimer %= 1
+
+                player.wowOcteracts += amountOfGiveaways * octeractGainPerSecond()
+                visualUpdateOcteracts()
+            }
         }
     }
 }

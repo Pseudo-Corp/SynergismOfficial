@@ -635,5 +635,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.wowOcteracts === undefined) {
         player.wowOcteracts = 0;
+        player.octeractTimer = 0;
     }
 }

@@ -2,6 +2,8 @@ import { player } from './Synergism';
 import { Alert } from './UpdateHTML';
 import type { IUpgradeData } from './DynamicUpgrade';
 import { DynamicUpgrade } from './DynamicUpgrade';
+import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
+import { productContents, sumContents } from './Utility';
 
 export interface IOcteractData extends IUpgradeData {
     costFormula (level: number, baseCost: number): number
@@ -66,4 +68,28 @@ export class OcteractUpgrade extends DynamicUpgrade {
     updateUpgradeHTML(): void {
         // Not Yet Implemented!
     }
+}
+
+export const octeractGainPerSecond = () => {
+    const SCOREREQ = 1e32
+    const currentScore = calculateAscensionScore().effectiveScore
+
+    const baseMultiplier = (currentScore >= SCOREREQ) ? Math.cbrt(currentScore / SCOREREQ) : Math.pow(currentScore / SCOREREQ, 2);
+    const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
+
+    const valueMultipliers = [
+        1 + player.shopUpgrades.seasonPass3 / 100,
+        1 + player.shopUpgrades.seasonPassY / 200,
+        1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
+        1 + player.shopUpgrades.seasonPassLost / 200,
+        1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
+        1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
+        +player.singularityUpgrades.singCubes1.getEffect().bonus,
+        +player.singularityUpgrades.singCubes2.getEffect().bonus,
+        +player.singularityUpgrades.singCubes3.getEffect().bonus
+    ]
+
+    const ascensionSpeed = calculateAscensionAcceleration()
+    const perSecond = 1/(24 * 3600 * 365 * 1e9) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
+    return perSecond
 }

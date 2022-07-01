@@ -1,6 +1,6 @@
 import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
 import { testing, version } from './Config';
-import { getElementById, productContents, sumContents } from './Utility';
+import { getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
 import type { Player } from './types/Synergism';
@@ -14,9 +14,9 @@ import { btoa } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { Globals as G } from './Variables';
-import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
 import { singularityData } from './singularity';
 import { getEvent } from './Event';
+import { octeractGainPerSecond } from './Octeracts';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -515,26 +515,7 @@ export const promocodes = async (input: string | null) => {
             }
         }
     } else if (input === 'spoiler') {
-        const SCOREREQ = 1e32
-        const currentScore = calculateAscensionScore().effectiveScore
-
-        const baseMultiplier = (currentScore >= SCOREREQ) ? Math.cbrt(currentScore / SCOREREQ) : Math.pow(currentScore / SCOREREQ, 2);
-        const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
-
-        const valueMultipliers = [
-            1 + player.shopUpgrades.seasonPass3 / 100,
-            1 + player.shopUpgrades.seasonPassY / 200,
-            1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
-            1 + player.shopUpgrades.seasonPassLost / 200,
-            1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
-            1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
-            +player.singularityUpgrades.singCubes1.getEffect().bonus,
-            +player.singularityUpgrades.singCubes2.getEffect().bonus,
-            +player.singularityUpgrades.singCubes3.getEffect().bonus
-        ]
-
-        const ascensionSpeed = calculateAscensionAcceleration()
-        const perSecond = 1/(24 * 3600 * 365 * 1e9) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
+        const perSecond = octeractGainPerSecond()
         if (perSecond > 1) {
             return Alert(`You will gain ${format(perSecond, 2, true)} Octeracts (when they come out) every second, assuming you have them unlocked!`)
         } else {

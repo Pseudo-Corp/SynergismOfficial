@@ -718,7 +718,8 @@ export const player: Player = {
         singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3'])
     },
     dailyCodeUsed: false,
-    hepteractAutoCraftPercentage: 50
+    hepteractAutoCraftPercentage: 50,
+    octeractTimer: 0
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -3427,6 +3428,7 @@ function tack(dt: number) {
         addTimers('ascension', dt)
         addTimers('quarks', dt)
         addTimers('goldenQuarks', dt)
+        addTimers('octeracts', dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
         if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {
