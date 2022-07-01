@@ -715,7 +715,12 @@ export const player: Player = {
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
         singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
         singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
-        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3'])
+        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3']),
+        singOcteractGain: new SingularityUpgrade(singularityData['singOcteractGain']),
+        singOcteractGain2: new SingularityUpgrade(singularityData['singOcteractGain2']),
+        singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
+        singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
+        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
     },
     dailyCodeUsed: false,
     hepteractAutoCraftPercentage: 50,

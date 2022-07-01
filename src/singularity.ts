@@ -588,7 +588,72 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 desc: `The DR exponent is now ${format(n/100, 2, true)} larger!`
             }
         }
-    }
+    },
+    singOcteractGain: {
+        name: 'Octeract Absinthe',
+        description: 'You would have never known this tonic can boost your Octeracts! [+1% per level, in fact!]',
+        maxLevel: -1,
+        costPerLevel: 20000,
+        minimumSingularity: 36,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.01 * n,
+                desc: `Octeract Gain +${format(n, 0, true)}%`
+            }
+        },
+    },
+    singOcteractGain2: {
+        name: 'Pieces of Eight',
+        description: 'There is indeed eight of them, but each only gives +0.5% bonus, so each level gives +4% Octeract per level.',
+        maxLevel: 25,
+        costPerLevel: 40000,
+        minimumSingularity: 36,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.04 * n,
+                desc: `Octeract Gain +${format(4*n, 0, true)}%`
+            }
+        },
+    },
+    singOcteractGain3: {
+        name: 'The Obelisk Shaped like an Octagon.',
+        description: 'Platonic had to reach pretty far here. +2% Octeracts yeah!',
+        maxLevel: 50,
+        costPerLevel: 250000,
+        minimumSingularity: 55,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.02 * n,
+                desc: `Octeract Gain +${format(2 * n, 0, true)}%`
+            }
+        },
+    },
+    singOcteractGain4: {
+        name: 'Octahedral Synthesis',
+        description: 'How does this even work!?? +1% Octeracts, you bet!',
+        maxLevel: 100,
+        costPerLevel: 750000,
+        minimumSingularity: 77,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.01 * n,
+                desc: `Octeract Gain +${format(n, 0, true)}%`
+            }
+        },
+    },
+    singOcteractGain5: {
+        name: 'The Eighth Wonder of the World',
+        description: 'is the wonder of the world we live in. [+0.5% Octeracts. Platonic, this is so stingy! but, he does not care one bit.]',
+        maxLevel: 200,
+        costPerLevel: 7777777,
+        minimumSingularity: 100,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.005 * n,
+                desc: `Octeract Gain +${format(n / 2, 1, true)}%`
+            }
+        },
+    },
 }
 
 /**
