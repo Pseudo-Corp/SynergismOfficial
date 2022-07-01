@@ -6,6 +6,8 @@ import { toOrdinal } from './Utility'
 
 export const updateSingularityPenalties = (): void => {
     const color = player.runelevels[6] > 0 ? 'green' : 'red';
+    const platonic = (player.singularityCount > 36) ? `Platonic Upgrade costs are multiplied by ${format(calculateSingularityDebuff('Platonic Costs'), 2, true)}.` : '';
+    const hepteract = (player.singularityCount > 50) ? `Hepteract Forge costs are multiplied by ${format(calculateSingularityDebuff('Hepteract Costs'), 2, true)}.` : '';
     const str = getSingularityOridnalText(player.singularityCount) +
                 `<br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
                  Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed'), 2, true)}
@@ -14,6 +16,8 @@ export const updateSingularityPenalties = (): void => {
                  Cube Gain is divided by ${format(calculateSingularityDebuff('Cubes'), 2, true)}.
                  Research Costs are multiplied by ${format(calculateSingularityDebuff('Researches'), 2, true)}.
                  Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(calculateSingularityDebuff('Cube Upgrades'), 2, true)}.
+                 ${platonic}
+                 ${hepteract}
                  <br><span style='color: ${color}'>Antiquities of Ant God is ${(player.runelevels[6] > 0) ? '' : 'NOT'} purchased. Penalties are ${(player.runelevels[6] > 0) ? '' : 'NOT'} dispelled!</span>`
 
     DOMCacheGetOrSet('singularityPenaltiesMultiline').innerHTML = str;
@@ -927,7 +931,8 @@ export async function buyGoldenQuarks(): Promise<void> {
     }
 }
 
-export type SingularityDebuffs = 'Offering' | 'Obtainium' | 'Global Speed' | 'Researches' | 'Ascension Speed' | 'Cubes' | 'Cube Upgrades'
+export type SingularityDebuffs = 'Offering' | 'Obtainium' | 'Global Speed' | 'Researches' | 'Ascension Speed' | 'Cubes' | 'Cube Upgrades' |
+                                 'Platonic Costs' | 'Hepteract Costs'
 
 export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singularityCount: number=player.singularityCount) => {
     if (singularityCount === 0) {
@@ -947,15 +952,23 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
         effectiveSingularities *= 2.5
         effectiveSingularities *= Math.min(6, 1.5 * singularityCount / 25 - 0.5)
     }
+    if (player.singularityCount > 36) {
+        effectiveSingularities *= 4
+        effectiveSingularities *= Math.min(5, player.singularityCount / 18 - 1)
+        effectiveSingularities *= Math.pow(1.1, Math.min(player.singularityCount - 36, 64))
+    }
     if (singularityCount > 50) {
         effectiveSingularities *= 6
         effectiveSingularities *= Math.min(8, 2 * singularityCount / 50 - 1)
+        effectiveSingularities *= Math.pow(1.1, Math.min(player.singularityCount - 50, 50))
     }
     if (singularityCount > 100) {
         effectiveSingularities *= singularityCount / 25
+        effectiveSingularities *= Math.pow(1.05, player.singularityCount - 100)
     }
     if (singularityCount > 250) {
         effectiveSingularities *= singularityCount / 62.5
+        effectiveSingularities *= Math.pow(1.04, player.singularityCount - 250)
     }
 
     if (debuff === 'Offering') {
@@ -970,6 +983,10 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
         return 1 + Math.sqrt(effectiveSingularities) / 5
     } else if (debuff === 'Cubes') {
         return 1 + Math.sqrt(effectiveSingularities) / 4
+    } else if (debuff === 'Platonic Costs') {
+        return (player.singularityCount > 36) ? 1 + Math.pow(effectiveSingularities, 3/10) / 5 : 1
+    } else if (debuff === 'Hepteract Costs') {
+        return (player.singularityCount > 50) ? 1 + Math.pow(effectiveSingularities, 11/50) / 10 : 1
     } else {
         // Cube upgrades
         return Math.cbrt(effectiveSingularities + 1)
