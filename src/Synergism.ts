@@ -720,7 +720,7 @@ export const player: Player = {
         singOcteractGain2: new SingularityUpgrade(singularityData['singOcteractGain2']),
         singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
         singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
-        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
+        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5'])
     },
     dailyCodeUsed: false,
     hepteractAutoCraftPercentage: 50,

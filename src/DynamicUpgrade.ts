@@ -67,7 +67,8 @@ export abstract class DynamicUpgrade {
     }
 
     public getEffect(): {bonus: number | boolean, desc: string} {
-        return this.effect(this.level + this.freeLevels)
+        const effectiveLevel = this.level + Math.min(this.level, this.freeLevels) + Math.sqrt(Math.max(0, this.freeLevels - this.level))
+        return this.effect(effectiveLevel)
     }
 
     abstract toString(): string

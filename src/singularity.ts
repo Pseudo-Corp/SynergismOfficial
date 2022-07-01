@@ -65,8 +65,12 @@ export class SingularityUpgrade extends DynamicUpgrade {
             ? `Minimum Singularity: ${this.minimumSingularity}`
             : 'No minimal Singularity to purchase required'
 
-        const freeLevelInfo = this.freeLevels > 0 ?
+        let freeLevelInfo = this.freeLevels > 0 ?
             `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
+
+        if (this.freeLevels > this.level) {
+            freeLevelInfo = freeLevelInfo + '<span style="color: maroon"> (Softcapped) </span>'
+        }
 
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
@@ -172,8 +176,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         costPerLevel: 1000,
         effect: (n: number) => {
             return {
-                bonus: n,
-                desc: `Every hour, you gain ${format(n)} Golden Quarks from exporting.`
+                bonus: n * (n + 1) / 2,
+                desc: `Every hour, you gain ${format(n * (n + 1) / 2)} Golden Quarks from exporting.`
             }
         }
     },
@@ -600,7 +604,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: 1 + 0.01 * n,
                 desc: `Octeract Gain +${format(n, 0, true)}%`
             }
-        },
+        }
     },
     singOcteractGain2: {
         name: 'Pieces of Eight',
@@ -613,7 +617,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: 1 + 0.04 * n,
                 desc: `Octeract Gain +${format(4*n, 0, true)}%`
             }
-        },
+        }
     },
     singOcteractGain3: {
         name: 'The Obelisk Shaped like an Octagon.',
@@ -626,7 +630,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: 1 + 0.02 * n,
                 desc: `Octeract Gain +${format(2 * n, 0, true)}%`
             }
-        },
+        }
     },
     singOcteractGain4: {
         name: 'Octahedral Synthesis',
@@ -639,7 +643,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: 1 + 0.01 * n,
                 desc: `Octeract Gain +${format(n, 0, true)}%`
             }
-        },
+        }
     },
     singOcteractGain5: {
         name: 'The Eighth Wonder of the World',
@@ -652,8 +656,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: 1 + 0.005 * n,
                 desc: `Octeract Gain +${format(n / 2, 1, true)}%`
             }
-        },
-    },
+        }
+    }
 }
 
 /**

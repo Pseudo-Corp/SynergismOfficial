@@ -86,7 +86,12 @@ export const octeractGainPerSecond = () => {
         1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
         +player.singularityUpgrades.singCubes1.getEffect().bonus,
         +player.singularityUpgrades.singCubes2.getEffect().bonus,
-        +player.singularityUpgrades.singCubes3.getEffect().bonus
+        +player.singularityUpgrades.singCubes3.getEffect().bonus,
+        +player.singularityUpgrades.singOcteractGain.getEffect().bonus,
+        +player.singularityUpgrades.singOcteractGain2.getEffect().bonus,
+        +player.singularityUpgrades.singOcteractGain3.getEffect().bonus,
+        +player.singularityUpgrades.singOcteractGain4.getEffect().bonus,
+        +player.singularityUpgrades.singOcteractGain5.getEffect().bonus
     ]
 
     const ascensionSpeed = calculateAscensionAcceleration()
