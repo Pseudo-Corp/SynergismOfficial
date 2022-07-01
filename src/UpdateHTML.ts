@@ -9,7 +9,7 @@ import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, 
 import { getMaxChallenges } from './Challenges';
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-import { updateSingularityStats } from './singularity';
+import { updateSingularityPerks } from './singularity';
 import { revealCorruptions } from './Corruptions';
 
 export const revealStuff = () => {
@@ -552,7 +552,7 @@ export const hideStuff = () => {
     if (G['currentTab'] === 'singularity') {
         DOMCacheGetOrSet('singularity').style.display = 'block';
         DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'lightgoldenrodyellow'
-        updateSingularityStats();
+        updateSingularityPerks();
     }
 }
 

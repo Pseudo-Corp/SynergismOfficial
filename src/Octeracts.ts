@@ -58,4 +58,12 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
         this.updateUpgradeHTML();
     }
+
+    toString(): string {
+        return 'Not yet implemented!'
+    }
+
+    updateUpgradeHTML(): void {
+        // Not Yet Implemented!
+    }
 }
