@@ -915,6 +915,7 @@ export const singularity = async (): Promise<void> => {
     hold.tesseractbuyamount = player.tesseractbuyamount
     hold.shoptoggles = player.shoptoggles
     hold.autoSacrificeToggle = player.autoSacrificeToggle
+    hold.autoBuyFragment = player.autoBuyFragment
     hold.autoFortifyToggle = player.autoFortifyToggle
     hold.autoEnhanceToggle = player.autoEnhanceToggle
     hold.autoResearchToggle = player.autoResearchToggle

@@ -162,6 +162,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.runeBlessingBuyAmount = 0;
         player.runeSpiritBuyAmount = 0;
     }
+    if (data.autoBuyFragment === undefined) {
+        player.autoBuyFragment = false;
+    }
 
     if (data.autoTesseracts === undefined) {
         player.autoTesseracts = [false, false, false, false, false, false]

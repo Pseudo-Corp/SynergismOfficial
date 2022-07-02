@@ -3,6 +3,7 @@ import { buyAccelerator, boostAccelerator, buyMultiplier } from './Buy';
 import { player, resetCheck } from './Synergism';
 import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles';
 import { Alert, Prompt } from './UpdateHTML';
+import { useConsumable } from  './Shop';
 
 export const hotkeys = new Map<string, [string,() => unknown]>([
     ['A', ['Buy Accelerators', () => buyAccelerator()]],
@@ -29,7 +30,9 @@ export const hotkeys = new Map<string, [string,() => unknown]>([
     ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension')]],
     ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge')]], // Its already checks if inside Asc. Challenge
     ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999)]],
-    ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity')]]
+    ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity')]],
+    ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion')]],
+    ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion')]]
 ]);
 
 function toggleChallengeSweep(): void {

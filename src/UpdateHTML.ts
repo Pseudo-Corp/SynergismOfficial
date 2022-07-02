@@ -347,6 +347,10 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('toggleautosacrifice').style.display = 'block' :
         DOMCacheGetOrSet('toggleautosacrifice').style.display = 'none';
 
+    player.cubeUpgrades[51] > 0 && player.singularityCount >= 40 ? //Auto Fragments Buy (After Cx1)
+        DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'block' :
+        DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'none';
+
     player.shopUpgrades.obtainiumAuto > 0 ? //Auto Research Shop Purchase
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'block' :
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'none';
@@ -374,6 +378,10 @@ export const revealStuff = () => {
     player.singularityCount > 0 ?
         (DOMCacheGetOrSet('singularitytab').style.display = 'block'):
         (DOMCacheGetOrSet('singularitytab').style.display = 'none');
+
+    player.singularityCount > 0 ? //Save Offerings
+        DOMCacheGetOrSet('saveOffToggle').style.display = 'block' :
+        DOMCacheGetOrSet('saveOffToggle').style.display = 'none';
 
     // Singularity confirmation toggle pic
     player.singularityCount > 0 && player.ascensionCount > 0 ?

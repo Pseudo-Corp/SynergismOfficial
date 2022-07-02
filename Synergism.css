@@ -1223,6 +1223,11 @@ nav li:hover {
     background-color: #333;
 }
 
+.FragBth {
+    width: 94px;
+    margin-right: 12px;
+}
+
 .talisminBtnAvailable {
     background-color: purple;
     cursor: pointer;
@@ -3086,6 +3091,19 @@ header #obtainiumDisplay {
 
 #platonicUpgrades {
     margin-bottom: 50px;
+}
+
+#saveOffToggle {
+    width: 130px;
+    height: 32px;
+    position: absolute;
+    margin-top: 6px;
+    margin-left: 193px;
+    transition-duration: 0.15s;
+}
+
+#saveOffToggle:hover {
+    background-color: #333;
 }
 
 .platonicUpgradeImage {
