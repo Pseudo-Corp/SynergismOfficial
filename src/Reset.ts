@@ -373,6 +373,11 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         G['autoResetTimers'].transcension = 0;
     }
 
+    if (input == 'reincarnation' || input == 'reincarnationChallenge') {
+        if (player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0) {
+            player.prestigePoints = player.prestigePoints.add(G['reincarnationPointGain'])
+        }
+    }
 
     if (input === 'reincarnation' || input === 'reincarnationChallenge' || input === 'ascension' || input === 'ascensionChallenge' || input == 'singularity') {
         // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
@@ -409,9 +414,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
         player.transcendPoints = new Decimal('0');
         player.reincarnationPoints = player.reincarnationPoints.add(G['reincarnationPointGain']);
-        if (player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0) {
-            player.prestigePoints = player.prestigePoints.add(G['reincarnationPointGain'])
-        }
         player.reincarnationShards = new Decimal('0');
         player.challengecompletions[1] = 0;
         player.challengecompletions[2] = 0;
