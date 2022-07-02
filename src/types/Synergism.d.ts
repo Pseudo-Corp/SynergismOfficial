@@ -407,6 +407,14 @@ export interface Player {
     ascensionCount: number
     ascensionCounter: number
     ascensionCounterReal: number
+    autoopenCubes: boolean,
+    openCubes: number
+    autoopenTesseracts: boolean,
+    openTesseracts: number
+    autoopenHypercubes: boolean,
+    openHypercubes: number
+    autoopenPlatonicsCubes: boolean,
+    openPlatonicsCubes: number
     cubeUpgrades: [null, ...number[]]
     cubeUpgradesBuyMaxToggle: boolean
     platonicUpgrades: number[]

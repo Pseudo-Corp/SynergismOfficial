@@ -171,6 +171,23 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.autoTesseracts = [false, false, false, false, false, false]
     }
 
+    if (data.autoopenCubes === undefined) {
+        player.autoopenCubes = false;
+        player.openCubes = 0;
+    }
+    if (data.autoopenTesseracts === undefined) {
+        player.autoopenTesseracts = false;
+        player.openTesseracts = 0;
+    }
+    if (data.autoopenHypercubes === undefined) {
+        player.autoopenHypercubes = false;
+        player.openHypercubes = 0;
+    }
+    if (data.autoopenPlatonicsCubes === undefined) {
+        player.autoopenPlatonicsCubes = false;
+        player.openPlatonicsCubes = 0;
+    }
+
     if (player.prototypeCorruptions[0] === null || player.prototypeCorruptions[0] === undefined) {
         player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
