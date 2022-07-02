@@ -632,4 +632,12 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.shopBuyMaxToggle = false;
         player.shopConfirmationToggle = true;
     }
+
+    if (data.researchBuyMaxToggle === undefined) {
+        player.researchBuyMaxToggle = false;
+    }
+
+    if (data.cubeUpgradesBuyMaxToggle === undefined) {
+        player.cubeUpgradesBuyMaxToggle = false;
+    }
 }

@@ -298,7 +298,6 @@ export interface Player {
     offeringbuyamount: number
     tesseractbuyamount: number
 
-
     shoptoggles: {
         coin: boolean,
         prestige: boolean,
@@ -364,6 +363,7 @@ export interface Player {
     autoFortifyToggle: boolean,
     autoEnhanceToggle: boolean,
     autoResearchToggle: boolean,
+    researchBuyMaxToggle: boolean,
     autoResearchMode: 'cheapest' | 'manual'
     autoResearch: number
     autoSacrifice: number
@@ -404,6 +404,7 @@ export interface Player {
     ascensionCount: number
     ascensionCounter: number
     cubeUpgrades: [null, ...number[]]
+    cubeUpgradesBuyMaxToggle: boolean
     platonicUpgrades: number[]
     wowCubes: WowCubes
     wowTesseracts: WowTesseracts
@@ -677,8 +678,6 @@ export interface GlobalVariables {
 
     maxexponent: number
 
-    maxbuyresearch: boolean,
-
     effectiveLevelMult: number
     optimalOfferingTimer: number
     optimalObtainiumTimer: number
@@ -799,7 +798,6 @@ export interface GlobalVariables {
     hypercubeBonusMultiplier: [null, ...number[]]
     platonicBonusMultiplier: number[]
 
-    buyMaxCubeUpgrades: boolean,
     autoOfferingCounter: number
 
     researchOrderByCost: number[],

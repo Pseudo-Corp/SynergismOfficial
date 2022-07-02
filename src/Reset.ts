@@ -951,6 +951,8 @@ export const singularity = async (): Promise<void> => {
     hold.hepteractAutoCraftPercentage = player.hepteractAutoCraftPercentage
     hold.shopBuyMaxToggle = player.shopBuyMaxToggle
     hold.shopConfirmationToggle = player.shopConfirmationToggle
+    hold.researchBuyMaxToggle = player.researchBuyMaxToggle
+    hold.cubeUpgradesBuyMaxToggle = player.cubeUpgradesBuyMaxToggle
 
     //Import Game
     await importSynergism(btoa(JSON.stringify(hold)), true);

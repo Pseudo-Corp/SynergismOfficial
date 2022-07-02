@@ -477,6 +477,7 @@ export const player: Player = {
     autoFortifyToggle: false,
     autoEnhanceToggle: false,
     autoResearchToggle: false,
+    researchBuyMaxToggle: false,
     autoResearchMode: 'manual',
     autoResearch: 0,
     autoSacrifice: 0,
@@ -523,6 +524,7 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    cubeUpgradesBuyMaxToggle: false,
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
     wowTesseracts: new WowTesseracts(0),
@@ -1541,14 +1543,12 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: OFF'
         }
-
-        // Settings that are not saved in the data will be restored to their defaults by import or singularity
-        if (G['maxbuyresearch']) {
+        if (player.researchBuyMaxToggle) {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
         } else {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
         }
-        if (G['buyMaxCubeUpgrades']) {
+        if (player.cubeUpgradesBuyMaxToggle) {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: MAX [if possible wow]'
         } else {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: 1 Level wow'
