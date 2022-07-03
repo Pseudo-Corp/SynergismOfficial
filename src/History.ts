@@ -335,7 +335,7 @@ const resetHistoryRenderRow = (
         const diff = newMulti - oldMulti;
         extra.push(
             `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
-            `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/GalacticCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
+            `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/crumb.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
             `<span title="${format(data.baseELO)} base"><img src="Pictures/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
         );
     } else if (data.kind === 'ascend') {

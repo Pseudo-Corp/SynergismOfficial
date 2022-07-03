@@ -674,6 +674,7 @@ export const player: Player = {
         time: 0
     },
     singularityCount: 0,
+    singularityCounter: 0,
     goldenQuarks: 0,
     quarksThisSingularity: 0,
 
@@ -3382,7 +3383,16 @@ const dt = 5;
 const filterStrength = 20;
 let deltaMean = 0;
 
-export const loadingDate = new Date();
+const loadingDate = new Date();
+const loadingBasePerfTick = performance.now();
+
+// performance.now() doesn't always reset on reload, so we capture a "base value"
+// to keep things stable
+// The returned time is pinned to when the page itself was loaded to remain
+// resilient against changed system clocks
+export const getTimePinnedToLoadDate = () => {
+    return loadingDate.getTime() + (performance.now() - loadingBasePerfTick);
+}
 
 const tick = () => {
     const now = performance.now();

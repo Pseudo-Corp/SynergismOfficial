@@ -1,4 +1,4 @@
-import { player, loadingDate } from './Synergism'
+import { player, getTimePinnedToLoadDate } from './Synergism'
 import { Globals as G } from './Variables';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -57,7 +57,7 @@ const events: Record<string, HolidayData> = {
         url: 'https://www.youtube.com/watch?v=znxoba0k000',
         everyYear: false,
         start: '06/27/2022 00:00:00',
-        end: '07/03/2022 23:59:59',
+        end: '07/05/2022 11:59:59',
         notice: 3,
         event: true,
         buffs: {
@@ -183,7 +183,7 @@ export const eventCheck = () => {
     if (!player.dayCheck) {
         return;
     }
-    const now = new Date(loadingDate.getTime() + performance.now());
+    const now = new Date(getTimePinnedToLoadDate());
     let start: Date;
     let end: Date;
 
@@ -191,7 +191,7 @@ export const eventCheck = () => {
     /* TODO: Figure out why some people get tagged for cheating even when they are playing legitimately
              I have temporarily disabled the checks. */
     nowEvent = events.default;
-    //if (now.getTime() >= player.dayCheck.getTime() && now.getTime() > loadingDate.getTime()) {
+    //if (now.getTime() >= player.dayCheck.getTime()) {
     // Update currently valid events
     for (const e in events) {
         const event = events[e];
