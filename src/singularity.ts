@@ -690,25 +690,23 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Generous Orbs',
         levels: [1, 2, 5, 10, 15, 20, 25, 30, 35],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[8]) {
-                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 700%'
-            } else if (n >= levels[7]) {
-                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 500%'
-            } else if (n >= levels[6]) {
-                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 415%'
-            } else if (n >= levels[5]) {
-                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 360%'
-            } else if (n >= levels[4]) {
-                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 315%'
-            } else if (n >= levels[3]) {
-                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 280%'
-            } else if (n >= levels[2]) {
-                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 255%'
-            } else if (n >= levels[1]) {
-                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 230%'
-            } else {
-                return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 215%'
+            const overfluxBonus = {
+                8: 700, // How to read: levels[8] -> Sing 35 gives 700%
+                7: 500,
+                6: 415,
+                5: 360,
+                4: 315,
+                3: 280,
+                2: 255,
+                1: 230
+            } as const;
+
+            for (let i = 8; i > 0; i--) {
+                if (n >= levels[i]) {
+                    return `Overflux Orbs effect on opening Cubes for Quarks can now go up to ${overfluxBonus[i as keyof typeof overfluxBonus]}%`
+                }
             }
+            return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 215%'
         }
     },
     {
