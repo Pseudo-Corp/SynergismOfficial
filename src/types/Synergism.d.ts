@@ -360,6 +360,7 @@ export interface Player {
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean,
+    shopHideToggle: boolean,
 
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,

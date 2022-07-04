@@ -472,6 +472,7 @@ export const player: Player = {
         powderAuto: 0
     },
     shopBuyMaxToggle: false,
+    shopHideToggle: false,
     shopConfirmationToggle: true,
 
     autoSacrificeToggle: false,
@@ -1540,6 +1541,11 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: ON'
         } else {
             DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: OFF'
+        }
+        if (player.shopHideToggle) {
+            DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: ON'
+        } else {
+            DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: OFF'
         }
 
         // Settings that are not saved in the data will be restored to their defaults by import or singularity

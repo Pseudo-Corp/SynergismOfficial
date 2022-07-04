@@ -700,6 +700,15 @@ export const toggleBuyMaxShop = () => {
     player.shopBuyMaxToggle = !player.shopBuyMaxToggle;
 }
 
+export const toggleHideShop = () => {
+    const el = DOMCacheGetOrSet('toggleHideShop')
+    el.textContent = player.shopHideToggle
+        ? 'Hide Maxed: OFF'
+        : 'Hide Maxed: ON';
+
+    player.shopHideToggle = !player.shopHideToggle;
+}
+
 export const toggleAntMaxBuy = () => {
     const el = DOMCacheGetOrSet('toggleAntMax');
     el.textContent = player.antMax
