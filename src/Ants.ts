@@ -340,7 +340,7 @@ export const sacrificeAnts = async (auto = false) => {
     let p = true
 
     if (player.antPoints.gte('1e40')) {
-        if (!auto && player.antSacrificePoints < 100 && player.toggles[32]) {
+        if (!auto && player.toggles[32]) {
             p = await Confirm('This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?')
         }
         if (p) {
