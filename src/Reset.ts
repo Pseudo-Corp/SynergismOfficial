@@ -1,4 +1,4 @@
-import { player, clearInt, interval, format, blankSave } from './Synergism';
+import { player, clearInt, interval, format, blankSave} from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
@@ -244,12 +244,13 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         }
     } else if (input == 'singularity') {
         // Singularity entries will only be logged if Antiquities of Ant God was purchased
-        if (player.runelevels[6] > 0) {
+        if (player.singularityCount >= 1) {
             const historyEntry: ResetHistoryEntrySingularity = {
                 seconds: player.singularityCounter,
                 date: Date.now(),
+                singularityCount: player.singularityCount,
                 quarks: player.quarksThisSingularity,
-                goldenQuarks: player.goldenQuarks,
+                goldenQuarks: calculateGoldenQuarkGain(),
                 kind: 'singularity'
             }
 
@@ -904,6 +905,7 @@ export const singularity = async (): Promise<void> => {
     toggleSubTab(9, 0); // set 'corruption main'
     toggleSubTab(-1, 0); // set 'statistics main'
 
+    hold.history = player.history;
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;
     hold.shopUpgrades = player.shopUpgrades;

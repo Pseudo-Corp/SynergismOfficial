@@ -63,6 +63,7 @@ export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
 }
 
 export type ResetHistoryEntrySingularity = ResetHistoryEntryBase & {
+    singularityCount: number
     quarks: number
     goldenQuarks: number
     kind: 'singularity'
@@ -108,6 +109,7 @@ export type ResetHistoryGainType = keyof Pick<ResetHistoryEntryIntersect,
     | 'wowHypercubes'
     | 'wowPlatonicCubes'
     | 'wowHepteracts'
+    | 'singularityCount'
     | 'quarks'
     | 'goldenQuarks'>
 
@@ -197,6 +199,12 @@ const historyGains: Record<
         imgTitle: 'Hepteracts',
         onlyif: () => player.achievements[255] > 0
     },
+    singularityCount: {
+        img: 'Pictures/Singularity.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Singularity Count',
+        onlyif: () => player.singularityCount > 0
+    },
     quarks: {
         img: 'Pictures/Quark.png',
         formatter: formatDecimalSource,
@@ -216,7 +224,7 @@ const historyGainsOrder: ResetHistoryGainType[] = [
     'offerings', 'obtainium',
     'particles', 'diamonds', 'mythos',
     'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowHepteracts',
-    'quarks', 'goldenQuarks'
+    'singularityCount', 'quarks', 'goldenQuarks' 
 ];
 
 // The various kinds and their associated images.
