@@ -198,14 +198,14 @@ const historyGains: Record<
         onlyif: () => player.achievements[255] > 0
     },
     quarks: {
-        img: 'Pictures/quarks.png',
-        formatter: conditionalFormatPerSecond,
+        img: 'Pictures/Quark.png',
+        formatter: formatDecimalSource,
         imgTitle: 'Quarks',
         onlyif: () => player.singularityCount > 0
     },
     goldenQuarks: {
-        img: 'Pictures/goldenQuarks.png',
-        formatter: conditionalFormatPerSecond,
+        img: 'Pictures/Golden Quark.png',
+        formatter: formatDecimalSource,
         imgTitle: 'Golden Quarks',
         onlyif: () => player.singularityCount > 0
     }
@@ -226,7 +226,7 @@ const historyKinds: Record<Kind, { img: string }> = {
     'transcend': {img: 'Pictures/Transcend.png'},
     'reincarnate': {img: 'Pictures/Reincarnate.png'},
     'ascend': {img: 'Pictures/questionable.png'},
-    'singularity': {img: 'Pictures/goldenQuark.png'}
+    'singularity': {img: 'Pictures/Singularity.png'}
 };
 
 // List of categories and the IDs of the associated table in the DOM.
@@ -234,7 +234,7 @@ const resetHistoryTableMapping: Record<Category, string> = {
     'ants': 'historyAntsTable',
     'reset': 'historyResetTable',
     'ascend': 'historyAscendTable',
-    'singularity': 'historySigularityTable'
+    'singularity': 'historySingularityTable'
 };
 
 // Images associated with the various corruptions.

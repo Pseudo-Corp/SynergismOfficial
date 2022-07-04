@@ -18,7 +18,8 @@ import type {
     ResetHistoryEntryPrestige,
     ResetHistoryEntryTranscend,
     ResetHistoryEntryReincarnate,
-    ResetHistoryEntryAscend
+    ResetHistoryEntryAscend,
+    ResetHistoryEntrySingularity
 } from './History';
 import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
@@ -241,7 +242,21 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
 
             Synergism.emit('historyAdd', 'ascend', historyEntry);
         }
+    } else if (input == 'singularity') {
+        // Singularity entries will only be logged if Antiquities of Ant God was purchased
+        if (player.runelevels[6] > 0) {
+            const historyEntry: ResetHistoryEntrySingularity = {
+                seconds: player.singularityCounter,
+                date: Date.now(),
+                quarks: player.quarksThisSingularity,
+                goldenQuarks: player.goldenQuarks,
+                kind: 'singularity'
+            }
+
+            Synergism.emit('historyAdd', 'singularity', historyEntry);
+        }
     }
+
 };
 
 export const reset = (input: resetNames, fast = false, from = 'unknown') => {
