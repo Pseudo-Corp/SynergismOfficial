@@ -357,7 +357,7 @@ export interface Player {
         offeringEX2: number,
         obtainiumEX2: number
     },
-    shopConfirmationToggle: boolean,
+    shopConfirmationToggle: number,
     shopBuyMaxToggle: boolean,
 
     autoSacrificeToggle: boolean,

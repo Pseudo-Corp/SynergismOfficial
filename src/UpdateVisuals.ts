@@ -563,6 +563,28 @@ export const visualUpdateShop = () => {
                     DOMCacheGetOrSet(`${key}Button`).textContent = 'Upgrade +'+format(metaData.levelCanBuy - player.shopUpgrades[key],0,true)+ ' for ' + format(metaData.cost,0,true) + ' Quarks';
             }
         }
+        if (shopItem.type === shopUpgradeTypes.CONSUMABLE) {
+            const of = DOMCacheGetOrSet('buyofferingpotion')
+            const ob = DOMCacheGetOrSet('buyobtainiumpotion');
+            const buy = Math.floor(Math.max(Number((DOMCacheGetOrSet('buyManyPotionsInput') as HTMLInputElement).value), 1));
+            const cantBuyof = player.shopUpgrades['offeringPotion'] + buy >= shopData['offeringPotion'].maxLevel;
+            const cantBuyob = player.shopUpgrades['obtainiumPotion'] + buy >= shopData['obtainiumPotion'].maxLevel;
+            if (!player.shopBuyMaxToggle) {
+                player.shopUpgrades['offeringPotion'] && cantBuyof ?
+                    of.textContent = 'Can\'t buy over limit' :
+                    of.textContent = 'Buy ' + format(buy, 0, false) + ' for ' + format(100 * buy, 0, false) + ' Quarks';
+                player.shopUpgrades['obtainiumPotion'] && cantBuyob ?
+                    ob.textContent = 'Can\'t buy over limit' :
+                    ob.textContent = 'Buy ' + format(buy, 0, false) + ' for ' + format(100 * buy, 0, false) + ' Quarks';
+            } else {
+                player.shopUpgrades['offeringPotion'] === shopItem.maxLevel ?
+                    of.textContent = 'Too many!':
+                    of.textContent = 'As many as possible';
+                player.shopUpgrades['obtainiumPotion'] === shopItem.maxLevel ?
+                    ob.textContent = 'Too many!':
+                    ob.textContent = 'As many as possible';
+            }
+        }
     }
 
     DOMCacheGetOrSet('buySingularityQuarksAmount').textContent = `Owned: ${format(player.goldenQuarks)}`

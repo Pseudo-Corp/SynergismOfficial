@@ -707,11 +707,16 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
 
 export const toggleShopConfirmation = () => {
     const el = DOMCacheGetOrSet('toggleConfirmShop')
-    el.textContent = player.shopConfirmationToggle
-        ? 'Shop Confirmations: OFF'
-        : 'Shop Confirmations: ON';
-
-    player.shopConfirmationToggle = !player.shopConfirmationToggle;
+    if (player.shopConfirmationToggle === 1) {
+        el.textContent = 'Shop Confirmations: OFF'
+        player.shopConfirmationToggle = 2
+    } else if (player.shopConfirmationToggle === 2) {
+        el.textContent = 'Shop Confirmations: NONE'
+        player.shopConfirmationToggle = 3
+    } else if (player.shopConfirmationToggle === 3) {
+        el.textContent = 'Shop Confirmations: ON'
+        player.shopConfirmationToggle = 1
+    }
 }
 
 export const toggleBuyMaxShop = () => {

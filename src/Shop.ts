@@ -596,23 +596,33 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     let p = true;
     const maxLevel = player.shopUpgrades[input] === shopData[input].maxLevel;
     const canAfford = Number(player.worlds) >= getShopCosts(input);
+    const toBuyPotions = Math.floor(Math.max(Number((DOMCacheGetOrSet('buyManyPotionsInput') as HTMLInputElement).value), 1));
+    const canAffordMany = Number(player.worlds) >= getShopCosts(input) * toBuyPotions;
+    const maxLevelMany = player.shopUpgrades[input] + toBuyPotions >= shopData[input].maxLevel;
 
-    if (player.shopConfirmationToggle || !shopData[input].refundable) {
-        if (maxLevel) {
+    if (player.shopConfirmationToggle === 1 || !shopData[input].refundable) {
+        if (maxLevel && player.shopConfirmationToggle != 3) {
             await Alert('You can\'t purchase ' + friendlyShopName(input) + ' because you already have the max level!')
-        } else if (!canAfford) {
+        } else if (!canAfford && player.shopConfirmationToggle != 3) {
             await Alert('You can\'t purchase ' + friendlyShopName(input) + ' because you don\'t have enough Quarks!')
         } else {
             let noRefunds = '';
             if (!shopData[input].refundable) {
                 noRefunds = ' REMINDER: No refunds!'
             }
-            p = await Confirm('Are you sure you\'d like to purchase ' + friendlyShopName(input) + ' for ' + format(getShopCosts(input)) + ' Quarks? Press \'OK\' to finalize purchase.' + noRefunds);
+            if (player.shopConfirmationToggle != 3) {
+                p = await Confirm('Are you sure you\'d like to purchase ' + friendlyShopName(input) + ' for ' + format(getShopCosts(input)) + ' Quarks? Press \'OK\' to finalize purchase.' + noRefunds);
+            }
         }
     }
 
     if (p) {
-        if (player.shopBuyMaxToggle) {
+        if ((player.shopUpgrades['offeringPotion'] || player.shopUpgrades['obtainiumPotion']) && !player.shopBuyMaxToggle) {
+            if (canAffordMany && !maxLevelMany) {
+                player.worlds.sub(getShopCosts(input) * toBuyPotions);
+                player.shopUpgrades[input] += toBuyPotions
+            }
+        } else if ((!player.shopUpgrades['offeringPotion'] && !player.shopUpgrades['obtainiumPotion']) || player.shopBuyMaxToggle) {
             //Can't use canAfford and maxLevel here because player's quarks change and shop levels change during loop
             while (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
                 player.worlds.sub(getShopCosts(input));
@@ -629,7 +639,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
 }
 
 export const useConsumable = async (input: ShopUpgradeNames) => {
-    const p = player.shopConfirmationToggle
+    const p = player.shopConfirmationToggle === 1
         ? await Confirm('Would you like to use some of this potion?')
         : true;
 
@@ -653,7 +663,7 @@ export const useConsumable = async (input: ShopUpgradeNames) => {
 export const resetShopUpgrades = async (ignoreBoolean = false) => {
     let p = false
     if (!ignoreBoolean) {
-        p = player.shopConfirmationToggle
+        p = player.shopConfirmationToggle === 1
             ? await Confirm('This will fully refund most of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?')
             : true;
     }

@@ -471,7 +471,7 @@ export const player: Player = {
         powderAuto: 0
     },
     shopBuyMaxToggle: false,
-    shopConfirmationToggle: true,
+    shopConfirmationToggle: 1,
 
     autoSacrificeToggle: false,
     autoFortifyToggle: false,
@@ -1531,10 +1531,15 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [OFF]';
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
-        if (player.shopConfirmationToggle) {
+        if (player.shopConfirmationToggle === 1) {
             DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: ON'
-        } else {
+        } else if (player.shopConfirmationToggle === 2) {
             DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
+        } else if (player.shopConfirmationToggle === 3) {
+            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: NONE'
+        } else { //Because most people have it on False or True
+            player.shopConfirmationToggle = 1
+            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: ON'
         }
         if (player.shopBuyMaxToggle) {
             DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: ON'

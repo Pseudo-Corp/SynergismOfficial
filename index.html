@@ -3213,6 +3213,10 @@ $GQ$ for golden quarks, $GQS$ for format golden quarks"></p>
                             <button class="consumablebutton" id="useobtainiumpotion" alt="useobtainiumpotion" label="useobtainiumpotion" style="border: 2px solid blue">CONSUME</button>
                         </div>
                     </div>
+                    <div id="potionsInput" alt="potionsInput" label="potionsInput">
+                        <p id="buyManyPotions" alt="buyManyPotions" label="buyManyPotions">How many potions to buy:</p>
+                        <input type="number" id="buyManyPotionsInput" alt="buyManyPotionsInput" label="buyManyPotionsInput" title="You need to be able to afford all at once" min="1" defaultValue="1">
+                    </div>
                     <div id="quarksDisplay" alt="quarksDisplay" label="quarksDisplay">
                         <img src="Pictures/Quark.png" width="32px" height="32px" loading="lazy">
                         <p id="quarkamount" alt="quarkamount" label="quarkamount">You have 0 Quarks!</p>
@@ -3404,7 +3408,7 @@ $GQ$ for golden quarks, $GQS$ for format golden quarks"></p>
                     </div>
                     <div id="shopButtons" alt="shopButtons" label="shopButtons">
                         <button id="resetShopUpgrades" alt="resetShopUpgrades" label="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button>
-                        <button id="toggleConfirmShop" alt="toggleConfirmShop" label="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
+                        <button id="toggleConfirmShop" alt="toggleConfirmShop" label="toggleConfirmShop" title="If on OFF, will show message only for non Refundables&#013;If on NONE: no messages - really good way to lose all Quarks" style="border: 2px solid white">Shop Confirmations: ON</button>
                         <button id="toggleBuyMaxShop" alt="toggleBuyMaxShop" label="toggleBuyMaxShop" style="border: 2px solid white">Buy Max: OFF</button>
                     </div>
                     <div id="shopHovers" alt="shopHovers" label="shopHovers">

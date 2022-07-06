@@ -1817,6 +1817,12 @@ nav li:hover {
     margin-top: 10px;
 }
 
+#buyManyPotionsInput {
+    margin-left: 5px;
+    width: 64px;
+}
+
+#potionsInput,
 #quarksDisplay,
 #goldenQuarksDisplay {
     display: flex;
@@ -1851,7 +1857,7 @@ nav li:hover {
 }
 
 #shopButtons > button {
-    width: 150px;
+    width: 160px;
     height: 40px;
     margin-left: 5px;
     transition-duration: 0.15s;
