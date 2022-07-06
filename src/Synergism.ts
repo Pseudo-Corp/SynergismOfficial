@@ -1531,9 +1531,7 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [OFF]';
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
-        if (player.shopConfirmationToggle === 1) {
-            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: ON'
-        } else if (player.shopConfirmationToggle === 2) {
+        if (player.shopConfirmationToggle === 2) {
             DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
         } else if (player.shopConfirmationToggle === 3) {
             DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: NONE'

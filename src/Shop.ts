@@ -598,7 +598,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const canAfford = Number(player.worlds) >= getShopCosts(input);
     const toBuyPotions = Math.floor(Math.max(Number((DOMCacheGetOrSet('buyManyPotionsInput') as HTMLInputElement).value), 1));
     const canAffordMany = Number(player.worlds) >= getShopCosts(input) * toBuyPotions;
-    const maxLevelMany = player.shopUpgrades[input] + toBuyPotions >= shopData[input].maxLevel;
+    const maxLevelMany = player.shopUpgrades[input] + toBuyPotions - 1 >= shopData[input].maxLevel;
 
     if (player.shopConfirmationToggle === 1 || !shopData[input].refundable) {
         if (maxLevel && player.shopConfirmationToggle != 3) {
@@ -617,18 +617,18 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     }
 
     if (p) {
-        if ((player.shopUpgrades['offeringPotion'] || player.shopUpgrades['obtainiumPotion']) && !player.shopBuyMaxToggle) {
+        if ((input === 'offeringPotion' || input === 'obtainiumPotion') && !player.shopBuyMaxToggle) {
             if (canAffordMany && !maxLevelMany) {
                 player.worlds.sub(getShopCosts(input) * toBuyPotions);
                 player.shopUpgrades[input] += toBuyPotions
             }
-        } else if ((!player.shopUpgrades['offeringPotion'] && !player.shopUpgrades['obtainiumPotion']) || player.shopBuyMaxToggle) {
+        } else if (player.shopBuyMaxToggle) {
             //Can't use canAfford and maxLevel here because player's quarks change and shop levels change during loop
             while (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
                 player.worlds.sub(getShopCosts(input));
                 player.shopUpgrades[input] += 1
             }
-        } else {
+        } else if (input != 'offeringPotion' && input != 'obtainiumPotion') {
             if (canAfford && !maxLevel) {
                 player.worlds.sub(getShopCosts(input));
                 player.shopUpgrades[input] += 1

@@ -567,13 +567,13 @@ export const visualUpdateShop = () => {
             const of = DOMCacheGetOrSet('buyofferingpotion')
             const ob = DOMCacheGetOrSet('buyobtainiumpotion');
             const buy = Math.floor(Math.max(Number((DOMCacheGetOrSet('buyManyPotionsInput') as HTMLInputElement).value), 1));
-            const cantBuyof = player.shopUpgrades['offeringPotion'] + buy >= shopData['offeringPotion'].maxLevel;
-            const cantBuyob = player.shopUpgrades['obtainiumPotion'] + buy >= shopData['obtainiumPotion'].maxLevel;
+            const cantBuyof = player.shopUpgrades['offeringPotion'] + buy - 1 >= shopData['offeringPotion'].maxLevel;
+            const cantBuyob = player.shopUpgrades['obtainiumPotion'] + buy - 1 >= shopData['obtainiumPotion'].maxLevel;
             if (!player.shopBuyMaxToggle) {
-                player.shopUpgrades['offeringPotion'] && cantBuyof ?
+                cantBuyof ?
                     of.textContent = 'Can\'t buy over limit' :
                     of.textContent = 'Buy ' + format(buy, 0, false) + ' for ' + format(100 * buy, 0, false) + ' Quarks';
-                player.shopUpgrades['obtainiumPotion'] && cantBuyob ?
+                cantBuyob ?
                     ob.textContent = 'Can\'t buy over limit' :
                     ob.textContent = 'Buy ' + format(buy, 0, false) + ' for ' + format(100 * buy, 0, false) + ' Quarks';
             } else {
