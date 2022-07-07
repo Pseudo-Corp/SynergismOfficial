@@ -420,11 +420,11 @@ export const toggleauto = () => {
 }
 
 export const toggleResearchBuy = () => {
-    if (G['maxbuyresearch']) {
-        G['maxbuyresearch'] = false;
+    if (player.researchBuyMaxToggle) {
+        player.researchBuyMaxToggle = false;
         DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
     } else {
-        G['maxbuyresearch'] = true;
+        player.researchBuyMaxToggle = true;
         DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
     }
 }
@@ -756,11 +756,11 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
 
 export const toggleMaxBuyCube = () => {
     const el = DOMCacheGetOrSet('toggleCubeBuy')
-    if (G['buyMaxCubeUpgrades']) {
-        G['buyMaxCubeUpgrades'] = false;
+    if (player.cubeUpgradesBuyMaxToggle) {
+        player.cubeUpgradesBuyMaxToggle = false;
         el.textContent = 'Upgrade: 1 Level wow'
     } else {
-        G['buyMaxCubeUpgrades'] = true;
+        player.cubeUpgradesBuyMaxToggle = true;
         el.textContent = 'Upgrade: MAX [if possible wow]'
     }
 }

@@ -88,7 +88,7 @@ export const autoResearchEnabled = (): boolean => {
 export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean => {
 
     // Get our costs, and determine if anything is purchasable.
-    const buyAmount = (G['maxbuyresearch'] || auto) ? 1e5: 1;
+    const buyAmount = (player.researchBuyMaxToggle || auto) ? 1e5: 1;
     const metaData = getResearchCost(index, buyAmount, linGrowth); /* Destructuring FTW! */
     const canBuy = (player.researchPoints >= metaData.cost);
 
@@ -363,7 +363,7 @@ const resdesc = [
 ];
 
 export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => {
-    const buyAmount = (G['maxbuyresearch'] || auto) ? 100000 : 1;
+    const buyAmount = (player.researchBuyMaxToggle || auto) ? 100000 : 1;
     const y = resdesc[i-1];
     let z = ''
     const p = 'res' + i
