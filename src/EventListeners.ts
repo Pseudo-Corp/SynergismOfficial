@@ -456,26 +456,26 @@ export const generateEventHandlers = () => {
     //Part 2: Cube Opening Buttons
     //Wow Cubes
     DOMCacheGetOrSet('open1Cube').addEventListener('click', () => player.wowCubes.open(1, false))
-    DOMCacheGetOrSet('open20Cube').addEventListener('click', () => player.wowCubes.open(Number(player.wowCubes) / 10, false))
-    DOMCacheGetOrSet('open1000Cube').addEventListener('click', () => player.wowCubes.open(Number(player.wowCubes) / 2, false))
+    DOMCacheGetOrSet('open20Cube').addEventListener('click', () => player.wowCubes.open(Math.floor(Number(player.wowCubes) / 10), false))
+    DOMCacheGetOrSet('open1000Cube').addEventListener('click', () => player.wowCubes.open(Math.floor(Number(player.wowCubes) / 2), false))
     DOMCacheGetOrSet('openCustomCube').addEventListener('click', () => player.wowCubes.openCustom());
     DOMCacheGetOrSet('openMostCube').addEventListener('click', () => player.wowCubes.open(1, true))
     //Wow Tesseracts
     DOMCacheGetOrSet('open1Tesseract').addEventListener('click', () => player.wowTesseracts.open(1, false))
-    DOMCacheGetOrSet('open20Tesseract').addEventListener('click', () => player.wowTesseracts.open(Number(player.wowTesseracts) / 10, false))
-    DOMCacheGetOrSet('open1000Tesseract').addEventListener('click', () => player.wowTesseracts.open(Number(player.wowTesseracts) / 2, false))
+    DOMCacheGetOrSet('open20Tesseract').addEventListener('click', () => player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) / 10), false))
+    DOMCacheGetOrSet('open1000Tesseract').addEventListener('click', () => player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) / 2), false))
     DOMCacheGetOrSet('openCustomTesseract').addEventListener('click', () => player.wowTesseracts.openCustom());
     DOMCacheGetOrSet('openMostTesseract').addEventListener('click', () => player.wowTesseracts.open(1, true))
     //Wow Hypercubes
     DOMCacheGetOrSet('open1Hypercube').addEventListener('click', () => player.wowHypercubes.open(1, false))
-    DOMCacheGetOrSet('open20Hypercube').addEventListener('click', () => player.wowHypercubes.open(Number(player.wowHypercubes) / 10, false))
-    DOMCacheGetOrSet('open1000Hypercube').addEventListener('click', () => player.wowHypercubes.open(Number(player.wowHypercubes) / 2, false))
+    DOMCacheGetOrSet('open20Hypercube').addEventListener('click', () => player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) / 10), false))
+    DOMCacheGetOrSet('open1000Hypercube').addEventListener('click', () => player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) / 2), false))
     DOMCacheGetOrSet('openCustomHypercube').addEventListener('click', () => player.wowHypercubes.openCustom());
     DOMCacheGetOrSet('openMostHypercube').addEventListener('click', () => player.wowHypercubes.open(1, true))
     //Wow Platonic Cubes
     DOMCacheGetOrSet('open1PlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(1, false))
-    DOMCacheGetOrSet('open40kPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(Number(player.wowPlatonicCubes) / 10, false))
-    DOMCacheGetOrSet('open1mPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(Number(player.wowPlatonicCubes) / 2, false))
+    DOMCacheGetOrSet('open40kPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) / 10), false))
+    DOMCacheGetOrSet('open1mPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) / 2), false))
     DOMCacheGetOrSet('openCustomPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.openCustom());
     DOMCacheGetOrSet('openMostPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(1, true))
 
