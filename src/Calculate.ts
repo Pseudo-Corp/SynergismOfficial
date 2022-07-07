@@ -1259,7 +1259,7 @@ export const calculateOcteractMultiplier = (score = -1) => {
         // cube upgrade 70
         1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
         // divine pack
-        1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
+        1 + +(corruptionLevelSum >= 14 * 8) * (player.singularityUpgrades.divinePack.level === 1 ? 6.77 : 1.00),
         // cube flame
         +player.singularityUpgrades.singCubes1.getEffect().bonus,
         // cube blaze
