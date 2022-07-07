@@ -334,6 +334,9 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('tesseractautobuytoggle').style.display = 'block' :
         DOMCacheGetOrSet('tesseractautobuytoggle').style.display = 'none';
     player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
+        DOMCacheGetOrSet('tesseractautobuymode').style.display = 'block' :
+        DOMCacheGetOrSet('tesseractautobuymode').style.display = 'none';
+    player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
         DOMCacheGetOrSet('tesseractAmount').style.display = 'block' :
         DOMCacheGetOrSet('tesseractAmount').style.display = 'none';
     player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
