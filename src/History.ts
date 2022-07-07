@@ -356,6 +356,12 @@ const resetHistoryRenderRow = (
         extra.push(corruptions[0]);
         extra.push(corruptions[1]);
         extra.push(corruptions[2]);
+    } else if (data.kind === 'singularity') {
+        extra.push(
+            `<span title="Singularity Count: ${format(data.singularityCount)}"><img src="Pictures/Singularity.png" alt="Singularity Count">${format(data.singularityCount)}</span>`,
+            `<span title="Quarks: ${format(data.quarks)}"><img src="Pictures/Quark.png" alt="Quarks">${format(data.quarks)}</span>`,
+            `<span title="Golden Quarks: ${format(data.goldenQuarks)}"><img src="Pictures/Golden Quark.png" alt="Golden Quarks">${format(data.goldenQuarks)}</span>`
+        );
     }
 
     // This rendering is done this way so that all rows should have the same number of columns, which makes rows
