@@ -1,5 +1,5 @@
 import { player, format } from './Synergism';
-import { Alert, Confirm, revealStuff } from './UpdateHTML';
+import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML';
 import { calculatePowderConversion, calculateTimeAcceleration } from './Calculate';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -626,6 +626,34 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
         }
     }
     revealStuff();
+}
+
+export const buyConsumable = async (input: ShopUpgradeNames) => {
+
+    const maxBuyablePotions = Math.min(Math.floor(Number(player.worlds)/100),shopData[input].maxLevel-player.shopUpgrades[input]);
+    const potionKind = input === 'offeringPotion' ? 'Offering Potions' : 'Obtainium Potions';
+
+    if (shopData[input].maxLevel === player.shopUpgrades[input]) {
+        return Alert(`You can't purchase ${potionKind} because you already have the max level!`);
+    }
+    if (maxBuyablePotions === 0) {
+        return Alert(`You can't purchase ${potionKind} because you don't have enough Quarks!`);
+    }
+
+    const potionsAmount = await Prompt(`How many ${potionKind} would you like?\nYou can buy up to ${format(maxBuyablePotions, 0, true)} for 100 Quarks each.`);
+    const potionsToBuy = Math.floor(Number(potionsAmount));
+
+    if (potionsToBuy === 0) {
+        return Alert('Ok. No potions purchased.');
+    } else if (Number.isNaN(potionsToBuy) || !Number.isFinite(potionsToBuy) || potionsToBuy < 0) {
+        return Alert('Value must be a finite, positive integer.');
+    } else if (potionsToBuy > maxBuyablePotions) {
+        player.worlds.sub(100*maxBuyablePotions);
+        player.shopUpgrades[input] += maxBuyablePotions;
+    } else {
+        player.worlds.sub(100*potionsToBuy);
+        player.shopUpgrades[input] += potionsToBuy;
+    }
 }
 
 export const useConsumable = async (input: ShopUpgradeNames) => {
