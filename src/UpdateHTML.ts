@@ -886,7 +886,7 @@ const updateAscensionStats = () => {
     const t = player.ascensionCounter;
     const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().slice(4);
     const fillers: Record<string, string> = {
-        'ascLen': formatTimeShort(player.ascensionCounter),
+        'ascLen': formatTimeShort(player.ascensionCounter * (player.ascStatToggles[6] ? 1 : 1 / calculateAscensionAcceleration()), 0),
         'ascCubes': format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),
         'ascTess': format(tess * (player.ascStatToggles[2] ? 1 : 1 / t), 3),
         'ascHyper': format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4),
