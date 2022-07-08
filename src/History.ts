@@ -272,7 +272,7 @@ const historyGainsOrder: ResetHistoryGainType[] = [
     'offerings', 'obtainium',
     'particles', 'diamonds', 'mythos',
     'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowHepteracts',
-    'singularityCount', 'quarks', 'goldenQuarks', 'wowTribs', 'tessTribs', 
+    'singularityCount', 'quarks', 'goldenQuarks', 'wowTribs', 'tessTribs',
     'hyperTribs', 'platTribs', 'c15Score', 'quarkHept'
 ];
 

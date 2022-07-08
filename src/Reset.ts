@@ -244,8 +244,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
 
             Synergism.emit('historyAdd', 'ascend', historyEntry);
         }
-    } 
-
+    }
 };
 
 export const reset = (input: resetNames, fast = false, from = 'unknown') => {
@@ -878,21 +877,20 @@ export const singularity = async (): Promise<void> => {
     }
 
     // get total cube blessings for history
-    const cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, 
-        player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, 
+    const cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering,
+        player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice,
         player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
-    const tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, 
-        player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, 
-        player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, 
+    const tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier,
+        player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium,
+        player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO,
         player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
-    const hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, 
-        player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, 
-        player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, 
+    const hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier,
+        player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium,
+        player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO,
         player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
-    const platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, 
-        player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, 
+    const platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes,
+        player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes,
         player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
-    
     // Update sing history
     const historyEntry: ResetHistoryEntrySingularity = {
         seconds: player.singularityCounter,
@@ -904,14 +902,11 @@ export const singularity = async (): Promise<void> => {
         wowTribs: sumContents(cubeArray.slice(1) as number[]),
         tessTribs: sumContents(tesseractArray.slice(1) as number[]),
         hyperTribs: sumContents(hypercubeArray.slice(1) as number[]),
-        platTribs: sumContents(platonicArray.slice(1) as number[]),
+        platTribs: sumContents(platonicArray.slice(1)),
         quarkHept: player.hepteractCrafts.quark.BAL,
         kind: 'singularity'
     }
-
     Synergism.emit('historyAdd', 'singularity', historyEntry);
-        
-    
     // reset the rune instantly to hopefully prevent a double singularity
     player.runelevels[6] = 0;
     player.goldenQuarks += calculateGoldenQuarkGain();
