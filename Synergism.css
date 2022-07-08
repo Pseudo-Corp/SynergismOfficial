@@ -2556,10 +2556,7 @@ p[id$="BlessingsTotal"] {
     margin-left: 20px;
 }
 
-#historyAscend {
-    margin: 0 auto;
-}
-
+#historyAscend,
 #historySingularity {
     margin: 0 auto;
 }
@@ -2587,11 +2584,7 @@ p[id$="BlessingsTotal"] {
     min-width: 700px;
 }
 
-#historyAscendTable {
-    min-width: 1180px;
-    white-space: nowrap;
-}
-
+#historyAscendTable,
 #historySingularityTable {
     min-width: 1180px;
     white-space: nowrap;
@@ -2602,11 +2595,8 @@ p[id$="BlessingsTotal"] {
     overflow-y: auto;
 }
 
-#historyAscend .historyTableWrap {
-    min-width: 1212px;
-}
-
-#historySingularity.historyTableWrap {
+#historyAscend .historyTableWrap,
+#historySingularity .historyTableWrap {
     min-width: 1212px;
 }
 
