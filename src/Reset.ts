@@ -877,14 +877,14 @@ export const singularity = async (): Promise<void> => {
     }
 
     // get total cube blessings for history
-    const cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering,
+    const cubeArray = [player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering,
         player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice,
         player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
-    const tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier,
+    const tesseractArray = [player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier,
         player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium,
         player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO,
         player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
-    const hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier,
+    const hypercubeArray = [player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier,
         player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium,
         player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO,
         player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
@@ -899,10 +899,10 @@ export const singularity = async (): Promise<void> => {
         quarks: player.quarksThisSingularity,
         c15Score: player.challenge15Exponent,
         goldenQuarks: calculateGoldenQuarkGain(),
-        wowTribs: sumContents(cubeArray.slice(1) as number[]),
-        tessTribs: sumContents(tesseractArray.slice(1) as number[]),
-        hyperTribs: sumContents(hypercubeArray.slice(1) as number[]),
-        platTribs: sumContents(platonicArray.slice(1)),
+        wowTribs: sumContents(cubeArray),
+        tessTribs: sumContents(tesseractArray),
+        hyperTribs: sumContents(hypercubeArray),
+        platTribs: sumContents(platonicArray),
         quarkHept: player.hepteractCrafts.quark.BAL,
         kind: 'singularity'
     }
