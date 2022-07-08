@@ -2596,11 +2596,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #historyAscend .historyTableWrap,
-<<<<<<< HEAD
 #historySingularity .historyTableWrap {
-=======
-#historySingularity.historyTableWrap {
->>>>>>> acbaa3f277c7a49e870ba058e86cf4233ceb83a9
     min-width: 1212px;
 }
 
