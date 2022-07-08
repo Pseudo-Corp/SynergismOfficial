@@ -37,7 +37,7 @@ import { updateCubeUpgradeBG } from './Cubes';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import type { TesseractBuildings } from './Buy';
 //import {cubeArray} from './UpdateVisuals';
-import {sumContents} from './Utility';
+import { sumContents } from './Utility';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
