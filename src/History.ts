@@ -66,6 +66,12 @@ export type ResetHistoryEntrySingularity = ResetHistoryEntryBase & {
     singularityCount: number
     quarks: number
     goldenQuarks: number
+    wowTribs: number
+    tessTribs: number
+    hyperTribs: number
+    platTribs: number
+    c15Score: number
+    quarkHept: number
     kind: 'singularity'
 }
 
@@ -111,7 +117,13 @@ export type ResetHistoryGainType = keyof Pick<ResetHistoryEntryIntersect,
     | 'wowHepteracts'
     | 'singularityCount'
     | 'quarks'
-    | 'goldenQuarks'>
+    | 'goldenQuarks'
+    | 'wowTribs'
+    | 'tessTribs'
+    | 'hyperTribs'
+    | 'platTribs'
+    | 'c15Score'
+    | 'quarkHept'>
 
 // A formatter that allows formatting a string. The string should be in a form parsable by break_infinity.js.
 const formatDecimalSource = (numOrStr: DecimalSource) => {
@@ -216,6 +228,42 @@ const historyGains: Record<
         formatter: formatDecimalSource,
         imgTitle: 'Golden Quarks',
         onlyif: () => player.singularityCount > 0
+    },
+    wowTribs: {
+        img: 'Pictures/WowCube.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Cube Tributes',
+        onlyif: () => player.singularityCount > 0
+    },
+    tessTribs: {
+        img: 'Pictures/WowTessaract.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Tesseract Tributes',
+        onlyif: () => player.singularityCount > 0
+    },
+    hyperTribs: {
+        img: 'Pictures/WowHypercube.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Hyper Tributes',
+        onlyif: () => player.singularityCount > 0
+    },
+    platTribs: {
+        img: 'Pictures/Platonic Cube.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Plat Tributes',
+        onlyif: () => player.singularityCount > 0
+    },
+    c15Score: {
+        img: 'Pictures/Challenge15.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'C15 score',
+        onlyif: () => player.singularityCount > 0
+    },
+    quarkHept: {
+        img: 'Pictures/QuarkHepteract.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Quark Hept',
+        onlyif: () => player.singularityCount > 0
     }
 };
 
@@ -224,7 +272,8 @@ const historyGainsOrder: ResetHistoryGainType[] = [
     'offerings', 'obtainium',
     'particles', 'diamonds', 'mythos',
     'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowHepteracts',
-    'singularityCount', 'quarks', 'goldenQuarks' 
+    'singularityCount', 'quarks', 'goldenQuarks', 'wowTribs', 'tessTribs', 
+    'hyperTribs', 'platTribs', 'c15Score', 'quarkHept'
 ];
 
 // The various kinds and their associated images.
@@ -356,12 +405,6 @@ const resetHistoryRenderRow = (
         extra.push(corruptions[0]);
         extra.push(corruptions[1]);
         extra.push(corruptions[2]);
-    } else if (data.kind === 'singularity') {
-        extra.push(
-            `<span title="Singularity Count: ${format(data.singularityCount)}"><img src="Pictures/Singularity.png" alt="Singularity Count">${format(data.singularityCount)}</span>`,
-            `<span title="Quarks: ${format(data.quarks)}"><img src="Pictures/Quark.png" alt="Quarks">${format(data.quarks)}</span>`,
-            `<span title="Golden Quarks: ${format(data.goldenQuarks)}"><img src="Pictures/Golden Quark.png" alt="Golden Quarks">${format(data.goldenQuarks)}</span>`
-        );
     }
 
     // This rendering is done this way so that all rows should have the same number of columns, which makes rows

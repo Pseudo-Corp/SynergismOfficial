@@ -36,6 +36,8 @@ import { calculateSingularityDebuff } from './singularity';
 import { updateCubeUpgradeBG } from './Cubes';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import type { TesseractBuildings } from './Buy';
+//import {cubeArray} from './UpdateVisuals';
+import {sumContents} from './Utility';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
@@ -242,21 +244,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
 
             Synergism.emit('historyAdd', 'ascend', historyEntry);
         }
-    } else if (input == 'singularity') {
-        // Singularity entries will only be logged if Antiquities of Ant God was purchased
-        if (player.singularityCount >= 1) {
-            const historyEntry: ResetHistoryEntrySingularity = {
-                seconds: player.singularityCounter,
-                date: Date.now(),
-                singularityCount: player.singularityCount,
-                quarks: player.quarksThisSingularity,
-                goldenQuarks: calculateGoldenQuarkGain(),
-                kind: 'singularity'
-            }
-
-            Synergism.emit('historyAdd', 'singularity', historyEntry);
-        }
-    }
+    } 
 
 };
 
@@ -889,6 +877,41 @@ export const singularity = async (): Promise<void> => {
         return Alert('You nearly triggered a double singularity bug! Oh no! Luckily, our staff prevented this from happening.');
     }
 
+    // get total cube blessings for history
+    const cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, 
+        player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, 
+        player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
+    const tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, 
+        player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, 
+        player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, 
+        player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
+    const hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, 
+        player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, 
+        player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, 
+        player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
+    const platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, 
+        player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, 
+        player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
+    
+    // Update sing history
+    const historyEntry: ResetHistoryEntrySingularity = {
+        seconds: player.singularityCounter,
+        date: Date.now(),
+        singularityCount: player.singularityCount,
+        quarks: player.quarksThisSingularity,
+        c15Score: player.challenge15Exponent,
+        goldenQuarks: calculateGoldenQuarkGain(),
+        wowTribs: sumContents(cubeArray.slice(1) as number[]),
+        tessTribs: sumContents(tesseractArray.slice(1) as number[]),
+        hyperTribs: sumContents(hypercubeArray.slice(1) as number[]),
+        platTribs: sumContents(platonicArray.slice(1) as number[]),
+        quarkHept: player.hepteractCrafts.quark.BAL,
+        kind: 'singularity'
+    }
+
+    Synergism.emit('historyAdd', 'singularity', historyEntry);
+        
+    
     // reset the rune instantly to hopefully prevent a double singularity
     player.runelevels[6] = 0;
     player.goldenQuarks += calculateGoldenQuarkGain();
@@ -905,7 +928,7 @@ export const singularity = async (): Promise<void> => {
     toggleSubTab(9, 0); // set 'corruption main'
     toggleSubTab(-1, 0); // set 'statistics main'
 
-    hold.history = player.history;
+    hold.history['singularity'] = player.history['singularity'];
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;
     hold.shopUpgrades = player.shopUpgrades;
