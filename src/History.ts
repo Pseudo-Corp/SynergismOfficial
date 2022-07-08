@@ -62,7 +62,7 @@ export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
     kind: 'ascend'
 }
 
-export type ResetHistoryEntrySingularity = ResetHistoryEntryBase & {
+export interface ResetHistoryEntrySingularity extends ResetHistoryEntryBase {
     singularityCount: number
     quarks: number
     goldenQuarks: number
