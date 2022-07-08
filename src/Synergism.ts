@@ -626,7 +626,7 @@ export const player: Player = {
     corruptionShowStats: true,
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    history: { ants: [], ascend: [], reset: [], singularity: []},
+    history: { ants: [], ascend: [], reset: [], singularity: [] },
     historyShowPerSecond: false,
 
     autoChallengeRunning: false,

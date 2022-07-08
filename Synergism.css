@@ -2606,7 +2606,7 @@ p[id$="BlessingsTotal"] {
     min-width: 1212px;
 }
 
-#historySingularity .historyTableWrap {
+#historySingularity.historyTableWrap {
     min-width: 1212px;
 }
 

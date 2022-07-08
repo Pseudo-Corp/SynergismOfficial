@@ -1,4 +1,4 @@
-import { player, clearInt, interval, format, blankSave} from './Synergism';
+import { player, clearInt, interval, format, blankSave } from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
@@ -877,20 +877,10 @@ export const singularity = async (): Promise<void> => {
     }
 
     // get total cube blessings for history
-    const cubeArray = [player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering,
-        player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice,
-        player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
-    const tesseractArray = [player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier,
-        player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium,
-        player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO,
-        player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
-    const hypercubeArray = [player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier,
-        player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium,
-        player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO,
-        player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
-    const platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes,
-        player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes,
-        player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
+    const cubeArray = Object.values(player.cubeBlessings);
+    const tesseractArray = Object.values(player.tesseractBlessings);
+    const hypercubeArray = Object.values(player.hypercubeBlessings);
+    const platonicArray = Object.values(player.platonicBlessings);
     // Update sing history
     const historyEntry: ResetHistoryEntrySingularity = {
         seconds: player.singularityCounter,
@@ -923,7 +913,7 @@ export const singularity = async (): Promise<void> => {
     toggleSubTab(9, 0); // set 'corruption main'
     toggleSubTab(-1, 0); // set 'statistics main'
 
-    hold.history['singularity'] = player.history['singularity'];
+    hold.history.singularity = player.history.singularity;
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;
     hold.shopUpgrades = player.shopUpgrades;
