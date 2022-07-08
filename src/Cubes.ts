@@ -192,7 +192,7 @@ const cubeUpgradeDescriptions = [
 
 const getCubeCost = (i: number, linGrowth = 0, cubic = false): IMultiBuy => {
     const maxLevel = getCubeMax(i)
-    let amountToBuy = G['buyMaxCubeUpgrades'] ? 1e5: 1;
+    let amountToBuy = player.cubeUpgradesBuyMaxToggle ? 1e5: 1;
     const cubeUpgrade = player.cubeUpgrades[i]!;
     amountToBuy = Math.min(maxLevel - cubeUpgrade, amountToBuy)
     const singularityMultiplier = (i <= 50) ? calculateSingularityDebuff('Cube Upgrades'): 1;
@@ -201,7 +201,7 @@ const getCubeCost = (i: number, linGrowth = 0, cubic = false): IMultiBuy => {
 
     if (cubic) {
         // TODO: Fix this inconsistency later.
-        amountToBuy = G['buyMaxCubeUpgrades'] ? maxLevel: Math.min(maxLevel, cubeUpgrade + 1)
+        amountToBuy = player.cubeUpgradesBuyMaxToggle ? maxLevel: Math.min(maxLevel, cubeUpgrade + 1)
         metaData = calculateCubicSumData(cubeUpgrade, cubeBaseCost[i-1],
             Number(player.wowCubes), amountToBuy)
     } else {

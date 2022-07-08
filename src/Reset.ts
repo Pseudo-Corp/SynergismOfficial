@@ -141,7 +141,7 @@ export const resetdetails = (input: resetNames) => {
         case 'singularity':
             currencyImage1.style.display = 'none'
             resetCurrencyGain.textContent = '';
-            resetInfo.textContent = 'Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with ' + format(calculateGoldenQuarkGain(), 2, true) + ' Golden Quarks.'
+            resetInfo.textContent = 'Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with ' + format(calculateGoldenQuarkGain(), 2, true) + ' Golden Quarks. Time: ' + format(player.singularityCounter, 0, false) + ' Seconds.';
             resetInfo.style.color = 'lightgoldenrodyellow'
     }
     DOMCacheGetOrSet('resetofferings2').textContent = '+' + format(offering)
@@ -373,6 +373,11 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         G['autoResetTimers'].transcension = 0;
     }
 
+    if (input == 'reincarnation' || input == 'reincarnationChallenge') {
+        if (player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0) {
+            player.prestigePoints = player.prestigePoints.add(G['reincarnationPointGain'])
+        }
+    }
 
     if (input === 'reincarnation' || input === 'reincarnationChallenge' || input === 'ascension' || input === 'ascensionChallenge' || input == 'singularity') {
         // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
@@ -409,9 +414,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
         player.transcendPoints = new Decimal('0');
         player.reincarnationPoints = player.reincarnationPoints.add(G['reincarnationPointGain']);
-        if (player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0) {
-            player.prestigePoints = player.prestigePoints.add(G['reincarnationPointGain'])
-        }
         player.reincarnationShards = new Decimal('0');
         player.challengecompletions[1] = 0;
         player.challengecompletions[2] = 0;
@@ -952,12 +954,15 @@ export const singularity = async (): Promise<void> => {
     hold.shopBuyMaxToggle = player.shopBuyMaxToggle
     hold.shopHideToggle = player.shopHideToggle
     hold.shopConfirmationToggle = player.shopConfirmationToggle
+    hold.researchBuyMaxToggle = player.researchBuyMaxToggle
+    hold.cubeUpgradesBuyMaxToggle = player.cubeUpgradesBuyMaxToggle
 
     //Import Game
     await importSynergism(btoa(JSON.stringify(hold)), true);
 
     player.codes.set(39, true);
     player.codes.set(40, true);
+    player.codes.set(41, true);
     updateSingularityMilestoneAwards();
 }
 

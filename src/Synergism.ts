@@ -422,7 +422,7 @@ export const player: Player = {
 
     // create a Map with keys defaulting to false
     codes: new Map(
-        Array.from({ length: 39 }, (_, i) => [i + 1, false])
+        Array.from({ length: 40 }, (_, i) => [i + 1, false])
     ),
 
     loaded1009: true,
@@ -479,6 +479,7 @@ export const player: Player = {
     autoFortifyToggle: false,
     autoEnhanceToggle: false,
     autoResearchToggle: false,
+    researchBuyMaxToggle: false,
     autoResearchMode: 'manual',
     autoResearch: 0,
     autoSacrifice: 0,
@@ -525,6 +526,7 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    cubeUpgradesBuyMaxToggle: false,
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
     wowTesseracts: new WowTesseracts(0),
@@ -676,6 +678,7 @@ export const player: Player = {
         time: 0
     },
     singularityCount: 0,
+    singularityCounter: 0,
     goldenQuarks: 0,
     quarksThisSingularity: 0,
 
@@ -1549,12 +1552,12 @@ const loadSynergy = async () => {
         }
 
         // Settings that are not saved in the data will be restored to their defaults by import or singularity
-        if (G['maxbuyresearch']) {
+        if (player.researchBuyMaxToggle) {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
         } else {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
         }
-        if (G['buyMaxCubeUpgrades']) {
+        if (player.cubeUpgradesBuyMaxToggle) {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: MAX [if possible wow]'
         } else {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: 1 Level wow'
@@ -3394,7 +3397,16 @@ const dt = 5;
 const filterStrength = 20;
 let deltaMean = 0;
 
-export const loadingDate = new Date();
+const loadingDate = new Date();
+const loadingBasePerfTick = performance.now();
+
+// performance.now() doesn't always reset on reload, so we capture a "base value"
+// to keep things stable
+// The returned time is pinned to when the page itself was loaded to remain
+// resilient against changed system clocks
+export const getTimePinnedToLoadDate = () => {
+    return loadingDate.getTime() + (performance.now() - loadingBasePerfTick);
+}
 
 const tick = () => {
     const now = performance.now();
@@ -3595,10 +3607,10 @@ document.addEventListener('keydown', (event) => {
         }
         if (player.challengecompletions[11] > 0 && !isNaN(num)) {
             if (num >= 0 && num < player.corruptionLoadoutNames.length) {
-                void Notification(`${player.corruptionLoadoutNames[num]} (${num + 1}) used activation. This will take effect on the next ascension.`, 5000);
+                void Notification(`Corruption Loadout ${num + 1} "${player.corruptionLoadoutNames[num]}" has been applied. This will take effect on the next ascension.`, 5000);
                 corruptionLoadoutSaveLoad(false, num + 1);
             } else {
-                void Notification('All next Corruption Stats are now Zero. This will take effect on the next ascension.', 5000);
+                void Notification('All Corruptions have been set to Zero. This will take effect on the next ascension.', 5000);
                 corruptionLoadoutSaveLoad(false, 0);
             }
         }

@@ -279,7 +279,12 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: false, unlocked: player.achievements[141] > 0, buttonID: 'corrLoadoutsBtn'}]
         },
         10: {
-            subTabList: []}
+            tabSwitcher: toggleSingularityScreen,
+            subTabList: [
+                {subTabID: 1, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab1'},
+                {subTabID: 2, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab2'},
+                {subTabID: 3, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab3'}]
+        }
     }
     return subTabs[mainTab]!;
 }
@@ -415,11 +420,11 @@ export const toggleauto = () => {
 }
 
 export const toggleResearchBuy = () => {
-    if (G['maxbuyresearch']) {
-        G['maxbuyresearch'] = false;
+    if (player.researchBuyMaxToggle) {
+        player.researchBuyMaxToggle = false;
         DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
     } else {
-        G['maxbuyresearch'] = true;
+        player.researchBuyMaxToggle = true;
         DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
     }
 }
@@ -562,6 +567,24 @@ export const toggleautoenhance = () => {
     }
 
     player.autoEnhanceToggle = !player.autoEnhanceToggle;
+}
+
+export const toggleSingularityScreen = (index: number) => {
+    const screens = ['shop', 'penalties', 'perks'];
+    G['singularityscreen'] = screens[index - 1];
+
+    for (let i = 1; i <= 3; i++) {
+        const a = DOMCacheGetOrSet('toggleSingularitySubTab' + i);
+        const b = DOMCacheGetOrSet('singularityContainer' + i);
+        if (i === index) {
+            a.style.backgroundColor = 'crimson'
+            b.style.display = 'block';
+        } else {
+            a.style.backgroundColor = ''
+            b.style.display = 'none';
+        }
+    }
+    player.subtabNumber = index - 1
 }
 
 interface ChadContributor {
@@ -742,11 +765,11 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
 
 export const toggleMaxBuyCube = () => {
     const el = DOMCacheGetOrSet('toggleCubeBuy')
-    if (G['buyMaxCubeUpgrades']) {
-        G['buyMaxCubeUpgrades'] = false;
+    if (player.cubeUpgradesBuyMaxToggle) {
+        player.cubeUpgradesBuyMaxToggle = false;
         el.textContent = 'Upgrade: 1 Level wow'
     } else {
-        G['buyMaxCubeUpgrades'] = true;
+        player.cubeUpgradesBuyMaxToggle = true;
         el.textContent = 'Upgrade: MAX [if possible wow]'
     }
 }

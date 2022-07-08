@@ -635,5 +635,12 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
     if (data.shopHideToggle === undefined) {
         player.shopHideToggle = false;
+
+    if (data.researchBuyMaxToggle === undefined) {
+        player.researchBuyMaxToggle = false;
+    }
+
+    if (data.cubeUpgradesBuyMaxToggle === undefined) {
+        player.cubeUpgradesBuyMaxToggle = false;
     }
 }
