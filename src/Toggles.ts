@@ -12,6 +12,7 @@ import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadS
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { updateAutoHeptRatiosDisplay } from './UpdateVisuals'
 
 interface TabValue { tabName: keyof typeof tabNumberConst, unlocked: boolean }
 type Tab = Record<number, TabValue>;
@@ -961,5 +962,66 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
     if (player.toggles[35]) {
         return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
+    }
+}
+
+export const updateAutoHeptRatios = (i: number) => {
+    switch (i) {
+        case 1: {
+            const t = parseFloat((DOMCacheGetOrSet('hepteractAutoRatiosInputChronos') as HTMLInputElement).value) || 1;
+            player.hepteractAutoCraftRatios.chronos = Math.max(t, 0);
+            DOMCacheGetOrSet('ChronosR').textContent = format(player.hepteractAutoCraftRatios.chronos, 2, true);
+            updateAutoHeptRatiosDisplay();
+            return;
+        }
+        case 2: {
+            const u = parseFloat((DOMCacheGetOrSet('hepteractAutoRatiosInputHyper') as HTMLInputElement).value) || 1;
+            player.hepteractAutoCraftRatios.hyperrealism = Math.max(u, 0);
+            DOMCacheGetOrSet('HyperR').textContent = format(player.hepteractAutoCraftRatios.hyperrealism, 2, true);
+            updateAutoHeptRatiosDisplay();
+            return;
+        }
+        case 3: {
+            const v = parseFloat((DOMCacheGetOrSet('hepteractAutoRatiosInputQuark') as HTMLInputElement).value) || 1;
+            player.hepteractAutoCraftRatios.quark = Math.max(v, 0);
+            DOMCacheGetOrSet('QuarkR').textContent = format(player.hepteractAutoCraftRatios.quark, 2, true);
+            updateAutoHeptRatiosDisplay();
+            return;
+        }
+        case 4: {
+            const v = parseFloat((DOMCacheGetOrSet('hepteractAutoRatiosInputChallenge') as HTMLInputElement).value) || 1;
+            player.hepteractAutoCraftRatios.challenge = Math.max(v, 0);
+            DOMCacheGetOrSet('ChallengeR').textContent = format(player.hepteractAutoCraftRatios.challenge, 2, true);
+            updateAutoHeptRatiosDisplay();
+            return;
+        }
+        case 5: {
+            const v = parseFloat((DOMCacheGetOrSet('hepteractAutoRatiosInputAbyss') as HTMLInputElement).value) || 1;
+            player.hepteractAutoCraftRatios.abyss = Math.max(v, 0);
+            DOMCacheGetOrSet('AbyssR').textContent = format(player.hepteractAutoCraftRatios.abyss, 2, true);
+            updateAutoHeptRatiosDisplay();
+            return;
+        }
+        case 6: {
+            const v = parseFloat((DOMCacheGetOrSet('hepteractAutoRatiosInputAccelerators') as HTMLInputElement).value) || 1;
+            player.hepteractAutoCraftRatios.accelerator = Math.max(v, 0);
+            DOMCacheGetOrSet('AcceleratorsR').textContent = format(player.hepteractAutoCraftRatios.accelerator, 2, true);
+            updateAutoHeptRatiosDisplay();
+            return;
+        }
+        case 7: {
+            const v = parseFloat((DOMCacheGetOrSet('hepteractAutoRatiosInputBoost') as HTMLInputElement).value) || 1;
+            player.hepteractAutoCraftRatios.acceleratorBoost = Math.max(v, 0);
+            DOMCacheGetOrSet('BoostR').textContent = format(player.hepteractAutoCraftRatios.acceleratorBoost, 2, true);
+            updateAutoHeptRatiosDisplay();
+            return;
+        }
+        case 8: {
+            const v = parseFloat((DOMCacheGetOrSet('hepteractAutoRatiosInputMultipliers') as HTMLInputElement).value) || 1;
+            player.hepteractAutoCraftRatios.multiplier = Math.max(v, 0);
+            DOMCacheGetOrSet('MultipliersR').textContent = format(player.hepteractAutoCraftRatios.multiplier, 2, true);
+            updateAutoHeptRatiosDisplay();
+            return;
+        }
     }
 }

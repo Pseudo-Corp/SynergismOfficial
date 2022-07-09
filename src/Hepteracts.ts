@@ -17,6 +17,7 @@ export interface IHepteractCraft {
     BAL?: number
     CAP?: number
     DISCOUNT?: number
+    RATIO: number
 }
 
 export const hepteractTypeList = ['chronos', 'hyperrealism', 'quark', 'challenge',
@@ -53,6 +54,11 @@ export class HepteractCraft {
     AUTO = false;
 
     /**
+     * Automatic crafting ratio. If on, determines the ratio of crafted hepteracts.
+     */
+     RATIO = 1;
+
+    /**
      * Conversion rate of additional items
      * This is in the form of keys being player variables,
      * values being the amount player has.
@@ -81,6 +87,7 @@ export class HepteractCraft {
         this.CAP = data.CAP ?? this.BASE_CAP // This sets cap either as previous value or keeps it to default.
         this.DISCOUNT = data.DISCOUNT ?? 0;
         this.AUTO = data.AUTO ?? false;
+        this.RATIO = data.RATIO;
 
         void this.toggleAutomatic(this.AUTO)
     }
@@ -279,7 +286,7 @@ export class HepteractCraft {
 
     autoCraft(heptAmount: number): HepteractCraft {
         const expandMultiplier = 2;
-
+        this.RATIO = player.hepteractAutoCraftRatios.HTML_STRING
         // Calculate the largest craft amount possible, with an upper limit being craftAmount
         const hepteractLimitCraft = Math.floor((heptAmount / this.HEPTERACT_CONVERSION) * 1 / (1 - this.DISCOUNT));
 
@@ -291,11 +298,33 @@ export class HepteractCraft {
                 itemLimits.push(Math.floor((player[item as keyof Player] as number) / this.OTHER_CONVERSIONS[item as keyof Player]!) * 1 / (1 - this.DISCOUNT))
             }
         }
-
+        // Create an array of hept ratios and get the largest one
+        let largestRatio = player.hepteractAutoCraftRatios.chronos
+        if (largestRatio < player.hepteractAutoCraftRatios.hyperrealism){
+            largestRatio = player.hepteractAutoCraftRatios.hyperrealism;
+        }
+        if (largestRatio < player.hepteractAutoCraftRatios.quark){
+            largestRatio = player.hepteractAutoCraftRatios.quark;
+        }
+        if (largestRatio < player.hepteractAutoCraftRatios.challenge){
+            largestRatio = player.hepteractAutoCraftRatios.challenge;
+        }
+        if (largestRatio < player.hepteractAutoCraftRatios.abyss){
+            largestRatio = player.hepteractAutoCraftRatios.abyss;
+        }
+        if (largestRatio < player.hepteractAutoCraftRatios.accelerator){
+            largestRatio = player.hepteractAutoCraftRatios.accelerator;
+        }
+        if (largestRatio < player.hepteractAutoCraftRatios.acceleratorBoost){
+            largestRatio = player.hepteractAutoCraftRatios.acceleratorBoost;
+        }
+        if (largestRatio < player.hepteractAutoCraftRatios.multiplier){
+            largestRatio = player.hepteractAutoCraftRatios.multiplier;
+        }
         // Get the smallest of the array we created [If Empty, this will be infinite]
         const smallestItemLimit = Math.min(...itemLimits);
 
-        let amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft);
+        let amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (this.RATIO /largestRatio);
         let amountCrafted = 0
         if (amountToCraft >= this.CAP - this.BAL) {
             this.BAL = this.CAP
@@ -575,6 +604,7 @@ export const overfluxPowderWarp = async () => {
 // Hepteract of Chronos [UNLOCKED]
 export const ChronosHepteract = new HepteractCraft({
     BASE_CAP: 1000,
+    RATIO: 1,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: {'researchPoints': 1e115},
     HTML_STRING: 'chronos',
@@ -584,6 +614,7 @@ export const ChronosHepteract = new HepteractCraft({
 // Hepteract of Hyperrealism [UNLOCKED]
 export const HyperrealismHepteract = new HepteractCraft({
     BASE_CAP: 1000,
+    RATIO: 1,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: {'runeshards': 1e80},
     HTML_STRING: 'hyperrealism',
@@ -593,6 +624,7 @@ export const HyperrealismHepteract = new HepteractCraft({
 // Hepteract of Too Many Quarks [UNLOCKED]
 export const QuarkHepteract = new HepteractCraft({
     BASE_CAP: 1000,
+    RATIO: 1,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: {'worlds': 100},
     HTML_STRING: 'quark',
@@ -602,6 +634,7 @@ export const QuarkHepteract = new HepteractCraft({
 // Hepteract of Challenge [LOCKED]
 export const ChallengeHepteract = new HepteractCraft({
     BASE_CAP: 1000,
+    RATIO: 1,
     HEPTERACT_CONVERSION: 5e4,
     OTHER_CONVERSIONS: {'wowPlatonicCubes': 1e11, 'wowCubes': 1e22},
     HTML_STRING: 'challenge'
@@ -610,6 +643,7 @@ export const ChallengeHepteract = new HepteractCraft({
 // Hepteract of The Abyssal [LOCKED]
 export const AbyssHepteract = new HepteractCraft({
     BASE_CAP: 1,
+    RATIO: 1,
     HEPTERACT_CONVERSION: 1e8,
     OTHER_CONVERSIONS: {'wowCubes': 69},
     HTML_STRING: 'abyss'
@@ -618,6 +652,7 @@ export const AbyssHepteract = new HepteractCraft({
 // Hepteract of Too Many Accelerator [LOCKED]
 export const AcceleratorHepteract = new HepteractCraft({
     BASE_CAP: 1000,
+    RATIO: 1,
     HEPTERACT_CONVERSION: 1e5,
     OTHER_CONVERSIONS: {'wowTesseracts': 1e14},
     HTML_STRING: 'accelerator'
@@ -626,6 +661,7 @@ export const AcceleratorHepteract = new HepteractCraft({
 // Hepteract of Too Many Accelerator Boost [LOCKED]
 export const AcceleratorBoostHepteract = new HepteractCraft({
     BASE_CAP: 1000,
+    RATIO: 1,
     HEPTERACT_CONVERSION: 2e5,
     OTHER_CONVERSIONS: {'wowHypercubes': 1e10},
     HTML_STRING: 'acceleratorBoost'
@@ -634,6 +670,7 @@ export const AcceleratorBoostHepteract = new HepteractCraft({
 // Hepteract of Too Many Multiplier [LOCKED]
 export const MultiplierHepteract = new HepteractCraft({
     BASE_CAP: 1000,
+    RATIO: 1,
     HEPTERACT_CONVERSION: 3e5,
     OTHER_CONVERSIONS: {'researchPoints': 1e130},
     HTML_STRING: 'multiplier'
