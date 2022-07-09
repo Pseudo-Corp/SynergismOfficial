@@ -2761,6 +2761,7 @@ p[id$="BlessingsTotal"] {
     border: 1px solid orange;
 }
 
+#smartLoadoutBtn,
 #corrStatsBtn,
 #corrLoadoutsBtn {
     width: 120px;
@@ -2769,13 +2770,14 @@ p[id$="BlessingsTotal"] {
     transition-duration: 0.15s;
 }
 
+#smartLoadoutBtn:hover,
 #corrStatsBtn:hover,
 #corrLoadoutsBtn:hover {
     background-color: #333;
 }
 
 #corrButtonRow {
-    min-width: 300px;
+    width: 300px;
 }
 
 .corruptionContainer {
@@ -2841,9 +2843,15 @@ p[id$="BlessingsTotal"] {
     width: 50px;
 }
 
+#corruptionStats {
+    height: 380px;
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+
+#smartLoadout,
 #corruptionLoadouts {
-    height: 410px;
-    padding-top: 15px;
+    height: 380px;
     box-sizing: border-box;
 }
 
@@ -2855,9 +2863,10 @@ p[id$="BlessingsTotal"] {
     white-space: nowrap;
 }
 
+#smartLoadoutTable,
 #corruptionLoadoutTable {
     border-collapse: separate;
-    border-spacing: 0 12.5px;
+    border-spacing: 0 10px;
     width: 100%;
 }
 
@@ -2877,6 +2886,15 @@ img.small {
     margin-bottom: 1px;
 }
 
+.smartCorruptionToggle {
+    border: 1px solid crimson;
+    padding: 2px 5px;
+    transition-duration: 0.15s;
+    width: 100%;
+    margin-bottom: 1px;
+    white-space: pre-line;
+}
+
 .corrLoad {
     border: 1px solid #5b5ddc;
     padding: 2px 5px;
@@ -2885,6 +2903,7 @@ img.small {
     margin-bottom: 1px;
 }
 
+.smartCorruptionToggle:hover,
 .corrSave:hover,
 .corrLoad:hover {
     background-color: #333;
