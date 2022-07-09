@@ -189,9 +189,13 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
 
-    if (player.corruptionLoadouts === undefined) {
+    if (data.corruptionLoadouts === undefined) {
         player.corruptionLoadouts = { ...blankSave.corruptionLoadouts };
-        player.corruptionShowStats = true
+        player.corruptionShowStats = 1
+    }
+    if (data.smartLoadouts === undefined) {
+        player.smartLoadouts = { ...blankSave.smartLoadouts };
+        player.smartLoadoutToggle = false;
     }
 
     const corruptionLoadouts = Object.keys(
@@ -205,6 +209,18 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
         player.corruptionLoadouts[key] = blankSave.corruptionLoadouts[key]
     }
+
+    const smartLoadouts = Object.keys(
+        blankSave.smartLoadouts
+    ) as (`${keyof Player['smartLoadouts']}`)[]
+
+    for (const key of smartLoadouts.map(k => Number(k))) {
+        if (player.smartLoadouts[key] !== undefined) {
+            continue
+        }
+
+        player.smartLoadouts[key] = blankSave.smartLoadouts[key]
+    } //Didn't added check for name length, as it's not used in here
 
     if (player.corruptionLoadoutNames.length < blankSave.corruptionLoadoutNames.length) {
         const diff = blankSave.corruptionLoadoutNames.slice(player.corruptionLoadoutNames.length)

@@ -27,7 +27,7 @@ import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgr
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
 import { updateCubeUpgradeBG } from './Cubes';
-import { corruptionLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, corruptionStatsUpdate, updateCorruptionLoadoutNames, corruptionLoadoutSaveLoad } from './Corruptions';
+import { corruptionLoadoutTableUpdate, smartLoadoutTableUpdate, corruptionButtonsAdd, corruptionLoadoutTableCreate, smartLoadoutTableCreate, corruptionStatsUpdate, updateCorruptionLoadoutNames, updateSmartLoadoutNames, corruptionLoadoutSaveLoad } from './Corruptions';
 import { generateEventHandlers } from './EventListeners';
 import { addTimers, automaticTools } from './Helper';
 import { autoResearchEnabled } from './Research';
@@ -632,7 +632,28 @@ export const player: Player = {
         'Loadout 7',
         'Loadout 8'
     ],
-    corruptionShowStats: true,
+    smartLoadouts: {  //If you add loadouts don't forget to add loadout names!
+        1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        5: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        6: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        7: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        8: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    smartLoadoutNames: [
+        'c14', //No idea how to call them
+        'r8x25', //It wont self update names, if to change them
+        'w5x10',
+        'p2x1',
+        'p3x2',
+        'Omega',
+        'p4x2',
+        'Challenges'
+    ],
+    corruptionShowStats: 1,
+    smartLoadoutToggle: false,
 
     constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     history: { ants: [], ascend: [], reset: [] },
@@ -1355,9 +1376,11 @@ const loadSynergy = async () => {
         corruptionStatsUpdate();
         for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
             corruptionLoadoutTableUpdate(i);
+            smartLoadoutTableUpdate(i);
         }
         showCorruptionStatsLoadouts()
         updateCorruptionLoadoutNames()
+        updateSmartLoadoutNames()
 
         for (let j = 1; j <= 5; j++) {
             const ouch = DOMCacheGetOrSet('tesseractAutoToggle' + j);
@@ -1600,6 +1623,15 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [OFF]';
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
+        }
+        if (player.smartLoadoutToggle) {
+            DOMCacheGetOrSet('smartToggle1').style.borderColor = 'darkgreen'
+            DOMCacheGetOrSet('smartToggle2').style.borderColor = 'darkgreen'
+            DOMCacheGetOrSet('smartToggle2').textContent = 'ON'
+        } else {
+            DOMCacheGetOrSet('smartToggle1').style.borderColor = 'crimson'
+            DOMCacheGetOrSet('smartToggle2').style.borderColor = 'crimson'
+            DOMCacheGetOrSet('smartToggle2').textContent = 'OFF'
         }
         if (player.shopConfirmationToggle) {
             DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: ON'
@@ -3889,6 +3921,7 @@ window.addEventListener('load', () => {
 
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
+    smartLoadoutTableCreate();
 });
 
 window.addEventListener('unload', () => {
