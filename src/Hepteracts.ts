@@ -268,7 +268,8 @@ export class HepteractCraft {
 
         HTML.textContent = `Auto ${this.AUTO ? 'ON' : 'OFF'}`
         HTML.style.border = `2px solid ${this.AUTO ? 'green' : 'red'}`
-
+        DOMCacheGetOrSet(`${this.HTML_STRING}HepteractCraft`).style.display = this.AUTO ? 'none' : 'block'
+        DOMCacheGetOrSet(`${this.HTML_STRING}HepteractAutoRatio`).style.display = this.AUTO ? 'block' : 'none' 
         if (bool === undefined) {
             G['autoHepteractCount'] += (this.AUTO ? 1 : -1)
         }

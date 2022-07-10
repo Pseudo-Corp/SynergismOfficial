@@ -891,6 +891,8 @@ export const singularity = async (): Promise<void> => {
     toggleSubTab(9, 0); // set 'corruption main'
     toggleSubTab(-1, 0); // set 'statistics main'
 
+    hold.hepteractAutoCraftPercentage = player.hepteractAutoCraftPercentage
+    hold.hepteractAutoCraftRatios = player.hepteractAutoCraftRatios
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;
     hold.shopUpgrades = player.shopUpgrades;

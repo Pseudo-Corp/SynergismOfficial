@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHepteractAutoPercentage, updateAutoHeptRatios } from './Toggles'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHepteractAutoPercentage, updateAutoChronosRatio, updateAutoHyperrealismRatio, updateAutoQuarkRatio, updateAutoChallengeRatio, updateAutoAbyssRatio, updateAutoAcceleratorRatio, updateAutoAcceleratorBoostRatio, updateAutoMultiplierRatio, } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels, buyAllBlessings } from './Buy'
@@ -543,14 +543,14 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('hepteractAutoPercentageButton').addEventListener('click', () => toggleHepteractAutoPercentage())
 
     // Auto hept Ratios inputs
-    DOMCacheGetOrSet('hepteractAutoRatiosInputChronos').addEventListener('input', () => updateAutoHeptRatios(1))
-    DOMCacheGetOrSet('hepteractAutoRatiosInputHyper').addEventListener('input', () => updateAutoHeptRatios(2))
-    DOMCacheGetOrSet('hepteractAutoRatiosInputQuark').addEventListener('input', () => updateAutoHeptRatios(3))
-    DOMCacheGetOrSet('hepteractAutoRatiosInputChallenge').addEventListener('input', () => updateAutoHeptRatios(4))
-    DOMCacheGetOrSet('hepteractAutoRatiosInputAbyss').addEventListener('input', () => updateAutoHeptRatios(5))
-    DOMCacheGetOrSet('hepteractAutoRatiosInputAccelerators').addEventListener('input', () => updateAutoHeptRatios(6))
-    DOMCacheGetOrSet('hepteractAutoRatiosInputBoost').addEventListener('input', () => updateAutoHeptRatios(7))
-    DOMCacheGetOrSet('hepteractAutoRatiosInputMultipliers').addEventListener('input', () => updateAutoHeptRatios(8))
+    DOMCacheGetOrSet('chronosHepteractAutoRatio').addEventListener('click', () => updateAutoChronosRatio())
+    DOMCacheGetOrSet('hyperrealismHepteractAutoRatio').addEventListener('click', () => updateAutoHyperrealismRatio())
+    DOMCacheGetOrSet('quarkHepteractAutoRatio').addEventListener('click', () => updateAutoQuarkRatio())
+    DOMCacheGetOrSet('challengeHepteractAutoRatio').addEventListener('click', () => updateAutoChallengeRatio())
+    DOMCacheGetOrSet('abyssHepteractAutoRatio').addEventListener('click', () => updateAutoAbyssRatio())
+    DOMCacheGetOrSet('acceleratorHepteractAutoRatio').addEventListener('click', () => updateAutoAcceleratorRatio())
+    DOMCacheGetOrSet('acceleratorBoostHepteractAutoRatio').addEventListener('click', () => updateAutoAcceleratorBoostRatio())
+    DOMCacheGetOrSet('multiplierHepteractAutoRatio').addEventListener('click', () => updateAutoMultiplierRatio())
 
     // CORRUPTION TAB
     //Part 0: Subtabs
