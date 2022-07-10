@@ -570,7 +570,7 @@ export const visualUpdateShop = () => {
 }
 
 export const updateAutoHeptRatiosDisplay = () => {
-    DOMCacheGetOrSet('autoHepteractRatios').textContent = `${player.hepteractAutoCraftRatios.chronos}` + `${player.hepteractAutoCraftRatios.hyperrealism}`
-         + `${player.hepteractAutoCraftRatios.quark}` + `${player.hepteractAutoCraftRatios.challenge}` + `${player.hepteractAutoCraftRatios.abyss}` 
-         + `${player.hepteractAutoCraftRatios.accelerator}` + `${player.hepteractAutoCraftRatios.acceleratorBoost}` + `${player.hepteractAutoCraftRatios.multiplier}`
-} 
+    DOMCacheGetOrSet('autoHepteractRatios').textContent = `${player.hepteractAutoCraftRatios.chronos} ` + `${player.hepteractAutoCraftRatios.hyperrealism} `
+         + `${player.hepteractAutoCraftRatios.quark} ` + `${player.hepteractAutoCraftRatios.challenge} ` + `${player.hepteractAutoCraftRatios.abyss} `
+         + `${player.hepteractAutoCraftRatios.accelerator} ` + `${player.hepteractAutoCraftRatios.acceleratorBoost} ` + `${player.hepteractAutoCraftRatios.multiplier} `
+}

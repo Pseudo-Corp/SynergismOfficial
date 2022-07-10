@@ -269,7 +269,7 @@ export class HepteractCraft {
         HTML.textContent = `Auto ${this.AUTO ? 'ON' : 'OFF'}`
         HTML.style.border = `2px solid ${this.AUTO ? 'green' : 'red'}`
         DOMCacheGetOrSet(`${this.HTML_STRING}HepteractCraft`).style.display = this.AUTO ? 'none' : 'block'
-        DOMCacheGetOrSet(`${this.HTML_STRING}HepteractAutoRatio`).style.display = this.AUTO ? 'block' : 'none' 
+        DOMCacheGetOrSet(`${this.HTML_STRING}HepteractAutoRatio`).style.display = this.AUTO ? 'block' : 'none'
         if (bool === undefined) {
             G['autoHepteractCount'] += (this.AUTO ? 1 : -1)
         }
@@ -291,9 +291,9 @@ export class HepteractCraft {
                 itemLimits.push(Math.floor((player[item as keyof Player] as number) / this.OTHER_CONVERSIONS[item as keyof Player]!) * 1 / (1 - this.DISCOUNT))
             }
         }
-        // Create an array of hept ratios and get the largest one
+        // Get the largest ratio from hepts
         let largestRatio = player.hepteractAutoCraftRatios.chronos
-        for (let item of Object.entries(player.hepteractAutoCraftRatios)){
+        for (const item of Object.entries(player.hepteractAutoCraftRatios)){
             if (largestRatio < item[1]){
                 largestRatio = item[1];
             }
@@ -301,28 +301,21 @@ export class HepteractCraft {
         // Get the smallest of the array we created [If Empty, this will be infinite]
         const smallestItemLimit = Math.min(...itemLimits);
         let amountToCraft;
-        if (this.HTML_STRING == "chronos"){
+        if (this.HTML_STRING === 'chronos'){
             amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.chronos / largestRatio);
-        }
-        else if (this.HTML_STRING == "hyperreal"){
+        } else if (this.HTML_STRING === 'hyperreal'){
             amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.hyperreal / largestRatio);
-        }
-        else if (this.HTML_STRING == "quark"){
+        } else if (this.HTML_STRING === 'quark'){
             amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.quark / largestRatio);
-        }
-        else if (this.HTML_STRING == "challenge"){
+        } else if (this.HTML_STRING === 'challenge'){
             amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.challenge / largestRatio);
-        }
-        else if (this.HTML_STRING == "abyss"){
+        } else if (this.HTML_STRING === 'abyss'){
             amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.abyss / largestRatio);
-        }
-        else if (this.HTML_STRING == "accelerator"){
+        } else if (this.HTML_STRING === 'accelerator'){
             amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.accelerator / largestRatio);
-        }
-        else if (this.HTML_STRING == "acceleratorBoost"){
+        } else if (this.HTML_STRING === 'acceleratorBoost'){
             amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.acceleratorBoost / largestRatio);
-        }
-        else {
+        } else {
             amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.multiplier / largestRatio);
         }
         let amountCrafted = 0
