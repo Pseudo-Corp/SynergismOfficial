@@ -314,8 +314,10 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('rune5area').style.display = 'none', DOMCacheGetOrSet('runeshowpower5').style.display = 'none');
 
     player.researches[124] > 0 ? //5x24 Research [AutoSac]
-        (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'block', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'block') :
+        (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'flex', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'block') :
         (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'none', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'none');
+    player.researches[124] > 0 || player.singularityCount > 0 ? //So you can turn it off before 5x24 Research
+        DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'block' : 'none'
 
     player.researches[130] > 0 ? //6x5 Research [Talisman Auto Fortify]
         DOMCacheGetOrSet('toggleautofortify').style.display = 'block' :

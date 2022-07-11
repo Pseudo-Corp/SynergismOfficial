@@ -1935,7 +1935,7 @@ nav li:hover {
     margin: 5px 0;
 }
 
-#antSacrificeButtons {
+#antSacBth {
     display: flex;
     flex-direction: column;
 }
