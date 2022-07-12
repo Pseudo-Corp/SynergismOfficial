@@ -927,8 +927,8 @@ export const toggleAscStatPerSecond = (id: number) => {
     }
 
     el.textContent = player.ascStatToggles[id] ? '/s' : '';
-    if (id === 6){
-        el.textContent = player.ascStatToggles[id] ? '' : '';
+    if (id === 6) {
+        el.textContent = '';
     }
     player.ascStatToggles[id] = !player.ascStatToggles[id];
 }
