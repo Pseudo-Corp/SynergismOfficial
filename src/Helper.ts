@@ -7,7 +7,7 @@ import { visualUpdateResearch } from './UpdateVisuals';
 import { Globals as G } from './Variables';
 import { buyAllBlessings } from './Buy';
 
-type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks' | 'goldenQuarks';
+type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks' | 'goldenQuarks' | 'singularity';
 
 /**
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
@@ -15,7 +15,7 @@ type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 
  * @param time
  */
 export const addTimers = (input: TimerInput, time = 0) => {
-    const timeMultiplier = (input === 'ascension' || input === 'quarks' || input === 'goldenQuarks') ? 1 : calculateTimeAcceleration();
+    const timeMultiplier = (input === 'ascension' || input === 'quarks' || input === 'goldenQuarks' || input === 'singularity') ? 1 : calculateTimeAcceleration();
 
     switch (input){
         case 'prestige': {
@@ -32,6 +32,10 @@ export const addTimers = (input: TimerInput, time = 0) => {
         }
         case 'ascension': {
             player.ascensionCounter += time * timeMultiplier * calculateAscensionAcceleration();
+            //player.singularityCounter += time * timeMultiplier;
+            break;
+        }
+        case 'singularity': {
             player.singularityCounter += time * timeMultiplier;
             break;
         }

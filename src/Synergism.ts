@@ -3440,6 +3440,7 @@ function tack(dt: number) {
         addTimers('ascension', dt)
         addTimers('quarks', dt)
         addTimers('goldenQuarks', dt)
+        addTimers('singularity', dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
         if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {
