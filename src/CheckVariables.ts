@@ -405,6 +405,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             seasonPassY: 0,
             seasonPassZ: 0,
             challengeTome2: 0,
+            instantChallenge2: 0,
             cashGrab2: 0,
             cubeToQuarkAll: 0,
             obtainiumEX2: 0,
@@ -634,5 +635,16 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.shopBuyMaxToggle === undefined) {
         player.shopBuyMaxToggle = false;
         player.shopConfirmationToggle = true;
+    }
+    if (data.shopHideToggle === undefined) {
+        player.shopHideToggle = false;
+    }
+
+    if (data.researchBuyMaxToggle === undefined) {
+        player.researchBuyMaxToggle = false;
+    }
+
+    if (data.cubeUpgradesBuyMaxToggle === undefined) {
+        player.cubeUpgradesBuyMaxToggle = false;
     }
 }

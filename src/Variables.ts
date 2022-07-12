@@ -223,8 +223,6 @@ export const Globals: GlobalVariables = {
 
     maxexponent: 10000,
 
-    maxbuyresearch: false,
-
     effectiveLevelMult: 1,
     optimalOfferingTimer: 600,
     optimalObtainiumTimer: 3600,
@@ -346,7 +344,6 @@ export const Globals: GlobalVariables = {
     hypercubeBonusMultiplier: [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     platonicBonusMultiplier: [1, 1, 1, 1, 1, 1, 1, 1],
 
-    buyMaxCubeUpgrades: false,
     autoOfferingCounter: 0,
     researchOrderByCost: [],
 
