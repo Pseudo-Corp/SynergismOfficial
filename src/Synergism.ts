@@ -476,6 +476,7 @@ export const player: Player = {
     shopConfirmationToggle: true,
 
     autoSacrificeToggle: false,
+    autoBuyFragment: false,
     autoFortifyToggle: false,
     autoEnhanceToggle: false,
     autoResearchToggle: false,
@@ -532,6 +533,7 @@ export const player: Player = {
     wowTesseracts: new WowTesseracts(0),
     wowHypercubes: new WowHypercubes(0),
     wowPlatonicCubes: new WowPlatonicCubes(0),
+    saveOfferingToggle: false,
     wowAbyssals: 0,
     cubeBlessings: {
         accelerator: 0,
@@ -1514,6 +1516,15 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleautosacrifice').textContent = 'Auto Rune: OFF'
             DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid red'
         }
+        if (player.autoBuyFragment) {
+            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = 'Auto Buy: ON'
+            DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid white'
+            DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'orange'
+        } else {
+            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = 'Auto Buy: OFF'
+            DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid orange'
+            DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'white'
+        }
         if (player.autoFortifyToggle) {
             DOMCacheGetOrSet('toggleautofortify').textContent = 'Auto Fortify: ON'
             DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid green'
@@ -1528,6 +1539,9 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: OFF'
             DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid red'
         }
+        player.saveOfferingToggle = false; //Lint doesnt like it being inside if
+        DOMCacheGetOrSet('saveOffToggle').textContent = 'Save Offerings [OFF]'
+        DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
         if (player.autoAscend) {
             DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [ON]';
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid green'

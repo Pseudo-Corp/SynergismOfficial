@@ -1306,6 +1306,7 @@
             <div id="runeContainer2" alt="runeContainer2" label="runeContainer2" style="display: none;">
                 <div class="talismanShardsContainer">
                     <div class="talismanShardContainer">
+                        <button class="talismanBtn FragBth" id="toggleautoBuyFragments" alt="toggleautoBuyFragments" label="toggleautoBuyFragments" style="border: 2px solid white">Auto Buy: OFF</button>
                         <button class="talismanBtn" id="buyTalismanAll" alt="buyTalismanAll" label="buyTalismanAll" style="border: 2px solid white">BUY ALL</button>
                     </div>
                     <div class="talismanShardContainer">
@@ -1916,10 +1917,10 @@
 
                 <div id="antToggleFeatures" alt="antToggleFeatures" label="antToggleFeatures">
                     <button id="toggleAntMax" alt="toggleAntMax" label="toggleAntMax">Buy Max: ON</button>
-                    <div id="antSacrificeButtons" alt="antSacrificeButtons" label="antSacrificeButtons">
+                    <div class="antSacBth">
                         <div class="antSacrificeButtonsContainer">
                             <button id="toggleAutoSacrificeAnt" alt="toggleAutoSacrificeAnt" label="toggleAutoSacrificeAnt">Auto Sacrifice: OFF</button>
-                            <div class="antSacrificeSettingsContainer">
+                            <div class="antSacrificeSettingsContainer" id="antSacrificeButtons" alt="antSacrificeButtons" label="antSacrificeButtons">
                                 <button id="autoSacrificeAntMode" alt="autoSacrificeAntMode" label="autoSacrificeAntMode">Mode: In-game time</button>
                                 <input id="autoAntSacrificeAmount" alt="autoAntSacrificeAmount" label="autoAntSacrificeAmount" type="number">
                             </div>
@@ -2478,6 +2479,9 @@
                     </div>
                     <div class="platonicUpgradesContainer">
                         <div id="platonicUpgrades" alt="platonicUpgrades" label="platonicUpgrades">
+                            <div style="display: inline">
+                                <button id="saveOffToggle" alt="saveOffToggle" label="saveOffToggle" style="border: 2px solid gold" title="If ON, then it will turn OFF Auto Runes toggle">Save Offerings [OFF]</button>
+                            </div>
                             <table id="platonicUpgradePics" alt="platonicUpgradePics" label="platonicUpgradePics" style='border: 3px solid plum'>
                                 <tr>
                                     <td style="font-size: 0;"><img id="platUpg1" alt="platUpg1" label="platUpg1" src="Pictures/Transparent%20Pics/PlatonicUpgrade1.png" class="platonicUpgradeImage" loading="lazy"></td>

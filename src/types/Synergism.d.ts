@@ -362,6 +362,7 @@ export interface Player {
     shopHideToggle: boolean,
 
     autoSacrificeToggle: boolean,
+    autoBuyFragment: boolean,
     autoFortifyToggle: boolean,
     autoEnhanceToggle: boolean,
     autoResearchToggle: boolean,
@@ -408,6 +409,7 @@ export interface Player {
     cubeUpgrades: [null, ...number[]]
     cubeUpgradesBuyMaxToggle: boolean
     platonicUpgrades: number[]
+    saveOfferingToggle: boolean,
     wowCubes: WowCubes
     wowTesseracts: WowTesseracts
     wowHypercubes: WowHypercubes
