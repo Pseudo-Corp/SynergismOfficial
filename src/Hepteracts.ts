@@ -5,7 +5,6 @@ import { format, player } from './Synergism';
 import type { Player } from './types/Synergism';
 import { Alert, Confirm, Prompt } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-import { Globals as G } from './Variables';
 
 export interface IHepteractCraft {
     BASE_CAP: number
