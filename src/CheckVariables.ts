@@ -164,6 +164,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
     if (data.autoBuyFragment === undefined) {
         player.autoBuyFragment = false;
+        player.saveOfferingToggle = false;
     }
 
     if (data.autoTesseracts === undefined) {
