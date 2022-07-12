@@ -6,6 +6,7 @@ import { player } from './Synergism';
 import { visualUpdateResearch } from './UpdateVisuals';
 import { Globals as G } from './Variables';
 import { buyAllBlessings } from './Buy';
+import { buyAllTalismanResources } from './Talismans'
 
 type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks' | 'goldenQuarks' | 'singularity';
 
@@ -132,10 +133,13 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
                     buyAllBlessings('Blessings', 100 / 4, true);
                     buyAllBlessings('Spirits', 100 / 3, true);
                 }
+                if (player.autoBuyFragment && player.singularityCount >= 40 && player.cubeUpgrades[51] > 0) {
+                    buyAllTalismanResources();
+                }
 
                 // If you bought cube upgrade 2x10 then it sacrifices to all runes equally
                 if (player.cubeUpgrades[20] === 1){
-                    const maxi = player.singularityCount >= 30 ? 6 : 5;
+                    const maxi = player.singularityCount >= 50 ? 7 : (player.singularityCount >= 30 ? 6 : 5);
                     const notMaxed = (maxi - checkMaxRunes(maxi));
                     if (notMaxed > 0){
                         const baseAmount = Math.floor(player.runeshards / notMaxed / 2);
