@@ -462,6 +462,7 @@ export const player: Player = {
         seasonPassY: 0,
         seasonPassZ: 0,
         challengeTome2: 0,
+        instantChallenge2: 0,
         cashGrab2: 0,
         chronometerZ: 0,
         cubeToQuarkAll: 0,
@@ -471,12 +472,14 @@ export const player: Player = {
         powderAuto: 0
     },
     shopBuyMaxToggle: false,
+    shopHideToggle: false,
     shopConfirmationToggle: true,
 
     autoSacrificeToggle: false,
     autoFortifyToggle: false,
     autoEnhanceToggle: false,
     autoResearchToggle: false,
+    researchBuyMaxToggle: false,
     autoResearchMode: 'manual',
     autoResearch: 0,
     autoSacrifice: 0,
@@ -524,6 +527,7 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    cubeUpgradesBuyMaxToggle: false,
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
     wowTesseracts: new WowTesseracts(0),
@@ -1643,14 +1647,19 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: OFF'
         }
+        if (player.shopHideToggle) {
+            DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: ON'
+        } else {
+            DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: OFF'
+        }
 
         // Settings that are not saved in the data will be restored to their defaults by import or singularity
-        if (G['maxbuyresearch']) {
+        if (player.researchBuyMaxToggle) {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
         } else {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
         }
-        if (G['buyMaxCubeUpgrades']) {
+        if (player.cubeUpgradesBuyMaxToggle) {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: MAX [if possible wow]'
         } else {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: 1 Level wow'
@@ -2913,7 +2922,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             const reqCheck = (comp: number) => player.coinsThisTranscension.gte(challengeRequirement(q, comp, q));
 
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-                const maxInc = player.currentChallenge.ascension !== 13 ? player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) : 1; // TODO: Implement the shop upgrade levels here
+                const maxInc = player.shopUpgrades.instantChallenge2 > 0 && player.currentChallenge.ascension !== 13 ?
+                    player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) :
+                    (player.currentChallenge.ascension !== 13 && player.shopUpgrades.instantChallenge > 0 ? 10 : 1); // TODO: Implement the shop upgrade levels here
                 let counter = 0;
                 let comp = player.challengecompletions[q];
                 while (counter < maxInc) {
@@ -2973,7 +2984,8 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
         }
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-            const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 + player.singularityCount : 1; // TODO: Implement the shop upgrade levels here
+            const maxInc = player.shopUpgrades.instantChallenge2 > 0 ? player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) :
+                (player.currentChallenge.ascension !== 13 && player.shopUpgrades.instantChallenge > 0 ? 10 : 1); // TODO: Implement the shop upgrade levels here
             let counter = 0;
             let comp = player.challengecompletions[q];
             while (counter < maxInc) {
@@ -3065,7 +3077,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.currentChallenge.transcension = 0;
         }
         challengeDisplay(a, true)
-        reset('ascensionChallenge')
+        if (player.shopUpgrades.instantChallenge2 === 0 || manual) {
+            reset('ascensionChallenge')
+        }
 
         if (player.challengecompletions[a] > player.highestchallengecompletions[a]) {
             player.highestchallengecompletions[a] += 1;

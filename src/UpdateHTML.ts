@@ -203,15 +203,7 @@ export const revealStuff = () => {
         HTML.style.display = player.singularityCount > 0 ? 'block' : 'none';
     }
 
-    const singularityShopItems = document.getElementsByClassName('singularityShopUnlock') as HTMLCollectionOf<HTMLElement>;
-    for (const item of Array.from(singularityShopItems)) { // Ability to buy upgrade tier 1s
-        item.style.display = player.singularityUpgrades.wowPass.getEffect().bonus ? 'block' : 'none';
-    }
-
-    const singularityShopItems2 = document.getElementsByClassName('singularityShopUnlock2') as HTMLCollectionOf<HTMLElement>;
-    for (const item of Array.from(singularityShopItems2)) { // Ability to buy upgrade tier 2s
-        item.style.display = player.singularityUpgrades.wowPass2.getEffect().bonus > 0 ? 'block' : 'none';
-    }
+    visualUpdateShop();
 
     const hepts = DOMCacheGetOrSet('corruptionHepteracts');
     hepts.style.display = (player.achievements[255] > 0) ? 'block' : 'none';
@@ -333,6 +325,9 @@ export const revealStuff = () => {
     player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
         DOMCacheGetOrSet('tesseractautobuytoggle').style.display = 'block' :
         DOMCacheGetOrSet('tesseractautobuytoggle').style.display = 'none';
+    player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
+        DOMCacheGetOrSet('tesseractautobuymode').style.display = 'block' :
+        DOMCacheGetOrSet('tesseractautobuymode').style.display = 'none';
     player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
         DOMCacheGetOrSet('tesseractAmount').style.display = 'block' :
         DOMCacheGetOrSet('tesseractAmount').style.display = 'none';

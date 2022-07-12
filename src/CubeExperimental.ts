@@ -116,7 +116,7 @@ export abstract class Cube {
 
         if (isPercentage) {
             return this.open(
-                thisInPlayer.value * (cubesToOpen / 100),
+                Math.floor(thisInPlayer.value * (cubesToOpen / 100)),
                 cubesToOpen === 100
             );
         }
