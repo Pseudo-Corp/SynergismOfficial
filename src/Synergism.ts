@@ -604,7 +604,8 @@ export const player: Player = {
         2: false,
         3: false,
         4: false,
-        5: false
+        5: false,
+        6: false
     },
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

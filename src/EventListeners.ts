@@ -73,6 +73,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('ascHyperStats').addEventListener('click', () => toggleAscStatPerSecond(3))
     DOMCacheGetOrSet('ascPlatonicStats').addEventListener('click', () => toggleAscStatPerSecond(4))
     DOMCacheGetOrSet('ascHepteractStats').addEventListener('click', () => toggleAscStatPerSecond(5))
+    DOMCacheGetOrSet('ascLen').addEventListener('click', () => toggleAscStatPerSecond(6))
     //Part 1: Reset Tiers
     //Onmouseover Events
     DOMCacheGetOrSet('prestigebtn').addEventListener('mouseover', () => resetrepeat('prestige'))
