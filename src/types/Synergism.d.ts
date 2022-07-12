@@ -881,8 +881,6 @@ export interface GlobalVariables {
     historyCountMax: number
 
     isEvent: boolean
-
-    autoHepteractCount: number
 }
 
 export interface SynergismEvents {

@@ -430,26 +430,34 @@ export const visualUpdateCubes = () => {
 }
 
 const UpdateHeptGridValues = (type: hepteractTypes) => {
-    const text = type + 'ProgressBarText'
-    const bar = type + 'ProgressBar'
-    const textEl = document.getElementById(text)!
-    const barEl = document.getElementById(bar)!
-    const balance = player.hepteractCrafts[type].BAL
-    const cap = player.hepteractCrafts[type].CAP
-    const barWidth = Math.round((balance / cap) * 100)
+    const text = type + 'ProgressBarText';
+    const bar = type + 'ProgressBar';
+    const textEl = document.getElementById(text)!;
+    const barEl = document.getElementById(bar)!;
+    const unlocked = player.hepteractCrafts[type].UNLOCKED;
 
-    let barColor = '';
-    if (barWidth < 34) {
-        barColor = 'red';
-    } else if (barWidth >= 34 && barWidth < 68) {
-        barColor = '#cca300';
+    if (!unlocked) {
+        textEl.textContent = 'LOCKED';
+        barEl.style.width = '100%';
+        barEl.style.backgroundColor = 'red';
     } else {
-        barColor = 'green';
-    }
+        const balance = player.hepteractCrafts[type].BAL;
+        const cap = player.hepteractCrafts[type].CAP;
+        const barWidth = Math.round((balance / cap) * 100);
 
-    textEl.textContent = format(balance) + ' / ' + format(cap)
-    barEl.style.width = barWidth + '%'
-    barEl.style.backgroundColor = barColor
+        let barColor = '';
+        if (barWidth < 34) {
+            barColor = 'red';
+        } else if (barWidth >= 34 && barWidth < 68) {
+            barColor = '#cca300';
+        } else {
+            barColor = 'green';
+        }
+
+        textEl.textContent = format(balance) + ' / ' + format(cap);
+        barEl.style.width = barWidth + '%';
+        barEl.style.backgroundColor = barColor;
+    }
 }
 
 export const visualUpdateCorruptions = () => {

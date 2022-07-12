@@ -428,8 +428,6 @@ export const Globals: GlobalVariables = {
 
     // talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
     // talismanResourceOfferingCosts: [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
-
-    autoHepteractCount: 0
 }
 
 export const blankGlobals = { ...Globals };

@@ -462,8 +462,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             if (data.hepteractCrafts[k]) {
                 player.hepteractCrafts[k] = createHepteract({...player.hepteractCrafts[k], ...data.hepteractCrafts[k]});
             }
-
-            G['autoHepteractCount'] += +player.hepteractCrafts[k].AUTO
         }
     }
 
