@@ -527,7 +527,7 @@ export const promocodes = async (input: string | null) => {
             1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
             1 + player.shopUpgrades.seasonPassLost / 200,
             1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
-            1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
+            1 + +(corruptionLevelSum >= 14 * 8) * (player.singularityUpgrades.divinePack.level === 1 ? 6.77 : 1.00),
             +player.singularityUpgrades.singCubes1.getEffect().bonus,
             +player.singularityUpgrades.singCubes2.getEffect().bonus,
             +player.singularityUpgrades.singCubes3.getEffect().bonus

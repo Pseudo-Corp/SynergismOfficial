@@ -298,7 +298,6 @@ export interface Player {
     offeringbuyamount: number
     tesseractbuyamount: number
 
-
     shoptoggles: {
         coin: boolean,
         prestige: boolean,
@@ -349,6 +348,7 @@ export interface Player {
         seasonPassY: number,
         seasonPassZ: number,
         challengeTome2: number,
+        instantChallenge2: number,
         cubeToQuarkAll: number,
         cashGrab2: number,
         seasonPassLost: number,
@@ -359,11 +359,13 @@ export interface Player {
     },
     shopConfirmationToggle: number,
     shopBuyMaxToggle: boolean,
+    shopHideToggle: boolean,
 
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,
     autoEnhanceToggle: boolean,
     autoResearchToggle: boolean,
+    researchBuyMaxToggle: boolean,
     autoResearchMode: 'cheapest' | 'manual'
     autoResearch: number
     autoSacrifice: number
@@ -404,6 +406,7 @@ export interface Player {
     ascensionCount: number
     ascensionCounter: number
     cubeUpgrades: [null, ...number[]]
+    cubeUpgradesBuyMaxToggle: boolean
     platonicUpgrades: number[]
     wowCubes: WowCubes
     wowTesseracts: WowTesseracts
@@ -677,8 +680,6 @@ export interface GlobalVariables {
 
     maxexponent: number
 
-    maxbuyresearch: boolean,
-
     effectiveLevelMult: number
     optimalOfferingTimer: number
     optimalObtainiumTimer: number
@@ -799,7 +800,6 @@ export interface GlobalVariables {
     hypercubeBonusMultiplier: [null, ...number[]]
     platonicBonusMultiplier: number[]
 
-    buyMaxCubeUpgrades: boolean,
     autoOfferingCounter: number
 
     researchOrderByCost: number[],
