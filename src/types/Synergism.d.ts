@@ -348,6 +348,7 @@ export interface Player {
         seasonPassY: number,
         seasonPassZ: number,
         challengeTome2: number,
+        instantChallenge2: number,
         cubeToQuarkAll: number,
         cashGrab2: number,
         seasonPassLost: number,
@@ -358,6 +359,7 @@ export interface Player {
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean,
+    shopHideToggle: boolean,
 
     autoSacrificeToggle: boolean,
     autoFortifyToggle: boolean,
