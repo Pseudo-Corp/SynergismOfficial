@@ -2885,8 +2885,17 @@ img.small {
     margin-bottom: 1px;
 }
 
+.corrImport {
+    border: 1px solid green;
+    padding: 2px 5px;
+    transition-duration: 0.15s;
+    width: 100%;
+    margin-bottom: 1px;
+}
+
 .corrSave:hover,
-.corrLoad:hover {
+.corrLoad:hover,
+.corrImport:hover {
     background-color: #333;
 }
 
