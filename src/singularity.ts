@@ -683,7 +683,7 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Golden coins',
         levels: [1],
         description: () => {
-            return 'Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity.'
+            return 'Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity'
         }
     },
     {
@@ -748,7 +748,7 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [5, 20],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'You always keep 100 free levels of each Shop upgrade in the first row'
+                return 'You permanently keep 100 free levels of each Shop upgrade in the first row'
             } else {
                 return 'You start each Singularity with 10 free levels of each Shop upgrade in the first row'
             }
@@ -758,7 +758,7 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'A particular improvement',
         levels: [5],
         description: () => {
-            return 'You start each Ascension with Autobuyers for Particle buildings'
+            return 'You start each Ascension with Autobuyers for Particle buildings unlocked'
         }
     },
     {
@@ -784,11 +784,11 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [10, 15, 25],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
-                return 'You always keep Ant autobuyers and start each Ascension with a Tier 8 Ant'
+                return 'You permanently keep Ant autobuyers and start each Ascension with a Tier 8 Ant'
             } else if (n >= levels[1]) {
-                return 'You always keep Ant autobuyers and start each Ascension with a Tier 5 Ant'
+                return 'You permanently keep Ant autobuyers and start each Ascension with a Tier 5 Ant'
             } else {
-                return 'You always keep Ant autobuyers and start each Ascension with a Tier 1 Ant'
+                return 'You permanently keep Ant autobuyers and start each Ascension with a Tier 1 Ant'
             }
         }
     },
@@ -796,7 +796,7 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Research for Dummies',
         levels: [11],
         description: () => {
-            return 'You always keep Auto Research.'
+            return 'You permanently keep Auto Research'
         }
     },
     {
@@ -807,10 +807,21 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Infinite Auto Ascent',
-        levels: [30],
+        name: 'Advanced Runes Autobuyer',
+        levels: [30,50],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'Runes autobuyer will also level up Infinite Ascent AND Antiquities of Ant God'
+            } else {
+                return 'Runes autobuyer will also level up Infinite Ascent'
+            }
+        }
+    },
+    {
+        name: 'Autobuy Talismans Resources',
+        levels: [40],
         description: () => {
-            return 'Runes autobuyer will also level up Infinite Ascent.'
+            return 'Runes autobuyer can also buy Talisman Shards and Fragments'
         }
     }
 ]
