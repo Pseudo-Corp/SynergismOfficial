@@ -384,6 +384,7 @@ button:focus {
     text-align: left; /* Keeps text from bouncing around */
     font-size: 15px;
     font-variant-numeric: tabular-nums;
+    white-space: pre-line;
 }
 
 #resetrewards > div {
