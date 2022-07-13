@@ -520,7 +520,7 @@ export const player: Player = {
 
     ascensionCount: 0,
     ascensionCounter: 0,
-    ascensionCounterReal: 0,
+    ascensionCounterRealReal: 0,
     cubeUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -3462,7 +3462,7 @@ export const updateAll = (): void => {
         if (player.autoAscendMode === 'c10Completions' && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
             reset('ascension', true)
         }
-        if (player.autoAscendMode === 'realAscensionTime' && player.challengecompletions[10] >= 1 && player.ascensionCounterReal >= Math.max(1, player.autoAscendThreshold)) {
+        if (player.autoAscendMode === 'realAscensionTime' && player.challengecompletions[10] >= 1 && player.ascensionCounterRealReal >= Math.max(1, player.autoAscendThreshold)) {
             reset('ascension', true)
         }
     }

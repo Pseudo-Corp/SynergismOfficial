@@ -373,6 +373,8 @@ export const applyCorruptions = (corruptions: string) => {
     if (corruptions && corruptions.indexOf('/') > -1 && corruptions.split('/').length === 13) {
         // Converts the '/' separated string into a number[]
         player.prototypeCorruptions = corruptions.split('/').map(x => +x);
+        corruptionLoadoutTableUpdate();
+        smartLoadoutTableUpdate();
         corruptionStatsUpdate();
     }
 }
