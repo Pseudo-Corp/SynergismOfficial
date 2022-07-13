@@ -406,6 +406,7 @@ export interface Player {
 
     ascensionCount: number
     ascensionCounter: number
+    ascensionCounterReal: number
     ascensionCounterRealReal: number
     autoopenCubes: boolean,
     openCubes: number
@@ -415,6 +416,7 @@ export interface Player {
     openHypercubes: number
     autoopenPlatonicsCubes: boolean,
     openPlatonicsCubes: number
+
     cubeUpgrades: [null, ...number[]]
     cubeUpgradesBuyMaxToggle: boolean
     platonicUpgrades: number[]

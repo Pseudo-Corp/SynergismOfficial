@@ -520,7 +520,9 @@ export const player: Player = {
 
     ascensionCount: 0,
     ascensionCounter: 0,
+    ascensionCounterReal: 0,
     ascensionCounterRealReal: 0,
+
     cubeUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

@@ -574,6 +574,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         ascensionAchievementCheck(1);
 
         player.ascensionCounter = 0;
+        player.ascensionCounterReal = 0;
         player.ascensionCounterRealReal = 0;
 
         updateTalismanInventory();
