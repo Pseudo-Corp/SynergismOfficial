@@ -3588,7 +3588,7 @@ function tack(dt: number) {
             }
         }
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
-            if (player.toggles[27] === true && player.researches[46] > 0.5 && G['reincarnationPointGain'].gte(player.reincarnationPoints.times(Decimal.pow(10, player.reincarnationamount))) && player.transcendShards.gte(1e300) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
+            if (player.toggles[27] === true && player.researches[46] > 0.5 && G['reincarnationPointGain'].gte(player.reincarnationPoints.add(1).times(Decimal.pow(10, player.reincarnationamount))) && player.transcendShards.gte(1e300) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
                 resetachievementcheck(3);
                 reset('reincarnation', true)
             }
