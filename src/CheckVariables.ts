@@ -648,4 +648,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.cubeUpgradesBuyMaxToggle === undefined) {
         player.cubeUpgradesBuyMaxToggle = false;
     }
+
+    if (data.ascensionCounterRealReal === undefined) {
+        player.ascensionCounterRealReal = 0;
+    }
 }

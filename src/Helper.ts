@@ -31,12 +31,13 @@ export const addTimers = (input: TimerInput, time = 0) => {
             player.reincarnationcounter += time * timeMultiplier;
             break;
         }
-        case 'ascension': {
+        case 'ascension': { //Anything in here is affected by add code
             player.ascensionCounter += time * timeMultiplier * calculateAscensionAcceleration();
             player.ascensionCounterReal += time * timeMultiplier
             break;
         }
         case 'singularity': {
+            player.ascensionCounterRealReal += time;
             player.singularityCounter += time * timeMultiplier;
             break;
         }

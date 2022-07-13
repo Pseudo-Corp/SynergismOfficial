@@ -556,7 +556,8 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => toggleCorruptionLevel(10, 999))
 
     //Extra toggle
-    DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscend())
+    DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscend(0))
+    DOMCacheGetOrSet('ascensionAutoToggle').addEventListener('click', () => toggleAutoAscend(1))
 
     // SETTNGS TAB
     // Part 0: Subtabs
