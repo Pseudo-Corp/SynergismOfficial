@@ -328,7 +328,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     },
     instantChallenge2: {
         tier: 'Singularity',
-        price: 50000000,
+        price: 20000000,
         priceIncrease: 0,
         maxLevel: 1,
         type: shopUpgradeTypes.UPGRADE,
