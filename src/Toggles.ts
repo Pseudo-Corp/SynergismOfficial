@@ -469,12 +469,15 @@ export const toggleAutoSacrifice = (index: number) => {
         if (player.autoSacrificeToggle) {
             player.autoSacrificeToggle = false;
             el.textContent = 'Auto Runes: OFF';
-            DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid red'
+            el.style.border = '2px solid red'
             player.autoSacrifice = 0;
         } else {
             player.autoSacrificeToggle = true;
+            player.saveOfferingToggle = false;
             el.textContent = 'Auto Runes: ON'
-            DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid green'
+            el.style.border = '2px solid green'
+            DOMCacheGetOrSet('saveOffToggle').textContent = 'Save Offerings [OFF]'
+            DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
         }
     } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
         player.autoSacrifice = index;
@@ -483,6 +486,21 @@ export const toggleAutoSacrifice = (index: number) => {
         DOMCacheGetOrSet('rune' + i).style.backgroundColor = player.autoSacrifice === i ? 'orange' : '#171717';
     }
     calculateRuneLevels();
+}
+
+export const toggleAutoBuyFragment = () => {
+    const el = DOMCacheGetOrSet('toggleautoBuyFragments')
+    if (player.autoBuyFragment) {
+        el.textContent = 'Auto Buy: OFF'
+        el.style.border = '2px solid orange'
+        el.style.color = 'white'
+    } else {
+        el.textContent = 'Auto Buy: ON'
+        el.style.border = '2px solid white'
+        el.style.color = 'orange'
+    }
+
+    player.autoBuyFragment = !player.autoBuyFragment
 }
 
 export const toggleBuildingScreen = (input: BuildingSubtab) => {
@@ -567,6 +585,26 @@ export const toggleautoenhance = () => {
     }
 
     player.autoEnhanceToggle = !player.autoEnhanceToggle;
+}
+
+export const toggleSaveOff = () => {
+    const el = DOMCacheGetOrSet('saveOffToggle')
+    const et = DOMCacheGetOrSet('toggleautosacrifice')
+    if (player.saveOfferingToggle) {
+        player.autoSacrificeToggle = true
+        el.textContent = 'Save Offerings [OFF]'
+        el.style.color = 'white'
+        et.textContent = 'Auto Runes: ON'
+        et.style.border = '2px solid green'
+    } else {
+        player.autoSacrificeToggle = false
+        el.textContent = 'Save Offerings [ON]'
+        el.style.color = 'yellow'
+        et.textContent = 'Auto Runes: OFF'
+        et.style.border = '2px solid red'
+    }
+
+    player.saveOfferingToggle = !player.saveOfferingToggle
 }
 
 export const toggleSingularityScreen = (index: number) => {
@@ -721,6 +759,15 @@ export const toggleBuyMaxShop = () => {
         : 'Buy Max: ON';
 
     player.shopBuyMaxToggle = !player.shopBuyMaxToggle;
+}
+
+export const toggleHideShop = () => {
+    const el = DOMCacheGetOrSet('toggleHideShop')
+    el.textContent = player.shopHideToggle
+        ? 'Hide Maxed: OFF'
+        : 'Hide Maxed: ON';
+
+    player.shopHideToggle = !player.shopHideToggle;
 }
 
 export const toggleAntMaxBuy = () => {

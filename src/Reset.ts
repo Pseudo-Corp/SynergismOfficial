@@ -917,6 +917,7 @@ export const singularity = async (): Promise<void> => {
     hold.tesseractbuyamount = player.tesseractbuyamount
     hold.shoptoggles = player.shoptoggles
     hold.autoSacrificeToggle = player.autoSacrificeToggle
+    hold.autoBuyFragment = player.autoBuyFragment
     hold.autoFortifyToggle = player.autoFortifyToggle
     hold.autoEnhanceToggle = player.autoEnhanceToggle
     hold.autoResearchToggle = player.autoResearchToggle
@@ -952,6 +953,7 @@ export const singularity = async (): Promise<void> => {
     hold.ascStatToggles = player.ascStatToggles
     hold.hepteractAutoCraftPercentage = player.hepteractAutoCraftPercentage
     hold.shopBuyMaxToggle = player.shopBuyMaxToggle
+    hold.shopHideToggle = player.shopHideToggle
     hold.shopConfirmationToggle = player.shopConfirmationToggle
     hold.researchBuyMaxToggle = player.researchBuyMaxToggle
     hold.cubeUpgradesBuyMaxToggle = player.cubeUpgradesBuyMaxToggle

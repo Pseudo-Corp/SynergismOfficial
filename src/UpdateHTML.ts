@@ -203,15 +203,7 @@ export const revealStuff = () => {
         HTML.style.display = player.singularityCount > 0 ? 'block' : 'none';
     }
 
-    const singularityShopItems = document.getElementsByClassName('singularityShopUnlock') as HTMLCollectionOf<HTMLElement>;
-    for (const item of Array.from(singularityShopItems)) { // Ability to buy upgrade tier 1s
-        item.style.display = player.singularityUpgrades.wowPass.getEffect().bonus ? 'block' : 'none';
-    }
-
-    const singularityShopItems2 = document.getElementsByClassName('singularityShopUnlock2') as HTMLCollectionOf<HTMLElement>;
-    for (const item of Array.from(singularityShopItems2)) { // Ability to buy upgrade tier 2s
-        item.style.display = player.singularityUpgrades.wowPass2.getEffect().bonus > 0 ? 'block' : 'none';
-    }
+    visualUpdateShop();
 
     const hepts = DOMCacheGetOrSet('corruptionHepteracts');
     hepts.style.display = (player.achievements[255] > 0) ? 'block' : 'none';
@@ -314,8 +306,10 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('rune5area').style.display = 'none', DOMCacheGetOrSet('runeshowpower5').style.display = 'none');
 
     player.researches[124] > 0 ? //5x24 Research [AutoSac]
-        (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'block', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'block') :
+        (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'flex', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'block') :
         (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'none', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'none');
+    player.researches[124] > 0 || player.singularityCount > 0 ? //So you can turn it off before 5x24 Research
+        DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'block' : 'none'
 
     player.researches[130] > 0 ? //6x5 Research [Talisman Auto Fortify]
         DOMCacheGetOrSet('toggleautofortify').style.display = 'block' :
@@ -350,6 +344,10 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('toggleautosacrifice').style.display = 'block' :
         DOMCacheGetOrSet('toggleautosacrifice').style.display = 'none';
 
+    player.cubeUpgrades[51] > 0 && player.singularityCount >= 40 ? //Auto Fragments Buy (After Cx1)
+        DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'block' :
+        DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'none';
+
     player.shopUpgrades.obtainiumAuto > 0 ? //Auto Research Shop Purchase
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'block' :
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'none';
@@ -377,6 +375,10 @@ export const revealStuff = () => {
     player.singularityCount > 0 ?
         (DOMCacheGetOrSet('singularitytab').style.display = 'block'):
         (DOMCacheGetOrSet('singularitytab').style.display = 'none');
+
+    player.singularityCount > 0 ? //Save Offerings
+        DOMCacheGetOrSet('saveOffToggle').style.display = 'block' :
+        DOMCacheGetOrSet('saveOffToggle').style.display = 'none';
 
     // Singularity confirmation toggle pic
     player.singularityCount > 0 && player.ascensionCount > 0 ?

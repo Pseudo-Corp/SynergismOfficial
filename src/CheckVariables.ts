@@ -162,6 +162,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.runeBlessingBuyAmount = 0;
         player.runeSpiritBuyAmount = 0;
     }
+    if (data.autoBuyFragment === undefined) {
+        player.autoBuyFragment = false;
+        player.saveOfferingToggle = false;
+    }
 
     if (data.autoTesseracts === undefined) {
         player.autoTesseracts = [false, false, false, false, false, false]
@@ -402,6 +406,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             seasonPassY: 0,
             seasonPassZ: 0,
             challengeTome2: 0,
+            instantChallenge2: 0,
             cashGrab2: 0,
             cubeToQuarkAll: 0,
             obtainiumEX2: 0,
@@ -631,6 +636,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.shopBuyMaxToggle === undefined) {
         player.shopBuyMaxToggle = false;
         player.shopConfirmationToggle = true;
+    }
+    if (data.shopHideToggle === undefined) {
+        player.shopHideToggle = false;
     }
 
     if (data.researchBuyMaxToggle === undefined) {
