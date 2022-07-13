@@ -520,7 +520,7 @@ export const visualUpdateSingularity = () => {
     if (G['currentTab'] !== 'singularity') {
         return
     }
-    DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks) + ' Golden Quarks!'
+    DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
 }
 
 export const visualUpdateShop = () => {
