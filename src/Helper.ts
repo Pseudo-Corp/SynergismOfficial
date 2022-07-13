@@ -33,7 +33,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         }
         case 'ascension': {
             player.ascensionCounter += time * timeMultiplier * calculateAscensionAcceleration();
-            //player.singularityCounter += time * timeMultiplier;
+            player.ascensionCounterReal += time * timeMultiplier
             break;
         }
         case 'singularity': {

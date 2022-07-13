@@ -406,6 +406,7 @@ export interface Player {
 
     ascensionCount: number
     ascensionCounter: number
+    ascensionCounterReal: number
     cubeUpgrades: [null, ...number[]]
     cubeUpgradesBuyMaxToggle: boolean
     platonicUpgrades: number[]
