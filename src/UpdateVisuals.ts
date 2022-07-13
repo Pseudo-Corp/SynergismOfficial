@@ -432,8 +432,8 @@ export const visualUpdateCubes = () => {
 const UpdateHeptGridValues = (type: hepteractTypes) => {
     const text = type + 'ProgressBarText';
     const bar = type + 'ProgressBar';
-    const textEl = document.getElementById(text)!;
-    const barEl = document.getElementById(bar)!;
+    const textEl = DOMCacheGetOrSet(text);
+    const barEl = DOMCacheGetOrSet(bar);
     const unlocked = player.hepteractCrafts[type].UNLOCKED;
 
     if (!unlocked) {

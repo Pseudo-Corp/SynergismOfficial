@@ -956,8 +956,8 @@ export const singularity = async (): Promise<void> => {
 
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark;
-    for (const craftName in player.hepteractCrafts) {
-        if (craftName !== 'quark' ) {
+    for (const craftName of Object.keys(player.hepteractCrafts)) {
+        if (craftName !== 'quark') {
             const craftKey = craftName as keyof Player['hepteractCrafts'];
             hold.hepteractCrafts[craftKey].AUTO = player.hepteractCrafts[craftKey].AUTO;
         }

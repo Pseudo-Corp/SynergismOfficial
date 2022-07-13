@@ -569,10 +569,10 @@ export const overfluxPowderWarp = async () => {
  */
 export const getAutoHepteractCrafts = () => {
     const autoHepteracts: HepteractCraft[] = [];
-    for (const craft in player.hepteractCrafts) {
-        const k = craft as keyof Player['hepteractCrafts'];
-        if (player.hepteractCrafts[k].AUTO && player.hepteractCrafts[k].UNLOCKED) {
-            autoHepteracts.push(player.hepteractCrafts[k]);
+    for (const craftName of Object.keys(player.hepteractCrafts)) {
+        const craftKey = craftName as keyof Player['hepteractCrafts'];
+        if (player.hepteractCrafts[craftKey].AUTO && player.hepteractCrafts[craftKey].UNLOCKED) {
+            autoHepteracts.push(player.hepteractCrafts[craftKey]);
         }
     }
     return autoHepteracts;
