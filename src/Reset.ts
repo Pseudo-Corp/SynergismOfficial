@@ -24,7 +24,7 @@ import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
 import type { Player, resetNames, OneToFive } from './types/Synergism';
 import { updateClassList } from './Utility';
-import { corrChallengeMinimum, corruptionStatsUpdate, smartLoadoutSaveLoad, maxCorruptionLevel } from './Corruptions';
+import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions';
 import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { WowCubes } from './CubeExperimental';
@@ -596,26 +596,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             }
         }
 
-        if (player.platonicUpgrades[20] === 0 && player.smartLoadoutToggle && player.singularityCount >= 45) {
-            if ((player.currentChallenge.ascension >= 11 && player.currentChallenge.ascension <= 14) && player.challengecompletions[14] >= 1) {
-                smartLoadoutSaveLoad(false, 8); //Exiting challenge counts as being inside one...
-            } else if (player.platonicUpgrades[17] >= 1) {
-                smartLoadoutSaveLoad(false, 7);
-            } else if (player.platonicUpgrades[15] >= 1) {
-                smartLoadoutSaveLoad(false, 6);
-            } else if (player.platonicUpgrades[12] >= 1) {
-                smartLoadoutSaveLoad(false, 5);
-            } else if (player.platonicUpgrades[6] >= 10) {
-                smartLoadoutSaveLoad(false, 4);
-            } else if (player.cubeUpgrades[50] >= 100000) {
-                smartLoadoutSaveLoad(false, 3);
-            } else if (player.researches[200] >= 100000) {
-                smartLoadoutSaveLoad(false, 2);
-            } else if (player.challengecompletions[14] >= 1) {
-                smartLoadoutSaveLoad(false, 1);
-            }
-        }
-
         const maxLevel = maxCorruptionLevel();
         player.usedCorruptions = player.prototypeCorruptions.map((curr:number, index:number) => {
             if (index >= 2 && index <= 9) {
@@ -922,7 +902,6 @@ export const singularity = async (): Promise<void> => {
     hold.saveString = player.saveString
     hold.corruptionLoadouts = player.corruptionLoadouts
     hold.corruptionLoadoutNames = player.corruptionLoadoutNames
-    hold.smartLoadouts = player.smartLoadouts
     hold.corruptionShowStats = player.corruptionShowStats
     hold.toggles = player.toggles
     hold.retrychallenges = player.retrychallenges

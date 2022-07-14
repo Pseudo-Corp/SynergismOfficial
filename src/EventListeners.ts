@@ -549,7 +549,6 @@ export const generateEventHandlers = () => {
     //Part 0: Subtabs
     DOMCacheGetOrSet('corrStatsBtn').addEventListener('click', () => toggleSubTab(9, 0))
     DOMCacheGetOrSet('corrLoadoutsBtn').addEventListener('click', () => toggleSubTab(9, 1))
-    DOMCacheGetOrSet('smartLoadoutBtn').addEventListener('click', () => toggleSubTab(9, 2))
 
     //Part 1: Displays
     DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay(10))

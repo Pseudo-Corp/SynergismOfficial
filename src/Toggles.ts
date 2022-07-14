@@ -9,7 +9,7 @@ import { autoResearchEnabled } from './Research';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
 import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier, loadQuarkMultiplier } from './Statistics';
-import { corruptionDisplay, corruptionLoadoutTableUpdate, smartLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
+import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -275,9 +275,8 @@ export const subTabsInMainTab = (mainTab: number) => {
         9: {
             tabSwitcher: toggleCorruptionLoadoutsStats,
             subTabList: [
-                {subTabID: 1, unlocked: player.achievements[141] > 0, buttonID: 'corrStatsBtn'},
-                {subTabID: 2, unlocked: player.achievements[141] > 0, buttonID: 'corrLoadoutsBtn'},
-                {subTabID: 3, unlocked: player.singularityCount >= 45, buttonID: 'smartLoadoutBtn'}]
+                {subTabID: true, unlocked: player.achievements[141] > 0, buttonID: 'corrStatsBtn'},
+                {subTabID: false, unlocked: player.achievements[141] > 0, buttonID: 'corrLoadoutsBtn'}]
         },
         10: {
             tabSwitcher: toggleSingularityScreen,
@@ -970,11 +969,10 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
     }
     corruptionDisplay(index)
     corruptionLoadoutTableUpdate();
-    smartLoadoutTableUpdate();
 }
 
-export const toggleCorruptionLoadoutsStats = (stats: number) => {
-    player.corruptionShowStats = stats; //It was boolean before
+export const toggleCorruptionLoadoutsStats = (stats: boolean) => {
+    player.corruptionShowStats = stats;
     showCorruptionStatsLoadouts();
 }
 
