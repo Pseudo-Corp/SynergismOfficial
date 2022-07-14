@@ -340,10 +340,12 @@ export const toggleSubTab = (mainTab = 1, subTab = 0) => {
             // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
             const btn = DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[subTab]
             if (subTabList.unlocked) {
+                player.subtabNumber = subTab
                 subTabs.tabSwitcher?.(subTabList.subTabID, btn)
             }
         } else {
             if (subTabList.unlocked) {
+                player.subtabNumber = subTab
                 subTabs.tabSwitcher?.(subTabList.subTabID)
             }
         }
@@ -938,5 +940,17 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
     if (player.toggles[35]) {
         return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
+    }
+}
+
+export const toggleLayout = () => {
+    const current = document.body.classList.contains('flexible')
+    const themeButton = DOMCacheGetOrSet('layout');
+    if (current) {
+        document.body.classList.remove('flexible');
+        themeButton.textContent = 'Flexible Mode[Test]: OFF';
+    } else {
+        document.body.classList.add('flexible');
+        themeButton.textContent = 'Flexible Mode[Test]: ON';
     }
 }

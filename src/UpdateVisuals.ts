@@ -190,7 +190,7 @@ export const visualUpdateRunes = () => {
             'rune5Talisman'
         ] as const;
 
-        DOMCacheGetOrSet('offeringCount').textContent = 'You have ' + format(player.runeshards, 0, true) + ' Offerings.'
+        DOMCacheGetOrSet('offeringCount').textContent = `You have ${format(player.runeshards, 0, true)} Offerings.`
 
         for (let i = 1; i <= 7; i++) { //First one updates level, second one updates TNL, third updates orange bonus levels
             let place = G[talismans[i-1]];
@@ -199,31 +199,43 @@ export const visualUpdateRunes = () => {
             }
             const runeLevel = player.runelevels[i - 1]
             const maxLevel = calculateMaxRunes(i)
-            DOMCacheGetOrSet('rune' + i + 'level').childNodes[0].textContent = 'Level: ' + format(runeLevel) + '/' + format(maxLevel)
-            DOMCacheGetOrSet('rune' + i + 'exp').textContent = (runeLevel < maxLevel ? '+1 in ' + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + ' EXP' : 'Max level!')
-            if (i <= 5) {
-                DOMCacheGetOrSet('bonusrune' + i).textContent = ' [Bonus: ' + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[8]! + G['bonusant9']) + place) + ']'
+            DOMCacheGetOrSet(`rune${i}level`).childNodes[0].textContent = (player.ascensionCount > 0 && maxLevel > 999 ? '' : 'Level: ') + format(runeLevel) + '/' + format(maxLevel)
+            if (runeLevel < maxLevel) {
+                DOMCacheGetOrSet(`rune${i}exp`).textContent = `+1 in ${format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2)} EXP`
             } else {
-                DOMCacheGetOrSet('bonusrune' + i).textContent = '[Bonus: Nope!]'
+                DOMCacheGetOrSet(`rune${i}exp`).textContent = 'Maxed Level!'
             }
-            DOMCacheGetOrSet('rune' + i + 'level').childNodes[0].textContent = 'Level: ' + format(player.runelevels[i - 1]) + '/' + format(calculateMaxRunes(i))
-            DOMCacheGetOrSet('rune' + i + 'exp').textContent = '+1 in ' + format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2) + ' EXP'
             if (i <= 5) {
-                DOMCacheGetOrSet('bonusrune' + i).textContent = ' [Bonus: ' + format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[8]! + G['bonusant9']) + place) + ']'
+                DOMCacheGetOrSet(`bonusrune${i}`).textContent = ` [Bonus: ${format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[8]! + G['bonusant9']) + place)}]`
             } else {
-                DOMCacheGetOrSet('bonusrune' + i).textContent = '[Bonus: Nope!]'
+                DOMCacheGetOrSet(`bonusrune${i}`).textContent = '[Bonus: Nope!]'
             }
             displayRuneInformation(i, false)
         }
 
-        DOMCacheGetOrSet('offeringExperienceValue').textContent = 'Gain ' + format((1 + Math.min(player.highestchallengecompletions[1], 1) + 1 / 25 * player.highestchallengecompletions[1] + 0.6 * player.researches[22] + 0.3 * player.researches[23] + 3 / 25 * player.upgrades[66] + 2 * player.upgrades[61]) * calculateRecycleMultiplier(), 2, true) + '* EXP per Offering sacrificed.'
-        DOMCacheGetOrSet('offeringRecycleInfo').textContent = 'You have ' + format((5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 7.5 * player.achievements[122] + 7.5 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, G['rune4level'] / 16) + 0.5 * player.cubeUpgrades[2]), 2, true) + '% chance of recycling your Offerings. This multiplies EXP gain by ' + format(calculateRecycleMultiplier(), 2, true) + '!'
+        const calculateRecycle = calculateRecycleMultiplier();
+        const allRuneExpAdditiveMultiplier = sumContents([
+            // Base amount multiplied per offering
+            1 * calculateRecycle,
+            // +1 if C1 completion
+            Math.min(1, player.highestchallengecompletions[1]),
+            // +0.10 per C1 completion
+            0.4 / 10 * player.highestchallengecompletions[1],
+            // Research 5x2
+            0.6 * player.researches[22],
+            // Research 5x3
+            0.3 * player.researches[23],
+            // Particle Upgrade 1x1
+            2 * player.upgrades[61]
+        ]);
+        DOMCacheGetOrSet('offeringExperienceValue').textContent = `Gain ${format(allRuneExpAdditiveMultiplier, 2, true)}x EXP per offering sacrificed.`
+        DOMCacheGetOrSet('offeringRecycleInfo').textContent = `You have ${format((1 - 1 / calculateRecycle) * 100, 2, true)}% chance of recycling your offerings. This multiplies EXP gain by ${format(calculateRecycle, 2, true)}!`
     }
 
     if (G['runescreen'] === 'talismans') {
         for (let i = 0; i < 7; i++) {
             const maxTalismanLevel = calculateMaxTalismanLevel(i);
-            DOMCacheGetOrSet('talisman' + (i+1) + 'level').textContent = 'Level ' + format(player.talismanLevels[i], 0, true) + '/' + format(maxTalismanLevel, 0, true)
+            DOMCacheGetOrSet(`talisman${i + 1}level`).textContent = (player.ascensionCount > 0 ? '' : 'Level ') + format(player.talismanLevels[i]) + '/' + format(maxTalismanLevel)
         }
     }
 
@@ -231,7 +243,7 @@ export const visualUpdateRunes = () => {
         const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
         let t = 0;
         for (let i = 1; i <= 5; i++) {
-            DOMCacheGetOrSet(`runeBlessingLevel${i}Value`).textContent = format(player.runeBlessingLevels[i], 0, true)
+            DOMCacheGetOrSet(`runeBlessingLevel${i}Value`).textContent = format(player.runeBlessingLevels[i])
             DOMCacheGetOrSet(`runeBlessingPower${i}Value1`).textContent = format(G['runeBlessings'][i])
             const levelsPurchasable = calculateSummationLinear(player.runeBlessingLevels[i], G['blessingBaseCost'], player.runeshards, player.runeBlessingBuyAmount)[0] - player.runeBlessingLevels[i]
             levelsPurchasable > 0
@@ -481,7 +493,7 @@ export const visualUpdateCorruptions = () => {
 }
 
 export const visualUpdateSettings = () => {
-    if (G['currentTab'] !== 'settings') {
+    if (G['currentTab'] !== 'settings' || player.subtabNumber !== 0) {
         return
     }
     //I was unable to clean this up in a way that didn't somehow make it less clean, sorry.
@@ -534,12 +546,10 @@ export const visualUpdateShop = () => {
         if (shopItem.type === shopUpgradeTypes.UPGRADE) {
             // Case: If max level is 1, then it can be considered a boolean "bought" or "not bought" item
             if (shopItem.maxLevel === 1) {
-                player.shopUpgrades[key] === shopItem.maxLevel ?
-                    DOMCacheGetOrSet(`${key}Level`).textContent = 'Bought!':
-                    DOMCacheGetOrSet(`${key}Level`).textContent = 'Not Bought!'
+                DOMCacheGetOrSet(`${key}Level`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Bought!' : 'Not Bought!';
             } else {
                 // Case: max level greater than 1, treat it as a fraction out of max level
-                DOMCacheGetOrSet(`${key}Level`).textContent = 'Level ' + format(player.shopUpgrades[key]) + '/' + format(shopItem.maxLevel);
+                DOMCacheGetOrSet(`${key}Level`).textContent = (player.singularityCount > 0 || player.ascensionCount > 0 ? '' : 'Level ') + format(player.shopUpgrades[key]) + '/' + format(shopItem.maxLevel);
             }
             // Handles Button - max level needs no price indicator, otherwise it's necessary
 
@@ -547,13 +557,9 @@ export const visualUpdateShop = () => {
             const metaData:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[key], shopData[key].price, +player.worlds, shopData[key].priceIncrease / shopData[key].price, buyAmount)
 
             if (!player.shopBuyMaxToggle) {
-                player.shopUpgrades[key] === shopItem.maxLevel ?
-                    DOMCacheGetOrSet(`${key}Button`).textContent = 'Maxed!':
-                    DOMCacheGetOrSet(`${key}Button`).textContent = 'Upgrade for ' + format(getShopCosts(key)) + ' Quarks';
+                DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : 'Upgrade for ' + format(getShopCosts(key)) + ' Quarks';
             } else {
-                player.shopUpgrades[key] === shopItem.maxLevel ?
-                    DOMCacheGetOrSet(`${key}Button`).textContent = 'Maxed!':
-                    DOMCacheGetOrSet(`${key}Button`).textContent = 'Upgrade +'+format(metaData.levelCanBuy - player.shopUpgrades[key],0,true)+ ' for ' + format(metaData.cost,0,true) + ' Quarks';
+                DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : '+' + format(metaData.levelCanBuy - player.shopUpgrades[key], 0, true) + ' for ' + format(metaData.cost, 0, true) + ' Quarks';
             }
         }
     }

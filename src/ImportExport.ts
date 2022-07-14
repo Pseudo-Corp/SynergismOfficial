@@ -106,11 +106,62 @@ const saveFilename = () => {
             case 'QUARKS': return format(Number(player.worlds));
             case 'GQ': return '' + Math.floor(player.goldenQuarks);
             case 'GQS': return format(player.goldenQuarks);
+            case 'STAGE': return synergismStage();
             default: return `${b}`;
         }
     });
 
     return t;
+}
+
+export const synergismStage = () => {
+    if (player.singularityCount > 0) {
+        if (player.singularityUpgrades.wowPass.level === 0) {
+            return 'singularity-bonanza';
+        } else if (player.singularityUpgrades.wowPass2.level === 0) {
+            return 'bonanza-liquidation';
+        } else if (player.singularityUpgrades.octeractUnlock.level === 0) {
+            return 'liquidation-octeractunlock';
+        } else {
+            return 'octeractunlock-octeracts';
+        }
+    } else if (player.ascensionCount > 0) {
+        if (player.challengecompletions[11] === 0 || player.challengecompletions[12] === 0 || player.challengecompletions[13] === 0 || player.challengecompletions[14] === 0) {
+            return 'challenge10-challenge14';
+        } else if (player.cubeUpgrades[50] < 100000) {
+            return 'challenge14-w5x10max';
+        } else if (player.platonicUpgrades[5] === 0) {
+            return 'w5x10max-alpha';
+        } else if (player.platonicUpgrades[6] < 10) {
+            return 'alpha-p2x1x10';
+        } else if (player.platonicUpgrades[11] === 0) {
+            return 'p2x1x10-p3x1';
+        } else if (player.platonicUpgrades[10] === 0) {
+            return 'p3x1-beta';
+        } else if (player.challenge15Exponent < 1e15) {
+            return 'beta-1e15-expo';
+        } else if (player.platonicUpgrades[15] === 0) {
+            return '1e15-expo-omega';
+        } else {
+            return 'omega-singularity';
+        }
+    } else {
+        if (player.unlocks.prestige !== true) {
+            return 'starthere';
+        } else if (player.unlocks.transcend !== true) {
+            return 'prestige-transcend';
+        } else if (player.unlocks.reincarnate !== true) {
+            return 'transcend-reincarnate';
+        } else if (player.firstOwnedAnts === 0) {
+            return 'reincarnate-ant';
+        } else if (player.achievements[173] !== 1) {
+            return 'ant-sacrifice';
+        } else if (player.challengecompletions[10] === 0) {
+            return 'sacrifice-challenge10';
+        } else {
+            return 'challenge10-ascension';
+        }
+    }
 }
 
 export const exportSynergism = async () => {
@@ -171,6 +222,12 @@ export const exportSynergism = async () => {
     DOMCacheGetOrSet('exportinfo').textContent = toClipboard
         ? 'Copied save to your clipboard!'
         : 'Savefile copied to file!';
+}
+
+export const errorGame = async () => {
+    await Alert('sorry. You may be using an older version of your browser, current save data may be incorrect, or some problem may prevent from starting the game\nThis button just deletes the save data, but Synergism will work\nThen import the exported save data have\nCan report the console in error on Discord Synergism channel');
+    await Alert('The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it');
+    await resetGame();
 }
 
 export const resetGame = async () => {
@@ -551,37 +608,35 @@ export const promocodes = async (input: string | null) => {
     await saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
     Synergism.emit('promocode', input);
 
-    setTimeout(function () {
-        el.textContent = ''
-    }, 15000);
+    setTimeout(() => el.textContent = '', 15000);
 }
 
-function addCodeAvailableUses(): number {
+const addCodeAvailableUses = (): number => {
     return Math.floor(Math.min(24 + 2 * player.shopUpgrades.calculator2, (Date.now() - player.rngCode) / hour));
 }
 
-function addCodeTimeToNextUse(): number {
+const addCodeTimeToNextUse = (): number => {
     return Math.floor(hour + player.rngCode - Date.now())/1000;
 }
 
-function timeCodeAvailableUses(): number {
+const timeCodeAvailableUses = (): number => {
     return ((Date.now() - player.promoCodeTiming.time) / 1000 < 900) ? 0 : 1;
 }
 
-function timeCodeTimeToNextUse(): number {
+const timeCodeTimeToNextUse = (): number => {
     return 900 - ((Date.now() - player.promoCodeTiming.time) / 1000);
 }
 
-function timeCodeRewardMultiplier(): number {
+const timeCodeRewardMultiplier = (): number => {
     return Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600));
 }
 
-function dailyCodeFormatFreeLevelMessage(upgradeKey: string, freeLevelAmount: number): string {
+const dailyCodeFormatFreeLevelMessage = (upgradeKey: string, freeLevelAmount: number): string => {
     const upgradeNiceName = singularityData[upgradeKey].name;
     return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
 }
 
-function dailyCodeReward() {
+const dailyCodeReward = () => {
     let quarks = 0
     let goldenQuarks = 0
 

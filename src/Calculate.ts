@@ -945,14 +945,6 @@ export const calculateOffline = async (forceTime = 0) => {
 
     DOMCacheGetOrSet('progressbardescription').textContent = 'You have gained the following from offline progression!'
 
-    // allow aesthetic offline progress
-    if (offlineDialog) {
-        DOMCacheGetOrSet('exitOffline').classList.add('subtabContent');
-        DOMCacheGetOrSet('offlineContainer').style.display = 'flex';
-        DOMCacheGetOrSet('transparentBG').style.display = 'block';
-    }
-    DOMCacheGetOrSet('preloadContainer').style.display = 'none';
-
     player.offlinetick = updatedTime
     if (!player.loadedNov13Vers) {
         if (player.challengecompletions[14] > 0 || player.highestchallengecompletions[14] > 0) {
@@ -969,11 +961,21 @@ export const calculateOffline = async (forceTime = 0) => {
     calculateAnts();
     calculateRuneLevels();
 
-    const el = DOMCacheGetOrSet('exitOffline')
-    el.focus();
+    // allow aesthetic offline progress
+    if (offlineDialog) {
+        const el = DOMCacheGetOrSet('notification');
+        el.classList.add('slide-out');
+        el.classList.remove('slide-in');
+        document.body.classList.add('loading');
+        DOMCacheGetOrSet('exitOffline').style.visibility = 'hidden';
+        DOMCacheGetOrSet('offlineContainer').style.display = 'flex';
+        DOMCacheGetOrSet('transparentBG').style.display = 'block';
+    }
+    DOMCacheGetOrSet('preloadContainer').style.display = 'none';
 }
 
 export const exitOffline = () => {
+    document.body.classList.remove('loading');
     DOMCacheGetOrSet('transparentBG').style.display = 'none'
     DOMCacheGetOrSet('offlineContainer').style.display = 'none';
     DOMCacheGetOrSet('preloadContainer').style.display = 'none';

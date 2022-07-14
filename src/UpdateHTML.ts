@@ -248,7 +248,7 @@ export const revealStuff = () => {
     }
 
     player.achievements[38] === 1 ? //Prestige Diamond Achievement 3
-        (DOMCacheGetOrSet('rune2area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower2').style.display = 'flex') :
+        (DOMCacheGetOrSet('rune2area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower2').style.display = 'block') :
         (DOMCacheGetOrSet('rune2area').style.display = 'none', DOMCacheGetOrSet('runeshowpower2').style.display = 'none');
 
     if (player.achievements[43] === 1) { // Transcend Mythos Achievement 1
@@ -262,11 +262,11 @@ export const revealStuff = () => {
     }
 
     player.achievements[44] === 1 ? //Transcend Mythos Achievement 2
-        (DOMCacheGetOrSet('rune3area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower3').style.display = 'flex') :
+        (DOMCacheGetOrSet('rune3area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower3').style.display = 'block') :
         (DOMCacheGetOrSet('rune3area').style.display = 'none', DOMCacheGetOrSet('runeshowpower3').style.display = 'none');
 
     player.achievements[102] === 1 ? //Cost+ Challenge Achievement 4
-        (DOMCacheGetOrSet('rune4area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower4').style.display = 'flex') :
+        (DOMCacheGetOrSet('rune4area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower4').style.display = 'block') :
         (DOMCacheGetOrSet('rune4area').style.display = 'none', DOMCacheGetOrSet('runeshowpower4').style.display = 'none');
 
     player.achievements[119] === 1 ? //Tax+ Challenge Achievement 7
@@ -310,7 +310,7 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('reincarnateautomation').style.display = 'none';
 
     player.researches[82] > 0 ? //2x17 Research [SI Rune Unlock]
-        (DOMCacheGetOrSet('rune5area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower5').style.display = 'flex') :
+        (DOMCacheGetOrSet('rune5area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower5').style.display = 'block') :
         (DOMCacheGetOrSet('rune5area').style.display = 'none', DOMCacheGetOrSet('runeshowpower5').style.display = 'none');
 
     player.researches[124] > 0 ? //5x24 Research [AutoSac]
@@ -364,11 +364,11 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = 'none';
 
     player.shopUpgrades.infiniteAscent ?
-        (DOMCacheGetOrSet('rune6area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower6').style.display = 'flex') :
+        (DOMCacheGetOrSet('rune6area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower6').style.display = 'block') :
         (DOMCacheGetOrSet('rune6area').style.display = 'none', DOMCacheGetOrSet('runeshowpower6').style.display = 'none');
 
     player.platonicUpgrades[20] > 0 ?
-        (DOMCacheGetOrSet('rune7area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower7').style.display = 'flex') :
+        (DOMCacheGetOrSet('rune7area').style.display = 'flex', DOMCacheGetOrSet('runeshowpower7').style.display = 'block') :
         (DOMCacheGetOrSet('rune7area').style.display = 'none', DOMCacheGetOrSet('runeshowpower7').style.display = 'none') ;
 
     player.singularityCount > 0 ?
@@ -834,32 +834,6 @@ export const updateAchievementBG = () => {
     }
 }
 
-export const CSSAscend = () => {
-    for (let i = 1; i <= 5; i++) {
-        const a = DOMCacheGetOrSet('ascendText' + i);
-        const b = DOMCacheGetOrSet('ascendText' + (5 + i));
-        const c = DOMCacheGetOrSet('tesseracts' + i);
-        const d = DOMCacheGetOrSet('buyTesseracts' + i);
-        const e = DOMCacheGetOrSet('tesseractAutoToggle' + i);
-
-        a.style.top = (8 + 35 * i) + 'px'
-        b.style.top = (8 + 35 * i) + 'px'
-        c.style.top = (23 + 35 * i) + 'px'
-        d.style.top = (38 + 35 * i) + 'px'
-        e.style.top = (22 + 35 * i) + 'px'
-
-        a.style.left = '13%'
-        b.style.left = '56.5%'
-        c.style.left = '10%'
-    }
-
-    for (let i = 1; i <= 6; i++) {
-        const a = DOMCacheGetOrSet('switchCubeSubTab' + i)
-        a.style.top = (30 + 35 * i) + 'px'
-        a.style.left = '5%'
-    }
-}
-
 export const showCorruptionStatsLoadouts = () => {
     if (player.corruptionShowStats) {
         DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
@@ -922,16 +896,19 @@ export const changeTabColor = () => {
 const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
     const conf = DOMCacheGetOrSet('confirmationBox');
     const confWrap = DOMCacheGetOrSet('confirmWrapper');
-    const popup = document.querySelector<HTMLElement>('#confirm')!;
-    const overlay = document.querySelector<HTMLElement>('#transparentBG')!;
-    const ok = popup.querySelector<HTMLElement>('#ok_confirm')!;
-    const cancel = popup.querySelector<HTMLElement>('#cancel_confirm')!;
+    const popup = DOMCacheGetOrSet('confirm');
+    const overlay = DOMCacheGetOrSet('transparentBG');
+    const ok = DOMCacheGetOrSet('ok_confirm');
+    const cancel = DOMCacheGetOrSet('cancel_confirm');
+
+    DOMCacheGetOrSet('alertWrapper').style.display = 'none';
+    DOMCacheGetOrSet('promptWrapper').style.display = 'none';
 
     conf.style.display = 'block';
     confWrap.style.display = 'block';
     overlay.style.display = 'block';
     popup.querySelector('p')!.textContent = text;
-    ok.focus();
+    conf.focus();
 
     // IF you clean up the typing here also clean up PromptCB
     const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
@@ -969,15 +946,18 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
 const AlertCB = (text: string, cb: (value: undefined) => void) => {
     const conf = DOMCacheGetOrSet('confirmationBox');
     const alertWrap = DOMCacheGetOrSet('alertWrapper');
-    const overlay = document.querySelector<HTMLElement>('#transparentBG')!;
-    const popup = document.querySelector<HTMLElement>('#alert')!;
-    const ok = popup.querySelector<HTMLElement>('#ok_alert')!;
+    const overlay = DOMCacheGetOrSet('transparentBG');
+    const popup = DOMCacheGetOrSet('alert');
+    const ok = DOMCacheGetOrSet('ok_alert');
+
+    DOMCacheGetOrSet('confirmWrapper').style.display = 'none';
+    DOMCacheGetOrSet('promptWrapper').style.display = 'none';
 
     conf.style.display = 'block';
     alertWrap.style.display = 'block';
     overlay.style.display = 'block';
     popup.querySelector('p')!.textContent = text;
-    ok.focus();
+    conf.focus();
 
     const listener = () => {
         ok.removeEventListener('click', listener);
@@ -998,10 +978,13 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
 export const PromptCB = (text: string, cb: (value: string | null) => void) => {
     const conf = DOMCacheGetOrSet('confirmationBox');
     const confWrap = DOMCacheGetOrSet('promptWrapper');
-    const overlay = document.querySelector<HTMLElement>('#transparentBG')!;
-    const popup = document.querySelector<HTMLElement>('#prompt')!;
-    const ok = popup.querySelector<HTMLElement>('#ok_prompt')!;
-    const cancel = popup.querySelector<HTMLElement>('#cancel_prompt')!;
+    const overlay = DOMCacheGetOrSet('transparentBG');
+    const popup = DOMCacheGetOrSet('prompt');
+    const ok = DOMCacheGetOrSet('ok_prompt');
+    const cancel = DOMCacheGetOrSet('cancel_prompt');
+
+    DOMCacheGetOrSet('alertWrapper').style.display = 'none';
+    DOMCacheGetOrSet('confirmWrapper').style.display = 'none';
 
     conf.style.display = 'block';
     confWrap.style.display = 'block';

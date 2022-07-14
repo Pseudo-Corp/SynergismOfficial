@@ -3,6 +3,8 @@ import { buyAccelerator, boostAccelerator, buyMultiplier } from './Buy';
 import { player, resetCheck } from './Synergism';
 import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles';
 import { Alert, Prompt } from './UpdateHTML';
+import { Globals as G } from './Variables';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export const hotkeys = new Map<string, [string,() => unknown]>([
     ['A', ['Buy Accelerators', () => buyAccelerator()]],
@@ -71,6 +73,11 @@ document.addEventListener('keydown', event => {
 
     if (hotkeys.has(key)) {
         hotkeys.get(key)![1]();
+        event.preventDefault();
+    }
+
+    if (G['currentTab'] === 'settings' && player.subtabNumber === 5) {
+        DOMCacheGetOrSet('lastHotkey').textContent = key;
     }
 });
 

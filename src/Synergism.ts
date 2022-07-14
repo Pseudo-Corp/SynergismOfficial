@@ -9,7 +9,7 @@ import { CalcECC, getChallengeConditions, challengeDisplay, highestChallengeRewa
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism';
 import { upgradeupdate, getConstUpgradeMetadata, buyConstantUpgrades, ascendBuildingDR } from './Upgrades';
 import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Research';
-import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, CSSAscend, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, changeTabColor, Confirm, Alert, Notification } from './UpdateHTML';
+import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, changeTabColor, Confirm, Alert, Notification } from './UpdateHTML';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate';
@@ -1589,7 +1589,6 @@ const loadSynergy = async () => {
         resetHistoryRenderAllTables();
         updateSingularityAchievements();
     }
-    CSSAscend();
     updateAchievementBG();
     if (player.currentChallenge.reincarnation) {
         resetrepeat('reincarnationChallenge');
@@ -3358,13 +3357,17 @@ export const updateAll = (): void => {
     }
 }
 
+export const slowUpdates = (): void => {
+    autoUpgrades();
+    buttoncolorchange();
+    buildingAchievementCheck();
+}
+
 export const constantIntervals = (): void => {
     interval(saveSynergy, 5000);
-    interval(autoUpgrades, 200);
-    interval(buttoncolorchange, 200)
-    interval(htmlInserts, 64)
-    interval(updateAll, 100)
-    interval(buildingAchievementCheck, 200)
+    interval(slowUpdates, 200);
+    interval(htmlInserts, 64);
+    interval(updateAll, 100);
 
     if (!G['timeWarp']) {
         exitOffline();
@@ -3375,7 +3378,7 @@ let lastUpdate = 0;
 
 export const createTimer = (): void => {
     lastUpdate = performance.now();
-    interval(() => tick(), 5);
+    interval(tick, 5);
 }
 
 const dt = 5;
@@ -3589,6 +3592,7 @@ document.addEventListener('keydown', (event) => {
                 void Notification('All next Corruption Stats are now Zero. This will take effect on the next ascension.', 5000);
                 corruptionLoadoutSaveLoad(false, 0);
             }
+            event.preventDefault();
         }
         return;
     }
@@ -3677,11 +3681,21 @@ document.addEventListener('keydown', (event) => {
 
 });
 
+export const showExitOffline = () => {
+    const el = DOMCacheGetOrSet('exitOffline');
+    el.style.visibility = 'visible';
+    setTimeout(() => el.focus(), 100);
+}
+
 /**
  * Reloads shit.
  * @param reset if this param is passed, offline progression will not be calculated.
  */
 export const reloadShit = async (reset = false) => {
+
+    // Shows a reset button when page loading seems to stop or cause an error
+    setTimeout(() => DOMCacheGetOrSet('preloadDeleteGame').style.display = 'block', 10000);
+
     for (const timer of intervalHold) {
         clearInt(timer);
     }
@@ -3743,20 +3757,16 @@ export const reloadShit = async (reset = false) => {
     toggleSubTab(9, 0); // set 'corruption main'
     toggleSubTab(-1, 0); // set 'statistics main'
 
-    interval(() => dailyResetCheck(), 30000);
+    dailyResetCheck();
+    interval(dailyResetCheck, 30000);
 
     constantIntervals();
     changeTabColor();
     startHotkeys();
 
-    interval(() => eventCheck(), 15000);
-    setTimeout(() => {
-        dailyResetCheck();
-        eventCheck();
-        const el = DOMCacheGetOrSet('exitOffline')
-        el.classList.remove('subtabContent');
-        el.focus();
-    }, 1000);
+    eventCheck();
+    interval(eventCheck, 15000);
+    setTimeout(showExitOffline, 1000);
 
     if (localStorage.getItem('pleaseStar') === null) {
         void Alert('Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial');
@@ -3803,6 +3813,7 @@ window.addEventListener('load', () => {
 
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
+
 });
 
 window.addEventListener('unload', () => {
