@@ -380,6 +380,15 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('saveOffToggle').style.display = 'block' :
         DOMCacheGetOrSet('saveOffToggle').style.display = 'none';
 
+    if (player.singularityCount >= 45) { //Auto Corruptions
+        DOMCacheGetOrSet('corrButtonRow').setAttribute('style', 'width:400px'); //Did like this because heard that its better for some browsers
+        DOMCacheGetOrSet('smartLoadoutBtn').style.display =  'block';
+    } else {
+        DOMCacheGetOrSet('corrButtonRow').setAttribute('style', 'width:300px');
+        DOMCacheGetOrSet('smartLoadoutBtn').style.display = 'none';
+    }
+
+
     // Singularity confirmation toggle pic
     player.singularityCount > 0 && player.ascensionCount > 0 ?
         (DOMCacheGetOrSet('settingpic6').style.display = 'block'):
@@ -871,16 +880,27 @@ export const CSSAscend = () => {
 }
 
 export const showCorruptionStatsLoadouts = () => {
-    if (player.corruptionShowStats) {
-        DOMCacheGetOrSet('corruptionStats').style.display = 'block'
-        DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-        DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'dodgerblue'
-        DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'white'
-    } else {
+    if (player.corruptionShowStats === 2) { //Corruptions Loadouts
         DOMCacheGetOrSet('corruptionStats').style.display = 'none'
         DOMCacheGetOrSet('corruptionLoadouts').style.display = 'block'
         DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'white'
         DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'dodgerblue'
+        DOMCacheGetOrSet('smartLoadoutBtn').style.borderColor = 'white'
+        DOMCacheGetOrSet('smartLoadout').style.display = 'none'
+    } else if (player.corruptionShowStats === 3) { //Smart Loadout
+        DOMCacheGetOrSet('corruptionStats').style.display = 'none'
+        DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
+        DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'white'
+        DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'white'
+        DOMCacheGetOrSet('smartLoadoutBtn').style.borderColor = 'red'
+        DOMCacheGetOrSet('smartLoadout').style.display = 'block'
+    } else {//Skipping 1, so it would convert Boolean into Number (Corruption Stats)
+        DOMCacheGetOrSet('corruptionStats').style.display = 'block'
+        DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
+        DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'dodgerblue'
+        DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'white'
+        DOMCacheGetOrSet('smartLoadoutBtn').style.borderColor = 'white'
+        DOMCacheGetOrSet('smartLoadout').style.display = 'none'
     }
 }
 
