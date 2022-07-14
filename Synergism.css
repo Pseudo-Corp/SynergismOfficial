@@ -1,5 +1,4 @@
 html {
-    min-width: 1250px;
     position: relative;
     font-family:
         -apple-system,
@@ -14,8 +13,64 @@ html {
         sans-serif;
     scrollbar-width: none;
 }
+/*
+body *>* {background-color: #404040 !important;}
+body *>*>* {background-color: #804040 !important;}
+body *>*>*>* {background-color: #408040 !important;}
+body *>*>*>*>* {background-color: #404080 !important;}
+body *>*>*>*>*>* {background-color: #804080 !important;}
+body *>*>*>*>*>*>* {background-color: #808040 !important;}
+body *>*>*>*>*>*>*>* {background-color: #408080 !important;}
+body *>*>*>*>*>*>*>*>* {background-color: #808080 !important;}
+body *>*>*>*>*>*>*>*>*>* {background-color: #B08080 !important;}
+body *>*>*>*>*>*>*>*>*>*>* {background-color: #80B080 !important;}
+body *>*>*>*>*>*>*>*>*>*>*>* {background-color: #8080B0 !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B080B0 !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B0B080 !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #80B0B0 !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B0B0B0 !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #FFB0B0 !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B0FFB0 !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B0B0FF !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #FFB0FF !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #FFFFB0 !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B0FFFF !important;}
+body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* * {background-color: #FFFFFF !important;}
+*/
+html::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar,
+.scrollbarX {
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.scrollbarX {
+    overflow-x: auto;
+}
+
+.scrollbar::-webkit-scrollbar,
+.scrollbarX::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb,
+.scrollbarX::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-track,
+.scrollbarX::-webkit-scrollbar-track {
+    background-color: #222;
+    border-radius: 5px;
+}
 
 body {
+    min-width: 1250px;
     transform-origin: 0 0;
     overflow-x: hidden;
     color: white;
@@ -38,6 +93,7 @@ body.light {
 a {
     color: white;
     text-decoration: none;
+    outline: none;
 }
 
 a:hover {
@@ -56,12 +112,11 @@ input,
 button,
 select,
 textarea {
-    font-size: 12px;
+    font-size: calc(2px + 0.8em);
     padding: 0.05em;
     margin: 0;
     box-sizing: border-box;
     border: 0 solid #ccc;
-    outline: none;
 }
 
 input:disabled {
@@ -73,19 +128,22 @@ input[type="range"] {
 }
 
 button {
+    min-height: calc(20px + 0.8em);
     color: white;
+    transition-duration: 0.15s;
     background-color: #171717;
-    outline: none;
     cursor: pointer;
+    outline: none;
 }
 
+button:hover,
 button:active {
-    background-color: #171717;
+    background-color: #333;
     cursor: pointer;
 }
 
 button:focus {
-    border-color: #171717;
+    border-color: #333;
     cursor: pointer;
 }
 
@@ -107,8 +165,8 @@ button:focus {
 
 .vAlign {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    flex-flow: column;
 }
 
 .hCenter {
@@ -143,12 +201,13 @@ button:focus {
     transform: translateY(10%);
     z-index: 6969;
     width: 15%;
-    min-width: 260px;
-    min-height: 120px;
+    min-width: calc(140px + 10em);
+    min-height: calc(40px + 5em);
     overflow: hidden;
     border-radius: 5px;
     border: 1px solid gold;
-    background-color: #111;
+    background-color: #171717;
+    box-sizing: border-box;
 }
 
 .slide-in {
@@ -169,14 +228,22 @@ button:focus {
     transform: translate(-50%, -50%);
     margin: 0;
     text-align: center;
-    overflow-x: auto;
     white-space: pre-line;
 }
 
 #notifx {
-    position: fixed;
-    top: 5px;
-    right: 5px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: #111;
+    padding: 3px;
+    border-radius: 2px;
+    font-size: 0;
+    z-index: 1;
+}
+
+#notifx:hover {
+    background-color: #333;
 }
 
 #confirmationBox {
@@ -188,14 +255,15 @@ button:focus {
     z-index: 6969;
     width: 30%;
     height: 30%;
-    min-width: min(400px, 100%);
-    min-height: min(200px, 100%);
+    min-width: min(30em, 100%);
+    min-height: min(20em, 100%);
     max-width: 100%;
     max-height: 100%;
-    background-color: rgb(20 20 20);
+    background-color: #171717;
     border-radius: 5px;
     border: 1px solid gold;
     box-sizing: border-box;
+    padding: 15px;
 }
 
 #confirmWrapper,
@@ -210,73 +278,66 @@ button:focus {
 #prompt > label {
     grid-area: txt;
     text-align: center;
-    margin-left: 15px;
-    margin-right: 15px;
     white-space: pre-line;
+    margin: 0;
 }
 
 /* Elements relating to the browser popup functions (Alert, Confirm, etc) */
 
 #ok_confirm,
 #ok_alert,
-#ok_prompt { grid-area: btn; }
+#ok_prompt {
+    grid-area: btn;
+}
 
 #cancel_confirm,
-#cancel_prompt { grid-area: btn2; }
-#prompt_text { grid-area: lbl; }
+#cancel_prompt {
+    grid-area: btn2;
+}
+
+#prompt_text {
+    font-size: 1em;
+    grid-area: lbl;
+    margin: 0 -20%;
+}
 
 #confirm > button,
 #alert > button,
 #prompt > button {
-    width: 75%;
     border: 1px solid gold;
-    margin: 0 auto;
-    height: 50%;
-    transition-duration: 0.15s;
-}
-
-#confirm > button:hover,
-#alert > button:hover,
-#prompt > button:hover {
-    background-color: #333;
 }
 
 #confirm {
     height: 100%;
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    grid-template-rows: 75% 25%;
-    grid-template-areas:
-        "txt txt txt txt"
-        ". btn btn2 .";
+    grid-template-columns: auto 6em 1em 6em auto;
+    grid-template-rows: auto 2em 0.5em;
+    grid-template-areas: "txt txt txt txt txt" ". btn . btn2 ." ". . . . .";
 }
 
 #alert {
     height: 100%;
     display: grid;
-    grid-template-columns: 33.3333% 33.3333% 33.3333%;
-    grid-template-rows: 75% 25%;
-    grid-template-areas:
-        "txt txt txt"
-        ". btn .";
+    grid-template-columns: auto 8em auto;
+    grid-template-rows: auto 2em 0.5em;
+    grid-template-areas: "txt txt txt" ". btn ." ". . .";
 }
 
 #prompt {
     height: 100%;
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    grid-template-rows: 5% 55% 10% 5% 25%;
-    grid-template-areas:
-        ". . . ."
-        "txt txt txt txt"
-        ". lbl lbl ."
-        ". . . ."
-        ". btn btn2 .";
+    grid-template-columns: auto 6em 2em 6em auto;
+    grid-template-rows: auto 0.5em 2em 1em 2em 0.5em;
+    grid-template-areas: "txt txt txt txt txt" ". . . . ." ". lbl lbl lbl ." ". . . . ." ". btn . btn2 ." ". . . . .";
+}
+
+.confirmBox {
+    display: flex;
+    align-items: center;
 }
 
 #resourcesrow {
     position: relative;
-    font-size: 16px;
     width: 100%;
 }
 
@@ -302,10 +363,21 @@ button:focus {
     min-height: 610px;
 }
 
+#preloadDeleteGame {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    min-width: 8em;
+    z-index: 1;
+    border: 2px solid red;
+    font-size: 0.8em;
+    color: pink;
+}
+
 #offlineContainer {
     flex-direction: column;
     align-items: center;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 50vw;
     z-index: 6969;
@@ -313,22 +385,23 @@ button:focus {
     background-color: rgb(20 20 20);
     border-radius: 5px;
     border: 1px solid gold;
+    box-sizing: border-box;
     padding: 15px;
-    margin-top: 15px;
+    margin-top: max(0px, calc(10vh - 15px));
+    max-height: 90vh;
+    overflow: hidden;
 }
 
 .offlineStats {
     display: flex;
     flex-direction: column;
     z-index: 3;
-    margin-bottom: 2px;
 }
 
 .offlineStat {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 32px;
     z-index: 3;
     margin-bottom: 2px;
 }
@@ -342,25 +415,22 @@ button:focus {
     z-index: 5;
 }
 
-#offlineTimer {
-    display: flex;
-    z-index: 5;
-}
-
+#offlineTimer,
 #progressbardescription {
     display: flex;
     z-index: 5;
+    margin: 5px 0;
 }
 
 #exitOffline {
-    width: 250px;
-    height: 30px;
+    width: 18em;
+    min-height: 40px;
+    padding: 0.5em 0;
     z-index: 3;
     margin-top: 20px;
     border: 2px solid ivory;
     background-color: purple;
     color: white;
-    transition-duration: 0.15s;
 }
 
 #exitOffline:hover {
@@ -370,12 +440,21 @@ button:focus {
 .resetInformationContainer {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    min-width: 625px;
+    line-height: 1.2em;
+    width: 45%;
+    flex-basis: 45%;
 }
 
 .resetsContainer {
     display: flex;
+    line-height: 1em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.resetsButtons {
+    display: flex;
+    align-items: start;
 }
 
 .resetbtn {
@@ -385,28 +464,29 @@ button:focus {
 
 #resetrow {
     display: flex;
-    margin-left: -2px;
+    align-items: start;
 }
 
 #resetrow img {
     height: 32px;
     width: 32px;
-    margin-left: 3px;
 }
 
 #resetinfo {
     text-align: left; /* Keeps text from bouncing around */
-    font-size: 15px;
+    font-size: 0.9em;
     font-variant-numeric: tabular-nums;
+    height: 3.6em;
+    overflow: hidden;
 }
 
 #resetrewards > div {
     display: flex;
-    line-height: 32px;
+    align-items: center;
 }
 
 #resetrewards > div > div {
-    margin-left: 3px;
+    margin: auto 5px auto 2px;
 }
 
 #tabrow {
@@ -427,25 +507,24 @@ button:focus {
     width: 100%;
 }
 
-nav li {
-    display: inline-block;
+nav button {
+    display: block;
     border: 1px solid;
-    width: 100px;
-    min-width: 100px;
-    color: white;
-    background-color: #171717;
-    cursor: pointer;
-    line-height: 22px;
-    height: 22px;
-    margin-right: 5px;
+    min-width: 98px;
+    min-height: auto;
+    font-size: calc(2px + 0.8em);
+    line-height: 1em;
+    padding: 4px 0;
+    margin-right: 4px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom: none;
-    transition-duration: 0.15s;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-nav li:hover {
+nav button:hover {
     background-color: #333;
 }
 
@@ -510,50 +589,41 @@ nav li:hover {
 .subTabWrapper {
     display: flex;
     flex-direction: row;
+    flex-flow: wrap;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 15px;
+    gap: 10px;
 }
 
 .subTabWrapper > button {
-    height: 30px;
-    width: 150px;
+    width: 9em;
     text-align: center;
-    margin-right: 17px;
-    transition-duration: 0.15s;
 }
 
-.subTabWrapper > button:hover {
-    background-color: #333;
+#coinBuildings {
+    display: flex;
+    position: relative;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
-#buyamountcoin {
-    position: absolute;
-    top: 0;
-    left: calc(50% + 420px);
-}
-
-#togglecoinbuy {
-    color: white;
-    font-size: 11px;
-    text-align: center;
+#coinBuildings p {
     margin: 0;
 }
 
+p#buildinghotkeys {
+    margin-top: 15px;
+    color: lightgray;
+    text-align: center;
+}
+
 #buildingtext {
-    position: relative;
     padding: 0;
-}
-
-#buildingsTable {
-    position: relative;
-    top: 27%;
-    left: 25%;
-}
-
-#buildings2 {
-    position: relative;
-    top: 71%;
-    left: 12.5%;
+    text-align: center;
+    width: 1000px;
 }
 
 #upgrades {
@@ -588,15 +658,19 @@ nav li:hover {
 #upgradesFlex > div > p {
     margin-top: 5px;
     margin-bottom: 5%;
+    line-height: 1em;
 }
 
 #upgradesFlex > div > table {
+    padding: 0;
+    font-size:0;
     height: 182px;
+    text-align: center;
+    border-collapse: collapse;
 }
 
 #upgradesFlex > div > button {
-    width: 80px;
-    height: 30px;
+    width: 6em;
 }
 
 #shoptogglecoin { grid-column-start: 1; }
@@ -618,8 +692,7 @@ nav li:hover {
 #upgradeeffect { color: pink; }
 
 #toggle9 {
-    width: 130px;
-    height: 30px;
+    width: 10em;
     margin: 25px auto;
 }
 
@@ -636,30 +709,51 @@ nav li:hover {
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+    margin-top: 15px;
 }
 
 .settingSubTabUpper {
     display: flex;
+    justify-content: center;
+}
+
+#confirmationToggleBox,
+#exportButtons,
+#thirdParty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 300px;
+    max-width: 500px;
+    padding: 5px;
 }
 
 .confirmationToggles {
     display: flex;
-    flex-direction: row;
-    margin: auto;
+    justify-content: center;
+    flex-flow: wrap;
+    gap: 1em;
 }
 
-/* Utility functions including import/export, save file name, manual save, and manual reset */
-#exportButtons {
-    display: flex;
-    flex-direction: column;
-    margin: 0.8em;
-    min-width: 300px;
+#confirmationToggleBox {
+    height: calc(100px + 25em);
+    max-height: 800px;
 }
 
-#exportButtons > * { margin: 0.15em 0; }
+#confirmationToggleBox > p {
+    margin: 5px 0;
+}
+
+p#specialActionsTitle,
+p#themesTitle {
+    margin-top: 15px;
+}
+
+#exportButtons > * { margin: 2px auto; }
 
 #saveStringInput {
-    width: 176px;
+    width: 100%;
     padding: 1px;
     border: 1px solid white;
     color: white;
@@ -668,10 +762,23 @@ nav li:hover {
 
 #importFileButton {
     border: 2px solid white;
-    width: 176px;
-    margin: 2px auto;
-    padding: 0 0 2px;
+    color: white;
     cursor: pointer;
+    background-color: #171717;
+    font-size: calc(2px + 0.8em);
+    padding: 0.05em;
+    outline: none;
+}
+
+#savegame,
+#deleteGame,
+#importFileButton,
+#exportButtons > label {
+    min-width: 180px;
+    width: 13em;
+    min-height: auto;
+    margin: 2px auto;
+    box-sizing: border-box;
     transition-duration: 0.15s;
 }
 
@@ -679,27 +786,19 @@ nav li:hover {
     background-color: #333;
 }
 
-#savegame,
-#deleteGame {
-    width: 180px;
-    margin: 2px auto;
-    transition-duration: 0.15s;
-}
-
-#savegame:hover,
-#deleteGame:hover {
-    background-color: #333;
-}
-
 #exportgame {
-    width: 150px;
-    height: 40px;
+    width: 14em;
+    height: 2.5em;
+    min-height: 40px;
     margin: 5px auto;
-    transition-duration: 0.15s;
 }
 
-#exportgame:hover {
-    background-color: #333;
+#thirdParty {
+    gap: 1em;
+}
+
+#thirdParty p {
+    margin: 0 auto;
 }
 
 /* Third party URLs (Discord, Patreon, patch notes) */
@@ -707,41 +806,35 @@ nav li:hover {
     flex-wrap: wrap;
     display: flex;
     flex-direction: column;
-    color: gold;
-    margin: 0.8em 0;
 }
 
 #thirdParty > div > a {
     /* For whatever reason this fixes the click area for the external links */
     margin: 0 auto;
+    font-size: 0;
 }
 
 /* Confirmation toggle box */
 .confirmationToggle {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 32px;
-    margin-left: 5px;
-    margin-right: 5px;
 }
 
 .confirmationToggle > button {
-    font-size: 0.7em;
+    font-size: calc(4px + 0.5em);
 }
 
 .promocodeButton {
-    transition-duration: 0.15s;
+    width: 17em;
+    max-width: 100%;
     padding: 5px;
-    width: 180px;
     margin: 0 auto 3px;
 }
 
-.promocodeButton:hover {
-    background-color: #333;
-}
-
-#promocodeinfo {
-    width: 75%;
+p#promocodeinfo {
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -754,28 +847,29 @@ nav li:hover {
 }
 
 .auto.square {
-    width: 32px;
-    height: 32px;
-    margin-top: 4px;
-    transition-duration: 0.15s;
-}
-
-.auto.square:hover {
-    background-color: #333;
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
 }
 
 .buttonRow {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 30px;
-    margin-left: 8.5%;
+    margin-top: 35px;
+    margin-left: 7.5%;
+    margin-bottom: 20px;
+    z-index: 1;
 }
 
 .buttonRow > div {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    min-height: 35px;
+}
+
+.buildingSpacer {
     height: 35px;
 }
 
@@ -789,20 +883,17 @@ nav li:hover {
 }
 
 .buttonRow > div > .desc {
-    width: 350px;
-    min-width: 350px;
+    width: 22em;
     margin-left: 10px;
 }
 
 .buildingPurchaseBtn {
-    width: 150px;
-    min-width: 150px;
-    height: 30px;
+    width: 15em;
     border-radius: 8px;
-    border: 1px solid white !important;
+    border: 1px solid white;
     background-color: #171717;
-    transition-duration: 0.15s;
     cursor: default;
+    font-size: 0.8em;
 }
 
 .buildingPurchaseBtnAvailable {
@@ -815,9 +906,9 @@ nav li:hover {
 }
 
 .buttonRow > div > .auto {
-    width: 80px;
-    height: 30px;
-    margin-left: 15px;
+    width: 6em;
+    margin-left: 10px;
+    font-size: 0.8em;
 }
 
 .autobuyerToggleButton {
@@ -830,23 +921,15 @@ nav li:hover {
 }
 
 .buttonRow > div > .stats {
-    width: 400px;
+    width: 25em;
     margin-left: 10px;
+    line-height: 1em;
 }
 
 #taxinfo {
     text-align: center;
     font-size: 1em;
     margin-top: 30px;
-}
-
-#buildinghotkeys {
-    padding: 5px;
-    height: 20px;
-    color: lightgray;
-    text-align: center;
-    width: 1000px;
-    margin: 0 auto;
 }
 
 .tightText {
@@ -866,16 +949,13 @@ nav li:hover {
     flex-direction: row;
     justify-content: center;
     border-collapse: collapse;
+    padding: 0;
+    font-size: 0;
 }
 
 #achievementinfo {
-    display: flex;
-    flex-direction: column;
     border-top: 2px solid plum;
     text-align: center;
-    width: 50%;
-    margin: 0 auto;
-    overflow-wrap: break-word;
 }
 
 .NotificationToggle {
@@ -890,46 +970,62 @@ nav li:hover {
 }
 
 .nonSquare {
-    width: 39px;
-    height: 20px;
-    transition-duration: 0.15s;
+    width: 3em;
+    min-height: 20px;
     margin-left: 5px;
     padding-right: 2px;
+    font-size: calc(4px + 0.5em);
 }
 
-.nonSquare:hover {
-    background-color: #333;
+#achievementinfo > p {
+    margin: 0;
 }
-
-/* Removes giant space between paragraphs */
-#achievementinfo > p { margin: 0; }
 
 #achievementtutorial { color: white; }
 #achievementdescription { color: gold; }
 #achievementreward { color: limegreen; }
 
 /* Decrease space between paragraphs */
-#achievementColorInfo { line-height: 0.5; }
+#achievementColorInfo > p { margin: 0; }
 
 #achievementcolorcode1 { color: limegreen; }
 #achievementcolorcode2 { color: purple; }
 #achievementcolorcode3 { color: crimson; }
 #achievementcolorcode4 { color: gray; }
 
-#buyamountcrystal {
-    position: absolute;
-    top: 0;
-    left: calc(50% + 420px);
-}
-
 #buyamountoffering {
     position: absolute;
-    width: 300px;
-    left: calc(50% + 250px);
-    top: 32px;
+    left: calc(50% + 350px);
+    top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 1;
+}
+
+.talismansCenter {
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    padding: 0 10px;
+    max-width: 900px;
+}
+
+.talismansModify {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.talismansModify p {
+    margin: 0;
+}
+
+#talismanSummary,
+#talismanLevelUpSummary,
+#talismanRespecSummary {
+    margin-bottom: 10px;
 }
 
 .talismanBuyAmountContainer {
@@ -944,24 +1040,16 @@ nav li:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 5px;
 }
 
-#buyamountmythos {
-    position: absolute;
-    top: 0;
-    left: calc(50% + 420px);
-}
-
-#buyamountparticle {
-    position: absolute;
-    top: 0;
-    left: calc(50% + 420px);
-}
-
+#buyamountcoin,
+#buyamountcrystal,
+#buyamountmythos,
+#buyamountparticle,
 #buyAmountTesseract {
     position: absolute;
-    top: 0;
-    left: calc(50% + 420px);
+    left: 80%;
 }
 
 .buyAmountBtn {
@@ -974,54 +1062,6 @@ nav li:hover {
     background-color: #333;
 }
 
-#togglecrystalbuy {
-    color: white;
-    font-size: 11px;
-    text-align: center;
-    margin: 0;
-}
-
-#toggleofferingbuy {
-    color: white;
-    font-size: 11px;
-    margin: 0;
-}
-
-#toggletalismanbuy {
-    font-size: 11px;
-}
-
-#togglemythosbuy {
-    color: white;
-    font-size: 11px;
-    text-align: center;
-    margin: 0;
-}
-
-#toggleparticlebuy {
-    color: white;
-    font-size: 11px;
-    text-align: center;
-    margin: 0;
-}
-
-#toggleTesseractBuy {
-    color: white;
-    font-size: 11px;
-    text-align: center;
-    margin: 0;
-}
-
-#coinBuildings {
-    display: flex;
-    position: relative;
-    padding: 0;
-    flex-direction: column;
-    align-items: center;
-    max-width: 1600px;
-    margin: 0 auto;
-}
-
 #prestige {
     position: relative;
     padding: 0;
@@ -1032,10 +1072,14 @@ nav li:hover {
     margin: 0 auto;
 }
 
-#crystalupgradestable { margin: 0 auto; }
+#crystalupgrades {
+    width: 50em;
+    max-width: 1000px;
+    color: white;
+    text-align: center;
+}
 
-#prestigeshardinfo,
-#crystalupgrades > p { margin: 2px; }
+#crystalupgradestable { margin: 0 auto; }
 
 #prestigeamount {
     border: 1px solid cyan;
@@ -1044,34 +1088,26 @@ nav li:hover {
 }
 
 #autocrystalbuild {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 35px;
+    margin-top: 40px;
 }
 
 #toggle15,
 #prestigeautotoggle,
-#prestigeamount { width: 150px; }
-
-#toggle15,
-#prestigeautotoggle {
-    transition-duration: 0.15s;
+#prestigeamount {
+    width: 12em;
+    min-width: 150px;
+    min-height: auto;
 }
 
-#toggle15:hover,
-#prestigeautotoggle:hover {
-    background-color: #333;
-}
+#prestige p { margin: 0; }
+#autoprestige { color: white; }
 
-#prestigehotkeys {
+p#prestigehotkeys {
+    margin-top: 15px;
     width: 1000px;
     text-align: center;
     color: gray;
 }
-
-#autocrystalbuild > p { margin: 0; }
-#autoprestige { color: white; }
 
 #runes {
     position: relative;
@@ -1083,17 +1119,20 @@ nav li:hover {
 #runeContainer4 {
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 #runeContainer2 {
     margin-top: 20px;
+    justify-content: center;
 }
 
 #runesToggle {
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    margin: 10px;
+    gap: 10px;
+    flex-flow: wrap;
+    margin: 15px;
 }
 
 .heptNotification {
@@ -1102,35 +1141,29 @@ nav li:hover {
 }
 
 #runesToggle > button {
-    height: 30px;
-    width: 100px;
-    margin: 0 7px;
+    width: 8em;
     text-align: center;
-    transition-duration: 0.15s;
 }
 
-#runesToggle > button:hover {
-    background-color: #333;
-}
-
-#offeringDetails {
+#offeringDetails,
+#runeEffectDisplays {
+    text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: auto;
 }
 
-#offeringDetails > p {
-    height: auto;
+#offeringDetails > p,
+#runeEffectDisplays > p {
     margin: auto;
 }
 
 #runeDetails {
     display: flex;
+    width: 100%;
+    max-width: calc(min(80em, 1400px));
+    min-width: 1000px;
     flex-direction: row;
-    justify-content: center;
-    align-items: flex-end;
+    justify-content: space-around;
     height: auto;
     margin: 10px;
 }
@@ -1139,80 +1172,57 @@ nav li:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 20px;
-    margin-right: 20px;
+    align-items: center;
+    white-space: nowrap;
 }
 
 .runeType > button {
-    height: 30px;
-    width: 100px;
+    width: 7em;
     text-align: center;
     border: 2px solid gold;
     cursor: default;
 }
 
 .runeTypeElement {
-    margin: auto;
+    margin: 0;
     text-align: center;
-    align-items: center;
-    align-content: center;
     transition-duration: 0.15s;
 }
 
 img.runeTypeElement:hover {
-    background-color: #222 !important;
+    background-color: #222;
 }
 
 .runeType > .runeButtonAvailable {
     background-color: purple;
     cursor: pointer;
-    transition-duration: 0.15s;
 }
 
 .runeType > .runeButtonAvailable:hover {
     background-color: #b300b2;
 }
 
-#runeEffectDisplays {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: auto;
-}
-
-#runeEffectDisplays > p {
-    height: auto;
-    margin: auto;
-}
-
 #toggleautofortify,
 #toggleautoenhance {
-    width: 125px;
-    height: 30px;
+    width: 10em;
     color: white;
     border: 2px solid red;
-    transition-duration: 0.15s;
-}
-
-#toggleautofortify:hover,
-#toggleautoenhance:hover {
-    background-color: #333;
 }
 
 #talismanFragmentCost {
-    width: 250px;
+    width: 15em;
+    max-width: 250px;
     text-align: center;
-    font-size: 1.1em;
-    margin-right: -30px;
+    margin: 0 -30px 0 0;
 }
 
 .talismanShardsContainer {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    width: 33%;
+    width: 30%;
     margin-top: 23px;
+    z-index: 1;
 }
 
 .talismanShardContainer {
@@ -1226,22 +1236,17 @@ img.runeTypeElement:hover {
 }
 
 .talismanShardAmount {
-    min-width: 70px;
+    min-width: 5em;
     margin-left: 4px;
     font-size: 0.9em;
 }
 
 .talismanBtn {
-    height: 30px;
-    width: 80px;
+    width: 5em;
     min-width: 80px;
     color: orange;
     cursor: pointer;
     transition-duration: 0.15s;
-}
-
-.talismanBtn:hover {
-    background-color: #333;
 }
 
 .talisminBtnAvailable {
@@ -1256,9 +1261,9 @@ img.runeTypeElement:hover {
 .talismansContainer {
     display: flex;
     position: relative;
-    width: 70%;
     justify-content: space-around;
     padding: 0 10px;
+    max-width: 900px;
 }
 
 .talismanContainer {
@@ -1270,7 +1275,7 @@ img.runeTypeElement:hover {
 }
 
 .talismanName {
-    font-size: 1.2em;
+    font-size: 20px;
     text-align: center;
 }
 
@@ -1283,144 +1288,57 @@ img.runeTypeElement:hover {
 .talismanLevel {
     margin-top: 1px;
     margin-bottom: 3px;
+    font-size: 16px;
 }
 
 #respecAllTalismans {
     position: absolute;
-    height: 30px;
-    width: 80px;
+    width: 7em;
+    max-width: 140px;
     color: plum;
     border: 2px solid white;
-    left: 70px;
-    top: 290px;
+    left: 135px;
+    top: 70px;
+    transform: translate(-100%);
 }
 
-#talismanEffect {
-    position: absolute;
-    left: 50%;
-    width: 600px;
-    margin-left: -300px;
-    top: 290px;
+#talismanEffect,
+#talismanlevelup,
+#talismanrespec {
+    margin-top: 40px;
     text-align: center;
-}
-
-#talismanBonus {
-    position: absolute;
-    top: 20px;
-    left: 145px;
-}
-
-#talismanRune1Effect {
-    position: absolute;
-    top: 40px;
-    left: 145px;
-}
-
-#talismanRune2Effect {
-    position: absolute;
-    top: 60px;
-    left: 145px;
-}
-
-#talismanRune3Effect {
-    position: absolute;
-    top: 80px;
-    left: 145px;
-}
-
-#talismanRune4Effect {
-    position: absolute;
-    top: 100px;
-    left: 145px;
-}
-
-#talismanRune5Effect {
-    position: absolute;
-    top: 120px;
-    left: 145px;
-}
-
-#talismanMythicEffect {
-    position: absolute;
-    top: 140px;
-    left: 145px;
 }
 
 #talismanlevelup {
-    position: absolute;
-    left: 50%;
-    width: 600px;
-    margin-left: -200px;
-    top: 327px;
-    text-align: center;
+    align-self: flex-start;
+    margin-left: 150px;
 }
 
-#talismanLevelUpSummary {
-    position: absolute;
-    top: -40px;
-    left: 50px;
+#talismanlevelup table {
+    font-size: 0;
 }
 
-#talismanrespec {
-    position: absolute;
-    left: 50%;
-    width: 600px;
-    margin-left: -300px;
-    top: 290px;
-    text-align: center;
+#talismanlevelup table p {
+    font-size: initial;
+    width: 5em;
+}
+
+#talismanrespec > div {
+    display: flex;
+    flex-direction: column;
+    transform: translate(25%);
+    margin-top: 10px;
+}
+
+#talismanrespec > div > div {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 
 .talismanRespecBtn {
-    height: 30px;
     width: 200px;
     text-align: center;
-    transition-duration: 0.15s;
-}
-
-.talismanRespecBtn:hover {
-    background-color: #333;
-}
-
-#talismanRespecButton1 {
-    position: absolute;
-    top: 50px;
-    left: 200px;
-}
-
-#talismanRespecButton2 {
-    position: absolute;
-    top: 81px;
-    left: 200px;
-}
-
-#talismanRespecButton3 {
-    position: absolute;
-    top: 112px;
-    left: 200px;
-}
-
-#talismanRespecButton4 {
-    position: absolute;
-    top: 143px;
-    left: 200px;
-}
-
-#talismanRespecButton5 {
-    position: absolute;
-    top: 174px;
-    left: 200px;
-}
-
-#confirmTalismanRespec {
-    position: absolute;
-    top: 112px;
-    left: 430px;
-}
-
-#cancelTalismanRespec {
-    position: absolute;
-    top: 143px;
-    left: 430px;
 }
 
 #transcension {
@@ -1432,16 +1350,16 @@ img.runeTypeElement:hover {
     margin: 0 auto;
 }
 
-#transcension > p { margin: 0; }
+#transcension p {
+    margin: 0;
+    text-align: center;
+}
 
 #transcension > .buttonRow {
     color: pink;
 }
 
-#transcension > #transcendshardinfo { margin-top: 20px; }
-
 #transcendshardbonus {
-    margin-bottom: 100px;
     margin-top: 2px;
 }
 
@@ -1459,23 +1377,13 @@ img.runeTypeElement:hover {
 #toggle21,
 #transcendautotoggle,
 #transcendamount {
-    width: 150px;
-    margin: 0 auto;
+    width: 12em;
+    min-width: 150px;
+    min-height: auto;
 }
 
-#toggle21 { margin-top: 100px; }
-
-#toggle21,
-#transcendautotoggle {
-    transition-duration: 0.15s;
-}
-
-#toggle21:hover,
-#transcendautotoggle:hover {
-    background-color: #333;
-}
-
-#transcendhotkeys {
+p#transcendhotkeys {
+    margin-top: 15px;
     color: gray;
     text-align: center;
 }
@@ -1488,32 +1396,26 @@ img.runeTypeElement:hover {
 #challengesWrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 #challengeIntroduction {
     text-align: center;
     color: white;
     font-size: 1.2em;
-    line-height: 0.4;
-    margin-top: 30px;
+    margin: 20px 0 0;
 }
 
 #challengesAutoToggles {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    flex-flow: wrap;
+    gap: 10px;
+    margin: 10px 0;
 }
 
 #challengesAutoToggles > button {
-    height: 30px;
-    width: 200px;
-    margin: 7px;
-    transition-duration: 0.15s;
-}
-
-#challengesAutoToggles > button:hover {
-    background-color: #333;
+    width: 15em;
 }
 
 #toggleAutoChallengeStart { border: 2px solid gold; }
@@ -1522,11 +1424,17 @@ img.runeTypeElement:hover {
     border: 2px solid red;
     font-size: 1.1em;
     width: 300px;
-    height: 75px;
+    min-height: 75px;
     background-color: black;
     color: white;
     transition-duration: 0.15s;
+    margin-bottom: 5px;
 }
+
+#startChallenge:hover {
+    background-color: #333;
+}
+
 #retryChallenge { border: 2px solid plum; }
 
 /* Hide the last 3 buttons until the user clicks on a challenge */
@@ -1535,35 +1443,48 @@ img.runeTypeElement:hover {
 #retryChallenge { display: none; }
 
 #challengeIcons {
-    font-size: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     align-self: center;
+    text-align: center;
     margin-top: 10px;
 }
 
-#challengeIcons .challengeLevels {
+#challengeIcons > div {
+    margin: 0 2px;
+}
+
+#challengeIcons > div > div {
+    cursor: pointer;
+    font-size: 0;
+}
+
+.challengeLevels {
+    margin: 0;
+    margin-top: 2px;
     font-size: 12px;
-    text-align: center;
+    word-spacing: -100%;
 }
 
 #challengeDetails {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    max-width: 1200px;
+    align-self: center;
 }
 
 #challengeTimers {
     margin-right: 20px;
-}
-
-#startChallenge:hover {
-    background-color: #333;
+    width: 300px;
 }
 
 #oneChallengeDetails {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 600px;
+    width: 42em;
 }
 
 #oneChallengeDetails > p {
@@ -1577,6 +1498,8 @@ img.runeTypeElement:hover {
     border: 2px solid orchid;
     color: white;
     background-color: #171717;
+    width: 200px;
+    font-size: 0.9em;
 }
 
 #challengeName { color: white; }
@@ -1589,14 +1512,13 @@ img.runeTypeElement:hover {
 #challengeFirst1 { color: orange; }
 #challengeQuarkBonus { color: cyan; }
 
-#challengeTimersText > p {
-    margin: 0;
-    font-size: 1.2em;
+#challengeTimersText {
+    display: flex;
+    flex-direction: column;
 }
 
-#challengeTimersText > input {
-    height: 20px;
-    font-size: 1.1em;
+#challengeTimersText > p {
+    margin: 0;
 }
 
 #challengeWorthlessTexts {
@@ -1641,30 +1563,25 @@ img.runeTypeElement:hover {
     margin: 0 auto;
 }
 
+#reincarnateautomation {
+    margin-top: 80px;
+}
+
 #reincarnationTexts {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
     text-align: center;
 }
 
-#reincarnationTexts > p { margin: 0; }
-
-#toggle27 { margin-top: 80px; }
+#reincarnation p { margin: 0; }
 
 #toggle27,
 #reincarnationamount,
-#reincarnateautotoggle { width: 150px; }
-
-#toggle27,
 #reincarnateautotoggle {
-    transition-duration: 0.15s;
-}
-
-#toggle27:hover,
-#reincarnateautotoggle:hover {
-    background-color: #333;
+    width: 12em;
+    min-width: 150px;
+    min-height: auto;
 }
 
 #reincarnateautomation > div {
@@ -1674,7 +1591,6 @@ img.runeTypeElement:hover {
 }
 
 #autoreincarnate {
-    margin: 0;
     color: white;
 }
 
@@ -1688,10 +1604,10 @@ img.runeTypeElement:hover {
     color: lime;
 }
 
-#reincarnatehotkeys {
+p#reincarnatehotkeys {
+    margin-top: 15px;
     color: gray;
     text-align: center;
-    margin: 0;
 }
 
 #research {
@@ -1714,48 +1630,35 @@ img.runeTypeElement:hover {
 #researchDetails {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     text-align: center;
-    margin-bottom: auto;
+    align-items: center;
 }
 
 #researchDetails > p {
-    width: 850px;
-    margin: auto;
+    width: 55em;
+    max-width: 100%;
+    margin: 0;
 }
 
 #researchToggles {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: auto;
+    flex-flow: wrap;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 #researchToggles > button {
-    width: 175px;
-    height: 30px;
-    margin: 0 7px;
-    text-align: center;
-    transition-duration: 0.15s;
-}
-
-#researchToggles > button:hover {
-    background-color: #333;
+    width: 14em;
 }
 
 #researchinfo2 {
-    height: 40px;
+    min-height: 40px;
 }
 
 .researchAvailable {
     cursor: pointer;
-    transition-duration: 0.15s;
-}
-
-.researchAvailable:hover {
-    background-color: #333;
 }
 
 .researchPurchased {
@@ -1764,7 +1667,6 @@ img.runeTypeElement:hover {
 
 .researchPurchasedAvailable {
     cursor: pointer;
-    transition-duration: 0.15s;
 }
 
 .researchPurchasedAvailable:hover {
@@ -1804,31 +1706,31 @@ img.runeTypeElement:hover {
 
 #actualShop {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding-right: 5px;
+    justify-content: center;
+    padding: 5px;
     margin-top: 10px;
-    width: calc(105px * 8);
+    width: calc(115px * 8 - 5px);
     border: 3px solid plum;
+    gap: 5px;
+    flex-wrap: wrap;
 }
 
+#actualPotionShop > div,
 #actualShop > div {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    width: 100px;
+    width: 110px;
 }
 
 #actualPotionShop > div > p,
 #actualShop > div > p {
-    margin: 3px;
-    white-space: nowrap;
+    margin: 0 0 3px;
+    font-size: 1em;
+    line-height: 1em;
 }
 
 #shoptop {
     color: whitesmoke;
     font-size: 1.2em;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 #actualConsumables {
@@ -1836,77 +1738,68 @@ img.runeTypeElement:hover {
     flex-direction: column;
     align-items: center;
     width: calc(130px * 2);
-    margin-right: 3%;
+    margin-right: 20px;
 }
 
 #actualPotionShop {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(70px, 130px));
-    border: 3px solid yellow;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
     margin-top: 10px;
+    width: calc(115px * 2 - 5px);
+    border: 3px solid yellow;
+    gap: 5px;
+    flex-wrap: wrap;
 }
 
 #quarksDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-top: 20px;
 }
 
 #quarkamount {
     font-size: 1.2em;
     color: aqua;
-    margin-left: 5px;
+    margin: 0 0 0 5px;
 }
 
 #consumables {
     color: orangered;
     font-size: 1.2em;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 #shopButtons {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     float: right;
-    margin-top: 5px;
+    margin-top: 20px;
 }
 
 #shopButtons > button {
-    width: 150px;
-    height: 40px;
-    margin-left: 5px;
-    transition-duration: 0.15s;
-}
-
-#shopButtons > button:hover {
-    background-color: #333;
+    width: 240px;
+    margin-bottom: 6px;
 }
 
 #shopHovers {
-    width: 600px;
+    width: 800px;
 }
 
 #shopHovers > p { margin: 0; }
 
 .consumablebutton {
-    width: 128px;
-    height: 40px;
-    transition-duration: 0.15s;
-}
-
-.consumablebutton:hover {
-    background-color: #333;
+    width: 110px;
+    min-height: 40px;
 }
 
 .permshopbutton {
-    width: 100px;
-    height: 40px;
-    transition-duration: 0.15s;
-}
-
-.permshopbutton:hover {
-    background-color: #333;
+    width: 110px;
+    min-height: 40px;
+    padding: 0;
+    line-height: 1em;
 }
 
 #ants {
@@ -1921,29 +1814,40 @@ img.runeTypeElement:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     flex-shrink: 0;
-    margin-right: 50px;
+    margin-right: calc(10em - 100px);
 }
 
 #antsWelcomeTexts { margin-top: 20px; }
-#antsWelcomeTexts > p { margin: 2px; }
+#antsWelcomeTexts > p { margin: 2px 0; }
 #antwelcome { font-size: 1.3em; }
 
 #antrow1 { margin-top: 15px; }
 
 #antrow2 {
-    margin-top: 10px;
-    height: 115px;
+    max-width: 700px;
+    margin-top: 15px;
+    min-height: 6em;
 }
 
 #antrow3 {
+    max-width: 700px;
     margin-top: 30px;
-    height: 100px;
+    min-height: 8em;
 }
-#antrow4 { margin-top: 10px; }
+
+#antrow4 {
+    margin-top: 10px;
+    z-index: 1;
+}
 
 #antrow2 > p { margin: 0.05em 0; }
-#crumbcount { font-size: 1.2em; }
+
+#crumbcount {
+    font-size: 1.2em;
+    height: 3em;
+}
 
 #antrow3 > p { margin: 0.05em 0; }
 
@@ -1965,67 +1869,43 @@ img.runeTypeElement:hover {
 
 #toggleAntMax {
     height: 35px;
-    width: 100px;
+    width: 8em;
     margin-right: 10px;
     border: 1px solid gold;
-    transition-duration: 0.15s;
-}
-
-#toggleAntMax:hover {
-    background-color: #333;
 }
 
 #toggleAutoSacrificeAnt {
     height: 35px;
-    width: 150px;
+    width: 11em;
     margin-right: 10px;
     border: 1px solid crimson;
-    transition-duration: 0.15s;
-}
-
-#toggleAutoSacrificeAnt:hover {
-    background-color: #333;
 }
 
 #autoSacrificeAntMode {
-    height: 20px;
-    width: 150px;
+    width: 12em;
+    min-width: 150px;
+    min-height: auto;
     border: 1px solid green;
-    transition-duration: 0.15s;
-}
-
-#autoSacrificeAntMode:hover {
-    background-color: #333;
 }
 
 #autoAntSacrificeAmount {
-    width: 150px;
+    width: 12em;
+    min-width: 150px;
+    min-height: auto;
     color: white;
     background-color: #171717;
     border: 1px solid green;
 }
 
-#autoAntSacrifice {
-    text-align: center;
-    width: 100%;
-}
-
-#antSacrificeTimer {
+#sacrificeAnts {
     position: absolute;
     padding: 0;
     width: 200px;
-    margin: 0 0 0 -68px;
-    top: 30px;
+    margin: 0 0 0 -390px;
+    top: 4px;
     text-align: center;
-    left: 68%;
-}
-
-#antSacrifice {
-    position: absolute;
-    padding: 0;
-    top: 55px;
-    text-align: center;
-    left: 68%;
+    left: calc(76% - 2em);
+    white-space: nowrap;
 }
 
 .antSacrificeSettingsContainer {
@@ -2038,47 +1918,29 @@ img.runeTypeElement:hover {
     padding: 0;
     width: 300px;
     top: 30px;
-    text-align: center;
-    left: 75%;
+    left: calc(76% - 2em);
+    text-align: left;
     white-space: nowrap;
 }
 
-#antSacrificeSummary > p {
+#antSacrificeSummary p {
     margin: 0;
+    margin-bottom: 2px;
 }
 
-#antELO {
-    position: absolute;
-}
-
-#antUpgradeMultiplier {
-    position: absolute;
-    top: 20px;
-}
-
-#antTimeMultiplier {
-    position: absolute;
-    top: 40px;
-}
-
-#antSacrificeTitle {
-    position: absolute;
-    top: 60px;
-}
-
-#antSacrificeMultiplier {
-    position: absolute;
-    top: 80px;
+.antSacrificeHeader {
+    margin-bottom: 4px;
 }
 
 #antSacrificeTable {
-    position: absolute;
-    top: 110px;
-    left: 80px;
-    padding: 0;
+    margin: 15px 0 0 70px;
     border-spacing: 0;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
+}
+
+#antSacrificeTable p {
+    margin-left: 5px;
 }
 
 .antBtn {
@@ -2104,8 +1966,11 @@ img.runeTypeElement:hover {
 #wowCubeSidebar {
     display: flex;
     flex-direction: column;
-    margin-right: 2%;
+    margin-right: 30px;
+    line-height: 1.1em;
     text-align: center;
+    width: calc(14em + 50px);
+    max-width: 350px;
 }
 
 #wowCubeSidebarButtons {
@@ -2115,60 +1980,38 @@ img.runeTypeElement:hover {
     margin-bottom: 20px;
 }
 
+.cubesToQuark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cubeToQuark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
 .cubeSwitchTabBtn {
-    width: 250px;
-    height: 30px;
+    width: 100%;
     margin: 3px;
-    transition-duration: 0.15s;
 }
 
-.cubeSwitchTabBtn:hover {
-    background-color: #333;
+#wowCubeSidebar p {
+    margin: 0;
 }
 
-#wowCubeSidebar > p { margin: 0; }
-#cubeToQuarkTimer { font-size: 1.2em; }
-
-.cubePlacement1 {
+#cubeToQuarkTimer,
+#cubeToQuarkTimerValue {
     font-size: 1.2em;
 }
 
-.cubePlacement2,
-.cubePlacement3 {
-    font-size: 1em;
-}
-
-.cubePlacement4 {
-    position: absolute;
-    text-align: center;
-    top: 100px;
-    left: 30%;
-    margin-left: -32px;
-}
-
-.cubePlacement5 {
-    position: absolute;
-    text-align: center;
-    top: 84px;
-    left: 40%;
-    margin-left: -96px;
-}
-
 .cubeBtn {
-    width: 100px;
-    height: 30px;
-    color: white;
+    width: 8em;
+    max-width: 200px;
     background-color: black;
     border: 1px solid gold;
-    transition-duration: 0.15s;
-}
-
-.cubeBtn:hover {
-    background-color: #333;
-}
-
-p[id$="BlessingsTotal"] {
-    padding: 15px;
 }
 
 #cubeBlessingsTotal { color: orange; }
@@ -2179,14 +2022,19 @@ p[id$="BlessingsTotal"] {
 #cubesWrapper {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 25px;
     margin-left: -185px;
+}
+
+.cubesBonus tbody tr > td:first-child {
+    font-size: 0;
 }
 
 .openGrid {
     display: flex;
     align-self: flex-start;
-    margin-top: 10px;
+    margin: 10px 0 5px;
+    white-space: nowrap;
 }
 
 .openImage {
@@ -2195,13 +2043,12 @@ p[id$="BlessingsTotal"] {
 }
 
 .inventory {
-    white-space: nowrap;
-    margin: 6px 10px;
+    margin: auto 10px;
 }
 
 .openBtn {
-    grid-row: 2;
-    grid-column: 2;
+    display: flex;
+    gap: 5px;
     margin-left: 10px;
 }
 
@@ -2212,31 +2059,44 @@ p[id$="BlessingsTotal"] {
 }
 
 .cubeBonus {
-    margin-left: -2px;
+    align-self: flex-start;
+    margin-left: -1px;
     margin-top: 5px;
-    width: 100%;
+    white-space: nowrap;
 }
 
 .cubeIcon {
     border-spacing: 0;
 }
 
+.cubeIcon img {
+    margin-right: 5px;
+}
+
 .cubeTab {
     flex-direction: column;
     align-items: center;
-    width: 700px;
+    width: calc(500px + 10em);
+    max-width: 900px;
     margin-left: 20px;
+}
+
+.cubeTab > span {
+    text-align: center;
 }
 
 #cubeTab5Wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 700px;
     margin-top: 15px;
+    text-align: center;
+    width: 100%;
 }
 
-#cubeTab5Wrapper > p { margin: 2px; }
+#cubeTab5Wrapper > p {
+    margin: 2px;
+}
 
 #cubeTab6 {
     flex-direction: row;
@@ -2263,37 +2123,11 @@ p[id$="BlessingsTotal"] {
 }
 
 #toggleCubeBuy {
-    width: 200px;
-    height: 30px;
-    transition-duration: 0.15s;
-}
-
-#toggleCubeBuy:hover {
-    background-color: #333;
+    width: 14em;
 }
 
 .gridImg {
     cursor: pointer;
-}
-
-#switchsettingtab {
-    position: absolute;
-    height: 30px;
-    width: 200px;
-    left: 50%;
-    margin-left: -100px;
-    top: 10px;
-    border: 2px solid gold;
-}
-
-#switchsettingtab2 {
-    position: absolute;
-    height: 30px;
-    width: 200px;
-    left: 50%;
-    margin-left: -100px;
-    top: 40px;
-    border: 2px solid orange;
 }
 
 /* Credits */
@@ -2322,47 +2156,36 @@ p[id$="BlessingsTotal"] {
     margin: 0 auto;
 }
 
-#tesseractTexts { margin-top: 20px; }
-
-#tesseractTexts > p {
+#ascension p {
     margin: 0;
     text-align: center;
 }
 
 #ascendConstantUpgrades {
     display: flex;
+    width: 50em;
+    max-width: 1000px;
     flex-direction: column;
     align-items: center;
-    width: 450px;
-}
-
-#ascendConstantUpgrades > p {
-    margin: 0;
-    text-align: left;
-    width: 100%;
 }
 
 #ascendautomation {
+    margin-top: 10px;
+}
+
+.resetautomation {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 100px;
 }
 
 #tesseractautobuytoggle,
 #tesseractautobuymode,
 #tesseractAmount {
-    width: 150px;
-}
-
-#tesseractautobuytoggle,
-#tesseractautobuymode {
-    transition-duration: 0.15s;
-}
-
-#tesseractautobuytoggle:hover,
-#tesseractautobuymode:hover {
-    background-color: #333;
+    width: 12em;
+    min-width: 150px;
+    min-height: auto;
 }
 
 #tesseractAmount {
@@ -2376,8 +2199,8 @@ p[id$="BlessingsTotal"] {
     margin: 0;
 }
 
-#ascendHotKeys {
-    margin: 0;
+p#ascendHotKeys {
+    margin-top: 15px;
     color: gray;
     text-align: center;
 }
@@ -2416,35 +2239,24 @@ p[id$="BlessingsTotal"] {
 
 #statisticsSubTab {
     padding-top: 25px;
-    overflow-x: auto;
-    grid-template-columns: repeat(2, minmax(50px, 25%));
     justify-content: center;
-
-    /* don't inherit this property; defaults to center and messes it up */
-    scrollbar-width: none;
-}
-
-#statisticsSubTab::-webkit-scrollbar {
-    display: none;
 }
 
 #statsForNerds {
-    display: grid;
-    grid-template-columns: repeat(3, 33.33%);
-    grid-template-rows: repeat(9, 12.5%);
-    height: 300px;
-    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    width: 40em;
+    min-width: 500px;
+    max-width: 800px;
+    height: fit-content;
 }
 
 #statsForNerds > button {
-    width: 150px;
-    height: 30px;
+    width: 12em;
+    min-width: 150px;
     margin: 3px;
-    transition-duration: 0.15s;
-}
-
-#statsForNerds > button:hover {
-    background-color: #333;
 }
 
 .statContainer {
@@ -2463,12 +2275,11 @@ p[id$="BlessingsTotal"] {
 }
 
 .statPortion {
-    width: 380px;
-    height: auto;
-    margin: auto;
+    margin: 0;
     color: white;
     text-align: left;
-    font-size: 1em;
+    font-size: 0.9em;
+    min-width: max-content;
 }
 
 .statPortion.indented {
@@ -2478,7 +2289,6 @@ p[id$="BlessingsTotal"] {
 
 .statNumber {
     color: yellow;
-    font-size: 0.9em;
     float: right;
 }
 
@@ -2556,22 +2366,24 @@ p[id$="BlessingsTotal"] {
 .historySubTab table {
     margin: auto;
     border-collapse: collapse;
-    min-width: 100%;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .historySubTab tbody {
     text-align: left;
+    line-height: 1em;
 }
 
 .historySubTab tbody img {
-    vertical-align: middle;
+    vertical-align: bottom;
     height: 20px;
     margin-right: 3px;
 }
 
 .historySubTab tbody td {
-    padding: 4px 6px;
-    margin-right: 10px;
+    padding: 0 0 0 6px;
+    height: 30px;
 }
 .historySubTab tbody .history-gain:last-child { margin-right: 0; }
 
@@ -2602,11 +2414,6 @@ p[id$="BlessingsTotal"] {
 
 #historyTogglePerSecondButton {
     float: right;
-    transition-duration: 0.15s;
-}
-
-#historyTogglePerSecondButton:hover {
-    background-color: #333;
 }
 
 .onOffToggle {
@@ -2624,17 +2431,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #historyAscendTable {
-    min-width: 1180px;
-    white-space: nowrap;
-}
-
-.historyTableWrap {
-    max-height: 650px;
-    overflow-y: auto;
-}
-
-#historyAscend .historyTableWrap {
-    min-width: 1212px;
+    min-width: 1250px;
 }
 
 .runeBlessingPurchaseSettings {
@@ -2647,9 +2444,7 @@ p[id$="BlessingsTotal"] {
 .runeBlessingRow {
     display: flex;
     width: 1200px;
-    align-self: center;
     align-items: center;
-    white-space: nowrap;
     margin-bottom: 10px;
 }
 
@@ -2660,17 +2455,28 @@ p[id$="BlessingsTotal"] {
 }
 
 .runeTexts {
-    width: 200px;
+    width: 12em;
+    max-width: 200px;
 }
 
 .runeButtons {
-    height: 30px;
-    width: 325px;
-    border: 1px solid yellow !important;
+    width: 25em;
+    max-width: 350px;
+    border: 1px solid yellow;
     margin-right: 15px;
     color: gold;
     transition-duration: 0.15s;
     cursor: default;
+}
+
+.runeEffectTexts {
+    width: 35em;
+    max-width: 600px;
+}
+
+#buyAllBlessings,
+#buyAllSpirits {
+    width: 10em;
 }
 
 .runeButtonsAvailable {
@@ -2682,41 +2488,28 @@ p[id$="BlessingsTotal"] {
     background-color: #444;
 }
 
-#buyRuneBlessingInput {
-    width: 100px;
-    height: 20px;
-    border: 2px solid white;
+.buyRuneInput {
+    width: 8em;
     margin-right: 20px;
     background-color: #171717;
     color: white;
-    font-size: 1.1em;
-}
-
-#buyRuneSpiritInput {
-    width: 100px;
-    height: 20px;
-    border: 2px solid orchid;
-    margin-right: 20px;
-    background-color: #171717;
-    color: white;
-    font-size: 1.1em;
+    font-size: 0.9em;
 }
 
 #traits {
     justify-content: center;
+    align-items: start;
     width: 100%;
-    min-height: 550px;
-    max-height: 600px;
 
     /* Hopefully prevent some elements from overlapping with the tab buttons */
     margin-top: 10px;
 }
 
 #corruptionMain {
-    width: 800px;
+    width: calc(600px + 15em);
+    max-width: 1200px;
     margin: 10px;
     padding: 10px;
-    justify-content: start;
 }
 
 #corruptionIntroduction {
@@ -2729,13 +2522,14 @@ p[id$="BlessingsTotal"] {
 }
 
 #corruptionSelected {
+    width: 64px;
     height: 64px;
     margin-top: 15px;
 }
 
 #corruptionDetails {
     display: flex;
-    min-height: 150px;
+    min-height: 9em;
     visibility: hidden;
 }
 
@@ -2761,14 +2555,10 @@ p[id$="BlessingsTotal"] {
 }
 
 #ascensionAutomation {
-    position: relative;
-    top: 20px;
-    width: 100%;
-    min-height: 100px;
+    margin-top: 10px;
 }
 
 #ascensionAmount {
-    width: 150px;
     border: 1px solid orange;
     color: white;
     background-color: #171717;
@@ -2778,15 +2568,12 @@ p[id$="BlessingsTotal"] {
     color: white;
 }
 
+#ascensionAmount,
 #ascensionAutoEnable,
 #ascensionAutoToggle {
-    width: 150px;
-    transition-duration: 0.15s;
-}
-
-#ascensionAutoEnable:hover,
-#ascensionAutoToggle:hover {
-    background-color: #333;
+    width: 12em;
+    min-width: 150px;
+    min-height: auto;
 }
 
 #corruptionStatsLoadouts {
@@ -2798,15 +2585,9 @@ p[id$="BlessingsTotal"] {
 
 #corrStatsBtn,
 #corrLoadoutsBtn {
-    width: 140px;
-    height: 30px;
+    width: 10em;
+    max-width: 200px;
     border: 2px solid;
-    transition-duration: 0.15s;
-}
-
-#corrStatsBtn:hover,
-#corrLoadoutsBtn:hover {
-    background-color: #333;
 }
 
 #corrButtonRow {
@@ -2816,26 +2597,26 @@ p[id$="BlessingsTotal"] {
 .corruptionContainer {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin-top: 10px;
-    height: 400px;
+    justify-content: space-around;
 }
 
 .corruptionStatRow {
     display: flex;
     flex-flow: row;
-    height: 40px;
-    margin: 0 auto;
+    align-items: center;
 }
 
-.corruptionImg {
-    object-fit: contain;
+.corruptionStatRow > img {
+    height: 40px;
 }
 
 .corrDesc {
+    font-size: calc(6px + 0.5em);
     min-width: 150px;
     margin: auto;
     text-align: center;
+    line-height: 1em;
+    flex-grow: 0.6;
 }
 
 .corrLoadoutName:hover {
@@ -2849,39 +2630,42 @@ p[id$="BlessingsTotal"] {
 
 .corrBtn {
     width: 30px;
-    height: 30px;
-    margin: 5px;
-    padding: 3px;
-    transition-duration: 0.15s;
+    margin: 0 auto;
 }
 
-.corrBtn:hover {
-    background-color: #333;
+#corruptionStats button {
+    white-space: nowrap;
 }
 
 .corruptionMax {
-    border: 2px solid green !important;
-    width: 50px;
+    border: 2px solid green;
+    width: 3.5em;
 }
 
 .corruptionUp {
-    border: 1px solid green !important;
+    border: 1px solid green;
+    min-width: 30px;
+    width: 1.5em;
 }
 
 .corruptionDown {
-    border: 1px solid red !important;
+    border: 1px solid red;
+    min-width: 30px;
+    width: 1.5em;
 }
 
 .corruptionReset {
-    border: 2px solid red !important;
-    width: 50px;
+    border: 2px solid red;
+    width: 3.5em;
 }
 
+#corruptionStats,
 #corruptionLoadouts {
+    font-size: calc(6px + 0.5em);
     margin-top: 10px;
-    height: 400px;
-    padding-left: 10px;
+    min-height: 400px;
     box-sizing: border-box;
+    z-index: 1;
 }
 
 #corruptionDisplays {
@@ -2893,8 +2677,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #corruptionLoadoutTable {
-    border-collapse: separate;
-    border-spacing: 0 10px;
+    border-collapse: collapse;
     width: 100%;
 }
 
@@ -2907,46 +2690,34 @@ img.small {
 }
 
 .corrSave {
+    min-height: 1em;
     border: 1px solid dodgerblue;
     padding: 2px 5px;
-    transition-duration: 0.15s;
     width: 100%;
     margin-bottom: 1px;
 }
 
 .corrLoad {
+    min-height: 1em;
     border: 1px solid #5b5ddc;
     padding: 2px 5px;
-    transition-duration: 0.15s;
     width: 100%;
     margin-bottom: 1px;
 }
 
-.corrSave:hover,
-.corrLoad:hover {
-    background-color: #333;
-}
-
 #corruptionCleanse {
-    height: 30px;
-    width: 150px;
+    width: 8em;
+    min-width: 150px;
     margin: auto 20px;
     border: 2px solid darkmagenta;
-    transition-duration: 0.15s;
+    z-index: 2;
 }
 
 #corruptionCleanseConfirm {
-    height: 30px;
     width: 100px;
     margin: auto;
     border: 2px solid green;
     visibility: hidden;
-    transition-duration: 0.15s;
-}
-
-#corruptionCleanse:hover,
-#corruptionCleanseConfirm:hover {
-    background-color: #333;
 }
 
 header {
@@ -2962,30 +2733,29 @@ header .img {
 
 .subHeader {
     display: flex;
-    max-width: 1250px;
+    flex-direction: row;
+    min-width: 1250px;
+    max-width: calc((38px + 7em) * 8);
+    min-height: 90px;
+    margin-bottom: 5px;
 }
 
 .currenciesContainer {
     display: flex;
-    flex-direction: column;
-    width: 50%;
-    align-items: flex-start;
-    min-width: 625px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    line-height: 1em;
     font-variant-numeric: tabular-nums;
-}
-
-.currencyRow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 15px;
+    white-space: nowrap;
+    justify-content: space-around;
+    flex-basis: 55%;
 }
 
 .currencyContainer {
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    min-width: 146px;
+    width: calc(38px + 7em);
+    min-width: 150px;
 }
 
 header #coinDisplay {
@@ -3018,22 +2788,23 @@ header #obtainiumDisplay {
 
 .statDisplay {
     padding-left: 6px;
-    line-height: 32px;
+    margin: auto 0;
+    line-height: 1em;
 }
 
 #ascensionStats {
     display: flex;
-    gap: 10px;
-    padding-top: 10px;
-    margin-bottom: 15px;
-    line-height: 20px;
-    width: 60%;
+    margin: 10px 0;
+    min-width: 1250px;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     font-variant-numeric: tabular-nums;
+    line-height: 1em;
 }
 
 #ascensionStats > span {
     display: flex;
+    margin-right: 10px;
     white-space: pre;
     align-items: center;
 }
@@ -3041,11 +2812,12 @@ header #obtainiumDisplay {
 #ascensionStats img {
     position: relative;
     height: 20px;
-    margin-right: 4px;
+    margin: auto 4px auto 0;
 }
 
 #ascLen {
     color: darkcyan;
+    min-width: 8em; /* prevent bouncing around */
 }
 
 #ascC10 {
@@ -3072,10 +2844,6 @@ header #obtainiumDisplay {
     color: pink;
 }
 
-#ascTimeTakenStats {
-    min-width: 150px; /* prevent bouncing around */
-}
-
 #ascTimeAccel {
     color: royalblue;
 }
@@ -3091,32 +2859,30 @@ header #obtainiumDisplay {
 }
 
 .challengeContainer {
-    width: 410px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: auto;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
+}
+
+#c15RewardList {
+    margin-bottom: 10px;
 }
 
 .challengePortion {
-    width: 410px;
+    width: 30em;
+    max-width: 500px;
     height: auto;
-    margin: auto;
+    margin: 0;
     color: white;
     text-align: left;
-    font-size: 0.9em;
-}
-
-.challengePortion.challengeInfo {
     font-size: 1em;
+    line-height: 1.1em;
 }
 
 .challengeNumber {
-    width: 380px;
     height: auto;
-    margin: auto;
     color: white;
     text-align: left;
     font-size: 1em;
@@ -3128,6 +2894,10 @@ header #obtainiumDisplay {
     margin-left: 50px;
 }
 
+#platonicUpgradePics {
+    font-size: 0;
+}
+
 #platonicUpgrades {
     margin-bottom: 50px;
 }
@@ -3137,9 +2907,8 @@ header #obtainiumDisplay {
 }
 
 .platonicContainer {
-    width: 400px;
-    min-height: 250px;
     display: flex;
+    min-height: 300px;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: auto;
@@ -3147,30 +2916,30 @@ header #obtainiumDisplay {
 }
 
 .platonicPortion {
-    width: 380px;
+    width: 400px;
     margin: 0;
     color: white;
     text-align: left;
     font-size: 1em;
+    white-space: pre-wrap;
 }
 
 .hepteractGrid {
     display: grid;
-    grid-template-columns: repeat(4, 180px);
+    grid-template-columns: repeat(4, calc(60px + 4.5em * 2));
+    grid-template-rows: repeat(3, calc(28px * 3));
     margin-top: 10px;
     padding: 10px;
-    width: calc(180px * 4 + 45px);
     border: 3px solid plum;
-    grid-column: shop 2/4;
-    grid-row: 1;
     grid-column-gap: 15px;
     grid-row-gap: 20px;
     align-self: flex-start;
+    line-height: 1.2em;
 }
 
 .hepteractGrid > div {
     display: grid;
-    grid-template-columns: repeat(3, 60px);
+    grid-template-columns: 60px 4.5em 4.5em;
     grid-template-rows: repeat(3, 28px);
     align-items: center;
 }
@@ -3178,7 +2947,7 @@ header #obtainiumDisplay {
 #hepteractToQuark,
 #overfluxPowder {
     display: grid;
-    grid-template-columns: 12px 32px 31px 90px 15px;
+    grid-template-columns: 12px 5em 15px 5em;
     grid-template-rows: 32px 15px 15px 15px;
 }
 
@@ -3213,16 +2982,25 @@ header #obtainiumDisplay {
 .hepteractGrid button {
     border: 2px solid pink;
     width: 100%;
-    height: 25px;
-    transition-duration: 0.15s;
+    height: 26px;
+    min-height: auto;
+    line-height: 1em;
+    white-space: nowrap;
+    padding: 0;
 }
 
-.hepteractGrid button:hover {
-    background-color: #333;
+#hepteractAuto {
+    display: block;
+}
+
+.autoHepteractText {
+    margin-bottom: 5px;
+    color: lightgoldenrodyellow;
+    text-align: center;
 }
 
 .meter {
-    height: 15px;
+    height: 1em;
     position: relative;
     background: #555;
     border-radius: 5px;
@@ -3255,6 +3033,8 @@ header #obtainiumDisplay {
     transform: translateX(-50%);
     top: 0;
     width: 100%;
+    white-space: nowrap;
+    line-height: 1em;
 }
 
 #hepteractCraftTexts {
@@ -3266,8 +3046,7 @@ header #obtainiumDisplay {
 }
 
 #hepteractCraftTexts > p {
-    width: 750px;
-    margin: auto;
+    margin: 0;
 }
 
 #hotkeys {
@@ -3310,15 +3089,7 @@ header #obtainiumDisplay {
 }
 
 #saveString {
-    max-width: 50vw;
-    word-wrap: break-word;
-}
-
-#currentBonus {
-    color: springgreen;
-
-    /* Remove padding */
-    margin: 0;
+    word-wrap: anywhere;
 }
 
 #singularity {
@@ -3331,6 +3102,7 @@ header #obtainiumDisplay {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 0;
 }
 
 #actualSingularityUpgradeContainer {
@@ -3348,10 +3120,476 @@ header #obtainiumDisplay {
     margin: 2px;
 }
 
+.singularityUpgrade > img {
+    cursor:pointer;
+}
+
 #singularityMultiline {
     white-space: pre-line;
 }
 
 #testingMultiline {
     white-space: pre-line;
+}
+
+/* flexible mode */
+
+body.flexible {
+    min-width: auto;
+    margin-bottom: 10vh;
+}
+
+body.flexible #ascensionStats {
+    min-width: auto;
+}
+
+body.flexible .subHeader {
+    min-width: auto;
+    max-width: 100%;
+    flex-direction: column;
+    gap: 15px;
+}
+
+body.flexible .resetsContainer {
+    min-height: 70px;
+    flex-direction: column;
+    gap: 5px;
+}
+
+body.flexible .resetInformationContainer {
+    width: 100%;
+    flex-direction: row;
+}
+
+body.flexible #tabrow {
+    flex-flow: wrap-reverse;
+}
+
+body.flexible #resetrow {
+    font-size: min(1em, 3vw);
+}
+
+body.flexible #resetinfo {
+    font-size: min(0.9em, 2vw);
+    line-height: min(1.2em, 3vw);
+    max-width: 40em;
+    min-height: 70px;
+    max-height: 70px;
+}
+
+body.flexible .buttonRow {
+    flex-direction: row;
+    width: 100vw;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    margin-left: 0;
+}
+
+body.flexible .buttonRow > div {
+    display: grid;
+    grid: max(34px, 1em) calc(max(20px, 1em) + 14px) 1em / 34px 11em 8em;
+    align-items: flex-start;
+    margin-bottom: 1em;
+}
+
+body.flexible .buttonRow > div > :nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+body.flexible .buttonRow > div > :nth-child(2) {
+    grid-column: 2 / 3;
+    grid-row: 1;
+    align-self: center;
+}
+
+body.flexible .buttonRow > div > :nth-child(3) {
+    grid-column: 1 / 2;
+    grid-row: 2;
+}
+
+body.flexible .buttonRow > div > :nth-child(4) {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+body.flexible .buttonRow > div > :nth-child(5) {
+    grid-column: 1 / 3;
+    grid-row: 3;
+}
+
+body.flexible .buttonRow > div:nth-child(6) {
+    display: none;
+}
+
+body.flexible .buttonRow > div:nth-child(n+7) {
+    margin-bottom: 3em;
+}
+
+body.flexible .buttonRow > div > .stats {
+    width: 18em;
+}
+
+body.flexible #buyamountcoin,
+body.flexible #buyamountcrystal,
+body.flexible #buyamountmythos,
+body.flexible #buyamountparticle,
+body.flexible #buyAmountTesseract {
+    position: static;
+    left: 0;
+    margin-top: 15px;
+    font-size: 0;
+}
+
+body.flexible #buildingtext {
+    width: auto;
+}
+
+body.flexible #upgrades {
+    max-width: none;
+}
+
+body.flexible #upgradesFlex {
+    width: auto;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 0;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+body.flexible #upgradesFlex > div {
+    width: auto;
+}
+
+body.flexible #runeDetails {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    min-width: auto;
+    max-width: none;
+}
+
+body.flexible #buyamountoffering {
+    position: static;
+    left: 0;
+    margin-bottom: 15px;
+}
+
+body.flexible #runeContainer2 {
+    flex-direction: column;
+    align-items: center;
+}
+
+body.flexible .talismanShardsContainer {
+    order: 2;
+    width: auto;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+body.flexible .talismansCenter {
+    width: auto;
+    order: 1;
+}
+
+body.flexible .talismanBuyAmountContainer {
+    order: 3;
+    width: auto;
+}
+
+body.flexible .talismansCenter {
+    max-width: none;
+}
+
+body.flexible .talismansContainer {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: none;
+}
+
+body.flexible .talismanContainer {
+    width: auto;
+}
+
+body.flexible #respecAllTalismans {
+    position: static;
+    top: 0;
+    left: 0;
+    margin: 20px 0 0;
+    width: auto;
+    max-width: none;
+    transform: none;
+}
+
+body.flexible #talismanlevelup {
+    align-self: center;
+    margin-left: 0;
+}
+
+body.flexible #talismanrespec > div {
+    transform: none;
+}
+
+body.flexible #talismanFragmentCost {
+    width: 100%;
+    max-width: none;
+}
+
+body.flexible #runeContainer3,
+body.flexible #runeContainer4 {
+    text-align: center;
+}
+
+body.flexible .runeBlessingPurchaseSettings {
+    height: auto;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+body.flexible .runeBlessingRow {
+    flex-direction: column;
+}
+
+body.flexible .runeTexts,
+body.flexible .runeButtons,
+body.flexible .runeBlessingRow,
+body.flexible .runeEffectTexts {
+    width: auto;
+    max-width: none;
+}
+
+body.flexible #challengeDetails {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+body.flexible #challengeTimers {
+    width: auto;
+}
+
+body.flexible #oneChallengeDetails {
+    width: auto;
+    text-align: center;
+    margin-top: 10px;
+}
+
+body.flexible #challengeTimersText {
+    align-items: center;
+}
+
+body.flexible #antsWrapper {
+    margin-right: 0;
+}
+
+body.flexible #antrow2,
+body.flexible #antrow3 {
+    max-width: none;
+}
+
+body.flexible #antToggleFeatures {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+body.flexible .antSacrificeButtonsContainer {
+    flex-wrap: wrap;
+}
+
+body.flexible #antSacrificeSummary,
+body.flexible #sacrificeAnts {
+    position: static;
+    width: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    margin: 0;
+    margin-top: 15px;
+}
+
+body.flexible #antSacrificeTable {
+    margin: 15px auto;
+}
+
+body.flexible #cubesWrapper {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+}
+
+body.flexible .cubeTab {
+    margin-top: 20px;
+    padding-top: 20px;
+    margin-left: 0;
+    border-top: 2px solid gold;
+    width: 100%;
+}
+
+body.flexible #cubeTab7 {
+    max-width: 100%;
+}
+
+body.flexible #cubeTab7 .openGrid {
+    align-self: center;
+}
+
+body.flexible .openGrid {
+    white-space: normal;
+}
+
+body.flexible .openBtn {
+    flex-flow: wrap;
+}
+
+body.flexible #cubeTab6 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+body.flexible #wowCubeSidebar {
+    width: 100%;
+    max-width: none;
+}
+
+body.flexible #wowCubeSidebarButtons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    order: 1;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+body.flexible .cubesToQuark {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+body.flexible .cubeSwitchTabBtn {
+    width: auto;
+    max-width: 300px;
+    padding: 0 10px;
+}
+
+body.flexible .platonicUpgradesContainer {
+    margin-left: 0;
+    align-items: center;
+}
+
+body.flexible .challengePortion,
+body.flexible .platonicUpgradesContainer,
+body.flexible .platonicPortion {
+    width: 100%;
+}
+
+body.flexible #c15Rewards,
+body.flexible #platonicUpgradeDescriptions {
+    width: 95%;
+    box-sizing: border-box;
+}
+
+body.flexible .challengePortion {
+    max-width: none;
+}
+
+body.flexible #heptGrid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-flow: wrap;
+    width: 95%;
+    max-width: calc((60px + 4.5em * 2 + 20px) * 4);
+    box-sizing: border-box;
+    align-self: center;
+}
+
+body.flexible #traits {
+    flex-direction: column;
+    align-items: center;
+}
+
+body.flexible #corruptionMain {
+    width: 100%;
+    max-width: none;
+}
+
+body.flexible #corruptionStatsLoadouts {
+    width: auto;
+}
+
+body.flexible #corruptionStats,
+body.flexible #corruptionLoadouts {
+    min-height: auto;
+}
+
+body.flexible div#confirmationToggleBox,
+body.flexible div#exportButtons,
+body.flexible div#thirdParty {
+    width: auto;
+    min-width: auto;
+    max-width: none;
+}
+
+body.flexible #confirmationToggleBox {
+    height: auto;
+    max-height: none;
+}
+
+body.flexible .settingSubTabUpper {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+body.flexible #statisticsSubTab {
+    flex-direction: column;
+    align-items: center;
+}
+
+body.flexible #statsForNerds,
+body.flexible .statContainer {
+    width: 100%;
+    min-width: auto;
+    max-width: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+body.flexible .statContainer {
+    width: 30em;
+    max-width: 95%;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+body.flexible .hotkeys {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+}
+
+body.flexible .hotkeyItem {
+    margin-right: 20px;
+}
+
+body.flexible #actualWrapper {
+    flex-direction: column;
+    align-items: center;
+}
+
+body.flexible #actualShopContainer {
+    width: 100%;
+}
+
+body.flexible #actualShop {
+    width: 95%;
 }
