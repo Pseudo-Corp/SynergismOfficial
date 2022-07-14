@@ -1,4 +1,4 @@
-import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll, loadingDate } from './Synergism';
+import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll, getTimePinnedToLoadDate } from './Synergism';
 import { sumContents, productContents } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
@@ -881,6 +881,7 @@ export const calculateOffline = async (forceTime = 0) => {
     addTimers('ascension', timeAdd);
     addTimers('quarks', timeAdd);
     addTimers('goldenQuarks', timeAdd);
+    addTimers('singularity', timeAdd);
 
     player.prestigeCount += resetAdd.prestige;
     player.transcendCount += resetAdd.transcension;
@@ -897,6 +898,7 @@ export const calculateOffline = async (forceTime = 0) => {
         addTimers('prestige', timeTick);
         addTimers('transcension', timeTick);
         addTimers('reincarnation', timeTick);
+        addTimers('singularity', timeTick);
 
         resourceGain(timeTick * G['timeMultiplier']);
 
@@ -1262,7 +1264,7 @@ export const calculateOcteractMultiplier = (score = -1) => {
         // cube upgrade 70
         1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
         // divine pack
-        1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
+        1 + +(corruptionLevelSum >= 14 * 8) * (player.singularityUpgrades.divinePack.level === 1 ? 6.77 : 1.00),
         // cube flame
         +player.singularityUpgrades.singCubes1.getEffect().bonus,
         // cube blaze
@@ -1771,7 +1773,7 @@ export const dailyResetCheck = () => {
     if (!player.dayCheck) {
         return;
     }
-    const now = new Date(loadingDate.getTime() + performance.now());
+    const now = new Date(getTimePinnedToLoadDate());
     const day = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const h = now.getHours()
     const m = now.getMinutes()

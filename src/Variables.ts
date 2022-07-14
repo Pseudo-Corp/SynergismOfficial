@@ -223,8 +223,6 @@ export const Globals: GlobalVariables = {
 
     maxexponent: 10000,
 
-    maxbuyresearch: false,
-
     effectiveLevelMult: 1,
     optimalOfferingTimer: 600,
     optimalObtainiumTimer: 3600,
@@ -286,6 +284,7 @@ export const Globals: GlobalVariables = {
 
     runescreen: 'runes',
     settingscreen: 'settings',
+    singularityscreen: 'shop',
 
     talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
     talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
@@ -345,7 +344,6 @@ export const Globals: GlobalVariables = {
     hypercubeBonusMultiplier: [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     platonicBonusMultiplier: [1, 1, 1, 1, 1, 1, 1, 1],
 
-    buyMaxCubeUpgrades: false,
     autoOfferingCounter: 0,
     researchOrderByCost: [],
 
@@ -426,12 +424,10 @@ export const Globals: GlobalVariables = {
 
     historyCountMax: 20,
 
-    isEvent: false,
+    isEvent: false
 
     // talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
     // talismanResourceOfferingCosts: [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
-
-    autoHepteractCount: 0
 }
 
 export const blankGlobals = { ...Globals };

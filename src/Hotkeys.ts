@@ -5,6 +5,7 @@ import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel } from
 import { Alert, Prompt } from './UpdateHTML';
 import { Globals as G } from './Variables';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { useConsumable } from  './Shop';
 
 export const hotkeys = new Map<string, [string,() => unknown]>([
     ['A', ['Buy Accelerators', () => buyAccelerator()]],
@@ -31,7 +32,9 @@ export const hotkeys = new Map<string, [string,() => unknown]>([
     ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension')]],
     ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge')]], // Its already checks if inside Asc. Challenge
     ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999)]],
-    ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity')]]
+    ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity')]],
+    ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion')]],
+    ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion')]]
 ]);
 
 function toggleChallengeSweep(): void {

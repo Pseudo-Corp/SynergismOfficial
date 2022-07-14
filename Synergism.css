@@ -48,23 +48,33 @@ html::-webkit-scrollbar {
 
 body {
     min-width: 1250px;
-    transform-origin: 0 0;
-    overflow-x: hidden;
     color: white;
     margin: 0;
     box-sizing: border-box;
 }
 
 body.loading {
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 body.dark {
     background-color: #111;
 }
 
+body.darker {
+    background-color: #0c0c0f;
+}
+
+body.lightDark {
+    background-color: #1c1b22;
+}
+
 body.light {
-    background-color: gray;
+    background-color: #4c495a;
+}
+
+body.Dracula {
+    background-color: #131319;
 }
 
 a {
@@ -455,6 +465,7 @@ button:focus {
     font-variant-numeric: tabular-nums;
     height: 3.6em;
     overflow: hidden;
+    white-space: pre-line;
 }
 
 #resetrewards > div {
@@ -1226,6 +1237,11 @@ img.runeTypeElement:hover {
     transition-duration: 0.15s;
 }
 
+.FragBth {
+    min-width: 8em;
+    margin-right: 10px;
+}
+
 .talisminBtnAvailable {
     background-color: purple;
     cursor: pointer;
@@ -1475,7 +1491,8 @@ p#transcendhotkeys {
     border: 2px solid orchid;
     color: white;
     background-color: #171717;
-    width: 200px;
+    width: 12em;
+    max-width: 100%;
     font-size: 0.9em;
 }
 
@@ -1631,7 +1648,7 @@ p#reincarnatehotkeys {
 }
 
 #researchinfo2 {
-    min-height: 40px;
+    min-height: 3em;
 }
 
 .researchAvailable {
@@ -1729,16 +1746,27 @@ p#reincarnatehotkeys {
     flex-wrap: wrap;
 }
 
-#quarksDisplay {
+#quarksDisplay,
+#goldenQuarksDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 20px;
+    margin: 15px 0;
+}
+
+#goldenQuarksDisplay > img {
+    font-size: 0;
 }
 
 #quarkamount {
     font-size: 1.2em;
     color: aqua;
+    margin: 0 0 0 5px;
+}
+
+#goldenQuarkamount {
+    font-size: 1.2em;
+    color: gold;
     margin: 0 0 0 5px;
 }
 
@@ -1767,13 +1795,9 @@ p#reincarnatehotkeys {
 
 #shopHovers > p { margin: 0; }
 
-.consumablebutton {
-    width: 110px;
-    min-height: 40px;
-}
-
+.consumablebutton,
 .permshopbutton {
-    width: 110px;
+    width: 100%;
     min-height: 40px;
     padding: 0;
     line-height: 1em;
@@ -1831,30 +1855,24 @@ p#reincarnatehotkeys {
 #antToggleFeatures {
     display: flex;
     justify-content: center;
+    gap: 10px;
     margin: 5px 0;
-}
-
-#antSacrificeButtons {
-    display: flex;
-    flex-direction: column;
 }
 
 .antSacrificeButtonsContainer {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 #toggleAntMax {
-    height: 35px;
     width: 8em;
-    margin-right: 10px;
     border: 1px solid gold;
 }
 
 #toggleAutoSacrificeAnt {
-    height: 35px;
     width: 11em;
-    margin-right: 10px;
     border: 1px solid crimson;
 }
 
@@ -2003,6 +2021,10 @@ p#reincarnatehotkeys {
     margin-left: -185px;
 }
 
+.cubesBonus {
+    align-self: flex-start;
+}
+
 .cubesBonus tbody tr > td:first-child {
     font-size: 0;
 }
@@ -2078,18 +2100,6 @@ p#reincarnatehotkeys {
 #cubeTab6 {
     flex-direction: row;
     align-items: flex-start;
-}
-
-#cube1Bonus {
-    width: 1500px;
-}
-
-#tesseract1Bonus {
-    width: 1500px;
-}
-
-#hypercube1Bonus {
-    width: 1500px;
 }
 
 #cubeAmount2 { color: white; }
@@ -2344,6 +2354,7 @@ p#ascendHotKeys {
     margin: auto;
     border-collapse: collapse;
     width: 100%;
+    font-size: 0.9em;
     white-space: nowrap;
 }
 
@@ -2360,7 +2371,7 @@ p#ascendHotKeys {
 
 .historySubTab tbody td {
     padding: 0 0 0 6px;
-    height: 30px;
+    min-height: 30px;
 }
 .historySubTab tbody .history-gain:last-child { margin-right: 0; }
 
@@ -2415,7 +2426,7 @@ p#ascendHotKeys {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    min-height: 50px;
 }
 
 .runeBlessingRow {
@@ -2712,7 +2723,7 @@ header .img {
     display: flex;
     flex-direction: row;
     min-width: 1250px;
-    max-width: calc((38px + 7em) * 8);
+    max-width: calc((38px + 7.5em) * 4 + 50em);
     min-height: 90px;
     margin-bottom: 5px;
 }
@@ -2731,7 +2742,7 @@ header .img {
 .currencyContainer {
     display: flex;
     align-items: center;
-    width: calc(38px + 7em);
+    width: calc(38px + 7.5em);
     min-width: 150px;
 }
 
@@ -2787,7 +2798,6 @@ header #obtainiumDisplay {
 }
 
 #ascensionStats img {
-    position: relative;
     height: 20px;
     margin: auto 4px auto 0;
 }
@@ -2827,6 +2837,14 @@ header #obtainiumDisplay {
 
 #ascAscensionTimeAccel {
     color: orange;
+}
+
+#ascSingularityCount {
+    color: gold;
+}
+
+#ascSingLen {
+    color: gold;
 }
 
 #tabBorder {
@@ -2876,7 +2894,18 @@ header #obtainiumDisplay {
 }
 
 #platonicUpgrades {
+    display: flex;
     margin-bottom: 50px;
+}
+
+#saveOffToggle {
+    min-width: 11em;
+    max-width: 200px;
+    margin: 5px;
+}
+
+#saveOffToggle:hover {
+    background-color: #333;
 }
 
 .platonicUpgradeImage {
@@ -2904,7 +2933,7 @@ header #obtainiumDisplay {
 .hepteractGrid {
     display: grid;
     grid-template-columns: repeat(4, calc(60px + 4.5em * 2));
-    grid-template-rows: repeat(3, calc(28px * 3));
+    grid-template-rows: repeat(3, calc(max(28px, 1.1em) * 3));
     margin-top: 10px;
     padding: 10px;
     border: 3px solid plum;
@@ -2917,8 +2946,7 @@ header #obtainiumDisplay {
 .hepteractGrid > div {
     display: grid;
     grid-template-columns: 60px 4.5em 4.5em;
-    grid-template-rows: repeat(3, 28px);
-    align-items: center;
+    grid-template-rows: repeat(2, max(28px, 1.1em));
 }
 
 #hepteractToQuark,
@@ -2930,21 +2958,24 @@ header #obtainiumDisplay {
 
 #hepteractToQuarkImage,
 #overfluxPowderImage {
-    grid-column: 2;
+    grid-column: 1;
 }
 
 #hepteractToQuarkTrade,
 #powderDayWarp {
-    grid-column: 4;
+    grid-column: 4 / 6;
 }
 
 .heptTypeImage {
     grid-row: 1 / span 2;
+    align-self: center;
 }
 
 .heptGridInventory {
-    grid-column: 2 / span 3;
-    display: block;
+    grid-column: 1 / 6;
+    display: flex;
+    justify-content: space-between;
+    min-height: 28px;
 }
 
 .heptGridInventoryLabel,
@@ -2959,8 +2990,8 @@ header #obtainiumDisplay {
 .hepteractGrid button {
     border: 2px solid pink;
     width: 100%;
-    height: 26px;
-    min-height: auto;
+    min-height: 26px;
+    height: 1.1em;
     line-height: 1em;
     white-space: nowrap;
     padding: 0;
@@ -2982,8 +3013,9 @@ header #obtainiumDisplay {
     background: #555;
     border-radius: 5px;
     padding: 2px;
-    grid-column: 1 / span 3;
+    grid-column: 1 / 4;
     text-align: center;
+    align-self: center;
 }
 
 .meter > span {
@@ -3075,11 +3107,23 @@ header #obtainiumDisplay {
     text-align: center;
 }
 
+#singularityTabsToggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 15px;
+    gap: 10px;
+}
+
+#singularityTabsToggle > button {
+    width: 8em;
+    text-align: center;
+}
+
 #singularityUpgradeContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 0;
 }
 
 #actualSingularityUpgradeContainer {
@@ -3094,6 +3138,7 @@ header #obtainiumDisplay {
 }
 
 .singularityUpgrade {
+    font-size: 0;
     margin: 2px;
 }
 
@@ -3101,7 +3146,8 @@ header #obtainiumDisplay {
     cursor: pointer;
 }
 
-#singularityMultiline {
+#singularityPenaltiesMultiline,
+#singularityPerksMultiline {
     white-space: pre-line;
 }
 
@@ -3109,7 +3155,9 @@ header #obtainiumDisplay {
     white-space: pre-line;
 }
 
-/* flexible mode */
+.newPerk {
+    color: gold;
+}
 
 body.flexible {
     min-width: auto;
@@ -3364,16 +3412,6 @@ body.flexible #antsWrapper {
 body.flexible #antrow2,
 body.flexible #antrow3 {
     max-width: none;
-}
-
-body.flexible #antToggleFeatures {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-body.flexible .antSacrificeButtonsContainer {
-    flex-wrap: wrap;
 }
 
 body.flexible #antSacrificeSummary,

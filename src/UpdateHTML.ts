@@ -5,11 +5,11 @@ import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAccel
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { autoResearchEnabled } from './Research';
-import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
+import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateSingularity, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
 import { getMaxChallenges } from './Challenges';
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-import { updateSingularityStats } from './singularity';
+import { updateSingularityPenalties, updateSingularityPerks } from './singularity';
 import { revealCorruptions } from './Corruptions';
 
 export const revealStuff = () => {
@@ -203,15 +203,7 @@ export const revealStuff = () => {
         HTML.style.display = player.singularityCount > 0 ? 'block' : 'none';
     }
 
-    const singularityShopItems = document.getElementsByClassName('singularityShopUnlock') as HTMLCollectionOf<HTMLElement>;
-    for (const item of Array.from(singularityShopItems)) { // Ability to buy upgrade tier 1s
-        item.style.display = player.singularityUpgrades.wowPass.getEffect().bonus ? 'block' : 'none';
-    }
-
-    const singularityShopItems2 = document.getElementsByClassName('singularityShopUnlock2') as HTMLCollectionOf<HTMLElement>;
-    for (const item of Array.from(singularityShopItems2)) { // Ability to buy upgrade tier 2s
-        item.style.display = player.singularityUpgrades.wowPass2.getEffect().bonus > 0 ? 'block' : 'none';
-    }
+    visualUpdateShop();
 
     const hepts = DOMCacheGetOrSet('corruptionHepteracts');
     hepts.style.display = (player.achievements[255] > 0) ? 'block' : 'none';
@@ -314,8 +306,10 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('rune5area').style.display = 'none', DOMCacheGetOrSet('runeshowpower5').style.display = 'none');
 
     player.researches[124] > 0 ? //5x24 Research [AutoSac]
-        (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'block', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'block') :
+        (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'flex', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'block') :
         (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'none', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'none');
+    player.researches[124] > 0 || player.singularityCount > 0 ? //So you can turn it off before 5x24 Research
+        DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'block' : 'none'
 
     player.researches[130] > 0 ? //6x5 Research [Talisman Auto Fortify]
         DOMCacheGetOrSet('toggleautofortify').style.display = 'block' :
@@ -334,6 +328,9 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('tesseractautobuytoggle').style.display = 'block' :
         DOMCacheGetOrSet('tesseractautobuytoggle').style.display = 'none';
     player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
+        DOMCacheGetOrSet('tesseractautobuymode').style.display = 'block' :
+        DOMCacheGetOrSet('tesseractautobuymode').style.display = 'none';
+    player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
         DOMCacheGetOrSet('tesseractAmount').style.display = 'block' :
         DOMCacheGetOrSet('tesseractAmount').style.display = 'none';
     player.researches[190] > 0 ? //8x15 Research [Auto Tesseracts]
@@ -346,6 +343,10 @@ export const revealStuff = () => {
     player.shopUpgrades.offeringAuto > 0 ? //Auto Offering Shop Purchase
         DOMCacheGetOrSet('toggleautosacrifice').style.display = 'block' :
         DOMCacheGetOrSet('toggleautosacrifice').style.display = 'none';
+
+    player.cubeUpgrades[51] > 0 && player.singularityCount >= 40 ? //Auto Fragments Buy (After Cx1)
+        DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'block' :
+        DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'none';
 
     player.shopUpgrades.obtainiumAuto > 0 ? //Auto Research Shop Purchase
         DOMCacheGetOrSet('toggleautoresearch').style.display = 'block' :
@@ -375,10 +376,19 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('singularitytab').style.display = 'block'):
         (DOMCacheGetOrSet('singularitytab').style.display = 'none');
 
+    player.singularityCount > 0 ? //Save Offerings
+        DOMCacheGetOrSet('saveOffToggle').style.display = 'block' :
+        DOMCacheGetOrSet('saveOffToggle').style.display = 'none';
+
     // Singularity confirmation toggle pic
     player.singularityCount > 0 && player.ascensionCount > 0 ?
         (DOMCacheGetOrSet('settingpic6').style.display = 'block'):
         (DOMCacheGetOrSet('settingpic6').style.display = 'none');
+
+    // Hepteract Confirmations toggle
+    player.singularityCount > 0 && player.challenge15Exponent >= 1e15 ?
+        (DOMCacheGetOrSet('heptnotificationpic').style.display = 'block'):
+        (DOMCacheGetOrSet('heptnotificationpic').style.display = 'none');
 
     if (player.singularityCount > 0) {
         (DOMCacheGetOrSet('shoptab').style.display = 'block');
@@ -551,7 +561,8 @@ export const hideStuff = () => {
     if (G['currentTab'] === 'singularity') {
         DOMCacheGetOrSet('singularity').style.display = 'block';
         DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'lightgoldenrodyellow'
-        updateSingularityStats();
+        updateSingularityPenalties();
+        updateSingularityPerks();
     }
 }
 
@@ -567,12 +578,11 @@ const visualTab: Record<typeof G['currentTab'], () => void> = {
     ants: visualUpdateAnts,
     cubes: visualUpdateCubes,
     traits: visualUpdateCorruptions,
-    singularity: () => {}
+    singularity: visualUpdateSingularity
 };
 
 export const htmlInserts = () => {
     // ALWAYS Update these, for they are the most important resources
-
     const playerRequirements = ['coins', 'runeshards', 'prestigePoints', 'transcendPoints', 'transcendShards', 'reincarnationPoints', 'worlds', 'researchPoints'] as const;
     const domRequirements = ['coinDisplay', 'offeringDisplay', 'diamondDisplay', 'mythosDisplay', 'mythosshardDisplay', 'particlesDisplay', 'quarkDisplay', 'obtainiumDisplay'] as const;
     for (let i = 0; i < playerRequirements.length; i++) {
@@ -618,7 +628,7 @@ export const buttoncolorchange = () => {
         DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = '#171717' :
         DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = 'purple';
 
-    (player.autoAscend && player.cubeUpgrades[10] > 0.5) ?
+    (player.autoAscend && player.cubeUpgrades[10] > 0.5 && !player.currentChallenge.ascension) ?
         DOMCacheGetOrSet('ascendbtn').style.backgroundColor = 'green' :
         DOMCacheGetOrSet('ascendbtn').style.backgroundColor = '#171717';
 
@@ -852,7 +862,7 @@ const updateAscensionStats = () => {
     const t = player.ascensionCounter;
     const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().slice(4);
     const fillers: Record<string, string> = {
-        'ascLen': formatTimeShort(player.ascensionCounter),
+        'ascLen': formatTimeShort((player.ascStatToggles[6] ? player.ascensionCounter : player.ascensionCounterReal), 0),
         'ascCubes': format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),
         'ascTess': format(tess * (player.ascStatToggles[2] ? 1 : 1 / t), 3),
         'ascHyper': format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4),
@@ -860,7 +870,9 @@ const updateAscensionStats = () => {
         'ascHepteract': format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
         'ascC10': `${format(player.challengecompletions[10])}`,
         'ascTimeAccel': `${format(calculateTimeAcceleration(), 3)}x`,
-        'ascAscensionTimeAccel': `${format(calculateAscensionAcceleration(), 3)}x`
+        'ascAscensionTimeAccel': `${format(calculateAscensionAcceleration(), 3)}x`,
+        'ascSingularityCount': format(player.singularityCount),
+        'ascSingLen': formatTimeShort(player.singularityCounter)
     }
     for (const key in fillers) {
         const dom = DOMCacheGetOrSet(key);

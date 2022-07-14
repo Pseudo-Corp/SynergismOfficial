@@ -7,3 +7,6 @@ dist
 
 .project
 .settings/*
+Pictures/Thumbs.db
+Pictures/Splash/Thumbs.db
+Pictures/Transparent Pics/Thumbs.db

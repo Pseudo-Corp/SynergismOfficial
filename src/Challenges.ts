@@ -378,16 +378,11 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         j.textContent = 'Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)'
     }
 
-    (i <= 10 && player.researches[150] > 0) ?
-        (DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.display = 'block', DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.border = '2px solid green') :
-        DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.display = 'none';
-
-    let constructor = 'ON'
-    if (!player.autoChallengeToggles[i]) {
-        constructor = 'OFF';
-        DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.border = '2px solid red'
+    if (changefocus) {
+        DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.display = i <= 10 && player.researches[150] > 0 ? 'block' : 'none';
+        DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.border = player.autoChallengeToggles[i] ? '2px solid green' : '2px solid red'
+        DOMCacheGetOrSet('toggleAutoChallengeIgnore').textContent = `Automatically Run Chal.${i} [${player.autoChallengeToggles[i] ? 'ON' : 'OFF'}]`
     }
-    DOMCacheGetOrSet('toggleAutoChallengeIgnore').textContent = 'Automatically Run Chal.' + i + ' [' + constructor + ']'
 
     const ella = DOMCacheGetOrSet('toggleAutoChallengeStart');
     (player.autoChallengeRunning) ?
