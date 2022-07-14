@@ -13,30 +13,7 @@ html {
         sans-serif;
     scrollbar-width: none;
 }
-/*
-body *>* {background-color: #404040 !important;}
-body *>*>* {background-color: #804040 !important;}
-body *>*>*>* {background-color: #408040 !important;}
-body *>*>*>*>* {background-color: #404080 !important;}
-body *>*>*>*>*>* {background-color: #804080 !important;}
-body *>*>*>*>*>*>* {background-color: #808040 !important;}
-body *>*>*>*>*>*>*>* {background-color: #408080 !important;}
-body *>*>*>*>*>*>*>*>* {background-color: #808080 !important;}
-body *>*>*>*>*>*>*>*>*>* {background-color: #B08080 !important;}
-body *>*>*>*>*>*>*>*>*>*>* {background-color: #80B080 !important;}
-body *>*>*>*>*>*>*>*>*>*>*>* {background-color: #8080B0 !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B080B0 !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B0B080 !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #80B0B0 !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B0B0B0 !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #FFB0B0 !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B0FFB0 !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B0B0FF !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #FFB0FF !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #FFFFB0 !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* {background-color: #B0FFFF !important;}
-body *>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>*>* * {background-color: #FFFFFF !important;}
-*/
+
 html::-webkit-scrollbar {
     display: none;
 }
@@ -663,7 +640,7 @@ p#buildinghotkeys {
 
 #upgradesFlex > div > table {
     padding: 0;
-    font-size:0;
+    font-size: 0;
     height: 182px;
     text-align: center;
     border-collapse: collapse;
@@ -3121,7 +3098,7 @@ header #obtainiumDisplay {
 }
 
 .singularityUpgrade > img {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 #singularityMultiline {
@@ -3291,6 +3268,7 @@ body.flexible .talismanShardsContainer {
 }
 
 body.flexible .talismansCenter {
+    max-width: none;
     width: auto;
     order: 1;
 }
@@ -3298,10 +3276,6 @@ body.flexible .talismansCenter {
 body.flexible .talismanBuyAmountContainer {
     order: 3;
     width: auto;
-}
-
-body.flexible .talismansCenter {
-    max-width: none;
 }
 
 body.flexible .talismansContainer {
