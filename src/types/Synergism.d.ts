@@ -475,9 +475,7 @@ export interface Player {
     usedCorruptions: number[]
     corruptionLoadouts: Record<number, number[]>
     corruptionLoadoutNames: string[]
-    smartLoadouts: Record<number, number[]>
-    corruptionShowStats: number,
-    smartLoadoutToggle: boolean,
+    corruptionShowStats: boolean,
 
     constantUpgrades: [null, ...number[]]
     history: Record<Category, ResetHistoryEntryUnion[]>

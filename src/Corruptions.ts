@@ -274,97 +274,6 @@ export const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
             player.prototypeCorruptions = Array.from(player.corruptionLoadouts[loadout])
         }
         corruptionLoadoutTableUpdate();
-        smartLoadoutTableUpdate();
-        corruptionStatsUpdate();
-    }
-}
-
-export const smartLoadoutTableCreate = () => {
-    const corrCount = 8
-    const table = getElementById<HTMLTableElement>('smartLoadoutTable')
-    for (let i = 0; i < Object.keys(player.smartLoadouts).length + 1; i++) {
-        const row = table.insertRow()
-        for (let j = 0; j <= corrCount; j++) {
-            const cell = row.insertCell();
-            cell.className = `test${j}`
-            if (j === 0) {
-                if (i === 0) {
-                    cell.textContent = 'Next:'
-                }
-            } else if (j <= corrCount) {
-                cell.textContent = ((i === 0) ? player.prototypeCorruptions[j+1] : player.smartLoadouts[i][j+1]).toString();
-                cell.style.textAlign = 'center'
-            }
-        }
-        if (i === 0) {
-            let cell = row.insertCell();
-            let btn = document.createElement('button');
-            btn.id = 'smartToggle1'
-            btn.className = 'smartCorruptionToggle'
-            btn.textContent = 'Auto'
-            btn.onclick = () => smartLoadoutSaveLoad(false, i);
-            cell.appendChild(btn);
-            cell.title = 'On Ascension will auto change current loadout (based on highest goal)\nUnless p4x5 was bought'
-
-            cell = row.insertCell();
-            btn = document.createElement('button');
-            btn.id = 'smartToggle2'
-            btn.className = 'smartCorruptionToggle'
-            btn.textContent = 'OFF'
-            btn.onclick = () => smartLoadoutSaveLoad(false, i);
-            cell.appendChild(btn);
-            cell.title = 'On Ascension will auto change current loadout (based on highest goal)\nUnless p4x5 was bought'
-        } else {
-            let cell = row.insertCell();
-            let btn = document.createElement('button');
-            btn.className = 'corrSave'
-            btn.textContent = 'Save'
-            btn.onclick = () => smartLoadoutSaveLoad(true, i);
-            cell.appendChild(btn);
-
-            cell = row.insertCell();
-            btn = document.createElement('button');
-            btn.className = 'corrLoad'
-            btn.textContent = 'Load'
-            btn.onclick = () => smartLoadoutSaveLoad(false, i);
-            cell.appendChild(btn);
-        }
-    }
-}
-
-
-export const smartLoadoutTableUpdate = (updateRow = 0) => {
-    const row = getElementById<HTMLTableElement>('smartLoadoutTable').rows[updateRow + 1].cells;
-    for (let i = 1; i < row.length; i++) {
-        if (i > 8) {
-            break;
-        }
-        row[i].textContent = ((updateRow === 0) ? player.prototypeCorruptions[i+1] : player.smartLoadouts[updateRow][i+1]).toString();
-    }
-}
-
-export const smartLoadoutSaveLoad = (save = true, loadout = 1) => {
-    if (save) {
-        player.smartLoadouts[loadout] = Array.from(player.prototypeCorruptions)
-        smartLoadoutTableUpdate(loadout)
-    } else {
-        if (loadout === 0) {
-            if (player.smartLoadoutToggle) {
-                DOMCacheGetOrSet('smartToggle1').style.borderColor = 'crimson'
-                DOMCacheGetOrSet('smartToggle2').style.borderColor = 'crimson'
-                DOMCacheGetOrSet('smartToggle2').textContent = 'OFF'
-            } else {
-                DOMCacheGetOrSet('smartToggle1').style.borderColor = 'darkgreen'
-                DOMCacheGetOrSet('smartToggle2').style.borderColor = 'darkgreen'
-                DOMCacheGetOrSet('smartToggle2').textContent = 'ON'
-            }
-
-            player.smartLoadoutToggle = !player.smartLoadoutToggle
-        } else {
-            player.prototypeCorruptions = Array.from(player.smartLoadouts[loadout])
-        }
-        corruptionLoadoutTableUpdate();
-        smartLoadoutTableUpdate();
         corruptionStatsUpdate();
     }
 }
@@ -374,7 +283,6 @@ export const applyCorruptions = (corruptions: string) => {
         // Converts the '/' separated string into a number[]
         player.prototypeCorruptions = corruptions.split('/').map(x => +x);
         corruptionStatsUpdate();
-        smartLoadoutTableUpdate();
     }
 }
 
@@ -412,38 +320,6 @@ export const updateCorruptionLoadoutNames = () => {
             cells[0].classList.add('corrLoadoutName');
         }
         cells[0].textContent = `${player.corruptionLoadoutNames[i]}:`;
-    }
-}
-
-async function smartLoadoutGetExplanation(loadout = 0) {
-    if (loadout === 0) {
-        return Alert('Will automaticly use it if you got 1 completion or more of Challenge 14.')
-    } else if (loadout === 1) {
-        return Alert('Will automaticly use it if you maxed Research 8x25.')
-    } else if (loadout === 2) {
-        return Alert('Will automaticly use it if you maxed Cube upgrade 5x10.')
-    } else if (loadout === 3) {
-        return Alert('Will automaticly use it if you maxed Platonic upgrade 2x1.')
-    } else if (loadout === 4) {
-        return Alert('Will automaticly use it if you got 1 level or more in Platonic upgrade 3x2.')
-    } else if (loadout === 5) {
-        return Alert('Will automaticly use it if you maxed Platonic upgrade 3x5. (Omega)')
-    } else if (loadout === 6) {
-        return Alert('Will automaticly use it if you got 1 level or more in Platonic upgrade 4x2.')
-    } else if (loadout === 7) {
-        return Alert('Will automaticly use it during Ascension Challenges.')
-    }
-}
-
-export const updateSmartLoadoutNames = () => {
-    const rows = getElementById<HTMLTableElement>('smartLoadoutTable').rows
-    for (let i = 0; i < Object.keys(player.smartLoadouts).length; i++) {
-        const cells = rows[i + 2].cells  //start changes on 2nd row
-        if (cells[0].textContent!.length === 0) {  //first time setup
-            cells[0].addEventListener('click', () => void smartLoadoutGetExplanation(i));
-            cells[0].classList.add('corrLoadoutName');
-        }
-        cells[0].textContent = `${['c14', 'r8x25', 'w5x10', 'p2x1', 'p3x2', 'Omega', 'p4x2', 'Challenges'][i]}:`;
     }
 }
 
