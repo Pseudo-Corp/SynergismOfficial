@@ -5,7 +5,6 @@ import { format, player } from './Synergism';
 import type { Player } from './types/Synergism';
 import { Alert, Confirm, Prompt } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-import { Globals as G } from './Variables';
 
 export interface IHepteractCraft {
     BASE_CAP: number
@@ -257,24 +256,16 @@ export class HepteractCraft {
         return this;
     }
 
-    toggleAutomatic(bool?: boolean): Promise<void> | HepteractCraft {
+    toggleAutomatic(newValue?: boolean): Promise<void> | HepteractCraft {
+        const HTML = DOMCacheGetOrSet(`${this.HTML_STRING}HepteractAuto`);
 
-        if (!this.UNLOCKED && bool === undefined) {
-            return Alert('You do not have this as an unlocked craft. Automation is therefore not possible.')
-        }
-        const HTML = DOMCacheGetOrSet(`${this.HTML_STRING}HepteractAuto`)
+        // When newValue is empty, current value is toggled
+        this.AUTO = newValue ?? !this.AUTO;
 
-        this.AUTO = bool ?? !this.AUTO
+        HTML.textContent = `Auto ${this.AUTO ? 'ON' : 'OFF'}`;
+        HTML.style.border = `2px solid ${this.AUTO ? 'green' : 'red'}`;
 
-        HTML.textContent = `Auto ${this.AUTO ? 'ON' : 'OFF'}`
-        HTML.style.border = `2px solid ${this.AUTO ? 'green' : 'red'}`
-
-        if (bool === undefined) {
-            G['autoHepteractCount'] += (this.AUTO ? 1 : -1)
-        }
-        // Math.pow(-1, bool) also works here, but c'mon. - Platonic
-
-        return this
+        return this;
     }
 
     autoCraft(heptAmount: number): HepteractCraft {
@@ -570,6 +561,21 @@ export const overfluxPowderWarp = async () => {
             return Alert('Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]')
         }
     }
+}
+
+/**
+ * Get the HepteractCrafts which are unlocked and auto = ON
+ * @returns Array of HepteractCraft
+ */
+export const getAutoHepteractCrafts = () => {
+    const autoHepteracts: HepteractCraft[] = [];
+    for (const craftName of Object.keys(player.hepteractCrafts)) {
+        const craftKey = craftName as keyof Player['hepteractCrafts'];
+        if (player.hepteractCrafts[craftKey].AUTO && player.hepteractCrafts[craftKey].UNLOCKED) {
+            autoHepteracts.push(player.hepteractCrafts[craftKey]);
+        }
+    }
+    return autoHepteracts;
 }
 
 // Hepteract of Chronos [UNLOCKED]

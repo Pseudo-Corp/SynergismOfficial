@@ -13,7 +13,6 @@ import { Alert } from './UpdateHTML';
 import { getQuarkInvestment, shopData} from './Shop';
 import type { ISingularityData} from './singularity';
 import { singularityData, SingularityUpgrade } from './singularity';
-import { Globals as G } from './Variables';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -467,8 +466,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             if (data.hepteractCrafts[k]) {
                 player.hepteractCrafts[k] = createHepteract({...player.hepteractCrafts[k], ...data.hepteractCrafts[k]});
             }
-
-            G['autoHepteractCount'] += +player.hepteractCrafts[k].AUTO
         }
     }
 
