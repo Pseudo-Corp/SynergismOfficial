@@ -577,6 +577,13 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                 if (player.singularityUpgrades[k].minimumSingularity > player.singularityCount) {
                     player.singularityUpgrades[k].refund()
                 }
+
+                const cost = player.singularityUpgrades[k].level * (player.singularityUpgrades[k].level + 1) *
+                             player.singularityUpgrades[k].costPerLevel / 2
+                if (player.singularityUpgrades[k].maxLevel !== -1 &&
+                    player.singularityUpgrades[k].goldenQuarksInvested !== cost) {
+                        player.singularityUpgrades[k].refund()
+                    }
             }
         }
     }

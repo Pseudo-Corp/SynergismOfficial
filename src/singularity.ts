@@ -171,8 +171,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     goldenQuarks3: {
         name: 'Golden Quarks III',
-        description: 'If you buy this, you will gain 1 Golden Quark per hour from Exports. Also reduces the cost to buy Golden Quarks in the shop by 1,000 per level.',
-        maxLevel: 15,
+        description: 'If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!',
+        maxLevel: 100,
         costPerLevel: 1000,
         effect: (n: number) => {
             return {
@@ -402,8 +402,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'Octeracts ;) (WIP)',
         description: 'Hey!!! What are you trying to do?!?',
         maxLevel: 1,
-        costPerLevel: 44444,
-        minimumSingularity: 36,
+        costPerLevel: 18888,
+        minimumSingularity: 8,
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
@@ -493,7 +493,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'Shop Liquidation Sale',
         description: 'The Seal Merchant needs to get rid of some exotic goods. Only for a steep price. I do not think that is how sales work.',
         maxLevel: 1,
-        costPerLevel: 49999,
+        costPerLevel: 19999,
         minimumSingularity: 11,
         effect: (n: number) => {
             return {
