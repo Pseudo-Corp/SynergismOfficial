@@ -1,5 +1,5 @@
 import { player, format } from './Synergism';
-import { Alert, Confirm, revealStuff } from './UpdateHTML';
+import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML';
 import { calculatePowderConversion, calculateTimeAcceleration } from './Calculate';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -326,6 +326,16 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundMinimumLevel: 0,
         description: 'You find the final pages of the lost tome. It functionally acts the same as the rest of the pages, but you can have up to five more!'
     },
+    instantChallenge2: {
+        tier: 'Singularity',
+        price: 20000000,
+        priceIncrease: 0,
+        maxLevel: 1,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Completing an Ascension Challenge doesn\'t cause a reset (if retry is enabled) and you gain 1 more completion per tick per Singularity.'
+    },
     cubeToQuarkAll: {
         tier: 'SingularityVol2',
         price: 2222222,
@@ -401,13 +411,11 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
 //Names of shop upgrades || Top row indicates potions, and all other upgrades are labeled in order.
 //If you are adding more upgrades please make sure the order of labelled upgrades is correct!
 type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
-                        'offeringEX' | 'offeringAuto' | 'obtainiumEX' | 'obtainiumAuto' | 'instantChallenge' |
-                        'antSpeed' | 'cashGrab' | 'shopTalisman' | 'seasonPass' | 'challengeExtension' |
-                        'challengeTome' | 'challengeTome2' | 'cubeToQuark' | 'tesseractToQuark' | 'hypercubeToQuark' |
-                        'seasonPass2' | 'seasonPass3' | 'seasonPassY' | 'seasonPassZ' | 'chronometer' |
-                        'chronometer2'| 'chronometer3'| 'infiniteAscent' | 'calculator' |
-                        'calculator2' | 'calculator3' | 'constantEX' | 'powderEX' | 'cashGrab2' | 'cubeToQuarkAll' |
-                        'seasonPassLost' | 'chronometerZ' | 'powderAuto' | 'offeringEX2' | 'obtainiumEX2'
+                        'offeringEX' | 'offeringAuto' | 'offeringEX2' | 'obtainiumEX' | 'obtainiumAuto' | 'obtainiumEX2' | 'instantChallenge' | 'instantChallenge2' |
+                        'antSpeed' | 'cashGrab' | 'cashGrab2' | 'shopTalisman' | 'seasonPass' | 'challengeExtension' | 'challengeTome' | 'challengeTome2' |
+                        'cubeToQuark' | 'tesseractToQuark' | 'cubeToQuarkAll' | 'hypercubeToQuark' | 'seasonPass2' | 'seasonPass3' | 'seasonPassY' | 'seasonPassZ' |
+                        'seasonPassLost' | 'chronometer' | 'chronometer2'| 'chronometer3'| 'chronometerZ' | 'infiniteAscent' | 'calculator' | 'calculator2' |
+                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' //And Golden Quarks
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -521,6 +529,9 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         case 'challengeTome2':
             lol.textContent = `CURRENT Effect: Challenge 10 Exponent Requirement reduced by ${20 * player.shopUpgrades.challengeTome2} Million. Past 60 completions of C9 or C10 the scaling multiplier is [completions * ${format(1 - (player.shopUpgrades.challengeTome + player.shopUpgrades.challengeTome2) / 100, 2, true)}]`
             break;
+        case 'instantChallenge2':
+            lol.textContent = `CURRENT Effect: +${format(player.shopUpgrades.instantChallenge2 * player.singularityCount, 0)} Challenges per tick`
+            break;
         case 'cashGrab2':
             lol.textContent = `CURRENT Effect: Offering, Obtainium +${format(0.5 * player.shopUpgrades.cashGrab2, 1)}%!`;
             break;
@@ -579,6 +590,7 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         seasonPassY: 'a Season Pass Y',
         seasonPassZ: 'a Permanent Season Pass Z',
         challengeTome2: 'a Permanent Challenge 10 requirement reduction',
+        instantChallenge2: 'an even better Instant Challenge Completions',
         cubeToQuarkAll: 'an overpriced improvement to your quark gain',
         cashGrab2: 'an overpriced cash grab',
         chronometerZ: 'an overpriced chronometer',
@@ -626,6 +638,34 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
         }
     }
     revealStuff();
+}
+
+export const buyConsumable = async (input: ShopUpgradeNames) => {
+
+    const maxBuyablePotions = Math.min(Math.floor(Number(player.worlds)/100),shopData[input].maxLevel-player.shopUpgrades[input]);
+    const potionKind = input === 'offeringPotion' ? 'Offering Potions' : 'Obtainium Potions';
+
+    if (shopData[input].maxLevel === player.shopUpgrades[input]) {
+        return Alert(`You can't purchase ${potionKind} because you already have the max level!`);
+    }
+    if (maxBuyablePotions === 0) {
+        return Alert(`You can't purchase ${potionKind} because you don't have enough Quarks!`);
+    }
+
+    const potionsAmount = await Prompt(`How many ${potionKind} would you like?\nYou can buy up to ${format(maxBuyablePotions, 0, true)} for 100 Quarks each.`);
+    const potionsToBuy = Math.floor(Number(potionsAmount));
+
+    if (potionsToBuy === 0) {
+        return Alert('Ok. No potions purchased.');
+    } else if (Number.isNaN(potionsToBuy) || !Number.isFinite(potionsToBuy) || potionsToBuy < 0) {
+        return Alert('Value must be a finite, positive integer.');
+    } else if (potionsToBuy > maxBuyablePotions) {
+        player.worlds.sub(100*maxBuyablePotions);
+        player.shopUpgrades[input] += maxBuyablePotions;
+    } else {
+        player.worlds.sub(100*potionsToBuy);
+        player.shopUpgrades[input] += potionsToBuy;
+    }
 }
 
 export const useConsumable = async (input: ShopUpgradeNames) => {

@@ -34,6 +34,7 @@ import { QuarkHandler } from './Quark';
 import { calculateSingularityDebuff } from './singularity';
 import { updateCubeUpgradeBG } from './Cubes';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
+import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
 
 let repeatreset: ReturnType<typeof setTimeout>;
@@ -135,7 +136,7 @@ export const resetdetails = (input: resetNames) => {
         case 'ascension':
             currencyImage1.style.display = 'none'
             resetCurrencyGain.textContent = '';
-            resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds.';
+            resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds.\n(Real-time ' + format(player.ascensionCounterRealReal, 0, false) + ' Seconds)';
             resetInfo.style.color = 'gold';
             break;
         case 'singularity':
@@ -557,6 +558,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         ascensionAchievementCheck(1);
 
         player.ascensionCounter = 0;
+        player.ascensionCounterReal = 0;
+        player.ascensionCounterRealReal = 0;
 
         updateTalismanInventory();
         updateTalismanAppearance(0);
@@ -616,14 +619,12 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
 
     if (input === 'ascension' || input === 'ascensionChallenge') {
-        if (G['autoHepteractCount'] > 0) {
-            const heptAutoSpend = Math.floor((player.wowAbyssals / G['autoHepteractCount']) * (player.hepteractAutoCraftPercentage / 100))
-
-            for (const craft in player.hepteractCrafts) {
-                const k = craft as keyof Player['hepteractCrafts'];
-                if (player.hepteractCrafts[k].AUTO) {
-                    player.hepteractCrafts[k].autoCraft(heptAutoSpend)
-                }
+        const autoHepteractCrafts = getAutoHepteractCrafts();
+        if (autoHepteractCrafts.length > 0) {
+            // Computes the max number of Hepteracts to spend on each auto Hepteract craft
+            const heptAutoSpend = Math.floor((player.wowAbyssals / autoHepteractCrafts.length) * (player.hepteractAutoCraftPercentage / 100))
+            for (const craft of autoHepteractCrafts) {
+                craft.autoCraft(heptAutoSpend);
             }
         }
 
@@ -897,7 +898,6 @@ export const singularity = async (): Promise<void> => {
     hold.goldenQuarks = player.goldenQuarks;
     hold.shopUpgrades = player.shopUpgrades;
     hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
-    hold.hepteractCrafts.quark = player.hepteractCrafts.quark
     hold.singularityUpgrades = player.singularityUpgrades
     hold.autoChallengeToggles = player.autoChallengeToggles
     hold.autoChallengeTimer = player.autoChallengeTimer
@@ -919,6 +919,7 @@ export const singularity = async (): Promise<void> => {
     hold.tesseractbuyamount = player.tesseractbuyamount
     hold.shoptoggles = player.shoptoggles
     hold.autoSacrificeToggle = player.autoSacrificeToggle
+    hold.autoBuyFragment = player.autoBuyFragment
     hold.autoFortifyToggle = player.autoFortifyToggle
     hold.autoEnhanceToggle = player.autoEnhanceToggle
     hold.autoResearchToggle = player.autoResearchToggle
@@ -954,9 +955,19 @@ export const singularity = async (): Promise<void> => {
     hold.ascStatToggles = player.ascStatToggles
     hold.hepteractAutoCraftPercentage = player.hepteractAutoCraftPercentage
     hold.shopBuyMaxToggle = player.shopBuyMaxToggle
+    hold.shopHideToggle = player.shopHideToggle
     hold.shopConfirmationToggle = player.shopConfirmationToggle
     hold.researchBuyMaxToggle = player.researchBuyMaxToggle
     hold.cubeUpgradesBuyMaxToggle = player.cubeUpgradesBuyMaxToggle
+
+    // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
+    hold.hepteractCrafts.quark = player.hepteractCrafts.quark;
+    for (const craftName of Object.keys(player.hepteractCrafts)) {
+        if (craftName !== 'quark') {
+            const craftKey = craftName as keyof Player['hepteractCrafts'];
+            hold.hepteractCrafts[craftKey].AUTO = player.hepteractCrafts[craftKey].AUTO;
+        }
+    }
 
     //Import Game
     await importSynergism(btoa(JSON.stringify(hold)), true);

@@ -14,7 +14,7 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels } from './Talismans';
-import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
+import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
@@ -462,6 +462,7 @@ export const player: Player = {
         seasonPassY: 0,
         seasonPassZ: 0,
         challengeTome2: 0,
+        instantChallenge2: 0,
         cashGrab2: 0,
         chronometerZ: 0,
         cubeToQuarkAll: 0,
@@ -471,9 +472,11 @@ export const player: Player = {
         powderAuto: 0
     },
     shopBuyMaxToggle: false,
+    shopHideToggle: false,
     shopConfirmationToggle: true,
 
     autoSacrificeToggle: false,
+    autoBuyFragment: false,
     autoFortifyToggle: false,
     autoEnhanceToggle: false,
     autoResearchToggle: false,
@@ -517,6 +520,8 @@ export const player: Player = {
 
     ascensionCount: 0,
     ascensionCounter: 0,
+    ascensionCounterReal: 0,
+    ascensionCounterRealReal: 0,
     cubeUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -530,6 +535,7 @@ export const player: Player = {
     wowTesseracts: new WowTesseracts(0),
     wowHypercubes: new WowHypercubes(0),
     wowPlatonicCubes: new WowPlatonicCubes(0),
+    saveOfferingToggle: false,
     wowAbyssals: 0,
     cubeBlessings: {
         accelerator: 0,
@@ -600,7 +606,8 @@ export const player: Player = {
         2: false,
         3: false,
         4: false,
-        5: false
+        5: false,
+        6: false
     },
 
     prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -1522,6 +1529,15 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleautosacrifice').textContent = 'Auto Rune: OFF'
             DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid red'
         }
+        if (player.autoBuyFragment) {
+            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = 'Auto Buy: ON'
+            DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid white'
+            DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'orange'
+        } else {
+            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = 'Auto Buy: OFF'
+            DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid orange'
+            DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'white'
+        }
         if (player.autoFortifyToggle) {
             DOMCacheGetOrSet('toggleautofortify').textContent = 'Auto Fortify: ON'
             DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid green'
@@ -1536,6 +1552,9 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: OFF'
             DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid red'
         }
+        player.saveOfferingToggle = false; //Lint doesnt like it being inside if
+        DOMCacheGetOrSet('saveOffToggle').textContent = 'Save Offerings [OFF]'
+        DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
         if (player.autoAscend) {
             DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [ON]';
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid green'
@@ -1553,6 +1572,13 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: OFF'
         }
+        if (player.shopHideToggle) {
+            DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: ON'
+        } else {
+            DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: OFF'
+        }
+
+        // Settings that are not saved in the data will be restored to their defaults by import or singularity
         if (player.researchBuyMaxToggle) {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
         } else {
@@ -1568,6 +1594,11 @@ const loadSynergy = async () => {
             toggleAntMaxBuy();
             toggleAntAutoSacrifice(0);
             toggleAntAutoSacrifice(1);
+        }
+
+        for (let i = 1; i <= 2; i++) {
+            toggleAutoAscend(0);
+            toggleAutoAscend(1);
         }
 
         DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = 'Per second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF');
@@ -2820,7 +2851,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             const reqCheck = (comp: number) => player.coinsThisTranscension.gte(challengeRequirement(q, comp, q));
 
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-                const maxInc = player.currentChallenge.ascension !== 13 ? player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) : 1; // TODO: Implement the shop upgrade levels here
+                const maxInc = player.shopUpgrades.instantChallenge2 > 0 && player.currentChallenge.ascension !== 13 ?
+                    player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) :
+                    (player.currentChallenge.ascension !== 13 && player.shopUpgrades.instantChallenge > 0 ? 10 : 1); // TODO: Implement the shop upgrade levels here
                 let counter = 0;
                 let comp = player.challengecompletions[q];
                 while (counter < maxInc) {
@@ -2880,7 +2913,8 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
         }
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-            const maxInc = player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.ascension !== 13 ? 10 + player.singularityCount : 1; // TODO: Implement the shop upgrade levels here
+            const maxInc = player.shopUpgrades.instantChallenge2 > 0 ? player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) :
+                (player.currentChallenge.ascension !== 13 && player.shopUpgrades.instantChallenge > 0 ? 10 : 1); // TODO: Implement the shop upgrade levels here
             let counter = 0;
             let comp = player.challengecompletions[q];
             while (counter < maxInc) {
@@ -2972,7 +3006,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.currentChallenge.transcension = 0;
         }
         challengeDisplay(a, true)
-        reset('ascensionChallenge')
+        if (player.shopUpgrades.instantChallenge2 === 0 || manual) {
+            reset('ascensionChallenge')
+        }
 
         if (player.challengecompletions[a] > player.highestchallengecompletions[a]) {
             player.highestchallengecompletions[a] += 1;
@@ -3336,8 +3372,11 @@ export const updateAll = (): void => {
     G['optimalObtainiumTimer'] = 3600 + 120 * player.shopUpgrades.obtainiumEX;
     autoBuyAnts()
 
-    if (player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0) {
+    if (player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 && !player.currentChallenge.ascension) {
         if (player.autoAscendMode === 'c10Completions' && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
+            reset('ascension', true)
+        }
+        if (player.autoAscendMode === 'realAscensionTime' && player.challengecompletions[10] >= 1 && player.ascensionCounterRealReal >= Math.max(1, player.autoAscendThreshold)) {
             reset('ascension', true)
         }
     }
@@ -3440,6 +3479,7 @@ function tack(dt: number) {
         addTimers('ascension', dt)
         addTimers('quarks', dt)
         addTimers('goldenQuarks', dt)
+        addTimers('singularity', dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
         if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {
@@ -3571,7 +3611,7 @@ function tack(dt: number) {
             }
         }
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
-            if (player.toggles[27] === true && player.researches[46] > 0.5 && G['reincarnationPointGain'].gte(player.reincarnationPoints.times(Decimal.pow(10, player.reincarnationamount))) && player.transcendShards.gte(1e300) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
+            if (player.toggles[27] === true && player.researches[46] > 0.5 && G['reincarnationPointGain'].gte(player.reincarnationPoints.add(1).times(Decimal.pow(10, player.reincarnationamount))) && player.transcendShards.gte(1e300) && player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) {
                 resetachievementcheck(3);
                 reset('reincarnation', true)
             }
