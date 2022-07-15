@@ -259,18 +259,6 @@ export class HepteractCraft {
     toggleAutomatic(newValue?: boolean): Promise<void> | HepteractCraft {
         const HTML = DOMCacheGetOrSet(`${this.HTML_STRING}HepteractAuto`);
 
-        if (!this.UNLOCKED && bool === undefined) {
-            return Alert('You do not have this as an unlocked craft. Automation is therefore not possible.')
-        }
-        const HTML = DOMCacheGetOrSet(`${this.HTML_STRING}HepteractAuto`)
-
-        this.AUTO = bool ?? !this.AUTO
-
-        if (bool === undefined) {
-            G['autoHepteractCount'] += (this.AUTO ? 1 : -1)
-        }
-        // Math.pow(-1, bool) also works here, but c'mon. - Platonic
-        // When newValue is empty, current value is toggled
         this.AUTO = newValue ?? !this.AUTO;
 
         HTML.textContent = `Auto ${this.AUTO ? 'ON' : 'OFF'}`;
