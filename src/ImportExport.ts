@@ -225,7 +225,7 @@ export const exportSynergism = async () => {
 }
 
 export const errorGame = async () => {
-    await Alert('sorry. You may be using an older version of your browser, current save data may be incorrect, or some problem may prevent from starting the game\nThis button just deletes the save data, but Synergism will work\nThen import the exported save data have\nCan report the console in error on Discord Synergism channel');
+    
     await Alert('The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it');
     await resetGame();
 }
