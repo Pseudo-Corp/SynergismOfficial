@@ -26,7 +26,7 @@ export const updateSingularityPenalties = (): void => {
 }
 
 function getSingularityOridnalText(singularityCount: number): string {
-    return 'You are in the <span style="color: gold">' + toOrdinal(singularityCount) + ' singularity</span>';
+    return 'You are in the <span style="color: gold">' + toOrdinal(singularityCount) + ' Singularity</span>';
 }
 
 export interface ISingularityData extends IUpgradeData {
@@ -694,13 +694,45 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Super Start',
-        levels: [2, 3, 4, 7],
+        name: 'Golden coins',
+        levels: [1],
+        description: () => {
+            return 'Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity'
+        }
+    },
+    {
+        name: 'Generous Orbs',
+        levels: [1, 2, 5, 10, 15, 20, 25, 30, 35],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[3]) {
+            const overfluxBonus = {
+                8: 700, // How to read: levels[8] -> Sing 35 gives 700%
+                7: 500,
+                6: 415,
+                5: 360,
+                4: 315,
+                3: 280,
+                2: 255,
+                1: 230
+            } as const;
+
+            for (let i = 8; i > 0; i--) {
+                if (n >= levels[i]) {
+                    return `Overflux Orbs effect on opening Cubes for Quarks can now go up to ${overfluxBonus[i as keyof typeof overfluxBonus]}%`
+                }
+            }
+            return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 215%'
+        }
+    },
+    {
+        name: 'Super Start',
+        levels: [2, 3, 4, 7, 15],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[4]) {
+                return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 2.22e2222 Particles and 500 Obtainium'
+            } else if (n >= levels[3]) {
                 return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e100 Particles and 500 Obtainium'
             } else if (n >= levels[2]) {
-                return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 10 Particles and 500 Obtainium'
+                return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e16 Particles and 500 Obtainium'
             } else if (n >= levels[1]) {
                 return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos and 10 Particles'
             } else {
@@ -730,7 +762,7 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [5, 20],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'You always keep 100 free levels of each Shop upgrade in the first row'
+                return 'You permanently keep 100 free levels of each Shop upgrade in the first row'
             } else {
                 return 'You start each Singularity with 10 free levels of each Shop upgrade in the first row'
             }
@@ -740,7 +772,7 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'A particular improvement',
         levels: [5],
         description: () => {
-            return 'You start each Ascension with Autobuyers for Particle buildings'
+            return 'You start each Ascension with Autobuyers for Particle buildings unlocked'
         }
     },
     {
@@ -766,11 +798,11 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [10, 15, 25],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
-                return 'You always keep Ant autobuyers and start each Ascension with a Tier 8 Ant'
+                return 'You permanently keep Ant autobuyers and start each Ascension with a Tier 8 Ant'
             } else if (n >= levels[1]) {
-                return 'You always keep Ant autobuyers and start each Ascension with a Tier 5 Ant'
+                return 'You permanently keep Ant autobuyers and start each Ascension with a Tier 5 Ant'
             } else {
-                return 'You always keep Ant autobuyers and start each Ascension with a Tier 1 Ant'
+                return 'You permanently keep Ant autobuyers and start each Ascension with a Tier 1 Ant'
             }
         }
     },
@@ -778,7 +810,7 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Research for Dummies',
         levels: [11],
         description: () => {
-            return 'You always keep Auto Research.'
+            return 'You permanently keep Auto Research'
         }
     },
     {
@@ -789,10 +821,21 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Infinite Auto Ascent',
-        levels: [30],
+        name: 'Advanced Runes Autobuyer',
+        levels: [30,50],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'Runes autobuyer will also level up Infinite Ascent AND Antiquities of Ant God'
+            } else {
+                return 'Runes autobuyer will also level up Infinite Ascent'
+            }
+        }
+    },
+    {
+        name: 'Autobuy Talismans Resources',
+        levels: [40],
         description: () => {
-            return 'Runes autobuyer will also level up Infinite Ascent.'
+            return 'Runes autobuyer can also buy Talisman Shards and Fragments'
         }
     }
 ]
@@ -801,7 +844,7 @@ export const updateSingularityPerks = (): void => {
     const singularityCount = player.singularityCount;
     const str = getSingularityOridnalText(singularityCount) +
                 `<br/><br/>Here is the list of Perks you have acquired to compensate the Penalties
-                (Hover for more details. Perks in <span class="newPerk">gold text</span> were added or improved in this singularity)<br/>`
+                (Hover for more details. Perks in <span class="newPerk">gold text</span> were added or improved in this Singularity)<br/>`
                 + getAvailablePerksDescription(singularityCount)
 
     DOMCacheGetOrSet('singularityPerksMultiline').innerHTML = str;
@@ -865,7 +908,7 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
         perksText += '<br/>' + formatPerkDescription(availablePerk, singularityCount);
     }
     if (singularityCountForNextPerk) {
-        perksText += '<br/><br/>You will unlock a whole new Perk in singularity ' + singularityCountForNextPerk;
+        perksText += '<br/><br/>You will unlock a whole new Perk in Singularity ' + singularityCountForNextPerk;
     }
     return perksText;
 }

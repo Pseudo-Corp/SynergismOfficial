@@ -421,11 +421,11 @@ export const toggleauto = () => {
 }
 
 export const toggleResearchBuy = () => {
-    if (G['maxbuyresearch']) {
-        G['maxbuyresearch'] = false;
+    if (player.researchBuyMaxToggle) {
+        player.researchBuyMaxToggle = false;
         DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
     } else {
-        G['maxbuyresearch'] = true;
+        player.researchBuyMaxToggle = true;
         DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
     }
 }
@@ -470,12 +470,15 @@ export const toggleAutoSacrifice = (index: number) => {
         if (player.autoSacrificeToggle) {
             player.autoSacrificeToggle = false;
             el.textContent = 'Auto Runes: OFF';
-            DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid red'
+            el.style.border = '2px solid red'
             player.autoSacrifice = 0;
         } else {
             player.autoSacrificeToggle = true;
+            player.saveOfferingToggle = false;
             el.textContent = 'Auto Runes: ON'
-            DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid green'
+            el.style.border = '2px solid green'
+            DOMCacheGetOrSet('saveOffToggle').textContent = 'Save Offerings [OFF]'
+            DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
         }
     } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
         player.autoSacrifice = index;
@@ -484,6 +487,21 @@ export const toggleAutoSacrifice = (index: number) => {
         DOMCacheGetOrSet('rune' + i).style.backgroundColor = player.autoSacrifice === i ? 'orange' : '#171717';
     }
     calculateRuneLevels();
+}
+
+export const toggleAutoBuyFragment = () => {
+    const el = DOMCacheGetOrSet('toggleautoBuyFragments')
+    if (player.autoBuyFragment) {
+        el.textContent = 'Auto Buy: OFF'
+        el.style.border = '2px solid orange'
+        el.style.color = 'white'
+    } else {
+        el.textContent = 'Auto Buy: ON'
+        el.style.border = '2px solid white'
+        el.style.color = 'orange'
+    }
+
+    player.autoBuyFragment = !player.autoBuyFragment
 }
 
 export const toggleBuildingScreen = (input: BuildingSubtab) => {
@@ -568,6 +586,26 @@ export const toggleautoenhance = () => {
     }
 
     player.autoEnhanceToggle = !player.autoEnhanceToggle;
+}
+
+export const toggleSaveOff = () => {
+    const el = DOMCacheGetOrSet('saveOffToggle')
+    const et = DOMCacheGetOrSet('toggleautosacrifice')
+    if (player.saveOfferingToggle) {
+        player.autoSacrificeToggle = true
+        el.textContent = 'Save Offerings [OFF]'
+        el.style.color = 'white'
+        et.textContent = 'Auto Runes: ON'
+        et.style.border = '2px solid green'
+    } else {
+        player.autoSacrificeToggle = false
+        el.textContent = 'Save Offerings [ON]'
+        el.style.color = 'yellow'
+        et.textContent = 'Auto Runes: OFF'
+        et.style.border = '2px solid red'
+    }
+
+    player.saveOfferingToggle = !player.saveOfferingToggle
 }
 
 export const toggleSingularityScreen = (index: number) => {
@@ -724,6 +762,15 @@ export const toggleBuyMaxShop = () => {
     player.shopBuyMaxToggle = !player.shopBuyMaxToggle;
 }
 
+export const toggleHideShop = () => {
+    const el = DOMCacheGetOrSet('toggleHideShop')
+    el.textContent = player.shopHideToggle
+        ? 'Hide Maxed: OFF'
+        : 'Hide Maxed: ON';
+
+    player.shopHideToggle = !player.shopHideToggle;
+}
+
 export const toggleAntMaxBuy = () => {
     const el = DOMCacheGetOrSet('toggleAntMax');
     el.textContent = player.antMax
@@ -757,11 +804,11 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
 
 export const toggleMaxBuyCube = () => {
     const el = DOMCacheGetOrSet('toggleCubeBuy')
-    if (G['buyMaxCubeUpgrades']) {
-        G['buyMaxCubeUpgrades'] = false;
+    if (player.cubeUpgradesBuyMaxToggle) {
+        player.cubeUpgradesBuyMaxToggle = false;
         el.textContent = 'Upgrade: 1 Level wow'
     } else {
-        G['buyMaxCubeUpgrades'] = true;
+        player.cubeUpgradesBuyMaxToggle = true;
         el.textContent = 'Upgrade: MAX [if possible wow]'
     }
 }
@@ -841,17 +888,28 @@ export const toggleAutoChallengeModeText = (i: string) => {
     a.textContent = 'MODE: ' + i
 }
 
-export const toggleAutoAscend = () => {
-    const a = DOMCacheGetOrSet('ascensionAutoEnable');
-    if (player.autoAscend) {
-        a.style.border = '2px solid red'
-        a.textContent = 'Auto Ascend [OFF]';
-    } else {
-        a.style.border = '2px solid green'
-        a.textContent = 'Auto Ascend [ON]';
-    }
+export const toggleAutoAscend = (mode = 0) => {
+    if (mode === 0) {
+        const a = DOMCacheGetOrSet('ascensionAutoEnable');
+        if (player.autoAscend) {
+            a.style.border = '2px solid red'
+            a.textContent = 'Auto Ascend [OFF]'
+        } else {
+            a.style.border = '2px solid green'
+            a.textContent = 'Auto Ascend [ON]'
+        }
 
-    player.autoAscend = !player.autoAscend;
+        player.autoAscend = !player.autoAscend;
+    } else if (mode === 1 && player.singularityCount >= 25) {
+        const a = DOMCacheGetOrSet('ascensionAutoToggle');
+        if (player.autoAscendMode === 'c10Completions') {
+            player.autoAscendMode = 'realAscensionTime'
+            a.textContent = 'Mode: Real time'
+        } else {
+            player.autoAscendMode = 'c10Completions'
+            a.textContent = 'Mode: C10 Completions'
+        }
+    }
 }
 
 export const updateRuneBlessingBuyAmount = (i: number) => {
@@ -928,6 +986,9 @@ export const toggleAscStatPerSecond = (id: number) => {
     }
 
     el.textContent = player.ascStatToggles[id] ? '/s' : '';
+    if (id === 6) {
+        el.textContent = '';
+    }
     player.ascStatToggles[id] = !player.ascStatToggles[id];
 }
 
