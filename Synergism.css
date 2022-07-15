@@ -673,7 +673,11 @@ nav li:hover {
 
 #savegame:hover,
 #deleteGame:hover {
-    background-color: #333 !important;
+    background-color: #333;
+}
+
+#savegame[disabled] {
+    background-color: crimson;
 }
 
 #exportgame {
