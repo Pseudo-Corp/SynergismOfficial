@@ -300,6 +300,7 @@ button:focus {
     grid-template-columns: auto 6em 1em 6em auto;
     grid-template-rows: auto 2em 0.5em;
     grid-template-areas: "txt txt txt txt txt" ". btn . btn2 ." ". . . . .";
+    outline: none;
 }
 
 #alert {
@@ -308,6 +309,7 @@ button:focus {
     grid-template-columns: auto 8em auto;
     grid-template-rows: auto 2em 0.5em;
     grid-template-areas: "txt txt txt" ". btn ." ". . .";
+    outline: none;
 }
 
 #prompt {
@@ -316,6 +318,7 @@ button:focus {
     grid-template-columns: auto 6em 2em 6em auto;
     grid-template-rows: auto 0.5em 2em 1em 2em 0.5em;
     grid-template-areas: "txt txt txt txt txt" ". . . . ." ". lbl lbl lbl ." ". . . . ." ". btn . btn2 ." ". . . . .";
+    outline: none;
 }
 
 .confirmBox {
@@ -3109,8 +3112,8 @@ header #obtainiumDisplay {
 
 #singularityTabsToggle {
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    flex-flow: wrap;
     margin: 15px;
     gap: 10px;
 }
@@ -3130,10 +3133,9 @@ header #obtainiumDisplay {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding-bottom: 5px;
-    padding-top: 10px;
+    padding: 10px;
     margin-top: 5px;
-    width: calc(105px * 5);
+    max-width: calc(36px * 14);
     border: 3px solid plum;
 }
 
@@ -3147,12 +3149,10 @@ header #obtainiumDisplay {
 }
 
 #singularityPenaltiesMultiline,
-#singularityPerksMultiline {
-    white-space: pre-line;
-}
-
+#singularityPerksMultiline,
 #testingMultiline {
     white-space: pre-line;
+    margin: 15px 0 0;
 }
 
 .newPerk {
@@ -3603,5 +3603,9 @@ body.flexible #actualShopContainer {
 }
 
 body.flexible #actualShop {
+    width: 95%;
+}
+
+body.flexible #actualSingularityUpgradeContainer {
     width: 95%;
 }

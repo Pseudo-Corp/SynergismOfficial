@@ -113,8 +113,8 @@ export const toggleChallenges = (i: number, auto = false) => {
             resetrepeat('reincarnationChallenge');
         }
     }
-    if (player.challengecompletions[10] > 0) {
-        if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
+    if (i >= 11 && ((!auto && !player.toggles[31]) || player.challengecompletions[10] > 0)) {
+        if ((!auto && !player.toggles[31]) || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0)) {
             player.currentChallenge.ascension = i;
             reset('ascensionChallenge', false, 'enterChallenge');
 
@@ -857,7 +857,7 @@ export const updateAutoChallenge = (i: number) => {
 export const toggleAutoChallengesIgnore = (i: number) => {
     const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore');
 
-    if (i >= 10 || player.autoChallengeToggles[i]) {
+    if (i >= 11 || player.autoChallengeToggles[i]) {
         el.style.border = '2px solid red';
         el.textContent = 'Automatically Run Chal.' + i + ' [OFF]'
     } else {
@@ -865,7 +865,7 @@ export const toggleAutoChallengesIgnore = (i: number) => {
         el.textContent = 'Automatically Run Chal.' + i + ' [ON]'
     }
 
-    player.autoChallengeToggles[i] = i >= 10 ? false : !player.autoChallengeToggles[i];
+    player.autoChallengeToggles[i] = i >= 11 ? false : !player.autoChallengeToggles[i];
 }
 
 export const toggleAutoChallengeRun = () => {

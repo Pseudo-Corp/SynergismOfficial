@@ -878,20 +878,18 @@ export const singularity = async (): Promise<void> => {
 
     // reset the rune instantly to hopefully prevent a double singularity
     player.runelevels[6] = 0;
-    player.goldenQuarks += calculateGoldenQuarkGain();
-    player.singularityCount += 1;
+    player.runeexp[6] = 0;
+
+    // do not singularity reward if an error is thrown
+    const goldenQuarkReward = calculateGoldenQuarkGain();
+    const singularityReward = 1;
+
     await resetShopUpgrades(true);
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
     }) as Player;
-    //Reset Displays
-    toggleTabs('buildings');
-    toggleSubTab(1, 0);
-    toggleSubTab(4, 0); // Set 'runes' subtab back to 'runes' tab
-    toggleSubTab(8, 0); // Set 'cube tribues' subtab back to 'cubes' tab
-    toggleSubTab(9, 0); // set 'corruption main'
-    toggleSubTab(-1, 0); // set 'statistics main'
 
+    // Settings that are not inherited here will be reset with singularity
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;
     hold.shopUpgrades = player.shopUpgrades;
@@ -935,6 +933,7 @@ export const singularity = async (): Promise<void> => {
     hold.talismanFive = player.talismanFive
     hold.talismanSix = player.talismanSix
     hold.talismanSeven = player.talismanSeven
+    hold.buyTalismanShardPercent = player.buyTalismanShardPercent
     hold.antMax = player.antMax
     hold.autoAntSacrifice = player.autoAntSacrifice
     hold.autoAntSacrificeMode = player.autoAntSacrificeMode
@@ -967,12 +966,26 @@ export const singularity = async (): Promise<void> => {
         }
     }
 
+    //Reset Displays
+    toggleTabs('buildings');
+    toggleSubTab(1, 0);
+    toggleSubTab(4, 0); // Set 'runes' subtab back to 'runes' tab
+    toggleSubTab(8, 0); // Set 'cube tribues' subtab back to 'cubes' tab
+    toggleSubTab(9, 0); // set 'corruption main'
+    toggleSubTab(-1, 0); // set 'statistics main'
+
     //Import Game
     await importSynergism(btoa(JSON.stringify(hold)), true);
 
+    // TODO: Do not enable data that has never used an event code
     player.codes.set(39, true);
     player.codes.set(40, true);
     player.codes.set(41, true);
+
+    // note that player.singularityCount has not increased before this point
+    player.goldenQuarks += goldenQuarkReward;
+    player.singularityCount += singularityReward;
+
     updateSingularityMilestoneAwards();
 }
 

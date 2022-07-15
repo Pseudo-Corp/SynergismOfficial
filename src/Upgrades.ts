@@ -377,7 +377,7 @@ export const crystalupgradedescriptions = (i: number) => {
 
     const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)))
     DOMCacheGetOrSet('crystalupgradedescription').textContent = returnCrystalUpgDesc(i)
-    DOMCacheGetOrSet('crystalupgradeslevel').textContent = 'Level: ' + p;
+    DOMCacheGetOrSet('crystalupgradeslevel').textContent = 'Level: ' + format(p, 0, true);
     DOMCacheGetOrSet('crystalupgradescost').textContent = 'Cost: ' + format(q) + ' crystals'
 }
 

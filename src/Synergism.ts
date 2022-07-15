@@ -782,7 +782,7 @@ const loadSynergy = async () => {
         ? JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>
         : null;
 
-    if (testing) {
+    if (!testing) {
         Object.defineProperty(window, 'player', {
             value: player
         });
@@ -2836,9 +2836,16 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             const reqCheck = (comp: number) => player.coinsThisTranscension.gte(challengeRequirement(q, comp, q));
 
             if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-                const maxInc = player.shopUpgrades.instantChallenge2 > 0 && player.currentChallenge.ascension !== 13 ?
-                    player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) :
-                    (player.currentChallenge.ascension !== 13 && player.shopUpgrades.instantChallenge > 0 ? 10 : 1); // TODO: Implement the shop upgrade levels here
+                let maxInc = 1;
+                if (player.shopUpgrades.instantChallenge > 0) {
+                    maxInc = 10;
+                }
+                if (player.shopUpgrades.instantChallenge2 > 0) {
+                    maxInc += player.singularityCount;
+                }
+                if (player.currentChallenge.ascension === 13) {
+                    maxInc = 1;
+                }
                 let counter = 0;
                 let comp = player.challengecompletions[q];
                 while (counter < maxInc) {
@@ -2898,8 +2905,16 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
         }
         if (reqCheck(player.challengecompletions[q]) && player.challengecompletions[q] < maxCompletions) {
-            const maxInc = player.shopUpgrades.instantChallenge2 > 0 ? player.singularityCount + (player.shopUpgrades.instantChallenge > 0 ? 10 : 1) :
-                (player.currentChallenge.ascension !== 13 && player.shopUpgrades.instantChallenge > 0 ? 10 : 1); // TODO: Implement the shop upgrade levels here
+            let maxInc = 1;
+            if (player.shopUpgrades.instantChallenge > 0) {
+                maxInc = 10;
+            }
+            if (player.shopUpgrades.instantChallenge2 > 0) {
+                maxInc += player.singularityCount;
+            }
+            if (player.currentChallenge.ascension === 13) {
+                maxInc = 1;
+            }
             let counter = 0;
             let comp = player.challengecompletions[q];
             while (counter < maxInc) {

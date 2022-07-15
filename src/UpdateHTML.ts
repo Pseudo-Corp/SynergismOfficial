@@ -920,7 +920,7 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
     confWrap.style.display = 'block';
     overlay.style.display = 'block';
     popup.querySelector('p')!.textContent = text;
-    conf.focus();
+    popup.focus();
 
     // IF you clean up the typing here also clean up PromptCB
     const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
@@ -969,7 +969,7 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
     alertWrap.style.display = 'block';
     overlay.style.display = 'block';
     popup.querySelector('p')!.textContent = text;
-    conf.focus();
+    popup.focus();
 
     const listener = () => {
         ok.removeEventListener('click', listener);

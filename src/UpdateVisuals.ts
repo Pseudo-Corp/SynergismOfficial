@@ -47,11 +47,11 @@ export const visualUpdateBuildings = () => {
         }
 
         DOMCacheGetOrSet('buildtext11').textContent = 'Accelerators: ' + format(player.acceleratorBought, 0, true) + ' [+' + format(G['freeAccelerator'], 0, true) + ']'
-        DOMCacheGetOrSet('buildtext12').textContent = 'Acceleration Power: ' + ((G['acceleratorPower'] - 1) * (100)).toPrecision(4) + '% || Acceleration Multiplier: ' + format(G['acceleratorEffect'], 2) + 'x'
+        DOMCacheGetOrSet('buildtext12').textContent = 'Acceleration Power: ' + format((G['acceleratorPower'] - 1) * 100, 2) + '% || Acceleration Multiplier: ' + format(G['acceleratorEffect'], 2) + 'x'
         DOMCacheGetOrSet('buildtext13').textContent = 'Multipliers: ' + format(player.multiplierBought, 0, true) + ' [+' + format(G['freeMultiplier'], 0, true) + ']'
-        DOMCacheGetOrSet('buildtext14').textContent = 'Multiplier Power: ' + G['multiplierPower'].toPrecision(4) + 'x || Multiplier: ' + format(G['multiplierEffect'], 2) + 'x'
+        DOMCacheGetOrSet('buildtext14').textContent = 'Multiplier Power: ' + format(G['multiplierPower'], 2) + 'x || Multiplier: ' + format(G['multiplierEffect'], 2) + 'x'
         DOMCacheGetOrSet('buildtext15').textContent = 'Accelerator Boost: ' + format(player.acceleratorBoostBought, 0, true) + ' [+' + format(G['freeAcceleratorBoost'], 0, false) + ']'
-        DOMCacheGetOrSet('buildtext16').textContent = 'Reset Diamonds and Prestige Upgrades, but add ' + (G['tuSevenMulti'] * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', player.challengecompletions[2]) / 100)).toPrecision(4) + '% Acceleration Power and 5 free Accelerators.'
+        DOMCacheGetOrSet('buildtext16').textContent = 'Reset Diamonds and Prestige Upgrades, but add ' + format(G['tuSevenMulti'] * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', player.challengecompletions[2]) / 100), 2) + '% Acceleration Power and 5 free Accelerators.'
         DOMCacheGetOrSet('buyaccelerator').textContent = 'Cost: ' + format(player.acceleratorCost) + ' coins.'
         DOMCacheGetOrSet('buymultiplier').textContent = 'Cost: ' + format(player.multiplierCost) + ' coins.'
         DOMCacheGetOrSet('buyacceleratorboost').textContent = 'Cost: ' + format(player.acceleratorBoostCost) + ' Diamonds.'
@@ -135,7 +135,7 @@ export const visualUpdateBuildings = () => {
                 `Cost: ${format(player[`${ith}CostParticles` as const], 2)} Particles`;
         }
 
-        DOMCacheGetOrSet('reincarnationshardinfo').textContent = 'You have ' + format(player.reincarnationShards, 2) + ' Atoms, providing ' + G['buildingPower'].toPrecision(4) + ' Building Power. Multiplier to Coin Production: ' + format(G['reincarnationMultiplier'])
+        DOMCacheGetOrSet('reincarnationshardinfo').textContent = 'You have ' + format(player.reincarnationShards, 2) + ' Atoms, providing ' + format(G['buildingPower'], 4) + ' Building Power. Multiplier to Coin Production: ' + format(G['reincarnationMultiplier'])
         DOMCacheGetOrSet('reincarnationCrystalInfo').textContent = 'Thanks to Research 2x14, you also multiply Crystal production by ' + format(Decimal.pow(G['reincarnationMultiplier'], 1 / 50), 3, false)
         DOMCacheGetOrSet('reincarnationMythosInfo').textContent = 'Thanks to Research 2x15, you also multiply Mythos Shard production by ' + format(Decimal.pow(G['reincarnationMultiplier'], 1 / 250), 3, false)
 
@@ -263,7 +263,7 @@ export const visualUpdateRunes = () => {
         const subtract = [0, 0, 0, 1, 0, 0]
         for (let i = 1; i <= 5; i++) {
             spiritMultiplierArray[i] *= (calculateCorruptionPoints() / 400)
-            DOMCacheGetOrSet(`runeSpiritLevel${i}Value`).textContent = format(player.runeSpiritLevels[i], 0, false)
+            DOMCacheGetOrSet(`runeSpiritLevel${i}Value`).textContent = format(player.runeSpiritLevels[i])
             DOMCacheGetOrSet(`runeSpiritPower${i}Value1`).textContent = format(G['runeSpirits'][i])
             const levelsPurchasable = calculateSummationLinear(player.runeSpiritLevels[i], G['spiritBaseCost'], player.runeshards, player.runeSpiritBuyAmount)[0] - player.runeSpiritLevels[i]
             levelsPurchasable > 0
@@ -541,7 +541,7 @@ export const visualUpdateSettings = () => {
 }
 
 export const visualUpdateSingularity = () => {
-    if (G['currentTab'] !== 'singularity') {
+    if (G['currentTab'] !== 'singularity' || player.subtabNumber !== 0) {
         return
     }
     DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
@@ -551,7 +551,7 @@ export const visualUpdateShop = () => {
     if (G['currentTab'] !== 'shop') {
         return
     }
-    DOMCacheGetOrSet('quarkamount').textContent = 'You have ' + format(player.worlds) + ' Quarks!'
+    DOMCacheGetOrSet('quarkamount').textContent = 'You have ' + format(player.worlds, 0, true) + ' Quarks!'
     DOMCacheGetOrSet('offeringpotionowned').textContent = 'Own: ' + format(player.shopUpgrades.offeringPotion)
     DOMCacheGetOrSet('obtainiumpotionowned').textContent = 'Own: ' + format(player.shopUpgrades.obtainiumPotion)
 
@@ -578,7 +578,7 @@ export const visualUpdateShop = () => {
             if (!player.shopBuyMaxToggle) {
                 DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : 'Upgrade for ' + format(getShopCosts(key)) + ' Quarks';
             } else {
-                DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : '+' + format(metaData.levelCanBuy - player.shopUpgrades[key], 0, true) + ' for ' + format(metaData.cost, 0, true) + ' Quarks';
+                DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : '+' + format(metaData.levelCanBuy - player.shopUpgrades[key], 0, true) + ' for ' + format(metaData.cost) + ' Quarks';
             }
 
             const shopUnlock1 = document.getElementsByClassName('chal8Shop') as HTMLCollectionOf<HTMLElement>;
@@ -591,7 +591,7 @@ export const visualUpdateShop = () => {
             const shopUnlock8 = document.getElementsByClassName('hepteractsShop') as HTMLCollectionOf<HTMLElement>;
             const singularityShopItems = document.getElementsByClassName('singularityShopUnlock') as HTMLCollectionOf<HTMLElement>;
             const singularityShopItems2 = document.getElementsByClassName('singularityShopUnlock2') as HTMLCollectionOf<HTMLElement>;
-            if (player.shopHideToggle && player.shopUpgrades[key] === shopItem.maxLevel && !shopData[key].refundable) {
+            if (player.shopHideToggle && player.shopUpgrades[key] >= shopItem.maxLevel && !shopData[key].refundable) {
                 if (player.singularityCount >= 20) {
                     shopData.offeringAuto.refundable = false;
                     shopData.offeringEX.refundable = false;
@@ -608,7 +608,7 @@ export const visualUpdateShop = () => {
                     shopData.cashGrab.refundable = true;
                 }
                 DOMCacheGetOrSet(`${key}Hide`).style.display = 'none';
-            } else if (player.shopHideToggle && (player.shopUpgrades[key] != shopItem.maxLevel || shopData[key].refundable)) {
+            } else if (player.shopHideToggle && (player.shopUpgrades[key] < shopItem.maxLevel || shopData[key].refundable)) {
                 DOMCacheGetOrSet(`${key}Hide`).style.display = 'block'; //This checks if you have something you are not supposed to have or supposed to.
                 for (const i of Array.from(shopUnlock1)) {
                     if (i.style.display === 'block' && player.achievements[127] != 1) {
