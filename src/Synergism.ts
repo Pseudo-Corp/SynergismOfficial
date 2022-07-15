@@ -3010,7 +3010,11 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
     if (i === 'singularity') {
         if (player.runelevels[6] === 0) {
-            return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
+            if (player.singularityCount > 0) {
+                return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
+            } else {
+                return
+            }
         }
 
         let confirmed = false;

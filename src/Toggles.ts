@@ -899,7 +899,7 @@ export const toggleAutoAscend = (mode = 0) => {
         }
 
         player.autoAscend = !player.autoAscend;
-    } else if (mode === 1 && player.singularityCount >= 25) {
+    } else if (mode === 1) {
         const a = DOMCacheGetOrSet('ascensionAutoToggle');
         if (player.autoAscendMode === 'c10Completions') {
             player.autoAscendMode = 'realAscensionTime'

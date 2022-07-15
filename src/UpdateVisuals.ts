@@ -602,15 +602,15 @@ export const visualUpdateShop = () => {
                     shopData.cashGrab.refundable = true;
                 }
                 DOMCacheGetOrSet(`${key}Hide`).style.display = 'none';
-            } else if (player.shopHideToggle && (player.shopUpgrades[key] != shopItem.maxLevel || shopData[key].refundable)) {
+            } else if (player.shopHideToggle && (player.shopUpgrades[key] !== shopItem.maxLevel || shopData[key].refundable)) {
                 DOMCacheGetOrSet(`${key}Hide`).style.display = 'block'; //This checks if you have something you are not supposed to have or supposed to.
                 for (const i of Array.from(shopUnlock1)) {
-                    if (i.style.display === 'block' && player.achievements[127] != 1) {
+                    if (i.style.display === 'block' && player.achievements[127] !== 1) {
                         i.style.display = 'none';
                     }
                 }
                 for (const i of Array.from(shopUnlock2)) {
-                    if (i.style.display === 'block' && player.achievements[134] != 1) {
+                    if (i.style.display === 'block' && player.achievements[134] !== 1) {
                         i.style.display = 'none';
                     }
                 }
