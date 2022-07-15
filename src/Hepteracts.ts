@@ -289,9 +289,14 @@ export class HepteractCraft {
         let amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft);
         let amountCrafted = 0
         if (amountToCraft >= this.CAP - this.BAL) {
-            this.BAL = this.CAP
             amountToCraft -= (this.CAP - this.BAL)
             amountCrafted += (this.CAP - this.BAL)
+            this.BAL = this.CAP
+            this.CAP *= expandMultiplier
+        } else {
+            amountToCraft = 0
+            amountCrafted = amountToCraft
+            this.BAL += amountToCraft
         }
 
         while (amountToCraft >= this.CAP) {
@@ -300,9 +305,10 @@ export class HepteractCraft {
             this.BAL = this.CAP
             this.CAP *= expandMultiplier
         }
-
-        amountCrafted += Math.min(this.CAP - this.BAL, amountToCraft)
-        this.BAL = Math.min(this.CAP, this.BAL + amountToCraft)
+        if (amountToCraft >= this.CAP / 2) {
+            amountCrafted += amountToCraft
+            this.BAL = amountToCraft
+        }
 
         for (const item in this.OTHER_CONVERSIONS) {
             if (item == 'worlds') {
