@@ -5,7 +5,7 @@ import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAccel
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { autoResearchEnabled } from './Research';
-import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateSingularity, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
+import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateSingularity, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions, updateAutoHeptRatiosDisplay } from './UpdateVisuals';
 import { getMaxChallenges } from './Challenges';
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -204,7 +204,7 @@ export const revealStuff = () => {
     }
 
     visualUpdateShop();
-
+    updateAutoHeptRatiosDisplay();
     const hepts = DOMCacheGetOrSet('corruptionHepteracts');
     hepts.style.display = (player.achievements[255] > 0) ? 'block' : 'none';
 

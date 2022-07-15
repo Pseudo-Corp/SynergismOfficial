@@ -1028,7 +1028,7 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
 
 export const updateAutoChronosRatio = async(): Promise<void> => {
     const amount = await Prompt(
-        'Enter an integer to set chronos hepteract autocraft ratio. '
+        'Enter a positive non-zero integer to set chronos hepteract autocraft ratio. '
     );
     if (amount === null) {
         if (player.toggles[35]) {
@@ -1040,6 +1040,8 @@ export const updateAutoChronosRatio = async(): Promise<void> => {
     const ratio = parseInt(amount)
     if (Number.isNaN(ratio) || !Number.isFinite(ratio) || !Number.isInteger(ratio)) {
         return Alert('Value must be a finite, non-decimal number!');
+    } else if (ratio <= 0) {
+        return Alert('Value must be greater than 0!');
     } else if (ratio === player.hepteractAutoCraftRatios.chronos && player.toggles[35]) {
         return Alert(`Your chronos hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.chronos}.`)
     }
@@ -1052,7 +1054,7 @@ export const updateAutoChronosRatio = async(): Promise<void> => {
 
 export const updateAutoHyperrealismRatio = async(): Promise<void> => {
     const amount = await Prompt(
-        'Enter an integer to set hyperrealism hepteract autocraft ratio. '
+        'Enter a positive non-zero integer to set hyperrealism hepteract autocraft ratio. '
     );
     if (amount === null) {
         if (player.toggles[35]) {
@@ -1064,6 +1066,8 @@ export const updateAutoHyperrealismRatio = async(): Promise<void> => {
     const ratio = parseInt(amount)
     if (Number.isNaN(ratio) || !Number.isFinite(ratio) || !Number.isInteger(ratio)) {
         return Alert('Value must be a finite, non-decimal number!');
+    } else if (ratio <= 0) {
+        return Alert('Value must be greater than 0!');
     } else if (ratio === player.hepteractAutoCraftRatios.hyperrealism && player.toggles[35]) {
         return Alert(`Your hyperrealism hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.hyperrealism}.`)
     }
@@ -1076,7 +1080,7 @@ export const updateAutoHyperrealismRatio = async(): Promise<void> => {
 
 export const updateAutoQuarkRatio = async(): Promise<void> => {
     const amount = await Prompt(
-        'Enter an integer to set quark hepteract autocraft ratio. '
+        'Enter a positive non-zero integer to set quark hepteract autocraft ratio. '
     );
     if (amount === null) {
         if (player.toggles[35]) {
@@ -1088,6 +1092,8 @@ export const updateAutoQuarkRatio = async(): Promise<void> => {
     const ratio = parseInt(amount)
     if (Number.isNaN(ratio) || !Number.isFinite(ratio) || !Number.isInteger(ratio)) {
         return Alert('Value must be a finite, non-decimal number!');
+    } else if (ratio <= 0) {
+        return Alert('Value must be greater than 0!');
     } else if (ratio === player.hepteractAutoCraftRatios.quark && player.toggles[35]) {
         return Alert(`Your quark hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.quark}.`)
     }
@@ -1100,7 +1106,7 @@ export const updateAutoQuarkRatio = async(): Promise<void> => {
 
 export const updateAutoChallengeRatio = async(): Promise<void> => {
     const amount = await Prompt(
-        'Enter an integer to set challenge hepteract autocraft ratio. '
+        'Enter a positive non-zero integer to set challenge hepteract autocraft ratio. '
     );
     if (amount === null) {
         if (player.toggles[35]) {
@@ -1112,6 +1118,8 @@ export const updateAutoChallengeRatio = async(): Promise<void> => {
     const ratio = parseInt(amount)
     if (Number.isNaN(ratio) || !Number.isFinite(ratio) || !Number.isInteger(ratio)) {
         return Alert('Value must be a finite, non-decimal number!');
+    } else if (ratio <= 0) {
+        return Alert('Value must be greater than 0!');
     } else if (ratio === player.hepteractAutoCraftRatios.challenge && player.toggles[35]) {
         return Alert(`Your challenge hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.challenge}.`)
     }
@@ -1124,7 +1132,7 @@ export const updateAutoChallengeRatio = async(): Promise<void> => {
 
 export const updateAutoAbyssRatio = async(): Promise<void> => {
     const amount = await Prompt(
-        'Enter an integer to set abyss hepteract autocraft ratio. '
+        'Enter a positive non-zero integer to set abyss hepteract autocraft ratio. '
     );
     if (amount === null) {
         if (player.toggles[35]) {
@@ -1136,6 +1144,8 @@ export const updateAutoAbyssRatio = async(): Promise<void> => {
     const ratio = parseInt(amount)
     if (Number.isNaN(ratio) || !Number.isFinite(ratio) || !Number.isInteger(ratio)) {
         return Alert('Value must be a finite, non-decimal number!');
+    } else if (ratio <= 0) {
+        return Alert('Value must be greater than 0!');
     } else if (ratio === player.hepteractAutoCraftRatios.abyss && player.toggles[35]) {
         return Alert(`Your abyss hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.abyss}.`)
     }
@@ -1148,11 +1158,11 @@ export const updateAutoAbyssRatio = async(): Promise<void> => {
 
 export const updateAutoAcceleratorRatio = async(): Promise<void> => {
     const amount = await Prompt(
-        'Enter an integer to set acceleraator hepteract autocraft ratio. '
+        'Enter a positive non-zero integer to set accelerator hepteract autocraft ratio. '
     );
     if (amount === null) {
         if (player.toggles[35]) {
-            return Alert(`Your acceleraator hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.acceleraator}.`);
+            return Alert(`Your accelerator hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.accelerator}.`);
         } else {
             return
         }
@@ -1160,23 +1170,25 @@ export const updateAutoAcceleratorRatio = async(): Promise<void> => {
     const ratio = parseInt(amount)
     if (Number.isNaN(ratio) || !Number.isFinite(ratio) || !Number.isInteger(ratio)) {
         return Alert('Value must be a finite, non-decimal number!');
-    } else if (ratio === player.hepteractAutoCraftRatios.acceleraator && player.toggles[35]) {
-        return Alert(`Your acceleraator hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.acceleraator}.`)
+    } else if (ratio <= 0) {
+        return Alert('Value must be greater than 0!');
+    } else if (ratio === player.hepteractAutoCraftRatios.accelerator && player.toggles[35]) {
+        return Alert(`Your acceleraator hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.accelerator}.`)
     }
-    player.hepteractAutoCraftRatios.acceleraator = ratio
+    player.hepteractAutoCraftRatios.accelerator = ratio
     updateAutoHeptRatiosDisplay();
     if (player.toggles[35]) {
-        return Alert(`Okay. Your new acceleraator hepteract autocraft ratio will be ${player.hepteractAutoCraftRatios.acceleraator}.`)
+        return Alert(`Okay. Your new accelerator hepteract autocraft ratio will be ${player.hepteractAutoCraftRatios.accelerator}.`)
     }
 }
 
 export const updateAutoAcceleratorBoostRatio = async(): Promise<void> => {
     const amount = await Prompt(
-        'Enter an integer to set acceleraator boost hepteract autocraft ratio. '
+        'Enter a positive non-zero integer to set accelerator boost hepteract autocraft ratio. '
     );
     if (amount === null) {
         if (player.toggles[35]) {
-            return Alert(`Your acceleraator boost hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.acceleraatorBoost}.`);
+            return Alert(`Your accelerator boost hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.acceleratorBoost}.`);
         } else {
             return
         }
@@ -1184,19 +1196,21 @@ export const updateAutoAcceleratorBoostRatio = async(): Promise<void> => {
     const ratio = parseInt(amount)
     if (Number.isNaN(ratio) || !Number.isFinite(ratio) || !Number.isInteger(ratio)) {
         return Alert('Value must be a finite, non-decimal number!');
-    } else if (ratio === player.hepteractAutoCraftRatios.acceleraatorBoost && player.toggles[35]) {
-        return Alert(`Your acceleraator boost hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.acceleraatorBoost}.`)
+    } else if (ratio <= 0) {
+        return Alert('Value must be greater than 0!');
+    } else if (ratio === player.hepteractAutoCraftRatios.acceleratorBoost && player.toggles[35]) {
+        return Alert(`Your accelerator boost hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.acceleratorBoost}.`)
     }
-    player.hepteractAutoCraftRatios.acceleraatorBoost = ratio
+    player.hepteractAutoCraftRatios.acceleratorBoost = ratio
     updateAutoHeptRatiosDisplay();
     if (player.toggles[35]) {
-        return Alert(`Okay. Your new acceleraator boost hepteract autocraft ratio will be ${player.hepteractAutoCraftRatios.acceleraatorBoost}.`)
+        return Alert(`Okay. Your new accelerator boost hepteract autocraft ratio will be ${player.hepteractAutoCraftRatios.acceleratorBoost}.`)
     }
 }
 
 export const updateAutoMultiplierRatio = async(): Promise<void> => {
     const amount = await Prompt(
-        'Enter an integer to set multiplier hepteract autocraft ratio. '
+        'Enter a positive non-zero integer to set multiplier hepteract autocraft ratio. '
     );
     if (amount === null) {
         if (player.toggles[35]) {
@@ -1208,6 +1222,8 @@ export const updateAutoMultiplierRatio = async(): Promise<void> => {
     const ratio = parseInt(amount)
     if (Number.isNaN(ratio) || !Number.isFinite(ratio) || !Number.isInteger(ratio)) {
         return Alert('Value must be a finite, non-decimal number!');
+    } else if (ratio <= 0) {
+        return Alert('Value must be greater than 0!');
     } else if (ratio === player.hepteractAutoCraftRatios.multiplier && player.toggles[35]) {
         return Alert(`Your multiplier hepteract autocraft ratio is kept at ${player.hepteractAutoCraftRatios.multiplier}.`)
     }
