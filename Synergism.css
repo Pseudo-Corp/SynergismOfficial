@@ -1840,7 +1840,7 @@ nav li:hover {
 #octeractAmount {
     font-size: 1.2em;
     color: lightseagreen;
-    margin-left: 5px
+    margin-left: 5px;
 }
 
 #consumables {
@@ -3316,7 +3316,8 @@ header #obtainiumDisplay {
     align-items: center;
 }
 
-#actualSingularityUpgradeContainer {
+#actualSingularityUpgradeContainer,
+#octeractUpgradeContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -3336,7 +3337,8 @@ header #obtainiumDisplay {
     white-space: pre-line;
 }
 
-#testingMultiline {
+#testingMultiline,
+#singularityOcteractsMultiline {
     white-space: pre-line;
 }
 

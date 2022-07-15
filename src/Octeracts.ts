@@ -1,9 +1,11 @@
-import { player } from './Synergism';
+import { format, player } from './Synergism';
 import { Alert } from './UpdateHTML';
 import type { IUpgradeData } from './DynamicUpgrade';
 import { DynamicUpgrade } from './DynamicUpgrade';
 import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
 import { productContents, sumContents } from './Utility';
+import type { Player } from './types/Synergism';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 export interface IOcteractData extends IUpgradeData {
     costFormula (level: number, baseCost: number): number
@@ -43,10 +45,10 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
         while (maxPurchasable > 0) {
             const cost = this.getCostTNL();
-            if (player.goldenQuarks < cost) {
+            if (player.wowOcteracts < cost) {
                 break;
             } else {
-                player.goldenQuarks -= cost;
+                player.wowOcteracts -= cost;
                 this.octeractsInvested += cost
                 this.level += 1;
                 purchased += 1;
@@ -61,12 +63,53 @@ export class OcteractUpgrade extends DynamicUpgrade {
         this.updateUpgradeHTML();
     }
 
+    /**
+     * Given an upgrade, give a concise information regarding its data.
+     * @returns A string that details the name, description, level statistic, and next level cost.
+     */
     toString(): string {
-        return 'Not yet implemented!'
+        const costNextLevel = this.getCostTNL();
+        const maxLevel = this.maxLevel === -1
+            ? ''
+            : `/${this.maxLevel}`;
+        const color = this.maxLevel === this.level ? 'plum' : 'white';
+
+        let freeLevelInfo = this.freeLevels > 0 ?
+            `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
+
+        if (this.freeLevels > this.level) {
+            freeLevelInfo = freeLevelInfo + '<span style="color: maroon"> (Softcapped) </span>'
+        }
+
+        return `<span style="color: gold">${this.name}</span>
+                <span style="color: lightblue">${this.description}</span>
+                <span style="color: ${color}"> Level ${this.level}${maxLevel}${freeLevelInfo}</span>
+                <span style="color: gold">${this.getEffect().desc}</span>
+                Cost for next level: ${format(costNextLevel,2,true, true, true)} Octeracts.
+                Spent Octeracts: ${format(this.octeractsInvested, 2, true, true, true)}`
     }
 
-    updateUpgradeHTML(): void {
-        // Not Yet Implemented!
+    public updateUpgradeHTML(): void {
+        DOMCacheGetOrSet('singularityOcteractsMultiline').innerHTML = this.toString()
+    }
+
+}
+
+export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractData> = {
+    octeractGain: {
+        name: 'Octeract Cogenesis',
+        description: 'Have you despised how slow these damn things are? Gain 1% more of them per level! Simple.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
+        },
+        maxLevel: 100,
+        costPerLevel: 1e-9,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.01 * n,
+                desc: `Octeract Gain is increased by ${n}%.`
+            }
+        }
     }
 }
 

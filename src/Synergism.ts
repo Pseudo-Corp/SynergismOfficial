@@ -46,6 +46,7 @@ import localforage from 'localforage';
 import { singularityData, SingularityUpgrade } from './singularity';
 import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
+import { octeractData, OcteractUpgrade } from './Octeracts';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -722,6 +723,11 @@ export const player: Player = {
         singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
         singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5'])
     },
+
+    octeractUpgrades: {
+        octeractGain: new OcteractUpgrade(octeractData['octeractGain'])
+    },
+
     dailyCodeUsed: false,
     hepteractAutoCraftPercentage: 50,
     octeractTimer: 0
@@ -1660,7 +1666,8 @@ export const format = (
     input: Decimal | number | { [Symbol.toPrimitive]: unknown } | null | undefined,
     accuracy = 0,
     long = false,
-    truncate = true
+    truncate = true,
+    fractional = false
 ): string => {
     if (input == null) {
         return '0 [null]';
@@ -1681,7 +1688,7 @@ export const format = (
         return isNaN(input as number) ? '0 [NaN]' : '0 [und.]';
     } else if ( // this case handles numbers less than 1e-6 and greater than 0
         typeof input === 'number' &&
-        input < 1e-3 && // arbitrary number, can be changed
+        input < 1e-12 && // arbitrary number, can be changed
         input > 0 // don't handle negative numbers, probably could be removed
     ) {
         return input.toExponential(accuracy);
@@ -1716,6 +1723,20 @@ export const format = (
     // If the power is less than 12 it's effectively 0
     if (power < -12) {
         return '0';
+    }
+
+    // If the power is negative, then we will want to address that separately.
+    if (power < 0 && !isDecimal(input) && fractional) {
+        if (power <= -9) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 9)}B`
+        }
+        if (power <= -6) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 6)}M`
+        }
+        if (power <= -3) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 3)}K`
+        }
+        return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
     } else if (power < 6 || (long && power < 13)) {
         // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
         // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13

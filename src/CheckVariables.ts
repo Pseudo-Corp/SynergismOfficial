@@ -14,6 +14,8 @@ import { getQuarkInvestment, shopData} from './Shop';
 import type { ISingularityData} from './singularity';
 import { singularityData, SingularityUpgrade } from './singularity';
 import { Globals as G } from './Variables';
+import type { IOcteractData} from './Octeracts';
+import { octeractData, OcteractUpgrade } from './Octeracts';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -279,6 +281,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
         singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
         singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5'])
+    }
+
+    player.octeractUpgrades = {
+        octeractGain: new OcteractUpgrade(octeractData['octeractGain'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
@@ -582,8 +588,31 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                              player.singularityUpgrades[k].costPerLevel / 2
                 if (player.singularityUpgrades[k].maxLevel !== -1 &&
                     player.singularityUpgrades[k].goldenQuarksInvested !== cost) {
-                        player.singularityUpgrades[k].refund()
-                    }
+                    player.singularityUpgrades[k].refund()
+                }
+            }
+        }
+    }
+
+    if (data.octeractUpgrades != null) { // TODO: Make this more DRY -Platonic, July 15 2022
+        for (const item in blankSave.octeractUpgrades) {
+            const k = item as keyof Player['octeractUpgrades'];
+            let updatedData:IOcteractData
+            if (data.octeractUpgrades[k]) {
+                updatedData = {
+                    name: octeractData[k].name,
+                    description: octeractData[k].description,
+                    maxLevel: octeractData[k].maxLevel,
+                    costPerLevel: octeractData[k].costPerLevel,
+                    level: data.octeractUpgrades[k].level,
+                    octeractsInvested: data.octeractUpgrades[k].octeractsInvested,
+                    toggleBuy: data.octeractUpgrades[k].toggleBuy,
+                    effect: octeractData[k].effect,
+                    costFormula: octeractData[k].costFormula,
+                    freeLevels: data.octeractUpgrades[k].freeLevels
+                }
+                player.octeractUpgrades[k] = new OcteractUpgrade(updatedData);
+
             }
         }
     }

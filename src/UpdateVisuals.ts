@@ -528,7 +528,7 @@ export const visualUpdateOcteracts = () => {
     if (G['currentTab'] !== 'singularity') {
         return
     }
-    DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true)
+    DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true, true, true)
     DOMCacheGetOrSet('sPO').textContent = format(1 / octeractGainPerSecond(), 2, true)
 }
 
