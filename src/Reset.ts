@@ -92,7 +92,7 @@ export const resetdetails = (input: resetNames) => {
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['reincarnationPointGain']);
-            resetInfo.textContent = 'Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: ' + format(player.transcendShards) + '/1e300 Mythos Shards || TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
+            resetInfo.textContent = 'Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: ' + format(player.transcendShards) + '/1e300 Mythos Shards || TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
             resetInfo.style.color = 'limegreen';
             break;
         case 'acceleratorBoost':
