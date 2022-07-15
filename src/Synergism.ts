@@ -737,7 +737,7 @@ export const blankSave = Object.assign({}, player, {
 // entering a Singularity.
 let canSave = true;
 
-export const saveSynergy = async (button?: boolean) => {
+export const saveSynergy = async (button?: boolean, element?: HTMLButtonElement) => {
     player.offlinetick = Date.now();
     player.loaded1009 = true;
     player.loaded1009hotfix1 = true;
@@ -755,6 +755,12 @@ export const saveSynergy = async (button?: boolean) => {
     const save = btoa(JSON.stringify(p));
     if (save !== null && canSave) {
         const saveBlob = new Blob([save], { type: 'text/plain' });
+
+        if (element) {
+            element.disabled = true;
+            setTimeout(() => element.disabled = false, 10_000);
+        }
+
         await localforage.setItem<Blob>('Synergysave2', saveBlob);
     }
 

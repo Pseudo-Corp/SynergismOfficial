@@ -575,7 +575,7 @@ export const generateEventHandlers = () => {
     /*Export Files*/ DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
     /*Update name of File*/
     DOMCacheGetOrSet('saveStringInput').addEventListener('blur', e => updateSaveString(e.target as HTMLInputElement));
-    /*Save Game Button*/ DOMCacheGetOrSet('savegame').addEventListener('click', () => saveSynergy(true))
+    /*Save Game Button*/ DOMCacheGetOrSet('savegame').addEventListener('click', ({ target }) => saveSynergy(true, target as HTMLButtonElement))
     /*Delete Save Button*/ DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
     /*Submit Stats [Note: will eventually become obsolete if kong closes]*/ // DOMCacheGetOrSet('submitstats').addEventListener('click', () => submitStats())
     /*Promotion Codes*/ DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
