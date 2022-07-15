@@ -2,7 +2,7 @@ import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
 import { toggleCorruptionLevel } from './Toggles';
 import { getElementById } from './Utility';
-import { Alert, Prompt } from './UpdateHTML';
+import { Alert, Confirm, Prompt } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
 //
@@ -416,22 +416,55 @@ export const updateCorruptionLoadoutNames = () => {
 }
 
 async function smartLoadoutGetExplanation(loadout = 0) {
+    let a = true
     if (loadout === 0) {
-        return Alert('Will automaticly use it if you got 1 completion or more of Challenge 14.')
+        a = await Confirm('Will automatically use it if you got 1 completion or more of Challenge 14. Ant God would recommend 0/4/1/0/4/11/6/12.\nWould you like to try?')
+        if (a) {
+            player.smartLoadouts[1] = [0, 0, 0, 4, 1, 0, 4, 11, 6, 12, 0, 0, 0]
+            smartLoadoutTableUpdate(1)
+        }
     } else if (loadout === 1) {
-        return Alert('Will automaticly use it if you maxed Research 8x25.')
+        a = await Confirm('Will automatically use it if you maxed Research 8x25. Ant God would recommend 1/4/4/0/4/12/8/12.\nWould you like to try?')
+        if (a) {
+            player.smartLoadouts[2] = [0, 0, 1, 4, 4, 0, 4, 12, 8, 12, 0, 0, 0]
+            smartLoadoutTableUpdate(2)
+        }
     } else if (loadout === 2) {
-        return Alert('Will automaticly use it if you maxed Cube upgrade 5x10.')
+        a = await Confirm('Will automatically use it if you maxed Cube upgrade 5x10. Ant God would recommend 3/4/7/0/4/12/13/13.\nWould you like to try?')
+        if (a) {
+            player.smartLoadouts[3] = [0, 0, 3, 4, 7, 0, 4, 12, 13, 13, 0, 0, 0]
+            smartLoadoutTableUpdate(3)
+        }
     } else if (loadout === 3) {
-        return Alert('Will automaticly use it if you maxed Platonic upgrade 2x1.')
+        a = await Confirm('Will automatically use it if you maxed Platonic upgrade 2x1. Ant God would recommend 5/4/10/0/4/12/14/14.\nWould you like to try?')
+        if (a) {
+            player.smartLoadouts[4] = [0, 0, 5, 4, 10, 0, 4, 12, 14, 14, 0, 0, 0]
+            smartLoadoutTableUpdate(4)
+        }
     } else if (loadout === 4) {
-        return Alert('Will automaticly use it if you got 1 level or more in Platonic upgrade 3x2.')
+        a = await Confirm('Will automatically use it if you got 1 level or more in Platonic upgrade 3x2. Ant God would recommend 5/4/10/8/14/13/14/14.\nWould you like to try?')
+        if (a) {
+            player.smartLoadouts[5] = [0, 0, 5, 4, 10, 8, 14, 13, 14, 14, 0, 0, 0]
+            smartLoadoutTableUpdate(5)
+        }
     } else if (loadout === 5) {
-        return Alert('Will automaticly use it if you maxed Platonic upgrade 3x5. (Omega)')
+        a = await Confirm('Will automatically use it if you maxed Platonic upgrade 3x5 (Omega). Ant God would recommend 6/4/4/8/14/1/14/14.\nWould you like to try?')
+        if (a) {
+            player.smartLoadouts[6] = [0, 0, 6, 4, 4, 8, 14, 1, 14, 14, 0, 0, 0]
+            smartLoadoutTableUpdate(6)
+        }
     } else if (loadout === 6) {
-        return Alert('Will automaticly use it if you got 1 level or more in Platonic upgrade 4x2.')
+        a = await Confirm('Will automatically use it if you got 1 level or more in Platonic upgrade 4x2. Ant God would recommend 10/4/4/8/14/1/14/14.\nWould you like to try?')
+        if (a) {
+            player.smartLoadouts[7] = [0, 0, 10, 4, 4, 8, 14, 1, 14, 14, 0, 0, 0]
+            smartLoadoutTableUpdate(7)
+        }
     } else if (loadout === 7) {
-        return Alert('Will automaticly use it during Ascension Challenges.')
+        a = await Confirm('Will automatically use it during Ascension Challenges. For them Ant God would recommend using only Financial Recession.\nWould you like to try?')
+        if (a) {
+            player.smartLoadouts[8] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0]
+            smartLoadoutTableUpdate(8)
+        }
     }
 }
 
