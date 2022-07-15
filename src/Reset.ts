@@ -966,7 +966,7 @@ export const singularity = async (): Promise<void> => {
         }
     }
 
-    //Reset Displays
+    // Reset Displays
     toggleTabs('buildings');
     toggleSubTab(1, 0);
     toggleSubTab(4, 0); // Set 'runes' subtab back to 'runes' tab
