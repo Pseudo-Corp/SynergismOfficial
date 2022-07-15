@@ -53,7 +53,17 @@ function exitTranscendAndPrestigeChallenge() {
     }
 }
 
+let hotkeysEnabled = false;
+
 document.addEventListener('keydown', event => {
+    if (!hotkeysEnabled) {
+        // There was a race condition where a user could spam Shift + S + Enter to
+        // Singularity which would cause a bug when rune 7 was bought. To prevent this,
+        // the game disables hotkeys when on the offline progress screen, and re-
+        // enables them when the user leaves.
+        return;
+    }
+
     if (document.activeElement?.localName === 'input') {
         // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
         // finally fixes the bug where hotkeys would be activated when typing in an input field
@@ -136,7 +146,9 @@ const makeSlot = (key: string, descr: string) => {
     return div;
 }
 
-export const startHotkeys = () => {
+export const disableHotkeys = () => hotkeysEnabled = false;
+
+export const enableHotkeys = () => {
     const hotkey = document.querySelector('.hotkeys')!;
 
     for (const child of Array.from(hotkey.children)) {
@@ -148,4 +160,6 @@ export const startHotkeys = () => {
 
         hotkey.appendChild(div);
     }
+
+    hotkeysEnabled = true;
 }
