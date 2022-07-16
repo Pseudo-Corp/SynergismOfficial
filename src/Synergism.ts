@@ -684,6 +684,7 @@ export const player: Player = {
     singularityCounter: 0,
     goldenQuarks: 0,
     quarksThisSingularity: 0,
+    totalQuarksEver: 0,
 
     singularityUpgrades: {
         goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),

@@ -539,6 +539,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
     }
 
+    if (data.totalQuarksEver === undefined){
+        player.totalQuarksEver = 0;
+    }
+
     // Update (read: check) for undefined shop upgrades. Also checks above max level.
     const shopKeys = Object.keys(blankSave['shopUpgrades']) as (keyof Player['shopUpgrades'])[];
     for (const shopUpgrade of shopKeys) {

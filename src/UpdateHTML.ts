@@ -398,6 +398,9 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('singularitybtn').style.display = 'block') :
         (DOMCacheGetOrSet('singularitybtn').style.display = 'none');
 
+    player.singularityCount > 0 && player.ascensionCount >= 1 ?
+        (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'block') :
+        (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'none') ;
 
 
     DOMCacheGetOrSet('ascensionStats').style.visibility = (player.achievements[197] > 0 || player.singularityCount > 0) ? 'visible' : 'hidden';
