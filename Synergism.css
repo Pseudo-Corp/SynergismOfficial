@@ -3351,7 +3351,8 @@ header #obtainiumDisplay {
     border: 3px solid plum;
 }
 
-.singularityUpgrade {
+.singularityUpgrade,
+.octeractUpgrade {
     margin: 2px;
 }
 

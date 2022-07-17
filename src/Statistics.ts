@@ -91,6 +91,8 @@ export const loadQuarkMultiplier = () => {
                                                             0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
                                                             0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
                                                             0.10 * player.singularityUpgrades.expertPack.level, 3, true)
+    DOMCacheGetOrSet('sGQM21').textContent = 'x' + format(1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus, 3, true)
+    DOMCacheGetOrSet('sGQM22').textContent = 'x' + format(+player.octeractUpgrades.octeractQuarkGain.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
 export const loadStatisticsCubeMultipliers = () => {

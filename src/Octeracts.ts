@@ -96,13 +96,28 @@ export class OcteractUpgrade extends DynamicUpgrade {
 }
 
 export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractData> = {
+    octeractStarter: {
+        name: 'Octeracts for Dummies',
+        description: 'Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 25% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * (level + 1)
+        },
+        maxLevel: 1,
+        costPerLevel: 1e-6,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `You have ${(n > 0) ? '' : 'not'} paid your respects to Derpsmith.`
+            }
+        }
+    },
     octeractGain: {
         name: 'Octeract Cogenesis',
         description: 'Have you despised how slow these damn things are? Gain 1% more of them per level! Simple.',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
         },
-        maxLevel: 100,
+        maxLevel: -1,
         costPerLevel: 1e-9,
         effect: (n: number) => {
             return {
@@ -110,14 +125,44 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 desc: `Octeract Gain is increased by ${n}%.`
             }
         }
+    },
+    octeractQuarkGain: {
+        name: 'Quark Octeract',
+        description: 'An altered forme of the hepteract, this gives a 1% Quark Bonus per level without Diminishing Return.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * (Math.pow(level + 1, 7) - Math.pow(level, 7))
+        },
+        maxLevel: -1,
+        costPerLevel: 1e-9,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.01 * n,
+                desc: `Quark gain is increased by ${n}%.`
+            }
+        }
+    },
+    octeractCorruption: {
+        name: 'EXTRA CHONKY Corruptions',
+        description: 'Adds one level to the cap on corruptions. Derpsmith approves.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(10, level * 8)
+        },
+        maxLevel: 2,
+        costPerLevel: 10,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `Corruption level cap is increased by ${n}.`
+            }
+        }
     }
 }
 
 export const octeractGainPerSecond = () => {
-    const SCOREREQ = 1e32
+    const SCOREREQ = 1e23
     const currentScore = calculateAscensionScore().effectiveScore
 
-    const baseMultiplier = (currentScore >= SCOREREQ) ? Math.cbrt(currentScore / SCOREREQ) : Math.pow(currentScore / SCOREREQ, 2);
+    const baseMultiplier = (currentScore >= SCOREREQ) ? currentScore / SCOREREQ : 0;
     const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
 
     const valueMultipliers = [
@@ -134,10 +179,12 @@ export const octeractGainPerSecond = () => {
         +player.singularityUpgrades.singOcteractGain2.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain3.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain4.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain5.getEffect().bonus
+        +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
+        1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
+        +player.octeractUpgrades.octeractGain.getEffect().bonus
     ]
 
-    const ascensionSpeed = calculateAscensionAcceleration()
-    const perSecond = 1/(24 * 3600 * 365 * 1e9) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
+    const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1/2)
+    const perSecond = 1/(24 * 3600 * 365 * 1e15) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
     return perSecond
 }

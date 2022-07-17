@@ -734,7 +734,10 @@ export const player: Player = {
     },
 
     octeractUpgrades: {
-        octeractGain: new OcteractUpgrade(octeractData['octeractGain'])
+        octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
+        octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
+        octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
+        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption'])
     },
 
     dailyCodeUsed: false,
@@ -1972,6 +1975,13 @@ export const updateAllTick = (): void => {
     a *= (1 + 3/10000 * hepteractEffective('accelerator'))
     a = Math.floor(Math.min(1e100, a))
 
+    if (player.usedCorruptions[2] >= 15) {
+        a = Math.pow(a, 0.2)
+    }
+    if (player.usedCorruptions[2] >= 16) {
+        a = 1
+    }
+
     G['freeAccelerator'] = a;
     G['totalAccelerator'] += G['freeAccelerator'];
 
@@ -2144,6 +2154,14 @@ export const updateAllMultiplier = (): void => {
     a *= G['challenge15Rewards'].multiplier
     a *= (1 + 3/10000 * hepteractEffective('multiplier'))
     a = Math.floor(Math.min(1e100, a))
+
+    if (player.usedCorruptions[2] >= 15) {
+        a = Math.pow(a, 0.2)
+    }
+    if (player.usedCorruptions[2] >= 16) {
+        a = 1
+    }
+
     G['freeMultiplier'] = a;
     G['totalMultiplier'] = G['freeMultiplier'] + player.multiplierBought;
 
@@ -2770,6 +2788,16 @@ export const updateAntMultipliers = (): void => {
 
     if (player.usedCorruptions[7] >= 14) {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
+    }
+    if (player.usedCorruptions[7] >= 15) {
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
+    }
+    if (player.usedCorruptions[7] >= 16) {
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
+    }
+
+    if (player.octeractUpgrades.octeractStarter.getEffect().bonus) {
+        G['globalAntMult'] = G['globalAntMult'].times(100000)
     }
 }
 

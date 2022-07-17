@@ -17,7 +17,7 @@ type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 
  * @param time
  */
 export const addTimers = (input: TimerInput, time = 0) => {
-    const timeMultiplier = (input === 'ascension' || input === 'quarks' || input === 'goldenQuarks' || 
+    const timeMultiplier = (input === 'ascension' || input === 'quarks' || input === 'goldenQuarks' ||
                             input === 'singularity' || input === 'octeracts') ? 1 : calculateTimeAcceleration();
 
     switch (input){

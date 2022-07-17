@@ -287,7 +287,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
 
     player.octeractUpgrades = {
-        octeractGain: new OcteractUpgrade(octeractData['octeractGain'])
+        octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
+        octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
+        octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
+        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
@@ -680,7 +683,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.wowOcteracts = 0;
         player.octeractTimer = 0;
     }
-    
+
     if (data.shopHideToggle === undefined) {
         player.shopHideToggle = false;
     }

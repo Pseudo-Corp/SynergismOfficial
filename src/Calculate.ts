@@ -476,8 +476,18 @@ export const calculateObtainium = () => {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
     }
+
+
     G['obtainiumGain'] = Math.min(1e300, G['obtainiumGain']);
     G['obtainiumGain'] /= calculateSingularityDebuff('Obtainium');
+
+    if (player.usedCorruptions[5] >= 15) {
+        G['obtainiumGain'] = Math.pow(G['obtainiumGain'], 1/4)
+    }
+    if (player.usedCorruptions[5] >= 16) {
+        G['obtainiumGain'] = Math.pow(G['obtainiumGain'], 1/3)
+    }
+
     G['obtainiumGain'] = Math.max(1 + player.singularityCount, G['obtainiumGain']);
     if (player.currentChallenge.ascension === 14) {
         G['obtainiumGain'] = 0
@@ -1386,6 +1396,9 @@ export const calculateQuarkMultiplier = () => {
     if (player.singularityCount >= 20) { // Singularity Milestone (20 sing)
         multiplier *= 1.05
     }
+    multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus
+    multiplier *= (1 + 0.25 * + player.octeractUpgrades.octeractStarter.getEffect().bonus)
+
     multiplier *= (1 + 0.02 * player.singularityUpgrades.intermediatePack.level +               // 1.02
                            0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
                            0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12

@@ -386,6 +386,18 @@ export const hepteractEffective = (data: hepteractTypes) => {
         exponentBoost += +player.singularityUpgrades.singQuarkHepteract.getEffect().bonus
         exponentBoost += +player.singularityUpgrades.singQuarkHepteract2.getEffect().bonus
         exponentBoost += +player.singularityUpgrades.singQuarkHepteract3.getEffect().bonus
+
+        const amount = player.hepteractCrafts[data].BAL
+        if (1000 < amount && amount <= 1000 * Math.pow(2, 10)) {
+            return effectiveValue * Math.pow(amount / 1000, 1/2 + exponentBoost)
+        } else if (1000 * Math.pow(2, 10) < amount && amount <= 1000 * Math.pow(2, 18)) {
+            return effectiveValue * Math.pow(Math.pow(2, 10), 1/2 + exponentBoost) *
+                    Math.pow(amount / (1000 * Math.pow(2, 10)), 1/4 + exponentBoost / 2)
+        } else if (1000 * Math.pow(2, 18) < amount) {
+            return effectiveValue * Math.pow(Math.pow(2, 10), 1/2 + exponentBoost) *
+                    Math.pow(Math.pow(2, 8), 1/4 + exponentBoost / 2) *
+                    Math.pow(amount / (1000 * Math.pow(2, 18)), 1/6 + exponentBoost / 3)
+        }
     }
     if (player.hepteractCrafts[data].BAL > hepteractEffectiveValues[data].LIMIT) {
         effectiveValue *= Math.pow(player.hepteractCrafts[data].BAL / hepteractEffectiveValues[data].LIMIT, hepteractEffectiveValues[data].DR + exponentBoost)
