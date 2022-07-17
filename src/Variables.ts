@@ -1,5 +1,5 @@
 import Decimal from 'break_infinity.js';
-import { GlobalVariables } from './types/Synergism';
+import type { GlobalVariables } from './types/Synergism';
 
 export enum Upgrade {
      coin = 'coins',
@@ -197,17 +197,17 @@ export const Globals: GlobalVariables = {
     tuSevenMulti: 1,
     currentTab: 'buildings',
 
-    researchfiller1: "Hover over the grid to get details about researches!",
-    researchfiller2: "Level: ",
+    researchfiller1: 'Hover over the grid to get details about researches!',
+    researchfiller2: 'Level: ',
 
-    ordinals: ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"] as const,
-    cardinals: ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour", "twentyfive", "twentysix", "twentyseven", "twentyeight", "twentynine", "thirty", "thirtyone", "thirtytwo", "thirtythree", "thirtyfour"],
+    ordinals: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth'] as const,
+    cardinals: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'twentyone', 'twentytwo', 'twentythree', 'twentyfour', 'twentyfive', 'twentysix', 'twentyseven', 'twentyeight', 'twentynine', 'thirty', 'thirtyone', 'thirtytwo', 'thirtythree', 'thirtyfour'],
 
     challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 7500, 2.0e8, 3.5e9],
 
     prestigeamount: 1,
-    taxdivisor: new Decimal("1"),
-    taxdivisorcheck: new Decimal("1"),
+    taxdivisor: new Decimal('1'),
+    taxdivisorcheck: new Decimal('1'),
     runemultiplierincrease: {
         one: 1,
         two: 1,
@@ -216,14 +216,12 @@ export const Globals: GlobalVariables = {
         five: 1
     },
 
-    mythosupgrade13: new Decimal("1"),
-    mythosupgrade14: new Decimal("1"),
-    mythosupgrade15: new Decimal("1"),
+    mythosupgrade13: new Decimal('1'),
+    mythosupgrade14: new Decimal('1'),
+    mythosupgrade15: new Decimal('1'),
     challengefocus: 0,
 
     maxexponent: 10000,
-
-    maxbuyresearch: false,
 
     effectiveLevelMult: 1,
     optimalOfferingTimer: 600,
@@ -231,20 +229,17 @@ export const Globals: GlobalVariables = {
 
     runeSum: 0,
 
-    shopConfirmation: true,
-    shopBuyMax: false,
+    globalAntMult: new Decimal('1'),
+    antMultiplier: new Decimal('1'),
 
-    globalAntMult: new Decimal("1"),
-    antMultiplier: new Decimal("1"),
-
-    antOneProduce: new Decimal("1"),
-    antTwoProduce: new Decimal("1"),
-    antThreeProduce: new Decimal("1"),
-    antFourProduce: new Decimal("1"),
-    antFiveProduce: new Decimal("1"),
-    antSixProduce: new Decimal("1"),
-    antSevenProduce: new Decimal("1"),
-    antEightProduce: new Decimal("1"),
+    antOneProduce: new Decimal('1'),
+    antTwoProduce: new Decimal('1'),
+    antThreeProduce: new Decimal('1'),
+    antFourProduce: new Decimal('1'),
+    antFiveProduce: new Decimal('1'),
+    antSixProduce: new Decimal('1'),
+    antSevenProduce: new Decimal('1'),
+    antEightProduce: new Decimal('1'),
 
     antCostGrowth: [1e41, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32],
 
@@ -287,8 +282,9 @@ export const Globals: GlobalVariables = {
     talisman6Power: 0,
     talisman7Quarks: 0,
 
-    runescreen: "runes",
-    settingscreen: "settings",
+    runescreen: 'runes',
+    settingscreen: 'settings',
+    singularityscreen: 'shop',
 
     talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
     talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
@@ -331,7 +327,7 @@ export const Globals: GlobalVariables = {
 
     prevReductionValue: -1,
 
-    buildingSubTab: "coin",
+    buildingSubTab: 'coin',
     //1,000 of each before Diminishing Returns
     blessingbase: [null, 1 / 500, 1 / 5000, 1 / 2000, 1 / 750, 1 / 200, 1 / 10000, 1 / 5000, 1 / 10, 1 / 10000, 1 / 1000],
     blessingDRPower: [null, 1 / 3, 1 / 3, 2 / 3, 1 / 2, 2 / 3, 2, 1 / 3, 1 / 3, 1 / 16, 1 / 16],
@@ -348,27 +344,26 @@ export const Globals: GlobalVariables = {
     hypercubeBonusMultiplier: [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     platonicBonusMultiplier: [1, 1, 1, 1, 1, 1, 1, 1],
 
-    buyMaxCubeUpgrades: false,
     autoOfferingCounter: 0,
     researchOrderByCost: [],
 
-    divisivenessPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0],
-    maladaptivePower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0],
-    lazinessMultiplier: [1, 1 / 3, 1 / 10, 1 / 40, 1 / 200, 1 / 1e5, 1 / 1e7, 1 / 1e10, 1/1e13, 1/1e16, 1/1e20, 1/1e25, 1/1e35, 1/1e50, 1/1e66],
-    hyperchallengedMultiplier: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600, 7777],
-    illiteracyPower: [1, 0.8, 0.7, 0.6, 0.5, 0.3, 0.2, 0.15, 0.10, 0.06, 0.04, 0.02, 0.01, 0.005, 0],
-    deflationMultiplier: [1, 0.3, 0.1, 0.03, 0.01, 1/1e6, 1/1e8, 1/1e10, 1/1e12, 1/1e15, 1/1e18, 1/1e25, 1/1e35, 1/1e50, 1/1e77],
-    extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, -0.05],
-    droughtMultiplier: [1, 5, 25, 200, 1e4, 1e7, 1e11, 1e16, 1e22, 1e30, 1e40, 1e55, 1e80, 1e120, 1e177],
-    financialcollapsePower: [1, 0.9, 0.7, 0.6, 0.5, 0.37, 0.30, 0.23, 0.18, 0.15, 0.12, 0.09, 0.03, 0.01, 0.007],
+    divisivenessPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0, 0, 0],
+    maladaptivePower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0, 0, 0],
+    lazinessMultiplier: [1, 1 / 3, 1 / 10, 1 / 40, 1 / 200, 1 / 1e5, 1 / 1e7, 1 / 1e10, 1/1e13, 1/1e16, 1/1e20, 1/1e25, 1/1e35, 1/1e50, 1/1e65, 1/1e80, 1/1e100],
+    hyperchallengedMultiplier: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600, 7777, 18888, 88888],
+    illiteracyPower: [1, 0.8, 0.7, 0.6, 0.5, 0.3, 0.2, 0.15, 0.10, 0.06, 0.04, 0.02, 0.01, 0.005, 0, 0, 0],
+    deflationMultiplier: [1, 0.3, 0.1, 0.03, 0.01, 1/1e6, 1/1e8, 1/1e10, 1/1e12, 1/1e15, 1/1e18, 1/1e25, 1/1e35, 1/1e50, 1/1e77, 0, 0],
+    extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, 0, 0, 0],
+    droughtMultiplier: [1, 5, 25, 200, 1e4, 1e7, 1e11, 1e16, 1e22, 1e30, 1e40, 1e55, 1e80, 1e120, 1e177, 1e200, 1e250],
+    financialcollapsePower: [1, 0.9, 0.7, 0.6, 0.5, 0.37, 0.30, 0.23, 0.18, 0.15, 0.12, 0.09, 0.03, 0.01, 0.007, 0.0007, 0.00007],
 
-    corruptionPointMultipliers: [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20],
+    corruptionPointMultipliers: [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20, 25, 33],
     ascendBuildingProduction: {
         first: new Decimal('0'),
         second: new Decimal('0'),
         third: new Decimal('0'),
         fourth: new Decimal('0'),
-        fifth: new Decimal('0'),
+        fifth: new Decimal('0')
     },
     freeUpgradeAccelerator: 0,
     freeUpgradeMultiplier: 0,
@@ -378,7 +373,7 @@ export const Globals: GlobalVariables = {
 
     constUpgradeCosts: [null, 1, 13, 17, 237, 316, 4216, 5623, 74989, 1e10, 1e24],
 
-    globalConstantMult: new Decimal("1"),
+    globalConstantMult: new Decimal('1'),
     autoTalismanTimer: 0,
 
     autoChallengeTimerIncrement: 0,
@@ -414,7 +409,7 @@ export const Globals: GlobalVariables = {
         powder: 1,
         exponent: 1,
         freeOrbs: 0,
-        ascensionSpeed: 1,
+        ascensionSpeed: 1
     },
 
     autoResetTimers: {
@@ -428,8 +423,8 @@ export const Globals: GlobalVariables = {
     upgradeMultiplier: 1,
 
     historyCountMax: 20,
-    
-    isEvent: false,
+
+    isEvent: false
 
     // talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
     // talismanResourceOfferingCosts: [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]

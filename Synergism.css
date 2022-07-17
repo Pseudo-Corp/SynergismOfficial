@@ -31,8 +31,20 @@ body.dark {
     background-color: #111;
 }
 
+body.darker {
+    background-color: #0c0c0f;
+}
+
+body.lightDark {
+    background-color: #1c1b22;
+}
+
 body.light {
-    background-color: gray;
+    background-color: #4c495a;
+}
+
+body.Dracula {
+    background-color: #131319;
 }
 
 a {
@@ -372,6 +384,7 @@ button:focus {
     text-align: left; /* Keeps text from bouncing around */
     font-size: 15px;
     font-variant-numeric: tabular-nums;
+    white-space: pre-line;
 }
 
 #resetrewards > div {
@@ -648,7 +661,7 @@ nav li:hover {
 }
 
 #importFileButton:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 #savegame,
@@ -660,7 +673,7 @@ nav li:hover {
 
 #savegame:hover,
 #deleteGame:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 #exportgame {
@@ -671,7 +684,7 @@ nav li:hover {
 }
 
 #exportgame:hover {
-    background-color: #333;
+    background-color: #333 !important;
 }
 
 /* Third party URLs (Discord, Patreon, patch notes) */
@@ -697,16 +710,15 @@ nav li:hover {
     margin-right: 5px;
 }
 
-#promocodes,
-#theme {
+.promocodeButton {
     transition-duration: 0.15s;
     padding: 5px;
     min-width: 65%;
     margin-bottom: 3px;
 }
 
-#promocodes:hover {
-    background-color: #333;
+.promocodeButton:hover {
+    background-color: #333 !important;
 }
 
 #promocodeinfo {
@@ -844,6 +856,28 @@ nav li:hover {
     width: 50%;
     margin: 0 auto;
     overflow-wrap: break-word;
+}
+
+.NotificationToggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.achNotification {
+    flex-grow: unset;
+    padding-left: 4px;
+}
+
+.nonSquare {
+    width: 39px;
+    height: 20px;
+    transition-duration: 0.15s;
+    margin-left: 5px;
+}
+
+.nonSquare:hover {
+    background-color: #333;
 }
 
 /* Removes giant space between paragraphs */
@@ -1192,6 +1226,11 @@ nav li:hover {
 
 .talismanBtn:hover {
     background-color: #333;
+}
+
+.FragBth {
+    width: 94px;
+    margin-right: 12px;
 }
 
 .talisminBtnAvailable {
@@ -1788,7 +1827,9 @@ nav li:hover {
     margin-top: 10px;
 }
 
-#quarksDisplay {
+#quarksDisplay,
+#goldenQuarksDisplay,
+#octeractsDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1797,6 +1838,18 @@ nav li:hover {
 #quarkamount {
     font-size: 1.2em;
     color: aqua;
+    margin-left: 5px;
+}
+
+#goldenQuarkamount {
+    font-size: 1.2em;
+    color: gold;
+    margin-left: 5px;
+}
+
+#octeractAmount {
+    font-size: 1.2em;
+    color: lightseagreen;
     margin-left: 5px;
 }
 
@@ -1894,7 +1947,7 @@ nav li:hover {
     margin: 5px 0;
 }
 
-#antSacrificeButtons {
+#antSacBth {
     display: flex;
     flex-direction: column;
 }
@@ -2142,6 +2195,11 @@ p[id$="BlessingsTotal"] {
     justify-content: center;
 }
 
+.heptNotification {
+    height: 20px;
+    width: 20px;
+}
+
 .cubeBonus {
     margin-left: -2px;
     margin-top: 5px;
@@ -2278,15 +2336,18 @@ p[id$="BlessingsTotal"] {
 }
 
 #tesseractautobuytoggle,
+#tesseractautobuymode,
 #tesseractAmount {
     width: 150px;
 }
 
-#tesseractautobuytoggle {
+#tesseractautobuytoggle,
+#tesseractautobuymode {
     transition-duration: 0.15s;
 }
 
-#tesseractautobuytoggle:hover {
+#tesseractautobuytoggle:hover,
+#tesseractautobuymode:hover {
     background-color: #333;
 }
 
@@ -2599,7 +2660,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #buyRuneBlessingInput {
-    width: 60px;
+    width: 100px;
     border: 2px solid crimson;
     margin-right: 20px;
     background-color: #171717;
@@ -2607,7 +2668,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #buyRuneSpiritInput {
-    width: 60px;
+    width: 100px;
     border: 2px solid orange;
     margin-right: 20px;
     background-color: #171717;
@@ -2790,8 +2851,22 @@ p[id$="BlessingsTotal"] {
 
 #corruptionLoadouts {
     height: 410px;
-    padding-top: 30px;
+    padding-top: 15px;
     box-sizing: border-box;
+}
+
+#corruptionDisplays {
+    margin-top: 5%;
+}
+
+.corrLoadoutName {
+    white-space: nowrap;
+}
+
+#corruptionLoadoutTable {
+    border-collapse: separate;
+    border-spacing: 0 12.5px;
+    width: 100%;
 }
 
 #corrPicRow {
@@ -2978,6 +3053,14 @@ header #obtainiumDisplay {
     color: orange;
 }
 
+#ascSingularityCount {
+    color: gold;
+}
+
+#ascSingLen {
+    color: gold;
+}
+
 #tabBorder {
     height: 2px;
     position: relative;
@@ -3020,6 +3103,19 @@ header #obtainiumDisplay {
 
 #platonicUpgrades {
     margin-bottom: 50px;
+}
+
+#saveOffToggle {
+    width: 130px;
+    height: 32px;
+    position: absolute;
+    margin-top: 6px;
+    margin-left: 193px;
+    transition-duration: 0.15s;
+}
+
+#saveOffToggle:hover {
+    background-color: #333;
 }
 
 .platonicUpgradeImage {
@@ -3217,31 +3313,59 @@ header #obtainiumDisplay {
     text-align: center;
 }
 
-#singularityUpgradeContainer {
+#singularityTabsToggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px;
+}
+
+#singularityTabsToggle > button {
+    height: 30px;
+    width: 100px;
+    margin: 0 7px;
+    text-align: center;
+    transition-duration: 0.15s;
+}
+
+#singularityTabsToggle > button:hover {
+    background-color: #333;
+}
+
+#singularityUpgradeContainer,
+#singularityOcteracts {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#actualSingularityUpgradeContainer {
+#actualSingularityUpgradeContainer,
+#octeractUpgradeContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    padding-right: 5px;
+    justify-content: center;
+    padding-bottom: 5px;
+    padding-top: 10px;
     margin-top: 5px;
-    width: calc(105px * 8);
+    width: calc(105px * 5);
     border: 3px solid plum;
 }
 
-.singularityUpgradeFiller {
-    display: flex;
-    width: 105px;
+.singularityUpgrade,
+.octeractUpgrade {
+    margin: 2px;
 }
 
-#singularityMultiline {
+#singularityPenaltiesMultiline,
+#singularityPerksMultiline {
     white-space: pre-line;
 }
 
-#testingMultiline {
+#testingMultiline,
+#singularityOcteractsMultiline {
     white-space: pre-line;
+}
+
+.newPerk {
+    color: gold;
 }
