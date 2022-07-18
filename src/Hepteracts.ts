@@ -259,18 +259,18 @@ export class HepteractCraft {
     toggleAutomatic(newValue?: boolean): Promise<void> | HepteractCraft {
         const HTML = DOMCacheGetOrSet(`${this.HTML_STRING}HepteractAuto`);
 
-        // When newValue is empty, current value is toggled
         this.AUTO = newValue ?? !this.AUTO;
 
         HTML.textContent = `Auto ${this.AUTO ? 'ON' : 'OFF'}`;
         HTML.style.border = `2px solid ${this.AUTO ? 'green' : 'red'}`;
+        DOMCacheGetOrSet(`${this.HTML_STRING}HepteractCraft`).style.display = this.AUTO ? 'none' : 'block'
+        DOMCacheGetOrSet(`${this.HTML_STRING}HepteractAutoRatio`).style.display = this.AUTO ? 'block' : 'none'
 
         return this;
     }
 
     autoCraft(heptAmount: number): HepteractCraft {
         const expandMultiplier = 2;
-
         // Calculate the largest craft amount possible, with an upper limit being craftAmount
         const hepteractLimitCraft = Math.floor((heptAmount / this.HEPTERACT_CONVERSION) * 1 / (1 - this.DISCOUNT));
 
@@ -282,11 +282,33 @@ export class HepteractCraft {
                 itemLimits.push(Math.floor((player[item as keyof Player] as number) / this.OTHER_CONVERSIONS[item as keyof Player]!) * 1 / (1 - this.DISCOUNT))
             }
         }
-
+        // Get the largest ratio from hepts
+        let largestRatio = player.hepteractAutoCraftRatios.chronos
+        for (const item of Object.entries(player.hepteractAutoCraftRatios)){
+            if (largestRatio < item[1]){
+                largestRatio = item[1];
+            }
+        }
         // Get the smallest of the array we created [If Empty, this will be infinite]
         const smallestItemLimit = Math.min(...itemLimits);
-
-        let amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft);
+        let amountToCraft;
+        if (this.HTML_STRING === 'chronos'){
+            amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.chronos / largestRatio);
+        } else if (this.HTML_STRING === 'hyperreal'){
+            amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.hyperreal / largestRatio);
+        } else if (this.HTML_STRING === 'quark'){
+            amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.quark / largestRatio);
+        } else if (this.HTML_STRING === 'challenge'){
+            amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.challenge / largestRatio);
+        } else if (this.HTML_STRING === 'abyss'){
+            amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.abyss / largestRatio);
+        } else if (this.HTML_STRING === 'accelerator'){
+            amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.accelerator / largestRatio);
+        } else if (this.HTML_STRING === 'acceleratorBoost'){
+            amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.acceleratorBoost / largestRatio);
+        } else {
+            amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft) * (player.hepteractAutoCraftRatios.multiplier / largestRatio);
+        }
         let amountCrafted = 0
         if (amountToCraft >= this.CAP - this.BAL) {
             this.BAL = this.CAP
