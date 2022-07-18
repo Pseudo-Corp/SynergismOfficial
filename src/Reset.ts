@@ -620,11 +620,18 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     if (input === 'ascension' || input === 'ascensionChallenge') {
         const autoHepteractCrafts = getAutoHepteractCrafts();
-        if (autoHepteractCrafts.length > 0) {
+        const numberOfAutoCraftsAndOrbs = autoHepteractCrafts.length + (player.overfluxOrbsAutoBuy ? 1 : 0);
+        if (numberOfAutoCraftsAndOrbs > 0) {
             // Computes the max number of Hepteracts to spend on each auto Hepteract craft
-            const heptAutoSpend = Math.floor((player.wowAbyssals / autoHepteractCrafts.length) * (player.hepteractAutoCraftPercentage / 100))
+            const heptAutoSpend = Math.floor((player.wowAbyssals / numberOfAutoCraftsAndOrbs) * (player.hepteractAutoCraftPercentage / 100))
             for (const craft of autoHepteractCrafts) {
                 craft.autoCraft(heptAutoSpend);
+            }
+
+            if (player.overfluxOrbsAutoBuy) {
+                const orbsAmount = Math.floor(heptAutoSpend / 250000);
+                player.overfluxOrbs += orbsAmount;
+                player.wowAbyssals -= 250000 * orbsAmount;
             }
         }
 

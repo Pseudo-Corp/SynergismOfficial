@@ -3157,18 +3157,28 @@ header #obtainiumDisplay {
 #hepteractToQuark,
 #overfluxPowder {
     display: grid;
-    grid-template-columns: 12px 32px 31px 90px 15px;
-    grid-template-rows: 32px 15px 15px 15px;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 28px);
 }
 
 #hepteractToQuarkImage,
 #overfluxPowderImage {
-    grid-column: 2;
+    grid-row: 1 / span 2;
+    width:56px;
+    height:56px;
 }
 
 #hepteractToQuarkTrade,
+#hepteractToQuarkTradeAuto {
+    grid-column: 2;
+}
+
 #powderDayWarp {
-    grid-column: 4;
+    grid-column: 2 / span 2;
+}
+
+#hepteractToQuarkTradeMax {
+    grid-column: 3;
 }
 
 .heptTypeImage {
@@ -3176,7 +3186,7 @@ header #obtainiumDisplay {
 }
 
 .heptGridInventory {
-    grid-column: 2 / span 3;
+    grid-column: 1 / span 3;
     display: block;
 }
 

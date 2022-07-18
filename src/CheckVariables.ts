@@ -488,6 +488,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.overfluxOrbs === undefined) {
         player.overfluxOrbs = 0;
     }
+    if (data.overfluxOrbsAutoBuy === undefined) {
+        player.overfluxOrbsAutoBuy = false;
+    }
     if (data.overfluxPowder === undefined) {
         player.overfluxPowder = 0;
         player.shopUpgrades.powderEX = 0;
