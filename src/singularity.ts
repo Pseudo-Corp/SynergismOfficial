@@ -934,6 +934,17 @@ export const getGoldenQuarkCost = (): {
     costReduction += 200 * player.singularityUpgrades.goldenQuarks2.level
     costReduction += 1000 * player.singularityUpgrades.goldenQuarks3.level
 
+    if (costReduction > 90000) {
+        costReduction = 90000 + 1 / 10 * (costReduction - 90000)
+    }
+    if (costReduction > 95000) {
+        costReduction = 95000 + 1 / 100 * (costReduction - 95000)
+    }
+    if (costReduction > 97500) {
+        costReduction = 97500 + 1 / 500 * (costReduction - 97500)
+    }
+    costReduction = Math.min(99000, costReduction)
+
 
     return {
         cost: baseCost - costReduction,

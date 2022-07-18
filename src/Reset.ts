@@ -897,6 +897,7 @@ export const singularity = async (): Promise<void> => {
     hold.shopUpgrades = player.shopUpgrades;
     hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
     hold.singularityUpgrades = player.singularityUpgrades
+    hold.octeractUpgrades = player.octeractUpgrades
     hold.autoChallengeToggles = player.autoChallengeToggles
     hold.autoChallengeTimer = player.autoChallengeTimer
     hold.saveString = player.saveString
