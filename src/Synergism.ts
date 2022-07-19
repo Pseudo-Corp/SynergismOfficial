@@ -37,8 +37,6 @@ import { checkVariablesOnLoad } from './CheckVariables';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
-import './Hotkeys';
-import { startHotkeys } from './Hotkeys';
 import { updatePlatonicUpgradeBG } from './Platonic';
 import { testing, version, lastUpdated } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -734,7 +732,13 @@ export const blankSave = Object.assign({}, player, {
     codes: new Map(Array.from({ length: 40 }, (_, i) => [i + 1, false]))
 });
 
-export const saveSynergy = async (button?: boolean) => {
+// The main cause of the double singularity bug was caused by a race condition
+// when the game was saving just as the user was entering a Singularity. To fix
+// this, hopefully, we disable saving the game when in the prompt or currently
+// entering a Singularity.
+let canSave = true;
+
+export const saveSynergy = async (button?: boolean, element?: HTMLButtonElement) => {
     player.offlinetick = Date.now();
     player.loaded1009 = true;
     player.loaded1009hotfix1 = true;
@@ -750,12 +754,18 @@ export const saveSynergy = async (button?: boolean) => {
     });
 
     const save = btoa(JSON.stringify(p));
-    if (save !== null) {
+    if (save !== null && canSave) {
         const saveBlob = new Blob([save], { type: 'text/plain' });
+
+        if (element) {
+            element.disabled = true;
+            setTimeout(() => element.disabled = false, 10_000);
+        }
+
         await localforage.setItem<Blob>('Synergysave2', saveBlob);
     }
 
-    if (button) {
+    if (button && canSave) {
         const el = DOMCacheGetOrSet('saveinfo');
         el.textContent = 'Game saved successfully!';
         setTimeout(() => el.textContent = '', 4000);
@@ -3015,8 +3025,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         let confirmed = false;
+        canSave = false;
         if (!player.toggles[33] && player.singularityCount > 0) {
-            confirmed = await Confirm(`Do you wish to start singularity #${format(player.singularityCount + 1)}? Your next universe is harder but gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
+            confirmed = await Confirm(`Do you wish to start singularity #${format(player.singularityCount + 1)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
         } else {
             await Alert('You have reached the end of the game, on Singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
             await Alert('You may choose to sit on your laurels, and consider the game \'beaten\', or you may do something more interesting.')
@@ -3034,9 +3045,11 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         if (!confirmed) {
+            canSave = true;
             return Alert('If you decide to change your mind, let me know. -Ant God')
         } else {
             await singularity();
+            canSave = true;
             return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
         }
     }
@@ -3798,7 +3811,6 @@ export const reloadShit = async (reset = false) => {
 
     constantIntervals();
     changeTabColor();
-    startHotkeys();
 
     interval(() => eventCheck(), 15000);
     setTimeout(() => {
