@@ -581,6 +581,8 @@ export const generateEventHandlers = () => {
     /*Promotion Codes*/ DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
     /*Special action add*/ DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
     DOMCacheGetOrSet('addCode').addEventListener('mouseover', () => promocodesInfo('add'))
+    /*Special action add one*/ DOMCacheGetOrSet('addCodeOne').addEventListener('click', () => promocodes('add', 1))
+    DOMCacheGetOrSet('addCodeOne').addEventListener('mouseover', () => promocodesInfo('add'))
     /*Special action daily*/ DOMCacheGetOrSet('dailyCode').addEventListener('click', () => promocodes('daily'))
     DOMCacheGetOrSet('dailyCode').addEventListener('mouseover', () => promocodesInfo('daily'))
     /*Special action time*/ DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))

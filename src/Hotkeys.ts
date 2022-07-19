@@ -4,6 +4,7 @@ import { player, resetCheck } from './Synergism';
 import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles';
 import { Alert, Prompt } from './UpdateHTML';
 import { useConsumable } from  './Shop';
+import { promocodes } from './ImportExport';
 
 export const hotkeys = new Map<string, [string,() => unknown]>([
     ['A', ['Buy Accelerators', () => buyAccelerator()]],
@@ -32,7 +33,8 @@ export const hotkeys = new Map<string, [string,() => unknown]>([
     ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999)]],
     ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity')]],
     ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion')]],
-    ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion')]]
+    ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion')]],
+    ['SHIFT+D', ['Spec. Action Add x1', () => promocodes('add', 1)]]
 ]);
 
 function toggleChallengeSweep(): void {
