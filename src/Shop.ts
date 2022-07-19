@@ -404,7 +404,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'One would be advised not to touch this. +0.05% Octeracts per level, whatever those are...'
+        description: 'One would be advised not to touch this. +0.1% Octeracts per level, whatever those are...'
     }
 }
 
@@ -551,7 +551,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = `CURRENT Effect: Every ${format(100 / (Math.max(1, player.shopUpgrades.powderAuto) * calculatePowderConversion().mult), 0, true)} purchased orbs grants 1 powder.`
             break;
         case 'seasonPassLost':
-            lol.textContent = `CURRENT Effect: +${format(0.05 * player.shopUpgrades.seasonPassLost, 2)}% of those Eight-Dimensional Thingies.`
+            lol.textContent = `CURRENT Effect: +${format(0.1 * player.shopUpgrades.seasonPassLost, 2)}% of those Eight-Dimensional Thingies.`
     }
 
 }

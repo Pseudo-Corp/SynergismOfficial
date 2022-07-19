@@ -737,7 +737,9 @@ export const player: Player = {
         octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
         octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
         octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
-        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption'])
+        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
+        octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
+        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks'])
     },
 
     dailyCodeUsed: false,

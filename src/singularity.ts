@@ -938,13 +938,14 @@ export const getGoldenQuarkCost = (): {
         costReduction = 90000 + 1 / 10 * (costReduction - 90000)
     }
     if (costReduction > 95000) {
-        costReduction = 95000 + 1 / 100 * (costReduction - 95000)
+        costReduction = 95000 + 1 / 10 * (costReduction - 95000)
     }
     if (costReduction > 97500) {
-        costReduction = 97500 + 1 / 500 * (costReduction - 97500)
+        costReduction = 97500 + 1 / 5 * (costReduction - 97500)
     }
     costReduction = Math.min(99000, costReduction)
 
+    costReduction = costReduction + (100000 - costReduction) * +player.octeractUpgrades.octeractGQCostReduce.getEffect().bonus
 
     return {
         cost: baseCost - costReduction,

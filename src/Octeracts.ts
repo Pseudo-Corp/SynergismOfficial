@@ -155,7 +155,38 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 desc: `Corruption level cap is increased by ${n}.`
             }
         }
+    },
+    octeractGQCostReduce: {
+        name: 'EXTRA WIMPY Golden Quark Costs!',
+        description: 'Reduces the cost of Golden Quarks in the shop by 1% per level.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(2, level)
+        },
+        maxLevel: 50,
+        costPerLevel: 1e-9,
+        effect: (n: number) => {
+            return {
+                bonus: n/100,
+                desc: `Golden Quarks are ${n}% cheaper!`
+            }
+        }
+    },
+    octeractExportQuarks: {
+        name: 'Improved Download Speeds',
+        description: 'Thanks to ethernet technology, export quarks are increased by 100% per level! Only normal ones.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(level + 1, 3)
+        },
+        maxLevel: 99,
+        costPerLevel: 1,
+        effect: (n: number) => {
+            return {
+                bonus: n + 1,
+                desc: `Export quarks +${format(100 * n, 0 , true)}%`
+            }
+        }
     }
+
 }
 
 export const octeractGainPerSecond = () => {
@@ -169,7 +200,7 @@ export const octeractGainPerSecond = () => {
         1 + player.shopUpgrades.seasonPass3 / 100,
         1 + player.shopUpgrades.seasonPassY / 200,
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
-        1 + player.shopUpgrades.seasonPassLost / 200,
+        1 + player.shopUpgrades.seasonPassLost / 1000,
         1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
         1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
         +player.singularityUpgrades.singCubes1.getEffect().bonus,

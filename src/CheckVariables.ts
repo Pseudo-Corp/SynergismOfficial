@@ -290,7 +290,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
         octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
         octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
-        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption'])
+        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
+        octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
+        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
