@@ -222,6 +222,7 @@ export const corruptionLoadoutTableCreate = () => {
                 // start two-indexed (WTF!)
                 cell.textContent = ((i === 0) ? player.prototypeCorruptions[j+1] : player.corruptionLoadouts[i][j+1]).toString();
                 cell.style.textAlign = 'center'
+                cell.style.color = 'white'
             }
         }
         if (i === 0) {
