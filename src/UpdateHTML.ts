@@ -443,6 +443,7 @@ export const revealStuff = () => {
         'transcendAutoUpgrade': player.upgrades[99] === 1, // Feature - Upgrades - Auto Buy Mythos Upgrades
         'generatorsAutoUpgrade': player.upgrades[90] === 1, // Feature - Upgrades - Auto Buy Generator Upgrades
         'toggle9': player.unlocks.prestige, // Feature - Upgrades - Hover to Buy
+        'toggle36': player.achievements[127] > 0, // Feature - Ants - Hover to Buy
         'toggle28': player.prestigeCount > 0.5 || player.reincarnationCount > 0.5, // Settings - Confirmations - Prestige
         'toggle29': player.transcendCount > 0.5 || player.reincarnationCount > 0.5,  // Settings - Confirmations - Transcension
         'toggle30': player.reincarnationCount > 0.5, // Settings - Confirmations - Reincarnation

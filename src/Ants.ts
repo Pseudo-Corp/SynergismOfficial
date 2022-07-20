@@ -90,7 +90,13 @@ export const antRepeat = (i: number) => {
 export const updateAntDescription = (i: number) => {
     if (G['currentTab'] !== 'ants') {
         return
-    }
+    } /*
+    if (player.toggles[36] === true) {
+        let anttier = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'] as const
+        let cost = [1e700, 3, 100, 1e4, 1e12, 1e36, 1e100, 1e300][i-1] //Without i-1, it wont work, if you look at tier 1 ant - game will freeze, adding null wont work
+        buyAntProducers(`${anttier[i-1]}`, cost, i) //I dont know how to properly call tier
+        //Another issue that it has that it which buy max off, it attempts to buy it non stop
+    } */
     const el = DOMCacheGetOrSet('anttierdescription')
     const la = DOMCacheGetOrSet('antprice')
     const ti = DOMCacheGetOrSet('antquantity')
@@ -135,6 +141,7 @@ export const updateAntDescription = (i: number) => {
             me.textContent = 'Generates ' + format(G['antEightProduce'], 5) + ' ALMIGHTIES/sec';
             break;
     }
+
     la.textContent = 'Cost: ' + format(player[`${tier}CostAnts` as const]) + ' ' + priceType
     ti.textContent = 'Owned: ' + format(player[`${tier}OwnedAnts` as const]) + ' [+' + format(player[`${tier}GeneratedAnts` as const], 2) + ']'
 }
@@ -267,6 +274,10 @@ export const buyAntUpgrade = (originalCost: DecimalSource, auto: boolean, index:
 }
 
 export const antUpgradeDescription = (i: number) => {
+    if (player.toggles[36] === true) {
+        buyAntUpgrade(G['antUpgradeBaseCost'][i-1], true, i)
+    }
+
     const el = DOMCacheGetOrSet('antspecies')
     const al = DOMCacheGetOrSet('antlevelbonus');
     const la = DOMCacheGetOrSet('antupgradedescription')
