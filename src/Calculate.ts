@@ -1343,6 +1343,18 @@ export const calculateAscensionAcceleration = () => {
     return productContents(arr) / calculateSingularityDebuff('Ascension Speed')
 }
 
+export const calculateSingularityQuarkMilestoneMultiplier = () => {
+    let multiplier = 1
+    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100]
+    for (const sing of singThresholds) {
+        if (player.singularityCount >= sing) {
+            multiplier *= 1.05
+        }
+    }
+
+    return multiplier
+}
+
 export const calculateQuarkMultiplier = () => {
     let multiplier = 1;
     if (player.achievementPoints > 0) { // Achievement Points
@@ -1390,12 +1402,9 @@ export const calculateQuarkMultiplier = () => {
     if (player.cubeUpgrades[68] > 0) { // Cube Upgrade 7x8
         multiplier *= (1 + 1/10000 * player.cubeUpgrades[68] + 0.05 * (Math.floor(player.cubeUpgrades[68] / 1000)))
     }
-    if (player.singularityCount >= 5) { // Singularity Milestone (5 sing)
-        multiplier *= 1.05
-    }
-    if (player.singularityCount >= 20) { // Singularity Milestone (20 sing)
-        multiplier *= 1.05
-    }
+
+    multiplier *= calculateSingularityQuarkMilestoneMultiplier();
+
     multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus
     multiplier *= (1 + 0.25 * + player.octeractUpgrades.octeractStarter.getEffect().bonus)
 

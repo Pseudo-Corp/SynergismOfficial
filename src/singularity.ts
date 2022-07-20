@@ -777,9 +777,21 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Even more Quarks',
-        levels: [5, 20],
+        levels: [5, 20, 35, 50, 65, 80, 90, 100],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[1]) {
+            if (n >= levels[7]) {
+                return 'You get EIGHT stacks of +5% Quarks, multiplicative. Kinda like the octeracts, huh?'
+            } else if (n >= levels[6]) {
+                return 'You get seven stacks of +5% Quarks!'
+            } else if (n >= levels[5]) {
+                return 'You get six stacks of +5% Quarks!'
+            } else if (n >= levels[4]) {
+                return 'You get five stacks of +5% Quarks! How many of these can there be???'
+            } else if (n >= levels[3]) {
+                return 'You get four stacks of +5% Quarks! Wow!'
+            } else if (n >= levels[2]) {
+                return 'You get +5% Quarks, then +5% Quarks, then 5% MORE Quarks!'
+            } else if (n >= levels[1]) {
                 return 'You get another +5% multiplicative Quark bonus, and then ANOTHER one on top of it!'
             } else {
                 return 'You get another +5% multiplicative Quark bonus!'
@@ -836,6 +848,33 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [40],
         description: () => {
             return 'Runes autobuyer can also buy Talisman Shards and Fragments'
+        }
+    },
+    {
+        name: 'Ant God\'s Cornucopia',
+        levels: [30, 70, 100],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[2]) {
+                return 'Ant Speed is multiplied by 1 TRILLION! And is immune to any and all corruption.'
+            } else if (n >= levels[1]) {
+                return 'Ant Speed is multiplied by 1 MILLION! And is immune to any and all corruption.'
+            } else {
+                return 'Ant Speed is multiplied by 1,000! And is immune to any and all corruption.'
+            }
+        }
+    },
+    {
+        name: 'Derpsmith\'s Cornucopia',
+        levels: [18, 38, 58, 78, 88, 98, 118, 148],
+        description: (n: number, levels: number[]) => {
+            let counter = 0
+            for (const singCount of levels) {
+                if (n >= singCount) {
+                    counter += 1
+                }
+            }
+
+            return `With blessing from the Derpsmith, every singularity grants +${counter}% more Octeracts!`
         }
     }
 ]

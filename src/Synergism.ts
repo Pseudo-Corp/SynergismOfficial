@@ -2801,6 +2801,18 @@ export const updateAntMultipliers = (): void => {
     if (player.octeractUpgrades.octeractStarter.getEffect().bonus) {
         G['globalAntMult'] = G['globalAntMult'].times(100000)
     }
+
+    if (player.singularityCount >= 30) {
+        G['globalAntMult'] = G['globalAntMult'].times(1000)
+    }
+
+    if (player.singularityCount >= 70) {
+        G['globalAntMult'] = G['globalAntMult'].times(1000)
+    }
+
+    if (player.singularityCount >= 100) {
+        G['globalAntMult'] = G['globalAntMult'].times(1e6)
+    }
 }
 
 export const createAnts = (dt: number): void => {

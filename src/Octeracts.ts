@@ -189,6 +189,18 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
 
 }
 
+export const derpsmithCornucopiaBonus = () => {
+    let counter = 0
+    const singCounts = [18, 38, 58, 78, 88, 98, 118, 148]
+    for (const sing of singCounts) {
+        if (player.singularityCount >= sing) {
+            counter += 1
+        }
+    }
+
+    return 1 + counter * player.singularityCount / 100
+}
+
 export const octeractGainPerSecond = () => {
     const SCOREREQ = 1e23
     const currentScore = calculateAscensionScore().effectiveScore
@@ -212,7 +224,8 @@ export const octeractGainPerSecond = () => {
         +player.singularityUpgrades.singOcteractGain4.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
         1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
-        +player.octeractUpgrades.octeractGain.getEffect().bonus
+        +player.octeractUpgrades.octeractGain.getEffect().bonus,
+        derpsmithCornucopiaBonus()
     ]
 
     const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1/2)
