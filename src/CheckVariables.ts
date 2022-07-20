@@ -13,6 +13,7 @@ import { Alert } from './UpdateHTML';
 import { getQuarkInvestment, shopData} from './Shop';
 import type { ISingularityData} from './singularity';
 import { singularityData, SingularityUpgrade } from './singularity';
+import { toggleTheme } from './Themes';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -662,5 +663,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.ascensionCounterRealReal === undefined) {
         player.ascensionCounterRealReal = 0;
+    }
+
+    const theme = localStorage.getItem('theme')
+    if (theme !== null) { //Will re apply theme's on refresh
+        toggleTheme(Number(theme))
     }
 }

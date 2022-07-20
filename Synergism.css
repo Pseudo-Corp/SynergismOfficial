@@ -29,6 +29,8 @@ body {
     --boxmain-bordercolor: plum;
     --box-color: #111;
     --button-color: #171717;
+    --purplebtn-color: purple;
+    --purplehover-color: #b300b2;
     --hover-color: #333;
     --buttonbuy-color: #171717;
     --buildings-canbuy-color: #555;
@@ -38,6 +40,8 @@ body {
     --tab-color: #171717;
     --singtab-color: black;
     --hoversing-color: #252525;
+    --shoptab-color: purple;
+    --hovershop-color: #b300b2;
 }
 
 body.loading {
@@ -363,8 +367,13 @@ button:focus {
     width: auto;
     margin-top: 20px;
     border: 2px solid ivory;
-    background-color: purple;
+    background-color: var(--purplebtn-color);
     color: white;
+    transition-duration: 0.15s;
+}
+
+#exitOffline:hover {
+    background-color: var(--purplehover-color);
 }
 
 .resetInformationContainer {
@@ -481,7 +490,7 @@ nav li:hover {
 
 #shoptab {
     border-color: white;
-    background-color: purple;
+    background-color: var(--shoptab-color);
 }
 
 #singularitytab {
@@ -495,7 +504,7 @@ nav li:hover {
 }
 
 #shoptab:hover {
-    background-color: #b300b2;
+    background-color: var(--hovershop-color);
 }
 
 #anttab {
@@ -538,7 +547,6 @@ nav li:hover {
 }
 
 #togglecoinbuy {
-    color: white;
     position: absolute;
     font-size: 11px;
     width: 220px;
@@ -741,8 +749,31 @@ nav li:hover {
     margin-bottom: 3px;
 }
 
+.themeButton {
+    padding: 5px;
+    margin: 1px;
+    transition-duration: 0.15s;
+}
+
+.themeButton:hover,
 .promocodeButton:hover {
     background-color: var(--hover-color);
+}
+
+.themeWindow {
+    display: none;
+    background-color: var(--box-color);
+    border: 3px solid;
+    border-color: var(--boxmain-bordercolor);
+    margin-left: 10px;
+}
+
+.themeWindow:hover,
+#theme:focus + .themeWindow {
+    display: inline-grid;
+    grid-template-columns: repeat(2, 150px);
+    padding: 2px;
+    position: absolute;
 }
 
 #promocodeinfo {
@@ -976,7 +1007,6 @@ nav li:hover {
 }
 
 #togglecrystalbuy {
-    color: white;
     position: absolute;
     font-size: 11px;
     width: 220px;
@@ -986,7 +1016,6 @@ nav li:hover {
 }
 
 #toggleofferingbuy {
-    color: white;
     position: absolute;
     font-size: 11px;
     width: 250px;
@@ -1001,7 +1030,6 @@ nav li:hover {
 }
 
 #togglemythosbuy {
-    color: white;
     position: absolute;
     font-size: 11px;
     width: 220px;
@@ -1011,7 +1039,6 @@ nav li:hover {
 }
 
 #toggleparticlebuy {
-    color: white;
     position: absolute;
     font-size: 11px;
     width: 220px;
@@ -1021,7 +1048,6 @@ nav li:hover {
 }
 
 #toggleTesseractBuy {
-    color: white;
     position: absolute;
     font-size: 11px;
     width: 220px;
@@ -1174,13 +1200,13 @@ nav li:hover {
 }
 
 .runeType > .runeButtonAvailable {
-    background-color: purple;
+    background-color: var(--purplebtn-color);
     cursor: pointer;
     transition-duration: 0.15s;
 }
 
 .runeType > .runeButtonAvailable:hover {
-    background-color: #b300b2;
+    background-color: var(--purplehover-color);
 }
 
 #runeEffectDisplays {
@@ -1260,12 +1286,12 @@ nav li:hover {
 }
 
 .talisminBtnAvailable {
-    background-color: purple;
+    background-color: var(--purplebtn-color);
     cursor: pointer;
 }
 
 .talisminBtnAvailable:hover {
-    background-color: #b300b2;
+    background-color: var(--purplehover-color);
 }
 
 .talismansContainer {

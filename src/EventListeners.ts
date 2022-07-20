@@ -673,5 +673,8 @@ TODO: Fix this entire tab it's utter shit
         return importSynergism(save);
     });
 
-    DOMCacheGetOrSet('theme').addEventListener('click', toggleTheme);
+    //Themes
+    for (let theme = 1; theme <= 5; theme++) {
+        DOMCacheGetOrSet(`switchTheme${theme}`).addEventListener('click', () => toggleTheme(theme));
+    }
 }

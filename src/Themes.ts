@@ -1,11 +1,15 @@
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
-export const toggleTheme = () => {
+export const toggleTheme = (theme: number) => {
     const themeButton = DOMCacheGetOrSet('theme');
-    const current = themeButton.textContent;
 
-    if (current === 'Dark Mode') { //Switches to 'Darker Mode'
-        DOMCacheGetOrSet('singularitybtn').style.backgroundColor = '#171717'; //One time, until auto will be added
+    if (theme === 1) { //Switches to 'Dark Mode'
+        resetThemeColors();
+
+        themeButton.textContent = 'Dark Mode';
+        localStorage.removeItem('theme') //No need to save it
+    } else if (theme === 2) { //Switches to 'Darker Mode'
+        resetThemeColors();
         document.body.style.setProperty('--bg-color', '#0c0c0f');
         document.body.style.setProperty('--alert-color', '#040406');
         document.body.style.setProperty('--history-lines', '#1b1b22');
@@ -13,6 +17,7 @@ export const toggleTheme = () => {
         document.body.style.setProperty('--boxmain-bordercolor', '#d487d4');
         document.body.style.setProperty('--button-color', '#040406');
         document.body.style.setProperty('--hover-color', '#1b1b22');
+        document.body.style.setProperty('--purplebtn-color', '#6f006f');
         document.body.style.setProperty('--buttonbuy-color', '#040406');
         document.body.style.setProperty('--buildings-canbuy-color', '#414162');
         document.body.style.setProperty('--buildings-hover-color', '#4f4f76');
@@ -21,6 +26,7 @@ export const toggleTheme = () => {
         document.body.style.setProperty('--tab-color', 'black');
         document.body.style.setProperty('--singtab-color', '#002');
         document.body.style.setProperty('--hoversing-color', '#00007d');
+        document.body.style.setProperty('--shoptab-color', '#6f006f');
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = '#060606'
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#dd8f00'
         DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '#060606'
@@ -29,8 +35,9 @@ export const toggleTheme = () => {
         DOMCacheGetOrSet('importFileButton').style.backgroundColor = 'black'
 
         themeButton.textContent = 'Darker Mode';
-    }
-    if (current === 'Darker Mode') { //Switches to 'Lighter Dark Mode'
+        localStorage.setItem('theme', '2');
+    } else if (theme === 3) { //Switches to 'Lighter Dark Mode'
+        resetThemeColors();
         document.body.style.setProperty('--bg-color', '#1c1b22');
         document.body.style.setProperty('--alert-color', '#141319');
         document.body.style.setProperty('--history-lines', '#083a3a');
@@ -44,21 +51,19 @@ export const toggleTheme = () => {
         document.body.style.setProperty('--blessings-canbuy-color', '#233559');
         document.body.style.setProperty('--blessings-hover-color', '#324b7d');
         document.body.style.setProperty('--tab-color', '#101828');
-        document.body.style.setProperty('--singtab-color', 'black');
         document.body.style.setProperty('--hoversing-color', '#005');
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = '#141319'
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#ffa500'
         DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '#141319'
         DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0'
-        DOMCacheGetOrSet('exportgame').style.backgroundColor = '' //Remove inline CSS
-        DOMCacheGetOrSet('importFileButton').style.backgroundColor = ''
         DOMCacheGetOrSet('actualShop').style.backgroundColor = '#0c0c0f' //Special cases
         DOMCacheGetOrSet('actualShop').style.borderColor = '#d487d4'
         DOMCacheGetOrSet('platonicUpgradePics').style.backgroundColor = '#0c0c0f'
 
         themeButton.textContent = 'Lighter Dark Mode';
-    }
-    if (current === 'Lighter Dark Mode') { //Switches to 'Light Mode' (Might be reworked soon)
+        localStorage.setItem('theme', '3');
+    } else if (theme === 4) { //Switches to 'Light Mode' (Might be reworked soon)
+        resetThemeColors();
         document.body.style.setProperty('--bg-color', '#7c7891');
         document.body.style.setProperty('--alert-color', '#444250');
         document.body.style.setProperty('--history-lines', '#156e71');
@@ -78,9 +83,6 @@ export const toggleTheme = () => {
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#dd8f00'
         DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '#444250'
         DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0'
-        DOMCacheGetOrSet('actualShop').style.backgroundColor = '' //Remove inline CSS
-        DOMCacheGetOrSet('actualShop').style.borderColor = ''
-        DOMCacheGetOrSet('platonicUpgradePics').style.backgroundColor = ''
 
         DOMCacheGetOrSet('achievementcolorcode2').style.color = '#ff01f3' //To make easier to read text (Maybe clean up)
         DOMCacheGetOrSet('corruptionDescription').style.color = '#ff01f3'
@@ -89,25 +91,33 @@ export const toggleTheme = () => {
         DOMCacheGetOrSet('corruptionAntExponentValue').style.color = '#ad5ad7'
         DOMCacheGetOrSet('corruptionIntroduction').style.color = '#ad5ad7'
         DOMCacheGetOrSet('antwelcome').style.color = 'darkgrey'
+        DOMCacheGetOrSet('switchTheme2').style.borderColor = '#284242'
 
         themeButton.textContent = 'Light Mode';
-    }
-    if (current === 'Light Mode') { //Switches to 'Dracula Mode'
+        localStorage.setItem('theme', '4');
+    } else if (theme === 5) { //Switches to 'Dracula Mode'
+        resetThemeColors();
         document.body.style.setProperty('--bg-color', '#131319');
         document.body.style.setProperty('--alert-color', '#2a1035');
         document.body.style.setProperty('--history-lines', '#012d1c');
-        document.body.style.setProperty('--text-color', '#eb0000');
-        document.body.style.setProperty('--button-color', '#2a1035');
-        document.body.style.setProperty('--hover-color', '#000230');
+        document.body.style.setProperty('--text-color', '#aC47ff');
+        document.body.style.setProperty('--button-color', '#21003f');
+        document.body.style.setProperty('--hover-color', '#00056a');
+        document.body.style.setProperty('--purplebtn-color', '#5800a0');
+        document.body.style.setProperty('--purplehover-color', '#680927');
         document.body.style.setProperty('--buttonbuy-color', '#005e00');
         document.body.style.setProperty('--buildings-canbuy-color', '#a00');
         document.body.style.setProperty('--buildings-hover-color', '#e00');
         document.body.style.setProperty('--blessings-canbuy-color', '#004d00');
         document.body.style.setProperty('--blessings-hover-color', '#800');
-        document.body.style.setProperty('--tab-color', '#240d2d');
+        document.body.style.setProperty('--tab-color', '#1a0030');
         document.body.style.setProperty('--singtab-color', '#000230');
         document.body.style.setProperty('--hoversing-color', '#000463');
-        DOMCacheGetOrSet('c15Rewards').style.backgroundColor = '#2e001b' //Special cases
+        document.body.style.setProperty('--shoptab-color', '#5800a0');
+        document.body.style.setProperty('--hovershop-color', '#7400d3');
+        DOMCacheGetOrSet('themeBox').style.backgroundColor = '#0a0a11' //Special cases
+        DOMCacheGetOrSet('themeBox').style.borderColor = '#3c006d'
+        DOMCacheGetOrSet('c15Rewards').style.backgroundColor = '#2e001b'
         DOMCacheGetOrSet('c15Rewards').style.borderColor = '#186e83'
         DOMCacheGetOrSet('platonicUpgradeDescriptions').style.backgroundColor = '#2e001b'
         DOMCacheGetOrSet('platonicUpgradeDescriptions').style.borderColor = '#186e83'
@@ -127,72 +137,98 @@ export const toggleTheme = () => {
         DOMCacheGetOrSet('confirmationToggleTitle').style.color = '#eb0000' //Maybe clean up (Pink text)
         DOMCacheGetOrSet('specialActionsTitle').style.color = '#eb0000'
         DOMCacheGetOrSet('themesTitle').style.color = '#eb0000'
-        DOMCacheGetOrSet('antwelcome').style.color = 'lightslategrey' //Until text properly reworked
+        DOMCacheGetOrSet('achievementcolorcode2').style.color = '#ff01f3' //Extra
+        DOMCacheGetOrSet('corruptionDescription').style.color = '#ff01f3'
+        DOMCacheGetOrSet('corruptionTesseractsValue').style.color = '#ff01f3'
+        DOMCacheGetOrSet('corruptionTotalScore').style.color = '#ad5ad7'
+        DOMCacheGetOrSet('corruptionAntExponentValue').style.color = '#ad5ad7'
+        DOMCacheGetOrSet('corruptionIntroduction').style.color = '#ad5ad7'
+        DOMCacheGetOrSet('antwelcome').style.color = 'darkgrey'
 
         themeButton.textContent = 'Dracula Mode';
+        localStorage.setItem('theme', '5');
     }
-    // If you want to add your own theme, then do it beetwin these 2 if's, like this: (Case sentitive)
-    // if (current === 'Previos theme name') {
+    // If you want to add your own theme, then here is short turorial: (Case sentitive)
+    // } else if (theme === 'number 1 higher than previos theme') {
+    //    resetThemeColors();
     //    Changes you want (document.body.style.setProperty or DOMCacheGetOrSet)
     //
     //    themeButton.textContent = 'Name of your theme';
+    //    localStorage.setItem('theme', '1 higher');
     // }
-    // Dont forget to change for next theme (current === 'Name of your theme')
-    // Add document.body.style.setProperty for every change you want: (Colors that are part of "rainbow" are not affected)
-    // '--bg-color' - for BG color; for more complex BG instead add new class in css and use document.body.classList.remove('bodycolor') .add('new class'), dont forget to revert for next theme
+    // You will need to do in other files:
+    // in EventListeners.ts change (theme <= number) into 1 higher number (Should be on bottom)
+    // in index.html - <button id="switchTheme 1 higher" alt="same as ID" label="same as ID" class="themeButton" style="border: 2px solid color you want">Name of Mode</button> (Where other buttons are)
+    //
+    // Will need to Add document.body.style.setProperty for every change of colors you want:
+    // '--bg-color' - for BG color; for more complex BG instead add new class in css and use document.body.classList.remove('bodycolor') .add('new class'), will need to revert it inside resetThemeColors
     // '--alert-color' - for notifications and alert BG; '--history-lines' for lines color in history tab
-    // '--text-color' - main text color; more text colors might be added later
+    // '--text-color' - main text color (white text that is not part of "Rainbow"); more text colors might be added later
     // '--box-color' - inside color of boxes; '--boxmain-bordercolor' - for most borders; DOMCacheGetOrSet('ID') instead for Potion and Corruptions boxes
-    // '--button-color' - Most of buttons colors, for hover color use '--hover-color'; dont change extra individual buttons as that might break hover color
-    // '--tab-color' - doesnt include text, as well Shop and Singularity tab; '--singtab-color' - for Singularity tab and '--hoversing-color' for hover color; Shop tab currently cant be changed, but easy to add
+    // '--button-color' - Most of buttons colors, for hover color use '--hover-color'; for purple buttons use '--purplebtn-color' and '--purplehover-color'; dont change extra individual buttons (Can change border colors, if not a toggle) as that might break hover color
+    // '--tab-color' - doesnt include text, as well Shop and Singularity tab; '--singtab-color' - for Singularity tab and '--hoversing-color' for hover color; for shop tab use these '--shoptab-color' and '--hovershop-color'
     // '--buttonbuy-color' buying buldings buttons (When can't afford); '--buildings-canbuy-color' and '--blessings-canbuy-color' if you can afford; '--buildings-hover-color' and '--blessings-hover-color' if you can afford and hovering over it
-    // If you change any individual ID's dont forget to remove inline CSS in next theme (Unless HTML gives color)
-    if (current === 'Dracula Mode') { //Switches to 'Dark Mode' and returns all colors back to deffault
-        document.body.style.setProperty('--bg-color', '#111');
-        document.body.style.setProperty('--alert-color', '#141414');
-        document.body.style.setProperty('--history-lines', '#262626');
-        document.body.style.setProperty('--text-color', 'white');
-        document.body.style.setProperty('--box-color', '#111');
-        document.body.style.setProperty('--boxmain-bordercolor', 'plum');
-        document.body.style.setProperty('--button-color', '#171717');
-        document.body.style.setProperty('--hover-color', '#333');
-        document.body.style.setProperty('--buttonbuy-color', '#171717');
-        document.body.style.setProperty('--buildings-canbuy-color', '#555');
-        document.body.style.setProperty('--buildings-hover-color', '#666');
-        document.body.style.setProperty('--blessings-canbuy-color', '#222');
-        document.body.style.setProperty('--blessings-hover-color', '#444');
-        document.body.style.setProperty('--tab-color', '#171717');
-        document.body.style.setProperty('--singtab-color', 'black');
-        document.body.style.setProperty('--hoversing-color', '#252525');
-        DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '' //Remove inline CSS
-        DOMCacheGetOrSet('actualPotionShop').style.borderColor = ''
-        DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = ''
-        DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = ''
-        DOMCacheGetOrSet('c15Rewards').style.backgroundColor = ''
-        DOMCacheGetOrSet('c15Rewards').style.borderColor = ''
-        DOMCacheGetOrSet('platonicUpgradeDescriptions').style.backgroundColor = ''
-        DOMCacheGetOrSet('platonicUpgradeDescriptions').style.borderColor = ''
-        DOMCacheGetOrSet('platonicUpgradePics').style.backgroundColor = ''
-        DOMCacheGetOrSet('platonicUpgradePics').style.borderColor = ''
-        DOMCacheGetOrSet('actualShop').style.backgroundColor = ''
-        DOMCacheGetOrSet('actualShop').style.borderColor = ''
-        DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = ''
-        DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = ''
-        DOMCacheGetOrSet('heptGrid').style.backgroundColor = ''
-        DOMCacheGetOrSet('heptGrid').style.borderColor = ''
-        DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.backgroundColor = ''
-        DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.borderColor = ''
+    // If you change any individual ID's dont forget to remove inline CSS in resetThemeColors (Unless HTML gives color, then DOMCacheGetOrSet original color)
+}
 
-        DOMCacheGetOrSet('achievementcolorcode2').style.color = '' //Revert text, maybe clean up
-        DOMCacheGetOrSet('corruptionDescription').style.color = ''
-        DOMCacheGetOrSet('corruptionIntroduction').style.color = ''
-        DOMCacheGetOrSet('corruptionTesseractsValue').style.color = 'darkviolet' //These ones use HTML as color
-        DOMCacheGetOrSet('corruptionTotalScore').style.color = 'darkorchid'
-        DOMCacheGetOrSet('corruptionAntExponentValue').style.color = 'darkorchid'
-        DOMCacheGetOrSet('confirmationToggleTitle').style.color = 'pink'
-        DOMCacheGetOrSet('specialActionsTitle').style.color = 'pink'
-        DOMCacheGetOrSet('themesTitle').style.color = 'pink'
+const resetThemeColors = () => { //Reverts all colors back to default (allows to switch themes in any order)
+    //document.body.classList.remove('new class') //For every new class that was added, will need to remove them in here
+    //document.body.classList.add('bodycolor')
+    document.body.style.setProperty('--bg-color', '#111'); //In case new theme doesnt use some
+    document.body.style.setProperty('--alert-color', '#141414');
+    document.body.style.setProperty('--history-lines', '#262626');
+    document.body.style.setProperty('--text-color', 'white');
+    document.body.style.setProperty('--box-color', '#111');
+    document.body.style.setProperty('--boxmain-bordercolor', 'plum');
+    document.body.style.setProperty('--button-color', '#171717');
+    document.body.style.setProperty('--hover-color', '#333');
+    document.body.style.setProperty('--purplebtn-color', 'purple');
+    document.body.style.setProperty('--purplehover-color', '#b300b2');
+    document.body.style.setProperty('--buttonbuy-color', '#171717');
+    document.body.style.setProperty('--buildings-canbuy-color', '#555');
+    document.body.style.setProperty('--buildings-hover-color', '#666');
+    document.body.style.setProperty('--blessings-canbuy-color', '#222');
+    document.body.style.setProperty('--blessings-hover-color', '#444');
+    document.body.style.setProperty('--tab-color', '#171717');
+    document.body.style.setProperty('--singtab-color', 'black');
+    document.body.style.setProperty('--hoversing-color', '#252525');
+    document.body.style.setProperty('--shoptab-color', 'purple');
+    document.body.style.setProperty('--hovershop-color', '#b300b2');
+    DOMCacheGetOrSet('singularitybtn').style.backgroundColor = '#171717'; //Fake BG
 
-        themeButton.textContent = 'Dark Mode';
-    }
+    DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '' //Remove inline CSS
+    DOMCacheGetOrSet('actualPotionShop').style.borderColor = ''
+    DOMCacheGetOrSet('themeBox').style.backgroundColor = ''
+    DOMCacheGetOrSet('themeBox').style.borderColor = ''
+    DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = ''
+    DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = ''
+    DOMCacheGetOrSet('c15Rewards').style.backgroundColor = ''
+    DOMCacheGetOrSet('c15Rewards').style.borderColor = ''
+    DOMCacheGetOrSet('platonicUpgradeDescriptions').style.backgroundColor = ''
+    DOMCacheGetOrSet('platonicUpgradeDescriptions').style.borderColor = ''
+    DOMCacheGetOrSet('platonicUpgradePics').style.backgroundColor = ''
+    DOMCacheGetOrSet('platonicUpgradePics').style.borderColor = ''
+    DOMCacheGetOrSet('actualShop').style.backgroundColor = ''
+    DOMCacheGetOrSet('actualShop').style.borderColor = ''
+    DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = ''
+    DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = ''
+    DOMCacheGetOrSet('heptGrid').style.backgroundColor = ''
+    DOMCacheGetOrSet('heptGrid').style.borderColor = ''
+    DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.backgroundColor = ''
+    DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.borderColor = ''
+
+    DOMCacheGetOrSet('exportgame').style.backgroundColor = '' //From darker mode
+    DOMCacheGetOrSet('importFileButton').style.backgroundColor = ''
+
+    DOMCacheGetOrSet('achievementcolorcode2').style.color = '' //From Dracula and Light mode
+    DOMCacheGetOrSet('corruptionDescription').style.color = ''
+    DOMCacheGetOrSet('corruptionIntroduction').style.color = ''
+    DOMCacheGetOrSet('corruptionTesseractsValue').style.color = 'darkviolet' //These ones use HTML as color
+    DOMCacheGetOrSet('corruptionTotalScore').style.color = 'darkorchid'
+    DOMCacheGetOrSet('corruptionAntExponentValue').style.color = 'darkorchid'
+    DOMCacheGetOrSet('confirmationToggleTitle').style.color = 'pink'
+    DOMCacheGetOrSet('specialActionsTitle').style.color = 'pink'
+    DOMCacheGetOrSet('themesTitle').style.color = 'pink'
+    DOMCacheGetOrSet('antwelcome').style.color = 'lightslategrey'
+    DOMCacheGetOrSet('switchTheme2').style.borderColor = 'darkslategray'
 }
