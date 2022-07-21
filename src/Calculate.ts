@@ -1314,6 +1314,7 @@ export const calculateTimeAcceleration = () => {
     timeMult *= G['platonicBonusMultiplier'][7]
     timeMult *= 1 + calculateEventBuff('Global Speed');
     timeMult *= 1 + (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0)
+    timeMult *= 1 + +player.octeractUpgrades.octeractImprovedGlobalSpeed.getEffect().bonus * player.singularityCount
 
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)

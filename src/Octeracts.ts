@@ -23,6 +23,11 @@ export class OcteractUpgrade extends DynamicUpgrade {
     }
 
     getCostTNL(): number {
+
+        if (this.level === this.maxLevel) {
+            return 0
+        }
+
         return this.costFormula(this.level, this.costPerLevel)
     }
 
@@ -103,7 +108,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return baseCost * (level + 1)
         },
         maxLevel: 1,
-        costPerLevel: 1e-6,
+        costPerLevel: 1e-15,
         effect: (n: number) => {
             return {
                 bonus: n > 0,
@@ -118,7 +123,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
         },
         maxLevel: -1,
-        costPerLevel: 1e-9,
+        costPerLevel: 1e-15,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.01 * n,
@@ -185,7 +190,68 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 desc: `Export quarks +${format(100 * n, 0 , true)}%`
             }
         }
+    },
+    octeractImprovedDaily: {
+        name: 'CHONKER Daily Code',
+        description: 'Derpsmith hacks into the source code, and adds +1 free GQ upgrade per day from Daily.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(1.6, level)
+        },
+        maxLevel: 50,
+        costPerLevel: 1e-6,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `Code 'daily' gives +${n} GQ upgrades per use.`
+            }
+        }
+    },
+    octeractImprovedDaily2: {
+        name: 'CHONKERER Daily Code',
+        description: 'Derpsmith implemented hyperspeed multiplication. +2% more GQ upgrades per day from Daily!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(2, level)
+        },
+        maxLevel: 50,
+        costPerLevel: 1e-6,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.02 * n,
+                desc: `Code 'daily' gives +${2 * n}% more GQ upgrades per use.`
+            }
+        }
+    },
+    octeractImprovedQuarkHept: {
+        name: 'I wish for even better Quark Hepteracts.',
+        description: 'The godmother is absent, but Derpsmith is here! +0.01 DR Power per level.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(1e6, level)
+        },
+        maxLevel: 3,
+        costPerLevel: 1/10,
+        effect: (n: number) => {
+            return {
+                bonus: n / 100,
+                desc: `Quark Hepteract DR +${format(n/100, 2, true)}.`
+            }
+        }
+    },
+    octeractImprovedGlobalSpeed: {
+        name: 'The forbidden clock of time',
+        description: 'Hypothesized to be locked in a hyperbolic time chamber. +1% Global Speed per level per singularity!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(level + 1, 3)
+        },
+        maxLevel: 1000,
+        costPerLevel: 1e-5,
+        effect: (n: number) => {
+            return {
+                bonus: n/100,
+                desc: `Global Speed per singularity +${format(n,0,true)}%`
+            }
+        }
     }
+
 
 }
 

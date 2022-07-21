@@ -739,7 +739,11 @@ export const player: Player = {
         octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
         octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
         octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
-        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks'])
+        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
+        octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
+        octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
+        octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
+        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed'])
     },
 
     dailyCodeUsed: false,

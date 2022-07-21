@@ -314,23 +314,29 @@ export const promocodes = async (input: string | null) => {
 
         if (player.singularityCount > 0) {
             const upgradeDistribution: Record<
-            'goldenQuarks1' | 'singCubes1' | 'singCubes2' | 'singCubes3' |
+            'goldenQuarks1' | 'goldenQuarks2' | 'goldenQuarks3' | 'singCubes1' | 'singCubes2' | 'singCubes3' |
             'singOfferings1' | 'singOfferings2' | 'singOfferings3' |
             'singObtainium1' | 'singObtainium2' | 'singObtainium3' | 'ascensions',
             {value: number, pdf: (x: number) => boolean}> = {
-                goldenQuarks1: {value: 0.2, pdf: (x: number) => 0 <= x && x <= 4},
-                singCubes3: {value: 0.25, pdf: (x: number) => 4 < x && x <= 6},
-                singObtainium3: {value: 0.25, pdf: (x: number) => 6 < x && x <= 8},
-                singOfferings3: {value: 0.25, pdf: (x: number) => 8 < x && x <= 10},
-                singCubes2: {value: 0.5, pdf: (x: number) => 10 < x && x <= 40},
-                singObtainium2: {value: 0.5, pdf: (x: number) => 40 < x && x <= 70},
-                singOfferings2: {value: 0.5, pdf: (x: number) => 70 < x && x <= 100},
-                singCubes1: {value: 1, pdf: (x: number) => 100 < x && x <= 325},
-                singObtainium1: {value: 1, pdf: (x: number) => 325 < x && x <= 550},
-                singOfferings1: {value: 1, pdf: (x: number) => 550 < x && x <= 775},
-                ascensions: {value: 1, pdf: (x: number) => 775 < x && x <= 1000}
+                goldenQuarks3: {value: 0.2, pdf: (x: number) => 0 <= x && x <= 1},
+                goldenQuarks2: {value: 0.2, pdf: (x: number) => 1 <= x && x <= 3},
+                goldenQuarks1: {value: 0.2, pdf: (x: number) => 3 <= x && x <= 10},
+                singCubes3: {value: 0.25, pdf: (x: number) => 10 < x && x <= 15},
+                singObtainium3: {value: 0.25, pdf: (x: number) => 15 < x && x <= 20},
+                singOfferings3: {value: 0.25, pdf: (x: number) => 20 < x && x <= 25},
+                singCubes2: {value: 0.5, pdf: (x: number) => 25 < x && x <= 80},
+                singObtainium2: {value: 0.5, pdf: (x: number) => 80 < x && x <= 140},
+                singOfferings2: {value: 0.5, pdf: (x: number) => 140 < x && x <= 200},
+                singCubes1: {value: 1, pdf: (x: number) => 200 < x && x <= 400},
+                singObtainium1: {value: 1, pdf: (x: number) => 400 < x && x <= 600},
+                singOfferings1: {value: 1, pdf: (x: number) => 600 < x && x <= 800},
+                ascensions: {value: 1, pdf: (x: number) => 800 < x && x <= 1000}
             }
-            const rolls = Math.floor(3 * Math.sqrt(player.singularityCount))
+            let rolls = 3 * Math.sqrt(player.singularityCount)
+            rolls += +player.octeractUpgrades.octeractImprovedDaily.getEffect().bonus
+            rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
+            rolls = Math.floor(rolls)
+
             const keys = Object
                 .keys(player.singularityUpgrades)
                 .filter(key => key in upgradeDistribution) as (keyof typeof upgradeDistribution)[];
