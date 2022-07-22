@@ -532,6 +532,7 @@ export interface Player {
         multiplier: HepteractCraft
     }
     overfluxOrbs: number
+    overfluxOrbsAutoBuy: boolean
     overfluxPowder: number
     dailyPowderResetUses: number
 

@@ -667,6 +667,7 @@ export const player: Player = {
     platonicCubeOpenedDaily: 0,
     platonicCubeQuarkDaily: 0,
     overfluxOrbs: 0,
+    overfluxOrbsAutoBuy: false,
     overfluxPowder: 0,
     dailyPowderResetUses: 1,
     loadedOct4Hotfix: false,
