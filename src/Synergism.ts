@@ -667,6 +667,7 @@ export const player: Player = {
     platonicCubeOpenedDaily: 0,
     platonicCubeQuarkDaily: 0,
     overfluxOrbs: 0,
+    overfluxOrbsAutoBuy: false,
     overfluxPowder: 0,
     dailyPowderResetUses: 1,
     loadedOct4Hotfix: false,
@@ -684,6 +685,7 @@ export const player: Player = {
     singularityCounter: 0,
     goldenQuarks: 0,
     quarksThisSingularity: 0,
+    totalQuarksEver: 0,
 
     singularityUpgrades: {
         goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
@@ -3646,10 +3648,10 @@ document.addEventListener('keydown', (event) => {
         }
         if (player.challengecompletions[11] > 0 && !isNaN(num)) {
             if (num >= 0 && num < player.corruptionLoadoutNames.length) {
-                void Notification(`Corruption Loadout ${num + 1} "${player.corruptionLoadoutNames[num]}" has been applied. This will take effect on the next ascension.`, 5000);
+                void Notification(`Corruption Loadout ${num + 1} "${player.corruptionLoadoutNames[num]}" has been applied. This will take effect on the next Ascension.`, 5000);
                 corruptionLoadoutSaveLoad(false, num + 1);
             } else {
-                void Notification('All Corruptions have been set to Zero. This will take effect on the next ascension.', 5000);
+                void Notification('All Corruptions have been set to Zero. This will take effect on the next Ascension.', 5000);
                 corruptionLoadoutSaveLoad(false, 0);
             }
         }

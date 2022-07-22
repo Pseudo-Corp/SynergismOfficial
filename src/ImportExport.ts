@@ -396,15 +396,16 @@ export const promocodes = async (input: string | null, amount?: number) => {
         const timeToNext = Math.floor((hour - (Date.now() - v - hour * remaining)) / 1000)
 
         // Calculator 3: Adds ascension timer.
-        const ascensionTimer = (player.shopUpgrades.calculator3 > 0)
-            ? 'Thanks to PL-AT Ω you have also gained ' + format(60 * player.shopUpgrades.calculator3 * realAttemptsUsed) + ' real-life seconds to your Ascension Timer!'
+        const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
+        const ascensionTimer = 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult;
+        const ascensionTimerText = (player.shopUpgrades.calculator3 > 0)
+            ? 'Thanks to PL-AT Ω you have also gained ' + format(ascensionTimer) + ' real-life seconds to your Ascension Timer!'
             : '';
 
         // Calculator Maxed: you don't need to insert anything!
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
-            const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
-            addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult)
+            addTimers('ascension', ascensionTimer)
             player.rngCode = v;
             if (amount) {
                 // No message when using Add x1 Special action, we refresh the info message
@@ -431,8 +432,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
         if (first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
-            addTimers('ascension', 60 * player.shopUpgrades.calculator3)
-            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} Quarks! ${ascensionTimer} You have ${remaining} uses of Add. ` +
+            addTimers('ascension', ascensionTimer)
+            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} Quarks! ${ascensionTimerText} You have ${remaining} uses of Add. ` +
                 `You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         } else {
             await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
