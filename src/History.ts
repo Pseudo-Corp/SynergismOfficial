@@ -372,7 +372,7 @@ function clickHandlerForLoadCorruptionsButton(btn: HTMLElement) {
     const corruptions = btn.getAttribute('data-corr');
     if (corruptions) {
         applyCorruptions(corruptions);
-        void Notification('Corruption Loadout from previous run has been applied. This will take effect on the next ascension.', 5000);
+        void Notification('Corruption Loadout from previous run has been applied. This will take effect on the next Ascension.', 5000);
     }
 }
 
