@@ -18,33 +18,45 @@ html {
 body {
     transform-origin: 0 0;
     overflow-x: hidden;
-    color: white;
     margin: 0;
     box-sizing: border-box;
+
+    /* Custom colors that are used for themes */
+    --text-color: white;
+    --bg-color: #111;
+    --alert-color: #141414;
+    --history-lines: #262626;
+    --boxmain-bordercolor: plum;
+    --box-color: #111;
+    --button-color: #171717;
+    --hover-color: #333;
+    --buttonbuy-color: #171717;
+    --buildings-canbuy-color: #555;
+    --buildings-hover-color: #666;
+    --blessings-canbuy-color: #222;
+    --blessings-hover-color: #444;
+    --tab-color: #171717;
+    --singtab-color: black;
+    --hoversing-color: #252525;
 }
 
 body.loading {
     overflow-y: hidden;
 }
 
-body.dark {
-    background-color: #111;
+.bodycolor {
+    color: var(--text-color);
+    background-color: var(--bg-color);
 }
 
-body.darker {
-    background-color: #0c0c0f;
+.mainText {
+    color: var(--text-color);
 }
 
-body.lightDark {
-    background-color: #1c1b22;
-}
-
-body.light {
-    background-color: #4c495a;
-}
-
-body.Dracula {
-    background-color: #131319;
+.boxColor {
+    border: 3px solid;
+    border-color: var(--boxmain-bordercolor);
+    background-color: var(--box-color);
 }
 
 a {
@@ -85,13 +97,13 @@ input[type="range"] {
 
 button {
     color: white;
-    background-color: #171717;
+    background-color: var(--button-color);
     outline: none;
     cursor: pointer;
 }
 
 button:active {
-    background-color: #171717;
+    background-color: var(--button-color);
     cursor: pointer;
 }
 
@@ -158,7 +170,8 @@ button:focus {
     overflow: hidden;
     border-radius: 5px;
     border: 1px solid gold;
-    background-color: #111;
+    color: white;
+    background-color: var(--alert-color);
 }
 
 .slide-in {
@@ -196,7 +209,8 @@ button:focus {
     z-index: 6969;
     width: 30%;
     height: 30%;
-    background-color: rgb(20 20 20);
+    color: white;
+    background-color: var(--alert-color);
     border-radius: 5px;
     border: 1px solid gold;
 }
@@ -240,7 +254,7 @@ button:focus {
 #confirm > button:hover,
 #alert > button:hover,
 #prompt > button:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #confirm {
@@ -420,7 +434,7 @@ nav li {
     width: 100px;
     min-width: 100px;
     color: white;
-    background-color: #171717;
+    background-color: var(--tab-color);
     cursor: pointer;
     line-height: 21px;
     height: 21px;
@@ -433,7 +447,7 @@ nav li {
 }
 
 nav li:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #buildingstab {
@@ -472,8 +486,12 @@ nav li:hover {
 
 #singularitytab {
     border-color: lightgoldenrodyellow;
-    background-color: black;
+    background-color: var(--singtab-color);
     color: red;
+}
+
+#singularitytab:hover {
+    background-color: var(--hoversing-color);
 }
 
 #shoptab:hover {
@@ -510,7 +528,7 @@ nav li:hover {
 }
 
 .subTabWrapper > button:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #buyamountcoin {
@@ -653,6 +671,8 @@ nav li:hover {
 
 #importFileButton {
     border: 2px solid white;
+    color: white;
+    background-color: var(--button-color);
     width: 176px;
     margin: 2px auto;
     padding: 0 0 2px;
@@ -661,7 +681,7 @@ nav li:hover {
 }
 
 #importFileButton:hover {
-    background-color: #333 !important;
+    background-color: var(--hover-color) !important;
 }
 
 #savegame,
@@ -673,7 +693,11 @@ nav li:hover {
 
 #savegame:hover,
 #deleteGame:hover {
-    background-color: #333 !important;
+    background-color: var(--hover-color);
+}
+
+#savegame[disabled] {
+    background-color: crimson;
 }
 
 #exportgame {
@@ -684,7 +708,7 @@ nav li:hover {
 }
 
 #exportgame:hover {
-    background-color: #333 !important;
+    background-color: var(--hover-color) !important;
 }
 
 /* Third party URLs (Discord, Patreon, patch notes) */
@@ -718,7 +742,7 @@ nav li:hover {
 }
 
 .promocodeButton:hover {
-    background-color: #333 !important;
+    background-color: var(--hover-color);
 }
 
 #promocodeinfo {
@@ -742,7 +766,7 @@ nav li:hover {
 }
 
 .auto.square:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .buttonRow {
@@ -781,18 +805,18 @@ nav li:hover {
     height: 30px;
     border-radius: 8px;
     border: 1px solid white !important;
-    background-color: #171717;
+    background-color: var(--buttonbuy-color);
     transition-duration: 0.15s;
     cursor: default;
 }
 
 .buildingPurchaseBtnAvailable {
     cursor: pointer;
-    background-color: #555;
+    background-color: var(--buildings-canbuy-color);
 }
 
 .buildingPurchaseBtnAvailable:hover {
-    background-color: #666;
+    background-color: var(--buildings-hover-color);
 }
 
 .buttonRow > div > .auto {
@@ -802,12 +826,12 @@ nav li:hover {
 }
 
 .autobuyerToggleButton {
-    background-color: #171717;
+    background-color: var(--button-color);
     transition: background-color 0.15s;
 }
 
 .autobuyerToggleButton:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .buttonRow > div > .stats {
@@ -877,13 +901,12 @@ nav li:hover {
 }
 
 .nonSquare:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 /* Removes giant space between paragraphs */
 #achievementinfo > p { margin: 0; }
 
-#achievementtutorial { color: white; }
 #achievementdescription { color: gold; }
 #achievementreward { color: limegreen; }
 
@@ -949,7 +972,7 @@ nav li:hover {
 }
 
 .buyAmountBtn:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #togglecrystalbuy {
@@ -1056,7 +1079,7 @@ nav li:hover {
 
 #toggle15:hover,
 #prestigeautotoggle:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #prestigehotkeys {
@@ -1065,7 +1088,6 @@ nav li:hover {
 }
 
 #autocrystalbuild > p { margin: 0; }
-#autoprestige { color: white; }
 
 #runes {
     position: relative;
@@ -1099,7 +1121,7 @@ nav li:hover {
 }
 
 #runesToggle > button:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #offeringDetails {
@@ -1147,6 +1169,10 @@ nav li:hover {
     align-content: center;
 }
 
+.runeImage {
+    background-color: #171717;
+}
+
 .runeType > .runeButtonAvailable {
     background-color: purple;
     cursor: pointer;
@@ -1181,7 +1207,7 @@ nav li:hover {
 
 #toggleautofortify:hover,
 #toggleautoenhance:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #talismanFragmentCost {
@@ -1225,7 +1251,7 @@ nav li:hover {
 }
 
 .talismanBtn:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .FragBth {
@@ -1367,7 +1393,7 @@ nav li:hover {
 }
 
 .talismanRespecBtn:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #talismanRespecButton1 {
@@ -1422,7 +1448,7 @@ nav li:hover {
 }
 
 #transcension > .buttonRow {
-    color: pink;
+    color: plum;
 }
 
 #transcendshardinfo { margin: 2px; }
@@ -1440,7 +1466,6 @@ nav li:hover {
 
 #autotranscend {
     text-align: center;
-    color: white;
 }
 
 #toggle21 { margin-top: 100px; }
@@ -1459,7 +1484,7 @@ nav li:hover {
 
 #toggle21:hover,
 #transcendautotoggle:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #transcendhotkeys {
@@ -1500,7 +1525,7 @@ nav li:hover {
 }
 
 #challengesAutoToggles > button:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #toggleAutoChallengeStart { border: 2px solid gold; }
@@ -1543,7 +1568,7 @@ nav li:hover {
 }
 
 #startChallenge:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #oneChallengeDetails {
@@ -1562,9 +1587,8 @@ nav li:hover {
 #challengeFlavor { color: plum; }
 #challengeRestrictions { color: crimson; }
 #challengeGoal { color: gold; }
-#challengePerCompletionRewards { color: white; }
+#challengePerCompletionRewards { color: var(--text-color); }
 *[id^="challengePer"] { color: pink; }
-#challengeFirstCompletionRewards { color: white; }
 #challengeFirst1 { color: orange; }
 #challengeQuarkBonus { color: cyan; }
 
@@ -1602,7 +1626,7 @@ nav li:hover {
 }
 
 .challenge:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .challengeActive {
@@ -1646,17 +1670,13 @@ nav li:hover {
 
 #toggle27:hover,
 #reincarnateautotoggle:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #reincarnateautomation > div {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-#autoreincarnate {
-    color: white;
 }
 
 #reincarnationamount {
@@ -1723,7 +1743,7 @@ nav li:hover {
 }
 
 #researchToggles > button:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #researchinfo2 {
@@ -1736,7 +1756,7 @@ nav li:hover {
 }
 
 .researchAvailable:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .researchPurchased {
@@ -1790,7 +1810,6 @@ nav li:hover {
     padding-right: 5px;
     margin-top: 10px;
     width: calc(105px * 8);
-    border: 3px solid plum;
 }
 
 #actualShop > div {
@@ -1875,7 +1894,7 @@ nav li:hover {
 }
 
 #shopButtons > button:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #shopHovers {
@@ -1891,7 +1910,7 @@ nav li:hover {
 }
 
 .consumablebutton:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .permshopbutton {
@@ -1901,7 +1920,7 @@ nav li:hover {
 }
 
 .permshopbutton:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #ants {
@@ -1966,7 +1985,7 @@ nav li:hover {
 }
 
 #toggleAntMax:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #toggleAutoSacrificeAnt {
@@ -1978,7 +1997,7 @@ nav li:hover {
 }
 
 #toggleAutoSacrificeAnt:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #autoSacrificeAntMode {
@@ -1989,7 +2008,7 @@ nav li:hover {
 }
 
 #autoSacrificeAntMode:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #autoAntSacrificeAmount {
@@ -2107,7 +2126,7 @@ nav li:hover {
 }
 
 .cubeSwitchTabBtn:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #wowCubeSidebar > p { margin: 0; }
@@ -2148,7 +2167,7 @@ nav li:hover {
 }
 
 .cubeBtn:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 p[id$="BlessingsTotal"] {
@@ -2348,7 +2367,7 @@ p[id$="BlessingsTotal"] {
 
 #tesseractautobuytoggle:hover,
 #tesseractautobuymode:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #tesseractAmount {
@@ -2358,7 +2377,6 @@ p[id$="BlessingsTotal"] {
 }
 
 #autotessbuyeramount {
-    color: white;
     margin: 0;
 }
 
@@ -2426,7 +2444,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #statsForNerds > button:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .statContainer {
@@ -2553,7 +2571,7 @@ p[id$="BlessingsTotal"] {
 .historySubTab tbody .history-gain:last-child { margin-right: 0; }
 
 .historySubTab tbody tr:nth-child(odd) {
-    background: #262626;
+    background: var(--history-lines);
 }
 
 .historySubTab tbody .history-seconds {
@@ -2583,7 +2601,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #historyTogglePerSecondButton:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .onOffToggle {
@@ -2651,12 +2669,21 @@ p[id$="BlessingsTotal"] {
 }
 
 .runeButtonsAvailable {
-    background-color: #222;
+    background-color: var(--blessings-canbuy-color);
     cursor: pointer;
 }
 
 .runeButtonsAvailable:hover {
-    background-color: #444;
+    background-color: var(--blessings-hover-color);
+}
+
+.runeButtonsBuyAll {
+    background-color: var(--button-color);
+    cursor: pointer;
+}
+
+.runeButtonsBuyAll:hover {
+    background-color: var(--hover-color);
 }
 
 #buyRuneBlessingInput {
@@ -2747,10 +2774,6 @@ p[id$="BlessingsTotal"] {
     background-color: black;
 }
 
-#autoAscend {
-    color: white;
-}
-
 #ascensionAutoEnable,
 #ascensionAutoToggle {
     width: 150px;
@@ -2759,7 +2782,7 @@ p[id$="BlessingsTotal"] {
 
 #ascensionAutoEnable:hover,
 #ascensionAutoToggle:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #corruptionStatsLoadouts {
@@ -2779,7 +2802,7 @@ p[id$="BlessingsTotal"] {
 
 #corrStatsBtn:hover,
 #corrLoadoutsBtn:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #corrButtonRow {
@@ -2828,7 +2851,7 @@ p[id$="BlessingsTotal"] {
 }
 
 .corrBtn:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .corruptionMax {
@@ -2893,9 +2916,18 @@ img.small {
     margin-bottom: 1px;
 }
 
+.corrImport {
+    border: 1px solid green;
+    padding: 2px 5px;
+    transition-duration: 0.15s;
+    width: 100%;
+    margin-bottom: 1px;
+}
+
 .corrSave:hover,
-.corrLoad:hover {
-    background-color: #333;
+.corrLoad:hover,
+.corrImport:hover {
+    background-color: var(--hover-color);
 }
 
 #corruptionCleanse {
@@ -2917,7 +2949,7 @@ img.small {
 
 #corruptionCleanse:hover,
 #corruptionCleanseConfirm:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 header {
@@ -2958,33 +2990,14 @@ header .img {
     min-width: 146px;
 }
 
-header #coinDisplay {
-    color: gold;
-}
-
-header #diamondDisplay {
-    color: cyan;
-}
-
-header #offeringDisplay {
-    color: gold;
-}
-
-header #mythosDisplay {
-    color: plum;
-}
-
-header #mythosshardDisplay {
-    color: plum;
-}
-
-header #particlesDisplay {
-    color: limegreen;
-}
-
-header #obtainiumDisplay {
-    color: pink;
-}
+header #quarkDisplay { color: white; }
+header #coinDisplay { color: gold; }
+header #diamondDisplay { color: cyan; }
+header #offeringDisplay { color: gold; }
+header #mythosDisplay { color: plum; }
+header #mythosshardDisplay { color: plum; }
+header #particlesDisplay { color: limegreen; }
+header #obtainiumDisplay { color: pink; }
 
 .statDisplay {
     padding-left: 6px;
@@ -3115,7 +3128,7 @@ header #obtainiumDisplay {
 }
 
 #saveOffToggle:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .platonicUpgradeImage {
@@ -3136,7 +3149,6 @@ header #obtainiumDisplay {
     width: 380px;
     height: auto;
     margin: auto;
-    color: white;
     text-align: left;
     font-size: 1em;
 }
@@ -3147,7 +3159,6 @@ header #obtainiumDisplay {
     margin-top: 10px;
     padding: 8px;
     width: calc(180px * 4 + 45px);
-    border: 3px solid plum;
     grid-column: shop 2/4;
     grid-row: 1;
     grid-column-gap: 15px;
@@ -3164,18 +3175,28 @@ header #obtainiumDisplay {
 #hepteractToQuark,
 #overfluxPowder {
     display: grid;
-    grid-template-columns: 12px 32px 31px 90px 15px;
-    grid-template-rows: 32px 15px 15px 15px;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 28px);
 }
 
 #hepteractToQuarkImage,
 #overfluxPowderImage {
-    grid-column: 2;
+    grid-row: 1 / span 2;
+    width: 56px;
+    height: 56px;
 }
 
 #hepteractToQuarkTrade,
+#hepteractToQuarkTradeAuto {
+    grid-column: 2;
+}
+
 #powderDayWarp {
-    grid-column: 4;
+    grid-column: 2 / span 2;
+}
+
+#hepteractToQuarkTradeMax {
+    grid-column: 3;
 }
 
 .heptTypeImage {
@@ -3183,7 +3204,7 @@ header #obtainiumDisplay {
 }
 
 .heptGridInventory {
-    grid-column: 2 / span 3;
+    grid-column: 1 / span 3;
     display: block;
 }
 
@@ -3204,7 +3225,7 @@ header #obtainiumDisplay {
 }
 
 .hepteractGrid button:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .meter {
@@ -3236,6 +3257,7 @@ header #obtainiumDisplay {
 
 .progressText {
     position: absolute;
+    color: white;
     z-index: 2;
     left: 50%;
     transform: translateX(-50%);
@@ -3329,7 +3351,7 @@ header #obtainiumDisplay {
 }
 
 #singularityTabsToggle > button:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #singularityUpgradeContainer,
@@ -3348,7 +3370,6 @@ header #obtainiumDisplay {
     padding-top: 10px;
     margin-top: 5px;
     width: calc(105px * 5);
-    border: 3px solid plum;
 }
 
 .singularityUpgrade,

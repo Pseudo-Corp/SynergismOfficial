@@ -534,6 +534,7 @@ export interface Player {
         multiplier: HepteractCraft
     }
     overfluxOrbs: number
+    overfluxOrbsAutoBuy: boolean
     overfluxPowder: number
     dailyPowderResetUses: number
 
@@ -541,6 +542,7 @@ export interface Player {
     singularityCounter: number
     goldenQuarks: number
     quarksThisSingularity: number
+    totalQuarksEver: number
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
     octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade> 

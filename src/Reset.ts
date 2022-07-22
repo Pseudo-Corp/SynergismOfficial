@@ -92,7 +92,7 @@ export const resetdetails = (input: resetNames) => {
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['reincarnationPointGain']);
-            resetInfo.textContent = 'Reset ALL previous reset tiers, but gain Particles, Obtainium and Offerings! Required: ' + format(player.transcendShards) + '/1e300 Mythos Shards || TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
+            resetInfo.textContent = 'Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: ' + format(player.transcendShards) + '/1e300 Mythos Shards || TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
             resetInfo.style.color = 'limegreen';
             break;
         case 'acceleratorBoost':
@@ -620,11 +620,18 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     if (input === 'ascension' || input === 'ascensionChallenge') {
         const autoHepteractCrafts = getAutoHepteractCrafts();
-        if (autoHepteractCrafts.length > 0) {
+        const numberOfAutoCraftsAndOrbs = autoHepteractCrafts.length + (player.overfluxOrbsAutoBuy ? 1 : 0);
+        if (numberOfAutoCraftsAndOrbs > 0) {
             // Computes the max number of Hepteracts to spend on each auto Hepteract craft
-            const heptAutoSpend = Math.floor((player.wowAbyssals / autoHepteractCrafts.length) * (player.hepteractAutoCraftPercentage / 100))
+            const heptAutoSpend = Math.floor((player.wowAbyssals / numberOfAutoCraftsAndOrbs) * (player.hepteractAutoCraftPercentage / 100))
             for (const craft of autoHepteractCrafts) {
                 craft.autoCraft(heptAutoSpend);
+            }
+
+            if (player.overfluxOrbsAutoBuy) {
+                const orbsAmount = Math.floor(heptAutoSpend / 250000);
+                player.overfluxOrbs += orbsAmount;
+                player.wowAbyssals -= 250000 * orbsAmount;
             }
         }
 
@@ -880,6 +887,7 @@ export const singularity = async (): Promise<void> => {
     player.runelevels[6] = 0;
     player.goldenQuarks += calculateGoldenQuarkGain();
     player.singularityCount += 1;
+    player.totalQuarksEver += player.quarksThisSingularity;
     await resetShopUpgrades(true);
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
@@ -892,6 +900,7 @@ export const singularity = async (): Promise<void> => {
     toggleSubTab(9, 0); // set 'corruption main'
     toggleSubTab(-1, 0); // set 'statistics main'
 
+    hold.totalQuarksEver = player.totalQuarksEver
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;
     hold.shopUpgrades = player.shopUpgrades;

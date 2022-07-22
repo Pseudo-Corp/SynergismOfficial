@@ -508,6 +508,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.overfluxOrbs === undefined) {
         player.overfluxOrbs = 0;
     }
+    if (data.overfluxOrbsAutoBuy === undefined) {
+        player.overfluxOrbsAutoBuy = false;
+    }
     if (data.overfluxPowder === undefined) {
         player.overfluxPowder = 0;
         player.shopUpgrades.powderEX = 0;
@@ -559,6 +562,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
     }
 
+    if (data.totalQuarksEver === undefined){
+        player.totalQuarksEver = 0;
+    }
+
     // Update (read: check) for undefined shop upgrades. Also checks above max level.
     const shopKeys = Object.keys(blankSave['shopUpgrades']) as (keyof Player['shopUpgrades'])[];
     for (const shopUpgrade of shopKeys) {
@@ -594,7 +601,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                 if (player.singularityUpgrades[k].minimumSingularity > player.singularityCount) {
                     player.singularityUpgrades[k].refund()
                 }
-
                 const cost = player.singularityUpgrades[k].level * (player.singularityUpgrades[k].level + 1) *
                              player.singularityUpgrades[k].costPerLevel / 2
                 if (player.singularityUpgrades[k].maxLevel !== -1 &&
@@ -623,7 +629,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     freeLevels: data.octeractUpgrades[k].freeLevels
                 }
                 player.octeractUpgrades[k] = new OcteractUpgrade(updatedData);
-
             }
         }
     }

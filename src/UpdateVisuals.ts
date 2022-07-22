@@ -510,7 +510,8 @@ export const visualUpdateSettings = () => {
     DOMCacheGetOrSet('runeSumStatistic').childNodes[1].textContent = format(G['runeSum'])
     DOMCacheGetOrSet('obtainiumPerSecondStatistic').childNodes[1].textContent = format(player.obtainiumpersecond, 2, true)
     DOMCacheGetOrSet('ascensionCountStatistic').childNodes[1].textContent = format(player.ascensionCount, 0, true)
-    DOMCacheGetOrSet('totalQuarkCountStatistic').childNodes[1].textContent = format(player.quarksThisSingularity, 0, true)
+    DOMCacheGetOrSet('totalQuarkCountStatistic').childNodes[1].textContent = format(player.totalQuarksEver + player.quarksThisSingularity, 0, true)
+    DOMCacheGetOrSet('totalQuarkCountStatisticSing').childNodes[1].textContent = format(player.quarksThisSingularity, 0, true)
 
     DOMCacheGetOrSet('saveString').textContent =
         `Currently: ${player.saveString.replace('$VERSION$', 'v' + version)}`;

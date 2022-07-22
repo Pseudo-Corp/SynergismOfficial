@@ -295,9 +295,14 @@ export class HepteractCraft {
         let amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft);
         let amountCrafted = 0
         if (amountToCraft >= this.CAP - this.BAL) {
-            this.BAL = this.CAP
             amountToCraft -= (this.CAP - this.BAL)
             amountCrafted += (this.CAP - this.BAL)
+            this.BAL = this.CAP
+            this.CAP *= expandMultiplier
+        } else {
+            amountToCraft = 0
+            amountCrafted = amountToCraft
+            this.BAL += amountToCraft
         }
 
         while (amountToCraft >= this.CAP) {
@@ -306,9 +311,10 @@ export class HepteractCraft {
             this.BAL = this.CAP
             this.CAP *= expandMultiplier
         }
-
-        amountCrafted += Math.min(this.CAP - this.BAL, amountToCraft)
-        this.BAL = Math.min(this.CAP, this.BAL + amountToCraft)
+        if (amountToCraft >= this.CAP / 2) {
+            amountCrafted += amountToCraft
+            this.BAL = amountToCraft
+        }
 
         for (const item in this.OTHER_CONVERSIONS) {
             if (item == 'worlds') {
@@ -498,25 +504,29 @@ export const hepteractToOverfluxOrbDescription = () => {
  * Trades Hepteracts for Overflux Orbs at 250,000 : 1 ratio. If null or invalid will gracefully terminate.
  * @returns Alert of either purchase failure or success
  */
-export const tradeHepteractToOverfluxOrb = async () => {
+export const tradeHepteractToOverfluxOrb = async (buyMax?:boolean) => {
     const maxBuy = Math.floor(player.wowAbyssals / 250000);
-    const hepteractInput = await Prompt(`How many Orbs would you like to purchase?\n You can buy up to ${format(maxBuy, 0, true)} with your hepteracts.`);
-    if (hepteractInput === null) {
-        if (player.toggles[35]) {
-            return Alert('Okay, maybe next time.');
-        } else {
-            return
-        }
-    }
+    let toUse: number;
 
-    const toUse = Number(hepteractInput);
-    if (
-        isNaN(toUse) ||
-        !isFinite(toUse) ||
-        !Number.isInteger(toUse) ||
-        toUse <= 0
-    ) {
-        return Alert('Hey! That\'s not a valid number!');
+    if (buyMax) {
+        toUse = maxBuy;
+    } else {
+        const hepteractInput = await Prompt(`How many Orbs would you like to purchase?\n You can buy up to ${format(maxBuy, 0, true)} with your hepteracts.`);
+        if (hepteractInput === null) {
+            if (player.toggles[35]) {
+                return Alert('Okay, maybe next time.');
+            } else {
+                return
+            }
+        }
+
+        toUse = Number(hepteractInput);
+        if (isNaN(toUse) ||
+            !isFinite(toUse) ||
+            !Number.isInteger(toUse) ||
+            toUse <= 0) {
+            return Alert('Hey! That\'s not a valid number!');
+        }
     }
 
     const buyAmount = Math.min(maxBuy, Math.floor(toUse));
@@ -536,6 +546,16 @@ export const tradeHepteractToOverfluxOrb = async () => {
     if (player.toggles[35]) {
         return Alert('You have purchased ' + format(buyAmount, 0, true) + ` Overflux Orbs [+${format(100 * (afterEffect - beforeEffect), 2, true)}% to effect]. ${powderText} Enjoy!`);
     }
+}
+
+export const toggleAutoBuyOrbs = (newValue?: boolean) => {
+    const HTML = DOMCacheGetOrSet('hepteractToQuarkTradeAuto');
+
+    // When newValue is empty, current value is toggled
+    player.overfluxOrbsAutoBuy = newValue ?? !player.overfluxOrbsAutoBuy;
+
+    HTML.textContent = `Auto ${player.overfluxOrbsAutoBuy ? 'ON' : 'OFF'}`;
+    HTML.style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`;
 }
 
 /**

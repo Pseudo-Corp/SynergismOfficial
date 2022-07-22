@@ -14,6 +14,7 @@ import { quarkHandler } from './Quark';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
 import { calculateEventSourceBuff } from './Event';
+import { disableHotkeys, enableHotkeys } from './Hotkeys';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
@@ -844,6 +845,7 @@ export const timeWarp = async () => {
 
     DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
     DOMCacheGetOrSet('preloadContainer').style.display = 'flex'
+    disableHotkeys();
     await calculateOffline(timeUse)
 }
 
@@ -948,6 +950,7 @@ export const calculateOffline = async (forceTime = 0) => {
 
     DOMCacheGetOrSet('offlineContainer').style.display = 'flex';
     document.body.classList.add('loading');
+    disableHotkeys();
 
     DOMCacheGetOrSet('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
     DOMCacheGetOrSet('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
@@ -988,6 +991,7 @@ export const exitOffline = () => {
     document.body.classList.remove('loading');
     DOMCacheGetOrSet('offlineContainer').style.display = 'none';
     DOMCacheGetOrSet('preloadContainer').style.display = 'none';
+    enableHotkeys();
 }
 
 export const calculateSigmoid = (constant: number, factor: number, divisor: number) => {

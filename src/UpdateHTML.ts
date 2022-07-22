@@ -403,6 +403,9 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('singularitybtn').style.display = 'block') :
         (DOMCacheGetOrSet('singularitybtn').style.display = 'none');
 
+    player.singularityCount > 0 && player.ascensionCount >= 1 ?
+        (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'block') :
+        (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'none') ;
 
 
     DOMCacheGetOrSet('ascensionStats').style.visibility = (player.achievements[197] > 0 || player.singularityCount > 0) ? 'visible' : 'hidden';
@@ -498,7 +501,7 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('cubes').style.display = 'none'
     DOMCacheGetOrSet('traits').style.display = 'none'
     DOMCacheGetOrSet('singularity').style.display = 'none'
-    DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'black'
+    DOMCacheGetOrSet('singularitytab').style.backgroundColor = ''
 
     const tab = DOMCacheGetOrSet('settingstab')!;
     tab.style.backgroundColor = '';
