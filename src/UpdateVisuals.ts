@@ -16,6 +16,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import type { IMultiBuy } from './Cubes';
 import { calculateMaxTalismanLevel } from './Talismans';
 import { getGoldenQuarkCost } from './singularity';
+import { octeractGainPerSecond } from './Octeracts';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== 'buildings') {
@@ -534,6 +535,14 @@ export const visualUpdateSingularity = () => {
         return
     }
     DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
+}
+
+export const visualUpdateOcteracts = () => {
+    if (G['currentTab'] !== 'singularity') {
+        return
+    }
+    DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true, true, true)
+    DOMCacheGetOrSet('sPO').textContent = format(1 / octeractGainPerSecond(), 2, true)
 }
 
 export const visualUpdateShop = () => {

@@ -2,6 +2,7 @@ import type Decimal from 'break_infinity.js';
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental';
 import { HepteractCraft } from '../Hepteracts';
 import { Category, ResetHistoryEntryUnion } from '../History';
+import { OcteractUpgrade } from '../Octeracts';
 import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
 import { SingularityUpgrade } from '../singularity';
@@ -417,6 +418,7 @@ export interface Player {
     wowHypercubes: WowHypercubes
     wowPlatonicCubes: WowPlatonicCubes
     wowAbyssals: number
+    wowOcteracts: number
     cubeBlessings: {
         accelerator: number
         multiplier: number
@@ -543,8 +545,10 @@ export interface Player {
     totalQuarksEver: number
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
+    octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade> 
     dailyCodeUsed: boolean
     hepteractAutoCraftPercentage: number
+    octeractTimer: number
 
 }
 

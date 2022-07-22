@@ -44,6 +44,7 @@ import localforage from 'localforage';
 import { singularityData, SingularityUpgrade } from './singularity';
 import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
+import { octeractData, OcteractUpgrade } from './Octeracts';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -535,6 +536,7 @@ export const player: Player = {
     wowPlatonicCubes: new WowPlatonicCubes(0),
     saveOfferingToggle: false,
     wowAbyssals: 0,
+    wowOcteracts: 0,
     cubeBlessings: {
         accelerator: 0,
         multiplier: 0,
@@ -723,10 +725,30 @@ export const player: Player = {
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
         singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
         singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
-        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3'])
+        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3']),
+        singOcteractGain: new SingularityUpgrade(singularityData['singOcteractGain']),
+        singOcteractGain2: new SingularityUpgrade(singularityData['singOcteractGain2']),
+        singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
+        singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
+        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5'])
     },
+
+    octeractUpgrades: {
+        octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
+        octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
+        octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
+        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
+        octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
+        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
+        octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
+        octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
+        octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
+        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed'])
+    },
+
     dailyCodeUsed: false,
-    hepteractAutoCraftPercentage: 50
+    hepteractAutoCraftPercentage: 50,
+    octeractTimer: 0
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -1696,7 +1718,8 @@ export const format = (
     input: Decimal | number | { [Symbol.toPrimitive]: unknown } | null | undefined,
     accuracy = 0,
     long = false,
-    truncate = true
+    truncate = true,
+    fractional = false
 ): string => {
     if (input == null) {
         return '0 [null]';
@@ -1717,7 +1740,7 @@ export const format = (
         return isNaN(input as number) ? '0 [NaN]' : '0 [und.]';
     } else if ( // this case handles numbers less than 1e-6 and greater than 0
         typeof input === 'number' &&
-        input < 1e-3 && // arbitrary number, can be changed
+        input < 1e-12 && // arbitrary number, can be changed
         input > 0 // don't handle negative numbers, probably could be removed
     ) {
         return input.toExponential(accuracy);
@@ -1752,6 +1775,20 @@ export const format = (
     // If the power is less than 12 it's effectively 0
     if (power < -12) {
         return '0';
+    }
+
+    // If the power is negative, then we will want to address that separately.
+    if (power < 0 && !isDecimal(input) && fractional) {
+        if (power <= -9) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 9)}B`
+        }
+        if (power <= -6) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 6)}M`
+        }
+        if (power <= -3) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 3)}K`
+        }
+        return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
     } else if (power < 6 || (long && power < 13)) {
         // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
         // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13
@@ -1956,6 +1993,13 @@ export const updateAllTick = (): void => {
     a *= (1 + 3/10000 * hepteractEffective('accelerator'))
     a = Math.floor(Math.min(1e100, a))
 
+    if (player.usedCorruptions[2] >= 15) {
+        a = Math.pow(a, 0.2)
+    }
+    if (player.usedCorruptions[2] >= 16) {
+        a = 1
+    }
+
     G['freeAccelerator'] = a;
     G['totalAccelerator'] += G['freeAccelerator'];
 
@@ -2128,6 +2172,14 @@ export const updateAllMultiplier = (): void => {
     a *= G['challenge15Rewards'].multiplier
     a *= (1 + 3/10000 * hepteractEffective('multiplier'))
     a = Math.floor(Math.min(1e100, a))
+
+    if (player.usedCorruptions[2] >= 15) {
+        a = Math.pow(a, 0.2)
+    }
+    if (player.usedCorruptions[2] >= 16) {
+        a = 1
+    }
+
     G['freeMultiplier'] = a;
     G['totalMultiplier'] = G['freeMultiplier'] + player.multiplierBought;
 
@@ -2754,6 +2806,28 @@ export const updateAntMultipliers = (): void => {
 
     if (player.usedCorruptions[7] >= 14) {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
+    }
+    if (player.usedCorruptions[7] >= 15) {
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
+    }
+    if (player.usedCorruptions[7] >= 16) {
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
+    }
+
+    if (player.octeractUpgrades.octeractStarter.getEffect().bonus) {
+        G['globalAntMult'] = G['globalAntMult'].times(100000)
+    }
+
+    if (player.singularityCount >= 30) {
+        G['globalAntMult'] = G['globalAntMult'].times(1000)
+    }
+
+    if (player.singularityCount >= 70) {
+        G['globalAntMult'] = G['globalAntMult'].times(1000)
+    }
+
+    if (player.singularityCount >= 100) {
+        G['globalAntMult'] = G['globalAntMult'].times(1e6)
     }
 }
 
@@ -3480,6 +3554,7 @@ function tack(dt: number) {
         addTimers('ascension', dt)
         addTimers('quarks', dt)
         addTimers('goldenQuarks', dt)
+        addTimers('octeracts', dt)
         addTimers('singularity', dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
