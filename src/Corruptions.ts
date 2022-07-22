@@ -228,6 +228,7 @@ export const corruptionLoadoutTableCreate = () => {
                     cell.textContent = player.corruptionLoadouts[i][j+1].toString()
                 }
                 cell.style.textAlign = 'center'
+                cell.style.color = 'white'
             }
         }
         if (i === 0) {

@@ -496,7 +496,7 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('cubes').style.display = 'none'
     DOMCacheGetOrSet('traits').style.display = 'none'
     DOMCacheGetOrSet('singularity').style.display = 'none'
-    DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'black'
+    DOMCacheGetOrSet('singularitytab').style.backgroundColor = ''
 
     const tab = DOMCacheGetOrSet('settingstab')!;
     tab.style.backgroundColor = '';
