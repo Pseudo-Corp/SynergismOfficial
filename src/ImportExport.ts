@@ -258,7 +258,7 @@ export const promocodesPrompt = async () => {
     void promocodes(input);
 }
 
-export const promocodes = async (input: string | null) => {
+export const promocodes = async (input: string | null, amount?: number) => {
     const el = DOMCacheGetOrSet('promocodeinfo');
 
     if (input === null) {
@@ -363,7 +363,13 @@ export const promocodes = async (input: string | null) => {
             return;
         }
 
-        const attemptsUsed = await Prompt(`You can use up to ${availableUses} attempts at once. How many would you like to use?`);
+        let attemptsUsed: string | null = null;
+        if (amount) {
+            attemptsUsed = amount.toString();
+        } else {
+            attemptsUsed = await Prompt(`You can use up to ${availableUses} attempts at once. How many would you like to use?`);
+        }
+
         if (attemptsUsed === null) {
             return Alert('No worries, you didn\'t lose any of your uses! Come back later!');
         }
@@ -401,8 +407,14 @@ export const promocodes = async (input: string | null) => {
             player.worlds.add(actualQuarks);
             addTimers('ascension', ascensionTimer)
             player.rngCode = v;
-            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks! ` +
-                `${ ascensionTimerText } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+            if (amount) {
+                // No message when using Add x1 Special action, we refresh the info message
+                void promocodesInfo('add')
+                return
+            } else {
+                return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
+                    `${ ascensionTimer } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+            }
         }
 
         // If your calculator isn't maxed but has levels, it will provide the solution.
