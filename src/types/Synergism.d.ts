@@ -539,6 +539,7 @@ export interface Player {
     singularityCounter: number
     goldenQuarks: number
     quarksThisSingularity: number
+    totalQuarksEver: number
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
     dailyCodeUsed: boolean

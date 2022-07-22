@@ -880,6 +880,7 @@ export const singularity = async (): Promise<void> => {
     player.runelevels[6] = 0;
     player.goldenQuarks += calculateGoldenQuarkGain();
     player.singularityCount += 1;
+    player.totalQuarksEver += player.quarksThisSingularity;
     await resetShopUpgrades(true);
     const hold = Object.assign({}, blankSave, {
         codes: Array.from(blankSave.codes)
@@ -892,6 +893,7 @@ export const singularity = async (): Promise<void> => {
     toggleSubTab(9, 0); // set 'corruption main'
     toggleSubTab(-1, 0); // set 'statistics main'
 
+    hold.totalQuarksEver = player.totalQuarksEver
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;
     hold.shopUpgrades = player.shopUpgrades;
