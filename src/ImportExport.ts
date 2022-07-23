@@ -258,7 +258,7 @@ export const promocodesPrompt = async () => {
     void promocodes(input);
 }
 
-export const promocodes = async (input: string | null) => {
+export const promocodes = async (input: string | null, amount?: number) => {
     const el = DOMCacheGetOrSet('promocodeinfo');
 
     if (input === null) {
@@ -363,7 +363,13 @@ export const promocodes = async (input: string | null) => {
             return;
         }
 
-        const attemptsUsed = await Prompt(`You can use up to ${availableUses} attempts at once. How many would you like to use?`);
+        let attemptsUsed: string | null = null;
+        if (amount) {
+            attemptsUsed = amount.toString();
+        } else {
+            attemptsUsed = await Prompt(`You can use up to ${availableUses} attempts at once. How many would you like to use?`);
+        }
+
         if (attemptsUsed === null) {
             return Alert('No worries, you didn\'t lose any of your uses! Come back later!');
         }
@@ -390,18 +396,25 @@ export const promocodes = async (input: string | null) => {
         const timeToNext = Math.floor((hour - (Date.now() - v - hour * remaining)) / 1000)
 
         // Calculator 3: Adds ascension timer.
-        const ascensionTimer = (player.shopUpgrades.calculator3 > 0)
-            ? 'Thanks to PL-AT Ω you have also gained ' + format(60 * player.shopUpgrades.calculator3 * realAttemptsUsed) + ' real-life seconds to your Ascension Timer!'
+        const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
+        const ascensionTimer = 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult;
+        const ascensionTimerText = (player.shopUpgrades.calculator3 > 0)
+            ? 'Thanks to PL-AT Ω you have also gained ' + format(ascensionTimer) + ' real-life seconds to your Ascension Timer!'
             : '';
 
         // Calculator Maxed: you don't need to insert anything!
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
-            const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
-            addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult)
+            addTimers('ascension', ascensionTimer)
             player.rngCode = v;
-            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
-                `${ ascensionTimer } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+            if (amount) {
+                // No message when using Add x1 Special action, we refresh the info message
+                void promocodesInfo('add')
+                return
+            } else {
+                return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
+                    `${ ascensionTimer } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+            }
         }
 
         // If your calculator isn't maxed but has levels, it will provide the solution.
@@ -419,8 +432,8 @@ export const promocodes = async (input: string | null) => {
 
         if (first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
-            addTimers('ascension', 60 * player.shopUpgrades.calculator3)
-            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} Quarks! ${ascensionTimer} You have ${remaining} uses of Add. ` +
+            addTimers('ascension', ascensionTimer)
+            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} Quarks! ${ascensionTimerText} You have ${remaining} uses of Add. ` +
                 `You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         } else {
             await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);

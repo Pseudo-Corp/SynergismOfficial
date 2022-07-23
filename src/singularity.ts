@@ -47,8 +47,8 @@ export class SingularityUpgrade {
     private readonly description: string;
     public level = 0;
     public freeLevels = 0;
-    private readonly maxLevel: number; //-1 = infinitely levelable
-    private readonly costPerLevel: number;
+    public readonly maxLevel: number; //-1 = infinitely levelable
+    public readonly costPerLevel: number;
     public toggleBuy = 1; //-1 = buy MAX (or 1000 in case of infinity levels!)
     public goldenQuarksInvested = 0;
     public minimumSingularity: number;
@@ -544,7 +544,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'Shop Liquidation Sale',
         description: 'The Seal Merchant needs to get rid of some exotic goods. Only for a steep price. I do not think that is how sales work.',
         maxLevel: 1,
-        costPerLevel: 49999,
+        costPerLevel: 19999,
         minimumSingularity: 11,
         effect: (n: number) => {
             return {

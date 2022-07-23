@@ -4,6 +4,7 @@ import { player, resetCheck } from './Synergism';
 import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles';
 import { Alert, Prompt } from './UpdateHTML';
 import { useConsumable } from  './Shop';
+import { promocodes } from './ImportExport';
 
 export const hotkeys = new Map<string, [string,() => unknown]>([
     ['A', ['Buy Accelerators', () => buyAccelerator()]],
@@ -32,7 +33,8 @@ export const hotkeys = new Map<string, [string,() => unknown]>([
     ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999)]],
     ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity')]],
     ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion')]],
-    ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion')]]
+    ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion')]],
+    ['SHIFT+D', ['Spec. Action Add x1', () => promocodes('add', 1)]]
 ]);
 
 function toggleChallengeSweep(): void {
@@ -53,7 +55,17 @@ function exitTranscendAndPrestigeChallenge() {
     }
 }
 
+let hotkeysEnabled = false;
+
 document.addEventListener('keydown', event => {
+    if (!hotkeysEnabled) {
+        // There was a race condition where a user could spam Shift + S + Enter to
+        // Singularity which would cause a bug when rune 7 was bought. To prevent this,
+        // the game disables hotkeys when on the offline progress screen, and re-
+        // enables them when the user leaves.
+        return;
+    }
+
     if (document.activeElement?.localName === 'input') {
         // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
         // finally fixes the bug where hotkeys would be activated when typing in an input field
@@ -136,7 +148,9 @@ const makeSlot = (key: string, descr: string) => {
     return div;
 }
 
-export const startHotkeys = () => {
+export const disableHotkeys = () => hotkeysEnabled = false;
+
+export const enableHotkeys = () => {
     const hotkey = document.querySelector('.hotkeys')!;
 
     for (const child of Array.from(hotkey.children)) {
@@ -148,4 +162,6 @@ export const startHotkeys = () => {
 
         hotkey.appendChild(div);
     }
+
+    hotkeysEnabled = true;
 }
