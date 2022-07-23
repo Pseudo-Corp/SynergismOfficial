@@ -288,26 +288,31 @@ export class HepteractCraft {
 
         let amountToCraft = Math.min(smallestItemLimit, hepteractLimitCraft);
         let amountCrafted = 0
-        if (amountToCraft >= this.CAP - this.BAL) {
+        // fills to max
+        if (amountToCraft > this.CAP - this.BAL) {
             amountToCraft -= (this.CAP - this.BAL)
             amountCrafted += (this.CAP - this.BAL)
-            this.BAL = this.CAP
-            this.CAP *= expandMultiplier
-        } else {
-            amountToCraft = 0
+            this.BAL = this.CAP //1k
+        } else { // amountToCraft <= cap, fills up as much as possible
             amountCrafted = amountToCraft
             this.BAL += amountToCraft
+            amountToCraft = 0
         }
-
-        while (amountToCraft >= this.CAP) {
+        //only gets here either when hept is full with amountToCraft > 0 or when amountToCraft = 0 and hept is not full
+        // while >= next cap, always fills all the way
+        while (amountToCraft >= this.CAP * 2) { //1k >= 2k
+            this.CAP *= expandMultiplier
             amountToCraft -= this.CAP
             amountCrafted += this.CAP
             this.BAL = this.CAP
-            this.CAP *= expandMultiplier
         }
-        if (amountToCraft >= this.CAP / 2) {
+        //this will check if its >= current cap
+        //if able to expand and not cap but can get past half
+        if (amountToCraft >= this.CAP) {
             amountCrafted += amountToCraft
             this.BAL = amountToCraft
+            this.CAP *= expandMultiplier
+            amountToCraft = 0
         }
 
         for (const item in this.OTHER_CONVERSIONS) {
