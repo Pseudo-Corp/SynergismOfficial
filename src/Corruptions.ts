@@ -308,6 +308,7 @@ export const smartLoadoutTableCreate = () => {
             } else if (j <= corrCount) {
                 cell.textContent = ((i === 0) ? player.prototypeCorruptions[j+1] : player.smartLoadouts[i][j+1]).toString();
                 cell.style.textAlign = 'center'
+                cell.style.color = 'white'
             }
         }
         if (i === 0) {
