@@ -916,7 +916,7 @@ export const toggleautoopensCubes = (i: number) => {
         if (i === 1) {
             const oc = DOMCacheGetOrSet('openCubes');
             const oci = DOMCacheGetOrSet('cubeOpensInput');
-            if (player.autoopenCubes) {
+            if (player.autoOpenCubes) {
                 oc.textContent = 'Auto Open [OFF]';
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
@@ -926,11 +926,11 @@ export const toggleautoopensCubes = (i: number) => {
                 oci.style.border = '1px solid green';
             }
 
-            player.autoopenCubes = !player.autoopenCubes;
+            player.autoOpenCubes = !player.autoOpenCubes;
         } else if (i === 2) {
             const oc = DOMCacheGetOrSet('openTesseracts');
             const oci = DOMCacheGetOrSet('tesseractsOpensInput');
-            if (player.autoopenTesseracts) {
+            if (player.autoOpenTesseracts) {
                 oc.textContent = 'Auto Open [OFF]';
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
@@ -940,11 +940,11 @@ export const toggleautoopensCubes = (i: number) => {
                 oci.style.border = '1px solid green';
             }
 
-            player.autoopenTesseracts = !player.autoopenTesseracts
+            player.autoOpenTesseracts = !player.autoOpenTesseracts
         } else if (i === 3) {
             const oc = DOMCacheGetOrSet('openHypercubes');
             const oci = DOMCacheGetOrSet('hypercubesOpensInput');
-            if (player.autoopenHypercubes) {
+            if (player.autoOpenHypercubes) {
                 oc.textContent = 'Auto Open [OFF]';
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
@@ -954,11 +954,11 @@ export const toggleautoopensCubes = (i: number) => {
                 oci.style.border = '1px solid green';
             }
 
-            player.autoopenHypercubes = !player.autoopenHypercubes;
+            player.autoOpenHypercubes = !player.autoOpenHypercubes;
         } else if (i === 4) {
             const oc = DOMCacheGetOrSet('openPlatonicCube');
             const oci = DOMCacheGetOrSet('platonicCubeOpensInput');
-            if (player.autoopenPlatonicsCubes) {
+            if (player.autoOpenPlatonicsCubes) {
                 oc.textContent = 'Auto Open [OFF]';
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
@@ -968,7 +968,7 @@ export const toggleautoopensCubes = (i: number) => {
                 oci.style.border = '1px solid green';
             }
 
-            player.autoopenPlatonicsCubes = !player.autoopenPlatonicsCubes;
+            player.autoOpenPlatonicsCubes = !player.autoOpenPlatonicsCubes;
         }
     }
 }

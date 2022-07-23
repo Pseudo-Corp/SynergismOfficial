@@ -669,19 +669,19 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         }
 
         //Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
-        if (player.autoopenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
-            player.wowCubes.open(Number(player.wowCubes) * player.openCubes / 100, false)
+        if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
+            player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
         }
-        if (player.autoopenTesseracts && player.openTesseracts !== 0) {
+        if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
             if (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2) {
-                player.wowTesseracts.open(Number(player.wowTesseracts) * player.openTesseracts / 100, false)
+                player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) * player.openTesseracts / 100), false)
             }
         }
-        if (player.autoopenHypercubes && player.openHypercubes !== 0) {
-            player.wowHypercubes.open(Number(player.wowHypercubes) * player.openHypercubes / 100, false)
+        if (player.autoOpenHypercubes && player.openHypercubes !== 0 && player.challengecompletions[13] > 0) {
+            player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) * player.openHypercubes / 100), false)
         }
-        if (player.autoopenPlatonicsCubes && player.openPlatonicsCubes !== 0) {
-            player.wowPlatonicCubes.open(Number(player.wowPlatonicCubes) * player.openPlatonicsCubes / 100, false)
+        if (player.autoOpenPlatonicsCubes && player.openPlatonicsCubes !== 0 && player.challengecompletions[14] > 0) {
+            player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) * player.openPlatonicsCubes / 100), false)
         }
     }
 
@@ -981,13 +981,13 @@ export const singularity = async (): Promise<void> => {
     hold.autoTesseracts = player.autoTesseracts
     hold.tesseractAutoBuyerToggle = player.tesseractAutoBuyerToggle
     hold.tesseractAutoBuyerAmount = player.tesseractAutoBuyerAmount
-    hold.autoopenCubes = player.autoopenCubes
+    hold.autoOpenCubes = player.autoOpenCubes
     hold.openCubes = player.openCubes
-    hold.autoopenTesseracts = player.autoopenTesseracts
+    hold.autoOpenTesseracts = player.autoOpenTesseracts
     hold.openTesseracts = player.openTesseracts
-    hold.autoopenHypercubes = player.autoopenHypercubes
+    hold.autoOpenHypercubes = player.autoOpenHypercubes
     hold.openHypercubes = player.openHypercubes
-    hold.autoopenPlatonicsCubes = player.autoopenPlatonicsCubes
+    hold.autoOpenPlatonicsCubes = player.autoOpenPlatonicsCubes
     hold.openPlatonicsCubes = player.openPlatonicsCubes
     hold.historyShowPerSecond = player.historyShowPerSecond
     hold.exporttest = player.exporttest

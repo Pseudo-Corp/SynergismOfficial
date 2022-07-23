@@ -171,20 +171,20 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.autoTesseracts = [false, false, false, false, false, false]
     }
 
-    if (data.autoopenCubes === undefined) {
-        player.autoopenCubes = false;
+    if (data.autoOpenCubes === undefined) {
+        player.autoOpenCubes = false;
         player.openCubes = 0;
     }
-    if (data.autoopenTesseracts === undefined) {
-        player.autoopenTesseracts = false;
+    if (data.autoOpenTesseracts === undefined) {
+        player.autoOpenTesseracts = false;
         player.openTesseracts = 0;
     }
-    if (data.autoopenHypercubes === undefined) {
-        player.autoopenHypercubes = false;
+    if (data.autoOpenHypercubes === undefined) {
+        player.autoOpenHypercubes = false;
         player.openHypercubes = 0;
     }
-    if (data.autoopenPlatonicsCubes === undefined) {
-        player.autoopenPlatonicsCubes = false;
+    if (data.autoOpenPlatonicsCubes === undefined) {
+        player.autoOpenPlatonicsCubes = false;
         player.openPlatonicsCubes = 0;
     }
 

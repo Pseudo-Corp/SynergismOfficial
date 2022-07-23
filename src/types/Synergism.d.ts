@@ -408,13 +408,13 @@ export interface Player {
     ascensionCounter: number
     ascensionCounterReal: number
     ascensionCounterRealReal: number
-    autoopenCubes: boolean,
+    autoOpenCubes: boolean,
     openCubes: number
-    autoopenTesseracts: boolean,
+    autoOpenTesseracts: boolean,
     openTesseracts: number
-    autoopenHypercubes: boolean,
+    autoOpenHypercubes: boolean,
     openHypercubes: number
-    autoopenPlatonicsCubes: boolean,
+    autoOpenPlatonicsCubes: boolean,
     openPlatonicsCubes: number
     cubeUpgrades: [null, ...number[]]
     cubeUpgradesBuyMaxToggle: boolean

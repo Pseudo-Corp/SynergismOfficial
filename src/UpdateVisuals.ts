@@ -338,7 +338,7 @@ export const visualUpdateCubes = () => {
     let accuracy;
     switch (player.subtabNumber) {
         case 0: {
-            if (player.autoopenCubes) {
+            if (player.autoOpenCubes) {
                 DOMCacheGetOrSet('openCubes').textContent = `Auto Open ${format(player.openCubes, 0)}%`;
             }
             DOMCacheGetOrSet('cubeQuantity').textContent = format(player.wowCubes, 0, true)
@@ -360,7 +360,7 @@ export const visualUpdateCubes = () => {
             break;
         }
         case 1: {
-            if (player.autoopenTesseracts) {
+            if (player.autoOpenTesseracts) {
                 DOMCacheGetOrSet('openTesseracts').textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
             }
             DOMCacheGetOrSet('tesseractQuantity').textContent = format(player.wowTesseracts, 0, true)
@@ -378,7 +378,7 @@ export const visualUpdateCubes = () => {
             break;
         }
         case 2: {
-            if (player.autoopenHypercubes) {
+            if (player.autoOpenHypercubes) {
                 DOMCacheGetOrSet('openHypercubes').textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
             }
             DOMCacheGetOrSet('hypercubeQuantity').textContent = format(player.wowHypercubes, 0, true)
@@ -396,7 +396,7 @@ export const visualUpdateCubes = () => {
             break;
         }
         case 3: {
-            if (player.autoopenPlatonicsCubes) {
+            if (player.autoOpenPlatonicsCubes) {
                 DOMCacheGetOrSet('openPlatonicCube').textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
             }
             DOMCacheGetOrSet('platonicQuantity').textContent = format(player.wowPlatonicCubes, 0, true)

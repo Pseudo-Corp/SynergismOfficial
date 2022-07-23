@@ -600,13 +600,13 @@ export const player: Player = {
     autoAscend: false,
     autoAscendMode: 'c10Completions',
     autoAscendThreshold: 1,
-    autoopenCubes: false,
+    autoOpenCubes: false,
     openCubes: 0,
-    autoopenTesseracts: false,
+    autoOpenTesseracts: false,
     openTesseracts: 0,
-    autoopenHypercubes: false,
+    autoOpenHypercubes: false,
     openHypercubes: 0,
-    autoopenPlatonicsCubes: false,
+    autoOpenPlatonicsCubes: false,
     openPlatonicsCubes: 0,
     roombaResearchIndex: 0,
     ascStatToggles: { // false here means show per second
@@ -1534,7 +1534,7 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
         }
 
-        if (player.autoopenCubes) {
+        if (player.autoOpenCubes) {
             DOMCacheGetOrSet('openCubes').textContent = `Auto Open ${format(player.openCubes, 0)}%`;
             DOMCacheGetOrSet('openCubes').style.border = '1px solid green';
             DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid green';
@@ -1543,7 +1543,7 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('openCubes').style.border = '1px solid red';
             DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid red';
         }
-        if (player.autoopenTesseracts) {
+        if (player.autoOpenTesseracts) {
             DOMCacheGetOrSet('openTesseracts').textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
             DOMCacheGetOrSet('openTesseracts').style.border = '1px solid green';
             DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid green';
@@ -1552,7 +1552,7 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('openTesseracts').style.border = '1px solid red';
             DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid red';
         }
-        if (player.autoopenHypercubes) {
+        if (player.autoOpenHypercubes) {
             DOMCacheGetOrSet('openHypercubes').textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
             DOMCacheGetOrSet('openHypercubes').style.border = '1px solid green';
             DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid green';
@@ -1561,7 +1561,7 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('openHypercubes').style.border = '1px solid red';
             DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid red';
         }
-        if (player.autoopenPlatonicsCubes) {
+        if (player.autoOpenPlatonicsCubes) {
             DOMCacheGetOrSet('openPlatonicCube').textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
             DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid green';
             DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid green';
