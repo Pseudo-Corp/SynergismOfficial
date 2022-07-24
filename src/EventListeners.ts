@@ -675,6 +675,6 @@ TODO: Fix this entire tab it's utter shit
 
     //Themes
     for (let theme = 1; theme <= 5; theme++) {
-        DOMCacheGetOrSet(`switchTheme${theme}`).addEventListener('click', () => toggleTheme(theme));
+        DOMCacheGetOrSet(`switchTheme${theme}`).addEventListener('click', () => toggleTheme(theme, false));
     }
 }

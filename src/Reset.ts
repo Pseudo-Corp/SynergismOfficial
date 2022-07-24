@@ -58,6 +58,8 @@ export const resetdetails = (input: resetNames) => {
     const resetObtainiumText = DOMCacheGetOrSet('resetobtainium2');
     const resetInfo = DOMCacheGetOrSet('resetinfo');
     const resetCurrencyGain = DOMCacheGetOrSet('resetcurrency2');
+    const crimson = document.body.style.getPropertyValue('--crimson-text-color');
+    const orchid = document.body.style.getPropertyValue('--orchid-text-color');
 
     (input == 'reincarnation') ?
         (resetObtainiumImage.style.display = 'block', resetObtainiumText.textContent = format(Math.floor(G['obtainiumGain']))):
@@ -67,7 +69,7 @@ export const resetdetails = (input: resetNames) => {
         offeringImage.style.display = offeringText.style.display = 'none':
         offeringImage.style.display = offeringText.style.display = 'block';
 
-    switch (input){
+    switch (input) {
         case 'prestige':
             if (!currencyImage1.src.endsWith('Pictures/Diamond.png')) {
                 currencyImage1.src = 'Pictures/Diamond.png'
@@ -84,7 +86,7 @@ export const resetdetails = (input: resetNames) => {
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['transcendPointGain']);
             resetInfo.textContent = 'Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: ' + format(player.coinsThisTranscension) + '/1e100 Coins || TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.';
-            resetInfo.style.color = 'orchid';
+            resetInfo.style.color = orchid;
             break;
         case 'reincarnation':
             if (!currencyImage1.src.endsWith('Pictures/Particle.png')) {
@@ -110,7 +112,7 @@ export const resetdetails = (input: resetNames) => {
 
             (transcensionChallenge !== 0)?
                 (resetInfo.style.color = 'aquamarine', resetInfo.textContent = 'Are you tired of being in your Challenge or stuck? Click to leave Challenge ' + transcensionChallenge + '. Progress: ' + format(player.coinsThisTranscension) + '/' + format(challengeRequirement(transcensionChallenge, player.challengecompletions[transcensionChallenge])) + ' Coins. TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.'):
-                (resetInfo.style.color = 'crimson', resetInfo.textContent = 'You\'re not in a Transcension Challenge right now. Get in one before you can leave it, duh!');
+                (resetInfo.style.color = crimson, resetInfo.textContent = 'You\'re not in a Transcension Challenge right now. Get in one before you can leave it, duh!');
             break;
         case 'reincarnationChallenge':
             currencyImage1.style.display = 'none'
@@ -123,7 +125,7 @@ export const resetdetails = (input: resetNames) => {
                 resetInfo.style.color = 'silver';
                 resetInfo.textContent = 'Are you done or tired of being in your Challenge? Click to leave Challenge ' + reincarnationChallenge + '. Progress: ' + format(player[goal]) + '/' + format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)) + goaldesc + '. TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
             } else {
-                resetInfo.style.color = 'crimson';
+                resetInfo.style.color = crimson;
                 resetInfo.textContent = 'You\'re not in a Reincarnation Challenge right now. How could you leave what you are not in?';
             }
             break;

@@ -368,6 +368,7 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     let z = ''
     const p = 'res' + i
     const metaData = getResearchCost(i, buyAmount, linGrowth);
+    const crimson = document.body.style.getPropertyValue('--crimson-text-color');
     z = ' Cost: ' + (format(metaData.cost, 0, false)) + ' Obtainium [+' + format(metaData.levelCanBuy - player.researches[i], 0, true) + ' Levels]'
     if (player.researches[i] === (G['researchMaxLevels'][i])) {
         DOMCacheGetOrSet('researchcost').style.color = 'Gold'
@@ -385,7 +386,7 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     }
 
     if (player.researchPoints < metaData.cost && player.researches[i] < (G['researchMaxLevels'][i])) {
-        DOMCacheGetOrSet('researchcost').style.color = 'crimson'
+        DOMCacheGetOrSet('researchcost').style.color = crimson
         updateClassList(p, [], ['researchMaxed', 'researchAvailable', 'researchPurchasedAvailable'])
     }
 

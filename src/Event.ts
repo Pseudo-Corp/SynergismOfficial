@@ -228,6 +228,7 @@ export const eventCheck = () => {
     //}
     const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement;
     const eventBuffs = DOMCacheGetOrSet('eventBuffs');
+    const red = document.body.style.getPropertyValue('--red-text-color');
     if (nowEvent.event === true) {
         start = new Date(nowEvent.start);
         end = new Date(nowEvent.end);
@@ -265,7 +266,7 @@ export const eventCheck = () => {
         G['isEvent'] = false;
         DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE';
         eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' : ''
-        eventBuffs.style.color = 'red';
+        eventBuffs.style.color = red;
         happyHolidays.innerHTML = '';
         happyHolidays.href = '';
     }

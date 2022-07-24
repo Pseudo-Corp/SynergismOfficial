@@ -229,18 +229,20 @@ export const cubeUpgradeDesc = (i: number, linGrowth = 0, cubic = false) => {
     const b = DOMCacheGetOrSet('cubeUpgradeDescription')
     const c = DOMCacheGetOrSet('cubeUpgradeCost')
     const d = DOMCacheGetOrSet('cubeUpgradeLevel')
+    const green = document.body.style.getPropertyValue('--green-text-color');
+    const crimson = document.body.style.getPropertyValue('--crimson-text-color');
     const maxLevel = getCubeMax(i);
 
     a.textContent = cubeUpgradeName[i - 1];
     b.textContent = cubeUpgradeDescriptions[i - 1];
     c.textContent = 'Cost: ' + format(metaData.cost, 0, true) + ' Wow! Cubes [+' + format(metaData.levelCanBuy-player.cubeUpgrades[i]!,0,true) + ' Levels]';
-    c.style.color = 'green'
+    c.style.color = green
     d.textContent = 'Level: ' + format(player.cubeUpgrades[i], 0, true) + '/' + format(maxLevel, 0, true);
     d.style.color = 'white'
 
     // This conditional is true only in the case where you can buy zero levels.
     if (Number(player.wowCubes) < metaData.cost) {
-        c.style.color = 'crimson'
+        c.style.color = crimson
     }
     if (player.cubeUpgrades[i] === maxLevel) {
         c.style.color = 'gold'

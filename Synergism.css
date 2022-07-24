@@ -23,6 +23,14 @@ body {
 
     /* Custom colors that are used for themes */
     --text-color: white;
+    --darkorchid-text-color: darkorchid;
+    --orchid-text-color: orchid;
+    --darkcyan-text-color: darkcyan;
+    --red-text-color: red;
+    --orangered-text-color: orangered;
+    --crimson-text-color: crimson;
+    --gray-text-color: gray;
+    --green-text-color: green;
     --bg-color: #111;
     --alert-color: #141414;
     --history-lines: #262626;
@@ -42,6 +50,10 @@ body {
     --hoversing-color: #252525;
     --shoptab-color: purple;
     --hovershop-color: #b300b2;
+    --hepteract-bar-empty: #555;
+    --hepteract-bar-red: red;
+    --hepteract-bar-yellow: #cca300;
+    --hepteract-bar-green: green;
 }
 
 body.loading {
@@ -53,9 +65,15 @@ body.loading {
     background-color: var(--bg-color);
 }
 
-.mainText {
-    color: var(--text-color);
+.textOutline:not(button) {
+    text-shadow: -1px 0 #736f89, 0 1px #736f89, 1px 0 #736f89, 0 -1px #736f89;
 }
+
+.mainText { color: var(--text-color); }
+.crimsonText { color: var(--crimson-text-color); }
+.redText { color: var(--red-text-color); }
+.orangeredText { color: var(--orangered-text-color); }
+.orchidText { color: var(--orchid-text-color); }
 
 .boxColor {
     border: 3px solid;
@@ -453,40 +471,23 @@ nav li {
     border-bottom: none;
     transition-duration: 0.15s;
     text-align: center;
+    text-shadow: none;
 }
 
-nav li:hover {
-    background-color: var(--hover-color);
-}
+nav li:hover { background-color: var(--hover-color); }
 
-#buildingstab {
-    border-color: orange;
-}
-
-#upgradestab {
-    border-color: orange;
-}
+#buildingstab { border-color: orange; }
+#upgradestab { border-color: orange; }
 
 #settingstab {
     color: white;
     border-color: white;
 }
 
-#achievementstab {
-    border-color: white;
-}
-
-#runestab {
-    border-color: cyan;
-}
-
-#challengetab {
-    border-color: plum;
-}
-
-#researchtab {
-    border-color: green;
-}
+#achievementstab { border-color: white; }
+#runestab { border-color: cyan; }
+#challengetab { border-color: plum; }
+#researchtab { border-color: green; }
 
 #shoptab {
     border-color: white;
@@ -499,24 +500,13 @@ nav li:hover {
     color: red;
 }
 
-#singularitytab:hover {
-    background-color: var(--hoversing-color);
-}
+#singularitytab:hover { background-color: var(--hoversing-color); }
+#shoptab:hover { background-color: var(--hovershop-color); }
 
-#shoptab:hover {
-    background-color: var(--hovershop-color);
-}
+#anttab { border-color: maroon; }
 
-#anttab {
-    border-color: maroon;
-}
-
+#traitstab,
 #cubetab {
-    border-color: orange;
-    color: red;
-}
-
-#traitstab {
     border-color: orange;
     color: red;
 }
@@ -946,8 +936,8 @@ nav li:hover {
 
 #achievementcolorcode1 { color: limegreen; }
 #achievementcolorcode2 { color: purple; }
-#achievementcolorcode3 { color: crimson; }
-#achievementcolorcode4 { color: gray; }
+#achievementcolorcode3 { color: var(--crimson-text-color); }
+#achievementcolorcode4 { color: var(--gray-text-color); }
 
 #buyamountcrystal {
     position: absolute;
@@ -1110,7 +1100,7 @@ nav li:hover {
 
 #prestigehotkeys {
     width: 1200px;
-    color: gray;
+    color: var(--gray-text-color);
 }
 
 #autocrystalbuild > p { margin: 0; }
@@ -1195,6 +1185,7 @@ nav li:hover {
     align-content: center;
 }
 
+#singularitybtn,
 .runeImage {
     background-color: #171717;
 }
@@ -1266,6 +1257,10 @@ nav li:hover {
     margin-left: 4px;
     font-size: 0.9em;
 }
+
+#antSacrificeRareFragment,
+#talismanRareFragmentCost,
+#rareFragmentInventory { color: var(--darkcyan-text-color); }
 
 .talismanBtn {
     height: 30px;
@@ -1514,7 +1509,7 @@ nav li:hover {
 }
 
 #transcendhotkeys {
-    color: gray;
+    color: var(--gray-text-color);
     text-align: center;
 }
 
@@ -1594,7 +1589,7 @@ nav li:hover {
 }
 
 #startChallenge:hover {
-    background-color: var(--hover-color);
+    background-color: var(--hover-color) !important;
 }
 
 #oneChallengeDetails {
@@ -1611,7 +1606,7 @@ nav li:hover {
 
 #challengeName { color: white; }
 #challengeFlavor { color: plum; }
-#challengeRestrictions { color: crimson; }
+#challengeRestrictions { color: var(--crimson-text-color); }
 #challengeGoal { color: gold; }
 #challengePerCompletionRewards { color: var(--text-color); }
 *[id^="challengePer"] { color: pink; }
@@ -1642,8 +1637,8 @@ nav li:hover {
     height: 20px;
 }
 
-#challengehotkeys { color: gray; }
-#challengewarning { color: crimson; }
+#challengehotkeys { color: var(--gray-text-color); }
+#challengewarning { color: var(--crimson-text-color); }
 #challengewarningreincarnation { color: limegreen; }
 
 .challenge {
@@ -1716,7 +1711,7 @@ nav li:hover {
 }
 
 #reincarnatehotkeys {
-    color: gray;
+    color: var(--gray-text-color);
     text-align: center;
     margin: 0;
 }
@@ -1750,6 +1745,8 @@ nav li:hover {
     width: 850px;
     margin: auto;
 }
+
+#reincarnationsResColor { color: var(--green-text-color); }
 
 #researchToggles {
     display: flex;
@@ -1868,6 +1865,7 @@ nav li:hover {
 #actualPotionShop {
     display: grid;
     grid-template-columns: repeat(2, minmax(70px, 130px));
+    background-color: var(--box-color);
     border: 3px solid yellow;
     margin-top: 10px;
 }
@@ -1892,7 +1890,7 @@ nav li:hover {
 }
 
 #consumables {
-    color: orangered;
+    color: var(--orangered-text-color);
     font-size: 1.2em;
     margin-top: 15px;
 }
@@ -1959,7 +1957,11 @@ nav li:hover {
 
 #antsWelcomeTexts { margin-top: 30px; }
 #antsWelcomeTexts > p { margin: 2px; }
-#antwelcome { font-size: 1.3em; }
+
+#antwelcome {
+    font-size: 1.3em;
+    color: lightslategrey;
+}
 
 #antrow1 { margin-top: 12px; }
 
@@ -2194,8 +2196,8 @@ p[id$="BlessingsTotal"] {
 }
 
 #cubeBlessingsTotal { color: orange; }
-#tesseractBlessingsTotal { color: orchid; }
-#hypercubeBlessingsTotal { color: rgb(255 0 76); }
+#tesseractBlessingsTotal { color: var(--orchid-text-color); }
+#hypercubeBlessingsTotal { color: #ff004c; }
 #platonicBlessingsTotal { color: orange; }
 
 #cubesWrapper {
@@ -2332,9 +2334,7 @@ p[id$="BlessingsTotal"] {
     margin: 0.4em 0;
 }
 
-#versionnumber {
-    color: fuchsia;
-}
+#versionnumber { color: fuchsia; }
 
 #ascension {
     position: relative;
@@ -2401,7 +2401,7 @@ p[id$="BlessingsTotal"] {
 
 #ascendHotKeys {
     margin: 0;
-    color: gray;
+    color: var(--gray-text-color);
     text-align: center;
 }
 
@@ -2490,6 +2490,12 @@ p[id$="BlessingsTotal"] {
     font-size: 1em;
 }
 
+#mostObtainiumPerSecondStatistic,
+#obtainiumPerSecondStatistic { color: var(--crimson-text-color); }
+
+#mostOfferingStatistic,
+#offeringStatTitle { color: var(--orangered-text-color); }
+
 .statPortion.indented {
     width: 360px;
     padding-left: 20px;
@@ -2510,6 +2516,8 @@ p[id$="BlessingsTotal"] {
 .statNumber.statTotal {
     color: deepskyblue;
 }
+
+#statPoMT { color: var(--orchid-text-color); }
 
 .constUpgrade {
     background-color: #171717;
@@ -2740,12 +2748,10 @@ p[id$="BlessingsTotal"] {
 
 #corruptionIntroduction {
     font-size: 1.2em;
-    color: darkorchid;
+    color: var(--darkorchid-text-color);
 }
 
-#corruptionInfo1 {
-    color: yellow;
-}
+#corruptionInfo1 { color: yellow; }
 
 #corruptionSelected {
     height: 70px;
@@ -2760,24 +2766,16 @@ p[id$="BlessingsTotal"] {
 
 #corruptionName {
     font-size: 1.2em;
-    color: red;
 }
 
-#corruptionDescription {
-    color: darkviolet;
-}
+#corruptionDescription,
+#corruptionTesseractsValue { color: darkviolet; }
+#corruptionLevelCurrent { color: var(--orchid-text-color); }
+#corruptionLevelPlanned { color: lime; }
+#corruptionSpiritContribution { color: gold; }
 
-#corruptionLevelCurrent {
-    color: orchid;
-}
-
-#corruptionLevelPlanned {
-    color: lime;
-}
-
-#corruptionSpiritContribution {
-    color: gold;
-}
+#corruptionAntExponentValue,
+#corruptionTotalScore { color: var(--darkorchid-text-color); }
 
 #ascensionAutomation {
     position: relative;
@@ -2808,6 +2806,7 @@ p[id$="BlessingsTotal"] {
     width: 500px;
     margin: 10px;
     padding: 10px;
+    background-color: var(--box-color);
     border: 1px solid orange;
 }
 
@@ -3046,7 +3045,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ascLen {
-    color: darkcyan;
+    color: var(--darkcyan-text-color);
 }
 
 #ascC10 {
@@ -3058,11 +3057,11 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ascTess {
-    color: orchid;
+    color: var(--orchid-text-color);
 }
 
 #ascHyper {
-    color: crimson;
+    color: var(--crimson-text-color);
 }
 
 #ascPlatonic {
@@ -3126,6 +3125,13 @@ header #obtainiumDisplay { color: pink; }
     text-align: left;
     font-size: 1em;
 }
+
+#c15Reward26,
+#c15Reward26Num { color: var(--red-text-color); }
+
+#c15Reward33,
+#c15Reward33Num,
+#c15RewardList { color: var(--orchid-text-color); }
 
 .platonicUpgradesContainer {
     display: flex;
@@ -3236,6 +3242,8 @@ header #obtainiumDisplay { color: pink; }
     float: right;
 }
 
+#heptGrid { text-shadow: none; }
+
 .hepteractGrid button {
     border: 2px solid pink;
     width: 100%;
@@ -3250,7 +3258,7 @@ header #obtainiumDisplay { color: pink; }
 .meter {
     height: 15px;
     position: relative;
-    background: #555;
+    background: var(--hepteract-bar-empty);
     border-radius: 5px;
     padding: 2px;
     grid-column: 1 / span 3;
@@ -3317,9 +3325,7 @@ header #obtainiumDisplay { color: pink; }
     margin: 0;
 }
 
-#hotkeyTooltip {
-    color: darkorchid;
-}
+#hotkeyTooltip { color: var(--darkorchid-text-color); }
 
 #actualHotkey {
     padding: 1px 15px;

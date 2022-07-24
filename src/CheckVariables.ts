@@ -13,7 +13,7 @@ import { Alert } from './UpdateHTML';
 import { getQuarkInvestment, shopData} from './Shop';
 import type { ISingularityData} from './singularity';
 import { singularityData, SingularityUpgrade } from './singularity';
-import { toggleTheme } from './Themes';
+import { resetThemeColors, toggleTheme } from './Themes';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -667,6 +667,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     const theme = localStorage.getItem('theme')
     if (theme !== null) { //Will re apply theme's on refresh
-        toggleTheme(Number(theme))
+        toggleTheme(Number(theme), true)
+    } else {
+        resetThemeColors(true); //To only set variables
     }
 }

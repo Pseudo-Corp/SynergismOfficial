@@ -5,7 +5,9 @@ import { Alert, Prompt } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 
 export const updateSingularityPenalties = (): void => {
-    const color = player.runelevels[6] > 0 ? 'green' : 'red';
+    const green = document.body.style.getPropertyValue('--green-text-color');
+    const red = document.body.style.getPropertyValue('--red-text-color');
+    const color = player.runelevels[6] > 0 ? green : red;
     const str = getSingularityOridnalText(player.singularityCount) +
                 `<br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
                  Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed'), 2, true)}
@@ -78,8 +80,9 @@ export class SingularityUpgrade {
         const maxLevel = this.maxLevel === -1
             ? ''
             : `/${this.maxLevel}`;
+        const crimson = document.body.style.getPropertyValue('--crimson-text-color');
         const color = this.maxLevel === this.level ? 'plum' : 'white';
-        const minReqColor = player.singularityCount < this.minimumSingularity ? 'crimson' : 'green';
+        const minReqColor = player.singularityCount < this.minimumSingularity ? crimson : 'green';
         const minimumSingularity = this.minimumSingularity > 0
             ? `Minimum Singularity: ${this.minimumSingularity}`
             : 'No minimal Singularity to purchase required'
@@ -903,7 +906,7 @@ function formatPerkDescription(perkData: ISingularityPerkDisplayInfo, singularit
     const isNew = perkData.lastUpgraded === singularityCount;
     const levelInfo = perkData.currentLevel > 1 ? ' - Level '+ perkData.currentLevel : '';
     //const acquiredUpgraded = ' / Acq ' + perkData.acquired + ' / Upg ' + perkData.lastUpgraded;
-    return `<span${isNew?' class="newPerk"':''} title="${perkData.description}">${perkData.name}${levelInfo}</span>`;
+    return `<span${isNew?' class="newPerk"':' style="color: white"'} title="${perkData.description}">${perkData.name}${levelInfo}</span>`;
 }
 
 export const getGoldenQuarkCost = (): {

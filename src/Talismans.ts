@@ -401,6 +401,7 @@ export const respecTalismanCancel = (i: number) => {
 export const updateTalismanAppearance = (i: number) => {
     const el = DOMCacheGetOrSet('talisman' + (i+1))
     const la = DOMCacheGetOrSet('talisman' + (i+1) + 'level')
+    const crimson = document.body.style.getPropertyValue('--crimson-text-color');
 
     const rarity = player.talismanRarity[i];
     if (rarity === 1) {
@@ -425,7 +426,7 @@ export const updateTalismanAppearance = (i: number) => {
     }
     if (rarity === 6) {
         el.style.border = '4px solid crimson';
-        la.style.color = 'crimson'
+        la.style.color = crimson
     }
 }
 
