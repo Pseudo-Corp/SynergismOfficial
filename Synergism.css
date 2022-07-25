@@ -532,19 +532,28 @@ nav li:hover {
 }
 
 #buyamountcoin {
-    position: absolute;
-    top: 0;
-    left: 80%;
+    display: none;
 }
 
-#togglecoinbuy {
+.buyamountbuildings {
+    position: relative;
+    left: 558px;
+    margin-bottom: -42px;
+}
+
+.buyamountbuildingsText {
+    position: relative;
+    top: -12px;
+    left: 30px;
+    margin-bottom: -26px;
     color: white;
-    position: absolute;
     font-size: 11px;
     width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
+}
+
+#toggleofferingbuy {
+    left: -60px;
+    width: 250px;
 }
 
 #buildingtext {
@@ -918,21 +927,6 @@ nav li:hover {
 #achievementcolorcode3 { color: crimson; }
 #achievementcolorcode4 { color: gray; }
 
-#buyamountcrystal {
-    position: absolute;
-    top: 0;
-    left: 80%;
-}
-
-#buyamountoffering {
-    position: absolute;
-    font-size: 11px;
-    width: 220px;
-    left: 86%;
-    top: 32px;
-    margin-left: -173px;
-}
-
 .talismanBuyAmountContainer {
     display: flex;
     flex-direction: column;
@@ -947,24 +941,6 @@ nav li:hover {
     align-items: center;
 }
 
-#buyamountmythos {
-    position: absolute;
-    top: 0;
-    left: 80%;
-}
-
-#buyamountparticle {
-    position: absolute;
-    top: 0;
-    left: 80%;
-}
-
-#buyAmountTesseract {
-    position: absolute;
-    top: 0;
-    left: 80%;
-}
-
 .buyAmountBtn {
     background-color: black;
     cursor: pointer;
@@ -975,59 +951,9 @@ nav li:hover {
     background-color: var(--hover-color);
 }
 
-#togglecrystalbuy {
-    color: white;
-    position: absolute;
-    font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
-}
-
-#toggleofferingbuy {
-    color: white;
-    position: absolute;
-    font-size: 11px;
-    width: 250px;
-    left: 85%;
-    top: 25px;
-    margin-left: -183px;
-}
-
 #toggletalismanbuy {
     font-size: 11px;
     margin: -4px 0 5px;
-}
-
-#togglemythosbuy {
-    color: white;
-    position: absolute;
-    font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
-}
-
-#toggleparticlebuy {
-    color: white;
-    position: absolute;
-    font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
-}
-
-#toggleTesseractBuy {
-    color: white;
-    position: absolute;
-    font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
 }
 
 #coinBuildings {
@@ -1103,6 +1029,9 @@ nav li:hover {
 
 #runeContainer2 {
     margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1800px;
 }
 
 #runesToggle {
@@ -1278,7 +1207,6 @@ nav li:hover {
 
 .talismanContainer {
     flex-direction: column;
-    width: 11%;
     min-width: 102px;
     align-items: center;
     white-space: nowrap;
@@ -1300,94 +1228,74 @@ nav li:hover {
     margin-bottom: 3px;
 }
 
-#respecAllTalismans {
+.talismanWindows {
     position: absolute;
+    left: 50%;
+    top: 290px;
+}
+
+#respecAllTalismans {
+    position: relative;
+    right: 296px;
+    top: 50px;
     height: 30px;
     width: 80px;
     color: plum;
     border: 2px solid white;
-    left: 70px;
-    top: 290px;
 }
 
 #talismanEffect {
-    position: absolute;
-    left: 50%;
+    position: relative;
     width: 600px;
-    margin-left: -300px;
-    top: 290px;
+    right: 155px;
+    top: 3px;
+}
+
+#talismanSummary {
     text-align: center;
+    margin-left: -300px;
 }
 
-#talismanBonus {
-    position: absolute;
-    top: 20px;
-    left: 145px;
-}
-
-#talismanRune1Effect {
-    position: absolute;
-    top: 40px;
-    left: 145px;
-}
-
-#talismanRune2Effect {
-    position: absolute;
-    top: 60px;
-    left: 145px;
-}
-
-#talismanRune3Effect {
-    position: absolute;
-    top: 80px;
-    left: 145px;
-}
-
-#talismanRune4Effect {
-    position: absolute;
-    top: 100px;
-    left: 145px;
-}
-
-#talismanRune5Effect {
-    position: absolute;
-    top: 120px;
-    left: 145px;
-}
-
-#talismanMythicEffect {
-    position: absolute;
-    top: 140px;
-    left: 145px;
+.taliEff {
+    margin-top: -17px;
 }
 
 #talismanlevelup {
-    position: absolute;
-    left: 50%;
+    position: relative;
     width: 600px;
+    top: -48px;
     margin-left: -200px;
-    top: 327px;
     text-align: center;
 }
 
 #talismanLevelUpSummary {
-    position: absolute;
-    top: -40px;
+    position: relative;
     left: 50px;
+    margin-top: 31px;
+    margin-bottom: 1px;
+    text-align: left;
 }
 
 #talismanrespec {
-    position: absolute;
-    left: 50%;
+    position: relative;
+    top: -48px;
     width: 600px;
     margin-left: -300px;
-    top: 290px;
     text-align: center;
 }
 
+#talismanRespecSummary {
+    margin-top: 34px;
+    margin-bottom: 12px;
+}
+
 .talismanRespecBtn {
+    position: relative;
+    display: block;
     height: 30px;
     width: 200px;
+    left: 200px;
+    margin-top: 1px;
     text-align: center;
     transition-duration: 0.15s;
 }
@@ -1396,46 +1304,15 @@ nav li:hover {
     background-color: var(--hover-color);
 }
 
-#talismanRespecButton1 {
-    position: absolute;
-    top: 50px;
-    left: 200px;
-}
-
-#talismanRespecButton2 {
-    position: absolute;
-    top: 81px;
-    left: 200px;
-}
-
-#talismanRespecButton3 {
-    position: absolute;
-    top: 112px;
-    left: 200px;
-}
-
-#talismanRespecButton4 {
-    position: absolute;
-    top: 143px;
-    left: 200px;
-}
-
-#talismanRespecButton5 {
-    position: absolute;
-    top: 174px;
-    left: 200px;
-}
-
 #confirmTalismanRespec {
-    position: absolute;
-    top: 112px;
     left: 430px;
+    bottom: 93px;
+    margin-bottom: -31px;
 }
 
 #cancelTalismanRespec {
-    position: absolute;
-    top: 143px;
     left: 430px;
+    bottom: 62px;
 }
 
 #transcension {
@@ -3002,6 +2879,7 @@ header #obtainiumDisplay { color: pink; }
     gap: 10px;
     padding-top: 10px;
     margin-bottom: 15px;
+    max-width: 1600px;
     line-height: 20px;
     width: 60%;
     justify-content: space-evenly;
@@ -3111,16 +2989,20 @@ header #obtainiumDisplay { color: pink; }
     margin-bottom: 50px;
 }
 
-#saveOffToggle {
+.platonicTogglesContainer {
+    position: relative;
+    top: 2px;
+    right: 233px;
+}
+
+.platonicToggles {
+    margin-top: 4px;
     width: 130px;
     height: 32px;
-    position: absolute;
-    margin-top: 6px;
-    margin-left: 193px;
     transition-duration: 0.15s;
 }
 
-#saveOffToggle:hover {
+.platonicToggles:hover {
     background-color: var(--hover-color);
 }
 
