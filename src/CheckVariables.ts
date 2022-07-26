@@ -283,7 +283,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singOcteractGain2: new SingularityUpgrade(singularityData['singOcteractGain2']),
         singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
         singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
-        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5'])
+        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
+        wowPass3: new SingularityUpgrade(singularityData['wowPass3'])
     }
 
     player.octeractUpgrades = {
@@ -437,7 +438,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             offeringEX2: 0,
             powderAuto: 0,
             chronometerZ: 0,
-            seasonPassLost: 0
+            seasonPassLost: 0,
+            challenge15Auto: 0,
+            extraWarp: 0
         }
 
         player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false);

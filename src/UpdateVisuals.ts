@@ -599,6 +599,8 @@ export const visualUpdateShop = () => {
             const shopUnlock8 = document.getElementsByClassName('hepteractsShop') as HTMLCollectionOf<HTMLElement>;
             const singularityShopItems = document.getElementsByClassName('singularityShopUnlock') as HTMLCollectionOf<HTMLElement>;
             const singularityShopItems2 = document.getElementsByClassName('singularityShopUnlock2') as HTMLCollectionOf<HTMLElement>;
+            const singularityShopItems3 = document.getElementsByClassName('singularityShopUnlock3') as HTMLCollectionOf<HTMLElement>;
+
             if (player.shopHideToggle && player.shopUpgrades[key] === shopItem.maxLevel && !shopData[key].refundable) {
                 if (player.singularityCount >= 20) {
                     shopData.offeringAuto.refundable = false;
@@ -668,6 +670,11 @@ export const visualUpdateShop = () => {
                         i.style.display = 'none';
                     }
                 }
+                for (const i of Array.from(singularityShopItems3)) {
+                    if (i.style.display === 'block' && !player.singularityUpgrades.wowPass3.getEffect().bonus) {
+                        i.style.display = 'none';
+                    }
+                }
             } else if (!player.shopHideToggle) {
                 DOMCacheGetOrSet('instantChallengeHide').style.display = 'block';
                 DOMCacheGetOrSet('calculatorHide').style.display = 'block';
@@ -708,6 +715,9 @@ export const visualUpdateShop = () => {
                 }
                 for (const i of Array.from(singularityShopItems2)) {
                     i.style.display = player.singularityUpgrades.wowPass2.getEffect().bonus ? 'block' : 'none';
+                }
+                for (const i of Array.from(singularityShopItems3)) {
+                    i.style.display = player.singularityUpgrades.wowPass3.getEffect().bonus ? 'block' : 'none';
                 }
             }
         }

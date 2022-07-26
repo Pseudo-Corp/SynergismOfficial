@@ -468,7 +468,9 @@ export const player: Player = {
         offeringEX2: 0,
         obtainiumEX2: 0,
         seasonPassLost: 0,
-        powderAuto: 0
+        powderAuto: 0,
+        challenge15Auto: 0,
+        extraWarp: 0
     },
     shopBuyMaxToggle: false,
     shopHideToggle: false,
@@ -731,7 +733,8 @@ export const player: Player = {
         singOcteractGain2: new SingularityUpgrade(singularityData['singOcteractGain2']),
         singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
         singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
-        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5'])
+        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
+        wowPass3: new SingularityUpgrade(singularityData['wowPass3'])
     },
 
     octeractUpgrades: {
@@ -3489,6 +3492,14 @@ export const updateAll = (): void => {
             const num = G['ordinals'][i as ZeroToFour];
             const buyTo = player[`${num}OwnedParticles` as const] + 1
             player[`${num}CostParticles` as const] = new Decimal(Decimal.pow(2, buyTo - 1).times(Decimal.pow(1.001, Math.max(0, (buyTo - 325000)) * Math.max(0, (buyTo - 325000) + 1) / 2))).times(particleOriginalCost[i])
+        }
+    }
+
+    // Challenge 15 autoupdate
+    if (player.shopUpgrades.challenge15Auto > 0) {
+        if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
+            player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
+            c15RewardUpdate();
         }
     }
 }

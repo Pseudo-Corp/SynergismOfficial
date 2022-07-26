@@ -356,7 +356,9 @@ export interface Player {
         chronometerZ: number,
         powderAuto: number,
         offeringEX2: number,
-        obtainiumEX2: number
+        obtainiumEX2: number,
+        challenge15Auto: number
+        extraWarp: number
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean,

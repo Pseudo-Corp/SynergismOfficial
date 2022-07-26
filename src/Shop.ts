@@ -12,7 +12,7 @@ export enum shopUpgradeTypes {
     UPGRADE = 'upgrade'
 }
 
-type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2'
+type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3'
 
 export interface IShopData {
     price: number
@@ -405,6 +405,26 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: 'One would be advised not to touch this. +0.1% Octeracts per level, whatever those are...'
+    },
+    challenge15Auto: {
+        tier: 'SingularityVol3',
+        price: 8.88e11,
+        priceIncrease: 0,
+        maxLevel: 1,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Your grandparents had to bend dimensions to gain Challenge 15 score, but not you! Updates Challenge 15 Exponent every tick while in challenge 15!'
+    },
+    extraWarp: {
+        tier: 'SingularityVol3',
+        price: 1e12,
+        priceIncrease: 0,
+        maxLevel: 1,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: '"Hey dude, get in this portal I built up last night in my shed!" said the Quack Merchant'
     }
 }
 
@@ -415,7 +435,7 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'antSpeed' | 'cashGrab' | 'cashGrab2' | 'shopTalisman' | 'seasonPass' | 'challengeExtension' | 'challengeTome' | 'challengeTome2' |
                         'cubeToQuark' | 'tesseractToQuark' | 'cubeToQuarkAll' | 'hypercubeToQuark' | 'seasonPass2' | 'seasonPass3' | 'seasonPassY' | 'seasonPassZ' |
                         'seasonPassLost' | 'chronometer' | 'chronometer2'| 'chronometer3'| 'chronometerZ' | 'infiniteAscent' | 'calculator' | 'calculator2' |
-                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' //And Golden Quarks
+                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' //And Golden Quarks
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -551,7 +571,14 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = `CURRENT Effect: Every ${format(100 / (Math.max(1, player.shopUpgrades.powderAuto) * calculatePowderConversion().mult), 0, true)} purchased orbs grants 1 powder.`
             break;
         case 'seasonPassLost':
-            lol.textContent = `CURRENT Effect: +${format(0.1 * player.shopUpgrades.seasonPassLost, 2)}% of those Eight-Dimensional Thingies.`
+            lol.textContent = `CURRENT Effect: +${format(0.1 * player.shopUpgrades.seasonPassLost, 2)}% of those Eight-Dimensional Thingies.`;
+            break;
+        case 'challenge15Auto':
+            lol.textContent = `CURRENT Effect: Challenge 15 Exponent is ${player.shopUpgrades.challenge15Auto ? '' : 'NOT'} automatically gained!`;
+            break;
+        case 'extraWarp':
+            lol.textContent = `CURRENT Effect: You can warp ${player.shopUpgrades.extraWarp} extra times.`;
+            break;
     }
 
 }
@@ -597,7 +624,9 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         obtainiumEX2: 'an overpriced obtainium extender',
         offeringEX2: 'an overpriced offering extender',
         powderAuto: 'an overpriced powder automation',
-        seasonPassLost: 'an overpriced, mysterious relic of the hyperreals'
+        seasonPassLost: 'an overpriced, mysterious relic of the hyperreals',
+        challenge15Auto: 'a quacking good auto upgrade?',
+        extraWarp: 'a quacking good flux?'
     }
 
     return names[input];

@@ -968,6 +968,7 @@ export const singularity = async (): Promise<void> => {
     hold.researchBuyMaxToggle = player.researchBuyMaxToggle
     hold.cubeUpgradesBuyMaxToggle = player.cubeUpgradesBuyMaxToggle
     hold.wowOcteracts = player.wowOcteracts
+    hold.totalWowOcteracts = player.totalWowOcteracts
 
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark;

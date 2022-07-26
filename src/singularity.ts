@@ -518,6 +518,19 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             }
         }
     },
+    wowPass3: {
+        name: 'QUAAAACK',
+        description: 'QUAAAAAAAACK. The Merchant has gone crazy for your QUARKS!',
+        maxLevel: 1,
+        costPerLevel: 3e7 - 1,
+        minimumSingularity: 83,
+        effect: (n: number) => {
+            return {
+                bonus: (n > 0),
+                desc: `You ${(n > 0) ? 'have': 'have not'} triggered the QUACKSTRAVAGANZA!!`
+            }
+        }
+    },
     potionBuff: {
         name: 'Potion Decanter of Enlightenment',
         description: 'Purported to actually be the fountain of youth, this item powers up potions considerably!',

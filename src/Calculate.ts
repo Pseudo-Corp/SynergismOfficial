@@ -1030,9 +1030,9 @@ export const calculateCubeBlessings = () => {
 
 export const calculateTotalOcteractCubeBonus = () => {
     if (player.totalWowOcteracts < 1000) {
-        return (1 + 4/1000 * player.totalWowOcteracts) // At 1,000 returns 5
+        return (1 + 2/1000 * player.totalWowOcteracts) // At 1,000 returns 3
     } else {
-        return 5 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, 2) // At 1,000 returns 5
+        return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, 2) // At 1,000 returns 3
     }
 }
 
@@ -1834,7 +1834,7 @@ export const dailyResetCheck = () => {
         player.dayCheck = day;
 
         forcedDailyReset(true);
-        player.dailyPowderResetUses = 1;
+        player.dailyPowderResetUses = 1 + player.shopUpgrades.extraWarp;
         player.dailyCodeUsed = false;
 
         DOMCacheGetOrSet('cubeQuarksOpenRequirement').style.display = 'block'
