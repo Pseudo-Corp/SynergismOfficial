@@ -3496,7 +3496,7 @@ export const updateAll = (): void => {
     }
 
     // Challenge 15 autoupdate
-    if (player.shopUpgrades.challenge15Auto > 0) {
+    if (player.shopUpgrades.challenge15Auto > 0 && player.currentChallenge.ascension === 15) {
         if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
             player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
             c15RewardUpdate();
