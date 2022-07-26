@@ -72,6 +72,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
                 player.octeractTimer %= 1
 
                 player.wowOcteracts += amountOfGiveaways * octeractGainPerSecond()
+                player.totalWowOcteracts += amountOfGiveaways * octeractGainPerSecond()
                 visualUpdateOcteracts()
             }
         }

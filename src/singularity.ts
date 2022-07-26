@@ -137,6 +137,22 @@ export class SingularityUpgrade extends DynamicUpgrade {
         updateSingularityPerks();
     }
 
+    public getEffect(): { bonus: number | boolean, desc: string } {
+        let actualLevels = 0
+        const actualFreeLevels = Math.min(this.level, this.freeLevels) + Math.sqrt(Math.max(0, this.freeLevels - this.level))
+        const linearLevels = this.level + actualFreeLevels
+        let polynomialLevels = 0
+        if (player.octeractUpgrades.octeractImprovedFree.getEffect().bonus) {
+            let exponent = 0.6
+            exponent += +player.octeractUpgrades.octeractImprovedFree2.getEffect().bonus;
+            exponent += +player.octeractUpgrades.octeractImprovedFree3.getEffect().bonus
+            polynomialLevels = Math.pow(this.level * actualFreeLevels, exponent)
+        }
+
+        actualLevels = Math.max(linearLevels, polynomialLevels)
+        return this.effect(actualLevels)
+    }
+
     public refund(): void {
         player.goldenQuarks += this.goldenQuarksInvested;
         this.level = 0;
@@ -759,9 +775,11 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Shop Special Offer',
-        levels: [5, 20],
+        levels: [5, 20, 51],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[1]) {
+            if (n >= levels[2]) {
+                return 'Reincarnation and Ascension tier Shop upgrades are kept permanently!'
+            } else if (n >= levels[1]) {
                 return 'You permanently keep 100 free levels of each Shop upgrade in the first row'
             } else {
                 return 'You start each Singularity with 10 free levels of each Shop upgrade in the first row'

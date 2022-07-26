@@ -250,6 +250,81 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 desc: `Global Speed per singularity +${format(n,0,true)}%`
             }
         }
+    },
+    octeractImprovedFree: {
+        name: 'Wow! I want free upgrades to be better.',
+        description: 'Singularity Upgrade level is (paid level * free levels)^0.6 instead of being added.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(level + 1, 3)
+        },
+        maxLevel: 1,
+        costPerLevel: 100,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `Singularity Upgrade free levels are ${(n > 0) ? '' : 'NOT'} being powered!`
+            }
+        }
+    },
+    octeractImprovedFree2: {
+        name: 'Wow! Free upgrades still suck.',
+        description: 'Who said beggars can\'t be choosers? Extends the exponent of the first upgrade to 0.65.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(level + 1, 3)
+        },
+        maxLevel: 1,
+        costPerLevel: 1e7,
+        effect: (n: number) => {
+            return {
+                bonus: 0.05 * n,
+                desc: `Exponent of previous upgrade +${format(n / 20, 2, true)}.`
+            }
+        }
+    },
+    octeractImprovedFree3: {
+        name: 'Wow! Make free upgrades good already, Platonic!',
+        description: 'Extends the exponent of the free upgrades to 0.70.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(level + 1, 3)
+        },
+        maxLevel: 1,
+        costPerLevel: 1e17,
+        effect: (n: number) => {
+            return {
+                bonus: 0.05 * n,
+                desc: `Exponent of the first upgrade +${format(n/20, 2, true)}`
+            }
+        }
+    },
+    octeractAscensions: {
+        name: 'Voided Warranty',
+        description: 'Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(level + 1, 3)
+        },
+        maxLevel: -1,
+        costPerLevel: 1,
+        effect: (n: number) => {
+            return {
+                bonus: (1 + n / 100) * (1 + 2 * Math.floor(n / 10) / 100),
+                desc: `Ascension Count increases ${format((100 + n) * (1 + 2 * Math.floor(n/10) / 100) - 100, 1, true)}% faster.`
+            }
+        }
+    },
+    octeractAscensionsOcteractGain: {
+        name: 'Digital Octeract Accumulator',
+        description: 'Octeract gain is 1% faster for every digit in your Ascension count!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(40, level)
+        },
+        maxLevel: 5,
+        costPerLevel: 1000,
+        effect: (n: number) => {
+            return {
+                bonus: n / 100,
+                desc: `Octeract Gain per OOM Ascension count +${n}%`
+            }
+        }
     }
 
 
@@ -291,7 +366,8 @@ export const octeractGainPerSecond = () => {
         +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
         1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
         +player.octeractUpgrades.octeractGain.getEffect().bonus,
-        derpsmithCornucopiaBonus()
+        derpsmithCornucopiaBonus(),
+        Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount)))
     ]
 
     const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1/2)

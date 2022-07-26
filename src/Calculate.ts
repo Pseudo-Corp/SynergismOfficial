@@ -898,6 +898,7 @@ export const calculateOffline = async (forceTime = 0) => {
     addTimers('quarks', timeAdd);
     addTimers('goldenQuarks', timeAdd);
     addTimers('singularity', timeAdd);
+    addTimers('octeracts', timeTick);
 
     player.prestigeCount += resetAdd.prestige;
     player.transcendCount += resetAdd.transcension;
@@ -915,6 +916,7 @@ export const calculateOffline = async (forceTime = 0) => {
         addTimers('transcension', timeTick);
         addTimers('reincarnation', timeTick);
         addTimers('singularity', timeTick);
+        addTimers('octeracts', timeTick);
 
         resourceGain(timeTick * G['timeMultiplier']);
 
@@ -1026,6 +1028,22 @@ export const calculateCubeBlessings = () => {
     calculateObtainium();
 }
 
+export const calculateTotalOcteractCubeBonus = () => {
+    if (player.totalWowOcteracts < 1000) {
+        return (1 + 4/1000 * player.totalWowOcteracts) // At 1,000 returns 5
+    } else {
+        return 5 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, 2) // At 1,000 returns 5
+    }
+}
+
+export const calculateTotalOcteractQuarkBonus = () => {
+    if (player.totalWowOcteracts < 1000) {
+        return (1 + 0.2 / 1000 * player.totalWowOcteracts) // At 1,000 returns 1.20
+    } else {
+        return 1.1 + 0.1 * (Math.log10(player.totalWowOcteracts) - 2) // At 1,000 returns 1.20
+    }
+}
+
 export const calculateAllCubeMultiplier = () => {
     const arr = [
         // Ascension Time Multiplier to cubes
@@ -1063,7 +1081,9 @@ export const calculateAllCubeMultiplier = () => {
         // Cookie Upgrade 16
         1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15]),
         // Cookie Upgrade 8 (now actually works)
-        1 + 0.25 * +G['isEvent'] * player.cubeUpgrades[58]
+        1 + 0.25 * +G['isEvent'] * player.cubeUpgrades[58],
+        // Wow Octeract Bonus
+        calculateTotalOcteractCubeBonus()
         // Total Global Cube Multipliers: 18
     ]
     return {
@@ -1418,6 +1438,9 @@ export const calculateQuarkMultiplier = () => {
                            0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
                            0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
                            0.10 * player.singularityUpgrades.expertPack.level)                  // 1.30
+
+    multiplier *= calculateTotalOcteractQuarkBonus()
+
     return multiplier
 }
 
@@ -1743,6 +1766,7 @@ export const calcAscensionCount = () => {
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000));
         ascCount *= (1 + 1/8 * player.singularityCount)
         ascCount *= +player.singularityUpgrades.ascensions.getEffect().bonus
+        ascCount *= +player.octeractUpgrades.octeractAscensions.getEffect().bonus
     }
 
     return Math.floor(ascCount);

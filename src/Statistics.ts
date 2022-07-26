@@ -1,7 +1,7 @@
 import { player, format } from './Synergism';
 import { Globals as G } from './Variables';
 import { hepteractEffective } from './Hepteracts'
-import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier } from './Calculate';
+import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -92,6 +92,7 @@ export const loadQuarkMultiplier = () => {
                                                             0.10 * player.singularityUpgrades.expertPack.level, 3, true)
     DOMCacheGetOrSet('sGQM20').textContent = 'x' + format(1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM21').textContent = 'x' + format(+player.octeractUpgrades.octeractQuarkGain.getEffect().bonus, 3, true)
+    DOMCacheGetOrSet('sGQM22').textContent = 'x' + format(calculateTotalOcteractQuarkBonus(), 3, true)
     DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
 export const loadStatisticsCubeMultipliers = () => {
@@ -115,7 +116,8 @@ export const loadStatisticsCubeMultipliers = () => {
         15: {acc: 2, desc: 'Cube Inferno [GQ]:'},
         16: {acc: 2, desc: 'Wow Pass Z:'},
         17: {acc: 2, desc: 'Cookie Upgrade 16:'},
-        18: {acc: 2, desc: 'Cookie Upgrade 8:'}
+        18: {acc: 2, desc: 'Cookie Upgrade 8:'},
+        19: {acc: 2, desc: 'Total Octeract Bonus:'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);

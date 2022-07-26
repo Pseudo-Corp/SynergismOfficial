@@ -419,6 +419,7 @@ export interface Player {
     wowPlatonicCubes: WowPlatonicCubes
     wowAbyssals: number
     wowOcteracts: number
+    totalWowOcteracts: number
     cubeBlessings: {
         accelerator: number
         multiplier: number

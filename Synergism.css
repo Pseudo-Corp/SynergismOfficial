@@ -1848,7 +1848,8 @@ nav li:hover {
 
 #quarksDisplay,
 #goldenQuarksDisplay,
-#octeractsDisplay {
+#octeractsDisplay,
+#totalOcteractsDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;

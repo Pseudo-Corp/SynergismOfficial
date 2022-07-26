@@ -3,7 +3,7 @@ import { Globals as G } from './Variables';
 import { player, format, formatTimeShort } from './Synergism';
 import { version } from './Config';
 import { CalcECC } from './Challenges';
-import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear } from './Calculate';
+import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear, calculateTotalOcteractCubeBonus, calculateTotalOcteractQuarkBonus } from './Calculate';
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
@@ -543,6 +543,10 @@ export const visualUpdateOcteracts = () => {
     }
     DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true, true, true)
     DOMCacheGetOrSet('sPO').textContent = format(1 / octeractGainPerSecond(), 2, true)
+
+    DOMCacheGetOrSet('totalOcts').textContent = format(player.totalWowOcteracts, 2, true, true, true)
+    DOMCacheGetOrSet('octCubeBonus').textContent = format((calculateTotalOcteractCubeBonus() - 1) * 100, 2, true)
+    DOMCacheGetOrSet('octQuarkBonus').textContent = format((calculateTotalOcteractQuarkBonus() - 1) * 100, 2, true)
 }
 
 export const visualUpdateShop = () => {

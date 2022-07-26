@@ -537,6 +537,7 @@ export const player: Player = {
     saveOfferingToggle: false,
     wowAbyssals: 0,
     wowOcteracts: 0,
+    totalWowOcteracts: 0,
     cubeBlessings: {
         accelerator: 0,
         multiplier: 0,
@@ -743,7 +744,12 @@ export const player: Player = {
         octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
         octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
         octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
-        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed'])
+        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
+        octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree']),
+        octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
+        octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
+        octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
+        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain'])
     },
 
     dailyCodeUsed: false,

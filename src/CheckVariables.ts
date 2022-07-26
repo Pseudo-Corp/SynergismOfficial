@@ -296,7 +296,12 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
         octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
         octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
-        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed'])
+        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
+        octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree']),
+        octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
+        octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
+        octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
+        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
@@ -709,5 +714,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.ascensionCounterRealReal === undefined) {
         player.ascensionCounterRealReal = 0;
+    }
+
+    if (data.totalWowOcteracts === undefined) {
+        player.totalWowOcteracts = 0;
     }
 }
