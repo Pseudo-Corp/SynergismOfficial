@@ -1,5 +1,5 @@
 import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll, getTimePinnedToLoadDate } from './Synergism';
-import { sumContents, productContents, getElementById } from './Utility';
+import { sumContents, productContents } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
 import Decimal from 'break_infinity.js';
@@ -834,7 +834,7 @@ export const timeWarp = async () => {
     }
 
     DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
-    DOMCacheGetOrSet('preloadContainer').style.display = 'flex'
+    DOMCacheGetOrSet('offlineBlur').style.display = ''
     disableHotkeys();
     await calculateOffline(timeUse)
 }
@@ -857,10 +857,6 @@ export const calculateOffline = async (forceTime = 0) => {
     updateTalismanInventory();
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
-
-    //Set the preload as a blank black background for now (to allow aesthetic offline counter things)
-    const preloadImage = getElementById<HTMLImageElement>('preload');
-    preloadImage.style.display = 'none';
 
     G['timeMultiplier'] = calculateTimeAcceleration();
     calculateObtainium();
@@ -980,7 +976,7 @@ export const calculateOffline = async (forceTime = 0) => {
 export const exitOffline = () => {
     document.body.classList.remove('loading');
     DOMCacheGetOrSet('offlineContainer').style.display = 'none';
-    DOMCacheGetOrSet('preloadContainer').style.display = 'none';
+    DOMCacheGetOrSet('offlineBlur').style.display = 'none';
     enableHotkeys();
 }
 
