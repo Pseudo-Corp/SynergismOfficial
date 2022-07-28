@@ -341,12 +341,13 @@ button:focus {
     left: 50vw;
     z-index: 6969;
     transform: translate(-50%, 0%);
-    background-color: rgb(20 20 20);
+    background-color: var(--alert-color);
     border-radius: 5px;
     border: 2px solid gold;
     box-sizing: border-box;
     padding: 15px;
     margin-top: max(0px, calc(10vh - 15px));
+    width: max-content;
     max-height: 90vh;
     overflow: hidden;
 }
