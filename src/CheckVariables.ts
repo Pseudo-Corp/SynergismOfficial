@@ -231,6 +231,31 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.shopUpgrades.tesseractToQuark = 0;
         player.shopUpgrades.hypercubeToQuark = 0;
     }
+    for (const i in shopData) { //Since you cant increase SingularityCount without calling it
+        if (shopData[i as keyof typeof shopData].tier === 'Reincarnation') {
+            if (player.singularityCount >= 20) {
+                shopData[i as keyof typeof shopData].refundable = false;
+            } else {
+                shopData.offeringAuto.refundable = true;
+                shopData.offeringEX.refundable = true;
+                shopData.obtainiumAuto.refundable = true;
+                shopData.obtainiumEX.refundable = true;
+                shopData.antSpeed.refundable = true;
+                shopData.cashGrab.refundable = true;
+            }
+        } else if (shopData[i as keyof typeof shopData].tier === 'Ascension') {
+            if (player.singularityCount >= 51) {
+                shopData[i as keyof typeof shopData].refundable = false;
+            } else {
+                shopData.seasonPass.refundable = true;
+                shopData.seasonPass2.refundable = true;
+                shopData.seasonPass3.refundable = true;
+                shopData.seasonPassY.refundable = true;
+                shopData.chronometer.refundable = true;
+                shopData.chronometer2.refundable = true;
+            }
+        }
+    }
     if (data.cubeUpgrades == null || data.cubeUpgrades[19] === 0 || player.cubeUpgrades[19] === 0) {
         for (let i = 121; i <= 125; i++) {
             player.upgrades[i] = 0

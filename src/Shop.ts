@@ -900,15 +900,6 @@ export const resetShopUpgrades = async (ignoreBoolean = false) => {
         for (const shopItem in shopData){
             const key = shopItem as keyof typeof shopData;
             if (shopData[key].refundable && player.shopUpgrades[key] > shopData[key].refundMinimumLevel){
-
-                if (shopData[key].tier === 'Reincarnation' && player.singularityCount >= 20) {
-                    continue;
-                }
-
-                if (shopData[key].tier === 'Ascension' && player.singularityCount >= 51) {
-                    continue;
-                }
-
                 // Determines how many quarks one would not be refunded, based on minimum refund level
                 const doNotRefund = shopData[key].price * shopData[key].refundMinimumLevel +
                                 shopData[key].priceIncrease * (shopData[key].refundMinimumLevel) * (shopData[key].refundMinimumLevel - 1) / 2;
