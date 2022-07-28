@@ -470,7 +470,11 @@ export const player: Player = {
         seasonPassLost: 0,
         powderAuto: 0,
         challenge15Auto: 0,
-        extraWarp: 0
+        extraWarp: 0,
+        improveQuarkHept: 0,
+        improveQuarkHept2: 0,
+        improveQuarkHept3: 0,
+        improveQuarkHept4: 0
     },
     shopBuyMaxToggle: false,
     shopHideToggle: false,

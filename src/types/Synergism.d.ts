@@ -357,8 +357,12 @@ export interface Player {
         powderAuto: number,
         offeringEX2: number,
         obtainiumEX2: number,
-        challenge15Auto: number
-        extraWarp: number
+        challenge15Auto: number,
+        extraWarp: number,
+        improveQuarkHept: number,
+        improveQuarkHept2: number,
+        improveQuarkHept3: number,
+        improveQuarkHept4: number
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean,

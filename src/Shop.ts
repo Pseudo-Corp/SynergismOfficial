@@ -100,7 +100,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Reincarnation',
         price: 200,
         priceIncrease: 25,
-        maxLevel: 100,
+        maxLevel: 140,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
@@ -130,7 +130,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Ascension',
         price: 500,
         priceIncrease: 75,
-        maxLevel: 100,
+        maxLevel: 150,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
@@ -190,7 +190,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Ascension',
         price: 2500,
         priceIncrease: 250,
-        maxLevel: 100,
+        maxLevel: 150,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
@@ -200,7 +200,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Ascension',
         price: 5000,
         priceIncrease: 500,
-        maxLevel: 100,
+        maxLevel: 150,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
@@ -210,7 +210,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Ascension',
         price: 2000,
         priceIncrease: 500,
-        maxLevel: 100,
+        maxLevel: 120,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
@@ -280,7 +280,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Ascension',
         price: 5000,
         priceIncrease: 1500,
-        maxLevel: 100,
+        maxLevel: 120,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
@@ -300,7 +300,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Ascension',
         price: 10000,
         priceIncrease: 1500,
-        maxLevel: 100,
+        maxLevel: 150,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
@@ -408,7 +408,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     },
     challenge15Auto: {
         tier: 'SingularityVol3',
-        price: 8.88e11,
+        price: 5e11,
         priceIncrease: 0,
         maxLevel: 1,
         type: shopUpgradeTypes.UPGRADE,
@@ -418,13 +418,53 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     },
     extraWarp: {
         tier: 'SingularityVol3',
-        price: 1e12,
+        price: 1.25e11,
         priceIncrease: 0,
         maxLevel: 1,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
         description: '"Hey dude, get in this portal I built up last night in my shed!" said the Quack Merchant'
+    },
+    improveQuarkHept: {
+        tier: 'Ascension',
+        price: 2e5 - 1,
+        priceIncrease: 0,
+        maxLevel: 1,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Did you know that after 1,000 Quark Hepteracts, their effect is raised to ^0.5? The Seal disapproves. Gain +2% to the diminishing return exponent.'
+    },
+    improveQuarkHept2: {
+        tier: 'Singularity',
+        price: 2e7 - 1,
+        priceIncrease: 0,
+        maxLevel: 1,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'After 1,024,000 Quark Hepts, their effect is raised to ^0.25!!! Nonsense. Gain +2% to all Quark Hept DRs.'
+    },
+    improveQuarkHept3: {
+        tier: 'SingularityVol2',
+        price: 2e9 - 1,
+        priceIncrease: 0,
+        maxLevel: 1,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'After ~100 million Quark Hepts, their effect is raised to ^0.16! Absolute rubbish. Gain +2% to all Quark Hept DRs, yet again.'
+    },
+    improveQuarkHept4: {
+        tier: 'SingularityVol3',
+        price: 2e11 - 1,
+        priceIncrease: 0,
+        maxLevel: 1,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'And when they\'ve given you their all, some stagger and fall after all it\'s not easy...'
     }
 }
 
@@ -435,7 +475,8 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'antSpeed' | 'cashGrab' | 'cashGrab2' | 'shopTalisman' | 'seasonPass' | 'challengeExtension' | 'challengeTome' | 'challengeTome2' |
                         'cubeToQuark' | 'tesseractToQuark' | 'cubeToQuarkAll' | 'hypercubeToQuark' | 'seasonPass2' | 'seasonPass3' | 'seasonPassY' | 'seasonPassZ' |
                         'seasonPassLost' | 'chronometer' | 'chronometer2'| 'chronometer3'| 'chronometerZ' | 'infiniteAscent' | 'calculator' | 'calculator2' |
-                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' //And Golden Quarks
+                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | //And Golden Quarks
+                        'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -626,7 +667,11 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         powderAuto: 'an overpriced powder automation',
         seasonPassLost: 'an overpriced, mysterious relic of the hyperreals',
         challenge15Auto: 'a quacking good auto upgrade?',
-        extraWarp: 'a quacking good flux?'
+        extraWarp: 'a quacking good flux?',
+        improveQuarkHept: 'a 2% improvement to Quark Hepts',
+        improveQuarkHept2: 'another 2% improvement to Quark Hepts',
+        improveQuarkHept3: 'yet another 2% improvement to Quark Hepts',
+        improveQuarkHept4: 'a 2% improvement to Quack Hepts'
     }
 
     return names[input];
