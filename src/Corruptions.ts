@@ -295,7 +295,20 @@ export const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
 export const applyCorruptions = (corruptions: string) => {
     if (corruptions && corruptions.indexOf('/') > -1 && corruptions.split('/').length === 13) {
         // Converts the '/' separated string into a number[]
-        player.prototypeCorruptions = corruptions.split('/').map(x => +x);
+        const newCorruptions = corruptions.split('/').map(corr => Number(corr));
+
+        for (const value of newCorruptions) {
+            if (
+                !Number.isInteger(value) ||
+                Number.isNaN(value) ||
+                value < 0 ||
+                value > 14
+            ) {
+                return false;
+            }
+        }
+
+        player.prototypeCorruptions = newCorruptions;
         corruptionLoadoutTableUpdate();
         corruptionStatsUpdate();
         return true;
