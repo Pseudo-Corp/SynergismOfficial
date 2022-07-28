@@ -214,6 +214,45 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.shopUpgrades.tesseractToQuark = 0;
         player.shopUpgrades.hypercubeToQuark = 0;
     }
+    if (player.singularityCount >= 20) { //Since you cant increase SingularityCount without calling it
+        if (shopData.cashGrab.refundable === true) {
+            shopData.offeringAuto.refundable = false;
+            shopData.offeringEX.refundable = false;
+            shopData.obtainiumAuto.refundable = false;
+            shopData.obtainiumEX.refundable = false;
+            shopData.antSpeed.refundable = false;
+            shopData.cashGrab.refundable = false;
+        }
+    } else { //If someone will import save from higher Singularity into lower
+        if (shopData.cashGrab.refundable === false) {
+            shopData.offeringAuto.refundable = true;
+            shopData.offeringEX.refundable = true;
+            shopData.obtainiumAuto.refundable = true;
+            shopData.obtainiumEX.refundable = true;
+            shopData.antSpeed.refundable = true;
+            shopData.cashGrab.refundable = true;
+        }
+    }
+    if (player.singularityCount >= 51) {
+        if (shopData.chronometer2.refundable === true) {
+            shopData.seasonPass.refundable = false;
+            shopData.seasonPass2.refundable = false;
+            shopData.seasonPass3.refundable = false;
+            shopData.seasonPassY.refundable = false;
+            shopData.chronometer.refundable = false;
+            shopData.chronometer2.refundable = false;
+        }
+    } else {
+        if (shopData.chronometer2.refundable === false) {
+            shopData.seasonPass.refundable = true;
+            shopData.seasonPass2.refundable = true;
+            shopData.seasonPass3.refundable = true;
+            shopData.seasonPassY.refundable = true;
+            shopData.chronometer.refundable = true;
+            shopData.chronometer2.refundable = true;
+        }
+    }
+
     if (data.cubeUpgrades == null || data.cubeUpgrades[19] === 0 || player.cubeUpgrades[19] === 0) {
         for (let i = 121; i <= 125; i++) {
             player.upgrades[i] = 0
