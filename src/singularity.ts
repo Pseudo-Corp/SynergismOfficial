@@ -3,7 +3,7 @@ import type { IUpgradeData } from './DynamicUpgrade';
 import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
-import { Alert, Prompt } from './UpdateHTML'
+import { Alert, Prompt, revealStuff } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 
 export const updateSingularityPenalties = (): void => {
@@ -135,6 +135,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
         this.updateUpgradeHTML();
         updateSingularityPenalties();
         updateSingularityPerks();
+        revealStuff();
     }
 
     public getEffect(): { bonus: number | boolean, desc: string } {
