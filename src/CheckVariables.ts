@@ -16,6 +16,7 @@ import { singularityData, SingularityUpgrade } from './singularity';
 import type { IOcteractData} from './Octeracts';
 import { octeractData, OcteractUpgrade } from './Octeracts';
 import { resetThemeColors, toggleTheme } from './Themes';
+import { DOMCacheGetOrSet } from './Cache/DOM';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -729,5 +730,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         toggleTheme(Number(theme), true)
     } else {
         resetThemeColors(true); //To only set variables
+    }
+    const themeBG = DOMCacheGetOrSet('offlineContainer').style.display
+    if (theme === '4' && themeBG !== 'none') { //BG
+        DOMCacheGetOrSet('logoLight').style.display = ''
     }
 }

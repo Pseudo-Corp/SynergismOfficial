@@ -131,6 +131,8 @@ export const toggleTheme = (theme: number, resetColors: boolean) => {
         document.body.style.setProperty('--orchid-text-color', '#fd59f7');
         document.body.style.setProperty('--crimson-text-color', '#eb0000');
         document.body.style.setProperty('--gray-text-color', '#ff00c8');
+        document.body.style.setProperty('--box-color', '#000000');
+        document.body.style.setProperty('--boxmain-bordercolor', '#b341e0');
         document.body.style.setProperty('--button-color', '#21003f');
         document.body.style.setProperty('--hover-color', '#00056a');
         document.body.style.setProperty('--purplebtn-color', '#5800a0');
@@ -165,8 +167,6 @@ export const toggleTheme = (theme: number, resetColors: boolean) => {
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#04d481'
         DOMCacheGetOrSet('heptGrid').style.backgroundColor = '#11111b'
         DOMCacheGetOrSet('heptGrid').style.borderColor = '#9b7306'
-        DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.backgroundColor = '#000000'
-        DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.borderColor = '#b341e0'
         DOMCacheGetOrSet('startChallenge').style.backgroundColor = '#320032'
         DOMCacheGetOrSet('achievementcolorcode2').style.color = '#ef00e4' //Text colors
         DOMCacheGetOrSet('corruptionDescription').style.color = '#c205ff'
@@ -263,8 +263,6 @@ export const resetThemeColors = (firstLoad: boolean) => {
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = ''
         DOMCacheGetOrSet('heptGrid').style.backgroundColor = ''
         DOMCacheGetOrSet('heptGrid').style.borderColor = ''
-        DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.backgroundColor = ''
-        DOMCacheGetOrSet('actualSingularityUpgradeContainer').style.borderColor = ''
         DOMCacheGetOrSet('startChallenge').style.backgroundColor = ''
         DOMCacheGetOrSet('exportgame').style.backgroundColor = ''
         DOMCacheGetOrSet('importFileButton').style.backgroundColor = ''

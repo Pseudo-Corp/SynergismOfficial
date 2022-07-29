@@ -834,6 +834,7 @@ export const calculateAntSacrificeRewards = (): IAntSacRewards => {
 }
 
 export const timeWarp = async () => {
+    const theme = localStorage.getItem('theme')
     const time = await Prompt('How far in the future would you like to go into the future? Anything awaits when it is testing season.');
     const timeUse = Number(time);
     if (
@@ -844,7 +845,11 @@ export const timeWarp = async () => {
     }
 
     DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
-    DOMCacheGetOrSet('offlineBlur').style.display = ''
+    if (theme === '4') {
+        DOMCacheGetOrSet('logoLight').style.display = ''
+    } else {
+        DOMCacheGetOrSet('logo').style.display = ''
+    }
     disableHotkeys();
     await calculateOffline(timeUse)
 }
@@ -946,7 +951,13 @@ export const calculateOffline = async (forceTime = 0) => {
         }
     }, 0);
 
+    const theme = localStorage.getItem('theme')
     DOMCacheGetOrSet('offlineContainer').style.display = 'flex';
+    if (theme === '4') {
+        DOMCacheGetOrSet('logoLight').style.display = ''
+    } else {
+        DOMCacheGetOrSet('logo').style.display = ''
+    }
     document.body.classList.add('loading');
     disableHotkeys();
 
@@ -988,7 +999,8 @@ export const calculateOffline = async (forceTime = 0) => {
 export const exitOffline = () => {
     document.body.classList.remove('loading');
     DOMCacheGetOrSet('offlineContainer').style.display = 'none';
-    DOMCacheGetOrSet('offlineBlur').style.display = 'none';
+    DOMCacheGetOrSet('logoLight').style.display = 'none';
+    DOMCacheGetOrSet('logo').style.display = 'none';
     enableHotkeys();
 }
 
