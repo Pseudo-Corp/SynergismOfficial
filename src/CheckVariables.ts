@@ -671,10 +671,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.singularityUpgrades.cookies4.refund();
     }
 
-    if (player.singularityUpgrades.octeractUnlock.goldenQuarksInvested === 8888) {
-        player.singularityUpgrades.octeractUnlock.refund();
-    }
-
     if (data.hepteractAutoCraftPercentage === undefined) {
         player.hepteractAutoCraftPercentage = 50;
     }
