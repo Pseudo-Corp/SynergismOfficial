@@ -477,8 +477,18 @@ export const calculateObtainium = () => {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
     }
+
+
     G['obtainiumGain'] = Math.min(1e300, G['obtainiumGain']);
     G['obtainiumGain'] /= calculateSingularityDebuff('Obtainium');
+
+    if (player.usedCorruptions[5] >= 15) {
+        G['obtainiumGain'] = Math.pow(G['obtainiumGain'], 1/4)
+    }
+    if (player.usedCorruptions[5] >= 16) {
+        G['obtainiumGain'] = Math.pow(G['obtainiumGain'], 1/3)
+    }
+
     G['obtainiumGain'] = Math.max(1 + player.singularityCount, G['obtainiumGain']);
     if (player.currentChallenge.ascension === 14) {
         G['obtainiumGain'] = 0
@@ -884,6 +894,7 @@ export const calculateOffline = async (forceTime = 0) => {
     addTimers('quarks', timeAdd);
     addTimers('goldenQuarks', timeAdd);
     addTimers('singularity', timeAdd);
+    addTimers('octeracts', timeTick);
 
     player.prestigeCount += resetAdd.prestige;
     player.transcendCount += resetAdd.transcension;
@@ -901,6 +912,7 @@ export const calculateOffline = async (forceTime = 0) => {
         addTimers('transcension', timeTick);
         addTimers('reincarnation', timeTick);
         addTimers('singularity', timeTick);
+        addTimers('octeracts', timeTick);
 
         resourceGain(timeTick * G['timeMultiplier']);
 
@@ -1012,6 +1024,22 @@ export const calculateCubeBlessings = () => {
     calculateObtainium();
 }
 
+export const calculateTotalOcteractCubeBonus = () => {
+    if (player.totalWowOcteracts < 1000) {
+        return (1 + 2/1000 * player.totalWowOcteracts) // At 1,000 returns 3
+    } else {
+        return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, 2) // At 1,000 returns 3
+    }
+}
+
+export const calculateTotalOcteractQuarkBonus = () => {
+    if (player.totalWowOcteracts < 1000) {
+        return (1 + 0.2 / 1000 * player.totalWowOcteracts) // At 1,000 returns 1.20
+    } else {
+        return 1.1 + 0.1 * (Math.log10(player.totalWowOcteracts) - 2) // At 1,000 returns 1.20
+    }
+}
+
 export const calculateAllCubeMultiplier = () => {
     const arr = [
         // Ascension Time Multiplier to cubes
@@ -1049,7 +1077,9 @@ export const calculateAllCubeMultiplier = () => {
         // Cookie Upgrade 16
         1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15]),
         // Cookie Upgrade 8 (now actually works)
-        1 + 0.25 * +G['isEvent'] * player.cubeUpgrades[58]
+        1 + 0.25 * +G['isEvent'] * player.cubeUpgrades[58],
+        // Wow Octeract Bonus
+        calculateTotalOcteractCubeBonus()
         // Total Global Cube Multipliers: 18
     ]
     return {
@@ -1304,6 +1334,7 @@ export const calculateTimeAcceleration = () => {
     timeMult *= G['platonicBonusMultiplier'][7]
     timeMult *= 1 + calculateEventBuff('Global Speed');
     timeMult *= 1 + (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0)
+    timeMult *= 1 + +player.octeractUpgrades.octeractImprovedGlobalSpeed.getEffect().bonus * player.singularityCount
 
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
@@ -1331,6 +1362,18 @@ export const calculateAscensionAcceleration = () => {
         1 + calculateEventBuff('Ascension Speed')                                                       // Event
     ]
     return productContents(arr) / calculateSingularityDebuff('Ascension Speed')
+}
+
+export const calculateSingularityQuarkMilestoneMultiplier = () => {
+    let multiplier = 1
+    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100]
+    for (const sing of singThresholds) {
+        if (player.singularityCount >= sing) {
+            multiplier *= 1.05
+        }
+    }
+
+    return multiplier
 }
 
 export const calculateQuarkMultiplier = () => {
@@ -1380,17 +1423,20 @@ export const calculateQuarkMultiplier = () => {
     if (player.cubeUpgrades[68] > 0) { // Cube Upgrade 7x8
         multiplier *= (1 + 1/10000 * player.cubeUpgrades[68] + 0.05 * (Math.floor(player.cubeUpgrades[68] / 1000)))
     }
-    if (player.singularityCount >= 5) { // Singularity Milestone (5 sing)
-        multiplier *= 1.05
-    }
-    if (player.singularityCount >= 20) { // Singularity Milestone (20 sing)
-        multiplier *= 1.05
-    }
+
+    multiplier *= calculateSingularityQuarkMilestoneMultiplier();
+
+    multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus
+    multiplier *= (1 + 0.25 * + player.octeractUpgrades.octeractStarter.getEffect().bonus)
+
     multiplier *= (1 + 0.02 * player.singularityUpgrades.intermediatePack.level +               // 1.02
                            0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
                            0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
                            0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
                            0.10 * player.singularityUpgrades.expertPack.level)                  // 1.30
+
+    multiplier *= calculateTotalOcteractQuarkBonus()
+
     return multiplier
 }
 
@@ -1716,6 +1762,7 @@ export const calcAscensionCount = () => {
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000));
         ascCount *= (1 + 1/8 * player.singularityCount)
         ascCount *= +player.singularityUpgrades.ascensions.getEffect().bonus
+        ascCount *= +player.octeractUpgrades.octeractAscensions.getEffect().bonus
     }
 
     return Math.floor(ascCount);
@@ -1783,7 +1830,7 @@ export const dailyResetCheck = () => {
         player.dayCheck = day;
 
         forcedDailyReset(true);
-        player.dailyPowderResetUses = 1;
+        player.dailyPowderResetUses = 1 + player.shopUpgrades.extraWarp;
         player.dailyCodeUsed = false;
 
         DOMCacheGetOrSet('cubeQuarksOpenRequirement').style.display = 'block'

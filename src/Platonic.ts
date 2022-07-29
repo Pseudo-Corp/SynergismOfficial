@@ -2,6 +2,7 @@ import { player, format } from './Synergism';
 import { Synergism } from './Events';
 import { Alert, revealStuff } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { calculateSingularityDebuff } from './singularity';
 
 const platonicUpgradeDesc = [
     '+0.0075% Cubes per Corruption level per level!',
@@ -263,6 +264,8 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
     if (platUpgradeBaseCosts[index].priceMult) {
         priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
     }
+    priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
+
     for (let i = 0; i < resources.length - 1; i++) {
         if (Math.floor(platUpgradeBaseCosts[index][resources[i]] * priceMultiplier) <= player[resourceNames[i]]) {
             checksum++;
@@ -294,6 +297,7 @@ export const createPlatonicDescription = (index: number) => {
     if (platUpgradeBaseCosts[index].priceMult) {
         priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
     }
+    priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
 
     DOMCacheGetOrSet('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index-1];
     DOMCacheGetOrSet('platonicUpgradeLevel').textContent = 'Level: ' + format(player.platonicUpgrades[index]) + '/' + format(platUpgradeBaseCosts[index].maxLevel) + maxLevelAppend

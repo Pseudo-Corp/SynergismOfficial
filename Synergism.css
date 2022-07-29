@@ -1880,7 +1880,9 @@ nav li:hover { background-color: var(--hover-color); }
 }
 
 #quarksDisplay,
-#goldenQuarksDisplay {
+#goldenQuarksDisplay,
+#octeractsDisplay,
+#totalOcteractsDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1895,6 +1897,12 @@ nav li:hover { background-color: var(--hover-color); }
 #goldenQuarkamount {
     font-size: 1.2em;
     color: gold;
+    margin-left: 5px;
+}
+
+#octeractAmount {
+    font-size: 1.2em;
+    color: lightseagreen;
     margin-left: 5px;
 }
 
@@ -3388,13 +3396,15 @@ header #obtainiumDisplay { color: pink; }
     background-color: var(--hover-color);
 }
 
-#singularityUpgradeContainer {
+#singularityUpgradeContainer,
+#singularityOcteracts {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#actualSingularityUpgradeContainer {
+#actualSingularityUpgradeContainer,
+#octeractUpgradeContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -3404,7 +3414,8 @@ header #obtainiumDisplay { color: pink; }
     width: calc(105px * 5);
 }
 
-.singularityUpgrade {
+.singularityUpgrade,
+.octeractUpgrade {
     margin: 2px;
 }
 
@@ -3413,7 +3424,8 @@ header #obtainiumDisplay { color: pink; }
     white-space: pre-line;
 }
 
-#testingMultiline {
+#testingMultiline,
+#singularityOcteractsMultiline {
     white-space: pre-line;
 }
 
