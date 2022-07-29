@@ -44,6 +44,7 @@ import localforage from 'localforage';
 import { singularityData, SingularityUpgrade } from './singularity';
 import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
+import { octeractData, OcteractUpgrade } from './Octeracts';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -467,7 +468,13 @@ export const player: Player = {
         offeringEX2: 0,
         obtainiumEX2: 0,
         seasonPassLost: 0,
-        powderAuto: 0
+        powderAuto: 0,
+        challenge15Auto: 0,
+        extraWarp: 0,
+        improveQuarkHept: 0,
+        improveQuarkHept2: 0,
+        improveQuarkHept3: 0,
+        improveQuarkHept4: 0
     },
     shopBuyMaxToggle: false,
     shopHideToggle: false,
@@ -535,6 +542,8 @@ export const player: Player = {
     wowPlatonicCubes: new WowPlatonicCubes(0),
     saveOfferingToggle: false,
     wowAbyssals: 0,
+    wowOcteracts: 0,
+    totalWowOcteracts: 0,
     cubeBlessings: {
         accelerator: 0,
         multiplier: 0,
@@ -723,10 +732,36 @@ export const player: Player = {
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
         singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
         singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
-        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3'])
+        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3']),
+        singOcteractGain: new SingularityUpgrade(singularityData['singOcteractGain']),
+        singOcteractGain2: new SingularityUpgrade(singularityData['singOcteractGain2']),
+        singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
+        singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
+        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
+        wowPass3: new SingularityUpgrade(singularityData['wowPass3'])
     },
+
+    octeractUpgrades: {
+        octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
+        octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
+        octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
+        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
+        octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
+        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
+        octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
+        octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
+        octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
+        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
+        octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree']),
+        octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
+        octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
+        octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
+        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain'])
+    },
+
     dailyCodeUsed: false,
-    hepteractAutoCraftPercentage: 50
+    hepteractAutoCraftPercentage: 50,
+    octeractTimer: 0
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -1696,7 +1731,8 @@ export const format = (
     input: Decimal | number | { [Symbol.toPrimitive]: unknown } | null | undefined,
     accuracy = 0,
     long = false,
-    truncate = true
+    truncate = true,
+    fractional = false
 ): string => {
     if (input == null) {
         return '0 [null]';
@@ -1717,7 +1753,7 @@ export const format = (
         return isNaN(input as number) ? '0 [NaN]' : '0 [und.]';
     } else if ( // this case handles numbers less than 1e-6 and greater than 0
         typeof input === 'number' &&
-        input < 1e-3 && // arbitrary number, can be changed
+        input < 1e-12 && // arbitrary number, can be changed
         input > 0 // don't handle negative numbers, probably could be removed
     ) {
         return input.toExponential(accuracy);
@@ -1752,6 +1788,20 @@ export const format = (
     // If the power is less than 12 it's effectively 0
     if (power < -12) {
         return '0';
+    }
+
+    // If the power is negative, then we will want to address that separately.
+    if (power < 0 && !isDecimal(input) && fractional) {
+        if (power <= -9) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 9)}B`
+        }
+        if (power <= -6) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 6)}M`
+        }
+        if (power <= -3) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 3)}K`
+        }
+        return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
     } else if (power < 6 || (long && power < 13)) {
         // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
         // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13
@@ -1956,6 +2006,13 @@ export const updateAllTick = (): void => {
     a *= (1 + 3/10000 * hepteractEffective('accelerator'))
     a = Math.floor(Math.min(1e100, a))
 
+    if (player.usedCorruptions[2] >= 15) {
+        a = Math.pow(a, 0.2)
+    }
+    if (player.usedCorruptions[2] >= 16) {
+        a = 1
+    }
+
     G['freeAccelerator'] = a;
     G['totalAccelerator'] += G['freeAccelerator'];
 
@@ -2128,6 +2185,14 @@ export const updateAllMultiplier = (): void => {
     a *= G['challenge15Rewards'].multiplier
     a *= (1 + 3/10000 * hepteractEffective('multiplier'))
     a = Math.floor(Math.min(1e100, a))
+
+    if (player.usedCorruptions[2] >= 15) {
+        a = Math.pow(a, 0.2)
+    }
+    if (player.usedCorruptions[2] >= 16) {
+        a = 1
+    }
+
     G['freeMultiplier'] = a;
     G['totalMultiplier'] = G['freeMultiplier'] + player.multiplierBought;
 
@@ -2755,6 +2820,28 @@ export const updateAntMultipliers = (): void => {
     if (player.usedCorruptions[7] >= 14) {
         G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
     }
+    if (player.usedCorruptions[7] >= 15) {
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
+    }
+    if (player.usedCorruptions[7] >= 16) {
+        G['globalAntMult'] = Decimal.pow(G['globalAntMult'], 0.02)
+    }
+
+    if (player.octeractUpgrades.octeractStarter.getEffect().bonus) {
+        G['globalAntMult'] = G['globalAntMult'].times(100000)
+    }
+
+    if (player.singularityCount >= 30) {
+        G['globalAntMult'] = G['globalAntMult'].times(1000)
+    }
+
+    if (player.singularityCount >= 70) {
+        G['globalAntMult'] = G['globalAntMult'].times(1000)
+    }
+
+    if (player.singularityCount >= 100) {
+        G['globalAntMult'] = G['globalAntMult'].times(1e6)
+    }
 }
 
 export const createAnts = (dt: number): void => {
@@ -3023,6 +3110,11 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
     if (i === 'singularity') {
         if (player.runelevels[6] === 0) {
             return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
+        }
+
+        if (player.singularityCount > 249) {
+            return Alert(`Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere
+            to go from here. At least, not until higher powers expand your journey.`)
         }
 
         let confirmed = false;
@@ -3411,6 +3503,14 @@ export const updateAll = (): void => {
             player[`${num}CostParticles` as const] = new Decimal(Decimal.pow(2, buyTo - 1).times(Decimal.pow(1.001, Math.max(0, (buyTo - 325000)) * Math.max(0, (buyTo - 325000) + 1) / 2))).times(particleOriginalCost[i])
         }
     }
+
+    // Challenge 15 autoupdate
+    if (player.shopUpgrades.challenge15Auto > 0 && player.currentChallenge.ascension === 15) {
+        if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
+            player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
+            c15RewardUpdate();
+        }
+    }
 }
 
 export const constantIntervals = (): void => {
@@ -3480,6 +3580,7 @@ function tack(dt: number) {
         addTimers('ascension', dt)
         addTimers('quarks', dt)
         addTimers('goldenQuarks', dt)
+        addTimers('octeracts', dt)
         addTimers('singularity', dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
@@ -3853,7 +3954,7 @@ window.addEventListener('load', () => {
     if (ver instanceof HTMLElement) {
         const textUpdate = !isNaN(lastUpdated.getTime()) ? ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` : '';
         ver.textContent =
-            `You're ${testing ? 'testing' : 'playing'} v${version} - The Reality Update pt.1` +
+            `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality` +
             textUpdate +
             ` ${testing ? 'Savefiles cannot be used in live!' : ''}`;
     }

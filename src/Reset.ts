@@ -906,6 +906,7 @@ export const singularity = async (): Promise<void> => {
     hold.shopUpgrades = player.shopUpgrades;
     hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
     hold.singularityUpgrades = player.singularityUpgrades
+    hold.octeractUpgrades = player.octeractUpgrades
     hold.autoChallengeToggles = player.autoChallengeToggles
     hold.autoChallengeTimer = player.autoChallengeTimer
     hold.saveString = player.saveString
@@ -966,6 +967,8 @@ export const singularity = async (): Promise<void> => {
     hold.shopConfirmationToggle = player.shopConfirmationToggle
     hold.researchBuyMaxToggle = player.researchBuyMaxToggle
     hold.cubeUpgradesBuyMaxToggle = player.cubeUpgradesBuyMaxToggle
+    hold.wowOcteracts = player.wowOcteracts
+    hold.totalWowOcteracts = player.totalWowOcteracts
 
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark;
