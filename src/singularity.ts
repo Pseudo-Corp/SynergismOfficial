@@ -415,10 +415,10 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         }
     },
     octeractUnlock: {
-        name: 'Octeracts ;) (WIP)',
+        name: 'Octeracts',
         description: 'Hey!!! What are you trying to do?!?',
         maxLevel: 1,
-        costPerLevel: 18888,
+        costPerLevel: 8888,
         minimumSingularity: 8,
         effect: (n: number) => {
             return {
@@ -428,15 +428,15 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         }
     },
     offeringAutomatic: {
-        name: 'Offering Lootzifer (WIP)',
-        description: 'Black Magic. Don\'t make deals with the devil. Each second, you get +2% of Offering gain automatically per level. Also +10% Offerings!',
+        name: 'Offering Lootzifer (Depreciated)',
+        description: 'Black Magic. Don\'t make deals with the devil.',
         maxLevel: 50,
-        costPerLevel: 2000,
-        minimumSingularity: 6,
+        costPerLevel: 100000000000,
+        minimumSingularity: 1337,
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? 'have': 'have not'} made a deal with the devil Lootzifer.`
+                desc: 'No one can speak to Lootzifer at this moment.'
             }
         }
     },
