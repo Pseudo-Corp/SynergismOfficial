@@ -123,7 +123,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
         },
         maxLevel: -1,
-        costPerLevel: 1e-10,
+        costPerLevel: 1e-8,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.01 * n,
@@ -138,7 +138,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return baseCost * (Math.pow(level + 1, 7) - Math.pow(level, 7))
         },
         maxLevel: -1,
-        costPerLevel: 1e-9,
+        costPerLevel: 1e-7,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.01 * n,
@@ -150,7 +150,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         name: 'EXTRA CHONKY Corruptions',
         description: 'Adds one level to the cap on corruptions. Derpsmith approves.',
         costFormula: (level: number, baseCost: number) => {
-            return baseCost * Math.pow(10, level * 8)
+            return baseCost * Math.pow(10, level * 10)
         },
         maxLevel: 2,
         costPerLevel: 10,
@@ -198,7 +198,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return baseCost * Math.pow(1.6, level)
         },
         maxLevel: 50,
-        costPerLevel: 1e-6,
+        costPerLevel: 1e-3,
         effect: (n: number) => {
             return {
                 bonus: n,
@@ -213,7 +213,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return baseCost * Math.pow(2, level)
         },
         maxLevel: 50,
-        costPerLevel: 1e-6,
+        costPerLevel: 1e-2,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.02 * n,
@@ -223,7 +223,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     octeractImprovedQuarkHept: {
         name: 'I wish for even better Quark Hepteracts.',
-        description: 'The godmother is absent, but Derpsmith is here! +0.01 DR Power per level.',
+        description: 'The godmother is absent, but Derpsmith is here! +2% DR exponent per level. Stacks additively with all the others!',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(1e6, level)
         },

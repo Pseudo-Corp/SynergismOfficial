@@ -592,7 +592,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n/100,
-                desc: `The DR exponent is now ${format(n/100, 2, true)} larger!`
+                desc: `The DR exponent is now ${format(2 *n, 2, true)}% larger!`
             }
         }
     },
@@ -605,7 +605,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n/100,
-                desc: `The DR exponent is now ${format(n/100, 2, true)} larger!`
+                desc: `The DR exponent is now ${format(2 * n, 2, true)}% larger!`
             }
         }
     },
@@ -618,7 +618,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n/100,
-                desc: `The DR exponent is now ${format(n/100, 2, true)} larger!`
+                desc: `The DR exponent is now ${format(2 * n, 2, true)}% larger!`
             }
         }
     },
@@ -1119,9 +1119,9 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
     } else if (debuff === 'Cubes') {
         return 1 + Math.sqrt(effectiveSingularities) / 4
     } else if (debuff === 'Platonic Costs') {
-        return (player.singularityCount > 36) ? 1 + Math.pow(effectiveSingularities, 3/10) / 5 : 1
+        return (player.singularityCount > 36) ? 1 + Math.pow(effectiveSingularities, 3/10) / 12 : 1
     } else if (debuff === 'Hepteract Costs') {
-        return (player.singularityCount > 50) ? 1 + Math.pow(effectiveSingularities, 11/50) / 10 : 1
+        return (player.singularityCount > 50) ? 1 + Math.pow(effectiveSingularities, 11/50) / 25 : 1
     } else {
         // Cube upgrades
         return Math.cbrt(effectiveSingularities + 1)

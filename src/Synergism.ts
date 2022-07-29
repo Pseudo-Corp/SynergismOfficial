@@ -3112,6 +3112,11 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
         }
 
+        if (player.singularityCount > 249) {
+            return Alert(`Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere
+            to go from here. At least, not until higher powers expand your journey.`)
+        }
+
         let confirmed = false;
         canSave = false;
         if (!player.toggles[33] && player.singularityCount > 0) {
@@ -3949,7 +3954,7 @@ window.addEventListener('load', () => {
     if (ver instanceof HTMLElement) {
         const textUpdate = !isNaN(lastUpdated.getTime()) ? ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` : '';
         ver.textContent =
-            `You're ${testing ? 'testing' : 'playing'} v${version} - The Reality Update pt.1` +
+            `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality` +
             textUpdate +
             ` ${testing ? 'Savefiles cannot be used in live!' : ''}`;
     }
