@@ -542,7 +542,9 @@ export const visualUpdateOcteracts = () => {
         return
     }
     DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true, true, true)
-    DOMCacheGetOrSet('sPO').textContent = format(1 / octeractGainPerSecond(), 2, true)
+    DOMCacheGetOrSet('sPO0').textContent = (octeractGainPerSecond() < 1) ? '+1 per' : 'You gain'
+    DOMCacheGetOrSet('sPO1').textContent = (octeractGainPerSecond() < 1) ? format(1 / octeractGainPerSecond(), 2, true) : format(octeractGainPerSecond(), 2, true)
+    DOMCacheGetOrSet('sPO2').textContent = (octeractGainPerSecond() < 1) ? 'seconds' : 'per second'
 
     DOMCacheGetOrSet('totalOcts').textContent = format(player.totalWowOcteracts, 2, true, true, true)
     DOMCacheGetOrSet('octCubeBonus').textContent = format((calculateTotalOcteractCubeBonus() - 1) * 100, 2, true)
