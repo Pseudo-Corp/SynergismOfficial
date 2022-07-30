@@ -13,6 +13,8 @@ import { Alert } from './UpdateHTML';
 import { getQuarkInvestment, shopData} from './Shop';
 import type { ISingularityData} from './singularity';
 import { singularityData, SingularityUpgrade } from './singularity';
+import type { IOcteractData} from './Octeracts';
+import { octeractData, OcteractUpgrade } from './Octeracts';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -276,7 +278,31 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
         singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
         singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
-        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3'])
+        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3']),
+        singOcteractGain: new SingularityUpgrade(singularityData['singOcteractGain']),
+        singOcteractGain2: new SingularityUpgrade(singularityData['singOcteractGain2']),
+        singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
+        singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
+        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
+        wowPass3: new SingularityUpgrade(singularityData['wowPass3'])
+    }
+
+    player.octeractUpgrades = {
+        octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
+        octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
+        octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
+        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
+        octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
+        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
+        octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
+        octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
+        octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
+        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
+        octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree']),
+        octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
+        octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
+        octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
+        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
@@ -412,7 +438,13 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             offeringEX2: 0,
             powderAuto: 0,
             chronometerZ: 0,
-            seasonPassLost: 0
+            seasonPassLost: 0,
+            challenge15Auto: 0,
+            extraWarp: 0,
+            improveQuarkHept: 0,
+            improveQuarkHept2: 0,
+            improveQuarkHept3: 0,
+            improveQuarkHept4: 0
         }
 
         player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false);
@@ -581,13 +613,34 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                 if (player.singularityUpgrades[k].minimumSingularity > player.singularityCount) {
                     player.singularityUpgrades[k].refund()
                 }
-
-                // Refund single-level purchases
-                if (player.singularityUpgrades[k].maxLevel === 1 &&
-                    player.singularityUpgrades[k].level === 1 &&
-                    player.singularityUpgrades[k].goldenQuarksInvested !== player.singularityUpgrades[k].costPerLevel) {
+                const cost = player.singularityUpgrades[k].level * (player.singularityUpgrades[k].level + 1) *
+                             player.singularityUpgrades[k].costPerLevel / 2
+                if (player.singularityUpgrades[k].maxLevel !== -1 &&
+                    player.singularityUpgrades[k].goldenQuarksInvested !== cost) {
                     player.singularityUpgrades[k].refund()
                 }
+            }
+        }
+    }
+
+    if (data.octeractUpgrades != null) { // TODO: Make this more DRY -Platonic, July 15 2022
+        for (const item in blankSave.octeractUpgrades) {
+            const k = item as keyof Player['octeractUpgrades'];
+            let updatedData:IOcteractData
+            if (data.octeractUpgrades[k]) {
+                updatedData = {
+                    name: octeractData[k].name,
+                    description: octeractData[k].description,
+                    maxLevel: octeractData[k].maxLevel,
+                    costPerLevel: octeractData[k].costPerLevel,
+                    level: data.octeractUpgrades[k].level,
+                    octeractsInvested: data.octeractUpgrades[k].octeractsInvested,
+                    toggleBuy: data.octeractUpgrades[k].toggleBuy,
+                    effect: octeractData[k].effect,
+                    costFormula: octeractData[k].costFormula,
+                    freeLevels: data.octeractUpgrades[k].freeLevels
+                }
+                player.octeractUpgrades[k] = new OcteractUpgrade(updatedData);
             }
         }
     }
@@ -618,10 +671,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.singularityUpgrades.cookies4.refund();
     }
 
-    if (player.singularityUpgrades.octeractUnlock.goldenQuarksInvested === 8888) {
-        player.singularityUpgrades.octeractUnlock.refund();
-    }
-
     if (data.hepteractAutoCraftPercentage === undefined) {
         player.hepteractAutoCraftPercentage = 50;
     }
@@ -648,6 +697,12 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.shopBuyMaxToggle = false;
         player.shopConfirmationToggle = true;
     }
+
+    if (data.wowOcteracts === undefined) {
+        player.wowOcteracts = 0;
+        player.octeractTimer = 0;
+    }
+
     if (data.shopHideToggle === undefined) {
         player.shopHideToggle = false;
     }
@@ -662,5 +717,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.ascensionCounterRealReal === undefined) {
         player.ascensionCounterRealReal = 0;
+    }
+
+    if (data.totalWowOcteracts === undefined) {
+        player.totalWowOcteracts = 0;
     }
 }
