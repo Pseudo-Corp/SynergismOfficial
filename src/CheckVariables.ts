@@ -662,15 +662,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.goldenQuarksTimer = 90000;
     }
 
-    if (player.singularityUpgrades.cookies3.goldenQuarksInvested === 5000 || player.singularityUpgrades.cookies4.goldenQuarksInvested === 50000) {
-        player.singularityUpgrades.cookies3.refund();
-        player.singularityUpgrades.cookies4.refund();
-    }
-
-    if (player.singularityUpgrades.cookies4.goldenQuarksInvested === 199999) {
-        player.singularityUpgrades.cookies4.refund();
-    }
-
     if (data.hepteractAutoCraftPercentage === undefined) {
         player.hepteractAutoCraftPercentage = 50;
     }
