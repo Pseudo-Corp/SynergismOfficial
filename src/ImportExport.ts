@@ -1,6 +1,6 @@
 import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
 import { testing, version } from './Config';
-import { getElementById, productContents, sumContents } from './Utility';
+import { getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
 import type { Player } from './types/Synergism';
@@ -14,9 +14,9 @@ import { btoa } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { Globals as G } from './Variables';
-import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
 import { singularityData } from './singularity';
 import { getEvent } from './Event';
+import { octeractGainPerSecond } from './Octeracts';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -314,23 +314,29 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
         if (player.singularityCount > 0) {
             const upgradeDistribution: Record<
-            'goldenQuarks1' | 'singCubes1' | 'singCubes2' | 'singCubes3' |
+            'goldenQuarks1' | 'goldenQuarks2' | 'goldenQuarks3' | 'singCubes1' | 'singCubes2' | 'singCubes3' |
             'singOfferings1' | 'singOfferings2' | 'singOfferings3' |
             'singObtainium1' | 'singObtainium2' | 'singObtainium3' | 'ascensions',
             {value: number, pdf: (x: number) => boolean}> = {
-                goldenQuarks1: {value: 0.2, pdf: (x: number) => 0 <= x && x <= 4},
-                singCubes3: {value: 0.25, pdf: (x: number) => 4 < x && x <= 6},
-                singObtainium3: {value: 0.25, pdf: (x: number) => 6 < x && x <= 8},
-                singOfferings3: {value: 0.25, pdf: (x: number) => 8 < x && x <= 10},
-                singCubes2: {value: 0.5, pdf: (x: number) => 10 < x && x <= 40},
-                singObtainium2: {value: 0.5, pdf: (x: number) => 40 < x && x <= 70},
-                singOfferings2: {value: 0.5, pdf: (x: number) => 70 < x && x <= 100},
-                singCubes1: {value: 1, pdf: (x: number) => 100 < x && x <= 325},
-                singObtainium1: {value: 1, pdf: (x: number) => 325 < x && x <= 550},
-                singOfferings1: {value: 1, pdf: (x: number) => 550 < x && x <= 775},
-                ascensions: {value: 1, pdf: (x: number) => 775 < x && x <= 1000}
+                goldenQuarks3: {value: 0.2, pdf: (x: number) => 0 <= x && x <= 1},
+                goldenQuarks2: {value: 0.2, pdf: (x: number) => 1 <= x && x <= 3},
+                goldenQuarks1: {value: 0.2, pdf: (x: number) => 3 <= x && x <= 10},
+                singCubes3: {value: 0.25, pdf: (x: number) => 10 < x && x <= 15},
+                singObtainium3: {value: 0.25, pdf: (x: number) => 15 < x && x <= 20},
+                singOfferings3: {value: 0.25, pdf: (x: number) => 20 < x && x <= 25},
+                singCubes2: {value: 0.5, pdf: (x: number) => 25 < x && x <= 80},
+                singObtainium2: {value: 0.5, pdf: (x: number) => 80 < x && x <= 140},
+                singOfferings2: {value: 0.5, pdf: (x: number) => 140 < x && x <= 200},
+                singCubes1: {value: 1, pdf: (x: number) => 200 < x && x <= 400},
+                singObtainium1: {value: 1, pdf: (x: number) => 400 < x && x <= 600},
+                singOfferings1: {value: 1, pdf: (x: number) => 600 < x && x <= 800},
+                ascensions: {value: 1, pdf: (x: number) => 800 < x && x <= 1000}
             }
-            const rolls = Math.floor(3 * Math.sqrt(player.singularityCount))
+            let rolls = 3 * Math.sqrt(player.singularityCount)
+            rolls += +player.octeractUpgrades.octeractImprovedDaily.getEffect().bonus
+            rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
+            rolls = Math.floor(rolls)
+
             const keys = Object
                 .keys(player.singularityUpgrades)
                 .filter(key => key in upgradeDistribution) as (keyof typeof upgradeDistribution)[];
@@ -528,26 +534,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
             }
         }
     } else if (input === 'spoiler') {
-        const SCOREREQ = 1e32
-        const currentScore = calculateAscensionScore().effectiveScore
-
-        const baseMultiplier = (currentScore >= SCOREREQ) ? Math.cbrt(currentScore / SCOREREQ) : Math.pow(currentScore / SCOREREQ, 2);
-        const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
-
-        const valueMultipliers = [
-            1 + player.shopUpgrades.seasonPass3 / 100,
-            1 + player.shopUpgrades.seasonPassY / 200,
-            1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
-            1 + player.shopUpgrades.seasonPassLost / 200,
-            1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
-            1 + +(corruptionLevelSum >= 14 * 8) * (player.singularityUpgrades.divinePack.level === 1 ? 6.77 : 1.00),
-            +player.singularityUpgrades.singCubes1.getEffect().bonus,
-            +player.singularityUpgrades.singCubes2.getEffect().bonus,
-            +player.singularityUpgrades.singCubes3.getEffect().bonus
-        ]
-
-        const ascensionSpeed = calculateAscensionAcceleration()
-        const perSecond = 1/(24 * 3600 * 365 * 1e9) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
+        const perSecond = octeractGainPerSecond()
         if (perSecond > 1) {
             return Alert(`You will gain ${format(perSecond, 2, true)} Octeracts (when they come out) every second, assuming you have them unlocked!`)
         } else {

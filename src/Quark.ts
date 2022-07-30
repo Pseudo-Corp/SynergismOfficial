@@ -56,6 +56,8 @@ export const quarkHandler = () => {
         baseQuarkPerHour += player.researches[el]
     }
 
+    baseQuarkPerHour *= +player.octeractUpgrades.octeractExportQuarks.getEffect().bonus
+
     const quarkPerHour = baseQuarkPerHour
 
     //Part 3: Calculates capacity of quarks on export
