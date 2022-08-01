@@ -18,6 +18,7 @@ html {
 body {
     transform-origin: 0 0;
     overflow-x: hidden;
+    overflow-y: overlay;
     margin: 0;
     box-sizing: border-box;
     font-size: 16px;
@@ -755,7 +756,6 @@ nav li:hover {
 }
 
 #promocodeinfo {
-    width: 75%;
     margin: 0 auto;
 }
 
@@ -872,6 +872,7 @@ nav li:hover {
     position: relative;
     text-align: center;
     padding: 0;
+    min-height: 540px;
     color: whitesmoke;
 }
 
@@ -1220,7 +1221,7 @@ nav li:hover {
 }
 
 #talismanFragmentCost {
-    width: 250px;
+    width: 260px;
     text-align: center;
     font-size: 1.1em;
     margin-right: -30px;
@@ -1909,6 +1910,7 @@ nav li:hover {
 
 #shopHovers {
     width: 600px;
+    min-height: 173px;
 }
 
 #shopHovers > p { margin: 0; }
