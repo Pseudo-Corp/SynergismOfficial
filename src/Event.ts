@@ -70,7 +70,7 @@ const events: Record<string, HolidayData> = {
             antSacrifice: 1,
             offering: 1,
             obtainium: 1,
-            octeract: 0.25,
+            octeract: 0.25
         }
     }
     // Event example

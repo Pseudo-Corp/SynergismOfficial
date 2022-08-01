@@ -368,7 +368,7 @@ export const octeractGainPerSecond = () => {
         +player.octeractUpgrades.octeractGain.getEffect().bonus,
         derpsmithCornucopiaBonus(),
         Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
-        1 + calculateEventBuff('Octeract'),
+        1 + calculateEventBuff('Octeract')
     ]
 
     const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1/2)
