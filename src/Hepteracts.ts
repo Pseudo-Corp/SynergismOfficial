@@ -552,11 +552,13 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?:boolean) => {
     }
 }
 
-export const toggleAutoBuyOrbs = (newValue?: boolean) => {
+export const toggleAutoBuyOrbs = (newValue?: boolean, firstLoad = false) => {
     const HTML = DOMCacheGetOrSet('hepteractToQuarkTradeAuto');
 
-    // When newValue is empty, current value is toggled
-    player.overfluxOrbsAutoBuy = newValue ?? !player.overfluxOrbsAutoBuy;
+    if (!firstLoad) {
+        // When newValue is empty, current value is toggled
+        player.overfluxOrbsAutoBuy = newValue ?? !player.overfluxOrbsAutoBuy;
+    }
 
     HTML.textContent = `Auto ${player.overfluxOrbsAutoBuy ? 'ON' : 'OFF'}`;
     HTML.style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`;
