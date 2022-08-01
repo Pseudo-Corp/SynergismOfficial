@@ -2,7 +2,7 @@ import { format, player } from './Synergism';
 import { Alert } from './UpdateHTML';
 import type { IUpgradeData } from './DynamicUpgrade';
 import { DynamicUpgrade } from './DynamicUpgrade';
-import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
+import { calculateAscensionAcceleration, calculateAscensionScore, calculateEventBuff } from './Calculate';
 import { productContents, sumContents } from './Utility';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -367,7 +367,8 @@ export const octeractGainPerSecond = () => {
         1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
         +player.octeractUpgrades.octeractGain.getEffect().bonus,
         derpsmithCornucopiaBonus(),
-        Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount)))
+        Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
+        1 + calculateEventBuff('Octeract'),
     ]
 
     const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1/2)

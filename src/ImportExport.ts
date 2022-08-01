@@ -264,17 +264,28 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === '2.9.9' && !player.codes.get(41) && G['isEvent'] && getEvent().name === '&#128151 Community Event! &#128151 [Musical Link Here!]') {
-        player.codes.set(41, true);
+    if (input === 'derpsmith' && !player.codes.get(42) && G['isEvent'] && getEvent().name === '&#128151 Derpsmith Arrival Ceremony! &#128151 [link!]') {
+        player.codes.set(42, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 3600 * 168;
         addTimers('ascension', 4 * 3600);
 
+        if (player.challenge15Exponent >= 1e15 || player.singularityCount > 0) {
+            player.hepteractCrafts.quark.CAP *= 2;
+        }
         if (player.singularityCount > 0) {
+            player.singularityUpgrades.goldenQuarks1.freeLevels += 1;
+            player.singularityUpgrades.goldenQuarks2.freeLevels += 1;
             player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
+            if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
+                player.octeractUpgrades.octeractGain.freeLevels += 5;
+            }
         }
 
-        return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! ${(player.singularityCount > 0) ? 'You were also given a free level of GQ3!' : ''}`)
+        return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! 
+                      ${(player.challenge15Exponent >= 1e15 || player.singularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free!' : ''}
+                      ${(player.singularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
+                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Cogenesis.': ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
         player.codes.set(1, true);

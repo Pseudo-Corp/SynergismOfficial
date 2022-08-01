@@ -969,7 +969,7 @@ export const singularity = async (): Promise<void> => {
     hold.cubeUpgradesBuyMaxToggle = player.cubeUpgradesBuyMaxToggle
     hold.wowOcteracts = player.wowOcteracts
     hold.totalWowOcteracts = player.totalWowOcteracts
-
+    
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark;
     for (const craftName of Object.keys(player.hepteractCrafts)) {
@@ -979,12 +979,15 @@ export const singularity = async (): Promise<void> => {
         }
     }
 
+    const saveCode42 = player.codes.get(42) ?? false
     //Import Game
+
     await importSynergism(btoa(JSON.stringify(hold)), true);
 
     player.codes.set(39, true);
     player.codes.set(40, true);
     player.codes.set(41, true);
+    player.codes.set(42, saveCode42)
     updateSingularityMilestoneAwards();
 }
 
