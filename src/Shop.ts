@@ -426,6 +426,16 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundMinimumLevel: 0,
         description: '"Hey dude, get in this portal I built up last night in my shed!" said the Quack Merchant'
     },
+    autoWarp: {
+        tier: 'SingularityVol3',
+        price: 5e11,
+        priceIncrease: 0,
+        maxLevel: 1,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'With the power of Quacks Warp machine will now be able to go into overdrive'
+    },
     improveQuarkHept: {
         tier: 'Ascension',
         price: 2e5 - 1,
@@ -475,8 +485,8 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'antSpeed' | 'cashGrab' | 'cashGrab2' | 'shopTalisman' | 'seasonPass' | 'challengeExtension' | 'challengeTome' | 'challengeTome2' |
                         'cubeToQuark' | 'tesseractToQuark' | 'cubeToQuarkAll' | 'hypercubeToQuark' | 'seasonPass2' | 'seasonPass3' | 'seasonPassY' | 'seasonPassZ' |
                         'seasonPassLost' | 'chronometer' | 'chronometer2'| 'chronometer3'| 'chronometerZ' | 'infiniteAscent' | 'calculator' | 'calculator2' |
-                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | //And Golden Quarks
-                        'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4'
+                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | 'autoWarp' | 'improveQuarkHept' |
+                        'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4' //And Golden Quarks
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -620,6 +630,9 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         case 'extraWarp':
             lol.textContent = `CURRENT Effect: You can warp ${player.shopUpgrades.extraWarp} extra times.`;
             break;
+        case 'autoWarp':
+            lol.textContent = `CURRENT Effect: Warp machine ${player.shopUpgrades.autoWarp ? 'can now' : 'can\'t'} go into overdrive${player.shopUpgrades.autoWarp ? '' : ', yet'}.`;
+            break;
     }
 
 }
@@ -668,6 +681,7 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         seasonPassLost: 'an overpriced, mysterious relic of the hyperreals',
         challenge15Auto: 'a quacking good auto upgrade?',
         extraWarp: 'a quacking good flux?',
+        autoWarp: 'a quack powered Warps?',
         improveQuarkHept: 'a 2% improvement to Quark Hepts',
         improveQuarkHept2: 'another 2% improvement to Quark Hepts',
         improveQuarkHept3: 'yet another 2% improvement to Quark Hepts',

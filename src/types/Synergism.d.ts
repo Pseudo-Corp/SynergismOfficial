@@ -359,6 +359,7 @@ export interface Player {
         obtainiumEX2: number,
         challenge15Auto: number,
         extraWarp: number,
+        autoWarp: number,
         improveQuarkHept: number,
         improveQuarkHept2: number,
         improveQuarkHept3: number,
@@ -544,6 +545,7 @@ export interface Player {
     overfluxOrbsAutoBuy: boolean
     overfluxPowder: number
     dailyPowderResetUses: number
+    autoWarpCheck: boolean
 
     singularityCount: number
     singularityCounter: number

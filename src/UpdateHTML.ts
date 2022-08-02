@@ -390,6 +390,10 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('heptnotificationpic').style.display = 'block'):
         (DOMCacheGetOrSet('heptnotificationpic').style.display = 'none');
 
+    player.shopUpgrades.autoWarp > 0 ?
+        (DOMCacheGetOrSet('warpAuto').style.display = 'block'):
+        (DOMCacheGetOrSet('warpAuto').style.display = 'none');
+
     if (player.singularityCount > 0) {
         (DOMCacheGetOrSet('shoptab').style.display = 'block');
     }
