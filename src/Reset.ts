@@ -1101,6 +1101,7 @@ export const singularity = async (): Promise<void> => {
     hold.dayCheck = player.dayCheck
     hold.ascStatToggles = player.ascStatToggles
     hold.hepteractAutoCraftPercentage = player.hepteractAutoCraftPercentage
+    hold.autoWarpCheck = player.autoWarpCheck
     hold.shopBuyMaxToggle = player.shopBuyMaxToggle
     hold.shopHideToggle = player.shopHideToggle
     hold.shopConfirmationToggle = player.shopConfirmationToggle

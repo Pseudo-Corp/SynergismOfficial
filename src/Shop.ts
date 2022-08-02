@@ -456,6 +456,16 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundMinimumLevel: 0,
         description: '"Hey dude, get in this portal I built up last night in my shed!" said the Quack Merchant'
     },
+    autoWarp: {
+        tier: 'SingularityVol3',
+        price: 5e11,
+        priceIncrease: 0,
+        maxLevel: 1,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'With the power of Quacks Warp machine will now be able to go into overdrive'
+    },
     improveQuarkHept: {
         tier: 'Ascension',
         price: 2e5 - 1,
@@ -545,7 +555,7 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'antSpeed' | 'cashGrab' | 'cashGrab2' | 'shopTalisman' | 'seasonPass' | 'challengeExtension' | 'challengeTome' | 'challengeTome2' |
                         'cubeToQuark' | 'tesseractToQuark' | 'cubeToQuarkAll' | 'hypercubeToQuark' | 'seasonPass2' | 'seasonPass3' | 'seasonPassY' | 'seasonPassZ' |
                         'seasonPassLost' | 'chronometer' | 'chronometer2'| 'chronometer3'| 'chronometerZ' | 'infiniteAscent' | 'calculator' | 'calculator2' |
-                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | //And Golden Quarks
+                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | 'autoWarp' | //And Golden Quarks
                         'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4' | 'shopImprovedDaily' |
                         'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6'
 
@@ -700,6 +710,9 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         case 'extraWarp':
             lol.textContent = `CURRENT Effect: You can warp ${player.shopUpgrades.extraWarp} extra times.`;
             break;
+        case 'autoWarp':
+            lol.textContent = `CURRENT Effect: Warp machine ${player.shopUpgrades.autoWarp ? 'can now' : 'can\'t'} go into overdrive${player.shopUpgrades.autoWarp ? '' : ', yet'}.`;
+            break;
         case 'improveQuarkHept':
             lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept/50}`;
             break;
@@ -775,6 +788,7 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         seasonPassLost: 'Season Pass LOST',
         challenge15Auto: 'Challenge 15 Automation',
         extraWarp: 'Extra Warp',
+        autoWarp: 'a quack powered Warps?',
         improveQuarkHept: 'Quark Hepteract 1',
         improveQuarkHept2: 'Quark Hepteract 2',
         improveQuarkHept3: 'Quark Hepteract 3',
@@ -1031,6 +1045,8 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
         case 'challenge15Auto':
             return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
         case 'extraWarp':
+            return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+        case 'autoWarp':
             return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
         case 'improveQuarkHept':
             return player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0

@@ -1986,7 +1986,8 @@ export const calculateCubeQuarkMultiplier = () => {
            calculateSigmoid(1.55, +(player.singularityCount >= 25) * Math.pow(player.overfluxOrbs, 0.21), 1e7) +
            calculateSigmoid(1.85, +(player.singularityCount >= 30) * Math.pow(player.overfluxOrbs, 0.18), 4e7) +
            calculateSigmoid(3, +(player.singularityCount >= 35) * Math.pow(player.overfluxOrbs, 0.15), 1e8) -
-           11) * (1 + 1/500 * player.shopUpgrades.cubeToQuarkAll);
+           11) * (1 + 1/500 * player.shopUpgrades.cubeToQuarkAll) *
+           (player.autoWarpCheck ? 1 + player.dailyPowderResetUses : 1);
 }
 
 export const calculateCubeMultFromPowder = () => {

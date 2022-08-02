@@ -531,7 +531,8 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('hepteractToQuarkTradeMax').addEventListener('click', () => tradeHepteractToOverfluxOrb(true))
     DOMCacheGetOrSet('hepteractToQuarkTradeAuto').addEventListener('click', () => toggleAutoBuyOrbs())
     DOMCacheGetOrSet('overfluxPowder').addEventListener('mouseover', () => overfluxPowderDescription())
-    DOMCacheGetOrSet('powderDayWarp').addEventListener('click', () => overfluxPowderWarp())
+    DOMCacheGetOrSet('powderDayWarp').addEventListener('click', () => overfluxPowderWarp(false))
+    DOMCacheGetOrSet('warpAuto').addEventListener('click', () => overfluxPowderWarp(true))
 
     DOMCacheGetOrSet('hepteractAutoPercentageButton').addEventListener('click', () => toggleHepteractAutoPercentage())
 

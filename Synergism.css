@@ -3178,6 +3178,7 @@ header #obtainiumDisplay { color: pink; }
     display: block;
 }
 
+#warpAuto,
 #powderDayWarp {
     grid-column: 2 / 4;
 }
