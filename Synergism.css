@@ -229,6 +229,7 @@ button:focus {
     text-align: center;
     margin-left: 15px;
     margin-right: 15px;
+    overflow-y: scroll;
 }
 
 /* Elements relating to the browser popup functions (Alert, Confirm, etc) */
