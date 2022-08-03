@@ -15,6 +15,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
 import { calculateEventSourceBuff } from './Event';
 import { disableHotkeys, enableHotkeys } from './Hotkeys';
+import { derpsmithCornucopiaBonus } from './Octeracts';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
@@ -1281,10 +1282,12 @@ export const calculateOcteractMultiplier = (score = -1) => {
     const arr = [
         // ascension score multiplier
         (score >= 1e32) ? Math.cbrt(score / 1e32) : Math.pow(score / 1e32, 2),
+        // Ascension Speed multipler
+        Math.pow(calculateAscensionAcceleration(), 1/2),
         // season pass 3
-        1 + player.shopUpgrades.seasonPass3 / 100,
+        1 + 1.5 / 100 * player.shopUpgrades.seasonPass3,
         // season pass Y
-        1 + player.shopUpgrades.seasonPassY / 200,
+        1 + 0.75 * player.shopUpgrades.seasonPassY / 100,
         // season pass Z
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
         // season pass lost
@@ -1294,12 +1297,32 @@ export const calculateOcteractMultiplier = (score = -1) => {
         // divine pack
         1 + +(corruptionLevelSum >= 14 * 8) * (player.singularityUpgrades.divinePack.level === 1 ? 6.77 : 1.00),
         // cube flame
-        +player.singularityUpgrades.singCubes1.getEffect().bonus,
+        1 + +player.singularityUpgrades.singCubes1.getEffect().bonus,
         // cube blaze
-        +player.singularityUpgrades.singCubes2.getEffect().bonus,
+        1 + +player.singularityUpgrades.singCubes2.getEffect().bonus,
         // cube inferno
-        +player.singularityUpgrades.singCubes3.getEffect().bonus
-        // Total Octeract Multipliers: 11
+        1 + +player.singularityUpgrades.singCubes3.getEffect().bonus,
+        // Octeract Absinthe
+        +player.singularityUpgrades.singOcteractGain.getEffect().bonus,
+        // Pieces of Eight
+        +player.singularityUpgrades.singOcteractGain2.getEffect().bonus,
+        // The Obelisk SHaped like an Octagon
+        +player.singularityUpgrades.singOcteractGain3.getEffect().bonus,
+        // Octahedral Synthesis
+        +player.singularityUpgrades.singOcteractGain4.getEffect().bonus,
+        // The Eighth Wonder of the World
+        +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
+        // Octeracts for Dummies
+        1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
+        // Octeract Cogenesis
+        +player.octeractUpgrades.octeractGain.getEffect().bonus,
+        // Digital Octeract Accumulator
+        1 + +Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
+        // Derpsmith Cornucopia
+        derpsmithCornucopiaBonus(),
+        // Event
+        1 + calculateEventBuff('Octeract')
+        // Total Octeract Multipliers: 21
     ]
 
     return {
