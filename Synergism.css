@@ -3204,18 +3204,9 @@ header #obtainiumDisplay { color: pink; }
     align-items: center;
 }
 
-#hepteractToQuark,
-#overfluxPowder {
-    display: grid;
-    grid-template-columns: repeat(3, 60px);
-    grid-template-rows: repeat(3, 28px);
-}
-
 #hepteractToQuarkImage,
 #overfluxPowderImage {
     grid-row: 1 / span 2;
-    width: 56px;
-    height: 56px;
 }
 
 #hepteractToQuarkTrade,

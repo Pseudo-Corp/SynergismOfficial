@@ -513,6 +513,12 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?:boolean) => {
     let toUse: number;
 
     if (buyMax) {
+        if (player.toggles[35]) {
+            const craftYesPlz = await Confirm(`This will attempt to buy as many orbs as possible. \nYou can buy up to ${format(maxBuy, 0, true)} with your hepteracts. Are you sure?`);
+            if (!craftYesPlz) {
+                return Alert('Okay, maybe next time.');
+            }
+        }
         toUse = maxBuy;
     } else {
         const hepteractInput = await Prompt(`How many Orbs would you like to purchase?\n You can buy up to ${format(maxBuy, 0, true)} with your hepteracts.`);
