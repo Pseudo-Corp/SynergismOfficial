@@ -351,7 +351,7 @@ export const octeractGainPerSecond = () => {
 
     const valueMultipliers = [
         1 + 1.5 * player.shopUpgrades.seasonPass3 / 100,
-        1 + player.shopUpgrades.seasonPassY / 200,
+        1 + 1.5 * player.shopUpgrades.seasonPassY / 200,
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
         1 + player.shopUpgrades.seasonPassLost / 1000,
         1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
