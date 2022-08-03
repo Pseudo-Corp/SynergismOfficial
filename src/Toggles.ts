@@ -912,6 +912,68 @@ export const toggleAutoAscend = (mode = 0) => {
     }
 }
 
+export const toggleautoopensCubes = (i: number) => {
+    if (player.singularityCount >= 35) {
+        if (i === 1) {
+            const oc = DOMCacheGetOrSet('openCubes');
+            const oci = DOMCacheGetOrSet('cubeOpensInput');
+            if (player.autoOpenCubes) {
+                oc.textContent = 'Auto Open [OFF]';
+                oc.style.border = '1px solid red';
+                oci.style.border = '1px solid red';
+            } else {
+                oc.textContent = `Auto Open ${format(player.openCubes, 0)}%`;
+                oc.style.border = '1px solid green';
+                oci.style.border = '1px solid green';
+            }
+
+            player.autoOpenCubes = !player.autoOpenCubes;
+        } else if (i === 2) {
+            const oc = DOMCacheGetOrSet('openTesseracts');
+            const oci = DOMCacheGetOrSet('tesseractsOpensInput');
+            if (player.autoOpenTesseracts) {
+                oc.textContent = 'Auto Open [OFF]';
+                oc.style.border = '1px solid red';
+                oci.style.border = '1px solid red';
+            } else {
+                oc.textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
+                oc.style.border = '1px solid green';
+                oci.style.border = '1px solid green';
+            }
+
+            player.autoOpenTesseracts = !player.autoOpenTesseracts
+        } else if (i === 3) {
+            const oc = DOMCacheGetOrSet('openHypercubes');
+            const oci = DOMCacheGetOrSet('hypercubesOpensInput');
+            if (player.autoOpenHypercubes) {
+                oc.textContent = 'Auto Open [OFF]';
+                oc.style.border = '1px solid red';
+                oci.style.border = '1px solid red';
+            } else {
+                oc.textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
+                oc.style.border = '1px solid green';
+                oci.style.border = '1px solid green';
+            }
+
+            player.autoOpenHypercubes = !player.autoOpenHypercubes;
+        } else if (i === 4) {
+            const oc = DOMCacheGetOrSet('openPlatonicCube');
+            const oci = DOMCacheGetOrSet('platonicCubeOpensInput');
+            if (player.autoOpenPlatonicsCubes) {
+                oc.textContent = 'Auto Open [OFF]';
+                oc.style.border = '1px solid red';
+                oci.style.border = '1px solid red';
+            } else {
+                oc.textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
+                oc.style.border = '1px solid green';
+                oci.style.border = '1px solid green';
+            }
+
+            player.autoOpenPlatonicsCubes = !player.autoOpenPlatonicsCubes;
+        }
+    }
+}
+
 export const updateRuneBlessingBuyAmount = (i: number) => {
     switch (i) {
         case 1: {

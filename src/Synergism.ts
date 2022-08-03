@@ -21,7 +21,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset';
+import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset';
 import type { TesseractBuildings} from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
@@ -611,6 +611,14 @@ export const player: Player = {
     autoAscend: false,
     autoAscendMode: 'c10Completions',
     autoAscendThreshold: 1,
+    autoOpenCubes: false,
+    openCubes: 0,
+    autoOpenTesseracts: false,
+    openTesseracts: 0,
+    autoOpenHypercubes: false,
+    openHypercubes: 0,
+    autoOpenPlatonicsCubes: false,
+    openPlatonicsCubes: 0,
     roombaResearchIndex: 0,
     ascStatToggles: { // false here means show per second
         1: false,
@@ -1503,6 +1511,30 @@ const loadSynergy = async () => {
             (DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value = ('' + (player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount)).replace(omit, 'e');
             updateTesseractAutoBuyAmount();
         }
+        inputd = player.openCubes;
+        inpute = Number((DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value = ('' + (player.openCubes || blankSave.openCubes)).replace(omit, 'e');
+            updateAutoCubesOpens(1);
+        }
+        inputd = player.openTesseracts;
+        inpute = Number((DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value = ('' + (player.openTesseracts || blankSave.openTesseracts)).replace(omit, 'e');
+            updateAutoCubesOpens(2);
+        }
+        inputd = player.openHypercubes;
+        inpute = Number((DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value = ('' + (player.openHypercubes || blankSave.openHypercubes)).replace(omit, 'e');
+            updateAutoCubesOpens(3);
+        }
+        inputd = player.openPlatonicsCubes;
+        inpute = Number((DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value = ('' + (player.openPlatonicsCubes || blankSave.openPlatonicsCubes)).replace(omit, 'e');
+            updateAutoCubesOpens(4);
+        }
         inputd = player.runeBlessingBuyAmount;
         inpute = Number((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value);
         if (inpute !== inputd || isNaN(inpute + inputd)) {
@@ -1551,6 +1583,43 @@ const loadSynergy = async () => {
         if (player.tesseractAutoBuyerToggle === 2) {
             DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: OFF'
             DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
+        }
+
+        if (player.autoOpenCubes) {
+            DOMCacheGetOrSet('openCubes').textContent = `Auto Open ${format(player.openCubes, 0)}%`;
+            DOMCacheGetOrSet('openCubes').style.border = '1px solid green';
+            DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid green';
+        } else {
+            DOMCacheGetOrSet('openCubes').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openCubes').style.border = '1px solid red';
+            DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid red';
+        }
+        if (player.autoOpenTesseracts) {
+            DOMCacheGetOrSet('openTesseracts').textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
+            DOMCacheGetOrSet('openTesseracts').style.border = '1px solid green';
+            DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid green';
+        } else {
+            DOMCacheGetOrSet('openTesseracts').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openTesseracts').style.border = '1px solid red';
+            DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid red';
+        }
+        if (player.autoOpenHypercubes) {
+            DOMCacheGetOrSet('openHypercubes').textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
+            DOMCacheGetOrSet('openHypercubes').style.border = '1px solid green';
+            DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid green';
+        } else {
+            DOMCacheGetOrSet('openHypercubes').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openHypercubes').style.border = '1px solid red';
+            DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid red';
+        }
+        if (player.autoOpenPlatonicsCubes) {
+            DOMCacheGetOrSet('openPlatonicCube').textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
+            DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid green';
+            DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid green';
+        } else {
+            DOMCacheGetOrSet('openPlatonicCube').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid red';
+            DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid red';
         }
 
         if (player.autoResearchToggle) {
