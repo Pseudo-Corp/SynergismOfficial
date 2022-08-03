@@ -926,25 +926,31 @@ export interface ISingularityPerkDisplayInfo {
     description: string
     currentLevel: number
     lastUpgraded: number
+    nextUpgrade: number | null
     acquired: number
 }
 
 /*
 * Indicate current level of the Perk and when it was reached
 */
-const getLastUpgradeInfo = (perk: SingularityPerk, singularityCount: number): {level: number, singularity: number} => {
+const getLastUpgradeInfo = (perk: SingularityPerk, singularityCount: number): {level: number, singularity: number, next: number | null} => {
     for (let i=perk.levels.length - 1; i >= 0; i--) {
         if (singularityCount >= perk.levels[i]) {
-            return { level: i + 1, singularity: perk.levels[i] } ;
+            return {
+                level: i + 1,
+                singularity: perk.levels[i],
+                next: i < perk.levels.length - 1 ? perk.levels[i + 1] : null
+            };
         }
     }
 
-    return { level: 0, singularity: perk.levels[0] };
+    return { level: 0, singularity: perk.levels[0], next: perk.levels[0] };
 }
 
 const getAvailablePerksDescription = (singularityCount: number): string => {
     let perksText = '';
     let availablePerks: ISingularityPerkDisplayInfo[] = [];
+    const nextUpgrades: number[] = [];
     let singularityCountForNextPerk: number | null = null;
     for (const perk of singularityPerks) {
         const upgradeInfo = getLastUpgradeInfo(perk, singularityCount);
@@ -954,8 +960,12 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
                 description: perk.description(singularityCount, perk.levels),
                 currentLevel: upgradeInfo.level,
                 lastUpgraded: upgradeInfo.singularity,
+                nextUpgrade: upgradeInfo.next,
                 acquired: perk.levels[0]
             });
+            if (upgradeInfo.next) {
+                nextUpgrades.push(upgradeInfo.next);
+            }
         } else {
             singularityCountForNextPerk = upgradeInfo.singularity;
             break;
@@ -978,8 +988,13 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
     for (const availablePerk of availablePerks) {
         perksText += '<br/>' + formatPerkDescription(availablePerk, singularityCount);
     }
+    perksText += '<br/>';
     if (singularityCountForNextPerk) {
-        perksText += '<br/><br/>You will unlock a whole new Perk in Singularity ' + singularityCountForNextPerk;
+        perksText += '<br/>You will unlock a whole new Perk in Singularity ' + singularityCountForNextPerk;
+    }
+    const singularityCountForNextPerkUpgrade = nextUpgrades.reduce((a, b) => Math.min(a, +b), Infinity);
+    if (singularityCountForNextPerkUpgrade < Infinity) {
+        perksText += '<br/>An existing Perk will be improved in Singularity ' + singularityCountForNextPerkUpgrade;
     }
     return perksText;
 }
