@@ -264,7 +264,7 @@ const resetHistoryPushNewRow = (category: Category, data: ResetHistoryEntryUnion
     }
 
     if (category === 'ascend') {
-        const loadCorruptionsButtons = Array.from(row.getElementsByClassName<HTMLElement>('ascendHistoryLoadCorruptions'));
+        const loadCorruptionsButtons = Array.from<HTMLElement>(row.getElementsByClassName('ascendHistoryLoadCorruptions'));
         for (const btn of loadCorruptionsButtons) {
             btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton((e.target as HTMLElement)));
         }
@@ -361,7 +361,7 @@ const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HT
     }
 
     if (categoryToRender === 'ascend') {
-        const loadCorruptionsButtons = Array.from(document.getElementsByClassName<HTMLElement>('ascendHistoryLoadCorruptions'));
+        const loadCorruptionsButtons = Array.from<HTMLElement>(document.getElementsByClassName('ascendHistoryLoadCorruptions'));
         for (const btn of loadCorruptionsButtons) {
             btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton((e.target as HTMLElement)));
         }

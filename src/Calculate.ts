@@ -1040,7 +1040,8 @@ export const calculateCubeBlessings = () => {
 
 export const calculateTotalOcteractCubeBonus = () => {
     if (player.totalWowOcteracts < 1000) {
-        return (1 + 2/1000 * player.totalWowOcteracts) // At 1,000 returns 3
+        const bonus = (1 + 2/1000 * player.totalWowOcteracts) // At 1,000 returns 3
+        return bonus > 1.00001 ? bonus : 1
     } else {
         return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, 2) // At 1,000 returns 3
     }
@@ -1048,7 +1049,8 @@ export const calculateTotalOcteractCubeBonus = () => {
 
 export const calculateTotalOcteractQuarkBonus = () => {
     if (player.totalWowOcteracts < 1000) {
-        return (1 + 0.2 / 1000 * player.totalWowOcteracts) // At 1,000 returns 1.20
+        const bonus = (1 + 0.2 / 1000 * player.totalWowOcteracts) // At 1,000 returns 1.20
+        return bonus > 1.00001 ? bonus : 1
     } else {
         return 1.1 + 0.1 * (Math.log10(player.totalWowOcteracts) - 2) // At 1,000 returns 1.20
     }

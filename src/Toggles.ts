@@ -83,7 +83,7 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
 }
 
 export const toggleSettings = (toggle: HTMLElement) => {
-    const toggleId = toggle.getAttribute('toggleId');
+    const toggleId = toggle.getAttribute('toggleId') || 0;
     if (player.toggles[+toggleId] === true) {
         player.toggles[+toggleId] = false;
     } else {

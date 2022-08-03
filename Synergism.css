@@ -2865,7 +2865,7 @@ p#ascendHotKeys {
 
 #corruptionStats,
 #corruptionLoadouts {
-    font-size: calc(6px + 0.5em);
+    font-size: min(1em, 20px);
     margin-top: 10px;
     min-height: 350px;
     box-sizing: border-box;
