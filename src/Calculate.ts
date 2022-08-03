@@ -14,6 +14,7 @@ import { quarkHandler } from './Quark';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
 import { calculateEventSourceBuff } from './Event';
+import { disableHotkeys, enableHotkeys } from './Hotkeys';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
@@ -832,10 +833,14 @@ export const timeWarp = async () => {
         return Alert('Hey! That\'s not a valid time!');
     }
 
+    DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
+    DOMCacheGetOrSet('offlineBlur').style.display = ''
     await calculateOffline(timeUse)
 }
 
 export const calculateOffline = async (forceTime = 0) => {
+    disableHotkeys();
+
     G['timeWarp'] = true;
 
     //Variable Declarations i guess
@@ -968,19 +973,23 @@ export const calculateOffline = async (forceTime = 0) => {
         const el = DOMCacheGetOrSet('notification');
         el.classList.add('slide-out');
         el.classList.remove('slide-in');
+        document.body.classList.remove('scrollbar');
         document.body.classList.add('loading');
         DOMCacheGetOrSet('exitOffline').style.visibility = 'hidden';
         DOMCacheGetOrSet('offlineContainer').style.display = 'flex';
         DOMCacheGetOrSet('transparentBG').style.display = 'block';
+    } else {
+        exitOffline();
     }
-    DOMCacheGetOrSet('preloadContainer').style.display = 'none';
 }
 
 export const exitOffline = () => {
     document.body.classList.remove('loading');
+    document.body.classList.add('scrollbar');
     DOMCacheGetOrSet('transparentBG').style.display = 'none'
     DOMCacheGetOrSet('offlineContainer').style.display = 'none';
-    DOMCacheGetOrSet('preloadContainer').style.display = 'none';
+    DOMCacheGetOrSet('offlineBlur').style.display = 'none';
+    enableHotkeys();
 }
 
 export const calculateSigmoid = (constant: number, factor: number, divisor: number) => {
@@ -1698,7 +1707,7 @@ export const CalcCorruptionStuff = () => {
 export const calcAscensionCount = () => {
     let ascCount = 1;
 
-    if (player.challengecompletions[10] > 0) {
+    if (player.challengecompletions[10] > 0 && player.achievements[197] === 1) {
         const {effectiveScore} = calculateAscensionScore();
 
         if (player.ascensionCounter >= 10) {

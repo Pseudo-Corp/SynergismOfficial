@@ -47,8 +47,8 @@ export class SingularityUpgrade {
     private readonly description: string;
     public level = 0;
     public freeLevels = 0;
-    private readonly maxLevel: number; //-1 = infinitely levelable
-    private readonly costPerLevel: number;
+    public readonly maxLevel: number; //-1 = infinitely levelable
+    public readonly costPerLevel: number;
     public toggleBuy = 1; //-1 = buy MAX (or 1000 in case of infinity levels!)
     public goldenQuarksInvested = 0;
     public minimumSingularity: number;
@@ -544,7 +544,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'Shop Liquidation Sale',
         description: 'The Seal Merchant needs to get rid of some exotic goods. Only for a steep price. I do not think that is how sales work.',
         maxLevel: 1,
-        costPerLevel: 49999,
+        costPerLevel: 19999,
         minimumSingularity: 11,
         effect: (n: number) => {
             return {
@@ -762,6 +762,19 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Automation Upgrades',
+        levels: [10, 25, 101],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[2]) {
+                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
+            } else if (n >= levels[1]) {
+                return 'You always have w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
+            } else {
+                return 'You always have w1x4, w1x5 and w1x6.'
+            }
+        }
+    },
+    {
         name: 'Even more Quarks',
         levels: [5, 20],
         description: (n: number, levels: number[]) => {
@@ -793,10 +806,21 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Research for Dummies',
-        levels: [11],
+        name: 'Automation Cubes',
+        levels: [1],
         description: () => {
-            return 'You permanently keep Auto Research'
+            return 'Ascension allows you to automatically open the cubes you have. And Hepteract Autocraft will be unlocked!'
+        }
+    },
+    {
+        name: 'Research for Dummies',
+        levels: [1, 11],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'You permanently keep Auto Research'
+            } else {
+                return 'You can Research using Hover to Buy'
+            }
         }
     },
     {
@@ -808,7 +832,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Advanced Runes Autobuyer',
-        levels: [30,50],
+        levels: [30, 50],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
                 return 'Runes autobuyer will also level up Infinite Ascent AND Antiquities of Ant God'

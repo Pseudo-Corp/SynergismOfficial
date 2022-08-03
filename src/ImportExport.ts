@@ -17,6 +17,7 @@ import { Globals as G } from './Variables';
 import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
 import { singularityData } from './singularity';
 import { getEvent } from './Event';
+import { synergismStage } from './Statistics';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -106,62 +107,12 @@ const saveFilename = () => {
             case 'QUARKS': return format(Number(player.worlds));
             case 'GQ': return '' + Math.floor(player.goldenQuarks);
             case 'GQS': return format(player.goldenQuarks);
-            case 'STAGE': return synergismStage();
+            case 'STAGE': return synergismStage('name', 0);
             default: return `${b}`;
         }
     });
 
     return t;
-}
-
-export const synergismStage = () => {
-    if (player.singularityCount > 0) {
-        if (player.singularityUpgrades.wowPass.level === 0) {
-            return 'singularity-bonanza';
-        } else if (player.singularityUpgrades.wowPass2.level === 0) {
-            return 'bonanza-liquidation';
-        } else if (player.singularityUpgrades.octeractUnlock.level === 0) {
-            return 'liquidation-octeractunlock';
-        } else {
-            return 'octeractunlock-octeracts';
-        }
-    } else if (player.ascensionCount > 0) {
-        if (player.challengecompletions[11] === 0 || player.challengecompletions[12] === 0 || player.challengecompletions[13] === 0 || player.challengecompletions[14] === 0) {
-            return 'challenge10-challenge14';
-        } else if (player.cubeUpgrades[50] < 100000) {
-            return 'challenge14-w5x10max';
-        } else if (player.platonicUpgrades[5] === 0) {
-            return 'w5x10max-alpha';
-        } else if (player.platonicUpgrades[6] < 10) {
-            return 'alpha-p2x1x10';
-        } else if (player.platonicUpgrades[11] === 0) {
-            return 'p2x1x10-p3x1';
-        } else if (player.platonicUpgrades[10] === 0) {
-            return 'p3x1-beta';
-        } else if (player.challenge15Exponent < 1e15) {
-            return 'beta-1e15-expo';
-        } else if (player.platonicUpgrades[15] === 0) {
-            return '1e15-expo-omega';
-        } else {
-            return 'omega-singularity';
-        }
-    } else {
-        if (player.unlocks.prestige !== true) {
-            return 'starthere';
-        } else if (player.unlocks.transcend !== true) {
-            return 'prestige-transcend';
-        } else if (player.unlocks.reincarnate !== true) {
-            return 'transcend-reincarnate';
-        } else if (player.firstOwnedAnts === 0) {
-            return 'reincarnate-ant';
-        } else if (player.achievements[173] !== 1) {
-            return 'ant-sacrifice';
-        } else if (player.challengecompletions[10] === 0) {
-            return 'sacrifice-challenge10';
-        } else {
-            return 'challenge10-ascension';
-        }
-    }
 }
 
 export const exportSynergism = async () => {
@@ -224,8 +175,7 @@ export const exportSynergism = async () => {
         : 'Savefile copied to file!';
 }
 
-export const errorGame = async () => {
-    
+export const reloadDeleteGame = async () => {
     await Alert('The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it');
     await resetGame();
 }
@@ -315,7 +265,7 @@ export const promocodesPrompt = async () => {
     void promocodes(input);
 }
 
-export const promocodes = async (input: string | null) => {
+export const promocodes = async (input: string | null, amount?: number) => {
     const el = DOMCacheGetOrSet('promocodeinfo');
 
     if (input === null) {
@@ -420,7 +370,13 @@ export const promocodes = async (input: string | null) => {
             return;
         }
 
-        const attemptsUsed = await Prompt(`You can use up to ${availableUses} attempts at once. How many would you like to use?`);
+        let attemptsUsed: string | null = null;
+        if (amount) {
+            attemptsUsed = amount.toString();
+        } else {
+            attemptsUsed = await Prompt(`You can use up to ${availableUses} attempts at once. How many would you like to use?`);
+        }
+
         if (attemptsUsed === null) {
             return Alert('No worries, you didn\'t lose any of your uses! Come back later!');
         }
@@ -447,18 +403,25 @@ export const promocodes = async (input: string | null) => {
         const timeToNext = Math.floor((hour - (Date.now() - v - hour * remaining)) / 1000)
 
         // Calculator 3: Adds ascension timer.
-        const ascensionTimer = (player.shopUpgrades.calculator3 > 0)
-            ? 'Thanks to PL-AT Ω you have also gained ' + format(60 * player.shopUpgrades.calculator3 * realAttemptsUsed) + ' real-life seconds to your Ascension Timer!'
+        const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
+        const ascensionTimer = 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult;
+        const ascensionTimerText = (player.shopUpgrades.calculator3 > 0)
+            ? 'Thanks to PL-AT Ω you have also gained ' + format(ascensionTimer) + ' real-life seconds to your Ascension Timer!'
             : '';
 
         // Calculator Maxed: you don't need to insert anything!
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
-            const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
-            addTimers('ascension', 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult)
+            addTimers('ascension', ascensionTimer)
             player.rngCode = v;
-            return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
-                `${ ascensionTimer } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+            if (amount) {
+                // No message when using Add x1 Special action, we refresh the info message
+                void promocodesInfo('add')
+                return
+            } else {
+                return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
+                    `${ ascensionTimer } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+            }
         }
 
         // If your calculator isn't maxed but has levels, it will provide the solution.
@@ -476,8 +439,8 @@ export const promocodes = async (input: string | null) => {
 
         if (first + second === +addPrompt) {
             player.worlds.add(actualQuarks);
-            addTimers('ascension', 60 * player.shopUpgrades.calculator3)
-            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} Quarks! ${ascensionTimer} You have ${remaining} uses of Add. ` +
+            addTimers('ascension', ascensionTimer)
+            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} Quarks! ${ascensionTimerText} You have ${remaining} uses of Add. ` +
                 `You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
         } else {
             await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);

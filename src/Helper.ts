@@ -1,7 +1,7 @@
 import { sacrificeAnts } from './Ants';
 import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration } from './Calculate'
 import { quarkHandler } from './Quark';
-import { redeemShards } from './Runes';
+import { redeemShards, unlockedRune, checkMaxRunes } from './Runes';
 import { player } from './Synergism';
 import { visualUpdateResearch } from './UpdateVisuals';
 import { Globals as G } from './Variables';
@@ -62,34 +62,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
     }
 }
 
-const unlockedRune = (runeIndexPlusOne: number) => {
-    const unlockedRune = [
-        false,
-        true,
-        player.achievements[38] > 0.5,
-        player.achievements[44] > 0.5,
-        player.achievements[102] > 0.5,
-        player.researches[82] > 0.5,
-        player.shopUpgrades.infiniteAscent,
-        player.platonicUpgrades[20] > 0
-    ];
-    return unlockedRune[runeIndexPlusOne];
-}
-
-/**
- * checkMaxRunes returns how many unique runes are at the maximum level.
- * Does not take in params, returns a number equal to number of maxed runes.
- */
-const checkMaxRunes = (runeIndex: number) => {
-    let maxed = 0;
-    for (let i = 0; i < runeIndex; i++) {
-        if (!unlockedRune(i + 1) || player.runelevels[i] >= calculateMaxRunes(i + 1)) {
-            maxed++;
-        }
-    }
-    return maxed
-}
-
 type AutoToolInput = 'addObtainium' | 'addOfferings' | 'runeSacrifice' | 'antSacrifice';
 
 /**
@@ -130,9 +102,16 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             player.sacrificeTimer += time;
             if (player.sacrificeTimer >= 1 && isFinite(player.runeshards) && player.runeshards > 0){
                 // Automatic purchase of Blessings
-                if (player.singularityCount >= 15){
-                    buyAllBlessings('Blessings', 100 / 4, true);
-                    buyAllBlessings('Spirits', 100 / 3, true);
+                if (player.singularityCount >= 15) {
+                    let ratio = 4;
+                    if (player.toggles[36] === true) {
+                        buyAllBlessings('Blessings', 100 / ratio, true);
+                        ratio--;
+                    }
+                    if (player.toggles[37] === true) {
+                        buyAllBlessings('Spirits', 100 / ratio, true);
+                        ratio--;
+                    }
                 }
                 if (player.autoBuyFragment && player.singularityCount >= 40 && player.cubeUpgrades[51] > 0) {
                     buyAllTalismanResources();

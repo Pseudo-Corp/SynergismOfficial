@@ -1,4 +1,5 @@
 html {
+    min-width: 1250px;
     position: relative;
     font-family:
         -apple-system,
@@ -14,14 +15,11 @@ html {
     scrollbar-width: none;
 }
 
-html::-webkit-scrollbar {
-    display: none;
-}
-
 .scrollbar,
 .scrollbarX {
     overflow-y: auto;
     scrollbar-width: thin;
+    outline: none;
 }
 
 .scrollbarX {
@@ -34,47 +32,63 @@ html::-webkit-scrollbar {
     height: 10px;
 }
 
+body::-webkit-scrollbar:horizontal {
+    display: none;
+}
+
 .scrollbar::-webkit-scrollbar-thumb,
 .scrollbarX::-webkit-scrollbar-thumb {
-    background-color: #444;
+    background-color: var(--scrollbar-color);
     border-radius: 5px;
 }
 
 .scrollbar::-webkit-scrollbar-track,
 .scrollbarX::-webkit-scrollbar-track {
-    background-color: #222;
-    border-radius: 5px;
+    background-color: var(--scrollbar-bg-color);
 }
 
 body {
-    min-width: 1250px;
-    color: white;
     margin: 0;
     box-sizing: border-box;
+
+    /* Custom colors that are used for themes */
+    --text-color: white;
+    --bg-color: #111;
+    --alert-color: #141414;
+    --history-lines: #262626;
+    --boxmain-bordercolor: plum;
+    --box-color: #111;
+    --button-color: #171717;
+    --hover-color: #333;
+    --buttonbuy-color: #171717;
+    --buildings-canbuy-color: #555;
+    --buildings-hover-color: #666;
+    --blessings-canbuy-color: #222;
+    --blessings-hover-color: #444;
+    --tab-color: #171717;
+    --singtab-color: black;
+    --hoversing-color: #252525;
+    --scrollbar-color: #444;
+    --scrollbar-bg-color: #111;
 }
 
 body.loading {
     overflow: hidden;
 }
 
-body.dark {
-    background-color: #111;
+.bodycolor {
+    color: var(--text-color);
+    background-color: var(--bg-color);
 }
 
-body.darker {
-    background-color: #0c0c0f;
+.mainText {
+    color: var(--text-color);
 }
 
-body.lightDark {
-    background-color: #1c1b22;
-}
-
-body.light {
-    background-color: #4c495a;
-}
-
-body.Dracula {
-    background-color: #131319;
+.boxColor {
+    border: 3px solid;
+    border-color: var(--boxmain-bordercolor);
+    background-color: var(--box-color);
 }
 
 a {
@@ -99,7 +113,7 @@ input,
 button,
 select,
 textarea {
-    font-size: calc(2px + 0.8em);
+    font-size: 0.75em;
     padding: 0.05em;
     margin: 0;
     box-sizing: border-box;
@@ -114,24 +128,24 @@ input[type="range"] {
     height: 0;
 }
 
+input {
+    color: white;
+    padding: 0 0 0 0.2em;
+    background-color: var(--box-color);
+}
+
 button {
-    min-height: calc(20px + 0.8em);
+    min-height: 30px;
     color: white;
     transition-duration: 0.15s;
-    background-color: #171717;
     cursor: pointer;
+    background-color: var(--button-color);
     outline: none;
 }
 
-button:hover,
-button:active {
-    background-color: #333;
-    cursor: pointer;
-}
-
-button:focus {
-    border-color: #333;
-    cursor: pointer;
+body button:hover,
+body button:active {
+    background-color: var(--hover-color);
 }
 
 .flex {
@@ -182,6 +196,17 @@ button:focus {
     }
 }
 
+#transparentBG {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: max(100vw, 100%);
+    height: max(100vh, 100%);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 6968;
+}
+
 #notification {
     position: fixed;
     display: none;
@@ -191,10 +216,12 @@ button:focus {
     min-width: calc(140px + 10em);
     min-height: calc(40px + 5em);
     overflow: hidden;
-    border-radius: 5px;
     border: 1px solid gold;
-    background-color: #171717;
+    border-radius: 5px;
     box-sizing: border-box;
+    font-size: min(1em, 24px);
+    color: white;
+    background-color: var(--alert-color);
 }
 
 .slide-in {
@@ -219,37 +246,42 @@ button:focus {
 }
 
 #notifx {
-    position: absolute;
+    position: fixed;
     top: 2px;
     right: 2px;
-    background-color: #111;
     padding: 3px;
     border-radius: 2px;
     font-size: 0;
     z-index: 1;
+    color: white;
+    transition-duration: 0.15s;
+    cursor: pointer;
+    background-color: var(--button-color);
 }
 
 #notifx:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #confirmationBox {
     display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 50vh;
+    left: 50vw;
     transform: translate(-50%, -50%);
     z-index: 6969;
-    width: 30%;
-    height: 30%;
-    min-width: min(30em, 100%);
-    min-height: min(20em, 100%);
-    max-width: 100%;
-    max-height: 100%;
-    background-color: #171717;
-    border-radius: 5px;
+    width: 30vw;
+    height: 30vh;
+    min-width: min(min(30em, 800px), 100vw);
+    min-height: min(min(20em, 600px), 100vh);
+    max-width: 100vw;
+    max-height: 100vh;
+    color: white;
+    background-color: var(--alert-color);
     border: 1px solid gold;
+    border-radius: 5px;
     box-sizing: border-box;
+    font-size: min(1em, 24px);
     padding: 15px;
 }
 
@@ -283,9 +315,13 @@ button:focus {
 }
 
 #prompt_text {
+    background-color: #171717;
+    border: 1px solid gold;
+    border-radius: 5px;
     font-size: 1em;
     grid-area: lbl;
     margin: 0 -20%;
+    padding: 0 2px;
 }
 
 #confirm > button,
@@ -299,7 +335,10 @@ button:focus {
     display: grid;
     grid-template-columns: auto 6em 1em 6em auto;
     grid-template-rows: auto 2em 0.5em;
-    grid-template-areas: "txt txt txt txt txt" ". btn . btn2 ." ". . . . .";
+    grid-template-areas:
+        "txt txt txt txt txt"
+        ". btn . btn2 ."
+        ". . . . .";
     outline: none;
 }
 
@@ -308,7 +347,10 @@ button:focus {
     display: grid;
     grid-template-columns: auto 8em auto;
     grid-template-rows: auto 2em 0.5em;
-    grid-template-areas: "txt txt txt" ". btn ." ". . .";
+    grid-template-areas:
+        "txt txt txt"
+        ". btn ."
+        ". . .";
     outline: none;
 }
 
@@ -317,7 +359,13 @@ button:focus {
     display: grid;
     grid-template-columns: auto 6em 2em 6em auto;
     grid-template-rows: auto 0.5em 2em 1em 2em 0.5em;
-    grid-template-areas: "txt txt txt txt txt" ". . . . ." ". lbl lbl lbl ." ". . . . ." ". btn . btn2 ." ". . . . .";
+    grid-template-areas:
+        "txt txt txt txt txt"
+        ". . . . ."
+        ". lbl lbl lbl ."
+        ". . . . ."
+        ". btn . btn2 ."
+        ". . . . .";
     outline: none;
 }
 
@@ -326,42 +374,30 @@ button:focus {
     align-items: center;
 }
 
-#resourcesrow {
-    position: relative;
-    width: 100%;
-}
-
-#preloadContainer {
-    display: flex;
-    background: rgb(20 20 20);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 100vw;
-    height: 100vh;
-    min-height: 100vh;
-    align-items: center;
-    flex-direction: column;
-}
-
-#preload {
-    flex: 1;
-    width: 100vw;
-    height: 100vh;
-    min-width: 1084px;
-    min-height: 610px;
-}
-
 #preloadDeleteGame {
-    position: absolute;
+    position: fixed;
     bottom: 1em;
     right: 1em;
     min-width: 8em;
     z-index: 1;
     border: 2px solid red;
-    font-size: 0.8em;
     color: pink;
+}
+
+#offlineBlur {
+    background-color: var(--bg-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 6969;
+    width: max(100vw, 100%);
+    height: max(100vh, 100%);
+}
+
+#offlineBlur img {
+    width: 100%;
+    height: 100%;
+    filter: blur(4px);
 }
 
 #offlineContainer {
@@ -372,14 +408,15 @@ button:focus {
     left: 50vw;
     z-index: 6969;
     transform: translate(-50%, 0%);
-    background-color: rgb(20 20 20);
+    background-color: var(--alert-color);
     border-radius: 5px;
-    border: 1px solid gold;
+    border: 2px solid gold;
     box-sizing: border-box;
     padding: 15px;
     margin-top: max(0px, calc(10vh - 15px));
     max-height: 90vh;
     overflow: hidden;
+    font-size: min(1em, 20px);
 }
 
 .offlineStats {
@@ -414,7 +451,7 @@ button:focus {
 
 #exitOffline {
     width: 18em;
-    min-height: 40px;
+    min-width: 220px;
     padding: 0.5em 0;
     z-index: 3;
     margin-top: 20px;
@@ -442,14 +479,15 @@ button:focus {
     white-space: nowrap;
 }
 
-.resetsButtons {
-    display: flex;
-    align-items: start;
-}
-
 .resetbtn {
     cursor: pointer;
     margin-right: 5px;
+    background-color: var(--button-color);
+}
+
+.resetsButtons {
+    display: flex;
+    align-items: start;
 }
 
 #resetrow {
@@ -490,6 +528,7 @@ button:focus {
     padding-inline: unset;
     display: flex;
     justify-content: center;
+    gap: 0 5px;
 }
 
 .navbar {
@@ -501,22 +540,18 @@ button:focus {
 nav button {
     display: block;
     border: 1px solid;
-    min-width: 98px;
-    min-height: auto;
-    font-size: calc(2px + 0.8em);
+    min-width: 100px;
+    min-height: 21px;
     line-height: 1em;
-    padding: 4px 0;
-    margin-right: 4px;
+    font-size: min(1em, 20px);
+    padding: 1px;
+    color: white;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom: none;
     text-align: center;
-    white-space: nowrap;
     overflow: hidden;
-}
-
-nav button:hover {
-    background-color: #333;
+    white-space: nowrap;
 }
 
 #buildingstab {
@@ -555,8 +590,12 @@ nav button:hover {
 
 #singularitytab {
     border-color: lightgoldenrodyellow;
-    background-color: black;
+    background-color: var(--singtab-color);
     color: red;
+}
+
+#singularitytab:hover {
+    background-color: var(--hoversing-color);
 }
 
 #shoptab:hover {
@@ -583,11 +622,11 @@ nav button:hover {
     flex-flow: wrap;
     justify-content: center;
     margin-top: 15px;
-    gap: 10px;
+    gap: 10px 15px;
 }
 
 .subTabWrapper > button {
-    width: 9em;
+    min-width: 150px;
     text-align: center;
 }
 
@@ -628,40 +667,30 @@ p#buildinghotkeys {
 
 #upgradesFlex {
     display: flex;
-    flex-direction: row;
     width: 90%;
-    margin-left: 3%;
-    margin-top: 3%;
+    margin: 4% 5% 0;
+    justify-content: space-around;
 }
 
 #upgradesFlex > div {
     display: flex;
     flex-direction: column;
-    width: calc(100% / 6);
     align-items: center;
 }
 
-#upgradesFlex > div > img {
-    width: 32px;
-    height: 32px;
-}
-
 #upgradesFlex > div > p {
-    margin-top: 5px;
-    margin-bottom: 5%;
+    margin: 5px 0;
     line-height: 1em;
 }
 
 #upgradesFlex > div > table {
-    padding: 0;
     font-size: 0;
-    height: 182px;
+    min-height: 182px;
     text-align: center;
-    border-collapse: collapse;
 }
 
 #upgradesFlex > div > button {
-    width: 6em;
+    min-width: 80px;
 }
 
 #shoptogglecoin { grid-column-start: 1; }
@@ -672,7 +701,7 @@ p#buildinghotkeys {
 
 #upgradesrow3 {
     text-align: center;
-    margin-top: 7px;
+    margin-top: 8px;
 }
 
 #upgradesrow3 > p {
@@ -683,7 +712,7 @@ p#buildinghotkeys {
 #upgradeeffect { color: pink; }
 
 #toggle9 {
-    width: 10em;
+    min-width: 130px;
     margin: 25px auto;
 }
 
@@ -727,11 +756,6 @@ p#buildinghotkeys {
     gap: 1em;
 }
 
-#confirmationToggleBox {
-    height: calc(100px + 25em);
-    max-height: 800px;
-}
-
 #confirmationToggleBox > p {
     margin: 5px 0;
 }
@@ -747,17 +771,15 @@ p#themesTitle {
     width: 100%;
     padding: 1px;
     border: 1px solid white;
-    color: white;
-    background-color: #171717;
 }
 
 #importFileButton {
+    font-size: 0.75em;
+    padding: 0.05em;
     border: 2px solid white;
     color: white;
     cursor: pointer;
-    background-color: #171717;
-    font-size: calc(2px + 0.8em);
-    padding: 0.05em;
+    background-color: var(--button-color);
     outline: none;
 }
 
@@ -765,21 +787,25 @@ p#themesTitle {
 #deleteGame,
 #importFileButton,
 #exportButtons > label {
+    width: 12em;
     min-width: 180px;
-    width: 13em;
-    min-height: auto;
+    min-height: 20px;
     margin: 2px auto;
     box-sizing: border-box;
     transition-duration: 0.15s;
 }
 
 #importFileButton:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
+}
+
+#savegame[disabled] {
+    background-color: crimson;
 }
 
 #exportgame {
-    width: 14em;
-    height: 2.5em;
+    width: 12em;
+    min-width: 150px;
     min-height: 40px;
     margin: 5px auto;
 }
@@ -811,22 +837,30 @@ p#themesTitle {
     flex-direction: column;
     align-items: center;
     width: 32px;
-}
-
-.confirmationToggle > button {
-    font-size: calc(4px + 0.5em);
+    gap: 5px;
 }
 
 .promocodeButton {
-    width: 17em;
-    max-width: 100%;
-    padding: 5px;
-    margin: 0 auto 3px;
+    min-width: 65%;
+    margin-bottom: 3px;
+}
+
+div.addCodeBox {
+    display: flex;
+    padding: 0;
+    gap: 0 3px;
+}
+
+#addCode {
+    width: 60%;
+}
+
+#addCodeOne {
+    width: 40%;
 }
 
 p#promocodeinfo {
     width: 100%;
-    margin: 0 auto;
 }
 
 .center {
@@ -843,6 +877,10 @@ p#promocodeinfo {
     padding: 0;
 }
 
+.auto.square:hover {
+    background-color: var(--hover-color);
+}
+
 .buttonRow {
     display: flex;
     flex-direction: column;
@@ -851,12 +889,14 @@ p#promocodeinfo {
     margin-left: 7.5%;
     margin-bottom: 20px;
     z-index: 1;
+    font-size: min(1em, 20px);
 }
 
 .buttonRow > div {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    gap: 10px;
     min-height: 35px;
 }
 
@@ -875,46 +915,47 @@ p#promocodeinfo {
 
 .buttonRow > div > .desc {
     width: 22em;
-    margin-left: 10px;
 }
 
 .buildingPurchaseBtn {
     width: 15em;
     border-radius: 8px;
     border: 1px solid white;
-    background-color: #171717;
+    background-color: var(--buttonbuy-color);
     cursor: default;
-    font-size: 0.8em;
 }
 
-.buildingPurchaseBtnAvailable {
+.buildingPurchaseBtn:hover {
+    background-color: var(--buttonbuy-color);
+}
+
+.buildingPurchaseBtn.buildingPurchaseBtnAvailable {
     cursor: pointer;
-    background-color: #555;
+    background-color: var(--buildings-canbuy-color);
 }
 
-.buildingPurchaseBtnAvailable:hover {
-    background-color: #666;
+.buildingPurchaseBtn.buildingPurchaseBtnAvailable:hover {
+    background-color: var(--buildings-hover-color);
 }
 
 .buttonRow > div > .auto {
     width: 6em;
-    margin-left: 10px;
-    font-size: 0.8em;
+    min-width: 80px;
 }
 
 .autobuyerToggleButton {
-    background-color: #171717;
-    transition: background-color 0.15s;
-}
-
-.autobuyerToggleButton:hover {
-    background-color: #333;
+    background-color: var(--button-color);
 }
 
 .buttonRow > div > .stats {
     width: 25em;
-    margin-left: 10px;
     line-height: 1em;
+}
+
+#buildtext12,
+#buildtext14,
+#buildtext16 {
+    min-height: 2em;
 }
 
 #taxinfo {
@@ -935,54 +976,48 @@ p#promocodeinfo {
     color: whitesmoke;
 }
 
-#achievementstable {
+#achievements {
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    border-collapse: collapse;
-    padding: 0;
-    font-size: 0;
 }
 
-#achievementinfo {
-    border-top: 2px solid plum;
-    text-align: center;
+#achievementstable {
+    font-size: 0;
+    border-collapse: collapse;
 }
 
 .NotificationToggle {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 5px;
+}
+
+.NotificationToggle > p {
+    margin: 15px 0;
 }
 
 .achNotification {
     flex-grow: unset;
-    padding-left: 4px;
 }
 
 .nonSquare {
-    width: 3em;
+    min-width: 39px;
     min-height: 20px;
-    margin-left: 5px;
-    padding-right: 2px;
-    font-size: calc(4px + 0.5em);
 }
 
-#achievementinfo > p {
+#achievementinfo > p,
+#achievementColorInfo > p {
     margin: 0;
 }
 
-#achievementtutorial { color: white; }
-#achievementdescription { color: gold; }
-#achievementreward { color: limegreen; }
+#achievementinfo {
+    margin-top: 5px;
+}
 
-/* Decrease space between paragraphs */
-#achievementColorInfo > p { margin: 0; }
-
-#achievementcolorcode1 { color: limegreen; }
-#achievementcolorcode2 { color: purple; }
-#achievementcolorcode3 { color: crimson; }
-#achievementcolorcode4 { color: gray; }
+#achievementColorInfo {
+    margin-top: 10px;
+}
 
 #buyamountoffering {
     position: absolute;
@@ -1049,8 +1084,24 @@ p#promocodeinfo {
     transition-duration: 0.15s;
 }
 
-.buyAmountBtn:hover {
-    background-color: #333;
+#togglecrystalbuy {
+    color: white;
+    position: absolute;
+    font-size: 11px;
+    width: 220px;
+    left: 80%;
+    top: 30px;
+    margin-left: -87px;
+}
+
+#toggleofferingbuy {
+    color: white;
+    position: absolute;
+    font-size: 11px;
+    width: 250px;
+    left: 85%;
+    top: 25px;
+    margin-left: -183px;
 }
 
 #prestige {
@@ -1072,12 +1123,6 @@ p#promocodeinfo {
 
 #crystalupgradestable { margin: 0 auto; }
 
-#prestigeamount {
-    border: 1px solid cyan;
-    color: white;
-    background-color: #171717;
-}
-
 #autocrystalbuild {
     margin-top: 40px;
 }
@@ -1090,8 +1135,19 @@ p#promocodeinfo {
     min-height: auto;
 }
 
-#prestige p { margin: 0; }
-#autoprestige { color: white; }
+#prestigeamount {
+    color: white;
+    border: 1px solid cyan;
+    background-color: black;
+}
+
+#prestige p {
+    margin: 0;
+}
+
+#autoprestige {
+    color: white;
+}
 
 p#prestigehotkeys {
     margin-top: 15px;
@@ -1121,9 +1177,9 @@ p#prestigehotkeys {
 #runesToggle {
     display: flex;
     justify-content: center;
-    gap: 10px;
     flex-flow: wrap;
-    margin: 15px;
+    margin: 15px 0 10px;
+    gap: 10px 15px;
 }
 
 .heptNotification {
@@ -1132,46 +1188,47 @@ p#prestigehotkeys {
 }
 
 #runesToggle > button {
-    width: 8em;
+    min-width: 100px;
     text-align: center;
 }
 
 #offeringDetails,
 #runeEffectDisplays {
-    text-align: center;
+    max-width: 1200px;
     display: flex;
+    text-align: center;
     flex-direction: column;
 }
 
 #offeringDetails > p,
 #runeEffectDisplays > p {
-    margin: auto;
+    margin: 0;
 }
 
 #runeDetails {
     display: flex;
     width: 100%;
-    max-width: calc(min(80em, 1400px));
-    min-width: 1000px;
+    max-width: calc(min(70em, 1600px));
+    min-width: 1200px;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     height: auto;
-    margin: 10px;
+    margin: 10px 0;
 }
 
 .runeType {
+    min-width: 14%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    white-space: nowrap;
+    font-size: min(1em, 20px);
 }
 
 .runeType > button {
-    width: 7em;
+    min-width: 100px;
     text-align: center;
     border: 2px solid gold;
-    cursor: default;
 }
 
 .runeTypeElement {
@@ -1180,8 +1237,17 @@ p#prestigehotkeys {
     transition-duration: 0.15s;
 }
 
+img.runeTypeElement {
+    background-color: var(--button-color);
+    cursor: pointer;
+}
+
 img.runeTypeElement:hover {
-    background-color: #222;
+    background-color: var(--hover-color);
+}
+
+.runeImage {
+    background-color: #171717;
 }
 
 .runeType > .runeButtonAvailable {
@@ -1195,8 +1261,7 @@ img.runeTypeElement:hover {
 
 #toggleautofortify,
 #toggleautoenhance {
-    width: 10em;
-    color: white;
+    min-width: 125px;
     border: 2px solid red;
 }
 
@@ -1236,12 +1301,10 @@ img.runeTypeElement:hover {
     width: 5em;
     min-width: 80px;
     color: orange;
-    cursor: pointer;
-    transition-duration: 0.15s;
 }
 
 .FragBth {
-    min-width: 8em;
+    min-width: 94px;
     margin-right: 10px;
 }
 
@@ -1264,15 +1327,11 @@ img.runeTypeElement:hover {
 
 .talismanContainer {
     flex-direction: column;
-    width: 11%;
+    min-width: 11%;
     min-width: 102px;
     align-items: center;
     white-space: nowrap;
-}
-
-.talismanName {
-    font-size: 20px;
-    text-align: center;
+    font-size: min(1em, 20px);
 }
 
 .talismanIcon {
@@ -1284,7 +1343,6 @@ img.runeTypeElement:hover {
 .talismanLevel {
     margin-top: 1px;
     margin-bottom: 3px;
-    font-size: 16px;
 }
 
 #respecAllTalismans {
@@ -1352,22 +1410,15 @@ img.runeTypeElement:hover {
 }
 
 #transcension > .buttonRow {
-    color: pink;
+    color: plum;
 }
 
 #transcendshardbonus {
     margin-top: 2px;
 }
 
-#transcendamount {
-    border: 1px solid plum;
-    color: white;
-    background-color: #171717;
-}
-
 #autotranscend {
     text-align: center;
-    color: white;
 }
 
 #toggle21,
@@ -1378,8 +1429,17 @@ img.runeTypeElement:hover {
     min-height: auto;
 }
 
+#transcendamount {
+    color: white;
+    border: 1px solid plum;
+    background-color: black;
+}
+
 p#transcendhotkeys {
     margin-top: 15px;
+}
+
+#transcendhotkeys {
     color: gray;
     text-align: center;
 }
@@ -1392,26 +1452,24 @@ p#transcendhotkeys {
 #challengesWrapper {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 #challengeIntroduction {
     text-align: center;
-    color: white;
     font-size: 1.2em;
     margin: 20px 0 0;
 }
 
 #challengesAutoToggles {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     flex-flow: wrap;
-    gap: 10px;
-    margin: 10px 0;
+    gap: 10px 15px;
 }
 
 #challengesAutoToggles > button {
-    width: 15em;
+    min-width: 200px;
 }
 
 #toggleAutoChallengeStart { border: 2px solid gold; }
@@ -1419,16 +1477,14 @@ p#transcendhotkeys {
 #startChallenge {
     border: 2px solid red;
     font-size: 1.1em;
-    width: 300px;
+    min-width: 300px;
     min-height: 75px;
     background-color: black;
-    color: white;
     transition-duration: 0.15s;
-    margin-bottom: 5px;
 }
 
 #startChallenge:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 #retryChallenge { border: 2px solid plum; }
@@ -1442,31 +1498,50 @@ p#transcendhotkeys {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 4px;
     align-self: center;
+    color: white;
     text-align: center;
-    margin-top: 10px;
 }
 
 #challengeIcons > div {
-    margin: 0 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#challengeIcons > div > div {
+#challengeIcons img {
+    width: 64px;
+    height: 64px;
     cursor: pointer;
-    font-size: 0;
+    vertical-align: top;
 }
 
+/* In webkit, the font-size px is fixed even if it is enlarged, but Firefox fluctuates */
 .challengeLevels {
-    margin: 0;
-    margin-top: 2px;
+    margin: 4px auto 0;
     font-size: 12px;
-    word-spacing: -100%;
+    overflow: hidden;
+}
+
+.transChallenge .challengeLevels {
+    min-width: 4.8em;
+    max-width: 4.8em;
+}
+
+.reinChallenge .challengeLevels {
+    min-width: 3.7em;
+    max-width: 3.7em;
+}
+
+.ascendChallenge .challengeLevels {
+    min-width: 2.6em;
+    max-width: 2.6em;
 }
 
 #challengeDetails {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
     max-width: 1200px;
     align-self: center;
 }
@@ -1488,24 +1563,12 @@ p#transcendhotkeys {
     height: auto;
 }
 
-#startAutoChallengeTimerInput,
-#exitAutoChallengeTimerInput,
-#enterAutoChallengeTimerInput {
-    border: 2px solid orchid;
-    color: white;
-    background-color: #171717;
-    width: 12em;
-    max-width: 100%;
-    font-size: 0.9em;
-}
-
 #challengeName { color: white; }
 #challengeFlavor { color: plum; }
 #challengeRestrictions { color: crimson; }
 #challengeGoal { color: gold; }
-#challengePerCompletionRewards { color: white; }
+#challengePerCompletionRewards { color: var(--text-color); }
 *[id^="challengePer"] { color: pink; }
-#challengeFirstCompletionRewards { color: white; }
 #challengeFirst1 { color: orange; }
 #challengeQuarkBonus { color: cyan; }
 
@@ -1518,11 +1581,16 @@ p#transcendhotkeys {
     margin: 0;
 }
 
+#challengeTimersText > input {
+    border: 2px solid orchid;
+    width: 180px;
+    font-size: 1.1em;
+}
+
 #challengeWorthlessTexts {
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin-top: 10px;
 }
 
 #challengeWorthlessTexts > p {
@@ -1534,12 +1602,12 @@ p#transcendhotkeys {
 #challengewarningreincarnation { color: limegreen; }
 
 .challenge {
-    background-color: #171717;
+    background-color: var(--button-color);
     transition-duration: 0.15s;
 }
 
 .challenge:hover {
-    background-color: #333;
+    background-color: var(--hover-color);
 }
 
 .challengeActive {
@@ -1581,20 +1649,16 @@ p#transcendhotkeys {
     min-height: auto;
 }
 
+#reincarnationamount {
+    color: white;
+    border: 1px solid green;
+    background-color: black;
+}
+
 #reincarnateautomation > div {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-#autoreincarnate {
-    color: white;
-}
-
-#reincarnationamount {
-    border: 1px solid green;
-    color: white;
-    background-color: #171717;
 }
 
 #reincarnationinfo {
@@ -1612,10 +1676,12 @@ p#reincarnatehotkeys {
     padding: 0;
 }
 
-#researchtable {
+.researchContainer {
     display: flex;
     justify-content: center;
-    margin: 0 auto;
+}
+
+#researchtable {
     border-collapse: collapse;
     font-size: 0;
 }
@@ -1629,6 +1695,7 @@ p#reincarnatehotkeys {
     flex-direction: column;
     text-align: center;
     align-items: center;
+    margin-top: 5px;
 }
 
 #researchDetails > p {
@@ -1642,12 +1709,12 @@ p#reincarnatehotkeys {
     flex-direction: row;
     justify-content: center;
     flex-flow: wrap;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 10px 15px;
+    margin: 15px 0;
 }
 
 #researchToggles > button {
-    width: 14em;
+    min-width: 175px;
 }
 
 #researchinfo2 {
@@ -1685,14 +1752,12 @@ p#reincarnatehotkeys {
 
 #shopWrapper {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
 }
 
 #actualWrapper {
     display: flex;
-    width: 100%;
-    justify-content: center;
+    font-size: min(1em, 20px);
 }
 
 #actualShopContainer {
@@ -1703,7 +1768,6 @@ p#reincarnatehotkeys {
 
 #actualShop {
     display: flex;
-    justify-content: center;
     padding: 5px;
     margin-top: 10px;
     width: calc(115px * 8 - 5px);
@@ -1720,7 +1784,6 @@ p#reincarnatehotkeys {
 #actualPotionShop > div > p,
 #actualShop > div > p {
     margin: 0 0 3px;
-    font-size: 1em;
     line-height: 1em;
 }
 
@@ -1734,13 +1797,12 @@ p#reincarnatehotkeys {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: calc(130px * 2);
+    width: 250px;
     margin-right: 20px;
 }
 
 #actualPotionShop {
     display: flex;
-    justify-content: center;
     padding: 5px;
     margin-top: 10px;
     width: calc(115px * 2 - 5px);
@@ -1781,14 +1843,16 @@ p#reincarnatehotkeys {
 
 #shopButtons {
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    flex-flow: wrap;
     float: right;
-    margin-top: 20px;
+    gap: 5px;
+    margin-top: 5px;
 }
 
 #shopButtons > button {
-    width: 240px;
+    min-width: 150px;
+    min-height: 40px;
     margin-bottom: 6px;
 }
 
@@ -1804,6 +1868,7 @@ p#reincarnatehotkeys {
     min-height: 40px;
     padding: 0;
     line-height: 1em;
+    vertical-align: top;
 }
 
 #ants {
@@ -1820,40 +1885,40 @@ p#reincarnatehotkeys {
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    margin-right: calc(10em - 100px);
+    margin-right: min(10em, 100px);
 }
 
-#antsWelcomeTexts { margin-top: 20px; }
-#antsWelcomeTexts > p { margin: 2px 0; }
+#antsWelcomeTexts { margin-top: 40px; }
+#antsWelcomeTexts > p { margin: 0; }
 #antwelcome { font-size: 1.3em; }
-
-#antrow1 { margin-top: 15px; }
 
 #antrow2 {
     max-width: 700px;
-    margin-top: 15px;
-    min-height: 6em;
+    margin-top: 10px;
+    min-height: 10em;
 }
 
 #antrow3 {
     max-width: 700px;
-    margin-top: 30px;
-    min-height: 8em;
+    margin-top: 10px;
+    min-height: 7em;
 }
 
+#antrow1,
 #antrow4 {
-    margin-top: 10px;
+    font-size: 0;
+    margin: 10px 0 5px;
     z-index: 1;
 }
 
-#antrow2 > p { margin: 0.05em 0; }
+#antrow2 > p { margin: 0; }
 
 #crumbcount {
     font-size: 1.2em;
-    height: 3em;
+    min-height: 2.8em;
 }
 
-#antrow3 > p { margin: 0.05em 0; }
+#antrow3 > p { margin: 0; }
 
 #antToggleFeatures {
     display: flex;
@@ -1870,28 +1935,20 @@ p#reincarnatehotkeys {
 }
 
 #toggleAntMax {
-    width: 8em;
+    min-width: 100px;
     border: 1px solid gold;
 }
 
 #toggleAutoSacrificeAnt {
-    width: 11em;
+    min-width: 150px;
     border: 1px solid crimson;
 }
 
-#autoSacrificeAntMode {
-    width: 12em;
-    min-width: 150px;
-    min-height: auto;
-    border: 1px solid green;
-}
-
+#autoSacrificeAntMode,
 #autoAntSacrificeAmount {
     width: 12em;
+    min-height: 20px;
     min-width: 150px;
-    min-height: auto;
-    color: white;
-    background-color: #171717;
     border: 1px solid green;
 }
 
@@ -1899,11 +1956,21 @@ p#reincarnatehotkeys {
     position: absolute;
     padding: 0;
     width: 200px;
-    margin: 0 0 0 -390px;
-    top: 4px;
+    margin: 0 0 0 -340px;
     text-align: center;
-    left: calc(76% - 2em);
+    left: calc(80% - 5em);
     white-space: nowrap;
+    z-index: 1;
+}
+
+.sacrificeStatus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#antSacrificeTimer {
+    padding: 2px 0.5em;
 }
 
 .antSacrificeSettingsContainer {
@@ -1916,14 +1983,13 @@ p#reincarnatehotkeys {
     padding: 0;
     width: 300px;
     top: 30px;
-    left: calc(76% - 2em);
+    left: calc(80% - 5em);
     text-align: left;
     white-space: nowrap;
 }
 
 #antSacrificeSummary p {
     margin: 0;
-    margin-bottom: 2px;
 }
 
 .antSacrificeHeader {
@@ -1942,39 +2008,36 @@ p#reincarnatehotkeys {
 }
 
 .antBtn {
-    background-color: #171717;
+    background-color: var(--button-color);
 }
 
-.antTierBtnAvailable {
-    cursor: pointer;
-    background-color: white;
-}
-
+.antTierBtnAvailable,
 .antUpgradeBtnAvailable {
     cursor: pointer;
     background-color: silver;
 }
 
 #cubes {
+    display: flex;
+    justify-content: center;
     position: relative;
-    padding: 0;
 }
 
 /* Wow! Cube sidebar */
 #wowCubeSidebar {
     display: flex;
     flex-direction: column;
-    margin-right: 30px;
+    margin: 0 30px;
     line-height: 1.1em;
     text-align: center;
-    width: calc(14em + 50px);
-    max-width: 350px;
+    width: 250px;
 }
 
 #wowCubeSidebarButtons {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 6px 15px;
     margin-bottom: 20px;
 }
 
@@ -1992,8 +2055,8 @@ p#reincarnatehotkeys {
 }
 
 .cubeSwitchTabBtn {
-    width: 100%;
-    margin: 3px;
+    width: 12em;
+    min-width: 250px;
 }
 
 #wowCubeSidebar p {
@@ -2006,10 +2069,18 @@ p#reincarnatehotkeys {
 }
 
 .cubeBtn {
-    width: 8em;
+    min-width: 100px;
     max-width: 200px;
     background-color: black;
     border: 1px solid gold;
+}
+
+.cubeBtn:hover {
+    background-color: var(--hover-color);
+}
+
+p[id$="BlessingsTotal"] {
+    padding: 15px;
 }
 
 #cubeBlessingsTotal { color: orange; }
@@ -2019,9 +2090,9 @@ p#reincarnatehotkeys {
 
 #cubesWrapper {
     display: flex;
-    justify-content: center;
-    margin-top: 25px;
-    margin-left: -185px;
+    justify-content: flex-start;
+    margin-top: 30px;
+    width: 1250px;
 }
 
 .cubesBonus {
@@ -2036,7 +2107,7 @@ p#reincarnatehotkeys {
     display: flex;
     align-self: flex-start;
     margin: 10px 0 5px;
-    white-space: nowrap;
+    width: 1000px;
 }
 
 .openImage {
@@ -2050,6 +2121,7 @@ p#reincarnatehotkeys {
 
 .openBtn {
     display: flex;
+    flex-flow: wrap;
     gap: 5px;
     margin-left: 10px;
 }
@@ -2078,9 +2150,7 @@ p#reincarnatehotkeys {
 .cubeTab {
     flex-direction: column;
     align-items: center;
-    width: calc(500px + 10em);
-    max-width: 900px;
-    margin-left: 20px;
+    width: 750px;
 }
 
 .cubeTab > span {
@@ -2093,11 +2163,11 @@ p#reincarnatehotkeys {
     align-items: center;
     margin-top: 15px;
     text-align: center;
-    width: 100%;
+    align-self: normal;
 }
 
-#cubeTab5Wrapper > p {
-    margin: 2px;
+#cubeTab5Wrapper p {
+    margin: 0;
 }
 
 #cubeTab6 {
@@ -2105,15 +2175,23 @@ p#reincarnatehotkeys {
     align-items: flex-start;
 }
 
-#cubeAmount2 { color: white; }
+.cubeSpacer {
+    width: 250px;
+}
 
 #cubeUpgradeTable {
+    margin: 5px 0;
     border-collapse: collapse;
     font-size: 0;
 }
 
+.cubeUpgradeInfo {
+    min-height: 4em;
+}
+
 #toggleCubeBuy {
-    width: 14em;
+    min-width: 200px;
+    margin-top: 10px;
 }
 
 .gridImg {
@@ -2170,6 +2248,12 @@ p#reincarnatehotkeys {
     margin-top: 100px;
 }
 
+#constUpgradeLevel,
+#constUpgradeCost,
+#constUpgradeEffect1 {
+    color: white;
+}
+
 #tesseractautobuytoggle,
 #tesseractautobuymode,
 #tesseractAmount {
@@ -2179,13 +2263,12 @@ p#reincarnatehotkeys {
 }
 
 #tesseractAmount {
-    border: 1px solid orange;
     color: white;
-    background-color: #171717;
+    border: 1px solid orange;
+    background-color: black;
 }
 
 #autotessbuyeramount {
-    color: white;
     margin: 0;
 }
 
@@ -2237,20 +2320,21 @@ p#ascendHotKeys {
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    width: 40em;
+    width: 25em;
     min-width: 500px;
     max-width: 800px;
     height: fit-content;
+    gap: 10px 15px;
 }
 
 #statsForNerds > button {
-    width: 12em;
     min-width: 150px;
-    margin: 3px;
 }
 
 .statContainer {
-    width: 400px;
+    width: 20em;
+    min-width: 400px;
+    max-width: 500px;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: auto;
@@ -2266,7 +2350,6 @@ p#ascendHotKeys {
 
 .statPortion {
     margin: 0;
-    color: white;
     text-align: left;
     font-size: 0.9em;
     min-width: max-content;
@@ -2293,8 +2376,8 @@ p#ascendHotKeys {
 }
 
 .constUpgrade {
-    background-color: #171717;
-    transition-duration: 0.2s;
+    background-color: var(--button-color);
+    transition-duration: 0.15s;
 }
 
 .constUpgradeAvailable {
@@ -2341,8 +2424,8 @@ p#ascendHotKeys {
     justify-content: center;
 }
 
-.subtabContent.subtabActive.subtabDisplayGrid {
-    display: grid;
+.subtabContent.subtabActive.historySubTab.subtabDisplayFlex > div {
+    display: flex;
 }
 
 .historySubTab {
@@ -2357,29 +2440,39 @@ p#ascendHotKeys {
     margin: auto;
     border-collapse: collapse;
     width: 100%;
-    font-size: 0.9em;
     white-space: nowrap;
-}
-
-.historySubTab tbody {
     text-align: left;
     line-height: 1em;
 }
 
+.historySubTab tbody span {
+    vertical-align: middle;
+}
+
 .historySubTab tbody img {
-    vertical-align: bottom;
+    vertical-align: middle;
     height: 20px;
     margin-right: 3px;
 }
 
-.historySubTab tbody td {
-    padding: 0 0 0 6px;
-    min-height: 30px;
+#historyAscendTable td:nth-last-child(3) > img {
+    margin-right: 0;
 }
+
+#historyAscendTable td:nth-last-child(3) > span {
+    visibility: hidden;
+    font-size: 0;
+}
+
+.historySubTab tbody td {
+    padding: 2px 6px;
+    height: 28px;
+}
+
 .historySubTab tbody .history-gain:last-child { margin-right: 0; }
 
 .historySubTab tbody tr:nth-child(odd) {
-    background: #262626;
+    background: var(--history-lines);
 }
 
 .historySubTab tbody .history-seconds {
@@ -2404,6 +2497,8 @@ p#ascendHotKeys {
 }
 
 #historyTogglePerSecondButton {
+    min-width: 110px;
+    min-height: 25px;
     float: right;
 }
 
@@ -2411,6 +2506,7 @@ p#ascendHotKeys {
     text-align: center;
     padding: 5px;
     border: 2px solid red;
+    margin-top: 8px;
 }
 
 #historyResetTable {
@@ -2429,6 +2525,8 @@ p#ascendHotKeys {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
     min-height: 50px;
 }
 
@@ -2436,28 +2534,27 @@ p#ascendHotKeys {
     display: flex;
     width: 1200px;
     align-items: center;
+    gap: 4px 15px;
     margin-bottom: 10px;
 }
 
 .runeIcons {
     height: 64px;
     width: 64px;
-    margin-right: 20px;
 }
 
 .runeTexts {
     width: 12em;
-    max-width: 200px;
+    max-width: 250px;
 }
 
 .runeButtons {
     width: 25em;
+    min-width: 325px;
     max-width: 350px;
     border: 1px solid yellow;
-    margin-right: 15px;
     color: gold;
     transition-duration: 0.15s;
-    cursor: default;
 }
 
 .runeEffectTexts {
@@ -2468,39 +2565,55 @@ p#ascendHotKeys {
 #buyAllBlessings,
 #buyAllSpirits {
     width: 10em;
+    min-width: 120px;
+}
+
+#toggle36,
+#toggle37 {
+    width: 5em;
+    min-width: 60px;
 }
 
 .runeButtonsAvailable {
-    background-color: #222;
+    background-color: var(--blessings-canbuy-color);
     cursor: pointer;
 }
 
 .runeButtonsAvailable:hover {
-    background-color: #444;
+    background-color: var(--blessings-hover-color);
 }
 
-.buyRuneInput {
-    width: 8em;
-    margin-right: 20px;
+#buyRuneBlessingInput {
+    min-width: 100px;
+    width: 5em;
+    font-size: 0.8em;
+    border: 2px solid crimson;
     background-color: #171717;
     color: white;
-    font-size: 0.9em;
+}
+
+#buyRuneSpiritInput {
+    min-width: 100px;
+    width: 5em;
+    font-size: 0.8em;
+    border: 2px solid orange;
+    background-color: #171717;
+    color: white;
 }
 
 #traits {
     justify-content: center;
     align-items: start;
-    width: 100%;
 
     /* Hopefully prevent some elements from overlapping with the tab buttons */
     margin-top: 10px;
 }
 
 #corruptionMain {
-    width: calc(600px + 15em);
+    min-width: 700px;
     max-width: 1200px;
     margin: 10px;
-    padding: 10px;
+    padding: 10px 0;
 }
 
 #corruptionIntroduction {
@@ -2513,9 +2626,14 @@ p#ascendHotKeys {
 }
 
 #corruptionSelected {
-    width: 64px;
-    height: 64px;
+    width: 70px;
+    height: 70px;
     margin-top: 15px;
+}
+
+#corruptionSelectedPic {
+    height: 100%;
+    object-fit: contain;
 }
 
 #corruptionDetails {
@@ -2549,16 +2667,6 @@ p#ascendHotKeys {
     margin-top: 10px;
 }
 
-#ascensionAmount {
-    border: 1px solid orange;
-    color: white;
-    background-color: #171717;
-}
-
-#autoAscend {
-    color: white;
-}
-
 #ascensionAmount,
 #ascensionAutoEnable,
 #ascensionAutoToggle {
@@ -2567,22 +2675,32 @@ p#ascendHotKeys {
     min-height: auto;
 }
 
-#corruptionStatsLoadouts {
-    width: 450px;
-    margin: 10px;
-    padding: 10px;
+#ascensionAmount {
     border: 1px solid orange;
+    color: gold;
+    background-color: black;
+}
+
+#corruptionStatsLoadouts {
+    min-width: 500px;
+    max-width: 600px;
+    margin: 10px;
+    padding: 30px 10px;
+    border: 1px solid orange;
+    box-sizing: border-box;
+    color: white;
+    text-align: center;
 }
 
 #corrStatsBtn,
 #corrLoadoutsBtn {
-    width: 10em;
-    max-width: 200px;
+    min-width: 120px;
+    max-width: 100%;
     border: 2px solid;
 }
 
 #corrButtonRow {
-    min-width: 360px;
+    gap: 30px;
 }
 
 .corruptionContainer {
@@ -2602,12 +2720,11 @@ p#ascendHotKeys {
 }
 
 .corrDesc {
-    font-size: calc(6px + 0.5em);
-    min-width: 150px;
-    margin: auto;
+    color: white;
+    min-width: 240px;
+    margin: 0 auto;
     text-align: center;
     line-height: 1em;
-    flex-grow: 0.6;
 }
 
 .corrLoadoutName:hover {
@@ -2616,7 +2733,7 @@ p#ascendHotKeys {
 }
 
 .corrLoadoutNameCol {
-    width: 17%;
+    width: 20%;
 }
 
 .corrBtn {
@@ -2654,7 +2771,7 @@ p#ascendHotKeys {
 #corruptionLoadouts {
     font-size: calc(6px + 0.5em);
     margin-top: 10px;
-    min-height: 400px;
+    min-height: 350px;
     box-sizing: border-box;
     z-index: 1;
 }
@@ -2669,31 +2786,43 @@ p#ascendHotKeys {
 
 #corruptionLoadoutTable {
     border-collapse: collapse;
+    text-align: center;
     width: 100%;
 }
 
-#corrPicRow {
-    height: 30px;
+#corruptionLoadoutTable tbody th {
+    font-size: 0;
+    padding: 0;
 }
 
 img.small {
-    height: 32px;
+    width: 32px;
+}
+
+img.corruptionImg.small {
+    width: 100%;
+    max-width: 32px;
 }
 
 .corrSave {
-    min-height: 1em;
+    min-height: 20px;
+    min-width: 40px;
     border: 1px solid dodgerblue;
-    padding: 2px 5px;
     width: 100%;
-    margin-bottom: 1px;
 }
 
 .corrLoad {
-    min-height: 1em;
+    min-height: 20px;
+    min-width: 40px;
     border: 1px solid #5b5ddc;
-    padding: 2px 5px;
     width: 100%;
-    margin-bottom: 1px;
+}
+
+.corrImport {
+    min-height: 20px;
+    min-width: 40px;
+    border: 1px solid green;
+    width: 100%;
 }
 
 #corruptionCleanse {
@@ -2726,7 +2855,7 @@ header .img {
     display: flex;
     flex-direction: row;
     min-width: 1250px;
-    max-width: calc((38px + 7.5em) * 4 + 50em);
+    max-width: calc((38px + 7.5em) * 4 + 40em);
     min-height: 90px;
     margin-bottom: 5px;
 }
@@ -2749,33 +2878,14 @@ header .img {
     min-width: 150px;
 }
 
-header #coinDisplay {
-    color: gold;
-}
-
-header #diamondDisplay {
-    color: cyan;
-}
-
-header #offeringDisplay {
-    color: gold;
-}
-
-header #mythosDisplay {
-    color: plum;
-}
-
-header #mythosshardDisplay {
-    color: plum;
-}
-
-header #particlesDisplay {
-    color: limegreen;
-}
-
-header #obtainiumDisplay {
-    color: pink;
-}
+header #quarkDisplay { color: white; }
+header #coinDisplay { color: gold; }
+header #diamondDisplay { color: cyan; }
+header #offeringDisplay { color: gold; }
+header #mythosDisplay { color: plum; }
+header #mythosshardDisplay { color: plum; }
+header #particlesDisplay { color: limegreen; }
+header #obtainiumDisplay { color: pink; }
 
 .statDisplay {
     padding-left: 6px;
@@ -2787,15 +2897,16 @@ header #obtainiumDisplay {
     display: flex;
     margin: 10px 0;
     min-width: 1250px;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-content: center;
     flex-wrap: wrap;
+    gap: 2px 10px;
     font-variant-numeric: tabular-nums;
     line-height: 1em;
 }
 
 #ascensionStats > span {
     display: flex;
-    margin-right: 10px;
     white-space: pre;
     align-items: center;
 }
@@ -2859,9 +2970,11 @@ header #obtainiumDisplay {
 .challengeContainer {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
     margin-bottom: auto;
-    padding: 10px;
+    padding: 5px 10px;
+    text-align: left;
+    font-size: 1em;
+    line-height: 1.1em;
 }
 
 #c15RewardList {
@@ -2869,19 +2982,14 @@ header #obtainiumDisplay {
 }
 
 .challengePortion {
-    width: 30em;
-    max-width: 500px;
-    height: auto;
-    margin: 0;
+    width: 26em;
+    max-width: 450px;
     color: white;
-    text-align: left;
-    font-size: 1em;
-    line-height: 1.1em;
+    margin: 0;
 }
 
 .challengeNumber {
     height: auto;
-    color: white;
     text-align: left;
     font-size: 1em;
 }
@@ -2889,7 +2997,7 @@ header #obtainiumDisplay {
 .platonicUpgradesContainer {
     display: flex;
     flex-direction: column;
-    margin-left: 50px;
+    margin-left: 30px;
 }
 
 #platonicUpgradePics {
@@ -2898,17 +3006,15 @@ header #obtainiumDisplay {
 
 #platonicUpgrades {
     display: flex;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 #saveOffToggle {
-    min-width: 11em;
+    min-width: 130px;
     max-width: 200px;
-    margin: 5px;
-}
-
-#saveOffToggle:hover {
-    background-color: #333;
+    position: absolute;
+    margin-top: 6px;
+    margin-left: 193px;
 }
 
 .platonicUpgradeImage {
@@ -2916,69 +3022,64 @@ header #obtainiumDisplay {
 }
 
 .platonicContainer {
-    display: flex;
-    min-height: 300px;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-bottom: auto;
-    padding: 10px;
-}
-
-.platonicPortion {
     width: 400px;
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: auto;
+    padding: 5px 10px;
     color: white;
     text-align: left;
     font-size: 1em;
     white-space: pre-wrap;
 }
 
+.platonicPortion {
+    width: 400px;
+    margin: 0;
+}
+
 .hepteractGrid {
     display: grid;
-    grid-template-columns: repeat(4, calc(60px + 4.5em * 2));
+    grid-template-columns: repeat(4, calc(60px + 3.8em * 2));
     grid-template-rows: repeat(3, calc(max(28px, 1.1em) * 3));
     margin-top: 10px;
-    padding: 10px;
-    border: 3px solid plum;
+    padding: 8px;
+    width: calc((60px + 3.8em + 3.8em + 10px) * 4 + 8px);
+    grid-column: shop 2/4;
+    grid-row: 1;
     grid-column-gap: 15px;
-    grid-row-gap: 20px;
+    grid-row-gap: 15px;
     align-self: flex-start;
     line-height: 1.2em;
+    padding-bottom: 2em;
+    font-size: min(1em, 20px);
 }
 
 .hepteractGrid > div {
     display: grid;
-    grid-template-columns: 60px 4.5em 4.5em;
+    width: calc(60px + 3.8em + 3.8em);
+    grid-template-columns: 60px 3.8em 3.8em;
     grid-template-rows: repeat(2, max(28px, 1.1em));
-}
-
-#hepteractToQuark,
-#overfluxPowder {
-    display: grid;
-    grid-template-columns: 12px 5em 15px 5em;
-    grid-template-rows: 32px 15px 15px 15px;
 }
 
 #hepteractToQuarkImage,
 #overfluxPowderImage {
-    grid-column: 1;
-}
-
-#hepteractToQuarkTrade,
-#powderDayWarp {
-    grid-column: 4 / 6;
+    width: 56px;
+    height: 56px;
 }
 
 .heptTypeImage {
-    grid-row: 1 / span 2;
+    grid-row: 1 / 3;
     align-self: center;
 }
 
 .heptGridInventory {
-    grid-column: 1 / 6;
-    display: flex;
-    justify-content: space-between;
-    min-height: 28px;
+    grid-column: 1 / 4;
+    display: block;
+}
+
+#powderDayWarp {
+    grid-column: 2 / 4;
 }
 
 .heptGridInventoryLabel,
@@ -2994,9 +3095,10 @@ header #obtainiumDisplay {
     border: 2px solid pink;
     width: 100%;
     min-height: 26px;
-    height: 1.1em;
+    height: 1.4em;
     line-height: 1em;
     white-space: nowrap;
+    margin: auto 0;
     padding: 0;
 }
 
@@ -3024,6 +3126,7 @@ header #obtainiumDisplay {
 .meter > span {
     display: block;
     height: 100%;
+    color: white;
 }
 
 .progressBar {
@@ -3040,6 +3143,7 @@ header #obtainiumDisplay {
 
 .progressText {
     position: absolute;
+    color: white;
     z-index: 2;
     left: 50%;
     transform: translateX(-50%);
@@ -3052,9 +3156,8 @@ header #obtainiumDisplay {
 #hepteractCraftTexts {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     text-align: center;
-    margin-bottom: auto;
+    margin-top: 15px;
 }
 
 #hepteractCraftTexts > p {
@@ -3091,13 +3194,16 @@ header #obtainiumDisplay {
     cursor: pointer;
 }
 
-#transparentBG {
-    width: 100vw;
-    height: 100vh;
-    background: rgb(0 0 0 / 50%);
-    z-index: 6968;
-    position: fixed;
-    display: none;
+.resetHotkeys {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.resetHotkeys > button {
+    min-height: 20px;
+    padding: 2px 4px;
 }
 
 #saveString {
@@ -3115,11 +3221,11 @@ header #obtainiumDisplay {
     justify-content: center;
     flex-flow: wrap;
     margin: 15px;
-    gap: 10px;
+    gap: 10px 15px;
 }
 
 #singularityTabsToggle > button {
-    width: 8em;
+    min-width: 100px;
     text-align: center;
 }
 
@@ -3136,7 +3242,6 @@ header #obtainiumDisplay {
     padding: 10px;
     margin-top: 5px;
     max-width: calc(36px * 14);
-    border: 3px solid plum;
 }
 
 .singularityUpgrade {
@@ -3157,455 +3262,4 @@ header #obtainiumDisplay {
 
 .newPerk {
     color: gold;
-}
-
-body.flexible {
-    min-width: auto;
-    margin-bottom: 10vh;
-}
-
-body.flexible #ascensionStats {
-    min-width: auto;
-}
-
-body.flexible .subHeader {
-    min-width: auto;
-    max-width: 100%;
-    flex-direction: column;
-    gap: 15px;
-}
-
-body.flexible .resetsContainer {
-    min-height: 70px;
-    flex-direction: column;
-    gap: 5px;
-}
-
-body.flexible .resetInformationContainer {
-    width: 100%;
-    flex-direction: row;
-}
-
-body.flexible #tabrow {
-    flex-flow: wrap-reverse;
-}
-
-body.flexible #resetrow {
-    font-size: min(1em, 3vw);
-}
-
-body.flexible #resetinfo {
-    font-size: min(0.9em, 2vw);
-    line-height: min(1.2em, 3vw);
-    max-width: 40em;
-    min-height: 70px;
-    max-height: 70px;
-}
-
-body.flexible .buttonRow {
-    flex-direction: row;
-    width: 100vw;
-    flex-wrap: wrap;
-    margin-top: 15px;
-    margin-left: 0;
-}
-
-body.flexible .buttonRow > div {
-    display: grid;
-    grid: max(34px, 1em) calc(max(20px, 1em) + 14px) 1em / 34px 11em 8em;
-    align-items: flex-start;
-    margin-bottom: 1em;
-}
-
-body.flexible .buttonRow > div > :nth-child(1) {
-    grid-column: 1;
-    grid-row: 1;
-}
-
-body.flexible .buttonRow > div > :nth-child(2) {
-    grid-column: 2 / 3;
-    grid-row: 1;
-    align-self: center;
-}
-
-body.flexible .buttonRow > div > :nth-child(3) {
-    grid-column: 1 / 2;
-    grid-row: 2;
-}
-
-body.flexible .buttonRow > div > :nth-child(4) {
-    grid-column: 3;
-    grid-row: 2;
-}
-
-body.flexible .buttonRow > div > :nth-child(5) {
-    grid-column: 1 / 3;
-    grid-row: 3;
-}
-
-body.flexible .buttonRow > div:nth-child(6) {
-    display: none;
-}
-
-body.flexible .buttonRow > div:nth-child(n+7) {
-    margin-bottom: 3em;
-}
-
-body.flexible .buttonRow > div > .stats {
-    width: 18em;
-}
-
-body.flexible #buyamountcoin,
-body.flexible #buyamountcrystal,
-body.flexible #buyamountmythos,
-body.flexible #buyamountparticle,
-body.flexible #buyAmountTesseract {
-    position: static;
-    left: 0;
-    margin-top: 15px;
-    font-size: 0;
-}
-
-body.flexible #buildingtext {
-    width: auto;
-}
-
-body.flexible #upgrades {
-    max-width: none;
-}
-
-body.flexible #upgradesFlex {
-    width: auto;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-left: 0;
-    margin-top: 15px;
-    gap: 10px;
-}
-
-body.flexible #upgradesFlex > div {
-    width: auto;
-}
-
-body.flexible #runeDetails {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    min-width: auto;
-    max-width: none;
-}
-
-body.flexible #buyamountoffering {
-    position: static;
-    left: 0;
-    margin-bottom: 15px;
-}
-
-body.flexible #runeContainer2 {
-    flex-direction: column;
-    align-items: center;
-}
-
-body.flexible .talismanShardsContainer {
-    order: 2;
-    width: auto;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-body.flexible .talismansCenter {
-    max-width: none;
-    width: auto;
-    order: 1;
-}
-
-body.flexible .talismanBuyAmountContainer {
-    order: 3;
-    width: auto;
-}
-
-body.flexible .talismansContainer {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    max-width: none;
-}
-
-body.flexible .talismanContainer {
-    width: auto;
-}
-
-body.flexible #respecAllTalismans {
-    position: static;
-    top: 0;
-    left: 0;
-    margin: 20px 0 0;
-    width: auto;
-    max-width: none;
-    transform: none;
-}
-
-body.flexible #talismanlevelup {
-    align-self: center;
-    margin-left: 0;
-}
-
-body.flexible #talismanrespec > div {
-    transform: none;
-}
-
-body.flexible #talismanFragmentCost {
-    width: 100%;
-    max-width: none;
-}
-
-body.flexible #runeContainer3,
-body.flexible #runeContainer4 {
-    text-align: center;
-}
-
-body.flexible .runeBlessingPurchaseSettings {
-    height: auto;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-body.flexible .runeBlessingRow {
-    flex-direction: column;
-}
-
-body.flexible .runeTexts,
-body.flexible .runeButtons,
-body.flexible .runeBlessingRow,
-body.flexible .runeEffectTexts {
-    width: auto;
-    max-width: none;
-}
-
-body.flexible #challengeDetails {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-body.flexible #challengeTimers {
-    width: auto;
-}
-
-body.flexible #oneChallengeDetails {
-    width: auto;
-    text-align: center;
-    margin-top: 10px;
-}
-
-body.flexible #challengeTimersText {
-    align-items: center;
-}
-
-body.flexible #antsWrapper {
-    margin-right: 0;
-}
-
-body.flexible #antrow2,
-body.flexible #antrow3 {
-    max-width: none;
-}
-
-body.flexible #antSacrificeSummary,
-body.flexible #sacrificeAnts {
-    position: static;
-    width: 100%;
-    top: 0;
-    left: 0;
-    text-align: center;
-    margin: 0;
-    margin-top: 15px;
-}
-
-body.flexible #antSacrificeTable {
-    margin: 15px auto;
-}
-
-body.flexible #cubesWrapper {
-    flex-direction: column;
-    align-items: center;
-    margin-left: 0;
-}
-
-body.flexible .cubeTab {
-    margin-top: 20px;
-    padding-top: 20px;
-    margin-left: 0;
-    border-top: 2px solid gold;
-    width: 100%;
-}
-
-body.flexible #cubeTab7 {
-    max-width: 100%;
-}
-
-body.flexible #cubeTab7 .openGrid {
-    align-self: center;
-}
-
-body.flexible .openGrid {
-    white-space: normal;
-}
-
-body.flexible .openBtn {
-    flex-flow: wrap;
-}
-
-body.flexible #cubeTab6 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-}
-
-body.flexible #wowCubeSidebar {
-    width: 100%;
-    max-width: none;
-}
-
-body.flexible #wowCubeSidebarButtons {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    order: 1;
-    margin-top: 20px;
-    margin-bottom: 0;
-}
-
-body.flexible .cubesToQuark {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-}
-
-body.flexible .cubeSwitchTabBtn {
-    width: auto;
-    max-width: 300px;
-    padding: 0 10px;
-}
-
-body.flexible .platonicUpgradesContainer {
-    margin-left: 0;
-    align-items: center;
-}
-
-body.flexible .challengePortion,
-body.flexible .platonicUpgradesContainer,
-body.flexible .platonicPortion {
-    width: 100%;
-}
-
-body.flexible #c15Rewards,
-body.flexible #platonicUpgradeDescriptions {
-    width: 95%;
-    box-sizing: border-box;
-}
-
-body.flexible .challengePortion {
-    max-width: none;
-}
-
-body.flexible #heptGrid {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-flow: wrap;
-    width: 95%;
-    max-width: calc((60px + 4.5em * 2 + 20px) * 4);
-    box-sizing: border-box;
-    align-self: center;
-}
-
-body.flexible #traits {
-    flex-direction: column;
-    align-items: center;
-}
-
-body.flexible #corruptionMain {
-    width: 100%;
-    max-width: none;
-}
-
-body.flexible #corruptionStatsLoadouts {
-    width: auto;
-}
-
-body.flexible #corruptionStats,
-body.flexible #corruptionLoadouts {
-    min-height: auto;
-}
-
-body.flexible div#confirmationToggleBox,
-body.flexible div#exportButtons,
-body.flexible div#thirdParty {
-    width: auto;
-    min-width: auto;
-    max-width: none;
-}
-
-body.flexible #confirmationToggleBox {
-    height: auto;
-    max-height: none;
-}
-
-body.flexible .settingSubTabUpper {
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-body.flexible #statisticsSubTab {
-    flex-direction: column;
-    align-items: center;
-}
-
-body.flexible #statsForNerds,
-body.flexible .statContainer {
-    width: 100%;
-    min-width: auto;
-    max-width: none;
-    padding: 0;
-    margin-bottom: 20px;
-}
-
-body.flexible .statContainer {
-    width: 30em;
-    max-width: 95%;
-    padding: 0;
-    margin-bottom: 20px;
-}
-
-body.flexible .hotkeys {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: center;
-}
-
-body.flexible .hotkeyItem {
-    margin-right: 20px;
-}
-
-body.flexible #actualWrapper {
-    flex-direction: column;
-    align-items: center;
-}
-
-body.flexible #actualShopContainer {
-    width: 100%;
-}
-
-body.flexible #actualShop {
-    width: 95%;
-}
-
-body.flexible #actualSingularityUpgradeContainer {
-    width: 95%;
 }

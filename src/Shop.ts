@@ -606,10 +606,18 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
 
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     let p = true;
-    const maxLevel = player.shopUpgrades[input] === shopData[input].maxLevel;
+    const maxLevel = player.shopUpgrades[input] >= shopData[input].maxLevel;
     const canAfford = Number(player.worlds) >= getShopCosts(input);
 
-    if (player.shopConfirmationToggle || !shopData[input].refundable) {
+    // Actually lock for HTML exploit
+    if ((shopData[input].tier === 'Ascension' && player.ascensionCount <= 0) ||
+        (shopData[input].tier === 'Singularity' && !player.singularityUpgrades.wowPass.getEffect().bonus) ||
+        (shopData[input].tier === 'SingularityVol2' && !player.singularityUpgrades.wowPass2.getEffect().bonus)) {
+        revealStuff();
+        return Alert('You do not have the right to purchase ' + friendlyShopName(input) + '!');
+    }
+
+    if (player.shopConfirmation || (!shopData[input].refundable && player.shopBuyMax)) {
         if (maxLevel) {
             await Alert('You can\'t purchase ' + friendlyShopName(input) + ' because you already have the max level!')
         } else if (!canAfford) {
@@ -645,7 +653,7 @@ export const buyConsumable = async (input: ShopUpgradeNames) => {
     const maxBuyablePotions = Math.min(Math.floor(Number(player.worlds)/100),shopData[input].maxLevel-player.shopUpgrades[input]);
     const potionKind = input === 'offeringPotion' ? 'Offering Potions' : 'Obtainium Potions';
 
-    if (shopData[input].maxLevel === player.shopUpgrades[input]) {
+    if (shopData[input].maxLevel >= player.shopUpgrades[input]) {
         return Alert(`You can't purchase ${potionKind} because you already have the max level!`);
     }
     if (maxBuyablePotions === 0) {

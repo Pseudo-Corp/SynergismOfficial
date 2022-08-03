@@ -170,7 +170,7 @@ export const revealStuff = () => {
 
     const example27 = document.getElementsByClassName('prestigeunlockib') as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < example27.length; i++) {
-        example27[i].style.display = +player.unlocks.prestige > 0 ? 'inline-block' : 'none'
+        example27[i].style.display = player.unlocks.prestige ? 'inline-block' : 'none'
     }
 
     const example28 = document.getElementsByClassName('research150') as HTMLCollectionOf<HTMLElement>;
@@ -200,7 +200,8 @@ export const revealStuff = () => {
 
     const singularityHTMLs = document.getElementsByClassName('singularity') as HTMLCollectionOf<HTMLElement>;
     for (const HTML of Array.from(singularityHTMLs)) { // Ability to view singularity features.
-        HTML.style.display = player.singularityCount > 0 ? 'block' : 'none';
+        const count = Number(HTML.getAttribute('count')) || 1;
+        HTML.style.display = player.singularityCount >= count ? 'block' : 'none';
     }
 
     visualUpdateShop();
@@ -390,8 +391,8 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('heptnotificationpic').style.display = 'block'):
         (DOMCacheGetOrSet('heptnotificationpic').style.display = 'none');
 
-    if (player.singularityCount > 0) {
-        (DOMCacheGetOrSet('shoptab').style.display = 'block');
+    if (player.unlocks.reincarnate || player.singularityCount > 0) {
+        DOMCacheGetOrSet('shoptab').style.display = 'block';
     }
 
     (player.runelevels[6] > 0 || player.singularityCount > 0) ?
@@ -450,7 +451,13 @@ export const revealStuff = () => {
         'toggle32': player.achievements[173] > 0, // Settings - Confirmations - Ant Sacrifice
         'toggle33': player.singularityCount > 0 && player.ascensionCount > 0, // Settings - Confirmations - Singularity
         'toggle34': player.unlocks.coinfour, // Achievements - Notifications
-        'toggle35': player.challenge15Exponent >= 1e15 && player.singularityCount > 0 // Hepteracts - Notifications
+        'toggle35': player.challenge15Exponent >= 1e15 && player.singularityCount > 0, // Hepteracts - Notifications
+        'toggle36': player.singularityCount >= 15, // Auto Blessings
+        'toggle37': player.singularityCount >= 15, // Auto Spirits
+        'toggle38': player.singularityCount > 0, // Researchs Hover to Buy
+        'toggle40': player.unlocks.prestige, // Hotkeys
+        'toggle41': player.unlocks.prestige, // Number Hotkeys
+        'toggle39': player.challengecompletions[11] > 0 // Loadouts Notifx
     }
 
     Object.keys(automationUnlocks).forEach(key => {
@@ -493,7 +500,7 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('cubes').style.display = 'none'
     DOMCacheGetOrSet('traits').style.display = 'none'
     DOMCacheGetOrSet('singularity').style.display = 'none'
-    DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'black'
+    DOMCacheGetOrSet('singularitytab').style.backgroundColor = ''
 
     const tab = DOMCacheGetOrSet('settingstab')!;
     tab.style.backgroundColor = '';
@@ -550,7 +557,7 @@ export const hideStuff = () => {
         DOMCacheGetOrSet('anttab').style.backgroundColor = 'brown';
     }
     if (G['currentTab'] === 'cubes') {
-        DOMCacheGetOrSet('cubes').style.display = 'block';
+        DOMCacheGetOrSet('cubes').style.display = 'flex';
         DOMCacheGetOrSet('cubetab').style.backgroundColor = 'white'
     }
     if (G['currentTab'] === 'traits') {
@@ -600,37 +607,38 @@ export const htmlInserts = () => {
 
 // TODO(not @KhafraDev): cache the elements and stop getting them every time?
 export const buttoncolorchange = () => {
-    (player.toggles[15] && player.achievements[43] === 1) ?
-        DOMCacheGetOrSet('prestigebtn').style.backgroundColor = 'green' :
-        DOMCacheGetOrSet('prestigebtn').style.backgroundColor = '#171717';
 
-    (player.toggles[21] && player.upgrades[89] > 0.5 && (player.currentChallenge.transcension === 0)) ?
-        DOMCacheGetOrSet('transcendbtn').style.backgroundColor = 'green' :
-        DOMCacheGetOrSet('transcendbtn').style.backgroundColor = '#171717';
+    DOMCacheGetOrSet('prestigebtn').style.backgroundColor = player.toggles[15] && player.achievements[43] === 1 ? 'green' : '';
 
-    (player.toggles[27] && player.researches[46] > 0.5 && (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0)) ?
-        DOMCacheGetOrSet('reincarnatebtn').style.backgroundColor = 'green' :
-        DOMCacheGetOrSet('reincarnatebtn').style.backgroundColor = '#171717';
+    DOMCacheGetOrSet('transcendbtn').style.backgroundColor = player.toggles[21] && player.upgrades[89] > 0.5 && (player.currentChallenge.transcension === 0) ? 'green' : '';
 
-    (player.toggles[8] && player.upgrades[88] > 0.5) ?
-        DOMCacheGetOrSet('acceleratorboostbtn').style.backgroundColor = 'green' :
-        DOMCacheGetOrSet('acceleratorboostbtn').style.backgroundColor = '#171717';
+    DOMCacheGetOrSet('reincarnatebtn').style.backgroundColor = player.toggles[27] && player.researches[46] > 0.5 && (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0) ? 'green' : '';
 
-    (player.currentChallenge.transcension === 0) ?
-        DOMCacheGetOrSet('challengebtn').style.backgroundColor = '#171717' :
-        DOMCacheGetOrSet('challengebtn').style.backgroundColor = 'purple';
+    DOMCacheGetOrSet('acceleratorboostbtn').style.backgroundColor = player.toggles[8] && player.upgrades[88] > 0.5 ? 'green' : '';
 
-    (player.currentChallenge.reincarnation === 0) ?
-        DOMCacheGetOrSet('reincarnatechallengebtn').style.backgroundColor = '#171717' :
-        DOMCacheGetOrSet('reincarnatechallengebtn').style.backgroundColor = 'purple';
+    DOMCacheGetOrSet('challengebtn').style.backgroundColor = player.currentChallenge.transcension === 0 ? '' : 'purple';
 
-    (player.currentChallenge.ascension === 0) ?
-        DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = '#171717' :
-        DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = 'purple';
+    DOMCacheGetOrSet('reincarnatechallengebtn').style.backgroundColor = player.currentChallenge.reincarnation === 0 ? '' : 'purple';
 
-    (player.autoAscend && player.cubeUpgrades[10] > 0.5 && !player.currentChallenge.ascension) ?
-        DOMCacheGetOrSet('ascendbtn').style.backgroundColor = 'green' :
-        DOMCacheGetOrSet('ascendbtn').style.backgroundColor = '#171717';
+    DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = player.currentChallenge.ascension === 0 ? '' : 'purple';
+
+    DOMCacheGetOrSet('ascendbtn').style.backgroundColor = player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 ? 'green' : '';
+
+    // Notify new players the reset
+    if (player.toggles[33] === true && player.singularityCount === 0) {
+        if (player.toggles[28] === true && player.unlocks.prestige === false) {
+            DOMCacheGetOrSet('prestigebtn').style.boxShadow = player.coinsThisPrestige.gte(1e16) ? 'cyan 0px 0px 10px 2px' : '';
+        }
+        if (player.toggles[29] === true && player.unlocks.transcend === false) {
+            DOMCacheGetOrSet('transcendbtn').style.boxShadow = player.coinsThisTranscension.gte(1e100) ? 'plum 0px 0px 10px 2px' : '';
+        }
+        if (player.toggles[30] === true && player.unlocks.reincarnate === false) {
+            DOMCacheGetOrSet('reincarnatebtn').style.boxShadow = player.transcendShards.gte(1e300) ? 'greenyellow 0px 0px 10px 2px' : '';
+        }
+        if (player.toggles[31] === true && player.ascensionCount === 0) {
+            DOMCacheGetOrSet('ascendbtn').style.boxShadow = player.challengecompletions[10] > 0 ? 'orange 0px 0px 10px 2px' : '';
+        }
+    }
 
     if (G['currentTab'] === 'buildings' && G['buildingSubTab'] === 'coin') {
         const a = DOMCacheGetOrSet('buycoin1');
@@ -699,11 +707,11 @@ export const buttoncolorchange = () => {
             k += 10
         }
 
-        (player.achievements[79] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][0] + G['crystalUpgradeCostIncrement'][0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2))))) ? f.style.backgroundColor = 'purple' : f.style.backgroundColor = '#171717';
-        (player.achievements[86] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][1] + G['crystalUpgradeCostIncrement'][1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2))))) ? g.style.backgroundColor = 'purple' : g.style.backgroundColor = '#171717';
-        (player.achievements[93] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][2] + G['crystalUpgradeCostIncrement'][2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2))))) ? h.style.backgroundColor = 'purple' : h.style.backgroundColor = '#171717';
-        (player.achievements[100] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][3] + G['crystalUpgradeCostIncrement'][3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2))))) ? i.style.backgroundColor = 'purple' : i.style.backgroundColor = '#171717';
-        (player.achievements[107] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][4] + G['crystalUpgradeCostIncrement'][4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2))))) ? j.style.backgroundColor = 'purple' : j.style.backgroundColor = '#171717';
+        (player.achievements[79] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][0] + G['crystalUpgradeCostIncrement'][0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2))))) ? f.style.backgroundColor = 'purple' : f.style.backgroundColor = '';
+        (player.achievements[86] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][1] + G['crystalUpgradeCostIncrement'][1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2))))) ? g.style.backgroundColor = 'purple' : g.style.backgroundColor = '';
+        (player.achievements[93] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][2] + G['crystalUpgradeCostIncrement'][2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2))))) ? h.style.backgroundColor = 'purple' : h.style.backgroundColor = '';
+        (player.achievements[100] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][3] + G['crystalUpgradeCostIncrement'][3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2))))) ? i.style.backgroundColor = 'purple' : i.style.backgroundColor = '';
+        (player.achievements[107] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][4] + G['crystalUpgradeCostIncrement'][4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2))))) ? j.style.backgroundColor = 'purple' : j.style.backgroundColor = '';
     }
 
     if (G['currentTab'] === 'runes') {
@@ -821,7 +829,7 @@ export const updateChallengeLevel = (k: number) => {
     const el = DOMCacheGetOrSet('challenge' + k + 'level');
     const maxChallenges = getMaxChallenges(k);
 
-    el.textContent = `${player.challengecompletions[k]} / ${maxChallenges}`;
+    el.textContent = `${player.challengecompletions[k]}/${maxChallenges}`;
 }
 
 export const updateAchievementBG = () => {

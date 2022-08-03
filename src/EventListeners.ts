@@ -1,10 +1,8 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, toggleLayout } from './Toggles'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
-import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyUpgrades, buyRuneBonusLevels, buyAllBlessings } from './Buy'
-import { crystalupgradedescriptions, constantUpgradeDescriptions, buyConstantUpgrades, upgradedescriptions } from './Upgrades'
-import { buyAutobuyers } from './Automation'
-import { buyGenerator } from './Generators'
+import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyRuneBonusLevels, buyAllBlessings } from './Buy'
+import { crystalupgradedescriptions, constantUpgradeDescriptions, buyConstantUpgrades, upgradedescriptions, clickUpgrades, categoryUpgrades } from './Upgrades'
 import { achievementdescriptions, achievementpointvalues } from './Achievements'
 import { displayRuneInformation, redeemShards } from './Runes'
 import { toggleTalismanBuy, buyTalismanResources, buyAllTalismanResources, showTalismanPrices, buyTalismanLevels, buyTalismanEnhance, showRespecInformation, respecTalismanConfirm, respecTalismanCancel, changeTalismanModifier, updateTalismanCostDisplay, showTalismanEffect, showEnhanceTalismanPrices } from './Talismans'
@@ -14,12 +12,12 @@ import { antRepeat, sacrificeAnts, buyAntProducers, updateAntDescription, antUpg
 import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
-import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, promocodesInfo, importSynergism, resetGame, errorGame } from './ImportExport'
+import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, promocodesInfo, importSynergism, resetGame, reloadDeleteGame } from './ImportExport'
 import { resetHistoryTogglePerSecond } from './History'
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, buyConsumable, useConsumable, shopData, shopUpgradeTypes } from './Shop'
-import { Globals as G, Upgrade } from './Variables';
+import { Globals as G } from './Variables';
 import { changeTabColor } from './UpdateHTML'
-import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp } from './Hepteracts'
+import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp, toggleAutoBuyOrbs } from './Hepteracts'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import type { OneToFive, Player } from './types/Synergism'
 import { displayStats } from './Statistics'
@@ -27,6 +25,7 @@ import { testing } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { toggleTheme } from './Themes'
 import { buyGoldenQuarks } from './singularity'
+import { resetHotkeys } from './Hotkeys'
 
 /* STYLE GUIDE */
 /*
@@ -74,7 +73,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('ascHyperStats').addEventListener('click', () => toggleAscStatPerSecond(3))
     DOMCacheGetOrSet('ascPlatonicStats').addEventListener('click', () => toggleAscStatPerSecond(4))
     DOMCacheGetOrSet('ascHepteractStats').addEventListener('click', () => toggleAscStatPerSecond(5))
-    DOMCacheGetOrSet('ascLen').addEventListener('click', () => toggleAscStatPerSecond(6))
+    DOMCacheGetOrSet('ascTimeTakenStats').addEventListener('click', () => toggleAscStatPerSecond(6))
     //Part 1: Reset Tiers
     //Onmouseover Events
     DOMCacheGetOrSet('prestigebtn').addEventListener('mouseover', () => resetrepeat('prestige'))
@@ -223,35 +222,13 @@ export const generateEventHandlers = () => {
         DOMCacheGetOrSet(`upg${index}`).addEventListener('mouseover', () => upgradedescriptions(index));
     }
 
-    // The first 80 upgrades (Coin-Particle upgrade) are annoying since there are four cases based on which resource is needed.
-    //Note: this part can almost certainly be improved, this was just the quickest implementation
-    //End of shit portion (This is used in the following for loop though)
-    for (let index = 1; index <= 20; index++) {
-        //Onclick events (Regular upgrades 1-80)
-        // Regular Upgrades 1-20
-        DOMCacheGetOrSet(`upg${index}`).addEventListener('click', () => buyUpgrades(Upgrade.coin,index));
-        // Regular Upgrades 21-40
-        DOMCacheGetOrSet(`upg${20+index}`).addEventListener('click', () => buyUpgrades(Upgrade.prestige,index+20));
-        // Regular Upgrades 41-60
-        DOMCacheGetOrSet(`upg${40+index}`).addEventListener('click', () => buyUpgrades(Upgrade.transcend,index+40));
-        // Regular Upgrades 61-80
-        DOMCacheGetOrSet(`upg${60+index}`).addEventListener('click', () => buyUpgrades(Upgrade.reincarnation,index+60));
+    // Generates all upgrade button events
+    for (let index = 1; index <= 125; index++) {
+        DOMCacheGetOrSet(`upg${index}`).addEventListener('click', () => clickUpgrades(index, false));
     }
 
-    // Autobuyer (20 count, ID 81-100) and Generator (20 count, ID 101-120) Upgrades have a unique onclick
-    for (let index = 1; index <= 20; index++) {
-        //Onclick events (Autobuyer upgrades)
-        DOMCacheGetOrSet(`upg${index + 80}`).addEventListener('click', () => buyAutobuyers(index));
-    }
-    for (let index = 1; index <= 20; index++) {
-        //Onclick events (Generator Upgrades)
-        DOMCacheGetOrSet(`upg${index + 100}`).addEventListener('click', () => buyGenerator(index));
-    }
-
-    // Upgrades 121-125 are upgrades similar to the first 80.
-    for (let index = 1; index <= 5; index++) {
-        //Onclick events (Upgrade 121-125)
-        DOMCacheGetOrSet(`upg${index + 120}`).addEventListener('click', () => buyUpgrades(Upgrade.coin,index));
+    for (let index = 1; index <= 6; index++) {
+        DOMCacheGetOrSet(`upgrades${index}`).addEventListener('click', () => categoryUpgrades(index, false));
     }
 
     // Next part: Shop-specific toggles
@@ -464,24 +441,28 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('open1000Cube').addEventListener('click', () => player.wowCubes.open(Math.floor(Number(player.wowCubes) / 2), false))
     DOMCacheGetOrSet('openCustomCube').addEventListener('click', () => player.wowCubes.openCustom());
     DOMCacheGetOrSet('openMostCube').addEventListener('click', () => player.wowCubes.open(1, true))
+    DOMCacheGetOrSet('openAutoOpenCube').addEventListener('click', () => player.wowCubes.autoOpenCustom());
     //Wow Tesseracts
     DOMCacheGetOrSet('open1Tesseract').addEventListener('click', () => player.wowTesseracts.open(1, false))
     DOMCacheGetOrSet('open20Tesseract').addEventListener('click', () => player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) / 10), false))
     DOMCacheGetOrSet('open1000Tesseract').addEventListener('click', () => player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) / 2), false))
     DOMCacheGetOrSet('openCustomTesseract').addEventListener('click', () => player.wowTesseracts.openCustom());
     DOMCacheGetOrSet('openMostTesseract').addEventListener('click', () => player.wowTesseracts.open(1, true))
+    DOMCacheGetOrSet('openAutoOpenTesseract').addEventListener('click', () => player.wowTesseracts.autoOpenCustom());
     //Wow Hypercubes
     DOMCacheGetOrSet('open1Hypercube').addEventListener('click', () => player.wowHypercubes.open(1, false))
     DOMCacheGetOrSet('open20Hypercube').addEventListener('click', () => player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) / 10), false))
     DOMCacheGetOrSet('open1000Hypercube').addEventListener('click', () => player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) / 2), false))
     DOMCacheGetOrSet('openCustomHypercube').addEventListener('click', () => player.wowHypercubes.openCustom());
     DOMCacheGetOrSet('openMostHypercube').addEventListener('click', () => player.wowHypercubes.open(1, true))
+    DOMCacheGetOrSet('openAutoOpenHypercube').addEventListener('click', () => player.wowHypercubes.autoOpenCustom());
     //Wow Platonic Cubes
     DOMCacheGetOrSet('open1PlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(1, false))
     DOMCacheGetOrSet('open40kPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) / 10), false))
     DOMCacheGetOrSet('open1mPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) / 2), false))
     DOMCacheGetOrSet('openCustomPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.openCustom());
     DOMCacheGetOrSet('openMostPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.open(1, true))
+    DOMCacheGetOrSet('openAutoOpenPlatonicCube').addEventListener('click', () => player.wowPlatonicCubes.autoOpenCustom());
 
     DOMCacheGetOrSet('saveOffToggle').addEventListener('click', () => toggleSaveOff())
     //Part 3: Platonic Upgrade Section
@@ -542,6 +523,8 @@ export const generateEventHandlers = () => {
 
     DOMCacheGetOrSet('hepteractToQuark').addEventListener('mouseover', () => hepteractToOverfluxOrbDescription())
     DOMCacheGetOrSet('hepteractToQuarkTrade').addEventListener('click', () => tradeHepteractToOverfluxOrb())
+    DOMCacheGetOrSet('hepteractToQuarkTradeMax').addEventListener('click', () => tradeHepteractToOverfluxOrb(true))
+    DOMCacheGetOrSet('hepteractToQuarkTradeAuto').addEventListener('click', () => toggleAutoBuyOrbs())
     DOMCacheGetOrSet('overfluxPowder').addEventListener('mouseover', () => overfluxPowderDescription())
     DOMCacheGetOrSet('powderDayWarp').addEventListener('click', () => overfluxPowderWarp())
 
@@ -577,18 +560,21 @@ export const generateEventHandlers = () => {
     /*Export Files*/ DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
     /*Update name of File*/
     DOMCacheGetOrSet('saveStringInput').addEventListener('blur', e => updateSaveString(e.target as HTMLInputElement));
-    /*Save Game Button*/ DOMCacheGetOrSet('savegame').addEventListener('click', () => saveSynergy(true))
+    /*Save Game Button*/ DOMCacheGetOrSet('savegame').addEventListener('click', ({ target }) => saveSynergy(true, target as HTMLButtonElement))
     /*Delete Save Button*/ DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
-    /*Delete Save Button*/ DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => errorGame())
+    /*Delete Save Button*/ DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
     /*Submit Stats [Note: will eventually become obsolete if kong closes]*/ // DOMCacheGetOrSet('submitstats').addEventListener('click', () => submitStats())
     /*Promotion Codes*/ DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
     /*Special action add*/ DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
     DOMCacheGetOrSet('addCode').addEventListener('mouseover', () => promocodesInfo('add'))
+    /*Special action add one*/ DOMCacheGetOrSet('addCodeOne').addEventListener('click', () => promocodes('add', 1))
+    DOMCacheGetOrSet('addCodeOne').addEventListener('mouseover', () => promocodesInfo('add'))
     /*Special action daily*/ DOMCacheGetOrSet('dailyCode').addEventListener('click', () => promocodes('daily'))
     DOMCacheGetOrSet('dailyCode').addEventListener('mouseover', () => promocodesInfo('daily'))
     /*Special action time*/ DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
     DOMCacheGetOrSet('timeCode').addEventListener('mouseover', () => promocodesInfo('time'))
     /*Toggle Ascension Per-Second Setting*/ DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
+    /*ResetHotkeys Button*/ DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
 
     // SHOP TAB
 
@@ -673,5 +659,4 @@ TODO: Fix this entire tab it's utter shit
     });
 
     DOMCacheGetOrSet('theme').addEventListener('click', toggleTheme);
-    DOMCacheGetOrSet('layout').addEventListener('click', toggleLayout);
 }

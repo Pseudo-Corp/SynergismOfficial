@@ -6,6 +6,7 @@ import { calculateRuneLevels } from './Calculate';
 import { hepteractEffective } from './Hepteracts';
 import { productContents } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { autoResearchEnabled } from './Research';
 
 export const getMaxChallenges = (i: number) => {
     let maxChallenge = 0;
@@ -379,7 +380,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     }
 
     if (changefocus) {
-        DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.display = i <= 10 && player.researches[150] > 0 ? 'block' : 'none';
+        DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.display = i <= (autoAscensionChallengeSweepUnlock() ? 15 : 10) && player.researches[150] > 0 ? 'block' : 'none';
         DOMCacheGetOrSet('toggleAutoChallengeIgnore').style.border = player.autoChallengeToggles[i] ? '2px solid green' : '2px solid red'
         DOMCacheGetOrSet('toggleAutoChallengeIgnore').textContent = `Automatically Run Chal.${i} [${player.autoChallengeToggles[i] ? 'ON' : 'OFF'}]`
     }
@@ -426,6 +427,11 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
     }
     if (player.ascensionCount === 0) {
         player.worlds.add(1 + Math.floor(highestValue * multiplier) * 100 / 100)
+    }
+    // Addresses a bug where auto research does not work even if you unlock research
+    if (autoResearchEnabled() && player.ascensionCount === 0 && chalNum >= 6 && chalNum <= 10) {
+        player.roombaResearchIndex = 0;
+        player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex];
     }
 }
 
@@ -557,7 +563,7 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     } else if (challenge <= 14) {
         return calculateChallengeRequirementMultiplier('ascension', completion, special)
     } else if (challenge === 15) {
-        return Decimal.pow(10, 1 * Math.pow(10, 33) * calculateChallengeRequirementMultiplier('ascension', completion, special))
+        return Decimal.pow(10, 1 * Math.pow(10, 133.7) * calculateChallengeRequirementMultiplier('ascension', completion, special))
     } else {
         return 0
     }
@@ -596,6 +602,16 @@ export const runChallengeSweep = (dt: number) => {
         action = 'enter';
     }
 
+    // In order to earn C15 Exponent, stop runChallengeSweep() 5 seconds before the auto ascension
+    // runs during the C15, Auto Challenge Sweep, Autcension and Mode: Real Time.
+    if (autoAscensionChallengeSweepUnlock() && player.currentChallenge.ascension === 15 && (action === 'start' || action === 'enter') &&
+        player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 &&
+        player.autoAscendMode === 'realAscensionTime' && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold - 5)) {
+        action = 'wait';
+        toggleAutoChallengeModeText('WAIT');
+        return;
+    }
+
     // Action: Exit challenge
     if (G['autoChallengeTimerIncrement'] >= player.autoChallengeTimer.exit && action === 'exit') {
 
@@ -608,11 +624,6 @@ export const runChallengeSweep = (dt: number) => {
         // Increment our challenge index for when we enter (or start) next challenge
         const nowChallenge = player.autoChallengeIndex;
         const nextChallenge = getNextChallenge(nowChallenge + 1);
-
-        // If the next challenge is a same challenge, you do not need to change it.
-        if (nowChallenge === nextChallenge) {
-            return;
-        }
 
         // Reset based on challenge type
         if (challengeType === 'transcension') {
@@ -664,14 +675,14 @@ export const runChallengeSweep = (dt: number) => {
 }
 
 // Look for the next uncompleted challenge.
-const getNextChallenge = (startChallenge: number) => {
+export const getNextChallenge = (startChallenge: number, maxSkip = false, min = 1, max = 10) => {
     let nextChallenge = startChallenge;
     /* Calculate the smallest challenge index we want to enter.
        Our minimum is the current index, but if that challenge is fully completed
        or toggled off we shouldn't run it, so we increment upwards in these cases. */
-    for (let index = nextChallenge; index <= 10; index++) {
+    for (let index = nextChallenge; index <= max; index++) {
         if (!player.autoChallengeToggles[index] ||
-            player.highestchallengecompletions[index] >= getMaxChallenges(index)) {
+            (maxSkip === false && index !== 15 && player.highestchallengecompletions[index] >= getMaxChallenges(index))) {
             nextChallenge += 1;
         } else {
             break;
@@ -681,12 +692,12 @@ const getNextChallenge = (startChallenge: number) => {
     /* If the above algorithm sets the index above 10, the loop is complete
        and thus do not need to enter more challenges. This sets our index to 1
        so in the next iteration it knows we want to start a loop. */
-    if (nextChallenge > 10) {
+    if (nextChallenge > max) {
         // If the challenge reaches 11 or higher, return it to 1 and check again.
-        nextChallenge = 1;
-        for (let index = nextChallenge; index <= 10; index++) {
+        nextChallenge = min;
+        for (let index = nextChallenge; index <= max; index++) {
             if (!player.autoChallengeToggles[index] ||
-                player.highestchallengecompletions[index] >= getMaxChallenges(index)) {
+                (maxSkip === false && index !== 15 && player.highestchallengecompletions[index] >= getMaxChallenges(index))) {
                 nextChallenge += 1;
             } else {
                 break;
@@ -694,6 +705,10 @@ const getNextChallenge = (startChallenge: number) => {
         }
     }
     return nextChallenge;
+}
+
+export const autoAscensionChallengeSweepUnlock = () => {
+    return player.singularityCount >= 101;
 }
 
 export const challenge15ScoreMultiplier = () => {

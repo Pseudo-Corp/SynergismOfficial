@@ -16,6 +16,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import type { IMultiBuy } from './Cubes';
 import { calculateMaxTalismanLevel } from './Talismans';
 import { getGoldenQuarkCost } from './singularity';
+import { loadStatisticsUpdate } from './Statistics';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== 'buildings') {
@@ -199,7 +200,7 @@ export const visualUpdateRunes = () => {
             }
             const runeLevel = player.runelevels[i - 1]
             const maxLevel = calculateMaxRunes(i)
-            DOMCacheGetOrSet(`rune${i}level`).childNodes[0].textContent = (player.ascensionCount > 0 && maxLevel > 999 ? '' : 'Level: ') + format(runeLevel) + '/' + format(maxLevel)
+            DOMCacheGetOrSet(`rune${i}level`).childNodes[0].textContent = 'Level: ' + format(runeLevel) + '/' + format(maxLevel)
             if (runeLevel < maxLevel) {
                 DOMCacheGetOrSet(`rune${i}exp`).textContent = `+1 in ${format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2)} EXP`
             } else {
@@ -302,7 +303,7 @@ export const visualUpdateAnts = () => {
     DOMCacheGetOrSet('crumbcount').textContent = 'You have ' + format(player.antPoints, 2) + ' Galactic Crumbs [' + format(G['antOneProduce'], 2) + '/s], providing a ' + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[1]! + G['bonusant2']) / 5000 * 500 / 499))) + 'x Coin Multiplier.'
     const mode = player.autoAntSacrificeMode === 2 ? 'Real-time' : 'In-game time';
     const timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
-    DOMCacheGetOrSet('autoAntSacrifice').textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer)}`
+    DOMCacheGetOrSet('autoAntSacrifice').textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer, 2)}`
     if (player.achievements[173] === 1) {
         DOMCacheGetOrSet('antSacrificeTimer').textContent = formatTimeShort(player.antSacrificeTimer);
         showSacrifice();
@@ -477,7 +478,6 @@ export const visualUpdateCorruptions = () => {
         return
     }
 
-    DOMCacheGetOrSet('autoAscendMetric').textContent = format(player.autoAscendThreshold, 0, true)
     const metaData = CalcCorruptionStuff();
     const ascCount = calcAscensionCount();
 
@@ -505,39 +505,29 @@ export const visualUpdateCorruptions = () => {
 }
 
 export const visualUpdateSettings = () => {
-    if (G['currentTab'] !== 'settings' || player.subtabNumber !== 0) {
+    if (G['currentTab'] !== 'settings') {
         return
     }
-    //I was unable to clean this up in a way that didn't somehow make it less clean, sorry.
-    DOMCacheGetOrSet('prestigeCountStatistic').childNodes[1].textContent = format(player.prestigeCount, 0, true)
-    DOMCacheGetOrSet('transcensionCountStatistic').childNodes[1].textContent = format(player.transcendCount, 0, true)
-    DOMCacheGetOrSet('reincarnationCountStatistic').childNodes[1].textContent = format(player.reincarnationCount, 0, true)
-    DOMCacheGetOrSet('fastestPrestigeStatistic').childNodes[1].textContent = format(1000 * player.fastestprestige) + 'ms'
-    DOMCacheGetOrSet('fastestTranscensionStatistic').childNodes[1].textContent = format(1000 * player.fastesttranscend) + 'ms'
-    DOMCacheGetOrSet('fastestReincarnationStatistic').childNodes[1].textContent = format(1000 * player.fastestreincarnate) + 'ms'
-    DOMCacheGetOrSet('mostOfferingStatistic').childNodes[1].textContent = format(player.maxofferings)
-    DOMCacheGetOrSet('mostObtainiumStatistic').childNodes[1].textContent = format(player.maxobtainium)
-    DOMCacheGetOrSet('mostObtainiumPerSecondStatistic').childNodes[1].textContent = format(player.maxobtainiumpersecond, 2, true)
-    DOMCacheGetOrSet('runeSumStatistic').childNodes[1].textContent = format(G['runeSum'])
-    DOMCacheGetOrSet('obtainiumPerSecondStatistic').childNodes[1].textContent = format(player.obtainiumpersecond, 2, true)
-    DOMCacheGetOrSet('ascensionCountStatistic').childNodes[1].textContent = format(player.ascensionCount, 0, true)
-    DOMCacheGetOrSet('totalQuarkCountStatistic').childNodes[1].textContent = format(player.quarksThisSingularity, 0, true)
 
-    DOMCacheGetOrSet('saveString').textContent =
-        `Currently: ${player.saveString.replace('$VERSION$', 'v' + version)}`;
+    if (player.subtabNumber === 0) {
+        DOMCacheGetOrSet('saveString').textContent =
+            `Currently: ${player.saveString.replace('$VERSION$', 'v' + version)}`;
 
-    const quarkData = quarkHandler();
-    const onExportQuarks = quarkData.gain
-    const maxExportQuarks = quarkData.capacity
-    const patreonLOL = 1 + player.worlds.BONUS / 100
-    DOMCacheGetOrSet('quarktimerdisplay').textContent = format((3600 / (quarkData.perHour) - (player.quarkstimer % (3600.00001 / (quarkData.perHour)))), 2) + 's until +' + player.worlds.toString(1) + ' export Quark'
-    DOMCacheGetOrSet('quarktimeramount').textContent =
-        `Quarks on export: ${player.worlds.toString(onExportQuarks)} [Max ${player.worlds.toString(maxExportQuarks)}]`;
+        const quarkData = quarkHandler();
+        const onExportQuarks = quarkData.gain
+        const maxExportQuarks = quarkData.capacity
+        const patreonLOL = 1 + player.worlds.BONUS / 100
+        DOMCacheGetOrSet('quarktimerdisplay').textContent = format((3600 / (quarkData.perHour) - (player.quarkstimer % (3600.00001 / (quarkData.perHour)))), 2) + 's until +' + player.worlds.toString(1) + ' export Quark'
+        DOMCacheGetOrSet('quarktimeramount').textContent =
+            `Quarks on export: ${player.worlds.toString(onExportQuarks)} [Max ${player.worlds.toString(maxExportQuarks)}]`;
 
-    DOMCacheGetOrSet('goldenQuarkTimerDisplay').textContent = format(3600 / Math.max(1, +player.singularityUpgrades.goldenQuarks3.getEffect().bonus) - (player.goldenQuarksTimer % (3600.00001 / Math.max(1,+player.singularityUpgrades.goldenQuarks3.getEffect().bonus)))) + 's until +' + format(patreonLOL, 2, true) + ' export Golden Quark'
-    DOMCacheGetOrSet('goldenQuarkTimerAmount').textContent =
-        `Golden Quarks on export: ${format(Math.floor(player.goldenQuarksTimer * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus/ 3600) * patreonLOL, 2)} [Max ${format(Math.floor(168 * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus * patreonLOL))}]`
-
+        DOMCacheGetOrSet('goldenQuarkTimerDisplay').textContent = format(3600 / Math.max(1, +player.singularityUpgrades.goldenQuarks3.getEffect().bonus) - (player.goldenQuarksTimer % (3600.00001 / Math.max(1,+player.singularityUpgrades.goldenQuarks3.getEffect().bonus)))) + 's until +' + format(patreonLOL, 2, true) + ' export Golden Quark'
+        DOMCacheGetOrSet('goldenQuarkTimerAmount').textContent =
+            `Golden Quarks on export: ${format(Math.floor(player.goldenQuarksTimer * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus/ 3600) * patreonLOL, 2)} [Max ${format(Math.floor(168 * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus * patreonLOL))}]`
+    }
+    if (player.subtabNumber === 2) {
+        loadStatisticsUpdate();
+    }
 }
 
 export const visualUpdateSingularity = () => {

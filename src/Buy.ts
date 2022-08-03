@@ -125,7 +125,7 @@ export const buyAccelerator = (autobuyer?: boolean) => {
 const getCostMultiplier = (buyingTo: number) => {
     --buyingTo;
 
-    const originalCost = 1e5;
+    const originalCost = 1e4;
     let cost = new Decimal(originalCost);
     cost = cost.times(Decimal.pow(10, buyingTo / G['costDivisor']));
 
@@ -278,7 +278,7 @@ const known_log10s = function () {
     return obj;
 }();
 
-const coinBuildingCosts = [100, 2000, 4e4, 8e5, 1.6e7] as const;
+const coinBuildingCosts = [100, 1000, 2e4, 4e5, 8e6] as const;
 const diamondBuildingCosts = [100, 1e5, 1e15, 1e40, 1e100] as const;
 const mythosAndParticleBuildingCosts = [1, 1e2, 1e4, 1e8, 1e16] as const;
 

@@ -1,4 +1,4 @@
-import { player, format } from './Synergism';
+import { player, format, formatTimeShort } from './Synergism';
 import { Globals as G } from './Variables';
 import { hepteractEffective } from './Hepteracts'
 import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff } from './Calculate';
@@ -25,15 +25,64 @@ const associated = new Map<string, string>([
 
 export const displayStats = (btn: HTMLElement) => {
     for (const e of Array.from(btn.parentElement!.children) as HTMLElement[]) {
+        const statsEl = DOMCacheGetOrSet(associated.get(e.id)!);
         if (e.id !== btn.id) {
             e.style.backgroundColor = '';
-            DOMCacheGetOrSet(associated.get(e.id)!).style.display = 'none';
+            statsEl.style.display = 'none';
+            statsEl.classList.remove('activeStats');
+        } else {
+            e.style.backgroundColor = 'crimson';
+            statsEl.style.display = 'block';
+            statsEl.classList.add('activeStats');
         }
     }
+}
 
-    const statsEl = DOMCacheGetOrSet(associated.get(btn.id)!);
-    statsEl.style.display = 'block';
-    btn.style.backgroundColor = 'crimson';
+export const loadStatisticsUpdate = () => {
+    const activeStats = document.getElementsByClassName('activeStats') as HTMLCollectionOf<HTMLElement>;
+    for (let i = 0; i < activeStats.length; i++) {
+        switch (activeStats[i].id) {
+            case 'miscStats':
+                loadStatisticsMiscellaneous();
+                break;
+            case 'acceleratorStats':
+                loadStatisticsAccelerator();
+                break;
+            case 'multiplierStats':
+                loadStatisticsMultiplier();
+                break;
+            case 'offeringMultiplierStats':
+                loadStatisticsOfferingMultipliers();
+                break;
+            case 'globalQuarkMultiplierStats':
+                loadQuarkMultiplier();
+                break;
+            case 'powderMultiplierStats':
+                loadPowderMultiplier();
+                break;
+            default:
+                loadStatisticsCubeMultipliers();
+                break;
+        }
+    }
+}
+
+export const loadStatisticsMiscellaneous = () => {
+    DOMCacheGetOrSet('sMisc1').textContent = format(player.prestigeCount, 0, true)
+    DOMCacheGetOrSet('sMisc2').textContent = format(1000 * player.fastestprestige) + 'ms'
+    DOMCacheGetOrSet('sMisc3').textContent = format(player.maxofferings)
+    DOMCacheGetOrSet('sMisc4').textContent = format(G['runeSum'])
+    DOMCacheGetOrSet('sMisc5').textContent = format(player.transcendCount, 0, true)
+    DOMCacheGetOrSet('sMisc6').textContent = format(1000 * player.fastesttranscend) + 'ms'
+    DOMCacheGetOrSet('sMisc7').textContent = format(player.reincarnationCount, 0, true)
+    DOMCacheGetOrSet('sMisc8').textContent = format(1000 * player.fastestreincarnate) + 'ms'
+    DOMCacheGetOrSet('sMisc9').textContent = format(player.maxobtainium)
+    DOMCacheGetOrSet('sMisc10').textContent = format(player.maxobtainiumpersecond, 2, true)
+    DOMCacheGetOrSet('sMisc11').textContent = format(player.obtainiumpersecond, 2, true)
+    DOMCacheGetOrSet('sMisc12').textContent = format(player.ascensionCount, 0, true)
+    DOMCacheGetOrSet('sMisc13').textContent = format(player.quarksThisSingularity, 0, true)
+    DOMCacheGetOrSet('sMisc14').textContent = formatTimeShort(player.quarkstimer, 0, true) + ' / ' + formatTimeShort(90000 + 18000 * player.researches[195], 0, true)
+    DOMCacheGetOrSet('sMisc15').textContent = synergismStage('name', 0)
 }
 
 export const loadStatisticsAccelerator = () => {
@@ -543,4 +592,49 @@ const updateDisplayC15Rewards = () => {
             ? 'You have unlocked all reward types from Challenge 15!'
             : 'Next reward type requires ' + format(keepExponent,0,true) + ' exponent.'
     }
+}
+
+interface Stage { stage: number, tier: number, name: string, unlocked: boolean, reset: boolean }
+type Stages = Record<number, Stage>;
+
+export const gameStages = () => {
+    const stages: Stages = {
+        0: {stage: 0, tier: 1, name: 'start', unlocked: true, reset: true},
+        1: {stage: 1, tier: 1, name: 'start-prestige', unlocked: player.unlocks.prestige === true, reset: player.unlocks.prestige},
+        2: {stage: 2, tier: 2, name: 'prestige-transcend', unlocked: player.unlocks.transcend === true, reset: player.unlocks.transcend},
+        3: {stage: 3, tier: 3, name: 'transcend-reincarnate', unlocked: player.unlocks.reincarnate === true, reset: player.unlocks.reincarnate},
+        4: {stage: 4, tier: 4, name: 'reincarnate-ant', unlocked: player.firstOwnedAnts !== 0, reset: player.unlocks.reincarnate},
+        5: {stage: 5, tier: 4, name: 'ant-sacrifice', unlocked: player.achievements[173] === 1, reset: player.unlocks.reincarnate},
+        6: {stage: 6, tier: 4, name: 'sacrifice-ascension', unlocked: player.achievements[183] === 1, reset: player.unlocks.reincarnate},
+        7: {stage: 7, tier: 5, name: 'ascension-challenge10', unlocked: player.ascensionCount > 1, reset: player.achievements[183] === 1},
+        8: {stage: 8, tier: 5, name: 'challenge10-challenge11', unlocked: player.achievements[197] === 1, reset: player.achievements[183] === 1},
+        9: {stage: 9, tier: 5, name: 'challenge11-challenge12', unlocked: player.achievements[204] === 1, reset: player.achievements[183] === 1},
+        10: {stage: 10, tier: 5, name: 'challenge12-challenge13', unlocked: player.achievements[211] === 1, reset: player.achievements[183] === 1},
+        11: {stage: 11, tier: 5, name: 'challenge13-challenge14', unlocked: player.achievements[218] === 1, reset: player.achievements[183] === 1},
+        12: {stage: 12, tier: 5, name: 'challenge14-w5x10max', unlocked: player.cubeUpgrades[50] >= 100000, reset: player.achievements[183] === 1},
+        13: {stage: 13, tier: 5, name: 'w5x10max-alpha', unlocked: player.platonicUpgrades[5] > 0, reset: player.achievements[183] === 1},
+        14: {stage: 14, tier: 5, name: 'alpha-p2x1x10', unlocked: player.platonicUpgrades[6] >= 10, reset: player.achievements[183] === 1},
+        15: {stage: 15, tier: 5, name: 'p2x1x10-p3x1', unlocked: player.platonicUpgrades[11] > 0, reset: player.achievements[183] === 1},
+        16: {stage: 16, tier: 5, name: 'p3x1-beta', unlocked: player.platonicUpgrades[10] > 0, reset: player.achievements[183] === 1},
+        17: {stage: 17, tier: 5, name: 'beta-1e15-expo', unlocked: player.challenge15Exponent >= 1e15, reset: player.achievements[183] === 1},
+        18: {stage: 18, tier: 5, name: '1e15-expo-omega', unlocked: player.platonicUpgrades[15] > 0, reset: player.achievements[183] === 1},
+        19: {stage: 19, tier: 5, name: 'omega-singularity', unlocked: player.singularityCount > 0 && player.runelevels[6] > 0, reset: player.achievements[183] === 1},
+        20: {stage: 20, tier: 6, name: 'singularity-octeracts', unlocked: player.singularityUpgrades.octeractUnlock.level > 0, reset: player.singularityCount > 0},
+        21: {stage: 21, tier: 6, name: 'octeracts', unlocked: false, reset: player.singularityCount > 0}
+    }
+    return stages;
+}
+
+// Calculate which progress in the game you are playing
+// The progress displayed is based on Progression Chat and Questions
+// This will be used to determine the behavior of the profile of the autopilot function in the future
+export const synergismStage = (index = 'name', skipTier = player.singularityCount > 0 ? 5 : 0): string => {
+    const stages = gameStages();
+    for (const i in stages) {
+        const stage = stages[i];
+        if (skipTier < stage.tier && (!stage.reset || !stage.unlocked)) {
+            return stage[index as keyof Stage];
+        }
+    }
+    return stages[0][index as keyof Stage];
 }

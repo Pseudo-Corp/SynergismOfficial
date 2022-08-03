@@ -283,7 +283,7 @@ const resetHistoryRenderRow = (
     const kindMeta = historyKinds[data.kind];
 
     const localDate = new Date(data.date).toLocaleString();
-    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
+    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img alt="${data.kind}" src="${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
 
     // Carefully loop through everything we need to print in the right order, and add it to the gains array if present.
     const gains: string[] = [];
@@ -372,7 +372,7 @@ function clickHandlerForLoadCorruptionsButton(btn: HTMLElement) {
     const corruptions = btn.getAttribute('data-corr');
     if (corruptions) {
         applyCorruptions(corruptions);
-        void Notification('Corruption Loadout from previous run has been applied. This will take effect on the next ascension.', 5000);
+        void Notification('Corruption Loadout from previous run has been applied. This will take effect on the next Ascension.', 5000);
     }
 }
 
@@ -397,11 +397,15 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
     let score = 'Score: ' + format(data.corruptionScore, 0, false);
     let corruptions = '';
     let loadout = '';
+    let corrs = 0;
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
-        const corruptionIdx = i+2;
+        const corruptionIdx = i + 2;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
-            corruptions += ` <img alt="${resetHistoryCorruptionTitles[i]}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
+            corruptions += `<img alt="${corrs > 0 ? '/' : ''}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
+        } else {
+            corruptions += `<span>${corrs > 0 ? '/0' : '0'}</span>`;
         }
+        corrs++;
     }
     if (corruptions) {
         loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr="${data.usedCorruptions.join('/')}">Load</button>`;
