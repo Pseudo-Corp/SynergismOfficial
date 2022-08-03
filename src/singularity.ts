@@ -502,7 +502,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: `You ${(n > 0) ? 'have': 'have not'} found the reason for existence ${(n > 0) ? '' : ' just yet'}.`
+                desc: `You ${(n > 0) ? 'have': 'have not'} found the reason for existence${(n > 0) ? '' : ' just yet'}.`
             }
         }
     },

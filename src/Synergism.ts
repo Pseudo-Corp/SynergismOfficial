@@ -34,7 +34,7 @@ import { autoResearchEnabled } from './Research';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import { checkVariablesOnLoad } from './CheckVariables';
-import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
+import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract, toggleAutoBuyOrbs } from './Hepteracts';
 import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { updatePlatonicUpgradeBG } from './Platonic';
@@ -1732,6 +1732,7 @@ const loadSynergy = async () => {
         }
 
         DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
+        toggleAutoBuyOrbs(true, true);
 
         toggleTalismanBuy(player.buyTalismanShardPercent);
         updateTalismanInventory();

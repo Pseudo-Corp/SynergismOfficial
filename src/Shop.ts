@@ -593,7 +593,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = 'CURRENT Effect: Ascensions give ' + format(player.shopUpgrades.seasonPass2) + '% more Hypercubes and Platonic Cubes.'
             break;
         case 'seasonPass3':
-            lol.textContent = 'CURRENT Effect: Ascensions give ' + format(player.shopUpgrades.seasonPass3) + '% more Hepteracts and Octarets.'
+            lol.textContent = 'CURRENT Effect: Ascensions give ' + format(player.shopUpgrades.seasonPass3) + '% more Hepteracts and Octeracts.'
             break;
         case 'chronometer':
             lol.textContent = 'CURRENT Effect: Ascension timer runs ' + format(player.shopUpgrades.chronometer) + '% faster.'

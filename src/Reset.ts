@@ -2,7 +2,7 @@ import { player, clearInt, interval, format, blankSave } from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
-    calcAscensionCount, calculateGoldenQuarkGain} from './Calculate';
+    calcAscensionCount, calculateGoldenQuarkGain, calculatePowderConversion} from './Calculate';
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
@@ -648,6 +648,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             if (player.overfluxOrbsAutoBuy) {
                 const orbsAmount = Math.floor(heptAutoSpend / 250000);
                 player.overfluxOrbs += orbsAmount;
+                player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion().mult * orbsAmount / 100;
                 player.wowAbyssals -= 250000 * orbsAmount;
             }
         }
