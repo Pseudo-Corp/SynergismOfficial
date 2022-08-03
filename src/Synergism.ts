@@ -474,7 +474,11 @@ export const player: Player = {
         improveQuarkHept: 0,
         improveQuarkHept2: 0,
         improveQuarkHept3: 0,
-        improveQuarkHept4: 0
+        improveQuarkHept4: 0,
+        shopImprovedDaily: 0,
+        shopImprovedDaily2: 0,
+        shopImprovedDaily3: 0,
+        shopImprovedDaily4: 0
     },
     shopBuyMaxToggle: false,
     shopHideToggle: false,
@@ -2804,7 +2808,7 @@ export const updateAntMultipliers = (): void => {
     G['globalAntMult'] = Decimal.pow(G['globalAntMult'], G['extinctionMultiplier'][player.usedCorruptions[7]])
     G['globalAntMult'] = G['globalAntMult'].times(G['challenge15Rewards'].antSpeed)
     //V2.5.0: Moved ant shop upgrade as 'uncorruptable'
-    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.125, player.shopUpgrades.antSpeed));
+    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.2, player.shopUpgrades.antSpeed));
 
 
     if (player.platonicUpgrades[12] > 0) {

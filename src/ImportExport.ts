@@ -345,6 +345,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
             }
             let rolls = 3 * Math.sqrt(player.singularityCount)
             rolls += +player.octeractUpgrades.octeractImprovedDaily.getEffect().bonus
+            rolls += player.shopUpgrades.shopImprovedDaily2
+            rolls += player.shopUpgrades.shopImprovedDaily3
+            rolls += player.shopUpgrades.shopImprovedDaily4
             rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
             rolls = Math.floor(rolls)
 
@@ -650,8 +653,14 @@ function dailyCodeReward() {
         quarks += 2500
     } // at least 5k
 
+    quarks *= 1 + 0.05 * player.shopUpgrades.shopImprovedDaily
+    quarks = Math.floor(quarks)
+
     if (singularity) {
         goldenQuarks += 2 + 3 * player.singularityCount
+        goldenQuarks *= 1 + 0.2 * player.shopUpgrades.shopImprovedDaily2
+        goldenQuarks *= 1 + 0.15 * player.shopUpgrades.shopImprovedDaily3
+        goldenQuarks *= 1 + player.shopUpgrades.shopImprovedDaily4
     }
 
     return {

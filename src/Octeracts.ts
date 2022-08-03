@@ -193,7 +193,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     octeractImprovedDaily: {
         name: 'CHONKER Daily Code',
-        description: 'Derpsmith hacks into the source code, and adds +1 free GQ upgrade per day from Daily.',
+        description: 'Derpsmith hacks into the source code, and adds +1 free Singularity upgrade per day from Daily.',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(1.6, level)
         },
@@ -202,13 +202,13 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: `Code 'daily' gives +${n} GQ upgrades per use.`
+                desc: `Code 'daily' gives +${n} free Singularity upgrades per use.`
             }
         }
     },
     octeractImprovedDaily2: {
         name: 'CHONKERER Daily Code',
-        description: 'Derpsmith implemented hyperspeed multiplication. +2% more GQ upgrades per day from Daily!',
+        description: 'Derpsmith implemented hyperspeed multiplication. +1% more free Singularity upgrades per day from Daily!',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(2, level)
         },
@@ -216,8 +216,8 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costPerLevel: 1e-2,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.02 * n,
-                desc: `Code 'daily' gives +${2 * n}% more GQ upgrades per use.`
+                bonus: 1 + 0.01 * n,
+                desc: `Code 'daily' gives +${n}% more free Singularity upgrades per use.`
             }
         }
     },
@@ -350,7 +350,7 @@ export const octeractGainPerSecond = () => {
     const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
 
     const valueMultipliers = [
-        1 + player.shopUpgrades.seasonPass3 / 100,
+        1 + 1.5 * player.shopUpgrades.seasonPass3 / 100,
         1 + player.shopUpgrades.seasonPassY / 200,
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
         1 + player.shopUpgrades.seasonPassLost / 1000,

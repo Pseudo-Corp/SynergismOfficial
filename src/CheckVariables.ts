@@ -444,7 +444,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             improveQuarkHept: 0,
             improveQuarkHept2: 0,
             improveQuarkHept3: 0,
-            improveQuarkHept4: 0
+            improveQuarkHept4: 0,
+            shopImprovedDaily: 0,
+            shopImprovedDaily2: 0,
+            shopImprovedDaily3: 0,
+            shopImprovedDaily4: 0
         }
 
         player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false);
