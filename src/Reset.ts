@@ -968,6 +968,7 @@ export const singularity = async (): Promise<void> => {
     hold.shopUpgrades = player.shopUpgrades;
     hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
     hold.singularityUpgrades = player.singularityUpgrades
+    hold.octeractUpgrades = player.octeractUpgrades
     hold.autoChallengeToggles = player.autoChallengeToggles
     hold.autoChallengeTimer = player.autoChallengeTimer
     hold.saveString = player.saveString
@@ -1029,6 +1030,8 @@ export const singularity = async (): Promise<void> => {
     hold.shopConfirmationToggle = player.shopConfirmationToggle
     hold.researchBuyMaxToggle = player.researchBuyMaxToggle
     hold.cubeUpgradesBuyMaxToggle = player.cubeUpgradesBuyMaxToggle
+    hold.wowOcteracts = player.wowOcteracts
+    hold.totalWowOcteracts = player.totalWowOcteracts
     hold.overfluxOrbsAutoBuy = player.overfluxOrbsAutoBuy
     hold.hotkeys = player.hotkeys
     hold.cubeAutoOpenPercentage = player.cubeAutoOpenPercentage
@@ -1042,14 +1045,16 @@ export const singularity = async (): Promise<void> => {
         }
     }
 
+    const saveCode42 = player.codes.get(42) ?? false
     // Import Game
+
     await importSynergism(btoa(JSON.stringify(hold)), true);
 
     // TODO: Do not enable data that has never used an event code
     player.codes.set(39, true);
     player.codes.set(40, true);
     player.codes.set(41, true);
-
+    player.codes.set(42, saveCode42)
     updateSingularityMilestoneAwards();
 }
 

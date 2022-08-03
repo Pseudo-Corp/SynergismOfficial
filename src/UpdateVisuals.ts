@@ -3,7 +3,7 @@ import { Globals as G } from './Variables';
 import { player, format, formatTimeShort } from './Synergism';
 import { version } from './Config';
 import { CalcECC } from './Challenges';
-import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear } from './Calculate';
+import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear, calculateTotalOcteractCubeBonus, calculateTotalOcteractQuarkBonus } from './Calculate';
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
@@ -17,6 +17,7 @@ import type { IMultiBuy } from './Cubes';
 import { calculateMaxTalismanLevel } from './Talismans';
 import { getGoldenQuarkCost } from './singularity';
 import { loadStatisticsUpdate } from './Statistics';
+import { octeractGainPerSecond } from './Octeracts';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== 'buildings') {
@@ -537,6 +538,18 @@ export const visualUpdateSingularity = () => {
     DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
 }
 
+export const visualUpdateOcteracts = () => {
+    if (G['currentTab'] !== 'singularity') {
+        return
+    }
+    DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true, true, true)
+    DOMCacheGetOrSet('sPO').textContent = format(1 / octeractGainPerSecond(), 2, true)
+
+    DOMCacheGetOrSet('totalOcts').textContent = format(player.totalWowOcteracts, 2, true, true, true)
+    DOMCacheGetOrSet('octCubeBonus').textContent = format((calculateTotalOcteractCubeBonus() - 1) * 100, 2, true)
+    DOMCacheGetOrSet('octQuarkBonus').textContent = format((calculateTotalOcteractQuarkBonus() - 1) * 100, 2, true)
+}
+
 export const visualUpdateShop = () => {
     if (G['currentTab'] !== 'shop') {
         return
@@ -581,6 +594,8 @@ export const visualUpdateShop = () => {
             const shopUnlock8 = document.getElementsByClassName('hepteractsShop') as HTMLCollectionOf<HTMLElement>;
             const singularityShopItems = document.getElementsByClassName('singularityShopUnlock') as HTMLCollectionOf<HTMLElement>;
             const singularityShopItems2 = document.getElementsByClassName('singularityShopUnlock2') as HTMLCollectionOf<HTMLElement>;
+            const singularityShopItems3 = document.getElementsByClassName('singularityShopUnlock3') as HTMLCollectionOf<HTMLElement>;
+
             if (player.shopHideToggle && player.shopUpgrades[key] >= shopItem.maxLevel && !shopData[key].refundable) {
                 if (player.singularityCount >= 20) {
                     shopData.offeringAuto.refundable = false;
@@ -650,6 +665,11 @@ export const visualUpdateShop = () => {
                         i.style.display = 'none';
                     }
                 }
+                for (const i of Array.from(singularityShopItems3)) {
+                    if (i.style.display === 'block' && !player.singularityUpgrades.wowPass3.getEffect().bonus) {
+                        i.style.display = 'none';
+                    }
+                }
             } else if (!player.shopHideToggle) {
                 DOMCacheGetOrSet('instantChallengeHide').style.display = 'block';
                 DOMCacheGetOrSet('calculatorHide').style.display = 'block';
@@ -690,6 +710,9 @@ export const visualUpdateShop = () => {
                 }
                 for (const i of Array.from(singularityShopItems2)) {
                     i.style.display = player.singularityUpgrades.wowPass2.getEffect().bonus ? 'block' : 'none';
+                }
+                for (const i of Array.from(singularityShopItems3)) {
+                    i.style.display = player.singularityUpgrades.wowPass3.getEffect().bonus ? 'block' : 'none';
                 }
             }
         }

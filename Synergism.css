@@ -1835,6 +1835,12 @@ p#reincarnatehotkeys {
     margin: 0 0 0 5px;
 }
 
+#octeractAmount {
+    font-size: 1.2em;
+    color: lightseagreen;
+    margin-left: 5px;
+}
+
 #consumables {
     color: orangered;
     font-size: 1.2em;

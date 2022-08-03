@@ -31,6 +31,7 @@ export const maxCorruptionLevel = () => {
     if (player.singularityUpgrades.corruptionFourteen.getEffect().bonus) {
         max += 1
     }
+    max += +player.octeractUpgrades.octeractCorruption.getEffect().bonus
 
     return max
 }

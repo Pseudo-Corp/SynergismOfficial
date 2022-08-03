@@ -22,6 +22,7 @@ interface HolidayData {
         antSacrifice?: number
         offering?: number
         obtainium?: number
+        octeract?: number
     }
 }
 
@@ -52,23 +53,24 @@ const events: Record<string, HolidayData> = {
     },
     // Last active event
     last: {
-        name: '&#128151 Community Event! &#128151 [Musical Link Here!]',
+        name: '&#128151 Derpsmith Arrival Ceremony! &#128151 [link!]',
         color: 'Orange',
-        url: 'https://www.youtube.com/watch?v=znxoba0k000',
+        url: 'https://www.youtube.com/watch?v=yXexmdCGPFU',
         everyYear: false,
-        start: '06/27/2022 00:00:00',
-        end: '07/05/2022 11:59:59',
+        start: '08/01/2022 00:00:00',
+        end: '08/07/2022 23:59:59',
         notice: 3,
         event: true,
         buffs: {
-            quark: 0.4,
-            powderConversion: 0.4,
-            globalSpeed: 1.75,
-            ascensionSpeed: 0.75,
-            ascensionScore: 0.1,
-            antSacrifice: 0.75,
-            offering: 1.5,
-            obtainium: 1.5
+            quark: 0.25,
+            powderConversion: 0.25,
+            globalSpeed: 0.5,
+            ascensionSpeed: 0.5,
+            ascensionScore: 0.15,
+            antSacrifice: 1,
+            offering: 1,
+            obtainium: 1,
+            octeract: 0.25
         }
     }
     // Event example
@@ -271,8 +273,8 @@ export const eventCheck = () => {
     }
 }
 
-const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium'];
-const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offerings', 'Obtainiums'];
+const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract'];
+const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes'];
 
 export const calculateEventSourceBuff = (buff: string): number => {
     const event = getEvent();
@@ -287,6 +289,7 @@ export const calculateEventSourceBuff = (buff: string): number => {
         case 'Ant Sacrifice': return event.buffs.antSacrifice || 0;
         case 'Offering': return event.buffs.offering || 0;
         case 'Obtainium': return event.buffs.obtainium || 0;
+        case 'Octeract': return event.buffs.octeract || 0;
         default: return 0;
     }
 }
