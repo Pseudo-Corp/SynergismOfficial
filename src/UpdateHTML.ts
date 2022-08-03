@@ -485,9 +485,9 @@ export const revealStuff = () => {
         'toggle36': player.singularityCount >= 15, // Auto Blessings
         'toggle37': player.singularityCount >= 15, // Auto Spirits
         'toggle38': player.singularityCount > 0, // Researchs Hover to Buy
-        'toggle40': player.unlocks.prestige, // Hotkeys
-        'toggle41': player.unlocks.prestige, // Number Hotkeys
-        'toggle39': player.challengecompletions[11] > 0 // Loadouts Notifx
+        'toggle39': player.unlocks.prestige, // Hotkeys
+        'toggle40': player.unlocks.prestige, // Number Hotkeys
+        'toggle41': player.challengecompletions[11] > 0 // Loadouts Notifx
     }
 
     Object.keys(automationUnlocks).forEach(key => {
@@ -864,8 +864,8 @@ export const updateChallengeLevel = (k: number) => {
 
 export const updateAchievementBG = () => {
     //When loading/importing, the game needs to correctly update achievement backgrounds.
-    for (let i = 1; i <= 182; i++) { //Initiates by setting all to default
-        DOMCacheGetOrSet('ach' + i).style.backgroundColor = 'black'
+    for (let i = 1; i <= 280; i++) { //Initiates by setting all to default
+        DOMCacheGetOrSet('ach' + i).style.backgroundColor = ''
     }
     const fixDisplay1 = document.getElementsByClassName('purpleach') as HTMLCollectionOf<HTMLElement>;
     const fixDisplay2 = document.getElementsByClassName('redach') as HTMLCollectionOf<HTMLElement>;

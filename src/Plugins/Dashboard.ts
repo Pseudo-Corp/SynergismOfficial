@@ -202,7 +202,7 @@ const renderDashboardFast = () => {
         return exitDashboard();
     }
 
-    tab.querySelectorAll('.dashboardstat').forEach((stat, i) => statValues[i]?.(stat as HTMLElement));
+    Array.from(tab.getElementsByClassName('dashboardstat')).forEach((stat, i) => statValues[i]?.(stat as HTMLElement));
 }
 
 const openDashboard = () => {

@@ -1294,43 +1294,43 @@
             <div id="runeContainer2" alt="runeContainer2" label="runeContainer2" style="display: none;">
                 <div class="talismanShardsContainer">
                     <div class="talismanShardContainer">
-                        <button class="talismanBtn FragBth" id="toggleautoBuyFragments" alt="toggleautoBuyFragments" label="toggleautoBuyFragments" style="border: 2px solid white">Auto Buy: OFF</button>
-                        <button class="talismanBtn" id="buyTalismanAll" alt="buyTalismanAll" label="buyTalismanAll" style="border: 2px solid white">BUY ALL</button>
+                        <button id="toggleautoBuyFragments" alt="toggleautoBuyFragments" label="toggleautoBuyFragments" style="border: 2px solid white">Auto Buy: OFF</button>
+                        <button id="buyTalismanAll" alt="buyTalismanAll" label="buyTalismanAll" style="border: 2px solid white">BUY ALL</button>
                     </div>
                     <div class="talismanShardContainer">
                         <img class="talismanShardIcon" src="Pictures/TalismanShard.png" title='Talisman Shard' loading="lazy">
                         <span class="talismanShardAmount" id="talismanShardInventory" alt="talismanShardInventory" label="talismanShardInventory" style="color: yellow">0</span>
-                        <button class="talismanBtn" id="buyTalismanItem1" alt="buyTalismanItem1" label="buyTalismanItem1" style="border: 2px solid gold">BUY</button>
+                        <button class="fragmentBtn" id="buyTalismanItem1" alt="buyTalismanItem1" label="buyTalismanItem1" style="border: 2px solid gold">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
                         <img class="talismanShardIcon" src="Pictures/CommonTalisman.png" title='Common Fragment' loading="lazy">
                         <span class="talismanShardAmount" id="commonFragmentInventory" alt="commonFragmentInventory" label="commonFragmentInventory" style="color: white">0</span>
-                        <button class="talismanBtn" id="buyTalismanItem2" alt="buyTalismanItem2" label="buyTalismanItem2" style="border:2px solid white">BUY</button>
+                        <button class="fragmentBtn" id="buyTalismanItem2" alt="buyTalismanItem2" label="buyTalismanItem2" style="border:2px solid white">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
                         <img class="talismanShardIcon" src="Pictures/UncommonTalisman.png" title='Uncommon Fragment' loading="lazy">
                         <span class="talismanShardAmount" id="uncommonFragmentInventory" alt="uncommonFragmentInventory" label="uncommonFragmentInventory" style="color: limegreen">0</span>
-                        <button class="talismanBtn" id="buyTalismanItem3" alt="buyTalismanItem3" label="buyTalismanItem3" style="border:2px solid lime">BUY</button>
+                        <button class="fragmentBtn" id="buyTalismanItem3" alt="buyTalismanItem3" label="buyTalismanItem3" style="border:2px solid lime">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
                         <img class="talismanShardIcon" src="Pictures/RareTalisman.png" title='Rare Fragment' loading="lazy">
                         <span class="talismanShardAmount" id="rareFragmentInventory" alt="rareFragmentInventory" label="rareFragmentInventory" style="color: darkcyan">0</span>
-                        <button class="talismanBtn" id="buyTalismanItem4" alt="buyTalismanItem4" label="buyTalismanItem4" style="border:2px solid aqua">BUY</button>
+                        <button class="fragmentBtn" id="buyTalismanItem4" alt="buyTalismanItem4" label="buyTalismanItem4" style="border:2px solid aqua">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
                         <img class="talismanShardIcon" src="Pictures/EpicTalisman.png" title='Epic Fragment' loading="lazy">
                         <span class="talismanShardAmount" id="epicFragmentInventory" alt="epicFragmentInventory" label="epicFragmentInventory" style="color: plum">0</span>
-                        <button class="talismanBtn" id="buyTalismanItem5" alt="buyTalismanItem5" label="buyTalismanItem5" style="border:2px solid purple">BUY</button>
+                        <button class="fragmentBtn" id="buyTalismanItem5" alt="buyTalismanItem5" label="buyTalismanItem5" style="border:2px solid purple">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
                         <img class="talismanShardIcon" src="Pictures/LegendaryTalisman.png" title='Legendary Fragment' loading="lazy">
                         <span class="talismanShardAmount" id="legendaryFragmentInventory" alt="legendaryFragmentInventory" label="legendaryFragmentInventory" style="color: orange">0</span>
-                        <button class="talismanBtn" id="buyTalismanItem6" alt="buyTalismanItem6" label="buyTalismanItem6" style="border:2px solid orange">BUY</button>
+                        <button class="fragmentBtn" id="buyTalismanItem6" alt="buyTalismanItem6" label="buyTalismanItem6" style="border:2px solid orange">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
                         <img class="talismanShardIcon" src="Pictures/MythicalTalisman.png" title='Mythical Fragment' loading="lazy">
                         <span class="talismanShardAmount" id="mythicalFragmentInventory" alt="mythicalFragmentInventory" label="mythicalFragmentInventory" style="color: crimson">0</span>
-                        <button class="talismanBtn" id="buyTalismanItem7" alt="buyTalismanItem7" label="buyTalismanItem7" style="border:2px solid red">BUY</button>
+                        <button class="fragmentBtn" id="buyTalismanItem7" alt="buyTalismanItem7" label="buyTalismanItem7" style="border:2px solid red">BUY</button>
                     </div>
                     <p id="talismanFragmentCost" alt="talismanFragmentCost" label="talismanFragmentCost">Cost for 1: 1e6 Obtainium</p>
                 </div>
@@ -1466,7 +1466,7 @@
             </div>
             <div id="runeContainer3" alt="runeContainer3" label="runeContainer3" style="display: none">
                 <div class="runeBlessingPurchaseSettings">
-                    <button class="auto singularity" id="toggle36" alt="toggle36" label="toggle36" toggleid="36" alt="36" label="36" format="Auto: $" count="15">Auto: Off</button>
+                    <button class="auto" id="toggle36" alt="toggle36" label="toggle36" toggleid="36" alt="36" label="36" format="Auto: $">Auto: Off</button>
                     <button id="buyAllBlessings" class="runeButtons runeButtonsBuyAll">ALL Increase Level</button>
                     <input type="number" id="buyRuneBlessingInput" alt="buyRuneBlessingInput" label="buyRuneBlessingInput" min="1" max="999999999" defaultValue="1">
                     <span id="buyRuneBlessingToggle" alt="buyRuneBlessingToggle" label="buyRuneBlessingToggle" style="color: yellow">Buy up to <span id="buyRuneBlessingToggleValue" alt="buyRuneBlessingToggleValue" label="buyRuneBlessingToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</span>
@@ -1504,7 +1504,7 @@
             </div>
             <div id="runeContainer4" alt="runeContainer4" label="runeContainer4" style="display: none">
                 <div class="runeBlessingPurchaseSettings">
-                    <button class="auto singularity" id="toggle37" alt="toggle37" label="toggle37" toggleid="37" alt="37" label="37" format="Auto: $" count="15">Auto: Off</button>
+                    <button class="auto" id="toggle37" alt="toggle37" label="toggle37" toggleid="37" alt="37" label="37" format="Auto: $">Auto: Off</button>
                     <button id="buyAllSpirits" class="runeButtons runeButtonsBuyAll">ALL Increase Level</button>
                     <input type="number" id="buyRuneSpiritInput" alt="buyRuneSpiritInput" label="buyRuneSpiritInput" min="1" max="999999999" defaultValue="1">
                     <span id="buyRuneSpiritToggle" alt="buyRuneSpiritToggle" label="buyRuneSpiritToggle" style="color: yellow">Buy up to <span id="buyRuneSpiritToggleValue" alt="buyRuneSpiritToggleValue" label="buyRuneSpiritToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</span>
@@ -1658,7 +1658,7 @@
                 <button id="toggleresearchbuy" alt="toggleresearchbuy" label="toggleresearchbuy" style="color: white;border: 2px solid pink">Upgrade: 1 Level</button>
                 <button id="toggleautoresearch" alt="toggleautoresearch" label="toggleautoresearch" style="color: white; border: 2px solid blue">Automatic: OFF</button>
                 <button id="toggleautoresearchmode" alt="toggleautoresearchmode" label="toggleautoresearchmode" style="color: white; border: 2px solid red">Automatic mode: Manual</button>
-                <button class="auto singularity" id="toggle38" alt="toggle38" label="toggle38" toggleid="38" alt="38" label="38" format="Hover-to-Buy [$]" style="border:2px solid green">Hover-To-Buy: Off</button>
+                <button class="auto" id="toggle38" alt="toggle38" label="toggle38" toggleid="38" alt="38" label="38" format="Hover-to-Buy [$]" style="border:2px solid green">Hover-To-Buy: Off</button>
             </div>
 
             <div class="researchContainer">
@@ -3537,7 +3537,7 @@ $STAGE$ for synergism stage" style="color: white"></p>
                         </div>
                         <div class="singularity">
                             <img id="buySingularityQuarks" alt="buySingularityQuarks" label="buySingularityQuarks" src="Pictures/Shop Golden Quarks.png" loading="lazy">
-                            <p id="buySingularityQuarksAmount" alt="buySingularityQuarksAmount" label="buySingularityQuarksAmount" title="You have amount Golden Quarks"></p>
+                            <p id="buySingularityQuarksAmount" alt="buySingularityQuarksAmount" label="buySingularityQuarksAmount" title="Amount of Golden Quarks you have"></p>
                             <button class="permshopbutton" id="buySingularityQuarksButton" alt="buySingularityQuarksButton" label="buySingularityQuarksButton" style="border: 2px solid black;"></button>
                         </div>
                     </div>

@@ -1,4 +1,5 @@
 import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
+import { octeractGainPerSecond } from './Calculate';
 import { testing, version } from './Config';
 import { getElementById } from './Utility';
 import LZString from 'lz-string';
@@ -17,7 +18,6 @@ import { Globals as G } from './Variables';
 import { singularityData } from './singularity';
 import { getEvent } from './Event';
 import { synergismStage } from './Statistics';
-import { octeractGainPerSecond } from './Octeracts';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',

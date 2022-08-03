@@ -1955,60 +1955,11 @@ export const format = (
         const powerLookF = powerLook.toLocaleString(undefined, {
             minimumFractionDigits: 4 - powerFront, maximumFractionDigits: 4 - powerFront
         });
+        const notation = ['', '', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QiDc', 'SxDc', 'SpDc', 'OcDc', 'NoDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QiVg', 'SxVg', 'SpVg', 'OcVg', 'NoVg'];
+        const powerLodge = Math.floor(Math.log10(power) / 3);
         // Return relevant notations alongside the "look" power based on what the power actually is
-        if (power < 1e9) {
-            return `${mantissaLook}e${powerLookF}M`;
-        }
-        if (power < 1e12) {
-            return `${mantissaLook}e${powerLookF}B`;
-        }
-        if (power < 1e15) {
-            return `${mantissaLook}e${powerLookF}T`;
-        }
-        if (power < 1e18) {
-            return `${mantissaLook}e${powerLookF}Qa`;
-        }
-        if (power < 1e21) {
-            return `${mantissaLook}e${powerLookF}Qi`;
-        }
-        if (power < 1e24) {
-            return `${mantissaLook}e${powerLookF}Sx`;
-        }
-        if (power < 1e27) {
-            return `${mantissaLook}e${powerLookF}Sp`;
-        }
-        if (power < 1e30) {
-            return `${mantissaLook}e${powerLookF}Oc`;
-        }
-        if (power < 1e33) {
-            return `${mantissaLook}e${powerLookF}No`;
-        }
-        if (power < 1e36) {
-            return `${mantissaLook}e${powerLookF}Dc`;
-        }
-        if (power < 1e39) {
-            return `${mantissaLook}e${powerLookF}UDc`;
-        }
-        if (power < 1e42) {
-            return `${mantissaLook}e${powerLookF}DDc`;
-        }
-        if (power < 1e45) {
-            return `${mantissaLook}e${powerLookF}TDc`;
-        }
-        if (power < 1e48) {
-            return `${mantissaLook}e${powerLookF}QaDc`;
-        }
-        if (power < 1e51) {
-            return `${mantissaLook}e${powerLookF}QiDc`;
-        }
-        if (power < 1e54) {
-            return `${mantissaLook}e${powerLookF}SxDc`;
-        }
-        if (power < 1e57) {
-            return `${mantissaLook}e${powerLookF}SpDc`;
-        }
-        if (power < 1e60) {
-            return `${mantissaLook}e${powerLookF}OcDC`;
+        if (typeof notation[powerLodge] === 'string') {
+            return `${mantissaLook}e${powerLookF}${notation[powerLodge]}`;
         }
 
         // If it doesn't fit a notation then default to mantissa e power

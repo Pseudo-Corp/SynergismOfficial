@@ -86,7 +86,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('ascendbtn').addEventListener('mouseover', () => resetrepeat('ascension'))
     DOMCacheGetOrSet('singularitybtn').addEventListener('mouseover', () => resetrepeat('singularity'))
 
-    for (const resetButton of Array.from(document.querySelectorAll('.resetbtn'))) {
+    for (const resetButton of Array.from(document.getElementsByClassName('resetbtn'))) {
         resetButton.addEventListener('mouseover', () => {
             resetButton.classList.add('hover');
         });
@@ -196,10 +196,8 @@ export const generateEventHandlers = () => {
 
     //Part 4: Toggles
     // I'm just addressing all global toggles here
-    const toggles = Array.from<HTMLElement>(document.querySelectorAll('button[id^="toggle"][toggleid]'));
-    for (let index = 0; index < toggles.length; index++) {
-        DOMCacheGetOrSet(`toggle${index + 1}`).addEventListener('click', () => toggleSettings(index));
-    }
+    const toggles = document.querySelectorAll<HTMLElement>('.auto[toggleid]');
+    toggles.forEach(b => b.addEventListener('click', () => toggleSettings(b)));
     // Toggles auto reset type (between TIME and AMOUNT for 3 first Tiers, and between PERCENTAGE and AMOUNT for Tesseracts)
     DOMCacheGetOrSet('prestigeautotoggle').addEventListener('click', () => toggleautoreset(1))
     DOMCacheGetOrSet('transcendautotoggle').addEventListener('click', () => toggleautoreset(2))
@@ -552,12 +550,12 @@ export const generateEventHandlers = () => {
 
     // SETTNGS TAB
     // Part 0: Subtabs
-    const settingSubTabs = Array.from<HTMLElement>(document.querySelectorAll('button[id^="switchSettingSubTab"]'));
+    const settingSubTabs = Array.from<HTMLElement>(document.querySelectorAll('[id^="switchSettingSubTab"]'));
     for (const subtab of settingSubTabs) {
         subtab.addEventListener('click', () => toggleSubTab(-1, settingSubTabs.indexOf(subtab)));
     }
 
-    const t = Array.from(document.querySelectorAll<HTMLElement>('#statsForNerds > button'));
+    const t = Array.from(document.querySelectorAll<HTMLElement>('button.statsNerds'));
     for (const s of t) {
         s.addEventListener('click', (e) => displayStats(e.target as HTMLElement));
     }
@@ -644,7 +642,7 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => toggleSubTab(10, index))
     }
 
-    const tabs = document.querySelectorAll<HTMLElement>('#tabrow > li');
+    const tabs = document.querySelectorAll<HTMLElement>('#tabrow > button');
     tabs.forEach(b => b.addEventListener('click', () => changeTabColor()));
 
     // Import button

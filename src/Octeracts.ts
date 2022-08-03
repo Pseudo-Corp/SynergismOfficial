@@ -2,8 +2,6 @@ import { format, player } from './Synergism';
 import { Alert } from './UpdateHTML';
 import type { IUpgradeData } from './DynamicUpgrade';
 import { DynamicUpgrade } from './DynamicUpgrade';
-import { calculateAscensionAcceleration, calculateAscensionScore, calculateEventBuff } from './Calculate';
-import { productContents, sumContents } from './Utility';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -337,48 +335,3 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
 
 }
 
-export const derpsmithCornucopiaBonus = () => {
-    let counter = 0
-    const singCounts = [18, 38, 58, 78, 88, 98, 118, 148]
-    for (const sing of singCounts) {
-        if (player.singularityCount >= sing) {
-            counter += 1
-        }
-    }
-
-    return 1 + counter * player.singularityCount / 100
-}
-
-export const octeractGainPerSecond = () => {
-    const SCOREREQ = 1e23
-    const currentScore = calculateAscensionScore().effectiveScore
-
-    const baseMultiplier = (currentScore >= SCOREREQ) ? currentScore / SCOREREQ : 0;
-    const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
-
-    const valueMultipliers = [
-        1 + 1.5 * player.shopUpgrades.seasonPass3 / 100,
-        1 + player.shopUpgrades.seasonPassY / 200,
-        1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
-        1 + player.shopUpgrades.seasonPassLost / 1000,
-        1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
-        1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
-        +player.singularityUpgrades.singCubes1.getEffect().bonus,
-        +player.singularityUpgrades.singCubes2.getEffect().bonus,
-        +player.singularityUpgrades.singCubes3.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain2.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain3.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain4.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
-        1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
-        +player.octeractUpgrades.octeractGain.getEffect().bonus,
-        derpsmithCornucopiaBonus(),
-        Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
-        1 + calculateEventBuff('Octeract')
-    ]
-
-    const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1/2)
-    const perSecond = 1/(24 * 3600 * 365 * 1e15) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
-    return perSecond
-}

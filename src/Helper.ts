@@ -1,12 +1,11 @@
 import { sacrificeAnts } from './Ants';
-import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration } from './Calculate'
+import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
 import { quarkHandler } from './Quark';
 import { redeemShards, unlockedRune, checkMaxRunes } from './Runes';
 import { player } from './Synergism';
 import { visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals';
 import { Globals as G } from './Variables';
 import { buyAllBlessings } from './Buy';
-import { octeractGainPerSecond } from './Octeracts';
 import { buyAllTalismanResources } from './Talismans'
 
 type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks' | 'goldenQuarks' | 'singularity' | 'octeracts';
@@ -71,8 +70,9 @@ export const addTimers = (input: TimerInput, time = 0) => {
                 const amountOfGiveaways = player.octeractTimer - (player.octeractTimer % 1)
                 player.octeractTimer %= 1
 
-                player.wowOcteracts += amountOfGiveaways * octeractGainPerSecond()
-                player.totalWowOcteracts += amountOfGiveaways * octeractGainPerSecond()
+                const perSecond = octeractGainPerSecond()
+                player.wowOcteracts += amountOfGiveaways * perSecond
+                player.totalWowOcteracts += amountOfGiveaways * perSecond
                 visualUpdateOcteracts()
             }
         }

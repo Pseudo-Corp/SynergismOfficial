@@ -3,7 +3,7 @@ import { Globals as G } from './Variables';
 import { player, format, formatTimeShort } from './Synergism';
 import { version } from './Config';
 import { CalcECC } from './Challenges';
-import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear, calculateTotalOcteractCubeBonus, calculateTotalOcteractQuarkBonus } from './Calculate';
+import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear, calculateTotalOcteractCubeBonus, calculateTotalOcteractQuarkBonus, octeractGainPerSecond } from './Calculate';
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
@@ -17,7 +17,6 @@ import type { IMultiBuy } from './Cubes';
 import { calculateMaxTalismanLevel } from './Talismans';
 import { getGoldenQuarkCost } from './singularity';
 import { loadStatisticsUpdate } from './Statistics';
-import { octeractGainPerSecond } from './Octeracts';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== 'buildings') {
@@ -543,10 +542,12 @@ export const visualUpdateSettings = () => {
 }
 
 export const visualUpdateSingularity = () => {
-    if (G['currentTab'] !== 'singularity' || player.subtabNumber !== 0) {
+    if (G['currentTab'] !== 'singularity') {
         return
     }
-    DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
+    if (player.subtabNumber === 0) {
+        DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
+    }
 }
 
 export const visualUpdateOcteracts = () => {
@@ -562,9 +563,13 @@ export const visualUpdateOcteracts = () => {
     DOMCacheGetOrSet('octeractPerSeconds').style.display = perSecond >= 1 ? 'block' : 'none';
     DOMCacheGetOrSet('oPS').textContent = format(perSecond, 2, true);
 
+    const cTOCB = (calculateTotalOcteractCubeBonus() - 1) * 100;
+    const cTOQB = (calculateTotalOcteractQuarkBonus() - 1) * 100;
     DOMCacheGetOrSet('totalOcts').textContent = `${format(player.totalWowOcteracts, 2, true, true, true)}`
-    DOMCacheGetOrSet('octCubeBonus').textContent = `+${format((calculateTotalOcteractCubeBonus() - 1) * 100, 2, true)}%`
-    DOMCacheGetOrSet('octQuarkBonus').textContent = `+${format((calculateTotalOcteractQuarkBonus() - 1) * 100, 2, true)}%`
+    DOMCacheGetOrSet('totalOcteractCubeBonus').style.display = cTOCB >= 0.001 ? 'block' : 'none';
+    DOMCacheGetOrSet('totalOcteractQuarkBonus').style.display = cTOQB >= 0.001 ? 'block' : 'none';
+    DOMCacheGetOrSet('octCubeBonus').textContent = `+${format(cTOCB, 3, true)}%`
+    DOMCacheGetOrSet('octQuarkBonus').textContent = `+${format(cTOQB, 3, true)}%`
 }
 
 export const visualUpdateShop = () => {

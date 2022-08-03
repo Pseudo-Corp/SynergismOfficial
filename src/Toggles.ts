@@ -1,7 +1,7 @@
 import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts, changeTabColor, Prompt, Alert } from './UpdateHTML';
 import { player, format, resetCheck } from './Synergism';
 import { Globals as G } from './Variables';
-import { visualUpdateCubes } from './UpdateVisuals';
+import { visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals';
 import { calculateRuneLevels } from './Calculate';
 import { reset, resetrepeat } from './Reset';
 import { autoResearchEnabled } from './Research';
@@ -10,6 +10,7 @@ import { getChallengeConditions } from './Challenges';
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+
 
 interface TabValue { tabName: keyof typeof tabNumberConst, unlocked: boolean }
 type Tab = Record<number, TabValue>;
@@ -70,7 +71,7 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
         }
     } else { // handle settings tab
         // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-        const btns = document.querySelectorAll('#settings .subtabSwitcher > button');
+        const btns = document.querySelectorAll('[id^="switchSettingSubTab"]');
         for (let i = 0; i < btns.length; i++) {
             if (btns[i].classList.contains('buttonActive')) {
                 player.subtabNumber = i
@@ -81,14 +82,17 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
     toggleSubTab(player.tabnumber, player.subtabNumber)
 }
 
-export const toggleSettings = (i: number) => {
-    i++
-    if (player.toggles[i] === true) {
-        player.toggles[i] = false
+export const toggleSettings = (toggle: HTMLElement) => {
+    const toggleId = toggle.getAttribute('toggleId');
+    if (player.toggles[+toggleId] === true) {
+        player.toggles[+toggleId] = false;
     } else {
-        player.toggles[i] = true
+        player.toggles[+toggleId] = true;
     }
-    toggleauto();
+    const format = toggle.getAttribute('format') || 'Auto [$]';
+    const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF');
+    toggle.textContent = finishedString;
+    toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
@@ -391,17 +395,14 @@ export const toggleautobuytesseract = () => {
 }
 
 export const toggleauto = () => {
-    const autos = document.getElementsByClassName('auto') as HTMLCollectionOf<HTMLElement>;
-    for (const auto of Array.from(autos)) {
-        const format = auto.getAttribute('format') || 'Auto [$]';
-        const toggleId = auto.getAttribute('toggleId');
-        if (toggleId === null) {
-            continue;
-        }
+    const toggles = Array.from<HTMLElement>(document.querySelectorAll('.auto[toggleid]'));
+    for (const toggle of toggles) {
+        const format = toggle.getAttribute('format') || 'Auto [$]';
+        const toggleId = toggle.getAttribute('toggleId');
 
         const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
-        auto.textContent = finishedString;
-        auto.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
+        toggle.textContent = finishedString;
+        toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
     }
 }
 
@@ -613,6 +614,10 @@ export const toggleSingularityScreen = (index: number) => {
         }
     }
     player.subtabNumber = index - 1
+
+    if (player.subtabNumber === 3) {
+        visualUpdateOcteracts();
+    }
 }
 
 interface ChadContributor {

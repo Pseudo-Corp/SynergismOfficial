@@ -67,6 +67,7 @@ body {
     --blessings-hover-color: #444;
     --tab-color: #171717;
     --singtab-color: black;
+    --buttonimg-color: black;
     --hoversing-color: #252525;
     --scrollbar-color: #444;
     --scrollbar-bg-color: #111;
@@ -386,7 +387,7 @@ body button:active {
 }
 
 #offlineBlur {
-    background-color: var(--bg-color);
+    background-color: #111;
     position: fixed;
     top: 0;
     left: 0;
@@ -692,7 +693,8 @@ p#buildinghotkeys {
 }
 
 #upgradesFlex > div > table img {
-    background-color: var(--button-color);
+    background-color: var(--buttonimg-color);
+    cursor: pointer;
 }
 
 #upgradesFlex > div > button {
@@ -992,6 +994,10 @@ p#promocodeinfo {
     border-collapse: collapse;
 }
 
+#achievementstable img {
+    background-color: var(--buttonimg-color);
+}
+
 .NotificationToggle {
     display: flex;
     justify-content: center;
@@ -1243,6 +1249,11 @@ p#prestigehotkeys {
     min-width: 100px;
     text-align: center;
     border: 2px solid gold;
+    cursor: default;
+}
+
+.runeType > button:hover {
+    background-color: var(--button-color);
 }
 
 .runeTypeElement {
@@ -1308,16 +1319,33 @@ img.runeTypeElement:hover {
     font-size: 0.9em;
 }
 
+.fragmentBtn {
+    width: 5em;
+    min-width: 80px;
+    color: orange;
+    cursor: default;
+}
+
+.fragmentBtn:hover {
+    background-color: var(--button-color);
+}
+
 .talismanBtn {
+    width: 5em;
+    min-width: 80px;
+}
+
+#buyTalismanAll {
     width: 5em;
     min-width: 80px;
     color: orange;
 }
 
-.FragBth {
+#toggleautoBuyFragments {
     width: 7em;
     min-width: 94px;
     margin-right: 10px;
+    color: orange;
 }
 
 .talisminBtnAvailable {
@@ -1735,27 +1763,37 @@ p#reincarnatehotkeys {
     min-height: 3em;
 }
 
-.researchAvailable {
-    cursor: pointer;
+#researchtable img {
+    background-color: var(--buttonimg-color);
 }
 
-.researchPurchased {
+#researchtable .researchAvailable {
+    cursor: pointer;
+    transition-duration: 0.15s;
+}
+
+#researchtable .researchAvailable:hover {
+    background-color: var(--hover-color);
+}
+
+#researchtable .researchPurchased {
     background-color: purple;
 }
 
-.researchPurchasedAvailable {
+#researchtable .researchPurchasedAvailable {
     cursor: pointer;
+    transition-duration: 0.15s;
 }
 
-.researchPurchasedAvailable:hover {
+#researchtable .researchPurchasedAvailable:hover {
     background-color: #b300b2;
 }
 
-.researchRoomba {
+#researchtable .researchRoomba {
     background-color: orange;
 }
 
-.researchMaxed {
+#researchtable .researchMaxed {
     background-color: green;
 }
 
@@ -2254,6 +2292,7 @@ p[id$="BlessingsTotal"] {
 }
 
 .gridImg {
+    background-color: var(--buttonimg-color);
     cursor: pointer;
 }
 
@@ -3075,6 +3114,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .platonicUpgradeImage {
+    background-color: var(--buttonimg-color);
     cursor: pointer;
 }
 

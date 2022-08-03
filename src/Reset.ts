@@ -634,11 +634,11 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         }
 
         for (let j = 61; j <= 80; j++) {
-            DOMCacheGetOrSet('upg' + j).style.backgroundColor = ''
+            DOMCacheGetOrSet(`upg${j}`).style.backgroundColor = ''
         }
         for (let j = 94; j <= 100; j++) {
             if (player.upgrades[j] === 0) {
-                DOMCacheGetOrSet('upg' + j).style.backgroundColor = ''
+                DOMCacheGetOrSet(`upg${j}`).style.backgroundColor = ''
             }
         }
 
