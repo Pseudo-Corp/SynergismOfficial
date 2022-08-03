@@ -1292,7 +1292,8 @@ img.runeTypeElement:hover {
 }
 
 .talismanShardAmount {
-    min-width: 5em;
+    width: 5em;
+    min-width: 70px;
     margin-left: 4px;
     font-size: 0.9em;
 }

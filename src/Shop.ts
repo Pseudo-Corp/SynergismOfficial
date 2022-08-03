@@ -686,8 +686,8 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     // Actually lock for HTML exploit
     if ((shopData[input].tier === 'Ascension' && player.ascensionCount <= 0) ||
         (shopData[input].tier === 'Singularity' && !player.singularityUpgrades.wowPass.getEffect().bonus) ||
-        (shopData[input].tier === 'SingularityVol2' && !player.singularityUpgrades.wowPass2.getEffect().bonus)) {
-        revealStuff();
+        (shopData[input].tier === 'SingularityVol2' && !player.singularityUpgrades.wowPass2.getEffect().bonus) ||
+        (shopData[input].tier === 'SingularityVol3' && !player.singularityUpgrades.wowPass3.getEffect().bonus)) {
         return Alert('You do not have the right to purchase ' + friendlyShopName(input) + '!');
     }
 

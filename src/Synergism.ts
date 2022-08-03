@@ -2999,7 +2999,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
         }
 
-        if (a === 15 && (manual || leaving) && player.usedCorruptions.slice(2, 10).every((a) => a === 11)) {
+        if (a === 15 && (manual || leaving || player.shopUpgrades.challenge15Auto > 0) && player.usedCorruptions.slice(2, 10).every((a) => a === 11)) {
             if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
                 player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
                 c15RewardUpdate();
@@ -3527,14 +3527,6 @@ export const updateAll = (): void => {
             const num = G['ordinals'][i as ZeroToFour];
             const buyTo = player[`${num}OwnedParticles` as const] + 1
             player[`${num}CostParticles` as const] = new Decimal(Decimal.pow(2, buyTo - 1).times(Decimal.pow(1.001, Math.max(0, (buyTo - 325000)) * Math.max(0, (buyTo - 325000) + 1) / 2))).times(particleOriginalCost[i])
-        }
-    }
-
-    // Challenge 15 autoupdate
-    if (player.shopUpgrades.challenge15Auto > 0 && player.currentChallenge.ascension === 15) {
-        if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
-            player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
-            c15RewardUpdate();
         }
     }
 }

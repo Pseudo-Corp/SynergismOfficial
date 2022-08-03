@@ -117,7 +117,7 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
         levelsToAdd = Math.min(1e4, calculateMaxRunes(runeIndex + 1)) // limit to max 10k levels per call so the execution doesn't take too long if things get stuck
     }
     let levelsAdded = 0
-    if (player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune(runeIndex)) {
+    if (player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune(runeIndex + 1)) {
         let all = 0
         const maxLevel = calculateMaxRunes(runeIndex + 1)
         const amountArr = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
@@ -146,7 +146,7 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
             }
         }
         for (let runeToUpdate = 0; runeToUpdate < 5; ++runeToUpdate) {
-            if (unlockedRune(runeToUpdate)) {
+            if (unlockedRune(runeToUpdate + 1)) {
                 if (runeToUpdate !== runeIndex) {
                     player.runeexp[runeToUpdate] += all * calculateRuneExpGiven(runeToUpdate, true)
                 }
