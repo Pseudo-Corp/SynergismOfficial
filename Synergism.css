@@ -1952,7 +1952,10 @@ nav li:hover {
 #antsWelcomeTexts > p { margin: 2px; }
 #antwelcome { font-size: 1.3em; }
 
-#antrow1 { margin-top: 12px; }
+#antrow1 {
+    margin-top: 12px;
+    color: red;
+}
 
 #antrow2 {
     margin-top: 7px;
@@ -1963,7 +1966,11 @@ nav li:hover {
     margin-top: 30px;
     height: 115px;
 }
-#antrow4 { margin-top: 10px; }
+
+#antrow4 {
+    margin-top: 10px;
+    color: red;
+}
 
 #antrow2 > p { margin: 0; }
 #crumbcount { font-size: 1.2em; }
