@@ -83,7 +83,7 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
 }
 
 export const toggleSettings = (toggle: HTMLElement) => {
-    const toggleId = toggle.getAttribute('toggleId') || 0;
+    const toggleId = toggle.getAttribute('toggleId') || 1;
     if (player.toggles[+toggleId] === true) {
         player.toggles[+toggleId] = false;
     } else {
@@ -398,7 +398,7 @@ export const toggleauto = () => {
     const toggles = Array.from<HTMLElement>(document.querySelectorAll('.auto[toggleid]'));
     for (const toggle of toggles) {
         const format = toggle.getAttribute('format') || 'Auto [$]';
-        const toggleId = toggle.getAttribute('toggleId');
+        const toggleId = toggle.getAttribute('toggleId') || 1;
 
         const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
         toggle.textContent = finishedString;
