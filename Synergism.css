@@ -2601,7 +2601,8 @@ p[id$="BlessingsTotal"] {
     margin-left: 20px;
 }
 
-#historyAscend {
+#historyAscend,
+#historySingularity {
     margin: 0 auto;
 }
 
@@ -2628,7 +2629,8 @@ p[id$="BlessingsTotal"] {
     min-width: 700px;
 }
 
-#historyAscendTable {
+#historyAscendTable,
+#historySinhgularityTable {
     min-width: 1180px;
     white-space: nowrap;
 }
@@ -2638,7 +2640,8 @@ p[id$="BlessingsTotal"] {
     overflow-y: auto;
 }
 
-#historyAscend .historyTableWrap {
+#historyAscend .historyTableWrap,
+#historySingularity .historyTableWrap {
     min-width: 1212px;
 }
 

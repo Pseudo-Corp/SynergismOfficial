@@ -9,9 +9,9 @@ import { applyCorruptions } from './Corruptions';
 import { Notification } from './UpdateHTML';
 
 // The categories are the different tables & storages for each type.
-export type Category = 'ants' | 'reset' | 'ascend';
+export type Category = 'ants' | 'reset' | 'ascend' | 'singularity';
 // The kinds are the different contents.
-export type Kind = 'antsacrifice' | 'prestige' | 'transcend' | 'reincarnate' | 'ascend';
+export type Kind = 'antsacrifice' | 'prestige' | 'transcend' | 'reincarnate' | 'ascend' | 'singularity';
 
 // Common to every kind
 interface ResetHistoryEntryBase {
@@ -62,6 +62,20 @@ export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
     kind: 'ascend'
 }
 
+export interface ResetHistoryEntrySingularity extends ResetHistoryEntryBase {
+    singularityCount: number
+    quarks: number
+    goldenQuarks: number
+    wowTribs: number
+    tessTribs: number
+    hyperTribs: number
+    platTribs: number
+    octeracts: number
+    c15Score: number
+    quarkHept: number
+    kind: 'singularity'
+}
+
 // The set of common fields (in practice this is equal to the Base).
 export type ResetHistoryEntryUnion =
     ResetHistoryEntryAntSacrifice
@@ -69,6 +83,7 @@ export type ResetHistoryEntryUnion =
     | ResetHistoryEntryTranscend
     | ResetHistoryEntryReincarnate
     | ResetHistoryEntryAscend
+    | ResetHistoryEntrySingularity
 
 // The intersection of all of these types is invalid ("never") because of the conflicting `kind` field declarations.
 // Luckily, we can filter the more specific `kind` fields and still end up with a valid type declaration by using
@@ -87,6 +102,7 @@ type ResetHistoryEntryIntersect =
     & Partial<RemoveKindField<ResetHistoryEntryTranscend>>
     & Partial<RemoveKindField<ResetHistoryEntryReincarnate>>
     & Partial<RemoveKindField<ResetHistoryEntryAscend>>
+    & Partial<RemoveKindField<ResetHistoryEntrySingularity>>
 
 // The subset of keys that we'll directly print out using generic code.
 export type ResetHistoryGainType = keyof Pick<ResetHistoryEntryIntersect,
@@ -99,7 +115,17 @@ export type ResetHistoryGainType = keyof Pick<ResetHistoryEntryIntersect,
     | 'wowTesseracts'
     | 'wowHypercubes'
     | 'wowPlatonicCubes'
-    | 'wowHepteracts'>
+    | 'wowHepteracts'
+    | 'singularityCount'
+    | 'quarks'
+    | 'goldenQuarks'
+    | 'wowTribs'
+    | 'tessTribs'
+    | 'hyperTribs'
+    | 'platTribs'
+    | 'octeracts'
+    | 'c15Score'
+    | 'quarkHept'>
 
 // A formatter that allows formatting a string. The string should be in a form parsable by break_infinity.js.
 const formatDecimalSource = (numOrStr: DecimalSource) => {
@@ -186,6 +212,66 @@ const historyGains: Record<
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Hepteracts',
         onlyif: () => player.achievements[255] > 0
+    },
+    singularityCount: {
+        img: 'Pictures/Singularity.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Singularity Count',
+        onlyif: () => player.singularityCount > 0
+    },
+    quarks: {
+        img: 'Pictures/Quark.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Quarks',
+        onlyif: () => player.singularityCount > 0
+    },
+    goldenQuarks: {
+        img: 'Pictures/Golden Quark.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Golden Quarks',
+        onlyif: () => player.singularityCount > 0
+    },
+    wowTribs: {
+        img: 'Pictures/WowCube.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Cube Tributes',
+        onlyif: () => player.singularityCount > 0
+    },
+    tessTribs: {
+        img: 'Pictures/WowTessaract.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Tesseract Gifts',
+        onlyif: () => player.singularityCount > 0
+    },
+    hyperTribs: {
+        img: 'Pictures/WowHypercube.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Hypercube Bendictions',
+        onlyif: () => player.singularityCount > 0
+    },
+    platTribs: {
+        img: 'Pictures/Platonic Cube.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Platonics Opened',
+        onlyif: () => player.singularityCount > 0
+    },
+    octeracts: {
+        img: 'Pictures/Octaret.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Octeracts',
+        onlyif: () => player.singularityUpgrades.octeractUnlock.getEffect().bonus > 0
+    },
+    c15Score: {
+        img: 'Pictures/Challenge15.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'C15 score',
+        onlyif: () => player.singularityCount > 0
+    },
+    quarkHept: {
+        img: 'Pictures/QuarkHepteract.png',
+        formatter: formatDecimalSource,
+        imgTitle: 'Quark Hept',
+        onlyif: () => player.singularityCount > 0
     }
 };
 
@@ -193,7 +279,9 @@ const historyGains: Record<
 const historyGainsOrder: ResetHistoryGainType[] = [
     'offerings', 'obtainium',
     'particles', 'diamonds', 'mythos',
-    'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowHepteracts'
+    'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowHepteracts',
+    'singularityCount', 'quarks', 'goldenQuarks', 'wowTribs', 'tessTribs',
+    'hyperTribs', 'platTribs', 'octeracts', 'c15Score', 'quarkHept'
 ];
 
 // The various kinds and their associated images.
@@ -202,14 +290,16 @@ const historyKinds: Record<Kind, { img: string }> = {
     'prestige': {img: 'Pictures/Prestige.png'},
     'transcend': {img: 'Pictures/Transcend.png'},
     'reincarnate': {img: 'Pictures/Reincarnate.png'},
-    'ascend': {img: 'Pictures/questionable.png'}
+    'ascend': {img: 'Pictures/questionable.png'},
+    'singularity': {img: 'Pictures/Singularity.png'}
 };
 
 // List of categories and the IDs of the associated table in the DOM.
 const resetHistoryTableMapping: Record<Category, string> = {
     'ants': 'historyAntsTable',
     'reset': 'historyResetTable',
-    'ascend': 'historyAscendTable'
+    'ascend': 'historyAscendTable',
+    'singularity': 'historySingularityTable'
 };
 
 // Images associated with the various corruptions.
