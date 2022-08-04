@@ -188,19 +188,19 @@ export const corruptionButtonsAdd = () => {
         btn = document.createElement('button');
         btn.className = 'corrBtn corruptionMax';
         btn.textContent = '+MAX';
-        btn.onclick = () => toggleCorruptionLevel(i + 2, 99);
+        btn.addEventListener('click', () => toggleCorruptionLevel(i + 2, 99));
         row.appendChild(btn);
 
         btn = document.createElement('button');
         btn.className = 'corrBtn corruptionUp';
         btn.textContent = '+1';
-        btn.onclick = () => toggleCorruptionLevel(i + 2, 1);
+        btn.addEventListener('click', () => toggleCorruptionLevel(i + 2, 1));
         row.appendChild(btn);
 
         btn = document.createElement('button');
         btn.className = 'corrBtn corruptionDown';
         btn.textContent = '-1';
-        btn.onclick = () => toggleCorruptionLevel(i + 2, -1);
+        btn.addEventListener('click', () => toggleCorruptionLevel(i + 2, -1));
         row.appendChild(btn);
 
         btn = document.createElement('button');
@@ -229,7 +229,7 @@ export const corruptionLoadoutTableCreate = () => {
             if (j === 0) { // First column
                 if (i === 0) { // First row
                     cell.textContent = 'Next:'
-                    cell.addEventListener('click', () => void corruptionLoadoutGetExport(i));
+                    cell.addEventListener('click', () => void corruptionLoadoutGetExport());
                     cell.classList.add('corrLoadoutName');
                     cell.title = 'Click to copy the next Corruptions to the clipboard. This is the format that can be imported'
                 } else {
@@ -251,7 +251,7 @@ export const corruptionLoadoutTableCreate = () => {
             let btn: HTMLButtonElement= document.createElement('button');
             btn.className = 'corrImport'
             btn.textContent = 'Import'
-            btn.onclick = () => importCorruptionsPrompt();
+            btn.addEventListener('click', () => void importCorruptionsPrompt());
             cell.appendChild(btn);
             cell.title = 'Import Corruption Loadout in text format'
 
@@ -259,7 +259,7 @@ export const corruptionLoadoutTableCreate = () => {
             btn = document.createElement('button');
             btn.className = 'corrLoad'
             btn.textContent = 'Zero'
-            btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
+            btn.addEventListener('click', () => corruptionLoadoutSaveLoad(false, i));
             cell.appendChild(btn);
             cell.title = 'Reset Corruptions to zero on your next Ascension. Hotkey: SHIFT+9'
         } else {
@@ -267,7 +267,7 @@ export const corruptionLoadoutTableCreate = () => {
             let btn = document.createElement('button');
             btn.className = 'corrSave'
             btn.textContent = 'Save'
-            btn.onclick = () => corruptionLoadoutSaveLoad(true, i);
+            btn.addEventListener('click', () => corruptionLoadoutSaveLoad(true, i));
             cell.appendChild(btn);
             cell.title = 'Save current Corruptions to this Loadout'
 
@@ -275,7 +275,7 @@ export const corruptionLoadoutTableCreate = () => {
             btn = document.createElement('button');
             btn.className = 'corrLoad'
             btn.textContent = 'Load'
-            btn.onclick = () => corruptionLoadoutSaveLoad(false, i);
+            btn.addEventListener('click', () => corruptionLoadoutSaveLoad(false, i));
             cell.appendChild(btn);
         }
     }

@@ -82,8 +82,8 @@ export const loadStatisticsMiscellaneous = () => {
     DOMCacheGetOrSet('sMisc12').textContent = format(player.ascensionCount, 0, true)
     DOMCacheGetOrSet('sMisc13').textContent = format(player.totalQuarksEver + player.quarksThisSingularity, 0, true)
     DOMCacheGetOrSet('sMisc14').textContent = format(player.quarksThisSingularity, 0, true)
-    DOMCacheGetOrSet('sMisc15').textContent = formatTimeShort(player.quarkstimer, 0, true) + ' / ' + formatTimeShort(90000 + 18000 * player.researches[195], 0, true)
-    DOMCacheGetOrSet('sMisc16').textContent = synergismStage('name', 0);
+    DOMCacheGetOrSet('sMisc15').textContent = formatTimeShort(player.quarkstimer) + ' / ' + formatTimeShort(90000 + 18000 * player.researches[195])
+    DOMCacheGetOrSet('sMisc16').textContent = synergismStage(0);
 }
 
 export const loadStatisticsAccelerator = () => {
@@ -599,7 +599,6 @@ const updateDisplayC15Rewards = () => {
 }
 
 interface Stage { stage: number, tier: number, name: string, unlocked: boolean, reset: boolean }
-type StageTypes = string | number | boolean
 
 export const gameStages = (): Stage[] => {
     const stages: Stage[] = [
@@ -632,13 +631,14 @@ export const gameStages = (): Stage[] => {
 // Calculate which progress in the game you are playing
 // The progress displayed is based on Progression Chat and Questions
 // This will be used to determine the behavior of the profile of the autopilot function in the future
-export const synergismStage = (index: keyof typeof Stage = 'name', skipTier = player.singularityCount > 0 ? 5 : 0): StageTypes => {
+export const synergismStage = (skipTier = player.singularityCount > 0 ? 5 : 0): string => {
     const stages = gameStages();
     for (let i = 0; i < stages.length; i++){
         const stage = stages[i];
         if (skipTier < stage.tier && (stage.reset === false || stage.unlocked === false)) {
-            return stage[index] as StageTypes;
+            return stage.name;
         }
     }
-    return stages[0][index] as StageTypes;
+    const stagesZero = stages[0];
+    return stagesZero.name;
 }

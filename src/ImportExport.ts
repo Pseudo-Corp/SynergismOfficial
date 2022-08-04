@@ -107,7 +107,7 @@ const saveFilename = () => {
             case 'QUARKS': return format(Number(player.worlds));
             case 'GQ': return '' + Math.floor(player.goldenQuarks);
             case 'GQS': return format(player.goldenQuarks);
-            case 'STAGE': return synergismStage('name', 0);
+            case 'STAGE': return synergismStage(0);
             default: return `${b}`;
         }
     });

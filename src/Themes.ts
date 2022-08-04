@@ -197,7 +197,7 @@ export const toggleTheme = (setting = true) => {
         themeButton.textContent = 'Dark Mode';
     }
 
-    if (setting === true) {
+    if (setting === true && themeButton.textContent !== null) {
         player.theme = themeButton.textContent;
     }
 }
@@ -208,7 +208,7 @@ export const settingTheme = () => {
     const themeButton = DOMCacheGetOrSet('theme');
     for (let i = 0; i < maxThemes; i++) {
         const current = themeButton.textContent;
-        if (userTheme.toUpperCase() !== current.toUpperCase()) {
+        if (current !== null && userTheme.toUpperCase() !== current.toUpperCase()) {
             toggleTheme(false);
         } else {
             return;
@@ -217,7 +217,7 @@ export const settingTheme = () => {
     userTheme = 'Dark Mode'.toUpperCase();
     for (let i = 0; i < maxThemes; i++) {
         const current = themeButton.textContent;
-        if (userTheme.toUpperCase() !== current.toUpperCase()) {
+        if (current !== null && userTheme.toUpperCase() !== current.toUpperCase()) {
             toggleTheme(false);
         } else {
             return;

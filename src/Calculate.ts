@@ -68,7 +68,6 @@ export const calculateTotalAcceleratorBoost = () => {
     }
     b = Math.min(1e100, Math.floor(b));
     G['freeAcceleratorBoost'] = b;
-    
 
     G['totalAcceleratorBoost'] = Math.floor(player.acceleratorBoostBought + G['freeAcceleratorBoost']) * 100 / 100;
 }
