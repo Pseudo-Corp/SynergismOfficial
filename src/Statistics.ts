@@ -80,9 +80,10 @@ export const loadStatisticsMiscellaneous = () => {
     DOMCacheGetOrSet('sMisc10').textContent = format(player.maxobtainiumpersecond, 2, true)
     DOMCacheGetOrSet('sMisc11').textContent = format(player.obtainiumpersecond, 2, true)
     DOMCacheGetOrSet('sMisc12').textContent = format(player.ascensionCount, 0, true)
-    DOMCacheGetOrSet('sMisc13').textContent = format(player.quarksThisSingularity, 0, true)
-    DOMCacheGetOrSet('sMisc14').textContent = formatTimeShort(player.quarkstimer, 0, true) + ' / ' + formatTimeShort(90000 + 18000 * player.researches[195], 0, true)
-    DOMCacheGetOrSet('sMisc15').textContent = synergismStage('name', 0)
+    DOMCacheGetOrSet('sMisc13').textContent = format(player.totalQuarksEver + player.quarksThisSingularity, 0, true)
+    DOMCacheGetOrSet('sMisc14').textContent = format(player.quarksThisSingularity, 0, true)
+    DOMCacheGetOrSet('sMisc15').textContent = formatTimeShort(player.quarkstimer, 0, true) + ' / ' + formatTimeShort(90000 + 18000 * player.researches[195], 0, true)
+    DOMCacheGetOrSet('sMisc16').textContent = synergismStage('name', 0);
 }
 
 export const loadStatisticsAccelerator = () => {
@@ -598,46 +599,46 @@ const updateDisplayC15Rewards = () => {
 }
 
 interface Stage { stage: number, tier: number, name: string, unlocked: boolean, reset: boolean }
-type Stages = Record<number, Stage>;
+type StageTypes = string | number | boolean
 
-export const gameStages = () => {
-    const stages: Stages = {
-        0: {stage: 0, tier: 1, name: 'start', unlocked: true, reset: true},
-        1: {stage: 1, tier: 1, name: 'start-prestige', unlocked: player.unlocks.prestige === true, reset: player.unlocks.prestige},
-        2: {stage: 2, tier: 2, name: 'prestige-transcend', unlocked: player.unlocks.transcend === true, reset: player.unlocks.transcend},
-        3: {stage: 3, tier: 3, name: 'transcend-reincarnate', unlocked: player.unlocks.reincarnate === true, reset: player.unlocks.reincarnate},
-        4: {stage: 4, tier: 4, name: 'reincarnate-ant', unlocked: player.firstOwnedAnts !== 0, reset: player.unlocks.reincarnate},
-        5: {stage: 5, tier: 4, name: 'ant-sacrifice', unlocked: player.achievements[173] === 1, reset: player.unlocks.reincarnate},
-        6: {stage: 6, tier: 4, name: 'sacrifice-ascension', unlocked: player.achievements[183] === 1, reset: player.unlocks.reincarnate},
-        7: {stage: 7, tier: 5, name: 'ascension-challenge10', unlocked: player.ascensionCount > 1, reset: player.achievements[183] === 1},
-        8: {stage: 8, tier: 5, name: 'challenge10-challenge11', unlocked: player.achievements[197] === 1, reset: player.achievements[183] === 1},
-        9: {stage: 9, tier: 5, name: 'challenge11-challenge12', unlocked: player.achievements[204] === 1, reset: player.achievements[183] === 1},
-        10: {stage: 10, tier: 5, name: 'challenge12-challenge13', unlocked: player.achievements[211] === 1, reset: player.achievements[183] === 1},
-        11: {stage: 11, tier: 5, name: 'challenge13-challenge14', unlocked: player.achievements[218] === 1, reset: player.achievements[183] === 1},
-        12: {stage: 12, tier: 5, name: 'challenge14-w5x10max', unlocked: player.cubeUpgrades[50] >= 100000, reset: player.achievements[183] === 1},
-        13: {stage: 13, tier: 5, name: 'w5x10max-alpha', unlocked: player.platonicUpgrades[5] > 0, reset: player.achievements[183] === 1},
-        14: {stage: 14, tier: 5, name: 'alpha-p2x1x10', unlocked: player.platonicUpgrades[6] >= 10, reset: player.achievements[183] === 1},
-        15: {stage: 15, tier: 5, name: 'p2x1x10-p3x1', unlocked: player.platonicUpgrades[11] > 0, reset: player.achievements[183] === 1},
-        16: {stage: 16, tier: 5, name: 'p3x1-beta', unlocked: player.platonicUpgrades[10] > 0, reset: player.achievements[183] === 1},
-        17: {stage: 17, tier: 5, name: 'beta-1e15-expo', unlocked: player.challenge15Exponent >= 1e15, reset: player.achievements[183] === 1},
-        18: {stage: 18, tier: 5, name: '1e15-expo-omega', unlocked: player.platonicUpgrades[15] > 0, reset: player.achievements[183] === 1},
-        19: {stage: 19, tier: 5, name: 'omega-singularity', unlocked: player.singularityCount > 0 && player.runelevels[6] > 0, reset: player.achievements[183] === 1},
-        20: {stage: 20, tier: 6, name: 'singularity-octeracts', unlocked: player.singularityUpgrades.octeractUnlock.level > 0, reset: player.singularityCount > 0},
-        21: {stage: 21, tier: 6, name: 'octeracts', unlocked: false, reset: player.singularityCount > 0}
-    }
+export const gameStages = (): Stage[] => {
+    const stages: Stage[] = [
+        {stage: 0, tier: 1, name: 'start', unlocked: true, reset: true},
+        {stage: 1, tier: 1, name: 'start-prestige', unlocked: player.unlocks.prestige === true, reset: player.unlocks.prestige},
+        {stage: 2, tier: 2, name: 'prestige-transcend', unlocked: player.unlocks.transcend === true, reset: player.unlocks.transcend},
+        {stage: 3, tier: 3, name: 'transcend-reincarnate', unlocked: player.unlocks.reincarnate === true, reset: player.unlocks.reincarnate},
+        {stage: 4, tier: 4, name: 'reincarnate-ant', unlocked: player.firstOwnedAnts !== 0, reset: player.unlocks.reincarnate},
+        {stage: 5, tier: 4, name: 'ant-sacrifice', unlocked: player.achievements[173] === 1, reset: player.unlocks.reincarnate},
+        {stage: 6, tier: 4, name: 'sacrifice-ascension', unlocked: player.achievements[183] === 1, reset: player.unlocks.reincarnate},
+        {stage: 7, tier: 5, name: 'ascension-challenge10', unlocked: player.ascensionCount > 1, reset: player.achievements[183] === 1},
+        {stage: 8, tier: 5, name: 'challenge10-challenge11', unlocked: player.achievements[197] === 1, reset: player.achievements[183] === 1},
+        {stage: 9, tier: 5, name: 'challenge11-challenge12', unlocked: player.achievements[204] === 1, reset: player.achievements[183] === 1},
+        {stage: 10, tier: 5, name: 'challenge12-challenge13', unlocked: player.achievements[211] === 1, reset: player.achievements[183] === 1},
+        {stage: 11, tier: 5, name: 'challenge13-challenge14', unlocked: player.achievements[218] === 1, reset: player.achievements[183] === 1},
+        {stage: 12, tier: 5, name: 'challenge14-w5x10max', unlocked: player.cubeUpgrades[50] >= 100000, reset: player.achievements[183] === 1},
+        {stage: 13, tier: 5, name: 'w5x10max-alpha', unlocked: player.platonicUpgrades[5] > 0, reset: player.achievements[183] === 1},
+        {stage: 14, tier: 5, name: 'alpha-p2x1x10', unlocked: player.platonicUpgrades[6] >= 10, reset: player.achievements[183] === 1},
+        {stage: 15, tier: 5, name: 'p2x1x10-p3x1', unlocked: player.platonicUpgrades[11] > 0, reset: player.achievements[183] === 1},
+        {stage: 16, tier: 5, name: 'p3x1-beta', unlocked: player.platonicUpgrades[10] > 0, reset: player.achievements[183] === 1},
+        {stage: 17, tier: 5, name: 'beta-1e15-expo', unlocked: player.challenge15Exponent >= 1e15, reset: player.achievements[183] === 1},
+        {stage: 18, tier: 5, name: '1e15-expo-omega', unlocked: player.platonicUpgrades[15] > 0, reset: player.achievements[183] === 1},
+        {stage: 19, tier: 5, name: 'omega-singularity', unlocked: player.singularityCount > 0 && player.runelevels[6] > 0, reset: player.achievements[183] === 1},
+        {stage: 20, tier: 6, name: 'singularity-octeracts', unlocked: player.singularityUpgrades.octeractUnlock.level > 0, reset: player.singularityCount > 0},
+        {stage: 21, tier: 6, name: 'octeracts', unlocked: false, reset: player.singularityCount > 0}
+    ];
     return stages;
 }
 
 // Calculate which progress in the game you are playing
 // The progress displayed is based on Progression Chat and Questions
 // This will be used to determine the behavior of the profile of the autopilot function in the future
-export const synergismStage = (index = 'name', skipTier = player.singularityCount > 0 ? 5 : 0): string => {
+export const synergismStage = (index: keyof typeof Stage = 'name', skipTier = player.singularityCount > 0 ? 5 : 0): StageTypes => {
     const stages = gameStages();
-    for (const i in stages) {
+    for (let i = 0; i < stages.length; i++){
         const stage = stages[i];
-        if (skipTier < stage.tier && (!stage.reset || !stage.unlocked)) {
-            return stage[index as keyof Stage];
+        if (skipTier < stage.tier && (stage.reset === false || stage.unlocked === false)) {
+            return stage[index] as StageTypes;
         }
     }
-    return stages[0][index as keyof Stage];
+    return stages[0][index] as StageTypes;
 }

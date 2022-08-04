@@ -691,7 +691,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
         return Alert('You do not have the right to purchase ' + friendlyShopName(input) + '!');
     }
 
-    if (player.shopConfirmation || (!shopData[input].refundable && player.shopBuyMax)) {
+    if (player.shopConfirmationToggle || (!shopData[input].refundable && player.shopBuyMaxToggle)) {
         if (maxLevel) {
             await Alert('You can\'t purchase ' + friendlyShopName(input) + ' because you already have the max level!')
         } else if (!canAfford) {

@@ -8,7 +8,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import { useConsumable } from  './Shop';
 import { promocodes } from './ImportExport';
 
-export const defaultHotkeys = new Map<string, [string,() => unknown]>([
+export const defaultHotkeys = new Map<string, [string,() => unknown, boolean]>([
     ['A', ['Buy Accelerators', () => buyAccelerator(), false]],
     ['B', ['Boost Accelerator', () => boostAccelerator(), false]],
     ['C', ['Auto Challenge', () => {
