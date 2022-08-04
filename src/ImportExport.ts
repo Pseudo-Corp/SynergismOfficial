@@ -419,7 +419,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
         const ascensionTimer = 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult;
         const ascensionTimerText = (player.shopUpgrades.calculator3 > 0)
-            ? 'Thanks to PL-AT Ω you have also gained ' + format(ascensionTimer) + ' real-life seconds to your Ascension Timer!'
+            ? `Thanks to PL-AT Ω you have also gained ${format(ascensionTimer)} real-life seconds to your Ascension Timer!`
             : '';
 
         // Calculator Maxed: you don't need to insert anything!
