@@ -1641,6 +1641,7 @@ export const calculateAscensionScore = () => {
     const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
     const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
     const challengeScoreArrays3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
+    const challengeScoreArrays4 = [0, 10000, 10000, 10000, 10000, 10000, 2000, 3000, 4000, 5000, 7500]
 
     challengeScoreArrays1[1] += player.cubeUpgrades[56]
     challengeScoreArrays1[2] += player.cubeUpgrades[56]
@@ -1655,6 +1656,9 @@ export const calculateAscensionScore = () => {
             baseScore += challengeScoreArrays2[i] * (player.highestchallengecompletions[i] - 75)
             if (player.highestchallengecompletions[i] >= 750) {
                 baseScore += challengeScoreArrays3[i] * (player.highestchallengecompletions[i] - 750)
+            }
+            if (player.highestchallengecompletions[i] >= 9000) {
+                baseScore += challengeScoreArrays4[i] * (player.highestchallengecompletions[i] - 9000)
             }
         }
         if (i <= 10 && i > 5 && player.highestchallengecompletions[i] >= 25) {

@@ -649,14 +649,14 @@ TODO: Fix this entire tab it's utter shit
     const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
     for (const key of singularityUpgrades) {
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
-        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityUpgrades[`${String(key)}`].buyLevel())
+        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.singularityUpgrades[`${String(key)}`].buyLevel(event))
     }
 
     // Octeract Upgrades
     const octeractUpgrades = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[];
     for (const key of octeractUpgrades) {
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.octeractUpgrades[`${String(key)}`].updateUpgradeHTML())
-        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.octeractUpgrades[`${String(key)}`].buyLevel())
+        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.octeractUpgrades[`${String(key)}`].buyLevel(event))
     }
     //Toggle subtabs of Singularity tab
     for (let index = 0; index < 4; index++) {
