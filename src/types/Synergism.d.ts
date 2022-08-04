@@ -362,7 +362,11 @@ export interface Player {
         improveQuarkHept: number,
         improveQuarkHept2: number,
         improveQuarkHept3: number,
-        improveQuarkHept4: number
+        improveQuarkHept4: number,
+        shopImprovedDaily: number,
+        shopImprovedDaily2: number,
+        shopImprovedDaily3: number,
+        shopImprovedDaily4: number
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean,
@@ -415,6 +419,14 @@ export interface Player {
     ascensionCounter: number
     ascensionCounterReal: number
     ascensionCounterRealReal: number
+    autoOpenCubes: boolean,
+    openCubes: number
+    autoOpenTesseracts: boolean,
+    openTesseracts: number
+    autoOpenHypercubes: boolean,
+    openHypercubes: number
+    autoOpenPlatonicsCubes: boolean,
+    openPlatonicsCubes: number
     cubeUpgrades: [null, ...number[]]
     cubeUpgradesBuyMaxToggle: boolean
     platonicUpgrades: number[]
@@ -551,7 +563,7 @@ export interface Player {
     quarksThisSingularity: number
     totalQuarksEver: number
     hotkeys: Record<number, string[]>
-    cubeAutoOpenPercentage: number[]
+    theme: string
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
     octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade> 

@@ -1467,7 +1467,7 @@
             <div id="runeContainer3" alt="runeContainer3" label="runeContainer3" style="display: none">
                 <div class="runeBlessingPurchaseSettings">
                     <button class="auto singularity" id="toggle36" alt="toggle36" label="toggle36" toggleid="36" alt="36" label="36" format="Auto: $" count="15">Auto: Off</button>
-                    <button id="buyAllBlessings" class="runeButtons runeButtonsBuyAll" style="width: 120px;">ALL Increase Level</button>
+                    <button id="buyAllBlessings" class="runeButtons runeButtonsBuyAll">ALL Increase Level</button>
                     <input type="number" id="buyRuneBlessingInput" alt="buyRuneBlessingInput" label="buyRuneBlessingInput" min="1" max="999999999" defaultValue="1">
                     <span id="buyRuneBlessingToggle" alt="buyRuneBlessingToggle" label="buyRuneBlessingToggle" style="color: yellow">Buy up to <span id="buyRuneBlessingToggleValue" alt="buyRuneBlessingToggleValue" label="buyRuneBlessingToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</span>
                 </div>
@@ -1505,7 +1505,7 @@
             <div id="runeContainer4" alt="runeContainer4" label="runeContainer4" style="display: none">
                 <div class="runeBlessingPurchaseSettings">
                     <button class="auto singularity" id="toggle37" alt="toggle37" label="toggle37" toggleid="37" alt="37" label="37" format="Auto: $" count="15">Auto: Off</button>
-                    <button id="buyAllSpirits" class="runeButtons runeButtonsBuyAll" style="width: 120px;">ALL Increase Level</button>
+                    <button id="buyAllSpirits" class="runeButtons runeButtonsBuyAll">ALL Increase Level</button>
                     <input type="number" id="buyRuneSpiritInput" alt="buyRuneSpiritInput" label="buyRuneSpiritInput" min="1" max="999999999" defaultValue="1">
                     <span id="buyRuneSpiritToggle" alt="buyRuneSpiritToggle" label="buyRuneSpiritToggle" style="color: yellow">Buy up to <span id="buyRuneSpiritToggleValue" alt="buyRuneSpiritToggleValue" label="buyRuneSpiritToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</span>
                 </div>
@@ -2062,7 +2062,10 @@
                                 <button class="cubeBtn" id="open1000Cube" alt="open1000Cube" label="open1000Cube">Open 50%</button>
                                 <button class="cubeBtn" id="openCustomCube" alt="openCustomCube" label="openCustomCube">Custom Amount</button>
                                 <button class="cubeBtn" id="openMostCube" alt="openMostCube" label="openMostCube">Open All</button>
-                                <button class="cubeBtn" id="openAutoOpenCube" alt="openAutoOpenCube" label="openAutoOpenCube" class="cubeBtn singularity">Auto Open 0%</button>
+                                <div class="autoOpensBtn">
+                                    <button class="autoOpens" id="openCubes" alt="openCubes" label="openCubes" style="border: 1px solid red" title="On Ascension will open % of Cubes&#013Cx1 is required">Auto Open [OFF]</button>
+                                    <input class="autoOpensInput" type="number" id="cubeOpensInput" alt="cubeOpensInput" label="cubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2148,7 +2151,10 @@
                                 <button id="open1000Tesseract" alt="open1000Tesseract" label="open1000Tesseract" class="cubeBtn">Open 50%</button>
                                 <button id="openCustomTesseract" alt="openCustomTesseract" label="openCustomTesseract" class="cubeBtn">Custom Amount</button>
                                 <button id="openMostTesseract" alt="openMostTesseract" label="openMostTesseract" class="cubeBtn">Open All</button>
-                                <button id="openAutoOpenTesseract" alt="openAutoOpenTesseract" label="openAutoOpenTesseract" class="cubeBtn singularity">Auto Open 0%</button>
+                                <div class="autoOpensBtn">
+                                    <button class="autoOpens" id="openTesseracts" alt="openTesseracts" label="openTesseracts" style="border: 1px solid red" title="On Ascension will open % of Tesseracts&#013Cant work with amount Mode (Auto Tesseract Buildings)">Auto Open [OFF]</button>
+                                    <input class="autoOpensInput" type="number" id="tesseractsOpensInput" alt="tesseractsOpensInput" label="tesseractsOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2234,7 +2240,10 @@
                                 <button id="open1000Hypercube" alt="open1000Hypercube" label="open1000Hypercube" class="cubeBtn">Open 50%</button>
                                 <button id="openCustomHypercube" alt="openCustomHypercube" label="openCustomHypercube" class="cubeBtn">Custom Amount</button>
                                 <button id="openMostHypercube" alt="openMostHypercube" label="openMostHypercube" class="cubeBtn">Open All</button>
-                                <button id="openAutoOpenHypercube" alt="openAutoOpenHypercube" label="openAutoOpenHypercube" class="cubeBtn singularity">Auto Open 0%</button>
+                                <div class="autoOpensBtn">
+                                    <button class="autoOpens" id="openHypercubes" alt="openHypercubes" label="openHypercubes" style="border: 1px solid red" title="On Ascension will open % of Hypercubes&#013Research 8x8 is required">Auto Open [OFF]</button>
+                                    <input class="autoOpensInput" type="number" id="hypercubesOpensInput" alt="hypercubesOpensInput" label="hypercubesOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2320,7 +2329,10 @@
                                 <button id="open1mPlatonicCube" alt="open1mPlatonicCube" label="open1mPlatonicCube" class="cubeBtn">Open 50%</button>
                                 <button id="openCustomPlatonicCube" alt="openCustomPlatonicCube" label="openCustomPlatonicCube" class="cubeBtn">Custom Amount</button>
                                 <button id="openMostPlatonicCube" alt="openMostPlatonicCube" label="openMostPlatonicCube" class="cubeBtn">Open All</button>
-                                <button id="openAutoOpenPlatonicCube" alt="openAutoOpenPlatonicCube" label="openAutoOpenPlatonicCube" class="cubeBtn singularity">Auto Open 0%</button>
+                                <div class="autoOpensBtn">
+                                    <button class="autoOpens" id="openPlatonicCube" alt="openPlatonicCube" label="openPlatonicCube" style="border: 1px solid red" title="On Ascension will open % of Platonic Cubes">Auto Open [OFF]</button>
+                                    <input class="autoOpensInput" type="number" id="platonicCubeOpensInput" alt="platonicCubeOpensInput" label="platonicCubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2731,28 +2743,28 @@
                 </span>
                 <div id="corruptionStats" alt="corruptionStats" label="corruptionStats" class="corruptionContainer">
                     <span class="corruptionStatRow chal11Corruption">
-                        <img src="Pictures/Viscocity.png" class="corruptionImg" loading="lazy">
+                        <img src="Pictures/Viscocity.png" class="corruptionImg" title="Viscocity" loading="lazy">
                     </span>
                     <span class="corruptionStatRow chal14Corruption">
-                        <img src="Pictures/Spatial Dilation.png" class="corruptionImg" loading="lazy">
+                        <img src="Pictures/Spatial Dilation.png" class="corruptionImg" title="Spatial Dilation" loading="lazy">
                     </span>
                     <span class="corruptionStatRow chal14Corruption">
-                        <img src="Pictures/Hyperchallenged.png" class="corruptionImg" loading="lazy">
+                        <img src="Pictures/Hyperchallenged.png" class="corruptionImg" title="Hyperchallenged" loading="lazy">
                     </span>
                     <span class="corruptionStatRow chal13Corruption">
-                        <img src="Pictures/Scientific Illiteracy.png" class="corruptionImg" loading="lazy">
+                        <img src="Pictures/Scientific Illiteracy.png" class="corruptionImg" title="Scientific Illiteracy" loading="lazy">
                     </span>
                     <span class="corruptionStatRow chal12Corruption">
-                        <img src="Pictures/Deflation.png" class="corruptionImg" loading="lazy">
+                        <img src="Pictures/Deflation.png" class="corruptionImg" title="Deflation" loading="lazy">
                     </span>
                     <span class="corruptionStatRow chal12Corruption">
-                        <img src="Pictures/Extinction.png" class="corruptionImg" loading="lazy">
+                        <img src="Pictures/Extinction.png" class="corruptionImg" title="Extinction" loading="lazy">
                     </span>
                     <span class="corruptionStatRow chal11Corruption">
-                        <img src="Pictures/Drought.png" class="corruptionImg" loading="lazy">
+                        <img src="Pictures/Drought.png" class="corruptionImg" title="Drought" loading="lazy">
                     </span>
                     <span class="corruptionStatRow chal13Corruption">
-                        <img src="Pictures/Financial Collapse.png" class="corruptionImg" loading="lazy">
+                        <img src="Pictures/Financial Collapse.png" class="corruptionImg" title="Financial Collapse" loading="lazy">
                     </span>
                     <!-- TODO: <script>corruptionButtonsAdd()</script> -->
                 </div>
@@ -2761,28 +2773,28 @@
                         <tr>
                             <th class="corrLoadoutNameCol"></th>
                             <th>
-                                <img src="Pictures/Viscocity.png" class="corruptionImg small" loading="lazy">
+                                <img src="Pictures/Viscocity.png" class="corruptionImg small" title="Viscocity" loading="lazy">
                             </th>
                             <th>
-                                <img src="Pictures/Spatial Dilation.png" class="corruptionImg small" loading="lazy">
+                                <img src="Pictures/Spatial Dilation.png" class="corruptionImg small" title="Spatial Dilation" loading="lazy">
                             </th>
                             <th>
-                                <img src="Pictures/Hyperchallenged.png" class="corruptionImg small" loading="lazy">
+                                <img src="Pictures/Hyperchallenged.png" class="corruptionImg small" title="Hyperchallenged" loading="lazy">
                             </th>
                             <th>
-                                <img src="Pictures/Scientific Illiteracy.png" class="corruptionImg small" loading="lazy">
+                                <img src="Pictures/Scientific Illiteracy.png" class="corruptionImg small" title="Scientific Illiteracy" loading="lazy">
                             </th>
                             <th>
-                                <img src="Pictures/Deflation.png" class="corruptionImg small" loading="lazy">
+                                <img src="Pictures/Deflation.png" class="corruptionImg small" title="Deflation" loading="lazy">
                             </th>
                             <th>
-                                <img src="Pictures/Extinction.png" class="corruptionImg small" loading="lazy">
+                                <img src="Pictures/Extinction.png" class="corruptionImg small" title="Extinction" loading="lazy">
                             </th>
                             <th>
-                                <img src="Pictures/Drought.png" class="corruptionImg small" loading="lazy">
+                                <img src="Pictures/Drought.png" class="corruptionImg small" title="Drought" loading="lazy">
                             </th>
                             <th>
-                                <img src="Pictures/Financial Collapse.png" class="corruptionImg small" loading="lazy">
+                                <img src="Pictures/Financial Collapse.png" class="corruptionImg small" title="Financial Collapse" loading="lazy">
                             </th>
                         </tr>
                     </table>
@@ -2819,10 +2831,10 @@
                 <p id="corruptionPlatonicCubes" alt="corruptionPlatonicCubes" label="corruptionPlatonicCubes" class="chal14 tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionPlatonicCubesValue" alt="corruptionPlatonicCubesValue" label="corruptionPlatonicCubesValue" style="color: lightgoldenrodyellow; font-size: 1.2em">32</span> PLATONIC CUBES. [<span style="color: lightgoldenrodyellow">Req Score: >2,666,000,000,000</span>]</p>
                 <p id="corruptionHepteracts" alt="corruptionHepteracts" label="corruptionHepteracts" class="chal15 tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionHepteractsValue" alt="corruptionHepteractsValue" label="corruptionHepteractsValue" style="color: pink; font-size: 1.2em">0</span> HEPTERACTS. [<span style="color: pink">Req Score: >1.666e17</span>]</p>
                 <div id="ascensionAutomation" alt="ascensionAutomation" label="ascensionAutomation" class="cubeUpgrade10 vAlign">
-                    <input id="ascensionAmount" alt="ascensionAmount" label="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1" style="border: 1px solid orange;">
-                    <p id="autoAscend" alt="autoAscend" label="autoAscend" class="ascendunlock tightText" style="color: white">Ascend when you've completed Sadistic Challenge I a total of 1 times, Currently: 1.</p>
                     <button id="ascensionAutoEnable" alt="ascensionAutoEnable" label="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green">Auto Ascend [ON]</button>
                     <button id="ascensionAutoToggle" alt="ascensionAutoToggle" label="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;">Mode: C10 Completions</button>
+                    <input id="ascensionAmount" alt="ascensionAmount" label="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1">
+                    <p id="autoAscend" alt="autoAscend" label="autoAscend" class="ascendunlock tightText">Ascend when<span id="autoAscendText" alt="autoAscendText" label="autoAscendText"> you've completed Sadistic Challenge I a total of </span><span id="autoAscendMetric" alt="autoAscendMetric" label="autoAscendMetric" style="color: violet">1</span><span id="autoAscendText2" alt="autoAscendText2" label="autoAscendText2"> times, Currently: </span><span id="autoAscendMetric2" alt="autoAscendMetric2" label="autoAscendMetric2" style="color: gold">0</span></p>
                 </div>
             </div>
         </div>
@@ -2876,7 +2888,7 @@
                 <button id="promocodes" alt="promocodes" label="promocodes" class="promocodeButton" style="border:2px solid goldenrod">Enter a promotion code here!</button>
                 <p id="promocodeinfo" alt="promocodeinfo" label="promocodeinfo" style="color: goldenrod"></p>
                 <p id="themesTitle" alt="themesTitle" label="themesTitle" style="color: pink">Current Theme</p>
-                <button id="theme" alt="theme" label="theme" class="promocodeButton" style="border: 2px solid white">Light Mode</button>
+                <button id="theme" alt="theme" label="theme" class="promocodeButton" style="border: 2px solid white">Dark Mode</button>
             </div>
             <div id="exportButtons" alt="exportButtons" label="exportButtons">
                 <p id="quarktimerdisplay" alt="quarktimerdisplay" label="quarktimerdisplay" class="tightText" style="color: gold">3600s until +1 export Quark</p>
@@ -3488,6 +3500,26 @@ $STAGE$ for synergism stage" style="color: white"></p>
                             <p id="improveQuarkHept4Level" alt="improveQuarkHept4Level" label="improveQuarkHept4Level"></p>
                             <button class="permshopbutton" id="improveQuarkHept4Button" alt="improveQuarkHept4Button" label="improveQuarkHept4Button" style="border: 2px solid grey;"></button>
                         </div>
+                        <div class="chal14Shop" id="shopImprovedDailyHide">
+                            <img id="shopImprovedDaily" alt="shopImprovedDaily" src="Pictures/Shop Improved Daily0.png">
+                            <p id="shopImprovedDailyLevel"></p>
+                            <button class="permshopbutton" id="shopImprovedDailyButton" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="singularityShopUnlock" id="shopImprovedDaily2Hide">
+                            <img id="shopImprovedDaily2" alt="shopImprovedDaily2" src="Pictures/Shop Improved Daily.png">
+                            <p id="shopImprovedDaily2Level"></p>
+                            <button class="permshopbutton" id="shopImprovedDaily2Button" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="singularityShopUnlock2" id="shopImprovedDaily3Hide">
+                            <img id="shopImprovedDaily3" alt="shopImprovedDaily3" src="Pictures/Shop Improved Daily2.png">
+                            <p id="shopImprovedDaily3Level"></p>
+                            <button class="permshopbutton" id="shopImprovedDaily3Button" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="singularityShopUnlock3" id="shopImprovedDaily4Hide">
+                            <img id="shopImprovedDaily4" alt="shopImprovedDaily4" src="Pictures/Shop Improved Daily3.png">
+                            <p id="shopImprovedDaily4Level"></p>
+                            <button class="permshopbutton" id="shopImprovedDaily4Button" style="border: 2px solid gold"></button>
+                        </div>
                         <div class="singularityShopUnlock2" id="powderAutoHide">
                             <img id="powderAuto" src="Pictures/Powder Gain Upgrade2.png" loading="lazy">
                             <p id="powderAutoLevel"></p>
@@ -3688,14 +3720,15 @@ $STAGE$ for synergism stage" style="color: white"></p>
         <div id="singularityContainer4" alt="singularityContainer4" label="singularityContainer4" style="display: none;">
             <div id="singularityOcteracts" alt="singularityOcteracts" label="singularityOcteracts" class="singularityContainer">
                 <div id="octeractsDisplay" alt="octeractsDisplay" label="octeractsDisplay">
-                    <img src="Pictures/Octaret.png" width="32px" height="32px" loading="lazy">
+                    <img src="Pictures/Octaret.png" loading="lazy">
                     <p id="octeractAmount" alt="octeractAmount" label="octeractAmount">You have <span id='singOcts'>0</span> Octeracts!</p>
                     <p id="secondsPerOcteract" alt="secondsPerOcteract" label="secondsPerOcteract" style="color: lightgoldenrodyellow">+1 per <span id="sPO" style="font-size: 1.2em; color: orchid"></span> seconds</p>
+                    <p id="octeractPerSeconds" alt="octeractPerSeconds" label="octeractPerSeconds" style="color: lightgoldenrodyellow"><span id="oPS" style="font-size: 1.2em; color: yellow"></span> per second</p>
                 </div>
                 <div id="totalOcteractsDisplay" alt="totalOcteractsDisplay" label="totalOcteractsDisplay">
-                    <p id="totalOcteractAmount" alt="totalOcteractAmount" label="totalOcteractAmount"> Total Generated: <span id="totalOcts"></span> Octeracts!</p>
-                    <p id="totalOcteractCubeBonus" alt="totalOcteractCubeBonus" label="totalOcteractCubeBonus"> //3-7 Dimensional Cubes +<span id="octCubeBonus">199</span>%</p>
-                    <p id="totalOcteractQuarkBonus" alt="totalOcteractQuarkBonus" label="totalOcteractQuarkBonus"> //Quarks +<span id="octQuarkBonus">4</span>%</p>
+                    <p id="totalOcteractAmount" alt="totalOcteractAmount" label="totalOcteractAmount">Total Generated: <span id="totalOcts" style="color: lightseagreen">0</span> Octeracts!</p>
+                    <p id="totalOcteractCubeBonus" alt="totalOcteractCubeBonus" label="totalOcteractCubeBonus">3-7 Dimensional Cubes <span id="octCubeBonus" style="color: yellow">+199%</span></p>
+                    <p id="totalOcteractQuarkBonus" alt="totalOcteractQuarkBonus" label="totalOcteractQuarkBonus">Quarks <span id="octQuarkBonus" style="color: aqua">+4%</span></p>
                 </div>
                 <div class="boxColor" id="octeractUpgradeContainer" alt="octeractUpgradeContainer" label="octeractUpgradeContainer">
                     <div class="octeractUpgrade">

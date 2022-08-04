@@ -21,7 +21,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset';
+import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset';
 import type { TesseractBuildings} from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
@@ -34,7 +34,7 @@ import { autoResearchEnabled } from './Research';
 //import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import { checkVariablesOnLoad } from './CheckVariables';
-import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
+import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract, toggleAutoBuyOrbs } from './Hepteracts';
 import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { updatePlatonicUpgradeBG } from './Platonic';
@@ -46,6 +46,7 @@ import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
+import { settingTheme } from './Themes';
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -481,7 +482,11 @@ export const player: Player = {
         improveQuarkHept: 0,
         improveQuarkHept2: 0,
         improveQuarkHept3: 0,
-        improveQuarkHept4: 0
+        improveQuarkHept4: 0,
+        shopImprovedDaily: 0,
+        shopImprovedDaily2: 0,
+        shopImprovedDaily3: 0,
+        shopImprovedDaily4: 0
     },
     shopBuyMaxToggle: false,
     shopHideToggle: false,
@@ -614,6 +619,14 @@ export const player: Player = {
     autoAscend: false,
     autoAscendMode: 'c10Completions',
     autoAscendThreshold: 1,
+    autoOpenCubes: false,
+    openCubes: 0,
+    autoOpenTesseracts: false,
+    openTesseracts: 0,
+    autoOpenHypercubes: false,
+    openHypercubes: 0,
+    autoOpenPlatonicsCubes: false,
+    openPlatonicsCubes: 0,
     roombaResearchIndex: 0,
     ascStatToggles: { // false here means show per second
         1: false,
@@ -703,7 +716,7 @@ export const player: Player = {
     quarksThisSingularity: 0,
     totalQuarksEver: 0,
     hotkeys: {},
-    cubeAutoOpenPercentage: [0, 0, 0, 0],
+    theme: 'Dark Mode',
 
     singularityUpgrades: {
         goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
@@ -838,8 +851,7 @@ const loadSynergy = async () => {
         ? JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>
         : null;
 
-    //debug!!
-    if (!testing) {
+    if (testing) {
         Object.defineProperty(window, 'player', {
             value: player
         });
@@ -1310,7 +1322,6 @@ const loadSynergy = async () => {
             player.upgrades.push(0)
         }
 
-
         if (player.saveString === '' || player.saveString === 'Synergism-v1011Test.txt') {
             player.saveString = player.singularityCount === 0 ?
                 'Synergism-$VERSION$-$TIME$.txt' :
@@ -1432,7 +1443,7 @@ const loadSynergy = async () => {
                 (ouch.textContent = 'Auto [OFF]', ouch.style.border = '2px solid red');
         }
 
-        DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + '%';
+        DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + format(100 * G['effectiveLevelMult'] - 100, 4, true) + '%';
 
         DOMCacheGetOrSet('talismanlevelup').style.display = 'none'
         DOMCacheGetOrSet('talismanrespec').style.display = 'none'
@@ -1518,6 +1529,30 @@ const loadSynergy = async () => {
             (DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value = ('' + (player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount)).replace(omit, 'e');
             updateTesseractAutoBuyAmount();
         }
+        inputd = player.openCubes;
+        inpute = Number((DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value = ('' + (player.openCubes || blankSave.openCubes)).replace(omit, 'e');
+            updateAutoCubesOpens(1);
+        }
+        inputd = player.openTesseracts;
+        inpute = Number((DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value = ('' + (player.openTesseracts || blankSave.openTesseracts)).replace(omit, 'e');
+            updateAutoCubesOpens(2);
+        }
+        inputd = player.openHypercubes;
+        inpute = Number((DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value = ('' + (player.openHypercubes || blankSave.openHypercubes)).replace(omit, 'e');
+            updateAutoCubesOpens(3);
+        }
+        inputd = player.openPlatonicsCubes;
+        inpute = Number((DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value);
+        if (inpute !== inputd || isNaN(inpute + inputd)) {
+            (DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value = ('' + (player.openPlatonicsCubes || blankSave.openPlatonicsCubes)).replace(omit, 'e');
+            updateAutoCubesOpens(4);
+        }
         inputd = player.runeBlessingBuyAmount;
         inpute = Number((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value);
         if (inpute !== inputd || isNaN(inpute + inputd)) {
@@ -1566,6 +1601,43 @@ const loadSynergy = async () => {
         if (player.tesseractAutoBuyerToggle === 2) {
             DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: OFF'
             DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
+        }
+
+        if (player.autoOpenCubes) {
+            DOMCacheGetOrSet('openCubes').textContent = `Auto Open ${format(player.openCubes, 0)}%`;
+            DOMCacheGetOrSet('openCubes').style.border = '1px solid green';
+            DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid green';
+        } else {
+            DOMCacheGetOrSet('openCubes').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openCubes').style.border = '1px solid red';
+            DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid red';
+        }
+        if (player.autoOpenTesseracts) {
+            DOMCacheGetOrSet('openTesseracts').textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
+            DOMCacheGetOrSet('openTesseracts').style.border = '1px solid green';
+            DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid green';
+        } else {
+            DOMCacheGetOrSet('openTesseracts').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openTesseracts').style.border = '1px solid red';
+            DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid red';
+        }
+        if (player.autoOpenHypercubes) {
+            DOMCacheGetOrSet('openHypercubes').textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
+            DOMCacheGetOrSet('openHypercubes').style.border = '1px solid green';
+            DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid green';
+        } else {
+            DOMCacheGetOrSet('openHypercubes').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openHypercubes').style.border = '1px solid red';
+            DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid red';
+        }
+        if (player.autoOpenPlatonicsCubes) {
+            DOMCacheGetOrSet('openPlatonicCube').textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
+            DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid green';
+            DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid green';
+        } else {
+            DOMCacheGetOrSet('openPlatonicCube').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid red';
+            DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid red';
         }
 
         if (player.autoResearchToggle) {
@@ -1655,12 +1727,6 @@ const loadSynergy = async () => {
             toggleAutoAscend(1);
         }
 
-        const cubeDom = ['openAutoOpenCube', 'openAutoOpenTesseract', 'openAutoOpenHypercube', 'openAutoOpenPlatonicCube'];
-        for (let i = 0; i < cubeDom.length; i++) {
-            DOMCacheGetOrSet(cubeDom[i]).textContent = `Auto Open ${player.cubeAutoOpenPercentage[i]}%`;
-            DOMCacheGetOrSet(cubeDom[i]).style.borderColor = (player.cubeAutoOpenPercentage[i] > 0 ? 'green' : 'red');
-        }
-
         DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = 'Per second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF');
         DOMCacheGetOrSet('historyTogglePerSecondButton').style.borderColor = (player.historyShowPerSecond ? 'green' : 'red');
 
@@ -1684,6 +1750,7 @@ const loadSynergy = async () => {
         DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
         DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = `Auto ${player.overfluxOrbsAutoBuy ? 'ON' : 'OFF'}`
         DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`;
+        toggleAutoBuyOrbs(true, true);
 
         toggleTalismanBuy(player.buyTalismanShardPercent);
         updateTalismanInventory();
@@ -1777,7 +1844,7 @@ export const format = (
         return isNaN(input as number) ? '0 [NaN]' : '0 [und.]';
     } else if ( // this case handles numbers less than 1e-6 and greater than 0
         typeof input === 'number' &&
-        input < 1e-12 && // arbitrary number, can be changed
+        input < (!fractional ? 1e-3 : 1e-15) && // arbitrary number, don't change 1e-3
         input > 0 // don't handle negative numbers, probably could be removed
     ) {
         return input.toExponential(accuracy);
@@ -1809,13 +1876,19 @@ export const format = (
         mantissa = 1;
     }
 
-    // If the power is less than 12 it's effectively 0
-    if (power < -12) {
+    // If the power is less than 15 it's effectively 0
+    if (power < -15) {
         return '0';
     }
 
     // If the power is negative, then we will want to address that separately.
     if (power < 0 && !isDecimal(input) && fractional) {
+        if (power <= -15) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 15)}Qa`
+        }
+        if (power <= -12) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 12)}T`
+        }
         if (power <= -9) {
             return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 9)}B`
         }
@@ -2079,6 +2152,7 @@ export const updateAllTick = (): void => {
                 );
         }
     }
+    G['acceleratorPower'] = Math.min(1e300, G['acceleratorPower']);
     if (player.currentChallenge.reincarnation === 7) {
         G['acceleratorPower'] = 1;
     }
@@ -2252,6 +2326,7 @@ export const updateAllMultiplier = (): void => {
             G['multiplierPower'] = (1.25 + 0.0012 * (b + c) * c7)
         }
     }
+    G['multiplierPower'] = Math.min(1e300, G['multiplierPower']);
 
     if (player.currentChallenge.reincarnation === 7) {
         G['multiplierPower'] = 1;
@@ -2726,7 +2801,7 @@ export const updateAntMultipliers = (): void => {
     G['globalAntMult'] = Decimal.pow(G['globalAntMult'], G['extinctionMultiplier'][player.usedCorruptions[7]])
     G['globalAntMult'] = G['globalAntMult'].times(G['challenge15Rewards'].antSpeed)
     //V2.5.0: Moved ant shop upgrade as 'uncorruptable'
-    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.125, player.shopUpgrades.antSpeed));
+    G['globalAntMult'] = G['globalAntMult'].times(Decimal.pow(1.2, player.shopUpgrades.antSpeed));
 
 
     if (player.platonicUpgrades[12] > 0) {
@@ -3901,6 +3976,7 @@ export const reloadShit = async (reset = false) => {
         await saveSynergy();
     }
 
+    settingTheme();
     toggleauto();
     htmlInserts();
     createTimer();

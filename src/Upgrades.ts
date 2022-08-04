@@ -430,7 +430,7 @@ export const crystalupgradedescriptions = (i: number) => {
 
     const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)))
     DOMCacheGetOrSet('crystalupgradedescription').textContent = returnCrystalUpgDesc(i)
-    DOMCacheGetOrSet('crystalupgradeslevel').textContent = '' + p;
+    DOMCacheGetOrSet('crystalupgradeslevel').textContent = '' + format(p, 0, true);
     DOMCacheGetOrSet('crystalupgradescost').textContent = format(q) + ''
 }
 
@@ -451,7 +451,7 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
             DOMCacheGetOrSet('upgradedescription').style.color = 'gold'
         }
     } else {
-        el.style.backgroundColor = 'Black'
+        el.style.backgroundColor = ''
     }
 
     if (!fast) {

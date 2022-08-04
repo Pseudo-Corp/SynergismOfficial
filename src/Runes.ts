@@ -72,7 +72,7 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
 }
 
 export const resetofferings = (input: resetNames) => {
-    player.runeshards += calculateOfferings(input);
+    player.runeshards = Math.min(1e300, player.runeshards + calculateOfferings(input));
 }
 
 export const unlockedRune = (runeIndexPlusOne: number) => {

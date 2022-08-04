@@ -100,11 +100,11 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Reincarnation',
         price: 200,
         priceIncrease: 25,
-        maxLevel: 140,
+        maxLevel: 100,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
-        description: 'Each level gives a 1.125x speed multiplier to all Ant tiers\' production! (Uncorruptable!) Short and simple.'
+        description: 'Each level gives a 1.2x speed multiplier to all Ant tiers\' production! (Uncorruptable!) Short and simple.'
     },
     cashGrab: {
         tier: 'Reincarnation',
@@ -130,11 +130,11 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Ascension',
         price: 500,
         priceIncrease: 75,
-        maxLevel: 150,
+        maxLevel: 100,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
-        description: 'Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +1.5% Cubes and Tesseracts per level when you Ascend!'
+        description: 'Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +2.25% Cubes and Tesseracts per level when you Ascend!'
     },
     challengeExtension: {
         tier: 'Ascension',
@@ -190,31 +190,31 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Ascension',
         price: 2500,
         priceIncrease: 250,
-        maxLevel: 150,
+        maxLevel: 100,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
-        description: 'Five times the price gouge, twice the fun! +1% Wow! Hypercubes and Platonic Cubes per level.'
+        description: 'Five times the price gouge, twice the fun! +1.5% Wow! Hypercubes and Platonic Cubes per level.'
     },
     seasonPass3: {
         tier: 'Ascension',
         price: 5000,
         priceIncrease: 500,
-        maxLevel: 150,
+        maxLevel: 100,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
-        description: 'Okay, now this is just ridiculous. +1% Wow! Hepteracts and Octeracts per level!'
+        description: 'Okay, now this is just ridiculous. +1.5% Wow! Hepteracts and Octeracts per level!'
     },
     chronometer: {
         tier: 'Ascension',
         price: 2000,
         priceIncrease: 500,
-        maxLevel: 120,
+        maxLevel: 100,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
-        description: 'You know, those Ascensions are kinda slow. Why don\'t I give you a +1% speedup to the timer per level?'
+        description: 'You know, those Ascensions are kinda slow. Why don\'t I give you a +1.2% speedup to the timer per level?'
     },
     infiniteAscent: {
         tier: 'Ascension',
@@ -280,11 +280,11 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Ascension',
         price: 5000,
         priceIncrease: 1500,
-        maxLevel: 120,
+        maxLevel: 100,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
-        description: 'Okay, fine. Here\'s another +0.5% Ascension Speed per level, stacks multiplicatively with the first upgrade!'
+        description: 'Okay, fine. Here\'s another +0.6% Ascension Speed per level, stacks multiplicatively with the first upgrade!'
     },
     chronometer3: {
         tier: 'Singularity',
@@ -300,7 +300,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Ascension',
         price: 10000,
         priceIncrease: 1500,
-        maxLevel: 150,
+        maxLevel: 100,
         type: shopUpgradeTypes.UPGRADE,
         refundable: true,
         refundMinimumLevel: 0,
@@ -465,6 +465,46 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: 'And when they\'ve given you their all, some stagger and fall after all it\'s not easy...'
+    },
+    shopImprovedDaily: {
+        tier: 'Ascension',
+        price: 5000,
+        priceIncrease: 2500,
+        maxLevel: 20,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Hey you. Yeah, you! Quarks make seal merchant happy. Get +5% more of them from code \'daily\' per level.'
+    },
+    shopImprovedDaily2: {
+        tier: 'Singularity',
+        price: 500000,
+        priceIncrease: 500000,
+        maxLevel: 10,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain 1 additional free Singularity Upgrade and 20% more Golden Quarks per use of \'daily\' per level!'
+    },
+    shopImprovedDaily3: {
+        tier: 'SingularityVol2',
+        price: 5000000,
+        priceIncrease: 12500000,
+        maxLevel: 15,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of \'daily\' per level!'
+    },
+    shopImprovedDaily4: {
+        tier: 'SingularityVol3',
+        price: 5e9,
+        priceIncrease: 5e9,
+        maxLevel: 25,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of \'daily\' per level!'
     }
 }
 
@@ -476,7 +516,8 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'cubeToQuark' | 'tesseractToQuark' | 'cubeToQuarkAll' | 'hypercubeToQuark' | 'seasonPass2' | 'seasonPass3' | 'seasonPassY' | 'seasonPassZ' |
                         'seasonPassLost' | 'chronometer' | 'chronometer2'| 'chronometer3'| 'chronometerZ' | 'infiniteAscent' | 'calculator' | 'calculator2' |
                         'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | //And Golden Quarks
-                        'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4'
+                        'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4' | 'shopImprovedDaily' |
+                        'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -552,7 +593,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = 'CURRENT Effect: Ascensions give ' + format(player.shopUpgrades.seasonPass2) + '% more Hypercubes and Platonic Cubes.'
             break;
         case 'seasonPass3':
-            lol.textContent = 'CURRENT Effect: Ascensions give ' + format(player.shopUpgrades.seasonPass3) + '% more Hepteracts and Octarets.'
+            lol.textContent = 'CURRENT Effect: Ascensions give ' + format(player.shopUpgrades.seasonPass3) + '% more Hepteracts and Octeracts.'
             break;
         case 'chronometer':
             lol.textContent = 'CURRENT Effect: Ascension timer runs ' + format(player.shopUpgrades.chronometer) + '% faster.'
@@ -671,7 +712,11 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         improveQuarkHept: 'a 2% improvement to Quark Hepts',
         improveQuarkHept2: 'another 2% improvement to Quark Hepts',
         improveQuarkHept3: 'yet another 2% improvement to Quark Hepts',
-        improveQuarkHept4: 'a 2% improvement to Quack Hepts'
+        improveQuarkHept4: 'a 2% improvement to Quack Hepts',
+        shopImprovedDaily: 'a marginally better daily code',
+        shopImprovedDaily2: 'a slightly better daily code',
+        shopImprovedDaily3: 'an overpriced upgrade to daily code',
+        shopImprovedDaily4: 'a quacker of a daily code upgrade'
     }
 
     return names[input];

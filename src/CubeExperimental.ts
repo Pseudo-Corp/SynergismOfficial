@@ -19,7 +19,6 @@ import { format, player } from './Synergism';
 import { calculateTesseractBlessings } from './Tesseracts';
 import type { Player } from './types/Synergism';
 import { Prompt, Alert } from './UpdateHTML';
-import { DOMCacheGetOrSet } from './Cache/DOM'
 
 /* Constants */
 
@@ -87,55 +86,6 @@ export abstract class Cube {
      * @param max if true, overwrites amount and opens the max amount of cubes.
      */
     abstract open(amount: number, max: boolean): Promise<void> | void;
-
-    /** Open a custom amount of cubes */
-    async autoOpenCustom() {
-        const cubeType = ['wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes'].indexOf(this.key);
-
-        if (cubeType < 0) {
-            return false;
-        }
-
-        const amount = await Prompt(
-            'Enter a number from 0 to 100 (integer only!) to set auto open percentage.\n' +
-            'It will automatically open with the percentage of cubes have after have acquired the cubes in every Ascension run.\nEnter 0 if don\'t want to do this!');
-
-        if (amount === null) {
-            return Alert('OK. No cubes opened.');
-        }
-
-        const isPercentage = amount.endsWith('%');
-        const rawPercentage = isPercentage ? Number(amount.slice(0, -1)) : Number(amount);
-
-        if (Number.isNaN(rawPercentage) || !Number.isFinite(rawPercentage) || !Number.isInteger(rawPercentage)) {
-            return Alert('Value must be a finite, non-decimal number!');
-        } else if (rawPercentage < 0 || rawPercentage > 100) {
-            return Alert('Value must be a number between 0 and 100, inclusive!');
-        } else if (rawPercentage === player.cubeAutoOpenPercentage[cubeType]) {
-            return Alert(`Your percentage is kept at ${player.cubeAutoOpenPercentage[cubeType]}%.`)
-        }
-
-        player.cubeAutoOpenPercentage[cubeType] = rawPercentage;
-
-        const cubeDom = ['openAutoOpenCube', 'openAutoOpenTesseract', 'openAutoOpenHypercube', 'openAutoOpenPlatonicCube'];
-        DOMCacheGetOrSet(cubeDom[cubeType]).textContent = `Auto Open ${rawPercentage}%`;
-        DOMCacheGetOrSet(cubeDom[cubeType]).style.borderColor = (player.cubeAutoOpenPercentage[cubeType] > 0 ? 'green' : 'red');
-    }
-
-    autoOpen() {
-        const thisInPlayer = player[this.key] as Cube;
-        const cubeType = ['wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes'].indexOf(this.key);
-        if (cubeType < 0) {
-            return;
-        }
-        const percentage = player.cubeAutoOpenPercentage[cubeType];
-        if (percentage > 0 && percentage <= 100) {
-            void this.open(
-                Math.floor(thisInPlayer.value * (percentage / 100)),
-                percentage === 100
-            );
-        }
-    }
 
     /** Open a custom amount of cubes */
     async openCustom() {

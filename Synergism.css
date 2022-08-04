@@ -124,14 +124,15 @@ input:disabled {
     color: gray;
 }
 
-input[type="range"] {
-    height: 0;
-}
-
 input {
+    min-height: 20px;
     color: white;
     padding: 0 0 0 0.2em;
-    background-color: var(--box-color);
+    background-color: #171717;
+}
+
+input[type="checkbox"] {
+    min-height: auto;
 }
 
 button {
@@ -203,7 +204,7 @@ body button:active {
     left: 0;
     width: max(100vw, 100%);
     height: max(100vh, 100%);
-    background: rgba(0, 0, 0, 0.5);
+    background-color: rgb(0 0 0 / 50%);
     z-index: 6968;
 }
 
@@ -451,8 +452,9 @@ body button:active {
 
 #exitOffline {
     width: 18em;
+    min-height: auto;
     min-width: 220px;
-    padding: 0.5em 0;
+    padding: 6px 0;
     z-index: 3;
     margin-top: 20px;
     border: 2px solid ivory;
@@ -689,6 +691,10 @@ p#buildinghotkeys {
     text-align: center;
 }
 
+#upgradesFlex > div > table img {
+    background-color: var(--button-color);
+}
+
 #upgradesFlex > div > button {
     min-width: 80px;
 }
@@ -852,11 +858,11 @@ div.addCodeBox {
 }
 
 #addCode {
-    width: 60%;
+    flex-grow: 4;
 }
 
 #addCodeOne {
-    width: 40%;
+    flex-grow: 1;
 }
 
 p#promocodeinfo {
@@ -1079,9 +1085,13 @@ p#promocodeinfo {
 }
 
 .buyAmountBtn {
-    background-color: black;
+    background-color: var(--button-color);
     cursor: pointer;
     transition-duration: 0.15s;
+}
+
+.buyAmountBtn:hover {
+    background-color: var(--hover-color);
 }
 
 #togglecrystalbuy {
@@ -1122,6 +1132,10 @@ p#promocodeinfo {
 }
 
 #crystalupgradestable { margin: 0 auto; }
+
+#crystalupgrades img {
+    background-color: var(--buttonbuy-color);
+}
 
 #autocrystalbuild {
     margin-top: 40px;
@@ -1246,10 +1260,6 @@ img.runeTypeElement:hover {
     background-color: var(--hover-color);
 }
 
-.runeImage {
-    background-color: #171717;
-}
-
 .runeType > .runeButtonAvailable {
     background-color: purple;
     cursor: pointer;
@@ -1305,6 +1315,7 @@ img.runeTypeElement:hover {
 }
 
 .FragBth {
+    width: 7em;
     min-width: 94px;
     margin-right: 10px;
 }
@@ -1584,7 +1595,9 @@ p#transcendhotkeys {
 
 #challengeTimersText > input {
     border: 2px solid orchid;
-    width: 180px;
+    width: 10em;
+    min-width: 180px;
+    max-width: 100%;
     font-size: 1.1em;
 }
 
@@ -1832,14 +1845,14 @@ p#reincarnatehotkeys {
     justify-content: center;
 }
 
-#octeractsDisplay > p {
-    margin: 0 0 0 5px;
+#totalOcteractsDisplay {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
-#quarkamount {
-    font-size: 1.2em;
-    color: aqua;
-    margin-left: 5px;
+#octeractsDisplay > p,
+#totalOcteractsDisplay > p {
+    margin: 0 0 0 10px;
 }
 
 #goldenQuarkamount {
@@ -1911,33 +1924,43 @@ p#reincarnatehotkeys {
 #antsWelcomeTexts > p { margin: 0; }
 #antwelcome { font-size: 1.3em; }
 
+#antrow1 {
+    display: flex;
+    gap: 0 4px;
+    margin-top: 12px;
+    color: red;
+    z-index: 1;
+}
+
 #antrow2 {
-    max-width: 700px;
+    max-width: 800px;
     margin-top: 10px;
     min-height: 10em;
 }
 
 #antrow3 {
-    max-width: 700px;
+    max-width: 800px;
     margin-top: 10px;
     min-height: 7em;
 }
 
-#antrow1,
 #antrow4 {
-    font-size: 0;
-    margin: 10px 0 5px;
+    display: flex;
+    gap: 0 4px;
+    margin-top: 10px;
+    color: red;
     z-index: 1;
 }
 
-#antrow2 > p { margin: 0; }
+#antrow2 > p,
+#antrow3 > p {
+    margin: 0;
+}
 
 #crumbcount {
     font-size: 1.2em;
     min-height: 2.8em;
 }
-
-#antrow3 > p { margin: 0; }
 
 #antToggleFeatures {
     display: flex;
@@ -2089,13 +2112,29 @@ p#reincarnatehotkeys {
 
 .cubeBtn {
     min-width: 100px;
-    max-width: 200px;
     background-color: black;
     border: 1px solid gold;
 }
 
-.cubeBtn:hover {
-    background-color: var(--hover-color);
+.autoOpensBtn {
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+}
+
+.autoOpens {
+    width: 8em;
+    min-width: 100px;
+    min-height: 30px;
+    background-color: black;
+}
+
+.autoOpensInput {
+    width: 8em;
+    min-width: 100px;
+    color: white;
+    background-color: black;
 }
 
 p[id$="BlessingsTotal"] {
@@ -2141,6 +2180,7 @@ p[id$="BlessingsTotal"] {
 .openBtn {
     display: flex;
     flex-flow: wrap;
+    align-items: flex-start;
     gap: 5px;
     margin-left: 10px;
 }
@@ -2573,7 +2613,6 @@ p#ascendHotKeys {
     max-width: 350px;
     border: 1px solid yellow;
     color: gold;
-    transition-duration: 0.15s;
 }
 
 .runeEffectTexts {
@@ -2581,10 +2620,11 @@ p#ascendHotKeys {
     max-width: 600px;
 }
 
-#buyAllBlessings,
-#buyAllSpirits {
+.runeButtonsBuyAll {
     width: 10em;
     min-width: 120px;
+    border: 1px solid yellow;
+    color: gold;
 }
 
 #toggle36,
@@ -2607,7 +2647,6 @@ p#ascendHotKeys {
     width: 5em;
     font-size: 0.8em;
     border: 2px solid crimson;
-    background-color: #171717;
     color: white;
 }
 
@@ -2616,7 +2655,6 @@ p#ascendHotKeys {
     width: 5em;
     font-size: 0.8em;
     border: 2px solid orange;
-    background-color: #171717;
     color: white;
 }
 
@@ -3079,12 +3117,7 @@ header #obtainiumDisplay { color: pink; }
     width: calc(60px + 3.8em + 3.8em);
     grid-template-columns: 60px 3.8em 3.8em;
     grid-template-rows: repeat(2, max(28px, 1.1em));
-}
-
-#hepteractToQuarkImage,
-#overfluxPowderImage {
-    width: 56px;
-    height: 56px;
+    align-items: center;
 }
 
 .heptTypeImage {
@@ -3271,7 +3304,7 @@ header #obtainiumDisplay { color: pink; }
     font-size: 0;
 }
 
-.singularityUpgrade > img
+.singularityUpgrade > img,
 .octeractUpgrade > img {
     cursor: pointer;
 }

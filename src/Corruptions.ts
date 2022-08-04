@@ -229,6 +229,9 @@ export const corruptionLoadoutTableCreate = () => {
             if (j === 0) { // First column
                 if (i === 0) { // First row
                     cell.textContent = 'Next:'
+                    cell.addEventListener('click', () => void corruptionLoadoutGetExport(i));
+                    cell.classList.add('corrLoadoutName');
+                    cell.title = 'Click to copy the next Corruptions to the clipboard. This is the format that can be imported'
                 } else {
                     // Custom loadout names are loaded later, via updateCorruptionLoadoutNames()
                     cell.title = `Click to rename. Hotkey: SHIFT+${i}`
@@ -313,7 +316,7 @@ export const applyCorruptions = (corruptions: string) => {
                 !Number.isInteger(value) ||
                 Number.isNaN(value) ||
                 value < 0 ||
-                value > 14
+                value > maxCorruptionLevel()
             ) {
                 return false;
             }
@@ -370,6 +373,16 @@ export const updateCorruptionLoadoutNames = () => {
             cells[0].classList.add('corrLoadoutName');
         }
         cells[0].textContent = `${player.corruptionLoadoutNames[i]}:`;
+    }
+}
+
+const corruptionLoadoutGetExport = async () => {
+    const str = player.prototypeCorruptions.slice(2, 10).join('/');
+    if ('clipboard' in navigator) {
+        await navigator.clipboard.writeText(str)
+            .catch((e: Error) => Alert(`Unable to write the save to clipboard: ${e.message}`));
+    } else {
+        void Alert(`Unable to write the save to clipboard: ${str}`);
     }
 }
 

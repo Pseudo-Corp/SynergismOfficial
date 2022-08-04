@@ -352,6 +352,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
             }
             let rolls = 3 * Math.sqrt(player.singularityCount)
             rolls += +player.octeractUpgrades.octeractImprovedDaily.getEffect().bonus
+            rolls += player.shopUpgrades.shopImprovedDaily2
+            rolls += player.shopUpgrades.shopImprovedDaily3
+            rolls += player.shopUpgrades.shopImprovedDaily4
             rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
             rolls = Math.floor(rolls)
 
@@ -423,7 +426,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
         const ascensionTimer = 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult;
         const ascensionTimerText = (player.shopUpgrades.calculator3 > 0)
-            ? 'Thanks to PL-AT Ω you have also gained ' + format(ascensionTimer) + ' real-life seconds to your Ascension Timer!'
+            ? `Thanks to PL-AT Ω you have also gained ${format(ascensionTimer)} real-life seconds to your Ascension Timer!`
             : '';
 
         // Calculator Maxed: you don't need to insert anything!
@@ -436,8 +439,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 void promocodesInfo('add')
                 return
             } else {
-                return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
-                    `${ ascensionTimer } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+                return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} Quarks! ` +
+                    `${ ascensionTimerText } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
             }
         }
 
@@ -655,8 +658,14 @@ const dailyCodeReward = () => {
         quarks += 2500
     } // at least 5k
 
+    quarks *= 1 + 0.05 * player.shopUpgrades.shopImprovedDaily
+    quarks = Math.floor(quarks)
+
     if (singularity) {
         goldenQuarks += 2 + 3 * player.singularityCount
+        goldenQuarks *= 1 + 0.2 * player.shopUpgrades.shopImprovedDaily2
+        goldenQuarks *= 1 + 0.15 * player.shopUpgrades.shopImprovedDaily3
+        goldenQuarks *= 1 + player.shopUpgrades.shopImprovedDaily4
     }
 
     return {

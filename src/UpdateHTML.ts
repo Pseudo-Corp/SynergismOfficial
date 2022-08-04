@@ -310,7 +310,8 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'flex', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'block') :
         (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'none', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'none');
     player.researches[124] > 0 || player.singularityCount > 0 ? //So you can turn it off before 5x24 Research
-        DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'block' : 'none'
+        DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'block' :
+        DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'none';
 
     player.researches[130] > 0 ? //6x5 Research [Talisman Auto Fortify]
         DOMCacheGetOrSet('toggleautofortify').style.display = 'block' :
@@ -380,6 +381,27 @@ export const revealStuff = () => {
     player.singularityCount > 0 ? //Save Offerings
         DOMCacheGetOrSet('saveOffToggle').style.display = 'block' :
         DOMCacheGetOrSet('saveOffToggle').style.display = 'none';
+
+    // Auto Open Cubes toggle
+    if (player.singularityCount >= 35) {
+        DOMCacheGetOrSet('openCubes').style.display = 'block';
+        DOMCacheGetOrSet('cubeOpensInput').style.display = 'block';
+        DOMCacheGetOrSet('openTesseracts').style.display = 'block';
+        DOMCacheGetOrSet('tesseractsOpensInput').style.display = 'block';
+        DOMCacheGetOrSet('openHypercubes').style.display = 'block';
+        DOMCacheGetOrSet('hypercubesOpensInput').style.display = 'block';
+        DOMCacheGetOrSet('openPlatonicCube').style.display = 'block';
+        DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'block';
+    } else {
+        DOMCacheGetOrSet('openCubes').style.display = 'none';
+        DOMCacheGetOrSet('cubeOpensInput').style.display = 'none';
+        DOMCacheGetOrSet('openTesseracts').style.display = 'none';
+        DOMCacheGetOrSet('tesseractsOpensInput').style.display = 'none';
+        DOMCacheGetOrSet('openHypercubes').style.display = 'none';
+        DOMCacheGetOrSet('hypercubesOpensInput').style.display = 'none';
+        DOMCacheGetOrSet('openPlatonicCube').style.display = 'none';
+        DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'none';
+    }
 
     // Singularity confirmation toggle pic
     player.singularityCount > 0 && player.ascensionCount > 0 ?
@@ -539,7 +561,7 @@ export const hideStuff = () => {
         DOMCacheGetOrSet('runes').style.display = 'block'
         DOMCacheGetOrSet('runestab').style.backgroundColor = 'blue'
         DOMCacheGetOrSet('runeshowlevelup').textContent = 'Hey, hover over a rune icon to get details on what each one does and what benefits they\'re giving you!'
-        DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + (100 * G['effectiveLevelMult'] - 100).toPrecision(4) + '%'
+        DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + format(100 * G['effectiveLevelMult'] - 100, 4, true) + '%'
         displayRuneInformation(1, false)
         displayRuneInformation(2, false)
         displayRuneInformation(3, false)
