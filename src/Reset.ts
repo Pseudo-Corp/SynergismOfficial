@@ -2,7 +2,7 @@ import { player, clearInt, interval, format, blankSave } from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
-    calcAscensionCount, calculateGoldenQuarkGain} from './Calculate';
+    calcAscensionCount, calculateGoldenQuarkGain, calculatePowderConversion} from './Calculate';
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
@@ -176,6 +176,23 @@ export const updateTesseractAutoBuyAmount = () => {
         value = Math.min(value, 100);
     }
     player.tesseractAutoBuyerAmount = Math.max(value, 0);
+}
+
+export const updateAutoCubesOpens = (i: number) => {
+    let value = null
+    if (i === 1) {
+        value = Number((DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value) || 0;
+        player.openCubes = Math.max(Math.min(value, 100), 0);
+    } else if (i === 2) {
+        value = Number((DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value) || 0;
+        player.openTesseracts = Math.max(Math.min(value, 100), 0);
+    } else if (i === 3) {
+        value = Number((DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value) || 0;
+        player.openHypercubes = Math.max(Math.min(value, 100), 0);
+    } else if (i === 4) {
+        value = Number((DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value) || 0;
+        player.openPlatonicsCubes = Math.max(Math.min(value, 100), 0);
+    }
 }
 
 const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
@@ -633,6 +650,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             if (player.overfluxOrbsAutoBuy) {
                 const orbsAmount = Math.floor(heptAutoSpend / 250000);
                 player.overfluxOrbs += orbsAmount;
+                player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion().mult * orbsAmount / 100;
                 player.wowAbyssals -= 250000 * orbsAmount;
             }
         }
@@ -657,6 +675,22 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                     buyTesseractBuilding(i as OneToFive, buyTo - buyFrom);
                 }
             }
+        }
+
+        //Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
+        if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
+            player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
+        }
+        if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
+            if (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2) {
+                player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) * player.openTesseracts / 100), false)
+            }
+        }
+        if (player.autoOpenHypercubes && player.openHypercubes !== 0 && player.challengecompletions[13] > 0 && player.researches[183] > 0) {
+            player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) * player.openHypercubes / 100), false)
+        }
+        if (player.autoOpenPlatonicsCubes && player.openPlatonicsCubes !== 0 && player.challengecompletions[14] > 0) {
+            player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) * player.openPlatonicsCubes / 100), false)
         }
     }
 
@@ -982,6 +1016,14 @@ export const singularity = async (): Promise<void> => {
     hold.autoTesseracts = player.autoTesseracts
     hold.tesseractAutoBuyerToggle = player.tesseractAutoBuyerToggle
     hold.tesseractAutoBuyerAmount = player.tesseractAutoBuyerAmount
+    hold.autoOpenCubes = player.autoOpenCubes
+    hold.openCubes = player.openCubes
+    hold.autoOpenTesseracts = player.autoOpenTesseracts
+    hold.openTesseracts = player.openTesseracts
+    hold.autoOpenHypercubes = player.autoOpenHypercubes
+    hold.openHypercubes = player.openHypercubes
+    hold.autoOpenPlatonicsCubes = player.autoOpenPlatonicsCubes
+    hold.openPlatonicsCubes = player.openPlatonicsCubes
     hold.historyShowPerSecond = player.historyShowPerSecond
     hold.exporttest = player.exporttest
     hold.dayTimer = player.dayTimer
@@ -1183,10 +1225,14 @@ const resetResearches = () => {
         51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 64, 65, 66, 67, 68, 69, 70,
         76, 81, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 96, 97, 98,
         101, 102, 103, 104, 106, 107, 108, 109, 110, 116, 117, 118, 121, 122, 123,
-        126, 127, 128, 129, 131, 132, 133, 134, 136, 137, 138, 139, 141, 142, 143, 144, 146, 147, 148, 149,
-        151, 152, 153, 154, 156, 157, 158, 159, 161, 162, 163, 164, 166, 167, 168, 169, 171, 172, 173, 174,
-        176, 177, 178, 179, 181, 182, 183, 184, 186, 187, 188, 189, 191, 192, 193, 194, 196, 197, 198, 199
+        126, 127, 128, 129, 131, 132, 133, 134, 136, 137, 139, 141, 142, 143, 144, 146, 147, 148, 149,
+        151, 152, 154, 156, 157, 158, 159, 161, 162, 163, 164, 166, 167, 169, 171, 172, 173, 174,
+        176, 177, 178, 179, 181, 182, 184, 186, 187, 188, 189, 191, 192, 193, 194, 196, 197, 199
     ];
+
+    if (player.singularityCount < 25) {
+        destroy.push(138, 153, 168, 183, 198)
+    }
 
     for (const item of destroy) {
         player.researches[item] = 0;

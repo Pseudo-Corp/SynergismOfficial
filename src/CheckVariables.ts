@@ -172,6 +172,23 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.autoTesseracts = [false, false, false, false, false, false]
     }
 
+    if (data.autoOpenCubes === undefined) {
+        player.autoOpenCubes = false;
+        player.openCubes = 0;
+    }
+    if (data.autoOpenTesseracts === undefined) {
+        player.autoOpenTesseracts = false;
+        player.openTesseracts = 0;
+    }
+    if (data.autoOpenHypercubes === undefined) {
+        player.autoOpenHypercubes = false;
+        player.openHypercubes = 0;
+    }
+    if (data.autoOpenPlatonicsCubes === undefined) {
+        player.autoOpenPlatonicsCubes = false;
+        player.openPlatonicsCubes = 0;
+    }
+
     if (player.prototypeCorruptions[0] === null || player.prototypeCorruptions[0] === undefined) {
         player.usedCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         player.prototypeCorruptions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -664,15 +681,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.goldenQuarksTimer === undefined || player.goldenQuarksTimer === undefined) {
         player.goldenQuarksTimer = 90000;
-    }
-
-    if (player.singularityUpgrades.cookies3.goldenQuarksInvested === 5000 || player.singularityUpgrades.cookies4.goldenQuarksInvested === 50000) {
-        player.singularityUpgrades.cookies3.refund();
-        player.singularityUpgrades.cookies4.refund();
-    }
-
-    if (player.singularityUpgrades.cookies4.goldenQuarksInvested === 199999) {
-        player.singularityUpgrades.cookies4.refund();
     }
 
     if (data.hepteractAutoCraftPercentage === undefined) {
