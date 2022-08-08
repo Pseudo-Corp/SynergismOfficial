@@ -139,7 +139,7 @@ export const exportSynergism = async () => {
     if (toClipboard) {
         try {
             // This can fail for two reasons:
-            // - SyntaxError (browser doesn't support this feature)
+            // - TypeError (browser doesn't support this feature)
             // - Failed to copy (browser limitation; Safari)
             await navigator.clipboard.writeText(saveString)
         } catch (err) {
