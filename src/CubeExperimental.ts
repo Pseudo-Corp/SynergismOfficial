@@ -19,7 +19,6 @@ import { format, player } from './Synergism';
 import { calculateTesseractBlessings } from './Tesseracts';
 import type { Player } from './types/Synergism';
 import { Prompt, Alert } from './UpdateHTML';
-// import { Prompt, Alert } from './UpdateHTML';
 
 /* Constants */
 

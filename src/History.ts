@@ -264,7 +264,7 @@ const resetHistoryPushNewRow = (category: Category, data: ResetHistoryEntryUnion
     }
 
     if (category === 'ascend') {
-        const loadCorruptionsButtons = Array.from(row.querySelectorAll<HTMLElement>('.ascendHistoryLoadCorruptions'));
+        const loadCorruptionsButtons = Array.from(row.getElementsByClassName('ascendHistoryLoadCorruptions'));
         for (const btn of loadCorruptionsButtons) {
             btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton((e.target as HTMLElement)));
         }
@@ -283,7 +283,7 @@ const resetHistoryRenderRow = (
     const kindMeta = historyKinds[data.kind];
 
     const localDate = new Date(data.date).toLocaleString();
-    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img src="${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
+    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img alt="${data.kind}" src="${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
 
     // Carefully loop through everything we need to print in the right order, and add it to the gains array if present.
     const gains: string[] = [];
@@ -361,7 +361,7 @@ const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HT
     }
 
     if (categoryToRender === 'ascend') {
-        const loadCorruptionsButtons = Array.from(document.querySelectorAll<HTMLElement>('.ascendHistoryLoadCorruptions'));
+        const loadCorruptionsButtons = Array.from(document.getElementsByClassName('ascendHistoryLoadCorruptions'));
         for (const btn of loadCorruptionsButtons) {
             btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton((e.target as HTMLElement)));
         }
@@ -397,11 +397,15 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
     let score = 'Score: ' + format(data.corruptionScore, 0, false);
     let corruptions = '';
     let loadout = '';
+    let corrs = 0;
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
-        const corruptionIdx = i+2;
+        const corruptionIdx = i + 2;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
-            corruptions += ` <img alt="${resetHistoryCorruptionTitles[i]}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
+            corruptions += `<img alt="${corrs > 0 ? '/' : ''}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
+        } else {
+            corruptions += `<span>${corrs > 0 ? '/0' : '0'}</span>`;
         }
+        corrs++;
     }
     if (corruptions) {
         loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr="${data.usedCorruptions.join('/')}">Load</button>`;

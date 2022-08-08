@@ -1,4 +1,5 @@
 import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
+import { octeractGainPerSecond } from './Calculate';
 import { testing, version } from './Config';
 import { getElementById } from './Utility';
 import LZString from 'lz-string';
@@ -16,7 +17,7 @@ import localforage from 'localforage';
 import { Globals as G } from './Variables';
 import { singularityData } from './singularity';
 import { getEvent } from './Event';
-import { octeractGainPerSecond } from './Octeracts';
+import { synergismStage } from './Statistics';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -106,6 +107,7 @@ const saveFilename = () => {
             case 'QUARKS': return format(Number(player.worlds));
             case 'GQ': return '' + Math.floor(player.goldenQuarks);
             case 'GQS': return format(player.goldenQuarks);
+            case 'STAGE': return synergismStage(0);
             default: return `${b}`;
         }
     });
@@ -173,6 +175,11 @@ export const exportSynergism = async () => {
         : 'Savefile copied to file!';
 }
 
+export const reloadDeleteGame = async () => {
+    await Alert('The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it');
+    await resetGame();
+}
+
 export const resetGame = async () => {
     const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
     const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
@@ -188,6 +195,11 @@ export const resetGame = async () => {
     //Reset Displays
     toggleTabs('buildings');
     toggleSubTab(1, 0);
+    toggleSubTab(4, 0); // Set 'runes' subtab back to 'runes' tab
+    toggleSubTab(8, 0); // Set 'cube tribues' subtab back to 'cubes' tab
+    toggleSubTab(9, 0); // set 'corruption main'
+    toggleSubTab(10, 0); // set 'singularity main'
+    toggleSubTab(-1, 0); // set 'statistics main'
     //Import Game
     await importSynergism(btoa(JSON.stringify(hold))!, true);
 }
@@ -562,37 +574,35 @@ export const promocodes = async (input: string | null, amount?: number) => {
     await saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
     Synergism.emit('promocode', input);
 
-    setTimeout(function () {
-        el.textContent = ''
-    }, 15000);
+    setTimeout(() => el.textContent = '', 15000);
 }
 
-function addCodeAvailableUses(): number {
+const addCodeAvailableUses = (): number => {
     return Math.floor(Math.min(24 + 2 * player.shopUpgrades.calculator2, (Date.now() - player.rngCode) / hour));
 }
 
-function addCodeTimeToNextUse(): number {
+const addCodeTimeToNextUse = (): number => {
     return Math.floor(hour + player.rngCode - Date.now())/1000;
 }
 
-function timeCodeAvailableUses(): number {
+const timeCodeAvailableUses = (): number => {
     return ((Date.now() - player.promoCodeTiming.time) / 1000 < 900) ? 0 : 1;
 }
 
-function timeCodeTimeToNextUse(): number {
+const timeCodeTimeToNextUse = (): number => {
     return 900 - ((Date.now() - player.promoCodeTiming.time) / 1000);
 }
 
-function timeCodeRewardMultiplier(): number {
+const timeCodeRewardMultiplier = (): number => {
     return Math.min(24, (Date.now() - player.promoCodeTiming.time) / (1000 * 3600));
 }
 
-function dailyCodeFormatFreeLevelMessage(upgradeKey: string, freeLevelAmount: number): string {
+const dailyCodeFormatFreeLevelMessage = (upgradeKey: string, freeLevelAmount: number): string => {
     const upgradeNiceName = singularityData[upgradeKey].name;
     return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
 }
 
-function dailyCodeReward() {
+const dailyCodeReward = () => {
     let quarks = 0
     let goldenQuarks = 0
 

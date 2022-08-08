@@ -599,6 +599,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.totalQuarksEver = 0;
     }
 
+    if (data.hotkeys === undefined) {
+        player.hotkeys = {};
+        player.theme = 'Dark Mode';
+    }
+
     // Update (read: check) for undefined shop upgrades. Also checks above max level.
     const shopKeys = Object.keys(blankSave['shopUpgrades']) as (keyof Player['shopUpgrades'])[];
     for (const shopUpgrade of shopKeys) {
@@ -634,6 +639,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                 if (player.singularityUpgrades[k].minimumSingularity > player.singularityCount) {
                     player.singularityUpgrades[k].refund()
                 }
+
                 const cost = player.singularityUpgrades[k].level * (player.singularityUpgrades[k].level + 1) *
                              player.singularityUpgrades[k].costPerLevel / 2
                 if (player.singularityUpgrades[k].maxLevel !== -1 &&

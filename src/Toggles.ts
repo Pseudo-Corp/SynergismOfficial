@@ -1,17 +1,16 @@
 import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts, changeTabColor, Prompt, Alert } from './UpdateHTML';
-import { player, interval, clearInt, format, resetCheck } from './Synergism';
+import { player, format, resetCheck } from './Synergism';
 import { Globals as G } from './Variables';
-import Decimal from 'break_infinity.js';
-import { visualUpdateCubes } from './UpdateVisuals';
+import { visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals';
 import { calculateRuneLevels } from './Calculate';
 import { reset, resetrepeat } from './Reset';
 import { autoResearchEnabled } from './Research';
 import { achievementaward } from './Achievements';
 import { getChallengeConditions } from './Challenges';
-import { loadStatisticsCubeMultipliers, loadStatisticsOfferingMultipliers, loadStatisticsAccelerator, loadStatisticsMultiplier, loadPowderMultiplier, loadQuarkMultiplier } from './Statistics';
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+
 
 interface TabValue { tabName: keyof typeof tabNumberConst, unlocked: boolean }
 type Tab = Record<number, TabValue>;
@@ -72,7 +71,7 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
         }
     } else { // handle settings tab
         // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-        const btns = document.querySelectorAll('#settings .subtabSwitcher > button');
+        const btns = document.querySelectorAll('[id^="switchSettingSubTab"]');
         for (let i = 0; i < btns.length; i++) {
             if (btns[i].classList.contains('buttonActive')) {
                 player.subtabNumber = i
@@ -80,16 +79,20 @@ export const toggleTabs = (name: keyof typeof tabNumberConst) => {
             }
         }
     }
+    toggleSubTab(player.tabnumber, player.subtabNumber)
 }
 
-export const toggleSettings = (i: number) => {
-    i++
-    if (player.toggles[i] === true) {
-        player.toggles[i] = false
+export const toggleSettings = (toggle: HTMLElement) => {
+    const toggleId = toggle.getAttribute('toggleId') || 1;
+    if (player.toggles[+toggleId] === true) {
+        player.toggles[+toggleId] = false;
     } else {
-        player.toggles[i] = true
+        player.toggles[+toggleId] = true;
     }
-    toggleauto();
+    const format = toggle.getAttribute('format') || 'Auto [$]';
+    const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF');
+    toggle.textContent = finishedString;
+    toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
@@ -113,32 +116,16 @@ export const toggleChallenges = (i: number, auto = false) => {
             resetrepeat('reincarnationChallenge');
         }
     }
-    if (player.challengecompletions[10] > 0) {
-        if ((player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0) && (i >= 11)) {
+    if (i >= 11 && ((!auto && player.toggles[31] === false) || player.challengecompletions[10] > 0)) {
+        if ((!auto && player.toggles[31] === false) || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0)) {
             player.currentChallenge.ascension = i;
             reset('ascensionChallenge', false, 'enterChallenge');
-
-            if (player.currentChallenge.ascension === 12) {
-                player.antPoints = new Decimal('8')
-            }
-
-            if (player.currentChallenge.ascension === 14) {
-                player.researchPoints = 0;
-            }
-
-            if (player.currentChallenge.ascension === 15) {
-                player.usedCorruptions[0] = 0;
-                player.prototypeCorruptions[0] = 0;
-                for (let i = 1; i <= 9; i++) {
-                    player.usedCorruptions[i] = 11;
-                }
-            }
         }
     }
     updateChallengeDisplay();
     getChallengeConditions(i);
 
-    if (!auto && player.autoChallengeRunning) {
+    if (i <= 10 && !auto && player.autoChallengeRunning) {
         toggleAutoChallengeRun();
     }
 
@@ -346,10 +333,12 @@ export const toggleSubTab = (mainTab = 1, subTab = 0) => {
             // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
             const btn = DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[subTab]
             if (subTabList.unlocked) {
+                player.subtabNumber = subTab
                 subTabs.tabSwitcher?.(subTabList.subTabID, btn)
             }
         } else {
             if (subTabList.unlocked) {
+                player.subtabNumber = subTab
                 subTabs.tabSwitcher?.(subTabList.subTabID)
             }
         }
@@ -406,17 +395,14 @@ export const toggleautobuytesseract = () => {
 }
 
 export const toggleauto = () => {
-    const autos = document.getElementsByClassName('auto') as HTMLCollectionOf<HTMLElement>;
-    for (const auto of Array.from(autos)) {
-        const format = auto.getAttribute('format') || 'Auto [$]';
-        const toggleId = auto.getAttribute('toggleId');
-        if (toggleId === null) {
-            continue;
-        }
+    const toggles = Array.from<HTMLElement>(document.querySelectorAll('.auto[toggleid]'));
+    for (const toggle of toggles) {
+        const format = toggle.getAttribute('format') || 'Auto [$]';
+        const toggleId = toggle.getAttribute('toggleId') || 1;
 
         const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
-        auto.textContent = finishedString;
-        auto.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
+        toggle.textContent = finishedString;
+        toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
     }
 }
 
@@ -481,10 +467,14 @@ export const toggleAutoSacrifice = (index: number) => {
             DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
         }
     } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
-        player.autoSacrifice = index;
+        if (player.autoSacrifice === index) {
+            player.autoSacrifice = 0;
+        } else {
+            player.autoSacrifice = index;
+        }
     }
     for (let i = 1; i <= 5; i++) {
-        DOMCacheGetOrSet('rune' + i).style.backgroundColor = player.autoSacrifice === i ? 'orange' : '#171717';
+        DOMCacheGetOrSet('rune' + i).style.backgroundColor = player.autoSacrifice === i ? 'orange' : '';
     }
     calculateRuneLevels();
 }
@@ -624,6 +614,10 @@ export const toggleSingularityScreen = (index: number) => {
         }
     }
     player.subtabNumber = index - 1
+
+    if (player.subtabNumber === 3) {
+        visualUpdateOcteracts();
+    }
 }
 
 interface ChadContributor {
@@ -661,25 +655,7 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
     subtabEl.parentNode!.querySelectorAll('.subtabActive').forEach(subtab => subtab.classList.remove('subtabActive'));
     subtabEl.classList.add('subtabActive');
 
-    if (subtab === 'statisticsSubTab') {
-        const refreshStats = function() {
-            if (G['currentTab'] !== 'settings') {
-                clearInt(id);
-            }
-            loadStatisticsAccelerator();
-            loadStatisticsMultiplier();
-            loadStatisticsOfferingMultipliers();
-            loadStatisticsCubeMultipliers();
-            loadPowderMultiplier();
-            loadQuarkMultiplier();
-            if (!subtabEl.classList.contains('subtabActive')) {
-                clearInt(id);
-            }
-        }
-
-        const id = interval(refreshStats, 1000)
-        refreshStats();
-    } else if (subtab === 'creditssubtab') {
+    if (subtab === 'creditssubtab') {
         const credits = DOMCacheGetOrSet('creditList');
         const artists = DOMCacheGetOrSet('artistList');
 
@@ -854,16 +830,13 @@ export const updateAutoChallenge = (i: number) => {
 }
 
 export const toggleAutoChallengesIgnore = (i: number) => {
-    const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore');
-    if (player.autoChallengeToggles[i]) {
-        el.style.border = '2px solid red';
-        el.textContent = 'Automatically Run Chal.' + i + ' [OFF]'
-    } else {
-        el.style.border = '2px solid green';
-        el.textContent = 'Automatically Run Chal.' + i + ' [ON]'
-    }
+    if (i <= 15) {
+        player.autoChallengeToggles[i] = !player.autoChallengeToggles[i];
 
-    player.autoChallengeToggles[i] = !player.autoChallengeToggles[i];
+        const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore');
+        el.style.border = player.autoChallengeToggles[i] ? '2px solid green' : '2px solid red';
+        el.textContent = `${i >= 11 && i <= 15 ? 'Auto Ascension' : 'Automatically'} Run Chal.${i} [${player.autoChallengeToggles[i] ? 'ON' : 'OFF'}]`;
+    }
 }
 
 export const toggleAutoChallengeRun = () => {
@@ -871,13 +844,13 @@ export const toggleAutoChallengeRun = () => {
     if (player.autoChallengeRunning) {
         el.style.border = '2px solid red'
         el.textContent = 'Auto Challenge Sweep [OFF]'
-        player.autoChallengeIndex = 1;
         G['autoChallengeTimerIncrement'] = 0;
         toggleAutoChallengeModeText('OFF')
     } else {
         el.style.border = '2px solid gold'
         el.textContent = 'Auto Challenge Sweep [ON]'
         toggleAutoChallengeModeText('START')
+        G['autoChallengeTimerIncrement'] = 0;
     }
 
     player.autoChallengeRunning = !player.autoChallengeRunning;
@@ -979,13 +952,13 @@ export const updateRuneBlessingBuyAmount = (i: number) => {
         case 1: {
             const t = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value)) || 1;
             player.runeBlessingBuyAmount = Math.max(t, 1);
-            DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount, 0, true);
+            DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount);
             return;
         }
         case 2: {
             const u = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value)) || 1;
             player.runeSpiritBuyAmount = Math.max(u, 1);
-            DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
+            DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount);
             return;
         }
     }
@@ -1085,5 +1058,18 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
     if (player.toggles[35]) {
         return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
+    }
+}
+
+export const confirmReply = (confirm = true) => {
+    if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
+        (DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click();
+    }
+    if (DOMCacheGetOrSet('confirmWrapper').style.display === 'block' || DOMCacheGetOrSet('promptWrapper').style.display === 'block') {
+        if (confirm) {
+            (DOMCacheGetOrSet('ok_confirm') as HTMLButtonElement).click();
+        } else {
+            (DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click();
+        }
     }
 }
