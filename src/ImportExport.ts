@@ -148,9 +148,10 @@ export const exportSynergism = async () => {
 
             // Old/bad browsers (legacy Edge, Safari because of limitations)
             const textArea = document.createElement('textarea');
+            const old = [textArea.contentEditable, textArea.readOnly] as const
             textArea.value = saveString;
             textArea.contentEditable = 'true'
-            textArea.readOnly = true
+            textArea.readOnly = false
 
             textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
 
@@ -167,6 +168,8 @@ export const exportSynergism = async () => {
             selection?.addRange(range)
 
             textArea.setSelectionRange(0, textArea.value.length)
+            textArea.contentEditable = old[0]
+            textArea.readOnly = old[1]
 
             try {
                 document.execCommand('copy');
