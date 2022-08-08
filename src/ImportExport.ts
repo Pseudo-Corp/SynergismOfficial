@@ -150,17 +150,26 @@ export const exportSynergism = async () => {
             const textArea = document.createElement('textarea');
             textArea.value = saveString;
             textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
-
             document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
+            textArea.focus()
+            textArea.select()
+
+            // Safari
+            const range = document.createRange()
+            range.selectNode(textArea)
+            window.getSelection()?.addRange(range)
+
             try {
                 document.execCommand('copy');
             } catch (e) {
                 void Alert(`Unable to write the save to clipboard (tried two methods): ${(e as Error).message}`);
+            } finally {
+                // Cleanup - "Currently only Firefox supports multiple selection ranges,
+                // other browsers will not add new ranges to the selection if it already
+                // contains one."
+                window.getSelection()?.removeRange(range)
+                document.body.removeChild(textArea);
             }
-
-            document.body.removeChild(textArea);
         }
     } else {
         const a = document.createElement('a');
