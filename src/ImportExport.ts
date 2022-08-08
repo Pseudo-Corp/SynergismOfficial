@@ -149,9 +149,9 @@ export const exportSynergism = async () => {
             // Old/bad browsers (legacy Edge, Safari because of limitations)
             const textArea = document.createElement('textarea');
             textArea.value = saveString;
+            textArea.contentEditable = 'true'
+            textArea.readOnly = true
 
-            textArea.setAttribute('readonly', 'true')
-            textArea.setAttribute('contenteditable', 'true')
             textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
 
             document.body.appendChild(textArea);
