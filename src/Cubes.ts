@@ -82,7 +82,9 @@ const cubeUpgradeName = [
     'Wow! A box of Metaphysical Brownies.',
     'Wow! A box of Not Cookies.',
     'Wow! A box of Cookies Beyond This World.',
-    'Wow! A box of Perfect Cookies.'
+    'Wow! A box of Perfect Cookies.',
+    'Wow! A Singular Cookie of Pandora\'s Benefactory',
+    'Wow! A Singular Cookie of Vyshareth\'s Benefactory'
 ]
 
 const cubeAutomationIndices = [4, 5, 6, 7, 8, 9, 10, // row 1
@@ -147,7 +149,7 @@ const cubeUpgradeDescriptions = [
     '[3x7] Upon an Ascension, you will start with 1 of each Reincarnation building to speed up Ascensions.',
     '[3x8] Well, I think you got it? Gain +1% of particles on Reincarnation per second.',
     '[3x9] Add +4 to Reincarnation Challenge cap per level. Completions after 25 scale faster in requirement!',
-    '[3x10] You now get +25% Cubes and Tesseracts forever!',
+    '[3x10] You now get +40% Cubes and Tesseracts forever!',
     '[4x1] You again? +5% more score on Ascensions per level.',
     '[4x2] Gain +0.1% Rune EXP per second you have spent in an Ascension. This has no cap!',
     '[4x3] For each 20 Cubes opened at once, you get yet another additional tribute at random.',

@@ -342,9 +342,12 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     const scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
     const scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
     const scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];
+    const scoreArray4 = [0, 10000, 10000, 10000, 10000, 10000, 2000, 3000, 4000, 5000, 7500]
     let scoreDisplay = 0;
     if (i <= 5){
-        if (player.highestchallengecompletions[i] >= 750){
+        if (player.highestchallengecompletions[i] >= 9000) {
+            scoreDisplay = scoreArray4[i]
+        } else if (player.highestchallengecompletions[i] >= 750){
             scoreDisplay = scoreArray3[i]
         } else if (player.highestchallengecompletions[i] >= 75){
             scoreDisplay = scoreArray2[i]
@@ -461,6 +464,9 @@ export const calculateChallengeRequirementMultiplier = (
             }
             if (completions >= 9000) {
                 requirementMultiplier *= 1337
+            }
+            if (completions >= 9001) {
+                requirementMultiplier *= (completions - 8999)
             }
             return (requirementMultiplier)
         case 'reincarnation':

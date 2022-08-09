@@ -136,25 +136,49 @@ export const exportSynergism = async () => {
         return Alert('How?');
     }
 
-    if ('clipboard' in navigator && toClipboard) {
-        await navigator.clipboard.writeText(saveString)
-            .catch((e: Error) => Alert(`Unable to write the save to clipboard: ${e.message}`));
-    } else if (toClipboard) {
-        // Old browsers (legacy Edge, Safari 13.0)
-        const textArea = document.createElement('textarea');
-        textArea.value = saveString;
-        textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
-
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
+    if (toClipboard) {
         try {
-            document.execCommand('copy');
-        } catch (e) {
-            void Alert(`Unable to write the save to clipboard: ${(e as Error).message}`);
-        }
+            // This can fail for two reasons:
+            // - TypeError (browser doesn't support this feature)
+            // - Failed to copy (browser limitation; Safari)
+            await navigator.clipboard.writeText(saveString)
+        } catch (err) {
+            // So we fallback to the deprecated way of doing it,
+            // which isn't limited by any browser.
 
-        document.body.removeChild(textArea);
+            // Old/bad browsers (legacy Edge, Safari because of limitations)
+            const textArea = document.createElement('textarea');
+            const old = [textArea.contentEditable, textArea.readOnly] as const
+            textArea.value = saveString;
+            textArea.contentEditable = 'true'
+            textArea.readOnly = false
+
+            textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
+
+            document.body.appendChild(textArea);
+            textArea.focus()
+            textArea.select()
+
+            // Safari
+            const range = document.createRange()
+            range.selectNodeContents(textArea)
+
+            const selection = window.getSelection()
+            selection?.removeAllRanges()
+            selection?.addRange(range)
+
+            textArea.setSelectionRange(0, textArea.value.length)
+            textArea.contentEditable = old[0]
+            textArea.readOnly = old[1]
+
+            try {
+                document.execCommand('copy');
+            } catch (e) {
+                return Alert(`Unable to write the save to clipboard (tried two methods): ${(e as Error).message}`);
+            } finally {
+                document.body.removeChild(textArea);
+            }
+        }
     } else {
         const a = document.createElement('a');
         a.setAttribute('href', 'data:text/plain;charset=utf-8,' + saveString);
@@ -264,17 +288,28 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === '2.9.9' && !player.codes.get(41) && G['isEvent'] && getEvent().name === '&#128151 Community Event! &#128151 [Musical Link Here!]') {
-        player.codes.set(41, true);
+    if (input === 'derpsmith' && !player.codes.get(42) && G['isEvent'] && getEvent().name === '&#128151 Derpsmith Arrival Ceremony! &#128151 [link!]') {
+        player.codes.set(42, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 3600 * 168;
         addTimers('ascension', 4 * 3600);
 
+        if (player.challenge15Exponent >= 1e15 || player.singularityCount > 0) {
+            player.hepteractCrafts.quark.CAP *= 2;
+        }
         if (player.singularityCount > 0) {
+            player.singularityUpgrades.goldenQuarks1.freeLevels += 1;
+            player.singularityUpgrades.goldenQuarks2.freeLevels += 1;
             player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
+            if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
+                player.octeractUpgrades.octeractGain.freeLevels += 5;
+            }
         }
 
-        return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! ${(player.singularityCount > 0) ? 'You were also given a free level of GQ3!' : ''}`)
+        return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! 
+                      ${(player.challenge15Exponent >= 1e15 || player.singularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free!' : ''}
+                      ${(player.singularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
+                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Cogenesis.': ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
         player.codes.set(1, true);
@@ -334,6 +369,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
             }
             let rolls = 3 * Math.sqrt(player.singularityCount)
             rolls += +player.octeractUpgrades.octeractImprovedDaily.getEffect().bonus
+            rolls += player.shopUpgrades.shopImprovedDaily2
+            rolls += player.shopUpgrades.shopImprovedDaily3
+            rolls += player.shopUpgrades.shopImprovedDaily4
             rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
             rolls = Math.floor(rolls)
 
@@ -405,7 +443,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
         const ascensionTimer = 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult;
         const ascensionTimerText = (player.shopUpgrades.calculator3 > 0)
-            ? 'Thanks to PL-AT Ω you have also gained ' + format(ascensionTimer) + ' real-life seconds to your Ascension Timer!'
+            ? `Thanks to PL-AT Ω you have also gained ${format(ascensionTimer)} real-life seconds to your Ascension Timer!`
             : '';
 
         // Calculator Maxed: you don't need to insert anything!
@@ -418,8 +456,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 void promocodesInfo('add')
                 return
             } else {
-                return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} quarks ` +
-                    `${ ascensionTimer } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+                return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} Quarks! ` +
+                    `${ ascensionTimerText } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
             }
         }
 
@@ -639,8 +677,14 @@ function dailyCodeReward() {
         quarks += 2500
     } // at least 5k
 
+    quarks *= 1 + 0.05 * player.shopUpgrades.shopImprovedDaily
+    quarks = Math.floor(quarks)
+
     if (singularity) {
         goldenQuarks += 2 + 3 * player.singularityCount
+        goldenQuarks *= 1 + 0.2 * player.shopUpgrades.shopImprovedDaily2
+        goldenQuarks *= 1 + 0.15 * player.shopUpgrades.shopImprovedDaily3
+        goldenQuarks *= 1 + player.shopUpgrades.shopImprovedDaily4
     }
 
     return {

@@ -2026,6 +2026,10 @@
                                 <button class="cubeBtn" id="open1000Cube" alt="open1000Cube" label="open1000Cube">Open 50%</button>
                                 <button class="cubeBtn" id="openCustomCube" alt="openCustomCube" label="openCustomCube">Custom Amount</button>
                                 <button class="cubeBtn" id="openMostCube" alt="openMostCube" label="openMostCube">Open All</button>
+                                <div class="autoOpensBtn">
+                                    <button class="autoOpens" id="openCubes" alt="openCubes" label="openCubes" style="border: 1px solid red" title="On Ascension will open % of Cubes&#013Cx1 is required">Auto Open [OFF]</button>
+                                    <input class="autoOpensInput" type="number" id="cubeOpensInput" alt="cubeOpensInput" label="cubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2111,6 +2115,10 @@
                                 <button id="open1000Tesseract" alt="open1000Tesseract" label="open1000Tesseract" class="cubeBtn">Open 50%</button>
                                 <button id="openCustomTesseract" alt="openCustomTesseract" label="openCustomTesseract" class="cubeBtn">Custom Amount</button>
                                 <button id="openMostTesseract" alt="openMostTesseract" label="openMostTesseract" class="cubeBtn">Open All</button>
+                                <div class="autoOpensBtn">
+                                    <button class="autoOpens" id="openTesseracts" alt="openTesseracts" label="openTesseracts" style="border: 1px solid red" title="On Ascension will open % of Tesseracts&#013Cant work with amount Mode (Auto Tesseract Buildings)">Auto Open [OFF]</button>
+                                    <input class="autoOpensInput" type="number" id="tesseractsOpensInput" alt="tesseractsOpensInput" label="tesseractsOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2196,6 +2204,10 @@
                                 <button id="open1000Hypercube" alt="open1000Hypercube" label="open1000Hypercube" class="cubeBtn">Open 50%</button>
                                 <button id="openCustomHypercube" alt="openCustomHypercube" label="openCustomHypercube" class="cubeBtn">Custom Amount</button>
                                 <button id="openMostHypercube" alt="openMostHypercube" label="openMostHypercube" class="cubeBtn">Open All</button>
+                                <div class="autoOpensBtn">
+                                    <button class="autoOpens" id="openHypercubes" alt="openHypercubes" label="openHypercubes" style="border: 1px solid red" title="On Ascension will open % of Hypercubes&#013Research 8x8 is required">Auto Open [OFF]</button>
+                                    <input class="autoOpensInput" type="number" id="hypercubesOpensInput" alt="hypercubesOpensInput" label="hypercubesOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2281,6 +2293,10 @@
                                 <button id="open1mPlatonicCube" alt="open1mPlatonicCube" label="open1mPlatonicCube" class="cubeBtn">Open 50%</button>
                                 <button id="openCustomPlatonicCube" alt="openCustomPlatonicCube" label="openCustomPlatonicCube" class="cubeBtn">Custom Amount</button>
                                 <button id="openMostPlatonicCube" alt="openMostPlatonicCube" label="openMostPlatonicCube" class="cubeBtn">Open All</button>
+                                <div class="autoOpensBtn">
+                                    <button class="autoOpens" id="openPlatonicCube" alt="openPlatonicCube" label="openPlatonicCube" style="border: 1px solid red" title="On Ascension will open % of Platonic Cubes">Auto Open [OFF]</button>
+                                    <input class="autoOpensInput" type="number" id="platonicCubeOpensInput" alt="platonicCubeOpensInput" label="platonicCubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2634,7 +2650,7 @@
                         <div class="singularity"><!--Blank Grid Tile-->Auto Setting --- Percentage: <span id="autoHepteractPercentage" style="color: lightgoldenrodyellow;"></span>%
                         <button id="hepteractAutoPercentageButton" alt="hepteractAutoPercentageButton" label="hepteractAutoPercentageButton">Autocraft Percentage</button>
                         </div>
-                        <div id="hepteractToQuark" alt="hepteractToQuark" label="hepteractToQuark">
+                        <div class="hepteractType" id="hepteractToQuark" alt="hepteractToQuark" label="hepteractToQuark">
                             <img id="hepteractToQuarkImage" alt="hepteractToQuarkImage" label="hepteractToQuarkImage" src="Pictures/Overflux.png">
                             <button id="hepteractToQuarkTrade" alt="hepteractToQuarkTrade" label="hepteractToQuarkTrade">Craft</button>
                             <button id="hepteractToQuarkTradeMax" alt="hepteractToQuarkTradeMax" label="hepteractToQuarkTradeMax">Max</button>
@@ -2648,7 +2664,7 @@
                                 <span class="heptGridInventoryValue" style="color:yellow;" id="heptGridOrbEffect" alt="heptGridOrbEffect" label="heptGridOrbEffect">0%</span>
                             </span>
                         </div>
-                        <div id="overfluxPowder" alt="overfluxPowder" label="overfluxPowder">
+                        <div class="hepteractType" id="overfluxPowder" alt="overfluxPowder" label="overfluxPowder">
                             <img id="overfluxPowderImage" alt="overfluxPowderImage" label="overfluxPowderImage" src="Pictures/Overflux Powder.png">
                             <button id="powderDayWarp" alt="powderDayWarp" label="powderDayWarp">Warp</button>
                             <span class="heptGridInventory" style="align-self: end;">
@@ -2772,7 +2788,7 @@
                 <p id="corruptionHepteracts" alt="corruptionHepteracts" label="corruptionHepteracts" class="chal15 tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionHepteractsValue" alt="corruptionHepteractsValue" label="corruptionHepteractsValue" style="color: pink; font-size: 1.2em">0</span> HEPTERACTS. [<span style="color: pink">Req Score: >1.666e17</span>]</p>
                 <div id="ascensionAutomation" alt="ascensionAutomation" label="ascensionAutomation" class="cubeUpgrade10 vAlign">
                     <input id="ascensionAmount" alt="ascensionAmount" label="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1">
-                    <p id="autoAscend" alt="autoAscend" label="autoAscend" class="ascendunlock tightText">Ascend when you've completed Sadistic Challenge I a total of <span id="autoAscendMetric" alt="autoAscendMetric" label="autoAscendMetric" style="color: orchid">1</span> times.</p>
+                    <p id="autoAscend" alt="autoAscend" label="autoAscend" class="ascendunlock tightText">Ascend when<span id="autoAscendText" alt="autoAscendText" label="autoAscendText"> you've completed Sadistic Challenge I a total of </span><span id="autoAscendMetric" alt="autoAscendMetric" label="autoAscendMetric" style="color: violet">1</span><span id="autoAscendText2" alt="autoAscendText2" label="autoAscendText2"> times, Currently: </span><span id="autoAscendMetric2" alt="autoAscendMetric2" label="autoAscendMetric2" style="color: gold">0</span></p>
                     <button id="ascensionAutoEnable" alt="ascensionAutoEnable" label="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green">Auto Ascend [ON]</button>
                     <button id="ascensionAutoToggle" alt="ascensionAutoToggle" label="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;">Mode: C10 Completions</button>
                 </div>
@@ -2820,14 +2836,14 @@
                     <div class="center"></div>
                 </div>
                 <p class="prestigeunlock" id="confirmationdisclaimer" alt="confirmationdisclaimer" label="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
-                <p class="prestigeunlock" id="specialActionsTitle" alt="specialActionsTitle" label="specialActionsTitle" style="color: pink">Special Actions</p>
+                <p id="specialActionsTitle" alt="specialActionsTitle" label="specialActionsTitle" style="color: pink">Special Actions</p>
                 <button id="dailyCode" alt="dailyCode" label="dailyCode" class="promocodeButton" style="border:2px solid green">Daily</button>
-                <button id="addCode" alt="addCode" label="addCode" class="promocodeButton" style="min-width:40%; border:2px solid green">Add</button>
-                <button id="addCodeOne" alt="addCodeOne" label="addCodeOne" class="promocodeButton" style="min-width:24%;border:2px solid green">Add x1</button>
+                <button id="addCode" alt="addCode" label="addCode" class="promocodeButton" style="min-width:43%; border:2px solid green">Add
+                <button id="addCodeOne" alt="addCodeOne" label="addCodeOne" class="promocodeButton" style="min-width:22%; border:2px solid green">Add x1</button></button>
                 <button id="timeCode" alt="timeCode" label="timeCode" class="promocodeButton" style="border:2px solid green">Time</button>
                 <button id="promocodes" alt="promocodes" label="promocodes" class="promocodeButton" style="border:2px solid goldenrod">Enter a promotion code here!</button>
                 <p id="promocodeinfo" alt="promocodeinfo" label="promocodeinfo" style="color: goldenrod"></p>
-                <p class="prestigeunlock" id="themesTitle" alt="themesTitle" label="themesTitle" style="color: pink">Current Theme</p>
+                <p id="themesTitle" alt="themesTitle" label="themesTitle" style="color: pink">Current Theme</p>
                 <button id="theme" alt="theme" label="theme" class="promocodeButton" style="border: 2px solid white">Dark Mode</button>
             </div>
             <div id="exportButtons" alt="exportButtons" label="exportButtons">
@@ -2934,8 +2950,8 @@ $GQ$ for golden quarks, $GQS$ for format golden quarks"></p>
             <p class="reincarnationunlock statPortion" id="mostObtainiumPerSecondStatistic" alt="mostObtainiumPerSecondStatistic" label="mostObtainiumPerSecondStatistic" style="color: crimson">Best Obtainium/sec: <span id="sMisc10" alt="sMisc10" label="sMisc10" class="statNumber">0</span></p>
             <p class="reincarnationunlock statPortion" id="obtainiumPerSecondStatistic" alt="obtainiumPerSecondStatistic" label="obtainiumPerSecondStatistic" style="color: crimson;">Current Obtainium/sec: <span id="sMisc11" alt="sMisc11" label="sMisc11" class="statNumber">0</span></p>
             <p class="ascendunlock statPortion" id="ascensionCountStatistic" alt="ascensionCountStatistic" label="ascensionCountStatistic" style="color: orange">Ascension Count: <span id="sMisc12" alt="sMisc12" label="sMisc12" class="statNumber">0</span></p>
-            <p class="ascendunlock statPortion" id="totalQuarkCountStatistic" alt="totalQuarkCountStatistic" label="totalQuarkCountStatistic" style="color: white">Total Quarks Ever (TQE): <span id="sMisc13" alt="sMisc13" label="sMisc13" class="statNumber">0</span></p>
             <p class="ascendunlock statPortion" id="totalQuarkCountStatisticSing" alt="totalQuarkCountStatisticSing" label="totalQuarkCountStatisticSing" style="color: white">Total Quarks This Singularity: <span id="sMisc14" alt="sMisc14" label="sMisc14" class="statNumber">0</span></p>
+            <p class="ascendunlock statPortion" id="totalQuarkCountStatistic" alt="totalQuarkCountStatistic" label="totalQuarkCountStatistic" style="color: white">Total Quarks Ever (TQE): <span id="sMisc13" alt="sMisc13" label="sMisc13" class="statNumber">0</span></p>
         </div>
         <div id="acceleratorStats" alt="acceleratorStats" label="acceleratorStats" class="statContainer">
             <p id="acceleratorStatTitle" alt="acceleratorStatTitle" label="acceleratorStatTitle" class="statPortion" style="color: goldenrod; font-size: 1.2em">Free Accelerators</p>
@@ -3425,6 +3441,26 @@ $GQ$ for golden quarks, $GQS$ for format golden quarks"></p>
                             <p id="improveQuarkHept4Level" alt="improveQuarkHept4Level" label="improveQuarkHept4Level"></p>
                             <button class="permshopbutton" id="improveQuarkHept4Button" alt="improveQuarkHept4Button" label="improveQuarkHept4Button" style="border: 2px solid grey;"></button>
                         </div>
+                        <div class="chal14Shop" id="shopImprovedDailyHide">
+                            <img id="shopImprovedDaily" alt="shopImprovedDaily" src="Pictures/Shop Improved Daily0.png">
+                            <p id="shopImprovedDailyLevel"></p>
+                            <button class="permshopbutton" id="shopImprovedDailyButton" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="singularityShopUnlock" id="shopImprovedDaily2Hide">
+                            <img id="shopImprovedDaily2" alt="shopImprovedDaily2" src="Pictures/Shop Improved Daily.png">
+                            <p id="shopImprovedDaily2Level"></p>
+                            <button class="permshopbutton" id="shopImprovedDaily2Button" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="singularityShopUnlock2" id="shopImprovedDaily3Hide">
+                            <img id="shopImprovedDaily3" alt="shopImprovedDaily3" src="Pictures/Shop Improved Daily2.png">
+                            <p id="shopImprovedDaily3Level"></p>
+                            <button class="permshopbutton" id="shopImprovedDaily3Button" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="singularityShopUnlock3" id="shopImprovedDaily4Hide">
+                            <img id="shopImprovedDaily4" alt="shopImprovedDaily4" src="Pictures/Shop Improved Daily3.png">
+                            <p id="shopImprovedDaily4Level"></p>
+                            <button class="permshopbutton" id="shopImprovedDaily4Button" style="border: 2px solid gold"></button>
+                        </div>
                         <div class="singularityShopUnlock2" id="powderAutoHide">
                             <img id="powderAuto" src="Pictures/Powder Gain Upgrade2.png" loading="lazy">
                             <p id="powderAutoLevel"></p>
@@ -3515,11 +3551,17 @@ $GQ$ for golden quarks, $GQS$ for format golden quarks"></p>
                     <div class="singularityUpgrade">
                         <img id="cookies4" alt="cookies4" label="cookies4" src="Pictures/SingularityCookies4.png" style="cursor:pointer">                </div>
                     <div class="singularityUpgrade">
+                        <img id="cookies5" alt="cookies5" label="cookies5" src="Pictures/SingularityCookies5.png" style="cursor: pointer">
+                    </div>
+                    <div class="singularityUpgrade">
                         <img id="ascensions" alt="ascensions" label="ascensions" src="Pictures/Singularity Ascensions.png" style="cursor:pointer">                </div>
                     <div class="singularityUpgrade">
                         <img id="corruptionFourteen" alt="corruptionFourteen" label="corruptionFourteen" src="Pictures/Singularity Corruption 14.png" style="cursor:pointer">                </div>
                     <div class="singularityUpgrade">
                         <img id="corruptionFifteen" alt="corruptionFifteen" label="corruptionFifteen" src="Pictures/Singularity Corruption 15.png" style="cursor:pointer">                </div>
+                    <div class="singularityUpgrade">
+                        <img id="platonicTau" alt="platonicTau" src="Pictures/Singularity Tau.png" style="cursor: pointer">
+                    </div>
                     <div class="singularityUpgrade">
                         <img id="singOfferings1" alt="singOfferings1" label="singOfferings1" src="Pictures/Singularity Offerings 1.png" style="cursor: pointer">
                     </div>
@@ -3588,6 +3630,9 @@ $GQ$ for golden quarks, $GQS$ for format golden quarks"></p>
                     </div>
                     <div class="singularityUpgrade">
                         <img id="singOcteractGain5" src="Pictures/Singularity Octeract Gain 5.png" style="cursor: pointer">
+                    </div>
+                    <div class="singularityUpgrade">
+                        <img id="ultimatePen" src="Pictures/Ultimate Pen.png" style="cursor: pointer">
                     </div>
                 </div>
             </div>

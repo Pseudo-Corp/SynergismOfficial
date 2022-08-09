@@ -74,7 +74,7 @@ export abstract class DynamicUpgrade {
     abstract toString(): string
     abstract updateUpgradeHTML(): void
     abstract getCostTNL(): number
-    public abstract buyLevel(): Promise<void> | void
+    public abstract buyLevel(event: MouseEvent): Promise<void> | void
 
 
 }

@@ -2,7 +2,7 @@ import { format, player } from './Synergism';
 import { Alert } from './UpdateHTML';
 import type { IUpgradeData } from './DynamicUpgrade';
 import { DynamicUpgrade } from './DynamicUpgrade';
-import { calculateAscensionAcceleration, calculateAscensionScore } from './Calculate';
+import { calculateAscensionAcceleration, calculateAscensionScore, calculateEventBuff } from './Calculate';
 import { productContents, sumContents } from './Utility';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -36,13 +36,17 @@ export class OcteractUpgrade extends DynamicUpgrade {
      * @returns An alert indicating cannot afford, already maxxed or purchased with how many
      *          levels purchased
      */
-    public async buyLevel(): Promise<void> {
+    public async buyLevel(event: MouseEvent): Promise<void> {
         let purchased = 0;
-        let maxPurchasable = (this.maxLevel === -1)
-            ? ((this.toggleBuy === -1)
-                ? 1000
-                : this.toggleBuy)
-            : Math.min(this.toggleBuy, this.maxLevel - this.level);
+        let maxPurchasable = 1;
+
+        if (event.shiftKey) {
+            maxPurchasable = 10000
+        }
+
+        if (this.maxLevel > 0) {
+            maxPurchasable = Math.min(maxPurchasable, this.maxLevel - this.level)
+        }
 
         if (maxPurchasable === 0) {
             return Alert('hey! You have already maxxed this upgrade. :D')
@@ -63,6 +67,9 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
         if (purchased === 0) {
             return Alert('You cannot afford this upgrade. Sorry!')
+        }
+        if (purchased > 1) {
+            return Alert(`Purchased ${format(purchased)} levels, thanks to MAX Buy!`)
         }
 
         this.updateUpgradeHTML();
@@ -193,7 +200,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     octeractImprovedDaily: {
         name: 'CHONKER Daily Code',
-        description: 'Derpsmith hacks into the source code, and adds +1 free GQ upgrade per day from Daily.',
+        description: 'Derpsmith hacks into the source code, and adds +1 free Singularity upgrade per day from Daily.',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(1.6, level)
         },
@@ -202,13 +209,13 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: `Code 'daily' gives +${n} GQ upgrades per use.`
+                desc: `Code 'daily' gives +${n} free Singularity upgrades per use.`
             }
         }
     },
     octeractImprovedDaily2: {
         name: 'CHONKERER Daily Code',
-        description: 'Derpsmith implemented hyperspeed multiplication. +2% more GQ upgrades per day from Daily!',
+        description: 'Derpsmith implemented hyperspeed multiplication. +1% more free Singularity upgrades per day from Daily!',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(2, level)
         },
@@ -216,8 +223,8 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costPerLevel: 1e-2,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.02 * n,
-                desc: `Code 'daily' gives +${2 * n}% more GQ upgrades per use.`
+                bonus: 1 + 0.01 * n,
+                desc: `Code 'daily' gives +${n}% more free Singularity upgrades per use.`
             }
         }
     },
@@ -350,7 +357,7 @@ export const octeractGainPerSecond = () => {
     const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
 
     const valueMultipliers = [
-        1 + player.shopUpgrades.seasonPass3 / 100,
+        1 + 1.5 * player.shopUpgrades.seasonPass3 / 100,
         1 + player.shopUpgrades.seasonPassY / 200,
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
         1 + player.shopUpgrades.seasonPassLost / 1000,
@@ -367,7 +374,8 @@ export const octeractGainPerSecond = () => {
         1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
         +player.octeractUpgrades.octeractGain.getEffect().bonus,
         derpsmithCornucopiaBonus(),
-        Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount)))
+        Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
+        1 + calculateEventBuff('Octeract')
     ]
 
     const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1/2)
