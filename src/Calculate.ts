@@ -1773,6 +1773,9 @@ export const CalcCorruptionStuff = () => {
     let cubeGain = cubeBank;
     cubeGain *= calculateCubeMultiplier(effectiveScore).mult;
 
+    const bonusCubeExponent = (player.singularityUpgrades.platonicTau.getEffect().bonus) ? 1.01 : 1
+    cubeGain = Math.pow(cubeGain, bonusCubeExponent)
+
     // Calculation of Tesseracts :))
     let tesseractGain = 1;
     if (effectiveScore >= 100000) {
