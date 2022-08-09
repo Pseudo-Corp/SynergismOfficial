@@ -136,25 +136,49 @@ export const exportSynergism = async () => {
         return Alert('How?');
     }
 
-    if ('clipboard' in navigator && toClipboard) {
-        await navigator.clipboard.writeText(saveString)
-            .catch((e: Error) => Alert(`Unable to write the save to clipboard: ${e.message}`));
-    } else if (toClipboard) {
-        // Old browsers (legacy Edge, Safari 13.0)
-        const textArea = document.createElement('textarea');
-        textArea.value = saveString;
-        textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
-
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
+    if (toClipboard) {
         try {
-            document.execCommand('copy');
-        } catch (e) {
-            void Alert(`Unable to write the save to clipboard: ${(e as Error).message}`);
-        }
+            // This can fail for two reasons:
+            // - TypeError (browser doesn't support this feature)
+            // - Failed to copy (browser limitation; Safari)
+            await navigator.clipboard.writeText(saveString)
+        } catch (err) {
+            // So we fallback to the deprecated way of doing it,
+            // which isn't limited by any browser.
 
-        document.body.removeChild(textArea);
+            // Old/bad browsers (legacy Edge, Safari because of limitations)
+            const textArea = document.createElement('textarea');
+            const old = [textArea.contentEditable, textArea.readOnly] as const
+            textArea.value = saveString;
+            textArea.contentEditable = 'true'
+            textArea.readOnly = false
+
+            textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
+
+            document.body.appendChild(textArea);
+            textArea.focus()
+            textArea.select()
+
+            // Safari
+            const range = document.createRange()
+            range.selectNodeContents(textArea)
+
+            const selection = window.getSelection()
+            selection?.removeAllRanges()
+            selection?.addRange(range)
+
+            textArea.setSelectionRange(0, textArea.value.length)
+            textArea.contentEditable = old[0]
+            textArea.readOnly = old[1]
+
+            try {
+                document.execCommand('copy');
+            } catch (e) {
+                return Alert(`Unable to write the save to clipboard (tried two methods): ${(e as Error).message}`);
+            } finally {
+                document.body.removeChild(textArea);
+            }
+        }
     } else {
         const a = document.createElement('a');
         a.setAttribute('href', 'data:text/plain;charset=utf-8,' + saveString);
