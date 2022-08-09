@@ -72,16 +72,13 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
 }
 
 export const resetofferings = (input: resetNames) => {
-    player.runeshards += calculateOfferings(input);
+    player.runeshards = Math.min(1e300, player.runeshards + calculateOfferings(input));
 }
 
-export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgraded = 0) => {
-    // if automated && 2x10 cube upgrade bought, this will be >0.
-    // runeIndex, the rune being added to
-    const runeIndex = runeIndexPlusOne - 1;
-
+export const unlockedRune = (runeIndexPlusOne: number) => {
     // Whether or not a rune is unlocked array
     const unlockedRune = [
+        false,
         true,
         player.achievements[38] > 0.5,
         player.achievements[44] > 0.5,
@@ -90,6 +87,27 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
         player.shopUpgrades.infiniteAscent,
         player.platonicUpgrades[20] > 0
     ];
+    return unlockedRune[runeIndexPlusOne];
+}
+
+/**
+ * checkMaxRunes returns how many unique runes are at the maximum level.
+ * Does not take in params, returns a number equal to number of maxed runes.
+ */
+export const checkMaxRunes = (runeIndex: number) => {
+    let maxed = 0;
+    for (let i = 0; i < runeIndex; i++) {
+        if (!unlockedRune(i + 1) || player.runelevels[i] >= calculateMaxRunes(i + 1)) {
+            maxed++;
+        }
+    }
+    return maxed;
+}
+
+export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgraded = 0) => {
+    // if automated && 2x10 cube upgrade bought, this will be >0.
+    // runeIndex, the rune being added to
+    const runeIndex = runeIndexPlusOne - 1;
 
     let levelsToAdd = player.offeringbuyamount
     if (auto) {
@@ -99,7 +117,7 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
         levelsToAdd = Math.min(1e4, calculateMaxRunes(runeIndex + 1)) // limit to max 10k levels per call so the execution doesn't take too long if things get stuck
     }
     let levelsAdded = 0
-    if (player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune[runeIndex]) {
+    if (player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune(runeIndex + 1)) {
         let all = 0
         const maxLevel = calculateMaxRunes(runeIndex + 1)
         const amountArr = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
@@ -128,7 +146,7 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
             }
         }
         for (let runeToUpdate = 0; runeToUpdate < 5; ++runeToUpdate) {
-            if (unlockedRune[runeToUpdate]) {
+            if (unlockedRune(runeToUpdate + 1)) {
                 if (runeToUpdate !== runeIndex) {
                     player.runeexp[runeToUpdate] += all * calculateRuneExpGiven(runeToUpdate, true)
                 }

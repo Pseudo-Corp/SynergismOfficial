@@ -260,7 +260,7 @@ export const updateCubeUpgradeBG = (i: number) => {
         player.cubeUpgrades[i] = maxCubeLevel;
     }
     if (player.cubeUpgrades[i] === 0) {
-        a.style.backgroundColor = 'black'
+        a.style.backgroundColor = ''
     }
     if (cubeUpgrade > 0 && cubeUpgrade < maxCubeLevel) {
         a.style.backgroundColor = 'purple'
@@ -271,7 +271,7 @@ export const updateCubeUpgradeBG = (i: number) => {
 
 }
 
-function awardAutosCookieUpgrade() {
+export const awardAutosCookieUpgrade = () => {
     for (const i of cubeAutomationIndices) {
         const maxLevel = getCubeMax(i)
         player.cubeUpgrades[i] = maxLevel;
@@ -287,6 +287,14 @@ function awardAutosCookieUpgrade() {
 }
 
 export const buyCubeUpgrades = (i: number, linGrowth = 0, cubic = false) => {
+    // Actually lock for HTML exploit
+    if ((i > 50 && i <= 55 && !player.singularityUpgrades.cookies.getEffect().bonus) ||
+        (i > 55 && i <= 60 && !player.singularityUpgrades.cookies2.getEffect().bonus) ||
+        (i > 60 && i <= 65 && !player.singularityUpgrades.cookies3.getEffect().bonus) ||
+        (i > 65 && i <= 70 && !player.singularityUpgrades.cookies4.getEffect().bonus)) {
+        return;
+    }
+
     const metaData = getCubeCost(i,linGrowth, cubic);
     const maxLevel = getCubeMax(i)
     if (Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[i]! < maxLevel){
@@ -311,6 +319,12 @@ export const buyCubeUpgrades = (i: number, linGrowth = 0, cubic = false) => {
 
     if (i === 51 && player.cubeUpgrades[51] > 0) {
         awardAutosCookieUpgrade();
+    }
+
+    if (i === 57 && player.cubeUpgrades[57] > 0) {
+        for (let j = 1; j < player.cubeUpgrades.length; j++) {
+            updateCubeUpgradeBG(j);
+        }
     }
 
     cubeUpgradeDesc(i, linGrowth, cubic);

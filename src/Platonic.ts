@@ -354,7 +354,7 @@ export const updatePlatonicUpgradeBG = (i: number) => {
 
     const maxLevel = platUpgradeBaseCosts[i].maxLevel
     if (player.platonicUpgrades[i] === 0) {
-        a.style.backgroundColor = 'black'
+        a.style.backgroundColor = ''
     } else if (player.platonicUpgrades[i] > 0 && player.platonicUpgrades[i] < maxLevel) {
         a.style.backgroundColor = 'purple'
     } else if (player.platonicUpgrades[i] === maxLevel) {

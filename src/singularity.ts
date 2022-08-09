@@ -58,7 +58,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
         const costNextLevel = this.getCostTNL();
         const maxLevel = this.maxLevel === -1
             ? ''
-            : `/${this.maxLevel}`;
+            : `/${format(this.maxLevel, 0 , true)}`;
         const color = this.maxLevel === this.level ? 'plum' : 'white';
         const minReqColor = player.singularityCount < this.minimumSingularity ? 'crimson' : 'green';
         const minimumSingularity = this.minimumSingularity > 0
@@ -75,7 +75,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color: ${minReqColor}">${minimumSingularity}</span>
-                <span style="color: ${color}"> Level ${this.level}${maxLevel}${freeLevelInfo}</span>
+                <span style="color: ${color}"> Level ${format(this.level, 0 , true)}${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
                 Cost for next level: ${format(costNextLevel,0,true)} Golden Quarks.
                 Spent Quarks: ${format(this.goldenQuarksInvested, 0, true)}`
@@ -560,7 +560,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: Math.max(1, 10 * Math.pow(n, 2)),
-                desc: `Potions currently give ${Math.max(1, 10 * Math.pow(n, 2))}x items!`
+                desc: `Potions currently give ${format(Math.max(1, 10 * Math.pow(n, 2)), 0, true)}x items!`
             }
         }
     },
@@ -853,6 +853,19 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Automation Upgrades',
+        levels: [10, 25, 101],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[2]) {
+                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
+            } else if (n >= levels[1]) {
+                return 'You always have w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
+            } else {
+                return 'You always have w1x4, w1x5 and w1x6.'
+            }
+        }
+    },
+    {
         name: 'Even more Quarks',
         levels: [5, 20, 35, 50, 65, 80, 90, 100],
         description: (n: number, levels: number[]) => {
@@ -896,10 +909,28 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Research for Dummies',
-        levels: [11],
+        name: 'Hepteract Autocraft',
+        levels: [1],
         description: () => {
-            return 'You permanently keep Auto Research'
+            return 'Hepteract Autocraft will be unlocked'
+        }
+    },
+    {
+        name: 'Automation Cubes',
+        levels: [35],
+        description: () => {
+            return 'Ascension allows you to automatically open the cubes you have'
+        }
+    },
+    {
+        name: 'Research for Dummies',
+        levels: [1, 11],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'You permanently keep Auto Research'
+            } else {
+                return 'You can Research using Hover to Buy'
+            }
         }
     },
     {
@@ -911,7 +942,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Advanced Runes Autobuyer',
-        levels: [30,50],
+        levels: [30, 50],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
                 return 'Runes autobuyer will also level up Infinite Ascent AND Antiquities of Ant God'
@@ -1061,9 +1092,9 @@ export const getGoldenQuarkCost = (): {
     costReduction += 2 * Math.min(player.achievementPoints, 5000)
     costReduction += 1 * Math.max(0, player.achievementPoints - 5000)
     costReduction += player.cubeUpgrades[60]
-    costReduction += 500 * player.singularityUpgrades.goldenQuarks1.level
-    costReduction += 200 * player.singularityUpgrades.goldenQuarks2.level
-    costReduction += 1000 * player.singularityUpgrades.goldenQuarks3.level
+    costReduction += 500 * (player.singularityUpgrades.goldenQuarks1.level + player.singularityUpgrades.goldenQuarks1.freeLevels)
+    costReduction += 200 * (player.singularityUpgrades.goldenQuarks2.level + player.singularityUpgrades.goldenQuarks2.freeLevels)
+    costReduction += 1000 * (player.singularityUpgrades.goldenQuarks3.level + player.singularityUpgrades.goldenQuarks3.freeLevels)
 
     if (costReduction > 90000) {
         costReduction = 90000 + 1 / 10 * (costReduction - 90000)
@@ -1093,7 +1124,7 @@ export async function buyGoldenQuarks(): Promise<void> {
     if (maxBuy === 0) {
         return Alert('Sorry, I can\'t give credit. Come back when you\'re a little... mmm... richer!')
     }
-    const buyPrompt = await Prompt(`You can buy Golden Quarks here for ${format(goldenQuarkCost.cost)} Quarks (Discounted by ${format(goldenQuarkCost.costReduction)})! You can buy up to ${format(maxBuy)}. How many do you want? Type -1 to buy max!`)
+    const buyPrompt = await Prompt(`You can buy Golden Quarks here for ${format(goldenQuarkCost.cost, 0, true)} Quarks (Discounted by ${format(goldenQuarkCost.costReduction, 0, true)})! You can buy up to ${format(maxBuy, 0, true)}. How many do you want? Type -1 to buy max!`)
     if (buyPrompt === null) {
         // Number(null) is 0. Yeah..
         return Alert('Okay, maybe next time.');
@@ -1118,12 +1149,12 @@ export async function buyGoldenQuarks(): Promise<void> {
         const cost = maxBuy * goldenQuarkCost.cost
         player.worlds.sub(cost)
         player.goldenQuarks += maxBuy
-        return Alert(`Transaction of ${format(maxBuy)} Golden Quarks successful! [-${format(cost,0,true)} Quarks]`)
+        return Alert(`Transaction of ${format(maxBuy, 0, true)} Golden Quarks successful! [-${format(cost,0,true)} Quarks]`)
     } else {
         const cost = buyAmount * goldenQuarkCost.cost
         player.worlds.sub(cost)
         player.goldenQuarks += buyAmount
-        return Alert(`Transaction of ${format(buyAmount)} Golden Quarks successful! [-${format(cost, 0, true)} Quarks]`)
+        return Alert(`Transaction of ${format(buyAmount, 0, true)} Golden Quarks successful! [-${format(cost, 0, true)} Quarks]`)
     }
 }
 

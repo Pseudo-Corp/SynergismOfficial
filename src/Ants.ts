@@ -1,12 +1,11 @@
 import { player, format, clearInt, interval } from './Synergism';
-import { calculateSigmoidExponential, calculateSigmoid, calculateAnts, calculateRuneLevels, calculateMaxRunes, calculateAntSacrificeELO, calculateAntSacrificeRewards } from './Calculate';
+import { calculateSigmoidExponential, calculateSigmoid, calculateAnts, calculateRuneLevels, calculateAntSacrificeELO, calculateAntSacrificeRewards } from './Calculate';
 import { Globals as G } from './Variables';
 
 import type { DecimalSource } from 'break_infinity.js';
 import Decimal from 'break_infinity.js';
 import { achievementaward } from './Achievements';
 import { Confirm, revealStuff } from './UpdateHTML';
-import { redeemShards } from './Runes';
 import { updateTalismanInventory } from './Talismans';
 import { buyResearch } from './Research';
 import { resetAnts } from './Reset';
@@ -376,27 +375,6 @@ export const sacrificeAnts = async (auto = false) => {
                 player.epicFragments += sacRewards.epicFragments;
                 player.legendaryFragments += sacRewards.legendaryFragments;
                 player.mythicalFragments += sacRewards.mythicalFragments;
-            }
-
-            // Refer to analogous code in Syngergism.js, function tick().
-            if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {
-                // Since ants boost rune EXP, we need to auto-spend offerings NOW, before reset, if cube-tier auto-spend is enabled.
-                if (player.cubeUpgrades[20] === 1 && player.runeshards >= 5) {
-                    let unmaxed = 0;
-                    for (let i = 1; i <= 5; i++) {
-                        if (player.runelevels[i - 1] < calculateMaxRunes(i)) {
-                            unmaxed++;
-                        }
-                    }
-                    if (unmaxed > 0) {
-                        const baseAmount = Math.floor(player.runeshards / unmaxed);
-                        for (let i = 1; i <= 5; i++) {
-                            redeemShards(i, true, baseAmount);
-                        }
-                        player.sacrificeTimer = 0;
-                    }
-                }
-                // Other cases don't perform a spend-all and are thus safely handled by the standard tick() function.
             }
 
             // Now we're safe to reset the ants.

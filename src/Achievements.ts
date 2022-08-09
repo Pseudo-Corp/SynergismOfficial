@@ -689,7 +689,7 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
     const generatorcheck = sumContents(player.upgrades.slice(101, 106));
 
     for (const [, bar, ach] of challengeCompletionsBar.filter(([o]) => o === i)) {
-        if (player.challengecompletions[i] > bar) {
+        if (player.challengecompletions[i] > bar && player.achievements[ach] < 1) {
             achievementaward(ach);
         }
     }
@@ -714,6 +714,10 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
                 achievementaward(119 + 7 * i + j)
             }
         }
+    }
+
+    if (player.challengecompletions[10] >= 50 && i === 11 && player.usedCorruptions[7] >= 5 && player.achievements[247] < 1) {
+        achievementaward(247)
     }
 }
 

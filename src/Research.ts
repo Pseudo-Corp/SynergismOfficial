@@ -1,6 +1,6 @@
 import { player, format } from './Synergism';
 import { calculateSummationNonLinear, calculateRuneLevels, calculateAnts } from './Calculate';
-import { revealStuff } from './UpdateHTML';
+import { revealStuff, updateChallengeDisplay } from './UpdateHTML';
 import { Globals as G } from './Variables';
 import { updateClassList } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -85,10 +85,10 @@ export const autoResearchEnabled = (): boolean => {
  * @param linGrowth
  * @returns
  */
-export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean => {
+export const buyResearch = (index: number, auto = false, linGrowth = 0, hover = false): boolean => {
 
     // Get our costs, and determine if anything is purchasable.
-    const buyAmount = (player.researchBuyMaxToggle || auto) ? 1e5: 1;
+    const buyAmount = (player.researchBuyMaxToggle || auto || hover) ? 1e5: 1;
     const metaData = getResearchCost(index, buyAmount, linGrowth); /* Destructuring FTW! */
     const canBuy = (player.researchPoints >= metaData.cost);
 
@@ -112,6 +112,9 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0): boolean
         player.unlocks.rrow4 ||= true;
         if (index >= 47 && index <= 50) {
             revealStuff();
+        }
+        if ((index >= 66 && index <= 70) || index === 105) {
+            updateChallengeDisplay();
         }
 
         // Update ants and runes.
@@ -367,6 +370,11 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     const y = resdesc[i-1];
     let z = ''
     const p = 'res' + i
+
+    if (player.toggles[38] === true && player.singularityCount > 0) {
+        buyResearch(i, false, i === 200 ? 0.01 : 0, true);
+    }
+
     const metaData = getResearchCost(i, buyAmount, linGrowth);
     z = ' Cost: ' + (format(metaData.cost, 0, false)) + ' Obtainium [+' + format(metaData.levelCanBuy - player.researches[i], 0, true) + ' Levels]'
     if (player.researches[i] === (G['researchMaxLevels'][i])) {
