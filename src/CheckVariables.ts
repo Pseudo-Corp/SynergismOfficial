@@ -269,6 +269,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         cookies2: new SingularityUpgrade(singularityData['cookies2']),
         cookies3: new SingularityUpgrade(singularityData['cookies3']),
         cookies4: new SingularityUpgrade(singularityData['cookies4']),
+        cookies5: new SingularityUpgrade(singularityData['cookies5']),
         ascensions: new SingularityUpgrade(singularityData['ascensions']),
         corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
         corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
@@ -301,7 +302,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
         singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
         singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
-        wowPass3: new SingularityUpgrade(singularityData['wowPass3'])
+        wowPass3: new SingularityUpgrade(singularityData['wowPass3']),
+        ultimatePen: new SingularityUpgrade(singularityData['ultimatePen']),
+        platonicTau: new SingularityUpgrade(singularityData['platonicTau'])
     }
 
     player.octeractUpgrades = {

@@ -277,6 +277,18 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             }
         }
     },
+    cookies5: {
+        name: 'Cookie Recipes V (WIP)',
+        description: 'The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.',
+        maxLevel: 1,
+        costPerLevel: 5e7 - 1,
+        effect: (n: number) => {
+            return {
+                bonus: (n > 0),
+                desc: `You ${(n > 0) ? 'have' : 'have not'} paid witness to the suffering of the masses.`
+            }
+        }
+    },
     ascensions: {
         name: 'Improved Ascension Gain',
         description: 'Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.',
@@ -692,6 +704,32 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: 1 + 0.005 * n,
                 desc: `Octeract Gain +${format(n / 2, 1, true)}%`
+            }
+        }
+    },
+    platonicTau: {
+        name: 'Platonic TAU',
+        description: 'Placed in the wrong upgrade section, this will remove any restrictions on corruptions or corruption level caps! Also raises 3d cube gain to the power of 1.01!',
+        maxLevel: 1,
+        costPerLevel: 100000,
+        minimumSingularity: 29,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `This upgrade has ${n > 0 ? '' : 'NOT'} been purchased!`
+            }
+        }
+    },
+    ultimatePen: {
+        name: 'The Ultimate Pen',
+        description: 'You. It is you who is the author of your own story!',
+        maxLevel: 1,
+        costPerLevel: 999999999999,
+        minimumSingularity: 250,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `You do ${n > 0 ? '' : 'NOT'} own the Ultimate Pen. ${n > 0 ? ' However, the pen just ran out of ink. How will you get more?' : ''}`
             }
         }
     }

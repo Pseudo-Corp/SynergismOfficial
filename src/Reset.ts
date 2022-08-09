@@ -616,7 +616,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         const maxLevel = maxCorruptionLevel();
         player.usedCorruptions = player.prototypeCorruptions.map((curr:number, index:number) => {
             if (index >= 2 && index <= 9) {
-                return Math.min(maxLevel * (player.challengecompletions[corrChallengeMinimum(index)] > 0 ? 1: 0), curr)
+                return Math.min(maxLevel * (player.challengecompletions[corrChallengeMinimum(index)] > 0 ||
+                                            player.singularityUpgrades.platonicTau.getEffect().bonus ? 1: 0), curr)
             }
             return curr
         })

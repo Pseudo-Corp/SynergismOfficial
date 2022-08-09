@@ -82,7 +82,9 @@ const cubeUpgradeName = [
     'Wow! A box of Metaphysical Brownies.',
     'Wow! A box of Not Cookies.',
     'Wow! A box of Cookies Beyond This World.',
-    'Wow! A box of Perfect Cookies.'
+    'Wow! A box of Perfect Cookies.',
+    'Wow! A Singular Cookie of Pandora\'s Benefactory',
+    'Wow! A Singular Cookie of Vyshareth\'s Benefactory'
 ]
 
 const cubeAutomationIndices = [4, 5, 6, 7, 8, 9, 10, // row 1
