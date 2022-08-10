@@ -3028,11 +3028,16 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
         }
 
-        if (a === 15 && (manual || leaving || player.shopUpgrades.challenge15Auto > 0) && player.usedCorruptions.slice(2, 10).every((a) => a === 11)) {
+        if (a === 15 && player.usedCorruptions.slice(2, 10).every((a) => a === 11)) {
             if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()))) {
                 player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier();
                 c15RewardUpdate();
             }
+            if (manual) {
+                player.currentChallenge.ascension = 0;
+                updateChallengeDisplay();
+            }
+            return;
         }
 
         if (player.challengecompletions[a] > player.highestchallengecompletions[a]) {
