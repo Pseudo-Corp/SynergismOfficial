@@ -2252,6 +2252,9 @@ p[id$="BlessingsTotal"] {
 
 .cubeTab > span {
     text-align: center;
+    width: 75%;
+    margin-left: 0;
+    margin-right: auto;
 }
 
 #cubeTab5Wrapper {
