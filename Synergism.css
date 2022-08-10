@@ -2247,7 +2247,7 @@ p[id$="BlessingsTotal"] {
 .cubeTab {
     flex-direction: column;
     align-items: center;
-    width: 750px;
+    width: auto;
 }
 
 .cubeTab > span {
@@ -2270,10 +2270,6 @@ p[id$="BlessingsTotal"] {
 #cubeTab6 {
     flex-direction: row;
     align-items: flex-start;
-}
-
-.cubeSpacer {
-    width: 250px;
 }
 
 #cubeUpgradeTable {
