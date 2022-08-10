@@ -141,9 +141,13 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         name: 'Quark Octeract',
         description: 'An altered forme of the hepteract, this gives a 1% Quark Bonus per level without Diminishing Return.',
         costFormula: (level: number, baseCost: number) => {
-            return baseCost * (Math.pow(level + 1, 7) - Math.pow(level, 7))
+            if (level < 1000) {
+                return baseCost * (Math.pow(level + 1, 7) - Math.pow(level, 7))
+            } else {
+                return baseCost * (Math.pow(1000, 7) - Math.pow(1000, 7)) * Math.pow(10, level / 1000)
+            }
         },
-        maxLevel: -1,
+        maxLevel: 9900,
         costPerLevel: 1e-7,
         effect: (n: number) => {
             return {

@@ -304,7 +304,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
         wowPass3: new SingularityUpgrade(singularityData['wowPass3']),
         ultimatePen: new SingularityUpgrade(singularityData['ultimatePen']),
-        platonicTau: new SingularityUpgrade(singularityData['platonicTau'])
+        platonicTau: new SingularityUpgrade(singularityData['platonicTau']),
+        platonicAlpha: new SingularityUpgrade(singularityData['platonicAlpha']),
+        platonicDelta: new SingularityUpgrade(singularityData['platonicDelta'])
     }
 
     player.octeractUpgrades = {

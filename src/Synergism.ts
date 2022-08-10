@@ -763,7 +763,9 @@ export const player: Player = {
         singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
         wowPass3: new SingularityUpgrade(singularityData['wowPass3']),
         ultimatePen: new SingularityUpgrade(singularityData['ultimatePen']),
-        platonicTau: new SingularityUpgrade(singularityData['platonicTau'])
+        platonicTau: new SingularityUpgrade(singularityData['platonicTau']),
+        platonicAlpha: new SingularityUpgrade(singularityData['platonicAlpha']),
+        platonicDelta: new SingularityUpgrade(singularityData['platonicDelta'])
     },
 
     octeractUpgrades: {
@@ -3559,6 +3561,10 @@ export const updateAll = (): void => {
             const buyTo = player[`${num}OwnedParticles` as const] + 1
             player[`${num}CostParticles` as const] = new Decimal(Decimal.pow(2, buyTo - 1).times(Decimal.pow(1.001, Math.max(0, (buyTo - 325000)) * Math.max(0, (buyTo - 325000) + 1) / 2))).times(particleOriginalCost[i])
         }
+    }
+
+    if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
+        player.platonicUpgrades[5] = 1;
     }
 }
 

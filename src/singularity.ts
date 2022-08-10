@@ -720,6 +720,32 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             }
         }
     },
+    platonicAlpha: {
+        name: 'Platonic ALPHA...?',
+        description: 'Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxxed!',
+        maxLevel: 1,
+        costPerLevel: 2e7,
+        minimumSingularity: 70,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `This upgrade has ${n > 0 ? '' : 'NOT'} been purchased!`
+            }
+        }
+    },
+    platonicDelta: {
+        name: 'Platonic DELTA',
+        description: 'Time follows you towards the future, after getting this bad boy. Gain +100% more cubes per day in your current singularity, up to +900% at day 9.',
+        maxLevel: 1,
+        costPerLevel: 5e9,
+        minimumSingularity: 111,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `This upgrade has ${n > 0 ? '' : 'NOT'} been purchased!`
+            }
+        }
+    },
     ultimatePen: {
         name: 'The Ultimate Pen',
         description: 'You. It is you who is the author of your own story!',

@@ -167,7 +167,8 @@ export const loadStatisticsCubeMultipliers = () => {
         16: {acc: 2, desc: 'Wow Pass Z:'},
         17: {acc: 2, desc: 'Cookie Upgrade 16:'},
         18: {acc: 2, desc: 'Cookie Upgrade 8:'},
-        19: {acc: 2, desc: 'Total Octeract Bonus:'}
+        19: {acc: 2, desc: 'Total Octeract Bonus:'},
+        20: {acc: 4, desc: 'Platonic DELTA'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);

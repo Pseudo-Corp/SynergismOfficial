@@ -1095,7 +1095,9 @@ export const calculateAllCubeMultiplier = () => {
         // Cookie Upgrade 8 (now actually works)
         1 + 0.25 * +G['isEvent'] * player.cubeUpgrades[58],
         // Wow Octeract Bonus
-        calculateTotalOcteractCubeBonus()
+        calculateTotalOcteractCubeBonus(),
+        // Platonic DELTA
+        1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24))
         // Total Global Cube Multipliers: 18
     ]
     return {
@@ -1316,7 +1318,8 @@ export const octeractGainPerSecond = () => {
         +player.octeractUpgrades.octeractGain.getEffect().bonus,
         derpsmithCornucopiaBonus(),
         Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
-        1 + calculateEventBuff('Octeract')
+        1 + calculateEventBuff('Octeract'),
+        1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24))
     ]
 
     const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1 / 2)
