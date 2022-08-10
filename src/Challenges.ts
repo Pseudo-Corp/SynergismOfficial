@@ -52,7 +52,7 @@ export const getMaxChallenges = (i: number) => {
     if (i <= 15 && i > 10) {
         //Challenge 15 has no formal cap, so return 9001.
         if (i === 15) {
-            return 0
+            return 1
         }
         //Start with base of 30 max completions
         maxChallenge = 30;
