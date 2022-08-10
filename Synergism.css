@@ -2256,6 +2256,10 @@ p[id$="BlessingsTotal"] {
     margin-right: auto;
 }
 
+#cubeTab5 {
+    width: 60%;
+}
+
 #cubeTab5Wrapper {
     display: flex;
     flex-direction: column;
