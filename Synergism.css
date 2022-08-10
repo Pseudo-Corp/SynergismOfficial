@@ -2110,6 +2110,7 @@ p#reincarnatehotkeys {
     line-height: 1.1em;
     text-align: center;
     width: 250px;
+    align-items: center;
 }
 
 #wowCubeSidebarButtons {
@@ -2124,6 +2125,7 @@ p#reincarnatehotkeys {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 125%;
 }
 
 .cubeToQuark {
@@ -2176,6 +2178,8 @@ p#reincarnatehotkeys {
 
 p[id$="BlessingsTotal"] {
     padding: 15px;
+    margin-left: 22.5%;
+    margin-right: auto;
 }
 
 #cubeBlessingsTotal { color: orange; }
@@ -2247,6 +2251,7 @@ p[id$="BlessingsTotal"] {
     flex-direction: column;
     align-items: center;
     width: auto;
+    margin-left: 50px;
 }
 
 .cubeTab > span {
