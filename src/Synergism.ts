@@ -2691,7 +2691,7 @@ export const resourceGain = (dt: number): void => {
         }
     }
     if (ascendchal !== 0 && ascendchal <= 15) {
-        if ((ascendchal === 15 && player.autoChallengeRunning) || player.challengecompletions[10] >= challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal)) {
+        if ((ascendchal === 15 && player.shopUpgrades.challenge15Auto > 0) || player.challengecompletions[10] >= challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal)) {
             void resetCheck('ascensionChallenge', false)
             challengeachievementcheck(ascendchal, true)
         }
