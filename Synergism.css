@@ -505,7 +505,6 @@ body button:active {
 
 #resetinfo {
     text-align: left; /* Keeps text from bouncing around */
-    font-size: 0.9em;
     font-variant-numeric: tabular-nums;
     height: 3.6em;
     overflow: hidden;
@@ -2247,11 +2246,14 @@ p[id$="BlessingsTotal"] {
 .cubeTab {
     flex-direction: column;
     align-items: center;
-    width: 750px;
+    width: auto;
 }
 
 .cubeTab > span {
     text-align: center;
+    width: 75%;
+    margin-left: 0;
+    margin-right: auto;
 }
 
 #cubeTab5Wrapper {
@@ -2270,10 +2272,6 @@ p[id$="BlessingsTotal"] {
 #cubeTab6 {
     flex-direction: row;
     align-items: flex-start;
-}
-
-.cubeSpacer {
-    width: 250px;
 }
 
 #cubeUpgradeTable {
