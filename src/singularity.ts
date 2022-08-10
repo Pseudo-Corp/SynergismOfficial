@@ -145,8 +145,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
         revealStuff();
     }
 
-    public getEffect(): { bonus: number | boolean, desc: string } {
-        let actualLevels = 0
+    public actualFreeLevels(): number {
         const actualFreeLevels = Math.min(this.level, this.freeLevels) + Math.sqrt(Math.max(0, this.freeLevels - this.level))
         const linearLevels = this.level + actualFreeLevels
         let polynomialLevels = 0
@@ -157,8 +156,11 @@ export class SingularityUpgrade extends DynamicUpgrade {
             polynomialLevels = Math.pow(this.level * actualFreeLevels, exponent)
         }
 
-        actualLevels = Math.max(linearLevels, polynomialLevels)
-        return this.effect(actualLevels)
+        return Math.max(linearLevels, polynomialLevels)
+    }
+
+    public getEffect(): { bonus: number | boolean, desc: string } {
+        return this.effect(this.actualFreeLevels())
     }
 
     public refund(): void {
@@ -1118,9 +1120,9 @@ export const getGoldenQuarkCost = (): {
     costReduction += 2 * Math.min(player.achievementPoints, 5000)
     costReduction += 1 * Math.max(0, player.achievementPoints - 5000)
     costReduction += player.cubeUpgrades[60]
-    costReduction += 500 * (player.singularityUpgrades.goldenQuarks1.level + player.singularityUpgrades.goldenQuarks1.freeLevels)
-    costReduction += 200 * (player.singularityUpgrades.goldenQuarks2.level + player.singularityUpgrades.goldenQuarks2.freeLevels)
-    costReduction += 1000 * (player.singularityUpgrades.goldenQuarks3.level + player.singularityUpgrades.goldenQuarks3.freeLevels)
+    costReduction += 500 * player.singularityUpgrades.goldenQuarks1.actualFreeLevels()
+    costReduction += 200 * player.singularityUpgrades.goldenQuarks2.actualFreeLevels()
+    costReduction += 1000 * player.singularityUpgrades.goldenQuarks3.actualFreeLevels()
 
     if (costReduction > 90000) {
         costReduction = 90000 + 1 / 10 * (costReduction - 90000)
