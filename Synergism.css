@@ -505,7 +505,6 @@ body button:active {
 
 #resetinfo {
     text-align: left; /* Keeps text from bouncing around */
-    font-size: 0.9em;
     font-variant-numeric: tabular-nums;
     height: 3.6em;
     overflow: hidden;
