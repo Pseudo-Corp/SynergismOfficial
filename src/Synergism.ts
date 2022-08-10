@@ -2691,7 +2691,7 @@ export const resourceGain = (dt: number): void => {
         }
     }
     if (ascendchal !== 0 && ascendchal <= 15) {
-        if (ascendchal === 15 || player.challengecompletions[10] >= challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal)) {
+        if ((ascendchal === 15 && player.autoChallengeRunning) || player.challengecompletions[10] >= challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal)) {
             void resetCheck('ascensionChallenge', false)
             challengeachievementcheck(ascendchal, true)
         }
@@ -3044,7 +3044,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         if (!player.retrychallenges || manual || leaving) {
-            if (!(!manual && autoAscensionChallengeSweepUnlock() && player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0)) {
+            if (!(!manual && (autoAscensionChallengeSweepUnlock() || !player.autoChallengeRunning) // If not autochallenge, don't reset
+                             && player.autoAscend && player.challengecompletions[11] > 0
+                             && player.cubeUpgrades[10] > 0)) {
                 player.currentChallenge.ascension = 0;
                 updateChallengeDisplay();
             }

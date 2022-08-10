@@ -772,8 +772,8 @@ export const buyConsumable = async (input: ShopUpgradeNames) => {
     const maxBuyablePotions = Math.min(Math.floor(Number(player.worlds)/100),shopData[input].maxLevel-player.shopUpgrades[input]);
     const potionKind = input === 'offeringPotion' ? 'Offering Potions' : 'Obtainium Potions';
 
-    if (shopData[input].maxLevel >= player.shopUpgrades[input]) {
-        return Alert(`You can't purchase ${potionKind} because you already have the max level!`);
+    if (shopData[input].maxLevel <= player.shopUpgrades[input]) {
+        return Alert(`You can't purchase ${potionKind} because you already have capacity!`);
     }
     if (maxBuyablePotions === 0) {
         return Alert(`You can't purchase ${potionKind} because you don't have enough Quarks!`);
