@@ -330,8 +330,11 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         a.textContent = 'SADISTIC CHALLENGE II || ' + player.challengecompletions[15] + '/' + format(maxChallenges) +  ' Completions'
         b.textContent = 'The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.'
         c.textContent = 'Ascend and reach the goal but you\'re stuck in all corruptions at level 11, and Ant production ^0.01.'
-        d.textContent = 'You will find no goal in sight, but get bonuses based on your best attempt.'
-        d.textContent = 'Goal: ' + format(challengeRequirement(i, player.challengecompletions[i], 15)) + ' Coins, but get bonuses based on your best attempt.'
+        if (maxChallenges === 0) {
+            d.textContent = 'You will find no goal in sight, but get bonuses based on your best attempt.'
+        } else {
+            d.textContent = 'Goal: ' + format(challengeRequirement(i, player.challengecompletions[i], 15)) + ' Coins, but get bonuses based on your best attempt.'
+        }
         e.textContent = 'Folly of mankind: '
         f.textContent = 'to believe they can defeat '
         g.textContent = 'what Ant God labored '
