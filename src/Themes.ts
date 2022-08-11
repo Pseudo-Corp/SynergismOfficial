@@ -1,6 +1,7 @@
+import { player } from './Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
-export const toggleTheme = () => {
+export const toggleTheme = (setting = true) => {
     const themeButton = DOMCacheGetOrSet('theme');
     const current = themeButton.textContent;
 
@@ -194,5 +195,32 @@ export const toggleTheme = () => {
         DOMCacheGetOrSet('themesTitle').style.color = 'pink'
 
         themeButton.textContent = 'Dark Mode';
+    }
+
+    if (setting === true && themeButton.textContent !== null) {
+        player.theme = themeButton.textContent;
+    }
+}
+
+export const settingTheme = () => {
+    let userTheme = player.theme;
+    const maxThemes = 10;
+    const themeButton = DOMCacheGetOrSet('theme');
+    for (let i = 0; i < maxThemes; i++) {
+        const current = themeButton.textContent;
+        if (current !== null && userTheme.toUpperCase() !== current.toUpperCase()) {
+            toggleTheme(false);
+        } else {
+            return;
+        }
+    }
+    userTheme = 'Dark Mode'.toUpperCase();
+    for (let i = 0; i < maxThemes; i++) {
+        const current = themeButton.textContent;
+        if (current !== null && userTheme.toUpperCase() !== current.toUpperCase()) {
+            toggleTheme(false);
+        } else {
+            return;
+        }
     }
 }

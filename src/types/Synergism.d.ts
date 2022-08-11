@@ -562,6 +562,8 @@ export interface Player {
     goldenQuarks: number
     quarksThisSingularity: number
     totalQuarksEver: number
+    hotkeys: Record<number, string[]>
+    theme: string
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
     octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade> 
