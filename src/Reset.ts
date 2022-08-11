@@ -18,7 +18,8 @@ import type {
     ResetHistoryEntryPrestige,
     ResetHistoryEntryTranscend,
     ResetHistoryEntryReincarnate,
-    ResetHistoryEntryAscend
+    ResetHistoryEntryAscend,
+    ResetHistoryEntrySingularity
 } from './History';
 import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
@@ -36,6 +37,7 @@ import { updateCubeUpgradeBG, awardAutosCookieUpgrade } from './Cubes';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
+import { sumContents } from './Utility';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
@@ -971,6 +973,29 @@ export const singularity = async (): Promise<void> => {
         return Alert('You nearly triggered a double singularity bug! Oh no! Luckily, our staff prevented this from happening.');
     }
 
+    // get total cube blessings for history
+    const cubeArray = Object.values(player.cubeBlessings);
+    const tesseractArray = Object.values(player.tesseractBlessings);
+    const hypercubeArray = Object.values(player.hypercubeBlessings);
+    const platonicArray = Object.values(player.platonicBlessings);
+    // Update sing history
+    const historyEntry: ResetHistoryEntrySingularity = {
+        seconds: player.singularityCounter,
+        date: Date.now(),
+        singularityCount: player.singularityCount,
+        quarks: player.quarksThisSingularity,
+        c15Score: player.challenge15Exponent,
+        goldenQuarks: calculateGoldenQuarkGain(),
+        wowTribs: sumContents(cubeArray),
+        tessTribs: sumContents(tesseractArray),
+        hyperTribs: sumContents(hypercubeArray),
+        platTribs: sumContents(platonicArray),
+        octeracts: player.totalWowOcteracts,
+        quarkHept: player.hepteractCrafts.quark.BAL,
+        kind: 'singularity'
+    }
+    Synergism.emit('historyAdd', 'singularity', historyEntry);
+
     // reset the rune instantly to hopefully prevent a double singularity
     player.runelevels[6] = 0;
     player.goldenQuarks += calculateGoldenQuarkGain();
@@ -990,6 +1015,7 @@ export const singularity = async (): Promise<void> => {
     toggleSubTab(10, 0); // set 'singularity main'
     toggleSubTab(-1, 0); // set 'statistics main'
 
+    hold.history.singularity = player.history.singularity;
     hold.totalQuarksEver = player.totalQuarksEver
     hold.singularityCount = player.singularityCount;
     hold.goldenQuarks = player.goldenQuarks;

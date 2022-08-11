@@ -2584,7 +2584,8 @@ p#ascendHotKeys {
     margin-left: 20px;
 }
 
-#historyAscend {
+#historyAscend,
+#historySingularity {
     margin: 0 auto;
 }
 
@@ -2609,8 +2610,20 @@ p#ascendHotKeys {
     min-width: 700px;
 }
 
-#historyAscendTable {
-    min-width: 1250px;
+#historyAscendTable,
+#historySinhgularityTable {
+    min-width: 1180px;
+    white-space: nowrap;
+}
+
+.historyTableWrap {
+    max-height: 650px;
+    overflow-y: auto;
+}
+
+#historyAscend .historyTableWrap,
+#historySingularity .historyTableWrap {
+    min-width: 1212px;
 }
 
 .runeBlessingPurchaseSettings {
