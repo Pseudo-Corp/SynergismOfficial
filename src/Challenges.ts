@@ -52,7 +52,7 @@ export const getMaxChallenges = (i: number) => {
     if (i <= 15 && i > 10) {
         //Challenge 15 has no formal cap, so return 9001.
         if (i === 15) {
-            return 1
+            return 0
         }
         //Start with base of 30 max completions
         maxChallenge = 30;
@@ -330,7 +330,11 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         a.textContent = 'SADISTIC CHALLENGE II || ' + player.challengecompletions[15] + '/' + format(maxChallenges) +  ' Completions'
         b.textContent = 'The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.'
         c.textContent = 'Ascend and reach the goal but you\'re stuck in all corruptions at level 11, and Ant production ^0.01.'
-        d.textContent = 'You will find no goal in sight, but get bonuses based on your best attempt.'
+        if (maxChallenges === 0) {
+            d.textContent = 'You will find no goal in sight, but get bonuses based on your best attempt.'
+        } else {
+            d.textContent = 'Goal: ' + format(challengeRequirement(i, player.challengecompletions[i], 15)) + ' Coins, but get bonuses based on your best attempt.'
+        }
         e.textContent = 'Folly of mankind: '
         f.textContent = 'to believe they can defeat '
         g.textContent = 'what Ant God labored '
@@ -528,7 +532,7 @@ export const calculateChallengeRequirementMultiplier = (
                     requirementMultiplier *= (2 * (1 + completions) - 10) :
                     requirementMultiplier *= (1 + completions);
             } else {
-                requirementMultiplier *= Math.pow(1.10, completions);
+                requirementMultiplier *= Math.pow(1000, completions);
             }
             return (requirementMultiplier)
     }
@@ -570,7 +574,7 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     } else if (challenge <= 14) {
         return calculateChallengeRequirementMultiplier('ascension', completion, special)
     } else if (challenge === 15) {
-        return Decimal.pow(10, 1 * Math.pow(10, 133.7) * calculateChallengeRequirementMultiplier('ascension', completion, special))
+        return Decimal.pow(10, 1 * Math.pow(10, 30) * calculateChallengeRequirementMultiplier('ascension', completion, special))
     } else {
         return 0
     }
@@ -611,8 +615,8 @@ export const runChallengeSweep = (dt: number) => {
 
     // In order to earn C15 Exponent, stop runChallengeSweep() 5 seconds before the auto ascension
     // runs during the C15, Auto Challenge Sweep, Autcension and Mode: Real Time.
-    if (autoAscensionChallengeSweepUnlock() && player.currentChallenge.ascension === 15 && (action === 'start' || action === 'enter') &&
-        player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 &&
+    if (autoAscensionChallengeSweepUnlock() && player.currentChallenge.ascension === 15 && player.shopUpgrades.challenge15Auto === 0 &&
+        (action === 'start' || action === 'enter') && player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 &&
         player.autoAscendMode === 'realAscensionTime' && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold - 5)) {
         action = 'wait';
         toggleAutoChallengeModeText('WAIT');
@@ -715,7 +719,7 @@ export const getNextChallenge = (startChallenge: number, maxSkip = false, min = 
 }
 
 export const autoAscensionChallengeSweepUnlock = () => {
-    return player.singularityCount >= 101;
+    return player.singularityCount >= 101 && player.shopUpgrades.instantChallenge2 > 0;
 }
 
 export const challenge15ScoreMultiplier = () => {

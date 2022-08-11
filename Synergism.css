@@ -1558,24 +1558,11 @@ p#transcendhotkeys {
 
 /* In webkit, the font-size px is fixed even if it is enlarged, but Firefox fluctuates */
 .challengeLevels {
+    min-width: 4.8em;
+    max-width: 4.8em;
     margin: 4px auto 0;
     font-size: 12px;
     overflow: hidden;
-}
-
-.transChallenge .challengeLevels {
-    min-width: 4.8em;
-    max-width: 4.8em;
-}
-
-.reinChallenge .challengeLevels {
-    min-width: 3.7em;
-    max-width: 3.7em;
-}
-
-.ascendChallenge .challengeLevels {
-    min-width: 2.6em;
-    max-width: 2.6em;
 }
 
 #challengeDetails {
