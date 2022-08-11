@@ -590,6 +590,20 @@ export const visualUpdateShop = () => {
         // Create a copy of shopItem instead of accessing many times
         const shopItem = shopData[key]
 
+        if (shopItem.type === shopUpgradeTypes.CONSUMABLE) {
+            const maxBuyablePotions = Math.min(Math.floor(Number(player.worlds)/getShopCosts(key)),shopData[key].maxLevel-player.shopUpgrades[key]);
+            const el = DOMCacheGetOrSet(`buy${key.toLowerCase()}`);
+            switch (player.shopBuyMaxToggle) {
+                case false:
+                    el.textContent = 'BUY: 100 Quarks Each';
+                    break;
+                case 'TEN':
+                    el.textContent = `+${Math.min(10,maxBuyablePotions)} for ${format(getShopCosts(key)*Math.min(10,maxBuyablePotions),0,true)} Quarks`;
+                    break;
+                default:
+                    el.textContent = `+${maxBuyablePotions} for ${format(getShopCosts(key)*maxBuyablePotions)} Quarks`;
+            }
+        }
         // Ignore all consumables, to be handled above, since they're different.
         if (shopItem.type === shopUpgradeTypes.UPGRADE) {
             // Case: If max level is 1, then it can be considered a boolean "bought" or "not bought" item
@@ -601,13 +615,20 @@ export const visualUpdateShop = () => {
             }
             // Handles Button - max level needs no price indicator, otherwise it's necessary
 
-            const buyAmount = player.shopBuyMaxToggle? Math.max(shopData[key].maxLevel - player.shopUpgrades[key], 1): 1;
-            const metaData:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[key], shopData[key].price, +player.worlds, shopData[key].priceIncrease / shopData[key].price, buyAmount)
+            const buyMaxAmount = shopData[key].maxLevel - player.shopUpgrades[key];
+            let buyData:IMultiBuy;
 
-            if (!player.shopBuyMaxToggle) {
-                DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : 'Upgrade for ' + format(getShopCosts(key)) + ' Quarks';
-            } else {
-                DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : '+' + format(metaData.levelCanBuy - player.shopUpgrades[key], 0, true) + ' for ' + format(metaData.cost) + ' Quarks';
+            switch (player.shopBuyMaxToggle) {
+                case false:
+                    DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : `Upgrade for ${format(getShopCosts(key))}  Quarks`;
+                    break;
+                case 'TEN':
+                    buyData = calculateSummationNonLinear(player.shopUpgrades[key], shopData[key].price, +player.worlds, shopData[key].priceIncrease / shopData[key].price, Math.min(10,buyMaxAmount));
+                    DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : `+ ${format(buyData.levelCanBuy - player.shopUpgrades[key], 0, true)} for ${format(buyData.cost)} Quarks`;
+                    break;
+                default:
+                    buyData = calculateSummationNonLinear(player.shopUpgrades[key], shopData[key].price, +player.worlds, shopData[key].priceIncrease / shopData[key].price, buyMaxAmount);
+                    DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : `+ ${format(buyData.levelCanBuy - player.shopUpgrades[key], 0, true)} for ${format(buyData.cost)} Quarks`;
             }
 
             const shopUnlock1 = document.getElementsByClassName('chal8Shop') as HTMLCollectionOf<HTMLElement>;

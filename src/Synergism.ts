@@ -1710,10 +1710,18 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
         }
-        if (player.shopBuyMaxToggle) {
-            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: ON'
-        } else {
-            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: OFF'
+        switch (player.shopBuyMaxToggle) {
+            case false:
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: 1';
+                break;
+            case 'TEN':
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: 10';
+                break;
+            case true:
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: MAX';
+                break;
+            case 'ANY':
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: ANY';
         }
         if (player.shopHideToggle) {
             DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: ON'

@@ -732,11 +732,23 @@ export const toggleShopConfirmation = () => {
 
 export const toggleBuyMaxShop = () => {
     const el = DOMCacheGetOrSet('toggleBuyMaxShop')
-    el.textContent = player.shopBuyMaxToggle
-        ? 'Buy Max: OFF'
-        : 'Buy Max: ON';
-
-    player.shopBuyMaxToggle = !player.shopBuyMaxToggle;
+    switch (player.shopBuyMaxToggle) {
+        case false:
+            el.textContent = 'Buy: 10';
+            player.shopBuyMaxToggle = 'TEN';
+            break;
+        case 'TEN':
+            el.textContent = 'Buy: MAX';
+            player.shopBuyMaxToggle = true;
+            break;
+        case true:
+            el.textContent = 'Buy: ANY';
+            player.shopBuyMaxToggle = 'ANY';
+            break;
+        case 'ANY':
+            el.textContent = 'Buy: 1';
+            player.shopBuyMaxToggle = false;
+    }
 }
 
 export const toggleHideShop = () => {

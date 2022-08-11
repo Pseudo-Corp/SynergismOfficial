@@ -1,7 +1,8 @@
 import { player, format } from './Synergism';
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML';
-import { calculatePowderConversion, calculateTimeAcceleration } from './Calculate';
+import { calculatePowderConversion, calculateSummationNonLinear, calculateTimeAcceleration } from './Calculate';
 import type { Player } from './types/Synergism';
+import type { IMultiBuy } from './Cubes';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
 /**
@@ -790,74 +791,68 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
 }
 
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
-    let p = true;
-    const maxLevel = player.shopUpgrades[input] >= shopData[input].maxLevel;
-    const canAfford = Number(player.worlds) >= getShopCosts(input);
-
+    const shopItem = shopData[input];
+    if (player.shopUpgrades[input] >= shopItem.maxLevel) {
+        return Alert(`You can't purchase ${friendlyShopName(input)} because you are already at the maximum ${shopItem.type === shopUpgradeTypes.UPGRADE ? 'level' : 'capacity'}!`);
+    } else if (Number(player.worlds) < getShopCosts(input)) {
+        return Alert(`You can't purchase ${friendlyShopName(input)} because you don't have enough Quarks!`);
+    }
     // Actually lock for HTML exploit
-    if ((shopData[input].tier === 'Ascension' && player.ascensionCount <= 0) ||
-        (shopData[input].tier === 'Singularity' && !player.singularityUpgrades.wowPass.getEffect().bonus) ||
-        (shopData[input].tier === 'SingularityVol2' && !player.singularityUpgrades.wowPass2.getEffect().bonus) ||
-        (shopData[input].tier === 'SingularityVol3' && !player.singularityUpgrades.wowPass3.getEffect().bonus)) {
+    if ((shopItem.tier === 'Ascension' && player.ascensionCount <= 0) ||
+        (shopItem.tier === 'Singularity' && !player.singularityUpgrades.wowPass.getEffect().bonus) ||
+        (shopItem.tier === 'SingularityVol2' && !player.singularityUpgrades.wowPass2.getEffect().bonus) ||
+        (shopItem.tier === 'SingularityVol3' && !player.singularityUpgrades.wowPass3.getEffect().bonus)) {
         return Alert('You do not have the right to purchase ' + friendlyShopName(input) + '!');
     }
 
-    if (player.shopConfirmationToggle || (!shopData[input].refundable && player.shopBuyMaxToggle)) {
-        if (maxLevel) {
-            await Alert('You can\'t purchase ' + friendlyShopName(input) + ' because you already have the max level!')
-        } else if (!canAfford) {
-            await Alert('You can\'t purchase ' + friendlyShopName(input) + ' because you don\'t have enough Quarks!')
-        } else {
-            let noRefunds = '';
-            if (!shopData[input].refundable) {
-                noRefunds = ' REMINDER: No refunds!'
-            }
-            p = await Confirm('Are you sure you\'d like to purchase ' + friendlyShopName(input) + ' for ' + format(getShopCosts(input)) + ' Quarks? Press \'OK\' to finalize purchase.' + noRefunds);
-        }
+    let buyData:IMultiBuy;
+    const maxBuyAmount = shopItem.maxLevel - player.shopUpgrades[input];
+    let buyAmount;
+    let buyCost;
+    switch (player.shopBuyMaxToggle) {
+        case false:
+            buyAmount = 1;
+            buyCost = getShopCosts(input);
+            break;
+        case 'TEN':
+            buyData = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, Math.min(10,maxBuyAmount))
+            buyAmount = buyData.levelCanBuy - player.shopUpgrades[input];
+            buyCost = buyData.cost;
+            break;
+        default:
+            buyData = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, maxBuyAmount)
+            buyAmount = buyData.levelCanBuy - player.shopUpgrades[input];
+            buyCost = buyData.cost;
     }
 
+    const noRefunds = shopItem.refundable ? '' : ' REMINDER: No refunds!';
+    const singular = shopItem.maxLevel === 1;
+    const merch = buyAmount.toLocaleString() + (shopItem.type === shopUpgradeTypes.UPGRADE ? ' level' : ' vial') + (buyAmount === 1 ? '' : 's');
+
+    if (player.shopBuyMaxToggle === 'ANY' && !singular) {
+        const buyInput = await Prompt(`You can afford to purchase up to ${merch} of ${friendlyShopName(input)} for ${buyCost.toLocaleString()} Quarks. How many would you like to buy?${noRefunds}`);
+        const buyAny = Math.floor(Number(buyInput));
+
+        if (buyAny === 0) {
+            return;
+        } else if (Number.isNaN(buyAny) || !Number.isFinite(buyAny) || buyAny < 0) {
+            return Alert('Amount must be a finite, positive integer.');
+        }
+        const anyData:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, Math.min(buyAny, buyAmount))
+        player.worlds.sub(anyData.cost);
+        player.shopUpgrades[input] = anyData.levelCanBuy;
+        revealStuff();
+        return;
+    }
+
+    let p = true;
+    if (player.shopConfirmationToggle || (!shopItem.refundable && player.shopBuyMaxToggle !== false)) {
+        p = await Confirm(`You are about to ${singular ? 'unlock' : `purchase ${merch} of`} ${friendlyShopName(input)} for ${buyCost.toLocaleString()} Quarks. Press 'OK' to finalize purchase.${noRefunds}`);
+    }
     if (p) {
-        if (player.shopBuyMaxToggle) {
-            //Can't use canAfford and maxLevel here because player's quarks change and shop levels change during loop
-            while (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
-                player.worlds.sub(getShopCosts(input));
-                player.shopUpgrades[input] += 1
-            }
-        } else {
-            if (canAfford && !maxLevel) {
-                player.worlds.sub(getShopCosts(input));
-                player.shopUpgrades[input] += 1
-            }
-        }
-    }
-    revealStuff();
-}
-
-export const buyConsumable = async (input: ShopUpgradeNames) => {
-
-    const maxBuyablePotions = Math.min(Math.floor(Number(player.worlds)/100),shopData[input].maxLevel-player.shopUpgrades[input]);
-    const potionKind = input === 'offeringPotion' ? 'Offering Potions' : 'Obtainium Potions';
-
-    if (shopData[input].maxLevel <= player.shopUpgrades[input]) {
-        return Alert(`You can't purchase ${potionKind} because you already have capacity!`);
-    }
-    if (maxBuyablePotions === 0) {
-        return Alert(`You can't purchase ${potionKind} because you don't have enough Quarks!`);
-    }
-
-    const potionsAmount = await Prompt(`How many ${potionKind} would you like?\nYou can buy up to ${format(maxBuyablePotions, 0, true)} for 100 Quarks each.`);
-    const potionsToBuy = Math.floor(Number(potionsAmount));
-
-    if (potionsToBuy === 0) {
-        return Alert('Ok. No potions purchased.');
-    } else if (Number.isNaN(potionsToBuy) || !Number.isFinite(potionsToBuy) || potionsToBuy < 0) {
-        return Alert('Value must be a finite, positive integer.');
-    } else if (potionsToBuy > maxBuyablePotions) {
-        player.worlds.sub(100*maxBuyablePotions);
-        player.shopUpgrades[input] += maxBuyablePotions;
-    } else {
-        player.worlds.sub(100*potionsToBuy);
-        player.shopUpgrades[input] += potionsToBuy;
+        player.worlds.sub(buyCost);
+        player.shopUpgrades[input] += buyAmount;
+        revealStuff();
     }
 }
 
@@ -885,6 +880,7 @@ export const useConsumable = async (input: ShopUpgradeNames) => {
         }
     }
 }
+
 export const resetShopUpgrades = async (ignoreBoolean = false) => {
     let p = false
     if (!ignoreBoolean) {
