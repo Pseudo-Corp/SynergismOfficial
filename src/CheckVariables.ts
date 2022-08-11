@@ -139,7 +139,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.roombaResearchIndex = 0;
     }
     if (data.history === undefined) {
-        player.history = { ants: [], ascend: [], reset: [] };
+        player.history = { ants: [], ascend: [], reset: [], singularity: [] };
     }
     if (data.autoChallengeRunning === undefined) {
         player.autoChallengeRunning = false

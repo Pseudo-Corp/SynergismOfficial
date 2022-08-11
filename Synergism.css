@@ -505,7 +505,6 @@ body button:active {
 
 #resetinfo {
     text-align: left; /* Keeps text from bouncing around */
-    font-size: 0.9em;
     font-variant-numeric: tabular-nums;
     height: 3.6em;
     overflow: hidden;
@@ -2098,6 +2097,7 @@ p#reincarnatehotkeys {
     line-height: 1.1em;
     text-align: center;
     width: 250px;
+    align-items: center;
 }
 
 #wowCubeSidebarButtons {
@@ -2112,6 +2112,7 @@ p#reincarnatehotkeys {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 125%;
 }
 
 .cubeToQuark {
@@ -2164,6 +2165,8 @@ p#reincarnatehotkeys {
 
 p[id$="BlessingsTotal"] {
     padding: 15px;
+    margin-left: 22.5%;
+    margin-right: auto;
 }
 
 #cubeBlessingsTotal { color: orange; }
@@ -2234,11 +2237,19 @@ p[id$="BlessingsTotal"] {
 .cubeTab {
     flex-direction: column;
     align-items: center;
-    width: 750px;
+    width: auto;
+    margin-left: 50px;
 }
 
 .cubeTab > span {
     text-align: center;
+    width: 75%;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+#cubeTab5 {
+    width: 60%;
 }
 
 #cubeTab5Wrapper {
@@ -2257,10 +2268,6 @@ p[id$="BlessingsTotal"] {
 #cubeTab6 {
     flex-direction: row;
     align-items: flex-start;
-}
-
-.cubeSpacer {
-    width: 250px;
 }
 
 #cubeUpgradeTable {
@@ -2577,7 +2584,8 @@ p#ascendHotKeys {
     margin-left: 20px;
 }
 
-#historyAscend {
+#historyAscend,
+#historySingularity {
     margin: 0 auto;
 }
 
@@ -2602,8 +2610,20 @@ p#ascendHotKeys {
     min-width: 700px;
 }
 
-#historyAscendTable {
-    min-width: 1250px;
+#historyAscendTable,
+#historySinhgularityTable {
+    min-width: 1180px;
+    white-space: nowrap;
+}
+
+.historyTableWrap {
+    max-height: 650px;
+    overflow-y: auto;
+}
+
+#historyAscend .historyTableWrap,
+#historySingularity .historyTableWrap {
+    min-width: 1212px;
 }
 
 .runeBlessingPurchaseSettings {

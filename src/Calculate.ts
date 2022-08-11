@@ -1010,7 +1010,6 @@ export const calculateOffline = async (forceTime = 0) => {
         addTimers('prestige', timeTick);
         addTimers('transcension', timeTick);
         addTimers('reincarnation', timeTick);
-        addTimers('singularity', timeTick);
         addTimers('octeracts', timeTick);
 
         resourceGain(timeTick * G['timeMultiplier']);

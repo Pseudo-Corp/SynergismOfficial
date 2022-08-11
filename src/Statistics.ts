@@ -80,8 +80,8 @@ export const loadStatisticsMiscellaneous = () => {
     DOMCacheGetOrSet('sMisc10').textContent = format(player.maxobtainiumpersecond, 2, true)
     DOMCacheGetOrSet('sMisc11').textContent = format(player.obtainiumpersecond, 2, true)
     DOMCacheGetOrSet('sMisc12').textContent = format(player.ascensionCount, 0, true)
-    DOMCacheGetOrSet('sMisc13').textContent = format(player.totalQuarksEver + player.quarksThisSingularity, 0, true)
-    DOMCacheGetOrSet('sMisc14').textContent = format(player.quarksThisSingularity, 0, true)
+    DOMCacheGetOrSet('sMisc13').textContent = format(player.quarksThisSingularity, 0, true)
+    DOMCacheGetOrSet('sMisc14').textContent = format(player.totalQuarksEver + player.quarksThisSingularity, 0, true)
     DOMCacheGetOrSet('sMisc15').textContent = formatTimeShort(player.quarkstimer) + ' / ' + formatTimeShort(90000 + 18000 * player.researches[195])
     DOMCacheGetOrSet('sMisc16').textContent = synergismStage(0);
 }
