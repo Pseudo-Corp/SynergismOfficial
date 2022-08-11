@@ -563,7 +563,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = 'CURRENT Effect: Even in a premium shop it\'s kinda obvious, right?'
             break;
         case 'antSpeed':
-            lol.textContent = 'CURRENT Effect: All Ants\' Speed x' + format(Math.pow(1.125, player.shopUpgrades.antSpeed), 2)
+            lol.textContent = 'CURRENT Effect: All Ants\' Speed x' + format(Math.pow(1.2, player.shopUpgrades.antSpeed), 2)
             break;
         case 'cashGrab':
             lol.textContent = 'CURRENT Effect: You will gain ' + format(player.shopUpgrades.cashGrab, 2) + '% more Obtainium and Offerings!'
@@ -660,6 +660,30 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             break;
         case 'extraWarp':
             lol.textContent = `CURRENT Effect: You can warp ${player.shopUpgrades.extraWarp} extra times.`;
+            break;
+        case 'improveQuarkHept':
+            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept/50}`;
+            break;
+        case 'improveQuarkHept2':
+            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept2/50}`;
+            break;
+        case 'improveQuarkHept3':
+            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept3/50}`;
+            break;
+        case 'improveQuarkHept4':
+            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept4/50}`;
+            break;
+        case 'shopImprovedDaily':
+            lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily * 5}% more quarks from daily.`;
+            break;
+        case 'shopImprovedDaily2':
+            lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily2 * 20}% more golden quarks and ${player.shopUpgrades.shopImprovedDaily2} additional free singularity upgrades from daily.`;
+            break;
+        case 'shopImprovedDaily3':
+            lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily3 * 15}% more golden quarks and ${player.shopUpgrades.shopImprovedDaily3} additional free singularity upgrades from daily.`;
+            break;
+        case 'shopImprovedDaily4':
+            lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily4 * 100}% more golden quarks and ${player.shopUpgrades.shopImprovedDaily4} additional free singularity upgrades from daily.`;
             break;
     }
 
