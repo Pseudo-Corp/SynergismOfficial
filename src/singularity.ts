@@ -805,6 +805,13 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Hepteract Autocraft',
+        levels: [1],
+        description: () => {
+            return 'Hepteract Autocraft will be unlocked'
+        }
+    },
+    {
         name: 'Generous Orbs',
         levels: [1, 2, 5, 10, 15, 20, 25, 30, 35],
         description: (n: number, levels: number[]) => {
@@ -825,6 +832,17 @@ export const singularityPerks: SingularityPerk[] = [
                 }
             }
             return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 215%'
+        }
+    },
+    {
+        name: 'Research for Dummies',
+        levels: [1, 11],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'You permanently keep Auto Research'
+            } else {
+                return 'You can Research using Hover to Buy'
+            }
         }
     },
     {
@@ -862,36 +880,10 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Shop Special Offer',
-        levels: [5, 20, 51],
-        description: (n: number, levels: number[]) => {
-            if (n >= levels[2]) {
-                return 'Reincarnation and Ascension tier Shop upgrades are kept permanently!'
-            } else if (n >= levels[1]) {
-                return 'You permanently keep 100 free levels of each Shop upgrade in the first row'
-            } else {
-                return 'You start each Singularity with 10 free levels of each Shop upgrade in the first row'
-            }
-        }
-    },
-    {
         name: 'A particular improvement',
         levels: [5],
         description: () => {
             return 'You start each Ascension with Autobuyers for Particle buildings unlocked'
-        }
-    },
-    {
-        name: 'Automation Upgrades',
-        levels: [10, 25, 101],
-        description: (n: number, levels: number[]) => {
-            if (n >= levels[2]) {
-                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
-            } else if (n >= levels[1]) {
-                return 'You always have w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
-            } else {
-                return 'You always have w1x4, w1x5 and w1x6.'
-            }
         }
     },
     {
@@ -918,6 +910,19 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Shop Special Offer',
+        levels: [5, 20, 51],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[2]) {
+                return 'Reincarnation and Ascension tier Shop upgrades are kept permanently!'
+            } else if (n >= levels[1]) {
+                return 'You permanently keep 100 free levels of each Shop upgrade in the first row'
+            } else {
+                return 'You start each Singularity with 10 free levels of each Shop upgrade in the first row'
+            }
+        }
+    },
+    {
         name: 'Respec, be gone!',
         levels: [7],
         description: () => {
@@ -938,27 +943,15 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Hepteract Autocraft',
-        levels: [1],
-        description: () => {
-            return 'Hepteract Autocraft will be unlocked'
-        }
-    },
-    {
-        name: 'Automation Cubes',
-        levels: [35],
-        description: () => {
-            return 'Ascension allows you to automatically open the cubes you have'
-        }
-    },
-    {
-        name: 'Research for Dummies',
-        levels: [1, 11],
+        name: 'Automation Upgrades',
+        levels: [10, 25, 101],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[1]) {
-                return 'You permanently keep Auto Research'
+            if (n >= levels[2]) {
+                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
+            } else if (n >= levels[1]) {
+                return 'You always have w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
             } else {
-                return 'You can Research using Hover to Buy'
+                return 'You always have w1x4, w1x5 and w1x6.'
             }
         }
     },
@@ -970,6 +963,20 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Derpsmith\'s Cornucopia',
+        levels: [18, 38, 58, 78, 88, 98, 118, 148],
+        description: (n: number, levels: number[]) => {
+            let counter = 0
+            for (const singCount of levels) {
+                if (n >= singCount) {
+                    counter += 1
+                }
+            }
+
+            return `With blessing from the Derpsmith, every singularity grants +${counter}% more Octeracts!`
+        }
+    },
+    {
         name: 'Advanced Runes Autobuyer',
         levels: [30, 50],
         description: (n: number, levels: number[]) => {
@@ -978,13 +985,6 @@ export const singularityPerks: SingularityPerk[] = [
             } else {
                 return 'Runes autobuyer will also level up Infinite Ascent'
             }
-        }
-    },
-    {
-        name: 'Autobuy Talismans Resources',
-        levels: [40],
-        description: () => {
-            return 'Runes autobuyer can also buy Talisman Shards and Fragments'
         }
     },
     {
@@ -1001,17 +1001,17 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Derpsmith\'s Cornucopia',
-        levels: [18, 38, 58, 78, 88, 98, 118, 148],
-        description: (n: number, levels: number[]) => {
-            let counter = 0
-            for (const singCount of levels) {
-                if (n >= singCount) {
-                    counter += 1
-                }
-            }
-
-            return `With blessing from the Derpsmith, every singularity grants +${counter}% more Octeracts!`
+        name: 'Automation Cubes',
+        levels: [35],
+        description: () => {
+            return 'Ascension allows you to automatically open the cubes you have'
+        }
+    },
+    {
+        name: 'Autobuy Talismans Resources',
+        levels: [40],
+        description: () => {
+            return 'Runes autobuyer can also buy Talisman Shards and Fragments'
         }
     }
 ]
