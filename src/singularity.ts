@@ -944,10 +944,12 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Automation Upgrades',
-        levels: [10, 25, 101],
+        levels: [10, 25, 30, 101],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[2]) {
+            if (n >= levels[3]) {
                 return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
+            } else if (n >= levels[2]) {
+                return 'You always have r6x5, r6x10, r6x20, w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
             } else if (n >= levels[1]) {
                 return 'You always have w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
             } else {
@@ -974,6 +976,20 @@ export const singularityPerks: SingularityPerk[] = [
             }
 
             return `With blessing from the Derpsmith, every singularity grants +${counter}% more Octeracts!`
+        }
+    },
+    {
+        name: 'Better cube opening',
+        levels: [25],
+        description: () => {
+            return 'Researches related to opening cubes will no longer reset on Ascension'
+        }
+    },
+    {
+        name: 'Real time Auto Ascend',
+        levels: [25],
+        description: () => {
+            return 'You can now automatically ascend based on the length of the Ascension'
         }
     },
     {
@@ -1012,6 +1028,13 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [40],
         description: () => {
             return 'Runes autobuyer can also buy Talisman Shards and Fragments'
+        }
+    },
+    {
+        name: 'Auto Ascension Challenge Sweep',
+        levels: [101],
+        description: () => {
+            return 'Auto Challenge Sweep can run Ascension Challenges if you have better Instant Challenge Completions'
         }
     }
 ]
