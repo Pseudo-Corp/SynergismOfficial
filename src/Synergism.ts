@@ -44,7 +44,7 @@ import localforage from 'localforage';
 import { singularityData, SingularityUpgrade } from './singularity';
 import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
-import { disableHotkeys } from './Hotkeys';
+import { eventHotkeys, disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
 import { settingTheme } from './Themes';
 
@@ -2920,7 +2920,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.challengecompletions[q] = comp;
             challengeDisplay(q, false);
             updateChallengeLevel(q);
-            challengeachievementcheck(q);
         }
         if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
             while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
@@ -2929,6 +2928,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
             calculateCubeBlessings();
         }
+        challengeachievementcheck(q);
         if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.transcension = 0;
@@ -2983,7 +2983,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.challengecompletions[q] = comp;
             challengeDisplay(q, false);
             updateChallengeLevel(q);
-            challengeachievementcheck(q);
         }
         if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
             while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
@@ -2994,6 +2993,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             calculateTesseractBlessings();
             calculateCubeBlessings();
         }
+        challengeachievementcheck(q);
         if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.reincarnation = 0;
@@ -3012,7 +3012,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
     }
 
-    if (i === 'ascension') {
+    if (i === 'ascension' && player.achievements[141] === 1) {
         if (player.toggles[28] === false || player.challengecompletions[10] > 0) {
             if (manual) {
                 void resetConfirmation('ascend');
@@ -3020,7 +3020,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
     }
 
-    if (i === 'ascensionChallenge' && player.currentChallenge.ascension !== 0) {
+    if (i === 'ascensionChallenge' && player.currentChallenge.ascension !== 0 && player.achievements[183] === 1) {
         let conf = true
         if (manual) {
             if (player.challengecompletions[11] === 0 || player.toggles[31]) {
@@ -3038,7 +3038,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 player.challengecompletions[a] += 1;
                 updateChallengeLevel(a);
                 challengeDisplay(a, false);
-                challengeachievementcheck(a, true);
             }
         }
         if (a === 15) {
@@ -3047,7 +3046,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 player.challengecompletions[a] += 1;
                 updateChallengeLevel(a);
                 challengeDisplay(a, false);
-                challengeachievementcheck(a, true);
             }
             if ((manual || leaving || player.shopUpgrades.challenge15Auto > 0) && player.usedCorruptions.slice(2, 10).every((a) => a === 11)) {
                 if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
@@ -3065,6 +3063,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
         }
 
+        challengeachievementcheck(a, true);
         if (!player.retrychallenges || manual || leaving) {
             if (!(!manual && (autoAscensionChallengeSweepUnlock() || !player.autoChallengeRunning) // If not autochallenge, don't reset
                              && player.autoAscend && player.challengecompletions[11] > 0
@@ -3073,7 +3072,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 updateChallengeDisplay();
             }
         }
-
         if ((player.shopUpgrades.instantChallenge2 === 0 && a !== 15) || manual) {
             reset('ascensionChallenge', false);
         }
@@ -3519,7 +3517,7 @@ export const updateAll = (): void => {
     G['optimalObtainiumTimer'] = 3600 + 120 * player.shopUpgrades.obtainiumEX;
     autoBuyAnts()
 
-    if (player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 && player.currentChallenge.reincarnation !== 10) {
+    if (player.autoAscend && player.achievements[141] === 1 && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 && player.currentChallenge.reincarnation !== 10) {
         let ascension = false;
         if (player.autoAscendMode === 'c10Completions' && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)) {
             ascension = true;
@@ -4037,6 +4035,8 @@ window.addEventListener('load', () => {
 
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
+
+    document.addEventListener('keydown', eventHotkeys);
 
 });
 

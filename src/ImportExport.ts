@@ -108,6 +108,7 @@ const saveFilename = () => {
             case 'GQ': return '' + Math.floor(player.goldenQuarks);
             case 'GQS': return format(player.goldenQuarks);
             case 'STAGE': return synergismStage(0);
+            case 'STAGES': return synergismStage();
             default: return `${b}`;
         }
     });

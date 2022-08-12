@@ -116,7 +116,7 @@ export const toggleChallenges = (i: number, auto = false) => {
             resetrepeat('reincarnationChallenge');
         }
     }
-    if (i >= 11 && ((!auto && player.toggles[31] === false) || player.challengecompletions[10] > 0)) {
+    if (i >= 11 && ((!auto && player.toggles[31] === false) || player.challengecompletions[10] > 0) && player.achievements[141] === 1) {
         if ((!auto && player.toggles[31] === false) || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0)) {
             player.currentChallenge.ascension = i;
             reset('ascensionChallenge', false, 'enterChallenge');

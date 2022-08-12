@@ -83,7 +83,8 @@ export const loadStatisticsMiscellaneous = () => {
     DOMCacheGetOrSet('sMisc13').textContent = format(player.quarksThisSingularity, 0, true)
     DOMCacheGetOrSet('sMisc14').textContent = format(player.totalQuarksEver + player.quarksThisSingularity, 0, true)
     DOMCacheGetOrSet('sMisc15').textContent = formatTimeShort(player.quarkstimer) + ' / ' + formatTimeShort(90000 + 18000 * player.researches[195])
-    DOMCacheGetOrSet('sMisc16').textContent = synergismStage(0);
+    DOMCacheGetOrSet('sMisc16').textContent = format(player.singularityCount, 0, true);
+    DOMCacheGetOrSet('sMisc17').textContent = synergismStage(0);
 }
 
 export const loadStatisticsAccelerator = () => {
@@ -623,8 +624,9 @@ export const gameStages = (): Stage[] => {
         {stage: 17, tier: 5, name: 'beta-1e15-expo', unlocked: player.challenge15Exponent >= 1e15, reset: player.achievements[183] === 1},
         {stage: 18, tier: 5, name: '1e15-expo-omega', unlocked: player.platonicUpgrades[15] > 0, reset: player.achievements[183] === 1},
         {stage: 19, tier: 5, name: 'omega-singularity', unlocked: player.singularityCount > 0 && player.runelevels[6] > 0, reset: player.achievements[183] === 1},
-        {stage: 20, tier: 6, name: 'singularity-octeracts', unlocked: player.singularityUpgrades.octeractUnlock.level > 0, reset: player.singularityCount > 0},
-        {stage: 21, tier: 6, name: 'octeracts', unlocked: false, reset: player.singularityCount > 0}
+        {stage: 20, tier: 6, name: 'singularity-octeracts', unlocked: player.singularityUpgrades.octeractUnlock.getEffect().bonus, reset: player.singularityCount > 0},
+        {stage: 21, tier: 6, name: 'octeracts-s100', unlocked: player.singularityCount >= 100, reset: player.singularityCount > 0},
+        {stage: 22, tier: 6, name: 's100', unlocked: false, reset: player.singularityCount > 0}
     ];
     return stages;
 }

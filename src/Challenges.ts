@@ -719,7 +719,7 @@ export const getNextChallenge = (startChallenge: number, maxSkip = false, min = 
 }
 
 export const autoAscensionChallengeSweepUnlock = () => {
-    return player.singularityCount >= 101 && player.shopUpgrades.instantChallenge2 > 0;
+    return player.achievements[141] === 1 && player.singularityCount >= 101 && player.shopUpgrades.instantChallenge2 > 0;
 }
 
 export const challenge15ScoreMultiplier = () => {
