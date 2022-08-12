@@ -216,7 +216,7 @@ const makeSlot = (key: string, descr: string) => {
     p.textContent = descr;
 
     p.addEventListener('click', () => {
-        hotkeys.get(key)[1]!();
+        hotkeys.get(key)![1]();
     });
 
     div.appendChild(span);
