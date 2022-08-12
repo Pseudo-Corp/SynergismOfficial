@@ -628,7 +628,8 @@ nav button {
 }
 
 .subTabWrapper > button {
-    min-width: 150px;
+    width: 9em;
+    min-width: 130px;
     text-align: center;
 }
 
@@ -678,6 +679,10 @@ p#buildinghotkeys {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#upgradesFlex > div > img {
+    cursor: pointer;
 }
 
 #upgradesFlex > div > p {
@@ -737,6 +742,10 @@ p#buildinghotkeys {
     align-items: center;
     flex-wrap: wrap;
     margin-top: 15px;
+}
+
+#switchSettingSubTab6 {
+    border: 2px solid var(--singtab-color);
 }
 
 .settingSubTabUpper {
@@ -2019,20 +2028,26 @@ p#reincarnatehotkeys {
 }
 
 #sacrificeAnts {
-    position: absolute;
-    padding: 0;
-    width: 200px;
-    margin: 0 0 0 -340px;
     text-align: center;
-    left: calc(80% - 5em);
     white-space: nowrap;
-    z-index: 1;
+}
+
+#antSacrifice {
+    cursor: pointer;
+    position: absolute;
+    left: calc(80% - 5em - 272px);
+    top: 1.5em;
 }
 
 .sacrificeStatus {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 200px;
+    text-align: center;
+    left: calc(80% - 5em - 340px);
+    white-space: nowrap;
+    color: white;
 }
 
 #antSacrificeTimer {
@@ -2586,6 +2601,8 @@ p#ascendHotKeys {
 
 #historyAscend,
 #historySingularity {
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
 }
 
@@ -3112,12 +3129,13 @@ header #obtainiumDisplay { color: pink; }
     margin-bottom: 30px;
 }
 
+.platonicUpgrades2 {
+    margin-left: 5px;
+}
+
 #saveOffToggle {
     min-width: 130px;
     max-width: 200px;
-    position: absolute;
-    margin-top: 6px;
-    margin-left: 193px;
 }
 
 .platonicUpgradeImage {
@@ -3276,31 +3294,51 @@ header #obtainiumDisplay { color: pink; }
 .hotkeyItem {
     display: flex;
     flex-direction: row;
-    margin-top: 2px;
-}
-
-#hotKeyDesc {
-    margin: 0;
+    padding: 2px 0;
 }
 
 #hotkeyTooltip {
     color: darkorchid;
 }
 
-#actualHotkey {
+.hotkeyItem > span {
     padding: 1px 15px;
     color: gold;
+    background-color: var(--button-color);
+    border-radius: 5px;
     cursor: pointer;
+    transition-duration: 0.15s;
 }
 
-.resetHotkeys {
+.hotkeyItem > span:hover {
+    background-color: var(--hover-color);
+}
+
+.hotkeyItem > p {
+    margin: 0;
+    padding: 1px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.15s;
+}
+
+.hotkeyItem > p:hover {
+    background-color: var(--hover-color);
+}
+
+#hotkeyDescription {
+    min-height: 1.4em;
+    color: plum;
+}
+
+.toggleHotkeys {
     margin-top: 15px;
     display: flex;
     justify-content: center;
     gap: 10px;
 }
 
-.resetHotkeys > button {
+.toggleHotkeys > button {
     min-height: 20px;
     padding: 2px 4px;
 }

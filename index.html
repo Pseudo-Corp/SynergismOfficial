@@ -1956,8 +1956,8 @@
                     <div id="sacrificeAnts" alt="sacrificeAnts" label="sacrificeAnts" style="display: none">
                         <div class="sacrificeStatus">
                             <p id="antSacrificeTimer" alt="antSacrificeTimer" label="antSacrificeTimer" class="bodycolor" style="color: white">Last Sacrifice: 1s ago</p>
-                            <img id="antSacrifice" alt="antSacrifice" label="antSacrifice" src="Pictures/AntSacrifice.png" style="cursor: pointer;" loading="lazy">
                         </div>
+                        <img id="antSacrifice" alt="antSacrifice" label="antSacrifice" src="Pictures/AntSacrifice.png" style="cursor: pointer;" loading="lazy">
                     </div>
                     <div class="antSacrificeHeader bodycolor">
                         <p id="antELO" alt="antELO" label="antELO" style="color: plum">Your Ant ELO is <span id="ELO" alt="ELO" label="ELO" style="color: gold">0 ELO</span> <span id="effectiveELO" alt="effectiveELO" label="effectiveELO" style="color: white"> </span></p>
@@ -2533,9 +2533,6 @@
                     </div>
                     <div class="platonicUpgradesContainer">
                         <div id="platonicUpgrades" alt="platonicUpgrades" label="platonicUpgrades">
-                            <div style="display: inline">
-                                <button id="saveOffToggle" alt="saveOffToggle" label="saveOffToggle" style="border: 2px solid gold" title="If ON, then it will turn OFF Auto Runes toggle">Save Offerings [OFF]</button>
-                            </div>
                             <table class="boxColor" id="platonicUpgradePics" alt="platonicUpgradePics" label="platonicUpgradePics">
                                 <tr>
                                     <td><img id="platUpg1" alt="platUpg1" label="platUpg1" src="Pictures/Transparent%20Pics/PlatonicUpgrade1.png" class="platonicUpgradeImage" loading="lazy"></td>
@@ -2566,6 +2563,9 @@
                                     <td><img id="platUpg20" alt="platUpg20" label="platUpg20" src="Pictures/Transparent%20Pics/PlatonicUpgrade20.png" class="platonicUpgradeImage" loading="lazy"></td>
                                 </tr>
                             </table>
+                            <div class="platonicUpgrades2">
+                                <button id="saveOffToggle" alt="saveOffToggle" label="saveOffToggle" style="border: 2px solid gold" title="If ON, then it will turn OFF Auto Runes toggle">Save Offerings [OFF]</button>
+                            </div>
                         </div>
                         <div id="platonicUpgradeDescriptions" alt="platonicUpgradeDescriptions" label="platonicUpgradeDescriptions" class="platonicContainer boxColor">
                             <p id="platonicUpgradeDescriptionDivisor" alt="platonicUpgradeDescriptionDivisor" label="platonicUpgradeDescriptionDivisor" class="platonicPortion">===Upgrade Description===</p>
@@ -2843,7 +2843,7 @@
         <button id="switchSettingSubTab3" alt="switchSettingSubTab3" label="switchSettingSubTab3" style="border: 2px solid orange">Stats for Nerds</button>
         <button id="switchSettingSubTab4" alt="switchSettingSubTab4" label="switchSettingSubTab4" class="prestigeunlockib" style="border: 2px solid brown">Reset History</button>
         <button id="switchSettingSubTab5" alt="switchSettingSubTab5" label="switchSettingSubTab5" class="ascendunlockib" style="border: 2px solid darkorange">Ascend History</button>
-        <button id="switchSettingSubTab6" alt="switchSettingSubTab6" label="switchSettingSubTab6" class="singularity" style="border: 2px solid darkorange">Singularity History</button>
+        <button id="switchSettingSubTab6" alt="switchSettingSubTab6" label="switchSettingSubTab6" class="singularity">Singularity History</button>
         <button id="switchSettingSubTab7" alt="switchSettingSubTab7" label="switchSettingSubTab7" style="border: 2px solid white">Hotkeys</button>
     </div>
     <div class="subtabContent subtabDisplayFlex subtabActive" id="settingsubtab" alt="settingsubtab" label="settingsubtab">
@@ -2911,7 +2911,8 @@ $TIMES$ for 24h time short,
 $SING$ for singularity, $SINGS$ for singularity number,
 $QUARK$ for quarks, $QUARKS$ for format quarks,
 $GQ$ for golden quarks, $GQS$ for format golden quarks,
-$STAGE$ for synergism stage">
+$STAGE$ for synergism stage,
+$STAGES$ for synergism stage is total">
                     <input id="saveStringInput" alt="saveStringInput" label="saveStringInput">
                 </label>
                 <p id="saveString" alt="saveString" label="saveString" class="tightText" style="color: white" title="Use $VERSION$ for full version, $VER$ for version number,
@@ -2925,7 +2926,8 @@ $TIMES$ for 24h time short,
 $SING$ for singularity, $SINGS$ for singularity number,
 $QUARK$ for quarks, $QUARKS$ for format quarks,
 $GQ$ for golden quarks, $GQS$ for format golden quarks,
-$STAGE$ for synergism stage" style="color: white"></p>
+$STAGE$ for synergism stage,
+$STAGES$ for synergism stage is total" style="color: white"></p>
                 <p id="importgame" alt="importgame" label="importgame" class="tightText" style="color: limegreen">Load game below!</p>
                 <label id="importFileButton" alt="importFileButton" label="importFileButton" for="importfile">Load from file</label>
                 <input type="file" id="importfile" alt="importfile" label="importfile" accept=".txt" style="display: none">
@@ -2998,7 +3000,8 @@ $STAGE$ for synergism stage" style="color: white"></p>
             <p class="ascendunlock statPortion" id="totalQuarkCountStatisticSing" alt="totalQuarkCountStatisticSing" label="totalQuarkCountStatisticSing" style="color: white">Total Quarks This Singularity: <span id="sMisc13" alt="sMisc13" label="sMisc13" class="statNumber">0</span></p>
             <p class="ascendunlock statPortion" id="totalQuarkCountStatistic" alt="totalQuarkCountStatistic" label="totalQuarkCountStatistic" style="color: white">Total Quarks Ever (TQE): <span id="sMisc14" alt="sMisc14" label="sMisc14" class="statNumber">0</span></p>
             <p class="prestigeunlock statPortion" id="totalQuarkTimerStatistic" alt="totalQuarkTimerStatistic" label="totalQuarkTimerStatistic" style="color: white">Quarks on export with Timer: <span id="sMisc15" alt="sMisc15" label="sMisc15" class="statNumber">0</span></p>
-            <p class="statPortion" id="gameStageStatistic" alt="gameStageStatistic" label="gameStageStatistic" style="color: gold">Synergism Stage<span id="sMisc16" alt="sMisc16" label="sMisc16" class="statNumber">0</span></p>
+            <p class="statPortion singularity" id="singularityStatistic" alt="singularityStatistic" label="singularityStatistic" style="color: gold">Singularity Count:<span id="sMisc16" alt="sMisc16" label="sMisc16" class="statNumber">0</span></p>
+            <p class="statPortion" id="gameStageStatistic" alt="gameStageStatistic" label="gameStageStatistic" style="color: gold">Synergism Stage: <span id="sMisc17" alt="sMisc17" label="sMisc17" class="statNumber">0</span></p>
         </div>
         <div id="acceleratorStats" alt="acceleratorStats" label="acceleratorStats" class="statContainer" style="display: none;">
             <p id="acceleratorStatTitle" alt="acceleratorStatTitle" label="acceleratorStatTitle" class="statPortion" style="color: goldenrod; font-size: 1.2em">Free Accelerators</p>
@@ -3263,14 +3266,16 @@ $STAGE$ for synergism stage" style="color: white"></p>
         </div>
     </div>
     <div class="subtabContent subtabDisplayFlex historySubTab" id="singularityHistorySubTab" alt="singularityHistorySubTab" label="singularityHistorySubTab">
-        <div id="historySingularity" alt="historySingularity" label="historySingularity">
-            <div>
-                <p style="float: left">Your last singularities got you the following:</p>
-            </div>
-            <div class="historyTableWrap" style="clear: both">
-                <table id="historySingularityTable" alt="historySingularityTable" label="historySingularityTable">
-                    <tbody></tbody>
-                </table>
+        <div class="scrollbarX">
+            <div id="historySingularity" alt="historySingularity" label="historySingularity">
+                <div>
+                    <p style="float: left">Your last singularities got you the following:</p>
+                </div>
+                <div class="historyTableWrap" style="clear: both">
+                    <table id="historySingularityTable" alt="historySingularityTable" label="historySingularityTable">
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -3278,10 +3283,11 @@ $STAGE$ for synergism stage" style="color: white"></p>
         <div class="hotkeys">
 
         </div>
+        <span id="hotkeyDescription"></span>
         <span style="color: lightblue;">Last enabled key: <span style="color: gold;" id="lastHotkey" alt="lastHotkey" label="lastHotkey"></span> <span style="color: white;" id="lastHotkeyName" alt="lastHotkeyName" label="lastHotkeyName"></span></span>
         <span id="hotkeyTooltip" alt="hotkeyTooltip" label="hotkeyTooltip">Why don't you try clicking on one of the item's <span style="color:gold;">gold</span> text above to get started? You can always cancel!</span>
         <span class="chal11" style="color: gray;">Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!</span>
-        <div class="resetHotkeys">
+        <div class="toggleHotkeys">
             <button id="resetHotkeys" style="border: 2px solid brown">Reset Hotkeys</button>
             <button class="auto" id="toggle39" alt="toggle39" label="toggle39" toggleid="39" alt="39" label="39" format="Hotkeys: $" style="border:2px solid green">Hotkeys: ON</button>
             <button class="auto" id="toggle40" alt="toggle40" label="toggle40" toggleid="40" alt="40" label="40" format="Number Hotkeys: $" style="border:2px solid green">Number Hotkeys: ON</button>
@@ -3748,7 +3754,7 @@ $STAGE$ for synergism stage" style="color: white"></p>
                 <div id="octeractsDisplay" alt="octeractsDisplay" label="octeractsDisplay">
                     <img src="Pictures/Octaret.png" loading="lazy">
                     <p id="octeractAmount" alt="octeractAmount" label="octeractAmount">You have <span id='singOcts'>0</span> Octeracts!</p>
-                    <p id="secondsPerOcteract" alt="secondsPerOcteract" label="secondsPerOcteract" style="color: lightgoldenrodyellow">+1 per <span id="sPO" style="font-size: 1.2em; color: orchid"></span> seconds</p>
+                    <p id="secondsPerOcteract" alt="secondsPerOcteract" label="secondsPerOcteract" style="color: lightgoldenrodyellow">+1 every <span id="sPO" style="font-size: 1.2em; color: orchid"></span> seconds</p>
                     <p id="octeractPerSeconds" alt="octeractPerSeconds" label="octeractPerSeconds" style="color: lightgoldenrodyellow"><span id="oPS" style="font-size: 1.2em; color: yellow"></span> per second</p>
                 </div>
                 <div id="totalOcteractsDisplay" alt="totalOcteractsDisplay" label="totalOcteractsDisplay">

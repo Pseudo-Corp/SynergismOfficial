@@ -1,49 +1,69 @@
 import { sacrificeAnts } from './Ants';
 import { buyAccelerator, boostAccelerator, buyMultiplier } from './Buy';
 import { player, resetCheck, synergismHotkeys } from './Synergism';
-import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel, confirmReply } from './Toggles';
+import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel, confirmReply, toggleAutoAscend } from './Toggles';
 import { Alert, Prompt, Confirm } from './UpdateHTML';
 import { Globals as G } from './Variables';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { useConsumable } from  './Shop';
 import { promocodes } from './ImportExport';
 
-export const defaultHotkeys = new Map<string, [string,() => unknown, boolean]>([
-    ['A', ['Buy Accelerators', () => buyAccelerator(), false]],
-    ['B', ['Boost Accelerator', () => boostAccelerator(), false]],
+// There is a hotkey for saving settings. Therefore, if defaultHotkeys are registered, the default key should not be changed.
+export const defaultHotkeys = new Map<string, [string,() => unknown, boolean, string]>([
+    ['A', ['Buy Accelerators', () => buyAccelerator(), false, 'Buy Accelerators.']],
+    ['B', ['Boost Accelerator', () => boostAccelerator(), false, 'Buy Boost Accelerator.']],
     ['C', ['Auto Challenge', () => {
         toggleChallengeSweep()
-    }, false]],
+    }, false, 'Toggle Auto Challenge Sweep. When it comes to OFF, you will leave the T and R challenge.']],
     ['E', ['Exit T / R Challenge', () => {
         if (player.autoChallengeRunning) {
             toggleChallengeSweep()
         } else {
             exitTranscendAndPrestigeChallenge()
         }
-    }, false]],
-    ['M', ['Multipliers', () => buyMultiplier(), false]],
-    ['N', ['No (Cancel)', () => confirmReply(false), true]],
-    ['P', ['Reset Prestige', () => resetCheck('prestige'), false]],
-    ['R', ['Reset Reincarnate', () => resetCheck('reincarnation'), false]],
-    ['S', ['Sacrifice Ants', () => sacrificeAnts(), false]],
-    ['T', ['Reset Transcend', () => resetCheck('transcension'), false]],
-    ['Y', ['Yes (OK)', () => confirmReply(true), true]],
-    ['ARROWLEFT', ['Back a tab', () => keyboardTabChange(-1), false]],
-    ['ARROWRIGHT', ['Next tab', () => keyboardTabChange(1), false]],
-    ['ARROWUP', ['Back a subtab', () => keyboardTabChange(-1, false), false]],
-    ['ARROWDOWN', ['Next subtab', () => keyboardTabChange(1, false), false]],
-    ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension'), false]],
-    ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999), false]],
-    ['SHIFT+D', ['Spec. Action Add x1', () => promocodes('add', 1), false]],
-    ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
-    ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion'), false]],
-    ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion'), false]],
-    ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity'), false]]
+    }, false, 'Auto Challenge Sweep is off. When it comes to OFF, you will leave the T and R challenge.']],
+    ['M', ['Multipliers', () => buyMultiplier(), false, 'Buy Multipliers.']],
+    ['N', ['No (Cancel)', () => confirmReply(false), true, 'In the case of confirm, do Cancel. OK with alerts.']],
+    ['P', ['Reset Prestige', () => resetCheck('prestige'), false, 'Enter Reset Prestige.']],
+    ['R', ['Reset Reincarnate', () => resetCheck('reincarnation'), false, 'Enter Reset Reincarnate.']],
+    ['S', ['Sacrifice Ants', () => sacrificeAnts(), false, 'Execute Sacrifice Ants.']],
+    ['T', ['Reset Transcend', () => resetCheck('transcension'), false, 'Enter Reset Transcend.']],
+    ['Y', ['Yes (OK)', () => confirmReply(true), true, 'Alerts and confirm are OK.']],
+    ['ARROWLEFT', ['Back a tab', () => keyboardTabChange(-1), false, 'Back a tab.']],
+    ['ARROWRIGHT', ['Next tab', () => keyboardTabChange(1), false, 'Next tab.']],
+    ['ARROWUP', ['Back a subtab', () => keyboardTabChange(-1, false), false, 'Back a subtab.']],
+    ['ARROWDOWN', ['Next subtab', () => keyboardTabChange(1, false), false, 'Next subtab.']],
+    ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension'), false, 'Enter Reset Ascend.']],
+    ['SHIFT+B', ['Auto Ascend', () => toggleAutoAscend(0), false, 'Toggle Auto Ascend.']],
+    ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999), false, 'Cleanse Corruptions.']],
+    ['SHIFT+D', ['Spec. Action Add x1', () => promocodes('add', 1), false, 'Execute Special Action Add x1. It will not be executed if the Add is insufficient.']],
+    ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge'), false, 'Exit Ascension Challenge.']], // Its already checks if inside Asc. Challenge
+    ['SHIFT+F', ['All Open 10% Cubes', () => allOpenCubes(10), false, 'All Open 10% Cubes.']],
+    ['SHIFT+G', ['All Open 50% Cubes', () => allOpenCubes(50), false, 'All Open 50% Cubes.']],
+    ['SHIFT+H', ['All Open All Cubes', () => allOpenCubes(100), false, 'All Open All Cubes.']],
+    ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion'), false, 'Use the Offerings Potion. It will be ignored when the number is insufficient.']],
+    ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion'), false, 'Use Obtainium Potion. It will be ignored when the number is insufficient.']],
+    ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity'), false, 'Enter Reset Singularity.']]
 ]);
 
 export let hotkeysEnabled = false;
 
-export let hotkeys = new Map<string, [string,() => unknown, boolean]>(defaultHotkeys);
+export let hotkeys = new Map<string, [string,() => unknown, boolean, string]>(defaultHotkeys);
+
+const allOpenCubes = (percent = 100): void => {
+    if (player.ascensionCount > 0) {
+        player.wowCubes.open(Math.floor(Number(player.wowCubes) / 100 * percent), percent === 100);
+        if (player.challengecompletions[11] > 0) {
+            player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) / 100 * percent), percent === 100);
+        }
+        if (player.challengecompletions[13] > 0) {
+            player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) / 100 * percent), percent === 100);
+        }
+        if (player.challengecompletions[14] > 0) {
+            player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) / 100 * percent), percent === 100);
+        }
+    }
+}
 
 const toggleChallengeSweep = (): void => {
     if (player.researches[150] > 0) {
@@ -63,7 +83,7 @@ const exitTranscendAndPrestigeChallenge = () => {
     }
 }
 
-const eventHotkeys = (event: KeyboardEvent): void => {
+export const eventHotkeys = (event: KeyboardEvent): void => {
     if (!hotkeysEnabled || player.toggles[39] === false) {
         // There was a race condition where a user could spam Shift + S + Enter to
         // Singularity which would cause a bug when rune 7 was bought. To prevent this,
@@ -78,8 +98,6 @@ const eventHotkeys = (event: KeyboardEvent): void => {
         return event.stopPropagation();
     }
 
-    synergismHotkeys(event, event.code.replace(/^(Digit|Numpad)/, '').toUpperCase());
-
     let keyPrefix = '';
     if (event.ctrlKey) {
         keyPrefix += 'CTRL+';
@@ -91,6 +109,7 @@ const eventHotkeys = (event: KeyboardEvent): void => {
         keyPrefix += 'ALT+';
     }
     const key = keyPrefix + event.key.toUpperCase();
+    const numkey = event.code.replace(/^(Digit|Numpad)/, '').toUpperCase();
 
     // Disable the TAB key as it may allow unexpected operations
     if (key === 'TAB') {
@@ -99,19 +118,28 @@ const eventHotkeys = (event: KeyboardEvent): void => {
 
     // Disable hotkeys if notifications are occurring
     if (key !== 'ENTER' && DOMCacheGetOrSet('transparentBG').style.display === 'block') {
-        if (hotkeys.has(key) && (hotkeys.get(key)![2] !== true)) {
+        // If a set key prompt is open and text is not in focus, keypress sets the key to the prompt
+        if (G['currentTab'] === 'settings' && player.subtabNumber === 6 &&
+            DOMCacheGetOrSet('promptWrapper').style.display === 'block' && document.activeElement?.localName !== 'input') {
+            const promptText = DOMCacheGetOrSet('prompt_text') as HTMLInputElement;
+            promptText.value = key;
+        }
+        // Disable all keys except ENTER, Yes (OK) and No (Cancel)
+        if ((hotkeys.has(key) && hotkeys.get(key)![2] !== true) || !isNaN(Number(numkey))) {
             return;
         }
     }
 
     let hotkeyName = '';
     if (hotkeys.has(key)) {
-        hotkeyName = '' + hotkeys.get(key)![0];
+        hotkeyName = `[${hotkeys.get(key)![0]}]`;
         hotkeys.get(key)![1]();
         event.preventDefault();
+    } else {
+        synergismHotkeys(event, numkey);
     }
 
-    if (G['currentTab'] === 'settings' && player.subtabNumber === 5) {
+    if (G['currentTab'] === 'settings' && player.subtabNumber === 6) {
         DOMCacheGetOrSet('lastHotkey').textContent = key;
         DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName;
     }
@@ -121,9 +149,13 @@ const makeSlot = (key: string, descr: string) => {
     const div = document.createElement('div');
     div.classList.add('hotkeyItem');
 
+    div.addEventListener('mouseover', () => {
+        DOMCacheGetOrSet('hotkeyDescription').textContent = hotkeys.get(key)?.[3] ?? '';
+    });
+
     const span = document.createElement('span');
-    span.id = 'actualHotkey';
     span.textContent = key;
+
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     span.addEventListener('click', async (e) => {
         const target = e.target as HTMLElement;
@@ -156,6 +188,10 @@ const makeSlot = (key: string, descr: string) => {
             return void Alert('Number keys are currently unavailable!');
         }
 
+        if (toSet === 'ESCAPE' || toSet === 'ENTER') {
+            return void Alert(`${toSet} key is not allowed!`);
+        }
+
         if (hotkeys.has(toSet) || oldKey === toSet) {
             return void Alert('That key is already binded to an action, use another key instead!');
         } else if (hotkeys.has(oldKey)) {
@@ -176,8 +212,12 @@ const makeSlot = (key: string, descr: string) => {
     });
 
     const p = document.createElement('p');
-    p.id = 'hotKeyDesc';
     p.textContent = descr;
+
+    p.addEventListener('click', () => {
+        DOMCacheGetOrSet('hotkeyDescription').textContent = hotkeys.get(key)?.[3] ?? '';
+        hotkeys.get(key)![1]();
+    });
 
     div.appendChild(span);
     div.appendChild(p);
@@ -249,5 +289,3 @@ export const resetHotkeys = async () => {
         enableHotkeys();
     }
 }
-
-document.addEventListener('keydown', eventHotkeys);
