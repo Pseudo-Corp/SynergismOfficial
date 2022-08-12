@@ -132,7 +132,7 @@ export const eventHotkeys = (event: KeyboardEvent): void => {
 
     let hotkeyName = '';
     if (hotkeys.has(key)) {
-        const hotkey = hotkeys.get(key);
+        const hotkey = hotkeys.get(key)!;
         hotkeyName = `[${hotkey[0]}]`;
         hotkey[1]();
         event.preventDefault();
@@ -151,7 +151,7 @@ const makeSlot = (key: string, descr: string) => {
     div.classList.add('hotkeyItem');
 
     div.addEventListener('mouseover', () => {
-        DOMCacheGetOrSet('hotkeyDescription').textContent = hotkeys.get(key)[3];
+        DOMCacheGetOrSet('hotkeyDescription').textContent = hotkeys.get(key)![3];
     });
 
     const span = document.createElement('span');
@@ -216,7 +216,7 @@ const makeSlot = (key: string, descr: string) => {
     p.textContent = descr;
 
     p.addEventListener('click', () => {
-        hotkeys.get(key)[1]();
+        hotkeys.get(key)[1]!();
     });
 
     div.appendChild(span);
