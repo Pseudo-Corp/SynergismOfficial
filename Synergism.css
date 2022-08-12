@@ -2392,9 +2392,9 @@ p#ascendHotKeys {
 
 #creditList {
     display: grid;
-    grid-template-columns: repeat(4, minmax(250px, 1fr));
-    max-width: 1000px;
-    margin: 0 auto;
+    grid-template-columns: repeat(4, max(250px, 11em));
+    justify-content: center;
+    max-width: 100%;
 }
 
 .credit {
@@ -2435,6 +2435,7 @@ p#ascendHotKeys {
 }
 
 #statsForNerds > button {
+    width: 12em;
     min-width: 150px;
 }
 
@@ -3287,7 +3288,9 @@ header #obtainiumDisplay { color: pink; }
 
 .hotkeys {
     display: grid;
-    grid-template-columns: repeat(4, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, minmax(275px, 17em));
+    justify-content: center;
+    max-width: 100%;
     margin: 20px auto;
 }
 

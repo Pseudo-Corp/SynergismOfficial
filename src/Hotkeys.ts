@@ -38,9 +38,9 @@ export const defaultHotkeys = new Map<string, [string,() => unknown, boolean, st
     ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999), false, 'Cleanse Corruptions.']],
     ['SHIFT+D', ['Spec. Action Add x1', () => promocodes('add', 1), false, 'Execute Special Action Add x1. It will not be executed if the Add is insufficient.']],
     ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge'), false, 'Exit Ascension Challenge.']], // Its already checks if inside Asc. Challenge
-    ['SHIFT+F', ['All Open 10% Cubes', () => allOpenCubes(10), false, 'All Open 10% Cubes.']],
-    ['SHIFT+G', ['All Open 50% Cubes', () => allOpenCubes(50), false, 'All Open 50% Cubes.']],
-    ['SHIFT+H', ['All Open All Cubes', () => allOpenCubes(100), false, 'All Open All Cubes.']],
+    ['SHIFT+F', ['Open 10% All Cubes', () => allOpenCubes(10), false, 'Open 10% for 3-6 Dimensional Cubes.']],
+    ['SHIFT+G', ['Open 50% All Cubes', () => allOpenCubes(50), false, 'Open 50% for 3-6 Dimensional Cubes.']],
+    ['SHIFT+H', ['Open 100% All Cubes', () => allOpenCubes(100), false, 'Open 100% for 3-6 Dimensional Cubes.']],
     ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion'), false, 'Use the Offerings Potion. It will be ignored when the number is insufficient.']],
     ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion'), false, 'Use Obtainium Potion. It will be ignored when the number is insufficient.']],
     ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity'), false, 'Enter Reset Singularity.']]
@@ -132,8 +132,9 @@ export const eventHotkeys = (event: KeyboardEvent): void => {
 
     let hotkeyName = '';
     if (hotkeys.has(key)) {
-        hotkeyName = `[${hotkeys.get(key)![0]}]`;
-        hotkeys.get(key)![1]();
+        const hotkey = hotkeys.get(key);
+        hotkeyName = `[${hotkey[0]}]`;
+        hotkey[1]();
         event.preventDefault();
     } else {
         synergismHotkeys(event, numkey);
@@ -150,7 +151,7 @@ const makeSlot = (key: string, descr: string) => {
     div.classList.add('hotkeyItem');
 
     div.addEventListener('mouseover', () => {
-        DOMCacheGetOrSet('hotkeyDescription').textContent = hotkeys.get(key)?.[3] ?? '';
+        DOMCacheGetOrSet('hotkeyDescription').textContent = hotkeys.get(key)[3];
     });
 
     const span = document.createElement('span');
@@ -215,8 +216,7 @@ const makeSlot = (key: string, descr: string) => {
     p.textContent = descr;
 
     p.addEventListener('click', () => {
-        DOMCacheGetOrSet('hotkeyDescription').textContent = hotkeys.get(key)?.[3] ?? '';
-        hotkeys.get(key)![1]();
+        hotkeys.get(key)[1]();
     });
 
     div.appendChild(span);
@@ -282,7 +282,7 @@ export const resetHotkeys = async () => {
         }
     }
 
-    const confirmed = await Confirm(`Are you sure you want to default all the changed hotkeys?\nBelow is a history of hotkeys you have changed\n\n${settext}`);
+    const confirmed = await Confirm(`Are you sure you want to default all the ${keys.length} changed hotkeys?\nBelow is a history of hotkeys you have changed\n\n${settext}`);
     if (confirmed) {
         hotkeys = new Map(defaultHotkeys);
         player.hotkeys = {};
