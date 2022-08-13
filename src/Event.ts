@@ -53,24 +53,22 @@ const events: Record<string, HolidayData> = {
     },
     // Last active event
     last: {
-        name: '&#128151 Derpsmith Arrival Ceremony! &#128151 [link!]',
-        color: 'Orange',
+        name: 'Challenge 15 Compensation!',
+        color: 'green',
         url: 'https://www.youtube.com/watch?v=yXexmdCGPFU',
         everyYear: false,
-        start: '08/01/2022 00:00:00',
-        end: '08/07/2022 23:59:59',
+        start: '08/13/2022 00:00:00',
+        end: '08/14/2022 23:59:59',
         notice: 3,
         event: true,
         buffs: {
-            quark: 0.25,
-            powderConversion: 0.25,
+            quark: 0.4,
             globalSpeed: 0.5,
             ascensionSpeed: 0.5,
-            ascensionScore: 0.15,
             antSacrifice: 1,
             offering: 1,
             obtainium: 1,
-            octeract: 0.25
+            octeract: 0.5
         }
     }
     // Event example
@@ -257,7 +255,7 @@ export const eventCheck = () => {
             buffs = buffs.substring(0, buffs.length - 2);
             buffs += '!';
         }
-        DOMCacheGetOrSet('eventCurrent').textContent = G['isEvent'] ? 'ACTIVE UNTIL ' + end : 'START UNTIL ' + start;
+        DOMCacheGetOrSet('eventCurrent').textContent = G['isEvent'] ? 'ACTIVE UNTIL ' + end : 'STARTS ' + start;
         eventBuffs.textContent = G['isEvent'] ? 'Current Buffs: ' + buffs : '';
         eventBuffs.style.color = 'lime';
         happyHolidays.innerHTML = nowEvent.name;

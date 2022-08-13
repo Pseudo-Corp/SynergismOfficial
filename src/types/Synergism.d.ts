@@ -419,6 +419,14 @@ export interface Player {
     ascensionCounter: number
     ascensionCounterReal: number
     ascensionCounterRealReal: number
+    autoOpenCubes: boolean,
+    openCubes: number
+    autoOpenTesseracts: boolean,
+    openTesseracts: number
+    autoOpenHypercubes: boolean,
+    openHypercubes: number
+    autoOpenPlatonicsCubes: boolean,
+    openPlatonicsCubes: number
     cubeUpgrades: [null, ...number[]]
     cubeUpgradesBuyMaxToggle: boolean
     platonicUpgrades: number[]
@@ -554,6 +562,8 @@ export interface Player {
     goldenQuarks: number
     quarksThisSingularity: number
     totalQuarksEver: number
+    hotkeys: Record<number, string[]>
+    theme: string
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
     octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade> 

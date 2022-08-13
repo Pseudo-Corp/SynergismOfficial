@@ -2,8 +2,6 @@ import { format, player } from './Synergism';
 import { Alert } from './UpdateHTML';
 import type { IUpgradeData } from './DynamicUpgrade';
 import { DynamicUpgrade } from './DynamicUpgrade';
-import { calculateAscensionAcceleration, calculateAscensionScore, calculateEventBuff } from './Calculate';
-import { productContents, sumContents } from './Utility';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -36,13 +34,17 @@ export class OcteractUpgrade extends DynamicUpgrade {
      * @returns An alert indicating cannot afford, already maxxed or purchased with how many
      *          levels purchased
      */
-    public async buyLevel(): Promise<void> {
+    public async buyLevel(event: MouseEvent): Promise<void> {
         let purchased = 0;
-        let maxPurchasable = (this.maxLevel === -1)
-            ? ((this.toggleBuy === -1)
-                ? 1000
-                : this.toggleBuy)
-            : Math.min(this.toggleBuy, this.maxLevel - this.level);
+        let maxPurchasable = 1;
+
+        if (event.shiftKey) {
+            maxPurchasable = 10000
+        }
+
+        if (this.maxLevel > 0) {
+            maxPurchasable = Math.min(maxPurchasable, this.maxLevel - this.level)
+        }
 
         if (maxPurchasable === 0) {
             return Alert('hey! You have already maxxed this upgrade. :D')
@@ -64,6 +66,9 @@ export class OcteractUpgrade extends DynamicUpgrade {
         if (purchased === 0) {
             return Alert('You cannot afford this upgrade. Sorry!')
         }
+        if (purchased > 1) {
+            return Alert(`Purchased ${format(purchased)} levels, thanks to MAX Buy!`)
+        }
 
         this.updateUpgradeHTML();
     }
@@ -76,7 +81,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
         const costNextLevel = this.getCostTNL();
         const maxLevel = this.maxLevel === -1
             ? ''
-            : `/${this.maxLevel}`;
+            : `/${format(this.maxLevel, 0 , true)}`;
         const color = this.maxLevel === this.level ? 'plum' : 'white';
 
         let freeLevelInfo = this.freeLevels > 0 ?
@@ -88,7 +93,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
-                <span style="color: ${color}"> Level ${this.level}${maxLevel}${freeLevelInfo}</span>
+                <span style="color: ${color}"> Level ${format(this.level, 0 , true)}${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
                 Cost for next level: ${format(costNextLevel,2,true, true, true)} Octeracts.
                 Spent Octeracts: ${format(this.octeractsInvested, 2, true, true, true)}`
@@ -96,6 +101,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
     public updateUpgradeHTML(): void {
         DOMCacheGetOrSet('singularityOcteractsMultiline').innerHTML = this.toString()
+        DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true, true, true)
     }
 
 }
@@ -127,7 +133,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.01 * n,
-                desc: `Octeract Gain is increased by ${n}%.`
+                desc: `Octeract Gain is increased by ${format(n, 0 , true)}%.`
             }
         }
     },
@@ -135,14 +141,18 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         name: 'Quark Octeract',
         description: 'An altered forme of the hepteract, this gives a 1% Quark Bonus per level without Diminishing Return.',
         costFormula: (level: number, baseCost: number) => {
-            return baseCost * (Math.pow(level + 1, 7) - Math.pow(level, 7))
+            if (level < 1000) {
+                return baseCost * (Math.pow(level + 1, 7) - Math.pow(level, 7))
+            } else {
+                return baseCost * (Math.pow(1000, 7) - Math.pow(1000, 7)) * Math.pow(10, level / 1000)
+            }
         },
-        maxLevel: -1,
+        maxLevel: 9900,
         costPerLevel: 1e-7,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.01 * n,
-                desc: `Quark gain is increased by ${n}%.`
+                desc: `Quark gain is increased by ${format(n, 0 , true)}%.`
             }
         }
     },
@@ -330,48 +340,3 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
 
 }
 
-export const derpsmithCornucopiaBonus = () => {
-    let counter = 0
-    const singCounts = [18, 38, 58, 78, 88, 98, 118, 148]
-    for (const sing of singCounts) {
-        if (player.singularityCount >= sing) {
-            counter += 1
-        }
-    }
-
-    return 1 + counter * player.singularityCount / 100
-}
-
-export const octeractGainPerSecond = () => {
-    const SCOREREQ = 1e23
-    const currentScore = calculateAscensionScore().effectiveScore
-
-    const baseMultiplier = (currentScore >= SCOREREQ) ? currentScore / SCOREREQ : 0;
-    const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
-
-    const valueMultipliers = [
-        1 + 1.5 * player.shopUpgrades.seasonPass3 / 100,
-        1 + player.shopUpgrades.seasonPassY / 200,
-        1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
-        1 + player.shopUpgrades.seasonPassLost / 1000,
-        1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
-        1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
-        +player.singularityUpgrades.singCubes1.getEffect().bonus,
-        +player.singularityUpgrades.singCubes2.getEffect().bonus,
-        +player.singularityUpgrades.singCubes3.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain2.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain3.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain4.getEffect().bonus,
-        +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
-        1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
-        +player.octeractUpgrades.octeractGain.getEffect().bonus,
-        derpsmithCornucopiaBonus(),
-        Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
-        1 + calculateEventBuff('Octeract')
-    ]
-
-    const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1/2)
-    const perSecond = 1/(24 * 3600 * 365 * 1e15) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
-    return perSecond
-}
