@@ -306,11 +306,12 @@ export const loadStatisticsCubeMultipliers = () => {
         14: {acc: 2, desc: 'The Obelisk Shaped like an Octagon:'},
         15: {acc: 2, desc: 'Octahedral Synthesis:'},
         16: {acc: 2, desc: 'The Eigth Wonder of the World:'},
-        17: {acc: 2, desc: 'Octarects for Dummies:'},
+        17: {acc: 2, desc: 'Octeracts for Dummies:'},
         18: {acc: 2, desc: 'Octeract Cogenesis:'},
         19: {acc: 2, desc: 'Digital Octeract Accumulator:'},
         20: {acc: 2, desc: 'Derpsmith Cornucopia:'},
-        21: {acc: 2, desc: 'Event:'}
+        21: {acc: 3, desc: 'Platonic DELTA:'},
+        22: {acc: 2, desc: 'Event:'}
     }
     for (let i = 0; i < arr6.length; i++) {
         const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`);

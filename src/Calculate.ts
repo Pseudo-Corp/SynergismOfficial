@@ -15,7 +15,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
 import { calculateEventSourceBuff } from './Event';
 import { disableHotkeys, enableHotkeys } from './Hotkeys';
-import { derpsmithCornucopiaBonus } from './Octeracts';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
@@ -1468,9 +1467,11 @@ export const calculateOcteractMultiplier = (score = -1) => {
         1 + +Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
         // Derpsmith Cornucopia
         derpsmithCornucopiaBonus(),
+        //Platonic DELTA
+        1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
         // Event
         1 + calculateEventBuff('Octeract')
-        // Total Octeract Multipliers: 21
+        // Total Octeract Multipliers: 22
     ]
 
     return {
