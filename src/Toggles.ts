@@ -149,7 +149,7 @@ export const toggleBuyAmount = (quantity: number, type: ToggleBuy) => {
     }
 }
 
-type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'reincarnate'
+type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'automations' | 'reincarnate'
 
 /**
  * Updates Auto Upgrade Border Colors if applicable, or updates the status of an upgrade toggle as optional.

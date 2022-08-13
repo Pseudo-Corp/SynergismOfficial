@@ -745,7 +745,7 @@ export const visualUpdateShop = () => {
     DOMCacheGetOrSet('singularityQuarksButton').textContent = `Buy! ${format(getGoldenQuarkCost().cost)} Quarks Each`
 }
 
-export const shopOthersDescriptions = (input: ShopUpgradeNames) => {
+export const shopOthersDescriptions = (input: string) => {
     const rofl = DOMCacheGetOrSet('quarkdescription')!;
     const lol = DOMCacheGetOrSet('quarkeffect')!;
     DOMCacheGetOrSet('quarkRefundable')!.textContent = 'This item CANNOT be refunded! Take caution.';
