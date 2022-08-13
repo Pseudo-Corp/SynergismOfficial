@@ -3,7 +3,6 @@ import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML';
 import { calculatePowderConversion, calculateTimeAcceleration } from './Calculate';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-import { getGoldenQuarkCost } from './singularity';
 
 /**
  * Standardization of metadata contained for each shop upgrade.
@@ -685,26 +684,6 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             break;
         case 'shopImprovedDaily4':
             lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily4 * 100}% more golden quarks and ${player.shopUpgrades.shopImprovedDaily4} additional free singularity upgrades from daily.`;
-            break;
-        case 'singularityQuarks':
-            lol.textContent = 'a';
-            break;
-    }
-
-}
-
-export const shopOthersDescriptions = (input: ShopUpgradeNames) => {
-    const rofl = DOMCacheGetOrSet('quarkdescription')!;
-    const lol = DOMCacheGetOrSet('quarkeffect')!;
-    DOMCacheGetOrSet('quarkRefundable')!.textContent = 'This item CANNOT be refunded! Take caution.';
-
-    const goldenQuarkCost = getGoldenQuarkCost();
-    const maxBuy = Math.floor(+player.worlds / goldenQuarkCost.cost);
-
-    switch (input) {
-        case 'singularityQuarks':
-            rofl.textContent = 'You can buy Golden Quarks at Quarks. If you don\'t like Singularity, trade!'
-            lol.textContent = `You can buy Golden Quarks here for ${format(goldenQuarkCost.cost, 0, true)} Quarks (Discounted by ${format(goldenQuarkCost.costReduction, 0, true)})! You can buy up to ${format(maxBuy, 0, true)}.`;
             break;
     }
 

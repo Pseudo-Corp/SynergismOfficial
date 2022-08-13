@@ -304,6 +304,7 @@ export interface Player {
         prestige: boolean,
         transcend: boolean,
         generators: boolean,
+        automations: boolean,
         reincarnate: boolean,
     },
     tabnumber: number
