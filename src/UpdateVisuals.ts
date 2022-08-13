@@ -328,6 +328,7 @@ export const visualUpdateCubes = () => {
     const hypercubeMult = (player.shopUpgrades.hypercubeToQuark) ? 1.5 : 1;
     const platonicMult = 1.5;
 
+    // It is normal for Octeract Quarks to quickly become Open 1 cubes for next quark
     const toNextQuark: cubeNames = {
         cube: Number(player.wowCubes.checkCubesToNextQuark(5, cubeMult, player.cubeQuarkDaily, player.cubeOpenedDaily)),
         tesseract: Number(player.wowTesseracts.checkCubesToNextQuark(7, tesseractMult, player.tesseractQuarkDaily, player.tesseractOpenedDaily)),
@@ -560,7 +561,7 @@ export const visualUpdateOcteracts = () => {
 
     DOMCacheGetOrSet('secondsPerOcteract').style.display = perSecond < 1 ? 'block' : 'none';
     DOMCacheGetOrSet('sPO').textContent = format(1 / perSecond, 2, true);
-    DOMCacheGetOrSet('octeractPerSeconds').style.display = perSecond >= 1 ? 'block' : 'none';
+    DOMCacheGetOrSet('octeractsPerSecond').style.display = perSecond >= 1 ? 'block' : 'none';
     DOMCacheGetOrSet('oPS').textContent = format(perSecond, 2, true);
 
     const cTOCB = (calculateTotalOcteractCubeBonus() - 1) * 100;
@@ -577,8 +578,6 @@ export const visualUpdateShop = () => {
         return
     }
     DOMCacheGetOrSet('quarkamount').textContent = 'You have ' + format(player.worlds, 0, true) + ' Quarks!'
-    DOMCacheGetOrSet('offeringpotionowned').textContent = 'Own: ' + format(player.shopUpgrades.offeringPotion)
-    DOMCacheGetOrSet('obtainiumpotionowned').textContent = 'Own: ' + format(player.shopUpgrades.obtainiumPotion)
 
     // Create Keys with the correct type
     const keys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[];
@@ -737,9 +736,11 @@ export const visualUpdateShop = () => {
                     i.style.display = player.singularityUpgrades.wowPass3.getEffect().bonus ? 'block' : 'none';
                 }
             }
+        } else {
+            DOMCacheGetOrSet(`${key}Level`).textContent = 'Own: ' + format(player.shopUpgrades[key])
         }
     }
 
-    DOMCacheGetOrSet('buySingularityQuarksAmount').textContent = `${player.goldenQuarks < 1000 ? 'Owned: ' : ''}${format(player.goldenQuarks)}`
-    DOMCacheGetOrSet('buySingularityQuarksButton').textContent = `Buy! ${format(getGoldenQuarkCost().cost)} Quarks Each`
+    DOMCacheGetOrSet('singularityQuarksLevel').textContent = `${player.goldenQuarks < 1000 ? 'Owned: ' : ''}${format(player.goldenQuarks)}`
+    DOMCacheGetOrSet('singularityQuarksButton').textContent = `Buy! ${format(getGoldenQuarkCost().cost)} Quarks Each`
 }

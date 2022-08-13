@@ -346,7 +346,7 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('toggleautosacrifice').style.display = 'block' :
         DOMCacheGetOrSet('toggleautosacrifice').style.display = 'none';
 
-    player.cubeUpgrades[51] > 0 && player.singularityCount >= 40 ? //Auto Fragments Buy (After Cx1)
+    player.singularityCount >= 25 ? //Auto Fragments Buy (After Cx1)
         DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'block' :
         DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'none';
 
@@ -473,6 +473,7 @@ export const revealStuff = () => {
         'prestigeAutoUpgrade': player.upgrades[92] === 1, // Feature - Upgrades - Auto Buy Diamond Upgrades
         'transcendAutoUpgrade': player.upgrades[99] === 1, // Feature - Upgrades - Auto Buy Mythos Upgrades
         'generatorsAutoUpgrade': player.upgrades[90] === 1, // Feature - Upgrades - Auto Buy Generator Upgrades
+        'automationsAutoUpgrade': player.singularityCount >= 20, // Feature - Upgrades - Auto Buy Automation Upgrades
         'toggle9': player.unlocks.prestige, // Feature - Upgrades - Hover to Buy
         'toggle28': player.prestigeCount > 0.5 || player.reincarnationCount > 0.5, // Settings - Confirmations - Prestige
         'toggle29': player.transcendCount > 0.5 || player.reincarnationCount > 0.5,  // Settings - Confirmations - Transcension

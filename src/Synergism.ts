@@ -422,6 +422,7 @@ export const player: Player = {
         prestige: true,
         transcend: true,
         generators: true,
+        automations: true,
         reincarnate: true
     },
     tabnumber: 1,
@@ -1355,61 +1356,22 @@ const loadSynergy = async () => {
             updatePlatonicUpgradeBG(j);
         }
 
-        const q = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract'] as const;
-        if (player.coinbuyamount !== 1 && player.coinbuyamount !== 10 && player.coinbuyamount !== 100 && player.coinbuyamount !== 1000) {
-            player.coinbuyamount = 1;
-        }
-        if (player.crystalbuyamount !== 1 && player.crystalbuyamount !== 10 && player.crystalbuyamount !== 100 && player.crystalbuyamount !== 1000) {
-            player.crystalbuyamount = 1;
-        }
-        if (player.mythosbuyamount !== 1 && player.mythosbuyamount !== 10 && player.mythosbuyamount !== 100 && player.mythosbuyamount !== 1000) {
-            player.mythosbuyamount = 1;
-        }
-        if (player.particlebuyamount !== 1 && player.particlebuyamount !== 10 && player.particlebuyamount !== 100 && player.particlebuyamount !== 1000) {
-            player.particlebuyamount = 1;
-        }
-        if (player.offeringbuyamount !== 1 && player.offeringbuyamount !== 10 && player.offeringbuyamount !== 100 && player.offeringbuyamount !== 1000) {
-            player.offeringbuyamount = 1;
-        }
-        if (player.tesseractbuyamount !== 1 && player.tesseractbuyamount !== 10 && player.tesseractbuyamount !== 100 && player.tesseractbuyamount !== 1000) {
-            player.tesseractbuyamount = 1;
-        }
-        for (let j = 0; j <= 5; j++) {
-            for (let k = 0; k < 4; k++) {
-                let d;
-                if (k === 0) {
-                    d = 'one';
+        const buildingTypesAlternate = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract'] as const;
+        const buildingOrdsToNum = [1, 10, 100, 1000];
+        const buildingOrdsToStr = ['one', 'ten', 'hundred', 'thousand'];
+        for (let index = 0; index < buildingTypesAlternate.length; index++) {
+            const buyamount = player[`${buildingTypesAlternate[index]}buyamount` as const];
+            if (buyamount !== 1 && buyamount !== 10 && buyamount !== 100 && buyamount !== 1000) {
+                player[`${buildingTypesAlternate[index]}buyamount` as const] = 1;
+            }
+            for (let index2 = 0; index2 < buildingOrdsToNum.length; index2++) {
+                const quantity = player[`${buildingTypesAlternate[index]}buyamount` as const];
+                if (quantity === buildingOrdsToNum[index2]) {
+                    DOMCacheGetOrSet(`${buildingTypesAlternate[index]}${buildingOrdsToStr[index2]}`).style.backgroundColor = 'Green';
+                } else {
+                    DOMCacheGetOrSet(`${buildingTypesAlternate[index]}${buildingOrdsToStr[index2]}`).style.backgroundColor = '';
                 }
-                if (k === 1) {
-                    d = 'ten'
-                }
-                if (k === 2) {
-                    d = 'hundred'
-                }
-                if (k === 3) {
-                    d = 'thousand'
-                }
-                const e = q[j] + d;
-                DOMCacheGetOrSet(e).style.backgroundColor = ''
             }
-            let c;
-            const curBuyAmount = player[`${q[j]}buyamount` as const];
-            if (curBuyAmount === 1) {
-                c = 'one'
-            }
-            if (curBuyAmount === 10) {
-                c = 'ten'
-            }
-            if (curBuyAmount === 100) {
-                c = 'hundred'
-            }
-            if (curBuyAmount === 1000) {
-                c = 'thousand'
-            }
-
-            const b = q[j] + c;
-            DOMCacheGetOrSet(b).style.backgroundColor = 'green'
-
         }
 
         const testArray = []
@@ -1783,6 +1745,9 @@ const loadSynergy = async () => {
     const m = d.getMinutes()
     const s = d.getSeconds()
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
+
+    // Current game version from which the save data was launched. May be used when something goes wrong
+    player.version = version
 }
 
 // Bad browsers (like Safari) only recently implemented this.
@@ -2652,35 +2617,19 @@ export const resourceGain = (dt: number): void => {
         ascensionAchievementCheck(2)
     }
 
-    if (player.researches[71] > 0.5 && player.challengecompletions[1] < (Math.min(player.highestchallengecompletions[1], 25 + 5 * player.researches[66] + 925 * player.researches[105])) && player.coins.gte(Decimal.pow(10, 1.25 * G['challengeBaseRequirements'][0] * Math.pow(1 + player.challengecompletions[1], 2)))) {
-        player.challengecompletions[1] += 1;
-        challengeachievementcheck(1, true)
-        updateChallengeLevel(1)
-    }
-    if (player.researches[72] > 0.5 && player.challengecompletions[2] < (Math.min(player.highestchallengecompletions[2], 25 + 5 * player.researches[67] + 925 * player.researches[105])) && player.coins.gte(Decimal.pow(10, 1.6 * G['challengeBaseRequirements'][1] * Math.pow(1 + player.challengecompletions[2], 2)))) {
-        player.challengecompletions[2] += 1
-        challengeachievementcheck(2, true)
-        updateChallengeLevel(2)
-    }
-    if (player.researches[73] > 0.5 && player.challengecompletions[3] < (Math.min(player.highestchallengecompletions[3], 25 + 5 * player.researches[68] + 925 * player.researches[105])) && player.coins.gte(Decimal.pow(10, 1.7 * G['challengeBaseRequirements'][2] * Math.pow(1 + player.challengecompletions[3], 2)))) {
-        player.challengecompletions[3] += 1
-        challengeachievementcheck(3, true)
-        updateChallengeLevel(3)
-    }
-    if (player.researches[74] > 0.5 && player.challengecompletions[4] < (Math.min(player.highestchallengecompletions[4], 25 + 5 * player.researches[69] + 925 * player.researches[105])) && player.coins.gte(Decimal.pow(10, 1.45 * G['challengeBaseRequirements'][3] * Math.pow(1 + player.challengecompletions[4], 2)))) {
-        player.challengecompletions[4] += 1
-        challengeachievementcheck(4, true)
-        updateChallengeLevel(4)
-    }
-    if (player.researches[75] > 0.5 && player.challengecompletions[5] < (Math.min(player.highestchallengecompletions[5], 25 + 5 * player.researches[70] + 925 * player.researches[105])) && player.coins.gte(Decimal.pow(10, 2 * G['challengeBaseRequirements'][4] * Math.pow(1 + player.challengecompletions[5], 2)))) {
-        player.challengecompletions[5] += 1
-        challengeachievementcheck(5, true)
-        updateChallengeLevel(5)
-    }
-
     const chal = player.currentChallenge.transcension;
     const reinchal = player.currentChallenge.reincarnation;
     const ascendchal = player.currentChallenge.ascension;
+    if (reinchal !== 0) {
+        for (let i = 1; i <= 5; i++) {
+            if (player.researches[70 + i] > 0.5 && player.challengecompletions[i] < (Math.min(getMaxChallenges(i), 25 + 5 * player.researches[65 + i] + 925 * player.researches[105] + player.shopUpgrades.instantChallenge2 * player.singularityCount * 100)) &&
+            player.coinsThisTranscension.gte(challengeRequirement(i, player.challengecompletions[i], i))) {
+                player.challengecompletions[i] += 1
+                challengeachievementcheck(i, true)
+                updateChallengeLevel(i)
+            }
+        }
+    }
     if (chal !== 0) {
         if (player.coinsThisTranscension.gte(challengeRequirement(chal, player.challengecompletions[chal], chal))) {
             void resetCheck('transcensionChallenge', false);

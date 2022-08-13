@@ -130,7 +130,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
                         ratio--;
                     }
                 }
-                if (player.autoBuyFragment && player.singularityCount >= 40 && player.cubeUpgrades[51] > 0) {
+                if (player.autoBuyFragment && player.singularityCount >= 25 && player.achievements[134] === 1) {
                     buyAllTalismanResources();
                 }
 

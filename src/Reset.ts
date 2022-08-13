@@ -327,6 +327,10 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.fastestprestige = player.prestigecounter;
     }
 
+    if (player.singularityCount < 20 && player.shoptoggles.automations === false) {
+        player.shoptoggles.automations = true;
+    }
+
     G['prestigePointGain'] = new Decimal('0');
 
     player.prestigecounter = 0;
@@ -382,23 +386,25 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             player.fifthOwnedDiamonds += 1
         }
 
-        if (player.achievements[4] > 0.5) {
-            player.upgrades[81] = 1
-        }
-        if (player.achievements[11] > 0.5) {
-            player.upgrades[82] = 1
-        }
-        if (player.achievements[18] > 0.5) {
-            player.upgrades[83] = 1
-        }
-        if (player.achievements[25] > 0.5) {
-            player.upgrades[84] = 1
-        }
-        if (player.achievements[32] > 0.5) {
-            player.upgrades[85] = 1
-        }
-        if (player.achievements[80] > 0.5) {
-            player.upgrades[87] = 1
+        if (player.shoptoggles.automations !== false) {
+            if (player.achievements[4] > 0.5) {
+                player.upgrades[81] = 1
+            }
+            if (player.achievements[11] > 0.5) {
+                player.upgrades[82] = 1
+            }
+            if (player.achievements[18] > 0.5) {
+                player.upgrades[83] = 1
+            }
+            if (player.achievements[25] > 0.5) {
+                player.upgrades[84] = 1
+            }
+            if (player.achievements[32] > 0.5) {
+                player.upgrades[85] = 1
+            }
+            if (player.achievements[80] > 0.5) {
+                player.upgrades[87] = 1
+            }
         }
 
         if (player.transcendcounter < player.fastesttranscend && player.currentChallenge.transcension === 0) {
@@ -633,6 +639,12 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         }
         if (player.cubeUpgrades[6] === 1) {
             player.upgrades[100] = 1
+        }
+
+        if (player.shoptoggles.automations === false) {
+            for (let j = 81; j <= 100; j++) {
+                player.upgrades[j] = 0;
+            }
         }
 
         for (let j = 61; j <= 80; j++) {
@@ -944,9 +956,15 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.researches[135] = 1;
         player.researches[145] = 1;
     }
-    if (player.singularityCount >= 101 && singularityReset) {
-        player.cubeUpgrades[51] = 1;
-        awardAutosCookieUpgrade();
+    if (player.singularityCount >= 40) {
+        player.researches[150] = 1;
+    }
+    if ((player.singularityCount >= 101 && singularityReset) || (player.singularityCount >= 11 && player.ascensionCount > 0 && !singularityReset)) {
+        if (player.cubeUpgrades[51] === 0) {
+            player.cubeUpgrades[51] = 1;
+            awardAutosCookieUpgrade();
+            updateCubeUpgradeBG(51);
+        }
     }
 
     if (singularityReset) {

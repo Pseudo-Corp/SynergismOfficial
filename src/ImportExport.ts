@@ -399,7 +399,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 const num = 1000 * Math.random();
                 for (const key of keys) {
                     if (upgradeDistribution[key].pdf(num)) {
-                        player.singularityUpgrades[key].freeLevels += upgradeDistribution[key].value
+                        player.singularityUpgrades[key].freeLevels = Math.round((player.singularityUpgrades[key].freeLevels + upgradeDistribution[key].value) * 10000) / 10000
                         freeLevels[key] ? freeLevels[key] += upgradeDistribution[key].value : freeLevels[key] = upgradeDistribution[key].value
                     }
                 }
@@ -624,7 +624,7 @@ const timeCodeRewardMultiplier = (): number => {
 
 const dailyCodeFormatFreeLevelMessage = (upgradeKey: string, freeLevelAmount: number): string => {
     const upgradeNiceName = singularityData[upgradeKey].name;
-    return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
+    return `\n+${Math.round(freeLevelAmount * 10000) / 10000} extra levels of '${upgradeNiceName}'`;
 }
 
 const dailyCodeReward = () => {

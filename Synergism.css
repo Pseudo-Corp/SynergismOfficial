@@ -744,10 +744,6 @@ p#buildinghotkeys {
     margin-top: 15px;
 }
 
-#switchSettingSubTab6 {
-    border: 2px solid var(--singtab-color);
-}
-
 .settingSubTabUpper {
     display: flex;
     justify-content: center;
@@ -1568,10 +1564,8 @@ p#transcendhotkeys {
 /* In webkit, the font-size px is fixed even if it is enlarged, but Firefox fluctuates */
 .challengeLevels {
     min-width: 4.8em;
-    max-width: 4.8em;
     margin: 4px auto 0;
     font-size: 12px;
-    overflow: hidden;
 }
 
 #challengeDetails {
@@ -1927,7 +1921,6 @@ p#reincarnatehotkeys {
 
 #shopHovers > p { margin: 0; }
 
-.consumablebutton,
 .permshopbutton {
     width: 100%;
     min-height: 40px;

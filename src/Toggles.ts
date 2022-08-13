@@ -136,22 +136,16 @@ export const toggleChallenges = (i: number, auto = false) => {
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract';
 
-export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) => {
+export const toggleBuyAmount = (quantity: number, type: ToggleBuy) => {
     player[`${type}buyamount` as const] = quantity;
-    const a = ['one', 'ten', 'hundred', 'thousand'][quantity.toString().length - 1];
-
-    DOMCacheGetOrSet(`${type}${a}`).style.backgroundColor = 'Green';
-    if (quantity !== 1) {
-        DOMCacheGetOrSet(`${type}one`).style.backgroundColor = ''
-    }
-    if (quantity !== 10) {
-        DOMCacheGetOrSet(`${type}ten`).style.backgroundColor = ''
-    }
-    if (quantity !== 100) {
-        DOMCacheGetOrSet(`${type}hundred`).style.backgroundColor = ''
-    }
-    if (quantity !== 1000) {
-        DOMCacheGetOrSet(`${type}thousand`).style.backgroundColor = ''
+    const buildingOrdsToNum = [1, 10, 100, 1000];
+    const buildingOrdsToStr = ['one', 'ten', 'hundred', 'thousand'];
+    for (let index = 0; index < buildingOrdsToNum.length; index++) {
+        if (quantity === buildingOrdsToNum[index]) {
+            DOMCacheGetOrSet(`${type}${buildingOrdsToStr[index]}`).style.backgroundColor = 'Green';
+        } else {
+            DOMCacheGetOrSet(`${type}${buildingOrdsToStr[index]}`).style.backgroundColor = '';
+        }
     }
 }
 
@@ -874,9 +868,9 @@ export const toggleAutoAscend = (mode = 0) => {
         }
 
         player.autoAscend = !player.autoAscend;
-    } else if (mode === 1 && player.singularityCount >= 25) {
+    } else if (mode === 1) {
         const a = DOMCacheGetOrSet('ascensionAutoToggle');
-        if (player.autoAscendMode === 'c10Completions') {
+        if (player.autoAscendMode === 'c10Completions' && player.singularityCount >= 5) {
             player.autoAscendMode = 'realAscensionTime'
             a.textContent = 'Mode: Real time'
         } else {

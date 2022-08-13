@@ -1,7 +1,7 @@
 import { sacrificeAnts } from './Ants';
 import { buyAccelerator, boostAccelerator, buyMultiplier } from './Buy';
 import { player, resetCheck, synergismHotkeys } from './Synergism';
-import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel, confirmReply, toggleAutoAscend } from './Toggles';
+import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel, confirmReply, toggleAutoAscend, toggleAutoSacrifice } from './Toggles';
 import { Alert, Prompt, Confirm } from './UpdateHTML';
 import { Globals as G } from './Variables';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -41,6 +41,7 @@ export const defaultHotkeys = new Map<string, [string,() => unknown, boolean, st
     ['SHIFT+F', ['Open 10% All Cubes', () => allOpenCubes(10), false, 'Open 10% for 3-6 Dimensional Cubes.']],
     ['SHIFT+G', ['Open 50% All Cubes', () => allOpenCubes(50), false, 'Open 50% for 3-6 Dimensional Cubes.']],
     ['SHIFT+H', ['Open 100% All Cubes', () => allOpenCubes(100), false, 'Open 100% for 3-6 Dimensional Cubes.']],
+    ['SHIFT+R', ['Auto Runes', () => toggleAutoSacrifice(0), false, 'Toggle Auto Runes.']],
     ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion'), false, 'Use the Offerings Potion. It will be ignored when the number is insufficient.']],
     ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion'), false, 'Use Obtainium Potion. It will be ignored when the number is insufficient.']],
     ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity'), false, 'Enter Reset Singularity.']]

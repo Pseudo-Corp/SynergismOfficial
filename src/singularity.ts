@@ -882,14 +882,23 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Automation Upgrades',
-        levels: [10, 25, 101],
+        levels: [10, 20],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[2]) {
-                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
-            } else if (n >= levels[1]) {
+            if (n >= levels[1]) {
                 return 'You always have w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
             } else {
                 return 'You always have w1x4, w1x5 and w1x6.'
+            }
+        }
+    },
+    {
+        name: 'A pile of Chocolate Chip Cookies',
+        levels: [11, 101],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
+            } else {
+                return 'Having achieved 10 Singularity, automatically have Cx1 when you ascend.'
             }
         }
     },
@@ -951,6 +960,13 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Auto Challenge Sweep',
+        levels: [40],
+        description: () => {
+            return 'You always have r6x25.'
+        }
+    },
+    {
         name: 'Research for Dummies',
         levels: [1, 11],
         description: (n: number, levels: number[]) => {
@@ -981,7 +997,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Autobuy Talismans Resources',
-        levels: [40],
+        levels: [25],
         description: () => {
             return 'Runes autobuyer can also buy Talisman Shards and Fragments'
         }

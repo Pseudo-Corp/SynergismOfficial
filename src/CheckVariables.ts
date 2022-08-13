@@ -63,6 +63,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.wowHypercubes = new WowHypercubes(0);
         player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
+    if (data.shoptoggles?.automations === undefined) {
+        player.shoptoggles.automations = true
+    }
     if (data.shoptoggles?.reincarnate === undefined) {
         player.shoptoggles.reincarnate = true
     }

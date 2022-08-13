@@ -4,13 +4,14 @@ import Decimal from 'break_infinity.js';
 import { upgradeupdate, clickUpgrades } from './Upgrades';
 import { Globals as G, Upgrade } from './Variables';
 import { buyUpgrades } from './Buy';
+import { revealStuff } from './UpdateHTML';
 
 export const buyGenerator = (i: number, state: boolean) => {
     if (i === 1 && player.prestigePoints.gte(1e12) && player.unlocks.generation === false) {
         player.unlocks.generation = true
     }
     const q = 100 + i
-    let type: 'transcendPoints' | 'coins' | 'prestigePoints' = 'transcendPoints'
+    let type: 'coins' | 'prestigePoints' | 'transcendPoints' = 'transcendPoints'
     if (q <= 110 && q >= 106) {
         type = 'coins'
     } else if (q <= 115) {
@@ -21,12 +22,17 @@ export const buyGenerator = (i: number, state: boolean) => {
     const achievementCheck = Math.max(player.upgrades[101], player.upgrades[102], player.upgrades[103], player.upgrades[104], player.upgrades[105])
 
     if (player.upgrades[q] === 0 && player[type].gte(cost)) {
-        if (achievementCheck === 0 && q >= 102 && q <= 105) {
-            achievementaward(q - 31);
+
+        if (achievementCheck === 0) {
+            if ([102, 103, 104, 105].includes(q)) {
+                achievementaward(q - 31);
+            }
         }
+
         player[type] = player[type].sub(cost);
         player.upgrades[q] = 1;
         upgradeupdate(q, state)
+        player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
     }
 }
 
@@ -48,6 +54,18 @@ export const buyAutobuyers = (i: number, state?: boolean) => {
 }
 
 export const autoUpgrades = () => {
+    let stringUpgrades = '';
+    if (player.ascensionCount === 0) {
+        stringUpgrades = player.upgrades.toString();
+    }
+
+    const buyCheck = player.upgrades.findIndex(function(value, index) {
+        return (index >= 1 && value === 0);
+    });
+    if (buyCheck >= 126) {
+        return;
+    }
+
     if (player.upgrades[90] > 0.5 && player.shoptoggles.generators === true) {
 
         for (let i = 1; i < 6; i++) {
@@ -116,11 +134,15 @@ export const autoUpgrades = () => {
         }
     }
 
-    if (player.singularityCount >= 25) {
+    if (player.singularityCount >= 20 && player.shoptoggles.automations === true) {
         for (let i = 81; i <= 100; i++) {
             if (player.upgrades[i] === 0) {
                 clickUpgrades(i, true);
             }
         }
+    }
+
+    if (player.ascensionCount === 0 && stringUpgrades !== player.upgrades.toString()) {
+        revealStuff();
     }
 }
