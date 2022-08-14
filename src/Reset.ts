@@ -173,6 +173,9 @@ export const updateAutoReset = (i: number) => {
 export const updateTesseractAutoBuyAmount = () => {
     let value = Math.floor(parseFloat((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value)) || 0;
     if (player.resettoggle4 === 2) { // Auto mode: PERCENTAGE
+        if (value > 100) {
+            (DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value = '100';
+        }
         value = Math.min(value, 100);
     }
     player.tesseractAutoBuyerAmount = Math.max(value, 0);
