@@ -680,14 +680,14 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
             if (player.overfluxOrbsAutoBuy) {
                 const orbsAmount = Math.floor(heptAutoSpend / 250000);
-                player.overfluxOrbs += orbsAmount;
-                player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion().mult * orbsAmount / 100;
-                player.wowAbyssals -= 250000 * orbsAmount;
+                if (player.wowAbyssals - (250000 * orbsAmount) >= 0) {
+                    player.overfluxOrbs += orbsAmount;
+                    player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion().mult * orbsAmount / 100;
+                    player.wowAbyssals -= 250000 * orbsAmount;
+                }
                 if (player.wowAbyssals < 0) {
                     player.wowAbyssals = 0;
                 }
-                const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion().mult * orbsAmount / 100;
-                player.overfluxPowder += powderGain;
             }
         }
 
