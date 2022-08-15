@@ -144,7 +144,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             if (level < 1000) {
                 return baseCost * (Math.pow(level + 1, 7) - Math.pow(level, 7))
             } else {
-                return baseCost * (Math.pow(1000, 7) - Math.pow(1000, 7)) * Math.pow(10, level / 1000)
+                return baseCost * (Math.pow(1001, 7) - Math.pow(1000, 7)) * Math.pow(10, level / 1000)
             }
         },
         maxLevel: 9900,
