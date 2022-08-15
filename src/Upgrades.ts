@@ -4,8 +4,7 @@ import Decimal from 'break_infinity.js';
 import { calculateAnts, calculateCorruptionPoints, calculateRuneLevels } from './Calculate';
 import { sumContents } from './Utility';
 import { buyUpgrades } from './Buy';
-import { buyGenerator } from './Generators';
-import { buyAutobuyers } from './Automation';
+import { buyGenerator, buyAutobuyers } from './Automation';
 import { revealStuff } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
@@ -47,8 +46,8 @@ const upgdesc: Record<string, string> = {
     upgdesc35: 'Gain 2% more free Multipliers.',
     upgdesc36: 'Multiply Crystal production by Diamonds, maximum 1e5000x.',
     upgdesc37: 'Multiply Mythos Shard production by the squared logarithm of Diamonds.',
-    upgdesc38: 'Gain +15% more Offerings thanks to generous Discord Server Boosters!',
-    upgdesc39: 'Gain +50% more Ant Speed thanks to generous Discord Server Boosters!',
+    upgdesc38: 'Gain +20% more Offerings thanks to generous Discord Server Boosters!',
+    upgdesc39: 'Gain +60% more Ant Speed thanks to generous Discord Server Boosters!',
     upgdesc40: 'Gain +25% more Ant Sacrifice rewards thanks to generous Discord Server Boosters!',
     upgdesc41: 'Multiply production based on unspent Mythos.',
     upgdesc42: 'Multiply Mythos Shard production based on unspent Diamonds.',
@@ -310,37 +309,7 @@ export const upgradedescriptions = (i: number) => {
     el.style.color = player.upgrades[i] > 0.5 ? 'gold' : 'white';
 
     if (player.toggles[9] === true) {
-        let type: Upgrade | undefined
-        if (i <= 20 && i >= 1) {
-            type = Upgrade.coin
-        }
-        if (i <= 40 && i >= 21) {
-            type = Upgrade.prestige
-        }
-        if (i <= 60 && i >= 41) {
-            type = Upgrade.transcend
-        }
-        if (i <= 80 && i >= 61) {
-            type = Upgrade.reincarnation
-        }
-        if (i <= 87 && i >= 81) {
-            type = Upgrade.prestige
-        }
-        if (i <= 93 && i >= 88) {
-            type = Upgrade.transcend
-        }
-        if (i <= 100 && i >= 94) {
-            type = Upgrade.reincarnation
-        }
-        if (type && i <= 80 && i >= 1) {
-            buyUpgrades(type, i)
-        }
-        if (type && i <= 100 && i >= 81) {
-            buyAutobuyers(i - 80);
-        }
-        if (i <= 120 && i >= 101) {
-            buyGenerator(i - 100);
-        }
+        clickUpgrades(i, false);
     }
 
     let currency = ''
@@ -367,6 +336,90 @@ export const upgradedescriptions = (i: number) => {
     upgradeeffects(i)
 }
 
+export const clickUpgrades = (i: number, auto: boolean) => {
+    // Make sure the upgrade is locked
+    if (
+        player.upgrades[i] !== 0 ||
+        (i <= 40 && i >= 21 && !player.unlocks.prestige) ||
+        (i <= 60 && i >= 41 && !player.unlocks.transcend) ||
+        (i <= 80 && i >= 61 && !player.unlocks.reincarnate) ||
+        (i <= 120 && i >= 81 && !player.unlocks.prestige) ||
+        DOMCacheGetOrSet(`upg${i}`)!.style.display === 'none'
+    ) {
+        return;
+    }
+
+    let type: Upgrade | undefined
+    if (i <= 20 && i >= 1) {
+        type = Upgrade.coin;
+    }
+    if (i <= 40 && i >= 21) {
+        type = Upgrade.prestige;
+    }
+    if (i <= 60 && i >= 41) {
+        type = Upgrade.transcend;
+    }
+    if (i <= 80 && i >= 61) {
+        type = Upgrade.reincarnation;
+    }
+    if (i <= 87 && i >= 81) {
+        type = Upgrade.prestige;
+    }
+    if (i <= 93 && i >= 88) {
+        type = Upgrade.transcend;
+    }
+    if (i <= 100 && i >= 94) {
+        type = Upgrade.reincarnation;
+    }
+    if (type && i <= 80 && i >= 1) {
+        buyUpgrades(type, i, auto);
+    }
+    if (type && i <= 100 && i >= 81) {
+        buyAutobuyers(i - 80, auto);
+    }
+    if (i <= 120 && i >= 101) {
+        buyGenerator(i - 100, auto);
+    }
+    if (i <= 125 && i >= 121) {
+        buyUpgrades(Upgrade.coin, i, auto);
+    }
+}
+
+export const categoryUpgrades = (i: number, auto: boolean) => {
+    let min = 0;
+    let max = 0;
+    if (i === 1) {
+        min = 121;
+        max = 125;
+        for (let i = 1; i <= 20; i++) {
+            clickUpgrades(i, auto);
+        }
+    }
+    if (i === 2) {
+        min = 21;
+        max = 40;
+    }
+    if (i === 3) {
+        min = 41;
+        max = 60;
+    }
+    if (i === 4) {
+        min = 101;
+        max = 120;
+    }
+    if (i === 5) {
+        min = 81;
+        max = 100;
+    }
+    if (i === 6) {
+        min = 61;
+        max = 80;
+    }
+    for (let i = min; i <= max; i++) {
+        clickUpgrades(i, auto);
+    }
+}
+
 const returnCrystalUpgDesc = (i: number) => crystalupgdesc[i]()
 
 export const crystalupgradedescriptions = (i: number) => {
@@ -377,7 +430,7 @@ export const crystalupgradedescriptions = (i: number) => {
 
     const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)))
     DOMCacheGetOrSet('crystalupgradedescription').textContent = returnCrystalUpgDesc(i)
-    DOMCacheGetOrSet('crystalupgradeslevel').textContent = '' + p;
+    DOMCacheGetOrSet('crystalupgradeslevel').textContent = '' + format(p, 0, true);
     DOMCacheGetOrSet('crystalupgradescost').textContent = format(q) + ''
 }
 
@@ -398,7 +451,7 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
             DOMCacheGetOrSet('upgradedescription').style.color = 'gold'
         }
     } else {
-        el.style.backgroundColor = 'Black'
+        el.style.backgroundColor = ''
     }
 
     if (!fast) {

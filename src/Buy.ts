@@ -54,13 +54,26 @@ const getCostAccelerator = (buyingTo: number) => {
 }
 
 export const buyAccelerator = (autobuyer?: boolean) => {
-    // Start buying at the current amount bought + 1
-    let buyTo = player.acceleratorBought + 1;
-    if (player.acceleratorBought >= 1e15 || player.coins.gte(Decimal.pow(10, 1e30))){
-        player.acceleratorBought = 1e15;
-        player.acceleratorCost = Decimal.pow(10, 1e30);
+    const buyStart = player.acceleratorBought;
+    const buymax = Math.pow(10, 15);
+    // If at least buymax, we will use a different formulae
+    if (buyStart >= buymax) {
+        const diminishingExponent = 1/8
+
+        const log10Resource = Decimal.log10(player.coins)
+        const log10QuadrillionCost = Decimal.log10(getCostAccelerator(buymax))
+
+        const buyable = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        const thisCost = getCostAccelerator(buyable)
+
+        player.acceleratorBought = buyable;
+        player.acceleratorCost = thisCost;
         return;
     }
+
+    // Start buying at the current amount bought + 1
+    const buydefault = buyStart + smallestInc(buyStart);
+    let buyTo = buydefault;
 
     let cashToBuy = getCostAccelerator(buyTo);
     while (player.coins.gte(cashToBuy)) {
@@ -69,13 +82,12 @@ export const buyAccelerator = (autobuyer?: boolean) => {
         cashToBuy = getCostAccelerator(buyTo);
     }
     let stepdown = Math.floor(buyTo / 8);
-    while (stepdown !== 0) {
-
+    while (stepdown >= smallestInc(buyTo)) {
         // if step down would push it below out of expense range then divide step down by 2
         if (getCostAccelerator(buyTo - stepdown).lte(player.coins)) {
             stepdown = Math.floor(stepdown / 2);
         } else {
-            buyTo = buyTo - stepdown;
+            buyTo = buyTo - Math.max(smallestInc(buyTo), stepdown);
         }
     }
 
@@ -85,14 +97,20 @@ export const buyAccelerator = (autobuyer?: boolean) => {
         }
     }
 
-    let buyFrom = Math.max(buyTo - 7, player.acceleratorBought + 1);
+    let buyFrom = Math.max(buyTo - 6 - smallestInc(buyTo), buydefault);
     let thisCost = getCostAccelerator(buyFrom);
     while (buyFrom <= buyTo && player.coins.gte(thisCost)) {
+        if (buyFrom >= buymax){
+            buyFrom = buymax;
+        }
         player.coins = player.coins.sub(thisCost);
         player.acceleratorBought = buyFrom;
-        buyFrom = buyFrom + 1;
+        buyFrom = buyFrom + smallestInc(buyFrom);
         thisCost = getCostAccelerator(buyFrom);
         player.acceleratorCost = thisCost;
+        if (buyFrom >= buymax){
+            return;
+        }
     }
 
     player.prestigenoaccelerator = false;
@@ -125,7 +143,7 @@ export const buyAccelerator = (autobuyer?: boolean) => {
 const getCostMultiplier = (buyingTo: number) => {
     --buyingTo;
 
-    const originalCost = 1e5;
+    const originalCost = 1e4;
     let cost = new Decimal(originalCost);
     cost = cost.times(Decimal.pow(10, buyingTo / G['costDivisor']));
 
@@ -153,13 +171,27 @@ const getCostMultiplier = (buyingTo: number) => {
 }
 
 export const buyMultiplier = (autobuyer?: boolean) => {
-    // Start buying at the current amount bought + 1
-    let buyTo = player.multiplierBought + 1;
-    if (player.multiplierBought >= 1e15 || player.coins.gte(Decimal.pow(10, 1e30))){
-        player.multiplierBought = 1e15;
-        player.multiplierCost = Decimal.pow(10, 1e30);
+    const buyStart = player.multiplierBought;
+    const buymax = Math.pow(10, 15);
+    // If at least buymax, we will use a different formulae
+    if (buyStart >= buymax) {
+        const diminishingExponent = 1/8
+
+        const log10Resource = Decimal.log10(player.coins)
+        const log10QuadrillionCost = Decimal.log10(getCostMultiplier(buymax))
+
+        const buyable = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        const thisCost = getCostMultiplier(buyable)
+
+        player.multiplierBought = buyable;
+        player.multiplierCost = thisCost;
         return;
     }
+
+    // Start buying at the current amount bought + 1
+    const buydefault = buyStart + smallestInc(buyStart);
+    let buyTo = buydefault;
+
     let cashToBuy = getCostMultiplier(buyTo);
     while (player.coins.gte(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
@@ -167,13 +199,12 @@ export const buyMultiplier = (autobuyer?: boolean) => {
         cashToBuy = getCostMultiplier(buyTo);
     }
     let stepdown = Math.floor(buyTo / 8);
-    while (stepdown !== 0) {
-
+    while (stepdown >= smallestInc(buyTo)) {
         // if step down would push it below out of expense range then divide step down by 2
         if (getCostMultiplier(buyTo - stepdown).lte(player.coins)) {
             stepdown = Math.floor(stepdown / 2);
         } else {
-            buyTo = buyTo - stepdown;
+            buyTo = buyTo - Math.max(smallestInc(buyTo), stepdown);
         }
     }
 
@@ -183,18 +214,20 @@ export const buyMultiplier = (autobuyer?: boolean) => {
         }
     }
 
-    let buyFrom = Math.max(buyTo - 7, player.multiplierBought + 1);
+    let buyFrom = Math.max(buyTo - 6 - smallestInc(buyTo), buydefault);
     let thisCost = getCostMultiplier(buyFrom);
     while (buyFrom <= buyTo && player.coins.gte(thisCost)) {
+        if (buyFrom >= buymax){
+            buyFrom = buymax;
+        }
         player.coins = player.coins.sub(thisCost);
         player.multiplierBought = buyFrom;
-        if (buyFrom >= 1e15){
-            player.multiplierBought = 1e15;
-            return;
-        }
-        buyFrom = buyFrom + 1;
+        buyFrom = buyFrom + smallestInc(buyFrom);
         thisCost = getCostMultiplier(buyFrom);
         player.multiplierCost = thisCost;
+        if (buyFrom >= buymax){
+            return;
+        }
     }
 
     player.prestigenomultiplier = false;
@@ -278,7 +311,7 @@ const known_log10s = function () {
     return obj;
 }();
 
-const coinBuildingCosts = [100, 2000, 4e4, 8e5, 1.6e7] as const;
+const coinBuildingCosts = [100, 1000, 2e4, 4e5, 8e6] as const;
 const diamondBuildingCosts = [100, 1e5, 1e15, 1e40, 1e100] as const;
 const mythosAndParticleBuildingCosts = [1, 1e2, 1e4, 1e8, 1e16] as const;
 
@@ -391,43 +424,47 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
     const pos = G['ordinals'][zeroIndex];
     const [originalCost, num] = getOriginalCostAndNum(index, type);
 
-    const BUYMAX = Math.pow(10, 15) - 1;
-    const COINMAX = 1e99;
+    const buymax = Math.pow(10, 15);
+    const coinmax = 1e99;
     const r = getReductionValue();
     const tag = buyProducerTypes[type][0];
 
     const posOwnedType = `${pos}Owned${type}` as const;
 
-    // Start buying at the current amount bought + 1
     const buyStart = player[posOwnedType];
-
-    // If at least 1e15, we will use a different formulae
-    if (buyStart >= BUYMAX) {
+    // If at least buymax, we will use a different formulae
+    if (buyStart >= buymax) {
         const diminishingExponent = 1/8
 
         const log10Resource = Decimal.log10(player[tag])
-        const log10QuadrillionCost = Decimal.log10(getCostInternal(originalCost, BUYMAX, type, num, r))
+        const log10QuadrillionCost = Decimal.log10(getCostInternal(originalCost, buymax, type, num, r))
 
-        const buyable = Math.floor(Math.pow(10,15) * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        const buyable = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        const thisCost = getCostInternal(originalCost, buyable, type, num, r)
 
         player[posOwnedType] = buyable;
-        return;
-    }
-    // Degenerate Case: return maximum if coins is too large
-    if (player[tag].gte(Decimal.pow(10, COINMAX))) {
-        player[posOwnedType] = BUYMAX;
+        player[`${pos}Cost${type}` as const] = thisCost;
         return;
     }
 
+    // Start buying at the current amount bought + 1
+    const buydefault = buyStart + smallestInc(buyStart);
     let buyInc = 1;
+
     let cashToBuy = getCostInternal(originalCost, buyStart + buyInc, type, num, r);
-    while (player[tag].gte(cashToBuy)) {
+
+    // Degenerate Case: return maximum if coins is too large
+    if (cashToBuy.exponent >= coinmax || !player[tag].gte(cashToBuy)) {
+        return;
+    }
+
+    while (cashToBuy.exponent < coinmax && player[tag].gte(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
         buyInc = buyInc * 4;
         cashToBuy = getCostInternal(originalCost, buyStart + buyInc, type, num, r);
     }
     let stepdown = Math.floor(buyInc / 8);
-    while (stepdown !== 0) {
+    while (stepdown >= smallestInc(buyInc)) {
         // if step down would push it below out of expense range then divide step down by 2
         if (getCostInternal(originalCost, buyStart + buyInc - stepdown, type, num, r).lte(player[tag])) {
             stepdown = Math.floor(stepdown / 2);
@@ -437,18 +474,18 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
     }
 
     // Resolves the infamous autobuyer bug, for large values. This prevents the notion of even being able
-    // to go above the BUYMAX. Future instances will also not check more than the first few lines
+    // to go above the buymax. Future instances will also not check more than the first few lines
     // meaning that the code below this cannot run if this ever runs.
-    if (buyStart + buyInc >= BUYMAX) {
-        player[posOwnedType] = BUYMAX
-        player[`${pos}Cost${type}` as const] = getCostInternal(originalCost, BUYMAX, type, num, r)
+    if (buyStart + buyInc >= buymax) {
+        player[posOwnedType] = buymax
+        player[`${pos}Cost${type}` as const] = getCostInternal(originalCost, buymax, type, num, r)
         return
     }
 
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-    let buyFrom = Math.max(buyStart + buyInc - 7, player[posOwnedType] + 1);
+    let buyFrom = Math.max(buyStart + buyInc - 6 - smallestInc(buyInc), buydefault);
     let thisCost = getCostInternal(originalCost, buyFrom, type, num, r);
-    while (buyFrom < buyStart + buyInc && player[tag].gte(thisCost)) {
+    while (buyFrom <= buyStart + buyInc && player[tag].gte(thisCost)) {
         player[tag] = player[tag].sub(thisCost);
         player[posOwnedType] = buyFrom;
         buyFrom = buyFrom + smallestInc(buyFrom);
@@ -477,7 +514,7 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
     const posOwnedType = `${pos}Owned${type}` as const;
 
 
-    while (player[tag].gte(player[posCostType]) && G['ticker'] < buythisamount) {
+    while (player[tag].gte(player[posCostType]) && G['ticker'] < buythisamount && player[posOwnedType] < Number.MAX_SAFE_INTEGER) {
         player[tag] = player[tag].sub(player[posCostType]);
         player[posOwnedType] += 1;
         player[posCostType] = player[posCostType].times(Decimal.pow(1.25, num));
@@ -594,20 +631,34 @@ export const boostAccelerator = (automated?: boolean) => {
             }
         }
     } else {
-        if (player.acceleratorBoostBought >= 1e15 || player.prestigePoints.gte(Decimal.pow(10, 1e30))){
-            player.acceleratorBoostBought = 1e15;
-            player.acceleratorBoostCost = Decimal.pow(10, 1e30);
+        const buyStart = player.acceleratorBoostBought;
+        const buymax = Math.pow(10, 15);
+        // If at least buymax, we will use a different formulae
+        if (buyStart >= buymax) {
+            const diminishingExponent = 1/8
+
+            const log10Resource = Decimal.log10(player.prestigePoints)
+            const log10QuadrillionCost = Decimal.log10(getAcceleratorBoostCost(buymax))
+
+            const buyable = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+            const thisCost = getAcceleratorBoostCost(buyable)
+
+            player.acceleratorBoostBought = buyable;
+            player.acceleratorBoostCost = thisCost;
             return;
         }
-        const buyStart = player.acceleratorBoostBought;
+
+        // Start buying at the current amount bought + 1
+        const buydefault = buyStart + smallestInc(buyStart);
         let buyInc = 1;
+
         let cost = getAcceleratorBoostCost(buyStart + buyInc);
         while (player.prestigePoints.gte(cost)) {
             buyInc *= 4;
             cost = getAcceleratorBoostCost(buyStart + buyInc);
         }
         let stepdown = Math.floor(buyInc / 8)
-        while (stepdown !== 0) {
+        while (stepdown >= smallestInc(buyInc)) {
             // if step down would push it below out of expense range then divide step down by 2
             if (getAcceleratorBoostCost(buyStart + buyInc - stepdown).lte(player.prestigePoints)) {
                 stepdown = Math.floor(stepdown / 2);
@@ -616,17 +667,23 @@ export const boostAccelerator = (automated?: boolean) => {
             }
         }
         // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-        let buyFrom = Math.max(buyStart + buyInc - 7, player.acceleratorBoostBought + 1);
+        let buyFrom = Math.max(buyStart + buyInc - 6 - smallestInc(buyInc), buydefault);
         let thisCost = getAcceleratorBoostCost(player.acceleratorBoostBought);
-        while (buyFrom < buyStart + buyInc && player.prestigePoints.gte(getAcceleratorBoostCost(buyFrom))) {
+        while (buyFrom <= buyStart + buyInc && player.prestigePoints.gte(getAcceleratorBoostCost(buyFrom))) {
             player.prestigePoints = player.prestigePoints.sub(thisCost);
+            if (buyFrom >= buymax){
+                buyFrom = buymax;
+            }
             player.acceleratorBoostBought = buyFrom;
-            buyFrom = buyFrom + smallestInc(buyInc);
+            buyFrom = buyFrom + smallestInc(buyFrom);
             thisCost = getAcceleratorBoostCost(buyFrom);
             player.acceleratorBoostCost = thisCost;
 
             player.transcendnoaccelerator = false;
             player.reincarnatenoaccelerator = false;
+            if (buyFrom >= buymax){
+                return;
+            }
         }
     }
 
@@ -693,7 +750,27 @@ export const buyParticleBuilding = (
     const originalCost = mythosAndParticleBuildingCosts[zeroIndex];
     const pos = G['ordinals'][zeroIndex];
     const key = `${pos}OwnedParticles` as const;
-    let buyTo = player[key] + 1;
+    const buyStart = player[key];
+    const buymax = Math.pow(10, 15);
+    // If at least buymax, we will use a different formulae
+    if (buyStart >= buymax) {
+        const diminishingExponent = 1/8
+
+        const log10Resource = Decimal.log10(player.reincarnationPoints)
+        const log10QuadrillionCost = Decimal.log10(getParticleCost(originalCost, buymax))
+
+        const buyable = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        const thisCost = getParticleCost(originalCost, buyable)
+
+        player[key] = buyable;
+        player[`${pos}CostParticles` as const] = thisCost;
+        return;
+    }
+
+    // Start buying at the current amount bought + 1
+    const buydefault = buyStart + smallestInc(buyStart);
+    let buyTo = buydefault;
+
     let cashToBuy = getParticleCost(originalCost, buyTo);
     while (player.reincarnationPoints.gte(cashToBuy)) {
         // then multiply by 4 until it reaches just above the amount needed
@@ -701,29 +778,28 @@ export const buyParticleBuilding = (
         cashToBuy = getParticleCost(originalCost, buyTo);
     }
     let stepdown = Math.floor(buyTo / 8);
-    while (stepdown !== 0) {
-
+    while (stepdown >= smallestInc(buyTo)) {
         // if step down would push it below out of expense range then divide step down by 2
         if (getParticleCost(originalCost, buyTo - stepdown).lte(player.reincarnationPoints)) {
             stepdown = Math.floor(stepdown / 2);
         } else {
-            buyTo = buyTo - stepdown;
+            buyTo = buyTo - Math.max(smallestInc(buyTo), stepdown);
         }
     }
 
     if (!autobuyer) {
-        if (player.particlebuyamount + player[key] < buyTo) {
-            buyTo = player[key] + player.particlebuyamount + 1;
+        if (player.particlebuyamount + buyStart < buyTo) {
+            buyTo = buyStart + player.particlebuyamount + smallestInc(player[key] + player.particlebuyamount);
         }
     }
 
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-    let buyFrom = Math.max(buyTo - 7, player[key] + 1);
+    let buyFrom = Math.max(buyTo - 6 - smallestInc(buyTo), buydefault);
     let thisCost = getParticleCost(originalCost, buyFrom);
-    while (buyFrom < buyTo && player.reincarnationPoints.gte(getParticleCost(originalCost, buyFrom))) {
+    while (buyFrom <= buyTo && player.reincarnationPoints.gte(thisCost)) {
         player.reincarnationPoints = player.reincarnationPoints.sub(thisCost);
         player[key] = buyFrom;
-        buyFrom = buyFrom + 1;
+        buyFrom = buyFrom + smallestInc(buyFrom);
         thisCost = getParticleCost(originalCost, buyFrom);
         player[`${pos}CostParticles` as const] = thisCost;
     }

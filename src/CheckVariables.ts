@@ -139,7 +139,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.roombaResearchIndex = 0;
     }
     if (data.history === undefined) {
-        player.history = { ants: [], ascend: [], reset: [] };
+        player.history = { ants: [], ascend: [], reset: [], singularity: [] };
     }
     if (data.autoChallengeRunning === undefined) {
         player.autoChallengeRunning = false
@@ -269,6 +269,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         cookies2: new SingularityUpgrade(singularityData['cookies2']),
         cookies3: new SingularityUpgrade(singularityData['cookies3']),
         cookies4: new SingularityUpgrade(singularityData['cookies4']),
+        cookies5: new SingularityUpgrade(singularityData['cookies5']),
         ascensions: new SingularityUpgrade(singularityData['ascensions']),
         corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
         corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
@@ -301,7 +302,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
         singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
         singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
-        wowPass3: new SingularityUpgrade(singularityData['wowPass3'])
+        wowPass3: new SingularityUpgrade(singularityData['wowPass3']),
+        ultimatePen: new SingularityUpgrade(singularityData['ultimatePen']),
+        platonicTau: new SingularityUpgrade(singularityData['platonicTau']),
+        platonicAlpha: new SingularityUpgrade(singularityData['platonicAlpha']),
+        platonicDelta: new SingularityUpgrade(singularityData['platonicDelta'])
     }
 
     player.octeractUpgrades = {
@@ -599,6 +604,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.totalQuarksEver = 0;
     }
 
+    if (data.hotkeys === undefined) {
+        player.hotkeys = {};
+        player.theme = 'Dark Mode';
+    }
+
     // Update (read: check) for undefined shop upgrades. Also checks above max level.
     const shopKeys = Object.keys(blankSave['shopUpgrades']) as (keyof Player['shopUpgrades'])[];
     for (const shopUpgrade of shopKeys) {
@@ -634,6 +644,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                 if (player.singularityUpgrades[k].minimumSingularity > player.singularityCount) {
                     player.singularityUpgrades[k].refund()
                 }
+
                 const cost = player.singularityUpgrades[k].level * (player.singularityUpgrades[k].level + 1) *
                              player.singularityUpgrades[k].costPerLevel / 2
                 if (player.singularityUpgrades[k].maxLevel !== -1 &&
