@@ -7,17 +7,18 @@ import { Alert, Prompt, revealStuff } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 
 export const updateSingularityPenalties = (): void => {
+    const singularityCount = player.singularityCount;
     const color = player.runelevels[6] > 0 ? 'green' : 'red';
-    const platonic = (player.singularityCount > 36) ? `Platonic Upgrade costs are multiplied by ${format(calculateSingularityDebuff('Platonic Costs'), 2, true)}.` : '';
-    const hepteract = (player.singularityCount > 50) ? `Hepteract Forge costs are multiplied by ${format(calculateSingularityDebuff('Hepteract Costs'), 2, true)}.` : '';
-    const str = getSingularityOridnalText(player.singularityCount) +
-                `<br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed'), 2, true)}.
-                 Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed'), 2, true)}
-                 Offering Gain is divided by ${format(calculateSingularityDebuff('Offering'), 2, true)}
-                 Obtainium Gain is divided by ${format(calculateSingularityDebuff('Obtainium'), 2, true)}
-                 Cube Gain is divided by ${format(calculateSingularityDebuff('Cubes'), 2, true)}.
-                 Research Costs are multiplied by ${format(calculateSingularityDebuff('Researches'), 2, true)}.
-                 Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(calculateSingularityDebuff('Cube Upgrades'), 2, true)}.
+    const platonic = (singularityCount > 36) ? `Platonic Upgrade costs are multiplied by ${format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}.` : '';
+    const hepteract = (singularityCount > 50) ? `Hepteract Forge costs are multiplied by ${format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)}.` : '';
+    const str = getSingularityOridnalText(singularityCount) +
+                `<br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed', singularityCount), 2, true)}.
+                 Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed', singularityCount), 2, true)}
+                 Offering Gain is divided by ${format(calculateSingularityDebuff('Offering', singularityCount), 2, true)}
+                 Obtainium Gain is divided by ${format(calculateSingularityDebuff('Obtainium', singularityCount), 2, true)}
+                 Cube Gain is divided by ${format(calculateSingularityDebuff('Cubes', singularityCount), 2, true)}.
+                 Research Costs are multiplied by ${format(calculateSingularityDebuff('Researches', singularityCount), 2, true)}.
+                 Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)}.
                  ${platonic}
                  ${hepteract}
                  <br><span style='color: ${color}'>Antiquities of Ant God is ${(player.runelevels[6] > 0) ? '' : 'NOT'} purchased. Penalties are ${(player.runelevels[6] > 0) ? '' : 'NOT'} dispelled!</span>`
@@ -804,6 +805,13 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Hepteract Autocraft',
+        levels: [1],
+        description: () => {
+            return 'Hepteract Autocraft will be unlocked'
+        }
+    },
+    {
         name: 'Generous Orbs',
         levels: [1, 2, 5, 10, 15, 20, 25, 30, 35],
         description: (n: number, levels: number[]) => {
@@ -824,6 +832,17 @@ export const singularityPerks: SingularityPerk[] = [
                 }
             }
             return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 215%'
+        }
+    },
+    {
+        name: 'Research for Dummies',
+        levels: [1, 11],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'You permanently keep Auto Research'
+            } else {
+                return 'You can Research using Hover to Buy'
+            }
         }
     },
     {
@@ -861,36 +880,10 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Shop Special Offer',
-        levels: [5, 20, 51],
-        description: (n: number, levels: number[]) => {
-            if (n >= levels[2]) {
-                return 'Reincarnation and Ascension tier Shop upgrades are kept permanently!'
-            } else if (n >= levels[1]) {
-                return 'You permanently keep 100 free levels of each Shop upgrade in the first row'
-            } else {
-                return 'You start each Singularity with 10 free levels of each Shop upgrade in the first row'
-            }
-        }
-    },
-    {
         name: 'A particular improvement',
         levels: [5],
         description: () => {
             return 'You start each Ascension with Autobuyers for Particle buildings unlocked'
-        }
-    },
-    {
-        name: 'Automation Upgrades',
-        levels: [10, 25, 101],
-        description: (n: number, levels: number[]) => {
-            if (n >= levels[2]) {
-                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
-            } else if (n >= levels[1]) {
-                return 'You always have w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
-            } else {
-                return 'You always have w1x4, w1x5 and w1x6.'
-            }
         }
     },
     {
@@ -917,6 +910,19 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Shop Special Offer',
+        levels: [5, 20, 51],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[2]) {
+                return 'Reincarnation and Ascension tier Shop upgrades are kept permanently!'
+            } else if (n >= levels[1]) {
+                return 'You permanently keep 100 free levels of each Shop upgrade in the first row'
+            } else {
+                return 'You start each Singularity with 10 free levels of each Shop upgrade in the first row'
+            }
+        }
+    },
+    {
         name: 'Respec, be gone!',
         levels: [7],
         description: () => {
@@ -937,27 +943,17 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Hepteract Autocraft',
-        levels: [1],
-        description: () => {
-            return 'Hepteract Autocraft will be unlocked'
-        }
-    },
-    {
-        name: 'Automation Cubes',
-        levels: [35],
-        description: () => {
-            return 'Ascension allows you to automatically open the cubes you have'
-        }
-    },
-    {
-        name: 'Research for Dummies',
-        levels: [1, 11],
+        name: 'Automation Upgrades',
+        levels: [10, 25, 30, 101],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[1]) {
-                return 'You permanently keep Auto Research'
+            if (n >= levels[3]) {
+                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
+            } else if (n >= levels[2]) {
+                return 'You always have r6x5, r6x10, r6x20, w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
+            } else if (n >= levels[1]) {
+                return 'You always have w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
             } else {
-                return 'You can Research using Hover to Buy'
+                return 'You always have w1x4, w1x5 and w1x6.'
             }
         }
     },
@@ -969,6 +965,34 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Derpsmith\'s Cornucopia',
+        levels: [18, 38, 58, 78, 88, 98, 118, 148],
+        description: (n: number, levels: number[]) => {
+            let counter = 0
+            for (const singCount of levels) {
+                if (n >= singCount) {
+                    counter += 1
+                }
+            }
+
+            return `With blessing from the Derpsmith, every singularity grants +${counter}% more Octeracts!`
+        }
+    },
+    {
+        name: 'Better cube opening',
+        levels: [25],
+        description: () => {
+            return 'Researches related to opening cubes will no longer reset on Ascension'
+        }
+    },
+    {
+        name: 'Real time Auto Ascend',
+        levels: [25],
+        description: () => {
+            return 'You can now automatically ascend based on the length of the Ascension'
+        }
+    },
+    {
         name: 'Advanced Runes Autobuyer',
         levels: [30, 50],
         description: (n: number, levels: number[]) => {
@@ -977,13 +1001,6 @@ export const singularityPerks: SingularityPerk[] = [
             } else {
                 return 'Runes autobuyer will also level up Infinite Ascent'
             }
-        }
-    },
-    {
-        name: 'Autobuy Talismans Resources',
-        levels: [40],
-        description: () => {
-            return 'Runes autobuyer can also buy Talisman Shards and Fragments'
         }
     },
     {
@@ -1000,17 +1017,24 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Derpsmith\'s Cornucopia',
-        levels: [18, 38, 58, 78, 88, 98, 118, 148],
-        description: (n: number, levels: number[]) => {
-            let counter = 0
-            for (const singCount of levels) {
-                if (n >= singCount) {
-                    counter += 1
-                }
-            }
-
-            return `With blessing from the Derpsmith, every singularity grants +${counter}% more Octeracts!`
+        name: 'Automation Cubes',
+        levels: [35],
+        description: () => {
+            return 'Ascension allows you to automatically open the cubes you have'
+        }
+    },
+    {
+        name: 'Autobuy Talismans Resources',
+        levels: [40],
+        description: () => {
+            return 'Runes autobuyer can also buy Talisman Shards and Fragments'
+        }
+    },
+    {
+        name: 'Auto Ascension Challenge Sweep',
+        levels: [101],
+        description: () => {
+            return 'Auto Challenge Sweep can run Ascension Challenges if you have better Instant Challenge Completions'
         }
     }
 ]
@@ -1207,23 +1231,23 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
         effectiveSingularities *= 2.5
         effectiveSingularities *= Math.min(6, 1.5 * singularityCount / 25 - 0.5)
     }
-    if (player.singularityCount > 36) {
+    if (singularityCount > 36) {
         effectiveSingularities *= 4
-        effectiveSingularities *= Math.min(5, player.singularityCount / 18 - 1)
-        effectiveSingularities *= Math.pow(1.1, Math.min(player.singularityCount - 36, 64))
+        effectiveSingularities *= Math.min(5, singularityCount / 18 - 1)
+        effectiveSingularities *= Math.pow(1.1, Math.min(singularityCount - 36, 64))
     }
     if (singularityCount > 50) {
         effectiveSingularities *= 6
         effectiveSingularities *= Math.min(8, 2 * singularityCount / 50 - 1)
-        effectiveSingularities *= Math.pow(1.1, Math.min(player.singularityCount - 50, 50))
+        effectiveSingularities *= Math.pow(1.1, Math.min(singularityCount - 50, 50))
     }
     if (singularityCount > 100) {
         effectiveSingularities *= singularityCount / 25
-        effectiveSingularities *= Math.pow(1.05, player.singularityCount - 100)
+        effectiveSingularities *= Math.pow(1.05, singularityCount - 100)
     }
     if (singularityCount > 250) {
         effectiveSingularities *= singularityCount / 62.5
-        effectiveSingularities *= Math.pow(1.04, player.singularityCount - 250)
+        effectiveSingularities *= Math.pow(1.04, singularityCount - 250)
     }
 
     if (debuff === 'Offering') {
@@ -1239,9 +1263,9 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
     } else if (debuff === 'Cubes') {
         return 1 + Math.sqrt(effectiveSingularities) / 4
     } else if (debuff === 'Platonic Costs') {
-        return (player.singularityCount > 36) ? 1 + Math.pow(effectiveSingularities, 3/10) / 12 : 1
+        return (singularityCount > 36) ? 1 + Math.pow(effectiveSingularities, 3/10) / 12 : 1
     } else if (debuff === 'Hepteract Costs') {
-        return (player.singularityCount > 50) ? 1 + Math.pow(effectiveSingularities, 11/50) / 25 : 1
+        return (singularityCount > 50) ? 1 + Math.pow(effectiveSingularities, 11/50) / 25 : 1
     } else {
         // Cube upgrades
         return Math.cbrt(effectiveSingularities + 1)
