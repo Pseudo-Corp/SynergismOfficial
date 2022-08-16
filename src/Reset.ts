@@ -998,8 +998,14 @@ export const singularity = async (): Promise<void> => {
 
     // reset the rune instantly to hopefully prevent a double singularity
     player.runelevels[6] = 0;
+
+    let incrementSingCount = 1
+    incrementSingCount += +player.singularityUpgrades.singFastForward.getEffect().bonus
+    incrementSingCount += +player.singularityUpgrades.singFastForward2.getEffect().bonus
+    incrementSingCount += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
+
     player.goldenQuarks += calculateGoldenQuarkGain();
-    player.singularityCount += 1;
+    player.singularityCount += incrementSingCount;
     player.totalQuarksEver += player.quarksThisSingularity;
     await resetShopUpgrades(true);
     const hold = Object.assign({}, blankSave, {

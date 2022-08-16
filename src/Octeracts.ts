@@ -335,8 +335,21 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 desc: `Octeract Gain per OOM Ascension count +${n}%`
             }
         }
+    },
+    octeractFastForward: {
+        name: 'Derpsmith\'s Singularity Discombobulator',
+        description: 'Each level makes Singularity give +100% Golden Quarks (additive) and singularity at all time highest count grants +1 singularity count!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(1e8, level)
+        },
+        maxLevel: 2,
+        costPerLevel: 1e8,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `Singularities give ${100 * n}% more GQ and count as ${n} more.`
+            }
+        }
     }
-
-
 }
 

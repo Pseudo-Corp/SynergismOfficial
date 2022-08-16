@@ -749,6 +749,45 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             }
         }
     },
+    platonicPhi: {
+        name: 'Platonic PHI',
+        description: 'Time follows you toward the past as well. Gain 5 additional free Singularity Upgrades per day in your singularity from code daily, up to +50 after 10 days.',
+        maxLevel: 1,
+        costPerLevel: 2e11,
+        minimumSingularity: 152,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `This upgrade has ${n > 0 ? '' : 'NOT'} been purchased!`
+            }
+        }
+    },
+    singFastForward: {
+        name: 'Etherflux Singularities',
+        description: 'Golden Quark gained by Singularity is increased by 100% (additive), and going singular at your all time highest count gives +1 singularity count!',
+        maxLevel: 1,
+        costPerLevel: 1e7,
+        minimumSingularity: 50,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `You've ${n > 0 ? '' : 'NOT'} transformed the Etherflux!`
+            }
+        }
+    },
+    singFastForward2: {
+        name: 'Aetherflux Singularities',
+        description: 'Golden Quark gained by Singularity is increased by 100% (additive) and going singular at your all time highest count gives +1 singularity count! It\'s like Etherflux but with an A.',
+        maxLevel: 1,
+        costPerLevel: 1e11 - 1,
+        minimumSingularity: 150,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `You've ${n > 0 ? '' : 'NOT'} transformed the Aetherflux!`
+            }
+        }
+    },
     ultimatePen: {
         name: 'The Ultimate Pen',
         description: 'You. It is you who is the author of your own story!',
@@ -1243,11 +1282,10 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
     }
     if (singularityCount > 100) {
         effectiveSingularities *= singularityCount / 25
-        effectiveSingularities *= Math.pow(1.05, singularityCount - 100)
+        effectiveSingularities *= Math.pow(1.1, singularityCount - 100)
     }
     if (singularityCount > 250) {
         effectiveSingularities *= singularityCount / 62.5
-        effectiveSingularities *= Math.pow(1.04, singularityCount - 250)
     }
 
     if (debuff === 'Offering') {

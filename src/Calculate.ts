@@ -1598,13 +1598,19 @@ export const calculateGoldenQuarkGain = ():number => {
     const bonus = (player.singularityCount < 10) ? (100 - 10 * player.singularityCount) : 0;
     const gainFromQuarks = player.quarksThisSingularity / 1e5;
 
+    let fastForwardMultiplier = 1;
+    fastForwardMultiplier += +player.singularityUpgrades.singFastForward.getEffect().bonus;
+    fastForwardMultiplier += +player.singularityUpgrades.singFastForward2.getEffect().bonus;
+    fastForwardMultiplier += +player.octeractUpgrades.octeractFastForward.getEffect().bonus;
+
     const allGoldenQuarkMultiplier = productContents([
         1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2,
         1 + player.worlds.BONUS / 100,
         (+player.singularityUpgrades.goldenQuarks1.getEffect().bonus) *
         (+player.singularityUpgrades.goldenQuarks2.getEffect().bonus),
         1 + 0.12 * player.cubeUpgrades[69],
-        1 + calculateEventBuff('Golden Quarks')
+        1 + calculateEventBuff('Golden Quarks'),
+        fastForwardMultiplier
     ]);
 
     return (base + gainFromQuarks) * allGoldenQuarkMultiplier + bonus;
