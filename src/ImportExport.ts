@@ -384,6 +384,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
             rolls += player.shopUpgrades.shopImprovedDaily2
             rolls += player.shopUpgrades.shopImprovedDaily3
             rolls += player.shopUpgrades.shopImprovedDaily4
+            rolls += (+player.singularityUpgrades.platonicPhi.getEffect().bonus *
+                        Math.min(50, 5 * player.singularityCounter / (3600 * 24)))
+
             rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
             rolls = Math.floor(rolls)
 
