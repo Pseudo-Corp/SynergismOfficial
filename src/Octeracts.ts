@@ -181,7 +181,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costPerLevel: 1e-9,
         effect: (n: number) => {
             return {
-                bonus: n/100,
+                bonus: 1 - n/100,
                 desc: `Golden Quarks are ${n}% cheaper!`
             }
         }
