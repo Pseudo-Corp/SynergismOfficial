@@ -1453,7 +1453,7 @@ export const calculateOcteractMultiplier = (score = -1) => {
         +player.singularityUpgrades.singOcteractGain.getEffect().bonus,
         // Pieces of Eight
         +player.singularityUpgrades.singOcteractGain2.getEffect().bonus,
-        // The Obelisk SHaped like an Octagon
+        // The Obelisk Shaped like an Octagon
         +player.singularityUpgrades.singOcteractGain3.getEffect().bonus,
         // Octahedral Synthesis
         +player.singularityUpgrades.singOcteractGain4.getEffect().bonus,
@@ -1464,10 +1464,10 @@ export const calculateOcteractMultiplier = (score = -1) => {
         // Octeract Cogenesis
         +player.octeractUpgrades.octeractGain.getEffect().bonus,
         // Digital Octeract Accumulator
-        1 + +Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
+        Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
         // Derpsmith Cornucopia
         derpsmithCornucopiaBonus(),
-        //Platonic DELTA
+        // Platonic DELTA
         1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
         // Event
         1 + calculateEventBuff('Octeract')
