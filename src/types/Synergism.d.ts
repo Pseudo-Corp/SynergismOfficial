@@ -558,6 +558,7 @@ export interface Player {
     dailyPowderResetUses: number
 
     singularityCount: number
+    highestSingularityCount: number
     singularityCounter: number
     goldenQuarks: number
     quarksThisSingularity: number

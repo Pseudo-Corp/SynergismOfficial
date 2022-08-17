@@ -174,32 +174,32 @@ export class SingularityUpgrade extends DynamicUpgrade {
 export const singularityData: Record<keyof Player['singularityUpgrades'], ISingularityData> = {
     goldenQuarks1: {
         name: 'Golden Quarks I',
-        description: 'In the future, you will gain 5% more Golden Quarks on Singularities! This also reduces the cost to buy Golden Quarks in the shop by 500 per level.',
-        maxLevel: 10,
+        description: 'In the future, you will gain 10% more Golden Quarks on Singularities per level!',
+        maxLevel: 15,
         costPerLevel: 12,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.05 * n,
-                desc: `Permanently gain ${format(5 * n, 0, true)}% more Golden Quarks on Singularities.`
+                bonus: 1 + 0.10 * n,
+                desc: `Permanently gain ${format(10 * n, 0, true)}% more Golden Quarks on Singularities.`
             }
         }
     },
     goldenQuarks2: {
         name: 'Golden Quarks II',
-        description: 'If you buy this, you will gain 2% more Golden Quarks on Singularities. This also reduces the cost to buy Golden Quarks in the shop by 200 per level. Stacks with the first upgrade.',
-        maxLevel: 25,
+        description: 'Buying GQ is 0.2% cheaper per level! [-50% maximum reduction]',
+        maxLevel: 75,
         costPerLevel: 60,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.02 * n,
-                desc: `Permanently gain ${format(2 * n, 0, true)}% more Golden Quarks on Singularities.`
+                bonus: 1 - Math.min(0.5, n / 500),
+                desc: `Purchasing Golden Quarks in the shop is ${Math.min(50, n / 5)}% cheaper.`
             }
         }
     },
     goldenQuarks3: {
         name: 'Golden Quarks III',
         description: 'If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!',
-        maxLevel: 100,
+        maxLevel: 1000,
         costPerLevel: 1000,
         effect: (n: number) => {
             return {
@@ -224,7 +224,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'Shop Bonanza',
         description: 'This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!',
         maxLevel: 1,
-        costPerLevel: 500,
+        costPerLevel: 350,
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
@@ -1177,28 +1177,15 @@ export const getGoldenQuarkCost = (): {
     cost: number
     costReduction: number
 } => {
-    const baseCost = 100000
+    const baseCost = 10000
 
-    let costReduction = 0
-    costReduction += 2 * Math.min(player.achievementPoints, 5000)
-    costReduction += 1 * Math.max(0, player.achievementPoints - 5000)
-    costReduction += player.cubeUpgrades[60]
-    costReduction += 500 * player.singularityUpgrades.goldenQuarks1.actualFreeLevels()
-    costReduction += 200 * player.singularityUpgrades.goldenQuarks2.actualFreeLevels()
-    costReduction += 1000 * player.singularityUpgrades.goldenQuarks3.actualFreeLevels()
+    let costReduction = 10000 // We will construct our cost reduction by subtracting 10000 - this value.
 
-    if (costReduction > 90000) {
-        costReduction = 90000 + 1 / 10 * (costReduction - 90000)
-    }
-    if (costReduction > 95000) {
-        costReduction = 95000 + 1 / 10 * (costReduction - 95000)
-    }
-    if (costReduction > 97500) {
-        costReduction = 97500 + 1 / 5 * (costReduction - 97500)
-    }
-    costReduction = Math.min(99000, costReduction)
-
-    costReduction = costReduction + (100000 - costReduction) * +player.octeractUpgrades.octeractGQCostReduce.getEffect().bonus
+    costReduction *= (1 - 0.10 * Math.min(1, player.achievementPoints / 10000))
+    costReduction *= (1 - 0.3 * player.cubeUpgrades[60] / 10000)
+    costReduction *= +player.singularityUpgrades.goldenQuarks2.getEffect().bonus
+    costReduction *= +player.octeractUpgrades.octeractGQCostReduce.getEffect().bonus
+    costReduction = 10000 - costReduction
 
     return {
         cost: baseCost - costReduction,

@@ -749,4 +749,20 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.totalWowOcteracts === undefined) {
         player.totalWowOcteracts = 0;
     }
+
+    if (data.highestSingularityCount === undefined) {
+        player.highestSingularityCount = player.singularityCount
+        if (player.singularityCount > 0) {
+            player.goldenQuarks += 200;
+            player.goldenQuarks += 100 * Math.min(10, player.singularityCount)
+
+            if (player.singularityCount >= 5) {
+                player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
+            }
+
+            if (player.singularityCount >= 10) {
+                player.singularityUpgrades.goldenQuarks3.freeLevels += 2;
+            }
+        }
+    }
 }

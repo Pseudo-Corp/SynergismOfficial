@@ -1005,7 +1005,20 @@ export const singularity = async (): Promise<void> => {
     incrementSingCount += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
 
     player.goldenQuarks += calculateGoldenQuarkGain();
-    player.singularityCount += incrementSingCount;
+    if (player.singularityCount === player.highestSingularityCount) {
+        player.highestSingularityCount += incrementSingCount
+
+        if (player.highestSingularityCount === 5) {
+            player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
+        }
+        if (player.highestSingularityCount === 10) {
+            player.singularityUpgrades.goldenQuarks3.freeLevels += 2;
+        }
+    }
+    player.singularityCount = player.highestSingularityCount;
+
+
+
     player.totalQuarksEver += player.quarksThisSingularity;
     await resetShopUpgrades(true);
     const hold = Object.assign({}, blankSave, {
@@ -1024,6 +1037,7 @@ export const singularity = async (): Promise<void> => {
     hold.history.singularity = player.history.singularity;
     hold.totalQuarksEver = player.totalQuarksEver
     hold.singularityCount = player.singularityCount;
+    hold.highestSingularityCount = player.highestSingularityCount;
     hold.goldenQuarks = player.goldenQuarks;
     hold.shopUpgrades = player.shopUpgrades;
     hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
