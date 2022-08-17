@@ -364,6 +364,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         +player.singularityUpgrades.singOfferings1.getEffect().bonus, // Offering Charge GQ Upgrade
         +player.singularityUpgrades.singOfferings2.getEffect().bonus, // Offering Storm GQ Upgrade
         +player.singularityUpgrades.singOfferings3.getEffect().bonus, // Offering Tempest GQ Upgrade
+        +player.singularityUpgrades.singCitadel.getEffect().bonus, // Citadel GQ Upgrade
         1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
         1 + calculateEventBuff('Offering') // Event
     ];
@@ -570,6 +571,7 @@ export const calculateObtainium2 = () => {
     G['obtainiumGain'] *= (1 + 1/200 * player.shopUpgrades.cashGrab2)
     G['obtainiumGain'] *= (1 + 1/100 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
     G['obtainiumGain'] *= 1 + calculateEventBuff('Obtainium');
+    G['obtainiumGain'] *= +player.singularityUpgrades.singCitadel.getEffect().bonus
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
@@ -1189,6 +1191,8 @@ export const calculateAllCubeMultiplier = () => {
         1 + 0.25 * +G['isEvent'] * player.cubeUpgrades[58],
         // Wow Octeract Bonus
         calculateTotalOcteractCubeBonus(),
+        // Singularity Citadel
+        +player.singularityUpgrades.singCitadel.getEffect().bonus,
         // Platonic DELTA
         1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24))
         // Total Global Cube Multipliers: 18

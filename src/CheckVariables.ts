@@ -282,6 +282,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singCubes1: new SingularityUpgrade(singularityData['singCubes1']),
         singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
         singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
+        singCitadel: new SingularityUpgrade(singularityData['singCitadel']),
         octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
         offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
         intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),

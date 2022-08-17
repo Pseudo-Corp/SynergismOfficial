@@ -437,6 +437,19 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             }
         }
     },
+    singCitadel: {
+        name: 'Citadel of Singularity',
+        description: 'This structure is so obscured by Singularity Fog! But it gives +1% Obtainium, Offerings, and 3-7D cubes per level!',
+        maxLevel: -1,
+        costPerLevel: 500000,
+        minimumSingularity: 100,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.01 * n,
+                desc: `Obtainium, Offerings, and 3-7D Cubes +${format(n)}%, forever!`
+            }
+        }
+    },
     octeractUnlock: {
         name: 'Octeracts',
         description: 'Hey!!! What are you trying to do?!?',
