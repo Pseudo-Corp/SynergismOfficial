@@ -765,7 +765,10 @@ export const player: Player = {
         ultimatePen: new SingularityUpgrade(singularityData['ultimatePen']),
         platonicTau: new SingularityUpgrade(singularityData['platonicTau']),
         platonicAlpha: new SingularityUpgrade(singularityData['platonicAlpha']),
-        platonicDelta: new SingularityUpgrade(singularityData['platonicDelta'])
+        platonicDelta: new SingularityUpgrade(singularityData['platonicDelta']),
+        platonicPhi: new SingularityUpgrade(singularityData['platonicPhi']),
+        singFastForward: new SingularityUpgrade(singularityData['singFastForward']),
+        singFastForward2: new SingularityUpgrade(singularityData['singFastForward2'])
     },
 
     octeractUpgrades: {
@@ -783,7 +786,8 @@ export const player: Player = {
         octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
         octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
         octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
-        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain'])
+        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
+        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward'])
     },
 
     dailyCodeUsed: false,

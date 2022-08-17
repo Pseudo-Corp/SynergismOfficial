@@ -306,7 +306,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         ultimatePen: new SingularityUpgrade(singularityData['ultimatePen']),
         platonicTau: new SingularityUpgrade(singularityData['platonicTau']),
         platonicAlpha: new SingularityUpgrade(singularityData['platonicAlpha']),
-        platonicDelta: new SingularityUpgrade(singularityData['platonicDelta'])
+        platonicDelta: new SingularityUpgrade(singularityData['platonicDelta']),
+        platonicPhi: new SingularityUpgrade(singularityData['platonicPhi']),
+        singFastForward: new SingularityUpgrade(singularityData['singFastForward']),
+        singFastForward2: new SingularityUpgrade(singularityData['singFastForward2'])
     }
 
     player.octeractUpgrades = {
@@ -324,7 +327,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
         octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
         octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
-        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain'])
+        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
+        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
