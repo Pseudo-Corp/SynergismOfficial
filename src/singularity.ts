@@ -779,7 +779,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'Etherflux Singularities',
         description: 'Golden Quark gained by Singularity is increased by 100% (additive), and going singular at your all time highest count gives +1 singularity count!',
         maxLevel: 1,
-        costPerLevel: 1e7,
+        costPerLevel: 7e6 - 1,
         minimumSingularity: 50,
         effect: (n: number) => {
             return {
