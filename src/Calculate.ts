@@ -1512,6 +1512,8 @@ export const calculateAscensionAcceleration = () => {
         1 + 1 / 400 * player.cubeUpgrades[59],                                                          // Cookie Upgrade 9
         1 + 0.5 * (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0),              // Intermediate Pack, Sing Shop
         1 + 1 / 1000 * player.singularityCount * player.shopUpgrades.chronometerZ,                      // Chronometer Z
+        1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed.getEffect().bonus * player.singularityCount, // Oct Upgrade 1
+        1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount, // Oct Upgrade 2
         1 + calculateEventBuff('Ascension Speed')                                                       // Event
     ]
     return productContents(arr) / calculateSingularityDebuff('Ascension Speed')
@@ -1618,7 +1620,8 @@ export const calculateGoldenQuarkGain = ():number => {
         (+player.singularityUpgrades.goldenQuarks1.getEffect().bonus) *
         1 + 0.12 * player.cubeUpgrades[69],
         1 + calculateEventBuff('Golden Quarks'),
-        fastForwardMultiplier
+        fastForwardMultiplier,
+        (player.highestSingularityCount >= 100) ? 1 + player.highestSingularityCount / 250 : 1
     ]);
 
     return (base + gainFromQuarks) * allGoldenQuarkMultiplier + bonus;

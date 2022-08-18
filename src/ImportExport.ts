@@ -118,8 +118,12 @@ const saveFilename = () => {
 export const exportSynergism = async () => {
     player.offlinetick = Date.now();
     const quarkData = quarkHandler();
+
+    let bonusGQMultiplier = 1
+    bonusGQMultiplier *= 1 + player.worlds.BONUS / 100
+    bonusGQMultiplier *= (player.highestSingularityCount >= 100 ? 1 + player.highestSingularityCount / 50 : 1)
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
-        player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)) * (1 + player.worlds.BONUS / 100);
+        player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)) * bonusGQMultiplier;
         player.goldenQuarksTimer = player.goldenQuarksTimer % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
     }
     if (quarkData.gain >= 1) {

@@ -261,6 +261,36 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             }
         }
     },
+    octeractImprovedAscensionSpeed: {
+        name: 'Abstract Photokinetics',
+        description: 'Gain +0.05% Ascension Speed per level per singularity!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(1e9, level / 100)
+        },
+        maxLevel: 100,
+        costPerLevel: 100,
+        effect: (n: number) => {
+            return {
+                bonus: n / 2000,
+                desc: `Ascension Speed per singularity +${format(n/20, 2, true)}%`
+            }
+        }
+    },
+    octeractImprovedAscensionSpeed2: {
+        name: 'Abstract Exokinetics',
+        description: 'Gain +0.02% Ascension Speed per level per singularity!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(1e12, level / 250)
+        },
+        maxLevel: 250,
+        costPerLevel: 1e5,
+        effect: (n: number) => {
+            return {
+                bonus: n / 2000,
+                desc: `Ascension Speed per singularity +${format(n/50, 2, true)}%`
+            }
+        }
+    },
     octeractImprovedFree: {
         name: 'Wow! I want free upgrades to be better.',
         description: 'Singularity Upgrade level is (paid level * free levels)^0.6 instead of being added.',

@@ -1083,6 +1083,27 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Golden Revolution',
+        levels: [100],
+        description: () => {
+            return 'Golden Quarks are 0.2% cheaper per Singularity (MAX: -50%)'
+        }
+    },
+    {
+        name: 'Golden Revolution II',
+        levels: [100],
+        description: () => {
+            return 'Singularity Grants 0.4% more Golden Quarks per Singularity (MAX: +100%)'
+        }
+    },
+    {
+        name: 'Golden Revolution III',
+        levels: [100],
+        description: () => {
+            return 'Export Gives 2% more Golden Quarks per singularity (MAX: +500%)'
+        }
+    },
+    {
         name: 'Auto Ascension Challenge Sweep',
         levels: [101],
         description: () => {
@@ -1198,6 +1219,7 @@ export const getGoldenQuarkCost = (): {
     costReduction *= (1 - 0.3 * player.cubeUpgrades[60] / 10000)
     costReduction *= +player.singularityUpgrades.goldenQuarks2.getEffect().bonus
     costReduction *= +player.octeractUpgrades.octeractGQCostReduce.getEffect().bonus
+    costReduction *= (player.highestSingularityCount >= 100 ? 1 - 0.5 * player.highestSingularityCount / 250 : 1)
     costReduction = 10000 - costReduction
 
     return {

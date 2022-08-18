@@ -324,6 +324,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
         octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
         octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
+        octeractImprovedAscensionSpeed: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed']),
+        octeractImprovedAscensionSpeed2: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed2']),
         octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree']),
         octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
         octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),

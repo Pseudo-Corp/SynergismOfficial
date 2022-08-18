@@ -527,14 +527,18 @@ export const visualUpdateSettings = () => {
         const quarkData = quarkHandler();
         const onExportQuarks = quarkData.gain
         const maxExportQuarks = quarkData.capacity
-        const patreonLOL = 1 + player.worlds.BONUS / 100
+
+        let goldenQuarkMultiplier = 1
+        goldenQuarkMultiplier *= 1 + player.worlds.BONUS / 100
+        goldenQuarkMultiplier *= (player.highestSingularityCount >= 100 ? 1 + player.highestSingularityCount / 50 : 1)
+
         DOMCacheGetOrSet('quarktimerdisplay').textContent = format((3600 / (quarkData.perHour) - (player.quarkstimer % (3600.00001 / (quarkData.perHour)))), 2) + 's until +' + player.worlds.toString(1) + ' export Quark'
         DOMCacheGetOrSet('quarktimeramount').textContent =
             `Quarks on export: ${player.worlds.toString(onExportQuarks)} [Max ${player.worlds.toString(maxExportQuarks)}]`;
 
-        DOMCacheGetOrSet('goldenQuarkTimerDisplay').textContent = format(3600 / Math.max(1, +player.singularityUpgrades.goldenQuarks3.getEffect().bonus) - (player.goldenQuarksTimer % (3600.00001 / Math.max(1,+player.singularityUpgrades.goldenQuarks3.getEffect().bonus)))) + 's until +' + format(patreonLOL, 2, true) + ' export Golden Quark'
+        DOMCacheGetOrSet('goldenQuarkTimerDisplay').textContent = format(3600 / Math.max(1, +player.singularityUpgrades.goldenQuarks3.getEffect().bonus) - (player.goldenQuarksTimer % (3600.00001 / Math.max(1,+player.singularityUpgrades.goldenQuarks3.getEffect().bonus)))) + 's until +' + format(goldenQuarkMultiplier, 2, true) + ' export Golden Quark'
         DOMCacheGetOrSet('goldenQuarkTimerAmount').textContent =
-            `Golden Quarks on export: ${format(Math.floor(player.goldenQuarksTimer * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus/ 3600) * patreonLOL, 2)} [Max ${format(Math.floor(168 * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus * patreonLOL))}]`
+            `Golden Quarks on export: ${format(Math.floor(player.goldenQuarksTimer * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus/ 3600) * goldenQuarkMultiplier, 2)} [Max ${format(Math.floor(168 * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus * goldenQuarkMultiplier))}]`
     }
     if (player.subtabNumber === 2) {
         loadStatisticsUpdate();
