@@ -868,7 +868,7 @@ const loadSynergy = async () => {
         ? JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>
         : null;
 
-    if (!testing) {
+    if (testing) {
         Object.defineProperty(window, 'player', {
             value: player
         });
@@ -877,9 +877,6 @@ const loadSynergy = async () => {
         });
         Object.defineProperty(window, 'Decimal', {
             value: Decimal
-        });
-        Object.defineProperty(window, 'format', {
-            value: format
         });
     }
 
