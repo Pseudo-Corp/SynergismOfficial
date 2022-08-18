@@ -6,7 +6,7 @@ export const toggleTheme = (setting = true) => {
     const current = themeButton.textContent;
 
     if (current === 'Dark Mode') { //Switches to 'Darker Mode'
-        DOMCacheGetOrSet('singularitybtn').style.backgroundColor = '#171717'; //One time, until auto will be added
+        // DOMCacheGetOrSet('singularitybtn').style.backgroundColor = '#171717'; //One time, until auto will be added
         document.body.style.setProperty('--bg-color', '#0c0c0f');
         document.body.style.setProperty('--alert-color', '#040406');
         document.body.style.setProperty('--history-lines', '#1b1b22');
@@ -26,8 +26,6 @@ export const toggleTheme = (setting = true) => {
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#dd8f00'
         DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '#060606'
         DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0'
-        DOMCacheGetOrSet('exportgame').style.backgroundColor = 'black' //Special cases
-        DOMCacheGetOrSet('importFileButton').style.backgroundColor = 'black'
 
         themeButton.textContent = 'Darker Mode';
     }
@@ -51,8 +49,6 @@ export const toggleTheme = (setting = true) => {
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#ffa500'
         DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '#141319'
         DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0'
-        DOMCacheGetOrSet('exportgame').style.backgroundColor = '' //Remove inline CSS
-        DOMCacheGetOrSet('importFileButton').style.backgroundColor = ''
         DOMCacheGetOrSet('actualShop').style.backgroundColor = '#0c0c0f' //Special cases
         DOMCacheGetOrSet('actualShop').style.borderColor = '#d487d4'
         DOMCacheGetOrSet('platonicUpgradePics').style.backgroundColor = '#0c0c0f'

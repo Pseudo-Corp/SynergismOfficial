@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js';
 import { player, format, resetCheck } from './Synergism';
-import { toggleAutoChallengeModeText, toggleChallenges } from './Toggles';
+import { toggleAutoChallengesIgnore, toggleAutoChallengeModeText, toggleChallenges } from './Toggles';
 import { Globals as G } from './Variables';
 import { calculateRuneLevels } from './Calculate';
 import { hepteractEffective } from './Hepteracts';
@@ -387,10 +387,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     }
 
     if (changefocus) {
-        const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore');
-        el.style.display = i <= (autoAscensionChallengeSweepUnlock() ? 15 : 10) && player.researches[150] > 0 ? 'block' : 'none';
-        el.style.border = player.autoChallengeToggles[i] ? '2px solid green' : '2px solid red';
-        el.textContent = `${i >= 11 && i <= 15 ? 'Auto Ascension' : 'Automatically'} Run Chal.${i} [${player.autoChallengeToggles[i] ? 'ON' : 'OFF'}]`;
+        toggleAutoChallengesIgnore(i, false);
     }
 
     const ella = DOMCacheGetOrSet('toggleAutoChallengeStart');
@@ -591,6 +588,7 @@ export const runChallengeSweep = (dt: number) => {
     // Do not run if any of these conditions hold
     if (
         player.researches[150] === 0 || // Research 6x25 is 0
+        player.achievements[134] === 0 || // Challenge 9
         !player.autoChallengeRunning // Auto challenge is toggled off
     ) {
         return
@@ -632,9 +630,11 @@ export const runChallengeSweep = (dt: number) => {
         // Reset our autochallenge timer
         G['autoChallengeTimerIncrement'] = 0;
 
+        const completes = Math.min(10, Math.max(5, getChallengeCompletes()) + 1);
+
         // Increment our challenge index for when we enter (or start) next challenge
         const nowChallenge = player.autoChallengeIndex;
-        const nextChallenge = getNextChallenge(nowChallenge + 1);
+        const nextChallenge = getNextChallenge(nowChallenge + 1, false, 1, completes);
 
         // Reset based on challenge type
         if (challengeType === 'transcension') {
@@ -645,7 +645,7 @@ export const runChallengeSweep = (dt: number) => {
         }
 
         // If you don't need to start all the challenges, the challenges will end.
-        if (nextChallenge <= 10) {
+        if (nextChallenge <= completes) {
             /* If the next challenge is before the current challenge,
                it will be in 'START' mode, otherwise it will be in 'ENTER' mode. */
             if (nextChallenge < nowChallenge) {
@@ -665,13 +665,15 @@ export const runChallengeSweep = (dt: number) => {
         // Reset our autochallenge timer
         G['autoChallengeTimerIncrement'] = 0;
 
+        const completes = Math.min(10, Math.max(5, getChallengeCompletes()) + 1);
+
         // This calculates which challenge this algorithm will run first, based on
         // the first challenge which has automation toggled ON
         const nowChallenge = player.autoChallengeIndex;
-        const nextChallenge = getNextChallenge(nowChallenge);
+        const nextChallenge = getNextChallenge(nowChallenge, false, 1, completes);
 
         // Do not start the challenge if all the challenges have been completed.
-        if (nextChallenge === 11) {
+        if (nextChallenge > completes) {
             return;
         }
 
@@ -718,8 +720,16 @@ export const getNextChallenge = (startChallenge: number, maxSkip = false, min = 
     return nextChallenge;
 }
 
+export const getChallengeCompletes = () => {
+    const challengesAch = [78, 85, 92, 99, 106, 113, 120, 127, 134, 141, 197, 204, 211, 218, 252];
+    const completes = challengesAch.findIndex(function(value) {
+        return !player.achievements[value];
+    });
+    return completes === -1 ? challengesAch.length : completes;
+}
+
 export const autoAscensionChallengeSweepUnlock = () => {
-    return player.singularityCount >= 101 && player.shopUpgrades.instantChallenge2 > 0;
+    return player.achievements[141] === 1 && player.singularityCount >= 101 && player.shopUpgrades.instantChallenge2 > 0;
 }
 
 export const challenge15ScoreMultiplier = () => {

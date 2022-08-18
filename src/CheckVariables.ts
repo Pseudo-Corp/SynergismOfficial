@@ -63,6 +63,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.wowHypercubes = new WowHypercubes(0);
         player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
+    if (data.shoptoggles?.automations === undefined) {
+        player.shoptoggles.automations = true
+    }
     if (data.shoptoggles?.reincarnate === undefined) {
         player.shoptoggles.reincarnate = true
     }
@@ -340,7 +343,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         if (player.researches.length > 200) {
             player.researchPoints += player.researches[200] * 1e56;
             player.researches[200] = 0;
-            buyResearch(200, true, 0.01);
+            buyResearch(200, true);
             player.researchPoints += player.researches[195] * 1e60;
             player.worlds.add(250 * player.researches[195]);
             player.researches[195] = 0;
@@ -404,8 +407,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.loadedNov13Vers = false;
     }
     if (player.researches.some(k => typeof k !== 'number')) {
-        for (let i = 0; i < 200; i++) {
-            player.researches[i + 1] = player.researches[i + 1] || 0;
+        for (let i = 1; i < player.researches.length; i++) {
+            player.researches[i] = player.researches[i] || 0;
         }
     }
     if (data.loadedDec16Vers === false || data.loadedDec16Vers === undefined){
@@ -607,15 +610,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
     }
 
-    if (data.totalQuarksEver === undefined){
-        player.totalQuarksEver = 0;
-    }
-
-    if (data.hotkeys === undefined) {
-        player.hotkeys = {};
-        player.theme = 'Dark Mode';
-    }
-
     // Update (read: check) for undefined shop upgrades. Also checks above max level.
     const shopKeys = Object.keys(blankSave['shopUpgrades']) as (keyof Player['shopUpgrades'])[];
     for (const shopUpgrade of shopKeys) {
@@ -751,6 +745,19 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.totalWowOcteracts === undefined) {
         player.totalWowOcteracts = 0;
+    }
+
+    if (data.totalQuarksEver === undefined){
+        player.totalQuarksEver = 0;
+    }
+
+    if (data.hotkeys === undefined) {
+        player.hotkeys = {};
+        player.theme = 'Dark Mode';
+    }
+
+    if (data.autoCubeUpgradesToggle === undefined) {
+        player.autoCubeUpgradesToggle = false;
     }
 
     if (data.highestSingularityCount === undefined) {

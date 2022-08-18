@@ -56,13 +56,13 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
 
         // Research is maxed
         if (player.researches[index] >= G['researchMaxLevels'][index]) {
-            updateClassList(`res${player.autoResearch}`, ['researchMaxed'], ['researchPurchased', 'researchUnpurchased']);
+            updateClassList(`res${player.autoResearch}`, ['researchMaxed'], ['researchPurchased']);
         } else if (player.researches[index] >= 1) {
             // Research purchased above level 0 but not maxed
-            updateClassList(`res${player.autoResearch}`, ['researchPurchased'], ['researchUnpurchased', 'researchMaxed']);
+            updateClassList(`res${player.autoResearch}`, ['researchPurchased'], ['researchMaxed']);
         } else {
             // Research has not been purchased yet
-            updateClassList(`res${player.autoResearch}`, ['researchUnpurchased'], ['researchPurchased', 'researchMaxed']);
+            updateClassList(`res${player.autoResearch}`, [], ['researchPurchased', 'researchMaxed']);
         }
 
         return
@@ -76,16 +76,16 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
  * @returns boolean
  */
 export const autoResearchEnabled = (): boolean => {
-    return (player.cubeUpgrades[9] === 1 || player.singularityCount > 10);
+    return player.cubeUpgrades[9] === 1;
 }
 /**
  * Attempts to buy the research of the index selected. This is hopefully an improvement over buyResearch. Fuck
  * @param index
  * @param auto
- * @param linGrowth
  * @returns
  */
-export const buyResearch = (index: number, auto = false, linGrowth = 0, hover = false): boolean => {
+export const buyResearch = (index: number, auto = false, hover = false): boolean => {
+    const linGrowth = index === 200 ? 0.01 : 0;
 
     // Get our costs, and determine if anything is purchasable.
     const buyAmount = (player.researchBuyMaxToggle || auto || hover) ? 1e5: 1;
@@ -102,7 +102,7 @@ export const buyResearch = (index: number, auto = false, linGrowth = 0, hover = 
 
         // Update the progress description
         G['researchfiller2'] = 'Level: ' + player.researches[index] + '/' + (G['researchMaxLevels'][index]);
-        researchDescriptions(index, auto, linGrowth)
+        researchDescriptions(index)
 
         // Handle special cases: Researches 47-50 (2x21-2x25)
         // I love the ||= operator -Platonic
@@ -365,56 +365,66 @@ const resdesc = [
     '[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.04 Max Rune level, +(level/400) max Talisman Level, +(level/200) free Ants, 0.000666% Tax reduction per level.'
 ];
 
-export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => {
-    const buyAmount = (player.researchBuyMaxToggle || auto) ? 100000 : 1;
-    const y = resdesc[i-1];
-    let z = ''
-    const p = 'res' + i
+export const researchDescriptions = (index: number) => {
+    const linGrowth = index === 200 ? 0.01 : 0;
 
-    if (player.toggles[38] === true && player.singularityCount > 0) {
-        buyResearch(i, false, i === 200 ? 0.01 : 0, true);
-    }
+    const buyAmount = (player.researchBuyMaxToggle) ? 100000 : 1;
+    let costText = '';
+    const metaData = getResearchCost(index, buyAmount, linGrowth);
 
-    const metaData = getResearchCost(i, buyAmount, linGrowth);
-    z = ' Cost: ' + (format(metaData.cost, 0, false)) + ' Obtainium [+' + format(metaData.levelCanBuy - player.researches[i], 0, true) + ' Levels]'
-    if (player.researches[i] === (G['researchMaxLevels'][i])) {
-        DOMCacheGetOrSet('researchcost').style.color = 'Gold'
-        DOMCacheGetOrSet('researchinfo3').style.color = 'plum'
-        updateClassList(p, ['researchMaxed'], ['researchAvailable', 'researchPurchased', 'researchPurchasedAvailable'])
-        z = z + ' || MAXED!'
-    } else {
-        DOMCacheGetOrSet('researchcost').style.color = 'limegreen'
-        DOMCacheGetOrSet('researchinfo3').style.color = 'white'
-        if (player.researches[i] > 0) {
-            updateClassList(p, ['researchPurchased', 'researchPurchasedAvailable'], ['researchAvailable', 'researchMaxed', 'researchUnpurchased'])
-        } else {
-            updateClassList(p, ['researchAvailable'], ['researchPurchased', 'researchMaxed', 'researchUnpurchased'])
+    // Hover to Buy
+    if (player.researchPoints > metaData.cost && player.researches[index] < (G['researchMaxLevels'][index])) {
+        if (player.toggles[38] === true && player.singularityCount > 0) {
+            buyResearch(index, false, true);
         }
     }
 
-    if (player.researchPoints < metaData.cost && player.researches[i] < (G['researchMaxLevels'][i])) {
-        DOMCacheGetOrSet('researchcost').style.color = 'crimson'
-        updateClassList(p, [], ['researchMaxed', 'researchAvailable', 'researchPurchasedAvailable'])
+    costText = ' Cost: ' + (format(metaData.cost, 0, false)) + ' Obtainium [+' + format(metaData.levelCanBuy - player.researches[index], 0, true) + ' Levels]';
+    if (player.researches[index] === G['researchMaxLevels'][index]) {
+        DOMCacheGetOrSet('researchcost').style.color = 'Gold';
+        DOMCacheGetOrSet('researchinfo3').style.color = 'plum';
+        costText = costText + ' || MAXED!';
+    } else {
+        DOMCacheGetOrSet('researchcost').style.color = 'limegreen';
+        DOMCacheGetOrSet('researchinfo3').style.color = 'white';
     }
 
-    DOMCacheGetOrSet('researchinfo2').textContent = y
-    DOMCacheGetOrSet('researchcost').textContent = z
-    DOMCacheGetOrSet('researchinfo3').textContent = 'Level ' + player.researches[i] + '/' + (G['researchMaxLevels'][i])
+    if (player.researchPoints < metaData.cost && player.researches[index] < (G['researchMaxLevels'][index])) {
+        DOMCacheGetOrSet('researchcost').style.color = 'crimson';
+    }
+
+    DOMCacheGetOrSet('researchinfo2').textContent = resdesc[index - 1];
+    DOMCacheGetOrSet('researchcost').textContent = costText;
+    DOMCacheGetOrSet('researchinfo3').textContent = 'Level ' + player.researches[index] + '/' + (G['researchMaxLevels'][index]);
 }
 
-export const updateResearchBG = (j: number) => {
+export const updateResearchBG = (index: number) => {
 
-    if (player.researches[j] > G['researchMaxLevels'][j]) {
-        player.researchPoints += (player.researches[j] - G['researchMaxLevels'][j]) * G['researchBaseCosts'][j]
-        player.researches[j] = G['researchMaxLevels'][j]
+    // refund
+    if (player.researches[index] > G['researchMaxLevels'][index]) {
+        player.researchPoints += (player.researches[index] - G['researchMaxLevels'][index]) * G['researchBaseCosts'][index];
+        player.researches[index] = G['researchMaxLevels'][index];
     }
 
-    const k = `res${j}`
-    if (player.researches[j] > 0.5 && player.researches[j] < G['researchMaxLevels'][j]) {
-        updateClassList(k, ['researchPurchased'], ['researchUnpurchased', 'researchMaxed'])
-    } else if (player.researches[j] > 0.5 && player.researches[j] >= G['researchMaxLevels'][j]) {
-        updateClassList(k, ['researchMaxed'], ['researchUnpurchased', 'researchPurchased'])
+    const id = `res${index}`;
+    if (player.researches[index] === G['researchMaxLevels'][index]) {
+        updateClassList(id, ['researchMaxed'], ['researchPurchased', 'researchAvailable', 'researchPurchasedAvailable']);
     } else {
-        updateClassList(k, ['researchUnpurchased'], ['researchPurchased', 'researchMaxed'])
+        const linGrowth = index === 200 ? 0.01 : 0;
+        const buyAmount = (player.researchBuyMaxToggle) ? 100000 : 1;
+        const metaData = getResearchCost(index, buyAmount, linGrowth);
+        if (player.researchPoints < metaData.cost && player.researches[index] < (G['researchMaxLevels'][index])) {
+            if (player.researches[index] > 0) {
+                updateClassList(id, ['researchPurchased'], ['researchMaxed', 'researchAvailable', 'researchPurchasedAvailable']);
+            } else {
+                updateClassList(id, [], ['researchMaxed', 'researchPurchased', 'researchAvailable', 'researchPurchasedAvailable']);
+            }
+        } else {
+            if (player.researches[index] > 0) {
+                updateClassList(id, ['researchPurchasedAvailable'], ['researchMaxed', 'researchPurchased', 'researchAvailable']);
+            } else {
+                updateClassList(id, ['researchAvailable'], ['researchMaxed', 'researchPurchased', 'researchPurchasedAvailable']);
+            }
+        }
     }
 }

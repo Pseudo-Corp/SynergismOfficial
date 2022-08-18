@@ -108,6 +108,7 @@ const saveFilename = () => {
             case 'GQ': return '' + Math.floor(player.goldenQuarks);
             case 'GQS': return format(player.goldenQuarks);
             case 'STAGE': return synergismStage(0);
+            case 'STAGES': return synergismStage();
             default: return `${b}`;
         }
     });
@@ -115,7 +116,7 @@ const saveFilename = () => {
     return t;
 }
 
-export const exportSynergism = async () => {
+export const exportGainQuarks = () => {
     player.offlinetick = Date.now();
     const quarkData = quarkHandler();
 
@@ -130,6 +131,10 @@ export const exportSynergism = async () => {
         player.worlds.add(quarkData.gain);
         player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
     }
+}
+
+export const exportSynergism = async () => {
+    exportGainQuarks();
     await saveSynergy();
 
     const toClipboard = getElementById<HTMLInputElement>('saveType').checked;
@@ -203,9 +208,12 @@ export const exportSynergism = async () => {
         : 'Savefile copied to file!';
 }
 
-export const reloadDeleteGame = async () => {
+export const preloadDeleteGame = async () => {
+    DOMCacheGetOrSet('offlineBlur').classList.add('preloadDelete');
+    DOMCacheGetOrSet('offlineContainer').style.display = 'none';
     await Alert('The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it');
     await resetGame();
+    DOMCacheGetOrSet('offlineBlur').classList.remove('preloadDelete');
 }
 
 export const resetGame = async () => {
@@ -405,7 +413,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 const num = 1000 * Math.random();
                 for (const key of keys) {
                     if (upgradeDistribution[key].pdf(num)) {
-                        player.singularityUpgrades[key].freeLevels += upgradeDistribution[key].value
+                        player.singularityUpgrades[key].freeLevels = Math.round((player.singularityUpgrades[key].freeLevels + upgradeDistribution[key].value) * 10000) / 10000
                         freeLevels[key] ? freeLevels[key] += upgradeDistribution[key].value : freeLevels[key] = upgradeDistribution[key].value
                     }
                 }
@@ -630,7 +638,7 @@ const timeCodeRewardMultiplier = (): number => {
 
 const dailyCodeFormatFreeLevelMessage = (upgradeKey: string, freeLevelAmount: number): string => {
     const upgradeNiceName = singularityData[upgradeKey].name;
-    return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
+    return `\n+${Math.round(freeLevelAmount * 10000) / 10000} extra levels of '${upgradeNiceName}'`;
 }
 
 const dailyCodeReward = () => {

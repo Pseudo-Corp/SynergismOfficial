@@ -19,7 +19,13 @@ html {
 .scrollbarX {
     overflow-y: auto;
     scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color) var(--scrollbar-bg-color);
     outline: none;
+}
+
+.bodycolor.scrollbar {
+    overflow-y: overlay;
+    scrollbar-gutter: stable;
 }
 
 .scrollbarX {
@@ -40,6 +46,11 @@ body::-webkit-scrollbar:horizontal {
 .scrollbarX::-webkit-scrollbar-thumb {
     background-color: var(--scrollbar-color);
     border-radius: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover,
+.scrollbarX::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-hover-color);
 }
 
 .scrollbar::-webkit-scrollbar-track,
@@ -70,7 +81,8 @@ body {
     --buttonimg-color: black;
     --hoversing-color: #252525;
     --scrollbar-color: #444;
-    --scrollbar-bg-color: #111;
+    --scrollbar-hover-color: #555;
+    --scrollbar-bg-color: transparent;
 }
 
 body.loading {
@@ -206,7 +218,7 @@ body button:active {
     width: max(100vw, 100%);
     height: max(100vh, 100%);
     background-color: rgb(0 0 0 / 50%);
-    z-index: 6968;
+    z-index: 6967;
 }
 
 #notification {
@@ -391,7 +403,7 @@ body button:active {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 6969;
+    z-index: 6968;
     width: max(100vw, 100%);
     height: max(100vh, 100%);
 }
@@ -400,6 +412,10 @@ body button:active {
     width: 100%;
     height: 100%;
     filter: blur(4px);
+}
+
+#offlineBlur.preloadDelete img {
+    filter: blur(10px);
 }
 
 #offlineContainer {
@@ -628,7 +644,8 @@ nav button {
 }
 
 .subTabWrapper > button {
-    min-width: 150px;
+    width: 9em;
+    min-width: 130px;
     text-align: center;
 }
 
@@ -678,6 +695,10 @@ p#buildinghotkeys {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#upgradesFlex > div > img {
+    cursor: pointer;
 }
 
 #upgradesFlex > div > p {
@@ -758,9 +779,10 @@ p#buildinghotkeys {
 
 .confirmationToggles {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-flow: wrap;
-    gap: 1em;
+    gap: 3px;
+    min-width: 65%;
 }
 
 #confirmationToggleBox > p {
@@ -768,8 +790,9 @@ p#buildinghotkeys {
 }
 
 p#specialActionsTitle,
-p#themesTitle {
-    margin-top: 15px;
+p#themesTitle,
+p#specialOptionsTitle {
+    margin-top: 10px;
 }
 
 #exportButtons > * { margin: 2px auto; }
@@ -852,7 +875,8 @@ p#themesTitle {
     margin-bottom: 3px;
 }
 
-div.addCodeBox {
+div.addCodeBox,
+div.specialOptions {
     display: flex;
     padding: 0;
     gap: 0 3px;
@@ -864,6 +888,11 @@ div.addCodeBox {
 
 #addCodeOne {
     flex-grow: 1;
+}
+
+.specialOptions > button {
+    width: 100%;
+    min-height: 20px;
 }
 
 p#promocodeinfo {
@@ -1139,7 +1168,12 @@ p#promocodeinfo {
 #crystalupgradestable { margin: 0 auto; }
 
 #crystalupgrades img {
-    background-color: var(--buttonbuy-color);
+    background-color: var(--button-color);
+}
+
+#crystalupgrades img.buildingPurchaseBtnAvailable {
+    background-color: purple;
+    cursor: pointer;
 }
 
 #autocrystalbuild {
@@ -1559,10 +1593,8 @@ p#transcendhotkeys {
 /* In webkit, the font-size px is fixed even if it is enlarged, but Firefox fluctuates */
 .challengeLevels {
     min-width: 4.8em;
-    max-width: 4.8em;
     margin: 4px auto 0;
     font-size: 12px;
-    overflow: hidden;
 }
 
 #challengeDetails {
@@ -1754,6 +1786,7 @@ p#reincarnatehotkeys {
 }
 
 #researchtable .researchAvailable {
+    background-color: var(--buttonbuy-color);
     cursor: pointer;
     transition-duration: 0.15s;
 }
@@ -1767,6 +1800,7 @@ p#reincarnatehotkeys {
 }
 
 #researchtable .researchPurchasedAvailable {
+    background-color: purple;
     cursor: pointer;
     transition-duration: 0.15s;
 }
@@ -1918,7 +1952,6 @@ p#reincarnatehotkeys {
 
 #shopHovers > p { margin: 0; }
 
-.consumablebutton,
 .permshopbutton {
     width: 100%;
     min-height: 40px;
@@ -2019,20 +2052,26 @@ p#reincarnatehotkeys {
 }
 
 #sacrificeAnts {
-    position: absolute;
-    padding: 0;
-    width: 200px;
-    margin: 0 0 0 -340px;
     text-align: center;
-    left: calc(80% - 5em);
     white-space: nowrap;
-    z-index: 1;
+}
+
+#antSacrifice {
+    cursor: pointer;
+    position: absolute;
+    left: calc(80% - 5em - 272px);
+    top: 1.5em;
 }
 
 .sacrificeStatus {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 200px;
+    text-align: center;
+    left: calc(80% - 5em - 340px);
+    white-space: nowrap;
+    color: white;
 }
 
 #antSacrificeTimer {
@@ -2193,7 +2232,7 @@ p[id$="BlessingsTotal"] {
     display: flex;
     align-self: flex-start;
     margin: 10px 0 5px;
-    width: 1000px;
+    width: 900px;
 }
 
 .openImage {
@@ -2237,8 +2276,8 @@ p[id$="BlessingsTotal"] {
 .cubeTab {
     flex-direction: column;
     align-items: center;
-    width: auto;
-    margin-left: 50px;
+    min-width: 900px;
+    margin-left: 40px;
 }
 
 .cubeTab > span {
@@ -2248,17 +2287,14 @@ p[id$="BlessingsTotal"] {
     margin-right: auto;
 }
 
-#cubeTab5 {
-    width: 60%;
-}
-
 #cubeTab5Wrapper {
+    width: 75%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    align-self: flex-start;
     margin-top: 15px;
     text-align: center;
-    align-self: normal;
 }
 
 #cubeTab5Wrapper p {
@@ -2280,9 +2316,19 @@ p[id$="BlessingsTotal"] {
     min-height: 4em;
 }
 
+.cubeUpgradeToggles {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 0 15px;
+}
+
 #toggleCubeBuy {
     min-width: 200px;
-    margin-top: 10px;
+}
+
+#toggleAutoCubeUpgrades {
+    min-width: 150px;
 }
 
 .gridImg {
@@ -2377,9 +2423,9 @@ p#ascendHotKeys {
 
 #creditList {
     display: grid;
-    grid-template-columns: repeat(4, minmax(250px, 1fr));
-    max-width: 1000px;
-    margin: 0 auto;
+    grid-template-columns: repeat(4, max(250px, 11em));
+    justify-content: center;
+    max-width: 100%;
 }
 
 .credit {
@@ -2420,6 +2466,7 @@ p#ascendHotKeys {
 }
 
 #statsForNerds > button {
+    width: 12em;
     min-width: 150px;
 }
 
@@ -2586,6 +2633,8 @@ p#ascendHotKeys {
 
 #historyAscend,
 #historySingularity {
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
 }
 
@@ -2779,8 +2828,8 @@ p#ascendHotKeys {
 }
 
 #ascensionAmount {
-    border: 1px solid orange;
-    color: gold;
+    border: 1px solid violet;
+    color: white;
     background-color: black;
 }
 
@@ -2954,12 +3003,13 @@ header .img {
     width: 32px;
 }
 
-.subHeader {
+#subHeader {
     display: flex;
     flex-direction: row;
     min-width: 1250px;
     max-width: calc((38px + 7.5em) * 4 + 40em);
     min-height: 90px;
+    margin-top: 5px;
     margin-bottom: 5px;
 }
 
@@ -2979,6 +3029,7 @@ header .img {
     align-items: center;
     width: calc(38px + 7.5em);
     min-width: 150px;
+    padding: 1px 0;
 }
 
 header #quarkDisplay { color: white; }
@@ -2996,13 +3047,38 @@ header #obtainiumDisplay { color: pink; }
     line-height: 1em;
 }
 
+#subHeader.miniHeader {
+    min-height: auto;
+}
+
+#subHeader.miniHeader #resetinfo {
+    display: none;
+}
+
+#subHeader.miniHeader .img {
+    height: 20px;
+    width: 20px;
+}
+
+#subHeader.miniHeader .resetInformationContainer {
+    justify-content: center;
+}
+
+.statsContainer {
+    max-width: 100%;
+    display: flex;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+
+.statsContainer.scrollbarX::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
 #ascensionStats {
     display: flex;
-    margin: 10px 0;
-    min-width: 1250px;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
+    margin: 10px 15px 5px;
     gap: 2px 10px;
     font-variant-numeric: tabular-nums;
     line-height: 1em;
@@ -3112,12 +3188,13 @@ header #obtainiumDisplay { color: pink; }
     margin-bottom: 30px;
 }
 
+.platonicUpgrades2 {
+    margin-left: 5px;
+}
+
 #saveOffToggle {
     min-width: 130px;
     max-width: 200px;
-    position: absolute;
-    margin-top: 6px;
-    margin-left: 193px;
 }
 
 .platonicUpgradeImage {
@@ -3253,8 +3330,10 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #hepteractCraftTexts {
+    width: 75%;
     display: flex;
     flex-direction: column;
+    align-self: flex-start;
     text-align: center;
     margin-top: 15px;
 }
@@ -3269,38 +3348,63 @@ header #obtainiumDisplay { color: pink; }
 
 .hotkeys {
     display: grid;
-    grid-template-columns: repeat(4, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, minmax(275px, 17em));
+    justify-content: center;
+    max-width: 100%;
     margin: 20px auto;
 }
 
 .hotkeyItem {
     display: flex;
     flex-direction: row;
-    margin-top: 2px;
-}
-
-#hotKeyDesc {
-    margin: 0;
+    padding: 2px 0;
 }
 
 #hotkeyTooltip {
     color: darkorchid;
 }
 
-#actualHotkey {
+.hotkeyItem > span {
     padding: 1px 15px;
     color: gold;
+    background-color: var(--button-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.15s;
+}
+
+.hotkeyItem > span:hover {
+    background-color: var(--hover-color);
+}
+
+.hotkeyItem > p {
+    margin: 0;
+    padding: 1px 5px;
+    border-radius: 5px;
+}
+
+.hotkeyItem > p.hotkeyPurchased {
+    transition-duration: 0.15s;
     cursor: pointer;
 }
 
-.resetHotkeys {
+.hotkeyItem > p.hotkeyPurchased:hover {
+    background-color: var(--hover-color);
+}
+
+#hotkeyDescription {
+    min-height: 1.4em;
+    color: plum;
+}
+
+.toggleHotkeys {
     margin-top: 15px;
     display: flex;
     justify-content: center;
     gap: 10px;
 }
 
-.resetHotkeys > button {
+.toggleHotkeys > button {
     min-height: 20px;
     padding: 2px 4px;
 }

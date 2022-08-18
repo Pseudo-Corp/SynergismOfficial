@@ -996,10 +996,12 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Automation Upgrades',
-        levels: [10, 25, 30, 101],
+        levels: [10, 25, 30, 40, 101],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[3]) {
+            if (n >= levels[4]) {
                 return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
+            } else if (n >= levels[3]) {
+                return 'You always have r6x5, r6x10, r6x20, r6x25, w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
             } else if (n >= levels[2]) {
                 return 'You always have r6x5, r6x10, r6x20, w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
             } else if (n >= levels[1]) {
@@ -1039,7 +1041,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Real time Auto Ascend',
-        levels: [25],
+        levels: [5],
         description: () => {
             return 'You can now automatically ascend based on the length of the Ascension'
         }
@@ -1073,6 +1075,13 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [35],
         description: () => {
             return 'Ascension allows you to automatically open the cubes you have'
+        }
+    },
+    {
+        name: 'Auto Cube Upgrades',
+        levels: [45],
+        description: () => {
+            return 'Ascension allows you to automatically cube upgrades'
         }
     },
     {

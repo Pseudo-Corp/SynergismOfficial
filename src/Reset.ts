@@ -12,7 +12,7 @@ import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { getElementById } from './Utility';
 import { achievementaward, ascensionAchievementCheck, challengeachievementcheck } from './Achievements';
-import { buyResearch, updateResearchBG } from './Research';
+import { buyResearch } from './Research';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import type {
     ResetHistoryEntryPrestige,
@@ -24,7 +24,6 @@ import type {
 import { challengeRequirement } from './Challenges';
 import { Synergism } from './Events';
 import type { Player, resetNames, OneToFive } from './types/Synergism';
-import { updateClassList } from './Utility';
 import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions';
 import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -33,7 +32,7 @@ import { importSynergism } from './ImportExport';
 import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
 import { calculateSingularityDebuff } from './singularity';
-import { updateCubeUpgradeBG, awardAutosCookieUpgrade } from './Cubes';
+import { updateCubeUpgradeBG, awardAutosCookieUpgrade, autoBuyCubeUpgrades } from './Cubes';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
@@ -142,8 +141,12 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = 'gold';
             break;
         case 'singularity':
-            currencyImage1.style.display = 'none'
-            resetCurrencyGain.textContent = '';
+            if (!currencyImage1.src.endsWith('Pictures/Golden Quark.png')) {
+                currencyImage1.src = 'Pictures/Golden Quark.png'
+            }
+            currencyImage1.style.display = 'block'
+            resetCurrencyGain.textContent = '+' + format(calculateGoldenQuarkGain(), 2, true);
+            resetInfo.textContent = 'Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: ' + format(player.prestigePoints) + '/' + format(player.acceleratorBoostCost) + ' Diamonds.';
             resetInfo.textContent = 'Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with ' + format(calculateGoldenQuarkGain(), 2, true) + ' Golden Quarks. Time: ' + format(player.singularityCounter, 0, false) + ' Seconds.';
             resetInfo.style.color = 'lightgoldenrodyellow'
     }
@@ -382,23 +385,25 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             player.fifthOwnedDiamonds += 1
         }
 
-        if (player.achievements[4] > 0.5) {
-            player.upgrades[81] = 1
-        }
-        if (player.achievements[11] > 0.5) {
-            player.upgrades[82] = 1
-        }
-        if (player.achievements[18] > 0.5) {
-            player.upgrades[83] = 1
-        }
-        if (player.achievements[25] > 0.5) {
-            player.upgrades[84] = 1
-        }
-        if (player.achievements[32] > 0.5) {
-            player.upgrades[85] = 1
-        }
-        if (player.achievements[80] > 0.5) {
-            player.upgrades[87] = 1
+        if (player.shoptoggles.automations !== false) {
+            if (player.achievements[4] > 0.5) {
+                player.upgrades[81] = 1
+            }
+            if (player.achievements[11] > 0.5) {
+                player.upgrades[82] = 1
+            }
+            if (player.achievements[18] > 0.5) {
+                player.upgrades[83] = 1
+            }
+            if (player.achievements[25] > 0.5) {
+                player.upgrades[84] = 1
+            }
+            if (player.achievements[32] > 0.5) {
+                player.upgrades[85] = 1
+            }
+            if (player.achievements[80] > 0.5) {
+                player.upgrades[87] = 1
+            }
         }
 
         if (player.transcendcounter < player.fastesttranscend && player.currentChallenge.transcension === 0) {
@@ -484,8 +489,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         G['autoResetTimers'].reincarnation = 0;
 
         if (player.autoResearchToggle && player.autoResearch > 0.5) {
-            const linGrowth = (player.autoResearch === 200) ? 0.01 : 0;
-            buyResearch(player.autoResearch, true, linGrowth)
+            buyResearch(player.autoResearch, true)
         }
 
         calculateRuneLevels();
@@ -500,7 +504,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.currentChallenge.reincarnation = 0;
 
         // The start of the auto challenge to improve QoL starts with C10
-        if (input === 'ascensionChallenge' && player.currentChallenge.ascension > 10 && player.singularityCount >= 2 && player.autoChallengeToggles[10]) {
+        if ((input === 'ascension' || input === 'ascensionChallenge') && player.currentChallenge.ascension > 10 && player.singularityCount >= 2 && player.autoChallengeToggles[10]) {
             player.autoChallengeIndex = 10;
         } else {
             player.autoChallengeIndex = 1;
@@ -587,17 +591,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.roombaResearchIndex = 0;
         player.autoResearch = 1;
 
-        for (let j = 1; j <= (200); j++) {
-            const k = `res${j}`;
-            if (player.researches[j] > 0.5 && player.researches[j] < G['researchMaxLevels'][j]) {
-                updateClassList(k, ['researchPurchased'], ['researchAvailable', 'researchMaxed', 'researchPurchasedAvailable', 'researchUnpurchased'])
-            } else if (player.researches[j] > 0.5 && player.researches[j] >= G['researchMaxLevels'][j]) {
-                updateClassList(k, ['researchMaxed'], ['researchAvailable', 'researchPurchased', 'researchPurchasedAvailable', 'researchUnpurchased'])
-            } else {
-                updateClassList(k, ['researchUnpurchased'], ['researchAvailable', 'researchPurchased', 'researchPurchasedAvailable', 'researchMaxed'])
-            }
-        }
-
         calculateAnts();
         calculateRuneLevels();
         calculateAntSacrificeELO();
@@ -635,6 +628,12 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             player.upgrades[100] = 1
         }
 
+        if (player.shoptoggles.automations === false) {
+            for (let j = 81; j <= 100; j++) {
+                player.upgrades[j] = 0;
+            }
+        }
+
         for (let j = 61; j <= 80; j++) {
             DOMCacheGetOrSet(`upg${j}`).style.backgroundColor = ''
         }
@@ -667,7 +666,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         updateSingularityMilestoneAwards(false);
     }
 
-    if (input === 'ascension' || input === 'ascensionChallenge') {
+    if ((input === 'ascension' || input === 'ascensionChallenge') && player.achievements[141] === 1) {
         // Hepteract Autocraft
         const autoHepteractCrafts = getAutoHepteractCrafts();
         const numberOfAutoCraftsAndOrbs = autoHepteractCrafts.length + (player.overfluxOrbsAutoBuy ? 1 : 0);
@@ -713,20 +712,25 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             }
         }
 
+        // Auto Buy Cube Upgrades
+        autoBuyCubeUpgrades();
+
         //Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
-        if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
-            player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
-        }
-        if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
-            if (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2) {
-                player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) * player.openTesseracts / 100), false)
+        if (player.singularityCount >= 35) {
+            if (player.autoOpenCubes && player.openCubes > 0) {
+                player.wowCubes.open(Math.floor(Number(player.wowCubes) / 100 * player.openCubes), player.openCubes >= 100)
             }
-        }
-        if (player.autoOpenHypercubes && player.openHypercubes !== 0 && player.challengecompletions[13] > 0 && player.researches[183] > 0) {
-            player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) * player.openHypercubes / 100), false)
-        }
-        if (player.autoOpenPlatonicsCubes && player.openPlatonicsCubes !== 0 && player.challengecompletions[14] > 0) {
-            player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) * player.openPlatonicsCubes / 100), false)
+            if (player.autoOpenTesseracts && player.openTesseracts > 0 && player.challengecompletions[11] > 0) {
+                if (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2) {
+                    player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) / 100 * player.openTesseracts), player.openTesseracts >= 100)
+                }
+            }
+            if (player.autoOpenHypercubes && player.openHypercubes > 0 && player.challengecompletions[13] > 0 && player.researches[183] > 0) {
+                player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) / 100 * player.openHypercubes), player.openHypercubes >= 100)
+            }
+            if (player.autoOpenPlatonicsCubes && player.openPlatonicsCubes > 0 && player.challengecompletions[14] > 0) {
+                player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) / 100 * player.openPlatonicsCubes), player.openPlatonicsCubes >= 100)
+            }
         }
     }
 
@@ -773,7 +777,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.wowTesseracts = new WowCubes(0)
         player.wowAbyssals = 0;
 
-        for (let index = 1; index <= 50; index++) {
+        for (let index = 1; index < player.cubeUpgrades.length; index++) {
             player.cubeUpgrades[index] = 0;
         }
     }
@@ -781,7 +785,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     if (!fast) {
         revealStuff();
     }
-    if (input === 'transcensionChallenge' || input === 'reincarnationChallenge' || input === 'ascensionChallenge') {
+    if (types.includes(input)) {
         updateChallengeDisplay();
     }
 
@@ -944,13 +948,19 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.researches[135] = 1;
         player.researches[145] = 1;
     }
-    if (player.singularityCount >= 101 && singularityReset) {
-        player.cubeUpgrades[51] = 1;
-        awardAutosCookieUpgrade();
+    if (player.singularityCount >= 40) {
+        player.researches[150] = 1;
+    }
+    if ((player.singularityCount >= 101 && singularityReset) || (player.singularityCount >= 11 && player.ascensionCount > 0 && !singularityReset)) {
+        if (player.cubeUpgrades[51] === 0) {
+            player.cubeUpgrades[51] = 1;
+            awardAutosCookieUpgrade();
+            updateCubeUpgradeBG(51);
+        }
     }
 
     if (singularityReset) {
-        for (let j = 1; j <= 15; j++) {
+        for (let j = 1; j < player.challengecompletions.length; j++) {
             challengeachievementcheck(j);
         }
     }
@@ -958,11 +968,6 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     if (singularityReset) {
         for (let j = 1; j < player.cubeUpgrades.length; j++) {
             updateCubeUpgradeBG(j);
-        }
-    }
-    for (let j = 1; j < player.researches.length; j++) {
-        if (player.researches[j] > 0) {
-            updateResearchBG(j);
         }
     }
     revealStuff();
@@ -1249,7 +1254,7 @@ const resetUpgrades = (i: number) => {
         player.upgrades[86] = 1
     }
 
-    for (let x = 1; x <= 125; x++) {
+    for (let x = 1; x < G['upgradeCosts'].length; x++) {
         upgradeupdate(x, true)
     }
 }

@@ -242,6 +242,7 @@ export const Globals: GlobalVariables = {
     antEightProduce: new Decimal('1'),
 
     antCostGrowth: [1e41, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32],
+    antProducerCostVals: ['null', '1e700', '3', '100', '10000', '1e12', '1e36', '1e100', '1e300'],
 
     antUpgradeBaseCost: [100, 100, 1000, 1000, 1e5, 1e6, 1e8, 1e11, 1e15, 1e20, 1e40, 1e100],
     antUpgradeCostIncreases: [10, 10, 10, 10, 100, 100, 100, 100, 1000, 1000, 1000, 1e100],
@@ -425,9 +426,6 @@ export const Globals: GlobalVariables = {
     historyCountMax: 20,
 
     isEvent: false
-
-    // talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
-    // talismanResourceOfferingCosts: [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 }
 
 export const blankGlobals = { ...Globals };

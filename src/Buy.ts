@@ -547,7 +547,7 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
 
 export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
     const currency = type;
-    if (player[currency].gte(Decimal.pow(10, G['upgradeCosts'][pos])) && player.upgrades[pos] === 0) {
+    if (player.upgrades[pos] === 0 && player[currency].gte(Decimal.pow(10, G['upgradeCosts'][pos]))) {
         player[currency] = player[currency].sub(Decimal.pow(10, G['upgradeCosts'][pos]))
         player.upgrades[pos] = 1;
         upgradeupdate(pos, state)

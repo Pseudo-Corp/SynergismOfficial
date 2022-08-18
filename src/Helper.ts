@@ -1,7 +1,7 @@
 import { sacrificeAnts } from './Ants';
 import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
 import { quarkHandler } from './Quark';
-import { redeemShards, unlockedRune, checkMaxRunes } from './Runes';
+import { redeemShards, unlockedRune, checkMaxRunes, calculateOfferingsToLevelXTimes } from './Runes';
 import { player } from './Synergism';
 import { visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals';
 import { Globals as G } from './Variables';
@@ -130,24 +130,27 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
                         ratio--;
                     }
                 }
-                if (player.autoBuyFragment && player.singularityCount >= 40 && player.cubeUpgrades[51] > 0) {
+                if (player.autoBuyFragment && player.singularityCount >= 25 && player.achievements[134] === 1) {
                     buyAllTalismanResources();
                 }
 
                 // If you bought cube upgrade 2x10 then it sacrifices to all runes equally
-                if (player.cubeUpgrades[20] === 1){
+                if (player.cubeUpgrades[20] === 1 && player.autoSacrifice === 0) {
                     const maxi = player.singularityCount >= 50 ? 7 : (player.singularityCount >= 30 ? 6 : 5);
                     const notMaxed = (maxi - checkMaxRunes(maxi));
                     if (notMaxed > 0){
                         const baseAmount = Math.floor(player.runeshards / notMaxed / 2);
                         for (let i = 0; i < maxi; i++) {
-                            if (!(!unlockedRune(i + 1) || player.runelevels[i] >= calculateMaxRunes(i + 1))) {
-                                redeemShards(i + 1, true, baseAmount);
+                            if (unlockedRune(i + 1) && player.runelevels[i] < calculateMaxRunes(i + 1)) {
+                                const exp = calculateOfferingsToLevelXTimes(i, player.runelevels[i], 2);
+                                if (exp.length > 0 && baseAmount > exp[0]) {
+                                    redeemShards(i + 1, true, baseAmount);
+                                }
                             }
                         }
                     }
                 } else {
-                    // If you did not buy cube upgrade 2x10 it sacrifices to selected rune.
+                    // it sacrifices to selected rune
                     const rune = player.autoSacrifice;
                     redeemShards(rune, true, 0);
                 }

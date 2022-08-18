@@ -6,7 +6,7 @@ import { calculateRuneLevels } from './Calculate';
 import { reset, resetrepeat } from './Reset';
 import { autoResearchEnabled } from './Research';
 import { achievementaward } from './Achievements';
-import { getChallengeConditions } from './Challenges';
+import { getChallengeConditions, autoAscensionChallengeSweepUnlock } from './Challenges';
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -92,7 +92,10 @@ export const toggleSettings = (toggle: HTMLElement) => {
     const format = toggle.getAttribute('format') || 'Auto [$]';
     const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF');
     toggle.textContent = finishedString;
-    toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
+    if (!toggle.classList.contains('noColor')) {
+        toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
+    }
+    revealStuff();
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
@@ -116,7 +119,7 @@ export const toggleChallenges = (i: number, auto = false) => {
             resetrepeat('reincarnationChallenge');
         }
     }
-    if (i >= 11 && ((!auto && player.toggles[31] === false) || player.challengecompletions[10] > 0)) {
+    if (i >= 11 && ((!auto && player.toggles[31] === false) || player.challengecompletions[10] > 0) && player.achievements[141] === 1) {
         if ((!auto && player.toggles[31] === false) || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0)) {
             player.currentChallenge.ascension = i;
             reset('ascensionChallenge', false, 'enterChallenge');
@@ -136,26 +139,20 @@ export const toggleChallenges = (i: number, auto = false) => {
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract';
 
-export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) => {
+export const toggleBuyAmount = (quantity: number, type: ToggleBuy) => {
     player[`${type}buyamount` as const] = quantity;
-    const a = ['one', 'ten', 'hundred', 'thousand'][quantity.toString().length - 1];
-
-    DOMCacheGetOrSet(`${type}${a}`).style.backgroundColor = 'Green';
-    if (quantity !== 1) {
-        DOMCacheGetOrSet(`${type}one`).style.backgroundColor = ''
-    }
-    if (quantity !== 10) {
-        DOMCacheGetOrSet(`${type}ten`).style.backgroundColor = ''
-    }
-    if (quantity !== 100) {
-        DOMCacheGetOrSet(`${type}hundred`).style.backgroundColor = ''
-    }
-    if (quantity !== 1000) {
-        DOMCacheGetOrSet(`${type}thousand`).style.backgroundColor = ''
+    const buildingOrdsToNum = [1, 10, 100, 1000];
+    const buildingOrdsToStr = ['one', 'ten', 'hundred', 'thousand'];
+    for (let index = 0; index < buildingOrdsToNum.length; index++) {
+        if (quantity === buildingOrdsToNum[index]) {
+            DOMCacheGetOrSet(`${type}${buildingOrdsToStr[index]}`).style.backgroundColor = 'Green';
+        } else {
+            DOMCacheGetOrSet(`${type}${buildingOrdsToStr[index]}`).style.backgroundColor = '';
+        }
     }
 }
 
-type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'reincarnate'
+type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'automations' | 'reincarnate'
 
 /**
  * Updates Auto Upgrade Border Colors if applicable, or updates the status of an upgrade toggle as optional.
@@ -346,52 +343,49 @@ export const toggleSubTab = (mainTab = 1, subTab = 0) => {
     }
 }
 
-export const toggleautoreset = (i: number) => {
+export const toggleautoreset = (i: number, toggle = true) => {
     if (i === 1) {
-        if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
-            player.resettoggle1 = 2;
-            DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: TIME'
-        } else {
-            player.resettoggle1 = 1;
-            DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
+        if (toggle) {
+            player.resettoggle1 = player.resettoggle1 === 1 || player.resettoggle1 === 0 ? 2 : 1;
         }
+        DOMCacheGetOrSet('prestigeautotoggle').textContent = player.resettoggle1 === 1
+            ? 'Mode: AMOUNT'
+            : 'Mode: TIME';
     } else if (i === 2) {
-        if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
-            player.resettoggle2 = 2;
-            DOMCacheGetOrSet('transcendautotoggle').textContent = 'Mode: TIME'
-        } else {
-            player.resettoggle2 = 1;
-            DOMCacheGetOrSet('transcendautotoggle').textContent = 'Mode: AMOUNT'
+        if (toggle) {
+            player.resettoggle2 = player.resettoggle2 === 1 || player.resettoggle2 === 0 ? 2 : 1;
         }
+        DOMCacheGetOrSet('transcendautotoggle').textContent = player.resettoggle2 === 1
+            ? 'Mode: AMOUNT'
+            : 'Mode: TIME';
     } else if (i === 3) {
-        if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
-            player.resettoggle3 = 2;
-            DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: TIME'
-        } else {
-            player.resettoggle3 = 1;
-            DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
+        if (toggle) {
+            player.resettoggle3 = player.resettoggle3 === 1 || player.resettoggle3 === 0 ? 2 : 1;
         }
+        DOMCacheGetOrSet('reincarnateautotoggle').textContent = player.resettoggle3 === 1
+            ? 'Mode: AMOUNT'
+            : 'Mode: TIME';
     } else if (i === 4) {
-        if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
-            player.resettoggle4 = 2;
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: PERCENTAGE'
-        } else {
-            player.resettoggle4 = 1;
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: AMOUNT'
+        if (toggle) {
+            player.resettoggle4 = player.resettoggle4 === 1 || player.resettoggle4 === 0 ? 2 : 1;
         }
+        DOMCacheGetOrSet('tesseractautobuymode').textContent = player.resettoggle4 === 1
+            ? 'Mode: AMOUNT'
+            : 'Mode: PERCENTAGE';
     }
 }
 
-export const toggleautobuytesseract = () => {
-    if (player.tesseractAutoBuyerToggle === 1 || player.tesseractAutoBuyerToggle === 0) {
-        player.tesseractAutoBuyerToggle = 2;
-        DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: OFF'
-        DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
-
+export const toggleautobuytesseract = (toggle = true) => {
+    if (toggle) {
+        player.tesseractAutoBuyerToggle = player.tesseractAutoBuyerToggle === 1 || player.tesseractAutoBuyerToggle === 0 ? 2 : 1;
+    }
+    const el = DOMCacheGetOrSet('tesseractautobuytoggle');
+    if (player.tesseractAutoBuyerToggle === 1) {
+        el.textContent = 'Auto Buy: ON'
+        el.style.border = '2px solid green'
     } else {
-        player.tesseractAutoBuyerToggle = 1;
-        DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: ON'
-        DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid green'
+        el.textContent = 'Auto Buy: OFF'
+        el.style.border = '2px solid red'
     }
 }
 
@@ -403,71 +397,90 @@ export const toggleauto = () => {
 
         const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
         toggle.textContent = finishedString;
-        toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
+        if (!toggle.classList.contains('noColor')) {
+            toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
+        }
     }
 }
 
-export const toggleResearchBuy = () => {
-    if (player.researchBuyMaxToggle) {
-        player.researchBuyMaxToggle = false;
-        DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
-    } else {
-        player.researchBuyMaxToggle = true;
-        DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
+export const toggleResearchBuy = (toggle = true) => {
+    if (toggle) {
+        player.researchBuyMaxToggle = !player.researchBuyMaxToggle;
     }
+    const el = DOMCacheGetOrSet('toggleresearchbuy');
+    el.textContent = player.researchBuyMaxToggle
+        ? 'Upgrade: MAX [if possible]'
+        : 'Upgrade: 1 Level';
 }
 
-export const toggleAutoResearch = () => {
+export const toggleAutoResearch = (toggle = true) => {
     const el = DOMCacheGetOrSet('toggleautoresearch')
-    if (player.autoResearchToggle) {
-        player.autoResearchToggle = false;
-        el.textContent = 'Automatic: OFF';
-        DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
-        player.autoResearch = 0;
+    if (toggle) {
+        if (player.autoResearchToggle) {
+            player.autoResearchToggle = false;
+            el.textContent = 'Automatic: OFF';
+            DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
+            player.autoResearch = 0;
+        } else {
+            player.autoResearchToggle = true;
+            el.textContent = 'Automatic: ON'
+        }
+
+        if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
+            player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
+        }
     } else {
-        player.autoResearchToggle = true;
-        el.textContent = 'Automatic: ON'
+        el.textContent = player.autoResearchToggle
+            ? 'Automatic: ON'
+            : 'Automatic: OFF';
     }
-
-    if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
-        player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
-    }
-
 }
 
-export const toggleAutoResearchMode = () => {
+export const toggleAutoResearchMode = (toggle = true) => {
     const el = DOMCacheGetOrSet('toggleautoresearchmode')
-    if (player.autoResearchMode === 'cheapest') {
-        player.autoResearchMode = 'manual';
-        el.textContent = 'Automatic mode: Manual';
-    } else {
-        player.autoResearchMode = 'cheapest';
-        el.textContent = 'Automatic mode: Cheapest';
-    }
-    DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
+    if (toggle) {
+        if (player.autoResearchMode === 'cheapest') {
+            player.autoResearchMode = 'manual';
+            el.textContent = 'Automatic mode: Manual';
+        } else {
+            player.autoResearchMode = 'cheapest';
+            el.textContent = 'Automatic mode: Cheapest';
+        }
+        DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
 
-    if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
-        player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
+        if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
+            player.autoResearch = G['researchOrderByCost'][player.roombaResearchIndex]
+        }
+    } else {
+        el.textContent = player.autoResearchMode === 'cheapest'
+            ? 'Automatic mode: Cheapest'
+            : 'Automatic mode: Manual';
     }
 }
 
-export const toggleAutoSacrifice = (index: number) => {
+export const toggleAutoSacrifice = (index: number, toggle = true) => {
     const el = DOMCacheGetOrSet('toggleautosacrifice')
     if (index === 0) {
+        if (toggle) {
+            if (player.autoSacrificeToggle) {
+                player.autoSacrificeToggle = false;
+                player.autoSacrifice = 0;
+            } else {
+                player.autoSacrificeToggle = true;
+                player.saveOfferingToggle = false;
+            }
+        }
         if (player.autoSacrificeToggle) {
-            player.autoSacrificeToggle = false;
-            el.textContent = 'Auto Runes: OFF';
-            el.style.border = '2px solid red'
-            player.autoSacrifice = 0;
-        } else {
-            player.autoSacrificeToggle = true;
-            player.saveOfferingToggle = false;
+            const et = DOMCacheGetOrSet('saveOffToggle')
             el.textContent = 'Auto Runes: ON'
             el.style.border = '2px solid green'
-            DOMCacheGetOrSet('saveOffToggle').textContent = 'Save Offerings [OFF]'
-            DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
+            et.textContent = 'Save Offerings [OFF]'
+            et.style.color = 'white'
+        } else {
+            el.textContent = 'Auto Runes: OFF'
+            el.style.border = '2px solid red'
         }
-    } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
+    } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5 && toggle) {
         if (player.autoSacrifice === index) {
             player.autoSacrifice = 0;
         } else {
@@ -478,21 +491,6 @@ export const toggleAutoSacrifice = (index: number) => {
         DOMCacheGetOrSet('rune' + i).style.backgroundColor = player.autoSacrifice === i ? 'orange' : '';
     }
     calculateRuneLevels();
-}
-
-export const toggleAutoBuyFragment = () => {
-    const el = DOMCacheGetOrSet('toggleautoBuyFragments')
-    if (player.autoBuyFragment) {
-        el.textContent = 'Auto Buy: OFF'
-        el.style.border = '2px solid orange'
-        el.style.color = 'white'
-    } else {
-        el.textContent = 'Auto Buy: ON'
-        el.style.border = '2px solid white'
-        el.style.color = 'orange'
-    }
-
-    player.autoBuyFragment = !player.autoBuyFragment
 }
 
 export const toggleBuildingScreen = (input: BuildingSubtab) => {
@@ -553,50 +551,68 @@ export const toggleRuneScreen = (index: number) => {
     player.subtabNumber = index - 1
 }
 
-export const toggleautofortify = () => {
+export const toggleautofortify = (toggle = true) => {
+    if (toggle) {
+        player.autoFortifyToggle = !player.autoFortifyToggle;
+    }
     const el = DOMCacheGetOrSet('toggleautofortify');
     if (player.autoFortifyToggle) {
-        el.textContent = 'Auto Fortify: OFF'
-        el.style.border = '2px solid red'
-    } else {
         el.textContent = 'Auto Fortify: ON'
         el.style.border = '2px solid green'
+    } else {
+        el.textContent = 'Auto Fortify: OFF'
+        el.style.border = '2px solid red'
     }
-
-    player.autoFortifyToggle = !player.autoFortifyToggle;
 }
 
-export const toggleautoenhance = () => {
+export const toggleautoenhance = (toggle = true) => {
+    if (toggle) {
+        player.autoEnhanceToggle = !player.autoEnhanceToggle;
+    }
     const el = DOMCacheGetOrSet('toggleautoenhance');
     if (player.autoEnhanceToggle) {
-        el.textContent = 'Auto Enhance: OFF'
-        el.style.border = '2px solid red'
-    } else {
         el.textContent = 'Auto Enhance: ON'
         el.style.border = '2px solid green'
+    } else {
+        el.textContent = 'Auto Enhance: OFF'
+        el.style.border = '2px solid red'
     }
-
-    player.autoEnhanceToggle = !player.autoEnhanceToggle;
 }
 
-export const toggleSaveOff = () => {
+export const toggleAutoBuyFragment = (toggle = true) => {
+    if (toggle) {
+        player.autoBuyFragment = !player.autoBuyFragment;
+    }
+    const el = DOMCacheGetOrSet('toggleautoBuyFragments');
+    if (player.autoBuyFragment) {
+        el.textContent = 'Auto Buy: ON'
+        el.style.border = '2px solid white'
+        el.style.color = 'orange'
+    } else {
+        el.textContent = 'Auto Buy: OFF'
+        el.style.border = '2px solid orange'
+        el.style.color = 'white'
+    }
+}
+
+export const toggleSaveOff = (toggle = true) => {
+    if (toggle) {
+        player.autoSacrificeToggle = !player.saveOfferingToggle
+        player.saveOfferingToggle = !player.saveOfferingToggle
+    }
     const el = DOMCacheGetOrSet('saveOffToggle')
     const et = DOMCacheGetOrSet('toggleautosacrifice')
     if (player.saveOfferingToggle) {
-        player.autoSacrificeToggle = true
-        el.textContent = 'Save Offerings [OFF]'
-        el.style.color = 'white'
-        et.textContent = 'Auto Runes: ON'
-        et.style.border = '2px solid green'
-    } else {
-        player.autoSacrificeToggle = false
         el.textContent = 'Save Offerings [ON]'
         el.style.color = 'yellow'
         et.textContent = 'Auto Runes: OFF'
         et.style.border = '2px solid red'
+    } else {
+        el.textContent = 'Save Offerings [OFF]'
+        el.style.color = 'white'
+        et.textContent = 'Auto Runes: ON'
+        et.style.border = '2px solid green'
     }
-
-    player.saveOfferingToggle = !player.saveOfferingToggle
 }
 
 export const toggleSingularityScreen = (index: number) => {
@@ -721,72 +737,87 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
     }
 }
 
-export const toggleShopConfirmation = () => {
-    const el = DOMCacheGetOrSet('toggleConfirmShop')
+export const toggleShopConfirmation = (toggle = true) => {
+    if (toggle) {
+        player.shopConfirmationToggle = !player.shopConfirmationToggle;
+    }
+    const el = DOMCacheGetOrSet('toggleConfirmShop');
     el.textContent = player.shopConfirmationToggle
-        ? 'Shop Confirmations: OFF'
-        : 'Shop Confirmations: ON';
-
-    player.shopConfirmationToggle = !player.shopConfirmationToggle;
+        ? 'Shop Confirmations: ON'
+        : 'Shop Confirmations: OFF';
 }
 
-export const toggleBuyMaxShop = () => {
-    const el = DOMCacheGetOrSet('toggleBuyMaxShop')
+export const toggleBuyMaxShop = (toggle = true) => {
+    if (toggle) {
+        player.shopBuyMaxToggle = !player.shopBuyMaxToggle;
+    }
+    const el = DOMCacheGetOrSet('toggleBuyMaxShop');
     el.textContent = player.shopBuyMaxToggle
-        ? 'Buy Max: OFF'
-        : 'Buy Max: ON';
-
-    player.shopBuyMaxToggle = !player.shopBuyMaxToggle;
+        ? 'Buy Max: ON'
+        : 'Buy Max: OFF';
 }
 
-export const toggleHideShop = () => {
-    const el = DOMCacheGetOrSet('toggleHideShop')
+export const toggleHideShop = (toggle = true) => {
+    if (toggle) {
+        player.shopHideToggle = !player.shopHideToggle;
+    }
+    const el = DOMCacheGetOrSet('toggleHideShop');
     el.textContent = player.shopHideToggle
-        ? 'Hide Maxed: OFF'
-        : 'Hide Maxed: ON';
-
-    player.shopHideToggle = !player.shopHideToggle;
+        ? 'Hide Maxed: ON'
+        : 'Hide Maxed: OFF';
 }
 
-export const toggleAntMaxBuy = () => {
+export const toggleAntMaxBuy = (toggle = true) => {
+    if (toggle) {
+        player.antMax = !player.antMax;
+    }
     const el = DOMCacheGetOrSet('toggleAntMax');
     el.textContent = player.antMax
-        ? 'Buy Max: OFF'
-        : 'Buy Max: ON';
-
-    player.antMax = !player.antMax;
+        ? 'Buy Max: ON'
+        : 'Buy Max: OFF';
 }
 
-export const toggleAntAutoSacrifice = (mode = 0) => {
+export const toggleAntAutoSacrifice = (mode = 0, toggle = true) => {
     if (mode === 0) {
+        if (toggle) {
+            player.autoAntSacrifice = !player.autoAntSacrifice;
+        }
         const el = DOMCacheGetOrSet('toggleAutoSacrificeAnt');
-        if (player.autoAntSacrifice) {
-            player.autoAntSacrifice = false;
-            el.textContent = 'Auto Sacrifice: OFF'
-        } else {
-            player.autoAntSacrifice = true;
-            el.textContent = 'Auto Sacrifice: ON'
-        }
+        el.textContent = player.autoAntSacrifice
+            ? 'Auto Sacrifice: ON'
+            : 'Auto Sacrifice: OFF';
     } else if (mode === 1) {
-        const el = DOMCacheGetOrSet('autoSacrificeAntMode');
-        if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
-            player.autoAntSacrificeMode = 2;
-            el.textContent = 'Mode: Real time';
-        } else {
-            player.autoAntSacrificeMode = 1;
-            el.textContent = 'Mode: In-game time';
+        if (toggle) {
+            player.autoAntSacrificeMode = player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0 ? 2 : 1;
         }
+        const el = DOMCacheGetOrSet('autoSacrificeAntMode');
+        el.textContent = player.autoAntSacrificeMode === 2
+            ? 'Mode: Real time'
+            : 'Mode: In-game time';
     }
 }
 
-export const toggleMaxBuyCube = () => {
-    const el = DOMCacheGetOrSet('toggleCubeBuy')
-    if (player.cubeUpgradesBuyMaxToggle) {
-        player.cubeUpgradesBuyMaxToggle = false;
-        el.textContent = 'Upgrade: 1 Level wow'
+export const toggleMaxBuyCube = (toggle = true) => {
+    if (toggle) {
+        player.cubeUpgradesBuyMaxToggle = !player.cubeUpgradesBuyMaxToggle;
+    }
+    const el = DOMCacheGetOrSet('toggleCubeBuy');
+    el.textContent = player.cubeUpgradesBuyMaxToggle
+        ? 'Upgrade: MAX [if possible wow]'
+        : 'Upgrade: 1 Level wow';
+}
+
+export const autoCubeUpgradesToggle = (toggle = true) => {
+    if (toggle) {
+        player.autoCubeUpgradesToggle = !player.autoCubeUpgradesToggle;
+    }
+    const el = DOMCacheGetOrSet('toggleAutoCubeUpgrades');
+    if (player.autoCubeUpgradesToggle) {
+        el.textContent = 'Auto Upgrades: [ON]'
+        el.style.border = '2px solid green'
     } else {
-        player.cubeUpgradesBuyMaxToggle = true;
-        el.textContent = 'Upgrade: MAX [if possible wow]'
+        el.textContent = 'Auto Upgrades: [OFF]'
+        el.style.border = '2px solid red'
     }
 }
 
@@ -807,175 +838,198 @@ export const toggleCubeSubTab = (i: number) => {
     visualUpdateCubes();
 }
 
-export const updateAutoChallenge = (i: number) => {
+export const updateAutoChallenge = (i: number, change = true) => {
     switch (i) {
         case 1: {
-            const t = parseFloat((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
-            player.autoChallengeTimer.start = Math.max(t, 0);
+            if (change) {
+                const t = parseFloat((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
+                player.autoChallengeTimer.start = Math.max(t, 0);
+            }
             DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's';
             return;
         }
         case 2: {
-            const u = parseFloat((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
-            player.autoChallengeTimer.exit = Math.max(u, 0);
+            if (change) {
+                const u = parseFloat((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
+                player.autoChallengeTimer.exit = Math.max(u, 0);
+            }
             DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's';
             return;
         }
         case 3: {
-            const v = parseFloat((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
-            player.autoChallengeTimer.enter = Math.max(v, 0);
+            if (change) {
+                const v = parseFloat((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
+                player.autoChallengeTimer.enter = Math.max(v, 0);
+            }
             DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's';
             return;
         }
     }
 }
 
-export const toggleAutoChallengesIgnore = (i: number) => {
+export const toggleAutoChallengesIgnore = (i: number, toggle = true) => {
     if (i <= 15) {
-        player.autoChallengeToggles[i] = !player.autoChallengeToggles[i];
-
+        if (toggle) {
+            player.autoChallengeToggles[i] = !player.autoChallengeToggles[i];
+        }
         const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore');
+        el.style.display = i <= (autoAscensionChallengeSweepUnlock() ? 15 : 10) && player.researches[150] > 0 ? 'block' : 'none';
         el.style.border = player.autoChallengeToggles[i] ? '2px solid green' : '2px solid red';
         el.textContent = `${i >= 11 && i <= 15 ? 'Auto Ascension' : 'Automatically'} Run Chal.${i} [${player.autoChallengeToggles[i] ? 'ON' : 'OFF'}]`;
     }
 }
 
-export const toggleAutoChallengeRun = () => {
+export const toggleAutoChallengeRun = (toggle = true) => {
     const el = DOMCacheGetOrSet('toggleAutoChallengeStart');
-    if (player.autoChallengeRunning) {
-        el.style.border = '2px solid red'
-        el.textContent = 'Auto Challenge Sweep [OFF]'
-        G['autoChallengeTimerIncrement'] = 0;
-        toggleAutoChallengeModeText('OFF')
-    } else {
-        el.style.border = '2px solid gold'
-        el.textContent = 'Auto Challenge Sweep [ON]'
-        toggleAutoChallengeModeText('START')
-        G['autoChallengeTimerIncrement'] = 0;
+    if (toggle) {
+        player.autoChallengeRunning = !player.autoChallengeRunning;
+        if (player.autoChallengeRunning) {
+            toggleAutoChallengeModeText('START');
+            G['autoChallengeTimerIncrement'] = 0;
+        } else {
+            toggleAutoChallengeModeText('OFF');
+            G['autoChallengeTimerIncrement'] = 0;
+        }
     }
-
-    player.autoChallengeRunning = !player.autoChallengeRunning;
+    if (player.autoChallengeRunning) {
+        el.textContent = 'Auto Challenge Sweep [ON]'
+        el.style.border = '2px solid gold'
+    } else {
+        el.textContent = 'Auto Challenge Sweep [OFF]'
+        el.style.border = '2px solid red'
+    }
 }
 
 export const toggleAutoChallengeModeText = (i: string) => {
-    const a = DOMCacheGetOrSet('autoChallengeType');
-    a.textContent = 'MODE: ' + i
+    const el = DOMCacheGetOrSet('autoChallengeType');
+    el.textContent = 'MODE: ' + i;
 }
 
-export const toggleAutoAscend = (mode = 0) => {
+export const toggleAutoAscend = (mode = 0, toggle = true) => {
     if (mode === 0) {
-        const a = DOMCacheGetOrSet('ascensionAutoEnable');
+        if (toggle) {
+            player.autoAscend = !player.autoAscend;
+        }
+        const el = DOMCacheGetOrSet('ascensionAutoEnable');
         if (player.autoAscend) {
-            a.style.border = '2px solid red'
-            a.textContent = 'Auto Ascend [OFF]'
+            el.textContent = 'Auto Ascend [ON]'
+            el.style.border = '2px solid green'
         } else {
-            a.style.border = '2px solid green'
-            a.textContent = 'Auto Ascend [ON]'
+            el.textContent = 'Auto Ascend [OFF]'
+            el.style.border = '2px solid red'
         }
-
-        player.autoAscend = !player.autoAscend;
-    } else if (mode === 1 && player.singularityCount >= 25) {
-        const a = DOMCacheGetOrSet('ascensionAutoToggle');
-        if (player.autoAscendMode === 'c10Completions') {
-            player.autoAscendMode = 'realAscensionTime'
-            a.textContent = 'Mode: Real time'
-        } else {
-            player.autoAscendMode = 'c10Completions'
-            a.textContent = 'Mode: C10 Completions'
+    } else if (mode === 1) {
+        if (toggle) {
+            if (player.autoAscendMode === 'c10Completions' && player.singularityCount >= 5) {
+                player.autoAscendMode = 'realAscensionTime'
+            } else {
+                player.autoAscendMode = 'c10Completions'
+            }
         }
+        const el = DOMCacheGetOrSet('ascensionAutoToggle');
+        el.textContent = player.autoAscendMode === 'realAscensionTime'
+            ? 'Mode: Real time'
+            : 'Mode: C10 Completions';
     }
 }
 
-export const toggleautoopensCubes = (i: number) => {
-    if (player.singularityCount >= 35) {
-        if (i === 1) {
-            const oc = DOMCacheGetOrSet('openCubes');
-            const oci = DOMCacheGetOrSet('cubeOpensInput');
-            if (player.autoOpenCubes) {
-                oc.textContent = 'Auto Open [OFF]';
-                oc.style.border = '1px solid red';
-                oci.style.border = '1px solid red';
-            } else {
-                oc.textContent = `Auto Open ${format(player.openCubes, 0)}%`;
-                oc.style.border = '1px solid green';
-                oci.style.border = '1px solid green';
-            }
-
+export const toggleautoopensCubes = (i: number, toggle = player.singularityCount >= 35) => {
+    if (i === 1) {
+        if (toggle) {
             player.autoOpenCubes = !player.autoOpenCubes;
-        } else if (i === 2) {
-            const oc = DOMCacheGetOrSet('openTesseracts');
-            const oci = DOMCacheGetOrSet('tesseractsOpensInput');
-            if (player.autoOpenTesseracts) {
-                oc.textContent = 'Auto Open [OFF]';
-                oc.style.border = '1px solid red';
-                oci.style.border = '1px solid red';
-            } else {
-                oc.textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
-                oc.style.border = '1px solid green';
-                oci.style.border = '1px solid green';
-            }
-
-            player.autoOpenTesseracts = !player.autoOpenTesseracts
-        } else if (i === 3) {
-            const oc = DOMCacheGetOrSet('openHypercubes');
-            const oci = DOMCacheGetOrSet('hypercubesOpensInput');
-            if (player.autoOpenHypercubes) {
-                oc.textContent = 'Auto Open [OFF]';
-                oc.style.border = '1px solid red';
-                oci.style.border = '1px solid red';
-            } else {
-                oc.textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
-                oc.style.border = '1px solid green';
-                oci.style.border = '1px solid green';
-            }
-
+        }
+        const oc = DOMCacheGetOrSet('openCubes');
+        const oci = DOMCacheGetOrSet('cubeOpensInput');
+        if (player.autoOpenCubes) {
+            oc.textContent = `Auto Open ${format(player.openCubes, 0)}%`;
+            oc.style.border = '1px solid green';
+            oci.style.border = '1px solid green';
+        } else {
+            oc.textContent = 'Auto Open [OFF]';
+            oc.style.border = '1px solid red';
+            oci.style.border = '1px solid red';
+        }
+    } else if (i === 2) {
+        if (toggle) {
+            player.autoOpenTesseracts = !player.autoOpenTesseracts;
+        }
+        const oc = DOMCacheGetOrSet('openTesseracts');
+        const oci = DOMCacheGetOrSet('tesseractsOpensInput');
+        if (player.autoOpenTesseracts) {
+            oc.textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
+            oc.style.border = '1px solid green';
+            oci.style.border = '1px solid green';
+        } else {
+            oc.textContent = 'Auto Open [OFF]';
+            oc.style.border = '1px solid red';
+            oci.style.border = '1px solid red';
+        }
+    } else if (i === 3) {
+        if (toggle) {
             player.autoOpenHypercubes = !player.autoOpenHypercubes;
-        } else if (i === 4) {
-            const oc = DOMCacheGetOrSet('openPlatonicCube');
-            const oci = DOMCacheGetOrSet('platonicCubeOpensInput');
-            if (player.autoOpenPlatonicsCubes) {
-                oc.textContent = 'Auto Open [OFF]';
-                oc.style.border = '1px solid red';
-                oci.style.border = '1px solid red';
-            } else {
-                oc.textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
-                oc.style.border = '1px solid green';
-                oci.style.border = '1px solid green';
-            }
-
+        }
+        const oc = DOMCacheGetOrSet('openHypercubes');
+        const oci = DOMCacheGetOrSet('hypercubesOpensInput');
+        if (player.autoOpenHypercubes) {
+            oc.textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
+            oc.style.border = '1px solid green';
+            oci.style.border = '1px solid green';
+        } else {
+            oc.textContent = 'Auto Open [OFF]';
+            oc.style.border = '1px solid red';
+            oci.style.border = '1px solid red';
+        }
+    } else if (i === 4) {
+        if (toggle) {
             player.autoOpenPlatonicsCubes = !player.autoOpenPlatonicsCubes;
         }
+        const oc = DOMCacheGetOrSet('openPlatonicCube');
+        const oci = DOMCacheGetOrSet('platonicCubeOpensInput');
+        if (player.autoOpenPlatonicsCubes) {
+            oc.textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
+            oc.style.border = '1px solid green';
+            oci.style.border = '1px solid green';
+        } else {
+            oc.textContent = 'Auto Open [OFF]';
+            oc.style.border = '1px solid red';
+            oci.style.border = '1px solid red';
+        }
     }
 }
 
-export const updateRuneBlessingBuyAmount = (i: number) => {
+export const updateRuneBlessingBuyAmount = (i: number, toggle = true) => {
     switch (i) {
         case 1: {
-            const t = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value)) || 1;
-            player.runeBlessingBuyAmount = Math.max(t, 1);
+            if (toggle) {
+                const t = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value)) || 1;
+                player.runeBlessingBuyAmount = Math.max(t, 1);
+            }
             DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount);
             return;
         }
         case 2: {
-            const u = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value)) || 1;
-            player.runeSpiritBuyAmount = Math.max(u, 1);
+            if (toggle) {
+                const u = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value)) || 1;
+                player.runeSpiritBuyAmount = Math.max(u, 1);
+            }
             DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount);
             return;
         }
     }
 }
 
-export const toggleAutoTesseracts = (i: number) => {
+export const toggleAutoTesseracts = (i: number, toggle = true) => {
+    if (toggle) {
+        player.autoTesseracts[i] = !player.autoTesseracts[i];
+    }
     const el = DOMCacheGetOrSet('tesseractAutoToggle' + i);
     if (player.autoTesseracts[i]) {
-        el.textContent = 'Auto [OFF]'
-        el.style.border = '2px solid red';
-    } else {
         el.textContent = 'Auto [ON]'
         el.style.border = '2px solid green';
+    } else {
+        el.textContent = 'Auto [OFF]'
+        el.style.border = '2px solid red';
     }
-
-    player.autoTesseracts[i] = !player.autoTesseracts[i];
 }
 
 export const toggleCorruptionLevel = (index: number, value: number) => {
@@ -1014,13 +1068,7 @@ export const toggleCorruptionLoadoutsStats = (stats: boolean) => {
 }
 
 export const toggleAscStatPerSecond = (id: number) => {
-    const el = DOMCacheGetOrSet(`unit${id}`) as HTMLElement | null;
-    if (el === null) {
-        // eslint-disable-next-line no-console
-        console.log(id, 'platonic needs to fix');
-        return;
-    }
-
+    const el = DOMCacheGetOrSet(`unit${id}`);
     el.textContent = player.ascStatToggles[id] ? '/s' : '';
     if (id === 6) {
         el.textContent = '';
@@ -1073,4 +1121,41 @@ export const confirmReply = (confirm = true) => {
             (DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click();
         }
     }
+}
+
+export const toggleUpdates = () => {
+    toggleAutoTesseracts(1, false);
+    toggleAutoTesseracts(2, false);
+    toggleAutoTesseracts(3, false);
+    toggleAutoTesseracts(4, false);
+    toggleAutoTesseracts(5, false);
+    toggleautoreset(1, false);
+    toggleautoreset(2, false);
+    toggleautoreset(3, false);
+    toggleautoreset(4, false);
+    toggleautobuytesseract(false);
+    toggleautoopensCubes(1, false);
+    toggleautoopensCubes(2, false);
+    toggleautoopensCubes(3, false);
+    toggleautoopensCubes(4, false);
+    toggleAutoResearch(false);
+    toggleAutoResearchMode(false);
+    toggleAutoSacrifice(0, false);
+    toggleAutoBuyFragment(false);
+    toggleautofortify(false);
+    toggleautoenhance(false);
+    player.saveOfferingToggle = false; //Lint doesnt like it being inside if
+    DOMCacheGetOrSet('saveOffToggle').textContent = 'Save Offerings [OFF]'
+    DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
+    toggleAutoAscend(0, false);
+    toggleAutoAscend(1, false);
+    toggleShopConfirmation(false);
+    toggleBuyMaxShop(false);
+    toggleHideShop(false);
+    toggleResearchBuy(false);
+    toggleMaxBuyCube(false);
+    autoCubeUpgradesToggle(false);
+    toggleAntMaxBuy(false);
+    toggleAntAutoSacrifice(0, false);
+    toggleAntAutoSacrifice(1, false);
 }

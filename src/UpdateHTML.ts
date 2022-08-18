@@ -1,16 +1,18 @@
 import { player, format, formatTimeShort /*formatTimeShort*/ } from './Synergism';
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
-import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration} from './Calculate';
+import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration, calculateMaxRunes} from './Calculate';
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
-import { autoResearchEnabled } from './Research';
+import { autoResearchEnabled, updateResearchBG } from './Research';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateSingularity, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
 import { getMaxChallenges } from './Challenges';
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity';
 import { revealCorruptions } from './Corruptions';
+import { checkHotkeys } from './Hotkeys';
+import { calculateOfferingsToLevelXTimes } from './Runes';
 
 export const revealStuff = () => {
     const example = document.getElementsByClassName('coinunlock1') as HTMLCollectionOf<HTMLElement>;
@@ -309,7 +311,7 @@ export const revealStuff = () => {
     player.researches[124] > 0 ? //5x24 Research [AutoSac]
         (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'flex', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'block') :
         (DOMCacheGetOrSet('antSacrificeButtons').style.display = 'none', DOMCacheGetOrSet('autoAntSacrifice').style.display = 'none');
-    player.researches[124] > 0 || player.singularityCount > 0 ? //So you can turn it off before 5x24 Research
+    player.researches[124] > 0 ? //So you can turn it off before 5x24 Research
         DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'block' :
         DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'none';
 
@@ -346,7 +348,7 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('toggleautosacrifice').style.display = 'block' :
         DOMCacheGetOrSet('toggleautosacrifice').style.display = 'none';
 
-    player.cubeUpgrades[51] > 0 && player.singularityCount >= 40 ? //Auto Fragments Buy (After Cx1)
+    player.singularityCount >= 25 ? //Auto Fragments Buy (After Cx1)
         DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'block' :
         DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'none';
 
@@ -430,11 +432,17 @@ export const revealStuff = () => {
         (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'block') :
         (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'none') ;
 
-
     DOMCacheGetOrSet('ascensionStats').style.visibility = (player.achievements[197] > 0 || player.singularityCount > 0) ? 'visible' : 'hidden';
     DOMCacheGetOrSet('ascHyperStats').style.display = player.challengecompletions[13] > 0 ? '' : 'none';
     DOMCacheGetOrSet('ascPlatonicStats').style.display = player.challengecompletions[14] > 0 ? '' : 'none';
     DOMCacheGetOrSet('ascHepteractStats').style.display = player.achievements[255] > 0 ? '' : 'none';
+
+    DOMCacheGetOrSet('ascensionStats').style.display = player.toggles[43] ? 'flex' : 'none';
+    if (player.toggles[44]) {
+        DOMCacheGetOrSet('subHeader').classList.add('miniHeader');
+    } else {
+        DOMCacheGetOrSet('subHeader').classList.remove('miniHeader');
+    }
 
     //I'll clean this up later. Note to 2019 Platonic: Fuck you
     // note to 2019 and 2020 Platonic, you're welcome
@@ -451,6 +459,7 @@ export const revealStuff = () => {
         'toggle6': player.upgrades[86] === 1, // Autobuyer - Coin Buildings - Accelerator
         'toggle7': player.upgrades[87] === 1, // Autobuyer - Coin Buildings - Multiplier
         'toggle8': player.upgrades[88] === 1, // Autobuyer - Coin Buildings - Accelerator Boost
+        'toggle9': player.unlocks.prestige, // Feature - Upgrades - Hover to Buy
         'toggle10': player.achievements[78] === 1, // Autobuyer - Diamond Buildings - Tier 1 (Refineries)
         'toggle11': player.achievements[85] === 1, // Autobuyer - Diamond Buildings - Tier 2 (Coal Plants)
         'toggle12': player.achievements[92] === 1, // Autobuyer - Diamond Buildings - Tier 3 (Coal Rigs)
@@ -473,7 +482,7 @@ export const revealStuff = () => {
         'prestigeAutoUpgrade': player.upgrades[92] === 1, // Feature - Upgrades - Auto Buy Diamond Upgrades
         'transcendAutoUpgrade': player.upgrades[99] === 1, // Feature - Upgrades - Auto Buy Mythos Upgrades
         'generatorsAutoUpgrade': player.upgrades[90] === 1, // Feature - Upgrades - Auto Buy Generator Upgrades
-        'toggle9': player.unlocks.prestige, // Feature - Upgrades - Hover to Buy
+        'automationsAutoUpgrade': player.singularityCount >= 25, // Feature - Upgrades - Auto Buy Automation Upgrades
         'toggle28': player.prestigeCount > 0.5 || player.reincarnationCount > 0.5, // Settings - Confirmations - Prestige
         'toggle29': player.transcendCount > 0.5 || player.reincarnationCount > 0.5,  // Settings - Confirmations - Transcension
         'toggle30': player.reincarnationCount > 0.5, // Settings - Confirmations - Reincarnation
@@ -487,7 +496,11 @@ export const revealStuff = () => {
         'toggle38': player.singularityCount > 0, // Researchs Hover to Buy
         'toggle39': player.unlocks.prestige, // Hotkeys
         'toggle40': player.unlocks.prestige, // Number Hotkeys
-        'toggle41': player.challengecompletions[11] > 0 // Loadouts Notifx
+        'toggle41': player.challengecompletions[11] > 0, // Loadouts Notifx
+        'toggle42': true, // Notation
+        'toggle43': true, // Top Stats
+        'toggle44': true, // Mini Header
+        'toggle45': true // Auto Export Quark
     }
 
     Object.keys(automationUnlocks).forEach(key => {
@@ -502,6 +515,7 @@ export const revealStuff = () => {
     });
 
     revealCorruptions();
+    checkHotkeys();
 }
 
 export const hideStuff = () => {
@@ -737,19 +751,44 @@ export const buttoncolorchange = () => {
             k += 10
         }
 
-        (player.achievements[79] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][0] + G['crystalUpgradeCostIncrement'][0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2))))) ? f.style.backgroundColor = 'purple' : f.style.backgroundColor = '';
-        (player.achievements[86] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][1] + G['crystalUpgradeCostIncrement'][1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2))))) ? g.style.backgroundColor = 'purple' : g.style.backgroundColor = '';
-        (player.achievements[93] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][2] + G['crystalUpgradeCostIncrement'][2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2))))) ? h.style.backgroundColor = 'purple' : h.style.backgroundColor = '';
-        (player.achievements[100] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][3] + G['crystalUpgradeCostIncrement'][3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2))))) ? i.style.backgroundColor = 'purple' : i.style.backgroundColor = '';
-        (player.achievements[107] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][4] + G['crystalUpgradeCostIncrement'][4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2))))) ? j.style.backgroundColor = 'purple' : j.style.backgroundColor = '';
+        if (player.achievements[79] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][0] + G['crystalUpgradeCostIncrement'][0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2))))) {
+            f.classList.add('buildingPurchaseBtnAvailable');
+        } else {
+            f.classList.remove('buildingPurchaseBtnAvailable');
+        }
+        if (player.achievements[86] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][1] + G['crystalUpgradeCostIncrement'][1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2))))) {
+            g.classList.add('buildingPurchaseBtnAvailable');
+        } else {
+            g.classList.remove('buildingPurchaseBtnAvailable');
+        }
+        if (player.achievements[93] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][2] + G['crystalUpgradeCostIncrement'][2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2))))) {
+            h.classList.add('buildingPurchaseBtnAvailable');
+        } else {
+            h.classList.remove('buildingPurchaseBtnAvailable');
+        }
+        if (player.achievements[100] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][3] + G['crystalUpgradeCostIncrement'][3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2))))) {
+            i.classList.add('buildingPurchaseBtnAvailable');
+        } else {
+            i.classList.remove('buildingPurchaseBtnAvailable');
+        }
+        if (player.achievements[107] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G['crystalUpgradesCost'][4] + G['crystalUpgradeCostIncrement'][4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2))))) {
+            j.classList.add('buildingPurchaseBtnAvailable');
+        } else {
+            j.classList.remove('buildingPurchaseBtnAvailable');
+        }
     }
 
     if (G['currentTab'] === 'runes') {
         if (G['runescreen'] === 'runes') {
             for (let i = 1; i <= 7; i++) {
-                player.runeshards > 0.5
-                    ? DOMCacheGetOrSet(`activaterune${i}`).classList.add('runeButtonAvailable')
-                    : DOMCacheGetOrSet(`activaterune${i}`).classList.remove('runeButtonAvailable')
+                const em = DOMCacheGetOrSet(`activaterune${i}`);
+                const maxLevel = calculateMaxRunes(i);
+                const exp = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], 1);
+                if (exp.length > 0 && player.runeshards >= exp[0] && player.runelevels[i - 1] < maxLevel) {
+                    em.classList.add('runeButtonAvailable');
+                } else {
+                    em.classList.remove('runeButtonAvailable');
+                }
             }
         }
         if (G['runescreen'] === 'talismans') {
@@ -813,6 +852,12 @@ export const buttoncolorchange = () => {
         }
     }
 
+    if (G['currentTab'] === 'researches') {
+        for (let i = 1; i < G['upgradeCosts'].length; i++) {
+            updateResearchBG(i);
+        }
+    }
+
     if (G['currentTab'] === 'ants') {
         (player.reincarnationPoints.gte(player.firstCostAnts)) ? DOMCacheGetOrSet('anttier1').classList.add('antTierBtnAvailable') : DOMCacheGetOrSet('anttier1').classList.remove('antTierBtnAvailable');
         for (let i = 2; i <= 8; i++) {
@@ -831,7 +876,7 @@ export const buttoncolorchange = () => {
 
 export const updateChallengeDisplay = () => {
     //Sets background colors on load/challenge initiation
-    for (let k = 1; k <= 15; k++) {
+    for (let k = 1; k < player.challengecompletions.length; k++) {
         const el = DOMCacheGetOrSet(`challenge${k}`)
         el.classList.remove('challengeActive')
         if (player.currentChallenge.transcension === k) {
@@ -850,7 +895,7 @@ export const updateChallengeDisplay = () => {
     } else {
         DOMCacheGetOrSet('retryChallenge').textContent = 'Retry Challenges: OFF'
     }
-    for (let k = 1; k <= 15; k++) {
+    for (let k = 1; k < player.challengecompletions.length; k++) {
         updateChallengeLevel(k);
     }
 }
@@ -864,8 +909,8 @@ export const updateChallengeLevel = (k: number) => {
 
 export const updateAchievementBG = () => {
     //When loading/importing, the game needs to correctly update achievement backgrounds.
-    for (let i = 1; i <= 280; i++) { //Initiates by setting all to default
-        DOMCacheGetOrSet('ach' + i).style.backgroundColor = ''
+    for (let i = 1; i < player.achievements.length; i++) { //Initiates by setting all to default
+        DOMCacheGetOrSet(`ach${i}`).style.backgroundColor = ''
     }
     const fixDisplay1 = document.getElementsByClassName('purpleach') as HTMLCollectionOf<HTMLElement>;
     const fixDisplay2 = document.getElementsByClassName('redach') as HTMLCollectionOf<HTMLElement>;

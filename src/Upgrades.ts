@@ -371,17 +371,34 @@ export const clickUpgrades = (i: number, auto: boolean) => {
     if (i <= 100 && i >= 94) {
         type = Upgrade.reincarnation;
     }
-    if (type && i <= 80 && i >= 1) {
-        buyUpgrades(type, i, auto);
+    if (i <= 105 && i >= 101) {
+        type = Upgrade.prestige;
     }
-    if (type && i <= 100 && i >= 81) {
-        buyAutobuyers(i - 80, auto);
+    if (i <= 110 && i >= 106) {
+        type = Upgrade.coin;
     }
-    if (i <= 120 && i >= 101) {
-        buyGenerator(i - 100, auto);
+    if (i <= 115 && i >= 111) {
+        type = Upgrade.prestige;
+    }
+    if (i <= 120 && i >= 116) {
+        type = Upgrade.transcend;
     }
     if (i <= 125 && i >= 121) {
-        buyUpgrades(Upgrade.coin, i, auto);
+        type = Upgrade.coin;
+    }
+    if (type !== undefined && player[type].gte(Decimal.pow(10, G['upgradeCosts'][i]))) {
+        if (i <= 80 && i >= 1) {
+            buyUpgrades(type, i, auto);
+        }
+        if (i <= 100 && i >= 81) {
+            buyAutobuyers(i, auto);
+        }
+        if (i <= 120 && i >= 101) {
+            buyGenerator(i, auto);
+        }
+        if (i <= 125 && i >= 121) {
+            buyUpgrades(type, i, auto);
+        }
     }
 }
 
