@@ -1109,6 +1109,13 @@ export const singularityPerks: SingularityPerk[] = [
         description: () => {
             return 'Auto Challenge Sweep can run Ascension Challenges if you have better Instant Challenge Completions'
         }
+    },
+    {
+        name: 'PL-AT Σ',
+        levels: [125, 200],
+        description: () => {
+            return 'Code \'add\' refills 0.1% faster per level per singularity (MAX: 50% faster)'
+        }
     }
 ]
 

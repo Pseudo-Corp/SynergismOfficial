@@ -256,6 +256,36 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundMinimumLevel: 0,
         description: 'The PL-AT Ω is infused with some Unobtainium, which is epic! But furthermore, it reduces the variance of Quarks by code \'add\' by 10% per level, which makes you more likely to get the maximum multiplier. It also has the ability to give +60 seconds to Ascension Timer per level using that code.'
     },
+    calculator4: {
+        tier: 'Singularity',
+        price: 1e7,
+        priceIncrease: 1e6,
+        maxLevel: 10,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'The PL-AT δ runs at 4,096Hz, which is a huge improvement over previous models. Add attempts refill 2% faster per level! Final level adds 8 additional capacity!'
+    },
+    calculator5: {
+        tier: 'SingularityVol2',
+        price: 1e8,
+        priceIncrease: 1e8,
+        maxLevel: 100,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'The PL-AT Γ model somehow performs more \'powerful\' computations, whatever that means. +6 seconds of GQ Export timer per level. +1 capcaity every 10 levels, with 6 more at final level!'
+    },
+    calculator6: {
+        tier: 'SingularityVol3',
+        price: 1e11,
+        priceIncrease: 2e10,
+        maxLevel: 100,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'The PL-AT _ model was made by Derpsmith, before he was banished from the industry forever. Gain 1 second of Octeract per usage per level. Final level grants 24 additional capacity!'
+    },
     constantEX: {
         tier: 'Ascension',
         price: 100000,
@@ -517,7 +547,7 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'seasonPassLost' | 'chronometer' | 'chronometer2'| 'chronometer3'| 'chronometerZ' | 'infiniteAscent' | 'calculator' | 'calculator2' |
                         'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | //And Golden Quarks
                         'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4' | 'shopImprovedDaily' |
-                        'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4'
+                        'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -609,6 +639,15 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             break;
         case 'calculator3':
             lol.textContent = 'CURRENT Effect: Code \'add\' variance -' + format(10 * player.shopUpgrades.calculator3) + '%, Each use gives ' + format(60 * player.shopUpgrades.calculator3) + ' seconds to Ascension Timer.';
+            break;
+        case 'calculator4':
+            lol.textContent = `CURRENT Effect: Code add refills ${format(2 * player.shopUpgrades.calculator4)}% faster. Capacity +${player.shopUpgrades.calculator4 == 10 ? 8 : 0}`
+            break;
+        case 'calculator5':
+            lol.textContent = `CURRENT Effect: Code add adds ${format(6 * player.shopUpgrades.calculator5)}s to GQ export timer. Capacity +${Math.floor(player.shopUpgrades.calculator5 / 10) + (player.shopUpgrades.calculator4 === 100 ? 6 : 0)}`
+            break;
+        case 'calculator6':
+            lol.textContent = `CURRENT Effect: Code add generates ${format(player.shopUpgrades.calculator6)}s of Octeracts. Capacity +${player.shopUpgrades.calculator6 === 100 ? 24 : 0}`
             break;
         case 'constantEX':
             lol.textContent = 'CURRENT Effect: +' + format(0.01 * player.shopUpgrades.constantEX, 2, true) + ' effect on Constant Upgrade 2';
@@ -716,6 +755,9 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         calculator: 'a PL-AT calculator',
         calculator2: 'a PL-AT X calculator',
         calculator3: 'a PL-AT Ω calculator',
+        calculator4: 'a PL-AT δ calculator',
+        calculator5: 'a PL-AT Γ calculator',
+        calculator6: 'a QUAAA-T calculator',
         constantEX: 'Constant EX',
         powderEX: 'Powder EX',
         chronometer2: 'a ascension speedup',

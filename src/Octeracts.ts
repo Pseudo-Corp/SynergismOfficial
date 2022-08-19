@@ -188,16 +188,16 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     octeractExportQuarks: {
         name: 'Improved Download Speeds',
-        description: 'Thanks to ethernet technology, export quarks are increased by 100% per level! Only normal ones.',
+        description: 'Thanks to ethernet technology, export quarks are increased by 40% per level! Only normal ones.',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(level + 1, 3)
         },
-        maxLevel: 99,
+        maxLevel: 100,
         costPerLevel: 1,
         effect: (n: number) => {
             return {
-                bonus: n + 1,
-                desc: `Export quarks +${format(100 * n, 0 , true)}%`
+                bonus: 4 * n/10 + 1,
+                desc: `Export quarks +${format(40 * n, 0 , true)}%`
             }
         }
     },
