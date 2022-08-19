@@ -634,7 +634,7 @@ const addCodeMaxUses = () : number => {
     if (player.shopUpgrades.calculator4 === shopData.calculator4.maxLevel) {
         maxUses += 8
     }
-    maxUses += Math.floor(player.shopUpgrades.calculator5)
+    maxUses += Math.floor(player.shopUpgrades.calculator5 / 10)
     if (player.shopUpgrades.calculator5 === shopData.calculator5.maxLevel) {
         maxUses += 6
     }
