@@ -458,7 +458,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         //Allows storage of up to (24 + 2 * calc2 levels) Add Codes, lol!
         const v = Math.max(Date.now() - (maxUses - realAttemptsUsed) * timeInterval, player.rngCode + timeInterval * realAttemptsUsed)
         const remaining = Math.floor((Date.now() - v) / timeInterval)
-        const timeToNext = Math.floor((hour - (Date.now() - v - timeInterval * remaining)) / 1000)
+        const timeToNext = Math.floor((timeInterval - (Date.now() - v - timeInterval * remaining)) / 1000)
 
         // Calculator 3: Adds ascension timer.
         const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
