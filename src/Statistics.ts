@@ -343,7 +343,8 @@ export const loadStatisticsOfferingMultipliers = () => {
         27: {acc: 3, desc: 'Offering Tempest [GQ]:'},
         28: {acc: 3, desc: 'Citadel [GQ]'},
         29: {acc: 3, desc: 'Cube Upgrade Cx4:'},
-        30: {acc: 3, desc: 'Event:'}
+        30: {acc: 3, desc: 'Offering Electrolosis [OC]:'},
+        31: {acc: 3, desc: 'Event:'}
     }
     for (let i = 0; i < arr.length; i++) {
         const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`);

@@ -336,6 +336,44 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             }
         }
     },
+    octeractOfferings1: {
+        name: 'Offering Electrolosis',
+        description: 'Gain 1% more offerings per level.',
+        costFormula: (level: number, baseCost: number) => {
+            if (level < 25) {
+                return baseCost * Math.pow(level + 1, 5)
+            } else {
+                return baseCost * 1e15 * Math.pow(10, level / 25 - 1)
+            }
+        },
+        maxLevel: -1,
+        costPerLevel: 1e-15,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.01 * n,
+                desc: `Offering gain +${format(n)}%`
+            }
+        }
+    },
+    octeractObtainium1: {
+        name: 'Obtainium Deluge',
+        description: 'Gain 1% more obtainium per level.',
+        costFormula: (level: number, baseCost: number) => {
+            if (level < 25) {
+                return baseCost * Math.pow(level + 1, 5)
+            } else {
+                return baseCost * 1e15 * Math.pow(10, level / 25 - 1)
+            }
+        },
+        maxLevel: -1,
+        costPerLevel: 1e-15,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.01 * n,
+                desc: `Obtainium gain +${format(n)}%`
+            }
+        }
+    },
     octeractAscensions: {
         name: 'Voided Warranty',
         description: 'Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels.',

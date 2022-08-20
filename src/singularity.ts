@@ -67,7 +67,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
             : 'No minimal Singularity to purchase required'
 
         let freeLevelInfo = this.freeLevels > 0 ?
-            `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
+            `<span style="color: orange"> [+${format(this.freeLevels, 2, true)}]</span>` : ''
 
         if (this.freeLevels > this.level) {
             freeLevelInfo = freeLevelInfo + '<span style="color: maroon"> (Softcapped) </span>'
@@ -986,7 +986,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Automation Upgrades',
-        levels: [10, 25, 30, 101],
+        levels: [10, 25, 30, 100],
         description: (n: number, levels: number[]) => {
             if (n >= levels[3]) {
                 return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
@@ -1011,6 +1011,13 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [16],
         description: () => {
             return 'Unlocks new, very difficult achievements! They are earned differently from others, however... (WIP)'
+        }
+    },
+    {
+        name: 'Midas\' Windfall',
+        levels: [20],
+        description: () => {
+            return 'Using code Daily is guaranteed to give you 0.2 free GQ1, 0.2 free GQ2 and 1 free GQ3 level per day!'
         }
     },
     {
@@ -1112,6 +1119,13 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [125, 200],
         description: () => {
             return 'Code \'add\' refills 0.1% faster per level per singularity (MAX: 50% faster)'
+        }
+    },
+    {
+        name: 'Midas\' Millenium-Aged Gold',
+        levels: [150],
+        description: () => {
+            return 'Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.'
         }
     }
 ]

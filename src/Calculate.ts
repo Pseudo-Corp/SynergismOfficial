@@ -366,6 +366,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         +player.singularityUpgrades.singOfferings3.getEffect().bonus, // Offering Tempest GQ Upgrade
         +player.singularityUpgrades.singCitadel.getEffect().bonus, // Citadel GQ Upgrade
         1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
+        +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
         1 + calculateEventBuff('Offering') // Event
     ];
 
@@ -572,6 +573,7 @@ export const calculateObtainium2 = () => {
     G['obtainiumGain'] *= (1 + 1/100 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
     G['obtainiumGain'] *= 1 + calculateEventBuff('Obtainium');
     G['obtainiumGain'] *= +player.singularityUpgrades.singCitadel.getEffect().bonus
+    G['obtainiumGain'] *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
@@ -1138,7 +1140,7 @@ export const calculateTotalOcteractCubeBonus = () => {
         const bonus = (1 + 2/1000 * player.totalWowOcteracts) // At 1,000 returns 3
         return bonus > 1.00001 ? bonus : 1
     } else {
-        return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, 2) // At 1,000 returns 3
+        return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, 2.0) // At 1,000 returns 3
     }
 }
 

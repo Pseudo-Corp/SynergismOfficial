@@ -411,6 +411,16 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 }
             }
 
+            if (player.highestSingularityCount >= 20) {
+                player.singularityUpgrades.goldenQuarks1.freeLevels += 0.2
+                freeLevels['goldenQuarks1'] ? freeLevels['goldenQuarks1'] += 0.2 : freeLevels['goldenQuarks1'] = 0.2
+                player.singularityUpgrades.goldenQuarks2.freeLevels += 0.2
+                freeLevels['goldenQuarks2'] ? freeLevels['goldenQuarks2'] += 0.2 : freeLevels['goldenQuarks2'] = 0.2
+                player.singularityUpgrades.goldenQuarks3.freeLevels += 1
+                freeLevels['goldenQuarks3'] ? freeLevels['goldenQuarks3'] += 1 : freeLevels['goldenQuarks3'] = 1
+
+            }
+
             for (const key of Object.keys(freeLevels)) {
                 rewardMessage += dailyCodeFormatFreeLevelMessage(key, freeLevels[key])
             }
@@ -479,12 +489,22 @@ export const promocodes = async (input: string | null, amount?: number) => {
             ? `Finally, thanks to PL-AT _ you have gained ${format(octeractTime)} seconds of Octeract generation!`
             : '';
 
+        // Midas' Millenium-Aged Gold perk
+        const freeLevelsText = (player.highestSingularityCount >= 150)
+            ? `Moreover, gain ${format(0.01 * realAttemptsUsed, 2)} free levels of GQ1 and ${format(0.05 * realAttemptsUsed, 2)} free levels of GQ3!!!`
+            : '';
+
         // Calculator Maxed: you don't need to insert anything!
         if (player.shopUpgrades.calculator === shopData['calculator'].maxLevel) {
             player.worlds.add(actualQuarks);
             addTimers('ascension', ascensionTimer)
             player.goldenQuarksTimer += gqTimer
             addTimers('octeracts', octeractTime)
+
+            if (player.highestSingularityCount >= 150) {
+                player.singularityUpgrades.goldenQuarks1.freeLevels += 0.01 * realAttemptsUsed
+                player.singularityUpgrades.goldenQuarks3.freeLevels += 0.05 * realAttemptsUsed
+            }
 
             player.rngCode = v;
             if (amount) {
@@ -493,7 +513,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 return
             } else {
                 return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} Quarks! ` +
-                    `${ ascensionTimerText } ${ gqTimerText } ${ octeractTimeText } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+                    `${ ascensionTimerText } ${ gqTimerText } ${ octeractTimeText } ${ freeLevelsText } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
             }
         }
 
