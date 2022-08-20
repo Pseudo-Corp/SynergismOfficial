@@ -1521,7 +1521,7 @@ export const calculateAscensionAcceleration = () => {
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
     let multiplier = 1
-    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100]
+    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 169, 196, 200, 225, 250]
     for (const sing of singThresholds) {
         if (player.singularityCount >= sing) {
             multiplier *= 1.05
@@ -2047,7 +2047,7 @@ export const calculateEventBuff = (buff: string) => {
 
 export const derpsmithCornucopiaBonus = () => {
     let counter = 0
-    const singCounts = [18, 38, 58, 78, 88, 98, 118, 148]
+    const singCounts = [18, 38, 58, 78, 88, 98, 118, 148, 178, 188, 198, 208, 218, 228, 238, 248]
     for (const sing of singCounts) {
         if (player.singularityCount >= sing) {
             counter += 1

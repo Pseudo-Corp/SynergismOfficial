@@ -940,25 +940,15 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Even more Quarks',
-        levels: [5, 20, 35, 50, 65, 80, 90, 100],
+        levels: [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 169, 196, 200, 225, 250],
         description: (n: number, levels: number[]) => {
-            if (n >= levels[7]) {
-                return 'You get EIGHT stacks of +5% Quarks, multiplicative. Kinda like the octeracts, huh?'
-            } else if (n >= levels[6]) {
-                return 'You get seven stacks of +5% Quarks!'
-            } else if (n >= levels[5]) {
-                return 'You get six stacks of +5% Quarks!'
-            } else if (n >= levels[4]) {
-                return 'You get five stacks of +5% Quarks! How many of these can there be???'
-            } else if (n >= levels[3]) {
-                return 'You get four stacks of +5% Quarks! Wow!'
-            } else if (n >= levels[2]) {
-                return 'You get +5% Quarks, then +5% Quarks, then 5% MORE Quarks!'
-            } else if (n >= levels[1]) {
-                return 'You get another +5% multiplicative Quark bonus, and then ANOTHER one on top of it!'
-            } else {
-                return 'You get another +5% multiplicative Quark bonus!'
+
+            for (let i = levels.length - 1; i >= 0; i--) {
+                if (n >= levels[i]) {
+                    return `You gain ${i+1} stacks of 5% Quarks! Total Increase: +${format(100 * (Math.pow(1.05, i+1) - 1), 2)}%`
+                }
             }
+            return 'This is a bug! Contact Platonic if you see this message, somehow.'
         }
     },
     {
@@ -1017,8 +1007,15 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Exalted Achievements',
+        levels: [16],
+        description: () => {
+            return 'Unlocks new, very difficult achievements! They are earned differently from others, however... (WIP)'
+        }
+    },
+    {
         name: 'Derpsmith\'s Cornucopia',
-        levels: [18, 38, 58, 78, 88, 98, 118, 148],
+        levels: [18, 38, 58, 78, 88, 98, 118, 148, 178, 188, 198, 208, 218, 228, 238, 248],
         description: (n: number, levels: number[]) => {
             let counter = 0
             for (const singCount of levels) {
@@ -1208,7 +1205,12 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
 }
 
 function formatPerkDescription(perkData: ISingularityPerkDisplayInfo, singularityCount: number): string {
-    const isNew = perkData.lastUpgraded === singularityCount;
+    let singTolerance = 0
+    singTolerance += +player.singularityUpgrades.singFastForward.getEffect().bonus
+    singTolerance += +player.singularityUpgrades.singFastForward2.getEffect().bonus
+    singTolerance += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
+
+    const isNew = (singularityCount - perkData.lastUpgraded <= singTolerance);
     const levelInfo = perkData.currentLevel > 1 ? ' - Level '+ perkData.currentLevel : '';
     //const acquiredUpgraded = ' / Acq ' + perkData.acquired + ' / Upg ' + perkData.lastUpgraded;
     return `<span${isNew?' class="newPerk"':''} title="${perkData.description}">${perkData.name}${levelInfo}</span>`;
