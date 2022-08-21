@@ -206,7 +206,7 @@ body button:active {
     width: max(100vw, 100%);
     height: max(100vh, 100%);
     background-color: rgb(0 0 0 / 50%);
-    z-index: 6968;
+    z-index: 6967;
 }
 
 #notification {
@@ -391,7 +391,7 @@ body button:active {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 6969;
+    z-index: 6968;
     width: max(100vw, 100%);
     height: max(100vh, 100%);
 }
@@ -1562,7 +1562,6 @@ p#transcendhotkeys {
     max-width: 4.8em;
     margin: 4px auto 0;
     font-size: 12px;
-    overflow: hidden;
 }
 
 #challengeDetails {
@@ -2586,6 +2585,8 @@ p#ascendHotKeys {
 
 #historyAscend,
 #historySingularity {
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
 }
 
