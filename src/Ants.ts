@@ -410,13 +410,14 @@ export const autoBuyAnts = () => {
     }
 
     const _ach = [173, 176, 177, 178, 179, 180, 181, 182];
+    const _cost = ['1e700', '3', '100', '10000', '1e12', '1e36', '1e100', '1e300'];
     for (let i = 1; i <= _ach.length; i++) {
         const res = i === 1 ? player.reincarnationPoints : player.antPoints;
         const m = i === 1 ? 1 : 2; // no multiplier on the first ant cost because it costs particles
         if (player.achievements[_ach[i - 1]] && res.gte(player[`${G['ordinals'][i - 1 as ZeroToSeven]}CostAnts` as const].times(m))) {
             buyAntProducers(
                 G['ordinals'][i - 1] as Parameters<typeof buyAntProducers>[0],
-                G['antProducerCostVals'][i], i
+                _cost[i - 1], i
             );
         }
     }

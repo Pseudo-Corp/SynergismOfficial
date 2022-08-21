@@ -12,7 +12,7 @@ import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { getElementById } from './Utility';
 import { achievementaward, ascensionAchievementCheck, challengeachievementcheck } from './Achievements';
-import { buyResearch } from './Research';
+import { updateResearchBG ,buyResearch } from './Research';
 import { calculateHypercubeBlessings } from './Hypercubes';
 import type {
     ResetHistoryEntryPrestige,
@@ -36,6 +36,7 @@ import { updateCubeUpgradeBG, awardAutosCookieUpgrade, autoBuyCubeUpgrades } fro
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
+import { updatePlatonicUpgradeBG, autoBuyPlatonicUpgrades } from './Platonic';
 import { sumContents } from './Utility';
 
 let repeatreset: ReturnType<typeof setTimeout>;
@@ -591,6 +592,10 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.roombaResearchIndex = 0;
         player.autoResearch = 1;
 
+        for (let i = 1; i < G['researchMaxLevels'].length; i++) {
+            updateResearchBG(i);
+        }
+
         calculateAnts();
         calculateRuneLevels();
         calculateAntSacrificeELO();
@@ -711,6 +716,9 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                 }
             }
         }
+
+        // Auto Platonic Upgrades
+        autoBuyPlatonicUpgrades();
 
         // Auto Buy Cube Upgrades
         autoBuyCubeUpgrades();
@@ -960,6 +968,12 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     }
 
     if (singularityReset) {
+        if (player.singularityUpgrades.platonicAlpha.getEffect().bonus) {
+            player.platonicUpgrades[5] = 1;
+        }
+    }
+
+    if (singularityReset) {
         for (let j = 1; j < player.challengecompletions.length; j++) {
             challengeachievementcheck(j);
         }
@@ -968,6 +982,9 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     if (singularityReset) {
         for (let j = 1; j < player.cubeUpgrades.length; j++) {
             updateCubeUpgradeBG(j);
+        }
+        for (let j = 1; j < player.platonicUpgrades.length; j++) {
+            updatePlatonicUpgradeBG(j);
         }
     }
     revealStuff();
@@ -1066,6 +1083,8 @@ export const singularity = async (): Promise<void> => {
     hold.particlebuyamount = player.particlebuyamount
     hold.offeringbuyamount = player.offeringbuyamount
     hold.tesseractbuyamount = player.tesseractbuyamount
+    hold.singularitybuyamount = player.singularitybuyamount
+    hold.octeractbuyamount = player.octeractbuyamount
     hold.shoptoggles = player.shoptoggles
     hold.autoSacrificeToggle = player.autoSacrificeToggle
     hold.autoBuyFragment = player.autoBuyFragment
@@ -1122,6 +1141,8 @@ export const singularity = async (): Promise<void> => {
     hold.overfluxOrbsAutoBuy = player.overfluxOrbsAutoBuy
     hold.hotkeys = player.hotkeys
     hold.theme = player.theme
+    hold.autoCubeUpgradesToggle = player.autoCubeUpgradesToggle
+    hold.autoPlatonicUpgradesToggle = player.autoPlatonicUpgradesToggle
 
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark;

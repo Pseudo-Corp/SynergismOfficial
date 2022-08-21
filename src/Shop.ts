@@ -791,7 +791,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     revealStuff();
 }
 
-export const buyConsumable = async (input: ShopUpgradeNames) => {
+export const buyConsumable = async (input: ShopUpgradeNames, event: MouseEvent) => {
 
     const maxBuyablePotions = Math.min(Math.floor(Number(player.worlds)/100),shopData[input].maxLevel-player.shopUpgrades[input]);
     const potionKind = input === 'offeringPotion' ? 'Offering Potions' : 'Obtainium Potions';
@@ -803,7 +803,7 @@ export const buyConsumable = async (input: ShopUpgradeNames) => {
         return Alert(`You can't purchase ${potionKind} because you don't have enough Quarks!`);
     }
 
-    const potionsAmount = await Prompt(`How many ${potionKind} would you like?\nYou can buy up to ${format(maxBuyablePotions, 0, true)} for 100 Quarks each.`);
+    const potionsAmount = event.shiftKey === true ? maxBuyablePotions : await Prompt(`How many ${potionKind} would you like?\nYou can buy up to ${format(maxBuyablePotions, 0, true)} for 100 Quarks each.`);
     const potionsToBuy = Math.floor(Number(potionsAmount));
 
     if (potionsToBuy === 0) {
@@ -819,7 +819,21 @@ export const buyConsumable = async (input: ShopUpgradeNames) => {
     }
 }
 
-export const useConsumable = async (input: ShopUpgradeNames) => {
+export const useConsumableClick = async (input: ShopUpgradeNames, event: MouseEvent) => {
+    let uses = 1;
+    if (input === 'offeringPotion') {
+        if (event.shiftKey === true) {
+            uses = Math.ceil(player.shopUpgrades.offeringPotion / 10);
+        }
+    } else if (input === 'obtainiumPotion') {
+        if (event.shiftKey === true) {
+            uses = Math.ceil(player.shopUpgrades.obtainiumPotion / 10);
+        }
+    }
+    void useConsumable(input, uses);
+}
+
+export const useConsumable = async (input: ShopUpgradeNames, uses = 1) => {
     const p = player.shopConfirmationToggle
         ? await Confirm('Would you like to use some of this potion?')
         : true;
@@ -827,15 +841,15 @@ export const useConsumable = async (input: ShopUpgradeNames) => {
     if (p) {
         const multiplier = +player.singularityUpgrades.potionBuff.getEffect().bonus;
         if (input === 'offeringPotion') {
-            if (player.shopUpgrades.offeringPotion > 0) {
-                player.shopUpgrades.offeringPotion -= 1;
-                player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
+            if (player.shopUpgrades.offeringPotion >= uses) {
+                player.shopUpgrades.offeringPotion -= uses;
+                player.runeshards += Math.floor(uses * 7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
                 player.runeshards = Math.min(1e300, player.runeshards)
             }
         } else if (input === 'obtainiumPotion') {
-            if (player.shopUpgrades.obtainiumPotion > 0) {
-                player.shopUpgrades.obtainiumPotion -= 1;
-                player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
+            if (player.shopUpgrades.obtainiumPotion >= uses) {
+                player.shopUpgrades.obtainiumPotion -= uses;
+                player.researchPoints += Math.floor(uses * 7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
                 player.researchPoints = Math.min(1e300, player.researchPoints)
             }
         }

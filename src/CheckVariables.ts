@@ -758,6 +758,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.autoCubeUpgradesToggle === undefined) {
         player.autoCubeUpgradesToggle = false;
+        player.autoPlatonicUpgradesToggle = false;
+        player.singularitybuyamount = 1;
+        player.octeractbuyamount = 1;
     }
 
     if (data.highestSingularityCount === undefined) {

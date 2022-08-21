@@ -117,6 +117,8 @@ export const buyResearch = (index: number, auto = false, hover = false): boolean
             updateChallengeDisplay();
         }
 
+        updateResearchBG(index);
+
         // Update ants and runes.
         calculateRuneLevels();
         calculateAnts();

@@ -193,7 +193,7 @@ const cubeUpgradeDescriptions = [
 ]
 
 const getCubeCost = (i: number, buyMax: boolean): IMultiBuy => {
-    const linGrowth = (i == 50 ? 0.01 : 0);
+    const linGrowth = (i === 50 ? 0.01 : 0);
     const cubic = i > 50;
     const maxLevel = getCubeMax(i)
     let amountToBuy = buyMax ? 1e5: 1;
@@ -343,7 +343,7 @@ export const autoBuyCubeUpgrades = () => {
     if (player.autoCubeUpgradesToggle && player.achievements[141] > 0 && player.singularityCount >= 45) {
         const cheapet = [];
 
-        for (let i = 1; i < cubeBaseCost.length; i++) {
+        for (let i = 1; i < player.cubeUpgrades.length; i++) {
             const maxLevel = getCubeMax(i);
             if (player.cubeUpgrades[i]! < maxLevel) {
                 const metaData = getCubeCost(i, true);

@@ -101,13 +101,9 @@ export class SingularityUpgrade extends DynamicUpgrade {
      * @returns An alert indicating cannot afford, already maxxed or purchased with how many
      *          levels purchased
      */
-    public async buyLevel(event: MouseEvent): Promise<void> {
+    public async buyLevel(): Promise<void> {
         let purchased = 0;
-        let maxPurchasable = 1
-
-        if (event.shiftKey) {
-            maxPurchasable = 10000
-        }
+        let maxPurchasable = player.singularitybuyamount;
 
         if (this.maxLevel > 0) {
             maxPurchasable = Math.min(maxPurchasable, this.maxLevel - this.level)
@@ -136,7 +132,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
         if (purchased === 0) {
             return Alert('You cannot afford this upgrade. Sorry!')
         }
-        if (purchased > 1) {
+        if (purchased > 1 && purchased <= maxPurchasable) {
             return Alert(`Purchased ${format(purchased)} levels, thanks to MAX Buy!`)
         }
 
@@ -192,7 +188,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 - Math.min(0.5, n / 500),
-                desc: `Purchasing Golden Quarks in the shop is ${Math.min(50, n / 5)}% cheaper.`
+                desc: `Purchasing Golden Quarks in the shop is ${format(Math.min(50, n / 5), 0, true)}% cheaper.`
             }
         }
     },
@@ -1072,16 +1068,15 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Automation Cubes',
-        levels: [35],
-        description: () => {
-            return 'Ascension allows you to automatically open the cubes you have'
-        }
-    },
-    {
-        name: 'Auto Cube Upgrades',
-        levels: [45],
-        description: () => {
-            return 'Ascension allows you to automatically cube upgrades'
+        levels: [35, 45, 50],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[2]) {
+                return 'Ascension allows you to automatically Cubes Open, Cube Upgrades and Platonic Upgrades!'
+            } else if (n >= levels[1]) {
+                return 'Ascension allows you to automatically Cubes Open and Cube Upgrades'
+            } else {
+                return 'Ascension allows you to automatically open the cubes you have'
+            }
         }
     },
     {

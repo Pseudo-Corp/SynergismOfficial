@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle } from './Toggles'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyRuneBonusLevels, buyAllBlessings } from './Buy'
@@ -14,7 +14,7 @@ import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
 import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, promocodesInfo, importSynergism, resetGame, preloadDeleteGame } from './ImportExport'
 import { resetHistoryTogglePerSecond } from './History'
-import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, buyConsumable, useConsumable, shopData, shopUpgradeTypes } from './Shop'
+import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, buyConsumable, useConsumableClick, shopData, shopUpgradeTypes } from './Shop'
 import { Globals as G } from './Variables';
 import { changeTabColor } from './UpdateHTML'
 import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp, toggleAutoBuyOrbs } from './Hepteracts'
@@ -136,9 +136,9 @@ export const generateEventHandlers = () => {
 
     }
     //Part 2: Building Amount Toggles
-    const buildingTypesAlternate = ['coin','crystal','mythos','particle','tesseract','offering'] as const;
-    const buildingOrds = ['one','ten','hundred','thousand']
-    const buildingOrdsToNum = [1, 10, 100, 1000] as const;
+    const buildingTypesAlternate = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract', 'singularity', 'octeract'] as const;
+    const buildingOrds = ['one', 'ten', 'hundred', 'thousand', 'million'];
+    const buildingOrdsToNum = [1, 10, 100, 1000, 1000000] as const;
     for (let index = 0; index < buildingOrds.length; index++) {
         for (let index2 = 0; index2 < buildingTypesAlternate.length; index2++) {
             DOMCacheGetOrSet(buildingTypesAlternate[index2]+buildingOrds[index]).addEventListener('click', () =>
@@ -373,7 +373,8 @@ export const generateEventHandlers = () => {
 
     // ANTHILL TAB
     //Part 1: Ant Producers (Tiers 1-8)
-    for (let index = 1; index < G['antProducerCostVals'].length; index++) {
+    const antProducerCostVals = ['null','1e700','3','100','10000','1e12','1e36','1e100','1e300']
+    for (let index = 1; index <= 8 ; index++) {
 
         //Onmouse Events
         DOMCacheGetOrSet(`anttier${index}`).addEventListener('mouseover', () => updateAntDescription(index))
@@ -381,7 +382,7 @@ export const generateEventHandlers = () => {
         //Onclick Events
         DOMCacheGetOrSet(`anttier${index}`).addEventListener('click', () => buyAntProducers(
         ordinals[index] as Parameters<typeof buyAntProducers>[0],
-        G['antProducerCostVals'][index], index)
+        antProducerCostVals[index],index)
         );
     }
     //Part 2: Ant Upgrades (1-12)
@@ -457,6 +458,7 @@ export const generateEventHandlers = () => {
         platonicUpgrades[index].addEventListener('click', () => buyPlatonicUpgrades(index+1))
 
     }
+    DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').addEventListener('click', () => autoPlatonicUpgradesToggle())
 
     //Part 4: Hepteract Subtab
     DOMCacheGetOrSet('chronosHepteract').addEventListener('mouseover', () => hepteractDescriptions('chronos'))
@@ -582,8 +584,8 @@ TODO: Fix this entire tab it's utter shit
         if (shopItem.type === shopUpgradeTypes.UPGRADE) {
             DOMCacheGetOrSet(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
         } else {
-            DOMCacheGetOrSet(`${key}Button`).addEventListener('click', () => buyConsumable(key))
-            DOMCacheGetOrSet(`${key}Use`).addEventListener('click', () => useConsumable(key))
+            DOMCacheGetOrSet(`${key}Button`).addEventListener('click', (event) => buyConsumable(key, event))
+            DOMCacheGetOrSet(`${key}Use`).addEventListener('click', (event) => useConsumableClick(key, event))
         }
     }
     DOMCacheGetOrSet('singularityQuarksHide').addEventListener('mouseover', () => shopOthersDescriptions('singularityQuarks'))
@@ -593,14 +595,14 @@ TODO: Fix this entire tab it's utter shit
     const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
     for (const key of singularityUpgrades) {
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
-        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.singularityUpgrades[`${String(key)}`].buyLevel(event))
+        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityUpgrades[`${String(key)}`].buyLevel())
     }
 
     // Octeract Upgrades
     const octeractUpgrades = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[];
     for (const key of octeractUpgrades) {
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.octeractUpgrades[`${String(key)}`].updateUpgradeHTML())
-        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.octeractUpgrades[`${String(key)}`].buyLevel(event))
+        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.octeractUpgrades[`${String(key)}`].buyLevel())
     }
     //Toggle subtabs of Singularity tab
     for (let index = 0; index < 4; index++) {

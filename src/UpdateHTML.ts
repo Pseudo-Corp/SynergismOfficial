@@ -405,6 +405,14 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'none';
     }
 
+    player.singularityCount >= 45 ? // Auto Cube Upgrades
+        DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = 'block' :
+        DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = 'none';
+
+    player.singularityCount >= 50 ? // Auto Platonic Upgrades
+        DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = 'block' :
+        DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = 'none';
+
     // Singularity confirmation toggle pic
     player.singularityCount > 0 && player.ascensionCount > 0 ?
         (DOMCacheGetOrSet('settingpic6').style.display = 'block'):
@@ -853,7 +861,7 @@ export const buttoncolorchange = () => {
     }
 
     if (G['currentTab'] === 'researches') {
-        for (let i = 1; i < G['upgradeCosts'].length; i++) {
+        for (let i = 1; i < G['researchMaxLevels'].length; i++) {
             updateResearchBG(i);
         }
     }

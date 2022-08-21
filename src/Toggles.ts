@@ -137,12 +137,12 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
 }
 
-type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract';
+type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract' | 'singularity' | 'octeract';
 
 export const toggleBuyAmount = (quantity: number, type: ToggleBuy) => {
     player[`${type}buyamount` as const] = quantity;
-    const buildingOrdsToNum = [1, 10, 100, 1000];
-    const buildingOrdsToStr = ['one', 'ten', 'hundred', 'thousand'];
+    const buildingOrdsToNum = [1, 10, 100, 1000, 1000000];
+    const buildingOrdsToStr = ['one', 'ten', 'hundred', 'thousand', 'million'];
     for (let index = 0; index < buildingOrdsToNum.length; index++) {
         if (quantity === buildingOrdsToNum[index]) {
             DOMCacheGetOrSet(`${type}${buildingOrdsToStr[index]}`).style.backgroundColor = 'Green';
@@ -821,6 +821,20 @@ export const autoCubeUpgradesToggle = (toggle = true) => {
     }
 }
 
+export const autoPlatonicUpgradesToggle = (toggle = true) => {
+    if (toggle) {
+        player.autoPlatonicUpgradesToggle = !player.autoPlatonicUpgradesToggle;
+    }
+    const el = DOMCacheGetOrSet('toggleAutoPlatonicUpgrades');
+    if (player.autoPlatonicUpgradesToggle) {
+        el.textContent = 'Auto Upgrades: [ON]'
+        el.style.border = '2px solid green'
+    } else {
+        el.textContent = 'Auto Upgrades: [OFF]'
+        el.style.border = '2px solid red'
+    }
+}
+
 export const toggleCubeSubTab = (i: number) => {
     const numSubTabs = subTabsInMainTab(8).subTabList.length
     for (let j = 1; j <= numSubTabs; j++) {
@@ -1155,6 +1169,7 @@ export const toggleUpdates = () => {
     toggleResearchBuy(false);
     toggleMaxBuyCube(false);
     autoCubeUpgradesToggle(false);
+    autoPlatonicUpgradesToggle(false);
     toggleAntMaxBuy(false);
     toggleAntAutoSacrifice(0, false);
     toggleAntAutoSacrifice(1, false);

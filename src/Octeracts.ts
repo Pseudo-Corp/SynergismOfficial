@@ -34,13 +34,9 @@ export class OcteractUpgrade extends DynamicUpgrade {
      * @returns An alert indicating cannot afford, already maxxed or purchased with how many
      *          levels purchased
      */
-    public async buyLevel(event: MouseEvent): Promise<void> {
+    public async buyLevel(): Promise<void> {
         let purchased = 0;
-        let maxPurchasable = 1;
-
-        if (event.shiftKey) {
-            maxPurchasable = 10000
-        }
+        let maxPurchasable = player.octeractbuyamount;
 
         if (this.maxLevel > 0) {
             maxPurchasable = Math.min(maxPurchasable, this.maxLevel - this.level)
@@ -66,7 +62,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
         if (purchased === 0) {
             return Alert('You cannot afford this upgrade. Sorry!')
         }
-        if (purchased > 1) {
+        if (purchased > 1 && purchased <= maxPurchasable) {
             return Alert(`Purchased ${format(purchased)} levels, thanks to MAX Buy!`)
         }
 

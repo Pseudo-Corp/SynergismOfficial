@@ -298,6 +298,8 @@ export interface Player {
     particlebuyamount: number,
     offeringbuyamount: number,
     tesseractbuyamount: number,
+    singularitybuyamount: number,
+    octeractbuyamount: number,
 
     shoptoggles: {
         coin: boolean,
@@ -423,6 +425,7 @@ export interface Player {
     cubeUpgrades: [null, ...number[]],
     cubeUpgradesBuyMaxToggle: boolean,
     autoCubeUpgradesToggle: boolean,
+    autoPlatonicUpgradesToggle: boolean,
     platonicUpgrades: number[],
     wowCubes: WowCubes,
     wowTesseracts: WowTesseracts,
@@ -731,7 +734,6 @@ export interface GlobalVariables {
     antEightProduce: Decimal,
 
     antCostGrowth: number[],
-    antProducerCostVals: string[],
 
     antUpgradeBaseCost: number[],
     antUpgradeCostIncreases: number[],

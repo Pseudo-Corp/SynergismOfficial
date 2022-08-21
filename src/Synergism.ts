@@ -419,7 +419,8 @@ export const player: Player = {
     particlebuyamount: 1,
     offeringbuyamount: 1,
     tesseractbuyamount: 1,
-
+    singularitybuyamount: 1,
+    octeractbuyamount: 1,
 
     shoptoggles: {
         coin: true,
@@ -553,6 +554,7 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     cubeUpgradesBuyMaxToggle: false,
     autoCubeUpgradesToggle: false,
+    autoPlatonicUpgradesToggle: false,
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
     wowTesseracts: new WowTesseracts(0),
@@ -868,7 +870,7 @@ const loadSynergy = async () => {
         ? JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>
         : null;
 
-    if (testing) {
+    if (!testing) {
         Object.defineProperty(window, 'player', {
             value: player
         });
@@ -1358,12 +1360,12 @@ const loadSynergy = async () => {
             updatePlatonicUpgradeBG(j);
         }
 
-        const buildingTypesAlternate = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract'] as const;
-        const buildingOrdsToNum = [1, 10, 100, 1000];
-        const buildingOrdsToStr = ['one', 'ten', 'hundred', 'thousand'];
+        const buildingTypesAlternate = ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract', 'singularity', 'octeract'] as const;
+        const buildingOrdsToNum = [1, 10, 100, 1000, 1000000];
+        const buildingOrdsToStr = ['one', 'ten', 'hundred', 'thousand', 'million'];
         for (let index = 0; index < buildingTypesAlternate.length; index++) {
             const buyamount = player[`${buildingTypesAlternate[index]}buyamount` as const];
-            if (buyamount !== 1 && buyamount !== 10 && buyamount !== 100 && buyamount !== 1000) {
+            if (buyamount !== 1 && buyamount !== 10 && buyamount !== 100 && buyamount !== 1000 && buyamount !== 1000000) {
                 player[`${buildingTypesAlternate[index]}buyamount` as const] = 1;
             }
             for (let index2 = 0; index2 < buildingOrdsToNum.length; index2++) {
@@ -3378,10 +3380,6 @@ export const updateAll = (): void => {
             player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM;
             c15RewardUpdate();
         }
-    }
-
-    if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
-        player.platonicUpgrades[5] = 1;
     }
 }
 

@@ -513,8 +513,12 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
     const posCostType = `${pos}Cost${type}` as const;
     const posOwnedType = `${pos}Owned${type}` as const;
 
+    // The number of purchases must not exceed Number.MAX_SAFE_INTEGER
+    if (player[posOwnedType] >= 1e15) {
+        return;
+    }
 
-    while (player[tag].gte(player[posCostType]) && G['ticker'] < buythisamount && player[posOwnedType] < Number.MAX_SAFE_INTEGER) {
+    while (player[tag].gte(player[posCostType]) && G['ticker'] < buythisamount && player[posOwnedType] < 1e15) {
         player[tag] = player[tag].sub(player[posCostType]);
         player[posOwnedType] += 1;
         player[posCostType] = player[posCostType].times(Decimal.pow(1.25, num));

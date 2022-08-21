@@ -1116,6 +1116,7 @@ p#promocodeinfo {
 #buyAmountTesseract {
     position: absolute;
     left: 80%;
+    font-size: 0;
 }
 
 .buyAmountBtn {
@@ -1911,6 +1912,12 @@ p#reincarnatehotkeys {
 #octeractsDisplay > p,
 #totalOcteractsDisplay > p {
     margin: 0 0 0 10px;
+}
+
+#buyamountsingularity,
+#buyamountocteract {
+    position: absolute;
+    left: calc(50% + 350px);
 }
 
 #goldenQuarkamount {
@@ -3189,10 +3196,13 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .platonicUpgrades2 {
+    display: flex;
+    flex-direction: column;
     margin-left: 5px;
+    gap: 5px;
 }
 
-#saveOffToggle {
+.platonicUpgrades2 > button {
     min-width: 130px;
     max-width: 200px;
 }
