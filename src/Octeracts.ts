@@ -184,16 +184,16 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     octeractExportQuarks: {
         name: 'Improved Download Speeds',
-        description: 'Thanks to ethernet technology, export quarks are increased by 100% per level! Only normal ones.',
+        description: 'Thanks to ethernet technology, export quarks are increased by 40% per level! Only normal ones.',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(level + 1, 3)
         },
-        maxLevel: 99,
+        maxLevel: 100,
         costPerLevel: 1,
         effect: (n: number) => {
             return {
-                bonus: n + 1,
-                desc: `Export quarks +${format(100 * n, 0 , true)}%`
+                bonus: 4 * n/10 + 1,
+                desc: `Export quarks +${format(40 * n, 0 , true)}%`
             }
         }
     },
@@ -329,6 +329,44 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return {
                 bonus: 0.05 * n,
                 desc: `Exponent of the first upgrade +${format(n/20, 2, true)}`
+            }
+        }
+    },
+    octeractOfferings1: {
+        name: 'Offering Electrolosis',
+        description: 'Gain 1% more offerings per level.',
+        costFormula: (level: number, baseCost: number) => {
+            if (level < 25) {
+                return baseCost * Math.pow(level + 1, 5)
+            } else {
+                return baseCost * 1e15 * Math.pow(10, level / 25 - 1)
+            }
+        },
+        maxLevel: -1,
+        costPerLevel: 1e-15,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.01 * n,
+                desc: `Offering gain +${format(n)}%`
+            }
+        }
+    },
+    octeractObtainium1: {
+        name: 'Obtainium Deluge',
+        description: 'Gain 1% more obtainium per level.',
+        costFormula: (level: number, baseCost: number) => {
+            if (level < 25) {
+                return baseCost * Math.pow(level + 1, 5)
+            } else {
+                return baseCost * 1e15 * Math.pow(10, level / 25 - 1)
+            }
+        },
+        maxLevel: -1,
+        costPerLevel: 1e-15,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 0.01 * n,
+                desc: `Obtainium gain +${format(n)}%`
             }
         }
     },

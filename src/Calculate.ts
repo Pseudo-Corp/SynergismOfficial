@@ -367,6 +367,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         +player.singularityUpgrades.singOfferings3.getEffect().bonus, // Offering Tempest GQ Upgrade
         +player.singularityUpgrades.singCitadel.getEffect().bonus, // Citadel GQ Upgrade
         1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
+        +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
         1 + calculateEventBuff('Offering') // Event
     ];
 
@@ -1046,7 +1047,7 @@ export const calculateTotalOcteractCubeBonus = () => {
         const bonus = (1 + 2/1000 * player.totalWowOcteracts) // At 1,000 returns 3
         return bonus > 1.00001 ? bonus : 1
     } else {
-        return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, 2) // At 1,000 returns 3
+        return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, 2.0) // At 1,000 returns 3
     }
 }
 
@@ -1429,7 +1430,7 @@ export const calculateAscensionAcceleration = () => {
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
     let multiplier = 1
-    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100]
+    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 169, 196, 200, 225, 250]
     for (const sing of singThresholds) {
         if (player.singularityCount >= sing) {
             multiplier *= 1.05
@@ -1960,7 +1961,7 @@ export const calculateEventBuff = (buff: string) => {
 
 export const derpsmithCornucopiaBonus = () => {
     let counter = 0
-    const singCounts = [18, 38, 58, 78, 88, 98, 118, 148]
+    const singCounts = [18, 38, 58, 78, 88, 98, 118, 148, 178, 188, 198, 208, 218, 228, 238, 248]
     for (const sing of singCounts) {
         if (player.singularityCount >= sing) {
             counter += 1
