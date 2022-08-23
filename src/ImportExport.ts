@@ -18,6 +18,7 @@ import { Globals as G } from './Variables';
 import { singularityData } from './singularity';
 import { getEvent } from './Event';
 import { synergismStage } from './Statistics';
+import ClipboardJS from 'clipboard';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -154,36 +155,30 @@ export const exportSynergism = async () => {
 
             // Old/bad browsers (legacy Edge, Safari because of limitations)
             const textArea = document.createElement('textarea');
-            const old = [textArea.contentEditable, textArea.readOnly] as const
-            textArea.value = saveString;
-            textArea.contentEditable = 'true'
-            textArea.readOnly = false
 
             textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
+            // For future Khafra: html5 attributes have no limit in length
+            textArea.setAttribute('data-clipboard-text', saveString)
 
             document.body.appendChild(textArea);
             textArea.focus()
             textArea.select()
 
-            // Safari
-            const range = document.createRange()
-            range.selectNodeContents(textArea)
+            const clipboard = new ClipboardJS(textArea)
 
-            const selection = window.getSelection()
-            selection?.removeAllRanges()
-            selection?.addRange(range)
-
-            textArea.setSelectionRange(0, textArea.value.length)
-            textArea.contentEditable = old[0]
-            textArea.readOnly = old[1]
-
-            try {
-                document.execCommand('copy');
-            } catch (e) {
-                return Alert(`Unable to write the save to clipboard (tried two methods): ${(e as Error).message}`);
-            } finally {
-                document.body.removeChild(textArea);
+            const cleanup = () => {
+                clipboard.destroy()
+                document.body.removeChild(textArea)
             }
+
+            clipboard.on('success', () => {
+                DOMCacheGetOrSet('exportinfo').textContent = 'Copied save to clipboard!'
+                cleanup()
+            })
+
+            clipboard.on('error', () => {
+                void Alert('Unable to write the save to clipboard.').finally(cleanup)
+            })
         }
     } else {
         const a = document.createElement('a');
@@ -198,9 +193,7 @@ export const exportSynergism = async () => {
         document.body.removeChild(a);
     }
 
-    DOMCacheGetOrSet('exportinfo').textContent = toClipboard
-        ? 'Copied save to your clipboard!'
-        : 'Savefile copied to file!';
+    DOMCacheGetOrSet('exportinfo').textContent = 'Savefile copied to file!';
 }
 
 export const reloadDeleteGame = async () => {
