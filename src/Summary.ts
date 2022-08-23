@@ -174,7 +174,7 @@ export const generateExportSummary = async():Promise<void> => {
     // Create Shop Stuffs
     let shopUpgradeStats = '\n'
     if (player.reincarnationCount > 0 || player.highestSingularityCount > 0) {
-        shopUpgradeStats = '===== SHOP UPGRADES =====\n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
+        shopUpgradeStats = '===== SHOP UPGRADES =====\n - [★]: Upgrade is MAXXED - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
         const shopUpgrade = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
         let totalShopUpgradeCount = 0
         let totalShopUpgradeUnlocked = 0
@@ -200,7 +200,7 @@ export const generateExportSummary = async():Promise<void> => {
                                 shopData[key].priceIncrease * shopUpg * (shopUpg - 1) / 2
 
             upgradeText = upgradeText + (isShopUpgradeUnlocked(key) ?
-                '[✔]':
+                (shopUpg === shopData[key].maxLevel ? '[★]' : '[✔]'):
                 '[✖]')
 
             upgradeText = upgradeText + ` ${friendlyShopName(key)}:`
@@ -221,7 +221,7 @@ export const generateExportSummary = async():Promise<void> => {
     // Create Singularity Stuffs
     let singularityUpgradeStats = '\n'
     if (player.highestSingularityCount > 0) {
-        singularityUpgradeStats = '===== SINGULARITY UPGRADES =====\n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
+        singularityUpgradeStats = '===== SINGULARITY UPGRADES =====\n - [★]: Upgrade is MAXXED - \n - [∞]: Upgrade is infinite - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
         const singUpgrade = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[]
         let totalSingUpgradeCount = -1 // One upgrade cannot ever be leveled, by design, so subtract that from the actual count
         let totalSingInfiniteLevel = 0
@@ -245,9 +245,18 @@ export const generateExportSummary = async():Promise<void> => {
 
             totalGoldenQuarksSpent += singUpg.goldenQuarksInvested
 
-            upgradeText = upgradeText + (player.singularityCount >= singUpg.minimumSingularity ?
-                '[✔]':
-                '[✖]')
+            let unicodeSymbol = '[✖]'
+            if (player.singularityCount >= singUpg.minimumSingularity) {
+                if (singUpg.maxLevel === -1) {
+                    unicodeSymbol = '[∞]'
+                } else if (singUpg.level === singUpg.maxLevel) {
+                    unicodeSymbol = '[★]'
+                } else {
+                    unicodeSymbol = '[✔]'
+                }
+            }
+
+            upgradeText = upgradeText + unicodeSymbol
             upgradeText = upgradeText + ` ${singUpg.name}:`
             upgradeText = upgradeText + (singUpg.maxLevel === -1 ?
                 ` Level ${singUpg.level}`:
@@ -273,7 +282,7 @@ export const generateExportSummary = async():Promise<void> => {
     // Create Octeract Stuff
     let octeractUpgradeStats =  '\n'
     if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
-        octeractUpgradeStats =  '===== OCTERACT UPGRADES =====\n'
+        octeractUpgradeStats =  '===== OCTERACT UPGRADES =====\n - [★]: Upgrade is MAXXED - \n - [∞]: Upgrade is infinite - \n - [ ]: Upgrade INCOMPLETE - \n'
         const octUpgrade = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[]
         let totalOctUpgradeCount = 0
         let totalOctUpgradeMax = 0
@@ -291,6 +300,14 @@ export const generateExportSummary = async():Promise<void> => {
             }
             totalOcteractsSpent += octUpg.octeractsInvested
 
+            let unicodeSymbol = '[ ]'
+            if (octUpg.maxLevel === -1) {
+                unicodeSymbol = '[∞]'
+            } else if (octUpg.level === octUpg.maxLevel) {
+                unicodeSymbol = '[★]'
+            }
+
+            upgradeText = upgradeText + unicodeSymbol
             upgradeText = upgradeText + octUpg.name + ':'
             upgradeText = upgradeText + (octUpg.maxLevel === -1 ?
                 ` Level ${octUpg.level}`:
