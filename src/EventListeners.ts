@@ -26,6 +26,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { toggleTheme } from './Themes'
 import { buyGoldenQuarks } from './singularity'
 import { resetHotkeys } from './Hotkeys'
+import { generateExportSummary } from './Summary'
 
 /* STYLE GUIDE */
 /*
@@ -559,6 +560,8 @@ export const generateEventHandlers = () => {
     for (const s of t) {
         s.addEventListener('click', (e) => displayStats(e.target as HTMLElement));
     }
+
+    DOMCacheGetOrSet('summaryGeneration').addEventListener('click', () => generateExportSummary());
 
     // Various functions
     /*Export Files*/ DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())

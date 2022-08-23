@@ -104,6 +104,20 @@ export class OcteractUpgrade extends DynamicUpgrade {
         DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true, true, true)
     }
 
+    public computeFreeLevelSoftcap(): number {
+        return Math.min(this.level, this.freeLevels) + Math.sqrt(Math.max(0, this.freeLevels - this.level))
+    }
+
+    public actualTotalLevels(): number {
+        const actualFreeLevels = this.computeFreeLevelSoftcap();
+        const linearLevels = this.level + actualFreeLevels
+        return linearLevels // There is currently no 'improvement' to oct free upgrades.
+    }
+
+    public getEffect(): { bonus: number | boolean, desc: string } {
+        return this.effect(this.actualTotalLevels())
+    }
+
 }
 
 export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractData> = {

@@ -4050,7 +4050,6 @@ window.addEventListener('load', () => {
 
     corruptionButtonsAdd();
     corruptionLoadoutTableCreate();
-
 });
 
 window.addEventListener('unload', () => {

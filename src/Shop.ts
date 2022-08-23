@@ -732,8 +732,8 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 export const friendlyShopName = (input: ShopUpgradeNames) => {
 
     const names: Record<ShopUpgradeNames, string> = {
-        offeringPotion: 'an offering potion',
-        obtainiumPotion: 'an obtainium potion',
+        offeringPotion: 'Offering Potion',
+        obtainiumPotion: 'Obtainium Potion',
         offeringEX: 'Offering EX',
         offeringAuto: 'Offering Auto',
         obtainiumEX: 'Obtainium EX',
@@ -742,47 +742,47 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         antSpeed: 'Ant Speed',
         cashGrab: 'Cash Grab',
         shopTalisman: 'the Plastic talisman',
-        seasonPass: 'a Season Pass',
-        challengeExtension: 'a Reincarnation Challenge cap increase',
-        challengeTome: 'a Challenge 10 requirement reduction',
-        cubeToQuark: 'a 50% improvement to quark gain from Cube opening',
-        tesseractToQuark: 'a 50% improvement to quark gain from Tesseract opening',
-        hypercubeToQuark: 'a 50% improvement to quark gain from Hypercube opening',
-        seasonPass2: 'a Season Pass 2',
-        seasonPass3: 'a Season Pass 3',
-        chronometer: 'a ascension speedup',
-        infiniteAscent: 'the Infinite Ascent rune',
-        calculator: 'a PL-AT calculator',
-        calculator2: 'a PL-AT X calculator',
-        calculator3: 'a PL-AT Ω calculator',
-        calculator4: 'a PL-AT δ calculator',
-        calculator5: 'a PL-AT Γ calculator',
-        calculator6: 'a QUAAA-T calculator',
+        seasonPass: 'Season Pass',
+        challengeExtension: 'Reincarnation Challenge EX',
+        challengeTome: 'Challenge 10 Requirement Reduce',
+        cubeToQuark: 'Cube Quarks +50%',
+        tesseractToQuark: 'Tesseract Quarks +50%',
+        hypercubeToQuark: 'Hypercube Quarks +50%',
+        seasonPass2: 'Season Pass 2',
+        seasonPass3: 'Season Pass 3',
+        chronometer: 'Chronometer 1',
+        infiniteAscent: 'Infinite Ascent',
+        calculator: 'PL-AT calculator',
+        calculator2: 'PL-AT X calculator',
+        calculator3: 'PL-AT Ω calculator',
+        calculator4: 'PL-AT δ calculator',
+        calculator5: 'PL-AT Γ calculator',
+        calculator6: 'QUAAA-T calculator',
         constantEX: 'Constant EX',
         powderEX: 'Powder EX',
-        chronometer2: 'a ascension speedup',
-        chronometer3: 'a permanent ascension speedup',
-        seasonPassY: 'a Season Pass Y',
-        seasonPassZ: 'a Permanent Season Pass Z',
-        challengeTome2: 'a Permanent Challenge 10 requirement reduction',
-        instantChallenge2: 'an even better Instant Challenge Completions',
-        cubeToQuarkAll: 'an overpriced improvement to your quark gain',
-        cashGrab2: 'an overpriced cash grab',
-        chronometerZ: 'an overpriced chronometer',
-        obtainiumEX2: 'an overpriced obtainium extender',
-        offeringEX2: 'an overpriced offering extender',
-        powderAuto: 'an overpriced powder automation',
-        seasonPassLost: 'an overpriced, mysterious relic of the hyperreals',
-        challenge15Auto: 'a quacking good auto upgrade?',
-        extraWarp: 'a quacking good flux?',
-        improveQuarkHept: 'a 2% improvement to Quark Hepts',
-        improveQuarkHept2: 'another 2% improvement to Quark Hepts',
-        improveQuarkHept3: 'yet another 2% improvement to Quark Hepts',
-        improveQuarkHept4: 'a 2% improvement to Quack Hepts',
-        shopImprovedDaily: 'a marginally better daily code',
-        shopImprovedDaily2: 'a slightly better daily code',
-        shopImprovedDaily3: 'an overpriced upgrade to daily code',
-        shopImprovedDaily4: 'a quacker of a daily code upgrade'
+        chronometer2: 'Chronometer 2',
+        chronometer3: 'Chronometer 3',
+        seasonPassY: 'Season Pass Y',
+        seasonPassZ: 'Season Pass Z',
+        challengeTome2: 'Challenge 10 Requirement Reduction 2',
+        instantChallenge2: 'Instant Challenge Completions 2',
+        cubeToQuarkAll: 'Quark Gain Cube Improvement 2',
+        cashGrab2: 'Cash Grab 2',
+        chronometerZ: 'Chronometer Z',
+        obtainiumEX2: 'Obtainium EX 2',
+        offeringEX2: 'Offering EX 2',
+        powderAuto: 'Automated Powder',
+        seasonPassLost: 'Season Pass LOST',
+        challenge15Auto: 'Challenge 15 Automation',
+        extraWarp: 'Extra Warp',
+        improveQuarkHept: 'Quark Hepteract 1',
+        improveQuarkHept2: 'Quark Hepteract 2',
+        improveQuarkHept3: 'Quark Hepteract 3',
+        improveQuarkHept4: 'Quack Hepteract 4',
+        shopImprovedDaily: 'Improved Daily Code 1',
+        shopImprovedDaily2: 'Improved Daily Code 2',
+        shopImprovedDaily3: 'Improved Daily Code 3',
+        shopImprovedDaily4: 'Improved Daily Code 4'
     }
 
     return names[input];
@@ -940,4 +940,111 @@ export const getQuarkInvestment = (upgrade: ShopUpgradeNames) => {
                 shopData[upgrade].priceIncrease * (player.shopUpgrades[upgrade] - 1) * (player.shopUpgrades[upgrade]) / 2
 
     return val;
+}
+
+export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
+    switch (upgrade) {
+        case 'offeringPotion':
+            return true
+        case 'obtainiumPotion':
+            return true
+        case 'offeringEX':
+            return player.reincarnationCount > 0 || player.highestSingularityCount > 0
+        case 'offeringAuto':
+            return player.reincarnationCount > 0 || player.highestSingularityCount > 0
+        case 'obtainiumEX':
+            return player.reincarnationCount > 0 || player.highestSingularityCount > 0
+        case 'obtainiumAuto':
+            return player.reincarnationCount > 0 || player.highestSingularityCount > 0
+        case 'instantChallenge':
+            return player.reincarnationCount > 0 || player.highestSingularityCount > 0
+        case 'antSpeed':
+            return player.highestchallengecompletions[8] > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0
+        case 'cashGrab':
+            return player.highestchallengecompletions[8] > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0
+        case 'shopTalisman':
+            return player.highestchallengecompletions[9] > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0
+        case 'seasonPass':
+            return player.ascensionCount > 0 || player.highestSingularityCount > 0
+        case 'challengeExtension':
+            return player.ascensionCount > 0 || player.highestSingularityCount > 0
+        case 'challengeTome':
+            return player.ascensionCount > 0 || player.highestSingularityCount > 0
+        case 'cubeToQuark':
+            return player.ascensionCount > 0 || player.highestSingularityCount > 0
+        case 'tesseractToQuark':
+            return player.highestchallengecompletions[11] > 0 || player.highestSingularityCount > 0
+        case 'hypercubeToQuark':
+            return player.highestchallengecompletions[13] > 0 || player.highestSingularityCount > 0
+        case 'seasonPass2':
+            return player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0
+        case 'seasonPass3':
+            return player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0
+        case 'chronometer':
+            return player.highestchallengecompletions[12] > 0 || player.highestSingularityCount > 0
+        case 'infiniteAscent':
+            return player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0
+        case 'calculator':
+            return player.ascensionCount > 0 || player.highestSingularityCount > 0
+        case 'calculator2':
+            return player.highestchallengecompletions[11] > 0 || player.highestSingularityCount > 0
+        case 'calculator3':
+            return player.highestchallengecompletions[13] > 0 || player.highestSingularityCount > 0
+        case 'calculator4':
+            return Boolean(player.singularityUpgrades.wowPass.getEffect().bonus)
+        case 'calculator5':
+            return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+        case 'calculator6':
+            return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+        case 'constantEX':
+            return player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0
+        case 'powderEX':
+            return player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0
+        case 'chronometer2':
+            return player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0
+        case 'chronometer3':
+            return Boolean(player.singularityUpgrades.wowPass.getEffect().bonus)
+        case 'seasonPassY':
+            return player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0
+        case 'seasonPassZ':
+            return Boolean(player.singularityUpgrades.wowPass.getEffect().bonus)
+        case 'challengeTome2':
+            return Boolean(player.singularityUpgrades.wowPass.getEffect().bonus)
+        case 'instantChallenge2':
+            return Boolean(player.singularityUpgrades.wowPass.getEffect().bonus)
+        case 'cashGrab2':
+            return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+        case 'cubeToQuarkAll':
+            return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+        case 'chronometerZ':
+            return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+        case 'offeringEX2':
+            return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+        case 'obtainiumEX2':
+            return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+        case 'powderAuto':
+            return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+        case 'seasonPassLost':
+            return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+        case 'challenge15Auto':
+            return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+        case 'extraWarp':
+            return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+        case 'improveQuarkHept':
+            return player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0
+        case 'improveQuarkHept2':
+            return Boolean(player.singularityUpgrades.wowPass.getEffect().bonus)
+        case 'improveQuarkHept3':
+            return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+        case 'improveQuarkHept4':
+            return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+        case 'shopImprovedDaily':
+            return player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0
+        case 'shopImprovedDaily2':
+            return Boolean(player.singularityUpgrades.wowPass.getEffect().bonus)
+        case 'shopImprovedDaily3':
+            return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+        case 'shopImprovedDaily4':
+            return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+    }
 }

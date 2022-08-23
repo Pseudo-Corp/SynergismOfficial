@@ -146,8 +146,12 @@ export class SingularityUpgrade extends DynamicUpgrade {
         revealStuff();
     }
 
-    public actualFreeLevels(): number {
-        const actualFreeLevels = Math.min(this.level, this.freeLevels) + Math.sqrt(Math.max(0, this.freeLevels - this.level))
+    public computeFreeLevelSoftcap(): number {
+        return Math.min(this.level, this.freeLevels) + Math.sqrt(Math.max(0, this.freeLevels - this.level))
+    }
+
+    public actualTotalLevels(): number {
+        const actualFreeLevels = this.computeFreeLevelSoftcap();
         const linearLevels = this.level + actualFreeLevels
         let polynomialLevels = 0
         if (player.octeractUpgrades.octeractImprovedFree.getEffect().bonus) {
@@ -161,7 +165,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
     }
 
     public getEffect(): { bonus: number | boolean, desc: string } {
-        return this.effect(this.actualFreeLevels())
+        return this.effect(this.actualTotalLevels())
     }
 
     public refund(): void {
@@ -1297,14 +1301,7 @@ export async function buyGoldenQuarks(): Promise<void> {
 export type SingularityDebuffs = 'Offering' | 'Obtainium' | 'Global Speed' | 'Researches' | 'Ascension Speed' | 'Cubes' | 'Cube Upgrades' |
                                  'Platonic Costs' | 'Hepteract Costs'
 
-export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singularityCount: number=player.singularityCount) => {
-    if (singularityCount === 0) {
-        return 1
-    }
-    if (player.runelevels[6] > 0) {
-        return 1
-    }
-
+export const calculateEffectiveSingularities = (singularityCount: number = player.singularityCount): number => {
     let effectiveSingularities = singularityCount;
     effectiveSingularities *= Math.min(4.75, 0.75 * singularityCount / 10 + 1)
     if (singularityCount > 10) {
@@ -1329,9 +1326,22 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
         effectiveSingularities *= singularityCount / 25
         effectiveSingularities *= Math.pow(1.1, singularityCount - 100)
     }
-    if (singularityCount > 250) {
-        effectiveSingularities *= singularityCount / 62.5
+    if (singularityCount === 250) {
+        effectiveSingularities *= 100
     }
+
+    return effectiveSingularities
+}
+
+export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singularityCount: number=player.singularityCount) => {
+    if (singularityCount === 0) {
+        return 1
+    }
+    if (player.runelevels[6] > 0) {
+        return 1
+    }
+
+    const effectiveSingularities = calculateEffectiveSingularities(singularityCount);
 
     if (debuff === 'Offering') {
         return Math.sqrt(effectiveSingularities + 1)

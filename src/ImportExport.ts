@@ -73,7 +73,7 @@ export const updateSaveString = (input: HTMLInputElement) => {
 
 export const getVer = () => /[\d?=.]+/.exec(version)?.[0] ?? version
 
-const saveFilename = () => {
+export const saveFilename = () => {
     const s = player.saveString
     const t = s.replace(/\$(.*?)\$/g, (_, b) => {
         switch (b) {
