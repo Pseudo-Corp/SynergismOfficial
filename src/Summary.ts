@@ -322,7 +322,8 @@ export const generateExportSummary = async():Promise<void> => {
         await navigator.clipboard.writeText(returnString)
     } catch (err) {
         // So we fallback to the deprecated way of doing it,
-        // which isn't limited by any browser.
+        // which isn't limited by any browser other than Safari
+        // because Apple is ran by a monkey in a human skin suit.
 
         // Old/bad browsers (legacy Edge, Safari because of limitations)
         const textArea = document.createElement('textarea');
@@ -359,7 +360,7 @@ export const generateExportSummary = async():Promise<void> => {
     }
 
     const a = document.createElement('a');
-    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + returnString);
+    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(returnString));
     a.setAttribute('download', `Statistics-${saveFilename()}`);
     a.setAttribute('id', 'downloadSave');
     // "Starting in Firefox 75, the click() function works even when the element is not attached to a DOM tree."
