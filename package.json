@@ -5,6 +5,7 @@
   "main": "dist/bundle.js",
   "dependencies": {
     "break_infinity.js": "^2.0.0",
+    "clipboard": "^2.0.11",
     "eventemitter3": "^4.0.7",
     "localforage": "^1.10.0",
     "lz-string": "^1.4.4"

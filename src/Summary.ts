@@ -12,6 +12,7 @@ import type { Player } from './types/Synergism'
 import { Alert } from './UpdateHTML'
 import { formatS } from './Utility'
 import { Globals as G } from './Variables'
+import ClipboardJS from 'clipboard'
 
 export const generateExportSummary = async():Promise<void> => {
     const titleText = '===== SUMMARY STATS ====='
@@ -327,36 +328,29 @@ export const generateExportSummary = async():Promise<void> => {
 
         // Old/bad browsers (legacy Edge, Safari because of limitations)
         const textArea = document.createElement('textarea');
-        const old = [textArea.contentEditable, textArea.readOnly] as const
-        textArea.value = returnString;
-        textArea.contentEditable = 'true'
-        textArea.readOnly = false
 
-        textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;');
+        textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;')
+        textArea.setAttribute('data-clipboard-text', returnString)
 
         document.body.appendChild(textArea);
         textArea.focus()
         textArea.select()
 
-        // Safari
-        const range = document.createRange()
-        range.selectNodeContents(textArea)
+        const clipboard = new ClipboardJS(textArea)
 
-        const selection = window.getSelection()
-        selection?.removeAllRanges()
-        selection?.addRange(range)
-
-        textArea.setSelectionRange(0, textArea.value.length)
-        textArea.contentEditable = old[0]
-        textArea.readOnly = old[1]
-
-        try {
-            document.execCommand('copy');
-        } catch (e) {
-            return Alert(`Unable to write the save to clipboard (tried two methods): ${(e as Error).message}`);
-        } finally {
-            document.body.removeChild(textArea);
+        const cleanup = () => {
+            clipboard.destroy()
+            document.body.removeChild(textArea)
         }
+
+        clipboard.on('success', () => {
+            document.getElementById('exportinfo')!.textContent = 'Copied save to clipboard!'
+            cleanup()
+        })
+
+        clipboard.on('error', () => {
+            void Alert('Unable to write the save to clipboard.').finally(cleanup)
+        })
     }
 
     const a = document.createElement('a');
