@@ -594,7 +594,7 @@ TODO: Fix this entire tab it's utter shit
     // Part 1: The Settings
     /*Respec The Upgrades*/ DOMCacheGetOrSet('resetShopUpgrades').addEventListener('click', () => resetShopUpgrades())
     /*Toggle Shop Confirmations*/ DOMCacheGetOrSet('toggleConfirmShop').addEventListener('click', () => toggleShopConfirmation())
-    /*Toggle Shop Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxShop').addEventListener('click', () => toggleBuyMaxShop())
+    /*Toggle Shop Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxShop').addEventListener('click', (event) => toggleBuyMaxShop(event))
     /*Toggle Hide Permanent Maxed*/ DOMCacheGetOrSet('toggleHideShop').addEventListener('click', () => toggleHideShop())
 
     // Part 2: Potions
