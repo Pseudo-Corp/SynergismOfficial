@@ -26,3 +26,14 @@ try {
     console.error(e);
     process.exit(1);
 }
+
+try {
+    console.log('Update like prod, maaaan')
+    const config = readFileSync(`${__dirname}/../src/Config.ts`, 'utf-8')
+        .replace('const prod: boolean = false', 'const prod: boolean = true')
+
+    writeFileSync(`${__dirname}/../src/Config.ts`, config)
+} catch (e) {
+    console.log('maaaaaan that sucks!', e)
+    process.exit(1)
+}
