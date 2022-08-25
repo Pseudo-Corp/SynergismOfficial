@@ -1,5 +1,5 @@
 import { format, player } from './Synergism';
-import { Alert } from './UpdateHTML';
+import { Alert, Prompt } from './UpdateHTML';
 import type { IUpgradeData } from './DynamicUpgrade';
 import { DynamicUpgrade } from './DynamicUpgrade';
 import type { Player } from './types/Synergism';
@@ -37,9 +37,24 @@ export class OcteractUpgrade extends DynamicUpgrade {
     public async buyLevel(event: MouseEvent): Promise<void> {
         let purchased = 0;
         let maxPurchasable = 1;
+        let OCTBudget = player.wowOcteracts;
 
         if (event.shiftKey) {
-            maxPurchasable = 10000
+            maxPurchasable = 100000
+            const buy = Number(await Prompt(`How many Octeracts would you like to spend? You have ${format(player.wowOcteracts, 0, true)} OCT. Type -1 to use max!`))
+
+            if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
+                return Alert('Value must be a finite number!');
+            }
+
+            if (buy === -1) {
+                OCTBudget = player.wowOcteracts
+            } else if (buy <= 0) {
+                return Alert('Purchase cancelled!')
+            } else {
+                OCTBudget = buy
+            }
+            OCTBudget = Math.min(player.wowOcteracts, OCTBudget)
         }
 
         if (this.maxLevel > 0) {
@@ -52,10 +67,11 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
         while (maxPurchasable > 0) {
             const cost = this.getCostTNL();
-            if (player.wowOcteracts < cost) {
+            if (player.wowOcteracts < cost || OCTBudget < cost) {
                 break;
             } else {
                 player.wowOcteracts -= cost;
+                OCTBudget -= cost;
                 this.octeractsInvested += cost
                 this.level += 1;
                 purchased += 1;
@@ -67,7 +83,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
             return Alert('You cannot afford this upgrade. Sorry!')
         }
         if (purchased > 1) {
-            return Alert(`Purchased ${format(purchased)} levels, thanks to MAX Buy!`)
+            return Alert(`Purchased ${format(purchased)} levels, thanks to Multi Buy!`)
         }
 
         this.updateUpgradeHTML();

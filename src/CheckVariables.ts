@@ -292,6 +292,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         divinePack: new SingularityUpgrade(singularityData['divinePack']),
         wowPass2: new SingularityUpgrade(singularityData['wowPass2']),
         potionBuff: new SingularityUpgrade(singularityData['potionBuff']),
+        potionBuff2: new SingularityUpgrade(singularityData['potionBuff2']),
+        potionBuff3: new SingularityUpgrade(singularityData['potionBuff3']),
         singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension']),
         singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2']),
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
