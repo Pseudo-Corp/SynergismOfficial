@@ -38,7 +38,7 @@ import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, Challe
 import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { updatePlatonicUpgradeBG } from './Platonic';
-import { testing, version, lastUpdated } from './Config';
+import { testing, version, lastUpdated, prod } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { singularityData, SingularityUpgrade } from './singularity';
@@ -872,7 +872,7 @@ const loadSynergy = async () => {
         ? JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>
         : null;
 
-    if (testing) {
+    if (testing || prod === false) {
         Object.defineProperty(window, 'player', {
             value: player
         });
