@@ -8,6 +8,7 @@ import type { QuarkHandler } from '../Quark';
 import { SingularityUpgrade } from '../singularity';
 
 export interface Player {
+    firstPlayed: string
     worlds: QuarkHandler
     coins: Decimal,
     coinsThisPrestige: Decimal,

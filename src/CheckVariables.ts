@@ -775,4 +775,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             }
         }
     }
+
+    if (data.firstPlayed === undefined) {
+        player.firstPlayed = `Before* ${new Date().toString()}`
+    }
 }

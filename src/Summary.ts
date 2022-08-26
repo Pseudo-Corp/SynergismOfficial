@@ -10,7 +10,7 @@ import { calculateEffectiveSingularities } from './singularity'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert } from './UpdateHTML'
-import { formatS } from './Utility'
+import { formatS, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 import ClipboardJS from 'clipboard'
 
@@ -20,6 +20,8 @@ export const generateExportSummary = async():Promise<void> => {
     const ver = `Version: ${version}`
 
     const subCategoryDivisor = '-----+-----\n'
+
+    const firstPlayed = `First Played: ${player.firstPlayed}\n`
 
     let resources = '===== RESOURCES =====\n'
     resources = resources + (player.reincarnationCount > 0 || player.highestSingularityCount > 0 ? `Quarks: ${format(Number(player.worlds), 0, true)}\n` : '')
@@ -41,11 +43,20 @@ export const generateExportSummary = async():Promise<void> => {
         resources = resources + `Obtainium: ${format(player.researchPoints, 0, true)}\n`
     }
     if (player.ascensionCount > 0 || player.singularityCount > 0) {
+        const cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
+        const tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
+        const hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
+        const platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
+        const cubeSum = format(sumContents(cubeArray.slice(1) as number[]), 0, true)
+        const tesseractSum = format(sumContents(tesseractArray.slice(1) as number[]), 0, true)
+        const hypercubeSum = format(sumContents(hypercubeArray.slice(1) as number[]), 0, true)
+        const platonicSum = format(sumContents(platonicArray), 0, true)
+
         resources = resources + subCategoryDivisor
-        resources = resources + `Wow! Cubes: ${format(Number(player.wowCubes), 0, true)}\n`
-        resources = resources + `Wow! Tesseracts: ${format(Number(player.wowTesseracts), 0, true)}\n`
-        resources = resources + `Wow! Hypercubes: ${format(Number(player.wowHypercubes), 0, true)}\n`
-        resources = resources + `Wow! Platonic Cubes: ${format(Number(player.wowPlatonicCubes), 0, true)}\n`
+        resources = resources + `Wow! Cubes: ${format(Number(player.wowCubes), 0, true)} -+- Total Tributes: ${cubeSum}\n`
+        resources = resources + `Wow! Tesseracts: ${format(Number(player.wowTesseracts), 0, true)} -+- Total Gifts: ${tesseractSum}\n`
+        resources = resources + `Wow! Hypercubes: ${format(Number(player.wowHypercubes), 0, true)} -+- Total Benedictions: ${hypercubeSum}\n`
+        resources = resources + `Wow! Platonic Cubes: ${format(Number(player.wowPlatonicCubes), 0, true)} -+- Total Plats Opened: ${platonicSum}\n`
         resources = resources + `Wow! Hepteracts: ${format(player.wowAbyssals, 0, true)}\n`
         if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
             resources = resources + `Wow! Octeracts: ${format(player.wowOcteracts, 0, true)}\n`
@@ -89,7 +100,7 @@ export const generateExportSummary = async():Promise<void> => {
         ascension = ascension + `Challenge 12 Completions: ${player.challengecompletions[12]}/${getMaxChallenges(12)}\n`
         ascension = ascension + `Challenge 13 Completions: ${player.challengecompletions[13]}/${getMaxChallenges(13)}\n`
         ascension = ascension + `Challenge 14 Completions: ${player.challengecompletions[14]}/${getMaxChallenges(14)}\n`
-        if (player.highestchallengecompletions[14] > 0) {
+        if (player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0) {
             ascension = ascension + `Challenge 15 Exponent: ${format(player.challenge15Exponent, 2, true)}\n`
             ascension = ascension + `Research [8x25] MAXXED: ${(player.researches[200] === 1e5) ? '✔' : '✖'}\n`
             ascension = ascension + `Cube [w5x10] MAXXED: ${(player.cubeUpgrades[50] === 1e5) ? '✔' : '✖'}\n`
@@ -97,7 +108,7 @@ export const generateExportSummary = async():Promise<void> => {
             ascension = ascension + `Platonic β: ${player.platonicUpgrades[10] > 0 ? '✔' : '✖'}\n`
             ascension = ascension + `Platonic Ω: ${player.platonicUpgrades[15] > 0 ? '✔' : '✖'}\n`
         }
-        if (player.challenge15Exponent >= 1e15) {
+        if (player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0) {
             ascension = ascension + '----- HEPTERACTS -----\n'
             ascension = ascension + `Chronos Hepteract: ${format(player.hepteractCrafts.chronos.BAL,0,true)}/${format(player.hepteractCrafts.chronos.CAP, 0, true)}\n`
             ascension = ascension + `Hyperreal Hepteract: ${format(player.hepteractCrafts.hyperrealism.BAL,0,true)}/${format(player.hepteractCrafts.hyperrealism.CAP, 0, true)}\n`
@@ -330,7 +341,7 @@ export const generateExportSummary = async():Promise<void> => {
     }
 
 
-    const returnString = titleText + '\n' + time + '\n' + ver + '\n' +
+    const returnString = titleText + '\n' + time + '\n' + ver + '\n' + firstPlayed +
                         resources + octeract + singularity + ascension +
                         reincarnation + transcension + prestige +
                         shopUpgradeStats + singularityUpgradeStats + octeractUpgradeStats
