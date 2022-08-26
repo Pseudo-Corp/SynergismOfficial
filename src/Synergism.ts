@@ -76,7 +76,7 @@ export const clearInt = new Proxy(clearInterval, {
 });
 
 export const player: Player = {
-    firstPlayed: new Date().toString(),
+    firstPlayed: new Date().toISOString(),
     worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),
     coins: new Decimal('1e2'),
     coinsThisPrestige: new Decimal('1e2'),
