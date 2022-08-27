@@ -776,9 +776,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
     }
 
+    const oldest = localStorage.getItem('firstPlayed')
+
     if (data.firstPlayed === undefined) {
-        player.firstPlayed = new Date().toISOString()
+        player.firstPlayed = oldest ?? new Date().toISOString()
     } else if (data.firstPlayed?.includes('Before')) {
-        player.firstPlayed = new Date().toISOString()
+        player.firstPlayed = oldest ?? new Date().toISOString()
     }
 }

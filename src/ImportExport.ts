@@ -773,3 +773,23 @@ const dailyCodeReward = () => {
         goldenQuarks: goldenQuarks
     }
 }
+
+export const handleLastModified = (lastModified: number) => {
+    const localStorageFirstPlayed = localStorage.getItem('firstPlayed')
+    const lastModifiedDate = new Date(lastModified)
+
+    if (localStorageFirstPlayed === null) {
+        localStorage.setItem('firstPlayed', lastModifiedDate.toISOString())
+        return
+    }
+
+    const localFirstPlayedDate = new Date(localStorageFirstPlayed)
+
+    // The larger the ms value, the newer the file.
+    // So if the current oldest date is newer than the last modified date
+    // for the new file, set the oldest date to the last modified.
+    if (localFirstPlayedDate.getTime() > lastModifiedDate.getTime()) {
+        player.firstPlayed = lastModifiedDate.toISOString()
+        localStorage.setItem('firstPlayed', player.firstPlayed)
+    }
+}
