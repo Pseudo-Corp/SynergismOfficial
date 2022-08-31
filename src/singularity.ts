@@ -212,7 +212,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 - Math.min(0.5, n / 500),
-                desc: `Purchasing Golden Quarks in the shop is ${Math.min(50, n / 5)}% cheaper.`
+                desc: `Purchasing Golden Quarks in the shop is ${format(Math.min(50, n / 5),2,true)}% cheaper.`
             }
         }
     },
