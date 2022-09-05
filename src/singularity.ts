@@ -129,11 +129,11 @@ export class SingularityUpgrade extends DynamicUpgrade {
         }
 
         if (maxPurchasable === 0) {
-            return Alert('hey! You have already maxxed this upgrade. :D')
+            return Alert('Hey! You have already maxed this upgrade. :D')
         }
 
         if (player.singularityCount < this.minimumSingularity) {
-            return Alert('you\'re not powerful enough to purchase this yet.')
+            return Alert('You\'re not powerful enough to purchase this yet.')
         }
         while (maxPurchasable > 0) {
             const cost = this.getCostTNL();
@@ -212,7 +212,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 - Math.min(0.5, n / 500),
-                desc: `Purchasing Golden Quarks in the shop is ${Math.min(50, n / 5)}% cheaper.`
+                desc: `Purchasing Golden Quarks in the shop is ${format(Math.min(50, n / 5),2,true)}% cheaper.`
             }
         }
     },
@@ -375,7 +375,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singOfferings3: {
         name: 'Offering Tempest',
-        description: 'This bar is so prestine, it\'ll make anyone submit their Offerings. +4% per level, to be precise.',
+        description: 'This bar is so pristine, it\'ll make anyone submit their Offerings. +4% per level, to be precise.',
         maxLevel: 40,
         costPerLevel: 500,
         effect: (n: number) => {
@@ -784,7 +784,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     platonicAlpha: {
         name: 'Platonic ALPHA...?',
-        description: 'Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxxed!',
+        description: 'Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxed!',
         maxLevel: 1,
         costPerLevel: 2e7,
         minimumSingularity: 70,

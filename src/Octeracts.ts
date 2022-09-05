@@ -62,7 +62,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
         }
 
         if (maxPurchasable === 0) {
-            return Alert('hey! You have already maxxed this upgrade. :D')
+            return Alert('Hey! You have already maxed this upgrade. :D')
         }
 
         while (maxPurchasable > 0) {
