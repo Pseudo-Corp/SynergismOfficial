@@ -16,7 +16,7 @@ import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, promoc
 import { resetHistoryTogglePerSecond } from './History'
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, buyConsumable, useConsumable, shopData, shopUpgradeTypes } from './Shop'
 import { Globals as G } from './Variables';
-import { changeTabColor } from './UpdateHTML'
+import { changeTabColor, Confirm } from './UpdateHTML'
 import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp, toggleAutoBuyOrbs } from './Hepteracts'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import type { OneToFive, Player } from './types/Synergism'
@@ -674,4 +674,21 @@ TODO: Fix this entire tab it's utter shit
     });
 
     DOMCacheGetOrSet('theme').addEventListener('click', () => toggleTheme());
+
+    DOMCacheGetOrSet('saveType').addEventListener('click', async (event) => {
+        const element = event.target as HTMLInputElement
+
+        if (!element.checked) {
+            event.stopPropagation()
+            return
+        }
+
+        event.preventDefault()
+
+        const confirmed = await Confirm('Are you sure you want to enable copy save to clipboard?')
+
+        if (confirmed) {
+            element.checked = !element.checked
+        }
+    })
 }
