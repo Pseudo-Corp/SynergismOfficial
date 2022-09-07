@@ -14,24 +14,26 @@ export const setInterval: typeof workerTimers['setInterval'] = (fn, delay) => {
 }
 
 export const clearInterval: typeof workerTimers['clearInterval'] = (timerId) => {
-    for (const { id, type } of activeTimers) {
-        if (type === 'interval' && id === timerId) {
+    for (const timer of activeTimers) {
+        if (timer.type === 'interval' && timer.id === timerId) {
             workerTimers.clearInterval(timerId)
+            activeTimers.splice(activeTimers.indexOf(timer), 1)
             return
         }
     }
 }
 
 export const setTimeout: typeof workerTimers['setTimeout'] = (fn, delay) => {
-    const timer = workerTimers.setInterval(fn, delay)
+    const timer = workerTimers.setTimeout(fn, delay)
     activeTimers.push({ id: timer, type: 'timeout' })
     return timer
 }
 
 export const clearTimeout: typeof workerTimers['clearTimeout'] = (timerId) => {
-    for (const { id, type } of activeTimers) {
-        if (type === 'timeout' && id === timerId) {
-            workerTimers.clearInterval(timerId)
+    for (const timer of activeTimers) {
+        if (timer.type === 'timeout' && timer.id === timerId) {
+            workerTimers.clearTimeout(timerId)
+            activeTimers.splice(activeTimers.indexOf(timer), 1)
             return
         }
     }
@@ -45,6 +47,4 @@ export const clearTimers = (): void => {
             clearTimeout(id)
         }
     }
-
-    activeTimers.length = 0
 }

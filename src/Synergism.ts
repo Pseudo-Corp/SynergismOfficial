@@ -47,7 +47,7 @@ import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
 import { settingTheme } from './Themes';
-import { setInterval, clearTimers } from './Timers'
+import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers'
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -3909,12 +3909,12 @@ export const showExitOffline = () => {
  * @param reset if this param is passed, offline progression will not be calculated.
  */
 export const reloadShit = async (reset = false) => {
+    clearTimers()
 
     // Shows a reset button when page loading seems to stop or cause an error
     const preloadDeleteGame = setTimeout(() => DOMCacheGetOrSet('preloadDeleteGame').style.display = 'block', 10000);
 
     disableHotkeys();
-    clearTimers()
 
     // Wait a tick to continue. This is a (likely futile) attempt to see if this solves save corrupting.
     // This ensures all queued tasks are executed before continuing on.

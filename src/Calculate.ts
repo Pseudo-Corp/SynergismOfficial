@@ -15,6 +15,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
 import { calculateEventSourceBuff } from './Event';
 import { disableHotkeys, enableHotkeys } from './Hotkeys';
+import { setInterval, clearInterval } from './Timers'
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
