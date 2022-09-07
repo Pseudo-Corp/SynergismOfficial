@@ -47,6 +47,7 @@ import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
 import { settingTheme } from './Themes';
+import { setInterval, clearTimers } from './Timers'
 
 /**
  * Whether or not the current version is a testing version or a main version.
@@ -54,26 +55,6 @@ import { settingTheme } from './Themes';
  */
 //export const isTesting = false;
 //export const version = '2.5.5';
-
-export const intervalHold = new Set<ReturnType<typeof setInterval>>();
-export const interval = new Proxy(setInterval, {
-    apply(target, thisArg, args: Parameters<typeof setInterval>) {
-        const set = target.apply(thisArg, args);
-        intervalHold.add(set);
-        return set;
-    }
-});
-
-export const clearInt = new Proxy(clearInterval, {
-    apply(target, thisArg, args: [ReturnType<typeof setInterval>]) {
-        const id = args[0];
-        if (intervalHold.has(id)) {
-            intervalHold.delete(id);
-        }
-
-        return target.apply(thisArg, args);
-    }
-});
 
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
@@ -3624,9 +3605,9 @@ export const slowUpdates = (): void => {
 }
 
 export const constantIntervals = (): void => {
-    interval(saveSynergy, 5000);
-    interval(slowUpdates, 200);
-    interval(fastUpdates, 50);
+    setInterval(saveSynergy, 5000);
+    setInterval(slowUpdates, 200);
+    setInterval(fastUpdates, 50);
 
     if (!G['timeWarp']) {
         exitOffline();
@@ -3637,7 +3618,7 @@ let lastUpdate = 0;
 
 export const createTimer = (): void => {
     lastUpdate = performance.now();
-    interval(tick, 5);
+    setInterval(tick, 5);
 }
 
 const dt = 5;
@@ -3933,12 +3914,7 @@ export const reloadShit = async (reset = false) => {
     const preloadDeleteGame = setTimeout(() => DOMCacheGetOrSet('preloadDeleteGame').style.display = 'block', 10000);
 
     disableHotkeys();
-
-    for (const timer of intervalHold) {
-        clearInt(timer);
-    }
-
-    intervalHold.clear();
+    clearTimers()
 
     // Wait a tick to continue. This is a (likely futile) attempt to see if this solves save corrupting.
     // This ensures all queued tasks are executed before continuing on.
@@ -3998,13 +3974,13 @@ export const reloadShit = async (reset = false) => {
     toggleSubTab(-1, 0); // set 'statistics main'
 
     dailyResetCheck();
-    interval(dailyResetCheck, 30000);
+    setInterval(dailyResetCheck, 30000);
 
     constantIntervals();
     changeTabColor();
 
     eventCheck();
-    interval(eventCheck, 15000);
+    setInterval(eventCheck, 15000);
     showExitOffline();
     clearTimeout(preloadDeleteGame);
 

@@ -1,4 +1,4 @@
-import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll, getTimePinnedToLoadDate } from './Synergism';
+import { player, saveSynergy, format, resourceGain, updateAll, getTimePinnedToLoadDate } from './Synergism';
 import { sumContents, productContents } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
@@ -1006,7 +1006,7 @@ export const calculateOffline = async (forceTime = 0) => {
     timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
 
     //200 simulated all ticks [July 12, 2021]
-    const runOffline = interval(() => {
+    const runOffline = setInterval(() => {
         G['timeMultiplier'] = calculateTimeAcceleration();
         calculateObtainium();
 
@@ -1043,7 +1043,7 @@ export const calculateOffline = async (forceTime = 0) => {
         resourceTicks -= 1;
         //Misc functions
         if (resourceTicks < 1) {
-            clearInt(runOffline);
+            clearInterval(runOffline);
             G['timeWarp'] = false;
         }
     }, 0);
