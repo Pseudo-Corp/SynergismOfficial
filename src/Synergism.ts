@@ -4034,6 +4034,9 @@ export const reloadShit = async (reset = false) => {
             console.log(`Storage is persistent! (persistent = ${persistent})`);
         }
     }
+
+    const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
+    saveType.checked = localStorage.getItem('copyToClipboard') !== null
 }
 
 window.addEventListener('load', () => {

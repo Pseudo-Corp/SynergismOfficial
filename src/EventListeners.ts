@@ -679,6 +679,7 @@ TODO: Fix this entire tab it's utter shit
         const element = event.target as HTMLInputElement
 
         if (!element.checked) {
+            localStorage.removeItem('copyToClipboard')
             event.stopPropagation()
             return
         }
@@ -689,6 +690,9 @@ TODO: Fix this entire tab it's utter shit
 
         if (confirmed) {
             element.checked = !element.checked
+            localStorage.setItem('copyToClipboard', '')
+        } else {
+            localStorage.removeItem('copyToClipboard')
         }
     })
 }
