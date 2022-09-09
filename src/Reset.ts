@@ -171,10 +171,7 @@ export const updateAutoReset = (i: number) => {
 }
 
 export const updateTesseractAutoBuyAmount = () => {
-    let value = Math.floor(parseFloat((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value)) || 0;
-    if (player.resettoggle4 === 2) { // Auto mode: PERCENTAGE
-        value = Math.min(value, 100);
-    }
+    const value = Math.floor(parseFloat((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value)) || 0;
     player.tesseractAutoBuyerAmount = Math.max(value, 0);
 }
 
@@ -554,10 +551,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             player.thirdOwnedParticles = 1;
             player.fourthOwnedParticles = 1;
             player.fifthOwnedParticles = 1;
-        }
-
-        if (player.cubeUpgrades[48] > 0) {
-            player.firstOwnedAnts += 1
         }
 
         // If challenge 10 is incomplete, you won't get a cube no matter what
@@ -1256,10 +1249,6 @@ const resetUpgrades = (i: number) => {
 
 export const resetAnts = () => {
     player.firstOwnedAnts = 0;
-    if (player.cubeUpgrades[48] > 0) {
-        player.firstOwnedAnts = 1
-    }
-
     player.secondOwnedAnts = 0;
     player.thirdOwnedAnts = 0;
     player.fourthOwnedAnts = 0;
@@ -1285,6 +1274,11 @@ export const resetAnts = () => {
     player.sixthCostAnts = new Decimal('1e36');
     player.seventhCostAnts = new Decimal('1e100');
     player.eighthCostAnts = new Decimal('1e300');
+
+    if (player.cubeUpgrades[48] > 0) {
+        player.firstOwnedAnts = 1;
+        player.firstCostAnts = new Decimal('1e741');
+    }
 
     const ant12 = player.antUpgrades[12-1];
     player.antUpgrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ant12];

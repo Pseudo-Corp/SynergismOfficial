@@ -2936,7 +2936,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.challengecompletions[q] = comp;
             challengeDisplay(q, false);
             updateChallengeLevel(q);
-            challengeachievementcheck(q);
         }
         if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
             while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
@@ -2945,6 +2944,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
             calculateCubeBlessings();
         }
+        challengeachievementcheck(q);
         if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.transcension = 0;
