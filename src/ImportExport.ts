@@ -178,7 +178,7 @@ export const exportSynergism = async () => {
             })
 
             clipboard.on('error', () => {
-                DOMCacheGetOrSet('exportinfo').textContent = 'Export failed! DM Ant God'
+                DOMCacheGetOrSet('exportinfo').textContent = 'Export failed!'
                 void Alert('Unable to write the save to clipboard.').finally(cleanup)
             })
         }
