@@ -1516,9 +1516,17 @@ export const calculateAscensionAcceleration = () => {
         1 + 1 / 1000 * player.singularityCount * player.shopUpgrades.chronometerZ,                      // Chronometer Z
         1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed.getEffect().bonus * player.singularityCount, // Oct Upgrade 1
         1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount, // Oct Upgrade 2
-        1 + calculateEventBuff('Ascension Speed')                                                       // Event
+        1 + calculateEventBuff('Ascension Speed'),                                                      // Event
+        (player.singularityUpgrades.singAscensionSpeed.level > 0) ? Math.pow(1.3, Math.max(0, 10 - player.ascensionCounter)) : 1 // Sing Ascension Speed lol
     ]
-    return productContents(arr) / calculateSingularityDebuff('Ascension Speed')
+    const baseMultiplier = productContents(arr) / calculateSingularityDebuff('Ascension Speed')
+    const exponent = (player.singularityUpgrades.singAscensionSpeed.level > 0) ?
+        ((baseMultiplier >= 1) ?
+            1.03:
+            0.97) :
+        1;
+
+    return Math.pow(baseMultiplier, exponent)
 }
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
