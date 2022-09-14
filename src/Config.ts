@@ -1,4 +1,4 @@
-export const version = '2.9.11: August 25 Edition';
+export const version = '2.9.11: September 13 Edition';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE
