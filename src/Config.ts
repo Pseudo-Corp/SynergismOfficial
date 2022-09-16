@@ -9,7 +9,7 @@ export const version = '2.9.2: Khafra Testing Shit Out Edition';
  * PSEUDO DO NOT CHANGE THIS LINE
  */
 // eslint-disable-next-line
-export const testing: boolean = true;
+export const testing: boolean = false;
 export const lastUpdated = new Date('##LAST_UPDATED##');
 /**
  * CHANGE THIS ONE INSTEAD
