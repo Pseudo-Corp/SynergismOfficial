@@ -425,7 +425,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(40, level)
         },
-        maxLevel: 5,
+        maxLevel: -1,
         costPerLevel: 1000,
         effect: (n: number) => {
             return {

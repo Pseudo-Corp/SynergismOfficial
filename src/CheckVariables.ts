@@ -312,7 +312,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         platonicDelta: new SingularityUpgrade(singularityData['platonicDelta']),
         platonicPhi: new SingularityUpgrade(singularityData['platonicPhi']),
         singFastForward: new SingularityUpgrade(singularityData['singFastForward']),
-        singFastForward2: new SingularityUpgrade(singularityData['singFastForward2'])
+        singFastForward2: new SingularityUpgrade(singularityData['singFastForward2']),
+        singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
+        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2'])
     }
 
     player.octeractUpgrades = {

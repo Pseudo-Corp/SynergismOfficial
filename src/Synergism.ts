@@ -757,7 +757,9 @@ export const player: Player = {
         platonicDelta: new SingularityUpgrade(singularityData['platonicDelta']),
         platonicPhi: new SingularityUpgrade(singularityData['platonicPhi']),
         singFastForward: new SingularityUpgrade(singularityData['singFastForward']),
-        singFastForward2: new SingularityUpgrade(singularityData['singFastForward2'])
+        singFastForward2: new SingularityUpgrade(singularityData['singFastForward2']),
+        singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
+        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2'])
     },
 
     octeractUpgrades: {
@@ -2917,7 +2919,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.challengecompletions[q] = comp;
             challengeDisplay(q, false);
             updateChallengeLevel(q);
-            challengeachievementcheck(q);
         }
         if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
             while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
@@ -2926,6 +2927,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
             calculateCubeBlessings();
         }
+        challengeachievementcheck(q);
         if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.transcension = 0;
@@ -2980,7 +2982,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.challengecompletions[q] = comp;
             challengeDisplay(q, false);
             updateChallengeLevel(q);
-            challengeachievementcheck(q);
         }
         if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
             while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
@@ -2991,6 +2992,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             calculateTesseractBlessings();
             calculateCubeBlessings();
         }
+        challengeachievementcheck(q);
         if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.reincarnation = 0;
@@ -3035,8 +3037,8 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 player.challengecompletions[a] += 1;
                 updateChallengeLevel(a);
                 challengeDisplay(a, false);
-                challengeachievementcheck(a, true);
             }
+            challengeachievementcheck(a, true);
         }
         if (a === 15) {
             const c15SM = challenge15ScoreMultiplier();
@@ -3044,7 +3046,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 player.challengecompletions[a] += 1;
                 updateChallengeLevel(a);
                 challengeDisplay(a, false);
-                challengeachievementcheck(a, true);
             }
             if ((manual || leaving || player.shopUpgrades.challenge15Auto > 0) && player.usedCorruptions.slice(2, 10).every((a) => a === 11)) {
                 if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
@@ -4010,6 +4011,9 @@ export const reloadShit = async (reset = false) => {
             console.log(`Storage is persistent! (persistent = ${persistent})`);
         }
     }
+
+    const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
+    saveType.checked = localStorage.getItem('copyToClipboard') !== null
 }
 
 window.addEventListener('load', () => {
