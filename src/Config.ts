@@ -1,4 +1,4 @@
-export const version = '2.9.2: Khafra Testing Shit Out Edition';
+export const version = '2.9.20: Khafra Testing Shit Out Edition';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE
