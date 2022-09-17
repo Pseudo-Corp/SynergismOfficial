@@ -370,6 +370,7 @@ export const buyPlatonicUpgrades = (index: number) => {
         if (platUpgradeBaseCosts[index].priceMult) {
             priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
         }
+        priceMultiplier *= calculateSingularityDebuff('Platonic Costs');
 
         if (resourceCheck.canBuy) {
             player.platonicUpgrades[index] += 1
