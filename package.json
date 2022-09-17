@@ -8,7 +8,8 @@
     "clipboard": "^2.0.11",
     "eventemitter3": "^4.0.7",
     "localforage": "^1.10.0",
-    "lz-string": "^1.4.4"
+    "lz-string": "^1.4.4",
+    "worker-timers": "^7.0.53"
   },
   "devDependencies": {
     "@types/lz-string": "^1.3.34",

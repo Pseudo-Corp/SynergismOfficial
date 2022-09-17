@@ -1,4 +1,4 @@
-import { player, format, clearInt, interval } from './Synergism';
+import { player, format } from './Synergism';
 import { calculateSigmoidExponential, calculateSigmoid, calculateAnts, calculateRuneLevels, calculateAntSacrificeELO, calculateAntSacrificeRewards } from './Calculate';
 import { Globals as G } from './Variables';
 
@@ -14,6 +14,7 @@ import { Synergism } from './Events';
 import type { FirstToEighth, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { smallestInc } from './Utility';
+import { setInterval, clearInterval } from './Timers'
 
 const antdesc: Record<string, string> = {
     antdesc1: 'Gain a Worker Ant for your everyday life. Gathers Galactic Crumbs. Essential!',
@@ -82,8 +83,8 @@ const antUpgradeTexts = [
 let repeatAnt: ReturnType<typeof setTimeout>;
 
 export const antRepeat = (i: number) => {
-    clearInt(repeatAnt);
-    repeatAnt = interval(() => updateAntDescription(i), 50);
+    clearInterval(repeatAnt);
+    repeatAnt = setInterval(() => updateAntDescription(i), 50);
 }
 
 export const updateAntDescription = (i: number) => {

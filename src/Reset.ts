@@ -1,4 +1,4 @@
-import { player, clearInt, interval, format, blankSave, updateAll } from './Synergism';
+import { player, format, blankSave, updateAll } from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
@@ -38,12 +38,13 @@ import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
 import { sumContents } from './Utility';
+import { setInterval, clearInterval } from './Timers'
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
 export const resetrepeat = (input: resetNames) => {
-    clearInt(repeatreset);
-    repeatreset = interval(() => resetdetails(input), 50);
+    clearInterval(repeatreset);
+    repeatreset = setInterval(() => resetdetails(input), 50);
 }
 
 export const resetdetails = (input: resetNames) => {
