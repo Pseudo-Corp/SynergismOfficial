@@ -2481,7 +2481,7 @@ p#ascendHotKeys {
     background-color: #00b300;
 }
 
-.constUpgradeSingle {
+/*.constUpgradeSingle {
     background-color: gold;
 }
 
@@ -2492,7 +2492,7 @@ p#ascendHotKeys {
 
 .constUpgradeSingleAvailable:hover {
     background-color: #fff4b3;
-}
+}*/
 
 .subtabSwitcher > button.buttonActive {
     background-color: crimson;
