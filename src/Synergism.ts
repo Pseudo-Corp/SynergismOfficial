@@ -49,12 +49,10 @@ import { octeractData, OcteractUpgrade } from './Octeracts';
 import { settingTheme } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers'
 
-/**
- * Whether or not the current version is a testing version or a main version.
- * This should be detected when importing a file.
- */
-//export const isTesting = false;
-//export const version = '2.5.5';
+const isShittyBrowser =
+    navigator.userAgent.includes('iPhone') ||
+    navigator.userAgent.includes('iPad') ||
+    navigator.userAgent.includes('Macintosh') // iPad with M1 chip I guess?
 
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
@@ -825,6 +823,9 @@ export const saveSynergy = async (button?: boolean, element?: HTMLButtonElement)
         }
 
         await localforage.setItem<Blob>('Synergysave2', saveBlob);
+        if (isShittyBrowser) {
+            localStorage.setItem('Synergysave2', save)
+        }
     }
 
     if (button && canSave) {
@@ -3947,6 +3948,9 @@ export const reloadShit = async (reset = false) => {
             localStorage.clear();
             const blob = new Blob([saveString], { type: 'text/plain' });
             await localforage.setItem<Blob>('Synergysave2', blob);
+            if (isShittyBrowser) {
+                localStorage.setItem('Synergysave2', saveString)
+            }
             await Alert('Transferred save to new format successfully!');
         }
 
@@ -4043,3 +4047,6 @@ window.addEventListener('unload', () => {
     // beforehand? How does anyone use this buggy browser???????
     window.scrollTo(0, 0);
 });
+
+window.addEventListener('blur', () => void saveSynergy())
+window.addEventListener('beforeunload', () => void saveSynergy().catch(() => {}))
