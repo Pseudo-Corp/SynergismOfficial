@@ -663,6 +663,8 @@ const addCodeMaxUses = () : number => {
 const addCodeInterval = () : number => {
     let time = hour
     time *= (1 - 0.02 * player.shopUpgrades.calculator4)
+    time *= (1 - (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 1000 : 0)
+                       - (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 1000 : 0))
     return time
 }
 
@@ -674,12 +676,7 @@ const addCodeAvailableUses = (): number => {
 }
 
 const addCodeTimeToNextUse = (): number => {
-    let timeInterval = hour
-    timeInterval *= (1 - 0.02 * player.shopUpgrades.calculator4)
-    timeInterval *= (1 - (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 1000 : 0)
-                       - (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 1000 : 0))
-
-    return Math.floor(timeInterval + player.rngCode - Date.now())/1000;
+    return Math.floor(addCodeInterval() + player.rngCode - Date.now())/1000;
 }
 
 const timeCodeAvailableUses = (): number => {
