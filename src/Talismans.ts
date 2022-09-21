@@ -425,7 +425,7 @@ export const updateTalismanAppearance = (i: number) => {
     }
     if (rarity === 6) {
         el.style.border = '4px solid crimson';
-        la.style.color = 'crimson'
+        la.style.color = 'var(--crimson-text-color)'
     }
 }
 

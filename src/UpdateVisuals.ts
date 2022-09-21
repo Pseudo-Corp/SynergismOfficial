@@ -464,7 +464,7 @@ const UpdateHeptGridValues = (type: hepteractTypes) => {
     if (!unlocked) {
         textEl.textContent = 'LOCKED';
         barEl.style.width = '100%';
-        barEl.style.backgroundColor = 'red';
+        barEl.style.backgroundColor = 'var(--hepteract-bar-red)';
     } else {
         const balance = player.hepteractCrafts[type].BAL;
         const cap = player.hepteractCrafts[type].CAP;
@@ -472,11 +472,11 @@ const UpdateHeptGridValues = (type: hepteractTypes) => {
 
         let barColor = '';
         if (barWidth < 34) {
-            barColor = 'red';
+            barColor = 'var(--hepteract-bar-red)';
         } else if (barWidth >= 34 && barWidth < 68) {
-            barColor = '#cca300';
+            barColor = 'var(--hepteract-bar-yelow)';
         } else {
-            barColor = 'green';
+            barColor = 'var(--hepteract-bar-green)';
         }
 
         textEl.textContent = format(balance) + ' / ' + format(cap);

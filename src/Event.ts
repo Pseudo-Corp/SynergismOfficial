@@ -265,7 +265,7 @@ export const eventCheck = () => {
         G['isEvent'] = false;
         DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE';
         eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' : ''
-        eventBuffs.style.color = 'red';
+        eventBuffs.style.color = 'var(--red-text-color)';
         happyHolidays.innerHTML = '';
         happyHolidays.href = '';
     }
