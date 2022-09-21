@@ -177,7 +177,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 return baseCost * (Math.pow(1001, 7) - Math.pow(1000, 7)) * Math.pow(10, level / 1000)
             }
         },
-        maxLevel: 9900,
+        maxLevel: 19900,
         costPerLevel: 1e-7,
         effect: (n: number) => {
             return {
@@ -363,6 +363,21 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return {
                 bonus: 0.05 * n,
                 desc: `Exponent of the first upgrade +${format(n/20, 2, true)}`
+            }
+        }
+    },
+    octeractImprovedFree4: {
+        name: 'Coupon of Ultimate Penniless Derpsmiths',
+        description: 'Each level adds 0.001 to the exponent of free upgrades, with the first level adding another 0.01!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(1e20, level / 40)
+        },
+        maxLevel: 40,
+        costPerLevel: 1e20,
+        effect: (n: number) => {
+            return {
+                bonus: 0.001 * n + ((n > 0)? 0.01: 0),
+                desc: `Exponent of the first upgrade +${format(0.001 * n + ((n > 0)? 0.01: 0), 3, true)}`
             }
         }
     },
