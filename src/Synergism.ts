@@ -46,7 +46,7 @@ import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
-import { settingTheme } from './Themes';
+import { toggleTheme } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers'
 
 /**
@@ -3960,7 +3960,7 @@ export const reloadShit = async (reset = false) => {
         await saveSynergy();
     }
 
-    settingTheme();
+    toggleTheme(true);
     toggleauto();
     htmlInserts();
     createTimer();

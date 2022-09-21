@@ -41,8 +41,8 @@
         </div>
     </div>
     <div id="offlineBlur">
-        <img src="Pictures/logo.png" alt="logo" label="The Synergism Logo" />
-        <button id="preloadDeleteGame" alt="preloadDeleteGame" label="preloadDeleteGame" style="display: none;">Delete savefile</button>
+        <img id="logo" src="Pictures/logo.png" alt="The Synergism Logo" />
+        <button id="preloadDeleteGame" style="display: none;">Delete savefile</button>
     </div>
     <div id="offlineContainer" alt="offlineContainer" label="offlineContainer" style="display: none;">
         <p id="offlineTimer" alt="offlineTimer" label="offlineTimer" class="offlineText" style="color: plum"></p>
@@ -62,11 +62,11 @@
             </div>
             <div class="offlineStat transcendunlock" id="offlineTranscensionCountDiv" alt="offlineTranscensionCountDiv" label="offlineTranscensionCountDiv">
                 <img src="Pictures/Transcend.png" alt='' class='offlineStatIcon'>
-                <span id="offlineTranscensionCount" alt="offlineTranscensionCount" label="offlineTranscensionCount" class='offlineStatElement'>Transcension Count: +<span id="offlineTranscensionCountNumber" alt="offlineTranscensionCountNumber" label="offlineTranscensionCountNumber" style="color: orchid"></span></span>
+                <span id="offlineTranscensionCount" alt="offlineTranscensionCount" label="offlineTranscensionCount" class='offlineStatElement'>Transcension Count: +<span id="offlineTranscensionCountNumber" alt="offlineTranscensionCountNumber" label="offlineTranscensionCountNumber" class="orchidText"></span></span>
             </div>
             <div class="offlineStat transcendunlock" id="offlineTranscensionTimerDiv" alt="offlineTranscensionTimerDiv" label="offlineTranscensionTimerDiv">
                 <img src="Pictures/Transcend.png" alt='' class='offlineStatIcon'>
-                <span id="offlineTranscensionTimer" alt="offlineTranscensionTimer" label="offlineTranscensionTimer" class='offlineStatElement'>Current Transcension Timer: +<span id="offlineTranscensionTimerNumber" alt="offlineTranscensionTimerNumber" label="offlineTranscensionTimerNumber" style="color: orchid"></span> seconds</span>
+                <span id="offlineTranscensionTimer" alt="offlineTranscensionTimer" label="offlineTranscensionTimer" class='offlineStatElement'>Current Transcension Timer: +<span id="offlineTranscensionTimerNumber" alt="offlineTranscensionTimerNumber" label="offlineTranscensionTimerNumber" class="orchidText"></span> seconds</span>
             </div>
             <div class='offlineStat reincarnationunlock' id="offlineReincarnationCountDiv" alt="offlineReincarnationCountDiv" label="offlineReincarnationCountDiv">
                 <img src="Pictures/Reincarnate.png" alt='' class='offlineStatIcon'>
@@ -82,11 +82,11 @@
             </div>
             <div class='offlineStat chal8' id="offlineAntTimerDiv" alt="offlineAntTimerDiv" label="offlineAntTimerDiv">
                 <img src="Pictures/crumb.png" alt='' class='offlineStatIcon'>
-                <span id="offlineAntTimer" alt="offlineAntTimer" label="offlineAntTimer" class='offlineStatElement'>In-Game Ant Sacrifice Timer: +<span id="offlineAntTimerNumber" alt="offlineAntTimerNumber" label="offlineAntTimerNumber" style="color: red;"></span> seconds</span>
+                <span id="offlineAntTimer" alt="offlineAntTimer" label="offlineAntTimer" class='offlineStatElement'>In-Game Ant Sacrifice Timer: +<span id="offlineAntTimerNumber" alt="offlineAntTimerNumber" label="offlineAntTimerNumber" class="redText"></span> seconds</span>
             </div>
             <div class='offlineStat chal8' id="offlineRealAntTimerDiv" alt="offlineRealAntTimerDiv" label="offlineRealAntTimerDiv">
                 <img src="Pictures/crumb.png" alt='' class='offlineStatIcon'>
-                <span id="offlineRealAntTimer" alt="offlineRealAntTimer" label="offlineRealAntTimer" class='offlineStatElement'>Real-Life Ant Sacrifice Timer: +<span id="offlineRealAntTimerNumber" alt="offlineRealAntTimerNumber" label="offlineRealAntTimerNumber" style="color: red;"></span> seconds</span>
+                <span id="offlineRealAntTimer" alt="offlineRealAntTimer" label="offlineRealAntTimer" class='offlineStatElement'>Real-Life Ant Sacrifice Timer: +<span id="offlineRealAntTimerNumber" alt="offlineRealAntTimerNumber" label="offlineRealAntTimerNumber" class="redText"></span> seconds</span>
             </div>
             <div class='offlineStat ascendunlock' id="offlineAscensionTimerDiv" alt="offlineAscensionTimerDiv" label="offlineAscensionTimerDiv">
                 <img src="Pictures/questionable.png" alt='' class='offlineStatIcon'>
@@ -311,7 +311,7 @@
                 <span class="prestigeunlock desc" id="buildtext15" alt="buildtext15" label="buildtext15" style="color: cyan">Accelerator Boosts: 0 [+0]</span>
                 <button class="prestigeunlock buildingPurchaseBtn" id="buyacceleratorboost" alt="buyacceleratorboost" label="buyacceleratorboost">Cost: 500 Coins.</button>
                 <button class="auto autobuyerToggleButton" id="toggle8" alt="toggle8" label="toggle8" toggleid="8" alt="8" label="8">Auto: On</button>
-                <span class="prestigeunlock stats" id="buildtext16" alt="buildtext16" label="buildtext16" style="color: crimson">Next one adds 1.00% Acceleration Factor.</span>
+                <span class="prestigeunlock stats crimsonText" id="buildtext16" alt="buildtext16" label="buildtext16">Next one adds 1.00% Acceleration Factor.</span>
             </div>
         </div>
 
@@ -370,7 +370,7 @@
             </div>
         </div>
 
-        <p id="prestigeshardinfo" alt="prestigeshardinfo" label="prestigeshardinfo" style="color:lightcyan; text-align: center">You have 1.39e+100394 Prestige Shards, providing 1,214,593 multiplier power boosts.</p>
+        <p id="prestigeshardinfo" alt="prestigeshardinfo" label="prestigeshardinfo" style="color: lightblue; text-align: center">You have 1.39e+100394 Prestige Shards, providing 1,214,593 multiplier power boosts.</p>
 
         <div id="crystalupgrades" alt="crystalupgrades" label="crystalupgrades">
             <table id="crystalupgradestable" alt="crystalupgradestable" label="crystalupgradestable" style="padding: 0; font-size: 0;">
@@ -384,8 +384,8 @@
                 </tr>
             </table>
             <p class="mainText" id="crystalupgradedescription" alt="crystalupgradedescription" label="crystalupgradedescription" style="text-align: center;">Hover over a crystal upgrade to get information!</p>
-            <p class="mainText" id="crystalupgradescost1" alt="crystalupgradescost1" label="crystalupgradescost1" style="text-align: center;">Cost: <span id="crystalupgradescost" alt="crystalupgradescost" label="crystalupgradescost" style="color: lightcyan">---</span> crystals</p>
-            <p class="mainText" id="crystalupgradeslevel1" alt="crystalupgradeslevel1" label="crystalupgradeslevel1" style="text-align: center;">Level: <span id="crystalupgradeslevel" alt="crystalupgradeslevel" label="crystalupgradeslevel" style="color: lightcyan">---</span></p>
+            <p class="mainText" id="crystalupgradescost1" alt="crystalupgradescost1" label="crystalupgradescost1" style="text-align: center;">Cost: <span id="crystalupgradescost" alt="crystalupgradescost" label="crystalupgradescost" style="color: lightblue">---</span> crystals</p>
+            <p class="mainText" id="crystalupgradeslevel1" alt="crystalupgradeslevel1" label="crystalupgradeslevel1" style="text-align: center;">Level: <span id="crystalupgradeslevel" alt="crystalupgradeslevel" label="crystalupgradeslevel" style="color: lightblue">---</span></p>
         </div>
 
         <div class="resetautomation" id="autocrystalbuild" alt="autocrystalbuild" label="autocrystalbuild">
@@ -393,7 +393,7 @@
             <button id="prestigeautotoggle" alt="prestigeautotoggle" label="prestigeautotoggle" style="border:2px solid green;"></button>
             <input class="transcendunlock" type="number" id="prestigeamount" alt="prestigeamount" label="prestigeamount" min="1" max="999999999" defaultValue="1">
             <p class="transcendunlock mainText" id="autoprestige" alt="autoprestige" label="autoprestige"></p>
-            <p id="prestigehotkeys" alt="prestigehotkeys" label="prestigehotkeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer. Press [6], [7], [8], [9] or [0] to buy the corresponding Crystal upgrade starting on the left.</p>
+            <p id="prestigehotkeys" alt="prestigehotkeys" label="prestigehotkeys" class="grayText">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer. Press [6], [7], [8], [9] or [0] to buy the corresponding Crystal upgrade starting on the left.</p>
         </div>
     </div>
     <div id="transcension" alt="transcension" label="transcension" style="display: none;">
@@ -456,7 +456,7 @@
             <p class="transcendunlock" id="autotranscend" alt="autotranscend" label="autotranscend"></p>
         </div>
 
-        <p id="transcendhotkeys" alt="transcendhotkeys" label="transcendhotkeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
+        <p id="transcendhotkeys" alt="transcendhotkeys" label="transcendhotkeys" class="grayText">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
     </div>
     <div id="reincarnation" alt="reincarnation" label="reincarnation" style="display: none;">
         <div id="buyamountparticle" alt="buyamountparticle" label="buyamountparticle">
@@ -522,7 +522,7 @@
                 <p class="reincarnationunlock mainText" id="autoreincarnate" alt="autoreincarnate" label="autoreincarnate"></p>
             </div>
         </div>
-        <p id="reincarnatehotkeys" alt="reincarnatehotkeys" label="reincarnatehotkeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
+        <p id="reincarnatehotkeys" alt="reincarnatehotkeys" label="reincarnatehotkeys" class="grayText">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
     </div>
     <div id="ascension" alt="ascension" label="ascension" style="display: none">
         <div id="buyAmountTesseract" alt="buyAmountTesseract" label="buyAmountTesseract">
@@ -615,9 +615,9 @@
                 </tr>
             </table>
             <p id="constUpgradeDescription" alt="constUpgradeDescription" label="constUpgradeDescription" style="color: gold">Hover over an icon for a description of the upgrade. Click to buy it!</p>
-            <p class="mainText" id="constUpgradeLevel" alt="constUpgradeLevel" label="constUpgradeLevel">Current Level: <span id="constUpgradeLevel2" alt="constUpgradeLevel2" label="constUpgradeLevel2" style="color: orchid">---</span></p>
-            <p class="mainText" id="constUpgradeCost" alt="constUpgradeCost" label="constUpgradeCost">Cost: <span id="constUpgradeCost2" alt="constUpgradeCost2" label="constUpgradeCost2" style="color: orchid">---</span> from your Constant</p>
-            <p class="mainText" id="constUpgradeEffect1" alt="constUpgradeEffect1" label="constUpgradeEffect1">Current Effect: <span id="constUpgradeEffect2" alt="constUpgradeEffect2" label="constUpgradeEffect2" style="color: orchid">---</span></p>
+            <p class="mainText" id="constUpgradeLevel" alt="constUpgradeLevel" label="constUpgradeLevel">Current Level: <span id="constUpgradeLevel2" alt="constUpgradeLevel2" label="constUpgradeLevel2" class="orchidText">---</span></p>
+            <p class="mainText" id="constUpgradeCost" alt="constUpgradeCost" label="constUpgradeCost">Cost: <span id="constUpgradeCost2" alt="constUpgradeCost2" label="constUpgradeCost2" class="orchidText">---</span> from your Constant</p>
+            <p class="mainText" id="constUpgradeEffect1" alt="constUpgradeEffect1" label="constUpgradeEffect1">Current Effect: <span id="constUpgradeEffect2" alt="constUpgradeEffect2" label="constUpgradeEffect2" class="orchidText">---</span></p>
         </div>
         <div class="resetautomation" id="ascendautomation" alt="ascendautomation" label="ascendautomation">
             <button id="tesseractautobuytoggle" alt="tesseractautobuytoggle" label="tesseractautobuytoggle" style="border:2px solid red;">Auto Buy: OFF</button>
@@ -625,7 +625,7 @@
             <input class="tesseractautobuyamount" type="number" id="tesseractAmount" alt="tesseractAmount" label="tesseractAmount" min="1" max="999999999" defaultValue="1">
             <p class="tesseractautobuyamount mainText" id="autotessbuyeramount" alt="autotessbuyeramount" label="autotessbuyeramount"></p>
         </div>
-        <p id="ascendHotKeys" alt="ascendHotKeys" label="ascendHotKeys">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
+        <p id="ascendHotKeys" alt="ascendHotKeys" label="ascendHotKeys" class="grayText">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
     </div>
 </div>
 
@@ -782,7 +782,7 @@
             </div>
             <div>
                 <img id="upgrades5" alt="upgrades5" label="upgrades5" class="prestigeunlock" src="Pictures/Automation.png" loading="lazy">
-                <p class="prestigeunlock" id="automationtext" alt="automationtext" label="automationtext" style="color: crimson">Automation Shop</p>
+                <p class="prestigeunlock crimsonText" id="automationtext" alt="automationtext" label="automationtext">Automation Shop</p>
                 <table class="prestigeunlock" id="automationtable" alt="automationtable" label="automationtable">
                     <tr>
                        <td><img id="upg81" alt="upg81" label="upg81" src="Pictures/Transparent Pics/AutomationOne.png" loading="lazy"></td>
@@ -1174,10 +1174,10 @@
                 <p id="achievementreward" alt="achievementreward" label="achievementreward"></p>
             </div>
             <div id="achievementColorInfo" alt="achievementColorInfo" label="achievementColorInfo">
-                <p id="achievementcolorcode1" alt="achievementcolorcode1" label="achievementcolorcode1" style="color: limegreen">Green background: Achieved.</p>
-                <p id="achievementcolorcode2" alt="achievementcolorcode2" label="achievementcolorcode2" style="color: purple">Purple background: Unachieved, provides bonus multiplier.</p>
-                <p id="achievementcolorcode3" alt="achievementcolorcode3" label="achievementcolorcode3" style="color: crimson">Red background: Unachieved, provides content/feature unlock.</p>
-                <p id="achievementcolorcode4" alt="achievementcolorcode4" label="achievementcolorcode4" style="color: gray">No background: Unachieved, nothing special.</p>
+                <p id="achievementcolorcode1" style="color: limegreen">Green background: Achieved.</p>
+                <p id="achievementcolorcode2" style="color: purple">Purple background: Unachieved, provides bonus multiplier.</p>
+                <p id="achievementcolorcode3" class="crimsonText">Red background: Unachieved, provides content/feature unlock.</p>
+                <p id="achievementcolorcode4" class="grayText">No background: Unachieved, nothing special.</p>
             </div>
         </div>
 
@@ -1266,7 +1266,7 @@
                     </div>
 
                     <div id="rune7area" alt="rune7area" label="rune7area" class="runeType">
-                        <p id="grandiloquence" alt="grandiloquence" label="grandiloquence" class="runeTypeElement" style="color: orchid">Antiquities of Ant God</p>
+                        <p id="grandiloquence" class="runeTypeElement orchidText">Antiquities of Ant God</p>
                         <img id="rune7" alt="rune7" label="rune7" class="runeTypeElement runeImage" src="Pictures/Transparent Pics/Grandiloquence.png" loading="lazy">
                         <p id="rune7level" alt="rune7level" label="rune7level" class="runeTypeElement">Level: 1/2</p>
                         <p id="bonusrune7" alt="bonusrune7" label="bonusrune7" class="runeTypeElement" style="color: orange">[Ultimate Level]</p>
@@ -1278,14 +1278,14 @@
                 <div id="runeEffectDisplays" alt="runeEffectDisplays" label="runeEffectDisplays">
                     <p id="runeshowlevelup" alt="runeshowlevelup" label="runeshowlevelup" style="color: white">Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!</p>
                     <p id="runeDisplayInfo" alt="runeDisplayInfo" label="runeDisplayInfo" style="color: goldenrod"></p>
-                    <p id="bonussummation" alt="bonussummation" label="bonussummation" style="color: orangered;">=====RUNE EFFECT SUMMARY=====</p>
+                    <p id="bonussummation" class="orangeredText">=====RUNE EFFECT SUMMARY=====</p>
                     <p id="runeshowpower1" alt="runeshowpower1" label="runeshowpower1" style="color: orange"></p>
                     <p id="runeshowpower2" alt="runeshowpower2" label="runeshowpower2" style="color: plum"></p>
                     <p id="runeshowpower3" alt="runeshowpower3" label="runeshowpower3" style="color: lightblue"></p>
                     <p id="runeshowpower4" alt="runeshowpower4" label="runeshowpower4" style="color: lightgreen"></p>
                     <p id="runeshowpower5" alt="runeshowpower5" label="runeshowpower5" style="color: tomato"></p>
                     <p id="runeshowpower6" alt="runeshowpower6" label="runeshowpower6" style="color: lightgoldenrodyellow">Infinte Ascent: +0.002% ALL Cube Types, +0.0002% Quark Gain</p>
-                    <p id="runeshowpower7" alt="runeshowpower7" label="runeshowpower7" style="color: orchid">Grandiloquence: +33% Bonus Exponent in C15, +120% Cubes, +10% Quarks, +10% Potion Efficiency, +1 free Platonic Remnant per opening</p>
+                    <p id="runeshowpower7" alt="runeshowpower7" label="runeshowpower7" class="orchidText">Grandiloquence: +33% Bonus Exponent in C15, +120% Cubes, +10% Quarks, +10% Potion Efficiency, +1 free Platonic Remnant per opening</p>
                     <p class="reincarnationunlock" id="researchrunebonus" alt="researchrunebonus" label="researchrunebonus" style="color: pink">Thanks to researches, your effective levels are increased by 0%</p>
                     <p id="runehotkeys" alt="runehotkeys" label="runehotkeys" style="color: lightgray;">Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!</p>
                 </div>
@@ -1314,7 +1314,7 @@
                     </div>
                     <div class="talismanShardContainer">
                         <img class="talismanShardIcon" src="Pictures/RareTalisman.png" title='Rare Fragment' loading="lazy">
-                        <span class="talismanShardAmount" id="rareFragmentInventory" alt="rareFragmentInventory" label="rareFragmentInventory" style="color: darkcyan">0</span>
+                        <span class="talismanShardAmount darkcyanText" id="rareFragmentInventory">0</span>
                         <button class="fragmentBtn" id="buyTalismanItem4" alt="buyTalismanItem4" label="buyTalismanItem4" style="border:2px solid aqua">BUY</button>
                     </div>
                     <div class="talismanShardContainer">
@@ -1329,7 +1329,7 @@
                     </div>
                     <div class="talismanShardContainer">
                         <img class="talismanShardIcon" src="Pictures/MythicalTalisman.png" title='Mythical Fragment' loading="lazy">
-                        <span class="talismanShardAmount" id="mythicalFragmentInventory" alt="mythicalFragmentInventory" label="mythicalFragmentInventory" style="color: crimson">0</span>
+                        <span class="talismanShardAmount crimsonText" id="mythicalFragmentInventory" alt="mythicalFragmentInventory" label="mythicalFragmentInventory">0</span>
                         <button class="fragmentBtn" id="buyTalismanItem7" alt="buyTalismanItem7" label="buyTalismanItem7" style="border:2px solid red">BUY</button>
                     </div>
                     <p id="talismanFragmentCost" alt="talismanFragmentCost" label="talismanFragmentCost">Cost for 1: 1e6 Obtainium</p>
@@ -1369,7 +1369,7 @@
                             <button class="talismanBtn" id="respectalisman4" alt="respectalisman4" label="respectalisman4" style="color: plum; border: 2px solid white">RESPEC</button>
                         </div>
                         <div class="talismanContainer" id="talisman5area" alt="talisman5area" label="talisman5area">
-                            <span class="talismanName" style="color: crimson">Polymath</span>
+                            <span class="talismanName crimsonText">Polymath</span>
                             <img class="talismanIcon" id="talisman5" alt="talisman5" label="talisman5" src="Pictures/PolymathTalisman.png" loading="lazy">
                             <span class="talismanLevel" id="talisman5level" alt="talisman5level" label="talisman5level">Level 0/30</span>
                             <button class="talismanBtn" id="leveluptalisman5" alt="leveluptalisman5" label="leveluptalisman5" style="color: silver; border: 2px solid white;">FORTIFY</button>
@@ -1403,7 +1403,7 @@
                             <p id="talismanRune2Effect" alt="talismanRune2Effect" label="talismanRune2Effect" style="color: plum"></p>
                             <p id="talismanRune3Effect" alt="talismanRune3Effect" label="talismanRune3Effect" style="color: lightblue"></p>
                             <p id="talismanRune4Effect" alt="talismanRune4Effect" label="talismanRune4Effect" style="color: limegreen"></p>
-                            <p id="talismanRune5Effect" alt="talismanRune5Effect" label="talismanRune5Effect" style="color: crimson"></p>
+                            <p id="talismanRune5Effect" alt="talismanRune5Effect" label="talismanRune5Effect" class="crimsonText"></p>
                             <p id="talismanMythicEffect" alt="talismanMythicEffect" label="talismanMythicEffect" style="color: gold"></p>
                         </div>
 
@@ -1411,28 +1411,28 @@
                             <p id="talismanLevelUpSummary" alt="talismanLevelUpSummary" label="talismanLevelUpSummary" style="color: silver">-=-=- Resources Required to Level Up -=-=-</p>
                             <table>
                                 <tr>
-                                    <td><img src="Pictures/TalismanShard.png" loading="lazy"></td>
+                                    <td><img src="Pictures/TalismanShard.png" alt="Shard" loading="lazy"></td>
                                     <td><p id="talismanShardCost" alt="talismanShardCost" label="talismanShardCost" style="color: yellow"></p></td>
-                                    <td><img src="Pictures/CommonTalisman.png" loading="lazy"></td>
+                                    <td><img src="Pictures/CommonTalisman.png" alt="Common" loading="lazy"></td>
                                     <td><p id="talismanCommonFragmentCost" alt="talismanCommonFragmentCost" label="talismanCommonFragmentCost" style="color: white"></p></td>
-                                    <td><img src="Pictures/UncommonTalisman.png" loading="lazy"></td>
+                                    <td><img src="Pictures/UncommonTalisman.png" alt="Uncommon" loading="lazy"></td>
                                     <td><p id="talismanUncommonFragmentCost" alt="talismanUncommonFragmentCost" label="talismanUncommonFragmentCost" style="color: limegreen"></p></td>
-                                    <td><img src="Pictures/RareTalisman.png" loading="lazy"></td>
-                                    <td><p id="talismanRareFragmentCost" alt="talismanRareFragmentCost" label="talismanRareFragmentCost" style="color: darkcyan"></p></td>
+                                    <td><img src="Pictures/RareTalisman.png" alt="Rare" loading="lazy"></td>
+                                    <td><p id="talismanRareFragmentCost" class="darkcyanText"></p></td>
                                 </tr>
                                 <tr>
-                                    <td><img src="Pictures/EpicTalisman.png" loading="lazy"></td>
+                                    <td><img src="Pictures/EpicTalisman.png" alt="Epic" loading="lazy"></td>
                                     <td><p id="talismanEpicFragmentCost" alt="talismanEpicFragmentCost" label="talismanEpicFragmentCost" style="color: plum"></p></td>
-                                    <td><img src="Pictures/LegendaryTalisman.png" loading="lazy"></td>
+                                    <td><img src="Pictures/LegendaryTalisman.png" alt="Legendary" loading="lazy"></td>
                                     <td><p id="talismanLegendaryFragmentCost" alt="talismanLegendaryFragmentCost" label="talismanLegendaryFragmentCost" style="color: orange"></p></td>
-                                    <td><img src="Pictures/MythicalTalisman.png" loading="lazy"></td>
-                                    <td><p id="talismanMythicalFragmentCost" alt="talismanMythicalFragmentCost" label="talismanMythicalFragmentCost" style="color: crimson"></p></td>
+                                    <td><img src="Pictures/MythicalTalisman.png" alt="Mythical" loading="lazy"></td>
+                                    <td><p id="talismanMythicalFragmentCost" class="crimsonText"></p></td>
                                 </tr>
                             </table>
                         </div>
 
                         <div id="talismanrespec" alt="talismanrespec" label="talismanrespec" style="display: none">
-                            <p id="talismanRespecSummary" alt="talismanRespecSummary" label="talismanRespecSummary" style="color: orchid">+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+</p>
+                            <p id="talismanRespecSummary" class="orchidText">+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+</p>
                             <div>
                                 <button class="talismanRespecBtn" id="talismanRespecButton1" alt="talismanRespecButton1" label="talismanRespecButton1">Speed Rune: POSITIVE</button>
                                 <button class="talismanRespecBtn" id="talismanRespecButton2" alt="talismanRespecButton2" label="talismanRespecButton2">Duplication Rune: POSITIVE</button>
@@ -1469,36 +1469,36 @@
                     <button class="auto" id="toggle36" alt="toggle36" label="toggle36" toggleid="36" alt="36" label="36" format="Auto: $">Auto: Off</button>
                     <button id="buyAllBlessings" class="runeButtons runeButtonsBuyAll">ALL Increase Level</button>
                     <input type="number" id="buyRuneBlessingInput" alt="buyRuneBlessingInput" label="buyRuneBlessingInput" min="1" max="999999999" defaultValue="1">
-                    <span id="buyRuneBlessingToggle" alt="buyRuneBlessingToggle" label="buyRuneBlessingToggle" style="color: yellow">Buy up to <span id="buyRuneBlessingToggleValue" alt="buyRuneBlessingToggleValue" label="buyRuneBlessingToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</span>
+                    <span id="buyRuneBlessingToggle" style="color: yellow">Buy up to <span id="buyRuneBlessingToggleValue" class="orchidText">1</span> Levels per purchase, if affordable. [Input to toggle]</span>
                 </div>
                 <div class="runeBlessingRow">
                     <img class="runeIcons" src="Pictures/Speed Blessing.png" loading="lazy">
-                    <span class="runeTexts" style="color: orchid">Blessing level: <span class="mainText" id="runeBlessingLevel1Value" alt="runeBlessingLevel1Value" label="runeBlessingLevel1Value">0</span></span>
-                    <button class="runeButtons" id="runeBlessingPurchase1" alt="runeBlessingPurchase1" label="runeBlessingPurchase1">Increase Level By <span id="runeBlessingPurchaseAmount1" alt="runeBlessingPurchaseAmount1" label="runeBlessingPurchaseAmount1" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost1" alt="runeBlessingPurchaseCost1" label="runeBlessingPurchaseCost1" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts orchidText">Blessing level: <span class="mainText" id="runeBlessingLevel1Value">0</span></span>
+                    <button class="runeButtons" id="runeBlessingPurchase1">Increase Level By <span id="runeBlessingPurchaseAmount1" class="orchidText">1</span> [Cost: <span id="runeBlessingPurchaseCost1" class="orchidText">1e7</span> Offerings]</button>
                     <span class="runeEffectTexts">Blessing Power: <span id="runeBlessingPower1Value1" alt="runeBlessingPower1Value1" label="runeBlessingPower1Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower1Value2" alt="runeBlessingPower1Value2" label="runeBlessingPower1Value2" style="color: gold">+1.00</span>x Global Speed</span>
                 </div>
                 <div class="runeBlessingRow">
                     <img class="runeIcons" src="Pictures/Duplication Blessing.png" loading="lazy">
-                    <span class="runeTexts" style="color: orchid">Blessing level: <span class="mainText" id="runeBlessingLevel2Value" alt="runeBlessingLevel2Value" label="runeBlessingLevel2Value">0</span></span>
-                    <button class="runeButtons" id="runeBlessingPurchase2" alt="runeBlessingPurchase2" label="runeBlessingPurchase2">Increase Level By <span id="runeBlessingPurchaseAmount2" alt="runeBlessingPurchaseAmount2" label="runeBlessingPurchaseAmount2" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost2" alt="runeBlessingPurchaseCost2" label="runeBlessingPurchaseCost2" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts orchidText">Blessing level: <span class="mainText" id="runeBlessingLevel2Value">0</span></span>
+                    <button class="runeButtons" id="runeBlessingPurchase2">Increase Level By <span id="runeBlessingPurchaseAmount2" class="orchidText">1</span> [Cost: <span id="runeBlessingPurchaseCost2" class="orchidText">1e7</span> Offerings]</button>
                     <span class="runeEffectTexts">Blessing Power: <span id="runeBlessingPower2Value1" alt="runeBlessingPower2Value1" label="runeBlessingPower2Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower2Value2" alt="runeBlessingPower2Value2" label="runeBlessingPower2Value2" style="color: gold">+1.00</span>x Multiplier Boosts</span>
                 </div>
                 <div class="runeBlessingRow">
                     <img class="runeIcons" src="Pictures/Prism Blessing.png" loading="lazy">
-                    <span class="runeTexts" style="color: orchid">Blessing level: <span class="mainText" id="runeBlessingLevel3Value" alt="runeBlessingLevel3Value" label="runeBlessingLevel3Value">0</span></span>
-                    <button class="runeButtons" id="runeBlessingPurchase3" alt="runeBlessingPurchase3" label="runeBlessingPurchase3">Increase Level By <span id="runeBlessingPurchaseAmount3" alt="runeBlessingPurchaseAmount3" label="runeBlessingPurchaseAmount3" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost3" alt="runeBlessingPurchaseCost3" label="runeBlessingPurchaseCost3" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts orchidText">Blessing level: <span class="mainText" id="runeBlessingLevel3Value">0</span></span>
+                    <button class="runeButtons" id="runeBlessingPurchase3">Increase Level By <span id="runeBlessingPurchaseAmount3" class="orchidText">1</span> [Cost: <span id="runeBlessingPurchaseCost3" class="orchidText">1e7</span> Offerings]</button>
                     <span class="runeEffectTexts">Blessing Power: <span id="runeBlessingPower3Value1" alt="runeBlessingPower3Value1" label="runeBlessingPower3Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower3Value2" alt="runeBlessingPower3Value2" label="runeBlessingPower3Value2" style="color: gold">+1.00</span>x Ant Sacrifice Rewards</span>
                 </div>
                 <div class="runeBlessingRow">
                     <img class="runeIcons" src="Pictures/Thrift Blessing.png" loading="lazy">
-                    <span class="runeTexts" style="color: orchid">Blessing level: <span class="mainText" id="runeBlessingLevel4Value" alt="runeBlessingLevel4Value" label="runeBlessingLevel4Value">0</span></span>
-                    <button class="runeButtons" id="runeBlessingPurchase4" alt="runeBlessingPurchase4" label="runeBlessingPurchase4">Increase Level By <span id="runeBlessingPurchaseAmount4" alt="runeBlessingPurchaseAmount4" label="runeBlessingPurchaseAmount4" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost4" alt="runeBlessingPurchaseCost4" label="runeBlessingPurchaseCost4" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts orchidText">Blessing level: <span class="mainText" id="runeBlessingLevel4Value">0</span></span>
+                    <button class="runeButtons" id="runeBlessingPurchase4">Increase Level By <span id="runeBlessingPurchaseAmount4" class="orchidText">1</span> [Cost: <span id="runeBlessingPurchaseCost4" class="orchidText">1e7</span> Offerings]</button>
                     <span class="runeEffectTexts">Blessing Power: <span id="runeBlessingPower4Value1" alt="runeBlessingPower4Value1" label="runeBlessingPower4Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower4Value2" alt="runeBlessingPower4Value2" label="runeBlessingPower4Value2" style="color: gold">+1.00</span>x Delay for A.Boost Cost</span>
                 </div>
                 <div class="runeBlessingRow">
                     <img class="runeIcons" src="Pictures/SI Blessing.png" loading="lazy">
-                    <span class="runeTexts" style="color: orchid">Blessing level: <span class="mainText" id="runeBlessingLevel5Value" alt="runeBlessingLevel5Value" label="runeBlessingLevel5Value">0</span></span>
-                    <button class="runeButtons" id="runeBlessingPurchase5" alt="runeBlessingPurchase5" label="runeBlessingPurchase5">Increase Level By <span id="runeBlessingPurchaseAmount5" alt="runeBlessingPurchaseAmount5" label="runeBlessingPurchaseAmount5" style="color: orchid">1</span> [Cost: <span id="runeBlessingPurchaseCost5" alt="runeBlessingPurchaseCost5" label="runeBlessingPurchaseCost5" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts orchidText">Blessing level: <span class="mainText" id="runeBlessingLevel5Value">0</span></span>
+                    <button class="runeButtons" id="runeBlessingPurchase5">Increase Level By <span id="runeBlessingPurchaseAmount5" class="orchidText">1</span> [Cost: <span id="runeBlessingPurchaseCost5" class="orchidText">1e7</span> Offerings]</button>
                     <span class="runeEffectTexts">Blessing Power: <span id="runeBlessingPower5Value1" alt="runeBlessingPower5Value1" label="runeBlessingPower5Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeBlessingPower5Value2" alt="runeBlessingPower5Value2" label="runeBlessingPower5Value2" style="color: gold">+1.00</span> Obtainium --> Ant Mult. Exponent</span>
                 </div>
             </div>
@@ -1507,36 +1507,36 @@
                     <button class="auto" id="toggle37" alt="toggle37" label="toggle37" toggleid="37" alt="37" label="37" format="Auto: $">Auto: Off</button>
                     <button id="buyAllSpirits" class="runeButtons runeButtonsBuyAll">ALL Increase Level</button>
                     <input type="number" id="buyRuneSpiritInput" alt="buyRuneSpiritInput" label="buyRuneSpiritInput" min="1" max="999999999" defaultValue="1">
-                    <span id="buyRuneSpiritToggle" alt="buyRuneSpiritToggle" label="buyRuneSpiritToggle" style="color: yellow">Buy up to <span id="buyRuneSpiritToggleValue" alt="buyRuneSpiritToggleValue" label="buyRuneSpiritToggleValue" style="color: orchid">1</span> Levels per purchase, if affordable. [Input to toggle]</span>
+                    <span id="buyRuneSpiritToggle" style="color: yellow">Buy up to <span id="buyRuneSpiritToggleValue" class="orchidText">1</span> Levels per purchase, if affordable. [Input to toggle]</span>
                 </div>
                 <div class="runeBlessingRow">
                     <img class="runeIcons" src="Pictures/Speed Spirit.png" loading="lazy">
-                    <span class="runeTexts">Spirit level: <span id="runeSpiritLevel1Value" alt="runeSpiritLevel1Value" label="runeSpiritLevel1Value" style="color: orchid">0</span></span>
-                    <button class="runeButtons" id="runeSpiritPurchase1" alt="runeSpiritPurchase1" label="runeSpiritPurchase1">Increase Level By <span id="runeSpiritPurchaseAmount1" alt="runeSpiritPurchaseAmount1" label="runeSpiritPurchaseAmount1" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost1" alt="runeSpiritPurchaseCost1" label="runeSpiritPurchaseCost1" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts">Spirit level: <span id="runeSpiritLevel1Value" class="orchidText">0</span></span>
+                    <button class="runeButtons" id="runeSpiritPurchase1">Increase Level By <span id="runeSpiritPurchaseAmount1" class="orchidText">1</span> [Cost: <span id="runeSpiritPurchaseCost1" class="orchidText">1e7</span> Offerings]</button>
                     <span class="runeEffectTexts">Spirit Power: <span id="runeSpiritPower1Value1" alt="runeSpiritPower1Value1" label="runeSpiritPower1Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower1Value2" alt="runeSpiritPower1Value2" label="runeSpiritPower1Value2" style="color: gold">+1.00</span>x Global Speed</span>
                 </div>
                 <div class="runeBlessingRow">
                     <img class="runeIcons" src="Pictures/Duplication Spirit.png" loading="lazy">
-                    <span class="runeTexts">Spirit level: <span id="runeSpiritLevel2Value" alt="runeSpiritLevel2Value" label="runeSpiritLevel2Value" style="color: orchid">0</span></span>
-                    <button class="runeButtons" id="runeSpiritPurchase2" alt="runeSpiritPurchase2" label="runeSpiritPurchase2">Increase Level By <span id="runeSpiritPurchaseAmount2" alt="runeSpiritPurchaseAmount2" label="runeSpiritPurchaseAmount2" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost2" alt="runeSpiritPurchaseCost2" label="runeSpiritPurchaseCost2" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts">Spirit level: <span id="runeSpiritLevel2Value" class="orchidText">0</span></span>
+                    <button class="runeButtons" id="runeSpiritPurchase2">Increase Level By <span id="runeSpiritPurchaseAmount2" class="orchidText">1</span> [Cost: <span id="runeSpiritPurchaseCost2" class="orchidText">1e7</span> Offerings]</button>
                     <span class="runeEffectTexts">Spirit Power: <span id="runeSpiritPower2Value1" alt="runeSpiritPower2Value1" label="runeSpiritPower2Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower2Value2" alt="runeSpiritPower2Value2" label="runeSpiritPower2Value2" style="color: gold">+1.00</span>x Wow! Cubes by Ascension</span>
                 </div>
                 <div class="runeBlessingRow">
                     <img class="runeIcons" src="Pictures/Prism Spirit.png" loading="lazy">
-                    <span class="runeTexts">Spirit level: <span id="runeSpiritLevel3Value" alt="runeSpiritLevel3Value" label="runeSpiritLevel3Value" style="color: orchid">0</span></span>
-                    <button class="runeButtons" id="runeSpiritPurchase3" alt="runeSpiritPurchase3" label="runeSpiritPurchase3">Increase Level By <span id="runeSpiritPurchaseAmount3" alt="runeSpiritPurchaseAmount3" label="runeSpiritPurchaseAmount3" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost3" alt="runeSpiritPurchaseCost3" label="runeSpiritPurchaseCost3" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts">Spirit level: <span id="runeSpiritLevel3Value" class="orchidText">0</span></span>
+                    <button class="runeButtons" id="runeSpiritPurchase3">Increase Level By <span id="runeSpiritPurchaseAmount3" class="orchidText">1</span> [Cost: <span id="runeSpiritPurchaseCost3" class="orchidText">1e7</span> Offerings]</button>
                     <span class="runeEffectTexts">Spirit Power: <span id="runeSpiritPower3Value1" alt="runeSpiritPower3Value1" label="runeSpiritPower3Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower3Value2" alt="runeSpiritPower3Value2" label="runeSpiritPower3Value2" style="color: gold">+1.00</span> Additional levels to Crystal caps</span>
                 </div>
                 <div class="runeBlessingRow">
                     <img class="runeIcons" src="Pictures/Thrift Spirit.png" loading="lazy">
-                    <span class="runeTexts">Spirit level: <span id="runeSpiritLevel4Value" alt="runeSpiritLevel4Value" label="runeSpiritLevel4Value" style="color: orchid">0</span></span>
-                    <button class="runeButtons" id="runeSpiritPurchase4" alt="runeSpiritPurchase4" label="runeSpiritPurchase4">Increase Level By <span id="runeSpiritPurchaseAmount4" alt="runeSpiritPurchaseAmount4" label="runeSpiritPurchaseAmount4" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost4" alt="runeSpiritPurchaseCost4" label="runeSpiritPurchaseCost4" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts">Spirit level: <span id="runeSpiritLevel4Value" class="orchidText">0</span></span>
+                    <button class="runeButtons" id="runeSpiritPurchase4">Increase Level By <span id="runeSpiritPurchaseAmount4" class="orchidText">1</span> [Cost: <span id="runeSpiritPurchaseCost4" class="orchidText">1e7</span> Offerings]</button>
                     <span class="runeEffectTexts">Spirit Power: <span id="runeSpiritPower4Value1" alt="runeSpiritPower4Value1" label="runeSpiritPower4Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower4Value2" alt="runeSpiritPower4Value2" label="runeSpiritPower4Value2" style="color: gold">+1.00</span>x Obtainium</span>
                 </div>
                 <div class="runeBlessingRow">
                     <img class="runeIcons" src="Pictures/SI Spirit.png" loading="lazy">
-                    <span class="runeTexts">Spirit level: <span id="runeSpiritLevel5Value" alt="runeSpiritLevel5Value" label="runeSpiritLevel5Value" style="color: orchid">0</span></span>
-                    <button class="runeButtons" id="runeSpiritPurchase5" alt="runeSpiritPurchase5" label="runeSpiritPurchase5">Increase Level By <span id="runeSpiritPurchaseAmount5" alt="runeSpiritPurchaseAmount5" label="runeSpiritPurchaseAmount5" style="color: orchid">1</span> [Cost: <span id="runeSpiritPurchaseCost5" alt="runeSpiritPurchaseCost5" label="runeSpiritPurchaseCost5" style="color: orchid">1e7</span> Offerings]</button>
+                    <span class="runeTexts">Spirit level: <span id="runeSpiritLevel5Value" class="orchidText">0</span></span>
+                    <button class="runeButtons" id="runeSpiritPurchase5">Increase Level By <span id="runeSpiritPurchaseAmount5" class="orchidText">1</span> [Cost: <span id="runeSpiritPurchaseCost5" class="orchidText">1e7</span> Offerings]</button>
                     <span class="runeEffectTexts">Spirit Power: <span id="runeSpiritPower5Value1" alt="runeSpiritPower5Value1" label="runeSpiritPower5Value1" style="color: turquoise">1e12</span> =-=-= Effect: <span id="runeSpiritPower5Value2" alt="runeSpiritPower5Value2" label="runeSpiritPower5Value2" style="color: gold">+1.00</span>% stronger Research 4x9 effect</span>
                 </div>
             </div>
@@ -1616,13 +1616,13 @@
                     <div id="challengeTimers" alt="challengeTimers" label="challengeTimers">
                         <div id="challengeTimersText" alt="challengeTimersText" label="challengeTimersText">
                             <button id="startChallenge" alt="startChallenge" label="startChallenge">Start Challenge 1</button>
-                            <p class="research150" id="startAutoChallengeTimer" alt="startAutoChallengeTimer" label="startAutoChallengeTimer">Time for start of sweep: <span id="startTimerValue" alt="startTimerValue" label="startTimerValue" style="color: orchid">10s</span></p>
+                            <p class="research150" id="startAutoChallengeTimer">Time for start of sweep: <span id="startTimerValue" class="orchidText">10s</span></p>
                             <input type="number" class="research150" id="startAutoChallengeTimerInput" alt="startAutoChallengeTimerInput" label="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10">
-                            <p class="research150" id="exitAutoChallengeTimer" alt="exitAutoChallengeTimer" label="exitAutoChallengeTimer">Time before exiting challenge: <span id="exitTimerValue" alt="exitTimerValue" label="exitTimerValue" style="color: orchid">2s</span></p>
+                            <p class="research150" id="exitAutoChallengeTimer">Time before exiting challenge: <span id="exitTimerValue" class="orchidText">2s</span></p>
                             <input type="number" class="research150" id="exitAutoChallengeTimerInput" alt="exitAutoChallengeTimerInput" label="exitAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
-                            <p class="research150" id="enterAutoChallengeTimer" alt="enterAutoChallengeTimer" label="enterAutoChallengeTimer">Time before entering challenge: <span id="enterTimerValue" alt="enterTimerValue" label="enterTimerValue" style="color: orchid">2s</span></p>
+                            <p class="research150" id="enterAutoChallengeTimer">Time before entering challenge: <span id="enterTimerValue" class="orchidText">2s</span></p>
                             <input type="number" class="research150" id="enterAutoChallengeTimerInput" alt="enterAutoChallengeTimerInput" label="enterAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
-                            <p class="research150" id="autoChallengeIncrementer" alt="autoChallengeIncrementer" label="autoChallengeIncrementer" style='color: orange'>Auto Timer: <span id="autoIncrementerAmount" alt="autoIncrementerAmount" label="autoIncrementerAmount" style="color: orchid">0s</span></p>
+                            <p class="research150" id="autoChallengeIncrementer" style='color: orange'>Auto Timer: <span id="autoIncrementerAmount" class="orchidText">0s</span></p>
                             <p class="research150" id="autoChallengeType" alt="autoChallengeType" label="autoChallengeType" style='color: lightgoldenrodyellow'>Mode: OFF</p>
                         </div>
                     </div>
@@ -1632,10 +1632,10 @@
                         <span id="challengeRestrictions" alt="challengeRestrictions" label="challengeRestrictions">Restriction: No Multipliers</span>
                         <br>
                         <span id="challengeGoal" alt="challengeGoal" label="challengeGoal">Gain 1e10 Coins</span>
-                        <span id="challengePerCompletionRewards" alt="challengePerCompletionRewards" label="challengePerCompletionRewards">Per Completion Bonuses <span id="completionSoftcap" alt="completionSoftcap" label="completionSoftcap" style="color: orchid"></span></span>
-                        <span id="challengePer1" alt="challengePer1" label="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" alt="challengeCurrent1" label="challengeCurrent1" style="color:orchid">Current: 0</span></span>
-                        <span id="challengePer2" alt="challengePer2" label="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" alt="challengeCurrent2" label="challengeCurrent2" style="color:orchid">Current: 0</span></span>
-                        <span id="challengePer3" alt="challengePer3" label="challengePer3">--- <span id="challengeCurrent3" alt="challengeCurrent3" label="challengeCurrent3" style="color:orchid">Current: 0</span></span>
+                        <span id="challengePerCompletionRewards">Per Completion Bonuses <span id="completionSoftcap" class="orchidText"></span></span>
+                        <span id="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" class="orchidText">Current: 0</span></span>
+                        <span id="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" class="orchidText">Current: 0</span></span>
+                        <span id="challengePer3">--- <span id="challengeCurrent3" class="orchidText">Current: 0</span></span>
                         <br>
                         <span id="challengeFirstCompletionRewards" alt="challengeFirstCompletionRewards" label="challengeFirstCompletionRewards">Bonus/Unlock for First Completion</span>
                         <span id="challengeFirst1" alt="challengeFirst1" label="challengeFirst1">+1 Free Multiplier!</span>
@@ -1888,8 +1888,8 @@
                 <p id="researchcost" alt="researchcost" label="researchcost" style="color:pink">.</p>
                 <p id="researchinfo3" alt="researchinfo3" label="researchinfo3" style="color:white;">.</p>
                 <p id="automaticobtainium" alt="automaticobtainium" label="automaticobtainium" style="color: lightblue">[LOCKED - Buy Research 3x11]</p>
-                <p id="researchhotkeys" alt="researchhotkeys" label="researchhotkeys" style="color: white">Welcome to the future! Obtainium is gained through <span style="color: green"> Reincarnations </span>. I'd recommend studying the <span style="color: limegreen">green-bordered</span> researches first.
-                    The <span style="color: crimson">red-bordered</span> researches are never reset whereas the <span style="color: white">white-bordered</span> researches will reset upon the next reset tier!</p>
+                <p id="researchhotkeys" style="color: white">Welcome to the future! Obtainium is gained through <span class="greenText"> Reincarnations </span>. I'd recommend studying the <span style="color: limegreen">green-bordered</span> researches first.
+                    The <span class="crimsonText">red-bordered</span> researches are never reset whereas the <span style="color: white">white-bordered</span> researches will reset upon the next reset tier!</p>
             </div>
         </div>
 
@@ -1912,7 +1912,7 @@
                 </div>
 
                 <div id="antrow2" alt="antrow2" label="antrow2" style="color: white">
-                    <p id="crumbcount" alt="crumbcount" label="crumbcount" style="color: crimson;">You have 0 Galactic Crumbs.</p>
+                    <p id="crumbcount" alt="crumbcount" label="crumbcount" class="crimsonText">You have 0 Galactic Crumbs.</p>
                     <p id="anttierdescription" alt="anttierdescription" label="anttierdescription"></p>
                     <p id="antprice" alt="antprice" label="antprice"></p>
                     <p id="antquantity" alt="antquantity" label="antquantity"></p>
@@ -1951,7 +1951,7 @@
                         <input id="autoAntSacrificeAmount" alt="autoAntSacrificeAmount" label="autoAntSacrificeAmount" type="number">
                     </div>
                 </div>
-                <span id="autoAntSacrifice" alt="autoAntSacrifice" label="autoAntSacrifice" style="color: white"></span>
+                <span id="autoAntSacrifice" alt="autoAntSacrifice" label="autoAntSacrifice"></span>
                 <div id="antSacrificeSummary" alt="antSacrificeSummary" label="antSacrificeSummary" style="display: none">
                     <div id="sacrificeAnts" alt="sacrificeAnts" label="sacrificeAnts" style="display: none">
                         <div class="sacrificeStatus">
@@ -1962,46 +1962,46 @@
                     <div class="antSacrificeHeader bodycolor">
                         <p id="antELO" alt="antELO" label="antELO" style="color: plum">Your Ant ELO is <span id="ELO" alt="ELO" label="ELO" style="color: gold">0 ELO</span> <span id="effectiveELO" alt="effectiveELO" label="effectiveELO" style="color: white"> </span></p>
                         <p id="antUpgradeMultiplier" alt="antUpgradeMultiplier" label="antUpgradeMultiplier" style="color: white">Upgrade Multiplier: <span id="SacrificeUpgradeMultiplier" alt="SacrificeUpgradeMultiplier" label="SacrificeUpgradeMultiplier" style="color: gold">0.01x</span></p>
-                        <p id="antTimeMultiplier" alt="antTimeMultiplier" label="antTimeMultiplier" style="color: white">Time Multiplier: <span id="SacrificeTimeMultiplier" alt="SacrificeTimeMultiplier" label="SacrificeTimeMultiplier" style="color: lightseagreen">0.01x</span></p>
-                        <p id="antSacrificeTitle" alt="antSacrificeTitle" label="antSacrificeTitle" style="color: crimson">Reset Anthill features for:</p>
+                        <p id="antTimeMultiplier" alt="antTimeMultiplier" label="antTimeMultiplier" style="color: white">Time Multiplier: <span id="SacrificeTimeMultiplier" alt="SacrificeTimeMultiplier" label="SacrificeTimeMultiplier" class="lightseagreenText">0.01x</span></p>
+                        <p id="antSacrificeTitle" alt="antSacrificeTitle" label="antSacrificeTitle" class="crimsonText">Reset Anthill features for:</p>
                         <p id="antSacrificeMultiplier" alt="antSacrificeMultiplier" label="antSacrificeMultiplier" style="color: white">Ant Sacrifice Multiplier: 1x --> <span id="SacrificeMultiplier" alt="SacrificeMultiplier" label="SacrificeMultiplier" style="color: limegreen">x2</span></p>
                     </div>
                     <table id="antSacrificeTable" alt="antSacrificeTable" label="antSacrificeTable" class="bodycolor">
                         <tr style="height: 32px;">
-                            <td style="font-size: 0;"><img src="Pictures/Offering.png" loading="lazy"></td>
+                            <td style="font-size: 0;"><img src="Pictures/Offering.png" alt="Offering" loading="lazy"></td>
                             <td><p id="antSacrificeOffering" alt="antSacrificeOffering" label="antSacrificeOffering" style="color: gold;"></p></td>
                         </tr>
                         <tr>
-                            <td style="font-size: 0;"><img src="Pictures/Obtainium.png" loading="lazy"></td>
+                            <td style="font-size: 0;"><img src="Pictures/Obtainium.png" alt="Obtainium" loading="lazy"></td>
                             <td><p id="antSacrificeObtainium" alt="antSacrificeObtainium" label="antSacrificeObtainium" style="color: pink"></p></td>
                         </tr>
                         <tr>
-                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/TalismanShard.png" loading="lazy"></td>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/TalismanShard.png" alt="Shard" loading="lazy"></td>
                             <td><p class="chal9x1" id="antSacrificeTalismanShard" alt="antSacrificeTalismanShard" label="antSacrificeTalismanShard" style="color: gold"></p></td>
                         </tr>
                         <tr>
-                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/CommonTalisman.png" loading="lazy"></td>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/CommonTalisman.png" alt="Common" loading="lazy"></td>
                             <td><p class="chal9x1" id="antSacrificeCommonFragment" alt="antSacrificeCommonFragment" label="antSacrificeCommonFragment" style="color: white"></p></td>
                         </tr>
                         <tr>
-                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/UncommonTalisman.png" loading="lazy"></td>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/UncommonTalisman.png" alt="Uncommon" loading="lazy"></td>
                             <td><p class="chal9x1" id="antSacrificeUncommonFragment" alt="antSacrificeUncommonFragment" label="antSacrificeUncommonFragment" style="color: limegreen"></p></td>
                         </tr>
                         <tr>
-                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/RareTalisman.png" loading="lazy"></td>
-                            <td><p class="chal9x1" id="antSacrificeRareFragment" alt="antSacrificeRareFragment" label="antSacrificeRareFragment" style="color: darkcyan"></p></td>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/RareTalisman.png" alt="Rare" loading="lazy"></td>
+                            <td><p class="chal9x1 darkcyanText" id="antSacrificeRareFragment"></p></td>
                         </tr>
                         <tr>
-                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/EpicTalisman.png" loading="lazy"></td>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/EpicTalisman.png" alt="Epic" loading="lazy"></td>
                             <td><p class="chal9x1" id="antSacrificeEpicFragment" alt="antSacrificeEpicFragment" label="antSacrificeEpicFragment" style="color: plum"></p><td>
                         </tr>
                         <tr>
-                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/LegendaryTalisman.png" loading="lazy"></td>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/LegendaryTalisman.png" alt="Legendary" loading="lazy"></td>
                             <td><p class="chal9x1" id="antSacrificeLegendaryFragment" alt="antSacrificeLegendaryFragment" label="antSacrificeLegendaryFragment" style="color: orange"></p></td>
                         </tr>
                         <tr>
-                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/MythicalTalisman.png" loading="lazy"></td>
-                            <td><p class="chal9x1" id="antSacrificeMythicalFragment" alt="antSacrificeMythicalFragment" label="antSacrificeMythicalFragment" style="color: crimson"></p></td>
+                            <td style="font-size: 0;"><img class="chal9x1" src="Pictures/MythicalTalisman.png" alt="Mythical" loading="lazy"></td>
+                            <td><p class="chal9x1 crimsonText" id="antSacrificeMythicalFragment"></p></td>
                         </tr>
                     </table>
                 </div>
@@ -2028,22 +2028,22 @@
                         <div class="cubeToQuark">
                             <p id="cubeQuarksToday" alt="cubeQuarksToday" label="cubeQuarksToday" style="color: white">Quarks gained from Cubes: <span id="cubeQuarksTodayValue" alt="cubeQuarksTodayValue" label="cubeQuarksTodayValue" style="color: cyan">0/25</span></p>
                             <p id="cubeQuarksOpenRequirement" alt="cubeQuarksOpenRequirement" label="cubeQuarksOpenRequirement">Open <span id="cubeQuarksOpenRequirementValue" alt="cubeQuarksOpenRequirementValue" label="cubeQuarksOpenRequirementValue" style="color: yellow">1</span> cubes for next quark.</p>
-                            <p id="cubeQuarksOpenToday" alt="cubeQuarksOpenToday" label="cubeQuarksOpenToday">Cubes opened today: <span id="cubeQuarksOpenTodayValue" alt="cubeQuarksOpenTodayValue" label="cubeQuarksOpenTodayValue" style="color: orchid">0</span></p>
+                            <p id="cubeQuarksOpenToday" alt="cubeQuarksOpenToday" label="cubeQuarksOpenToday">Cubes opened today: <span id="cubeQuarksOpenTodayValue" alt="cubeQuarksOpenTodayValue" label="cubeQuarksOpenTodayValue" class="orchidText">0</span></p>
                         </div>
                         <div class="cubeToQuark">
                             <p id="tesseractQuarksToday" alt="tesseractQuarksToday" label="tesseractQuarksToday" class="chal11" style="color: white">Quarks gained from Tesseracts: <span id="tesseractQuarksTodayValue" alt="tesseractQuarksTodayValue" label="tesseractQuarksTodayValue" style="color: cyan">0</span></p>
                             <p id="tesseractQuarksOpenRequirement" alt="tesseractQuarksOpenRequirement" label="tesseractQuarksOpenRequirement" class="chal11">Open <span id="tesseractQuarksOpenRequirementValue" alt="tesseractQuarksOpenRequirementValue" label="tesseractQuarksOpenRequirementValue" style="color: yellow">1</span> tesseracts for next quark.</p>
-                            <p id="tesseractQuarksOpenToday" alt="tesseractQuarksOpenToday" label="tesseractQuarksOpenToday" class="chal11">Tesseracts opened today: <span id="tesseractQuarksOpenTodayValue" alt="tesseractQuarksOpenTodayValue" label="tesseractQuarksOpenTodayValue" style="color: orchid">0</span></p>
+                            <p id="tesseractQuarksOpenToday" alt="tesseractQuarksOpenToday" label="tesseractQuarksOpenToday" class="chal11">Tesseracts opened today: <span id="tesseractQuarksOpenTodayValue" alt="tesseractQuarksOpenTodayValue" label="tesseractQuarksOpenTodayValue" class="orchidText">0</span></p>
                         </div>
                         <div class="cubeToQuark">
                             <p id="hypercubeQuarksToday" alt="hypercubeQuarksToday" label="hypercubeQuarksToday" class="chal13" style="color: white">Quarks gained from Hypercubes: <span id="hypercubeQuarksTodayValue" alt="hypercubeQuarksTodayValue" label="hypercubeQuarksTodayValue" style="color: cyan">0</span></p>
                             <p id="hypercubeQuarksOpenRequirement" alt="hypercubeQuarksOpenRequirement" label="hypercubeQuarksOpenRequirement" class="chal13">Open <span id="hypercubeQuarksOpenRequirementValue" alt="hypercubeQuarksOpenRequirementValue" label="hypercubeQuarksOpenRequirementValue" style="color: yellow">1</span> hypercubes for next quark.</p>
-                            <p id="hypercubeQuarksOpenToday" alt="hypercubeQuarksOpenToday" label="hypercubeQuarksOpenToday" class="chal13">Hypercubes opened today: <span id="hypercubeQuarksOpenTodayValue" alt="hypercubeQuarksOpenTodayValue" label="hypercubeQuarksOpenTodayValue" style="color: orchid;">0</span></p>
+                            <p id="hypercubeQuarksOpenToday" alt="hypercubeQuarksOpenToday" label="hypercubeQuarksOpenToday" class="chal13">Hypercubes opened today: <span id="hypercubeQuarksOpenTodayValue" alt="hypercubeQuarksOpenTodayValue" label="hypercubeQuarksOpenTodayValue" class="orchidText">0</span></p>
                         </div>
                         <div class="cubeToQuark">
                             <p id="platonicCubeQuarksToday" alt="platonicCubeQuarksToday" label="platonicCubeQuarksToday" class="chal14" style="color: white">Quarks gained from Platonics: <span id="platonicCubeQuarksTodayValue" alt="platonicCubeQuarksTodayValue" label="platonicCubeQuarksTodayValue" style="color: cyan">0</span></p>
                             <p id="platonicCubeQuarksOpenRequirement" alt="platonicCubeQuarksOpenRequirement" label="platonicCubeQuarksOpenRequirement" class="chal14">Open <span id="platonicCubeQuarksOpenRequirementValue" alt="platonicCubeQuarksOpenRequirementValue" label="platonicCubeQuarksOpenRequirementValue" style="color: yellow">1</span> platonic cubes for next quark.</p>
-                            <p id="platonicCubeQuarksOpenToday" alt="platonicCubeQuarksOpenToday" label="platonicCubeQuarksOpenToday" class="chal14">Platonic Cubes opened today: <span id="platonicCubeQuarksOpenTodayValue" alt="platonicCubeQuarksOpenTodayValue" label="platonicCubeQuarksOpenTodayValue" style="color: orchid">0</span></p>
+                            <p id="platonicCubeQuarksOpenToday" alt="platonicCubeQuarksOpenToday" label="platonicCubeQuarksOpenToday" class="chal14">Platonic Cubes opened today: <span id="platonicCubeQuarksOpenTodayValue" alt="platonicCubeQuarksOpenTodayValue" label="platonicCubeQuarksOpenTodayValue" class="orchidText">0</span></p>
                         </div>
                     </div>
                 </div>
@@ -2053,7 +2053,7 @@
                     <span id="cubeExpository2" alt="cubeExpository2" label="cubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</span>
 
                     <div class="openGrid">
-                        <img class="openImage" src="Pictures/WowCube.png" loading="lazy">
+                        <img class="openImage" src="Pictures/WowCube.png" alt="WowCube" loading="lazy">
                         <div class="openButtons">
                             <span class="inventory" style="color: white">You possess <span id="cubeQuantity" alt="cubeQuantity" label="cubeQuantity" style="color: yellow">13</span> Wow! Cubes. Get more from harder Ascensions and other stuff.</span>
                             <div class="openBtn">
@@ -2074,61 +2074,61 @@
                         <table id="cubeIcons" alt="cubeIcons" label="cubeIcons" class="cubeIcon">
                             <tr>
                                 <td>
-                                    <img src="Pictures/Cube1.png" loading="lazy">
+                                    <img src="Pictures/Cube1.png" alt="" loading="lazy">
                                 </td>
                                 <td id="cube1Bonus" alt="cube1Bonus" label="cube1Bonus" style="color: yellow">Hermes' Tribute <span id="cubeBlessing1Amount" alt="cubeBlessing1Amount" label="cubeBlessing1Amount">x1</span>: <span id="cubeBlessing1Effect" alt="cubeBlessing1Effect" label="cubeBlessing1Effect">+0.01%</span> Accelerators per Accelerator Boost</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Cube2.png" loading="lazy">
+                                    <img src="Pictures/Cube2.png" alt="" loading="lazy">
                                 </td>
                                 <td id="cube2Bonus" alt="cube2Bonus" label="cube2Bonus" style="color: pink">Aphrodite's Tribute <span id="cubeBlessing2Amount" alt="cubeBlessing2Amount" label="cubeBlessing2Amount">x1</span>: <span id="cubeBlessing2Effect" alt="cubeBlessing2Effect" label="cubeBlessing2Effect">+0.01%</span> Multipliers</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Cube3.png" loading="lazy">
+                                    <img src="Pictures/Cube3.png" alt="" loading="lazy">
                                 </td>
                                 <td id="cube3Bonus" alt="cube3Bonus" label="cube3Bonus" style="color: orange">Plutus' Tribute <span id="cubeBlessing3Amount" alt="cubeBlessing3Amount" label="cubeBlessing3Amount">x1</span>: <span id="cubeBlessing3Effect" alt="cubeBlessing3Effect" label="cubeBlessing3Effect">+0.01%</span> Offering Gain</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Cube4.png" loading="lazy">
+                                    <img src="Pictures/Cube4.png" alt="" loading="lazy">
                                 </td>
                                 <td id="cube4Bonus" alt="cube4Bonus" label="cube4Bonus" style="color: limegreen">Iris' Tribute <span id="cubeBlessing4Amount" alt="cubeBlessing4Amount" label="cubeBlessing4Amount">x1</span>: <span id="cubeBlessing4Effect" alt="cubeBlessing4Effect" label="cubeBlessing4Effect">+0.01%</span> Rune EXP</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Cube5.png" loading="lazy">
+                                    <img src="Pictures/Cube5.png" alt="" loading="lazy">
                                 </td>
                                 <td id="cube5Bonus" alt="cube5Bonus" label="cube5Bonus" style="color: aquamarine">Athena's Tribute <span id="cubeBlessing5Amount" alt="cubeBlessing5Amount" label="cubeBlessing5Amount">x1</span>: <span id="cubeBlessing5Effect" alt="cubeBlessing5Effect" label="cubeBlessing5Effect">+0.01%</span> Obtainium Gain</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Cube6.png" loading="lazy">
+                                    <img src="Pictures/Cube6.png" alt="" loading="lazy">
                                 </td>
                                 <td id="cube6Bonus" alt="cube6Bonus" label="cube6Bonus" style="color: brown">Artemis' Tribute <span id="cubeBlessing6Amount" alt="cubeBlessing6Amount" label="cubeBlessing6Amount">x1</span>: <span id="cubeBlessing6Effect" alt="cubeBlessing6Effect" label="cubeBlessing6Effect">+0.01%</span> Ant Speed</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Cube7.png" loading="lazy">
+                                    <img src="Pictures/Cube7.png" alt="" loading="lazy">
                                 </td>
-                                <td id="cube7Bonus" alt="cube7Bonus" label="cube7Bonus" style="color:crimson">Ares' Tribute <span id="cubeBlessing7Amount" alt="cubeBlessing7Amount" label="cubeBlessing7Amount">x1</span>: <span id="cubeBlessing7Effect" alt="cubeBlessing7Effect" label="cubeBlessing7Effect">+0.01%</span> Sacrifice Reward</td>
+                                <td id="cube7Bonus" alt="cube7Bonus" label="cube7Bonus" class="crimsonText">Ares' Tribute <span id="cubeBlessing7Amount" alt="cubeBlessing7Amount" label="cubeBlessing7Amount">x1</span>: <span id="cubeBlessing7Effect" alt="cubeBlessing7Effect" label="cubeBlessing7Effect">+0.01%</span> Sacrifice Reward</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Cube8.png" loading="lazy">
+                                    <img src="Pictures/Cube8.png" alt="" loading="lazy">
                                 </td>
                                 <td id="cube8Bonus" alt="cube8Bonus" label="cube8Bonus" style="color: plum">Moloch's Tribute <span id="cubeBlessing8Amount" alt="cubeBlessing8Amount" label="cubeBlessing8Amount">x1</span>: <span id="cubeBlessing8Effect" alt="cubeBlessing8Effect" label="cubeBlessing8Effect">+0.01%</span> Effective ELO</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Cube9.png" loading="lazy">
+                                    <img src="Pictures/Cube9.png" alt="" loading="lazy">
                                 </td>
                                 <td id="cube9Bonus" alt="cube9Bonus" label="cube9Bonus" style="color: bisque">Midas' Tribute <span id="cubeBlessing9Amount" alt="cubeBlessing9Amount" label="cubeBlessing9Amount">x1</span>: <span id="cubeBlessing9Effect" alt="cubeBlessing9Effect" label="cubeBlessing9Effect">+0.01%</span> Bonus Rune Levels on Talismans</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Cube10.png" loading="lazy">
+                                    <img src="Pictures/Cube10.png" alt="" loading="lazy">
                                 </td>
                                 <td id="cube10Bonus" alt="cube10Bonus" label="cube10Bonus" style="color: silver">Chronos' Tribute <span id="cubeBlessing10Amount" alt="cubeBlessing10Amount" label="cubeBlessing10Amount">x1</span>: <span id="cubeBlessing10Effect" alt="cubeBlessing10Effect" label="cubeBlessing10Effect">+0.01%</span> Global Time Acceleration</td>
                             </tr>
@@ -2137,14 +2137,14 @@
                     <p id="cubeBlessingsTotal" alt="cubeBlessingsTotal" label="cubeBlessingsTotal">You have a total of <span id="cubeBlessingTotalAmount" alt="cubeBlessingTotalAmount" label="cubeBlessingTotalAmount">0</span> Cube tributes!</p>
                 </div>
                 <div id="cubeTab2" alt="cubeTab2" label="cubeTab2" class="cubeTab" style="display: none">
-                    <span id="tesseractWelcome" alt="tesseractWelcome" label="tesseractWelcome" class="cubePlacement1" style="color: orchid">You obtain guidance from beings in another dimension!</span>
+                    <span id="tesseractWelcome" alt="tesseractWelcome" label="tesseractWelcome" class="cubePlacement1 orchidText">You obtain guidance from beings in another dimension!</span>
                     <span id="tesseractExpository1" alt="tesseractExpository1" label="tesseractExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.</span>
                     <span id="tesseractExpository2" alt="tesseractExpository2" label="tesseractExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</span>
 
                     <div class="openGrid">
-                        <img class="openImage" src="Pictures/WowTessaract.png" loading="lazy">
+                        <img class="openImage" src="Pictures/WowTessaract.png" alt="WowTessaract" loading="lazy">
                         <div class="openButtons">
-                            <span id="tesseractInventory" alt="tesseractInventory" label="tesseractInventory" class="inventory" style="color: orchid">You possess <span id="tesseractQuantity" alt="tesseractQuantity" label="tesseractQuantity" style="color: yellow">13</span> Wow! TESSERACTS. Get more from harder Ascensions and other stuff.</span>
+                            <span id="tesseractInventory" alt="tesseractInventory" label="tesseractInventory" class="inventory orchidText">You possess <span id="tesseractQuantity" alt="tesseractQuantity" label="tesseractQuantity" style="color: yellow">13</span> Wow! TESSERACTS. Get more from harder Ascensions and other stuff.</span>
                             <div class="openBtn">
                                 <button id="open1Tesseract" alt="open1Tesseract" label="open1Tesseract" class="cubeBtn">Open x1</button>
                                 <button id="open20Tesseract" alt="open20Tesseract" label="open20Tesseract" class="cubeBtn">Open 10%</button>
@@ -2163,61 +2163,61 @@
                         <table id="tesseractIcons" alt="tesseractIcons" label="tesseractIcons" class="cubeIcon">
                             <tr>
                                 <td>
-                                    <img src="Pictures/Tesseract1.png" loading="lazy">
+                                    <img src="Pictures/Tesseract1.png" alt="" loading="lazy">
                                 </td>
                                 <td id="tesseract1Bonus" alt="tesseract1Bonus" label="tesseract1Bonus" style="color: yellow">Hermes' Gift <span id="tesseractBlessing1Amount" alt="tesseractBlessing1Amount" label="tesseractBlessing1Amount">x1</span>: <span id="tesseractBlessing1Effect" alt="tesseractBlessing1Effect" label="tesseractBlessing1Effect">+0.01%</span> Hermes' Tribute power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Tesseract2.png" loading="lazy">
+                                    <img src="Pictures/Tesseract2.png" alt="" loading="lazy">
                                 </td>
                                 <td id="tesseract2Bonus" alt="tesseract2Bonus" label="tesseract2Bonus" style="color: pink">Aphrodite's Gift <span id="tesseractBlessing2Amount" alt="tesseractBlessing2Amount" label="tesseractBlessing2Amount">x1</span>: <span id="tesseractBlessing2Effect" alt="tesseractBlessing2Effect" label="tesseractBlessing2Effect">+0.01%</span> Aphrodite's Tribute power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Tesseract3.png" loading="lazy">
+                                    <img src="Pictures/Tesseract3.png" alt="" loading="lazy">
                                 </td>
                                 <td id="tesseract3Bonus" alt="tesseract3Bonus" label="tesseract3Bonus" style="color: orange">Plutus' Gift <span id="tesseractBlessing3Amount" alt="tesseractBlessing3Amount" label="tesseractBlessing3Amount">x1</span>: <span id="tesseractBlessing3Effect" alt="tesseractBlessing3Effect" label="tesseractBlessing3Effect">+0.01%</span> Plutus' Tribute power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Tesseract4.png" loading="lazy">
+                                    <img src="Pictures/Tesseract4.png" alt="" loading="lazy">
                                 </td>
                                 <td id="tesseract4Bonus" alt="tesseract4Bonus" label="tesseract4Bonus" style="color: limegreen">Iris' Gift <span id="tesseractBlessing4Amount" alt="tesseractBlessing4Amount" label="tesseractBlessing4Amount">x1</span>: <span id="tesseractBlessing4Effect" alt="tesseractBlessing4Effect" label="tesseractBlessing4Effect">+0.01%</span> Iris' Tribute power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Tesseract5.png" loading="lazy">
+                                    <img src="Pictures/Tesseract5.png" alt="" loading="lazy">
                                 </td>
                                 <td id="tesseract5Bonus" alt="tesseract5Bonus" label="tesseract5Bonus" style="color: aquamarine">Athena's Gift <span id="tesseractBlessing5Amount" alt="tesseractBlessing5Amount" label="tesseractBlessing5Amount">x1</span>: <span id="tesseractBlessing5Effect" alt="tesseractBlessing5Effect" label="tesseractBlessing5Effect">+0.01%</span> Athena's Tribute power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Tesseract6.png" loading="lazy">
+                                    <img src="Pictures/Tesseract6.png" alt="" loading="lazy">
                                 </td>
                                 <td id="tesseract6Bonus" alt="tesseract6Bonus" label="tesseract6Bonus" style="color: brown">Artemis' Gift <span id="tesseractBlessing6Amount" alt="tesseractBlessing6Amount" label="tesseractBlessing6Amount">x1</span>: <span id="tesseractBlessing6Effect" alt="tesseractBlessing6Effect" label="tesseractBlessing6Effect">+0.01%</span> Artemis' Tribute power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Tesseract7.png" loading="lazy">
+                                    <img src="Pictures/Tesseract7.png" alt="" loading="lazy">
                                 </td>
-                                <td id="tesseract7Bonus" alt="tesseract7Bonus" label="tesseract7Bonus" style="color:crimson">Ares' Gift <span id="tesseractBlessing7Amount" alt="tesseractBlessing7Amount" label="tesseractBlessing7Amount">x1</span>: <span id="tesseractBlessing7Effect" alt="tesseractBlessing7Effect" label="tesseractBlessing7Effect">+0.01%</span> Ares' Tribute power</td>
+                                <td id="tesseract7Bonus" alt="tesseract7Bonus" label="tesseract7Bonus" class="crimsonText">Ares' Gift <span id="tesseractBlessing7Amount" alt="tesseractBlessing7Amount" label="tesseractBlessing7Amount">x1</span>: <span id="tesseractBlessing7Effect" alt="tesseractBlessing7Effect" label="tesseractBlessing7Effect">+0.01%</span> Ares' Tribute power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Tesseract8.png" loading="lazy">
+                                    <img src="Pictures/Tesseract8.png" alt="" loading="lazy">
                                 </td>
                                 <td id="tesseract8Bonus" alt="tesseract8Bonus" label="tesseract8Bonus" style="color: plum">Moloch's Gift <span id="tesseractBlessing8Amount" alt="tesseractBlessing8Amount" label="tesseractBlessing8Amount">x1</span>: <span id="tesseractBlessing8Effect" alt="tesseractBlessing8Effect" label="tesseractBlessing8Effect">+0.01%</span> Moloch's Tribute power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Tesseract9.png" loading="lazy">
+                                    <img src="Pictures/Tesseract9.png" alt="" loading="lazy">
                                 </td>
                                 <td id="tesseract9Bonus" alt="tesseract9Bonus" label="tesseract9Bonus" style="color: bisque">Midas' Gift <span id="tesseractBlessing9Amount" alt="tesseractBlessing9Amount" label="tesseractBlessing9Amount">x1</span>: <span id="tesseractBlessing9Effect" alt="tesseractBlessing9Effect" label="tesseractBlessing9Effect">+0.01%</span> Midas' Tribute power</td>
                             </tr>
                             <tr>
                                 <td>
-                                <img src="Pictures/Tesseract10.png" loading="lazy">
+                                <img src="Pictures/Tesseract10.png" alt="" loading="lazy">
                                 </td>
                                 <td id="tesseract10Bonus" alt="tesseract10Bonus" label="tesseract10Bonus" style="color: silver">Chronos' Gift <span id="tesseractBlessing10Amount" alt="tesseractBlessing10Amount" label="tesseractBlessing10Amount">x1</span>: <span id="tesseractBlessing10Effect" alt="tesseractBlessing10Effect" label="tesseractBlessing10Effect">+0.01%</span> Chronos' Tribute power</td>
                             </tr>
@@ -2231,7 +2231,7 @@
                     <span id="hypercubeExpository2" alt="hypercubeExpository2" label="hypercubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</span>
 
                     <div class="openGrid">
-                        <img class="openImage" src="Pictures/WowHypercube.png" loading="lazy">
+                        <img class="openImage" src="Pictures/WowHypercube.png" alt="WowHypercube" loading="lazy">
                         <div class="openButtons">
                             <span id="hypercubeInventory" alt="hypercubeInventory" label="hypercubeInventory" class="inventory" style="color: rgb(255, 0, 76)">You possess <span id="hypercubeQuantity" alt="hypercubeQuantity" label="hypercubeQuantity" style="color: yellow">13</span> Wow! HYPERCUBES. Get more from harder Ascensions and other stuff.</span>
                             <div class="openBtn">
@@ -2252,61 +2252,61 @@
                         <table id="hypercubeIcons" alt="hypercubeIcons" label="hypercubeIcons" class="cubeIcon">
                             <tr>
                                 <td>
-                                    <img src="Pictures/Hypercube1.png" loading="lazy">
+                                    <img src="Pictures/Hypercube1.png" alt="" loading="lazy">
                                 </td>
                                 <td id="hypercube1Bonus" alt="hypercube1Bonus" label="hypercube1Bonus" style="color: yellow">Hermes' Benediction <span id="hypercubeBlessing1Amount" alt="hypercubeBlessing1Amount" label="hypercubeBlessing1Amount">x1</span>: <span id="hypercubeBlessing1Effect" alt="hypercubeBlessing1Effect" label="hypercubeBlessing1Effect">+0.01%</span> Hermes Gift power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Hypercube2.png" loading="lazy">
+                                    <img src="Pictures/Hypercube2.png" alt="" loading="lazy">
                                 </td>
                                 <td id="hypercube2Bonus" alt="hypercube2Bonus" label="hypercube2Bonus" style="color: pink">Aphrodite's Benediction <span id="hypercubeBlessing2Amount" alt="hypercubeBlessing2Amount" label="hypercubeBlessing2Amount">x1</span>: <span id="hypercubeBlessing2Effect" alt="hypercubeBlessing2Effect" label="hypercubeBlessing2Effect">+0.01%</span> Aphrodite Gift power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Hypercube3.png" loading="lazy">
+                                    <img src="Pictures/Hypercube3.png" alt="" loading="lazy">
                                 </td>
                                 <td id="hypercube3Bonus" alt="hypercube3Bonus" label="hypercube3Bonus" style="color: orange">Plutus' Benediction <span id="hypercubeBlessing3Amount" alt="hypercubeBlessing3Amount" label="hypercubeBlessing3Amount">x1</span>: <span id="hypercubeBlessing3Effect" alt="hypercubeBlessing3Effect" label="hypercubeBlessing3Effect">+0.01%</span> Plutus Gift power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Hypercube4.png" loading="lazy">
+                                    <img src="Pictures/Hypercube4.png" alt="" loading="lazy">
                                 </td>
                                 <td id="hypercube4Bonus" alt="hypercube4Bonus" label="hypercube4Bonus" style="color: limegreen">Iris' Benediction <span id="hypercubeBlessing4Amount" alt="hypercubeBlessing4Amount" label="hypercubeBlessing4Amount">x1</span>: <span id="hypercubeBlessing4Effect" alt="hypercubeBlessing4Effect" label="hypercubeBlessing4Effect">+0.01%</span> Iris Gift power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Hypercube5.png" loading="lazy">
+                                    <img src="Pictures/Hypercube5.png" alt="" loading="lazy">
                                 </td>
                                 <td id="hypercube5Bonus" alt="hypercube5Bonus" label="hypercube5Bonus" style="color: aquamarine">Athena's Benediction <span id="hypercubeBlessing5Amount" alt="hypercubeBlessing5Amount" label="hypercubeBlessing5Amount">x1</span>: <span id="hypercubeBlessing5Effect" alt="hypercubeBlessing5Effect" label="hypercubeBlessing5Effect">+0.01%</span> Athena Gift power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Hypercube6.png" loading="lazy">
+                                    <img src="Pictures/Hypercube6.png" alt="" loading="lazy">
                                 </td>
                                 <td id="hypercube6Bonus" alt="hypercube6Bonus" label="hypercube6Bonus" style="color: brown">Artemis' Benediction <span id="hypercubeBlessing6Amount" alt="hypercubeBlessing6Amount" label="hypercubeBlessing6Amount">x1</span>: <span id="hypercubeBlessing6Effect" alt="hypercubeBlessing6Effect" label="hypercubeBlessing6Effect">+0.01%</span> Artemis Gift power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Hypercube7.png" loading="lazy">
+                                    <img src="Pictures/Hypercube7.png" alt="" loading="lazy">
                                 </td>
-                                <td id="hypercube7Bonus" alt="hypercube7Bonus" label="hypercube7Bonus" style="color:crimson">Ares' Benediction <span id="hypercubeBlessing7Amount" alt="hypercubeBlessing7Amount" label="hypercubeBlessing7Amount">x1</span>: <span id="hypercubeBlessing7Effect" alt="hypercubeBlessing7Effect" label="hypercubeBlessing7Effect">+0.01%</span> Ares Gift power</td>
+                                <td id="hypercube7Bonus" alt="hypercube7Bonus" label="hypercube7Bonus" class="crimsonText">Ares' Benediction <span id="hypercubeBlessing7Amount" alt="hypercubeBlessing7Amount" label="hypercubeBlessing7Amount">x1</span>: <span id="hypercubeBlessing7Effect" alt="hypercubeBlessing7Effect" label="hypercubeBlessing7Effect">+0.01%</span> Ares Gift power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Hypercube8.png" loading="lazy">
+                                    <img src="Pictures/Hypercube8.png" alt="" loading="lazy">
                                 </td>
                                 <td id="hypercube8Bonus" alt="hypercube8Bonus" label="hypercube8Bonus" style="color: plum">Moloch's Benediction <span id="hypercubeBlessing8Amount" alt="hypercubeBlessing8Amount" label="hypercubeBlessing8Amount">x1</span>: <span id="hypercubeBlessing8Effect" alt="hypercubeBlessing8Effect" label="hypercubeBlessing8Effect">+0.01%</span> Moloch Gift power</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Hypercube9.png" loading="lazy">
+                                    <img src="Pictures/Hypercube9.png" alt="" loading="lazy">
                                 </td>
                                 <td id="hypercube9Bonus" alt="hypercube9Bonus" label="hypercube9Bonus" style="color: bisque">Midas' Benediction <span id="hypercubeBlessing9Amount" alt="hypercubeBlessing9Amount" label="hypercubeBlessing9Amount">x1</span>: <span id="hypercubeBlessing9Effect" alt="hypercubeBlessing9Effect" label="hypercubeBlessing9Effect">+0.01%</span> Midas Gift power</td>
                             </tr>
                             <tr>
                                 <td>
-                                <img src="Pictures/Hypercube10.png" loading="lazy">
+                                <img src="Pictures/Hypercube10.png" alt="" loading="lazy">
                                 </td>
                                 <td id="hypercube10Bonus" alt="hypercube10Bonus" label="hypercube10Bonus" style="color: silver">Chronos' Benediction <span id="hypercubeBlessing10Amount" alt="hypercubeBlessing10Amount" label="hypercubeBlessing10Amount">x1</span>: <span id="hypercubeBlessing10Effect" alt="hypercubeBlessing10Effect" label="hypercubeBlessing10Effect">+0.01%</span> Chronos Gift power</td>
                             </tr>
@@ -2315,12 +2315,12 @@
                     <p id="hypercubeBlessingsTotal" alt="hypercubeBlessingsTotal" label="hypercubeBlessingsTotal">You have a total of <span id="hypercubeBlessingTotalAmount" alt="hypercubeBlessingTotalAmount" label="hypercubeBlessingTotalAmount">0</span> Hypercube benedictions!</p>
                 </div>
                 <div id="cubeTab4" alt="cubeTab4" label="cubeTab4" class="cubeTab" style="display: none">
-                    <span id="platonicCubeWelcome" alt="platonicCubeWelcome" label="platonicCubeWelcome" class="cubePlacement1" style="color: orangered">This seems very familiar.</span>
+                    <span id="platonicCubeWelcome" alt="platonicCubeWelcome" label="platonicCubeWelcome" class="cubePlacement1 orangeredText">This seems very familiar.</span>
                     <span id="platonicCubeExpository1" alt="platonicCubeExpository1" label="platonicCubeExpository1" class="cubePlacement2" style="color: white">Open up some Lootb-- er, Platonic! Cubes, for epic perks!.</span>
                     <span id="platonicCubeExpository2" alt="platonicCubeExpository2" label="platonicCubeExpository2" class="cubePlacement3" style="color: limegreen">You can also spend them on upgrades that persist through Ascension.</span>
 
                     <div class="openGrid">
-                        <img class="openImage" src="Pictures/Platonic Cube.png" loading="lazy">
+                        <img class="openImage" src="Pictures/Platonic Cube.png" alt="Platonic Cube" loading="lazy">
                         <div class="openButtons">
                             <span id="platonicCubeInventory" alt="platonicCubeInventory" label="platonicCubeInventory" class="inventory" style="color:orange">You possess <span id="platonicQuantity" alt="platonicQuantity" label="platonicQuantity" style="color: yellow">13</span> Platonic! Cubes. Get more from really hard ascensions.</span>
                             <div class="openBtn">
@@ -2341,49 +2341,49 @@
                         <table id="platonicCubeIcons" alt="platonicCubeIcons" label="platonicCubeIcons" class="cubeIcon">
                             <tr>
                                 <td>
-                                    <img src="Pictures/PlatonicCube1.png" loading="lazy">
+                                    <img src="Pictures/PlatonicCube1.png" alt="" loading="lazy">
                                 </td>
                                 <td id="platonicCube1Bonus" alt="platonicCube1Bonus" label="platonicCube1Bonus" style="color: lightgoldenrodyellow">Cube Shard: <span id="platonicBlessing1Amount" alt="platonicBlessing1Amount" label="platonicBlessing1Amount">x1</span>: <span id="platonicBlessing1Effect" alt="platonicBlessing1Effect" label="platonicBlessing1Effect">+0.01%</span> Bonus Wow! Cubes</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/PlatonicCube2.png" loading="lazy">
+                                    <img src="Pictures/PlatonicCube2.png" alt="" loading="lazy">
                                 </td>
                                 <td id="platonicCube2Bonus" alt="platonicCube2Bonus" label="platonicCube2Bonus" style="color: lightgoldenrodyellow">Tesseract Shard: <span id="platonicBlessing2Amount" alt="platonicBlessing2Amount" label="platonicBlessing2Amount">x1</span>: <span id="platonicBlessing2Effect" alt="platonicBlessing2Effect" label="platonicBlessing2Effect">+0.01%</span> Bonus Wow! Tesseracts</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/PlatonicCube3.png" loading="lazy">
+                                    <img src="Pictures/PlatonicCube3.png" alt="" loading="lazy">
                                 </td>
                                 <td id="platonicCube3Bonus" alt="platonicCube3Bonus" label="platonicCube3Bonus" style="color: lightgoldenrodyellow">Hypercube Shard: <span id="platonicBlessing3Amount" alt="platonicBlessing3Amount" label="platonicBlessing3Amount">x1</span>: <span id="platonicBlessing3Effect" alt="platonicBlessing3Effect" label="platonicBlessing3Effect">+0.01%</span> Bonus Wow! Hypercubes</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/PlatonicCube4.png" loading="lazy">
+                                    <img src="Pictures/PlatonicCube4.png" alt="" loading="lazy">
                                 </td>
                                 <td id="platonicCube4Bonus" alt="platonicCube4Bonus" label="platonicCube4Bonus" style="color: lightgoldenrodyellow">Platonic Remnant: <span id="platonicBlessing4Amount" alt="platonicBlessing4Amount" label="platonicBlessing4Amount">x1</span>: <span id="platonicBlessing4Effect" alt="platonicBlessing4Effect" label="platonicBlessing4Effect">+0.01%</span> Bonus Platonic! Cubes</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/PlatonicCube5.png" loading="lazy">
+                                    <img src="Pictures/PlatonicCube5.png" alt="" loading="lazy">
                                 </td>
-                                <td id="platonicCube5Bonus" alt="platonicCube5Bonus" label="platonicCube5Bonus" style="color: red;">Hypercube Statue: <span id="platonicBlessing5Amount" alt="platonicBlessing5Amount" label="platonicBlessing5Amount">x1</span>: <span id="platonicBlessing5Effect" alt="platonicBlessing5Effect" label="platonicBlessing5Effect">+0.01%</span> ALL Hypercube bonuses</td>
+                                <td id="platonicCube5Bonus" alt="platonicCube5Bonus" label="platonicCube5Bonus" class="redText">Hypercube Statue: <span id="platonicBlessing5Amount" alt="platonicBlessing5Amount" label="platonicBlessing5Amount">x1</span>: <span id="platonicBlessing5Effect" alt="platonicBlessing5Effect" label="platonicBlessing5Effect">+0.01%</span> ALL Hypercube bonuses</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/PlatonicCube6.png" loading="lazy">
+                                    <img src="Pictures/PlatonicCube6.png" alt="" loading="lazy">
                                 </td>
-                                <td id="platonicCube6Bonus" alt="platonicCube6Bonus" label="platonicCube6Bonus" style="color: orchid">Keynesian Statue: <span id="platonicBlessing6Amount" alt="platonicBlessing6Amount" label="platonicBlessing6Amount">x1</span>: <span id="platonicBlessing6Effect" alt="platonicBlessing6Effect" label="platonicBlessing6Effect">+0.01%</span> Bonus Constant exponent on taxes</td>
+                                <td id="platonicCube6Bonus" alt="platonicCube6Bonus" label="platonicCube6Bonus" class="orchidText">Keynesian Statue: <span id="platonicBlessing6Amount" alt="platonicBlessing6Amount" label="platonicBlessing6Amount">x1</span>: <span id="platonicBlessing6Effect" alt="platonicBlessing6Effect" label="platonicBlessing6Effect">+0.01%</span> Bonus Constant exponent on taxes</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/PlatonicCube7.png" loading="lazy">
+                                    <img src="Pictures/PlatonicCube7.png" alt="" loading="lazy">
                                 </td>
                                 <td id="platonicCube7Bonus" alt="platonicCube7Bonus" label="platonicCube7Bonus" style="color:orange">High-Scoring Statue: <span id="platonicBlessing7Amount" alt="platonicBlessing7Amount" label="platonicBlessing7Amount">x1</span>: <span id="platonicBlessing7Effect" alt="platonicBlessing7Effect" label="platonicBlessing7Effect">+0.01%</span> More Score on corruptions</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/PlatonicCube8.png" loading="lazy">
+                                    <img src="Pictures/PlatonicCube8.png" alt="" loading="lazy">
                                 </td>
                                 <td id="platonicCube8Bonus" alt="platonicCube8Bonus" label="platonicCube8Bonus" style="color: silver">Chronos Statue: <span id="platonicBlessing8Amount" alt="platonicBlessing8Amount" label="platonicBlessing8Amount">x1</span>: <span id="platonicBlessing8Effect" alt="platonicBlessing8Effect" label="platonicBlessing8Effect">+0.01%</span> Global Speed (Unaffected by corruption / diminishing returns!)</td>
                             </tr>
@@ -2493,7 +2493,7 @@
                     <div id="c15Rewards" alt="c15Rewards" label="c15Rewards" class="challengeContainer boxColor">
                         <p id="c15Reward0" alt="c15Reward0" label="c15Reward0" class="challengePortion">Best Challenge 15 Exponent: <span id="c15Reward0Num" alt="c15Reward0Num" label="c15Reward0Num" class="challengeNumber" style='color: gold; font-size: 1.2em;'></span></p>
                         <p id="c15RequiredExponent" alt="c15RequiredExponent" label="c15RequiredExponent" class="challengePortion">Gain <span id="c15RequiredExponentNum" alt="c15RequiredExponentNum" label="c15RequiredExponentNum" class="challengeNumber" style='color: gold; font-size: 1.2em;'></span> Coins in Challenge 15 to gain more score!</p>
-                        <p id="c15RewardList" alt="c15RewardList" label="c15RewardList" class="challengePortion" style="color: orchid;">Next Reward Unlocks at 0 coins.</p>
+                        <p id="c15RewardList" alt="c15RewardList" label="c15RewardList" class="challengePortion">Next Reward Unlocks at 0 coins.</p>
                         <p id="c15Reward1" alt="c15Reward1" label="c15Reward1" class="challengePortion">1. All Cube Types I: +<span id="c15Reward1Num" alt="c15Reward1Num" label="c15Reward1Num" class="challengeNumber"></span>%</p>
                         <p id="c15Reward2" alt="c15Reward2" label="c15Reward2" class="challengePortion">2. Ascension Count: +<span id="c15Reward2Num" alt="c15Reward2Num" label="c15Reward2Num" class="challengeNumber"></span>%</p>
                         <p id="c15Reward3" alt="c15Reward3" label="c15Reward3" class="challengePortion">3. Coin Exponent: +<span id="c15Reward3Num" alt="c15Reward3Num" label="c15Reward3Num" class="challengeNumber"></span>%</p>
@@ -2519,14 +2519,14 @@
                         <p id="c15Reward23" alt="c15Reward23" label="c15Reward23" class="challengePortion">23. Ascension Score: +<span id="c15Reward23Num" alt="c15Reward23Num" label="c15Reward23Num" class="challengeNumber"></span>%</p>
                         <p id="c15Reward24" alt="c15Reward24" label="c15Reward24" class="challengePortion" style="color: lightgoldenrodyellow;">24. Quarks: +<span id="c15Reward24Num" alt="c15Reward24Num" label="c15Reward24Num" class="challengeNumber"></span>%</p>
                         <p id="c15Reward25" alt="c15Reward25" label="c15Reward25" class="challengePortion" style="color: pink;">25. Hepteracts: <span id="c15Reward25Num" alt="c15Reward25Num" label="c15Reward25Num" class="challengeNumber" style="color:pink"></span></p>
-                        <p id="c15Reward26" alt="c15Reward26" label="c15Reward26" class="challengePortion" style="color: red;">26. Challenge Hepteract: <span id="c15Reward26Num" alt="c15Reward26Num" label="c15Reward26Num" class="challengeNumber" style="color:red"></span></p>
+                        <p id="c15Reward26" alt="c15Reward26" label="c15Reward26" class="challengePortion">26. Challenge Hepteract: <span id="c15Reward26Num" alt="c15Reward26Num" label="c15Reward26Num" class="challengeNumber"></span></p>
                         <p id="c15Reward27" alt="c15Reward27" label="c15Reward27" class="challengePortion">27. All Cube Types V: +<span id="c15Reward27Num" alt="c15Reward27Num" label="c15Reward27Num" class="challengeNumber"></span>%</p>
                         <p id="c15Reward28" alt="c15Reward28" label="c15Reward28" class="challengePortion">28. Powder Conversion: +<span id="c15Reward28Num" alt="c15Reward28Num" label="c15Reward28Num" class="challengeNumber"></span>%</p>
                         <p id="c15Reward29" alt="c15Reward29" label="c15Reward29" class="challengePortion" style="color: grey;">29. Abyss Hepteract: <span id="c15Reward29Num" alt="c15Reward29Num" label="c15Reward29Num" class="challengeNumber" style="color:grey"></span></p>
                         <p id="c15Reward30" alt="c15Reward30" label="c15Reward30" class="challengePortion">30. Constant Upgrade 2: +<span id="c15Reward30Num" alt="c15Reward30Num" label="c15Reward30Num" class="challengeNumber"></span>%</p>
                         <p id="c15Reward31" alt="c15Reward31" label="c15Reward31" class="challengePortion" style="color: orange;">31. Accelerator Hepteract: <span id="c15Reward31Num" alt="c15Reward31Num" label="c15Reward31Num" class="challengeNumber" style="color:orange"></span></p>
                         <p id="c15Reward32" alt="c15Reward32" label="c15Reward32" class="challengePortion" style="color: cyan;">32. Accelerator Boost Hepteract: <span id="c15Reward32Num" alt="c15Reward32Num" label="c15Reward32Num" class="challengeNumber" style="color:cyan"></span></p>
-                        <p id="c15Reward33" alt="c15Reward33" label="c15Reward33" class="challengePortion" style="color: orchid;">33. Multiplier Hepteract: <span id="c15Reward33Num" alt="c15Reward33Num" label="c15Reward33Num" class="challengeNumber" style="color:orchid"></span></p>
+                        <p id="c15Reward33" alt="c15Reward33" label="c15Reward33" class="challengePortion">33. Multiplier Hepteract: <span id="c15Reward33Num" alt="c15Reward33Num" label="c15Reward33Num" class="challengeNumber"></span></p>
                         <p id="c15Reward34" alt="c15Reward34" label="c15Reward34" class="challengePortion" style="color: pink;">34. Free Daily Overflux Orbs: +<span id="c15Reward34Num" alt="c15Reward34Num" label="c15Reward34Num" class="challengeNumber" style="color:pink"></span> at the start of the day</p>
                         <p id="c15Reward35" alt="c15Reward35" label="c15Reward35" class="challengePortion" style="color: orange;">35. Ascension Speed: +<span id="c15Reward35Num" alt="c15Reward35Num" label="c15Reward35Num" class="challengeNumber" style="color:orange"></span>%</p>
 
@@ -2586,7 +2586,7 @@
                 <div id="cubeTab7" alt="cubeTab7" label="cubeTab7" class="cubeTab" style="display: none">
                     <span id="hepteractWelcome" alt="hepteractWelcome" label="hepteractWelcome" class="cubePlacement1" style="color: pink">How did I get here?</span>
                     <span id="hepteractExpository1" alt="hepteractExpository1" label="hepteractExpository1" class="cubePlacement2" style="color: white">Oh well, no time to waste. This is your lab. Make cool stuff with your Hepteracts!</span>
-                    <span id="hepteractExpository2" alt="hepteractExpository2" label="hepteractExpository2" class="cubePlacement3" style="color: orchid;">Hepteracts do not provide passive bonuses. They must be made useful through crafting.</span>
+                    <span id="hepteractExpository2" alt="hepteractExpository2" label="hepteractExpository2" class="cubePlacement3 orchidText">Hepteracts do not provide passive bonuses. They must be made useful through crafting.</span>
                     <div class="openGrid">
                         <img class="openImage" src="Pictures/Hepteract.png" loading="lazy">
                         <div class="NotificationToggle">
@@ -2695,8 +2695,8 @@
                             <button id="hepteractToQuarkTradeMax" alt="hepteractToQuarkTradeMax" label="hepteractToQuarkTradeMax">Max</button>
                             <button class="singularity" id="hepteractToQuarkTradeAuto" alt="hepteractToQuarkTradeAuto" label="hepteractToQuarkTradeAuto" style="border: 2px solid red;">Auto OFF</button>
                             <div class="heptGridInventory" style="align-self: end;">
-                                <span class="heptGridInventoryLabel" style="color:orchid;">Orbs:</span>
-                                <span class="heptGridInventoryValue" style="color:orchid;" id="heptGridOrbBalance" alt="heptGridOrbBalance" label="heptGridOrbBalance">0</span>
+                                <span class="heptGridInventoryLabel orchidText">Orbs:</span>
+                                <span class="heptGridInventoryValue orchidText" id="heptGridOrbBalance">0</span>
                             </div>
                             <div class="heptGridInventory">
                                 <span class="heptGridInventoryLabel" style="color:yellow;">Effect:</span>
@@ -2707,8 +2707,8 @@
                             <img id="overfluxPowderImage" alt="overfluxPowderImage" label="overfluxPowderImage" class="heptTypeImage" src="Pictures/Overflux Powder.png">
                             <button id="powderDayWarp" alt="powderDayWarp" label="powderDayWarp">Warp</button>
                             <div class="heptGridInventory" style="align-self: end;">
-                                <span class="heptGridInventoryLabel" style="color:orchid;">Powder:</span>
-                                <span class="heptGridInventoryValue" style="color:orchid;" id="heptGridPowderBalance" alt="heptGridPowderBalance" label="heptGridPowderBalance">0</span>
+                                <span class="heptGridInventoryLabel orchidText">Powder:</span>
+                                <span class="heptGridInventoryValue orchidText" id="heptGridPowderBalance">0</span>
                             </div>
                             <div class="heptGridInventory">
                                 <span class="heptGridInventoryLabel" style="color:orange;">Warps:</span>
@@ -2723,7 +2723,7 @@
                     <div id="hepteractCraftTexts" alt="hepteractCraftTexts" label="hepteractCraftTexts">
                         <p id="hepteractUnlockedText" alt="hepteractUnlockedText" label="hepteractUnlockedText" style="color: white"></p>
                         <p id="hepteractEffectText" alt="hepteractEffectText" label="hepteractEffectText" style="color:rgb(0, 255, 76)"></p>
-                        <p id="hepteractBalanceText" alt="hepteractBalanceText" label="hepteractBalanceText" style="color: orchid;"></p>
+                        <p id="hepteractBalanceText" alt="hepteractBalanceText" label="hepteractBalanceText" class="orchidText"></p>
                         <p id="hepteractCurrentEffectText" alt="hepteractCurrentEffectText" label="hepteractCurrentEffectText" style="color: yellow"></p>
                         <p id="hepteractCostText" alt="hepteractCostText" label="hepteractCostText" style="color: white"></p>
                         <p id="powderDayWarpText" alt="powderDayWarpText" label="powderDayWarpText" style="color: orange;"></p>
@@ -2806,26 +2806,26 @@
             </div>
             <div id="corruptionMain" alt="corruptionMain" label="corruptionMain" class="flex column">
                 <div id="corruptionIntroduction" alt="corruptionIntroduction" label="corruptionIntroduction" class="tightText">The most rewarding ventures are those few would dare to embark.</div>
-                <div id="corruptionInfo1" alt="corruptionInfo1" label="corruptionInfo1" class="tightText">Select the trait levels you wish to run with. Choose wisely! <span style="color: red">Don't bite off more than you can chew...</span></div>
+                <div id="corruptionInfo1" alt="corruptionInfo1" label="corruptionInfo1" class="tightText">Select the trait levels you wish to run with. Choose wisely! <span class="redText">Don't bite off more than you can chew...</span></div>
                 <div id="corruptionSelected" alt="corruptionSelected" label="corruptionSelected" class="hCenter">
                     <img id="corruptionSelectedPic" alt="corruptionSelectedPic" label="corruptionSelectedPic" class="corruptionImg" src="Pictures/ExitCorruption.png" style="visibility: hidden" loading="lazy">
                 </div>
                 <div id="corruptionDetails" alt="corruptionDetails" label="corruptionDetails" class="vAlign">
-                    <p id="corruptionName" alt="corruptionName" label="corruptionName" class="tightText"></p>
+                    <p id="corruptionName" alt="corruptionName" label="corruptionName" class="tightText redText"></p>
                     <p id="corruptionDescription" alt="corruptionDescription" label="corruptionDescription" class="tightText"></p>
                     <p id="corruptionLevelCurrent" alt="corruptionLevelCurrent" label="corruptionLevelCurrent" class="tightText"></p>
                     <p id="corruptionLevelPlanned" alt="corruptionLevelPlanned" label="corruptionLevelPlanned" class="tightText"></p>
                     <p id="corruptionMultiplierContribution" alt="corruptionMultiplierContribution" label="corruptionMultiplierContribution" class="tightText"></p>
                     <p id="corruptionSpiritContribution" alt="corruptionSpiritContribution" label="corruptionSpiritContribution" class="chal12 tightText"></p>
                 </div>
-                <p id="corruptionAntExponent" alt="corruptionAntExponent" label="corruptionAntExponent" class="tightText" style="color: crimson">This Ascension's climate raises Ant production to the power of <span id="corruptionAntExponentValue" alt="corruptionAntExponentValue" label="corruptionAntExponentValue" style="color: darkorchid; font-size: 1.2em">1.000</span>.</p>
+                <p id="corruptionAntExponent" alt="corruptionAntExponent" label="corruptionAntExponent" class="tightText crimsonText">This Ascension's climate raises Ant production to the power of <span id="corruptionAntExponentValue" alt="corruptionAntExponentValue" label="corruptionAntExponentValue" class="darkorchid" style="font-size: 1.2em">1.000</span>.</p>
                 <p id="corruptionSpiritBonus" alt="corruptionSpiritBonus" label="corruptionSpiritBonus" class="chal12 tightText" style="color: gold">However, it also multiplies Rune Spirit Effects by <span id="corruptionSpiritBonusValue" alt="corruptionSpiritBonusValue" label="corruptionSpiritBonusValue" style="color: wheat; font-size: 1.2em;">1.000</span>!</p>
-                <p id="corruptionBank" alt="corruptionBank" label="corruptionBank" class="tightText" style="color: white">You have <span id="corruptionBankValue" alt="corruptionBankValue" label="corruptionBankValue" style="color: crimson">1</span> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.</p>
-                <p id="corruptionScore" alt="corruptionScore" label="corruptionScore" class="tightText" style="color: white">Your Ascension Score is <span id="corruptionScoreValue" alt="corruptionScoreValue" label="corruptionScoreValue" style="color: goldenrod">1</span> (base) * <span id="corruptionMultiplierValue" alt="corruptionMultiplierValue" label="corruptionMultiplierValue" style="color: crimson">4</span> (Corruption mult) * <span id="corruptionBonusMultiplierValue" alt="corruptionBonusMultiplierValue" label="corruptionBonusMultiplierValue" style="color: orchid">1</span> (Bonus mult) = <span id="corruptionTotalScore" alt="corruptionTotalScore" label="corruptionTotalScore" style="color: darkorchid">4</span></p>
+                <p id="corruptionBank" alt="corruptionBank" label="corruptionBank" class="tightText" style="color: white">You have <span id="corruptionBankValue" alt="corruptionBankValue" label="corruptionBankValue" class="crimsonText">1</span> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.</p>
+                <p id="corruptionScore" alt="corruptionScore" label="corruptionScore" class="tightText" style="color: white">Your Ascension Score is <span id="corruptionScoreValue" alt="corruptionScoreValue" label="corruptionScoreValue" style="color: goldenrod">1</span> (base) * <span id="corruptionMultiplierValue" alt="corruptionMultiplierValue" label="corruptionMultiplierValue" class="crimsonText">4</span> (Corruption mult) * <span id="corruptionBonusMultiplierValue" alt="corruptionBonusMultiplierValue" label="corruptionBonusMultiplierValue" class="orchidText">1</span> (Bonus mult) = <span id="corruptionTotalScore" alt="corruptionTotalScore" label="corruptionTotalScore" class="darkorchidText">4</span></p>
                 <p id="corruptionAscensionCount" alt="corruptionAscensionCount" label="corruptionAscensionCount" class="tightText" style="color: white">If you Ascend now, <span id="corruptionAscensionCountValue" alt="corruptionAscensionCountValue" label="corruptionAscensionCountValue" style="color: darkorange; font-size: 1.2em">0</span> will be added to your ascension count.</p>
                 <p id="corruptionCubes" alt="corruptionCubes" label="corruptionCubes" class="tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionCubesValue" alt="corruptionCubesValue" label="corruptionCubesValue" style="color: yellow; font-size: 1.2em">32</span> Wow! Cubes.</p>
-                <p id="corruptionTesseracts" alt="corruptionTesseracts" label="corruptionTesseracts" class="tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionTesseractsValue" alt="corruptionTesseractsValue" label="corruptionTesseractsValue" style="color: darkviolet; font-size: 1.2em">32</span> Wow! Tesseracts. [<span style="color: orchid">Get more if Score >100,000</span>]</p>
-                <p id="corruptionHypercubes" alt="corruptionHypercubes" label="corruptionHypercubes" class="chal13 tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionHypercubesValue" alt="corruptionHypercubesValue" label="corruptionHypercubesValue" style="color: crimson; font-size: 1.2em">32</span> Wow! Hypercubes. [<span style="color: red">Req Score: >1,000,000,000</span>]</p>
+                <p id="corruptionTesseracts" alt="corruptionTesseracts" label="corruptionTesseracts" class="tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionTesseractsValue" alt="corruptionTesseractsValue" label="corruptionTesseractsValue" style="color: darkviolet; font-size: 1.2em">32</span> Wow! Tesseracts. [<span class="orchidText">Get more if Score >100,000</span>]</p>
+                <p id="corruptionHypercubes" alt="corruptionHypercubes" label="corruptionHypercubes" class="chal13 tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionHypercubesValue" alt="corruptionHypercubesValue" label="corruptionHypercubesValue" class="crimsonText" style="font-size: 1.2em">32</span> Wow! Hypercubes. [<span class="redText">Req Score: >1,000,000,000</span>]</p>
                 <p id="corruptionPlatonicCubes" alt="corruptionPlatonicCubes" label="corruptionPlatonicCubes" class="chal14 tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionPlatonicCubesValue" alt="corruptionPlatonicCubesValue" label="corruptionPlatonicCubesValue" style="color: lightgoldenrodyellow; font-size: 1.2em">32</span> PLATONIC CUBES. [<span style="color: lightgoldenrodyellow">Req Score: >2,666,000,000,000</span>]</p>
                 <p id="corruptionHepteracts" alt="corruptionHepteracts" label="corruptionHepteracts" class="chal15 tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionHepteractsValue" alt="corruptionHepteractsValue" label="corruptionHepteractsValue" style="color: pink; font-size: 1.2em">0</span> HEPTERACTS. [<span style="color: pink">Req Score: >1.666e17</span>]</p>
                 <div id="ascensionAutomation" alt="ascensionAutomation" label="ascensionAutomation" class="cubeUpgrade10 vAlign">
@@ -2886,8 +2886,17 @@
                 <button id="timeCode" alt="timeCode" label="timeCode" class="promocodeButton" style="border:2px solid green">Time</button>
                 <button id="promocodes" alt="promocodes" label="promocodes" class="promocodeButton" style="border:2px solid goldenrod">Enter a promotion code here!</button>
                 <p id="promocodeinfo" alt="promocodeinfo" label="promocodeinfo" style="color: goldenrod"></p>
-                <p id="themesTitle" alt="themesTitle" label="themesTitle" style="color: pink">Current Theme</p>
-                <button id="theme" alt="theme" label="theme" class="promocodeButton" style="border: 2px solid white">Dark Mode</button>
+                <p id="themesTitle" style="color: pink" aria-hidden="true">Current Theme</p>
+                <div id="themeArea" class="promocodeButton" aria-hidden="true">
+                    <button id="theme" tabindex="-1" style="border: 2px solid white">Dark Mode</button>
+                    <div id="themeBox">
+                        <button id="switchTheme1" style="border: 2px solid gray">Dark Mode</button>
+                        <button id="switchTheme2" style="border: 2px solid darkslategray">Darker Mode</button>
+                        <button id="switchTheme3" style="border: 2px solid lightslategray">Lighter Dark Mode</button>
+                        <button id="switchTheme4" style="border: 2px solid cyan">Light Mode</button>
+                        <button id="switchTheme5" style="border: 2px solid purple">Dracula Mode</button>
+                    </div>
+                </div>
             </div>
             <div id="exportButtons" alt="exportButtons" label="exportButtons">
                 <p id="quarktimerdisplay" alt="quarktimerdisplay" label="quarktimerdisplay" class="tightText" style="color: gold">3600s until +1 export Quark</p>
@@ -2899,7 +2908,7 @@
                     <label style="display: inline;color: white" for="saveType">Copy to Clipboard</label>
                 </div>
                 <button id="exportgame" alt="exportgame" label="exportgame" style="border:2px solid green">Export the game here</button>
-                <p id="exportinfo" alt="exportinfo" label="exportinfo" class="tightText" style="color: white"></p>
+                <p id="exportinfo" alt="exportinfo" label="exportinfo" class="tightText"></p>
                 <label title="Use $VERSION$ for full version, $VER$ for version number,
 $TIME$ for 24h time, $TIME12$ for 12h,
 $YEAR$ or $Y$ for year, $MONTH$ or $M$ for month,
@@ -2914,7 +2923,7 @@ $GQ$ for golden quarks, $GQS$ for format golden quarks,
 $STAGE$ for synergism stage">
                     <input id="saveStringInput" alt="saveStringInput" label="saveStringInput">
                 </label>
-                <p id="saveString" alt="saveString" label="saveString" class="tightText" style="color: white" title="Use $VERSION$ for full version, $VER$ for version number,
+                <p id="saveString" alt="saveString" label="saveString" class="tightText" title="Use $VERSION$ for full version, $VER$ for version number,
 $TIME$ for 24h time, $TIME12$ for 12h,
 $YEAR$ or $Y$ for year, $MONTH$ or $M$ for month,
 $DAY$ or $D$ for day, $HOUR$ or $H$ for hour,
@@ -2925,12 +2934,12 @@ $TIMES$ for 24h time short,
 $SING$ for singularity, $SINGS$ for singularity number,
 $QUARK$ for quarks, $QUARKS$ for format quarks,
 $GQ$ for golden quarks, $GQS$ for format golden quarks,
-$STAGE$ for synergism stage" style="color: white"></p>
-                <p id="importgame" alt="importgame" label="importgame" class="tightText" style="color: limegreen">Load game below!</p>
-                <label id="importFileButton" alt="importFileButton" label="importFileButton" for="importfile">Load from file</label>
-                <input type="file" id="importfile" alt="importfile" label="importfile" accept=".txt" style="display: none">
-                <button id="savegame" alt="savegame" label="savegame" style="border: 2px solid plum">Save the game manually</button>
-                <button id="deleteGame" alt="deleteGame" label="deleteGame" style="border: 2px solid red">Delete savefile</button>
+$STAGE$ for synergism stage"></p>
+                <p id="importgame" class="tightText" style="color: limegreen">Load game below!</p>
+                <label id="importFileButton" for="importfile" style="font-size: 0.9em; line-height: 1.4em;">Load from file</label>
+                <input type="file" id="importfile" accept=".txt" style="position: absolute; clip-path: circle(0)"> <!-- This will allow to tab into it, so ScreenReader could import game -->
+                <button id="savegame" style="border: 2px solid plum">Save the game manually</button>
+                <button id="deleteGame" style="border: 2px solid red">Delete savefile</button>
                 <p id="saveinfo" alt="saveinfo" label="saveinfo" style="color: limegreen"></p>
             </div>
             <div id="thirdParty" alt="thirdParty" label="thirdParty">
@@ -2955,7 +2964,7 @@ $STAGE$ for synergism stage" style="color: white"></p>
             </div>
         </div>
         <div id="versionnumber" alt="versionnumber" label="versionnumber">You're playing Synergism</div>
-        <div id="event" alt="event" label="event" style="color: orchid">Event Status: <span id="eventCurrent" alt="eventCurrent" label="eventCurrent" style="color:orangered"></span></div>
+        <div id="event" alt="event" label="event" class="orchidText">Event Status: <span id="eventCurrent" alt="eventCurrent" label="eventCurrent" class="orangeredText"></span></div>
         <div id="eventBuffs" alt="eventBuffs" label="eventBuffs" style="color: lime;">Buffs: </div>
         <a href="#" target="_blank" id="happyHolidays" alt="happyHolidays" label="happyHolidays" style="color: greenyellow"></a>
     </div>
@@ -2985,15 +2994,15 @@ $STAGE$ for synergism stage" style="color: white"></p>
             <p class="prestigeunlock statPortion" id="settingtitle3" alt="settingtitle3" label="settingtitle3" style="color: plum; font-size: 1.2em">Miscellaneous Stats</p>
             <p class="prestigeunlock statPortion" id="prestigeCountStatistic" alt="prestigeCountStatistic" label="prestigeCountStatistic" style="color: lightblue">Prestige Count: <span id="sMisc1" alt="sMisc1" label="sMisc1" class="statNumber">0</span></p>
             <p class="prestigeunlock statPortion" id="fastestPrestigeStatistic" alt="fastestPrestigeStatistic" label="fastestPrestigeStatistic" style="color: lightblue">Fastest Prestige <span id="sMisc2" alt="sMisc2" label="sMisc2" class="statNumber">0</span></p>
-            <p class="prestigeunlock statPortion" id="mostOfferingStatistic" alt="mostOfferingStatistic" label="mostOfferingStatistic" style="color: orangered">Most Offerings Saved at Once: <span id="sMisc3" alt="sMisc3" label="sMisc3" class="statNumber">0</span></p>
+            <p class="prestigeunlock statPortion orangeredText" id="mostOfferingStatistic" alt="mostOfferingStatistic" label="mostOfferingStatistic">Most Offerings Saved at Once: <span id="sMisc3" alt="sMisc3" label="sMisc3" class="statNumber">0</span></p>
             <p class="prestigeunlock statPortion" id="runeSumStatistic" alt="runeSumStatistic" label="runeSumStatistic" style="color: cyan">Summative Rune Levels: <span id="sMisc4" alt="sMisc4" label="sMisc4" class="statNumber">0</span></p>
             <p class="transcendunlock statPortion" id="transcensionCountStatistic" alt="transcensionCountStatistic" label="transcensionCountStatistic" style="color: plum">Transcension Count: <span id="sMisc5" alt="sMisc5" label="sMisc5" class="statNumber">0</span></p>
             <p class="transcendunlock statPortion" id="fastestTranscensionStatistic" alt="fastestTranscensionStatistic" label="fastestTranscensionStatistic" style="color: plum">Fastest Transcension: <span id="sMisc6" alt="sMisc6" label="sMisc6" class="statNumber">0</span></p>
             <p class="reincarnationunlock statPortion" id="reincarnationCountStatistic" alt="reincarnationCountStatistic" label="reincarnationCountStatistic" style="color: limegreen">Reincarnation Count: <span id="sMisc7" alt="sMisc7" label="sMisc7" class="statNumber">0</span></p>
             <p class="reincarnationunlock statPortion" id="fastestReincarnationStatistic" alt="fastestReincarnationStatistic" label="fastestReincarnationStatistic" style="color: limegreen">Fastest Reincarnation: <span id="sMisc8" alt="sMisc8" label="sMisc8" class="statNumber">0</span></p>
             <p class="reincarnationunlock statPortion" id="mostObtainiumStatistic" alt="mostObtainiumStatistic" label="mostObtainiumStatistic" style="color: pink">Most Obtainium Saved at Once: <span id="sMisc9" alt="sMisc9" label="sMisc9" class="statNumber">0</span></p>
-            <p class="reincarnationunlock statPortion" id="mostObtainiumPerSecondStatistic" alt="mostObtainiumPerSecondStatistic" label="mostObtainiumPerSecondStatistic" style="color: crimson">Best Obtainium/sec: <span id="sMisc10" alt="sMisc10" label="sMisc10" class="statNumber">0</span></p>
-            <p class="reincarnationunlock statPortion" id="obtainiumPerSecondStatistic" alt="obtainiumPerSecondStatistic" label="obtainiumPerSecondStatistic" style="color: crimson;">Current Obtainium/sec: <span id="sMisc11" alt="sMisc11" label="sMisc11" class="statNumber">0</span></p>
+            <p class="reincarnationunlock statPortion crimsonText" id="mostObtainiumPerSecondStatistic" alt="mostObtainiumPerSecondStatistic" label="mostObtainiumPerSecondStatistic">Best Obtainium/sec: <span id="sMisc10" alt="sMisc10" label="sMisc10" class="statNumber">0</span></p>
+            <p class="reincarnationunlock statPortion crimsonText" id="obtainiumPerSecondStatistic" alt="obtainiumPerSecondStatistic" label="obtainiumPerSecondStatistic">Current Obtainium/sec: <span id="sMisc11" alt="sMisc11" label="sMisc11" class="statNumber">0</span></p>
             <p class="ascendunlock statPortion" id="ascensionCountStatistic" alt="ascensionCountStatistic" label="ascensionCountStatistic" style="color: orange">Ascension Count: <span id="sMisc12" alt="sMisc12" label="sMisc12" class="statNumber">0</span></p>
             <p class="ascendunlock statPortion" id="totalQuarkCountStatisticSing" alt="totalQuarkCountStatisticSing" label="totalQuarkCountStatisticSing" style="color: white">Total Quarks This Singularity: <span id="sMisc13" alt="sMisc13" label="sMisc13" class="statNumber">0</span></p>
             <p class="ascendunlock statPortion" id="totalQuarkCountStatistic" alt="totalQuarkCountStatistic" label="totalQuarkCountStatistic" style="color: white">Total Quarks Ever (TQE): <span id="sMisc14" alt="sMisc14" label="sMisc14" class="statNumber">0</span></p>
@@ -3032,7 +3041,7 @@ $STAGE$ for synergism stage" style="color: white"></p>
             <p id="statM13" alt="statM13" label="statM13" class="statPortion statTotal">TOTAL FREE MULTIPLIERS: <span id="sM13" alt="sM13" label="sM13" class="statNumber statTotal">0</span></p>
         </div>
         <div id="offeringMultiplierStats" alt="offeringMultiplierStats" label="offeringMultiplierStats" class="statContainer" style="display: none;">
-            <p id="offeringStatTitle" alt="offeringStatTitle" label="offeringStatTitle" class='statPortion' style="color: orangered; font-size: 1.2em">Offering Multipliers</p>
+            <p id="offeringStatTitle" alt="offeringStatTitle" label="offeringStatTitle" class="statPortion orangeredText" style="font-size: 1.2em">Offering Multipliers</p>
             <p id="statOff1" alt="statOff1" label="statOff1" class="statPortion">Alchemy Achievement 5:<span id="sOff1" alt="sOff1" label="sOff1" class="statNumber">0</span></p>
             <p id="statOff2" alt="statOff2" label="statOff2" class="statPortion">Alchemy Achievement 6:<span id="sOff2" alt="sOff2" label="sOff2" class="statNumber">0</span></p>
             <p id="statOff3" alt="statOff3" label="statOff3" class="statPortion">Alchemy Achievement 7:<span id="sOff3" alt="sOff3" label="sOff3" class="statNumber">0</span></p>
@@ -3210,7 +3219,7 @@ $STAGE$ for synergism stage" style="color: white"></p>
             <p id="statPoM5" alt="statPoM5" label="statPoM5" class="statPortion hepteracts">Cube upgrade 1x1:<span id="sPoM5" alt="sPoM5" label="sPoM5" class="statNumber">0</span></p>
             <p id="statPoM6" alt="statPoM6" label="statPoM6" class="statPortion hepteracts">Cube upgrade 2x1: <span id="sPoM6" alt="sPoM6" label="sPoM6" class="statNumber">0</span></p>
             <p id="statPoM7" alt="statPoM7" label="statPoM7" class="statPortion hepteracts">Cube upgrade 2x1: <span id="sPoM7" alt="sPoM7" label="sPoM7" class="statNumber">0</span></p>
-            <p id="statPoMT" alt="statPoMT" label="statPoMT" class="statPortion statTotal" style="color: orchid">FINAL COEFFICIENT: <span
+            <p id="statPoMT" alt="statPoMT" label="statPoMT" class="statPortion statTotal orchidText">FINAL COEFFICIENT: <span
                     id="sPoMT" alt="sPoMT" label="sPoMT" class="statNumber statTotal">0</span></p>
         </div>
 
@@ -3284,7 +3293,7 @@ $STAGE$ for synergism stage" style="color: white"></p>
         </div>
         <span style="color: lightblue;">Last enabled key: <span style="color: gold;" id="lastHotkey" alt="lastHotkey" label="lastHotkey"></span> <span style="color: white;" id="lastHotkeyName" alt="lastHotkeyName" label="lastHotkeyName"></span></span>
         <span id="hotkeyTooltip" alt="hotkeyTooltip" label="hotkeyTooltip">Why don't you try clicking on one of the item's <span style="color:gold;">gold</span> text above to get started? You can always cancel!</span>
-        <span class="chal11" style="color: gray;">Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!</span>
+        <span class="chal11 grayText">Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!</span>
         <div class="resetHotkeys">
             <button id="resetHotkeys" style="border: 2px solid brown">Reset Hotkeys</button>
             <button class="auto" id="toggle39" alt="toggle39" label="toggle39" toggleid="39" alt="39" label="39" format="Hotkeys: $" style="border:2px solid green">Hotkeys: ON</button>
@@ -3603,7 +3612,7 @@ $STAGE$ for synergism stage" style="color: white"></p>
                     <p id="goldenQuarkamount" alt="goldenQuarkamount" label="goldenQuarkamount">You have 0 Golden Quarks!</p>
                 </div>
                 <div id="goldenQuarksMultiBuyInfo">
-                    <p id="goldenQuarkMultiBuyText">Buy multiple levels at once by holding <span style="color: orchid">'SHIFT'</span> while clicking!</p>
+                    <p id="goldenQuarkMultiBuyText">Buy multiple levels at once by holding <span class="orchidText">'SHIFT'</span> while clicking!</p>
                 </div>
                 <div class="boxColor" id="actualSingularityUpgradeContainer" alt="actualSingularityUpgradeContainer" label="actualSingularityUpgradeContainer">
                     <div class="singularityUpgrade">
@@ -3793,17 +3802,17 @@ $STAGE$ for synergism stage" style="color: white"></p>
             <div id="singularityOcteracts" alt="singularityOcteracts" label="singularityOcteracts" class="singularityContainer">
                 <div id="octeractsDisplay" alt="octeractsDisplay" label="octeractsDisplay">
                     <img src="Pictures/Octaret.png" loading="lazy">
-                    <p id="octeractAmount" alt="octeractAmount" label="octeractAmount">You have <span id='singOcts'>0</span> Octeracts!</p>
-                    <p id="secondsPerOcteract" alt="secondsPerOcteract" label="secondsPerOcteract" style="color: lightgoldenrodyellow">+1 per <span id="sPO" style="font-size: 1.2em; color: orchid"></span> seconds</p>
+                    <p id="octeractAmount" alt="octeractAmount" label="octeractAmount" class="lightseagreenText">You have <span id='singOcts'>0</span> Octeracts!</p>
+                    <p id="secondsPerOcteract" alt="secondsPerOcteract" label="secondsPerOcteract" style="color: lightgoldenrodyellow">+1 per <span id="sPO" class="orchidText" style="font-size: 1.2em"></span> seconds</p>
                     <p id="octeractPerSeconds" alt="octeractPerSeconds" label="octeractPerSeconds" style="color: lightgoldenrodyellow"><span id="oPS" style="font-size: 1.2em; color: yellow"></span> per second</p>
                 </div>
                 <div id="totalOcteractsDisplay" alt="totalOcteractsDisplay" label="totalOcteractsDisplay">
-                    <p id="totalOcteractAmount" alt="totalOcteractAmount" label="totalOcteractAmount">Total Generated: <span id="totalOcts" style="color: lightseagreen">0</span> Octeracts!</p>
+                    <p id="totalOcteractAmount" alt="totalOcteractAmount" label="totalOcteractAmount">Total Generated: <span id="totalOcts" class="lightseagreenText">0</span> Octeracts!</p>
                     <p id="totalOcteractCubeBonus" alt="totalOcteractCubeBonus" label="totalOcteractCubeBonus">3-7 Dimensional Cubes <span id="octCubeBonus" style="color: yellow">+199%</span></p>
                     <p id="totalOcteractQuarkBonus" alt="totalOcteractQuarkBonus" label="totalOcteractQuarkBonus">Quarks <span id="octQuarkBonus" style="color: aqua">+4%</span></p>
                 </div>
                 <div id="octeractsMultiBuyInfo">
-                    <p id="octeractMultiBuyText">Buy multiple levels at once by holding <span style="color: orchid">'SHIFT'</span> while clicking!</p>
+                    <p id="octeractMultiBuyText">Buy multiple levels at once by holding <span class="orchidText">'SHIFT'</span> while clicking!</p>
                 </div>
                 <div class="boxColor" id="octeractUpgradeContainer" alt="octeractUpgradeContainer" label="octeractUpgradeContainer">
                     <div class="octeractUpgrade">

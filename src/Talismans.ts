@@ -4,6 +4,7 @@ import { CalcECC } from './Challenges';
 import { calculateRuneLevels } from './Calculate';
 import { achievementaward } from './Achievements';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { theme } from './Themes';
 
 const talismanResourceCosts = {
     shard: {
@@ -425,7 +426,7 @@ export const updateTalismanAppearance = (i: number) => {
     }
     if (rarity === 6) {
         el.style.border = '4px solid crimson';
-        la.style.color = 'crimson'
+        la.style.color = theme.crimson
     }
 }
 

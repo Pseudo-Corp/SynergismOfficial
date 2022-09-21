@@ -3,6 +3,7 @@ import { Synergism } from './Events';
 import { Alert, revealStuff } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
+import { theme } from './Themes';
 
 const platonicUpgradeDesc = [
     '+0.0090% Cubes per Corruption level per level!',
@@ -290,6 +291,7 @@ export const createPlatonicDescription = (index: number) => {
         maxLevelAppend = ' [MAX]'
     }
     const resourceCheck = checkPlatonicUpgrade(index);
+    const { crimson } = theme;
 
     let priceMultiplier = 1;
     if (platUpgradeBaseCosts[index].priceMult) {
@@ -309,42 +311,42 @@ export const createPlatonicDescription = (index: number) => {
 
     resourceCheck.offerings ?
         DOMCacheGetOrSet('platonicOfferingCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicOfferingCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicOfferingCost').style.color = crimson;
 
     resourceCheck.obtainium ?
         DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicObtainiumCost').style.color = crimson;
 
     resourceCheck.cubes ?
         DOMCacheGetOrSet('platonicCubeCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicCubeCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicCubeCost').style.color = crimson;
 
     resourceCheck.tesseracts ?
         DOMCacheGetOrSet('platonicTesseractCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicTesseractCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicTesseractCost').style.color = crimson;
 
     resourceCheck.hypercubes ?
         DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicHypercubeCost').style.color = crimson;
 
     resourceCheck.platonics ?
         DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicPlatonicCost').style.color = crimson;
 
     resourceCheck.abyssals ?
         DOMCacheGetOrSet('platonicHepteractCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicHepteractCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicHepteractCost').style.color = crimson;
 
     if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
         DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'cyan'
         resourceCheck.canBuy ?
             (DOMCacheGetOrSet('platonicCanBuy').style.color = 'gold', DOMCacheGetOrSet('platonicCanBuy').textContent = '===Affordable! Click to buy!===') :
-            (DOMCacheGetOrSet('platonicCanBuy').style.color = 'crimson', DOMCacheGetOrSet('platonicCanBuy').textContent = '===You cannot afford this!===');
+            (DOMCacheGetOrSet('platonicCanBuy').style.color = crimson, DOMCacheGetOrSet('platonicCanBuy').textContent = '===You cannot afford this!===');
     }
 
     if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
         DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'gold'
-        DOMCacheGetOrSet('platonicCanBuy').style.color = 'orchid'
+        DOMCacheGetOrSet('platonicCanBuy').style.color = theme.orchid
         DOMCacheGetOrSet('platonicCanBuy').textContent = '===Maxed==='
     }
 }

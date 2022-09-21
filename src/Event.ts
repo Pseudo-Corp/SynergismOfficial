@@ -1,6 +1,7 @@
 import { player, getTimePinnedToLoadDate } from './Synergism'
 import { Globals as G } from './Variables';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { theme } from './Themes';
 
 interface HolidayData {
     name: string
@@ -265,7 +266,7 @@ export const eventCheck = () => {
         G['isEvent'] = false;
         DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE';
         eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' : ''
-        eventBuffs.style.color = 'red';
+        eventBuffs.style.color = theme.red;
         happyHolidays.innerHTML = '';
         happyHolidays.href = '';
     }

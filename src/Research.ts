@@ -6,6 +6,7 @@ import { updateClassList } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import type { IMultiBuy } from './Cubes';
 import { calculateSingularityDebuff } from './singularity';
+import { theme } from './Themes';
 
 const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): IMultiBuy => {
     buyAmount = Math.min(G['researchMaxLevels'][index] - player.researches[index], buyAmount)
@@ -393,7 +394,7 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     }
 
     if (player.researchPoints < metaData.cost && player.researches[i] < (G['researchMaxLevels'][i])) {
-        DOMCacheGetOrSet('researchcost').style.color = 'crimson'
+        DOMCacheGetOrSet('researchcost').style.color = theme.crimson
         updateClassList(p, [], ['researchMaxed', 'researchAvailable', 'researchPurchasedAvailable'])
     }
 
