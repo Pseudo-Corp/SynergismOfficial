@@ -2161,6 +2161,7 @@ p#reincarnatehotkeys {
     min-width: 100px;
     color: white;
     background-color: black;
+    z-index: 1;
 }
 
 p[id$="BlessingsTotal"] {
