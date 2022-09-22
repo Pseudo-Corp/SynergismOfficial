@@ -859,6 +859,9 @@ const loadSynergy = async () => {
         Object.defineProperty(window, 'Decimal', {
             value: Decimal
         });
+        if (data) {
+            data.exporttest = false;
+        }
     }
 
     Object.assign(G, { ...blankGlobals });
@@ -4012,8 +4015,9 @@ export const reloadShit = async (reset = false) => {
 
 window.addEventListener('load', () => {
     const ver = DOMCacheGetOrSet('versionnumber');
+    const addZero = (n: number) => `${n}`.padStart(2, '0')
     if (ver instanceof HTMLElement) {
-        const textUpdate = !isNaN(lastUpdated.getTime()) ? ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` : '';
+        const textUpdate = !isNaN(lastUpdated.getTime()) ? ` [Last Update: ${addZero(lastUpdated.getHours())}:${addZero(lastUpdated.getMinutes())} UTC ${addZero(lastUpdated.getDate())}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` : '';
         ver.textContent =
             `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality` +
             textUpdate +
