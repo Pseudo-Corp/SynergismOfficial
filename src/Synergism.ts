@@ -4014,9 +4014,7 @@ export const reloadShit = async (reset = false) => {
 
 window.addEventListener('load', () => {
     const ver = DOMCacheGetOrSet('versionnumber');
-    const addZero = (n: number) => {
-        return (n<10 ? '0' + n : n);
-    }
+    const addZero = (n: number) => `${n}`.padStart(2, '0')
     if (ver instanceof HTMLElement) {
         const textUpdate = !isNaN(lastUpdated.getTime()) ? ` [Last Update: ${addZero(lastUpdated.getHours())}:${addZero(lastUpdated.getMinutes())} UTC ${addZero(lastUpdated.getDate())}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` : '';
         ver.textContent =
