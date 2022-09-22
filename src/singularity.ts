@@ -104,9 +104,24 @@ export class SingularityUpgrade extends DynamicUpgrade {
     public async buyLevel(event: MouseEvent): Promise<void> {
         let purchased = 0;
         let maxPurchasable = 1
+        let GQBudget = player.goldenQuarks
 
         if (event.shiftKey) {
-            maxPurchasable = 10000
+            maxPurchasable = 100000
+            const buy = Number(await Prompt(`How many Golden Quarks would you like to spend? You have ${format(player.goldenQuarks, 0, true)} GQ. Type -1 to use max!`))
+
+            if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
+                return Alert('Value must be a finite number!');
+            }
+
+            if (buy === -1) {
+                GQBudget = player.goldenQuarks
+            } else if (buy <= 0) {
+                return Alert('Purchase cancelled!')
+            } else {
+                GQBudget = buy
+            }
+            GQBudget = Math.min(player.goldenQuarks, GQBudget)
         }
 
         if (this.maxLevel > 0) {
@@ -114,18 +129,19 @@ export class SingularityUpgrade extends DynamicUpgrade {
         }
 
         if (maxPurchasable === 0) {
-            return Alert('hey! You have already maxxed this upgrade. :D')
+            return Alert('Hey! You have already maxed this upgrade. :D')
         }
 
         if (player.singularityCount < this.minimumSingularity) {
-            return Alert('you\'re not powerful enough to purchase this yet.')
+            return Alert('You\'re not powerful enough to purchase this yet.')
         }
         while (maxPurchasable > 0) {
             const cost = this.getCostTNL();
-            if (player.goldenQuarks < cost) {
+            if (player.goldenQuarks < cost || GQBudget < cost) {
                 break;
             } else {
                 player.goldenQuarks -= cost;
+                GQBudget -= cost;
                 this.goldenQuarksInvested += cost;
                 this.level += 1;
                 purchased += 1;
@@ -137,7 +153,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
             return Alert('You cannot afford this upgrade. Sorry!')
         }
         if (purchased > 1) {
-            return Alert(`Purchased ${format(purchased)} levels, thanks to MAX Buy!`)
+            return Alert(`Purchased ${format(purchased)} levels, thanks to Multi Buy!`)
         }
 
         this.updateUpgradeHTML();
@@ -157,7 +173,8 @@ export class SingularityUpgrade extends DynamicUpgrade {
         if (player.octeractUpgrades.octeractImprovedFree.getEffect().bonus) {
             let exponent = 0.6
             exponent += +player.octeractUpgrades.octeractImprovedFree2.getEffect().bonus;
-            exponent += +player.octeractUpgrades.octeractImprovedFree3.getEffect().bonus
+            exponent += +player.octeractUpgrades.octeractImprovedFree3.getEffect().bonus;
+            exponent += +player.octeractUpgrades.octeractImprovedFree4.getEffect().bonus;
             polynomialLevels = Math.pow(this.level * actualFreeLevels, exponent)
         }
 
@@ -196,7 +213,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 - Math.min(0.5, n / 500),
-                desc: `Purchasing Golden Quarks in the shop is ${Math.min(50, n / 5)}% cheaper.`
+                desc: `Purchasing Golden Quarks in the shop is ${format(Math.min(50, n / 5),2,true)}% cheaper.`
             }
         }
     },
@@ -443,14 +460,14 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singCitadel: {
         name: 'Citadel of Singularity',
-        description: 'This structure is so obscured by Singularity Fog! But it gives +1% Obtainium, Offerings, and 3-7D cubes per level!',
+        description: 'This structure is so obscured by Singularity Fog! But it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!',
         maxLevel: -1,
         costPerLevel: 500000,
         minimumSingularity: 100,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.01 * n,
-                desc: `Obtainium, Offerings, and 3-7D Cubes +${format(n)}%, forever!`
+                bonus: (1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100),
+                desc: `Obtainium, Offerings, and 3-7D Cubes +${format(100 * ((1 + 0.02 * n) * (1 + Math.floor(n/10)/100) - 1))}%, forever!`
             }
         }
     },
@@ -581,6 +598,32 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: Math.max(1, 10 * Math.pow(n, 2)),
                 desc: `Potions currently give ${format(Math.max(1, 10 * Math.pow(n, 2)), 0, true)}x items!`
+            }
+        }
+    },
+    potionBuff2: {
+        name: 'Potion Decanter of Inquisition',
+        description: 'Staring at the glass, you aren\'t actually sure what this potion is.',
+        maxLevel: 10,
+        costPerLevel: 1e8,
+        minimumSingularity: 121,
+        effect: (n: number) => {
+            return {
+                bonus: Math.max(1, 2 * n),
+                desc: `Potions currently give ${format(Math.max(1, 2 * n), 0, true)}x items!`
+            }
+        }
+    },
+    potionBuff3: {
+        name: 'Potion Decanter of Maddening Instability',
+        description: 'SHE\'S GONNA BLOW!!!! Said Midas, the Golden Quark Salesman. Oh yeah, did we mention he\'s in the game?',
+        maxLevel: 10,
+        costPerLevel: 1e12,
+        minimumSingularity: 196,
+        effect: (n: number) => {
+            return {
+                bonus: Math.max(1, 1 + 0.5 * n),
+                desc: `Potions currently give ${format(Math.max(1, 1 + 0.5 * n), 2, true)}x items!`
             }
         }
     },
@@ -805,11 +848,50 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             }
         }
     },
+    singAscensionSpeed: {
+        name: 'A hecking good ascension speedup!',
+        description: 'Ascension Speed is raised to the power of 1.03, raised to 0.97 if less than 1x.',
+        maxLevel: 1,
+        costPerLevel: 1e10,
+        minimumSingularity: 130,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `Ascension Speed ^${format(1 + 0.03 * n, 2, true)}, ^${format(1 - 0.03 * n, 2, true)} if < 1x` // TODO
+            }
+        }
+    },
+    singAscensionSpeed2: {
+        name: 'A mediocre ascension speedup!',
+        description: 'Ascension speed is increased by 30% if Ascension timer is less than 10 seconds, for every second below it is.',
+        maxLevel: 1,
+        costPerLevel: 1e12,
+        minimumSingularity: 150,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `For every second under 10 on Ascension timer, Ascension Speed +${format(30 * n, 0, true)}%.` // TODO
+            }
+        }
+    },
+    WIP: {
+        name: 'WIP TEMPLATE',
+        description: 'This is a template! Bottom Text.',
+        maxLevel: 100,
+        costPerLevel: 1e300,
+        minimumSingularity: 251,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: 'Update this description at a later time!!!!!!!!!!' // TODO
+            }
+        }
+    },
     ultimatePen: {
         name: 'The Ultimate Pen',
         description: 'You. It is you who is the author of your own story!',
         maxLevel: 1,
-        costPerLevel: 999999999999,
+        costPerLevel: Number.MAX_SAFE_INTEGER,
         minimumSingularity: 250,
         effect: (n: number) => {
             return {
@@ -1326,6 +1408,10 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= singularityCount / 25
         effectiveSingularities *= Math.pow(1.1, singularityCount - 100)
     }
+    if (singularityCount > 150) {
+        effectiveSingularities *= 3
+        effectiveSingularities *= Math.pow(1.04, singularityCount - 150)
+    }
     if (singularityCount === 250) {
         effectiveSingularities *= 100
     }
@@ -1344,17 +1430,21 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
     const effectiveSingularities = calculateEffectiveSingularities(singularityCount);
 
     if (debuff === 'Offering') {
-        return Math.sqrt(effectiveSingularities + 1)
+        return Math.sqrt(Math.min(effectiveSingularities, calculateEffectiveSingularities(150)) + 1)
     } else if (debuff === 'Global Speed') {
         return 1 + Math.sqrt(effectiveSingularities) / 4
     } else if (debuff === 'Obtainium') {
-        return Math.sqrt(effectiveSingularities + 1)
+        return Math.sqrt(Math.min(effectiveSingularities, calculateEffectiveSingularities(150))  + 1)
     } else if (debuff === 'Researches') {
         return 1 + Math.sqrt(effectiveSingularities) / 2
     } else if (debuff === 'Ascension Speed') {
-        return 1 + Math.sqrt(effectiveSingularities) / 5
+        return (singularityCount < 150) ?
+            1 + Math.sqrt(effectiveSingularities) / 5:
+            1 + Math.pow(effectiveSingularities, 0.75) / 10000
     } else if (debuff === 'Cubes') {
-        return 1 + Math.sqrt(effectiveSingularities) / 4
+        return (player.singularityCount < 150) ?
+            1 + Math.sqrt(effectiveSingularities) / 4:
+            1 + Math.pow(effectiveSingularities, 0.75) / 1000
     } else if (debuff === 'Platonic Costs') {
         return (singularityCount > 36) ? 1 + Math.pow(effectiveSingularities, 3/10) / 12 : 1
     } else if (debuff === 'Hepteract Costs') {

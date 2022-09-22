@@ -867,7 +867,9 @@ export const useConsumable = async (input: ShopUpgradeNames) => {
         : true;
 
     if (p) {
-        const multiplier = +player.singularityUpgrades.potionBuff.getEffect().bonus;
+        const multiplier = +player.singularityUpgrades.potionBuff.getEffect().bonus *
+                           +player.singularityUpgrades.potionBuff2.getEffect().bonus *
+                           +player.singularityUpgrades.potionBuff3.getEffect().bonus;
         if (input === 'offeringPotion') {
             if (player.shopUpgrades.offeringPotion > 0) {
                 player.shopUpgrades.offeringPotion -= 1;

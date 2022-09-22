@@ -149,6 +149,7 @@ export const exportSynergism = async () => {
             // - TypeError (browser doesn't support this feature)
             // - Failed to copy (browser limitation; Safari)
             await navigator.clipboard.writeText(saveString)
+            DOMCacheGetOrSet('exportinfo').textContent = 'Copied save to clipboard!';
         } catch (err) {
             // So we fallback to the deprecated way of doing it,
             // which isn't limited by any browser.
@@ -177,6 +178,7 @@ export const exportSynergism = async () => {
             })
 
             clipboard.on('error', () => {
+                DOMCacheGetOrSet('exportinfo').textContent = 'Export failed!'
                 void Alert('Unable to write the save to clipboard.').finally(cleanup)
             })
         }
@@ -191,9 +193,9 @@ export const exportSynergism = async () => {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+        DOMCacheGetOrSet('exportinfo').textContent = 'Savefile copied to file!';
     }
-
-    DOMCacheGetOrSet('exportinfo').textContent = 'Savefile copied to file!';
+    setTimeout(() => DOMCacheGetOrSet('exportinfo').textContent = '', 15_000);
 }
 
 export const reloadDeleteGame = async () => {
@@ -771,5 +773,25 @@ const dailyCodeReward = () => {
     return {
         quarks: quarks,
         goldenQuarks: goldenQuarks
+    }
+}
+
+export const handleLastModified = (lastModified: number) => {
+    const localStorageFirstPlayed = localStorage.getItem('firstPlayed')
+    const lastModifiedDate = new Date(lastModified)
+
+    if (localStorageFirstPlayed === null) {
+        localStorage.setItem('firstPlayed', lastModifiedDate.toISOString())
+        return
+    }
+
+    const localFirstPlayedDate = new Date(localStorageFirstPlayed)
+
+    // The larger the ms value, the newer the file.
+    // So if the current oldest date is newer than the last modified date
+    // for the new file, set the oldest date to the last modified.
+    if (localFirstPlayedDate.getTime() > lastModifiedDate.getTime()) {
+        player.firstPlayed = lastModifiedDate.toISOString()
+        localStorage.setItem('firstPlayed', player.firstPlayed)
     }
 }

@@ -1,4 +1,4 @@
-import { player, interval, clearInt, saveSynergy, format, resourceGain, updateAll, getTimePinnedToLoadDate } from './Synergism';
+import { player, saveSynergy, format, resourceGain, updateAll, getTimePinnedToLoadDate } from './Synergism';
 import { sumContents, productContents } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
@@ -15,6 +15,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
 import { calculateEventSourceBuff } from './Event';
 import { disableHotkeys, enableHotkeys } from './Hotkeys';
+import { setInterval, clearInterval } from './Timers'
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
@@ -1006,7 +1007,7 @@ export const calculateOffline = async (forceTime = 0) => {
     timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
 
     //200 simulated all ticks [July 12, 2021]
-    const runOffline = interval(() => {
+    const runOffline = setInterval(() => {
         G['timeMultiplier'] = calculateTimeAcceleration();
         calculateObtainium();
 
@@ -1043,7 +1044,7 @@ export const calculateOffline = async (forceTime = 0) => {
         resourceTicks -= 1;
         //Misc functions
         if (resourceTicks < 1) {
-            clearInt(runOffline);
+            clearInterval(runOffline);
             G['timeWarp'] = false;
         }
     }, 0);
@@ -1516,9 +1517,17 @@ export const calculateAscensionAcceleration = () => {
         1 + 1 / 1000 * player.singularityCount * player.shopUpgrades.chronometerZ,                      // Chronometer Z
         1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed.getEffect().bonus * player.singularityCount, // Oct Upgrade 1
         1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount, // Oct Upgrade 2
-        1 + calculateEventBuff('Ascension Speed')                                                       // Event
+        1 + calculateEventBuff('Ascension Speed'),                                                      // Event
+        (player.singularityUpgrades.singAscensionSpeed2.level > 0) ? Math.pow(1.3, Math.max(0, 10 - player.ascensionCounter)) : 1 // Sing Ascension Speed lol
     ]
-    return productContents(arr) / calculateSingularityDebuff('Ascension Speed')
+    const baseMultiplier = productContents(arr) / calculateSingularityDebuff('Ascension Speed')
+    const exponent = (player.singularityUpgrades.singAscensionSpeed.level > 0) ?
+        ((baseMultiplier >= 1) ?
+            1.03:
+            0.97) :
+        1;
+
+    return Math.pow(baseMultiplier, exponent)
 }
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {

@@ -38,7 +38,7 @@ import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, Challe
 import { QuarkHandler } from './Quark';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { updatePlatonicUpgradeBG } from './Platonic';
-import { testing, version, lastUpdated } from './Config';
+import { testing, version, lastUpdated, prod } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
 import { singularityData, SingularityUpgrade } from './singularity';
@@ -47,35 +47,10 @@ import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
 import { settingTheme } from './Themes';
-
-/**
- * Whether or not the current version is a testing version or a main version.
- * This should be detected when importing a file.
- */
-//export const isTesting = false;
-//export const version = '2.5.5';
-
-export const intervalHold = new Set<ReturnType<typeof setInterval>>();
-export const interval = new Proxy(setInterval, {
-    apply(target, thisArg, args: Parameters<typeof setInterval>) {
-        const set = target.apply(thisArg, args);
-        intervalHold.add(set);
-        return set;
-    }
-});
-
-export const clearInt = new Proxy(clearInterval, {
-    apply(target, thisArg, args: [ReturnType<typeof setInterval>]) {
-        const id = args[0];
-        if (intervalHold.has(id)) {
-            intervalHold.delete(id);
-        }
-
-        return target.apply(thisArg, args);
-    }
-});
+import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers'
 
 export const player: Player = {
+    firstPlayed: new Date().toISOString(),
     worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),
     coins: new Decimal('1e2'),
     coinsThisPrestige: new Decimal('1e2'),
@@ -755,6 +730,8 @@ export const player: Player = {
         divinePack: new SingularityUpgrade(singularityData['divinePack']),
         wowPass2: new SingularityUpgrade(singularityData['wowPass2']),
         potionBuff: new SingularityUpgrade(singularityData['potionBuff']),
+        potionBuff2: new SingularityUpgrade(singularityData['potionBuff2']),
+        potionBuff3: new SingularityUpgrade(singularityData['potionBuff3']),
         singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension']),
         singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2']),
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
@@ -773,7 +750,9 @@ export const player: Player = {
         platonicDelta: new SingularityUpgrade(singularityData['platonicDelta']),
         platonicPhi: new SingularityUpgrade(singularityData['platonicPhi']),
         singFastForward: new SingularityUpgrade(singularityData['singFastForward']),
-        singFastForward2: new SingularityUpgrade(singularityData['singFastForward2'])
+        singFastForward2: new SingularityUpgrade(singularityData['singFastForward2']),
+        singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
+        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2'])
     },
 
     octeractUpgrades: {
@@ -792,6 +771,7 @@ export const player: Player = {
         octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree']),
         octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
         octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
+        octeractImprovedFree4: new OcteractUpgrade(octeractData['octeractImprovedFree4']),
         octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1']),
         octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1']),
         octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
@@ -869,7 +849,7 @@ const loadSynergy = async () => {
         ? JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>
         : null;
 
-    if (testing) {
+    if (testing || prod === false) {
         Object.defineProperty(window, 'player', {
             value: player
         });
@@ -2933,7 +2913,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.challengecompletions[q] = comp;
             challengeDisplay(q, false);
             updateChallengeLevel(q);
-            challengeachievementcheck(q);
         }
         if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
             while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
@@ -2942,6 +2921,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             }
             calculateCubeBlessings();
         }
+        challengeachievementcheck(q);
         if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.transcension = 0;
@@ -2996,7 +2976,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             player.challengecompletions[q] = comp;
             challengeDisplay(q, false);
             updateChallengeLevel(q);
-            challengeachievementcheck(q);
         }
         if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
             while (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
@@ -3007,6 +2986,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             calculateTesseractBlessings();
             calculateCubeBlessings();
         }
+        challengeachievementcheck(q);
         if (!player.retrychallenges || manual || (player.autoChallengeRunning && player.challengecompletions[q] >= maxCompletions)) {
             toggleAutoChallengeModeText('ENTER');
             player.currentChallenge.reincarnation = 0;
@@ -3051,8 +3031,8 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 player.challengecompletions[a] += 1;
                 updateChallengeLevel(a);
                 challengeDisplay(a, false);
-                challengeachievementcheck(a, true);
             }
+            challengeachievementcheck(a, true);
         }
         if (a === 15) {
             const c15SM = challenge15ScoreMultiplier();
@@ -3060,7 +3040,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 player.challengecompletions[a] += 1;
                 updateChallengeLevel(a);
                 challengeDisplay(a, false);
-                challengeachievementcheck(a, true);
             }
             if ((manual || leaving || player.shopUpgrades.challenge15Auto > 0) && player.usedCorruptions.slice(2, 10).every((a) => a === 11)) {
                 if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
@@ -3621,9 +3600,9 @@ export const slowUpdates = (): void => {
 }
 
 export const constantIntervals = (): void => {
-    interval(saveSynergy, 5000);
-    interval(slowUpdates, 200);
-    interval(fastUpdates, 50);
+    setInterval(saveSynergy, 5000);
+    setInterval(slowUpdates, 200);
+    setInterval(fastUpdates, 50);
 
     if (!G['timeWarp']) {
         exitOffline();
@@ -3634,7 +3613,7 @@ let lastUpdate = 0;
 
 export const createTimer = (): void => {
     lastUpdate = performance.now();
-    interval(tick, 5);
+    setInterval(tick, 5);
 }
 
 const dt = 5;
@@ -3925,17 +3904,12 @@ export const showExitOffline = () => {
  * @param reset if this param is passed, offline progression will not be calculated.
  */
 export const reloadShit = async (reset = false) => {
+    clearTimers()
 
     // Shows a reset button when page loading seems to stop or cause an error
     const preloadDeleteGame = setTimeout(() => DOMCacheGetOrSet('preloadDeleteGame').style.display = 'block', 10000);
 
     disableHotkeys();
-
-    for (const timer of intervalHold) {
-        clearInt(timer);
-    }
-
-    intervalHold.clear();
 
     // Wait a tick to continue. This is a (likely futile) attempt to see if this solves save corrupting.
     // This ensures all queued tasks are executed before continuing on.
@@ -3995,13 +3969,13 @@ export const reloadShit = async (reset = false) => {
     toggleSubTab(-1, 0); // set 'statistics main'
 
     dailyResetCheck();
-    interval(dailyResetCheck, 30000);
+    setInterval(dailyResetCheck, 30000);
 
     constantIntervals();
     changeTabColor();
 
     eventCheck();
-    interval(eventCheck, 15000);
+    setInterval(eventCheck, 15000);
     showExitOffline();
     clearTimeout(preloadDeleteGame);
 
@@ -4031,6 +4005,9 @@ export const reloadShit = async (reset = false) => {
             console.log(`Storage is persistent! (persistent = ${persistent})`);
         }
     }
+
+    const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
+    saveType.checked = localStorage.getItem('copyToClipboard') !== null
 }
 
 window.addEventListener('load', () => {

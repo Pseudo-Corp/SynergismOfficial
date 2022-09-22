@@ -51,22 +51,22 @@ export const autoUpgrades = () => {
     if (player.upgrades[90] > 0.5 && player.shoptoggles.generators === true) {
 
         for (let i = 1; i < 6; i++) {
-            if (player.upgrades[i] === 0 && player.prestigePoints.gte(Decimal.pow(10, G['upgradeCosts'][(100 + i)]))) {
+            if (player.upgrades[100 + i] === 0 && player.prestigePoints.gte(Decimal.pow(10, G['upgradeCosts'][(100 + i)]))) {
                 buyGenerator(i, true)
             }
         }
         for (let j = 6; j < 11; j++) {
-            if (player.upgrades[j] === 0 && player.coins.gte(Decimal.pow(10, G['upgradeCosts'][(100 + j)]))) {
+            if (player.upgrades[100 + j] === 0 && player.coins.gte(Decimal.pow(10, G['upgradeCosts'][(100 + j)]))) {
                 buyGenerator(j, true)
             }
         }
         for (let k = 11; k < 16; k++) {
-            if (player.upgrades[k] === 0 && player.prestigePoints.gte(Decimal.pow(10, G['upgradeCosts'][(100 + k)]))) {
+            if (player.upgrades[100 + k] === 0 && player.prestigePoints.gte(Decimal.pow(10, G['upgradeCosts'][(100 + k)]))) {
                 buyGenerator(k, true)
             }
         }
         for (let l = 16; l < 21; l++) {
-            if (player.upgrades[l] === 0 && player.transcendPoints.gte(Decimal.pow(10, G['upgradeCosts'][(100 + l)]))) {
+            if (player.upgrades[100 + l] === 0 && player.transcendPoints.gte(Decimal.pow(10, G['upgradeCosts'][(100 + l)]))) {
                 buyGenerator(l, true)
             }
         }
