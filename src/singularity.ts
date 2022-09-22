@@ -97,8 +97,8 @@ export class SingularityUpgrade extends DynamicUpgrade {
     }
 
     /**
-     * Buy levels up until togglebuy or maxxed.
-     * @returns An alert indicating cannot afford, already maxxed or purchased with how many
+     * Buy levels up until togglebuy or maxed.
+     * @returns An alert indicating cannot afford, already maxed or purchased with how many
      *          levels purchased
      */
     public async buyLevel(event: MouseEvent): Promise<void> {
@@ -784,7 +784,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     platonicAlpha: {
         name: 'Platonic ALPHA...?',
-        description: 'Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxxed!',
+        description: 'Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxed!',
         maxLevel: 1,
         costPerLevel: 2e7,
         minimumSingularity: 70,
