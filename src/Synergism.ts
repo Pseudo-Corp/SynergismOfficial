@@ -758,6 +758,7 @@ export const player: Player = {
     octeractUpgrades: {
         octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
         octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
+        octeractGain2: new OcteractUpgrade(octeractData['octeractGain2']),
         octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
         octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
         octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
@@ -772,6 +773,7 @@ export const player: Player = {
         octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
         octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
         octeractImprovedFree4: new OcteractUpgrade(octeractData['octeractImprovedFree4']),
+        octeractSingUpgradeCap: new OcteractUpgrade(octeractData['octeractSingUpgradeCap']),
         octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1']),
         octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1']),
         octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
