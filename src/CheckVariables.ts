@@ -320,6 +320,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.octeractUpgrades = {
         octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
         octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
+        octeractGain2: new OcteractUpgrade(octeractData['octeractGain2']),
         octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
         octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
         octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
@@ -334,6 +335,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
         octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
         octeractImprovedFree4: new OcteractUpgrade(octeractData['octeractImprovedFree4']),
+        octeractSingUpgradeCap: new OcteractUpgrade(octeractData['octeractSingUpgradeCap']),
         octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1']),
         octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1']),
         octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
@@ -654,7 +656,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     toggleBuy: data.singularityUpgrades[k].toggleBuy,
                     minimumSingularity: singularityData[k].minimumSingularity,
                     effect: singularityData[k].effect,
-                    freeLevels: data.singularityUpgrades[k].freeLevels
+                    freeLevels: data.singularityUpgrades[k].freeLevels,
+                    canExceedCap: singularityData[k].canExceedCap
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
 
@@ -665,6 +668,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                 const cost = player.singularityUpgrades[k].level * (player.singularityUpgrades[k].level + 1) *
                              player.singularityUpgrades[k].costPerLevel / 2
                 if (player.singularityUpgrades[k].maxLevel !== -1 &&
+                    player.singularityUpgrades[k].level <= player.singularityUpgrades[k].maxLevel &&
                     player.singularityUpgrades[k].goldenQuarksInvested !== cost) {
                     player.singularityUpgrades[k].refund()
                 }

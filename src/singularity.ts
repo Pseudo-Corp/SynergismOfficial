@@ -33,6 +33,7 @@ function getSingularityOridnalText(singularityCount: number): string {
 export interface ISingularityData extends IUpgradeData {
     goldenQuarksInvested?: number
     minimumSingularity?: number
+    canExceedCap?: boolean
 }
 
 /**
@@ -44,11 +45,13 @@ export class SingularityUpgrade extends DynamicUpgrade {
     // Field Initialization
     public goldenQuarksInvested = 0;
     public minimumSingularity: number;
+    public canExceedCap: boolean
 
     public constructor(data: ISingularityData) {
         super(data)
         this.goldenQuarksInvested = data.goldenQuarksInvested ?? 0;
         this.minimumSingularity = data.minimumSingularity ?? 0;
+        this.canExceedCap = data.canExceedCap ?? false;
     }
 
     /**
@@ -59,8 +62,8 @@ export class SingularityUpgrade extends DynamicUpgrade {
         const costNextLevel = this.getCostTNL();
         const maxLevel = this.maxLevel === -1
             ? ''
-            : `/${format(this.maxLevel, 0 , true)}`;
-        const color = this.maxLevel === this.level ? 'plum' : 'white';
+            : `/${format(this.computeMaxLevel(), 0 , true)}`;
+        const color = this.computeMaxLevel() === this.level ? 'plum' : 'white';
         const minReqColor = player.singularityCount < this.minimumSingularity ? 'crimson' : 'green';
         const minimumSingularity = this.minimumSingularity > 0
             ? `Minimum Singularity: ${this.minimumSingularity}`
@@ -93,7 +96,12 @@ export class SingularityUpgrade extends DynamicUpgrade {
     getCostTNL(): number {
         let costMultiplier = (this.maxLevel === -1 && this.level >= 100) ? this.level / 50 : 1;
         costMultiplier *= (this.maxLevel === -1 && this.level >= 400) ? this.level / 100 : 1;
-        return (this.maxLevel === this.level) ? 0: Math.ceil(this.costPerLevel * (1 + this.level) * costMultiplier);
+
+        if (this.computeMaxLevel() > this.maxLevel && this.level >= this.maxLevel) {
+            costMultiplier *= Math.pow(4, this.level - this.maxLevel + 1)
+        }
+
+        return (this.computeMaxLevel() === this.level) ? 0: Math.ceil(this.costPerLevel * (1 + this.level) * costMultiplier);
     }
 
     /**
@@ -125,7 +133,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
         }
 
         if (this.maxLevel > 0) {
-            maxPurchasable = Math.min(maxPurchasable, this.maxLevel - this.level)
+            maxPurchasable = Math.min(maxPurchasable, this.computeMaxLevel() - this.level)
         }
 
         if (maxPurchasable === 0) {
@@ -166,6 +174,24 @@ export class SingularityUpgrade extends DynamicUpgrade {
         return Math.min(this.level, this.freeLevels) + Math.sqrt(Math.max(0, this.freeLevels - this.level))
     }
 
+    public computeMaxLevel(): number {
+        if (!this.canExceedCap) {
+            return this.maxLevel
+        } else {
+            let cap = this.maxLevel
+            const overclockPerks = [50, 60, 75, 100, 125, 150, 175, 200, 225, 250]
+            for (let i = 0; i < overclockPerks.length; i++) {
+                if (player.singularityCount >= overclockPerks[i]) {
+                    cap += 1
+                } else {
+                    break
+                }
+            }
+            cap += +player.octeractUpgrades.octeractSingUpgradeCap.getEffect().bonus
+            return cap
+        }
+    }
+
     public actualTotalLevels(): number {
         const actualFreeLevels = this.computeFreeLevelSoftcap();
         const linearLevels = this.level + actualFreeLevels
@@ -198,6 +224,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         description: 'In the future, you will gain 10% more Golden Quarks on Singularities per level!',
         maxLevel: 15,
         costPerLevel: 12,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.10 * n,
@@ -210,6 +237,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         description: 'Buying GQ is 0.2% cheaper per level! [-50% maximum reduction]',
         maxLevel: 75,
         costPerLevel: 60,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 - Math.min(0.5, n / 500),
@@ -367,6 +395,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         description: 'Apparently, you can use this bar to attract more Offerings. +8% per level, to be precise.',
         maxLevel: 25,
         costPerLevel: 25,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.08 * n,
@@ -379,6 +408,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         description: 'This bar is so prestine, it\'ll make anyone submit their Offerings. +4% per level, to be precise.',
         maxLevel: 40,
         costPerLevel: 500,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.04 * n,
@@ -403,6 +433,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         description: 'Holy crap, water bending! +8% gained Obtainium per level.',
         maxLevel: 25,
         costPerLevel: 25,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.08 * n,
@@ -415,6 +446,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         description: 'A rising tide lifts all boats. +4% gained Obtainium per level.',
         maxLevel: 40,
         costPerLevel: 500,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.04 * n,
@@ -439,6 +471,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         description: 'Burn some more Golden Quarks! +8% gained Cubes per level.',
         maxLevel: 25,
         costPerLevel: 25,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.08 * n,
@@ -451,6 +484,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         description: 'Even Dante is impressed. +4% gained Cubes per level.',
         maxLevel: 40,
         costPerLevel: 500,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.04 * n,
@@ -594,6 +628,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         maxLevel: 10,
         costPerLevel: 999,
         minimumSingularity: 4,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: Math.max(1, 10 * Math.pow(n, 2)),
@@ -607,6 +642,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         maxLevel: 10,
         costPerLevel: 1e8,
         minimumSingularity: 121,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: Math.max(1, 2 * n),
@@ -620,6 +656,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         maxLevel: 10,
         costPerLevel: 1e12,
         minimumSingularity: 196,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: Math.max(1, 1 + 0.5 * n),
@@ -724,6 +761,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         maxLevel: 25,
         costPerLevel: 40000,
         minimumSingularity: 36,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.04 * n,
@@ -737,6 +775,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         maxLevel: 50,
         costPerLevel: 250000,
         minimumSingularity: 55,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.02 * n,
@@ -750,6 +789,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         maxLevel: 100,
         costPerLevel: 750000,
         minimumSingularity: 77,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.01 * n,
@@ -763,6 +803,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         maxLevel: 200,
         costPerLevel: 7777777,
         minimumSingularity: 100,
+        canExceedCap: true,
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.005 * n,
@@ -1170,6 +1211,18 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [40],
         description: () => {
             return 'Runes autobuyer can also buy Talisman Shards and Fragments'
+        }
+    },
+    {
+        name: 'Overclocked',
+        levels: [50, 60, 75, 100, 125, 150, 175, 200, 225, 250],
+        description: (n: number, levels: number[]) => {
+            for (let i = levels.length - 1; i >= 0; i--) {
+                if (n >= levels[i]) {
+                    return `Level Caps on Certain Singularity Upgrades are increased by ${i+1}!`
+                }
+            }
+            return 'This is a bug! Contact Platonic if you see this message, somehow.'
         }
     },
     {
