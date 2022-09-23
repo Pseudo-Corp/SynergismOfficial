@@ -139,7 +139,7 @@ export const resetdetails = (input: resetNames) => {
         case 'ascension':
             currencyImage1.style.display = 'none'
             resetCurrencyGain.textContent = '';
-            resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds.\n(Real-time ' + format(player.ascensionCounterRealReal, 0, false) + ' Seconds)';
+            resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds. (Real-time ' + format(player.ascensionCounterRealReal, 0, false) + ' Seconds)';
             resetInfo.style.color = 'gold';
             break;
         case 'singularity':

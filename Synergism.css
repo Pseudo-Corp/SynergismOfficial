@@ -1914,6 +1914,7 @@ p#reincarnatehotkeys {
 
 #shopHovers {
     width: 800px;
+    min-height: 8.2em;
 }
 
 #shopHovers > p { margin: 0; }
@@ -2112,7 +2113,7 @@ p#reincarnatehotkeys {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 125%;
+    width: 126%;
 }
 
 .cubeToQuark {
@@ -2676,8 +2677,8 @@ p#ascendHotKeys {
 
 #toggle36,
 #toggle37 {
-    width: 5em;
-    min-width: 60px;
+    width: 6em;
+    min-width: 80px;
 }
 
 .runeButtonsAvailable {
