@@ -49,13 +49,6 @@ import { octeractData, OcteractUpgrade } from './Octeracts';
 import { toggleTheme } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers'
 
-/**
- * Whether or not the current version is a testing version or a main version.
- * This should be detected when importing a file.
- */
-//export const isTesting = false;
-//export const version = '2.5.5';
-
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
     worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),
@@ -778,6 +771,7 @@ export const player: Player = {
         octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree']),
         octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
         octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
+        octeractImprovedFree4: new OcteractUpgrade(octeractData['octeractImprovedFree4']),
         octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1']),
         octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1']),
         octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
@@ -865,6 +859,9 @@ const loadSynergy = async () => {
         Object.defineProperty(window, 'Decimal', {
             value: Decimal
         });
+        if (data) {
+            data.exporttest = false;
+        }
     }
 
     Object.assign(G, { ...blankGlobals });
@@ -4018,8 +4015,9 @@ export const reloadShit = async (reset = false) => {
 
 window.addEventListener('load', () => {
     const ver = DOMCacheGetOrSet('versionnumber');
+    const addZero = (n: number) => `${n}`.padStart(2, '0')
     if (ver instanceof HTMLElement) {
-        const textUpdate = !isNaN(lastUpdated.getTime()) ? ` [Last Update: ${lastUpdated.getHours()}:${lastUpdated.getMinutes()} UTC ${lastUpdated.getDate()}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` : '';
+        const textUpdate = !isNaN(lastUpdated.getTime()) ? ` [Last Update: ${addZero(lastUpdated.getHours())}:${addZero(lastUpdated.getMinutes())} UTC ${addZero(lastUpdated.getDate())}-${lastUpdated.toLocaleString('en-us', {month: 'short'})}-${lastUpdated.getFullYear()}].` : '';
         ver.textContent =
             `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality` +
             textUpdate +

@@ -98,8 +98,8 @@ export class SingularityUpgrade extends DynamicUpgrade {
     }
 
     /**
-     * Buy levels up until togglebuy or maxxed.
-     * @returns An alert indicating cannot afford, already maxxed or purchased with how many
+     * Buy levels up until togglebuy or maxed.
+     * @returns An alert indicating cannot afford, already maxed or purchased with how many
      *          levels purchased
      */
     public async buyLevel(event: MouseEvent): Promise<void> {
@@ -174,7 +174,8 @@ export class SingularityUpgrade extends DynamicUpgrade {
         if (player.octeractUpgrades.octeractImprovedFree.getEffect().bonus) {
             let exponent = 0.6
             exponent += +player.octeractUpgrades.octeractImprovedFree2.getEffect().bonus;
-            exponent += +player.octeractUpgrades.octeractImprovedFree3.getEffect().bonus
+            exponent += +player.octeractUpgrades.octeractImprovedFree3.getEffect().bonus;
+            exponent += +player.octeractUpgrades.octeractImprovedFree4.getEffect().bonus;
             polynomialLevels = Math.pow(this.level * actualFreeLevels, exponent)
         }
 
@@ -460,14 +461,14 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singCitadel: {
         name: 'Citadel of Singularity',
-        description: 'This structure is so obscured by Singularity Fog! But it gives +1% Obtainium, Offerings, and 3-7D cubes per level!',
+        description: 'This structure is so obscured by Singularity Fog! But it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!',
         maxLevel: -1,
         costPerLevel: 500000,
         minimumSingularity: 100,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.01 * n,
-                desc: `Obtainium, Offerings, and 3-7D Cubes +${format(n)}%, forever!`
+                bonus: (1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100),
+                desc: `Obtainium, Offerings, and 3-7D Cubes +${format(100 * ((1 + 0.02 * n) * (1 + Math.floor(n/10)/100) - 1))}%, forever!`
             }
         }
     },
@@ -785,7 +786,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     platonicAlpha: {
         name: 'Platonic ALPHA...?',
-        description: 'Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxxed!',
+        description: 'Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxed!',
         maxLevel: 1,
         costPerLevel: 2e7,
         minimumSingularity: 70,
@@ -865,7 +866,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'A mediocre ascension speedup!',
         description: 'Ascension speed is increased by 30% if Ascension timer is less than 10 seconds, for every second below it is.',
         maxLevel: 1,
-        costPerLevel: 3e12,
+        costPerLevel: 1e12,
         minimumSingularity: 150,
         effect: (n: number) => {
             return {
@@ -891,7 +892,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'The Ultimate Pen',
         description: 'You. It is you who is the author of your own story!',
         maxLevel: 1,
-        costPerLevel: 999999999999,
+        costPerLevel: Number.MAX_SAFE_INTEGER,
         minimumSingularity: 250,
         effect: (n: number) => {
             return {
