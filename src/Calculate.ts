@@ -1416,6 +1416,7 @@ export const octeractGainPerSecond = () => {
         +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
         1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
         +player.octeractUpgrades.octeractGain.getEffect().bonus,
+        +player.octeractUpgrades.octeractGain2.getEffect().bonus,
         derpsmithCornucopiaBonus(),
         Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
         1 + calculateEventBuff('Octeract'),
