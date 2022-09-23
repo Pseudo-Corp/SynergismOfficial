@@ -102,8 +102,8 @@ export const generateExportSummary = async():Promise<void> => {
         ascension = ascension + `Challenge 14 Completions: ${player.challengecompletions[14]}/${getMaxChallenges(14)}\n`
         if (player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0) {
             ascension = ascension + `Challenge 15 Exponent: ${format(player.challenge15Exponent, 2, true)}\n`
-            ascension = ascension + `Research [8x25] MAXXED: ${(player.researches[200] === 1e5) ? '✔' : '✖'}\n`
-            ascension = ascension + `Cube [w5x10] MAXXED: ${(player.cubeUpgrades[50] === 1e5) ? '✔' : '✖'}\n`
+            ascension = ascension + `Research [8x25] MAXED: ${(player.researches[200] === 1e5) ? '✔' : '✖'}\n`
+            ascension = ascension + `Cube [w5x10] MAXED: ${(player.cubeUpgrades[50] === 1e5) ? '✔' : '✖'}\n`
             ascension = ascension + `Platonic α: ${player.platonicUpgrades[5] > 0 ? '✔' : '✖'}\n`
             ascension = ascension + `Platonic β: ${player.platonicUpgrades[10] > 0 ? '✔' : '✖'}\n`
             ascension = ascension + `Platonic Ω: ${player.platonicUpgrades[15] > 0 ? '✔' : '✖'}\n`
@@ -185,7 +185,7 @@ export const generateExportSummary = async():Promise<void> => {
     // Create Shop Stuffs
     let shopUpgradeStats = '\n'
     if (player.reincarnationCount > 0 || player.highestSingularityCount > 0) {
-        shopUpgradeStats = '===== SHOP UPGRADES =====\n - [★]: Upgrade is MAXXED - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
+        shopUpgradeStats = '===== SHOP UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
         const shopUpgrade = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
         let totalShopUpgradeCount = 0
         let totalShopUpgradeUnlocked = 0
@@ -224,7 +224,7 @@ export const generateExportSummary = async():Promise<void> => {
         }
         shopUpgradeStats = shopUpgradeStats + subCategoryDivisor
         shopUpgradeStats = shopUpgradeStats + `Upgrades Unlocked: ${totalShopUpgradeUnlocked}/${totalShopUpgradeCount}\n`
-        shopUpgradeStats = shopUpgradeStats + `Upgrades MAXXED ${totalShopUpgradeMax}/${totalShopUpgradeCount}\n`
+        shopUpgradeStats = shopUpgradeStats + `Upgrades MAXED ${totalShopUpgradeMax}/${totalShopUpgradeCount}\n`
         shopUpgradeStats = shopUpgradeStats + `Quarks Spent in Shop: ${format(totalQuarksSpent, 0, true)}\n`
         shopUpgradeStats = shopUpgradeStats + subCategoryDivisor
     }
@@ -232,7 +232,7 @@ export const generateExportSummary = async():Promise<void> => {
     // Create Singularity Stuffs
     let singularityUpgradeStats = '\n'
     if (player.highestSingularityCount > 0) {
-        singularityUpgradeStats = '===== SINGULARITY UPGRADES =====\n - [★]: Upgrade is MAXXED - \n - [∞]: Upgrade is infinite - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
+        singularityUpgradeStats = '===== SINGULARITY UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
         const singUpgrade = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[]
         let totalSingUpgradeCount = -1 // One upgrade cannot ever be leveled, by design, so subtract that from the actual count
         let totalSingInfiniteLevel = 0
@@ -285,7 +285,7 @@ export const generateExportSummary = async():Promise<void> => {
         }
         singularityUpgradeStats = singularityUpgradeStats + subCategoryDivisor
         singularityUpgradeStats = singularityUpgradeStats + `Upgrades Unlocked: ${totalSingUpgradeUnlocked}/${totalSingUpgradeCount}\n`
-        singularityUpgradeStats = singularityUpgradeStats + `Upgrades MAXXED: ${totalSingUpgradeMax}/${totalSingUpgradeCount - totalSingInfiniteLevel}\n`
+        singularityUpgradeStats = singularityUpgradeStats + `Upgrades MAXED: ${totalSingUpgradeMax}/${totalSingUpgradeCount - totalSingInfiniteLevel}\n`
         singularityUpgradeStats = singularityUpgradeStats + `Golden Quarks Spent on Upgrades: ${format(totalGoldenQuarksSpent, 0, true)}\n`
         singularityUpgradeStats = singularityUpgradeStats + subCategoryDivisor
     }
@@ -293,7 +293,7 @@ export const generateExportSummary = async():Promise<void> => {
     // Create Octeract Stuff
     let octeractUpgradeStats =  '\n'
     if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
-        octeractUpgradeStats =  '===== OCTERACT UPGRADES =====\n - [★]: Upgrade is MAXXED - \n - [∞]: Upgrade is infinite - \n - [ ]: Upgrade INCOMPLETE - \n'
+        octeractUpgradeStats =  '===== OCTERACT UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [ ]: Upgrade INCOMPLETE - \n'
         const octUpgrade = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[]
         let totalOctUpgradeCount = 0
         let totalOctUpgradeMax = 0
@@ -335,7 +335,7 @@ export const generateExportSummary = async():Promise<void> => {
             octeractUpgradeStats = octeractUpgradeStats + upgradeText
         }
         octeractUpgradeStats = octeractUpgradeStats + subCategoryDivisor
-        octeractUpgradeStats = octeractUpgradeStats + `Upgrades MAXXED: ${totalOctUpgradeMax}/${totalOctUpgradeCount}\n`
+        octeractUpgradeStats = octeractUpgradeStats + `Upgrades MAXED: ${totalOctUpgradeMax}/${totalOctUpgradeCount}\n`
         octeractUpgradeStats = octeractUpgradeStats + `Octeracts Spent on Upgrades: ${format(totalOcteractsSpent, 0, true)}\n`
         octeractUpgradeStats = octeractUpgradeStats + subCategoryDivisor
     }

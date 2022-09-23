@@ -30,8 +30,8 @@ export class OcteractUpgrade extends DynamicUpgrade {
     }
 
     /**
-     * Buy levels up until togglebuy or maxxed.
-     * @returns An alert indicating cannot afford, already maxxed or purchased with how many
+     * Buy levels up until togglebuy or maxed.
+     * @returns An alert indicating cannot afford, already maxed or purchased with how many
      *          levels purchased
      */
     public async buyLevel(event: MouseEvent): Promise<void> {
