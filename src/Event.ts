@@ -53,22 +53,22 @@ const events: Record<string, HolidayData> = {
     },
     // Last active event
     last: {
-        name: 'Challenge 15 Compensation!',
-        color: 'green',
-        url: 'https://www.youtube.com/watch?v=yXexmdCGPFU',
+        name: 'Derpsmith Tea Party',
+        color: 'white',
+        url: 'https://www.youtube.com/watch?v=znxoba0k000',
         everyYear: false,
-        start: '08/13/2022 00:00:00',
-        end: '08/14/2022 23:59:59',
+        start: '09/24/2022 00:00:00',
+        end: '10/01/2022 23:59:59',
         notice: 3,
         event: true,
         buffs: {
-            quark: 0.4,
-            globalSpeed: 0.5,
-            ascensionSpeed: 0.5,
+            quark: 0.25,
+            globalSpeed: 1,
+            ascensionSpeed: 1,
             antSacrifice: 1,
             offering: 1,
             obtainium: 1,
-            octeract: 0.5
+            octeract: 0.3
         }
     }
     // Event example

@@ -1123,6 +1123,8 @@ export const singularity = async (): Promise<void> => {
     }
 
     const saveCode42 = player.codes.get(42) ?? false
+    const saveCode43 = player.codes.get(43) ?? false
+
     // Import Game
 
     await importSynergism(btoa(JSON.stringify(hold)), true);
@@ -1132,6 +1134,7 @@ export const singularity = async (): Promise<void> => {
     player.codes.set(40, true);
     player.codes.set(41, true);
     player.codes.set(42, saveCode42)
+    player.codes.set(43, saveCode43)
     updateSingularityMilestoneAwards();
 }
 

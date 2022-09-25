@@ -787,7 +787,7 @@ export const player: Player = {
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 42 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 43 }, (_, i) => [i + 1, false]))
 });
 
 // The main cause of the double singularity bug was caused by a race condition
