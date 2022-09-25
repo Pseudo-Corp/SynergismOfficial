@@ -49,6 +49,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
 
     /* Full reset for easy out of order change */
     if (!initial) { //For quicker first load
+        body.style.removeProperty('--header-color');
         body.style.removeProperty('--bg-color');
         body.style.removeProperty('--alert-color');
         body.style.removeProperty('--history-lines');
@@ -145,6 +146,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         localStorage.removeItem('theme');
         themeButton.textContent = 'Dark Mode';
     } else if (themeNumber === 2) { //'Darker Mode'
+        body.style.setProperty('--header-color', 'black');
         body.style.setProperty('--bg-color', '#0c0c0f');
         body.style.setProperty('--alert-color', '#040406');
         body.style.setProperty('--history-lines', '#1b1b22');
@@ -173,6 +175,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
 
         themeButton.textContent = 'Darker Mode';
     } else if (themeNumber === 3) { //'Lighter Dark Mode'
+        body.style.setProperty('--header-color', '#0e0d12');
         body.style.setProperty('--bg-color', '#1c1b22');
         body.style.setProperty('--alert-color', '#141319');
         body.style.setProperty('--history-lines', '#083a3a');
@@ -198,6 +201,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         themeButton.textContent = 'Lighter Dark Mode';
     } else if (themeNumber === 4) { //'Light Mode'
         body.classList.add('textOutline');
+        body.style.setProperty('--header-color', '#736e8d');
         body.style.setProperty('--bg-color', '#7c7891');
         body.style.setProperty('--alert-color', '#646175');
         body.style.setProperty('--history-lines', '#156e71');
@@ -256,6 +260,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
 
         themeButton.textContent = 'Light Mode';
     } else if (themeNumber === 5) { //'Dracula Mode'
+        body.style.setProperty('--header-color', '#0a0a11');
         body.style.setProperty('--bg-color', '#131319');
         body.style.setProperty('--alert-color', '#2a1035');
         body.style.setProperty('--history-lines', '#012d1c');

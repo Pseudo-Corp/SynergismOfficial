@@ -66,6 +66,7 @@ body {
     --gray-text-color: gray;
     --green-text-color: green;
     --lightseagreen-text-color: lightseagreen;
+    --header-color: var(--bg-color);
     --bg-color: #111;
     --alert-color: #141414;
     --history-lines: #262626;
@@ -160,7 +161,7 @@ input {
     min-height: 20px;
     color: white;
     padding: 0 0 0 0.2em;
-    background-color: #171717;
+    background-color: var(--blackbtn-color);
 }
 
 input[type="checkbox"] {
@@ -2977,6 +2978,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: var(--header-color);
 }
 
 header .img {
