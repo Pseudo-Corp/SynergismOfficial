@@ -15,4 +15,4 @@ export const lastUpdated = new Date('##LAST_UPDATED##');
  * CHANGE THIS ONE INSTEAD
  */
 // eslint-disable-next-line
-export const prod: boolean = true
+export const prod: boolean = false
