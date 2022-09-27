@@ -861,9 +861,6 @@ const loadSynergy = async () => {
         Object.defineProperty(window, 'Decimal', {
             value: Decimal
         });
-        if (data) {
-            data.exporttest = false;
-        }
     }
 
     Object.assign(G, { ...blankGlobals });
@@ -1769,6 +1766,7 @@ const loadSynergy = async () => {
         resetHistoryRenderAllTables();
         updateSingularityAchievements();
     }
+
     updateAchievementBG();
     if (player.currentChallenge.reincarnation) {
         resetrepeat('reincarnationChallenge');
