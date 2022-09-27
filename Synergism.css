@@ -271,7 +271,7 @@ body button:active {
     top: 50vh;
     left: 50vw;
     transform: translate(-50%, -50%);
-    z-index: 6969;
+    z-index: 10000000;
     width: 30vw;
     height: 30vh;
     min-width: min(min(30em, 800px), 100vw);
