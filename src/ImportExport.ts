@@ -131,7 +131,12 @@ export const exportSynergism = async () => {
         player.worlds.add(quarkData.gain);
         player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
     }
-    await saveSynergy();
+
+    const saved = await saveSynergy();
+
+    if (!saved) {
+        return
+    }
 
     const toClipboard = getElementById<HTMLInputElement>('saveType').checked;
     const save =
@@ -224,10 +229,10 @@ export const resetGame = async () => {
     toggleSubTab(10, 0); // set 'singularity main'
     toggleSubTab(-1, 0); // set 'statistics main'
     //Import Game
-    await importSynergism(btoa(JSON.stringify(hold))!, true);
+    await importSynergism(btoa(JSON.stringify(hold)), true);
 }
 
-export const importSynergism = async (input: string, reset = false) => {
+export const importSynergism = async (input: string | null, reset = false) => {
     if (typeof input !== 'string') {
         return Alert('Invalid character, could not save! 😕');
     }
@@ -639,7 +644,12 @@ export const promocodes = async (input: string | null, amount?: number) => {
         el.textContent = 'Your code is either invalid or already used. Try again!'
     }
 
-    await saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
+    const saved = await saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
+
+    if (!saved) {
+        return
+    }
+
     Synergism.emit('promocode', input);
 
     setTimeout(() => el.textContent = '', 15000);

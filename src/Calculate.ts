@@ -1074,7 +1074,12 @@ export const calculateOffline = async (forceTime = 0) => {
         player.loadedNov13Vers = true
     }
 
-    await saveSynergy();
+    const saved = await saveSynergy();
+
+    if (!saved) {
+        return
+    }
+
     updateTalismanInventory();
     calculateObtainium();
     calculateAnts();

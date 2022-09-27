@@ -3963,7 +3963,11 @@ export const reloadShit = async (reset = false) => {
         await calculateOffline();
     } else {
         player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 });
-        await saveSynergy();
+        const saved = await saveSynergy();
+
+        if (!saved) {
+            return
+        }
     }
 
     settingTheme();
