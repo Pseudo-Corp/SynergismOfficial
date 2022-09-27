@@ -104,7 +104,9 @@ export const updateClassList = (targetElement: string, additions: string[], remo
 export const btoa = (s: string) => {
     try {
         return window.btoa(s);
-    } catch {
+    } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('An error occurred:', err)
         // e.code = 5
         return null;
     }
@@ -144,4 +146,16 @@ export const formatMS = (ms: number) => Object.entries({
 
 export const formatS = (s: number) => {
     return formatMS(1000 * s)
+}
+
+export const cleanString = (s: string): string => {
+    let cleaned = ''
+
+    for (let i = 0; i < s.length; i++) {
+        const code = s.charCodeAt(i)
+
+        cleaned += code > 255 ? '_' : s[i]
+    }
+
+    return cleaned
 }

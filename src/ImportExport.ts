@@ -1,7 +1,7 @@
 import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
 import { octeractGainPerSecond } from './Calculate';
 import { testing, version } from './Config';
-import { getElementById } from './Utility';
+import { cleanString, getElementById } from './Utility';
 import LZString from 'lz-string';
 import { achievementaward } from './Achievements';
 import type { Player } from './types/Synergism';
@@ -69,7 +69,7 @@ const getRealTime = (type = 'default', use12 = false) => {
 
 export const updateSaveString = (input: HTMLInputElement) => {
     const value = input.value.slice(0, 100);
-    player.saveString = value;
+    player.saveString = cleanString(value);
 }
 
 export const getVer = () => /[\d?=.]+/.exec(version)?.[0] ?? version
@@ -113,7 +113,7 @@ export const saveFilename = () => {
         }
     });
 
-    return t;
+    return cleanString(t)
 }
 
 export const exportSynergism = async () => {
