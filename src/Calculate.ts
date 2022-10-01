@@ -1683,6 +1683,7 @@ export const calculateSummationNonLinear = (
         : Math.floor(v);
 
     buyToLevel = Math.min(buyToLevel, buyAmount + baseLevel)
+    buyToLevel = Math.max(buyToLevel, baseLevel)
     let totalCost = baseCost * (c * Math.pow(buyToLevel, 2) + buyToLevel * (1 - c)) - alreadySpent
     if (buyToLevel == baseLevel) {
         totalCost = baseCost * (1 + 2 * c * baseLevel)
@@ -1767,7 +1768,7 @@ export const calculateCubicSumData = (initialLevel: number, baseCost: number,
     const determinantRoot = Math.pow(totalToSpend / baseCost, 0.5) // Assume nonnegative!
     const solution = solveQuadratic(1, 1, -2 * determinantRoot, true)
 
-    const levelToBuy = Math.min(maxLevel, Math.floor(solution))
+    const levelToBuy = Math.max(Math.min(maxLevel, Math.floor(solution)), initialLevel)
     const realCost = (levelToBuy === initialLevel)? baseCost * Math.pow(initialLevel + 1, 3) :
         baseCost * calculateSummationCubic(levelToBuy) - alreadySpent;
 
