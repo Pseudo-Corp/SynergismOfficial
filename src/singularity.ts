@@ -1475,7 +1475,7 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
 export const calculateNextSpike = (singularityCount: number = player.singularityCount): number => {
     const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 250];
     for (const sing of singularityPenaltyThreshold) {
-        if (sing >= singularityCount) {
+        if (sing > singularityCount) {
             return sing;
         }
     }
