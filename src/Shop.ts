@@ -825,9 +825,9 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
             buyCost = buyData.cost;
     }
 
-    const noRefunds = shopItem.refundable ? '' : ' REMINDER: No refunds!';
     const singular = shopItem.maxLevel === 1;
     const merch = buyAmount.toLocaleString() + (shopItem.type === shopUpgradeTypes.UPGRADE ? ' level' : ' vial') + (buyAmount === 1 ? '' : 's');
+    const noRefunds = shopItem.refundable ? '' : '\n\n\u26A0\uFE0F !! No Refunds !! \u26A0\uFE0F';
 
     if (player.shopBuyMaxToggle === 'ANY' && !singular) {
         const buyInput = await Prompt(`You can afford to purchase up to ${merch} of ${friendlyShopName(input)} for ${buyCost.toLocaleString()} Quarks. How many would you like to buy?${noRefunds}`);
