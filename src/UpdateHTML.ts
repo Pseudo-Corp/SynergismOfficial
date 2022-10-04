@@ -1062,6 +1062,7 @@ export const PromptCB = (text: string, cb: (value: string | null) => void) => {
         } // canceled
 
         el.value = el.textContent = '';
+        popup.querySelector('input')!.blur();
     }
 
     const kbListener = (e: KeyboardEvent) => {
