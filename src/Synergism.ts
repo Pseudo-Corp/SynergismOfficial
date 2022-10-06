@@ -469,6 +469,7 @@ export const player: Player = {
     shopBuyMaxToggle: false,
     shopHideToggle: false,
     shopConfirmationToggle: true,
+    autoPotionTimer: 0,
 
     autoSacrificeToggle: false,
     autoBuyFragment: false,
@@ -777,8 +778,11 @@ export const player: Player = {
         octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1']),
         octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1']),
         octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
+        octeractAscensions2: new OcteractUpgrade(octeractData['octeractAscensions2']),
         octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
-        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward'])
+        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
+        octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
+        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency'])
     },
 
     dailyCodeUsed: false,
@@ -3677,6 +3681,7 @@ const tack = (dt: number) => {
         addTimers('goldenQuarks', dt)
         addTimers('octeracts', dt)
         addTimers('singularity', dt)
+        addTimers('autoPotion', dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
         if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {

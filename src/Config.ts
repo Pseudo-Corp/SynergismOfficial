@@ -1,4 +1,4 @@
-export const version = '2.9.20: September 24 Event Special!';
+export const version = '2.9.20: October 6 Auto Potion Edition';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

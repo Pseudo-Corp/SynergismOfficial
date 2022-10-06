@@ -1520,7 +1520,7 @@ export const calculateAscensionAcceleration = () => {
         1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed.getEffect().bonus * player.singularityCount, // Oct Upgrade 1
         1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount, // Oct Upgrade 2
         1 + calculateEventBuff('Ascension Speed'),                                                      // Event
-        (player.singularityUpgrades.singAscensionSpeed2.level > 0) ? Math.pow(1.3, Math.max(0, 10 - player.ascensionCounter)) : 1 // Sing Ascension Speed lol
+        (player.singularityUpgrades.singAscensionSpeed2.level > 0 && player.runelevels[6] < 1) ? 6 : 1 // Sing Ascension Speed lol
     ]
     const baseMultiplier = productContents(arr) / calculateSingularityDebuff('Ascension Speed')
     const exponent = (player.singularityUpgrades.singAscensionSpeed.level > 0) ?
@@ -1949,6 +1949,7 @@ export const calcAscensionCount = () => {
         ascCount *= (1 + 1/8 * player.singularityCount)
         ascCount *= +player.singularityUpgrades.ascensions.getEffect().bonus
         ascCount *= +player.octeractUpgrades.octeractAscensions.getEffect().bonus
+        ascCount *= +player.octeractUpgrades.octeractAscensions2.getEffect().bonus
     }
 
     return Math.floor(ascCount);

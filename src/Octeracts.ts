@@ -134,6 +134,12 @@ export class OcteractUpgrade extends DynamicUpgrade {
         return this.effect(this.actualTotalLevels())
     }
 
+    public refund(): void {
+        player.wowOcteracts += this.octeractsInvested;
+        this.level = 0;
+        this.octeractsInvested = 0;
+    }
+
 }
 
 export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractData> = {
@@ -464,6 +470,21 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             }
         }
     },
+    octeractAscensions2: {
+        name: 'Hidden Late Fees',
+        description: 'Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels. But... this scales a lot faster. Must be those hidden late fees.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(10, Math.pow(level, 0.5) / 3)
+        },
+        maxLevel: -1,
+        costPerLevel: 1e12,
+        effect: (n: number) => {
+            return {
+                bonus: (1 + n / 100) * (1 + 2 * Math.floor(n / 10) / 100),
+                desc: `Ascension Count increases ${format((100 + n) * (1 + 2 * Math.floor(n/10) / 100) - 100, 1, true)}% faster.`
+            }
+        }
+    },
     octeractAscensionsOcteractGain: {
         name: 'Digital Octeract Accumulator',
         description: 'Octeract gain is 1% faster for every digit in your Ascension count!',
@@ -493,6 +514,37 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 desc: `Singularities give ${100 * n}% more GQ and count as ${n} more.`
             }
         }
+    },
+    octeractAutoPotionSpeed: {
+        name: 'Pill of Increased Thirst',
+        description: 'You can buy pills of thirst-making to consume potions automatically faster! 2% faster per level to be precise.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(10, level)
+        },
+        maxLevel: -1,
+        costPerLevel: 1e-10,
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 2 * n / 100,
+                desc: `Auto Potion Singularity Perk works ${2 * n}% faster than before!`
+            }
+        }
+    },
+    octeractAutoPotionEfficiency: {
+        name: 'This one is on the house!',
+        description: 'Thanks to the generosity of your Derpsmith, Auto Potion replenishes 4% more per level of this upgrade! At max level, Auto Potion no longer consumes anything.',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(10, level)
+        },
+        maxLevel: 100,
+        costPerLevel: 1e-10 * Math.pow(10, 0.5),
+        effect: (n: number) => {
+            return {
+                bonus: 1 + 4 * n / 100,
+                desc: `Auto Potion Singularity Perk replenishes potions ${4 * n}% faster than before!`
+            }
+        }
     }
+
 }
 

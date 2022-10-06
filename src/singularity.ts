@@ -904,14 +904,14 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singAscensionSpeed2: {
         name: 'A mediocre ascension speedup!',
-        description: 'Ascension speed is increased by 30% if Ascension timer is less than 10 seconds, for every second below it is.',
+        description: 'Ascension speed is multiplied by 6 if you have not purchased Antiquities in your current Singularity.',
         maxLevel: 1,
         costPerLevel: 1e12,
         minimumSingularity: 150,
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: `For every second under 10 on Ascension timer, Ascension Speed +${format(30 * n, 0, true)}%.` // TODO
+                desc: 'The effect is clear!' // TODO
             }
         }
     },
@@ -1089,6 +1089,13 @@ export const singularityPerks: SingularityPerk[] = [
             } else {
                 return 'You start each Singularity with 10 free levels of each Shop upgrade in the first row'
             }
+        }
+    },
+    {
+        name: 'Potion Autogenerator',
+        levels: [6],
+        description: () => {
+            return 'Every 60 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity. You also refill potions at 20% of the usage rate!'
         }
     },
     {
