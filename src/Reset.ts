@@ -492,7 +492,9 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     if (input === 'ascension' || input === 'ascensionChallenge' || input === 'singularity') {
         const metaData = CalcCorruptionStuff()
-        ascensionAchievementCheck(3, metaData[3])
+        if (player.challengecompletions[10] > 0) {
+            ascensionAchievementCheck(3, metaData[3]);
+        }
         // reset auto challenges
         player.currentChallenge.transcension = 0;
         player.currentChallenge.reincarnation = 0;
