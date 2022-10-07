@@ -517,7 +517,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     octeractAutoPotionSpeed: {
         name: 'Pill of Increased Thirst',
-        description: 'You can buy pills of thirst-making to consume potions automatically faster! 2% faster per level to be precise.',
+        description: 'You can buy pills of thirst-making to consume potions automatically faster! 4% faster per level to be precise.',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(10, level)
         },
@@ -525,14 +525,14 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costPerLevel: 1e-10,
         effect: (n: number) => {
             return {
-                bonus: 1 + 2 * n / 100,
+                bonus: 1 + 4 * n / 100,
                 desc: `Auto Potion Singularity Perk works ${2 * n}% faster than before!`
             }
         }
     },
     octeractAutoPotionEfficiency: {
-        name: 'This one is on the house!',
-        description: 'Thanks to the generosity of your Derpsmith, Auto Potion replenishes 4% more per level of this upgrade! At max level, Auto Potion no longer consumes anything.',
+        name: 'Vitamin O Infusion',
+        description: 'Thanks to the generosity of your Derpsmith, Potions are 2% more potent per level!',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(10, level)
         },
@@ -540,8 +540,8 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costPerLevel: 1e-10 * Math.pow(10, 0.5),
         effect: (n: number) => {
             return {
-                bonus: 1 + 4 * n / 100,
-                desc: `Auto Potion Singularity Perk replenishes potions ${4 * n}% faster than before!`
+                bonus: 1 + 2 * n / 100,
+                desc: `Potions give ${2 * n}% more Offerings and Obtainium.`
             }
         }
     }

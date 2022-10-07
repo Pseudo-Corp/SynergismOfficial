@@ -885,6 +885,7 @@ export const useConsumable = async (input: ShopUpgradeNames, automatic = false, 
         const multiplier = +player.singularityUpgrades.potionBuff.getEffect().bonus *
                            +player.singularityUpgrades.potionBuff2.getEffect().bonus *
                            +player.singularityUpgrades.potionBuff3.getEffect().bonus *
+                           +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus *
                            used;
 
         if (input === 'offeringPotion') {

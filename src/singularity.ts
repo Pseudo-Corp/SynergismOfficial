@@ -1096,7 +1096,7 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Potion Autogenerator',
         levels: [6],
         description: () => {
-            return 'Every 60 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity. You also refill potions at 20% of the usage rate!'
+            return 'Every 300 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity.'
         }
     },
     {
