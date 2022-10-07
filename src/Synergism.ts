@@ -3128,6 +3128,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         } else {
             await singularity();
             canSave = true;
+            await saveSynergy();
             return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
         }
     }
@@ -3973,10 +3974,13 @@ export const reloadShit = async (reset = false) => {
         await calculateOffline();
     } else {
         player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 });
-        const saved = await saveSynergy();
-
-        if (!saved) {
-            return
+        // saving is disabled during a singularity event to prevent bug
+        // early return here if the save fails can keep game state from properly resetting after a singularity
+        if (canSave) {
+            const saved = await saveSynergy();
+            if (!saved) {
+                return
+            }
         }
     }
 
