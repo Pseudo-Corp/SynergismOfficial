@@ -7,7 +7,7 @@ import { visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals';
 import { Globals as G } from './Variables';
 import { buyAllBlessings } from './Buy';
 import { buyAllTalismanResources } from './Talismans'
-import { useConsumable } from './Shop';
+import { useConsumable, shopData} from './Shop';
 
 type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' |
                   'quarks' | 'goldenQuarks' | 'singularity' | 'octeracts' |
@@ -92,10 +92,16 @@ export const addTimers = (input: TimerInput, time = 0) => {
                     player.autoPotionTimer %= timerThreshold
                     if (player.toggles[42] === true) {
                         player.shopUpgrades.offeringPotion += amountOfPotions * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus / 5
+                        if (player.shopUpgrades.offeringPotion > shopData.offeringPotion.maxLevel) {
+                            player.shopUpgrades.offeringPotion = shopData.offeringPotion.maxLevel
+                        }
                         void useConsumable('offeringPotion', true, amountOfPotions)
                     }
                     if (player.toggles[43] === true) {
                         player.shopUpgrades.obtainiumPotion += amountOfPotions * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus / 5
+                        if (player.shopUpgrades.obtainiumPotion > shopData.obtainiumPotion.maxLevel) {
+                            player.shopUpgrades.obtainiumPotion = shopData.obtainiumPotion.maxLevel
+                        }
                         void useConsumable('obtainiumPotion', true, amountOfPotions)
                     }
                 }
