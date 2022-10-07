@@ -861,6 +861,20 @@ export const buyConsumable = async (input: ShopUpgradeNames) => {
     }
 }
 
+export const autoBuyConsumable = (input: ShopUpgradeNames) => {
+    const maxBuyablePotions = Math.floor(Math.min(Number(player.worlds) / 100, Math.min(shopData[input].maxLevel - player.shopUpgrades[input], Math.pow(player.highestSingularityCount, 2) * 100)));
+
+    if (shopData[input].maxLevel <= player.shopUpgrades[input]) {
+        return;
+    }
+    if (maxBuyablePotions <= 0) {
+        return;
+    }
+
+    player.worlds.sub(100 * maxBuyablePotions);
+    player.shopUpgrades[input] += maxBuyablePotions;
+}
+
 export const useConsumable = async (input: ShopUpgradeNames, automatic = false, used = 1) => {
 
     const p = (player.shopConfirmationToggle && !automatic)
@@ -874,13 +888,13 @@ export const useConsumable = async (input: ShopUpgradeNames, automatic = false, 
                            used;
 
         if (input === 'offeringPotion') {
-            if (player.shopUpgrades.offeringPotion > 0) {
+            if (player.shopUpgrades.offeringPotion >= used) {
                 player.shopUpgrades.offeringPotion -= used;
                 player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
                 player.runeshards = Math.min(1e300, player.runeshards)
             }
         } else if (input === 'obtainiumPotion') {
-            if (player.shopUpgrades.obtainiumPotion > 0) {
+            if (player.shopUpgrades.obtainiumPotion >= used) {
                 player.shopUpgrades.obtainiumPotion -= used;
                 player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
                 player.researchPoints = Math.min(1e300, player.researchPoints)
@@ -888,6 +902,7 @@ export const useConsumable = async (input: ShopUpgradeNames, automatic = false, 
         }
     }
 }
+
 export const resetShopUpgrades = async (ignoreBoolean = false) => {
     let p = false
     if (!ignoreBoolean) {

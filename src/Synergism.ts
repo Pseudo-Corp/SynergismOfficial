@@ -293,7 +293,9 @@ export const player: Player = {
         38: false,
         39: true,
         40: true,
-        41: true
+        41: true,
+        42: false,
+        43: false
     },
 
     challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
