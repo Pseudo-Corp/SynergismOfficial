@@ -1,44 +1,8 @@
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
-export const theme: Theme = {
-    /*  //If custom theme's will be added, add into this object color's that are wished to be saved. Afterwards localy save with:
-        const customTheme = btoa(JSON.stringify(theme)); //btoa (convert to 64 base), to decrease chance of losing information
-        localStorage.setItem('customTheme', customTheme);
-        //To get item from local storage:
-        const get = localStorage.getItem('customTheme');
-        if (get !== null) {
-            const colors = JSON.parse(atob(get)) as Theme;
-            Object.assign(theme, colors);
-        }
-        //Also instead of makin custom theme as its own, reuse old theme as base, and just add extra color changes after last else if, but before if (change) {}
-        //Something like if (custom) { body.style.setProperty('--bg-color', theme.body); } */
-    green: 'green',
-    red: 'red',
-    crimson: 'crimson',
-    orchid: 'orchid',
-    bar: {
-        red: 'red',
-        yellow: '#cca300',
-        green: 'green'
-    }
-};
-
-interface Theme {
-    green: string
-    red: string
-    crimson: string
-    orchid: string
-    bar: {
-        red: string
-        yellow: string
-        green: string
-    }
-}
-
 export const toggleTheme = (initial = false, themeNumber = 1, change = false) => {
     const themeButton = DOMCacheGetOrSet('theme');
     const body = document.body;
-    const { bar } = theme;
 
     if (change) {
         localStorage.setItem('theme', `${themeNumber}`);
@@ -81,15 +45,11 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         body.style.removeProperty('--shoptab-color');
         body.style.removeProperty('--hovershop-color');
         body.style.removeProperty('--hepteract-bar-empty');
+        body.style.removeProperty('--hepteract-bar-red');
+        body.style.removeProperty('--hepteract-bar-yellow');
+        body.style.removeProperty('--hepteract-bar-green');
         body.classList.remove('textOutline');
         //body.classList.add('bodycolor');
-        theme.green = 'green';
-        theme.red = 'red';
-        theme.crimson = 'crimson';
-        theme.orchid = 'orchid';
-        bar.red = 'red';
-        bar.yellow = '#cca300';
-        bar.green = 'green';
         DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = '';
         DOMCacheGetOrSet('actualPotionShop').style.borderColor = '';
         DOMCacheGetOrSet('themeBox').style.backgroundColor = '';
@@ -165,9 +125,9 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         body.style.setProperty('--hoversing-color', '#00007d');
         body.style.setProperty('--shoptab-color', '#6f006f');
         body.style.setProperty('--hepteract-bar-empty', '#3a3a58');
-        bar.red = 'darkred';
-        bar.yellow = '#997a00';
-        bar.green = 'darkgreen';
+        body.style.setProperty('--hepteract-bar-red', 'darkred');
+        body.style.setProperty('--hepteract-bar-yellow', '#997a00');
+        body.style.setProperty('--hepteract-bar-green', 'darkgreen');
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#dd8f00';
         DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0';
         DOMCacheGetOrSet('exportgame').style.backgroundColor = 'black'; //Special cases
@@ -219,20 +179,16 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         body.style.setProperty('--singtab-color', '#00d');
         body.style.setProperty('--hoversing-color', '#1052B6');
         body.style.setProperty('--hepteract-bar-empty', '#858199');
-        bar.red = '#ea1741';
-        bar.yellow = '#cc0';
-        bar.green = 'limegreen';
+        body.style.setProperty('--hepteract-bar-red', '#ea1741');
+        body.style.setProperty('--hepteract-bar-yellow', '#cc0');
+        body.style.setProperty('--hepteract-bar-green', 'limegreen');
         DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#dd8f00';
         DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0';
         DOMCacheGetOrSet('switchTheme2').style.borderColor = '#284242'; //Special Cases
-        theme.green = 'limegreen';
-        theme.red = '#f55';
-        theme.crimson = '#f7617d';
-        theme.orchid = '#dd7dda';
-        body.style.setProperty('--green-text-color', theme.green);
-        body.style.setProperty('--red-text-color', theme.red);
-        body.style.setProperty('--crimson-text-color', theme.crimson);
-        body.style.setProperty('--orchid-text-color', theme.orchid);
+        body.style.setProperty('--green-text-color', 'limegreen');
+        body.style.setProperty('--red-text-color', '#f55');
+        body.style.setProperty('--crimson-text-color', '#f7617d');
+        body.style.setProperty('--orchid-text-color', '#dd7dda');
         body.style.setProperty('--darkorchid-text-color', '#cf9ee8');
         body.style.setProperty('--darkcyan-text-color', 'turquoise');
         body.style.setProperty('--lightseagreen-text-color', 'limegreen');
@@ -265,10 +221,8 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         body.style.setProperty('--alert-color', '#2a1035');
         body.style.setProperty('--history-lines', '#012d1c');
         body.style.setProperty('--text-color', '#ac47ff');
-        theme.crimson = '#eb0000';
-        theme.orchid = '#fd59f7';
-        body.style.setProperty('--crimson-text-color', theme.crimson);
-        body.style.setProperty('--orchid-text-color', theme.orchid);
+        body.style.setProperty('--crimson-text-color', '#eb0000');
+        body.style.setProperty('--orchid-text-color', '#fd59f7');
         body.style.setProperty('--darkorchid-text-color', '#c205ff');
         body.style.setProperty('--gray-text-color', '#ff00c8');
         body.style.setProperty('--box-color', '#000000');
@@ -289,9 +243,9 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         body.style.setProperty('--shoptab-color', '#5800a0');
         body.style.setProperty('--hovershop-color', '#7400d3');
         body.style.setProperty('--hepteract-bar-empty', '#4a4a60');
-        bar.red = '#c90000';
-        bar.yellow = '#919100';
-        bar.green = '#007f3b';
+        body.style.setProperty('--hepteract-bar-red', '#c90000');
+        body.style.setProperty('--hepteract-bar-yellow', '#919100');
+        body.style.setProperty('--hepteract-bar-green', '#007f3b');
         DOMCacheGetOrSet('themeBox').style.backgroundColor = '#0a0a11'; //Special cases
         DOMCacheGetOrSet('themeBox').style.borderColor = '#3c006d';
         DOMCacheGetOrSet('c15Rewards').style.backgroundColor = '#2e001b';

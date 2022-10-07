@@ -6,7 +6,6 @@ import { Globals as G } from './Variables'
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { updateResearchBG } from './Research'
 import { calculateSingularityDebuff } from './singularity'
-import { theme } from './Themes'
 
 export interface IMultiBuy {
     levelCanBuy: number
@@ -237,13 +236,13 @@ export const cubeUpgradeDesc = (i: number, linGrowth = 0, cubic = false) => {
     a.textContent = cubeUpgradeName[i - 1];
     b.textContent = cubeUpgradeDescriptions[i - 1];
     c.textContent = 'Cost: ' + format(metaData.cost, 0, true) + ' Wow! Cubes [+' + format(metaData.levelCanBuy-player.cubeUpgrades[i]!,0,true) + ' Levels]';
-    c.style.color = theme.green
+    c.style.color = 'var(--green-text-color)'
     d.textContent = 'Level: ' + format(player.cubeUpgrades[i], 0, true) + '/' + format(maxLevel, 0, true);
     d.style.color = 'white'
 
     // This conditional is true only in the case where you can buy zero levels.
     if (Number(player.wowCubes) < metaData.cost) {
-        c.style.color = theme.crimson
+        c.style.color = 'var(--crimson-text-color)'
     }
     if (player.cubeUpgrades[i] === maxLevel) {
         c.style.color = 'gold'

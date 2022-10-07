@@ -17,7 +17,6 @@ import type { IMultiBuy } from './Cubes';
 import { calculateMaxTalismanLevel } from './Talismans';
 import { getGoldenQuarkCost } from './singularity';
 import { loadStatisticsUpdate } from './Statistics';
-import { theme } from './Themes';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== 'buildings') {
@@ -465,7 +464,7 @@ const UpdateHeptGridValues = (type: hepteractTypes) => {
     if (!unlocked) {
         textEl.textContent = 'LOCKED';
         barEl.style.width = '100%';
-        barEl.style.backgroundColor = theme.bar.red;
+        barEl.style.backgroundColor = 'var(--hepteract-bar-red)';
     } else {
         const balance = player.hepteractCrafts[type].BAL;
         const cap = player.hepteractCrafts[type].CAP;
@@ -473,11 +472,11 @@ const UpdateHeptGridValues = (type: hepteractTypes) => {
 
         let barColor = '';
         if (barWidth < 34) {
-            barColor = theme.bar.red;
+            barColor = 'var(--hepteract-bar-red)';
         } else if (barWidth >= 34 && barWidth < 68) {
-            barColor = theme.bar.yellow;
+            barColor = 'var(--hepteract-bar-yelow)';
         } else {
-            barColor = theme.bar.green;
+            barColor = 'var(--hepteract-bar-green)';
         }
 
         textEl.textContent = format(balance) + ' / ' + format(cap);

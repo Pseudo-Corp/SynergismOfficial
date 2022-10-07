@@ -39,7 +39,6 @@ import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
 import { sumContents } from './Utility';
 import { setInterval, clearInterval } from './Timers'
-import { theme } from './Themes';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
@@ -88,7 +87,7 @@ export const resetdetails = (input: resetNames) => {
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['transcendPointGain']);
             resetInfo.textContent = 'Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: ' + format(player.coinsThisTranscension) + '/1e100 Coins || TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.';
-            resetInfo.style.color = theme.orchid;
+            resetInfo.style.color = 'var(--orchid-text-color)';
             break;
         case 'reincarnation':
             if (!currencyImage1.src.endsWith('Pictures/Particle.png')) {
@@ -114,7 +113,7 @@ export const resetdetails = (input: resetNames) => {
 
             (transcensionChallenge !== 0)?
                 (resetInfo.style.color = 'aquamarine', resetInfo.textContent = 'Are you tired of being in your Challenge or stuck? Click to leave Challenge ' + transcensionChallenge + '. Progress: ' + format(player.coinsThisTranscension) + '/' + format(challengeRequirement(transcensionChallenge, player.challengecompletions[transcensionChallenge])) + ' Coins. TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.'):
-                (resetInfo.style.color = theme.crimson, resetInfo.textContent = 'You\'re not in a Transcension Challenge right now. Get in one before you can leave it, duh!');
+                (resetInfo.style.color = 'var(--crimson-text-color)', resetInfo.textContent = 'You\'re not in a Transcension Challenge right now. Get in one before you can leave it, duh!');
             break;
         case 'reincarnationChallenge':
             currencyImage1.style.display = 'none'
@@ -127,7 +126,7 @@ export const resetdetails = (input: resetNames) => {
                 resetInfo.style.color = 'silver';
                 resetInfo.textContent = 'Are you done or tired of being in your Challenge? Click to leave Challenge ' + reincarnationChallenge + '. Progress: ' + format(player[goal]) + '/' + format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)) + goaldesc + '. TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
             } else {
-                resetInfo.style.color = theme.crimson;
+                resetInfo.style.color = 'var(--crimson-text-color)';
                 resetInfo.textContent = 'You\'re not in a Reincarnation Challenge right now. How could you leave what you are not in?';
             }
             break;

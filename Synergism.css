@@ -89,6 +89,9 @@ body {
     --shoptab-color: purple;
     --hovershop-color: #b300b2;
     --hepteract-bar-empty: #555;
+    --hepteract-bar-red: red;
+    --hepteract-bar-yellow: #cca300;
+    --hepteract-bar-green: green;
     --scrollbar-color: #444;
     --scrollbar-bg-color: #111;
     --transition: 0;
@@ -103,8 +106,8 @@ body.loading {
     background-color: var(--bg-color);
 }
 
-.textOutline:not(button)*:not(nav li, #offlineContainer, #importFileButton, #heptGrid) {
-    text-shadow: -1px 0 #736f89, 0 1px #736f89, 1px 0 #736f89, 0 -1px #736f89;
+.textOutline:not(button, #importFileButton) {
+    text-shadow: -1px 0 #67647a, 0 1px #67647a, 1px 0 #67647a, 0 -1px #67647a;
 }
 
 .mainText { color: var(--text-color); }
