@@ -7,8 +7,11 @@ import { visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals';
 import { Globals as G } from './Variables';
 import { buyAllBlessings } from './Buy';
 import { buyAllTalismanResources } from './Talismans'
+import { useConsumable } from './Shop';
 
-type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks' | 'goldenQuarks' | 'singularity' | 'octeracts';
+type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' |
+                  'quarks' | 'goldenQuarks' | 'singularity' | 'octeracts' |
+                  'autoPotion'
 
 /**
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
@@ -17,7 +20,7 @@ type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 
  */
 export const addTimers = (input: TimerInput, time = 0) => {
     const timeMultiplier = (input === 'ascension' || input === 'quarks' || input === 'goldenQuarks' ||
-                            input === 'singularity' || input === 'octeracts') ? 1 : calculateTimeAcceleration();
+                            input === 'singularity' || input === 'octeracts' || input === 'autoPotion') ? 1 : calculateTimeAcceleration();
 
     switch (input){
         case 'prestige': {
@@ -74,6 +77,25 @@ export const addTimers = (input: TimerInput, time = 0) => {
                 player.wowOcteracts += amountOfGiveaways * perSecond
                 player.totalWowOcteracts += amountOfGiveaways * perSecond
                 visualUpdateOcteracts()
+            }
+            break;
+        }
+        case 'autoPotion': {
+            if (player.highestSingularityCount < 6) {
+                return
+            } else {
+                player.autoPotionTimer += time * timeMultiplier
+                const timerThreshold = 60 * Math.pow(1.03, -player.highestSingularityCount) / +player.octeractUpgrades.octeractAutoPotionSpeed.getEffect().bonus
+
+                if (player.autoPotionTimer >= timerThreshold) {
+                    const amountOfPotions = (player.autoPotionTimer - (player.autoPotionTimer % timerThreshold)) / timerThreshold
+                    player.autoPotionTimer %= timerThreshold
+                    player.shopUpgrades.offeringPotion += amountOfPotions * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus / 5
+                    player.shopUpgrades.obtainiumPotion += amountOfPotions * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus / 5
+                    void useConsumable('obtainiumPotion', true, amountOfPotions)
+                    void useConsumable('offeringPotion', true, amountOfPotions)
+                }
+
             }
         }
     }

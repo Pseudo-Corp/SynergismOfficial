@@ -1,4 +1,4 @@
-export const version = '2.9.20: September 23 Edition';
+export const version = '2.9.20: October 6 Auto Potion Edition';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE
@@ -15,4 +15,4 @@ export const lastUpdated = new Date('##LAST_UPDATED##');
  * CHANGE THIS ONE INSTEAD
  */
 // eslint-disable-next-line
-export const prod: boolean = true
+export const prod: boolean = false

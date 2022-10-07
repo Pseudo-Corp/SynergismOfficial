@@ -339,8 +339,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1']),
         octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1']),
         octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
+        octeractAscensions2: new OcteractUpgrade(octeractData['octeractAscensions2']),
         octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
-        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward'])
+        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
+        octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
+        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
@@ -694,6 +697,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     freeLevels: data.octeractUpgrades[k].freeLevels
                 }
                 player.octeractUpgrades[k] = new OcteractUpgrade(updatedData);
+
+                if (player.octeractUpgrades[k].maxLevel !== -1 &&
+                    player.octeractUpgrades[k].level > player.octeractUpgrades[k].maxLevel) {
+                    player.octeractUpgrades[k].refund()
+                }
             }
         }
     }
@@ -781,6 +789,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                 player.singularityUpgrades.goldenQuarks3.freeLevels += 2;
             }
         }
+    }
+
+    if (data.autoPotionTimer === undefined) {
+        player.autoPotionTimer = 0;
     }
 
     const oldest = localStorage.getItem('firstPlayed')

@@ -493,7 +493,9 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     if (input === 'ascension' || input === 'ascensionChallenge' || input === 'singularity') {
         const metaData = CalcCorruptionStuff()
-        ascensionAchievementCheck(3, metaData[3])
+        if (player.challengecompletions[10] > 0) {
+            ascensionAchievementCheck(3, metaData[3]);
+        }
         // reset auto challenges
         player.currentChallenge.transcension = 0;
         player.currentChallenge.reincarnation = 0;
@@ -1124,6 +1126,8 @@ export const singularity = async (): Promise<void> => {
     }
 
     const saveCode42 = player.codes.get(42) ?? false
+    const saveCode43 = player.codes.get(43) ?? false
+
     // Import Game
 
     await importSynergism(btoa(JSON.stringify(hold)), true);
@@ -1133,6 +1137,7 @@ export const singularity = async (): Promise<void> => {
     player.codes.set(40, true);
     player.codes.set(41, true);
     player.codes.set(42, saveCode42)
+    player.codes.set(43, saveCode43)
     updateSingularityMilestoneAwards();
 }
 
