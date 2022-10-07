@@ -69,7 +69,8 @@ const getRealTime = (type = 'default', use12 = false) => {
 
 export const updateSaveString = (input: HTMLInputElement) => {
     const value = input.value.slice(0, 100);
-    player.saveString = cleanString(value);
+    player.saveString = value === '' ? blankSave.saveString : cleanString(value);
+    (DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString;
 }
 
 export const getVer = () => /[\d?=.]+/.exec(version)?.[0] ?? version

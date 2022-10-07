@@ -227,7 +227,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: 'Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +35% Quarks and +125% all Cube types when maxed!'
     },
     calculator: {
-        tier: 'Ascension',
+        tier: 'Reincarnation',
         price: 1000,
         priceIncrease: 500,
         maxLevel: 5,

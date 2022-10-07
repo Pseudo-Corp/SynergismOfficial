@@ -874,6 +874,9 @@ const loadSynergy = async () => {
         Object.defineProperty(window, 'Decimal', {
             value: Decimal
         });
+        if (data && testing) {
+            data.exporttest = false;
+        }
     }
 
     Object.assign(G, { ...blankGlobals });
