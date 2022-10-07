@@ -7,7 +7,7 @@ import { visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals';
 import { Globals as G } from './Variables';
 import { buyAllBlessings } from './Buy';
 import { buyAllTalismanResources } from './Talismans'
-import { useConsumable } from './Shop';
+import { useConsumable, autoBuyConsumable, shopData } from './Shop';
 
 type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' |
                   'quarks' | 'goldenQuarks' | 'singularity' | 'octeracts' |
@@ -90,13 +90,33 @@ export const addTimers = (input: TimerInput, time = 0) => {
                 if (player.autoPotionTimer >= timerThreshold) {
                     const amountOfPotions = (player.autoPotionTimer - (player.autoPotionTimer % timerThreshold)) / timerThreshold
                     player.autoPotionTimer %= timerThreshold
-                    player.shopUpgrades.offeringPotion += amountOfPotions * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus / 5
-                    player.shopUpgrades.obtainiumPotion += amountOfPotions * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus / 5
-                    void useConsumable('obtainiumPotion', true, amountOfPotions)
-                    void useConsumable('offeringPotion', true, amountOfPotions)
-                }
 
+                    if (player.toggles[42] === true) {
+                        if (player.shopUpgrades.offeringPotion >= amountOfPotions) {
+                            void useConsumable('offeringPotion', true, amountOfPotions)
+                        } else {
+                            autoBuyConsumable('offeringPotion')
+                        }
+                    }
+                    player.shopUpgrades.offeringPotion += amountOfPotions * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus / 5
+                    if (player.shopUpgrades.offeringPotion > shopData.offeringPotion.maxLevel) {
+                        player.shopUpgrades.offeringPotion = shopData.offeringPotion.maxLevel
+                    }
+
+                    if (player.toggles[43] === true) {
+                        if (player.shopUpgrades.obtainiumPotion >= amountOfPotions) {
+                            void useConsumable('obtainiumPotion', true, amountOfPotions)
+                        } else {
+                            autoBuyConsumable('obtainiumPotion')
+                        }
+                    }
+                    player.shopUpgrades.obtainiumPotion += amountOfPotions * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus / 5
+                    if (player.shopUpgrades.obtainiumPotion > shopData.obtainiumPotion.maxLevel) {
+                        player.shopUpgrades.obtainiumPotion = shopData.obtainiumPotion.maxLevel
+                    }
+                }
             }
+            break;
         }
     }
 }
