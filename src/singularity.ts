@@ -9,8 +9,8 @@ import { toOrdinal } from './Utility'
 export const updateSingularityPenalties = (): void => {
     const singularityCount = player.singularityCount;
     const color = player.runelevels[6] > 0 ? 'green' : 'red';
-    const platonic = (singularityCount > 36) ? `Platonic Upgrade costs are multiplied by ${format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}.` : '';
-    const hepteract = (singularityCount > 50) ? `Hepteract Forge costs are multiplied by ${format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)}.` : '';
+    const platonic = (singularityCount > 36) ? `Platonic Upgrade costs are multiplied by ${format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}.` : '<span style="color: grey">???????? ??????? ????? ??? ?????????? ?? ???</span> <span style="color: red">(Sing 37)</span>';
+    const hepteract = (singularityCount > 50) ? `Hepteract Forge costs are multiplied by ${format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)}.` : '<span style="color: grey">????????? ????? ????? ??? ?????????? ?? ???</span> <span style="color: red">(Sing 51)</span>';
     const str = getSingularityOridnalText(singularityCount) +
                 `<br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed', singularityCount), 2, true)}.
                  Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed', singularityCount), 2, true)}
@@ -21,7 +21,8 @@ export const updateSingularityPenalties = (): void => {
                  Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)}.
                  ${platonic}
                  ${hepteract}
-                 <br><span style='color: ${color}'>Antiquities of Ant God is ${(player.runelevels[6] > 0) ? '' : 'NOT'} purchased. Penalties are ${(player.runelevels[6] > 0) ? '' : 'NOT'} dispelled!</span>`
+                 Your penalties will ${singularityCount >= 250 ? 'now smoothly increase forever.' : `sharply increase in <span style="color: red"> Singularity ${format(calculateNextSpike(player.singularityCount), 0, true)}</span>.`}
+                 <span style='color: ${color}'>Antiquities of Ant God is ${(player.runelevels[6] > 0) ? '' : 'NOT'} purchased. Penalties are ${(player.runelevels[6] > 0) ? '' : 'NOT'} dispelled!</span>`
 
     DOMCacheGetOrSet('singularityPenaltiesMultiline').innerHTML = str;
 }
@@ -1478,7 +1479,15 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
 
     return effectiveSingularities
 }
-
+export const calculateNextSpike = (singularityCount: number = player.singularityCount): number => {
+    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 250];
+    for (const sing of singularityPenaltyThreshold) {
+        if (sing > singularityCount) {
+            return sing;
+        }
+    }
+    return -1;
+}
 export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singularityCount: number=player.singularityCount) => {
     if (singularityCount === 0) {
         return 1
