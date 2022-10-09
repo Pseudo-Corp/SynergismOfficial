@@ -606,6 +606,9 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyConsumable('offeringPotion'))
     //DOMCacheGetOrSet('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
     DOMCacheGetOrSet('useofferingpotion').addEventListener('click', () => useConsumable('offeringPotion'))
+    DOMCacheGetOrSet('toggle42').addEventListener('click', () => {
+        player.autoPotionTimer = 0;
+    })
     /*Obtainium Potion*/
     DOMCacheGetOrSet('obtainiumPotions').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
     DOMCacheGetOrSet('obtainiumpotionowned').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
@@ -614,6 +617,9 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', () => buyConsumable('obtainiumPotion'))
     //DOMCacheGetOrSet('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
     DOMCacheGetOrSet('useobtainiumpotion').addEventListener('click', () => useConsumable('obtainiumPotion'))
+    DOMCacheGetOrSet('toggle43').addEventListener('click', () => {
+        player.autoPotionTimerObtainium = 0;
+    })
     /* Permanent Upgrade Images */
     const shopKeys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
     for (const key of shopKeys) {
