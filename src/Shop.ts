@@ -29,7 +29,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     offeringPotion: {
         price: 100,
         priceIncrease: 0,
-        maxLevel: 999999,
+        maxLevel: 999999999,
         type: shopUpgradeTypes.CONSUMABLE,
         refundable: false,
         refundMinimumLevel: 0,
@@ -40,7 +40,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Reincarnation',
         price: 100,
         priceIncrease: 0,
-        maxLevel: 999999,
+        maxLevel: 999999999,
         type: shopUpgradeTypes.CONSUMABLE,
         refundable: false,
         refundMinimumLevel: 0,
@@ -875,7 +875,7 @@ export const autoBuyConsumable = (input: ShopUpgradeNames) => {
     player.shopUpgrades[input] += maxBuyablePotions;
 }
 
-export const useConsumable = async (input: ShopUpgradeNames, automatic = false, used = 1) => {
+export const useConsumable = async (input: ShopUpgradeNames, automatic = false, used = 1, spend = true) => {
 
     const p = (player.shopConfirmationToggle && !automatic)
         ? await Confirm('Would you like to use some of this potion?')
@@ -889,14 +889,14 @@ export const useConsumable = async (input: ShopUpgradeNames, automatic = false, 
                            used;
 
         if (input === 'offeringPotion') {
-            if (player.shopUpgrades.offeringPotion >= used) {
-                player.shopUpgrades.offeringPotion -= used;
+            if (player.shopUpgrades.offeringPotion >= used || !spend) {
+                player.shopUpgrades.offeringPotion -= (spend ? used: 0);
                 player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
                 player.runeshards = Math.min(1e300, player.runeshards)
             }
         } else if (input === 'obtainiumPotion') {
-            if (player.shopUpgrades.obtainiumPotion >= used) {
-                player.shopUpgrades.obtainiumPotion -= used;
+            if (player.shopUpgrades.obtainiumPotion >= used || !spend) {
+                player.shopUpgrades.obtainiumPotion -= (spend? used: 0);
                 player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
                 player.researchPoints = Math.min(1e300, player.researchPoints)
             }

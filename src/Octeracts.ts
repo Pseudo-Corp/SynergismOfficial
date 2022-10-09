@@ -526,7 +526,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         effect: (n: number) => {
             return {
                 bonus: 1 + 4 * n / 100,
-                desc: `Auto Potion Singularity Perk works ${2 * n}% faster than before!`
+                desc: `Auto Potion Singularity Perk works ${4 * n}% faster than before!`
             }
         }
     },

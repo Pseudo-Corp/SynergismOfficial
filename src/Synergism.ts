@@ -472,6 +472,7 @@ export const player: Player = {
     shopHideToggle: false,
     shopConfirmationToggle: true,
     autoPotionTimer: 0,
+    autoPotionTimerObtainium: 0,
 
     autoSacrificeToggle: false,
     autoBuyFragment: false,

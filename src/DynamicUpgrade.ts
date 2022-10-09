@@ -13,7 +13,7 @@ export interface IUpgradeData {
 }
 
 export abstract class DynamicUpgrade {
-    readonly name: string;
+    public name: string;
     readonly description: string;
     public level = 0;
     public freeLevels = 0;
