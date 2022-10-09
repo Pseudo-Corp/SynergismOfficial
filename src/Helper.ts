@@ -7,8 +7,11 @@ import { visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals';
 import { Globals as G } from './Variables';
 import { buyAllBlessings } from './Buy';
 import { buyAllTalismanResources } from './Talismans'
+import { useConsumable } from './Shop';
 
-type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 'quarks' | 'goldenQuarks' | 'singularity' | 'octeracts';
+type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' |
+                  'quarks' | 'goldenQuarks' | 'singularity' | 'octeracts' |
+                  'autoPotion'
 
 /**
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
@@ -17,7 +20,7 @@ type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' | 
  */
 export const addTimers = (input: TimerInput, time = 0) => {
     const timeMultiplier = (input === 'ascension' || input === 'quarks' || input === 'goldenQuarks' ||
-                            input === 'singularity' || input === 'octeracts') ? 1 : calculateTimeAcceleration();
+                            input === 'singularity' || input === 'octeracts' || input === 'autoPotion') ? 1 : calculateTimeAcceleration();
 
     switch (input){
         case 'prestige': {
@@ -75,6 +78,39 @@ export const addTimers = (input: TimerInput, time = 0) => {
                 player.totalWowOcteracts += amountOfGiveaways * perSecond
                 visualUpdateOcteracts()
             }
+            break;
+        }
+        case 'autoPotion': {
+            if (player.highestSingularityCount < 6) {
+                return
+            } else {
+                // player.toggles[42] enables FAST Offering Potion Expenditure, but actually spends the potion.
+                // Hence, you need at least one potion to be able to use fast spend.
+                const toggleOfferingOn = (player.toggles[42] && player.shopUpgrades.offeringPotion > 0)
+                // player.toggles[43] enables FAST Obtainium Potion Expenditure, but actually spends the potion.
+                const toggleObtainiumOn = (player.toggles[43] && player.shopUpgrades.obtainiumPotion > 0)
+
+                player.autoPotionTimer += time * timeMultiplier
+                player.autoPotionTimerObtainium += time * timeMultiplier
+
+                const timerThreshold = 180 * Math.pow(1.03, -player.highestSingularityCount) / +player.octeractUpgrades.octeractAutoPotionSpeed.getEffect().bonus
+
+                const effectiveOfferingThreshold = (toggleOfferingOn ? Math.min(1, timerThreshold) / 20: timerThreshold)
+                const effectiveObtainiumThreshold = (toggleObtainiumOn ? Math.min(1, timerThreshold) / 20: timerThreshold)
+
+                if (player.autoPotionTimer >= effectiveOfferingThreshold) {
+                    const amountOfPotions = ((player.autoPotionTimer) - (player.autoPotionTimer % effectiveOfferingThreshold)) / effectiveOfferingThreshold
+                    player.autoPotionTimer %= effectiveOfferingThreshold
+                    void useConsumable('offeringPotion', true, amountOfPotions, toggleOfferingOn)
+                }
+
+                if (player.autoPotionTimerObtainium >= effectiveObtainiumThreshold) {
+                    const amountOfPotions = ((player.autoPotionTimerObtainium) - (player.autoPotionTimerObtainium % effectiveObtainiumThreshold)) / effectiveObtainiumThreshold
+                    player.autoPotionTimerObtainium %= effectiveObtainiumThreshold
+                    void useConsumable('obtainiumPotion', true, amountOfPotions, toggleObtainiumOn)
+                }
+            }
+            break;
         }
     }
 }

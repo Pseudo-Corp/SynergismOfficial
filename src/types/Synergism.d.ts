@@ -375,6 +375,8 @@ export interface Player {
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean,
     shopHideToggle: boolean,
+    autoPotionTimer: number,
+    autoPotionTimerObtainium: number,
 
     autoSacrificeToggle: boolean,
     autoBuyFragment: boolean,

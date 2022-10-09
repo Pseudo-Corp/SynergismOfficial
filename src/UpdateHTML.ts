@@ -487,7 +487,9 @@ export const revealStuff = () => {
         'toggle38': player.singularityCount > 0, // Researchs Hover to Buy
         'toggle39': player.unlocks.prestige, // Hotkeys
         'toggle40': player.unlocks.prestige, // Number Hotkeys
-        'toggle41': player.challengecompletions[11] > 0 // Loadouts Notifx
+        'toggle41': player.challengecompletions[11] > 0, // Loadouts Notifx
+        'toggle42': player.highestSingularityCount >= 6, // Potion Autogenerator for Offering Potions
+        'toggle43': player.highestSingularityCount >= 6 // Potion Autogenerator for Obtainium Potions
     }
 
     Object.keys(automationUnlocks).forEach(key => {
@@ -1062,6 +1064,7 @@ export const PromptCB = (text: string, cb: (value: string | null) => void) => {
         } // canceled
 
         el.value = el.textContent = '';
+        popup.querySelector('input')!.blur();
     }
 
     const kbListener = (e: KeyboardEvent) => {

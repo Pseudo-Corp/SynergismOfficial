@@ -29,7 +29,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     offeringPotion: {
         price: 100,
         priceIncrease: 0,
-        maxLevel: 999999,
+        maxLevel: 999999999,
         type: shopUpgradeTypes.CONSUMABLE,
         refundable: false,
         refundMinimumLevel: 0,
@@ -40,7 +40,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Reincarnation',
         price: 100,
         priceIncrease: 0,
-        maxLevel: 999999,
+        maxLevel: 999999999,
         type: shopUpgradeTypes.CONSUMABLE,
         refundable: false,
         refundMinimumLevel: 0,
@@ -227,7 +227,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         description: 'Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +35% Quarks and +125% all Cube types when maxed!'
     },
     calculator: {
-        tier: 'Ascension',
+        tier: 'Reincarnation',
         price: 1000,
         priceIncrease: 500,
         maxLevel: 5,
@@ -861,30 +861,49 @@ export const buyConsumable = async (input: ShopUpgradeNames) => {
     }
 }
 
-export const useConsumable = async (input: ShopUpgradeNames) => {
-    const p = player.shopConfirmationToggle
+export const autoBuyConsumable = (input: ShopUpgradeNames) => {
+    const maxBuyablePotions = Math.floor(Math.min(Number(player.worlds) / 100, Math.min(shopData[input].maxLevel - player.shopUpgrades[input], Math.pow(player.highestSingularityCount, 2) * 100)));
+
+    if (shopData[input].maxLevel <= player.shopUpgrades[input]) {
+        return;
+    }
+    if (maxBuyablePotions <= 0) {
+        return;
+    }
+
+    player.worlds.sub(100 * maxBuyablePotions);
+    player.shopUpgrades[input] += maxBuyablePotions;
+}
+
+export const useConsumable = async (input: ShopUpgradeNames, automatic = false, used = 1, spend = true) => {
+
+    const p = (player.shopConfirmationToggle && !automatic)
         ? await Confirm('Would you like to use some of this potion?')
         : true;
 
     if (p) {
         const multiplier = +player.singularityUpgrades.potionBuff.getEffect().bonus *
                            +player.singularityUpgrades.potionBuff2.getEffect().bonus *
-                           +player.singularityUpgrades.potionBuff3.getEffect().bonus;
+                           +player.singularityUpgrades.potionBuff3.getEffect().bonus *
+                           +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus *
+                           used;
+
         if (input === 'offeringPotion') {
-            if (player.shopUpgrades.offeringPotion > 0) {
-                player.shopUpgrades.offeringPotion -= 1;
+            if (player.shopUpgrades.offeringPotion >= used || !spend) {
+                player.shopUpgrades.offeringPotion -= (spend ? used: 0);
                 player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
                 player.runeshards = Math.min(1e300, player.runeshards)
             }
         } else if (input === 'obtainiumPotion') {
-            if (player.shopUpgrades.obtainiumPotion > 0) {
-                player.shopUpgrades.obtainiumPotion -= 1;
+            if (player.shopUpgrades.obtainiumPotion >= used || !spend) {
+                player.shopUpgrades.obtainiumPotion -= (spend? used: 0);
                 player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
                 player.researchPoints = Math.min(1e300, player.researchPoints)
             }
         }
     }
 }
+
 export const resetShopUpgrades = async (ignoreBoolean = false) => {
     let p = false
     if (!ignoreBoolean) {

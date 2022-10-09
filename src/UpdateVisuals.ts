@@ -581,8 +581,8 @@ export const visualUpdateShop = () => {
         return
     }
     DOMCacheGetOrSet('quarkamount').textContent = 'You have ' + format(player.worlds, 0, true) + ' Quarks!'
-    DOMCacheGetOrSet('offeringpotionowned').textContent = 'Own: ' + format(player.shopUpgrades.offeringPotion)
-    DOMCacheGetOrSet('obtainiumpotionowned').textContent = 'Own: ' + format(player.shopUpgrades.obtainiumPotion)
+    DOMCacheGetOrSet('offeringpotionowned').textContent = format(player.shopUpgrades.offeringPotion, 0, true)
+    DOMCacheGetOrSet('obtainiumpotionowned').textContent = format(player.shopUpgrades.obtainiumPotion, 0, true)
 
     // Create Keys with the correct type
     const keys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[];

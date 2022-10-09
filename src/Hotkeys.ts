@@ -111,7 +111,7 @@ const eventHotkeys = (event: KeyboardEvent): void => {
         event.preventDefault();
     }
 
-    if (G['currentTab'] === 'settings' && player.subtabNumber === 5) {
+    if (G['currentTab'] === 'settings' && player.subtabNumber === 6) {
         DOMCacheGetOrSet('lastHotkey').textContent = key;
         DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName;
     }

@@ -293,7 +293,9 @@ export const player: Player = {
         38: false,
         39: true,
         40: true,
-        41: true
+        41: true,
+        42: false,
+        43: false
     },
 
     challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -469,6 +471,8 @@ export const player: Player = {
     shopBuyMaxToggle: false,
     shopHideToggle: false,
     shopConfirmationToggle: true,
+    autoPotionTimer: 0,
+    autoPotionTimerObtainium: 0,
 
     autoSacrificeToggle: false,
     autoBuyFragment: false,
@@ -777,8 +781,11 @@ export const player: Player = {
         octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1']),
         octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1']),
         octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
+        octeractAscensions2: new OcteractUpgrade(octeractData['octeractAscensions2']),
         octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
-        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward'])
+        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
+        octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
+        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency'])
     },
 
     dailyCodeUsed: false,
@@ -870,6 +877,9 @@ const loadSynergy = async () => {
         Object.defineProperty(window, 'Decimal', {
             value: Decimal
         });
+        if (data && testing) {
+            data.exporttest = false;
+        }
     }
 
     Object.assign(G, { ...blankGlobals });
@@ -3119,6 +3129,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         } else {
             await singularity();
             canSave = true;
+            await saveSynergy();
             return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
         }
     }
@@ -3677,6 +3688,7 @@ const tack = (dt: number) => {
         addTimers('goldenQuarks', dt)
         addTimers('octeracts', dt)
         addTimers('singularity', dt)
+        addTimers('autoPotion', dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
         if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {
@@ -3963,10 +3975,13 @@ export const reloadShit = async (reset = false) => {
         await calculateOffline();
     } else {
         player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 });
-        const saved = await saveSynergy();
-
-        if (!saved) {
-            return
+        // saving is disabled during a singularity event to prevent bug
+        // early return here if the save fails can keep game state from properly resetting after a singularity
+        if (canSave) {
+            const saved = await saveSynergy();
+            if (!saved) {
+                return
+            }
         }
     }
 

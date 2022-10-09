@@ -339,8 +339,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1']),
         octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1']),
         octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
+        octeractAscensions2: new OcteractUpgrade(octeractData['octeractAscensions2']),
         octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
-        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward'])
+        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
+        octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
+        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
@@ -640,13 +643,14 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
 
     if (data.singularityUpgrades != null) {
+        let singularityNum = 1;
         for (const item in blankSave.singularityUpgrades) {
             const k = item as keyof Player['singularityUpgrades'];
             // if more crafts are added, some keys might not exist in the save
             let updatedData:ISingularityData
             if (data.singularityUpgrades[k]) {
                 updatedData = {
-                    name: singularityData[k].name,
+                    name: `[${singularityNum}] ${singularityData[k].name}`,
                     description: singularityData[k].description,
                     maxLevel: singularityData[k].maxLevel,
                     costPerLevel: singularityData[k].costPerLevel,
@@ -672,17 +676,21 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     player.singularityUpgrades[k].goldenQuarksInvested !== cost) {
                     player.singularityUpgrades[k].refund()
                 }
+            } else {
+                player.singularityUpgrades[k].name = `[NEW!] ${player.singularityUpgrades[k].name}`
             }
+            singularityNum += 1
         }
     }
 
     if (data.octeractUpgrades != null) { // TODO: Make this more DRY -Platonic, July 15 2022
+        let octeractNum = 1;
         for (const item in blankSave.octeractUpgrades) {
             const k = item as keyof Player['octeractUpgrades'];
             let updatedData:IOcteractData
             if (data.octeractUpgrades[k]) {
                 updatedData = {
-                    name: octeractData[k].name,
+                    name: `[${octeractNum}] ${octeractData[k].name}`,
                     description: octeractData[k].description,
                     maxLevel: octeractData[k].maxLevel,
                     costPerLevel: octeractData[k].costPerLevel,
@@ -694,7 +702,15 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     freeLevels: data.octeractUpgrades[k].freeLevels
                 }
                 player.octeractUpgrades[k] = new OcteractUpgrade(updatedData);
+
+                if (player.octeractUpgrades[k].maxLevel !== -1 &&
+                    player.octeractUpgrades[k].level > player.octeractUpgrades[k].maxLevel) {
+                    player.octeractUpgrades[k].refund()
+                }
+            } else {
+                player.octeractUpgrades[k].name = `[NEW!] ${player.octeractUpgrades[k].name}`
             }
+            octeractNum += 1;
         }
     }
 
@@ -781,6 +797,13 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                 player.singularityUpgrades.goldenQuarks3.freeLevels += 2;
             }
         }
+    }
+
+    if (data.autoPotionTimer === undefined) {
+        player.autoPotionTimer = 0;
+    }
+    if (data.autoPotionTimerObtainium === undefined) {
+        player.autoPotionTimerObtainium = 0;
     }
 
     const oldest = localStorage.getItem('firstPlayed')
