@@ -571,6 +571,26 @@ export const visualUpdateSingularity = () => {
             }
         }
     }
+    if (player.subtabNumber === 3) {
+        const keys = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[];
+        const val = G['shopEnhanceVision'];
+
+        for (const key of keys) {
+            const octItem = player.octeractUpgrades[key];
+            const el = DOMCacheGetOrSet(`${String(key)}`);
+            if (octItem.maxLevel !== -1 && octItem.level >= octItem.maxLevel) {
+                el.style.filter = val ? 'brightness(.9)' : 'none';
+            } else if  (octItem.getCostTNL() > player.wowOcteracts) {
+                el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none';
+            } else if (octItem.maxLevel === -1 || octItem.level < octItem.maxLevel) {
+                if (octItem.freeLevels > octItem.level) {
+                    el.style.filter = val ? 'blur(2px) invert(.9) saturate(200)' : 'none';
+                } else {
+                    el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none';
+                }
+            }
+        }
+    }
 }
 
 export const shopMouseover = (value: boolean) => {

@@ -649,6 +649,8 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.octeractUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.octeractUpgrades[`${String(key)}`].buyLevel(event))
     }
+    DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener('mouseover', () => shopMouseover(true));
+    DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener('mouseout', () => shopMouseover(false));
     //Toggle subtabs of Singularity tab
     for (let index = 0; index < 4; index++) {
         DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => toggleSubTab(10, index))
