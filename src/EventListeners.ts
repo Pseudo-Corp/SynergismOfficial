@@ -27,6 +27,7 @@ import { toggleTheme } from './Themes'
 import { buyGoldenQuarks } from './singularity'
 import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'
+import { shopMouseover } from './UpdateVisuals'
 
 /* STYLE GUIDE */
 /*
@@ -639,6 +640,8 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.singularityUpgrades[`${String(key)}`].buyLevel(event))
     }
+    DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener('mouseover', () => shopMouseover(true));
+    DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener('mouseout', () => shopMouseover(false));
 
     // Octeract Upgrades
     const octeractUpgrades = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[];

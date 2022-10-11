@@ -551,7 +551,30 @@ export const visualUpdateSingularity = () => {
     }
     if (player.subtabNumber === 0) {
         DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
+
+        const keys = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
+        const val = G['shopEnhanceVision'];
+
+        for (const key of keys) {
+            const singItem = player.singularityUpgrades[key];
+            const el = DOMCacheGetOrSet(`${String(key)}`);
+            if (singItem.maxLevel !== -1 && singItem.level >= singItem.maxLevel) {
+                el.style.filter = val ? 'brightness(.9)' : 'none';
+            } else if  (singItem.getCostTNL() > player.goldenQuarks || player.singularityCount < singItem.minimumSingularity) {
+                el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none';
+            } else if (singItem.maxLevel === -1 || singItem.level < singItem.maxLevel) {
+                if (singItem.freeLevels > singItem.level) {
+                    el.style.filter = val ? 'blur(1px) invert(.9) saturate(200)' : 'none';
+                } else {
+                    el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none';
+                }
+            }
+        }
     }
+}
+
+export const shopMouseover = (value: boolean) => {
+    G['shopEnhanceVision'] = value;
 }
 
 export const visualUpdateOcteracts = () => {

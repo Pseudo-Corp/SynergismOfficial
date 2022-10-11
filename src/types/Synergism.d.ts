@@ -921,6 +921,7 @@ export interface GlobalVariables {
     historyCountMax: number
 
     isEvent: boolean
+    shopEnhanceVision: boolean
 }
 
 export interface SynergismEvents {
