@@ -828,6 +828,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.unlocks.prestige = true;
         player.unlocks.generation = true;
         player.unlocks.transcend = true;
+
         for (let i = 0; i < 5; i++){
             achievementaward(4 + 7 * i)
         }
@@ -864,6 +865,11 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         achievementaward(80)
         achievementaward(87)
 
+        // Achievement hoarder perk
+        achievementaward(243);
+        achievementaward(244);
+        achievementaward(247);
+        achievementaward(248);
     }
     if (player.achievements[277] > 0) { // Singularity 4
         if (player.currentChallenge.ascension !== 14) {

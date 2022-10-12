@@ -1043,6 +1043,13 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Achievement Hoarder',
+        levels: [3],
+        description: () => {
+            return 'Some annoying to get achievements are kept on Singularity (like :unsmith: and :antismith:)'
+        }
+    },
+    {
         name: 'Not so challenging',
         levels: [4, 7, 10, 15, 20],
         description: (n: number, levels: number[]) => {
