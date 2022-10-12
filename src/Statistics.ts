@@ -292,15 +292,27 @@ export const loadStatisticsCubeMultipliers = () => {
     const arr6 = calculateOcteractMultiplier().list;
     const map6: Record<number, { acc: number, desc: string }> = {
         1: {acc: 2, desc: 'Ascension Score Multiplier:'},
-        2: {acc: 2, desc: 'Season Pass 3:'},
-        3: {acc: 2, desc: 'Season Pass Y:'},
-        4: {acc: 2, desc: 'Season Pass Z:'},
-        5: {acc: 2, desc: 'Season Pass Lost:'},
-        6: {acc: 2, desc: 'Cookie Upgrade 20:'},
-        7: {acc: 2, desc: 'Divine Pack:'},
-        8: {acc: 2, desc: 'Cube Flame:'},
-        9: {acc: 2, desc: 'Cube Blaze:'},
-        10: {acc: 2, desc: 'Cube Inferno:'}
+        2: {acc: 2, desc: 'Ascension Speed Multiplier:'},
+        3: {acc: 2, desc: 'Season Pass 3:'},
+        4: {acc: 2, desc: 'Season Pass Y:'},
+        5: {acc: 2, desc: 'Season Pass Z:'},
+        6: {acc: 2, desc: 'Season Pass Lost:'},
+        7: {acc: 2, desc: 'Cookie Upgrade 20:'},
+        8: {acc: 2, desc: 'Divine Pack:'},
+        9: {acc: 2, desc: 'Cube Flame:'},
+        10: {acc: 2, desc: 'Cube Blaze:'},
+        11: {acc: 2, desc: 'Cube Inferno:'},
+        12: {acc: 2, desc: 'Octeract Absinthe:'},
+        13: {acc: 2, desc: 'Pieces of Eight:'},
+        14: {acc: 2, desc: 'The Obelisk Shaped like an Octagon:'},
+        15: {acc: 2, desc: 'Octahedral Synthesis:'},
+        16: {acc: 2, desc: 'The Eigth Wonder of the World:'},
+        17: {acc: 2, desc: 'Octeracts for Dummies:'},
+        18: {acc: 2, desc: 'Octeract Cogenesis:'},
+        19: {acc: 2, desc: 'Digital Octeract Accumulator:'},
+        20: {acc: 2, desc: 'Derpsmith Cornucopia:'},
+        21: {acc: 3, desc: 'Platonic DELTA:'},
+        22: {acc: 2, desc: 'Event:'}
     }
     for (let i = 0; i < arr6.length; i++) {
         const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`);
