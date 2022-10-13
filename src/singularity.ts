@@ -1366,15 +1366,21 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
 }
 
 function formatPerkDescription(perkData: ISingularityPerkDisplayInfo, singularityCount: number): string {
-    let singTolerance = 0
-    singTolerance += +player.singularityUpgrades.singFastForward.getEffect().bonus
-    singTolerance += +player.singularityUpgrades.singFastForward2.getEffect().bonus
-    singTolerance += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
-
+    const singTolerance = getFastForwardTotalMultiplier();
     const isNew = (singularityCount - perkData.lastUpgraded <= singTolerance);
     const levelInfo = perkData.currentLevel > 1 ? ' - Level '+ perkData.currentLevel : '';
     //const acquiredUpgraded = ' / Acq ' + perkData.acquired + ' / Upg ' + perkData.lastUpgraded;
     return `<span${isNew?' class="newPerk"':''} title="${perkData.description}">${perkData.name}${levelInfo}</span>`;
+}
+
+// Indicates the number of extra Singularity count gained on Singularity reset
+export const getFastForwardTotalMultiplier = (): number => {
+    let fastForward = 0;
+    fastForward += +player.singularityUpgrades.singFastForward.getEffect().bonus
+    fastForward += +player.singularityUpgrades.singFastForward2.getEffect().bonus
+    fastForward += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
+
+    return fastForward;
 }
 
 export const getGoldenQuarkCost = (): {
