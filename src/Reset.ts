@@ -32,7 +32,7 @@ import { WowCubes } from './CubeExperimental';
 import { importSynergism } from './ImportExport';
 import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
-import { calculateSingularityDebuff } from './singularity';
+import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity';
 import { updateCubeUpgradeBG, awardAutosCookieUpgrade } from './Cubes';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import { getAutoHepteractCrafts } from './Hepteracts'
@@ -995,13 +995,9 @@ export const singularity = async (): Promise<void> => {
     // reset the rune instantly to hopefully prevent a double singularity
     player.runelevels[6] = 0;
 
-    let incrementSingCount = 1
-    incrementSingCount += +player.singularityUpgrades.singFastForward.getEffect().bonus
-    incrementSingCount += +player.singularityUpgrades.singFastForward2.getEffect().bonus
-    incrementSingCount += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
-
     player.goldenQuarks += calculateGoldenQuarkGain();
     if (player.singularityCount === player.highestSingularityCount) {
+        const incrementSingCount = 1 + getFastForwardTotalMultiplier();
         player.highestSingularityCount += incrementSingCount
 
         if (player.highestSingularityCount === 5) {
@@ -1012,8 +1008,6 @@ export const singularity = async (): Promise<void> => {
         }
     }
     player.singularityCount = player.highestSingularityCount;
-
-
 
     player.totalQuarksEver += player.quarksThisSingularity;
     await resetShopUpgrades(true);
