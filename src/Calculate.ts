@@ -1623,7 +1623,7 @@ export const calculateGoldenQuarkGain = ():number => {
 
     const gainFromQuarks = player.quarksThisSingularity / 1e5;
 
-    let fastForwardMultiplier = 1 + getFastForwardTotalMultiplier();
+    const fastForwardMultiplier = 1 + getFastForwardTotalMultiplier();
 
     const allGoldenQuarkMultiplier = productContents([
         1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2,
