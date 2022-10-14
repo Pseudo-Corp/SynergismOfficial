@@ -214,7 +214,7 @@ export const resetGame = async () => {
     const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
 
     const result = await Prompt(`Answer the question to confirm you'd like to reset: what is ${a}+${b}? (Hint: ${a+b})`)
-    if (Number(result) !== a + b) {
+    if (result === null || Number(result) !== a + b) {
         return Alert('Answer was wrong, not resetting!');
     }
 
