@@ -558,11 +558,11 @@ export const visualUpdateSingularity = () => {
         for (const key of keys) {
             const singItem = player.singularityUpgrades[key];
             const el = DOMCacheGetOrSet(`${String(key)}`);
-            if (singItem.maxLevel !== -1 && singItem.level >= singItem.maxLevel) {
+            if (singItem.maxLevel !== -1 && singItem.level >= singItem.computeMaxLevel()) {
                 el.style.filter = val ? 'brightness(.9)' : 'none';
             } else if  (singItem.getCostTNL() > player.goldenQuarks || player.singularityCount < singItem.minimumSingularity) {
                 el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none';
-            } else if (singItem.maxLevel === -1 || singItem.level < singItem.maxLevel) {
+            } else if (singItem.maxLevel === -1 || singItem.level < singItem.computeMaxLevel()) {
                 if (singItem.freeLevels > singItem.level) {
                     el.style.filter = val ? 'blur(1px) invert(.9) saturate(200)' : 'none';
                 } else {
