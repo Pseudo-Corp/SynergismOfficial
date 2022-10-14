@@ -1319,7 +1319,7 @@ export const getOcteractValueMultipliers = () => {
         1 + player.shopUpgrades.seasonPassLost / 1000,
         // cube upgrade 70, ie Cx20
         1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
-        1 + +(corruptionLevelSum >= 14 * 8) * (player.singularityUpgrades.divinePack.level === 1 ? 6.77 : 1.00),
+        1 + +(corruptionLevelSum >= 14 * 8) * (player.singularityUpgrades.divinePack.getEffect().bonus ? 6.77 : 0),
         // next three are flame/blaze/inferno
         +player.singularityUpgrades.singCubes1.getEffect().bonus,
         +player.singularityUpgrades.singCubes2.getEffect().bonus,
